@@ -5,12 +5,12 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellHistory from 'Parser/Core/Modules/SpellHistory';
-import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
 import Tab from 'Main/Tab';
 import CastEfficiencyComponent from 'Main/CastEfficiency';
 import SpellTimeline from 'Main/Timeline/SpellTimeline';
 
+import Abilities from './Abilities';
 import AbilityTracker from './AbilityTracker';
 import Combatants from './Combatants';
 import Haste from './Haste';
@@ -27,7 +27,7 @@ class CastEfficiencyDisplay extends Analyzer {
     combatants: Combatants,
     haste: Haste,
     spellHistory: SpellHistory,
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
   };
 
   /*
@@ -102,7 +102,7 @@ class CastEfficiencyDisplay extends Analyzer {
    * Packs cast efficiency results for use by suggestions / tab
    */
   _generateCastEfficiencyInfo() {
-    const castInfo = this.castEfficiency.constructor.CPM_ABILITIES;
+    const castInfo = this.abilities.constructor.CPM_ABILITIES;
 
     const fightDurationMs = this.owner.fightDuration;
     const fightDurationMinutes = fightDurationMs / 1000 / 60;
@@ -218,7 +218,7 @@ class CastEfficiencyDisplay extends Analyzer {
       render: () => (
         <Tab title="Cast efficiency">
           <CastEfficiencyComponent
-            categories={this.castEfficiency.constructor.SPELL_CATEGORIES}
+            categories={this.abilities.constructor.SPELL_CATEGORIES}
             abilities={this._generateCastEfficiencyInfo()}
           />
         </Tab>

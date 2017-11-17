@@ -7,7 +7,7 @@ import SpellIcon from 'common/SpellIcon';
 import StatisticBox from 'Main/StatisticBox';
 
 import ShadowDance from './Modules/Features/ShadowDance';
-import CastEfficiency from './Modules/Features/CastEfficiency';
+import Abilities from './Modules/Features/Abilities';
 
 function formatThousands(number) {
   return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
@@ -30,7 +30,7 @@ function formatPercentage(percentage) {
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     shadowDance: ShadowDance,
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
   };
 
   generateResults() {

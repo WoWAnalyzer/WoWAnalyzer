@@ -1,9 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import getParserMock from 'tests/getParserMock';
 
-import CastEfficiency from './CastEfficiency';
+import Abilities from './Abilities';
 
-describe('Core/Modules/CastEfficiency', () => {
+describe('Core/Modules/Abilities', () => {
   let instance;
   let parserMock;
   let combatantsMock;
@@ -20,7 +20,7 @@ describe('Core/Modules/CastEfficiency', () => {
       current: 0,
     };
 
-    instance = new CastEfficiency(parserMock, {
+    instance = new Abilities(parserMock, {
       combatants: combatantsMock,
       haste: hasteMock,
     });

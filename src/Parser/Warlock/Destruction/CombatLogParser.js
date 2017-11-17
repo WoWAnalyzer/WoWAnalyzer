@@ -1,7 +1,7 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
-import CastEfficiency from './Modules/Features/CastEfficiency';
+import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import DoomguardInfernal from './Modules/Features/DoomguardInfernal';
@@ -41,7 +41,7 @@ import T20_2set from './Modules/Items/T20_2set';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     damageDone: [DamageDone, { showStatistic: true }],

@@ -23,7 +23,7 @@ import EarthenShieldTotem from './Modules/Features/EarthenShieldTotem';
 import HighTide from './Modules/Features/HighTide';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
-import CastEfficiency from './Modules/Features/CastEfficiency';
+import Abilities from './Modules/Features/Abilities';
 
 import Nazjatar from './Modules/Legendaries/Nazjatar';
 import UncertainReminder from './Modules/Legendaries/UncertainReminder';
@@ -79,7 +79,7 @@ class CombatLogParser extends CoreCombatLogParser {
     highTide: HighTide,
     cooldownThroughputTracker: CooldownThroughputTracker,
     ancestralVigor: AncestralVigor,
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
 
     // Legendaries:
     nobundo: Nobundo,

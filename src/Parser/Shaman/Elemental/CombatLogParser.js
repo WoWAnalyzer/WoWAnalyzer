@@ -12,7 +12,7 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import Maelstrom from './Modules/Features/Maelstrom/Maelstrom';
 
-import CastEfficiency from './Modules/Features/CastEfficiency';
+import Abilities from './Modules/Features/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import ProcTracker from './Modules/Features/ProcTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -44,7 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
 
     // Features
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     procTracker: ProcTracker,

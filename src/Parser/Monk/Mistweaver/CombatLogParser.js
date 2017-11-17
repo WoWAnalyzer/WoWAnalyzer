@@ -9,7 +9,7 @@ import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 // Features
-import CastEfficiency from './Modules/Features/CastEfficiency';
+import Abilities from './Modules/Features/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import EssenceFontMastery from './Modules/Features/EssenceFontMastery';
@@ -67,7 +67,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
     essenceFontMastery: EssenceFontMastery,
 

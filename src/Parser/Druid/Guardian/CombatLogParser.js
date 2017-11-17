@@ -8,7 +8,7 @@ import Cinidaria from 'Parser/Core/Modules/Items/Cinidaria';
 
 import ActiveTargets from './Modules/Features/ActiveTargets';
 import DynamicHaste from './Modules/Features/DynamicHaste';
-import CastEfficiency from './Modules/Features/CastEfficiency';
+import Abilities from './Modules/Features/Abilities';
 import Gore from './Modules/Features/Gore';
 import GalacticGuardian from './Modules/Features/GalacticGuardian';
 import GuardianOfElune from './Modules/Features/GuardianOfElune';
@@ -42,7 +42,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     activeTargets: ActiveTargets,
     dynamicHaste: DynamicHaste,
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     goreProcs: Gore,
     galacticGuardianProcs: GalacticGuardian,

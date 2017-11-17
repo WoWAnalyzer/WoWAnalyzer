@@ -14,7 +14,7 @@ import specialEventIndicators from 'Main/Chartist/specialEventIndicators';
 
 import 'Main/Mana.css';
 
-import CastEfficiency from './CastEfficiencyComponent';
+import Abilities from './AbilitiesComponent';
 import './Maelstrom.css';
 
 const formatDuration = (duration) => {
@@ -284,7 +284,7 @@ class Maelstrom extends React.PureComponent {
           }}
           type="Line"
         />
-        <CastEfficiency
+        <Abilities
           abilities={abilities}
           categories={categories}
         />

@@ -13,7 +13,7 @@ import EstelNormalizer from './Normalizers/EstelNormalizer';
 import SpellManaCost from './Modules/Core/SpellManaCost';
 import AbilityTracker from './Modules/Core/AbilityTracker';
 
-import CastEfficiency from './Modules/Features/CastEfficiency';
+import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import PowerWordShieldWasted from './Modules/Features/PowerWordShieldWasted';
@@ -63,7 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
     lowHealthHealing: LowHealthHealing,
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
 
     // Abilities
     penance: Penance,
