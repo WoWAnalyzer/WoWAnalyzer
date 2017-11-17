@@ -21,7 +21,7 @@ const DEFAULT_MAJOR_SUGGEST = 0.65;
 
 // This needs to be in own class to avoid circular dependency
 // TODO rename CastEfficiency to CastInfo, and rename this to CastEfficiency
-class CastEfficiencyDisplay extends Analyzer {
+class CastEfficiency extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     combatants: Combatants,
@@ -227,4 +227,4 @@ class CastEfficiencyDisplay extends Analyzer {
   }
 }
 
-export default CastEfficiencyDisplay;
+export default CastEfficiency;

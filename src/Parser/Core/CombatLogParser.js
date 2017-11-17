@@ -22,7 +22,7 @@ import Haste from './Modules/Haste';
 import StatTracker from './Modules/StatTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
 import Abilities from './Modules/Abilities';
-import CastEfficiencyDisplay from './Modules/CastEfficiencyDisplay';
+import CastEfficiency from './Modules/CastEfficiency';
 import SpellUsable from './Modules/SpellUsable';
 import SpellHistory from './Modules/SpellHistory';
 import Enemies from './Modules/Enemies';
@@ -117,7 +117,7 @@ class CombatLogParser {
     statTracker: StatTracker,
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
-    castEfficiencyDisplay: CastEfficiencyDisplay,
+    CastEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
     spellHistory: SpellHistory,
     manaValues: ManaValues,
