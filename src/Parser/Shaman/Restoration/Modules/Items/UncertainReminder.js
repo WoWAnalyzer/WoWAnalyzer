@@ -1,8 +1,13 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+import ItemLink from 'common/ItemLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
@@ -38,6 +43,10 @@ const SPELLS_SCALING_WITH_HASTE = [
 ];
 
 class UncertainReminder extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   heroismStart = null;
   hastePercent = null;
   events = [];
@@ -47,7 +56,7 @@ class UncertainReminder extends Analyzer {
   hasteHealing = 0;
 
   on_initialized() {
-    this.active = this.owner.modules.combatants.selected.hasHead(ITEMS.UNCERTAIN_REMINDER.id);
+    this.active = this.combatants.selected.hasHead(ITEMS.UNCERTAIN_REMINDER.id);
     // We apply heroism at the start incase it was popped before the pull. If we see it's
     // applied before it drops, we discard all the events.
     this.heroismStart = this.owner.fight.start_time;
@@ -136,6 +145,32 @@ class UncertainReminder extends Analyzer {
     this.events.push(event);
     this.lastHeal = event.timestamp;
   }
+
+  suggestions(when) {
+    const uncertainReminderHealingPercentage = this.owner.getPercentageOfTotalHealingDone(this.urgencyHealing) + this.owner.getPercentageOfTotalHealingDone(this.hasteHealing);
+
+    when(this.uncertainReminderHealingPercentage).isLessThan(0.045)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>You didn't benefit from <ItemLink id={ITEMS.UNCERTAIN_REMINDER.id} /> a lot consider using a different legendary on long fights or on fights where there is not much to heal during the additional heroism uptime.</span>)
+          .icon(ITEMS.UNCERTAIN_REMINDER.icon)
+          .actual(`${uncertainReminderHealingPercentage} %`)
+          .recommended(`${recommended} %`)
+          .regular(recommended - .01).major(recommended - .02);
+      });
+  }
+
+  item() {
+    const healing = this.urgencyHealing + this.hasteHealing;
+    return {
+        item: ITEMS.UNCERTAIN_REMINDER,
+        result: (
+          <dfn data-tip="The effective healing contributed by the additional Heroism uptime from Uncertain Reminder. This includes the +25% healing modifier from the Sense of Urgency artifact trait for all your spells, and a 30% haste modifier on your spells of which their throughput scales linear with haste: Healing Wave, Healing Surge, Chain Heal, Healing Rain, Healing Stream Totem and Riptide HoT. Healing Tide Totem is also included, though underestimated, as the Cumulative Upkeep trait will make it scale more than linear.">
+            {this.owner.formatItemHealingDone(healing)}
+          </dfn>
+        ),
+    };
+  }
+
 }
 
 export default UncertainReminder;

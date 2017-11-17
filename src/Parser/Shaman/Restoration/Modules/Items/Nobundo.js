@@ -1,3 +1,5 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
@@ -25,6 +27,17 @@ class Nobundo extends Analyzer {
     if (buff) {
       this.discounts += 1;
     }
+  }
+
+  item() {
+    return {
+    item: ITEMS.NOBUNDOS_REDEMPTION,
+    result: (
+        <span>
+          ${this.discounts} discounted Healing Surges
+        </span>
+      ),
+    };
   }
 }
 
