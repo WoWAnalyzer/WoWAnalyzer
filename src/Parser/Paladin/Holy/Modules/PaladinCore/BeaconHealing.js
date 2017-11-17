@@ -25,7 +25,7 @@ class BeaconHealing extends Analyzer {
     let casts = 0;
     let castsOnBeacon = 0;
 
-    Abilities.CPM_ABILITIES
+    Abilities.ABILITIES
       .filter(ability => ability.isActive === undefined || ability.isActive(this.combatants.selected))
       .filter(ability => ability.category !== Abilities.SPELL_CATEGORIES.ITEMS)
       .forEach((ability) => {

@@ -4,8 +4,8 @@ import ITEMS from 'common/ITEMS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
-  static CPM_ABILITIES = [
-    ...CoreAbilities.CPM_ABILITIES,
+  static ABILITIES = [
+    ...CoreAbilities.ABILITIES,
     {
       spell: SPELLS.STRIKE_OF_THE_WINDLORD,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,

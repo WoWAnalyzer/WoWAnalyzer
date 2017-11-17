@@ -19,8 +19,8 @@ const T19_2SET_CHANCE = 0.1;
 const REACTION_TIME_THRESHOLD = 500;
 
 class Abilities extends CoreAbilities {
-  static CPM_ABILITIES = [
-    ...CoreAbilities.CPM_ABILITIES,
+  static ABILITIES = [
+    ...CoreAbilities.ABILITIES,
     // Rotational Spells
     {
       spell: SPELLS.MANGLE_BEAR,

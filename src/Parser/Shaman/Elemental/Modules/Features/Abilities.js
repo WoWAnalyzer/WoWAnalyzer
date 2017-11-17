@@ -9,8 +9,8 @@ class Abilities extends CoreAbilities {
     ...CoreAbilities.SPELL_CATEGORIES,
     DOTS: 'Dot',
   };
-  static CPM_ABILITIES = [
-    ...CoreAbilities.CPM_ABILITIES,
+  static ABILITIES = [
+    ...CoreAbilities.ABILITIES,
     {
       spell: SPELLS.LAVA_BURST,
       charges: 2,

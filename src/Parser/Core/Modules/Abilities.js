@@ -24,7 +24,7 @@ class Abilities extends Analyzer {
     UTILITY: 'Utility',
     HEALER_DAMAGING_SPELL: 'Damaging Spell',
   };
-  static CPM_ABILITIES = [
+  static ABILITIES = [
     /**
      * Available properties:
      *
@@ -120,7 +120,7 @@ class Abilities extends Analyzer {
    * Returns the first ACTIVE spellInfo with the given spellId (or undefined if there is no such spellInfo)
    */
   getAbility(spellId) {
-    return this.constructor.CPM_ABILITIES.find(ability => {
+    return this.constructor.ABILITIES.find(ability => {
       if (ability.spell.id === spellId) {
         return !ability.isActive || ability.isActive(this.combatants.selected);
       }

@@ -9,8 +9,8 @@ import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
-  static CPM_ABILITIES = [
-    ...CoreAbilities.CPM_ABILITIES,
+  static ABILITIES = [
+    ...CoreAbilities.ABILITIES,
     {
       spell: SPELLS.CONSECRATION_CAST,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,

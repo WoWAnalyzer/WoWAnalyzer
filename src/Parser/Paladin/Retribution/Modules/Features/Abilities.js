@@ -12,8 +12,8 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 /* eslint-disable no-unused-vars */
 
 class Abilities extends CoreAbilities {
-  static CPM_ABILITIES = [
-    ...CoreAbilities.CPM_ABILITIES,
+  static ABILITIES = [
+    ...CoreAbilities.ABILITIES,
     {
       spell: SPELLS.WAKE_OF_ASHES,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,

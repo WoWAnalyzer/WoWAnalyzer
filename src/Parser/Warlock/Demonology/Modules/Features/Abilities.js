@@ -5,8 +5,8 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 /* eslint-disable no-unused-vars */
 
 class Abilities extends CoreAbilities {
-  static CPM_ABILITIES = [
-    ...CoreAbilities.CPM_ABILITIES,
+  static ABILITIES = [
+    ...CoreAbilities.ABILITIES,
     // Rotational spells
     {
       spell: SPELLS.DEMONIC_EMPOWERMENT,

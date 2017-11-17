@@ -102,7 +102,7 @@ class CastEfficiencyDisplay extends Analyzer {
    * Packs cast efficiency results for use by suggestions / tab
    */
   _generateCastEfficiencyInfo() {
-    const castInfo = this.abilities.constructor.CPM_ABILITIES;
+    const castInfo = this.abilities.constructor.ABILITIES;
 
     const fightDurationMs = this.owner.fightDuration;
     const fightDurationMinutes = fightDurationMs / 1000 / 60;

@@ -17,7 +17,7 @@ import ActiveTargets from './ActiveTargets';
 
 const debug = false;
 
-const gcdSpells = Abilities.CPM_ABILITIES.filter(spell => spell.isOnGCD);
+const gcdSpells = Abilities.ABILITIES.filter(spell => spell.isOnGCD);
 
 // Determines whether a variable is a function or not, and returns its value
 function resolveValue(maybeFunction, ...args) {

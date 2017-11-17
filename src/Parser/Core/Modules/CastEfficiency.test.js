@@ -31,7 +31,7 @@ describe('Core/Modules/Abilities', () => {
       const holyShock = {
         spell: SPELLS.HOLY_SHOCK_CAST,
       };
-      instance.constructor.CPM_ABILITIES = [
+      instance.constructor.ABILITIES = [
         {
           spell: SPELLS.LIGHT_OF_DAWN_CAST,
         },
@@ -49,7 +49,7 @@ describe('Core/Modules/Abilities', () => {
         getCooldown: () => 8,
         isActive: () => true,
       };
-      instance.constructor.CPM_ABILITIES = [
+      instance.constructor.ABILITIES = [
         {
           spell: SPELLS.HOLY_SHOCK_CAST,
           getCooldown: () => 9,

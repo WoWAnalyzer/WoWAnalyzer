@@ -5,8 +5,8 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 /* eslint-disable no-unused-vars */
 
 class Abilities extends CoreAbilities {
-  static CPM_ABILITIES = [
-    ...CoreAbilities.CPM_ABILITIES,
+  static ABILITIES = [
+    ...CoreAbilities.ABILITIES,
     // HW:Sanc and HW:Serenity not included due to Serendipity causing an odd situation with their CDs
     {
       spell: SPELLS.PRAYER_OF_MENDING_CAST,

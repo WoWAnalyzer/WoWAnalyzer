@@ -6,8 +6,8 @@ import calculateMaxCasts from 'Parser/Core/calculateMaxCasts';
 /* eslint-disable no-unused-vars */
 
 class Abilities extends CoreAbilities {
-  static CPM_ABILITIES = [
-    ...CoreAbilities.CPM_ABILITIES,
+  static ABILITIES = [
+    ...CoreAbilities.ABILITIES,
     {
       spell: SPELLS.PENANCE,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
