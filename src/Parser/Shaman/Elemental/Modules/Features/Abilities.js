@@ -49,14 +49,14 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       isActive: combatant => combatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id),
       getCooldown: haste => 12,
-      recommendedAbilities: 0.6,
+      recommendedCastEfficiency: 0.6,
     },
     {
       spell: SPELLS.ASCENDANCE_TALENT_ELEMENTAL,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
       isActive: combatant => combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id),
-      recommendedAbilities: 1.0,
+      recommendedCastEfficiency: 1.0,
     },
     {
       spell: SPELLS.STORMKEEPER,
@@ -67,14 +67,14 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.FIRE_ELEMENTAL,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60 * 5, // TODO: Add Elementalist -> Lava Burst cast ^= -2 sec cd
-      recommendedAbilities: 1.0,
+      recommendedCastEfficiency: 1.0,
       isActive: combatant => !combatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id),
     },
     {
       spell: SPELLS.STORM_ELEMENTAL_TALENT,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60 * 2.5, // TODO: Add Elementalist -> Lava Burst cast ^= -2 sec cd
-      recommendedAbilities: 1.0,
+      recommendedCastEfficiency: 1.0,
       isActive: combatant => combatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id),
     },
     {

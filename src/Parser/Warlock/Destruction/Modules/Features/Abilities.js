@@ -18,14 +18,14 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 25 / (1 + haste),
       isActive: combatant => combatant.hasTalent(SPELLS.CHANNEL_DEMONFIRE_TALENT.id),
-      recommendedAbilities: 0.95,
+      recommendedCastEfficiency: 0.95,
     },
     {
       spell: SPELLS.CONFLAGRATE,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 12 / (1 + haste),
       charges: 2,
-      recommendedAbilities: 0.95,
+      recommendedCastEfficiency: 0.95,
       isActive: combatant => !combatant.hasTalent(SPELLS.SHADOWBURN_TALENT.id),
       // TODO: T19 4p set bonus grants another charge and reduces CD
     },
@@ -34,7 +34,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 12 / (1 + haste),
       charges: 2,
-      recommendedAbilities: 0.95,
+      recommendedCastEfficiency: 0.95,
       isActive: combatant => combatant.hasTalent(SPELLS.SHADOWBURN_TALENT.id),
       // TODO: T19 4p set bonus grants another charge and reduces CD
     },
@@ -43,7 +43,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 45,
       charges: 3,
-      recommendedAbilities: 0.95,
+      recommendedCastEfficiency: 0.95,
     },
     {
       spell: SPELLS.IMMOLATE_CAST,

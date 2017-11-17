@@ -17,7 +17,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.EBONBOLT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 45,
-      recommendedAbilities: 0.90,
+      recommendedCastEfficiency: 0.90,
     },
     {
       spell: SPELLS.FLURRY,
@@ -74,7 +74,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.FROZEN_ORB,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 60,
-	    recommendedAbilities: 0.95,
+	    recommendedCastEfficiency: 0.95,
     },
     {
       spell: SPELLS.ICY_VEINS,

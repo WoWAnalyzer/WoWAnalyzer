@@ -13,7 +13,7 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.VOID_BOLT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      recommendedAbilities: 0.85,
+      recommendedCastEfficiency: 0.85,
       getCooldown: (haste, combatant) => 4.5 / (1 + haste),
       getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
         const { averageVoidformHaste } = parser.modules.voidform;
@@ -29,7 +29,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.MIND_BLAST,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       isActive: combatant => !combatant.hasWaist(ITEMS.MANGAZAS_MADNESS.id),
-      recommendedAbilities: 0.55,
+      recommendedCastEfficiency: 0.55,
       getCooldown: haste => 4.65 / (1 + haste),
       getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
         const {
@@ -54,7 +54,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.MIND_BLAST,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       isActive: combatant => combatant.hasWaist(ITEMS.MANGAZAS_MADNESS.id),
-      recommendedAbilities: 0.85,
+      recommendedCastEfficiency: 0.85,
       getCooldown: haste => 4.65 / (1 + haste),
       getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
         const {
@@ -94,7 +94,7 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.SHADOW_WORD_VOID_TALENT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      recommendedAbilities: 0.8,
+      recommendedCastEfficiency: 0.8,
       getCooldown: haste => 20,
       isActive: combatant => combatant.hasTalent(SPELLS.SHADOW_WORD_VOID_TALENT.id),
     },
@@ -127,14 +127,14 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.VOID_TORRENT,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      recommendedAbilities: 0.9,
+      recommendedCastEfficiency: 0.9,
       getCooldown: haste => 60,
     },
 
     {
       spell: SPELLS.MINDBENDER_TALENT_SHADOW,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      recommendedAbilities: 0.8,
+      recommendedCastEfficiency: 0.8,
       getCooldown: haste => 60,
       isActive: combatant => combatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id),
     },
@@ -142,7 +142,7 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.SHADOWFIEND,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      recommendedAbilities: 0.8,
+      recommendedCastEfficiency: 0.8,
       getCooldown: haste => 180,
       isActive: combatant => !combatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id),
     },
@@ -150,7 +150,7 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.POWER_INFUSION_TALENT,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      recommendedAbilities: 0.8,
+      recommendedCastEfficiency: 0.8,
       getCooldown: haste => 120,
       isActive: combatant => combatant.hasTalent(SPELLS.POWER_INFUSION_TALENT.id),
     },
@@ -158,7 +158,7 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.SHADOW_CRASH_TALENT,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      recommendedAbilities: 0.8,
+      recommendedCastEfficiency: 0.8,
       getCooldown: haste => 30,
       isActive: combatant => combatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id),
     },
