@@ -152,7 +152,7 @@ class CastEfficiency extends Analyzer {
         const averageIssueCastEfficiency = ability.averageIssueCastEfficiency || DEFAULT_AVERAGE_SUGGEST;
         const majorIssueCastEfficiency = ability.majorIssueCastEfficiency || DEFAULT_MAJOR_SUGGEST;
 
-        const canBeImproved = castEfficiency !== null && castEfficiency < recommendedCastEfficiency;
+        const canBeImproved = castEfficiency !== null && castEfficiency < recommendedCastEfficiency && casts < maxCasts;
 
         // TODO can this structure be cut down? Need to understand cast effic tab better to know for sure...
         return {
@@ -174,7 +174,7 @@ class CastEfficiency extends Analyzer {
   suggestions(when) {
     const castEfficiencyInfo = this._generateCastEfficiencyInfo();
     castEfficiencyInfo.forEach(abilityInfo => {
-      if(abilityInfo.ability.noSuggestion || abilityInfo.castEfficiency === null) {
+      if(abilityInfo.ability.noSuggestion || abilityInfo.castEfficiency === null || abilityInfo.casts === abilityInfo.maxCasts) {
         return;
       }
       const ability = abilityInfo.ability;
