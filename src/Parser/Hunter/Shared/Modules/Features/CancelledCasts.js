@@ -4,7 +4,7 @@ import CoreCancelledCasts from 'Parser/Core/Modules/CancelledCasts';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import StatisticBox from "Main/StatisticBox";
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Icon from 'common/Icon';
 
 class CancelledCasts extends CoreCancelledCasts {
@@ -35,10 +35,11 @@ class CancelledCasts extends CoreCancelledCasts {
         icon={<Icon icon={'inv_misc_map_01'} />}
         value={`${formatPercentage(this.cancelledPercentage)}%`}
         label={`Cancelled Casts`}
-        tooltip={`You started casting a total of ${this.totalCasts} spells with a cast timer, and out of these ${this.castsCancelled} casts were cancelled.`}
+        tooltip={`You started casting a total of ${this.totalCasts} spells with a cast timer. <ul> <li> You cancelled ${this.castsCancelled} of those casts. </li> </ul>`}
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.CORE(9);
 }
 
 export default CancelledCasts;

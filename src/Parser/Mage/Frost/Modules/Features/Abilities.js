@@ -16,7 +16,7 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.EBONBOLT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 45,
+      getCooldown: haste => 45 + (3 / (1+haste)), // 45 Second Cooldown with a 3 Second Cast time (Reduced by Haste). Temp until CastEfficiency gets a redo
       recommendedCastEfficiency: 0.90,
     },
     {

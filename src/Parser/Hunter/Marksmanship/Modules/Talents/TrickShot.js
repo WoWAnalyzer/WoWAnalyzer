@@ -24,10 +24,10 @@ class TrickShot extends Analyzer {
   // TODO: Find a good way tracking Trick Shot cleave damage
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if(spellId !== SPELLS.AIMED_SHOT.id) {
+    if (spellId !== SPELLS.AIMED_SHOT.id) {
       return;
     }
-    if(!this.combatants.selected.hasBuff(SPELLS.TRICK_SHOT_BUFF.id)){
+    if (!this.combatants.selected.hasBuff(SPELLS.TRICK_SHOT_BUFF.id)) {
       return;
     }
     this.bonusDmg += getDamageBonus(event, TRICK_SHOT_MODIFIER);

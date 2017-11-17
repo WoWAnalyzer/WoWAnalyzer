@@ -5,7 +5,7 @@ import Combatants from "Parser/Core/Modules/Combatants";
 
 import SPELLS from "common/SPELLS/HUNTER";
 import TALENTS from 'common/SPELLS/TALENTS/HUNTER';
-import StatisticBox from "Main/StatisticBox";
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellLink from "common/SpellLink";
 import SpellIcon from "common/SpellIcon";
 import Icon from "common/Icon";
@@ -22,6 +22,7 @@ class Trueshot extends Analyzer {
   aimedCritsInTS = 0;
   totalCritsInTS = 0;
   totalCastsPrTS = 0;
+  executeTrueshots = 0;
 
   on_byPlayer_cast(event) {
     const buffId = event.ability.guid;
@@ -30,6 +31,9 @@ class Trueshot extends Analyzer {
     }
     this.trueshotCasts += 1;
     this.accumulatedFocusAtTSCast += event.classResources[0]['amount'] || 0;
+    if (this.combatants.selected.hasBuff(SPELLS.BULLSEYE_TRAIT.id, event.timestamp)) {
+      this.executeTrueshots += 1;
+    }
 
   }
 
@@ -83,7 +87,7 @@ class Trueshot extends Analyzer {
           </span>
         )}
         label={'Trueshot info'}
-        tooltip={`You started your Trueshot windows with an average of ${averageFocusAtTS} focus.<br /> You hit an average of ${averageAimedCasts} Aimed Shots inside each Trueshot window, and they had a crit rate of ${percentAimedCrits}%. <br /> Your overall crit rate during Trueshot was ${percentCastCrits}%.`} />
+        tooltip={`Information regarding your average Trueshot window: <ul> <li>You started your Trueshot windows with an average of ${averageFocusAtTS} focus.</li> <li> You hit an average of ${averageAimedCasts} Aimed Shots inside each Trueshot window. </li> <li> Your Trueshot Aimed Shots had a crit rate of ${percentAimedCrits}%. </li> <li>Your overall crit rate during Trueshot was ${percentCastCrits}%. </li></ul>`} />
     );
   }
 
@@ -92,7 +96,7 @@ class Trueshot extends Analyzer {
     const averageFocusAtTS = formatNumber(this.accumulatedFocusAtTSCast / this.trueshotCasts);
     when(averageAimedCasts).isLessThan(8)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You only cast {averageAimedCasts} <SpellLink id={SPELLS.AIMED_SHOT.id} />s inside your average <SpellLink id={SPELLS.TRUESHOT.id} /> window. This is your only DPS cooldown, and it's important to maximize it to it's fullest potential by getting as many Aimed Shot squeezed in as possible, while still making sure that they are all within <SpellLink id={SPELLS.VULNERABLE.id}/>. <br /> This can be done by making sure to use <SpellLink id={SPELLS.WINDBURST.id} /> to open <SpellLink id={SPELLS.VULNERABLE.id}/> windows, not using <SpellLink id={TALENTS.A_MURDER_OF_CROWS_TALENT_SHARED.id}/> while in <SpellLink id={SPELLS.TRUESHOT.id}/> or starting <SpellLink id={SPELLS.TRUESHOT.id}/> at higher focus. </span>)
+        return suggest(<span>You only cast {averageAimedCasts} <SpellLink id={SPELLS.AIMED_SHOT.id} />s inside your average <SpellLink id={SPELLS.TRUESHOT.id} /> window. This is your only DPS cooldown, and it's important to maximize it to it's fullest potential by getting as many Aimed Shot squeezed in as possible, while still making sure that they are all within <SpellLink id={SPELLS.VULNERABLE.id} />. <br /> This can be done by making sure to use <SpellLink id={SPELLS.WINDBURST.id} /> to open <SpellLink id={SPELLS.VULNERABLE.id} /> windows, not using <SpellLink id={TALENTS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> while in <SpellLink id={SPELLS.TRUESHOT.id} /> or starting <SpellLink id={SPELLS.TRUESHOT.id} /> at higher focus. </span>)
           .icon(SPELLS.TRUESHOT.icon)
           .actual(`Average of ${averageAimedCasts} Aimed Shots pr Trueshot.`)
           .recommended(`>${recommended} is recommended`)
@@ -102,14 +106,23 @@ class Trueshot extends Analyzer {
       });
     when(averageFocusAtTS).isLessThan(90)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You started your average <SpellLink id={SPELLS.TRUESHOT.id}/> at {averageFocusAtTS} focus, try and pool a bit more before casting <SpellLink id={SPELLS.TRUESHOT.id}/>. This can be done through casting an additional <SpellLink id={SPELLS.ARCANE_SHOT.id}/> or by monitoring the cooldown of <SpellLink id={SPELLS.TRUESHOT.id}/> and adjusting play to ensure your focus won't be depleted when it comes off cooldown.</span>)
+        return suggest(<span>You started your average <SpellLink id={SPELLS.TRUESHOT.id} /> at {averageFocusAtTS} focus, try and pool a bit more before casting <SpellLink id={SPELLS.TRUESHOT.id} />. This can be done through casting an additional <SpellLink id={SPELLS.ARCANE_SHOT.id} /> or by monitoring the cooldown of <SpellLink id={SPELLS.TRUESHOT.id} /> and adjusting play to ensure your focus won't be depleted when it comes off cooldown.</span>)
           .icon(SPELLS.TRUESHOT.icon)
           .actual(`Average of ${averageFocusAtTS} focus when starting Trueshot`)
           .recommended(`>${recommended} is recommended`)
           .regular(recommended - 10)
           .major(recommended - 20);
       });
+    when(this.executeTrueshots).isLessThan(1)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>You should make sure to have atleast 1 <SpellLink id={SPELLS.TRUESHOT.id} /> cast during execute (where you are buffed by <SpellLink id={SPELLS.BULLSEYE_TRAIT.id} />) to get as much out of <SpellLink id={SPELLS.TRUESHOT.id} /> as possible.</span>)
+          .icon(SPELLS.TRUESHOT.icon)
+          .actual(`You had ${this.executeTrueshots} trueshot casts during Bullseye`)
+          .recommended(`casting atleast 1 trueshot in execute is recommended`)
+          .major(recommended);
+      });
   }
+  statisticOrder = STATISTIC_ORDER.CORE(8);
 }
 
 export default Trueshot;

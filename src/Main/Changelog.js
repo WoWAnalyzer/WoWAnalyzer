@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Toggle from 'react-toggle';
+import 'react-toggle/style.css';
 
 import Wrapper from 'common/Wrapper';
 
@@ -16,6 +18,13 @@ class Changelog extends React.PureComponent {
   static defaultProps = {
     includeCore: true,
   };
+  constructor() {
+    super();
+    this.state = {
+      includeCore: true,
+    };
+  }
+
   render() {
     const { changelog, limit, includeCore } = this.props;
 
@@ -39,37 +48,60 @@ class Changelog extends React.PureComponent {
       );
     }
     if (changelog instanceof Array) {
-      const mergedChangelog = includeCore ? [ ...CORE_CHANGELOG, ...changelog ].sort((a, b) => b.date - a.date) : changelog;
+      const mergedChangelog = includeCore && this.state.includeCore ? [ ...CORE_CHANGELOG, ...changelog ].sort((a, b) => b.date - a.date) : changelog;
       return (
         <div style={{ padding: 0 }}>
+          {includeCore && (
+            <div className="panel-heading text-right toggle-control text-muted" style={{ padding: '10px 15px' }}>
+              <Toggle
+                defaultChecked={this.state.includeCore}
+                icons={false}
+                onChange={event => this.setState({ includeCore: event.target.checked })}
+                id="core-entries-toggle"
+              />
+              <label htmlFor="core-entries-toggle">
+                <dfn data-tip="Turn this off to only see changes to this spec's implementation.">Shared changes</dfn>
+              </label>
+            </div>
+          )}
           <ul className="list text">
             {mergedChangelog
               .filter((_, i) => !limit || i < limit)
-              .map(({ date, changes, contributors }, i) => (
-                <li key={i} className="flex">
-                  <div className="flex-sub" style={{ minWidth: 100, paddingRight: 15 }}>
-                    {date.toLocaleDateString()}
-                  </div>
-                  <div className="flex-main">
-                    {changes}
-                  </div>
-                  <div className="flex-sub" style={{ minWidth: 150, paddingLeft: 15, textAlign: 'right' }}>
-                    {contributors.map(contributor => {
-                      if (typeof contributor === 'string') {
-                        return contributor;
-                      }
-                      if (contributor instanceof Array) {
-                        return (
-                          <Wrapper key={contributor[0]}>
-                            <img src={contributor[1]} alt="Avatar" style={{ height: '1.6em', borderRadius: '50%' }} /> {contributor[0]}
-                          </Wrapper>
-                        );
-                      }
-                      return null;
-                    })}
-                  </div>
-                </li>
-              ))}
+              .map((entry, i) => {
+                const { date, changes, contributors } = entry;
+                const isFromCoreChangelog = CORE_CHANGELOG.includes(entry);
+                // The index of the entry provides us with a unique never changing key, which speeds up the Shared Changes toggle
+                const index = isFromCoreChangelog ? CORE_CHANGELOG.indexOf(entry) : changelog.indexOf(entry);
+
+                return (
+                  <li
+                    key={isFromCoreChangelog ? `core-${index}` : `spec-${index}`}
+                    className={`flex ${includeCore && isFromCoreChangelog ? 'text-muted' : ''}`}
+                  >
+                    <div className="flex-sub" style={{ minWidth: 100, paddingRight: 15 }}>
+                      {date.toLocaleDateString()}
+                    </div>
+                    <div className="flex-main">
+                      {changes}
+                    </div>
+                    <div className="flex-sub" style={{ minWidth: 150, paddingLeft: 15, textAlign: 'right' }}>
+                      {contributors.map(contributor => {
+                        if (typeof contributor === 'string') {
+                          return contributor;
+                        }
+                        if (contributor instanceof Array) {
+                          return (
+                            <Wrapper key={contributor[0]}>
+                              <img src={contributor[1]} alt="Avatar" style={{ height: '1.6em', borderRadius: '50%' }} /> {contributor[0]}
+                            </Wrapper>
+                          );
+                        }
+                        return null;
+                      })}
+                    </div>
+                  </li>
+                );
+              })}
           </ul>
         </div>
       );

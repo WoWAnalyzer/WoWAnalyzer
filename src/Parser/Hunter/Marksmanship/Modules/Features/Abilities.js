@@ -54,7 +54,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 60,
       isActive: combatant => combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id),
       recommendedCastEfficiency: 0.8,
-      extraSuggestion: <span> You should aim to cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id}/> on cooldown generally, and the last usage should be as early in the execute window (sub-20%) as possible, to allow for stacking of <SpellLink id={SPELLS.BULLSEYE_TRAIT.id}/> as fast as possible. This can mean delaying it for up to 20-30 seconds sometimes which can lower your cast-efficiency, even though you're playing optimally.</span>,
+      extraSuggestion: <span> You should aim to cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> on cooldown generally, and the last usage should be as early in the execute window (sub-20%) as possible, to allow for stacking of <SpellLink id={SPELLS.BULLSEYE_TRAIT.id} /> as fast as possible. This can mean delaying it for up to 20-30 seconds sometimes which can lower your cast-efficiency, even though you're playing optimally.</span>,
     },
     {
       spell: SPELLS.BARRAGE_TALENT,
@@ -66,7 +66,7 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.SIDEWINDERS_TALENT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 12/(1+haste),
+      getCooldown: haste => 12 / (1 + haste),
       charges: 2,
       isActive: combatant => combatant.hasTalent(SPELLS.SIDEWINDERS_TALENT.id),
     },
@@ -80,7 +80,7 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.TRUESHOT,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: (_, combatant) => 180-combatant.owner.modules.quickShot.traitCooldownReduction,
+      getCooldown: (_, combatant) => 180 - combatant.owner.modules.quickShot.traitCooldownReduction,
       recommendedCastEfficiency: 1.0,
     },
     {
