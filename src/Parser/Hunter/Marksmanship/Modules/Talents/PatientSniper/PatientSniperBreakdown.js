@@ -60,24 +60,24 @@ class PatientSniperBreakdown extends React.Component {
                     <td>0</td>
                   </tr>
                   {
-                   seconds.map(sec => {
-                     // for each second passed, calculate the bonus over Vulnerable without Patient Sniper, render a row
-                     const bonus = ((1 + vulnerableModifier + (sec * PATIENT_SNIPER_BONUS_PER_SEC)) / (1 + vulnerableModifier)) - 1;
-                     return (
-                       <tr>
-                         <td>
-                           <SpellIcon id={ability} />{'  '}
-                           {sec} sec into <SpellLink id={SPELLS.VULNERABLE.id} />
-                         </td>
-                         <td>{formatPercentage(bonus)}%</td>
-                         <td>{data.noTS.seconds[sec].count}</td>
-                         <td>{formatPercentage(data.noTS.seconds[sec].count / data.noTS.count)}%</td>
-                         <td>{data.TS.seconds[sec].count}</td>
-                         <td>{formatPercentage(data.TS.seconds[sec].count / data.TS.count)}%</td>
-                         <td>{formatNumber(data.noTS.seconds[sec].damage + data.TS.seconds[sec].damage)}</td>
-                       </tr>
-                     );
-                   })
+                    seconds.map(sec => {
+                      // for each second passed, calculate the bonus over Vulnerable without Patient Sniper, render a row
+                      const bonus = ((1 + vulnerableModifier + (sec * PATIENT_SNIPER_BONUS_PER_SEC)) / (1 + vulnerableModifier)) - 1;
+                      return (
+                        <tr>
+                          <td>
+                            <SpellIcon id={ability} />{'  '}
+                            {sec} sec into <SpellLink id={SPELLS.VULNERABLE.id} />
+                          </td>
+                          <td>{formatPercentage(bonus)}%</td>
+                          <td>{data.noTS.seconds[sec].count}</td>
+                          <td>{formatPercentage(data.noTS.seconds[sec].count / data.noTS.count)}%</td>
+                          <td>{data.TS.seconds[sec].count}</td>
+                          <td>{formatPercentage(data.TS.seconds[sec].count / data.TS.count)}%</td>
+                          <td>{formatNumber(data.noTS.seconds[sec].damage + data.TS.seconds[sec].damage)}</td>
+                        </tr>
+                      );
+                    })
                   }
                 </tbody>
               </table>

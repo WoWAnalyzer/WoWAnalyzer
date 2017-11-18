@@ -56,7 +56,23 @@ ps. Tests can be added in the `src/tests` folder. Automated tests are recommende
 
 # Add a total damage done / healing done / damage taken statistic
 
-See Holy Paladin's healing done. (more docs coming)
+This statistic module box doesn't get its own .js file in your class-spec folder; it's already been worked out in `src/Parser/Core/Modules/` and imported into your `CLASS/SPECIALIZATION/CombatLogParser.js`. Often this is just a total damage done box, but if you want total healing and/or total damage taken statistics, you'll import them in this same file.
+
+Because the box order is set in the Core, these will be the first boxes on your layout.
+
+Within your `src/Parser/CLASS/SPECIALIZATION/CombatLogParser.js`, add the desired statistic lines into your imports at the top:
+```javascript
+import DamageDone from 'Parser/Core/Modules/DamageDone';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
+import DamageTaken from 'Parser/Core/Modules/DamageTaken';
+```
+
+Within `specModules = { ... }`, add the matching desired statistic lines:
+```javascript
+damageDone: [DamageDone, { showStatistic: true }],
+healingDone: [HealingDone, { showStatistic: true }],
+damageTaken: [DamageTaken, { showStatistic: true }],
+```
 
 # Add Cast Efficiency
 

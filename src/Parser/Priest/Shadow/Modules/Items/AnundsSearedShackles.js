@@ -5,9 +5,9 @@ import { formatNumber } from 'common/format';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const DAMAGE_INCREASE_PER_STACK = 0.03;
-const MAX_STACK = 50;
 
 class AnundsSearedShackles extends Analyzer {
   static dependencies = {
@@ -24,7 +24,7 @@ class AnundsSearedShackles extends Analyzer {
   on_byPlayer_damage(event){
     const spellID = event.ability.guid;
     if(spellID === SPELLS.VOID_BOLT.id){
-      this.bonusDmg += event.amount - (event.amount / (1 + this.buffStacksSinceLastCast * DAMAGE_INCREASE_PER_STACK));
+      this.bonusDmg += calculateEffectiveDamage(event, (this.buffStacksSinceLastCast * DAMAGE_INCREASE_PER_STACK));
       this.buffStacksSinceLastCast = 0;
     }
   }
@@ -39,7 +39,7 @@ class AnundsSearedShackles extends Analyzer {
 
   addStack(event){
     const spellID = event.ability.guid;
-    if(spellID === SPELLS.ANUNDS_SEARED_SHACKLES_BUFF.id && this.buffStacksSinceLastCast < MAX_STACK){
+    if(spellID === SPELLS.ANUNDS_SEARED_SHACKLES_BUFF.id){
       this.buffStacksSinceLastCast += 1;
     }
   }

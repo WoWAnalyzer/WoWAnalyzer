@@ -14,7 +14,7 @@ const debug = false;
 
 class ComboBreaker extends Analyzer {
   CBProcsTotal = 0;
-  lastCBProcTime = 0;
+  lastCBProcTime = null;
   consumedCBProc = 0;
   overwrittenCBProc = 0;
   nonCBBoK = 0;
@@ -61,7 +61,7 @@ class ComboBreaker extends Analyzer {
 
   suggestions(when) {
    const unusedCBprocs = 1 - (this.consumedCBProc / this.CBProcsTotal);
-    when(unusedCBprocs).isGreaterThan(0.3)
+    when(unusedCBprocs).isGreaterThan(0.2)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs should be used before you tiger palm again so they are not overwritten. While some will be overwritten due to higher priority of getting Chi for spenders, holding <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs is not optimal.</span>)
           .icon(SPELLS.COMBO_BREAKER_BUFF.icon)

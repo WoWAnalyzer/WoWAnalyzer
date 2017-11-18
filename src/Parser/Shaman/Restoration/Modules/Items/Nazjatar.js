@@ -1,3 +1,5 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
@@ -23,6 +25,17 @@ class Nazjatar extends Analyzer {
     if (healthPercentBeforeHeal < 0.4) {
       this.resets += 1;
     }
+  }
+
+  item() {
+    return {
+      item: ITEMS.INTACT_NAZJATAR_MOLTING,
+      result: (
+        <span>
+          ${this.resets} Riptide resets
+        </span>
+      ),
+    };
   }
 }
 
