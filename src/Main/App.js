@@ -103,17 +103,11 @@ class App extends Component {
       bossId: null,
       config: null,
     };
-
-    this.handleRefresh = this.handleRefresh.bind(this);
   }
   getChildContext() {
     return {
       config: this.state.config,
     };
-  }
-
-  handleRefresh() {
-    this.props.fetchReport(this.props.reportCode, true);
   }
 
   getConfig(specId) {
@@ -388,7 +382,7 @@ class App extends Component {
       );
     }
     if (!this.props.fightId) {
-      return <FightSelecter onRefresh={this.handleRefresh} />;
+      return <FightSelecter />;
     }
     if (!this.props.playerName) {
       return <PlayerSelecter />;

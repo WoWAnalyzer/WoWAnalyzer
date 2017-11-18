@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Toggle from 'react-toggle';
 
+import { fetchReport } from 'actions/report';
 import { getReport } from 'selectors/report';
 
 import FightSelectionList from './FightSelectionList';
@@ -25,7 +26,7 @@ class FightSelecter extends React.PureComponent {
         kill: PropTypes.bool,
       })),
     }),
-    onRefresh: PropTypes.func.isRequired,
+    fetchReport: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -33,14 +34,20 @@ class FightSelecter extends React.PureComponent {
     this.state = {
       killsOnly: false,
     };
+    this.handleRefresh = this.handleRefresh.bind(this);
   }
 
   componentWillUnmount() {
     ReactTooltip.hide();
   }
 
+  handleRefresh() {
+    const { fetchReport, report } = this.props;
+    fetchReport(report.code, true);
+  }
+
   render() {
-    const { report, onRefresh } = this.props;
+    const { report } = this.props;
     const { killsOnly } = this.state;
 
     return (
@@ -84,14 +91,18 @@ class FightSelecter extends React.PureComponent {
                 <label htmlFor="kills-only-toggle">
                   Kills only
                 </label>
-                <Link to={makeAnalyzerUrl(report)} onClick={onRefresh} data-tip="This will refresh the fights list which can be useful if you're live logging.">
+                <Link
+                  to={makeAnalyzerUrl(report)}
+                  onClick={this.handleRefresh}
+                  data-tip="This will refresh the fights list which can be useful if you're live logging."
+                >
                   <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh
                 </Link>
               </div>
             </div>
           </div>
           <div className="panel-body" style={{ padding: 0 }}>
-            <FightSelectionList report={report} fights={report.fights} killsOnly={this.state.killsOnly} />
+            <FightSelectionList report={report} fights={report.fights} killsOnly={killsOnly} />
           </div>
         </div>
 
@@ -107,4 +118,6 @@ const mapStateToProps = state => ({
   report: getReport(state),
 });
 
-export default connect(mapStateToProps)(FightSelecter);
+export default connect(mapStateToProps, {
+  fetchReport,
+})(FightSelecter);
