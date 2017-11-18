@@ -61,9 +61,9 @@ class App extends Component {
     combatants: PropTypes.arrayOf(PropTypes.shape({
       sourceID: PropTypes.number.isRequired,
     })),
-    fetchReport: PropTypes.func,
-    fetchCombatants: PropTypes.func,
-    push: PropTypes.func,
+    fetchReport: PropTypes.func.isRequired,
+    fetchCombatants: PropTypes.func.isRequired,
+    push: PropTypes.func.isRequired,
 
     error: PropTypes.shape({
       error: PropTypes.string.isRequired,
@@ -98,40 +98,18 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      selectedSpec: null,
       progress: 0,
       dataVersion: 0,
       bossId: null,
       config: null,
     };
 
-    this.handleReportSelecterSubmit = this.handleReportSelecterSubmit.bind(this);
     this.handleRefresh = this.handleRefresh.bind(this);
   }
   getChildContext() {
     return {
       config: this.state.config,
     };
-  }
-
-  handleReportSelecterSubmit(reportInfo) {
-    console.log('Selected report:', reportInfo['code']);
-    console.log('Selected fight:', reportInfo['fight']);
-    console.log('Selected player:', reportInfo['player']);
-
-    if (reportInfo['code']) {
-      let constructedUrl = `report/${reportInfo['code']}`;
-      
-      if (reportInfo['fight']) {
-        constructedUrl += `/${reportInfo['fight']}`;
-        
-        if (reportInfo['player']) {
-          constructedUrl += `/${reportInfo['player']}`;
-        }
-      }
-
-      this.props.push(constructedUrl);
-    }
   }
 
   handleRefresh() {
@@ -454,7 +432,7 @@ class App extends Component {
             Analyze your performance
           </div>
           {!hasReport && (
-            <ReportSelecter onSubmit={this.handleReportSelecterSubmit} />
+            <ReportSelecter />
           )}
         </header>
         <main className="container">
