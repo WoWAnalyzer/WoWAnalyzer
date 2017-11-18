@@ -130,7 +130,8 @@ class CastEfficiency extends Analyzer {
         const averageIssueCastEfficiency = ability.averageIssueCastEfficiency || DEFAULT_AVERAGE_SUGGEST;
         const majorIssueCastEfficiency = ability.majorIssueCastEfficiency || DEFAULT_MAJOR_SUGGEST;
 
-        const canBeImproved = castEfficiency !== null && castEfficiency < recommendedCastEfficiency && casts < maxCasts;
+        const gotMaxCasts = (casts === maxCasts);
+        const canBeImproved = castEfficiency !== null && castEfficiency < recommendedCastEfficiency && !gotMaxCasts;
 
         return {
           ability,
@@ -142,6 +143,7 @@ class CastEfficiency extends Analyzer {
           recommendedCastEfficiency,
           averageIssueCastEfficiency,
           majorIssueCastEfficiency,
+          gotMaxCasts,
           canBeImproved,
         };
       })
@@ -151,7 +153,7 @@ class CastEfficiency extends Analyzer {
   suggestions(when) {
     const castEfficiencyInfo = this._generateCastEfficiencyInfo();
     castEfficiencyInfo.forEach(abilityInfo => {
-      if(abilityInfo.ability.noSuggestion || abilityInfo.castEfficiency === null || abilityInfo.casts === abilityInfo.maxCasts) {
+      if(abilityInfo.ability.noSuggestion || abilityInfo.castEfficiency === null || abilityInfo.gotMaxCasts) {
         return;
       }
       const ability = abilityInfo.ability;
