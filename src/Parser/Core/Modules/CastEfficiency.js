@@ -1,6 +1,7 @@
 import React from 'react';
 
 import SpellLink from 'common/SpellLink';
+import Wrapper from 'common/Wrapper';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -28,33 +29,51 @@ class CastEfficiency extends Analyzer {
     abilities: Abilities,
   };
 
+  _getCooldownInfo(spellId) {
+    const history = this.spellHistory.historyBySpellId[spellId];
+    if(!history) {
+      return null;
+    }
+
+    let lastRechargeTimestamp = null;
+    let recharges = 0;
+    const completedRechargeTime = history
+      .filter(event => event.type === 'updatespellusable')
+      .reduce((acc, event) => {
+        if(event.trigger === 'begincooldown') {
+          lastRechargeTimestamp = event.timestamp;
+          return acc;
+        } else if(event.trigger === 'endcooldown') {
+          const rechargingTime = (event.timestamp - lastRechargeTimestamp) || 0;
+          recharges += 1;
+          lastRechargeTimestamp = null;
+          return acc + rechargingTime;
+        // This might cause oddness if we add anything that externally refreshes charges, but so far nothing does
+        } else if(event.trigger === 'restorecharge') {
+          const rechargingTime = (event.timestamp - lastRechargeTimestamp) || 0;
+          recharges += 1;
+          lastRechargeTimestamp = event.timestamp;
+          return acc + rechargingTime;
+        } else {
+          return acc;
+        }
+      }, 0);
+    const endingRechargeTime = (!lastRechargeTimestamp) ? 0 : this.owner.currentTimestamp - lastRechargeTimestamp;
+
+    return {
+      completedRechargeTime,
+      endingRechargeTime,
+      recharges,
+    };
+  }
+
   /*
    * Gets the number of ms the given spell has been on CD since the beginning of the fight.
    * Only works on spells entered into CastEfficiency list.
    */
   _getTimeOnCooldown(spellId) {
-    const history = this.spellHistory.historyBySpellId[spellId];
-    if(!history) {
-      return;
-    }
-
-    let lastBeginTimestamp = null;
-    const nonEndTimeOnCd = history
-        .filter(event => event.type === 'updatespellusable')
-        .reduce((acc, event) => {
-          if(event.trigger === 'begincooldown') {
-            lastBeginTimestamp = event.timestamp;
-            return acc;
-          } else if(event.trigger === 'endcooldown') {
-            const timeOnCd = (event.timestamp - lastBeginTimestamp) || 0;
-            lastBeginTimestamp = null;
-            return acc + timeOnCd;
-          } else {
-            return acc;
-          }
-        }, 0);
-    const endTimeOnCd = (!lastBeginTimestamp) ? 0 : this.owner.currentTimestamp - lastBeginTimestamp;
-    return nonEndTimeOnCd + endTimeOnCd;
+    const cdInfo = this._getCooldownInfo(spellId);
+    return !cdInfo ? null : (cdInfo.completedRechargeTime + cdInfo.endingRechargeTime);
   }
 
   /*
@@ -62,39 +81,8 @@ class CastEfficiency extends Analyzer {
    * Only works on spells entered into CastEfficiency list.
    */
   _getAverageCooldown(spellId) {
-    const history = this.spellHistory.historyBySpellId[spellId];
-    if(!history) {
-      return;
-    }
-
-    let lastStartChargeTimestamp = null;
-    let recharges = 0;
-    const totalRechargingTime = history
-        .filter(event => event.type === 'updatespellusable')
-        .reduce((acc, event) => {
-          if(event.trigger === 'begincooldown') {
-            lastStartChargeTimestamp = event.timestamp;
-            return acc;
-          } else if(event.trigger === 'endcooldown') {
-            const rechargingTime = (event.timestamp - lastStartChargeTimestamp) || 0;
-            recharges += 1;
-            lastStartChargeTimestamp = null;
-            return acc + rechargingTime;
-          // This might cause oddness if we add anything that externally refreshes charges, but so far nothing does
-          } else if(event.trigger === 'restorecharge') {
-            const rechargingTime = (event.timestamp - lastStartChargeTimestamp) || 0;
-            recharges += 1;
-            lastStartChargeTimestamp = event.timestamp;
-            return acc + rechargingTime;
-          } else {
-            return acc;
-          }
-        }, 0);
-    if(recharges === 0) {
-      return null;
-    } else {
-      return totalRechargingTime / recharges;
-    }
+    const cdInfo = this._getCooldownInfo(spellId);
+    return (!cdInfo || cdInfo.recharges === 0) ? null : (cdInfo.completedRechargeTime / cdInfo.recharges);
   }
 
   /*
@@ -179,7 +167,7 @@ class CastEfficiency extends Analyzer {
       const ability = abilityInfo.ability;
       when(abilityInfo.castEfficiency).isLessThan(abilityInfo.recommendedCastEfficiency)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Try to cast <SpellLink id={ability.spell.id} /> more often. {ability.extraSuggestion || ''} <a href="#spell-timeline">View timeline</a>.</span>)
+          return suggest(<Wrapper>Try to cast <SpellLink id={ability.spell.id} /> more often. {ability.extraSuggestion || ''} <a href="#spell-timeline">View timeline</a>.</Wrapper>)
             .icon(ability.spell.icon)
             .actual(`${abilityInfo.casts} out of ${abilityInfo.maxCasts} possible casts; ${formatPercentage(actual)}% cast efficiency`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`)
