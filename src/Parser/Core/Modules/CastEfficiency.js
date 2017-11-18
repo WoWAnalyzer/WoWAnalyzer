@@ -29,6 +29,13 @@ class CastEfficiency extends Analyzer {
     abilities: Abilities,
   };
 
+  /*
+   * Gets info about spell's cooldown behavior. All values are as of the current timestamp.
+   * completedRechargeTime is the total ms of completed cooldowns
+   * endingRechargeTime is the total ms into current cooldown
+   * recharges is the total number of times the spell has recharged (either come off cooldown or gained a charge)
+   * Only works on spells entered into CastEfficiency list.
+   */
   _getCooldownInfo(spellId) {
     const history = this.spellHistory.historyBySpellId[spellId];
     if(!history) {
@@ -68,24 +75,6 @@ class CastEfficiency extends Analyzer {
   }
 
   /*
-   * Gets the number of ms the given spell has been on CD since the beginning of the fight.
-   * Only works on spells entered into CastEfficiency list.
-   */
-  _getTimeOnCooldown(spellId) {
-    const cdInfo = this._getCooldownInfo(spellId);
-    return !cdInfo ? null : (cdInfo.completedRechargeTime + cdInfo.endingRechargeTime);
-  }
-
-  /*
-   * Gets the average number of ms the given spell took to cooldown (or generate a charge)
-   * Only works on spells entered into CastEfficiency list.
-   */
-  _getAverageCooldown(spellId) {
-    const cdInfo = this._getCooldownInfo(spellId);
-    return (!cdInfo || cdInfo.recharges === 0) ? null : (cdInfo.completedRechargeTime / cdInfo.recharges);
-  }
-
-  /*
    * Packs cast efficiency results for use by suggestions / tab
    */
   _generateCastEfficiencyInfo() {
@@ -101,6 +90,7 @@ class CastEfficiency extends Analyzer {
         const cooldown = ability.getCooldown(this.combatants.hastePercentage, this.combatants.selected);
         const cooldownMs = (cooldown === null) ? null : cooldown * 1000;
         const trackedAbility = this.abilityTracker.getAbility(spellId);
+        const cdInfo = this._getCooldownInfo(spellId);
 
         // ability.getCasts is used for special cases that show the wrong number of cast events, like Penance
         // and also for splitting up differently buffed versions of the same spell (this use has nothing to do with CastEfficiency)
@@ -115,7 +105,7 @@ class CastEfficiency extends Analyzer {
         // This same behavior should be managable using SpellUsable's interface, so getMaxCasts is deprecated.
         // Legacy support: if getMaxCasts is defined, cast efficiency will be calculated using casts/rawMaxCasts
         let rawMaxCasts;
-        const averageCooldown = this._getAverageCooldown(spellId);
+        const averageCooldown = (!cdInfo || cdInfo.recharges === 0) ? null : (cdInfo.completedRechargeTime / cdInfo.recharges);
         if (ability.getMaxCasts) {
           // getMaxCasts expects cooldown in seconds
           rawMaxCasts = ability.getMaxCasts(cooldown, this.owner.fightDuration, this.abilityTracker.getAbility, this.owner);
@@ -132,7 +122,7 @@ class CastEfficiency extends Analyzer {
           castEfficiency = Math.min(1, casts / rawMaxCasts);
         } else {
           // Cast efficiency calculated as the percent of fight time spell was on cooldown
-          const timeOnCd = this._getTimeOnCooldown(spellId);
+          const timeOnCd = !cdInfo ? null : (cdInfo.completedRechargeTime + cdInfo.endingRechargeTime);
           castEfficiency = (timeOnCd / this.owner.fightDuration) || null;
         }
 
