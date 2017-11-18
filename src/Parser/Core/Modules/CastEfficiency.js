@@ -154,7 +154,6 @@ class CastEfficiency extends Analyzer {
 
         const canBeImproved = castEfficiency !== null && castEfficiency < recommendedCastEfficiency && casts < maxCasts;
 
-        // TODO can this structure be cut down? Need to understand cast effic tab better to know for sure...
         return {
           ability,
           cpm,
