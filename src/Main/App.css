@@ -46,7 +46,6 @@ h1 {
   margin-bottom: 1em;
   line-height: 1.1;
   opacity: 0.9;
-  text-transform: capitalize;
   font-variant: small-caps;
   font-weight: 600;
   font-size: 24px;
@@ -171,7 +170,6 @@ hr {
 .panel-heading h2 {
   font-weight: 400;
   opacity: .9;
-  text-transform: capitalize;
   font-variant: small-caps;
   letter-spacing: 0.6px;
   margin: 0;

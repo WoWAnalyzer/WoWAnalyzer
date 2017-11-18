@@ -1,6 +1,12 @@
+import React from 'react';
+
+import SpellIcon from 'common/SpellIcon';
+import SPELLS from 'common/SPELLS';
+import { formatPercentage } from 'common/format';
+
 import Analyzer from 'Parser/Core/Analyzer';
 
-import SPELLS from 'common/SPELLS';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class HighTide extends Analyzer {
   healing = 0;
@@ -39,6 +45,24 @@ class HighTide extends Analyzer {
     // Store the id of the totem we summoned so that we don't include the EST of other rshamans.
     this.activeEST = event.targetID;
   }
+
+  statistic() {
+
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.HIGH_TIDE_TALENT.id} />}
+        value={`${formatPercentage(this.healing)} %`}
+        label={(
+          <dfn data-tip={'The percentage of your healing that is caused by High Tide.'}>
+
+            High Tide healing
+          </dfn>
+        )}
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(70);
+
 }
 
 export default HighTide;
