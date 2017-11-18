@@ -1,6 +1,7 @@
 import React from 'react';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
@@ -17,10 +18,8 @@ const middleware = routerMiddleware(history);
 
 const store = createStore(
   reducers,
-  compose(
-    applyMiddleware(thunk),
-    applyMiddleware(middleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  composeWithDevTools(
+    applyMiddleware(thunk, middleware)
   )
 );
 
