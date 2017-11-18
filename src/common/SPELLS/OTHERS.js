@@ -397,6 +397,11 @@ export default {
     name: 'Symbiote Strike',
     icon: 'inv_leather_raiddruid_m_01belt',
   },
+  ROOTS_OF_SHALADRASSIL_HEAL: {
+    id: 208981,
+    name: 'Roots of Shaladrassil',
+    icon: 'inv_robe_pants_pvpwarlock_c_02',
+  },
 
   // Encounter mechanics
   RECURSIVE_STRIKES_ENEMY: {

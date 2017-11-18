@@ -1,4 +1,8 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
@@ -27,6 +31,16 @@ class Restoration_Shaman_T19_2Set extends Analyzer {
 
     this.healing += calculateEffectiveHealing(event, T19_2SET_HEALING_INCREASE);
   }
+
+  item() {
+    return {
+      id: `spell-${SPELLS.RESTORATION_SHAMAN_T19_2SET_BONUS_BUFF.id}`,
+      icon: <SpellIcon id={SPELLS.RESTORATION_SHAMAN_T19_2SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.RESTORATION_SHAMAN_T19_2SET_BONUS_BUFF.id} />,
+      result: this.owner.formatItemHealingDone(this.healing),
+    };
+  }
+
 }
 
 export default Restoration_Shaman_T19_2Set;
