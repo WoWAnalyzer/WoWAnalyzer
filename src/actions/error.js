@@ -23,6 +23,10 @@ export const API_DOWN = 'API_DOWN';
 export function apiDownError(details) {
   return setError(API_DOWN, details);
 }
+export const UNKNOWN_NETWORK_ISSUE = 'UNKNOWN_NETWORK_ISSUE';
+export function unknownNetworkIssueError(details) {
+  return setError(UNKNOWN_NETWORK_ISSUE, details);
+}
 export const UNKNOWN = 'UNKNOWN';
 export function unknownError(details) {
   return setError(UNKNOWN, details);

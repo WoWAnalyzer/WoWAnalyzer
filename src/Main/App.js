@@ -16,7 +16,7 @@ import { getReportCode, getFightId, getPlayerName } from 'selectors/url/report';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import { getCombatants } from 'selectors/combatants';
-import { clearError, reportNotFoundError, apiDownError, unknownError, API_DOWN, REPORT_NOT_FOUND } from 'actions/error';
+import { clearError, reportNotFoundError, apiDownError, unknownNetworkIssueError, unknownError, API_DOWN, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'actions/error';
 import { getError } from 'selectors/error';
 
 import './App.css';
@@ -73,6 +73,7 @@ class App extends Component {
     reportNotFoundError: PropTypes.func.isRequired,
     apiDownError: PropTypes.func.isRequired,
     unknownError: PropTypes.func.isRequired,
+    unknownNetworkIssueError: PropTypes.func.isRequired,
   };
   static childContextTypes = {
     config: PropTypes.object,
@@ -149,14 +150,16 @@ class App extends Component {
       events = await fetchEvents(report.code, fight.start_time, fight.end_time, player.id);
       this.stopFakeNetworkProgress();
     } catch (err) {
-      fatalError(err);
       this.stopFakeNetworkProgress();
-      if (process.env.NODE_ENV === 'development') {
-        // Something went wrong while fetching the events, this usually doesn't have anything to do with a spec analyzer but is a core issue.
-        throw err;
+      if (err instanceof LogNotFoundError) {
+        this.props.reportNotFoundError();
+      } else if (err instanceof ApiDownError) {
+        this.props.apiDownError();
       } else {
-        alert(`The report could not be parsed because an error occured. Warcraft Logs might be having issues. ${err.message}`);
+        fatalError(err);
+        this.props.unknownNetworkIssueError(err);
       }
+      return;
     }
     try {
       events = parser.normalize(events);
@@ -231,7 +234,18 @@ class App extends Component {
 
   async fetchCombatantsForFight(report, fight) {
     try {
-      return this.props.fetchCombatants(report.code, fight.start_time, fight.end_time);
+      this.props.fetchCombatants(report.code, fight.start_time, fight.end_time)
+        .catch(err => {
+          this.reset();
+          if (err instanceof LogNotFoundError) {
+            this.props.reportNotFoundError();
+          } else if (err instanceof ApiDownError) {
+            this.props.apiDownError();
+          } else {
+            fatalError(err);
+            this.props.unknownNetworkIssueError(err);
+          }
+        });
     } catch (err) {
       fatalError(err);
       // TODO: Redirect to homepage
@@ -273,7 +287,7 @@ class App extends Component {
             this.props.apiDownError();
           } else {
             fatalError(err);
-            this.props.unknownError(err);
+            this.props.unknownNetworkIssueError(err);
           }
         });
     }
@@ -367,6 +381,35 @@ class App extends Component {
           </FullscreenError>
         );
       }
+      if (error.error === UNKNOWN_NETWORK_ISSUE) {
+        return (
+          <FullscreenError
+            error="A network error occured."
+            details="Something went wrong connecting to our servers, please try again."
+            background="https://media.giphy.com/media/m4TbeLYX5MaZy/giphy.gif"
+          >
+            <div>
+              <a className="btn btn-primary" href={window.location.href}>Refresh</a>
+            </div>
+          </FullscreenError>
+        );
+      }
+      return (
+        <FullscreenError
+          error="An unknown error occured."
+          details={error.details.message}
+          background="https://media.giphy.com/media/m4TbeLYX5MaZy/giphy.gif"
+        >
+          <div>
+            <button type="button" className="btn btn-primary" onClick={() => {
+              this.props.clearError();
+              this.props.push(makeAnalyzerUrl());
+            }}>
+              &lt; Back
+            </button>
+          </div>
+        </FullscreenError>
+      );
     }
     if (!this.props.reportCode) {
       return <Home />;
@@ -465,5 +508,6 @@ export default connect(
     reportNotFoundError,
     apiDownError,
     unknownError,
+    unknownNetworkIssueError,
   }
 )(App);
