@@ -272,7 +272,18 @@ class App extends Component {
   }
 
   componentWillMount() {
-    if (this.props.reportCode) {
+    this.fetchReportIfNecessary({});
+  }
+  componentDidUpdate(prevProps, prevState) {
+    ReactTooltip.rebuild();
+
+    this.fetchReportIfNecessary(prevProps);
+    this.fetchCombatantsIfNecessary(prevProps, prevState);
+    this.fetchEventsAndParseIfNecessary(prevProps, prevState);
+    this.updateBossIdIfNecessary(prevProps, prevState);
+  }
+  fetchReportIfNecessary(prevProps) {
+    if (this.props.reportCode && this.props.reportCode !== prevProps.reportCode) {
       this.props.fetchReport(this.props.reportCode)
         .catch(err => {
           if (err instanceof ApiDownError || err instanceof LogNotFoundError) {
@@ -286,19 +297,6 @@ class App extends Component {
             console.error(err);
           }
         });
-    }
-  }
-  componentDidUpdate(prevProps, prevState) {
-    ReactTooltip.rebuild();
-
-    this.fetchReportIfNecessary(prevProps);
-    this.fetchCombatantsIfNecessary(prevProps, prevState);
-    this.fetchEventsAndParseIfNecessary(prevProps, prevState);
-    this.updateBossIdIfNecessary(prevProps, prevState);
-  }
-  fetchReportIfNecessary(prevProps) {
-    if (this.props.reportCode && this.props.reportCode !== prevProps.reportCode) {
-      this.props.fetchReport(this.props.reportCode);
     }
   }
   fetchCombatantsIfNecessary(prevProps, prevState) {
