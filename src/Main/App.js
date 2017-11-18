@@ -6,6 +6,7 @@ import { push as pushAction } from 'react-router-redux';
 
 import { ApiDownError, LogNotFoundError } from 'common/fetchWcl';
 import fetchEvents from 'common/fetchEvents';
+import fatalError from 'common/fatalError';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 
@@ -15,6 +16,8 @@ import { getReportCode, getFightId, getPlayerName } from 'selectors/url/report';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import { getCombatants } from 'selectors/combatants';
+import { clearError, reportNotFoundError, apiDownError, unknownError, API_DOWN, REPORT_NOT_FOUND } from 'actions/error';
+import { getError } from 'selectors/error';
 
 import './App.css';
 
@@ -61,6 +64,15 @@ class App extends Component {
     fetchReport: PropTypes.func,
     fetchCombatants: PropTypes.func,
     push: PropTypes.func,
+
+    error: PropTypes.shape({
+      error: PropTypes.string.isRequired,
+      details: PropTypes.any,
+    }),
+    clearError: PropTypes.func.isRequired,
+    reportNotFoundError: PropTypes.func.isRequired,
+    apiDownError: PropTypes.func.isRequired,
+    unknownError: PropTypes.func.isRequired,
   };
   static childContextTypes = {
     config: PropTypes.object,
@@ -91,7 +103,6 @@ class App extends Component {
       dataVersion: 0,
       bossId: null,
       config: null,
-      fatalError: null,
     };
 
     this.handleReportSelecterSubmit = this.handleReportSelecterSubmit.bind(this);
@@ -166,14 +177,13 @@ class App extends Component {
       events = await fetchEvents(report.code, fight.start_time, fight.end_time, player.id);
       this.stopFakeNetworkProgress();
     } catch (err) {
-      window.Raven && window.Raven.captureException(err); // eslint-disable-line no-undef
+      fatalError(err);
       this.stopFakeNetworkProgress();
       if (process.env.NODE_ENV === 'development') {
         // Something went wrong while fetching the events, this usually doesn't have anything to do with a spec analyzer but is a core issue.
         throw err;
       } else {
         alert(`The report could not be parsed because an error occured. Warcraft Logs might be having issues. ${err.message}`);
-        console.error(err);
       }
     }
     try {
@@ -209,13 +219,12 @@ class App extends Component {
         progress: 1.0,
       });
     } catch (err) {
-      window.Raven && window.Raven.captureException(err);
+      fatalError(err);
       if (process.env.NODE_ENV === 'development') {
         // Something went wrong during the analysis of the log, there's probably an issue in your analyzer or one of its modules.
         throw err;
       } else {
         alert(`The report could not be parsed because an error occured while running the analysis. ${err.message}`);
-        console.error(err);
       }
     }
   }
@@ -252,11 +261,10 @@ class App extends Component {
     try {
       return this.props.fetchCombatants(report.code, fight.start_time, fight.end_time);
     } catch (err) {
-      window.Raven && window.Raven.captureException(err);
+      fatalError(err);
       // TODO: Redirect to homepage
       // TODO: Show proper error page
       alert(err);
-      console.error(err);
       this.reset();
     }
   }
@@ -286,15 +294,14 @@ class App extends Component {
     if (this.props.reportCode && this.props.reportCode !== prevProps.reportCode) {
       this.props.fetchReport(this.props.reportCode)
         .catch(err => {
-          if (err instanceof ApiDownError || err instanceof LogNotFoundError) {
-            this.reset();
-            this.setState({
-              fatalError: err,
-            });
+          this.reset();
+          if (err instanceof LogNotFoundError) {
+            this.props.reportNotFoundError();
+          } else if (err instanceof ApiDownError) {
+            this.props.apiDownError();
           } else {
-            Raven && Raven.captureException(err); // eslint-disable-line no-undef
-            alert(`I'm so terribly sorry, an error occured. Try again later, in an updated Google Chrome and make sure that Warcraft Logs is up and functioning properly. Please let us know on Discord if the problem persists.\n\n${err}`);
-            console.error(err);
+            fatalError(err);
+            this.props.unknownError(err);
           }
         });
     }
@@ -347,10 +354,10 @@ class App extends Component {
 
   renderContent() {
     const { parser } = this.state;
-    const { report } = this.props;
+    const { report, error } = this.props;
 
-    if (this.state.fatalError) {
-      if (this.state.fatalError instanceof ApiDownError) {
+    if (error) {
+      if (error.error === API_DOWN) {
         return (
           <FullscreenError
             error="The API is down."
@@ -367,10 +374,10 @@ class App extends Component {
           </FullscreenError>
         );
       }
-      if (this.state.fatalError instanceof LogNotFoundError) {
+      if (error.error === REPORT_NOT_FOUND) {
         return (
           <FullscreenError
-            error="Log not found."
+            error="Report not found."
             details="Either you entered a wrong report, or it is private."
             background="https://media.giphy.com/media/DAgxA6qRfa5La/giphy.gif"
           >
@@ -379,7 +386,7 @@ class App extends Component {
             </div>
             <div>
               <button type="button" className="btn btn-primary" onClick={() => {
-                this.setState({ fatalError: null });
+                this.props.clearError();
                 this.props.push(makeAnalyzerUrl());
               }}>
                 &lt; Back
@@ -432,7 +439,7 @@ class App extends Component {
     const { parser, progress } = this.state;
 
     // Treat `fatalError` like it's a report so the header doesn't pop over the shown error
-    const hasReport = reportCode || this.state.fatalError;
+    const hasReport = reportCode || this.props.error;
 
     return (
       <div className={`app ${hasReport ? 'has-report' : ''}`}>
@@ -446,7 +453,7 @@ class App extends Component {
           <div className="container hidden-md hidden-sm hidden-xs">
             Analyze your performance
           </div>
-          {!reportCode && (
+          {!hasReport && (
             <ReportSelecter onSubmit={this.handleReportSelecterSubmit} />
           )}
         </header>
@@ -471,6 +478,8 @@ const mapStateToProps = state => {
     report: getReport(state),
     fight: getFightById(state, fightId),
     combatants: getCombatants(state),
+
+    error: getError(state),
   });
 };
 
@@ -480,5 +489,9 @@ export default connect(
     fetchReport: fetchReportAction,
     fetchCombatants: fetchCombatantsAction,
     push: pushAction,
+    clearError,
+    reportNotFoundError,
+    apiDownError,
+    unknownError,
   }
 )(App);
