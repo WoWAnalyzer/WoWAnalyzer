@@ -16,9 +16,9 @@ import AbilityTracker from './AbilityTracker';
 import Combatants from './Combatants';
 import Haste from './Haste';
 
-const DEFAULT_MINOR_SUGGEST = 0.80;
-const DEFAULT_AVERAGE_SUGGEST = 0.75;
-const DEFAULT_MAJOR_SUGGEST = 0.65;
+const DEFAULT_RECOMMENDED = 0.80;
+const DEFAULT_AVERAGE_DOWNSTEP = 0.05;
+const DEFAULT_MAJOR_DOWNSTEP = 0.15;
 
 class CastEfficiency extends Analyzer {
   static dependencies = {
@@ -126,9 +126,9 @@ class CastEfficiency extends Analyzer {
           castEfficiency = (timeOnCd / this.owner.fightDuration) || null;
         }
 
-        const recommendedCastEfficiency = ability.recommendedCastEfficiency || DEFAULT_MINOR_SUGGEST;
-        const averageIssueCastEfficiency = ability.averageIssueCastEfficiency || DEFAULT_AVERAGE_SUGGEST;
-        const majorIssueCastEfficiency = ability.majorIssueCastEfficiency || DEFAULT_MAJOR_SUGGEST;
+        const recommendedCastEfficiency = ability.recommendedCastEfficiency || DEFAULT_RECOMMENDED;
+        const averageIssueCastEfficiency = ability.averageIssueCastEfficiency || (recommendedCastEfficiency - DEFAULT_AVERAGE_DOWNSTEP);
+        const majorIssueCastEfficiency = ability.majorIssueCastEfficiency || (recommendedCastEfficiency - DEFAULT_MAJOR_DOWNSTEP);
 
         const gotMaxCasts = (casts === maxCasts);
         const canBeImproved = castEfficiency !== null && castEfficiency < recommendedCastEfficiency && !gotMaxCasts;
