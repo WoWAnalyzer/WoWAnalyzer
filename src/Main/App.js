@@ -16,7 +16,7 @@ import { getReportCode, getFightId, getPlayerName } from 'selectors/url/report';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import { getCombatants } from 'selectors/combatants';
-import { clearError, reportNotFoundError, apiDownError, unknownNetworkIssueError, unknownError, API_DOWN, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'actions/error';
+import { clearError, reportNotFoundError, apiDownError, unknownNetworkIssueError, API_DOWN, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'actions/error';
 import { getError } from 'selectors/error';
 
 import './App.css';
@@ -72,7 +72,6 @@ class App extends Component {
     clearError: PropTypes.func.isRequired,
     reportNotFoundError: PropTypes.func.isRequired,
     apiDownError: PropTypes.func.isRequired,
-    unknownError: PropTypes.func.isRequired,
     unknownNetworkIssueError: PropTypes.func.isRequired,
   };
   static childContextTypes = {
@@ -507,7 +506,6 @@ export default connect(
     clearError,
     reportNotFoundError,
     apiDownError,
-    unknownError,
     unknownNetworkIssueError,
   }
 )(App);
