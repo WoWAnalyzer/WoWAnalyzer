@@ -55,11 +55,11 @@ class SpellTimeline extends React.PureComponent {
 
   get spells() {
     const { spellId, historyBySpellId, castEfficiency } = this.props;
-    const spellIds = spellId ? [spellId] : Object.keys(historyBySpellId);
+    const spellIds = spellId ? [spellId] : Object.keys(historyBySpellId).map(Number);
 
     return spellIds.sort((a, b) => {
-      const aCooldown = castEfficiency.getExpectedCooldownDuration(Number(a));
-      const bCooldown = castEfficiency.getExpectedCooldownDuration(Number(b));
+      const aCooldown = castEfficiency.getExpectedCooldownDuration(a);
+      const bCooldown = castEfficiency.getExpectedCooldownDuration(b);
 
       return aCooldown - bCooldown;
     });
@@ -88,12 +88,12 @@ class SpellTimeline extends React.PureComponent {
           <div className="lane ruler-lane">
             <div className="btn-group">
               {[1, 2, 3, 5].map(zoom => (
-                <button className={`btn btn-default btn-xs ${zoom === this.state.zoom ? 'active' : ''}`} onClick={() => this.setState({ zoom })}>{zoom}x</button>
+                <button key={zoom} className={`btn btn-default btn-xs ${zoom === this.state.zoom ? 'active' : ''}`} onClick={() => this.setState({ zoom })}>{zoom}x</button>
               ))}
             </div>
           </div>
           {this.spells.map(spellId => (
-            <div className="lane">
+            <div className="lane" key={spellId}>
               <SpellIcon id={spellId} noLink /> <SpellLink id={spellId} />
             </div>
           ))}
