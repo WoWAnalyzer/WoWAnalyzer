@@ -2,10 +2,17 @@ import React from 'react';
 
 import Wrapper from 'common/Wrapper';
 import ZerotorescueAvatar from 'Parser/Paladin/Holy/Images/zerotorescue-avatar.png';
+import AnomolyAvatar from 'Parser/Monk/Mistweaver/Images/anomoly-avatar.jpg';
 
 const Zerotorescue = ['Zerotorescue', ZerotorescueAvatar];
+const Anomoly = ['anomoly', AnomolyAvatar];
 
 export default [
+  {
+    date: new Date('2017-11-16'),
+    changes: <span>Refactored Restoration Shaman spec to be in line with current spec module implementations.</span>,
+    contributors: [Anomoly],
+  },
   {
     date: new Date('3000-01-01'),
     changes: <span style={{ color: 'red' }}>Changed completion status to <i>Not actively maintained</i> as this hasn't been updated in a long time. Any help is welcome to continue support for this spec, see GitHub for more information.</span>,

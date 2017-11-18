@@ -1,13 +1,14 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
-
 
 const HTT_BASE_DURATION = 10000;
 
 class Tidecallers extends Analyzer {
-  healing = 0;
   httHealing = 0;
   hstHealing = 0;
 
@@ -67,6 +68,22 @@ class Tidecallers extends Analyzer {
       this.currentTick = null;
       this.lastTick = null;
     }
+  }
+
+  item() {
+    const healing = this.httHealing + this.hstHealing;
+
+    const tidecallersHSTPercentage = this.owner.getPercentageOfTotalHealingDone(this.hstHealing);
+    const tidecallersHTTPercentage = this.owner.getPercentageOfTotalHealingDone(this.httHealing);
+
+    return {
+      item: ITEMS.PRAETORIANS_TIDECALLERS,
+      result: (
+        <dfn data-tip={`The healing gained from the extra duration that Praetorian's Tidecallers give to Healing Tide Totem and Healing Stream Totem. The increased duration on Healing Stream Totem accounts for ${formatPercentage(tidecallersHSTPercentage)}% healing, the increased duration on Healing Tide Totem for ${formatPercentage(tidecallersHTTPercentage)}% healing.`}>
+          {this.owner.formatItemHealingDone(healing)}
+        </dfn>
+      ),
+    };
   }
 }
 
