@@ -13,6 +13,7 @@ class UnendingThirstTracker extends Analyzer {
   };
 
   RecentDSCounter = 0;
+  DScost=0;
 
   on_initialized() {
   }
@@ -24,6 +25,8 @@ class UnendingThirstTracker extends Analyzer {
     }
     if (this.combatants.selected.hasBuff(SPELLS.BLOOD_SHIELD.id, event.timestamp)) {
       this.RecentDSCounter += 1;
+      this.DScost=event.classResources[0].cost;
+      console.log('DScost is ', this.DScost);
     }
   }
 
