@@ -1,4 +1,7 @@
 import SPELLS from 'common/SPELLS';
+import React from 'react';
+import SpellLink from 'common/SpellLink';
+import Wrapper from 'common/Wrapper';
 
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
@@ -107,45 +110,63 @@ class Abilities extends CoreAbilities {
       noCanBeImproved: true,
     },
     {
-      spell: SPELLS.GRIMOIRE_IMP,
+      spell: SPELLS.GRIMOIRE_OF_SERVICE_TALENT,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      additionalSpells: [
+        SPELLS.GRIMOIRE_IMP,
+        SPELLS.GRIMOIRE_SUCCUBUS,
+        SPELLS.GRIMOIRE_FELGUARD,
+        SPELLS.GRIMOIRE_FELHUNTER,
+        SPELLS.GRIMOIRE_VOIDWALKER,
+      ],
       getCooldown: haste => 90,
       isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
-      noSuggestion: true,
-      noCanBeImproved: true,
+      extraSuggestion: <Wrapper><SpellLink id={SPELLS.GRIMOIRE_FELGUARD.id} /> is the preferred version to use. </Wrapper>,
+      recommendedCastEfficiency: 0.90,
+      averageIssueCastEfficiency: 0.80,
+      majorIssueCastEfficiency: 0.70,
     },
-    {
-      spell: SPELLS.GRIMOIRE_VOIDWALKER,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 90,
-      isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-    {
-      spell: SPELLS.GRIMOIRE_FELHUNTER,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 90,
-      isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-    {
-      spell: SPELLS.GRIMOIRE_SUCCUBUS,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 90,
-      isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-    {
-      spell: SPELLS.GRIMOIRE_FELGUARD,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 90,
-      isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
+
+    // {
+    //   spell: SPELLS.GRIMOIRE_IMP,
+    //   category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+    //   getCooldown: haste => 90,
+    //   isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
+    //   noSuggestion: true,
+    //   noCanBeImproved: true,
+    // },
+    // {
+    //   spell: SPELLS.GRIMOIRE_VOIDWALKER,
+    //   category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+    //   getCooldown: haste => 90,
+    //   isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
+    //   noSuggestion: true,
+    //   noCanBeImproved: true,
+    // },
+    // {
+    //   spell: SPELLS.GRIMOIRE_FELHUNTER,
+    //   category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+    //   getCooldown: haste => 90,
+    //   isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
+    //   noSuggestion: true,
+    //   noCanBeImproved: true,
+    // },
+    // {
+    //   spell: SPELLS.GRIMOIRE_SUCCUBUS,
+    //   category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+    //   getCooldown: haste => 90,
+    //   isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
+    //   noSuggestion: true,
+    //   noCanBeImproved: true,
+    // },
+    // {
+    //   spell: SPELLS.GRIMOIRE_FELGUARD,
+    //   category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+    //   getCooldown: haste => 90,
+    //   isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
+    //   noSuggestion: true,
+    //   noCanBeImproved: true,
+    // },
 
     {
       spell: SPELLS.UNENDING_RESOLVE,

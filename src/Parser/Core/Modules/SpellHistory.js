@@ -27,11 +27,13 @@ class SpellHistory extends Analyzer {
       // We're only interested in abilities in Abilities since that's the only place we'll show the spell history, besides we only really want to track *casts* and the best source of info for that is Abilities.
       return null;
     }
-    if (!this.historyBySpellId[spellId]) {
-      this.historyBySpellId[spellId] = [];
+    const mainSpellId = ability.spell.id;
+    if (!this.historyBySpellId[mainSpellId]) {
+      this.historyBySpellId[mainSpellId] = [];
     }
-    return this.historyBySpellId[spellId];
+    return this.historyBySpellId[mainSpellId];
   }
+
   _append(spellId, event) {
     const history = this._getAbility(spellId);
     if (history) {
@@ -48,8 +50,6 @@ class SpellHistory extends Analyzer {
     this._append(spellId, event);
   }
   on_toPlayer_applybuff(event) {
-    // TODO: Add a translatation table for buffId -> castId
-
     const spellId = event.ability.guid;
     this._append(spellId, event);
   }

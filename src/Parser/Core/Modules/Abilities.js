@@ -29,6 +29,7 @@ class Abilities extends Analyzer {
      * Available properties:
      *
      * required spell {object} The spell definition with { id, name and icon }
+     * optional additionalSpells {array} An array of additional spell definitions with { id, name and icon }. Can be used if an ability has multiple cast IDs, or to associate a buff ID with a cast ID. The 'spell' field is still required even if you define this, as the spell field is used for the user facing display of the ability.
      * optional name {string} the name to use if it is different from the name provided by the `spell` object.
      * required category {string} The name of the category to place this spell in, you should usually use the SPELL_CATEGORIES enum for these values.
      * required getCooldown {func} A function to calculate the cooldown of a spell. Parameters provided: `hastePercentage`, `selectedCombatant`
@@ -121,7 +122,7 @@ class Abilities extends Analyzer {
    */
   getAbility(spellId) {
     return this.constructor.ABILITIES.find(ability => {
-      if (ability.spell.id === spellId) {
+      if (ability.spell.id === spellId || (ability.additionalSpells && ability.additionalSpells.find(as => as.id === spellId))) {
         return !ability.isActive || ability.isActive(this.combatants.selected);
       }
       return false;
