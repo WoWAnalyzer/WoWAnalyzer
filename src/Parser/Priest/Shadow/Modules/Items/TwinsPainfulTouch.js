@@ -24,7 +24,7 @@ class TwinsPainfulTouch extends Analyzer {
   };
 
   totalApplied = 0;
-  mindflayTimestamps = [];
+  previousMindflayCast = null;
 
   on_initialized() {
     this.active = this.combatants.selected.hasFinger(ITEMS.THE_TWINS_PAINFUL_TOUCH.id);
@@ -33,13 +33,17 @@ class TwinsPainfulTouch extends Analyzer {
   on_byPlayer_applydebuff(event){
     const spellID = event.ability.guid;
     if(spellID === SPELLS.MIND_FLAY.id && this.combatants.selected.hasBuff(SPELLS.THE_TWINS_PAINFUL_TOUCH.id)){
-      this.mindflayTimestamps.push(event.timestamp);
+      this.previousMindflayCast = event.timestamp;
       return;
     }
 
     if(spellID === SPELLS.VAMPIRIC_TOUCH.id || spellID === SPELLS.SHADOW_WORD_PAIN.id){
       // needs a latency buffer (and due to this, we cant check if combatant has the buff either)
-      if(this.mindflayTimestamps.find(mindflayTimestamp => event.timestamp >= mindflayTimestamp && event.timestamp < (mindflayTimestamp + LATENCY_BUFFER))){
+      if(
+          this.previousMindflayCast &&
+          event.timestamp >= this.previousMindflayCast &&
+          event.timestamp < (this.previousMindflayCast + LATENCY_BUFFER)
+        ){
         this.totalApplied += 1;
       }
     }
