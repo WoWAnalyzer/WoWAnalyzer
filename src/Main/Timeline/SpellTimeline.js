@@ -78,6 +78,7 @@ class SpellTimeline extends React.PureComponent {
     // 36 for the ruler
     // 28 for each spell
     const totalHeight = 9 + 4 + 36 + 28 * this.spells.length;
+
     const totalWidth = seconds * secondWidth;
 
     return (
