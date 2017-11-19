@@ -52,16 +52,12 @@ class ShadowDance extends Analyzer {
   }
 
   statistic() {
-    const shadowBladesUptime = this.combatants.selected.getBuffUptime(SPELLS.SHADOW_BLADES.id) / this.owner.fightDuration;
+    const shadowDanceUptime = this.combatants.selected.getBuffUptime(SPELLS.SHADOW_DANCE_BUFF.id) / this.owner.fightDuration;
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.SHADOW_BLADES.id} />}
-        value={`${formatPercentage(shadowBladesUptime)} %`}
-        label={(
-          <dfn data-tip={'Shadow Blades up time'}>
-            Shadow Blades up time
-          </dfn>
-        )}
+        icon={<SpellIcon id={SPELLS.SHADOW_DANCE_BUFF.id} />}
+        value={`${formatPercentage(shadowDanceUptime)} %`}
+        label="Shadow Dance uptime"
       />
     );
   }

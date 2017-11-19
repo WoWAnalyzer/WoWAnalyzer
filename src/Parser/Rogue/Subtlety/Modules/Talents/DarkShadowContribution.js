@@ -27,11 +27,8 @@ class DarkShadowContribution extends DarkShadow {
         <StatisticBox
           icon={<SpellIcon id={SPELLS.DARK_SHADOW_TALENT.id} />}
           value={`${formatNumber(danceDamage / this.owner.fightDuration * 1000)} DPS`}
-          label={(
-            <dfn data-tip={`Total damage increase is ${formatNumber(danceDamage)} in ${this.shadowDance.totalShadowDanceCast} Shadow Dance casts. Dark Shadow increase 30% damage during Shadow Dance.`}>
-              Increased from Dark Shadow talent
-            </dfn>
-          )}
+          label="Increased from Dark Shadow talent"
+          tooltip={`Total damage increase is ${formatNumber(danceDamage)} in ${this.shadowDance.totalShadowDanceCast} Shadow Dance casts.`}
           />
     );
   }

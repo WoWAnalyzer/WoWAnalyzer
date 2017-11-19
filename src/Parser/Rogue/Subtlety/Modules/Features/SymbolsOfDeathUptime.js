@@ -22,11 +22,7 @@ class SymbolsOfDeathUptime extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SYMBOLS_OF_DEATH.id} />}
         value={`${formatPercentage(symbolsOfDeathUptime)} %`}
-        label={(
-          <dfn data-tip={'Symbols of Death uptime'}>
-          Symbols of Death uptime
-          </dfn>
-        )}
+        label="Symbols of Death uptime"
       />
     );
   }
