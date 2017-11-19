@@ -22,7 +22,7 @@ class Abilities extends CoreAbilities {
     },
     {
       spell: SPELLS.SYMBOLS_OF_DEATH,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => (30 - (combatant.hasBuff(SPELLS.SUB_ROGUE_T20_2SET_BONUS.id) ? 5 : 0)), 
       recommendedCastEfficiency: 0.95,
       importance: ISSUE_IMPORTANCE.MAJOR,
@@ -30,7 +30,7 @@ class Abilities extends CoreAbilities {
     },
     {
       spell: SPELLS.SHADOW_DANCE,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 60, // TODO: Reduced by a passive.
       charges: 2,
       recommendedCastEfficiency: 1,
@@ -40,19 +40,18 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60,
       recommendedCastEfficiency: 0.9,
-    },    
+    },   
+    //No recomendations 
     {      
-      spell: SPELLS.DEATH_FROM_ABOVE_TALENT, //Without 2pT20
+      spell: SPELLS.DEATH_FROM_ABOVE_TALENT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      //Real cooldown is 20 seconds. But this sohuld be used 
-      getCooldown: (haste, combatant) => (30 - (combatant.hasBuff(SPELLS.SUB_ROGUE_T20_2SET_BONUS.id) ? 5 : 0)), 
-      isActive: combatant => combatant.hasTalent(SPELLS.DEATH_FROM_ABOVE_TALENT.id),
-      //recommendedCastEffitiency should be lower if we used real cooldown 
-      recommendedCastEfficiency: 0.95,
-      extraSuggestion: "Should be used with every Symbols of Death", 
+      // Real cooldown is 20 seconds. But this should be used only with Symbols. 
+      // TODO: Track sepratly!
+      getCooldown: haste => 20,
+      noSuggestion: true,
+      noCanBeImproved: true,
     },
-
-    //Non-CDs    
+    
     {
       spell: SPELLS.NIGHTBLADE,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -82,7 +81,7 @@ class Abilities extends CoreAbilities {
     }, 
     {
       spell: SPELLS.SHURIKEN_STORM,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
       getCooldown: haste => null,
     },
     {
