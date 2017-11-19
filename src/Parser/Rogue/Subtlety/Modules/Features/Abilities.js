@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
+import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 /* eslint-disable no-unused-vars */
 
@@ -10,7 +11,8 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.VANISH,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
-      recommendedCastEfficiency: 1.0,
+      //Vanish is often delayed.
+      recommendedCastEfficiency: 0.90,
     },
     {
       spell: SPELLS.SHADOW_BLADES, // TODO: Reduced by Convergence of Fates
@@ -21,15 +23,42 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.SYMBOLS_OF_DEATH,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 30, // TODO: Add T20 4Sets, reduce cd by 5 sec.
+      getCooldown: (haste, combatant) => (30 - (combatant.hasBuff(SPELLS.SUB_ROGUE_T20_2SET_BONUS.id) ? 5 : 0)), 
       recommendedCastEfficiency: 0.95,
+      importance: ISSUE_IMPORTANCE.MAJOR,
+      extraSuggestion: "This is the most important rotational ability, try to allways use it on cooldown.",      
     },
     {
       spell: SPELLS.SHADOW_DANCE,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60, // TODO: Reduced by a passive.
       charges: 2,
-      recommendedCastEfficiency: 0.95,
+      recommendedCastEfficiency: 1,
+    },
+    {
+      spell: SPELLS.GOREMAWS_BITE,
+      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 60,
+      recommendedCastEfficiency: 0.9,
+    },    
+    {      
+      spell: SPELLS.DEATH_FROM_ABOVE_TALENT, //Without 2pT20
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 20, 
+      isActive: combatant => combatant.hasTalent(SPELLS.DEATH_FROM_ABOVE_TALENT.id) && !combatant.hasBuff(SPELLS.SUB_ROGUE_T20_2SET_BONUS.id),
+      //Expected low efficiency, due to delaying for Symbols of Death
+      recommendedCastEfficiency: 0.70,
+      extraSuggestion: "Should be used with every Symbols of Death", 
+    },    
+    {
+      spell: SPELLS.DEATH_FROM_ABOVE_TALENT, //With 2pT20
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 20, 
+      isActive: combatant => combatant.hasTalent(SPELLS.DEATH_FROM_ABOVE_TALENT.id)&& combatant.hasBuff(SPELLS.SUB_ROGUE_T20_2SET_BONUS.id),
+      //Expected low efficiency, due to delaying for Symbols of Death
+      //Higher then without 2pT20 due to reduced Symbols CD
+      recommendedCastEfficiency: 0.80,
+      extraSuggestion: "Should be used with every Symbols of Death", 
     },
   ];
 }

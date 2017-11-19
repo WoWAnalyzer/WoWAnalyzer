@@ -129,5 +129,16 @@ export default {
     id: 185422,
     name: 'Shadow Dance',
     icon: 'ability_rogue_shadowdance',
+  }, 
+  // Sets  
+  SUB_ROGUE_T20_2SET_BONUS: {
+    id: 242279,
+    name: 'T20 2 set bonus',
+    icon: 'rogue_subtlety',
+  },
+  SUB_ROGUE_T20_4SET_BONUS: {
+    id: 242280,
+    name: 'T20 4 set bonus',
+    icon: 'rogue_subtlety',
   },
 };
