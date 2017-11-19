@@ -4,7 +4,7 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
 
-import CastEfficiency from './Modules/Features/CastEfficiency';
+import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import BloodPlagueUptime from './Modules/Features/BloodPlagueUptime';
@@ -30,7 +30,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // DeathKnight Core
 
     // Features
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     boneShieldUptime: BoneShieldUptime,

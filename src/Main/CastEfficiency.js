@@ -16,9 +16,10 @@ const CastEfficiency = ({ categories, abilities }) => {
           .map(key => (
             <tbody key={key}>
               <tr>
-                <th>{categories[key]}</th>
+                <th><b>{categories[key]}</b></th>
                 <th className="text-center"><dfn data-tip="Casts Per Minute">CPM</dfn></th>
-                <th colSpan="3"><dfn data-tip="The max possible casts is a super simplified calculation based on the Haste you get from your gear alone. Any Haste increasers such as from talents, Bloodlust and boss abilities are not taken into consideration, so this is <b>always</b> lower than actually possible for abilities affected by Haste.">Cast efficiency</dfn></th>
+                <th className="text-right"><dfn data-tip="Maximum possible casts are based on the ability's cooldown and the fight duration. For abilities that can have their cooldowns dynamically reduced or reset, it's based on the average actual time it took the ability to cooldown over the course of this encounter.">Cast efficiency</dfn></th>
+                <th className="text-center"><dfn data-tip="The percentage of time the spell was kept on cooldown. Spells with multiple charges count as on cooldown as long as you have fewer than maximum charges. For spells with long cooldowns, it's possible to have well below 100% on cooldown and still achieve maximum casts.">Time on Cooldown</dfn></th>
                 <th />
               </tr>
               {abilities
@@ -35,7 +36,7 @@ const CastEfficiency = ({ categories, abilities }) => {
                       <td className="text-center" style={{ minWidth: 80 }}>
                         {cpm.toFixed(2)}
                       </td>
-                      <td className="text-right" style={{ minWidth: 100 }}>
+                      <td className="text-right" style={{ minWidth: 110 }}>
                         {casts}{maxCasts === Infinity ? '' : `/${Math.floor(maxCasts)}`} casts
                       </td>
                       <td style={{ width: '20%' }}>
@@ -48,7 +49,7 @@ const CastEfficiency = ({ categories, abilities }) => {
                           </div>
                         )}
                       </td>
-                      <td className="text-right" style={{ minWidth: 50, paddingRight: 5 }}>
+                      <td className="text-left" style={{ minWidth: 50, paddingRight: 5 }}>
                         {maxCpm !== null ? `${(castEfficiency * 100).toFixed(2)}%` : ''}
                       </td>
                       <td style={{ width: '25%', color: 'orange' }}>

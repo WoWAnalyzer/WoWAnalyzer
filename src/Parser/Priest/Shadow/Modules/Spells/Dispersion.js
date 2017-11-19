@@ -6,7 +6,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SpellLink from 'common/SpellLink';
 
 import { formatPercentage } from 'common/format';
-import { calculateMaxCasts } from 'Parser/Core/getCastEfficiency';
+import calculateMaxCasts from 'Parser/Core/calculateMaxCasts';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const DISPERSION_BASE_CD = 90;

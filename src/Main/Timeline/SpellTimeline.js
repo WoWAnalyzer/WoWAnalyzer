@@ -15,7 +15,7 @@ import './SpellTimeline.css';
 class SpellTimeline extends React.PureComponent {
   static propTypes = {
     historyBySpellId: PropTypes.object.isRequired,
-    castEfficiency: PropTypes.object.isRequired,
+    abilities: PropTypes.object.isRequired,
     spellId: PropTypes.number,
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
@@ -54,13 +54,12 @@ class SpellTimeline extends React.PureComponent {
   }
 
   get spells() {
-    const { spellId, historyBySpellId, castEfficiency } = this.props;
+    const { spellId, historyBySpellId, abilities } = this.props;
     const spellIds = spellId ? [spellId] : Object.keys(historyBySpellId).map(Number);
 
     return spellIds.sort((a, b) => {
-      const aCooldown = castEfficiency.getExpectedCooldownDuration(a);
-      const bCooldown = castEfficiency.getExpectedCooldownDuration(b);
-
+      const aCooldown = abilities.getExpectedCooldownDuration(Number(a));
+      const bCooldown = abilities.getExpectedCooldownDuration(Number(b));
       return aCooldown - bCooldown;
     });
   }

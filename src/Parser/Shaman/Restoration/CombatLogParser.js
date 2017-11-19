@@ -19,7 +19,8 @@ import ShamanAbilityTracker from './Modules/ShamanCore/ShamanAbilityTracker';
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
-import CastEfficiency from './Modules/Features/CastEfficiency';
+import Abilities from './Modules/Features/Abilities';
+
 import AncestralVigor from './Modules/Features/AncestralVigor';
 import TidalWaves from './Modules/Features/TidalWaves';
 import CastBehavior from './Modules/Features/CastBehavior'; 
@@ -57,7 +58,7 @@ class CombatLogParser extends CoreCombatLogParser {
     highTide: HighTide,
     cooldownThroughputTracker: CooldownThroughputTracker,
     ancestralVigor: AncestralVigor,
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
     tidalWaves: TidalWaves,
     castBehavior: CastBehavior,
 
