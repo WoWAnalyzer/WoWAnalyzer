@@ -161,7 +161,7 @@ class CastEfficiency extends Analyzer {
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<Wrapper>Try to cast <SpellLink id={ability.spell.id} /> more often. {ability.extraSuggestion || ''} <a href="#spell-timeline">View timeline</a>.</Wrapper>)
             .icon(ability.spell.icon)
-            .actual(`You kept it on cooldown ${formatPercentage(actual, 1)}% of the time (${abilityInfo.casts} out of ${abilityInfo.maxCasts} possible casts).`)
+            .actual(`${abilityInfo.casts} out of ${abilityInfo.maxCasts} possible casts. You kept it on cooldown ${formatPercentage(actual, 1)}% of the time.`)
             .recommended(`>${formatPercentage(recommended, 1)}% is recommended`)
             .details(() => (
               <div style={{ margin: '0 -22px' }}>
