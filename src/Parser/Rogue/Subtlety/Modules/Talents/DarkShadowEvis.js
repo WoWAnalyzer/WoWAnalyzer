@@ -5,7 +5,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import ShadowDance from './../Features/ShadowDance';
 import DarkShadow from './DarkShadow';
@@ -25,16 +24,13 @@ class DarkShadowEvis extends DarkShadow {
   }
 
   statistic() {    
-    const danceEvis = this.shadowDance.totalEviscerateDamageInShadowDance / (this.shadowDance.totalShadowDanceCast * 2);
+    const danceEvis = this.shadowDance.totalEviscerateDamageInShadowDance / this.shadowDance.totalShadowDanceCast;
     return (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.EVISCERATE.id} />}
-          value={`${formatPercentage(danceEvis)} %`}
-          label={(
-            <dfn data-tip={`Your Eviscerate casts in Shadow Dance / (Shadow Dance casts * 2). Your actual / max possible casts is ${danceEvis}. This number includes Eviscerates cast from Death from Above. Subtlety rogue should cast as many as possible (usually 2 times) Eviscerates in a Shadow Dance to get benefit from 30% damage increasing of Dark Shadow talent.`}>
-            Actual/Possible Eviscerates in Shadow Dance
-          </dfn>
-          )}
+          value={`${danceEvis.toFixed(2)}`}
+          label="Average Eviscerates in Shadow Dance"
+          tooltip={`Your average Eviscerate casts per Shadow Dance. Your cast ${this.shadowDance.totalEviscerateDamageInShadowDance} Eviscerates in ${this.shadowDance.totalShadowDanceCast} Shadow Dances. This number includes Eviscerates cast from Death from Above. Subtlety rogue should cast as many as possible (usually 2 times) Eviscerates in a Shadow Dance to get benefit from 30% damage increasing of Dark Shadow talent.`}
           />
     );
   }
