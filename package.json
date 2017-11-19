@@ -48,6 +48,7 @@
     "react-chartist": "^0.13.0",
     "react-chartjs-2": "^2.6.4",
     "react-dev-utils": "^4.2.1",
+    "redux-devtools-extension": "^2.13.2",
     "react-dom": "^16.0.0",
     "react-gemini-scrollbar": "^2.3.4",
     "react-masonry-component": "^5.0.7",
@@ -114,8 +115,5 @@
     "presets": [
       "react-app"
     ]
-  },
-  "devDependencies": {
-    "redux-devtools-extension": "^2.13.2"
   }
 }
