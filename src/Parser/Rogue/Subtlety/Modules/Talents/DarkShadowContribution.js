@@ -18,9 +18,6 @@ class DarkShadowContribution extends DarkShadow {
     shadowDance: ShadowDance,
   };
 
-  bonusDmg = 0;
-
-
   statistic() {    
     const danceDamage = this.shadowDance.totalDamageDoneInShadowDance * 0.3 / 1.3;
     return (

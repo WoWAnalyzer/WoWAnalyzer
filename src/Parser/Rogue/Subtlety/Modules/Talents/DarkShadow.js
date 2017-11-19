@@ -12,12 +12,9 @@ class DarkShadow extends Analyzer {
     shadowDance: ShadowDance,
   };
 
-  bonusDmg = 0;
-
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.DARK_SHADOW_TALENT.id);
   }
-
 }
 
 export default DarkShadow;
