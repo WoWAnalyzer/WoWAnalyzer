@@ -80,7 +80,7 @@ export default {
   },
 
   BLOOD_SHIELD: {
-    id: 77513,
+    id: 77535,
     name: 'Blood Shield',
     icon: 'spell_deathknight_deathstrike',
   },
@@ -102,6 +102,10 @@ export default {
     id: 81141,
     name: 'Crimson Scourge',
     icon: 'ability_warrior_bloodnova',
+  },
+  UNENDING_THIRST: {
+    id: 192567,
+    name: 'Unending Thirst',
   },
 
   // CC
@@ -163,7 +167,7 @@ export default {
     id: 196771,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
-  }, 
+  },
   REMORSELESS_WINTER: {
     id: 196770,
     name: 'Remorseless Winter',
@@ -185,7 +189,7 @@ export default {
     id: 59052,
     name: 'Rime',
     icon: 'spell_frost_arcticwinds',
-  },  
+  },
   KILLING_MACHINE: {
     id: 51128,
     name: 'Killing Machine',
@@ -377,7 +381,7 @@ export default {
     icon: 'spell_shadow_rune',
   },
 
-  // scourge strike has one cast event but two damage events, the cast and physical 
+  // scourge strike has one cast event but two damage events, the cast and physical
   // damage happen on id 55090, the shadow damage is on id 70890
   SCOURGE_STRIKE: {
     id: 55090,
@@ -390,25 +394,25 @@ export default {
     name: 'Scourge Strike',
     icon: 'spell_deathknight_scourgestrike',
   },
-  
+
   SUMMON_GARGOYLE: {
     id: 49206,
     name: 'Summon Gargoyle',
     icon: 'ability_deathknight_summongargoyle',
   },
-  
+
   VIRULENT_PLAGUE: {
     id: 191587,
     name: 'Virulent Plague',
     icon: 'ability_creature_disease_02',
-  },  
+  },
 
   UNHOLY_FRENZY_BUFF: {
     id: 207290,
     name: 'Unholy Frenzy',
     icon: 'spell_shadow_unholyfrenzy',
   },
-  
+
   // Unholy Tier Sets
   // T20 2 Piece
   UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS_BUFF: {
@@ -416,7 +420,7 @@ export default {
     name: 'T20 2 Set Bonus',
     icon: 'spell_deathknight_unholypresence',
   },
-  
+
   // Artifact traits:
   SUDDEN_DOOM: {
     id: 49530,
@@ -441,7 +445,7 @@ export default {
     name: 'Scourge of Worlds',
     icon: 'artifactability_unholydeathknight_flagellation',
   },
-  
+
   // Shared:
   ANTI_MAGIC_SHELL: {
     id: 48707,
@@ -533,4 +537,3 @@ export default {
     icon: 'spell_frost_chainsofice',
   },
 };
-	
