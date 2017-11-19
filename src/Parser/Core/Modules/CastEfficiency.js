@@ -89,11 +89,11 @@ class CastEfficiency extends Analyzer {
         const spellId = ability.spell.id;
         const cooldown = ability.getCooldown(this.combatants.hastePercentage, this.combatants.selected);
         const cooldownMs = (cooldown === null) ? null : cooldown * 1000;
-        const trackedAbility = this.abilityTracker.getAbility(spellId);
         const cdInfo = this._getCooldownInfo(spellId);
 
         // ability.getCasts is used for special cases that show the wrong number of cast events, like Penance
         // and also for splitting up differently buffed versions of the same spell (this use has nothing to do with CastEfficiency)
+        const trackedAbility = this.abilityTracker.getAbility(spellId);
         const casts = (ability.getCasts ? ability.getCasts(trackedAbility, this.owner) : trackedAbility.casts) || 0;
         if (ability.isUndetectable && casts === 0) {
           // Some spells (most notably Racials) can not be detected if a player has them. This hides those spells if they have 0 casts.
@@ -161,8 +161,8 @@ class CastEfficiency extends Analyzer {
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<Wrapper>Try to cast <SpellLink id={ability.spell.id} /> more often. {ability.extraSuggestion || ''} <a href="#spell-timeline">View timeline</a>.</Wrapper>)
             .icon(ability.spell.icon)
-            .actual(`${abilityInfo.casts} out of ${abilityInfo.maxCasts} possible casts; ${formatPercentage(actual)}% cast efficiency`)
-            .recommended(`>${formatPercentage(recommended)}% is recommended`)
+            .actual(`You kept it on cooldown ${formatPercentage(actual, 1)}% of the time (${abilityInfo.casts} out of ${abilityInfo.maxCasts} possible casts).`)
+            .recommended(`>${formatPercentage(recommended, 1)}% is recommended`)
             .details(() => (
               <div style={{ margin: '0 -22px' }}>
                 <SpellTimeline

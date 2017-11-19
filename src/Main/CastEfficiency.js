@@ -18,7 +18,7 @@ const CastEfficiency = ({ categories, abilities }) => {
               <tr>
                 <th><b>{categories[key]}</b></th>
                 <th className="text-center"><dfn data-tip="Casts Per Minute">CPM</dfn></th>
-                <th colSpan="3"><dfn data-tip="Efficiency percentage is the percentage of time the ability was kept on cooldown. Maximum possible casts are based on the abilities cooldown and the fight duration. For spells with long cooldowns, it's possible to get the maximum casts while still having a cast efficiency rating well below 100%">Cast efficiency</dfn></th>
+                <th colSpan="3"><dfn data-tip="Efficiency percentage is the percentage of time the ability was kept on cooldown. Maximum possible casts are based on the ability's cooldown and the fight duration. For spells with long cooldowns, it's sometimes possible to get the maximum casts while still having a cast efficiency rating well below 100%.">Cast efficiency</dfn></th>
                 <th />
               </tr>
               {abilities
