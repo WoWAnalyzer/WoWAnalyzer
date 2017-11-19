@@ -44,71 +44,58 @@ class Abilities extends CoreAbilities {
     {      
       spell: SPELLS.DEATH_FROM_ABOVE_TALENT, //Without 2pT20
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 20, 
-      isActive: combatant => combatant.hasTalent(SPELLS.DEATH_FROM_ABOVE_TALENT.id) && !combatant.hasBuff(SPELLS.SUB_ROGUE_T20_2SET_BONUS.id),
-      //Expected low efficiency, due to delaying for Symbols of Death
-      recommendedCastEfficiency: 0.70,
-      extraSuggestion: "Should be used with every Symbols of Death", 
-    },    
-    {
-      spell: SPELLS.DEATH_FROM_ABOVE_TALENT, //With 2pT20
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 20, 
-      isActive: combatant => combatant.hasTalent(SPELLS.DEATH_FROM_ABOVE_TALENT.id)&& combatant.hasBuff(SPELLS.SUB_ROGUE_T20_2SET_BONUS.id),
-      //Expected low efficiency, due to delaying for Symbols of Death
-      //Higher then without 2pT20 due to reduced Symbols CD
-      recommendedCastEfficiency: 0.80,
+      //Real cooldown is 20 seconds. But this sohuld be used 
+      getCooldown: (haste, combatant) => (30 - (combatant.hasBuff(SPELLS.SUB_ROGUE_T20_2SET_BONUS.id) ? 5 : 0)), 
+      isActive: combatant => combatant.hasTalent(SPELLS.DEATH_FROM_ABOVE_TALENT.id),
+      //recommendedCastEffitiency should be lower if we used real cooldown 
+      recommendedCastEfficiency: 0.95,
       extraSuggestion: "Should be used with every Symbols of Death", 
     },
 
-    //Non-CDs
-    
+    //Non-CDs    
     {
       spell: SPELLS.NIGHTBLADE,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
     },    
     {
       spell: SPELLS.EVISCERATE,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
     },    
     {
       spell: SPELLS.BACKSTAB,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       isActive: combatant => !combatant.hasTalent(SPELLS.GLOOMBLADE_TALENT.id),
       getCooldown: haste => null,
     },       
     {
       spell: SPELLS.GLOOMBLADE_TALENT,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       isActive: combatant => combatant.hasTalent(SPELLS.GLOOMBLADE_TALENT.id),
       getCooldown: haste => null,
     }, 
     {
       spell: SPELLS.SHADOWSTRIKE,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
     }, 
     {
       spell: SPELLS.SHURIKEN_STORM,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
     },
     {
       spell: SPELLS.SHURIKEN_TOSS,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
     },    
     {
       spell: SPELLS.MARKED_FOR_DEATH_TALENT,
-      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       isActive: combatant => combatant.hasTalent(SPELLS.MARKED_FOR_DEATH_TALENT.id),
       getCooldown: haste => null,
     },
-
-
-
   ];
 }
 
