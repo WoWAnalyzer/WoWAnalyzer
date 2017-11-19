@@ -18,8 +18,8 @@ const CastEfficiency = ({ categories, abilities }) => {
               <tr>
                 <th><b>{categories[key]}</b></th>
                 <th className="text-center"><dfn data-tip="Casts Per Minute">CPM</dfn></th>
-                <th><dfn data-tip="Maximum possible casts are based on the ability's cooldown and the fight duration. For abilities that can have their cooldowns dynamically reduced or reset, it's based on the average actual time it took the ability to cooldown over the course of this encounter.">Cast efficiency</dfn></th>
-                <th><dfn data-tip="The percentage of time the spell was kept on cooldown. Spells with multiple charges count as on cooldown as long as you have fewer than maximum charges. For spells with long cooldowns, it's possible to have a percent on cooldown well below 100% and still achieve maximum casts.">Percent on Cooldown</dfn></th>
+                <th className="text-right"><dfn data-tip="Maximum possible casts are based on the ability's cooldown and the fight duration. For abilities that can have their cooldowns dynamically reduced or reset, it's based on the average actual time it took the ability to cooldown over the course of this encounter.">Cast efficiency</dfn></th>
+                <th className="text-center"><dfn data-tip="The percentage of time the spell was kept on cooldown. Spells with multiple charges count as on cooldown as long as you have fewer than maximum charges. For spells with long cooldowns, it's possible to have a percent on cooldown well below 100% and still achieve maximum casts.">Percent on Cooldown</dfn></th>
                 <th />
               </tr>
               {abilities
@@ -36,7 +36,7 @@ const CastEfficiency = ({ categories, abilities }) => {
                       <td className="text-center" style={{ minWidth: 80 }}>
                         {cpm.toFixed(2)}
                       </td>
-                      <td className="text-left" style={{ minWidth: 120 }}>
+                      <td className="text-right" style={{ minWidth: 110 }}>
                         {casts}{maxCasts === Infinity ? '' : `/${Math.floor(maxCasts)}`} casts
                       </td>
                       <td style={{ width: '20%' }}>
