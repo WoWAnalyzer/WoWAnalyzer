@@ -60,6 +60,55 @@ class Abilities extends CoreAbilities {
       recommendedCastEfficiency: 0.80,
       extraSuggestion: "Should be used with every Symbols of Death", 
     },
+
+    //Non-CDs
+    
+    {
+      spell: SPELLS.NIGHTBLADE,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => null,
+    },    
+    {
+      spell: SPELLS.EVISCERATE,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => null,
+    },    
+    {
+      spell: SPELLS.BACKSTAB,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      isActive: combatant => !combatant.hasTalent(SPELLS.GLOOMBLADE_TALENT.id),
+      getCooldown: haste => null,
+    },       
+    {
+      spell: SPELLS.GLOOMBLADE_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      isActive: combatant => combatant.hasTalent(SPELLS.GLOOMBLADE_TALENT.id),
+      getCooldown: haste => null,
+    }, 
+    {
+      spell: SPELLS.SHADOWSTRIKE,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => null,
+    }, 
+    {
+      spell: SPELLS.SHURIKEN_STORM,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => null,
+    },
+    {
+      spell: SPELLS.SHURIKEN_TOSS,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => null,
+    },    
+    {
+      spell: SPELLS.MARKED_FOR_DEATH_TALENT,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      isActive: combatant => combatant.hasTalent(SPELLS.MARKED_FOR_DEATH_TALENT.id),
+      getCooldown: haste => null,
+    },
+
+
+
   ];
 }
 
