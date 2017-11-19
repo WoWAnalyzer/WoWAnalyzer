@@ -32,7 +32,8 @@ const HTTP_CODES = {
 };
 
 export default async function fetchWcl(endpoint, queryParams) {
-  const response = await fetch(makeWclUrl(endpoint, queryParams));
+  const url = makeWclUrl(endpoint, queryParams);
+  const response = await fetch(url);
 
   if (Object.values(HTTP_CODES.CLOUDFLARE).includes(response.status)) {
     throw new ApiDownError('The API is currently down. This is usually for maintenance which should only take about 10 seconds. Please try again in a moment.');

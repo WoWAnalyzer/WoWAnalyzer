@@ -16,7 +16,7 @@ import { getReportCode, getFightId, getPlayerName } from 'selectors/url/report';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import { getCombatants } from 'selectors/combatants';
-import { clearError, reportNotFoundError, apiDownError, unknownNetworkIssueError, API_DOWN, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'actions/error';
+import { clearError, reportNotFoundError, apiDownError, unknownNetworkIssueError, unknownError, API_DOWN, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'actions/error';
 import { getError } from 'selectors/error';
 
 import './App.css';
@@ -73,6 +73,7 @@ class App extends Component {
     reportNotFoundError: PropTypes.func.isRequired,
     apiDownError: PropTypes.func.isRequired,
     unknownNetworkIssueError: PropTypes.func.isRequired,
+    unknownError: PropTypes.func.isRequired,
   };
   static childContextTypes = {
     config: PropTypes.object,
@@ -154,7 +155,12 @@ class App extends Component {
         this.props.reportNotFoundError();
       } else if (err instanceof ApiDownError) {
         this.props.apiDownError();
+      } else if (err instanceof SyntaxError) {
+        // JSON parse error
+        fatalError(err);
+        this.props.unknownError(err);
       } else {
+        // Some kind of network error, internet may be down.
         fatalError(err);
         this.props.unknownNetworkIssueError(err);
       }
@@ -233,24 +239,23 @@ class App extends Component {
 
   async fetchCombatantsForFight(report, fight) {
     try {
-      this.props.fetchCombatants(report.code, fight.start_time, fight.end_time)
-        .catch(err => {
-          this.reset();
-          if (err instanceof LogNotFoundError) {
-            this.props.reportNotFoundError();
-          } else if (err instanceof ApiDownError) {
-            this.props.apiDownError();
-          } else {
-            fatalError(err);
-            this.props.unknownNetworkIssueError(err);
-          }
-        });
+      await this.props.fetchCombatants(report.code, fight.start_time, fight.end_time);
     } catch (err) {
-      fatalError(err);
       // TODO: Redirect to homepage
-      // TODO: Show proper error page
-      alert(err);
       this.reset();
+      if (err instanceof LogNotFoundError) {
+        this.props.reportNotFoundError();
+      } else if (err instanceof ApiDownError) {
+        this.props.apiDownError();
+      } else if (err instanceof SyntaxError) {
+        // JSON parse error
+        fatalError(err);
+        this.props.unknownError(err);
+      } else {
+        // Some kind of network error, internet may be down.
+        fatalError(err);
+        this.props.unknownNetworkIssueError(err);
+      }
     }
   }
 
@@ -284,7 +289,12 @@ class App extends Component {
             this.props.reportNotFoundError();
           } else if (err instanceof ApiDownError) {
             this.props.apiDownError();
+          } else if (err instanceof SyntaxError) {
+            // JSON parse error
+            fatalError(err);
+            this.props.unknownError(err);
           } else {
+            // Some kind of network error, internet may be down.
             fatalError(err);
             this.props.unknownNetworkIssueError(err);
           }
@@ -507,5 +517,6 @@ export default connect(
     reportNotFoundError,
     apiDownError,
     unknownNetworkIssueError,
+    unknownError,
   }
 )(App);
