@@ -22,7 +22,7 @@ class ErrorBoundary extends React.Component {
       error,
       errorInfo,
     });
-    Raven && Raven.captureException(error, { extra: errorInfo }); // eslint-disable-line no-undef
+    window.Raven && window.Raven.captureException(error, { extra: errorInfo });
   }
 
   render() {

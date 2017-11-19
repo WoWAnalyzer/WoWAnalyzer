@@ -31,10 +31,12 @@ class TouchOfTheGrave extends Analyzer {
     if (!isAtonement(event)) {
       return;
     }
-    if (this.atonementSource.atonementDamageSource.ability.guid !== SPELLS.TOUCH_OF_THE_GRAVE.id) {
-      return;
+    if (this.atonementSource.atonementDamageSource) {
+      if (this.atonementSource.atonementDamageSource.ability.guid !== SPELLS.TOUCH_OF_THE_GRAVE.id) {
+        return;
+      }
+      this.healing += event.amount + (event.absorbed || 0);
     }
-    this.healing += event.amount + (event.absorbed || 0);
   }
 
   statistic() {
