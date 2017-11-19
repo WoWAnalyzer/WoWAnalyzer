@@ -17,7 +17,6 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.EBONBOLT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 45 + (3 / (1+haste)), // 45 Second Cooldown with a 3 Second Cast time (Reduced by Haste). Temp until CastEfficiency gets a redo
-      recommendedCastEfficiency: 0.90,
     },
     {
       spell: SPELLS.FLURRY,
@@ -25,14 +24,12 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => null,
     },
     {
-      spell: SPELLS.CONE_OF_COLD,
+      spell: SPELLS.ICE_LANCE_CAST,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 12,
-      noSuggestion: true,
-      noCanBeImproved: true,
+      getCooldown: haste => null,
     },
     {
-      spell: SPELLS.ICE_LANCE_CAST,
+      spell: SPELLS.CONE_OF_COLD,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
     },
@@ -74,7 +71,6 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.FROZEN_ORB,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 60,
-	    recommendedCastEfficiency: 0.95,
     },
     {
       spell: SPELLS.ICY_VEINS,
@@ -101,16 +97,12 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.ICE_BARRIER,
       category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-      getCooldown: haste => 25,
-      noSuggestion: true,
-      noCanBeImproved: true,
+      getCooldown: haste => null,
     },
     {
       spell: SPELLS.ICE_BLOCK,
       category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-      getCooldown: haste => 240,
-      noSuggestion: true,
-      noCanBeImproved: true,
+      getCooldown: haste => null,
     },
 
     //Utility
