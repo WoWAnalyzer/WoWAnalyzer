@@ -430,4 +430,14 @@ export default {
     name: 'Dismiss Pet',
     icon: 'spell_nature_spiritwolf',
   },
+  BINDING_SHOT_STUN: {
+    id: 117526,
+    name: 'Binding Shot Stun',
+    icon: 'spell_shaman_bindelemental',
+  },
+  BINDING_SHOT_TETHER: {
+    id: 117405,
+    name: 'Binding Shot Tether',
+    icon: 'spell_shaman_bindelemental',
+  },
 };
