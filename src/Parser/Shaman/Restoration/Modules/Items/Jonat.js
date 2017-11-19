@@ -37,7 +37,7 @@ class Jonat extends Analyzer {
 
   item() {
     return {
-      item: ITEMS.ITEMS.FOCUSER_OF_JONAT,
+      item: ITEMS.FOCUSER_OF_JONAT,
       result: this.owner.formatItemHealingDone(this.healing),
     };
   }

@@ -3,7 +3,7 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import Haste from './Modules/Core/Haste';
 import AbilityTracker from './Modules/Core/AbilityTracker';
-import CastEfficiency from './Modules/Features/CastEfficiency';
+import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Insanity from './Modules/Core/Insanity';
 
@@ -31,7 +31,7 @@ class CombatLogParser extends MainCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     alwaysBeCasting: AlwaysBeCasting,
     abilityTracker: AbilityTracker,
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
     insanity: Insanity,
 
     // Abilities

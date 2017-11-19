@@ -1,8 +1,10 @@
 import React from 'react';
 
 import Wrapper from 'common/Wrapper';
+import ITEMS from 'common/ITEMS';
 import ZerotorescueAvatar from 'Parser/Paladin/Holy/Images/zerotorescue-avatar.png';
 import AnomolyAvatar from 'Parser/Monk/Mistweaver/Images/anomoly-avatar.jpg';
+import ItemLink from 'common/ItemLink';
 
 const Zerotorescue = ['Zerotorescue', ZerotorescueAvatar];
 const Anomoly = ['anomoly', AnomolyAvatar];
@@ -10,7 +12,12 @@ const Anomoly = ['anomoly', AnomolyAvatar];
 export default [
   {
     date: new Date('2017-11-16'),
-    changes: <span>Refactored Restoration Shaman spec to be in line with current spec module implementations.</span>,
+    changes: <Wrapper>Fix crash when using <ItemLink id={ITEMS.FOCUSER_OF_JONAT.id}/>.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-16'),
+    changes: <Wrapper>Refactored Restoration Shaman spec to be in line with current spec module implementations.</Wrapper>,
     contributors: [Anomoly],
   },
   {
@@ -35,7 +42,7 @@ export default [
   },
   {
     date: new Date('2017-05-28'),
-    changes: <Wrapper>Added <span class="Shaman">Restoration Shaman</span> support by <b>@Versaya</b>! Thanks a lot for your contribution!</Wrapper>,
+    changes: <Wrapper>Added <span className="Shaman">Restoration Shaman</span> support by <b>@Versaya</b>! Thanks a lot for your contribution!</Wrapper>,
     contributors: [Zerotorescue],
   },
 ];

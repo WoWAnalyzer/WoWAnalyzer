@@ -8,7 +8,7 @@
 | [Lifebloom uptime](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Features/Lifebloom.js) | Get uptime on lifebloom | 100% |
 | [Efflorescence uptime](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Features/Efflorescence.js) | Get uptime on efflorescence | 90-100% |
 | [Regrowth/clearcasting usage](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Features/Clearcasting.js) | Tracks clearcasting and regrowth usage. | 90-100% |
-| [Cast Efficiency](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/CastEfficiency.js) | Displays the amount of casts and estimates the max amount of casts possible to determine your skill at keeping important spells (close to) on cooldown. The estimated max amount of casts is slightly inaccurate due to not considering Haste increasers like Bloodlust and boss abilities. | >90% |
+| [Abilities](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Abilities.js) | List of abilities used in displaying the amount of casts and estimates the max amount of casts possible to determine your skill at keeping important spells (close to) on cooldown. | 100% |
 | [Drape of Shame](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Items/DrapeOfShame.js) |  | 100%|
 | [Prydaz, Xavaric's Magnum Opus](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Items/Prydaz.js) | | 100% |
 | [Velen's Future Sight](https://github.com/buimichael/RestoDruidAnalyzer/blob/master/src/Main/Parser/Modules/Items/Velens.js) | | 100% |

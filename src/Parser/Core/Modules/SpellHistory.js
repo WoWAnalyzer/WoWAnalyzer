@@ -1,12 +1,12 @@
 import Analyzer from 'Parser/Core/Analyzer';
 
 import SpellUsable from './SpellUsable';
-import CastEfficiency from './CastEfficiency';
+import Abilities from './Abilities';
 
 class SpellHistory extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
   };
 
   historyBySpellId = {
@@ -22,9 +22,9 @@ class SpellHistory extends Analyzer {
   };
 
   _getAbility(spellId) {
-    const ability = this.castEfficiency.getAbility(spellId);
+    const ability = this.abilities.getAbility(spellId);
     if (!ability) {
-      // We're only interested in abilities in CastEfficiency since that's the only place we'll show the spell history, besides we only really want to track *casts* and the best source of info for that is CastEfficiency.
+      // We're only interested in abilities in Abilities since that's the only place we'll show the spell history, besides we only really want to track *casts* and the best source of info for that is Abilities.
       return null;
     }
     if (!this.historyBySpellId[spellId]) {

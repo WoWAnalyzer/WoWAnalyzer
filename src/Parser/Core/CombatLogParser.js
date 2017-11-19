@@ -21,6 +21,7 @@ import AbilityTracker from './Modules/AbilityTracker';
 import Haste from './Modules/Haste';
 import StatTracker from './Modules/StatTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
+import Abilities from './Modules/Abilities';
 import CastEfficiency from './Modules/CastEfficiency';
 import SpellUsable from './Modules/SpellUsable';
 import SpellHistory from './Modules/SpellHistory';
@@ -115,7 +116,8 @@ class CombatLogParser {
     haste: Haste,
     statTracker: StatTracker,
     alwaysBeCasting: AlwaysBeCasting,
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
+    CastEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
     spellHistory: SpellHistory,
     manaValues: ManaValues,
@@ -431,7 +433,7 @@ class CombatLogParser {
               start={this.fight.start_time}
               end={this.currentTimestamp}
               historyBySpellId={this.modules.spellHistory.historyBySpellId}
-              castEfficiency={this.modules.castEfficiency}
+              abilities={this.modules.abilities}
             />
           </Tab>
         ),
