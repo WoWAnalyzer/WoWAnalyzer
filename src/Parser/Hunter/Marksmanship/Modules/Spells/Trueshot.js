@@ -58,10 +58,6 @@ class Trueshot extends Analyzer {
         this.executeTrueshots += 1;
       }
     }
-    const trueshotUptime = this.combatants.getBuffUptime(SPELLS.TRUESHOT.id);
-    if (trueshotUptime > 0 && this.trueshotCasts === 0) {
-      this.trueshotCasts += 1;
-    }
   }
 
   on_byPlayer_damage(event) {
@@ -154,12 +150,12 @@ class Trueshot extends Analyzer {
       });
     when(uptimePrCast).isLessThan(15)
       .addSuggestion((suggest, actual, recommended) => {
-      return suggest(<span>You should make sure to utilise every possible second of <SpellLink id={SPELLS.TRUESHOT.id}/> uptime as you can. Remember to cast it atleast 15 seconds before the boss dies, so you don't lose out on valuable time, aswell as remember to not cast it until the boss has been engaged.</span>)
-        .icon(SPELLS.TRUESHOT.icon)
-        .actual(`You had an average of ${uptimePrCast} seconds of Trueshot uptime per cast`)
-        .recommended(`${recommended} seconds uptime per cast is recommended`)
-        .regular(recommended-0.1)
-        .major(recommended-0.5);
+        return suggest(<span>You should make sure to utilise every possible second of <SpellLink id={SPELLS.TRUESHOT.id} /> uptime as you can. Remember to cast it atleast 15 seconds before the boss dies, so you don't lose out on valuable time, aswell as remember to not cast it until the boss has been engaged.</span>)
+          .icon(SPELLS.TRUESHOT.icon)
+          .actual(`You had an average of ${uptimePrCast} seconds of Trueshot uptime per cast`)
+          .recommended(`${recommended} seconds uptime per cast is recommended`)
+          .regular(recommended - 0.1)
+          .major(recommended - 0.5);
       });
   }
   statisticOrder = STATISTIC_ORDER.CORE(8);
