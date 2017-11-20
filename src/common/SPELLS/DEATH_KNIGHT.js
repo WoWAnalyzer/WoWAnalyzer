@@ -415,7 +415,6 @@ export default {
   },
 
   // Unholy Tier Sets
-  // T20 2 Piece
   // T20 2 Piece and buff
   UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS: {
     id: 242064,
