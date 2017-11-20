@@ -58,7 +58,7 @@ class TouchOfTheGrave extends Analyzer {
     // since we can't directly get undead racial status, if we found 0 damage,
     // assume they aren't undead and do not load the module
     if(damage === 0) { return; }
-    console.log(this.directHealing);
+
     return(
       <StatisticBox
         icon={<SpellIcon id={SPELLS.TOUCH_OF_THE_GRAVE.id} />}
