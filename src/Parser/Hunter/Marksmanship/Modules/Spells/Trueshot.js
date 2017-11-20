@@ -36,15 +36,17 @@ class Trueshot extends Analyzer {
       });
     }
     const buffId = event.ability.guid;
-    if (buffId !== SPELLS.TRUESHOT.id) {
-      return;
+    if (buffId === SPELLS.TRUESHOT.id) {
+      this.trueshotCasts += 1;
+      this.accumulatedFocusAtTSCast += event.classResources[0]['amount'] || 0;
+      if (this.combatants.selected.hasBuff(SPELLS.BULLSEYE_TRAIT.id, event.timestamp)) {
+        this.executeTrueshots += 1;
+      }
     }
-    this.trueshotCasts += 1;
-    this.accumulatedFocusAtTSCast += event.classResources[0]['amount'] || 0;
-    if (this.combatants.selected.hasBuff(SPELLS.BULLSEYE_TRAIT.id, event.timestamp)) {
-      this.executeTrueshots += 1;
+    const trueshotUptime = this.combatants.getBuffUptime(SPELLS.TRUESHOT.id);
+    if (trueshotUptime > 0 && this.trueshotCasts === 0) {
+      this.trueshotCasts += 1;
     }
-
   }
 
   on_byPlayer_damage(event) {
@@ -54,6 +56,7 @@ class Trueshot extends Analyzer {
     if (!this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id, event.timestamp)) {
       return;
     }
+    //ensures that if the player started
     this.totalCastsPrTS += 1;
     if (isCrit) {
       this.totalCritsInTS += 1;
@@ -73,10 +76,6 @@ class Trueshot extends Analyzer {
     const averageFocusAtTS = formatNumber(this.accumulatedFocusAtTSCast / this.trueshotCasts);
     const percentAimedCrits = formatPercentage(this.aimedCritsInTS / this.aimedShotsPrTS);
     const percentCastCrits = formatPercentage(this.totalCritsInTS / this.totalCastsPrTS);
-    const trueshotUptime = this.combatants.getBuffUptime(SPELLS.TRUESHOT.id);
-    if (trueshotUptime > 0 && this.trueshotCasts === 0) {
-      this.trueshotCasts += 1;
-    }
 
     return (
       <StatisticBox icon={<SpellIcon id={SPELLS.TRUESHOT.id} />}
