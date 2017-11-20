@@ -32,6 +32,7 @@ class TouchOfTheGrave extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.TOUCH_OF_THE_GRAVE.id) {
       this.directHealing += event.amount + (event.absorbed || 0);
+      return;
     }
 
     if (!isAtonement(event)) {
