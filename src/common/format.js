@@ -28,7 +28,7 @@ export function formatNumber(number) {
  * Ex: 0.79832 => 79.83
  */
 export function formatPercentage(percentage, precision = 2) {
-  return ((percentage || 0) * 100).toFixed(precision);
+  return isNaN(percentage)?"N/A":((percentage || 0) * 100).toFixed(precision);
 }
 
 /*
