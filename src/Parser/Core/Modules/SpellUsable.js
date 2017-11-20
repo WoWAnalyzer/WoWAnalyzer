@@ -3,7 +3,7 @@ import { formatMilliseconds, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import CastEfficiency from './CastEfficiency';
+import Abilities from './Abilities';
 
 const debug = false;
 
@@ -13,7 +13,7 @@ function spellName(spellId) {
 
 class SpellUsable extends Analyzer {
   static dependencies = {
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
   };
   _currentCooldowns = {};
 
@@ -22,7 +22,7 @@ class SpellUsable extends Analyzer {
    */
   isAvailable(spellId) {
     if (this.isOnCooldown(spellId)) {
-      const maxCharges = this.castEfficiency.getMaxCharges(spellId);
+      const maxCharges = this.abilities.getMaxCharges(spellId);
       if (maxCharges > this._currentCooldowns[spellId].chargesOnCooldown) {
         return true;
       }
@@ -57,7 +57,7 @@ class SpellUsable extends Analyzer {
    * @param {number} timestamp Override the timestamp if it may be different from the current timestamp.
    */
   beginCooldown(spellId, timestamp = this.owner.currentTimestamp) {
-    const expectedCooldownDuration = this.castEfficiency.getExpectedCooldownDuration(spellId);
+    const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(spellId);
     if (!expectedCooldownDuration) {
       debug && console.warn('SpellUsable', 'Spell', spellName(spellId), spellId, 'doesn\'t have a cooldown.');
       return;
@@ -129,7 +129,7 @@ class SpellUsable extends Analyzer {
     if (!this.isOnCooldown(spellId)) {
       throw new Error(`Tried to refresh the cooldown of ${spellId}, but it's not on cooldown.`);
     }
-    const expectedCooldownDuration = this.castEfficiency.getExpectedCooldownDuration(spellId);
+    const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(spellId);
     if (!expectedCooldownDuration) {
       debug && console.warn('SpellUsable', 'Spell', spellName(spellId), spellId, 'doesn\'t have a cooldown.');
       return;
@@ -166,7 +166,7 @@ class SpellUsable extends Analyzer {
   _makeEvent(spellId, timestamp, trigger, others = {}) {
     const cooldown = this._currentCooldowns[spellId];
     const chargesOnCooldown = cooldown ? cooldown.chargesOnCooldown : 0;
-    const maxCharges = this.castEfficiency.getMaxCharges(spellId) || 1;
+    const maxCharges = this.abilities.getMaxCharges(spellId) || 1;
     return {
       type: 'updatespellusable',
       spellId,
@@ -243,7 +243,7 @@ class SpellUsable extends Analyzer {
       const originalExpectedDuration = cooldown.expectedDuration;
       const timePassed = event.timestamp - cooldown.start;
       const progress = timePassed / originalExpectedDuration;
-      const cooldownDurationWithCurrentHaste = this.castEfficiency.getExpectedCooldownDuration(Number(spellId));
+      const cooldownDurationWithCurrentHaste = this.abilities.getExpectedCooldownDuration(Number(spellId));
       const newExpectedDuration = timePassed + this._calculateNewCooldownDuration(progress, cooldownDurationWithCurrentHaste);
       const fightDuration = formatMilliseconds(event.timestamp - this.owner.fight.start_time);
       // NOTE: This does NOT scale any cooldown reductions applicable, their reduction time is static. (confirmed for absolute reductions (1.5 seconds), percentual reductions might differ but it is unlikely)

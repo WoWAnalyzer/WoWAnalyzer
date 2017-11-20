@@ -28,7 +28,7 @@ import T21_4Set from './Modules/Items/T21_4Set';
 import HealingTouch from './Modules/Features/HealingTouch';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import AverageHots from './Modules/Features/AverageHots';
-import CastEfficiency from './Modules/Features/CastEfficiency';
+import Abilities from './Modules/Features/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import WildGrowth from './Modules/Features/WildGrowth';
 import Lifebloom from './Modules/Features/Lifebloom';
@@ -80,7 +80,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     averageHots: AverageHots,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
     rejuvenation: Rejuvenation,
     wildGrowth: WildGrowth,
     lifebloom: Lifebloom,

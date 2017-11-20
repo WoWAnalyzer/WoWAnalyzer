@@ -7,7 +7,7 @@ import Tab from 'Main/Tab';
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
-import CastEfficiency from './Modules/Main/CastEfficiency';
+import Abilities from './Modules/Main/Abilities';
 import Maelstrom from './Modules/Main/Maelstrom';
 
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
@@ -39,7 +39,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alphaWolf: AlphaWolf,
     // Features
     alwaysBeCasting: AlwaysBeCasting,
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
     // Legendaries:
     // Tier

@@ -4,7 +4,7 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
 
-import CastEfficiency from './Modules/Features/CastEfficiency';
+import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 //import CooldownTracker from './Modules/Features/CooldownTracker';
 
@@ -22,7 +22,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Paladin Core
 
     // Features
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     //cooldownTracker: CooldownTracker,
 
