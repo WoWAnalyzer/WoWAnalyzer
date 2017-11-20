@@ -1,29 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
 import PatreonButton from './PatreonButton';
 import DiscordButton from './DiscordButton';
 
 class ReportSelecter extends Component {
   static propTypes = {
-    onSubmit: PropTypes.func.isRequired,
+    push: PropTypes.func.isRequired,
   };
 
   static getCode(input) {
     const match = input.trim().match(/^(.*reports\/)?([a-zA-Z0-9]{16})\/?(#.*)?$/);
-
     return match && match[2];
   }
-
   static getFight(input) {
     const match = input.trim().match(/fight=([^&]*)/);
-
     return match && match[1];
   }
-
   static getPlayer(input) {
     const match = input.trim().match(/source=([^&]*)/);
-
     return match && match[1];
   }
 
@@ -48,7 +45,7 @@ class ReportSelecter extends Component {
 
     if (!code) {
       // eslint-disable-next-line no-alert
-      alert('Enter the report code.');
+      alert('Enter a report first.');
       return;
     }
 
@@ -62,10 +59,18 @@ class ReportSelecter extends Component {
     const fight = this.constructor.getFight(value);
     const player = this.constructor.getPlayer(value);
 
-    const reportInfo = {code, fight, player};
-
     if (code) {
-      this.props.onSubmit(reportInfo);
+      let constructedUrl = `report/${code}`;
+
+      if (fight) {
+        constructedUrl += `/${fight}`;
+
+        if (player) {
+          constructedUrl += `/${player}`;
+        }
+      }
+
+      this.props.push(constructedUrl);
     }
   }
 
@@ -108,4 +113,6 @@ class ReportSelecter extends Component {
   }
 }
 
-export default ReportSelecter;
+export default connect(null, {
+  push,
+})(ReportSelecter);

@@ -1,14 +1,19 @@
-import React, { Component } from 'react';
+import React  from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
+import { getFightId } from 'selectors/url/report';
+import { getReport } from 'selectors/report';
+import { getFightById } from 'selectors/fight';
+import { getCombatants } from 'selectors/combatants';
 import SPECS from 'common/SPECS';
 import ROLES from 'common/ROLES';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
-class PlayerSelectionList extends Component {
+class PlayerSelectionList extends React.PureComponent {
   static propTypes = {
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
@@ -21,7 +26,7 @@ class PlayerSelectionList extends Component {
     }).isRequired,
     fightId: PropTypes.number.isRequired,
     combatants: PropTypes.arrayOf(PropTypes.shape({
-
+      sourceID: PropTypes.number.isRequired,
     })).isRequired,
   };
 
@@ -118,4 +123,18 @@ class PlayerSelectionList extends Component {
   }
 }
 
-export default PlayerSelectionList;
+const mapStateToProps = state => {
+  const fightId = getFightId(state);
+
+  return ({
+    fightId,
+
+    report: getReport(state),
+    fight: getFightById(state, fightId),
+    combatants: getCombatants(state),
+  });
+};
+
+export default connect(
+  mapStateToProps
+)(PlayerSelectionList);
