@@ -13,7 +13,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 90,
       // Vanish is often delayed.
       // TODO: Add suggestions for usage based on gear and talants 
-      recommendedCastEfficiency: 0.90
+      recommendedCastEfficiency: 0.90,
     },
     {
       spell: SPELLS.SHADOW_BLADES, // TODO: Reduced by Convergence of Fates
