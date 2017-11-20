@@ -57,7 +57,7 @@ class TouchOfTheGrave extends Analyzer {
 
     // since we can't directly get undead racial status, if we found 0 damage,
     // assume they aren't undead and do not load the module
-    if(damage === 0) { return; }
+    if(damage === 0) { return null; }
 
     return(
       <StatisticBox
