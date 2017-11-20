@@ -10,6 +10,7 @@ import SpellLink from "common/SpellLink";
 import SpellIcon from "common/SpellIcon";
 import Icon from "common/Icon";
 import { formatNumber, formatPercentage } from "common/format";
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 class Trueshot extends Analyzer {
   static dependencies = {
@@ -23,8 +24,17 @@ class Trueshot extends Analyzer {
   totalCritsInTS = 0;
   totalCastsPrTS = 0;
   executeTrueshots = 0;
+  startFocusForCombatant = 0;
 
   on_byPlayer_cast(event) {
+    //checks for the combatants start focus and assigns it once - useful if the combatant has precast trueshot
+    if (this.startFocusForCombatant === 0) {
+      event.classResources.forEach(classResource => {
+        if (classResource.type === RESOURCE_TYPES.FOCUS && classResource['amount'] > this.startFocusForCombatant) {
+          this.startFocusForCombatant += classResource['amount'];
+        }
+      });
+    }
     const buffId = event.ability.guid;
     if (buffId !== SPELLS.TRUESHOT.id) {
       return;
@@ -40,6 +50,7 @@ class Trueshot extends Analyzer {
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     const isCrit = event.hitType === HIT_TYPES.CRIT;
+
     if (!this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id, event.timestamp)) {
       return;
     }
@@ -62,6 +73,11 @@ class Trueshot extends Analyzer {
     const averageFocusAtTS = formatNumber(this.accumulatedFocusAtTSCast / this.trueshotCasts);
     const percentAimedCrits = formatPercentage(this.aimedCritsInTS / this.aimedShotsPrTS);
     const percentCastCrits = formatPercentage(this.totalCritsInTS / this.totalCastsPrTS);
+    const trueshotUptime = this.combatants.getBuffUptime(SPELLS.TRUESHOT.id);
+    if (trueshotUptime > 0 && this.trueshotCasts === 0) {
+      this.trueshotCasts += 1;
+    }
+
     return (
       <StatisticBox icon={<SpellIcon id={SPELLS.TRUESHOT.id} />}
         value={(
@@ -75,7 +91,7 @@ class Trueshot extends Analyzer {
               }}
             />
             {'  '}
-            {averageFocusAtTS}{' '}
+            {averageFocusAtTS > 0 ? averageFocusAtTS : this.startFocusForCombatant}{' '}
             <Icon
               icon='ability_hunter_focusfire'
               alt='Average Focus At Trueshot Cast'
@@ -87,7 +103,7 @@ class Trueshot extends Analyzer {
           </span>
         )}
         label={'Trueshot info'}
-        tooltip={`Information regarding your average Trueshot window: <ul> <li>You started your Trueshot windows with an average of ${averageFocusAtTS} focus.</li> <li> You hit an average of ${averageAimedCasts} Aimed Shots inside each Trueshot window. </li> <li> Your Trueshot Aimed Shots had a crit rate of ${percentAimedCrits}%. </li> <li>Your overall crit rate during Trueshot was ${percentCastCrits}%. </li></ul>`} />
+        tooltip={`Information regarding your average Trueshot window: <ul> <li>You started your Trueshot windows with an average of ${averageFocusAtTS > 0 ? averageFocusAtTS : this.startFocusForCombatant} focus.</li> <li> You hit an average of ${averageAimedCasts} Aimed Shots inside each Trueshot window. </li> <li> Your Trueshot Aimed Shots had a crit rate of ${percentAimedCrits}%. </li> <li>Your overall crit rate during Trueshot was ${percentCastCrits}%. </li></ul>`} />
     );
   }
 
@@ -104,11 +120,11 @@ class Trueshot extends Analyzer {
           .regular(recommended - 0.9)
           .major(recommended - 1.9);
       });
-    when(averageFocusAtTS).isLessThan(90)
+    when(averageFocusAtTS > 0 ? averageFocusAtTS : this.startFocusForCombatant).isLessThan(90)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You started your average <SpellLink id={SPELLS.TRUESHOT.id} /> at {averageFocusAtTS} focus, try and pool a bit more before casting <SpellLink id={SPELLS.TRUESHOT.id} />. This can be done through casting an additional <SpellLink id={SPELLS.ARCANE_SHOT.id} /> or by monitoring the cooldown of <SpellLink id={SPELLS.TRUESHOT.id} /> and adjusting play to ensure your focus won't be depleted when it comes off cooldown.</span>)
           .icon(SPELLS.TRUESHOT.icon)
-          .actual(`Average of ${averageFocusAtTS} focus when starting Trueshot`)
+          .actual(`Average of ${averageFocusAtTS > 0 ? averageFocusAtTS : this.startFocusForCombatant} focus when starting Trueshot`)
           .recommended(`>${recommended} is recommended`)
           .regular(recommended - 10)
           .major(recommended - 20);
