@@ -12,8 +12,10 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
       // Vanish is often delayed.
-      // TODO: Add suggestions for usage based on gear and talants 
+      // TODO: Add suggestions for usage based on gear and talents 
       recommendedCastEfficiency: 0.90,
+      noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.SHADOW_BLADES, // TODO: Reduced by Convergence of Fates
@@ -42,14 +44,14 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60,
       recommendedCastEfficiency: 0.9,
-      // TODO: Track usage sepratly, not during Dance and with atleast 50 energy missing. 
-      extraSuggestion: "Use as often as possible without waisting Combo Points and Energy.", 
+      // TODO: Track usage separately, not during Dance and with at least 50 energy missing. 
+      extraSuggestion: "Use as often as possible without wasting Combo Points and Energy.", 
     },   
-    //No recomendations 
+    //No recommendations 
     {      
       spell: SPELLS.DEATH_FROM_ABOVE_TALENT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      // TODO: Track sepratly!
+      // TODO: Track separately!
       // This should be used only with Symbols. 
       getCooldown: haste => 20,
       noSuggestion: true,
