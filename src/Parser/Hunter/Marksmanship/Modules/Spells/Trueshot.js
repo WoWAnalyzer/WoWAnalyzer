@@ -29,15 +29,12 @@ class Trueshot extends Analyzer {
 
   on_byPlayer_applybuff(event) {
     const buffId = event.ability.guid;
-    if (buffId !== SPELLS.TRUESHOT.id && !event.prepull) {
+    if (buffId !== SPELLS.TRUESHOT.id || !event.prepull) {
       return;
     }
-    //ensures we only get 1 of these events
-    if (this.trueshotCasts === 0) {
-      //adds 1 to trueshotCasts to properly show that it was cast prepull
-      this.trueshotCasts += 1;
-      this.prepullTrueshots += 1;
-    }
+    //adds 1 to trueshotCasts to properly show that it was cast prepull
+    this.trueshotCasts += 1;
+    this.prepullTrueshots += 1;
   }
 
   on_byPlayer_cast(event) {
