@@ -6,7 +6,7 @@ class FocusTracker extends Analyzer {
 
   static dependencies = {
     combatants: Combatants,
-  }
+  };
 
   lastEventTimestamp = 0;
   focusBySecond = [];
