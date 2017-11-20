@@ -416,9 +416,16 @@ export default {
 
   // Unholy Tier Sets
   // T20 2 Piece
-  UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS_BUFF: {
+  // T20 2 Piece and buff
+  UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS: {
+    id: 242064,
+    name: 'T20 2 set Bonus',
+    icon: 'spell_deathknight_unholypresence',
+  },
+
+  MASTER_OF_GHOULS_BUFF: {
     id: 246995,
-    name: 'T20 2 Set Bonus',
+    name: 'Master of Ghouls',
     icon: 'spell_deathknight_unholypresence',
   },
 
