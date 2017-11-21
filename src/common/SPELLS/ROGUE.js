@@ -124,6 +124,23 @@ export default {
     name: 'Shadow Nova',
     icon: 'spell_fire_twilightnova',
   },
+  // CP Generation
+  SHADOW_TECHNIQUES: {
+    id: 196911,
+    name: 'Shadow Techniques',
+    icon: 'ability_rogue_masterofsubtlety',
+  },
+  SHURIKEN_STORM_CP: {
+    id: 212743,
+    name: 'Shuriken Storm',
+    icon: 'ability_rogue_shurikenstorm',
+  },
+  // ENERGY REGEN
+  GOREMAWS_BITE_ENERGY: {
+    id: 220901,
+    name: 'Goremaw\'s Bite',
+    icon: 'inv_knife_1h_artifactfangs_d_01',
+  },
   // Buffs
   SHADOW_DANCE_BUFF: {
     id: 185422,

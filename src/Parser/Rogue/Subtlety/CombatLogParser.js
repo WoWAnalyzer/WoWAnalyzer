@@ -8,6 +8,8 @@ import ShadowDance from "./Modules/Features/ShadowDance";
 import SymbolsOfDeathUptime from "./Modules/Features/SymbolsOfDeathUptime";
 import DarkShadowContribution from "./Modules/Talents/DarkShadowContribution";
 import DarkShadowEvis from "./Modules/Talents/DarkShadowEvis";
+import ComboPointDetails from './Modules/RogueCore/ComboPointDetails';
+import ComboPointTracker from './Modules/RogueCore/ComboPointTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -18,6 +20,10 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     symbolsOfDeathUptime:  SymbolsOfDeathUptime,
 
+    //Resource
+    comboPointTracker: ComboPointTracker,
+    comboPointDetails: ComboPointDetails,
+    
     //Talents
     darkShadowContribution: DarkShadowContribution,
     darkShadowEvis: DarkShadowEvis,
