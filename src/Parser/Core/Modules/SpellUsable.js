@@ -115,7 +115,9 @@ class SpellUsable extends Analyzer {
     } else {
       // We have another charge ready to go on cooldown, this simply adds a charge and then refreshes the cooldown (spells with charges don't cooldown simultaneously)
       cooldown.chargesOnCooldown -= 1;
-      this._triggerEvent('updatespellusable', this._makeEvent(spellId, timestamp, 'restorecharge', cooldown));
+      this._triggerEvent('updatespellusable', this._makeEvent(spellId, timestamp, 'restorecharge', {
+        ...cooldown,
+      }));
       this.refreshCooldown(spellId, timestamp);
     }
   }
