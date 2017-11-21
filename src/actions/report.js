@@ -1,4 +1,4 @@
-import fetchWcl from 'common/fetchWcl';
+import fetchWcl, { CorruptResponseError } from 'common/fetchWcl';
 
 export const SET_REPORT = 'SET_REPORT';
 export function setReport(report) {
@@ -24,7 +24,7 @@ export function fetchReport(code, refresh = false) {
     // TODO: Verify the current code is still the one we want by comparing it with the currently requested code in the store
 
     if (!json.fights) {
-      throw new Error('Corrupt WCL response received.');
+      throw new CorruptResponseError();
     }
 
     dispatch(setReport({

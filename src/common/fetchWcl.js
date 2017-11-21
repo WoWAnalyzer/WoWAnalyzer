@@ -5,6 +5,7 @@ import makeWclUrl from './makeWclUrl';
 export class ApiDownError extends ExtendableError {}
 export class LogNotFoundError extends ExtendableError {}
 export class UnknownApiError extends ExtendableError {}
+export class CorruptResponseError extends ExtendableError {}
 
 function tryParseMessage(message) {
   try {

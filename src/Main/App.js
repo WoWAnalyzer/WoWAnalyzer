@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import { push as pushAction } from 'react-router-redux';
 
-import { ApiDownError, LogNotFoundError } from 'common/fetchWcl';
+import { ApiDownError, LogNotFoundError, CorruptResponseError } from 'common/fetchWcl';
 import fetchEvents from 'common/fetchEvents';
 import fatalError from 'common/fatalError';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
@@ -299,6 +299,10 @@ class App extends Component {
             this.props.reportNotFoundError();
           } else if (err instanceof ApiDownError) {
             this.props.apiDownError();
+          } else if (err instanceof CorruptResponseError) {
+            // Corrupt WCL response
+            fatalError(err);
+            this.props.unknownError('Corrupt Warcraft Logs API response received, this report can not be processed.');
           } else if (err instanceof SyntaxError) {
             // JSON parse error
             fatalError(err);
@@ -429,7 +433,7 @@ class App extends Component {
       return (
         <FullscreenError
           error="An unknown error occured."
-          details={error.details.message}
+          details={error.details.message || error.details}
           background="https://media.giphy.com/media/m4TbeLYX5MaZy/giphy.gif"
         >
           <div>
