@@ -63,6 +63,11 @@ export default {
     name: 'Kidney Shot',
     icon: 'ability_rogue_kidneyshot',
   },
+  ARCANE_TORRENT_ROGUE: {
+    id: 25046,
+    name: 'Arcane Torrent',
+    icon: 'spell_shadow_teleport',
+  },
 
   // Subtlety spells
   // Combo point generating damage ability
@@ -140,6 +145,16 @@ export default {
     id: 220901,
     name: 'Goremaw\'s Bite',
     icon: 'inv_knife_1h_artifactfangs_d_01',
+  },
+  RELENTLESS_STRIKES: {
+    id: 98440,
+    name: 'Relentless Strikes',
+    icon: 'ability_warrior_decisivestrike',
+  },
+  ENERGETIC_STABBING: {
+    id: 197237,
+    name: 'Energetic Stabbing',
+    icon: 'inv_knife_1h_pvppandarias3_c_02',
   },
   // Buffs
   SHADOW_DANCE_BUFF: {

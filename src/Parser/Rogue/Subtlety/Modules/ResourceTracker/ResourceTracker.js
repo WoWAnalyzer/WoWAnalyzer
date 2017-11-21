@@ -11,8 +11,8 @@ class ResourceTracker extends Analyzer {
   spent = 0;
   casts = 0;
   current = 0;
-  static RESOURCE_TYPE;
-  static MAX;
+  RESOURCE_TYPE;
+  MAX;
 
   // stores resource gained/spent/wasted per ability ID
   gainedArray = {};
@@ -20,21 +20,21 @@ class ResourceTracker extends Analyzer {
   wastedArray = {};
   castsArray = {};
   
-  static GENERATING_ABILITIES = [
+  GENERATING_ABILITIES = [
   ];
 
-  static SPENDING_ABILITIES = [
+  SPENDING_ABILITIES = [
   ];
   
   initBuilderAbility(spellId) {      
-    this.constructor.GENERATING_ABILITIES.push(spellId);
+    this.GENERATING_ABILITIES.push(spellId);
     
     this.gainedArray[spellId] = { total: 0 };
     this.wastedArray[spellId] = { total: 0 };
   }
   
   initSpenderAbility(spellId) {      
-    this.constructor.SPENDING_ABILITIES.push(spellId);
+    this.SPENDING_ABILITIES.push(spellId);
     
     this.spentArray[spellId] = { total: 0 };
     this.castsArray[spellId] = { count: 0 };
@@ -49,7 +49,7 @@ class ResourceTracker extends Analyzer {
         return;
     }
 
-    if (this.constructor.GENERATING_ABILITIES.indexOf(spellId) === -1) {
+    if (this.GENERATING_ABILITIES.indexOf(spellId) === -1) {
         this.initBuilderAbility(spellId);
     }
 
@@ -75,7 +75,7 @@ class ResourceTracker extends Analyzer {
         return;
     }
 
-    const eventResource = event.classResources.filter(r=>r.type === this.constructor.RESOURCE_TYPE)[0];
+    const eventResource = event.classResources.filter(r=>r.type === this.RESOURCE_TYPE)[0];
 
     const cost = eventResource.cost;
 

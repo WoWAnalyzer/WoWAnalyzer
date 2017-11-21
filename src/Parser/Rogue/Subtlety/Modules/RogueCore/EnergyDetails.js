@@ -6,54 +6,54 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 
-import ComboPointTracker from './ComboPointTracker';
+import EnergyTracker from './EnergyTracker';
 
 import ResourceBreakdown from '../ResourceTracker/ResourceBreakdown';
 
-class ComboPointDetails extends Analyzer {
+class EnergyDetails extends Analyzer {
   static dependencies = {
-    comboPointTracker: ComboPointTracker,
+    energyTracker: EnergyTracker,
   };
   
   suggestions(when) {
-    const pointsWasted = this.comboPointTracker.wasted;
-    const pointsWastedPerMinute = (pointsWasted / this.owner.fightDuration) * 1000 * 60;
+    const energyWasted = this.energyTracker.wasted;
+    const energyWastedPerMinute = (energyWasted / this.owner.fightDuration) * 1000 * 60;
     const MINOR = 5;
     const AVG = 10;
     const MAJOR = 15;
-    when(pointsWastedPerMinute).isGreaterThan(MINOR)
+    when(energyWastedPerMinute).isGreaterThan(MINOR)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('You are wasting Combo Points. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')
           .icon('creatureportrait_bubble')
-          .actual(`${pointsWasted} Combo Points wasted (${pointsWastedPerMinute.toFixed(2)} per minute)`)
+          .actual(`${energyWasted} Combo Points wasted (${energyWastedPerMinute.toFixed(2)} per minute)`)
           .recommended(`< ${recommended.toFixed(2)} Combo Points per minute wasted are recommended`)
           .regular(AVG).major(MAJOR);
       });
   }
 
   statistic() {
-    const pointsWasted = this.comboPointTracker.wasted;
+    const energyWasted = this.energyTracker.wasted;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SHADOW_TECHNIQUES.id} />}
-        value={`${pointsWasted}`}
-        label="Wasted Combo Points"
+        value={`${energyWasted}`}
+        label="Wasted Energy"
       />
     );
   }
 
   tab() {
     return {
-      title: 'Combo Point usage',
-      url: 'combo-points',
+      title: 'Energy usage',
+      url: 'energy',
       render: () => (
-        <Tab title="Combo Point usage breakdown">
+        <Tab title="Enery usage breakdown">
           <ResourceBreakdown
-            pointsGained={this.comboPointTracker.gainedArray}
-            pointsSpent={this.comboPointTracker.spentArray}
-            pointsWasted={this.comboPointTracker.wastedArray}
-            pointsCast={this.comboPointTracker.castsArray}
-            resourceName="Combo Points"
+            pointsGained={this.energyTracker.gainedArray}
+            pointsSpent={this.energyTracker.spentArray}
+            pointsWasted={this.energyTracker.wastedArray}
+            pointsCast={this.energyTracker.castsArray}
+            resourceName="energy"
           />
         </Tab>
       ),
@@ -63,4 +63,4 @@ class ComboPointDetails extends Analyzer {
   statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
-export default ComboPointDetails;
+export default EnergyDetails;
