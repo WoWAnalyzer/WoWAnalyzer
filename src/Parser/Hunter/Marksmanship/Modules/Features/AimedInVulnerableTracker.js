@@ -29,6 +29,9 @@ class AimedInVulnerableTracker extends Analyzer {
       return;
     }
     const enemy = this.enemies.getEntity(event);
+    if(!enemy) {
+      return;
+    }
     if (enemy.hasBuff(SPELLS.VULNERABLE.id, event.timestamp)) {
       this.inVulnerabilityAimed += 1;
     } else {
