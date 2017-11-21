@@ -52,6 +52,8 @@ class Events extends React.PureComponent {
     const { events, start, totalWidth, secondWidth, className } = this.props;
     const fixedEvents = this.fabricateEndCooldown(events);
 
+    let beginTimestamp;
+
     return (
       <div className={`events ${className || ''}`} style={{ width: totalWidth }}>
         {fixedEvents.map((event, index) => {
@@ -69,9 +71,9 @@ class Events extends React.PureComponent {
             );
           }
           if (event.type === 'updatespellusable' && event.trigger === 'endcooldown') {
-            const left = (event.start - start) / 1000 * secondWidth;
+            const left = (beginTimestamp - start) / 1000 * secondWidth;
             const maxWidth = totalWidth - left; // don't expand beyond the container width
-            const width = Math.min(maxWidth, (event.end - event.start) / 1000 * secondWidth);
+            const width = Math.min(maxWidth, (event.end - beginTimestamp) / 1000 * secondWidth);
             return (
               <div
                 key={index}
@@ -81,9 +83,12 @@ class Events extends React.PureComponent {
                   background: 'rgba(150, 150, 150, 0.4)',
                   zIndex: 1,
                 }}
-                data-tip={`Cooldown: ${((event.end - event.start) / 1000).toFixed(1)}s`}
+                data-tip={`Cooldown: ${((event.end - beginTimestamp) / 1000).toFixed(1)}s`}
               />
             );
+          }
+          if (event.type === 'updatespellusable' && event.trigger === 'begincooldown') {
+            beginTimestamp = event.timestamp;
           }
 
           return null;
