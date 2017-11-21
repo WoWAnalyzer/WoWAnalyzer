@@ -110,15 +110,15 @@ class Abilities extends CoreAbilities {
       noCanBeImproved: true,
     },
     {
-      spell: SPELLS.GRIMOIRE_OF_SERVICE_TALENT,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      additionalSpells: [
+      spell: [
+        SPELLS.GRIMOIRE_OF_SERVICE_TALENT,
         SPELLS.GRIMOIRE_IMP,
         SPELLS.GRIMOIRE_SUCCUBUS,
         SPELLS.GRIMOIRE_FELGUARD,
         SPELLS.GRIMOIRE_FELHUNTER,
         SPELLS.GRIMOIRE_VOIDWALKER,
       ],
+      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
       isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
       extraSuggestion: <Wrapper><SpellLink id={SPELLS.GRIMOIRE_FELGUARD.id} /> is the preferred version to use. </Wrapper>,

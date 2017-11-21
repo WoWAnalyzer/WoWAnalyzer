@@ -27,7 +27,14 @@ class SpellHistory extends Analyzer {
       // We're only interested in abilities in Abilities since that's the only place we'll show the spell history, besides we only really want to track *casts* and the best source of info for that is Abilities.
       return null;
     }
-    const mainSpellId = ability.spell.id;
+
+    let mainSpellId;
+    if(Array.isArray(ability.spell)) {
+      mainSpellId = ability.spell[0].id;
+    } else {
+      mainSpellId = ability.spell.id;
+    }
+    
     if (!this.historyBySpellId[mainSpellId]) {
       this.historyBySpellId[mainSpellId] = [];
     }

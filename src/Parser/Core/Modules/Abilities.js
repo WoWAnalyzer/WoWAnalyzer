@@ -28,8 +28,7 @@ class Abilities extends Analyzer {
     /**
      * Available properties:
      *
-     * required spell {object} The spell definition with { id, name and icon }
-     * optional additionalSpells {array} An array of additional spell definitions with { id, name and icon }. Can be used if an ability has multiple cast IDs, or to associate a buff ID with a cast ID. The 'spell' field is still required even if you define this, as the spell field is used for the user facing display of the ability.
+     * required spell {object or array of objects} The spell definition with { id, name and icon }, or an array of spell definitions with the same format. If an array of spell definitions is provided, the first element in the array will be what shows in suggestions / cast timeline. Multiple spell definitions in the same ability can be used to tie multiple cast / buff IDs together as the same ability (with a shared cooldown)
      * optional name {string} the name to use if it is different from the name provided by the `spell` object.
      * required category {string} The name of the category to place this spell in, you should usually use the SPELL_CATEGORIES enum for these values.
      * required getCooldown {func} A function to calculate the cooldown of a spell. Parameters provided: `hastePercentage`, `selectedCombatant`
@@ -122,10 +121,16 @@ class Abilities extends Analyzer {
    */
   getAbility(spellId) {
     return this.constructor.ABILITIES.find(ability => {
-      if (ability.spell.id === spellId || (ability.additionalSpells && ability.additionalSpells.find(as => as.id === spellId))) {
-        return !ability.isActive || ability.isActive(this.combatants.selected);
+      if (Array.isArray(ability.spell)) {
+        if (!ability.spell.find(spell => spell.id === spellId)) {
+          return false;
+        }
+      } else {
+        if (ability.spell.id !== spellId) {
+          return false;
+        }
       }
-      return false;
+      return !ability.isActive || ability.isActive(this.combatants.selected);
     });
   }
 
