@@ -417,7 +417,7 @@ class App extends Component {
         return (
           <FullscreenError
             error="A wild INTERNET EXPLORER appeared!"
-            details="WoWAnalyzer.com refuses to work. It's super effective!"
+            details="WoWAnalyzer refuses to work. It's super effective!"
             background="https://media.giphy.com/media/njYrp176NQsHS/giphy.gif"
           >
             <div>
