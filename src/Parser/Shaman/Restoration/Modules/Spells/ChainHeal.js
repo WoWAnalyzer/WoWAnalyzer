@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { formatPercentage} from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
@@ -33,7 +34,7 @@ class ChainHeal extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Try to always cast <SpellLink id={SPELLS.CHAIN_HEAL.id} /> on groups of people, so that it heals all {maxTargets} potential targets.</span>)
           .icon(SPELLS.CHAIN_HEAL.icon)
-          .actual(`${avgHits.toFixed(2)} average targets healed`)
+          .actual(`${formatPercentage(avgHits)} average targets healed`)
           .recommended(`${recommended} average targets healed`)
           .regular(recommended - .25).major(recommended - .5);
       });
@@ -45,15 +46,16 @@ class ChainHeal extends Analyzer {
     const casts = chainHeal.casts || 0;
     const hits = chainHeal.healingHits || 0;
     const avgHits = hits / casts;
+
     
     const maxTargets = this.combatants.selected.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
 
     return (
         <StatisticBox
             icon={<SpellIcon id={SPELLS.CHAIN_HEAL.id} />}
-            value={`${avgHits.toFixed(2)}`}
+            value={`${formatPercentage(avgHits)}`}
             label={(
-                <dfn data-tip={`The average percentage of targets healed by Chain Heal out of the maximum amount of targets. You cast a total of ${casts} Chain Heals, which healed an average of ${avgHits.toFixed(2)} out of ${maxTargets} targets.`}>
+                <dfn data-tip={`The average percentage of targets healed by Chain Heal out of the maximum amount of targets. You cast a total of ${casts} Chain Heals, which healed an average of ${formatPercentage(avgHits)} out of ${maxTargets} targets.`}>
                     Average Chain Heal targets
                 </dfn>
             )}
