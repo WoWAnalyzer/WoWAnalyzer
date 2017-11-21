@@ -41,6 +41,7 @@ class Events extends React.PureComponent {
       fixedEvents.push({
         ...beginCooldownEvent,
         trigger: 'endcooldown',
+        timestamp : beginCooldownEvent.start + beginCooldownEvent.expectedDuration,
         end: beginCooldownEvent.start + beginCooldownEvent.expectedDuration,
       });
     });
