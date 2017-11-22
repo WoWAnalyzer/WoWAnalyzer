@@ -11,8 +11,6 @@ import PlayerSelectionList from './PlayerSelectionList';
 class PlayerSelectorHeader extends SelectorBase {
   static propTypes = {
     selectedPlayerName: PropTypes.string.isRequired,
-    combatants: PropTypes.arrayOf(PropTypes.shape({
-    })).isRequired,
   };
 
   render() {

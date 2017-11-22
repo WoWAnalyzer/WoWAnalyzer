@@ -31,3 +31,7 @@ export const UNKNOWN = 'UNKNOWN';
 export function unknownError(details) {
   return setError(UNKNOWN, details);
 }
+export const INTERNET_EXPLORER = 'INTERNET_EXPLORER';
+export function internetExplorerError() {
+  return setError(INTERNET_EXPLORER);
+}

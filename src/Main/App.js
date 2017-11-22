@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import { push as pushAction } from 'react-router-redux';
 
-import { ApiDownError, LogNotFoundError } from 'common/fetchWcl';
+import { ApiDownError, LogNotFoundError, CorruptResponseError } from 'common/fetchWcl';
 import fetchEvents from 'common/fetchEvents';
 import fatalError from 'common/fatalError';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
@@ -16,7 +16,7 @@ import { getReportCode, getFightId, getPlayerName } from 'selectors/url/report';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import { getCombatants } from 'selectors/combatants';
-import { clearError, reportNotFoundError, apiDownError, unknownNetworkIssueError, unknownError, API_DOWN, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'actions/error';
+import { clearError, reportNotFoundError, apiDownError, unknownNetworkIssueError, unknownError, internetExplorerError, API_DOWN, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE, INTERNET_EXPLORER } from 'actions/error';
 import { getError } from 'selectors/error';
 
 import './App.css';
@@ -43,6 +43,11 @@ const PROGRESS_STEP2_FETCH_EVENTS = 0.13;
 const PROGRESS_STEP3_PARSE_EVENTS = 0.99;
 
 /* eslint-disable no-alert */
+
+function isIE() {
+  const myNav = navigator.userAgent.toLowerCase();
+  return myNav.indexOf('msie') !== -1 || myNav.indexOf('trident') !== -1;
+}
 
 class App extends Component {
   static propTypes = {
@@ -74,6 +79,7 @@ class App extends Component {
     apiDownError: PropTypes.func.isRequired,
     unknownNetworkIssueError: PropTypes.func.isRequired,
     unknownError: PropTypes.func.isRequired,
+    internetExplorerError: PropTypes.func.isRequired,
   };
   static childContextTypes = {
     config: PropTypes.object,
@@ -96,7 +102,7 @@ class App extends Component {
     return report.friendlyPets.filter(pet => pet.petOwner === playerId);
   }
 
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
       progress: 0,
@@ -104,6 +110,10 @@ class App extends Component {
       bossId: null,
       config: null,
     };
+
+    if (isIE()) {
+      props.internetExplorerError();
+    }
   }
   getChildContext() {
     return {
@@ -289,6 +299,10 @@ class App extends Component {
             this.props.reportNotFoundError();
           } else if (err instanceof ApiDownError) {
             this.props.apiDownError();
+          } else if (err instanceof CorruptResponseError) {
+            // Corrupt WCL response
+            fatalError(err);
+            this.props.unknownError('Corrupt Warcraft Logs API response received, this report can not be processed.');
           } else if (err instanceof SyntaxError) {
             // JSON parse error
             fatalError(err);
@@ -403,10 +417,23 @@ class App extends Component {
           </FullscreenError>
         );
       }
+      if (error.error === INTERNET_EXPLORER) {
+        return (
+          <FullscreenError
+            error="A wild INTERNET EXPLORER appeared!"
+            details="WoWAnalyzer refuses to work. It's super effective!"
+            background="https://media.giphy.com/media/njYrp176NQsHS/giphy.gif"
+          >
+            <div>
+              <a className="btn btn-primary" href="http://outdatedbrowser.com/">Get a proper browser</a>
+            </div>
+          </FullscreenError>
+        );
+      }
       return (
         <FullscreenError
           error="An unknown error occured."
-          details={error.details.message}
+          details={error.details.message || error.details}
           background="https://media.giphy.com/media/m4TbeLYX5MaZy/giphy.gif"
         >
           <div>
@@ -518,5 +545,6 @@ export default connect(
     apiDownError,
     unknownNetworkIssueError,
     unknownError,
+    internetExplorerError,
   }
 )(App);
