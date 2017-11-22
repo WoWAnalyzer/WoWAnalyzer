@@ -50,7 +50,7 @@ class IceLance extends Analyzer {
 			return;
 		}
 		const enemy = this.enemies.getEntity(event);
-		if (!SHATTER_EFFECTS.some(effect => enemy.hasBuff(effect,event.timestamp)) && this.hadFingersProc === false) {
+		if (enemy && !SHATTER_EFFECTS.some(effect => enemy.hasBuff(effect, event.timestamp)) && this.hadFingersProc === false) {
 			this.nonShatteredCasts += 1;
 		}
 	}
