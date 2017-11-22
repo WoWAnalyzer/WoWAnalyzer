@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
+
+import { getReport } from 'selectors/report';
+import { getCombatants } from 'selectors/combatants';
 
 import DiscordButton from './DiscordButton';
 import PatreonButton from './PatreonButton';
@@ -19,10 +23,7 @@ class PlayerSelecter extends Component {
         name: PropTypes.string.isRequired,
       })),
     }).isRequired,
-    fightId: PropTypes.number.isRequired,
-    combatants: PropTypes.arrayOf(PropTypes.shape({
-
-    })).isRequired,
+    combatants: PropTypes.array,
   };
 
   componentWillUnmount() {
@@ -30,7 +31,17 @@ class PlayerSelecter extends Component {
   }
 
   render() {
-    const { report, fightId, combatants } = this.props;
+    const { report, combatants } = this.props;
+
+    if (!combatants) {
+      return (
+        <div>
+          <h1>Fetching players...</h1>
+
+          <div className="spinner" />
+        </div>
+      );
+    }
 
     return (
       <div>
@@ -48,7 +59,7 @@ class PlayerSelecter extends Component {
             <h2>Select the player you wish to analyze</h2>
           </div>
           <div className="panel-body" style={{ padding: 0 }}>
-            <PlayerSelectionList report={report} fightId={fightId} combatants={combatants} />
+            <PlayerSelectionList />
           </div>
         </div>
 
@@ -71,4 +82,9 @@ class PlayerSelecter extends Component {
   }
 }
 
-export default PlayerSelecter;
+const mapStateToProps = state => ({
+  report: getReport(state),
+  combatants: getCombatants(state),
+});
+
+export default connect(mapStateToProps)(PlayerSelecter);

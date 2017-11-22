@@ -2,7 +2,6 @@
 
 export default {
   // Shared
-  ELABORATE_PLANNING_TALENT: { id: 193640, name: "Elaborate Planning", icon: "inv_misc_map08" },
   NIGHTSTALKER_TALENT: { id: 14062, name: "Nightstalker", icon: "ability_stealth" },
   SUBTERFUGE_TALENT: { id: 108208, name: "Subterfuge", icon: "rogue_subterfuge" },
   SHADOW_FOCUS_TALENT: { id: 108209, name: "Shadow Focus", icon: "rogue_shadowfocus" },
@@ -13,7 +12,6 @@ export default {
   CHEAT_DEATH_TALENT: { id: 31230, name: "Cheat Death", icon: "ability_rogue_cheatdeath" },
   PREY_ON_THE_WEAK_TALENT: { id: 131511, name: "Prey on the Weak", icon: "ability_rogue_preyontheweak" },
   ALACRITY_TALENT: { id: 193539, name: "Alacrity", icon: "ability_paladin_speedoflight" },
-  EXSANGUINATE_TALENT: { id: 200806, name: "Exsanguinate", icon: "ability_deathwing_bloodcorruption_earth", energyCost: 25 },
   MARKED_FOR_DEATH_TALENT: { id: 137619, name: "Marked for Death", icon: "achievement_bg_killingblow_berserker" },
   DEATH_FROM_ABOVE_TALENT: { id: 152150, name: "Death from Above", icon: "spell_rogue_deathfromabove", energyCost: 25 },
   // Outlaw
@@ -40,6 +38,8 @@ export default {
   ENVELOPING_SHADOWS_TALENT: { id: 238104, name: "Enveloping Shadows", icon: "ability_rogue_envelopingshadows" },
   MASTER_OF_SHADOWS_TALENT: { id: 196976, name: "Master of Shadows", icon: "spell_shadow_charm" },
   // Assassination
+  ELABORATE_PLANNING_TALENT: { id: 193640, name: "Elaborate Planning", icon: "inv_misc_map08" },
+  EXSANGUINATE_TALENT: { id: 200806, name: "Exsanguinate", icon: "ability_deathwing_bloodcorruption_earth", energyCost: 25 },
   MASTER_POISONER_TALENT: { id: 196864, name: "Master Poisoner", icon: "ability_creature_poison_06" },
   HEMORRHAGE_TALENT: { id: 16511, name: "Hemorrhage", icon: "spell_shadow_lifedrain", energyCost: 30 },
   LEECHING_POISON_TALENT: { id: 108211, name: "Leeching Poison", icon: "rogue_leeching_poison" },

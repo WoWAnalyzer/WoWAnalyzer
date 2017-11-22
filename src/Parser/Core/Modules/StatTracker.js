@@ -36,10 +36,11 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.DREADSTONE_OF_ENDLESS_SHADOWS.id,
       haste: (_, item) => calculateSecondaryStatDefault(845, 3480, item.itemLevel),
     },
-    [SPELLS.RISING_TIDES.id]: { // TODO this trinket stacks oddly, results won't be quite right
-      itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
-      haste: (_, item) => calculateSecondaryStatDefault(900, 576, item.itemLevel),
-    },
+    // Event weirdness makes it impossible to handle CotRT normally, it's handled instead by the CharmOfTheRisingTide module
+    //[SPELLS.RISING_TIDES.id]: {
+    //  itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
+    //  haste: (_, item) => calculateSecondaryStatDefault(900, 576, item.itemLevel),
+    //},
     [SPELLS.ACCELERANDO.id]: {
       itemId: ITEMS.ERRATIC_METRONOME.id,
       haste: (_, item) => calculateSecondaryStatDefault(870, 657, item.itemLevel),
@@ -284,6 +285,25 @@ class StatTracker extends Analyzer {
     this._changeBuffStack(event);
   }
 
+  /*
+   * This interface allows an external analyzer to force a stat change.
+   * It should ONLY be used if a stat buff is so non-standard that it can't be handled by the buff format in this module.
+   * change is a stat buff object just like those in the STAT_BUFFS structure above, it is required.
+   * eventReason is the WCL event object that caused this change, it is not required.
+   */
+   // For an example of how / why this function would be used, see the CharmOfTheRisingTide module.
+  forceChangeStats(change, eventReason) {
+    const before = Object.assign({}, this._stats);
+    const delta = this._changeStats(change, 1);
+    const after = Object.assign({}, this._stats);
+    this._triggerChangeStats(eventReason, before, delta, after);
+    if(debug) {
+      const spellName = eventReason && eventReason.ability ? eventReason.ability.name : 'unspecified';
+      console.log(`StatTracker: FORCED CHANGE from ${spellName} - Change: ${this._statPrint(delta)}`);
+      this._debugPrintStats(this._stats);
+    }
+  }
+
   _changeBuffStack(event) {
     const spellId = event.ability.guid;
     const statBuff = this.constructor.STAT_BUFFS[spellId];
@@ -294,24 +314,52 @@ class StatTracker extends Analyzer {
         debug && console.log(`StatTracker prepull application IGNORED for ${SPELLS[spellId] ? SPELLS[spellId].name : spellId}`);
         return;
       }
-      debug && console.log(`StatTracker: (${event.oldStacks} -> ${event.newStacks}) ${SPELLS[spellId] ? SPELLS[spellId].name : spellId}`);
-      this._changeStats(statBuff, event.newStacks - event.oldStacks);
+
+      const before = Object.assign({}, this._stats);
+      const delta = this._changeStats(statBuff, event.newStacks - event.oldStacks);
+      const after = Object.assign({}, this._stats);
+      this._triggerChangeStats(event, before, delta, after);
+      debug && console.log(`StatTracker: (${event.oldStacks} -> ${event.newStacks}) ${SPELLS[spellId] ? SPELLS[spellId].name : spellId} @ ${formatMilliseconds(this.owner.currentTimestamp)} - Change: ${this._statPrint(delta)}`);
+      debug && this._debugPrintStats(this._stats);
     }
   }
 
   _changeStats(change, factor) {
-    this._stats.strength += this._getBuffValue(change, change.strength) * factor;
-    this._stats.agility += this._getBuffValue(change, change.agility) * factor;
-    this._stats.intellect += this._getBuffValue(change, change.intellect) * factor;
-    this._stats.stamina += this._getBuffValue(change, change.stamina) * factor;
-    this._stats.crit += this._getBuffValue(change, change.crit) * factor;
-    this._stats.haste += this._getBuffValue(change, change.haste) * factor;
-    this._stats.mastery += this._getBuffValue(change, change.mastery) * factor;
-    this._stats.versatility += this._getBuffValue(change, change.versatility) * factor;
-    this._stats.avoidance += this._getBuffValue(change, change.avoidance) * factor;
-    this._stats.leech += this._getBuffValue(change, change.leech) * factor;
-    this._stats.speed += this._getBuffValue(change, change.speed) * factor;
-    debug && this._debugPrintStats();
+    const delta = {
+      strength: this._getBuffValue(change, change.strength) * factor,
+      agility: this._getBuffValue(change, change.agility) * factor,
+      intellect: this._getBuffValue(change, change.intellect) * factor,
+      stamina: this._getBuffValue(change, change.stamina) * factor,
+      crit: this._getBuffValue(change, change.crit) * factor,
+      haste: this._getBuffValue(change, change.haste) * factor,
+      mastery: this._getBuffValue(change, change.mastery) * factor,
+      versatility: this._getBuffValue(change, change.versatility) * factor,
+      avoidance: this._getBuffValue(change, change.avoidance) * factor,
+      leech: this._getBuffValue(change, change.leech) * factor,
+      speed: this._getBuffValue(change, change.speed) * factor,
+    };
+
+    Object.keys(this._stats).forEach(key => {
+      this._stats[key] += delta[key];
+    });
+
+    return delta;
+  }
+
+  /*
+   * Fabricates an event indicating when stats change
+   */
+  _triggerChangeStats(event, before, delta, after) {
+    this.owner.triggerEvent('changestats', {
+      timestamp: event ? event.timestamp : this.owner.currentTimestamp,
+      type: 'changestats',
+      sourceID: event ? event.sourceID : this.owner.playerId,
+      targetID: this.owner.playerId,
+      reason: event,
+      before,
+      delta,
+      after,
+    });
   }
 
   /**
@@ -339,7 +387,11 @@ class StatTracker extends Analyzer {
   }
 
   _debugPrintStats(stats) {
-    console.log(`StatTracker:`, formatMilliseconds(this.owner.fightDuration), `STR=${this._stats.strength} AGI=${this._stats.agility} INT=${this._stats.intellect} STM=${this._stats.stamina} CRT=${this._stats.crit} HST=${this._stats.haste} MST=${this._stats.mastery} VRS=${this._stats.versatility} AVD=${this._stats.avoidance} LCH=${this._stats.leech} SPD=${this._stats.speed}`);
+    console.log(`StatTracker: ${formatMilliseconds(this.owner.currentTimestamp)} - ${this._statPrint(stats)}`);
+  }
+
+  _statPrint(stats) {
+    return `STR=${stats.strength} AGI=${stats.agility} INT=${stats.intellect} STM=${stats.stamina} CRT=${stats.crit} HST=${stats.haste} MST=${stats.mastery} VRS=${stats.versatility} AVD=${this._stats.avoidance} LCH=${stats.leech} SPD=${stats.speed}`;
   }
 
 }

@@ -223,6 +223,8 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       }
     });
     this.activeCooldowns = [];
+
+    this.processAll();
   }
 
   on_byPlayer_cast(event) {

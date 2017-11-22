@@ -6,7 +6,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox from 'Main/StatisticBox';
-import getDamageBonus from "Parser/Hunter/Shared/Core/getDamageBonus";
+import getDamageBonus from "Parser/Hunter/Shared/Modules/getDamageBonus";
 import { formatNumber } from "common/format";
 
 const TRICK_SHOT_MODIFIER = 0.15;
@@ -24,10 +24,10 @@ class TrickShot extends Analyzer {
   // TODO: Find a good way tracking Trick Shot cleave damage
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if(spellId !== SPELLS.AIMED_SHOT.id) {
+    if (spellId !== SPELLS.AIMED_SHOT.id) {
       return;
     }
-    if(!this.combatants.selected.hasBuff(SPELLS.TRICK_SHOT_BUFF.id)){
+    if (!this.combatants.selected.hasBuff(SPELLS.TRICK_SHOT_BUFF.id)) {
       return;
     }
     this.bonusDmg += getDamageBonus(event, TRICK_SHOT_MODIFIER);

@@ -6,7 +6,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import PETS from 'common/PETS';
-import { calculateMaxCasts } from 'Parser/Core/getCastEfficiency';
+import calculateMaxCasts from 'Parser/Core/calculateMaxCasts';
 import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';

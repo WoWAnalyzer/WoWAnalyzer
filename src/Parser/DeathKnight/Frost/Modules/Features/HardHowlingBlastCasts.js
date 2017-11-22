@@ -47,7 +47,7 @@ class HardHowlingBlastCasts extends Analyzer {
         icon={<SpellIcon id={SPELLS.RIME.id} />}
         value={this.nonrimedHB}
         label='Howling Blasts without Rime proc'
-        tooltip='You should aim to get this to 0.'
+        tooltip='You should aim to get this as close to 0 as possible.'
       />
     );
   }

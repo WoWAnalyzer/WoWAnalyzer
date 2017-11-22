@@ -8,9 +8,44 @@ import ZerotorescueAvatar from 'Parser/Paladin/Holy/Images/zerotorescue-avatar.p
 const Zerotorescue = ['Zerotorescue', ZerotorescueAvatar];
 
 export default [
+    {
+    date: new Date('2017-11-11'),
+    changes: <Wrapper>Changed the Changelog tab to mark <i>shared changes</i> as grey and provided a toggle to hide them.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-11'),
+    changes: 'Added a larger call for help for specs that are marked "Not actively maintained".',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-11'),
+    changes: 'Added a timeline tab. Right now this only shows spell casts and their cooldowns so you can see what you cast and could have cast.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-08'),
+    changes: 'Automatically try again when WCL sends a corrupt fights response.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-08'),
+    changes: 'Changed the API is down and rendering errors to be more amazing.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-08'),
+    changes: 'The changelog tab now includes entries in the shared changelog.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-08'),
+    changes: 'Added a suggestion for healers if their mana percentage is too high at the end of an encounter.',
+    contributors: ['Blazyb'],
+  },
   {
     date: new Date('2017-11-06'),
-    changes: 'Add a changelog tab to results page and changed the layout of changelogs.',
+    changes: 'Added a changelog tab to results page and changed the layout of changelogs.',
     contributors: [Zerotorescue],
   },
   {

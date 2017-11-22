@@ -16,6 +16,21 @@ export default {
     name: 'Bestial Wrath',
     icon: 'ability_druid_ferociousbite',
   },
+  BESTIAL_WRATH_BUFF_HATI: {
+    id: 207033,
+    name: 'Bestial Wrath Buff',
+    icon: 'ability_druid_ferociousbite',
+  },
+  BESTIAL_WRATH_BUFF_MAIN_PET: {
+    id: 186254,
+    name: 'Bestial Wrath Buff',
+    icon: 'ability_druid_ferociousbite',
+  },
+  DIRE_BEAST_SUMMON: {
+    id: 224573,
+    name: 'Dire Beast Summon',
+    icon: 'ability_hunter_sickem',
+  },
   COBRA_SHOT: {
     id: 193455,
     name: 'Cobra Shot',
@@ -32,7 +47,7 @@ export default {
     icon: 'ability_hunter_longevity',
   },
   DIRE_FRENZY_TALENT_BUFF: {
-    id:   246152,
+    id: 246152,
     name: 'Dire Frenzy Buff',
     icon: 'ability_druid_mangle',
   },
@@ -46,11 +61,31 @@ export default {
     name: 'Kill Command',
     icon: 'ability_hunter_killcommand',
   },
+  KILL_COMMAND_PET: {
+    id: 83381,
+    name: 'Kill Command',
+    icon: 'ability_hunter_killcommand',
+  },
+  WILD_CALL: {
+    id: 185789,
+    name: 'Wild Call',
+    icon: 'ability_hunter_masterscall',
+  },
+  WILD_CALL_PROC: {
+    id: 185791,
+    name: 'Wild Call Proc',
+    icon: 'ability_hunter_masterscall',
+  },
 
   //Beast Mastery Artifact Traits
   TITANS_THUNDER: {
     id: 207068,
-    name: 'Titans Thunder',
+    name: 'Titan\'s Thunder',
+    icon: 'inv_firearm_2h_artifactlegion_d_01',
+  },
+  TITANS_THUNDER_BUFF: {
+    id: 207094,
+    name: 'Titans Thunder Buff',
     icon: 'inv_firearm_2h_artifactlegion_d_01',
   },
   BEAST_CLEAVE_BUFF: {
@@ -58,9 +93,50 @@ export default {
     name: 'Beast Cleave',
     icon: 'ability_hunter_sickem',
   },
+  COBRA_COMMANDER: {
+    id: 243042,
+    name: 'Cobra Commander',
+    icon: 'inv_waepon_bow_zulgrub_d_01',
+  },
+
+  //Beast Mastery Tier
+  HUNTER_BM_T19_2P_BONUS: {
+    id: 211181, //WoWHead has this as 4p, but it's actually the 2p
+    name: 'T19 2 set bonus',
+    icon: 'trade_engineering',
+  },
+  HUNTER_BM_T19_2P_BONUS_BUFF: {
+    id: 211183,
+    name: 'T19 2 set bonus',
+    icon: 'ability_druid_ferociousbite',
+  },
+  HUNTER_BM_T19_4P_BONUS: {
+    id: 211172,
+    name: 'T19 2 set bonus',
+    icon: 'trade_engineering',
+  },
+  HUNTER_BM_T20_2P_BONUS: {
+    id: 242239,
+    name: 'T20 2 set bonus',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
+  HUNTER_BM_T20_2P_BONUS_BUFF: {
+    id: 246126,
+    name: 'T20 2 set bonus',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
+  HUNTER_BM_T20_4P_BONUS: {
+    id: 242240,
+    name: 'T20 4 set bonus',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
+  HUNTER_BM_T20_4P_BONUS_BUFF: {
+    id: 246116,
+    name: 'T20 4 set bonus',
+    icon: 'ability_hunter_fervor',
+  },
 
   // MarksmanshipHunter:
-
   // Marksmanship spells
 
   WINDBURST: {
@@ -353,5 +429,15 @@ export default {
     id: 2641,
     name: 'Dismiss Pet',
     icon: 'spell_nature_spiritwolf',
+  },
+  BINDING_SHOT_STUN: {
+    id: 117526,
+    name: 'Binding Shot Stun',
+    icon: 'spell_shaman_bindelemental',
+  },
+  BINDING_SHOT_TETHER: {
+    id: 117405,
+    name: 'Binding Shot Tether',
+    icon: 'spell_shaman_bindelemental',
   },
 };

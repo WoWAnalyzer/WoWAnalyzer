@@ -3,8 +3,10 @@ html {
 }
 
 body {
-  line-height: 1.6;
-  font-family: 'Roboto', sans-serif;
+  line-height: 1.8;
+  font-family: 'Open Sans', 'Century Gothic', sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
   background: #305361;
   /*background: linear-gradient(rgba(48, 83, 97, 0.8), rgba(48, 83, 97, 0.9)), url(./background.jpg) center no-repeat;*/
   /*background: url(./background-pattern.png), url(./background.jpg) center no-repeat;*/
@@ -44,7 +46,7 @@ h1 {
   margin-bottom: 1em;
   line-height: 1.1;
   opacity: 0.9;
-  text-transform: uppercase;
+  font-variant: small-caps;
   font-weight: 600;
   font-size: 24px;
 }
@@ -168,7 +170,7 @@ hr {
 .panel-heading h2 {
   font-weight: 400;
   opacity: .9;
-  text-transform: uppercase;
+  font-variant: small-caps;
   letter-spacing: 0.6px;
   margin: 0;
   font-size: 1.2em;
@@ -353,7 +355,7 @@ nav .selectorHeader a {
   transition: background-color 0.1s ease-in-out;
 }
 .list.text > li {
-  padding: 5px 22px;
+  padding: 7px 22px;
   border-bottom: 1px solid rgba(0, 0, 0, .4);
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
 }
@@ -490,12 +492,15 @@ dfn[data-tip] {
 }
 
 .alert-danger {
-  padding: 20px;
-  background-color: rgba(203, 73, 71, .2);
+  padding: 20px 30px;
+  background-color: rgba(119, 47, 46, 0.6);
   border-color: transparent;
-  line-height: 1.5;
-  color: #cb4947;
+  text-align: justify;
+  color: #ff1d19;
   border-radius: 0;
+}
+.alert-danger a {
+  color: #fff;
 }
 .text-muted {
   color: #999;

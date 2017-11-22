@@ -52,7 +52,7 @@ class DamageDone extends Analyzer {
         )}
         value={`${formatNumber(this.total.effective / (this.owner.fightDuration / 1000))} DPS`}
         label="Damage done"
-        tooltip={`The total damage done was ${formatThousands(this.total.effective)}. Pets contributed ${formatNumber(this.totalByPets.effective / (this.owner.fightDuration / 1000))} DPS.`}
+        tooltip={`Total damage done: <b>${formatThousands(this.total.effective)}</b> ${this.totalByPets.effective ? `<br>Contribution from pets: ${this.owner.formatItemDamageDone(this.totalByPets.effective)}` : ''}`}
       />
     );
   }

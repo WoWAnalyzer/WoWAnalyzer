@@ -26,9 +26,11 @@
           <option name="BLANK_LINES_BETWEEN_BLOCKS" value="0" />
         </CssCodeStyleSettings>
         <JSCodeStyleSettings>
+          <option name="USE_DOUBLE_QUOTES" value="false" />
           <option name="SPACES_WITHIN_OBJECT_LITERAL_BRACES" value="true" />
           <option name="SPACES_WITHIN_IMPORTS" value="true" />
           <option name="BLANK_LINES_AROUND_FUNCTION" value="0" />
+          <option name="IMPORT_PREFER_ABSOLUTE_PATH" value="TRUE" />
         </JSCodeStyleSettings>
         <PHPCodeStyleSettings>
           <option name="PHPDOC_BLANK_LINES_AROUND_PARAMETERS" value="true" />

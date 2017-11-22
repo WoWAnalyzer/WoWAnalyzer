@@ -6,8 +6,8 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   spec: SPECS.DISCIPLINE_PRIEST,
-  maintainer: '@Reglitch and @Gao',
-  completeness: SPEC_ANALYSIS_COMPLETENESS.GOOD, // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
+  maintainer: '@Reglitch, @Gao and @Oratio',
+  completeness: SPEC_ANALYSIS_COMPLETENESS.GREAT, // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
   changelog: CHANGELOG,
   parser: CombatLogParser,
   path: __dirname, // used for generating a GitHub link directly to your spec

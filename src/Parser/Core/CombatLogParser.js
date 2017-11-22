@@ -5,6 +5,7 @@ import ChangelogTab from 'Main/ChangelogTab';
 import ChangelogTabTitle from 'Main/ChangelogTabTitle';
 import Tab from 'Main/Tab';
 import Talents from 'Main/Talents';
+import TimelineTab from 'Main/Timeline/TimelineTab';
 
 import { formatNumber, formatPercentage } from 'common/format';
 
@@ -20,6 +21,7 @@ import AbilityTracker from './Modules/AbilityTracker';
 import Haste from './Modules/Haste';
 import StatTracker from './Modules/StatTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
+import Abilities from './Modules/Abilities';
 import CastEfficiency from './Modules/CastEfficiency';
 import SpellUsable from './Modules/SpellUsable';
 import SpellHistory from './Modules/SpellHistory';
@@ -46,10 +48,12 @@ import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
 import AmalgamsSeventhSpine from './Modules/Items/AmalgamsSeventhSpine';
 import ArchiveOfFaith from './Modules/Items/ArchiveOfFaith';
 import BarbaricMindslaver from './Modules/Items/BarbaricMindslaver';
+import CharmOfTheRisingTide from './Modules/Items/CharmOfTheRisingTide';
 import SeaStar from './Modules/Items/SeaStarOfTheDepthmother';
 import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
 import PrePotion from './Modules/Items/PrePotion';
 import LegendaryUpgradeChecker from './Modules/Items/LegendaryUpgradeChecker';
+import LegendaryCountChecker from './Modules/Items/LegendaryCountChecker';
 import GnawedThumbRing from './Modules/Items/GnawedThumbRing';
 import VialOfCeaselessToxins from './Modules/Items/VialOfCeaselessToxins';
 import SpecterOfBetrayal from './Modules/Items/SpecterOfBetrayal';
@@ -63,6 +67,7 @@ import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
 // T21 Healing trinkets
 import TarratusKeystone from './Modules/Items/TarratusKeystone';
 import HighFathersMachination from './Modules/Items/HighfathersMachination';
+import EonarsCompassion from './Modules/Items/EonarsCompassion';
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
 import VantusRune from './Modules/Spells/VantusRune';
@@ -84,6 +89,7 @@ import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
 
 const debug = false;
+const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 
 let _modulesDeprecatedWarningSent = false;
 
@@ -110,7 +116,8 @@ class CombatLogParser {
     haste: Haste,
     statTracker: StatTracker,
     alwaysBeCasting: AlwaysBeCasting,
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
+    CastEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
     spellHistory: SpellHistory,
     manaValues: ManaValues,
@@ -133,10 +140,12 @@ class CombatLogParser {
     darkmoonDeckPromises: DarkmoonDeckPromises,
     prePotion: PrePotion,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
+    legendaryCountChecker: LegendaryCountChecker,
     gnawedThumbRing: GnawedThumbRing,
     // Tomb trinkets:
     archiveOfFaith: ArchiveOfFaith,
     barbaricMindslaver: BarbaricMindslaver,
+    charmOfTheRisingTide: CharmOfTheRisingTide,
     seaStar: SeaStar,
     deceiversGrandDesign: DeceiversGrandDesign,
     vialCeaslessToxins: VialOfCeaselessToxins,
@@ -149,6 +158,7 @@ class CombatLogParser {
     // T21 Healing Trinkets
     tarratusKeystone: TarratusKeystone,
     highfathersMachinations: HighFathersMachination,
+    eonarsCompassion : EonarsCompassion,
 
     // Concordance of the Legionfall
     concordance: Concordance,
@@ -342,11 +352,24 @@ class CombatLogParser {
     return events;
   }
 
+  _moduleTime = {};
   triggerEvent(eventType, event, ...args) {
-    this.activeModules
-      .filter(module => module instanceof Analyzer)
-      .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
-      .forEach(module => module.triggerEvent(eventType, event, ...args));
+    Object.keys(this._modules)
+      .filter(key => this._modules[key].active)
+      .filter(key => this._modules[key] instanceof Analyzer)
+      .sort((a, b) => this._modules[a].priority - this._modules[b].priority) // lowest should go first, as `priority = 0` will have highest prio
+      .forEach(key => {
+        const module = this._modules[key];
+        if (IS_DEVELOPMENT) {
+          const start = +new Date();
+          module.triggerEvent(eventType, event, ...args);
+          const duration = +new Date() - start;
+          this._moduleTime[key] = this._moduleTime[key] || 0;
+          this._moduleTime[key] += duration;
+        } else {
+          module.triggerEvent(eventType, event, ...args);
+        }
+      });
   }
 
   byPlayer(event, playerId = this.player.id) {
@@ -397,6 +420,21 @@ class CombatLogParser {
         render: () => (
           <Tab title="Talents">
             <Talents combatant={this.modules.combatants.selected} />
+          </Tab>
+        ),
+      },
+      {
+        title: 'Timeline',
+        url: 'timeline',
+        order: 2,
+        render: () => (
+          <Tab title="Timeline">
+            <TimelineTab
+              start={this.fight.start_time}
+              end={this.currentTimestamp}
+              historyBySpellId={this.modules.spellHistory.historyBySpellId}
+              abilities={this.modules.abilities}
+            />
           </Tab>
         ),
       },

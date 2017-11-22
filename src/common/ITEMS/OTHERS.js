@@ -199,6 +199,12 @@ export default {
     icon: 'spell_nature_astralrecalgroup',
     quality: ITEM_QUALITIES.EPIC,
   },
+  EONARS_COMPASSION: {
+    id: 154175,
+    name: 'Eonar\'s Compassion',
+    icon: 'inv_antorus_green',
+    quality: ITEM_QUALITIES.EPIC,
+  },
 
   // DPS Trinkets
   ERRATIC_METRONOME: {

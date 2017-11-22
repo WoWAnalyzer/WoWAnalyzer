@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Masonry from 'react-masonry-component';
 
@@ -8,15 +9,18 @@ import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
 import getBossName from 'common/getBossName';
 import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
-
+import { getResultTab } from 'selectors/url/report';
 import DevelopmentTab from 'Main/DevelopmentTab';
 import EventsTab from 'Main/EventsTab';
 import Tab from 'Main/Tab';
 import Status from 'Main/Status';
+import GithubButton from 'Main/GithubButton';
+import DiscordButton from 'Main/DiscordButton';
 
 import SpecInformationOverlay from './SpecInformationOverlay';
 
 import './Results.css';
+import SPEC_ANALYSIS_COMPLETENESS from "../common/SPEC_ANALYSIS_COMPLETENESS";
 
 class Results extends React.Component {
   static childContextTypes = {
@@ -224,7 +228,7 @@ class Results extends React.Component {
                   <span className="glyphicon glyphicon-chevron-left" aria-hidden />
                 </Link>
               </div>
-              <h1 style={{ marginBottom: 0, fontSize: 48, textTransform: 'none' }}>
+              <h1 style={{ marginBottom: 0, fontSize: 48, textTransform: 'none', fontVariant: 'none' }}>
                 {getBossName(fight)} by <span className={config.spec.className.replace(' ', '')}>{selectedCombatant.name}</span>
               </h1>
             </div>
@@ -241,14 +245,20 @@ class Results extends React.Component {
           </div>
           <div className="text-muted" style={{ marginBottom: 25, fontSize: '1.4em' }}>
             The <img
-            src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`}
-            alt="Spec logo"
-            style={{
-              borderRadius: '50%',
-              height: '1.2em',
-            }}
-          /> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainer} (status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>). <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
+              src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`}
+              alt="Spec logo"
+              style={{
+                borderRadius: '50%',
+                height: '1.2em',
+              }}
+            /> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainer} (status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>). <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
           </div>
+          {config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED && (
+            <div className="alert alert-danger" style={{ fontSize: '1.5em' }}>
+              This spec is not actively being maintained. In order to continue providing useful and accurate information we are looking for an active maintainer for this spec. See our GitHub page or join Discord for more information.<br />
+              <GithubButton /> <DiscordButton />
+            </div>
+          )}
 
           <div className="row">
             <div className="col-md-8">
@@ -297,4 +307,10 @@ class Results extends React.Component {
   }
 }
 
-export default Results;
+const mapStateToProps = state => ({
+  tab: getResultTab(state),
+});
+
+export default connect(
+  mapStateToProps
+)(Results);

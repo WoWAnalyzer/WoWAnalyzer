@@ -6,8 +6,8 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatNumber } from 'common/format';
-import StatisticBox from 'Main/StatisticBox';
-import getDamageBonus from "Parser/Hunter/Shared/Core/getDamageBonus";
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import getDamageBonus from "Parser/Hunter/Shared/Modules/getDamageBonus";
 
 const MAX_STACKS = 10;
 const TRUE_AIM_MODIFIER = 0.02;
@@ -95,8 +95,8 @@ True Aim contributed with ${formatNumber(this.bonusDmg)} - ${this.owner.formatIt
 </ul>`}
       />
     );
-
   }
+  statisticOrder = STATISTIC_ORDER.CORE(11);
 }
 
 export default TrueAim;

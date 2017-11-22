@@ -1,6 +1,7 @@
 import querystring from 'querystring';
 import request from 'request-promise-native';
 import Sequelize from 'sequelize';
+import Raven from 'raven';
 
 import models from './models';
 import WclApiError from './WclApiError';
@@ -105,6 +106,7 @@ class ApiRequestHandler {
       this.sendJson(jsonString);
       console.log('Finished', 'wcl:', wclResponseTime, 'ms');
     } catch (error) {
+      Raven.captureException(error);
       if (error.statusCode >= 400 && error.statusCode < 600) {
         const message = error.error || error.message; // if this is a `request` error, `error` contains the plain JSON while `message` also has the statusCode so is polluted.
         console.error(`WCL Error (${error.statusCode}): ${message}`);

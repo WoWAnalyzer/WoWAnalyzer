@@ -546,6 +546,11 @@ export default {
     name: 'Gift of the Queen',
     icon: 'inv_mace_1h_artifactazshara_d_02',
   },
+  GIFT_OF_THE_QUEEN_DUPLICATE: {
+     id:255227,
+     name: 'Gift of the Queen Duplicate',
+     icon: 'inv_mace_1h_artifactazshara_d_02',
+  },
   CLOUDBURST_TOTEM_HEAL: {
     id: 157503,
     name: 'Cloudburst Totem',
