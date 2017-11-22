@@ -20,7 +20,7 @@ class ComboPointDetails extends Analyzer {
   
 
   makeExtraSuggestion(spell) {
-    return <Wrapper>Avoid wasting combo points when casting <SpellLink id={spell.id}  /> </Wrapper>
+    return <Wrapper>Avoid wasting combo points when casting <SpellLink id={spell.id}  /> </Wrapper>;
   }
 
 
