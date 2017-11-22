@@ -36,7 +36,8 @@ class CastEfficiency extends Analyzer {
    * recharges is the total number of times the spell has recharged (either come off cooldown or gained a charge)
    * Only works on spells entered into CastEfficiency list.
    */
-  _getCooldownInfo(spellId) {
+  _getCooldownInfo(ability) {
+    const spellId = ability.spell.id;
     const history = this.spellHistory.historyBySpellId[spellId];
     if(!history) {
       return null;
@@ -67,10 +68,13 @@ class CastEfficiency extends Analyzer {
       }, 0);
     const endingRechargeTime = (!lastRechargeTimestamp) ? 0 : this.owner.currentTimestamp - lastRechargeTimestamp;
 
+    const casts = history.filter(event => event.type === 'cast').length;
+
     return {
       completedRechargeTime,
       endingRechargeTime,
       recharges,
+      casts,
     };
   }
 
@@ -89,17 +93,24 @@ class CastEfficiency extends Analyzer {
         const spellId = ability.spell.id;
         const cooldown = ability.getCooldown(this.combatants.hastePercentage, this.combatants.selected);
         const cooldownMs = (cooldown === null) ? null : cooldown * 1000;
-        const cdInfo = this._getCooldownInfo(spellId);
+        const cdInfo = this._getCooldownInfo(ability);
 
         // ability.getCasts is used for special cases that show the wrong number of cast events, like Penance
         // and also for splitting up differently buffed versions of the same spell (this use has nothing to do with CastEfficiency)
-        const trackedAbility = this.abilityTracker.getAbility(spellId);
-        const casts = (ability.getCasts ? ability.getCasts(trackedAbility, this.owner) : trackedAbility.casts) || 0;
+        let casts;
+        if(ability.getCasts) {
+          casts = ability.getCasts(this.abilityTracker.getAbility(spellId), this.owner);
+        } else if(cdInfo) {
+          casts = cdInfo.casts;
+        } else {
+          casts = 0;
+        }
+        const cpm = casts / fightDurationMinutes;
+
         if (ability.isUndetectable && casts === 0) {
           // Some spells (most notably Racials) can not be detected if a player has them. This hides those spells if they have 0 casts.
           return null;
         }
-        const cpm = casts / fightDurationMinutes;
 
         // ability.getMaxCasts is used for special cases for spells that have a variable availability or CD based on state, like Void Bolt.
         // This same behavior should be managable using SpellUsable's interface, so getMaxCasts is deprecated.
