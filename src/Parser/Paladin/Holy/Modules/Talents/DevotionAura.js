@@ -61,7 +61,8 @@ class DevotionAura extends Analyzer {
     if (spellId === FALLING_DAMAGE_ABILITY_ID) {
       return;
     }
-    const isAuraMasteryActive = this.combatants.selected.getBuffs(PROTECTION_OF_TYR_ID, event.timestamp).find(buff => buff.sourceID === this.owner.playerId);
+
+    const isAuraMasteryActive = this.combatants.selected.hasBuff(PROTECTION_OF_TYR_ID, event.timestamp, 0, 0, this.owner.playerId);
     if (!isAuraMasteryActive) {
       this.totalDamageTakenOutsideAuraMastery = this.totalDamageTakenOutsideAuraMastery + event.amount + (event.absorbed || 0);
     }
