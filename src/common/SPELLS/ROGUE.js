@@ -63,6 +63,11 @@ export default {
     name: 'Kidney Shot',
     icon: 'ability_rogue_kidneyshot',
   },
+  ARCANE_TORRENT_ROGUE: {
+    id: 25046,
+    name: 'Arcane Torrent',
+    icon: 'spell_shadow_teleport',
+  },
 
   // Subtlety spells
   // Combo point generating damage ability
@@ -123,6 +128,43 @@ export default {
     id: 197800,
     name: 'Shadow Nova',
     icon: 'spell_fire_twilightnova',
+  },
+  // CP Generation
+  SHADOW_TECHNIQUES: {
+    id: 196911,
+    name: 'Shadow Techniques',
+    icon: 'ability_rogue_masterofsubtlety',
+  },
+  SHURIKEN_STORM_CP: {
+    id: 212743,
+    name: 'Shuriken Storm',
+    icon: 'ability_rogue_shurikenstorm',
+  },
+  // ENERGY REGEN
+  GOREMAWS_BITE_ENERGY: {
+    id: 220901,
+    name: 'Goremaw\'s Bite',
+    icon: 'inv_knife_1h_artifactfangs_d_01',
+  },
+  RELENTLESS_STRIKES: {
+    id: 98440,
+    name: 'Relentless Strikes',
+    icon: 'ability_warrior_decisivestrike',
+  },
+  ENERGETIC_STABBING: {
+    id: 197237,
+    name: 'Energetic Stabbing',
+    icon: 'inv_knife_1h_pvppandarias3_c_02',
+  },
+  SHADOW_SATYRS_WALK_ENERGY_BASE: {
+    id: 224914,
+    name: 'Shadow Satyr\'s Walk',
+    icon: 'inv_boots_mail_dungeonmail_c_04',
+  },
+  SHADOW_SATYRS_WALK_ENERGY_EXTRA: {
+    id: 208440,
+    name: 'Shadow Satyr\'s Walk',
+    icon: 'inv_boots_mail_dungeonmail_c_04',
   },
   // Buffs
   SHADOW_DANCE_BUFF: {
