@@ -31,7 +31,15 @@ class Tier20_4set extends Analyzer {
     }
   }
 
+  on_toPlayer_refreshbuff(event) {
+    this._handleBuff(event);
+  }
+
   on_toPlayer_applybuff(event) {
+    this._handleBuff(event);
+  }
+
+  _handleBuff(event) {
 		if (event.ability.guid !== SPELLS.BRAIN_FREEZE.id) {
 			return;
 		}
