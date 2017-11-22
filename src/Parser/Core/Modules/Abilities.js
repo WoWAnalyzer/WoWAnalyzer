@@ -72,7 +72,6 @@ class Abilities extends Analyzer {
       spell: SPELLS.KILJAEDENS_BURNING_WISH_DAMAGE, // cast event never shows, we fab cast events from damage events
       category: Abilities.SPELL_CATEGORIES.ITEMS,
       getCooldown: haste => 75,
-      //getCasts: (_, parser) => parser.modules.kiljaedensBurningWish.casts,
       extraSuggestion: "Delaying the cast somewhat to line up with add spawns is acceptable, however.",
       isActive: combatant => combatant.hasTrinket(ITEMS.KILJAEDENS_BURNING_WISH.id),
     },
