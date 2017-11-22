@@ -68,12 +68,14 @@ class Abilities extends Analyzer {
       getCooldown: haste => 180,
       isActive: combatant => combatant.hasFinger(ITEMS.GNAWED_THUMB_RING.id),
     },
-    // {
-    //   spell: SPELLS.KILJAEDENS_BURNING_WISH_CAST,
-    //   category: Abilities.SPELL_CATEGORIES.ITEMS,
-    //   getCooldown: haste => 75,
-    //   isActive: combatant => combatant.hasTrinket(ITEMS.KILJAEDENS_BURNING_WISH.id),
-    // },
+    {
+      spell: SPELLS.KILJAEDENS_BURNING_WISH_CAST,
+      category: Abilities.SPELL_CATEGORIES.ITEMS,
+      getCooldown: haste => 75,
+      getCasts: (_, parser) => parser.modules.kiljaedensBurningWish.casts,
+      extraSuggestion: "Delaying the cast somewhat to line up with add spawns is acceptable, however.",
+      isActive: combatant => combatant.hasTrinket(ITEMS.KILJAEDENS_BURNING_WISH.id),
+    },
     {
       spell: SPELLS.ARCHIMONDES_HATRED_REBORN_ABSORB,
       category: Abilities.SPELL_CATEGORIES.ITEMS,
