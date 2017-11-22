@@ -47,6 +47,8 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 30,
       isActive: combatant => combatant.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id),
+      recommendedCastEfficiency: 0.95,
+      extraSuggestion: <span><SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id}/> should be used on cooldown, and you should aim to hit it in the center of the mobs, as that will be where it does the most dmg.</span>,
     },
     {
       spell: SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED,
@@ -61,7 +63,8 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 20,
       isActive: combatant => combatant.hasTalent(SPELLS.BARRAGE_TALENT.id),
-      recommendedCastEfficiency: 1.0,
+      recommendedCastEfficiency: 0.9,
+      extraSuggestion: <span><SpellLink id={SPELLS.BARRAGE_TALENT.id} /> should generally be used on cooldown unless it needs to be saved for upcoming burst DPS requirement. It is however not worth using this on single-target at all, in which case you would be better off using either <SpellLink id={SPELLS.VOLLEY_TALENT.id} /> for stacked AoE or <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> for Single-target.</span>,
     },
     {
       spell: SPELLS.SIDEWINDERS_TALENT,
@@ -75,13 +78,20 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 30,
       isActive: combatant => combatant.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id),
-      recommendedCastEfficiency: 1.0,
+      recommendedCastEfficiency: 0.9,
+      extraSuggestion: <span>This should be used on cooldown, with 100 focus and while <SpellLink id={SPELLS.VULNERABLE.id} /> is on your target. If possible without delaying either, you should try to combine it with <SpellLink id={SPELLS.TRUESHOT.id} />.</span>,
     },
     {
       spell: SPELLS.TRUESHOT,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: (_, combatant) => 180 - combatant.owner.modules.quickShot.traitCooldownReduction,
       recommendedCastEfficiency: 1.0,
+    },
+    {
+      spell: SPELLS.ARCANE_TORRENT_FOCUS,
+      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 90,
+      isUndetectable: true,
     },
     {
       spell: SPELLS.EXHILARATION,
