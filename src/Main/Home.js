@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 import SPECS from 'common/SPECS';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
-import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
+import SPEC_ANALYSIS_COMPLETENESS, { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
+import Wrapper from 'common/Wrapper';
 
-import PatreonButton from './PatreonButton';
 import ChangelogPanel from './ChangelogPanel';
 
 import MasteryRadiusImage from './Images/mastery-radius.png';
@@ -17,7 +17,6 @@ import OpenSourceImage from './Images/open-source.png';
 
 import DiscordLogo from './Images/Discord-Logo+Wordmark-White.svg';
 import DiscordBotGif from './Images/discord-bot.gif';
-import Wrapper from 'common/Wrapper';
 
 class Home extends Component {
   render() {
@@ -164,7 +163,7 @@ class Home extends Component {
                 const className = spec.className.replace(/ /g, '');
                 const config = AVAILABLE_CONFIGS.find(config => config.spec === spec);
                 return (
-                  <div key={spec.id} className="col-md-4" style={{ marginBottom: 30 }}>
+                  <div key={spec.id} className="col-lg-4 col-md-6" style={{ marginBottom: 30 }}>
                     <div
                       className="flex"
                       style={{
@@ -172,15 +171,16 @@ class Home extends Component {
                         border: '1px solid rgba(160, 160, 160, 0.75)',
                         borderRadius: 3,
                         overflow: 'hidden',
+                        opacity: !config || config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED ? 0.2 : 1,
                       }}
                     >
-                      <div className="flex-sub" style={{ width: 128, height: 128, background: `url(/specs/${className}-${spec.specName.replace(' ', '')}.jpg) no-repeat`, backgroundSize: 'cover', borderRight: '1px solid rgba(160, 160, 160, 0.75)' }} />
+                      <div className="flex-sub" style={{ width: 140, height: 140, background: `url(/specs/${className}-${spec.specName.replace(' ', '')}.jpg) no-repeat`, backgroundSize: 'cover', borderRight: '1px solid rgba(160, 160, 160, 0.75)' }} />
                       <div className="flex-main" style={{ padding: '12px 15px' }}>
                         <h1 className={className} style={{ marginBottom: 10 }}>{spec.specName} {spec.className}</h1>
                         {config ? (
                           <Wrapper>
                             <div>
-                            Maintained by <span style={{ color: '#fff' }}>{config.maintainer}</span>
+                            Maintained by <span className="legendary">{config.maintainer}</span>
                             </div>
                             <div>
                               Status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn>
