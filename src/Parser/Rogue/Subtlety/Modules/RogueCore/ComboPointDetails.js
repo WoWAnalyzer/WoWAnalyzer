@@ -32,11 +32,13 @@ class ComboPointDetails extends Analyzer {
 
   statistic() {
     const pointsWasted = this.comboPointTracker.wasted;
+    const pointsWastedPerMinute = (pointsWasted / this.owner.fightDuration) * 1000 * 60;
     return (
       <StatisticBox
         icon={<Icon icon="ability_rogue_masterofsubtlety" alt="Waisted Combo Points" />}
-        value={`${pointsWasted}`}
-        label="Wasted Combo Points"
+        value={`${pointsWastedPerMinute.toFixed(2)}`}
+        label="Wasted Combo Points per minute"
+        tooltip={`You waisted a total of ${pointsWasted} combo points. Some waste is expected due to the random nature of some generation abilities.`}
       />
     );
   }

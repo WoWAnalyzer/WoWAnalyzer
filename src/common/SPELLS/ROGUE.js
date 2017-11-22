@@ -156,6 +156,16 @@ export default {
     name: 'Energetic Stabbing',
     icon: 'inv_knife_1h_pvppandarias3_c_02',
   },
+  SHADOW_SATYRS_WALK_ENERGY_BASE: {
+    id: 224914,
+    name: 'Shadow Satyr\'s Walk',
+    icon: 'inv_boots_mail_dungeonmail_c_04',
+  },
+  SHADOW_SATYRS_WALK_ENERGY_EXTRA: {
+    id: 208440,
+    name: 'Shadow Satyr\'s Walk',
+    icon: 'inv_boots_mail_dungeonmail_c_04',
+  },
   // Buffs
   SHADOW_DANCE_BUFF: {
     id: 185422,
