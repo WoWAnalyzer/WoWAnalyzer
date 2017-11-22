@@ -33,6 +33,7 @@ import AppBackgroundImage from './AppBackgroundImage';
 import FullscreenError from './FullscreenError';
 import NavigationBar from './Layout/NavigationBar';
 import DocumentTitleUpdater from './Layout/DocumentTitleUpdater';
+import Footer from './Layout/Footer';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
@@ -511,6 +512,8 @@ class App extends Component {
         <main className="container">
           {this.renderContent()}
         </main>
+        <Footer />
+
         <ReactTooltip html place="bottom" />
         <DocumentTitleUpdater />
       </div>

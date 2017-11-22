@@ -14,15 +14,15 @@ import ImportantMetricsImage from './Images/important-metrics.png';
 import CooldownUsagesImage from './Images/cooldownusages.png';
 import ManaBreakdownImage from './Images/mana-breakdown.png';
 import OpenSourceImage from './Images/open-source.png';
-import OkHandImage from './Images/ok_hand.png';
 
 import DiscordLogo from './Images/Discord-Logo+Wordmark-White.svg';
 import DiscordBotGif from './Images/discord-bot.gif';
+import Wrapper from 'common/Wrapper';
 
 class Home extends Component {
   render() {
     return (
-      <div>
+      <Wrapper>
         <div className="row">
           <div className="col-lg-8 col-md-7">
             <div className="panel">
@@ -114,7 +114,8 @@ class Home extends Component {
                     <img src={OpenSourceImage} style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Open source" /><br />
                     Open source
                   </div>
-                </div><br />
+                </div>
+                <br />
 
                 Full source is available on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a>. Contributions are extremely welcome! Add your own module or spec if you want to be able to analyze something not yet available. The repository contains information on how to contribute, if you need any more information please join our Discord (link further below).
               </div>
@@ -145,64 +146,61 @@ class Home extends Component {
               </div>
             </div>
           </div>
-
-          <div className="col-lg-4 col-md-5">
-            <div className="panel">
-              <div className="panel-heading">
-                <h2>Available specs</h2>
-              </div>
-              <div className="panel-body text-muted">
-                <ul className="list-unstyled">
-                  {Object.keys(SPECS)
-                    .filter(key => isNaN(key)) // since SPECS gets indexed by ids, all entries are doubled. With this we only use the non-numeric values
-                    .map(key => SPECS[key])
-                    .sort((a, b) => {
-                      if (a.className < b.className) {
-                        return -1;
-                      } else if (a.className > b.className) {
-                        return 1;
-                      }
-                      return a.id - b.id;
-                    })
-                    .map((spec) => {
-                      const className = spec.className.replace(/ /g, '');
-                      const config = AVAILABLE_CONFIGS.find(config => config.spec === spec);
-                      return (
-                        <li key={spec.id} style={{ marginBottom: 3, whiteSpace: 'nowrap', overflow: 'hidden' }}>
-                          <img src={`/specs/${className}-${spec.specName.replace(' ', '')}.jpg`} alt="Spec logo" style={{ height: '1.6em', marginRight: 10 }} />{' '}
-                          <span className={className}>{spec.specName} {spec.className}</span>{' '}
-                          {config ? (
-                            <span>
-                              by <span style={{ color: '#fff' }}>{config.maintainer}</span> (<dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn>)
-                            </span>
-                          ) : (
-                            <span>isn't available yet. <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md">Add it!</a></span>
-                          )}
-                        </li>
-                      );
-                    })}
-                </ul>
-
-                If your spec isn't in the list it's not yet supported. Specs are added by enthusiastic players of the spec themselves. Adding specs is easy if you're familiar with JavaScript, find out more on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md">GitHub</a> or <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">join the WoW Analyzer Discord</a> for additional help.<br /><br />
-
-                If you're looking to help out in other ways please consider donating.<br />
-                <PatreonButton text="Become a Patron" />
-              </div>
-            </div>
-
-            <div className="panel">
-              <div className="panel-heading">
-                <h2>Discord</h2>
-              </div>
-              <div className="panel-body text-muted">
-                I believe it's important to keep class discussion as much in class Discords as possible, so if you have spec specific questions and/or suggestions please try to discuss them in your class Discord (class Discords mods approve of this message <img src={OkHandImage} alt=":ok_hand:" style={{ height: '1.5em' }} />). The WoW Analyzer Discord is for more general questions and developers looking to contribute.<br /><br />
-
-                <iframe src="https://discordapp.com/widget?id=316864121536512000&theme=dark" width="100%" height="300" allowTransparency="true" frameBorder="0" title="Discord Widget" />
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
+
+        <div className="row">
+            {Object.keys(SPECS)
+              .filter(key => isNaN(key)) // since SPECS gets indexed by ids, all entries are doubled. With this we only use the non-numeric values
+              .map(key => SPECS[key])
+              .sort((a, b) => {
+                if (a.className < b.className) {
+                  return -1;
+                } else if (a.className > b.className) {
+                  return 1;
+                }
+                return a.id - b.id;
+              })
+              .map(spec => {
+                const className = spec.className.replace(/ /g, '');
+                const config = AVAILABLE_CONFIGS.find(config => config.spec === spec);
+                return (
+                  <div key={spec.id} className="col-md-4" style={{ marginBottom: 30 }}>
+                    <div
+                      className="flex"
+                      style={{
+                        background: 'rgba(9, 20, 27, 0.7)',
+                        border: '1px solid rgba(160, 160, 160, 0.75)',
+                        borderRadius: 3,
+                        overflow: 'hidden',
+                      }}
+                    >
+                      <div className="flex-sub" style={{ width: 128, height: 128, background: `url(/specs/${className}-${spec.specName.replace(' ', '')}.jpg) no-repeat`, backgroundSize: 'cover', borderRight: '1px solid rgba(160, 160, 160, 0.75)' }} />
+                      <div className="flex-main" style={{ padding: '12px 15px' }}>
+                        <h1 className={className} style={{ marginBottom: 10 }}>{spec.specName} {spec.className}</h1>
+                        {config ? (
+                          <Wrapper>
+                            <div>
+                            Maintained by <span style={{ color: '#fff' }}>{config.maintainer}</span>
+                            </div>
+                            <div>
+                              Status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn>
+                            </div>
+                          </Wrapper>
+                        ) : (
+                          <Wrapper>Not yet available. <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md">Add it!</a></Wrapper>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+
+            {/*If your spec isn't in the list it's not yet supported. Specs are added by enthusiastic players of the spec themselves. Adding specs is easy if you're familiar with JavaScript, find out more on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md">GitHub</a> or <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">join the WoW Analyzer Discord</a> for additional help.<br /><br />*/}
+
+            {/*If you're looking to help out in other ways please consider donating.<br />*/}
+            {/*<PatreonButton text="Become a Patron" />*/}
+        </div>
+      </Wrapper>
     );
   }
 }
