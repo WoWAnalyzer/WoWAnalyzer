@@ -21,7 +21,7 @@ import KatsuosEclipse from './Modules/Items/KatsuosEclipse';
 import CenedrilReflectorOfHatred from './Modules/Items/CenedrilReflectorOfHatred';
 import SoulOfTheGrandmaster from './Modules/Items/SoulOfTheGrandmaster';
 import TheEmperorsCapacitor from './Modules/Items/TheEmperorsCapacitor';
-import T21_2set from './Modules/Items/T21_2set';
+import T21_4set from './Modules/Items/T21_4set';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -46,7 +46,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cenedrilReflectorOfHatred: CenedrilReflectorOfHatred,
     soulOfTheGrandmaster: SoulOfTheGrandmaster,
     theEmperorsCapacitor: TheEmperorsCapacitor,
-    T21_2set: T21_2set,
+    T21_4set: T21_4set,
   };
 }
 
