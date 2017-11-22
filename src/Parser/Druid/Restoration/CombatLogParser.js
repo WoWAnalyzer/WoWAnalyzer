@@ -16,6 +16,7 @@ import Ekowraith from './Modules/Items/Ekowraith';
 import XonisCaress from './Modules/Items/XonisCaress';
 import DarkTitanAdvice from './Modules/Items/DarkTitanAdvice';
 import EssenceOfInfusion from './Modules/Items/EssenceOfInfusion';
+import SoulOfTheArchdruid from './Modules/Items/SoulOfTheArchdruid';
 import Tearstone from './Modules/Items/Tearstone';
 import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
 
@@ -105,6 +106,7 @@ class CombatLogParser extends CoreCombatLogParser {
     xonisCaress: XonisCaress,
     darkTitanAdvice: DarkTitanAdvice,
     essenceOfInfusion: EssenceOfInfusion,
+    soulOfTheArchdruid: SoulOfTheArchdruid,
     tearstone: Tearstone,
     t19_2set: T19_2Set,
     t20_2set: T20_2Set,
