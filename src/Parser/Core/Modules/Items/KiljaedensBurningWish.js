@@ -43,19 +43,16 @@ class KiljaedensBurningWish extends Analyzer {
   }
 
   _fabricateCastFromDamage(event) {
-    const castEvent = {};
-    castEvent.timestamp = event.timestamp;
-    castEvent.type = 'cast';
-    castEvent.sourceID = event.sourceID;
-    castEvent.sourceIsFriendly = event.sourceIsFriendly;
-    castEvent.targetID = event.targetID;
-    castEvent.targetIsFriendly = event.targetIsFriendly;
-
-    castEvent.ability = event.ability;
-
+    return {
+      timestamp: event.timestamp,
+      type: 'cast',
+      sourceID: event.sourceID,
+      sourceIsFriendly: event.sourceIsFriendly,
+      targetID: event.targetID,
+      targetIsFriendly: event.targetIsFriendly,
+      ability: event.ability,
+    };
     // TODO are these all the fields I need?
-
-    return castEvent;
   }
 
   item() {
