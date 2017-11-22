@@ -34,13 +34,28 @@ class KiljaedensBurningWish extends Analyzer {
     // Multiple damage events together is obviously the result of one cast, not several.
     if (!this.hitTimestamp || this.hitTimestamp + HIT_BUFFER_MS < event.timestamp) {
       this.hitTimestamp = event.timestamp;
-      // TODO instead fabricate cast event?
       this.casts += 1;
-      // obviously this is maybe a second after the cooldown actually began, but it's close enough
-      this.spellUsable.beginCooldown(SPELLS.KILJAEDENS_BURNING_WISH_CAST.id);
+      // obviously this is maybe a second after the actual cast, but it's close enough
+      this.owner.triggerEvent('cast', this._fabricateCastFromDamage(event));
     }
 
     this.damage += event.amount + (event.absorbed || 0);
+  }
+
+  _fabricateCastFromDamage(event) {
+    const castEvent = {};
+    castEvent.timestamp = event.timestamp;
+    castEvent.type = 'cast';
+    castEvent.sourceID = event.sourceID;
+    castEvent.sourceIsFriendly = event.sourceIsFriendly;
+    castEvent.targetID = event.targetID;
+    castEvent.targetIsFriendly = event.targetIsFriendly;
+
+    castEvent.ability = event.ability;
+
+    // TODO are these all the fields I need?
+
+    return castEvent;
   }
 
   item() {
