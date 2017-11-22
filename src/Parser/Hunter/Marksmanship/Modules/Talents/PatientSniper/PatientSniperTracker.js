@@ -207,6 +207,9 @@ class PatientSniperTracker extends Analyzer {
     // find Vulnerable on the target, update its end, add to past Vulnerables and remove from current ones
     const index = this.currentVulnerables.findIndex(vulnerable => vulnerable.ID === event.targetID && vulnerable.instance === event.targetInstance);
     const vulnerable = this.currentVulnerables[index];
+    if(!vulnerable) {
+      return;
+    }
     vulnerable.end = event.timestamp;
     this.pastVulnerables.push(vulnerable);
     this.currentVulnerables.splice(index, 1);
