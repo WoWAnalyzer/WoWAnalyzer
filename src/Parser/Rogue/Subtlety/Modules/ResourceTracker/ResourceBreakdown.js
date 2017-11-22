@@ -8,7 +8,6 @@ import { formatPercentage } from 'common/format';
 class ResourceBreakdown extends React.Component {
   static propTypes = {
     tracker: PropTypes.object.isRequired,
-    resourceName: PropTypes.object.isRequired,
     showSpenders: PropTypes.bool,
   };
   
@@ -34,7 +33,8 @@ class ResourceBreakdown extends React.Component {
   }
   
   render() {
-    const { tracker, resourceName, showSpenders } = this.props;
+    const { tracker, showSpenders } = this.props;
+    const resourceName = tracker.resourceName;
     const generated = this.prepareGenerated(tracker.buildersObj);
     const spent = this.prepareSpent(tracker.spendersObj);
 

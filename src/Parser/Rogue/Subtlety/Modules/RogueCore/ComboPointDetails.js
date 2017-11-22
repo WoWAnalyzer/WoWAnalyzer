@@ -3,32 +3,70 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Tab from 'Main/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SPELLS from 'common/SPELLS';
 import Icon from 'common/Icon';
+import SpellLink from 'common/SpellLink';
 
 import ComboPointTracker from './ComboPointTracker';
 
 import ResourceBreakdown from '../ResourceTracker/ResourceBreakdown';
+import resourceSuggest from './../ResourceTracker/ResourceSuggest';
 
 class ComboPointDetails extends Analyzer {
   static dependencies = {
     comboPointTracker: ComboPointTracker,
   };
   
-  suggestions(when) {
-    const pointsWasted = this.comboPointTracker.wasted;
-    const pointsWastedPerMinute = (pointsWasted / this.owner.fightDuration) * 1000 * 60;
-    const MINOR = 5;
-    const AVG = 10;
-    const MAJOR = 15;
-    when(pointsWastedPerMinute).isGreaterThan(MINOR)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('You are wasting Combo Points. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')
-          .icon('creatureportrait_bubble')
-          .actual(`${pointsWasted} Combo Points wasted (${pointsWastedPerMinute.toFixed(2)} per minute)`)
-          .recommended(`< ${recommended.toFixed(2)} Combo Points per minute wasted are recommended`)
-          .regular(AVG).major(MAJOR);
-      });
+
+  makeExtraSuggestion(spell) {
+    return <span>Avoid waisting combo points when casting <SpellLink id={spell.id}  /> </span>
   }
+
+
+  suggestions(when) {    
+    resourceSuggest(when,  this.comboPointTracker, {
+      spell: SPELLS.BACKSTAB,
+      minor: 0.05,
+      avg: 0.10, 
+      major: 0.15,
+      extraSuggestion: this.makeExtraSuggestion(SPELLS.BACKSTAB),
+    }); 
+    resourceSuggest(when,  this.comboPointTracker, {
+      spell: SPELLS.GLOOMBLADE_TALENT,
+      minor: 0.05,
+      avg: 0.10, 
+      major: 0.15,      
+      extraSuggestion: this.makeExtraSuggestion(SPELLS.GLOOMBLADE_TALENT),
+    });
+    resourceSuggest(when,  this.comboPointTracker, {
+      spell: SPELLS.SHADOWSTRIKE,
+      minor: 0.05,
+      avg: 0.10, 
+      major: 0.15,
+      extraSuggestion: this.makeExtraSuggestion(SPELLS.SHADOWSTRIKE),
+    });
+    resourceSuggest(when,  this.comboPointTracker, {
+      spell: SPELLS.SHURIKEN_STORM,
+      minor: 0.1,
+      avg: 0.2, 
+      major: 0.3,
+      extraSuggestion: this.makeExtraSuggestion(SPELLS.SHURIKEN_STORM),
+    });
+    resourceSuggest(when,  this.comboPointTracker, {
+      spell: SPELLS.SHADOW_TECHNIQUES,
+      minor: 0.1,
+      avg: 0.15, 
+      major: 0.20,
+      extraSuggestion: <span> Use a weak Aura to track <SpellLink id={SPELLS.SHADOW_TECHNIQUES.id}/>. This is an advanced suggestion and should not be addressed first. </span>,
+    });
+    resourceSuggest(when,  this.comboPointTracker, {
+      spell: SPELLS.GOREMAWS_BITE_ENERGY,
+      minor: 0.05,
+      avg: 0.1, 
+      major: 0.15,
+      extraSuggestion: <span> Cast <SpellLink id={SPELLS.GOREMAWS_BITE.id}/> when you are on or below 3 combo points </span>,
+    });
+    }
 
   statistic() {
     const pointsWasted = this.comboPointTracker.wasted;

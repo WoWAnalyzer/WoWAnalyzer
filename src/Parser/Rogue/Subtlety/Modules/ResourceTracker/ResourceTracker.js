@@ -11,7 +11,8 @@ class ResourceTracker extends Analyzer {
   spent = 0;
   spendersCasts = 0;
   current = 0;
-  resource_type;
+  resourceType;
+  resourceName;
 
   // stores resource gained/spent/wasted per ability ID
   buildersObj = {};
@@ -60,7 +61,7 @@ class ResourceTracker extends Analyzer {
   }
 
   shouldProcessEnergizeEvent(event) {
-    return event.resourceChangeType === this.resource_type;
+    return event.resourceChangeType === this.resourceType;
   }  
 
   //Spenders
@@ -97,7 +98,7 @@ class ResourceTracker extends Analyzer {
 
   getResource(event) {
     if(event.classResources === undefined) return undefined;
-    return event.classResources.find(r=>r.type === this.resource_type);
+    return event.classResources.find(r=>r.type === this.resourceType);
   }
 }
 
