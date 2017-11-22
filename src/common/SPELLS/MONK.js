@@ -681,14 +681,14 @@ export default {
     name: 'Pressure Point',
     icon: 'spell_monk_windwalker_spec',
   },
-  WW_TIER21_2PC: {
+  WW_TIER21_4PC: {
     id: 251821,
-    name: 'Windwalker T21 2PC',
+    name: 'Windwalker T21 4PC',
     icon: 'ability_monk_roundhousekick',
   },
-  WW_TIER21_4PC: {
+  WW_TIER21_2PC: {
     id: 251823,
-    name: 'Windwalker T21 4pc',
+    name: 'Windwalker T21 2PC',
     icon: 'ability_monk_roundhousekick',
   },
 };

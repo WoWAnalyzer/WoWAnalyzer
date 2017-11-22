@@ -20,11 +20,12 @@ import FistsofFury from './Modules/Spells/FistsofFury';
 import HitCombo from './Modules/Talents/HitCombo';
 import EnergizingElixir from './Modules/Talents/EnergizingElixir';
 
-// Legendaries
+// Legendaries / Items
 import KatsuosEclipse from './Modules/Items/KatsuosEclipse';
 import CenedrilReflectorOfHatred from './Modules/Items/CenedrilReflectorOfHatred';
 import SoulOfTheGrandmaster from './Modules/Items/SoulOfTheGrandmaster';
 import TheEmperorsCapacitor from './Modules/Items/TheEmperorsCapacitor';
+import T21_4set from './Modules/Items/T21_4set';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -54,6 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cenedrilReflectorOfHatred: CenedrilReflectorOfHatred,
     soulOfTheGrandmaster: SoulOfTheGrandmaster,
     theEmperorsCapacitor: TheEmperorsCapacitor,
+    T21_4set: T21_4set,
   };
 }
 
