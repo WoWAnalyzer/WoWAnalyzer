@@ -3,8 +3,7 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Tab from 'Main/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
-import SPELLS from 'common/SPELLS';
+import Icon from 'common/Icon';
 
 import ComboPointTracker from './ComboPointTracker';
 
@@ -35,7 +34,7 @@ class ComboPointDetails extends Analyzer {
     const pointsWasted = this.comboPointTracker.wasted;
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.SHADOW_TECHNIQUES.id} />}
+        icon={<Icon icon="ability_rogue_masterofsubtlety" alt="Waisted Combo Points" />}
         value={`${pointsWasted}`}
         label="Wasted Combo Points"
       />
@@ -49,11 +48,9 @@ class ComboPointDetails extends Analyzer {
       render: () => (
         <Tab title="Combo Point usage breakdown">
           <ResourceBreakdown
-            pointsGained={this.comboPointTracker.gainedArray}
-            pointsSpent={this.comboPointTracker.spentArray}
-            pointsWasted={this.comboPointTracker.wastedArray}
-            pointsCast={this.comboPointTracker.castsArray}
+            tracker={this.comboPointTracker}
             resourceName="Combo Points"
+            showSpenders={true}
           />
         </Tab>
       ),

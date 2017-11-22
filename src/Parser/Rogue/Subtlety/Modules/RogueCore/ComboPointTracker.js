@@ -8,8 +8,7 @@ class ComboPointTracker extends ResourceTracker {
   };
 
   on_initialized() {
-    this.constructor.RESOURCE_TYPE = 4;
-    this.constructor.MAX = 6;
+    this.resource_type = 4;
   }
 }
 

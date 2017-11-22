@@ -3,8 +3,7 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Tab from 'Main/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
-import SPELLS from 'common/SPELLS';
+import Icon from 'common/Icon';
 
 import EnergyTracker from './EnergyTracker';
 
@@ -15,27 +14,11 @@ class EnergyDetails extends Analyzer {
     energyTracker: EnergyTracker,
   };
   
-  suggestions(when) {
-    const energyWasted = this.energyTracker.wasted;
-    const energyWastedPerMinute = (energyWasted / this.owner.fightDuration) * 1000 * 60;
-    const MINOR = 5;
-    const AVG = 10;
-    const MAJOR = 15;
-    when(energyWastedPerMinute).isGreaterThan(MINOR)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('You are wasting Combo Points. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')
-          .icon('creatureportrait_bubble')
-          .actual(`${energyWasted} Combo Points wasted (${energyWastedPerMinute.toFixed(2)} per minute)`)
-          .recommended(`< ${recommended.toFixed(2)} Combo Points per minute wasted are recommended`)
-          .regular(AVG).major(MAJOR);
-      });
-  }
-
   statistic() {
     const energyWasted = this.energyTracker.wasted;
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.SHADOW_TECHNIQUES.id} />}
+      <StatisticBox      
+        icon={<Icon icon="ability_warrior_decisivestrike" alt="Waisted Energy" />}
         value={`${energyWasted}`}
         label="Wasted Energy"
       />
@@ -47,13 +30,10 @@ class EnergyDetails extends Analyzer {
       title: 'Energy usage',
       url: 'energy',
       render: () => (
-        <Tab title="Enery usage breakdown">
+        <Tab title="Energy usage breakdown">
           <ResourceBreakdown
-            pointsGained={this.energyTracker.gainedArray}
-            pointsSpent={this.energyTracker.spentArray}
-            pointsWasted={this.energyTracker.wastedArray}
-            pointsCast={this.energyTracker.castsArray}
-            resourceName="energy"
+            tracker={this.energyTracker}
+            resourceName="Energy"
           />
         </Tab>
       ),

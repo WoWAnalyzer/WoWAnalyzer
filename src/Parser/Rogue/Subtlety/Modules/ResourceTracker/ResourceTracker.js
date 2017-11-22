@@ -6,88 +6,98 @@ class ResourceTracker extends Analyzer {
     combatants: Combatants,
   };  
 
-  gained = 0;
+  generated = 0;
   wasted = 0;
   spent = 0;
-  casts = 0;
+  spendersCasts = 0;
   current = 0;
-  RESOURCE_TYPE;
-  MAX;
+  resource_type;
 
   // stores resource gained/spent/wasted per ability ID
-  gainedArray = {};
-  spentArray = {};
-  wastedArray = {};
-  castsArray = {};
+  buildersObj = {};
+  spendersObj = {};
   
-  GENERATING_ABILITIES = [
-  ];
-
-  SPENDING_ABILITIES = [
-  ];
-  
-  initBuilderAbility(spellId) {      
-    this.GENERATING_ABILITIES.push(spellId);
-    
-    this.gainedArray[spellId] = { total: 0 };
-    this.wastedArray[spellId] = { total: 0 };
+  initBuilderAbility(spellId) {        
+    this.buildersObj[spellId] = { generated: 0, wasted: 0 };
   }
   
-  initSpenderAbility(spellId) {      
-    this.SPENDING_ABILITIES.push(spellId);
-    
-    this.spentArray[spellId] = { total: 0 };
-    this.castsArray[spellId] = { count: 0 };
+  initSpenderAbility(spellId) {        
+    this.spendersObj[spellId] = { spent: 0, casts: 0 };
   }
   
+  //Builders
   on_toPlayer_energize(event) {
     const spellId = event.ability.guid;
-    const waste = event.waste;
-    const gain = event.resourceChange - waste;
 
     if(!this.shouldProcessEnergizeEvent(event)) {
         return;
     }
 
-    if (this.GENERATING_ABILITIES.indexOf(spellId) === -1) {
+    if (!(spellId in this.buildersObj)) {
         this.initBuilderAbility(spellId);
     }
 
-    if (waste !== 0) {
-      this.wastedArray[spellId].total += waste;
-      this.wasted += waste;
+    this.applyBuilder(event);
+  }
+  
+  applyBuilder(event) {
+    const spellId = event.ability.guid;
+    const waste = event.waste;
+    const gain = event.resourceChange - waste;
+    
+    this.buildersObj[spellId].wasted += waste;
+    this.buildersObj[spellId].generated += gain;
+    this.wasted += waste;
+    this.generated += gain;  
+
+    const eventResource = this.getResource(event);
+    if(eventResource !== undefined) {
+      this.current = eventResource.amount;
     }
-    if (gain !== 0) {
-      this.gainedArray[spellId].total += gain;
-      this.gained += gain;
+    else {
       this.current += gain;
     }
   }
 
   shouldProcessEnergizeEvent(event) {
-    return event.resourceChangeType === this.constructor.RESOURCE_TYPE;
+    return event.resourceChangeType === this.resource_type;
   }  
 
+  //Spenders
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if(!this.shouldProcessEnergizeEvent(event)) {
+    if(!this.shouldProcessCastEvent(event)) {
         return;
     }
+    
+    if (!(spellId in this.spendersObj)) {
+      this.initSpenderAbility(spellId);
+  }
 
-    const eventResource = event.classResources.filter(r=>r.type === this.RESOURCE_TYPE)[0];
+    const eventResource = this.getResource(event);
 
     const cost = eventResource.cost;
 
-    this.spentArray[spellId].total += cost;
-    this.spent += cost;
-    this.castsArray[spellId].count += 1;
-    this.casts += 1;
-    this.current = this.current < cost ? this.current - cost : 0;
+    this.spendersObj[spellId].casts += 1;
+    this.spendersCasts += 1;
+    if(cost > 0)
+    {
+      this.spendersObj[spellId].spent += cost;
+      this.spent += cost;
+    }
+
+    //Re-sync current amount, to update not-tracked gains.
+    this.current = eventResource.amount - cost;
   }
   
   shouldProcessCastEvent(event) {
-    return true;
+    return this.getResource(event) !== undefined;
+  }
+
+  getResource(event) {
+    if(event.classResources === undefined) return undefined;
+    return event.classResources.find(r=>r.type === this.resource_type);
   }
 }
 

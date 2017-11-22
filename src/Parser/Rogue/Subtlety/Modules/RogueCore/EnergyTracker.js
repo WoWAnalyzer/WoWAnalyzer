@@ -8,8 +8,7 @@ class EnergyTracker extends ResourceTracker {
   };
 
   on_initialized() {
-    this.constructor.RESOURCE_TYPE = 3;
-    this.constructor.MAX = 100;
+    this.resource_type = 3;
   }
 }
 
