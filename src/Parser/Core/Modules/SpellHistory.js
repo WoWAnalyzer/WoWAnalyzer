@@ -29,12 +29,12 @@ class SpellHistory extends Analyzer {
     }
 
     let mainSpellId;
-    if(Array.isArray(ability.spell)) {
+    if(ability.spell instanceof Array) {
       mainSpellId = ability.spell[0].id;
     } else {
       mainSpellId = ability.spell.id;
     }
-    
+
     if (!this.historyBySpellId[mainSpellId]) {
       this.historyBySpellId[mainSpellId] = [];
     }

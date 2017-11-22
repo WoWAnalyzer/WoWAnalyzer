@@ -121,7 +121,7 @@ class Abilities extends Analyzer {
    */
   getAbility(spellId) {
     return this.constructor.ABILITIES.find(ability => {
-      if (Array.isArray(ability.spell)) {
+      if (ability.spell instanceof Array) {
         if (!ability.spell.find(spell => spell.id === spellId)) {
           return false;
         }
