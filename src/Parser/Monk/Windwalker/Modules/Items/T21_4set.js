@@ -12,26 +12,15 @@ class T21_4set extends Analyzer {
  };
 
  damage = 0;
- combatant = null;
 
  on_initialized() {
      this.active = this.combatants.selected.hasBuff(SPELLS.WW_TIER21_4PC.id);
  }
 
- // Pets don't copy the buff'
- on_byPlayer_cast(event) {
-   const spellId = event.ability.guid;
-
-   if (spellId === SPELLS.BLACKOUT_KICK.id && this.combatants.selected.hasBuff(SPELLS.COMBO_BREAKER_BUFF.id)) {
-     this.comboBreaker = 1;
-   }
- }
-
  on_byPlayer_damage(event) {
    const spellId = event.ability.guid;
-   this.combatant = this.combatants.selected;
 
-    if (spellId === SPELLS.BLACKOUT_KICK.id && this.combatant.hasBuff(SPELLS.COMBO_BREAKER_BUFF.id, event.timestamp, 32, 0)) {
+   if (spellId === SPELLS.BLACKOUT_KICK.id && this.combatants.selected.hasBuff(SPELLS.COMBO_BREAKER_BUFF.id, event.timestamp, 32, 0)) {
        this.damage += calculateEffectiveDamage(event, 1.75);
     }
  }
@@ -40,7 +29,7 @@ class T21_4set extends Analyzer {
 // on_byPlayerPet_damage(event) {
 //    const spellId = event.ability.guid;
 //     
-//    if (spellId === SPELLS.BLACKOUT_KICK.id && this.combatant.hasBuff(SPELLS.COMBO_BREAKER_BUFF.id, event.timestamp, 2000, 0)) {
+//    if (spellId === SPELLS.BLACKOUT_KICK.id && this.combatants.selected.hasBuff(SPELLS.COMBO_BREAKER_BUFF.id, event.timestamp, 2000, 0)) {
 //       this.damage += calculateEffectiveDamage(event, 1.75);
 //    }
 //  }
