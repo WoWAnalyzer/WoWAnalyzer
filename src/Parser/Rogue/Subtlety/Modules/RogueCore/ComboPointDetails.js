@@ -19,7 +19,7 @@ class ComboPointDetails extends Analyzer {
   
 
   makeExtraSuggestion(spell) {
-    return <span>Avoid waisting combo points when casting <SpellLink id={spell.id}  /> </span>
+    return <span>Avoid waisting combo points when casting <SpellLink id={spell.id}  /> </span>;
   }
 
 
