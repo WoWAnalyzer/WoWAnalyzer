@@ -36,14 +36,14 @@ class KiljaedensBurningWish extends Analyzer {
       this.hitTimestamp = event.timestamp;
       this.casts += 1;
       // obviously this is maybe a second after the actual cast, but it's close enough
-      this.owner.triggerEvent('cast', this._fabricateCastFromDamage(event));
+      this._fabricateCastFromDamage(event);
     }
 
     this.damage += event.amount + (event.absorbed || 0);
   }
 
   _fabricateCastFromDamage(event) {
-    return {
+    const castEvent = {
       timestamp: event.timestamp,
       type: 'cast',
       sourceID: event.sourceID,
@@ -53,6 +53,7 @@ class KiljaedensBurningWish extends Analyzer {
       ability: event.ability,
     };
     // TODO are these all the fields I need?
+    this.owner.triggerEvent('cast', castEvent);
   }
 
   item() {
