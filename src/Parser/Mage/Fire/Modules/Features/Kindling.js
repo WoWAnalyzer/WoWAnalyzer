@@ -10,14 +10,15 @@ const COMBUST_REDUCTION_SPELLS = [
 	SPELLS.FIRE_BLAST.id,
 ];
 
-class Combustion extends Analyzer {
+const CRIT_REDUCTION_MS = 1000;
+
+class Kindling extends Analyzer {
 
 	static dependencies = {
 		combatants: Combatants,
 		spellUsable: SpellUsable,
 	}
 
-	reductionAmount = 1000
 	cooldownReduction = 0;
 
 	on_initialized() {
@@ -30,9 +31,9 @@ class Combustion extends Analyzer {
 			return;
 		}
 		if (this.spellUsable.isOnCooldown(SPELLS.COMBUSTION.id)) {
-			this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.COMBUSTION.id,(this.reductionAmount));
+			this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.COMBUSTION.id,(CRIT_REDUCTION_MS));
 		}
   }
 }
 
-export default Combustion;
+export default Kindling;

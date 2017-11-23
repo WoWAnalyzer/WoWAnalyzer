@@ -8,12 +8,13 @@ import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
 
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 import UnstableMagic from '../Shared/Modules/Features/UnstableMagic';
+import Kindling from './Modules/Features/Kindling';
 
 import Tier20_4set from './Modules/Items/Tier20_4set';
 import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
 import SoulOfTheArchmage from './Modules/Items/SoulOfTheArchmage';
 
-import Combustion from './Modules/Cooldowns/Combustion';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
@@ -26,14 +27,13 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     mirrorImage: MirrorImage,
     unstableMagic: UnstableMagic,
+    kindling: Kindling,
 
 	  //Items
 	  tier20_4set: Tier20_4set,
     shardOfTheExodar: ShardOfTheExodar,
     soulOfTheArchmage: SoulOfTheArchmage,
 
-    //Cooldowns
-    combustion: Combustion,
   };
 }
 
