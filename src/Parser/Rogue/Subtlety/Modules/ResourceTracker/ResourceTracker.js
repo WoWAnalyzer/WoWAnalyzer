@@ -52,7 +52,7 @@ class ResourceTracker extends Analyzer {
     this.generated += gain;  
 
     const eventResource = this.getResource(event);
-    if(!!eventResource) {
+    if(eventResource) {
       this.current = eventResource.amount;
     }
     else {
@@ -71,14 +71,16 @@ class ResourceTracker extends Analyzer {
     if(!this.shouldProcessCastEvent(event)) {
         return;
     }
+    const eventResource = this.getResource(event);
+    const cost = eventResource.cost;
     
     if (!(spellId in this.spendersObj)) {
       this.initSpenderAbility(spellId);
     }
-
-    const eventResource = this.getResource(event);
-
-    const cost = eventResource.cost;
+    
+    if (!cost) { 
+      return; 
+    }
 
     this.spendersObj[spellId].casts += 1;
     this.spendersCasts += 1;
