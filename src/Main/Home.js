@@ -76,47 +76,6 @@ class Home extends Component {
                 </div>
               </div>
             </div>
-
-            <div className="panel">
-              <div className="panel-heading">
-                <h2>Features</h2>
-              </div>
-              <div className="panel-body text-muted">
-                <div className="row">
-                  <div className="col-md-6 text-center">
-                    <img src={ItemsImage} style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Item performance breakdowns" /><br />
-                    Item performance breakdowns
-                  </div>
-                  <div className="col-md-6 text-center">
-                    <img src={SuggestionsImage} style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Suggestions for improvement" /><br />
-                    Suggestions for improvement
-                  </div>
-                </div>
-                <div className="row" style={{ marginTop: 15 }}>
-                  <div className="col-md-6 text-center">
-                    <img src={ImportantMetricsImage} style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Important metrics" /><br />
-                    Important spec specific metrics
-                  </div>
-                  <div className="col-md-6 text-center">
-                    <img src={CooldownUsagesImage} style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Cooldown usages" /><br />
-                    Cooldown usage details
-                  </div>
-                </div>
-                <div className="row" style={{ marginTop: 15 }}>
-                  <div className="col-md-6 text-center">
-                    <img src={ManaBreakdownImage} style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Mana breakdown" /><br />
-                    Mana breakdown
-                  </div>
-                  <div className="col-md-6 text-center">
-                    <img src={OpenSourceImage} style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Open source" /><br />
-                    Open source
-                  </div>
-                </div>
-                <br />
-
-                Full source is available on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a>. Contributions are extremely welcome! Add your own module or spec if you want to be able to analyze something not yet available. The repository contains information on how to contribute, if you need any more information please join our Discord (link further below).
-              </div>
-            </div>
           </div>
 
           <div className="col-lg-4 col-md-5">
