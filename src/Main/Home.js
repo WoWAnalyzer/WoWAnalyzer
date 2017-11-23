@@ -5,12 +5,6 @@ import Wrapper from 'common/Wrapper';
 import ChangelogPanel from './ChangelogPanel';
 
 import MasteryRadiusImage from './Images/mastery-radius.png';
-import ItemsImage from './Images/items.png';
-import SuggestionsImage from './Images/suggestions.png';
-import ImportantMetricsImage from './Images/important-metrics.png';
-import CooldownUsagesImage from './Images/cooldownusages.png';
-import ManaBreakdownImage from './Images/mana-breakdown.png';
-import OpenSourceImage from './Images/open-source.png';
 
 import DiscordLogo from './Images/Discord-Logo+Wordmark-White.svg';
 import DiscordBotGif from './Images/discord-bot.gif';
