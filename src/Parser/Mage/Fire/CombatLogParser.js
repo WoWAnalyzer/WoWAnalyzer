@@ -9,6 +9,7 @@ import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 import UnstableMagic from '../Shared/Modules/Features/UnstableMagic';
 import Kindling from './Modules/Features/Kindling';
+import PhoenixsFlames from './Modules/Features/PhoenixsFlames';
 
 import Tier20_4set from './Modules/Items/Tier20_4set';
 import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
@@ -23,6 +24,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     damageDone: [DamageDone, { showStatistic: true }],
     cancelledCasts: CancelledCasts,
+    phoenixsFlames: PhoenixsFlames,
 
     // Talents
     mirrorImage: MirrorImage,
