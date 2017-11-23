@@ -11,7 +11,7 @@ class PyrotexIgnitionCloth extends Analyzer {
 
   static dependencies = {
 		combatants: Combatants,
-    spellUsable: SpellUsable
+    spellUsable: SpellUsable,
 	};
 
   cooldownReduction = 0;
