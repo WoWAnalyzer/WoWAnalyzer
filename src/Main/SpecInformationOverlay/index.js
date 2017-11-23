@@ -33,7 +33,7 @@ class SpecInformationOverlay extends React.PureComponent {
           </div>
           <div className="row">
             <div className="maintainers col-xs-12 col-sm-8 col-sm-offset-2">
-              by {config.maintainers.map(maintainer => <Wrapper>{maintainer.avatar && <img src={maintainer.avatar} alt="Avatar" />} {maintainer.nickname}</Wrapper>)}
+              by {config.maintainers.map(maintainer => <Wrapper key={maintainer.nickname}>{maintainer.avatar && <img src={maintainer.avatar} alt="Avatar" />} {maintainer.nickname}</Wrapper>)}
             </div>
           </div>
 

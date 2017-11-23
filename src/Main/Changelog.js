@@ -41,7 +41,7 @@ class Changelog extends React.PureComponent {
               .split('\n')
               .filter((_, i) => !limit || i < limit)
               .map((change, i) => (
-                <li key={`${i}`} dangerouslySetInnerHTML={{ __html: change }} />
+                <li key={i} dangerouslySetInnerHTML={{ __html: change }} />
               ))}
           </ul>
         </div>
