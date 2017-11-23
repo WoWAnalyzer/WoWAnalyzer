@@ -20,6 +20,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.ICE_BARRIER.id,
     SPELLS.CONE_OF_COLD.id,
 	  SPELLS.EBONBOLT.id,
+    SPELLS.SPELL_STEAL.id,
+    SPELLS.INVISIBILITY.id,
+    SPELLS.SUMMON_WATER_ELEMENTAL.id,
+    SPELLS.SLOW_FALL.id,
     // talents
     SPELLS.RAY_OF_FROST_TALENT.id,
     SPELLS.MIRROR_IMAGE_TALENT.id,
