@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 
-import SPECS from 'common/SPECS';
-import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
-import SPEC_ANALYSIS_COMPLETENESS, { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import Wrapper from 'common/Wrapper';
 
 import ChangelogPanel from './ChangelogPanel';
@@ -17,6 +14,7 @@ import OpenSourceImage from './Images/open-source.png';
 
 import DiscordLogo from './Images/Discord-Logo+Wordmark-White.svg';
 import DiscordBotGif from './Images/discord-bot.gif';
+import SpecListing from './SpecListing';
 
 class Home extends Component {
   render() {
@@ -147,59 +145,7 @@ class Home extends Component {
           </div>
         </div>
 
-        <div className="row">
-            {Object.keys(SPECS)
-              .filter(key => isNaN(key)) // since SPECS gets indexed by ids, all entries are doubled. With this we only use the non-numeric values
-              .map(key => SPECS[key])
-              .sort((a, b) => {
-                if (a.className < b.className) {
-                  return -1;
-                } else if (a.className > b.className) {
-                  return 1;
-                }
-                return a.id - b.id;
-              })
-              .map(spec => {
-                const className = spec.className.replace(/ /g, '');
-                const config = AVAILABLE_CONFIGS.find(config => config.spec === spec);
-                return (
-                  <div key={spec.id} className="col-lg-4 col-md-6" style={{ marginBottom: 30 }}>
-                    <div
-                      className="flex"
-                      style={{
-                        background: 'rgba(9, 20, 27, 0.7)',
-                        border: '1px solid rgba(160, 160, 160, 0.75)',
-                        borderRadius: 3,
-                        overflow: 'hidden',
-                        opacity: !config || config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED ? 0.2 : 1,
-                      }}
-                    >
-                      <div className="flex-sub" style={{ width: 140, height: 140, background: `url(/specs/${className}-${spec.specName.replace(' ', '')}.jpg) no-repeat`, backgroundSize: 'cover', borderRight: '1px solid rgba(160, 160, 160, 0.75)' }} />
-                      <div className="flex-main" style={{ padding: '12px 15px' }}>
-                        <h1 className={className} style={{ marginBottom: 10 }}>{spec.specName} {spec.className}</h1>
-                        {config ? (
-                          <Wrapper>
-                            <div>
-                            Maintained by <span className="legendary">{config.maintainer}</span>
-                            </div>
-                            <div>
-                              Status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn>
-                            </div>
-                          </Wrapper>
-                        ) : (
-                          <Wrapper>Not yet available. <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md">Add it!</a></Wrapper>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-
-            {/*If your spec isn't in the list it's not yet supported. Specs are added by enthusiastic players of the spec themselves. Adding specs is easy if you're familiar with JavaScript, find out more on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md">GitHub</a> or <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">join the WoW Analyzer Discord</a> for additional help.<br /><br />*/}
-
-            {/*If you're looking to help out in other ways please consider donating.<br />*/}
-            {/*<PatreonButton text="Become a Patron" />*/}
-        </div>
+        <SpecListing />
       </Wrapper>
     );
   }

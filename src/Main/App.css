@@ -619,6 +619,10 @@ table.data-table .performance-bar {
 .Warrior-bg  { background-color: #c79c6e !important }
 .DemonHunter-bg { background-color: #a330c9 !important }
 
+.poor { color: #9d9d9d !important }
+.common { color: #fff !important }
+.uncommon { color: #1eff00 !important }
+.rare { color: #0070ff !important }
 .epic { color: #a335ee !important }
 .legendary { color: #ff8000 !important }
 .artifact { color: #e5cc80 !important }
