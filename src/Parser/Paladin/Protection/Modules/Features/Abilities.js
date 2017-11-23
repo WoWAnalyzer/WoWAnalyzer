@@ -39,7 +39,7 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => null,
+      getCooldown: haste => 16,
       charges: 3,
       recommendedCastEfficiency: 0.8,
 	},
