@@ -117,15 +117,6 @@ class Home extends Component {
                 Full source is available on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a>. Contributions are extremely welcome! Add your own module or spec if you want to be able to analyze something not yet available. The repository contains information on how to contribute, if you need any more information please join our Discord (link further below).
               </div>
             </div>
-
-            <div className="panel">
-              <div className="panel-heading">
-                <h2>Changes</h2>
-              </div>
-              <div className="panel-body">
-                <ChangelogPanel />
-              </div>
-            </div>
           </div>
 
           <div className="col-lg-4 col-md-5">
@@ -146,6 +137,18 @@ class Home extends Component {
         </div>
 
         <SpecListing />
+
+        <div className="row">
+          <div className="col-md-12 text-center">
+            <h1 style={{ fontSize: '3em', marginBottom: '0.5em', marginTop: '0.5em' }}>Changelog</h1>
+          </div>
+        </div>
+
+        <div className="row" style={{ marginBottom: 60 }}>
+          <div className="col-md-12">
+            <ChangelogPanel />
+          </div>
+        </div>
       </Wrapper>
     );
   }
