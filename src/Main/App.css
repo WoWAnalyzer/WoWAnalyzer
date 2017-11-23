@@ -13,9 +13,9 @@ body {
   /*background-size: 15px 15px, cover;*/
   /*background: url(./background-pattern.png), linear-gradient(rgba(94, 131, 146, 0.8), rgba(51, 73, 82, 0.9)), url(./background.jpg) center no-repeat;*/
   /*background-size: 15px 15px, cover, cover;*/
-  background: url(./Images/background-merged.png) center no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
+  background: url(./Images/background-overlay.png), url(./Images/antorus.jpg) center no-repeat;
+  background-size: auto, cover;
+  background-attachment: scroll, fixed;
   color: #fff;
 }
 .container {
