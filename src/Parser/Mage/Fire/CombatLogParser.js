@@ -13,6 +13,7 @@ import Tier20_4set from './Modules/Items/Tier20_4set';
 import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
 import SoulOfTheArchmage from './Modules/Items/SoulOfTheArchmage';
 
+import Combustion from './Modules/Cooldowns/Combustion';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
@@ -30,6 +31,9 @@ class CombatLogParser extends CoreCombatLogParser {
 	  tier20_4set: Tier20_4set,
     shardOfTheExodar: ShardOfTheExodar,
     soulOfTheArchmage: SoulOfTheArchmage,
+
+    //Cooldowns
+    combustion: Combustion,
   };
 }
 
