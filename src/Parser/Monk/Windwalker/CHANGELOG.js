@@ -1,4 +1,5 @@
 export default `
+23-11-2017 - Added Chi breakdown tab, suggestions and chi wasted statistic (Juko)
 22-11-2017 - Added T21 4pc item breakdown (Juko)
 07-11-2017 - Added CJL damage from SEF clones in The Emperors Capacity item breakdown (Juko)
 06-11-2017 - Added Energizing Elixir Energy gained calculation and statistics box (Coryn)
