@@ -6,7 +6,7 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const FROSTBOLT_CRIT_REDUCTION_MS = 500;
 
-class FrozenOrb extends Analyzer {
+class IcyVeins extends Analyzer {
 
 	static dependencies = {
 		combatants: Combatants,
@@ -30,4 +30,4 @@ class FrozenOrb extends Analyzer {
   }
 }
 
-export default FrozenOrb;
+export default IcyVeins;
