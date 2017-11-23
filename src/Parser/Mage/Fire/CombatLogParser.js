@@ -4,6 +4,7 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Features/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
+import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
 
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 import UnstableMagic from '../Shared/Modules/Features/UnstableMagic';
@@ -19,6 +20,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
     damageDone: [DamageDone, { showStatistic: true }],
+    cancelledCasts: CancelledCasts,
 
     // Talents
     mirrorImage: MirrorImage,
