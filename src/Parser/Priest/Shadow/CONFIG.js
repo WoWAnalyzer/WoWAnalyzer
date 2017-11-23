@@ -6,7 +6,7 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   spec: SPECS.SHADOW_PRIEST,
-  maintainer: '@hassebewlen',
+  maintainer: '@publik',
   completeness: SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED, // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
   changelog: CHANGELOG,
   parser: CombatLogParser,
