@@ -4,9 +4,9 @@ import SPECS from 'common/SPECS';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import Wrapper from 'common/Wrapper';
+import Maintainer from 'Main/Maintainer';
 
 import './SpecListing.css';
-import Maintainer from 'Main/Maintainer';
 
 class SpecListing extends React.PureComponent {
   render() {
