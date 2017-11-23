@@ -36,7 +36,6 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     comboStrikes: ComboStrikes,
 
-
     // Resources
     chiTracker: ChiTracker,
     chiDetails: ChiDetails,

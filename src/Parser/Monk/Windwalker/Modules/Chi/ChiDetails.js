@@ -1,3 +1,4 @@
+// Heavily inspired by resource breakdown in Feral and Retribution
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -7,6 +8,8 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import ChiBreakdown from './ChiBreakdown';
 import ChiTracker from './ChiTracker';
 
+import WastedChiIcon from '../../images/ability_monk_forcesphere.jpg';
+
 
 class ChiDetails extends Analyzer {
     static dependencies = {
@@ -14,43 +17,48 @@ class ChiDetails extends Analyzer {
     };
 
     suggestions(when) {
-        const pointsWasted = this.chiTracker.pointsWasted;
-        const pointsWastedPerMinute = (pointsWasted / this.owner.fightDuration) * 1000 * 60;
-        const MINOR = 5;
-        const AVG = 10;
-        const MAJOR = 15;
-        when(pointsWastedPerMinute).isGreaterThan(MINOR)
+        const chiWasted = this.chiTracker.chiWasted;
+        const chiWastedPerMinute = (chiWasted / this.owner.fightDuration) * 1000 * 60;
+        const MINOR = 0;
+        const AVG = 1;
+        const MAJOR = 2;
+        when(chiWastedPerMinute).isGreaterThan(MINOR)
             .addSuggestion((suggest, actual, recommended) => {
-                return suggest('You are wasting Combo Points. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')
+                return suggest('You are wasting Chi. Try to use it and not let it cap and go to waste')
                     .icon('creatureportrait_bubble')
-                    .actual(`${pointsWasted} Combo Points wasted (${pointsWastedPerMinute.toFixed(2)} per minute)`)
-                    .recommended(`< ${recommended.toFixed(2)} Combo Points per minute wasted are recommended`)
+                    .actual(`${chiWasted} Chi wasted (${chiWastedPerMinute.toFixed(2)} per minute)`)
+                    .recommended(`${recommended.toFixed(2)} Chi wasted is recommended`)
                     .regular(AVG).major(MAJOR);
             });
     }
 
     statistic() {
-        const pointsWasted = this.chiTracker.pointsWasted;
+        const chiWasted = this.chiTracker.chiWasted;
         return (
             <StatisticBox
-                
-                value={`${pointsWasted}`}
-                label="Wasted Combo Points"
+            icon={(
+              <img
+                src={WastedChiIcon}
+                alt="Wasted Chi"
+              />
+            )}
+                value={`${chiWasted}`}
+                label="Wasted Chi"
             />
         );
     }
 
     tab() {
         return {
-            title: 'Combo Point usage',
-            url: 'combo-points',
+            title: 'Chi',
+            url: 'chi',
             render: () => (
-              <Tab title="Combo Point usage breakdown">
+              <Tab title="Chi usage breakdown">
                 <ChiBreakdown
-                  pointsGained={this.chiTracker.gained}
-                  pointsSpent={this.chiTracker.spent}
-                  pointsWasted={this.chiTracker.wasted}
-                  pointsCast={this.chiTracker.casts}
+                  chiGained={this.chiTracker.gained}
+                  chiSpent={this.chiTracker.spent}
+                  chiWasted={this.chiTracker.wasted}
+                  chiCast={this.chiTracker.casts}
                     />
                 </Tab>
             ),

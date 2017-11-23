@@ -1,3 +1,4 @@
+// Heavily inspired by resource breakdown in Feral and Retribution
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -7,34 +8,34 @@ import { formatPercentage } from 'common/format';
 
 class ChiBreakdown extends React.Component {
   static propTypes = {
-    pointsGained: PropTypes.object.isRequired,
-    pointsSpent: PropTypes.object.isRequired,
-    pointsWasted: PropTypes.object.isRequired,
-    pointsCast: PropTypes.object.isRequired,
+    chiGained: PropTypes.object.isRequired,
+    chiSpent: PropTypes.object.isRequired,
+    chiWasted: PropTypes.object.isRequired,
+    chiCast: PropTypes.object.isRequired,
   };
-  prepareGenerated(pointGen, pointWasted) {
-    return Object.keys(pointGen)
+  prepareGenerated(chiGen, chiWasted) {
+    return Object.keys(chiGen)
       .map(abilityId => ({
         abilityId: Number(abilityId),
-        generated: pointGen[abilityId].points,
-        wasted: pointWasted[abilityId].points,
+        generated: chiGen[abilityId].chi,
+        wasted: chiWasted[abilityId].chi,
       }))
       .sort((a, b) => b.generated - a.generated);
   }
-  prepareSpent(pointSpent, pointCast) {
-    return Object.keys(pointSpent)
+  prepareSpent(chipent, chiCast) {
+    return Object.keys(chipent)
       .map(abilityId => ({
         abilityId: Number(abilityId),
-        spent: pointSpent[abilityId].points,
-        maxCP: pointCast[abilityId].maxCP,
-        total: pointCast[abilityId].total,
+        spent: chipent[abilityId].chi,
+        maxCP: chiCast[abilityId].maxCP,
+        total: chiCast[abilityId].total,
       }))
       .sort((a, b) => b.spent - a.spent);
   }
   render() {
-    const { pointsGained, pointsSpent, pointsWasted, pointsCast } = this.props;
-    const generated = this.prepareGenerated(pointsGained, pointsWasted);
-    const spent = this.prepareSpent(pointsSpent, pointsCast);
+    const { chiGained, chiSpent, chiWasted, chiCast } = this.props;
+    const generated = this.prepareGenerated(chiGained, chiWasted);
+    const spent = this.prepareSpent(chiSpent, chiCast);
 
     let totalGenerated = 0;
     let totalWasted = 0;
@@ -55,8 +56,8 @@ class ChiBreakdown extends React.Component {
           <thead>
             <tr>
               <th>Ability</th>
-              <th colSpan="2">Combo Points generated</th>
-              <th colSpan="2"><dfn data-tip="This is the amount of points that were generated while you were already at cap.">points wasted</dfn></th>
+              <th colSpan="2">Chi generated</th>
+              <th colSpan="2"><dfn data-tip="This is the amount of chi that were generated while you were already at cap.">Chi wasted</dfn></th>
             </tr>
           </thead>
           <tbody>
