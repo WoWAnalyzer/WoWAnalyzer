@@ -9,10 +9,9 @@ class ChiTracker extends Analyzer {
     combatants: Combatants,
   };
 
-  pointsGained = 0;
-  pointsWasted = 0;
-  pointsSpent = 0;
-  currentPoints = 0;
+  chiGained = 0;
+  chiWasted = 0;
+  totalChiSpent = 0;
   totalCasts = 0;
   maxPoints = 5;
 
@@ -41,13 +40,16 @@ class ChiTracker extends Analyzer {
       this.constructor.POINT_GENERATING_ABILITIES.push(SPELLS.ENERGIZING_ELIXIR_TALENT.id);
     }
     if (combatant.hasTalent(SPELLS.POWER_STRIKES_TALENT.id)) {
-        this.constructor.POINT_GENERATING_ABILITIES.push(SPELLS.POWER_STRIKES.id);
+      this.constructor.POINT_GENERATING_ABILITIES.push(SPELLS.POWER_STRIKES.id);
     }
     if (combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT.id)) {
       this.constructor.POINT_SPENDING_ABILITIES.push(SPELLS.RUSHING_JADE_WIND_TALENT.id);
     }
     if (combatant.hasTalent(SPELLS.ASCENSION_TALENT.id)) {
       this.maxPoints = 6;
+    }
+    if (combatant.hasBuff(SPELLS.WW_TIER21_2PC.id)) {
+      this.constructor.POINT_GENERATING_ABILITIES.push(SPELLS.FOCUS_OF_XUEN.id);
     }
 
     // initialize abilties
@@ -57,13 +59,13 @@ class ChiTracker extends Analyzer {
     });
     this.constructor.POINT_SPENDING_ABILITIES.forEach(x => {
       this.spent[x] = { points: 0 };
-      this.casts[x] = { total: 0, maxCP: 0 };
+      this.casts[x] = { total: 0  };
     });
   }
 
   on_toPlayer_energize(event) {
     const spellId = event.ability.guid;
-    const waste = event.waste;
+    let waste = event.waste;
     const gain = event.resourceChange - waste;
 
     if (this.constructor.POINT_GENERATING_ABILITIES.indexOf(spellId) === -1) {
@@ -73,12 +75,16 @@ class ChiTracker extends Analyzer {
       return;
     }
     if (waste !== 0) {
+      // Energizing Elixir actually gives 10 chi rather than filling it up as the tooltip reads
+      if (spellId === SPELLS.ENERGIZING_ELIXIR_TALENT.id) {
+          waste = waste - (10 - this.maxPoints);
+      }
       this.wasted[spellId].points += waste;
-      this.pointsWasted += waste;
+      this.chiWasted += waste;
     }
     if (gain !== 0) {
       this.gained[spellId].points += gain;
-      this.pointsGained += gain;
+      this.chiGained += gain;
       this.currentPoints += gain;
     }
   }
@@ -86,40 +92,20 @@ class ChiTracker extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    // some point generating spells do not have energize events so they are handled here
-    if (spellId === SPELLS.THRASH_FERAL.id || spellId === SPELLS.BRUTAL_SLASH_TALENT.id) {
-      this.processNonEnergizeCast(spellId);
-    }
     if (this.constructor.POINT_SPENDING_ABILITIES.indexOf(spellId) === -1) {
       return;
     }
-    // checking for free no CP procs, classResources seems to be the only difference
-    if (!event.classResources[1]) {
-
-    } else if (event.resourceChangeType === ResourceTypes.CHI) {
-      this.processPointSpenders(event, spellId);
-    }
-  }
-
-  processNonEnergizeCast(spellId) {
-    if (this.currentPoints === this.maxPoints) {
-      this.wasted[spellId].points += 1;
-      this.pointsWasted += 1;
-    } else {
-      this.gained[spellId].points += 1;
-      this.pointsGained += 1;
-    }
+    const chiSpent = event.resourceChange;
+    this.spent[spellId].points += chiSpent;
+    this.totalChiSpent += chiSpent;
+    this.casts[spellId].total += 1;
+    this.totalCasts += 1;
   }
 
   processPointSpenders(event, spellId) {
-    // each finisher uses all available points, varying from 1 to 5
-    const pointsInCast = this.currentPoints;
+    
 
-    this.spent[spellId].points += pointsInCast;
-    this.pointsSpent += pointsInCast;
-    this.casts[spellId].total += 1;
-    this.totalCasts += 1;
-    this.currentPoints = 0;
+
   }
 }
 

@@ -93,8 +93,8 @@ class ChiBreakdown extends React.Component {
           <thead>
             <tr>
               <th>Ability</th>
-              <th colSpan='2'>Points spent</th>
-              <th colSpan='2'>5 CP uses</th>
+              <th colSpan='2'>Chi spent</th>
+              <th colSpan='2'>Casts</th>
             </tr>
           </thead>
           <tbody>
@@ -114,7 +114,7 @@ class ChiBreakdown extends React.Component {
                       style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
                     />
                   </td>
-                  <td style={{ width: 150, textAlign: 'center' }}>{ability.maxCP} / {ability.total}</td>
+                  <td style={{ width: 150, textAlign: 'center' }}>{ability.total}</td>
                   <td style={{ width: '25%' }} />
                 </tr>
               ))}
