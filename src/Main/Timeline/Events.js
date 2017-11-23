@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import SpellIcon from 'common/SpellIcon';
 
-const RESTORE_CHARGE_TICK_WIDTH = 80;
+const RESTORE_CHARGE_TICK_WIDTH = 70;
 
 class Events extends React.PureComponent {
   static propTypes = {
