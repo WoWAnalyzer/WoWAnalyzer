@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import SpellIcon from 'common/SpellIcon';
 
+const RESTORE_CHARGE_TICK_WIDTH = 80;
+
 class Events extends React.PureComponent {
   static propTypes = {
     events: PropTypes.array,
@@ -83,6 +85,26 @@ class Events extends React.PureComponent {
                   zIndex: 1,
                 }}
                 data-tip={`Cooldown: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`}
+              />
+            );
+          }
+          return null;
+        })}
+        {fixedEvents.map((event, index) => {
+          if (event.type === 'updatespellusable' && (/*event.trigger === 'endcooldown' || */event.trigger === 'restorecharge')) {
+            const left = (event.timestamp - (RESTORE_CHARGE_TICK_WIDTH / 2) - start) / 1000 * secondWidth;
+            const maxWidth = totalWidth - left; // don't expand beyond the container width
+            const width = Math.min(maxWidth, RESTORE_CHARGE_TICK_WIDTH / 1000 * secondWidth);
+            return (
+              <div
+                key={index}
+                style={{
+                  left,
+                  width,
+                  background: 'rgba(250, 250, 250, 0.6)',
+                  zIndex: 2,
+                }}
+                data-tip={`Charge Restored`}
               />
             );
           }
