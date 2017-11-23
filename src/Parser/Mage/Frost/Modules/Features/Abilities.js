@@ -25,7 +25,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => null,
     },
     {
-      spell: SPELLS.ICE_LANCE_CAST,
+      spell: SPELLS.ICE_LANCE,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
     },

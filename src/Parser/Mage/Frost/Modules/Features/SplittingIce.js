@@ -32,7 +32,7 @@ class SplittingIce extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     // we check Frostbolt cast even though it doesn't split because it can launch overcapped icicles.
-    if(spellId !== SPELLS.ICE_LANCE_CAST.id && spellId !== SPELLS.FROSTBOLT.id && spellId !== SPELLS.GLACIAL_SPIKE_TALENT.id) {
+    if(spellId !== SPELLS.ICE_LANCE.id && spellId !== SPELLS.FROSTBOLT.id && spellId !== SPELLS.GLACIAL_SPIKE_TALENT.id) {
       return;
     }
 
