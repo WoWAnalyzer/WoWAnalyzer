@@ -829,3 +829,9 @@ code.inactive {
   position: absolute;
   left: -1em;
 }
+.maintainer-name img {
+  width: 1.4em;
+  height: 1.4em;
+  border-radius: 50%;
+  vertical-align: text-bottom;
+}

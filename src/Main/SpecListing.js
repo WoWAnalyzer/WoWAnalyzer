@@ -46,7 +46,12 @@ class SpecListing extends React.PureComponent {
                       {config ? (
                         <Wrapper>
                           <div>
-                            Maintained by {config.maintainers.map(maintainer => <span key={maintainer.nickname} className="maintainer-name">{maintainer.nickname}</span>)}
+                            Maintained by {config.maintainers.map(maintainer => (
+                              <span key={maintainer.nickname} className="maintainer-name">
+                                {maintainer.avatar && <img src={maintainer.avatar} alt="Avatar" />}{' '}
+                                {maintainer.nickname}
+                              </span>
+                          ))}
                           </div>
                           <div>
                             Status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn>
