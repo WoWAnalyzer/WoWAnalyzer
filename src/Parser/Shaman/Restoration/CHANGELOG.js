@@ -1,13 +1,9 @@
 import React from 'react';
 
+import { Anomoly, Versaya, Yuyz0112, Zerotorescue } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
-import ZerotorescueAvatar from 'Parser/Paladin/Holy/Images/zerotorescue-avatar.png';
-import AnomolyAvatar from 'Parser/Monk/Mistweaver/Images/anomoly-avatar.jpg';
 import ItemLink from 'common/ItemLink';
-
-const Zerotorescue = ['Zerotorescue', ZerotorescueAvatar];
-const Anomoly = ['anomoly', AnomolyAvatar];
 
 export default [
   {
@@ -28,17 +24,17 @@ export default [
   {
     date: new Date('2017-08-20'),
     changes: 'Added Ancestral Vigor metric.',
-    contributors: ['Yuyz0112'],
+    contributors: [Yuyz0112],
   },
   {
     date: new Date('2017-07-06'),
     changes: 'Fix crash when CBT, AG or Ascendance was cast before pull.',
-    contributors: ['Versaya'],
+    contributors: [Versaya],
   },
   {
     date: new Date('2017-05-29'),
     changes: 'Added overhealing in Cast Efficiency tab for some resto shaman spells. Fixed Uncertain Reminder in case of pre-lust. Added GotQ target efficiency. Don\'t allow CBT healing to feed into CBT.',
-    contributors: ['Versaya'],
+    contributors: [Versaya],
   },
   {
     date: new Date('2017-05-28'),

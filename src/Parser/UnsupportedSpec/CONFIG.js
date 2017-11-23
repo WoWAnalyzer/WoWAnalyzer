@@ -1,5 +1,6 @@
-// import SPECS from 'common/SPECS';
 import React from 'react';
+
+import { Zerotorescue } from 'MAINTAINERS';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
 import CombatLogParser from './CombatLogParser';
@@ -7,7 +8,7 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   spec: { id: 0, className: 'Unsupported', specName: 'Spec' }, // SPECS.HOLY_PALADIN,
-  maintainer: '@Zerotorescue',
+  maintainers: [Zerotorescue],
   description: (
     <div>
       You don't need to to do anything special to add a spec. The real issue preventing specs from being added is that in order to add a spec, you need to have the following 3 properties:<br />

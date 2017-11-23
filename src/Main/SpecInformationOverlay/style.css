@@ -46,11 +46,11 @@
   font-weight: bold;
   text-align: center;
 }
-#spec-description-overlay .maintainer-name {
+#spec-description-overlay .maintainers {
   font-size: 30px;
   text-align: right;
 }
-#spec-description-overlay .maintainer-name img {
+#spec-description-overlay .maintainers img {
   border-radius: 50%;
   border: 2px solid #000;
   margin: -7px 4px 0;

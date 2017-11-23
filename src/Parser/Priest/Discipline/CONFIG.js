@@ -1,3 +1,4 @@
+import { Reglitch, Gao, Oratio } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
@@ -6,7 +7,7 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   spec: SPECS.DISCIPLINE_PRIEST,
-  maintainer: '@Reglitch, @Gao and @Oratio',
+  maintainers: [Reglitch, Gao, Oratio],
   completeness: SPEC_ANALYSIS_COMPLETENESS.GREAT, // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
   changelog: CHANGELOG,
   parser: CombatLogParser,

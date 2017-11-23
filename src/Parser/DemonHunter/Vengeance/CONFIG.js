@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Mamtooth } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -8,12 +9,9 @@ import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
 
-import MamtoothAvatar from './Images/mamtooth-avatar.png';
-
 export default {
   spec: SPECS.VENGEANCE_DEMON_HUNTER,
-  maintainer: '@Mamtooth',
-	maintainerAvatar: MamtoothAvatar,
+  maintainers: [Mamtooth],
 	description: (
 		<div>
 			Hi there fellow Illidari. I've put some time in developing this tool for all Vengeance Demon Hunters and I'll always try to keep this spec update. But as you might have thought, you opinion and suggestion is always great to make me improve it more and more for you. So, if you ever have anything to say, please leave a message in some channel that I'll be specifically showing to you later.<br/><br/>

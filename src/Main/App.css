@@ -812,3 +812,11 @@ code.inactive {
   padding: 10px;
   margin-bottom: 2rem;
 }
+
+.maintainer-name {
+  background: #c7254e;
+  padding: .2em .4em;
+  margin: -.2em 0;
+  border-radius: .2em;
+  color: #fff;
+}

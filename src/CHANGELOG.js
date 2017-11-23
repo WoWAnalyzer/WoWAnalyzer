@@ -1,11 +1,9 @@
 import React from 'react';
 
+import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, Yuyz0112, Zerotorescue } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
-import ZerotorescueAvatar from 'Parser/Paladin/Holy/Images/zerotorescue-avatar.png';
-
-const Zerotorescue = ['Zerotorescue', ZerotorescueAvatar];
 
 export default [
     {
@@ -41,7 +39,7 @@ export default [
   {
     date: new Date('2017-11-08'),
     changes: 'Added a suggestion for healers if their mana percentage is too high at the end of an encounter.',
-    contributors: ['Blazyb'],
+    contributors: [blazyb],
   },
   {
     date: new Date('2017-11-06'),
@@ -71,7 +69,7 @@ export default [
   {
     date: new Date('2017-10-25'),
     changes: 'Added T21 healing trinkets: Tarratus Keystone and Highfather\'s Machination.',
-    contributors: ['Dyspho'],
+    contributors: [Dyspho],
   },
   {
     date: new Date('2017-10-22'),
@@ -131,22 +129,22 @@ export default [
   {
     date: new Date('2017-10-16'),
     changes: 'Added Cinidaria, the Symbiote damage and healing tracker.',
-    contributors: ['Juko'],
+    contributors: [Juko8],
   },
   {
     date: new Date('2017-10-15'),
     changes: 'Added a statistic to track total distance moved during the analyzed fight.',
-    contributors: ['Fyruna'],
+    contributors: [Fyruna],
   },
   {
     date: new Date('2017-10-14'),
     changes: 'Sephuz\'s Secret now displays average haste gain. Uptime still available in tooltip.',
-    contributors: ['Sref'],
+    contributors: [sref],
   },
   {
     date: new Date('2017-10-14'),
     changes: 'Added a suggestion when a legendary haven\'t been upgraded to the max item level.',
-    contributors: ['Fyruna'],
+    contributors: [Fyruna],
   },
   {
     date: new Date('2017-10-10'),
@@ -171,12 +169,12 @@ export default [
   {
     date: new Date('2017-09-27'),
     changes: 'Hot Fix: Add in check to disable Netherlight Crucible statistics box if a user has no Netherlight Crucible traits active',
-    contributors: ['anomoly'],
+    contributors: [Anomoly],
   },
   {
     date: new Date('2017-09-25'),
     changes: 'Added Netherlight Crucible traits contribution as a common module across specs',
-    contributors: ['anomoly'],
+    contributors: [Anomoly],
   },
   {
     date: new Date('2017-09-25'),
@@ -201,7 +199,7 @@ export default [
   {
     date: new Date('2017-09-16'),
     changes: 'Archimonde\'s Hatred Reborn now shows total damage done % and DPS contribution on it\'s tooltip.',
-    contributors: ['Mamtooth'],
+    contributors: [Mamtooth],
   },
   {
     date: new Date('2017-09-12'),
@@ -235,12 +233,12 @@ export default [
   {
     date: new Date('2017-08-28'),
     changes: 'Select fights for the currently selected player with a pull down menu.',
-    contributors: ['fasib'],
+    contributors: [fasib],
   },
   {
     date: new Date('2017-08-28'),
     changes: 'Select other players with a pull down menu from the currently selected player.',
-    contributors: ['fasib'],
+    contributors: [fasib],
   },
   {
     date: new Date('2017-08-27'),
@@ -260,7 +258,7 @@ export default [
   {
     date: new Date('2017-08-24'),
     changes: 'Changelogs are now seperated by a select box.',
-    contributors: ['Blazyb'],
+    contributors: [blazyb],
   },
   {
     date: new Date('2017-08-24'),
@@ -300,7 +298,7 @@ export default [
   {
     date: new Date('2017-08-02'),
     changes: 'Gnawed Thumb Ring should now show DPS values when applicable.',
-    contributors: ['Gurupitka'],
+    contributors: [Gurupitka],
   },
   {
     date: new Date('2017-08-01'),
@@ -330,7 +328,7 @@ export default [
   {
     date: new Date('2017-07-20'),
     changes: 'Added fight progress indicator to the fight selection page.',
-    contributors: ['Yuyz0112'],
+    contributors: [Yuyz0112],
   },
   {
     date: new Date('2017-07-06'),
@@ -360,7 +358,7 @@ export default [
   {
     date: new Date('2017-06-20'),
     changes: 'Added prepot/second pot suggestions',
-    contributors: ['Blazyb'],
+    contributors: [blazyb],
   },
   {
     date: new Date('2017-06-18'),
@@ -380,7 +378,7 @@ export default [
   {
     date: new Date('2017-06-15'),
     changes: 'Generic: Tier 20 Healing Trinket Implementation',
-    contributors: ['anomoly'],
+    contributors: [Anomoly],
   },
   {
     date: new Date('2017-06-06'),
@@ -390,7 +388,7 @@ export default [
   {
     date: new Date('2017-05-29'),
     changes: 'Fixed a crash when trying to parse a corrupt combatlog.',
-    contributors: ['versaya'],
+    contributors: [Versaya],
   },
   {
     date: new Date('2017-05-28'),

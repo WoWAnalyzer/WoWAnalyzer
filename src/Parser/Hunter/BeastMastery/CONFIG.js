@@ -1,17 +1,15 @@
 import React from 'react';
 
+import { Putro } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
 
-import PutroAvatar from './Images/putro-avatar.png';
-
 export default {
   spec: SPECS.BEAST_MASTERY_HUNTER,
-  maintainer: '@Putro',
-  maintainerAvatar: PutroAvatar,
+  maintainers: [Putro],
   description: (
     <div>
       Hey, I am working on making this analyzer as good as I can. I hope that the suggestions that will be implemented in the future, will be helpful in aiding you improve your overall performance.<br /><br />

@@ -1,4 +1,6 @@
 import React from 'react';
+
+import { Juko8 } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
@@ -7,7 +9,7 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   spec: SPECS.WINDWALKER_MONK,
-  maintainer: '@Juko8',
+  maintainers: [Juko8],
   description: (
   <div>
     Hello! The Windwalker module is currently under major construction. We are working to slowly add functionality in to provide a comprehesive analysis of your playstyle.<br /> <br/>

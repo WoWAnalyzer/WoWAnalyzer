@@ -1,17 +1,15 @@
 import React from 'react';
 
+import { Anomoly } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
 
-import anomolyAvatar from './Images/anomoly-avatar.jpg';
-
 export default {
   spec: SPECS.MISTWEAVER_MONK,
-  maintainer: '@anomoly',
-  maintainerAvatar: anomolyAvatar,
+  maintainers: [Anomoly],
   description: (
     <div>
       Hello all! Thanks so much for taking the time use this tool as a way to improve your play. The goal is to provide targeted suggestions to improve your overall Mistweaver Monk play. The suggestions are based on the current theorycrafting and practical knowledge from some of the best Mistweavers playing this game. (And even some former mistweavers who still like to help us dreamers out.) <br /> <br />

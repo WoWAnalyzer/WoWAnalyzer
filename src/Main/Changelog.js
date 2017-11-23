@@ -96,6 +96,14 @@ class Changelog extends React.PureComponent {
                             </Wrapper>
                           );
                         }
+                        if (typeof contributor === 'object') {
+                          return (
+                            <Wrapper key={contributor.nickname}>
+                              {contributor.avatar && <img src={contributor.avatar} alt="Avatar" style={{ height: '1.6em', borderRadius: '50%' }} />}{' '}
+                              {contributor.nickname}
+                            </Wrapper>
+                          );
+                        }
                         return null;
                       })}
                     </div>

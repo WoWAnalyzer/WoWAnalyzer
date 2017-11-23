@@ -1,9 +1,7 @@
 import React from 'react';
 
+import { Anomoly } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
-import AnomolyAvatar from './Images/anomoly-avatar.jpg';
-
-const Anomoly = ['anomoly', AnomolyAvatar];
 
 export default [
   {
