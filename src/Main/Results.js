@@ -16,6 +16,7 @@ import Tab from 'Main/Tab';
 import Status from 'Main/Status';
 import GithubButton from 'Main/GithubButton';
 import DiscordButton from 'Main/DiscordButton';
+import Maintainer from 'Main/Maintainer';
 
 import SpecInformationOverlay from './SpecInformationOverlay';
 
@@ -251,7 +252,7 @@ class Results extends React.Component {
                 borderRadius: '50%',
                 height: '1.2em',
               }}
-          /> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainers.map(maintainer => <span key={maintainer.nickname} className="maintainer-name">{maintainer.nickname}</span>)} (status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>). <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
+          /> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)} (status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>). <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
           </div>
           {config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED && (
             <div className="alert alert-danger" style={{ fontSize: '1.5em' }}>

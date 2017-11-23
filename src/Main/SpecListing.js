@@ -6,6 +6,7 @@ import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel 
 import Wrapper from 'common/Wrapper';
 
 import './SpecListing.css';
+import Maintainer from 'Main/Maintainer';
 
 class SpecListing extends React.PureComponent {
   render() {
@@ -46,12 +47,7 @@ class SpecListing extends React.PureComponent {
                       {config ? (
                         <Wrapper>
                           <div>
-                            Maintained by {config.maintainers.map(maintainer => (
-                              <span key={maintainer.nickname} className="maintainer-name">
-                                {maintainer.avatar && <img src={maintainer.avatar} alt="Avatar" />}{' '}
-                                {maintainer.nickname}
-                              </span>
-                          ))}
+                            Maintained by {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}
                           </div>
                           <div>
                             Status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn>
