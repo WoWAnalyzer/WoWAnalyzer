@@ -230,6 +230,11 @@ export default {
     name: 'Phoenix Reborn',
     icon: 'inv_misc_phoenixegg',
   },
+  METEOR_DAMAGE: {
+    id: 153564,
+    name: 'Meteor',
+    icon: 'spell_mage_meteor',
+  },
 
   //Arcane
   ARCANE_BLAST: {
@@ -362,6 +367,11 @@ export default {
     id: 215773,
     name: 'Phoenix Reborn',
     icon: 'inv_sword_1h_artifactfelomelorn_d_01',
+  },
+  ERUPTING_INFERNAL_CORE: {
+    id: 248147,
+    name: 'Erupting Infernal Core',
+    icon: 'spell_mage_flameorb',
   },
 
   //Tier Sets

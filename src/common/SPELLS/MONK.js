@@ -691,4 +691,10 @@ export default {
     name: 'Windwalker T21 2PC',
     icon: 'ability_monk_roundhousekick',
   },
+  // this is the chi gain from T21 2pc
+  FOCUS_OF_XUEN: {
+    id: 252768,
+    name: 'Focus of Xuen',
+    icon: 'ability_monk_roundhousekick',
+  },
 };
