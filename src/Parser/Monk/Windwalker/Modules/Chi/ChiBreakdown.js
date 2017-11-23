@@ -68,7 +68,7 @@ class ChiBreakdown extends React.Component {
                     <SpellIcon id={ability.abilityId} />{' '}
                     <SpellLink id={ability.abilityId} />
                   </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
+                  <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
                     <dfn data-tip={`${formatPercentage(ability.generated / totalGenerated)} %`}>{ability.generated}</dfn>
                   </td>
                   <td style={{ width: '40%' }}>
@@ -77,7 +77,7 @@ class ChiBreakdown extends React.Component {
                       style={{ width: `${(ability.generated / totalGenerated) * 100}%` }}
                     />
                   </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
+                  <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
                     <dfn data-tip={`${formatPercentage(ability.wasted / totalWasted)} %`}>{ability.wasted}</dfn>
                   </td>
                   <td style={{ width: '30%' }}>
@@ -106,17 +106,17 @@ class ChiBreakdown extends React.Component {
                     <SpellIcon id={ability.abilityId} />{' '}
                     <SpellLink id={ability.abilityId} />
                   </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
+                  <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
                     <dfn data-tip={`${formatPercentage(ability.spent / totalGenerated)} %`}>{ability.spent}</dfn>
                   </td>
-                  <td style={{ width: '35%' }}>
+                  <td style={{ width: '40%' }}>
                     <div
                       className={'performance-bar'}
                       style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
                     />
                   </td>
                   <td style={{ width: 150, textAlign: 'center' }}>{ability.total}</td>
-                  <td style={{ width: '25%' }} />
+                  <td style={{ width: '30%' }} />
                 </tr>
               ))}
           </tbody>
