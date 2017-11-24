@@ -6,6 +6,7 @@ import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel 
 import Wrapper from 'common/Wrapper';
 import Maintainer from 'Main/Maintainer';
 import FingerprintFilledIcon from 'Icons/FingerprintFilled';
+import GitHubMarkIcon from 'Icons/GitHubMark';
 
 import './SpecListing.css';
 
@@ -47,6 +48,11 @@ class SpecListing extends React.PureComponent {
                       <h1 className={className}>{spec.specName} {spec.className}</h1>
                       {config ? (
                         <Wrapper>
+                          <div className="pull-right">
+                            <a href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`} className="github" data-tip="View source code for this spec.">
+                              <GitHubMarkIcon />
+                            </a>
+                          </div>
                           <div>
                             Maintained by {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}
                           </div>
