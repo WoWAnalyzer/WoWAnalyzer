@@ -6,7 +6,12 @@ import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 
 export default [
-    {
+  {
+    date: new Date('2017-11-24'),
+    changes: <Wrapper>Reworked the frontpage layout and replaced all icons with icons from the Noun Project.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2017-11-11'),
     changes: <Wrapper>Changed the Changelog tab to mark <i>shared changes</i> as grey and provided a toggle to hide them.</Wrapper>,
     contributors: [Zerotorescue],
