@@ -225,6 +225,11 @@ export default {
     name: 'Dragon\'s Breath',
     icon: 'inv_misc_head_dragon_01',
   },
+  PHOENIX_REBORN: {
+    id: 215775,
+    name: 'Phoenix Reborn',
+    icon: 'inv_misc_phoenixegg',
+  },
   METEOR_DAMAGE: {
     id: 153564,
     name: 'Meteor',
@@ -357,6 +362,11 @@ export default {
     id: 240671,
     name: 'Warmth of the Phoenix',
     icon: 'artifactability_firemage_phoenixbolt',
+  },
+  PHOENIX_REBORN_TRAIT: {
+    id: 215773,
+    name: 'Phoenix Reborn',
+    icon: 'inv_sword_1h_artifactfelomelorn_d_01',
   },
   ERUPTING_INFERNAL_CORE: {
     id: 248147,
