@@ -105,10 +105,6 @@ class FightSelecter extends React.PureComponent {
             <FightSelectionList report={report} fights={report.fights} killsOnly={killsOnly} />
           </div>
         </div>
-
-        <div className="text-muted">
-          Icons by <a href="https://icons8.com/" rel="noopener noreferrer">Icons8</a>.
-        </div>
       </div>
     );
   }

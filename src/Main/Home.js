@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Wrapper from 'common/Wrapper';
+import ScrollFilledIcon from 'Icons/ScrollFilled';
 
 import ChangelogPanel from './ChangelogPanel';
 
@@ -93,7 +94,7 @@ class Home extends Component {
 
         <div className="row">
           <div className="col-md-12 text-center">
-            <h1 style={{ fontSize: '3em', marginBottom: '0.5em', marginTop: '0.5em' }}>Changelog</h1>
+            <h1 style={{ fontSize: '3em', marginBottom: '0.5em', marginTop: '0.5em' }}><ScrollFilledIcon /> Changelog</h1>
           </div>
         </div>
 

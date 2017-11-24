@@ -5,6 +5,7 @@ import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import Wrapper from 'common/Wrapper';
 import Maintainer from 'Main/Maintainer';
+import FingerprintFilledIcon from 'Icons/FingerprintFilled';
 
 import './SpecListing.css';
 
@@ -14,7 +15,7 @@ class SpecListing extends React.PureComponent {
       <Wrapper>
         <div className="row">
           <div className="col-md-12 text-center">
-            <h1 style={{ fontSize: '3em', marginBottom: '0.5em', marginTop: '0.5em' }}>Spec status</h1>
+            <h1 style={{ fontSize: '3em', marginBottom: '0.5em', marginTop: '0.5em' }}><FingerprintFilledIcon /> Specializations</h1>
           </div>
         </div>
 

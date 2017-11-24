@@ -376,9 +376,9 @@ nav .selectorHeader a {
   border-bottom-color: rgba(0, 0, 0, 0.4);
 }
 svg {
-  height: 0.9em;
+  height: 1em;
   fill: currentColor;
-  margin-bottom: -.08em;
+  vertical-align: bottom;
 }
 h1 {
   position: relative;

@@ -13,6 +13,16 @@ class Footer extends React.PureComponent {
         <div className="container">
           <div className="row">
             <div className="col-md-7">
+              <dfn
+                data-tip={`
+                  <ul>
+                    <li>Fingerprint by IconsGhost</li>
+                    <li>Scroll by jngll</li>
+                    <li>Delete by johartcamp</li>
+                    <li>Skull by Royyan Razka</li>
+                  </ul>
+                `}
+              >Icons from the <a href="https://thenounproject.com">Noun Project</a>.</dfn>
             </div>
             <div className="col-md-5 text-right">
               <DiscordButton />
