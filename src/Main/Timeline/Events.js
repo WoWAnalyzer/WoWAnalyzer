@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import SpellIcon from 'common/SpellIcon';
 
-const RESTORE_CHARGE_TICK_WIDTH = 70;
+const RESTORE_CHARGE_TICK_WIDTH = 3;
 
 class Events extends React.PureComponent {
   static propTypes = {
@@ -97,9 +97,9 @@ class Events extends React.PureComponent {
         })}
         {fixedEvents.map((event, index) => {
           if (event.type === 'updatespellusable' && (event.trigger === 'restorecharge')) {
-            const left = (event.timestamp - (RESTORE_CHARGE_TICK_WIDTH / 2) - start) / 1000 * secondWidth;
+            const left = (event.timestamp - start) / 1000 * secondWidth;
             const maxWidth = totalWidth - left; // don't expand beyond the container width
-            const width = Math.min(maxWidth, RESTORE_CHARGE_TICK_WIDTH / 1000 * secondWidth);
+            const width = Math.min(maxWidth, RESTORE_CHARGE_TICK_WIDTH);
             return (
               <div
                 key={index}
