@@ -26,7 +26,11 @@ class Events extends React.PureComponent {
       if (event.type !== 'updatespellusable') {
         return;
       }
-      if (event.trigger === 'begincooldown') {
+      if (event.trigger === 'begincooldown' || event.trigger === 'refreshcooldown') {
+        const index = missingEndCooldowns.findIndex(beginCooldownEvent => beginCooldownEvent.spellId === event.spellId);
+        if (index !== -1) {
+          missingEndCooldowns.splice(index, 1);
+        }
         missingEndCooldowns.push(event);
       }
       if (event.trigger === 'endcooldown') {
