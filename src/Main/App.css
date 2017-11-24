@@ -820,6 +820,9 @@ code.inactive {
   margin: -.2em 0;
   border-radius: .2em;
 }
+.maintainer-name[data-tip] {
+  cursor: help;
+}
 .maintainer-name + .maintainer-name {
   position: relative;
   margin-left: 1.2em;
