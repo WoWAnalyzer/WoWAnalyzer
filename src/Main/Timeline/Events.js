@@ -96,7 +96,7 @@ class Events extends React.PureComponent {
           return null;
         })}
         {fixedEvents.map((event, index) => {
-          if (event.type === 'updatespellusable' && (/*event.trigger === 'endcooldown' || */event.trigger === 'restorecharge')) {
+          if (event.type === 'updatespellusable' && (event.trigger === 'restorecharge')) {
             const left = (event.timestamp - (RESTORE_CHARGE_TICK_WIDTH / 2) - start) / 1000 * secondWidth;
             const maxWidth = totalWidth - left; // don't expand beyond the container width
             const width = Math.min(maxWidth, RESTORE_CHARGE_TICK_WIDTH / 1000 * secondWidth);
