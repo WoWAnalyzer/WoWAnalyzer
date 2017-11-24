@@ -814,11 +814,11 @@ code.inactive {
 }
 
 .maintainer-name {
-  background: #c7254e;
+  background: rgba(0, 0, 0, 0.4);
+  color: #f1c40f;
   padding: .2em .4em;
   margin: -.2em 0;
   border-radius: .2em;
-  color: #fff;
 }
 .maintainer-name + .maintainer-name {
   position: relative;
@@ -828,6 +828,7 @@ code.inactive {
   content: '&';
   position: absolute;
   left: -1em;
+  color: #fff;
 }
 .maintainer-name img {
   width: 1.4em;
