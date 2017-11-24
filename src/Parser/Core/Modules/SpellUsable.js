@@ -84,6 +84,7 @@ class SpellUsable extends Analyzer {
             formatMilliseconds(this.owner.fightDuration),
             'SpellUsable',
             spellName(spellId), spellId, `was cast while already marked as on cooldown. It probably either has multiple charges, can be reset early, cooldown can be reduced, the configured CD is invalid, the Haste is too low, the combatlog records multiple casts per player cast (e.g. ticks of a channel) or this is a latency issue.`,
+            'fight time:', timestamp - this.owner.fight.start_time,
             'time passed:', (timestamp - this._currentCooldowns[spellId].start),
             'cooldown remaining:', remainingCooldown,
             'expectedDuration:', this._currentCooldowns[spellId].expectedDuration
