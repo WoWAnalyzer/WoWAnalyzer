@@ -225,6 +225,11 @@ export default {
     name: 'Dragon\'s Breath',
     icon: 'inv_misc_head_dragon_01',
   },
+  METEOR_DAMAGE: {
+    id: 153564,
+    name: 'Meteor',
+    icon: 'spell_mage_meteor',
+  },
 
   //Arcane
   ARCANE_BLAST: {
@@ -352,6 +357,11 @@ export default {
     id: 240671,
     name: 'Warmth of the Phoenix',
     icon: 'artifactability_firemage_phoenixbolt',
+  },
+  ERUPTING_INFERNAL_CORE: {
+    id: 248147,
+    name: 'Erupting Infernal Core',
+    icon: 'spell_mage_flameorb',
   },
 
   //Tier Sets
