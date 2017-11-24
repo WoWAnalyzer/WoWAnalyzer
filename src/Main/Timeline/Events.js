@@ -64,6 +64,7 @@ class Events extends React.PureComponent {
                 key={index}
                 style={{
                   left: (event.timestamp - start) / 1000 * secondWidth,
+                  top: -1, // without this, icon vertical positioning slightly off...
                   zIndex: 10,
                 }}
               >
