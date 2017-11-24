@@ -4,10 +4,10 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import Abilities from './Modules/Features/Abilities';
 
 import ShadowBladesUptime from "./Modules/Features/ShadowBladesUptime";
-import ShadowDance from "./Modules/Features/ShadowDance";
+import ShadowDance from "./Modules/RogueCore/ShadowDance";
 import SymbolsOfDeathUptime from "./Modules/Features/SymbolsOfDeathUptime";
-import DarkShadowContribution from "./Modules/Talents/DarkShadowContribution";
-import DarkShadowEvis from "./Modules/Talents/DarkShadowEvis";
+import DarkShadowContribution from "./Modules/Talents/DarkShadow/DarkShadowContribution";
+import DarkShadowEvis from "./Modules/Talents/DarkShadow/DarkShadowEvis";
 import ComboPointDetails from './Modules/RogueCore/ComboPointDetails';
 import ComboPointTracker from './Modules/RogueCore/ComboPointTracker';
 import EnergyDetails from './Modules/RogueCore/EnergyDetails';

@@ -6,7 +6,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import ShadowDance from './../Features/ShadowDance';
+import ShadowDance from './../../RogueCore/ShadowDance';
 import DarkShadow from './DarkShadow';
 
 
