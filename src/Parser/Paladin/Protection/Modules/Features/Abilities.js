@@ -26,6 +26,12 @@ class Abilities extends CoreAbilities {
       isActive: combatant => combatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id),
       recommendedCastEfficiency: 0.9,
 	},
+    {
+      spell: SPELLS.AVENGERS_SHIELD,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 15 / (1 + haste),
+      recommendedCastEfficiency: 0.9,
+    },
 	  // Probably useless to try to count the number of casts
     {
       spell: SPELLS.HAND_OF_THE_PROTECTOR_TALENT,
