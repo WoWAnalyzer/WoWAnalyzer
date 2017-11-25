@@ -30,6 +30,7 @@ const styles = {
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundAttachment: 'fixed',
+    filter: 'blur(3px)',
   },
   overlay: {
     position: 'absolute',

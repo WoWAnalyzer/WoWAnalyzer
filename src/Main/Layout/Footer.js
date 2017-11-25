@@ -22,7 +22,8 @@ class Footer extends React.PureComponent {
                     <li>Skull by Royyan Razka</li>
                   </ul>
                 `}
-              >Icons from the <a href="https://thenounproject.com">Noun Project</a>.</dfn>
+              >Icons from the <a href="https://thenounproject.com">Noun Project</a>.</dfn><br />
+              Most artwork is copyright of Blizzard Entertainment, Inc. This is a fan site and we are not affiliated.
             </div>
             <div className="col-md-5 text-right">
               <DiscordButton />

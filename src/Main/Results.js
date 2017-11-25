@@ -220,7 +220,7 @@ class Results extends React.Component {
     const activeTab = results.tabs.find(tab => tab.url === tabUrl);
 
     return (
-      <div style={{ width: '100%' }}>
+      <div className="container">
         <div className="results">
           <div className="row">
             <div className="col-lg-10 col-md-8" style={{ position: 'relative' }}>

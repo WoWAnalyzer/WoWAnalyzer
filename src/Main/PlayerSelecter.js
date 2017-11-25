@@ -44,7 +44,7 @@ class PlayerSelecter extends Component {
     }
 
     return (
-      <div>
+      <div className="container">
         <h1>
           <div className="back-button">
             <Link to={`/report/${report.code}`} data-tip="Back to fight selection">
