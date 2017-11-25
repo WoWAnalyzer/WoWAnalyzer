@@ -4,15 +4,10 @@ import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
 
 import SPELLS from 'common/SPELLS';
-import DanceDamageTracker from './../../RogueCore/DanceDamageTracker';
 import DarkShadow from './DarkShadow';
 
 
 class DarkShadowNightblade extends DarkShadow {
-  static dependencies = {
-    danceDamageTracker: DanceDamageTracker,
-  };
-
   suggestions(when) {
     const nightblade = this.danceDamageTracker.getAbility(SPELLS.NIGHTBLADE.id).casts;
     when(nightblade).isGreaterThan(0)

@@ -1,29 +1,21 @@
 import Analyzer from 'Parser/Core/Analyzer';
-
+import DamageTracker from 'Parser/Core/Modules/AbilityTracker';
 import SPELLS from 'common/SPELLS';
 
-class DarkShadow extends Analyzer {
+import DanceDamageTracker from './../../RogueCore/DanceDamageTracker';
 
-  on_initialized() {
-    this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.DARK_SHADOW_TALENT.id);
-  }  
+class DarkShadow extends Analyzer {
+  static dependencies = {
+    damageTracker: DamageTracker,
+    danceDamageTracker: DanceDamageTracker,
+  };
 
   get totalShadowDanceCast() {
-    return this.owner.modules.abilityTracker.getAbility(SPELLS.SHADOW_DANCE.id).casts;
+    return this.damageTracker.getAbility(SPELLS.SHADOW_DANCE.id).casts;
   }
-
-  totalDamageDoneInShadowDance = 0;
-  totalEviscerateHitsInShadowDance = 0;
-
-  //Includes the DFA Eviscerate. 
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (this.owner.modules.combatants.selected.hasBuff(SPELLS.SHADOW_DANCE_BUFF.id)) {
-      this.totalDamageDoneInShadowDance += event.amount;
-      if (spellId === SPELLS.EVISCERATE.id) {
-        this.totalEviscerateHitsInShadowDance += 1;
-      }
-    }
+  
+  on_initialized() {
+    this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.DARK_SHADOW_TALENT.id);
   }
 }
 

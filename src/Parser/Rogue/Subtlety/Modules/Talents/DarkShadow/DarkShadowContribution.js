@@ -8,9 +8,11 @@ import DarkShadow from './DarkShadow';
 
 
 class DarkShadowContribution extends DarkShadow {
-
   statistic() {    
-    const danceDamage = this.totalDamageDoneInShadowDance * 0.3 / 1.3;
+    const danceDamage = Object.keys(this.danceDamageTracker.abilities)
+    .map(abilityId => this.danceDamageTracker.abilities[abilityId].damageEffective || 0)
+    .reduce((a,b) => a+b,0) * 0.3 / 1.3;
+     
     return (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.DARK_SHADOW_TALENT.id} />}
