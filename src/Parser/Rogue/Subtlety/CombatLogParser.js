@@ -12,7 +12,7 @@ import ComboPointDetails from './Modules/RogueCore/ComboPointDetails';
 import ComboPointTracker from './Modules/RogueCore/ComboPointTracker';
 import EnergyDetails from './Modules/RogueCore/EnergyDetails';
 import EnergyTracker from './Modules/RogueCore/EnergyTracker';
-import SymbolsCastTracker from './Modules/RogueCore/SymbolsCastTracker';
+import NightbladeCastTracker from './Modules/RogueCore/NightbladeCastTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -30,7 +30,7 @@ class CombatLogParser extends CoreCombatLogParser {
     energyDetails: EnergyDetails,
 
     //Casts
-    symbolsCastTracker: SymbolsCastTracker,
+    nightbladeCastTracker: NightbladeCastTracker,
     
     //Talents
     darkShadowContribution: DarkShadowContribution,

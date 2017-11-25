@@ -14,6 +14,10 @@ class CastTracker extends Analyzer {
     this.castsObj[spellId] = this.createAggregate();
   }
 
+  getAggregate(spellId) {
+      return this.castsObj[spellId];
+  }
+
   // Casts
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -27,7 +31,7 @@ class CastTracker extends Analyzer {
     }
 
     this.totalCasts += 1;
-    const aggregate = this.castsObj[spellId];
+    const aggregate = this.getAggregate(spellId);
     this.applyCastEvent(event, aggregate);
   }
   
