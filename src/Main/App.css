@@ -159,9 +159,20 @@ hr {
   margin-bottom: 20px;
   background: rgba(9, 20, 27, 0.7);
   box-shadow: 0 5px 5px 0 rgba(0,0,0,.2);
+  position: relative;
 }
 .panel:not(.statistic-box) {
   border-top: 4px solid #d84141;
+}
+.panel:not(.statistic-box):before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  height: 4px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background: url(./Images/border.png);
+  width: 100%;
 }
 .panel-heading {
   border-bottom: 1px solid rgba(0, 0, 0, .4);

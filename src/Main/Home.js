@@ -44,11 +44,11 @@ class Home extends Component {
                   </div>
                 </div>
 
-                <div className="panel" style={{ overflow: 'hidden' }}>
+                <div className="panel">
                   <div className="panel-heading">
                     <h2>The WoWAnalyzer Discord bot</h2>
                   </div>
-                  <div className="panel-body" style={{ padding: 0 }}>
+                  <div className="panel-body" style={{ padding: 0, overflow: 'hidden', borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
                     <div className="flex wrapable">
                       <div className="flex-main" style={{ padding: '25px 15px', minWidth: 300 }}>
                         <div className="flex">
@@ -84,11 +84,11 @@ class Home extends Component {
                 </div>
               </div>
               <div className="col-lg-4 col-md-5">
-                <div className="panel" style={{ overflow: 'hidden' }}>
+                <div className="panel">
                   <div className="panel-heading">
                     <h2>Help wanted</h2>
                   </div>
-                  <div className="panel-body" style={{ textAlign: 'justify', padding: 0 }}>
+                  <div className="panel-body" style={{ textAlign: 'justify', padding: 0, overflow: 'hidden', borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
                     <div style={{ padding: '15px 20px', marginBottom: 5 }}>
                       WoWAnalyzer is slowly expanding with more things being analyzed every day. We need your help to continue expanding and keep everything accurate. Are you a coder or graphic designer? Check our <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub project</a> (hint: see <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/help%20wanted" className="gh-label">help wanted</a> and <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/good%20first%20issue" className="gh-label" style={{ backgroundColor: '#5319e7' }}>good first issue</a>, or maybe <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/%24bounty" className="gh-label" style={{ backgroundColor: '#64f235', color: '#000' }}>$bounty</a> interests you) or <a href="https://discord.gg/AxphPxU">Discord</a> to find out how you could contribute.
                     </div>
