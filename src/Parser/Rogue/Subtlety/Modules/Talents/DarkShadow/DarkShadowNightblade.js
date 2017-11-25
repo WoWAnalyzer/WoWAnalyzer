@@ -4,20 +4,17 @@ import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
 
 import SPELLS from 'common/SPELLS';
-import ShadowDanceCastTracker from './../../RogueCore/ShadowDanceCastTracker';
+import DanceDamageTracker from './../../RogueCore/DanceDamageTracker';
 import DarkShadow from './DarkShadow';
 
 
 class DarkShadowNightblade extends DarkShadow {
   static dependencies = {
-    shadowDanceCastTracker: ShadowDanceCastTracker,
+    danceDamageTracker: DanceDamageTracker,
   };
 
-  suggestions(when) { 
-    const aggregate = this.shadowDanceCastTracker.getAggregate(SPELLS.NIGHTBLADE.id);
-    if(!aggregate) return;
-
-    const nightblade = aggregate.danceCasts;
+  suggestions(when) {
+    const nightblade = this.danceDamageTracker.getAbility(SPELLS.NIGHTBLADE.id).casts;
     when(nightblade).isGreaterThan(0)
     .addSuggestion((suggest, actual, recommended) => {
       return suggest(<Wrapper>Do not cast <SpellLink id={SPELLS.NIGHTBLADE.id} /> during <SpellLink id={SPELLS.SHADOW_DANCE.id} /> when you are using <SpellLink id={SPELLS.DARK_SHADOW_TALENT.id} />. </Wrapper>)
