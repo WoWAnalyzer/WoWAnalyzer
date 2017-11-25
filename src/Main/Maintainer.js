@@ -12,6 +12,7 @@ const Maintainer = ({ nickname, avatar, github }) => (
 Maintainer.propTypes = {
   nickname: PropTypes.string.isRequired,
   avatar: PropTypes.string,
+  github: PropTypes.string,
 };
 
 export default Maintainer;

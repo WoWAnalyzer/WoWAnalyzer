@@ -20,7 +20,7 @@
 }
 .spec-card .github {
   font-size: 2em;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.2);
 }
 .spec-card .github:hover {
   color: #e45a5a;

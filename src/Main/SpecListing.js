@@ -13,7 +13,7 @@ import './SpecListing.css';
 class SpecListing extends React.PureComponent {
   render() {
     return (
-      <Wrapper>
+      <section>
         <div className="row">
           <div className="col-md-12 text-center">
             <h1 style={{ fontSize: '3em', marginBottom: '0.5em', marginTop: '0.5em' }}><FingerprintFilledIcon /> Specializations</h1>
@@ -69,7 +69,7 @@ class SpecListing extends React.PureComponent {
               );
             })}
         </div>
-      </Wrapper>
+      </section>
     );
   }
 }
