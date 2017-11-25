@@ -19,20 +19,19 @@ class T21_4set extends Analyzer {
 
  on_byPlayer_damage(event) {
    const spellId = event.ability.guid;
-
-   if (spellId === SPELLS.BLACKOUT_KICK.id && this.combatants.selected.hasBuff(SPELLS.COMBO_BREAKER_BUFF.id, event.timestamp, 32, 0)) {
+   
+   if (spellId === SPELLS.BLACKOUT_KICK.id && this.combatants.selected.hasBuff(SPELLS.COMBO_BREAKER_BUFF.id, event.timestamp, 1000, 0)) {
        this.damage += calculateEffectiveDamage(event, 1.75);
     }
  }
 
-// The damage bonus is reportedly not currently working with SEF clones, this is expected to be a bug and this might be relevant if fixed
-// on_byPlayerPet_damage(event) {
-//    const spellId = event.ability.guid;
-//     
-//    if (spellId === SPELLS.BLACKOUT_KICK.id && this.combatants.selected.hasBuff(SPELLS.COMBO_BREAKER_BUFF.id, event.timestamp, 2000, 0)) {
-//       this.damage += calculateEffectiveDamage(event, 1.75);
-//    }
-//  }
+ on_byPlayerPet_damage(event) {
+    const spellId = event.ability.guid;
+     
+    if (spellId === SPELLS.BLACKOUT_KICK.id && this.combatants.selected.hasBuff(SPELLS.COMBO_BREAKER_BUFF.id, event.timestamp, 1000, 0)) {
+       this.damage += calculateEffectiveDamage(event, 1.75);
+    }
+  }
 
  item() {
      return {
