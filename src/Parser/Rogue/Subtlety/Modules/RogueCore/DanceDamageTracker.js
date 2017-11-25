@@ -8,7 +8,7 @@ class DanceDamageTracker extends FilteredDamageTracker {
     combatants: Combatants,
   };
   
-  shouldProcessCastEvent(event) {
+  shouldProcessEvent(event) {
     return this.combatants.selected.hasBuff(SPELLS.SHADOW_DANCE_BUFF.id);
   }
 }
