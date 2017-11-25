@@ -6,11 +6,12 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Icon from 'common/Icon';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import Wrapper from 'common/Wrapper';
 
 import EnergyTracker from './EnergyTracker';
 
 import ResourceBreakdown from '../ResourceTracker/ResourceBreakdown';
-import resourceSuggest from './../ResourceTracker/ResourceSuggest';
+import resourceSuggest from '../ResourceTracker/ResourceSuggest';
 
 class EnergyDetails extends Analyzer {
   static dependencies = {
@@ -23,7 +24,7 @@ class EnergyDetails extends Analyzer {
       minor: 0.05,
       avg: 0.10, 
       major: 0.15,
-      extraSuggestion: <span>Try to spend energy before using <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} />, but do not delay it to avoid waste! </span>,
+      extraSuggestion: <Wrapper>Try to spend energy before using <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} />, but do not delay it to avoid waste! </Wrapper>,
     });
       
     resourceSuggest(when,  this.energyTracker, {
@@ -31,7 +32,7 @@ class EnergyDetails extends Analyzer {
       minor: 0.15,
       avg: 0.2, 
       major: 0.25,
-      extraSuggestion: <span> You are wasting more energy then normal. It may be pooling too much energy or not casting enough spenders. </span>,
+      extraSuggestion: <Wrapper> You are wasting more energy then normal. It may be pooling too much energy or not casting enough spenders. </Wrapper>,
     });
   }
 
@@ -52,7 +53,7 @@ class EnergyDetails extends Analyzer {
   tab() {
     return {
       title: 'Energy usage',
-      url: 'energy',
+      url: 'energy-usage',
       render: () => (
         <Tab title="Energy usage breakdown">
           <ResourceBreakdown

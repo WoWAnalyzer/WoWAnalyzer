@@ -6,11 +6,12 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SPELLS from 'common/SPELLS';
 import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
+import Wrapper from 'common/Wrapper';
 
 import ComboPointTracker from './ComboPointTracker';
 
 import ResourceBreakdown from '../ResourceTracker/ResourceBreakdown';
-import resourceSuggest from './../ResourceTracker/ResourceSuggest';
+import resourceSuggest from '../ResourceTracker/ResourceSuggest';
 
 class ComboPointDetails extends Analyzer {
   static dependencies = {
@@ -19,7 +20,7 @@ class ComboPointDetails extends Analyzer {
   
 
   makeExtraSuggestion(spell) {
-    return <span>Avoid waisting combo points when casting <SpellLink id={spell.id}  /> </span>;
+    return <Wrapper>Avoid wasting combo points when casting <SpellLink id={spell.id}  /> </Wrapper>;
   }
 
 
