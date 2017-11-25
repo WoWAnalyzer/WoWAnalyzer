@@ -2,9 +2,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink'; 
 import Wrapper from 'common/Wrapper';
-import SpellIcon from 'common/SpellIcon';
-import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import FilteredCastTracker from './../CastTracker/FilteredCastTracker';
 
@@ -14,12 +11,9 @@ class NightbladeCastTracker extends FilteredCastTracker {
     this.trackedCasts[SPELLS.NIGHTBLADE.id] = {};    
   }
     
-  createAggregate() {
-    return { casts: 0, symbolsCasts: 0 };
-  }
 
   applyCastEvent(event, aggregate) {
-    aggregate.casts += 1;
+    super.applyCastEvent(event, aggregate);
     if(this.combatants.selected.hasBuff(SPELLS.SYMBOLS_OF_DEATH.id)) {
       aggregate.symbolsCasts += 1;
     }
@@ -39,20 +33,6 @@ class NightbladeCastTracker extends FilteredCastTracker {
         .regular(0.1).major(0.2);
     });
   }
-
-  
-  statistic() {
-    const nightbladeUptime = this.combatants.selected.getBuffUptime(SPELLS.NIGHTBLADE.id) / this.owner.fightDuration;
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.SYMBOLS_OF_DEATH.id} />}
-        value={`${formatPercentage(nightbladeUptime)} %`}
-        label="Nightblade uptime"
-      />
-    );
-  }
-
-  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default NightbladeCastTracker;

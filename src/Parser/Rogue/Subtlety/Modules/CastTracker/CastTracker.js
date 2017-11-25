@@ -6,10 +6,12 @@ class CastTracker extends Analyzer {
     combatants: Combatants,
   };  
 
+
+  // TODO: Look into extending the standard Ability/Damage tracker.
+
   totalCasts = 0;
   castsObj = {};
 
-    
   initSpell(spellId) {        
     this.castsObj[spellId] = this.createAggregate();
   }
