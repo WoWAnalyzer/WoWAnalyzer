@@ -5,8 +5,7 @@ import Wrapper from 'common/Wrapper';
 
   function suggest(when, tracker, suggestion) {
     const tracked = tracker.buildersObj[suggestion.spell.id];
-    if(tracked === undefined)
-      return;
+    if(!tracked) return;
 
     const maxGenerated = tracked.generated + tracked.wasted;
     const wastedShare = (tracked.wasted / (maxGenerated));

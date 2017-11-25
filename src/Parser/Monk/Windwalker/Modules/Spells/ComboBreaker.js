@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
@@ -13,6 +14,9 @@ const CB_DURATION = 15000;
 const debug = false;
 
 class ComboBreaker extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
   CBProcsTotal = 0;
   lastCBProcTime = null;
   consumedCBProc = 0;
@@ -60,14 +64,15 @@ class ComboBreaker extends Analyzer {
   }
 
   suggestions(when) {
-   const unusedCBprocs = 1 - (this.consumedCBProc / this.CBProcsTotal);
-    when(unusedCBprocs).isGreaterThan(0.2)
+    const unusedCBprocs = 1 - (this.consumedCBProc / this.CBProcsTotal);
+    const unusedProcsRecommended = this.combatants.selected.hasBuff(SPELLS.WW_TIER21_2PC.id) ? 0.05 : 0.1;
+    when(unusedCBprocs).isGreaterThan(unusedProcsRecommended)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs should be used before you tiger palm again so they are not overwritten. While some will be overwritten due to higher priority of getting Chi for spenders, holding <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs is not optimal.</span>)
+        return suggest(<span>Your <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs should be used before you tiger palm again so they are not overwritten. While some will be overwritten due to higher priority of getting Chi for spenders, wasting <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs is not optimal.</span>)
           .icon(SPELLS.COMBO_BREAKER_BUFF.icon)
          .actual(`${formatPercentage(unusedCBprocs)}% Unused Combo Breaker procs`)
          .recommended(`<${formatPercentage(recommended)}% wasted Combo Breaker Procs is recommended`)
-         .regular(recommended + 0.1).major(recommended + 0.2);
+          .regular(recommended * 2).major(recommended * 3);
     });
   }
   

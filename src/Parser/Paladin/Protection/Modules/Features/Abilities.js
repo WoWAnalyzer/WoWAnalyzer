@@ -26,6 +26,12 @@ class Abilities extends CoreAbilities {
       isActive: combatant => combatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id),
       recommendedCastEfficiency: 0.9,
 	},
+    {
+      spell: SPELLS.AVENGERS_SHIELD,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 15 / (1 + haste),
+      recommendedCastEfficiency: 0.9,
+    },
 	  // Probably useless to try to count the number of casts
     {
       spell: SPELLS.HAND_OF_THE_PROTECTOR_TALENT,
@@ -36,10 +42,12 @@ class Abilities extends CoreAbilities {
       importance: ISSUE_IMPORTANCE.MINOR,
 	},
 	  // Probably useless to try to count the number of casts
+    //Note by yajinni: Since this is thier main source of damage mitigation, without it they get hit like by a truck.
+    //And a main source of damage, it should be tracked somewhat. Keeping it at 80% for now.
     {
       spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => null,
+      getCooldown: haste => 16 / (1 + haste),
       charges: 3,
       recommendedCastEfficiency: 0.8,
 	},

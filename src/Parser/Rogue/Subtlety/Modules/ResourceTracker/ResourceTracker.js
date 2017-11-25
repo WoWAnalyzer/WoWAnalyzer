@@ -52,7 +52,7 @@ class ResourceTracker extends Analyzer {
     this.generated += gain;  
 
     const eventResource = this.getResource(event);
-    if(eventResource !== undefined) {
+    if(eventResource) {
       this.current = eventResource.amount;
     }
     else {
@@ -71,14 +71,16 @@ class ResourceTracker extends Analyzer {
     if(!this.shouldProcessCastEvent(event)) {
         return;
     }
+    const eventResource = this.getResource(event);
+    const cost = eventResource.cost;
     
     if (!(spellId in this.spendersObj)) {
       this.initSpenderAbility(spellId);
-  }
-
-    const eventResource = this.getResource(event);
-
-    const cost = eventResource.cost;
+    }
+    
+    if (!cost) { 
+      return; 
+    }
 
     this.spendersObj[spellId].casts += 1;
     this.spendersCasts += 1;
@@ -93,11 +95,11 @@ class ResourceTracker extends Analyzer {
   }
   
   shouldProcessCastEvent(event) {
-    return this.getResource(event) !== undefined;
+    return !!this.getResource(event);
   }
 
   getResource(event) {
-    if(event.classResources === undefined) return undefined;
+    if(!event.classResources) return null;
     return event.classResources.find(r=>r.type === this.resourceType);
   }
 }
