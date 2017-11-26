@@ -27,7 +27,7 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.SYMBOLS_OF_DEATH,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: (haste, combatant) => (30 - (combatant.hasBuff(SPELLS.SUB_ROGUE_T20_2SET_BONUS.id) ? 5 : 0)), 
+      getCooldown: (haste, combatant) => (30 - (combatant.hasBuff(SPELLS.SUB_ROGUE_T20_4SET_BONUS.id) ? 5 : 0)), 
       recommendedCastEfficiency: 0.95,
       importance: ISSUE_IMPORTANCE.MAJOR,
       extraSuggestion: "This is the most important rotational ability, try to always use it on cooldown.",      
@@ -35,9 +35,22 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.SHADOW_DANCE,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 60, // TODO: Reduced by a passive
+      getCooldown: haste => 60, 
+      charges: 3,
+      recommendedCastEfficiency: 0.95,
+      importance: ISSUE_IMPORTANCE.MAJOR,
+      isActive: combatant => combatant.hasTalent(SPELLS.ENVELOPING_SHADOWS_TALENT.id),
+      extraSuggestion: "Use Shadow Dance before it reaches maximum charges.",     
+    },
+    {
+      spell: SPELLS.SHADOW_DANCE,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 60, 
       charges: 2,
-      noSuggestion: true,
+      recommendedCastEfficiency: 0.95,
+      importance: ISSUE_IMPORTANCE.MAJOR,
+      isActive: combatant => !combatant.hasTalent(SPELLS.ENVELOPING_SHADOWS_TALENT.id),
+      extraSuggestion: "Use Shadow Dance before it reaches maximum charges.",     
     },
     {
       spell: SPELLS.GOREMAWS_BITE,
