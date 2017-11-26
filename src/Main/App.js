@@ -502,9 +502,9 @@ class App extends Component {
           progress={progress}
         />
         <header>
-          <div className="container">
+          <div className="container image-overlay">
             <div className="row">
-              <div className="col-md-6 title">
+              <div className="col-md-6">
                 <h1>WoWAnalyzer</h1>
                 <div className="description">
                   Analyze your raid logs to view metrics and get personalized suggestions to improve your performance. Just enter a Warcraft Logs report:

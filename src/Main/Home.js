@@ -7,6 +7,7 @@ import MegaphoneIcon from 'Icons/Megaphone';
 import ChangelogPanel from './ChangelogPanel';
 
 import MasteryRadiusImage from './Images/mastery-radius.png';
+import AntorusImage from './Images/antorus.jpg';
 
 import DiscordLogo from './Images/Discord-Logo+Wordmark-White.svg';
 import DiscordBotGif from './Images/discord-bot.gif';
@@ -44,13 +45,26 @@ class Home extends Component {
                   </div>
                 </div>
 
+                <div className="panel image-overlay" style={{ backgroundImage: `url(${AntorusImage})`, paddingTop: 350 }}>
+                  <div className="panel-body">
+                    <div className="row">
+                      <div className="col-md-10">
+                        <h1>Updated for Antorus</h1>
+                        <div className="description">
+                          We've been working hard to implement all the new trinkets and tier bonuses available in the new raid <i>Antorus, the Burning Throne</i>. Let us know on <a href="https://discord.gg/AxphPxU">Discord</a> or <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> if you're still missing anything.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="panel">
                   <div className="panel-heading">
                     <h2>The WoWAnalyzer Discord bot</h2>
                   </div>
                   <div className="panel-body" style={{ padding: 0, overflow: 'hidden', borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
                     <div className="flex wrapable">
-                      <div className="flex-main" style={{ padding: '25px 15px', minWidth: 300 }}>
+                      <div className="flex-main" style={{ padding: '20px 15px', minWidth: 300 }}>
                         <div className="flex">
                           <div className="flex-sub" style={{ padding: 5 }}>
                             <img src="/favicon.png" alt="Logo" style={{ width: 80, float: 'left' }} />

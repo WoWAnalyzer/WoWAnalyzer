@@ -97,20 +97,33 @@ hr {
   opacity: 0;
   pointer-events: none;
 }
-.app > header .title {
+.app > header .image-overlay {
   padding-top: 100px;
 }
-.app > header .title h1 {
+.app > header .image-overlay .description {
+  font-size: 1.4em;
+}
+.app > header .image-overlay h1 {
   font-size: 4em;
+}
+
+.panel.image-overlay {
+  padding-top: 70px;
+  background-size: cover;
+  background-position: center center;
+}
+.image-overlay h1 {
+  font-size: 3em;
   font-weight: 700;
   margin-bottom: 20px;
   text-shadow: 0 0 1px transparent, 0 0 5px rgba(0,0,0,.8);
   letter-spacing: 1px;
 }
-.app > header .description {
-  font-size: 1.4em;
+.image-overlay .description {
+  font-size: 1.2em;
   color: #ebdec2;
 }
+
 .report-selector {
   margin-top: 20px;
   display: flex;
