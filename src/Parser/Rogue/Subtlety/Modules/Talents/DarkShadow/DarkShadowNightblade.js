@@ -15,7 +15,7 @@ class DarkShadowNightblade extends DarkShadow {
       return suggest(<Wrapper>Do not cast <SpellLink id={SPELLS.NIGHTBLADE.id} /> during <SpellLink id={SPELLS.SHADOW_DANCE.id} /> when you are using <SpellLink id={SPELLS.DARK_SHADOW_TALENT.id} />. </Wrapper>)
         .icon(SPELLS.NIGHTBLADE.icon)
         .actual(`You cast Nightblade ${nightblade} times during Shadow Dance.`)
-        .recommended(`0 is recommend.`)
+        .recommended(`${recommended} is recommend`)
         .major(0.5);
     });
   }

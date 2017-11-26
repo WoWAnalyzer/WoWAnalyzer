@@ -20,18 +20,7 @@ class CastsInShadowDance extends Analyzer {
     combatants: Combatants,
   };
 
-  suggestions(when) { 
-    
-    const filtered = this.danceDamageTracker.getAbility(SPELLS.BACKSTAB.id);
-    when(filtered).isGreaterThan(0)
-    .addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Use <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> instead of <SpellLink id={SPELLS.BACKSTAB.id} /> during <SpellLink id={SPELLS.SHADOW_DANCE.id} />. </Wrapper>)
-        .icon(SPELLS.BACKSTAB.icon)
-        .actual(`You cast Backstab ${filtered} times during Shadow Dance.`)
-        .recommended(`0 is recommend.`)
-        .regular(0).major(1);
-    });    
-    
+  suggestions(when) {    
     this.suggestBackstab(when);
     this.suggestGloomblade(when);
     this.suggestAvgCasts(when);
@@ -51,6 +40,15 @@ class CastsInShadowDance extends Analyzer {
   
   
   suggestBackstab(when) {
+    const filtered = this.danceDamageTracker.getAbility(SPELLS.BACKSTAB.id);
+    when(filtered).isGreaterThan(0)
+    .addSuggestion((suggest, actual, recommended) => {
+      return suggest(<Wrapper>Use <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> instead of <SpellLink id={SPELLS.BACKSTAB.id} /> during <SpellLink id={SPELLS.SHADOW_DANCE.id} />. </Wrapper>)
+        .icon(SPELLS.BACKSTAB.icon)
+        .actual(`You cast Backstab ${filtered} times during Shadow Dance.`)
+        .recommended(`${recommended} is recommended.`)
+        .regular(0).major(1);
+    });    
   }
   suggestGloomblade(when) {
     const filtered = this.danceDamageTracker.getAbility(SPELLS.GLOOMBLADE_TALENT.id);
@@ -59,7 +57,7 @@ class CastsInShadowDance extends Analyzer {
     return suggest(<Wrapper>Use <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> instead of <SpellLink id={SPELLS.GLOOMBLADE_TALENT.id} /> during <SpellLink id={SPELLS.SHADOW_DANCE.id} />. </Wrapper>)
         .icon(SPELLS.GLOOMBLADE_TALENT.icon)
         .actual(`You cast Gloomblade ${filtered} times during Shadow Dance.`)
-        .recommended(`0 is recommend.`)
+        .recommended(`${recommended} is recommend.`)
         .regular(0).major(1);
     });  
   }
@@ -77,8 +75,8 @@ class CastsInShadowDance extends Analyzer {
     .addSuggestion((suggest, actual, recommended) => {
       return suggest(<Wrapper>Try to cast 4 spells during each <SpellLink id={SPELLS.SHADOW_DANCE_BUFF.id} /> </Wrapper>)
         .icon(SPELLS.SHADOW_DANCE_BUFF.icon)
-        .actual(`You cast less ${castsInDance} spells during Shadow Dance out of ${danceCount * 4} possible.`)
-        .recommended(`${danceCount * 4} recommended`)
+        .actual(`You cast ${castsInDance} spells during Shadow Dance out of ${danceCount * 4} possible.`)
+        .recommended(`${danceCount * 4} spells cast per Shadow Dance is recommended`)
         .regular(0.90).major(0.80);
     });
   }
