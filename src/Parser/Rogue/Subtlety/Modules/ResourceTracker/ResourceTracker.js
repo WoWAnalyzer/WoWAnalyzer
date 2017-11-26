@@ -92,6 +92,12 @@ class ResourceTracker extends Analyzer {
 
     //Re-sync current amount, to update not-tracked gains.
     this.current = eventResource.amount - cost;
+
+    this.onSpent(cost);
+  }
+
+  onSpent(spent) {
+
   }
   
   shouldProcessCastEvent(event) {
