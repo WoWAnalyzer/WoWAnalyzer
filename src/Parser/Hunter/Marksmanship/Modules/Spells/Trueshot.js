@@ -118,7 +118,7 @@ class Trueshot extends Analyzer {
     const averageAimedCasts = formatNumber(this.aimedShotsPrTS / this.trueshotCasts);
     const averageFocusAtTS = formatNumber(this.accumulatedFocusAtTSCast / this.trueshotCasts);
     const uptimePrCast = ((this.combatants.getBuffUptime(SPELLS.TRUESHOT.id) / this.trueshotCasts) / 1000).toFixed(2);
-    when(averageAimedCasts).isLessThan(8)
+    when(averageAimedCasts).isLessThan(7)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You only cast {averageAimedCasts} <SpellLink id={SPELLS.AIMED_SHOT.id} />s inside your average <SpellLink id={SPELLS.TRUESHOT.id} /> window. This is your only DPS cooldown, and it's important to maximize it to it's fullest potential by getting as many Aimed Shot squeezed in as possible, while still making sure that they are all within <SpellLink id={SPELLS.VULNERABLE.id} />. <br /> This can be done by making sure to use <SpellLink id={SPELLS.WINDBURST.id} /> to open <SpellLink id={SPELLS.VULNERABLE.id} /> windows, not using <SpellLink id={TALENTS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> while in <SpellLink id={SPELLS.TRUESHOT.id} /> or starting <SpellLink id={SPELLS.TRUESHOT.id} /> at higher focus. </span>)
           .icon(SPELLS.TRUESHOT.icon)
