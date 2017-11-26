@@ -37,8 +37,8 @@ class CastEfficiency extends Analyzer {
    * Only works on spells entered into CastEfficiency list.
    */
   _getCooldownInfo(ability) {
-    const spellId = ability.spell.id;
-    const history = this.spellHistory.historyBySpellId[spellId];
+    const mainSpellId = (ability.spell instanceof Array) ? ability.spell[0].id : ability.spell.id;
+    const history = this.spellHistory.historyBySpellId[mainSpellId];
     if(!history) { // spell either never been cast, or not in abilities list
       return {
         completedRechargeTime: 0,
@@ -175,10 +175,11 @@ class CastEfficiency extends Analyzer {
         return;
       }
       const ability = abilityInfo.ability;
+      const mainSpell = (ability.spell instanceof Array) ? ability.spell[0] : ability.spell;
       when(abilityInfo.castEfficiency).isLessThan(abilityInfo.recommendedCastEfficiency)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<Wrapper>Try to cast <SpellLink id={ability.spell.id} /> more often. {ability.extraSuggestion || ''} <a href="#spell-timeline">View timeline</a>.</Wrapper>)
-            .icon(ability.spell.icon)
+          return suggest(<Wrapper>Try to cast <SpellLink id={mainSpell.id} /> more often. {ability.extraSuggestion || ''} <a href="#spell-timeline">View timeline</a>.</Wrapper>)
+            .icon(mainSpell.icon)
             .actual(`${abilityInfo.casts} out of ${abilityInfo.maxCasts} possible casts. You kept it on cooldown ${formatPercentage(actual, 1)}% of the time.`)
             .recommended(`>${formatPercentage(recommended, 1)}% is recommended`)
             .details(() => (
@@ -186,7 +187,7 @@ class CastEfficiency extends Analyzer {
                 <SpellTimeline
                   historyBySpellId={this.spellHistory.historyBySpellId}
                   castEfficiency={this.castEfficiency}
-                  spellId={ability.spell.id}
+                  spellId={mainSpell.id}
                   start={this.owner.fight.start_time}
                   end={this.owner.currentTimestamp}
                 />
