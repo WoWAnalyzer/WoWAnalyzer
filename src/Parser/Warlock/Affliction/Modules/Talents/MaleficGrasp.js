@@ -43,6 +43,9 @@ class MaleficGrasp extends Analyzer {
       return;
     }
     const target = this.enemies.getEntity(event);
+    if (!target) {
+      return;
+    }
     const buffedByDrain = target.hasBuff(SPELLS.DRAIN_SOUL.id, event.timestamp);
     if (!buffedByDrain) {
       return;
