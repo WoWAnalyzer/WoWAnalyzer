@@ -46,7 +46,7 @@ class CastsInShadowDance extends Analyzer {
       return suggest(<Wrapper>Use <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> instead of <SpellLink id={SPELLS.BACKSTAB.id} /> during <SpellLink id={SPELLS.SHADOW_DANCE.id} />. </Wrapper>)
         .icon(SPELLS.BACKSTAB.icon)
         .actual(`You cast Backstab ${filtered} times during Shadow Dance.`)
-        .recommended(`${recommended} is recommended.`)
+        .recommended(`${recommended} is recommended`)
         .regular(0).major(1);
     });    
   }
@@ -57,18 +57,18 @@ class CastsInShadowDance extends Analyzer {
     return suggest(<Wrapper>Use <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> instead of <SpellLink id={SPELLS.GLOOMBLADE_TALENT.id} /> during <SpellLink id={SPELLS.SHADOW_DANCE.id} />. </Wrapper>)
         .icon(SPELLS.GLOOMBLADE_TALENT.icon)
         .actual(`You cast Gloomblade ${filtered} times during Shadow Dance.`)
-        .recommended(`${recommended} is recommend.`)
+        .recommended(`${recommended} is recommended`)
         .regular(0).major(1);
     });  
   }
   suggestAvgCasts(when){
-    const danceCount = this.damageTracker.getAbility(SPELLS.SHADOW_DANCE.id);
-    const castsInDance = this.danceDamageTracker.getAbility(SPELLS.BACKSTAB.id).casts 
-    + this.danceDamageTracker.getAbility(SPELLS.GLOOMBLADE_TALENT.id).casts 
-    + this.danceDamageTracker.getAbility(SPELLS.SHURIKEN_STORM.id).casts 
-    + this.danceDamageTracker.getAbility(SPELLS.SHADOWSTRIKE.id).casts 
-    + this.danceDamageTracker.getAbility(SPELLS.NIGHTBLADE.id).casts 
-    + this.danceDamageTracker.getAbility(SPELLS.EVISCERATE.id).casts;
+    const danceCount = this.damageTracker.getAbility(SPELLS.SHADOW_DANCE.id).casts;
+    const castsInDance = (this.danceDamageTracker.getAbility(SPELLS.BACKSTAB.id).casts || 0)
+    + (this.danceDamageTracker.getAbility(SPELLS.GLOOMBLADE_TALENT.id).casts || 0)
+    + (this.danceDamageTracker.getAbility(SPELLS.SHURIKEN_STORM.id).casts || 0)
+    + (this.danceDamageTracker.getAbility(SPELLS.SHADOWSTRIKE.id).casts || 0)
+    + (this.danceDamageTracker.getAbility(SPELLS.NIGHTBLADE.id).casts || 0)
+    + (this.danceDamageTracker.getAbility(SPELLS.EVISCERATE.id).casts || 0);
 
     const missedCastsInDanceShare = castsInDance/(danceCount * 4);
     when(missedCastsInDanceShare).isLessThan(1)
@@ -76,7 +76,7 @@ class CastsInShadowDance extends Analyzer {
       return suggest(<Wrapper>Try to cast 4 spells during each <SpellLink id={SPELLS.SHADOW_DANCE_BUFF.id} /> </Wrapper>)
         .icon(SPELLS.SHADOW_DANCE_BUFF.icon)
         .actual(`You cast ${castsInDance} spells during Shadow Dance out of ${danceCount * 4} possible.`)
-        .recommended(`${danceCount * 4} spells cast per Shadow Dance is recommended`)
+        .recommended(`4 spells cast per Shadow Dance is recommended`)
         .regular(0.90).major(0.80);
     });
   }
