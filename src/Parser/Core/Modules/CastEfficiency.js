@@ -39,8 +39,13 @@ class CastEfficiency extends Analyzer {
   _getCooldownInfo(ability) {
     const spellId = ability.spell.id;
     const history = this.spellHistory.historyBySpellId[spellId];
-    if(!history) {
-      return null;
+    if(!history) { // spell either never been cast, or not in abilities list
+      return {
+        completedRechargeTime: 0,
+        endingRechargeTime: 0,
+        recharges: 0,
+        casts: 0,
+      };
     }
 
     let lastRechargeTimestamp = null;
@@ -100,10 +105,8 @@ class CastEfficiency extends Analyzer {
         let casts;
         if(ability.getCasts) {
           casts = ability.getCasts(this.abilityTracker.getAbility(spellId), this.owner);
-        } else if(cdInfo) {
-          casts = cdInfo.casts;
         } else {
-          casts = 0;
+          casts = cdInfo.casts;
         }
         const cpm = casts / fightDurationMinutes;
 
@@ -116,7 +119,7 @@ class CastEfficiency extends Analyzer {
         // This same behavior should be managable using SpellUsable's interface, so getMaxCasts is deprecated.
         // Legacy support: if getMaxCasts is defined, cast efficiency will be calculated using casts/rawMaxCasts
         let rawMaxCasts;
-        const averageCooldown = (!cdInfo || cdInfo.recharges === 0) ? null : (cdInfo.completedRechargeTime / cdInfo.recharges);
+        const averageCooldown = (cdInfo.recharges === 0) ? null : (cdInfo.completedRechargeTime / cdInfo.recharges);
         if (ability.getMaxCasts) {
           // getMaxCasts expects cooldown in seconds
           rawMaxCasts = ability.getMaxCasts(cooldown, this.owner.fightDuration, this.abilityTracker.getAbility, this.owner);
@@ -133,8 +136,12 @@ class CastEfficiency extends Analyzer {
           castEfficiency = Math.min(1, casts / rawMaxCasts);
         } else {
           // Cast efficiency calculated as the percent of fight time spell was on cooldown
-          const timeOnCd = !cdInfo ? null : (cdInfo.completedRechargeTime + cdInfo.endingRechargeTime);
-          castEfficiency = (timeOnCd / this.owner.fightDuration) || null;
+          if(cooldown && this.owner.fightDuration) {
+            const timeOnCd = cdInfo.completedRechargeTime + cdInfo.endingRechargeTime;
+            castEfficiency = timeOnCd / this.owner.fightDuration;
+          } else {
+            castEfficiency = null;
+          }
         }
 
         const recommendedCastEfficiency = ability.recommendedCastEfficiency || DEFAULT_RECOMMENDED;
