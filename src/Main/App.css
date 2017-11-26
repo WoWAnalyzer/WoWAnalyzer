@@ -404,7 +404,8 @@ nav .selectorHeader a {
 svg {
   height: 1em;
   fill: currentColor;
-  vertical-align: bottom;
+  vertical-align: middle;
+  margin-top: -0.2em;
 }
 h1 {
   position: relative;
