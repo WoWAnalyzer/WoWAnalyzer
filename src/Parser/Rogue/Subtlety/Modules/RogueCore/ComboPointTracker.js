@@ -10,21 +10,21 @@ class ComboPointTracker extends ResourceTracker {
 		spellUsable: SpellUsable,
   };
 
+  danceReduction;
+
   on_initialized() {
     this.resourceType = 4;
     this.resourceName = "Combo Points";
+    this.danceReduction = this.combatants.selected.hasTalent(SPELLS.ENVELOPING_SHADOWS_TALENT.id) ? 2500 : 1500;
   }
 
-  onSpent(spent)  {    
-    const combatant = this.combatants.selected;
-
+  onSpent(spent)  {
     if (this.spellUsable.isOnCooldown(SPELLS.SHADOW_DANCE.id)) {
-      const reduction = combatant.hasTalent(SPELLS.ENVELOPING_SHADOWS_TALENT.id) ? 2500 : 1500;
-
-			this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.SHADOW_DANCE.id, reduction * spent );
+			this.spellUsable.reduceCooldown(SPELLS.SHADOW_DANCE.id, this.danceReduction * spent );
     }
-    if(combatant.hasBuff(SPELLS.SUB_ROGUE_T21_2SET_BONUS.id)){
-			this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.SYMBOLS_OF_DEATH.id, 200 * spent );
+    if(this.combatants.selected.hasBuff(SPELLS.SUB_ROGUE_T21_2SET_BONUS.id 
+      && this.spellUsable.isOnCooldown(SPELLS.SYMBOLS_OF_DEATH.id))){
+			this.spellUsable.reduceCooldown(SPELLS.SYMBOLS_OF_DEATH.id, 200 * spent );
     }
   }
 }
