@@ -11,12 +11,15 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       // Item - The legendary head reduces SotW cooldown by 20%
       getCooldown: (haste, combatant) => 40 * (combatant.hasHead(ITEMS.THE_WIND_BLOWS.id) ? 0.8 : 1) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
+      recommendedCastEfficiency: 0.9,
     },
     {
       spell: SPELLS.FISTS_OF_FURY_CAST,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) =>
         24 / (1 + haste) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
+      extraSuggestion: "Delaying the cast somewhat to line up with add spawns is acceptable, however.",
+      recommendedCastEfficiency: 0.9,
     },
     {
       spell: SPELLS.RISING_SUN_KICK,
@@ -30,6 +33,8 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 24 / (1 + haste),
       isActive: combatant => combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id),
+      extraSuggestion: "Delaying the cast somewhat to line up with add spawns is acceptable, however.",
+      recommendedCastEfficiency: 0.9,
     },
     // cooldowns
     {
@@ -41,12 +46,14 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.TOUCH_OF_DEATH,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
+      recommendedCastEfficiency: 0.95,
     },
     {
       spell: SPELLS.SERENITY_TALENT,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: (_, combatant) => combatant.owner.modules.stormEarthAndFire.reducedCooldownWithTraits,
       isActive: combatant => combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
+      recommendedCastEfficiency: 0.95,
     },
     {
       spell: SPELLS.STORM_EARTH_AND_FIRE_CAST,
@@ -54,12 +61,14 @@ class Abilities extends CoreAbilities {
       getCooldown: (_, combatant) => combatant.owner.modules.stormEarthAndFire.reducedCooldownWithTraits,
       isActive: combatant => combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id),
       charges: 2,
+      recommendedCastEfficiency: 0.95,
     },
     {
       spell: SPELLS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
       isActive: combatant => combatant.hasTalent(SPELLS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT.id),
+      recommendedCastEfficiency: 1.0,
     },
     {
   spell: SPELLS.ENERGIZING_ELIXIR_TALENT,
@@ -84,6 +93,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => 15,
       isActive: combatant => combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
+      recommendedCastEfficiency: 0.7,
     },
     {
       spell: SPELLS.SPINNING_CRANE_KICK,
@@ -96,6 +106,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 6 / (1 + haste),
       isActive: combatant => combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT.id),
       noSuggestion: true,
+      noCanBeImproved: true,
     },
   ];
 }
