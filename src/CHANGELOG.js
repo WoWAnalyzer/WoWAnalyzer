@@ -7,8 +7,8 @@ import ITEMS from 'common/ITEMS';
 
 export default [
   {
-    date: new Date('2017-11-24'),
-    changes: <Wrapper>Reworked the frontpage layout and replaced all icons with icons from the Noun Project.</Wrapper>,
+    date: new Date('2017-11-28'),
+    changes: <Wrapper>Reworked the frontpage layout.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {
