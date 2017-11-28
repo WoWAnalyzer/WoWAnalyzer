@@ -377,8 +377,8 @@ class StatTracker extends Analyzer {
       if (buffObj.itemId) {
         itemDetails = this.combatants.selected.getItem(buffObj.itemId);
         if (!itemDetails) {
-          console.error('Failed to retrieve item information for item with ID:', buffObj.itemId);
-          console.warn('Unable to handle buff, making no stat change...');
+          console.warn('Failed to retrieve item information for item with ID:', buffObj.itemId,
+            ' ...unable to handle stats buff, making no stat change.');
           return 0;
         }
       }
