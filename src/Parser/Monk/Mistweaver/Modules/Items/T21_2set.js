@@ -15,8 +15,26 @@ class T21_2set extends Analyzer {
     abilityTracker: AbilityTracker,
   };
 
+  tranquilMistCount = 0;
+
   on_initialized() {
     this.active = this.combatants.selected.hasBuff(SPELLS.CHIJIS_BATTLEGEAR_2_PIECE_BUFF.id);
+  }
+
+  on_byPlayer_applybuff(event) {
+    const spellId = event.ability.guid;
+
+    if (spellId === SPELLS.TRANQUIL_MIST.id) {
+      this.tranquilMistCount += 1;
+    }
+  }
+
+  on_byPlayer_refreshbuff(event) {
+    const spellId = event.ability.guid;
+
+    if (spellId === SPELLS.TRANQUIL_MIST.id) {
+      this.tranquilMistCount += 1;
+    }
   }
 
   item() {
