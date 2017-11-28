@@ -181,12 +181,12 @@ hr {
 
 .panel {
   width: 100%;
-  border-radius: 5px;
-  border: none;
   margin-bottom: 20px;
-  background: rgba(9, 20, 27, 0.7);
-  box-shadow: 0 5px 5px 0 rgba(0,0,0,.2);
   position: relative;
+  background: rgba(9, 20, 27, 0.7);
+  border: 1px solid #000;
+  border-radius: 5px;
+  box-shadow: 0 6px 13px 0 rgba(0,0,0,.2), 0 0 2px rgba(0,0,0,.5);
 }
 .panel:not(.statistic-box) {
   border-top: 4px solid #d84141;
