@@ -101,6 +101,11 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => null,
     },
     {
+      spell: SPELLS.CRACKLING_JADE_LIGHTNING,
+      category: Abilities.SPELL_CATEGORIES.OTHERS,
+      getCooldown: haste => null,
+    },
+    {
       spell: SPELLS.RUSHING_JADE_WIND_TALENT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
       getCooldown: haste => 6 / (1 + haste),
