@@ -8,7 +8,7 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.SHADOW_PRIEST,
   maintainers: [hassebewlen],
-  completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK, // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
+  completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK, // good = it matches most common manual reviews in class discords, great = it support all important class features
   changelog: CHANGELOG,
   parser: CombatLogParser,
   path: __dirname, // used for generating a GitHub link directly to your spec

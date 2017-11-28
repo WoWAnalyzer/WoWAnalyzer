@@ -17,7 +17,7 @@ export default {
     If you have any questions about the analyzer or Windwalker monks in general, join us in the <a href="https://discord.gg/0dkfBMAxzTkWj21F" target="_blank" rel="noopener noreferrer">Peak of Serenity</a> discord server and talk to us. You can reach me there as Juko8. Make sure to also check out our resources on Peakofserenity.com as well, it has pretty much everything you need to know. 
   </div>
   ),
-  completeness: SPEC_ANALYSIS_COMPLETENESS.GOOD, // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
+  completeness: SPEC_ANALYSIS_COMPLETENESS.GOOD, // good = it matches most common manual reviews in class discords, great = it support all important class features
   changelog: CHANGELOG,
   parser: CombatLogParser,
   path: __dirname, // used for generating a GitHub link directly to your spec
