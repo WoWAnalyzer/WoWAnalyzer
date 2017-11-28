@@ -68,6 +68,9 @@ import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
 import TarratusKeystone from './Modules/Items/TarratusKeystone';
 import HighFathersMachination from './Modules/Items/HighfathersMachination';
 import EonarsCompassion from './Modules/Items/EonarsCompassion';
+
+import StatsDisplay from './Modules/Features/StatsDisplay';
+
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
 import VantusRune from './Modules/Spells/VantusRune';
@@ -159,6 +162,8 @@ class CombatLogParser {
     tarratusKeystone: TarratusKeystone,
     highfathersMachinations: HighFathersMachination,
     eonarsCompassion : EonarsCompassion,
+
+    statsDisplay: StatsDisplay,
 
     // Concordance of the Legionfall
     concordance: Concordance,
@@ -446,9 +451,12 @@ class CombatLogParser {
       },
     ];
 
-    this.activeModules
-      .sort((a, b) => b.priority - a.priority)
-      .forEach((module) => {
+    Object.keys(this._modules)
+      .filter(key => this._modules[key].active)
+      .sort((a, b) => this._modules[b].priority - this._modules[a].priority)
+      .forEach(key => {
+        const module = this._modules[key];
+
         if (module.statistic) {
           const statistic = module.statistic();
           if (statistic) {
@@ -467,7 +475,11 @@ class CombatLogParser {
         if (module.extraPanel) {
           const extraPanel = module.extraPanel();
           if (extraPanel) {
-            results.extraPanels.push(extraPanel);
+            results.extraPanels.push({
+              name: key,
+              order: module.extraPanelOrder,
+              content: extraPanel,
+            });
           }
         }
         if (module.tab) {

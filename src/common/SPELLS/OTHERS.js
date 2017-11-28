@@ -26,6 +26,16 @@ export default {
     name: 'Leech',
     icon: 'spell_shadow_lifedrain02',
   },
+  AVOIDANCE: {
+    id: 143927,
+    name: 'Avoidance',
+    icon: 'ability_rogue_quickrecovery',
+  },
+  SPEED: {
+    id: 143922,
+    name: 'Speed',
+    icon: 'petbattle_speed',
+  },
   ANCIENT_HEALING_POTION: {
     id: 188016,
     name: 'Ancient Healing Potion',

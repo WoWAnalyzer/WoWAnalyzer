@@ -21,6 +21,8 @@ const STAT = {
   VERSATILITY: 'versatility',
   VERSATILITY_DR: 'versatilitydr',
   LEECH: 'leech',
+  AVOIDANCE: 'avoidance',
+  SPEED: 'speed',
 };
 export default STAT;
 
@@ -38,6 +40,8 @@ export function getName(stat) {
     case STAT.VERSATILITY: return 'Versatility';
     case STAT.VERSATILITY_DR: return 'Versatility (with DR)';
     case STAT.LEECH: return 'Leech';
+    case STAT.AVOIDANCE: return 'Avoidance';
+    case STAT.SPEED: return 'Speed';
     default: return null;
   }
 }
@@ -55,6 +59,8 @@ export function getClassNameColor(stat) {
     case STAT.VERSATILITY: return 'stat-versatility';
     case STAT.VERSATILITY_DR: return 'stat-versatility';
     case STAT.LEECH: return 'stat-leech';
+    case STAT.AVOIDANCE: return 'stat-avoidance';
+    case STAT.SPEED: return 'stat-speed';
     default: return null;
   }
 }

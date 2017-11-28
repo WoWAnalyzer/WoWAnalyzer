@@ -703,6 +703,8 @@ table.data-table .performance-bar {
 .stat-mastery { color: #9256ff !important }
 .stat-versatility { color: #bfbfbf !important }
 .stat-leech { color: #1d9c07 !important }
+.stat-avoidance { color: #376321 !important }
+.stat-speed { color: #ffff3d !important }
 
 .stat-health-bg, .stat-healing-bg { background-color: #27cc4e !important }
 .stat-healing-absorbs-bg { background-color: #ffd955 !important }
@@ -726,6 +728,8 @@ table.data-table .performance-bar {
 .stat-mastery-bg { background-color: #9256ff !important }
 .stat-versatility-bg { background-color: #bfbfbf !important }
 .stat-leech-bg { background-color: #1d9c07 !important }
+.stat-avoidance-bg { background-color: #376321 !important }
+.stat-speed-bg { background-color: #ffff3d !important }
 
 /*https://wow.gamepedia.com/COMBAT_LOG_EVENT*/
 /* Physical */

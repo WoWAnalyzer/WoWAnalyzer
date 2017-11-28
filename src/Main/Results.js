@@ -22,6 +22,7 @@ import SpecInformationOverlay from './SpecInformationOverlay';
 
 import './Results.css';
 import SPEC_ANALYSIS_COMPLETENESS from "../common/SPEC_ANALYSIS_COMPLETENESS";
+import Wrapper from 'common/Wrapper';
 
 class Results extends React.Component {
   static childContextTypes = {
@@ -252,7 +253,7 @@ class Results extends React.Component {
                 borderRadius: '50%',
                 height: '1.2em',
               }}
-          /> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)} (status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>). <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
+            /> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)} (status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>). <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
           </div>
           {config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED && (
             <div className="alert alert-danger" style={{ fontSize: '1.5em' }}>
@@ -267,7 +268,13 @@ class Results extends React.Component {
             </div>
             <div className="col-md-4">
               {this.renderItems(results.items, selectedCombatant)}
-              {results.extraPanels && results.extraPanels}
+              {results.extraPanels
+                .sort((a, b) => a.order - b.order)
+                .map(extraPanel => (
+                  <Wrapper key={extraPanel.name}>
+                    {extraPanel.content}
+                  </Wrapper>
+                ))}
             </div>
           </div>
 
