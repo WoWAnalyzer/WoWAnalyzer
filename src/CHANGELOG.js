@@ -7,8 +7,13 @@ import ITEMS from 'common/ITEMS';
 
 export default [
   {
+    date: new Date('2017-11-29'),
+    changes: <Wrapper>Added a <i>stats on pull</i> panel.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2017-11-28'),
-    changes: <Wrapper>Reworked the frontpage layout.</Wrapper>,
+    changes: 'Reworked the frontpage layout.',
     contributors: [Zerotorescue],
   },
   {
