@@ -159,7 +159,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.SHADOW_CRASH_TALENT,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       recommendedCastEfficiency: 0.8,
-      getCooldown: haste => 30,
+      getCooldown: haste => 20,
       isActive: combatant => combatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id),
     },
 
