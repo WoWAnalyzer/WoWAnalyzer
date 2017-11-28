@@ -487,7 +487,7 @@ class App extends Component {
   }
 
   render() {
-    const { reportCode } = this.props;
+    const { reportCode, error } = this.props;
     const { parser, progress } = this.state;
 
     // Treat `fatalError` like it's a report so the header doesn't pop over the shown error
@@ -519,7 +519,7 @@ class App extends Component {
         <main>
           {this.renderContent()}
         </main>
-        <Footer />
+        {!error && <Footer />}
 
         <ReactTooltip html place="bottom" />
         <DocumentTitleUpdater />
