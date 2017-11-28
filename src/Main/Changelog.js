@@ -76,12 +76,12 @@ class Changelog extends React.PureComponent {
                 return (
                   <li
                     key={isFromCoreChangelog ? `core-${index}` : `spec-${index}`}
-                    className={`flex ${includeCore && isFromCoreChangelog ? 'text-muted' : ''}`}
+                    className={`flex wrapable ${includeCore && isFromCoreChangelog ? 'text-muted' : ''}`}
                   >
                     <div className="flex-sub" style={{ minWidth: 100, paddingRight: 15 }}>
                       {date.toLocaleDateString()}
                     </div>
-                    <div className="flex-main">
+                    <div className="flex-main" style={{ minWidth: 200 }}>
                       {changes}
                     </div>
                     <div className="flex-sub" style={{ minWidth: 150, paddingLeft: 15, textAlign: 'right' }}>

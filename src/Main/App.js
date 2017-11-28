@@ -504,8 +504,8 @@ class App extends Component {
         <header>
           <div className="container image-overlay">
             <div className="row">
-              <div className="col-md-6">
-                <h1>WoWAnalyzer</h1>
+              <div className="col-lg-6 col-md-10">
+                <h1>WoW&shy;Analyzer</h1>
                 <div className="description">
                   Analyze your raid logs to view metrics and get personalized suggestions to improve your performance. Just enter a Warcraft Logs report:
                 </div>
