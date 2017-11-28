@@ -1,4 +1,6 @@
 import React from 'react';
+
+import { Juko8 } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
@@ -7,7 +9,7 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   spec: SPECS.WINDWALKER_MONK,
-  maintainer: '@Juko8',
+  maintainers: [Juko8],
   description: (
   <div>
       Hello! We have been working hard to make the Windwalker analyzer good, but there is still things left to improve.  We hope that the suggestions and statistics will be helpful in improving your overall performance. Try and focus on improving only a few things at a time, until those become ingrained in your muscle memory so as to not be concentrating on many different things. <br /> <br/>

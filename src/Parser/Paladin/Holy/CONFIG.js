@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Zerotorescue } from 'MAINTAINERS';
+
 import SPECS from 'common/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -8,13 +10,10 @@ import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
 
-import ZerotorescueAvatar from './Images/zerotorescue-avatar.png';
-
 export default {
   spec: SPECS.HOLY_PALADIN,
   // TODO: Make maintainer an array
-  maintainer: '@Zerotorescue',
-  maintainerAvatar: ZerotorescueAvatar,
+  maintainers: [Zerotorescue],
   description: (
     <div>
       Hey I've been hard at work making this analyzer for you. I hope the suggestions give you useful pointers to improve your performance. Remember: focus on improving only one or two important things at a time. Improving isn't easy and will need your full focus until it becomes second nature to you.<br /><br />

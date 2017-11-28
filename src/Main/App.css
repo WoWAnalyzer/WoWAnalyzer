@@ -7,15 +7,7 @@ body {
   font-family: 'Open Sans', 'Century Gothic', sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  background: #305361;
-  /*background: linear-gradient(rgba(48, 83, 97, 0.8), rgba(48, 83, 97, 0.9)), url(./background.jpg) center no-repeat;*/
-  /*background: url(./background-pattern.png), url(./background.jpg) center no-repeat;*/
-  /*background-size: 15px 15px, cover;*/
-  /*background: url(./background-pattern.png), linear-gradient(rgba(94, 131, 146, 0.8), rgba(51, 73, 82, 0.9)), url(./background.jpg) center no-repeat;*/
-  /*background-size: 15px 15px, cover, cover;*/
-  background: url(./Images/background-merged.png) center no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
+  background: url(./Images/legion-bg.jpg); /* Created by and property of Blizzard Entertainment. source: http://eu.battle.net/wow/en/legion/ */
   color: #fff;
 }
 .container {
@@ -30,9 +22,17 @@ body {
 .app > main {
   margin-top: 40px;
 }
-.app.has-report > main {
-  margin-top: 120px;
+section {
+  margin-top: 50px;
+  padding-top: 50px;
+  position: relative;
 }
+section header h1 {
+  font-size: 3em;
+  margin: 0 0 0.7em;
+  text-align: center;
+}
+
 
 a {
   color: #e45a5a;
@@ -68,50 +68,71 @@ hr {
 }
 
 .app > header {
-  background-image: url(./Images/header.jpg);
+  background-image: url(./Images/header.jpg);  /* Created and property of Blizzard Entertainment. source: https://worldofwarcraft.com/en-us/ */
   background-size: cover;
   background-position: center center;
-  margin-top: -90px;
-  height: 510px;
-  box-shadow: 0 9px 17px rgba(0, 0, 0, 0.6);
+  margin-top: 0px;
+  height: 400px;
   position: relative;
   margin-bottom: 30px;
   transition: all 600ms;
   opacity: 1;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), 0 0 0 5px rgba(0, 0, 0, 0.5);
+}
+.app > header:after {
+  content: '';
+  background: url(./Images/section-divider-sprite.png) no-repeat; /* Created by and property of Blizzard Entertainment. source: http://eu.battle.net/wow/en/legion/ */
+  background-size: auto 200%;
+  background-position: 50% 0;
+  position: absolute;
+  bottom: -87px;
+  left: 0;
+  right: 0;
+  height: 154px;
+  z-index: 200;
 }
 .app.has-report > header {
-  margin-top: -600px;
+  margin-top: -450px;
   margin-bottom: 90px;
   opacity: 0;
   pointer-events: none;
 }
-.app > header > .container {
-  position: absolute;
-  bottom: 62px;
-  left: 50%;
-  transform: translateX(-50%);
-  text-transform: uppercase;
-  font-weight: 600;
-  font-size: 3em;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+.app > header .image-overlay {
+  padding-top: 100px;
 }
+.app > header .image-overlay .description {
+  font-size: 1.4em;
+}
+.app > header .image-overlay h1 {
+  font-size: 4em;
+}
+
+.panel.image-overlay {
+  padding-top: 70px;
+  background-size: cover;
+  background-position: center center;
+}
+.image-overlay h1 {
+  font-size: 3em;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-shadow: 0 0 1px transparent, 0 0 5px rgba(0,0,0,.8);
+  letter-spacing: 1px;
+}
+.image-overlay .description {
+  font-size: 1.2em;
+  color: #ebdec2;
+}
+
 .report-selector {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  line-height: 62px;
-  font-size: 18px;
-  background: rgba(1, 12, 19, 0.5);
-  box-shadow: 2px 0 3px rgba(0,0,0,.5);
-  border-top: 1px solid rgba(0, 0, 0, 0.4);
+  margin-top: 20px;
+  display: flex;
+}
+.report-selector .form-control {
+  flex: 1;
 }
 .report-selector .btn {
-  font-size: 0.9em;
-  padding: .5rem 1.4rem;
-  height: 38px;
-  line-height: 1.6;
-}
-.report-code-box .btn {
+  flex: 0;
   margin-left: 10px;
 }
 @media (min-width: 0px) {
@@ -151,9 +172,20 @@ hr {
   margin-bottom: 20px;
   background: rgba(9, 20, 27, 0.7);
   box-shadow: 0 5px 5px 0 rgba(0,0,0,.2);
+  position: relative;
 }
 .panel:not(.statistic-box) {
   border-top: 4px solid #d84141;
+}
+.panel:not(.statistic-box):before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  height: 4px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background: url(./Images/border.png);
+  width: 100%;
 }
 .panel-heading {
   border-bottom: 1px solid rgba(0, 0, 0, .4);
@@ -180,7 +212,7 @@ hr {
 }
 
 .statistic-expansion {
-  margin-top:  15px;
+  margin-top: 15px;
 }
 .statistic-expansion table th {
   text-align: right;
@@ -201,30 +233,33 @@ hr {
   outline: none;
 }
 
-.btn-primary {
-  border: none;
-  background: #d84141;
-  padding: 7px 30px;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
-}
-.btn-primary:hover, .btn-primary:focus {
-  background: #912f2f;
-}
-.btn-primary:active, .btn-primary:active:hover, .btn-primary:active:focus {
-  background: #6e2a2a;
-}
 .form-control {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 12px;
+  height: auto;
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid transparent;
+  font-size: 1em;
   box-shadow: none;
-  color: #fff;
+  color: #fdf7ea;
+  border-radius: 0;
 }
 .form-control:focus {
   box-shadow: none;
-  border: 1px solid #e45a5a;
+  border: 1px solid #d84141;
 }
-
-
+.btn-primary {
+  background: #d84141;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 28px;
+  border-radius: 0;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+  text-transform: uppercase;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:active:hover, .btn-primary:active:focus {
+  background: #ad4b4b;
+  border: 1px solid #d84141;
+  outline: 0;
+}
 
 
 
@@ -235,11 +270,15 @@ nav {
   width: 100%;
   z-index: 999; /* 1000 is where modals start*/
   line-height: 40px;
-  background: rgba(9, 20, 27, 0.8);
-  background: linear-gradient(to bottom, rgba(14, 34, 41, 0.8) 0%, rgba(9, 20, 27, 0.8) 100%);
+  background: rgba(17, 17, 29, 1);
+  background: linear-gradient(to bottom, rgba(28, 39, 53, 1) 0%, rgba(11, 13, 18, 1) 100%);
   border: 0;
-  box-shadow: 2px 0 3px rgba(0,0,0,.5);
   margin-bottom: 24px;
+}
+.has-report nav {
+  /* Reduce opacity by 20% */
+  background: rgba(9, 20, 27, 0.8);
+  background: linear-gradient(to bottom, rgba(14, 34, 41, 0.8) 0%, rgba(11, 13, 18, 0.8) 100%);
 }
 body {
   padding-top: 48px;
@@ -376,9 +415,10 @@ nav .selectorHeader a {
   border-bottom-color: rgba(0, 0, 0, 0.4);
 }
 svg {
-  height: 0.9em;
+  height: 1em;
   fill: currentColor;
-  margin-bottom: -.08em;
+  vertical-align: middle;
+  margin-top: -0.2em;
 }
 h1 {
   position: relative;
@@ -619,6 +659,10 @@ table.data-table .performance-bar {
 .Warrior-bg  { background-color: #c79c6e !important }
 .DemonHunter-bg { background-color: #a330c9 !important }
 
+.poor { color: #9d9d9d !important }
+.common { color: #fff !important }
+.uncommon { color: #1eff00 !important }
+.rare { color: #0070ff !important }
 .epic { color: #a335ee !important }
 .legendary { color: #ff8000 !important }
 .artifact { color: #e5cc80 !important }
@@ -807,4 +851,31 @@ code.inactive {
   border-radius: 7px;
   padding: 10px;
   margin-bottom: 2rem;
+}
+
+.maintainer-name {
+  background: rgba(0, 0, 0, 0.4);
+  color: #f1c40f;
+  padding: .2em .4em;
+  margin: -.2em 0;
+  border-radius: .2em;
+}
+.maintainer-name[data-tip] {
+  cursor: help;
+}
+.maintainer-name + .maintainer-name {
+  position: relative;
+  margin-left: 1.2em;
+}
+.maintainer-name + .maintainer-name:before {
+  content: '&';
+  position: absolute;
+  left: -1em;
+  color: #fff;
+}
+.maintainer-name img {
+  width: 1.4em;
+  height: 1.4em;
+  border-radius: 50%;
+  vertical-align: text-bottom;
 }

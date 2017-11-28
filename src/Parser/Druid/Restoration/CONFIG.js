@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { blazyb, sref } from 'MAINTAINERS';
+
 import SPECS from 'common/SPECS';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
@@ -8,7 +10,7 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   spec: SPECS.RESTORATION_DRUID,
-  maintainer: '@blazyb and @sref',
+  maintainers: [blazyb, sref],
   description: (
     <div>
       Welcome to the Resto Druid analyzer! We hope you find these suggestions and statistics useful.

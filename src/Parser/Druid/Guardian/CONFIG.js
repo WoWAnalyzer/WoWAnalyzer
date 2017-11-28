@@ -1,4 +1,6 @@
 import React from 'react';
+
+import { faide } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import SPELLS from 'common/SPELLS';
@@ -7,12 +9,9 @@ import SpellLink from 'common/SpellLink';
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
 
-import FaideAvatar from './Images/faide-avatar.png';
-
 export default {
   spec: SPECS.GUARDIAN_DRUID,
-  maintainer: '@faide',
-  maintainerAvatar: FaideAvatar,
+  maintainers: [faide],
   description: (
     <div>
       Hi! I'm faide, and I maintain the guardian druid analyzer.  Thanks for being here!<br /><br />

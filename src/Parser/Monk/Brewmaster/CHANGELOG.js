@@ -1,8 +1,5 @@
 import React from 'react';
-
-import ZerotorescueAvatar from 'Parser/Paladin/Holy/Images/zerotorescue-avatar.png';
-
-const Zerotorescue = ['Zerotorescue', ZerotorescueAvatar];
+import { WOPR, Zerotorescue } from 'MAINTAINERS';
 
 export default [
   {
@@ -13,26 +10,26 @@ export default [
   {
     date: new Date('2017-08-24'),
     changes: 'Added blackout combo statistic.',
-    contributors: ['wopr'],
+    contributors: [WOPR],
   },
   {
     date: new Date('2017-08-21'),
     changes: 'Fixed bug with stagger if a tick of the dot is absorbed it will calculate correctly.',
-    contributors: ['wopr'],
+    contributors: [WOPR],
   },
   {
     date: new Date('2017-08-21'),
     changes: 'Added T20 2pc and 4pc stats.',
-    contributors: ['wopr'],
+    contributors: [WOPR],
   },
   {
     date: new Date('2017-08-20'),
     changes: 'Added more information about what occured while ISB was up or not',
-    contributors: ['wopr'],
+    contributors: [WOPR],
   },
   {
     date: new Date('2017-08-20'),
     changes: 'This is an initial implementation, will be updated soon',
-    contributors: ['wopr'],
+    contributors: [WOPR],
   },
 ];

@@ -41,7 +41,7 @@ class Changelog extends React.PureComponent {
               .split('\n')
               .filter((_, i) => !limit || i < limit)
               .map((change, i) => (
-                <li key={`${i}`} dangerouslySetInnerHTML={{ __html: change }} />
+                <li key={i} dangerouslySetInnerHTML={{ __html: change }} />
               ))}
           </ul>
         </div>
@@ -93,6 +93,14 @@ class Changelog extends React.PureComponent {
                           return (
                             <Wrapper key={contributor[0]}>
                               <img src={contributor[1]} alt="Avatar" style={{ height: '1.6em', borderRadius: '50%' }} /> {contributor[0]}
+                            </Wrapper>
+                          );
+                        }
+                        if (typeof contributor === 'object') {
+                          return (
+                            <Wrapper key={contributor.nickname}>
+                              {contributor.avatar && <img src={contributor.avatar} alt="Avatar" style={{ height: '1.6em', borderRadius: '50%' }} />}{' '}
+                              {contributor.nickname}
                             </Wrapper>
                           );
                         }

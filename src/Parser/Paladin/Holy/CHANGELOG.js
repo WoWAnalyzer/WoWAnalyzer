@@ -1,11 +1,9 @@
 import React from 'react';
 
+import { sref, Zerotorescue } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
-import ZerotorescueAvatar from './Images/zerotorescue-avatar.png';
-
-const Zerotorescue = ['Zerotorescue', ZerotorescueAvatar];
 
 export default [
   {
@@ -26,7 +24,7 @@ export default [
   {
     date: new Date('2017-10-31'),
     changes: <Wrapper>Fixed the <i>Haste HPCT</i> stat value not taking current Haste into account leading to a slightly overvaluation.</Wrapper>,
-    contributors: ['Sref'],
+    contributors: [sref],
   },
   {
     date: new Date('2017-10-30'),

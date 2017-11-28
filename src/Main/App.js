@@ -33,6 +33,7 @@ import AppBackgroundImage from './AppBackgroundImage';
 import FullscreenError from './FullscreenError';
 import NavigationBar from './Layout/NavigationBar';
 import DocumentTitleUpdater from './Layout/DocumentTitleUpdater';
+import Footer from './Layout/Footer';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
@@ -453,7 +454,7 @@ class App extends Component {
 
     if (!report) {
       return (
-        <div>
+        <div className="container">
           <h1>Fetching report information...</h1>
 
           <div className="spinner" />
@@ -501,16 +502,25 @@ class App extends Component {
           progress={progress}
         />
         <header>
-          <div className="container hidden-md hidden-sm hidden-xs">
-            Analyze your performance
+          <div className="container image-overlay">
+            <div className="row">
+              <div className="col-md-6">
+                <h1>WoWAnalyzer</h1>
+                <div className="description">
+                  Analyze your raid logs to view metrics and get personalized suggestions to improve your performance. Just enter a Warcraft Logs report:
+                </div>
+                {!hasReport && (
+                  <ReportSelecter />
+                )}
+              </div>
+            </div>
           </div>
-          {!hasReport && (
-            <ReportSelecter />
-          )}
         </header>
-        <main className="container">
+        <main>
           {this.renderContent()}
         </main>
+        <Footer />
+
         <ReactTooltip html place="bottom" />
         <DocumentTitleUpdater />
       </div>

@@ -51,7 +51,7 @@ class FightSelecter extends React.PureComponent {
     const { killsOnly } = this.state;
 
     return (
-      <div>
+      <div className="container">
         <div className="row">
           <div className="col-lg-10 col-md-8" style={{ position: 'relative' }}>
             <div className="back-button" style={{ fontSize: 36, width: 20 }}>
@@ -104,10 +104,6 @@ class FightSelecter extends React.PureComponent {
           <div className="panel-body" style={{ padding: 0 }}>
             <FightSelectionList report={report} fights={report.fights} killsOnly={killsOnly} />
           </div>
-        </div>
-
-        <div className="text-muted">
-          Icons by <a href="https://icons8.com/" rel="noopener noreferrer">Icons8</a>.
         </div>
       </div>
     );
