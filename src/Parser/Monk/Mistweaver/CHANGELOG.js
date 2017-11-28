@@ -5,6 +5,11 @@ import Wrapper from 'common/Wrapper';
 
 export default [
   {
+    date: new Date('2017-11-28'),
+    changes: 'Fixed bug with TFT -> Renewing Mist cast efficiency. Updated Player Log Data tab for additional items for T21 Speadsheet version',
+    contributors: [Anomoly],
+  },
+  {
     date: new Date('2017-11-06'),
     changes: 'Updated Always Be Casting calculation to take into consideration Essence Font not having a begincast event',
     contributors: [Anomoly],
