@@ -18,6 +18,7 @@ export const blazyb = {
 export const sref = {
   nickname: 'sref',
   github: 'kfinch',
+  avatar: require('./Images/sref-avatar.png'),
 };
 export const Iskalla = {
   nickname: 'Iskalla',
