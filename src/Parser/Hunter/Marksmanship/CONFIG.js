@@ -18,7 +18,7 @@ export default {
     </div>
   ),
   // good = it matches most common manual reviews in class discords, great = it support all important class features
-  completeness: SPEC_ANALYSIS_COMPLETENESS.GOOD,
+  completeness: SPEC_ANALYSIS_COMPLETENESS.GREAT,
   //Link to GitHub issue
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/milestone/4',
 
