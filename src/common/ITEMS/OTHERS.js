@@ -285,4 +285,11 @@ export default {
     icon: 'inv_wand_36',
     quality: ITEM_QUALITIES.EPIC,
   },
+  //T21 DPS Trinkets
+  SEEPING_SCOURGEWING: {
+    id: 151964,
+    name: 'Seeping Scourgewing',
+    icon: 'ability_creature_poison_03',
+    quality: ITEM_QUALITIES.EPIC,
+  },
 };

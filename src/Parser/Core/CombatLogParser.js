@@ -68,6 +68,8 @@ import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
 import TarratusKeystone from './Modules/Items/TarratusKeystone';
 import HighFathersMachination from './Modules/Items/HighfathersMachination';
 import EonarsCompassion from './Modules/Items/EonarsCompassion';
+// T21 Dps Trinkets
+import SeepingScourgewing from './Modules/Items/SeepingScourgewing';
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
 import VantusRune from './Modules/Spells/VantusRune';
@@ -160,6 +162,9 @@ class CombatLogParser {
     highfathersMachinations: HighFathersMachination,
     eonarsCompassion : EonarsCompassion,
 
+    // T21 DPS Trinkets
+    seepingScourgewing: SeepingScourgewing,
+    
     // Concordance of the Legionfall
     concordance: Concordance,
     // Netherlight Crucible Traits

@@ -297,6 +297,17 @@ export default {
     name: 'Eonar\'s Verdant Embrace',
     icon: 'talentspec_druid_restoration',
   },
+  //T21 Dps Trinket
+  SHADOW_STRIKE: { //Seeping Scourewing Base Damage
+    id: 253324,
+    name: 'Shadow Strike',
+    icon: 'ability_creature_poison_03',
+  },
+  ISOLATED_STRIKE: {
+    id: 255609,
+    name: 'Isolated Strike',
+    icon: 'ability_creature_poison_03',
+  },
 
   // Item Abilities
   SPECTRAL_OWL: {
