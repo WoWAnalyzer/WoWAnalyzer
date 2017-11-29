@@ -18,19 +18,19 @@ class Tier20_2p extends Analyzer {
   focusGeneratorCasts = {
     [SPELLS.ARCANE_SHOT_FOCUSMODULE.id]: {
       casts: 0,
-      focusGain: 8,
+      baselineFocusGain: 8,
       actualGain: 0,
     },
 
     [SPELLS.MULTISHOT_FOCUSMODULE.id]: {
       casts: 0,
-      focusGain: 3,
+      baselineFocusGain: 3,
       actualGain: 0,
     },
 
     [SPELLS.SIDEWINDERS_TALENT.id]: {
       casts: 0,
-      focusGain: 35,
+      baselineFocusGain: 35,
       actualGain: 0,
     },
   };
@@ -70,28 +70,28 @@ class Tier20_2p extends Analyzer {
     return this.damageFromGenerators[SPELLS.ARCANE_SHOT.id].bonusDmg;
   }
   get arcaneActualFocusGain() {
-    return this.focusGeneratorCasts[SPELLS.ARCANE_SHOT_FOCUSMODULE.id].actualGain - (this.focusGeneratorCasts[SPELLS.ARCANE_SHOT_FOCUSMODULE.id].casts * this.focusGeneratorCasts[SPELLS.ARCANE_SHOT_FOCUSMODULE.id].focusGain);
+    return this.focusGeneratorCasts[SPELLS.ARCANE_SHOT_FOCUSMODULE.id].actualGain - (this.focusGeneratorCasts[SPELLS.ARCANE_SHOT_FOCUSMODULE.id].casts * this.focusGeneratorCasts[SPELLS.ARCANE_SHOT_FOCUSMODULE.id].baselineFocusGain);
   }
   get arcanePotentialFocusGain() {
-    return ((this.focusGeneratorCasts[SPELLS.ARCANE_SHOT_FOCUSMODULE.id].casts * (this.focusGeneratorCasts[SPELLS.ARCANE_SHOT_FOCUSMODULE.id].focusGain * 1.25)) / 5);
+    return ((this.focusGeneratorCasts[SPELLS.ARCANE_SHOT_FOCUSMODULE.id].casts * (this.focusGeneratorCasts[SPELLS.ARCANE_SHOT_FOCUSMODULE.id].baselineFocusGain * 1.25)) / 5);
   }
   get multiBonusDamage() {
     return this.damageFromGenerators[SPELLS.MULTISHOT.id].bonusDmg;
   }
   get multiActualFocusGain() {
-    return this.focusGeneratorCasts[SPELLS.MULTISHOT_FOCUSMODULE.id].actualGain - (this.focusGeneratorCasts[SPELLS.MULTISHOT_FOCUSMODULE.id].casts * this.focusGeneratorCasts[SPELLS.MULTISHOT_FOCUSMODULE.id].focusGain);
+    return this.focusGeneratorCasts[SPELLS.MULTISHOT_FOCUSMODULE.id].actualGain - (this.focusGeneratorCasts[SPELLS.MULTISHOT_FOCUSMODULE.id].casts * this.focusGeneratorCasts[SPELLS.MULTISHOT_FOCUSMODULE.id].baselineFocusGain);
   }
   get multiPotentialFocusGain() {
-    return ((this.focusGeneratorCasts[SPELLS.MULTISHOT_FOCUSMODULE.id].casts * (this.focusGeneratorCasts[SPELLS.MULTISHOT_FOCUSMODULE.id].focusGain * 1.25)) / 5);
+    return ((this.focusGeneratorCasts[SPELLS.MULTISHOT_FOCUSMODULE.id].casts * (this.focusGeneratorCasts[SPELLS.MULTISHOT_FOCUSMODULE.id].baselineFocusGain * 1.25)) / 5);
   }
   get sidewindersBonusDamage() {
     return this.damageFromGenerators[SPELLS.SIDEWINDERS_TALENT.id].bonusDmg;
   }
   get sidewindersActualFocusGain() {
-    return this.focusGeneratorCasts[SPELLS.SIDEWINDERS_TALENT.id].actualGain - (this.focusGeneratorCasts[SPELLS.SIDEWINDERS_TALENT.id].casts * this.focusGeneratorCasts[SPELLS.SIDEWINDERS_TALENT.id].focusGain);
+    return this.focusGeneratorCasts[SPELLS.SIDEWINDERS_TALENT.id].actualGain - (this.focusGeneratorCasts[SPELLS.SIDEWINDERS_TALENT.id].casts * this.focusGeneratorCasts[SPELLS.SIDEWINDERS_TALENT.id].baselineFocusGain);
   }
   get sidewindersPotentialFocusGain() {
-    return ((this.focusGeneratorCasts[SPELLS.SIDEWINDERS_TALENT.id].casts * (this.focusGeneratorCasts[SPELLS.SIDEWINDERS_TALENT.id].focusGain * 1.25)) / 5);
+    return ((this.focusGeneratorCasts[SPELLS.SIDEWINDERS_TALENT.id].casts * (this.focusGeneratorCasts[SPELLS.SIDEWINDERS_TALENT.id].baselineFocusGain * 1.25)) / 5);
   }
 
   item() {
@@ -104,9 +104,9 @@ class Tier20_2p extends Analyzer {
 
     damageAbilities.map(ability => totalDamageIncrease += this.damageFromGenerators[ability].bonusDmg);
 
-    generatingAbilities.map(ability => totalExtraFocusGenerated += this.focusGeneratorCasts[ability].actualGain - (this.focusGeneratorCasts[ability].focusGain * this.focusGeneratorCasts[ability].casts));
+    generatingAbilities.map(ability => totalExtraFocusGenerated += this.focusGeneratorCasts[ability].actualGain - (this.focusGeneratorCasts[ability].baselineFocusGain * this.focusGeneratorCasts[ability].casts));
 
-    generatingAbilities.map(ability => totalPotentialFocusGain += ((this.focusGeneratorCasts[ability].casts * (this.focusGeneratorCasts[ability].focusGain * 1.25)) / 5));
+    generatingAbilities.map(ability => totalPotentialFocusGain += ((this.focusGeneratorCasts[ability].casts * (this.focusGeneratorCasts[ability].baselineFocusGain * 1.25)) / 5));
 
     let tooltipText = `This shows a breakdown of T21 <ul>`;
     tooltipText += this.arcaneBonusDamage > 0 ? `<li>Arcane Shot: <ul><li>Damage gain: ${formatNumber(this.arcaneBonusDamage)}</li><li>Focus gain: ${formatNumber(this.arcaneActualFocusGain)} out of ${this.arcanePotentialFocusGain} possible</li></ul></li>` : '';
