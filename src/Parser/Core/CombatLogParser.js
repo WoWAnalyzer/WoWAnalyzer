@@ -4,7 +4,6 @@ import SuggestionsTab from 'Main/SuggestionsTab';
 import ChangelogTab from 'Main/ChangelogTab';
 import ChangelogTabTitle from 'Main/ChangelogTabTitle';
 import Tab from 'Main/Tab';
-import Talents from 'Main/Talents';
 import TimelineTab from 'Main/Timeline/TimelineTab';
 
 import { formatNumber, formatPercentage } from 'common/format';
@@ -419,16 +418,6 @@ class CombatLogParser {
         url: 'suggestions',
         order: 0,
         render: () => <SuggestionsTab issues={results.issues} />,
-      },
-      {
-        title: 'Talents',
-        url: 'talents',
-        order: 1,
-        render: () => (
-          <Tab title="Talents">
-            <Talents combatant={this.modules.combatants.selected} />
-          </Tab>
-        ),
       },
       {
         title: 'Timeline',
