@@ -5,11 +5,9 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import getDamageBonus from "Parser/Hunter/Shared/Modules/getDamageBonus";
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 
 const T21_2P_DMG_BONUS = 0.3;
-
-const debug = true;
 
 class Tier20_2p extends Analyzer {
   static dependencies = {
