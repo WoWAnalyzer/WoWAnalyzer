@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Masonry from 'react-masonry-component';
 
+import Wrapper from 'common/Wrapper';
+import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
 import getBossName from 'common/getBossName';
@@ -21,8 +23,6 @@ import Maintainer from 'Main/Maintainer';
 import SpecInformationOverlay from './SpecInformationOverlay';
 
 import './Results.css';
-import SPEC_ANALYSIS_COMPLETENESS from "../common/SPEC_ANALYSIS_COMPLETENESS";
-import Wrapper from 'common/Wrapper';
 
 class Results extends React.Component {
   static childContextTypes = {
