@@ -242,14 +242,14 @@ export default {
     name: 'Tarratus Keystone',
     icon: 'inv__wod_arakoa4',
   },
- AMANTHULS_PRESENCEBUFF: {
+  HIGHFATHERS_TIMEKEEPINGBUFF: {
     id: 253287,
-    name: 'Aman Thul\'s Presence',
+    name: 'Highfather\'s Timekeeping',
     icon: 'spell_priest_psyfiend',
   },
-  AMANTHULS_PRESENCEHEAL: {
+  HIGHFATHERS_TIMEKEEPINGHEAL: {
     id: 253288,
-    name: 'Aman Thul\'s Presence',
+    name: 'Highfather\'s Timekeeping',
     icon: 'spell_priest_psyfiend',
   },
   EONARS_COMPASSION_HEAL: {

@@ -206,7 +206,7 @@ export default {
     quality: ITEM_QUALITIES.EPIC,
   },
 
-  // DPS Trinkets
+  // T20 DPS Trinkets
   ERRATIC_METRONOME: {
     id: 140792,
     name: 'Erratic Metronome',
