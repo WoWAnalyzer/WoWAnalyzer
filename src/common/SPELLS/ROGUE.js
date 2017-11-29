@@ -113,6 +113,11 @@ export default {
     name: 'Shadow Dance',
     icon: 'ability_rogue_shadowdance',
   },
+  SHADOW_DANCE_BUFF: {
+    id: 185422,
+    name: 'Shadow Dance',
+    icon: 'ability_rogue_shadowdance',
+  },
   SYMBOLS_OF_DEATH: {
     id: 212283,
     name: 'Symbols of Death',

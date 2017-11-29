@@ -43,7 +43,7 @@ class DeathFormAbove extends Analyzer {
 
     //If the Dfa Eviscerate hits without Symbols or Dark Shadow DFA - we have a problem!
     if (!this.combatants.selected.hasBuff(SPELLS.SYMBOLS_OF_DEATH.id) 
-    || ( this.hasDarkShadow && !this.combatants.selected.hasBuff(SPELLS.SYMBOLS_OF_DEATH.id) )) {
+    || ( this.hasDarkShadow && !this.combatants.selected.hasBuff(SPELLS.SHADOW_DANCE_BUFF.id) )) {
       this.failedCombos += 1;    
     }   
   }
@@ -53,9 +53,10 @@ class DeathFormAbove extends Analyzer {
     when(this.failedCombos).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<Wrapper>          
-          <SpellLink id={SPELLS.DEATH_FROM_ABOVE_TALENT.id} />. <br /> 
-           while in <SpellLink id={SPELLS.DEATH_FROM_ABOVE_TALENT.id} /> 
-           or starting <SpellLink id={SPELLS.DEATH_FROM_ABOVE_TALENT.id} />  </Wrapper>)
+          Always use <SpellLink id={SPELLS.DEATH_FROM_ABOVE_TALENT.id} /> together with <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> and <SpellLink id={SPELLS.SHADOW_DANCE.id} />. 
+          <br /> 
+          Unless you hit multiple targets with your initial <SpellLink id={SPELLS.DEATH_FROM_ABOVE_TALENT.id} /> hit, you should use <SpellLink id={SPELLS.SHADOW_DANCE.id} /> when you are in the air. <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> is usually used before <SpellLink id={SPELLS.DEATH_FROM_ABOVE_TALENT.id} />, but is some cases can also be used in the air. 
+          </Wrapper>)
           .icon(SPELLS.DEATH_FROM_ABOVE_TALENT.icon)
           .actual(`${actual} Death from Above combos failed.`)
           .recommended(`${recommended} is recommended`)
