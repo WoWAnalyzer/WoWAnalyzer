@@ -50,7 +50,7 @@ class FightSelectionList extends Component {
             .map(fight => (
               <li key={fight.id} className="item selectable">
                 <Link to={makeAnalyzerUrl(report, fight.id, playerName)}>
-                  <Fight {...fight} wipes={getWipeCount(report, fight)} />
+                  <Fight {...fight} wipes={getWipeCount(report.fights, fight)} />
                 </Link>
               </li>
             ))

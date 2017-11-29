@@ -6,7 +6,6 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import DoomguardInfernal from './Modules/Features/DoomguardInfernal';
 import UnusedLordOfFlames from './Modules/Features/UnusedLordOfFlames';
-import GrimoireOfService from './Modules/Features/GrimoireOfService';
 import ImmolateUptime from './Modules/Features/ImmolateUptime';
 import Havoc from './Modules/Features/Havoc';
 import DimensionalRift from './Modules/Features/DimensionalRift';
@@ -47,7 +46,6 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     doomguardInfernal: DoomguardInfernal,
     unusedLordOfFlames: UnusedLordOfFlames,
-    grimoireOfService: GrimoireOfService,
     dimensionalRift: DimensionalRift,
 
     // DoTs

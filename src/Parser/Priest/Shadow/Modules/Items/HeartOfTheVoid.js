@@ -8,7 +8,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
-const HEART_OF_THE_VOID_DAMAGE_INCREASE = 4.0;
+const HEART_OF_THE_VOID_DAMAGE_INCREASE = 0.75;
 
 class HeartOfTheVoid extends Analyzer {
   static dependencies = {

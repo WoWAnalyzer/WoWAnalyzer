@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Masonry from 'react-masonry-component';
@@ -8,13 +9,14 @@ import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
 import getBossName from 'common/getBossName';
 import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
-
+import { getResultTab } from 'selectors/url/report';
 import DevelopmentTab from 'Main/DevelopmentTab';
 import EventsTab from 'Main/EventsTab';
 import Tab from 'Main/Tab';
 import Status from 'Main/Status';
 import GithubButton from 'Main/GithubButton';
 import DiscordButton from 'Main/DiscordButton';
+import Maintainer from 'Main/Maintainer';
 
 import SpecInformationOverlay from './SpecInformationOverlay';
 
@@ -218,7 +220,7 @@ class Results extends React.Component {
     const activeTab = results.tabs.find(tab => tab.url === tabUrl);
 
     return (
-      <div style={{ width: '100%' }}>
+      <div className="container">
         <div className="results">
           <div className="row">
             <div className="col-lg-10 col-md-8" style={{ position: 'relative' }}>
@@ -250,7 +252,7 @@ class Results extends React.Component {
                 borderRadius: '50%',
                 height: '1.2em',
               }}
-            /> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainer} (status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>). <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
+          /> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)} (status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>). <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
           </div>
           {config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED && (
             <div className="alert alert-danger" style={{ fontSize: '1.5em' }}>
@@ -306,4 +308,10 @@ class Results extends React.Component {
   }
 }
 
-export default Results;
+const mapStateToProps = state => ({
+  tab: getResultTab(state),
+});
+
+export default connect(
+  mapStateToProps
+)(Results);

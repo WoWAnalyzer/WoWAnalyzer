@@ -28,7 +28,7 @@ class Abilities extends Analyzer {
     /**
      * Available properties:
      *
-     * required spell {object} The spell definition with { id, name and icon }
+     * required spell {object or array of objects} The spell definition with { id, name and icon }, or an array of spell definitions with the same format. If an array of spell definitions is provided, the first element in the array will be what shows in suggestions / cast timeline. Multiple spell definitions in the same ability can be used to tie multiple cast / buff IDs together as the same ability (with a shared cooldown)
      * optional name {string} the name to use if it is different from the name provided by the `spell` object.
      * required category {string} The name of the category to place this spell in, you should usually use the SPELL_CATEGORIES enum for these values.
      * required getCooldown {func} A function to calculate the cooldown of a spell. Parameters provided: `hastePercentage`, `selectedCombatant`
@@ -68,12 +68,13 @@ class Abilities extends Analyzer {
       getCooldown: haste => 180,
       isActive: combatant => combatant.hasFinger(ITEMS.GNAWED_THUMB_RING.id),
     },
-    // {
-    //   spell: SPELLS.KILJAEDENS_BURNING_WISH_CAST,
-    //   category: Abilities.SPELL_CATEGORIES.ITEMS,
-    //   getCooldown: haste => 75,
-    //   isActive: combatant => combatant.hasTrinket(ITEMS.KILJAEDENS_BURNING_WISH.id),
-    // },
+    {
+      spell: SPELLS.KILJAEDENS_BURNING_WISH_DAMAGE, // cast event never shows, we fab cast events from damage events
+      category: Abilities.SPELL_CATEGORIES.ITEMS,
+      getCooldown: haste => 75,
+      extraSuggestion: "Delaying the cast somewhat to line up with add spawns is acceptable, however.",
+      isActive: combatant => combatant.hasTrinket(ITEMS.KILJAEDENS_BURNING_WISH.id),
+    },
     {
       spell: SPELLS.ARCHIMONDES_HATRED_REBORN_ABSORB,
       category: Abilities.SPELL_CATEGORIES.ITEMS,
@@ -121,10 +122,16 @@ class Abilities extends Analyzer {
    */
   getAbility(spellId) {
     return this.constructor.ABILITIES.find(ability => {
-      if (ability.spell.id === spellId) {
-        return !ability.isActive || ability.isActive(this.combatants.selected);
+      if (ability.spell instanceof Array) {
+        if (!ability.spell.find(spell => spell.id === spellId)) {
+          return false;
+        }
+      } else {
+        if (ability.spell.id !== spellId) {
+          return false;
+        }
       }
-      return false;
+      return !ability.isActive || ability.isActive(this.combatants.selected);
     });
   }
 

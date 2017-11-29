@@ -17,6 +17,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.EBONBOLT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 45 + (3 / (1+haste)), // 45 Second Cooldown with a 3 Second Cast time (Reduced by Haste). Temp until CastEfficiency gets a redo
+      recommendedCastEfficiency: 0.90,
     },
     {
       spell: SPELLS.FLURRY,
@@ -24,7 +25,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => null,
     },
     {
-      spell: SPELLS.ICE_LANCE_CAST,
+      spell: SPELLS.ICE_LANCE,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
     },
@@ -48,7 +49,8 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.COMET_STORM_TALENT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => null,
+      getCooldown: haste => 30,
+      recommendedCastEfficiency: 0.90,
 	    isActive: combatant => combatant.hasTalent(SPELLS.COMET_STORM_TALENT.id),
     },
     {
@@ -71,18 +73,19 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.FROZEN_ORB,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 60,
+      recommendedCastEfficiency: 0.90,
     },
     {
       spell: SPELLS.ICY_VEINS,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
-      noSuggestion: true,
-      noCanBeImproved: true,
+      recommendedCastEfficiency: 0.90,
     },
     {
       spell: SPELLS.MIRROR_IMAGE_TALENT,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
+      recommendedCastEfficiency: 0.90,
       isActive: combatant => combatant.hasTalent(SPELLS.MIRROR_IMAGE_TALENT.id),
     },
     {
@@ -90,6 +93,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 40,
       charges: 2,
+      recommendedCastEfficiency: 0.90,
       isActive: combatant => combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id),
     },
 

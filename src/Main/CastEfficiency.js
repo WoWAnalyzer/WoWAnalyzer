@@ -25,12 +25,13 @@ const CastEfficiency = ({ categories, abilities }) => {
               {abilities
                 .filter(item => item.ability.category === categories[key])
                 .map(({ ability, cpm, maxCpm, casts, maxCasts, castEfficiency, canBeImproved }) => {
-                  const name = ability.name || ability.spell.name;
+                  const mainSpell = (ability.spell instanceof Array) ? ability.spell[0] : ability.spell;
+                  const name = ability.name || mainSpell.name;
                   return (
                     <tr key={name}>
                       <td style={{ width: '35%' }}>
-                        <SpellLink id={ability.spell.id} style={{ color: '#fff' }}>
-                          <SpellIcon id={ability.spell.id} noLink /> {name}
+                        <SpellLink id={mainSpell.id} style={{ color: '#fff' }}>
+                          <SpellIcon id={mainSpell.id} noLink /> {name}
                         </SpellLink>
                       </td>
                       <td className="text-center" style={{ minWidth: 80 }}>

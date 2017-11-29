@@ -1,3 +1,4 @@
+import { Bonebasher } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
@@ -7,9 +8,9 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.FROST_DEATH_KNIGHT,
   // TODO: Make maintainer an array
-  maintainer: '@Bonebasher',
+  maintainers: [Bonebasher],
 
-  // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
+  // good = it matches most common manual reviews in class discords, great = it support all important class features
   completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK,
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/milestone/6',
   

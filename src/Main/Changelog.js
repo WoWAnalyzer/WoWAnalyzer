@@ -41,7 +41,7 @@ class Changelog extends React.PureComponent {
               .split('\n')
               .filter((_, i) => !limit || i < limit)
               .map((change, i) => (
-                <li key={`${i}`} dangerouslySetInnerHTML={{ __html: change }} />
+                <li key={i} dangerouslySetInnerHTML={{ __html: change }} />
               ))}
           </ul>
         </div>
@@ -76,12 +76,12 @@ class Changelog extends React.PureComponent {
                 return (
                   <li
                     key={isFromCoreChangelog ? `core-${index}` : `spec-${index}`}
-                    className={`flex ${includeCore && isFromCoreChangelog ? 'text-muted' : ''}`}
+                    className={`flex wrapable ${includeCore && isFromCoreChangelog ? 'text-muted' : ''}`}
                   >
                     <div className="flex-sub" style={{ minWidth: 100, paddingRight: 15 }}>
                       {date.toLocaleDateString()}
                     </div>
-                    <div className="flex-main">
+                    <div className="flex-main" style={{ minWidth: 200 }}>
                       {changes}
                     </div>
                     <div className="flex-sub" style={{ minWidth: 150, paddingLeft: 15, textAlign: 'right' }}>
@@ -93,6 +93,14 @@ class Changelog extends React.PureComponent {
                           return (
                             <Wrapper key={contributor[0]}>
                               <img src={contributor[1]} alt="Avatar" style={{ height: '1.6em', borderRadius: '50%' }} /> {contributor[0]}
+                            </Wrapper>
+                          );
+                        }
+                        if (typeof contributor === 'object') {
+                          return (
+                            <Wrapper key={contributor.nickname}>
+                              {contributor.avatar && <img src={contributor.avatar} alt="Avatar" style={{ height: '1.6em', borderRadius: '50%' }} />}{' '}
+                              {contributor.nickname}
                             </Wrapper>
                           );
                         }

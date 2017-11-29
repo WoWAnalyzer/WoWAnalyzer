@@ -10,7 +10,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import GetDamageBonus from 'Parser/Paladin/Shared/Modules/GetDamageBonus';
 
-const RET_PALADIN_T21_2SET_MODIFIER = 0.6;
+const RET_PALADIN_T21_2SET_MODIFIER = 0.4;
 
 class Tier21_2set extends Analyzer {
 	static dependencies ={

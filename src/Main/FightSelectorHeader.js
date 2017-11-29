@@ -1,13 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Toggle from 'react-toggle';
+
+import { getFightId } from 'selectors/url/report';
+import { getReport } from 'selectors/report';
+import { getFightById } from 'selectors/fight';
+import getFightName from 'common/getFightName';
 
 import SelectorBase from './SelectorBase';
 import FightSelectionList from './FightSelectionList';
 
 class FightSelectorHeader extends SelectorBase {
   static propTypes = {
-    selectedFightName: PropTypes.string.isRequired,
     parser: PropTypes.shape(),
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
@@ -22,6 +27,7 @@ class FightSelectorHeader extends SelectorBase {
         kill: PropTypes.bool,
       })),
     }),
+    fight: PropTypes.object,
   };
 
   constructor(props) {
@@ -32,11 +38,12 @@ class FightSelectorHeader extends SelectorBase {
   }
 
   render() {
-    const { report, selectedFightName, parser, ...others } = this.props;
+    const { report, fight, parser, ...others } = this.props;
+    delete others.dispatch;
     const { killsOnly, show } = this.state;
     return (
       <div ref={this.setRef} {...others}>
-        <a onClick={this.handleClick}>{selectedFightName}</a>
+        <a onClick={this.handleClick}>{getFightName(report, fight)}</a>
         {show && parser && parser.player && (
           <span className="selectorHeader">
             <div className="panel">
@@ -78,4 +85,9 @@ class FightSelectorHeader extends SelectorBase {
   }
 }
 
-export default FightSelectorHeader;
+const mapStateToProps = state => ({
+  report: getReport(state),
+  fight: getFightById(state, getFightId(state)),
+});
+
+export default connect(mapStateToProps)(FightSelectorHeader);
