@@ -33,13 +33,13 @@ class StatsDisplay extends Analyzer {
   }
   getStatPercentage(stat) {
     switch (stat) {
-      case STAT.CRITICAL_STRIKE: return this.statTracker.critPercentage(this.statTracker.startingCritRating);
-      case STAT.HASTE: return this.statTracker.hastePercentage(this.statTracker.startingHasteRating);
-      case STAT.MASTERY: return this.statTracker.masteryPercentage(this.statTracker.startingMasteryRating);
-      case STAT.VERSATILITY: return this.statTracker.versatilityPercentage(this.statTracker.startingVersatilityRating);
-      case STAT.LEECH: return this.statTracker.leechPercentage(this.statTracker.startingLeechRating);
-      case STAT.AVOIDANCE: return this.statTracker.avoidancePercentage(this.statTracker.startingAvoidanceRating);
-      case STAT.SPEED: return this.statTracker.speedPercentage(this.statTracker.startingSpeedRating);
+      case STAT.CRITICAL_STRIKE: return this.statTracker.critPercentage(this.statTracker.startingCritRating, true);
+      case STAT.HASTE: return this.statTracker.hastePercentage(this.statTracker.startingHasteRating, true);
+      case STAT.MASTERY: return this.statTracker.masteryPercentage(this.statTracker.startingMasteryRating, true);
+      case STAT.VERSATILITY: return this.statTracker.versatilityPercentage(this.statTracker.startingVersatilityRating, true);
+      case STAT.LEECH: return this.statTracker.leechPercentage(this.statTracker.startingLeechRating, true);
+      case STAT.AVOIDANCE: return this.statTracker.avoidancePercentage(this.statTracker.startingAvoidanceRating, true);
+      case STAT.SPEED: return this.statTracker.speedPercentage(this.statTracker.startingSpeedRating, true);
       default: return null;
     }
   }
