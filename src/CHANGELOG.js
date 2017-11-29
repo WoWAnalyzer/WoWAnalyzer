@@ -8,6 +8,11 @@ import ITEMS from 'common/ITEMS';
 export default [
   {
     date: new Date('2017-11-29'),
+    changes: <Wrapper>Added a <i>talents</i> panel, replacing the tab.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-29'),
     changes: <Wrapper>Added a <i>stats on pull</i> panel.</Wrapper>,
     contributors: [Zerotorescue],
   },
