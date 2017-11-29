@@ -1,6 +1,8 @@
 import HealthIcon from './Images/Health';
 import StaminaIcon from './Images/Stamina';
 import ManaIcon from './Images/Mana';
+import StrengthIcon from './Images/Strength';
+import AgilityIcon from './Images/Agility';
 import IntellectIcon from './Images/Intellect';
 import CriticalStrikeIcon from './Images/CriticalStrike';
 import HasteIcon from './Images/Haste';
@@ -12,6 +14,8 @@ const STAT = {
   HEALTH: 'health',
   STAMINA: 'stamina',
   MANA: 'mana',
+  STRENGTH: 'strength',
+  AGILITY: 'agility',
   INTELLECT: 'intellect',
   CRITICAL_STRIKE: 'criticalstrike',
   HASTE: 'haste',
@@ -31,6 +35,8 @@ export function getName(stat) {
     case STAT.HEALTH: return 'Health';
     case STAT.STAMINA: return 'Stamina';
     case STAT.MANA: return 'Mana';
+    case STAT.STRENGTH: return 'Strength';
+    case STAT.AGILITY: return 'Agility';
     case STAT.INTELLECT: return 'Intellect';
     case STAT.CRITICAL_STRIKE: return 'Critical Strike';
     case STAT.HASTE: return 'Haste';
@@ -50,6 +56,8 @@ export function getClassNameColor(stat) {
     case STAT.HEALTH: return 'stat-health';
     case STAT.STAMINA: return 'stat-stamina';
     case STAT.MANA: return 'stat-mana';
+    case STAT.STRENGTH: return 'stat-strength';
+    case STAT.AGILITY: return 'stat-agility';
     case STAT.INTELLECT: return 'stat-intellect';
     case STAT.CRITICAL_STRIKE: return 'stat-criticalstrike';
     case STAT.HASTE: return 'stat-haste';
@@ -72,6 +80,8 @@ export function getIcon(stat) {
     case STAT.HEALTH: return HealthIcon;
     case STAT.STAMINA: return StaminaIcon;
     case STAT.MANA: return ManaIcon;
+    case STAT.STRENGTH: return StrengthIcon;
+    case STAT.AGILITY: return AgilityIcon;
     case STAT.INTELLECT: return IntellectIcon;
     case STAT.CRITICAL_STRIKE: return CriticalStrikeIcon;
     case STAT.HASTE: return HasteIcon;

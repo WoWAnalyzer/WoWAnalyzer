@@ -70,6 +70,7 @@ import HighFathersMachination from './Modules/Items/HighfathersMachination';
 import EonarsCompassion from './Modules/Items/EonarsCompassion';
 
 import StatsDisplay from './Modules/Features/StatsDisplay';
+import TalentsDisplay from './Modules/Features/TalentsDisplay';
 
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
@@ -164,6 +165,7 @@ class CombatLogParser {
     eonarsCompassion : EonarsCompassion,
 
     statsDisplay: StatsDisplay,
+    talentsDisplay: TalentsDisplay,
 
     // Concordance of the Legionfall
     concordance: Concordance,

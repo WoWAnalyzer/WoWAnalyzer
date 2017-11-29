@@ -200,7 +200,8 @@ class StatTracker extends Analyzer {
       case SPECS.RESTORATION_DRUID:
         return 0.048;
       default:
-        throw new Error('Mastery hasn\'t been implemented for this spec yet.');
+        console.error('Mastery hasn\'t been implemented for this spec yet.');
+        return 0.0;
     }
   }
   get baseVersatilityPercentage() {
@@ -245,7 +246,8 @@ class StatTracker extends Analyzer {
       case SPECS.RESTORATION_DRUID:
         return 66667;
       default:
-        throw new Error('Mastery hasn\'t been implemented for this spec yet.');
+        console.error('Mastery hasn\'t been implemented for this spec yet.');
+        return 99999999;
     }
   }
   masteryPercentage(rating, withBase = false) {

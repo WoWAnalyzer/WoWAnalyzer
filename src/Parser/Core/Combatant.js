@@ -140,6 +140,9 @@ class Combatant extends Entity {
       this._talentsByRow[index] = id;
     });
   }
+  get talents() {
+    return Object.values(this._talentsByRow);
+  }
   _getTalent(row) {
     return this._talentsByRow[row];
   }
