@@ -55,7 +55,9 @@ class DeathFormAbove extends Analyzer {
         return suggest(<Wrapper>          
           Always use <SpellLink id={SPELLS.DEATH_FROM_ABOVE_TALENT.id} /> together with <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> and <SpellLink id={SPELLS.SHADOW_DANCE.id} />. 
           <br /> 
-          Unless you hit multiple targets with your initial <SpellLink id={SPELLS.DEATH_FROM_ABOVE_TALENT.id} /> hit, you should use <SpellLink id={SPELLS.SHADOW_DANCE.id} /> when you are in the air. <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> is usually used before <SpellLink id={SPELLS.DEATH_FROM_ABOVE_TALENT.id} />, but is some cases can also be used in the air. 
+          <SpellLink id={SPELLS.SHADOW_DANCE.id} /> is used when you are in the air, so that you do not loose uptime to the Death from Above animation (achieved by spamming the Shadow Dance button in the air).
+          <br /> 
+          <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> is used before <SpellLink id={SPELLS.DEATH_FROM_ABOVE_TALENT.id} />. 
           </Wrapper>)
           .icon(SPELLS.DEATH_FROM_ABOVE_TALENT.icon)
           .actual(`${actual} Death from Above combos failed.`)
