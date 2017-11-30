@@ -9,6 +9,16 @@ import { Blazballs, JLassie82, Putro } from 'MAINTAINERS';
 
 export default [
   {
+    date: new Date('2017-11-29'),
+    changes: 'Upgraded spec completeness to great.',
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2017-11-29'),
+    changes: <Wrapper>Updated <SpellLink id={SPELLS.TRICK_SHOT_TALENT.id} /> to properly account for both single-target and cleave damage, added support for tier 21, and fixed a bug in the <SpellLink id={SPELLS.TRUESHOT.id} /> module where it counted too many <SpellLink id={SPELLS.AIMED_SHOT.id} />s than it should.</Wrapper>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2017-11-17'),
     changes: 'Updated changelog to new format.',
     contributors: [Putro],

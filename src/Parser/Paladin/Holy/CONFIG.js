@@ -23,7 +23,7 @@ export default {
       If you want to learn more about Holy Paladins, join the Paladin community at the Hammer of Wrath discord: <a href="https://discordapp.com/invite/hammerofwrath" target="_blank" rel="noopener noreferrer">https://discordapp.com/invite/hammerofwrath</a>. The <kbd>#holy-faq</kbd> channel has a lot of useful information including links to good guides.
     </div>
   ),
-  // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
+  // good = it matches most common manual reviews in class discords, great = it support all important class features
   completeness: SPEC_ANALYSIS_COMPLETENESS.GREAT,
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/milestone/2',
 

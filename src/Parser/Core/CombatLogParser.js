@@ -33,6 +33,9 @@ import SpellManaCost from './Modules/SpellManaCost';
 
 import DistanceMoved from './Modules/Others/DistanceMoved';
 
+import StatsDisplay from './Modules/Features/StatsDisplay';
+import TalentsDisplay from './Modules/Features/TalentsDisplay';
+
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
 // Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';
@@ -68,8 +71,8 @@ import TarratusKeystone from './Modules/Items/TarratusKeystone';
 import HighFathersMachination from './Modules/Items/HighfathersMachination';
 import EonarsCompassion from './Modules/Items/EonarsCompassion';
 
-import StatsDisplay from './Modules/Features/StatsDisplay';
-import TalentsDisplay from './Modules/Features/TalentsDisplay';
+// T21 Dps Trinkets
+import SeepingScourgewing from './Modules/Items/SeepingScourgewing';
 
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
@@ -129,6 +132,9 @@ class CombatLogParser {
 
     critEffectBonus: CritEffectBonus,
 
+    statsDisplay: StatsDisplay,
+    talentsDisplay: TalentsDisplay,
+
     // Items:
     // Legendaries:
     prydaz: Prydaz,
@@ -163,9 +169,9 @@ class CombatLogParser {
     highfathersMachinations: HighFathersMachination,
     eonarsCompassion : EonarsCompassion,
 
-    statsDisplay: StatsDisplay,
-    talentsDisplay: TalentsDisplay,
-
+    // T21 DPS Trinkets
+    seepingScourgewing: SeepingScourgewing,
+    
     // Concordance of the Legionfall
     concordance: Concordance,
     // Netherlight Crucible Traits
