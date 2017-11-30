@@ -327,10 +327,11 @@ class BaseHealerStatValues extends Analyzer {
     }
   }
   moreInformationLink = null;
+  extraPanelOrder = 200;
   extraPanel() {
     const results = this._prepareResults();
     return (
-      <div className="panel items" key="BaseHealerStatValues">
+      <div className="panel items">
         <div className="panel-heading">
           <h2>
             <dfn data-tip="These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat values.">Stat Values</dfn>
@@ -369,9 +370,6 @@ class BaseHealerStatValues extends Analyzer {
                           height: '1.6em',
                           width: '1.6em',
                           marginRight: 10,
-                          marginTop: -3,
-                          marginBottom: -2,
-                          verticalAlign: 'text-bottom',
                         }}
                       />{' '}
                       {tooltip ? <dfn data-tip={tooltip}>{getName(stat)}</dfn> : getName(stat)}
