@@ -172,6 +172,11 @@ export default {
     name: 'Shadow Dance',
     icon: 'ability_rogue_shadowdance',
   }, 
+  MASTER_ASSASSINS_INITIATIVE_BUFF: {
+    id: 235027,
+    name: 'Master Assassin\'s Initiative',
+    icon: 'inv_weapon_shortblade_25',
+  },
   // Sets  
 
   //Tooltips for T20 are swapped on Wowhead.
