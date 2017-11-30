@@ -19,8 +19,9 @@ class DeathFormAbove extends Analyzer {
   failedCombos = 0;
   
   on_initialized() {
-    this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.DEATH_FROM_ABOVE_TALENT.id);
-    this.hasDarkShadow = this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.DARK_SHADOW_TALENT.id);
+    //Everyone plays Dark Shadow, so I'm not supporting non-dark shadow and just disabling this.
+    this.active = this.combatants.selected.hasTalent(SPELLS.DEATH_FROM_ABOVE_TALENT.id)
+      && this.combatants.selected.hasTalent(SPELLS.DARK_SHADOW_TALENT.id);
   }
   
   
@@ -35,15 +36,15 @@ class DeathFormAbove extends Analyzer {
 
   on_byPlayer_damage(event) {
     //Skip non dfa events
-    if(event.timestamp > this.dfaTimestamp + this.dfaMaxWindow) return;
+    if(event.timestamp > this.dfaTimestamp + this.dfaMaxWindow || event.timestamp < this.dfaTimestamp) return;
 
     //Find Eviscerate inside DFA
     const spellId = event.ability.guid;
     if(spellId !== SPELLS.EVISCERATE.id) return;
 
-    //If the Dfa Eviscerate hits without Symbols or Dark Shadow DFA - we have a problem!
+    //If the Dfa Eviscerate hits without Symbols or Dark Shadow Dance - we have a problem!
     if (!this.combatants.selected.hasBuff(SPELLS.SYMBOLS_OF_DEATH.id) 
-    || ( this.hasDarkShadow && !this.combatants.selected.hasBuff(SPELLS.SHADOW_DANCE_BUFF.id) )) {
+    || !this.combatants.selected.hasBuff(SPELLS.SHADOW_DANCE_BUFF.id)) {
       this.failedCombos += 1;    
     }   
   }
