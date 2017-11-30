@@ -135,6 +135,17 @@ export default {
     name: 'T20 4 set bonus',
     icon: 'ability_hunter_fervor',
   },
+  HUNTER_BM_T21_2P_BONUS: {
+    id: 251755,
+    name: 'T21 2 set bonus',
+    icon: 'ability_hunter_focusedaim',
+  },
+  HUNTER_BM_T21_4P_BONUS: {
+    id: 251756,
+    name: 'T21 4 set bonus',
+    icon: 'ability_hunter_focusedaim',
+  },
+
 
   // MarksmanshipHunter:
   // Marksmanship spells
@@ -237,6 +248,16 @@ export default {
     id: 246153,
     name: 'T20 4 set bonus',
     icon: 'inv_spear_07',
+  },
+  HUNTER_MM_T21_2P_BONUS: {
+    id: 251754,
+    name: 'T21 2 set bonus',
+    icon: 'ability_hunter_focusedaim',
+  },
+  HUNTER_MM_T21_4P_BONUS: {
+    id: 251753,
+    name: 'T21 4 set bonus',
+    icon: 'ability_hunter_focusedaim',
   },
 
   // Marksmanship artifact traits

@@ -27,6 +27,8 @@ class Trueshot extends Analyzer {
   startFocusForCombatant = 0;
   prepullTrueshots = 0;
 
+  _primaryTargets = [];
+
   on_byPlayer_applybuff(event) {
     const buffId = event.ability.guid;
     if (buffId !== SPELLS.TRUESHOT.id || !event.prepull) {
@@ -47,13 +49,23 @@ class Trueshot extends Analyzer {
         }
       });
     }
-    const buffId = event.ability.guid;
-    if (buffId === SPELLS.TRUESHOT.id) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.TRUESHOT.id && spellId !== SPELLS.AIMED_SHOT.id) {
+      return false;
+    }
+    if (spellId === SPELLS.TRUESHOT.id) {
       this.trueshotCasts += 1;
       this.accumulatedFocusAtTSCast += event.classResources[0]['amount'] || 0;
       if (this.combatants.selected.hasBuff(SPELLS.BULLSEYE_TRAIT.id, event.timestamp)) {
         this.executeTrueshots += 1;
       }
+    }
+    if (spellId === SPELLS.AIMED_SHOT.id) {
+      this._primaryTargets.push({
+        timestampe: event.timestamp,
+        targetID: event.targetID,
+        instance: event.targetInstance,
+      });
     }
   }
 
@@ -64,18 +76,20 @@ class Trueshot extends Analyzer {
     if (!this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id, event.timestamp)) {
       return;
     }
-    this.totalCastsPrTS += 1;
-    if (isCrit) {
-      this.totalCritsInTS += 1;
-      if (spellId === SPELLS.AIMED_SHOT.id) {
-        this.aimedCritsInTS += 1;
-      }
-    }
     if (spellId !== SPELLS.AIMED_SHOT.id) {
       return;
     }
-    this.aimedShotsPrTS += 1;
-
+    const primaryTargetEventIndex = this._primaryTargets.findIndex(primary => primary.targetID === event.targetID && primary.targetInstance === event.targetInstance);
+    if (primaryTargetEventIndex !== -1) {
+      this.totalCastsPrTS += 1;
+      if (isCrit) {
+        this.totalCritsInTS += 1;
+        if (spellId === SPELLS.AIMED_SHOT.id) {
+          this.aimedCritsInTS += 1;
+        }
+      }
+      this.aimedShotsPrTS += 1;
+    }
   }
 
   statistic() {
