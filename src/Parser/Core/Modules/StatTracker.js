@@ -196,6 +196,8 @@ class StatTracker extends Analyzer {
         return 0.2;
       case SPECS.RESTORATION_DRUID:
         return 0.048;
+      case SPECS.RETRIBUTION_PALADIN:
+        return 0.12;
       default:
         throw new Error('Mastery hasn\'t been implemented for this spec yet.');
     }
@@ -235,6 +237,8 @@ class StatTracker extends Analyzer {
         return 13333;
       case SPECS.RESTORATION_DRUID:
         return 66667;
+      case SPECS.RETRIBUTION_PALADIN:
+        return 15500;
       default:
         throw new Error('Mastery hasn\'t been implemented for this spec yet.');
     }
