@@ -7,7 +7,7 @@ import ItemLink from 'common/ItemLink';
 
 export default [
   {
-    date: new Date('2017-11-16'),
+    date: new Date('2017-11-29'),
     changes: <Wrapper>Added in T21 2 set and 4 set healing contribution values.</Wrapper>,
     contributors: [Anomoly],
   },
