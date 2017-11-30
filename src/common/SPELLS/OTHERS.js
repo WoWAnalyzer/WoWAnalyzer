@@ -242,14 +242,14 @@ export default {
     name: 'Tarratus Keystone',
     icon: 'inv__wod_arakoa4',
   },
- AMANTHULS_PRESENCEBUFF: {
+  HIGHFATHERS_TIMEKEEPINGBUFF: {
     id: 253287,
-    name: 'Aman Thul\'s Presence',
+    name: 'Highfather\'s Timekeeping',
     icon: 'spell_priest_psyfiend',
   },
-  AMANTHULS_PRESENCEHEAL: {
+  HIGHFATHERS_TIMEKEEPINGHEAL: {
     id: 253288,
-    name: 'Aman Thul\'s Presence',
+    name: 'Highfather\'s Timekeeping',
     icon: 'spell_priest_psyfiend',
   },
   EONARS_COMPASSION_HEAL: {
@@ -296,6 +296,17 @@ export default {
     id: 257475,
     name: 'Eonar\'s Verdant Embrace',
     icon: 'talentspec_druid_restoration',
+  },
+  //T21 Dps Trinket
+  SHADOW_STRIKE: { //Seeping Scourewing Base Damage
+    id: 253324,
+    name: 'Shadow Strike',
+    icon: 'ability_creature_poison_03',
+  },
+  ISOLATED_STRIKE: {
+    id: 255609,
+    name: 'Isolated Strike',
+    icon: 'ability_creature_poison_03',
   },
 
   // Item Abilities
