@@ -7,6 +7,11 @@ import ItemLink from 'common/ItemLink';
 
 export default [
   {
+    date: new Date('2017-11-29'),
+    changes: <Wrapper>Added in T21 2 set and 4 set healing contribution values.</Wrapper>,
+    contributors: [Anomoly],
+  },
+  {
     date: new Date('2017-11-16'),
     changes: <Wrapper>Fix crash when using <ItemLink id={ITEMS.FOCUSER_OF_JONAT.id}/>.</Wrapper>,
     contributors: [Zerotorescue],
