@@ -4,7 +4,6 @@ import SuggestionsTab from 'Main/SuggestionsTab';
 import ChangelogTab from 'Main/ChangelogTab';
 import ChangelogTabTitle from 'Main/ChangelogTabTitle';
 import Tab from 'Main/Tab';
-import Talents from 'Main/Talents';
 import TimelineTab from 'Main/Timeline/TimelineTab';
 
 import { formatNumber, formatPercentage } from 'common/format';
@@ -33,6 +32,9 @@ import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
 
 import DistanceMoved from './Modules/Others/DistanceMoved';
+
+import StatsDisplay from './Modules/Features/StatsDisplay';
+import TalentsDisplay from './Modules/Features/TalentsDisplay';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
 // Shared Legendaries
@@ -68,8 +70,10 @@ import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
 import TarratusKeystone from './Modules/Items/TarratusKeystone';
 import HighFathersMachination from './Modules/Items/HighfathersMachination';
 import EonarsCompassion from './Modules/Items/EonarsCompassion';
+
 // T21 Dps Trinkets
 import SeepingScourgewing from './Modules/Items/SeepingScourgewing';
+
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
 import VantusRune from './Modules/Spells/VantusRune';
@@ -127,6 +131,9 @@ class CombatLogParser {
     distanceMoved: DistanceMoved,
 
     critEffectBonus: CritEffectBonus,
+
+    statsDisplay: StatsDisplay,
+    talentsDisplay: TalentsDisplay,
 
     // Items:
     // Legendaries:
@@ -419,16 +426,6 @@ class CombatLogParser {
         render: () => <SuggestionsTab issues={results.issues} />,
       },
       {
-        title: 'Talents',
-        url: 'talents',
-        order: 1,
-        render: () => (
-          <Tab title="Talents">
-            <Talents combatant={this.modules.combatants.selected} />
-          </Tab>
-        ),
-      },
-      {
         title: 'Timeline',
         url: 'timeline',
         order: 2,
@@ -451,9 +448,12 @@ class CombatLogParser {
       },
     ];
 
-    this.activeModules
-      .sort((a, b) => b.priority - a.priority)
-      .forEach((module) => {
+    Object.keys(this._modules)
+      .filter(key => this._modules[key].active)
+      .sort((a, b) => this._modules[b].priority - this._modules[a].priority)
+      .forEach(key => {
+        const module = this._modules[key];
+
         if (module.statistic) {
           const statistic = module.statistic();
           if (statistic) {
@@ -472,7 +472,11 @@ class CombatLogParser {
         if (module.extraPanel) {
           const extraPanel = module.extraPanel();
           if (extraPanel) {
-            results.extraPanels.push(extraPanel);
+            results.extraPanels.push({
+              name: key,
+              order: module.extraPanelOrder,
+              content: extraPanel,
+            });
           }
         }
         if (module.tab) {

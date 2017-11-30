@@ -81,6 +81,7 @@ class StatTracker extends Analyzer {
   _currentStats = {};
 
   on_initialized() {
+    // TODO: Use combatantinfo event directly
     this._pullStats = {
       strength: this.combatants.selected.strength,
       agility: this.combatants.selected.agility,
@@ -94,7 +95,9 @@ class StatTracker extends Analyzer {
       leech: this.combatants.selected.leechRating,
       speed: this.combatants.selected.speedRating,
     };
-    this._currentStats = this._pullStats;
+    this._currentStats = {
+      ...this._pullStats,
+    };
 
     this._debugPrintStats(this._currentStats);
   }
@@ -174,6 +177,7 @@ class StatTracker extends Analyzer {
     return this._currentStats.speed;
   }
 
+  // TODO: I think these should be ratings. They behave like ratings and I think the only reason they're percentages here is because that's how they're **displayed** in-game, but not because it's more correct.
   /*
    * For percentage stats, the percentage you'd have with zero rating.
    * These values don't change.
@@ -197,7 +201,8 @@ class StatTracker extends Analyzer {
       case SPECS.RESTORATION_DRUID:
         return 0.048;
       default:
-        throw new Error('Mastery hasn\'t been implemented for this spec yet.');
+        console.error('Mastery hasn\'t been implemented for this spec yet.');
+        return 0.0;
     }
   }
   get baseVersatilityPercentage() {
@@ -220,8 +225,14 @@ class StatTracker extends Analyzer {
   get critRatingPerPercent() {
     return 40000;
   }
+  critPercentage(rating, withBase = false) {
+    return (withBase ? this.baseCritPercentage : 0) + rating / this.critRatingPerPercent;
+  }
   get hasteRatingPerPercent() {
     return 37500;
+  }
+  hastePercentage(rating, withBase = false) {
+    return (withBase ? this.baseHastePercentage : 0) + rating / this.hasteRatingPerPercent;
   }
   get masteryRatingPerPercent() {
     switch (this.combatants.selected.spec) {
@@ -236,45 +247,61 @@ class StatTracker extends Analyzer {
       case SPECS.RESTORATION_DRUID:
         return 66667;
       default:
-        throw new Error('Mastery hasn\'t been implemented for this spec yet.');
+        console.error('Mastery hasn\'t been implemented for this spec yet.');
+        return 99999999;
     }
+  }
+  masteryPercentage(rating, withBase = false) {
+    return (withBase ? this.baseMasteryPercentage : 0) + rating / this.masteryRatingPerPercent;
   }
   get versatilityRatingPerPercent() {
     return 47500;
   }
+  versatilityPercentage(rating, withBase = false) {
+    return (withBase ? this.baseVersatilityPercentage : 0) + rating / this.versatilityRatingPerPercent;
+  }
   get avoidanceRatingPerPercent() {
     return 11000;
+  }
+  avoidancePercentage(rating, withBase = false) {
+    return (withBase ? this.baseAvoidancePercentage : 0) + rating / this.avoidanceRatingPerPercent;
   }
   get leechRatingPerPercent() {
     return 23000;
   }
+  leechPercentage(rating, withBase = false) {
+    return (withBase ? this.baseLeechPercentage : 0) + rating / this.leechRatingPerPercent;
+  }
   get speedRatingPerPercent() {
-    throw new Error('Speed hasn\'t been implemented yet.');
+    return 8000;
+  }
+  speedPercentage(rating, withBase = false) {
+    return (withBase ? this.baseSpeedPercentage : 0) + rating / this.speedRatingPerPercent;
   }
 
   /*
    * For percentage stats, the current stat percentage as tracked by this module.
    */
   get currentCritPercentage() {
-    return this.baseCritPercentage + (this.currentCritRating / this.critRatingPerPercent);
+    return this.critPercentage(this.currentCritRating, true);
   }
   get currentHastePercentage() {
-    return this.baseHastePercentage + (this.currentHasteRating / this.hasteRatingPerPercent);
+    return this.hastePercentage(this.currentHasteRating, true);
   }
   get currentMasteryPercentage() {
-    return this.baseMasteryPercentage + (this.currentMasteryRating / this.masteryRatingPerPercent);
+    return this.masteryPercentage(this.currentMasteryRating, true);
   }
   get currentVersatilityPercentage() {
-    return this.baseVersatilityPercentage + (this.currentVersatilityRating / this.versatilityRatingPerPercent);
+    return this.versatilityPercentage(this.currentVersatilityRating, true);
   }
   get currentAvoidancePercentage() {
-    return this.baseAvoidancePercentage + (this.currentAvoidanceRating / this.avoidanceRatingPerPercent);
+    return this.avoidancePercentage(this.currentAvoidanceRating, true);
   }
   get currentLeechPercentage() {
-    return this.baseLeechPercentage + (this.currentLeechRating / this.leechRatingPerPercent);
+    return this.leechPercentage(this.currentLeechRating, true);
   }
   get currentSpeedPercentage() {
-    return this.baseSpeedPercentage + (this.currentSpeedRating / this.speedRatingPerPercent);
+    return this.speedPercentage(this.currentSpeedRating, true);
   }
 
   on_toPlayer_changebuffstack(event) {
