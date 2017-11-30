@@ -12,7 +12,6 @@ class DeathFormAbove extends Analyzer {
     combatants: Combatants,
   };
 
-  hasDarkShadow = false;
   dfaTimestamp = 0;
   dfaMaxWindow = 3000;
 
