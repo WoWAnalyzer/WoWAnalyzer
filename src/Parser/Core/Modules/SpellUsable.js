@@ -5,7 +5,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import Abilities from './Abilities';
 
-const debug = false;
+const debug = true;
 
 function spellName(spellId) {
   return SPELLS[spellId] ? SPELLS[spellId].name : '???';

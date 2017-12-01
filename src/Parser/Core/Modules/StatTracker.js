@@ -249,7 +249,7 @@ class StatTracker extends Analyzer {
       case SPECS.RESTORATION_DRUID:
         return 66667;
       case SPECS.RETRIBUTION_PALADIN:
-        return 15500;
+        return 21400;
       default:
         console.error('Mastery hasn\'t been implemented for this spec yet.');
         return 99999999;
