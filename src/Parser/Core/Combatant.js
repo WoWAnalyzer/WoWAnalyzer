@@ -86,6 +86,8 @@ class Combatant extends Entity {
         return 0.2 + this.masteryRating / 13333.3333333;
 	    case SPECS.RESTORATION_DRUID:
 	      return 0.048 + this.masteryRating / 66666.6666666;
+      case SPECS.RETRIBUTION_PALADIN:
+        return 0.14 + this.masteryRating / 22850;
       default:
         throw new Error('Mastery hasn\'t been implemented for this spec yet.');
     }
