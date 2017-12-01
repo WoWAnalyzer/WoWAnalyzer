@@ -30,7 +30,7 @@ import Skjoldr from './Modules/Items/Skjoldr';
 import Xalan from './Modules/Items/Xalan';
 import NeroBandOfPromises from './Modules/Items/NeroBandOfPromises';
 import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedallion';
-import CarafeOfSearingLight from './Modules/Items/CarafeOfSearingLight'
+import CarafeOfSearingLight from './Modules/Items/CarafeOfSearingLight';
 import MarchOfTheLegion from './Modules/Items/MarchOfTheLegion';
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import ITEMS from 'common/ITEMS';
-import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -11,7 +10,7 @@ import isAtonement from '../Core/isAtonement';
 
 class CarafeOfSearingLight extends Analyzer {
   static dependencies = {
-    combatants: Combatants
+    combatants: Combatants,
   };
 
   lastDamageEventIsTrinketDot = false;
@@ -63,7 +62,7 @@ class CarafeOfSearingLight extends Analyzer {
         <dfn>
           {this.owner.formatItemDamageDone(damage)} <br/>
           {this.owner.formatItemHealingDone(healing)} <br/>
-          {formatThousands(this.manaGained)} mana gained ({formatThousands(this.manaGained / this.owner.fightDuration * 1000 * 5)} MP5)
+          {formatThousands(manaGained)} mana gained ({formatThousands(this.manaGained / this.owner.fightDuration * 1000 * 5)} MP5)
         </dfn>
       ),
     };
