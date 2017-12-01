@@ -19,6 +19,7 @@ import EssenceOfInfusion from './Modules/Items/EssenceOfInfusion';
 import SoulOfTheArchdruid from './Modules/Items/SoulOfTheArchdruid';
 import Tearstone from './Modules/Items/Tearstone';
 import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
+import CarafeOfSearingLight from './Modules/Items/CarafeOfSearingLight';
 
 import T19_2Set from './Modules/Items/T19_2Set';
 import T20_2Set from './Modules/Items/T20_2Set';
@@ -119,6 +120,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Shared:
     darkmoonDeckPromises: DarkmoonDeckPromises,
+    carafeOfSearingLight: CarafeOfSearingLight,
 
     // Traits
     RelicTraits: RelicTraits,

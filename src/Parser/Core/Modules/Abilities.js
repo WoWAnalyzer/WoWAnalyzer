@@ -115,6 +115,13 @@ class Abilities extends Analyzer {
       getCooldown: haste => 60, // TODO: add detection if target has died and reduced cooldown
       isActive: combatant => combatant.hasTrinket(ITEMS.VIAL_OF_CEASELESS_TOXINS.id),
     },
+    {
+      spell: SPELLS.REFRESHING_AGONY_DOT,
+      name: ITEMS.CARAFE_OF_SEARING_LIGHT.name,
+      category: Abilities.SPELL_CATEGORIES.ITEMS,
+      getCooldown: haste => 60,
+      isActive: combatant => combatant.hasTrinket(ITEMS.CARAFE_OF_SEARING_LIGHT.id),
+    },
   ];
 
   /*

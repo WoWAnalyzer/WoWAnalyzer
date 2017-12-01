@@ -586,4 +586,17 @@ export default {
     name: 'Concordance of the Legionfall',
     icon: 'achievement_faction_legionfall',
   },
+  // Dot spell for Carafe of Searing Light
+  REFRESHING_AGONY_DOT: {
+    id: 253284,
+    name: 'Refreshing Agony',
+    icon: 'ability_priest_flashoflight',
+  },
+  // Mana return spell for Carafe of Searing Light
+  REFRESHING_AGONY_MANA: {
+    id: 255981,
+    name: 'Refreshing Agonyt',
+    icon: 'ability_priest_flashoflight',
+  },
+
 };
