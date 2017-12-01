@@ -72,6 +72,8 @@ import TarratusKeystone from './Modules/Items/TarratusKeystone';
 import HighFathersMachination from './Modules/Items/HighfathersMachination';
 import EonarsCompassion from './Modules/Items/EonarsCompassion';
 import GarothiFeedbackConduit from './Modules/Items/GarothiFeedbackConduit';
+import CarafeOfSearingLight from './Modules/Items/CarafeOfSearingLight';
+
 
 // T21 Dps Trinkets
 import SeepingScourgewing from './Modules/Items/SeepingScourgewing';
@@ -171,10 +173,11 @@ class CombatLogParser {
     highfathersMachinations: HighFathersMachination,
     eonarsCompassion : EonarsCompassion,
     garothiFeedbackConduit: GarothiFeedbackConduit,
-
+    carafeOfSearingLight: CarafeOfSearingLight,
+    
     // T21 DPS Trinkets
     seepingScourgewing: SeepingScourgewing,
-    
+
     // Concordance of the Legionfall
     concordance: Concordance,
     // Netherlight Crucible Traits

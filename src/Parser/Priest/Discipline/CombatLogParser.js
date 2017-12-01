@@ -30,6 +30,7 @@ import Skjoldr from './Modules/Items/Skjoldr';
 import Xalan from './Modules/Items/Xalan';
 import NeroBandOfPromises from './Modules/Items/NeroBandOfPromises';
 import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedallion';
+import CarafeOfSearingLight from './Modules/Items/CarafeOfSearingLight';
 import MarchOfTheLegion from './Modules/Items/MarchOfTheLegion';
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
@@ -84,6 +85,7 @@ class CombatLogParser extends CoreCombatLogParser {
     xalan: Xalan,
     neroBandOfPromises: NeroBandOfPromises,
     tarnishedSentinelMedallion: TarnishedSentinelMedallion,
+    carafeOfSearingLight: CarafeOfSearingLight,
     marchOfTheLegion: MarchOfTheLegion,
     tier20_2set: Tier20_2set,
     tier20_4set: Tier20_4set,
