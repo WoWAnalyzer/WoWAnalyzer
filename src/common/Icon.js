@@ -14,7 +14,7 @@ const Icon = ({ icon, alt, ...other }) => {
 
   return (
     <img
-      src={`//blzmedia-a.akamaihd.net/wow/icons/56/${icon}.jpg`}
+      src={`//render-us.worldofwarcraft.com/icons/56/${icon}.jpg`}
       alt={alt || icon}
       {...other}
     />
