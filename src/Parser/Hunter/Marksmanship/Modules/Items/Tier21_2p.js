@@ -9,7 +9,7 @@ import { formatNumber } from 'common/format';
 
 const T21_2P_DMG_BONUS = 0.3;
 
-class Tier20_2p extends Analyzer {
+class Tier21_2p extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
@@ -127,4 +127,4 @@ class Tier20_2p extends Analyzer {
   }
 }
 
-export default Tier20_2p;
+export default Tier21_2p;
