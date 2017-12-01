@@ -17,6 +17,8 @@ import DarkShadowEvis from "./Modules/Talents/DarkShadow/DarkShadowEvis";
 import DeathFormAbove from "./Modules/Talents/DFA/DeathFormAbove";
 import NightbladeDuringSymbols from './Modules/BaseRotation/NightbladeDuringSymbols';
 import CastsInShadowDance from './Modules/BaseRotation/CastsInShadowDance';
+import MantleDamageTracker from './Modules/Legendaries/MantleDamageTracker';
+import DeathFormAboveMantle from './Modules/Talents/DFA/DeathFormAboveMantle';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -35,11 +37,13 @@ class CombatLogParser extends CoreCombatLogParser {
     //Trackers
     symbolsDamageTracker: SymbolsDamageTracker,
     danceDamageTracker: DanceDamageTracker,
+    mantleDamageTracker: MantleDamageTracker,
 
     //Casts
     nightbladeDuringSymbols: NightbladeDuringSymbols,
     castsInShadowDance: CastsInShadowDance,
     deathFormAbove: DeathFormAbove,
+    deathFormAboveMantle: DeathFormAboveMantle,
     
     //Talents
     darkShadowContribution: DarkShadowContribution,

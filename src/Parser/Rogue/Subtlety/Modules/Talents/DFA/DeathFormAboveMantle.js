@@ -1,19 +1,16 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Wrapper from 'common/Wrapper';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage, formatNumber } from 'common/format';
-
+import ItemLink from 'common/ItemLink';
+import { formatPercentage } from 'common/format';
 
 import DamageTracker from 'Parser/Core/Modules/AbilityTracker';
-
 import MantleDamageTracker from './../../Legendaries/MantleDamageTracker';
 
 class DeathFormAboveMantle extends Analyzer {
@@ -21,26 +18,24 @@ class DeathFormAboveMantle extends Analyzer {
         damageTracker: DamageTracker,
         mantleDamageTracker: MantleDamageTracker,
 		combatants: Combatants,
-    };
-    
+    };    
 
 	on_initialized() {
         this.active = this.combatants.selected.hasTalent(SPELLS.DEATH_FROM_ABOVE_TALENT.id)
         && this.combatants.selected.hasShoulder(ITEMS.MANTLE_OF_THE_MASTER_ASSASSIN.id);
     }
-
     
 	suggestions(when) {
-        const totalDfa = this.damageTracker.getAbility(SPELLS.DEATH_FROM_ABOVE_TALENT.id);
-        const buffedDfa = this.mantleDamageTracker.getAbility(SPELLS.DEATH_FROM_ABOVE_TALENT.id);
+        const totalDfa = this.damageTracker.getAbility(SPELLS.DEATH_FROM_ABOVE_TALENT.id).casts;
+        const buffedDfa = this.mantleDamageTracker.getAbility(SPELLS.DEATH_FROM_ABOVE_TALENT.id).casts;
 		const buffedShare = buffedDfa / totalDfa;
-		when(buffedShare).isLessTh2n(0.05)
+		when(buffedShare).isLessThan(0.25)
 			.addSuggestion((suggest,actual,recommended) => {
-				return suggest(<Wrapper> When using Mantle, Make sure you delay vanish for the next <SpellLink id={SPELLS.DEATH_FROM_ABOVE_TALENT.id} />.</Wrapper>)
+				return suggest(<Wrapper> When using <ItemLink id={ITEMS.MANTLE_OF_THE_MASTER_ASSASSIN.id} />, use <SpellLink id={SPELLS.VANISH.id} /> before <SpellLink id={SPELLS.DEATH_FROM_ABOVE_TALENT.id} /> combo.</Wrapper>)
 					.icon(ITEMS.MANTLE_OF_THE_MASTER_ASSASSIN.icon)
-					.actual(`${formatPercentage(actual)} % of Death From Above was cast with mantle buff.`)
-					.recommended(`<${formatPercentage(recommended)}% is recommended`)
-					.regular(recommended + 0.05).major(recommended + 0.1);
+					.actual(`${formatPercentage(actual)}% of Death from Above was cast with mantle buff.`)
+					.recommended(`>${formatPercentage(recommended)} % is recommended`)
+					.regular(recommended + 0.025).major(recommended + 0.05);
 			});
 	}
 }
