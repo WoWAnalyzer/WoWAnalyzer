@@ -10,7 +10,7 @@ export default {
   // TODO: Make maintainer an array
   maintainers: [Khazak],
 
-  // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
+  // good = it matches most common manual reviews in class discords, great = it support all important class features
   completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK,
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/601',
   

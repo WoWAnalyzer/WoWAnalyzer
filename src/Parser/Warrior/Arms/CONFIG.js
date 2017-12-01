@@ -16,7 +16,7 @@ export default {
       Hey I've been hard at work making this analyzer for you. I hope the suggestions give you useful pointers to improve your performance. Remember: focus on improving only one or two important things at a time. Improving isn't easy and will need your full focus until it becomes second nature to you.<br /><br />
       </div>
   ),
-  // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
+  // good = it matches most common manual reviews in class discords, great = it support all important class features
   completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK,
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/579',
 

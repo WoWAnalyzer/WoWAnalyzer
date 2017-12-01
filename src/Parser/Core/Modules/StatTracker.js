@@ -77,11 +77,12 @@ class StatTracker extends Analyzer {
     // endregion
   };
 
-  _startingStats = {};
-  _stats = {};
+  _pullStats = {};
+  _currentStats = {};
 
   on_initialized() {
-    this._startingStats = {
+    // TODO: Use combatantinfo event directly
+    this._pullStats = {
       strength: this.combatants.selected.strength,
       agility: this.combatants.selected.agility,
       intellect: this.combatants.selected.intellect,
@@ -94,9 +95,11 @@ class StatTracker extends Analyzer {
       leech: this.combatants.selected.leechRating,
       speed: this.combatants.selected.speedRating,
     };
-    this._stats = this._startingStats;
+    this._currentStats = {
+      ...this._pullStats,
+    };
 
-    debug && this._debugPrintStats(this._stats);
+    this._debugPrintStats(this._currentStats);
   }
 
   /*
@@ -104,76 +107,77 @@ class StatTracker extends Analyzer {
    * Should be identical to what you get from Combatant.
    */
   get startingStrengthRating() {
-    return this._startingStats.strength;
+    return this._pullStats.strength;
   }
   get startingAgilityRating() {
-    return this._startingStats.agility;
+    return this._pullStats.agility;
   }
   get startingIntellectRating() {
-    return this._startingStats.intellect;
+    return this._pullStats.intellect;
   }
   get startingStaminaRating() {
-    return this._startingStats.stamina;
+    return this._pullStats.stamina;
   }
   get startingCritRating() {
-    return this._startingStats.crit;
+    return this._pullStats.crit;
   }
   get startingHasteRating() {
-    return this._startingStats.haste;
+    return this._pullStats.haste;
   }
   get startingMasteryRating() {
-    return this._startingStats.mastery;
+    return this._pullStats.mastery;
   }
   get startingVersatilityRating() {
-    return this._startingStats.versatility;
+    return this._pullStats.versatility;
   }
   get startingAvoidanceRating() {
-    return this._startingStats.avoidance;
+    return this._pullStats.avoidance;
   }
   get startingLeechRating() {
-    return this._startingStats.leech;
+    return this._pullStats.leech;
   }
   get startingSpeedRating() {
-    return this._startingStats.speed;
+    return this._pullStats.speed;
   }
 
   /*
    * Current stat rating, as tracked by this module.
    */
   get currentStrengthRating() {
-    return this._stats.strength;
+    return this._currentStats.strength;
   }
   get currentAgilityRating() {
-    return this._stats.agility;
+    return this._currentStats.agility;
   }
   get currentIntellectRating() {
-    return this._stats.intellect;
+    return this._currentStats.intellect;
   }
   get currentStaminaRating() {
-    return this._stats.stamina;
+    return this._currentStats.stamina;
   }
   get currentCritRating() {
-    return this._stats.crit;
+    return this._currentStats.crit;
   }
   get currentHasteRating() {
-    return this._stats.haste;
+    return this._currentStats.haste;
   }
   get currentMasteryRating() {
-    return this._stats.mastery;
+    return this._currentStats.mastery;
   }
   get currentVersatilityRating() {
-    return this._stats.versatility;
+    return this._currentStats.versatility;
   }
   get currentAvoidanceRating() {
-    return this._stats.avoidance;
+    return this._currentStats.avoidance;
   }
   get currentLeechRating() {
-    return this._stats.leech;
+    return this._currentStats.leech;
   }
   get currentSpeedRating() {
-    return this._stats.speed;
+    return this._currentStats.speed;
   }
 
+  // TODO: I think these should be ratings. They behave like ratings and I think the only reason they're percentages here is because that's how they're **displayed** in-game, but not because it's more correct.
   /*
    * For percentage stats, the percentage you'd have with zero rating.
    * These values don't change.
@@ -196,8 +200,11 @@ class StatTracker extends Analyzer {
         return 0.2;
       case SPECS.RESTORATION_DRUID:
         return 0.048;
+      case SPECS.WINDWALKER_MONK:
+        return 0.1;
       default:
-        throw new Error('Mastery hasn\'t been implemented for this spec yet.');
+        console.error('Mastery hasn\'t been implemented for this spec yet.');
+        return 0.0;
     }
   }
   get baseVersatilityPercentage() {
@@ -220,8 +227,14 @@ class StatTracker extends Analyzer {
   get critRatingPerPercent() {
     return 40000;
   }
+  critPercentage(rating, withBase = false) {
+    return (withBase ? this.baseCritPercentage : 0) + rating / this.critRatingPerPercent;
+  }
   get hasteRatingPerPercent() {
     return 37500;
+  }
+  hastePercentage(rating, withBase = false) {
+    return (withBase ? this.baseHastePercentage : 0) + rating / this.hasteRatingPerPercent;
   }
   get masteryRatingPerPercent() {
     switch (this.combatants.selected.spec) {
@@ -235,46 +248,64 @@ class StatTracker extends Analyzer {
         return 13333;
       case SPECS.RESTORATION_DRUID:
         return 66667;
+      case SPECS.WINDWALKER_MONK:
+        return 32000;
       default:
-        throw new Error('Mastery hasn\'t been implemented for this spec yet.');
+        console.error('Mastery hasn\'t been implemented for this spec yet.');
+        return 99999999;
     }
+  }
+  masteryPercentage(rating, withBase = false) {
+    return (withBase ? this.baseMasteryPercentage : 0) + rating / this.masteryRatingPerPercent;
   }
   get versatilityRatingPerPercent() {
     return 47500;
   }
+  versatilityPercentage(rating, withBase = false) {
+    return (withBase ? this.baseVersatilityPercentage : 0) + rating / this.versatilityRatingPerPercent;
+  }
   get avoidanceRatingPerPercent() {
     return 11000;
+  }
+  avoidancePercentage(rating, withBase = false) {
+    return (withBase ? this.baseAvoidancePercentage : 0) + rating / this.avoidanceRatingPerPercent;
   }
   get leechRatingPerPercent() {
     return 23000;
   }
+  leechPercentage(rating, withBase = false) {
+    return (withBase ? this.baseLeechPercentage : 0) + rating / this.leechRatingPerPercent;
+  }
   get speedRatingPerPercent() {
-    throw new Error('Speed hasn\'t been implemented yet.');
+    return 8000;
+  }
+  speedPercentage(rating, withBase = false) {
+    return (withBase ? this.baseSpeedPercentage : 0) + rating / this.speedRatingPerPercent;
   }
 
   /*
    * For percentage stats, the current stat percentage as tracked by this module.
    */
   get currentCritPercentage() {
-    return this.baseCritPercentage + (this.currentCritRating / this.critRatingPerPercent);
+    return this.critPercentage(this.currentCritRating, true);
   }
   get currentHastePercentage() {
-    return this.baseHastePercentage + (this.currentHasteRating / this.hasteRatingPerPercent);
+    return this.hastePercentage(this.currentHasteRating, true);
   }
   get currentMasteryPercentage() {
-    return this.baseMasteryPercentage + (this.currentMasteryRating / this.masteryRatingPerPercent);
+    return this.masteryPercentage(this.currentMasteryRating, true);
   }
   get currentVersatilityPercentage() {
-    return this.baseVersatilityPercentage + (this.currentVersatilityRating / this.versatilityRatingPerPercent);
+    return this.versatilityPercentage(this.currentVersatilityRating, true);
   }
   get currentAvoidancePercentage() {
-    return this.baseAvoidancePercentage + (this.currentAvoidanceRating / this.avoidanceRatingPerPercent);
+    return this.avoidancePercentage(this.currentAvoidanceRating, true);
   }
   get currentLeechPercentage() {
-    return this.baseLeechPercentage + (this.currentLeechRating / this.leechRatingPerPercent);
+    return this.leechPercentage(this.currentLeechRating, true);
   }
   get currentSpeedPercentage() {
-    return this.baseSpeedPercentage + (this.currentSpeedRating / this.speedRatingPerPercent);
+    return this.speedPercentage(this.currentSpeedRating, true);
   }
 
   on_toPlayer_changebuffstack(event) {
@@ -293,14 +324,14 @@ class StatTracker extends Analyzer {
    */
    // For an example of how / why this function would be used, see the CharmOfTheRisingTide module.
   forceChangeStats(change, eventReason) {
-    const before = Object.assign({}, this._stats);
+    const before = Object.assign({}, this._currentStats);
     const delta = this._changeStats(change, 1);
-    const after = Object.assign({}, this._stats);
+    const after = Object.assign({}, this._currentStats);
     this._triggerChangeStats(eventReason, before, delta, after);
     if(debug) {
       const spellName = eventReason && eventReason.ability ? eventReason.ability.name : 'unspecified';
       console.log(`StatTracker: FORCED CHANGE from ${spellName} - Change: ${this._statPrint(delta)}`);
-      this._debugPrintStats(this._stats);
+      this._debugPrintStats(this._currentStats);
     }
   }
 
@@ -315,12 +346,12 @@ class StatTracker extends Analyzer {
         return;
       }
 
-      const before = Object.assign({}, this._stats);
+      const before = Object.assign({}, this._currentStats);
       const delta = this._changeStats(statBuff, event.newStacks - event.oldStacks);
-      const after = Object.assign({}, this._stats);
+      const after = Object.assign({}, this._currentStats);
       this._triggerChangeStats(event, before, delta, after);
       debug && console.log(`StatTracker: (${event.oldStacks} -> ${event.newStacks}) ${SPELLS[spellId] ? SPELLS[spellId].name : spellId} @ ${formatMilliseconds(this.owner.currentTimestamp)} - Change: ${this._statPrint(delta)}`);
-      debug && this._debugPrintStats(this._stats);
+      debug && this._debugPrintStats(this._currentStats);
     }
   }
 
@@ -339,8 +370,8 @@ class StatTracker extends Analyzer {
       speed: this._getBuffValue(change, change.speed) * factor,
     };
 
-    Object.keys(this._stats).forEach(key => {
-      this._stats[key] += delta[key];
+    Object.keys(this._currentStats).forEach(key => {
+      this._currentStats[key] += delta[key];
     });
 
     return delta;
@@ -389,11 +420,11 @@ class StatTracker extends Analyzer {
   }
 
   _debugPrintStats(stats) {
-    console.log(`StatTracker: ${formatMilliseconds(this.owner.currentTimestamp)} - ${this._statPrint(stats)}`);
+    console.log(`StatTracker: ${formatMilliseconds(this.owner.fightDuration)} - ${this._statPrint(stats)}`);
   }
 
   _statPrint(stats) {
-    return `STR=${stats.strength} AGI=${stats.agility} INT=${stats.intellect} STM=${stats.stamina} CRT=${stats.crit} HST=${stats.haste} MST=${stats.mastery} VRS=${stats.versatility} AVD=${this._stats.avoidance} LCH=${stats.leech} SPD=${stats.speed}`;
+    return `STR=${stats.strength} AGI=${stats.agility} INT=${stats.intellect} STM=${stats.stamina} CRT=${stats.crit} HST=${stats.haste} MST=${stats.mastery} VRS=${stats.versatility} AVD=${this._currentStats.avoidance} LCH=${stats.leech} SPD=${stats.speed}`;
   }
 
 }

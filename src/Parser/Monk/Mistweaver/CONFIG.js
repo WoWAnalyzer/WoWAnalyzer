@@ -18,7 +18,7 @@ export default {
     </div>
   ),
 
-  completeness: SPEC_ANALYSIS_COMPLETENESS.GREAT, // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
+  completeness: SPEC_ANALYSIS_COMPLETENESS.GREAT, // good = it matches most common manual reviews in class discords, great = it support all important class features
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/59',
   changelog: CHANGELOG,
   parser: CombatLogParser,

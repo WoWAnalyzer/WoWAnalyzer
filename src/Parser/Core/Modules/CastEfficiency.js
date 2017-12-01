@@ -39,7 +39,7 @@ class CastEfficiency extends Analyzer {
   _getCooldownInfo(ability) {
     const mainSpellId = (ability.spell instanceof Array) ? ability.spell[0].id : ability.spell.id;
     const history = this.spellHistory.historyBySpellId[mainSpellId];
-    if(!history) { // spell either never been cast, or not in abilities list
+    if (!history) { // spell either never been cast, or not in abilities list
       return {
         completedRechargeTime: 0,
         endingRechargeTime: 0,
@@ -53,16 +53,16 @@ class CastEfficiency extends Analyzer {
     const completedRechargeTime = history
       .filter(event => event.type === 'updatespellusable')
       .reduce((acc, event) => {
-        if(event.trigger === 'begincooldown') {
+        if (event.trigger === 'begincooldown') {
           lastRechargeTimestamp = event.timestamp;
           return acc;
-        } else if(event.trigger === 'endcooldown') {
+        } else if (event.trigger === 'endcooldown') {
           const rechargingTime = (event.timestamp - lastRechargeTimestamp) || 0;
           recharges += 1;
           lastRechargeTimestamp = null;
           return acc + rechargingTime;
-        // This might cause oddness if we add anything that externally refreshes charges, but so far nothing does
-        } else if(event.trigger === 'restorecharge') {
+          // This might cause oddness if we add anything that externally refreshes charges, but so far nothing does
+        } else if (event.trigger === 'restorecharge') {
           const rechargingTime = (event.timestamp - lastRechargeTimestamp) || 0;
           recharges += 1;
           lastRechargeTimestamp = event.timestamp;
@@ -96,14 +96,14 @@ class CastEfficiency extends Analyzer {
       .filter(ability => !ability.isActive || ability.isActive(this.combatants.selected))
       .map(ability => {
         const spellId = ability.spell.id;
-        const cooldown = ability.getCooldown(this.combatants.hastePercentage, this.combatants.selected);
+        const cooldown = ability.getCooldown(this.combatants.selected.hastePercentage, this.combatants.selected);
         const cooldownMs = (cooldown === null) ? null : cooldown * 1000;
         const cdInfo = this._getCooldownInfo(ability);
 
         // ability.getCasts is used for special cases that show the wrong number of cast events, like Penance
         // and also for splitting up differently buffed versions of the same spell (this use has nothing to do with CastEfficiency)
         let casts;
-        if(ability.getCasts) {
+        if (ability.getCasts) {
           casts = ability.getCasts(this.abilityTracker.getAbility(spellId), this.owner);
         } else {
           casts = cdInfo.casts;
@@ -132,7 +132,7 @@ class CastEfficiency extends Analyzer {
         const maxCpm = (cooldown === null) ? null : maxCasts / fightDurationMinutes;
 
         let castEfficiency;
-        if(ability.getMaxCasts) { // legacy support for custom getMaxCasts
+        if (ability.getMaxCasts) { // legacy support for custom getMaxCasts
           castEfficiency = Math.min(1, casts / rawMaxCasts);
         } else {
           // Cast efficiency calculated as the percent of fight time spell was on cooldown
@@ -171,7 +171,7 @@ class CastEfficiency extends Analyzer {
   suggestions(when) {
     const castEfficiencyInfo = this._generateCastEfficiencyInfo();
     castEfficiencyInfo.forEach(abilityInfo => {
-      if(abilityInfo.ability.noSuggestion || abilityInfo.castEfficiency === null || abilityInfo.gotMaxCasts) {
+      if (abilityInfo.ability.noSuggestion || abilityInfo.castEfficiency === null || abilityInfo.gotMaxCasts) {
         return;
       }
       const ability = abilityInfo.ability;

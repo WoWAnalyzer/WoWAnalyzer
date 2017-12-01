@@ -113,6 +113,11 @@ export default {
     name: 'Shadow Dance',
     icon: 'ability_rogue_shadowdance',
   },
+  SHADOW_DANCE_BUFF: {
+    id: 185422,
+    name: 'Shadow Dance',
+    icon: 'ability_rogue_shadowdance',
+  },
   SYMBOLS_OF_DEATH: {
     id: 212283,
     name: 'Symbols of Death',
@@ -166,19 +171,16 @@ export default {
     name: 'Shadow Satyr\'s Walk',
     icon: 'inv_boots_mail_dungeonmail_c_04',
   },
-  // Buffs
-  SHADOW_DANCE_BUFF: {
-    id: 185422,
-    name: 'Shadow Dance',
-    icon: 'ability_rogue_shadowdance',
-  }, 
+  
+  //Buffs
   MASTER_ASSASSINS_INITIATIVE_BUFF: {
     id: 235027,
     name: 'Master Assassin\'s Initiative',
     icon: 'inv_weapon_shortblade_25',
   },
-  // Sets  
 
+  // Sets
+  
   //Tooltips for T20 are swapped on Wowhead.
   //Names of variables correctly reflect in-game.  
   SUB_ROGUE_T20_2SET_BONUS: {

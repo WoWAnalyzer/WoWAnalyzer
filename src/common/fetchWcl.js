@@ -4,6 +4,7 @@ import makeWclUrl from './makeWclUrl';
 
 export class ApiDownError extends ExtendableError {}
 export class LogNotFoundError extends ExtendableError {}
+export class JsonParseError extends ExtendableError {}
 export class UnknownApiError extends ExtendableError {}
 export class CorruptResponseError extends ExtendableError {}
 
@@ -39,7 +40,13 @@ export default async function fetchWcl(endpoint, queryParams) {
   if (Object.values(HTTP_CODES.CLOUDFLARE).includes(response.status)) {
     throw new ApiDownError('The API is currently down. This is usually for maintenance which should only take about 10 seconds. Please try again in a moment.');
   }
-  const json = await response.json();
+  let json = null;
+  try {
+    json = await response.json();
+  } catch (error) {
+    throw new JsonParseError();
+  }
+
   if ([HTTP_CODES.BAD_REQUEST, HTTP_CODES.UNAUTHORIZED].includes(response.status)) {
     const message = tryParseMessage(json.message);
     if (message === 'This report does not exist or is private.') {
@@ -48,7 +55,7 @@ export default async function fetchWcl(endpoint, queryParams) {
     throw new Error(message || json.error);
   }
   if (response.status !== HTTP_CODES.OK) {
-    throw new UnknownApiError(`Received HTTP code ${response.status}`);
+    throw new UnknownApiError(`${response.status}: ${json.message}`);
   }
   return json;
 }

@@ -592,6 +592,16 @@ export default {
     name: 'T20 4 set bonus',
     icon: 'spell_nature_magicimmunity',
   },
+  RESTORATION_SHAMAN_T21_2SET_BONUS_BUFF: {
+    id: 251764,
+    name: 'T21 2 set bonus',
+    icon: 'ability_shaman_ascendance',
+  },
+  RESTORATION_SHAMAN_T21_4SET_BONUS_BUFF: {
+    id: 251765,
+    name: 'T21 4 set bonus',
+    icon: 'ability_shaman_ascendance',
+  },
   DEEP_HEALING: {
     id: 77226,
     name: 'Mastery: Deep Healing',
@@ -625,5 +635,16 @@ export default {
     id: 238143,
     name: 'Deep Waters',
     icon: 'inv_mace_1h_artifactazshara_d_02',
+  },
+  // Restoration Shaman Set Bonus:
+  RAINFALL: { // T21 2pc
+    id: 252154,
+    name: 'Rainfall',
+    icon: 'spell_nature_giftofthewaterspirit',
+  },
+  DOWNPOUR: { // T21 4pc
+    id: 252159,
+    name: 'Downpour',
+    icon: 'spell_shaman_blessingoftheeternals',
   },
 };
