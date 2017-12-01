@@ -586,4 +586,9 @@ export default {
     name: 'Concordance of the Legionfall',
     icon: 'achievement_faction_legionfall',
   },
+  FEEDBACK_LOOP: {
+    id: 253269,
+    name: 'Feedback Loop',
+    icon: 'spell_holy_dispelmagic',
+  },
 };
