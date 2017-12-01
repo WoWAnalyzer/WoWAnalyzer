@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import { push as pushAction } from 'react-router-redux';
 
-import { ApiDownError, LogNotFoundError, CorruptResponseError } from 'common/fetchWcl';
+import { ApiDownError, LogNotFoundError, CorruptResponseError, JsonParseError } from 'common/fetchWcl';
 import fetchEvents from 'common/fetchEvents';
 import fatalError from 'common/fatalError';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
@@ -166,10 +166,9 @@ class App extends Component {
         this.props.reportNotFoundError();
       } else if (err instanceof ApiDownError) {
         this.props.apiDownError();
-      } else if (err instanceof SyntaxError) {
-        // JSON parse error
+      } else if (err instanceof JsonParseError) {
         fatalError(err);
-        this.props.unknownError(err);
+        this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
       } else {
         // Some kind of network error, internet may be down.
         fatalError(err);
@@ -258,10 +257,9 @@ class App extends Component {
         this.props.reportNotFoundError();
       } else if (err instanceof ApiDownError) {
         this.props.apiDownError();
-      } else if (err instanceof SyntaxError) {
-        // JSON parse error
+      } else if (err instanceof JsonParseError) {
         fatalError(err);
-        this.props.unknownError(err);
+        this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
       } else {
         // Some kind of network error, internet may be down.
         fatalError(err);
@@ -301,13 +299,11 @@ class App extends Component {
           } else if (err instanceof ApiDownError) {
             this.props.apiDownError();
           } else if (err instanceof CorruptResponseError) {
-            // Corrupt WCL response
             fatalError(err);
             this.props.unknownError('Corrupt Warcraft Logs API response received, this report can not be processed.');
-          } else if (err instanceof SyntaxError) {
-            // JSON parse error
+          } else if (err instanceof JsonParseError) {
             fatalError(err);
-            this.props.unknownError(err);
+            this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
           } else {
             // Some kind of network error, internet may be down.
             fatalError(err);
@@ -408,10 +404,13 @@ class App extends Component {
       if (error.error === UNKNOWN_NETWORK_ISSUE) {
         return (
           <FullscreenError
-            error="A network error occured."
-            details="Something went wrong connecting to our servers, please try again."
+            error="An API error occured."
+            details="Something went talking to our servers, please try again."
             background="https://media.giphy.com/media/m4TbeLYX5MaZy/giphy.gif"
           >
+            <div className="text-muted">
+              {error.details.message}
+            </div>
             <div>
               <a className="btn btn-primary" href={window.location.href}>Refresh</a>
             </div>
