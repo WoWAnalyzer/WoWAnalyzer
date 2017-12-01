@@ -204,6 +204,8 @@ class StatTracker extends Analyzer {
         return 0.14;
       case SPECS.WINDWALKER_MONK:
         return 0.1;
+      case SPECS.FROST_MAGE:
+        return 0.18;
       case SPECS.SUBTLETY_ROGUE:
         return 0.2208;
       default:
@@ -256,6 +258,8 @@ class StatTracker extends Analyzer {
         return 22850;
       case SPECS.WINDWALKER_MONK:
         return 32000;
+      case SPECS.FROST_MAGE:
+        return 17778;
       case SPECS.SUBTLETY_ROGUE:
         return 14492.61221;        
       default:
