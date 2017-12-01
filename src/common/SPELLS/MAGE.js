@@ -113,6 +113,11 @@ export default {
     name: 'Flurry',
     icon: 'ability_warlock_burningembersblue',
   },
+  FLURRY_DAMAGE: {
+    id: 228354,
+    name: 'Flurry',
+    icon: 'ability_warlock_burningembersblue',
+  },
   ICE_BARRIER: {
     id: 11426,
     name: 'Ice Barrier',
@@ -384,6 +389,16 @@ export default {
     id: 242254,
     name: 'T20 4 set bonus',
     icon: 'spell_frost_frostbolt02',
+  },
+  FROST_MAGE_T21_2SET_BONUS_BUFF: {
+    id: 251859,
+    name: 'T21 2 set bonus',
+    icon: 'ability_mage_greaterinvisibility',
+  },
+  FROST_MAGE_T21_4SET_BONUS_BUFF: {
+    id: 251860,
+    name: 'T21 4 set bonus',
+    icon: 'ability_mage_greaterinvisibility',
   },
   FIRE_MAGE_T20_2SET_BONUS_BUFF: {
     id: 242249,

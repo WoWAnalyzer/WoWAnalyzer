@@ -202,6 +202,8 @@ class StatTracker extends Analyzer {
         return 0.048;
       case SPECS.WINDWALKER_MONK:
         return 0.1;
+      case SPECS.FROST_MAGE:
+        return 0.18;
       default:
         console.error('Mastery hasn\'t been implemented for this spec yet.');
         return 0.0;
@@ -250,6 +252,8 @@ class StatTracker extends Analyzer {
         return 66667;
       case SPECS.WINDWALKER_MONK:
         return 32000;
+      case SPECS.FROST_MAGE:
+        return 17778;
       default:
         console.error('Mastery hasn\'t been implemented for this spec yet.');
         return 99999999;
