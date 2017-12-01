@@ -13,7 +13,7 @@ install:
   - npm install
   - cd server && npm install --dev && cd ..
 script:
-  - npm test
+  - npm test -- --runInBand
   - npm run build
   - cd server && npm run build && cd ..
 after_success:
