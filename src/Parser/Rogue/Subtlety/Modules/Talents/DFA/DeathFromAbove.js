@@ -7,7 +7,7 @@ import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink'; 
 
 //DfA needs to be used with both Symbols of Death and Shadow Dance (Dark Shadow).
-class DeathFormAbove extends Analyzer {
+class DeathFromAbove extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
@@ -68,4 +68,4 @@ class DeathFormAbove extends Analyzer {
     }
 }
 
-export default DeathFormAbove;
+export default DeathFromAbove;

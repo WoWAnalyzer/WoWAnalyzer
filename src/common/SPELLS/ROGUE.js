@@ -171,6 +171,13 @@ export default {
     name: 'Shadow Satyr\'s Walk',
     icon: 'inv_boots_mail_dungeonmail_c_04',
   },
+  
+  //Buffs
+  MASTER_ASSASSINS_INITIATIVE_BUFF: {
+    id: 235027,
+    name: 'Master Assassin\'s Initiative',
+    icon: 'inv_weapon_shortblade_25',
+  },
 
   // Sets
   

@@ -205,6 +205,24 @@ export default {
     icon: 'inv_antorus_green',
     quality: ITEM_QUALITIES.EPIC,
   },
+  CARAFE_OF_SEARING_LIGHT: {
+    id: 151960,
+    name: 'Carafe of Searing Light',
+    icon: 'inv_offhand_pvealliance_d_01_gold',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  // Dot spell for Carafe of Searing Light
+  REFRESHING_AGONY_DOT: {
+    id: 253284,
+    name: 'Refreshing Agony',
+    icon: 'ability_priest_flashoflight',
+  },
+  // Mana return spell for Carafe of Searing Light
+  REFRESHING_AGONY_MANA: {
+    id: 255981,
+    name: 'Refreshing Agonyt',
+    icon: 'ability_priest_flashoflight',
+  },
 
   // T20 DPS Trinkets
   ERRATIC_METRONOME: {

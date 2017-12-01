@@ -38,7 +38,7 @@ class Tier21_2set extends Analyzer {
       title: <SpellLink id={SPELLS.RET_PALADIN_T21_2SET_BONUS.id} />,
       result: (
         <dfn data-tip={`
-          The effective damage contributed by tier 21 2 peice. pooop<br/>
+          The effective damage contributed by tier 21 2 peice.<br/>
           Damage: ${this.owner.formatItemDamageDone(this.damageDone)}<br/>
           Total Damage: ${formatNumber(this.damageDone)}`}
         >
