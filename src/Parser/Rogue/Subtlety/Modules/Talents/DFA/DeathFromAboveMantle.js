@@ -13,7 +13,7 @@ import { formatPercentage } from 'common/format';
 import DamageTracker from 'Parser/Core/Modules/AbilityTracker';
 import MantleDamageTracker from './../../Legendaries/MantleDamageTracker';
 
-class DeathFormAboveMantle extends Analyzer {
+class DeathFromAboveMantle extends Analyzer {
 	static dependencies = {
         damageTracker: DamageTracker,
         mantleDamageTracker: MantleDamageTracker,
@@ -40,4 +40,4 @@ class DeathFormAboveMantle extends Analyzer {
 	}
 }
 
-export default DeathFormAboveMantle;
+export default DeathFromAboveMantle;
