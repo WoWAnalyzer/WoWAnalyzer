@@ -200,6 +200,8 @@ class StatTracker extends Analyzer {
         return 0.2;
       case SPECS.RESTORATION_DRUID:
         return 0.048;
+      case SPECS.RETRIBUTION_PALADIN:
+        return 0.14;
       case SPECS.WINDWALKER_MONK:
         return 0.1;
       default:
@@ -248,6 +250,8 @@ class StatTracker extends Analyzer {
         return 13333;
       case SPECS.RESTORATION_DRUID:
         return 66667;
+      case SPECS.RETRIBUTION_PALADIN:
+        return 22850;
       case SPECS.WINDWALKER_MONK:
         return 32000;
       default:
