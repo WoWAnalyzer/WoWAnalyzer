@@ -13,7 +13,7 @@ const NEW_FLURRY_TIME_GAP_MS = 750;
  * Frost Mage Tier21 2set
  * Each successive ice bolt of a cast of Flurry deals 15% more damage.
  */
-class Tier20_2set extends Analyzer {
+class Tier21_2set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   }
@@ -57,4 +57,4 @@ class Tier20_2set extends Analyzer {
   }
 }
 
-export default Tier20_2set;
+export default Tier21_2set;
