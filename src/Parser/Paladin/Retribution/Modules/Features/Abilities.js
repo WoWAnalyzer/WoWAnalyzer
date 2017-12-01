@@ -91,7 +91,7 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.BLADE_OF_JUSTICE,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => null, // 10.5 / (1 + haste)
+      getCooldown: haste => 10.5 / (1 + haste),
       isActive: combatant => !combatant.hasTalent(SPELLS.DIVINE_HAMMER_TALENT.id),
     },
     {
