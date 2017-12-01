@@ -471,4 +471,14 @@ export default {
     name: 'Concordance of the Legionfall',
     icon: 'achievement_faction_legionfall',
   },
+  REFRESHING_AGONY_TICK: {
+    id: 255981,
+    name: 'Refreshing Agony',
+    icon: 'ability_priest_flashoflight',
+  },
+  REFRESHING_AGONY_CAST: {
+    id: 253284,
+    name: 'Refreshing Agony',
+    icon: 'ability_priest_flashoflight',
+  },
 };

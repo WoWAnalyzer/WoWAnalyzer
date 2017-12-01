@@ -49,6 +49,7 @@ import TerrorFromBelow from './Modules/Items/TerrorFromBelow';
 import TomeOfUnravelingSanity from './Modules/Items/TomeOfUnravelingSanity';
 import InfernalCinders from './Modules/Items/InfernalCinders';
 import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
+import CarafeOfSearingLight from './Modules/Items/CarafeOfSearingLight';
 
 import ConcordanceUptimeTracker from './Modules/ConcordanceUptimeTracker';
 
@@ -128,6 +129,8 @@ class CombatLogParser {
     spectralThurible: SpectralThurible,
     terrorFromBelow: TerrorFromBelow,
     tomeOfUnravelingSanity: TomeOfUnravelingSanity,
+    // Antorus trinkets:
+    carafeOfSearingLight: CarafeOfSearingLight,
 
     // Concordance of the Legionfall
     concordanceUptimeTracker: ConcordanceUptimeTracker,

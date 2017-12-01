@@ -15,6 +15,7 @@ import DarkTitanAdvice from './Modules/Legendaries/DarkTitanAdvice';
 import EssenceOfInfusion from './Modules/Legendaries/EssenceOfInfusion';
 import Tearstone from './Modules/Legendaries/Tearstone';
 import DarkmoonDeckPromises from './Modules/Legendaries/DarkmoonDeckPromises';
+import CarafeOfSearingLight from './Modules/Legendaries/CarafeOfSearingLight';
 
 import T19_2Set from './Modules/Legendaries/T19_2Set';
 import T20_2Set from './Modules/Legendaries/T20_2Set';
@@ -111,6 +112,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Shared:
     darkmoonDeckPromises: DarkmoonDeckPromises,
+    carafeOfSearingLight: CarafeOfSearingLight,
 
     // Traits
     RelicTraits: RelicTraits,
