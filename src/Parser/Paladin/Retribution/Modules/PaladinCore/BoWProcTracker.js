@@ -1,4 +1,5 @@
 import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
@@ -6,6 +7,8 @@ import { formatPercentage, formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
+
 
 class BoWProcTracker extends Analyzer {
 
@@ -14,6 +17,7 @@ class BoWProcTracker extends Analyzer {
 
 	static dependencies = {
 		combatants: Combatants,
+		spellUsable: SpellUsable,
 	}
 
 	on_initialized(){
@@ -26,6 +30,9 @@ class BoWProcTracker extends Analyzer {
 			return;
 		}
 		this.totalBoWProcs += 1;
+		if (this.spellUsable.isOnCooldown(SPELLS.BLADE_OF_JUSTICE.id)) {
+			this.spellUsable.endCooldown(SPELLS.BLADE_OF_JUSTICE.id);
+		}
 	}
 
 	on_byPlayer_refreshbuff(event){
