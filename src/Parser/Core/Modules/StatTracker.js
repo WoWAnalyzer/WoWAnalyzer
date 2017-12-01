@@ -201,7 +201,9 @@ class StatTracker extends Analyzer {
       case SPECS.RESTORATION_DRUID:
         return 0.048;
       case SPECS.RETRIBUTION_PALADIN:
-        return 0.12;
+        return 0.14;
+      case SPECS.WINDWALKER_MONK:
+        return 0.1;
       default:
         console.error('Mastery hasn\'t been implemented for this spec yet.');
         return 0.0;
@@ -249,7 +251,9 @@ class StatTracker extends Analyzer {
       case SPECS.RESTORATION_DRUID:
         return 66667;
       case SPECS.RETRIBUTION_PALADIN:
-        return 21400;
+        return 22850;
+      case SPECS.WINDWALKER_MONK:
+        return 32000;
       default:
         console.error('Mastery hasn\'t been implemented for this spec yet.');
         return 99999999;

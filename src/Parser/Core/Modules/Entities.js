@@ -70,7 +70,7 @@ class Entities extends Analyzer {
 
     // The initial buff counts as 1 stack, to make the `changebuffstack` event complete it's fired for all applybuff events, including buffs that aren't actually stackable.
     buff.stacks = 1;
-    this._triggerChangeBuffStack(buff, 0, 1);
+    this._triggerChangeBuffStack(buff, event.timestamp, 0, 1);
 
     entity.buffs.push(buff);
   }
@@ -94,7 +94,7 @@ class Entities extends Analyzer {
       const oldStacks = existingBuff.stacks || 1; // the original spell counts as 1 stack
       existingBuff.stacks = event.stack;
 
-      this._triggerChangeBuffStack(existingBuff, oldStacks, existingBuff.stacks);
+      this._triggerChangeBuffStack(existingBuff, event.timestamp, oldStacks, existingBuff.stacks);
     } else {
       console.error('Buff stack updated while active buff wasn\'t known. Was this buff applied pre-combat? Maybe we should register the buff with start time as fight start when this happens, but it might also be a basic case of erroneous combatlog ordering.');
     }
@@ -118,7 +118,7 @@ class Entities extends Analyzer {
     if (existingBuff) {
       existingBuff.end = event.timestamp;
 
-      this._triggerChangeBuffStack(existingBuff, existingBuff.stacks, 0);
+      this._triggerChangeBuffStack(existingBuff, event.timestamp, existingBuff.stacks, 0);
     } else {
       const buff = {
         ...event,
@@ -128,7 +128,7 @@ class Entities extends Analyzer {
       };
       entity.buffs.push(buff);
 
-      this._triggerChangeBuffStack(buff, 1, 0);
+      this._triggerChangeBuffStack(buff, event.timestamp, 1, 0);
     }
   }
 
@@ -137,11 +137,12 @@ class Entities extends Analyzer {
    * This event is also fired for `applybuff` where `oldStacks` will be 0 and `newStacks` will be 1. NOTE: This event is usually fired before the `applybuff` event!
    * This event is also fired for `removebuff` where `oldStacks` will be either the old stacks (if there were multiple) or 1 and `newStacks` will be 0. NOTE: This event is usually fired before the `removebuff` event!
    */
-  _triggerChangeBuffStack(buff, oldStacks, newStacks) {
+  _triggerChangeBuffStack(buff, timestamp, oldStacks, newStacks) {
     const type = buff.isDebuff ? 'changedebuffstack' : 'changebuffstack';
 
     this.owner.triggerEvent(type, {
       ...buff,
+      timestamp,
       type,
       oldStacks,
       newStacks,

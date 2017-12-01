@@ -7,6 +7,11 @@ import ITEMS from 'common/ITEMS';
 
 export default [
   {
+    date: new Date('2017-12-01'),
+    changes: <Wrapper>Improved WCL API error handling to avoid caching corrupt responses (and show more informative errors).</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2017-11-29'),
     changes: <Wrapper>Added a <i>talents</i> panel, replacing the tab.</Wrapper>,
     contributors: [Zerotorescue],
