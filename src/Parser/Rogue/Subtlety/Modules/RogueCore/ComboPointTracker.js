@@ -18,7 +18,10 @@ class ComboPointTracker extends ResourceTracker {
     this.danceReduction = this.combatants.selected.hasTalent(SPELLS.ENVELOPING_SHADOWS_TALENT.id) ? 2500 : 1500;
   }
 
-  onSpent(spent)  {
+  on_byPlayer_spendresource(event){
+    const spent = event.resourceChange;
+    if(event.resourceChangeType !== this.resourceType) return;
+
     if (this.spellUsable.isOnCooldown(SPELLS.SHADOW_DANCE.id)) {
 			this.spellUsable.reduceCooldown(SPELLS.SHADOW_DANCE.id, this.danceReduction * spent );
     }

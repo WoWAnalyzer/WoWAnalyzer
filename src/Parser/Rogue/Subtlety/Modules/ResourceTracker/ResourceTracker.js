@@ -93,11 +93,20 @@ class ResourceTracker extends Analyzer {
     //Re-sync current amount, to update not-tracked gains.
     this.current = eventResource.amount - cost;
 
-    this.onSpent(cost);
+    this.triggerSpendEvent(cost, event);
   }
 
-  onSpent(spent) {
-
+  triggerSpendEvent(spent, event) {
+    this.owner.triggerEvent('spendresource', {
+      timestamp: event.timestamp,
+      type: 'spendresource',
+      sourceID: event.sourceID,
+      targetID: event.targetID,
+      reason: event,
+      resourceChange: spent,
+      resourceChangeType: this.resourceType,
+      ability: event.ability,
+    });
   }
   
   shouldProcessCastEvent(event) {
