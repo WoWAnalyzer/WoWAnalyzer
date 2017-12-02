@@ -31,41 +31,6 @@ export default {
     name: 'Dire Beast Summon',
     icon: 'ability_hunter_sickem',
   },
-  DIRE_BEAST_SUMMON_2: {
-    id: 219199,
-    name: 'Dire Beast Summon',
-    icon: 'ability_hunter_bestialdiscipline',
-  },
-  DIRE_BEAST_SUMMON_3: {
-    id: 255283,
-    name: 'Dire Beast Summon',
-    icon: 'ability_hunter_sickem',
-  },
-  DIRE_BEAST_SUMMON_4: {
-    id: 212386,
-    name: 'Dire Beast Summon',
-    icon: 'ability_hunter_bestialdiscipline',
-  },
-  DIRE_BEAST_SUMMON_5: {
-    id: 212382,
-    name: 'Dire Beast Summon',
-    icon: 'ability_hunter_bestialdiscipline',
-  },
-  DIRE_BEAST_SUMMON_6: {
-    id: 212389,
-    name: 'Dire Beast Summon',
-    icon: 'ability_hunter_bestialdiscipline',
-  },
-  DIRE_BEAST_SUMMON_7: {
-    id: 212381,
-    name: 'Dire Beast Summon',
-    icon: 'ability_hunter_bestialdiscipline',
-  },
-  DIRE_BEAST_SUMMON_8: {
-    id: 212388,
-    name: 'Dire Beast Summon',
-    icon: 'ability_hunter_bestialdiscipline',
-  },
   COBRA_SHOT: {
     id: 193455,
     name: 'Cobra Shot',
