@@ -10,23 +10,18 @@ import SpellIcon from "common/SpellIcon";
 import ITEMS from "common/ITEMS/HUNTER";
 import SpellLink from "common/SpellLink";
 import CorePets from 'Parser/Core/Modules/Pets';
-import PETS from "../../../../../common/PETS";
+import PETS from "common/PETS";
 
 const T19_2P_DAMAGE_MODIFIER = 0.5;
 const T19_2P_DAMAGE_MODIFIER_DIRE_FRENZY = 0.1;
 
-const DIRE_FRENZY_AFFECTED_PETS = [
-  PETS.CALL_PET_1.id,
-  PETS.CALL_PET_2.id,
-  PETS.CALL_PET_3.id,
-  PETS.CALL_PET_4.id,
-  PETS.CALL_PET_5.id,
+const DIRE_FRENZY_NOT_AFFECTED_PETS = [
+  PETS.HATI.id,
 ];
 
 const DIRE_BEAST = [
   PETS.DIRE_BEAST.id,
 ];
-const debug = true;
 
 class Tier19_2p extends Analyzer {
   static dependencies = {
@@ -52,21 +47,14 @@ class Tier19_2p extends Analyzer {
     }
     const pet = this.pets.getSourceEntity(event);
     if (!this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id)) {
-      /* if (pet.guid !== 128751) {
-         return;
-       }*/
       if (DIRE_BEAST.every(id => pet.guid !== id)) {
         return;
       }
-      debug && console.log('pogchamp');
       this.bonusDmg += getDamageBonus(event, T19_2P_DAMAGE_MODIFIER);
     } else {
-      if (DIRE_FRENZY_AFFECTED_PETS.every(id => pet.guid !== id)) {
-        return;
+      if (DIRE_FRENZY_NOT_AFFECTED_PETS.every(id => pet.guid !== id)) {
+        this.bonusDmg += getDamageBonus(event, T19_2P_DAMAGE_MODIFIER_DIRE_FRENZY);
       }
-      debug && console.log('DF pogchamp');
-      this.bonusDmg += getDamageBonus(event, T19_2P_DAMAGE_MODIFIER_DIRE_FRENZY);
-
     }
   }
 
