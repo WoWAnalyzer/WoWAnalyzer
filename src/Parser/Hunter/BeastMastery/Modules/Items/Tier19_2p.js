@@ -46,8 +46,8 @@ class Tier19_2p extends Analyzer {
     }
   }
   on_byPlayer_summon(event) {
-    const spellName = event.ability.name;
-    if (spellName !== "Dire Beast") {
+    const spellID = event.ability.guid;
+    if (spellID === SPELLS.COBRA_COMMANDER.id) {
       return;
     }
     this.currentDireBeasts.push({
