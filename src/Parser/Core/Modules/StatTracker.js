@@ -204,6 +204,8 @@ class StatTracker extends Analyzer {
         return 0.14;
       case SPECS.WINDWALKER_MONK:
         return 0.1;
+      case SPECS.MARKSMANSHIP_HUNTER:
+        return 0.05;
       case SPECS.FROST_MAGE:
         return 0.18;
       case SPECS.SUBTLETY_ROGUE:
@@ -260,6 +262,8 @@ class StatTracker extends Analyzer {
         return 22850;
       case SPECS.WINDWALKER_MONK:
         return 32000;
+      case SPECS.MARKSMANSHIP_HUNTER:
+        return 64000;
       case SPECS.FROST_MAGE:
         return 17778;
       case SPECS.SUBTLETY_ROGUE:
@@ -338,13 +342,13 @@ class StatTracker extends Analyzer {
    * change is a stat buff object just like those in the STAT_BUFFS structure above, it is required.
    * eventReason is the WCL event object that caused this change, it is not required.
    */
-   // For an example of how / why this function would be used, see the CharmOfTheRisingTide module.
+  // For an example of how / why this function would be used, see the CharmOfTheRisingTide module.
   forceChangeStats(change, eventReason) {
     const before = Object.assign({}, this._currentStats);
     const delta = this._changeStats(change, 1);
     const after = Object.assign({}, this._currentStats);
     this._triggerChangeStats(eventReason, before, delta, after);
-    if(debug) {
+    if (debug) {
       const spellName = eventReason && eventReason.ability ? eventReason.ability.name : 'unspecified';
       console.log(`StatTracker: FORCED CHANGE from ${spellName} - Change: ${this._statPrint(delta)}`);
       this._debugPrintStats(this._currentStats);
