@@ -210,6 +210,8 @@ class StatTracker extends Analyzer {
         return 0.18;
       case SPECS.SUBTLETY_ROGUE:
         return 0.2208;
+      case SPECS.BEAST_MASTERY_HUNTER:
+        return 0.18;
       default:
         console.error('Mastery hasn\'t been implemented for this spec yet.');
         return 0.0;
@@ -266,6 +268,8 @@ class StatTracker extends Analyzer {
         return 17778;
       case SPECS.SUBTLETY_ROGUE:
         return 14492.61221;
+      case SPECS.BEAST_MASTERY_HUNTER:
+        return 17778;
       default:
         console.error('Mastery hasn\'t been implemented for this spec yet.');
         return 99999999;
