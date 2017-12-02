@@ -138,12 +138,12 @@ export default {
   HUNTER_BM_T21_2P_BONUS: {
     id: 251755,
     name: 'T21 2 set bonus',
-    icon: 'ability_hunter_focusedaim',
+    icon: 'ability_hunter_killcommand',
   },
   HUNTER_BM_T21_4P_BONUS: {
     id: 251756,
     name: 'T21 4 set bonus',
-    icon: 'ability_hunter_focusedaim',
+    icon: 'spell_nature_protectionformnature',
   },
 
 

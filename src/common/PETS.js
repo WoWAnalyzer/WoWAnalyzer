@@ -56,6 +56,42 @@ const PETS = {
     id: 98167,
     name: 'Void Tendril',
   },
+
+  //hunter:
+
+  HATI: {
+    id: 100324,
+    name: 'Hati',
+  },
+  CALL_PET_1: {
+    id: 883,
+    name: 'Call Pet 1',
+  },
+  CALL_PET_2: {
+    id: 83242,
+    name: 'Call Pet 2',
+  },
+  CALL_PET_3: {
+    id: 83243,
+    name: 'Call Pet 3',
+  },
+  CALL_PET_4: {
+    id: 83244,
+    name: 'Call Pet 4',
+  },
+  CALL_PET_5: {
+    id: 83245,
+    name: 'Call Pet 5',
+  },
+  SNEAKY_SNAKE: {
+    id: 121661,
+    name: 'Sneaky Snake',
+  },
+  DIRE_BEAST: {
+    id: 128751,
+    name: 'Beast',
+  },
+
 };
 
 export default indexById(PETS);
