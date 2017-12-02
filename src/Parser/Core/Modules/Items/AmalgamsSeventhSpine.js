@@ -2,7 +2,6 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import { formatThousands } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -53,8 +52,8 @@ class AmalgamsSeventhSpine extends Analyzer {
     return {
       item: ITEMS.AMALGAMS_SEVENTH_SPINE,
       result: (
-        <dfn data-tip={`The exact amount of mana gained from the Amalgam's Seventh Spine equip effect. The buff expired successfully ${this.procs} times and the buff was refreshed ${this.refreshes} times (refreshing delays the buff expiration and is inefficient use of this trinket).`}>
-          {formatThousands(this.manaGained)} mana gained ({formatThousands(this.manaGained / this.owner.fightDuration * 1000 * 5)} MP5)
+        <dfn data-tip={`The buff expired and restored mana ${this.procs} times and was refreshed ${this.refreshes} times. (refreshing delays the buff expiration and is an inefficient use of this trinket).`}>
+          {this.owner.formatManaRestored(this.manaGained)}
         </dfn>
       ),
     };

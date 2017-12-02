@@ -1,9 +1,6 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { calculatePrimaryStat } from 'common/stats';
-import { formatThousands } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -92,11 +89,7 @@ class DarkmoonDeckPromises extends Analyzer {
   item() {
     return {
       item: ITEMS.DARKMOON_DECK_PROMISES,
-      result: (
-        <dfn data-tip="The exact amount of mana saved by the Darkmoon Deck: Promises equip effect. This takes the different values per card into account at the time of the cast.">
-          {formatThousands(this.manaGained)} mana saved ({formatThousands(this.manaGained / this.owner.fightDuration * 1000 * 5)} MP5)
-        </dfn>
-      ),
+      result: this.owner.formatManaRestored(this.manaGained),
     };
   }
 }

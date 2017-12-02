@@ -1,14 +1,16 @@
 import React from 'react';
 
+import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
-import { formatNumber } from 'common/format';
+import { formatDuration } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
+// time before and after shield proc to show user
 const PROC_EVENT_START_BUFFER = 5000;
 const PROC_EVENT_END_BUFFER = 1000;
 
@@ -17,15 +19,16 @@ class DecieversGrandDesign extends Analyzer {
     combatants: Combatants,
   };
 
-  healing = 0;
+  healingHot = 0;
   healingAbsorb = 0;
+
   targetOne = null;
   downTimeTargetOne = 0;
   procTimestampTargetOne = null;
+
   downTimeTargetTwo = 0;
   targetTwo = null;
   procTimestampTargetTwo = null;
-  proced = false;
 
   procs = [];
 
@@ -37,7 +40,7 @@ class DecieversGrandDesign extends Analyzer {
     const spellId = event.ability.guid;
 
     if (spellId === SPELLS.GUIDING_HAND.id) {
-      this.healing += (event.amount || 0) + (event.absorbed || 0);
+      this.healingHot += (event.amount || 0) + (event.absorbed || 0);
 
       // Account for precasting
       if (this.targetOne === event.targetID || this.targetTwo === event.targetID) {
@@ -76,95 +79,104 @@ class DecieversGrandDesign extends Analyzer {
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
+    if (spellId !== SPELLS.FRUITFUL_MACHINATIONS.id) {
+      return;
+    }
+
     const targetId = event.targetID;
+    const startTime = event.timestamp - PROC_EVENT_START_BUFFER;
+    const endTime = event.timestamp + PROC_EVENT_END_BUFFER;
+    const timeSinceStart = event.timestamp - this.owner.fight.start_time;
+    if (targetId === this.targetOne) {
+      this.targetOne = null;
+      this.procTimestampTargetOne = event.timestamp;
+      debug && console.log('Proc on Target one:', targetId, ' @ timestamp: ', event.timestamp);
+    } else if (targetId === this.targetTwo) {
+      this.targetTwo = null;
+      this.procTimestampTargetTwo = event.timestamp;
+      debug && console.log('Proc on Target two:', targetId, ' @ timestamp: ', event.timestamp);
+    }
 
-    if (spellId === SPELLS.FRUITFUL_MACHINATIONS.id) {
-      this.proced = true;
-      const startTime = event.timestamp - PROC_EVENT_START_BUFFER;
-      const endTime = event.timestamp + PROC_EVENT_END_BUFFER;
-      if (targetId === this.targetOne) {
-        this.targetOne = null;
-        this.procTimestampTargetOne = event.timestamp;
-        debug && console.log('Proc on Target one:', targetId, ' @ timestamp: ', event.timestamp);
-      } else if (targetId === this.targetTwo) {
-        this.targetTwo = null;
-        this.procTimestampTargetTwo = event.timestamp;
-        debug && console.log('Proc on Target two:', targetId, ' @ timestamp: ', event.timestamp);
-      }
-      if (debug) {
-        this.procs.push({
-          name: 'Test User',
-          report: this.owner.report.code,
-          fight: this.owner.fight.id,
-          target: targetId,
-          start: startTime,
-          end: endTime,
-        });
-      }
-
-      let name = '';
-      if (!this.combatants.players[targetId]) {
-        name = 'Pet';
-      } else {
-        name = this.combatants.players[targetId].name;
-      }
-
+    if (debug) {
       this.procs.push({
-        name,
+        name: 'Test User',
         report: this.owner.report.code,
         fight: this.owner.fight.id,
         target: targetId,
+        timeSinceStart,
         start: startTime,
         end: endTime,
       });
-      debug && console.log(this.procs);
-      debug && console.log(`https://www.warcraftlogs.com/reports/${this.owner.report.code}/#fight=${this.owner.fight.id}&source=${this.procs[0].target}&type=summary&start=${this.procs[0].start}&end=${this.procs[0].end}&view=events`);
     }
+
+    // store info about shield procs for later display
+    let name = '';
+    if (!this.combatants.players[targetId]) {
+      name = 'Pet';
+    } else {
+      name = this.combatants.players[targetId].name;
+    }
+
+    this.procs.push({
+      name,
+      report: this.owner.report.code,
+      fight: this.owner.fight.id,
+      target: targetId,
+      timeSinceStart,
+      start: startTime,
+      end: endTime,
+    });
+    debug && console.log(this.procs);
+    debug && console.log(`https://www.warcraftlogs.com/reports/${this.owner.report.code}/#fight=${this.owner.fight.id}&source=${this.procs[0].target}&type=summary&start=${this.procs[0].start}&end=${this.procs[0].end}&view=events`);
   }
 
   on_finished() {
     if (debug) {
       console.log('Proc Checks: ', this.procs);
-      console.log(`Healing: ${this.healing}`);
+      console.log(`Healing HoT: ${this.healingHot}`);
       console.log(`Absorbed: ${this.healingAbsorb}`);
       console.log(`Report Code: ${this.owner.report.code}`);
     }
   }
 
+  get totalHealing() {
+    return this.healingHot + this.healingAbsorb;
+  }
+
   item() {
-    const deceiversGrandDesignHealingPercentage = this.owner.getPercentageOfTotalHealingDone(this.healing);
-    const deceiversGrandDesignAbsorbPercentage = this.owner.getPercentageOfTotalHealingDone(this.healingAbsorb);
-    const deceiversGrandDesignTotalPercentage = this.owner.getPercentageOfTotalHealingDone(this.healing + this.healingAbsorb);
     return {
       item: ITEMS.DECEIVERS_GRAND_DESIGN,
       result: (
-        <dfn data-tip={`The effective healing contributed by the Deciever's Grand Design on-use effect.<br />
-            HOT: ${((deceiversGrandDesignHealingPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.healing / this.owner.fightDuration * 1000)} HPS<br />
-            Shield Proc: ${((deceiversGrandDesignAbsorbPercentage * 100) || 0).toFixed(2)} % / ${formatNumber(this.healingAbsorb / this.owner.fightDuration * 1000)} HPS`}
-        >
-          {((deceiversGrandDesignTotalPercentage * 100) || 0).toFixed(2)} % / {formatNumber((this.healing + this.healingAbsorb) / this.owner.fightDuration * 1000)} HPS
+        <dfn data-tip={`Healing breakdown:
+          <ul>
+            <li>HoT: <b>${this.owner.formatItemHealingDone(this.healingHot)}</b></li>
+            <li>Shield Proc: <b>${this.owner.formatItemHealingDone(this.healingAbsorb)}</b></li>
+          </ul>
+        `}>
+          {this.owner.formatItemHealingDone(this.totalHealing)}
         </dfn>
       ),
     };
   }
+
   suggestions(when) {
-    when(this.proced).isTrue()
+    when(this.procs.length).isGreaterThan(0)
       .addSuggestion((suggest) => {
         return suggest(
-          <span>
-              Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> procced earlier than expected. Try to cast it on players without spiky health pools. The following events procced the effect:<br />
-            {this.procs
-              .map((procs, index) => {
-                const url = `https://www.warcraftlogs.com/reports/${procs.report}/#fight=${procs.fight}&source=${procs.target}&type=summary&start=${procs.start}&end=${procs.end}&view=events`;
-                return (
-                  <div key={index}>
-                    Proc {index + 1} on: <a href={url} target="_blank" rel="noopener noreferrer">{procs.name}</a>
-                  </div>
-                );
-              })}
-          </span>
+          <Wrapper>
+            Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> procced earlier than expected. Try to cast it on players without spiky health pools. The following events procced the effect:<br />
+            {this.procs.map((proc, index) => {
+              const url = `https://www.warcraftlogs.com/reports/${proc.report}/#fight=${proc.fight}&source=${proc.target}&type=summary&start=${proc.start}&end=${proc.end}&view=events`;
+              return (
+                <div key={index}>
+                  Proc {index + 1}: <a href={url} target="_blank" rel="noopener noreferrer">{proc.name} @{formatDuration(proc.timeSinceStart / 1000)}</a>
+                </div>
+              );
+            })}
+          </Wrapper>
         )
-          .icon(ITEMS.DECEIVERS_GRAND_DESIGN.icon);
+        .icon(ITEMS.DECEIVERS_GRAND_DESIGN.icon)
+        .regular(2).major(4);
       });
   }
 }

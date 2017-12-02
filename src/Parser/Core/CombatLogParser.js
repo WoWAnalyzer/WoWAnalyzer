@@ -6,7 +6,7 @@ import ChangelogTabTitle from 'Main/ChangelogTabTitle';
 import Tab from 'Main/Tab';
 import TimelineTab from 'Main/Timeline/TimelineTab';
 
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 
 import ApplyBuffNormalizer from './Normalizers/ApplyBuff';
 
@@ -171,7 +171,7 @@ class CombatLogParser {
 
     // T21 DPS Trinkets
     seepingScourgewing: SeepingScourgewing,
-    
+
     // Concordance of the Legionfall
     concordance: Concordance,
     // Netherlight Crucible Traits
@@ -413,6 +413,9 @@ class CombatLogParser {
   }
   formatItemDamageDone(damageDone) {
     return `${formatPercentage(this.getPercentageOfTotalDamageDone(damageDone))} % / ${formatNumber(damageDone / this.fightDuration * 1000)} DPS`;
+  }
+  formatManaRestored(manaRestored) {
+    return `${formatThousands(manaRestored)} mana / ${formatThousands(manaRestored / this.fightDuration * 1000 * 5)} MP5`;
   }
 
   generateResults() {
