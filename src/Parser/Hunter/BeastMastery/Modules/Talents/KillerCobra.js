@@ -8,7 +8,7 @@ import { formatNumber } from 'common/format';
 import Haste from 'Parser/Core/Modules/Haste';
 import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
-
+import SpellLink from 'common/SpellLink';
 
 class KillerCobra extends Analyzer {
   static dependencies = {
@@ -49,6 +49,18 @@ class KillerCobra extends Analyzer {
         tooltip={`You wasted ${formatNumber(this.wastedKillerCobraCobraShots)} Cobra Shots in Bestial Wrath by using them while Kill Command wasn't on cooldown. </br> `}
       />
     );
+  }
+  suggestions(when) {
+    when(this.wastedKillerCobraCobraShots).isGreaterThan(0)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>Avoid casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> whilst <SpellLink id={SPELLS.KILL_COMMAND.id} /> isn't on cooldown, when you have <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up. Utilize the reset effect of <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> by only casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> to reset <SpellLink id={SPELLS.KILL_COMMAND.id} /> when <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> is up. </span>)
+          .icon(SPELLS.KILLER_COBRA_TALENT.icon)
+          .actual(`You cast Cobra Shot while Kill Command wasn't on cooldown, whilst Bestial Wrath was up ${this.wastedKillerCobraCobraShots} times.`)
+          .recommended(`${recommended} is recommended.`)
+          //This one goes straight to major as it's a big rotational error to not utilise
+          //the resetting aspect of Killer Cobra.
+          .major(recommended + 1);
+      });
   }
 }
 
