@@ -14,6 +14,8 @@ const debug = false;
 const PROC_EVENT_START_BUFFER = 5000;
 const PROC_EVENT_END_BUFFER = 1000;
 
+const HOT_DURATION = 120000;
+
 class DecieversGrandDesign extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -23,12 +25,10 @@ class DecieversGrandDesign extends Analyzer {
   healingAbsorb = 0;
 
   targetOne = null;
-  downTimeTargetOne = 0;
-  procTimestampTargetOne = null;
+  targetOneCastTimestamp = null;
 
-  downTimeTargetTwo = 0;
   targetTwo = null;
-  procTimestampTargetTwo = null;
+  targetTwoCastTimestamp = null;
 
   procs = [];
 
@@ -67,9 +67,11 @@ class DecieversGrandDesign extends Analyzer {
     if (spellId === SPELLS.GUIDING_HAND.id) {
       if (this.targetOne === null) {
         this.targetOne = event.targetID;
+        this.targetOneCastTimestamp = event.timestamp;
         debug && console.log(`Target One: ${this.targetOne}`);
       } else if (this.targetTwo === null) {
         this.targetTwo = event.targetID;
+        this.targetTwoCastTimestamp = event.timestamp;
         debug && console.log(`Target Two: ${this.targetTwo}`);
       } else {
         debug && console.log('Logic Error?!');
@@ -87,13 +89,14 @@ class DecieversGrandDesign extends Analyzer {
     const startTime = event.timestamp - PROC_EVENT_START_BUFFER;
     const endTime = event.timestamp + PROC_EVENT_END_BUFFER;
     const timeSinceStart = event.timestamp - this.owner.fight.start_time;
+    let timeSinceCast;
     if (targetId === this.targetOne) {
       this.targetOne = null;
-      this.procTimestampTargetOne = event.timestamp;
+      timeSinceCast = event.timestamp - this.targetOneCastTimestamp;
       debug && console.log('Proc on Target one:', targetId, ' @ timestamp: ', event.timestamp);
     } else if (targetId === this.targetTwo) {
       this.targetTwo = null;
-      this.procTimestampTargetTwo = event.timestamp;
+      timeSinceCast = event.timestamp - this.targetTwoCastTimestamp;
       debug && console.log('Proc on Target two:', targetId, ' @ timestamp: ', event.timestamp);
     }
 
@@ -104,6 +107,7 @@ class DecieversGrandDesign extends Analyzer {
         fight: this.owner.fight.id,
         target: targetId,
         timeSinceStart,
+        timeSinceCast,
         start: startTime,
         end: endTime,
       });
@@ -123,6 +127,7 @@ class DecieversGrandDesign extends Analyzer {
       fight: this.owner.fight.id,
       target: targetId,
       timeSinceStart,
+      timeSinceCast,
       start: startTime,
       end: endTime,
     });
@@ -167,9 +172,10 @@ class DecieversGrandDesign extends Analyzer {
             Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> procced earlier than expected. Try to cast it on players without spiky health pools. The following events procced the effect:<br />
             {this.procs.map((proc, index) => {
               const url = `https://www.warcraftlogs.com/reports/${proc.report}/#fight=${proc.fight}&source=${proc.target}&type=summary&start=${proc.start}&end=${proc.end}&view=events`;
+              const secondsLeftOnHot = ((HOT_DURATION - proc.timeSinceCast) / 1000).toFixed(0);
               return (
                 <div key={index}>
-                  Proc {index + 1}: <a href={url} target="_blank" rel="noopener noreferrer">{proc.name} @{formatDuration(proc.timeSinceStart / 1000)}</a>
+                  Proc {index + 1}: <a href={url} target="_blank" rel="noopener noreferrer">{proc.name} @{formatDuration(proc.timeSinceStart / 1000)} with {secondsLeftOnHot}s remaining on HoT</a>
                 </div>
               );
             })}
