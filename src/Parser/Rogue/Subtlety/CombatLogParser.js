@@ -19,6 +19,8 @@ import NightbladeDuringSymbols from './Modules/BaseRotation/NightbladeDuringSymb
 import CastsInShadowDance from './Modules/BaseRotation/CastsInShadowDance';
 import MantleDamageTracker from './Modules/Legendaries/MantleDamageTracker';
 import DeathFromAboveMantle from './Modules/Talents/DFA/DeathFromAboveMantle';
+import T21_2P from './Modules/Items/T21_2P';
+import DanceCooldownReduction from './Modules/RogueCore/DanceCooldownReduction';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -38,6 +40,12 @@ class CombatLogParser extends CoreCombatLogParser {
     symbolsDamageTracker: SymbolsDamageTracker,
     danceDamageTracker: DanceDamageTracker,
     mantleDamageTracker: MantleDamageTracker,
+
+    //Core
+    danceCooldownReduction: DanceCooldownReduction,
+
+    //Items
+    t21_2P: T21_2P,
 
     //Casts
     nightbladeDuringSymbols: NightbladeDuringSymbols,
