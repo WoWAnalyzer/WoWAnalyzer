@@ -21,6 +21,7 @@ import MantleDamageTracker from './Modules/Legendaries/MantleDamageTracker';
 import DeathFromAboveMantle from './Modules/Talents/DFA/DeathFromAboveMantle';
 import T21_2P from './Modules/Items/T21_2P';
 import DanceCooldownReduction from './Modules/RogueCore/DanceCooldownReduction';
+import DenialOfHalfGiants from './Modules/Legendaries/DenialOfHalfGiants';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -46,6 +47,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Items
     t21_2P: T21_2P,
+
+    //Legendaries
+    denialOfHalfGiants: DenialOfHalfGiants,
 
     //Casts
     nightbladeDuringSymbols: NightbladeDuringSymbols,
