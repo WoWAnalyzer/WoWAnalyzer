@@ -467,7 +467,13 @@ class App extends Component {
       return <PlayerSelecter />;
     }
     if (!parser) {
-      return null;
+      return (
+        <div className="container">
+          <h1>Initializing...</h1>
+
+          <div className="spinner" />
+        </div>
+      );
     }
 
     return (
