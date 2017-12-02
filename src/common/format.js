@@ -39,6 +39,12 @@ export function formatDuration(duration) {
   const seconds = Math.floor(duration % 60);
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 }
+
+/*
+ * Formats a duration in milliseconds to be a String expressed as minutes, seconds, and milliseconds.
+ * Formatting maintains ordering but is pretty ugly, mostly suitable for debug logging instead of user facing content.
+ * Ex. 317327 => 05:17.327
+ */
 export function formatMilliseconds(duration) {
   const sumSeconds = duration / 1000;
   const minutes = Math.floor(sumSeconds / 60);

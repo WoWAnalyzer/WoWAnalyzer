@@ -2,8 +2,9 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import ColdHeart from 'Parser/DeathKnight/Shared/Items/ColdHeart';
+import Tier20_2p from './Modules/Items/Tier20_2p';
 
-import CastEfficiency from './Modules/Features/CastEfficiency';
+import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import VirulentPlagueUptime from './Modules/Features/VirulentPlagueUptime';
@@ -23,7 +24,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
 
     // Features
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     virulentPlagueUptime: VirulentPlagueUptime, 
@@ -39,6 +40,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // items
     coldHeart: ColdHeart,
+    tier20_2p: Tier20_2p,
 
     // traits
     scourgeOfWorlds: ScourgeOfWorlds,

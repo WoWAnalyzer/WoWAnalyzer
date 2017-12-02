@@ -2,6 +2,7 @@ import AtonementSuccessiveDamage from 'Parser/Priest/Discipline/Normalizers/Aton
 import SPELLS from 'common/SPELLS';
 
 import {
+  thisPlayer,
   DamagingEvent1,
   DamagingEvent2,
   DamagingEvent3,
@@ -22,6 +23,7 @@ describe('DisciplinePriest.Reordering', () => {
       byPlayer: () => true,
       toPlayerPet: () => false,
       byPlayerPet: () => false,
+      playerId: thisPlayer,
     });
   });
 

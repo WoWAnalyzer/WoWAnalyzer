@@ -6,7 +6,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 //Features
-import CastEfficiency from './Modules/Features/CastEfficiency';
+import Abilities from './Modules/Features/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import VulnerableUptime from './Modules/Features/VulnerableUptime';
@@ -16,6 +16,8 @@ import VulnerableApplications from "./Modules/Features/VulnerableApplications";
 import CancelledCasts from "../Shared/Modules/Features/CancelledCasts";
 
 //Tier
+import Tier21_2p from './Modules/Items/Tier21_2p';
+import Tier21_4p from './Modules/Items/Tier21_4p';
 import Tier20_2p from './Modules/Items/Tier20_2p';
 import Tier20_4p from './Modules/Items/Tier20_4p';
 import Tier19_2p from "./Modules/Items/Tier19_2p";
@@ -47,6 +49,7 @@ import TrickShot from "./Modules/Talents/TrickShot";
 
 //Traits
 import QuickShot from './Modules/Traits/QuickShot';
+import Bullseye from './Modules/Traits/Bullseye';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -55,7 +58,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
     vulnerableUptime: VulnerableUptime,
     vulnerableTracker: VulnerableTracker,
@@ -70,6 +73,8 @@ class CombatLogParser extends CoreCombatLogParser {
     tier19_2P: Tier19_2p,
     tier20_2p: Tier20_2p,
     tier20_4p: Tier20_4p,
+    tier21_2p: Tier21_2p,
+    tier21_4p: Tier21_4p,
     ullrsFeatherSnowshoes: UllrsFeatherSnowshoes,
     soulOfTheHuntmaster: SoulOfTheHuntmaster,
     mkiiGyroscopicStabilizer: MKIIGyroscopicStabilizer,
@@ -92,6 +97,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Traits
     quickShot: QuickShot,
+    bullseye: Bullseye,
   };
 
   generateResults() {

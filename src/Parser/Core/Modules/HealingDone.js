@@ -85,7 +85,7 @@ class HealingDone extends Analyzer {
         )}
         value={`${formatNumber(this.total.effective / this.owner.fightDuration * 1000)} HPS`}
         label="Healing done"
-        tooltip={`The total healing done recorded was ${formatThousands(this.total.effective)}.`}
+        tooltip={`Total healing done: <b>${formatThousands(this.total.effective)}</b>`}
         footer={(
           <div className="statistic-bar">
             <div

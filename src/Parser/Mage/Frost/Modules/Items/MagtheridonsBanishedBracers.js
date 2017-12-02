@@ -20,7 +20,7 @@ class MagtheridonsBanishedBracers extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.ICE_LANCE_CAST.id) {
+    if (event.ability.guid !== SPELLS.ICE_LANCE.id) {
       return;
     }
     const buff = this.combatants.selected.getBuff(SPELLS.MAGTHERIDONS_MIGHT_BUFF.id);

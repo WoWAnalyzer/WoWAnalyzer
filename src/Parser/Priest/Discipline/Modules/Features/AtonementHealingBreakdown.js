@@ -3,26 +3,49 @@ import PropTypes from 'prop-types';
 
 import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
+import Toggle from 'react-toggle';
 
 class AtonementHealingBreakdown extends React.Component {
   static propTypes = {
+    totalAtonement: PropTypes.object.isRequired,
     total: PropTypes.object.isRequired,
     bySource: PropTypes.object.isRequired,
   };
 
+    constructor() {
+      super();
+      this.state = {
+        absolute: false,
+      };
+    }
+
   render() {
-    const { total, bySource } = this.props;
+    const { totalAtonement, bySource, total } = this.props;
 
     const highestHealing = Object.keys(bySource)
       .map(key => bySource[key])
       .reduce((highest, source) => Math.max(highest, source.healing.effective), 1);
 
     return (
+      <div>
       <table className="data-table">
         <thead>
           <tr>
             <th>Name</th>
-            <th colSpan="2">Healing done</th>
+            <th>Healing</th>
+              <th>
+              <div className="text-right toggle-control">
+                <Toggle
+                  defaultChecked={false}
+                  icons={false}
+                  onChange={event => this.setState({ absolute: event.target.checked })}
+                  id="absolute-toggle"
+                />
+                <label htmlFor="absolute-toggle">
+                  Relative to total healing
+                </label>
+              </div>
+              </th>
           </tr>
         </thead>
         <tbody>
@@ -41,9 +64,16 @@ class AtonementHealingBreakdown extends React.Component {
                       {ability.name}
                     </SpellLink>
                   </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
-                    {(Math.round(healing.effective / total.effective * 10000) / 100).toFixed(2)}%
-                  </td>
+                  {!this.state.absolute && (
+                  <td style={{ width: 60, paddingRight: 5, textAlign: 'center' }}>
+                    {(Math.round(healing.effective / totalAtonement.effective * 10000) / 100).toFixed(2)}%
+                  </td>)
+                  }
+                  {this.state.absolute && (
+                  <td style={{ width: 60, paddingRight: 5, textAlign: 'center' }}>
+                    {(Math.round(healing.effective / total * 10000) / 100).toFixed(2)}%
+                  </td>)
+                  }
                   <td style={{ width: '70%' }}>
                     {/* TODO: Color the bar based on the damage type, physical = yellow, chaos = gradient, etc. idk */}
                     <div
@@ -56,6 +86,7 @@ class AtonementHealingBreakdown extends React.Component {
             })}
         </tbody>
       </table>
+      </div>
     );
   }
 }

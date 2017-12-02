@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Wrapper from 'common/Wrapper';
 import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
 import './style.css';
@@ -31,8 +32,8 @@ class SpecInformationOverlay extends React.PureComponent {
             </div>
           </div>
           <div className="row">
-            <div className="maintainer-name col-xs-12 col-sm-8 col-sm-offset-2">
-              by {config.maintainerAvatar && <img src={config.maintainerAvatar} alt="Avatar" />} {config.maintainer}
+            <div className="maintainers col-xs-12 col-sm-8 col-sm-offset-2">
+              by {config.maintainers.map(maintainer => <Wrapper key={maintainer.nickname}>{maintainer.avatar && <img src={maintainer.avatar} alt="Avatar" />} {maintainer.nickname}</Wrapper>)}
             </div>
           </div>
 

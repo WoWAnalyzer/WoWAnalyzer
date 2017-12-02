@@ -1,18 +1,16 @@
 import React from 'react';
 
+import { Fyruna } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
 
-import FyrunaAvatar from './Images/Fyruna_avatar.jpg';
-
 export default {
   spec: SPECS.FIRE_MAGE,
-  maintainer: '@Fyruna',
-  maintainerAvatar: FyrunaAvatar,
-  completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK, // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
+  maintainers: [Fyruna],
+  completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK, // good = it matches most common manual reviews in class discords, great = it support all important class features
   changelog: CHANGELOG,
   description: (
     <div>

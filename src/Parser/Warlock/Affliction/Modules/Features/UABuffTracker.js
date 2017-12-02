@@ -39,6 +39,9 @@ class UABuffTracker extends Analyzer {
       return;
     }
     const target = this.enemies.getEntity(event);
+    if (!target) {
+      return;
+    }
     this.totalTicks += 1;
     const buffedByReap = this.combatants.selected.hasBuff(SPELLS.DEADWIND_HARVESTER.id, event.timestamp);
     const buffedByDrain = target.hasBuff(SPELLS.DRAIN_SOUL.id, event.timestamp);

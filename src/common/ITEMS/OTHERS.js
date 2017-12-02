@@ -199,8 +199,19 @@ export default {
     icon: 'spell_nature_astralrecalgroup',
     quality: ITEM_QUALITIES.EPIC,
   },
-
-  // DPS Trinkets
+  EONARS_COMPASSION: {
+    id: 154175,
+    name: 'Eonar\'s Compassion',
+    icon: 'inv_antorus_green',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  CARAFE_OF_SEARING_LIGHT: {
+    id: 151960,
+    name: 'Carafe of Searing Light',
+    icon: 'inv_offhand_pvealliance_d_01_gold',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  // T20 DPS Trinkets
   ERRATIC_METRONOME: {
     id: 140792,
     name: 'Erratic Metronome',
@@ -277,6 +288,13 @@ export default {
     id: 147010,
     name: 'Crade of Anguish',
     icon: 'inv_wand_36',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  //T21 DPS Trinkets
+  SEEPING_SCOURGEWING: {
+    id: 151964,
+    name: 'Seeping Scourgewing',
+    icon: 'ability_creature_poison_03',
     quality: ITEM_QUALITIES.EPIC,
   },
 };

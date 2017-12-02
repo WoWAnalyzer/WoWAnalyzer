@@ -1,26 +1,39 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { browserHistory, Link } from 'react-router';
+import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
+import { push as pushAction } from 'react-router-redux';
 
-import fetchWcl from 'common/fetchWcl';
-import getFightName from 'common/getFightName';
-
+import { ApiDownError, LogNotFoundError, CorruptResponseError, JsonParseError } from 'common/fetchWcl';
+import fetchEvents from 'common/fetchEvents';
+import fatalError from 'common/fatalError';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 
+import { fetchReport as fetchReportAction } from 'actions/report';
+import { fetchCombatants as fetchCombatantsAction } from 'actions/combatants';
+import { getReportCode, getFightId, getPlayerName } from 'selectors/url/report';
+import { getReport } from 'selectors/report';
+import { getFightById } from 'selectors/fight';
+import { getCombatants } from 'selectors/combatants';
+import { clearError, reportNotFoundError, apiDownError, unknownNetworkIssueError, unknownError, internetExplorerError, API_DOWN, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE, INTERNET_EXPLORER } from 'actions/error';
+import { getError } from 'selectors/error';
+
 import './App.css';
 
-import GithubLogo from './Images/GitHub-Mark-Light-32px.png';
+import ApiDownBackground from './Images/api-down-background.gif';
+import ThunderSoundEffect from './Audio/Thunder Sound effect.mp3';
 
 import Home from './Home';
 import FightSelecter from './FightSelecter';
-import FightSelectorHeader from './FightSelectorHeader';
 import PlayerSelecter from './PlayerSelecter';
-import PlayerSelectorHeader from './PlayerSelectorHeader';
 import Results from './Results';
 import ReportSelecter from './ReportSelecter';
 import AppBackgroundImage from './AppBackgroundImage';
+import FullscreenError from './FullscreenError';
+import NavigationBar from './Layout/NavigationBar';
+import DocumentTitleUpdater from './Layout/DocumentTitleUpdater';
+import Footer from './Layout/Footer';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
@@ -32,22 +45,42 @@ const PROGRESS_STEP3_PARSE_EVENTS = 0.99;
 
 /* eslint-disable no-alert */
 
-let _footerDeprecatedWarningSent = false;
+function isIE() {
+  const myNav = navigator.userAgent.toLowerCase();
+  return myNav.indexOf('msie') !== -1 || myNav.indexOf('trident') !== -1;
+}
 
 class App extends Component {
   static propTypes = {
-    router: PropTypes.shape({
-      push: PropTypes.func.isRequired,
+    reportCode: PropTypes.string,
+    playerName: PropTypes.string,
+    fightId: PropTypes.number,
+    report: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      code: PropTypes.string.isRequired,
     }),
-    params: PropTypes.shape({
-      reportCode: PropTypes.string,
-      playerName: PropTypes.string,
-      fightId: PropTypes.string,
-      resultTab: PropTypes.string,
+    fight: PropTypes.shape({
+      start_time: PropTypes.number.isRequired,
+      end_time: PropTypes.number.isRequired,
+      boss: PropTypes.number.isRequired,
     }),
-  };
-  static defaultProps = {
-    params: {},
+    combatants: PropTypes.arrayOf(PropTypes.shape({
+      sourceID: PropTypes.number.isRequired,
+    })),
+    fetchReport: PropTypes.func.isRequired,
+    fetchCombatants: PropTypes.func.isRequired,
+    push: PropTypes.func.isRequired,
+
+    error: PropTypes.shape({
+      error: PropTypes.string.isRequired,
+      details: PropTypes.any,
+    }),
+    clearError: PropTypes.func.isRequired,
+    reportNotFoundError: PropTypes.func.isRequired,
+    apiDownError: PropTypes.func.isRequired,
+    unknownNetworkIssueError: PropTypes.func.isRequired,
+    unknownError: PropTypes.func.isRequired,
+    internetExplorerError: PropTypes.func.isRequired,
   };
   static childContextTypes = {
     config: PropTypes.object,
@@ -55,85 +88,38 @@ class App extends Component {
 
   // Parsing a fight for a player is a "job", if the selected player or fight changes we want to stop parsing it. This integer gives each job an id that if it mismatches stops the job.
   _jobId = 0;
-  get reportCode() {
-    return this.props.params.reportCode;
-  }
   get isReportValid() {
-    return this.state.report && this.state.report.code === this.reportCode;
-  }
-  get playerName() {
-    return this.props.params.playerName;
-  }
-  get fightId() {
-    if (this.props.params.fightId) {
-      return Number(this.props.params.fightId.split('-')[0]);
-    }
-    return null;
-  }
-  get fight() {
-    return this.fightId && this.state.report && this.getFightFromReport(this.state.report, this.fightId);
-  }
-  get resultTab() {
-    return this.props.params.resultTab;
+    return this.props.report && this.props.report.code === this.props.reportCode;
   }
 
   getPlayerFromReport(report, playerName) {
     const fetchByNameAttempt = report.friendlies.find(friendly => friendly.name === playerName);
     if (!fetchByNameAttempt) {
-      return report.friendlies.find(friendly => friendly.id === Number(playerName, 10));
+      return report.friendlies.find(friendly => friendly.id === Number(playerName));
     }
     return fetchByNameAttempt;
   }
   getPlayerPetsFromReport(report, playerId) {
     return report.friendlyPets.filter(pet => pet.petOwner === playerId);
   }
-  getFightFromReport(report, fightId) {
-    return report.fights.find(fight => fight.id === fightId);
-  }
 
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
-      report: null,
-      combatants: null,
-      selectedSpec: null,
       progress: 0,
       dataVersion: 0,
       bossId: null,
       config: null,
     };
 
-    this.handleReportSelecterSubmit = this.handleReportSelecterSubmit.bind(this);
-    this.handleRefresh = this.handleRefresh.bind(this);
+    if (isIE()) {
+      props.internetExplorerError();
+    }
   }
   getChildContext() {
     return {
       config: this.state.config,
     };
-  }
-
-  handleReportSelecterSubmit(reportInfo) {
-    console.log('Selected report:', reportInfo['code']);
-    console.log('Selected fight:', reportInfo['fight']);
-    console.log('Selected player:', reportInfo['player']);
-
-    if (reportInfo['code']) {
-      let constructedUrl = `report/${reportInfo['code']}`;
-      
-      if (reportInfo['fight']) {
-        constructedUrl += `/${reportInfo['fight']}`;
-        
-        if (reportInfo['player']) {
-          constructedUrl += `/${reportInfo['player']}`;
-        }
-      }
-
-      this.props.router.push(constructedUrl);
-    }
-  }
-
-  handleRefresh() {
-    this.fetchReport(this.reportCode, true);
   }
 
   getConfig(specId) {
@@ -172,28 +158,34 @@ class App extends Component {
     let events;
     try {
       this.startFakeNetworkProgress();
-      events = await this.fetchEvents(report.code, fight.start_time, fight.end_time, player.id);
+      events = await fetchEvents(report.code, fight.start_time, fight.end_time, player.id);
       this.stopFakeNetworkProgress();
     } catch (err) {
       this.stopFakeNetworkProgress();
-      if (process.env.NODE_ENV === 'development') {
-        // Something went wrong while fetching the events, this usually doesn't have anything to do with a spec analyzer but is a core issue.
-        throw err;
+      if (err instanceof LogNotFoundError) {
+        this.props.reportNotFoundError();
+      } else if (err instanceof ApiDownError) {
+        this.props.apiDownError();
+      } else if (err instanceof JsonParseError) {
+        fatalError(err);
+        this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
       } else {
-        alert(`The report could not be parsed because an error occured. Warcraft Logs might be having issues. ${err.message}`);
-        console.error(err);
+        // Some kind of network error, internet may be down.
+        fatalError(err);
+        this.props.unknownNetworkIssueError(err);
       }
+      return;
     }
-    events = parser.normalize(events);
-    await this.setStatePromise({
-      progress: PROGRESS_STEP2_FETCH_EVENTS,
-    });
-
-    const batchSize = 300;
-    const numEvents = events.length;
-    let offset = 0;
-
     try {
+      events = parser.normalize(events);
+      await this.setStatePromise({
+        progress: PROGRESS_STEP2_FETCH_EVENTS,
+      });
+
+      const batchSize = 300;
+      const numEvents = events.length;
+      let offset = 0;
+
       while (offset < numEvents) {
         if (this._jobId !== jobId) {
           return;
@@ -217,12 +209,12 @@ class App extends Component {
         progress: 1.0,
       });
     } catch (err) {
+      fatalError(err);
       if (process.env.NODE_ENV === 'development') {
         // Something went wrong during the analysis of the log, there's probably an issue in your analyzer or one of its modules.
         throw err;
       } else {
         alert(`The report could not be parsed because an error occured while running the analysis. ${err.message}`);
-        console.error(err);
       }
     }
   }
@@ -254,113 +246,26 @@ class App extends Component {
   timeout(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
-  async fetchEvents(reportCode, fightStart, fightEnd, actorId = undefined, filter = undefined) {
-    let pageStartTimestamp = fightStart;
 
-    let events = [];
-    while (true) {
-      timeAvailable && console.time('WCL events');
-      const json = await this.fetchEventsPage(reportCode, pageStartTimestamp, fightEnd, actorId, filter);
-      timeAvailable && console.timeEnd('WCL events');
-      events = [
-        ...events,
-        ...json.events,
-      ];
-      if (json.nextPageTimestamp) {
-        if (json.nextPageTimestamp > fightEnd) {
-          console.error('nextPageTimestamp is after fightEnd, do we need to manually filter too?');
-        }
-        pageStartTimestamp = json.nextPageTimestamp;
+  async fetchCombatantsForFight(report, fight) {
+    try {
+      await this.props.fetchCombatants(report.code, fight.start_time, fight.end_time);
+    } catch (err) {
+      // TODO: Redirect to homepage
+      this.reset();
+      if (err instanceof LogNotFoundError) {
+        this.props.reportNotFoundError();
+      } else if (err instanceof ApiDownError) {
+        this.props.apiDownError();
+      } else if (err instanceof JsonParseError) {
+        fatalError(err);
+        this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
       } else {
-        break;
+        // Some kind of network error, internet may be down.
+        fatalError(err);
+        this.props.unknownNetworkIssueError(err);
       }
     }
-    return events;
-  }
-
-  fetchReport(code, refresh = false) {
-    // console.log('Fetching report:', code);
-
-    this.setState({
-      report: null,
-    });
-
-    return fetchWcl(`report/fights/${code}`, {
-      _: refresh ? +new Date() : undefined,
-      translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
-    })
-      .then(json => {
-        // console.log('Received report', code, ':', json);
-        if (this.reportCode === code) {
-          if (!json.fights) {
-            let message = 'Corrupt WCL response received.';
-            if (json.error) {
-              message = json.error;
-              if (json.message) {
-                try {
-                  const errorMessage = JSON.parse(json.message);
-                  if (errorMessage.error) {
-                    message = errorMessage.error;
-                  }
-                } catch (error) {
-                }
-              }
-            }
-
-            throw new Error(message);
-          }
-
-          this.setState({
-            report: {
-              ...json,
-              code,
-            },
-          });
-        }
-      })
-      .catch((err) => {
-        alert(`I'm so terribly sorry, an error occured. Try again later, in an updated Google Chrome and make sure that Warcraft Logs is up and functioning properly. Please let us know on Discord if the problem persists.\n\n${err}`);
-        console.error(err);
-        this.setState({
-          report: null,
-        });
-        this.reset();
-      });
-  }
-  fetchCombatantsForFight(report, fightId) {
-    // console.log('Fetching combatants:', report, fightId);
-
-    this.setState({
-      combatants: null,
-    });
-    const fight = this.getFightFromReport(report, fightId);
-    if (!fight) { // if this fight id doesn't exist the fight might be null
-      alert('Couldn\'t find the selected fight. If you are live-logging you will have to manually refresh the fight list.');
-      browserHistory.push(makeAnalyzerUrl(report));
-      return null;
-    }
-
-    return this.fetchEvents(report.code, fight.start_time, fight.end_time, undefined, 'type="combatantinfo"')
-      .then((events) => {
-        // console.log('Received combatants', report.code, ':', json);
-        if (this.reportCode === report.code && this.fightId === fightId) {
-          this.setState({
-            combatants: events,
-          });
-        }
-      })
-      .catch((err) => {
-        if (err) {
-          alert(err);
-        } else {
-          alert('I\'m so terribly sorry, an error occured. Try again later or in an updated Google Chrome. (Is Warcraft Logs up?)');
-        }
-        console.error(err);
-        this.setState({
-          report: null,
-        });
-        this.reset();
-      });
   }
 
   reset() {
@@ -373,20 +278,8 @@ class App extends Component {
     this.stopFakeNetworkProgress();
   }
 
-  fetchEventsPage(code, start, end, actorId = undefined, filter = undefined) {
-    return fetchWcl(`report/events/${code}`, {
-      start,
-      end,
-      actorid: actorId,
-      filter,
-      translate: true, // it's better to have 1 consistent language so long as we don't have the entire site localized
-    });
-  }
-
   componentWillMount() {
-    if (this.reportCode) {
-      this.fetchReport(this.reportCode);
-    }
+    this.fetchReportIfNecessary({});
   }
   componentDidUpdate(prevProps, prevState) {
     ReactTooltip.rebuild();
@@ -394,38 +287,50 @@ class App extends Component {
     this.fetchReportIfNecessary(prevProps);
     this.fetchCombatantsIfNecessary(prevProps, prevState);
     this.fetchEventsAndParseIfNecessary(prevProps, prevState);
-    this.updatePageTitle();
     this.updateBossIdIfNecessary(prevProps, prevState);
   }
   fetchReportIfNecessary(prevProps) {
-    const curParams = this.props.params;
-    const prevParams = prevProps.params;
-    if (curParams.reportCode && curParams.reportCode !== prevParams.reportCode) {
-      this.fetchReport(curParams.reportCode);
+    if (this.props.reportCode && this.props.reportCode !== prevProps.reportCode) {
+      this.props.fetchReport(this.props.reportCode)
+        .catch(err => {
+          this.reset();
+          if (err instanceof LogNotFoundError) {
+            this.props.reportNotFoundError();
+          } else if (err instanceof ApiDownError) {
+            this.props.apiDownError();
+          } else if (err instanceof CorruptResponseError) {
+            fatalError(err);
+            this.props.unknownError('Corrupt Warcraft Logs API response received, this report can not be processed.');
+          } else if (err instanceof JsonParseError) {
+            fatalError(err);
+            this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
+          } else {
+            // Some kind of network error, internet may be down.
+            fatalError(err);
+            this.props.unknownNetworkIssueError(err);
+          }
+        });
     }
   }
   fetchCombatantsIfNecessary(prevProps, prevState) {
-    const curParams = this.props.params;
-    const prevParams = prevProps.params;
-    if (this.isReportValid && this.fightId && (this.state.report !== prevState.report || curParams.fightId !== prevParams.fightId)) {
+    if (this.isReportValid && this.props.fight && (this.props.report !== prevProps.report || this.props.fight !== prevProps.fight)) {
       // A report has been loaded, it is the report the user wants (this can be a mismatch if a new report is still loading), a fight was selected, and one of the fight-relevant things was changed
-      this.fetchCombatantsForFight(this.state.report, this.fightId);
+      this.fetchCombatantsForFight(this.props.report, this.props.fight);
     }
   }
   fetchEventsAndParseIfNecessary(prevProps, prevState) {
-    const curParams = this.props.params;
-    const prevParams = prevProps.params;
-    const changed = this.state.report !== prevState.report
-      || this.state.combatants !== prevState.combatants
-      || curParams.fightId !== prevParams.fightId
-      || this.playerName !== prevParams.playerName;
+    const changed = this.props.report !== prevProps.report
+      || this.props.combatants !== prevProps.combatants
+      || this.props.fightId !== prevProps.fightId
+      || this.props.playerName !== prevProps.playerName;
     if (changed) {
       this.reset();
 
-      const report = this.state.report;
-      const combatants = this.state.combatants;
-      const playerName = this.playerName;
-      const valid = report && combatants && this.fightId && playerName;
+      const report = this.props.report;
+      const fight = this.props.fight;
+      const combatants = this.props.combatants;
+      const playerName = this.props.playerName;
+      const valid = report && fight && combatants && playerName;
       if (valid) {
         const player = this.getPlayerFromReport(report, playerName);
         if (!player) {
@@ -437,68 +342,129 @@ class App extends Component {
           alert('This player does not seem to be in this fight.');
           return;
         }
-        const fight = this.getFightFromReport(report, this.fightId);
         this.fetchEventsAndParse(report, fight, combatants, combatant, player);
       }
     }
   }
   updateBossIdIfNecessary(prevProps, prevState) {
-    const curParams = this.props.params;
-    const prevParams = prevProps.params;
-    if (curParams.reportCode !== prevParams.reportCode || this.state.report !== prevState.report || curParams.fightId !== prevParams.fightId) {
+    if (this.props.reportCode !== prevProps.reportCode || this.props.report !== prevProps.report || this.props.fightId !== prevProps.fightId) {
       this.updateBossId();
     }
   }
 
-  updatePageTitle() {
-    let title = 'WoW Analyzer';
-    if (this.reportCode && this.state.report) {
-      if (this.playerName) {
-        if (this.fight) {
-          title = `${getFightName(this.state.report, this.fight)} by ${this.playerName} in ${this.state.report.title} - ${title}`;
-        } else {
-          title = `${this.playerName} in ${this.state.report.title} - ${title}`;
-        }
-      } else {
-        title = `${this.state.report.title} - ${title}`;
-      }
-    }
-    document.title = title;
-  }
   updateBossId() {
     this.setState({
-      bossId: (this.reportCode && this.isReportValid && this.fight && this.fight.boss) || null,
+      bossId: (this.props.reportCode && this.isReportValid && this.props.fight && this.props.fight.boss) || null,
     });
   }
 
   renderContent() {
-    const { report, combatants, parser } = this.state;
-    if (!this.reportCode) {
+    const { parser } = this.state;
+    const { report, error } = this.props;
+
+    if (error) {
+      if (error.error === API_DOWN) {
+        return (
+          <FullscreenError
+            error="The API is down."
+            details="This is usually because we're leveling up with another patch."
+            background={ApiDownBackground}
+          >
+            <div className="text-muted">
+              Aside from the great news that you'll be the first to experience something new that is probably going to pretty amazing, you'll probably also enjoy knowing that our updates usually only take about 10 seconds. So just <a href={window.location.href}>give it another try</a>.
+            </div>
+            {/* I couldn't resist */}
+            <audio autoPlay>
+              <source src={ThunderSoundEffect} />
+            </audio>
+          </FullscreenError>
+        );
+      }
+      if (error.error === REPORT_NOT_FOUND) {
+        return (
+          <FullscreenError
+            error="Report not found."
+            details="Either you entered a wrong report, or it is private."
+            background="https://media.giphy.com/media/DAgxA6qRfa5La/giphy.gif"
+          >
+            <div className="text-muted">
+              Private logs can not be used, if your guild has private logs you will have to <a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a> or change the existing logs to the <i>unlisted</i> privacy option instead.
+            </div>
+            <div>
+              <button type="button" className="btn btn-primary" onClick={() => {
+                this.props.clearError();
+                this.props.push(makeAnalyzerUrl());
+              }}>
+                &lt; Back
+              </button>
+            </div>
+          </FullscreenError>
+        );
+      }
+      if (error.error === UNKNOWN_NETWORK_ISSUE) {
+        return (
+          <FullscreenError
+            error="An API error occured."
+            details="Something went talking to our servers, please try again."
+            background="https://media.giphy.com/media/m4TbeLYX5MaZy/giphy.gif"
+          >
+            <div className="text-muted">
+              {error.details.message}
+            </div>
+            <div>
+              <a className="btn btn-primary" href={window.location.href}>Refresh</a>
+            </div>
+          </FullscreenError>
+        );
+      }
+      if (error.error === INTERNET_EXPLORER) {
+        return (
+          <FullscreenError
+            error="A wild INTERNET EXPLORER appeared!"
+            details="WoWAnalyzer refuses to work. It's super effective!"
+            background="https://media.giphy.com/media/njYrp176NQsHS/giphy.gif"
+          >
+            <div>
+              <a className="btn btn-primary" href="http://outdatedbrowser.com/">Get a proper browser</a>
+            </div>
+          </FullscreenError>
+        );
+      }
+      return (
+        <FullscreenError
+          error="An unknown error occured."
+          details={error.details.message || error.details}
+          background="https://media.giphy.com/media/m4TbeLYX5MaZy/giphy.gif"
+        >
+          <div>
+            <button type="button" className="btn btn-primary" onClick={() => {
+              this.props.clearError();
+              this.props.push(makeAnalyzerUrl());
+            }}>
+              &lt; Back
+            </button>
+          </div>
+        </FullscreenError>
+      );
+    }
+    if (!this.props.reportCode) {
       return <Home />;
     }
+
     if (!report) {
       return (
-        <div>
+        <div className="container">
           <h1>Fetching report information...</h1>
 
           <div className="spinner" />
         </div>
       );
     }
-    if (!this.fightId) {
-      return <FightSelecter report={report} onRefresh={this.handleRefresh} />;
+    if (!this.props.fightId) {
+      return <FightSelecter />;
     }
-    if (!combatants) {
-      return (
-        <div>
-          <h1>Fetching players...</h1>
-
-          <div className="spinner" />
-        </div>
-      );
-    }
-    if (!this.playerName) {
-      return <PlayerSelecter report={report} fightId={this.fightId} combatants={combatants} />;
+    if (!this.props.playerName) {
+      return <PlayerSelecter />;
     }
     if (!parser) {
       return null;
@@ -508,8 +474,7 @@ class App extends Component {
       <Results
         parser={parser}
         dataVersion={this.state.dataVersion}
-        tab={this.resultTab}
-        onChangeTab={newTab => browserHistory.push(makeAnalyzerUrl(report, this.fightId, this.playerName, newTab))}
+        onChangeTab={newTab => this.props.push(makeAnalyzerUrl(report, this.props.fightId, this.props.playerName, newTab))}
       />
     );
   }
@@ -520,78 +485,75 @@ class App extends Component {
     });
   }
 
-  renderNavigationBar() {
-    const { report, combatants, parser, progress } = this.state;
-
-    return (
-      <nav>
-        <div className="container">
-          <div className="menu-item logo main">
-            <Link to={makeAnalyzerUrl()}>
-              <img src="/favicon.png" alt="WoWAnalyzer logo" />
-            </Link>
-          </div>
-          {this.reportCode && report && (
-            <div className="menu-item">
-              <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
-            </div>
-          )}
-          {this.fight && report && (
-            <FightSelectorHeader
-              className="menu-item"
-              report={report}
-              selectedFightName={getFightName(report, this.fight)}
-              parser={parser}
-            />
-          )}
-          {this.playerName && report && (
-            <PlayerSelectorHeader
-              className="menu-item"
-              report={report}
-              fightId={this.fightId}
-              combatants={combatants || []}
-              selectedPlayerName={this.playerName}
-            />
-          )}
-          <div className="spacer" />
-          <div className="menu-item main">
-            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
-              <img src={GithubLogo} alt="GitHub logo" /><span className="optional" style={{ paddingLeft: 6 }}> View on GitHub</span>
-            </a>
-          </div>
-        </div>
-        <div className="progress" style={{ width: `${progress * 100}%`, opacity: progress === 0 || progress >= 1 ? 0 : 1 }} />
-      </nav>
-    );
-  }
-
   render() {
-    if (this.state.config && this.state.config.footer && !_footerDeprecatedWarningSent) {
-      console.error('Using `config.footer` is deprecated. You should add the information you want to share to the description property in the config, which is shown on the spec information overlay.');
-      _footerDeprecatedWarningSent = true;
-    }
+    const { reportCode, error } = this.props;
+    const { parser, progress } = this.state;
+
+    // Treat `fatalError` like it's a report so the header doesn't pop over the shown error
+    const hasReport = reportCode || this.props.error;
 
     return (
-      <div className={`app ${this.reportCode ? 'has-report' : ''}`}>
+      <div className={`app ${hasReport ? 'has-report' : ''}`}>
         <AppBackgroundImage bossId={this.state.bossId} />
 
-        {this.renderNavigationBar()}
+        <NavigationBar
+          parser={parser}
+          progress={progress}
+        />
         <header>
-          <div className="container hidden-md hidden-sm hidden-xs">
-            Analyze your performance
+          <div className="container image-overlay">
+            <div className="row">
+              <div className="col-lg-6 col-md-10">
+                <h1>WoW&shy;Analyzer</h1>
+                <div className="description">
+                  Analyze your raid logs to view metrics and get personalized suggestions to improve your performance. Just enter a Warcraft Logs report:
+                </div>
+                {!hasReport && (
+                  <ReportSelecter />
+                )}
+              </div>
+            </div>
           </div>
-          {!this.reportCode && (
-            <ReportSelecter onSubmit={this.handleReportSelecterSubmit} />
-          )}
         </header>
-        <main className="container">
+        <main>
           {this.renderContent()}
-          {this.state.config && this.state.config.footer}
         </main>
+        {!error && <Footer />}
+
         <ReactTooltip html place="bottom" />
+        <DocumentTitleUpdater />
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  const fightId = getFightId(state);
+
+  return ({
+    reportCode: getReportCode(state),
+    fightId,
+    playerName: getPlayerName(state),
+
+    report: getReport(state),
+    fight: getFightById(state, fightId),
+    combatants: getCombatants(state),
+
+    error: getError(state),
+  });
+};
+
+export default connect(
+  mapStateToProps,
+  {
+    fetchReport: fetchReportAction,
+    fetchCombatants: fetchCombatantsAction,
+    push: pushAction,
+    clearError,
+    reportNotFoundError,
+    apiDownError,
+    unknownNetworkIssueError,
+    unknownError,
+    internetExplorerError,
+  }
+)(App);

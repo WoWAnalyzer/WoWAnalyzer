@@ -6,8 +6,10 @@ import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus'; // rel
 
 const PATIENT_SNIPER_BONUS_PER_SEC = 0.06;
 const VULNERABLE_DURATION = 7000;
-const LAG_TOLERANCE = 100;
+const LAG_TOLERANCE = 300;
 const MAX_AIMED_SHOT_TRAVEL_TIME = 1000;
+
+const debug = false;
 
 class PatientSniperTracker extends Analyzer {
   static dependencies = {
@@ -191,7 +193,7 @@ class PatientSniperTracker extends Analyzer {
     }
     this.currentVulnerables.push({
       start: event.timestamp,
-      end:  event.timestamp + VULNERABLE_DURATION,
+      end: event.timestamp + VULNERABLE_DURATION,
       ID: event.targetID,
       instance: event.targetInstance,
     });
@@ -205,6 +207,9 @@ class PatientSniperTracker extends Analyzer {
     // find Vulnerable on the target, update its end, add to past Vulnerables and remove from current ones
     const index = this.currentVulnerables.findIndex(vulnerable => vulnerable.ID === event.targetID && vulnerable.instance === event.targetInstance);
     const vulnerable = this.currentVulnerables[index];
+    if(!vulnerable) {
+      return;
+    }
     vulnerable.end = event.timestamp;
     this.pastVulnerables.push(vulnerable);
     this.currentVulnerables.splice(index, 1);
@@ -237,7 +242,13 @@ class PatientSniperTracker extends Analyzer {
       // so the buff lingers in currentVulnerables and timeDifference is > 7000ms which produces "7 seconds into vulnerable" which results in error
       timeDifference = 6500; // set a neutral value halfway past 6000 so dividing and flooring gives correct result
     }
-    const timeIntoVulnerable = Math.floor(timeDifference / 1000);
+    let timeIntoVulnerable = Math.floor(timeDifference / 1000);
+    //if our LAG_TOLERANCE didn't work, or the log somehow is missing a APPLYDEBUFF or REMOVEDEBUFF event for vulnerable, this will hardcode it into max value (as it will be in-game in majority of cases as it later checks if vulnerable is still on the target)
+    if(timeIntoVulnerable>6) {
+      debug && console.log('emergency fix had to be used', event.timestamp);
+      timeIntoVulnerable = 6;
+    }
+    debug &&  console.log('timestamp: ', event.timestamp, '. Time into vulnerable: ', timeIntoVulnerable, '. TargetID: ', event.targetID);
     // this "event" is intended for Aimed Shot only
     // since Vulnerable and Patient Sniper bonuses are snapshotted at the moment of the cast (and not when the shot lands)
     // store current target and time passed in Vulnerable (= damage bonus essentially)
@@ -254,18 +265,15 @@ class PatientSniperTracker extends Analyzer {
       if (hasVulnerability) {
         this.patientSniper[spellId].TS.seconds[timeIntoVulnerable].count += 1;
         castEvent.timeIntoVulnerable = timeIntoVulnerable;
-      }
-      else {
+      } else {
         this.patientSniper[spellId].TS.noVulnerable += 1;
       }
-    }
-    else {
+    } else {
       this.patientSniper[spellId].noTS.count += 1;
       if (hasVulnerability) {
         this.patientSniper[spellId].noTS.seconds[timeIntoVulnerable].count += 1;
         castEvent.timeIntoVulnerable = timeIntoVulnerable;
-      }
-      else {
+      } else {
         this.patientSniper[spellId].noTS.noVulnerable += 1;
       }
     }
@@ -313,8 +321,7 @@ class PatientSniperTracker extends Analyzer {
       const hasTS = this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id, event.timestamp);
       if (hasTS) {
         this.patientSniper[spellId].TS.seconds[timeIntoVulnerable].damage += bonus;
-      }
-      else {
+      } else {
         this.patientSniper[spellId].noTS.seconds[timeIntoVulnerable].damage += bonus;
       }
     }
@@ -326,14 +333,14 @@ class PatientSniperTracker extends Analyzer {
     // this helper looks for Vulnerable debuffs (either current or if not present, tries past windows) on a given target+instance when castTimestamp happened
     // calculates the Patient Sniper bonus from that window or returns undefined if no windows were found
     let vulnerable = this.currentVulnerables.find(v => v.ID === targetID &&
-                                                      v.instance === targetInstance &&
-                                                      v.start <= castTimestamp  &&
-                                                      castTimestamp <= v.end);
+      v.instance === targetInstance &&
+      v.start <= castTimestamp &&
+      castTimestamp <= v.end);
     if (!vulnerable) {
       vulnerable = this.pastVulnerables.find(v => v.ID === targetID &&
-                                                  v.instance === targetInstance &&
-                                                  v.start <= castTimestamp  &&
-                                                  castTimestamp <= v.end);
+        v.instance === targetInstance &&
+        v.start <= castTimestamp &&
+        castTimestamp <= v.end);
     }
     // consistent with what I queue from Aimed Shot cast events - undefined if shot outside of Vulnerable, otherwise seconds into Vulnerable
     return (!vulnerable) ? undefined : Math.floor((castTimestamp - vulnerable.start) / 1000);

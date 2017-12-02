@@ -63,6 +63,11 @@ export default {
     name: 'Kidney Shot',
     icon: 'ability_rogue_kidneyshot',
   },
+  ARCANE_TORRENT_ROGUE: {
+    id: 25046,
+    name: 'Arcane Torrent',
+    icon: 'spell_shadow_teleport',
+  },
 
   // Subtlety spells
   // Combo point generating damage ability
@@ -108,6 +113,11 @@ export default {
     name: 'Shadow Dance',
     icon: 'ability_rogue_shadowdance',
   },
+  SHADOW_DANCE_BUFF: {
+    id: 185422,
+    name: 'Shadow Dance',
+    icon: 'ability_rogue_shadowdance',
+  },
   SYMBOLS_OF_DEATH: {
     id: 212283,
     name: 'Symbols of Death',
@@ -124,10 +134,74 @@ export default {
     name: 'Shadow Nova',
     icon: 'spell_fire_twilightnova',
   },
-  // Buffs
-  SHADOW_DANCE_BUFF: {
-    id: 185422,
-    name: 'Shadow Dance',
-    icon: 'ability_rogue_shadowdance',
+  // CP Generation
+  SHADOW_TECHNIQUES: {
+    id: 196911,
+    name: 'Shadow Techniques',
+    icon: 'ability_rogue_masterofsubtlety',
+  },
+  SHURIKEN_STORM_CP: {
+    id: 212743,
+    name: 'Shuriken Storm',
+    icon: 'ability_rogue_shurikenstorm',
+  },
+  // ENERGY REGEN
+  GOREMAWS_BITE_ENERGY: {
+    id: 220901,
+    name: 'Goremaw\'s Bite',
+    icon: 'inv_knife_1h_artifactfangs_d_01',
+  },
+  RELENTLESS_STRIKES: {
+    id: 98440,
+    name: 'Relentless Strikes',
+    icon: 'ability_warrior_decisivestrike',
+  },
+  ENERGETIC_STABBING: {
+    id: 197237,
+    name: 'Energetic Stabbing',
+    icon: 'inv_knife_1h_pvppandarias3_c_02',
+  },
+  SHADOW_SATYRS_WALK_ENERGY_BASE: {
+    id: 224914,
+    name: 'Shadow Satyr\'s Walk',
+    icon: 'inv_boots_mail_dungeonmail_c_04',
+  },
+  SHADOW_SATYRS_WALK_ENERGY_EXTRA: {
+    id: 208440,
+    name: 'Shadow Satyr\'s Walk',
+    icon: 'inv_boots_mail_dungeonmail_c_04',
+  },
+  
+  //Buffs
+  MASTER_ASSASSINS_INITIATIVE_BUFF: {
+    id: 235027,
+    name: 'Master Assassin\'s Initiative',
+    icon: 'inv_weapon_shortblade_25',
+  },
+
+  // Sets
+  
+  //Tooltips for T20 are swapped on Wowhead.
+  //Names of variables correctly reflect in-game.  
+  SUB_ROGUE_T20_2SET_BONUS: {
+    id: 242280,
+    name: 'T20 2 set bonus',
+    icon: 'rogue_subtlety',
+  },
+  SUB_ROGUE_T20_4SET_BONUS: {
+    id: 242279,
+    name: 'T20 4 set bonus',
+    icon: 'rogue_subtlety',
+  },
+  
+  SUB_ROGUE_T21_2SET_BONUS: {
+    id: 251785,
+    name: 'T21 2 set bonus',
+    icon: 'rogue_subtlety',
+  },
+  SUB_ROGUE_T21_4SET_BONUS: {
+    id: 251788,
+    name: 'T21 4 set bonus',
+    icon: 'rogue_subtlety',
   },
 };

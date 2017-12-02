@@ -16,7 +16,8 @@ class EstelNormalizer extends EventsNormalizer {
 
     events.forEach((event, eventIndex) => {
 
-      if ((event.sourceID === event.targetID) 
+      if (event.ability && event.ability.guid
+          && (event.sourceID === event.targetID) 
           && (event.ability.guid === SPELLS.ESTEL_DEJAHNAS_INSPIRATION_BUFF.id)) {
 
         if (haveOpenBuff) {

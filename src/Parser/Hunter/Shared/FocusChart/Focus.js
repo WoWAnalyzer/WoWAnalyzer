@@ -39,7 +39,7 @@ class Focus extends React.PureComponent {
         </div>
       );
     }
-
+    
     const focusGen = Math.round((10 + .1 * this.props.playerHaste / 375) * 100) / 100; //TODO: replace constant passive FocusGen (right now we don't account for lust/hero or Trueshot)
 
     const maxFocus = this.props.focusMax;

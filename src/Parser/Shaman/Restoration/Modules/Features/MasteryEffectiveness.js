@@ -1,8 +1,24 @@
+import React from 'react';
+
+import SpellIcon from 'common/SpellIcon';
+import SPELLS from 'common/SPELLS';
+import { formatPercentage } from 'common/format';
+
 import Analyzer from 'Parser/Core/Analyzer';
+
+import Combatants from 'Parser/Core/Modules/Combatants';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../Constants';
 
 class MasteryEffectiveness extends Analyzer {
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+    combatants: Combatants,
+  };
+
   totalMasteryHealing = 0;
   totalMaxPotentialMasteryHealing = 0;
 
@@ -16,7 +32,7 @@ class MasteryEffectiveness extends Analyzer {
       const masteryEffectiveness = 1 - healthBeforeHeal / event.maxHitPoints;
 
       // The base healing of the spell (excluding any healing added by mastery)
-      const masteryPercent = this.owner.modules.combatants.selected.masteryPercentage;
+      const masteryPercent = this.combatants.selected.masteryPercentage;
       const baseHealingDone = healingDone / (1 + masteryPercent * masteryEffectiveness);
       const masteryHealingDone = healingDone - baseHealingDone;
       // The max potential mastery healing if we had a mastery effectiveness of 100% on this spell. This does NOT include the base healing
@@ -28,6 +44,25 @@ class MasteryEffectiveness extends Analyzer {
       this.totalMaxPotentialMasteryHealing += Math.max(0, maxPotentialMasteryHealing - (event.overheal || 0));
     }
   }
+
+  statistic() {
+    const masteryEffectivenessPercent = this.totalMasteryHealing / this.totalMaxPotentialMasteryHealing;
+    const masteryPercent = this.combatants.selected.masteryPercentage;
+    const avgEffectiveMasteryPercent = masteryEffectivenessPercent * masteryPercent;
+
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.DEEP_HEALING.id} />}
+        value={`${formatPercentage(masteryEffectivenessPercent)}%`}
+        label={(
+          <dfn data-tip={`The percent of your mastery that you benefited from on average (so always between 0% and 100%). Since you have ${formatPercentage(masteryPercent)}% mastery, this means that on average your heals were increased by ${formatPercentage(avgEffectiveMasteryPercent)}% by your mastery. <br /><br />This does not account for temporary mastery procs.`}>
+            Mastery benefit
+          </dfn>
+        )}
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(70);
 }
 
 export default MasteryEffectiveness;

@@ -13,7 +13,7 @@ import EstelNormalizer from './Normalizers/EstelNormalizer';
 import SpellManaCost from './Modules/Core/SpellManaCost';
 import AbilityTracker from './Modules/Core/AbilityTracker';
 
-import CastEfficiency from './Modules/Features/CastEfficiency';
+import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import PowerWordShieldWasted from './Modules/Features/PowerWordShieldWasted';
@@ -30,10 +30,12 @@ import Skjoldr from './Modules/Items/Skjoldr';
 import Xalan from './Modules/Items/Xalan';
 import NeroBandOfPromises from './Modules/Items/NeroBandOfPromises';
 import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedallion';
+import CarafeOfSearingLight from './Modules/Items/CarafeOfSearingLight';
 import MarchOfTheLegion from './Modules/Items/MarchOfTheLegion';
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
 import Tier21_2set from './Modules/Items/Tier21_2set';
+import Tier21_4set from './Modules/Items/Tier21_4set';
 import Estel from './Modules/Items/Estel';
 
 import TwistOfFate from './Modules/Spells/TwistOfFate';
@@ -62,7 +64,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
     lowHealthHealing: LowHealthHealing,
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
 
     // Abilities
     penance: Penance,
@@ -83,10 +85,12 @@ class CombatLogParser extends CoreCombatLogParser {
     xalan: Xalan,
     neroBandOfPromises: NeroBandOfPromises,
     tarnishedSentinelMedallion: TarnishedSentinelMedallion,
+    carafeOfSearingLight: CarafeOfSearingLight,
     marchOfTheLegion: MarchOfTheLegion,
     tier20_2set: Tier20_2set,
     tier20_4set: Tier20_4set,
     tier21_2set: Tier21_2set,
+    tier21_4set: Tier21_4set,
     estel: Estel,
 
     // Spells (talents and traits):

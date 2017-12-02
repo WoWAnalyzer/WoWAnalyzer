@@ -9,42 +9,46 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import WildGrowthNormalizer from './Normalizers/WildGrowth';
 
-import Ekowraith from './Modules/Legendaries/Ekowraith';
-import XonisCaress from './Modules/Legendaries/XonisCaress';
-import DarkTitanAdvice from './Modules/Legendaries/DarkTitanAdvice';
-import EssenceOfInfusion from './Modules/Legendaries/EssenceOfInfusion';
-import Tearstone from './Modules/Legendaries/Tearstone';
-import DarkmoonDeckPromises from './Modules/Legendaries/DarkmoonDeckPromises';
+import Mastery from './Modules/Core/Mastery';
+import Rejuvenation from './Modules/Core/Rejuvenation';
 
-import T19_2Set from './Modules/Legendaries/T19_2Set';
-import T20_2Set from './Modules/Legendaries/T20_2Set';
-import T20_4Set from './Modules/Legendaries/T20_4Set';
-import T21_2Set from './Modules/Legendaries/T21_2Set';
-import T21_4Set from './Modules/Legendaries/T21_4Set';
+import Ekowraith from './Modules/Items/Ekowraith';
+import XonisCaress from './Modules/Items/XonisCaress';
+import DarkTitanAdvice from './Modules/Items/DarkTitanAdvice';
+import EssenceOfInfusion from './Modules/Items/EssenceOfInfusion';
+import SoulOfTheArchdruid from './Modules/Items/SoulOfTheArchdruid';
+import Tearstone from './Modules/Items/Tearstone';
+import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
+import CarafeOfSearingLight from './Modules/Items/CarafeOfSearingLight';
+
+import T19_2Set from './Modules/Items/T19_2Set';
+import T20_2Set from './Modules/Items/T20_2Set';
+import T20_4Set from './Modules/Items/T20_4Set';
+import T21_2Set from './Modules/Items/T21_2Set';
+import T21_4Set from './Modules/Items/T21_4Set';
 
 import HealingTouch from './Modules/Features/HealingTouch';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import AverageHots from './Modules/Features/AverageHots';
-import CastEfficiency from './Modules/Features/CastEfficiency';
+import Abilities from './Modules/Features/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
-import Rejuvenation from './Modules/Features/Rejuvenation';
 import WildGrowth from './Modules/Features/WildGrowth';
 import Lifebloom from './Modules/Features/Lifebloom';
 import Efflorescence from './Modules/Features/Efflorescence';
 import Clearcasting from './Modules/Features/Clearcasting';
-import TreeOfLife from './Modules/Features/TreeOfLife';
-import Flourish from './Modules/Features/Flourish';
 import Innervate from './Modules/Features/Innervate';
 import PowerOfTheArchdruid from './Modules/Features/PowerOfTheArchdruid';
 import Dreamwalker from './Modules/Features/Dreamwalker';
-import SoulOfTheForest from './Modules/Features/SoulOfTheForest';
 import EssenceOfGhanir from './Modules/Features/EssenceOfGhanir';
-import Mastery from './Modules/Features/Mastery';
-import Cultivation from './Modules/Features/Cultivation';
-import SpringBlossoms from './Modules/Features/SpringBlossoms';
-import CenarionWard from './Modules/Features/CenarionWard';
 import NaturesEssence from './Modules/Features/NaturesEssence';
 import Ironbark from './Modules/Features/Ironbark';
+
+import CenarionWard from './Modules/Talents/CenarionWard';
+import Cultivation from './Modules/Talents/Cultivation';
+import Flourish from './Modules/Talents/Flourish';
+import SpringBlossoms from './Modules/Talents/SpringBlossoms';
+import SoulOfTheForest from './Modules/Talents/SoulOfTheForest';
+import TreeOfLife from './Modules/Talents/TreeOfLife';
 
 import RelicTraits from './Modules/Traits/RelicTraits';
 import ArmorOfTheAncients from './Modules/Traits/ArmorOfTheAncients';
@@ -78,7 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     averageHots: AverageHots,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
     rejuvenation: Rejuvenation,
     wildGrowth: WildGrowth,
     lifebloom: Lifebloom,
@@ -98,11 +102,12 @@ class CombatLogParser extends CoreCombatLogParser {
     naturesEssence: NaturesEssence,
     ironbark: Ironbark,
 
-    // Legendaries:
+    // Items:
     ekowraith: Ekowraith,
     xonisCaress: XonisCaress,
     darkTitanAdvice: DarkTitanAdvice,
     essenceOfInfusion: EssenceOfInfusion,
+    soulOfTheArchdruid: SoulOfTheArchdruid,
     tearstone: Tearstone,
     t19_2set: T19_2Set,
     t20_2set: T20_2Set,
@@ -115,6 +120,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Shared:
     darkmoonDeckPromises: DarkmoonDeckPromises,
+    carafeOfSearingLight: CarafeOfSearingLight,
 
     // Traits
     RelicTraits: RelicTraits,
