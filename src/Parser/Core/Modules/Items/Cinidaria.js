@@ -1,4 +1,6 @@
 import React from 'react';
+
+import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
@@ -25,9 +27,10 @@ class Cinidaria extends Analyzer {
     return {
       item: ITEMS.CINIDARIA_THE_SYMBIOTE,
       result: (
-        <span>
-          {this.owner.formatItemDamageDone(damage)} <br/> {this.owner.formatItemHealingDone(healing)}
-        </span>
+        <Wrapper>
+          {this.owner.formatItemDamageDone(damage)}<br/>
+          {this.owner.formatItemHealingDone(healing)}
+        </Wrapper>
       ),
     };
   }

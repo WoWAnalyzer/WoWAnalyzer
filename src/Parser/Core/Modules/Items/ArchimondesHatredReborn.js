@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
@@ -36,12 +37,10 @@ class ArchimondesHatredReborn extends Analyzer {
     return {
       item: ITEMS.ARCHIMONDES_HATRED_REBORN,
       result: (
-        <dfn data-tip={`The effective absorb and damage contributed by Archimode's Hatred Reborn.<br/>
-              Damage: ${this.owner.formatItemDamageDone(this.damage)} <br/>
-              Absorb: ${this.owner.formatItemHealingDone(this.healing)}`}
-        >
-          {this.owner.formatItemHealingDone(this.healing)}
-        </dfn>
+        <Wrapper>
+          {this.owner.formatItemHealingDone(this.healing)}<br />
+          {this.owner.formatItemDamageDone(this.damage)}
+        </Wrapper>
       ),
     };
   }

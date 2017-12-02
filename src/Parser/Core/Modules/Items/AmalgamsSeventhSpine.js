@@ -11,6 +11,7 @@ class AmalgamsSeventhSpine extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
+
   manaGained = 0;
   procs = 0;
   applications = 0;
@@ -29,6 +30,7 @@ class AmalgamsSeventhSpine extends Analyzer {
     this.manaGained += event.resourceChange;
     this.procs += 1;
   }
+
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.FRAGILE_ECHO_BUFF.id) {
@@ -37,6 +39,7 @@ class AmalgamsSeventhSpine extends Analyzer {
 
     this.applications += 1;
   }
+
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.FRAGILE_ECHO_BUFF.id) {
