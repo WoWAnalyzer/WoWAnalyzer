@@ -31,6 +31,41 @@ export default {
     name: 'Dire Beast Summon',
     icon: 'ability_hunter_sickem',
   },
+  DIRE_BEAST_SUMMON_2: {
+    id: 219199,
+    name: 'Dire Beast Summon',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
+  DIRE_BEAST_SUMMON_3: {
+    id: 255283,
+    name: 'Dire Beast Summon',
+    icon: 'ability_hunter_sickem',
+  },
+  DIRE_BEAST_SUMMON_4: {
+    id: 212386,
+    name: 'Dire Beast Summon',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
+  DIRE_BEAST_SUMMON_5: {
+    id: 212382,
+    name: 'Dire Beast Summon',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
+  DIRE_BEAST_SUMMON_6: {
+    id: 212389,
+    name: 'Dire Beast Summon',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
+  DIRE_BEAST_SUMMON_7: {
+    id: 212381,
+    name: 'Dire Beast Summon',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
+  DIRE_BEAST_SUMMON_8: {
+    id: 212388,
+    name: 'Dire Beast Summon',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
   COBRA_SHOT: {
     id: 193455,
     name: 'Cobra Shot',
@@ -93,10 +128,20 @@ export default {
     name: 'Beast Cleave',
     icon: 'ability_hunter_sickem',
   },
+  COBRA_COMMANDER_TRAIT: {
+    id: 238123,
+    name: 'Cobra Commander',
+    icon: 'inv_waepon_bow_zulgrub_d_01',
+  },
   COBRA_COMMANDER: {
     id: 243042,
     name: 'Cobra Commander',
     icon: 'inv_waepon_bow_zulgrub_d_01',
+  },
+  DEATHSTRIKE_VENOM: {
+    id: 243121,
+    name: 'Deathstrike Venom',
+    icon: 'spell_nature_nullifypoison',
   },
 
   //Beast Mastery Tier
@@ -145,7 +190,6 @@ export default {
     name: 'T21 4 set bonus',
     icon: 'spell_nature_protectionformnature',
   },
-
 
   // MarksmanshipHunter:
   // Marksmanship spells

@@ -14,13 +14,16 @@ import PETS from "common/PETS";
 
 const T19_2P_DAMAGE_MODIFIER = 0.5;
 const T19_2P_DAMAGE_MODIFIER_DIRE_FRENZY = 0.1;
+const DIRE_BEAST_DURATION = 8000;
 
 const DIRE_FRENZY_NOT_AFFECTED_PETS = [
   PETS.HATI.id,
-];
-
-const DIRE_BEAST = [
-  PETS.DIRE_BEAST.id,
+  PETS.HATI_2.id,
+  PETS.HATI_3.id,
+  PETS.HATI_4.id,
+  PETS.HATI_5.id,
+  PETS.HATI_6.id,
+  PETS.HATI_7.id,
 ];
 
 class Tier19_2p extends Analyzer {
@@ -28,6 +31,8 @@ class Tier19_2p extends Analyzer {
     combatants: Combatants,
     pets: CorePets,
   };
+
+  currentDireBeasts = [];
 
   bonusDmg = 0;
   bestialWrathBaseModifier = 0;
@@ -40,14 +45,26 @@ class Tier19_2p extends Analyzer {
       this.bestialWrathBaseModifier = 0.25;
     }
   }
-
+  on_byPlayer_summon(event) {
+    const spellName = event.ability.name;
+    if (spellName !== "Dire Beast") {
+      return;
+    }
+    this.currentDireBeasts.push({
+      end: event.timestamp + DIRE_BEAST_DURATION,
+      ID: event.targetID,
+      instance: event.targetInstance,
+    });
+  }
   on_byPlayerPet_damage(event) {
     if (!this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id, event.timestamp)) {
       return;
     }
     const pet = this.pets.getSourceEntity(event);
     if (!this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id)) {
-      if (DIRE_BEAST.every(id => pet.guid !== id)) {
+      const index = this.currentDireBeasts.findIndex(direBeast => direBeast.ID === event.sourceID && direBeast.instance === event.sourceInstance);
+      const selectedDireBeast = this.currentDireBeasts[index];
+      if (!selectedDireBeast) {
         return;
       }
       this.bonusDmg += getDamageBonus(event, T19_2P_DAMAGE_MODIFIER);
