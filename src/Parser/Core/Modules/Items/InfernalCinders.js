@@ -1,7 +1,5 @@
-import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import { formatNumber } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';

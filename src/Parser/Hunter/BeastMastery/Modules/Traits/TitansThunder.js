@@ -30,10 +30,6 @@ class TitansThunder extends Analyzer {
     this.active = this.combatants.selected.traitsBySpellId[SPELLS.TITANS_THUNDER.id];
   }
 
-  on_initialized() {
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.TITANS_THUNDER.id] > 0;
-  }
-
   on_toPlayer_applybuff(event) {
     const buffId = event.ability.guid;
     if (buffId !== SPELLS.DIRE_BEAST_BUFF.id) {
