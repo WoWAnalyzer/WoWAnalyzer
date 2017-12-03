@@ -206,6 +206,8 @@ class StatTracker extends Analyzer {
         return 0.1;
       case SPECS.FROST_MAGE:
         return 0.18;
+      case SPECS.FIRE_MAGE:
+        return 0.06;
       case SPECS.SUBTLETY_ROGUE:
         return 0.2208;
       case SPECS.BEAST_MASTERY_HUNTER:
@@ -262,6 +264,8 @@ class StatTracker extends Analyzer {
         return 32000;
       case SPECS.FROST_MAGE:
         return 17778;
+      case SPECS.FIRE_MAGE:
+        return 53341;
       case SPECS.SUBTLETY_ROGUE:
         return 14492.61221;
       case SPECS.BEAST_MASTERY_HUNTER:
