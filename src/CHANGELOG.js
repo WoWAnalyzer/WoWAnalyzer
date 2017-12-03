@@ -9,7 +9,7 @@ export default [
   {
     date: new Date('2017-12-03'),
     changes: <Wrapper>Improve Player Selection user interface.</Wrapper>,
-    contributors: [kyle-glick],
+    contributors: ['kyle-glick'],
   },
   {
     date: new Date('2017-12-01'),
