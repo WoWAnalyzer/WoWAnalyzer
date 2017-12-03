@@ -7,6 +7,11 @@ import ITEMS from 'common/ITEMS';
 
 export default [
   {
+    date: new Date('2017-12-03'),
+    changes: <Wrapper>Improve Player Selection user interface.</Wrapper>,
+    contributors: [kyle-glick],
+  },
+  {
     date: new Date('2017-12-01'),
     changes: <Wrapper>Improved WCL API error handling to avoid caching corrupt responses (and show more informative errors).</Wrapper>,
     contributors: [Zerotorescue],
