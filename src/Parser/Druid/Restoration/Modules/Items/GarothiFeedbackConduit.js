@@ -41,16 +41,22 @@ class GarothiFeedbackConduit extends CoreGarothiFeedbackConduit {
   }
 
   item() {
+    const avgHaste =
+      this.totalProccValue.reduce((acc, proc) => acc + (proc[0] * proc[1]), 0) / this.owner.fightDuration;
     const hpmWeight = this.statWeights._getGain(STAT.HASTE_HPM) / (this.statWeights.totalOneInt || 1);
-    const throughput = (hpmWeight * this.totalAverageHasteGained) / this.totalIntellect;
+    const throughput = (hpmWeight * avgHaste) / this.totalIntellect;
+
+    //TODO: Add the healing from each haste rating in the future:
+    const healing = this.statWeights._getGain(STAT.HASTE_HPM) * avgHaste;
+
     return {
       item: ITEMS.GAROTHI_FEEDBACK_CONDUIT,
       result: (
         <dfn
-          data-tip={`This is the average haste rating gained. The throughput it calculated with using the int on "Stats on pull" and the stat weights of HPM.</b>`}
+          data-tip={`The throughput shown is calculated by using the int on "Stats on pull" and the stat weights of HPM.</b>`}
         >
-          {formatThousands(this.totalAverageHasteGained)} average haste rating gained.<br />
-          {formatPercentage(throughput)} % / {formatNumber((this.healingDone.total.effective * throughput) / this.owner.fightDuration * 1000)} HPS <br />
+          {formatThousands(avgHaste)} average haste rating gained.<br />
+          {formatPercentage(throughput)} % / {formatNumber(healing / this.owner.fightDuration * 1000)} HPS <br />
         </dfn>
       ),
     };

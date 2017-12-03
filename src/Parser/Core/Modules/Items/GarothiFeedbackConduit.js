@@ -1,11 +1,12 @@
 import React from 'react';
 
 import ITEMS from 'common/ITEMS';
+import SPELLS from "common/SPELLS";
+import { formatThousands } from "common/format";
+import { calculateSecondaryStatDefault } from 'common/stats';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import SPELLS from "../../../../common/SPELLS";
-import { formatThousands } from "../../../../common/format";
 
 const BASE_ITEM_LEVEL = 935;
 const BASE_HASTE_VALUE = 872;
@@ -14,7 +15,6 @@ class GarothiFeedbackConduit extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
-  currentILvl = 0;
   baseILvl = 935;
   staticHaste = 0;
   lastProcc = null;
@@ -22,12 +22,12 @@ class GarothiFeedbackConduit extends Analyzer {
   currentUptime = 0;
   currentProccValue = 0;
 
-  totalAverageHasteGained = 0;
   on_initialized() {
     this.active = this.combatants.selected.hasTrinket(ITEMS.GAROTHI_FEEDBACK_CONDUIT.id);
     if(this.active) {
-      this.currentILvl = this.combatants.selected.getTrinket(ITEMS.GAROTHI_FEEDBACK_CONDUIT.id).itemLevel;
-      this.staticHaste = Math.round(BASE_HASTE_VALUE* Math.pow(1.15,((this.currentILvl-BASE_ITEM_LEVEL)/15)) * Math.pow(0.994435486, (this.currentILvl-BASE_ITEM_LEVEL)));
+      const currentILvl = this.combatants.selected.getTrinket(ITEMS.GAROTHI_FEEDBACK_CONDUIT.id).itemLevel;
+      this.staticHaste = calculateSecondaryStatDefault(BASE_ITEM_LEVEL, BASE_HASTE_VALUE, currentILvl);
+      console.log("static haste: " + this.staticHaste);
     }
   }
 
@@ -53,21 +53,15 @@ class GarothiFeedbackConduit extends Analyzer {
     }
   }
 
-  on_finished() {
-    this.totalProccValue.forEach(function(item) {
-      const uptimePercent = item[1]/this.owner.fightDuration;
-      this.totalAverageHasteGained += uptimePercent * item[0];
-    }.bind(this));
-  }
-
   item() {
+    const avgHaste =
+      this.totalProccValue.reduce((acc, proc) => acc + (proc[0] * proc[1]), 0) / this.owner.fightDuration;
+
     return {
       item: ITEMS.GAROTHI_FEEDBACK_CONDUIT,
       result: (
-        <dfn
-          data-tip={`This is the average haste rating gained</b>`}
-        >
-          {formatThousands(this.totalAverageHasteGained)} average haste rating gained.
+        <dfn>
+          {formatThousands(avgHaste)} average haste rating gained.
         </dfn>
       ),
     };
