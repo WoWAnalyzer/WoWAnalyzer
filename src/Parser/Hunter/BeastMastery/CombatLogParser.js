@@ -31,6 +31,7 @@ import AspectOfTheBeast from './Modules/Talents/AspectOfTheBeast';
 
 //Traits
 import TitansThunder from "./Modules/Traits/TitansThunder";
+import CobraCommander from './Modules/Traits/CobraCommander';
 
 //Traits and Talents list
 import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
@@ -69,6 +70,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Traits
     titansThunder: TitansThunder,
+    cobraCommander: CobraCommander,
 
     //Traits and Talents list
     traitsAndTalents: TraitsAndTalents,

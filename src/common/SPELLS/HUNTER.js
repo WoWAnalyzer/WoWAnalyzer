@@ -108,6 +108,11 @@ export default {
     name: 'Titan\'s Thunder',
     icon: 'inv_firearm_2h_artifactlegion_d_01',
   },
+  COBRA_COMMANDER_TRAIT: {
+    id: 238123,
+    name: 'Cobra Commander',
+    icon: 'inv_waepon_bow_zulgrub_d_01',
+  },
   COBRA_COMMANDER: {
     id: 243042,
     name: 'Cobra Commander',
@@ -127,6 +132,11 @@ export default {
     id: 238087,
     name: 'Thunderslash',
     icon: 'warrior_talent_icon_thunderstruck',
+  },
+  DEATHSTRIKE_VENOM: {
+    id: 243121,
+    name: 'Deathstrike Venom',
+    icon: 'spell_nature_nullifypoison',
   },
 
   //Beast Mastery Tier
