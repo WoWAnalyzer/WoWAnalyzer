@@ -4,7 +4,7 @@ import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
-import { formatDuration, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -133,7 +133,7 @@ class DecieversGrandDesign extends Analyzer {
             } else {
               castResult += `fight ended`;
             }
-            return arr + `<li>on ${cast.targetName} @${this.owner.formatTimestamp(cast.applied)}${castResult}</li>`
+            return arr + `<li>on ${cast.targetName} @${this.owner.formatTimestamp(cast.applied)}${castResult}</li>`;
           }, '')}
         </ul>
         `}>
@@ -154,7 +154,7 @@ class DecieversGrandDesign extends Analyzer {
             Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> was proccing early. Try to cast it on players without spiky health pools. The following events procced the shield:<br />
             {this.casts.map((cast, index) => {
               if (!cast.shieldProc) {
-                return;
+                return null;
               }
               const reportWindowStart = cast.removed - PROC_EVENT_START_BUFFER;
               const reportWindowEnd = cast.removed + PROC_EVENT_END_BUFFER;
