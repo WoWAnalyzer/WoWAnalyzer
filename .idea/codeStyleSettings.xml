@@ -32,15 +32,6 @@
           <option name="BLANK_LINES_AROUND_FUNCTION" value="0" />
           <option name="IMPORT_PREFER_ABSOLUTE_PATH" value="TRUE" />
         </JSCodeStyleSettings>
-        <PHPCodeStyleSettings>
-          <option name="PHPDOC_BLANK_LINES_AROUND_PARAMETERS" value="true" />
-          <option name="PHPDOC_WRAP_LONG_LINES" value="true" />
-          <option name="LOWER_CASE_BOOLEAN_CONST" value="true" />
-          <option name="LOWER_CASE_NULL_CONST" value="true" />
-          <option name="VARIABLE_NAMING_STYLE" value="CAMEL_CASE" />
-          <option name="SPACES_WITHIN_SHORT_ECHO_TAGS" value="false" />
-          <option name="FORCE_SHORT_DECLARATION_ARRAY_STYLE" value="true" />
-        </PHPCodeStyleSettings>
         <XML>
           <option name="XML_SPACE_INSIDE_EMPTY_TAG" value="true" />
           <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
