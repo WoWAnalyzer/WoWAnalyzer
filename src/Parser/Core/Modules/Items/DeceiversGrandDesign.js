@@ -9,7 +9,7 @@ import { formatDuration, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-const debug = true;
+const debug = false;
 
 // time before and after shield proc to show user
 const PROC_EVENT_START_BUFFER = 5000;
@@ -22,6 +22,10 @@ const MINOR = 0.80;
 const AVERAGE = 0.60;
 const MAJOR = 0.30;
 
+/*
+ * The Deceiver's Grand Design -
+ * Use: Mark a friendly player with Guiding Hand, healing them for 79,760 every 3.0 sec for 2 min. If they fall below 35% health, Guiding Hand is consumed to grant them a shield that prevents 1,395,816 damage for 15 sec. (2 min recharge, 2 charges) (1.5 sec cooldown)
+ */
 class DecieversGrandDesign extends Analyzer {
   static dependencies = {
     combatants: Combatants,

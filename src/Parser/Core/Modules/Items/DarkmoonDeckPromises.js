@@ -21,6 +21,11 @@ const BASE_MANA_REDUCTION_PER_CARD = {
   191622: 1680, // 8
 };
 
+/*
+ * Darkmoon Deck: Promises -
+ * Equip: Reduces the base mana cost of your spells by 604-2,415. The amount of mana reduction depends on the topmost card in the deck.
+ * Equip: Periodically shuffle the deck while in combat.
+ */
 class DarkmoonDeckPromises extends Analyzer {
   static dependencies = {
     spellManaCost: SpellManaCost, // we need this to add `manaCost` to the `event`

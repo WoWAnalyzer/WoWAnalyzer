@@ -6,6 +6,10 @@ import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
+/*
+ * Amalgam's Seventh Spine -
+ * Equip: Your direct healing spells apply and refresh Fragile Echo for 6 sec. When Fragile Echo expires, it restores 3840 mana to you.
+ */
 class AmalgamsSeventhSpine extends Analyzer {
   static dependencies = {
     combatants: Combatants,

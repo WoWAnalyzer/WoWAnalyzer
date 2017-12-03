@@ -7,6 +7,10 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
+/*
+ * Archimondes Hatred Reborn -
+ * Use: Gain an absorb shield for 30% of your maximum health for 10 sec. When the shield is consumed or expires, 75% of the damage absorbed is dealt to nearby enemies, split evenly.
+ */
 class ArchimondesHatredReborn extends Analyzer {
   static dependencies = {
     combatants: Combatants,

@@ -9,6 +9,10 @@ import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
+/*
+ * Cinidaria, the Symbiote -
+ * Equip: Your attacks cause an additional 30% damage to enemies above 90% health and heal you for 100% of the damage done.
+ */
 class Cinidaria extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,

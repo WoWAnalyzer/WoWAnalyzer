@@ -8,6 +8,10 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
 
+/*
+ * Archive of Faith -
+ * Use: Channel a cleansing matrix into an ally, healing them for 1,618,326 over 3 sec. Fully completing the channel also grants the ally a shield that prevents 590,030 damage for 10 sec.
+ */
 class ArchiveOfFaith extends Analyzer {
   static dependencies = {
     combatants: Combatants,
