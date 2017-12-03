@@ -27,7 +27,6 @@ class GarothiFeedbackConduit extends Analyzer {
     if(this.active) {
       const currentILvl = this.combatants.selected.getTrinket(ITEMS.GAROTHI_FEEDBACK_CONDUIT.id).itemLevel;
       this.staticHaste = calculateSecondaryStatDefault(BASE_ITEM_LEVEL, BASE_HASTE_VALUE, currentILvl);
-      console.log("static haste: " + this.staticHaste);
     }
   }
 
