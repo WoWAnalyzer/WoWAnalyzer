@@ -174,9 +174,9 @@ class PlayerSelectionList extends React.PureComponent {
               const aSpec = SPECS[a.combatant.specID] || { role: 10 };
               const bSpec = SPECS[b.combatant.specID] || { role: 10 };
               if (aSpec.className > bSpec.className) {
-                return 1
+                return 1;
               } else if (aSpec.className < bSpec.className) {
-                return -1
+                return -1;
               }
               if (aSpec.role > bSpec.role) {
                 return 1;
