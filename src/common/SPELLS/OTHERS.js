@@ -601,4 +601,16 @@ export default {
     name: 'Feedback Loop',
     icon: 'spell_holy_dispelmagic',
   },
+  // Dot spell for Carafe of Searing Light
+  REFRESHING_AGONY_DOT: {
+    id: 253284,
+    name: 'Refreshing Agony',
+    icon: 'ability_priest_flashoflight',
+  },
+  // Mana return spell for Carafe of Searing Light
+  REFRESHING_AGONY_MANA: {
+    id: 255981,
+    name: 'Refreshing Agonyt',
+    icon: 'ability_priest_flashoflight',
+  },
 };
