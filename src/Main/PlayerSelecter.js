@@ -32,10 +32,12 @@ class PlayerSelecter extends Component {
 
     if (!combatants) {
       return (
-        <div>
-          <h1>Fetching players...</h1>
+        <div className="container">
+          <div>
+            <h1>Fetching players...</h1>
 
-          <div className="spinner" />
+            <div className="spinner" />
+          </div>
         </div>
       );
     }

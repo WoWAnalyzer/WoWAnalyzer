@@ -4,14 +4,13 @@ import SPELLS from 'common/SPELLS/index';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import { formatNumber } from 'common/format';
 import getDamageBonus from "Parser/Hunter/Shared/Modules/getDamageBonus";
-import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
 import ITEMS from "common/ITEMS/HUNTER";
+import SpellLink from 'common/SpellLink';
 
 //Calculates the actual % increase in damage from Bestial Fury
-const BESTIAL_FURY_MODIFIER = (1.4/1.25)-1;
+const BESTIAL_FURY_MODIFIER = (1.4 / 1.25) - 1;
 
 const debug = false;
 
@@ -44,13 +43,18 @@ class BestialWrath extends Analyzer {
     this.bonusDmg += getDamageBonus(event, BESTIAL_FURY_MODIFIER);
   }
 
-  statistic() {
+  subStatistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.BESTIAL_FURY_TALENT.id} />}
-        value={`${formatNumber(this.bonusDmg)}`}
-        label={this.owner.formatItemDamageDone(this.bonusDmg)}
-        tooltip={`Bestial Fury contributed in total with this much damage by boosting the baseline damage bonus of Bestial Wrath.`} />
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.BESTIAL_FURY_TALENT.id}>
+            <SpellIcon id={SPELLS.BESTIAL_FURY_TALENT.id} noLink /> Bestial Fury
+          </SpellLink>
+        </div>
+        <div className="flex-sub text-right">
+          {(this.owner.formatItemDamageDone(this.bonusDmg))}
+        </div>
+      </div>
     );
   }
 }

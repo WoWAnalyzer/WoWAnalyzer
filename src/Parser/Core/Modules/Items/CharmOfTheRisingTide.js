@@ -25,6 +25,10 @@ const FULL_POWER_APPLY_WINDOW_MS = 2000;
  * There is one special case where this won't work right, which is if for some reason the 'max power' buff is active on pull.
  * I won't be handling this case because if the player activates CotRT 10+ seconds prepull, they deserve to get wrong results.
  */
+ /*
+  * Charm of the Rising Tide -
+  * Use: While you remain stationary, gain 554 Haste every 1 sec stacking up to 10 times. Lasts 20 sec.
+  */
 class CharmOfTheRisingTide extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
