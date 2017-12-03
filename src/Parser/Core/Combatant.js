@@ -89,7 +89,7 @@ class Combatant extends Entity {
       case SPECS.FROST_MAGE:
         return 0.18 + this.masteryRating / 17777.7777777;
       case SPECS.FIRE_MAGE:
-        return 0.06 + this.masteryRating / 53340.9610983;
+        return 0.06 + this.masteryRating / 53333.3333333;
       case SPECS.RETRIBUTION_PALADIN:
         return 0.14 + this.masteryRating / 22850;
 	    case SPECS.SUBTLETY_ROGUE:
