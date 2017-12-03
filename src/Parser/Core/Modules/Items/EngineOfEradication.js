@@ -19,6 +19,10 @@ const MINOR = 0.95;
 const AVERAGE = 0.75;
 const MAJOR = 0.50;
 
+/*
+ * Engine of Eradication -
+ * Equip: Your auto attacks have a chance to increase your Strength or Agility, based on your specialization, by 4,942 for 12 sec, and expel orbs of fel energy. Collecting an orb increases the duration of this effect by 3 sec. (Approximately 1 procs per minute)
+ */
 class EngineOfEradication extends Analyzer {
   static dependencies = {
     combatants: Combatants,

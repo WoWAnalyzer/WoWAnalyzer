@@ -3,16 +3,22 @@ import ITEMS from 'common/ITEMS';
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import { formatNumber, formatPercentage } from 'common/format';
 
 const PANTHEON_MAX_SHIELD_PER_PROC = 4;
 
+/*
+ * Eonar's Compassion -
+ * Equip: Your healing effects have a chance to grow an Emerald Blossom nearby, which heals a random injured ally for 127273 every 2 sec. Lasts 12 sec.
+ * Eonar's Verdant Embrace - When empowered by the Pantheon, your next 4 direct healing spells grant the target a shield that prevents 250782 damage for 30 sec.
+ */
 class EonarsCompassion extends Analyzer {
   static dependencies = {
       combatants: Combatants,
   };
+
   trinketHealing = 0;
   trinketProc = 0;
+
   pantheonShieldHealing = 0;
   pantheonProc = 0;
   pantheonShieldCast = 0;
@@ -45,38 +51,42 @@ class EonarsCompassion extends Analyzer {
   }
 
   on_byPlayer_applybuff(event) {
-      const spellId = event.ability.guid;
-      if (spellId === SPELLS.EONARS_COMPASSION_PROCBUFF.id) {
-        this.trinketProc += 1;
-      }
-      else if (spellId === SPELLS.EONARS_COMPASSION_PANTHEONSHIELD.id) {
-        this.pantheonShieldCast += 1;
-      }
-      else if (this.triggerBuffs.includes(spellId)) {
-        this.pantheonProc += 1;
-      }
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.EONARS_COMPASSION_PROCBUFF.id) {
+      this.trinketProc += 1;
+    } else if (spellId === SPELLS.EONARS_COMPASSION_PANTHEONSHIELD.id) {
+      this.pantheonShieldCast += 1;
+    } else if (this.triggerBuffs.includes(spellId)) {
+      this.pantheonProc += 1;
+    }
+  }
+
+  get totalHealing() {
+    return this.trinketHealing + this.pantheonShieldHealing;
   }
 
   item() {
-    const totalHeal = this.trinketHealing + this.pantheonShieldHealing;
     const minutes = this.owner.fightDuration / 1000 / 60;
-    const ppm = this.trinketProc / minutes;
-    const trinketPercentHPS = formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.trinketHealing));
-    const trinketHPS = formatNumber(this.trinketHealing / this.owner.fightDuration * 1000);
+    const basicPpm = this.trinketProc / minutes;
     const pantheonPpm = this.pantheonProc / minutes;
-    const pantheonPercentHPS = formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.pantheonShieldHealing));
-    const pantheonHPS = formatNumber(this.pantheonShieldHealing / this.owner.fightDuration * 1000);
-    const possiblesShield = this.pantheonProc * PANTHEON_MAX_SHIELD_PER_PROC;
-      return {
-          item: ITEMS.EONARS_COMPASSION,
-          result: (
-            <dfn data-tip={`The trinket effect procced ${this.trinketProc} times with an average of ${ppm.toFixed(2)} PPM.<br>
-            This did ${formatNumber(this.trinketHealing)} healing and was ${trinketPercentHPS}% of your total healing, provinding ${trinketHPS} HPS.<br><br>
-            The pantheon effect procced ${this.pantheonProc} times with an average of ${pantheonPpm.toFixed(2)} PPM.<br>
-            You casted ${this.pantheonShieldCast} shields out of the ${possiblesShield} possibles.<br>
-            This did ${formatNumber(this.pantheonShieldHealing)} absorb and was ${pantheonPercentHPS}% of your total healing, provinding ${pantheonHPS} HPS.`}>
-        {this.owner.formatItemHealingDone(totalHeal)}
-        </dfn>),
+    const possibleShields = this.pantheonProc * PANTHEON_MAX_SHIELD_PER_PROC;
+    return {
+      item: ITEMS.EONARS_COMPASSION,
+      result: (
+        <dfn data-tip={`Basic Procs
+          <ul>
+            <li>${this.owner.formatItemHealingDone(this.trinketHealing)}</li>
+            <li>${this.trinketProc} procs (${basicPpm.toFixed(1)} PPM)</li>
+          </ul>
+          Pantheon Procs
+          <ul>
+            <li>${this.owner.formatItemHealingDone(this.pantheonShieldHealing)}</li>
+            <li>${this.pantheonProc} procs (${pantheonPpm.toFixed(1)} PPM)</li>
+            ${this.pantheonProc ? `<li>Applied ${this.pantheonShieldCast} shields (out of ${possibleShields} possible)</li>` : ``}
+          </ul>`}>
+          {this.owner.formatItemHealingDone(this.totalHealing)}
+        </dfn>
+      ),
     };
   }
 }
