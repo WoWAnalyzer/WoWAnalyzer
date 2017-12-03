@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS/OTHERS';
 import { formatThousands } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -24,7 +25,7 @@ class CarafeOfSearingLight extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== ITEMS.REFRESHING_AGONY_DOT.id) {
+    if (spellId !== SPELLS.REFRESHING_AGONY_DOT.id) {
       this.lastDamageEventIsTrinketDot = false;
       return;
     }
@@ -43,7 +44,7 @@ class CarafeOfSearingLight extends Analyzer {
 
   on_byPlayer_energize(event) {
     const spellId = event.ability.guid;
-    if (spellId !== ITEMS.REFRESHING_AGONY_MANA.id) {
+    if (spellId !== SPELLS.REFRESHING_AGONY_MANA.id) {
       return;
     }
 
