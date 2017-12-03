@@ -453,6 +453,8 @@ h1 {
 /* "item" here are not just in-game items but anything with an icon, link and text. this includes items, suggestions and talents. */
 .list > .item {
   position: relative;
+}
+.list > .item:not(:last-child) {
   border-bottom: 1px solid rgba(0, 0, 0, .4);
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
 }

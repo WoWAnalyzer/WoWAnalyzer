@@ -34,29 +34,29 @@ class PlayerSelectionList extends React.PureComponent {
     ReactTooltip.hide();
   }
 
-  renderRoleGroups(report, fightID, friendlies) {
-    let roleGroups = {};
+  renderRoleGroups(report, fightId, friendlies) {
+    const roleGroups = {};
     roleGroups[ROLES.TANK] = [];
     roleGroups[ROLES.HEALER] = [];
     roleGroups[ROLES.DPS.MELEE] = [];
     roleGroups[ROLES.DPS.RANGED] = [];
     roleGroups[null] = []; // Spec might not be found if the combatantinfo errored, this happens extremely rarely. Example report: CJBdLf3c2zQXkPtg/13-Heroic+Kil'jaeden+-+Kill+(7:40)
 
-    friendlies.map(({ friendly, combatant }) => {
+    friendlies.forEach(({ friendly, combatant }) => {
       const spec = SPECS[combatant.specID];
       roleGroups[spec ? spec.role : null].push([friendly, combatant]);
-    })
+    });
 
-    let rows = [];
+    const rows = [];
     Object.keys(roleGroups).forEach(( roleID ) => {
       if ( roleID !== "null" || roleGroups[roleID].length > 0 ) {
-        rows.push(this.renderRoleGroup(report, fightID, parseInt(roleID), roleGroups[roleID]));
+        rows.push(this.renderRoleGroup(report, fightId, parseInt(roleID, 10), roleGroups[roleID]));
       }
-    })
+    });
     return(rows);
   }
 
-  renderRoleGroup(report, fightID, roleID, friendlies) {
+  renderRoleGroup(report, fightId, roleID, friendlies) {
     let role;
     let header;
     switch (roleID) {
@@ -88,7 +88,7 @@ class PlayerSelectionList extends React.PureComponent {
         <ul className="list selection players">
           {
             friendlies.map(( arr ) => {
-              return this.renderFriendly(report, fightID, arr[0], arr[1]);
+              return this.renderFriendly(report, fightId, arr[0], arr[1]);
             })
           }
         </ul>
@@ -106,7 +106,7 @@ class PlayerSelectionList extends React.PureComponent {
       default: icon = 'tank'; break; // Use a non-visible image for correct spacing
     }
 
-    let styles = icon === undefined ? { marginLeft: -5, marginRight: 10, visibility: 'hidden' } : { borderRadius: '50%', marginLeft: -5, marginRight: 10 }
+    const styles = isNaN(roleID) ? { marginLeft: -5, marginRight: 10, visibility: 'hidden' } : { borderRadius: '50%', marginLeft: -5, marginRight: 10 };
 
     return(
       <h4 className="card-title">
@@ -115,7 +115,7 @@ class PlayerSelectionList extends React.PureComponent {
     );
   }
 
-  renderFriendly(report, fightID, friendly, combatant) {
+  renderFriendly(report, fightId, friendly, combatant) {
     const spec = SPECS[combatant.specID];
 
     if (!spec) {
@@ -123,8 +123,8 @@ class PlayerSelectionList extends React.PureComponent {
       return(
         <li key={friendly.id} className="item selectable">
           <Link
-            to={makeAnalyzerUrl(report, fightID, friendly.name)}
-            className={spec.className}
+            to={makeAnalyzerUrl(report, fightId, friendly.name)}
+            style={{ marginLeft: 40 }}
             onClick={e => {
               e.preventDefault();
               alert('The combatlog did not give us any information about this player. This player can not be analyzed.');
@@ -137,7 +137,7 @@ class PlayerSelectionList extends React.PureComponent {
     } else {
       return(
         <li key={friendly.id} className="item selectable">
-          <Link to={makeAnalyzerUrl(report, fightID, friendly.name)} className={spec.className} style={{ marginLeft: 40 }}>
+          <Link to={makeAnalyzerUrl(report, fightId, friendly.name)} className={spec.className} style={{ marginLeft: 40 }}>
             {this.renderSpecIcon(spec)} {friendly.name} ({spec.specName})
           </Link>
         </li>
@@ -152,7 +152,7 @@ class PlayerSelectionList extends React.PureComponent {
   }
 
   render() {
-    const { report, fightID, combatants } = this.props;
+    const { report, fightId, combatants } = this.props;
 
     if ( combatants.length === 0 ) {
       return(
@@ -162,7 +162,7 @@ class PlayerSelectionList extends React.PureComponent {
       );
     } else {
       return(
-        this.renderRoleGroups(report, fightID,
+        this.renderRoleGroups(report, fightId,
           report.friendlies
             .map(friendly => ({
               friendly,
@@ -173,6 +173,11 @@ class PlayerSelectionList extends React.PureComponent {
               // The combatlog can error out while would cause the combatant to not have a spec specified, in that case sort them at the bottom.
               const aSpec = SPECS[a.combatant.specID] || { role: 10 };
               const bSpec = SPECS[b.combatant.specID] || { role: 10 };
+              if (aSpec.className > bSpec.className) {
+                return 1
+              } else if (aSpec.className < bSpec.className) {
+                return -1
+              }
               if (aSpec.role > bSpec.role) {
                 return 1;
               } else if (aSpec.role < bSpec.role) {
