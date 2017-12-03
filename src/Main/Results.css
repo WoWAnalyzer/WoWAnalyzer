@@ -78,6 +78,7 @@
   left: 0;
   width: 137px;
   height: 137px;
+  border-radius: 50%;
 }
 .results header .boss img {
   left: auto;
@@ -90,6 +91,7 @@
   text-transform: uppercase;
   text-align: center;
   line-height: 1;
+  transform: scaleY(0.8) translateY(-5px);
   /* so that the player and boss names just overlap */
   margin: -23px 0;
 }
