@@ -55,7 +55,7 @@ class PlayerSelecter extends Component {
           <div className="panel-heading">
             <h2>Select the player you wish to analyze</h2>
           </div>
-          <div className="panel-body" style={{ padding: 0 }}>
+          <div className="panel-body">
             <PlayerSelectionList />
           </div>
         </div>
