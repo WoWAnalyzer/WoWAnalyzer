@@ -8,6 +8,10 @@ import CritEffectBonus from '../Helpers/CritEffectBonus';
 
 export const DRAPE_OF_SHAME_CRIT_EFFECT = 0.05;
 
+/*
+ * Drape of Shame -
+ * Equip: Increases the healing of your critical healing effects by 5%.
+ */
 class DrapeOfShame extends Analyzer {
   static dependencies = {
     critEffectBonus: CritEffectBonus,

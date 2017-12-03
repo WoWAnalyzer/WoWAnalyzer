@@ -6,6 +6,10 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
 
+/*
+ * Barbaric Mindslaver -
+ * Equip: Your healing effects have a chance to do an additional 165,326 healing. This occurs more often while you are at low mana. (Approximately 6 procs per minute)
+ */
 class BarbaricMindslaver extends Analyzer {
   static dependencies = {
     combatants: Combatants,

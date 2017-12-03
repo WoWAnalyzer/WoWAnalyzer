@@ -6,7 +6,7 @@ import ChangelogTabTitle from 'Main/ChangelogTabTitle';
 import Tab from 'Main/Tab';
 import TimelineTab from 'Main/Timeline/TimelineTab';
 
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage, formatThousands, formatDuration } from 'common/format';
 
 import ApplyBuffNormalizer from './Normalizers/ApplyBuff';
 
@@ -415,6 +415,12 @@ class CombatLogParser {
   }
   formatItemDamageDone(damageDone) {
     return `${formatPercentage(this.getPercentageOfTotalDamageDone(damageDone))} % / ${formatNumber(damageDone / this.fightDuration * 1000)} DPS`;
+  }
+  formatManaRestored(manaRestored) {
+    return `${formatThousands(manaRestored)} mana / ${formatThousands(manaRestored / this.fightDuration * 1000 * 5)} MP5`;
+  }
+  formatTimestamp(timestamp) {
+    return formatDuration((timestamp - this.fight.start_time) / 1000);
   }
 
   generateResults() {
