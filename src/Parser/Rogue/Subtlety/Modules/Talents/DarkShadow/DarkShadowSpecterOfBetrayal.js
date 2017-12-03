@@ -5,9 +5,9 @@ import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
+import { formatPercentage } from 'common/format';
 
 import DarkShadow from './DarkShadow';
-import { formatPercentage } from './../../../../../../common/format';
 
 class DarkShadowSpecterOfBetrayal extends DarkShadow {
   
