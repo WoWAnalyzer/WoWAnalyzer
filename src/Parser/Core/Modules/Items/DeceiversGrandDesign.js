@@ -78,7 +78,7 @@ class DecieversGrandDesign extends Analyzer {
       debug && console.log("Fruitful Machinations proc on " + event.targetID +" @ " + this.owner.formatTimestamp(event.timestamp));
       const lastCastOnTarget = this.casts.filter(cast => cast.target === event.targetID).pop();
       if (!lastCastOnTarget) {
-        console.warn("No Guiding Hand application logged for targetID " + event.targetID);
+        console.warn("No Guiding Hand application was logged for targetID " + event.targetID);
         return;
       }
       lastCastOnTarget.shieldProc = true;
@@ -93,6 +93,10 @@ class DecieversGrandDesign extends Analyzer {
 
     debug && console.log("Guiding Hand removed from " + event.targetID +" @ " + this.owner.formatTimestamp(event.timestamp));
     const cast = this.casts.find(cast => cast.active && cast.target === event.targetID);
+    if (!cast) {
+      console.warn("No Guiding Hand application was logged for targetID " + event.targetID);
+      return;
+    }
     cast.active = false;
     cast.removed = event.timestamp;
     cast.duration = cast.removed - cast.applied;
