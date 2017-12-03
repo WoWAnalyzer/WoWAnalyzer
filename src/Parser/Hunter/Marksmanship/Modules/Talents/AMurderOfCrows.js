@@ -8,6 +8,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from "common/SpellIcon";
 import { formatNumber, formatPercentage } from "common/format";
 import SpellLink from "common/SpellLink";
+import SPECS from 'common/SPECS';
 
 //generally accepted rule is to save crows if boss is below 25% health.
 const CROWS_SAVE_PERCENT = 0.25;
@@ -26,7 +27,7 @@ class AMurderOfCrows extends Analyzer {
   bossHP = 0;
 
   on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id) && SPECS.MARKSMANSHIP_HUNTER;
     this.owner.report.enemies.forEach(enemy => {
       enemy.fights.forEach(fight => {
         if (fight.id === this.owner.fight.id && enemy.type === "Boss") this.bossIDs.push(enemy.id);
