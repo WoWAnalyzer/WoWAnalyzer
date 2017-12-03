@@ -21,6 +21,8 @@ import DiscordButton from 'Main/DiscordButton';
 import Maintainer from 'Main/Maintainer';
 
 import SpecInformationOverlay from './SpecInformationOverlay';
+import ZerotorescueCharacterAvatar from './Images/boss-avatars/zerotorescue.png';
+import HarjatanAvatar from './Images/boss-avatars/harjatan.png';
 
 import './Results.css';
 
@@ -223,28 +225,17 @@ class Results extends React.Component {
     return (
       <div className="container">
         <div className="results">
-          <div className="row">
-            <div className="col-lg-10 col-md-8" style={{ position: 'relative' }}>
-              <div className="back-button" style={{ fontSize: 36, width: 20 }}>
-                <Link to={`/report/${report.code}/${fight.id}`} data-tip="Back to player selection">
-                  <span className="glyphicon glyphicon-chevron-left" aria-hidden />
-                </Link>
-              </div>
-              <h1 style={{ marginBottom: 0, fontSize: 48, textTransform: 'none', fontVariant: 'none' }}>
-                {getBossName(fight)} by <span className={config.spec.className.replace(' ', '')}>{selectedCombatant.name}</span>
-              </h1>
+          <header>
+            <div className={`player ${config.spec.className.replace(' ', '')}`}>
+              <img src={ZerotorescueCharacterAvatar} /> {selectedCombatant.name}
             </div>
-            <div className="col-lg-2 col-md-4" style={{ paddingTop: 20, fontSize: 20 }}>
-              <a
-                href={`https://www.warcraftlogs.com/reports/${report.code}/#fight=${fight.id}&source=${parser.playerId}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="pull-right"
-              >
-                <span className="glyphicon glyphicon-link" aria-hidden /> Open report
-              </a>
+            <div className="versus">versus</div>
+            <div className="boss">
+              <img src={HarjatanAvatar} /> {getBossName(fight)}
             </div>
-          </div>
+          </header>
+          <div className="divider" />
+
           <div className="text-muted" style={{ marginBottom: 25, fontSize: '1.4em' }}>
             The <img
               src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`}
