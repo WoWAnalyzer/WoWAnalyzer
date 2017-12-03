@@ -81,6 +81,16 @@ export default {
     name: 'Beast Cleave',
     icon: 'ability_hunter_sickem',
   },
+  STOMP_DAMAGE: {
+    id: 201754,
+    name: 'Stomp',
+    icon: 'ability_warstomp',
+  },
+  ASPECT_OF_THE_BEAST_BESTIAL_FEROCITY: {
+    id: 191413,
+    name: 'Bestial Ferocity',
+    icon: 'ability_hunter_invigeration',
+  },
 
   //Beast Mastery Artifact Traits
   TITANS_THUNDER: {
@@ -90,7 +100,12 @@ export default {
   },
   TITANS_THUNDER_BUFF: {
     id: 207094,
-    name: 'Titans Thunder Buff',
+    name: 'Titan\'s Thunder Buff',
+    icon: 'inv_firearm_2h_artifactlegion_d_01',
+  },
+  TITANS_THUNDER_DAMAGE: {
+    id: 207097,
+    name: 'Titan\'s Thunder',
     icon: 'inv_firearm_2h_artifactlegion_d_01',
   },
   COBRA_COMMANDER: {
@@ -168,6 +183,11 @@ export default {
     id: 204147,
     name: 'Windburst',
     icon: 'inv_bow_1h_artifactwindrunner_d_02',
+  },
+  WINDBURST_MOVEMENT_SPEED: {
+    id: 204477,
+    name: 'Windburst',
+    icon: 'ability_hunter_focusedaim',
   },
   AIMED_SHOT: {
     id: 19434,

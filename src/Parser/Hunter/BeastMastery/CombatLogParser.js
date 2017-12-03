@@ -24,9 +24,16 @@ import DireBeastUptime from "./Modules/Spells/DireBeast/DireBeastUptime";
 
 //Talents
 import KillerCobra from "./Modules/Talents/KillerCobra";
+import AMurderOfCrows from "./Modules/Talents/AMurderOfCrows";
+import BestialFury from './Modules/Talents/BestialFury';
+import Stomp from './Modules/Talents/Stomp';
+import AspectOfTheBeast from './Modules/Talents/AspectOfTheBeast';
 
 //Traits
 import TitansThunder from "./Modules/Traits/TitansThunder";
+
+//Traits and Talents list
+import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -55,9 +62,16 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Talents
     killerCobra: KillerCobra,
+    aMurderOfCrows: AMurderOfCrows,
+    bestialFury: BestialFury,
+    stomp: Stomp,
+    aspectOfTheBeast: AspectOfTheBeast,
 
     //Traits
     titansThunder: TitansThunder,
+
+    //Traits and Talents list
+    traitsAndTalents: TraitsAndTalents,
 
   };
 }

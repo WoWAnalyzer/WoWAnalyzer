@@ -24,6 +24,7 @@ class TitansThunder extends Analyzer {
   stacksOnTTCast = 0;
   shouldHaveSavedTT = 0;
   weirdCast = 0;
+  damage = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.traitsBySpellId[SPELLS.TITANS_THUNDER.id];
@@ -54,7 +55,7 @@ class TitansThunder extends Analyzer {
     this.totalTTCasts += 1;
     const bestialWrathIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id);
     if (bestialWrathIsOnCooldown) {
-      if (this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id) < TITANS_THUNDER_USE_REGARDLESS_THRESHHOLD) {
+      if (!this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id) && this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id) < TITANS_THUNDER_USE_REGARDLESS_THRESHHOLD) {
         this.shouldHaveSavedTT += 1;
         return;
       } else if (!this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id) && (this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id) > TITANS_THUNDER_USE_REGARDLESS_THRESHHOLD)) {
@@ -80,7 +81,23 @@ class TitansThunder extends Analyzer {
 
     debug && console.log('good tt casts:', this.goodTTCasts, ' and bad tt casts: ', this.badTTCasts, ' and total casts is: ', this.totalTTCasts, ' and weird casts: ', this.weirdCast);
   }
+
+  on_byPlayerPet_damage(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.TITANS_THUNDER_DAMAGE.id) {
+      return;
+    }
+    this.damage += event.amount;
+  }
+
   statistic() {
+    let tooltipText = `You cast Titan's Thunder a total of ${this.totalTTCasts} times.`;
+    tooltipText += this.badTTCasts + this.shouldHaveSavedTT > 0 ? `<ul>` : ``;
+    tooltipText += this.badTTCasts > 0 && !this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id) ? `<li>You had ${this.badTTCasts} bad cast(s) of Titan's Thunder. Bad casts indicate that Titan's Thunder was used without any Dire Beasts up.</li>` : ``;
+    tooltipText += this.badTTCasts > 0 && this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id) ? `<li>You had ${this.badTTCasts} bad cast(s) of Titan's Thunder. Bad casts indicate that Titan's Thunder was used without Bestial Wrath up.</li>` : ``;
+    tooltipText += this.shouldHaveSavedTT > 0 ? `<li>You cast Titan's Thunder ${this.shouldHaveSavedTT} times where you should have delayed casting it, this occurs when you cast Titan's Thunder when there is less than 30 seconds remaning on Bestial Wrath cooldown.</li>` : ``;
+    tooltipText += this.badTTCasts + this.shouldHaveSavedTT > 0 ? `</ul>` : ``;
+
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.TITANS_THUNDER.id} />}
@@ -95,7 +112,7 @@ class TitansThunder extends Analyzer {
               }}
             />
             <br />
-            {this.badTTCasts}{'  '}
+            {this.badTTCasts + this.shouldHaveSavedTT}{'  '}
             <SpellIcon
               id={SPELLS.TITANS_THUNDER.id}
               style={{
@@ -108,8 +125,22 @@ class TitansThunder extends Analyzer {
 
         )}
         label={`Titan's Thunder`}
-        tooltip={`You cast Titan's Thunder ${this.totalTTCasts} times, of which ${this.badTTCasts} were bad casts. <br/> Bad casts indicate that they were used without Dire Beasts up, or if you are using Dire Frenzy, then Titan's Thunder was used without Bestial Wrath up. <br/> You cast Titan's Thunder ${this.shouldHaveSavedTT} times where you should have delayed casting it, this occurs when you cast Titan's Thunder when there is less than 30 seconds remaning on Bestial Wrath cooldown.`}
+        tooltip={tooltipText}
       />
+    );
+  }
+  subStatistic() {
+    return (
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.TITANS_THUNDER.id}>
+            <SpellIcon id={SPELLS.TITANS_THUNDER.id} noLink /> Titan's Thunder
+          </SpellLink>
+        </div>
+        <div className="flex-sub text-right">
+          {(this.owner.formatItemDamageDone(this.damage))}
+        </div>
+      </div>
     );
   }
   suggestions(when) {
