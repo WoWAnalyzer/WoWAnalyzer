@@ -59,6 +59,7 @@ class DecieversGrandDesign extends Analyzer {
     if (spellId === SPELLS.GUIDING_HAND.id) {
       debug && console.log("Guiding Hand applied to " + event.targetID +" @ " + this.owner.formatTimestamp(event.timestamp));
 
+      // register the application in the casts list
       const target = event.targetID;
       let targetName = '';
       if (!this.combatants.players[target]) {
@@ -76,6 +77,8 @@ class DecieversGrandDesign extends Analyzer {
 
     } else if (spellId === SPELLS.FRUITFUL_MACHINATIONS.id) {
       debug && console.log("Fruitful Machinations proc on " + event.targetID +" @ " + this.owner.formatTimestamp(event.timestamp));
+      // cast is marked inactive when guiding hand falls, which happens before the shield application,
+      // so we get the 'last on target' to find the right cast object
       const lastCastOnTarget = this.casts.filter(cast => cast.target === event.targetID).pop();
       if (!lastCastOnTarget) {
         console.warn("No Guiding Hand application was logged for targetID " + event.targetID);
