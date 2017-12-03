@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const CROWS_USE_REGARDLESS_THRESHHOLD = 30;
+const ALLOW_EARLY_USE = 2;
 
 
 class AMurderOfCrows extends Analyzer {

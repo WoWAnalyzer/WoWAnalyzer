@@ -76,6 +76,11 @@ export default {
     name: 'Wild Call Proc',
     icon: 'ability_hunter_masterscall',
   },
+  BEAST_CLEAVE_BUFF: {
+    id: 118455,
+    name: 'Beast Cleave',
+    icon: 'ability_hunter_sickem',
+  },
 
   //Beast Mastery Artifact Traits
   TITANS_THUNDER: {
@@ -88,15 +93,25 @@ export default {
     name: 'Titans Thunder Buff',
     icon: 'inv_firearm_2h_artifactlegion_d_01',
   },
-  BEAST_CLEAVE_BUFF: {
-    id: 118455,
-    name: 'Beast Cleave',
-    icon: 'ability_hunter_sickem',
-  },
   COBRA_COMMANDER: {
     id: 243042,
     name: 'Cobra Commander',
     icon: 'inv_waepon_bow_zulgrub_d_01',
+  },
+  MASTER_OF_BEASTS: {
+    id: 197248,
+    name: 'Master of Beasts',
+    icon: 'ability_hunter_masterscall',
+  },
+  SURGE_OF_THE_STORMGOD: {
+    id: 197354,
+    name: 'Surge of the Stormgod',
+    icon: 'ability_monk_forcesphere',
+  },
+  THUNDERSLASH: {
+    id: 238087,
+    name: 'Thunderslash',
+    icon: 'warrior_talent_icon_thunderstruck',
   },
 
   //Beast Mastery Tier
@@ -146,7 +161,6 @@ export default {
     icon: 'spell_nature_protectionformnature',
   },
 
-
   // MarksmanshipHunter:
   // Marksmanship spells
 
@@ -154,11 +168,6 @@ export default {
     id: 204147,
     name: 'Windburst',
     icon: 'inv_bow_1h_artifactwindrunner_d_02',
-  },
-  WINDBURST_MOVEMENT_SPEED: {
-    id: 204477,
-    name: 'Windburst',
-    icon: 'ability_hunter_focusedaim',
   },
   AIMED_SHOT: {
     id: 19434,
@@ -285,6 +294,26 @@ export default {
     id: 238052,
     name: 'Unerring Arrows',
     icon: 'creatureportrait_blackrockv2_shieldgong_broken',
+  },
+  CALL_OF_THE_HUNTER: {
+    id: 191048,
+    name: 'Call of the Hunter',
+    icon: 'ability_hunter_assassinate',
+  },
+  CALL_OF_THE_HUNTER_PROC: {
+    id: 191070,
+    name: 'Call of the Hunter',
+    icon: 'ability_hunter_assassinate',
+  },
+  LEGACY_OF_THE_WINDRUNNERS: {
+    id: 190852,
+    name: 'Legacy of the Windrunners',
+    icon: 'artifactability_marksmanhunter_legacyofthewindrunners',
+  },
+  LEGACY_OF_THE_WINDRUNNERS_PROC: {
+    id: 191043,
+    name: 'Legacy of the Windrunners',
+    icon: 'artifactability_marksmanhunter_legacyofthewindrunners',
   },
 
   //Marksmanship legendary buffs
