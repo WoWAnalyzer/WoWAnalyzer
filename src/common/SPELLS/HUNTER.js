@@ -93,10 +93,20 @@ export default {
     name: 'Beast Cleave',
     icon: 'ability_hunter_sickem',
   },
+  COBRA_COMMANDER_TRAIT: {
+    id: 238123,
+    name: 'Cobra Commander',
+    icon: 'inv_waepon_bow_zulgrub_d_01',
+  },
   COBRA_COMMANDER: {
     id: 243042,
     name: 'Cobra Commander',
     icon: 'inv_waepon_bow_zulgrub_d_01',
+  },
+  DEATHSTRIKE_VENOM: {
+    id: 243121,
+    name: 'Deathstrike Venom',
+    icon: 'spell_nature_nullifypoison',
   },
 
   //Beast Mastery Tier
@@ -145,7 +155,6 @@ export default {
     name: 'T21 4 set bonus',
     icon: 'spell_nature_protectionformnature',
   },
-
 
   // MarksmanshipHunter:
   // Marksmanship spells

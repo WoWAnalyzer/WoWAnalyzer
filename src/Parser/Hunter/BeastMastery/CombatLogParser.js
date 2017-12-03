@@ -27,6 +27,7 @@ import KillerCobra from "./Modules/Talents/KillerCobra";
 
 //Traits
 import TitansThunder from "./Modules/Traits/TitansThunder";
+import CobraCommander from './Modules/Traits/CobraCommander';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -58,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Traits
     titansThunder: TitansThunder,
+    cobraCommander: CobraCommander,
 
   };
 }
