@@ -15,7 +15,6 @@ class GarothiFeedbackConduit extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
-  baseILvl = 935;
   staticHaste = 0;
   lastProcc = null;
   totalProccValue = [];
