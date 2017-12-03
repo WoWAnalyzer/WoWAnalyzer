@@ -252,12 +252,12 @@ export default {
     name: 'Tarratus Keystone',
     icon: 'inv__wod_arakoa4',
   },
-  HIGHFATHERS_TIMEKEEPINGBUFF: {
+  HIGHFATHERS_TIMEKEEPING_BUFF: {
     id: 253287,
     name: 'Highfather\'s Timekeeping',
     icon: 'spell_priest_psyfiend',
   },
-  HIGHFATHERS_TIMEKEEPINGHEAL: {
+  HIGHFATHERS_TIMEKEEPING_HEAL: {
     id: 253288,
     name: 'Highfather\'s Timekeeping',
     icon: 'spell_priest_psyfiend',
