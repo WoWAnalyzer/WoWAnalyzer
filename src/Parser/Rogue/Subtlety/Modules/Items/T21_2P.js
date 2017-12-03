@@ -10,12 +10,15 @@ class T21_2P extends Analyzer {
 		spellUsable: SpellUsable,
   };
 
+	on_initialized(){
+		this.active = this.combatants.selected.hasBuff(SPELLS.SUB_ROGUE_T21_2SET_BONUS.id);
+  }
+
   on_byPlayer_spendresource(event){
     const spent = event.resourceChange;
     if(event.resourceChangeType !== ResourceTypes.COMBO_POINTS) return;
 
-    if(this.combatants.selected.hasBuff(SPELLS.SUB_ROGUE_T21_2SET_BONUS.id 
-      && this.spellUsable.isOnCooldown(SPELLS.SYMBOLS_OF_DEATH.id))){
+    if(this.spellUsable.isOnCooldown(SPELLS.SYMBOLS_OF_DEATH.id)){
 			this.spellUsable.reduceCooldown(SPELLS.SYMBOLS_OF_DEATH.id, 200 * spent );
     }
   }
