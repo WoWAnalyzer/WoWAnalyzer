@@ -2,6 +2,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
+import calculateMaxCasts from 'Parser/Core/calculateMaxCasts';
 
 /* eslint-disable no-unused-vars */
 
@@ -14,6 +15,12 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       recommendedCastEfficiency: 0.85,
       getCooldown: (haste, combatant) => 4.5 / (1 + haste),
+      getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
+        const { averageVoidformHaste } = parser.modules.voidform;
+        const cooldownVoidBolt = 4.5 / averageVoidformHaste;
+
+        return calculateMaxCasts(cooldownVoidBolt, parser.modules.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id));
+      },
     },
 
     {
