@@ -58,33 +58,17 @@ class PlayerSelectionList extends React.PureComponent {
 
   renderRoleGroup(report, fightId, roleID, friendlies) {
     let role;
-    let header;
     switch (roleID) {
-      case ROLES.TANK:
-        role = 'tanks';
-        header = 'Tank(s)';
-        break;
-      case ROLES.HEALER:
-        role = 'healers';
-        header = 'Healer(s)';
-        break;
-      case ROLES.DPS.MELEE:
-        role = 'melee-dps';
-        header = 'Melee DPS';
-        break;
-      case ROLES.DPS.RANGED:
-        role = 'ranged-dps';
-        header = 'Ranged DPS';
-        break;
-      default:
-        role = 'role-unknown';
-        header = 'Unknown';
-        break;
+      case ROLES.TANK: role = 'tanks'; break;
+      case ROLES.HEALER: role = 'healers'; break;
+      case ROLES.DPS.MELEE: role = 'melee-dps'; break;
+      case ROLES.DPS.RANGED: role = 'ranged-dps'; break;
+      default: role = 'role-unknown'; break;
     }
 
     return(
       <div key={role} className="card">
-        { this.renderRoleHeader(roleID, header) }
+        { this.renderRoleHeader(roleID, friendlies.length) }
         <ul className="list selection players">
           {
             friendlies.map(( arr ) => {
@@ -96,21 +80,37 @@ class PlayerSelectionList extends React.PureComponent {
     );
   }
 
-  renderRoleHeader(roleID, header) {
+  renderRoleHeader(roleID, countFriendlies) {
     let icon;
+    let header;
     switch (roleID) {
-      case ROLES.TANK: icon = 'tank'; break;
-      case ROLES.HEALER: icon = 'healer'; break;
-      case ROLES.DPS.MELEE: icon = 'dps'; break;
-      case ROLES.DPS.RANGED: icon = 'dps.ranged'; break;
-      default: icon = 'tank'; break; // Use a non-visible image for correct spacing
+      case ROLES.TANK:
+        icon = 'tank';
+        header = countFriendlies === 1 ? 'Tank' : 'Tanks';
+        break;
+      case ROLES.HEALER:
+        icon = 'healer';
+        header = countFriendlies === 1 ? 'Healer' : 'Healers';
+        break;
+      case ROLES.DPS.MELEE:
+        icon = 'dps';
+        header = 'Melee DPS';
+        break;
+      case ROLES.DPS.RANGED:
+        icon = 'dps.ranged';
+        header = 'Ranged DPS';
+        break;
+      default: // Use a non-visible image for correct spacing
+        icon = 'tank';
+        header = 'Unknown';
+        break;
     }
 
-    const styles = isNaN(roleID) ? { marginLeft: -5, marginRight: 10, visibility: 'hidden' } : { borderRadius: '50%', marginLeft: -5, marginRight: 10 };
+    const styles = isNaN(roleID) ? { marginLeft: 10, marginRight: 10, visibility: 'hidden' } : { borderRadius: '50%', marginLeft: 10, marginRight: 10 };
 
     return(
       <h4 className="card-title">
-        <img src={`/roles/${icon}.jpg`} alt="Role Icon" style={styles} /> {header}
+        <img src={`/roles/${icon}.jpg`} alt="Role Icon" style={styles} />{header}
       </h4>
     );
   }
@@ -124,7 +124,7 @@ class PlayerSelectionList extends React.PureComponent {
         <li key={friendly.id} className="item selectable">
           <Link
             to={makeAnalyzerUrl(report, fightId, friendly.name)}
-            style={{ marginLeft: 40 }}
+            style={{ marginLeft: 47 }}
             onClick={e => {
               e.preventDefault();
               alert('The combatlog did not give us any information about this player. This player can not be analyzed.');
@@ -137,7 +137,7 @@ class PlayerSelectionList extends React.PureComponent {
     } else {
       return(
         <li key={friendly.id} className="item selectable">
-          <Link to={makeAnalyzerUrl(report, fightId, friendly.name)} className={spec.className} style={{ marginLeft: 40 }}>
+          <Link to={makeAnalyzerUrl(report, fightId, friendly.name)} className={spec.className} style={{ marginLeft: 47 }}>
             {this.renderSpecIcon(spec)} {friendly.name} ({spec.specName})
           </Link>
         </li>

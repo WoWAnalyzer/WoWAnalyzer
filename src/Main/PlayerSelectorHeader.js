@@ -25,7 +25,7 @@ class PlayerSelectorHeader extends SelectorBase {
               <div className="panel-heading">
                 <h2>Select the player you wish to analyze</h2>
               </div>
-              <div className="panel-body" onClick={this.handleClick}>
+              <div className="panel-body" style={{ padding: 0 }} onClick={this.handleClick}>
                 <PlayerSelectionList />
               </div>
             </div>
