@@ -1,17 +1,23 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import { formatNumber } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
+/*
+ * Tarnished Sentinel Medallion -
+ * Use: Call upon a spectral owl to attack your target, inflicting 61201 Arcane damage every 1 sec for 20 sec. Your ranged attacks and spells against the same enemy have a chance to make the owl perform an additional attack for 75602 damage. (2 Min Cooldown)
+ */
 class TarnishedSentinelMedallion extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
 
   damage = 0;
-  damageAbilities = new Set([SPELLS.SPECTRAL_BOLT.id, SPELLS.SPECTRAL_BLAST.id]);
+  damageIds = [
+    SPELLS.SPECTRAL_BOLT.id,
+    SPELLS.SPECTRAL_BLAST.id,
+  ];
 
   on_initialized() {
     this.active = this.combatants.selected.hasTrinket(ITEMS.TARNISHED_SENTINEL_MEDALLION.id);
@@ -19,7 +25,7 @@ class TarnishedSentinelMedallion extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (!this.damageAbilities.has(spellId)) {
+    if (!this.damageIds.includes(spellId)) {
       return;
     }
 
@@ -29,7 +35,7 @@ class TarnishedSentinelMedallion extends Analyzer {
   item() {
     return {
       item: ITEMS.TARNISHED_SENTINEL_MEDALLION,
-      result: `${formatNumber(this.damage)} damage - ${this.owner.formatItemDamageDone(this.damage)}`,
+      result: this.owner.formatItemDamageDone(this.damage),
     };
   }
 }

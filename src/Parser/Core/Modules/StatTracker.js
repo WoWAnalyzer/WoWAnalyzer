@@ -45,6 +45,10 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.ERRATIC_METRONOME.id,
       haste: (_, item) => calculateSecondaryStatDefault(870, 657, item.itemLevel),
     },
+    [SPELLS.TOME_OF_UNRAVELING_SANITY_BUFF.id]: {
+      itemId: ITEMS.TOME_OF_UNRAVELING_SANITY.id,
+      crit: (_, item) => calculateSecondaryStatDefault(910, 2756, item.itemLevel),
+    },
     // endregion
 
     // region Misc
