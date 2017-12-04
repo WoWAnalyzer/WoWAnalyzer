@@ -34,11 +34,9 @@ class UmbralMoonglaives extends Analyzer {
     if (spellId === SPELLS.UMBRAL_GLAIVE_STORM_CAST.id) {
       this.casts += 1;
     } else if (spellId === SPELLS.UMBRAL_GLAIVE_STORM_TICK.id) { // each tick procs a cast event for player
-      this.ticks += 1;
-      this.lastTickTimestamp = event.timestamp;
+      this.ticks += 1; // should always be 8 ticks per cast, but just in case fight ends after cast but before all ticks
     } else if (spellId === SPELLS.SHATTERING_UMBRAL_GLAIVES.id) { // each shatter procs a cast event for player
       this.shatters += 1; // should be same number as casts, but just in case fight ends after cast but before shatter
-      this.lastShatterTimestamp = event.timestamp;
     }
   }
 
