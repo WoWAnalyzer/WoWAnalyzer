@@ -9,6 +9,11 @@ import { Blazballs, JLassie82, Putro } from 'MAINTAINERS';
 
 export default [
   {
+    date: new Date('2017-12-04'),
+    changes: 'Added many talents and traits. Moved them into a singular box to improve visibility.',
+    contributors: [Putro],
+  },
+  {
     date: new Date('2017-11-29'),
     changes: 'Upgraded spec completeness to great.',
     contributors: [Putro],
