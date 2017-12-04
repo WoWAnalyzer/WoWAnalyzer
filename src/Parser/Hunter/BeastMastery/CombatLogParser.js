@@ -21,6 +21,7 @@ import BestialWrathAverageFocus from "./Modules/Spells/BestialWrath/BestialWrath
 import BestialWrathUptime from "./Modules/Spells/BestialWrath/BestialWrathUptime";
 import GainedBestialWraths from "./Modules/Spells/BestialWrath/GainedBestialWraths";
 import DireBeastUptime from "./Modules/Spells/DireBeast/DireBeastUptime";
+import BeastCleave from './Modules/Spells/BeastCleave';
 
 //Talents
 import KillerCobra from "./Modules/Talents/KillerCobra";
@@ -32,6 +33,8 @@ import AspectOfTheBeast from './Modules/Talents/AspectOfTheBeast';
 //Traits
 import TitansThunder from "./Modules/Traits/TitansThunder";
 import CobraCommander from './Modules/Traits/CobraCommander';
+import SurgeOfTheStormgod from './Modules/Traits/SurgeOfTheStormgod';
+import Thunderslash from './Modules/Traits/Thunderslash';
 
 //Traits and Talents list
 import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
@@ -51,6 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
     bestialWrathAverageFocus: BestialWrathAverageFocus,
     bestialWrathUptime: BestialWrathUptime,
     gainedBestialWrathst: GainedBestialWraths,
+    beastCleave: BeastCleave,
 
     //Items
     soulOfTheHuntmaster: SoulOfTheHuntmaster,
@@ -71,6 +75,8 @@ class CombatLogParser extends CoreCombatLogParser {
     //Traits
     titansThunder: TitansThunder,
     cobraCommander: CobraCommander,
+    surgeOfTheStormgod: SurgeOfTheStormgod,
+    thunderslash: Thunderslash,
 
     //Traits and Talents list
     traitsAndTalents: TraitsAndTalents,

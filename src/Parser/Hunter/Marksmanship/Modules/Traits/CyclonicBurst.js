@@ -5,32 +5,31 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from "common/SpellIcon";
-import SpellLink from 'common/SpellLink';
+import SpellLink from "common/SpellLink";
 
-class ExplosiveShot extends Analyzer {
+class CyclonicBurst extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
   damage = 0;
 
   on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id);
+    this.active = this.combatants.selected.traitsBySpellId[SPELLS.CYCLONIC_BURST_TRAIT.id];
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.EXPLOSIVE_SHOT_SHOT.id) {
+    if (spellId !== SPELLS.CYCLONIC_BURST_IMPACT_TRAIT.id) {
       return;
     }
     this.damage += event.amount;
   }
-
   subStatistic() {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id}>
-            <SpellIcon id={SPELLS.EXPLOSIVE_SHOT_TALENT.id} noLink /> Explosive Shot
+          <SpellLink id={SPELLS.CYCLONIC_BURST_TRAIT.id}>
+            <SpellIcon id={SPELLS.CYCLONIC_BURST_TRAIT.id} noLink /> Cyclonic Burst
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
@@ -39,6 +38,7 @@ class ExplosiveShot extends Analyzer {
       </div>
     );
   }
+
 }
 
-export default ExplosiveShot;
+export default CyclonicBurst;

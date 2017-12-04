@@ -7,19 +7,19 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from "common/SpellIcon";
 import SpellLink from 'common/SpellLink';
 
-class ExplosiveShot extends Analyzer {
+class CarefulAim extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
   damage = 0;
 
   on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.CAREFUL_AIM_TALENT.id);
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.EXPLOSIVE_SHOT_SHOT.id) {
+    if (spellId !== SPELLS.CAREFUL_AIM_DAMAGE.id) {
       return;
     }
     this.damage += event.amount;
@@ -29,8 +29,8 @@ class ExplosiveShot extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id}>
-            <SpellIcon id={SPELLS.EXPLOSIVE_SHOT_TALENT.id} noLink /> Explosive Shot
+          <SpellLink id={SPELLS.CAREFUL_AIM_TALENT.id}>
+            <SpellIcon id={SPELLS.CAREFUL_AIM_TALENT.id} noLink /> Careful Aim DoT
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
@@ -41,4 +41,4 @@ class ExplosiveShot extends Analyzer {
   }
 }
 
-export default ExplosiveShot;
+export default CarefulAim;

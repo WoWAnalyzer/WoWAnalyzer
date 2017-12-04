@@ -5,32 +5,31 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from "common/SpellIcon";
-import SpellLink from 'common/SpellLink';
+import SpellLink from "common/SpellLink";
 
-class ExplosiveShot extends Analyzer {
+class Sidewinders extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
   damage = 0;
 
   on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.SIDEWINDERS_TALENT.id);
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.EXPLOSIVE_SHOT_SHOT.id) {
+    if (spellId !== SPELLS.SIDEWINDERS_DAMAGE.id) {
       return;
     }
     this.damage += event.amount;
   }
-
   subStatistic() {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id}>
-            <SpellIcon id={SPELLS.EXPLOSIVE_SHOT_TALENT.id} noLink /> Explosive Shot
+          <SpellLink id={SPELLS.SIDEWINDERS_TALENT.id}>
+            <SpellIcon id={SPELLS.SIDEWINDERS_TALENT.id} noLink /> Sidewinders
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
@@ -39,6 +38,7 @@ class ExplosiveShot extends Analyzer {
       </div>
     );
   }
+
 }
 
-export default ExplosiveShot;
+export default Sidewinders;

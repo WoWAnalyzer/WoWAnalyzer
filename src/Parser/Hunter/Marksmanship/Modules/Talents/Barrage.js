@@ -5,21 +5,24 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from "common/SpellIcon";
-import SpellLink from 'common/SpellLink';
+import SpellLink from "common/SpellLink";
 
-class ExplosiveShot extends Analyzer {
+class Barrage extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
   damage = 0;
+  volleyRemoved = -1;
+  volleyApplied = 0;
+  deaths = 0;
 
   on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.BARRAGE_TALENT.id);
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.EXPLOSIVE_SHOT_SHOT.id) {
+    if (spellId !== SPELLS.BARRAGE_DAMAGE.id) {
       return;
     }
     this.damage += event.amount;
@@ -29,8 +32,8 @@ class ExplosiveShot extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id}>
-            <SpellIcon id={SPELLS.EXPLOSIVE_SHOT_TALENT.id} noLink /> Explosive Shot
+          <SpellLink id={SPELLS.BARRAGE_TALENT.id}>
+            <SpellIcon id={SPELLS.BARRAGE_TALENT.id} noLink /> Barrage
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
@@ -39,6 +42,7 @@ class ExplosiveShot extends Analyzer {
       </div>
     );
   }
+
 }
 
-export default ExplosiveShot;
+export default Barrage;

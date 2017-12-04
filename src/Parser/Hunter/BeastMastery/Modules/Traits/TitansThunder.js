@@ -111,7 +111,7 @@ class TitansThunder extends Analyzer {
                 marginTop: '-.1em',
               }}
             />
-            <br />
+            {'  '}
             {this.badTTCasts + this.shouldHaveSavedTT}{'  '}
             <SpellIcon
               id={SPELLS.TITANS_THUNDER.id}

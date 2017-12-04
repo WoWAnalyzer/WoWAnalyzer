@@ -35,7 +35,7 @@ export default [
   },
   {
     date: new Date('2017-11-12'),
-    changes: <Wrapper>Added a suggestion for execute trueshots and a <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> suggestion when boss has between 25 and 20% hp, so the player can better utilise <SpellLink id={SPELLS.BULLSEYE_TRAIT.id} />.</Wrapper>,
+    changes: <Wrapper>Added a suggestion for execute trueshots and a <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> suggestion when boss has between 25 and 20% hp, so the player can better utilise <SpellLink id={SPELLS.BULLSEYE_BUFF.id} />.</Wrapper>,
     contributors: [Putro],
   },
   {
@@ -145,7 +145,7 @@ export default [
   },
   {
     date: new Date('02-10-2017'),
-    changes: <Wrapper> Added <SpellLink id={SPELLS.BULLSEYE_TRAIT.id} /> buff to hunter_spells for future usage.</Wrapper>,
+    changes: <Wrapper> Added <SpellLink id={SPELLS.BULLSEYE_BUFF.id} /> buff to hunter_spells for future usage.</Wrapper>,
     contributors: [Putro],
   },
   {

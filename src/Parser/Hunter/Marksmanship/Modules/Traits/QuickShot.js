@@ -7,6 +7,9 @@ class QuickShot extends Analyzer {
     combatants: Combatants,
   };
 
+  on_initialized() {
+    this.active = this.combatants.selected.traitsBySpellId[SPELLS.QUICK_SHOT_TRAIT.id];
+  }
   trueShotCDReduction = 0;
 
   get traitCooldownReduction() {

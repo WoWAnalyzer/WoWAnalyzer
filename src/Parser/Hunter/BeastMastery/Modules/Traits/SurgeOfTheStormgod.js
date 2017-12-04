@@ -1,25 +1,24 @@
 import React from 'react';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-
 import SPELLS from 'common/SPELLS';
 import SpellIcon from "common/SpellIcon";
 import SpellLink from 'common/SpellLink';
 
-class ExplosiveShot extends Analyzer {
+class SurgeOfTheStormgod extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
+
   damage = 0;
 
   on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id);
+    this.active = this.combatants.selected.traitsBySpellId[SPELLS.SURGE_OF_THE_STORMGOD_TRAIT.id];
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.EXPLOSIVE_SHOT_SHOT.id) {
+    if (spellId !== SPELLS.SURGE_OF_THE_STORMGOD_DAMAGE.id) {
       return;
     }
     this.damage += event.amount;
@@ -29,8 +28,8 @@ class ExplosiveShot extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id}>
-            <SpellIcon id={SPELLS.EXPLOSIVE_SHOT_TALENT.id} noLink /> Explosive Shot
+          <SpellLink id={SPELLS.SURGE_OF_THE_STORMGOD_TRAIT.id}>
+            <SpellIcon id={SPELLS.SURGE_OF_THE_STORMGOD_TRAIT.id} noLink /> Surge of the Stormgod
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
@@ -39,6 +38,7 @@ class ExplosiveShot extends Analyzer {
       </div>
     );
   }
+
 }
 
-export default ExplosiveShot;
+export default SurgeOfTheStormgod;
