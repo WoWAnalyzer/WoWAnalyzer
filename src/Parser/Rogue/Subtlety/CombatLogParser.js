@@ -19,13 +19,10 @@ import NightbladeDuringSymbols from './Modules/BaseRotation/NightbladeDuringSymb
 import CastsInShadowDance from './Modules/BaseRotation/CastsInShadowDance';
 import MantleDamageTracker from './Modules/Legendaries/MantleDamageTracker';
 import DeathFromAboveMantle from './Modules/Talents/DFA/DeathFromAboveMantle';
-<<<<<<< HEAD
 import T21_2P from './Modules/Items/T21_2P';
 import DanceCooldownReduction from './Modules/RogueCore/DanceCooldownReduction';
 import DenialOfHalfGiants from './Modules/Legendaries/DenialOfHalfGiants';
-=======
 import DarkShadowSpecterOfBetrayal from './Modules/Talents/DarkShadow/DarkShadowSpecterOfBetrayal';
->>>>>>> master
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -46,19 +43,15 @@ class CombatLogParser extends CoreCombatLogParser {
     danceDamageTracker: DanceDamageTracker,
     mantleDamageTracker: MantleDamageTracker,
 
-<<<<<<< HEAD
     //Core
     danceCooldownReduction: DanceCooldownReduction,
+    darkShadowSpecterOfBetrayal: DarkShadowSpecterOfBetrayal,
 
     //Items
     t21_2P: T21_2P,
 
     //Legendaries
     denialOfHalfGiants: DenialOfHalfGiants,
-=======
-    //Items
-    darkShadowSpecterOfBetrayal: DarkShadowSpecterOfBetrayal,
->>>>>>> master
 
     //Casts
     nightbladeDuringSymbols: NightbladeDuringSymbols,
