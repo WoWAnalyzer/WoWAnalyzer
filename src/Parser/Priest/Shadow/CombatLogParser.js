@@ -17,6 +17,7 @@ import VoidformAverageStacks from './Modules/Spells/VoidformAverageStacks';
 import VoidTorrent from './Modules/Spells/VoidTorrent';
 import Dispersion from './Modules/Spells/Dispersion';
 import CallToTheVoid from './Modules/Spells/CallToTheVoid';
+import TwistOfFate from './Modules/Spells/TwistOfFate';
 
 // items:
 import TwinsPainfulTouch from './Modules/Items/TwinsPainfulTouch';
@@ -34,7 +35,7 @@ class CombatLogParser extends MainCombatLogParser {
     abilities: Abilities,
     insanity: Insanity,
 
-    // Abilities
+    // spells:
     mindbender: Mindbender,
     shadowfiend: Shadowfiend,
     vampiricTouch: VampiricTouch,
@@ -44,8 +45,9 @@ class CombatLogParser extends MainCombatLogParser {
     voidTorrent: VoidTorrent,
     dispersion: Dispersion,
     callToTheVoid: CallToTheVoid,
+    twistOfFate: TwistOfFate,
 
-    // Items:
+    // items:
     twinsPainfulTouch: TwinsPainfulTouch,
     anundsSearedShackles: AnundsSearedShackles,
     heartOfTheVoid: HeartOfTheVoid,
