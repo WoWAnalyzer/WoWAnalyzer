@@ -18,8 +18,8 @@ class UnusedLordOfFlames extends Analyzer {
   };
 
   suggestions(when) {
-    const maxLordOfFlamesCasts = calculateMaxCasts(LORD_OF_FLAMES_COOLDOWN, this.owner.fightDuration);
-    const infernalCasts = this.abilityTracker.getAbility(SPELLS.SUMMON_INFERNAL_UNTALENTED.id).casts;
+    const maxLordOfFlamesCasts = Math.ceil(calculateMaxCasts(LORD_OF_FLAMES_COOLDOWN, this.owner.fightDuration));
+    const infernalCasts = this.abilityTracker.getAbility(SPELLS.SUMMON_INFERNAL_UNTALENTED.id).casts || 0;
     const percentage = infernalCasts / maxLordOfFlamesCasts;
     when(percentage).isLessThan(1)
       .addSuggestion((suggest, actual, recommended) => {

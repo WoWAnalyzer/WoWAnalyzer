@@ -58,9 +58,32 @@ const PETS = {
   },
 
   //hunter:
-
   HATI: {
     id: 100324,
+    name: 'Hati',
+  },
+  HATI_2: {
+    id: 106551,
+    name: 'Hati',
+  },
+  HATI_3: {
+    id: 106550,
+    name: 'Hati',
+  },
+  HATI_4: {
+    id: 106548,
+    name: 'Hati',
+  },
+  HATI_5: {
+    id: 106549,
+    name: 'Hati',
+  },
+  HATI_6: {
+    id: 103154,
+    name: 'Hati',
+  },
+  HATI_7: {
+    id: 121181,
     name: 'Hati',
   },
   CALL_PET_1: {
@@ -87,11 +110,6 @@ const PETS = {
     id: 121661,
     name: 'Sneaky Snake',
   },
-  DIRE_BEAST: {
-    id: 128751,
-    name: 'Beast',
-  },
-
 };
 
 export default indexById(PETS);

@@ -76,6 +76,21 @@ export default {
     name: 'Wild Call Proc',
     icon: 'ability_hunter_masterscall',
   },
+  BEAST_CLEAVE_BUFF: {
+    id: 118455,
+    name: 'Beast Cleave',
+    icon: 'ability_hunter_sickem',
+  },
+  STOMP_DAMAGE: {
+    id: 201754,
+    name: 'Stomp',
+    icon: 'ability_warstomp',
+  },
+  ASPECT_OF_THE_BEAST_BESTIAL_FEROCITY: {
+    id: 191413,
+    name: 'Bestial Ferocity',
+    icon: 'ability_hunter_invigeration',
+  },
 
   //Beast Mastery Artifact Traits
   TITANS_THUNDER: {
@@ -85,18 +100,43 @@ export default {
   },
   TITANS_THUNDER_BUFF: {
     id: 207094,
-    name: 'Titans Thunder Buff',
+    name: 'Titan\'s Thunder Buff',
     icon: 'inv_firearm_2h_artifactlegion_d_01',
   },
-  BEAST_CLEAVE_BUFF: {
-    id: 118455,
-    name: 'Beast Cleave',
-    icon: 'ability_hunter_sickem',
+  TITANS_THUNDER_DAMAGE: {
+    id: 207097,
+    name: 'Titan\'s Thunder',
+    icon: 'inv_firearm_2h_artifactlegion_d_01',
+  },
+  COBRA_COMMANDER_TRAIT: {
+    id: 238123,
+    name: 'Cobra Commander',
+    icon: 'inv_waepon_bow_zulgrub_d_01',
   },
   COBRA_COMMANDER: {
     id: 243042,
     name: 'Cobra Commander',
     icon: 'inv_waepon_bow_zulgrub_d_01',
+  },
+  MASTER_OF_BEASTS: {
+    id: 197248,
+    name: 'Master of Beasts',
+    icon: 'ability_hunter_masterscall',
+  },
+  SURGE_OF_THE_STORMGOD: {
+    id: 197354,
+    name: 'Surge of the Stormgod',
+    icon: 'ability_monk_forcesphere',
+  },
+  THUNDERSLASH: {
+    id: 238087,
+    name: 'Thunderslash',
+    icon: 'warrior_talent_icon_thunderstruck',
+  },
+  DEATHSTRIKE_VENOM: {
+    id: 243121,
+    name: 'Deathstrike Venom',
+    icon: 'spell_nature_nullifypoison',
   },
 
   //Beast Mastery Tier
@@ -145,7 +185,6 @@ export default {
     name: 'T21 4 set bonus',
     icon: 'spell_nature_protectionformnature',
   },
-
 
   // MarksmanshipHunter:
   // Marksmanship spells
@@ -285,6 +324,26 @@ export default {
     id: 238052,
     name: 'Unerring Arrows',
     icon: 'creatureportrait_blackrockv2_shieldgong_broken',
+  },
+  CALL_OF_THE_HUNTER: {
+    id: 191048,
+    name: 'Call of the Hunter',
+    icon: 'ability_hunter_assassinate',
+  },
+  CALL_OF_THE_HUNTER_PROC: {
+    id: 191070,
+    name: 'Call of the Hunter',
+    icon: 'ability_hunter_assassinate',
+  },
+  LEGACY_OF_THE_WINDRUNNERS: {
+    id: 190852,
+    name: 'Legacy of the Windrunners',
+    icon: 'artifactability_marksmanhunter_legacyofthewindrunners',
+  },
+  LEGACY_OF_THE_WINDRUNNERS_PROC: {
+    id: 191043,
+    name: 'Legacy of the Windrunners',
+    icon: 'artifactability_marksmanhunter_legacyofthewindrunners',
   },
 
   //Marksmanship legendary buffs

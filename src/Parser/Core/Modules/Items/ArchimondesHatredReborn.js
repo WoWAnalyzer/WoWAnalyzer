@@ -1,11 +1,16 @@
 import React from 'react';
 
+import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
+/*
+ * Archimondes Hatred Reborn -
+ * Use: Gain an absorb shield for 30% of your maximum health for 10 sec. When the shield is consumed or expires, 75% of the damage absorbed is dealt to nearby enemies, split evenly.
+ */
 class ArchimondesHatredReborn extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -36,12 +41,10 @@ class ArchimondesHatredReborn extends Analyzer {
     return {
       item: ITEMS.ARCHIMONDES_HATRED_REBORN,
       result: (
-        <dfn data-tip={`The effective absorb and damage contributed by Archimode's Hatred Reborn.<br/>
-              Damage: ${this.owner.formatItemDamageDone(this.damage)} <br/>
-              Absorb: ${this.owner.formatItemHealingDone(this.healing)}`}
-        >
-          {this.owner.formatItemHealingDone(this.healing)}
-        </dfn>
+        <Wrapper>
+          {this.owner.formatItemHealingDone(this.healing)}<br />
+          {this.owner.formatItemDamageDone(this.damage)}
+        </Wrapper>
       ),
     };
   }
