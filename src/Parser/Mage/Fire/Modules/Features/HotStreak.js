@@ -29,6 +29,8 @@ class HotStreak extends Analyzer {
   expiredProcs = 0;
   pyroWithoutProc = 0;
   lastCastTimestamp = 0;
+  phoenixFlamesHits = 0;
+  dragonsBreathHits = 0;
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -52,7 +54,7 @@ class HotStreak extends Analyzer {
       }
       //If the spell was Phoenix Flames, only check the first hit of Phoenix Flames and not the chains/splashes
       if (spellId === SPELLS.PHOENIXS_FLAMES.id) {
-        if (this.phoenixFlamesHite === 0) {
+        if (this.phoenixFlamesHits === 0) {
           this.wastedCrits += 1;
           this.phoenixsFlamesHits += 1;
           if(debug) { console.log("Hot Streak overwritten @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time)); }
@@ -97,14 +99,6 @@ class HotStreak extends Analyzer {
 
   suggestions(when) {
     const expiredProcsPercent = (this.expiredProcs / this.totalProcs) || 0;
-    when(this.wastedCrits).isGreaterThan(0)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You overwrote {formatPercentage(this.wastedCrits)}% of your <SpellLink id={SPELLS.HOT_STREAK.id} /> procs.Try to use your procs as soon as possible to avoid this.</span>)
-          .icon(SPELLS.HOT_STREAK.icon)
-          .actual(`${formatPercentage(this.wastedCrits)}crits wasted`)
-          .recommended(`Overwriting none is recommended`)
-          .regular(.00).major(.05);
-      });
     when(expiredProcsPercent).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You allowed {formatPercentage(expiredProcsPercent)}% of your <SpellLink id={SPELLS.HOT_STREAK.id} /> procs to expire. Try to use your procs as soon as possible to avoid this.</span>)
@@ -134,6 +128,7 @@ class HotStreak extends Analyzer {
 					<ul>
 						<li>${this.usedProcs} used</li>
 						<li>${this.expiredProcs} expired</li>
+            <li>${this.wastedCrits} crits wasted</li>
 					</ul>
 				`}
 			/>
