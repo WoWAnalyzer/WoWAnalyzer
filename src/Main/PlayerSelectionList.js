@@ -170,10 +170,6 @@ class PlayerSelectionList extends React.PureComponent {
             }))
             .filter(player => !!player.combatant)
             .sort((a, b) => {
-              // The combatlog can error out while would cause the combatant to not have a spec specified, in that case sort them at the bottom.
-              const aSpec = SPECS[a.combatant.specID] || { role: 10 };
-              const bSpec = SPECS[b.combatant.specID] || { role: 10 };
-
               if (a.friendly.name > b.friendly.name) {
                 return 1;
               } else if (a.friendly.name < b.friendly.name) {
