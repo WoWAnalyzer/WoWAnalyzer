@@ -2,7 +2,6 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
-import calculateMaxCasts from 'Parser/Core/calculateMaxCasts';
 
 /* eslint-disable no-unused-vars */
 
@@ -15,14 +14,6 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       recommendedCastEfficiency: 0.85,
       getCooldown: (haste, combatant) => 4.5 / (1 + haste),
-      getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
-        const { averageVoidformHaste } = parser.modules.voidform;
-
-        // const hasteFromOneBloodlust     =  30*40 / (fightDuration/1000)/100;
-        const cooldownVoidBolt = 4.5 / averageVoidformHaste;
-
-        return calculateMaxCasts(cooldownVoidBolt, parser.modules.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id));
-      },
     },
 
     {
@@ -30,24 +21,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       isActive: combatant => !combatant.hasWaist(ITEMS.MANGAZAS_MADNESS.id),
       recommendedCastEfficiency: 0.55,
-      getCooldown: haste => 4.65 / (1 + haste),
-      getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
-        const {
-          averageVoidformHaste,
-          averageNonVoidformHaste,
-        } = parser.modules.voidform;
-
-        // todo: fix bloodlust casts, assuming one cast:
-        // const hasteFromOneBloodlust     = 30*40 / (fightDuration/1000)/100;
-        const cooldownInVoidform = 6 / (averageVoidformHaste);
-        const cooldownOutsideVoidform = 9 / (averageNonVoidformHaste);
-
-        const maxCastsInVoidform = calculateMaxCasts(cooldownInVoidform, parser.modules.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id));
-        const maxCastsOutsideVoidform = calculateMaxCasts(cooldownOutsideVoidform, fightDuration - parser.modules.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id));
-
-        return maxCastsInVoidform + maxCastsOutsideVoidform;
-      },
-      charges: 2,
+      getCooldown: (haste, combatant) => ((combatant.hasBuff(SPELLS.VOIDFORM_BUFF.id) ? 6 : 9) / ( 1 + haste )),
     },
 
     {
@@ -55,23 +29,8 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       isActive: combatant => combatant.hasWaist(ITEMS.MANGAZAS_MADNESS.id),
       recommendedCastEfficiency: 0.85,
-      getCooldown: haste => 4.65 / (1 + haste),
-      getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
-        const {
-          averageVoidformHaste,
-          averageNonVoidformHaste,
-        } = parser.modules.voidform;
-
-        // todo: fix bloodlust casts, assuming one cast:
-        // const hasteFromOneBloodlust     = 30*40 / (fightDuration/1000)/100;
-        const cooldownInVoidform = 6 / (averageVoidformHaste);
-        const cooldownOutsideVoidform = 9 / (averageNonVoidformHaste);
-
-        const maxCastsInVoidform = calculateMaxCasts(cooldownInVoidform, parser.modules.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id));
-        const maxCastsOutsideVoidform = calculateMaxCasts(cooldownOutsideVoidform, fightDuration - parser.modules.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id));
-
-        return maxCastsInVoidform + maxCastsOutsideVoidform;
-      },
+      getCooldown: (haste, combatant) => ((combatant.hasBuff(SPELLS.VOIDFORM_BUFF.id) ? 6 : 9) / ( 1 + haste )),
+      charges: 2,
     },
 
     {

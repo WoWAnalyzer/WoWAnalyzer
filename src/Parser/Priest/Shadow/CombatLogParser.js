@@ -1,11 +1,15 @@
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
+// core
 import Haste from './Modules/Core/Haste';
 import AbilityTracker from './Modules/Core/AbilityTracker';
+import Insanity from './Modules/Core/Insanity';
+
+// features
 import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import Insanity from './Modules/Core/Insanity';
+import SkippableCasts from './Modules/Features/SkippableCasts';
 
 // spells:
 import Mindbender from './Modules/Spells/Mindbender';
@@ -27,13 +31,17 @@ import ZenkaramIridisAnadem from './Modules/Items/ZenkaramIridisAnadem';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
-    haste: Haste,
 
+    // core
+    haste: Haste,
     damageDone: [DamageDone, { showStatistic: true }],
-    alwaysBeCasting: AlwaysBeCasting,
     abilityTracker: AbilityTracker,
-    abilities: Abilities,
     insanity: Insanity,
+
+    // features:
+    abilities: Abilities,
+    alwaysBeCasting: AlwaysBeCasting,
+    skippableCasts: SkippableCasts,
 
     // spells:
     mindbender: Mindbender,
