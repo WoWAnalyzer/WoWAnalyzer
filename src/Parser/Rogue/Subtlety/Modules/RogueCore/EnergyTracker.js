@@ -1,4 +1,5 @@
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ResourceTypes from 'common/RESOURCE_TYPES';
 
 import ResourceTracker from '../ResourceTracker/ResourceTracker';
 
@@ -8,7 +9,7 @@ class EnergyTracker extends ResourceTracker {
   };
 
   on_initialized() {
-    this.resourceType = 3;
+    this.resourceType = ResourceTypes.ENERGY;
     this.resourceName = "Energy";
   }
 }
