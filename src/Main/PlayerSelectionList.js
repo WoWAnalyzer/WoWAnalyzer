@@ -173,16 +173,7 @@ class PlayerSelectionList extends React.PureComponent {
               // The combatlog can error out while would cause the combatant to not have a spec specified, in that case sort them at the bottom.
               const aSpec = SPECS[a.combatant.specID] || { role: 10 };
               const bSpec = SPECS[b.combatant.specID] || { role: 10 };
-              if (aSpec.className > bSpec.className) {
-                return 1;
-              } else if (aSpec.className < bSpec.className) {
-                return -1;
-              }
-              if (aSpec.role > bSpec.role) {
-                return 1;
-              } else if (aSpec.role < bSpec.role) {
-                return -1;
-              }
+
               if (a.friendly.name > b.friendly.name) {
                 return 1;
               } else if (a.friendly.name < b.friendly.name) {
