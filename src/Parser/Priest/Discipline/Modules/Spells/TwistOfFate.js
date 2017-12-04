@@ -64,25 +64,25 @@ class TwistOfFate extends Analyzer {
   }
 
   suggestions(when) {
-    if (this.hasSoulOfTheHighPriest === false) {
-      when(this.owner.getPercentageOfTotalHealingDone(this.healing)).isLessThan(SuggestionThresholds.TWIST_OF_FATE_TALENT_PERCENT.minor)
+    if (!this.hasSoulOfTheHighPriest) {
+      when(this.owner.getPercentageOfTotalHealingDone(this.healing)).isLessThan(0.05)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<span>Consider picking a different talent than <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT.id}/>. Castigation will give a consistent 3-5% increase and Schism provides a significant DPS increase if more healing is not needed.</span>)
             .icon(SPELLS.TWIST_OF_FATE_TALENT.icon)
             .actual(`${formatPercentage(actual)}% of total healing`)
             .recommended(`>${formatPercentage(recommended)}% is recommended.`)
-            .regular(SuggestionThresholds.TWIST_OF_FATE_TALENT_PERCENT.regular)
-            .major(SuggestionThresholds.TWIST_OF_FATE_TALENT_PERCENT.major);
+            .regular(0.045)
+            .major(0.025);
         });
     } else {
-      when(this.owner.getPercentageOfTotalHealingDone(this.healing)).isLessThan(SuggestionThresholds.TWIST_OF_FATE_LEGO_PERCENT.minor)
+      when(this.owner.getPercentageOfTotalHealingDone(this.healing)).isLessThan(0.03)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<span>Consider picking a different legendary other than <ItemLink id={ITEMS.SOUL_OF_THE_HIGH_PRIEST.id}/>. If the burst healing during dangerous situations from Twist of Fate is not needed, you will find greater average healing from several other legendaries.</span>)
             .icon(SPELLS.TWIST_OF_FATE_TALENT.icon)
             .actual(`${formatPercentage(actual)}% of total healing`)
             .recommended(`>${formatPercentage(recommended)}% is recommended.`)
-            .regular(SuggestionThresholds.TWIST_OF_FATE_LEGO_PERCENT.regular)
-            .major(SuggestionThresholds.TWIST_OF_FATE_LEGO_PERCENT.major);
+            .regular(0.025)
+            .major(0.02);
         });
     }
   }
