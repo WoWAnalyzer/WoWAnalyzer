@@ -45,10 +45,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Core
     danceCooldownReduction: DanceCooldownReduction,
-    darkShadowSpecterOfBetrayal: DarkShadowSpecterOfBetrayal,
 
     //Items
     t21_2P: T21_2P,
+    darkShadowSpecterOfBetrayal: DarkShadowSpecterOfBetrayal,
 
     //Legendaries
     denialOfHalfGiants: DenialOfHalfGiants,
