@@ -23,7 +23,7 @@ class VialOfCeaselessToxins extends Analyzer {
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.CEASELESS_TOXIN.id) {
-      this.damage += event.amount;
+      this.damage += event.amount + (event.absorbed || 0);
     }
   }
 
