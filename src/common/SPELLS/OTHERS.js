@@ -26,6 +26,16 @@ export default {
     name: 'Leech',
     icon: 'spell_shadow_lifedrain02',
   },
+  AVOIDANCE: {
+    id: 143927,
+    name: 'Avoidance',
+    icon: 'ability_rogue_quickrecovery',
+  },
+  SPEED: {
+    id: 143922,
+    name: 'Speed',
+    icon: 'petbattle_speed',
+  },
   ANCIENT_HEALING_POTION: {
     id: 188016,
     name: 'Ancient Healing Potion',
@@ -242,14 +252,14 @@ export default {
     name: 'Tarratus Keystone',
     icon: 'inv__wod_arakoa4',
   },
- AMANTHULS_PRESENCEBUFF: {
+  HIGHFATHERS_TIMEKEEPINGBUFF: {
     id: 253287,
-    name: 'Aman Thul\'s Presence',
+    name: 'Highfather\'s Timekeeping',
     icon: 'spell_priest_psyfiend',
   },
-  AMANTHULS_PRESENCEHEAL: {
+  HIGHFATHERS_TIMEKEEPINGHEAL: {
     id: 253288,
-    name: 'Aman Thul\'s Presence',
+    name: 'Highfather\'s Timekeeping',
     icon: 'spell_priest_psyfiend',
   },
   EONARS_COMPASSION_HEAL: {
@@ -296,6 +306,17 @@ export default {
     id: 257475,
     name: 'Eonar\'s Verdant Embrace',
     icon: 'talentspec_druid_restoration',
+  },
+  //T21 Dps Trinket
+  SHADOW_STRIKE: { //Seeping Scourewing Base Damage
+    id: 253324,
+    name: 'Shadow Strike',
+    icon: 'ability_creature_poison_03',
+  },
+  ISOLATED_STRIKE: {
+    id: 255609,
+    name: 'Isolated Strike',
+    icon: 'ability_creature_poison_03',
   },
 
   // Item Abilities
@@ -396,6 +417,11 @@ export default {
     id: 207694,
     name: 'Symbiote Strike',
     icon: 'inv_leather_raiddruid_m_01belt',
+  },
+  ROOTS_OF_SHALADRASSIL_HEAL: {
+    id: 208981,
+    name: 'Roots of Shaladrassil',
+    icon: 'inv_robe_pants_pvpwarlock_c_02',
   },
 
   // Encounter mechanics
@@ -560,4 +586,17 @@ export default {
     name: 'Concordance of the Legionfall',
     icon: 'achievement_faction_legionfall',
   },
+  // Dot spell for Carafe of Searing Light
+  REFRESHING_AGONY_DOT: {
+    id: 253284,
+    name: 'Refreshing Agony',
+    icon: 'ability_priest_flashoflight',
+  },
+  // Mana return spell for Carafe of Searing Light
+  REFRESHING_AGONY_MANA: {
+    id: 255981,
+    name: 'Refreshing Agonyt',
+    icon: 'ability_priest_flashoflight',
+  },
+
 };

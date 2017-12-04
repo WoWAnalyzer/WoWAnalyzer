@@ -90,12 +90,12 @@ class TheEmperorsCapacitor extends Analyzer {
         .recommended(`${(recommended)} Wasted stacks is recommended`)
         .regular(recommended + 5).major(recommended + 10);
     });
-    when(this.averageStacksUsed).isLessThan(16).addSuggestion((suggest, actual, recommended) => {
+    when(this.averageStacksUsed).isLessThan(18).addSuggestion((suggest, actual, recommended) => {
       return suggest(<span> Your average number of <SpellLink id={SPELLS.THE_EMPERORS_CAPACITOR_STACK.id} /> stacks used when you cast <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id}/> was low </span>)
           .icon(ITEMS.THE_EMPERORS_CAPACITOR.icon)
           .actual(`${this.averageStacksUsed.toFixed(2)} average stacks used`)
           .recommended(`Try to cast Crackling Jade Lightning while as close to 20 stacks as possible`)
-          .regular(recommended - 2).major(recommended - 5);
+          .regular(recommended - 3).major(recommended - 5);
       });
   }
 }

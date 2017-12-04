@@ -134,8 +134,6 @@ class SoulOfTheForest extends Analyzer {
   }
 
   statistic() {
-    if(!this.hasSotf) { return; }
-
     const total = this.wildGrowthHealing + this.rejuvenationHealing + this.regrowthHealing;
     const totalPercent = this.owner.getPercentageOfTotalHealingDone(total);
 
@@ -160,32 +158,6 @@ class SoulOfTheForest extends Analyzer {
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
-
-  item() {
-    if(!this.hasSota) { return; }
-
-    const total = this.wildGrowthHealing + this.rejuvenationHealing + this.regrowthHealing;
-
-    const wgPercent = this.owner.getPercentageOfTotalHealingDone(this.wildGrowthHealing);
-    const rejuvPercent = this.owner.getPercentageOfTotalHealingDone(this.rejuvenationHealing);
-    const regrowthPercent = this.owner.getPercentageOfTotalHealingDone(this.regrowthHealing);
-
-    return {
-      item: ITEMS.SOUL_OF_THE_ARCHDRUID,
-      result: (
-        <dfn data-tip={
-          `You gained ${this.proccs} total Soul of the Forest procs.
-          <ul>
-            <li>Consumed ${this.wildGrowths} procs with Wild Growth for ${formatPercentage(wgPercent)}% healing</li>
-            <li>Consumed ${this.rejuvenations} procs with Rejuvenation for ${formatPercentage(rejuvPercent)}% healing</li>
-            <li>Consumed ${this.regrowths} procs with Regrowth for ${formatPercentage(regrowthPercent)}% healing</li>
-          </ul>`
-        }>
-          {this.owner.formatItemHealingDone(total)}
-        </dfn>
-      ),
-    };
-  }
 
 }
 

@@ -6,8 +6,9 @@ import { formatNumber } from 'common/format';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
-const HEART_OF_THE_VOID_DAMAGE_INCREASE = 4.0;
+const HEART_OF_THE_VOID_DAMAGE_INCREASE = 0.75;
 
 class HeartOfTheVoid extends Analyzer {
   static dependencies = {
@@ -24,7 +25,7 @@ class HeartOfTheVoid extends Analyzer {
   on_byPlayer_damage(event){
     const spellID = event.ability.guid;
     if(spellID === SPELLS.VOID_ERUPTION_DAMAGE_1.id || spellID === SPELLS.VOID_ERUPTION_DAMAGE_2.id){
-      this.bonusDamage += event.amount - ( event.amount / HEART_OF_THE_VOID_DAMAGE_INCREASE );
+      this.bonusDamage += calculateEffectiveDamage(event, HEART_OF_THE_VOID_DAMAGE_INCREASE);
     }
   }
 

@@ -681,14 +681,20 @@ export default {
     name: 'Pressure Point',
     icon: 'spell_monk_windwalker_spec',
   },
-  WW_TIER21_2PC: {
+  WW_TIER21_4PC: {
     id: 251821,
+    name: 'Windwalker T21 4PC',
+    icon: 'ability_monk_roundhousekick',
+  },
+  WW_TIER21_2PC: {
+    id: 251823,
     name: 'Windwalker T21 2PC',
     icon: 'ability_monk_roundhousekick',
   },
-  WW_TIER21_4PC: {
-    id: 251823,
-    name: 'Windwalker T21 4pc',
+  // this is the chi gain from T21 2pc
+  FOCUS_OF_XUEN: {
+    id: 252768,
+    name: 'Focus of Xuen',
     icon: 'ability_monk_roundhousekick',
   },
 };

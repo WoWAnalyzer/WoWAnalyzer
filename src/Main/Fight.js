@@ -30,7 +30,7 @@ const Fight = ({ difficulty, name, kill, start_time, end_time, wipes, fightPerce
         {DIFFICULTIES[difficulty]} {name} {!kill && `(Wipe ${wipes})`}
       </div>
       <div className={`flex-main ${kill ? 'kill' : 'wipe'}`} style={{ whiteSpace: 'nowrap' }}>
-        <Icon style={{ fontSize: '1.8em', display: 'inline-block', marginBottom: '-0.25em' }} />
+        <Icon style={{ fontSize: '1.8em' }} />
         {' '}{formatDuration(duration)}
         <ProgressBar percentage={kill ? 100 : (10000 - fightPercentage) / 100} height={8} />
       </div>

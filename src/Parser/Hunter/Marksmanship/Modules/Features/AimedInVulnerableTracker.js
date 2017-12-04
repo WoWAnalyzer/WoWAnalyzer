@@ -24,15 +24,18 @@ class AimedInVulnerableTracker extends Analyzer {
   focusDumpAimed = 0;
 
   on_byPlayer_cast(event) {
-    const windburstIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.WINDBURST.id);
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.AIMED_SHOT.id) {
       return;
     }
     const enemy = this.enemies.getEntity(event);
+    if(!enemy) {
+      return;
+    }
     if (enemy.hasBuff(SPELLS.VULNERABLE.id, event.timestamp)) {
       this.inVulnerabilityAimed += 1;
     } else {
+      const windburstIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.WINDBURST.id);
       if (windburstIsOnCooldown && !this.combatants.selected.hasBuff(SPELLS.MARKING_TARGETS.id) && event.classResources[0]['amount'] > 105) {
         this.focusDumpAimed += 1;
       }
@@ -41,14 +44,22 @@ class AimedInVulnerableTracker extends Analyzer {
     this.totalAimed += 1;
   }
   suggestions(when) {
-    const percentAimedOutsideVulnerable = this.outsideVulnerabilityAimed / this.totalAimed;
+    const percentBadAimedShots = (this.outsideVulnerabilityAimed - this.focusDumpAimed) / this.totalAimed;
     const percentFocusDumpAimed = this.focusDumpAimed / this.totalAimed;
-    when(percentAimedOutsideVulnerable).isGreaterThan(0.02)
+    when(percentFocusDumpAimed).isGreaterThan(0.02)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> You cast {this.outsideVulnerabilityAimed} <SpellLink id={SPELLS.AIMED_SHOT.id} />s outside <SpellLink id={SPELLS.VULNERABLE.id} />. Try and minimize these, as they deal significantly less damage than their <SpellLink id={SPELLS.VULNERABLE.id} /> counterparts. It should be noted that rarely, you will be casting non-vulnerable aimeds due to no procs and/or focus capping. <br /> Note: <SpellLink id={SPELLS.VULNERABLE.id} /> damage is calculated on <u><strong>CAST END</strong></u>, so Aimed Shot does not have to hit inside the window, for it to register properly - use this knowledge to your advantage to squeeze more <SpellLink id={SPELLS.AIMED_SHOT.id} />s inside the <SpellLink id={SPELLS.VULNERABLE.id} /> window. </span>)
+        return suggest(<span> You cast {this.focusDumpAimed} <SpellLink id={SPELLS.AIMED_SHOT.id} />s to dump focus. This is more than what one would normally attribute to bad luck, and can indicate that you aren't utilizing <SpellLink id={SPELLS.MARKED_SHOT.id} /> or <SpellLink id={SPELLS.WINDBURST.id} /> properly to generate <SpellLink id={SPELLS.VULNERABLE.id} /> on your target. </span>)
           .icon(SPELLS.AIMED_SHOT.icon)
-          .actual(`${formatPercentage(actual)}% of total Aimed Shots were outside Vulnerable, ${formatPercentage(percentFocusDumpAimed/actual)}% of those were to dump focus`)
-          .recommended(`<${formatPercentage(recommended)}% outside Vulnerable is recommended, with 0% being the ideal`)
+          .actual(`${formatPercentage(actual)}% of total Aimed Shots were outside Vulnerable to dump focus`)
+          .recommended(`<${formatPercentage(recommended)}% focus dump no Aimed Shots is recommended, with 0% being the ideal`)
+          .regular(recommended + 0.01).major(recommended + 0.02);
+      });
+    when(percentBadAimedShots).isGreaterThan(0)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span> You cast {(this.outsideVulnerabilityAimed - this.focusDumpAimed)} <SpellLink id={SPELLS.AIMED_SHOT.id} />s outside <SpellLink id={SPELLS.VULNERABLE.id} /> and without high enough focus to warrant focus dumping.<br /> <b>Only cast <SpellLink id={SPELLS.AIMED_SHOT.id} /> outside of <SpellLink id={SPELLS.VULNERABLE.id} /> when you're at 95 focus or more, and you don't have <SpellLink id={SPELLS.MARKED_SHOT.id} /> or <SpellLink id={SPELLS.WINDBURST.id} /> ready. </b> <br /> <b>Note:</b> <SpellLink id={SPELLS.VULNERABLE.id} /> damage is calculated <u><b>when the cast finishes</b></u>, so <SpellLink id={SPELLS.AIMED_SHOT.id} /> does not have to hit inside the window for it to register properly - use this knowledge to your advantage to squeeze more <SpellLink id={SPELLS.AIMED_SHOT.id} />s inside the <SpellLink id={SPELLS.VULNERABLE.id} /> window. </span>)
+          .icon(SPELLS.AIMED_SHOT.icon)
+          .actual(`${formatPercentage(actual)}% of total Aimed Shots were outside Vulnerable without a need to dump focus`)
+          .recommended(`No Aimed Shots should be cast outside Vulnerable, unless you're close to focus capping`)
           .regular(recommended + 0.01).major(recommended + 0.02);
       });
   }
@@ -59,10 +70,10 @@ class AimedInVulnerableTracker extends Analyzer {
         icon={<SpellIcon id={SPELLS.VULNERABLE.id} />}
         value={`${formatPercentage(percentAimedInVulnerable)}%`}
         label="Vulnerable Aimed Shots"
-        tooltip={` You cast ${this.totalAimed} Aimed Shots.<br/> The amount of Aimed Shot casts inside Vulnerable: ${this.inVulnerabilityAimed}.<br/> The amount of Aimed Shot casts outside Vulnerable: ${this.outsideVulnerabilityAimed}. <br/> Amount of Aimed Shot outside vulnerable to dump focus: ${this.focusDumpAimed}.`} />
+        tooltip={` You cast ${this.totalAimed} Aimed Shots. <ul> <li> The amount of Aimed Shot casts inside Vulnerable: ${this.inVulnerabilityAimed}.</li> <li>The amount of Aimed Shot casts outside Vulnerable without a need to focus dump: ${this.outsideVulnerabilityAimed - this.focusDumpAimed}. </li> <li> Amount of Aimed Shot outside vulnerable to dump focus: ${this.focusDumpAimed}. </li></ul>`} />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
+  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default AimedInVulnerableTracker;

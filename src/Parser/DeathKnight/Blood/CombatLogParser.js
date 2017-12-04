@@ -4,7 +4,7 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
 
-import CastEfficiency from './Modules/Features/CastEfficiency';
+import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import BloodPlagueUptime from './Modules/Features/BloodPlagueUptime';
@@ -12,6 +12,7 @@ import BoneShieldUptime from './Modules/Features/BoneShieldUptime';
 import OssuaryUptime from './Modules/Features/OssuaryUptime';
 import WastedDeathAndDecay from './Modules/Features/WastedDeathAndDecay';
 import BlooddrinkerTicks from './Modules/Features/BlooddrinkerTicks';
+import UnendingThirstTracker from './Modules/Features/UnendingThirstTracker';
 
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
 import RunicPowerTracker from './Modules/RunicPower/RunicPowerTracker';
@@ -30,14 +31,14 @@ class CombatLogParser extends CoreCombatLogParser {
     // DeathKnight Core
 
     // Features
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     boneShieldUptime: BoneShieldUptime,
     ossuaryUptime: OssuaryUptime,
     wastedDeathAndDecay: WastedDeathAndDecay,
     blooddrinkerTicks: BlooddrinkerTicks,
-
+    unendingThirstTracker:UnendingThirstTracker,
 
 
     // DOT

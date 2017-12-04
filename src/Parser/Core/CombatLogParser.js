@@ -4,10 +4,9 @@ import SuggestionsTab from 'Main/SuggestionsTab';
 import ChangelogTab from 'Main/ChangelogTab';
 import ChangelogTabTitle from 'Main/ChangelogTabTitle';
 import Tab from 'Main/Tab';
-import Talents from 'Main/Talents';
 import TimelineTab from 'Main/Timeline/TimelineTab';
 
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage, formatThousands, formatDuration } from 'common/format';
 
 import ApplyBuffNormalizer from './Normalizers/ApplyBuff';
 
@@ -21,6 +20,7 @@ import AbilityTracker from './Modules/AbilityTracker';
 import Haste from './Modules/Haste';
 import StatTracker from './Modules/StatTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
+import Abilities from './Modules/Abilities';
 import CastEfficiency from './Modules/CastEfficiency';
 import SpellUsable from './Modules/SpellUsable';
 import SpellHistory from './Modules/SpellHistory';
@@ -32,6 +32,9 @@ import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
 
 import DistanceMoved from './Modules/Others/DistanceMoved';
+
+import StatsDisplay from './Modules/Features/StatsDisplay';
+import TalentsDisplay from './Modules/Features/TalentsDisplay';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
 // Shared Legendaries
@@ -67,6 +70,11 @@ import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
 import TarratusKeystone from './Modules/Items/TarratusKeystone';
 import HighFathersMachination from './Modules/Items/HighfathersMachination';
 import EonarsCompassion from './Modules/Items/EonarsCompassion';
+import CarafeOfSearingLight from './Modules/Items/CarafeOfSearingLight';
+
+// T21 Dps Trinkets
+import SeepingScourgewing from './Modules/Items/SeepingScourgewing';
+
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
 import VantusRune from './Modules/Spells/VantusRune';
@@ -115,7 +123,8 @@ class CombatLogParser {
     haste: Haste,
     statTracker: StatTracker,
     alwaysBeCasting: AlwaysBeCasting,
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
+    CastEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
     spellHistory: SpellHistory,
     manaValues: ManaValues,
@@ -123,6 +132,9 @@ class CombatLogParser {
     distanceMoved: DistanceMoved,
 
     critEffectBonus: CritEffectBonus,
+
+    statsDisplay: StatsDisplay,
+    talentsDisplay: TalentsDisplay,
 
     // Items:
     // Legendaries:
@@ -157,6 +169,10 @@ class CombatLogParser {
     tarratusKeystone: TarratusKeystone,
     highfathersMachinations: HighFathersMachination,
     eonarsCompassion : EonarsCompassion,
+    carafeOfSearingLight: CarafeOfSearingLight,
+    
+    // T21 DPS Trinkets
+    seepingScourgewing: SeepingScourgewing,
 
     // Concordance of the Legionfall
     concordance: Concordance,
@@ -400,6 +416,12 @@ class CombatLogParser {
   formatItemDamageDone(damageDone) {
     return `${formatPercentage(this.getPercentageOfTotalDamageDone(damageDone))} % / ${formatNumber(damageDone / this.fightDuration * 1000)} DPS`;
   }
+  formatManaRestored(manaRestored) {
+    return `${formatThousands(manaRestored)} mana / ${formatThousands(manaRestored / this.fightDuration * 1000 * 5)} MP5`;
+  }
+  formatTimestamp(timestamp) {
+    return formatDuration((timestamp - this.fight.start_time) / 1000);
+  }
 
   generateResults() {
     const results = new ParseResults();
@@ -412,16 +434,6 @@ class CombatLogParser {
         render: () => <SuggestionsTab issues={results.issues} />,
       },
       {
-        title: 'Talents',
-        url: 'talents',
-        order: 1,
-        render: () => (
-          <Tab title="Talents">
-            <Talents combatant={this.modules.combatants.selected} />
-          </Tab>
-        ),
-      },
-      {
         title: 'Timeline',
         url: 'timeline',
         order: 2,
@@ -431,7 +443,7 @@ class CombatLogParser {
               start={this.fight.start_time}
               end={this.currentTimestamp}
               historyBySpellId={this.modules.spellHistory.historyBySpellId}
-              castEfficiency={this.modules.castEfficiency}
+              abilities={this.modules.abilities}
             />
           </Tab>
         ),
@@ -444,9 +456,12 @@ class CombatLogParser {
       },
     ];
 
-    this.activeModules
-      .sort((a, b) => b.priority - a.priority)
-      .forEach((module) => {
+    Object.keys(this._modules)
+      .filter(key => this._modules[key].active)
+      .sort((a, b) => this._modules[b].priority - this._modules[a].priority)
+      .forEach(key => {
+        const module = this._modules[key];
+
         if (module.statistic) {
           const statistic = module.statistic();
           if (statistic) {
@@ -465,7 +480,11 @@ class CombatLogParser {
         if (module.extraPanel) {
           const extraPanel = module.extraPanel();
           if (extraPanel) {
-            results.extraPanels.push(extraPanel);
+            results.extraPanels.push({
+              name: key,
+              order: module.extraPanelOrder,
+              content: extraPanel,
+            });
           }
         }
         if (module.tab) {

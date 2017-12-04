@@ -1,8 +1,6 @@
 import React from 'react';
 
-import ZerotorescueAvatar from 'Parser/Paladin/Holy/Images/zerotorescue-avatar.png';
-
-const Zerotorescue = ['Zerotorescue', ZerotorescueAvatar];
+import { Zerotorescue } from 'MAINTAINERS';
 
 export default [
   {

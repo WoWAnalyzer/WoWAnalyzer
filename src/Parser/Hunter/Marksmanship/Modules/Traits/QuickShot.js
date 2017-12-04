@@ -18,7 +18,7 @@ class QuickShot extends Analyzer {
       this.trueShotCDReduction = quickShotRank * 10;
     }
     else {
-      switch(quickShotRank) {
+      switch (quickShotRank) {
         case 4:
           this.trueShotCDReduction = 38;
           break;

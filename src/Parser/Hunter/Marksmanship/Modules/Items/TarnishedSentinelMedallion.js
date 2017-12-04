@@ -31,14 +31,13 @@ class TarnishedSentinelMedallion extends ImportTarnishedSentinelMedallion {
     }
   }
 
-  on_byPlayer_cast(event){
+  on_byPlayer_cast(event) {
     const buffId = event.ability.guid;
-    if(buffId !== SPELLS.SPECTRAL_OWL.id) {
+    if (buffId !== SPELLS.SPECTRAL_OWL.id) {
       return;
     }
     this.medallionCasts += 1;
   }
-
 
   checkOverlap() {
     this.medallionCastsWithTS = 0;
@@ -62,7 +61,7 @@ class TarnishedSentinelMedallion extends ImportTarnishedSentinelMedallion {
     return {
       item: ITEMS.TARNISHED_SENTINEL_MEDALLION,
       result: (
-        <dfn data-tip={`<b> ${formatNumber(this.medallionCastsWithTS)} out of ${formatNumber(this.medallionCasts)} </b> Medallion casts were combined with Trueshot.`}>
+        <dfn data-tip={`<b> ${formatNumber(this.medallionCastsWithTS)} out of ${formatNumber(this.medallionCasts)} </b> Medallion casts were combined with Trueshot. <br/><b>OBS:</b> For a medallion cast to be considered combined with Trueshot, 10 seconds of it has to be affected by Trueshot.`}>
           {formatNumber(this.damage)} damage - {this.owner.formatItemDamageDone(this.damage)}
         </dfn>
       ),

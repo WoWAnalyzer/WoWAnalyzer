@@ -82,6 +82,8 @@ class MonkSpreadsheet extends React.Component {
             <tr style={styles.cellBorder}><td>First NLC Trait</td></tr>
             <tr><td>Second NLC Trait</td></tr>
             <tr><td>Third NLC Trait</td></tr>
+            <tr style={styles.cellBorder}><td>Tier 21 2 Piece Tranquil Mists</td></tr>
+            <tr><td>Tier 21 4 piece Average Bolts</td></tr>
           </table>
           {
           // This table is separate to allow for easier copy and pasting of the values from this page into the Mistweaver Spreadsheet.
@@ -127,7 +129,10 @@ class MonkSpreadsheet extends React.Component {
               (parser.modules.eithas.healing || 0) +
               (parser.modules.shelterOfRin.healing || 0) +
               (parser.modules.doorwayToNowhere.healing || 0) +
-              (parser.modules.ovydsWinterWrap.healing || 0)) / parser.fightDuration * 1000).toFixed(0)}
+              (parser.modules.ovydsWinterWrap.healing || 0) +
+              (parser.modules.eonarsCompassion.totalHeal || 0) +
+              (parser.modules.highfathersMachinations.healing || 0) +
+              (parser.modules.tarratusKeystone.healing || 0)) / parser.fightDuration * 1000).toFixed(0)}
               </td>
             </tr>
             <tr style={styles.cellBorder}><td>{(parser.modules.t20_2set.manaSaved / parser.fightDuration * 1000 * 5).toFixed(0) || 0}</td></tr>
@@ -136,6 +141,8 @@ class MonkSpreadsheet extends React.Component {
             <tr style={styles.cellBorder}><td>{(this.activeNLCTraits[0]) ? this.activeNLCTraits[0].name : 'N/A'}</td></tr>
             <tr><td>{(this.activeNLCTraits[1]) ? this.activeNLCTraits[1].name : 'N/A'}</td></tr>
             <tr><td>{(this.activeNLCTraits[2]) ? this.activeNLCTraits[2].name : 'N/A'}</td></tr>
+            <tr style={styles.cellBorder}><td>{parser.modules.t21_2set.tranquilMistCount || 0}</td></tr>
+            <tr><td>{parser.modules.t21_4set.averageBoltsPerCast || 0}</td></tr>
           </table>
         </div>
       </div>

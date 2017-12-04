@@ -16,8 +16,10 @@ import Ekowraith from './Modules/Items/Ekowraith';
 import XonisCaress from './Modules/Items/XonisCaress';
 import DarkTitanAdvice from './Modules/Items/DarkTitanAdvice';
 import EssenceOfInfusion from './Modules/Items/EssenceOfInfusion';
+import SoulOfTheArchdruid from './Modules/Items/SoulOfTheArchdruid';
 import Tearstone from './Modules/Items/Tearstone';
 import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
+import CarafeOfSearingLight from './Modules/Items/CarafeOfSearingLight';
 
 import T19_2Set from './Modules/Items/T19_2Set';
 import T20_2Set from './Modules/Items/T20_2Set';
@@ -28,7 +30,7 @@ import T21_4Set from './Modules/Items/T21_4Set';
 import HealingTouch from './Modules/Features/HealingTouch';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import AverageHots from './Modules/Features/AverageHots';
-import CastEfficiency from './Modules/Features/CastEfficiency';
+import Abilities from './Modules/Features/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import WildGrowth from './Modules/Features/WildGrowth';
 import Lifebloom from './Modules/Features/Lifebloom';
@@ -80,7 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     averageHots: AverageHots,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
     rejuvenation: Rejuvenation,
     wildGrowth: WildGrowth,
     lifebloom: Lifebloom,
@@ -105,6 +107,7 @@ class CombatLogParser extends CoreCombatLogParser {
     xonisCaress: XonisCaress,
     darkTitanAdvice: DarkTitanAdvice,
     essenceOfInfusion: EssenceOfInfusion,
+    soulOfTheArchdruid: SoulOfTheArchdruid,
     tearstone: Tearstone,
     t19_2set: T19_2Set,
     t20_2set: T20_2Set,
@@ -117,6 +120,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Shared:
     darkmoonDeckPromises: DarkmoonDeckPromises,
+    carafeOfSearingLight: CarafeOfSearingLight,
 
     // Traits
     RelicTraits: RelicTraits,

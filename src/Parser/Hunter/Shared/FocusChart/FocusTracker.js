@@ -6,7 +6,7 @@ class FocusTracker extends Analyzer {
 
   static dependencies = {
     combatants: Combatants,
-  }
+  };
 
   lastEventTimestamp = 0;
   focusBySecond = [];
@@ -17,7 +17,7 @@ class FocusTracker extends Analyzer {
   tracker = 0; //to tell if any prop has updated, since we can't compare arrays
   _maxFocus = 0;
 
-  on_initialized(){
+  on_initialized() {
     this.lastEventTimestamp = this.owner.fight.start_time;
     this.secondsCapped = 0;
   }

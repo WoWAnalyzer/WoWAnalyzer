@@ -30,6 +30,7 @@ const styles = {
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundAttachment: 'fixed',
+    filter: 'blur(3px)',
   },
   overlay: {
     position: 'absolute',
@@ -65,6 +66,8 @@ class AppBackgroundImage extends React.PureComponent {
         this.setState({
           image: Backgrounds[bossId][imageIndex],
         });
+      } else {
+        console.warn('Missing image for boss:', bossId);
       }
     }
     this.setState({

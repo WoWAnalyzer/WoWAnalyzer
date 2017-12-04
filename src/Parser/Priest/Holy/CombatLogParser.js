@@ -15,7 +15,7 @@ import DivineHymn from './Modules/Spells/DivineHymn';
 import Sanctify from './Modules/Spells/Sanctify';
 
 // Features
-import CastEfficiency from './Modules/Features/CastEfficiency';
+import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 
@@ -43,7 +43,7 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     spellManaCost: SpellManaCost,
     healingDone: [HealingDone, { showStatistic: true }],
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
     lowHealthHealing: LowHealthHealing,
 
     // Features

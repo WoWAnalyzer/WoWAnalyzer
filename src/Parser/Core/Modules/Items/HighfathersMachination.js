@@ -19,7 +19,7 @@ class HighfathersMachination extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if (spellId === SPELLS.AMANTHULS_PRESENCEHEAL.id) {
+    if (spellId === SPELLS.HIGHFATHERS_TIMEKEEPINGHEAL.id) {
       this.procUsed += 1;
       this.healing += (event.amount || 0) + (event.absorbed || 0);
     }
@@ -27,14 +27,14 @@ class HighfathersMachination extends Analyzer {
 
   on_byPlayer_applybuff(event) {
       const spellId = event.ability.guid;
-      if (spellId === SPELLS.AMANTHULS_PRESENCEBUFF.id) {
+      if (spellId === SPELLS.HIGHFATHERS_TIMEKEEPINGBUFF.id) {
           this.totalProc += 1;
       }
   }
 
   on_byPlayer_applybuffstack(event) {
       const spellId = event.ability.guid;
-      if (spellId === SPELLS.AMANTHULS_PRESENCEBUFF.id) {
+      if (spellId === SPELLS.HIGHFATHERS_TIMEKEEPINGBUFF.id) {
           this.totalProc += 1;
       }
   }

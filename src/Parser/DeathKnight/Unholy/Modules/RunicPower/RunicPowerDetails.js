@@ -18,9 +18,9 @@ class RunicPowerDetails extends Analyzer {
   suggestions(when) {
     const rpWasted = this.runicPowerTracker.rpWasted;
     const rpWastedPercent = rpWasted / this.runicPowerTracker.totalRPGained;
-    const MINOR = 0.05; // 5%
-    const AVG = 0.1; // 10%
-    const MAJOR = 0.15; // 15%
+    const MINOR = 0.1; // 10%
+    const AVG = 0.15; // 15%
+    const MAJOR = 0.2; // 20%
     when(rpWastedPercent).isGreaterThan(MINOR)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(`You wasted ${formatPercentage(rpWastedPercent)}% of your Runic Power.`)
