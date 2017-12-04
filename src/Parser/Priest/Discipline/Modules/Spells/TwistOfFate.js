@@ -14,7 +14,6 @@ import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
-import SuggestionThresholds from '../../SuggestionThresholds';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
 const TWIST_OF_FATE_HEALING_INCREASE = 0.2;
