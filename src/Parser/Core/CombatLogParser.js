@@ -37,6 +37,7 @@ import StatsDisplay from './Modules/Features/StatsDisplay';
 import TalentsDisplay from './Modules/Features/TalentsDisplay';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
+
 // Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';
 import Velens from './Modules/Items/Velens';
@@ -70,7 +71,9 @@ import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
 import TarratusKeystone from './Modules/Items/TarratusKeystone';
 import HighFathersMachination from './Modules/Items/HighfathersMachination';
 import EonarsCompassion from './Modules/Items/EonarsCompassion';
+import GarothiFeedbackConduit from './Modules/Items/GarothiFeedbackConduit';
 import CarafeOfSearingLight from './Modules/Items/CarafeOfSearingLight';
+
 
 // T21 Dps Trinkets
 import SeepingScourgewing from './Modules/Items/SeepingScourgewing';
@@ -169,6 +172,7 @@ class CombatLogParser {
     tarratusKeystone: TarratusKeystone,
     highfathersMachinations: HighFathersMachination,
     eonarsCompassion : EonarsCompassion,
+    garothiFeedbackConduit: GarothiFeedbackConduit,
     carafeOfSearingLight: CarafeOfSearingLight,
     
     // T21 DPS Trinkets

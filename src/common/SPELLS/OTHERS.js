@@ -56,6 +56,16 @@ export default {
     name: 'Potion of Deadly Grace',
     icon: 'inv_alchemy_70_flask02',
   },
+  FLASK_OF_THE_WHISPERED_PACT: {
+    id: 188031,
+    name: 'Flask of the Whispered Pact',
+    icon: 'inv_alchemy_70_flask03purple',
+  },
+  DEFILED_AUGMENT_RUNE: {
+    id: 224001,
+    name: 'Defiled Augment Rune',
+    icon: 'ability_bossfellord_felspike',
+  },
   LEYTORRENT_POTION: {
     id: 188030,
     name: 'Leytorrent Potion',
@@ -586,6 +596,11 @@ export default {
     name: 'Concordance of the Legionfall',
     icon: 'achievement_faction_legionfall',
   },
+  FEEDBACK_LOOP: {
+    id: 253269,
+    name: 'Feedback Loop',
+    icon: 'spell_holy_dispelmagic',
+  },
   // Dot spell for Carafe of Searing Light
   REFRESHING_AGONY_DOT: {
     id: 253284,
@@ -598,5 +613,4 @@ export default {
     name: 'Refreshing Agonyt',
     icon: 'ability_priest_flashoflight',
   },
-
 };
