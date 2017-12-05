@@ -37,7 +37,7 @@ class TrickShotCleave extends Analyzer {
     const primaryTargetEventIndex = this._primaryTargets.findIndex(primary => primary.targetID === event.targetID && primary.targetInstance === event.targetInstance);
     console.log(primaryTargetEventIndex);
     if (primaryTargetEventIndex === -1) {
-      this.bonusCleaveDmg += event.amount;
+      this.damage += event.amount + (event.absorbed || 0);
     }
   }
 
