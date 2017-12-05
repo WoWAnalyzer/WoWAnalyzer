@@ -7,6 +7,11 @@ import ITEMS from 'common/ITEMS';
 
 export default [
   {
+    date: new Date('2017-12-05'),
+    changes: 'Included some NLC traits and trinkets to stat weights module.',
+    contributors: [blazyb],
+  },
+  {
     date: new Date('2017-12-03'),
     changes: <Wrapper>Improve Player Selection user interface.</Wrapper>,
     contributors: ['kyle-glick'],
