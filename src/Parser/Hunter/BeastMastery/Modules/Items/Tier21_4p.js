@@ -43,7 +43,7 @@ class Tier21_4p extends Analyzer {
       icon: <SpellIcon id={SPELLS.HUNTER_BM_T21_4P_BONUS.id} />,
       title: <SpellLink id={SPELLS.HUNTER_BM_T21_4P_BONUS.id} />,
       result: (
-        <dfn data-tip={`You wasted ${formatNumber(this.wastedAspectReductionMs / 1000)} seconds of CDR by using Kill Command when Aspect of the Wild wasn't on cooldown or had less than 1.5 seconds remaning on CD.`}>
+        <dfn data-tip={`You wasted ${formatNumber(this.wastedAspectReductionMs / 1000)} seconds of CDR by using Kill Command when Aspect of the Wild wasn't on cooldown or had less than 2.5 seconds remaning on CD.`}>
           reduced <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> CD by {formatNumber(this.effectiveAspectReductionMs / 1000)}s in total.
         </dfn>
       ),
