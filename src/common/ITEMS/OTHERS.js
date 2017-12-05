@@ -297,4 +297,10 @@ export default {
     icon: 'ability_creature_poison_03',
     quality: ITEM_QUALITIES.EPIC,
   },
+  GAROTHI_FEEDBACK_CONDUIT: {
+    id: 151956,
+    name: 'Garothi Feedback Conduit',
+    icon: 'inv_misc_enggizmos_06',
+    quality: ITEM_QUALITIES.EPIC,
+  },
 };
