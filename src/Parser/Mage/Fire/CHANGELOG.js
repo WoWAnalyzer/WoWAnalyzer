@@ -1,4 +1,5 @@
 export default `
+2-12-2017 - Added Hot Streak Module. (by Sharrq)
 23-11-2017 - Added Phoenix's Flame Cooldown Reduction (by Sharrq)
 23-11-2017 - Added Support for Darckli's Dragonfire Diadem, Contained Infernal Core, and Pyrotex Ignition Cloth (by Sharrq)
 22-11-2017 - Added Combustion Cooldown Reduction (by Sharrq)
