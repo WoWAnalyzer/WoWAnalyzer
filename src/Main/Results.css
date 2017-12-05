@@ -110,7 +110,7 @@
   }
 }
 .results > header .player {
-  animation: player-anim 1s ease-out forwards;
+  animation: player-anim 400ms ease-out forwards;
   left: 100%;
 }
 @keyframes boss-anim {
@@ -122,7 +122,7 @@
   }
 }
 .results > header .boss {
-  animation: boss-anim 800ms 2.3s ease-out forwards;
+  animation: boss-anim 400ms 1800ms ease-out forwards;
   left: -100%;
 }
 @keyframes versus-anim {
@@ -134,6 +134,6 @@
   }
 }
 .results > header .versus {
-  animation: versus-anim 800ms 1.5s ease-out forwards;
+  animation: versus-anim 1000ms 800ms ease-out forwards;
   opacity: 0;
 }

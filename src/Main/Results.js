@@ -227,11 +227,11 @@ class Results extends React.Component {
         <div className="results">
           <header>
             <div className={`player ${config.spec.className.replace(' ', '')}`}>
-              <img src={ZerotorescueCharacterAvatar} /> {selectedCombatant.name}
+              <img src={ZerotorescueCharacterAvatar} alt="Player avatar" /> {selectedCombatant.name}
             </div>
             <div className="versus">versus</div>
             <div className="boss">
-              <img src={HarjatanAvatar} /> {getBossName(fight)}
+              <img src={HarjatanAvatar} alt="Boss avatar" /> {getBossName(fight)}
             </div>
           </header>
           <div className="divider" />
