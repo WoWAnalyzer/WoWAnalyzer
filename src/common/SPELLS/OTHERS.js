@@ -586,6 +586,16 @@ export default {
     name: 'Concordance of the Legionfall',
     icon: 'achievement_faction_legionfall',
   },
+  MASTER_OF_SHADOWS: {
+    id: 252091,
+    name: 'Master of Shadows',
+    icon: 'spell_shadow_shadesofdarkness',
+  },
+  LIGHT_SPEED: {
+    id: 252088,
+    name: 'Light Speed',
+    icon: 'ability_rogue_sprint',
+  },
   // Dot spell for Carafe of Searing Light
   REFRESHING_AGONY_DOT: {
     id: 253284,
