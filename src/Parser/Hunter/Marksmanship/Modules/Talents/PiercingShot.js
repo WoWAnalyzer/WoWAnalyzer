@@ -39,7 +39,7 @@ class PiercingShot extends Analyzer {
     if (spellId !== SPELLS.PIERCING_SHOT_TALENT.id) {
       return;
     }
-    this.damage += event.amount;
+    this.damage += event.amount + (event.absorbed || 0);
   }
   subStatistic() {
     return (

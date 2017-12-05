@@ -22,7 +22,7 @@ class CarefulAim extends Analyzer {
     if (spellId !== SPELLS.CAREFUL_AIM_DAMAGE.id) {
       return;
     }
-    this.damage += event.amount;
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   subStatistic() {

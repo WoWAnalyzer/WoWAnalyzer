@@ -29,7 +29,7 @@ class BlackArrow extends Analyzer {
     if (spellId !== SPELLS.BLACK_ARROW_TALENT.id) {
       return;
     }
-    this.damage += event.amount;
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   //ensures that our other pet doesn't contribute damage to this if the player does not have the Lone Wolf talent selected
@@ -38,7 +38,7 @@ class BlackArrow extends Analyzer {
     if (BLACK_ARROW_SUMMON.every(id => pet.guid !== id)) {
       return;
     }
-    this.damage += event.amount;
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   subStatistic() {

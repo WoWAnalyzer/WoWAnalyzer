@@ -21,7 +21,7 @@ class SurgeOfTheStormgod extends Analyzer {
     if (spellId !== SPELLS.SURGE_OF_THE_STORMGOD_DAMAGE.id) {
       return;
     }
-    this.damage += event.amount;
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   subStatistic() {

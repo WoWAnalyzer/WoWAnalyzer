@@ -63,9 +63,7 @@ class AMurderOfCrows extends Analyzer {
 
   statistic() {
     let tooltipText = `You cast A Murder of Crows a total of ${this.totalCrowsCasts} times.`;
-    tooltipText += this.shouldHaveSaved > 0 ? `<ul>` : ``;
-    tooltipText += this.shouldHaveSaved > 0 ? `<li>You had ${this.shouldHaveSaved} casts of A Murder of Crows where you should have delayed casting it.<ul><li>This occurs when you cast A Murder of Crows when the boss has between 25% and 20% health, which </li></ul></li>` : ``;
-    tooltipText += this.shouldHaveSaved > 0 ? `</ul>` : ``;
+    tooltipText += this.shouldHaveSaved > 0 ? `<ul><li>You had ${this.shouldHaveSaved} casts of A Murder of Crows where you should have delayed casting it.<ul><li>This occurs when you cast A Murder of Crows when the boss has between 25% and 20% health, which </li></ul></li></ul>` : ``;
 
     return (
       <StatisticBox

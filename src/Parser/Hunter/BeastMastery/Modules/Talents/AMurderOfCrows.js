@@ -42,7 +42,7 @@ class AMurderOfCrows extends Analyzer {
     if (spellId !== SPELLS.A_MURDER_OF_CROWS_SPELL.id) {
       return;
     }
-    this.damage += event.amount;
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   on_byPlayer_cast(event) {

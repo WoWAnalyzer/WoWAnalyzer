@@ -25,7 +25,7 @@ class Volley extends Analyzer {
     if (spellId !== SPELLS.VOLLEY_ACTIVATED.id) {
       return;
     }
-    this.damage += event.amount;
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   on_byPlayer_removebuff(event) {

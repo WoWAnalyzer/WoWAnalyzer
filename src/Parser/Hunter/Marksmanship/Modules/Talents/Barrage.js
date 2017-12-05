@@ -25,7 +25,7 @@ class Barrage extends Analyzer {
     if (spellId !== SPELLS.BARRAGE_DAMAGE.id) {
       return;
     }
-    this.damage += event.amount;
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   subStatistic() {

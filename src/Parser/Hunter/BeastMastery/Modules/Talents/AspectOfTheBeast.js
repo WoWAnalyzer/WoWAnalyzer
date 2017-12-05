@@ -22,7 +22,7 @@ class AspectOfTheBeast extends Analyzer {
     if (spellId !== SPELLS.ASPECT_OF_THE_BEAST_BESTIAL_FEROCITY.id) {
       return;
     }
-    this.damage += event.amount;
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   suggestions(when) {

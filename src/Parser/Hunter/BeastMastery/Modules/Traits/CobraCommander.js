@@ -36,7 +36,7 @@ class CobraCommander extends Analyzer {
     if (!selectedSneakySnake) {
       return;
     }
-    this.sneakySnakeDamage += event.amount;
+    this.sneakySnakeDamage += event.amount + (event.absorbed || 0);
   }
 
   subStatistic() {

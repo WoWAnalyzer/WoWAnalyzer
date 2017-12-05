@@ -87,7 +87,7 @@ class TitansThunder extends Analyzer {
     if (spellId !== SPELLS.TITANS_THUNDER_DAMAGE.id) {
       return;
     }
-    this.damage += event.amount;
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   statistic() {

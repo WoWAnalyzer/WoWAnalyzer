@@ -22,7 +22,7 @@ class Sidewinders extends Analyzer {
     if (spellId !== SPELLS.SIDEWINDERS_DAMAGE.id) {
       return;
     }
-    this.damage += event.amount;
+    this.damage += event.amount + (event.absorbed || 0);
   }
   subStatistic() {
     return (

@@ -409,7 +409,7 @@ export default {
     name: 'True Aim',
     icon: 'spell_hunter_focusingshot',
   },
-  EXPLOSIVE_SHOT_SHOT: {
+  EXPLOSIVE_SHOT_DETONATION: {
     id: 212680,
     name: 'Explosive Shot',
     icon: '6bf_explosive_shard',
