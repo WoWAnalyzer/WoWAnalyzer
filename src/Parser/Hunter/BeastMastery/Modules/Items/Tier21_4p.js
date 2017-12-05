@@ -8,7 +8,7 @@ import { formatNumber } from 'common/format';
 import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
 
-const COOLDOWN_REDUCTION_MS = 1500;
+const COOLDOWN_REDUCTION_MS = 2500;
 
 class Tier21_4p extends Analyzer {
   static dependencies = {
