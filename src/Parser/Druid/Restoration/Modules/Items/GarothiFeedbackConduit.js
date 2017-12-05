@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatThousands, formatPercentage, formatNumber } from 'common/format';
+import { formatThousands, formatNumber } from 'common/format';
 
 import CoreGarothiFeedbackConduit from 'Parser/Core/Modules/Items/GarothiFeedbackConduit';
 import STAT from "Parser/Core/Modules/Features/STAT";
@@ -27,7 +27,7 @@ class GarothiFeedbackConduit extends CoreGarothiFeedbackConduit {
             The amount of healing one rating of haste yielded was ${formatNumber(this.statWeights._getGain(STAT.HASTE_HPM))}</b>`}
         >
           {formatThousands(avgHaste)} average haste rating gained.<br />
-          {formatPercentage(healing / this.healingDone.total.effective)} % / {formatNumber(healing / this.owner.fightDuration * 1000)} HPS <br />
+          {this.owner.formatItemHealingDone(healing)}
         </dfn>
       ),
     };
