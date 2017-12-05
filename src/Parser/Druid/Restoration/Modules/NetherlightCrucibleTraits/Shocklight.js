@@ -1,35 +1,29 @@
 import React from 'react';
 
+import STAT from "Parser/Core/Modules/Features/STAT";
+import CoreShocklight from "Parser/Core/Modules//NetherlightCrucibleTraits/Shocklight";
+import HealingDone from 'Parser/Core/Modules/HealingDone';
+
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatNumber } from 'common/format';
 
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-
-/**
- * Shocklight
- * While Concordance of the Legionfall is active, your critical strike is increased by 1500.
- */
+import StatWeights from '../Features/StatWeights';
 
 const CRIT_AMOUNT = 1500;
 
-class Shocklight extends Analyzer {
+class MurderousIntent extends CoreShocklight {
   static dependencies = {
-    combatants: Combatants,
+    ...CoreShocklight.dependencies,
+    healingDone: HealingDone,
+    statWeights: StatWeights,
   };
-
-  traitLevel = 0
-
-  on_initialized() {
-    this.traitLevel = this.combatants.selected.traitsBySpellId[SPELLS.SHOCKLIGHT_TRAIT.id];
-    this.active = this.traitLevel > 0;
-  }
 
   subStatistic() {
     const shockLightUptime = this.combatants.selected.getBuffUptime(SPELLS.SHOCKLIGHT_BUFF.id) / this.owner.fightDuration;
     const averageCritGained = shockLightUptime * CRIT_AMOUNT * this.traitLevel;
+    const healing = this.statWeights._getGain(STAT.CRITICAL_STRIKE) * averageCritGained;
+
     return (
       <div className="flex">
         <div className="flex-main">
@@ -38,11 +32,11 @@ class Shocklight extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {formatNumber(averageCritGained)} avg. crit gained
+          {this.owner.formatItemHealingDone(healing)}
         </div>
       </div>
     );
   }
 }
 
-export default Shocklight;
+export default MurderousIntent;

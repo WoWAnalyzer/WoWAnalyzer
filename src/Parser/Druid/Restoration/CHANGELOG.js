@@ -1,4 +1,5 @@
 export default `
+05-12-2016 - Resto Druid: Added throughput rates for some NLC traits. (By Blazyb)
 23-10-2017 - Resto Druid: Added Stat Weights calculator. (by Sref)
 14-10-2017 - Resto Druid: Now uses the base Sephuz's Secret module, which displays average haste gained. (by Sref)
 06-10-2017 - Resto Druid: Added Ironbark module. (by Sref)
