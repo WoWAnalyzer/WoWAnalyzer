@@ -38,28 +38,32 @@
   margin-top: 40px;
   margin-bottom: 40px;
 }
-.results header {
+
+/* header */
+.results > header {
   margin-top: 60px;
-  margin-bottom: 40px;
+  margin-bottom: 90px;
+  overflow: hidden;
 }
-.results header .player, .results header .boss {
+.results > header .player, .results > header .boss {
   position: relative;
   font-size: 100px;
   font-weight: 700;
   line-height: 1;
   height: 137px;
   padding-top: 10px;
+  white-space: nowrap;
 }
-.results header .player {
+.results > header .player {
   padding-left: 160px;
   margin-left: 70px;
 }
-.results header .boss {
+.results > header .boss {
   padding-right: 160px;
   margin-right: 70px;
   text-align: right;
 }
-.results header .player:before, .results header .boss:before {
+.results > header .player:before, .results > header .boss:before {
   content: '';
   position: absolute;
   top: 0;
@@ -69,10 +73,10 @@
   z-index: -1;
   background: url(./Images/vs-background.png) no-repeat top left;
 }
-.results header .boss:before {
+.results > header .boss:before {
   transform: scaleX(-1);
 }
-.results header .player img, .results header .boss img {
+.results > header .player img, .results > header .boss img {
   position: absolute;
   top: 0;
   left: 0;
@@ -80,11 +84,11 @@
   height: 137px;
   border-radius: 50%;
 }
-.results header .boss img {
+.results > header .boss img {
   left: auto;
   right: 0;
 }
-.results header .versus {
+.results > header .versus {
   font-size: 42px;
   font-weight: 300;
   font-style: italic;
@@ -93,5 +97,43 @@
   line-height: 1;
   transform: scaleY(0.8) translateY(-5px);
   /* so that the player and boss names just overlap */
-  margin: -23px 0;
+  margin: -22.5px 0;
+}
+
+
+@keyframes player-anim {
+  from {
+    left: 100%;
+  }
+  to {
+    left: 0%;
+  }
+}
+.results > header .player {
+  animation: player-anim 1s ease-out forwards;
+  left: 100%;
+}
+@keyframes boss-anim {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 0%;
+  }
+}
+.results > header .boss {
+  animation: boss-anim 800ms 2.3s ease-out forwards;
+  left: -100%;
+}
+@keyframes versus-anim {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.results > header .versus {
+  animation: versus-anim 800ms 1.5s ease-out forwards;
+  opacity: 0;
 }

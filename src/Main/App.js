@@ -182,7 +182,7 @@ class App extends Component {
         progress: PROGRESS_STEP2_FETCH_EVENTS,
       });
 
-      const batchSize = 300;
+      const batchSize = 150;
       const numEvents = events.length;
       let offset = 0;
 
