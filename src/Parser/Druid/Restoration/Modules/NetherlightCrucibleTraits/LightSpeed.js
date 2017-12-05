@@ -6,7 +6,6 @@ import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import { formatNumber, formatPercentage } from 'common/format';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import STAT from "Parser/Core/Modules/Features/STAT";
 import StatWeights from '../Features/StatWeights';
@@ -43,7 +42,7 @@ class LightSpeed extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {formatPercentage(healing / this.healingDone.total.effective)} % / {formatNumber(healing / this.owner.fightDuration * 1000)} HPS
+          {this.owner.formatItemHealingDone(healing)}
         </div>
       </div>
     );

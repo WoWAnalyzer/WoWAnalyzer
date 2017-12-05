@@ -7,7 +7,6 @@ import STAT from "Parser/Core/Modules/Features/STAT";
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatNumber, formatPercentage } from 'common/format';
 import StatWeights from '../Features/StatWeights';
 
 const VERSATILITY_AMOUNT = 1500;
@@ -32,7 +31,7 @@ class MurderousIntent extends CoreMurderousIntent {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {formatPercentage(healing / this.healingDone.total.effective)} % / {formatNumber(healing / this.owner.fightDuration * 1000)} HPS
+          {this.owner.formatItemHealingDone(healing)}
         </div>
       </div>
     );
