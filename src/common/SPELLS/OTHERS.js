@@ -605,6 +605,7 @@ export default {
     id: 252088,
     name: 'Light Speed',
     icon: 'ability_rogue_sprint',
+  },
   FEEDBACK_LOOP: {
     id: 253269,
     name: 'Feedback Loop',
