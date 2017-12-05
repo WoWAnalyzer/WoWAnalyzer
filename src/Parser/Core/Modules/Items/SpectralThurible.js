@@ -1,16 +1,26 @@
+import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import { formatNumber } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
+// Spear appears to be kinda slow, saw hits from same spear seperated by upto a half second. Setting to full second to be safe.
+const HIT_WINDOW_MS = 1000;
+
+/*
+ * Sceptral Thurible -
+ * Equip: Your ranged attacks and spells have a chance to conjure a Spear of Anguish. After 3 sec the spear launches towards its target, dealing 294407 Shadow damage to all enemies it passes through.
+ */
 class SpectralThurible extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
 
-  bonusDmg = 0;
+  damage = 0;
+  procs = 0;
+  hits = 0;
+  hitTimestamp;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTrinket(ITEMS.SPECTRAL_THURIBLE.id);
@@ -20,13 +30,27 @@ class SpectralThurible extends Analyzer {
     if (event.ability.guid !== SPELLS.SPECTRAL_THURIBLE_DAMAGE.id) {
       return;
     }
-    this.bonusDmg += event.amount + (event.absorbed || 0);
+    this.damage += event.amount + (event.absorbed || 0);
+    
+    this.hits += 1;
+    if(!this.hitTimestamp || this.hitTimestamp + HIT_WINDOW_MS < this.owner.currentTimestamp) {
+      this.hitTimestamp = this.owner.currentTimestamp;
+      this.procs += 1;
+    }
+  }
+
+  get averageHits() {
+    return this.hits / this.procs;
   }
 
   item() {
     return {
       item: ITEMS.SPECTRAL_THURIBLE,
-      result: `${formatNumber(this.bonusDmg)} damage - ${this.owner.formatItemDamageDone(this.bonusDmg)}`,
+      result: (
+				<dfn data-tip={`You hit an average of <b>${this.averageHits.toFixed(1)}</b> targets per proc`}>
+					{this.owner.formatItemDamageDone(this.damage)}
+				</dfn>
+			),
     };
   }
 }

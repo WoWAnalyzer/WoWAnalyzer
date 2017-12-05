@@ -6,6 +6,10 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = false;
 
+/*
+ * Sea Star of the Depth Mother -
+ * Equip: Your multi-target healing spell has a chance to grant you Ocean's Embrace, healing your nearest injured ally within 15 yds for 29716 every 0.25 sec for 8 sec.
+ */
 class SeaStarOfTheDepthmother extends Analyzer {
   static dependencies = {
     combatants: Combatants,
