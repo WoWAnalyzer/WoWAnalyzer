@@ -1,33 +1,27 @@
 import React from 'react';
 
+import CoreMurderousIntent from "Parser/Core/Modules//NetherlightCrucibleTraits/MurderousIntent";
+import HealingDone from 'Parser/Core/Modules/HealingDone';
+import STAT from "Parser/Core/Modules/Features/STAT";
+
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatNumber } from 'common/format';
-
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-
-/**
- * Murderous Intent
- * Your Versatility is increased by 1500 while Concordance of the Legionfall is active.
- */
+import StatWeights from '../Features/StatWeights';
 
 const VERSATILITY_AMOUNT = 1500;
 
-class MurderousIntent extends Analyzer {
+class MurderousIntent extends CoreMurderousIntent {
   static dependencies = {
-    combatants: Combatants,
+    ...CoreMurderousIntent.dependencies,
+    healingDone: HealingDone,
+    statWeights: StatWeights,
   };
-
-  on_initialized() {
-    this.traitLevel = this.combatants.selected.traitsBySpellId[SPELLS.MURDEROUS_INTENT_TRAIT.id];
-    this.active = this.traitLevel > 0;
-  }
 
   subStatistic() {
     const murderousIntentUptime = this.combatants.selected.getBuffUptime(SPELLS.MURDEROUS_INTENT_BUFF.id) / this.owner.fightDuration;
     const averageVersatilityGained = murderousIntentUptime * VERSATILITY_AMOUNT * this.traitLevel;
+    const healing = this.statWeights._getGain(STAT.VERSATILITY) * averageVersatilityGained;
 
     return (
       <div className="flex">
@@ -37,7 +31,7 @@ class MurderousIntent extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {formatNumber(averageVersatilityGained)} avg. vers gained
+          {this.owner.formatItemHealingDone(healing)}
         </div>
       </div>
     );
