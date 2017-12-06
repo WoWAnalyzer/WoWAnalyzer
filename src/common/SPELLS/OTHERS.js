@@ -623,4 +623,14 @@ export default {
     name: 'Refreshing Agonyt',
     icon: 'ability_priest_flashoflight',
   },
+  FELSHIELD_ABSORB: {
+    id: 253277,
+    name: 'Felshield',
+    icon: 'ability-vehicle-shellshieldgenerator-green',
+  },
+  FELSHIELD_DAMAGE: {
+    id: 253278,
+    name: 'Felshield',
+    icon: 'ability-vehicle-shellshieldgenerator-green',
+  },
 };

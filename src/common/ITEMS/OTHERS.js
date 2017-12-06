@@ -205,6 +205,12 @@ export default {
     icon: 'inv_antorus_green',
     quality: ITEM_QUALITIES.EPIC,
   },
+  ISHKARS_FELSHIELD_EMITTER: {
+    id: 151957,
+    name: 'Ishkar\'s Felshield Emitter',
+    icon: 'ability_vehicle_shellshieldgenerator_green',
+    quality: ITEM_QUALITIES.EPIC,
+  },
   CARAFE_OF_SEARING_LIGHT: {
     id: 151960,
     name: 'Carafe of Searing Light',
