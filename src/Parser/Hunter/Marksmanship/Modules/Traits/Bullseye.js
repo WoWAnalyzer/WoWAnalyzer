@@ -5,6 +5,8 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from "common/SpellIcon";
 import { formatNumber, formatPercentage } from "common/format";
 import SpellLink from 'common/SpellLink';
+import Combatants from 'Parser/Core/Modules/Combatants';
+
 import CooldownTracker from '../Features/CooldownThroughputTracker';
 
 class Bullseye extends Analyzer {
@@ -16,6 +18,7 @@ class Bullseye extends Analyzer {
   EXECUTE_PERCENT = .2;
   static dependencies = {
     cooldownTracker: CooldownTracker,
+    combatants: Combatants,
   };
 
   on_initialized() {
@@ -24,16 +27,17 @@ class Bullseye extends Analyzer {
         if (fight.id === this.owner.fight.id && enemy.type === "Boss") this.bossIDs.push(enemy.id);
       });
     });
+    this.active = this.combatants.selected.traitsBySpellId[SPELLS.BULLSEYE_TRAIT.id];
   }
   on_byPlayer_applybuff(event) {
-    if (event.ability.guid !== SPELLS.BULLSEYE_TRAIT.id) {
+    if (event.ability.guid !== SPELLS.BULLSEYE_BUFF.id) {
       return;
     }
     this.bullseyeInstances.push({ "start": event.timestamp - this.owner.fight.start_time });
   }
 
   on_byPlayer_applybuffstack(event) {
-    if (event.ability.guid !== SPELLS.BULLSEYE_TRAIT.id) {
+    if (event.ability.guid !== SPELLS.BULLSEYE_BUFF.id) {
       return;
     }
     const lastBullseyeIndex = this.bullseyeInstances.length - 1;
@@ -43,7 +47,7 @@ class Bullseye extends Analyzer {
   }
 
   on_byPlayer_removebuff(event) {
-    if (event.ability.guid !== SPELLS.BULLSEYE_TRAIT.id) {
+    if (event.ability.guid !== SPELLS.BULLSEYE_BUFF.id) {
       return;
     }
     const lastBullseyeIndex = this.bullseyeInstances.length - 1;
@@ -81,7 +85,7 @@ class Bullseye extends Analyzer {
     this.percentBullseyeAtMax = formatPercentage(this.bullseyeMaxUptime / this.bullseyeUptime);
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.BULLSEYE_TRAIT.id} />}
+        icon={<SpellIcon id={SPELLS.BULLSEYE_BUFF.id} />}
         value={`${this.percentBullseyeAtMax} %`}
         label={`% of Bullseye at ${this.MAX_STACKS} stacks`}
         tooltip={`You reset Bullseye ${this.bullseyeResets} times during the execute phase (boss below 20% health). <br /> You had ${formatNumber(this.bullseyeUptime / 1000)} seconds of Bullseye uptime during the fight, and ${formatNumber(this.bullseyeMaxUptime / 1000)} seconds of uptime at ${this.MAX_STACKS} stacks.`}
@@ -93,7 +97,7 @@ class Bullseye extends Analyzer {
 
     when(this.bullseyeResets).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> You reset your <SpellLink id={SPELLS.BULLSEYE_TRAIT.id} /> stacks while the boss was below 20% health. Try and avoid this as it is a significant DPS loss. Make sure you're constantly refreshing and adding to your bullseye stacks on targets below 20% hp.</span>)
+        return suggest(<span> You reset your <SpellLink id={SPELLS.BULLSEYE_BUFF.id} /> stacks while the boss was below 20% health. Try and avoid this as it is a significant DPS loss. Make sure you're constantly refreshing and adding to your bullseye stacks on targets below 20% hp.</span>)
           .icon('ability_hunter_focusedaim')
           .actual(`${this.bullseyeResets} resets`)
           .recommended(`<1 reset is recommended`)

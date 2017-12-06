@@ -21,7 +21,7 @@ class Tier21_4p extends Analyzer {
       id: `spell-${SPELLS.HUNTER_MM_T21_4P_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.HUNTER_MM_T21_4P_BONUS.id} />,
       title: <SpellLink id={SPELLS.HUNTER_MM_T21_4P_BONUS.id} />,
-      result: <span> This gave your <SpellLink id={SPELLS.MARKED_SHOT.id} /> a 30% chance of firing an extra time, on up to 3 targets.</span>,
+      result: <span> This gave your <SpellLink id={SPELLS.MARKED_SHOT.id} /> a 50% chance of firing an extra time, on up to 3 targets.</span>,
     };
   }
 }

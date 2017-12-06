@@ -5,32 +5,31 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from "common/SpellIcon";
-import SpellLink from 'common/SpellLink';
+import SpellLink from "common/SpellLink";
+import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 
-class ExplosiveShot extends Analyzer {
+const LONE_WOLF_MODIFIER = 0.18;
+
+class LoneWolf extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
   damage = 0;
 
   on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.LONE_WOLF_TALENT.id);
   }
 
   on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.EXPLOSIVE_SHOT_DETONATION.id) {
-      return;
-    }
-    this.damage += event.amount + (event.absorbed || 0);
+    this.damage += getDamageBonus(event, LONE_WOLF_MODIFIER);
   }
 
   subStatistic() {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id}>
-            <SpellIcon id={SPELLS.EXPLOSIVE_SHOT_TALENT.id} noLink /> Explosive Shot
+          <SpellLink id={SPELLS.LONE_WOLF_TALENT.id}>
+            <SpellIcon id={SPELLS.LONE_WOLF_TALENT.id} noLink /> Lone Wolf
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
@@ -39,6 +38,7 @@ class ExplosiveShot extends Analyzer {
       </div>
     );
   }
+
 }
 
-export default ExplosiveShot;
+export default LoneWolf;

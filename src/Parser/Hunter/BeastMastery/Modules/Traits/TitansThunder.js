@@ -87,7 +87,7 @@ class TitansThunder extends Analyzer {
     if (spellId !== SPELLS.TITANS_THUNDER_DAMAGE.id) {
       return;
     }
-    this.damage += event.amount;
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   statistic() {
@@ -111,7 +111,7 @@ class TitansThunder extends Analyzer {
                 marginTop: '-.1em',
               }}
             />
-            <br />
+            {'  '}
             {this.badTTCasts + this.shouldHaveSavedTT}{'  '}
             <SpellIcon
               id={SPELLS.TITANS_THUNDER.id}
