@@ -45,6 +45,14 @@ class Rejuvenation extends Analyzer {
   lastPotalRegrowthTimestamp;
   potaTarget;
 
+  // Tearstone tracking stuff
+  lastWildgrowthTimestamp;
+  hasTearstone;
+
+  on_initialized() {
+    this.hasTearstone = this.combatants.selected.hasFinger(ITEMS.TEARSTONE_OF_ELUNE.id);
+  }
+
   on_byPlayer_cast(event) {
     const spellId = event.spellId;
     const targetId = event.targetID;
@@ -57,9 +65,11 @@ class Rejuvenation extends Analyzer {
     } else if (spellId === SPELLS.REGROWTH.id && hadPota) {
       this.lastPotalRegrowthTimestamp = event.timestamp;
       this.potaTarget = targetId;
+    } else if (spellId === SPELLS.WILD_GROWTH.id) {
+      this.lastWildgrowthTimestamp = event.timestamp;
     }
 
-    // TODO tearstone, t192p
+    // TODO t194p
   }
 
   on_byPlayer_heal(event) {
@@ -150,8 +160,10 @@ class Rejuvenation extends Analyzer {
   _getAttributions(spellId, targetId, timestamp) {
     const attributions = [];
     if (spellId === SPELLS.REJUVENATION.id || SPELLS.REJUVENATION_GERMINATION.id) {
-      if(this.lastPotaRejuvTimestamp + BUFFER_MS > timestamp && this.potaTarget !== targetId) { // PotA proc but not primary target
+      if (this.lastPotaRejuvTimestamp + BUFFER_MS > timestamp && this.potaTarget !== targetId) { // PotA proc but not primary target
         attributions.push(this.potaRejuv);
+      } else if (this.hasTearstone && this.lastWildgrowthTimestamp + BUFFER_MS > timestamp) {
+        attributions.push(this.tearstone);
       }
 
     } else if (spellId === SPELLS.REGROWTH.id) {
