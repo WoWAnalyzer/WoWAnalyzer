@@ -57,8 +57,8 @@ class AMurderOfCrows extends Analyzer {
         this.bossHP = (event.hitPoints / event.maxHitPoints);
         return;
       }
-      this.goodCrowsCasts += 1;
     }
+    this.goodCrowsCasts += 1;
   }
 
   statistic() {
