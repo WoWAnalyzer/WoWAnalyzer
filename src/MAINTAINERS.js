@@ -151,3 +151,7 @@ export const Dyspho = {
 export const Gurupitka = {
   nickname: 'Gurupitka',
 };
+export const Hartra344 = {
+  nickname: 'hartra344',
+  github: 'hartra344'
+}
