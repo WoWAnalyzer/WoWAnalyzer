@@ -15,13 +15,6 @@ const DRUID_HOTS = [
   SPELLS.DREAMER.id,
 ];
 
-// attributions
-const DEFAULT = 0; // indicates the regular application method of the HoT, whatever that might be
-const POTA = 1; // Power of the Archdruid (Rejuv or Regrowth)
-const TEARSTONE = 2; // Tearstone of Elune (Rejuv)
-const T194P = 3; // Tier 19 4pc (Rejuv)
-const T214P = 4; // Tier 21 4pc (Dreamer, used to distinguish Dreamer procs that would not have happened but for the 4pc)
-
 const debug = false;
 
 /*
@@ -32,6 +25,12 @@ class Rejuvenation extends Analyzer {
     combatants: Combatants,
   };
 
+  potaRejuv = { healing: 0 };
+  potaRegrowth = { healing: 0 };
+  tearstone = { healing: 0 };
+  t194p = { healing: 0 };
+  t214p = { healing: 0 }; // used to distinguish Dreamer procs that would not have happened but for the 4pc
+
   // {
   //   [playerId]: {
   //      [hotId]: { applied, attributions },
@@ -40,14 +39,42 @@ class Rejuvenation extends Analyzer {
   hots = {};
 
   on_byPlayer_heal(event) {
-    // TODO
-  }
+    const spellId = event.spellId;
+    if(!event.tick || DRUID_HOTS.includes(spellId)) {
+      return;
+    }
 
-  on_byPlayer_cast(event) {
-    // TODO
+    const targetId = event.targetId;
+    if (!targetId) {
+      debug && console.log(`${event.ability.name} healed target without ID @${this.owner.formatTimestamp(event.timestamp)}... no attribution possible.`);
+      return;
+    }
+
+    const hot = this.hots[targetId][spellId];
+    if (!hot) {
+      console.warn(`${event.ability.name} healed target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but that player isn't recorded as having that HoT...`);
+    }
+
+    const healing = event.amount + (event.absorbed || 0);
+    hot.attributions.forEach(att => att.healing += healing);
+    // TODO handle extensions
+    hot.boosts.forEach(att => att.healing += calculateEffectiveHealing(event, att.boost));
   }
 
   on_byPlayer_applybuff(event) {
+    this._applyBuff(event);
+  }
+
+  on_byPlayer_refreshbuff(event) {
+    this._removeBuff(event);
+    this._applyBuff(event);
+  }
+
+  on_byPlayer_removebuff(event) {
+    this._removeBuff(event);
+  }
+
+  _applyBuff(event) {
     const spellId = event.ability.guid;
     if (!DRUID_HOTS.includes(spellId)) {
       return;
@@ -63,11 +90,20 @@ class Rejuvenation extends Analyzer {
       this.hots[targetId] = {};
     }
 
-    this.hots[targetId][spellId] = {
-      applied: event.timestamp,
-      attributions: this._getAttributions(spellId, event.timestamp),
-      // TODO need more fields?
+    const newHot = {
+      start: event.timestamp,
+      attributions: [], // new generated HoT
+      extensions: [], // duration extensions to existing HoT
+      boosts: [], // strength boost to existing HoT
+      // TODO need more fields (like expected end)?
     };
+
+    newHot.attributions.concat(this._getAttributions(spellId, timestamp));
+    this.hots[targetId][spellId] = newHot;
+  }
+
+  _removeBuff(event) {
+    // TODO implement
   }
 
   _getAttributions(spellId, timestamp) {
