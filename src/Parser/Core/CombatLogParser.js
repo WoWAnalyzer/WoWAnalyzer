@@ -73,7 +73,7 @@ import HighFathersMachination from './Modules/Items/HighfathersMachination';
 import EonarsCompassion from './Modules/Items/EonarsCompassion';
 import GarothiFeedbackConduit from './Modules/Items/GarothiFeedbackConduit';
 import CarafeOfSearingLight from './Modules/Items/CarafeOfSearingLight';
-
+import IshkarsFelshieldEmitter from './Modules/Items/IshkarsFelshieldEmitter';
 
 // T21 Dps Trinkets
 import SeepingScourgewing from './Modules/Items/SeepingScourgewing';
@@ -155,6 +155,7 @@ class CombatLogParser {
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
     gnawedThumbRing: GnawedThumbRing,
+    ishkarsFelshieldEmitter: IshkarsFelshieldEmitter,
     // Tomb trinkets:
     archiveOfFaith: ArchiveOfFaith,
     barbaricMindslaver: BarbaricMindslaver,
