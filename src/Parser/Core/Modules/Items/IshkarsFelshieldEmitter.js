@@ -6,6 +6,10 @@ import ITEMS from 'common/ITEMS';
 import Combatants from '../Combatants';
 import Analyzer from '../../Analyzer';
 
+/*
+ * Ishkars Felshield Emitter -
+ * Use: Place a Felshield on an ally, absorbing [2416491 * (1 + Versatility)] damage for 9 sec. When the shield is consumed or expires, it explodes dealing 50% of the absorbed damage as Fire split amongst all enemies within 8 yds. (1 Min Cooldown)
+ */
 class IshkarsFelshieldEmitter extends Analyzer {
     static dependencies = {
         combatants: Combatants,
