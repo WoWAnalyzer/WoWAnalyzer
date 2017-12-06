@@ -39,13 +39,13 @@ class ThermalVoid extends Analyzer {
   suggestions(when) {
     const uptime = this.combatants.selected.getBuffUptime(SPELLS.ICY_VEINS.id) - this.extraUptime;
     const averageDuration = (uptime / this.casts) / 1000;
-    when(averageDuration).isLessThan(45)
+    when(averageDuration).isLessThan(40)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.ICY_VEINS.id}/> duration can be improved. Make sure you use Frozen Orb to get Fingers of Frost Procs</span>)
           .icon(SPELLS.ICY_VEINS.icon)
           .actual(`${formatNumber(actual)} seconds Average Icy Veins Duration`)
           .recommended(`${formatNumber(recommended)} is recommended`)
-          .regular(40).major(30);
+          .regular(37).major(33);
       });
   }
 
