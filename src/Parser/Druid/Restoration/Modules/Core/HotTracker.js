@@ -2,6 +2,8 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
+const BUFFER_MS = 100;
+
 const DRUID_HOTS = [
   SPELLS.REJUVENATION.id,
   SPELLS.WILD_GROWTH.id,
@@ -38,6 +40,28 @@ class Rejuvenation extends Analyzer {
   // }
   hots = {};
 
+  // PotA tracking stuff
+  lastPotaRejuvTimestamp;
+  lastPotalRegrowthTimestamp;
+  potaTarget;
+
+  on_byPlayer_cast(event) {
+    const spellId = event.spellId;
+    const targetId = event.targetID;
+
+    // check for PotA proc
+    const hadPota = this.combatants.selected.hasBuff(SPELLS.POWER_OF_THE_ARCHDRUID_BUFF, null, BUFFER_MS);
+    if (spellId === SPELLS.REJUVENATION.id && hadPota) {
+      this.lastPotaRejuvTimestamp = event.timestamp;
+      this.potaTarget = targetId;
+    } else if (spellId === SPELLS.REGROWTH.id && hadPota) {
+      this.lastPotalRegrowthTimestamp = event.timestamp;
+      this.potaTarget = targetId;
+    }
+
+    // TODO tearstone, t192p
+  }
+
   on_byPlayer_heal(event) {
     const spellId = event.spellId;
     if(!event.tick || DRUID_HOTS.includes(spellId)) {
@@ -56,7 +80,7 @@ class Rejuvenation extends Analyzer {
     }
 
     const healing = event.amount + (event.absorbed || 0);
-    hot.attributions.forEach(att => att.healing += healing);
+    hot.attributions.forEach(att => att.healing += healing); // TODO add mastery benefit
     // TODO handle extensions
     hot.boosts.forEach(att => att.healing += calculateEffectiveHealing(event, att.boost));
   }
@@ -66,6 +90,7 @@ class Rejuvenation extends Analyzer {
   }
 
   on_byPlayer_refreshbuff(event) {
+    // TODO check for hardcast early refresh?
     this._removeBuff(event);
     this._applyBuff(event);
   }
@@ -98,17 +123,41 @@ class Rejuvenation extends Analyzer {
       // TODO need more fields (like expected end)?
     };
 
-    newHot.attributions.concat(this._getAttributions(spellId, timestamp));
+    newHot.attributions.concat(this._getAttributions(spellId, targetId,  timestamp));
     this.hots[targetId][spellId] = newHot;
   }
 
   _removeBuff(event) {
-    // TODO implement
+    const spellId = event.ability.guid;
+    if (!DRUID_HOTS.includes(spellId)) {
+      return;
+    }
+
+    const targetId = event.targetID;
+    if (!targetId) {
+      debug && console.log(`${event.ability.name} removed from target without ID @${this.owner.formatTimestamp(event.timestamp)}...`);
+      return;
+    }
+
+    if(!this.hots[targetId] || !this.hots[targetId][spellId]) {
+      console.warn(`${event.ability.name} fell from target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there's no record of the HoT being added...`);
+    }
+
+    // TODO attribution cleanup of some sort, like checking for an early refresh or ????
+    this.hots[targetId][spellId] = null;
   }
 
-  _getAttributions(spellId, timestamp) {
+  _getAttributions(spellId, targetId, timestamp) {
+    const attributions = [];
     if (spellId === SPELLS.REJUVENATION.id || SPELLS.REJUVENATION_GERMINATION.id) {
+      if(this.lastPotaRejuvTimestamp + BUFFER_MS > timestamp && this.potaTarget !== targetId) { // PotA proc but not primary target
+        attributions.push(this.potaRejuv);
+      }
 
+    } else if (spellId === SPELLS.REGROWTH.id) {
+      if(this.lastPotalRegrowthTimestamp + BUFFER_MS > timestamp && this.potaTarget !== targetId) { // PotA proc but not primary target
+        attributions.push(this.potaRegrowth);
+      }
 
     } else {
       // ...
