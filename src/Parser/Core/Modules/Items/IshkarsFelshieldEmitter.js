@@ -33,7 +33,7 @@ class IshkarsFelshieldEmitter extends Analyzer {
     on_byPlayer_damage(event) {
       const spellId = event.ability.guid;
       if (spellId === SPELLS.FELSHIELD_DAMAGE.id) {
-        this.damageDealt += event.amount;
+        this.damageDealt += event.amount + (event.absorbed || 0);
       }
     }
 
