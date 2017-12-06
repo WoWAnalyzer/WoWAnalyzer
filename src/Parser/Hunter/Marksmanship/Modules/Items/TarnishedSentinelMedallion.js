@@ -19,6 +19,8 @@ class TarnishedSentinelMedallion extends ImportTarnishedSentinelMedallion {
   medallionDuration = 20000;
   medallionCasts = 0;
 
+  damageAbilities = new Set([SPELLS.SPECTRAL_BOLT.id, SPELLS.SPECTRAL_BLAST.id]);
+
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     if (this.damageAbilities.has(spellId) && event.timestamp > this.medallionEnd) {
