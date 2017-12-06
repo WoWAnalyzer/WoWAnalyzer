@@ -45,7 +45,7 @@ class ThermalVoid extends Analyzer {
           .icon(SPELLS.ICY_VEINS.icon)
           .actual(`${formatNumber(actual)} seconds Average Icy Veins Duration`)
           .recommended(`${formatNumber(recommended)} is recommended`)
-          .regular(35).major(30);
+          .regular(37).major(33);
       });
   }
 
