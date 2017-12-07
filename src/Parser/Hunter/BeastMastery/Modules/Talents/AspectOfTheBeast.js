@@ -26,8 +26,7 @@ class AspectOfTheBeast extends Analyzer {
   }
 
   suggestions(when) {
-    const AspectDamageChecker = this.active && this.damage < 1;
-    when(AspectDamageChecker).isTrue()
+    when(this.damage).isLessThan(1)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span><SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} /> had no damage contribution, which indiciates you did not have your pet specced into Ferocity, which it should always be.</span>)
           .icon(SPELLS.ASPECT_OF_THE_BEAST_TALENT.icon)
