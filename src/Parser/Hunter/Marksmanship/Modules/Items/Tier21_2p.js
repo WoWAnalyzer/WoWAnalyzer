@@ -122,7 +122,7 @@ class Tier21_2p extends Analyzer {
           <br />
           {formatNumber(totalDamageIncrease)} damage - {this.owner.formatItemDamageDone(totalDamageIncrease)}
         </dfn>
-        
+
       ),
     };
   }

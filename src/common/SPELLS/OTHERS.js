@@ -338,6 +338,11 @@ export default {
     name: 'Ravaging Storm',
     icon: 'inv_antorus_grey',
   },
+  GOLGANNETHS_VITALITY_THUNDEROUS_WRATH: {
+    id: 257430,
+    name: 'Golganneth\'s Thunderous Wrath',
+    icon: 'ability_thunderking_thunderstruck',
+  },
 
   // Item Abilities
   SPECTRAL_OWL: {
