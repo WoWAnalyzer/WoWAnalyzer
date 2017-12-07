@@ -12,8 +12,8 @@ class TalentsDisplay extends Analyzer {
     combatants: Combatants,
   };
 
-  extraPanelOrder = 1;
-  extraPanel() {
+  // This is a special module, we're giving it a custom position. Normally we'd use "extraPanel" instead.
+  render() {
     const talents = this.combatants.selected.talents;
     const rows = [15, 30, 45, 60, 75, 90, 100];
 

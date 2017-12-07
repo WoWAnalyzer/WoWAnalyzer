@@ -10,7 +10,7 @@ import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
 import getBossName from 'common/getBossName';
-import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
+// import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import { getResultTab } from 'selectors/url/report';
 import DevelopmentTab from 'Main/DevelopmentTab';
 import EventsTab from 'Main/EventsTab';
@@ -18,7 +18,7 @@ import Tab from 'Main/Tab';
 import Status from 'Main/Status';
 import GithubButton from 'Main/GithubButton';
 import DiscordButton from 'Main/DiscordButton';
-import Maintainer from 'Main/Maintainer';
+// import Maintainer from 'Main/Maintainer';
 
 import SpecInformationOverlay from './SpecInformationOverlay';
 import ZerotorescueCharacterAvatar from './Images/boss-avatars/zerotorescue.png';
@@ -84,8 +84,7 @@ class Results extends React.Component {
     return (
       <div className="panel items">
         <div className="panel-heading">
-          <h2><dfn data-tip="The values shown are only for the special equip effects of the items. The passive gain from the stats is <b>not</b> included.">Items</dfn>
-          </h2>
+          <h2><dfn data-tip="The values shown are only for the special equip effects of the items. The passive gain from the stats is <b>not</b> included.">Items</dfn></h2>
         </div>
         <div className="panel-body" style={{ padding: 0 }}>
           <ul className="list">
@@ -122,7 +121,7 @@ class Results extends React.Component {
                   }
                   return 0;
                 })
-                .map((item) => {
+                .map(item => {
                   if (!item) {
                     return null;
                   } else if (React.isValidElement(item)) {
@@ -236,29 +235,51 @@ class Results extends React.Component {
           </header>
           <div className="divider" />
 
-          <div className="text-muted" style={{ marginBottom: 25, fontSize: '1.4em' }}>
-            The <img
-              src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`}
-              alt="Spec logo"
-              style={{
-                borderRadius: '50%',
-                height: '1.2em',
-              }}
-            /> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)} (status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>). <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
-          </div>
+          {/*<div className="text-muted" style={{ marginBottom: 25, fontSize: '1.4em' }}>*/}
+            {/*The <img*/}
+              {/*src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`}*/}
+              {/*alt="Spec logo"*/}
+              {/*style={{*/}
+                {/*borderRadius: '50%',*/}
+                {/*height: '1.2em',*/}
+              {/*}}*/}
+            {/*/> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)} (status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>). <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>*/}
+          {/*</div>*/}
           {config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED && (
-            <div className="alert alert-danger" style={{ fontSize: '1.5em' }}>
-              This spec is not actively being maintained. In order to continue providing useful and accurate information we are looking for an active maintainer for this spec. See our GitHub page or join Discord for more information.<br />
-              <GithubButton /> <DiscordButton />
-            </div>
+            <Wrapper>
+              <div className="alert alert-danger" style={{ fontSize: '1.5em' }}>
+                This spec is not actively being maintained. In order to continue providing useful and accurate information we are looking for an active maintainer for this spec. See our GitHub page or join Discord for more information.<br />
+                <GithubButton /> <DiscordButton />
+              </div>
+              <div className="divider" />
+            </Wrapper>
           )}
+
+          <div className="row">
+            <div className="col-md-4">
+              {modules.statsDisplay.render()}
+              {modules.talentsDisplay.render()}
+              {this.renderItems(results.items, selectedCombatant)}
+            </div>
+            <div className="col-md-8">
+              <div className="panel">
+                <div className="panel-heading">
+                  <h2>The <i>how to be a good Holy Paladin</i> checklist</h2>
+                </div>
+                <div className="panel-body">
+                  Coming soon
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="divider" />
 
           <div className="row">
             <div className="col-md-8">
               {this.renderStatistics(results.statistics)}
             </div>
             <div className="col-md-4">
-              {this.renderItems(results.items, selectedCombatant)}
               {results.extraPanels
                 .sort((a, b) => a.order - b.order)
                 .map(extraPanel => (
@@ -268,6 +289,8 @@ class Results extends React.Component {
                 ))}
             </div>
           </div>
+
+          <div className="divider" />
 
           <div className="panel" style={{ marginTop: 15, marginBottom: 100 }}>
             <div className="panel-body flex" style={{ flexDirection: 'column', padding: '0' }}>

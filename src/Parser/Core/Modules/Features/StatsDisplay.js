@@ -75,8 +75,8 @@ class StatsDisplay extends Analyzer {
     );
   }
 
-  extraPanelOrder = 0;
-  extraPanel() {
+  // This is a special module, we're giving it a custom position. Normally we'd use "extraPanel" instead.
+  render() {
     const mainStats = [
       this.primaryStat,
       STAT.STAMINA,
