@@ -309,6 +309,11 @@ export default {
     icon: 'inv_misc_enggizmos_06',
     quality: ITEM_QUALITIES.EPIC,
   },
+  GORSHALACHS_LEGACY: {
+    id: 152093,
+    name: 'Gorshalach\'s Legacy',
+    icon: 'inv_sword_1h_firelandsraid_d_01',
+  },
   GOLGANNETHS_VITALITY: {
     id: 154174,
     name: 'Golganneth\'s Vitality',
