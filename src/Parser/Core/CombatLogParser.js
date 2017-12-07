@@ -77,6 +77,7 @@ import IshkarsFelshieldEmitter from './Modules/Items/IshkarsFelshieldEmitter';
 
 // T21 Dps Trinkets
 import SeepingScourgewing from './Modules/Items/SeepingScourgewing';
+import GolgannethsVitality from './Modules/Items/GolgannethsVitality';
 
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
@@ -172,12 +173,13 @@ class CombatLogParser {
     // T21 Healing Trinkets
     tarratusKeystone: TarratusKeystone,
     highfathersMachinations: HighFathersMachination,
-    eonarsCompassion : EonarsCompassion,
+    eonarsCompassion: EonarsCompassion,
     garothiFeedbackConduit: GarothiFeedbackConduit,
     carafeOfSearingLight: CarafeOfSearingLight,
-    
+
     // T21 DPS Trinkets
     seepingScourgewing: SeepingScourgewing,
+    golgannethsVitality: GolgannethsVitality,
 
     // Concordance of the Legionfall
     concordance: Concordance,
