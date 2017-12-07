@@ -10,6 +10,10 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 const PASSIVE_HASTE = 0.02;
 const ACTIVE_HASTE = 0.25;
 
+/*
+ * Sephuz's Secret -
+ * Equip: Gain 10% increased movement speed and 2% Haste. Successfully applying a loss of control effect to an enemy, interrupting an enemy, or dispelling any target increases this effect to 70% increased movement speed and 25% Haste for 10 sec. This increase may occur once every 30 sec.
+ */
 class SephuzsSecret extends Analyzer {
   static dependencies = {
     combatants: Combatants,

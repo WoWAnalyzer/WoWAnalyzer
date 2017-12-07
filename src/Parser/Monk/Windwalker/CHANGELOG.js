@@ -1,4 +1,5 @@
 export default `
+05-12-2017 - Updated Cast Efficiency to better handle Serenity cooldown reduction on Fists of Fury and Strike of the Windlord (Juko)
 23-11-2017 - Added Chi breakdown tab, suggestions and chi wasted statistic (Juko)
 22-11-2017 - Added T21 4pc item breakdown (Juko)
 07-11-2017 - Added CJL damage from SEF clones in The Emperors Capacity item breakdown (Juko)

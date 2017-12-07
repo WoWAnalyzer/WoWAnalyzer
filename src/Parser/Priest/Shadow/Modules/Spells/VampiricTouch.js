@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
 
 class VampiricTouch extends Analyzer {
   static dependencies = {
@@ -28,14 +28,14 @@ class VampiricTouch extends Analyzer {
 
   statistic() {
     const vampiricTouchUptime = this.enemies.getBuffUptime(SPELLS.VAMPIRIC_TOUCH.id) / this.owner.fightDuration;
-    return (<StatisticBox
+    return (<SmallStatisticBox
       icon={<SpellIcon id={SPELLS.VAMPIRIC_TOUCH.id} />}
       value={`${formatPercentage(vampiricTouchUptime)} %`}
       label="Vampiric Touch uptime"
     />);
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(4);
+  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default VampiricTouch;

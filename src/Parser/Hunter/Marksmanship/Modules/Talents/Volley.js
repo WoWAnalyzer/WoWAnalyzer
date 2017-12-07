@@ -4,9 +4,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
-import { formatNumber } from "common/format";
 import SpellLink from "common/SpellLink";
 
 class Volley extends Analyzer {
@@ -27,7 +25,7 @@ class Volley extends Analyzer {
     if (spellId !== SPELLS.VOLLEY_ACTIVATED.id) {
       return;
     }
-    this.damage += event.amount;
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   on_byPlayer_removebuff(event) {
@@ -70,13 +68,18 @@ class Volley extends Analyzer {
       });
 
   }
-  statistic() {
+  subStatistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.VOLLEY_TALENT.id} />}
-        value={`${formatNumber(this.damage)}`}
-        label={this.owner.formatItemDamageDone(this.damage)}
-      />
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.VOLLEY_TALENT.id}>
+            <SpellIcon id={SPELLS.VOLLEY_TALENT.id} noLink /> Volley
+          </SpellLink>
+        </div>
+        <div className="flex-sub text-right">
+          {(this.owner.formatItemDamageDone(this.damage))}
+        </div>
+      </div>
     );
   }
 

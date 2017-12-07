@@ -241,12 +241,17 @@ export default {
     name: 'Infernal Cinders',
     icon: 'inv_weapon_shortblade_54',
   },
-  UMBRAL_GLAIVE_STORM: {
+  UMBRAL_GLAIVE_STORM_CAST: {
+    id: 242553,
+    name: 'Umbral Glaive Storm',
+    icon: 'ability_upgrademoonglaive',
+  },
+  UMBRAL_GLAIVE_STORM_TICK: { // this is the damage ID, and also each tick of procs a cast event with this ID
     id: 242556,
     name: 'Umbral Glaive Storm',
     icon: 'ability_upgrademoonglaive',
   },
-  SHATTERING_UMBRAL_GLAIVES: {
+  SHATTERING_UMBRAL_GLAIVES: { // this is the shatter's damage ID, and also the shatter procs a cast event with this ID
     id: 242557,
     name: 'Shattering Umbral Glaives',
     icon: 'ability_upgrademoonglaive',
@@ -262,12 +267,12 @@ export default {
     name: 'Tarratus Keystone',
     icon: 'inv__wod_arakoa4',
   },
-  HIGHFATHERS_TIMEKEEPINGBUFF: {
+  HIGHFATHERS_TIMEKEEPING_BUFF: {
     id: 253287,
     name: 'Highfather\'s Timekeeping',
     icon: 'spell_priest_psyfiend',
   },
-  HIGHFATHERS_TIMEKEEPINGHEAL: {
+  HIGHFATHERS_TIMEKEEPING_HEAL: {
     id: 253288,
     name: 'Highfather\'s Timekeeping',
     icon: 'spell_priest_psyfiend',
@@ -358,6 +363,11 @@ export default {
   TOME_OF_UNRAVELING_SANITY_DAMAGE: {
     id: 243941,
     name: 'Insidious Corruption',
+    icon: 'inv_archaeology_70_demon_flayedskinchronicle',
+  },
+  TOME_OF_UNRAVELING_SANITY_BUFF: {
+    id: 243942,
+    name: 'Extracted Sanity',
     icon: 'inv_archaeology_70_demon_flayedskinchronicle',
   },
   LUNAR_INFUSION: {
@@ -622,5 +632,15 @@ export default {
     id: 255981,
     name: 'Refreshing Agonyt',
     icon: 'ability_priest_flashoflight',
+  },
+  FELSHIELD_ABSORB: {
+    id: 253277,
+    name: 'Felshield',
+    icon: 'ability-vehicle-shellshieldgenerator-green',
+  },
+  FELSHIELD_DAMAGE: {
+    id: 253278,
+    name: 'Felshield',
+    icon: 'ability-vehicle-shellshieldgenerator-green',
   },
 };

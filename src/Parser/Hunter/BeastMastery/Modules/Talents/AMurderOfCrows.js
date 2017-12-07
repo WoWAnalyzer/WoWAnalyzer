@@ -42,7 +42,7 @@ class AMurderOfCrows extends Analyzer {
     if (spellId !== SPELLS.A_MURDER_OF_CROWS_SPELL.id) {
       return;
     }
-    this.damage += event.amount;
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   on_byPlayer_cast(event) {
@@ -92,7 +92,7 @@ class AMurderOfCrows extends Analyzer {
           .icon(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.icon)
           .actual(`You cast A Murder of Crows ${this.badCrowsCasts} times with less than 7 seconds remaining on Bestial Wrath`)
           .recommended(`${recommended} is recommended`)
-          .average(recommended + 0.9)
+          .regular(recommended + 0.9)
           .major(recommended + 1.9);
       });
   }
@@ -117,7 +117,7 @@ class AMurderOfCrows extends Analyzer {
                 marginTop: '-.1em',
               }}
             />
-            <br />
+            {'  '}
             {this.badCrowsCasts + this.shouldHaveSavedCrows}{'  '}
             <SpellIcon
               id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id}

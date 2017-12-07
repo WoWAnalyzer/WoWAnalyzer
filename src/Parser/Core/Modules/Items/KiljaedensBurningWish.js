@@ -9,6 +9,10 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const HIT_BUFFER_MS = 500;
 
+/*
+ * Kil'jaeden's Burning Wish -
+ * Use: Launch a vortex of destruction that seeks your current enemy. When it reaches the target, it explodes, dealing a critical strike to all enemies within 10 yds for (317030 * 200 / 100) Fire damage. (1 Min, 15 Sec Cooldown)
+ */
 class KiljaedensBurningWish extends Analyzer {
   static dependencies = {
     combatants: Combatants,

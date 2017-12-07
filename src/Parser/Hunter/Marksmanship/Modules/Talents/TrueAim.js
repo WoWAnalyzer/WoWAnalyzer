@@ -3,11 +3,12 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import getDamageBonus from "Parser/Hunter/Shared/Modules/getDamageBonus";
+import SpellLink from 'common/SpellLink';
 
 const MAX_STACKS = 10;
 const TRUE_AIM_MODIFIER = 0.02;
@@ -80,6 +81,21 @@ class TrueAim extends Analyzer {
     this.bonusDmg += getDamageBonus(event, (TRUE_AIM_MODIFIER * this._currentStacks));
   }
 
+  subStatistic() {
+    return (
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.TRUE_AIM_TALENT.id}>
+            <SpellIcon id={SPELLS.TRUE_AIM_TALENT.id} noLink /> True Aim
+          </SpellLink>
+        </div>
+        <div className="flex-sub text-right">
+          {(this.owner.formatItemDamageDone(this.bonusDmg))}
+        </div>
+      </div>
+    );
+  }
+
   statistic() {
     const percentTimeAtMaxTAStacks = formatPercentage(this.timeAtMaxStacks / this.owner.fightDuration);
     return (
@@ -87,7 +103,7 @@ class TrueAim extends Analyzer {
         icon={<SpellIcon id={SPELLS.TRUE_AIM_DEBUFF.id} />}
         value={`${percentTimeAtMaxTAStacks} %`}
         label="10 stack uptime"
-        tooltip={`You reset True Aim when you had 3 or more stacks (to exclude trickshot cleaving resets): ${this.timesDropped} times over the course of the encounter. <br />Your total amount of resets (including with trickshot cleaving) was: ${this.totalTimesDropped}. <br />
+        tooltip={`You reset True Aim when you had 3 or more stacks (to exclude trickshot cleaving resets): ${this.timesDropped} times over the course of the encounter. <br />Your total amount of resets (including with trickshot cleaving) was: ${this.totalTimesDropped}. <br/>
 True Aim contributed with ${formatNumber(this.bonusDmg)} - ${this.owner.formatItemDamageDone(this.bonusDmg)}.
 <ul>
 <li> Aimed Shot contributed ${formatPercentage(this.aimedBonusDmg / this.bonusDmg)}%.</li>

@@ -110,6 +110,10 @@ const PETS = {
     id: 121661,
     name: 'Sneaky Snake',
   },
+  BLACK_ARROW_MINION: {
+    id: 94072,
+    name: 'Dark Minion',
+  },
 };
 
 export default indexById(PETS);
