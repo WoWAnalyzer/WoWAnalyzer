@@ -335,7 +335,7 @@ export default {
   },
   GOLGANNETHS_VITALITY_RAVAGING_STORM: { //Each tick is a cast event of this spell
     id: 257286,
-    name: 'Raviging Storm',
+    name: 'Ravaging Storm',
     icon: 'inv_antorus_grey',
   },
 
