@@ -52,11 +52,12 @@ class AtonementHealingBreakdown extends React.Component {
           {bySource && Object.keys(bySource)
             .sort((a, b) => bySource[b].healing.effective - bySource[a].healing.effective)
             .map((spellId) => {
-              const { ability, healing } = bySource[spellId];
+              const { ability, healing, bolts } = bySource[spellId];
 
               const performanceBarPercentage = healing.effective / highestHealing;
 
-              return (
+              return ([
+
                 <tr key={ability.guid}>
                   <td style={{ width: '30%' }}>
                     <SpellLink id={ability.guid}>
@@ -82,9 +83,42 @@ class AtonementHealingBreakdown extends React.Component {
                     />
                   </td>
                 </tr>
-              );
-            })}
-        </tbody>
+
+              ,(bolts && bolts.map((name,index) => {
+
+                const penanceBarPercentage = name / healing.effective;
+
+                if(!name) return null;
+
+                return (<tr>
+                  <td style={{ width: '30%', paddingLeft:50 }}>
+                    <SpellLink id={ability.guid}>
+                      <Icon icon={ability.abilityIcon} />{' '}
+                      {ability.name} Bolt {index + 1}
+                    </SpellLink>
+                  </td>
+                  {!this.state.absolute && (
+                  <td style={{ width: 60, paddingRight: 5, textAlign: 'center' }}>
+                    {(Math.round(name / totalAtonement.effective * 10000) / 100).toFixed(2)}%
+                  </td>)
+                  }
+                  {this.state.absolute && (
+                  <td style={{ width: 60, paddingRight: 5, textAlign: 'center' }}>
+                    {(Math.round(name / total * 10000) / 100).toFixed(2)}%
+                  </td>)
+                  }
+                  <td style={{ width: '70%', paddingLeft: 50 }}>
+                    <div
+                      className={'performance-bar'}
+                      style={{ width: `${penanceBarPercentage * 100}%` }}
+                    />
+                  </td>
+                </tr>);
+              })),
+            ]);
+          })}
+
+          </tbody>
       </table>
       </div>
     );
