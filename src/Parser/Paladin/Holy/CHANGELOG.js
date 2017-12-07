@@ -7,6 +7,11 @@ import ITEMS from 'common/ITEMS';
 
 export default [
   {
+    date: new Date('2017-12-07'),
+    changes: 'Stat values shows healing gained per 1 rating on hover.',
+    contributors: ['blazyb'],
+  },
+  {
     date: new Date('2017-11-05'),
     changes: 'Reworded haste tooltip and changed the display to be 0.00 - value to be more obvious it\'s a max.',
     contributors: [Zerotorescue],
