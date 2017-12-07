@@ -205,6 +205,12 @@ export default {
     icon: 'inv_antorus_green',
     quality: ITEM_QUALITIES.EPIC,
   },
+  ISHKARS_FELSHIELD_EMITTER: {
+    id: 151957,
+    name: 'Ishkar\'s Felshield Emitter',
+    icon: 'ability_vehicle_shellshieldgenerator_green',
+    quality: ITEM_QUALITIES.EPIC,
+  },
   CARAFE_OF_SEARING_LIGHT: {
     id: 151960,
     name: 'Carafe of Searing Light',
@@ -295,6 +301,12 @@ export default {
     id: 151964,
     name: 'Seeping Scourgewing',
     icon: 'ability_creature_poison_03',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  GAROTHI_FEEDBACK_CONDUIT: {
+    id: 151956,
+    name: 'Garothi Feedback Conduit',
+    icon: 'inv_misc_enggizmos_06',
     quality: ITEM_QUALITIES.EPIC,
   },
 };

@@ -22,7 +22,7 @@ class AspectOfTheBeast extends Analyzer {
     if (spellId !== SPELLS.ASPECT_OF_THE_BEAST_BESTIAL_FEROCITY.id) {
       return;
     }
-    this.damage += event.amount;
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   suggestions(when) {
@@ -37,18 +37,20 @@ class AspectOfTheBeast extends Analyzer {
   }
 
   subStatistic() {
-    return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id}>
-            <SpellIcon id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} noLink /> Bestial Ferocity
-          </SpellLink>
+    if (this.damage > 0) {
+      return (
+        <div className="flex">
+          <div className="flex-main">
+            <SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id}>
+              <SpellIcon id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} noLink /> Bestial Ferocity
+            </SpellLink>
+          </div>
+          <div className="flex-sub text-right">
+            {(this.owner.formatItemDamageDone(this.damage))}
+          </div>
         </div>
-        <div className="flex-sub text-right">
-          {(this.owner.formatItemDamageDone(this.damage))}
-        </div>
-      </div>
-    );
+      );
+    }
   }
 }
 

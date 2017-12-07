@@ -1,32 +1,51 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import { formatNumber } from 'common/format';
+import { calculateSecondaryStatDefault } from 'common/stats';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
+/*
+ * Tome of Unraveling Sanity -
+ * Use: Deal 313390 Shadow damage over 12 sec. When this effect ends or the target dies, you gain 2756 Critical Strike for 12 sec plus any time remaining on the effect. (1 Min Cooldown)
+ */
 class TomeOfUnravelingSanity extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
 
-  bonusDmg = 0;
+  damage = 0;
+  procAmount = null;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTrinket(ITEMS.TOME_OF_UNRAVELING_SANITY.id);
+    if (this.active) {
+      this.procAmount = calculateSecondaryStatDefault(910, 2756, this.combatants.selected.getItem(ITEMS.TOME_OF_UNRAVELING_SANITY.id).itemLevel);
+    }
   }
 
   on_byPlayer_damage(event) {
     if (event.ability.guid !== SPELLS.TOME_OF_UNRAVELING_SANITY_DAMAGE.id) {
       return;
     }
-    this.bonusDmg += event.amount + (event.absorbed || 0);
+    this.damage += event.amount + (event.absorbed || 0);
+  }
+
+  get averageCritGain() {
+    const uptimePercent = this.combatants.selected.getBuffUptime(SPELLS.TOME_OF_UNRAVELING_SANITY_BUFF.id) / this.owner.fightDuration;
+    return this.procAmount * uptimePercent;
   }
 
   item() {
     return {
       item: ITEMS.TOME_OF_UNRAVELING_SANITY,
-      result: `${formatNumber(this.bonusDmg)} damage - ${this.owner.formatItemDamageDone(this.bonusDmg)}`,
+      result: (
+         <dfn data-tip={`Listed damage value counts only the DoT, and the listed average crit value is the stat gain from procs averaged over the fight's duration.`}>
+         {this.owner.formatItemDamageDone(this.damage)} + {this.averageCritGain.toFixed(0)} crit
+         </dfn>
+       ),
     };
   }
 }

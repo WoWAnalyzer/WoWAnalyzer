@@ -45,6 +45,10 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.ERRATIC_METRONOME.id,
       haste: (_, item) => calculateSecondaryStatDefault(870, 657, item.itemLevel),
     },
+    [SPELLS.TOME_OF_UNRAVELING_SANITY_BUFF.id]: {
+      itemId: ITEMS.TOME_OF_UNRAVELING_SANITY.id,
+      crit: (_, item) => calculateSecondaryStatDefault(910, 2756, item.itemLevel),
+    },
     // endregion
 
     // region Misc
@@ -194,6 +198,8 @@ class StatTracker extends Analyzer {
         return 0.12;
       case SPECS.HOLY_PRIEST:
         return 0.05;
+      case SPECS.SHADOW_PRIEST:
+        return 0.2;
       case SPECS.RESTORATION_SHAMAN:
         return 0.24;
       case SPECS.ENHANCEMENT_SHAMAN:
@@ -254,6 +260,8 @@ class StatTracker extends Analyzer {
         return 26667;
       case SPECS.HOLY_PRIEST:
         return 32000;
+      case SPECS.SHADOW_PRIEST:
+        return 16000;
       case SPECS.RESTORATION_SHAMAN:
         return 13333;
       case SPECS.ENHANCEMENT_SHAMAN:

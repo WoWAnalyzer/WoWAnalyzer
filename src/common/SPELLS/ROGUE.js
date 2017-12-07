@@ -186,22 +186,22 @@ export default {
   SUB_ROGUE_T20_2SET_BONUS: {
     id: 242280,
     name: 'T20 2 set bonus',
-    icon: 'rogue_subtlety',
+    icon: 'spell_shadow_rune',
   },
   SUB_ROGUE_T20_4SET_BONUS: {
     id: 242279,
     name: 'T20 4 set bonus',
-    icon: 'rogue_subtlety',
+    icon: 'ability_stealth',
   },
   
   SUB_ROGUE_T21_2SET_BONUS: {
     id: 251785,
     name: 'T21 2 set bonus',
-    icon: 'rogue_subtlety',
+    icon: 'ability_rogue_eviscerate',
   },
   SUB_ROGUE_T21_4SET_BONUS: {
     id: 251788,
     name: 'T21 4 set bonus',
-    icon: 'rogue_subtlety',
+    icon: 'ability_rogue_eviscerate',
   },
 };

@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
 
 class ShadowWordPain extends Analyzer {
   static dependencies = {
@@ -28,14 +28,14 @@ class ShadowWordPain extends Analyzer {
 
   statistic() {
     const shadowWordPainUptime = this.enemies.getBuffUptime(SPELLS.SHADOW_WORD_PAIN.id) / this.owner.fightDuration;
-    return (<StatisticBox
+    return (<SmallStatisticBox
       icon={<SpellIcon id={SPELLS.SHADOW_WORD_PAIN.id} />}
       value={`${formatPercentage(shadowWordPainUptime)} %`}
       label="Shadow Word: Pain uptime"
     />);
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(5);
+  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default ShadowWordPain;

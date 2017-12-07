@@ -2,6 +2,8 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
+import ItemLink from 'common/ItemLink';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -60,8 +62,32 @@ class TwistOfFate extends Analyzer {
     this.healing += calculateEffectiveHealing(event, TWIST_OF_FATE_HEALING_INCREASE);
   }
 
+  suggestions(when) {
+    if (!this.hasSoulOfTheHighPriest) {
+      when(this.owner.getPercentageOfTotalHealingDone(this.healing)).isLessThan(0.05)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest(<span>Consider picking a different talent than <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT.id}/>. Castigation will give a consistent 3-5% increase and Schism provides a significant DPS increase if more healing is not needed.</span>)
+            .icon(SPELLS.TWIST_OF_FATE_TALENT.icon)
+            .actual(`${formatPercentage(actual)}% of total healing`)
+            .recommended(`>${formatPercentage(recommended)}% is recommended.`)
+            .regular(0.045)
+            .major(0.025);
+        });
+    } else {
+      when(this.owner.getPercentageOfTotalHealingDone(this.healing)).isLessThan(0.03)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest(<span>Consider picking a different legendary other than <ItemLink id={ITEMS.SOUL_OF_THE_HIGH_PRIEST.id}/>. If the burst healing during dangerous situations from Twist of Fate is not needed, you will find greater average healing from several other legendaries.</span>)
+            .icon(SPELLS.TWIST_OF_FATE_TALENT.icon)
+            .actual(`${formatPercentage(actual)}% of total healing`)
+            .recommended(`>${formatPercentage(recommended)}% is recommended.`)
+            .regular(0.025)
+            .major(0.02);
+        });
+    }
+  }
+
   statistic() {
-    if(!this.hasTwistOfFate) { return; }
+    if(!this.active) { return; }
 
     const healing = this.healing || 0;
     const damage = this.damage || 0;
@@ -82,27 +108,7 @@ class TwistOfFate extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
-
-  item() {
-    if(!this.hasSoulOfTheHighPriest) { return; }
-
-    const healing = this.healing || 0;
-    const damage = this.damage || 0;
-    const tofPercent = this.owner.getPercentageOfTotalHealingDone(healing);
-    const tofDamage = this.owner.getPercentageOfTotalDamageDone(damage);
-
-    return {
-      item: ITEMS.SOUL_OF_THE_HIGH_PRIEST,
-      result: (
-        <dfn data-tip={
-          `The effective healing contributed by the talent Twist of Fate (from Soul of the High Priest) was ${formatPercentage(tofPercent)}% of total healing done. Twist of Fate also contributed ${formatNumber(damage / this.owner.fightDuration * 1000)} DPS (${formatPercentage(tofDamage)}% of total damage); the healing gain of this damage was included in the shown numbers.`
-        }>
-          {this.owner.formatItemHealingDone(healing)}
-        </dfn>
-      ),
-    };
-  }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();;
 }
 
 export default TwistOfFate;

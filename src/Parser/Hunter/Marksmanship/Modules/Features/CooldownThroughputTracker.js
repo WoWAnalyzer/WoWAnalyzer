@@ -12,7 +12,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
     {
-      spell: SPELLS.BULLSEYE_TRAIT,
+      spell: SPELLS.BULLSEYE_BUFF,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],

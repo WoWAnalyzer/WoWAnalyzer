@@ -4,9 +4,8 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
-import { formatNumber } from "common/format";
+import SpellLink from 'common/SpellLink';
 
 class ExplosiveShot extends Analyzer {
   static dependencies = {
@@ -20,18 +19,24 @@ class ExplosiveShot extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.EXPLOSIVE_SHOT_SHOT.id) {
+    if (spellId !== SPELLS.EXPLOSIVE_SHOT_DETONATION.id) {
       return;
     }
-    this.damage += event.amount;
+    this.damage += event.amount + (event.absorbed || 0);
   }
-  statistic() {
+
+  subStatistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.EXPLOSIVE_SHOT_TALENT.id} />}
-        value={`${formatNumber(this.damage)}`}
-        label={this.owner.formatItemDamageDone(this.damage)}
-      />
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id}>
+            <SpellIcon id={SPELLS.EXPLOSIVE_SHOT_TALENT.id} noLink /> Explosive Shot
+          </SpellLink>
+        </div>
+        <div className="flex-sub text-right">
+          {(this.owner.formatItemDamageDone(this.damage))}
+        </div>
+      </div>
     );
   }
 }
