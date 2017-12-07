@@ -5,6 +5,8 @@ import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
 import Toggle from 'react-toggle';
 
+import Wrapper from 'common/Wrapper';
+
 class AtonementHealingBreakdown extends React.Component {
   static propTypes = {
     totalAtonement: PropTypes.object.isRequired,
@@ -56,7 +58,8 @@ class AtonementHealingBreakdown extends React.Component {
 
               const performanceBarPercentage = healing.effective / highestHealing;
 
-              return ([
+              return (
+                <Wrapper>
                 <tr key={ability.guid}>
                   <td style={{ width: '30%' }}>
                     <SpellLink id={ability.guid}>
@@ -83,7 +86,7 @@ class AtonementHealingBreakdown extends React.Component {
                   </td>
                 </tr>
 
-              , (bolts && bolts.map((value,index) => {
+              {(bolts && bolts.map((value,index) => {
 
                 const penanceBarPercentage = value / healing.effective;
 
@@ -110,8 +113,8 @@ class AtonementHealingBreakdown extends React.Component {
                     </td>
                   </tr>
                 );
-              })),
-            ]);
+              }))}
+            </Wrapper>);
           })}
 
           </tbody>
