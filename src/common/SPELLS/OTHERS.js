@@ -333,6 +333,17 @@ export default {
     name: 'Isolated Strike',
     icon: 'ability_creature_poison_03',
   },
+  GORSHALACHS_LEGACY_FIRST_HIT: {
+    id: 253329,
+    name: 'Gorshalach\'s Legacy',
+    icon: 'inv_sword_1h_firelandsraid_d_01',
+  },
+  GORSHALACHS_LEGACY_SECOND_HIT: {
+    id: 255673,
+    name: 'Gorshalach\'s Legacy',
+    icon: 'inv_sword_1h_firelandsraid_d_01',
+  },
+
 
   // Item Abilities
   SPECTRAL_OWL: {
