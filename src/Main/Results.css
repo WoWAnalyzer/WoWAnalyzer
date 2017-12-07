@@ -134,6 +134,6 @@
   }
 }
 .results > header .versus {
-  animation: versus-anim 1000ms 800ms ease-out forwards;
+  animation: versus-anim 1000ms 800ms ease-in forwards;
   opacity: 0;
 }
