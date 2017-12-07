@@ -4,19 +4,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 const BUFFER_MS = 100;
 
-const DRUID_HOTS = [
-  SPELLS.REJUVENATION.id,
-  SPELLS.WILD_GROWTH.id,
-  SPELLS.REJUVENATION_GERMINATION.id,
-  SPELLS.CULTIVATION.id,
-  SPELLS.CENARION_WARD.id,
-  SPELLS.LIFEBLOOM_HOT_HEAL.id,
-  // Make sure to check that event.tick is true, because regrowth uses the same id for the heal and the HoT part
-  SPELLS.REGROWTH.id,
-  SPELLS.SPRING_BLOSSOMS.id,
-  SPELLS.DREAMER.id,
-];
-
 const debug = false;
 
 /*
@@ -27,9 +14,47 @@ class Rejuvenation extends Analyzer {
     combatants: Combatants,
   };
 
-  potaRejuv = { healing: 0 };
-  potaRegrowth = { healing: 0 };
-  tearstone = { healing: 0 };
+  // HoTs to track, duration, tick frequency
+  hotInfo = {
+    [SPELLS.REJUVENATION.id]: {
+      duration: 15000 + (1000 * this.combatants.selected.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id]),
+      tickFrequency: 3000,
+    },
+    [SPELLS.REJUVENATION_GERMINATION.id]: {
+      duration: 15000 + (1000 * this.combatants.selected.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id]),
+      tickFrequency: 3000,
+    },
+    [SPELLS.REGROWTH.id]: {
+      duration: 12000,
+      tickFrequency: 2000,
+    },
+    [SPELLS.WILD_GROWTH.id]: {
+      duration: 7000,
+      tickFrequency: 1000,
+    },
+    [SPELLS.LIFEBLOOM_HOT_HEAL.id]: {
+      duration: 15000,
+      tickFrequency: 1000,
+    },
+    [SPELLS.CENARION_WARD.id]: {
+      duration: 8000,
+      tickFrequency: 2000,
+    },
+    [SPELLS.CULTIVATION.id]: {
+      duration: 6000,
+      tickFrequency: 2000,
+    },
+    [SPELLS.SPRING_BLOSSOMS.id]: {
+      duration: 6000,
+      tickFrequency: 2000,
+    },
+  };
+
+  powerOfTheArchdruid = {
+    rejuvenation: { healing: 0 },
+    regrowth: { healing: 0 },
+  };
+  tearstoneOfElune = { healing: 0 };
   t194p = { healing: 0 };
   t214p = { healing: 0 }; // used to distinguish Dreamer procs that would not have happened but for the 4pc
 
@@ -74,7 +99,7 @@ class Rejuvenation extends Analyzer {
 
   on_byPlayer_heal(event) {
     const spellId = event.spellId;
-    if(!event.tick || DRUID_HOTS.includes(spellId)) {
+    if(!event.tick || spellId in this.hotInfo) {
       return;
     }
 
@@ -90,8 +115,9 @@ class Rejuvenation extends Analyzer {
     }
 
     const healing = event.amount + (event.absorbed || 0);
+    hot.ticks.push({ healing, timestamp: event.timestamp });
+
     hot.attributions.forEach(att => att.healing += healing); // TODO add mastery benefit
-    // TODO handle extensions
     hot.boosts.forEach(att => att.healing += calculateEffectiveHealing(event, att.boost));
   }
 
@@ -111,7 +137,7 @@ class Rejuvenation extends Analyzer {
 
   _applyBuff(event) {
     const spellId = event.ability.guid;
-    if (!DRUID_HOTS.includes(spellId)) {
+    if (!spellId in this.hotInfo) {
       return;
     }
 
@@ -127,19 +153,23 @@ class Rejuvenation extends Analyzer {
 
     const newHot = {
       start: event.timestamp,
+      ticks: [], // listing of ticks w/ effective heal amount and timestamp
       attributions: [], // new generated HoT
       extensions: [], // duration extensions to existing HoT
       boosts: [], // strength boost to existing HoT
       // TODO need more fields (like expected end)?
     };
-
-    newHot.attributions.concat(this._getAttributions(spellId, targetId,  timestamp));
     this.hots[targetId][spellId] = newHot;
+
+    if(event.prepull) {
+      return; // prepull HoTs can confuse things, we just assume they were hardcast
+    }
+    newHot.attributions.concat(this._getAttributions(spellId, targetId,  timestamp));
   }
 
   _removeBuff(event) {
     const spellId = event.ability.guid;
-    if (!DRUID_HOTS.includes(spellId)) {
+    if (!spellId in this.hotInfo) {
       return;
     }
 
@@ -153,6 +183,8 @@ class Rejuvenation extends Analyzer {
       console.warn(`${event.ability.name} fell from target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there's no record of the HoT being added...`);
     }
 
+    // TODO assign HoT extension contribution now
+
     // TODO attribution cleanup of some sort, like checking for an early refresh or ????
     this.hots[targetId][spellId] = null;
   }
@@ -161,14 +193,14 @@ class Rejuvenation extends Analyzer {
     const attributions = [];
     if (spellId === SPELLS.REJUVENATION.id || SPELLS.REJUVENATION_GERMINATION.id) {
       if (this.lastPotaRejuvTimestamp + BUFFER_MS > timestamp && this.potaTarget !== targetId) { // PotA proc but not primary target
-        attributions.push(this.potaRejuv);
+        attributions.push(this.powerOfTheArchdruid.rejuvenation);
       } else if (this.hasTearstone && this.lastWildgrowthTimestamp + BUFFER_MS > timestamp) {
-        attributions.push(this.tearstone);
+        attributions.push(this.tearstoneOfElune);
       }
 
     } else if (spellId === SPELLS.REGROWTH.id) {
       if(this.lastPotalRegrowthTimestamp + BUFFER_MS > timestamp && this.potaTarget !== targetId) { // PotA proc but not primary target
-        attributions.push(this.potaRegrowth);
+        attributions.push(this.powerOfTheArchdruid.regrowth);
       }
 
     } else {
