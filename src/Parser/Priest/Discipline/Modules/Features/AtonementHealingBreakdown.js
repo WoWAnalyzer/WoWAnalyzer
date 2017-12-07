@@ -57,7 +57,6 @@ class AtonementHealingBreakdown extends React.Component {
               const performanceBarPercentage = healing.effective / highestHealing;
 
               return ([
-
                 <tr key={ability.guid}>
                   <td style={{ width: '30%' }}>
                     <SpellLink id={ability.guid}>
@@ -84,11 +83,11 @@ class AtonementHealingBreakdown extends React.Component {
                   </td>
                 </tr>
 
-              ,(bolts && bolts.map((name,index) => {
+              , (bolts && bolts.map((value,index) => {
 
-                const penanceBarPercentage = name / healing.effective;
+                const penanceBarPercentage = value / healing.effective;
 
-                if(!name) return null;
+                if(!value) return null;
 
                 return (<tr>
                   <td style={{ width: '30%', paddingLeft:50 }}>
@@ -99,12 +98,12 @@ class AtonementHealingBreakdown extends React.Component {
                   </td>
                   {!this.state.absolute && (
                   <td style={{ width: 60, paddingRight: 5, textAlign: 'center' }}>
-                    {(Math.round(name / totalAtonement.effective * 10000) / 100).toFixed(2)}%
+                    {(Math.round(value / totalAtonement.effective * 10000) / 100).toFixed(2)}%
                   </td>)
                   }
                   {this.state.absolute && (
                   <td style={{ width: 60, paddingRight: 5, textAlign: 'center' }}>
-                    {(Math.round(name / total * 10000) / 100).toFixed(2)}%
+                    {(Math.round(value / total * 10000) / 100).toFixed(2)}%
                   </td>)
                   }
                   <td style={{ width: '70%', paddingLeft: 50 }}>
