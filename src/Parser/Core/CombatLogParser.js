@@ -77,6 +77,7 @@ import IshkarsFelshieldEmitter from './Modules/Items/IshkarsFelshieldEmitter';
 
 // T21 Dps Trinkets
 import SeepingScourgewing from './Modules/Items/SeepingScourgewing';
+import ForgefiendsFabricator from './Modules/Items/ForgefiendsFabricator';
 
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
@@ -178,6 +179,7 @@ class CombatLogParser {
     
     // T21 DPS Trinkets
     seepingScourgewing: SeepingScourgewing,
+    forgefiendsFabricator: ForgefiendsFabricator,
 
     // Concordance of the Legionfall
     concordance: Concordance,
