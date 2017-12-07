@@ -333,6 +333,11 @@ export default {
     name: 'Isolated Strike',
     icon: 'ability_creature_poison_03',
   },
+  GOLGANNETHS_VITALITY_RAVAGING_STORM: { //Each tick is a cast event of this spell
+    id: 257286,
+    name: 'Raviging Storm',
+    icon: 'inv_antorus_grey',
+  },
 
   // Item Abilities
   SPECTRAL_OWL: {

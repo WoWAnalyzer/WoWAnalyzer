@@ -13,7 +13,7 @@ class AspectOfTheBeast extends Analyzer {
 
   damage = 0;
 
-  on_intiialized() {
+  on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.ASPECT_OF_THE_BEAST_TALENT.id);
   }
 
@@ -26,7 +26,8 @@ class AspectOfTheBeast extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.damage).isLessThan(1)
+    const AspectDamageChecker = this.active && this.damage < 1;
+    when(AspectDamageChecker).isTrue()
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span><SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} /> had no damage contribution, which indiciates you did not have your pet specced into Ferocity, which it should always be.</span>)
           .icon(SPELLS.ASPECT_OF_THE_BEAST_TALENT.icon)
@@ -37,20 +38,18 @@ class AspectOfTheBeast extends Analyzer {
   }
 
   subStatistic() {
-    if (this.damage > 0) {
-      return (
-        <div className="flex">
-          <div className="flex-main">
-            <SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id}>
-              <SpellIcon id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} noLink /> Bestial Ferocity
-            </SpellLink>
-          </div>
-          <div className="flex-sub text-right">
-            {(this.owner.formatItemDamageDone(this.damage))}
-          </div>
+    return (
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id}>
+            <SpellIcon id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} noLink /> Bestial Ferocity
+          </SpellLink>
         </div>
-      );
-    }
+        <div className="flex-sub text-right">
+          {(this.owner.formatItemDamageDone(this.damage))}
+        </div>
+      </div>
+    );
   }
 }
 

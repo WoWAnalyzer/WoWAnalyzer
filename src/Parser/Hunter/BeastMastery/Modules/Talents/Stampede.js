@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-class Stomp extends Analyzer {
+class Stampede extends Analyzer {
 
   static dependencies = {
     combatants: Combatants,
@@ -14,12 +14,12 @@ class Stomp extends Analyzer {
   damage = 0;
 
   on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.STOMP_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.STAMPEDE_TALENT.id);
   }
 
-  on_byPlayerPet_damage(event) {
+  on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.STOMP_DAMAGE.id) {
+    if (spellId !== SPELLS.STAMPEDE_DAMAGE.id) {
       return;
     }
     this.damage += event.amount + (event.absorbed || 0);
@@ -29,8 +29,8 @@ class Stomp extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.STOMP_TALENT.id}>
-            <SpellIcon id={SPELLS.STOMP_TALENT.id} noLink /> Stomp
+          <SpellLink id={SPELLS.STAMPEDE_TALENT.id}>
+            <SpellIcon id={SPELLS.STAMPEDE_TALENT.id} noLink /> Stampede
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
@@ -41,4 +41,4 @@ class Stomp extends Analyzer {
   }
 }
 
-export default Stomp;
+export default Stampede;
