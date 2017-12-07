@@ -1,0 +1,156 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PlayerSelectionList does not show combatants with missing specID 1`] = `
+Array [
+  <div
+    className="card"
+    key="UNKNOWN_ROLE"
+/>,
+]
+`;
+
+exports[`PlayerSelectionList matches snapshot 1`] = `
+<MemoryRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "canGo": [Function],
+        "createHref": [Function],
+        "entries": Array [
+          Object {
+            "hash": "",
+            "key": "vlg1jh",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+        ],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "index": 0,
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "key": "vlg1jh",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <PlayerSelectionList
+      combatants={
+        Array [
+          Object {
+            "sourceID": 11,
+            "specID": 65,
+          },
+        ]
+      }
+      fightId={2}
+      report={
+        Object {
+          "code": "MY_REPORT_CODE",
+          "fights": Array [
+            Object {
+              "end_time": 0,
+              "id": 2,
+              "kill": true,
+              "name": "Test Fight",
+              "start_time": 0,
+            },
+          ],
+          "friendlies": Array [
+            Object {
+              "id": 11,
+              "name": "Zerotorescue",
+            },
+          ],
+        }
+      }
+    >
+      <div
+        className="card"
+        key="1"
+      >
+        <h4
+          className="card-title"
+        >
+          <img
+            alt="Role Icon"
+            src="/roles/healer.jpg"
+            style={
+              Object {
+                "borderRadius": "50%",
+                "marginLeft": 10,
+                "marginRight": 10,
+              }
+            }
+          />
+          Healer
+        </h4>
+        <ul
+          className="list selection players"
+        >
+          <li
+            className="item selectable"
+            key="11"
+          >
+            <Link
+              className="Paladin"
+              replace={false}
+              style={
+                Object {
+                  "marginLeft": 47,
+                }
+              }
+              to="/report/MY_REPORT_CODE/2-+Test+Fight+-+Kill+(0:00)/Zerotorescue"
+            >
+              <a
+                className="Paladin"
+                href="/report/MY_REPORT_CODE/2-+Test+Fight+-+Kill+(0:00)/Zerotorescue"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "marginLeft": 47,
+                  }
+                }
+              >
+                <img
+                  alt="Spec logo"
+                  src="/specs/Paladin-Holy.jpg"
+                />
+                 
+                Zerotorescue
+                 (
+                Holy
+                )
+              </a>
+            </Link>
+          </li>
+        </ul>
+      </div>
+    </PlayerSelectionList>
+  </Router>
+</MemoryRouter>
+`;
+
+exports[`PlayerSelectionList matches snapshot when combatants list is empty 1`] = `
+<li
+  className="text-danger"
+  style={
+    Object {
+      "padding": "15px 22px",
+    }
+  }
+>
+  Could not find any players in this report. Make sure the log is recorded with Advanced Combat Logging enabled. You can enable this in-game in the network settings.
+</li>
+`;
