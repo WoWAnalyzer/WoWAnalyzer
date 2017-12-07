@@ -309,10 +309,20 @@ export default {
     icon: 'inv_misc_enggizmos_06',
     quality: ITEM_QUALITIES.EPIC,
   },
+  GORSHALACHS_LEGACY: {
+    id: 152093,
+    name: 'Gorshalach\'s Legacy',
+    icon: 'inv_sword_1h_firelandsraid_d_01',
+  },
+  GOLGANNETHS_VITALITY: {
+    id: 154174,
+    name: 'Golganneth\'s Vitality',
+    icon: 'inv_antorus_grey',
+    quality: ITEM_QUALITIES.EPIC,
+  },
   FORGEFIENDS_FABRICATOR: {
     id: 151963,
     name: 'Forgefiend\'s Fabricator',
     icon: 'inv_jewelry_orgrimmarraid_trinket_04_green',
-    quality: ITEM_QUALITIES.EPIC,
   },
 };
