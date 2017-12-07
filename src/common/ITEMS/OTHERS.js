@@ -309,4 +309,10 @@ export default {
     icon: 'inv_misc_enggizmos_06',
     quality: ITEM_QUALITIES.EPIC,
   },
+  GOLGANNETHS_VITALITY: {
+    id: 154174,
+    name: 'Golganneth\'s Vitality',
+    icon: 'inv_antorus_grey',
+    quality: ITEM_QUALITIES.EPIC,
+  },
 };
