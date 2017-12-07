@@ -89,30 +89,27 @@ class AtonementHealingBreakdown extends React.Component {
 
                 if(!value) return null;
 
-                return (<tr>
-                  <td style={{ width: '30%', paddingLeft:50 }}>
-                    <SpellLink id={ability.guid}>
-                      <Icon icon={ability.abilityIcon} />{' '}
-                      {ability.name} Bolt {index + 1}
-                    </SpellLink>
-                  </td>
-                  {!this.state.absolute && (
-                  <td style={{ width: 60, paddingRight: 5, textAlign: 'center' }}>
-                    {(Math.round(value / totalAtonement.effective * 10000) / 100).toFixed(2)}%
-                  </td>)
-                  }
-                  {this.state.absolute && (
-                  <td style={{ width: 60, paddingRight: 5, textAlign: 'center' }}>
-                    {(Math.round(value / total * 10000) / 100).toFixed(2)}%
-                  </td>)
-                  }
-                  <td style={{ width: '70%', paddingLeft: 50 }}>
-                    <div
-                      className={'performance-bar'}
-                      style={{ width: `${penanceBarPercentage * 100}%` }}
-                    />
-                  </td>
-                </tr>);
+                const currentTotal = this.state.absolute ? total : totalAtonement.effective;
+
+                return (
+                  <tr>
+                    <td style={{ width: '30%', paddingLeft:50 }}>
+                      <SpellLink id={ability.guid}>
+                        <Icon icon={ability.abilityIcon} />{' '}
+                        {ability.name} Bolt {index + 1}
+                      </SpellLink>
+                    </td>
+                    <td style={{ width: 60, paddingRight: 5, textAlign: 'center' }}>
+                      {(Math.round(value / currentTotal * 10000) / 100).toFixed(2)}%
+                    </td>
+                    <td style={{ width: '70%', paddingLeft: 50 }}>
+                      <div
+                        className={'performance-bar'}
+                        style={{ width: `${penanceBarPercentage * 100}%` }}
+                      />
+                    </td>
+                  </tr>
+                );
               })),
             ]);
           })}

@@ -63,10 +63,11 @@ class AtonementHealingDone extends Analyzer {
 
     if(spellId === SPELLS.PENANCE.id) {
       if(!this.bySource[SPELLS.PENANCE.id].bolts) {
-        this.bySource[SPELLS.PENANCE.id].bolts = [0,0,0,0];
+        this.bySource[SPELLS.PENANCE.id].bolts = [];
       }
 
-      this.bySource[SPELLS.PENANCE.id].bolts[this._lastPenanceBoltNumber] += (amount + absorbed) || 0;
+      this.bySource[SPELLS.PENANCE.id].bolts[this._lastPenanceBoltNumber] =
+      (this.bySource[SPELLS.PENANCE.id].bolts[this._lastPenanceBoltNumber] || 0) + amount + (absorbed || 0);
 
     }
   }
