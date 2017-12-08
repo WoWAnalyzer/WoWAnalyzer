@@ -160,6 +160,15 @@ class StatWeights extends BaseHealerStatValues {
       STAT.LEECH,
     ];
   }
+  _getPawnStats() {
+    return {
+      Intellect: STAT.INTELLECT,
+      CritRating: STAT.CRITICAL_STRIKE,
+      HasteRating: STAT.HASTE_HPM,
+      MasteryRating: STAT.MASTERY,
+      Versatility: STAT.VERSATILITY,
+    }
+  }
 
 }
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
@@ -313,6 +314,13 @@ class BaseHealerStatValues extends Analyzer {
       default: return 0;
     }
   }
+  _getPawnString() {
+    if(this._getPawnStats) { // TODO This isnt right cant use array
+      return `Pawn: v1: "WoWAnalyzer-??": ${this._getPawnStats().reduce((acc, stat, name) => acc + name + "=" + (this._getGain(stat) / (this.totalOneInt || 1)) + ",", "")})`;
+    } else {
+      return '';
+    }
+  }
   _getTooltip(stat) {
     switch (stat) {
       case STAT.HASTE_HPCT:
@@ -330,6 +338,7 @@ class BaseHealerStatValues extends Analyzer {
   extraPanelOrder = 200;
   extraPanel() {
     const results = this._prepareResults();
+    const pawnString = this._getPawnString();
     return (
       <div className="panel items">
         <div className="panel-heading">
@@ -340,6 +349,12 @@ class BaseHealerStatValues extends Analyzer {
               <a href={this.moreInformationLink} className="pull-right">
                 More info
               </a>
+            )}
+
+            {this._getPawnStats && (
+              <CopyToClipboard className="pull-right" text={pawnString} onCopy={() => this.setState({copied: true})}>
+                <dfn data-tip="Click this to copy your stat values to the clipboard as a Pawn String">Copy Pawn String</dfn>
+              </CopyToClipboard>
             )}
           </h2>
         </div>
