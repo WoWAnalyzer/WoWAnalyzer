@@ -64,7 +64,7 @@ class KhazgorothsCourage extends Analyzer {
 					</dfn>
 					<br></br>
 					<dfn data-tip={`Procced the pantheon buff <b>${this.pantheonProcs}</b> times.`}>
-						{formatPercentage(uptimePercent)} % uptime on Khaz'goroths Courage
+						{formatPercentage(uptimePercent)} % uptime on Khaz'goroths Shaping
 					</dfn>
 				</div>
 			),
