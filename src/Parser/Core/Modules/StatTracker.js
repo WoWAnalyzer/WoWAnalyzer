@@ -187,13 +187,14 @@ class StatTracker extends Analyzer {
    * These values don't change.
    */
   get baseCritPercentage() {
+    const standard = 0.05;
     switch (this.combatants.selected.spec) {
-      case SPECS.FROST_MAGE:
-        return 0.05;
+      case SPECS.HOLY_PALADIN:
+        return standard + 0.03; // 3% from a trait everyone has. TODO: Make traits conditional
       case SPECS.FIRE_MAGE:
-        return 0.2;
+        return standard + 0.15; // an additional 15% is gained from the passive Critical Mass
       default:
-        return 0.08;
+        return standard;
     }
   }
   get baseHastePercentage() {
