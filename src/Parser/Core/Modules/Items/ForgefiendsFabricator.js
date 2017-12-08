@@ -29,7 +29,7 @@ class ForgefiendsFabricator extends Analyzer {
 
   item() {
     return {
-      item: ITEMS.FIRE_MINES,
+      item: ITEMS.FORGEFIENDS_FABRICATOR,
       result: this.owner.formatItemDamageDone(this.damage),
     };
   }
