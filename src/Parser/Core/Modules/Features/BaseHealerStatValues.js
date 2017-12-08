@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatThousands } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
@@ -375,7 +375,7 @@ class BaseHealerStatValues extends Analyzer {
                       {tooltip ? <dfn data-tip={tooltip}>{getName(stat)}</dfn> : getName(stat)}
                     </td>
                     <td className="text-right">
-                      <dfn data-tip={gain !== null ? gain.toFixed(0) + ' healing gained per 1 rating' : 'NYI'}>
+                      <dfn data-tip={gain !== null ? formatThousands(gain) + ' total healing gained per 1 rating' : 'NYI'}>
                         {stat === STAT.HASTE_HPCT && '0.00 - '}{gain !== null ? weight.toFixed(2) : 'NYI'}
                       </dfn>
                     </td>
