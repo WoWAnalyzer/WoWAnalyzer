@@ -17,7 +17,7 @@ class StatTracker extends Analyzer {
 
   static STAT_BUFFS = {
     // region Potions
-    [SPELLS.POTION_OF_PROLONGED_POWER.id]: { strength: 2500, agility: 2500, intellect: 2500 },
+    [SPELLS.POTION_OF_PROLONGED_POWER.id]: { stamina: 2500, strength: 2500, agility: 2500, intellect: 2500 },
     // endregion
     // TODO: add flasks
     // TODO: add food
@@ -187,7 +187,14 @@ class StatTracker extends Analyzer {
    * These values don't change.
    */
   get baseCritPercentage() {
-    return 0.08; // TODO is this the same for all classes?
+    switch (this.combatants.selected.spec) {
+      case SPECS.FROST_MAGE:
+        return 0.05;
+      case SPECS.FIRE_MAGE:
+        return 0.2;
+      default:
+        return 0.08;
+    }
   }
   get baseHastePercentage() {
     return 0;
