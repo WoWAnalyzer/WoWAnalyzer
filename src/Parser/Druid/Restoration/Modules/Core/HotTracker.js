@@ -18,35 +18,39 @@ class Rejuvenation extends Analyzer {
   hotInfo = {
     [SPELLS.REJUVENATION.id]: {
       duration: 15000 + (1000 * this.combatants.selected.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id]),
-      tickFrequency: 3000,
+      tickPeriod: 3000,
     },
     [SPELLS.REJUVENATION_GERMINATION.id]: {
       duration: 15000 + (1000 * this.combatants.selected.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id]),
-      tickFrequency: 3000,
+      tickPeriod: 3000,
     },
     [SPELLS.REGROWTH.id]: {
       duration: 12000,
-      tickFrequency: 2000,
+      tickPeriod: 2000,
     },
     [SPELLS.WILD_GROWTH.id]: {
       duration: 7000,
-      tickFrequency: 1000,
+      tickPeriod: 1000,
     },
     [SPELLS.LIFEBLOOM_HOT_HEAL.id]: {
       duration: 15000,
-      tickFrequency: 1000,
+      tickPeriod: 1000,
     },
     [SPELLS.CENARION_WARD.id]: {
       duration: 8000,
-      tickFrequency: 2000,
+      tickPeriod: 2000,
     },
     [SPELLS.CULTIVATION.id]: {
       duration: 6000,
-      tickFrequency: 2000,
+      tickPeriod: 2000,
     },
     [SPELLS.SPRING_BLOSSOMS.id]: {
       duration: 6000,
-      tickFrequency: 2000,
+      tickPeriod: 2000,
+    },
+    [SPELLS.DREAMER.id]: {
+      duration: 8000,
+      tickPeriod: 2000,
     },
   };
 
@@ -126,9 +130,7 @@ class Rejuvenation extends Analyzer {
   }
 
   on_byPlayer_refreshbuff(event) {
-    // TODO check for hardcast early refresh?
-    this._removeBuff(event);
-    this._applyBuff(event);
+    this._refreshBuff(event);
   }
 
   on_byPlayer_removebuff(event) {
@@ -140,19 +142,18 @@ class Rejuvenation extends Analyzer {
     if (!spellId in this.hotInfo) {
       return;
     }
-
     const targetId = event.targetID;
     if (!targetId) {
-      debug && console.log(`${event.ability.name} cast on target without ID @${this.owner.formatTimestamp(event.timestamp)}... HoT will not be tracked.`);
+      debug && console.log(`${event.ability.name} applied to target without ID @${this.owner.formatTimestamp(event.timestamp)}... HoT will not be tracked.`);
       return;
     }
-
     if(!this.hots[targetId]) {
       this.hots[targetId] = {};
     }
 
     const newHot = {
       start: event.timestamp,
+      end: event.timestamp + this.hotInfo[spellId].duration,
       ticks: [], // listing of ticks w/ effective heal amount and timestamp
       attributions: [], // new generated HoT
       extensions: [], // duration extensions to existing HoT
@@ -167,25 +168,48 @@ class Rejuvenation extends Analyzer {
     newHot.attributions.concat(this._getAttributions(spellId, targetId,  timestamp));
   }
 
+  _refreshBuff(event) {
+    const spellId = event.ability.guid;
+    if (!spellId in this.hotInfo) {
+      return;
+    }
+    const targetId = event.targetID;
+    if (!targetId) {
+      debug && console.log(`${event.ability.name} refreshed on target without ID @${this.owner.formatTimestamp(event.timestamp)}...`);
+      return;
+    }
+    if(!this.hots[targetId] || !this.hots[targetId][spellId]) {
+      console.warn(`${event.ability.name} refreshed on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there's no record of the HoT being added...`);
+    }
+
+    const hot = this.hots[targetId][spellId];
+    const oldEnd = hot.end;
+    // TODO do something about early refreshes or whatever
+    const newEndMax = oldEnd + this.hotInfo[spellId].duration;
+    const pandemicMax = event.timestamp + this.hotInfo[spellId].duration * 1.3;
+    hot.end = Math.min(newEndMax, pandemicMax);
+
+    hot.attributions = this._getAttributions(spellId, targetId,  timestamp); // new attributions on refresh
+    // TODO do something smart with extensions
+    hot.boosts = [];
+  }
+
   _removeBuff(event) {
     const spellId = event.ability.guid;
     if (!spellId in this.hotInfo) {
       return;
     }
-
     const targetId = event.targetID;
     if (!targetId) {
       debug && console.log(`${event.ability.name} removed from target without ID @${this.owner.formatTimestamp(event.timestamp)}...`);
       return;
     }
-
     if(!this.hots[targetId] || !this.hots[targetId][spellId]) {
       console.warn(`${event.ability.name} fell from target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there's no record of the HoT being added...`);
     }
 
     // TODO assign HoT extension contribution now
-
-    // TODO attribution cleanup of some sort, like checking for an early refresh or ????
+    // TODO check how well actual fall time matched expcted fall time
     this.hots[targetId][spellId] = null;
   }
 
