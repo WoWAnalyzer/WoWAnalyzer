@@ -330,4 +330,9 @@ export default {
     name: 'Terminus Signaling Beacon',
     icon: 'inv_7_0raid_trinket_010d',
   },
+  PROTOTYPE_PERSONNEL_DECIMATOR: {
+    id: 151962,
+    name: 'Prototype Personnel Decimator',
+    icon: 'ability_rogue_cannonballbarrage',
+  },
 };
