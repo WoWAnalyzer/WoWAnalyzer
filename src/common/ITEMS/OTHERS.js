@@ -325,4 +325,9 @@ export default {
     name: 'Forgefiend\'s Fabricator',
     icon: 'inv_jewelry_orgrimmarraid_trinket_04_green',
   },
+  TERMINUS_SIGNALING_BEACON: {
+    id: 151969,
+    name: 'Terminus Signaling Beacon',
+    icon: 'inv_7_0raid_trinket_010d',
+  },
 };

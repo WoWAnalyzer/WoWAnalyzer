@@ -358,6 +358,11 @@ export default {
     name: 'Fire Mines',
     icon: 'inv_jewelry_orgrimmarraid_trinket_04_green',
   },
+  LEGION_BOMBARDMENT: {
+    id: 257376,
+    name: 'Legion Bombardment',
+    icon: 'spell_fire_felrainoffire',
+  },
 
   // Item Abilities
   SPECTRAL_OWL: {
