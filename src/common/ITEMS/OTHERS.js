@@ -325,5 +325,10 @@ export default {
     name: 'Khaz\'goroths Courage',
     icon: 'inv_antorus_red',
     quality: ITEM_QUALITIES.EPIC,
-  }
+  },
+  FORGEFIENDS_FABRICATOR: {
+    id: 151963,
+    name: 'Forgefiend\'s Fabricator',
+    icon: 'inv_jewelry_orgrimmarraid_trinket_04_green',
+  },
 };
