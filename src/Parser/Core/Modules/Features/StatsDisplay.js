@@ -106,7 +106,7 @@ class StatsDisplay extends Analyzer {
               const Icon = getIcon(stat);
 
               return (
-                <div className={`flex-main ${getClassNameColor(stat)}`}>
+                <div className={`flex-main ${getClassNameColor(stat)}`} key={stat}>
                   <Icon
                     style={{
                       width: '3em',
