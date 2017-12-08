@@ -353,6 +353,11 @@ export default {
     name: 'Golganneth\'s Thunderous Wrath',
     icon: 'ability_thunderking_thunderstruck',
   },
+  FIRE_MINES: {
+    id: 253321,
+    name: 'Fire Mines',
+    icon: 'inv_jewelry_orgrimmarraid_trinket_04_green',
+  },
 
   // Item Abilities
   SPECTRAL_OWL: {

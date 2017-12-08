@@ -79,6 +79,7 @@ import IshkarsFelshieldEmitter from './Modules/Items/IshkarsFelshieldEmitter';
 import SeepingScourgewing from './Modules/Items/SeepingScourgewing';
 import GorshalachsLegacy from './Modules/Items/GorshalachsLegacy';
 import GolgannethsVitality from './Modules/Items/GolgannethsVitality';
+import ForgefiendsFabricator from './Modules/Items/ForgefiendsFabricator';
 
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
@@ -182,6 +183,7 @@ class CombatLogParser {
     seepingScourgewing: SeepingScourgewing,
     gorshalachsLegacy: GorshalachsLegacy,
     golgannethsVitality: GolgannethsVitality,
+    forgefiendsFabricator: ForgefiendsFabricator,    
 
     // Concordance of the Legionfall
     concordance: Concordance,
