@@ -17,7 +17,7 @@ class StatTracker extends Analyzer {
 
   static STAT_BUFFS = {
     // region Potions
-    [SPELLS.POTION_OF_PROLONGED_POWER.id]: { strength: 2500, agility: 2500, intellect: 2500 },
+    [SPELLS.POTION_OF_PROLONGED_POWER.id]: { stamina: 2500, strength: 2500, agility: 2500, intellect: 2500 },
     // endregion
     // TODO: add flasks
     // TODO: add food
