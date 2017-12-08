@@ -353,6 +353,16 @@ export default {
     name: 'Golganneth\'s Thunderous Wrath',
     icon: 'ability_thunderking_thunderstruck',
   },
+  WORLDFORGERS_FLAME: { //Khaz'goroths Courage proc
+    id: 256826,
+    name: 'Worldforger\'s Flame',
+    icon: 'inv_antorus_red',
+  },
+  KHAZGOROTHS_SHAPING: { //Khaz'goroths Pantheon Proc
+    id: 256835,
+    name: 'Khaz\'goroth\'s Shaping',
+    icon: 'spell_nature_unleashedrage',
+  },
 
   // Item Abilities
   SPECTRAL_OWL: {
