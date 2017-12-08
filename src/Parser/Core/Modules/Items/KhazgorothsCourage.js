@@ -1,6 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
+import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -16,7 +17,7 @@ class KhazgorothsCourage extends Analyzer {
 		combatants: Combatants,
 	}
 
-	damagProcs = 0
+	damageProcs = 0
 	pantheonProcs = 0
 	damage = 0
 	uptime = 0
@@ -28,7 +29,17 @@ class KhazgorothsCourage extends Analyzer {
 	on_byPlayer_applybuff(event) {
 		const spellId = event.ability.guid;
 		if (spellId === SPELLS.WORLDFORGERS_FLAME_BUFF.id) {
-			this.damageProcs++;
+			this.damageProcs += 1;
+		}
+		if (spellId === SPELLS.KHAZGOROTHS_SHAPING.id) {
+			this.pantheonProcs++;
+		}
+	}
+
+	on_byPlayer_refreshbuff(event) {
+		const spellId = event.ability.guid;
+		if (spellId === SPELLS.WORLDFORGERS_FLAME_BUFF.id) {
+			this.damageProcs += 1;
 		}
 		if (spellId === SPELLS.KHAZGOROTHS_SHAPING.id) {
 			this.pantheonProcs++;
@@ -43,12 +54,19 @@ class KhazgorothsCourage extends Analyzer {
 	}
 
 	item() {
+		const uptimePercent = this.combatants.selected.getBuffUptime(SPELLS.KHAZGOROTHS_SHAPING.id) / this.owner.fightDuration;
 		return {
 			item: ITEMS.KHAZGOROTHS_COURAGE,
 			result: (
-				<dfn data-tip={`Procced the damage buff <b>${this.damageProcs}</b> times. Then pantheon buff procced<b>${this.pantheonProcs}</b> times.`}>
-					{this.owner.formatItemDamageDone(this.damage)}
-				</dfn>
+				<div>
+					<dfn data-tip={`Procced the damage buff <b>${this.damageProcs}</b> times.`}>
+						{this.owner.formatItemDamageDone(this.damage)}
+					</dfn>
+					<br></br>
+					<dfn data-tip={`Procced the pantheon buff <b>${this.pantheonProcs}</b> times.`}>
+						{formatPercentage(uptimePercent)} % uptime on Khaz'goroths Courage
+					</dfn>
+				</div>
 			),
 		};
 	}

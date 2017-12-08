@@ -353,8 +353,13 @@ export default {
     name: 'Golganneth\'s Thunderous Wrath',
     icon: 'ability_thunderking_thunderstruck',
   },
-  WORLDFORGERS_FLAME: { //Khaz'goroths Courage proc
+  WORLDFORGERS_FLAME_BUFF : {
     id: 256826,
+    name: 'Worldforger\'s Flame',
+    icon: 'inv_antorus_red',
+  },
+  WORLDFORGERS_FLAME_DAMAGE: { //Khaz'goroths Courage damage proc
+    id: 257244,
     name: 'Worldforger\'s Flame',
     icon: 'inv_antorus_red',
   },
