@@ -15,10 +15,12 @@ import status from './status';
 
 const app = express();
 
-// The Raven request handler must be the first middleware on the app
-app.use(Raven.requestHandler());
-// The error handler must be before any other error middleware
-app.use(Raven.errorHandler());
+if (Raven.installed) {
+  // The Raven request handler must be the first middleware on the app
+  app.use(Raven.requestHandler());
+  // The error handler must be before any other error middleware
+  app.use(Raven.errorHandler());
+}
 
 app.use(compression());
 
