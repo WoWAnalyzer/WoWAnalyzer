@@ -86,15 +86,12 @@ class CastEfficiency extends Analyzer {
   /*
    * Packs cast efficiency results for use by suggestions / tab
    */
-  _generateCastEfficiencyInfo() {
-    const abilityInfo = this.abilities.constructor.ABILITIES;
-
-    return abilityInfo
+  getCastEfficiency() {
+    return this.abilities.constructor.ABILITIES
       .filter(ability => !ability.isActive || ability.isActive(this.combatants.selected))
-      .map(ability => this.getCastEfficiency(ability))
-      .filter(item => item !== null);
+      .map(ability => this.getCastEfficiencyForAbility(ability))
+      .filter(item => item !== null); // getCastEfficiencyForAbility can return null, remove those from the result
   }
-
   _findAbility(spellId) {
     const abilityInfo = this.abilities.constructor.ABILITIES;
 
@@ -102,12 +99,11 @@ class CastEfficiency extends Analyzer {
       .filter(ability => !ability.isActive || ability.isActive(this.combatants.selected))
       .find(ability => ability.spell.id === spellId);
   }
-
   getCastEfficiencyForSpellId(spellId) {
     const ability = this._findAbility(spellId);
     return this.getCastEfficiency(ability);
   }
-  getCastEfficiency(ability) {
+  getCastEfficiencyForAbility(ability) {
     const spellId = ability.spell.id;
     const fightDurationMs = this.owner.fightDuration;
     const fightDurationMinutes = fightDurationMs / 1000 / 60;
@@ -183,7 +179,7 @@ class CastEfficiency extends Analyzer {
   }
 
   suggestions(when) {
-    const castEfficiencyInfo = this._generateCastEfficiencyInfo();
+    const castEfficiencyInfo = this.getCastEfficiency();
     castEfficiencyInfo.forEach(abilityInfo => {
       if (abilityInfo.ability.noSuggestion || abilityInfo.castEfficiency === null || abilityInfo.gotMaxCasts) {
         return;
@@ -200,7 +196,6 @@ class CastEfficiency extends Analyzer {
               <div style={{ margin: '0 -22px' }}>
                 <SpellTimeline
                   historyBySpellId={this.spellHistory.historyBySpellId}
-                  castEfficiency={this.castEfficiency}
                   spellId={mainSpell.id}
                   start={this.owner.fight.start_time}
                   end={this.owner.currentTimestamp}
@@ -220,7 +215,7 @@ class CastEfficiency extends Analyzer {
         <Tab title="Cast efficiency">
           <CastEfficiencyComponent
             categories={this.abilities.constructor.SPELL_CATEGORIES}
-            abilities={this._generateCastEfficiencyInfo()}
+            abilities={this.getCastEfficiency()}
           />
         </Tab>
       ),
