@@ -64,7 +64,7 @@ class Trueshot extends Analyzer {
       this._primaryTargets.push({
         timestampe: event.timestamp,
         targetID: event.targetID,
-        instance: event.targetInstance,
+        targetInstance: event.targetInstance,
       });
     }
   }
