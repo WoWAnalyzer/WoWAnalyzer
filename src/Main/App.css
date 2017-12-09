@@ -797,10 +797,10 @@ table.data-table .performance-bar {
   vertical-align: middle;
 }
 
-.btn.pawn {
+.btn-sm.pawn {
   background: #da3333;
 }
-.btn.pawn:hover {
+.btn-sm.pawn:hover {
   background: #ba2222
 }
 .btn.discord {
