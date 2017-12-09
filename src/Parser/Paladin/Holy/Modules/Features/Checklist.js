@@ -13,7 +13,7 @@ class Checklist extends CoreChecklist {
 
   rules = [
     new Rule({
-      name: 'Use core spells on cooldown',
+      name: 'Cast core spells on cooldown',
       requirements: () => {
         const combatant = this.combatants.selected;
         return [

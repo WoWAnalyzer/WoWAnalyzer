@@ -6,6 +6,7 @@ import ChevronIcon from 'Icons/Chevron';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Expandable from 'Main/Expandable';
+import SpellLink from 'common/SpellLink';
 
 /**
  *   0 - 33% major This is different from the *minor* threshold which is at 100% instead of 66%. The reason for this is that the minor threshold being at 75% and then 75%-100% being minor - max is that this would suggest going for max is best while this is not always the case. Something like Crusader Strike (with the Crusader's Might talent) has a recommended cast efficiency of 35% *because* you should only cast it enough to benefit you, more than that would be good but not 100% cast efficiency as then you're losing healing.
@@ -58,6 +59,7 @@ export class Rule {
     this.when = when;
   }
 }
+
 export class Requirement {
   name = null;
   check = null;
@@ -68,11 +70,12 @@ export class Requirement {
     this.when = when;
   }
 }
+
 export class GenericCastEfficiencyRequirement extends Requirement {
   constructor({ spell, ...others }) {
     super({
-      name: spell.name,
-      check: function() {
+      name: <SpellLink id={spell.id} icon />,
+      check: function () {
         const { efficiency, recommendedEfficiency: minor, averageIssueEfficiency: average, majorIssueEfficiency: major } = this.castEfficiency.getCastEfficiencyForSpellId(spell.id);
         return performanceForThresholds(efficiency, minor, average, major);
       },
@@ -82,8 +85,7 @@ export class GenericCastEfficiencyRequirement extends Requirement {
 }
 
 class Checklist extends Analyzer {
-  rules = [
-  ];
+  rules = [];
 
   constructor(...args) {
     super(...args);
