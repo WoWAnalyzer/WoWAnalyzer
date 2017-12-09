@@ -42,6 +42,35 @@ class Checklist extends CoreChecklist {
         ];
       },
     }),
+    new Rule({
+      name: 'Cast cooldowns on cooldown',
+      requirements: () => {
+        const combatant = this.combatants.selected;
+        return [
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.AVENGING_WRATH,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.HOLY_AVENGER_TALENT,
+            when: combatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id),
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.TYRS_DELIVERANCE_CAST,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.VELENS_FUTURE_SIGHT_BUFF,
+            when: combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.AURA_MASTERY,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.ARCANE_TORRENT_MANA,
+            when: !!this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA.id),
+          }),
+        ];
+      },
+    }),
   ];
 }
 
