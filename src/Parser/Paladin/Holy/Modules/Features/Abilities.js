@@ -7,8 +7,6 @@ import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
-// eslint-disable no-unused-vars
-
 class Abilities extends CoreAbilities {
   static ABILITIES = [
     ...CoreAbilities.ABILITIES,
