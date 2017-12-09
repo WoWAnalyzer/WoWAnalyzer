@@ -29,6 +29,13 @@ import AMurderOfCrows from "./Modules/Talents/AMurderOfCrows";
 import BestialFury from './Modules/Talents/BestialFury';
 import Stomp from './Modules/Talents/Stomp';
 import AspectOfTheBeast from './Modules/Talents/AspectOfTheBeast';
+import ChimaeraShot from './Modules/Talents/ChimaeraShot';
+import Barrage from '../Shared/Modules/Talents/Barrage';
+import Volley from '../Shared/Modules/Talents/Volley';
+import WayOfTheCobra from './Modules/Talents/WayOfTheCobra';
+import BlinkStrikes from './Modules/Talents/BlinkStrikes';
+import DireFrenzy from './Modules/Talents/DireFrenzy';
+import Stampede from './Modules/Talents/Stampede';
 
 //Traits
 import TitansThunder from "./Modules/Traits/TitansThunder";
@@ -71,6 +78,13 @@ class CombatLogParser extends CoreCombatLogParser {
     bestialFury: BestialFury,
     stomp: Stomp,
     aspectOfTheBeast: AspectOfTheBeast,
+    barrage: Barrage,
+    volley: Volley,
+    chimaeraShot: ChimaeraShot,
+    wayOfTheCobra: WayOfTheCobra,
+    blinkStrikes: BlinkStrikes,
+    direFrenzy: DireFrenzy,
+    stampede: Stampede,
 
     //Traits
     titansThunder: TitansThunder,

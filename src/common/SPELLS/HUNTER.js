@@ -51,6 +51,16 @@ export default {
     name: 'Dire Frenzy Buff',
     icon: 'ability_druid_mangle',
   },
+  DIRE_FRENZY_DAMAGE: {
+    id: 217207,
+    name: 'Dire Frenzy',
+    icon: 'ability_druid_mangle',
+  },
+  STAMPEDE_DAMAGE: {
+    id: 201594,
+    name: 'Stampede',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
   EAGLE_EYE: {
     id: 6197,
     name: 'Eagle Eye',
@@ -100,6 +110,16 @@ export default {
     id: 191413,
     name: 'Bestial Ferocity',
     icon: 'ability_hunter_invigeration',
+  },
+  CHIMAERA_SHOT_NATURE_DAMAGE: {
+    id: 171457,
+    name: 'Chimaera Shot',
+    icon: 'ability_hunter_chimerashot2',
+  },
+  CHIMAERA_SHOT_FROST_DAMAGE: {
+    id: 171454,
+    name: 'Chimaera Shot',
+    icon: 'ability_hunter_chimerashot2',
   },
 
   //Beast Mastery Artifact Traits
@@ -263,11 +283,6 @@ export default {
     id: 214581,
     name: 'Sidewinders',
     icon: 'ability_hunter_serpentswiftness',
-  },
-  BARRAGE_DAMAGE: {
-    id: 120361,
-    name: 'Barrage',
-    icon: 'ability_hunter_rapidregeneration',
   },
   CAREFUL_AIM_DAMAGE: {
     id: 63468,
@@ -433,8 +448,7 @@ export default {
     id: 90355,
     name: 'Ancient Hysteria',
     icon: 'spell_shadow_unholyfrenzy',
-  },
-  //The buff given by volley when it's activated (and also what does the damage)
+  },  //The buff given by volley when it's activated (and also what does the damage)
   VOLLEY_ACTIVATED: {
     id: 194392,
     name: 'Volley buff',
@@ -559,5 +573,10 @@ export default {
     id: 117405,
     name: 'Binding Shot Tether',
     icon: 'spell_shaman_bindelemental',
+  },
+  BARRAGE_DAMAGE: {
+    id: 120361,
+    name: 'Barrage',
+    icon: 'ability_hunter_rapidregeneration',
   },
 };

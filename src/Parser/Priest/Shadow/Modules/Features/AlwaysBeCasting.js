@@ -9,7 +9,7 @@ import SPELLS from 'common/SPELLS';
 
 import Haste from '../Core/Haste';
 
-const ONE_FILLER_GCD_HASTE_THRESHOLD = 1.2;
+const ONE_FILLER_GCD_HASTE_THRESHOLD = 1.4;
 
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {

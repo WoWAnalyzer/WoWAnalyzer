@@ -60,7 +60,6 @@ class Tier19_2p extends Analyzer {
     if (!this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id, event.timestamp)) {
       return;
     }
-    const pet = this.pets.getSourceEntity(event);
     if (!this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id)) {
       const index = this.currentDireBeasts.findIndex(direBeast => direBeast.ID === event.sourceID && direBeast.instance === event.sourceInstance);
       const selectedDireBeast = this.currentDireBeasts[index];
@@ -69,6 +68,7 @@ class Tier19_2p extends Analyzer {
       }
       this.bonusDmg += getDamageBonus(event, T19_2P_DAMAGE_MODIFIER);
     } else {
+      const pet = this.pets.getSourceEntity(event);
       if (DIRE_FRENZY_NOT_AFFECTED_PETS.every(id => pet.guid !== id)) {
         this.bonusDmg += getDamageBonus(event, T19_2P_DAMAGE_MODIFIER_DIRE_FRENZY);
       }
