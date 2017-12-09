@@ -262,14 +262,7 @@ class Results extends React.Component {
               {this.renderItems(results.items, selectedCombatant)}
             </div>
             <div className="col-md-8">
-              <div className="panel">
-                <div className="panel-heading">
-                  <h2>The <i>how to be a good Holy Paladin</i> checklist</h2>
-                </div>
-                <div className="panel-body">
-                  Coming soon
-                </div>
-              </div>
+              {modules.checklist.render()}
             </div>
           </div>
 

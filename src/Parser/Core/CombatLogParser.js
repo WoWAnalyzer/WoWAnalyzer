@@ -35,6 +35,7 @@ import DistanceMoved from './Modules/Others/DistanceMoved';
 
 import StatsDisplay from './Modules/Features/StatsDisplay';
 import TalentsDisplay from './Modules/Features/TalentsDisplay';
+import Checklist from './Modules/Features/Checklist';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
 
@@ -141,6 +142,7 @@ class CombatLogParser {
 
     statsDisplay: StatsDisplay,
     talentsDisplay: TalentsDisplay,
+    checklist: Checklist,
 
     // Items:
     // Legendaries:

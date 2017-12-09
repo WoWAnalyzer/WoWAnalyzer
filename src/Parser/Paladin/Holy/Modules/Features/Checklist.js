@@ -1,37 +1,11 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-import Analyzer from 'Parser/Core/Analyzer';
+import CoreChecklist, { Rule, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-class Rule {}
-class Requirement {
-  name = null;
-  check = null;
-  when = null;
-  constructor({ name, check, when }) {
-    this.name = name;
-    this.check = check;
-    this.when = when;
-  }
-}
-class GenericCastEfficiencyRequirement extends Requirement {
-  constructor({ spell, ...others }) {
-    super({
-      name: spell.name,
-      check: () => {
-        const castEfficiency = this.castEfficiency.getAbility(spell.id);
-        return castEfficiency.efficiency / castEfficiency.recommendedEfficiency;
-      },
-      ...others,
-    });
-  }
-}
-
-class Checklist extends Analyzer {
+class Checklist extends CoreChecklist {
   static dependencies = {
     castEfficiency: CastEfficiency,
     combatants: Combatants,
