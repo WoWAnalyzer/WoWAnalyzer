@@ -71,7 +71,7 @@ class SoulShardBreakdown extends React.Component {
                   </td>
                   <td style={{ width: '40%' }}>
                     <div
-                      className={'performance-bar'}
+                      className="performance-bar"
                       style={{ width: `${(ability.generated / totalGenerated) * 100}%` }}
                     />
                   </td>
@@ -110,7 +110,7 @@ class SoulShardBreakdown extends React.Component {
                 </td>
                 <td style={{ width: '40%' }}>
                   <div
-                    className={'performance-bar'}
+                    className="performance-bar"
                     style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
                   />
                 </td>

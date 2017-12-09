@@ -101,7 +101,7 @@ class CastEfficiency extends Analyzer {
   }
   getCastEfficiencyForSpellId(spellId) {
     const ability = this._findAbility(spellId);
-    return this.getCastEfficiency(ability);
+    return this.getCastEfficiencyForAbility(ability);
   }
   getCastEfficiencyForAbility(ability) {
     const spellId = ability.spell.id;

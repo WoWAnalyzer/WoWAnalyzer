@@ -11,7 +11,7 @@ class Checklist extends CoreChecklist {
     combatants: Combatants,
   };
 
-  static rules = [
+  rules = [
     new Rule({
       name: 'Use core spells on cooldown',
       requirements: () => {

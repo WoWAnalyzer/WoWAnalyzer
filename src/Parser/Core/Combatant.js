@@ -182,7 +182,7 @@ class Combatant extends Entity {
     return this._getTalent(TALENT_ROWS.LV100);
   }
   hasTalent(spellId) {
-    return Object.keys(this._talentsByRow).find(row => this._talentsByRow[row] === spellId);
+    return !!Object.keys(this._talentsByRow).find(row => this._talentsByRow[row] === spellId);
   }
   // endregion
 
