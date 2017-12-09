@@ -2,13 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import UpArrow from 'Icons/UpArrow';
-
-import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
-
-import Icon from 'common/Icon';
-import Wrapper from 'common/Wrapper';
-
 class ClipboardCopyButton extends React.PureComponent {
   static propTypes = {
     copyText: PropTypes.string.isRequired,
