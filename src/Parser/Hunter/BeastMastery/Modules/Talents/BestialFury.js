@@ -14,7 +14,7 @@ const BESTIAL_FURY_MODIFIER = (1.4 / 1.25) - 1;
 
 const debug = false;
 
-class BestialWrath extends Analyzer {
+class BestialFury extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
@@ -22,7 +22,7 @@ class BestialWrath extends Analyzer {
   bonusDmg = 0;
 
   on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.BESTIAL_FURY_TALENT) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.BESTIAL_FURY_TALENT.id) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id);
   }
 
   on_byPlayer_damage(event) {
@@ -59,4 +59,4 @@ class BestialWrath extends Analyzer {
   }
 }
 
-export default BestialWrath;
+export default BestialFury;

@@ -80,9 +80,9 @@ class AMurderOfCrows extends Analyzer {
   suggestions(when) {
     when(this.badCrowsCasts).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Don't cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up, and atleast 7 seconds remaining on the buff.</span>)
+        return suggest(<span>Don't cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up (or ready to cast straight after the <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> cast), and atleast 7 seconds remaining on the buff.</span>)
           .icon(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.icon)
-          .actual(`You cast A Murder of Crows ${this.badCrowsCasts} times without Bestial Wrath up`)
+          .actual(`You cast A Murder of Crows ${this.badCrowsCasts} times without Bestial Wrath up or Bestial Wrath ready to cast after`)
           .recommended(`${recommended} is recommended`)
           .major(recommended);
       });
@@ -90,7 +90,7 @@ class AMurderOfCrows extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Don't cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> without atleast 7 seconds remaining on <SpellLink id={SPELLS.BESTIAL_WRATH.id} />.</span>)
           .icon(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.icon)
-          .actual(`You cast A Murder of Crows ${this.badCrowsCasts} times with less than 7 seconds remaining on Bestial Wrath`)
+          .actual(`You cast A Murder of Crows ${this.shouldHaveSavedCrows} times with less than 7 seconds remaining on Bestial Wrath`)
           .recommended(`${recommended} is recommended`)
           .regular(recommended + 0.9)
           .major(recommended + 1.9);

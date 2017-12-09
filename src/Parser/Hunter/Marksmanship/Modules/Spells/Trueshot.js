@@ -56,7 +56,7 @@ class Trueshot extends Analyzer {
     if (spellId === SPELLS.TRUESHOT.id) {
       this.trueshotCasts += 1;
       this.accumulatedFocusAtTSCast += event.classResources[0]['amount'] || 0;
-      if (this.combatants.selected.hasBuff(SPELLS.BULLSEYE_TRAIT.id, event.timestamp)) {
+      if (this.combatants.selected.hasBuff(SPELLS.BULLSEYE_BUFF.id, event.timestamp)) {
         this.executeTrueshots += 1;
       }
     }
@@ -64,7 +64,7 @@ class Trueshot extends Analyzer {
       this._primaryTargets.push({
         timestampe: event.timestamp,
         targetID: event.targetID,
-        instance: event.targetInstance,
+        targetInstance: event.targetInstance,
       });
     }
   }
