@@ -13,7 +13,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 90,
       // Vanish is often delayed.
       // TODO: Add suggestions for usage based on gear and talents 
-      recommendedCastEfficiency: 0.90,
+      recommendedEfficiency: 0.90,
       noSuggestion: true,
       noCanBeImproved: true,
     },
@@ -21,14 +21,14 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.SHADOW_BLADES, // TODO: Reduced by Convergence of Fates
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
-      recommendedCastEfficiency: 1.0,
+      recommendedEfficiency: 1.0,
       extraSuggestion: "In most cases should be used on cooldown", 
     },
     {
       spell: SPELLS.SYMBOLS_OF_DEATH,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => (30 - (combatant.hasBuff(SPELLS.SUB_ROGUE_T20_4SET_BONUS.id) ? 5 : 0)), 
-      recommendedCastEfficiency: 0.95,
+      recommendedEfficiency: 0.95,
       importance: ISSUE_IMPORTANCE.MAJOR,
       extraSuggestion: "This is the most important rotational ability, try to always use it on cooldown.",      
     },
@@ -37,7 +37,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 60, 
       charges: 3,
-      recommendedCastEfficiency: 0.95,
+      recommendedEfficiency: 0.95,
       importance: ISSUE_IMPORTANCE.MAJOR,
       isActive: combatant => combatant.hasTalent(SPELLS.ENVELOPING_SHADOWS_TALENT.id),
       extraSuggestion: "Use Shadow Dance before it reaches maximum charges.",     
@@ -47,7 +47,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 60, 
       charges: 2,
-      recommendedCastEfficiency: 0.95,
+      recommendedEfficiency: 0.95,
       importance: ISSUE_IMPORTANCE.MAJOR,
       isActive: combatant => !combatant.hasTalent(SPELLS.ENVELOPING_SHADOWS_TALENT.id),
       extraSuggestion: "Use Shadow Dance before it reaches maximum charges.",     
@@ -56,7 +56,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.GOREMAWS_BITE,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60,
-      recommendedCastEfficiency: 0.9,
+      recommendedEfficiency: 0.9,
       // TODO: Track usage separately, not during Dance and with at least 50 energy missing. 
       extraSuggestion: "Use as often as possible without wasting Combo Points and Energy.", 
     },   

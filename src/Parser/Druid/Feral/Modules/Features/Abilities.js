@@ -12,7 +12,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
       isActive: combatant => combatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id),
-      recommendedCastEfficiency: 1.0,
+      recommendedEfficiency: 1.0,
     },
     {
       spell: SPELLS.TIGERS_FURY,
