@@ -344,7 +344,7 @@ class BaseHealerStatValues extends Analyzer {
     const results = this._prepareResults();
     return (
       <div className="panel items">
-        <div className="panel-heading">
+        <div className="panel-heading flex">
           <h2>
             <dfn data-tip="These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat values.">Stat Values</dfn>
 
@@ -353,15 +353,14 @@ class BaseHealerStatValues extends Analyzer {
                 More info
               </a>
             )}
-
-            {this._getPawnStats && (
-              <div className="pull-right clickable btn-sm pawn" style={{ position: 'relative', left: 15, top: -3 }}>
-                <CopyToClipboard text={this._getPawnString()} onCopy={() => this.setState({copied: true})}>
-                  <span>Copy Pawn String</span>
-                </CopyToClipboard>
-              </div>
-            )}
           </h2>
+          {this._getPawnStats && (
+            <CopyToClipboard onCopy={this.onCopy} text={this._getPawnString()}>
+              <dfn className="pull-right button-tip clickable btn-sm pawn" style={{ position: 'relative', left: 8, flex: 'none' }} data-tip="Copied to Clipboard!" data-place="top" data-delay-hide='1000' data-event='focus'>
+                Pawn String
+              </dfn>
+            </CopyToClipboard>
+          )}
         </div>
         <div className="panel-body" style={{ padding: 0 }}>
           <table className="data-table compact">

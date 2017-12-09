@@ -548,6 +548,10 @@ dfn[data-tip] {
   border-bottom: 1px dashed currentColor;
   cursor: help;
 }
+dfn[data-tip].button-tip {
+  border-bottom: none;
+  cursor: pointer;
+}
 
 .alert-danger {
   padding: 20px 30px;
@@ -800,7 +804,7 @@ table.data-table .performance-bar {
 .btn-sm.pawn {
   background: #da3333;
 }
-.btn-sm.pawn:hover {
+.btn-sm.pawn:active {
   background: #ba2222;
 }
 .btn.discord {
