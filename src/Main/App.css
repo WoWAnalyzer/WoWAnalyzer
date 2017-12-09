@@ -801,10 +801,10 @@ table.data-table .performance-bar {
   vertical-align: middle;
 }
 
-.btn-sm.pawn {
+.btn-sm.clipboard {
   background: #da3333;
 }
-.btn-sm.pawn:active {
+.btn-sm.clipboard:active {
   background: #ba2222;
 }
 .btn.discord {

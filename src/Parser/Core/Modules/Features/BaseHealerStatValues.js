@@ -1,6 +1,8 @@
 import React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
+import ClipboardCopyButton from 'Main/ClipboardCopyButton';
+
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 
@@ -355,11 +357,7 @@ class BaseHealerStatValues extends Analyzer {
             )}
           </h2>
           {this._getPawnStats && (
-            <CopyToClipboard onCopy={this.onCopy} text={this._getPawnString()}>
-              <dfn className="pull-right button-tip clickable btn-sm pawn" style={{ position: 'relative', left: 8, flex: 'none' }} data-tip="Copied to Clipboard!" data-place="top" data-delay-hide='1000' data-event='focus'>
-                Pawn String
-              </dfn>
-            </CopyToClipboard>
+            <ClipboardCopyButton copyText={this._getPawnString()} label='Pawn String' />
           )}
         </div>
         <div className="panel-body" style={{ padding: 0 }}>
