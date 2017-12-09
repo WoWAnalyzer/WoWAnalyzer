@@ -122,9 +122,9 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 90,
       isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
       extraSuggestion: <Wrapper><SpellLink id={SPELLS.GRIMOIRE_FELGUARD.id} /> is the preferred version to use. </Wrapper>,
-      recommendedCastEfficiency: 0.90,
-      averageIssueCastEfficiency: 0.80,
-      majorIssueCastEfficiency: 0.70,
+      recommendedEfficiency: 0.90,
+      averageIssueEfficiency: 0.80,
+      majorIssueEfficiency: 0.70,
     },
     {
       spell: SPELLS.UNENDING_RESOLVE,

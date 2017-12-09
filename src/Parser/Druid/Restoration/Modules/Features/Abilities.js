@@ -12,9 +12,9 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.TRANQUILITY_CAST,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: (haste, combatant) => combatant.hasTalent(SPELLS.INNER_PEACE_TALENT.id) ? 120 : 180,
-      recommendedCastEfficiency: 0.75,
-      averageIssueCastEfficiency: 0.55,
-      majorIssueCastEfficiency: 0.30,
+      recommendedEfficiency: 0.75,
+      averageIssueEfficiency: 0.55,
+      majorIssueEfficiency: 0.30,
     },
     {
       spell: SPELLS.INNERVATE,
@@ -40,14 +40,14 @@ class Abilities extends CoreAbilities {
         return cd;
       },
       importance: ISSUE_IMPORTANCE.MINOR,
-      recommendedCastEfficiency: 0.60,
+      recommendedEfficiency: 0.60,
     },
     {
       spell: SPELLS.BARKSKIN,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60,
       importance: ISSUE_IMPORTANCE.MINOR,
-      recommendedCastEfficiency: 0.60,
+      recommendedEfficiency: 0.60,
     },
     {
       spell: SPELLS.CENARION_WARD_TALENT,
@@ -60,7 +60,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60,
       isActive: combatant => combatant.hasTalent(SPELLS.FLOURISH_TALENT.id),
-      recommendedCastEfficiency: 0.80,
+      recommendedEfficiency: 0.80,
     },
     {
       spell: SPELLS.WILD_GROWTH,

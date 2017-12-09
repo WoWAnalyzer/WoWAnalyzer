@@ -15,7 +15,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.CONSECRATION_CAST,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 9 / (1 + haste),
-      recommendedCastEfficiency: 0.9,
+      recommendedEfficiency: 0.9,
 	},
 	  // work on CD
     {
@@ -24,13 +24,13 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 4.5 / (1 + haste),
       charges: 3,
       isActive: combatant => combatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id),
-      recommendedCastEfficiency: 0.9,
+      recommendedEfficiency: 0.9,
 	},
     {
       spell: SPELLS.AVENGERS_SHIELD,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 15 / (1 + haste),
-      recommendedCastEfficiency: 0.9,
+      recommendedEfficiency: 0.9,
     },
 	  // Probably useless to try to count the number of casts
     {
@@ -38,7 +38,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id),
-      recommendedCastEfficiency: 0.6,
+      recommendedEfficiency: 0.6,
       importance: ISSUE_IMPORTANCE.MINOR,
 	},
 	  // Probably useless to try to count the number of casts
@@ -49,14 +49,14 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 16 / (1 + haste),
       charges: 3,
-      recommendedCastEfficiency: 0.8,
+      recommendedEfficiency: 0.8,
 	},
 	  //COOLDOWNS
     {
       spell: SPELLS.EYE_OF_TYR,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: (haste, combatant) => (combatant.hasShoulder(ITEMS.PILLARS_OF_INMOST_LIGHT.id) ? 45 : 60),
-      recommendedCastEfficiency: 0.85,
+      recommendedEfficiency: 0.85,
 	},
 
   ];

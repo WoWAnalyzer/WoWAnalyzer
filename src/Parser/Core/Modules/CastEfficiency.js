@@ -156,12 +156,12 @@ class CastEfficiency extends Analyzer {
       }
     }
 
-    const recommendedCastEfficiency = ability.recommendedCastEfficiency || DEFAULT_RECOMMENDED;
-    const averageIssueCastEfficiency = ability.averageIssueCastEfficiency || (recommendedCastEfficiency - DEFAULT_AVERAGE_DOWNSTEP);
-    const majorIssueCastEfficiency = ability.majorIssueCastEfficiency || (recommendedCastEfficiency - DEFAULT_MAJOR_DOWNSTEP);
+    const recommendedEfficiency = ability.recommendedEfficiency || DEFAULT_RECOMMENDED;
+    const averageIssueEfficiency = ability.averageIssueEfficiency || (recommendedEfficiency - DEFAULT_AVERAGE_DOWNSTEP);
+    const majorIssueEfficiency = ability.majorIssueEfficiency || (recommendedEfficiency - DEFAULT_MAJOR_DOWNSTEP);
 
     const gotMaxCasts = (casts === maxCasts);
-    const canBeImproved = castEfficiency !== null && castEfficiency < recommendedCastEfficiency && !gotMaxCasts;
+    const canBeImproved = castEfficiency !== null && castEfficiency < recommendedEfficiency && !gotMaxCasts;
 
     return {
       ability,
@@ -170,9 +170,9 @@ class CastEfficiency extends Analyzer {
       casts,
       maxCasts,
       castEfficiency,
-      recommendedCastEfficiency,
-      averageIssueCastEfficiency,
-      majorIssueCastEfficiency,
+      recommendedEfficiency,
+      averageIssueEfficiency,
+      majorIssueEfficiency,
       gotMaxCasts,
       canBeImproved,
     };
@@ -181,12 +181,12 @@ class CastEfficiency extends Analyzer {
   suggestions(when) {
     const castEfficiencyInfo = this.getCastEfficiency();
     castEfficiencyInfo.forEach(abilityInfo => {
-      if (abilityInfo.ability.noSuggestion || abilityInfo.castEfficiency === null || abilityInfo.gotMaxCasts) {
+      if (abilityInfo.ability.noSuggestion || abilityInfo.efficiency === null || abilityInfo.gotMaxCasts) {
         return;
       }
       const ability = abilityInfo.ability;
       const mainSpell = (ability.spell instanceof Array) ? ability.spell[0] : ability.spell;
-      when(abilityInfo.castEfficiency).isLessThan(abilityInfo.recommendedCastEfficiency)
+      when(abilityInfo.efficiency).isLessThan(abilityInfo.recommendedEfficiency)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<Wrapper>Try to cast <SpellLink id={mainSpell.id} /> more often. {ability.extraSuggestion || ''} <a href="#spell-timeline">View timeline</a>.</Wrapper>)
             .icon(mainSpell.icon)
@@ -202,7 +202,7 @@ class CastEfficiency extends Analyzer {
                 />
               </div>
             ))
-            .regular(abilityInfo.averageIssueCastEfficiency).major(abilityInfo.majorIssueCastEfficiency).staticImportance(ability.importance);
+            .regular(abilityInfo.averageIssueEfficiency).major(abilityInfo.majorIssueEfficiency).staticImportance(ability.importance);
         });
     });
   }
