@@ -187,13 +187,17 @@ class CombatLogParser {
     gorshalachsLegacy: GorshalachsLegacy,
     golgannethsVitality: GolgannethsVitality,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c37dc41dcab6fec540ecdfc854c4c1e8b69e3215
     forgefiendsFabricator: ForgefiendsFabricator, 
     khazgorothsCourage: KhazgorothsCourage,   
-=======
-    forgefiendsFabricator: ForgefiendsFabricator,
     terminusSignalingBeacon: TerminusSignalingBeacon,
     prototypePersonnelDecimator: PrototypePersonnelDecimator,
+<<<<<<< HEAD
 >>>>>>> 9320e205bf4aeb15801dfbf8213227fb2f07c78d
+=======
+>>>>>>> c37dc41dcab6fec540ecdfc854c4c1e8b69e3215
 
     // Concordance of the Legionfall
     concordance: Concordance,
