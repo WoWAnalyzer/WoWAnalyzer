@@ -13,7 +13,7 @@ import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 import CORE_SPELL_INFO from './SpellInfo';
-import STAT, { getName, getClassNameColor, getIcon } from './STAT';
+import STAT, { getName, getPawnStringName, getClassNameColor, getIcon } from './STAT';
 
 const DEBUG = false;
 
@@ -316,7 +316,11 @@ class BaseHealerStatValues extends Analyzer {
   }
   _getPawnString() {
     if(this._getPawnStats) { // TODO This isnt right cant use array
-      return `Pawn: v1: "WoWAnalyzer-??": ${this._getPawnStats().reduce((acc, stat, name) => acc + name + "=" + (this._getGain(stat) / (this.totalOneInt || 1)) + ",", "")})`;
+      const fightNameWithoutSpaces = this.owner.fight.name.replace(' ', '');
+      const playerName = this.owner.player.name;
+      const pawnStats = this._getPawnStats();
+      return `( Pawn: v1: "WoWAnalyzer-${playerName}-${fightNameWithoutSpaces}": ${pawnStats.reduce((acc, stat) =>
+        acc + getPawnStringName(stat) + '=' + this._getGain(stat).toFixed(0) + ', ', '').slice(0, -2)} )`;
     } else {
       return '';
     }

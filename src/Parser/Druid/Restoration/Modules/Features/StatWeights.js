@@ -161,13 +161,14 @@ class StatWeights extends BaseHealerStatValues {
     ];
   }
   _getPawnStats() {
-    return {
-      Intellect: STAT.INTELLECT,
-      CritRating: STAT.CRITICAL_STRIKE,
-      HasteRating: STAT.HASTE_HPM,
-      MasteryRating: STAT.MASTERY,
-      Versatility: STAT.VERSATILITY,
-    }
+    return [
+      STAT.INTELLECT,
+      STAT.CRITICAL_STRIKE,
+      STAT.HASTE_HPM,
+      STAT.MASTERY,
+      STAT.VERSATILITY,
+      STAT.LEECH,
+    ];
   }
 
 }
