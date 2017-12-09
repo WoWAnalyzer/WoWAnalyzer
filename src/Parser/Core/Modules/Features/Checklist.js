@@ -6,7 +6,7 @@ export class Rule {
   name = null;
   requirements = null;
   when = null;
-  constructor({ name, requirements, when }) {
+  constructor({ name, requirements, when = null }) {
     this.name = name;
     this.requirements = requirements;
     this.when = when;
@@ -16,7 +16,7 @@ export class Requirement {
   name = null;
   check = null;
   when = null;
-  constructor({ name, check, when }) {
+  constructor({ name, check, when = null }) {
     this.name = name;
     this.check = check;
     this.when = when;
@@ -39,6 +39,25 @@ class Checklist extends Analyzer {
   static rules = [
   ];
 
+  ruleFilter(rule) {
+    if (rule.when === null) {
+      // Rule isn't conditional
+      return true;
+    }
+    if (typeof rule.when === 'function') {
+      return rule.when.call(this);
+    }
+
+    return !!rule.when;
+  }
+  renderRule(rule) {
+    return (
+      <div key={rule.name}>
+        {rule.name}
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className="panel">
@@ -46,13 +65,9 @@ class Checklist extends Analyzer {
           <h2>Checklist</h2>
         </div>
         <div className="panel-body">
-          {this.constructor.rules.map(rule => {
-            return (
-              <div>
-                {rule.name}
-              </div>
-            );
-          })}
+          {this.constructor.rules
+            .filter(this.ruleFilter)
+            .map(this.renderRule)}
         </div>
       </div>
     );
