@@ -108,6 +108,11 @@ export default {
     name: 'Unending Thirst',
     icon: 'inv_axe_2h_artifactmaw_d_02',
   },
+  VAMPIRIC_AURA: {
+    id: 238698,
+    name: 'Vampiric Aura',
+    icon: 'ability_ironmaidens_maraksbloodcalling',
+  },
 
   // CC
   GOREFIENDS_GRASP: {

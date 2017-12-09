@@ -68,6 +68,9 @@ class StatTracker extends Analyzer {
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 1000, haste: 1000 },
     // endregion
 
+    // region Death Knight
+    [SPELLS.VAMPIRIC_AURA.id]: { leech: (23000 * 0.20) }, // TODO make non static so can use this.leechRatingPerPercent ??
+
     // region Druid
     [SPELLS.ASTRAL_HARMONY.id]: { mastery: 4000 },
     // endregion
