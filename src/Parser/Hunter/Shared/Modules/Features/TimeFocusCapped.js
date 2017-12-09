@@ -8,7 +8,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
 
-import FocusTracker from 'Parser/Hunter/Shared/FocusChart/FocusTracker';
+import FocusTracker from 'Parser/Hunter/Shared/Modules/Features/FocusChart/FocusTracker';
 
 class TimeFocusCapped extends Analyzer {
   static dependencies = {
