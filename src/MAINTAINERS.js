@@ -111,6 +111,7 @@ export const Oratio = {
 };
 export const hassebewlen = {
   nickname: 'hassebewlen',
+  github: 'hasseboulen',
 };
 export const tsabo = {
   nickname: 'tsabo',
