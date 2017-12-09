@@ -335,4 +335,9 @@ export default {
     name: 'Prototype Personnel Decimator',
     icon: 'ability_rogue_cannonballbarrage',
   },
+  NORGANNONS_PROWESS: {
+    id: 154177,
+    name: 'Norgannon\'s Prowess',
+    icon: 'inv_antorus_blue',
+  },
 };
