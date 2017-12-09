@@ -58,7 +58,7 @@ class BlinkStrikes extends Analyzer {
       return;
     }
     const pet = this.pets.getSourceEntity(event);
-    if (BLINK_STRIKES_NOT_AFFECTED_PETS.every(id => pet.guid === id)) {
+    if (BLINK_STRIKES_NOT_AFFECTED_PETS.some(id => pet.guid === id)) {
       return;
     }
     this.damage += getDamageBonus(event, BLINK_STRIKES_MELEE_MODIFIER);
