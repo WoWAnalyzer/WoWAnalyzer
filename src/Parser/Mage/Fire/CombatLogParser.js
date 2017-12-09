@@ -1,6 +1,8 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
+import FlamestrikeNormalizer from './Normalizers/Flamestrike';
+
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Features/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
@@ -10,6 +12,7 @@ import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 import UnstableMagic from '../Shared/Modules/Features/UnstableMagic';
 import Kindling from './Modules/Features/Kindling';
 import PhoenixsFlames from './Modules/Features/PhoenixsFlames';
+import HotStreak from './Modules/Features/HotStreak';
 
 import Tier20_4set from './Modules/Items/Tier20_4set';
 import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
@@ -21,6 +24,9 @@ import PyrotexIgnitionCloth from './Modules/Items/PyrotexIgnitionCloth';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    //Normalizers
+    FlameStrikeNormalizer: FlamestrikeNormalizer,
+
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
@@ -28,6 +34,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     cancelledCasts: CancelledCasts,
     phoenixsFlames: PhoenixsFlames,
+    hotStreak: HotStreak,
 
     // Talents
     mirrorImage: MirrorImage,

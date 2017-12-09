@@ -205,6 +205,12 @@ export default {
     icon: 'inv_antorus_green',
     quality: ITEM_QUALITIES.EPIC,
   },
+  ISHKARS_FELSHIELD_EMITTER: {
+    id: 151957,
+    name: 'Ishkar\'s Felshield Emitter',
+    icon: 'ability_vehicle_shellshieldgenerator_green',
+    quality: ITEM_QUALITIES.EPIC,
+  },
   CARAFE_OF_SEARING_LIGHT: {
     id: 151960,
     name: 'Carafe of Searing Light',
@@ -296,5 +302,37 @@ export default {
     name: 'Seeping Scourgewing',
     icon: 'ability_creature_poison_03',
     quality: ITEM_QUALITIES.EPIC,
+  },
+  GAROTHI_FEEDBACK_CONDUIT: {
+    id: 151956,
+    name: 'Garothi Feedback Conduit',
+    icon: 'inv_misc_enggizmos_06',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  GORSHALACHS_LEGACY: {
+    id: 152093,
+    name: 'Gorshalach\'s Legacy',
+    icon: 'inv_sword_1h_firelandsraid_d_01',
+  },
+  GOLGANNETHS_VITALITY: {
+    id: 154174,
+    name: 'Golganneth\'s Vitality',
+    icon: 'inv_antorus_grey',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  FORGEFIENDS_FABRICATOR: {
+    id: 151963,
+    name: 'Forgefiend\'s Fabricator',
+    icon: 'inv_jewelry_orgrimmarraid_trinket_04_green',
+  },
+  TERMINUS_SIGNALING_BEACON: {
+    id: 151969,
+    name: 'Terminus Signaling Beacon',
+    icon: 'inv_7_0raid_trinket_010d',
+  },
+  PROTOTYPE_PERSONNEL_DECIMATOR: {
+    id: 151962,
+    name: 'Prototype Personnel Decimator',
+    icon: 'ability_rogue_cannonballbarrage',
   },
 };

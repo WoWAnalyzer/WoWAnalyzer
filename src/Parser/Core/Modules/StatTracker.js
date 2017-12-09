@@ -17,7 +17,7 @@ class StatTracker extends Analyzer {
 
   static STAT_BUFFS = {
     // region Potions
-    [SPELLS.POTION_OF_PROLONGED_POWER.id]: { strength: 2500, agility: 2500, intellect: 2500 },
+    [SPELLS.POTION_OF_PROLONGED_POWER.id]: { stamina: 2500, strength: 2500, agility: 2500, intellect: 2500 },
     // endregion
     // TODO: add flasks
     // TODO: add food
@@ -44,6 +44,10 @@ class StatTracker extends Analyzer {
     [SPELLS.ACCELERANDO.id]: {
       itemId: ITEMS.ERRATIC_METRONOME.id,
       haste: (_, item) => calculateSecondaryStatDefault(870, 657, item.itemLevel),
+    },
+    [SPELLS.TOME_OF_UNRAVELING_SANITY_BUFF.id]: {
+      itemId: ITEMS.TOME_OF_UNRAVELING_SANITY.id,
+      crit: (_, item) => calculateSecondaryStatDefault(910, 2756, item.itemLevel),
     },
     // endregion
 
@@ -183,7 +187,15 @@ class StatTracker extends Analyzer {
    * These values don't change.
    */
   get baseCritPercentage() {
-    return 0.08; // TODO is this the same for all classes?
+    const standard = 0.05;
+    switch (this.combatants.selected.spec) {
+      case SPECS.HOLY_PALADIN:
+        return standard + 0.03; // 3% from a trait everyone has. TODO: Make traits conditional
+      case SPECS.FIRE_MAGE:
+        return standard + 0.15; // an additional 15% is gained from the passive Critical Mass
+      default:
+        return standard;
+    }
   }
   get baseHastePercentage() {
     return 0;
@@ -215,6 +227,8 @@ class StatTracker extends Analyzer {
       case SPECS.SUBTLETY_ROGUE:
         return 0.2208;
       case SPECS.BEAST_MASTERY_HUNTER:
+        return 0.18;
+      case SPECS.UNHOLY_DEATH_KNIGHT:
         return 0.18;
       default:
         console.error('Mastery hasn\'t been implemented for this spec yet.');
@@ -278,6 +292,8 @@ class StatTracker extends Analyzer {
         return 14492.61221;
       case SPECS.BEAST_MASTERY_HUNTER:
         return 17778;
+      case SPECS.UNHOLY_DEATH_KNIGHT:
+        return 17776;
       default:
         console.error('Mastery hasn\'t been implemented for this spec yet.');
         return 99999999;

@@ -322,7 +322,7 @@ export default {
     icon: 'ability_mage_hotstreak',
   },
   HOT_STREAK: {
-    id: 195283,
+    id: 48108,
     name: 'Hot Streak',
     icon: 'ability_mage_hotstreak',
   },
@@ -350,6 +350,11 @@ export default {
     id: 242251,
     name: 'Critical Massive',
     icon: 'ability_mage_firestarter',
+  },
+  KAELTHAS_ULTIMATE_ABILITY: {
+    id: 209455,
+    name: 'Kaelthas\'s Ultimate Ability',
+    icon: 'inv_bracer_robe_raidwarlock_j_01',
   },
 
   //Artifact Traits

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Fyruna } from 'MAINTAINERS';
+import { Fyruna, Sharrq } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
@@ -9,14 +9,16 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   spec: SPECS.FIRE_MAGE,
-  maintainers: [Fyruna],
+  maintainers: [Fyruna, Sharrq],
   completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK, // good = it matches most common manual reviews in class discords, great = it support all important class features
   changelog: CHANGELOG,
   description: (
     <div>
-      Welcome to the Fire Mage analyzer! We hope you find these suggestions and statistics useful.
-      <br /><br />
-      If you want to learn more about Fire Mages, join the Mage community at the <a href="https://discord.gg/alteredtime" target="_blank" rel="noopener noreferrer">Altered Time discord channel</a>. You can also check out the <a href="https://www.altered-time.com/forum/viewforum.php?f=4" target="_blank" rel="noopener noreferrer">Altered Time forum, Fire section</a> for spec specific advice. 
+      Hello Everyone! We are always looking to improve the Fire Mage Analyzers and Modules; so if you find any issues or if there is something missing that you would like to see added, please open an Issue on GitHub or send a message to Sharrq on Discord (Sharrq#7530) <br /> <br />
+	    Additionally, if you need further assistance in improving your gameplay as a Fire Mage, you can refer to the following resources:<br />
+      <a href="https://discord.gg/0gLMHikX2aZ23VdA" target="_blank" rel="noopener noreferrer">Mage Class Discord</a> <br />
+      <a href="https://www.altered-time.com/forum/" target="_blank" rel="noopener noreferrer">Altered Time (Mage Forums/Guides)</a> <br />
+      <a href="https://www.icy-veins.com/wow/fire-mage-pve-dps-guide" target="_blank" rel="noopener noreferrer">Icy Veins (Fire Mage Guide)</a> <br/>
     </div>
   ),
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/519',

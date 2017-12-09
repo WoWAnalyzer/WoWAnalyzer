@@ -10,14 +10,16 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.STRIKE_OF_THE_WINDLORD,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       // Item - The legendary head reduces SotW cooldown by 20%
-      getCooldown: (haste, combatant) => 40 * (combatant.hasHead(ITEMS.THE_WIND_BLOWS.id) ? 0.8 : 1) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
+      // Serenity cooldown reduction behaves like dynamic haste, where abilites cool down at their normal rate outside the buff. Chi Spenders with cooldowns longer than Serenity duration instead has a potential cooldown reduction of the total Serenity duration. 
+      getCooldown: (haste, combatant) => 40 * (combatant.hasHead(ITEMS.THE_WIND_BLOWS.id) ? 0.8 : 1) - (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? (combatant.hasWrists(ITEMS.DRINKING_HORN_COVER.id) ? 11 : 8) : 0),
       recommendedCastEfficiency: 0.9,
     },
     {
       spell: SPELLS.FISTS_OF_FURY_CAST,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      // This can get way too low calculated cooldown if the player has a very high amount of haste, but this is not expected for windwalkers
       getCooldown: (haste, combatant) =>
-        24 / (1 + haste) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
+        24 / (1 + haste) - (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? (combatant.hasWrists(ITEMS.DRINKING_HORN_COVER.id) ? 11 : 8) : 0),
       extraSuggestion: "Delaying the cast somewhat to line up with add spawns is acceptable, however.",
       recommendedCastEfficiency: 0.9,
     },
@@ -104,6 +106,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.CRACKLING_JADE_LIGHTNING,
       category: Abilities.SPELL_CATEGORIES.OTHERS,
       getCooldown: haste => null,
+      isActive: combatant => combatant.hasTalent(ITEMS.THE_EMPERORS_CAPACITOR.id),
     },
     {
       spell: SPELLS.RUSHING_JADE_WIND_TALENT,

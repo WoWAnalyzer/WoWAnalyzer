@@ -26,8 +26,8 @@ import Tier19_2p from "./Modules/Items/Tier19_2p";
 import Trueshot from './Modules/Spells/Trueshot';
 
 //Focus
-import FocusChart from '../Shared/FocusChart/Focus';
-import FocusTracker from '../Shared/FocusChart/FocusTracker';
+import FocusChart from '../Shared/Modules/Features/FocusChart/Focus';
+import FocusTracker from '../Shared/Modules/Features/FocusChart/FocusTracker';
 
 //Items
 import UllrsFeatherSnowshoes from './Modules/Items/UllrsFeatherSnowshoes';
@@ -41,15 +41,27 @@ import LockAndLoad from './Modules/Talents/LockAndLoad';
 import TrueAim from './Modules/Talents/TrueAim';
 import PatientSniperTracker from './Modules/Talents/PatientSniper/PatientSniperTracker';
 import PatientSniperDetails from "./Modules/Talents/PatientSniper/PatientSniperDetails";
-import Volley from './Modules/Talents/Volley';
+import Volley from '../Shared/Modules/Talents/Volley';
 import ExplosiveShot from "./Modules/Talents/ExplosiveShot";
 import PiercingShot from "./Modules/Talents/PiercingShot";
 import AMurderOfCrows from "./Modules/Talents/AMurderOfCrows";
-import TrickShot from "./Modules/Talents/TrickShot";
+import TrickShot from "./Modules/Talents/TrickShot/TrickShot";
+import TrickShotCleave from "./Modules/Talents/TrickShot/TrickShotCleave";
+import Barrage from '../Shared/Modules/Talents/Barrage';
+import BlackArrow from './Modules/Talents/BlackArrow';
+import Sidewinders from './Modules/Talents/Sidewinders';
+import LoneWolf from './Modules/Talents/LoneWolf';
+import CarefulAim from './Modules/Talents/CarefulAim';
 
 //Traits
 import QuickShot from './Modules/Traits/QuickShot';
 import Bullseye from './Modules/Traits/Bullseye';
+import CyclonicBurst from './Modules/Traits/CyclonicBurst';
+import CallOfTheHunter from './Modules/Traits/CallOfTheHunter';
+import LegacyOfTheWindrunners from './Modules/Traits/LegacyOfTheWindrunners';
+
+//Traits and Talents list
+import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -94,10 +106,22 @@ class CombatLogParser extends CoreCombatLogParser {
     piercingShot: PiercingShot,
     aMurderOfCrows: AMurderOfCrows,
     trickShot: TrickShot,
+    trickShotCleave: TrickShotCleave,
+    barrage: Barrage,
+    blackArrow: BlackArrow,
+    sidewinders: Sidewinders,
+    loneWolf: LoneWolf,
+    carefulAim: CarefulAim,
 
     //Traits
     quickShot: QuickShot,
     bullseye: Bullseye,
+    cyclonicBurst: CyclonicBurst,
+    callOfTheHunter: CallOfTheHunter,
+    legacyOfTheWindrunners: LegacyOfTheWindrunners,
+
+    //Traits and Talents list
+    traitsAndTalents: TraitsAndTalents,
   };
 
   generateResults() {

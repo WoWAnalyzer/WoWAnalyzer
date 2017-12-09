@@ -19,6 +19,7 @@ import EssenceOfInfusion from './Modules/Items/EssenceOfInfusion';
 import SoulOfTheArchdruid from './Modules/Items/SoulOfTheArchdruid';
 import Tearstone from './Modules/Items/Tearstone';
 import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
+import GarothiFeedbackConduit from './Modules/Items/GarothiFeedbackConduit';
 import CarafeOfSearingLight from './Modules/Items/CarafeOfSearingLight';
 
 import T19_2Set from './Modules/Items/T19_2Set';
@@ -65,6 +66,12 @@ import EternalRestoration from './Modules/Traits/EternalRestoration';
 import StatWeights from './Modules/Features/StatWeights';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
+import MurderousIntent from "./Modules/NetherlightCrucibleTraits/MurderousIntent";
+import Shocklight from "./Modules/NetherlightCrucibleTraits/Shocklight";
+import LightSpeed from "./Modules/NetherlightCrucibleTraits/LightSpeed";
+import NLCTraits from "./Modules/NetherlightCrucibleTraits/NLCTraits";
+import MasterOfShadows from "./Modules/NetherlightCrucibleTraits/MasterOfShadows";
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -118,8 +125,16 @@ class CombatLogParser extends CoreCombatLogParser {
     // Edraith
     // Aman'Thul's Wisdom
 
+    // NLC
+    murderousIntent: MurderousIntent,
+    shocklight: Shocklight,
+    lightSpeed: LightSpeed,
+    masterOfShadows: MasterOfShadows,
+    nlcTraits: NLCTraits,
+
     // Shared:
     darkmoonDeckPromises: DarkmoonDeckPromises,
+    garothiFeedbackConduit: GarothiFeedbackConduit,
     carafeOfSearingLight: CarafeOfSearingLight,
 
     // Traits

@@ -1,11 +1,23 @@
 import React from 'react';
 
-import { sref, Zerotorescue } from 'MAINTAINERS';
+import { sref, Zerotorescue, blazyb } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2017-12-08'),
+    changes: <Wrapper>Increased <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} />\'s suggestion healing requirement to 60k HPS for minor, 50k HPS for average and 40k HPS for major (up from 30k/25k/20k).</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-07'),
+    changes: 'Stat values shows healing gained per 1 rating on hover.',
+    contributors: [blazyb],
+  },
   {
     date: new Date('2017-11-05'),
     changes: 'Reworded haste tooltip and changed the display to be 0.00 - value to be more obvious it\'s a max.',

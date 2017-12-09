@@ -56,6 +56,16 @@ export default {
     name: 'Potion of Deadly Grace',
     icon: 'inv_alchemy_70_flask02',
   },
+  FLASK_OF_THE_WHISPERED_PACT: {
+    id: 188031,
+    name: 'Flask of the Whispered Pact',
+    icon: 'inv_alchemy_70_flask03purple',
+  },
+  DEFILED_AUGMENT_RUNE: {
+    id: 224001,
+    name: 'Defiled Augment Rune',
+    icon: 'ability_bossfellord_felspike',
+  },
   LEYTORRENT_POTION: {
     id: 188030,
     name: 'Leytorrent Potion',
@@ -231,12 +241,17 @@ export default {
     name: 'Infernal Cinders',
     icon: 'inv_weapon_shortblade_54',
   },
-  UMBRAL_GLAIVE_STORM: {
+  UMBRAL_GLAIVE_STORM_CAST: {
+    id: 242553,
+    name: 'Umbral Glaive Storm',
+    icon: 'ability_upgrademoonglaive',
+  },
+  UMBRAL_GLAIVE_STORM_TICK: { // this is the damage ID, and also each tick of procs a cast event with this ID
     id: 242556,
     name: 'Umbral Glaive Storm',
     icon: 'ability_upgrademoonglaive',
   },
-  SHATTERING_UMBRAL_GLAIVES: {
+  SHATTERING_UMBRAL_GLAIVES: { // this is the shatter's damage ID, and also the shatter procs a cast event with this ID
     id: 242557,
     name: 'Shattering Umbral Glaives',
     icon: 'ability_upgrademoonglaive',
@@ -252,12 +267,12 @@ export default {
     name: 'Tarratus Keystone',
     icon: 'inv__wod_arakoa4',
   },
-  HIGHFATHERS_TIMEKEEPINGBUFF: {
+  HIGHFATHERS_TIMEKEEPING_BUFF: {
     id: 253287,
     name: 'Highfather\'s Timekeeping',
     icon: 'spell_priest_psyfiend',
   },
-  HIGHFATHERS_TIMEKEEPINGHEAL: {
+  HIGHFATHERS_TIMEKEEPING_HEAL: {
     id: 253288,
     name: 'Highfather\'s Timekeeping',
     icon: 'spell_priest_psyfiend',
@@ -318,6 +333,41 @@ export default {
     name: 'Isolated Strike',
     icon: 'ability_creature_poison_03',
   },
+  GORSHALACHS_LEGACY_FIRST_HIT: {
+    id: 253329,
+    name: 'Gorshalach\'s Legacy',
+    icon: 'inv_sword_1h_firelandsraid_d_01',
+  },
+  GORSHALACHS_LEGACY_SECOND_HIT: {
+    id: 255673,
+    name: 'Gorshalach\'s Legacy',
+    icon: 'inv_sword_1h_firelandsraid_d_01',
+  },
+  GOLGANNETHS_VITALITY_RAVAGING_STORM: { //Each tick is a cast event of this spell
+    id: 257286,
+    name: 'Ravaging Storm',
+    icon: 'inv_antorus_grey',
+  },
+  GOLGANNETHS_VITALITY_THUNDEROUS_WRATH: {
+    id: 257430,
+    name: 'Golganneth\'s Thunderous Wrath',
+    icon: 'ability_thunderking_thunderstruck',
+  },
+  FIRE_MINES: {
+    id: 253321,
+    name: 'Fire Mines',
+    icon: 'inv_jewelry_orgrimmarraid_trinket_04_green',
+  },
+  LEGION_BOMBARDMENT: {
+    id: 257376,
+    name: 'Legion Bombardment',
+    icon: 'spell_fire_felrainoffire',
+  },
+  PROTOTYPE_PERSONNEL_DECIMATOR: {
+    id: 255629,
+    name: 'Prototype Personnel Decimator',
+    icon: 'ability_rogue_cannonballbarrage',
+  },
 
   // Item Abilities
   SPECTRAL_OWL: {
@@ -348,6 +398,11 @@ export default {
   TOME_OF_UNRAVELING_SANITY_DAMAGE: {
     id: 243941,
     name: 'Insidious Corruption',
+    icon: 'inv_archaeology_70_demon_flayedskinchronicle',
+  },
+  TOME_OF_UNRAVELING_SANITY_BUFF: {
+    id: 243942,
+    name: 'Extracted Sanity',
     icon: 'inv_archaeology_70_demon_flayedskinchronicle',
   },
   LUNAR_INFUSION: {
@@ -586,6 +641,21 @@ export default {
     name: 'Concordance of the Legionfall',
     icon: 'achievement_faction_legionfall',
   },
+  MASTER_OF_SHADOWS: {
+    id: 252091,
+    name: 'Master of Shadows',
+    icon: 'spell_shadow_shadesofdarkness',
+  },
+  LIGHT_SPEED: {
+    id: 252088,
+    name: 'Light Speed',
+    icon: 'ability_rogue_sprint',
+  },
+  FEEDBACK_LOOP: {
+    id: 253269,
+    name: 'Feedback Loop',
+    icon: 'spell_holy_dispelmagic',
+  },
   // Dot spell for Carafe of Searing Light
   REFRESHING_AGONY_DOT: {
     id: 253284,
@@ -598,5 +668,14 @@ export default {
     name: 'Refreshing Agonyt',
     icon: 'ability_priest_flashoflight',
   },
-
+  FELSHIELD_ABSORB: {
+    id: 253277,
+    name: 'Felshield',
+    icon: 'ability-vehicle-shellshieldgenerator-green',
+  },
+  FELSHIELD_DAMAGE: {
+    id: 253278,
+    name: 'Felshield',
+    icon: 'ability-vehicle-shellshieldgenerator-green',
+  },
 };

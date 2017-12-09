@@ -21,12 +21,12 @@ class TarnishedSentinelMedallion extends ImportTarnishedSentinelMedallion {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (this.damageAbilities.has(spellId) && event.timestamp > this.medallionEnd) {
+    if (this.damageIds.includes(spellId) && event.timestamp > this.medallionEnd) {
       this.medallionEnd = event.timestamp + this.medallionDuration;
       this.medallionUptime.push({ 'start': event.timestamp, 'end': this.medallionEnd });
       this.checkOverlap();
     }
-    if (this.damageAbilities.has(spellId)) {
+    if (this.damageIds.includes(spellId)) {
       this.damage += event.amount + (event.absorbed || 0);
     }
   }

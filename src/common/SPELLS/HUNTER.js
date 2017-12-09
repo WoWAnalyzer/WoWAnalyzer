@@ -51,6 +51,16 @@ export default {
     name: 'Dire Frenzy Buff',
     icon: 'ability_druid_mangle',
   },
+  DIRE_FRENZY_DAMAGE: {
+    id: 217207,
+    name: 'Dire Frenzy',
+    icon: 'ability_druid_mangle',
+  },
+  STAMPEDE_DAMAGE: {
+    id: 201594,
+    name: 'Stampede',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
   EAGLE_EYE: {
     id: 6197,
     name: 'Eagle Eye',
@@ -76,8 +86,18 @@ export default {
     name: 'Wild Call Proc',
     icon: 'ability_hunter_masterscall',
   },
+  BEAST_CLEAVE: {
+    id: 115939,
+    name: 'Beast Cleave',
+    icon: 'ability_hunter_sickem',
+  },
   BEAST_CLEAVE_BUFF: {
     id: 118455,
+    name: 'Beast Cleave',
+    icon: 'ability_hunter_sickem',
+  },
+  BEAST_CLEAVE_DAMAGE: {
+    id: 118459,
     name: 'Beast Cleave',
     icon: 'ability_hunter_sickem',
   },
@@ -90,6 +110,16 @@ export default {
     id: 191413,
     name: 'Bestial Ferocity',
     icon: 'ability_hunter_invigeration',
+  },
+  CHIMAERA_SHOT_NATURE_DAMAGE: {
+    id: 171457,
+    name: 'Chimaera Shot',
+    icon: 'ability_hunter_chimerashot2',
+  },
+  CHIMAERA_SHOT_FROST_DAMAGE: {
+    id: 171454,
+    name: 'Chimaera Shot',
+    icon: 'ability_hunter_chimerashot2',
   },
 
   //Beast Mastery Artifact Traits
@@ -118,18 +148,28 @@ export default {
     name: 'Cobra Commander',
     icon: 'inv_waepon_bow_zulgrub_d_01',
   },
-  MASTER_OF_BEASTS: {
+  MASTER_OF_BEASTS_TRAIT: {
     id: 197248,
     name: 'Master of Beasts',
     icon: 'ability_hunter_masterscall',
   },
-  SURGE_OF_THE_STORMGOD: {
+  SURGE_OF_THE_STORMGOD_TRAIT: {
     id: 197354,
     name: 'Surge of the Stormgod',
     icon: 'ability_monk_forcesphere',
   },
-  THUNDERSLASH: {
+  SURGE_OF_THE_STORMGOD_DAMAGE: {
+    id: 197465,
+    name: 'Surge of the Stormgod',
+    icon: 'ability_monk_forcesphere',
+  },
+  THUNDERSLASH_TRAIT: {
     id: 238087,
+    name: 'Thunderslash',
+    icon: 'warrior_talent_icon_thunderstruck',
+  },
+  THUNDERSLASH_DAMAGE: {
+    id: 243234,
     name: 'Thunderslash',
     icon: 'warrior_talent_icon_thunderstruck',
   },
@@ -239,6 +279,16 @@ export default {
     name: 'Marking Targets',
     icon: 'ability_marksmanship',
   },
+  SIDEWINDERS_DAMAGE: {
+    id: 214581,
+    name: 'Sidewinders',
+    icon: 'ability_hunter_serpentswiftness',
+  },
+  CAREFUL_AIM_DAMAGE: {
+    id: 63468,
+    name: 'Careful Aim',
+    icon: 'ability_hunter_piercingshots',
+  },
 
   //CATEGORY
   AUTO_SHOT: {
@@ -300,8 +350,13 @@ export default {
   },
 
   // Marksmanship artifact traits
-  BULLSEYE_TRAIT: {
+  BULLSEYE_BUFF: {
     id: 204090,
+    name: 'Bullseye',
+    icon: 'ability_hunter_focusedaim',
+  },
+  BULLSEYE_TRAIT: {
+    id: 204089,
     name: 'Bullseye',
     icon: 'ability_hunter_focusedaim',
   },
@@ -325,22 +380,22 @@ export default {
     name: 'Unerring Arrows',
     icon: 'creatureportrait_blackrockv2_shieldgong_broken',
   },
-  CALL_OF_THE_HUNTER: {
+  CALL_OF_THE_HUNTER_TRAIT: {
     id: 191048,
     name: 'Call of the Hunter',
     icon: 'ability_hunter_assassinate',
   },
-  CALL_OF_THE_HUNTER_PROC: {
+  CALL_OF_THE_HUNTER_DAMAGE: {
     id: 191070,
     name: 'Call of the Hunter',
     icon: 'ability_hunter_assassinate',
   },
-  LEGACY_OF_THE_WINDRUNNERS: {
+  LEGACY_OF_THE_WINDRUNNERS_TRAIT: {
     id: 190852,
     name: 'Legacy of the Windrunners',
     icon: 'artifactability_marksmanhunter_legacyofthewindrunners',
   },
-  LEGACY_OF_THE_WINDRUNNERS_PROC: {
+  LEGACY_OF_THE_WINDRUNNERS_DAMAGE: {
     id: 191043,
     name: 'Legacy of the Windrunners',
     icon: 'artifactability_marksmanhunter_legacyofthewindrunners',
@@ -369,7 +424,7 @@ export default {
     name: 'True Aim',
     icon: 'spell_hunter_focusingshot',
   },
-  EXPLOSIVE_SHOT_SHOT: {
+  EXPLOSIVE_SHOT_DETONATION: {
     id: 212680,
     name: 'Explosive Shot',
     icon: '6bf_explosive_shard',
@@ -393,8 +448,7 @@ export default {
     id: 90355,
     name: 'Ancient Hysteria',
     icon: 'spell_shadow_unholyfrenzy',
-  },
-  //The buff given by volley when it's activated (and also what does the damage)
+  },  //The buff given by volley when it's activated (and also what does the damage)
   VOLLEY_ACTIVATED: {
     id: 194392,
     name: 'Volley buff',
@@ -519,5 +573,10 @@ export default {
     id: 117405,
     name: 'Binding Shot Tether',
     icon: 'spell_shaman_bindelemental',
+  },
+  BARRAGE_DAMAGE: {
+    id: 120361,
+    name: 'Barrage',
+    icon: 'ability_hunter_rapidregeneration',
   },
 };

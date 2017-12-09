@@ -5,6 +5,7 @@ FROM node:9.2.0-alpine
 COPY server /usr/src/wowanalyzer/server/
 COPY build /usr/src/wowanalyzer/build/
 WORKDIR /usr/src/wowanalyzer/server/
+ENV NODE_ENV=production
 EXPOSE 3000
 USER node
 CMD ["npm", "run", "serve"]

@@ -2,9 +2,8 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
-import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
-import { formatNumber } from 'common/format';
+import SpellLink from 'common/SpellLink';
 
 class CobraCommander extends Analyzer {
   static dependencies = {
@@ -16,7 +15,7 @@ class CobraCommander extends Analyzer {
   sneakySnakeDamage = 0;
 
   on_initialized() {
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.COBRA_COMMANDER_TRAIT.id] > 0;
+    this.active = this.combatants.selected.traitsBySpellId[SPELLS.COBRA_COMMANDER_TRAIT.id];
   }
 
   on_byPlayer_summon(event) {
@@ -37,14 +36,21 @@ class CobraCommander extends Analyzer {
     if (!selectedSneakySnake) {
       return;
     }
-    this.sneakySnakeDamage += event.amount;
+    this.sneakySnakeDamage += event.amount + (event.absorbed || 0);
   }
-  statistic() {
+
+  subStatistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.COBRA_COMMANDER.id} />}
-        value={`${formatNumber(this.sneakySnakeDamage)}`}
-        label={this.owner.formatItemDamageDone(this.sneakySnakeDamage)} />
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.COBRA_COMMANDER.id}>
+            <SpellIcon id={SPELLS.COBRA_COMMANDER.id} noLink /> Sneaky Snakes
+          </SpellLink>
+        </div>
+        <div className="flex-sub text-right">
+          {(this.owner.formatItemDamageDone(this.sneakySnakeDamage))}
+        </div>
+      </div>
     );
   }
 

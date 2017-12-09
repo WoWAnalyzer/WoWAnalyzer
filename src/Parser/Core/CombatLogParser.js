@@ -37,6 +37,7 @@ import StatsDisplay from './Modules/Features/StatsDisplay';
 import TalentsDisplay from './Modules/Features/TalentsDisplay';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
+
 // Shared Legendaries
 import Prydaz from './Modules/Items/Prydaz';
 import Velens from './Modules/Items/Velens';
@@ -70,10 +71,17 @@ import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
 import TarratusKeystone from './Modules/Items/TarratusKeystone';
 import HighFathersMachination from './Modules/Items/HighfathersMachination';
 import EonarsCompassion from './Modules/Items/EonarsCompassion';
+import GarothiFeedbackConduit from './Modules/Items/GarothiFeedbackConduit';
 import CarafeOfSearingLight from './Modules/Items/CarafeOfSearingLight';
+import IshkarsFelshieldEmitter from './Modules/Items/IshkarsFelshieldEmitter';
 
 // T21 Dps Trinkets
 import SeepingScourgewing from './Modules/Items/SeepingScourgewing';
+import GorshalachsLegacy from './Modules/Items/GorshalachsLegacy';
+import GolgannethsVitality from './Modules/Items/GolgannethsVitality';
+import ForgefiendsFabricator from './Modules/Items/ForgefiendsFabricator';
+import TerminusSignalingBeacon from './Modules/Items/TerminusSignalingBeacon';
+import PrototypePersonnelDecimator from './Modules/Items/PrototypePersonnelDecimator';
 
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
@@ -152,6 +160,7 @@ class CombatLogParser {
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
     gnawedThumbRing: GnawedThumbRing,
+    ishkarsFelshieldEmitter: IshkarsFelshieldEmitter,
     // Tomb trinkets:
     archiveOfFaith: ArchiveOfFaith,
     barbaricMindslaver: BarbaricMindslaver,
@@ -168,11 +177,17 @@ class CombatLogParser {
     // T21 Healing Trinkets
     tarratusKeystone: TarratusKeystone,
     highfathersMachinations: HighFathersMachination,
-    eonarsCompassion : EonarsCompassion,
+    eonarsCompassion: EonarsCompassion,
+    garothiFeedbackConduit: GarothiFeedbackConduit,
     carafeOfSearingLight: CarafeOfSearingLight,
-    
+
     // T21 DPS Trinkets
     seepingScourgewing: SeepingScourgewing,
+    gorshalachsLegacy: GorshalachsLegacy,
+    golgannethsVitality: GolgannethsVitality,
+    forgefiendsFabricator: ForgefiendsFabricator,
+    terminusSignalingBeacon: TerminusSignalingBeacon,
+    prototypePersonnelDecimator: PrototypePersonnelDecimator,
 
     // Concordance of the Legionfall
     concordance: Concordance,

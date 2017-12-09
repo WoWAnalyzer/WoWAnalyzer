@@ -1,11 +1,26 @@
 import React from 'react';
 
-import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, Yuyz0112, Zerotorescue } from 'MAINTAINERS';
+import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, Yuyz0112, Zerotorescue, Hartra344 } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 
 export default [
+  {
+    date: new Date('2017-12-06'),
+    changes: <Wrapper>Added <ItemLink id={ITEMS.ISHKARS_FELSHIELD_EMITTER.id} /> to items </Wrapper>,
+    contributors: [Hartra344],
+  },
+  {
+    date: new Date('2017-12-05'),
+    changes: 'Included some NLC traits and trinkets to stat weights module.',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-12-03'),
+    changes: <Wrapper>Improve Player Selection user interface.</Wrapper>,
+    contributors: ['kyle-glick'],
+  },
   {
     date: new Date('2017-12-01'),
     changes: <Wrapper>Improved WCL API error handling to avoid caching corrupt responses (and show more informative errors).</Wrapper>,

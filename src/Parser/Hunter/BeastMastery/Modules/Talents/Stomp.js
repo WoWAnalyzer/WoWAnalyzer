@@ -13,7 +13,7 @@ class Stomp extends Analyzer {
 
   damage = 0;
 
-  on_intiialized() {
+  on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.STOMP_TALENT.id);
   }
 
@@ -22,15 +22,15 @@ class Stomp extends Analyzer {
     if (spellId !== SPELLS.STOMP_DAMAGE.id) {
       return;
     }
-    this.damage += event.amount;
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   subStatistic() {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.STOMP_DAMAGE.id}>
-            <SpellIcon id={SPELLS.STOMP_DAMAGE.id} noLink /> Stomp
+          <SpellLink id={SPELLS.STOMP_TALENT.id}>
+            <SpellIcon id={SPELLS.STOMP_TALENT.id} noLink /> Stomp
           </SpellLink>
         </div>
         <div className="flex-sub text-right">

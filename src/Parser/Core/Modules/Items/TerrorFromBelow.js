@@ -1,16 +1,19 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import { formatNumber } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
+/*
+ * Terror from Below -
+ * Equip: Your ranged attacks and spells have a chance to summon a behemoth from the deep to swallow your target whole, dealing 736021 Nature damage split amongst you and all nearby enemies.
+ */
 class TerrorFromBelow extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
 
-  bonusDmg = 0;
+  damage = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTrinket(ITEMS.TERROR_FROM_BELOW.id);
@@ -22,14 +25,14 @@ class TerrorFromBelow extends Analyzer {
     }
     // The trinket can damage damage to the player as well if he's near the mobs, count only the damage to enemy targets
     if (!event.targetIsFriendly) {
-      this.bonusDmg += event.amount + (event.absorbed || 0);
+      this.damage += event.amount + (event.absorbed || 0);
     }
   }
 
   item() {
     return {
       item: ITEMS.TERROR_FROM_BELOW,
-      result: `${formatNumber(this.bonusDmg)} damage - ${this.owner.formatItemDamageDone(this.bonusDmg)}`,
+      result: this.owner.formatItemDamageDone(this.damage),
     };
   }
 }
