@@ -143,16 +143,16 @@ class CastEfficiency extends Analyzer {
     const maxCasts = Math.ceil(rawMaxCasts) || 0;
     const maxCpm = (cooldown === null) ? null : maxCasts / fightDurationMinutes;
 
-    let castEfficiency;
+    let efficiency;
     if (ability.getMaxCasts) { // legacy support for custom getMaxCasts
-      castEfficiency = Math.min(1, casts / rawMaxCasts);
+      efficiency = Math.min(1, casts / rawMaxCasts);
     } else {
       // Cast efficiency calculated as the percent of fight time spell was on cooldown
       if (cooldown && this.owner.fightDuration) {
         const timeOnCd = cdInfo.completedRechargeTime + cdInfo.endingRechargeTime;
-        castEfficiency = timeOnCd / this.owner.fightDuration;
+        efficiency = timeOnCd / this.owner.fightDuration;
       } else {
-        castEfficiency = null;
+        efficiency = null;
       }
     }
 
@@ -161,7 +161,7 @@ class CastEfficiency extends Analyzer {
     const majorIssueEfficiency = ability.majorIssueEfficiency || (recommendedEfficiency - DEFAULT_MAJOR_DOWNSTEP);
 
     const gotMaxCasts = (casts === maxCasts);
-    const canBeImproved = castEfficiency !== null && castEfficiency < recommendedEfficiency && !gotMaxCasts;
+    const canBeImproved = efficiency !== null && efficiency < recommendedEfficiency && !gotMaxCasts;
 
     return {
       ability,
@@ -169,7 +169,7 @@ class CastEfficiency extends Analyzer {
       maxCpm,
       casts,
       maxCasts,
-      castEfficiency,
+      efficiency,
       recommendedEfficiency,
       averageIssueEfficiency,
       majorIssueEfficiency,
