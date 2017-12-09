@@ -355,8 +355,8 @@ class BaseHealerStatValues extends Analyzer {
             )}
 
             {this._getPawnStats && (
-              <CopyToClipboard className="pull-right" text={this._getPawnString()} onCopy={() => this.setState({copied: true})}>
-                <dfn data-tip="Click this to copy your stat values to the clipboard as a Pawn String">Copy Pawn String</dfn>
+              <CopyToClipboard className="pull-right btn pawn" text={this._getPawnString()} onCopy={() => this.setState({copied: true})}>
+                <span>Copy Pawn String</span>
               </CopyToClipboard>
             )}
           </h2>
