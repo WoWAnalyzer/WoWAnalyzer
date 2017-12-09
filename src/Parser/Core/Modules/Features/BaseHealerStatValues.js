@@ -315,14 +315,14 @@ class BaseHealerStatValues extends Analyzer {
     }
   }
   _getPawnString() {
-    if(this._getPawnStats) { // TODO This isnt right cant use array
+    if(this._getPawnStats) {
       const fightNameWithoutSpaces = this.owner.fight.name.replace(' ', '');
       const playerName = this.owner.player.name;
       const pawnStats = this._getPawnStats();
       return `( Pawn: v1: "WoWAnalyzer-${playerName}-${fightNameWithoutSpaces}": ${pawnStats.reduce((acc, stat) =>
         acc + getPawnStringName(stat) + '=' + this._getGain(stat).toFixed(0) + ', ', '').slice(0, -2)} )`;
     } else {
-      return '';
+      return null;
     }
   }
   _getTooltip(stat) {
@@ -342,7 +342,6 @@ class BaseHealerStatValues extends Analyzer {
   extraPanelOrder = 200;
   extraPanel() {
     const results = this._prepareResults();
-    const pawnString = this._getPawnString();
     return (
       <div className="panel items">
         <div className="panel-heading">
@@ -356,7 +355,7 @@ class BaseHealerStatValues extends Analyzer {
             )}
 
             {this._getPawnStats && (
-              <CopyToClipboard className="pull-right" text={pawnString} onCopy={() => this.setState({copied: true})}>
+              <CopyToClipboard className="pull-right" text={this._getPawnString()} onCopy={() => this.setState({copied: true})}>
                 <dfn data-tip="Click this to copy your stat values to the clipboard as a Pawn String">Copy Pawn String</dfn>
               </CopyToClipboard>
             )}
