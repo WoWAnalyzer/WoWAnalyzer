@@ -5,16 +5,20 @@ import ITEMS from 'common/ITEMS';
 
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
+import ItemLink from 'common/ItemLink';
 
 import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
+import Velens from 'Parser/Core/Modules/Items/Velens';
 
 import MasteryEffectiveness from './MasteryEffectiveness';
 import AlwaysBeCasting from './AlwaysBeCasting';
 import BeaconHealing from '../PaladinCore/BeaconHealing';
 import FillerLightOfTheMartyrs from '../PaladinCore/FillerLightOfTheMartyrs';
+import AuraOfSacrifice from '../Talents/AuraOfSacrifice';
+import Ilterendi from '../Items/Ilterendi';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -25,6 +29,9 @@ class Checklist extends CoreChecklist {
     beaconHealing: BeaconHealing,
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
     manaValues: ManaValues,
+    auraOfSacrifice: AuraOfSacrifice,
+    ilterendi: Ilterendi,
+    velens: Velens,
   };
 
   rules = [
@@ -146,6 +153,28 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: 'Mana left',
             check: () => this.manaValues.suggestionThresholds,
+          }),
+        ];
+      },
+    }),
+    new Rule({
+      name: 'Pick the right tools for the fight',
+      requirements: () => {
+        return [
+          new Requirement({
+            name: <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} icon />,
+            check: () => this.auraOfSacrifice.suggestionThresholds,
+            when: this.auraOfSacrifice.active,
+          }),
+          new Requirement({
+            name: <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} icon />,
+            check: () => this.ilterendi.suggestionThresholds,
+            when: this.ilterendi.active,
+          }),
+          new Requirement({
+            name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} icon />,
+            check: () => this.velens.suggestionThresholds,
+            when: this.velens.active,
           }),
         ];
       },

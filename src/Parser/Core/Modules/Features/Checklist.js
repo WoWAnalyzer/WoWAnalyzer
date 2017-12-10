@@ -7,7 +7,7 @@ import ChevronIcon from 'Icons/Chevron';
 import Analyzer from 'Parser/Core/Analyzer';
 import Expandable from 'Main/Expandable';
 import SpellLink from 'common/SpellLink';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 
 export function performanceForThresholds(thresholds) {
   if (thresholds.isGreaterThan) {
@@ -80,6 +80,8 @@ function formatThresholdsActual(thresholds) {
       return `${formatPercentage(thresholds.actual)}%`;
     case 'number':
       return `${formatNumber(thresholds.actual)}`;
+    case 'thousands':
+      return `${formatThousands(thresholds.actual)}`;
     default:
       throw new Error(`Unknown style: ${thresholds.style}`);
   }

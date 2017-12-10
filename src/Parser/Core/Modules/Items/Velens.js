@@ -4,13 +4,13 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
+import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const LEGENDARY_VELENS_HEALING_INCREASE = 0.15;
-const SUGGESTION_VELENS_BREAKPOINT = 0.04;
 
 /*
  * Velen's Future Sight -
@@ -71,15 +71,26 @@ class Velens extends Analyzer {
       ),
     };
   }
-  
+
+  get suggestionThresholds() {
+    return {
+      actual: this.owner.getPercentageOfTotalHealingDone(this.healing),
+      isLessThan: true,
+      minor: 0.04,
+      average: 0.035,
+      major: 0.025,
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
-    when(this.owner.getPercentageOfTotalHealingDone(this.healing)).isLessThan(SUGGESTION_VELENS_BREAKPOINT)
+    when(this.suggestionThresholds.actual).isLessThan(this.suggestionThresholds.minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of healing during the buff without excessively overhealing on purpose, or consider using an easier legendary.</span>)
+        return suggest(<Wrapper>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of healing during the buff without excessively overhealing on purpose, or consider using an easier legendary.</Wrapper>)
           .icon(ITEMS.VELENS_FUTURE_SIGHT.icon)
-          .actual(`${this.owner.formatItemHealingDone(this.healing)} healing contributed`)
+          .actual(`${actual} healing contributed`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended - 0.005).major(recommended - 0.015);
+          .regular(this.suggestionThresholds.average).major(this.suggestionThresholds.major);
       });
   }
 }
