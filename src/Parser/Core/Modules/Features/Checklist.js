@@ -8,6 +8,15 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Expandable from 'Main/Expandable';
 import SpellLink from 'common/SpellLink';
 
+export function performanceForThresholds(actual, thresholds) {
+  if (thresholds.isGreaterThan) {
+    return performanceForGreaterThanThresholds(actual, thresholds);
+  } else if (thresholds.isLessThan) {
+    return performanceForLessThanThresholds(actual, thresholds);
+  } else {
+    throw new Error('Failed to recognize threshold type');
+  }
+}
 /**
  *   0 - 33% major This is different from the *minor* threshold which is at 100% instead of 66%. The reason for this is that the minor threshold being at 75% and then 75%-100% being minor - max is that this would suggest going for max is best while this is not always the case. Something like Crusader Strike (with the Crusader's Might talent) has a recommended cast efficiency of 35% *because* you should only cast it enough to benefit you, more than that would be good but not 100% cast efficiency as then you're losing healing.
  * 33% - 66% average
@@ -19,7 +28,7 @@ import SpellLink from 'common/SpellLink';
  * @param major
  * @returns {number}
  */
-export function performanceForThresholds(actual, { minor, average, major }) {
+export function performanceForLessThanThresholds(actual, { minor, average, major } ) {
   if (actual >= minor) {
     // no issue
     return 1;
@@ -34,6 +43,22 @@ export function performanceForThresholds(actual, { minor, average, major }) {
   }
   // major issue
   return 0.333 * actual / major;
+}
+export function performanceForGreaterThanThresholds(actual, { minor, average, major } ) {
+  if (actual < minor) {
+    // no issue
+    return 1;
+  }
+  if (actual < average) {
+    // minor issue (between average and minor issue)
+    return 0.666 + 0.333 * ((actual - minor) / (average - minor));
+  }
+  if (actual < major) {
+    // average issue (between major and average issue)
+    return 0.333 + 0.333 * ((actual - average) / (major - average));
+  }
+  // major issue
+  return 0.333 * (major - actual) / major;
 }
 function colorForPerformance(performance) {
   let color = null;
@@ -81,6 +106,7 @@ export class GenericCastEfficiencyRequirement extends Requirement {
           minor,
           average,
           major,
+          isLessThan: true,
         });
       },
       ...others,

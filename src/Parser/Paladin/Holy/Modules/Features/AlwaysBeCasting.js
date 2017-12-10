@@ -85,6 +85,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       minor: 0.3,
       average: 0.4,
       major: 0.45,
+      isGreaterThan: true,
     };
   }
   get downtimeSuggestionThresholds() {
@@ -92,6 +93,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       minor: 0.2,
       average: 0.35,
       major: 1,
+      isGreaterThan: true,
     };
   }
   suggestions(when) {
