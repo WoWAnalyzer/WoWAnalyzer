@@ -84,6 +84,7 @@ import KhazgorothsCourage from './Modules/Items/KhazgorothsCourage';
 import TerminusSignalingBeacon from './Modules/Items/TerminusSignalingBeacon';
 import PrototypePersonnelDecimator from './Modules/Items/PrototypePersonnelDecimator';
 import NorgannonsProwess from './Modules/Items/NorgannonsProwess';
+import AcridCatalystInjector from './Modules/Items/AcridCatalystInjector';
 
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
@@ -192,6 +193,7 @@ class CombatLogParser {
     terminusSignalingBeacon: TerminusSignalingBeacon,
     prototypePersonnelDecimator: PrototypePersonnelDecimator,
     norgannonsProwess: NorgannonsProwess,
+    acridCatalystInjector: AcridCatalystInjector,
 
     // Concordance of the Legionfall
     concordance: Concordance,

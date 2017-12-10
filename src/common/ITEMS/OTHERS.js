@@ -346,4 +346,9 @@ export default {
     name: 'Norgannon\'s Prowess',
     icon: 'inv_antorus_blue',
   },
+  ACRID_CATALYST_INJECTOR: {
+    id: 151955,
+    name: 'Acrid Catalyst Injector',
+    icon: 'inv_7_0raid_trinket_01c',
+  },
 };

@@ -423,6 +423,26 @@ export default {
     name: 'Norgannon\'s Shadow Bolt',
     icon: 'spell_shadow_shadowbolt',
   },
+  CYCLE_OF_THE_LEGION: { //Acrid three stat buff
+    id: 253260,
+    name: 'Cycle of the Legion',
+    icon: 'inv_7_0raid_trinket_01c',
+  },
+  FERVOR_OF_THE_LEGION: { //Acrid Haste Buff
+    id: 253261,
+    name: 'Fervor of the Legion',
+    icon: 'inv_misc_volatilelife_green',
+  },
+  MALICE_OF_THE_LEGION: { //Acrid Mastery Buff
+    id: 255744,
+    name: 'Malice of the Legion',
+    icon: 'inv_misc_volatilewater',
+  },
+  BRUTALITY_OF_THE_LEGION: { //Acrid Crit buff
+    id: 255742,
+    name: 'Brutality of the Legion',
+    icon: 'inv_misc_volatilelife',
+  },
   // Item Abilities
   SPECTRAL_OWL: {
     id: 242570,
