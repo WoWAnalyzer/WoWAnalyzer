@@ -82,6 +82,7 @@ import GolgannethsVitality from './Modules/Items/GolgannethsVitality';
 import ForgefiendsFabricator from './Modules/Items/ForgefiendsFabricator';
 import TerminusSignalingBeacon from './Modules/Items/TerminusSignalingBeacon';
 import PrototypePersonnelDecimator from './Modules/Items/PrototypePersonnelDecimator';
+import NorgannonsProwess from './Modules/Items/NorgannonsProwess';
 
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
@@ -188,6 +189,7 @@ class CombatLogParser {
     forgefiendsFabricator: ForgefiendsFabricator,
     terminusSignalingBeacon: TerminusSignalingBeacon,
     prototypePersonnelDecimator: PrototypePersonnelDecimator,
+    norgannonsProwess: NorgannonsProwess,
 
     // Concordance of the Legionfall
     concordance: Concordance,

@@ -371,7 +371,7 @@ export default {
   RUSH_OF_KNOWLEDGE: { //Norgannon's Prowess Int Buff
     id: 256828,
     name: 'Rush of Knowledge',
-    icon: 'inv_antorus_blue'
+    icon: 'inv_antorus_blue',
   },
   NORGANNONS_COMMAND: { //Norgannon's Prowess Pantheon Buff
     id: 256836,
