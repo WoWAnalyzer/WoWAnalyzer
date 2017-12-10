@@ -101,7 +101,7 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: 'Position yourself well to maximize your Mastery gain',
+      name: 'Position yourself well to maximize the Mastery healing bonus',
       requirements: () => {
         return [
           new Requirement({
