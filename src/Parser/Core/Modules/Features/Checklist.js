@@ -58,7 +58,7 @@ export function performanceForGreaterThanThresholds(actual, { minor, average, ma
     return 0.333 + 0.333 * ((actual - average) / (major - average));
   }
   // major issue
-  return 0.333 * (major - actual) / major;
+  return 0.333 * major / actual;
 }
 function colorForPerformance(performance) {
   let color = null;

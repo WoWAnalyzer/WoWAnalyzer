@@ -37,16 +37,23 @@ class BeaconHealing extends Analyzer {
     return castsOnBeacon / casts;
   }
 
+  get suggestionThresholds() {
+    return {
+      actual: this.totalHealsOnBeaconPercentage,
+      isGreaterThan: true,
+      minor: 0.2,
+      average: 0.25,
+      major: 0.35,
+    };
+  }
   suggestions(when) {
-    const totalHealsOnBeaconPercentage = this.totalHealsOnBeaconPercentage;
-
-    when(totalHealsOnBeaconPercentage).isGreaterThan(0.2)
+    when(this.suggestionThresholds.actual).isGreaterThan(this.suggestionThresholds.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('You cast a lot of direct heals on beacon targets. Direct healing beacon targets is inefficient. Try to only cast on beacon targets when they would otherwise die.')
           .icon('ability_paladin_beaconoflight')
           .actual(`${formatPercentage(actual)}% of all your healing spell casts were on a beacon target`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.05).major(recommended + 0.15);
+          .regular(this.suggestionThresholds.average).major(this.suggestionThresholds.major);
       });
   }
   statistic() {

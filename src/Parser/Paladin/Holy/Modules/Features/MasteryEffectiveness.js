@@ -254,14 +254,15 @@ class MasteryEffectiveness extends Analyzer {
 
   get suggestionThresholds() {
     return {
+      actual: this.overallMasteryEffectiveness,
+      isLessThan: true,
       minor: 0.75,
       average: 0.7,
       major: 0.6,
-      isLessThan: true,
     };
   }
   suggestions(when) {
-    when(this.overallMasteryEffectiveness).isLessThan(this.suggestionThresholds.minor)
+    when(this.suggestionThresholds.actual).isLessThan(this.suggestionThresholds.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by sticking with melee.')
           .icon('inv_hammer_04')

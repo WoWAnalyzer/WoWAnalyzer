@@ -82,6 +82,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
 
   get nonHealingTimeSuggestionThresholds() {
     return {
+      actual: this.nonHealingTimePercentage,
       minor: 0.3,
       average: 0.4,
       major: 0.45,
@@ -90,14 +91,15 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   }
   get downtimeSuggestionThresholds() {
     return {
+      actual: this.downtimePercentage,
+      isGreaterThan: true,
       minor: 0.2,
       average: 0.35,
       major: 1,
-      isGreaterThan: true,
     };
   }
   suggestions(when) {
-    when(this.nonHealingTimePercentage).isGreaterThan(this.nonHealingTimeSuggestionThresholds.minor)
+    when(this.nonHealingTimeSuggestionThresholds.actual).isGreaterThan(this.nonHealingTimeSuggestionThresholds.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('Your non healing time can be improved. Try to reduce the amount of time you\'re not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.')
           .icon('petbattle_health-down')
@@ -105,7 +107,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(this.nonHealingTimeSuggestionThresholds.average).major(this.nonHealingTimeSuggestionThresholds.major);
       });
-    when(this.downtimePercentage).isGreaterThan(this.downtimeSuggestionThresholds.minor)
+    when(this.downtimeSuggestionThresholds.actual).isGreaterThan(this.downtimeSuggestionThresholds.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('Your downtime can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you\'re not healing try to contribute some damage.')
           .icon('spell_mage_altertime')

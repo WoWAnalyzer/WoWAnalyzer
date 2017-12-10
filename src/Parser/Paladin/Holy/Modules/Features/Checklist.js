@@ -7,6 +7,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import MasteryEffectiveness from './MasteryEffectiveness';
 import AlwaysBeCasting from './AlwaysBeCasting';
+import BeaconHealing from '../PaladinCore/BeaconHealing';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -14,6 +15,7 @@ class Checklist extends CoreChecklist {
     combatants: Combatants,
     masteryEffectiveness: MasteryEffectiveness,
     alwaysBeCasting: AlwaysBeCasting,
+    beaconHealing: BeaconHealing,
   };
 
   rules = [
@@ -84,7 +86,7 @@ class Checklist extends CoreChecklist {
             name: 'Mastery effectiveness',
             check: () => {
               const mod = this.masteryEffectiveness;
-              return performanceForThresholds(mod.overallMasteryEffectiveness, mod.suggestionThresholds);
+              return performanceForThresholds(mod.suggestionThresholds.actual, mod.suggestionThresholds);
             },
           }),
         ];
@@ -98,14 +100,28 @@ class Checklist extends CoreChecklist {
             name: 'Non healing time',
             check: () => {
               const mod = this.alwaysBeCasting;
-              return performanceForThresholds(mod.nonHealingTimePercentage, mod.nonHealingTimeSuggestionThresholds);
+              return performanceForThresholds(mod.nonHealingTimeSuggestionThresholds.actual, mod.nonHealingTimeSuggestionThresholds);
             },
           }),
           new Requirement({
             name: 'Downtime',
             check: () => {
               const mod = this.alwaysBeCasting;
-              return performanceForThresholds(mod.downtimePercentage, mod.downtimeSuggestionThresholds);
+              return performanceForThresholds(mod.downtimeSuggestionThresholds.actual, mod.downtimeSuggestionThresholds);
+            },
+          }),
+        ];
+      },
+    }),
+    new Rule({
+      name: 'Don\'t tunnel the tanks',
+      requirements: () => {
+        return [
+          new Requirement({
+            name: 'Non healing time',
+            check: () => {
+              const mod = this.beaconHealing;
+              return performanceForThresholds(mod.suggestionThresholds.actual, mod.suggestionThresholds);
             },
           }),
         ];
