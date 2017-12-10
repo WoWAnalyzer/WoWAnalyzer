@@ -320,6 +320,12 @@ export default {
     icon: 'inv_antorus_grey',
     quality: ITEM_QUALITIES.EPIC,
   },
+  KHAZGOROTHS_COURAGE: {
+    id: 154176,
+    name: 'Khaz\'goroths Courage',
+    icon: 'inv_antorus_red',
+    quality: ITEM_QUALITIES.EPIC,
+  },
   FORGEFIENDS_FABRICATOR: {
     id: 151963,
     name: 'Forgefiend\'s Fabricator',

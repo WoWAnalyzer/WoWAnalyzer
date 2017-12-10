@@ -353,6 +353,21 @@ export default {
     name: 'Golganneth\'s Thunderous Wrath',
     icon: 'ability_thunderking_thunderstruck',
   },
+  WORLDFORGERS_FLAME_BUFF : {
+    id: 256826,
+    name: 'Worldforger\'s Flame',
+    icon: 'inv_antorus_red',
+  },
+  WORLDFORGERS_FLAME_DAMAGE: { //Khaz'goroths Courage damage proc
+    id: 257244,
+    name: 'Worldforger\'s Flame',
+    icon: 'inv_antorus_red',
+  },
+  KHAZGOROTHS_SHAPING: { //Khaz'goroths Pantheon Proc
+    id: 256835,
+    name: 'Khaz\'goroth\'s Shaping',
+    icon: 'spell_nature_unleashedrage',
+  },
   FIRE_MINES: {
     id: 253321,
     name: 'Fire Mines',
