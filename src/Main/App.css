@@ -636,6 +636,17 @@ table.data-table img {
   border-radius: 2px;
   overflow: hidden;
   width: 100%;
+  position: relative;
+}
+.performance-bar-container:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.0) 100%);
+  z-index: 1;
 }
 .performance-bar {
   opacity: .9;
@@ -936,4 +947,5 @@ code.inactive {
 .expandable > .details {
   background: rgba(40, 40, 40, 0.4);
   padding: 15px;
+  border-bottom: 1px solid #000;
 }

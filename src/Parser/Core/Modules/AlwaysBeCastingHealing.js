@@ -11,6 +11,9 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
   ];
 
   totalHealingTimeWasted = 0;
+  get nonHealingTimePercentage() {
+    return this.totalHealingTimeWasted / this.owner.fightDuration;
+  }
 
   _lastHealingCastFinishedTimestamp = null;
 

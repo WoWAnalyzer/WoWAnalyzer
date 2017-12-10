@@ -80,25 +80,36 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     return super.countsAsHealingAbility(cast);
   }
 
+  get nonHealingTimeSuggestionThresholds() {
+    return {
+      minor: 0.3,
+      average: 0.4,
+      major: 0.45,
+    };
+  }
+  get downtimeSuggestionThresholds() {
+    return {
+      minor: 0.2,
+      average: 0.35,
+      major: 1,
+    };
+  }
   suggestions(when) {
-    const nonHealingTimePercentage = this.totalHealingTimeWasted / this.owner.fightDuration;
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
-
-    when(nonHealingTimePercentage).isGreaterThan(0.3)
+    when(this.nonHealingTimePercentage).isGreaterThan(this.nonHealingTimeSuggestionThresholds.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('Your non healing time can be improved. Try to reduce the amount of time you\'re not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.')
           .icon('petbattle_health-down')
           .actual(`${formatPercentage(actual)}% non healing time`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.1).major(recommended + 0.15);
+          .regular(this.nonHealingTimeSuggestionThresholds.average).major(this.nonHealingTimeSuggestionThresholds.major);
       });
-    when(deadTimePercentage).isGreaterThan(0.2)
+    when(this.downtimePercentage).isGreaterThan(this.downtimeSuggestionThresholds.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('Your downtime can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you\'re not healing try to contribute some damage.')
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.15).major(1);
+          .regular(this.downtimeSuggestionThresholds.average).major(this.downtimeSuggestionThresholds.major);
       });
   }
 

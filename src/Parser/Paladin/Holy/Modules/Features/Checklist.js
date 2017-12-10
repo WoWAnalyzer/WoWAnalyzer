@@ -1,14 +1,19 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-import CoreChecklist, { Rule, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist';
+import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement, performanceForThresholds } from 'Parser/Core/Modules/Features/Checklist';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
+
+import MasteryEffectiveness from './MasteryEffectiveness';
+import AlwaysBeCasting from './AlwaysBeCasting';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
     castEfficiency: CastEfficiency,
     combatants: Combatants,
+    masteryEffectiveness: MasteryEffectiveness,
+    alwaysBeCasting: AlwaysBeCasting,
   };
 
   rules = [
@@ -67,6 +72,41 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ARCANE_TORRENT_MANA,
             when: !!this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA.id),
+          }),
+        ];
+      },
+    }),
+    new Rule({
+      name: 'Position yourself well to maximize your Mastery gain',
+      requirements: () => {
+        return [
+          new Requirement({
+            name: 'Mastery effectiveness',
+            check: () => {
+              const mod = this.masteryEffectiveness;
+              return performanceForThresholds(mod.overallMasteryEffectiveness, mod.suggestionThresholds);
+            },
+          }),
+        ];
+      },
+    }),
+    new Rule({
+      name: 'Try to avoid being inactive for a large portion of the fight',
+      requirements: () => {
+        return [
+          new Requirement({
+            name: 'Non healing time',
+            check: () => {
+              const mod = this.alwaysBeCasting;
+              return performanceForThresholds(mod.nonHealingTimePercentage, mod.nonHealingTimeSuggestionThresholds);
+            },
+          }),
+          new Requirement({
+            name: 'Downtime',
+            check: () => {
+              const mod = this.alwaysBeCasting;
+              return performanceForThresholds(mod.downtimePercentage, mod.downtimeSuggestionThresholds);
+            },
           }),
         ];
       },

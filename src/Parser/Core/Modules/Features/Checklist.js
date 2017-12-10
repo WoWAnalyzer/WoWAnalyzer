@@ -19,7 +19,7 @@ import SpellLink from 'common/SpellLink';
  * @param major
  * @returns {number}
  */
-function performanceForThresholds(actual, minor, average, major) {
+export function performanceForThresholds(actual, { minor, average, major }) {
   if (actual >= minor) {
     // no issue
     return 1;
@@ -77,7 +77,11 @@ export class GenericCastEfficiencyRequirement extends Requirement {
       name: <SpellLink id={spell.id} icon />,
       check: function () {
         const { efficiency, recommendedEfficiency: minor, averageIssueEfficiency: average, majorIssueEfficiency: major } = this.castEfficiency.getCastEfficiencyForSpellId(spell.id);
-        return performanceForThresholds(efficiency, minor, average, major);
+        return performanceForThresholds(efficiency, {
+          minor,
+          average,
+          major,
+        });
       },
       ...others,
     });
