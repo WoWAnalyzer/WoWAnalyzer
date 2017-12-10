@@ -259,6 +259,7 @@ class MasteryEffectiveness extends Analyzer {
       minor: 0.75,
       average: 0.7,
       major: 0.6,
+      style: 'percentage',
     };
   }
   suggestions(when) {

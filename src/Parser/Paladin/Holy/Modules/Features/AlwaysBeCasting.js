@@ -83,10 +83,11 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   get nonHealingTimeSuggestionThresholds() {
     return {
       actual: this.nonHealingTimePercentage,
+      isGreaterThan: true,
       minor: 0.3,
       average: 0.4,
       major: 0.45,
-      isGreaterThan: true,
+      style: 'percentage',
     };
   }
   get downtimeSuggestionThresholds() {
@@ -96,6 +97,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       minor: 0.2,
       average: 0.35,
       major: 1,
+      style: 'percentage',
     };
   }
   suggestions(when) {

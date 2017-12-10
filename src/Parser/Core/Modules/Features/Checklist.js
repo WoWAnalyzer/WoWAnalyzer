@@ -7,12 +7,13 @@ import ChevronIcon from 'Icons/Chevron';
 import Analyzer from 'Parser/Core/Analyzer';
 import Expandable from 'Main/Expandable';
 import SpellLink from 'common/SpellLink';
+import { formatPercentage } from 'common/format';
 
-export function performanceForThresholds(actual, thresholds) {
+export function performanceForThresholds(thresholds) {
   if (thresholds.isGreaterThan) {
-    return performanceForGreaterThanThresholds(actual, thresholds);
+    return performanceForGreaterThanThresholds(thresholds.actual, thresholds);
   } else if (thresholds.isLessThan) {
-    return performanceForLessThanThresholds(actual, thresholds);
+    return performanceForLessThanThresholds(thresholds.actual, thresholds);
   } else {
     throw new Error('Failed to recognize threshold type');
   }
@@ -73,6 +74,14 @@ function colorForPerformance(performance) {
   }
   return color;
 }
+function formatThresholdsActual(thresholds) {
+  switch (thresholds.style) {
+    case 'percentage':
+      return `${formatPercentage(thresholds.actual)}%`;
+    default:
+      throw new Error(`Unknown style: ${thresholds.style}`);
+  }
+}
 
 export class Rule {
   name = null;
@@ -102,12 +111,14 @@ export class GenericCastEfficiencyRequirement extends Requirement {
       name: <SpellLink id={spell.id} icon />,
       check: function () {
         const { efficiency, recommendedEfficiency: minor, averageIssueEfficiency: average, majorIssueEfficiency: major } = this.castEfficiency.getCastEfficiencyForSpellId(spell.id);
-        return performanceForThresholds(efficiency, {
+        return {
+          actual: efficiency,
+          isLessThan: true,
           minor,
           average,
           major,
-          isLessThan: true,
-        });
+          style: 'percentage',
+        };
       },
       ...others,
     });
@@ -139,13 +150,17 @@ class Checklist extends Analyzer {
     const requirements = rule.requirements.call(this)
       .filter(this.whenFilter)
       .map(requirement => {
-        const performance = requirement.check.call(this);
+        const thresholds = requirement.check.call(this);
+        const performance = performanceForThresholds(thresholds);
         lowest = lowest === null ? performance : Math.min(lowest, performance);
         return (
           <div className="col-md-4">
             <div className="flex">
               <div className="flex-main">
                 {requirement.name}
+              </div>
+              <div className="flex-sub text-muted" style={{ margin: '0 15px' }}>
+                {formatThresholdsActual(thresholds)}
               </div>
               <div className="flex-sub content-middle" style={{ width: 50 }}>
                 <div className="performance-bar-container">

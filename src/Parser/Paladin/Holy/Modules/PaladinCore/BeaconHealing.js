@@ -44,6 +44,7 @@ class BeaconHealing extends Analyzer {
       minor: 0.2,
       average: 0.25,
       major: 0.35,
+      style: 'percentage',
     };
   }
   suggestions(when) {

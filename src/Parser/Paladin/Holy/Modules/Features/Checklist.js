@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
-import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement, performanceForThresholds } from 'Parser/Core/Modules/Features/Checklist';
+import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -20,7 +20,7 @@ class Checklist extends CoreChecklist {
 
   rules = [
     new Rule({
-      name: 'Cast core spells on cooldown',
+      name: 'Use core spells as often as possible',
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -50,7 +50,7 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: 'Cast cooldowns on cooldown',
+      name: 'Use cooldowns effectively',
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -84,10 +84,7 @@ class Checklist extends CoreChecklist {
         return [
           new Requirement({
             name: 'Mastery effectiveness',
-            check: () => {
-              const mod = this.masteryEffectiveness;
-              return performanceForThresholds(mod.suggestionThresholds.actual, mod.suggestionThresholds);
-            },
+            check: () => this.masteryEffectiveness.suggestionThresholds,
           }),
         ];
       },
@@ -98,17 +95,11 @@ class Checklist extends CoreChecklist {
         return [
           new Requirement({
             name: 'Non healing time',
-            check: () => {
-              const mod = this.alwaysBeCasting;
-              return performanceForThresholds(mod.nonHealingTimeSuggestionThresholds.actual, mod.nonHealingTimeSuggestionThresholds);
-            },
+            check: () => this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
           }),
           new Requirement({
             name: 'Downtime',
-            check: () => {
-              const mod = this.alwaysBeCasting;
-              return performanceForThresholds(mod.downtimeSuggestionThresholds.actual, mod.downtimeSuggestionThresholds);
-            },
+            check: () => this.alwaysBeCasting.downtimeSuggestionThresholds,
           }),
         ];
       },
@@ -118,11 +109,8 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: 'Non healing time',
-            check: () => {
-              const mod = this.beaconHealing;
-              return performanceForThresholds(mod.suggestionThresholds.actual, mod.suggestionThresholds);
-            },
+            name: 'Direct beacon healing',
+            check: () => this.beaconHealing.suggestionThresholds,
           }),
         ];
       },
