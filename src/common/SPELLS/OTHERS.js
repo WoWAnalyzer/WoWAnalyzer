@@ -383,7 +383,46 @@ export default {
     name: 'Prototype Personnel Decimator',
     icon: 'ability_rogue_cannonballbarrage',
   },
-
+  RUSH_OF_KNOWLEDGE: { //Norgannon's Prowess Int Buff
+    id: 256828,
+    name: 'Rush of Knowledge',
+    icon: 'inv_antorus_blue',
+  },
+  NORGANNONS_COMMAND: { //Norgannon's Prowess Pantheon Buff
+    id: 256836,
+    name: 'Norgannon\'s Command',
+    icon: 'ability_monk_forcesphere_arcane',
+  },
+  NORGANNONS_FIREBALL: {
+    id: 257241,
+    name: 'Norgannon\'s Fireball',
+    icon: 'spell_fire_fireball02',
+  },
+  NORGANNONS_FROSTBOLT: {
+    id: 257242,
+    name: 'Norgannon\'s Frostbolt',
+    icon: 'spell_frost_frostbolt02',
+  },
+  NORGANNONS_ARCANE_MISSLE: {
+    id: 257243,
+    name: 'Norgannon\'s Arcane Missle',
+    icon: 'spell_nature_starfall',
+  },
+  NORGANNONS_DIVINE_SMITE: {
+    id: 257532,
+    name: 'Norgannon\'s Divine Smite',
+    icon: 'spell_holy_holysmite',
+  },
+  NORGANNONS_WRATH: {
+    id: 257533,
+    name: 'Norgannon\'s Wrath',
+    icon: 'spell_nature_wrathv2',
+  },
+  NORGANNONS_SHADOW_BOLT: {
+    id: 257534,
+    name: 'Norgannon\'s Shadow Bolt',
+    icon: 'spell_shadow_shadowbolt',
+  },
   // Item Abilities
   SPECTRAL_OWL: {
     id: 242570,
