@@ -9,6 +9,7 @@ import Wrapper from 'common/Wrapper';
 import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ManaValues from 'Parser/Core/Modules/ManaValues';
 
 import MasteryEffectiveness from './MasteryEffectiveness';
 import AlwaysBeCasting from './AlwaysBeCasting';
@@ -23,6 +24,7 @@ class Checklist extends CoreChecklist {
     alwaysBeCasting: AlwaysBeCasting,
     beaconHealing: BeaconHealing,
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
+    manaValues: ManaValues,
   };
 
   rules = [
@@ -133,6 +135,17 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: <Wrapper>Total filler casts while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} icon /> was available</Wrapper>,
             check: () => this.fillerLightOfTheMartyrs.inefficientCpmSuggestionThresholds,
+          }),
+        ];
+      },
+    }),
+    new Rule({
+      name: 'Use your mana effectively',
+      requirements: () => {
+        return [
+          new Requirement({
+            name: 'Mana left',
+            check: () => this.manaValues.suggestionThresholds,
           }),
         ];
       },
