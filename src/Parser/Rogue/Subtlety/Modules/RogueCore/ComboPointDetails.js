@@ -56,8 +56,8 @@ class ComboPointDetails extends Analyzer {
     resourceSuggest(when,  this.comboPointTracker, {
       spell: SPELLS.SHADOW_TECHNIQUES,
       minor: 0.1,
-      avg: 0.15, 
-      major: 0.20,
+      avg: 0.2, 
+      major: 0.3,
       extraSuggestion: <span> Use a weak Aura to track <SpellLink id={SPELLS.SHADOW_TECHNIQUES.id}/>. This is an advanced suggestion and should not be addressed first. </span>,
     });
     resourceSuggest(when,  this.comboPointTracker, {
