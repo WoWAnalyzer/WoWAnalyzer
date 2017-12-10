@@ -75,10 +75,11 @@ class Velens extends Analyzer {
   get suggestionThresholds() {
     return {
       actual: this.owner.getPercentageOfTotalHealingDone(this.healing),
-      isLessThan: true,
-      minor: 0.04,
-      average: 0.035,
-      major: 0.025,
+      isLessThan: {
+        minor: 0.04,
+        average: 0.035,
+        major: 0.025,
+      },
       style: 'percentage',
     };
   }

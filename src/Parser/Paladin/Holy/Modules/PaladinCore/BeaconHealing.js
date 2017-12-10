@@ -40,10 +40,11 @@ class BeaconHealing extends Analyzer {
   get suggestionThresholds() {
     return {
       actual: this.totalHealsOnBeaconPercentage,
-      isGreaterThan: true,
-      minor: 0.2,
-      average: 0.25,
-      major: 0.35,
+      isGreaterThan: {
+        minor: 0.2,
+        average: 0.25,
+        major: 0.35,
+      },
       style: 'percentage',
     };
   }

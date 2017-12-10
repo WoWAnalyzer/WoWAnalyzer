@@ -11,9 +11,19 @@ import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 
 export function performanceForThresholds(thresholds) {
   if (thresholds.isGreaterThan) {
-    return performanceForGreaterThanThresholds(thresholds.actual, thresholds);
+    if (typeof thresholds.isGreaterThan === 'object') {
+      return performanceForGreaterThanThresholds(thresholds.actual, thresholds.isGreaterThan);
+    } else {
+      return thresholds.isGreaterThan / thresholds.actual;
+    }
   } else if (thresholds.isLessThan) {
-    return performanceForLessThanThresholds(thresholds.actual, thresholds);
+    if (typeof thresholds.isLessThan === 'object') {
+      return performanceForLessThanThresholds(thresholds.actual, thresholds.isLessThan);
+    } else {
+      return thresholds.actual / thresholds.isLessThan;
+    }
+  } else if (thresholds.is !== undefined) {
+    return thresholds.actual !== thresholds.is ? 1 : 0;
   } else {
     throw new Error('Failed to recognize threshold type');
   }
@@ -82,6 +92,8 @@ function formatThresholdsActual(thresholds) {
       return `${formatNumber(thresholds.actual)}`;
     case 'thousands':
       return `${formatThousands(thresholds.actual)}`;
+    case 'boolean':
+      return thresholds.actual ? 'Yes' : 'No';
     default:
       throw new Error(`Unknown style: ${thresholds.style}`);
   }
@@ -117,10 +129,11 @@ export class GenericCastEfficiencyRequirement extends Requirement {
         const { efficiency, recommendedEfficiency: minor, averageIssueEfficiency: average, majorIssueEfficiency: major } = this.castEfficiency.getCastEfficiencyForSpellId(spell.id);
         return {
           actual: efficiency,
-          isLessThan: true,
-          minor,
-          average,
-          major,
+          isLessThan: {
+            minor,
+            average,
+            major,
+          },
           style: 'percentage',
         };
       },
@@ -164,7 +177,7 @@ class Checklist extends Analyzer {
                 {requirement.name}
               </div>
               <div className="flex-sub text-muted" style={{ margin: '0 15px' }}>
-                {formatThresholdsActual(thresholds)}
+                {thresholds.prefix} {formatThresholdsActual(thresholds)} {thresholds.suffix}
               </div>
               <div className="flex-sub content-middle" style={{ width: 50 }}>
                 <div className="performance-bar-container">
@@ -184,7 +197,7 @@ class Checklist extends Analyzer {
         key={rule.name}
         header={(
           <div className="flex" style={{ fontSize: '1.4em' }}>
-            <div className="flex-sub content-middle" style={{ paddingRight: '1rem' }}>
+            <div className="flex-sub content-middle" style={{ paddingRight: 22 }}>
               <div>{/* this div ensures vertical alignment */}
                 {lowest > 0.666 ? <TickIcon style={{ color: 'green' }} /> : <CrossIcon style={{ color: 'red' }} />}
               </div>
@@ -200,7 +213,7 @@ class Checklist extends Analyzer {
                 />
               </div>
             </div>
-            <div className="flex-sub content-middle" style={{ paddingLeft: '1rem' }}>
+            <div className="flex-sub content-middle" style={{ paddingLeft: 22 }}>
               <div className="chevron">{/* this div ensures vertical alignment */}
                 <ChevronIcon />
               </div>

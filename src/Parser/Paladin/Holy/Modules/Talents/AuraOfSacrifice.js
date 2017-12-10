@@ -35,11 +35,13 @@ class AuraOfSacrifice extends Analyzer {
   get suggestionThresholds() {
     return {
       actual: this.hps,
-      isLessThan: true,
-      minor: 60000,
-      average: 50000,
-      major: 40000,
-      style: 'thousands',
+      isLessThan: {
+        minor: 60000,
+        average: 50000,
+        major: 40000,
+      },
+      style: 'number',
+      suffix: 'HPS',
     };
   }
 

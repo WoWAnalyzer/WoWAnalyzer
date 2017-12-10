@@ -255,10 +255,11 @@ class MasteryEffectiveness extends Analyzer {
   get suggestionThresholds() {
     return {
       actual: this.overallMasteryEffectiveness,
-      isLessThan: true,
-      minor: 0.75,
-      average: 0.7,
-      major: 0.6,
+      isLessThan: {
+        minor: 0.75,
+        average: 0.7,
+        major: 0.6,
+      },
       style: 'percentage',
     };
   }

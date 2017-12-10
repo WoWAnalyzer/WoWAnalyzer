@@ -205,6 +205,9 @@ class Combatant extends Entity {
   _getGearItemBySlotId(slotId) {
     return this._gearItemsBySlotId[slotId];
   }
+  get gear() {
+    return Object.values(this._gearItemsBySlotId);
+  }
   get head() {
     return this._getGearItemBySlotId(GEAR_SLOTS.HEAD);
   }

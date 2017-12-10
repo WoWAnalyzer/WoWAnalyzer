@@ -51,20 +51,22 @@ class FillerLightOfTheMartyrs extends Analyzer {
   get cpmSuggestionThresholds() {
     return {
       actual: this.cpm,
-      isGreaterThan: true,
-      minor: 1.5,
-      average: 2,
-      major: 3,
+      isGreaterThan: {
+        minor: 1.5,
+        average: 2,
+        major: 3,
+      },
       style: 'number',
     };
   }
   get inefficientCpmSuggestionThresholds() {
     return {
       actual: this.inefficientCpm,
-      isGreaterThan: true,
-      minor: 0,
-      average: 0.5,
-      major: 1.5,
+      isGreaterThan: {
+        minor: 0,
+        average: 0.5,
+        major: 1.5,
+      },
       style: 'number',
     };
   }

@@ -12,6 +12,9 @@ import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
 import Velens from 'Parser/Core/Modules/Items/Velens';
+import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
+import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
+import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 
 import MasteryEffectiveness from './MasteryEffectiveness';
 import AlwaysBeCasting from './AlwaysBeCasting';
@@ -32,6 +35,9 @@ class Checklist extends CoreChecklist {
     auraOfSacrifice: AuraOfSacrifice,
     ilterendi: Ilterendi,
     velens: Velens,
+    legendaryUpgradeChecker: LegendaryUpgradeChecker,
+    legendaryCountChecker: LegendaryCountChecker,
+    prePotion: PrePotion,
   };
 
   rules = [
@@ -176,6 +182,41 @@ class Checklist extends CoreChecklist {
             check: () => this.velens.suggestionThresholds,
             when: this.velens.active,
           }),
+        ];
+      },
+    }),
+    new Rule({
+      name: 'Be well prepared',
+      requirements: () => {
+        return [
+          new Requirement({
+            name: 'All legendaries upgraded to max item level',
+            check: () => ({
+              actual: this.legendaryUpgradeChecker.upgradedLegendaries.length,
+              isLessThan: this.legendaryCountChecker.max,
+              style: 'number',
+            }),
+          }),
+          new Requirement({
+            name: 'Used max possible legendaries',
+            check: () => ({
+              actual: this.legendaryCountChecker.equipped,
+              isLessThan: this.legendaryCountChecker.max,
+              style: 'number',
+            }),
+          }),
+          new Requirement({
+            name: 'Used a pre-potion',
+            check: () => this.prePotion.prePotionSuggestionThresholds,
+          }),
+          new Requirement({
+            name: 'Used a second potion',
+            check: () => this.prePotion.secondPotionSuggestionThresholds,
+          }),
+          // new Requirement({
+          //   name: 'Properly enchanted gear',
+          //   check: () => this.velens.suggestionThresholds,
+          // }),
         ];
       },
     }),
