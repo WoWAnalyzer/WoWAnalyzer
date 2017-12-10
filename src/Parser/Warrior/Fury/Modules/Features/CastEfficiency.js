@@ -111,8 +111,17 @@ class CastEfficiency extends CoreCastEfficiency {
       extraSuggestion: 'Only used in a combat with Fear, Sap or Incapacitate or if the Outburst talent is selected',
     },
     {
+      spell: SPELLS.ENRAGED_REGENERATION,
+      category: CastEfficiency.SPELL_CATEGORIES.DEFENSIVE,
+      getCooldown: haste => 120,
+      noSuggestion: false,
+      recommendedCastEfficiency: 0.9,
+      noCanBeImproved: true,
+      extraSuggestion: 'Use it to reduce damage taken for a short period.',
+    },
+    {
       spell: SPELLS.COMMANDING_SHOUT,
-      category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
+      category: CastEfficiency.SPELL_CATEGORIES.DEFENSIVE,
       getCooldown: haste => 180,
       noSuggestion: false,
       recommendedCastEfficiency: 0.01,
@@ -131,7 +140,8 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.HEROIC_LEAP,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => 45,
+      // Base cooldown is 45, reduced to 30 by Bounding Stride talent
+      getCooldown: (haste, combatent) => combatent.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 30 : 45,
       noSuggestion: false,
       recommendedCastEfficiency: 0.01,
       noCanBeImproved: false,

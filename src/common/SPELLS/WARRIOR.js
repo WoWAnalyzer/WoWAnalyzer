@@ -132,6 +132,38 @@ export default {
     icon: 'spell_shadow_unholyfrenzy',
   },
 
+  // Fury tier sets
+  WARRIOR_FURY_T19_2P_BONUS: {
+    id: 212157,
+    name: 'T19 2 set bonus',
+    icon: 'trade_engineering',
+  },
+  WARRIOR_FURY_T20_2P_BONUS: {
+    id: 242299,
+    name: 'T20 2 set bonus',
+    icon: 'ability_warrior_innerrage',
+  },
+  WARRIOR_FURY_T20_2P_BONUS_BUFF: {
+    id: 242300,
+    name: 'T20 2 set bonus',
+    icon: 'warrior_wild_strike',
+  },
+  WARRIOR_FURY_T19_4P_BONUS: {
+    id: 212158,
+    name: 'T19 4 set bonus',
+    icon: 'trade_engineering',
+  },
+  WARRIOR_FURY_T20_4P_BONUS: {
+    id: 242301,
+    name: 'T20 4 set bonus',
+    icon: 'ability_warrior_innerrage',
+  },
+  // WARRIOR_FURY_T20_4P_BONUS_BUFF: {
+  //   id: 246153,
+  //   name: 'T20 4 set bonus',
+  //   icon: 'inv_spear_07',
+  // },
+
   // Protection:
   //Rotational Spells
   DEVASTATE: {
