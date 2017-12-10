@@ -1,5 +1,10 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
+
+import SpellLink from 'common/SpellLink';
+import Wrapper from 'common/Wrapper';
 
 import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
@@ -8,6 +13,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import MasteryEffectiveness from './MasteryEffectiveness';
 import AlwaysBeCasting from './AlwaysBeCasting';
 import BeaconHealing from '../PaladinCore/BeaconHealing';
+import FillerLightOfTheMartyrs from '../PaladinCore/FillerLightOfTheMartyrs';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -16,6 +22,7 @@ class Checklist extends CoreChecklist {
     masteryEffectiveness: MasteryEffectiveness,
     alwaysBeCasting: AlwaysBeCasting,
     beaconHealing: BeaconHealing,
+    fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
   };
 
   rules = [
@@ -111,6 +118,21 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: 'Direct beacon healing',
             check: () => this.beaconHealing.suggestionThresholds,
+          }),
+        ];
+      },
+    }),
+    new Rule({
+      name: <Wrapper>Only use <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} icon /> when absolutely necessary</Wrapper>,
+      requirements: () => {
+        return [
+          new Requirement({
+            name: 'Total filler casts per minute',
+            check: () => this.fillerLightOfTheMartyrs.cpmSuggestionThresholds,
+          }),
+          new Requirement({
+            name: <Wrapper>Total filler casts while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} icon /> was available</Wrapper>,
+            check: () => this.fillerLightOfTheMartyrs.inefficientCpmSuggestionThresholds,
           }),
         ];
       },
