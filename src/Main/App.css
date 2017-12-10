@@ -946,6 +946,6 @@ code.inactive {
 }
 .expandable > .details {
   background: rgba(40, 40, 40, 0.4);
-  padding: 15px;
+  padding: 10px 30px;
   border-bottom: 1px solid #000;
 }

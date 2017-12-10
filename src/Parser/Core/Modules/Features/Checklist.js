@@ -156,7 +156,7 @@ class Checklist extends Analyzer {
         const performance = performanceForThresholds(thresholds);
         lowest = lowest === null ? performance : Math.min(lowest, performance);
         return (
-          <div className="col-md-4">
+          <div className="col-md-6">
             <div className="flex">
               <div className="flex-main">
                 {requirement.name}
