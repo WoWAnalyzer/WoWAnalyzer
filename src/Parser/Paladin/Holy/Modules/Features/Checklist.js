@@ -22,6 +22,7 @@ import BeaconHealing from '../PaladinCore/BeaconHealing';
 import FillerLightOfTheMartyrs from '../PaladinCore/FillerLightOfTheMartyrs';
 import AuraOfSacrifice from '../Talents/AuraOfSacrifice';
 import Ilterendi from '../Items/Ilterendi';
+import Overhealing from '../PaladinCore/Overhealing';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -38,6 +39,7 @@ class Checklist extends CoreChecklist {
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
+    overhealing: Overhealing,
   };
 
   rules = [
@@ -217,6 +219,29 @@ class Checklist extends CoreChecklist {
           //   name: 'Properly enchanted gear',
           //   check: () => this.velens.suggestionThresholds,
           // }),
+        ];
+      },
+    }),
+    new Rule({
+      name: 'Avoid overhealing',
+      requirements: () => {
+        return [
+          new Requirement({
+            name: <SpellLink id={SPELLS.HOLY_SHOCK_HEAL.id} icon />,
+            check: () => this.overhealing.holyShockSuggestionThresholds,
+          }),
+          new Requirement({
+            name: <SpellLink id={SPELLS.LIGHT_OF_DAWN_HEAL.id} icon />,
+            check: () => this.overhealing.lightOfDawnSuggestionThresholds,
+          }),
+          new Requirement({
+            name: <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} icon />,
+            check: () => this.overhealing.flashOfLightSuggestionThresholds,
+          }),
+          new Requirement({
+            name: <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} icon />,
+            check: () => this.overhealing.bestowFaithSuggestionThresholds,
+          }),
         ];
       },
     }),

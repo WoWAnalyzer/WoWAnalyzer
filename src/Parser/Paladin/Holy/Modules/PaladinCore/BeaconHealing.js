@@ -49,13 +49,13 @@ class BeaconHealing extends Analyzer {
     };
   }
   suggestions(when) {
-    when(this.suggestionThresholds.actual).isGreaterThan(this.suggestionThresholds.minor)
+    when(this.suggestionThresholds.actual).isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('You cast a lot of direct heals on beacon targets. Direct healing beacon targets is inefficient. Try to only cast on beacon targets when they would otherwise die.')
           .icon('ability_paladin_beaconoflight')
           .actual(`${formatPercentage(actual)}% of all your healing spell casts were on a beacon target`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(this.suggestionThresholds.average).major(this.suggestionThresholds.major);
+          .regular(this.suggestionThresholds.isGreaterThan.average).major(this.suggestionThresholds.isGreaterThan.major);
       });
   }
   statistic() {

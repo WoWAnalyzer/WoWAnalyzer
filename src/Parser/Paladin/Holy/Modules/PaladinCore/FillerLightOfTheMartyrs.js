@@ -72,7 +72,7 @@ class FillerLightOfTheMartyrs extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.cpmSuggestionThresholds.actual).isGreaterThan(this.cpmSuggestionThresholds.minor)
+    when(this.cpmSuggestionThresholds.actual).isGreaterThan(this.cpmSuggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         let suggestionText;
         let actualText;
@@ -87,16 +87,16 @@ class FillerLightOfTheMartyrs extends Analyzer {
           .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
           .actual(actualText)
           .recommended(`<${recommended} Casts Per Minute is recommended`)
-          .regular(this.cpmSuggestionThresholds.average).major(this.cpmSuggestionThresholds.major);
+          .regular(this.cpmSuggestionThresholds.isGreaterThan.average).major(this.cpmSuggestionThresholds.isGreaterThan.major);
       });
 
-    when(this.inefficientCpmSuggestionThresholds.actual).isGreaterThan(this.inefficientCpmSuggestionThresholds.minor)
+    when(this.inefficientCpmSuggestionThresholds.actual).isGreaterThan(this.inefficientCpmSuggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<Wrapper>You cast {this.inefficientCasts} <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />s while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was available. Try to <b>never</b> cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when something else is available.</Wrapper>)
           .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
           .actual(`${actual} casts while Holy Shock was available`)
           .recommended(`No inefficient casts is recommended`)
-          .regular(this.inefficientCpmSuggestionThresholds.average).major(this.inefficientCpmSuggestionThresholds.major);
+          .regular(this.inefficientCpmSuggestionThresholds.isGreaterThan.average).major(this.inefficientCpmSuggestionThresholds.isGreaterThan.major);
       });
   }
 }

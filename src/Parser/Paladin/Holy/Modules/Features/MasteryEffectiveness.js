@@ -264,13 +264,13 @@ class MasteryEffectiveness extends Analyzer {
     };
   }
   suggestions(when) {
-    when(this.suggestionThresholds.actual).isLessThan(this.suggestionThresholds.minor)
+    when(this.suggestionThresholds.actual).isLessThan(this.suggestionThresholds.isLessThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by sticking with melee.')
           .icon('inv_hammer_04')
           .actual(`${formatPercentage(actual)}% mastery effectiveness`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(this.suggestionThresholds.average).major(this.suggestionThresholds.major);
+          .regular(this.suggestionThresholds.isLessThan.average).major(this.suggestionThresholds.isLessThan.major);
       });
   }
 
