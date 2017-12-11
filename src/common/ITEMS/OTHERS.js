@@ -341,6 +341,11 @@ export default {
     name: 'Prototype Personnel Decimator',
     icon: 'ability_rogue_cannonballbarrage',
   },
+  SHEATH_OF_ASARA: {
+    id: 151971,
+    name: 'Sheath of Asara',
+    icon: 'spell_shadow_ritualofsacrifice',
+  },
   NORGANNONS_PROWESS: {
     id: 154177,
     name: 'Norgannon\'s Prowess',

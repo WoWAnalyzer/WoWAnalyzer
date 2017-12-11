@@ -83,6 +83,7 @@ import ForgefiendsFabricator from './Modules/Items/ForgefiendsFabricator';
 import KhazgorothsCourage from './Modules/Items/KhazgorothsCourage';
 import TerminusSignalingBeacon from './Modules/Items/TerminusSignalingBeacon';
 import PrototypePersonnelDecimator from './Modules/Items/PrototypePersonnelDecimator';
+import SheathOfAsara from './Modules/Items/SheathOfAsara';
 import NorgannonsProwess from './Modules/Items/NorgannonsProwess';
 
 // Shared Buffs
@@ -191,6 +192,7 @@ class CombatLogParser {
     khazgorothsCourage: KhazgorothsCourage,   
     terminusSignalingBeacon: TerminusSignalingBeacon,
     prototypePersonnelDecimator: PrototypePersonnelDecimator,
+    sheathOfAsara: SheathOfAsara,
     norgannonsProwess: NorgannonsProwess,
 
     // Concordance of the Legionfall
