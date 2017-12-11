@@ -12,7 +12,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
       isActive: combatant => combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id),
-      recommendedCastEfficiency: 1.0,
+      recommendedEfficiency: 1.0,
     },
     {
       spell: SPELLS.DOOM_WINDS,

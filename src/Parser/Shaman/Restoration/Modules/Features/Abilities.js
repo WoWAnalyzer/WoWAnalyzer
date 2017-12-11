@@ -13,7 +13,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 6,
       isActive: combatant => combatant.lv90Talent === SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id,
-      recommendedCastEfficiency: 0.90,
+      recommendedEfficiency: 0.90,
     },
     // Riptide without EotE
     {
@@ -21,7 +21,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 6,
       isActive: combatant => !(combatant.lv90Talent === SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id),
-      recommendedCastEfficiency: 0.75,
+      recommendedEfficiency: 0.75,
     },
     {
       spell: SPELLS.HEALING_STREAM_TOTEM_CAST,
@@ -53,7 +53,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.ASTRAL_SHIFT,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
-      recommendedCastEfficiency: 0.6,
+      recommendedEfficiency: 0.6,
       importance: ISSUE_IMPORTANCE.MINOR,
     },
     {
@@ -66,13 +66,13 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.HEALING_RAIN_CAST,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 10,
-      recommendedCastEfficiency: 0.6,
+      recommendedEfficiency: 0.6,
       importance: ISSUE_IMPORTANCE.MINOR,
     },
     {
       spell: SPELLS.GIFT_OF_THE_QUEEN,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      recommendedCastEfficiency: 0.7,
+      recommendedEfficiency: 0.7,
       getCooldown: haste => 45,
     },
     {
@@ -107,7 +107,7 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.SPIRIT_LINK_TOTEM,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      recommendedCastEfficiency: 0.7,
+      recommendedEfficiency: 0.7,
       getCooldown: haste => 180,
     },
     {
