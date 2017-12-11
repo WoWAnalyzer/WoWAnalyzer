@@ -24,7 +24,6 @@ import EmpoweredLifeTap from './Modules/Talents/EmpoweredLifeTap';
 import FireAndBrimstone from './Modules/Talents/FireAndBrimstone';
 import SoulHarvest from './Modules/Talents/SoulHarvest';
 import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
-import ChannelDemonfire from './Modules/Talents/ChannelDemonfire';
 
 import AlythesssPyrogenics from './Modules/Items/Legendaries/AlythesssPyrogenics';
 import FeretoryOfSouls from './Modules/Items/Legendaries/FeretoryOfSouls';
@@ -67,7 +66,6 @@ class CombatLogParser extends CoreCombatLogParser {
     fireAndBrimstone: FireAndBrimstone,
     soulHarvest: SoulHarvest,
     soulHarvestTalent: SoulHarvestTalent,
-    channelDemonfire: ChannelDemonfire,
 
     // Legendaries
     alythesssPyrogenics: AlythesssPyrogenics,
