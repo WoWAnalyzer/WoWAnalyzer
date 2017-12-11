@@ -21,7 +21,6 @@ import Shadowburn from './Modules/Talents/Shadowburn';
 import ReverseEntropy from './Modules/Talents/ReverseEntropy';
 import Eradication from './Modules/Talents/Eradication';
 import EmpoweredLifeTap from './Modules/Talents/EmpoweredLifeTap';
-import FireAndBrimstone from './Modules/Talents/FireAndBrimstone';
 import SoulHarvest from './Modules/Talents/SoulHarvest';
 import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
 
@@ -63,7 +62,6 @@ class CombatLogParser extends CoreCombatLogParser {
     reverseEntropy: ReverseEntropy,
     eradication: Eradication,
     empoweredLifeTap: EmpoweredLifeTap,
-    fireAndBrimstone: FireAndBrimstone,
     soulHarvest: SoulHarvest,
     soulHarvestTalent: SoulHarvestTalent,
 
