@@ -320,6 +320,12 @@ export default {
     icon: 'inv_antorus_grey',
     quality: ITEM_QUALITIES.EPIC,
   },
+  KHAZGOROTHS_COURAGE: {
+    id: 154176,
+    name: 'Khaz\'goroths Courage',
+    icon: 'inv_antorus_red',
+    quality: ITEM_QUALITIES.EPIC,
+  },
   FORGEFIENDS_FABRICATOR: {
     id: 151963,
     name: 'Forgefiend\'s Fabricator',
@@ -334,5 +340,15 @@ export default {
     id: 151962,
     name: 'Prototype Personnel Decimator',
     icon: 'ability_rogue_cannonballbarrage',
+  },
+  SHEATH_OF_ASARA: {
+    id: 151971,
+    name: 'Sheath of Asara',
+    icon: 'spell_shadow_ritualofsacrifice',
+  },
+  NORGANNONS_PROWESS: {
+    id: 154177,
+    name: 'Norgannon\'s Prowess',
+    icon: 'inv_antorus_blue',
   },
 };
