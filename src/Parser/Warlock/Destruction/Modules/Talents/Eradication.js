@@ -42,7 +42,7 @@ class Eradication extends Analyzer {
 
   on_byPlayer_damage(event) {
     const enemy = this.enemies.getEntity(event);
-    if (!enemy || enemy.hasBuff(SPELLS.ERADICATION_DEBUFF.id, event.timestamp)) {
+    if (!enemy || !enemy.hasBuff(SPELLS.ERADICATION_DEBUFF.id, event.timestamp)) {
       return;
     }
     this.bonusDmg += getDamageBonus(event, ERADICATION_DAMAGE_BONUS);
