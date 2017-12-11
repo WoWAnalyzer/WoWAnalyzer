@@ -45,6 +45,7 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Use core spells as often as possible',
+      description: <Wrapper>Spells such as <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} icon />, <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} icon /> and <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /><dfn data-tip="With the Judgment of Light talent.">*</dfn> are your most efficient spells available. Try to cast them as much as possible (without overhealing). On Mythic (when you're not bringing too many healers) you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and picking the right targets.</Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [

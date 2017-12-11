@@ -3,6 +3,7 @@ import React from 'react';
 import TickIcon from 'Icons/Tick';
 import CrossIcon from 'Icons/Cross';
 import ChevronIcon from 'Icons/Chevron';
+import InformationIcon from 'Icons/Information';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Expandable from 'Main/Expandable';
@@ -115,10 +116,10 @@ export class Rule {
   name = null;
   requirements = null;
   when = null;
-  constructor({ name, requirements, when = null }) {
-    this.name = name;
-    this.requirements = requirements;
-    this.when = when;
+  constructor(options) {
+    Object.keys(options).forEach(key => {
+      this[key] = options[key];
+    });
   }
 }
 
@@ -126,10 +127,10 @@ export class Requirement {
   name = null;
   check = null;
   when = null;
-  constructor({ name, check, when = null }) {
-    this.name = name;
-    this.check = check;
-    this.when = when;
+  constructor(options) {
+    Object.keys(options).forEach(key => {
+      this[key] = options[key];
+    });
   }
 }
 
@@ -226,6 +227,22 @@ class Checklist extends Analyzer {
           </div>
         )}
       >
+        {rule.description && (
+          <div className="row" style={{ marginBottom: 10 }}>
+            <div className="col-md-12 text-muted">
+              <div className="flex">
+                <div className="flex-sub content-middle" style={{ fontSize: '3.5em', lineHeight: 1, marginRight: 20 }}>
+                  <div>{/* this div ensures vertical alignment */}
+                    <InformationIcon />
+                  </div>
+                </div>
+                <div className="flex-main">
+                  {rule.description}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
         <div className="row">
           {requirements.map(({ requirement, thresholds, performance }) => (
             <div className="col-md-6">
