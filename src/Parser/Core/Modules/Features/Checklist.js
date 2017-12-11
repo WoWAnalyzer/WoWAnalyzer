@@ -56,7 +56,7 @@ export function performanceForLessThanThresholds(actual, { minor, average, major
   return 0.333 * actual / major;
 }
 export function performanceForGreaterThanThresholds(actual, { minor, average, major } ) {
-  if (actual < minor) {
+  if (actual <= minor) {
     // no issue
     return 1;
   }
@@ -164,12 +164,14 @@ class Checklist extends Analyzer {
   }
   renderRule(rule) {
     let lowest = null;
+    let total = null;
     const requirements = rule.requirements.call(this)
       .filter(this.whenFilter)
       .map(requirement => {
         const thresholds = requirement.check.call(this);
         const performance = performanceForThresholds(thresholds);
         lowest = lowest === null ? performance : Math.min(lowest, performance);
+        total += performance;
         return (
           <div className="col-md-6">
             <div className="flex">
@@ -191,6 +193,9 @@ class Checklist extends Analyzer {
           </div>
         );
       });
+    const average = total / requirements.length;
+
+    const rulePerformance = average;
 
     return (
       <Expandable
@@ -199,7 +204,7 @@ class Checklist extends Analyzer {
           <div className="flex" style={{ fontSize: '1.4em' }}>
             <div className="flex-sub content-middle" style={{ paddingRight: 22 }}>
               <div>{/* this div ensures vertical alignment */}
-                {lowest > 0.666 ? <TickIcon style={{ color: 'green' }} /> : <CrossIcon style={{ color: 'red' }} />}
+                {rulePerformance > 0.666 ? <TickIcon style={{ color: 'green' }} /> : <CrossIcon style={{ color: 'red' }} />}
               </div>
             </div>
             <div className="flex-main">
@@ -208,8 +213,8 @@ class Checklist extends Analyzer {
             <div className="flex-sub content-middle" style={{ width: 100 }}>
               <div className="performance-bar-container">
                 <div
-                  className={`performance-bar small ${colorForPerformance(lowest)}`}
-                  style={{ width: `${lowest * 100}%`, transition: 'background-color 800ms' }}
+                  className={`performance-bar small ${colorForPerformance(rulePerformance)}`}
+                  style={{ width: `${rulePerformance * 100}%`, transition: 'background-color 800ms' }}
                 />
               </div>
             </div>
