@@ -6,7 +6,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
 
 import SoulHarvest from './SoulHarvest';
 
@@ -21,18 +21,19 @@ class SoulHarvestTalent extends Analyzer {
   }
 
   statistic() {
-    const bonusDmg = this.soulHarvest.talentBonusDmg;
+    const bonusDmg = this.soulHarvest.talentBonusDmg;    
+    const uptime = this.combatants.selected.getBuffUptime(SPELLS.SOUL_HARVEST_TALENT.id) / this.owner.fightDuration;
     return (
-      <StatisticBox
+      <SmallStatisticBox
         icon={<SpellIcon id={SPELLS.SOUL_HARVEST_TALENT.id} />}
-        value={`${formatNumber(bonusDmg / this.owner.fightDuration * 1000)} DPS`}
-        label="Damage contributed"
+        value={`${formatPercentage(uptime)} %`}
+        label="Soul Harvest Uptime"
         tooltip={`Your Soul Harvest contributed ${formatNumber(bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(bonusDmg))} %).`}
       />
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(4);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(8);
 }
 
 export default SoulHarvestTalent;
