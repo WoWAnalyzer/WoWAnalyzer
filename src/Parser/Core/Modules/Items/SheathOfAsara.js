@@ -6,8 +6,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 /*
  * Sheath of Asara -
- * 
-Equip: Your damaging spells have a chance to conjure 6 Shadow Blades. After 2 sec, the swords begin launching foward, each dealing 500 Shadow damage to the first enemy in their path and increasing damage taken from your subsequent Shadow Blades by 10% for 3 sec, up to 50%.
+ * Equip: Your damaging spells have a chance to conjure 6 Shadow Blades. After 2 sec, the swords begin launching foward, each dealing 500 Shadow damage to the first enemy in their path and increasing damage taken from your subsequent Shadow Blades by 10% for 3 sec, up to 50%.
  */
 class SheathOfAsara extends Analyzer {
   static dependencies = {
