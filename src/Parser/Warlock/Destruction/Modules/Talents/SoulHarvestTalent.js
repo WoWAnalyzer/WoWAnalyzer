@@ -33,7 +33,7 @@ class SoulHarvestTalent extends Analyzer {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(4);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(8);
 }
 
 export default SoulHarvestTalent;

@@ -54,7 +54,7 @@ class EmpoweredLifeTap extends Analyzer {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(3);
+  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default EmpoweredLifeTap;

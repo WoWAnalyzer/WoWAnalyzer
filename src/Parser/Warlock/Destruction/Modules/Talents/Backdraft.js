@@ -83,7 +83,7 @@ class Backdraft extends Analyzer {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
+  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default Backdraft;
