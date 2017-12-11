@@ -184,7 +184,6 @@ class CombatLogParser {
     garothiFeedbackConduit: GarothiFeedbackConduit,
     carafeOfSearingLight: CarafeOfSearingLight,
 
-
     // T21 DPS Trinkets
     seepingScourgewing: SeepingScourgewing,
     gorshalachsLegacy: GorshalachsLegacy,

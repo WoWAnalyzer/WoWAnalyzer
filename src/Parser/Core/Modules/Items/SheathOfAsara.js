@@ -5,8 +5,9 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 /*
- * Prototype Personnel Decimator -
- * Equip: Your ranged attacks and spells have a chance to launch a Homing Missile if your target is at least 10 yds away, dealing up to 243786 Fire damage to all enemies within 20 yds. Targets closer to the impact take more damage.
+ * Sheath of Asara -
+ * 
+Equip: Your damaging spells have a chance to conjure 6 Shadow Blades. After 2 sec, the swords begin launching foward, each dealing 500 Shadow damage to the first enemy in their path and increasing damage taken from your subsequent Shadow Blades by 10% for 3 sec, up to 50%.
  */
 class SheathOfAsara extends Analyzer {
   static dependencies = {
