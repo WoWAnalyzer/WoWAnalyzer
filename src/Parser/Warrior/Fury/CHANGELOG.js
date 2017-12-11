@@ -1,8 +1,3 @@
-import React from 'react';
-
-import Wrapper from 'common/Wrapper';
-import ItemLink from 'common/ItemLink';
-import ITEMS from 'common/ITEMS';
-
-export default [
-];
+export default `
+11-12-2017 - Added Fury Warrior Initial Setup. (by Maldark)
+`;

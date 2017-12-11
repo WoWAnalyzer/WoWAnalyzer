@@ -1,9 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-//import SpellLink from 'common/SpellLink';
-
-import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+import SpellLink from 'common/SpellLink';
 
 import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
@@ -17,7 +15,9 @@ class CastEfficiency extends CoreCastEfficiency {
       spell: SPELLS.BLOODTHIRST,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 4.5 / (1 + haste),
-      recommendedCastEfficiency: 0.8,
+      // Inner rage puts Raging Blow on a cooldown which indirectly adds more Bloodthirst to the rotation
+      // Generally 80% is recommended for Inner Rage, 30% otherwise
+      recommendedCastEfficiency: 0.3,
     },
     {
       spell: SPELLS.FURIOUS_SLASH,
@@ -71,14 +71,15 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 40,
       isActive: combatant => combatant.hasTalent(SPELLS.SHOCKWAVE_TALENT.id),
-      recommendedCastEfficiency: 0.95,
+      recommendedCastEfficiency: 0.8,
+      extraSuggestion: <span>Consider using <SpellLink id={SPELLS.DOUBLE_TIME_TALENT.id} /> or <SpellLink id={SPELLS.STORM_BOLT_TALENT.id} /> unless the CC is strictly needed.</span>,
     },
     {
       spell: SPELLS.BLOODBATH_TALENT,
       category: CastEfficiency.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 30,
       isActive: combatant => combatant.hasTalent(SPELLS.BLOODBATH_TALENT.id),
-      recommendedCastEfficiency: 0.8,
+      recommendedCastEfficiency: 0.95,
     },
     {
       spell: SPELLS.BLADESTORM_TALENT,
@@ -108,14 +109,14 @@ class CastEfficiency extends CoreCastEfficiency {
       getCooldown: haste => 60,
       noSuggestion: true,
       noCanBeImproved: true,
-      extraSuggestion: 'Only used in a combat with Fear, Sap or Incapacitate or if the Outburst talent is selected',
+      extraSuggestion: <span>Only used in a combat with Fear, Sap or Incapacitate or if the <SpellLink id={SPELLS.OUTBURST_TALENT.id} /> is selected</span>,
     },
     {
       spell: SPELLS.ENRAGED_REGENERATION,
       category: CastEfficiency.SPELL_CATEGORIES.DEFENSIVE,
       getCooldown: haste => 120,
       noSuggestion: false,
-      recommendedCastEfficiency: 0.9,
+      recommendedCastEfficiency: 0.6,
       noCanBeImproved: true,
       extraSuggestion: 'Use it to reduce damage taken for a short period.',
     },
@@ -138,14 +139,14 @@ class CastEfficiency extends CoreCastEfficiency {
       extraSuggestion: 'Use Charge to close the gap',
     },
     {
-      spell: SPELLS.HEROIC_LEAP,
+      spell: SPELLS.HEROIC_LEAP_FURY,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       // Base cooldown is 45, reduced to 30 by Bounding Stride talent
       getCooldown: (haste, combatent) => combatent.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 30 : 45,
-      noSuggestion: false,
-      recommendedCastEfficiency: 0.01,
-      noCanBeImproved: false,
-      extraSuggestion: 'Use Heroic Leap to close the gap',
+      // noSuggestion: false,
+      recommendedCastEfficiency: 0.1,
+      // noCanBeImproved: false,
+      extraSuggestion: <span>Consider using <SpellLink id={SPELLS.WARPAINT_TALENT.id} /> if the fight requires little mobility.</span>,
     },
     {
       spell: SPELLS.PUMMEL,

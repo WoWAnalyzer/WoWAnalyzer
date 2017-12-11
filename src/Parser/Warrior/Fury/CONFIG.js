@@ -1,8 +1,6 @@
 import React from 'react';
 
 import SPECS from 'common/SPECS';
-import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
 import CombatLogParser from './CombatLogParser';
@@ -14,11 +12,11 @@ export default {
   maintainer: '@Maldark',
   description: (
     <div>
-      text
+      Implemented out of necessity, shared because sharing is indeed caring
     </div>
   ),
   // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
-  completeness: SPEC_ANALYSIS_COMPLETENESS.GREAT,
+  completeness: SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED,
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/milestone/2',
 
   // Shouldn't have to change these:

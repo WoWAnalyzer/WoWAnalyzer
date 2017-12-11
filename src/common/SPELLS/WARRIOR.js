@@ -119,17 +119,32 @@ export default {
     name: 'Enraged Regeneration',
     icon: 'ability_warrior_focusedrage',
   },
-  //Cooldown Spells
+  //Utility Spells
   PIERCING_HOWL: {
     id: 12323,
     name: 'Piercing Howl',
     icon: 'spell_shadow_deathscream',
   },
-  //Passives
+  HEROIC_LEAP_FURY: {
+    id: 52174,
+    name: 'Heroic Leap',
+    icon: 'ability_heroicleap',
+  },
+  //Buffs
   ENRAGE: {
-    id: 184361,
+    id: 184362,
     name: 'Enrage',
     icon: 'spell_shadow_unholyfrenzy',
+  },
+  FROTHING_BERSERKER: {
+    id: 215572,
+    name: 'Frothing Berserker',
+    icon: 'warrior_talent_icon_furyintheblood',
+  },
+  JUGGERNAUT: {
+    id: 201009,
+    name: 'Juggernaut',
+    icon: 'warrior_talent_icon_skirmisher',
   },
 
   // Fury tier sets
