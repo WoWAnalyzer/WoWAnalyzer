@@ -98,6 +98,18 @@ function formatThresholdsActual(thresholds) {
       throw new Error(`Unknown style: ${thresholds.style}`);
   }
 }
+function calculateMedian(values) {
+  const arr = [...values];
+  arr.sort((a, b) => a - b);
+
+  const half = Math.floor(arr.length / 2);
+
+  if (arr.length % 2) {
+    return arr[half];
+  } else {
+    return (arr[half - 1] + arr[half]) / 2.0;
+  }
+}
 
 export class Rule {
   name = null;
@@ -163,39 +175,27 @@ class Checklist extends Analyzer {
     return !!rule.when;
   }
   renderRule(rule) {
-    let lowest = null;
-    let total = null;
     const requirements = rule.requirements.call(this)
       .filter(this.whenFilter)
       .map(requirement => {
         const thresholds = requirement.check.call(this);
         const performance = performanceForThresholds(thresholds);
-        lowest = lowest === null ? performance : Math.min(lowest, performance);
-        total += performance;
-        return (
-          <div className="col-md-6">
-            <div className="flex">
-              <div className="flex-main">
-                {requirement.name}
-              </div>
-              <div className="flex-sub text-muted" style={{ margin: '0 15px' }}>
-                {thresholds.prefix} {formatThresholdsActual(thresholds)} {thresholds.suffix}
-              </div>
-              <div className="flex-sub content-middle" style={{ width: 50 }}>
-                <div className="performance-bar-container">
-                  <div
-                    className={`performance-bar small ${colorForPerformance(performance)}`}
-                    style={{ width: `${performance * 100}%`, transition: 'background-color 800ms' }}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        );
+        return {
+          requirement,
+          thresholds,
+          performance,
+        };
       });
-    const average = total / requirements.length;
 
-    const rulePerformance = average;
+    const requirementPerformances = requirements.map(requirement => requirement.performance);
+    // const lowest = requirementPerformances.reduce((lowest, performance) => Math.min(lowest, performance), Infinity);
+    // const total = requirementPerformances.reduce((total, performance) => total + performance, 0);
+    // const average = total / requirementPerformances.length;
+    // Lowest would be too punishing for small mistakes, if you want to have a single value tank the rule consider making it its own rule.
+    // Average would mark things as OK when one thing was OK and 3 things were "average", I think this is wrong and it should mark the rule as average. Median achieves this.
+    const median = calculateMedian(requirementPerformances);
+
+    const rulePerformance = median;
 
     return (
       <Expandable
@@ -227,7 +227,26 @@ class Checklist extends Analyzer {
         )}
       >
         <div className="row">
-          {requirements}
+          {requirements.map(({ requirement, thresholds, performance }) => (
+            <div className="col-md-6">
+              <div className="flex">
+                <div className="flex-main">
+                  {requirement.name}
+                </div>
+                <div className="flex-sub text-muted" style={{ margin: '0 15px' }}>
+                  {thresholds.prefix} {formatThresholdsActual(thresholds)} {thresholds.suffix}
+                </div>
+                <div className="flex-sub content-middle" style={{ width: 50 }}>
+                  <div className="performance-bar-container">
+                    <div
+                      className={`performance-bar small ${colorForPerformance(performance)}`}
+                      style={{ width: `${performance * 100}%`, transition: 'background-color 800ms' }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </Expandable>
     );
