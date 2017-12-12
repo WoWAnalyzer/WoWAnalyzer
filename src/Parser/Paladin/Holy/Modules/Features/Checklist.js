@@ -161,8 +161,8 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: 'Use your mana effectively',
-      description: 'If you have any mana left over at the end of the fight that\'s mana you could have turned into healing. Try to use all your mana during a fight. A good rule of thumb is to try to match your mana level with the boss\'s health.',
+      name: 'Use all of your mana effectively',
+      description: 'If you have a large amount of mana left at the end of the fight that\'s mana you could have turned into healing. Try to use all your mana during a fight. A good rule of thumb is to try to match your mana level with the boss\'s health.',
       requirements: () => {
         return [
           new Requirement({
