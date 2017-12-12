@@ -25,11 +25,15 @@ Typically two STATISTIC_ORDER values are used in spec statistic boxes. `CORE` is
 
 StatisticBox is the default and basic statistic box that you will see in the [getting started module documentation](https://github.com/poneria/WoWAnalyzer/blob/doc-statbox/docs/a-new-module.md). 
 
-**Agony uptime** - simple DoT uptime box
+Box description | Image
+----------------|---------
+Simple DoT uptime box | ![Agony uptime](images/agony-uptime-box.jpg)
 
-![Agony uptime](images/agony-uptime-box.jpg)
+**Code**
 
 ```javascript
+// Simple DoT uptime box (Agony Uptime)
+
   statistic() {
     const agonyUptime = this.enemies.getBuffUptime(SPELLS.AGONY.id) / this.owner.fightDuration;
     return (
@@ -40,6 +44,8 @@ StatisticBox is the default and basic statistic box that you will see in the [ge
       />
     );
   }
+
+  statisticOrder = STATISTIC_ORDER.CORE(3);
 ```
 
 Despite being the basic box, there are a few cool display options you can manage with StatisticBox.
