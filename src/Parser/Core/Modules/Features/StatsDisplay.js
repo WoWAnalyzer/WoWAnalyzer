@@ -124,7 +124,7 @@ class StatsDisplay extends Analyzer {
           <div style={{ background: 'rgba(255, 255, 255, 0.2)', height: 1 }} />
           <div className="flex wrapable text-center" style={{ margin: '3px 0px 7px 0' }}>
             {tertiaries.map(stat => (
-              <div className={`flex-main ${getClassNameColor(stat)}`}>
+              <div key={stat} className={`flex-main ${getClassNameColor(stat)}`}>
                 <SpellIcon id={this.getTertiarySpell(stat)} style={{ height: '1em', borderRadius: 2 }} />{' '}
                 {this.renderStatValue(stat)} {getName(stat)}
               </div>
