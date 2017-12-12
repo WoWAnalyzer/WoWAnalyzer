@@ -4,6 +4,9 @@ Statistic boxes show off module details independently of suggestions. This docum
 
 **Topics**
 - [Box layout & order](#box-layout--order)
+- [Imports used](#imports-used)
+
+**Types of statistic boxes**
 - [Basic](#statisticbox)
   - [Multiple icons in a basic box](#multiple-listing)
   - [Downtime's styled footer bar](#downtimes-styled-footer-bar)
@@ -21,14 +24,32 @@ The statistic boxes are laid out in rows from left to right for three columns at
 
 Typically two STATISTIC_ORDER values are used in spec statistic boxes. `CORE` is for base spec abilities, resources, and core spec procs; `OPTIONAL` is used for sometimes-things like talents or minor constants like relics and artifact traits. In detail, the [STATISTIC_ORDER](https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Main/STATISTIC_ORDER.js) uses this ordering, first > last: `CORE` > `DEFAULT` > `OPTIONAL` > `UNIMPORTANT`.
 
+## Imports used
+
+```javascript
+// icons
+import SpellIcon from 'common/SpellIcon';
+
+// text/number formatting
+import { formatPercentage } from 'common/format';
+
+// statistic boxes + order
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+```
+
 ## StatisticBox
 
 StatisticBox is the default and basic statistic box that you will see in the [getting started module documentation](https://github.com/poneria/WoWAnalyzer/blob/doc-statbox/docs/a-new-module.md). 
 
-**Agony uptime** - simple DoT uptime box
-![Agony uptime](/images/agony-uptime-box.jpg)
+Box description | Image
+----------------|---------
+Simple DoT uptime box | ![Agony uptime](images/agony-uptime-box.jpg)
+
+**Code**
 
 ```javascript
+// Simple DoT uptime box (Agony Uptime)
+
   statistic() {
     const agonyUptime = this.enemies.getBuffUptime(SPELLS.AGONY.id) / this.owner.fightDuration;
     return (
@@ -39,6 +60,8 @@ StatisticBox is the default and basic statistic box that you will see in the [ge
       />
     );
   }
+
+  statisticOrder = STATISTIC_ORDER.CORE(3);
 ```
 
 Despite being the basic box, there are a few cool display options you can manage with StatisticBox.
