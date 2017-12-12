@@ -45,7 +45,7 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Use core spells as often as possible',
-      description: <Wrapper>Spells such as <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} icon />, <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} icon /> and <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /><dfn data-tip="With the Judgment of Light talent.">*</dfn> are your most efficient spells available. Try to cast them as much as possible (without overhealing). On Mythic (when you're not bringing too many healers) you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and picking the right targets. <a href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list" target="_blank" rel="noopener noreferrer">More info.</a></Wrapper>,
+      description: <Wrapper>Spells such as <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} icon />, <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} icon /> and <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> (with <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} icon />) are your most efficient spells available. Try to cast them as much as possible without overhealing. <dfn data-tip="When you're not bringing too many healers.">On Mythic*</dfn> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection. <a href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list" target="_blank" rel="noopener noreferrer">More info.</a></Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -70,6 +70,10 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.CRUSADER_STRIKE,
             when: combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id),
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.HOLY_PRISM_TALENT,
+            when: combatant.hasTalent(SPELLS.HOLY_PRISM_TALENT.id),
           }),
         ];
       },
