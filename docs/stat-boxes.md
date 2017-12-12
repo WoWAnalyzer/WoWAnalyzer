@@ -1,8 +1,18 @@
-#Statistic Boxes
+# Statistic Boxes
 
 The top display is comprised of statistic boxes that show off module details independently of suggestions. This document will go over some code templates and current examples of how to display information in different styles of boxes.
 
-##Box layout & order
+**Go to:**
+- [Box layout & order](#box-layout-&-order)
+- [Basic](#statistic-box)
+- - [Multiple icons in a basic box](#multiple-listing)
+- - [Downtime's styled footer bar](#downtimes-styled-footer-bar)
+- [Small](#smallstatisticbox)
+- [List (Netherlight Crucible style)](#statisticslistbox)
+- [Expandable](#expandablestatisticbox)
+- [Click to load](#lazyloadstatisticbox)
+
+## Box layout & order
 
 The statistic boxes are laid out in rows from left to right for three columns at most, then top to bottom as long as there are boxes. 
 
@@ -13,33 +23,53 @@ There are three STATISTIC_ORDER values to assign to the box statistic order.
 - CORE will display ahead of anything else. This order is typically reserved for core abilities.
 - OPTIONAL will display behind anything else. Talents.
 
-##StatisticBox
-multiple icons 
+## StatisticBox
+
+StatisticBox is the default and basic statistic box that you will see in the [getting started module documentation](https://github.com/poneria/WoWAnalyzer/blob/doc-statbox/docs/a-new-module.md). 
+
+Despite being the basic box, there are a few cool display options you can manage with StatisticBox.
+
+### Multiple listing
+
+You can add multiple icons or text rows within a StatisticBox, if you want to show different parts of a module. Horizontal grouping is cleaner, but tends to work with only a single counter beside each icon. 
+
 - (horiz) https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Hunter/BeastMastery/Modules/Spells/DireBeast/DireBeast.js
 - (vertical) https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Mage/Frost/Modules/Features/WintersChill.js
 - (vertical) https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Shaman/Elemental/Modules/Features/Overload.js
 
-downtime-style footer bar
+### Downtime's styled footer bar
 - https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Monk/Mistweaver/Modules/Spells/UpliftingTrance.js
 
-##SmallStatisticBox
-Concordance
+## SmallStatisticBox
 
-##StatisticsListBox
+This is the stat box that contains a one-liner of text. 
+
+Concordance
+Tyr's Deliverance - https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Paladin/Holy/Modules/Features/TyrsDeliverance.js
+
+## StatisticsListBox
+
+This is the statistic box that looks like a list of SmallStatisticBoxes one-liners but in one box. The general example is Netherlight Crucible traits and the Relic traits in some class-specs. However, this box type isn't restricted to artifact traits; in fact, you can use it to make pie chart statistics.
+
 Dimensional Rift - https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Warlock/Destruction/Modules/Features/DimensionalRift.js
-Relic traits
-NLC
+
 Pie charts
 - https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Hunter/Marksmanship/Modules/Features/VulnerableApplications.js
 - https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Monk/Mistweaver/Modules/Spells/ThunderFocusTea.js
 - https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Paladin/Holy/Modules/PaladinCore/CastBehavior.js
 
-##ExpandableStatisticBox
+## ExpandableStatisticBox
+
+Some statistic boxes have a big red button to expand. Do note that the expansion doesn't shove the rest of the column's boxes down the page, but overlaps them. The box has a tinted background, but depending on the box below, the overlapping graphics may or may not cause reading issues.
+
 - Flourish https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Druid/Restoration/Modules/Talents/Flourish.js
 - Evangelism https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Priest/Discipline/Modules/Spells/Evangelism.js
 - https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Priest/Holy/Modules/PriestCore/MasteryBreakdown.js
 
-##LazyLoadStatisticBox
-- click to load: ironbarkMitigation https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Druid/Restoration/Modules/Features/Ironbark.js
+## LazyLoadStatisticBox
+
+If you need a statistic to wait to load until asked for, you can do it with a LazyLoad box. When you click the button, the statistic loads, instead of the normal loading with the page.
+
+- https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Druid/Restoration/Modules/Features/Ironbark.js
 - https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Priest/Discipline/Modules/Features/PowerWordBarrier.js
 - https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Priest/Discipline/Modules/Features/LeniencesReward.js
