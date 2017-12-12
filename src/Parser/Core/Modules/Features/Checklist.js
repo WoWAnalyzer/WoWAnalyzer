@@ -269,7 +269,7 @@ class Checklist extends Analyzer {
     );
   }
 
-  render() {
+  render({ footer }) {
     return (
       <div className="panel">
         <div className="panel-heading">
@@ -279,6 +279,11 @@ class Checklist extends Analyzer {
           {this.rules
             .filter(this.whenFilter)
             .map(this.renderRule)}
+          {footer && (
+            <div style={{ padding: '10px 22px' }}>
+              {footer}
+            </div>
+          )}
         </div>
       </div>
     );

@@ -10,7 +10,7 @@ import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
 import getBossName from 'common/getBossName';
-// import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
+import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import { getResultTab } from 'selectors/url/report';
 import DevelopmentTab from 'Main/DevelopmentTab';
 import EventsTab from 'Main/EventsTab';
@@ -18,7 +18,7 @@ import Tab from 'Main/Tab';
 import Status from 'Main/Status';
 import GithubButton from 'Main/GithubButton';
 import DiscordButton from 'Main/DiscordButton';
-// import Maintainer from 'Main/Maintainer';
+import Maintainer from 'Main/Maintainer';
 
 import SpecInformationOverlay from './SpecInformationOverlay';
 import ZerotorescueCharacterAvatar from './Images/boss-avatars/zerotorescue.png';
@@ -235,16 +235,6 @@ class Results extends React.Component {
           </header>
           <div className="divider" />
 
-          {/*<div className="text-muted" style={{ marginBottom: 25, fontSize: '1.4em' }}>*/}
-            {/*The <img*/}
-              {/*src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`}*/}
-              {/*alt="Spec logo"*/}
-              {/*style={{*/}
-                {/*borderRadius: '50%',*/}
-                {/*height: '1.2em',*/}
-              {/*}}*/}
-            {/*/> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)} (status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>). <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>*/}
-          {/*</div>*/}
           {config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED && (
             <Wrapper>
               <div className="alert alert-danger" style={{ fontSize: '1.5em' }}>
@@ -260,9 +250,39 @@ class Results extends React.Component {
               {modules.statsDisplay.render()}
               {modules.talentsDisplay.render()}
               {this.renderItems(results.items, selectedCombatant)}
+
+              <div>
+                <a
+                  href={`https://www.warcraftlogs.com/reports/${report.code}/#fight=${fight.id}&source=${parser.playerId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ fontSize: 24 }}
+                >
+                  <span className="glyphicon glyphicon-link" aria-hidden /> View on Warcraft Logs
+                </a>
+              </div>
             </div>
             <div className="col-md-8">
-              {modules.checklist.render()}
+              {modules.checklist.render({
+                footer: (
+                  <div className="text-muted" style={{ fontSize: '1.1em' }}>
+                    The <img
+                      src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`}
+                      alt="Spec logo"
+                      style={{
+                        borderRadius: '50%',
+                        height: '1.2em',
+                      }}
+                    /> {config.spec.specName} {config.spec.className} implementation is being maintained by {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}. Its completeness is considered <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>. <a href="#spec-information" onClick={this.handleClickViewSpecInformation} style={{ whiteSpace: 'nowrap' }}>More information.</a>
+                  </div>
+                ),
+              })}
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-md-12" style={{ fontSize: '1.5em' }}>
+
             </div>
           </div>
 
