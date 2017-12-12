@@ -65,11 +65,11 @@ class ShadowSingedFang extends Analyzer {
 			item: ITEMS.SHADOW_SINGED_FANG,
 			result: (
 				<div>
-					<dfn data-tip={`Proced the main stat buff <b>${this.mainProc}</b> times with <b>${formatPercentage(mainUptime)}</b> % uptime`}>
+					<dfn data-tip={`Proced the ${this.combatants.selected.spec.primaryStat} stat buff <b>${this.mainProc}</b> times with <b>${formatPercentage(mainUptime)}</b> % uptime`}>
 						{formatNumber(averageMain)} average {this.combatants.selected.spec.primaryStat}
 					</dfn>
 					<br/>
-					<dfn data-tip={`Proced the crit stat buff <b>${this.critProc}</b> times with <b>${formatPercentage(critUptime)}</b> % uptime`}>
+					<dfn data-tip={`Proced the Crit stat buff <b>${this.critProc}</b> times with <b>${formatPercentage(critUptime)}</b> % uptime`}>
 						{formatNumber(averageCrit)} average Crit
 					</dfn>
 				</div>
