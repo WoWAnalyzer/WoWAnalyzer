@@ -176,7 +176,7 @@ class Checklist extends Analyzer {
 
     return !!rule.when;
   }
-  renderRule(rule) {
+  renderRule(rule, index) {
     const requirements = rule.requirements.call(this)
       .filter(this.whenFilter)
       .map(requirement => {
@@ -201,7 +201,7 @@ class Checklist extends Analyzer {
 
     return (
       <Expandable
-        key={rule.name}
+        key={index}
         header={(
           <div className="flex" style={{ fontSize: '1.4em' }}>
             <div className="flex-sub content-middle" style={{ paddingRight: 22 }}>
@@ -246,7 +246,7 @@ class Checklist extends Analyzer {
         )}
         <div className="row">
           {requirements.map(({ requirement, thresholds, performance }) => (
-            <div className="col-md-6">
+            <div key={requirement.name} className="col-md-6">
               <div className="flex">
                 <div className="flex-main">
                   {requirement.name}
