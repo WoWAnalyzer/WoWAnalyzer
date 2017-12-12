@@ -25,6 +25,7 @@ import ZerotorescueCharacterAvatar from './Images/boss-avatars/zerotorescue.png'
 import HarjatanAvatar from './Images/boss-avatars/harjatan.png';
 
 import './Results.css';
+import SuggestionsTab from 'Main/SuggestionsTab';
 
 class Results extends React.Component {
   static childContextTypes = {
@@ -48,6 +49,7 @@ class Results extends React.Component {
     super();
     this.state = {
       showSpecInformationOverlay: false,
+      showSuggestions: false,
     };
     this.handleClickViewSpecInformation = this.handleClickViewSpecInformation.bind(this);
     this.handleSpecInformationCloseClick = this.handleSpecInformationCloseClick.bind(this);
@@ -263,20 +265,54 @@ class Results extends React.Component {
               </div>
             </div>
             <div className="col-md-8">
-              {modules.checklist.render({
-                footer: (
-                  <div className="text-muted" style={{ fontSize: '1.1em' }}>
-                    The <img
-                      src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`}
-                      alt="Spec logo"
-                      style={{
-                        borderRadius: '50%',
-                        height: '1.2em',
-                      }}
-                    /> {config.spec.specName} {config.spec.className} implementation is being maintained by {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}. Its completeness is considered <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>. <a href="#spec-information" onClick={this.handleClickViewSpecInformation} style={{ whiteSpace: 'nowrap' }}>More information.</a>
+              <div className="panel">
+                <div className="panel-body flex" style={{ flexDirection: 'column', padding: '0' }}>
+                  <div className="navigation" style={{ minHeight: 70 }}>
+                    <div className="flex" style={{ paddingTop: '10px', flexDirection: 'row', flexWrap: 'wrap' }}>
+                      <button
+                        className={!this.state.showSuggestions ? 'btn-link selected' : 'btn-link'}
+                        onClick={() => {
+                          this.setState({
+                            showSuggestions: false,
+                          });
+                        }}
+                      >
+                        Checklist
+                      </button>
+                      <button
+                        className={this.state.showSuggestions ? 'btn-link selected' : 'btn-link'}
+                        onClick={() => {
+                          this.setState({
+                            showSuggestions: true,
+                          });
+                        }}
+                      >
+                        Suggestions
+                      </button>
+                    </div>
                   </div>
-                ),
-              })}
+                  <div>
+                    {!this.state.showSuggestions ? (
+                      modules.checklist.render({
+                        footer: (
+                          <div className="text-muted" style={{ fontSize: '1.1em' }}>
+                            The <img
+                            src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`}
+                            alt="Spec logo"
+                            style={{
+                              borderRadius: '50%',
+                              height: '1.2em',
+                            }}
+                          /> {config.spec.specName} {config.spec.className} implementation is being maintained by {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}. Its completeness is considered <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>. <a href="#spec-information" onClick={this.handleClickViewSpecInformation} style={{ whiteSpace: 'nowrap' }}>More information.</a>
+                          </div>
+                        ),
+                      })
+                    ) : (
+                      <SuggestionsTab issues={results.issues} />
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 

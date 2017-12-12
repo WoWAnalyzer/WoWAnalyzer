@@ -9,6 +9,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Expandable from 'Main/Expandable';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
+import Wrapper from 'common/Wrapper';
 
 export function performanceForThresholds(thresholds) {
   if (thresholds.isGreaterThan) {
@@ -271,21 +272,21 @@ class Checklist extends Analyzer {
 
   render({ footer }) {
     return (
-      <div className="panel">
-        <div className="panel-heading">
-          <h2>Checklist</h2>
-        </div>
-        <div className="panel-body" style={{ padding: 0 }}>
-          {this.rules
-            .filter(this.whenFilter)
-            .map(this.renderRule)}
-          {footer && (
-            <div style={{ padding: '10px 22px' }}>
-              {footer}
-            </div>
-          )}
-        </div>
-      </div>
+      <Wrapper>
+        {this.rules.length === 0 && (
+          <div className="item-divider" style={{ padding: '10px 22px' }}>
+            Sorry, the checklist for this spec has not been implemented yet.
+          </div>
+        )}
+        {this.rules
+          .filter(this.whenFilter)
+          .map(this.renderRule)}
+        {footer && (
+          <div style={{ padding: '10px 22px' }}>
+            {footer}
+          </div>
+        )}
+      </Wrapper>
     );
   }
 }

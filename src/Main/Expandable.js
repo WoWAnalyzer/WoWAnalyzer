@@ -26,11 +26,11 @@ class Expandable extends React.PureComponent {
 
     return (
       <div className={`expandable ${this.state.expanded ? 'expanded' : ''}`}>
-        <div className="meta" onClick={this.handleToggle}>
+        <div className="meta item-divider" onClick={this.handleToggle}>
           {header}
         </div>
         {this.state.expanded && (
-          <div className="details">
+          <div className="details item-divider">
             {children}
           </div>
         )}

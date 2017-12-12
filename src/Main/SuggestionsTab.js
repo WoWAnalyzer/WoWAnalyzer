@@ -22,7 +22,6 @@ class SuggestionsTab extends React.Component {
     };
   }
 
-
   render() {
     const { issues } = this.props;
 

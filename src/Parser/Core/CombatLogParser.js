@@ -453,12 +453,6 @@ class CombatLogParser {
 
     results.tabs = [
       {
-        title: 'Suggestions',
-        url: 'suggestions',
-        order: 0,
-        render: () => <SuggestionsTab issues={results.issues} />,
-      },
-      {
         title: 'Timeline',
         url: 'timeline',
         order: 2,
