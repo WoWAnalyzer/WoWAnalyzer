@@ -26,9 +26,10 @@ Typically two STATISTIC_ORDER values are used in spec statistic boxes. `CORE` is
 StatisticBox is the default and basic statistic box that you will see in the [getting started module documentation](https://github.com/poneria/WoWAnalyzer/blob/doc-statbox/docs/a-new-module.md). 
 
 <br /><div>
-    <img src="/images/agony-uptime-box.jpg" />
+    <img src="../images/agony-uptime-box.jpg" />
     <b>Agony Uptime</b>
 </div><br />
+
 ```javascript
   statistic() {
     const agonyUptime = this.enemies.getBuffUptime(SPELLS.AGONY.id) / this.owner.fightDuration;
@@ -37,19 +38,6 @@ StatisticBox is the default and basic statistic box that you will see in the [ge
         icon={<SpellIcon id={SPELLS.AGONY.id} />}
         value={`${formatPercentage(agonyUptime)} %`}
         label="Agony uptime"
-      />
-    );
-  }
-```
-
-
-```javascript
-  statistic() {
-    return (
-      <StatisticBox
-        icon={<Icon icon="ability_hunter_snipershot" />}
-        value={this._shardsGained}
-        label="Shards sniped"
       />
     );
   }
