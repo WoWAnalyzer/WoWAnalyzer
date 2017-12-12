@@ -221,7 +221,7 @@ class Results extends React.Component {
     }
 
     const tabUrl = tab || results.tabs[0].url;
-    const activeTab = results.tabs.find(tab => tab.url === tabUrl);
+    const activeTab = results.tabs.find(tab => tab.url === tabUrl) || results.tabs[0];
 
     return (
       <div className="container">
