@@ -45,7 +45,7 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Use core spells as often as possible',
-      description: <Wrapper>Spells such as <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} icon />, <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} icon /> and <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /><dfn data-tip="With the Judgment of Light talent.">*</dfn> are your most efficient spells available. Try to cast them as much as possible (without overhealing). On Mythic (when you're not bringing too many healers) you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and picking the right targets.</Wrapper>,
+      description: <Wrapper>Spells such as <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} icon />, <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} icon /> and <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /><dfn data-tip="With the Judgment of Light talent.">*</dfn> are your most efficient spells available. Try to cast them as much as possible (without overhealing). On Mythic (when you're not bringing too many healers) you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and picking the right targets. <a href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list" target="_blank" rel="noopener noreferrer">More info.</a></Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -76,6 +76,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use cooldowns effectively',
+      description: <Wrapper>Your cooldowns are an important contributor to your healing throughput. Try to get in as many efficient casts as the fight allows. <a href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list" target="_blank" rel="noopener noreferrer">More info.</a></Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -104,7 +105,8 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: 'Position yourself well to maximize the Mastery healing bonus',
+      name: <Wrapper>Position yourself well to maximize <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} icon /></Wrapper>,
+      description: <Wrapper><SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} icon /> has a big impact on the strength of your heals. Try to stay close to the people you are healing to benefit the most from your Mastery.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
@@ -116,6 +118,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Try to avoid being inactive for a large portion of the fight',
+      description: 'While it\'s suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and when you\'re not healing try to contribute some damage.',
       requirements: () => {
         return [
           new Requirement({
@@ -131,6 +134,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Don\'t tunnel the tanks',
+      description: 'A common misconception when it is stated that Holy Paladins are tank healers is that we focus tanks when healing. This is actually inefficient. Let your beacons do most of the work, ask your co-healers to keep efficient HoTs on the tanks and only directly heal the tanks when they would otherwise die.',
       requirements: () => {
         return [
           new Requirement({
@@ -142,6 +146,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: <Wrapper>Only use <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} icon /> when absolutely necessary</Wrapper>,
+      description: <Wrapper><SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} icon /> is an inefficient spell to cast compared to the alternatives. Try to only cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} icon /> when it will save someone's life or when moving and all other instant cast spells are on cooldown.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
@@ -157,6 +162,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use your mana effectively',
+      description: 'If you have any mana left over at the end of the fight that\'s mana you could have turned into healing. Try to use all your mana during a fight. A good rule of thumb is to try to match your mana level with the boss\'s health.',
       requirements: () => {
         return [
           new Requirement({
@@ -168,6 +174,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Pick the right tools for the fight',
+      description: 'The throughput gain of some talents or legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly.',
       requirements: () => {
         return [
           new Requirement({
@@ -190,6 +197,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Be well prepared',
+      description: 'Being well prepared with potions, enchants and legendaries is an easy way to improve your performance.',
       requirements: () => {
         return [
           new Requirement({
@@ -225,6 +233,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Avoid overhealing',
+      description: 'Pick the right targets when healing and use the right abilities at the right time. While overhealing still transfers to your beacons it remains inefficient. Overhealing might be unavoidable on trivial content or when bringing too many healers.',
       requirements: () => {
         return [
           new Requirement({
