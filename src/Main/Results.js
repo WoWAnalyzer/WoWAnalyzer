@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Masonry from 'react-masonry-component';
+import { Textfit } from 'react-textfit';
 
 import Wrapper from 'common/Wrapper';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
@@ -228,11 +229,17 @@ class Results extends React.Component {
         <div className="results">
           <header>
             <div className={`player ${config.spec.className.replace(' ', '')}`}>
-              <img src={ZerotorescueCharacterAvatar} alt="Player avatar" /> {selectedCombatant.name}
+              <img src={ZerotorescueCharacterAvatar} alt="Player avatar" />{' '}
+              <Textfit mode="single">
+                {selectedCombatant.name}
+              </Textfit>
             </div>
             <div className="versus">versus</div>
             <div className="boss">
-              <img src={HarjatanAvatar} alt="Boss avatar" /> {getBossName(fight)}
+              <img src={HarjatanAvatar} alt="Boss avatar" />{' '}
+              <Textfit mode="single">
+                {getBossName(fight)}
+              </Textfit>
             </div>
           </header>
           <div className="divider" />
