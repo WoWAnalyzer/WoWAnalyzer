@@ -1,12 +1,12 @@
 # Statistic Boxes
 
-The top display is comprised of statistic boxes that show off module details independently of suggestions. This document will go over some code templates and current examples of how to display information in different styles of boxes.
+Statistic boxes show off module details independently of suggestions. This document will go over some code templates and current examples of how to display information in different styles of boxes.
 
-**Go to:**
-- [Box layout & order](#box-layout-&-order)
-- [Basic](#statistic-box)
-- - [Multiple icons in a basic box](#multiple-listing)
-- - [Downtime's styled footer bar](#downtimes-styled-footer-bar)
+**Topics**
+- [Box layout & order](#box-layout--order)
+- [Basic](#statisticbox)
+  - [Multiple icons in a basic box](#multiple-listing)
+  - [Downtime's styled footer bar](#downtimes-styled-footer-bar)
 - [Small](#smallstatisticbox)
 - [List (Netherlight Crucible style)](#statisticslistbox)
 - [Expandable](#expandablestatisticbox)
@@ -19,13 +19,41 @@ The statistic boxes are laid out in rows from left to right for three columns at
 **NOTE**: Display box height will disrupt the order layout, so sometimes it's confusing and awkward to get an exact box order. If you want certain modules to group together in the box display grid, consider using a combo box instead of many default boxes or grouping similarly sized boxes together.
 ** you can also fudge it within a statistic a la https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Paladin/Holy/Modules/PaladinCore/CastBehavior.js
 
-There are three STATISTIC_ORDER values to assign to the box statistic order.
-- CORE will display ahead of anything else. This order is typically reserved for core abilities.
-- OPTIONAL will display behind anything else. Talents.
+Typically two STATISTIC_ORDER values are used in spec statistic boxes. `CORE` is for base spec abilities, resources, and core spec procs; `OPTIONAL` is used for sometimes-things like talents or minor constants like relics and artifact traits. In detail, the [STATISTIC_ORDER](https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Main/STATISTIC_ORDER.js) uses this ordering, first > last: `CORE` > `DEFAULT` > `OPTIONAL` > `UNIMPORTANT`.
 
 ## StatisticBox
 
 StatisticBox is the default and basic statistic box that you will see in the [getting started module documentation](https://github.com/poneria/WoWAnalyzer/blob/doc-statbox/docs/a-new-module.md). 
+
+<br /><div>
+    <img src="/images/agony-uptime-box.jpg" />
+    <b>Agony Uptime</b>
+</div><br />
+```javascript
+  statistic() {
+    const agonyUptime = this.enemies.getBuffUptime(SPELLS.AGONY.id) / this.owner.fightDuration;
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.AGONY.id} />}
+        value={`${formatPercentage(agonyUptime)} %`}
+        label="Agony uptime"
+      />
+    );
+  }
+```
+
+
+```javascript
+  statistic() {
+    return (
+      <StatisticBox
+        icon={<Icon icon="ability_hunter_snipershot" />}
+        value={this._shardsGained}
+        label="Shards sniped"
+      />
+    );
+  }
+```
 
 Despite being the basic box, there are a few cool display options you can manage with StatisticBox.
 
