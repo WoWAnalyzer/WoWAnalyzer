@@ -229,7 +229,7 @@ class Results extends React.Component {
         <div className="results">
           <header>
             <div className={`player ${config.spec.className.replace(' ', '')}`}>
-              <img src={ZerotorescueCharacterAvatar} alt="Player avatar" />{' '}
+              <img src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`} alt="Player avatar" />{' '}
               <Textfit mode="single">
                 {selectedCombatant.name}
               </Textfit>
@@ -304,13 +304,13 @@ class Results extends React.Component {
                         footer: (
                           <div className="text-muted" style={{ fontSize: '1.1em' }}>
                             The <img
-                            src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`}
-                            alt="Spec logo"
-                            style={{
-                              borderRadius: '50%',
-                              height: '1.2em',
-                            }}
-                          /> {config.spec.specName} {config.spec.className} implementation is being maintained by {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}. Its completeness is considered <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>. <a href="#spec-information" onClick={this.handleClickViewSpecInformation} style={{ whiteSpace: 'nowrap' }}>More information.</a>
+                              src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`}
+                              alt="Spec logo"
+                              style={{
+                                borderRadius: '50%',
+                                height: '1.2em',
+                              }}
+                            /> {config.spec.specName} {config.spec.className} implementation is being maintained by {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}. Its completeness is considered <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>. <a href="#spec-information" onClick={this.handleClickViewSpecInformation} style={{ whiteSpace: 'nowrap' }}>More information.</a>
                           </div>
                         ),
                       })
