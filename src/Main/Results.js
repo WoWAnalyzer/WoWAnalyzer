@@ -267,7 +267,7 @@ class Results extends React.Component {
             <div className="col-md-8">
               <div className="panel">
                 <div className="panel-body flex" style={{ flexDirection: 'column', padding: '0' }}>
-                  <div className="navigation" style={{ minHeight: 70 }}>
+                  <div className="navigation item-divider" style={{ minHeight: 70 }}>
                     <div className="flex" style={{ paddingTop: '10px', flexDirection: 'row', flexWrap: 'wrap' }}>
                       <button
                         className={!this.state.showSuggestions ? 'btn-link selected' : 'btn-link'}
@@ -343,7 +343,7 @@ class Results extends React.Component {
 
           <div className="panel" style={{ marginTop: 15, marginBottom: 100 }}>
             <div className="panel-body flex" style={{ flexDirection: 'column', padding: '0' }}>
-              <div className="navigation" style={{ minHeight: 70 }}>
+              <div className="navigation item-divider" style={{ minHeight: 70 }}>
                 <div className="flex" style={{ paddingTop: '10px', flexDirection: 'row', flexWrap: 'wrap' }}>
                   {results.tabs
                     .sort((a, b) => {
