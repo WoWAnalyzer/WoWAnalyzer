@@ -428,6 +428,16 @@ export default {
     name: 'Norgannon\'s Shadow Bolt',
     icon: 'spell_shadow_shadowbolt',
   },
+  FLAMES_OF_FHARG: {
+    id: 253308,
+    name: 'Flames of F\'harg',
+    icon: 'ability_warlock_backdraft',
+  },
+  CORRUPTION_OF_SHATUG: {
+    id: 253307,
+    name: 'Corruption of Shatug',
+    icon: 'spell_fire_twilightimmolation',
+  },
   // Item Abilities
   SPECTRAL_OWL: {
     id: 242570,

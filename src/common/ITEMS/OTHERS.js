@@ -351,4 +351,9 @@ export default {
     name: 'Norgannon\'s Prowess',
     icon: 'inv_antorus_blue',
   },
+  SHADOW_SINGED_FANG: {
+    id: 151968,
+    name: 'Shadow-Singed Fang',
+    icon: 'inv_misc_blacksaberonfang',
+  },
 };
