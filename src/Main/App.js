@@ -19,6 +19,7 @@ import { getCombatants } from 'selectors/combatants';
 import { clearError, reportNotFoundError, apiDownError, unknownNetworkIssueError, unknownError, internetExplorerError, API_DOWN, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE, INTERNET_EXPLORER } from 'actions/error';
 import { getError } from 'selectors/error';
 
+import 'react-toggle/style.css';
 import './App.css';
 
 import ApiDownBackground from './Images/api-down-background.gif';
