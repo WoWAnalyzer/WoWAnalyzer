@@ -19,13 +19,13 @@ import Status from 'Main/Status';
 import GithubButton from 'Main/GithubButton';
 import DiscordButton from 'Main/DiscordButton';
 import Maintainer from 'Main/Maintainer';
+import SuggestionsTab from 'Main/SuggestionsTab';
 
 import SpecInformationOverlay from './SpecInformationOverlay';
 import ZerotorescueCharacterAvatar from './Images/boss-avatars/zerotorescue.png';
 import HarjatanAvatar from './Images/boss-avatars/harjatan.png';
 
 import './Results.css';
-import SuggestionsTab from 'Main/SuggestionsTab';
 
 class Results extends React.Component {
   static childContextTypes = {
