@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2017-12-11'),
+    changes: <Wrapper>Fixed an issue where healing increases (such as Ilterendi and Velen's) didn't include healing buffed for <ItemLink id={ITEMS.HIGHFATHERS_MACHINATION.id} />, <ItemLink id={ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id} /> and <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} />.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2017-12-08'),
     changes: <Wrapper>Increased <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} />\'s suggestion healing requirement to 60k HPS for minor, 50k HPS for average and 40k HPS for major (up from 30k/25k/20k).</Wrapper>,
     contributors: [Zerotorescue],

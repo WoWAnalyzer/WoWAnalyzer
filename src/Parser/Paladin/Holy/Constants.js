@@ -14,6 +14,12 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.BEACON_OF_LIGHT.id,
   SPELLS.LEECH.id,
   // SPELLS.AURA_OF_SACRIFICE_HEAL.id, // while AoS sorta is included, it's based on effective healing and any overhealing from the original spell would have to be reduced to get an accurate result. Not including it doesn't have a big impact.
+
+  // There trinkets are confirmed to also be increased:
+  SPELLS.OCEANS_EMBRACE.id,
+  SPELLS.HIGHFATHERS_TIMEKEEPING_HEAL.id,
+  // Didn't check this, but pretty sure it will work the same as the trinkets above:
+  SPELLS.GUIDING_HAND.id,
 ];
 
 export const ABILITIES_AFFECTED_BY_MASTERY = [

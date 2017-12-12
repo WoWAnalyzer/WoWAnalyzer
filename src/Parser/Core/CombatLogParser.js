@@ -81,8 +81,12 @@ import SeepingScourgewing from './Modules/Items/SeepingScourgewing';
 import GorshalachsLegacy from './Modules/Items/GorshalachsLegacy';
 import GolgannethsVitality from './Modules/Items/GolgannethsVitality';
 import ForgefiendsFabricator from './Modules/Items/ForgefiendsFabricator';
+import KhazgorothsCourage from './Modules/Items/KhazgorothsCourage';
 import TerminusSignalingBeacon from './Modules/Items/TerminusSignalingBeacon';
 import PrototypePersonnelDecimator from './Modules/Items/PrototypePersonnelDecimator';
+import SheathOfAsara from './Modules/Items/SheathOfAsara';
+import NorgannonsProwess from './Modules/Items/NorgannonsProwess';
+import ShadowSingedFang from './Modules/Items/ShadowSingedFang';
 
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
@@ -187,9 +191,13 @@ class CombatLogParser {
     seepingScourgewing: SeepingScourgewing,
     gorshalachsLegacy: GorshalachsLegacy,
     golgannethsVitality: GolgannethsVitality,
-    forgefiendsFabricator: ForgefiendsFabricator,
+    forgefiendsFabricator: ForgefiendsFabricator, 
+    khazgorothsCourage: KhazgorothsCourage,   
     terminusSignalingBeacon: TerminusSignalingBeacon,
     prototypePersonnelDecimator: PrototypePersonnelDecimator,
+    sheathOfAsara: SheathOfAsara,
+    norgannonsProwess: NorgannonsProwess,
+    shadowSingedFang: ShadowSingedFang,
 
     // Concordance of the Legionfall
     concordance: Concordance,
