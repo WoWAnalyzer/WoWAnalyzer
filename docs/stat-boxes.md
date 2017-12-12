@@ -41,9 +41,10 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 StatisticBox is the default and basic statistic box that you will see in the [getting started module documentation](https://github.com/poneria/WoWAnalyzer/blob/doc-statbox/docs/a-new-module.md). 
 
-Box description | Image
-----------------|---------
-Simple DoT uptime box | ![Agony uptime](images/agony-uptime-box.jpg)
+---
+**Simple DoT uptime box**
+
+![Agony uptime](images/agony-uptime-box.jpg)
 
 **Code**
 
@@ -63,6 +64,7 @@ Simple DoT uptime box | ![Agony uptime](images/agony-uptime-box.jpg)
 
   statisticOrder = STATISTIC_ORDER.CORE(3);
 ```
+---
 
 Despite being the basic box, there are a few cool display options you can manage with StatisticBox.
 
