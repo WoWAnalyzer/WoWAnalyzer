@@ -26,7 +26,7 @@ Typically two STATISTIC_ORDER values are used in spec statistic boxes. `CORE` is
 StatisticBox is the default and basic statistic box that you will see in the [getting started module documentation](https://github.com/poneria/WoWAnalyzer/blob/doc-statbox/docs/a-new-module.md). 
 
 **Agony uptime** - simple DoT uptime box
-![Agony uptime](/images/agony-uptime-box.jpg)
+![Agony uptime](images/agony-uptime-box.jpg)
 
 ```javascript
   statistic() {
