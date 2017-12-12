@@ -22,7 +22,7 @@ class TalentsDisplay extends Analyzer {
         <div className="panel-body" style={{ padding: 0 }}>
           <div className="flex wrapable text-center" style={{ margin: '10px 0px 3px 0px' }}>
             {talents.map((spellId, index) => (
-              <div className="flex-main">
+              <div key={index} className="flex-main">
                 <SpellIcon
                   id={spellId}
                   style={{
