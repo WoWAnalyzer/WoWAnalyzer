@@ -1,4 +1,4 @@
-import { Versaya } from 'MAINTAINERS';
+import { Hartra344 } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
@@ -7,9 +7,13 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   spec: SPECS.RESTORATION_SHAMAN,
-  maintainers: [Versaya],
-  completeness: SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED, // good = it matches most common manual reviews in class discords, great = it support all important class features
+  maintainers: [Hartra344],
+  completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK,
+  specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/601',
+  
+  // Shouldn't have to change these:
   changelog: CHANGELOG,
   parser: CombatLogParser,
-  path: __dirname, // used for generating a GitHub link directly to your spec
+  // used for generating a GitHub link directly to your spec
+  path: __dirname,
 };
