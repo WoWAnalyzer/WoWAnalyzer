@@ -19,12 +19,11 @@ Statistic boxes show off module details independently of suggestions. Statistic 
 
 ## Box layout & order
 
-The statistic boxes are laid out in rows from left to right for three columns at most, then top to bottom as long as there are boxes. 
+The statistic boxes are laid out in rows from left to right for three columns at most, then top to bottom as long as there are boxes. Typically two STATISTIC_ORDER values are used in spec statistic boxes. `CORE` is for base spec abilities, resources, and core spec procs; `OPTIONAL` is used for sometimes-things like talents or minor constants like relics and artifact traits. In detail, the [STATISTIC_ORDER](../src/Main/STATISTIC_ORDER.js) uses this ordering, first > last: `CORE` > `DEFAULT` > `OPTIONAL` > `UNIMPORTANT`.
 
-**NOTE**: Display box height will disrupt the order layout, so sometimes it's confusing and awkward to get an exact box order. If you want certain modules to group together in the box display grid, consider using a combo box instead of many default boxes or grouping similarly sized boxes together.
-** you can also fudge it within a statistic a la https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Paladin/Holy/Modules/PaladinCore/CastBehavior.js
+**NOTE**: Display box height will disrupt the order layout, so sometimes it's confusing and awkward to get an exact box order. If you want certain modules to group together in the box display grid, consider using a combo box instead of many default boxes, or perhaps grouping similarly sized boxes together. 
 
-Typically two STATISTIC_ORDER values are used in spec statistic boxes. `CORE` is for base spec abilities, resources, and core spec procs; `OPTIONAL` is used for sometimes-things like talents or minor constants like relics and artifact traits. In detail, the [STATISTIC_ORDER](../src/Main/STATISTIC_ORDER.js) uses this ordering, first > last: `CORE` > `DEFAULT` > `OPTIONAL` > `UNIMPORTANT`.
+Fudge edition: You can make a stacked column of statistic boxes by constructing two or more related statistic boxes together in the statistic. See [Holy Paladin's CastBehavior module](../src/Parser/Paladin/Holy/Modules/PaladinCore/CastBehavior.js) for an example.
 
 ## Imports used
 
@@ -198,10 +197,29 @@ The bar colors come from the className value, and are found deep in `/src/Main/A
 
 ## SmallStatisticBox
 
-This is the stat box that contains a one-liner of text. 
+This is the stat box that contains a one-liner of text. These boxes typically use the `UNIMPORTANT` statistic order. It's quite similar to the default StatisticBox, except the `icon` is smaller, the `value` is the right text, and the `label` is the left text.
 
-Concordance
-Tyr's Deliverance - https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Paladin/Holy/Modules/Features/TyrsDeliverance.js
+![Holy Paladin - Tyr's Deliverance](images/tyrs-deliverance-box-tooltip.jpg)
+
+```javascript
+// Holy Paladin - Tyr's Deliverance
+
+statistic() {
+  const tyrsDeliveranceHealHealingPercentage = this.owner.getPercentageOfTotalHealingDone(this.healHealing);
+  const tyrsDeliveranceBuffFoLHLHealingPercentage = this.owner.getPercentageOfTotalHealingDone(this.buffFoLHLHealing);
+  const tyrsDeliverancePercentage = tyrsDeliveranceHealHealingPercentage + tyrsDeliveranceBuffFoLHLHealingPercentage;
+
+  return (
+    <SmallStatisticBox
+      icon={<SpellIcon id={SPELLS.TYRS_DELIVERANCE_CAST.id} />}
+      value={`${formatPercentage(tyrsDeliverancePercentage)} %`}
+      label="Tyr's Deliverance healing"
+      tooltip={`The total actual effective healing contributed by Tyr's Deliverance. This includes the gains from the increase to healing by Flash of Light and Holy Light.<br /><br />The actual healing done by the effect was ${formatPercentage(tyrsDeliveranceHealHealingPercentage)}% of your healing done, and the healing contribution from the Flash of Light and Holy Light heal increase was ${formatPercentage(tyrsDeliveranceBuffFoLHLHealingPercentage)}% of your healing done.`}
+    />
+  );
+}
+statisticOrder = STATISTIC_ORDER.UNIMPORTANT();
+```
 
 ## StatisticsListBox
 
