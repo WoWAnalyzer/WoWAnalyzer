@@ -20,6 +20,7 @@ import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import Abilities from './Modules/Features/Abilities';
+import Checklist from './Modules/Features/Checklist';
 
 import AncestralVigor from './Modules/Features/AncestralVigor';
 import TidalWaves from './Modules/Features/TidalWaves';
@@ -63,6 +64,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     tidalWaves: TidalWaves,
     castBehavior: CastBehavior,
+    checklist: Checklist,
 
     // Talents:
     earthenShieldTotem: EarthenShieldTotem,
