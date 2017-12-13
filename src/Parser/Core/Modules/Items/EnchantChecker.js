@@ -45,7 +45,7 @@ class EnchantChecker extends Analyzer {
     .forEach(item => {
         // inverting everything felt improper but its what made sure only one suggestion fires
         const missingEnchant = !gear[item].hasOwnProperty('permanentEnchant');
-        const missingMaxEnchant = !missingEnchant && !MAX_ENCHANT_IDS.includes(gear[item].permanentEnchant)
+        const missingMaxEnchant = !missingEnchant && !MAX_ENCHANT_IDS.includes(gear[item].permanentEnchant);
         const itemUrl = "https://wowhead.com/item=" + gear[item].id;
         when(missingEnchant).isTrue()
           .addSuggestion((suggest, actual, recommended) => {
