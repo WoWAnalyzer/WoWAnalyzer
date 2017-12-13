@@ -24,7 +24,7 @@ The statistic boxes are laid out in rows from left to right for three columns at
 **NOTE**: Display box height will disrupt the order layout, so sometimes it's confusing and awkward to get an exact box order. If you want certain modules to group together in the box display grid, consider using a combo box instead of many default boxes or grouping similarly sized boxes together.
 ** you can also fudge it within a statistic a la https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Paladin/Holy/Modules/PaladinCore/CastBehavior.js
 
-Typically two STATISTIC_ORDER values are used in spec statistic boxes. `CORE` is for base spec abilities, resources, and core spec procs; `OPTIONAL` is used for sometimes-things like talents or minor constants like relics and artifact traits. In detail, the [STATISTIC_ORDER](https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Main/STATISTIC_ORDER.js) uses this ordering, first > last: `CORE` > `DEFAULT` > `OPTIONAL` > `UNIMPORTANT`.
+Typically two STATISTIC_ORDER values are used in spec statistic boxes. `CORE` is for base spec abilities, resources, and core spec procs; `OPTIONAL` is used for sometimes-things like talents or minor constants like relics and artifact traits. In detail, the [STATISTIC_ORDER](../src/Main/STATISTIC_ORDER.js) uses this ordering, first > last: `CORE` > `DEFAULT` > `OPTIONAL` > `UNIMPORTANT`.
 
 ## Imports used
 
@@ -45,7 +45,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 ## StatisticBox
 
-StatisticBox is the default and basic statistic box that you will see in the [getting started module documentation](https://github.com/poneria/WoWAnalyzer/blob/doc-statbox/docs/a-new-module.md). Here's a basic example.
+StatisticBox is the default and basic statistic box that you will see in the [getting started module documentation](../docs/a-new-module.md). Here's a basic example.
 
 ![Agony uptime](images/agony-uptime-box.jpg)
 
@@ -130,9 +130,9 @@ For a basic tooltip:
 tooltip="Tooltip text here."
 ```
 
-For longer tooltip variations, see [Holy Paladin - Beacon of Faith healing](/src/Parser/Paladin/Holy/Modules/PaladinCore/BeaconHealing.js) or [Holy Paladin - Holy Avenger](../src/Parser/Paladin/Holy/Modules/Talents/HolyAvenger.js) talent module stat boxes.
+For longer tooltip variations, see [Holy Paladin - Beacon of Faith healing](../src/Parser/Paladin/Holy/Modules/PaladinCore/BeaconHealing.js) or [Holy Paladin - Holy Avenger](../src/Parser/Paladin/Holy/Modules/Talents/HolyAvenger.js) talent module stat boxes.
 
-![Beacon of Faith tooltip](images/beacon-faith-box-tooltip.jpg)
+![Beacon of Faith tooltip](/images/beacon-faith-box-tooltip.jpg)
 ![Holy Avenger tooltip](images/holy-avenger-box-tooltip.jpg)
 
 ### Footer
@@ -185,7 +185,7 @@ You can add multiple icons or text rows within a StatisticBox, if you want to sh
 />
 ```
 
-Look at the [DamageTaken module](/src/Parser/Core/Modules/DamageTaken.js) for a .map() version of many sections in the footer bar.
+Look at the [DamageTaken module](../src/Parser/Core/Modules/DamageTaken.js) for a .map() version of many sections in the footer bar.
 
 The last bar color is always coded `className="remainder {bg color}"` so that the bar fills the remainder in with that background color. If the bar colors were switched in the Uplifting Trance example, the first would be `className="stat-overhealing-bg"` and the second would be `className="remainder stat-healing-bg"`.
 

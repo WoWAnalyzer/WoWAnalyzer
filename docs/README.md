@@ -29,7 +29,7 @@ If you want to learn (modern) JavaScript these book series are recommended: http
 
 The below image attempts to give you an overview of the app setup. If you're going to be working on a spec specific analysis you will only be working on the blue boxes shown in the image for that specific spec. Each modules (any of the blue boxes except that CombatLogParser) is an isolated class, usually found in the "Modules" folder of a spec. Most modules have dependencies on other modules, most commonly `Combatants` which contains information about the selected player, such as equipped gear and talents.
 
-![App overview](app-overview.png)
+![App overview](iamges/app-overview.png)
 
 At this time there are two types of modules: Analyzers and Normalizers.
 
