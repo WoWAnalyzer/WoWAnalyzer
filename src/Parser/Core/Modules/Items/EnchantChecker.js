@@ -54,11 +54,11 @@ class EnchantChecker extends Analyzer {
               .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
           });
         when(missingMaxEnchant).isTrue()
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Your <a href={itemUrl}>{ENCHANTABLE_SLOTS[item]}</a> has a cheap enchant.  You should consider upgrading it from a "Word of" enchant to a "Binding of" enchant.</span>)
-            .icon(gear[item].icon)
-            .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
-      });
+          .addSuggestion((suggest, actual, recommended) => {
+            return suggest(<span>Your <a href={itemUrl}>{ENCHANTABLE_SLOTS[item]}</a> has a cheap enchant.  You should consider upgrading it from a "Word of" enchant to a "Binding of" enchant.</span>)
+              .icon(gear[item].icon)
+              .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
+          });
     });
   }
 }
