@@ -4,7 +4,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
-// Make sure to push this once we get to 1000!
 const ENCHANTABLE_SLOTS = {
   1: 'Neck',
   10: 'Ring', 
