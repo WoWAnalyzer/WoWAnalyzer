@@ -14,7 +14,7 @@ export default {
       Welcome to the Resto Shaman analyzer! We hope you find these suggestions and statistics useful.
       <br /><br />
 
-      If you want to learn more about Resto Shaman, join the Druid community at the <a href="https://discord.gg/AcTek6e" target="_blank" rel="noopener noreferrer">Ancestral Guidance channel</a>.
+      If you want to learn more about Resto Shaman, join the Resto Shaman community at the <a href="https://discord.gg/AcTek6e" target="_blank" rel="noopener noreferrer">Ancestral Guidance channel</a>.
     </div>
   ),
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/56',
