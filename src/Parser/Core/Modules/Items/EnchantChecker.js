@@ -1,4 +1,5 @@
 import React from 'react';
+import ItemLink from 'common/ItemLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -49,13 +50,13 @@ class EnchantChecker extends Analyzer {
         const itemUrl = "https://wowhead.com/item=" + gear[item].id;
         when(missingEnchant).isTrue()
           .addSuggestion((suggest, actual, recommended) => {
-            return suggest(<span>Your <a href={itemUrl}>{ENCHANTABLE_SLOTS[item]}</a> has a missing enchant.</span>)
+            return suggest(<span>Your <a href={itemUrl}>{ENCHANTABLE_SLOTS[item]}</a> has a missing enchant.  Apply a strong enchant to increase your DPS/healing/survivability against a challenging boss.</span>)
               .icon(gear[item].icon)
               .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
           });
         when(missingMaxEnchant).isTrue()
           .addSuggestion((suggest, actual, recommended) => {
-            return suggest(<span>Your <a href={itemUrl}>{ENCHANTABLE_SLOTS[item]}</a> has a cheap enchant.  You should consider upgrading it from a "Word of" enchant to a "Binding of" enchant.</span>)
+            return suggest(<span>Your <a href={itemUrl}>{ENCHANTABLE_SLOTS[item]}</a> has a cheap enchant.  Apply a strong enchant to increase your DPS/healing/survivability against a challenging boss.</span>)
               .icon(gear[item].icon)
               .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
           });
