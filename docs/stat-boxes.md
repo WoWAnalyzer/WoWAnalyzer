@@ -1,14 +1,14 @@
 # Statistic Boxes
 
-Statistic boxes show off module details independently of suggestions. This document will go over some code templates and current examples of how to display information in different styles of boxes.
+Statistic boxes show off module details independently of suggestions. Statistic boxes are coded into their related module Javascript files, typically as the last thing in the module code. 
 
-**Topics**
+**General topics**
 - [Box layout & order](#box-layout--order)
 - [Imports used](#imports-used)
 - [Basic statistic box](#statisticbox)
-  - [Code skeleton](#code-skeleton) 
+  - [Code skeleton and anatomy](#code-skeleton) 
 
-**Types of statistic boxes**
+**Statistic box styles**
 - Basic (above)
 - [Multiple icons in a basic box](#multiple-listing)
 - [Downtime's styled footer bar](#downtimes-styled-footer-bar)
@@ -85,7 +85,7 @@ statistic() {
 statisticOrder = STATISTIC_ORDER.CORE(###);
 ```
 
-#### Icon
+### Icon
 
 For a Wowhead tooltip on the icon mouseover, use a `<SpellIcon />` for the icon. The id should either be a numerical spellID from Wowhead or referencing one of the spells already in the WoWAnalyzer SPELLS folder.
 - `icon={<SpellIcon id={SPELLS.AGONY.id} />}`
@@ -98,14 +98,14 @@ For a custom icon, include an import of your icon image file in the top of the m
 - `icon={<img src={MasteryRadiusImage} style={{ border: 0 }} alt="Mastery effectiveness" />}` from the [Holy Paladin - Mastery Effectiveness](../src/Parser/Paladin/Holy/Modules/Features/MasteryEffectiveness.js) stat box.
 - note that MasteryRadiusImage is in `/public/img` not in the `Paladin/Holy` folder.
   
-#### Value
+### Value
 
 To get a value into a percentage, use formatPercentage (import module). It's common practice to do calculations before and store with a variable/constant name, then reference the variable/constant name here.
 - ```value={`${formatPercentage(agonyUptime)} %`}```
 - ```value={`${((this.heals / totalCastsIncludingDp) || 0).toFixed(2)} players`}```
 - ```value={`${formatNumber(this.hps)} HPS`}```
 
-#### Label
+### Label
 
 For basic text with no tooltip, just use a basic double-quote string.
 - `label="Agony uptime"`
@@ -123,7 +123,7 @@ For a longer tooltip via label --> see [Mistweaver Monk - Mana Tea](../src/Parse
 
 ![Mana Tea tooltip](images/mana-tea-box-tooltip.jpg)
 
-#### Tooltip
+### Tooltip
 
 For a basic tooltip:
 ```
@@ -132,11 +132,24 @@ tooltip="Tooltip text here."
 
 For longer tooltip variations, see [Holy Paladin - Beacon of Faith healing](/src/Parser/Paladin/Holy/Modules/PaladinCore/BeaconHealing.js) or [Holy Paladin - Holy Avenger](../src/Parser/Paladin/Holy/Modules/Talents/HolyAvenger.js) talent module stat boxes.
 
+![Beacon of Faith tooltip](images/beacon-faith-box-tooltip.jpg)
 ![Holy Avenger tooltip](images/holy-avenger-box-tooltip.jpg)
 
-#### Footer
+### Footer
 
-This footer bar is usually seen as part of the damage taken, healing done or downtime module boxes. However, you can also adapt it to a display module.
+This footer bar is usually seen as part of the damage taken, healing done, or downtime module boxes. However, you can also adapt it to a display module -- see [the styled footer bar](#downtimes-styled-footer-bar) box variation section below.
+
+---
+
+## Multiple listing
+
+You can add multiple icons or text rows within a StatisticBox, if you want to show different parts of a module. Horizontal grouping is cleaner, but tends to work with only a single counter beside each icon. 
+
+- (horiz) https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Hunter/BeastMastery/Modules/Spells/DireBeast/DireBeast.js
+- (vertical) https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Mage/Frost/Modules/Features/WintersChill.js
+- (vertical) https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Shaman/Elemental/Modules/Features/Overload.js
+
+## Downtime's styled footer bar
 
 ![Mistweaver Monk - Uplifting Trance box](images/uplifting-trance-box-footer-bar.jpg)
 
@@ -182,19 +195,6 @@ The bar colors come from the className value, and are found deep in `/src/Main/A
 - `"{class}-bg"` colors: lines 667-678.
 - `"stat-{something}-bg"` colors: lines 713-736.
 - `"spell-school-{type}-bg"` colors: lines 739-764.
-
-# Variations on the statistic box
-
-## Multiple listing
-
-You can add multiple icons or text rows within a StatisticBox, if you want to show different parts of a module. Horizontal grouping is cleaner, but tends to work with only a single counter beside each icon. 
-
-- (horiz) https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Hunter/BeastMastery/Modules/Spells/DireBeast/DireBeast.js
-- (vertical) https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Mage/Frost/Modules/Features/WintersChill.js
-- (vertical) https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Shaman/Elemental/Modules/Features/Overload.js
-
-## Downtime's styled footer bar
-- https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Monk/Mistweaver/Modules/Spells/UpliftingTrance.js
 
 ## SmallStatisticBox
 
