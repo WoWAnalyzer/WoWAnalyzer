@@ -48,4 +48,9 @@ The `byPlayer` (and `toPlayer`) part of the function names are just there for ea
 
 The file you just made still doesn't do anything as it hasn't been enabled in a parser yet. I assume you're working on a spec specific statistic, let's say for Holy Paladin. Go to `Parser/Paladin/Holy/CombatLogParser.js`. Import your new module next to the other imports, for example: `import MyCuteRock from './Modules/Items/MyCuteRock';`, then scroll down to the `specModules` static property. Add your module: `myCuteRock: MyCuteRock,`, now it is active and the statistic should appear on the spec.
 
+### Code examples
+
+- [How to make statistic boxes](../docs/stat-boxes.md)
+- Common module examples TBD
+
 **Further documentation for modules is a work in progress. For now looking at the Holy Paladin implementation may be the best way to find out how things are done, as I always try to keep this updated with the latest best practices.** If you want to add something to the items display just do a find-in-files for `item()` to find examples. For suggestions search for `suggestions(when)` (plural, unlike the other functions). You can also add your own tab with the `tab()` function. Almost every problem imaginable has been solved, so looking at other places is one way to find how to do things. Alternatively your questions are always welcome in the WoW Analyzer Discord.
