@@ -5,12 +5,19 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
 
 const debug = false;
 
 class RenewingMist extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+    spellUsable: SpellUsable,
+  };
+
   remApplyTimestamp = null;
   remRemoveTimestamp = null;
   remCastTimestamp = null;
@@ -64,6 +71,15 @@ class RenewingMist extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
+
+    // Thunder Focus Tea allows you to cast Renewing Mist without triggering its cooldown.
+    if (spellId === SPELLS.RENEWING_MIST.id) {
+      if (this.combatants.selected.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)) {
+        if (this.spellUsable.isOnCooldown(SPELLS.RENEWING_MIST.id)) {
+          this.spellUsable.endCooldown(SPELLS.RENEWING_MIST.id);
+        }
+      }
+    }
 
     if (spellId === SPELLS.RENEWING_MIST.id || spellId === SPELLS.LIFE_COCOON.id) {
       // Added because the buff application for REM can occur either before or after the cast.

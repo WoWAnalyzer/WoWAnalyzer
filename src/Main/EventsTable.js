@@ -20,7 +20,7 @@ class EventsTable extends React.Component {
     const { events, filter, findEntity, fightStart } = this.props;
 
     return (
-      <table className="events">
+      <table className="events-tab">
         <tbody>
           {events
             .map((event, i) => ({ ...event, eventUniqueId: i })) // this greatly speeds up rendering

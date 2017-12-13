@@ -13,7 +13,7 @@ import BlackoutCombo from './Modules/Spells/BlackoutCombo';
 
 
 // Features
-import CastEfficiency from './Modules/Features/CastEfficiency';
+import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
 // Items
@@ -31,7 +31,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
 
     // Spells
     ironSkinBrew: IronSkinBrew,

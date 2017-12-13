@@ -26,6 +26,16 @@ export default {
     name: 'Leech',
     icon: 'spell_shadow_lifedrain02',
   },
+  AVOIDANCE: {
+    id: 143927,
+    name: 'Avoidance',
+    icon: 'ability_rogue_quickrecovery',
+  },
+  SPEED: {
+    id: 143922,
+    name: 'Speed',
+    icon: 'petbattle_speed',
+  },
   ANCIENT_HEALING_POTION: {
     id: 188016,
     name: 'Ancient Healing Potion',
@@ -45,6 +55,16 @@ export default {
     id: 188027,
     name: 'Potion of Deadly Grace',
     icon: 'inv_alchemy_70_flask02',
+  },
+  FLASK_OF_THE_WHISPERED_PACT: {
+    id: 188031,
+    name: 'Flask of the Whispered Pact',
+    icon: 'inv_alchemy_70_flask03purple',
+  },
+  DEFILED_AUGMENT_RUNE: {
+    id: 224001,
+    name: 'Defiled Augment Rune',
+    icon: 'ability_bossfellord_felspike',
   },
   LEYTORRENT_POTION: {
     id: 188030,
@@ -132,7 +152,7 @@ export default {
     name: 'Sephuz\'s Secret',
     icon: 'inv_jewelry_ring_149',
   },
-  MARK_OF_THE_ACNIENT_PRIESTESS: {
+  MARK_OF_THE_ANCIENT_PRIESTESS: {
     id: 228401,
     name: 'Mark of the Ancient Priestess',
     icon: 'ability_priest_ascension',
@@ -221,12 +241,17 @@ export default {
     name: 'Infernal Cinders',
     icon: 'inv_weapon_shortblade_54',
   },
-  UMBRAL_GLAIVE_STORM: {
+  UMBRAL_GLAIVE_STORM_CAST: {
+    id: 242553,
+    name: 'Umbral Glaive Storm',
+    icon: 'ability_upgrademoonglaive',
+  },
+  UMBRAL_GLAIVE_STORM_TICK: { // this is the damage ID, and also each tick of procs a cast event with this ID
     id: 242556,
     name: 'Umbral Glaive Storm',
     icon: 'ability_upgrademoonglaive',
   },
-  SHATTERING_UMBRAL_GLAIVES: {
+  SHATTERING_UMBRAL_GLAIVES: { // this is the shatter's damage ID, and also the shatter procs a cast event with this ID
     id: 242557,
     name: 'Shattering Umbral Glaives',
     icon: 'ability_upgrademoonglaive',
@@ -242,17 +267,177 @@ export default {
     name: 'Tarratus Keystone',
     icon: 'inv__wod_arakoa4',
   },
- AMANTHULS_PRESENCEBUFF: {
+  HIGHFATHERS_TIMEKEEPING_BUFF: {
     id: 253287,
-    name: 'Aman Thul\'s Presence',
+    name: 'Highfather\'s Timekeeping',
     icon: 'spell_priest_psyfiend',
   },
-  AMANTHULS_PRESENCEHEAL: {
+  HIGHFATHERS_TIMEKEEPING_HEAL: {
     id: 253288,
-    name: 'Aman Thul\'s Presence',
+    name: 'Highfather\'s Timekeeping',
     icon: 'spell_priest_psyfiend',
   },
-
+  EONARS_COMPASSION_HEAL: {
+    id: 257442,
+    name: 'Emerald Blossom',
+    icon: 'inv_antorus_green',
+  },
+  EONARS_COMPASSION_PROCBUFF: {
+    id: 256824,
+    name: 'Mark of Eonar',
+    icon: 'inv_antorus_green',
+  },
+  EONARS_COMPASSION_PANTHEONSHIELD: {
+    id: 257444,
+    name: 'Verdant Embrace',
+    icon: 'talentspec_druid_restoration',
+  },
+  EONARS_COMPASSION_PANTHEONBUFF_RDRUID: {
+    id: 257470,
+    name: 'Eonar\'s Verdant Embrace',
+    icon: 'talentspec_druid_restoration',
+  },
+  EONARS_COMPASSION_PANTHEONBUFF_RMONK: {
+    id: 257471,
+    name: 'Eonar\'s Verdant Embrace',
+    icon: 'talentspec_druid_restoration',
+  },
+  EONARS_COMPASSION_PANTHEONBUFF_HPALADIN: {
+    id: 257472,
+    name: 'Eonar\'s Verdant Embrace',
+    icon: 'talentspec_druid_restoration',
+  },
+  EONARS_COMPASSION_PANTHEONBUFF_DPRIEST: {
+    id: 257473,
+    name: 'Eonar\'s Verdant Embrace',
+    icon: 'talentspec_druid_restoration',
+  },
+  EONARS_COMPASSION_PANTHEONBUFF_HPRIEST: {
+    id: 257474,
+    name: 'Eonar\'s Verdant Embrace',
+    icon: 'talentspec_druid_restoration',
+  },
+  EONARS_COMPASSION_PANTHEONBUFF_RSHAMAN: {
+    id: 257475,
+    name: 'Eonar\'s Verdant Embrace',
+    icon: 'talentspec_druid_restoration',
+  },
+  //T21 Dps Trinket
+  SHADOW_STRIKE: { //Seeping Scourewing Base Damage
+    id: 253324,
+    name: 'Shadow Strike',
+    icon: 'ability_creature_poison_03',
+  },
+  ISOLATED_STRIKE: {
+    id: 255609,
+    name: 'Isolated Strike',
+    icon: 'ability_creature_poison_03',
+  },
+  GORSHALACHS_LEGACY_FIRST_HIT: {
+    id: 253329,
+    name: 'Gorshalach\'s Legacy',
+    icon: 'inv_sword_1h_firelandsraid_d_01',
+  },
+  GORSHALACHS_LEGACY_SECOND_HIT: {
+    id: 255673,
+    name: 'Gorshalach\'s Legacy',
+    icon: 'inv_sword_1h_firelandsraid_d_01',
+  },
+  GOLGANNETHS_VITALITY_RAVAGING_STORM: { //Each tick is a cast event of this spell
+    id: 257286,
+    name: 'Ravaging Storm',
+    icon: 'inv_antorus_grey',
+  },
+  GOLGANNETHS_VITALITY_THUNDEROUS_WRATH: {
+    id: 257430,
+    name: 'Golganneth\'s Thunderous Wrath',
+    icon: 'ability_thunderking_thunderstruck',
+  },
+  WORLDFORGERS_FLAME_BUFF : {
+    id: 256826,
+    name: 'Worldforger\'s Flame',
+    icon: 'inv_antorus_red',
+  },
+  WORLDFORGERS_FLAME_DAMAGE: { //Khaz'goroths Courage damage proc
+    id: 257244,
+    name: 'Worldforger\'s Flame',
+    icon: 'inv_antorus_red',
+  },
+  KHAZGOROTHS_SHAPING: { //Khaz'goroths Pantheon Proc
+    id: 256835,
+    name: 'Khaz\'goroth\'s Shaping',
+    icon: 'spell_nature_unleashedrage',
+  },
+  FIRE_MINES: { // forgefiends fabricator
+    id: 253321,
+    name: 'Fire Mines',
+    icon: 'inv_jewelry_orgrimmarraid_trinket_04_green',
+  },
+  LEGION_BOMBARDMENT: { // terminus signaling beacon
+    id: 257376,
+    name: 'Legion Bombardment',
+    icon: 'spell_fire_felrainoffire',
+  },
+  PROTOTYPE_PERSONNEL_DECIMATOR: {
+    id: 255629,
+    name: 'Prototype Personnel Decimator',
+    icon: 'ability_rogue_cannonballbarrage',
+  },
+  SHEATH_OF_ASARA_SHADOW_BLADES: { // sheath of asara
+    id: 257702,
+    name: 'Shadow Blades',
+    icon: 'spell_shadow_shadowbolt',
+  },
+  RUSH_OF_KNOWLEDGE: { //Norgannon's Prowess Int Buff
+    id: 256828,
+    name: 'Rush of Knowledge',
+    icon: 'inv_antorus_blue',
+  },
+  NORGANNONS_COMMAND: { //Norgannon's Prowess Pantheon Buff
+    id: 256836,
+    name: 'Norgannon\'s Command',
+    icon: 'ability_monk_forcesphere_arcane',
+  },
+  NORGANNONS_FIREBALL: {
+    id: 257241,
+    name: 'Norgannon\'s Fireball',
+    icon: 'spell_fire_fireball02',
+  },
+  NORGANNONS_FROSTBOLT: {
+    id: 257242,
+    name: 'Norgannon\'s Frostbolt',
+    icon: 'spell_frost_frostbolt02',
+  },
+  NORGANNONS_ARCANE_MISSLE: {
+    id: 257243,
+    name: 'Norgannon\'s Arcane Missle',
+    icon: 'spell_nature_starfall',
+  },
+  NORGANNONS_DIVINE_SMITE: {
+    id: 257532,
+    name: 'Norgannon\'s Divine Smite',
+    icon: 'spell_holy_holysmite',
+  },
+  NORGANNONS_WRATH: {
+    id: 257533,
+    name: 'Norgannon\'s Wrath',
+    icon: 'spell_nature_wrathv2',
+  },
+  NORGANNONS_SHADOW_BOLT: {
+    id: 257534,
+    name: 'Norgannon\'s Shadow Bolt',
+    icon: 'spell_shadow_shadowbolt',
+  },
+  FLAMES_OF_FHARG: {
+    id: 253308,
+    name: 'Flames of F\'harg',
+    icon: 'ability_warlock_backdraft',
+  },
+  CORRUPTION_OF_SHATUG: {
+    id: 253307,
+    name: 'Corruption of Shatug',
+    icon: 'spell_fire_twilightimmolation',
+  },
   // Item Abilities
   SPECTRAL_OWL: {
     id: 242570,
@@ -282,6 +467,11 @@ export default {
   TOME_OF_UNRAVELING_SANITY_DAMAGE: {
     id: 243941,
     name: 'Insidious Corruption',
+    icon: 'inv_archaeology_70_demon_flayedskinchronicle',
+  },
+  TOME_OF_UNRAVELING_SANITY_BUFF: {
+    id: 243942,
+    name: 'Extracted Sanity',
     icon: 'inv_archaeology_70_demon_flayedskinchronicle',
   },
   LUNAR_INFUSION: {
@@ -351,6 +541,11 @@ export default {
     id: 207694,
     name: 'Symbiote Strike',
     icon: 'inv_leather_raiddruid_m_01belt',
+  },
+  ROOTS_OF_SHALADRASSIL_HEAL: {
+    id: 208981,
+    name: 'Roots of Shaladrassil',
+    icon: 'inv_robe_pants_pvpwarlock_c_02',
   },
 
   // Encounter mechanics
@@ -514,5 +709,42 @@ export default {
     id: 243096,
     name: 'Concordance of the Legionfall',
     icon: 'achievement_faction_legionfall',
+  },
+  MASTER_OF_SHADOWS: {
+    id: 252091,
+    name: 'Master of Shadows',
+    icon: 'spell_shadow_shadesofdarkness',
+  },
+  LIGHT_SPEED: {
+    id: 252088,
+    name: 'Light Speed',
+    icon: 'ability_rogue_sprint',
+  },
+  FEEDBACK_LOOP: {
+    id: 253269,
+    name: 'Feedback Loop',
+    icon: 'spell_holy_dispelmagic',
+  },
+  // Dot spell for Carafe of Searing Light
+  REFRESHING_AGONY_DOT: {
+    id: 253284,
+    name: 'Refreshing Agony',
+    icon: 'ability_priest_flashoflight',
+  },
+  // Mana return spell for Carafe of Searing Light
+  REFRESHING_AGONY_MANA: {
+    id: 255981,
+    name: 'Refreshing Agonyt',
+    icon: 'ability_priest_flashoflight',
+  },
+  FELSHIELD_ABSORB: {
+    id: 253277,
+    name: 'Felshield',
+    icon: 'ability-vehicle-shellshieldgenerator-green',
+  },
+  FELSHIELD_DAMAGE: {
+    id: 253278,
+    name: 'Felshield',
+    icon: 'ability-vehicle-shellshieldgenerator-green',
   },
 };

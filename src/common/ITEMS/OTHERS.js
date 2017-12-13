@@ -199,8 +199,25 @@ export default {
     icon: 'spell_nature_astralrecalgroup',
     quality: ITEM_QUALITIES.EPIC,
   },
-
-  // DPS Trinkets
+  EONARS_COMPASSION: {
+    id: 154175,
+    name: 'Eonar\'s Compassion',
+    icon: 'inv_antorus_green',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  ISHKARS_FELSHIELD_EMITTER: {
+    id: 151957,
+    name: 'Ishkar\'s Felshield Emitter',
+    icon: 'ability_vehicle_shellshieldgenerator_green',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  CARAFE_OF_SEARING_LIGHT: {
+    id: 151960,
+    name: 'Carafe of Searing Light',
+    icon: 'inv_offhand_pvealliance_d_01_gold',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  // T20 DPS Trinkets
   ERRATIC_METRONOME: {
     id: 140792,
     name: 'Erratic Metronome',
@@ -278,5 +295,65 @@ export default {
     name: 'Crade of Anguish',
     icon: 'inv_wand_36',
     quality: ITEM_QUALITIES.EPIC,
+  },
+  //T21 DPS Trinkets
+  SEEPING_SCOURGEWING: {
+    id: 151964,
+    name: 'Seeping Scourgewing',
+    icon: 'ability_creature_poison_03',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  GAROTHI_FEEDBACK_CONDUIT: {
+    id: 151956,
+    name: 'Garothi Feedback Conduit',
+    icon: 'inv_misc_enggizmos_06',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  GORSHALACHS_LEGACY: {
+    id: 152093,
+    name: 'Gorshalach\'s Legacy',
+    icon: 'inv_sword_1h_firelandsraid_d_01',
+  },
+  GOLGANNETHS_VITALITY: {
+    id: 154174,
+    name: 'Golganneth\'s Vitality',
+    icon: 'inv_antorus_grey',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  KHAZGOROTHS_COURAGE: {
+    id: 154176,
+    name: 'Khaz\'goroths Courage',
+    icon: 'inv_antorus_red',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  FORGEFIENDS_FABRICATOR: {
+    id: 151963,
+    name: 'Forgefiend\'s Fabricator',
+    icon: 'inv_jewelry_orgrimmarraid_trinket_04_green',
+  },
+  TERMINUS_SIGNALING_BEACON: {
+    id: 151969,
+    name: 'Terminus Signaling Beacon',
+    icon: 'inv_7_0raid_trinket_010d',
+  },
+  PROTOTYPE_PERSONNEL_DECIMATOR: {
+    id: 151962,
+    name: 'Prototype Personnel Decimator',
+    icon: 'ability_rogue_cannonballbarrage',
+  },
+  SHEATH_OF_ASARA: {
+    id: 151971,
+    name: 'Sheath of Asara',
+    icon: 'spell_shadow_ritualofsacrifice',
+  },
+  NORGANNONS_PROWESS: {
+    id: 154177,
+    name: 'Norgannon\'s Prowess',
+    icon: 'inv_antorus_blue',
+  },
+  SHADOW_SINGED_FANG: {
+    id: 151968,
+    name: 'Shadow-Singed Fang',
+    icon: 'inv_misc_blacksaberonfang',
   },
 };

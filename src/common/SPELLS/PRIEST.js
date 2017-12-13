@@ -191,7 +191,17 @@ export default {
     id: 251843,
     name: 'T21 2 Set Bonus',
     icon: 'ability_priest_ascension',
-  },  
+  },
+  DISC_PRIEST_T21_4SET_BONUS_PASSIVE: {
+    id: 251844,
+    name: 'T21 4 Set Bonus',
+    icon: 'spell_holy_searinglightpriest',
+  },
+  DISC_PRIEST_T21_4SET_BONUS_BUFF: {
+    id: 252848,
+    name: 'T21 4 Set Buff',
+    icon: 'spell_holy_searinglightpriest',
+  },
   KAM_XIRAFF_BUFF: {
     id: 233997,
     name: 'Kam Xi\'raff',
@@ -456,6 +466,30 @@ export default {
     icon: 'spell_holy_guardianspirit',
   },
 
+  HOLY_PRIEST_T21_2SET_BONUS_BUFF: {
+    id: 251831,
+    name: 'Holy Priest T21 2P Bonus',
+    icon: 'ability_priest_ascension',
+  },
+
+ HOLY_PRIEST_ANSWERED_PRAYERS: {
+    id: 253437,
+    name: 'Answered Prayers',
+    icon: 'spell_holy_divinespirit',
+  },
+
+ HOLY_PRIEST_T21_4SET_BONUS_BUFF: {
+    id: 251842,
+    name: 'Holy Priest T21 4P Bonus',
+    icon: 'ability_priest_ascension',
+  },
+
+  HOLY_PRIEST_EVERLASTING_HOPE: {
+    id: 253443,
+    name: 'Everlasting Hope',
+    icon: 'ability_priest_rayofhope',
+  },
+
   // Shadow Spells
 
   VOID_TORRENT: {
@@ -494,6 +528,20 @@ export default {
     icon: 'spell_priest_void-blast',
   },
 
+  // From shadow word pain/vampiric touch:
+  VOID_ERUPTION_DAMAGE_1: {
+    id: 228360,
+    name: 'Void Eruption',
+    icon: 'spell_priest_void-blast',
+  },
+
+  // From shadow word pain/vampiric touch:
+  VOID_ERUPTION_DAMAGE_2: {
+    id: 228361,
+    name: 'Void Eruption',
+    icon: 'spell_priest_void-blast',
+  },
+
   VOID_BOLT: {
     id: 205448,
     name: 'Void Bolt',
@@ -508,6 +556,12 @@ export default {
 
   VAMPIRIC_EMBRACE: {
     id: 15286,
+    name: 'Vampiric Embrace',
+    icon: 'spell_shadow_unsummonbuilding',
+  },
+
+  VAMPIRIC_EMBRACE_HEAL: {
+    id: 15290,
     name: 'Vampiric Embrace',
     icon: 'spell_shadow_unsummonbuilding',
   },
@@ -562,11 +616,35 @@ export default {
     icon: 'spell_shadow_twistedfaith',
   },
 
+  // Shadow items:
+
   SHADOW_PRIEST_T20_4SET_BONUS_PASSIVE: {
     id: 242273,
     name: 'T20 4 Set Bonus',
     icon: 'spell_shadow_shadowwordpain',
   },
+
+  ANUNDS_SEARED_SHACKLES_BUFF: {
+    id: 215210,
+    name: "Anund's Last Breath",
+    icon: 'ability_ironmaidens_convulsiveshadows',
+  },
+
+  HEART_OF_THE_VOID_HEAL: {
+    id: 248219,
+    name: "Heart of the Void",
+    icon: 'spell_priest_void-blast',
+  },
+
+  THE_TWINS_PAINFUL_TOUCH: {
+    id: 207724,
+    name: "The Twins' Painful Touch",
+    icon: "spell_shadow_mindflay",
+  },
+
+
+
+
 
   // Shadow traits
 

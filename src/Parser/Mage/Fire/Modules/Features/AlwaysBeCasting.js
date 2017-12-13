@@ -3,9 +3,8 @@ import React from 'react';
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
 import SPELLS from 'common/SPELLS';
-import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellLink from 'common/SpellLink';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
@@ -20,6 +19,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.SCORCH.id,
     SPELLS.PHOENIXS_FLAMES.id,
     SPELLS.DRAGONS_BREATH.id,
+    SPELLS.SPELL_STEAL.id,
+    SPELLS.INVISIBILITY.id,
+    SPELLS.SLOW_FALL.id,
     // talents
     SPELLS.BLAST_WAVE_TALENT.id,
     SPELLS.MIRROR_IMAGE_TALENT.id,
@@ -42,19 +44,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           .regular(recommended + 0.15).major(recommended + 0.2);
       });
   }
-  statistic() {
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
-    return (
-      <StatisticBox
-        icon={<Icon icon="petbattle_health-down" alt="Dead time" />}
-        value={`${formatPercentage(deadTimePercentage)} %`}
-        label="Downtime"
-        tooltip="Downtime is available casting time not used for casting any spell. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/being stunned), etc."
-      />
-    );
-  }
-
+  showStatistic = true;
   statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 

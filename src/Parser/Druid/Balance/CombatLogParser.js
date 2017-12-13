@@ -6,7 +6,7 @@ import Haste from './Modules/Core/Haste';
 //Features
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import AstralPower from './Modules/Features/AstralPower';
-import CastEfficiency from './Modules/Features/CastEfficiency';
+import Abilities from './Modules/Features/Abilities';
 import LEmpowerment from './Modules/Features/LunarEmpowerment';
 import SEmpowerment from './Modules/Features/SolarEmpowerment';
 
@@ -29,7 +29,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     astralpower: AstralPower,
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
     lsempowerment: LEmpowerment,
     swempowerment: SEmpowerment,
     //Spells

@@ -37,13 +37,13 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     //SPELLS.ASPECT_OF_THE_TURTLE.id,
     //SPELLS.ASPECT_OF_THE_CHEETAH.id,
     //SPELLS.EXHILARATION.id,
+    //SPELLS.TRUESHOT.id,
 
     //Talents
     SPELLS.BLACK_ARROW_TALENT.id,
     SPELLS.EXPLOSIVE_SHOT_TALENT.id,
     SPELLS.SIDEWINDERS_TALENT.id,
     SPELLS.PIERCING_SHOT_TALENT.id,
-    SPELLS.TRICK_SHOT_TALENT.id,
     SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id,
     SPELLS.BARRAGE_TALENT.id,
     SPELLS.SENTINEL_TALENT.id,
@@ -56,9 +56,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
     //When playing with sidewinders your downtime is significantly different than when you play without, this is due to losing all instant casts
     if (this.combatants.selected.hasTalent(SPELLS.SIDEWINDERS_TALENT.id)) {
-      when(deadTimePercentage).isGreaterThan(0.25)
+      when(deadTimePercentage).isGreaterThan(0.3)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Your downtime can be improved. Try and minimise the time spent standing around, even though you are playing with <SpellLink id={SPELLS.SIDEWINDERS_TALENT.id} />.</span>)
+          return suggest(<span>Your downtime can be improved. Try and minimise the time spent standing around doing nothing, even though you are playing with <SpellLink id={SPELLS.SIDEWINDERS_TALENT.id} />.</span>)
             .icon('spell_mage_altertime')
             .actual(`${formatPercentage(actual)}% downtime`)
             .recommended(`<${formatPercentage(recommended)}% is recommended`)
@@ -67,7 +67,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     } else {
       when(deadTimePercentage).isGreaterThan(0.02)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant like <SpellLink id={SPELLS.ARCANE_SHOT.id} /> for single target or <SpellLink id={SPELLS.MULTISHOT.id} /> for multiple targets.</span>)
+          return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), this means you should try to reduce the delay between casting spells. Even if you have to move, try casting something instant like <SpellLink id={SPELLS.ARCANE_SHOT.id} /> for single target or <SpellLink id={SPELLS.MULTISHOT.id} /> for multiple targets.</span>)
             .icon('spell_mage_altertime')
             .actual(`${formatPercentage(actual)}% downtime`)
             .recommended(`<${formatPercentage(recommended)}% is recommended`)

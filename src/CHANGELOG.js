@@ -1,85 +1,483 @@
-export default `
-02-11-2017 - Changed the <i>default</i> recommended <a href="http://www.wowhead.com/item=144258" target="_blank" rel="noopener noreferrer" class="legendary">Velen's Future Sight</a> healing contribution to be at least 4% (down from 4.5%). (by Zerotorescue)
-01-11-2017 - Always show the navigation bar and stick it to the top of the window. (by Zerotorescue)
-29-10-2017 - Update layout a bit: <a href="https://imgur.com/a/edymi">comparison</a>. (by Zerotorescue)
-25-10-2017 - Added T21 healing trinkets: Tarratus Keystone and Highfather's Machination. (by Dyspho)
-22-10-2017 - Fixed a crash when a player's info errored. Instead the affected player will become unselectable. (by Zerotorescue)
-22-10-2017 - Change a bunch of less important statistics to a smaller statistic box to reduce their emphasis and reduce clutter. (by Zerotorescue)
-22-10-2017 - Fixed a bunch of crashes and improved browser support. (by Zerotorescue)
-22-10-2017 - Removed overhealing from cast efficiency. (by Zerotorescue)
-22-10-2017 - Improved layout on a small screens such as mobile devices. (by Zerotorescue)
-22-10-2017 - Changed polyfill usage to be more reliable (but slightly increase download size). (by Zerotorescue)
-21-10-2017 - Added a panel to advertize the Discord bot. (by Zerotorescue)
-20-10-2017 - Rename "Not yet supported" completion status to "Not actively maintained" so it can also be used for abandoned specs. (by Zerotorescue)
-20-10-2017 - Don't show a tooltip for the distance moved icon (previously showed a Mage ability). (by Zerotorescue)
-19-10-2017 - Enable Sentry to record client side errors. (by Zerotorescue)
-17-10-2017 - Fix issue with <i>distance moved</i> that caused it to include the movement from <b>all</b> players. (by Zerotorescue)
-16-10-2017 - Added Cinidaria, the Symbiote damage and healing tracker. (by Juko)
-15-10-2017 - Added a statistic to track total distance moved during the analyzed fight. (by Fyruna)
-14-10-2017 - Sephuz's Secret now displays average haste gain. Uptime still available in tooltip. (by Sref)
-14-10-2017 - Added a suggestion when a legendary haven't been upgraded to the max item level. (by Fyruna)
-10-10-2017 - Changed the buff tracking implementation to be much more developer friendly. This should have no side-effects except to improve accuracy of modules that didn't take this into account in the past. If you notice something strange please let us know. (by Zerotorescue)
-02-10-2017 - Added a <i>help wanted</i> panel to the frontpage. (by Zerotorescue)
-02-10-2017 - The developer only Events tab can now be filtered with JS expressions to be much more powerful. (by Zerotorescue)
-29-09-2017 - Added a spec analyzer info overlay for maintainers to configure. (by Zerotorescue)
-27-09-2017 - Hot Fix: Add in check to disable Netherlight Crucible statistics box if a user has no Netherlight Crucible traits active (by anomoly)
-25-09-2017 - Added Netherlight Crucible traits contribution as a common module across specs (by anomoly)
-25-09-2017 - The GitHub repository is now available under WoWAnalyzer/WoWAnalyzer instead of MartijnHols/WoWAnalyzer to give us all the benefits an organization provides on GitHub. (by Zerotorescue)
-25-09-2017 - Separated damage absorbed and healing absorbed in the healing done bar and made the overhealing bar gray to de-emphasize it. (by Zerotorescue)
-23-09-2017 - Changed all Damage Done / Healing Done / Damage Taken modules to use a shared renderer that can easily be improved in one spot. (by Zerotorescue)
-17-09-2017 - Fight parsing now happens in batches allowing the progress bar to function again, in addition the progress bar will slightly move while waiting on a network request to indicate it's doing something. (by Zerotorescue)
-16-09-2017 - Archimonde's Hatred Reborn now shows total damage done % and DPS contribution on it's tooltip. (by Mamtooth)
-12-09-2017 - The Always Be Casting module has the following changes:
-<ul>
-  <li>It now properly supports the passive Haste gain from Sephuz.</li>
-  <li>Fixed an issue where the downtime between the last cast and the fight end time wasn't included (this also makes it so dying before the boss dies will affect your downtime).</li>
-  <li>Haste buffs from items now scale with item level.</li>
-  <li>Changed how Haste from stacking (de)buffs are applied.</li>
-</ul> (by Zerotorescue)
-03-09-2017 - Reworked the WCL API cache to use a database so it persists between patches, improved performance and corrupt response detection. (by Zerotorescue)
-01-09-2017 - All players in a log now appear and selecting a spec that's not yet supported will show information on adding support for it. (by Zerotorescue)
-01-09-2017 - Added role icons to player selection list and it's now sorted by role then playername to make finding players easier. (by Zerotorescue)
-28-08-2017 - Select fights for the currently selected player with a pull down menu. (by fasib)
-28-08-2017 - Select other players with a pull down menu from the currently selected player. (by fasib)
-27-08-2017 - Added a small line showing the maintainer of a spec to the results page. (by Zerotorescue)
-24-08-2017 - Better error handling when the WCL API is sending weird responses. (by Zerotorescue)
-24-08-2017 - Slightly improve layouts for both desktop and mobile. (by Zerotorescue)
-24-08-2017 - Changelogs are now seperated by a select box. (by Blazyb)
-24-08-2017 - Added a mana usage graph to the mana tab for all healers. (by Zerotorescue)
-20-08-2017 - The background image will now be a screenshot of the boss currently analyzing when available. (by Zerotorescue)
-14-08-2017 - Major under the hood changes, you might see some things move around but no data should be lost or changed. (by Zerotorescue)
-09-08-2017 - Healers with a <i>non-healing time</i> statistic will no longer have their <i>dead GCD time</i> suggestion marked as major importance. (by Zerotorescue)
-09-08-2017 - Changed suggestions tab layout to be less cluttered, specs may need additional work to be fully migrated (by Zerotorescue)
-03-08-2017 - Fix a bug that caused DRPS displays to not always work properly. (by Zerotorescue)
-02-08-2017 - When there's a new version available ask the user if he wants to refresh. (by Zerotorescue)
-02-08-2017 - Gnawed Thumb Ring should now show DPS values when applicable. (by Gurupitka)
-01-08-2017 - Enabled aggressive caching to the app which should allow offline usage as well as improve consecutive load times. (by Zerotorescue)
-31-07-2017 - Added Vantus Rune gain display. (by Zerotorescue)
-22-07-2017 - Shit browsers will now be told they're shit and redirected to a Google Chrome download page instead of just crashing. (by Zerotorescue)
-22-07-2017 - URLs will now show the fight name to make it easier to compare URLs. (by Zerotorescue)
-21-07-2017 - Changed fight selection styling and fixed back buttons. (by Zerotorescue)
-20-07-2017 - Added fight progress indicator to the fight selection page. (by Yuyz0112)
-06-07-2017 - The <i>report code</i> input field now accepts WCL urls and entering what looks to be valid input will now automatically start loading the report. (by Zerotorescue)
-04-07-2017 - All healing specs: Added low health healing tab to give more insight into how often you're saving people's lives. (by Zerotorescue)
-01-07-2017 - Added a few new tools for developers to use; <code>ModuleComponent</code> to more cleanly add statistic modules (see <code>DevotionAura</code> for an example), and <code>LazyLoadStatisticBox</code> for statistics that require additional API calls. (by Zerotorescue)
-24-06-2017 - Fixed an issue with some items not showing up properly (by Zerotorescue)
-23-06-2017 - Change home page layout (by Zerotorescue)
-20-06-2017 - Added prepot/second pot suggestions (by Blazyb)
-18-06-2017 - Added Archive of Faith, Barbaric Mindslaver, The Deceiver's Grand Design and Sea Star of the Depthmother to all specs, trinket implementations by anomoly. (by Zerotorescue)
-17-06-2017 - Improved the Cooldown tab healing done display. (by Zerotorescue)
-15-06-2017 - Updated Darkmoon Deck: Promises mana reduction values to scale with item level. (by Zerotorescue)
-15-06-2017 - Generic: Tier 20 Healing Trinket Implementation (by anomoly)
-06-06-2017 - Added refresh button to fights list.
-29-05-2017 - Fixed a crash when trying to parse a corrupt combatlog. (by versaya)
-28-05-2017 - Added overhealing percentages to the Cast Efficiency tab.
-25-05-2017 - Added Patreon links to the specs I (Zerotorescue) maintain. Please let me know if you think this is inappropriate or makes you hesitate to contribute. Added Discord link.
-21-05-2017 - An informative message is now shown when trying to parse a report without combatants (usually due to not having advanced combat logging enabled).
-21-05-2017 - Fixed a rare crash when auto attacking something.
-20-05-2017 - Added Cooldowns tab to show casts and healing when affected by a cooldown. Added Amalgam's Seventh Spine mana gained statistic. Promises no longer includes mana reduction during Innervate.
-17-05-2017 - Added Sephuz's Secret uptime indicator.
-16-05-2017 - Disabled Retribution Paladin spec since it never really came out of the experimental phase.
-13-05-2017 - Added full multispec support! The right spec specific parser is now selected based on the spec of the selected person. Only players with supported specs will be displayed in the player selection.
-11-05-2017 - Fixed a bunch of bugs. The Always Be Casting/Healing module now supports debuffs which allows me to implement boss Haste buffs to make it more accurate. Elisande's Haste buffs are now implemented.
-11-05-2017 - <b>A lot</b> more changes under the hood in order to make the analyzer multi-spec compatible. Almost everything was changed, so anything might have gotten broken. Please let me know.
-07-05-2017 - Untangled many lines - you shouldn't notice a difference.
-`;
+import React from 'react';
+
+import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, Yuyz0112, Zerotorescue, Hartra344 } from 'MAINTAINERS';
+import Wrapper from 'common/Wrapper';
+import ItemLink from 'common/ItemLink';
+import ITEMS from 'common/ITEMS';
+
+export default [
+  {
+    date: new Date('2017-12-06'),
+    changes: <Wrapper>Added <ItemLink id={ITEMS.ISHKARS_FELSHIELD_EMITTER.id} /> to items </Wrapper>,
+    contributors: [Hartra344],
+  },
+  {
+    date: new Date('2017-12-05'),
+    changes: 'Included some NLC traits and trinkets to stat weights module.',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-12-03'),
+    changes: <Wrapper>Improve Player Selection user interface.</Wrapper>,
+    contributors: ['kyle-glick'],
+  },
+  {
+    date: new Date('2017-12-01'),
+    changes: <Wrapper>Improved WCL API error handling to avoid caching corrupt responses (and show more informative errors).</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-29'),
+    changes: <Wrapper>Added a <i>talents</i> panel, replacing the tab.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-29'),
+    changes: <Wrapper>Added a <i>stats on pull</i> panel.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-28'),
+    changes: 'Reworked the frontpage layout.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-11'),
+    changes: <Wrapper>Changed the Changelog tab to mark <i>shared changes</i> as grey and provided a toggle to hide them.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-11'),
+    changes: 'Added a larger call for help for specs that are marked "Not actively maintained".',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-11'),
+    changes: 'Added a timeline tab. Right now this only shows spell casts and their cooldowns so you can see what you cast and could have cast.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-08'),
+    changes: 'Automatically try again when WCL sends a corrupt fights response.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-08'),
+    changes: 'Changed the API is down and rendering errors to be more amazing.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-08'),
+    changes: 'The changelog tab now includes entries in the shared changelog.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-08'),
+    changes: 'Added a suggestion for healers if their mana percentage is too high at the end of an encounter.',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-11-06'),
+    changes: 'Added a changelog tab to results page and changed the layout of changelogs.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-05'),
+    changes: 'Added a spell cooldown timeline to cast efficiency suggestions.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-02'),
+    changes: <Wrapper>Changed the <i>default</i> recommended <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> healing contribution to be at least 4% (down from 4.5%).</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-11-01'),
+    changes: 'Always show the navigation bar and stick it to the top of the window.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-10-29'),
+    changes: <Wrapper>Update layout a bit: <a href="https://imgur.com/a/edymi">comparison</a>.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-10-25'),
+    changes: 'Added T21 healing trinkets: Tarratus Keystone and Highfather\'s Machination.',
+    contributors: [Dyspho],
+  },
+  {
+    date: new Date('2017-10-22'),
+    changes: 'Fixed a crash when a player\'s info errored. Instead the affected player will become unselectable.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-10-22'),
+    changes: 'Change a bunch of less important statistics to a smaller statistic box to reduce their emphasis and reduce clutter.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-10-22'),
+    changes: 'Fixed a bunch of crashes and improved browser support.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-10-22'),
+    changes: 'Removed overhealing from cast efficiency.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-10-22'),
+    changes: 'Improved layout on a small screens such as mobile devices.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-10-22'),
+    changes: 'Changed polyfill usage to be more reliable (but slightly increase download size).',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-10-21'),
+    changes: 'Added a panel to advertize the Discord bot.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-10-20'),
+    changes: 'Rename "Not yet supported" completion status to "Not actively maintained" so it can also be used for abandoned specs.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-10-20'),
+    changes: 'Don\'t show a tooltip for the distance moved icon (previously showed a Mage ability).',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-10-19'),
+    changes: 'Enable Sentry to record client side errors.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-10-17'),
+    changes: <Wrapper>Fix issue with <i>distance moved</i> that caused it to include the movement from <b>all</b> players.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-10-16'),
+    changes: 'Added Cinidaria, the Symbiote damage and healing tracker.',
+    contributors: [Juko8],
+  },
+  {
+    date: new Date('2017-10-15'),
+    changes: 'Added a statistic to track total distance moved during the analyzed fight.',
+    contributors: [Fyruna],
+  },
+  {
+    date: new Date('2017-10-14'),
+    changes: 'Sephuz\'s Secret now displays average haste gain. Uptime still available in tooltip.',
+    contributors: [sref],
+  },
+  {
+    date: new Date('2017-10-14'),
+    changes: 'Added a suggestion when a legendary haven\'t been upgraded to the max item level.',
+    contributors: [Fyruna],
+  },
+  {
+    date: new Date('2017-10-10'),
+    changes: 'Changed the buff tracking implementation to be much more developer friendly. This should have no side-effects except to improve accuracy of modules that didn\'t take this into account in the past. If you notice something strange please let us know.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-10-02'),
+    changes: <Wrapper>Added a <i>help wanted</i> panel to the frontpage.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-10-02'),
+    changes: 'The developer only Events tab can now be filtered with JS expressions to be much more powerful.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-09-29'),
+    changes: 'Added a spec analyzer info overlay for maintainers to configure.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-09-27'),
+    changes: 'Hot Fix: Add in check to disable Netherlight Crucible statistics box if a user has no Netherlight Crucible traits active',
+    contributors: [Anomoly],
+  },
+  {
+    date: new Date('2017-09-25'),
+    changes: 'Added Netherlight Crucible traits contribution as a common module across specs',
+    contributors: [Anomoly],
+  },
+  {
+    date: new Date('2017-09-25'),
+    changes: 'The GitHub repository is now available under WoWAnalyzer/WoWAnalyzer instead of MartijnHols/WoWAnalyzer to give us all the benefits an organization provides on GitHub.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-09-25'),
+    changes: 'Separated damage absorbed and healing absorbed in the healing done bar and made the overhealing bar gray to de-emphasize it.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-09-23'),
+    changes: 'Changed all Damage Done / Healing Done / Damage Taken modules to use a shared renderer that can easily be improved in one spot.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-09-17'),
+    changes: 'Fight parsing now happens in batches allowing the progress bar to function again, in addition the progress bar will slightly move while waiting on a network request to indicate it\'s doing something.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-09-16'),
+    changes: 'Archimonde\'s Hatred Reborn now shows total damage done % and DPS contribution on it\'s tooltip.',
+    contributors: [Mamtooth],
+  },
+  {
+    date: new Date('2017-09-12'),
+    changes: (
+      <Wrapper>The Always Be Casting module has the following changes:<br />
+        <ul>
+          <li>It now properly supports the passive Haste gain from Sephuz.</li>
+          <li>Fixed an issue where the downtime between the last cast and the fight end time wasn't included (this also makes it so dying before the boss dies will affect your downtime).</li>
+          <li>Haste buffs from items now scale with item level.</li>
+          <li>Changed how Haste from stacking (de)buffs are applied.</li>
+        </ul>
+      </Wrapper>
+    ),
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-09-03'),
+    changes: 'Reworked the WCL API cache to use a database so it persists between patches, improved performance and corrupt response detection.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-09-01'),
+    changes: 'All players in a log now appear and selecting a spec that\'s not yet supported will show information on adding support for it.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-09-01'),
+    changes: 'Added role icons to player selection list and it\'s now sorted by role then playername to make finding players easier.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-08-28'),
+    changes: 'Select fights for the currently selected player with a pull down menu.',
+    contributors: [fasib],
+  },
+  {
+    date: new Date('2017-08-28'),
+    changes: 'Select other players with a pull down menu from the currently selected player.',
+    contributors: [fasib],
+  },
+  {
+    date: new Date('2017-08-27'),
+    changes: 'Added a small line showing the maintainer of a spec to the results page.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-08-24'),
+    changes: 'Better error handling when the WCL API is sending weird responses.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-08-24'),
+    changes: 'Slightly improve layouts for both desktop and mobile.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-08-24'),
+    changes: 'Changelogs are now seperated by a select box.',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-08-24'),
+    changes: 'Added a mana usage graph to the mana tab for all healers.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-08-20'),
+    changes: 'The background image will now be a screenshot of the boss currently analyzing when available.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-08-14'),
+    changes: 'Major under the hood changes, you might see some things move around but no data should be lost or changed.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-08-09'),
+    changes: <Wrapper>Healers with a <i>non-healing time</i> statistic will no longer have their <i>dead GCD time</i> suggestion marked as major importance.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-08-09'),
+    changes: 'Changed suggestions tab layout to be less cluttered, specs may need additional work to be fully migrated',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-08-03'),
+    changes: 'Fix a bug that caused DRPS displays to not always work properly.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-08-02'),
+    changes: 'When there\'s a new version available ask the user if he wants to refresh.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-08-02'),
+    changes: 'Gnawed Thumb Ring should now show DPS values when applicable.',
+    contributors: [Gurupitka],
+  },
+  {
+    date: new Date('2017-08-01'),
+    changes: 'Enabled aggressive caching to the app which should allow offline usage as well as improve consecutive load times.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-07-31'),
+    changes: 'Added Vantus Rune gain display.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-07-22'),
+    changes: 'Shit browsers will now be told they\'re shit and redirected to a Google Chrome download page instead of just crashing.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-07-22'),
+    changes: 'URLs will now show the fight name to make it easier to compare URLs.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-07-21'),
+    changes: 'Changed fight selection styling and fixed back buttons.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-07-20'),
+    changes: 'Added fight progress indicator to the fight selection page.',
+    contributors: [Yuyz0112],
+  },
+  {
+    date: new Date('2017-07-06'),
+    changes: <Wrapper>The <i>report code</i> input field now accepts WCL urls and entering what looks to be valid input will now automatically start loading the report.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-07-04'),
+    changes: 'All healing specs: Added low health healing tab to give more insight into how often you\'re saving people\'s lives.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-07-01'),
+    changes: <Wrapper>Added a few new tools for developers to use; <code>ModuleComponent</code> to more cleanly add statistic modules (see <code>DevotionAura</code> for an example), and <code>LazyLoadStatisticBox</code> for statistics that require additional API calls.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-06-24'),
+    changes: 'Fixed an issue with some items not showing up properly',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-06-23'),
+    changes: 'Change home page layout',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-06-20'),
+    changes: 'Added prepot/second pot suggestions',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-06-18'),
+    changes: 'Added Archive of Faith, Barbaric Mindslaver, The Deceiver\'s Grand Design and Sea Star of the Depthmother to all specs, trinket implementations by anomoly.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-06-17'),
+    changes: 'Improved the Cooldown tab healing done display.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-06-15'),
+    changes: 'Updated Darkmoon Deck: Promises mana reduction values to scale with item level.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-06-15'),
+    changes: 'Generic: Tier 20 Healing Trinket Implementation',
+    contributors: [Anomoly],
+  },
+  {
+    date: new Date('2017-06-06'),
+    changes: 'Added refresh button to fights list.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-05-29'),
+    changes: 'Fixed a crash when trying to parse a corrupt combatlog.',
+    contributors: [Versaya],
+  },
+  {
+    date: new Date('2017-05-28'),
+    changes: 'Added overhealing percentages to the Cast Efficiency tab.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-05-25'),
+    changes: 'Added Patreon links to the specs I (Zerotorescue) maintain. Please let me know if you think this is inappropriate or makes you hesitate to contribute. Added Discord link.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-05-21'),
+    changes: 'An informative message is now shown when trying to parse a report without combatants (usually due to not having advanced combat logging enabled).',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-05-21'),
+    changes: 'Fixed a rare crash when auto attacking something.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-05-20'),
+    changes: 'Added Cooldowns tab to show casts and healing when affected by a cooldown. Added Amalgam\'s Seventh Spine mana gained statistic. Promises no longer includes mana reduction during Innervate.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-05-17'),
+    changes: 'Added Sephuz\'s Secret uptime indicator.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-05-16'),
+    changes: 'Disabled Retribution Paladin spec since it never really came out of the experimental phase.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-05-13'),
+    changes: 'Added full multispec support! The right spec specific parser is now selected based on the spec of the selected person. Only players with supported specs will be displayed in the player selection.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-05-11'),
+    changes: 'Fixed a bunch of bugs. The Always Be Casting/Healing module now supports debuffs which allows me to implement boss Haste buffs to make it more accurate. Elisande\'s Haste buffs are now implemented.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-05-11'),
+    changes: <Wrapper><b>A lot</b> more changes under the hood in order to make the analyzer multi-spec compatible. Almost everything was changed, so anything might have gotten broken. Please let me know.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-05-07'),
+    changes: 'Untangled many lines - you shouldn\'t notice a difference.',
+    contributors: [Zerotorescue],
+  },
+];

@@ -1,4 +1,13 @@
 export default `
+05-12-2017 - Updated Cast Efficiency to better handle Serenity cooldown reduction on Fists of Fury and Strike of the Windlord (Juko)
+23-11-2017 - Added Chi breakdown tab, suggestions and chi wasted statistic (Juko)
+22-11-2017 - Added T21 4pc item breakdown (Juko)
+07-11-2017 - Added CJL damage from SEF clones in The Emperors Capacity item breakdown (Juko)
+06-11-2017 - Added Energizing Elixir Energy gained calculation and statistics box (Coryn)
+05-11-2017 - Added basic display for Invoke Xuen, The White Tiger to Cooldown Throughput with plans for refinement (Talby)
+05-11-2017 - Added WindwalkerCore for future feature at request of Bablyonius (Talby)
+05-11-2017 - Added basic display Energizing Elixir to Cast Efficiency (Talby)
+05-11-2017 - Fixed issue where Rushing Jade Wind was showing without the talent selected (Talby)
 25-10-2017 - Updated Cast Efficiency because of nerfs to T19 2pc - thanks blizz - also added some rarely used talents(by Juko)
 23-10-2017 - Added tracking of Fists of Fury ticks (by Juko)
 17-10-2017 - Updated Cast Efficiency - Will now reduce cooldowns on Strike of the Windlord and Rising Sun kick based on legendary head and T19 2p but Serenity implementation isn't working - also added Cenedril, Emperors Capacitor and Soul to legendary breakdown (by Juko)

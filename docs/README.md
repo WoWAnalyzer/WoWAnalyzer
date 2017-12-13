@@ -27,9 +27,29 @@ We're using *EcmaScript 6* for code, this is a modern version of JavaScript. Cod
 
 If you want to learn (modern) JavaScript these book series are recommended: https://github.com/getify/You-Dont-Know-JS
 
-The below image attempts to give you an overview of the app setup. If you're going to be working on a spec specific analysis you will only be working on the blue boxes shown in the image for that specific spec. Each "Analyzer" (a module that does some sort of analysis) is an isolated class, usually found in the "Modules" folder. Most Analyzers have dependencies on other Analyzers, most commonly `Combatants` which contains information about the selected player, such as equipped gear and talents.
+The below image attempts to give you an overview of the app setup. If you're going to be working on a spec specific analysis you will only be working on the blue boxes shown in the image for that specific spec. Each modules (any of the blue boxes except that CombatLogParser) is an isolated class, usually found in the "Modules" folder of a spec. Most modules have dependencies on other modules, most commonly `Combatants` which contains information about the selected player, such as equipped gear and talents.
 
 ![App overview](app-overview.png)
+
+At this time there are two types of modules: Analyzers and Normalizers.
+
+There are a lot of bugs in combat logs that make analysis harder. Normalizers, which are also known as EventsNormalizers, are used to work around these issues. They receive the full events list prior to analysis and change its order, values or even fabricate new events to make it more consistent, less buggy and easier to analyze. You usually won't have to make your own normalizer and should always try to solve things without one first.
+
+Everything else is called an Analyzer, these modules analyze events to calculate a result.
+
+A few analyzers also trigger custom events so are very similar to EventsNormalizer, this is usually not to fix issues in the combat log but to introduce new events that the combat log does not support (e.g. stat rating changes). This is also pretty advanced and I only mention this so you're not surprised when you run into it.
+
+Most analyzers are completely isolated with no information going out except how to display the results. When you look at the results page you'll see a lot of boxes with information in them, almost every single one of them is a single Analyzer. Suggestions are special in that they're usually mixed all over the place, but it's pretty rare to find a suggestion without a box.
+
+Analyzers can display their results in different sorts of formats: statistic (a box like healing/damage done), item (shows in the item list), suggestion (to show one or more suggestions), a tab (some output is too big for one box), or an "extra panel" which would be another panel underneath the items panel. Obviously the most common ones are statistics (aka statistic boxes), items and suggestions.
+
+Not all analyzers even listen to events, like the [Rule of Law](https://github.com/WoWAnalyzer/WoWAnalyzer/blob/a5087fbd21f86ea3cf5281ab33c2da0f09d9336e/src/Parser/Paladin/Holy/Modules/Talents/RuleOfLaw.js) analyzer which just asks another module for the buff uptime and shows that (that other module takes care of the event listening). Take a look at this module to get a good grasp of a regular analyzer.
+
+A good example of a module that does use events for its analysis is the [Ilterendi](https://github.com/WoWAnalyzer/WoWAnalyzer/blob/a5087fbd21f86ea3cf5281ab33c2da0f09d9336e/src/Parser/Paladin/Holy/Modules/Items/Ilterendi.js#L18) module for the Holy Paladin legendary [Ilterendi, Crown Jewel of Silvermoon](http://www.wowhead.com/item=137046/ilterendi-crown-jewel-of-silvermoon); it increases a player's healing done by 15% when the buff is active. The modules calculates the effective healing done by just this effect. Take a look at this module and notice how we're listening to heal events by the selected player through `on_byPlayer_heal`.
+
+Adding a new analyzer can be as simple as finding a similar one and copying it into your spec folder. Modify it as required and enable it in your CombatLogParser. The CombatLogParser is like a *mission control center* that takes care of enabling modules and passing along events. Each spec has exactly one. For an example see the [Holy Paladin CombatLogParser](https://github.com/WoWAnalyzer/WoWAnalyzer/blob/a5087fbd21f86ea3cf5281ab33c2da0f09d9336e/src/Parser/Paladin/Holy/CombatLogParser.js#L59). Most CombatLogParsers don't have more than just the `specModules` static property. This is a list of all modules you wish to load. Loading does not mean they're also active, a module decides for itself if it's active through its `active` property. If a module is active the `suggestions(when)`, `statistic()`, `item()` methods (and a few others) determine how they're rendered. If you look closely you'll notice that our previously mentioned RuleOfLaw and Ilterendi modules are in this list. This is what causes the Rule of Law statistic box to appear, and the Ilterendi contribution to be visible in the items panel.
+
+That should cover the core basics of the project and should prepare you to dive in and make your own new Analyzer.
 
 The main folder structure of the project is as follows:
 
@@ -68,4 +88,4 @@ If you're curious what GitHub name links to who on Discord see [contributor-name
 
 # Code review
 
-Our code review guidelines can be found [here](docs/code-reviews.md). TL;DR: Fix errors in the `npm start` window, make sure your code is maintainable and doesn't have anything that could result in a bug or incorrect results.
+Our code review guidelines can be found [here](code-reviews.md). TL;DR: Fix errors in the `npm start` window, make sure your code is maintainable and doesn't have anything that could result in a bug or incorrect results.

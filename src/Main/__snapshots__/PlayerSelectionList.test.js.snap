@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PlayerSelectionList does not show combatants with missing specID 1`] = `
+Array [
+  <div
+    className="card"
+    key="UNKNOWN_ROLE"
+/>,
+]
+`;
+
+exports[`PlayerSelectionList matches snapshot when combatants list is empty 1`] = `
+<li
+  className="text-danger"
+  style={
+    Object {
+      "padding": "15px 22px",
+    }
+  }
+>
+  Could not find any players in this report. Make sure the log is recorded with Advanced Combat Logging enabled. You can enable this in-game in the network settings.
+</li>
+`;

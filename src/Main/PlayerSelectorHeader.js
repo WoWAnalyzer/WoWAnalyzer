@@ -1,7 +1,9 @@
 // Note: Based on PlayerSelecter
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { connect } from 'react-redux';
+
+import { getPlayerName } from 'selectors/url/report';
 
 import SelectorBase from './SelectorBase';
 import PlayerSelectionList from './PlayerSelectionList';
@@ -9,35 +11,22 @@ import PlayerSelectionList from './PlayerSelectionList';
 class PlayerSelectorHeader extends SelectorBase {
   static propTypes = {
     selectedPlayerName: PropTypes.string.isRequired,
-    report: PropTypes.shape({
-      code: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      friendlies: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        type: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-      })),
-    }).isRequired,
-    fightId: PropTypes.number.isRequired,
-    combatants: PropTypes.arrayOf(PropTypes.shape({
-
-    })).isRequired,
   };
 
   render() {
-    const { report, fightId, combatants, selectedPlayerName, ...others } = this.props;
-    const { show } = this.state;
+    const { selectedPlayerName, ...others } = this.props;
+    delete others.dispatch;
     return (
       <div ref={this.setRef} {...others}>
-        <Link onClick={this.handleClick}>{selectedPlayerName}</Link>
-        {show && (
+        <a onClick={this.handleClick}>{selectedPlayerName}</a>
+        {this.state.show && (
           <span className="selectorHeader">
             <div className="panel">
               <div className="panel-heading">
                 <h2>Select the player you wish to analyze</h2>
               </div>
               <div className="panel-body" style={{ padding: 0 }} onClick={this.handleClick}>
-                <PlayerSelectionList report={report} fightId={fightId} combatants={combatants} />
+                <PlayerSelectionList />
               </div>
             </div>
           </span>
@@ -47,4 +36,10 @@ class PlayerSelectorHeader extends SelectorBase {
   }
 }
 
-export default PlayerSelectorHeader;
+const mapStateToProps = state => ({
+  selectedPlayerName: getPlayerName(state),
+});
+
+export default connect(
+  mapStateToProps
+)(PlayerSelectorHeader);

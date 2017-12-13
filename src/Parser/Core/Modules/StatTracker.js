@@ -17,7 +17,7 @@ class StatTracker extends Analyzer {
 
   static STAT_BUFFS = {
     // region Potions
-    [SPELLS.POTION_OF_PROLONGED_POWER.id]: { strength: 2500, agility: 2500, intellect: 2500 },
+    [SPELLS.POTION_OF_PROLONGED_POWER.id]: { stamina: 2500, strength: 2500, agility: 2500, intellect: 2500 },
     // endregion
     // TODO: add flasks
     // TODO: add food
@@ -36,13 +36,18 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.DREADSTONE_OF_ENDLESS_SHADOWS.id,
       haste: (_, item) => calculateSecondaryStatDefault(845, 3480, item.itemLevel),
     },
-    [SPELLS.RISING_TIDES.id]: { // TODO this trinket stacks oddly, results won't be quite right
-      itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
-      haste: (_, item) => calculateSecondaryStatDefault(900, 576, item.itemLevel),
-    },
+    // Event weirdness makes it impossible to handle CotRT normally, it's handled instead by the CharmOfTheRisingTide module
+    //[SPELLS.RISING_TIDES.id]: {
+    //  itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
+    //  haste: (_, item) => calculateSecondaryStatDefault(900, 576, item.itemLevel),
+    //},
     [SPELLS.ACCELERANDO.id]: {
       itemId: ITEMS.ERRATIC_METRONOME.id,
       haste: (_, item) => calculateSecondaryStatDefault(870, 657, item.itemLevel),
+    },
+    [SPELLS.TOME_OF_UNRAVELING_SANITY_BUFF.id]: {
+      itemId: ITEMS.TOME_OF_UNRAVELING_SANITY.id,
+      crit: (_, item) => calculateSecondaryStatDefault(910, 2756, item.itemLevel),
     },
     // endregion
 
@@ -63,6 +68,10 @@ class StatTracker extends Analyzer {
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 1000, haste: 1000 },
     // endregion
 
+    // region Death Knight
+    [SPELLS.VAMPIRIC_AURA.id]: { leech: (23000 * 0.20) }, // TODO make non static so can use this.leechRatingPerPercent ??
+    // endregion
+
     // region Druid
     [SPELLS.ASTRAL_HARMONY.id]: { mastery: 4000 },
     // endregion
@@ -76,11 +85,12 @@ class StatTracker extends Analyzer {
     // endregion
   };
 
-  _startingStats = {};
-  _stats = {};
+  _pullStats = {};
+  _currentStats = {};
 
   on_initialized() {
-    this._startingStats = {
+    // TODO: Use combatantinfo event directly
+    this._pullStats = {
       strength: this.combatants.selected.strength,
       agility: this.combatants.selected.agility,
       intellect: this.combatants.selected.intellect,
@@ -93,9 +103,11 @@ class StatTracker extends Analyzer {
       leech: this.combatants.selected.leechRating,
       speed: this.combatants.selected.speedRating,
     };
-    this._stats = this._startingStats;
+    this._currentStats = {
+      ...this._pullStats,
+    };
 
-    debug && this._debugPrintStats(this._stats);
+    this._debugPrintStats(this._currentStats);
   }
 
   /*
@@ -103,82 +115,91 @@ class StatTracker extends Analyzer {
    * Should be identical to what you get from Combatant.
    */
   get startingStrengthRating() {
-    return this._startingStats.strength;
+    return this._pullStats.strength;
   }
   get startingAgilityRating() {
-    return this._startingStats.agility;
+    return this._pullStats.agility;
   }
   get startingIntellectRating() {
-    return this._startingStats.intellect;
+    return this._pullStats.intellect;
   }
   get startingStaminaRating() {
-    return this._startingStats.stamina;
+    return this._pullStats.stamina;
   }
   get startingCritRating() {
-    return this._startingStats.crit;
+    return this._pullStats.crit;
   }
   get startingHasteRating() {
-    return this._startingStats.haste;
+    return this._pullStats.haste;
   }
   get startingMasteryRating() {
-    return this._startingStats.mastery;
+    return this._pullStats.mastery;
   }
   get startingVersatilityRating() {
-    return this._startingStats.versatility;
+    return this._pullStats.versatility;
   }
   get startingAvoidanceRating() {
-    return this._startingStats.avoidance;
+    return this._pullStats.avoidance;
   }
   get startingLeechRating() {
-    return this._startingStats.leech;
+    return this._pullStats.leech;
   }
   get startingSpeedRating() {
-    return this._startingStats.speed;
+    return this._pullStats.speed;
   }
 
   /*
    * Current stat rating, as tracked by this module.
    */
   get currentStrengthRating() {
-    return this._stats.strength;
+    return this._currentStats.strength;
   }
   get currentAgilityRating() {
-    return this._stats.agility;
+    return this._currentStats.agility;
   }
   get currentIntellectRating() {
-    return this._stats.intellect;
+    return this._currentStats.intellect;
   }
   get currentStaminaRating() {
-    return this._stats.stamina;
+    return this._currentStats.stamina;
   }
   get currentCritRating() {
-    return this._stats.crit;
+    return this._currentStats.crit;
   }
   get currentHasteRating() {
-    return this._stats.haste;
+    return this._currentStats.haste;
   }
   get currentMasteryRating() {
-    return this._stats.mastery;
+    return this._currentStats.mastery;
   }
   get currentVersatilityRating() {
-    return this._stats.versatility;
+    return this._currentStats.versatility;
   }
   get currentAvoidanceRating() {
-    return this._stats.avoidance;
+    return this._currentStats.avoidance;
   }
   get currentLeechRating() {
-    return this._stats.leech;
+    return this._currentStats.leech;
   }
   get currentSpeedRating() {
-    return this._stats.speed;
+    return this._currentStats.speed;
   }
 
+  // TODO: I think these should be ratings. They behave like ratings and I think the only reason they're percentages here is because that's how they're **displayed** in-game, but not because it's more correct.
   /*
    * For percentage stats, the percentage you'd have with zero rating.
    * These values don't change.
    */
   get baseCritPercentage() {
-    return 0.08; // TODO is this the same for all classes?
+    const standard = 0.05;
+    switch (this.combatants.selected.spec) {
+      case SPECS.HOLY_PALADIN:
+        return standard + 0.03; // 3% from a trait everyone has. TODO: Make traits conditional
+      case SPECS.FIRE_MAGE:
+        return standard + 0.15; // an additional 15% is gained from the passive Critical Mass
+      default:
+        return standard;
+    }
   }
   get baseHastePercentage() {
     return 0;
@@ -189,14 +210,33 @@ class StatTracker extends Analyzer {
         return 0.12;
       case SPECS.HOLY_PRIEST:
         return 0.05;
+      case SPECS.SHADOW_PRIEST:
+        return 0.2;
       case SPECS.RESTORATION_SHAMAN:
         return 0.24;
       case SPECS.ENHANCEMENT_SHAMAN:
         return 0.2;
       case SPECS.RESTORATION_DRUID:
         return 0.048;
+      case SPECS.RETRIBUTION_PALADIN:
+        return 0.14;
+      case SPECS.WINDWALKER_MONK:
+        return 0.1;
+      case SPECS.MARKSMANSHIP_HUNTER:
+        return 0.05;
+      case SPECS.FROST_MAGE:
+        return 0.18;
+      case SPECS.FIRE_MAGE:
+        return 0.06;
+      case SPECS.SUBTLETY_ROGUE:
+        return 0.2208;
+      case SPECS.BEAST_MASTERY_HUNTER:
+        return 0.18;
+      case SPECS.UNHOLY_DEATH_KNIGHT:
+        return 0.18;
       default:
-        throw new Error('Mastery hasn\'t been implemented for this spec yet.');
+        console.error('Mastery hasn\'t been implemented for this spec yet.');
+        return 0.0;
     }
   }
   get baseVersatilityPercentage() {
@@ -219,8 +259,14 @@ class StatTracker extends Analyzer {
   get critRatingPerPercent() {
     return 40000;
   }
+  critPercentage(rating, withBase = false) {
+    return (withBase ? this.baseCritPercentage : 0) + rating / this.critRatingPerPercent;
+  }
   get hasteRatingPerPercent() {
     return 37500;
+  }
+  hastePercentage(rating, withBase = false) {
+    return (withBase ? this.baseHastePercentage : 0) + rating / this.hasteRatingPerPercent;
   }
   get masteryRatingPerPercent() {
     switch (this.combatants.selected.spec) {
@@ -228,52 +274,86 @@ class StatTracker extends Analyzer {
         return 26667;
       case SPECS.HOLY_PRIEST:
         return 32000;
+      case SPECS.SHADOW_PRIEST:
+        return 16000;
       case SPECS.RESTORATION_SHAMAN:
         return 13333;
       case SPECS.ENHANCEMENT_SHAMAN:
         return 13333;
       case SPECS.RESTORATION_DRUID:
         return 66667;
+      case SPECS.RETRIBUTION_PALADIN:
+        return 22850;
+      case SPECS.WINDWALKER_MONK:
+        return 32000;
+      case SPECS.MARKSMANSHIP_HUNTER:
+        return 64000;
+      case SPECS.FROST_MAGE:
+        return 17778;
+      case SPECS.FIRE_MAGE:
+        return 53333;
+      case SPECS.SUBTLETY_ROGUE:
+        return 14492.61221;
+      case SPECS.BEAST_MASTERY_HUNTER:
+        return 17778;
+      case SPECS.UNHOLY_DEATH_KNIGHT:
+        return 17776;
       default:
-        throw new Error('Mastery hasn\'t been implemented for this spec yet.');
+        console.error('Mastery hasn\'t been implemented for this spec yet.');
+        return 99999999;
     }
+  }
+  masteryPercentage(rating, withBase = false) {
+    return (withBase ? this.baseMasteryPercentage : 0) + rating / this.masteryRatingPerPercent;
   }
   get versatilityRatingPerPercent() {
     return 47500;
   }
+  versatilityPercentage(rating, withBase = false) {
+    return (withBase ? this.baseVersatilityPercentage : 0) + rating / this.versatilityRatingPerPercent;
+  }
   get avoidanceRatingPerPercent() {
     return 11000;
+  }
+  avoidancePercentage(rating, withBase = false) {
+    return (withBase ? this.baseAvoidancePercentage : 0) + rating / this.avoidanceRatingPerPercent;
   }
   get leechRatingPerPercent() {
     return 23000;
   }
+  leechPercentage(rating, withBase = false) {
+    return (withBase ? this.baseLeechPercentage : 0) + rating / this.leechRatingPerPercent;
+  }
   get speedRatingPerPercent() {
-    throw new Error('Speed hasn\'t been implemented yet.');
+    return 8000;
+  }
+  speedPercentage(rating, withBase = false) {
+    return (withBase ? this.baseSpeedPercentage : 0) + rating / this.speedRatingPerPercent;
   }
 
   /*
    * For percentage stats, the current stat percentage as tracked by this module.
    */
   get currentCritPercentage() {
-    return this.baseCritPercentage + (this.currentCritRating / this.critRatingPerPercent);
+    return this.critPercentage(this.currentCritRating, true);
   }
   get currentHastePercentage() {
-    return this.baseHastePercentage + (this.currentHasteRating / this.hasteRatingPerPercent);
+    return this.hastePercentage(this.currentHasteRating, true);
   }
   get currentMasteryPercentage() {
-    return this.baseMasteryPercentage + (this.currentMasteryRating / this.masteryRatingPerPercent);
+    return this.masteryPercentage(this.currentMasteryRating, true);
   }
   get currentVersatilityPercentage() {
-    return this.baseVersatilityPercentage + (this.currentVersatilityRating / this.versatilityRatingPerPercent);
+    return this.versatilityPercentage(this.currentVersatilityRating, true);
   }
   get currentAvoidancePercentage() {
-    return this.baseAvoidancePercentage + (this.currentAvoidanceRating / this.avoidanceRatingPerPercent);
+    return this.avoidancePercentage(this.currentAvoidanceRating, true);
   }
   get currentLeechPercentage() {
-    return this.baseLeechPercentage + (this.currentLeechRating / this.leechRatingPerPercent);
+    return this.leechPercentage(this.currentLeechRating, true);
   }
   get currentSpeedPercentage() {
-    return this.baseSpeedPercentage + (this.currentSpeedRating / this.speedRatingPerPercent);
+    return this.speedPercentage(this.currentSpeedRating, true);
   }
 
   on_toPlayer_changebuffstack(event) {
@@ -282,6 +362,25 @@ class StatTracker extends Analyzer {
 
   on_toPlayer_changedebuffstack(event) {
     this._changeBuffStack(event);
+  }
+
+  /*
+   * This interface allows an external analyzer to force a stat change.
+   * It should ONLY be used if a stat buff is so non-standard that it can't be handled by the buff format in this module.
+   * change is a stat buff object just like those in the STAT_BUFFS structure above, it is required.
+   * eventReason is the WCL event object that caused this change, it is not required.
+   */
+  // For an example of how / why this function would be used, see the CharmOfTheRisingTide module.
+  forceChangeStats(change, eventReason) {
+    const before = Object.assign({}, this._currentStats);
+    const delta = this._changeStats(change, 1);
+    const after = Object.assign({}, this._currentStats);
+    this._triggerChangeStats(eventReason, before, delta, after);
+    if (debug) {
+      const spellName = eventReason && eventReason.ability ? eventReason.ability.name : 'unspecified';
+      console.log(`StatTracker: FORCED CHANGE from ${spellName} - Change: ${this._statPrint(delta)}`);
+      this._debugPrintStats(this._currentStats);
+    }
   }
 
   _changeBuffStack(event) {
@@ -294,24 +393,52 @@ class StatTracker extends Analyzer {
         debug && console.log(`StatTracker prepull application IGNORED for ${SPELLS[spellId] ? SPELLS[spellId].name : spellId}`);
         return;
       }
-      debug && console.log(`StatTracker: (${event.oldStacks} -> ${event.newStacks}) ${SPELLS[spellId] ? SPELLS[spellId].name : spellId}`);
-      this._changeStats(statBuff, event.newStacks - event.oldStacks);
+
+      const before = Object.assign({}, this._currentStats);
+      const delta = this._changeStats(statBuff, event.newStacks - event.oldStacks);
+      const after = Object.assign({}, this._currentStats);
+      this._triggerChangeStats(event, before, delta, after);
+      debug && console.log(`StatTracker: (${event.oldStacks} -> ${event.newStacks}) ${SPELLS[spellId] ? SPELLS[spellId].name : spellId} @ ${formatMilliseconds(this.owner.currentTimestamp)} - Change: ${this._statPrint(delta)}`);
+      debug && this._debugPrintStats(this._currentStats);
     }
   }
 
   _changeStats(change, factor) {
-    this._stats.strength += this._getBuffValue(change, change.strength) * factor;
-    this._stats.agility += this._getBuffValue(change, change.agility) * factor;
-    this._stats.intellect += this._getBuffValue(change, change.intellect) * factor;
-    this._stats.stamina += this._getBuffValue(change, change.stamina) * factor;
-    this._stats.crit += this._getBuffValue(change, change.crit) * factor;
-    this._stats.haste += this._getBuffValue(change, change.haste) * factor;
-    this._stats.mastery += this._getBuffValue(change, change.mastery) * factor;
-    this._stats.versatility += this._getBuffValue(change, change.versatility) * factor;
-    this._stats.avoidance += this._getBuffValue(change, change.avoidance) * factor;
-    this._stats.leech += this._getBuffValue(change, change.leech) * factor;
-    this._stats.speed += this._getBuffValue(change, change.speed) * factor;
-    debug && this._debugPrintStats();
+    const delta = {
+      strength: this._getBuffValue(change, change.strength) * factor,
+      agility: this._getBuffValue(change, change.agility) * factor,
+      intellect: this._getBuffValue(change, change.intellect) * factor,
+      stamina: this._getBuffValue(change, change.stamina) * factor,
+      crit: this._getBuffValue(change, change.crit) * factor,
+      haste: this._getBuffValue(change, change.haste) * factor,
+      mastery: this._getBuffValue(change, change.mastery) * factor,
+      versatility: this._getBuffValue(change, change.versatility) * factor,
+      avoidance: this._getBuffValue(change, change.avoidance) * factor,
+      leech: this._getBuffValue(change, change.leech) * factor,
+      speed: this._getBuffValue(change, change.speed) * factor,
+    };
+
+    Object.keys(this._currentStats).forEach(key => {
+      this._currentStats[key] += delta[key];
+    });
+
+    return delta;
+  }
+
+  /*
+   * Fabricates an event indicating when stats change
+   */
+  _triggerChangeStats(event, before, delta, after) {
+    this.owner.triggerEvent('changestats', {
+      timestamp: event ? event.timestamp : this.owner.currentTimestamp,
+      type: 'changestats',
+      sourceID: event ? event.sourceID : this.owner.playerId,
+      targetID: this.owner.playerId,
+      reason: event,
+      before,
+      delta,
+      after,
+    });
   }
 
   /**
@@ -329,7 +456,9 @@ class StatTracker extends Analyzer {
       if (buffObj.itemId) {
         itemDetails = this.combatants.selected.getItem(buffObj.itemId);
         if (!itemDetails) {
-          console.error('Failed to retrieve item information for item with ID:', buffObj.itemId);
+          console.warn('Failed to retrieve item information for item with ID:', buffObj.itemId,
+            ' ...unable to handle stats buff, making no stat change.');
+          return 0;
         }
       }
       return statVal(selectedCombatant, itemDetails);
@@ -339,7 +468,11 @@ class StatTracker extends Analyzer {
   }
 
   _debugPrintStats(stats) {
-    console.log(`StatTracker:`, formatMilliseconds(this.owner.fightDuration), `STR=${this._stats.strength} AGI=${this._stats.agility} INT=${this._stats.intellect} STM=${this._stats.stamina} CRT=${this._stats.crit} HST=${this._stats.haste} MST=${this._stats.mastery} VRS=${this._stats.versatility} AVD=${this._stats.avoidance} LCH=${this._stats.leech} SPD=${this._stats.speed}`);
+    console.log(`StatTracker: ${formatMilliseconds(this.owner.fightDuration)} - ${this._statPrint(stats)}`);
+  }
+
+  _statPrint(stats) {
+    return `STR=${stats.strength} AGI=${stats.agility} INT=${stats.intellect} STM=${stats.stamina} CRT=${stats.crit} HST=${stats.haste} MST=${stats.mastery} VRS=${stats.versatility} AVD=${this._currentStats.avoidance} LCH=${stats.leech} SPD=${stats.speed}`;
   }
 
 }

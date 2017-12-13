@@ -47,7 +47,7 @@ class FistsofFury extends Analyzer {
     }
 
     suggestions(when) {
-      const averageTicksRecommended = this.combatants.selected.hasBuff(SPELLS.WW_TIER20_4PC.id) ? 4 : 5;
+      const averageTicksRecommended = this.combatants.selected.hasBuff(SPELLS.WW_TIER20_4PC.id) ? 4.5 : 5;
       when(this.averageTicks).isLessThan(averageTicksRecommended).addSuggestion((suggest, actual, recommended) => {
             return suggest(<span> You are cancelling your <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> casts early and losing ticks </span>)
                 .icon(SPELLS.FISTS_OF_FURY_CAST.icon).actual(`${this.averageTicks.toFixed(2)} average ticks on each Fists of Fury cast`)

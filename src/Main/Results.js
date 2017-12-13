@@ -1,18 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Masonry from 'react-masonry-component';
 
+import Wrapper from 'common/Wrapper';
+import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
 import getBossName from 'common/getBossName';
 import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
-
+import { getResultTab } from 'selectors/url/report';
 import DevelopmentTab from 'Main/DevelopmentTab';
 import EventsTab from 'Main/EventsTab';
 import Tab from 'Main/Tab';
 import Status from 'Main/Status';
+import GithubButton from 'Main/GithubButton';
+import DiscordButton from 'Main/DiscordButton';
+import Maintainer from 'Main/Maintainer';
 
 import SpecInformationOverlay from './SpecInformationOverlay';
 
@@ -181,6 +187,7 @@ class Results extends React.Component {
       results.tabs.push({
         title: 'Development',
         url: 'development',
+        order: 100000,
         render: () => (
           <DevelopmentTab
             parser={parser}
@@ -191,6 +198,7 @@ class Results extends React.Component {
       results.tabs.push({
         title: 'Events',
         url: 'events',
+        order: 100001,
         render: () => (
           <EventsTab
             parser={parser}
@@ -200,6 +208,7 @@ class Results extends React.Component {
       results.tabs.push({
         title: 'Status',
         url: 'status',
+        order: 100002,
         render: () => (
           <Tab title="Status" style={{ padding: '15px 22px' }}>
             <Status />
@@ -212,7 +221,7 @@ class Results extends React.Component {
     const activeTab = results.tabs.find(tab => tab.url === tabUrl);
 
     return (
-      <div style={{ width: '100%' }}>
+      <div className="container">
         <div className="results">
           <div className="row">
             <div className="col-lg-10 col-md-8" style={{ position: 'relative' }}>
@@ -221,7 +230,7 @@ class Results extends React.Component {
                   <span className="glyphicon glyphicon-chevron-left" aria-hidden />
                 </Link>
               </div>
-              <h1 style={{ marginBottom: 0, fontSize: 48, textTransform: 'none' }}>
+              <h1 style={{ marginBottom: 0, fontSize: 48, textTransform: 'none', fontVariant: 'none' }}>
                 {getBossName(fight)} by <span className={config.spec.className.replace(' ', '')}>{selectedCombatant.name}</span>
               </h1>
             </div>
@@ -238,14 +247,20 @@ class Results extends React.Component {
           </div>
           <div className="text-muted" style={{ marginBottom: 25, fontSize: '1.4em' }}>
             The <img
-            src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`}
-            alt="Spec logo"
-            style={{
-              borderRadius: '50%',
-              height: '1.2em',
-            }}
-          /> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainer} (status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>). <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
+              src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`}
+              alt="Spec logo"
+              style={{
+                borderRadius: '50%',
+                height: '1.2em',
+              }}
+            /> {config.spec.specName} {config.spec.className} spec implementation is being maintained by {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)} (status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>). <a href="#spec-information" onClick={this.handleClickViewSpecInformation}>More information.</a>
           </div>
+          {config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED && (
+            <div className="alert alert-danger" style={{ fontSize: '1.5em' }}>
+              This spec is not actively being maintained. In order to continue providing useful and accurate information we are looking for an active maintainer for this spec. See our GitHub page or join Discord for more information.<br />
+              <GithubButton /> <DiscordButton />
+            </div>
+          )}
 
           <div className="row">
             <div className="col-md-8">
@@ -253,7 +268,13 @@ class Results extends React.Component {
             </div>
             <div className="col-md-4">
               {this.renderItems(results.items, selectedCombatant)}
-              {results.extraPanels ? results.extraPanels.map(i => i) : ''}
+              {results.extraPanels
+                .sort((a, b) => a.order - b.order)
+                .map(extraPanel => (
+                  <Wrapper key={extraPanel.name}>
+                    {extraPanel.content}
+                  </Wrapper>
+                ))}
             </div>
           </div>
 
@@ -261,7 +282,14 @@ class Results extends React.Component {
             <div className="panel-body flex" style={{ flexDirection: 'column', padding: '0' }}>
               <div className="navigation" style={{ minHeight: 70 }}>
                 <div className="flex" style={{ paddingTop: '10px', flexDirection: 'row', flexWrap: 'wrap' }}>
-                  {results.tabs.map(tab => (
+                  {results.tabs
+                    .sort((a, b) => {
+                      const aOrder = a.order !== undefined ? a.order : 100;
+                      const bOrder = b.order !== undefined ? b.order : 100;
+
+                      return aOrder - bOrder;
+                    })
+                    .map(tab => (
                     <button
                       key={tab.title}
                       className={activeTab.url === tab.url ? 'btn-link selected' : 'btn-link'}
@@ -287,4 +315,10 @@ class Results extends React.Component {
   }
 }
 
-export default Results;
+const mapStateToProps = state => ({
+  tab: getResultTab(state),
+});
+
+export default connect(
+  mapStateToProps
+)(Results);

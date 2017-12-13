@@ -30,6 +30,13 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
+    {
+      spell: SPELLS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT,
+      duration: 45,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.DAMAGE,
+      ],
+    },
   ];
 
   on_byPlayer_cast(event) {
@@ -60,6 +67,10 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   trackEvent(event) {
     this.activeCooldowns = this.activeCooldowns.filter(cooldown => !cooldown.end || event.timestamp < cooldown.end);
     super.trackEvent(event);
+  }
+
+  on_byPlayerPet_damage(event) {
+    this.trackEvent(event);
   }
 }
 

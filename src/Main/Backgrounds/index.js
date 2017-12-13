@@ -1,9 +1,46 @@
 import bosses from 'common/bosses';
 
+import TheDesolateHost from './Images/the-desolate-host.jpg';
+
 // Want to contribute a screenshot? Add your own and make a pull request!
 // Screenshots with no boss names are preferred. Screenshots with a player character is only permitted if the player is barely visible.
 
 export default {
+  [bosses.AntorusTheBurningThrone.GAROTHI_WORLDBREAKER]: [
+    require('./Images/Antorus-Garothi-Worldbreaker.jpg'),
+  ],
+  [bosses.AntorusTheBurningThrone.HOUNDS_OF_SARGERAS]: [
+    require('./Images/Antorus-Felhounds-of-Sargeras.jpg'),
+  ],
+  [bosses.AntorusTheBurningThrone.WAR_COUNCIL]: [
+    require('./Images/Antorus-Antoran-High-Command.jpg'),
+  ],
+  [bosses.AntorusTheBurningThrone.PORTAL_KEEPER_HASABEL]: [
+    require('./Images/Antorus-Portal-Keeper-Hasabel.jpg'),
+  ],
+  [bosses.AntorusTheBurningThrone.EONAR_THE_LIFEBINDER]: [
+    require('./Images/Antorus-Eonar-Lifebinder.jpg'),
+  ],
+  [bosses.AntorusTheBurningThrone.IMONAR_THE_SOULHUNTER]: [
+    require('./Images/Antorus-Imonar-the-Soulhunter.jpg'),
+  ],
+  [bosses.AntorusTheBurningThrone.KINGAROTH]: [
+    require('./Images/Antorus-Kingaroth.jpg'),
+  ],
+  [bosses.AntorusTheBurningThrone.THE_COVEN_OF_SHIVARRA]: [
+    require('./Images/Antorus-The-Coven-of-Shivarra.jpg'),
+  ],
+  [bosses.AntorusTheBurningThrone.VARIMATHRAS]: [
+    require('./Images/Antorus-Varimathras.jpg'),
+  ],
+  [bosses.AntorusTheBurningThrone.AGGRAMAR]: [
+    require('./Images/Antorus-Aggramar.jpg'),
+  ],
+  [bosses.AntorusTheBurningThrone.ARGUS_THE_UNMAKER]: [
+    require('./Images/Antorus-Argus-the-Unmaker.jpg'),
+  ],
+
+
   // Tomb of Sargeras
   [bosses.TombOfSargeras.GOROTH]: [
     'http://wow.zamimg.com/uploads/screenshots/normal/608510.jpg', // with boss
@@ -27,7 +64,7 @@ export default {
     'http://wow.zamimg.com/uploads/screenshots/normal/608540-tomb-of-sargeras.jpg', // empty, looking at boss room from far
   ],
   [bosses.TombOfSargeras.THE_DESOLATE_HOST]: [
-    'http://wow.zamimg.com/uploads/screenshots/normal/608584.jpg', // empty
+    TheDesolateHost, // with bosses
   ],
   [bosses.TombOfSargeras.MAIDEN_OF_VIGILANCE]: [
     'http://wow.zamimg.com/uploads/guide/seo/5215.jpg', // boss close

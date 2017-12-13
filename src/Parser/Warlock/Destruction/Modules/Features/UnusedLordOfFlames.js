@@ -5,7 +5,7 @@ import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import { calculateMaxCasts } from 'Parser/Core/getCastEfficiency';
+import calculateMaxCasts from 'Parser/Core/calculateMaxCasts';
 
 // Lord of Flames is a trait that makes your Summon Infernal summon 3 additional infernals which makes it a higher priority summon, but it can be used only every 10 minutes
 // So first cast is LoF, and next LoF can be after 10 more minutes, that means that with 3 minute base cooldown, we can cast another LoF after 12 minutes
@@ -18,8 +18,8 @@ class UnusedLordOfFlames extends Analyzer {
   };
 
   suggestions(when) {
-    const maxLordOfFlamesCasts = calculateMaxCasts(LORD_OF_FLAMES_COOLDOWN, this.owner.fightDuration);
-    const infernalCasts = this.abilityTracker.getAbility(SPELLS.SUMMON_INFERNAL_UNTALENTED.id).casts;
+    const maxLordOfFlamesCasts = Math.ceil(calculateMaxCasts(LORD_OF_FLAMES_COOLDOWN, this.owner.fightDuration));
+    const infernalCasts = this.abilityTracker.getAbility(SPELLS.SUMMON_INFERNAL_UNTALENTED.id).casts || 0;
     const percentage = infernalCasts / maxLordOfFlamesCasts;
     when(percentage).isLessThan(1)
       .addSuggestion((suggest, actual, recommended) => {

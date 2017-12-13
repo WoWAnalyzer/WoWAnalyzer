@@ -4,6 +4,7 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import SuggestionThresholds from '../../SuggestionThresholds';
 
@@ -12,11 +13,11 @@ const MS_PER_MINUTE = 60000;
 class HealingTouch extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    abilityTracker: AbilityTracker,
   };
 
   suggestions(when) {
-    const abilityTracker = this.owner.modules.abilityTracker;
-    const hts = abilityTracker.getAbility(SPELLS.HEALING_TOUCH.id).casts || 0;
+    const hts = this.abilityTracker.getAbility(SPELLS.HEALING_TOUCH.id).casts || 0;
     const htsPerMinute = hts / this.owner.fightDuration * MS_PER_MINUTE;
 
     when(htsPerMinute).isGreaterThan(SuggestionThresholds.HTS_PER_MINUTE.minor)

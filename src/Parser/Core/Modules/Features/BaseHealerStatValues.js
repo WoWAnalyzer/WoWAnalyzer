@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatThousands } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
@@ -327,6 +327,7 @@ class BaseHealerStatValues extends Analyzer {
     }
   }
   moreInformationLink = null;
+  extraPanelOrder = 200;
   extraPanel() {
     const results = this._prepareResults();
     return (
@@ -347,7 +348,7 @@ class BaseHealerStatValues extends Analyzer {
             <thead>
               <tr>
                 <th style={{ minWidth: 30 }}><b>Stat</b></th>
-                <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Normalized so Intellect is always 1.00"><b>Value</b></dfn></th>
+                <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Normalized so Intellect is always 1.00. Hover to see the amount of healing 1 rating resulted in."><b>Value</b></dfn></th>
                 <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Amount of stat rating required to increase your total healing by 1%"><b>Rating per 1%</b></dfn></th>
               </tr>
             </thead>
@@ -369,14 +370,15 @@ class BaseHealerStatValues extends Analyzer {
                           height: '1.6em',
                           width: '1.6em',
                           marginRight: 10,
-                          marginTop: -3,
-                          marginBottom: -2,
-                          verticalAlign: 'text-bottom',
                         }}
                       />{' '}
                       {tooltip ? <dfn data-tip={tooltip}>{getName(stat)}</dfn> : getName(stat)}
                     </td>
-                    <td className="text-right">{stat === STAT.HASTE_HPCT && '0.00 - '}{gain !== null ? weight.toFixed(2) : 'NYI'}</td>
+                    <td className="text-right">
+                      <dfn data-tip={gain !== null ? formatThousands(gain) + ' total healing gained per 1 rating' : 'NYI'}>
+                        {stat === STAT.HASTE_HPCT && '0.00 - '}{gain !== null ? weight.toFixed(2) : 'NYI'}
+                      </dfn>
+                    </td>
                     <td className="text-right">{gain !== null ? (
                       ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)
                     ) : 'NYI'}</td>

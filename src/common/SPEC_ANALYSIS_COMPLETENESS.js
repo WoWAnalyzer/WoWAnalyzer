@@ -23,13 +23,13 @@ export function getCompletenessLabel(completeness) {
 export function getCompletenessColor(completeness) {
   switch (completeness) {
     case SPEC_ANALYSIS_COMPLETENESS.GREAT:
-      return '#43fd43';
+      return '#ff8000';
     case SPEC_ANALYSIS_COMPLETENESS.GOOD:
-      return '#05f0fd';
+      return '#a335ee';
     case SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK:
-      return 'rgba(255, 212, 0, 0.8)';
+      return '#fff';
     case SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED:
-      return 'red';
+      return '#9d9d9d';
     default:
       return null;
   }
@@ -37,9 +37,9 @@ export function getCompletenessColor(completeness) {
 export function getCompletenessExplanation(completeness) {
   switch (completeness) {
     case SPEC_ANALYSIS_COMPLETENESS.GREAT:
-      return 'This spec\'s analysis is (almost) complete and actively being maintained.';
+      return 'This spec\'s analysis is mostly complete and actively being maintained.';
     case SPEC_ANALYSIS_COMPLETENESS.GOOD:
-      return 'This spec\'s analysis is ready for public usage, but some work is still left to be done.';
+      return 'This spec\'s analysis is ready for usage, but some work is still left to be done.';
     case SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK:
       return 'This spec\'s analysis needs some more work to be optimally usable.';
     case SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED:

@@ -1,10 +1,12 @@
 import React from 'react';
 
 import SuggestionsTab from 'Main/SuggestionsTab';
+import ChangelogTab from 'Main/ChangelogTab';
+import ChangelogTabTitle from 'Main/ChangelogTabTitle';
 import Tab from 'Main/Tab';
-import Talents from 'Main/Talents';
+import TimelineTab from 'Main/Timeline/TimelineTab';
 
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage, formatThousands, formatDuration } from 'common/format';
 
 import ApplyBuffNormalizer from './Normalizers/ApplyBuff';
 
@@ -18,8 +20,10 @@ import AbilityTracker from './Modules/AbilityTracker';
 import Haste from './Modules/Haste';
 import StatTracker from './Modules/StatTracker';
 import AlwaysBeCasting from './Modules/AlwaysBeCasting';
+import Abilities from './Modules/Abilities';
 import CastEfficiency from './Modules/CastEfficiency';
 import SpellUsable from './Modules/SpellUsable';
+import SpellHistory from './Modules/SpellHistory';
 import Enemies from './Modules/Enemies';
 import EnemyInstances from './Modules/EnemyInstances';
 import Pets from './Modules/Pets';
@@ -28,6 +32,9 @@ import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
 
 import DistanceMoved from './Modules/Others/DistanceMoved';
+
+import StatsDisplay from './Modules/Features/StatsDisplay';
+import TalentsDisplay from './Modules/Features/TalentsDisplay';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
 
@@ -44,10 +51,12 @@ import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
 import AmalgamsSeventhSpine from './Modules/Items/AmalgamsSeventhSpine';
 import ArchiveOfFaith from './Modules/Items/ArchiveOfFaith';
 import BarbaricMindslaver from './Modules/Items/BarbaricMindslaver';
+import CharmOfTheRisingTide from './Modules/Items/CharmOfTheRisingTide';
 import SeaStar from './Modules/Items/SeaStarOfTheDepthmother';
 import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
 import PrePotion from './Modules/Items/PrePotion';
 import LegendaryUpgradeChecker from './Modules/Items/LegendaryUpgradeChecker';
+import LegendaryCountChecker from './Modules/Items/LegendaryCountChecker';
 import GnawedThumbRing from './Modules/Items/GnawedThumbRing';
 import VialOfCeaselessToxins from './Modules/Items/VialOfCeaselessToxins';
 import SpecterOfBetrayal from './Modules/Items/SpecterOfBetrayal';
@@ -61,11 +70,26 @@ import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
 // T21 Healing trinkets
 import TarratusKeystone from './Modules/Items/TarratusKeystone';
 import HighFathersMachination from './Modules/Items/HighfathersMachination';
+import EonarsCompassion from './Modules/Items/EonarsCompassion';
+import GarothiFeedbackConduit from './Modules/Items/GarothiFeedbackConduit';
+import CarafeOfSearingLight from './Modules/Items/CarafeOfSearingLight';
+import IshkarsFelshieldEmitter from './Modules/Items/IshkarsFelshieldEmitter';
+
+// T21 Dps Trinkets
+import SeepingScourgewing from './Modules/Items/SeepingScourgewing';
+import GorshalachsLegacy from './Modules/Items/GorshalachsLegacy';
+import GolgannethsVitality from './Modules/Items/GolgannethsVitality';
+import ForgefiendsFabricator from './Modules/Items/ForgefiendsFabricator';
+import KhazgorothsCourage from './Modules/Items/KhazgorothsCourage';
+import TerminusSignalingBeacon from './Modules/Items/TerminusSignalingBeacon';
+import PrototypePersonnelDecimator from './Modules/Items/PrototypePersonnelDecimator';
+import SheathOfAsara from './Modules/Items/SheathOfAsara';
+import NorgannonsProwess from './Modules/Items/NorgannonsProwess';
+import ShadowSingedFang from './Modules/Items/ShadowSingedFang';
 
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
 import VantusRune from './Modules/Spells/VantusRune';
-
 // Netherlight Crucible Traits
 import DarkSorrows from './Modules/NetherlightCrucibleTraits/DarkSorrows';
 import TormentTheWeak from './Modules/NetherlightCrucibleTraits/TormentTheWeak';
@@ -84,6 +108,7 @@ import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
 
 const debug = false;
+const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 
 let _modulesDeprecatedWarningSent = false;
 
@@ -110,13 +135,18 @@ class CombatLogParser {
     haste: Haste,
     statTracker: StatTracker,
     alwaysBeCasting: AlwaysBeCasting,
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
+    CastEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
+    spellHistory: SpellHistory,
     manaValues: ManaValues,
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
 
     critEffectBonus: CritEffectBonus,
+
+    statsDisplay: StatsDisplay,
+    talentsDisplay: TalentsDisplay,
 
     // Items:
     // Legendaries:
@@ -132,10 +162,13 @@ class CombatLogParser {
     darkmoonDeckPromises: DarkmoonDeckPromises,
     prePotion: PrePotion,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
+    legendaryCountChecker: LegendaryCountChecker,
     gnawedThumbRing: GnawedThumbRing,
+    ishkarsFelshieldEmitter: IshkarsFelshieldEmitter,
     // Tomb trinkets:
     archiveOfFaith: ArchiveOfFaith,
     barbaricMindslaver: BarbaricMindslaver,
+    charmOfTheRisingTide: CharmOfTheRisingTide,
     seaStar: SeaStar,
     deceiversGrandDesign: DeceiversGrandDesign,
     vialCeaslessToxins: VialOfCeaselessToxins,
@@ -146,8 +179,23 @@ class CombatLogParser {
     terrorFromBelow: TerrorFromBelow,
     tomeOfUnravelingSanity: TomeOfUnravelingSanity,
     // T21 Healing Trinkets
-    tarratusKeystone : TarratusKeystone,
-    highfathersMachinations : HighFathersMachination,
+    tarratusKeystone: TarratusKeystone,
+    highfathersMachinations: HighFathersMachination,
+    eonarsCompassion: EonarsCompassion,
+    garothiFeedbackConduit: GarothiFeedbackConduit,
+    carafeOfSearingLight: CarafeOfSearingLight,
+
+    // T21 DPS Trinkets
+    seepingScourgewing: SeepingScourgewing,
+    gorshalachsLegacy: GorshalachsLegacy,
+    golgannethsVitality: GolgannethsVitality,
+    forgefiendsFabricator: ForgefiendsFabricator, 
+    khazgorothsCourage: KhazgorothsCourage,   
+    terminusSignalingBeacon: TerminusSignalingBeacon,
+    prototypePersonnelDecimator: PrototypePersonnelDecimator,
+    sheathOfAsara: SheathOfAsara,
+    norgannonsProwess: NorgannonsProwess,
+    shadowSingedFang: ShadowSingedFang,
 
     // Concordance of the Legionfall
     concordance: Concordance,
@@ -341,11 +389,24 @@ class CombatLogParser {
     return events;
   }
 
+  _moduleTime = {};
   triggerEvent(eventType, event, ...args) {
-    this.activeModules
-      .filter(module => module instanceof Analyzer)
-      .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
-      .forEach(module => module.triggerEvent(eventType, event, ...args));
+    Object.keys(this._modules)
+      .filter(key => this._modules[key].active)
+      .filter(key => this._modules[key] instanceof Analyzer)
+      .sort((a, b) => this._modules[a].priority - this._modules[b].priority) // lowest should go first, as `priority = 0` will have highest prio
+      .forEach(key => {
+        const module = this._modules[key];
+        if (IS_DEVELOPMENT) {
+          const start = +new Date();
+          module.triggerEvent(eventType, event, ...args);
+          const duration = +new Date() - start;
+          this._moduleTime[key] = this._moduleTime[key] || 0;
+          this._moduleTime[key] += duration;
+        } else {
+          module.triggerEvent(eventType, event, ...args);
+        }
+      });
   }
 
   byPlayer(event, playerId = this.player.id) {
@@ -378,6 +439,12 @@ class CombatLogParser {
   formatItemDamageDone(damageDone) {
     return `${formatPercentage(this.getPercentageOfTotalDamageDone(damageDone))} % / ${formatNumber(damageDone / this.fightDuration * 1000)} DPS`;
   }
+  formatManaRestored(manaRestored) {
+    return `${formatThousands(manaRestored)} mana / ${formatThousands(manaRestored / this.fightDuration * 1000 * 5)} MP5`;
+  }
+  formatTimestamp(timestamp) {
+    return formatDuration((timestamp - this.fight.start_time) / 1000);
+  }
 
   generateResults() {
     const results = new ParseResults();
@@ -386,24 +453,38 @@ class CombatLogParser {
       {
         title: 'Suggestions',
         url: 'suggestions',
-        render: () => (
-          <SuggestionsTab issues={results.issues} />
-        ),
+        order: 0,
+        render: () => <SuggestionsTab issues={results.issues} />,
       },
       {
-        title: 'Talents',
-        url: 'talents',
+        title: 'Timeline',
+        url: 'timeline',
+        order: 2,
         render: () => (
-          <Tab title="Talents">
-            <Talents combatant={this.modules.combatants.selected} />
+          <Tab title="Timeline">
+            <TimelineTab
+              start={this.fight.start_time}
+              end={this.currentTimestamp}
+              historyBySpellId={this.modules.spellHistory.historyBySpellId}
+              abilities={this.modules.abilities}
+            />
           </Tab>
         ),
       },
+      {
+        title: <ChangelogTabTitle />,
+        url: 'changelog',
+        order: 1000,
+        render: () => <ChangelogTab />,
+      },
     ];
 
-    this.activeModules
-      .sort((a, b) => b.priority - a.priority)
-      .forEach((module) => {
+    Object.keys(this._modules)
+      .filter(key => this._modules[key].active)
+      .sort((a, b) => this._modules[b].priority - this._modules[a].priority)
+      .forEach(key => {
+        const module = this._modules[key];
+
         if (module.statistic) {
           const statistic = module.statistic();
           if (statistic) {
@@ -421,8 +502,12 @@ class CombatLogParser {
         }
         if (module.extraPanel) {
           const extraPanel = module.extraPanel();
-          if(extraPanel) {
-            results.extraPanels.push(extraPanel);
+          if (extraPanel) {
+            results.extraPanels.push({
+              name: key,
+              order: module.extraPanelOrder,
+              content: extraPanel,
+            });
           }
         }
         if (module.tab) {
