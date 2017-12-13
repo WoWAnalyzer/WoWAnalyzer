@@ -45,9 +45,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 ## StatisticBox
 
-StatisticBox is the default and basic statistic box that you will see in the [getting started module documentation](https://github.com/poneria/WoWAnalyzer/blob/doc-statbox/docs/a-new-module.md). 
-
-Basic example - Simple DoT uptime box
+StatisticBox is the default and basic statistic box that you will see in the [getting started module documentation](https://github.com/poneria/WoWAnalyzer/blob/doc-statbox/docs/a-new-module.md). Here's a basic example.
 
 ![Agony uptime](images/agony-uptime-box.jpg)
 
@@ -87,7 +85,7 @@ statistic() {
 statisticOrder = STATISTIC_ORDER.CORE(###);
 ```
 
-**icon={}**
+#### Icon
 
 For a Wowhead tooltip on the icon mouseover, use a `<SpellIcon />` for the icon. The id should either be a numerical spellID from Wowhead or referencing one of the spells already in the WoWAnalyzer SPELLS folder.
 - `icon={<SpellIcon id={SPELLS.AGONY.id} />}`
@@ -98,48 +96,52 @@ For a plain icon, use an `<Icon />` with the icon name.
 
 For a custom icon, include an import of your icon image file in the top of the module, then reference it in a plain `<img src={icon_img_name} />`.
 - `icon={<img src={MasteryRadiusImage} style={{ border: 0 }} alt="Mastery effectiveness" />}` from the [Holy Paladin - Mastery Effectiveness](../src/Parser/Paladin/Holy/Modules/Features/MasteryEffectiveness.js) stat box.
+- note that MasteryRadiusImage is in `/public/img` not in the `Paladin/Holy` folder.
   
-**value={}**
+#### Value
 
 To get a value into a percentage, use formatPercentage (import module). It's common practice to do calculations before and store with a variable/constant name, then reference the variable/constant name here.
 - ```value={`${formatPercentage(agonyUptime)} %`}```
 - ```value={`${((this.heals / totalCastsIncludingDp) || 0).toFixed(2)} players`}```
 - ```value={`${formatNumber(this.hps)} HPS`}```
 
-**label={}**
+#### Label
 
 For basic text with no tooltip, just use a basic double-quote string.
 - `label="Agony uptime"`
 
-You can make a basic or longer tooltip using the label property if you want.
-- basic --> 
-```
+For a basic tooltip via label: 
+```javascript
 label={(
   <dfn data-tip={'This is the effective healing contributed by the Eveloping Mists buff.'}>
     Healing Contributed
   </dfn>
 )}
-```
-- longer --> see [Mistweaver Monk - Mana Tea](../src/Parser/Monk/Mistweaver/Modules/Talents/ManaTea.js) talent module stat box.
+``` 
+
+For a longer tooltip via label --> see [Mistweaver Monk - Mana Tea](../src/Parser/Monk/Mistweaver/Modules/Talents/ManaTea.js) talent module stat box.
+
 ![Mana Tea tooltip](images/mana-tea-box-tooltip.jpg)
 
-**tooltip={}**
+#### Tooltip
 
 For a basic tooltip:
 ```
-tooltip="This considers Second Sunrise procs as additional casts so that the resulting number does not fluctuate based on your luck. You should consider the delay of Second Sunrise whenever you cast Light of Dawn and keep your aim on point."
+tooltip="Tooltip text here."
 ```
 
 For longer tooltip variations, see [Holy Paladin - Beacon of Faith healing](/src/Parser/Paladin/Holy/Modules/PaladinCore/BeaconHealing.js) or [Holy Paladin - Holy Avenger](../src/Parser/Paladin/Holy/Modules/Talents/HolyAvenger.js) talent module stat boxes.
+
 ![Holy Avenger tooltip](images/holy-avenger-box-tooltip.jpg)
 
-**footer**
+#### Footer
 
 This footer bar is usually seen as part of the damage taken, healing done or downtime module boxes. However, you can also adapt it to a display module.
 
 ![Mistweaver Monk - Uplifting Trance box](images/uplifting-trance-box-footer-bar.jpg)
 
 ```javascript
+// Mistweaver Monk - Uplifting Trance box
 <StatisticBox
   icon={<SpellIcon id={SPELLS.UPLIFTING_TRANCE_BUFF.id} />}
   value={`${formatPercentage(unusedUTProcsPerc)}%`}
@@ -170,13 +172,13 @@ This footer bar is usually seen as part of the damage taken, healing done or dow
 />
 ```
 
-The last bar color is always coded `className="remainder {bg color}"` so that the bar fills the remainder in with that background color. If the bar colors were switched in the Mana Tea example, the first would be `className="stat-overhealing-bg"` and the second would be `className="remainder stat-healing-bg"`.
+Look at the [DamageTaken module](/src/Parser/Core/Modules/DamageTaken.js) for a .map() version of many sections in the footer bar.
+
+The last bar color is always coded `className="remainder {bg color}"` so that the bar fills the remainder in with that background color. If the bar colors were switched in the Uplifting Trance example, the first would be `className="stat-overhealing-bg"` and the second would be `className="remainder stat-healing-bg"`.
 
 The white images on top of the colored bars come from `/public/img`. 
-- `healing.png` is the white healing cross.
-- `overhealing.png` is the white X.
 
-The bar color comes from the className value, and are found deep in `/src/Main/App.css`.
+The bar colors come from the className value, and are found deep in `/src/Main/App.css`.
 - `"{class}-bg"` colors: lines 667-678.
 - `"stat-{something}-bg"` colors: lines 713-736.
 - `"spell-school-{type}-bg"` colors: lines 739-764.
