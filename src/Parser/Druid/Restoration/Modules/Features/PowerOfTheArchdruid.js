@@ -39,6 +39,7 @@ class PowerOfTheArchdruid extends Analyzer {
     if (this.lastPotaRemovedTimestamp !== null && Math.abs(event.timestamp - this.lastPotaRemovedTimestamp) < 32) {
       if (SPELLS.REJUVENATION.id === spellId) {
         this.potaRejuvs = this.potaRejuvs + 2;
+        console.log(`REJUV POWER OF THE ARCHDRUID PROC @ ${this.owner.formatTimestamp(event.timestamp)}`);
       } else if (SPELLS.REGROWTH.id === spellId) {
         this.regrowths = this.regrowths + 2;
         this.lastPotaRegrowthTimestamp = event.timestamp;
@@ -61,6 +62,7 @@ class PowerOfTheArchdruid extends Analyzer {
     if (this.lastPotaRemovedTimestamp !== null && Math.abs(event.timestamp - this.lastPotaRemovedTimestamp) < 32) {
       if (SPELLS.REJUVENATION.id === spellId) {
         this.potaRejuvs = this.potaRejuvs + 2;
+        console.log(`REJUV POWER OF THE ARCHDRUID PROC @ ${this.owner.formatTimestamp(event.timestamp)}`);
       } else if (SPELLS.REGROWTH.id === spellId) {
         this.regrowths = this.regrowths + 2;
         this.lastPotaRegrowthTimestamp = event.timestamp;

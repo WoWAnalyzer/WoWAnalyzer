@@ -11,7 +11,7 @@ const debug = true;
 /*
  * Backend module for tracking attribution of HoTs, e.g. what applied them / applied parts of them / boosted them
  */
-class Rejuvenation extends Analyzer {
+class HotTracker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
@@ -96,11 +96,11 @@ class Rejuvenation extends Analyzer {
       return;
     }
 
-    const hot = this.hots[targetId][spellId];
-    if (!hot) {
+    if (!this.hots[targetId] || !this.hots[targetId][spellId]) {
       console.warn(`${event.ability.name} healed target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but that player isn't recorded as having that HoT...`);
       return;
     }
+    const hot = this.hots[targetId][spellId];
 
     const healing = event.amount + (event.absorbed || 0);
     hot.ticks.push({ healing, timestamp: event.timestamp });
@@ -220,7 +220,7 @@ class Rejuvenation extends Analyzer {
         attName = "Hardcast";
       } else if (this.lastPotaRejuvTimestamp + BUFFER_MS > timestamp && this.potaTarget !== targetId) { // PotA proc but not primary target
         attributions.push(this.powerOfTheArchdruid.rejuvenation);
-        attName = "Power of the Archdruid";
+        attName = "Power of the Archdruid"; // TODO sometimes get order Pota Removed -> Rejuv Applied -> Rejuv Cast -> Rejuv Applied -> Rejuv Applied... fix with normalizer
       } else if (this.hasTearstone && this.lastWildGrowthCastTimestamp + BUFFER_MS > timestamp) {
         attributions.push(this.tearstoneOfElune);
         attName = "Tearstone of Elune";
@@ -298,4 +298,4 @@ class Rejuvenation extends Analyzer {
   }
 }
 
-export default Rejuvenation;
+export default HotTracker;
