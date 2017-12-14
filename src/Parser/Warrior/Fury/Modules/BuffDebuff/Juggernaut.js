@@ -15,7 +15,7 @@ class juggernautReset extends Analyzer {
   
   on_toPlayer_changebuffstack(event) {
     if(event.ability.guid !== SPELLS.JUGGERNAUT.id) {
-      return
+      return;
     }
     
     if(event.newStacks < event.oldStacks) {
