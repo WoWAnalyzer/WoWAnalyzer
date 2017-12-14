@@ -1,4 +1,6 @@
 import React from 'react';
+import ItemLink from 'common/ItemLink';
+import ITEM_QUALITIES from 'common/ITEM_QUALITIES';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -46,16 +48,15 @@ class EnchantChecker extends Analyzer {
         // inverting everything felt improper but its what made sure only one suggestion fires
         const missingEnchant = !gear[item].hasOwnProperty('permanentEnchant');
         const missingMaxEnchant = !missingEnchant && !MAX_ENCHANT_IDS.includes(gear[item].permanentEnchant);
-        const itemUrl = "https://wowhead.com/item=" + gear[item].id;
         when(missingEnchant).isTrue()
           .addSuggestion((suggest, actual, recommended) => {
-            return suggest(<span>Your <a href={itemUrl}>{ENCHANTABLE_SLOTS[item]}</a> has a missing enchant.  Apply a strong enchant to increase your DPS/healing/survivability against a challenging boss.</span>)
+            return suggest(<span>Your <ItemLink id={gear[item].id} quality={gear[item].quality} children={ENCHANTABLE_SLOTS[item]}/> has a missing enchant.  Apply a strong enchant to increase your DPS/healing/survivability against a challenging boss.</span>)
               .icon(gear[item].icon)
               .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
           });
         when(missingMaxEnchant).isTrue()
           .addSuggestion((suggest, actual, recommended) => {
-            return suggest(<span>Your <a href={itemUrl}>{ENCHANTABLE_SLOTS[item]}</a> has a cheap enchant.  Apply a strong enchant to increase your DPS/healing/survivability against a challenging boss.</span>)
+            return suggest(<span>Your <ItemLink id={gear[item].id} quality={gear[item].quality} children={ENCHANTABLE_SLOTS[item]}/> has a cheap enchant.  Apply a strong enchant to increase your DPS/healing/survivability against a challenging boss.</span>)
               .icon(gear[item].icon)
               .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
           });
