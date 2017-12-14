@@ -69,6 +69,6 @@ export function formatMilliseconds(duration) {
  * Ex: 15.6664 => 15.7
  */
 export function formatSeconds(seconds, precision=1) {
-  if(precision === 0) return Math.round(seconds);
-  return Math.round(seconds * 10 * precision) / (10 * precision);
+  if(precision === 0) return `${Math.round(seconds)}s`;
+  return `${Math.round(seconds * 10 * precision) / (10 * precision)}s`;
 }
