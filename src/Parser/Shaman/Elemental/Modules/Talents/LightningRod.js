@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
@@ -21,8 +21,16 @@ class LightningRod extends Analyzer {
     combatants: Combatants,
   };
 
+  lightningRodDamage=0;
+
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.LIGHTNING_ROD_TALENT.id);
+  }
+
+  on_byPlayer_damage(event) {
+    if (event.ability.guid===SPELLS.LIGHTNING_ROD_DAMAGE.id){
+      this.lightningRodDamage+=event.amount;
+    }
   }
 
   get rawUpdate() {
@@ -31,11 +39,15 @@ class LightningRod extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.LIGHTNING_ROD_TALENT.id} />}
-        value={`${formatPercentage(this.rawUpdate)} %`}
-        label={'Uptime'}
-      />
+      <StatisticBox icon={<SpellIcon id={SPELLS.LIGHTNING_ROD_TALENT.id} />}
+        value={(
+          <span>
+            {`${formatPercentage(this.rawUpdate)} %`}<br/>
+            {formatNumber(this.lightningRodDamage)}{' '}
+          </span>
+        )}
+        label={'Lightning Rod Uptime/Damage'}
+        tooltip={`Damage and Uptime of the Lightning Rod Talent.</li></ul>`} />
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
