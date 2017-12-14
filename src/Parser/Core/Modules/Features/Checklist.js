@@ -8,7 +8,7 @@ import InformationIcon from 'Icons/Information';
 import Analyzer from 'Parser/Core/Analyzer';
 import Expandable from 'Main/Expandable';
 import SpellLink from 'common/SpellLink';
-import { formatNumber, formatPercentage, formatThousands } from 'common/format';
+import { formatNumber, formatPercentage, formatThousands, formatSeconds } from 'common/format';
 import Wrapper from 'common/Wrapper';
 
 export function performanceForThresholds(thresholds) {
@@ -96,6 +96,8 @@ function formatThresholdsActual(thresholds) {
       return `${formatThousands(thresholds.actual)}`;
     case 'boolean':
       return thresholds.actual ? 'Yes' : 'No';
+    case 'seconds':
+      return `${formatSeconds(thresholds.actual)}`;
     default:
       throw new Error(`Unknown style: ${thresholds.style}`);
   }
