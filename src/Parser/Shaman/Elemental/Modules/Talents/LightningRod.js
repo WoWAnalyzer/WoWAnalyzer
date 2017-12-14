@@ -12,7 +12,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 /**
  * TODO:
- * - Lightning Rod damage
  * - Number of enemys with debuff
  */
 class LightningRod extends Analyzer {
