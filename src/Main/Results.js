@@ -23,7 +23,6 @@ import Maintainer from 'Main/Maintainer';
 import SuggestionsTab from 'Main/SuggestionsTab';
 
 import SpecInformationOverlay from './SpecInformationOverlay';
-import ZerotorescueCharacterAvatar from './Images/boss-avatars/zerotorescue.png';
 import HarjatanAvatar from './Images/boss-avatars/harjatan.png';
 
 import './Results.css';
