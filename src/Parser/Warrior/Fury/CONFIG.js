@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Maldark } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
@@ -8,14 +9,14 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   spec: SPECS.FURY_WARRIOR,
-  // TODO: Make maintainer an array
-  maintainer: '@Maldark',
+  
+  maintainers: [Maldark],
   description: (
     <div>
-      Implemented out of necessity, shared because sharing is indeed caring
-    </div>
+      The Fury Warrior parser only holds very basic functionality. Does not analyze legendaries, cast sequence or tier bonuses.
+      </div>
   ),
-  // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
+  // good = it matches most common manual reviews in class discords, great = it support all important class features
   completeness: SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED,
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/milestone/13',
 

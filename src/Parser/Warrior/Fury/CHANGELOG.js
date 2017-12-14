@@ -1,3 +1,11 @@
-export default `
-14-12-2017 - Added Fury Warrior Initial Setup. (by Maldark)
-`;
+import React from 'react';
+
+import { Maldark } from 'MAINTAINERS';
+
+export default [
+  {
+    date: new Date('2017-12-14'),
+    changes: 'Added initial support.',
+    contributors: [Maldark],
+  },
+];
