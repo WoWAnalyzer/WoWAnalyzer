@@ -148,7 +148,6 @@ class CastEfficiency extends CoreCastEfficiency {
     {
       spell: SPELLS.HEROIC_LEAP_FURY,
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
-      // Base cooldown is 45, reduced to 30 by Bounding Stride talent
       getCooldown: (haste, combatent) => combatent.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 30 : 45,
       recommendedCastEfficiency: 0.01,
       extraSuggestion: <span>Consider using <SpellLink id={SPELLS.WARPAINT_TALENT.id} /> if the fight requires little mobility.</span>,
