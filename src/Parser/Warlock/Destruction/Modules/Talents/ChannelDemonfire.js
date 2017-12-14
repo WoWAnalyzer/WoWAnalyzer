@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
@@ -11,7 +10,6 @@ import { formatNumber, formatPercentage } from 'common/format';
 
 class ChannelDemonfire extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     enemies: Enemies,
   };
 
