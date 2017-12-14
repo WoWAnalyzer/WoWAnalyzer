@@ -7,7 +7,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import getDamageBonus from '../WarlockCore/getDamageBonus';
 
@@ -34,7 +33,7 @@ class EmpoweredLifeTap extends Analyzer {
     const uptime = this.combatants.selected.getBuffUptime(SPELLS.EMPOWERED_LIFE_TAP_BUFF.id) / this.owner.fightDuration;
     when(uptime).isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your uptime on the <SpellLink id={SPELLS.EMPOWERED_LIFE_TAP_BUFF.id} /> buff could be improved. You should cast <SpellLink id={SPELLS.LIFE_TAP.id} /> more often.<br /><br /><small><em>NOTE:</em> If you're getting 0% uptime, it might be wrong if you used <SpellLink id={SPELLS.LIFE_TAP.id} /> before combat started and maintained the buff. Due to technical limitations it's not possible to track the bonus damage nor uptime in this case.</small></span>)
+        return suggest(<span>Your uptime on the <SpellLink id={SPELLS.EMPOWERED_LIFE_TAP_BUFF.id} /> buff could be improved. You should cast <SpellLink id={SPELLS.LIFE_TAP.id} /> more often.<br /><small><em>NOTE:</em> If you're getting 0% uptime, it might be wrong if you used <SpellLink id={SPELLS.LIFE_TAP.id} /> before combat started and maintained the buff. Due to technical limitations it's not possible to track the bonus damage nor uptime in this case.</small></span>)
           .icon(SPELLS.EMPOWERED_LIFE_TAP_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Empowered Life Tap uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
@@ -42,19 +41,23 @@ class EmpoweredLifeTap extends Analyzer {
       });
   }
 
-  statistic() {
+  subStatistic() {
     const uptime = this.combatants.selected.getBuffUptime(SPELLS.EMPOWERED_LIFE_TAP_BUFF.id) / this.owner.fightDuration;
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.EMPOWERED_LIFE_TAP_TALENT.id} />}
-        value={`${formatPercentage(uptime)} %`}
-        label="Empowered Life Tap uptime"
-        tooltip={`Your Empowered Life Tap talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %)`}
-      />
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.EMPOWERED_LIFE_TAP_TALENT.id}>
+            <SpellIcon id={SPELLS.EMPOWERED_LIFE_TAP_TALENT.id} noLink /> Empowered Life Tap Uptime
+          </SpellLink>
+        </div>
+        <div className="flex-sub text-right">
+          <dfn data-tip={`Your Empowered Life Tap contributed ${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS / ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%).`}>
+            {formatPercentage(uptime)} %
+          </dfn>
+        </div>
+      </div>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(3);
 }
 
 export default EmpoweredLifeTap;
