@@ -11,6 +11,8 @@ import EnrageUptime from './Modules/BuffDebuff/EnrageUptime';
 import FrothingBerserkerUptime from './Modules/BuffDebuff/FrothingBerserkerUptime';
 import JuggernautReset from './Modules/BuffDebuff/JuggernautReset';
 
+import PrePotion from './Modules/Items/PrePotion';
+
 class CombatLogParser extends CoreCombatLogParser {
 
   static specModules = {
@@ -27,6 +29,8 @@ class CombatLogParser extends CoreCombatLogParser {
     frothingBerserkerUptime: FrothingBerserkerUptime,
     juggernautReset: JuggernautReset,
 
+    // Overrides default PrePotion
+    prePotion: PrePotion,
   };
 }
 

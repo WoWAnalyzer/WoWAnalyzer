@@ -34,6 +34,14 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 4.5 / (1 + haste),
       recommendedCastEfficiency: 0.8,
+      isActive: combatent => combatent.hasTalent(SPELLS.INNER_RAGE_TALENT.id),
+    },
+    {
+      spell: SPELLS.RAGING_BLOW,
+      category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => null,
+      recommendedCastEfficiency: 0.8,
+      isActive: combatent => !combatent.hasTalent(SPELLS.INNER_RAGE_TALENT.id),
     },
     {
       spell: SPELLS.RAMPAGE,
@@ -116,7 +124,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.DEFENSIVE,
       getCooldown: haste => 120,
       noSuggestion: false,
-      recommendedCastEfficiency: 0.6,
+      recommendedCastEfficiency: 0.01,
       noCanBeImproved: true,
       extraSuggestion: 'Use it to reduce damage taken for a short period.',
     },
@@ -143,9 +151,7 @@ class CastEfficiency extends CoreCastEfficiency {
       category: CastEfficiency.SPELL_CATEGORIES.UTILITY,
       // Base cooldown is 45, reduced to 30 by Bounding Stride talent
       getCooldown: (haste, combatent) => combatent.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 30 : 45,
-      // noSuggestion: false,
-      recommendedCastEfficiency: 0.1,
-      // noCanBeImproved: false,
+      recommendedCastEfficiency: 0.01,
       extraSuggestion: <span>Consider using <SpellLink id={SPELLS.WARPAINT_TALENT.id} /> if the fight requires little mobility.</span>,
     },
     {
