@@ -5,8 +5,8 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import SoulHarvest from './SoulHarvest';
 
@@ -20,19 +20,27 @@ class SoulHarvestTalent extends Analyzer {
     this.active = this.combatants.selected.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id);
   }
 
-  statistic() {
+  subStatistic() {
+    if (!this.active){
+      return;
+    }
+    
     const bonusDmg = this.soulHarvest.talentBonusDmg;
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.SOUL_HARVEST_TALENT.id} />}
-        value={`${formatNumber(bonusDmg / this.owner.fightDuration * 1000)} DPS`}
-        label="Damage contributed"
-        tooltip={`Your Soul Harvest contributed ${formatNumber(bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(bonusDmg))} %).`}
-      />
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.SOUL_HARVEST_TALENT.id}>
+            <SpellIcon id={SPELLS.SOUL_HARVEST_TALENT.id} noLink /> Soul Harvest Gain
+          </SpellLink>
+        </div>
+        <div className="flex-sub text-right">
+          <dfn data-tip={`Your Soul Harvest contributed ${formatNumber(bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(bonusDmg))}%).`}>
+            {formatNumber(bonusDmg / this.owner.fightDuration * 1000)} DPS
+          </dfn>
+        </div>
+      </div>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(4);
 }
 
 export default SoulHarvestTalent;

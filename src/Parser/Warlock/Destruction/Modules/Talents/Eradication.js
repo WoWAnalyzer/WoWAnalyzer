@@ -7,7 +7,6 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 
@@ -32,7 +31,7 @@ class Eradication extends Analyzer {
     const uptime = this.enemies.getBuffUptime(SPELLS.ERADICATION_DEBUFF.id) / this.owner.fightDuration;
     when(uptime).isLessThan(0.7)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your uptime on the <SpellLink id={SPELLS.ERADICATION_DEBUFF.id} /> debuff could be improved. You should try to spread out your <SpellLink id={SPELLS.CHAOS_BOLT.id} /> more for higher uptime.<br /><small><em>NOTE:</em> Uptime may vary based on the encounter.</small></span>)
+        return suggest(<span>Your uptime on the <SpellLink id={SPELLS.ERADICATION_DEBUFF.id} /> debuff could be improved. You should try to spread out your <SpellLink id={SPELLS.CHAOS_BOLT.id} /> casts more for higher uptime.<br /><small><em>NOTE:</em> Uptime may vary based on the encounter.</small></span>)
           .icon(SPELLS.ERADICATION_TALENT.icon)
           .actual(`${formatPercentage(uptime)}% Eradication uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
@@ -49,19 +48,27 @@ class Eradication extends Analyzer {
     this.bonusDmg += getDamageBonus(event, ERADICATION_DAMAGE_BONUS);
   }
 
-  statistic() {    
-        const uptime = this.enemies.getBuffUptime(SPELLS.ERADICATION_DEBUFF.id) / this.owner.fightDuration;
+  subStatistic() {
+    if (!this.active){
+      return;
+    }
+    
+    const uptime = this.enemies.getBuffUptime(SPELLS.ERADICATION_DEBUFF.id) / this.owner.fightDuration;
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.ERADICATION_TALENT.id} />}
-        value={`${formatPercentage(uptime)} %`}
-        label="Eradication uptime"
-        tooltip={`Your Eradication talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %)`}
-      />
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.ERADICATION_TALENT.id}>
+            <SpellIcon id={SPELLS.ERADICATION_TALENT.id} noLink /> Eradication Uptime
+          </SpellLink>
+        </div>
+        <div className="flex-sub text-right">
+          <dfn data-tip={`Your Eradication contributed ${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS / ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%).`}>
+            {formatPercentage(uptime)}%
+          </dfn>
+        </div>
+      </div>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(2);
 }
 
 export default Eradication;

@@ -5,8 +5,8 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import getDamageBonus from '../WarlockCore/getDamageBonus';
@@ -66,18 +66,26 @@ class RoaringBlaze extends Analyzer {
     }
   }
 
-  statistic() {
+  subStatistic() {
+    if (!this.active){
+      return;
+    }
+    
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.ROARING_BLAZE_TALENT.id} />}
-        value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
-        label="Damage contributed"
-        tooltip={`Your Roaring Blaze talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %).`}
-      />
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.ROARING_BLAZE_TALENT.id}>
+            <SpellIcon id={SPELLS.ROARING_BLAZE_TALENT.id} noLink /> Roaring Blaze Gain
+          </SpellLink>
+        </div>
+        <div className="flex-sub text-right">
+          <dfn data-tip={`Your Roaring Blaze talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%).`}>
+            {formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS
+          </dfn>
+        </div>
+      </div>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
 export default RoaringBlaze;

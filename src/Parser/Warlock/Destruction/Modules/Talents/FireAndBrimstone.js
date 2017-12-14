@@ -3,8 +3,8 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 
@@ -52,18 +52,26 @@ class FireAndBrimstone extends Analyzer {
     this.bonusDmg += event.damage;
   }
 
-  statistic() {
+  subStatistic() {
+    if (!this.active){
+      return;
+    }
+    
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id} />}
-        value={this.generatedCleaveFragments}
-        label="Bonus fragments gained"
-        tooltip={`Your Fire and Brimstone talent also contributed ${formatNumber(this.bonusDmg)} bonus cleave damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %).`}
-      />
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id}>
+            <SpellIcon id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id} noLink /> FnB Gain
+          </SpellLink>
+        </div>
+        <div className="flex-sub text-right">
+          <dfn data-tip={`Your Fire and Brimstone talent also contributed ${formatNumber(this.bonusDmg)} bonus cleave damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%).`}>
+            {this.generatedCleaveFragments} Bonus Fragments
+          </dfn>
+        </div>
+      </div>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(4);
 }
 
 export default FireAndBrimstone;
