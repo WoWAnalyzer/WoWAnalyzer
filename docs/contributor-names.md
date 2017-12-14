@@ -31,5 +31,8 @@ It may sometimes be unclear who is who because the names on GitHub can be differ
 | @Jlassie82 | [Jlassie82](https://github.com/Jlassie82) |
 | @Skamer | [Skamer](https://github.com/Skamer) |
 | @Gao | [awlego](https://github.com/Awlego) |
+| @Oratio | [karlpralow](https://github.com/karlpralow) |
+| @Poneria | [poneria](https://github.com/poneria) |
+| @Tsabo | [TsaboTavok](https://github.com/TsaboTavok) |
 
 If you're missing from the table please add yourself in a PR.

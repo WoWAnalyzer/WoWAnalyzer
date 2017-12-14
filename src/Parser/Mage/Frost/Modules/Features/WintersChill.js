@@ -97,8 +97,8 @@ class WintersChillTracker extends Analyzer {
     const missedIceLancesPerMinute = this.missedIceLanceCasts / (this.owner.fightDuration / 1000 / 60);
     when(missedIceLancesPerMinute).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> You failed to Ice Lance into {this.missedIceLanceCasts} <SpellLink id={SPELLS.WINTERS_CHILL.id}/> ({missedIceLancesPerMinute.toFixed(1)} missed per minute).  Make sure you cast <SpellLink id={SPELLS.ICE_LANCE_CAST.id}/> after each <SpellLink id={SPELLS.FLURRY.id}/> to benefit from <SpellLink id={SPELLS.SHATTER.id}/>.</span>)
-          .icon(SPELLS.ICE_LANCE_CAST.icon)
+        return suggest(<span> You failed to Ice Lance into {this.missedIceLanceCasts} <SpellLink id={SPELLS.WINTERS_CHILL.id}/> ({missedIceLancesPerMinute.toFixed(1)} missed per minute).  Make sure you cast <SpellLink id={SPELLS.ICE_LANCE.id}/> after each <SpellLink id={SPELLS.FLURRY.id}/> to benefit from <SpellLink id={SPELLS.SHATTER.id}/>.</span>)
+          .icon(SPELLS.ICE_LANCE.icon)
           .actual(`${formatNumber(this.missedIceLanceCasts)} Winter's Chill not shattered with Ice Lance`)
           .recommended(`${formatNumber(recommended)} is recommended`)
           .regular(0.5).major(1);
@@ -136,7 +136,7 @@ class WintersChillTracker extends Analyzer {
         value={(
           <span>
             <SpellIcon
-              id={SPELLS.ICE_LANCE_CAST.id}
+              id={SPELLS.ICE_LANCE.id}
               style={{
                 height: '1.2em',
                 marginBottom: '.15em',

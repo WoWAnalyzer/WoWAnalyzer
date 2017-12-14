@@ -32,13 +32,13 @@ class AuraOfSacrifice extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.hps).isLessThan(30000)
+    when(this.hps).isLessThan(60000)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>The healing done by your <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> is low. Try to find a better moment to cast it or consider changing to <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} /> or <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> which can be more reliable.</span>)
           .icon(SPELLS.AURA_OF_SACRIFICE_TALENT.icon)
           .actual(`${formatNumber(actual)} HPS`)
           .recommended(`>${formatNumber(recommended)} HPS is recommended`)
-          .regular(recommended - 5000).major(recommended - 10000);
+          .regular(recommended - 10000).major(recommended - 20000);
       });
   }
   statistic() {

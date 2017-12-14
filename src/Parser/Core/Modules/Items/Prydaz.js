@@ -4,10 +4,15 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
+/*
+ * Prydaz, Xavaric's Magnum Opus -
+ * Equip: Every 30 sec, gain an absorb shield for 25% of your maximum health for 30 sec.
+ */
 class Prydaz extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
+
   healing = 0;
 
   on_initialized() {

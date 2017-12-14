@@ -51,15 +51,15 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
-      when(deadTimePercentage).isGreaterThan(0.1)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Your downtime can be improved. Try to reduce the delay between casting spells. If everything is on cooldown, try and use <SpellLink id={SPELLS.COBRA_SHOT.id}/> to stay off the focus cap and do some damage.</span>)
-            .icon('spell_mage_altertime')
-            .actual(`${formatPercentage(actual)}% downtime`)
-            .recommended(`<${formatPercentage(recommended)}% is recommended`)
-            .regular(recommended + 0.02).major(recommended + 0.04);
-        });
-    }
+    when(deadTimePercentage).isGreaterThan(0.1)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>Your downtime can be improved. Try to reduce the delay between casting spells. If everything is on cooldown, try and use <SpellLink id={SPELLS.COBRA_SHOT.id} /> to stay off the focus cap and do some damage.</span>)
+          .icon('spell_mage_altertime')
+          .actual(`${formatPercentage(actual)}% downtime`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended + 0.02).major(recommended + 0.04);
+      });
+  }
 
   showStatistic = true;
   statisticOrder = STATISTIC_ORDER.CORE(1);

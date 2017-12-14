@@ -5,9 +5,8 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
-import { formatNumber, formatPercentage } from "common/format";
+import { formatPercentage } from "common/format";
 import SpellLink from "common/SpellLink";
 
 class PiercingShot extends Analyzer {
@@ -40,15 +39,20 @@ class PiercingShot extends Analyzer {
     if (spellId !== SPELLS.PIERCING_SHOT_TALENT.id) {
       return;
     }
-    this.damage += event.amount;
+    this.damage += event.amount + (event.absorbed || 0);
   }
-  statistic() {
+  subStatistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.PIERCING_SHOT_TALENT.id} />}
-        value={`${formatNumber(this.damage)}`}
-        label={this.owner.formatItemDamageDone(this.damage)}
-      />
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.PIERCING_SHOT_TALENT.id}>
+            <SpellIcon id={SPELLS.PIERCING_SHOT_TALENT.id} noLink /> Piercing Shot
+          </SpellLink>
+        </div>
+        <div className="flex-sub text-right">
+          {(this.owner.formatItemDamageDone(this.damage))}
+        </div>
+      </div>
     );
   }
   suggestions(when) {

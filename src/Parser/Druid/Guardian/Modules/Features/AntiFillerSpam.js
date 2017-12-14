@@ -10,14 +10,14 @@ import StatisticBox from 'Main/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
-import CastEfficiency from './CastEfficiency';
+import Abilities from './Abilities';
 import DynamicHaste from './DynamicHaste';
 
 import ActiveTargets from './ActiveTargets';
 
 const debug = false;
 
-const gcdSpells = CastEfficiency.CPM_ABILITIES.filter(spell => spell.isOnGCD);
+const gcdSpells = Abilities.ABILITIES.filter(spell => spell.isOnGCD);
 
 // Determines whether a variable is a function or not, and returns its value
 function resolveValue(maybeFunction, ...args) {
@@ -75,7 +75,7 @@ class AntiFillerSpam extends Analyzer {
       const { isFiller, baseCD, hastedCD, condition, proc, category} = gcdSpell;
       const lastCast = this.abilityLastCasts[gcdSpellID] || -Infinity;
       const isFillerEval = (typeof isFiller === 'function') ? isFiller(event, combatant, targets, lastCast) : isFiller;
-      if (isFillerEval || category === CastEfficiency.SPELL_CATEGORIES.UTILITY) {
+      if (isFillerEval || category === Abilities.SPELL_CATEGORIES.UTILITY) {
         return;
       }
 

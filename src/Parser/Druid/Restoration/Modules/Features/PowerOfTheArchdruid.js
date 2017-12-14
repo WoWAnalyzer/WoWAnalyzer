@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Rejuvenation from './Rejuvenation';
+import Rejuvenation from '../Core/Rejuvenation';
 
 class PowerOfTheArchdruid extends Analyzer {
   static dependencies = {

@@ -1,6 +1,6 @@
-export default function getWipeCount(report, fight) {
+export default function getWipeCount(fights, fight) {
   let count = 1;
-  report.fights.forEach((item) => {
+  fights.forEach(item => {
     if (item.boss === fight.boss) {
       if (item.id < fight.id) {
         count += 1;

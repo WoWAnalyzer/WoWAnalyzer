@@ -1,207 +1,141 @@
 import React, { Component } from 'react';
 
-import SPECS from 'common/SPECS';
-import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
-import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
+import Wrapper from 'common/Wrapper';
+import ScrollFilledIcon from 'Icons/ScrollFilled';
+import MegaphoneIcon from 'Icons/Megaphone';
 
-import PatreonButton from './PatreonButton';
 import ChangelogPanel from './ChangelogPanel';
 
 import MasteryRadiusImage from './Images/mastery-radius.png';
-import ItemsImage from './Images/items.png';
-import SuggestionsImage from './Images/suggestions.png';
-import ImportantMetricsImage from './Images/important-metrics.png';
-import CooldownUsagesImage from './Images/cooldownusages.png';
-import ManaBreakdownImage from './Images/mana-breakdown.png';
-import OpenSourceImage from './Images/open-source.png';
-import OkHandImage from './Images/ok_hand.png';
+import AntorusImage from './Images/antorus.jpg';
 
 import DiscordLogo from './Images/Discord-Logo+Wordmark-White.svg';
 import DiscordBotGif from './Images/discord-bot.gif';
+import SpecListing from './SpecListing';
 
 class Home extends Component {
   render() {
     return (
-      <div>
-        <div className="row">
-          <div className="col-lg-8 col-md-7">
-            <div className="panel">
-              <div className="panel-heading">
-                <h2>The World of Warcraft Analyzer</h2>
+      <Wrapper>
+        <section>
+          <div className="container">
+            <header>
+              <div className="row">
+                <div className="col-md-12">
+                  <h1><MegaphoneIcon /> Announcements</h1>
+                </div>
               </div>
-              <div className="panel-body">
-                <img src={MasteryRadiusImage} alt="Mastery radius" className="pull-right" style={{ margin: 15 }} />
-                WoW Analyzer is a comprehensive tool for analyzing your performance based on important metrics for your spec. You will need a Warcraft Logs report with advanced combat logging enabled to start. Private logs can not be used, if your guild has private logs you will have to <a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a> or change the existing logs to the <i>unlisted</i> privacy option instead.<br /><br />
+            </header>
 
-                Here are some interesting examples: <a href="/report/LRchdHVAmWtNQ8Fj/22-Mythic+Harjatan+-+Kill+(5:54)/Zerotorescue" className="Paladin">Holy Paladin</a>, <a href="/report/KbQnkMHZmqWgtXwz/33-Heroic+Krosus+-+Kill+(2:55)/Zerotorescue" className="Priest">Discipline Priest</a> and <a href="/report/dcDkhfMR6nG2XxVr/35-Normal+Gul'dan+-+Kill+(5:56)/Zerotorescue" className="Monk">Brewmaster Monk</a>.
-                {/* Your logs are welcome. Do note they shouldn't be top logs, they're generally not *that* interesting. They're mostly just my logs since I have permission to use those :') */}
-                <br /><br />
+            <div className="row">
+              <div className="col-lg-8 col-md-7">
+                <div className="panel">
+                  <div className="panel-heading">
+                    <h2>The World of Warcraft Analyzer</h2>
+                  </div>
+                  <div className="panel-body">
+                    <img src={MasteryRadiusImage} alt="Mastery radius" className="pull-right" style={{ margin: 15 }} />
+                    WoW Analyzer is a comprehensive tool for analyzing your performance based on important metrics for your spec. You will need a Warcraft Logs report with advanced combat logging enabled to start. Private logs can not be used, if your guild has private logs you will have to <a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a> or change the existing logs to the <i>unlisted</i> privacy option instead.<br /><br />
 
-                Feature requests (<dfn data-tip="Provided that you're not using one of Microsoft's browsers.">and bug reports*</dfn>) are welcome! On <a href="https://discord.gg/AxphPxU">Discord</a> or create an issue <a href={'https://github.com/WoWAnalyzer/WoWAnalyzer/issues'}>here</a>.
-              </div>
-            </div>
+                    Here are some interesting examples: <a href="/report/LRchdHVAmWtNQ8Fj/22-Mythic+Harjatan+-+Kill+(5:54)/Zerotorescue" className="Paladin">Holy Paladin</a>, <a href="/report/KbQnkMHZmqWgtXwz/33-Heroic+Krosus+-+Kill+(2:55)/Zerotorescue" className="Priest">Discipline Priest</a> and <a href="/report/dcDkhfMR6nG2XxVr/35-Normal+Gul'dan+-+Kill+(5:56)/Zerotorescue" className="Monk">Brewmaster Monk</a>.
+                    {/* Your logs are welcome. Do note they shouldn't be top logs, they're generally not *that* interesting. They're mostly just my logs since I have permission to use those :') */}
+                    <br /><br />
 
-            <div className="panel" style={{ overflow: 'hidden' }}>
-              <div className="panel-heading">
-                <h2>The WoWAnalyzer Discord bot</h2>
-              </div>
-              <div className="panel-body" style={{ padding: 0 }}>
-                <div className="flex wrapable">
-                  <div className="flex-main" style={{ padding: '25px 15px', minWidth: 300 }}>
-                    <div className="flex">
-                      <div className="flex-sub" style={{ padding: 5 }}>
-                        <img src="/favicon.png" alt="Logo" style={{ width: 80, float: 'left' }} />
-                      </div>
-                      <div className="flex-main" style={{ fontSize: 24, padding: '5px 15px', lineHeight: 1.4 }}>
-                        Introducing the <b>WoWAnalyzer</b> <img src={DiscordLogo} alt="Discord logo" style={{ height: '2em', marginTop: 3 }} /> bot
+                    Feature requests (<dfn data-tip="Provided that you're not using one of Microsoft's browsers.">and bug reports*</dfn>) are welcome! On <a href="https://discord.gg/AxphPxU">Discord</a> or create an issue <a href={'https://github.com/WoWAnalyzer/WoWAnalyzer/issues'}>here</a>.
+                  </div>
+                </div>
+
+                <div className="panel image-overlay" style={{ backgroundImage: `url(${AntorusImage})`, paddingTop: 350 }}>
+                  <div className="panel-body">
+                    <div className="row">
+                      <div className="col-md-10">
+                        <h1>Updated for Antorus</h1>
+                        <div className="description">
+                          We've been working hard to implement all the new trinkets and tier bonuses available in the new raid <i>Antorus, the Burning Throne</i>. Let us know on <a href="https://discord.gg/AxphPxU">Discord</a> or <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> if you're still missing anything.
+                        </div>
                       </div>
                     </div>
-                    <div className="text-center">
-                      <div style={{ fontSize: 16, margin: '10px 25px 20px 25px' }}>
-                        Get users to analyze themselves without lifting a finger (even if they don't read the pins).<br />
-                      </div>
-                      <div style={{ marginBottom: 7 }}>
-                        <a
-                          className="btn btn-default btn-lg"
-                          style={{ borderRadius: 0 }}
-                          href="https://discordapp.com/oauth2/authorize?&client_id=368144406181838861&scope=bot&permissions=3072"
-                        >
-                          Add to Discord
-                        </a>
-                      </div>
+                  </div>
+                </div>
 
-                      <a href="https://github.com/WoWAnalyzer/DiscordBot#wowanalyzer-discord-bot-">More info</a>
+                <div className="panel">
+                  <div className="panel-heading">
+                    <h2>The WoWAnalyzer Discord bot</h2>
+                  </div>
+                  <div className="panel-body" style={{ padding: 0, overflow: 'hidden', borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
+                    <div className="flex wrapable">
+                      <div className="flex-main" style={{ padding: '20px 15px', minWidth: 300 }}>
+                        <div className="flex">
+                          <div className="flex-sub" style={{ padding: 5 }}>
+                            <img src="/favicon.png" alt="Logo" style={{ width: 80, float: 'left' }} />
+                          </div>
+                          <div className="flex-main" style={{ fontSize: 24, padding: '5px 15px', lineHeight: 1.4 }}>
+                            Introducing the <b>WoWAnalyzer</b> <img src={DiscordLogo} alt="Discord logo" style={{ height: '2em', marginTop: 3 }} /> bot
+                          </div>
+                        </div>
+                        <div className="text-center">
+                          <div style={{ fontSize: 16, margin: '10px 25px 20px 25px' }}>
+                            Get users to analyze themselves without lifting a finger (even if they don't read the pins).<br />
+                          </div>
+                          <div style={{ marginBottom: 7 }}>
+                            <a
+                              className="btn btn-default btn-lg"
+                              style={{ borderRadius: 0 }}
+                              href="https://discordapp.com/oauth2/authorize?&client_id=368144406181838861&scope=bot&permissions=3072"
+                            >
+                              Add to Discord
+                            </a>
+                          </div>
+
+                          <a href="https://github.com/WoWAnalyzer/DiscordBot#wowanalyzer-discord-bot-">More info</a>
+                        </div>
+                      </div>
+                      <div className="flex-sub">
+                        <img src={DiscordBotGif} alt="Bot example gif" style={{ height: 300 }} />
+                      </div>
                     </div>
                   </div>
-                  <div className="flex-sub">
-                    <img src={DiscordBotGif} alt="Bot example gif" style={{ height: 300 }} />
+                </div>
+              </div>
+              <div className="col-lg-4 col-md-5">
+                <div className="panel">
+                  <div className="panel-heading">
+                    <h2>Help wanted</h2>
+                  </div>
+                  <div className="panel-body" style={{ textAlign: 'justify', padding: 0, overflow: 'hidden', borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
+                    <div style={{ padding: '15px 20px', marginBottom: 5 }}>
+                      WoWAnalyzer is slowly expanding with more things being analyzed every day. We need your help to continue expanding and keep everything accurate. Are you a coder or graphic designer? Check our <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub project</a> (hint: see <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/help%20wanted" className="gh-label">help wanted</a> and <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/good%20first%20issue" className="gh-label" style={{ backgroundColor: '#5319e7' }}>good first issue</a>, or maybe <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/%24bounty" className="gh-label" style={{ backgroundColor: '#64f235', color: '#000' }}>$bounty</a> interests you) or <a href="https://discord.gg/AxphPxU">Discord</a> to find out how you could contribute.
+                    </div>
+
+                    {/* old: https://media.giphy.com/media/l1J3vV5lCmv8qx16M/giphy.gif */}
+                    <img src="https://media.giphy.com/media/N56zWre4o5UlO/source.gif" style={{ width: '100%' }} alt="Sharing is caring" />
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </section>
 
-            <div className="panel">
-              <div className="panel-heading">
-                <h2>Features</h2>
-              </div>
-              <div className="panel-body text-muted">
-                <div className="row">
-                  <div className="col-md-6 text-center">
-                    <img src={ItemsImage} style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Item performance breakdowns" /><br />
-                    Item performance breakdowns
-                  </div>
-                  <div className="col-md-6 text-center">
-                    <img src={SuggestionsImage} style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Suggestions for improvement" /><br />
-                    Suggestions for improvement
-                  </div>
+        <SpecListing />
+
+        <section>
+          <div className="container">
+            <header>
+              <div className="row">
+                <div className="col-md-12 text-center">
+                  <h1><ScrollFilledIcon /> Changelog</h1>
                 </div>
-                <div className="row" style={{ marginTop: 15 }}>
-                  <div className="col-md-6 text-center">
-                    <img src={ImportantMetricsImage} style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Important metrics" /><br />
-                    Important spec specific metrics
-                  </div>
-                  <div className="col-md-6 text-center">
-                    <img src={CooldownUsagesImage} style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Cooldown usages" /><br />
-                    Cooldown usage details
-                  </div>
-                </div>
-                <div className="row" style={{ marginTop: 15 }}>
-                  <div className="col-md-6 text-center">
-                    <img src={ManaBreakdownImage} style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Mana breakdown" /><br />
-                    Mana breakdown
-                  </div>
-                  <div className="col-md-6 text-center">
-                    <img src={OpenSourceImage} style={{ maxWidth: '100%', border: '1px solid black', borderRadius: 5 }} alt="Open source" /><br />
-                    Open source
-                  </div>
-                </div><br />
-
-                Full source is available on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a>. Contributions are extremely welcome! Add your own module or spec if you want to be able to analyze something not yet available. The repository contains information on how to contribute, if you need any more information please join our Discord (link further below).
               </div>
-            </div>
+            </header>
 
-            <div className="panel">
-              <div className="panel-heading">
-                <h2>Changes</h2>
-              </div>
-              <div className="panel-body">
+            <div className="row">
+              <div className="col-md-12">
                 <ChangelogPanel />
               </div>
             </div>
           </div>
-
-          <div className="col-lg-4 col-md-5">
-            <div className="panel" style={{ overflow: 'hidden' }}>
-              <div className="panel-heading">
-                <h2>Help wanted</h2>
-              </div>
-              <div className="panel-body" style={{ textAlign: 'justify', padding: 0 }}>
-                <div style={{ padding: '15px 20px', marginBottom: 5 }}>
-                  WoWAnalyzer is slowly expanding with more things being analyzed every day. We need your help to continue expanding and keep everything accurate. Are you a coder or graphic designer? Check our <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub project</a> (hint: see <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/help%20wanted" className="gh-label">help wanted</a> and <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/good%20first%20issue" className="gh-label" style={{ backgroundColor: '#5319e7' }}>good first issue</a>, or maybe <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/labels/%24bounty" className="gh-label" style={{ backgroundColor: '#64f235', color: '#000' }}>$bounty</a> interests you) or <a href="https://discord.gg/AxphPxU">Discord</a> to find out how you could contribute.
-                </div>
-
-                <img src="https://media.giphy.com/media/l1J3vV5lCmv8qx16M/giphy.gif" style={{ width: '100%' }} alt="Sharing is caring" />
-              </div>
-            </div>
-          </div>
-
-          <div className="col-lg-4 col-md-5">
-            <div className="panel">
-              <div className="panel-heading">
-                <h2>Available specs</h2>
-              </div>
-              <div className="panel-body text-muted">
-                <ul className="list-unstyled">
-                  {Object.keys(SPECS)
-                    .filter(key => isNaN(key)) // since SPECS gets indexed by ids, all entries are doubled. With this we only use the non-numeric values
-                    .map(key => SPECS[key])
-                    .sort((a, b) => {
-                      if (a.className < b.className) {
-                        return -1;
-                      } else if (a.className > b.className) {
-                        return 1;
-                      }
-                      return a.id - b.id;
-                    })
-                    .map((spec) => {
-                      const className = spec.className.replace(/ /g, '');
-                      const config = AVAILABLE_CONFIGS.find(config => config.spec === spec);
-                      return (
-                        <li key={spec.id} style={{ marginBottom: 3, whiteSpace: 'nowrap', overflow: 'hidden' }}>
-                          <img src={`/specs/${className}-${spec.specName.replace(' ', '')}.jpg`} alt="Spec logo" style={{ height: '1.6em', marginRight: 10 }} />{' '}
-                          <span className={className}>{spec.specName} {spec.className}</span>{' '}
-                          {config ? (
-                            <span>
-                              by <span style={{ color: '#fff' }}>{config.maintainer}</span> (<dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn>)
-                            </span>
-                          ) : (
-                            <span>isn't available yet. <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md">Add it!</a></span>
-                          )}
-                        </li>
-                      );
-                    })}
-                </ul>
-
-                If your spec isn't in the list it's not yet supported. Specs are added by enthusiastic players of the spec themselves. Adding specs is easy if you're familiar with JavaScript, find out more on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md">GitHub</a> or <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">join the WoW Analyzer Discord</a> for additional help.<br /><br />
-
-                If you're looking to help out in other ways please consider donating.<br />
-                <PatreonButton text="Become a Patron" />
-              </div>
-            </div>
-
-            <div className="panel">
-              <div className="panel-heading">
-                <h2>Discord</h2>
-              </div>
-              <div className="panel-body text-muted">
-                I believe it's important to keep class discussion as much in class Discords as possible, so if you have spec specific questions and/or suggestions please try to discuss them in your class Discord (class Discords mods approve of this message <img src={OkHandImage} alt=":ok_hand:" style={{ height: '1.5em' }} />). The WoW Analyzer Discord is for more general questions and developers looking to contribute.<br /><br />
-
-                <iframe src="https://discordapp.com/widget?id=316864121536512000&theme=dark" width="100%" height="300" allowTransparency="true" frameBorder="0" title="Discord Widget" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        </section>
+      </Wrapper>
     );
   }
 }

@@ -15,7 +15,7 @@ import SPELLS from 'common/SPELLS';
 
 // This only works with actual healing events; casts are not recognized.
 export default {
-  [SPELLS.LIGHTS_EMBRACE_HEALING.id]: { // Sea Star of the Depthmother
+  [SPELLS.OCEANS_EMBRACE.id]: { // Sea Star of the Depthmother
     int: false,
     crit: true,
     hasteHpct: true, // until LoD's CD is below 8 sec, this speeds up the deck cycle time
@@ -26,6 +26,15 @@ export default {
     int: false,
     crit: true,
     hasteHpct: false, // static CD
+    hasteHpm: true,
+    mastery: false,
+    vers: true,
+  },
+  [SPELLS.HIGHFATHERS_TIMEKEEPING_HEAL.id]: { // Highfather's Machination
+    int: false,
+    crit: true,
+    hasteHpct: true,
+    hasteHpm: false,
     mastery: false,
     vers: true,
   },
@@ -35,4 +44,34 @@ export default {
   [SPELLS.VELENS_FUTURE_SIGHT_HEAL.id]: { // while active procs from any healing, so we ignore for weights and total healing
     multiplier: true,
   },
+  [SPELLS.LIGHTS_EMBRACE_HEALING.id]: {
+    int: false,
+    crit: true,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
+  [SPELLS.INFUSION_OF_LIGHT_HEALING.id]: {
+    int: false,
+    crit: true,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
+  [SPELLS.CHAOTIC_DARKNESS_HEALING.id]: {
+    int: false,
+    crit: true,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
+  [SPELLS.EONARS_COMPASSION_HEAL.id]: {
+    int: false,
+    crit: true,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
+  //TODO: Add Shadowbind, it scales from the crit on the damage part
+
 };

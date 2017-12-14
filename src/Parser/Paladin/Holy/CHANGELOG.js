@@ -1,13 +1,28 @@
 import React from 'react';
 
+import { sref, Zerotorescue, blazyb } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
-import ZerotorescueAvatar from './Images/zerotorescue-avatar.png';
-
-const Zerotorescue = ['Zerotorescue', ZerotorescueAvatar];
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2017-12-11'),
+    changes: <Wrapper>Fixed an issue where healing increases (such as Ilterendi and Velen's) didn't include healing buffed for <ItemLink id={ITEMS.HIGHFATHERS_MACHINATION.id} />, <ItemLink id={ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id} /> and <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} />.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-08'),
+    changes: <Wrapper>Increased <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} />\'s suggestion healing requirement to 60k HPS for minor, 50k HPS for average and 40k HPS for major (up from 30k/25k/20k).</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-07'),
+    changes: 'Stat values shows healing gained per 1 rating on hover.',
+    contributors: [blazyb],
+  },
   {
     date: new Date('2017-11-05'),
     changes: 'Reworded haste tooltip and changed the display to be 0.00 - value to be more obvious it\'s a max.',
@@ -26,7 +41,7 @@ export default [
   {
     date: new Date('2017-10-31'),
     changes: <Wrapper>Fixed the <i>Haste HPCT</i> stat value not taking current Haste into account leading to a slightly overvaluation.</Wrapper>,
-    contributors: ['Sref'],
+    contributors: [sref],
   },
   {
     date: new Date('2017-10-30'),

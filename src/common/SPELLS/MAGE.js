@@ -88,7 +88,7 @@ export default {
     name: 'Frostbolt',
     icon: 'spell_frost_frostbolt02',
   },
-  ICE_LANCE_CAST: {
+  ICE_LANCE: {
     id: 30455,
     name: 'Ice Lance',
     icon: 'spell_frost_frostblast',
@@ -110,6 +110,11 @@ export default {
   },
   FLURRY: {
     id: 44614,
+    name: 'Flurry',
+    icon: 'ability_warlock_burningembersblue',
+  },
+  FLURRY_DAMAGE: {
+    id: 228354,
     name: 'Flurry',
     icon: 'ability_warlock_burningembersblue',
   },
@@ -225,6 +230,16 @@ export default {
     name: 'Dragon\'s Breath',
     icon: 'inv_misc_head_dragon_01',
   },
+  PHOENIX_REBORN: {
+    id: 215775,
+    name: 'Phoenix Reborn',
+    icon: 'inv_misc_phoenixegg',
+  },
+  METEOR_DAMAGE: {
+    id: 153564,
+    name: 'Meteor',
+    icon: 'spell_mage_meteor',
+  },
 
   //Arcane
   ARCANE_BLAST: {
@@ -307,7 +322,7 @@ export default {
     icon: 'ability_mage_hotstreak',
   },
   HOT_STREAK: {
-    id: 195283,
+    id: 48108,
     name: 'Hot Streak',
     icon: 'ability_mage_hotstreak',
   },
@@ -336,6 +351,11 @@ export default {
     name: 'Critical Massive',
     icon: 'ability_mage_firestarter',
   },
+  KAELTHAS_ULTIMATE_ABILITY: {
+    id: 209455,
+    name: 'Kaelthas\'s Ultimate Ability',
+    icon: 'inv_bracer_robe_raidwarlock_j_01',
+  },
 
   //Artifact Traits
   FROZEN_VEINS_TRAIT: {
@@ -353,6 +373,16 @@ export default {
     name: 'Warmth of the Phoenix',
     icon: 'artifactability_firemage_phoenixbolt',
   },
+  PHOENIX_REBORN_TRAIT: {
+    id: 215773,
+    name: 'Phoenix Reborn',
+    icon: 'inv_sword_1h_artifactfelomelorn_d_01',
+  },
+  ERUPTING_INFERNAL_CORE: {
+    id: 248147,
+    name: 'Erupting Infernal Core',
+    icon: 'spell_mage_flameorb',
+  },
 
   //Tier Sets
   FROST_MAGE_T20_2SET_BONUS_BUFF: {
@@ -364,6 +394,16 @@ export default {
     id: 242254,
     name: 'T20 4 set bonus',
     icon: 'spell_frost_frostbolt02',
+  },
+  FROST_MAGE_T21_2SET_BONUS_BUFF: {
+    id: 251859,
+    name: 'T21 2 set bonus',
+    icon: 'ability_mage_greaterinvisibility',
+  },
+  FROST_MAGE_T21_4SET_BONUS_BUFF: {
+    id: 251860,
+    name: 'T21 4 set bonus',
+    icon: 'ability_mage_greaterinvisibility',
   },
   FIRE_MAGE_T20_2SET_BONUS_BUFF: {
     id: 242249,

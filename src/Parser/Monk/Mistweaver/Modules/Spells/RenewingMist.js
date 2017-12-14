@@ -73,9 +73,11 @@ class RenewingMist extends Analyzer {
     const spellId = event.ability.guid;
 
     // Thunder Focus Tea allows you to cast Renewing Mist without triggering its cooldown.
-    if (this.combatants.selected.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)) {
-      if (this.spellUsable.isOnCooldown(SPELLS.RENEWING_MIST.id)) {
-        this.spellUsable.endCooldown(SPELLS.RENEWING_MIST.id);
+    if (spellId === SPELLS.RENEWING_MIST.id) {
+      if (this.combatants.selected.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)) {
+        if (this.spellUsable.isOnCooldown(SPELLS.RENEWING_MIST.id)) {
+          this.spellUsable.endCooldown(SPELLS.RENEWING_MIST.id);
+        }
       }
     }
 
