@@ -13,7 +13,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 25,
       isActive: combatant => combatant.hasTalent(SPELLS.HAUNT_TALENT.id),
-      recommendedCastEfficiency: 0.95,
+      recommendedEfficiency: 0.95,
       extraSuggestion: 'This estimate may not be correct sometimes because of Haunt\'s resets. The real amount of possible Haunts will be higher if there were adds on this fight.',
     },
     {
@@ -21,7 +21,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 40,
       isActive: combatant => combatant.hasTalent(SPELLS.PHANTOM_SINGULARITY_TALENT.id),
-      recommendedCastEfficiency: 0.95,
+      recommendedEfficiency: 0.95,
     },
     {
       spell: SPELLS.AGONY,
@@ -87,14 +87,14 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
       isActive: combatant => !combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
-      recommendedCastEfficiency: 0.95,
+      recommendedEfficiency: 0.95,
     },
     {
       spell: SPELLS.SUMMON_INFERNAL_UNTALENTED,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
       isActive: combatant => !combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
-      recommendedCastEfficiency: 0.95,
+      recommendedEfficiency: 0.95,
     },
     {
       spell: SPELLS.GRIMOIRE_IMP,

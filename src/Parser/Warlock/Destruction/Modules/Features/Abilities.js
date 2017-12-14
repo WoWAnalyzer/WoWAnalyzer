@@ -21,14 +21,14 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 25 / (1 + haste),
       isActive: combatant => combatant.hasTalent(SPELLS.CHANNEL_DEMONFIRE_TALENT.id),
-      recommendedCastEfficiency: 0.95,
+      recommendedEfficiency: 0.95,
     },
     {
       spell: SPELLS.CONFLAGRATE,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 12 / (1 + haste),
       charges: 2,
-      recommendedCastEfficiency: 0.95,
+      recommendedEfficiency: 0.95,
       isActive: combatant => !combatant.hasTalent(SPELLS.SHADOWBURN_TALENT.id),
       // TODO: T19 4p set bonus grants another charge and reduces CD
     },
@@ -37,7 +37,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 12 / (1 + haste),
       charges: 2,
-      recommendedCastEfficiency: 0.95,
+      recommendedEfficiency: 0.95,
       isActive: combatant => combatant.hasTalent(SPELLS.SHADOWBURN_TALENT.id),
       // TODO: T19 4p set bonus grants another charge and reduces CD
     },
@@ -46,7 +46,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 45,
       charges: 3,
-      recommendedCastEfficiency: 0.95,
+      recommendedEfficiency: 0.95,
     },
     {
       spell: SPELLS.IMMOLATE_CAST,
@@ -134,9 +134,9 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 90,
       isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
       extraSuggestion: <Wrapper><SpellLink id={SPELLS.GRIMOIRE_IMP.id} /> is the preferred version to use. </Wrapper>,
-      recommendedCastEfficiency: 0.90,
-      averageIssueCastEfficiency: 0.80,
-      majorIssueCastEfficiency: 0.70,
+      recommendedEfficiency: 0.90,
+      averageIssueEfficiency: 0.80,
+      majorIssueEfficiency: 0.70,
     },
 
     // Utility

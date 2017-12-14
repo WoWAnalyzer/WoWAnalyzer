@@ -10,21 +10,21 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.FURY_OF_THE_ILLIDARI,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60,
-      recommendedCastEfficiency: 0.9,
+      recommendedEfficiency: 0.9,
       extraSuggestion: `This does a huge ammount of AoE passive damage and it's one of the main damage spells for Havoc Demon Hunters. You should cast it as soon as it become available. The only moment you can delay it's cast is if you already expect an add wave to maximize it's efficiency and damage output.`,
     },
     {
       spell: SPELLS.METAMORPHOSIS_HAVOC,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: (haste, combatant) => 300 - (combatant.traitsBySpellId[SPELLS.UNLEASHED_DEMONS.id] || 0) * 20,
-      recommendedCastEfficiency: 1.0,
+      recommendedEfficiency: 1.0,
     },
     {
       spell: SPELLS.NEMESIS_TALENT,
       isActive: combatant => combatant.hasTalent(SPELLS.NEMESIS_TALENT.id),
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
-      recommendedCastEfficiency: 0.95,
+      recommendedEfficiency: 0.95,
       extraSuggestion: 'This is your main damage increase buff. You should use it as much as you can to maximize your damage output.',
     },
     {
@@ -32,7 +32,7 @@ class Abilities extends CoreAbilities {
       isActive: combatant => combatant.hasTalent(SPELLS.CHAOS_BLADES_TALENT.id),
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
-      recommendedCastEfficiency: 0.95,
+      recommendedEfficiency: 0.95,
       extraSuggestion: `This plus Nemesis and Metamorphosis make up your huge windows.`,
     },
     {
@@ -40,7 +40,7 @@ class Abilities extends CoreAbilities {
       isActive: combatant => combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id),
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 10,
-      recommendedCastEfficiency: 0.95,
+      recommendedEfficiency: 0.95,
       extraSuggestion: 'This is your main damage increase buff. You should use it as much as you can to maximize your damage output.',
     },
     {
@@ -48,7 +48,7 @@ class Abilities extends CoreAbilities {
       isActive: combatant => combatant.hasTalent(SPELLS.FEL_ERUPTION_TALENT.id),
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 30,
-      recommendedCastEfficiency: 0.95,
+      recommendedEfficiency: 0.95,
       extraSuggestion: 'This is a great Chaos burst damage spell and it does a huge single target DPS increase by just 10 Fury per cast. Should definitively be used as soon as it gets available.',
     },
     {
@@ -56,7 +56,7 @@ class Abilities extends CoreAbilities {
       isActive: combatant => combatant.hasTalent(SPELLS.FEL_BARRAGE_TALENT.id),
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60,
-      recommendedCastEfficiency: 0.85,
+      recommendedEfficiency: 0.85,
       extraSuggestion: `This is a great AoE damage spell, but also does a great damage on single target. You should cast it as soon as it gets off cooldown. The only moment you can delay it's cast is if you already expect an add wave to maximize it's efficiency and damage output.`,
     },
     {
@@ -64,7 +64,7 @@ class Abilities extends CoreAbilities {
       isActive: combatant => combatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 10 / (1 + haste),
-      recommendedCastEfficiency: 0.85,
+      recommendedEfficiency: 0.85,
       extraSuggestion: 'This is your main Fury filler spell. Try to always cast on cooldown, but beware to not waste the Fury generation it provides. So use it when you have 30 or more Fury missing. And also it can be used to charge to the desired target, making it very strong movement spell.',
     },
     {

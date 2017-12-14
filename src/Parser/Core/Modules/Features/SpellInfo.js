@@ -30,6 +30,14 @@ export default {
     mastery: false,
     vers: true,
   },
+  [SPELLS.HIGHFATHERS_TIMEKEEPING_HEAL.id]: { // Highfather's Machination
+    int: false,
+    crit: true,
+    hasteHpct: true,
+    hasteHpm: false,
+    mastery: false,
+    vers: true,
+  },
   [SPELLS.LEECH.id]: { // procs a percent of all your healing, so we ignore for weights and total healing
     multiplier: true,
   },

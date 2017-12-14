@@ -108,6 +108,11 @@ export default {
     name: 'Unending Thirst',
     icon: 'inv_axe_2h_artifactmaw_d_02',
   },
+  VAMPIRIC_AURA: {
+    id: 238698,
+    name: 'Vampiric Aura',
+    icon: 'ability_ironmaidens_maraksbloodcalling',
+  },
 
   // CC
   GOREFIENDS_GRASP: {
@@ -346,6 +351,12 @@ export default {
     icon: 'spell_shadow_deathcoil',
   },
 
+  DEATH_COIL_DAMAGE: {
+    id: 47632,
+    name: 'Death Coil',
+    icon: 'spell_shadow_deathcoil',
+  },
+
   FESTERING_STRIKE: {
     id: 85948,
     name: 'Festering Strike',
@@ -426,6 +437,12 @@ export default {
     id: 246995,
     name: 'Master of Ghouls',
     icon: 'spell_deathknight_unholypresence',
+  },
+
+  UNHOLY_DEATH_KNIGHT_T21_4SET_BONUS: {
+    id: 251872,
+    name: 'T21 4 set Bonus',
+    icon: 'ability_paladin_conviction',
   },
 
   // Artifact traits:

@@ -33,7 +33,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 12 / (1 + haste),
       isActive: combatant => combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id),
-      recommendedCastEfficiency: 0.85, // this rarely overheals, so keeping this on cooldown is pretty much always best
+      recommendedEfficiency: 0.85, // this rarely overheals, so keeping this on cooldown is pretty much always best
       extraSuggestion: <span>You should cast it whenever <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} /> has dropped, which is usually on cooldown without delay. Alternatively you can ignore the debuff and just cast it whenever Judgment is available; there's nothing wrong with ignoring unimportant things to focus on important things.</span>,
     },
     {
@@ -41,7 +41,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 12,
       isActive: combatant => combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT.id),
-      recommendedCastEfficiency: 0.7,
+      recommendedEfficiency: 0.7,
       extraSuggestion: <span>If you can't or don't want to cast it more consider using <SpellLink id={SPELLS.LIGHTS_HAMMER_TALENT.id} /> or <SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> instead.</span>,
     },
     {
@@ -62,7 +62,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 4.5 / (1 + haste),
       charges: 2,
       isActive: combatant => combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id),
-      recommendedCastEfficiency: 0.35,
+      recommendedEfficiency: 0.35,
       extraSuggestion: <span>When you are using <SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> it is important to use <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> often enough to benefit from the talent. Use a different talent if you are unable to.</span>,
     },
     {
@@ -83,7 +83,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.DIVINE_PROTECTION,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60,
-      recommendedCastEfficiency: 0.6,
+      recommendedEfficiency: 0.6,
       importance: ISSUE_IMPORTANCE.MINOR,
     },
     {
@@ -112,7 +112,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.BLESSING_OF_SACRIFICE,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 150,
-      recommendedCastEfficiency: 0.5,
+      recommendedEfficiency: 0.5,
       noSuggestion: true,
       importance: ISSUE_IMPORTANCE.MINOR,
     },
@@ -126,7 +126,7 @@ class Abilities extends CoreAbilities {
     //   spell: SPELLS.LAY_ON_HANDS,
     //   category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
     //   getCooldown: haste => 600 - http://www.wowhead.com/spell=200326/focused-healing,
-    //   recommendedCastEfficiency: 0.5,
+    //   recommendedEfficiency: 0.5,
     // },
     {
       spell: SPELLS.LIGHT_OF_THE_MARTYR,
@@ -166,7 +166,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 45,
       isActive: combatant => !combatant.hasTalent(SPELLS.CAVALIER_TALENT.id),
-      recommendedCastEfficiency: 0.5,
+      recommendedEfficiency: 0.5,
       noSuggestion: true,
     },
     {
@@ -175,7 +175,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 45,
       charges: 2,
       isActive: combatant => combatant.hasTalent(SPELLS.CAVALIER_TALENT.id),
-      recommendedCastEfficiency: 0.5,
+      recommendedEfficiency: 0.5,
       noSuggestion: true,
     },
     {
