@@ -37,7 +37,6 @@ class Tier21_4p extends Analyzer {
   }
 
   item() {
-    // master of ghouls is buff granted by the set bonus
     const freeDeathcoils = (this.totalDeathCoilDamageEvents - this.totalDeathCoilCasts) / this.totalDeathCoilCasts;
     return {
       id: `spell-${SPELLS.UNHOLY_DEATH_KNIGHT_T21_4SET_BONUS.id}`,
