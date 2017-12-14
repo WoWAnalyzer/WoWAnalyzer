@@ -1,6 +1,3 @@
-// if (combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id) || combatant.hasFinger(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id)) {
-//   this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.JUDGMENT_CAST.id);
-// }
 import React from 'react';
 
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
@@ -31,7 +28,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.BLOODBATH_TALENT.id,
     SPELLS.DRAGON_ROAR_TALENT.id,
   ];
-
 
 suggestions(when) {
   const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;

@@ -10,7 +10,6 @@ import CoreCastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 class CastEfficiency extends CoreCastEfficiency {
   static CPM_ABILITIES = [
     ...CoreCastEfficiency.CPM_ABILITIES,
-    // Category
     {
       spell: SPELLS.BLOODTHIRST,
       category: CastEfficiency.SPELL_CATEGORIES.ROTATIONAL,
