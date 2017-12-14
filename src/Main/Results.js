@@ -244,12 +244,6 @@ class Results extends React.Component {
             </div>
           </div>
 
-          <div className="row">
-            <div className="col-md-12" style={{ fontSize: '1.5em' }}>
-
-            </div>
-          </div>
-
           <div className="divider" />
 
           <div className="row">
