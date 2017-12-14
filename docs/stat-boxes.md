@@ -50,8 +50,9 @@ import { formatNumber } from 'common/format'; // formats into 1k
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SmallStatisticBox, { STATISTIC_ORDER }  from 'Main/SmallStatisticBox';
 import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'Main/LazyLoadStatisticBox';
 
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
+import { STATISTIC_ORDER } from 'Main/StatisticBox'; // Expandable doesn't have STATISTIC_ORDER in it
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 ```
 
@@ -537,8 +538,47 @@ For full code, check out:
 
 ## LazyLoadStatisticBox
 
+![Restoration Druid - Ironbark - click to load](images/ironbark-click-box.jpg)
+
+![Restoration Druid - Ironbark - loading](images/ironbark-loading-box.jpg)
+
+![Restoration Druid - Ironbark - finished loading](images/ironbark-done-box.jpg)
+
 If you need a statistic to wait to load until asked for, you can do it with a LazyLoad box. When you click the button, the statistic loads, instead of the normal loading with the page.
 
-- https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Druid/Restoration/Modules/Features/Ironbark.js
-- https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Priest/Discipline/Modules/Features/PowerWordBarrier.js
-- https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Priest/Discipline/Modules/Features/LeniencesReward.js
+There's a load part and an otherwise almost normal stat box configuration.
+
+```javascript
+load() {
+  return fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
+    start: this.owner.fight.start_time,
+    end: this.owner.fight.end_time,
+    filter: `()`,
+      // WCL query filter
+      // WCL guide for expressions, 'Expression Pins': https://www.warcraftlogs.com/help/pins
+      // Validate at WCL: report > Queries tab (instead of default Tables) > New expression
+  })
+    .then(json => {
+      this.totalSomeThing = json.entries.reduce((someThing, entry) => someThing + entry.total, 0);
+    });
+}
+
+statistic() {
+  // const if needed
+  return (
+    <LazyLoadStatisticBox
+      loader={this.load.bind(this)}
+      icon={}
+      value={``}
+      label=""
+      tooltip={``}
+    />
+  );
+}
+statisticOrder = STATISTIC_ORDER.CORE(20);
+```
+
+For full code & examples of WCL expressions, check out:
+- [Restoration Druid - Ironbark Mitigation](../src/Parser/Druid/Restoration/Modules/Features/Ironbark.js)
+- [Discipline Priest - Power Word: Barrier](../src/Parser/Priest/Discipline/Modules/Features/PowerWordBarrier.js)
+- [Discipline Priest - Lenience's Reward](../src/Parser/Priest/Discipline/Modules/Features/LeniencesReward.js)
