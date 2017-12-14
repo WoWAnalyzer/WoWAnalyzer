@@ -28,11 +28,7 @@ class ChannelDemonfire extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  subStatistic() {
-    if (!this.active){
-      return;
-    }
-    
+  subStatistic() {    
     return (
       <div className="flex">
         <div className="flex-main">

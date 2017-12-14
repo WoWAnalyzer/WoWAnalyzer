@@ -21,10 +21,6 @@ class SoulHarvestTalent extends Analyzer {
   }
 
   subStatistic() {
-    if (!this.active){
-      return;
-    }
-    
     const bonusDmg = this.soulHarvest.talentBonusDmg;
     return (
       <div className="flex">

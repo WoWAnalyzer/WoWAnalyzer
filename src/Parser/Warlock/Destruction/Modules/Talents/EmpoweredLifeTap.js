@@ -42,10 +42,6 @@ class EmpoweredLifeTap extends Analyzer {
   }
 
   subStatistic() {
-    if (!this.active){
-      return;
-    }
-    
     const uptime = this.combatants.selected.getBuffUptime(SPELLS.EMPOWERED_LIFE_TAP_BUFF.id) / this.owner.fightDuration;
     return (
       <div className="flex">
@@ -56,7 +52,7 @@ class EmpoweredLifeTap extends Analyzer {
         </div>
         <div className="flex-sub text-right">
           <dfn data-tip={`Your Empowered Life Tap contributed ${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS / ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%).`}>
-            {formatPercentage(uptime)}%
+            {formatPercentage(uptime)} %
           </dfn>
         </div>
       </div>

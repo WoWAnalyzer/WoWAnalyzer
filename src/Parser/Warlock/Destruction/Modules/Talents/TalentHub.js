@@ -33,15 +33,15 @@ class TalentHub extends Analyzer {
       <StatisticsListBox
         title="Talents"
       >
-        {this.backdraft.subStatistic()}
-        {this.eradication.subStatistic()}
-        {this.empoweredLifeTap.subStatistic()}
-        {this.channelDemonfire.subStatistic()}        
-        {this.soulHarvestTalent.subStatistic()}
-        {this.fnb.subStatistic()}
-        {this.entropy.subStatistic()}
-        {this.roaringBlaze.subStatistic()}
-        {this.shadowburn.subStatistic()}
+        {this.backdraft.active && this.backdraft.subStatistic()}
+        {this.eradication.active && this.eradication.subStatistic()}
+        {this.empoweredLifeTap.active && this.empoweredLifeTap.subStatistic()}
+        {this.channelDemonfire.active && this.channelDemonfire.subStatistic()}        
+        {this.soulHarvestTalent.active && this.soulHarvestTalent.subStatistic()}
+        {this.fnb.active && this.fnb.subStatistic()}
+        {this.entropy.active && this.entropy.subStatistic()}
+        {this.roaringBlaze.active && this.roaringBlaze.subStatistic()}
+        {this.shadowburn.active && this.shadowburn.subStatistic()}
       </StatisticsListBox>
     );
   }

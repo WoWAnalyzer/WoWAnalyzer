@@ -71,10 +71,6 @@ class Shadowburn extends Analyzer {
   }
 
   subStatistic() {
-      if (!this.active){
-        return;
-      }
-      
       return (
         <div className="flex">
           <div className="flex-main">
