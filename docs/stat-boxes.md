@@ -50,6 +50,9 @@ import { formatNumber } from 'common/format'; // formats into 1k
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SmallStatisticBox, { STATISTIC_ORDER }  from 'Main/SmallStatisticBox';
 import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+
+import { STATISTIC_ORDER } from 'Main/StatisticBox';
+import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 ```
 
 ## StatisticBox
@@ -490,11 +493,47 @@ For full code in action, see:
 
 ## ExpandableStatisticBox
 
+![Holy Priest - Mastery Breakdown - not expanded](images/holy-priest-mastery-box.jpg)
+
+![Holy Priest - Mastery Breakdown - expanded](images/holy-priest-mastery-expanded-box.jpg) 
+
 Some statistic boxes have a big red button to expand. Do note that the expansion doesn't shove the rest of the column's boxes down the page, but overlaps them. The box has a tinted background, but depending on the box below, the overlapping graphics may or may not cause reading issues.
 
-- Flourish https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Druid/Restoration/Modules/Talents/Flourish.js
-- Evangelism https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Priest/Discipline/Modules/Spells/Evangelism.js
-- https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Priest/Holy/Modules/PriestCore/MasteryBreakdown.js
+Usually these are done for hiding otherwise long tables. This is the general code skeleton, where the table and all relevant HTML goes in between the `<ExpandableStatisticBox>` tags.
+
+```javascript
+statistic() {
+  // any const needed
+
+  return(
+    <ExpandableStatisticBox
+      icon={}
+      value={``}
+      label=""
+      tooltip={`<html if wanted>`}
+    >
+      <div>
+      Display text
+      </div>
+      <table className="table table-condensed">
+        <thead>
+          <tr>
+            <th></th>
+          <tr>
+        </thead>
+        <tbody>
+          // table body with a .map()
+        </tbody>
+    </ExpandableStatisticBox>
+  );
+}
+statisticORDER = STATISTIC_ORDER.OPTIONAL(10);
+```
+
+For full code, check out:
+- [Restoration Druid - Flourish](../src/Parser/Druid/Restoration/Modules/Talents/Flourish.js)
+- [Discipline Priest - Evangelism](../src/Parser/Priest/Discipline/Modules/Spells/Evangelism.js)
+- [Holy Priest - Mastery Breakdown](../src/Parser/Priest/Holy/Modules/PriestCore/MasteryBreakdown.js)
 
 ## LazyLoadStatisticBox
 
