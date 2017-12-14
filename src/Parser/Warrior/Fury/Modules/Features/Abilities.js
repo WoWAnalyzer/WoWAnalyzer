@@ -31,14 +31,14 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 4.5 / (1 + haste),
       recommendedEfficiency: 0.8,
-      isActive: combatent => combatent.hasTalent(SPELLS.INNER_RAGE_TALENT.id),
+      isActive: combatant => combatant.hasTalent(SPELLS.INNER_RAGE_TALENT.id),
     },
     {
       spell: SPELLS.RAGING_BLOW,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
       recommendedEfficiency: 0.8,
-      isActive: combatent => !combatent.hasTalent(SPELLS.INNER_RAGE_TALENT.id),
+      isActive: combatant => !combatant.hasTalent(SPELLS.INNER_RAGE_TALENT.id),
     },
     {
       spell: SPELLS.RAMPAGE,
@@ -146,7 +146,7 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.HEROIC_LEAP_FURY,
       category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: (haste, combatent) => combatent.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 30 : 45,
+      getCooldown: (haste, combatant) => combatant.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 30 : 45,
       recommendedEfficiency: 0.01,
       extraSuggestion: <span>Consider using <SpellLink id={SPELLS.WARPAINT_TALENT.id} /> if the fight requires little mobility.</span>,
     },
