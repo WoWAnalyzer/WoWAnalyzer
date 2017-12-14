@@ -275,14 +275,14 @@ class Results extends React.Component {
                       return aOrder - bOrder;
                     })
                     .map(tab => (
-                    <button
-                      key={tab.title}
-                      className={activeTab.url === tab.url ? 'btn-link selected' : 'btn-link'}
-                      onClick={() => onChangeTab(tab.url)}
-                    >
-                      {tab.title}
-                    </button>
-                  ))}
+                      <button
+                        key={tab.title}
+                        className={activeTab.url === tab.url ? 'btn-link selected' : 'btn-link'}
+                        onClick={() => onChangeTab(tab.url)}
+                      >
+                        {tab.title}
+                      </button>
+                    ))}
                 </div>
               </div>
               <div>
