@@ -289,6 +289,12 @@ This is the statistic box that looks like a list of SmallStatisticBoxes one-line
 
 List boxes have `title` instead of a label, a `tooltip`, and then their list items as `subStatistic()`s if in different files or as styled within the `<StatisticsListBox>` tags if all in one module.
 
+### Single-file list box
+
+![Destruction Warlock - Dimensional Rift](images/dimensional-rift-box.jpg)
+
+For example, see [Destruction Warlock - Dimensional Rift](../src/Parser/Warlock/Destruction/Modules/Features/DimensionalRift.js). The differences from the Relic Traits list box is that everything is constructed in the single `statistic()` using a `.map()` containing the list item styling.
+
 ### Relic traits
 
 [Netherlight Crucible](../src/Parser/Core/Modules/NetherlightCrucibleTraits) is a core module and doesn't need to be constructed by every spec. Netherlight Crucible and relic traits are constructed similarly. Have a `Traits` folder with one master `RelicTraits.js` and one `ArtifactTraitName.js` for every relic trait you wish to track.
@@ -345,26 +351,13 @@ subStatistic() {
 }
 ```
 
-### Single-file list box
+### Pie charts
 
-For example, see [Destruction Warlock - Dimensional Rift](../src/Parser/Warlock/Destruction/Modules/Features/DimensionalRift.js). The differences from the Relic Traits list box is that everything is constructed in the single `statistic()` using a `.map()` containing the list item styling.
-
-![Destruction Warlock - Dimensional Rift](images/dimensional-rift-box.jpg)
-
-Pie charts
-
-![Marksmanship Hunter - Vulnerable Applications](images/vulnerable-app-pie-chart-box.jpg)
-![Mistweaver Monk - Thunder Focus Tea](images/thunder-focus-tea-pie-chart-box.jpg)
-![Holy Paladin - Infusion of Light](images/infusion-light-pie-chart-box.jpg)
-
-For code in action, see:
-- [Marksmanship Hunter - Vulnerable Applications](../src/Parser/Hunter/Marksmanship/Modules/Features/VulnerableApplications.js)
-- [Mistweaver Monk - Thunder Focus Tea](../src/Parser/Monk/Mistweaver/Modules/Spells/ThunderFocusTea.js)
-- [Holy Paladin - Infusion of Light + Fillers](/src/Parser/Paladin/Holy/Modules/PaladinCore/CastBehavior.js)
+![Mistweaver Monk - Thunder Focus Tea](images/thunder-focus-tea-pie-chart-box.jpg) ![Holy Paladin - Infusion of Light](images/infusion-light-pie-chart-box.jpg) ![Marksmanship Hunter - Vulnerable Applications](images/vulnerable-app-pie-chart-box.jpg) 
 
 Pie charts have a few parts for thir modules in addition to events and calculations for the module. 
 
-The `legend(items, total)` & `chart(items) blocks are largely the same in every case. `CHART_SIZE` is a constant declared at the top of the module with the imports. Infusion of Light & Thunder Focus Tea use `const CHART_SIZE = 75;` while Vulnerable Applications uses `const CHART_SIZE = 50;`, for reference.
+The `legend(items, total)` & `chart(items)` blocks are largely the same in every case. `CHART_SIZE` is a constant declared at the top of the module with the imports. Infusion of Light & Thunder Focus Tea use `const CHART_SIZE = 75;` while Vulnerable Applications uses `const CHART_SIZE = 50;`, for reference.
 
 ```javascript
 legend(items, total) {
@@ -408,36 +401,38 @@ return items.map(({ color, label, tooltip, value, spellId }, index) => {
     </div>
   );
 });
+
 chart(items) {
-return (
-  <DoughnutChart
-    data={{
-      datasets: [{
-        data: items.map(item => item.value),
-        backgroundColor: items.map(item => item.color),
-        borderColor: '#666',
-        borderWidth: 1.5,
-      }],
-      labels: items.map(item => item.label),
-    }}
-    options={{
-      legend: {
-        display: false,
-      },
-      tooltips: {
-        bodyFontSize: 8,
-      },
-      cutoutPercentage: 45,
-      animation: false,
-      responsive: false,
-    }}
-    width={CHART_SIZE}
-    height={CHART_SIZE}
-  />
-);
+  return (
+    <DoughnutChart
+      data={{
+        datasets: [{
+          data: items.map(item => item.value),
+          backgroundColor: items.map(item => item.color),
+          borderColor: '#666',
+          borderWidth: 1.5,
+        }],
+        labels: items.map(item => item.label),
+      }}
+      options={{
+        legend: {
+          display: false,
+        },
+        tooltips: {
+          bodyFontSize: 8,
+        },
+        cutoutPercentage: 45,
+        animation: false,
+        responsive: false,
+      }}
+      width={CHART_SIZE}
+      height={CHART_SIZE}
+    />
+  );
 }
 ```
-After figuring out through normal module events and calculations what you want to display, arrange your items with a `moduleDisplayNameChart()`
+
+After figuring out through normal module events and calculations what you want to display, arrange your items within your specific module's chart.
 
 ```javascript
 moduleDisplayNameChart() {
@@ -487,6 +482,11 @@ statistic() {
 }
 statisticOrder = STATISTIC_ORDER.CORE(10);
 ```
+
+For full code in action, see:
+- [Marksmanship Hunter - Vulnerable Applications](../src/Parser/Hunter/Marksmanship/Modules/Features/VulnerableApplications.js)
+- [Mistweaver Monk - Thunder Focus Tea](../src/Parser/Monk/Mistweaver/Modules/Spells/ThunderFocusTea.js)
+- [Holy Paladin - Infusion of Light + Fillers](/src/Parser/Paladin/Holy/Modules/PaladinCore/CastBehavior.js)
 
 ## ExpandableStatisticBox
 
