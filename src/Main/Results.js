@@ -46,11 +46,11 @@ class Results extends React.Component {
     onChangeTab: PropTypes.func.isRequired,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       showSpecInformationOverlay: false,
-      showSuggestions: false,
+      showSuggestions: props.parser._modules.checklist.rules.length === 0,
     };
     this.handleClickViewSpecInformation = this.handleClickViewSpecInformation.bind(this);
     this.handleSpecInformationCloseClick = this.handleSpecInformationCloseClick.bind(this);
