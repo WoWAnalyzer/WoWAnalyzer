@@ -7,7 +7,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 // Make sure to push this once we get to 1000!
-const MAX_LEGENDARY_ILVL = 970;
+const MAX_LEGENDARY_ILVL = 1000;
 const debug = false;
 
 class LegendaryUpgradeChecker extends Analyzer {

@@ -27,6 +27,7 @@ temp
 # Regularly changing or system specific IDE files
 /.idea/vcs.xml
 /.idea/workspace.xml
+/.idea/codeStyles/*
 /.vscode
 
 .vs/ProjectSettings.json

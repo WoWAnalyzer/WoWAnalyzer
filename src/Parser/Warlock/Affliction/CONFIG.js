@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Chizu } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import SpellLink from 'common/SpellLink';
@@ -8,13 +9,10 @@ import SPELLS from 'common/SPELLS';
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
 
-import ChizuAvatar from './Images/Chizu_avatar.jpg';
-
 export default {
   spec: SPECS.AFFLICTION_WARLOCK,
-  maintainer: '@Chizu',
-  maintainerAvatar: ChizuAvatar,
-  completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK, // When changing this please make a PR with ONLY this value changed, we will do a review of your analysis to find out of it is complete enough.
+  maintainers: [Chizu],
+  completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK, // good = it matches most common manual reviews in class discords, great = it support all important class features
   description: (
     <div>
       Hello fellow Netherlords! While I gotta admit this tool feels more like a statistic than something that really helps you (just yet!), I hope it still is useful to you. Any suggestions as to what could be useful to see are welcome and I'll try to implement them in order for this tool to be more than just a glorified WCL log. <br /> <br />

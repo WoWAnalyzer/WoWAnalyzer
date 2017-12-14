@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Wrapper from 'common/Wrapper';
 import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
-
-import PencilBlack from './Images/pencil-black.png';
 
 import './style.css';
 
@@ -33,8 +32,8 @@ class SpecInformationOverlay extends React.PureComponent {
             </div>
           </div>
           <div className="row">
-            <div className="maintainer-name col-xs-12 col-sm-8 col-sm-offset-2">
-              by {config.maintainerAvatar && <img src={config.maintainerAvatar} alt="Avatar" />} {config.maintainer}
+            <div className="maintainers col-xs-12 col-sm-8 col-sm-offset-2">
+              by {config.maintainers.map(maintainer => <Wrapper key={maintainer.nickname}>{maintainer.avatar && <img src={maintainer.avatar} alt="Avatar" />} {maintainer.nickname}</Wrapper>)}
             </div>
           </div>
 
@@ -71,26 +70,6 @@ class SpecInformationOverlay extends React.PureComponent {
                     </a>
                   </main>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="changelog col-md-8 col-md-offset-2">
-              <h1>Changelog</h1>
-              <div className="log">
-                <div className="line" />
-                {config.changelog
-                  .trim()
-                  .split('\n')
-                  .map((change, i) => (
-                    <div key={`${i}`}>
-                      <div className="edit">
-                        <img src={PencilBlack} alt="Edit" />
-                      </div>
-                      <div dangerouslySetInnerHTML={{ __html: change }} />
-                    </div>
-                  ))}
               </div>
             </div>
           </div>

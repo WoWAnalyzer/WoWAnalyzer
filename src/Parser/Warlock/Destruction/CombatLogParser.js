@@ -1,12 +1,11 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
-import CastEfficiency from './Modules/Features/CastEfficiency';
+import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import DoomguardInfernal from './Modules/Features/DoomguardInfernal';
 import UnusedLordOfFlames from './Modules/Features/UnusedLordOfFlames';
-import GrimoireOfService from './Modules/Features/GrimoireOfService';
 import ImmolateUptime from './Modules/Features/ImmolateUptime';
 import Havoc from './Modules/Features/Havoc';
 import DimensionalRift from './Modules/Features/DimensionalRift';
@@ -26,6 +25,7 @@ import FireAndBrimstone from './Modules/Talents/FireAndBrimstone';
 import SoulHarvest from './Modules/Talents/SoulHarvest';
 import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
 import ChannelDemonfire from './Modules/Talents/ChannelDemonfire';
+import TalentHub from './Modules/Talents/TalentHub';
 
 import AlythesssPyrogenics from './Modules/Items/Legendaries/AlythesssPyrogenics';
 import FeretoryOfSouls from './Modules/Items/Legendaries/FeretoryOfSouls';
@@ -41,13 +41,12 @@ import T20_2set from './Modules/Items/T20_2set';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
-    castEfficiency: CastEfficiency,
+    abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     damageDone: [DamageDone, { showStatistic: true }],
     doomguardInfernal: DoomguardInfernal,
     unusedLordOfFlames: UnusedLordOfFlames,
-    grimoireOfService: GrimoireOfService,
     dimensionalRift: DimensionalRift,
 
     // DoTs
@@ -70,6 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soulHarvest: SoulHarvest,
     soulHarvestTalent: SoulHarvestTalent,
     channelDemonfire: ChannelDemonfire,
+    talentHub: TalentHub,
 
     // Legendaries
     alythesssPyrogenics: AlythesssPyrogenics,

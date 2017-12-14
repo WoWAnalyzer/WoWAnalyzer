@@ -1,4 +1,5 @@
 export default `
+01-12-2017 - Added support for T21 2set. (by Sref)
 04-11-2017 - Reworked and updated Glacial Spike module. (by Sref)
 04-11-2017 - Added support for T20 4set. (by Sref)
 04-11-2017 - Added support for Ice Time and Lady Vashj's Grasp. (by Sref)

@@ -4,16 +4,16 @@ import { formatPercentage, formatMilliseconds } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 const debug = false;
 
 class Haste extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    statTracker: StatTracker,
   };
 
-  // It would be nice to have this point to a value in the Combatant class, but that would be tricky since this is `static`.
-  static HASTE_RATING_PER_PERCENT = 37500;
   // TODO: Maybe extract "time" changing abilities since they also scale the minimum GCD cap? Probably better to dive into the tooltips to find out how the stat that does that is actually called. Spell Haste, Casting Speed, Attack Speed, Haste, ... are all different variants that look like Haste but act different.
   // TODO: Support time freeze kinda effects, like Elisande's Time Stop or unavoidable stuns?
   /* eslint-disable no-useless-computed-key */
@@ -33,8 +33,6 @@ class Haste extends Analyzer {
     [SPELLS.WARLOCK_AFFLI_T20_4P_BUFF.id]: 0.15,
     [SPELLS.WARLOCK_DEMO_T20_4P_BUFF.id]: 0.1,
     [SPELLS.TRUESHOT.id]: 0.4, // MM Hunter main CD
-    [SPELLS.LINGERING_INSANITY.id]: 0.01,
-    [SPELLS.VOIDFORM_BUFF.id]: 0.01,
     [SPELLS.ICY_VEINS.id]: 0.3,
     [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
 
@@ -77,6 +75,23 @@ class Haste extends Analyzer {
   }
   on_toPlayer_removedebuff(event) {
     this._removeActiveBuff(event);
+  }
+
+  on_toPlayer_changestats(event) { // fabbed event from StatTracker
+    if(!event.delta.haste) {
+      return;
+    }
+
+    // as haste rating stacks additively with itself, changing rating works similar to changing buff stack
+    const oldHastePercentage = this.statTracker.baseHastePercentage + (event.before.haste / this.statTracker.hasteRatingPerPercent);
+    this._applyHasteLoss(event.reason, oldHastePercentage);
+    const newHastePercentage = this.statTracker.baseHastePercentage + (event.after.haste / this.statTracker.hasteRatingPerPercent);
+    this._applyHasteGain(event.reason, newHastePercentage);
+
+    if(debug) {
+      const spellName = event.reason.ability ? event.reason.ability.name : 'unknown';
+      console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (haste RATING changed by ${event.delta.haste} from ${spellName})`);
+    }
   }
 
   _applyActiveBuff(event) {

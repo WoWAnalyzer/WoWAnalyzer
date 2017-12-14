@@ -46,7 +46,7 @@ class WastedRimeProcs extends Analyzer {
         icon={<SpellIcon id={SPELLS.RIME.id} />}
         value={this.wastedRimeProcs}
         label='Wasted Rime Procs'
-        tooltip='You let a rime proc go to waste'
+        tooltip='You let a rime proc go to waste.'
       />
     );
   }

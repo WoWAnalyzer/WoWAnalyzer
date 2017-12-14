@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
 import getWipeCount from 'common/getWipeCount';
@@ -38,7 +38,7 @@ class FightSelectionList extends Component {
       <ul className="list selection">
         {
           fights
-            .filter((fight) => {
+            .filter(fight => {
               if (fight.boss === 0) {
                 return false;
               }
@@ -48,9 +48,9 @@ class FightSelectionList extends Component {
               return true;
             })
             .map(fight => (
-              <li key={`${fight.id}`} className="item selectable">
+              <li key={fight.id} className="item selectable">
                 <Link to={makeAnalyzerUrl(report, fight.id, playerName)}>
-                  <Fight {...fight} wipes={getWipeCount(report, fight)} />
+                  <Fight {...fight} wipes={getWipeCount(report.fights, fight)} />
                 </Link>
               </li>
             ))

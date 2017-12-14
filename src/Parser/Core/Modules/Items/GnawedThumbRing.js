@@ -12,6 +12,10 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 const GNAWED_THUMB_RING_HEALING_INCREASE = 0.05;
 const GNAWED_THUMB_RING_DAMAGE_INCREASE = 0.05;
 
+/*
+ * Gnawed Thumb Ring -
+ * Use: Have a nibble, increasing your healing and magic damage done by 5% for 12 sec. (3 Min Cooldown)
+ */
 class GnawedThumbRing extends Analyzer {
   static dependencies = {
     combatants: Combatants,

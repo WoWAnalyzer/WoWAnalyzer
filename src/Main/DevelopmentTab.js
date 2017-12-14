@@ -288,20 +288,44 @@ class DevelopmentTab extends React.Component {
         <div className="panel-body">
           <div className="alert alert-success">
             The parser is now available under <Code dump={parser}>window.parser</Code>.
-            Modules: {Object.keys(parser.modules).map(module => <span key={module}><Code dump={parser.modules[module]} className={parser.modules[module].active ? '' : 'inactive'}>{module}</Code>, </span>)} access them in the console with: <code>parser.modules.*moduleName*</code> (or by clicking on the names in this box). Red modules are inactive.
           </div>
           <div className="row">
-            {parser.modules.abilityTracker && (
-              <div className="col-md-6">
-                All casts: (hint: click on an item to generate the required <code>SPELLS.js</code> entry)
-                <ul className="list">
-                  {Object.keys(parser.modules.abilityTracker.abilities)
-                    .map(key => parser.modules.abilityTracker.abilities[key])
-                    .sort((a, b) => (b.casts || 0) - (a.casts || 0))
-                    .map(cast => cast.ability && <Cast key={cast.ability.guid} cast={cast} />)}
-                </ul>
-              </div>
-            )}
+            <div className="col-md-6">
+              Modules:
+              <ul className="list">
+                {Object.keys(parser.modules)
+                  .map(moduleName => (
+                    <li key={moduleName} className="flex">
+                      <div className="flex-main">
+                        <Code dump={parser.modules[moduleName]}>{moduleName}</Code>
+                      </div>
+                      <div className="flex-main" style={{ color: parser.modules[moduleName].active ? 'green' : 'red' }}>
+                        {parser.modules[moduleName].active ? 'Active' : 'Inactive'}
+                      </div>
+                    </li>
+                  ))}
+              </ul>
+              Access them in the console with: <code>parser.modules.*moduleName*</code> or by clicking on the names.
+            </div>
+            <div className="col-md-6">
+              Parsing time spenders:
+              <p className="text-muted">This is the amount of time each module took running event listeners. Render time (e.g. of statistics) is not included.</p>
+              <ul className="list">
+                {Object.keys(parser._moduleTime)
+                  .sort((a, b) => parser._moduleTime[b] - parser._moduleTime[a])
+                  .filter((_, index) => index < 10)
+                  .map(moduleName => (
+                    <li key={moduleName} className="flex">
+                      <div className="flex-main">
+                        <Code dump={parser.modules[moduleName]}>{moduleName}</Code>
+                      </div>
+                      <div className="flex-main">
+                        {parser._moduleTime[moduleName]}ms
+                      </div>
+                    </li>
+                  ))}
+              </ul>
+            </div>
             <div className="col-md-6">
               Pre-combat buffs:
               <ul className="list">
@@ -321,6 +345,17 @@ class DevelopmentTab extends React.Component {
                 })}
               </ul>
             </div>
+            {parser.modules.abilityTracker && (
+              <div className="col-md-6">
+                All casts: (hint: click on an item to generate the required <code>SPELLS.js</code> entry)
+                <ul className="list">
+                  {Object.keys(parser.modules.abilityTracker.abilities)
+                    .map(key => parser.modules.abilityTracker.abilities[key])
+                    .sort((a, b) => (b.casts || 0) - (a.casts || 0))
+                    .map(cast => cast.ability && <Cast key={cast.ability.guid} cast={cast} />)}
+                </ul>
+              </div>
+            )}
             <div className="col-md-6">
               Items: (hint: click on an item to generate the required <code>ITEMS.js</code> entry)
               <ul className="list">

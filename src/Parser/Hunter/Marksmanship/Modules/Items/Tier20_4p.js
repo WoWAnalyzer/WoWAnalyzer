@@ -24,13 +24,13 @@ class Tier20_4p extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    if(event.ability.guid !== SPELLS.AIMED_SHOT.id) {
+    if (event.ability.guid !== SPELLS.AIMED_SHOT.id) {
       return;
     }
-    if(this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T20_4P_BONUS_BUFF.id, event.timestamp)) {
+    if (this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T20_4P_BONUS_BUFF.id, event.timestamp)) {
       this.buffedCastAndFocusAimed += 1;
     }
-      this.totalAimed +=1;
+    this.totalAimed += 1;
   }
   item() {
     return {
@@ -38,7 +38,7 @@ class Tier20_4p extends Analyzer {
       icon: <SpellIcon id={SPELLS.HUNTER_MM_T20_4P_BONUS_BUFF.id} />,
       title: <SpellLink id={SPELLS.HUNTER_MM_T20_4P_BONUS_BUFF.id} />,
       result: (
-        <dfn data-tip={`Your utilization of tier 20 4 piece: <br/> Buffed Aimed Shots: ${this.buffedCastAndFocusAimed}.<br/> Total Aimed Shot casts:  ${this.totalAimed}.<br/> Overall uptime: ${formatPercentage(this.percentUptime)}%`}>
+        <dfn data-tip={`Your utilization of tier 20 4 piece: <ul><li> Buffed Aimed Shots: ${this.buffedCastAndFocusAimed}.</li><li> Total Aimed Shot casts:  ${this.totalAimed}.</li><li> Overall uptime: ${formatPercentage(this.percentUptime)}% </li></ul>`}>
           Buffed Aimed Shot casts: {formatPercentage(this.buffedCastAndFocusAimed / this.totalAimed)}%
         </dfn>
       ),

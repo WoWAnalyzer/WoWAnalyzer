@@ -2,12 +2,14 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-
+import { formatMilliseconds } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const MARAADS_HEALING_INCREASE_PER_STACK = 0.1;
+
+const debug = false;
 
 class MaraadsDyingBreath extends Analyzer {
   static dependencies = {
@@ -30,10 +32,12 @@ class MaraadsDyingBreath extends Analyzer {
       return;
     }
     if (!this.combatants.selected.hasBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id, event.timestamp)) {
+      debug && console.warn(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Maraads: LotM without buff', event);
       return;
     }
 
     this._lastHeal = event;
+    debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Maraads: LotM heal', event);
   }
   on_toPlayer_removebuff(event) {
     const buffId = event.ability.guid;
@@ -41,6 +45,7 @@ class MaraadsDyingBreath extends Analyzer {
       return;
     }
     if (!this._lastHeal) {
+      debug && console.warn(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Maraads: Buff disappeared without LotM heal', event);
       return;
     }
 
@@ -48,6 +53,8 @@ class MaraadsDyingBreath extends Analyzer {
     const heal = this._lastHeal;
     const buff = this.combatants.selected.getBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id, heal.timestamp);
     const stacks = buff && buff.stacks ? (buff.stacks + 1) : 1;
+
+    debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Maraads: Stacks at LotM heal:', stacks, event);
 
     const amount = heal.amount;
     const absorbed = heal.absorbed || 0;
@@ -81,6 +88,8 @@ class MaraadsDyingBreath extends Analyzer {
 
     const buff = this.combatants.selected.getBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id, matchedHeal.timestamp);
     const stacks = buff && buff.stacks ? (buff.stacks + 1) : 1;
+
+    debug && console.log(formatMilliseconds(beaconTransferEvent.timestamp - this.owner.fight.start_time), 'Maraads: beacon transfer: Stacks at LotM heal:', stacks);
 
     // Since FoL beacon transfers, the only gain from Maraad's over a FoL would be the increase from Maraad's to beacon transfer
     this.healingGainOverFol += calculateEffectiveHealing(beaconTransferEvent, stacks * MARAADS_HEALING_INCREASE_PER_STACK);

@@ -30,6 +30,7 @@ const styles = {
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundAttachment: 'fixed',
+    filter: 'blur(3px)',
   },
   overlay: {
     position: 'absolute',
@@ -45,10 +46,8 @@ const styles = {
 class AppBackgroundImage extends React.PureComponent {
   static propTypes = {
     bossId: PropTypes.number,
+    override: PropTypes.string,
   };
-  // url ? `url(${url})` : null
-  /*
-*/
 
   constructor() {
     super();
@@ -67,6 +66,8 @@ class AppBackgroundImage extends React.PureComponent {
         this.setState({
           image: Backgrounds[bossId][imageIndex],
         });
+      } else {
+        console.warn('Missing image for boss:', bossId);
       }
     }
     this.setState({
@@ -75,8 +76,10 @@ class AppBackgroundImage extends React.PureComponent {
   }
 
   render() {
+    const { override } = this.props;
+
     let containerStyle = styles.container;
-    if (this.state.show) {
+    if (this.state.show || override) {
       containerStyle = {
         ...containerStyle,
         ...styles.active,
@@ -88,7 +91,7 @@ class AppBackgroundImage extends React.PureComponent {
         <div
           style={{
             ...styles.image,
-            backgroundImage: this.state.image ? `url(${this.state.image})` : null,
+            backgroundImage: this.state.image || override ? `url(${override || this.state.image})` : null,
           }}
         />
         <div

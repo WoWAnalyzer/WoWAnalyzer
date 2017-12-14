@@ -16,5 +16,4 @@ export default {
     regular: 0.85,
     major: 0.70,
   },
-
 };

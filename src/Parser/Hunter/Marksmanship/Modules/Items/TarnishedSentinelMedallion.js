@@ -17,24 +17,31 @@ class TarnishedSentinelMedallion extends ImportTarnishedSentinelMedallion {
   medallionEnd = 0;
   medallionUptime = [];
   medallionDuration = 20000;
+  medallionCasts = 0;
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (this.damageAbilities.has(spellId) && event.timestamp > this.medallionEnd) {
+    if (this.damageIds.includes(spellId) && event.timestamp > this.medallionEnd) {
       this.medallionEnd = event.timestamp + this.medallionDuration;
       this.medallionUptime.push({ 'start': event.timestamp, 'end': this.medallionEnd });
       this.checkOverlap();
     }
-    if (this.damageAbilities.has(spellId)) {
+    if (this.damageIds.includes(spellId)) {
       this.damage += event.amount + (event.absorbed || 0);
     }
   }
 
+  on_byPlayer_cast(event) {
+    const buffId = event.ability.guid;
+    if (buffId !== SPELLS.SPECTRAL_OWL.id) {
+      return;
+    }
+    this.medallionCasts += 1;
+  }
+
   checkOverlap() {
-    this.medallionCasts = 0;
     this.medallionCastsWithTS = 0;
     this.medallionUptime.forEach(cast => {
-      this.medallionCasts++;
       this.cooldownThroughputTracker.pastCooldowns.forEach(ts => {
         let tsEnd; //because sometimes ts.end is undefined if the parser hasn't gotten there yet
         if (!ts.end) {
@@ -54,7 +61,7 @@ class TarnishedSentinelMedallion extends ImportTarnishedSentinelMedallion {
     return {
       item: ITEMS.TARNISHED_SENTINEL_MEDALLION,
       result: (
-        <dfn data-tip={`You cast <b> ${formatNumber(this.medallionCastsWithTS)} out of ${formatNumber(this.medallionCasts)} </b> Medallion casts with trueshot.`}>
+        <dfn data-tip={`<b> ${formatNumber(this.medallionCastsWithTS)} out of ${formatNumber(this.medallionCasts)} </b> Medallion casts were combined with Trueshot. <br/><b>OBS:</b> For a medallion cast to be considered combined with Trueshot, 10 seconds of it has to be affected by Trueshot.`}>
           {formatNumber(this.damage)} damage - {this.owner.formatItemDamageDone(this.damage)}
         </dfn>
       ),

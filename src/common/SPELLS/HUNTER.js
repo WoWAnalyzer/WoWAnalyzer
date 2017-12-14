@@ -16,6 +16,21 @@ export default {
     name: 'Bestial Wrath',
     icon: 'ability_druid_ferociousbite',
   },
+  BESTIAL_WRATH_BUFF_HATI: {
+    id: 207033,
+    name: 'Bestial Wrath Buff',
+    icon: 'ability_druid_ferociousbite',
+  },
+  BESTIAL_WRATH_BUFF_MAIN_PET: {
+    id: 186254,
+    name: 'Bestial Wrath Buff',
+    icon: 'ability_druid_ferociousbite',
+  },
+  DIRE_BEAST_SUMMON: {
+    id: 224573,
+    name: 'Dire Beast Summon',
+    icon: 'ability_hunter_sickem',
+  },
   COBRA_SHOT: {
     id: 193455,
     name: 'Cobra Shot',
@@ -32,9 +47,19 @@ export default {
     icon: 'ability_hunter_longevity',
   },
   DIRE_FRENZY_TALENT_BUFF: {
-    id:   246152,
+    id: 246152,
     name: 'Dire Frenzy Buff',
     icon: 'ability_druid_mangle',
+  },
+  DIRE_FRENZY_DAMAGE: {
+    id: 217207,
+    name: 'Dire Frenzy',
+    icon: 'ability_druid_mangle',
+  },
+  STAMPEDE_DAMAGE: {
+    id: 201594,
+    name: 'Stampede',
+    icon: 'ability_hunter_bestialdiscipline',
   },
   EAGLE_EYE: {
     id: 6197,
@@ -46,21 +71,162 @@ export default {
     name: 'Kill Command',
     icon: 'ability_hunter_killcommand',
   },
-
-  //Beast Mastery Artifact Traits
-  TITANS_THUNDER: {
-    id: 207068,
-    name: 'Titans Thunder',
-    icon: 'inv_firearm_2h_artifactlegion_d_01',
+  KILL_COMMAND_PET: {
+    id: 83381,
+    name: 'Kill Command',
+    icon: 'ability_hunter_killcommand',
+  },
+  WILD_CALL: {
+    id: 185789,
+    name: 'Wild Call',
+    icon: 'ability_hunter_masterscall',
+  },
+  WILD_CALL_PROC: {
+    id: 185791,
+    name: 'Wild Call Proc',
+    icon: 'ability_hunter_masterscall',
+  },
+  BEAST_CLEAVE: {
+    id: 115939,
+    name: 'Beast Cleave',
+    icon: 'ability_hunter_sickem',
   },
   BEAST_CLEAVE_BUFF: {
     id: 118455,
     name: 'Beast Cleave',
     icon: 'ability_hunter_sickem',
   },
+  BEAST_CLEAVE_DAMAGE: {
+    id: 118459,
+    name: 'Beast Cleave',
+    icon: 'ability_hunter_sickem',
+  },
+  STOMP_DAMAGE: {
+    id: 201754,
+    name: 'Stomp',
+    icon: 'ability_warstomp',
+  },
+  ASPECT_OF_THE_BEAST_BESTIAL_FEROCITY: {
+    id: 191413,
+    name: 'Bestial Ferocity',
+    icon: 'ability_hunter_invigeration',
+  },
+  CHIMAERA_SHOT_NATURE_DAMAGE: {
+    id: 171457,
+    name: 'Chimaera Shot',
+    icon: 'ability_hunter_chimerashot2',
+  },
+  CHIMAERA_SHOT_FROST_DAMAGE: {
+    id: 171454,
+    name: 'Chimaera Shot',
+    icon: 'ability_hunter_chimerashot2',
+  },
+
+  //Beast Mastery Artifact Traits
+  TITANS_THUNDER: {
+    id: 207068,
+    name: 'Titan\'s Thunder',
+    icon: 'inv_firearm_2h_artifactlegion_d_01',
+  },
+  TITANS_THUNDER_BUFF: {
+    id: 207094,
+    name: 'Titan\'s Thunder Buff',
+    icon: 'inv_firearm_2h_artifactlegion_d_01',
+  },
+  TITANS_THUNDER_DAMAGE: {
+    id: 207097,
+    name: 'Titan\'s Thunder',
+    icon: 'inv_firearm_2h_artifactlegion_d_01',
+  },
+  COBRA_COMMANDER_TRAIT: {
+    id: 238123,
+    name: 'Cobra Commander',
+    icon: 'inv_waepon_bow_zulgrub_d_01',
+  },
+  COBRA_COMMANDER: {
+    id: 243042,
+    name: 'Cobra Commander',
+    icon: 'inv_waepon_bow_zulgrub_d_01',
+  },
+  MASTER_OF_BEASTS_TRAIT: {
+    id: 197248,
+    name: 'Master of Beasts',
+    icon: 'ability_hunter_masterscall',
+  },
+  SURGE_OF_THE_STORMGOD_TRAIT: {
+    id: 197354,
+    name: 'Surge of the Stormgod',
+    icon: 'ability_monk_forcesphere',
+  },
+  SURGE_OF_THE_STORMGOD_DAMAGE: {
+    id: 197465,
+    name: 'Surge of the Stormgod',
+    icon: 'ability_monk_forcesphere',
+  },
+  THUNDERSLASH_TRAIT: {
+    id: 238087,
+    name: 'Thunderslash',
+    icon: 'warrior_talent_icon_thunderstruck',
+  },
+  THUNDERSLASH_DAMAGE: {
+    id: 243234,
+    name: 'Thunderslash',
+    icon: 'warrior_talent_icon_thunderstruck',
+  },
+  DEATHSTRIKE_VENOM: {
+    id: 243121,
+    name: 'Deathstrike Venom',
+    icon: 'spell_nature_nullifypoison',
+  },
+
+  //Beast Mastery Tier
+  HUNTER_BM_T19_2P_BONUS: {
+    id: 211181, //WoWHead has this as 4p, but it's actually the 2p
+    name: 'T19 2 set bonus',
+    icon: 'trade_engineering',
+  },
+  HUNTER_BM_T19_2P_BONUS_BUFF: {
+    id: 211183,
+    name: 'T19 2 set bonus',
+    icon: 'ability_druid_ferociousbite',
+  },
+  HUNTER_BM_T19_4P_BONUS: {
+    id: 211172,
+    name: 'T19 2 set bonus',
+    icon: 'trade_engineering',
+  },
+  HUNTER_BM_T20_2P_BONUS: {
+    id: 242239,
+    name: 'T20 2 set bonus',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
+  HUNTER_BM_T20_2P_BONUS_BUFF: {
+    id: 246126,
+    name: 'T20 2 set bonus',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
+  HUNTER_BM_T20_4P_BONUS: {
+    id: 242240,
+    name: 'T20 4 set bonus',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
+  HUNTER_BM_T20_4P_BONUS_BUFF: {
+    id: 246116,
+    name: 'T20 4 set bonus',
+    icon: 'ability_hunter_fervor',
+  },
+  HUNTER_BM_T21_2P_BONUS: {
+    id: 251755,
+    name: 'T21 2 set bonus',
+    icon: 'ability_hunter_killcommand',
+  },
+  HUNTER_BM_T21_4P_BONUS: {
+    id: 251756,
+    name: 'T21 4 set bonus',
+    icon: 'spell_nature_protectionformnature',
+  },
 
   // MarksmanshipHunter:
-
   // Marksmanship spells
 
   WINDBURST: {
@@ -113,6 +279,16 @@ export default {
     name: 'Marking Targets',
     icon: 'ability_marksmanship',
   },
+  SIDEWINDERS_DAMAGE: {
+    id: 214581,
+    name: 'Sidewinders',
+    icon: 'ability_hunter_serpentswiftness',
+  },
+  CAREFUL_AIM_DAMAGE: {
+    id: 63468,
+    name: 'Careful Aim',
+    icon: 'ability_hunter_piercingshots',
+  },
 
   //CATEGORY
   AUTO_SHOT: {
@@ -162,10 +338,25 @@ export default {
     name: 'T20 4 set bonus',
     icon: 'inv_spear_07',
   },
+  HUNTER_MM_T21_2P_BONUS: {
+    id: 251754,
+    name: 'T21 2 set bonus',
+    icon: 'ability_hunter_focusedaim',
+  },
+  HUNTER_MM_T21_4P_BONUS: {
+    id: 251753,
+    name: 'T21 4 set bonus',
+    icon: 'ability_hunter_focusedaim',
+  },
 
   // Marksmanship artifact traits
-  BULLSEYE_TRAIT: {
+  BULLSEYE_BUFF: {
     id: 204090,
+    name: 'Bullseye',
+    icon: 'ability_hunter_focusedaim',
+  },
+  BULLSEYE_TRAIT: {
+    id: 204089,
     name: 'Bullseye',
     icon: 'ability_hunter_focusedaim',
   },
@@ -188,6 +379,26 @@ export default {
     id: 238052,
     name: 'Unerring Arrows',
     icon: 'creatureportrait_blackrockv2_shieldgong_broken',
+  },
+  CALL_OF_THE_HUNTER_TRAIT: {
+    id: 191048,
+    name: 'Call of the Hunter',
+    icon: 'ability_hunter_assassinate',
+  },
+  CALL_OF_THE_HUNTER_DAMAGE: {
+    id: 191070,
+    name: 'Call of the Hunter',
+    icon: 'ability_hunter_assassinate',
+  },
+  LEGACY_OF_THE_WINDRUNNERS_TRAIT: {
+    id: 190852,
+    name: 'Legacy of the Windrunners',
+    icon: 'artifactability_marksmanhunter_legacyofthewindrunners',
+  },
+  LEGACY_OF_THE_WINDRUNNERS_DAMAGE: {
+    id: 191043,
+    name: 'Legacy of the Windrunners',
+    icon: 'artifactability_marksmanhunter_legacyofthewindrunners',
   },
 
   //Marksmanship legendary buffs
@@ -213,7 +424,7 @@ export default {
     name: 'True Aim',
     icon: 'spell_hunter_focusingshot',
   },
-  EXPLOSIVE_SHOT_SHOT: {
+  EXPLOSIVE_SHOT_DETONATION: {
     id: 212680,
     name: 'Explosive Shot',
     icon: '6bf_explosive_shard',
@@ -237,8 +448,7 @@ export default {
     id: 90355,
     name: 'Ancient Hysteria',
     icon: 'spell_shadow_unholyfrenzy',
-  },
-  //The buff given by volley when it's activated (and also what does the damage)
+  },  //The buff given by volley when it's activated (and also what does the damage)
   VOLLEY_ACTIVATED: {
     id: 194392,
     name: 'Volley buff',
@@ -353,5 +563,20 @@ export default {
     id: 2641,
     name: 'Dismiss Pet',
     icon: 'spell_nature_spiritwolf',
+  },
+  BINDING_SHOT_STUN: {
+    id: 117526,
+    name: 'Binding Shot Stun',
+    icon: 'spell_shaman_bindelemental',
+  },
+  BINDING_SHOT_TETHER: {
+    id: 117405,
+    name: 'Binding Shot Tether',
+    icon: 'spell_shaman_bindelemental',
+  },
+  BARRAGE_DAMAGE: {
+    id: 120361,
+    name: 'Barrage',
+    icon: 'ability_hunter_rapidregeneration',
   },
 };

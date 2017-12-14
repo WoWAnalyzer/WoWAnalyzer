@@ -1,6 +1,7 @@
 import querystring from 'querystring';
 import request from 'request-promise-native';
 import Sequelize from 'sequelize';
+import Raven from 'raven';
 
 import models from './models';
 import WclApiError from './WclApiError';
@@ -86,6 +87,12 @@ class ApiRequestHandler {
       if (jsonString.indexOf(WCL_MAINTENANCE_STRING) !== -1) {
         throw new WclApiError(WCL_MAINTENANCE_STRING, 503);
       }
+      // WCL has a tendency to throw non-JSON errors with a 200 HTTP exception, this ensures they're not accepted and cached.
+      // Decoding JSON takes a long time, grabbing the first character is near instant and has high accuracy.
+      const firstCharacter = jsonString.substr(0, 1);
+      if (firstCharacter !== '{') {
+        throw new WclApiError('Corrupt Warcraft Logs API response received', 500);
+      }
 
       if (cachedWclApiResponse) {
         cachedWclApiResponse.update({
@@ -105,6 +112,7 @@ class ApiRequestHandler {
       this.sendJson(jsonString);
       console.log('Finished', 'wcl:', wclResponseTime, 'ms');
     } catch (error) {
+      Raven.installed && Raven.captureException(error);
       if (error.statusCode >= 400 && error.statusCode < 600) {
         const message = error.error || error.message; // if this is a `request` error, `error` contains the plain JSON while `message` also has the statusCode so is polluted.
         console.error(`WCL Error (${error.statusCode}): ${message}`);

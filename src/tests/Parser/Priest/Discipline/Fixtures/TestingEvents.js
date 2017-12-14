@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-const thisPlayer = 1;
+export const thisPlayer = 1;
 const otherPlayer1 = 2;
 const otherPlayer2 = 3;
 const otherPlayer3 = 4;

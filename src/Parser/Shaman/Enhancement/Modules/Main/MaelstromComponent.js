@@ -1,11 +1,11 @@
-// Based on Main/CastEfficiency.js
+// Based on Main/Abilities.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 
-const CastEfficiency = ({ categories, abilities }) => {
+const Abilities = ({ categories, abilities }) => {
   if (!abilities) {
     return <div>Loading...</div>;
   }
@@ -57,7 +57,7 @@ const CastEfficiency = ({ categories, abilities }) => {
     </div>
   );
 };
-CastEfficiency.propTypes = {
+Abilities.propTypes = {
   abilities: PropTypes.arrayOf(PropTypes.shape({
     ability: PropTypes.shape({
       name: PropTypes.string.isRequired,
@@ -68,4 +68,4 @@ CastEfficiency.propTypes = {
   categories: PropTypes.array,
 };
 
-export default CastEfficiency;
+export default Abilities;

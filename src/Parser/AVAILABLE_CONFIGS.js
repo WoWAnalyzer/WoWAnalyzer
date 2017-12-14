@@ -22,6 +22,8 @@ import MistweaverMonk from './Monk/Mistweaver/CONFIG';
 
 import HolyPaladin from './Paladin/Holy/CONFIG';
 import RetributionPaladin from './Paladin/Retribution/CONFIG';
+import ProtectionPaladin from './Paladin/Protection/CONFIG';
+
 
 import DisciplinePriest from './Priest/Discipline/CONFIG';
 import HolyPriest from './Priest/Holy/CONFIG';
@@ -66,6 +68,7 @@ export default [
 
   HolyPaladin,
   RetributionPaladin,
+  ProtectionPaladin,
 
   DisciplinePriest,
   HolyPriest,
