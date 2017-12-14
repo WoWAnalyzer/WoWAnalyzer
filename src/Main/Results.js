@@ -8,8 +8,6 @@ import { Textfit } from 'react-textfit';
 
 import Wrapper from 'common/Wrapper';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
-import ItemLink from 'common/ItemLink';
-import ItemIcon from 'common/ItemIcon';
 import getBossName from 'common/getBossName';
 import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import { getResultTab } from 'selectors/url/report';
@@ -24,6 +22,7 @@ import SuggestionsTab from 'Main/SuggestionsTab';
 
 import SpecInformationOverlay from './SpecInformationOverlay';
 import HarjatanAvatar from './Images/boss-avatars/harjatan.png';
+import ItemsPanel from './ItemsPanel';
 
 import './Results.css';
 
@@ -80,83 +79,6 @@ class Results extends React.Component {
             key: `${statistic.order}-${i}`,
           }))}
       </Masonry>
-    );
-  }
-  renderItems(items, selectedCombatant) {
-    return (
-      <div className="panel items">
-        <div className="panel-heading">
-          <h2><dfn data-tip="The values shown are only for the special equip effects of the items. The passive gain from the stats is <b>not</b> included.">Items</dfn></h2>
-        </div>
-        <div className="panel-body" style={{ padding: 0 }}>
-          <ul className="list">
-            {items.length === 0 && (
-              <li className="item clearfix" style={{ paddingTop: 20, paddingBottom: 20 }}>
-                No noteworthy items.
-              </li>
-            )}
-            {
-              items
-                .sort((a, b) => {
-                  // raw elements always rendered last
-                  if (React.isValidElement(a)) {
-                    return 1;
-                  } else if (React.isValidElement(b)) {
-                    return -1;
-                  } else if (a.item && b.item) {
-                    if (a.item.quality === b.item.quality) {
-                      // Qualities equal = show last added item at bottom
-                      return a.item.id - b.item.id;
-                    }
-                    // Show lowest quality item at bottom
-                    return a.item.quality < b.item.quality;
-                  } else if (a.item) {
-                    return -1;
-                  } else if (b.item) {
-                    return 1;
-                  }
-                  // Neither is an actual item, sort by id so last added effect is shown at bottom
-                  if (a.id < b.id) {
-                    return -1;
-                  } else if (a.id > b.id) {
-                    return 1;
-                  }
-                  return 0;
-                })
-                .map(item => {
-                  if (!item) {
-                    return null;
-                  } else if (React.isValidElement(item)) {
-                    return item;
-                  }
-
-                  const id = item.id || item.item.id;
-                  const itemDetails = id && selectedCombatant.getItem(id);
-                  const icon = item.icon || <ItemIcon id={item.item.id} details={itemDetails} />;
-                  const title = item.title || <ItemLink id={item.item.id} details={itemDetails} />;
-
-                  return (
-                    <li className="item clearfix" key={id}>
-                      <article>
-                        <figure>
-                          {icon}
-                        </figure>
-                        <div>
-                          <header>
-                            {title}
-                          </header>
-                          <main>
-                            {item.result}
-                          </main>
-                        </div>
-                      </article>
-                    </li>
-                  );
-                })
-            }
-          </ul>
-        </div>
-      </div>
     );
   }
 
@@ -257,7 +179,7 @@ class Results extends React.Component {
             <div className="col-md-4">
               {modules.statsDisplay.render()}
               {modules.talentsDisplay.render()}
-              {this.renderItems(results.items, selectedCombatant)}
+              <ItemsPanel items={results.items} selectedCombatant={selectedCombatant} />
 
               <div>
                 <a
