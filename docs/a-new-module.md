@@ -53,6 +53,7 @@ The file you just made still doesn't do anything as it hasn't been enabled in a 
 **Further documentation for modules is a work in progress.**
 
 - [How to make statistic boxes](../docs/stat-boxes.md)
+  - [Relic traits](../docs/stat-boxes.md#relic-traits)
 - Common module examples TBD
 
 For now looking at the Holy Paladin implementation may be the best way to find out how things are done, as it should be updated with the latest best practices.

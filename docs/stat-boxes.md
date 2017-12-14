@@ -28,9 +28,17 @@ Fudge edition: See [Holy Paladin's CastBehavior module](../src/Parser/Paladin/Ho
 ## Imports used
 
 ```javascript
+import React from 'react';
+
+// for pie charts
+import { Doughnut as DoughnutChart } from 'react-chartjs-2';
+
 // icons
 import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
+
+// spell links for text
+import SpellLink from 'common/SpellLink';
 
 // text/number formatting
 // for more formats, see /src/common/format.js 
@@ -41,7 +49,7 @@ import { formatNumber } from 'common/format'; // formats into 1k
 // statistic boxes + order
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SmallStatisticBox, { STATISTIC_ORDER }  from 'Main/SmallStatisticBox';
-
+import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 ```
 
 ## StatisticBox
@@ -191,7 +199,7 @@ The example below is [Beast Mastery Hunter - A Murder of Crows](../src/Parser/Hu
 
 ### Vertical icon arrangement
 
-For a simple listing, see [Frost Mage - Winter's Chill](../src/Parser/Mage/Frost/Modules/Features/WintersChill.js). For a .map() array of multiple similar elements, see [Elemental Shaman - Overload](../src/Parser/Shaman/Elemental/Modules/Features/Overload.js).
+For a simple listing, see [Frost Mage - Winter's Chill](../src/Parser/Mage/Frost/Modules/Features/WintersChill.js). For a `.map()` array of multiple similar elements, see [Elemental Shaman - Overload](../src/Parser/Shaman/Elemental/Modules/Features/Overload.js).
 
 ![Frost Mage - Winter's Chill](images/winters-chill-box-tooltip.jpg)
 ![Elemental Shaman - Overload](images/overload-box-tooltip.jpg)
@@ -232,7 +240,7 @@ For a simple listing, see [Frost Mage - Winter's Chill](../src/Parser/Mage/Frost
 />
 ```
 
-Look at the [DamageTaken module](../src/Parser/Core/Modules/DamageTaken.js) for a .map() version of many sections in the footer bar.
+Look at the [DamageTaken module](../src/Parser/Core/Modules/DamageTaken.js) for a `.map()`` version of many sections in the footer bar.
 
 The last bar color is always coded `className="remainder {bg color}"` so that the bar fills the remainder in with that background color. If the bar colors were switched in the Uplifting Trance example, the first would be `className="stat-overhealing-bg"` and the second would be `className="remainder stat-healing-bg"`.
 
@@ -275,14 +283,210 @@ statisticOrder = STATISTIC_ORDER.UNIMPORTANT();
 
 ## StatisticsListBox
 
+**Note!** Statistic**s**ListBox. Every other box is singular StatisticBox.
+
 This is the statistic box that looks like a list of SmallStatisticBoxes one-liners but in one box. The general example is Netherlight Crucible traits and the Relic traits in some class-specs. However, this box type isn't restricted to artifact traits; in fact, you can use it to make pie chart statistics.
 
-Dimensional Rift - https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Warlock/Destruction/Modules/Features/DimensionalRift.js
+List boxes have `title` instead of a label, a `tooltip`, and then their list items as `subStatistic()`s if in different files or as styled within the `<StatisticsListBox>` tags if all in one module.
+
+### Relic traits
+
+[Netherlight Crucible](../src/Parser/Core/Modules/NetherlightCrucibleTraits) is a core module and doesn't need to be constructed by every spec. Netherlight Crucible and relic traits are constructed similarly. Have a `Traits` folder with one master `RelicTraits.js` and one `ArtifactTraitName.js` for every relic trait you wish to track.
+
+```javascript
+import React from 'react';
+
+import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+
+import Analyzer from 'Parser/Core/Analyzer';
+
+// import ArtifactTraitName from './ArtifactTraitName';
+//... for each artifact trait module
+
+class RelicTraits extends Analyzer {
+  static dependencies = {
+    artifactTraitName: ArtifactTraitName,
+    //... for each artifact trait module
+  };
+
+  statistic() {
+    return (
+      <StatisticsListBox
+        title="Relic traits"
+        tooltip=""
+      >
+        {this.artifactTraitName.subStatistic()}
+        //...for each artifact trait to be displayed
+      </StatisticsListBox>
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(1000);
+}
+
+export default RelicTraits;
+```
+
+In the specific artifact trait module, after you have your calculations, use a `subStatistic()` instead of a `statistic()`.
+
+```javascript
+subStatistic() {
+  return (
+    <div className="flex">
+      <div className="flex-main">
+        <SpellLink id={}>
+          <SpellIcon id={} noLink /> Artifact Trait Name
+        </SpellLink>
+      </div>
+      <div className="flex-sub text-right">
+        {formatPercentage(this.valueToDisplay)} %
+      </div>
+    </div>
+  );
+}
+```
+
+### Single-file list box
+
+For example, see [Destruction Warlock - Dimensional Rift](../src/Parser/Warlock/Destruction/Modules/Features/DimensionalRift.js). The differences from the Relic Traits list box is that everything is constructed in the single `statistic()` using a `.map()` containing the list item styling.
+
+![Destruction Warlock - Dimensional Rift](images/dimensional-rift-box.jpg)
 
 Pie charts
-- https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Hunter/Marksmanship/Modules/Features/VulnerableApplications.js
-- https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Monk/Mistweaver/Modules/Spells/ThunderFocusTea.js
-- https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Paladin/Holy/Modules/PaladinCore/CastBehavior.js
+
+![Marksmanship Hunter - Vulnerable Applications](images/vulnerable-app-pie-chart-box.jpg)
+![Mistweaver Monk - Thunder Focus Tea](images/thunder-focus-tea-pie-chart-box.jpg)
+![Holy Paladin - Infusion of Light](images/infusion-light-pie-chart-box.jpg)
+
+For code in action, see:
+- [Marksmanship Hunter - Vulnerable Applications](../src/Parser/Hunter/Marksmanship/Modules/Features/VulnerableApplications.js)
+- [Mistweaver Monk - Thunder Focus Tea](../src/Parser/Monk/Mistweaver/Modules/Spells/ThunderFocusTea.js)
+- [Holy Paladin - Infusion of Light + Fillers](/src/Parser/Paladin/Holy/Modules/PaladinCore/CastBehavior.js)
+
+Pie charts have a few parts for thir modules in addition to events and calculations for the module. 
+
+The `legend(items, total)` & `chart(items) blocks are largely the same in every case. `CHART_SIZE` is a constant declared at the top of the module with the imports. Infusion of Light & Thunder Focus Tea use `const CHART_SIZE = 75;` while Vulnerable Applications uses `const CHART_SIZE = 50;`, for reference.
+
+```javascript
+legend(items, total) {
+const numItems = items.length;
+return items.map(({ color, label, tooltip, value, spellId }, index) => {
+  label = tooltip ? (
+    <dfn data-tip={tooltip}>{label}</dfn>
+  ) : label;
+  label = spellId ? (
+    <SpellLink id={spellId}>{label}</SpellLink>
+  ) : label;
+  return (
+    <div
+      className="flex"
+      style={{
+        borderBottom: '3px solid rgba(255,255,255,0.1)',
+        marginBottom: ((numItems - 1) === index) ? 0 : 5,
+      }}
+      key={index}
+    >
+      <div className="flex-sub">
+        <div
+          style={{
+            display: 'inline-block',
+            background: color,
+            borderRadius: '50%',
+            width: 16,
+            height: 16,
+            marginBottom: -3,
+          }}
+        />
+      </div>
+      <div className="flex-main" style={{ paddingLeft: 5 }}>
+        {label}
+      </div>
+      <div className="flex-sub">
+        <dfn data-tip={value}>
+          {formatPercentage(value / total, 0)}%
+        </dfn>
+      </div>
+    </div>
+  );
+});
+chart(items) {
+return (
+  <DoughnutChart
+    data={{
+      datasets: [{
+        data: items.map(item => item.value),
+        backgroundColor: items.map(item => item.color),
+        borderColor: '#666',
+        borderWidth: 1.5,
+      }],
+      labels: items.map(item => item.label),
+    }}
+    options={{
+      legend: {
+        display: false,
+      },
+      tooltips: {
+        bodyFontSize: 8,
+      },
+      cutoutPercentage: 45,
+      animation: false,
+      responsive: false,
+    }}
+    width={CHART_SIZE}
+    height={CHART_SIZE}
+  />
+);
+}
+```
+After figuring out through normal module events and calculations what you want to display, arrange your items with a `moduleDisplayNameChart()`
+
+```javascript
+moduleDisplayNameChart() {
+  const itemName = this.itemCalcValue;
+  //...for every item to be listed
+  const totalModule = this.howeverYouDecideTheTotalValue;
+
+  const items = [
+    // for each item listed
+    {
+      color: '#hexcode',
+      label: 'List item name',
+      spellId: SPELLS.SPELL.id,
+      value: itemName,
+    },
+  ];
+
+  return(
+    <div className="flex">
+      <div className="flex-sub" style={{ paddingRight: 12 }}>
+        {this.chart(items)}
+      </div>
+      <div className="flex-main" style={{ fontSize: '80%', paddingTop: 3 }}>
+        {this.legend(items, totalModule)} 
+      </div>
+    </div>
+  ); 
+}
+```
+
+Finally, the `statistic()` looks like this:
+
+```javascript
+statistic() {
+  return (
+    <div className="col-lg-4 col-sm-6 col-xs-12">
+      <div className="row">
+        <StatisticsListBox
+          title={<span><SpellLink id={SPELLS.SPELL.id}>SpellName</SpellLink> usage</span>}
+          containerProps={{ className: 'col-xs-12' }}
+        >
+          {this.moduleDisplayNameChart()}
+        </StatisticsListBox>
+      </div>
+    </div>
+  );
+}
+statisticOrder = STATISTIC_ORDER.CORE(10);
+```
 
 ## ExpandableStatisticBox
 
