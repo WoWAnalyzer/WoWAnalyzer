@@ -21,7 +21,7 @@ import Maintainer from 'Main/Maintainer';
 import SuggestionsTab from 'Main/SuggestionsTab';
 
 import SpecInformationOverlay from './SpecInformationOverlay';
-import HarjatanAvatar from './Images/boss-avatars/harjatan.png';
+import HarjatanAvatar from './Images/boss-avatars/TombOfSargeras/Harjatan.png';
 import ItemsPanel from './ItemsPanel';
 
 import './Results.css';
