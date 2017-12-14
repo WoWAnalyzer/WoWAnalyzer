@@ -15,7 +15,7 @@ class Efflorescence extends Analyzer {
 
   precastUptime = 0;
   castUptime = 0;
-  castTimestamps = [];
+  castTimestamps = []; // TODO this array not really used yet, but I plan to use it to catch early refreshes
 
 
   on_byPlayer_cast(event) {
@@ -33,6 +33,7 @@ class Efflorescence extends Analyzer {
     if (event.ability.guid !== SPELLS.EFFLORESCENCE_HEAL.id) {
       return;
     }
+    // if efflo heals before the first cast, we assume it was from a precast
     if (this.castTimestamps.length === 0) {
       this.precastUptime = event.timestamp - this.owner.fight.start_time;
     }
@@ -43,6 +44,7 @@ class Efflorescence extends Analyzer {
   }
 
   get uptime() {
+    // uptime from a cast is only tallied in 'castUptime' on the *next* cast, so the most recent cast must be handled special
     const activeUptime = this.lastCastTimestamp === null ? 0 : Math.min(DURATION, this.owner.currentTimestamp - this.lastCastTimestamp);
     return this.precastUptime + this.castUptime + activeUptime;
   }
