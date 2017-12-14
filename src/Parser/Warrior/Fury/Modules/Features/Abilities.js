@@ -5,8 +5,6 @@ import SpellLink from 'common/SpellLink';
 
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
-// eslint-disable no-unused-vars
-
 class Abilities extends CoreAbilities {
   static ABILITIES = [
     ...CoreAbilities.ABILITIES,
