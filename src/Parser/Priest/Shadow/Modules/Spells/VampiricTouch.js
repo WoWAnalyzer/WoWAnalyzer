@@ -14,23 +14,44 @@ class VampiricTouch extends Analyzer {
     enemies: Enemies,
   };
 
+  get uptime() {
+    return this.enemies.getBuffUptime(SPELLS.VAMPIRIC_TOUCH.id) / this.owner.fightDuration;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.90,
+        major: 0.8,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
-    const vampiricTouchUptime = this.enemies.getBuffUptime(SPELLS.VAMPIRIC_TOUCH.id) / this.owner.fightDuration;
-    when(vampiricTouchUptime).isLessThan(0.85)
+    const {
+        isLessThan: {
+            minor,
+            average,
+            major,
+    }} = this.suggestionThresholds;
+
+    when(this.uptime).isLessThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> on the boss.</span>)
           .icon(SPELLS.VAMPIRIC_TOUCH.icon)
           .actual(`${formatPercentage(actual)}% Vampiric Touch uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended - 0.05).major(recommended - 0.15);
+          .regular(average).major(major);
       });
   }
 
   statistic() {
-    const vampiricTouchUptime = this.enemies.getBuffUptime(SPELLS.VAMPIRIC_TOUCH.id) / this.owner.fightDuration;
     return (<SmallStatisticBox
       icon={<SpellIcon id={SPELLS.VAMPIRIC_TOUCH.id} />}
-      value={`${formatPercentage(vampiricTouchUptime)} %`}
+      value={`${formatPercentage(this.uptime)} %`}
       label="Vampiric Touch uptime"
     />);
   }

@@ -168,10 +168,44 @@ class Voidform extends Analyzer {
     }
   }
 
-  suggestions(when) {
-    const uptime = this.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id) / (this.owner.fightDuration - this.combatants.selected.getBuffUptime(SPELLS.DISPERSION.id));
+  get uptime(){
+    return this.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id) / (this.owner.fightDuration - this.combatants.selected.getBuffUptime(SPELLS.DISPERSION.id));
+  }
 
-    when(uptime).isLessThan(0.80)
+  get suggestionUptimeThresholds() {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 0.85,
+        average: 0.80,
+        major: 0.7,
+      },
+      style: 'percentage',
+    };
+  }
+
+  get suggestionStackThresholds() {
+    return (voidform) => ({
+      actual: voidform.stacks.length,
+      isLessThan: {
+        minor: 50,
+        average: 45,
+        major: 40,
+      },
+      style: 'number',
+    });
+  }
+
+
+  suggestions(when) {
+    const {
+      isLessThan: {
+        minor,
+        average,
+        major,
+    }} = this.suggestionUptimeThresholds;
+
+    when(this.uptime).isLessThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.VOIDFORM.id} /> uptime can be improved. Try to maximize the uptime by using your insanity generating spells.
           <br /><br />
@@ -183,7 +217,7 @@ class Voidform extends Analyzer {
           .icon(SPELLS.VOIDFORM_BUFF.icon)
           .actual(`${formatPercentage(actual)}% Voidform uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended).major(recommended - 0.10);
+          .regular(average).major(major);
       });
   }
 
