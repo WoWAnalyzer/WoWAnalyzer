@@ -55,7 +55,7 @@ class HealingRain extends Analyzer {
           this.HealingRainTicks.push({
             id: event.timestamp,
             hits: 1,
-          })
+          });
         }
       }
   }
