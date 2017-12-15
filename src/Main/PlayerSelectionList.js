@@ -159,7 +159,7 @@ export class PlayerSelectionList extends React.PureComponent {
         return (
           <div key={roleID === null ? -1 : roleID} className="card">
             {this.renderRoleHeader(roleID, friendlies.length)}
-            <ul className="list selection players">
+            <ul className="list selection players item-divider item-divider-top">
               {friendlies
                 .sort((a, b) => {
                   if (a.name > b.name) {
