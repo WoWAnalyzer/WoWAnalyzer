@@ -15,6 +15,8 @@ class Tier21_4p extends Analyzer {
 
   totalDeathCoilCasts = 0;
   totalDeathCoilDamageEvents = 0;
+  isNextNormal = 0;
+  freeCastDamage = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasBuff(SPELLS.UNHOLY_DEATH_KNIGHT_T21_4SET_BONUS.id);
@@ -25,7 +27,8 @@ class Tier21_4p extends Analyzer {
     if(spellId !== SPELLS.DEATH_COIL.id){
       return;
     }
-    this.totalDeathCoilCasts++;    
+    this.totalDeathCoilCasts++; 
+    this.isNextNormal = 1;   
   }
 
   on_byPlayer_damage(event){
@@ -34,16 +37,19 @@ class Tier21_4p extends Analyzer {
       return;
     }
     this.totalDeathCoilDamageEvents++; 
+    this.isNextNormal ? this.isNextNormal = 0 : this.freeCastDamage += event.amount + (event.absorbed || 0);
   }
 
   item() {
-    // master of ghouls is buff granted by the set bonus
     const freeDeathcoils = (this.totalDeathCoilDamageEvents - this.totalDeathCoilCasts) / this.totalDeathCoilCasts;
+    const tooltipText = this.owner.formatItemDamageDone(this.freeCastDamage);
     return {
       id: `spell-${SPELLS.UNHOLY_DEATH_KNIGHT_T21_4SET_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.UNHOLY_DEATH_KNIGHT_T21_4SET_BONUS.id} />,
       title: <SpellLink id={SPELLS.UNHOLY_DEATH_KNIGHT_T21_4SET_BONUS.id} />,
-      result: <span>{formatPercentage(freeDeathcoils)} % of Death Coil casts dealt damage a second time</span>,
+      result: <dfn data-tip={tooltipText}>
+        <span>{formatPercentage(freeDeathcoils)} % of Death Coil casts dealt damage a second time</span>
+      </dfn>,
     };
   }
 }
