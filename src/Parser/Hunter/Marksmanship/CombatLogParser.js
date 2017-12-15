@@ -63,6 +63,9 @@ import LegacyOfTheWindrunners from './Modules/Traits/LegacyOfTheWindrunners';
 //Traits and Talents list
 import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 
+//Checklist
+import Checklist from './Modules/Features/Checklist';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core statistics
@@ -122,6 +125,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Traits and Talents list
     traitsAndTalents: TraitsAndTalents,
+
+    //Checklist
+    checklist: Checklist,
   };
 
   generateResults() {

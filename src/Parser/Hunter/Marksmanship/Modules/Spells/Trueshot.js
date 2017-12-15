@@ -127,6 +127,58 @@ class Trueshot extends Analyzer {
         tooltip={`Information regarding your average Trueshot window: <ul> <li>You started your Trueshot windows with an average of ${averageFocusAtTS} focus.</li> <li> You hit an average of ${averageAimedCasts} Aimed Shots inside each Trueshot window. </li> <li> Your Trueshot Aimed Shots had a crit rate of ${percentAimedCrits}%. </li> <li>Your overall crit rate during Trueshot was ${percentCastCrits}%. </li> <li>You spent an average of ${uptimePrCast} seconds in trueshot pr cast of Trueshot.</li></ul>`} />
     );
   }
+  get averageAimedShots() {
+    return formatNumber(this.aimedShotsPrTS / this.trueshotCasts);
+  }
+  get averageFocus() {
+    return formatNumber(this.accumulatedFocusAtTSCast / this.trueshotCasts);
+  }
+
+  get uptimePerCast() {
+    return ((this.combatants.getBuffUptime(SPELLS.TRUESHOT.id) / this.trueshotCasts) / 1000).toFixed(2);
+  }
+  get aimedShotThreshold() {
+    return {
+      actual: this.averageAimedShots,
+      isLessThan: {
+        minor: 7,
+        average: 6,
+        major: 5,
+      },
+      style: 'number',
+    };
+  }
+  get focusThreshold() {
+    return {
+      actual: this.averageFocus,
+      isLessThan: {
+        minor: 90,
+        average: 80,
+        major: 70,
+      },
+      style: 'number',
+    };
+  }
+  get executeTrueshotThreshold() {
+    return {
+      actual: this.executeTrueshots,
+      isLessThan: {
+        major: 1,
+      },
+      style: 'number',
+    };
+  }
+  get uptimeThreshold() {
+    return {
+      actual: this.uptimePerCast,
+      isLessThan: {
+        minor: 14.9,
+        average: 14.7,
+        major: 14.5,
+      },
+      style: 'number',
+    };
+  }
 
   suggestions(when) {
     const averageAimedCasts = formatNumber(this.aimedShotsPrTS / this.trueshotCasts);

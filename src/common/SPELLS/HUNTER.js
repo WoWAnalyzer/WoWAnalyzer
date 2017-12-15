@@ -400,6 +400,16 @@ export default {
     name: 'Legacy of the Windrunners',
     icon: 'artifactability_marksmanhunter_legacyofthewindrunners',
   },
+  RAPID_KILLING_TRAIT: {
+    id: 191339,
+    name: 'Rapid Killing',
+    icon: 'ability_marksmanship',
+  },
+  RAPID_KILLING: {
+    id: 191342,
+    name: 'Rapid Killing',
+    icon: 'ability_hunter_assassinate',
+  },
 
   //Marksmanship legendary buffs
   SENTINELS_SIGHT: {

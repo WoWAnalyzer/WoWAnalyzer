@@ -110,6 +110,16 @@ class AMurderOfCrows extends Analyzer {
       </div>
     );
   }
+
+  get shouldHaveSavedThreshold() {
+    return {
+      actual: this.shouldHaveSaved,
+      isGreaterThan: {
+        average: 0,
+      },
+      style: 'number',
+    };
+  }
   suggestions(when) {
     when(this.shouldHaveSaved).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {

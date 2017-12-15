@@ -16,18 +16,36 @@ class CancelledCasts extends CoreCancelledCasts {
     SPELLS.CYCLONIC_BURST_TRAIT.id,
     SPELLS.GOLGANNETHS_VITALITY_RAVAGING_STORM.id,
   ];
-  cancelledPercentage = 0;
+  get CancelledPercentage() {
+    return this.castsCancelled / this.totalCasts;
+  }
 
+  get suggestionThresholds() {
+    return {
+      actual: this.CancelledPercentage,
+      isGreaterThan: {
+        minor: 0.05,
+        average: 0.075,
+        major: 0.1,
+      },
+      style: 'percentage',
+    };
+  }
   suggestions(when) {
-    this.cancelledPercentage = this.castsCancelled / this.totalCasts;
-
-    when(this.cancelledPercentage).isGreaterThan(0.05)
+    const {
+      isGreaterThan: {
+        minor,
+        average,
+        major,
+      },
+    } = this.suggestionThresholds;
+    when(this.CancelledPercentage).isGreaterThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You cancelled {formatPercentage(this.cancelledPercentage)}% of your spells. While it is expected that you will have to cancel a few casts to react to a boss mechanic or to move, you should try to ensure that you are cancelling as few casts as possible. This is generally done by planning ahead in terms of positioning, and moving while you're casting instant cast spells.</span>)
+        return suggest(<span>You cancelled {formatPercentage(this.CancelledPercentage)}% of your spells. While it is expected that you will have to cancel a few casts to react to a boss mechanic or to move, you should try to ensure that you are cancelling as few casts as possible. This is generally done by planning ahead in terms of positioning, and moving while you're casting instant cast spells.</span>)
           .icon('inv_misc_map_01')
           .actual(`${formatPercentage(actual)}% casts cancelled`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(.02).major(recommended + 0.04);
+          .regular(average).major(major);
       });
   }
   statistic() {
