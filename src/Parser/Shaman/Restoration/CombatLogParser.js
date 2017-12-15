@@ -43,6 +43,7 @@ import Restoration_Shaman_T21_4Set from './Modules/Items/T21_4Set';
 import ChainHeal from './Modules/Spells/ChainHeal';
 import HealingSurge from './Modules/Spells/HealingSurge';
 import GiftOfTheQueen from './Modules/Spells/GiftOfTheQueen';
+import HealingRain from './Modules/Spells/HealingRain';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -85,6 +86,7 @@ class CombatLogParser extends CoreCombatLogParser {
     chainHeal: ChainHeal,
     giftOfTheQueen: GiftOfTheQueen,
     healingSurge: HealingSurge,
+    healingRain: HealingRain,
   };
 
   generateResults() {

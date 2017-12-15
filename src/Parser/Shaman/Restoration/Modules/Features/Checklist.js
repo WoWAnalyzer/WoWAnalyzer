@@ -21,6 +21,7 @@ import AlwaysBeCasting from './AlwaysBeCasting';
 import TidalWaves from './TidalWaves';
 import GiftOfTheQueen from '../Spells/GiftOfTheQueen';
 import ChainHeal from '../Spells/ChainHeal';
+import HealingRain from '../Spells/HealingRain';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -36,6 +37,7 @@ class Checklist extends CoreChecklist {
     tidalWaves: TidalWaves,
     giftOfTheQueen: GiftOfTheQueen,
     chainHeal: ChainHeal,
+    healingRain: HealingRain,
   };
 
   rules = [
@@ -113,7 +115,7 @@ class Checklist extends CoreChecklist {
             name: <Wrapper>
               <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} icon /> Fed to <SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} icon />
             </Wrapper>,
-            check: () => this.giftOfTheQueen.getCBTTotemFeedingSuggestionThreshold(),
+            check: () => this.giftOfTheQueen.CBTTotemFeedingSuggestionThreshold,
           }),
         ];
       },
@@ -127,13 +129,19 @@ class Checklist extends CoreChecklist {
             name: <Wrapper>
               <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} icon /> Target Efficiency
             </Wrapper>,
-            check: () => this.giftOfTheQueen.getGiftOfQueenTargetEfficiencySuggestionThreshold(),
+            check: () => this.giftOfTheQueen.giftOfQueenTargetEfficiencySuggestionThreshold,
           }),
           new Requirement({
             name: <Wrapper>
-              Average <SpellLink id={SPELLS.CHAIN_HEAL.id}/> Targets
+              Average <SpellLink id={SPELLS.CHAIN_HEAL.id} icon/> Targets
             </Wrapper>,
-            check: () => this.chainHeal.suggestedThresholds(),
+            check: () => this.chainHeal.suggestionThreshold,
+          }),
+          new Requirement({
+            name: <Wrapper>
+              Average <SpellLink id={SPELLS.HEALING_RAIN_HEAL.id} icon/> Targets
+            </Wrapper>,
+            check: () => this.healingRain.suggestionThreshold,
           }),
         ];
       },

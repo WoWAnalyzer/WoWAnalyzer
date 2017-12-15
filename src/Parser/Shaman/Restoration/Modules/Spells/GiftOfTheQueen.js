@@ -79,7 +79,7 @@ class GiftOfTheQueen extends Analyzer {
       }   
   }
 
-  getGiftOfQueenTargetEfficiencySuggestionThreshold(){
+  get giftOfQueenTargetEfficiencySuggestionThreshold(){
     return {
       actual: this.giftOfTheQueenTargetEfficiency(),
       isLessThan: {
@@ -91,7 +91,7 @@ class GiftOfTheQueen extends Analyzer {
     };
   }
 
-  getCBTTotemFeedingSuggestionThreshold(){
+  get CBTTotemFeedingSuggestionThreshold(){
     
     return {
       actual: this.giftOfTheQueenCBTFeedingPercent(),

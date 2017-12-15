@@ -39,7 +39,7 @@ class ChainHeal extends Analyzer {
       });
   }
 
-  suggestedThresholds() {
+  get suggestionThreshold(){
     const chainHeal = this.abilityTracker.getAbility(SPELLS.CHAIN_HEAL.id);
     
     const casts = chainHeal.casts || 0;
