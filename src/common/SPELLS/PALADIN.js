@@ -58,7 +58,11 @@ export default {
   },
 
   // Holy Paladin:
-  // Fix talent mana costs (due to rounding errors)
+  MASTERY_LIGHTBRINGER: {
+    id: 183997,
+    name: 'Mastery: Lightbringer',
+    icon: 'inv_hammer_04',
+  },
   BEACON_OF_FAITH_TALENT: { ...TALENTS.BEACON_OF_FAITH_TALENT, manaCost: 6875 },
   BEACON_OF_LIGHT: {
     id: 53652,

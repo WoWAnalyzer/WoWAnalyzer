@@ -12,7 +12,6 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   spec: SPECS.HOLY_PALADIN,
-  // TODO: Make maintainer an array
   maintainers: [Zerotorescue],
   description: (
     <div>

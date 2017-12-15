@@ -1,6 +1,5 @@
 import React from 'react';
 
-import SuggestionsTab from 'Main/SuggestionsTab';
 import ChangelogTab from 'Main/ChangelogTab';
 import ChangelogTabTitle from 'Main/ChangelogTabTitle';
 import Tab from 'Main/Tab';
@@ -35,6 +34,7 @@ import DistanceMoved from './Modules/Others/DistanceMoved';
 
 import StatsDisplay from './Modules/Features/StatsDisplay';
 import TalentsDisplay from './Modules/Features/TalentsDisplay';
+import Checklist from './Modules/Features/Checklist';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
 
@@ -148,6 +148,7 @@ class CombatLogParser {
 
     statsDisplay: StatsDisplay,
     talentsDisplay: TalentsDisplay,
+    checklist: Checklist,
 
     // Items:
     // Legendaries:
@@ -452,12 +453,6 @@ class CombatLogParser {
     const results = new ParseResults();
 
     results.tabs = [
-      {
-        title: 'Suggestions',
-        url: 'suggestions',
-        order: 0,
-        render: () => <SuggestionsTab issues={results.issues} />,
-      },
       {
         title: 'Timeline',
         url: 'timeline',
