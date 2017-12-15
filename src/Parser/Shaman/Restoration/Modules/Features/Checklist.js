@@ -38,6 +38,7 @@ class Checklist extends CoreChecklist {
     giftOfTheQueen: GiftOfTheQueen,
     chainHeal: ChainHeal,
     healingRain: HealingRain,
+    alwaysBeCasting: AlwaysBeCasting,
   };
 
   rules = [
@@ -142,6 +143,22 @@ class Checklist extends CoreChecklist {
               Average <SpellLink id={SPELLS.HEALING_RAIN_HEAL.id} icon/> Targets
             </Wrapper>,
             check: () => this.healingRain.suggestionThreshold,
+          }),
+        ];
+      },
+    }),
+    new Rule({
+      name: 'Try to avoid being inactive for a large portion of the fight',
+      description: 'While it\'s suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and when you\'re not healing try to contribute some damage.',
+      requirements: () => {
+        return [
+          new Requirement({
+            name: 'Non healing time',
+            check: () => this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
+          }),
+          new Requirement({
+            name: 'Downtime',
+            check: () => this.alwaysBeCasting.downtimeSuggestionThresholds,
           }),
         ];
       },
