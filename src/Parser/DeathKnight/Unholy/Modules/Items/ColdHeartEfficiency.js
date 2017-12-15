@@ -34,27 +34,27 @@ class ColdHeartEfficiency extends Analyzer {
     const spellID = event.ability.guid;
     if(spellID === SPELLS.COLD_HEART_BUFF.id){
       this.buffColdHeart+=1;
-	if(this.buffColdHeart > 20) {
-	this.buffColdHeart=20;
-	}
+	    if(this.buffColdHeart > 20) {
+	      this.buffColdHeart=20;
+	    }
     }
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId == SPELLS.CHAINS_OF_ICE.id) {
+    if (spellId === SPELLS.CHAINS_OF_ICE.id) {
        this.totalColdHeartCasts++;
-    	    if  (this.combatants.selected.hasBuff(SPELLS.UNHOLY_STRENGTH.id)) {
-		if (this.buffColdHeart < 20) {
-			if (this.buffColdHeart > 16) {
-       		        	this.correctColdHeartCasts++;
-				}
-			}
-                 }
-	    if (this.buffColdHeart == 20) {
-                 this.correctColdHeartCasts++;
-        }
-  }
+    	 if  (this.combatants.selected.hasBuff(SPELLS.UNHOLY_STRENGTH.id)) {
+		      if (this.buffColdHeart < 20) {
+			      if (this.buffColdHeart > 16) {
+              this.correctColdHeartCasts++;
+			      }
+	      	}
+       }
+	    if (this.buffColdHeart === 20) {
+        this.correctColdHeartCasts++;
+      }
+   }
 
   }
 
