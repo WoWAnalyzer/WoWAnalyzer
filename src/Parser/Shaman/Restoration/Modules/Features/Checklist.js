@@ -38,7 +38,6 @@ class Checklist extends CoreChecklist {
     giftOfTheQueen: GiftOfTheQueen,
     chainHeal: ChainHeal,
     healingRain: HealingRain,
-    alwaysBeCasting: AlwaysBeCasting,
   };
 
   rules = [
