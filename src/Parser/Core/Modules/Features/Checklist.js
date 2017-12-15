@@ -8,7 +8,7 @@ import InformationIcon from 'Icons/Information';
 import Analyzer from 'Parser/Core/Analyzer';
 import Expandable from 'Main/Expandable';
 import SpellLink from 'common/SpellLink';
-import { formatNumber, formatPercentage, formatThousands, formatSeconds } from 'common/format';
+import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Wrapper from 'common/Wrapper';
 
 export function performanceForThresholds(thresholds) {
@@ -97,11 +97,26 @@ function formatThresholdsActual(thresholds) {
     case 'boolean':
       return thresholds.actual ? 'Yes' : 'No';
     case 'seconds':
-      return `${formatSeconds(thresholds.actual)}`;
+      return `${thresholds.actual.toFixed(2)}s`;
     default:
       throw new Error(`Unknown style: ${thresholds.style}`);
   }
 }
+
+function calculateRulePerformance(values, style='median'){
+  switch (style) {
+    case 'median':
+      return calculateMedian(values);
+    case 'average':
+      return values.reduce((c, p) => c + p, 0) / values.length;
+    case 'lowest':
+      return Math.min(...values);
+    default:
+      throw new Error(`Unknown style: ${style}`);
+  }
+}
+
+
 function calculateMedian(values) {
   const arr = [...values];
   arr.sort((a, b) => a - b);
@@ -197,9 +212,8 @@ class Checklist extends Analyzer {
     // const average = total / requirementPerformances.length;
     // Lowest would be too punishing for small mistakes, if you want to have a single value tank the rule consider making it its own rule.
     // Average would mark things as OK when one thing was OK and 3 things were "average", I think this is wrong and it should mark the rule as average. Median achieves this.
-    const median = calculateMedian(requirementPerformances);
+    const rulePerformance = calculateRulePerformance(requirementPerformances, rule.performanceMethod);
 
-    const rulePerformance = median;
 
     return (
       <Expandable

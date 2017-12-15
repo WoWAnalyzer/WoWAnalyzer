@@ -63,12 +63,3 @@ export function formatMilliseconds(duration) {
 
   return response;
 }
-
-/*
- * Formats a floating number to be a String expressed as seconds in x (default 1 decimal) decimals.
- * Ex: 15.6664 => 15.7
- */
-export function formatSeconds(seconds, precision=1) {
-  if(precision === 0) return `${Math.round(seconds)}s`;
-  return `${Math.round(seconds * 10 * precision) / (10 * precision)}s`;
-}
