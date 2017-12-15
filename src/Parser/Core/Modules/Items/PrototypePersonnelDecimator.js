@@ -1,8 +1,11 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import Wrapper from 'common/Wrapper';
 
 /*
  * Prototype Personnel Decimator -
@@ -14,6 +17,9 @@ class PrototypePersonnelDecimator extends Analyzer {
   };
 
   damage = 0;
+  procs = 0;
+  hits = 0;
+  lastDamageEventTimestamp = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTrinket(ITEMS.PROTOTYPE_PERSONNEL_DECIMATOR.id);
@@ -23,13 +29,26 @@ class PrototypePersonnelDecimator extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.PROTOTYPE_PERSONNEL_DECIMATOR.id) {
       this.damage += event.amount + (event.absorbed || 0);
+      this.hits += 1;
+      if (event.timestamp > this.lastDamageEventTimestamp) {
+        this.procs += 1;
+        this.lastDamageEventTimestamp = event.timestamp;
+      } else {
+        this.lastDamageEventTimestamp = event.timestamp;
+      }
     }
+
   }
 
   item() {
     return {
       item: ITEMS.PROTOTYPE_PERSONNEL_DECIMATOR,
-      result: this.owner.formatItemDamageDone(this.damage),
+      result:
+        <Wrapper>
+          Procced {this.procs} times and hit {this.hits} targets.
+          <br />
+          {this.owner.formatItemDamageDone(this.damage)}
+        </Wrapper>,
     };
   }
 }
