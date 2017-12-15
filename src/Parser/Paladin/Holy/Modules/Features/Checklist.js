@@ -15,6 +15,7 @@ import Velens from 'Parser/Core/Modules/Items/Velens';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
+import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 
 import MasteryEffectiveness from './MasteryEffectiveness';
 import AlwaysBeCasting from './AlwaysBeCasting';
@@ -40,6 +41,7 @@ class Checklist extends CoreChecklist {
     legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
     overhealing: Overhealing,
+    enchantChecker: EnchantChecker,
   };
 
   rules = [
@@ -228,10 +230,17 @@ class Checklist extends CoreChecklist {
             name: 'Used a second potion',
             check: () => this.prePotion.secondPotionSuggestionThresholds,
           }),
-          // new Requirement({
-          //   name: 'Properly enchanted gear',
-          //   check: () => this.velens.suggestionThresholds,
-          // }),
+          new Requirement({
+            name: 'Gear has best enchants',
+            check: () => {
+              const numEnchantableSlots = Object.keys(this.enchantChecker.enchantableGear).length;
+              return {
+                actual: numEnchantableSlots - (this.enchantChecker.slotsMissingEnchant.length + this.enchantChecker.slotsMissingMaxEnchant.length),
+                isLessThan: numEnchantableSlots,
+                style: 'number',
+              };
+            },
+          }),
         ];
       },
     }),
