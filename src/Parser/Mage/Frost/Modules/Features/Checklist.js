@@ -13,6 +13,8 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import CancelledCasts from '../../../Shared/Modules/Features/CancelledCasts';
 import AlwaysBeCasting from './AlwaysBeCasting';
+import WintersChill from './WintersChill';
+import BrainFreeze from './BrainFreeze';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -20,6 +22,8 @@ class Checklist extends CoreChecklist {
     combatants: Combatants,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
+    wintersChill: WintersChill,
+    brainFreeze: BrainFreeze,
   };
 
   rules = [
@@ -40,8 +44,29 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
+      name: 'Use Your Procs',
+      description: <Wrapper>Frost Mage is a heavily proc dependent spec, so using your procs correctly is very important.</Wrapper>,
+      requirements: () => {
+        return [
+          new Requirement({
+            name: "Use Brain Freeze procs",
+            check: () => this.brainFreeze.brainFreezeUtilSuggestionThresholds,
+          }),
+          // TODO 'Use Fingers of Frost procs'
+          new Requirement({
+            name: "Ice Lance into Winter's Chill",
+            check: () => this.wintersChill.iceLanceUtilSuggestionThresholds,
+          }),
+          new Requirement({
+            name: "Hardcast into Winter's Chill",
+            check: () => this.wintersChill.hardcastUtilSuggestionThresholds,
+          }),
+        ];
+      },
+    }),
+    new Rule({
       name: 'Use Your Cooldowns',
-      description: <Wrapper>Your cooldowns are an important contributor to your DPS, and should be used as frequently as possible throughout a fight. A cooldown should be held on to only if a priority DPS phase is coming <em>soon</em>. Holding cooldowns too long will hurt your DPS.</Wrapper>,
+      description: <Wrapper>Your cooldowns are a major contributor to your DPS, and should be used as frequently as possible throughout a fight. A cooldown should be held on to only if a priority DPS phase is coming <em>soon</em>. Holding cooldowns too long will hurt your DPS.</Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [

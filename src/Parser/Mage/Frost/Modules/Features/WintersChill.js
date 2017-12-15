@@ -93,6 +93,42 @@ class WintersChillTracker extends Analyzer {
     }
   }
 
+  get iceLanceUtil() {
+    return 1 - (this.missedIceLanceCasts / this.totalProcs) || 0;
+  }
+
+  get iceLanceUtilSuggestionThresholds() {
+    return {
+      actual: this.iceLanceUtil,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.85,
+        major: 0.70,
+      },
+      style: 'percentage',
+    };
+  }
+
+  get hardcastUtil() {
+    return 1 - (this.missedHardcasts / this.totalProcs) || 0;
+  }
+
+  get hardcastUtilSuggestionThresholds() {
+    return {
+      actual: this.hardcastUtil,
+      isLessThan: {
+        minor: 0.90,
+        average: 0.80,
+        major: 0.60,
+      },
+      style: 'percentage',
+    };
+  }
+
+  get doubleIceLancePercentage() {
+    return this.doubleIceLanceCasts / this.totalProcs || 0;
+  }
+
   suggestions(when) {
     const missedIceLancesPerMinute = this.missedIceLanceCasts / (this.owner.fightDuration / 1000 / 60);
     when(missedIceLancesPerMinute).isGreaterThan(0)
@@ -127,9 +163,6 @@ class WintersChillTracker extends Analyzer {
   }
 
   statistic() {
-    const icelanceUtil = (1 - (this.missedIceLanceCasts / this.totalProcs)) || 0;
-    const frostboltUtil = (1 - (this.missedHardcasts / this.totalProcs)) || 0;
-    const doubleIcelancePerc = (this.doubleIceLanceCasts / this.totalProcs) || 0;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.WINTERS_CHILL.id} />}
@@ -142,7 +175,7 @@ class WintersChillTracker extends Analyzer {
                 marginBottom: '.15em',
               }}
             />
-            {' '}{formatPercentage(icelanceUtil, 0)}{' %'}
+            {' '}{formatPercentage(this.iceLanceUtil, 0)}{' %'}
             <br />
             <SpellIcon
               id={SPELLS.FROSTBOLT.id}
@@ -151,11 +184,11 @@ class WintersChillTracker extends Analyzer {
                 marginBottom: '.15em',
               }}
             />
-            {' '}{formatPercentage(frostboltUtil, 0)}{' %'}
+            {' '}{formatPercentage(this.hardcastUtil, 0)}{' %'}
           </span>
         )}
         label="Winter's Chill Utilization"
-        tooltip={`Every Brain Freeze Flurry should be preceded by a Frostbolt${this.hasGlacialSpike ? `, Glacial Spike, ` : ` `}or Ebonbolt and followed by an Ice Lance, so that both the preceding and following spells benefit from Shatter. <br><br> You double Ice Lance'd into Winter's Chill ${this.doubleIceLanceCasts} times (${formatPercentage(doubleIcelancePerc, 1)}%). Note this is usually impossible, it can only be done with strong haste buffs active and by moving towards the target while casting. It should mostly be considered 'extra credit'.`}
+        tooltip={`Every Brain Freeze Flurry should be preceded by a Frostbolt${this.hasGlacialSpike ? `, Glacial Spike, ` : ` `}or Ebonbolt and followed by an Ice Lance, so that both the preceding and following spells benefit from Shatter. <br><br> You double Ice Lance'd into Winter's Chill ${this.doubleIceLanceCasts} times (${formatPercentage(this.doubleIceLancePercentage, 1)}%). Note this is usually impossible, it can only be done with strong haste buffs active and by moving towards the target while casting. It should mostly be considered 'extra credit'.`}
       />
     );
   }
