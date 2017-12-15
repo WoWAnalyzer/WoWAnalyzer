@@ -43,7 +43,7 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Use core efficient spells on cooldown',
-      description: <Wrapper>this</Wrapper>,
+      description: <Wrapper>Spells such as <SpellLink id={SPELLS.RIPTIDE.id} icon />, <SpellLink id={SPELLS.HEALING_RAIN_CAST.id} icon /> and <SpellLink id={SPELLS.HEALING_STREAM_TOTEM_CAST.id} icon /> are your most efficient spells available. Try to cast them as much as possible without overhealing. <dfn data-tip="When you're not bringing too many healers.">On Mythic*</dfn> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection. <a href="http://www.wowhead.com/restoration-shaman-rotation-guide#raid-healing-priority-list" target="_blank" rel="noopener noreferrer">More info.</a></Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -68,7 +68,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use cooldowns effectively',
-      description: <Wrapper>this</Wrapper>,
+      description: <Wrapper>Your cooldowns are an important contributor to your healing throughput. Try to get in as many efficient casts as the fight allows. <a href="http://www.wowhead.com/restoration-shaman-rotation-guide#Throughput-Cooldowns" target="_blank" rel="noopener noreferrer">More info.</a></Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -77,8 +77,7 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.SPIRIT_LINK_TOTEM,
-          }),
-          
+          }),     
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ARCANE_TORRENT_MANA,
             when: !!this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA.id),
@@ -91,8 +90,8 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: 'Maximize Tidal Wave Usage',
-      description: "This",
+      name: <Wrapper>Maximize <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon /> usage</Wrapper>,
+      description: <Wrapper><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> buffed <SpellLink id={SPELLS.HEALING_WAVE.id} /> can make for some very efficient healing. You should try to use as many of the generated tidal waves as you can. You should also avoid using <SpellLink id={SPELLS.HEALING_WAVE.id} /> or <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} /> without a tidal wave.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
@@ -103,12 +102,11 @@ class Checklist extends CoreChecklist {
           }),
         ];
       },
-
       //Healing Wave/Healing SUrge used without Tidal Wave
     }),
     new Rule({
-      name: 'Maximize Ability Synergy',
-      description: <Wrapper>this</Wrapper>,
+      name: 'Maximize ability synergy',
+      description: 'Resto Shaman have cooldowns which feed into each other for compounding effects. To maximize your effectiveness it\'s good to use these feeding effects as much as possible.',
       requirements: () => {
         return [
           new Requirement({
@@ -121,8 +119,8 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: 'Target AOE spells for maximum effectiveness',
-      description: <Wrapper>this</Wrapper>,
+      name: 'Target AOE spells effectively',
+      description: 'As a resto shaman our core AOE spells rely on not just who we target but where they are on the ground to maximize healing potential. You should plan you AOE spells ahead of time in preparation for where you expect raid members to be for the spells duration.',
       requirements: () => {
         return [
           new Requirement({
@@ -147,7 +145,7 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: 'Try to avoid being inactive for a large portion of the fight',
+      name: 'Try to stay active for most of the fight.',
       description: 'While it\'s suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and when you\'re not healing try to contribute some damage.',
       requirements: () => {
         return [
