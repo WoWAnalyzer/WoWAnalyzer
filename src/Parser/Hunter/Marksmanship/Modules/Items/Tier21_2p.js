@@ -45,7 +45,7 @@ class Tier21_2p extends Analyzer {
     [SPELLS.ARCANE_SHOT.id]: {
       bonusDmg: 0,
     },
-    [SPELLS.SIDEWINDERS_TALENT.id]: {
+    [SPELLS.SIDEWINDERS_DAMAGE.id]: {
       bonusDmg: 0,
     },
   };
@@ -70,7 +70,7 @@ class Tier21_2p extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.MULTISHOT.id && spellId !== SPELLS.ARCANE_SHOT.id && spellId !== SPELLS.SIDEWINDERS_TALENT.id) {
+    if (spellId !== SPELLS.MULTISHOT.id && spellId !== SPELLS.ARCANE_SHOT.id && spellId !== SPELLS.SIDEWINDERS_DAMAGE.id) {
       return false;
     }
     this.damageFromGenerators[spellId].bonusDmg += getDamageBonus(event, T21_2P_DMG_BONUS);
@@ -94,7 +94,7 @@ class Tier21_2p extends Analyzer {
     return this.focusGeneratorCasts[SPELLS.MULTISHOT_FOCUSMODULE.id].potentialGain;
   }
   get sidewindersBonusDamage() {
-    return this.damageFromGenerators[SPELLS.SIDEWINDERS_TALENT.id].bonusDmg;
+    return this.damageFromGenerators[SPELLS.SIDEWINDERS_DAMAGE.id].bonusDmg;
   }
   get sidewindersActualFocusGain() {
     return this.focusGeneratorCasts[SPELLS.SIDEWINDERS_TALENT.id].actualGain;
@@ -108,7 +108,7 @@ class Tier21_2p extends Analyzer {
     let totalPotentialFocusGain = 0;
     let totalExtraFocusGenerated = 0;
 
-    const damageAbilities = [[SPELLS.MULTISHOT.id], [SPELLS.ARCANE_SHOT.id], [SPELLS.SIDEWINDERS_TALENT.id]];
+    const damageAbilities = [[SPELLS.MULTISHOT.id], [SPELLS.ARCANE_SHOT.id], [SPELLS.SIDEWINDERS_DAMAGE.id]];
     const generatingAbilities = [[SPELLS.MULTISHOT_FOCUSMODULE.id], [SPELLS.ARCANE_SHOT_FOCUSMODULE.id], [SPELLS.SIDEWINDERS_TALENT.id]];
 
     damageAbilities.map(ability => totalDamageIncrease += this.damageFromGenerators[ability].bonusDmg);
