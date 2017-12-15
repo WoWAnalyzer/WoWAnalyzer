@@ -4,6 +4,8 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
+import Wrapper from 'common/Wrapper';
+import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 class Abilities extends CoreAbilities {
   static ABILITIES = [
@@ -12,9 +14,15 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.BLOODTHIRST,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 4.5 / (1 + haste),
-      // Inner rage puts Raging Blow on a cooldown which indirectly adds more Bloodthirst to the rotation
-      // Generally 80% is recommended for Inner Rage, 30% otherwise
+      recommendedEfficiency: 0.8,
+      isActive: combatant => combatant.hasTalent(SPELLS.INNER_RAGE_TALENT.id),
+    },
+    {
+      spell: SPELLS.BLOODTHIRST,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 4.5 / (1 + haste),
       recommendedEfficiency: 0.3,
+      isActive: combatant => !combatant.hasTalent(SPELLS.INNER_RAGE_TALENT.id),
     },
     {
       spell: SPELLS.FURIOUS_SLASH,
@@ -76,8 +84,8 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 40,
       isActive: combatant => combatant.hasTalent(SPELLS.SHOCKWAVE_TALENT.id),
-      recommendedEfficiency: 0.8,
-      extraSuggestion: <span>Consider using <SpellLink id={SPELLS.DOUBLE_TIME_TALENT.id} /> or <SpellLink id={SPELLS.STORM_BOLT_TALENT.id} /> unless the CC is strictly needed.</span>,
+      recommendedEfficiency: 0.25,
+      extraSuggestion: <Wrapper>Consider using <SpellLink id={SPELLS.DOUBLE_TIME_TALENT.id} /> or <SpellLink id={SPELLS.STORM_BOLT_TALENT.id} /> unless the CC is strictly needed.</Wrapper>,
     },
     {
       spell: SPELLS.BLOODBATH_TALENT,
@@ -111,44 +119,50 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.BERSERKER_RAGE,
       category: Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 45,
+      recommendedEfficiency: 0.95,
+      extraSuggestion: <Wrapper>Use to cause <SpellLink id={SPELLS.ENRAGE.id} /> as often as possible.</Wrapper>,
+      isActive: combatant => combatant.hasTalent(SPELLS.OUTBURST_TALENT.id),
+    },
+    {
+      spell: SPELLS.BERSERKER_RAGE,
+      category: Abilities.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 60,
       noSuggestion: true,
       noCanBeImproved: true,
-      extraSuggestion: <span>Only used in a combat with Fear, Sap or Incapacitate or if the <SpellLink id={SPELLS.OUTBURST_TALENT.id} /> is selected</span>,
+      isActive: combatant => !combatant.hasTalent(SPELLS.OUTBURST_TALENT.id),
     },
     {
       spell: SPELLS.ENRAGED_REGENERATION,
       category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
       getCooldown: haste => 120,
-      noSuggestion: false,
-      recommendedEfficiency: 0.01,
       noCanBeImproved: true,
+      importance: ISSUE_IMPORTANCE.MINOR,
       extraSuggestion: 'Use it to reduce damage taken for a short period.',
     },
     {
       spell: SPELLS.COMMANDING_SHOUT,
       category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
       getCooldown: haste => 180,
-      noSuggestion: false,
-      recommendedEfficiency: 0.01,
       noCanBeImproved: true,
-      extraSuggestion: 'Use it to support your raid party.',
+      importance: ISSUE_IMPORTANCE.MINOR,
+      extraSuggestion: 'Use it to support your raid prior to massive raid damage.',
     },
     {
       spell: SPELLS.CHARGE,
       category: Abilities.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 17,
-      noSuggestion: false,
-      recommendedEfficiency: 0.01,
       noCanBeImproved: true,
-      extraSuggestion: 'Use Charge to close the gap',
+      noSuggestion: true,
+      extraSuggestion: 'Use to close the gap.',
     },
     {
       spell: SPELLS.HEROIC_LEAP_FURY,
       category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: (haste, combatant) => combatant.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 30 : 45,
-      recommendedEfficiency: 0.01,
-      extraSuggestion: <span>Consider using <SpellLink id={SPELLS.WARPAINT_TALENT.id} /> if the fight requires little mobility.</span>,
+      getCooldown: (haste, combatant) => 45 - (combatant.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 15 : 0),
+      noCanBeImproved: true,
+      importance: ISSUE_IMPORTANCE.MINOR,
+      extraSuggestion: <Wrapper>Consider using <SpellLink id={SPELLS.WARPAINT_TALENT.id} /> if the fight requires little mobility.</Wrapper>,
     },
     {
       spell: SPELLS.PUMMEL,
