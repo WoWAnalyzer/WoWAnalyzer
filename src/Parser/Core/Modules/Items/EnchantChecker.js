@@ -7,6 +7,9 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
+// Example logs with missing enchants:
+// https://www.warcraftlogs.com/reports/ydxavfGq1mBrM9Vc/#fight=1&source=14
+
 class EnchantChecker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
