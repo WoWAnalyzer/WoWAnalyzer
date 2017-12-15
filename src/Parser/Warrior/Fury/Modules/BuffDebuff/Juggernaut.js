@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+import Wrapper from 'common/Wrapper';
 
 class JuggernautReset extends Analyzer {
 
@@ -27,12 +28,22 @@ class JuggernautReset extends Analyzer {
       this.stacksMax = event.newStacks;
     }
   }
+  
+  get suggestionThresholds() {
+    return {
+      actual: this.resets,
+      isGreaterThan: {
+        minor: 0,
+      },
+      style: 'percentage',
+    };
+  }
 
   suggestions(when) {
     
-    when(this.resets).isGreaterThan(0)
+    when(this.resets).isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.JUGGERNAUT.id} /> stacks dropped during the fight.</span>)
+        return suggest(<Wrapper>Your <SpellLink id={SPELLS.JUGGERNAUT.id} /> stacks dropped during the fight.</Wrapper>)
           .icon(SPELLS.JUGGERNAUT.icon)
           .actual(`${actual} resets resulting in ${this.stacksDropped} stacks lost.`)
           .recommended(`0 is recommended`);
