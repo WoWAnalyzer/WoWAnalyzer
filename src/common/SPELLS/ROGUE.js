@@ -204,4 +204,14 @@ export default {
     name: 'T21 4 set bonus',
     icon: 'ability_rogue_eviscerate',
   },
+  SUB_ROGUE_T21_4SET_BONUS_BUFF: {
+    id: 257945,
+    name: 'Shadow Gestures',
+    icon: 'spell_shadow_painspike',
+  },
+  SUB_ROGUE_T21_4SET_BONUS_CP_EFFECT: {
+    id: 252732,
+    name: 'Shadow Gestures',
+    icon: 'ability_rogue_eviscerate',
+  },
 };

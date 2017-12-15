@@ -1,0 +1,163 @@
+import React from 'react';
+
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
+
+import CoreAbilities from 'Parser/Core/Modules/Abilities';
+
+class Abilities extends CoreAbilities {
+  static ABILITIES = [
+    ...CoreAbilities.ABILITIES,
+    {
+      spell: SPELLS.BLOODTHIRST,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 4.5 / (1 + haste),
+      // Inner rage puts Raging Blow on a cooldown which indirectly adds more Bloodthirst to the rotation
+      // Generally 80% is recommended for Inner Rage, 30% otherwise
+      recommendedEfficiency: 0.3,
+    },
+    {
+      spell: SPELLS.FURIOUS_SLASH,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => null,
+    },
+    {
+      spell: SPELLS.EXECUTE_FURY,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => null,
+    },
+    {
+      spell: SPELLS.RAGING_BLOW,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 4.5 / (1 + haste),
+      recommendedEfficiency: 0.8,
+      isActive: combatant => combatant.hasTalent(SPELLS.INNER_RAGE_TALENT.id),
+    },
+    {
+      spell: SPELLS.RAGING_BLOW,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => null,
+      recommendedEfficiency: 0.8,
+      isActive: combatant => !combatant.hasTalent(SPELLS.INNER_RAGE_TALENT.id),
+    },
+    {
+      spell: SPELLS.RAMPAGE,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => null, // Needs 85 rage, if using Frothing Berserker one should only Rampage whilst at 100 rage.
+    },
+    {
+      spell: SPELLS.BATTLE_CRY,
+      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 50, // TODO: Add custom function that depends on CoF (and Odyn's Champion) (RNG)
+      recommendedEfficiency: 0.95,
+    },
+    {
+      spell: SPELLS.ODYNS_FURY,
+      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 45,
+      recommendedEfficiency: 0.95,
+    },
+    {
+      spell: SPELLS.AVATAR_TALENT,
+      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 90,
+      isActive: combatant => combatant.hasTalent(SPELLS.AVATAR_TALENT.id),
+      recommendedEfficiency: 0.95,
+    },
+    {
+      spell: SPELLS.STORM_BOLT_TALENT,
+      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 30,
+      isActive: combatant => combatant.hasTalent(SPELLS.STORM_BOLT_TALENT.id),
+      recommendedEfficiency: 0.95,
+    },
+    {
+      spell: SPELLS.SHOCKWAVE_TALENT,
+      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 40,
+      isActive: combatant => combatant.hasTalent(SPELLS.SHOCKWAVE_TALENT.id),
+      recommendedEfficiency: 0.8,
+      extraSuggestion: <span>Consider using <SpellLink id={SPELLS.DOUBLE_TIME_TALENT.id} /> or <SpellLink id={SPELLS.STORM_BOLT_TALENT.id} /> unless the CC is strictly needed.</span>,
+    },
+    {
+      spell: SPELLS.BLOODBATH_TALENT,
+      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 30,
+      isActive: combatant => combatant.hasTalent(SPELLS.BLOODBATH_TALENT.id),
+      recommendedEfficiency: 0.95,
+    },
+    {
+      spell: SPELLS.BLADESTORM_TALENT,
+      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 90,
+      isActive: combatant => combatant.hasTalent(SPELLS.BLADESTORM_TALENT.id),
+      recommendedEfficiency: 0.8,
+    },
+    {
+      spell: SPELLS.DRAGON_ROAR_TALENT,
+      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => 25,
+      isActive: combatant => combatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id),
+      recommendedEfficiency: 0.8,
+    },
+    {
+      spell: SPELLS.WHIRLWIND_FURY,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+      getCooldown: haste => null,
+      noSuggestion: true,
+      noCanBeImproved: true,
+      extraSuggestion: 'Only used in a combat with AoE or as a filler with the Wrecking Ball talent',
+    },
+    {
+      spell: SPELLS.BERSERKER_RAGE,
+      category: Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 60,
+      noSuggestion: true,
+      noCanBeImproved: true,
+      extraSuggestion: <span>Only used in a combat with Fear, Sap or Incapacitate or if the <SpellLink id={SPELLS.OUTBURST_TALENT.id} /> is selected</span>,
+    },
+    {
+      spell: SPELLS.ENRAGED_REGENERATION,
+      category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+      getCooldown: haste => 120,
+      noSuggestion: false,
+      recommendedEfficiency: 0.01,
+      noCanBeImproved: true,
+      extraSuggestion: 'Use it to reduce damage taken for a short period.',
+    },
+    {
+      spell: SPELLS.COMMANDING_SHOUT,
+      category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+      getCooldown: haste => 180,
+      noSuggestion: false,
+      recommendedEfficiency: 0.01,
+      noCanBeImproved: true,
+      extraSuggestion: 'Use it to support your raid party.',
+    },
+    {
+      spell: SPELLS.CHARGE,
+      category: Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 17,
+      noSuggestion: false,
+      recommendedEfficiency: 0.01,
+      noCanBeImproved: true,
+      extraSuggestion: 'Use Charge to close the gap',
+    },
+    {
+      spell: SPELLS.HEROIC_LEAP_FURY,
+      category: Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown: (haste, combatant) => combatant.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 30 : 45,
+      recommendedEfficiency: 0.01,
+      extraSuggestion: <span>Consider using <SpellLink id={SPELLS.WARPAINT_TALENT.id} /> if the fight requires little mobility.</span>,
+    },
+    {
+      spell: SPELLS.PUMMEL,
+      category: Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 15,
+      noSuggestion: true,
+      noCanBeImproved: true,
+    },
+  ];
+}
+
+export default Abilities;

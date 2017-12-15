@@ -3,7 +3,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
@@ -73,17 +72,19 @@ class Backdraft extends Analyzer {
       });
   }
 
-  statistic() {
+  subStatistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.BACKDRAFT_TALENT.id} />}
-        value={this.wastedStacks}
-        label="Wasted Backdraft stacks"
-      />
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.BACKDRAFT_TALENT.id}>
+            <SpellIcon id={SPELLS.BACKDRAFT_TALENT.id} noLink /> Wasted Backdraft Stacks
+          </SpellLink>
+        </div>
+        <div className="flex-sub text-right">{this.wastedStacks}
+        </div>
+      </div>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
 export default Backdraft;
