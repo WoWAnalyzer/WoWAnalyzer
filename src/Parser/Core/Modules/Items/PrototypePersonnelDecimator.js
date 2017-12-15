@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Wrapper from 'common/Wrapper';
 
 /*
  * Prototype Personnel Decimator -
@@ -43,12 +42,12 @@ class PrototypePersonnelDecimator extends Analyzer {
   item() {
     return {
       item: ITEMS.PROTOTYPE_PERSONNEL_DECIMATOR,
-      result:
-        <Wrapper>
-          Procced {this.procs} times and hit {this.hits} targets.
-          <br />
+      result: (
+        <dfn data-tip={`This trinket procced ${this.procs} times and hit ${this.hits / this.procs} targets on average per proc, for a total of ${this.hits} hits.`}>
           {this.owner.formatItemDamageDone(this.damage)}
-        </Wrapper>,
+        </dfn>
+
+      ),
     };
   }
 }
