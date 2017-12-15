@@ -1,5 +1,15 @@
 export default  [
   {
+    date: new Date('12-15-2017'),
+    changes: 'Removed Scourge of Worlds tracker after feedback',
+    contributors: ['Khazak'],
+  },
+  {
+    date: new Date('12-14-2017'),
+    changes: 'Added T21 set bonus',
+    contributors: ['Khazak'],
+  },
+  {
     date: new Date('11-14-2017'),
     changes: 'Added T20 2 piece bonus tracking',
     contributors: ['Khazak'],
