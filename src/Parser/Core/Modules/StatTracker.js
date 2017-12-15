@@ -234,6 +234,8 @@ class StatTracker extends Analyzer {
         return 0.18;
       case SPECS.UNHOLY_DEATH_KNIGHT:
         return 0.18;
+      case SPECS.MISTWEAVER_MONK:
+        return 1.04;
       default:
         console.error('Mastery hasn\'t been implemented for this spec yet.');
         return 0.0;
@@ -298,6 +300,8 @@ class StatTracker extends Analyzer {
         return 17778;
       case SPECS.UNHOLY_DEATH_KNIGHT:
         return 17776;
+      case SPECS.MISTWEAVER_MONK:
+        return 3076.96;
       default:
         console.error('Mastery hasn\'t been implemented for this spec yet.');
         return 99999999;
