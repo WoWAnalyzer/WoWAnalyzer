@@ -21,18 +21,23 @@ class GiftOfTheQueen extends Analyzer {
     cooldownThroughputTracker: CooldownThroughputTracker,
   };
 
-  suggestions(when) {
+  giftOfTheQueenTargetEfficiency() {
     const giftOfTheQueen = this.abilityTracker.getAbility(SPELLS.GIFT_OF_THE_QUEEN.id);
     const giftOfTheQueenDuplicate = this.abilityTracker.getAbility(SPELLS.GIFT_OF_THE_QUEEN_DUPLICATE.id);
 
-    const hasCBT = this.combatants.selected.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id);
     const hasDeepWaters = this.combatants.selected.traitsBySpellId[SPELLS.DEEP_WATERS.id] > 0;
 
     const giftOfTheQueenCasts = giftOfTheQueen.casts || 0;
     const giftOfTheQueenHits = giftOfTheQueen.healingHits || 0;
     const giftOfTheQueenDuplicateHits = giftOfTheQueenDuplicate.healingHits || 0;
     const giftOfTheQueenAvgHits = (giftOfTheQueenHits + giftOfTheQueenDuplicateHits) / giftOfTheQueenCasts / (hasDeepWaters ? 2 : 1);
-    const giftOfTheQueenTargetEfficiency = giftOfTheQueenAvgHits / 6;
+    return giftOfTheQueenAvgHits / 6;
+
+  }
+
+  giftOfTheQueenCBTFeedingPercent() {
+    const giftOfTheQueen = this.abilityTracker.getAbility(SPELLS.GIFT_OF_THE_QUEEN.id);
+    const giftOfTheQueenDuplicate = this.abilityTracker.getAbility(SPELLS.GIFT_OF_THE_QUEEN_DUPLICATE.id);
 
     const giftOfTheQueenRawHealing = giftOfTheQueen.healingEffective + giftOfTheQueen.healingOverheal;
     const giftOfTheQueenDuplicateRawHealing = giftOfTheQueenDuplicate.healingEffective + giftOfTheQueenDuplicate.healingOverheal;
@@ -45,23 +50,29 @@ class GiftOfTheQueen extends Analyzer {
       giftOfTheQueenCBTFeeding += this.cooldownThroughputTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN_DUPLICATE.id].healing;
     }
     
-    const giftOfTheQueenCBTFeedingPercent = giftOfTheQueenCBTFeeding / (giftOfTheQueenRawHealing + giftOfTheQueenDuplicateRawHealing);
+    return giftOfTheQueenCBTFeeding / (giftOfTheQueenRawHealing + giftOfTheQueenDuplicateRawHealing);
     
-    when(giftOfTheQueenTargetEfficiency).isLessThan(0.95)
+  }
+
+  suggestions(when) {
+    const hasCBT = this.combatants.selected.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id);
+   
+    when(this.giftOfTheQueenTargetEfficiency()).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Try to always cast <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} /> at a position where both the initial hit and the echo from <SpellLink id={SPELLS.DEEP_WATERS.id} /> will hit all 6 potential targets.</span>)
           .icon(SPELLS.GIFT_OF_THE_QUEEN.icon)
-          .actual(`${formatPercentage(giftOfTheQueenTargetEfficiency)} % of targets hit`)
+          .actual(`${formatPercentage(this.giftOfTheQueenTargetEfficiency())} % of targets hit`)
           .recommended(`> ${formatPercentage(recommended)} % of targets hit`)
           .regular(recommended - .05).major(recommended - .15);
       });
     
+    const feedingPercent = this.giftOfTheQueenCBTFeedingPercent();
     if (hasCBT) {
-      when(giftOfTheQueenCBTFeedingPercent).isLessThan(0.85)
+      when(feedingPercent).isLessThan(0.85)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<span>Try to cast <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} /> while <SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} /> is up as much as possible.</span>)
             .icon(SPELLS.GIFT_OF_THE_QUEEN.icon)
-            .actual(`${formatPercentage(giftOfTheQueenCBTFeedingPercent)} % of GotQ healing fed into CBT`)
+            .actual(`${formatPercentage(feedingPercent)} % of GotQ healing fed into CBT`)
             .recommended(`> ${formatPercentage(recommended)} % of GotQ healing fed into CBT`)
             .regular(recommended - .2).major(recommended - .4);
         }); 
@@ -69,19 +80,8 @@ class GiftOfTheQueen extends Analyzer {
   }
 
   getGiftOfQueenTargetEfficiencySuggestionThreshold(){
-    const giftOfTheQueen = this.abilityTracker.getAbility(SPELLS.GIFT_OF_THE_QUEEN.id);
-    const giftOfTheQueenDuplicate = this.abilityTracker.getAbility(SPELLS.GIFT_OF_THE_QUEEN_DUPLICATE.id);
-
-    const hasDeepWaters = this.combatants.selected.traitsBySpellId[SPELLS.DEEP_WATERS.id] > 0;
-
-    const giftOfTheQueenCasts = giftOfTheQueen.casts || 0;
-    const giftOfTheQueenHits = giftOfTheQueen.healingHits || 0;
-    const giftOfTheQueenDuplicateHits = giftOfTheQueenDuplicate.healingHits || 0;
-    const giftOfTheQueenAvgHits = (giftOfTheQueenHits + giftOfTheQueenDuplicateHits) / giftOfTheQueenCasts / (hasDeepWaters ? 2 : 1);
-    const giftOfTheQueenTargetEfficiency = giftOfTheQueenAvgHits / 6;
-
     return {
-      actual: giftOfTheQueenTargetEfficiency,
+      actual: this.giftOfTheQueenTargetEfficiency(),
       isLessThan: {
         minor: 0.99,//Missed 1 target
         average: .7,//Missed 2-3 targets
@@ -92,24 +92,9 @@ class GiftOfTheQueen extends Analyzer {
   }
 
   getCBTTotemFeedingSuggestionThreshold(){
-    const giftOfTheQueen = this.abilityTracker.getAbility(SPELLS.GIFT_OF_THE_QUEEN.id);
-    const giftOfTheQueenDuplicate = this.abilityTracker.getAbility(SPELLS.GIFT_OF_THE_QUEEN_DUPLICATE.id);
-
-    const giftOfTheQueenRawHealing = giftOfTheQueen.healingEffective + giftOfTheQueen.healingOverheal;
-    const giftOfTheQueenDuplicateRawHealing = giftOfTheQueenDuplicate.healingEffective + giftOfTheQueenDuplicate.healingOverheal;
-
-    let giftOfTheQueenCBTFeeding = 0;
-    if (this.cooldownThroughputTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id]) {
-      giftOfTheQueenCBTFeeding += this.cooldownThroughputTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN.id].healing;
-    }
-    if (this.cooldownThroughputTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN_DUPLICATE.id]) {
-      giftOfTheQueenCBTFeeding += this.cooldownThroughputTracker.cbtFeed[SPELLS.GIFT_OF_THE_QUEEN_DUPLICATE.id].healing;
-    }
-    
-    const giftOfTheQueenCBTFeedingPercent = giftOfTheQueenCBTFeeding / (giftOfTheQueenRawHealing + giftOfTheQueenDuplicateRawHealing);
     
     return {
-      actual: giftOfTheQueenCBTFeedingPercent,
+      actual: this.giftOfTheQueenCBTFeedingPercent(),
       isLessThan: {
         minor: 0.85,
         average: 0.6,
