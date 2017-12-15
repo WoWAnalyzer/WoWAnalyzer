@@ -9,7 +9,7 @@ import { formatPercentage } from 'common/format';
 import StatisticBox from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-class enrageUptime extends Analyzer {
+class FrothingBerserkerUptime extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
@@ -43,4 +43,4 @@ class enrageUptime extends Analyzer {
   }
 }
 
-export default enrageUptime;
+export default FrothingBerserkerUptime;

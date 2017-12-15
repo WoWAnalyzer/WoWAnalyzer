@@ -7,7 +7,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 
-class juggernautReset extends Analyzer {
+class JuggernautReset extends Analyzer {
 
   resets = 0;
   stacksDropped = 0;
@@ -102,4 +102,4 @@ class juggernautReset extends Analyzer {
   statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
-export default juggernautReset;
+export default JuggernautReset;
