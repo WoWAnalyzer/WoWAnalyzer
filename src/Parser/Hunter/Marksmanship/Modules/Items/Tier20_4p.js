@@ -6,6 +6,9 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from "common/format";
 
+/*
+ * Aimed Shot reduces the cast time of your next Aimed Shot by 8% and reduces its Focus cost by 8%.
+ */
 class Tier20_4p extends Analyzer {
   static dependencies = {
     combatants: Combatants,

@@ -7,6 +7,11 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
 
+/*
+ * Launches Sidewinders that travel toward the target, weaving back and forth and dealing (500% of Attack power) Nature damage to each target they hit. Cannot hit the same target twice. Applies Vulnerable to all targets hit.
+ * Generates 35 Focus.
+ * Replaces Arcane Shot and Multi-Shot.
+ */
 class Sidewinders extends Analyzer {
   static dependencies = {
     combatants: Combatants,

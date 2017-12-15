@@ -7,6 +7,10 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
 
+/*
+ * Rapidly fires a spray of shots for 3 sec, dealing an average of (80% * 10) Physical damage to all enemies in front of you.
+ * Usable while moving.
+ */
 class Barrage extends Analyzer {
   static dependencies = {
     combatants: Combatants,

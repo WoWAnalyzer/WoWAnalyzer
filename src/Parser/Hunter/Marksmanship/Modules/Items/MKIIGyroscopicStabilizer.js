@@ -7,6 +7,9 @@ import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
+/*
+ * Equip: Your Aimed Shot grants you gyroscopic stabilization, increasing the critical strike chance of your next Aimed Shot by 15% and making it castable while moving.
+ */
 class MKIIGyroscopicStabilizer extends Analyzer {
   static dependencies = {
     combatants: Combatants,

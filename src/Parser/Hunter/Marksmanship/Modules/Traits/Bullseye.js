@@ -9,6 +9,9 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import CooldownTracker from '../Features/CooldownThroughputTracker';
 
+/*
+ * When your abilities damage a target below 20% health, you gain 1% increased critical strike chance for 6 sec, stacking up to 30 times.
+ */
 class Bullseye extends Analyzer {
   executeTimestamp;
   bullseyeResets = 0; //only resets when boss < 20% health, so resets we can confirm shouldn't have happened
