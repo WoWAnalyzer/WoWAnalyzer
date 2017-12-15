@@ -22,11 +22,6 @@ export default [
     contributors: [Anomoly],
   },
   {
-    date: new Date('3000-01-01'),
-    changes: <span style={{ color: 'red' }}>Changed completion status to <i>Not actively maintained</i> as this hasn't been updated in a long time. Any help is welcome to continue support for this spec, see GitHub for more information.</span>,
-    contributors: [Zerotorescue],
-  },
-  {
     date: new Date('2017-08-20'),
     changes: 'Added Ancestral Vigor metric.',
     contributors: [Yuyz0112],
