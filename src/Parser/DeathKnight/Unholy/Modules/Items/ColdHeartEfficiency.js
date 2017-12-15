@@ -22,6 +22,7 @@ class ColdHeartEfficiency extends Analyzer {
   correctColdHeartCasts = 0;
   buffColdHeart = 0;
   unholyStrengthStart = 0;
+  unholyStrengthRemaining = 0;
 
   on_byPlayer_applybuff(event) {
     const spellID = event.ability.guid;
@@ -46,7 +47,7 @@ class ColdHeartEfficiency extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    const unholyStrengthRemaining = 15000-(event.timestamp - this.unholyStrengthStart)
+    this.unholyStrengthRemaining = 15000-(event.timestamp - this.unholyStrengthStart)
     if (spellId === SPELLS.CHAINS_OF_ICE.id) {
        this.totalColdHeartCasts++;
     	    if  (this.unholyStrengthRemaining>0) {
