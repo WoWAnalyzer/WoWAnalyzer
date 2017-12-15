@@ -22,21 +22,10 @@ class ColdHeartEfficiency extends Analyzer {
   correctColdHeartCasts = 0;
   buffColdHeart = 0;
 
-  on_byPlayer_applybuff(event){
-    this.addStack(event);
-  }
-
   on_byPlayer_applybuffstack(event){
-    this.addStack(event);
-  }
-
-  addStack(event){
     const spellID = event.ability.guid;
     if(spellID === SPELLS.COLD_HEART_BUFF.id){
-      this.buffColdHeart+=1;
-	    if(this.buffColdHeart > 20) {
-	      this.buffColdHeart=20;
-	    }
+      this.buffColdHeart=event.stack;
     }
   }
 
@@ -54,6 +43,8 @@ class ColdHeartEfficiency extends Analyzer {
 	    if (this.buffColdHeart === 20) {
         this.correctColdHeartCasts++;
       }
+      //This is only here for double casting Cold Heart. If Cold Heart is casted again before it reaches 2 stacks, the event won't update.
+      this.buffColdHeart=0;
    }
 
   }
