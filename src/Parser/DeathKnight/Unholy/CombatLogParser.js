@@ -44,7 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // items
     coldHeart: ColdHeart,
     tier20_2p: Tier20_2p,
-    coldHeart: ColdHeart,
+    coldHeartEfficiency: ColdHeartEfficiency,
 
     // traits
     scourgeOfWorlds: ScourgeOfWorlds,
