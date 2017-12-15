@@ -65,6 +65,7 @@ class Entities extends Analyzer {
       ...event,
       start: event.timestamp,
       end: null,
+      stackHistory: [{ stacks: 1, timestamp: event.timestamp }],
       isDebuff,
     };
 
@@ -74,6 +75,7 @@ class Entities extends Analyzer {
 
     entity.buffs.push(buff);
   }
+
   updateBuffStack(event) {
     if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event)) {
       // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
@@ -93,12 +95,14 @@ class Entities extends Analyzer {
     if (existingBuff) {
       const oldStacks = existingBuff.stacks || 1; // the original spell counts as 1 stack
       existingBuff.stacks = event.stack;
+      existingBuff.stackHistory.push({ stacks: event.stack, timestamp: event.timestamp });
 
       this._triggerChangeBuffStack(existingBuff, event.timestamp, oldStacks, existingBuff.stacks);
     } else {
       console.error('Buff stack updated while active buff wasn\'t known. Was this buff applied pre-combat? Maybe we should register the buff with start time as fight start when this happens, but it might also be a basic case of erroneous combatlog ordering.');
     }
   }
+
   removeBuff(event, isDebuff) {
     if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event)) {
       // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
@@ -117,6 +121,7 @@ class Entities extends Analyzer {
     const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null);
     if (existingBuff) {
       existingBuff.end = event.timestamp;
+      existingBuff.stackHistory.push({ stacks: 0, timestamp: event.timestamp });
 
       this._triggerChangeBuffStack(existingBuff, event.timestamp, existingBuff.stacks, 0);
     } else {
@@ -124,6 +129,7 @@ class Entities extends Analyzer {
         ...event,
         start: this.owner.fight.start_time,
         end: event.timestamp,
+        stackHistory: [{ stacks: 1, timestamp: this.owner.fight.start_time }, { stacks: 0, timestamp: event.timestamp }],
         isDebuff,
       };
       entity.buffs.push(buff);
