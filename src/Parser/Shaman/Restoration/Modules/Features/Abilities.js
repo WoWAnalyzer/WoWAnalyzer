@@ -32,6 +32,7 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.HEALING_STREAM_TOTEM_CAST,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      charges: 2,
       getCooldown: (haste, combatant) => {
         const has4PT19 = combatant.hasBuff(SPELLS.RESTORATION_SHAMAN_T19_4SET_BONUS_BUFF.id);
 
