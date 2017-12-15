@@ -9,6 +9,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import VirulentPlagueUptime from './Modules/Features/VirulentPlagueUptime';
 import FesteringStrike from './Modules/Features/FesteringStrike';
+import ScourgeStrikeEfficiency from './Modules/Features/ScourgeStrikeEfficiency';
 
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
 import RunicPowerTracker from './Modules/RunicPower/RunicPowerTracker';
@@ -29,6 +30,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     virulentPlagueUptime: VirulentPlagueUptime, 
     festeringStrike: FesteringStrike,
+    scourgeStrikeEfficiency: ScourgeStrikeEfficiency,
 
     // RunicPower
     runicPowerTracker: RunicPowerTracker,
