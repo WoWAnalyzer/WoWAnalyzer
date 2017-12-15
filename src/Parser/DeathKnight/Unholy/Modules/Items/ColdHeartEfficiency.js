@@ -76,7 +76,7 @@ class ColdHeartEfficiency extends Analyzer {
         icon={<SpellIcon id={SPELLS.CHAINS_OF_ICE.id} />}
         value={`${formatPercentage(castEfficiency)} %`}
         label={'Cold Heart Efficiency'}
-        tooltip={`${formatPercentage(1-castEfficiency)}% of Cold Heart casts were made incorrectly. Either there wasn't 20 stacks of cold heart, or you didn't have the Unholy Strength buff up with more than 16 stacks of Cold Heart.`}
+        tooltip={`${castEfficiency*this.totalColdHeartCasts} out of ${this.totalColdHeartCasts} casts of Cold Heart were made correctly.`}
       />
     );
   }
