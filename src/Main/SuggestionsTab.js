@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Toggle from 'react-toggle';
-import 'react-toggle/style.css';
 
 import Icon from 'common/Icon';
 
@@ -21,7 +20,6 @@ class SuggestionsTab extends React.Component {
       showMinorIssues: false,
     };
   }
-
 
   render() {
     const { issues } = this.props;

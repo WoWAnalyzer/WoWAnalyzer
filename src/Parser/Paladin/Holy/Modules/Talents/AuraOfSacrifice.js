@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
+import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
@@ -31,14 +32,27 @@ class AuraOfSacrifice extends Analyzer {
     return this.healing / this.owner.fightDuration * 1000;
   }
 
+  get suggestionThresholds() {
+    return {
+      actual: this.hps,
+      isLessThan: {
+        minor: 60000,
+        average: 50000,
+        major: 40000,
+      },
+      style: 'number',
+      suffix: 'HPS',
+    };
+  }
+
   suggestions(when) {
-    when(this.hps).isLessThan(60000)
+    when(this.suggestionThresholds.actual).isLessThan(this.suggestionThresholds.isLessThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>The healing done by your <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> is low. Try to find a better moment to cast it or consider changing to <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} /> or <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> which can be more reliable.</span>)
+        return suggest(<Wrapper>The healing done by your <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> is low. Try to find a better moment to cast it or consider changing to <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} /> or <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> which can be more reliable.</Wrapper>)
           .icon(SPELLS.AURA_OF_SACRIFICE_TALENT.icon)
           .actual(`${formatNumber(actual)} HPS`)
           .recommended(`>${formatNumber(recommended)} HPS is recommended`)
-          .regular(recommended - 10000).major(recommended - 20000);
+          .regular(this.suggestionThresholds.isLessThan.average).major(this.suggestionThresholds.isLessThan.major);
       });
   }
   statistic() {

@@ -7,7 +7,6 @@ import AbilityTracker from './AbilityTracker';
 import Combatants from './Combatants';
 import Haste from './Haste';
 
-/* eslint-disable no-unused-vars */
 class Abilities extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
