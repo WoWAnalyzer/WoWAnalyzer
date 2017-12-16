@@ -26,14 +26,14 @@ class ColdHeartEfficiency extends Analyzer {
 
   on_byPlayer_applybuff(event) {
     const spellID = event.ability.guid;
-    if(spellID === SPELLS.UNHOLY_STRENGTH.id){
+    if(spellID === SPELLS.UNHOLY_STRENGTH_BUFF.id){
       this.unholyStrengthStart = event.timestamp;
     }
   }
 
   on_byPlayer_removebuff(event) {
     const spellID = event.ability.guid;
-    if(spellID === SPELLS.UNHOLY_STRENGTH.id){
+    if(spellID === SPELLS.UNHOLY_STRENGTH_BUFF.id){
       this.unholyStrengthStart = 0;
     }
   }
@@ -47,13 +47,17 @@ class ColdHeartEfficiency extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    this.unholyStrengthRemaining = 15000-(event.timestamp - this.unholyStrengthStart);
+	const unholyStrengthDuration = 15000;
+	const coldHeartMaxStack = 20;
+	const coldHeartOptimalMinStack = 17;
+	const remainingUnholyStrengthAllowed = 4000;
+    this.unholyStrengthRemaining = unholyStrengthDuration-(event.timestamp - this.unholyStrengthStart);
     if (spellId === SPELLS.CHAINS_OF_ICE.id) {
        this.totalColdHeartCasts++;
     	    if  (this.unholyStrengthRemaining>0) {
-		         if (this.unholyStrengthRemaining <4000) {
-		            if (this.buffColdHeart < 20) {
-			            if (this.buffColdHeart > 16) {
+		         if (this.unholyStrengthRemaining <remainingUnholyStrengthAllowed) {
+		            if (this.buffColdHeart < coldHeartMaxStack) {
+			            if (this.buffColdHeart >= coldHeartOptimalMinStack) {
                     this.correctColdHeartCasts++;
 			             }
 	              }
@@ -72,11 +76,11 @@ class ColdHeartEfficiency extends Analyzer {
     const castEfficiency = this.correctColdHeartCasts/this.totalColdHeartCasts;
     when(castEfficiency).isLessThan(0.8)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>You are casting <SpellLink id={SPELLS.CHAINS_OF_ICE.id}/> at non optimal times. You either want to cast <SpellLink id={SPELLS.CHAINS_OF_ICE.id}/> when at 20 stacks of <SpellLink id={SPELLS.COLD_HEART_BUFF.id}/> or when you are above 16 stacks and you have the buff <SpellLink id={SPELLS.UNHOLY_STRENGTH.id}/></span>)
+          return suggest(<span>You are casting <SpellLink id={SPELLS.CHAINS_OF_ICE.id}/> at non optimal times. You either want to cast <SpellLink id={SPELLS.CHAINS_OF_ICE.id}/> when at 20 stacks of <SpellLink id={SPELLS.COLD_HEART_BUFF.id}/> or when you are above 16 stacks and your buff <SpellLink id={SPELLS.UNHOLY_STRENGTH_BUFF.id}/> is about to run out.</span>)
             .icon(SPELLS.CHAINS_OF_ICE.icon)
             .actual(`${formatPercentage(actual)}% of Chains of Ice were cast correctly.`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`)
-            .regular(recommended - 0.30).major(recommended - 0.40);
+            .regular(recommended - 0.20).major(recommended - 0.40);
         });
   }
   statistic() {
