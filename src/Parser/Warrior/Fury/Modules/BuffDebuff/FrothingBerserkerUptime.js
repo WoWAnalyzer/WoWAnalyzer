@@ -25,33 +25,39 @@ class FrothingBerserkerUptime extends Analyzer {
   
   get suggestionThresholds() {
     return {
-      actual: this.frothingBerserkerUptime,
       isLessThan: {
-        minor: 0.065,
-        average: 0.06,
-        major: 0.055,
+        minor: 0.65,
+        average: 0.6,
+        major: 0.55,
       },
       style: 'percentage',
     };
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds.actual).isLessThan(this.suggestionThresholds.isLessThan.minor)
+    const {
+        isLessThan: {
+          minor,
+          average,
+          major,
+        },
+      } = this.suggestionThresholds
+
+    when(this.frothingBerserkerUptime).isLessThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<Wrapper>Your <SpellLink id={SPELLS.FROTHING_BERSERKER.id} /> uptime can be improved.</Wrapper>)
           .icon(SPELLS.FROTHING_BERSERKER.icon)
           .actual(`${formatPercentage(actual)}% Frothing Berserker uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(this.suggestionThresholds.isLessThan.average).major(this.suggestionThresholds.isLessThan.major);
+          .regular(average).major(major);
       });
   }
 
   statistic() {
-    const uptime = this.frothingBerserkerUptime;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.FROTHING_BERSERKER.id} />}
-        value={`${formatPercentage(uptime)} %`}
+        value={`${formatPercentage(this.frothingBerserkerUptime)} %`}
         label="Frothing Berserker uptime"
       />
     );

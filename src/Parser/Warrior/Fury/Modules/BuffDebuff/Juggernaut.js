@@ -31,7 +31,6 @@ class JuggernautReset extends Analyzer {
   
   get suggestionThresholds() {
     return {
-      actual: this.resets,
       isGreaterThan: {
         minor: 0,
       },
@@ -40,8 +39,13 @@ class JuggernautReset extends Analyzer {
   }
 
   suggestions(when) {
+    const {
+      isGreaterThan: {
+          minor,
+        },
+      } = this.suggestionThresholds
     
-    when(this.resets).isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
+    when(this.resets).isGreaterThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<Wrapper>Your <SpellLink id={SPELLS.JUGGERNAUT.id} /> stacks dropped during the fight.</Wrapper>)
           .icon(SPELLS.JUGGERNAUT.icon)

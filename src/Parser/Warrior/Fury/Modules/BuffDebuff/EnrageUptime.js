@@ -21,33 +21,39 @@ class EnrageUptime extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: this.enrageUptime,
       isLessThan: {
-        minor: 0.07,
-        average: 0.065,
-        major: 0.06,
+        minor: 0.7,
+        average: 0.65,
+        major: 0.6,
       },
       style: 'percentage',
     };
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds.actual).isLessThan(this.suggestionThresholds.isLessThan.minor)
+    const {
+        isLessThan: {
+          minor,
+          average,
+          major,
+        },
+      } = this.suggestionThresholds
+
+    when(this.enrageUptime).isLessThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<Wrapper>Your <SpellLink id={SPELLS.ENRAGE.id} /> uptime can be improved.</Wrapper>)
           .icon(SPELLS.ENRAGE.icon)
           .actual(`${formatPercentage(actual)}% Enrage uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(this.suggestionThresholds.isLessThan.average).major(this.suggestionThresholds.isLessThan.major);
+          .regular(average).major(major);
       });
   }
 
   statistic() {
-    const enrageUptime = this.enrageUptime;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ENRAGE.id} />}
-        value={`${formatPercentage(enrageUptime)} %`}
+        value={`${formatPercentage(this.enrageUptime)} %`}
         label="Enrage uptime"
       />
     );
