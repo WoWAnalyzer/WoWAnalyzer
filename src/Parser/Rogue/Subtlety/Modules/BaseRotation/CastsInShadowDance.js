@@ -40,25 +40,25 @@ class CastsInShadowDance extends Analyzer {
   
   
   suggestBackstab(when) {
-    const filtered = this.danceDamageTracker.getAbility(SPELLS.BACKSTAB.id);
+    const filtered = this.danceDamageTracker.getAbility(SPELLS.BACKSTAB.id).casts;
     when(filtered).isGreaterThan(0)
     .addSuggestion((suggest, actual, recommended) => {
       return suggest(<Wrapper>Use <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> instead of <SpellLink id={SPELLS.BACKSTAB.id} /> during <SpellLink id={SPELLS.SHADOW_DANCE.id} />. </Wrapper>)
         .icon(SPELLS.BACKSTAB.icon)
         .actual(`You cast Backstab ${filtered} times during Shadow Dance.`)
         .recommended(`${recommended} is recommended`)
-        .regular(0).major(1);
+        .major(0.1); //Always major
     });    
   }
   suggestGloomblade(when) {
-    const filtered = this.danceDamageTracker.getAbility(SPELLS.GLOOMBLADE_TALENT.id);
+    const filtered = this.danceDamageTracker.getAbility(SPELLS.GLOOMBLADE_TALENT.id).casts;
     when(filtered).isGreaterThan(0)
     .addSuggestion((suggest, actual, recommended) => {
     return suggest(<Wrapper>Use <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> instead of <SpellLink id={SPELLS.GLOOMBLADE_TALENT.id} /> during <SpellLink id={SPELLS.SHADOW_DANCE.id} />. </Wrapper>)
         .icon(SPELLS.GLOOMBLADE_TALENT.icon)
         .actual(`You cast Gloomblade ${filtered} times during Shadow Dance.`)
         .recommended(`${recommended} is recommended`)
-        .regular(0).major(1);
+        .major(0.1); //Always major
     });  
   }
   suggestAvgCasts(when){

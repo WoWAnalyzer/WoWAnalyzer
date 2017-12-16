@@ -108,7 +108,7 @@ class Voidform extends Analyzer {
       }
 
       let currentVoidform = this.getCurrentVoidform();
-      currentVoidform = {
+      if(currentVoidform) currentVoidform = {
         ...currentVoidform,
         totalHasteAcquired: currentVoidform.totalHasteAcquired + event.stack,
         stacks: [

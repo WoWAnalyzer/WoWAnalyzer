@@ -29,6 +29,9 @@ import AnundsSearedShackles from './Modules/Items/AnundsSearedShackles';
 import HeartOfTheVoid from './Modules/Items/HeartOfTheVoid';
 import ZenkaramIridisAnadem from './Modules/Items/ZenkaramIridisAnadem';
 
+import Tier21_2set from './Modules/Items/Tier21_2set';
+import Tier21_4set from './Modules/Items/Tier21_4set';
+
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
 
@@ -60,6 +63,9 @@ class CombatLogParser extends MainCombatLogParser {
     anundsSearedShackles: AnundsSearedShackles,
     heartOfTheVoid: HeartOfTheVoid,
     zenkaramIridisAnadem: ZenkaramIridisAnadem,
+
+    tier21_2set: Tier21_2set,
+    tier21_4set: Tier21_4set,
   };
 }
 
