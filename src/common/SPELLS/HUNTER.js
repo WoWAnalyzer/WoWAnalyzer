@@ -289,6 +289,11 @@ export default {
     name: 'Careful Aim',
     icon: 'ability_hunter_piercingshots',
   },
+  BOMBARDMENT: {
+    id: 35110,
+    name: 'Bombardment',
+    icon: 'ability_hunter_focusfire',
+  },
 
   //CATEGORY
   AUTO_SHOT: {

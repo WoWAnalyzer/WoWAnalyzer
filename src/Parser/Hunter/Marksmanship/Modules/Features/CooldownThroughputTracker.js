@@ -26,8 +26,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     SPELLS.CYCLONIC_BURST_IMPACT_TRAIT.id,
     SPELLS.BINDING_SHOT_STUN.id,
     SPELLS.BINDING_SHOT_TETHER.id,
-    SPELLS.RAVAGING_STORM.id,
-
   ];
 }
 

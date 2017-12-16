@@ -15,6 +15,8 @@ import CancelledCasts from 'Parser/Hunter/Shared/Modules/Features/CancelledCasts
 import TimeFocusCapped from 'Parser/Hunter/Shared/Modules/Features/TimeFocusCapped';
 import SpellLink from 'common/SpellLink';
 import Bullseye from 'Parser/Hunter/Marksmanship/Modules/Traits/Bullseye';
+import PatientSniperDetails from 'Parser/Hunter/Marksmanship/Modules/Talents/PatientSniper/PatientSniperDetails';
+import Icon from "common/Icon";
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -33,6 +35,7 @@ class Checklist extends CoreChecklist {
 
     //talents
     aMurderOfCrows: AMurderOfCrows,
+    patientSniperDetails: PatientSniperDetails,
 
     //spells
     trueshot: Trueshot,
@@ -43,8 +46,8 @@ class Checklist extends CoreChecklist {
 
   rules = [
     new Rule({
-      name: 'Core Spell Usage',
-      description: <Wrapper>Hello</Wrapper>,
+      name: 'Use core spells as often as possible',
+      description: <Wrapper>Spells such as <SpellLink id={SPELLS.TRUESHOT.id} icon />, <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} icon /> should be used as often as possible, unless nearing execute, and <SpellLink id={SPELLS.WINDBURST.id} icon />, should be used as often as possible in situations where you need to open <SpellLink id={SPELLS.VULNERABLE.id} icon /> windows. Any added talents that need activation are generally used on cooldown. <a href="https://www.icy-veins.com/wow/marksmanship-hunter-pve-dps-rotation-cooldowns-abilities" target="_blank" rel="noopener noreferrer">More info.</a></Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -74,21 +77,36 @@ class Checklist extends CoreChecklist {
             spell: SPELLS.SENTINEL_TALENT,
             when: combatant.hasTalent(SPELLS.SENTINEL_TALENT.id),
           }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.BLACK_ARROW_TALENT,
+            when: combatant.hasTalent(SPELLS.BLACK_ARROW_TALENT.id),
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.BARRAGE_TALENT,
+            when: combatant.hasTalent(SPELLS.BARRAGE_TALENT.id),
+          }),
         ];
       },
     }),
 
     new Rule({
-      name: <Wrapper>Use <SpellLink id={SPELLS.TRUESHOT.id} /> effectively</Wrapper>,
-      description: <Wrapper>Since <SpellLink id={SPELLS.TRUESHOT.id} /> is our only cooldown, it's important to maximize the potential of this very powerful cooldown.</Wrapper>,
+      name: <Wrapper>Use <SpellLink id={SPELLS.TRUESHOT.id} icon /> effectively</Wrapper>,
+      description: <Wrapper>Since <SpellLink id={SPELLS.TRUESHOT.id} icon /> is our only cooldown, it's important to maximize the potential of this very powerful one of it's kind.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
-            name: `Average Aimed Shots per Trueshot`,
+            name: <Wrapper>Average <SpellLink id={SPELLS.AIMED_SHOT.id} icon /> casts/Trueshot</Wrapper>,
             check: () => this.trueshot.aimedShotThreshold,
           }),
           new Requirement({
-            name: `Average focus when casting Trueshot`,
+            name: <Wrapper>Average <Icon
+              icon='ability_hunter_focusfire'
+              alt='Average Focus At Trueshot Cast'
+              style={{
+                height: '1.3em',
+                marginTop: '-.1em',
+              }}
+            /> focus when casting Trueshot</Wrapper>,
             check: () => this.trueshot.focusThreshold,
           }),
           new Requirement({
@@ -99,20 +117,20 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <Wrapper>Execute and <SpellLink id={SPELLS.BULLSEYE_TRAIT.id} /></Wrapper>,
-      description: <Wrapper>It's important for a marksmanship hunter to combine <SpellLink id={SPELLS.BULLSEYE_TRAIT.id} /> with a <SpellLink id={SPELLS.TRUESHOT.id} />, because of the increased crit damage added into <SpellLink id={SPELLS.TRUESHOT.id} /> from <SpellLink id={SPELLS.RAPID_KILLING.id} />.</Wrapper>,
+      name: <Wrapper>Execute and <SpellLink id={SPELLS.BULLSEYE_TRAIT.id} icon /></Wrapper>,
+      description: <Wrapper>It's important for a marksmanship hunter to combine <SpellLink id={SPELLS.BULLSEYE_TRAIT.id} icon /> with a <SpellLink id={SPELLS.TRUESHOT.id} icon />, because of the increased crit damage added into <SpellLink id={SPELLS.TRUESHOT.id} icon /> from <SpellLink id={SPELLS.RAPID_KILLING.id} icon />.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
-            name: `Unsaved crows for execute`,
+            name: <Wrapper>Did not save <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} icon /> for execute</Wrapper>,
             check: () => this.aMurderOfCrows.shouldHaveSavedThreshold,
           }),
           new Requirement({
-            name: `Execute Trueshots`,
+            name: <Wrapper>Execute <SpellLink id={SPELLS.TRUESHOT.id} icon /> casts </Wrapper>,
             check: () => this.trueshot.executeTrueshotThreshold,
           }),
           new Requirement({
-            name: 'Bullseye resets',
+            name: <Wrapper><SpellLink id={SPELLS.BULLSEYE_BUFF.id} icon /> resets</Wrapper>,
             check: () => this.bullseye.bullseyeResetThreshold,
           }),
         ];
@@ -126,23 +144,57 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: `Casting downtime`,
+            name: <Wrapper><Icon
+              icon='spell_mage_altertime'
+              alt='Casting downtime'
+              style={{
+                height: '1.3em',
+                marginTop: '-.1em',
+              }}
+            /> Casting downtime</Wrapper>,
             check: () => this.alwaysBeCasting.suggestionThresholds,
           }),
           new Requirement({
-            name: `Cancelled casts`,
+            name: <Wrapper><Icon
+              icon='inv_misc_map_01'
+              alt='Cancelled casts'
+              style={{
+                height: '1.3em',
+                marginTop: '-.1em',
+              }}
+            /> Cancelled casts</Wrapper>,
             check: () => this.cancelledCasts.suggestionThresholds,
           }),
           new Requirement({
-            name: `Focus capping`,
+            name: <Wrapper><Icon
+              icon='ability_hunter_focusfire'
+              alt='Time focus capped'
+              style={{
+                height: '1.3em',
+                marginTop: '-.1em',
+              }}
+            /> Time focus capped</Wrapper>,
             check: () => this.timeFocusCapped.suggestionThresholds,
           }),
         ];
       },
     }),
     new Rule({
-      name: 'Be prepared',
-      description: 'Being prepared is important if you want to perform to your highest potential, just like Illidan Stormrage',
+      name: <Wrapper><SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> Usage</Wrapper>,
+      description: <Wrapper>Try to optimise the damage from <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> by after opening <SpellLink id={SPELLS.VULNERABLE.id} icon />, then casting one or two <SpellLink id={SPELLS.ARCANE_SHOT.id} icon /> or <SpellLink id={SPELLS.MULTISHOT.id} icon /> to delay your <SpellLink id={SPELLS.AIMED_SHOT.id} icon /> until later in the <SpellLink id={SPELLS.VULNERABLE.id} icon /> window. However, remember to not stand around waiting, doing nothing, or focus capping.</Wrapper>,
+      requirements: () => {
+        return [
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> damage contribution</Wrapper>,
+            check: () => this.patientSniperDetails.patientSniperDamageThresholds,
+          }),
+        ];
+      },
+    }),
+    //REFRESH PLEASE
+    new Rule({
+      name: 'Be well prepared',
+      description: 'Being prepared is important if you want to perform to your highest potential',
       requirements: () => {
         return [
           new Requirement({
@@ -169,6 +221,12 @@ class Checklist extends CoreChecklist {
             name: 'Used a second potion',
             check: () => this.prePotion.secondPotionSuggestionThresholds,
           }),
+          /*          new Requirement({
+                      name: '',
+                      check: () => {
+                        check for enchanted gear
+                      }
+                    })*/
         ];
       },
     }),

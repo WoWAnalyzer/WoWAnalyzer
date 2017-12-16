@@ -163,6 +163,8 @@ class Trueshot extends Analyzer {
     return {
       actual: this.executeTrueshots,
       isLessThan: {
+        minor: 0.5,
+        average: 0.7,
         major: 1,
       },
       style: 'number',

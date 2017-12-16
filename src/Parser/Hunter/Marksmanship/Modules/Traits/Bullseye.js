@@ -97,7 +97,9 @@ class Bullseye extends Analyzer {
     return {
       actual: this.bullseyeResets,
       isGreaterThan: {
-        major: 0,
+        minor: 0.1,
+        average: 0.3,
+        major: 0.5,
       },
       style: 'number',
     };
