@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
 import SpellLink from 'common/SpellLink';
+import ItemLink from 'common/ItemLink';
 import SpellIcon from 'common/SpellIcon';
 import Wrapper from 'common/Wrapper';
 
@@ -11,6 +12,8 @@ import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } fr
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
+import IshkarsFelshieldEmitter from 'Parser/Core/Modules/Items/IshkarsFelshieldEmitter';
+import EonarsCompassion from 'Parser/Core/Modules/Items/EonarsCompassion';
 import Velens from 'Parser/Core/Modules/Items/Velens';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
@@ -35,6 +38,8 @@ class Checklist extends CoreChecklist {
     alwaysBeCasting: AlwaysBeCasting,
     manaValues: ManaValues,
     velens: Velens,
+    ishkarsFelshieldEmitter: IshkarsFelshieldEmitter,
+    eonarsCompassion: EonarsCompassion,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
@@ -179,15 +184,30 @@ class Checklist extends CoreChecklist {
         ];
       },
     }),
-    // new Rule({
-    //   name: 'Pick the right tools for the fight',
-    //   description: <Wrapper>this</Wrapper>,
-    //   requirements: () => {
-    //     const combatant = this.combatants.selected;
-    //     return [
-    //     ];
-    //   },
-    // }),
+    new Rule({
+      name: 'Pick the right tools for the fight',
+      description: 'The throughput gain of some talents or legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly.',
+      requirements: () => {
+        const combatant = this.combatants.selected;
+        return [
+          new Requirement({
+            name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} icon />,
+            check: () => this.velens.suggestionThresholds,
+            when: this.velens.active,
+          }),
+          new Requirement({
+            name: <ItemLink id={ITEMS.EONARS_COMPASSION.id} icon />,
+            check: () => this.eonarsCompassion.suggestionThresholds,
+            when: this.eonarsCompassion.active,
+          }),
+          new Requirement({
+            name: <ItemLink id={ITEMS.ISHKARS_FELSHIELD_EMITTER.id} icon />,
+            check: () => this.ishkarsFelshieldEmitter.suggestionThresholds,
+            when: this.ishkarsFelshieldEmitter.active,
+          }),
+        ];
+      },
+    }),
     new Rule({
       name: 'Use all of your mana effectively',
       description: 'If you have a large amount of mana left at the end of the fight that\'s mana you could have turned into healing. Try to use all your mana during a fight. A good rule of thumb is to try to match your mana level with the boss\'s health.',
