@@ -43,7 +43,7 @@ class JuggernautReset extends Analyzer {
       isGreaterThan: {
           minor,
         },
-      } = this.suggestionThresholds
+      } = this.suggestionThresholds;
     
     when(this.resets).isGreaterThan(minor)
       .addSuggestion((suggest, actual, recommended) => {

@@ -41,7 +41,7 @@ class FrothingBerserkerUptime extends Analyzer {
           average,
           major,
         },
-      } = this.suggestionThresholds
+      } = this.suggestionThresholds;
 
     when(this.frothingBerserkerUptime).isLessThan(minor)
       .addSuggestion((suggest, actual, recommended) => {

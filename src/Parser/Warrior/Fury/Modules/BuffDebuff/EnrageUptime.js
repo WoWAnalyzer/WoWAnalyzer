@@ -37,7 +37,7 @@ class EnrageUptime extends Analyzer {
           average,
           major,
         },
-      } = this.suggestionThresholds
+      } = this.suggestionThresholds;
 
     when(this.enrageUptime).isLessThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
