@@ -17,6 +17,7 @@ import SpellLink from 'common/SpellLink';
 import Bullseye from 'Parser/Hunter/Marksmanship/Modules/Traits/Bullseye';
 import PatientSniperDetails from 'Parser/Hunter/Marksmanship/Modules/Talents/PatientSniper/PatientSniperDetails';
 import Icon from "common/Icon";
+import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -32,6 +33,7 @@ class Checklist extends CoreChecklist {
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
     timeFocusCapped: TimeFocusCapped,
+    enchantChecker: EnchantChecker,
 
     //talents
     aMurderOfCrows: AMurderOfCrows,
@@ -220,6 +222,17 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: 'Used a second potion',
             check: () => this.prePotion.secondPotionSuggestionThresholds,
+          }),
+          new Requirement({
+            name: 'Gear has best enchants',
+            check: () => {
+              const numEnchantableSlots = Object.keys(this.enchantChecker.enchantableGear).length;
+              return {
+                actual: numEnchantableSlots - (this.enchantChecker.slotsMissingEnchant.length + this.enchantChecker.slotsMissingMaxEnchant.length),
+                isLessThan: numEnchantableSlots,
+                style: 'number',
+              };
+            },
           }),
         ];
       },
