@@ -221,12 +221,6 @@ class Checklist extends CoreChecklist {
             name: 'Used a second potion',
             check: () => this.prePotion.secondPotionSuggestionThresholds,
           }),
-          /*          new Requirement({
-                      name: '',
-                      check: () => {
-                        check for enchanted gear
-                      }
-                    })*/
         ];
       },
     }),
