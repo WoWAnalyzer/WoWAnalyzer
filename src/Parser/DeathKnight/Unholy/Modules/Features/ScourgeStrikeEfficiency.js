@@ -13,9 +13,11 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 class ScourgeStrikeEfficiency extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    combantants: Combatants,
+    combatants: Combatants,
   };
-
+  on_initialized() {
+    this.active = !this.combatants.selected.hasTalent(SPELLS.CLAWING_SHADOWS_TALENT.id);
+  }
   // used to track how many stacks a target has
   targets = {};
 
@@ -25,22 +27,22 @@ class ScourgeStrikeEfficiency extends Analyzer {
   on_byPlayer_applydebuffstack(event){
     const spellId = event.ability.guid;
     if(spellId === SPELLS.FESTERING_WOUND.id){
-      this.targets[event.targetID] = event.stack;
+      this.targets[event.targetInstance] = event.stack;
+	  
     }
   }
 
   on_byPlayer_removedebuffstack(event){
     const spellId = event.ability.guid;
     if(spellId === SPELLS.FESTERING_WOUND.id){
-      this.targets[event.targetID] = event.stack;
+      this.targets[event.targetInstance] = event.stack;
     }
   }
 
   on_byPlayer_removedebuff(event){
-    // keeps track of when the debuff drops off, useful for multitarget targets like DI
     const spellId = event.ability.guid;
     if(spellId === SPELLS.FESTERING_WOUND.id){
-      this.targets[event.targetID] = 0;
+      this.targets[event.targetInstance] = 0;
     }
   }
 
@@ -48,10 +50,10 @@ class ScourgeStrikeEfficiency extends Analyzer {
     const spellId = event.ability.guid;
     if(spellId === SPELLS.SCOURGE_STRIKE.id){
       this.totalScourgeStrikeCasts++;
-      if(this.targets.hasOwnProperty(event.targetID)){
-        const currentTargetWounds = this.targets[event.targetID];
+      if(this.targets.hasOwnProperty(event.targetInstance)){
+        const currentTargetWounds = this.targets[event.targetInstance];
         if(currentTargetWounds < 1){
-          this.scourgeStrikeCastsZeroWounds++;
+			this.scourgeStrikeCastsZeroWounds++;
         }
       }
     }
