@@ -15,6 +15,7 @@ import Velens from 'Parser/Core/Modules/Items/Velens';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
+import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 
 import MasteryEffectiveness from './MasteryEffectiveness';
 import AlwaysBeCasting from './AlwaysBeCasting';
@@ -24,7 +25,7 @@ import ChainHeal from '../Spells/ChainHeal';
 import HealingRain from '../Spells/HealingRain';
 import HealingSurge from '../Spells/HealingSurge';
 import HealingWave from '../Spells/HealingWave';
-import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
+
 
 class Checklist extends CoreChecklist {
   static dependencies = {
