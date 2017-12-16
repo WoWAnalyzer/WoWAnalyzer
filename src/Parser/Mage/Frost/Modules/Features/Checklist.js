@@ -104,6 +104,11 @@ class Checklist extends CoreChecklist {
         ];
       },
     }),
+
+    // TODO add Talent Usage rule
+
+    // TODO add Be Prepared rule
+
   ];
 }
 
