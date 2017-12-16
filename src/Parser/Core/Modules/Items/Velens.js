@@ -89,7 +89,7 @@ class Velens extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<Wrapper>Your usage of <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> can be improved. Try to maximize the amount of healing during the buff without excessively overhealing on purpose, or consider using an easier legendary.</Wrapper>)
           .icon(ITEMS.VELENS_FUTURE_SIGHT.icon)
-          .actual(`${actual} healing contributed`)
+          .actual(`${formatPercentage(actual)}% healing contributed`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
           .regular(this.suggestionThresholds.isLessThan.average).major(this.suggestionThresholds.isLessThan.major);
       });
