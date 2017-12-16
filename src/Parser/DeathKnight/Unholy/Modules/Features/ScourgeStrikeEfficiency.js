@@ -9,6 +9,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 
 class ScourgeStrikeEfficiency extends Analyzer {
   static dependencies = {
@@ -23,40 +24,41 @@ class ScourgeStrikeEfficiency extends Analyzer {
 
   totalScourgeStrikeCasts = 0;
   scourgeStrikeCastsZeroWounds = 0;
-
+  
   on_byPlayer_applydebuffstack(event){
     const spellId = event.ability.guid;
     if(spellId === SPELLS.FESTERING_WOUND.id){
-      this.targets[event.targetInstance] = event.stack;
-	  
-    }
+		this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.stack;
+	}
   }
 
   on_byPlayer_removedebuffstack(event){
     const spellId = event.ability.guid;
     if(spellId === SPELLS.FESTERING_WOUND.id){
-      this.targets[event.targetInstance] = event.stack;
+		this.targets[encodeTargetString(event.targetID, event.targetInstance)] = event.stack;
     }
   }
 
   on_byPlayer_removedebuff(event){
     const spellId = event.ability.guid;
     if(spellId === SPELLS.FESTERING_WOUND.id){
-      this.targets[event.targetInstance] = 0;
-    }
+		this.targets[encodeTargetString(event.targetID, event.targetInstance)] = 0;
+	}
   }
 
   on_byPlayer_cast(event){
     const spellId = event.ability.guid;
     if(spellId === SPELLS.SCOURGE_STRIKE.id){
-      this.totalScourgeStrikeCasts++;
-      if(this.targets.hasOwnProperty(event.targetInstance)){
-        const currentTargetWounds = this.targets[event.targetInstance];
-        if(currentTargetWounds < 1){
+		this.totalScourgeStrikeCasts++;
+		if(this.targets.hasOwnProperty(encodeTargetString(event.targetID, event.targetInstance))) {
+			const currentTargetWounds = this.targets[encodeTargetString(event.targetID, event.targetInstance)]
+			if(currentTargetWounds < 1){
+				this.scourgeStrikeCastsZeroWounds++;
+			}
+		} else {
 			this.scourgeStrikeCastsZeroWounds++;
-        }
-      }
-    }
+		}
+	}
   }
 
   suggestions(when) {
