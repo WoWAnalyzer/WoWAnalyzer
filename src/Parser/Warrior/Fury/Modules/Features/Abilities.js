@@ -127,6 +127,14 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.BERSERKER_RAGE,
       category: Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 45,
+      recommendedEfficiency: 0.95,
+      extraSuggestion: <Wrapper>Use to cause <SpellLink id={SPELLS.ENRAGE.id} /> as often as possible.</Wrapper>,
+      isActive: combatant => combatant.hasTalent(SPELLS.OUTBURST_TALENT.id),
+    },
+    {
+      spell: SPELLS.BERSERKER_RAGE,
+      category: Abilities.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 60,
       noSuggestion: true,
       noCanBeImproved: true,
