@@ -22,6 +22,7 @@ import TidalWaves from './TidalWaves';
 import GiftOfTheQueen from '../Spells/GiftOfTheQueen';
 import ChainHeal from '../Spells/ChainHeal';
 import HealingRain from '../Spells/HealingRain';
+import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -38,6 +39,7 @@ class Checklist extends CoreChecklist {
     giftOfTheQueen: GiftOfTheQueen,
     chainHeal: ChainHeal,
     healingRain: HealingRain,
+    enchantChecker: EnchantChecker,
   };
 
   rules = [
@@ -209,6 +211,17 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: 'Used a second potion',
             check: () => this.prePotion.secondPotionSuggestionThresholds,
+          }),
+          new Requirement({
+            name: 'Gear has best enchants',
+            check: () => {
+              const numEnchantableSlots = Object.keys(this.enchantChecker.enchantableGear).length;
+              return {
+                actual: numEnchantableSlots - (this.enchantChecker.slotsMissingEnchant.length + this.enchantChecker.slotsMissingMaxEnchant.length),
+                isLessThan: numEnchantableSlots,
+                style: 'number',
+              };
+            },
           }),
         ];
       },
