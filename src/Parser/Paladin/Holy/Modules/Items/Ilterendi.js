@@ -64,7 +64,7 @@ class Ilterendi extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<Wrapper>Your usage of <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> can be improved. Try to line up <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> with the buff or consider using an easier legendary.</Wrapper>)
           .icon(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.icon)
-          .actual(`${actual} healing contributed`)
+          .actual(`${formatPercentage(actual)}% healing contributed`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
           .regular(this.suggestionThresholds.isLessThan.average).major(this.suggestionThresholds.isLessThan.major);
       });

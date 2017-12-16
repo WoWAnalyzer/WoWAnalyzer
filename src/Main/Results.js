@@ -247,18 +247,20 @@ class Results extends React.Component {
           <div className="divider" />
 
           <div className="row">
-            <div className="col-md-8">
+            <div className={results.extraPanels.length > 0 ? 'col-md-8' : 'col-md-12'}>
               {this.renderStatistics(results.statistics)}
             </div>
-            <div className="col-md-4">
-              {results.extraPanels
-                .sort((a, b) => a.order - b.order)
-                .map(extraPanel => (
-                  <Wrapper key={extraPanel.name}>
-                    {extraPanel.content}
-                  </Wrapper>
-                ))}
-            </div>
+            {results.extraPanels.length > 0 && (
+              <div className="col-md-4">
+                {results.extraPanels
+                  .sort((a, b) => a.order - b.order)
+                  .map(extraPanel => (
+                    <Wrapper key={extraPanel.name}>
+                      {extraPanel.content}
+                    </Wrapper>
+                  ))}
+              </div>
+            )}
           </div>
 
           <div className="divider" />
