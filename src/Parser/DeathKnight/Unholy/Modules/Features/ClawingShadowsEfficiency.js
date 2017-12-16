@@ -49,14 +49,15 @@ class ClawingShadowsEfficiency extends Analyzer {
   on_byPlayer_cast(event){
     const spellId = event.ability.guid;
     if(spellId === SPELLS.CLAWING_SHADOWS_TALENT.id){
-		this.totalClawingShadowsCasts++;
-		if(this.targets.hasOwnProperty(encodeTargetString(event.targetID, event.targetInstance))){
-			const currentTargetWounds = this.targets[encodeTargetString(event.targetID, event.targetInstance)];
-			if(currentTargetWounds < 1){
-				this.clawingShadowCastsZeroWounds++;
-			}
-		} else {
+		  this.totalClawingShadowsCasts++;
+		  if(this.targets.hasOwnProperty(encodeTargetString(event.targetID, event.targetInstance))){
+			  const currentTargetWounds = this.targets[encodeTargetString(event.targetID, event.targetInstance)];
+			  if(currentTargetWounds < 1){
+				  this.clawingShadowCastsZeroWounds++;
+			  }
+		  } else {
 			this.clawingShadowCastsZeroWounds++;
+      }
     }
   }
 
