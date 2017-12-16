@@ -63,7 +63,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.ODYNS_FURY,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 45,
-      recommendedEfficiency: 0.95,
+      recommendedEfficiency: 0.9,
     },
     {
       spell: SPELLS.AVATAR_TALENT,
@@ -114,14 +114,14 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
-      extraSuggestion: 'Only used in a combat with AoE or as a filler with the Wrecking Ball talent',
+      extraSuggestion: 'Only used in a combat with AoE or as a filler with the Wrecking Ball talent.',
     },
     {
       spell: SPELLS.BERSERKER_RAGE,
       category: Abilities.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 45,
-      recommendedEfficiency: 0.95,
-      extraSuggestion: <Wrapper>Use to cause <SpellLink id={SPELLS.ENRAGE.id} /> as often as possible.</Wrapper>,
+      recommendedEfficiency: 0.5,
+      extraSuggestion: <Wrapper>Use to cause <SpellLink id={SPELLS.ENRAGE.id} /> as often as possible or consider using another talent such as <SpellLink id={SPELLS.AVATAR_TALENT.id} />.</Wrapper>,
       isActive: combatant => combatant.hasTalent(SPELLS.OUTBURST_TALENT.id),
     },
     {

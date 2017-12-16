@@ -32,7 +32,9 @@ class JuggernautReset extends Analyzer {
   get suggestionThresholds() {
     return {
       isGreaterThan: {
-        minor: 0,
+        minor: 0.5,
+        average: 0.9,
+        major: 1,
       },
       style: 'percentage',
     };
@@ -42,6 +44,8 @@ class JuggernautReset extends Analyzer {
     const {
       isGreaterThan: {
           minor,
+          average,
+          major,
         },
       } = this.suggestionThresholds;
     
@@ -50,7 +54,8 @@ class JuggernautReset extends Analyzer {
         return suggest(<Wrapper>Your <SpellLink id={SPELLS.JUGGERNAUT.id} /> stacks dropped during the fight.</Wrapper>)
           .icon(SPELLS.JUGGERNAUT.icon)
           .actual(`${actual} resets resulting in ${this.stacksDropped} stacks lost.`)
-          .recommended(`0 is recommended`);
+          .recommended(`0 is recommended`)
+          .regular(average).major(major);
       });
   }
 
