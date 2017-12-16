@@ -101,7 +101,7 @@ class SpellUsable extends Analyzer {
    * @param {boolean} resetAllCharges Whether all charges should be reset or just the last stack. Does nothing for spells with just 1 stack.
    * @param {number} timestamp Override the timestamp if it may be different from the current timestamp.
    */
-  endCooldown(spellId, resetAllCharges = false, timestamp = this.owner.currentTimestamp) {
+  endCooldown(spellId, resetAllCharges = false, timestamp = this.owner.currentTimestamp, remainingCDR = 0) {
     if (!this.isOnCooldown(spellId)) {
       throw new Error(`Tried to end the cooldown of ${spellId}, but it's not on cooldown.`);
     }
@@ -118,6 +118,7 @@ class SpellUsable extends Analyzer {
       cooldown.chargesOnCooldown -= 1;
       this._triggerEvent('updatespellusable', this._makeEvent(spellId, timestamp, 'restorecharge', cooldown));
       this.refreshCooldown(spellId, timestamp);
+      this.reduceCooldown(spellId,remainingCDR,timestamp);
     }
   }
   /**
@@ -154,7 +155,8 @@ class SpellUsable extends Analyzer {
     }
     const cooldownRemaining = this.cooldownRemaining(spellId, timestamp);
     if (cooldownRemaining < reductionMs) {
-      this.endCooldown(spellId, false, timestamp);
+      const remainingCDR = reductionMs - cooldownRemaining;
+      this.endCooldown(spellId, false, timestamp, remainingCDR);
       return cooldownRemaining;
     } else {
       this._currentCooldowns[spellId].totalReductionTime += reductionMs;
