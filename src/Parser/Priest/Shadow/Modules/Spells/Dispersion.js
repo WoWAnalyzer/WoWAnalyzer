@@ -9,6 +9,8 @@ import { formatPercentage } from 'common/format';
 import calculateMaxCasts from 'Parser/Core/calculateMaxCasts';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
+import Voidform from './Voidform';
+
 const DISPERSION_BASE_CD = 90;
 const DISPERSION_REDUCTION_CD_PER_TRAIT = 10;
 const DISPERSION_UPTIME_MS = 6000;
@@ -16,6 +18,7 @@ const DISPERSION_UPTIME_MS = 6000;
 class Disperion extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    voidform: Voidform,
   };
 
   _dispersions = {};
@@ -25,7 +28,7 @@ class Disperion extends Analyzer {
     return Object.keys(this._dispersions).map(key => this._dispersions[key]);
   }
 
-  startedDispersion(event) {
+  startDispersion(event) {
     this._dispersions[event.timestamp] = {
       start: event.timestamp,
     };
@@ -33,31 +36,30 @@ class Disperion extends Analyzer {
     this._previousDispersionCast = event;
   }
 
-  finishedDispersion(event) {
+  endDispersion(event) {
     this._dispersions[this._previousDispersionCast.timestamp] = {
       ...this._dispersions[this._previousDispersionCast.timestamp],
       end: event.timestamp,
     };
+
+    if(this.voidform.inVoidform){
+      this.voidform.addVoidformEvent(SPELLS.DISPERSION.id, {
+        start: this.voidform.normalizeTimestamp({timestamp: this._previousDispersionCast.timestamp}),
+        end: this.voidform.normalizeTimestamp(event),
+      });
+    }
 
     this._previousDispersionCast = null;
   }
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DISPERSION.id) {
-      return;
-    }
-
-    this.startedDispersion(event);
+    if (spellId === SPELLS.DISPERSION.id) this.startDispersion(event);
   }
 
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DISPERSION.id) {
-      return;
-    }
-
-    this.finishedDispersion(event);
+    if (spellId === SPELLS.DISPERSION.id) this.endDispersion(event);
   }
 
   suggestions(when) {

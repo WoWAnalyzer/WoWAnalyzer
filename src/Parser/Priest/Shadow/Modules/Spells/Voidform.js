@@ -13,19 +13,15 @@ import Tab from 'Main/Tab';
 import { formatPercentage } from 'common/format';
 
 import Insanity from '../Core/Insanity';
-import Mindbender from './Mindbender';
-import Dispersion from './Dispersion';
-import VoidTorrent from './VoidTorrent';
 import VoidformsTab from './VoidformsTab';
 
+const debug = false;
+const logger = (message, color) => debug && console.log(`%c${message.join('  ')}`, `color: ${color}`);
 
 class Voidform extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     insanity: Insanity,
-    dispersion: Dispersion,
-    voidTorrent: VoidTorrent,
-    mindbender: Mindbender,
   };
 
   _previousVoidformCast = null;
@@ -40,138 +36,162 @@ class Voidform extends Analyzer {
     return Object.keys(this._voidforms).map(key => this._voidforms[key]);
   }
 
+  get nonExcludedVoidforms(){
+    return this.voidforms.filter(voidform => !voidform.excluded);
+  }
+
+  get averageVoidformStacks() {
+    if (this.voidforms.length === 0) return 0;
+    // ignores last voidform if seen as skewing
+    return this.nonExcludedVoidforms.reduce((p, c) => p += c.stacks.length, 0) / this.nonExcludedVoidforms.length;
+  }
+
   get averageVoidformHaste() {
-    const averageHasteFromVoidform = (this.voidforms.reduce((p, c) => p += c.totalHasteAcquired / ((c.ended - c.start) / 1000), 0) / this.voidforms.length) / 100;
-    return (1 + this.combatants.selected.hastePercentage) * (1 + averageHasteFromVoidform);
+    if(!this.currentVoidform) return (1 + this.combatants.selected.hastePercentage);
+    const averageHasteGainedFromVoidform = (this.voidforms.reduce((total, voidform) => total += voidform.averageGainedHaste, 0)) / this.voidforms.length;
+    return (1 + this.combatants.selected.hastePercentage) * (1 + averageHasteGainedFromVoidform);
   }
 
   get averageNonVoidformHaste() {
     return (1 + this.combatants.selected.hastePercentage) * (1 + (this._totalHasteAcquiredOutsideVoidform / this._totalLingeringInsanityTimeOutsideVoidform) / 100);
   }
 
-  get averageVoidformStacks() {
-    if (this.voidforms.length === 0) return 0;
-
-    // ignores last voidform if seen as skewing
-    const nonExcludedVoidforms = this.voidforms.filter(voidform => !voidform.excluded);
-    return nonExcludedVoidforms.reduce((p, c) => p += c.stacks.length, 0) / nonExcludedVoidforms.length;
+  get inVoidform(){
+    return this.combatants.selected.hasBuff(SPELLS.VOIDFORM_BUFF.id);
   }
 
-  createVoidform(event) {
-    this._inVoidform = true;
-    this._previousVoidformCast = event;
-    this._voidforms[event.timestamp] = {
-      start: event.timestamp,
-      stacks: [{
-        stack: 1,
-        timestamp: event.timestamp,
-      }],
-      lingeringInsanityStacks: [],
-      excluded: false,
-      totalHasteAcquired: 0,
+  get currentVoidform(){
+    if(this.voidforms && this.voidforms.length > 0) {
+      return this._voidforms[this.voidforms[this.voidforms.length-1].start];
+    } else {
+      return false;
+    }
+  }
+
+  get uptime(){
+    return this.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id) / (this.owner.fightDuration - this.combatants.selected.getBuffUptime(SPELLS.DISPERSION.id));
+  }
+
+  get normalizeTimestamp(){
+    return (event) => Math.round((event.timestamp - this.currentVoidform.start)/10)*10;
+  }
+
+  get addVoidformEvent(){
+    return (name, event) => {
+      if(this.currentVoidform){
+        this.currentVoidform[name] = [
+          ...this.currentVoidform[name],
+          event,
+        ];
+      }
     };
   }
 
-  getCurrentVoidform() {
-    return this._inVoidform ? this._voidforms[this._previousVoidformCast.timestamp] : false;
+  addVoidformStack(event){
+    if(!this.currentVoidform) return;
+    this.currentVoidform.stacks = [
+      ...this.currentVoidform.stacks,
+      { stack: event.stack, timestamp: this.normalizeTimestamp(event) },
+    ];
+    logger(['Added voidform stack:', event.stack, `at`, this.normalizeTimestamp(event)], 'green');
   }
 
-  setCurrentVoidform(voidform) {
-    if (this._inVoidform) {
-      this._voidforms[this._previousVoidformCast.timestamp] = voidform;
+
+  removeLingeringInsanityStack(event){
+    if(this.inVoidform){
+      this.currentVoidform.lingeringInsanityStacks = [
+        ...this.currentVoidform.lingeringInsanityStacks,
+        { stack: event.stack, timestamp: this.normalizeTimestamp(event) },
+      ];
+      logger(['Removed lingering stack:', event.stack, 'at', this.normalizeTimestamp(event)], 'orange');
+    } else {
+      this._totalHasteAcquiredOutsideVoidform += event.stack;
+      this._totalLingeringInsanityTimeOutsideVoidform += 1;
     }
+  }
+
+
+  startVoidform(event) {
+    this._voidforms[event.timestamp] = {
+      start: event.timestamp,
+      lingeringInsanityStacks: [],
+      stacks: [],
+      excluded: false,
+      averageGainedHaste: 0,
+      [SPELLS.MINDBENDER_TALENT_SHADOW.id]: [],
+      [SPELLS.VOID_TORRENT.id]: [],
+      [SPELLS.DISPERSION.id]: [],
+    };
+    logger(['Started voidform at:', event.timestamp], 'purple');
+    this.addVoidformStack({...event, stack: 1});
+  }
+
+  endVoidform(event){
+    this.currentVoidform.duration = this.normalizeTimestamp(event);
+
+    // artificially adds the starting lingering insanity stack:
+    if(this.currentVoidform.lingeringInsanityStacks.length > 0){
+      const { stack: nextStack } = this.currentVoidform.lingeringInsanityStacks[0];
+      this.currentVoidform.lingeringInsanityStacks = [
+        { stack: nextStack + 2, timestamp: 0 },
+        ...this.currentVoidform.lingeringInsanityStacks,
+      ];
+    }
+
+    // calculates the average gained haste from voidform stacks & lingering insanity within the voidform:
+    this.currentVoidform.averageGainedHaste = (this.currentVoidform.stacks.reduce((total, {stack, timestamp}, i) => {
+      const nextTimestamp = this.currentVoidform.stacks[i+1] ? this.currentVoidform.stacks[i+1].timestamp : timestamp + 1000;
+      return total += ((nextTimestamp - timestamp) / 1000) * stack / 100;
+    }, 0) + this.currentVoidform.lingeringInsanityStacks.reduce((total, {stack, timestamp}, i) => {
+      const nextTimestamp = this.currentVoidform.lingeringInsanityStacks[i+1] ? this.currentVoidform.lingeringInsanityStacks[i+1].timestamp : timestamp + 1000;
+      return total += ((nextTimestamp - timestamp) / 1000) * stack / 100;
+    }, 0)) / (this.currentVoidform.duration / 1000);
+
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.VOID_ERUPTION.id) {
-      return;
-    }
-
-    this.createVoidform(event);
+    if (spellId === SPELLS.VOID_ERUPTION.id) this.startVoidform(event);
   }
 
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.VOIDFORM_BUFF.id) {
-      this._voidforms[this._previousVoidformCast.timestamp].ended = event.timestamp;
-      this._inVoidform = false;
-    }
+    if (spellId === SPELLS.VOIDFORM_BUFF.id) this.endVoidform(event);
   }
 
   on_byPlayer_applybuffstack(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.VOIDFORM_BUFF.id) {
-      // for those prepull voidforms:
-      if (this._previousVoidformCast === null) {
-        this.createVoidform(event);
-      }
 
-      let currentVoidform = this.getCurrentVoidform();
-      if(currentVoidform) currentVoidform = {
-        ...currentVoidform,
-        totalHasteAcquired: currentVoidform.totalHasteAcquired + event.stack,
-        stacks: [
-          ...currentVoidform.stacks,
-          {
-            stack: event.stack,
-            timestamp: event.timestamp,
-          },
-        ],
-      };
-
-      this.setCurrentVoidform(currentVoidform);
+      if (!this.currentVoidform) this.startVoidform(event); // for prepull voidforms
+      this.addVoidformStack(event);
     }
   }
 
   on_byPlayer_removebuffstack(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.LINGERING_INSANITY.id) {
-      if (this._inVoidform) {
-        const { timestamp, stack } = event;
-        let currentVoidform = this.getCurrentVoidform();
-        currentVoidform = {
-          ...currentVoidform,
-          totalHasteAcquired: currentVoidform.totalHasteAcquired + stack,
-          lingeringInsanityStacks: [
-            ...currentVoidform.lingeringInsanityStacks,
-            {
-              stack,
-              timestamp,
-            },
-          ],
-        };
-        this.setCurrentVoidform(currentVoidform);
-      } else {
-        this._totalHasteAcquiredOutsideVoidform += event.stack;
-        this._totalLingeringInsanityTimeOutsideVoidform += 1;
-      }
-    }
+    if (spellId === SPELLS.LINGERING_INSANITY.id) this.removeLingeringInsanityStack(event);
   }
 
   on_finished() {
-    const player = this.combatants.selected;
-
-    // excludes last one to avoid skewing the average (if in voidform when the encounter ends):
-    if (player.hasBuff(SPELLS.VOIDFORM_BUFF.id)) {
-      const averageVoidformStacks = this.voidforms.slice(0, this.voidforms.length - 1).reduce((p, c) => p += c.stacks.length, 0) / (this.voidforms.length - 1);
-      const lastVoidformStacks = this.voidforms[this.voidforms.length - 1].stacks.length;
+    if (this.combatants.selected.hasBuff(SPELLS.VOIDFORM_BUFF.id)) {
+      // excludes last one to avoid skewing the average (if in voidform when the encounter ends):
+      const averageVoidformStacks   = this.voidforms.slice(0, -1).reduce((p, c) => p += c.stacks.length, 0) / (this.voidforms.length - 1);
+      const lastVoidformStacks      = this.currentVoidform.stacks.length;
 
       if (lastVoidformStacks + 5 < averageVoidformStacks) {
-        this._voidforms[this._previousVoidformCast.timestamp].excluded = true;
+        this.currentVoidform.excluded = true;
       }
+
+      // end last voidform of the fight:
+      this.endVoidform({timestamp: this.owner._timestamp});
     }
 
-    // set end to last voidform of the fight:
-    if (this._previousVoidformCast && this._voidforms[this._previousVoidformCast.timestamp].ended === undefined) {
-      this._voidforms[this._previousVoidformCast.timestamp].ended = this.owner._timestamp;
-    }
+    debug && console.log(this.voidforms);
   }
 
   suggestions(when) {
-    const uptime = this.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id) / (this.owner.fightDuration - this.combatants.selected.getBuffUptime(SPELLS.DISPERSION.id));
-
-    when(uptime).isLessThan(0.80)
+    when(this.uptime).isLessThan(0.80)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.VOIDFORM.id} /> uptime can be improved. Try to maximize the uptime by using your insanity generating spells.
           <br /><br />
@@ -212,9 +232,6 @@ class Voidform extends Analyzer {
           <VoidformsTab
             voidforms={this.voidforms}
             insanityEvents={this.insanity.events}
-            voidTorrentEvents={this.voidTorrent.voidTorrents}
-            mindbenderEvents={this.mindbender.mindbenders}
-            dispersionEvents={this.dispersion.dispersions}
             fightEnd={this.owner.fight.end_time}
             surrenderToMadness={!!this.combatants.selected.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id)}
             setT20P4={this.combatants.selected.hasBuff(SPELLS.SHADOW_PRIEST_T20_4SET_BONUS_PASSIVE.id)}
