@@ -41,6 +41,7 @@ import DestructionWarlock from './Warlock/Destruction/CONFIG';
 
 import ProtectionWarrior from './Warrior/Protection/CONFIG';
 import ArmsWarrior from './Warrior/Arms/CONFIG';
+import FuryWarrior from './Warrior/Fury/CONFIG';
 
 export default [
   BloodDeathKnight,
@@ -85,4 +86,5 @@ export default [
 
   ProtectionWarrior,
   ArmsWarrior,
+  FuryWarrior,
 ];
