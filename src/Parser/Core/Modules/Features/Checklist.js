@@ -74,17 +74,17 @@ export function performanceForGreaterThanThresholds(actual, { minor, average, ma
   return 0.333 * major / actual;
 }
 function colorForPerformance(performance) {
-  let color = null;
   if (performance >= 1) {
-    color = 'Hunter-bg';
+    return '#4ec04e';
   } else if (performance > 0.666) {
-    color = 'Mage-bg';
+    return '#a6c34c';
+  } else if (performance > 0.5) {
+    return '#ffc84a';
   } else if (performance > 0.333) {
-    color = 'Druid-bg';
-  } else if (performance <= 0.333) {
-    color = 'DeathKnight-bg';
+    return '#df7102';
+  } else {
+    return '#ac1f39';
   }
-  return color;
 }
 function formatThresholdsActual(thresholds) {
   switch (thresholds.style) {
@@ -215,8 +215,8 @@ class Checklist extends Analyzer {
             <div className="flex-sub content-middle" style={{ width: 100 }}>
               <div className="performance-bar-container">
                 <div
-                  className={`performance-bar small ${colorForPerformance(rulePerformance)}`}
-                  style={{ width: `${rulePerformance * 100}%`, transition: 'background-color 800ms' }}
+                  className={`performance-bar small`}
+                  style={{ width: `${rulePerformance * 100}%`, transition: 'background-color 800ms', backgroundColor: colorForPerformance(rulePerformance) }}
                 />
               </div>
             </div>
@@ -257,8 +257,8 @@ class Checklist extends Analyzer {
                 <div className="flex-sub content-middle" style={{ width: 50 }}>
                   <div className="performance-bar-container">
                     <div
-                      className={`performance-bar small ${colorForPerformance(performance)}`}
-                      style={{ width: `${performance * 100}%`, transition: 'background-color 800ms' }}
+                      className={`performance-bar small`}
+                      style={{ width: `${performance * 100}%`, transition: 'background-color 800ms', backgroundColor: colorForPerformance(performance) }}
                     />
                   </div>
                 </div>
