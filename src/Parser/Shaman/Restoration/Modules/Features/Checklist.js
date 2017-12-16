@@ -22,6 +22,8 @@ import TidalWaves from './TidalWaves';
 import GiftOfTheQueen from '../Spells/GiftOfTheQueen';
 import ChainHeal from '../Spells/ChainHeal';
 import HealingRain from '../Spells/HealingRain';
+import HealingSurge from '../Spells/HealingSurge';
+import HealingWave from '../Spells/HealingWave';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 
 class Checklist extends CoreChecklist {
@@ -40,6 +42,8 @@ class Checklist extends CoreChecklist {
     chainHeal: ChainHeal,
     healingRain: HealingRain,
     enchantChecker: EnchantChecker,
+    healingSurge: HealingSurge,
+    healingWave: HealingWave,
   };
 
   rules = [
@@ -101,6 +105,18 @@ class Checklist extends CoreChecklist {
               <SpellIcon id={SPELLS.TIDAL_WAVES_BUFF.id} noLink style={{ height: '1.2em', marginTop: '-0.1em' }} /> Unused Tidal Waves
             </Wrapper>,
             check: () => this.tidalWaves.suggestionThresholds,
+          }),
+          new Requirement({
+            name: <Wrapper>
+              <SpellIcon id={SPELLS.HEALING_SURGE_RESTORATION.id} noLink style={{ height: '1.2em', marginTop: '-0.1em' }} /> Unbuffed Healing Surge
+            </Wrapper>,
+            check: () => this.healingSurge.suggestedThreshold,
+          }),
+          new Requirement({
+            name: <Wrapper>
+              <SpellIcon id={SPELLS.HEALING_WAVE.id} noLink style={{ height: '1.2em', marginTop: '-0.1em' }} /> Unbuffed Healing WAVE
+            </Wrapper>,
+            check: () => this.healingWave.suggestedThreshold,
           }),
         ];
       },

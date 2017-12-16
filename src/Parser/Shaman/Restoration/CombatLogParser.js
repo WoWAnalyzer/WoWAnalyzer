@@ -44,6 +44,7 @@ import ChainHeal from './Modules/Spells/ChainHeal';
 import HealingSurge from './Modules/Spells/HealingSurge';
 import GiftOfTheQueen from './Modules/Spells/GiftOfTheQueen';
 import HealingRain from './Modules/Spells/HealingRain';
+import HealingWave from './Modules/Spells/HealingWave';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -87,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     giftOfTheQueen: GiftOfTheQueen,
     healingSurge: HealingSurge,
     healingRain: HealingRain,
+    healingWave: HealingWave,
   };
 
   generateResults() {
