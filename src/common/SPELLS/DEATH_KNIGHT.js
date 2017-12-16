@@ -424,6 +424,12 @@ export default {
     name: 'Unholy Frenzy',
     icon: 'spell_shadow_unholyfrenzy',
   },
+  
+  UNHOLY_STRENGTH_BUFF: {
+	  id: 53365,
+	  name: 'Unholy Strength',
+	  icon: 'spell_holy_blessingofstrength',
+  },
 
   // Unholy Tier Sets
   // T20 2 Piece and buff
