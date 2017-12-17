@@ -195,7 +195,7 @@ class CastBehavior extends Analyzer {
 
   statistic() {
     return (
-      <div className="col-lg-4 col-sm-6 col-xs-12">
+      <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <div className="row">
           <StatisticsListBox
             title={<span><SpellLink id={SPELLS.INFUSION_OF_LIGHT.id}>Infusion of Light</SpellLink> usage</span>}

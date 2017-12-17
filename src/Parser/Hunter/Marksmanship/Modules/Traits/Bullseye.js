@@ -68,9 +68,7 @@ class Bullseye extends Analyzer {
 
   statistic() {
     const lastBullseyeIndex = this.bullseyeInstances.length - 1;
-    if (!this.bullseyeInstances[0]) {
-      return;
-    }
+
     if (this.bullseyeInstances[lastBullseyeIndex] && !this.bullseyeInstances[lastBullseyeIndex].end) {
       this.bullseyeInstances[lastBullseyeIndex].end = this.owner.fight.end_time - this.owner.fight.start_time;
     }
@@ -93,8 +91,19 @@ class Bullseye extends Analyzer {
     );
   }
 
-  suggestions(when) {
+  get bullseyeResetThreshold() {
+    return {
+      actual: this.bullseyeResets,
+      isGreaterThan: {
+        minor: 0.1,
+        average: 0.3,
+        major: 0.5,
+      },
+      style: 'number',
+    };
+  }
 
+  suggestions(when) {
     when(this.bullseyeResets).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span> You reset your <SpellLink id={SPELLS.BULLSEYE_BUFF.id} /> stacks while the boss was below 20% health. Try and avoid this as it is a significant DPS loss. Make sure you're constantly refreshing and adding to your bullseye stacks on targets below 20% hp.</span>)
@@ -104,7 +113,7 @@ class Bullseye extends Analyzer {
           .major(recommended);
       });
   }
-  statisticOrder = STATISTIC_ORDER.CORE(7);
+  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default Bullseye;

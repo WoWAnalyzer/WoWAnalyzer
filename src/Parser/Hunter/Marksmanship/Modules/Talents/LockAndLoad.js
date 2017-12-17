@@ -6,7 +6,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import ITEMS from "common/ITEMS/HUNTER";
 
 const debug = false;
@@ -89,6 +89,7 @@ class LockAndLoad extends Analyzer {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.CORE(12);
 
 }
 

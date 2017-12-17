@@ -44,7 +44,7 @@ class TimeFocusCapped extends Analyzer {
             >
             </div>
             <div
-              className="stat-overhealing-bg"
+              className="DeathKnight-bg"
               style={{ width: `${percentCapped}%` }}
               data-tip={`You spent <b>${percentCapped}%</b>, or <b>${Math.round(this.focusTracker.secondsCapped)}s</b> of your time focus capped.`}
             >
@@ -54,6 +54,17 @@ class TimeFocusCapped extends Analyzer {
         footerStyle={{ overflow: 'hidden' }}
       />
     );
+  }
+  get suggestionThresholds() {
+    return {
+      actual: (this.focusTracker.secondsCapped / (this.owner.fightDuration / 1000)),
+      isGreaterThan: {
+        minor: 0.025,
+        average: 0.035,
+        major: 0.045,
+      },
+      style: 'percentage',
+    };
   }
   suggestions(when) {
     const totalFocusWaste = this.getTotalWaste;

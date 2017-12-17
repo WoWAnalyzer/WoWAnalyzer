@@ -93,7 +93,7 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.VOID_TORRENT,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      recommendedEfficiency: 0.9,
+      recommendedEfficiency: 0.75,
       getCooldown: haste => 60,
     },
 

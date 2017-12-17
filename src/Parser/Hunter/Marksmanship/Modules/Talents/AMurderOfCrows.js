@@ -110,6 +110,19 @@ class AMurderOfCrows extends Analyzer {
       </div>
     );
   }
+
+  get shouldHaveSavedThreshold() {
+    return {
+      actual: this.shouldHaveSaved,
+      isGreaterThan: {
+        //random numbers to force it to be green in display at 0, and red at 1
+        minor: 0.1,
+        average: 0.3,
+        major: 0.5,
+      },
+      style: 'number',
+    };
+  }
   suggestions(when) {
     when(this.shouldHaveSaved).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
@@ -120,7 +133,7 @@ class AMurderOfCrows extends Analyzer {
           .regular(recommended);
       });
   }
-  statisticOrder = STATISTIC_ORDER.CORE(12);
+  statisticOrder = STATISTIC_ORDER.CORE(11);
 }
 
 export default AMurderOfCrows;
