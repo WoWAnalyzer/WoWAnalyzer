@@ -51,7 +51,7 @@ class ScourgeStrikeEfficiency extends Analyzer {
     if(spellId === SPELLS.SCOURGE_STRIKE.id){
 		this.totalScourgeStrikeCasts++;
 		if(this.targets.hasOwnProperty(encodeTargetString(event.targetID, event.targetInstance))) {
-			const currentTargetWounds = this.targets[encodeTargetString(event.targetID, event.targetInstance)]
+			const currentTargetWounds = this.targets[encodeTargetString(event.targetID, event.targetInstance)];
 			if(currentTargetWounds < 1){
 				this.scourgeStrikeCastsZeroWounds++;
 			}
