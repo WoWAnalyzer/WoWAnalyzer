@@ -41,7 +41,7 @@ export function performanceForThresholds(thresholds) {
  * @param major
  * @returns {number}
  */
-export function performanceForLessThanThresholds(actual, { minor, average, major } ) {
+export function performanceForLessThanThresholds(actual, { minor, average, major }) {
   if (actual >= minor) {
     // no issue
     return 1;
@@ -57,7 +57,7 @@ export function performanceForLessThanThresholds(actual, { minor, average, major
   // major issue
   return 0.333 * actual / major;
 }
-export function performanceForGreaterThanThresholds(actual, { minor, average, major } ) {
+export function performanceForGreaterThanThresholds(actual, { minor, average, major }) {
   if (actual <= minor) {
     // no issue
     return 1;
