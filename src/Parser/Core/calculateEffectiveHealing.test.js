@@ -1,4 +1,4 @@
-import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import calculateEffectiveHealing from './calculateEffectiveHealing';
 
 describe('calculateEffectiveHealing', () => {
   test('no overhealing', () => {
