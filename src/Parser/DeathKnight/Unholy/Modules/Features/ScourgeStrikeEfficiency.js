@@ -64,13 +64,13 @@ class ScourgeStrikeEfficiency extends Analyzer {
   suggestions(when) {
     const percentCastZeroWounds = this.scourgeStrikeCastsZeroWounds/this.totalScourgeStrikeCasts;
     const strikeEfficiency = 1 - percentCastZeroWounds;
-    when(strikeEfficiency).isLessThan(0.60)
+    when(strikeEfficiency).isLessThan(0.90)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<span>You are casting <SpellLink id={SPELLS.SCOURGE_STRIKE.id}/> too often.  When spending runes remember to cast <SpellLink id={SPELLS.FESTERING_STRIKE.id}/> instead on targets with no stacks of <SpellLink id={SPELLS.FESTERING_WOUND.id}/></span>)
             .icon(SPELLS.SCOURGE_STRIKE.icon)
             .actual(`${formatPercentage(actual)}% of Scourge Strikes were used with Wounds on the target`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`)
-            .regular(recommended - 0.30).major(recommended - 0.40);
+            .regular(recommended - 0.10).major(recommended - 0.20);
         });
   }
 
