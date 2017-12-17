@@ -28,12 +28,16 @@ class LightningRod extends Analyzer {
 
   on_byPlayer_damage(event) {
     if (event.ability.guid===SPELLS.LIGHTNING_ROD_DAMAGE.id){
-      this.lightningRodDamage+=event.amount;
+      this.lightningRodDamage+=event.amount+(event.absorbed || 0);
     }
   }
 
-  get rawUpdate() {
+  get getPercentageUptime() {
     return this.enemies.getBuffUptime(SPELLS.LIGHTNING_ROD_DEBUFF.id) / this.owner.fightDuration;
+  }
+
+  get getDamagePerSecond() {
+    return this.lightningRodDamage/this.owner.fightDuration*1000;
   }
 
   statistic() {
@@ -41,12 +45,12 @@ class LightningRod extends Analyzer {
       <StatisticBox icon={<SpellIcon id={SPELLS.LIGHTNING_ROD_TALENT.id} />}
         value={(
           <span>
-            {`${formatPercentage(this.rawUpdate)} %`}<br/>
-            {formatNumber(this.lightningRodDamage)}{' '}
+            {`${formatPercentage(this.getPercentageUptime)} %`}<br/>
+            {`${formatNumber(this.getDamagePerSecond)} DPS`}{' '}
           </span>
         )}
-        label={'Lightning Rod Uptime/Damage'}
-        tooltip={`Damage and Uptime of the Lightning Rod Talent.</li></ul>`} />
+        label={'Lightning Rod Uptime/DPS'}
+        tooltip={`DPS and Uptime of the Lightning Rod Talent.</li></ul>`} />
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
