@@ -7,6 +7,9 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
 
+/*
+ * Aimed Shot has a chance to coalesce 6 extra Wind Arrows that also shoot your target.
+ */
 class LegacyOfTheWindrunners extends Analyzer {
   static dependencies = {
     combatants: Combatants,

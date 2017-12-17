@@ -7,6 +7,10 @@ import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
+/*
+ * Aimed Shot will now also ricochet and hit all Vulnerable targets for 30% of normal damage.
+ * If there are no other Vulnerable targets, the damage of your next Aimed Shot is increased by 15%.
+ */
 class TrickShotCleave extends Analyzer {
   static dependencies = {
     combatants: Combatants,
