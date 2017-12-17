@@ -68,9 +68,7 @@ class Bullseye extends Analyzer {
 
   statistic() {
     const lastBullseyeIndex = this.bullseyeInstances.length - 1;
-    if (!this.bullseyeInstances[0]) {
-      return;
-    }
+
     if (this.bullseyeInstances[lastBullseyeIndex] && !this.bullseyeInstances[lastBullseyeIndex].end) {
       this.bullseyeInstances[lastBullseyeIndex].end = this.owner.fight.end_time - this.owner.fight.start_time;
     }
@@ -115,7 +113,7 @@ class Bullseye extends Analyzer {
           .major(recommended);
       });
   }
-  statisticOrder = STATISTIC_ORDER.CORE(7);
+  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default Bullseye;

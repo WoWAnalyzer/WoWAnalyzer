@@ -44,7 +44,7 @@ class TimeFocusCapped extends Analyzer {
             >
             </div>
             <div
-              className="stat-overhealing-bg"
+              className="DeathKnight-bg"
               style={{ width: `${percentCapped}%` }}
               data-tip={`You spent <b>${percentCapped}%</b>, or <b>${Math.round(this.focusTracker.secondsCapped)}s</b> of your time focus capped.`}
             >
