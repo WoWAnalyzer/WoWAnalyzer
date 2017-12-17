@@ -7,6 +7,7 @@ export default {
   background: Background,
   headshot: Headshot,
   fight: {
+    vantusRuneBuffId: 250155,
     // TODO: Add fight specific props
     // e.g. baseDowntime (seconds, percentage, based on (de)buff, etc)
     // e.g. ads

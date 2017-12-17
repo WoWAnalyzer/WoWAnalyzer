@@ -4,10 +4,10 @@ import ScrollFilledIcon from 'Icons/ScrollFilled';
 import MegaphoneIcon from 'Icons/Megaphone';
 import Wrapper from 'common/Wrapper';
 import DiscordButton from 'Main/DiscordButton';
+import AntorusImage from 'Raids/AntorusTheBurningThrone/Images/antorus.jpg';
 
 import ChangelogPanel from './ChangelogPanel';
 import MasteryRadiusImage from './Images/mastery-radius.png';
-import AntorusImage from './Images/antorus.jpg';
 import DiscordLogo from './Images/Discord-Logo+Wordmark-White.svg';
 import DiscordBotGif from './Images/discord-bot.gif';
 import SpecListing from './SpecListing';

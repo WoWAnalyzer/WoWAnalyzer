@@ -19,9 +19,9 @@ import GithubButton from 'Main/GithubButton';
 import DiscordButton from 'Main/DiscordButton';
 import Maintainer from 'Main/Maintainer';
 import SuggestionsTab from 'Main/SuggestionsTab';
+import HarjatanAvatar from 'Raids/AntorusTheBurningThrone/Images/Headshots/Garothi-Worldbreaker.png';
 
 import SpecInformationOverlay from './SpecInformationOverlay';
-import HarjatanAvatar from './Images/boss-avatars/TombOfSargeras/Harjatan.png';
 import ItemsPanel from './ItemsPanel';
 
 import './Results.css';
