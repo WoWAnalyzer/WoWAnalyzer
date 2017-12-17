@@ -7,6 +7,8 @@ import TimelineTab from 'Main/Timeline/TimelineTab';
 
 import { formatNumber, formatPercentage, formatThousands, formatDuration } from 'common/format';
 
+import { findByBossId } from 'Raids';
+
 import ApplyBuffNormalizer from './Normalizers/ApplyBuff';
 
 import Status from './Modules/Status';
@@ -218,7 +220,7 @@ class CombatLogParser {
     infernalCinders: InfernalCinders,
     umbralMoonglaives: UmbralMoonglaives,
   };
-  // Override this with spec specific modules
+  // Override this with spec specific modules when extending
   static specModules = {};
 
   report = null;
@@ -267,6 +269,7 @@ class CombatLogParser {
     this.player = player;
     this.playerPets = playerPets;
     this.fight = fight;
+    this.boss = findByBossId(fight.boss);
 
     this.initializeModules({
       ...this.constructor.defaultModules,
@@ -495,16 +498,6 @@ class CombatLogParser {
           const item = module.item();
           if (item) {
             results.items.push(item);
-          }
-        }
-        if (module.extraPanel) {
-          const extraPanel = module.extraPanel();
-          if (extraPanel) {
-            results.extraPanels.push({
-              name: key,
-              order: module.extraPanelOrder,
-              content: extraPanel,
-            });
           }
         }
         if (module.tab) {

@@ -55,11 +55,11 @@
 }
 .results > header .player {
   padding-left: 160px;
-  margin-left: 70px;
+  margin: 0 210px 0 70px;
 }
 .results > header .boss {
   padding-right: 160px;
-  margin-right: 70px;
+  margin: 0 70px 0 210px;
   text-align: right;
 }
 .results > header .player:before, .results > header .boss:before {

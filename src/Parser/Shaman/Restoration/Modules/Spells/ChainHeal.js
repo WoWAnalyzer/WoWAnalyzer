@@ -39,6 +39,27 @@ class ChainHeal extends Analyzer {
       });
   }
 
+  get suggestionThreshold(){
+    const chainHeal = this.abilityTracker.getAbility(SPELLS.CHAIN_HEAL.id);
+    
+    const casts = chainHeal.casts || 0;
+    const hits = chainHeal.healingHits || 0;
+    const avgHits = hits / casts;
+    
+    const maxTargets = this.combatants.selected.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
+    const suggestedTargets = maxTargets * CHAIN_HEAL_TARGET_EFFICIENCY;
+
+    return {
+      actual: avgHits,
+      isLessThan: {
+        minor: suggestedTargets,//Missed 1 target
+        average: suggestedTargets-1,//Missed 2-3 targets
+        major: suggestedTargets-2,//Missed more than 3 targets
+      },
+      style: 'number',
+    };
+        
+  }
   statistic() {
     const chainHeal = this.abilityTracker.getAbility(SPELLS.CHAIN_HEAL.id);
     

@@ -19,9 +19,9 @@ import GithubButton from 'Main/GithubButton';
 import DiscordButton from 'Main/DiscordButton';
 import Maintainer from 'Main/Maintainer';
 import SuggestionsTab from 'Main/SuggestionsTab';
+import HarjatanAvatar from 'Raids/AntorusTheBurningThrone/Images/Headshots/Garothi-Worldbreaker.png';
 
 import SpecInformationOverlay from './SpecInformationOverlay';
-import HarjatanAvatar from './Images/boss-avatars/TombOfSargeras/Harjatan.png';
 import ItemsPanel from './ItemsPanel';
 
 import './Results.css';
@@ -247,17 +247,8 @@ class Results extends React.Component {
           <div className="divider" />
 
           <div className="row">
-            <div className="col-md-8">
+            <div className="col-md-12">
               {this.renderStatistics(results.statistics)}
-            </div>
-            <div className="col-md-4">
-              {results.extraPanels
-                .sort((a, b) => a.order - b.order)
-                .map(extraPanel => (
-                  <Wrapper key={extraPanel.name}>
-                    {extraPanel.content}
-                  </Wrapper>
-                ))}
             </div>
           </div>
 

@@ -9,6 +9,7 @@ import Insanity from './Modules/Core/Insanity';
 // features
 import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import Checklist from './Modules/Features/Checklist';
 import SkippableCasts from './Modules/Features/SkippableCasts';
 
 // spells:
@@ -44,6 +45,7 @@ class CombatLogParser extends MainCombatLogParser {
     // features:
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
+    checklist: Checklist,
     skippableCasts: SkippableCasts,
 
     // spells:

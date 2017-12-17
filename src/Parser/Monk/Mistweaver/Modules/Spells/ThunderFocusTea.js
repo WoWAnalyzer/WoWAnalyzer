@@ -4,6 +4,7 @@ import { Doughnut as DoughnutChart } from 'react-chartjs-2';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
+import Wrapper from 'common/Wrapper';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -243,16 +244,11 @@ class ThunderFocusTea extends Analyzer {
 
   statistic() {
     return (
-      <div className="col-lg-4 col-sm-6 col-xs-12">
-        <div className="row">
-          <StatisticsListBox
-            title={<span><SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id}>Thunder Focus Tea</SpellLink> usage</span>}
-            containerProps={{ className: 'col-xs-12' }}
-          >
-            {this.tftCastRatioChart()}
-          </StatisticsListBox>
-        </div>
-      </div>
+      <StatisticsListBox
+        title={<Wrapper><SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id}>Thunder Focus Tea</SpellLink> usage</Wrapper>}
+      >
+        {this.tftCastRatioChart()}
+      </StatisticsListBox>
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(20);
