@@ -56,6 +56,18 @@ class Lifecycles extends Analyzer {
     }
   }
 
+  get suggestionThresholds() {
+    return {
+      actual: this.manaSaved,
+      isLessThan: {
+        minor: 200000,
+        average: 170000,
+        major: 140000,
+      },
+      style: 'number',
+    };
+  }
+
   suggestions(when) {
     when(this.manaSaved).isLessThan(200000)
       .addSuggestion((suggest, actual, recommended) => {
