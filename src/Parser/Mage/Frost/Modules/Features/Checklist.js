@@ -17,6 +17,10 @@ import AlwaysBeCasting from './AlwaysBeCasting';
 import WintersChill from './WintersChill';
 import BrainFreeze from './BrainFreeze';
 import IceLance from './IceLance';
+import MirrorImage from '../../../Shared/Modules/Features/MirrorImage';
+import RuneOfPower from '../../../Shared/Modules/Features/RuneOfPower';
+import ThermalVoid from './ThermalVoid';
+import GlacialSpike from './GlacialSpike';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -24,9 +28,15 @@ class Checklist extends CoreChecklist {
     combatants: Combatants,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
+
     wintersChill: WintersChill,
     brainFreeze: BrainFreeze,
     iceLance: IceLance,
+    mirrorImage: MirrorImage,
+    runeOfPower: RuneOfPower,
+    thermalVoid: ThermalVoid,
+    glacialSpike: GlacialSpike,
+
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
@@ -56,11 +66,11 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: "Use Brain Freeze procs",
+            name: "Used Brain Freeze procs",
             check: () => this.brainFreeze.brainFreezeUtilSuggestionThresholds,
           }),
           new Requirement({
-            name: "Use Fingers of Frost procs",
+            name: "Used Fingers of Frost procs",
             check: () => this.iceLance.fingersUtilSuggestionThresholds,
           }),
           new Requirement({
@@ -113,7 +123,35 @@ class Checklist extends CoreChecklist {
       },
     }),
 
-    // TODO add Talent Usage rule
+    new Rule({
+      name: 'Use Your Talents',
+      description: <Wrapper>Talent choice can effect playstyle, it is important to use your talents to their fullest.</Wrapper>,
+      requirements: () => {
+        const combatant = this.combatants.selected;
+        return [
+          new Requirement({
+            name: "Mirror Image utilized",
+            check: () => this.mirrorImage.damageSuggestionThresholds,
+            when: combatant.hasTalent(SPELLS.MIRROR_IMAGE_TALENT.id),
+          }),
+          new Requirement({
+            name: "Rune of Power utilized",
+            check: () => this.runeOfPower.damageSuggestionThresholds,
+            when: combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id),
+          }),
+          new Requirement({
+            name: "Maximized Thermal Void extension",
+            check: () => this.thermalVoid.suggestionThresholds,
+            when: combatant.hasTalent(SPELLS.THERMAL_VOID_TALENT.id),
+          }),
+          new Requirement({
+            name: "All Icicles into Glacial Spike",
+            check: () => this.glacialSpike.utilSuggestionThresholds,
+            when: combatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id),
+          }),
+        ];
+      },
+    }),
 
     new Rule({
       name: 'Be well prepared',
