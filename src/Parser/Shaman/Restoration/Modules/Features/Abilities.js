@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
@@ -11,8 +12,11 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.RIPTIDE,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      charges: 2,
       getCooldown: haste => 6,
-      isActive: combatant => combatant.lv90Talent === SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id,
+      isActive: combatant => combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id),
+      majorIssueEfficiency: 0.50,
+      averageIssueEfficiency: 0.70,
       recommendedEfficiency: 0.90,
     },
     // Riptide without EotE
@@ -20,12 +24,15 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.RIPTIDE,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 6,
-      isActive: combatant => !(combatant.lv90Talent === SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id),
-      recommendedEfficiency: 0.75,
+      isActive: combatant => !(combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id)),
+      majorIssueEfficiency: 0.50,
+      averageIssueEfficiency: 0.70,
+      recommendedEfficiency: 0.90,
     },
     {
       spell: SPELLS.HEALING_STREAM_TOTEM_CAST,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      charges: 2,
       getCooldown: (haste, combatant) => {
         const has4PT19 = combatant.hasBuff(SPELLS.RESTORATION_SHAMAN_T19_4SET_BONUS_BUFF.id);
 
@@ -48,6 +55,9 @@ class Abilities extends CoreAbilities {
 
         return cooldown;
       },
+      majorIssueEfficiency: 0.50,
+      averageIssueEfficiency: 0.70,
+      recommendedEfficiency: 0.90,
     },
     {
       spell: SPELLS.ASTRAL_SHIFT,
@@ -66,20 +76,26 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.HEALING_RAIN_CAST,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 10,
-      recommendedEfficiency: 0.6,
-      importance: ISSUE_IMPORTANCE.MINOR,
+      majorIssueEfficiency: 0.30,
+      averageIssueEfficiency: 0.50,
+      recommendedEfficiency: 0.70,
     },
     {
       spell: SPELLS.GIFT_OF_THE_QUEEN,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      recommendedEfficiency: 0.7,
       getCooldown: haste => 45,
+      majorIssueEfficiency: 0.6,
+      averageIssueEfficiency: 0.8,
+      recommendedEfficiency: 0.90,
     },
     {
       spell: SPELLS.CLOUDBURST_TOTEM_TALENT,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 30,
       isActive: combatant => combatant.lv90Talent === SPELLS.CLOUDBURST_TOTEM_TALENT.id,
+      majorIssueEfficiency: 0.50,
+      averageIssueEfficiency: 0.70,
+      recommendedEfficiency: 0.90,
     },
     {
       spell: SPELLS.EARTHEN_SHIELD_TOTEM_TALENT,
@@ -103,12 +119,17 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.HEALING_TIDE_TOTEM_CAST,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
+      majorIssueEfficiency: 0.50,
+      averageIssueEfficiency: 0.666,
+      recommendedEfficiency: 1.0,
     },
     {
       spell: SPELLS.SPIRIT_LINK_TOTEM,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      recommendedEfficiency: 0.7,
       getCooldown: haste => 180,
+      majorIssueEfficiency: 0.50,
+      averageIssueEfficiency: 0.666,
+      recommendedEfficiency: 1.0,
     },
     {
       spell: SPELLS.HEALING_WAVE,
