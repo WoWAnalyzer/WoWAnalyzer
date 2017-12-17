@@ -23,6 +23,18 @@ class IshkarsFelshieldEmitter extends Analyzer {
         this.active = selectedCombatant.hasTrinket(ITEMS.ISHKARS_FELSHIELD_EMITTER.id);
     }
 
+    get suggestionThresholds() {
+      return {
+        actual: this.owner.getPercentageOfTotalHealingDone(this.damageAbsorbed),
+        isLessThan: {
+          minor: 0.04,
+          average: 0.035,
+          major: 0.025,
+        },
+        style: 'percentage',
+      };
+    }
+
     on_byPlayer_absorbed(event) {
         const spellId = event.ability.guid;
         if (spellId === SPELLS.FELSHIELD_ABSORB.id) {
