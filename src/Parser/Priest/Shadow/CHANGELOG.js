@@ -8,6 +8,11 @@ import ITEMS from 'common/ITEMS';
 
 export default [
     {
+        date: new Date('2017-12-14'),
+        changes: 'Added Tier 21 2 & 4P gains.',
+        contributors: [hassebewlen],
+    },
+    {
         date: new Date('2017-12-09'),
         changes: 'Fixed skippable casts threshold to the correct 140% haste.',
         contributors: [hassebewlen],

@@ -22,14 +22,6 @@ class AcridCatalystInjector extends Analyzer {
 	oneStatBuff = 0
 	threeStatBuff = 0
 
-	totalCrit = 0
-	totalHaste = 0
-	totalMastery = 0
-
-	averageCrit = 0
-	averageHaste = 0
-	averageMastery = 0
-
 	on_initialized() {
 		this.active = this.combatants.selected.hasTrinket(ITEMS.ACRID_CATALYST_INJECTOR.id);
 		if (this.active) {
@@ -38,42 +30,11 @@ class AcridCatalystInjector extends Analyzer {
 		}
 	}
 
-	on_byPlayer_applybuff(event) {
-		const spellId = event.ability.guid;
-		if(spellId === SPELLS.FERVOR_OF_THE_LEGION.id) {
-			this.totalHaste += this.oneStatBuff;
-		}
-		if(spellId === SPELLS.BRUTALITY_OF_THE_LEGION.id) {
-			this.totalCrit += this.oneStatBuff;
-		}
-		if(spellId === SPELLS.MALICE_OF_THE_LEGION.id){
-			this.totalMastery += this.oneStatBuff;
-		}
-	}
-
-	on_byPlayer_applybuffstack(event) {
-		const spellId = event.ability.guid;
-		if(spellId === SPELLS.FERVOR_OF_THE_LEGION.id) {
-			this.totalHaste += this.oneStatBuff;
-		}
-		if(spellId === SPELLS.BRUTALITY_OF_THE_LEGION.id) {
-			this.totalCrit += this.oneStatBuff;
-		}
-		if(spellId === SPELLS.MALICE_OF_THE_LEGION.id){
-			this.totalMastery += this.oneStatBuff;
-		}
-	}
-
-	averageStatGain() {
-		const critUptime = this.combatants.selected.getBuffUptime(SPELLS.BRUTALITY_OF_THE_LEGION.id) / this.owner.fightDuration;
-		const hasteUptime = this.combatants.selected.getBuffUptime(SPELLS.FERVOR_OF_THE_LEGION.id) / this.owner.fightDuration;
-		const masteryUptime = this.combatants.selected.getBuffUptime(SPELLS.MALICE_OF_THE_LEGION.id) / this.owner.fightDuration;
+	averageStatGain(spellId) {
+		const averageStacks = this.combatants.selected.getStackWeightedBuffUptime(spellId) / this.owner.fightDuration;
 		const cycleUptime = this.combatants.selected.getBuffUptime(SPELLS.CYCLE_OF_THE_LEGION.id) / this.owner.fightDuration;
 
-		this.averageCrit = this.totalCrit * critUptime + this.threeStatBuff * cycleUptime;
-		this.averageHaste = this.totalHaste * hasteUptime + this.threeStatBuff * cycleUptime;
-		this.averageMastery = this.totalMastery * masteryUptime + this.threeStatBuff * cycleUptime;
-
+		return averageStacks * this.oneStatBuff + cycleUptime * this.threeStatBuff;
 	}
 
 	item() {
@@ -81,11 +42,11 @@ class AcridCatalystInjector extends Analyzer {
 		return {
 			item: ITEMS.ACRID_CATALYST_INJECTOR,
 			result: (
-				<dfn data-tip={`Stat values is the gain from each proc and the Cycle of the Legion proc average over the fight duration.`}>
+				<dfn data-tip={`Stat values is the gain from each proc and the Cycle of the Legion proc averaged over the fight duration.`}>
 					<ul>
-						<li>{formatNumber(this.averageCrit)} average crit</li>
-						<li>{formatNumber(this.averageHaste)} average haste</li>
-						<li>{formatNumber(this.averageMastery)} average mastery</li>
+						<li>{formatNumber(this.averageStatGain(SPELLS.BRUTALITY_OF_THE_LEGION.id))} average crit</li>
+						<li>{formatNumber(this.averageStatGain(SPELLS.FERVOR_OF_THE_LEGION.id))} average haste</li>
+						<li>{formatNumber(this.averageStatGain(SPELLS.MALICE_OF_THE_LEGION.id))} average mastery</li>
 					</ul>
 				</dfn>
 			),

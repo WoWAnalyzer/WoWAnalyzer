@@ -12,6 +12,11 @@ import Icon from "common/Icon";
 import { formatNumber, formatPercentage } from "common/format";
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
+/*
+ * Increases haste by 40% and causes Arcane Shot and Multi-Shot to always apply Hunter's Mark.
+ * Lasts 15 sec.
+ */
+
 class Trueshot extends Analyzer {
   static dependencies = {
     combatants: Combatants,

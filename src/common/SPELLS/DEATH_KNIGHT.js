@@ -351,6 +351,12 @@ export default {
     icon: 'spell_shadow_deathcoil',
   },
 
+  DEATH_COIL_DAMAGE: {
+    id: 47632,
+    name: 'Death Coil',
+    icon: 'spell_shadow_deathcoil',
+  },
+
   FESTERING_STRIKE: {
     id: 85948,
     name: 'Festering Strike',
@@ -423,7 +429,7 @@ export default {
   // T20 2 Piece and buff
   UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS: {
     id: 242064,
-    name: 'T20 2 set Bonus',
+    name: 'T20 2 Set Bonus',
     icon: 'spell_deathknight_unholypresence',
   },
 
@@ -431,6 +437,24 @@ export default {
     id: 246995,
     name: 'Master of Ghouls',
     icon: 'spell_deathknight_unholypresence',
+  },
+
+  UNHOLY_DEATH_KNIGHT_T21_4SET_BONUS: {
+    id: 251872,
+    name: 'T21 4 Set Bonus',
+    icon: 'ability_paladin_conviction',
+  },
+
+  UNHOLY_DEATH_KNIGHT_T21_2SET_BONUS: {
+    id: 251871,
+    name: 'T21 2 Set Bonus',
+    icon: 'ability_paladin_conviction',
+  },
+
+  COILS_OF_DEVASTATION: { // debuff and damage from t21 2p
+    id: 253367,
+    name: 'Coils of Devastation (T21 2 Set Bonus)',
+    icon: 'ability_malkorok_blightofyshaarj_green',
   },
 
   // Artifact traits:

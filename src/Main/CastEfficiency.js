@@ -24,7 +24,7 @@ const CastEfficiency = ({ categories, abilities }) => {
               </tr>
               {abilities
                 .filter(item => item.ability.category === categories[key])
-                .map(({ ability, cpm, maxCpm, casts, maxCasts, castEfficiency, canBeImproved }) => {
+                .map(({ ability, cpm, maxCpm, casts, maxCasts, efficiency, canBeImproved }) => {
                   const mainSpell = (ability.spell instanceof Array) ? ability.spell[0] : ability.spell;
                   const name = ability.name || mainSpell.name;
                   return (
@@ -45,13 +45,13 @@ const CastEfficiency = ({ categories, abilities }) => {
                           <div className="flex performance-bar-container">
                             <div
                               className="flex-sub performance-bar"
-                              style={{ width: `${castEfficiency * 100}%`, backgroundColor: canBeImproved ? '#ff8000' : '#70b570' }}
+                              style={{ width: `${efficiency * 100}%`, backgroundColor: canBeImproved ? '#ff8000' : '#70b570' }}
                             />
                           </div>
                         )}
                       </td>
                       <td className="text-left" style={{ minWidth: 50, paddingRight: 5 }}>
-                        {maxCpm !== null ? `${(castEfficiency * 100).toFixed(2)}%` : ''}
+                        {maxCpm !== null ? `${(efficiency * 100).toFixed(2)}%` : ''}
                       </td>
                       <td style={{ width: '25%', color: 'orange' }}>
                         {canBeImproved && !ability.noCanBeImproved && 'Can be improved.'}

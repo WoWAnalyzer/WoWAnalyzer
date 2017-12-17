@@ -52,11 +52,13 @@ import AmalgamsSeventhSpine from './Modules/Items/AmalgamsSeventhSpine';
 import ArchiveOfFaith from './Modules/Items/ArchiveOfFaith';
 import BarbaricMindslaver from './Modules/Items/BarbaricMindslaver';
 import CharmOfTheRisingTide from './Modules/Items/CharmOfTheRisingTide';
+import ErraticMetronome from './Modules/Items/ErraticMetronome';
 import SeaStar from './Modules/Items/SeaStarOfTheDepthmother';
 import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
 import PrePotion from './Modules/Items/PrePotion';
 import LegendaryUpgradeChecker from './Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from './Modules/Items/LegendaryCountChecker';
+import EnchantChecker from './Modules/Items/EnchantChecker';
 import GnawedThumbRing from './Modules/Items/GnawedThumbRing';
 import VialOfCeaselessToxins from './Modules/Items/VialOfCeaselessToxins';
 import SpecterOfBetrayal from './Modules/Items/SpecterOfBetrayal';
@@ -83,8 +85,10 @@ import ForgefiendsFabricator from './Modules/Items/ForgefiendsFabricator';
 import KhazgorothsCourage from './Modules/Items/KhazgorothsCourage';
 import TerminusSignalingBeacon from './Modules/Items/TerminusSignalingBeacon';
 import PrototypePersonnelDecimator from './Modules/Items/PrototypePersonnelDecimator';
+import SheathOfAsara from './Modules/Items/SheathOfAsara';
 import NorgannonsProwess from './Modules/Items/NorgannonsProwess';
 import AcridCatalystInjector from './Modules/Items/AcridCatalystInjector';
+import ShadowSingedFang from './Modules/Items/ShadowSingedFang';
 
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
@@ -162,8 +166,10 @@ class CombatLogParser {
     prePotion: PrePotion,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
+    enchantChecker: EnchantChecker,
     gnawedThumbRing: GnawedThumbRing,
     ishkarsFelshieldEmitter: IshkarsFelshieldEmitter,
+    erraticMetronome: ErraticMetronome,
     // Tomb trinkets:
     archiveOfFaith: ArchiveOfFaith,
     barbaricMindslaver: BarbaricMindslaver,
@@ -188,12 +194,14 @@ class CombatLogParser {
     seepingScourgewing: SeepingScourgewing,
     gorshalachsLegacy: GorshalachsLegacy,
     golgannethsVitality: GolgannethsVitality,
-    forgefiendsFabricator: ForgefiendsFabricator, 
-    khazgorothsCourage: KhazgorothsCourage,   
+    forgefiendsFabricator: ForgefiendsFabricator,
+    khazgorothsCourage: KhazgorothsCourage,
     terminusSignalingBeacon: TerminusSignalingBeacon,
     prototypePersonnelDecimator: PrototypePersonnelDecimator,
+    sheathOfAsara: SheathOfAsara,
     norgannonsProwess: NorgannonsProwess,
     acridCatalystInjector: AcridCatalystInjector,
+    shadowSingedFang: ShadowSingedFang,
 
     // Concordance of the Legionfall
     concordance: Concordance,

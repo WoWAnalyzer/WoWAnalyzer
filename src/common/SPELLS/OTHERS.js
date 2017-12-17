@@ -368,12 +368,12 @@ export default {
     name: 'Khaz\'goroth\'s Shaping',
     icon: 'spell_nature_unleashedrage',
   },
-  FIRE_MINES: {
+  FIRE_MINES: { // forgefiends fabricator
     id: 253321,
     name: 'Fire Mines',
     icon: 'inv_jewelry_orgrimmarraid_trinket_04_green',
   },
-  LEGION_BOMBARDMENT: {
+  LEGION_BOMBARDMENT: { // terminus signaling beacon
     id: 257376,
     name: 'Legion Bombardment',
     icon: 'spell_fire_felrainoffire',
@@ -382,6 +382,11 @@ export default {
     id: 255629,
     name: 'Prototype Personnel Decimator',
     icon: 'ability_rogue_cannonballbarrage',
+  },
+  SHEATH_OF_ASARA_SHADOW_BLADES: { // sheath of asara
+    id: 257702,
+    name: 'Shadow Blades',
+    icon: 'spell_shadow_shadowbolt',
   },
   RUSH_OF_KNOWLEDGE: { //Norgannon's Prowess Int Buff
     id: 256828,
@@ -442,6 +447,16 @@ export default {
     id: 255742,
     name: 'Brutality of the Legion',
     icon: 'inv_misc_volatilelife',
+  },
+  FLAMES_OF_FHARG: {
+    id: 253308,
+    name: 'Flames of F\'harg',
+    icon: 'ability_warlock_backdraft',
+  },
+  CORRUPTION_OF_SHATUG: {
+    id: 253307,
+    name: 'Corruption of Shatug',
+    icon: 'spell_fire_twilightimmolation',
   },
   // Item Abilities
   SPECTRAL_OWL: {
