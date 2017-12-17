@@ -7,7 +7,6 @@ import InformationIcon from 'Icons/Information';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Expandable from 'Main/Expandable';
-import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Wrapper from 'common/Wrapper';
 
@@ -103,6 +102,18 @@ function formatThresholdsActual(thresholds) {
   }
 }
 
+function calculateMedian(values) {
+  const arr = [...values];
+  arr.sort((a, b) => a - b);
+
+  const half = Math.floor(arr.length / 2);
+
+  if (arr.length % 2) {
+    return arr[half];
+  } else {
+    return (arr[half - 1] + arr[half]) / 2.0;
+  }
+}
 function calculateRulePerformance(values, style='median'){
   switch (style) {
     case 'median':
@@ -116,62 +127,9 @@ function calculateRulePerformance(values, style='median'){
   }
 }
 
-
-function calculateMedian(values) {
-  const arr = [...values];
-  arr.sort((a, b) => a - b);
-
-  const half = Math.floor(arr.length / 2);
-
-  if (arr.length % 2) {
-    return arr[half];
-  } else {
-    return (arr[half - 1] + arr[half]) / 2.0;
-  }
-}
-
-export class Rule {
-  name = null;
-  requirements = null;
-  when = null;
-  constructor(options) {
-    Object.keys(options).forEach(key => {
-      this[key] = options[key];
-    });
-  }
-}
-
-export class Requirement {
-  name = null;
-  check = null;
-  when = null;
-  constructor(options) {
-    Object.keys(options).forEach(key => {
-      this[key] = options[key];
-    });
-  }
-}
-
-export class GenericCastEfficiencyRequirement extends Requirement {
-  constructor({ spell, ...others }) {
-    super({
-      name: <SpellLink id={spell.id} icon />,
-      check: function () {
-        const { efficiency, recommendedEfficiency: minor, averageIssueEfficiency: average, majorIssueEfficiency: major } = this.castEfficiency.getCastEfficiencyForSpellId(spell.id);
-        return {
-          actual: efficiency,
-          isLessThan: {
-            minor,
-            average,
-            major,
-          },
-          style: 'percentage',
-        };
-      },
-      ...others,
-    });
-  }
-}
+export { default as Rule } from './Rule';
+export { default as Requirement } from './Requirement';
+export { default as GenericCastEfficiencyRequirement } from './GenericCastEfficiencyRequirement';
 
 class Checklist extends Analyzer {
   rules = [];
