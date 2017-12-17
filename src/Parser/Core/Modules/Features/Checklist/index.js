@@ -97,7 +97,7 @@ class Checklist extends Analyzer {
       });
 
     const requirementPerformances = requirements.map(requirement => requirement.performance);
-    const rulePerformance = this.calculateRulePerformance(requirementPerformances, rule.performanceMethod);
+    const rulePerformance = requirementPerformances.length > 0 ? this.calculateRulePerformance(requirementPerformances, rule.performanceMethod) : 1;
 
     return (
       <Expandable
