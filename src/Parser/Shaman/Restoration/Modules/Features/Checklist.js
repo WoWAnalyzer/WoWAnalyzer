@@ -5,7 +5,6 @@ import ITEMS from 'common/ITEMS';
 
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
-import SpellIcon from 'common/SpellIcon';
 import Wrapper from 'common/Wrapper';
 
 import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist';
