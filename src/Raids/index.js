@@ -1,5 +1,7 @@
 const raids = {
+  // Legion
   AntorusTheBurningThrone: require('./AntorusTheBurningThrone').default, // 21
+  TombOfSargeras: require('./TombOfSargeras').default, // 20
 };
 export default raids;
 
