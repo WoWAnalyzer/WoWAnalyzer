@@ -1,7 +1,3 @@
-/* TODO:
- * SG usage or something\
- * SOOM Channeling
-*/
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
@@ -31,6 +27,8 @@ import Lifecycles from '../Talents/Lifecycles';
 import UpliftingTrance from '../Spells/UpliftingTrance';
 import ThunderFocusTea from '../Spells/ThunderFocusTea';
 import EssenceFontMastery from '../Features/EssenceFontMastery';
+import SoothingMist from '../Spells/SoothingMist';
+import SheilunsGift from '../Spells/SheilunsGift';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -52,16 +50,22 @@ class Checklist extends CoreChecklist {
     upliftingTrance: UpliftingTrance,
     thunderFocusTea: ThunderFocusTea,
     essenceFontMastery: EssenceFontMastery,
+    soothingMist: SoothingMist,
+    sheilunsGift: SheilunsGift,
   };
 
   rules = [
     new Rule({
       name: 'Use core spell as often as possible',
-      description: <Wrapper>As a Mistweaver you only have a single rotational spell that should be cast on CD <SpellLink id={SPELLS.RENEWING_MIST.id} icon />.</Wrapper>,
+      description: <Wrapper>As a Mistweaver you only have a single rotational spell that should be cast on CD <SpellLink id={SPELLS.RENEWING_MIST.id} icon />. However, you should also make use of your artifact ability, <SpellLink id={SPELLS.SHEILUNS_GIFT.id} icon />. Keep this ability under 6 stacks or so to ensure you are regularly using it and also so that it does not overheal too much once you do use it.</Wrapper>,
       requirements: () => {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.RENEWING_MIST,
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.SHEILUNS_GIFT.id} icon /> stacks</Wrapper>,
+            check: () => this.sheilunsGift.suggestionThresholds,
           }),
         ];
       },
@@ -182,7 +186,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Try to avoid being inactive for a large portion of the fight',
-      description: 'While it\'s suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and when you\'re not healing try to contribute some damage.',
+      description: <Wrapper>While it\'s suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and when you\'re not healing try to contribute some damage. Also,there is no reason to channel <SpellLink id={SPELLS.SOOTHING_MIST.id} icon /> for extended periods of time.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
@@ -192,6 +196,10 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: 'Downtime',
             check: () => this.alwaysBeCasting.downtimeSuggestionThresholds,
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.SOOTHING_MIST.id} icon /> usage</Wrapper>,
+            check: () => this.soothingMist.suggestionThresholds,
           }),
         ];
       },
