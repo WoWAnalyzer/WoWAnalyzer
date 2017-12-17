@@ -133,7 +133,7 @@ class AMurderOfCrows extends Analyzer {
           .regular(recommended);
       });
   }
-  statisticOrder = STATISTIC_ORDER.CORE(12);
+  statisticOrder = STATISTIC_ORDER.CORE(11);
 }
 
 export default AMurderOfCrows;

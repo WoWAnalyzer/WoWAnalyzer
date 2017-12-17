@@ -110,7 +110,7 @@ class PatientSniperDetails extends Analyzer {
       ),
     };
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(13);
 }
 
 export default PatientSniperDetails;
