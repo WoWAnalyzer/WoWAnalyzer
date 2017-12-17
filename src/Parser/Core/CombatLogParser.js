@@ -269,6 +269,7 @@ class CombatLogParser {
     this.player = player;
     this.playerPets = playerPets;
     this.fight = fight;
+    this._timestamp = this.fight.start_time;
     this.boss = findByBossId(fight.boss);
 
     this.initializeModules({
@@ -464,7 +465,7 @@ class CombatLogParser {
           <Tab title="Timeline">
             <TimelineTab
               start={this.fight.start_time}
-              end={this.currentTimestamp}
+              end={this.fight.end_time}
               historyBySpellId={this.modules.spellHistory.historyBySpellId}
               abilities={this.modules.abilities}
             />
