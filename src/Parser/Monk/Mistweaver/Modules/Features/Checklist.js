@@ -1,3 +1,7 @@
+/* TODO:
+ * SG usage or something\
+ * SOOM Channeling
+*/
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
@@ -15,41 +19,39 @@ import Velens from 'Parser/Core/Modules/Items/Velens';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
+import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 
 import AlwaysBeCasting from './AlwaysBeCasting';
 import EssenceFont from '../Spells/EssenceFont';
 import RefreshingJadeWind from '../Talents/RefreshingJadeWind';
 import ChiBurst from '../Talents/ChiBurst';
 import SpiritOfTheCrane from '../Talents/SpiritOfTheCrane';
-/*
-import MasteryEffectiveness from './MasteryEffectiveness';
-import BeaconHealing from '../PaladinCore/BeaconHealing';
-import FillerLightOfTheMartyrs from '../PaladinCore/FillerLightOfTheMartyrs';
-import AuraOfSacrifice from '../Talents/AuraOfSacrifice';
-import Ilterendi from '../Items/Ilterendi';
-import Overhealing from '../PaladinCore/Overhealing';
-*/
+import ManaTea from '../Talents/ManaTea';
+import Lifecycles from '../Talents/Lifecycles';
+import UpliftingTrance from '../Spells/UpliftingTrance';
+import ThunderFocusTea from '../Spells/ThunderFocusTea';
+import EssenceFontMastery from '../Features/EssenceFontMastery';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
     castEfficiency: CastEfficiency,
     combatants: Combatants,
-    //masteryEffectiveness: MasteryEffectiveness,
     alwaysBeCasting: AlwaysBeCasting,
-    //beaconHealing: BeaconHealing,
-    //fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
     manaValues: ManaValues,
-    //auraOfSacrifice: AuraOfSacrifice,
-    //ilterendi: Ilterendi,
     velens: Velens,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
-    //overhealing: Overhealing,
     essenceFont: EssenceFont,
     refreshingJadeWind: RefreshingJadeWind,
     chiBurst: ChiBurst,
     spiritOfTheCrane: SpiritOfTheCrane,
+    manaTea: ManaTea,
+    lifecycles: Lifecycles,
+    enchantChecker: EnchantChecker,
+    upliftingTrance: UpliftingTrance,
+    thunderFocusTea: ThunderFocusTea,
+    essenceFontMastery: EssenceFontMastery,
   };
 
   rules = [
@@ -145,6 +147,36 @@ class Checklist extends CoreChecklist {
             check: () => this.spiritOfTheCrane.suggestionThresholds,
             when: combatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id),
           }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.MANA_TEA_TALENT.id} icon /> mana saved</Wrapper>,
+            check: () => this.manaTea.suggestionThresholds,
+            when: combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id),
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.LIFECYCLES_TALENT.id} icon /> mana saved</Wrapper>,
+            check: () => this.lifecycles.suggestionThresholds,
+            when: combatant.hasTalent(SPELLS.LIFECYCLES_TALENT.id),
+          }),
+        ];
+      },
+    }),
+    new Rule({
+      name: 'Use your procs and short CDs',
+      description: <Wrapper>Make sure to use your procs and spells at the correct time. Wasting <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} icon /> procs will lower you overall healing, along with using the incorrect spells with <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} icon />.</Wrapper>,
+      requirements: () => {
+        return [
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} icon /> procs wasted</Wrapper>,
+            check: () => this.upliftingTrance.suggestionThresholds,
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} icon /> incorrect casts</Wrapper>,
+            check: () => this.thunderFocusTea.suggestionThresholds,
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.ESSENCE_FONT.id} icon /> HOTS Used</Wrapper>,
+            check: () => this.essenceFontMastery.suggestionThresholds,
+          }),
         ];
       },
     }),
@@ -205,10 +237,17 @@ class Checklist extends CoreChecklist {
             name: 'Used a second potion',
             check: () => this.prePotion.secondPotionSuggestionThresholds,
           }),
-          // new Requirement({
-          //   name: 'Properly enchanted gear',
-          //   check: () => this.velens.suggestionThresholds,
-          // }),
+          new Requirement({
+            name: 'Gear has best enchants',
+            check: () => {
+              const numEnchantableSlots = Object.keys(this.enchantChecker.enchantableGear).length;
+              return {
+                actual: numEnchantableSlots - (this.enchantChecker.slotsMissingEnchant.length + this.enchantChecker.slotsMissingMaxEnchant.length),
+                isLessThan: numEnchantableSlots,
+                style: 'number',
+              };
+            },
+          }),
         ];
       },
     }),
