@@ -88,6 +88,10 @@ class Checklist extends CoreChecklist {
             when: combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
+            spell: SPELLS.VELENS_FUTURE_SIGHT_BUFF,
+            when: combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
+          }),
+          new GenericCastEfficiencyRequirement({
             spell: SPELLS.CHI_WAVE_TALENT,
             when: combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
           }),
