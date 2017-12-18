@@ -11,6 +11,9 @@ import ITEMS from "common/ITEMS/HUNTER";
 
 const debug = false;
 
+/*
+ * Your ranged auto attacks have a 8% chance to trigger Lock and Load, causing your next two Aimed Shots to cost no Focus and be instant.
+ */
 class LockAndLoad extends Analyzer {
   static dependencies = {
     combatants: Combatants,

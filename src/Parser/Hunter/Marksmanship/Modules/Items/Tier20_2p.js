@@ -10,6 +10,9 @@ import getDamageBonus from "Parser/Hunter/Shared/Modules/getDamageBonus";
 
 const T20_2P_CRIT_DMG_BONUS = 0.1;
 
+/*
+ * Casting two Aimed Shots in a row increases your critical strike damage by 10% for 6 sec.
+ */
 class Tier20_2p extends Analyzer {
   static dependencies = {
     combatants: Combatants,

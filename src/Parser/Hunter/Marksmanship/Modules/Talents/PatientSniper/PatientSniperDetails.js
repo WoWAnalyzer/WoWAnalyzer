@@ -16,6 +16,10 @@ import PatientSniperTracker from "./PatientSniperTracker";
 const VULNERABLE_BONUS = 0.3;
 const UNERRING_ARROWS_BONUS_PER_RANK = 0.03;
 
+/*
+ * Gain the patience of a veteran sniper, increasing the damage bonus of Vulnerable by 6% every 1 sec.
+ */
+
 class PatientSniperDetails extends Analyzer {
   static dependencies = {
     patientSniperTracker: PatientSniperTracker,

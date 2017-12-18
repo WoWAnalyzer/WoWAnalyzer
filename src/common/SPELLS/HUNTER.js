@@ -254,6 +254,11 @@ export default {
     name: 'Marked Shot',
     icon: 'ability_hunter_markedshot',
   },
+  MARKED_SHOT_DAMAGE: {
+    id: 212621,
+    name: 'Marked Shot',
+    icon: 'ability_hunter_markedshot',
+  },
   TRUESHOT: {
     id: 193526,
     name: 'Trueshot',

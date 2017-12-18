@@ -14,6 +14,13 @@ import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 const debug = false;
 
+/*
+ * Gain one of the following talents based on your specialization:
+ * Beast Mastery: Bestial Fury
+ * Marksmanship: Lock and Load
+ * Survival: Serpent Sting
+ */
+
 class SoulOfTheHuntmaster extends Analyzer {
   static dependencies = {
     combatants: Combatants,
