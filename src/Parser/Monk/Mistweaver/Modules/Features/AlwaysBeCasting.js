@@ -107,8 +107,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
           .regular(recommended + 0.15).major(1);
       });
   }
-
-  showStatistic = true;
 }
 
 export default AlwaysBeCasting;

@@ -166,7 +166,7 @@ class AlwaysBeCasting extends Analyzer {
     return 1 - this.downtimePercentage;
   }
 
-  showStatistic = false;
+  showStatistic = true;
   static icons = {
     activeTime: '/img/sword.png',
     downtime: '/img/afk.png',

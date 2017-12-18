@@ -61,7 +61,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       });
   }
 
-  showStatistic = true;
   statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
