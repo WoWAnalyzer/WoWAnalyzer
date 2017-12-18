@@ -45,6 +45,8 @@ import SephuzsSecret from './Modules/Items/SephuzsSecret';
 import KiljaedensBurningWish from './Modules/Items/KiljaedensBurningWish';
 import ArchimondesHatredReborn from './Modules/Items/ArchimondesHatredReborn';
 import Cinidaria from './Modules/Items/Cinidaria';
+import InsigniaOfTheGrandArmy from './Modules/Items/InsigniaOfTheGrandArmy';
+
 // Shared Epics
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
@@ -109,7 +111,6 @@ import NLCTraits from './Modules/NetherlightCrucibleTraits/NLCTraits';
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
-import InsigniaOfTheGrandArmy from 'Parser/Core/Modules/Items/InsigniaOfTheGrandArmy';
 
 const debug = false;
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';

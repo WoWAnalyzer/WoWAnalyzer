@@ -1,11 +1,16 @@
 import React from 'react';
 
-import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, Yuyz0112, Zerotorescue, Hartra344 } from 'MAINTAINERS';
+import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, Yuyz0112, Zerotorescue, Hartra344, Putro } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 
 export default [
+  {
+    date: new Date('2017-12-18'),
+    changes: <Wrapper>Added <ItemLink id={ITEMS.INSIGNIA_OF_THE_GRAND_ARMY.id} /> to the parser.</Wrapper>,
+    contributors: [Putro],
+  },
   {
     date: new Date('2017-12-06'),
     changes: <Wrapper>Added <ItemLink id={ITEMS.ISHKARS_FELSHIELD_EMITTER.id} /> to items </Wrapper>,
