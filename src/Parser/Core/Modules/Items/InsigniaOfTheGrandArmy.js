@@ -151,21 +151,21 @@ class InsigniaOfTheGrandArmy extends Analyzer {
     //Shocklight
     tooltip += this.combatants.selected.traitsBySpellId[SPELLS.SHOCKLIGHT_TRAIT.id] > 0 ? `<li>Shocklight: <ul><li>${this.averageCritFromRing} average crit </li></ul></li>` : ``;
     //Refractive Shell
-    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.REFRACTIVE_SHELL_TRAIT.id] > 0 ? `<li>Refractive Shell:<ul><li>${this.owner.formatItemHealingDone(this.refractiveHealing)}</li></ul></li>` : ``;
+    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.REFRACTIVE_SHELL_TRAIT.id] > 0 ? `<li>Refractive Shell:<ul><li>${this.owner.formatItemHealingDone(this.refractiveHealing / 3)}</li></ul></li>` : ``;
     //Secure In The Light
-    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.SECURE_IN_THE_LIGHT_TRAIT.id] > 0 ? `<li>The ring contributed with the following damage and healing over the course of the encounter from Secure In The Light: <li>${this.owner.formatItemDamageDone(this.secureInTheLightDamage)}</li><li>${this.owner.formatItemHealingDone(this.secureInTheLightHealing)}</li></li>` : ``;
+    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.SECURE_IN_THE_LIGHT_TRAIT.id] > 0 ? `<li>The ring contributed with the following damage and healing over the course of the encounter from Secure In The Light: <li>${this.owner.formatItemDamageDone(this.secureInTheLightDamage / 3)}</li><li>${this.owner.formatItemHealingDone(this.secureInTheLightHealing / 3)}</li></li>` : ``;
     //Infusion Of Light
-    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.INFUSION_OF_LIGHT_TRAIT.id] > 0 ? `<li>Infusion Of Light: <ul><li>${this.owner.formatItemDamageDone(this.infusionOfLightDamage)}</li><li>${this.owner.formatItemHealingDone(this.infusionOfLightHealing)}</li></ul></li>` : ``;
+    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.INFUSION_OF_LIGHT_TRAIT.id] > 0 ? `<li>Infusion Of Light: <ul><li>${this.owner.formatItemDamageDone(this.infusionOfLightDamage / 3)}</li><li>${this.owner.formatItemHealingDone(this.infusionOfLightHealing / 3)}</li></ul></li>` : ``;
     //Lights Embrace
-    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.LIGHTS_EMBRACE_TRAIT.id] > 0 ? `<li>Light's Embrace:<ul><li>${this.owner.formatItemHealingDone(this.lightsEmbraceHealing)}</li></ul></li>` : ``;
+    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.LIGHTS_EMBRACE_TRAIT.id] > 0 ? `<li>Light's Embrace:<ul><li>${this.owner.formatItemHealingDone(this.lightsEmbraceHealing / 3)}</li></ul></li>` : ``;
     //Shadowbind
-    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.SHADOWBIND_TRAIT.id] > 0 ? `<li>Shadowbind: <ul><li>${this.owner.formatItemDamageDone(this.shadowBindDamage)}</li><li>${this.owner.formatItemHealingDone(this.shadowBindHealing)}</li></ul></li>` : ``;
+    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.SHADOWBIND_TRAIT.id] > 0 ? `<li>Shadowbind: <ul><li>${this.owner.formatItemDamageDone(this.shadowBindDamage / 3)}</li><li>${this.owner.formatItemHealingDone(this.shadowBindHealing / 3)}</li></ul></li>` : ``;
     //Chaotic Darkness
-    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.CHAOTIC_DARKNESS_TRAIT.id] > 0 ? `<li>Chaotic Darkness: <ul><li>${this.owner.formatItemDamageDone(this.chaoticDarknessDamage)}</li><li>${this.owner.formatItemHealingDone(this.chaoticDarknessHealing)}</li></ul></li>` : ``;
+    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.CHAOTIC_DARKNESS_TRAIT.id] > 0 ? `<li>Chaotic Darkness: <ul><li>${this.owner.formatItemDamageDone(this.chaoticDarknessDamage / 3)}</li><li>${this.owner.formatItemHealingDone(this.chaoticDarknessHealing / 3)}</li></ul></li>` : ``;
     //Torment The Weak
-    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.TORMENT_THE_WEAK_TRAIT.id] > 0 ? `<li>Torment The Weak: <ul><li>${this.owner.formatItemDamageDone(this.tormentTheWeakDamage)}</li</ul></li>` : ``;
+    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.TORMENT_THE_WEAK_TRAIT.id] > 0 ? `<li>Torment The Weak: <ul><li>${this.owner.formatItemDamageDone(this.tormentTheWeakDamage / 3)}</li</ul></li>` : ``;
     //Dark Sorrows
-    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.DARK_SORROWS_TRAIT.id] > 0 ? `<li>Dark Sorrows: <ul><li>${this.owner.formatItemDamageDone(this.darkSorrowsDamage)}</li</ul></li>` : ``;
+    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.DARK_SORROWS_TRAIT.id] > 0 ? `<li>Dark Sorrows: <ul><li>${this.owner.formatItemDamageDone(this.darkSorrowsDamage / 3)}</li</ul></li>` : ``;
 
     if (this.damage > this.healing) {
       return {
