@@ -8,35 +8,56 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import Wrapper from 'common/Wrapper';
 
-class enrageUptime extends Analyzer {
+class EnrageUptime extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
 
-  suggestions(when) {
-    const enrageUptime = this.combatants.selected.getBuffUptime(SPELLS.ENRAGE.id) / this.owner.fightDuration;
+  get enrageUptime() {
+    return this.combatants.selected.getBuffUptime(SPELLS.ENRAGE.id) / this.owner.fightDuration;
+  }
 
-    when(enrageUptime).isLessThan(0.70)
+  get suggestionThresholds() {
+    return {
+      isLessThan: {
+        minor: 0.7,
+        average: 0.65,
+        major: 0.6,
+      },
+      style: 'percentage',
+    };
+  }
+
+  suggestions(when) {
+    const {
+        isLessThan: {
+          minor,
+          average,
+          major,
+        },
+      } = this.suggestionThresholds;
+
+    when(this.enrageUptime).isLessThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.ENRAGE.id} /> uptime can be improved.</span>)
+        return suggest(<Wrapper>Your <SpellLink id={SPELLS.ENRAGE.id} /> uptime can be improved.</Wrapper>)
           .icon(SPELLS.ENRAGE.icon)
           .actual(`${formatPercentage(actual)}% Enrage uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended - 0.05).major(recommended - 0.10);
+          .regular(average).major(major);
       });
   }
 
   statistic() {
-    const enrageUptime = this.combatants.selected.getBuffUptime(SPELLS.ENRAGE.id) / this.owner.fightDuration;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ENRAGE.id} />}
-        value={`${formatPercentage(enrageUptime)} %`}
+        value={`${formatPercentage(this.enrageUptime)} %`}
         label="Enrage uptime"
       />
     );
   }
 }
 
-export default enrageUptime;
+export default EnrageUptime;

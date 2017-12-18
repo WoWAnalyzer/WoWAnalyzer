@@ -6,8 +6,9 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+import Wrapper from 'common/Wrapper';
 
-class juggernautReset extends Analyzer {
+class JuggernautReset extends Analyzer {
 
   resets = 0;
   stacksDropped = 0;
@@ -27,15 +28,34 @@ class juggernautReset extends Analyzer {
       this.stacksMax = event.newStacks;
     }
   }
+  
+  get suggestionThresholds() {
+    return {
+      isGreaterThan: {
+        minor: 0.5,
+        average: 0.9,
+        major: 1,
+      },
+      style: 'percentage',
+    };
+  }
 
   suggestions(when) {
+    const {
+      isGreaterThan: {
+          minor,
+          average,
+          major,
+        },
+      } = this.suggestionThresholds;
     
-    when(this.resets).isGreaterThan(0)
+    when(this.resets).isGreaterThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.JUGGERNAUT.id} /> stacks dropped during the fight.</span>)
+        return suggest(<Wrapper>Your <SpellLink id={SPELLS.JUGGERNAUT.id} /> stacks dropped during the fight.</Wrapper>)
           .icon(SPELLS.JUGGERNAUT.icon)
           .actual(`${actual} resets resulting in ${this.stacksDropped} stacks lost.`)
-          .recommended(`0 is recommended`);
+          .recommended(`0 is recommended`)
+          .regular(average).major(major);
       });
   }
 
@@ -102,4 +122,4 @@ class juggernautReset extends Analyzer {
   statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
-export default juggernautReset;
+export default JuggernautReset;

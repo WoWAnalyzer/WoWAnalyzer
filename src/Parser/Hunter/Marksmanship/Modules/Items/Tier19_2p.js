@@ -23,6 +23,10 @@ const AFFECTED_ABILITIES = [
   SPELLS.VOLLEY_ACTIVATED.id,
 ];
 
+/*
+ * Every 45 Focus you spend reduces the cooldown of Trueshot by 1 sec.
+ */
+
 class Tier19_2p extends Analyzer {
   static dependencies = {
     combatants: Combatants,

@@ -10,6 +10,9 @@ import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 
 const LONE_WOLF_MODIFIER = 0.18;
 
+/*
+ * Increases your damage by 18%, but you can no longer use Call Pet.
+ */
 class LoneWolf extends Analyzer {
   static dependencies = {
     combatants: Combatants,
