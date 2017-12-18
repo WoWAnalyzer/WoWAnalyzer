@@ -109,6 +109,7 @@ import NLCTraits from './Modules/NetherlightCrucibleTraits/NLCTraits';
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
+import InsigniaOfTheGrandArmy from 'Parser/Core/Modules/Items/InsigniaOfTheGrandArmy';
 
 const debug = false;
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
@@ -159,6 +160,7 @@ class CombatLogParser {
     kiljaedensBurningWish: KiljaedensBurningWish,
     archimondesHatredReborn: ArchimondesHatredReborn,
     cinidaria: Cinidaria,
+    insigniaOfTheGrandArmy: InsigniaOfTheGrandArmy,
     // Epics:
     drapeOfShame: DrapeOfShame,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,

@@ -40,7 +40,7 @@ class NLCTraits extends Analyzer {
     return (
       <StatisticsListBox
         title="Netherlight Crucible"
-        tooltip="This provides an overview of the increased provide by the Netherlight Crucible traits."
+        tooltip="This provides an overview of the benefits provided by the Netherlight Crucible traits."
       >
         {this.murderousIntent.active && this.murderousIntent.subStatistic()}
         {this.shocklight.active && this.shocklight.subStatistic()}
