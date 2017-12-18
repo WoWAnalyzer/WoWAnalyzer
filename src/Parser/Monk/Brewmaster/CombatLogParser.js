@@ -9,6 +9,7 @@ import Stagger from './Modules/Core/Stagger';
 import IronSkinBrew from './Modules/Spells/IronSkinBrew';
 import BlackoutCombo from './Modules/Spells/BlackoutCombo';
 // Features
+import Checklist from './Modules/Features/Checklist';
 import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 // Items
@@ -25,6 +26,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
 
     // Features
+    checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
 
