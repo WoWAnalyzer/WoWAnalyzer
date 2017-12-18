@@ -46,6 +46,9 @@ import Thunderslash from './Modules/Traits/Thunderslash';
 //Traits and Talents list
 import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 
+//Checklist
+import Checklist from './Modules/Features/Checklist';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     damageDone: [DamageDone, { showStatistic: true }],
@@ -94,6 +97,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Traits and Talents list
     traitsAndTalents: TraitsAndTalents,
+
+    //Checklist
+    checklist: Checklist,
 
   };
 }

@@ -193,7 +193,6 @@ class Checklist extends CoreChecklist {
         ];
       },
     }),
-    //REFRESH PLEASE
     new Rule({
       name: 'Be well prepared',
       description: 'Being prepared is important if you want to perform to your highest potential',
