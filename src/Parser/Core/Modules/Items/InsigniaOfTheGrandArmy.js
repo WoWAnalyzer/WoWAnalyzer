@@ -94,6 +94,9 @@ class InsigniaOfTheGrandArmy extends Analyzer {
   }
   on_byPlayer_absorbed(event) {
     const spellId = event.ability.guid;
+    if (spellId !== SPELLS.REFRACTIVE_SHELL_BUFF.id && spellId !== SPELLS.HOLY_BULWARK.id) {
+      return;
+    }
     if (spellId === SPELLS.REFRACTIVE_SHELL_BUFF.id) {
       this.healing += event.amount;
       this.refractiveHealing += event.amount;
@@ -105,6 +108,9 @@ class InsigniaOfTheGrandArmy extends Analyzer {
   }
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
+    if (spellId !== SPELLS.INFUSION_OF_LIGHT_HEALING.id && spellId !== SPELLS.LIGHTS_EMBRACE_HEALING.id && spellId !== SPELLS.CHAOTIC_DARKNESS_HEALING.id && spellId !== SPELLS.SHADOWBIND_DAMAGE_HEALING.id) {
+      return;
+    }
     if (spellId === SPELLS.INFUSION_OF_LIGHT_HEALING.id) {
       this.healing += (event.amount || 0) + (event.absorbed || 0);
       this.infusionOfLightHealing += (event.amount || 0) + (event.absorbed || 0);
