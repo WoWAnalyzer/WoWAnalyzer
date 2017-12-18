@@ -1,12 +1,13 @@
 import React from 'react';
 
-import SuggestionsTab from 'Main/SuggestionsTab';
 import ChangelogTab from 'Main/ChangelogTab';
 import ChangelogTabTitle from 'Main/ChangelogTabTitle';
 import Tab from 'Main/Tab';
 import TimelineTab from 'Main/Timeline/TimelineTab';
 
 import { formatNumber, formatPercentage, formatThousands, formatDuration } from 'common/format';
+
+import { findByBossId } from 'Raids';
 
 import ApplyBuffNormalizer from './Normalizers/ApplyBuff';
 
@@ -35,6 +36,7 @@ import DistanceMoved from './Modules/Others/DistanceMoved';
 
 import StatsDisplay from './Modules/Features/StatsDisplay';
 import TalentsDisplay from './Modules/Features/TalentsDisplay';
+import Checklist from './Modules/Features/Checklist';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
 
@@ -150,6 +152,7 @@ class CombatLogParser {
 
     statsDisplay: StatsDisplay,
     talentsDisplay: TalentsDisplay,
+    checklist: Checklist,
 
     // Items:
     // Legendaries:
@@ -221,7 +224,7 @@ class CombatLogParser {
     infernalCinders: InfernalCinders,
     umbralMoonglaives: UmbralMoonglaives,
   };
-  // Override this with spec specific modules
+  // Override this with spec specific modules when extending
   static specModules = {};
 
   report = null;
@@ -270,6 +273,8 @@ class CombatLogParser {
     this.player = player;
     this.playerPets = playerPets;
     this.fight = fight;
+    this._timestamp = this.fight.start_time;
+    this.boss = findByBossId(fight.boss);
 
     this.initializeModules({
       ...this.constructor.defaultModules,
@@ -457,12 +462,6 @@ class CombatLogParser {
 
     results.tabs = [
       {
-        title: 'Suggestions',
-        url: 'suggestions',
-        order: 0,
-        render: () => <SuggestionsTab issues={results.issues} />,
-      },
-      {
         title: 'Timeline',
         url: 'timeline',
         order: 2,
@@ -470,7 +469,7 @@ class CombatLogParser {
           <Tab title="Timeline">
             <TimelineTab
               start={this.fight.start_time}
-              end={this.currentTimestamp}
+              end={this.fight.end_time}
               historyBySpellId={this.modules.spellHistory.historyBySpellId}
               abilities={this.modules.abilities}
             />
@@ -504,16 +503,6 @@ class CombatLogParser {
           const item = module.item();
           if (item) {
             results.items.push(item);
-          }
-        }
-        if (module.extraPanel) {
-          const extraPanel = module.extraPanel();
-          if (extraPanel) {
-            results.extraPanels.push({
-              name: key,
-              order: module.extraPanelOrder,
-              content: extraPanel,
-            });
           }
         }
         if (module.tab) {

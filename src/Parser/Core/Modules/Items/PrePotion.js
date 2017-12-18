@@ -5,6 +5,7 @@ import SPECS from 'common/SPECS';
 import ITEMS from 'common/ITEMS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import ItemLink from 'common/ItemLink';
+import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -78,14 +79,29 @@ class PrePotion extends Analyzer {
     }
   }
 
+  get prePotionSuggestionThresholds() {
+    return {
+      actual: this.usedPrePotion,
+      is: false,
+      style: 'boolean',
+    };
+  }
+  get secondPotionSuggestionThresholds() {
+    return {
+      actual: this.usedSecondPotion,
+      is: false,
+      style: 'boolean',
+    };
+  }
+
   suggestions(when) {
-    when(this.usedPrePotion).isFalse()
+    when(this.prePotionSuggestionThresholds.actual).isFalse()
       .addSuggestion((suggest) => {
-        return suggest(<span>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> can be very effective (even for healers), especially during shorter encounters.</span>)
+        return suggest(<Wrapper>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> can be very effective (even for healers), especially during shorter encounters.</Wrapper>)
           .icon(ITEMS.POTION_OF_PROLONGED_POWER.icon)
           .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
       });
-    when(this.usedSecondPotion).isFalse()
+    when(this.secondPotionSuggestionThresholds.actual).isFalse()
       .addSuggestion((suggest) => {
         let suggestionText;
         let importance;
@@ -94,13 +110,13 @@ class PrePotion extends Analyzer {
         // spell but mana is not their primary resource and should not use a mana potion.
         const healerSpec = HEALER_SPECS.indexOf(this.combatants.selected.specId) !== -1;
         if (!healerSpec) {
-          suggestionText = <span>You forgot to use a potion during combat. By using a potion during combat such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> you the increasing dps and also suvivability against a boss.</span>;
+          suggestionText = <Wrapper>You forgot to use a potion during combat. By using a potion during combat such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> you the increasing dps and also suvivability against a boss.</Wrapper>;
           importance = SUGGESTION_IMPORTANCE.MINOR;
         } else if (!this.neededManaSecondPotion) {
-          suggestionText = <span>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of either increasing output through <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> or allowing you to gain mana using <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id} />, for example.</span>;
+          suggestionText = <Wrapper>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of either increasing output through <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> or allowing you to gain mana using <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id} />, for example.</Wrapper>;
           importance = SUGGESTION_IMPORTANCE.MINOR;
         } else {
-          suggestionText = <span>You ran out of mana (OOM) during the encounter without using a second potion. Use a second potion such as <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id} /> or if the fight allows <ItemLink id={ITEMS.LEYTORRENT_POTION.id} /> to regenerate some mana.</span>;
+          suggestionText = <Wrapper>You ran out of mana (OOM) during the encounter without using a second potion. Use a second potion such as <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id} /> or if the fight allows <ItemLink id={ITEMS.LEYTORRENT_POTION.id} /> to regenerate some mana.</Wrapper>;
           importance = SUGGESTION_IMPORTANCE.REGULAR;
         }
         return suggest(suggestionText)

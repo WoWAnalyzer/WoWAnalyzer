@@ -46,6 +46,34 @@ class TidalWaves extends Analyzer {
       });
   }
 
+  get suggestionThresholds() {
+    const riptide = this.abilityTracker.getAbility(SPELLS.RIPTIDE.id);
+    const healingWave = this.abilityTracker.getAbility(SPELLS.HEALING_WAVE.id);
+    const healingSurge = this.abilityTracker.getAbility(SPELLS.HEALING_SURGE_RESTORATION.id);
+    const chainHeal = this.abilityTracker.getAbility(SPELLS.CHAIN_HEAL.id);
+
+    const chainHealCasts = chainHeal.casts || 0;
+    const riptideCasts = riptide.casts || 0;
+    const twPerRiptide = this.combatants.selected.hasTalent(SPELLS.CRASHING_WAVES_TALENT.id) ? 2 : 1;
+    const totalTwGenerated = twPerRiptide * riptideCasts + chainHealCasts;
+    const twHealingWaves = healingWave.healingTwHits || 0;
+    const twHealingSurges = healingSurge.healingTwHits || 0;
+
+    const totalTwUsed = twHealingWaves + twHealingSurges;
+
+    const unusedTwRate = 1 - totalTwUsed / totalTwGenerated;
+
+    return {
+      actual: unusedTwRate,
+      isGreaterThan: {
+        minor: 0.1,
+        average: 0.35,
+        major: 0.6,
+      },
+      style: 'percentage',
+    };
+  }
+
   statistic() {
     const riptide = this.abilityTracker.getAbility(SPELLS.RIPTIDE.id);
     const healingWave = this.abilityTracker.getAbility(SPELLS.HEALING_WAVE.id);

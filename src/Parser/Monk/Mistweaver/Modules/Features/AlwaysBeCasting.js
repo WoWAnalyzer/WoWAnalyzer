@@ -63,6 +63,29 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     );
   }
 
+  get nonHealingTimeSuggestionThresholds() {
+    return {
+      actual: this.nonHealingTimePercentage,
+      isGreaterThan: {
+        minor: 0.3,
+        average: 0.4,
+        major: 0.45,
+      },
+      style: 'percentage',
+    };
+  }
+  get downtimeSuggestionThresholds() {
+    return {
+      actual: this.downtimePercentage,
+      isGreaterThan: {
+        minor: 0.2,
+        average: 0.35,
+        major: 1,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
     const nonHealingTimePercentage = this.totalHealingTimeWasted / this.owner.fightDuration;
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;

@@ -17,7 +17,6 @@ class ChiBurst extends Analyzer {
   castChiBurst = 0;
   healing = 0;
   targetsChiBurst = 0;
-  avgChiBurstTargets = 0;
   raidSize = 0;
 
 
@@ -48,19 +47,34 @@ class ChiBurst extends Analyzer {
     }
   }
 
+  get avgTargetsHitPerCB() {
+    return this.targetsChiBurst / this.castChiBurst || 0;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.avgTargetsHitPerCB,
+      isLessThan: {
+        minor: this.raidSize * 0.3,
+        average: this.raidSize * 0.25,
+        major: this.raidSize * 0.2,
+      },
+      style: 'number',
+    };
+  }
+
   suggestions(when) {
-    when(this.avgChiBurstTargets).isLessThan(this.raidSize * 0.3)
+    when(this.avgTargetsHitPerCB).isLessThan(this.raidSize * 0.3)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You are not utilizing your <SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> talent as effectively as you should. You should work on both your positioning and aiming of the spell. Always aim for the highest concentration of players, which is normally melee.</span>)
           .icon(SPELLS.CHI_BURST_TALENT.icon)
-          .actual(`${this.avgChiBurstTargets.toFixed(2)} targets hit per Chi Burst cast - ${formatPercentage(this.avgChiBurstTargets / this.raidSize)}% of raid hit`)
+          .actual(`${this.avgTargetsHitPerCB.toFixed(2)} targets hit per Chi Burst cast - ${formatPercentage(this.avgTargetsHitPerCB / this.raidSize)}% of raid hit`)
           .recommended('30% of the raid hit is recommended')
           .regular(recommended - 0.05).major(recommended - 0.1);
       });
   }
 
   on_finished() {
-    this.avgChiBurstTargets = this.targetsChiBurst / this.castChiBurst || 0;
     if (debug) {
       console.log(`ChiBurst Casts: ${this.castChiBurst}`);
       console.log(`Total Chi Burst Healing: ${this.healing}`);

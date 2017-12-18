@@ -12,8 +12,8 @@ class TalentsDisplay extends Analyzer {
     combatants: Combatants,
   };
 
-  extraPanelOrder = 1;
-  extraPanel() {
+  // This is a special module, we're giving it a custom position. Normally we'd use "statistic" instead.
+  render() {
     const talents = this.combatants.selected.talents;
     const rows = [15, 30, 45, 60, 75, 90, 100];
 
@@ -22,7 +22,7 @@ class TalentsDisplay extends Analyzer {
         <div className="panel-body" style={{ padding: 0 }}>
           <div className="flex wrapable text-center" style={{ margin: '10px 0px 3px 0px' }}>
             {talents.map((spellId, index) => (
-              <div className="flex-main">
+              <div key={index} className="flex-main">
                 <SpellIcon
                   id={spellId}
                   style={{

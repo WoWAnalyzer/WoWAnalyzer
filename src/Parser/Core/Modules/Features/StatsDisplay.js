@@ -75,8 +75,8 @@ class StatsDisplay extends Analyzer {
     );
   }
 
-  extraPanelOrder = 0;
-  extraPanel() {
+  // This is a special module, we're giving it a custom position. Normally we'd use "statistic" instead.
+  render() {
     const mainStats = [
       this.primaryStat,
       STAT.STAMINA,
@@ -106,7 +106,7 @@ class StatsDisplay extends Analyzer {
               const Icon = getIcon(stat);
 
               return (
-                <div className={`flex-main ${getClassNameColor(stat)}`}>
+                <div className={`flex-main ${getClassNameColor(stat)}`} key={stat}>
                   <Icon
                     style={{
                       width: '3em',
@@ -124,7 +124,7 @@ class StatsDisplay extends Analyzer {
           <div style={{ background: 'rgba(255, 255, 255, 0.2)', height: 1 }} />
           <div className="flex wrapable text-center" style={{ margin: '3px 0px 7px 0' }}>
             {tertiaries.map(stat => (
-              <div className={`flex-main ${getClassNameColor(stat)}`}>
+              <div key={stat} className={`flex-main ${getClassNameColor(stat)}`}>
                 <SpellIcon id={this.getTertiarySpell(stat)} style={{ height: '1em', borderRadius: 2 }} />{' '}
                 {this.renderStatValue(stat)} {getName(stat)}
               </div>
