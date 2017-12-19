@@ -41,8 +41,8 @@ after_success:
       echo "#docker push";
       docker push $REPO:$BRANCH;
     fi
-  - chmod +x travis-discord-hook/success.sh
-  - ./travis-discord-hook/success.sh
+#  - chmod +x travis-discord-hook/success.sh
+#  - ./travis-discord-hook/success.sh
 after_failure:
   - chmod +x travis-discord-hook/fail.sh
   - ./travis-discord-hook/fail.sh
