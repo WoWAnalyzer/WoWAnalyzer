@@ -45,6 +45,18 @@ class GlacialSpike extends Analyzer {
     return (this.overcapped / this.total) || 0;
   }
 
+  get utilSuggestionThresholds() {
+    return {
+      actual: this.utilPercentage,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.90,
+        major: 0.80,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
     when(this.overcappedPercentage).isGreaterThan(0.05)
       .addSuggestion((suggest, actual, recommended) => {
@@ -52,7 +64,7 @@ class GlacialSpike extends Analyzer {
           .icon(SPELLS.GLACIAL_SPIKE_TALENT.icon)
           .actual(`${formatPercentage(this.overcappedPercentage, 1)}% overcapped`)
           .recommended(`<${formatPercentage(recommended, 1)}% is recommended`)
-          .regular(0.10).major(0.15);
+          .regular(0.10).major(0.20);
       });
   }
   statistic() {

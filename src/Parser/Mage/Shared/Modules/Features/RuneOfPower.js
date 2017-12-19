@@ -34,17 +34,34 @@ class RuneOfPower extends Analyzer {
     }
   }
 
-  suggestions(when) {
-    const damagePercent = this.owner.getPercentageOfTotalDamageDone(this.damage);
-    const damageIncreasePercent = damagePercent/(1-damagePercent);
+  get damagePercent() {
+    return this.owner.getPercentageOfTotalDamageDone(this.damage);
+  }
 
-    when(damageIncreasePercent).isLessThan(INCANTERS_FLOW_EXPECTED_BOOST)
+  get damageIncreasePercent() {
+    return this.damagePercent / (1 - this.damagePercent);
+  }
+
+  get damageSuggestionThresholds() {
+    return {
+      actual: this.damageIncreasePercent,
+      isLessThan: {
+        minor: INCANTERS_FLOW_EXPECTED_BOOST,
+        average: INCANTERS_FLOW_EXPECTED_BOOST,
+        major: INCANTERS_FLOW_EXPECTED_BOOST - 0.03,
+      },
+      style: 'percentage',
+    };
+  }
+
+  suggestions(when) {
+    when(this.damageIncreasePercent).isLessThan(this.damageSuggestionThresholds.isLessThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id}/> damage boost is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id}/>. Either find ways to make better use of the talent, or switch to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id}/>.</span>)
           .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
-          .actual(`${formatPercentage(damageIncreasePercent)}% damage increase from Rune of Power`)
+          .actual(`${formatPercentage(this.damageIncreasePercent)}% damage increase from Rune of Power`)
           .recommended(`${formatPercentage(recommended)}% is the passive gain from Incanter's Flow`)
-          .regular(recommended).major(recommended-0.03);
+          .regular(this.damageSuggestionThresholds.isLessThan.average).major(this.damageSuggestionThresholds.isLessThan.major);
       });
 
       const casts = this.abilityTracker.getAbility(SPELLS.RUNE_OF_POWER_TALENT.id).casts;
@@ -66,14 +83,12 @@ class RuneOfPower extends Analyzer {
   }
 
   statistic() {
-    const damagePercent = this.owner.getPercentageOfTotalDamageDone(this.damage);
-    const damageIncreasePercent = damagePercent/(1-damagePercent);
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RUNE_OF_POWER_TALENT.id} />}
-        value={`${formatPercentage(damagePercent)} %`}
+        value={`${formatPercentage(this.damagePercent)} %`}
         label="Rune of Power damage"
-        tooltip={`This is the portion of your total damage attributable to Rune of Power's boost. Expressed as an increase vs never using Rune of Power, this is a <b>${formatPercentage(damageIncreasePercent)}% damage increase</b>. Note that this number does <i>not</i> factor in the opportunity cost of casting Rune of Power instead of another damaging spell`}
+        tooltip={`This is the portion of your total damage attributable to Rune of Power's boost. Expressed as an increase vs never using Rune of Power, this is a <b>${formatPercentage(this.damageIncreasePercent)}% damage increase</b>. Note that this number does <i>not</i> factor in the opportunity cost of casting Rune of Power instead of another damaging spell`}
       />
     );
   }

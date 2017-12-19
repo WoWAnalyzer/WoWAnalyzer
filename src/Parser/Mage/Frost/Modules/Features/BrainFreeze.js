@@ -72,6 +72,22 @@ class BrainFreezeTracker extends Analyzer {
 		return this.totalProcs - this.wastedProcs;
 	}
 
+	get brainFreezeUtil() {
+		return 1 - (this.wastedProcs / this.totalProcs) || 0;
+	}
+
+	get brainFreezeUtilSuggestionThresholds() {
+    return {
+      actual: this.brainFreezeUtil,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.85,
+        major: 0.70,
+      },
+      style: 'percentage',
+    };
+  }
+
 	suggestions(when) {
 		const overwrittenProcsPercent = (this.overwrittenProcs / this.totalProcs) || 0;
 		if(this.combatants.selected.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id)) {
@@ -115,11 +131,10 @@ class BrainFreezeTracker extends Analyzer {
 	}
 
 	statistic() {
-		const brainfreezeUtil = (1 - (this.wastedProcs / this.totalProcs)) || 0;
 		return(
 			<StatisticBox
 				icon={<SpellIcon id={SPELLS.BRAIN_FREEZE.id} />}
-				value={`${formatPercentage(brainfreezeUtil, 0)} %`}
+				value={`${formatPercentage(this.brainFreezeUtil, 0)} %`}
 				label='Brain Freeze Utilization'
 				tooltip={`You got ${this.totalProcs} total procs.
 					<ul>
