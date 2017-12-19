@@ -154,7 +154,7 @@ class Checklist extends CoreChecklist {
     }),
 
     new Rule({
-      name: 'Be well prepared',
+      name: 'Be Well prepared',
       description: 'Being well prepared with potions, enchants and legendaries is an easy way to improve your performance.',
       requirements: () => {
         return [
