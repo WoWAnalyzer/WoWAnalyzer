@@ -256,6 +256,7 @@ class Checklist extends CoreChecklist {
       name: 'Avoid overhealing',
       description: 'Pick the right targets when healing and use the right abilities at the right time. While overhealing still transfers to your beacons it remains inefficient. Overhealing might be unavoidable on trivial content or when bringing too many healers.',
       requirements: () => {
+        const combatant = this.combatants.selected;
         return [
           new Requirement({
             name: <SpellLink id={SPELLS.HOLY_SHOCK_HEAL.id} icon />,
@@ -272,6 +273,7 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} icon />,
             check: () => this.overhealing.bestowFaithSuggestionThresholds,
+            when: combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT.id),
           }),
         ];
       },
