@@ -18,6 +18,8 @@ const SHATTER_EFFECTS = [
 	SPELLS.RING_OF_FROST_DAMAGE.id,
 ];
 
+const CAST_BUFFER_MS = 100;
+
 class IceLance extends Analyzer {
 	static dependencies = {
 		combatants: Combatants,
@@ -29,11 +31,17 @@ class IceLance extends Analyzer {
 	iceLanceTargetID = 0;
 	nonShatteredCasts = 0;
 
+	iceLanceCastTimestamp;
+	totalFingersProcs = 0;
+	overwrittenFingersProcs = 0;
+	expiredFingersProcs = 0;
+
 	on_byPlayer_cast(event) {
 		const spellId = event.ability.guid;
 		if (spellId !== SPELLS.ICE_LANCE.id) {
 			return;
 		}
+		this.iceLanceCastTimestamp = event.timestamp;
 		if (event.targetID) {
 			this.iceLanceTargetID = encodeTargetString(event.targetID, event.targetInstance);
 		}
@@ -54,6 +62,48 @@ class IceLance extends Analyzer {
 			this.nonShatteredCasts += 1;
 		}
 	}
+
+	on_byPlayer_changebuffstack(event) {
+		if (event.ability.guid !== SPELLS.FINGERS_OF_FROST.id) {
+			return;
+		}
+
+		// FoF overcaps don't show as a refreshbuff, instead they are a stack lost followed immediately by a gain
+		const stackChange = event.stacksGained;
+		if (stackChange > 0) {
+			this.totalFingersProcs += stackChange;
+		} else if (this.iceLanceCastTimestamp && this.iceLanceCastTimestamp + CAST_BUFFER_MS > event.timestamp) {
+			// just cast ice lance, so this stack removal probably a proc used
+		} else if (event.newStacks === 0) {
+			this.expiredFingersProcs += (-stackChange); // stacks zero out, must be expiration
+		} else {
+			this.overwrittenFingersProcs += (-stackChange); // stacks don't zero, this is an overwrite
+		}
+	}
+
+	get wastedFingersProcs() {
+		return this.expiredFingersProcs + this.overwrittenFingersProcs;
+	}
+
+	get usedFingersProcs() {
+		return this.totalFingersProcs - this.wastedFingersProcs;
+	}
+
+	get fingersUtil() {
+		return 1 - (this.wastedFingersProcs / this.totalFingersProcs) || 0;
+	}
+
+	get fingersUtilSuggestionThresholds() {
+    return {
+      actual: this.fingersUtil,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.85,
+        major: 0.70,
+      },
+      style: 'percentage',
+    };
+  }
 
 	suggestions(when) {
 		const nonShatteredPercent = (this.nonShatteredCasts / this.abilityTracker.getAbility(SPELLS.ICE_LANCE.id).casts);

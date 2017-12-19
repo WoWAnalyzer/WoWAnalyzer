@@ -20,22 +20,15 @@ class ChainHeal extends Analyzer {
   };
 
   suggestions(when) {
-    const chainHeal = this.abilityTracker.getAbility(SPELLS.CHAIN_HEAL.id);
-
-    const casts = chainHeal.casts || 0;
-    const hits = chainHeal.healingHits || 0;
-    const avgHits = hits / casts;
-
+    const suggestedThreshold = this.suggestionThreshold;
     const maxTargets = this.combatants.selected.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
-    const suggestedTargets = maxTargets * CHAIN_HEAL_TARGET_EFFICIENCY;
-    
-    when(avgHits).isLessThan(suggestedTargets)
+    when(suggestedThreshold.actual).isLessThan(suggestedThreshold.isLessThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Try to always cast <SpellLink id={SPELLS.CHAIN_HEAL.id} /> on groups of people, so that it heals all {maxTargets} potential targets.</span>)
           .icon(SPELLS.CHAIN_HEAL.icon)
-          .actual(`${avgHits.toFixed(2)} average targets healed`)
-          .recommended(`${recommended} average targets healed`)
-          .regular(recommended - .25).major(recommended - .5);
+          .actual(`${suggestedThreshold.actual.toFixed(2)} average targets healed`)
+          .recommended(`${suggestedThreshold.isLessThan.minor} average targets healed`)
+          .regular(suggestedThreshold.isLessThan.average).major(suggestedThreshold.isLessThan.major);
       });
   }
 

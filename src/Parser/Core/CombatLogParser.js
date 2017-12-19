@@ -273,8 +273,12 @@ class CombatLogParser {
     this.player = player;
     this.playerPets = playerPets;
     this.fight = fight;
-    this._timestamp = this.fight.start_time;
-    this.boss = findByBossId(fight.boss);
+    if (fight) {
+      this._timestamp = fight.start_time;
+      this.boss = findByBossId(fight.boss);
+    } else if (process.env.NODE_ENV !== 'test') {
+      throw new Error('fight argument was empty.');
+    }
 
     this.initializeModules({
       ...this.constructor.defaultModules,

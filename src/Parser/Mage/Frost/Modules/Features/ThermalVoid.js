@@ -36,26 +36,44 @@ class ThermalVoid extends Analyzer {
     }
   }
 
+  get uptime() {
+    return this.combatants.selected.getBuffUptime(SPELLS.ICY_VEINS.id) - this.extraUptime;
+  }
+
+  get averageDuration() {
+    return this.uptime / this.casts;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.averageDuration / 1000,
+      isLessThan: {
+        minor: 40,
+        average: 37,
+        major: 33,
+      },
+      style: 'number',
+    };
+  }
+
   suggestions(when) {
-    const uptime = this.combatants.selected.getBuffUptime(SPELLS.ICY_VEINS.id) - this.extraUptime;
-    const averageDuration = (uptime / this.casts) / 1000;
-    when(averageDuration).isLessThan(40)
+    const averageDurationSeconds = this.averageDuration / 1000;
+    when(averageDurationSeconds).isLessThan(this.suggestionThresholds.isLessThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.ICY_VEINS.id}/> duration can be improved. Make sure you use Frozen Orb to get Fingers of Frost Procs</span>)
           .icon(SPELLS.ICY_VEINS.icon)
           .actual(`${formatNumber(actual)} seconds Average Icy Veins Duration`)
           .recommended(`${formatNumber(recommended)} is recommended`)
-          .regular(37).major(33);
+          .regular(this.suggestionThresholds.isLessThan.average).major(this.suggestionThresholds.isLessThan.average);
       });
   }
 
   statistic() {
-    const uptime = this.combatants.selected.getBuffUptime(SPELLS.ICY_VEINS.id) - this.extraUptime;
-    const averageDuration = (uptime / this.casts) / 1000;
+    const averageDurationSeconds = this.averageDuration / 1000;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ICY_VEINS.id} />}
-        value={`${formatNumber(averageDuration)}s`}
+        value={`${formatNumber(averageDurationSeconds)}s`}
         label="Avg Icy Veins Duration"
         tooltip={"Icy Veins Casts that do not complete before the fight ends are removed from this statistic"}
       />
