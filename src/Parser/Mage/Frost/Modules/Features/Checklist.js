@@ -46,7 +46,7 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Always Be Casting',
-      description: <Wrapper><em><b>Continuously chaining casts throughout an encounter is the single most important thing for achieving good DPS as a caster</b></em>. There shoule be no delay at all between your spell casts, it's better to start casting the wrong spell than to think for a few seconds and then cast the right spell. You should be able to handle a fight's mechanics with the minimum possible interruption to your casting.</Wrapper>,
+      description: <Wrapper><em><b>Continuously chaining casts throughout an encounter is the single most important thing for achieving good DPS as a caster</b></em>. There shoule be no delay at all between your spell casts, it's better to start casting the wrong spell than to think for a few seconds and then cast the right spell. You should be able to handle a fight's mechanics with the minimum possible interruption to your casting. Some fights (like Argus) have unavoidable downtime due to phase transitions and the like, so in these cases 0% downtime will not be possible.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
@@ -124,7 +124,7 @@ class Checklist extends CoreChecklist {
     }),
 
     new Rule({
-      name: 'Use Your Talents',
+      name: 'Maximize Your Talents',
       description: <Wrapper>Talent choice can effect playstyle, it is important to use your talents to their fullest.</Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
