@@ -88,6 +88,7 @@ class DamageTaken extends Analyzer {
   handleClick(){
     const barSimple = document.getElementById("damage-taken-bar-simple");
     const barDetailed = document.getElementById("damage-taken-bar-detailed");
+    if((!barSimple || !barDetailed)) return; //return if one of the two bars isn't found.
     const detailed = barDetailed.style.display.toLowerCase() !== "none";
     if(detailed){
       barDetailed.style.display = "none";
