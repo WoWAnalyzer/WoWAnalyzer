@@ -5,7 +5,6 @@ import ITEMS from 'common/ITEMS';
 
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
-import SpellIcon from 'common/SpellIcon';
 import Wrapper from 'common/Wrapper';
 
 import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist';
@@ -108,19 +107,19 @@ class Checklist extends CoreChecklist {
         return [
           new Requirement({
             name: <Wrapper>
-              <SpellIcon id={SPELLS.TIDAL_WAVES_BUFF.id} noLink style={{ height: '1.2em', marginTop: '-0.1em' }} /> Unused Tidal Waves
+              Unused <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon/>
             </Wrapper>,
             check: () => this.tidalWaves.suggestionThresholds,
           }),
           new Requirement({
             name: <Wrapper>
-              <SpellIcon id={SPELLS.HEALING_SURGE_RESTORATION.id} noLink style={{ height: '1.2em', marginTop: '-0.1em' }} /> Unbuffed Healing Surge
+              Unbuffed <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} icon/>
             </Wrapper>,
             check: () => this.healingSurge.suggestedThreshold,
           }),
           new Requirement({
             name: <Wrapper>
-              <SpellIcon id={SPELLS.HEALING_WAVE.id} noLink style={{ height: '1.2em', marginTop: '-0.1em' }} /> Unbuffed Healing WAVE
+              Unbuffed <SpellLink id={SPELLS.HEALING_WAVE.id} icon />
             </Wrapper>,
             check: () => this.healingWave.suggestedThreshold,
           }),
@@ -135,7 +134,7 @@ class Checklist extends CoreChecklist {
         return [
           new Requirement({
             name: <Wrapper>
-              <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} icon /> Fed to <SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} icon />
+              <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} icon /> fed to <SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} icon />
             </Wrapper>,
             check: () => this.giftOfTheQueen.CBTTotemFeedingSuggestionThreshold,
           }),
@@ -149,19 +148,19 @@ class Checklist extends CoreChecklist {
         return [
           new Requirement({
             name: <Wrapper>
-              <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} icon /> Target Efficiency
+              <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} icon /> target efficiency
             </Wrapper>,
             check: () => this.giftOfTheQueen.giftOfQueenTargetEfficiencySuggestionThreshold,
           }),
           new Requirement({
             name: <Wrapper>
-              Average <SpellLink id={SPELLS.CHAIN_HEAL.id} icon/> Targets
+              Average <SpellLink id={SPELLS.CHAIN_HEAL.id} icon/> targets
             </Wrapper>,
             check: () => this.chainHeal.suggestionThreshold,
           }),
           new Requirement({
             name: <Wrapper>
-              Average <SpellLink id={SPELLS.HEALING_RAIN_HEAL.id} icon/> Targets
+              Average <SpellLink id={SPELLS.HEALING_RAIN_HEAL.id} icon/> targets
             </Wrapper>,
             check: () => this.healingRain.suggestionThreshold,
           }),

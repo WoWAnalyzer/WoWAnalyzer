@@ -1,7 +1,9 @@
+import React from 'react';
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
-
+import { formatPercentage } from 'common/format'; 
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
@@ -28,8 +30,18 @@ class HealingWave extends Analyzer {
       },
       style: 'percentage',
     };
-    
+  }
 
+  suggestions(when) {
+    const suggestedThreshold = this.suggestedThreshold;
+    when(suggestedThreshold.actual).isGreaterThan(suggestedThreshold.isGreaterThan.minor)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>Casting <SpellLink id={SPELLS.HEALING_WAVE.id} icon /> without <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon/> is slow and generally inefficient. Consider casting a riptide first to generate <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon/></span>)
+          .icon(SPELLS.HEALING_WAVE.icon)
+          .actual(`${formatPercentage(suggestedThreshold.actual)} % of unbuffed Healing Surges`)
+          .recommended(`${suggestedThreshold.isGreaterThan.minor} % of unbuffed Healing Surges`)
+          .regular(suggestedThreshold.isGreaterThan.average).major(suggestedThreshold.isGreaterThan.major);
+      });
   }
 }
 
