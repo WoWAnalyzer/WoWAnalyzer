@@ -16,6 +16,8 @@ install:
   - cd server && npm install --dev && cd ..
 before_script:
   - export AUTHOR_NAME="$(git log -1 $TRAVIS_COMMIT --pretty="%aN")"
+  - export BRANCH_OR_PR="$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo "PR-$TRAVIS_PULL_REQUEST"; fi)"
+  - export SOURCE_URL="$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo "https://github.com/'"$REPO_OWNER"'/'"$REPO_NAME"'/commit/'"$TRAVIS_COMMIT"'"; else echo "https://github.com/'"$REPO_OWNER"'/'"$REPO_NAME"'/pull/'"$TRAVIS_PULL_REQUEST"'"; fi)"
 script:
   - npm test
   - npm run build
