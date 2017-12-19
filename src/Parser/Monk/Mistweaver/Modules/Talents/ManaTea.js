@@ -180,13 +180,13 @@ class ManaTea extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.avgMTsaves).isLessThan(150000)
+    when(this.avgMTsaves).isLessThan(this.suggestionThresholds.isLessThan.minor)
     .addSuggestion((suggest, actual, recommended) => {
       return suggest(<span>Your mana spent during <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> can be improved. Always aim to cast your highest mana spells such as <SpellLink id={SPELLS.ESSENCE_FONT.id} /> or <SpellLink id={SPELLS.VIVIFY.id} />.</span>)
         .icon(SPELLS.MANA_TEA_TALENT.icon)
         .actual(`${formatNumber(this.avgMTsaves)} average mana saved per Mana Tea cast`)
         .recommended(`${(recommended / 1000).toFixed(0)}k average mana saved is recommended`)
-        .regular(recommended - 30000).major(recommended - 50000);
+        .regular(this.suggestionThresholds.isLessThan.average).major(this.suggestionThresholds.isLessThan.major);
     });
   }
 

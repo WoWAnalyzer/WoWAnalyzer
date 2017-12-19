@@ -81,23 +81,22 @@ class UpliftingTrance extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.unusedUTProcs).isGreaterThan(0.3)
+    when(this.unusedUTProcs).isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs should be used as soon as you get them so they are not overwritten. While some will be overwritten due to the nature of the spell interactions, holding <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs is not optimal.</span>)
           .icon(SPELLS.UPLIFTING_TRANCE_BUFF.icon)
           .actual(`${formatPercentage(this.unusedUTProcs)}% Unused Uplifting Trance procs`)
           .recommended(`<${formatPercentage(recommended)}% wasted UT Buffs is recommended`)
-          .regular(recommended + 0.1).major(recommended + 0.2);
+          .regular(this.suggestionThresholds.isGreaterThan.average).major(this.suggestionThresholds.isGreaterThan.major);
       });
   }
 
   statistic() {
-    const unusedUTProcsPerc = 1 - (this.consumedUTProc / this.UTProcsTotal);
     const unusedUTProc = this.UTProcsTotal - this.consumedUTProc;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.UPLIFTING_TRANCE_BUFF.id} />}
-        value={`${formatPercentage(unusedUTProcsPerc)}%`}
+        value={`${formatPercentage(this.unusedUTProcs)}%`}
         label={(
           <dfn data-tip={`${this.nonUTVivify} of your vivify's were used without an uplifting trance procs.`}>
             Unused Procs
