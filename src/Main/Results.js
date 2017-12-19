@@ -152,19 +152,18 @@ class Results extends React.Component {
           <header>
             <div className={`player ${config.spec.className.replace(' ', '')}`}>
               <img src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`} alt="Player avatar" />{' '}
-              <Textfit mode="single">
+              <Textfit mode="single" max={80}>
                 {selectedCombatant.name}
               </Textfit>
             </div>
             <div className="versus">versus</div>
             <div className="boss">
-              <img src={boss ? boss.headshot : SkullRaidMarker} alt="Boss avatar" />{' '}
-              <Textfit mode="single">
+              <img src={boss ? boss.headshot : SkullRaidMarker} alt="Boss avatar" />
+              <Textfit mode="single" max={80}>
                 {getBossName(fight)}
               </Textfit>
             </div>
           </header>
-          <div className="divider" />
 
           {config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED && (
             <Wrapper>
