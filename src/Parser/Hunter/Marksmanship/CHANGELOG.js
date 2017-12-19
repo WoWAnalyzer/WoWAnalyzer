@@ -14,6 +14,11 @@ export default [
     contributors: [Putro],
   },
   {
+    date: new Date('2017-12-15'),
+    changes: 'Reworked T21 almost from the ground up, the 4p now includes damage and procs',
+    contributors: [Putro],
+  },
+  {
     date: new Date('2017-12-04'),
     changes: 'Added many talents and traits. Moved them into a singular box to improve visibility.',
     contributors: [Putro],

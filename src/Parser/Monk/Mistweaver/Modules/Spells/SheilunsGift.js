@@ -110,13 +110,31 @@ class SheilunsGift extends Analyzer {
     }
   }
 
-  suggestions(when) {
+  get avgSgStacks() {
     const abilityTracker = this.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
     const SGability = getAbility(SPELLS.SHEILUNS_GIFT.id);
     const SGcasts = SGability.casts || 0;
-    const avgSGstacks = this.stacksTotalSG / SGcasts || 0;
+
+    return this.stacksTotalSG / SGcasts || 0;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.avgSgStacks,
+      isGreaterThan: {
+        minor: 7,
+        average: 9,
+        major: 11,
+      },
+      style: 'number',
+    };
+  }
+
+  suggestions(when) {
+    const abilityTracker = this.abilityTracker;
+    const getAbility = spellId => abilityTracker.getAbility(spellId);
 
     const sheilunsGiftHealing = getAbility(SPELLS.SHEILUNS_GIFT.id);
     const sheilunsGiftOverhealingPercentage = getOverhealingPercentage(sheilunsGiftHealing) || 0;
@@ -124,14 +142,14 @@ class SheilunsGift extends Analyzer {
     when(sheilunsGiftOverhealingPercentage).isGreaterThan(0.5)
       .addSuggestion((suggest, actual, recommended) => {
         let suggestionText;
-        if (avgSGstacks >= 6) {
+        if (this.avgSgStacks >= 6) {
           suggestionText = <span>You had high overheal when using <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> and casted with greater than 6 stacks. Consider using <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> at lower stacks to increase effectiveness.</span>;
         } else {
           suggestionText = <span>You had high overheal when using <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> and casted with less than 6 stacks. Consider using <SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> on injured targets to increase effectiveness.</span>;
         }
         return suggest(suggestionText)
           .icon(SPELLS.SHEILUNS_GIFT.icon)
-          .actual(`${formatPercentage(sheilunsGiftOverhealingPercentage)}% Sheilun's Gift Overhealing - ${avgSGstacks.toFixed(0)} average Sheilun's Gift stacks`)
+          .actual(`${formatPercentage(sheilunsGiftOverhealingPercentage)}% Sheilun's Gift Overhealing - ${this.avgSgStacks.toFixed(0)} average Sheilun's Gift stacks`)
           .recommended(`<${formatPercentage(recommended)}% Sheilun's Gift Overheal is recommended`)
           .regular(recommended + 0.1).major(recommended + 0.2);
       });
@@ -143,13 +161,12 @@ class SheilunsGift extends Analyzer {
 
     const SGability = getAbility(SPELLS.SHEILUNS_GIFT.id);
     const SGcasts = SGability.casts || 0;
-    const avgSGstacks = this.stacksTotalSG / SGcasts || 0;
     const wastedSGStacks = this.stacksWastedSG + Math.floor((this.owner.fightEndTime - this.lastSGStack) / 10000);
 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SHEILUNS_GIFT.id} />}
-        value={`${(avgSGstacks).toFixed(0)}`}
+        value={`${(this.avgSgStacks).toFixed(0)}`}
         label={(
           <dfn data-tip={`${SGcasts > 0 ? `You healed for an average of ${formatNumber(this.sgHeal / this.castsSG)} with each Sheilun's cast.` : ''}
           ${wastedSGStacks > 0 ? `<br>You wasted ${(wastedSGStacks)} stack(s) during this fight.` : ''}

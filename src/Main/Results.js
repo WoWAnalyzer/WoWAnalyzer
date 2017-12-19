@@ -20,8 +20,8 @@ import DiscordButton from 'Main/DiscordButton';
 import Maintainer from 'Main/Maintainer';
 import SuggestionsTab from 'Main/SuggestionsTab';
 
+import SkullRaidMarker from './Images/skull-raidmarker.png';
 import SpecInformationOverlay from './SpecInformationOverlay';
-import HarjatanAvatar from './Images/boss-avatars/TombOfSargeras/Harjatan.png';
 import ItemsPanel from './ItemsPanel';
 
 import './Results.css';
@@ -86,6 +86,7 @@ class Results extends React.Component {
     const { parser, tab, onChangeTab } = this.props;
     const report = parser.report;
     const fight = parser.fight;
+    const boss = parser.boss;
     const config = this.context.config;
     const modules = parser._modules;
     const selectedCombatant = modules.combatants.selected;
@@ -157,7 +158,7 @@ class Results extends React.Component {
             </div>
             <div className="versus">versus</div>
             <div className="boss">
-              <img src={HarjatanAvatar} alt="Boss avatar" />{' '}
+              <img src={boss ? boss.headshot : SkullRaidMarker} alt="Boss avatar" />{' '}
               <Textfit mode="single">
                 {getBossName(fight)}
               </Textfit>

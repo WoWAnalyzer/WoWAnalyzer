@@ -65,15 +65,30 @@ class EssenceFontMastery extends Analyzer {
     }
   }
 
-  suggestions(when) {
+  get avgMasteryCastsPerEF() {
     const efMasteryCasts = (this.healEF / 2) || 0;
-    const avgMasteryCastsPerEF = (efMasteryCasts / this.castEF) || 0;
 
-    when(avgMasteryCastsPerEF).isLessThan(3)
+    return (efMasteryCasts / this.castEF) || 0;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.avgMasteryCastsPerEF,
+      isLessThan: {
+        minor: 2,
+        average: 1.5,
+        major: 1,
+      },
+      style: 'number',
+    };
+  }
+
+  suggestions(when) {
+    when(this.avgMasteryCastsPerEF).isLessThan(3)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You are currently not utilizing your <SpellLink id={SPELLS.ESSENCE_FONT.id} /> HOT buffs effectively. Casting into injured targets with the <SpellLink id={SPELLS.ESSENCE_FONT.id} /> allows you to take advantage of the double <SpellLink id={SPELLS.GUSTS_OF_MISTS.id} /> procs.</span>)
           .icon(SPELLS.ESSENCE_FONT.icon)
-          .actual(`${avgMasteryCastsPerEF.toFixed(2)} average EF HoTs`)
+          .actual(`${this.avgMasteryCastsPerEF.toFixed(2)} average EF HoTs`)
           .recommended(`${recommended} or more EF HoTs utilized is recommended`)
           .regular(recommended - 1).major(recommended - 2);
       });
