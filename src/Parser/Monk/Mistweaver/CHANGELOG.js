@@ -10,7 +10,7 @@ export default [
     contributors: [Anomoly],
   },
   {
-    date: new Date('2017-12-22'),
+    date: new Date('2017-12-13'),
     changes: 'Added in Mistweaver Mastery calculation to stats',
     contributors: [Anomoly],
   },
