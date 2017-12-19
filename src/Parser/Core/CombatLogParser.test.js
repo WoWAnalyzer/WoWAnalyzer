@@ -1,4 +1,4 @@
-import CombatLogParser from 'Parser/Core/CombatLogParser';
+import CombatLogParser from './CombatLogParser';
 
 class MyModule {}
 const myModule = new MyModule();
