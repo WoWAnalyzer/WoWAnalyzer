@@ -22,13 +22,14 @@ class HealingRain extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.averageHitsPerTick).isLessThan(5)
+    const suggestionThreshold = this.suggestionThreshold;
+    when(suggestionThreshold.actual).isLessThan(suggestionThreshold.isLessThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Try to always cast <SpellLink id={SPELLS.HEALING_RAIN_CAST.id} /> in areas where players stack. This allows the spell to consitantly hit all 6 possible targets.</span>)
           .icon(SPELLS.HEALING_RAIN_CAST.icon)
-          .actual(`${this.averageHitsPerTick.toFixed(2)} average targets healed`)
-          .recommended(`5 average targets healed`)
-          .regular(5).major(3);
+          .actual(`${suggestionThreshold.actual.toFixed(2)} average targets healed`)
+          .recommended(`${suggestionThreshold.isLessThan.minor} average targets healed`)
+          .regular(suggestionThreshold.isLessThan.average).major(suggestionThreshold.isLessThan.average);
       });
   }
 
@@ -36,7 +37,7 @@ class HealingRain extends Analyzer {
     return {
       actual: this.averageHitsPerTick,
       isLessThan: {
-        minor: 4,
+        minor: 5,
         average: 3,
         major: 2,
       },
