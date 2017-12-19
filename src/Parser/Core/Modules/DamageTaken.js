@@ -99,6 +99,7 @@ class DamageTaken extends Analyzer {
     }
   }
 
+  showStatistic = false;
   statistic() {
     // TODO: Add a bar showing magic schools
     const tooltip = this.getTooltip();
