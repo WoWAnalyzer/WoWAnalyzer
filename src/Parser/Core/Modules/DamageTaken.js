@@ -65,9 +65,42 @@ class DamageTaken extends Analyzer {
     return this._addDamage(ability, -amount, -absorbed, -overkill);
   }
 
-  showStatistic = false;
+  getTooltip(){
+    const physical = (this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL])?this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL].effective : 0;
+    const magical = this.total.effective - physical;
+    return `Damage taken by type:
+    <ul>
+    <li><b>Physical</b>: ${formatThousands(physical)} (${formatPercentage(physical / this.total.effective)}%)</li>
+    <li><b>Magic</b>: ${formatThousands(magical)} (${formatPercentage(magical / this.total.effective)}%)</li>
+    </ul>
+    Damage taken by magic school:
+    <ul>
+      ${Object.keys(this._byMagicSchool)
+        .map(type =>{
+          if(this._byMagicSchool[type].effective === 0) return ``;
+          return `<li><b>${MAGIC_SCHOOLS.names[type] || 'Unknown'}</b>: ${formatThousands(this._byMagicSchool[type].effective)} (${formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>`;
+        })
+    .join('')}
+    </ul>
+    Click the bar to switch between simple and detailed mode.`;
+  }
+
+  handleClick(){
+    const barSimple = document.getElementById("damage-taken-bar-simple");
+    const barDetailed = document.getElementById("damage-taken-bar-detailed");
+    const detailed = barDetailed.style.display.toLowerCase() !== "none";
+    if(detailed){
+      barDetailed.style.display = "none";
+      barSimple.style.display = "";
+    }else{
+      barDetailed.style.display = "";
+      barSimple.style.display = "none";
+    }
+  }
+
   statistic() {
     // TODO: Add a bar showing magic schools
+    const tooltip = this.getTooltip();
     return this.showStatistic && (
       <StatisticBox
         icon={(
@@ -82,29 +115,44 @@ class DamageTaken extends Analyzer {
         tooltip={
           `The total damage taken was ${formatThousands(this.total.effective)} (${formatThousands(this.total.overkill)} overkill).`
         }
-        footer={(
-          <div className="statistic-bar">
-            {Object.keys(this._byMagicSchool)
-              .map(type => {
-                const effective = this._byMagicSchool[type].effective;
-                return (
-                  <div
-                    key={type}
-                    className={`spell-school-${type}-bg`}
-                    style={{ width: `${effective / this.total.effective * 100}%` }}
-                    data-tip={
-                      `Damage taken by magic school:
-                      <ul>
-                        ${Object.keys(this._byMagicSchool)
-                          .map(type => `<li><b>${MAGIC_SCHOOLS.names[type] || 'Unknown'}</b>: ${formatThousands(this._byMagicSchool[type].effective)} (${formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>`)
-                          .join('')}
-                      </ul>`
-                    }
-                  />
-                );
-              })}
+        footer={
+            [(<div id="damage-taken-bar-detailed" onClick={() => this.handleClick()} className="statistic-bar" style={{display: "none"}}>
+                {Object.keys(this._byMagicSchool)
+                .map(type => {
+                  const effective = this._byMagicSchool[type].effective;
+                  if(effective === 0) return ``;
+                  return (
+                    <div
+                      key={type}
+                      className={`spell-school-${type}-bg`}
+                      style={{ width: `${effective / this.total.effective * 100}%` }}
+                      data-tip={tooltip}
+                />
+              );
+            })}
           </div>
-        )}
+        ),(<div id="damage-taken-bar-simple" onClick={() => this.handleClick()} className="statistic-bar" >
+              {(() => {
+                const physical = (this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL])?this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL].effective : 0;
+                const magical = this.total.effective - physical;
+                const simplifiedValues = {};
+                simplifiedValues[MAGIC_SCHOOLS.ids.PHYSICAL] = physical;
+                simplifiedValues[MAGIC_SCHOOLS.ids.SHADOW] = magical; // use shadow as placeholder for general magic
+                return Object.keys(simplifiedValues).map(type => {
+                  const effective = simplifiedValues[type];
+                  return (
+                    <div
+                      key={type}
+                      className={`spell-school-${type}-bg`}
+                      style={{ width: `${effective / this.total.effective * 100}%` }}
+                      data-tip={tooltip}
+                    />
+                  );
+                });
+              })()
+              }
+            </div>
+        )]}
         footerStyle={{ overflow: 'hidden' }}
       />
     );
