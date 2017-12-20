@@ -234,12 +234,12 @@ export default {
   },
   //Elemental Sets
   ELEMENTAL_SHAMAN_T21_2SET_BUFF: {
-    id: '251757',
+    id: 251757,
     name: 'Tier21 2 Set Bonus',
     icon: 'ability_creature_cursed_04',
   },
   ELEMENTAL_SHAMAN_T21_4SET_BUFF: {
-    id: '251758',
+    id: 251758,
     name: 'Tier21 4 Set Bonus',
     icon: 'ability_shaman_ascendance',
   },
