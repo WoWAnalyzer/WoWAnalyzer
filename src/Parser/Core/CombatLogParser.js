@@ -2,7 +2,6 @@ import React from 'react';
 
 import ChangelogTab from 'Main/ChangelogTab';
 import ChangelogTabTitle from 'Main/ChangelogTabTitle';
-import Tab from 'Main/Tab';
 import TimelineTab from 'Main/Timeline/TimelineTab';
 
 import { formatNumber, formatPercentage, formatThousands, formatDuration } from 'common/format';
@@ -470,14 +469,12 @@ class CombatLogParser {
         url: 'timeline',
         order: 2,
         render: () => (
-          <Tab title="Timeline">
-            <TimelineTab
-              start={this.fight.start_time}
-              end={this.fight.end_time}
-              historyBySpellId={this.modules.spellHistory.historyBySpellId}
-              abilities={this.modules.abilities}
-            />
-          </Tab>
+          <TimelineTab
+            start={this.fight.start_time}
+            end={this.currentTimestamp >= 0 ? this.currentTimestamp : this.fight.end_time}
+            historyBySpellId={this.modules.spellHistory.historyBySpellId}
+            abilities={this.modules.abilities}
+          />
         ),
       },
       {
