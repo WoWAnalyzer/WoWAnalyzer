@@ -16,8 +16,6 @@ class RpPoolingDA extends Analyzer {
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.DARK_ARBITER_TALENT.id);
   }
-  // used to track how many stacks a target has
-  targets = {};
 
   totalRunicPowerPooled = 0;
   totalDarkArbiterCasts = 0;
