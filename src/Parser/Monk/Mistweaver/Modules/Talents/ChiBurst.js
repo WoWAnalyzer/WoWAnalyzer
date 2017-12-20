@@ -64,13 +64,13 @@ class ChiBurst extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.avgTargetsHitPerCB).isLessThan(this.raidSize * 0.3)
+    when(this.avgTargetsHitPerCB).isLessThan(this.suggestionThresholds.isLessThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You are not utilizing your <SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> talent as effectively as you should. You should work on both your positioning and aiming of the spell. Always aim for the highest concentration of players, which is normally melee.</span>)
           .icon(SPELLS.CHI_BURST_TALENT.icon)
           .actual(`${this.avgTargetsHitPerCB.toFixed(2)} targets hit per Chi Burst cast - ${formatPercentage(this.avgTargetsHitPerCB / this.raidSize)}% of raid hit`)
           .recommended('30% of the raid hit is recommended')
-          .regular(recommended - 0.05).major(recommended - 0.1);
+          .regular(this.suggestionThresholds.isLessThan.average).major(this.suggestionThresholds.isLessThan.major);
       });
   }
 
