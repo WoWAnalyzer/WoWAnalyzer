@@ -22,6 +22,7 @@ import DeathFromAboveMantle from './Modules/Talents/DFA/DeathFromAboveMantle';
 import T21_2P from './Modules/Items/T21_2P';
 import DanceCooldownReduction from './Modules/RogueCore/DanceCooldownReduction';
 import DenialOfHalfGiants from './Modules/Legendaries/DenialOfHalfGiants';
+import FirstOfTheDead from './Modules/Legendaries/FirstOfTheDead';
 import DarkShadowSpecterOfBetrayal from './Modules/Talents/DarkShadow/DarkShadowSpecterOfBetrayal';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -52,6 +53,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Legendaries
     denialOfHalfGiants: DenialOfHalfGiants,
+    firstOfTheDead: FirstOfTheDead,
 
     //Casts
     nightbladeDuringSymbols: NightbladeDuringSymbols,
