@@ -3,6 +3,7 @@ import React from 'react';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import ChangelogTab from 'Main/ChangelogTab';
 import ChangelogTabTitle from 'Main/ChangelogTabTitle';
+import Gear from 'Main/Gear';
 import Tab from 'Main/Tab';
 import TimelineTab from 'Main/Timeline/TimelineTab';
 
@@ -450,7 +451,7 @@ class CombatLogParser {
 
   generateResults() {
     const results = new ParseResults();
-
+    
     results.tabs = [
       {
         title: 'Suggestions',
@@ -470,6 +471,16 @@ class CombatLogParser {
               historyBySpellId={this.modules.spellHistory.historyBySpellId}
               abilities={this.modules.abilities}
             />
+          </Tab>
+        ),
+      },
+      {
+        title: 'Gear',
+        url: 'gear',
+        order: 3,
+        render: () => (
+          <Tab title="Gear">
+            <Gear combatants={this._modules.combatants}/>
           </Tab>
         ),
       },
