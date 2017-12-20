@@ -2,7 +2,7 @@ language: node_js
 services:
   - docker
 node_js:
-  - 9.2.0
+  - 9.3.0
 cache:
   directories:
     - node_modules
