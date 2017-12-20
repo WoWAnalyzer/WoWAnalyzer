@@ -477,7 +477,7 @@ export default [
   },
   {
     date: new Date('2017-05-07'),
-    changes: 'Untangled many lines - you shouldn\'t notice a  difference.',
+    changes: 'Untangled many lines - you shouldn\'t notice a difference.',
     contributors: [Zerotorescue],
   },
 ];
