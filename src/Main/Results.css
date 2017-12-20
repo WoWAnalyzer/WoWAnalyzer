@@ -40,26 +40,25 @@
 
 /* header */
 .results > header {
-  margin-top: 60px;
-  margin-bottom: 90px;
+  margin: 45px auto;
   overflow: hidden;
+  max-width: 1300px;
 }
 .results > header .player, .results > header .boss {
   position: relative;
-  font-size: 100px;
+  font-size: 60px;
   font-weight: 700;
-  line-height: 110px;
-  height: 137px;
-  padding-top: 10px;
+  line-height: 130px;
+  height: 130px;
   white-space: nowrap;
 }
 .results > header .player {
-  padding-left: 160px;
-  margin: 0 210px 0 70px;
+  padding-left: 150px;
+  margin: 0 150px 0 0;
 }
 .results > header .boss {
-  padding-right: 160px;
-  margin: 0 70px 0 210px;
+  padding-right: 150px;
+  margin: 0 0 0 150px;
   text-align: right;
 }
 .results > header .player:before, .results > header .boss:before {
@@ -71,6 +70,7 @@
   right: 0;
   z-index: -1;
   background: url(./Images/vs-background.png) no-repeat top left;
+  background-size: contain;
 }
 .results > header .boss:before {
   transform: scaleX(-1);
@@ -79,8 +79,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 137px;
-  height: 137px;
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
 }
 .results > header .boss img {
