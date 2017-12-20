@@ -1,4 +1,4 @@
-FROM node:9.3.0-alpine
+FROM node:9.2.0-alpine
 
 # We don't use this approach because it results in a docker image that's 150MB larger than required since every single line (command) below creates a new "layer" in the container where all data that is written in that line gets stored and this data can never be removed. The preferred way to make a production image is using the default prod file, but that requires preparation outside the dockerfile.
 

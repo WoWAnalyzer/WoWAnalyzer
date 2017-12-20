@@ -22,7 +22,6 @@ const REJUV_WEIGHT = 20 * 1.15; // the +15% from first artifact point
 const REGROWTH_WEIGHT = 5;
 const LB_WEIGHT = 25;
 const SB_WEIGHT = 10;
-const DREAMER_WEIGHT = 12.5;
 
 
 // TODO: Idea - Give suggestions on low amount/duration extended with flourish on other HoTs
@@ -40,7 +39,6 @@ class Flourish extends Analyzer {
   cenarionWard = 0;
   lifebloom = 0;
   springBlossoms = 0;
-  dreamer = 0;
 
   flourishes = [];
 
@@ -87,13 +85,10 @@ class Flourish extends Analyzer {
     const cultCount = this._hotCount(SPELLS.CULTIVATION.id, event.timestamp);
     this.cultivation += cultCount;
 
-    const dreamerCount = this._hotCount(SPELLS.DREAMER.id, event.timestamp);
-    this.dreamer += dreamerCount;
-
     // Due to cultivation's refresh mechanic, we don't count it in total
-    const totalCount = wgCount + rejuvCount + germCount + rgCount + lbCount + sbCount + cwCount + dreamerCount;
+    const totalCount = wgCount + rejuvCount + germCount + rgCount + lbCount + sbCount + cwCount;
     const weightedPowerPerSecond = (wgCount * WG_WEIGHT) + (rejuvCount * REJUV_WEIGHT) + (germCount * REJUV_WEIGHT) +
-        (rgCount * REGROWTH_WEIGHT) + (lbCount * LB_WEIGHT) + (sbCount * SB_WEIGHT) + (cwCount * CW_WEIGHT) + (dreamerCount * DREAMER_WEIGHT);
+        (rgCount * REGROWTH_WEIGHT) + (lbCount * LB_WEIGHT) + (sbCount * SB_WEIGHT) + (cwCount * CW_WEIGHT);
     const weightedPower = weightedPowerPerSecond * FLOURISH_EXTENSION_SECONDS;
     this.flourishes.push({ 'count': totalCount, 'weightedPower': weightedPower });
   }
@@ -163,10 +158,6 @@ class Flourish extends Analyzer {
             }
             ${this.springBlossoms > 0
               ? `<li>${this.springBlossoms} Spring Blossoms</li>`
-              : ``
-            }
-            ${this.dreamer > 0
-              ? `<li>${this.dreamer} Dreamer (T21)</li>`
               : ``
             }
             ${this.cultivation > 0

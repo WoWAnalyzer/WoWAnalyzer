@@ -4,15 +4,8 @@ import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sre
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
-import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 
 export default [
-  {
-    date: new Date('2017-12-06'),
-    changes: <Wrapper><SpellLink id={SPELLS.EONARS_COMPASSION_HEAL.id} /> is now ignored in the cooldowns tab.</Wrapper>,
-    contributors: [Zerotorescue],
-  },
   {
     date: new Date('2017-12-06'),
     changes: <Wrapper>Added <ItemLink id={ITEMS.ISHKARS_FELSHIELD_EMITTER.id} /> to items </Wrapper>,
