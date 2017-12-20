@@ -232,6 +232,32 @@ export default {
     name: 'The Deceiver\'s Blood Pact',
     icon: 'ability_creature_cursed_04',
   },
+  //Elemental Sets
+  ELEMENTAL_SHAMAN_T21_2SET_BUFF: {
+    id: '251757',
+    name: 'Tier21 2 Set Bonus',
+    icon: 'ability_creature_cursed_04',
+  },
+  ELEMENTAL_SHAMAN_T21_4SET_BUFF: {
+    id: '251758',
+    name: 'Tier21 4 Set Bonus',
+    icon: 'ability_shaman_ascendance',
+  },
+  EARTHEN_STRENGTH: {
+    id: 252141,
+    name: 'Earthen Strength',
+    icon: 'spell_nature_shamanrage',
+  },
+  FROST_SHOCK_OVERLOAD: {
+    id: 256561,
+    name: 'Frost Shock Overload',
+    icon: 'spell_frost_frostshock',
+  },
+  EARTH_SHOCK_OVERLOAD: {
+    id: 252143,
+    name: 'Earth Shock Overload',
+    icon: 'spell_nature_earthshock',
+  },
   // Enhancement Shaman
   ROCKBITER: {
     id: 193786,
@@ -547,9 +573,9 @@ export default {
     icon: 'inv_mace_1h_artifactazshara_d_02',
   },
   GIFT_OF_THE_QUEEN_DUPLICATE: {
-     id:255227,
-     name: 'Gift of the Queen Duplicate',
-     icon: 'inv_mace_1h_artifactazshara_d_02',
+    id:255227,
+    name: 'Gift of the Queen Duplicate',
+    icon: 'inv_mace_1h_artifactazshara_d_02',
   },
   CLOUDBURST_TOTEM_HEAL: {
     id: 157503,
