@@ -23,6 +23,11 @@ import T21_2P from './Modules/Items/T21_2P';
 import DanceCooldownReduction from './Modules/RogueCore/DanceCooldownReduction';
 import DenialOfHalfGiants from './Modules/Legendaries/DenialOfHalfGiants';
 import FirstOfTheDead from './Modules/Legendaries/FirstOfTheDead';
+import MantleOfTheMasterAssassin from './Modules/Legendaries/MantleOfTheMasterAssassin';
+import ShadowSatyrsWalk from './Modules/Legendaries/ShadowSatyrsWalk';
+import SoulOfTheShadowblade from './Modules/Legendaries/SoulOfTheShadowblade';
+import InsigniaOfRavenholdt from './Modules/Legendaries/InsigniaOfRavenholdt';
+import DreadlordsDeceit from './Modules/Legendaries/DreadlordsDeceit';
 import DarkShadowSpecterOfBetrayal from './Modules/Talents/DarkShadow/DarkShadowSpecterOfBetrayal';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -54,6 +59,11 @@ class CombatLogParser extends CoreCombatLogParser {
     //Legendaries
     denialOfHalfGiants: DenialOfHalfGiants,
     firstOfTheDead: FirstOfTheDead,
+    mantleOfTheMasterAssassin: MantleOfTheMasterAssassin,
+    shadowSatyrsWalk: ShadowSatyrsWalk,
+    soulOfTheShadowblade: SoulOfTheShadowblade,
+    insigniaOfRavenholdt: InsigniaOfRavenholdt,
+    dreadlordsDeceit: DreadlordsDeceit,
 
     //Casts
     nightbladeDuringSymbols: NightbladeDuringSymbols,
