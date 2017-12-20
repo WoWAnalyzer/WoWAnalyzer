@@ -104,9 +104,6 @@ class Checklist extends CoreChecklist {
             when: combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.LIFE_COCOON,
-          }),
-          new GenericCastEfficiencyRequirement({
             spell: SPELLS.REVIVAL,
           }),
           new GenericCastEfficiencyRequirement({
@@ -204,6 +201,30 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.SOOTHING_MIST.id} icon /> usage</Wrapper>,
             check: () => this.soothingMist.suggestionThresholds,
+          }),
+        ];
+      },
+    }),
+    new Rule({
+      name: 'Use your defensive cooldowns effectively',
+      description: <Wrapper>Make sure you use your personal and defensive cooldowns at appropriate times throughout the fight. While it may not make sense to use these abilities on cooldown, saving them for large damage events is ideal. A good example is using <SpellLink id={SPELLS.DIFFUSE_MAGIC_TALENT.id} icon /> on Charged Blasts during the Imonar the Soulhunter encounter.</Wrapper>,
+      requirements: () => {
+        const combatant = this.combatants.selected;
+        return [
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.LIFE_COCOON,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.DIFFUSE_MAGIC_TALENT,
+            when: combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT.id),
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.DAMPEN_HARM_TALENT,
+            when: combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id),
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.HEALING_ELIXIR_TALENT,
+            when: combatant.hasTalent(SPELLS.HEALING_ELIXIR_TALENT.id),
           }),
         ];
       },
