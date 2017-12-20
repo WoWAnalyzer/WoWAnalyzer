@@ -94,7 +94,7 @@ hr {
 }
 .app.has-report > header {
   margin-top: -450px;
-  margin-bottom: 50px;
+  margin-bottom: 90px;
   opacity: 0;
   pointer-events: none;
 }

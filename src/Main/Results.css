@@ -40,7 +40,7 @@
 
 /* header */
 .results > header {
-  margin: 45px auto;
+  margin: 5px auto 45px auto;
   overflow: hidden;
   max-width: 1300px;
 }
