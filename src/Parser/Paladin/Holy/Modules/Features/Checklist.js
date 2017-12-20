@@ -47,7 +47,7 @@ class Checklist extends CoreChecklist {
     new Rule({
       // The name of the Rule as you want it to appear in the Checklist.
       // You can also make this a React node if you want to use `SpellLink` or other JSX (HTML), in that case wrap the contents with the <Wrapper> component.
-      name: 'Use core spells as often as possible',
+      name: 'Use core abilities as often as possible',
       // The description that is shown when the Rule is expanded.
       // Avoid making too many things a URL. Including a link to a guide that goes into further detail is recommended.
       description: (
@@ -114,6 +114,31 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ARCANE_TORRENT_MANA,
             when: !!this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA.id),
+          }),
+        ];
+      },
+    }),
+    new Rule({
+      name: 'Use your supportive abilities',
+      description: <Wrapper>While you shouldn't aim to cast defensives and externals on cooldown, be aware of them and try to use them whenever effective. Not using them at all is often an indication of not being aware of them enough.</Wrapper>,
+      requirements: () => {
+        const combatant = this.combatants.selected;
+        return [
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.RULE_OF_LAW_TALENT,
+            when: combatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id),
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.DIVINE_STEED,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.DIVINE_PROTECTION,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.BLESSING_OF_SACRIFICE,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.LAY_ON_HANDS,
           }),
         ];
       },
