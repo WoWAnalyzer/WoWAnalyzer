@@ -14,24 +14,38 @@ class VirulentPlagueUptime extends Analyzer {
     enemies: Enemies,
   };
 
+  get vpUptime() {
+    return this.enemies.getBuffUptime(SPELLS.VIRULENT_PLAGUE.id) / this.owner.fightDuration;    
+  }
+
+  get vpUptimeSuggestionThresholds() {
+    return {
+      actual: this.vpUptime,
+      isLessThan: {
+        minor: 0.92,
+        average: 0.84,
+        major: .74,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
-    const vpUptime = this.enemies.getBuffUptime(SPELLS.VIRULENT_PLAGUE.id) / this.owner.fightDuration;
-    when(vpUptime).isLessThan(0.92)
+    when(this.vpUptimeSuggestionThresholds.actual).isLessThan(this.vpUptimeSuggestionThresholds.minor)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<span>Your <SpellLink id ={SPELLS.VIRULENT_PLAGUE.id}/> uptime can be improved. Try to pay attention to when Virulent Plague is about to fall off the priority target, using <SpellLink id ={SPELLS.OUTBREAK.id}/> to refresh Virulent Plague. Using a debuff tracker can help.</span>)
             .icon(SPELLS.VIRULENT_PLAGUE.icon)
             .actual(`${formatPercentage(actual)}% Virulent Plague uptime`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`)
-            .regular(recommended - 0.08).major(recommended - 0.18);
+            .regular(this.vpUptimeSuggestionThresholds.average).major(this.vpUptimeSuggestionThresholds.major);
         });
   }
 
   statistic() {
-    const vpUptime = this.enemies.getBuffUptime(SPELLS.VIRULENT_PLAGUE.id) / this.owner.fightDuration;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.VIRULENT_PLAGUE.id} />}
-        value={`${formatPercentage(vpUptime)} %`}
+        value={`${formatPercentage(this.vpUptime)} %`}
         label="Virulent Plague Uptime"
       />
     );

@@ -54,7 +54,6 @@ class Checklist extends CoreChecklist {
             spell: SPELLS.SOUL_REAPER_TALENT,
             when: combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id),
           }),
-
         ];
       },
     }),
@@ -79,6 +78,19 @@ class Checklist extends CoreChecklist {
             spell: SPELLS.BLIGHTED_RUNE_WEAPON_TALENT,
             when: combatant.hasTalent(SPELLS.BLIGHTED_RUNE_WEAPON_TALENT),
           }),
+          // TODO: AOTD
+        ];
+      },
+    }),
+    new Rule({
+      name: 'Maintain Disease',
+      description: <Wrapper><SpellLink id={SPELLS.VIRULENT_PLAGUE.id}/> is a significant source of damage.  Remember to keep it active on all targets at all times.</Wrapper>,
+      requirements: () => {
+        return [
+          new Requirement({
+            name: 'Virulent Plague Uptime',
+            check: () => this.virulentPlagueUptime.vpUptimeSuggestionThresholds,
+          }),
         ];
       },
     }),
@@ -91,6 +103,42 @@ class Checklist extends CoreChecklist {
             name: 'Downtime',
             check: () => this.alwaysBeCasting.downtimeSuggestionThresholds,
           }),
+        ];
+      },
+    }),
+    new Rule({
+      name: 'Be well prepared',
+      description: 'Being well prepared with potions, enchants and legendaries is an easy way to improve your performance.',
+      requirements: () => {
+        return [
+          new Requirement({
+            name: 'All legendaries upgraded to max item level',
+            check: () => ({
+              actual: this.legendaryUpgradeChecker.upgradedLegendaries.length,
+              isLessThan: this.legendaryCountChecker.max,
+              style: 'number',
+            }),
+          }),
+          new Requirement({
+            name: 'Used max possible legendaries',
+            check: () => ({
+              actual: this.legendaryCountChecker.equipped,
+              isLessThan: this.legendaryCountChecker.max,
+              style: 'number',
+            }),
+          }),
+          new Requirement({
+            name: 'Used a pre-potion',
+            check: () => this.prePotion.prePotionSuggestionThresholds,
+          }),
+          new Requirement({
+            name: 'Used a second potion',
+            check: () => this.prePotion.secondPotionSuggestionThresholds,
+          }),
+          // new Requirement({
+          //   name: 'Properly enchanted gear',
+          //   check: () => this.velens.suggestionThresholds,
+          // }),
         ];
       },
     }),
