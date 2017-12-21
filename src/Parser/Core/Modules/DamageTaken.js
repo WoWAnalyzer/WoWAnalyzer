@@ -76,10 +76,9 @@ class DamageTaken extends Analyzer {
     Damage taken by magic school:
     <ul>
       ${Object.keys(this._byMagicSchool)
-        .map(type =>{
-          if(this._byMagicSchool[type].effective === 0) return ``;
-          return `<li><b>${MAGIC_SCHOOLS.names[type] || 'Unknown'}</b>: ${formatThousands(this._byMagicSchool[type].effective)} (${formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>`;
-        })
+        .filter(type => this._byMagicSchool[type].effective !== 0)
+        .map(type => `<li><b>${MAGIC_SCHOOLS.names[type] || 'Unknown'}</b>: ${formatThousands(this._byMagicSchool[type].effective)} (${formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>`
+        )
     .join('')}
     </ul>
     Click the bar to switch between simple and detailed mode.`;
@@ -120,9 +119,9 @@ class DamageTaken extends Analyzer {
         footer={
             [(<div id="damage-taken-bar-detailed" onClick={() => this.handleClick()} className="statistic-bar" style={{display: "none"}}>
                 {Object.keys(this._byMagicSchool)
+                .filter(type => this._byMagicSchool[type].effective !== 0)
                 .map(type => {
                   const effective = this._byMagicSchool[type].effective;
-                  if(effective === 0) return ``;
                   return (
                     <div
                       key={type}
@@ -137,9 +136,10 @@ class DamageTaken extends Analyzer {
               {(() => {
                 const physical = (this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL])?this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL].effective : 0;
                 const magical = this.total.effective - physical;
-                const simplifiedValues = {};
-                simplifiedValues[MAGIC_SCHOOLS.ids.PHYSICAL] = physical;
-                simplifiedValues[MAGIC_SCHOOLS.ids.SHADOW] = magical; // use shadow as placeholder for general magic
+                const simplifiedValues = {
+                  [MAGIC_SCHOOLS.ids.PHYSICAL]: physical,
+                  [MAGIC_SCHOOLS.ids.SHADOW]: magical, // use shadow as placeholder for general magic
+                };
                 return Object.keys(simplifiedValues).map(type => {
                   const effective = simplifiedValues[type];
                   return (
