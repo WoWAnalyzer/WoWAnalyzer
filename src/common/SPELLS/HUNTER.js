@@ -254,6 +254,11 @@ export default {
     name: 'Marked Shot',
     icon: 'ability_hunter_markedshot',
   },
+  MARKED_SHOT_DAMAGE: {
+    id: 212621,
+    name: 'Marked Shot',
+    icon: 'ability_hunter_markedshot',
+  },
   TRUESHOT: {
     id: 193526,
     name: 'Trueshot',
@@ -288,6 +293,11 @@ export default {
     id: 63468,
     name: 'Careful Aim',
     icon: 'ability_hunter_piercingshots',
+  },
+  BOMBARDMENT: {
+    id: 35110,
+    name: 'Bombardment',
+    icon: 'ability_hunter_focusfire',
   },
 
   //CATEGORY
@@ -399,6 +409,16 @@ export default {
     id: 191043,
     name: 'Legacy of the Windrunners',
     icon: 'artifactability_marksmanhunter_legacyofthewindrunners',
+  },
+  RAPID_KILLING_TRAIT: {
+    id: 191339,
+    name: 'Rapid Killing',
+    icon: 'ability_marksmanship',
+  },
+  RAPID_KILLING: {
+    id: 191342,
+    name: 'Rapid Killing',
+    icon: 'ability_hunter_assassinate',
   },
 
   //Marksmanship legendary buffs

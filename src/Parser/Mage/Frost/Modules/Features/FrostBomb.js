@@ -14,7 +14,7 @@ class FrostBomb extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     abilityTracker: AbilityTracker,
-  }
+  };
 
   damage = 0;
   hits = 0;

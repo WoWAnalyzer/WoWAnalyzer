@@ -75,7 +75,7 @@ class StatsDisplay extends Analyzer {
     );
   }
 
-  // This is a special module, we're giving it a custom position. Normally we'd use "extraPanel" instead.
+  // This is a special module, we're giving it a custom position. Normally we'd use "statistic" instead.
   render() {
     const mainStats = [
       this.primaryStat,

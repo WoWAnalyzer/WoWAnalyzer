@@ -2,10 +2,11 @@ import React from 'react';
 
 import ChangelogTab from 'Main/ChangelogTab';
 import ChangelogTabTitle from 'Main/ChangelogTabTitle';
-import Tab from 'Main/Tab';
 import TimelineTab from 'Main/Timeline/TimelineTab';
 
 import { formatNumber, formatPercentage, formatThousands, formatDuration } from 'common/format';
+
+import { findByBossId } from 'Raids';
 
 import ApplyBuffNormalizer from './Normalizers/ApplyBuff';
 
@@ -52,6 +53,7 @@ import AmalgamsSeventhSpine from './Modules/Items/AmalgamsSeventhSpine';
 import ArchiveOfFaith from './Modules/Items/ArchiveOfFaith';
 import BarbaricMindslaver from './Modules/Items/BarbaricMindslaver';
 import CharmOfTheRisingTide from './Modules/Items/CharmOfTheRisingTide';
+import ErraticMetronome from './Modules/Items/ErraticMetronome';
 import SeaStar from './Modules/Items/SeaStarOfTheDepthmother';
 import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
 import PrePotion from './Modules/Items/PrePotion';
@@ -86,6 +88,7 @@ import TerminusSignalingBeacon from './Modules/Items/TerminusSignalingBeacon';
 import PrototypePersonnelDecimator from './Modules/Items/PrototypePersonnelDecimator';
 import SheathOfAsara from './Modules/Items/SheathOfAsara';
 import NorgannonsProwess from './Modules/Items/NorgannonsProwess';
+import AcridCatalystInjector from './Modules/Items/AcridCatalystInjector';
 import ShadowSingedFang from './Modules/Items/ShadowSingedFang';
 
 // Shared Buffs
@@ -168,6 +171,7 @@ class CombatLogParser {
     enchantChecker: EnchantChecker,
     gnawedThumbRing: GnawedThumbRing,
     ishkarsFelshieldEmitter: IshkarsFelshieldEmitter,
+    erraticMetronome: ErraticMetronome,
     // Tomb trinkets:
     archiveOfFaith: ArchiveOfFaith,
     barbaricMindslaver: BarbaricMindslaver,
@@ -192,12 +196,13 @@ class CombatLogParser {
     seepingScourgewing: SeepingScourgewing,
     gorshalachsLegacy: GorshalachsLegacy,
     golgannethsVitality: GolgannethsVitality,
-    forgefiendsFabricator: ForgefiendsFabricator, 
-    khazgorothsCourage: KhazgorothsCourage,   
+    forgefiendsFabricator: ForgefiendsFabricator,
+    khazgorothsCourage: KhazgorothsCourage,
     terminusSignalingBeacon: TerminusSignalingBeacon,
     prototypePersonnelDecimator: PrototypePersonnelDecimator,
     sheathOfAsara: SheathOfAsara,
     norgannonsProwess: NorgannonsProwess,
+    acridCatalystInjector: AcridCatalystInjector,
     shadowSingedFang: ShadowSingedFang,
 
     // Concordance of the Legionfall
@@ -218,7 +223,7 @@ class CombatLogParser {
     infernalCinders: InfernalCinders,
     umbralMoonglaives: UmbralMoonglaives,
   };
-  // Override this with spec specific modules
+  // Override this with spec specific modules when extending
   static specModules = {};
 
   report = null;
@@ -267,6 +272,12 @@ class CombatLogParser {
     this.player = player;
     this.playerPets = playerPets;
     this.fight = fight;
+    if (fight) {
+      this._timestamp = fight.start_time;
+      this.boss = findByBossId(fight.boss);
+    } else if (process.env.NODE_ENV !== 'test') {
+      throw new Error('fight argument was empty.');
+    }
 
     this.initializeModules({
       ...this.constructor.defaultModules,
@@ -458,14 +469,12 @@ class CombatLogParser {
         url: 'timeline',
         order: 2,
         render: () => (
-          <Tab title="Timeline">
-            <TimelineTab
-              start={this.fight.start_time}
-              end={this.currentTimestamp}
-              historyBySpellId={this.modules.spellHistory.historyBySpellId}
-              abilities={this.modules.abilities}
-            />
-          </Tab>
+          <TimelineTab
+            start={this.fight.start_time}
+            end={this.currentTimestamp >= 0 ? this.currentTimestamp : this.fight.end_time}
+            historyBySpellId={this.modules.spellHistory.historyBySpellId}
+            abilities={this.modules.abilities}
+          />
         ),
       },
       {
@@ -495,16 +504,6 @@ class CombatLogParser {
           const item = module.item();
           if (item) {
             results.items.push(item);
-          }
-        }
-        if (module.extraPanel) {
-          const extraPanel = module.extraPanel();
-          if (extraPanel) {
-            results.extraPanels.push({
-              name: key,
-              order: module.extraPanelOrder,
-              content: extraPanel,
-            });
           }
         }
         if (module.tab) {

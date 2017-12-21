@@ -6,6 +6,9 @@ import { formatNumber } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
 
+/*
+ * Use: Call upon a spectral owl to attack your target, inflicting 61201 Arcane damage every 1 sec for 20 sec. Your ranged attacks and spells against the same enemy have a chance to make the owl perform an additional attack for 75602 damage. (2 Min Cooldown)
+ */
 class TarnishedSentinelMedallion extends ImportTarnishedSentinelMedallion {
   static dependencies = {
     cooldownThroughputTracker: CooldownThroughputTracker,

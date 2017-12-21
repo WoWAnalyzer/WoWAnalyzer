@@ -74,7 +74,7 @@ class FlameShock extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.FLAME_SHOCK.id} />}
         value={`${formatPercentage(this.uptime)} %`}
-        label={'Uptime'}
+        label="Uptime"
         tooltip = {
           `With an average of ${this.avgMalestromSpend} Maelstrom spend and ${this.elementalFocusCasts.buffed} / ${this.elementalFocusCasts.total} casts with Elemental Focus.`
         }

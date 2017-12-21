@@ -20,8 +20,8 @@ import DiscordButton from 'Main/DiscordButton';
 import Maintainer from 'Main/Maintainer';
 import SuggestionsTab from 'Main/SuggestionsTab';
 
+import SkullRaidMarker from './Images/skull-raidmarker.png';
 import SpecInformationOverlay from './SpecInformationOverlay';
-import HarjatanAvatar from './Images/boss-avatars/TombOfSargeras/Harjatan.png';
 import ItemsPanel from './ItemsPanel';
 
 import './Results.css';
@@ -86,6 +86,7 @@ class Results extends React.Component {
     const { parser, tab, onChangeTab } = this.props;
     const report = parser.report;
     const fight = parser.fight;
+    const boss = parser.boss;
     const config = this.context.config;
     const modules = parser._modules;
     const selectedCombatant = modules.combatants.selected;
@@ -151,19 +152,18 @@ class Results extends React.Component {
           <header>
             <div className={`player ${config.spec.className.replace(' ', '')}`}>
               <img src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`} alt="Player avatar" />{' '}
-              <Textfit mode="single">
+              <Textfit mode="single" max={80}>
                 {selectedCombatant.name}
               </Textfit>
             </div>
             <div className="versus">versus</div>
             <div className="boss">
-              <img src={HarjatanAvatar} alt="Boss avatar" />{' '}
-              <Textfit mode="single">
+              <img src={boss ? boss.headshot : SkullRaidMarker} alt="Boss avatar" />
+              <Textfit mode="single" max={80}>
                 {getBossName(fight)}
               </Textfit>
             </div>
           </header>
-          <div className="divider" />
 
           {config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED && (
             <Wrapper>
@@ -247,17 +247,8 @@ class Results extends React.Component {
           <div className="divider" />
 
           <div className="row">
-            <div className="col-md-8">
+            <div className="col-md-12">
               {this.renderStatistics(results.statistics)}
-            </div>
-            <div className="col-md-4">
-              {results.extraPanels
-                .sort((a, b) => a.order - b.order)
-                .map(extraPanel => (
-                  <Wrapper key={extraPanel.name}>
-                    {extraPanel.content}
-                  </Wrapper>
-                ))}
             </div>
           </div>
 

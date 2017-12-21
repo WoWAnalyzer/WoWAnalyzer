@@ -16,7 +16,6 @@ class CarafeOfSearingLight extends Analyzer {
   on_initialized() {
     const selectedCombatant = this.combatants.selected;
     this.active = selectedCombatant.hasTrinket(ITEMS.CARAFE_OF_SEARING_LIGHT.id);
-
   }
 
   on_byPlayer_energize(event) {

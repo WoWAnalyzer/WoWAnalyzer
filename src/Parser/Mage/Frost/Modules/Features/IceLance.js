@@ -5,10 +5,9 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
+import EnemyInstances, { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Analyzer from 'Parser/Core/Analyzer';
-import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 
 const SHATTER_EFFECTS = [
 	SPELLS.WINTERS_CHILL.id,
@@ -17,6 +16,8 @@ const SHATTER_EFFECTS = [
 	SPELLS.GLACIAL_SPIKE_DAMAGE.id,
 	SPELLS.RING_OF_FROST_DAMAGE.id,
 ];
+
+const CAST_BUFFER_MS = 100;
 
 class IceLance extends Analyzer {
 	static dependencies = {
@@ -29,11 +30,17 @@ class IceLance extends Analyzer {
 	iceLanceTargetID = 0;
 	nonShatteredCasts = 0;
 
+	iceLanceCastTimestamp;
+	totalFingersProcs = 0;
+	overwrittenFingersProcs = 0;
+	expiredFingersProcs = 0;
+
 	on_byPlayer_cast(event) {
 		const spellId = event.ability.guid;
 		if (spellId !== SPELLS.ICE_LANCE.id) {
 			return;
 		}
+		this.iceLanceCastTimestamp = event.timestamp;
 		if (event.targetID) {
 			this.iceLanceTargetID = encodeTargetString(event.targetID, event.targetInstance);
 		}
@@ -55,6 +62,48 @@ class IceLance extends Analyzer {
 		}
 	}
 
+	on_byPlayer_changebuffstack(event) {
+		if (event.ability.guid !== SPELLS.FINGERS_OF_FROST.id) {
+			return;
+		}
+
+		// FoF overcaps don't show as a refreshbuff, instead they are a stack lost followed immediately by a gain
+		const stackChange = event.stacksGained;
+		if (stackChange > 0) {
+			this.totalFingersProcs += stackChange;
+		} else if (this.iceLanceCastTimestamp && this.iceLanceCastTimestamp + CAST_BUFFER_MS > event.timestamp) {
+			// just cast ice lance, so this stack removal probably a proc used
+		} else if (event.newStacks === 0) {
+			this.expiredFingersProcs += (-stackChange); // stacks zero out, must be expiration
+		} else {
+			this.overwrittenFingersProcs += (-stackChange); // stacks don't zero, this is an overwrite
+		}
+	}
+
+	get wastedFingersProcs() {
+		return this.expiredFingersProcs + this.overwrittenFingersProcs;
+	}
+
+	get usedFingersProcs() {
+		return this.totalFingersProcs - this.wastedFingersProcs;
+	}
+
+	get fingersUtil() {
+		return 1 - (this.wastedFingersProcs / this.totalFingersProcs) || 0;
+	}
+
+	get fingersUtilSuggestionThresholds() {
+    return {
+      actual: this.fingersUtil,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.85,
+        major: 0.70,
+      },
+      style: 'percentage',
+    };
+  }
+
 	suggestions(when) {
 		const nonShatteredPercent = (this.nonShatteredCasts / this.abilityTracker.getAbility(SPELLS.ICE_LANCE.id).casts);
 		when(nonShatteredPercent).isGreaterThan(0.1)
@@ -69,12 +118,12 @@ class IceLance extends Analyzer {
 
 	statistic() {
 		const shattered = 1 - (this.nonShatteredCasts / this.abilityTracker.getAbility(SPELLS.ICE_LANCE.id).casts);
-		return(
+    return (
 			<StatisticBox
 				icon={<SpellIcon id={SPELLS.ICE_LANCE.id} />}
 				value={`${formatPercentage(shattered, 0)} %`}
-				label='Ice Lance Shattered'
-				tooltip={'This is the percentage of Ice Lance casts that were shattered. You should only be casting Ice Lance without Shatter if you are moving and you cant use anything else.'}
+        label="Ice Lance Shattered"
+        tooltip="This is the percentage of Ice Lance casts that were shattered. You should only be casting Ice Lance without Shatter if you are moving and you cant use anything else."
 			/>
 		);
 	}

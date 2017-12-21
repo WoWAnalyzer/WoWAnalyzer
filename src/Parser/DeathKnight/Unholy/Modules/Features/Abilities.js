@@ -24,6 +24,16 @@ class Abilities extends CoreAbilities {
 
     {
       spell: SPELLS.SCOURGE_STRIKE,
+      isActive: combatant => !combatant.hasTalent(SPELLS.CLAWING_SHADOWS_TALENT.id),
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => null,
+      noExtraSuggestion: true,
+      noCanBeImproved: true,
+    },
+
+    {
+      spell: SPELLS.CLAWING_SHADOWS_TALENT,
+      isActive: combatant => combatant.hasTalent(SPELLS.CLAWING_SHADOWS_TALENT.id),
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
       noExtraSuggestion: true,

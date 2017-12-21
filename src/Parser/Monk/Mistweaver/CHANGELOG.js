@@ -5,6 +5,16 @@ import Wrapper from 'common/Wrapper';
 
 export default [
   {
+    date: new Date('2017-12-22'),
+    changes: 'Added Mistweaver checklist items',
+    contributors: [Anomoly],
+  },
+  {
+    date: new Date('2017-12-13'),
+    changes: 'Added in Mistweaver Mastery calculation to stats',
+    contributors: [Anomoly],
+  },
+  {
     date: new Date('2017-11-28'),
     changes: 'Fixed bug with TFT -> Renewing Mist cast efficiency. Updated Player Log Data tab for additional items for T21 Speadsheet version',
     contributors: [Anomoly],

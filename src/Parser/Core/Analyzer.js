@@ -32,8 +32,6 @@ class Analyzer extends Module {
 
   // Override these with functions that return info about their rendering in the specific slots
   item() { return undefined; }
-  extraPanelOrder = 100; // below 100 is reserved
-  extraPanel() { return undefined; }
   statistic() { return undefined; }
   statisticOrder = STATISTIC_ORDER.DEFAULT;
   suggestions(when) { return undefined; }

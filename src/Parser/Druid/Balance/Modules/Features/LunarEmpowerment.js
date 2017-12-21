@@ -78,7 +78,7 @@ class LEmpowerment extends Analyzer {
         icon={<Icon icon="ability_druid_eclipse" />}
         value={`${this.LunarEmpsOver}`}
         label="Overcapped Lunar Emp"
-        tooltip={'Lunar Empowerment overcapping should never occur when it\'s possible to cast a Lunar Strike without overcapping Astral Power.'}
+        tooltip="Lunar Empowerment overcapping should never occur when it\'s possible to cast a Lunar Strike without overcapping Astral Power."
       />
     );
   }

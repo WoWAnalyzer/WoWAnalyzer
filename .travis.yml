@@ -2,7 +2,7 @@ language: node_js
 services:
   - docker
 node_js:
-  - 9.2.0
+  - 9.3.0
 cache:
   directories:
     - node_modules
@@ -14,6 +14,10 @@ before_install:
 install:
   - npm install
   - cd server && npm install --dev && cd ..
+before_script:
+  - export AUTHOR_NAME="$(git log -1 $TRAVIS_COMMIT --pretty="%aN")"
+  - export BRANCH_OR_PR="$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo "PR-$TRAVIS_PULL_REQUEST"; fi)"
+  - export SOURCE_URL="$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo "https://github.com/"$REPO_OWNER"/"$REPO_NAME"/commit/"$TRAVIS_COMMIT""; else echo "https://github.com/"$REPO_OWNER"/"$REPO_NAME"/pull/"$TRAVIS_PULL_REQUEST""; fi)"
 script:
   - npm test
   - npm run build
@@ -39,3 +43,8 @@ after_success:
       echo "#docker push";
       docker push $REPO:$BRANCH;
     fi
+#  - chmod +x travis-discord-hook/success.sh
+#  - ./travis-discord-hook/success.sh
+after_failure:
+  - chmod +x travis-discord-hook/fail.sh
+  - ./travis-discord-hook/fail.sh

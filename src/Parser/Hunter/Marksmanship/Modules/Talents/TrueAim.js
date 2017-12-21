@@ -13,6 +13,11 @@ import SpellLink from 'common/SpellLink';
 const MAX_STACKS = 10;
 const TRUE_AIM_MODIFIER = 0.02;
 
+/*
+ * Each successive Arcane Shot or Aimed Shot fired at the same target increases the damage those Shots deal to the target by 2%, stacking up to 10 times.
+ * Limit 1 target.
+ */
+
 class TrueAim extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -112,7 +117,7 @@ True Aim contributed with ${formatNumber(this.bonusDmg)} - ${this.owner.formatIt
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(11);
+  statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 
 export default TrueAim;

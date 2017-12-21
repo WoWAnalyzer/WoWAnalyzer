@@ -432,6 +432,11 @@ export default {
     name: 'Justice through Sacrifice',
     icon: 'spell_holy_power',
   },
+  FOCUSED_HEALING: {
+    id: 200326,
+    name: 'Focused Healing',
+    icon: 'spell_holy_layonhands',
+  },
   // Retribution Paladin:
   DEFLECTION: {
     id: 184778,

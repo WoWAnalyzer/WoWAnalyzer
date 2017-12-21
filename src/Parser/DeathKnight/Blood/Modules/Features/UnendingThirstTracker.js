@@ -13,10 +13,7 @@ class UnendingThirstTracker extends Analyzer {
   };
 
   RecentDSCounter = 0;
-  DScost=0;
-
-  on_initialized() {
-  }
+  DScost = 0;
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -25,22 +22,19 @@ class UnendingThirstTracker extends Analyzer {
     }
     if (this.combatants.selected.hasBuff(SPELLS.BLOOD_SHIELD.id, event.timestamp)) {
       this.RecentDSCounter += 1;
-      this.DScost=event.classResources[0].cost;
+      this.DScost = event.classResources[0].cost;
       console.log('DScost is ', this.DScost);
     }
   }
-
 
   statistic() {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.UNENDING_THIRST.id} />}
         value={this.RecentDSCounter}
-        label='Empowered Death Strike'
-        tooltip='If your looking to increase your dps as the cost of defense try increasing this.'
-
+        label="Empowered Death Strike"
+        tooltip="If you're looking to increase your dps as the cost of defense try increasing this."
       />
-
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(5);

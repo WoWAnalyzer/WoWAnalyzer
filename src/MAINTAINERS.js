@@ -156,3 +156,7 @@ export const Hartra344 = {
   nickname: 'hartra344',
   github: 'hartra344',
 };
+export const Maldark = {
+  nickname: 'Maldark',
+  github: 'Maldark',
+};

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 
-import Wrapper from 'common/Wrapper';
 import ScrollFilledIcon from 'Icons/ScrollFilled';
 import MegaphoneIcon from 'Icons/Megaphone';
+import Wrapper from 'common/Wrapper';
+import DiscordButton from 'Main/DiscordButton';
+import AntorusImage from 'Raids/AntorusTheBurningThrone/Images/antorus.jpg';
 
 import ChangelogPanel from './ChangelogPanel';
-
 import MasteryRadiusImage from './Images/mastery-radius.png';
-import AntorusImage from './Images/antorus.jpg';
-
 import DiscordLogo from './Images/Discord-Logo+Wordmark-White.svg';
 import DiscordBotGif from './Images/discord-bot.gif';
+import DiscordBanner from './Images/discord-banner.jpg';
 import SpecListing from './SpecListing';
 
 class Home extends Component {
@@ -41,7 +41,7 @@ class Home extends Component {
                     {/* Your logs are welcome. Do note they shouldn't be top logs, they're generally not *that* interesting. They're mostly just my logs since I have permission to use those :') */}
                     <br /><br />
 
-                    Feature requests (<dfn data-tip="Provided that you're not using one of Microsoft's browsers.">and bug reports*</dfn>) are welcome! On <a href="https://discord.gg/AxphPxU">Discord</a> or create an issue <a href={'https://github.com/WoWAnalyzer/WoWAnalyzer/issues'}>here</a>.
+                    Feature requests (<dfn data-tip="Provided that you're not using one of Microsoft's browsers.">and bug reports*</dfn>) are welcome! On <a href="https://discord.gg/AxphPxU">Discord</a> or create an issue <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues">here</a>.
                   </div>
                 </div>
 
@@ -109,6 +109,15 @@ class Home extends Component {
 
                     {/* old: https://media.giphy.com/media/l1J3vV5lCmv8qx16M/giphy.gif */}
                     <img src="https://media.giphy.com/media/N56zWre4o5UlO/source.gif" style={{ width: '100%' }} alt="Sharing is caring" />
+                  </div>
+                </div>
+                <div className="panel">
+                  <div className="panel-heading" style={{ padding: 0 }}>
+                    <img src={DiscordBanner} alt="Discord" style={{ width: '100%' }} />
+                  </div>
+                  <div className="panel-body" style={{ textAlign: 'justify' }}>
+                    Join us on Discord with any questions, suggestions or for more information about contributing.<br /><br />
+                    <DiscordButton />
                   </div>
                 </div>
               </div>

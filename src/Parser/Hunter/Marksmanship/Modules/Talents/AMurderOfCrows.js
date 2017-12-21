@@ -15,6 +15,9 @@ const CROWS_SAVE_PERCENT = 0.25;
 //when we enter execute and Bullseye starts racking up
 const EXECUTE_PERCENT = 0.2;
 
+/*
+ * Summons a flock of crows to attack your target, dealing [(162% of Attack power) * 16] Physical damage over 15 sec. When a target dies while affected by this ability, its cooldown will reset.
+ */
 class AMurderOfCrows extends Analyzer {
 
   static dependencies = {
@@ -110,6 +113,19 @@ class AMurderOfCrows extends Analyzer {
       </div>
     );
   }
+
+  get shouldHaveSavedThreshold() {
+    return {
+      actual: this.shouldHaveSaved,
+      isGreaterThan: {
+        //random numbers to force it to be green in display at 0, and red at 1
+        minor: 0.1,
+        average: 0.3,
+        major: 0.5,
+      },
+      style: 'number',
+    };
+  }
   suggestions(when) {
     when(this.shouldHaveSaved).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
@@ -120,7 +136,7 @@ class AMurderOfCrows extends Analyzer {
           .regular(recommended);
       });
   }
-  statisticOrder = STATISTIC_ORDER.CORE(12);
+  statisticOrder = STATISTIC_ORDER.CORE(11);
 }
 
 export default AMurderOfCrows;
