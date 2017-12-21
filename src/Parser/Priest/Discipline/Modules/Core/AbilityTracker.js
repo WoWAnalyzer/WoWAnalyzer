@@ -3,19 +3,13 @@ import SPELLS from 'common/SPELLS';
 import CoreAbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 class AbilityTracker extends CoreAbilityTracker {
-  getAbility(spellId, abilityInfo = null) {
-    if (spellId === SPELLS.SHADOWFIEND_WITH_GLYPH_OF_THE_SHA.id || spellId === SPELLS.LIGHTSPAWN.id) {
-      return super.getAbility(SPELLS.SHADOWFIEND.id, abilityInfo);
-    }
-    return super.getAbility(spellId, abilityInfo);
-  }
 
   on_byPlayer_cast(event) {
     if (super.on_byPlayer_cast) {
       super.on_byPlayer_cast(event);
     }
     const spellId = event.ability.guid;
-    const cast = this.getAbility(spellId, event.ability);
+    const cast = super.getAbility(spellId, event.ability);
 
     if (spellId === SPELLS.POWER_WORD_SHIELD.id) {
       const hasRapture = this.owner.modules.combatants.selected.hasBuff(SPELLS.RAPTURE.id, event.timestamp);
