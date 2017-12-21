@@ -209,6 +209,30 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
+      name: 'Use your defensive cooldowns effectively',
+      description: <Wrapper>Make sure you use your personal and defensive cooldowns at appropriate times throughout the fight. While it may not make sense to use these abilities on cooldown, saving them for large damage events is ideal. A good example is using <SpellLink id={SPELLS.DIFFUSE_MAGIC_TALENT.id} icon /> on Charged Blasts during the Imonar the Soulhunter encounter.</Wrapper>,
+      requirements: () => {
+        const combatant = this.combatants.selected;
+        return [
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.LIFE_COCOON,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.DIFFUSE_MAGIC_TALENT,
+            when: combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT.id),
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.DAMPEN_HARM_TALENT,
+            when: combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id),
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.HEALING_ELIXIR_TALENT,
+            when: combatant.hasTalent(SPELLS.HEALING_ELIXIR_TALENT.id),
+          }),
+        ];
+      },
+    }),
+    new Rule({
       name: 'Use all of your mana effectively',
       description: 'If you have a large amount of mana left at the end of the fight that\'s mana you could have turned into healing. Try to use all your mana during a fight. A good rule of thumb is to try to match your mana level with the boss\'s health.',
       requirements: () => {

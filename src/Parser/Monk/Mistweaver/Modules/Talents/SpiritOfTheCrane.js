@@ -11,6 +11,10 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
+const SOTC_MANA_PER_SECOND_RETURN_MINOR = 640;
+const SOTC_MANA_PER_SECOND_RETURN_AVERAGE = SOTC_MANA_PER_SECOND_RETURN_MINOR - 100;
+const SOTC_MANA_PER_SECOND_RETURN_MAJOR = SOTC_MANA_PER_SECOND_RETURN_MINOR - 100;
+
 const debug = false;
 
 class SpiritOfTheCrane extends Analyzer {
@@ -111,9 +115,9 @@ class SpiritOfTheCrane extends Analyzer {
     return {
       actual: this.manaReturn,
       isLessThan: {
-        minor: 300000,
-        average: 250000,
-        major: 150000,
+        minor: SOTC_MANA_PER_SECOND_RETURN_MINOR * (this.owner.fightDuration / 1000),
+        average: SOTC_MANA_PER_SECOND_RETURN_AVERAGE * (this.owner.fightDuration / 1000),
+        major: SOTC_MANA_PER_SECOND_RETURN_MAJOR * (this.owner.fightDuration / 1000),
       },
       style: 'number',
     };
