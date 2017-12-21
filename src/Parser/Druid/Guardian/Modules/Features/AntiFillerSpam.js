@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-
+import Wrapper from 'common/Wrapper';
 import StatisticBox from 'Main/StatisticBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -72,7 +72,7 @@ class AntiFillerSpam extends Analyzer {
 
       const gcdSpellID = gcdSpell.spell.id;
 
-      const { isFiller, baseCD, hastedCD, condition, proc, category} = gcdSpell;
+      const { isFiller, baseCD, hastedCD, condition, proc, category } = gcdSpell;
       const lastCast = this.abilityLastCasts[gcdSpellID] || -Infinity;
       const isFillerEval = (typeof isFiller === 'function') ? isFiller(event, combatant, targets, lastCast) : isFiller;
       if (isFillerEval || category === Abilities.SPELL_CATEGORIES.UTILITY) {
@@ -125,7 +125,7 @@ class AntiFillerSpam extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BEAR_SWIPE.id} />}
         value={`${formatPercentage(this.fillerSpamPercentage)}%`}
-        label='Unnecessary Fillers'
+        label="Unnecessary Fillers"
         tooltip={`You cast <strong>${this._unnecessaryFillerSpells}</strong> unnecessary filler spells out of <strong>${this._totalGCDSpells}</strong> total GCDs.  Filler spells (Swipe, Moonfire without a GG proc, or Moonfire outside of pandemic if talented into Incarnation) do far less damage than your main rotational spells, and should be minimized whenever possible.`}
       />
     );
@@ -134,7 +134,7 @@ class AntiFillerSpam extends Analyzer {
   suggestions(when) {
     when(this.fillerSpamPercentage).isGreaterThan(0.1)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You are casting too many unnecessary filler spells. Try to plan your casts two or three GCDs ahead of time to anticipate your main rotational spells coming off cooldown, and to give yourself time to react to <SpellLink id={SPELLS.GORE_BEAR.id} /> and <SpellLink id={SPELLS.GALACTIC_GUARDIAN_TALENT.id} /> procs.</span>)
+        return suggest(<Wrapper>You are casting too many unnecessary filler spells. Try to plan your casts two or three GCDs ahead of time to anticipate your main rotational spells coming off cooldown, and to give yourself time to react to <SpellLink id={SPELLS.GORE_BEAR.id} /> and <SpellLink id={SPELLS.GALACTIC_GUARDIAN_TALENT.id} /> procs.</Wrapper>)
           .icon(SPELLS.BEAR_SWIPE.icon)
           .actual(`${formatPercentage(actual)}% unnecessary filler spells cast`)
           .recommended(`${formatPercentage(recommended, 0)}% or less is recommended`)

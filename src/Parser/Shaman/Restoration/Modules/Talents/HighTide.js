@@ -53,7 +53,7 @@ class HighTide extends Analyzer {
         icon={<SpellIcon id={SPELLS.HIGH_TIDE_TALENT.id} />}
         value={`${formatPercentage(this.healing)} %`}
         label={(
-          <dfn data-tip={'The percentage of your healing that is caused by High Tide.'}>
+          <dfn data-tip="The percentage of your healing that is caused by High Tide.">
 
             High Tide healing
           </dfn>

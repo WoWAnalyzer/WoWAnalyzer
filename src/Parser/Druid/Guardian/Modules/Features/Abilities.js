@@ -34,8 +34,8 @@ class Abilities extends CoreAbilities {
 
         const potentialGoreProcs = maxGCDs - manglesOnCD;
 
-        const bearHug = combatant.traitsBySpellId[SPELLS.BEAR_HUG_TRAIT] > 0 ? BEAR_HUG_CHANCE : 0;
-        const t19 = combatant.hasBuff(SPELLS.GUARDIAN_DRUID_T19_2SET_BONUS_BUFF) ? T19_2SET_CHANCE : 0;
+        const bearHug = combatant.traitsBySpellId[SPELLS.BEAR_HUG_TRAIT.id] > 0 ? BEAR_HUG_CHANCE : 0;
+        const t19 = combatant.hasBuff(SPELLS.GUARDIAN_DRUID_T19_2SET_BONUS_BUFF.id) ? T19_2SET_CHANCE : 0;
         const goreChance = GORE_BASE_CHANCE + bearHug + t19;
 
         const gainedMangles = potentialGoreProcs * goreChance;

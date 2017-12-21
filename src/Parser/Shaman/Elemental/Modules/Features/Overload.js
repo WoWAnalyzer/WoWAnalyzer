@@ -90,7 +90,7 @@ class Overload extends Analyzer {
             }
           </ul>
         )}
-        label={'Overload procs'}
+        label="Overload procs"
         tooltip={ `${this.spells[0].overloads} / ${this.spells[0].normal} means you hit the target ${this.spells[0].normal} times with ${this.spells[0].name} and got ${this.spells[0].overloads} extra overload hits.`}
       />
     );

@@ -8,22 +8,21 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 
 class ThermalVoid extends Analyzer {
-
   static dependencies = {
     combatants: Combatants,
-	}
+  };
 
   casts = 0;
   buffApplied = 0;
   extraUptime = 0;
 
   on_initialized() {
-	   this.active = this.combatants.selected.hasTalent(SPELLS.THERMAL_VOID_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.THERMAL_VOID_TALENT.id);
   }
 
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if(spellId === SPELLS.ICY_VEINS.id) {
+    if (spellId === SPELLS.ICY_VEINS.id) {
       this.casts += 1;
       this.buffApplied = event.timestamp;
     }
@@ -41,7 +40,7 @@ class ThermalVoid extends Analyzer {
     const averageDuration = (uptime / this.casts) / 1000;
     when(averageDuration).isLessThan(40)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.ICY_VEINS.id}/> duration can be improved. Make sure you use Frozen Orb to get Fingers of Frost Procs</span>)
+        return suggest(<span>Your <SpellLink id={SPELLS.ICY_VEINS.id} /> duration can be improved. Make sure you use Frozen Orb to get Fingers of Frost Procs</span>)
           .icon(SPELLS.ICY_VEINS.icon)
           .actual(`${formatNumber(actual)} seconds Average Icy Veins Duration`)
           .recommended(`${formatNumber(recommended)} is recommended`)
@@ -57,7 +56,7 @@ class ThermalVoid extends Analyzer {
         icon={<SpellIcon id={SPELLS.ICY_VEINS.id} />}
         value={`${formatNumber(averageDuration)}s`}
         label="Avg Icy Veins Duration"
-        tooltip={"Icy Veins Casts that do not complete before the fight ends are removed from this statistic"}
+        tooltip="Icy Veins Casts that do not complete before the fight ends are removed from this statistic"
       />
     );
   }
