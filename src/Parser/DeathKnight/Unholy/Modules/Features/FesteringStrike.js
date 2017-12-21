@@ -78,7 +78,7 @@ class FesteringStrike extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.FESTERING_STRIKE.id} />}
         value={`${formatPercentage(strikeEfficiency)} %`}
-        label={'Festering Strike Efficiency'}
+        label="Festering Strike Efficiency"
         tooltip={`${formatPercentage(percentCastsOverFourStacks)}% of Festering Strike casts were on a target with more than four stacks of Festering Wounds.`}
       />
     );

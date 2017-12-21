@@ -81,7 +81,7 @@ class ClawingShadowsEfficiency extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CLAWING_SHADOWS_TALENT.id} />}
         value={`${formatPercentage(strikeEfficiency)} %`}
-        label={'Clawing Shadows Efficiency'}
+        label="Clawing Shadows Efficiency"
         tooltip={`${this.clawingShadowCastsZeroWounds} out of ${this.totalClawingShadowsCasts} Clawing Shadows were used with no Festering Wounds on the target.`}
       />
     );

@@ -38,7 +38,7 @@ class Frostbrand extends Analyzer {
         icon={<SpellIcon id={SPELLS.FROSTBRAND.id} />}
         value={`${formatPercentage(frostbrandUptime)} %`}
         label="Frostbrand Uptime"
-        tooltip={'One of your highest priorities, get as close to 100% as possible'}
+        tooltip="One of your highest priorities, get as close to 100% as possible"
       />)
     );
   }

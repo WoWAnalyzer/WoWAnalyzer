@@ -77,7 +77,7 @@ class Judgment extends Analyzer {
 			<StatisticBox
 				icon={<SpellIcon id={SPELLS.JUDGMENT_DEBUFF.id} />}
 				value={`${formatPercentage(buffedJudgmentPercent)}%`}
-				label='Spenders inside Judgment'
+				label="Spenders inside Judgment"
 				tooltip={`${spendersInsideJudgment} spenders`}
 			/>
 		);
