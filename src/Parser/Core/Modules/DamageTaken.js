@@ -6,8 +6,8 @@ import MAGIC_SCHOOLS from 'common/MAGIC_SCHOOLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Wrapper from 'common/Wrapper';
+import { STATISTIC_ORDER } from 'Main/StatisticBox';
+import ToggleableStatisticBox from 'Main/ToggleableStatisticBox';
 import DamageValue from './DamageValue';
 
 class DamageTaken extends Analyzer {
@@ -112,7 +112,7 @@ class DamageTaken extends Analyzer {
     };
 
     return this.showStatistic && (
-      <StatisticBox
+      <ToggleableStatisticBox
         icon={(
           <img
             src="/img/shield.png"
@@ -125,41 +125,37 @@ class DamageTaken extends Analyzer {
         tooltip={
           `The total damage taken was ${formatThousands(this.total.effective)} (${formatThousands(this.total.overkill)} overkill).`
         }
-        footer={(
-          <Wrapper>
-            <div id="damage-taken-bar-detailed" onClick={() => this.handleClick()} className="statistic-bar" style={{display: "none"}}>
+        toggledfooter={(
+            <div className="statistic-bar" data-tip={tooltip}>
               {Object.keys(this._byMagicSchool)
                 .filter(type => this._byMagicSchool[type].effective !== 0)
-                .map(type => {
-                  const effective = this._byMagicSchool[type].effective;
-                  return (
+                .map(type =>
+                  (
                     <div
                       key={type}
                       className={`spell-school-${type}-bg`}
-                      style={{ width: `${effective / this.total.effective * 100}%` }}
-                      data-tip={tooltip}
+                      style={{ width: `${this._byMagicSchool[type].effective / this.total.effective * 100}%` }}
                     />
-                  );
-              })}
+                  )
+              )}
             </div>
-            <div id="damage-taken-bar-simple" onClick={() => this.handleClick()} className="statistic-bar">
+          )}
+        footer={(
+            <div className="statistic-bar" data-tip={tooltip}>
               {Object.keys(simplifiedValues)
-                .map(type => {
-                  const effective = simplifiedValues[type];
-                  return (
+                .map(type =>
+                  (
                     <div
                       key={type}
                       className={`spell-school-${type}-bg`}
-                      style={{ width: `${effective / this.total.effective * 100}%` }}
-                      data-tip={tooltip}
+                      style={{ width: `${simplifiedValues[type] / this.total.effective * 100}%` }}
                     />
-                  );
-                })
+                  )
+                )
               }
             </div>
-          </Wrapper>
         )}
-        footerStyle={{ overflow: 'hidden' }}
+        footerStyle={{ overflow: 'hidden', cursor: 'pointer' }}
       />
     );
   }
