@@ -5,10 +5,9 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
+import EnemyInstances, { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Analyzer from 'Parser/Core/Analyzer';
-import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 
 const SHATTER_EFFECTS = [
 	SPELLS.WINTERS_CHILL.id,
@@ -119,12 +118,12 @@ class IceLance extends Analyzer {
 
 	statistic() {
 		const shattered = 1 - (this.nonShatteredCasts / this.abilityTracker.getAbility(SPELLS.ICE_LANCE.id).casts);
-		return(
+    return (
 			<StatisticBox
 				icon={<SpellIcon id={SPELLS.ICE_LANCE.id} />}
 				value={`${formatPercentage(shattered, 0)} %`}
-				label='Ice Lance Shattered'
-				tooltip={'This is the percentage of Ice Lance casts that were shattered. You should only be casting Ice Lance without Shatter if you are moving and you cant use anything else.'}
+        label="Ice Lance Shattered"
+        tooltip="This is the percentage of Ice Lance casts that were shattered. You should only be casting Ice Lance without Shatter if you are moving and you cant use anything else."
 			/>
 		);
 	}

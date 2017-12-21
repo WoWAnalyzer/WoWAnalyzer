@@ -80,7 +80,7 @@ class SoulShardBreakdown extends React.Component {
                   </td>
                   <td style={{ width: '30%' }}>
                     <div
-                      className={'performance-bar '}
+                      className="performance-bar"
                       style={{ width: `${(ability.wasted / totalWasted) * 100}%` }}
                     />
                   </td>

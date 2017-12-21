@@ -56,7 +56,7 @@ class Ascendance extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id} />}
         value={`${this.numCasts[SPELLS.LAVA_BURST.id]}`}
-        label={'Lava Burst casts'}
+        label="Lava Burst casts"
         tooltip={`With a uptime of: ${formatPercentage(this.AscendanceUptime)} %<br>
         Casts while Ascendance was up:<br>
         <ul>

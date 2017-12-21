@@ -146,7 +146,7 @@ class LowHealthHealing extends React.Component {
                             style={{ width: `${healthPercentage * 100}%` }}
                           />
                           <div
-                            className={'flex-sub performance-bar Hunter-bg'}
+                            className="flex-sub performance-bar Hunter-bg"
                             style={{ width: `${effectiveHealing / event.maxHitPoints * 100}%`, opacity: 0.4 }}
                           />
                         </div>

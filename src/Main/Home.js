@@ -41,7 +41,7 @@ class Home extends Component {
                     {/* Your logs are welcome. Do note they shouldn't be top logs, they're generally not *that* interesting. They're mostly just my logs since I have permission to use those :') */}
                     <br /><br />
 
-                    Feature requests (<dfn data-tip="Provided that you're not using one of Microsoft's browsers.">and bug reports*</dfn>) are welcome! On <a href="https://discord.gg/AxphPxU">Discord</a> or create an issue <a href={'https://github.com/WoWAnalyzer/WoWAnalyzer/issues'}>here</a>.
+                    Feature requests (<dfn data-tip="Provided that you're not using one of Microsoft's browsers.">and bug reports*</dfn>) are welcome! On <a href="https://discord.gg/AxphPxU">Discord</a> or create an issue <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues">here</a>.
                   </div>
                 </div>
 
