@@ -78,7 +78,7 @@ class SEmpowerment extends Analyzer {
         icon={<Icon icon="ability_druid_eclipseorange" />}
         value={`${this.SolarEmpsOver}`}
         label="Overcapped Solar Emp"
-        tooltip={'Solar Empowerment overcapping should never occur when it\'s possible to cast a Solar Wrath without overcapping Astral Power.'}
+        tooltip="Solar Empowerment overcapping should never occur when it\'s possible to cast a Solar Wrath without overcapping Astral Power."
       />
     );
   }

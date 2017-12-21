@@ -13,7 +13,7 @@ class BuffedHOTP extends Analyzer {
   };
 
   BuffedHOTP = 0;
-  NonBuffedHOTP=0;
+  NonBuffedHOTP = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id);
@@ -26,22 +26,18 @@ class BuffedHOTP extends Analyzer {
     }
     if (this.combatants.selected.hasBuff(SPELLS.CONSECRATION_BUFF.id, event.timestamp)) {
       this.BuffedHOTP += 1;
-    }else{
-      this.NonBuffedHOTP+= 1;
+    } else {
+      this.NonBuffedHOTP += 1;
     }
   }
-
 
   statistic() {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id} />}
-        value={`${this.BuffedHOTP} out of ${(this.BuffedHOTP+this.NonBuffedHOTP)}`}
-        label='Buffed Hand Of the Protector'
-        tooltip=''
-
+        value={`${this.BuffedHOTP} out of ${(this.BuffedHOTP + this.NonBuffedHOTP)}`}
+        label="Buffed Hand Of the Protector"
       />
-
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(5);
