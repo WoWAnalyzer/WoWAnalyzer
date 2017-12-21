@@ -7,7 +7,7 @@ import MAGIC_SCHOOLS from 'common/MAGIC_SCHOOLS';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-
+import Wrapper from 'common/Wrapper';
 import DamageValue from './DamageValue';
 
 class DamageTaken extends Analyzer {
@@ -87,6 +87,7 @@ class DamageTaken extends Analyzer {
   detailedView = false;
   handleClick(){
     this.detailedView = !this.detailedView;
+    console.log(this.state);
     const barSimple = document.getElementById("damage-taken-bar-simple");
     const barDetailed = document.getElementById("damage-taken-bar-detailed");
     if((!barSimple || !barDetailed)) return; //return if one of the two bars isn't found.
@@ -103,6 +104,13 @@ class DamageTaken extends Analyzer {
   statistic() {
     // TODO: Add a bar showing magic schools
     const tooltip = this.tooltip;
+    const physical = (this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL])?this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL].effective : 0;
+    const magical = this.total.effective - physical;
+    const simplifiedValues = {
+      [MAGIC_SCHOOLS.ids.PHYSICAL]: physical,
+      [MAGIC_SCHOOLS.ids.SHADOW]: magical, // use shadow as placeholder for general magic
+    };
+
     return this.showStatistic && (
       <StatisticBox
         icon={(
@@ -117,9 +125,10 @@ class DamageTaken extends Analyzer {
         tooltip={
           `The total damage taken was ${formatThousands(this.total.effective)} (${formatThousands(this.total.overkill)} overkill).`
         }
-        footer={
-            [(<div id="damage-taken-bar-detailed" onClick={() => this.handleClick()} className="statistic-bar" style={{display: "none"}}>
-                {Object.keys(this._byMagicSchool)
+        footer={(
+          <Wrapper>
+            <div id="damage-taken-bar-detailed" onClick={() => this.handleClick()} className="statistic-bar" style={{display: "none"}}>
+              {Object.keys(this._byMagicSchool)
                 .filter(type => this._byMagicSchool[type].effective !== 0)
                 .map(type => {
                   const effective = this._byMagicSchool[type].effective;
@@ -129,19 +138,13 @@ class DamageTaken extends Analyzer {
                       className={`spell-school-${type}-bg`}
                       style={{ width: `${effective / this.total.effective * 100}%` }}
                       data-tip={tooltip}
-                />
-              );
-            })}
-          </div>
-        ),(<div id="damage-taken-bar-simple" onClick={() => this.handleClick()} className="statistic-bar" >
-              {(() => {
-                const physical = (this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL])?this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL].effective : 0;
-                const magical = this.total.effective - physical;
-                const simplifiedValues = {
-                  [MAGIC_SCHOOLS.ids.PHYSICAL]: physical,
-                  [MAGIC_SCHOOLS.ids.SHADOW]: magical, // use shadow as placeholder for general magic
-                };
-                return Object.keys(simplifiedValues).map(type => {
+                    />
+                  );
+              })}
+            </div>
+            <div id="damage-taken-bar-simple" onClick={() => this.handleClick()} className="statistic-bar">
+              {Object.keys(simplifiedValues)
+                .map(type => {
                   const effective = simplifiedValues[type];
                   return (
                     <div
@@ -151,11 +154,11 @@ class DamageTaken extends Analyzer {
                       data-tip={tooltip}
                     />
                   );
-                });
-              })()
+                })
               }
             </div>
-        )]}
+          </Wrapper>
+        )}
         footerStyle={{ overflow: 'hidden' }}
       />
     );
