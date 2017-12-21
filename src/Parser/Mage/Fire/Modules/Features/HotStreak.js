@@ -2,6 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
+import Wrapper from 'common/Wrapper';
 import { formatMilliseconds, formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -113,7 +114,7 @@ class HotStreak extends Analyzer {
     const expiredProcsPercent = (this.expiredProcs / this.totalProcs) || 0;
     when(expiredProcsPercent).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You allowed {formatPercentage(expiredProcsPercent)}% of your <SpellLink id={SPELLS.HOT_STREAK.id} /> procs to expire. Try to use your procs as soon as possible to avoid this.</span>)
+        return suggest(<Wrapper>You allowed {formatPercentage(expiredProcsPercent)}% of your <SpellLink id={SPELLS.HOT_STREAK.id} /> procs to expire. Try to use your procs as soon as possible to avoid this.</Wrapper>)
           .icon(SPELLS.HOT_STREAK.icon)
           .actual(`${formatPercentage(expiredProcsPercent)}% expired`)
           .recommended(`Letting none expire is recommended`)
@@ -121,7 +122,7 @@ class HotStreak extends Analyzer {
       });
     when(this.wastedCrits).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You crit with {formatNumber(this.wastedCrits)} direct damage abilities while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active. This is a waste since those crits could have contibuted towards your next Hot Streak. Try to use your procs as soon as possible to avoid this.</span>)
+        return suggest(<Wrapper>You crit with {formatNumber(this.wastedCrits)} direct damage abilities while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active. This is a waste since those crits could have contibuted towards your next Hot Streak. Try to use your procs as soon as possible to avoid this.</Wrapper>)
           .icon(SPELLS.HOT_STREAK.icon)
           .actual(`${formatNumber(this.wastedCrits)} crits wasted`)
           .recommended(`Wasting none is recommended`)
