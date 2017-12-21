@@ -12,6 +12,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2017-12-21'),
+    changes: <Wrapper>Fixed a bug for <SpellLink id={SPELLS.SHADOWFIEND.id} /> when using the Light Spawn Glyph.</Wrapper>,
+    contributors: [Oratio],
+  },
+  {
+    date: new Date('2017-12-21'),
     changes: 'Added mastery constants for accurate mastery information.',
     contributors: [Oratio],
   },
