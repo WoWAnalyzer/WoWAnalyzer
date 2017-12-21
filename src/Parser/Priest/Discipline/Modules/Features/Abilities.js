@@ -108,7 +108,7 @@ class Abilities extends CoreAbilities {
       isActive: combatant => combatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHARED.id),
     },
     {
-      spell: SPELLS.SHADOWFIEND,
+      spell: SPELLS.SHADOWFIEND && SPELLS.LIGHTSPAWN,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
       isActive: combatant => !combatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHARED.id),
