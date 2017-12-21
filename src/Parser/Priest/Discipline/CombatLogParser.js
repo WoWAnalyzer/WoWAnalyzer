@@ -12,6 +12,7 @@ import EstelNormalizer from './Normalizers/EstelNormalizer';
 
 import SpellManaCost from './Modules/Core/SpellManaCost';
 import AbilityTracker from './Modules/Core/AbilityTracker';
+import ShadowfiendAbilityTracker from './Modules/Core/ShadowfiendAbilityTracker';
 
 import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -64,6 +65,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Override the ability tracker so we also get stats for IoL and beacon healing
     spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
+    shadowfiendAbilityTracker: ShadowfiendAbilityTracker,
     lowHealthHealing: LowHealthHealing,
     abilities: Abilities,
 
