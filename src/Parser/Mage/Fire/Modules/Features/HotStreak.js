@@ -119,14 +119,6 @@ class HotStreak extends Analyzer {
           .recommended(`Letting none expire is recommended`)
           .regular(.00).major(.05);
       });
-    when(this.wastedCrits).isGreaterThan(0)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You crit with {formatNumber(this.wastedCrits)} direct damage abilities while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active. This is a waste since those crits could have contibuted towards your next Hot Streak. Try to use your procs as soon as possible to avoid this.</span>)
-          .icon(SPELLS.HOT_STREAK.icon)
-          .actual(`${formatNumber(this.wastedCrits)} crits wasted`)
-          .recommended(`Wasting none is recommended`)
-          .regular(0).major(5);
-      });
   }
 
   statistic() {
@@ -140,7 +132,6 @@ class HotStreak extends Analyzer {
 					<ul>
 						<li>${this.usedProcs} used</li>
 						<li>${this.expiredProcs} expired</li>
-            <li>${this.wastedCrits} crits wasted</li>
 					</ul>
 				`}
       />
