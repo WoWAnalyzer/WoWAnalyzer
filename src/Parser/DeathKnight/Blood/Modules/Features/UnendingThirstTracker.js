@@ -37,7 +37,7 @@ class UnendingThirstTracker extends Analyzer {
         icon={<SpellIcon id={SPELLS.UNENDING_THIRST.id} />}
         value={this.RecentDSCounter}
         label='Empowered Death Strike'
-        tooltip='If you\'re looking to increase your dps as the cost of defense try increasing this.'
+        tooltip="If you're looking to increase your dps as the cost of defense try increasing this."
 
       />
 
