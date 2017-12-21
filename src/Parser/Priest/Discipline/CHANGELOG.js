@@ -11,6 +11,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2017-12-21'),
+    changes: 'Added mastery constants for accurate mastery information.',
+    contributors: [Oratio],
+  },
+  {
     date: new Date('2017-12-07'),
     changes: 'Added healing per penance bolt in Atonement Source Tab.',
     contributors: [Oratio],
