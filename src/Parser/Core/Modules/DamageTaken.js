@@ -65,23 +65,23 @@ class DamageTaken extends Analyzer {
     return this._addDamage(ability, -amount, -absorbed, -overkill);
   }
 
-  getTooltip(){
-    const physical = (this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL])?this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL].effective : 0;
-    const magical = this.total.effective - physical;
-    return `Damage taken by type:
-    <ul>
-    <li><b>Physical</b>: ${formatThousands(physical)} (${formatPercentage(physical / this.total.effective)}%)</li>
-    <li><b>Magic</b>: ${formatThousands(magical)} (${formatPercentage(magical / this.total.effective)}%)</li>
-    </ul>
-    Damage taken by magic school:
-    <ul>
-      ${Object.keys(this._byMagicSchool)
-        .filter(type => this._byMagicSchool[type].effective !== 0)
-        .map(type => `<li><b>${MAGIC_SCHOOLS.names[type] || 'Unknown'}</b>: ${formatThousands(this._byMagicSchool[type].effective)} (${formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>`
-        )
-    .join('')}
-    </ul>
-    Click the bar to switch between simple and detailed mode.`;
+  get tooltip(){
+      const physical = (this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL])?this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL].effective : 0;
+      const magical = this.total.effective - physical;
+      return `Damage taken by type:
+      <ul>
+      <li><b>Physical</b>: ${formatThousands(physical)} (${formatPercentage(physical / this.total.effective)}%)</li>
+      <li><b>Magic</b>: ${formatThousands(magical)} (${formatPercentage(magical / this.total.effective)}%)</li>
+      </ul>
+      Damage taken by magic school:
+      <ul>
+        ${Object.keys(this._byMagicSchool)
+          .filter(type => this._byMagicSchool[type].effective !== 0)
+          .map(type => `<li><b>${MAGIC_SCHOOLS.names[type] || 'Unknown'}</b>: ${formatThousands(this._byMagicSchool[type].effective)} (${formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>`
+          )
+      .join('')}
+      </ul>
+      Click the bar to switch between simple and detailed mode.`;
   }
 
   detailedView = false;
@@ -102,7 +102,7 @@ class DamageTaken extends Analyzer {
   showStatistic = false;
   statistic() {
     // TODO: Add a bar showing magic schools
-    const tooltip = this.getTooltip();
+    const tooltip = this.tooltip;
     return this.showStatistic && (
       <StatisticBox
         icon={(
