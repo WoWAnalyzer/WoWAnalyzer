@@ -8,6 +8,7 @@ import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
 import { formatNumber } from "common/format";
 import SpellLink from "common/SpellLink";
+import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 
 class BestialWrathAverageFocus extends Analyzer {
   static dependencies = {
@@ -36,20 +37,36 @@ class BestialWrathAverageFocus extends Analyzer {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.CORE(6);
+
   get averageFocusAtBestialWrathCast() {
     return formatNumber(this.accumulatedFocusAtBWCast / this.bestialWrathCasts);
   }
   get focusOnBestialWrathCastThreshold() {
-    return {
-      actual: this.averageFocusAtBestialWrathCast,
-      isLessThan: {
-        minor: 90,
-        average: 80,
-        major: 70,
-      },
-      style: 'number',
-    };
+    if (this.combatants.selected.hasTalent(SPELLS.KILLER_COBRA_TALENT.id)) {
+      return {
+        actual: this.averageFocusAtBestialWrathCast,
+        isLessThan: {
+          minor: 95,
+          average: 85,
+          major: 75,
+        },
+        style: 'number',
+      };
+    }
+    else {
+      return {
+        actual: this.averageFocusAtBestialWrathCast,
+        isLessThan: {
+          minor: 85,
+          average: 75,
+          major: 65,
+        },
+        style: 'number',
+      };
+    }
   }
+
   suggestions(when) {
     const {
       isLessThan: {
@@ -68,6 +85,7 @@ class BestialWrathAverageFocus extends Analyzer {
           .major(major);
       });
   }
+
 }
 
 export default BestialWrathAverageFocus;
