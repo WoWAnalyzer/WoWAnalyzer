@@ -92,7 +92,7 @@ class Checklist extends CoreChecklist {
         return [
           new Requirement({
             name: 'Virulent Plague Uptime',
-            check: () => this.virulentPlagueUptime.vpUptimeSuggestionThresholds,
+            check: () => this.virulentPlagueUptime.UptimeSuggestionThresholds,
           }),
         ];
       },
