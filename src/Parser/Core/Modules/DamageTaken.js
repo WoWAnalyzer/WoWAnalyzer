@@ -127,36 +127,33 @@ class DamageTaken extends Analyzer {
         }
         footer={(
           <ToggleableFooter
-            data = {(
-              <div data-tip={tooltip} className="statistic-bar">
-                {Object.keys(simplifiedValues)
-                  .map(type =>
-                    (
-                      <div
-                        key={type}
-                        className={`spell-school-${type}-bg`}
-                        style={{ width: `${simplifiedValues[type] / this.total.effective * 100}%` }}
-                        />
-                    )
+            className="statistic-bar"
+            data-tip={tooltip}
+            value = {
+              Object.keys(simplifiedValues)
+                .map(type =>
+                  (
+                    <div
+                      key={type}
+                      className={`spell-school-${type}-bg`}
+                      style={{ width: `${simplifiedValues[type] / this.total.effective * 100}%` }}
+                    />
                   )
-                }
-              </div>
-            )}
-            toggleddata = {(
-              <div data-tip={tooltip} className="statistic-bar">
-                {Object.keys(this._byMagicSchool)
-                  .filter(type => this._byMagicSchool[type].effective !== 0)
-                  .map(type =>
-                    (
-                      <div
-                        key={type}
-                        className={`spell-school-${type}-bg`}
-                        style={{ width: `${this._byMagicSchool[type].effective / this.total.effective * 100}%` }}
-                      />
-                    )
-                )}
-              </div>
-            )}
+                )
+            }
+            toggledvalue = {
+              Object.keys(this._byMagicSchool)
+                .filter(type => this._byMagicSchool[type].effective !== 0)
+                .map(type =>
+                  (
+                    <div
+                      key={type}
+                      className={`spell-school-${type}-bg`}
+                      style={{ width: `${this._byMagicSchool[type].effective / this.total.effective * 100}%` }}
+                    />
+                  )
+                )
+            }
           />
         )}
         footerStyle={{ overflow: 'hidden', cursor: 'pointer' }}

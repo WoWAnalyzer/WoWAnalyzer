@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 class ToggleableFooter extends React.PureComponent {
   static propTypes = {
-    toggleddata: PropTypes.object.isRequired,
-    data: PropTypes.object.isRequired,
+    toggledvalue: PropTypes.object.isRequired,
+    value: PropTypes.object.isRequired,
   };
 
   constructor() {
@@ -23,10 +23,10 @@ class ToggleableFooter extends React.PureComponent {
   }
 
   render() {
-    const { toggleddata, data, ...others } = this.props;
+    const { toggledvalue, value, ...others } = this.props;
     return (
       <div onClick={this.handleClick} {...others}>
-        {(this.state.toggled) ? toggleddata : data}
+        {(this.state.toggled) ? toggledvalue : value}
       </div>);
   }
 }
