@@ -227,14 +227,16 @@ class Abilities extends CoreAbilities {
       noCanBeImproved: true,
     },
     {
-      spell: SPELLS.BEACON_OF_LIGHT,
+      // The actual casts are registered as BEACON_OF_LIGHT, but the user only sees the talent so we add that as spell for display purposes only
+      spell: [SPELLS.BEACON_OF_THE_LIGHTBRINGER_TALENT, SPELLS.BEACON_OF_LIGHT],
       category: Abilities.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.BEACON_OF_THE_LIGHTBRINGER_TALENT.id),
       isOnGCD: true,
     },
     {
-      spell: SPELLS.BEACON_OF_FAITH_TALENT,
+      // The primary beacon cast is registered as BEACON_OF_LIGHT
+      spell: [SPELLS.BEACON_OF_FAITH_TALENT, SPELLS.BEACON_OF_LIGHT],
       category: Abilities.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id),
