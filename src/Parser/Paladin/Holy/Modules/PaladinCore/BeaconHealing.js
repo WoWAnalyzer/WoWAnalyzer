@@ -9,7 +9,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-import Abilities from '../Features/Abilities';
+import Abilities from '../Abilities';
 import PaladinAbilityTracker from '../PaladinCore/PaladinAbilityTracker';
 
 class BeaconHealing extends Analyzer {
