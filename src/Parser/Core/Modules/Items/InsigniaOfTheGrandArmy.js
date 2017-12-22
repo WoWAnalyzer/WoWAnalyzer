@@ -16,6 +16,8 @@ import Shadowbind from 'Parser/Core/Modules/NetherlightCrucibleTraits/Shadowbind
 import Shocklight from 'Parser/Core/Modules/NetherlightCrucibleTraits/Shocklight';
 import TormentTheWeak from 'Parser/Core/Modules/NetherlightCrucibleTraits/TormentTheWeak';
 import DarkSorrows from 'Parser/Core/Modules/NetherlightCrucibleTraits/DarkSorrows';
+import LightSpeed from 'Parser/Core/Modules/NetherlightCrucibleTraits/LightSpeed';
+import MasterOfShadows from 'Parser/Core/Modules/NetherlightCrucibleTraits/MasterOfShadows';
 
 /*
  * Insignia of the Grand Army
@@ -24,6 +26,10 @@ import DarkSorrows from 'Parser/Core/Modules/NetherlightCrucibleTraits/DarkSorro
 
 const VERSATILITY_AMOUNT = 1500;
 const CRIT_AMOUNT = 1500;
+const MASTERY_AMOUNT = 500;
+const AVOIDANCE_AMOUNT = 1000;
+const HASTE_AMOUNT = 500;
+const MOVEMENT_SPEED_AMOUNT = 650;
 
 class InsigniaOfTheGrandArmy extends Analyzer {
   static dependencies = {
@@ -38,8 +44,11 @@ class InsigniaOfTheGrandArmy extends Analyzer {
     chaoticDarkness: ChaoticDarkness,
     tormentTheWeak: TormentTheWeak,
     darkSorrows: DarkSorrows,
+    baseLightSpeed: LightSpeed,
+    baseMasterOfShadows: MasterOfShadows,
   };
 
+  // NO MEMES<
   damage = 0;
   healing = 0;
   refractiveHealing = 0;
@@ -56,9 +65,7 @@ class InsigniaOfTheGrandArmy extends Analyzer {
   darkSorrowsDamage = 0;
 
   on_initialized() {
-    this.active = this.combatants.selected.hasFinger(ITEMS.INSIGNIA_OF_THE_GRAND_ARMY.id) && Object.keys(this.constructor.dependencies)
-      .map(key => this[key])
-      .some(dependency => dependency.active);
+    this.active = Object.keys(this.constructor.dependencies).map(key => this[key]).some(dependency => dependency.active) && this.combatants.selected.hasFinger(ITEMS.INSIGNIA_OF_THE_GRAND_ARMY.id);
   }
 
   on_byPlayer_damage(event) {
@@ -131,11 +138,27 @@ class InsigniaOfTheGrandArmy extends Analyzer {
   }
 
   get averageCritFromRing() {
-    return (((this.combatants.selected.getBuffUptime(SPELLS.SHOCKLIGHT_BUFF.id) / this.owner.fightDuration) * CRIT_AMOUNT * this.combatants.selected.traitsBySpellId[SPELLS.SHOCKLIGHT_TRAIT.id]) / 3).toFixed(2);
+    return (((this.combatants.selected.getBuffUptime(SPELLS.SHOCKLIGHT_BUFF.id) / this.owner.fightDuration) * CRIT_AMOUNT * this.combatants.selected.traitsBySpellId[SPELLS.SHOCKLIGHT_TRAIT.id]) / 2).toFixed(2);
   }
 
   get averageVersFromRing() {
-    return (((this.combatants.selected.getBuffUptime(SPELLS.MURDEROUS_INTENT_BUFF.id) / this.owner.fightDuration) * VERSATILITY_AMOUNT * this.combatants.selected.traitsBySpellId[SPELLS.MURDEROUS_INTENT_TRAIT.id]) / 3).toFixed(2);
+    return (((this.combatants.selected.getBuffUptime(SPELLS.MURDEROUS_INTENT_BUFF.id) / this.owner.fightDuration) * VERSATILITY_AMOUNT * this.combatants.selected.traitsBySpellId[SPELLS.MURDEROUS_INTENT_TRAIT.id]) / 2).toFixed(2);
+  }
+
+  get lightSpeedHasteIncrease() {
+    return (HASTE_AMOUNT * this.combatants.selected.traitsBySpellId[SPELLS.LIGHT_SPEED_TRAIT.id]) / 2;
+  }
+
+  get lightSpeedMovementIncrease() {
+    return (MOVEMENT_SPEED_AMOUNT * this.combatants.selected.traitsBySpellId[SPELLS.LIGHT_SPEED_TRAIT.id]) / 2;
+  }
+
+  get masterOfShadowsMasteryIncrease() {
+    return (MASTERY_AMOUNT * this.combatants.selected.traitsBySpellId[SPELLS.MASTER_OF_SHADOWS_TRAIT.id]) / 2;
+  }
+
+  get masterOfShadowsAvoidanceIncrease() {
+    return (AVOIDANCE_AMOUNT * this.combatants.selected.traitsBySpellId[SPELLS.MASTER_OF_SHADOWS_TRAIT.id]) / 2;
   }
 
   item() {
@@ -150,6 +173,10 @@ class InsigniaOfTheGrandArmy extends Analyzer {
     tooltip += this.combatants.selected.traitsBySpellId[SPELLS.MURDEROUS_INTENT_TRAIT.id] > 0 ? `<li>Murderous Intent: <ul><li>${this.averageVersFromRing} average versatility </li></ul></li>` : ``;
     //Shocklight
     tooltip += this.combatants.selected.traitsBySpellId[SPELLS.SHOCKLIGHT_TRAIT.id] > 0 ? `<li>Shocklight: <ul><li>${this.averageCritFromRing} average crit </li></ul></li>` : ``;
+    //MasterOfShadows
+    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.MASTER_OF_SHADOWS_TRAIT.id] > 0 ? `<li>Master Of Shadows: <ul><li>${this.masterOfShadowsMasteryIncrease} increased mastery </li><li>${this.masterOfShadowsAvoidanceIncrease} increased avoidance</li></ul></li>` : ``;
+    //LightSpeed
+    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.LIGHT_SPEED_TRAIT.id] > 0 ? `<li>Light Speed: <ul><li>${this.lightSpeedHasteIncrease} increased haste </li><li>${this.lightSpeedMovementIncrease} increased movement speed</li></ul></li>` : ``;
     //Refractive Shell
     tooltip += this.combatants.selected.traitsBySpellId[SPELLS.REFRACTIVE_SHELL_TRAIT.id] > 0 ? `<li>Refractive Shell:<ul><li>${this.owner.formatItemHealingDone(this.refractiveHealing / 3)}</li></ul></li>` : ``;
     //Secure In The Light
