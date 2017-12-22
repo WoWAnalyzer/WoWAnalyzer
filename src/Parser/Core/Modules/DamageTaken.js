@@ -87,7 +87,6 @@ class DamageTaken extends Analyzer {
   showStatistic = false;
   statistic() {
     // TODO: Add a bar showing magic schools
-    const tooltip = this.tooltip;
     const physical = (this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL])?this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL].effective : 0;
     const magical = this.total.effective - physical;
     const simplifiedValues = {
@@ -112,7 +111,7 @@ class DamageTaken extends Analyzer {
         footer={(
           <Toggleable
             className="statistic-bar"
-            data-tip={tooltip}
+            data-tip={this.tooltip}
             value = {
               Object.keys(simplifiedValues)
                 .map(type =>
