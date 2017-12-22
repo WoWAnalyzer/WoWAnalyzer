@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class ToggleableFooter extends React.PureComponent {
+class Toggleable extends React.PureComponent {
   static propTypes = {
     toggledvalue: PropTypes.object.isRequired,
     value: PropTypes.object.isRequired,
@@ -31,4 +31,4 @@ class ToggleableFooter extends React.PureComponent {
   }
 }
 
-export default ToggleableFooter;
+export default Toggleable;

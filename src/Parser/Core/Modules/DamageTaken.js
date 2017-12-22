@@ -7,7 +7,7 @@ import MAGIC_SCHOOLS from 'common/MAGIC_SCHOOLS';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import ToggleableFooter from 'Main/ToggleableFooter';
+import Toggleable from 'Main/Toggleable';
 import DamageValue from './DamageValue';
 
 class DamageTaken extends Analyzer {
@@ -126,7 +126,7 @@ class DamageTaken extends Analyzer {
           `The total damage taken was ${formatThousands(this.total.effective)} (${formatThousands(this.total.overkill)} overkill).`
         }
         footer={(
-          <ToggleableFooter
+          <Toggleable
             className="statistic-bar"
             data-tip={tooltip}
             value = {
