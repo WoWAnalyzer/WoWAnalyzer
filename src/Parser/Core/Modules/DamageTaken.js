@@ -6,8 +6,8 @@ import MAGIC_SCHOOLS from 'common/MAGIC_SCHOOLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
-import ToggleableStatisticBox from 'Main/ToggleableStatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import ToggleableFooter from 'Main/ToggleableFooter';
 import DamageValue from './DamageValue';
 
 class DamageTaken extends Analyzer {
@@ -112,7 +112,7 @@ class DamageTaken extends Analyzer {
     };
 
     return this.showStatistic && (
-      <ToggleableStatisticBox
+      <StatisticBox
         icon={(
           <img
             src="/img/shield.png"
@@ -125,35 +125,39 @@ class DamageTaken extends Analyzer {
         tooltip={
           `The total damage taken was ${formatThousands(this.total.effective)} (${formatThousands(this.total.overkill)} overkill).`
         }
-        toggledfooter={(
-            <div className="statistic-bar" data-tip={tooltip}>
-              {Object.keys(this._byMagicSchool)
-                .filter(type => this._byMagicSchool[type].effective !== 0)
-                .map(type =>
-                  (
-                    <div
-                      key={type}
-                      className={`spell-school-${type}-bg`}
-                      style={{ width: `${this._byMagicSchool[type].effective / this.total.effective * 100}%` }}
-                    />
-                  )
-              )}
-            </div>
-          )}
         footer={(
-            <div className="statistic-bar" data-tip={tooltip}>
-              {Object.keys(simplifiedValues)
-                .map(type =>
-                  (
-                    <div
-                      key={type}
-                      className={`spell-school-${type}-bg`}
-                      style={{ width: `${simplifiedValues[type] / this.total.effective * 100}%` }}
-                    />
+          <ToggleableFooter
+            data = {(
+              <div data-tip={tooltip} className="statistic-bar">
+                {Object.keys(simplifiedValues)
+                  .map(type =>
+                    (
+                      <div
+                        key={type}
+                        className={`spell-school-${type}-bg`}
+                        style={{ width: `${simplifiedValues[type] / this.total.effective * 100}%` }}
+                        />
+                    )
                   )
-                )
-              }
-            </div>
+                }
+              </div>
+            )}
+            toggleddata = {(
+              <div data-tip={tooltip} className="statistic-bar">
+                {Object.keys(this._byMagicSchool)
+                  .filter(type => this._byMagicSchool[type].effective !== 0)
+                  .map(type =>
+                    (
+                      <div
+                        key={type}
+                        className={`spell-school-${type}-bg`}
+                        style={{ width: `${this._byMagicSchool[type].effective / this.total.effective * 100}%` }}
+                      />
+                    )
+                )}
+              </div>
+            )}
+          />
         )}
         footerStyle={{ overflow: 'hidden', cursor: 'pointer' }}
       />
