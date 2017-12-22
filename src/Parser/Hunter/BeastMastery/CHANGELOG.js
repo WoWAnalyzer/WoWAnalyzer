@@ -2,6 +2,11 @@ import { Putro } from 'MAINTAINERS';
 
 export default [
   {
+    date: new Date('2017-12-22'),
+    changes: 'Updated to the new checklist format, and updated AlwaysBeCasting thresholds',
+    contributors: [Putro],
+  },
+  {
     date: new Date('2017-12-04'),
     changes: 'Added  talents and traits. Moved them into a singular box to improve visibility.',
     contributors: [Putro],

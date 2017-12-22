@@ -27,6 +27,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.KILL_COMMAND,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 7.5 / (1 + haste),
+      recommendedEfficiency: 0.95,
     },
     {
       spell: SPELLS.COBRA_SHOT,

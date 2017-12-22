@@ -49,15 +49,37 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
   ];
 
+  get downtime() {
+    return this.totalTimeWasted / this.owner.fightDuration;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.downtime,
+      isGreaterThan: {
+        minor: 0.15,
+        average: 0.175,
+        major: 0.2,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
-    when(deadTimePercentage).isGreaterThan(0.1)
+    const {
+      isGreaterThan: {
+        minor,
+        average,
+        major,
+      },
+    } = this.suggestionThresholds;
+    when(this.downtime).isGreaterThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your downtime can be improved. Try to reduce the delay between casting spells. If everything is on cooldown, try and use <SpellLink id={SPELLS.COBRA_SHOT.id} /> to stay off the focus cap and do some damage.</span>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.02).major(recommended + 0.04);
+          .regular(average).major(major);
       });
   }
 

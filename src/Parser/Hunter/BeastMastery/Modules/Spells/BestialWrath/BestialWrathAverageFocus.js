@@ -36,16 +36,36 @@ class BestialWrathAverageFocus extends Analyzer {
       />
     );
   }
+  get averageFocusAtBestialWrathCast() {
+    return formatNumber(this.accumulatedFocusAtBWCast / this.bestialWrathCasts);
+  }
+  get focusOnBestialWrathCastThreshold() {
+    return {
+      actual: this.averageFocusAtBestialWrathCast,
+      isLessThan: {
+        minor: 90,
+        average: 80,
+        major: 70,
+      },
+      style: 'number',
+    };
+  }
   suggestions(when) {
-    const averageFocusAtBW = formatNumber(this.accumulatedFocusAtBWCast / this.bestialWrathCasts);
-    when(averageFocusAtBW).isLessThan(90)
+    const {
+      isLessThan: {
+        minor,
+        average,
+        major,
+      },
+    } = this.focusOnBestialWrathCastThreshold;
+    when(this.averageFocusAtBestialWrathCast).isLessThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You started your average <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> at {averageFocusAtBW} focus, try and pool a bit more before casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. This can be achieved by not casting abilities a few moments before <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> comes off cooldown.</span>)
+        return suggest(<span>You started your average <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> at {this.averageFocusAtBestialWrathCast} focus, try and pool a bit more before casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. This can be achieved by not casting abilities a few moments before <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> comes off cooldown.</span>)
           .icon(SPELLS.BESTIAL_WRATH.icon)
-          .actual(`Average of ${averageFocusAtBW} focus at start of Bestial Wrath`)
+          .actual(`Average of ${this.averageFocusAtBestialWrathCast} focus at start of Bestial Wrath`)
           .recommended(`>${recommended} focus is recommended`)
-          .regular(recommended - 5)
-          .major(recommended - 10);
+          .regular(average)
+          .major(major);
       });
   }
 }
