@@ -15,6 +15,11 @@ export default [
   },
   {
     date: new Date('2017-12-23'),
+    changes: <Wrapper>Update cast efficiency to include all available spells for a full overview.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-23'),
     changes: <Wrapper>Added <SpellLink id={SPELLS.LAY_ON_HANDS.id} icon /> to cast efficiency with a 20% recommended cooldown time (to suggest casting it at least once).</Wrapper>,
     contributors: [Zerotorescue],
   },

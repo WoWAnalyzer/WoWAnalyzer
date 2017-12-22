@@ -39,6 +39,11 @@ export default {
     name: 'Blessing of Freedom',
     icon: 'spell_holy_sealofvalor',
   },
+  BLESSING_OF_PROTECTION: {
+    id: 1022,
+    name: 'Blessing of Protection',
+    icon: 'spell_holy_sealofprotection',
+  },
   FLASH_OF_LIGHT: {
     id: 19750,
     name: 'Flash of Light',
@@ -138,11 +143,6 @@ export default {
     name: 'Tyr\'s Deliverance',
     icon: 'inv_mace_2h_artifactsilverhand_d_01',
   },
-  CONSECRATION: {
-    id: 204242,
-    name: 'Consecration',
-    icon: 'spell_holy_innerfire',
-  },
   JUDGMENT_OF_LIGHT_HEAL: {
     id: 183811,
     name: 'Judgment of Light',
@@ -172,11 +172,6 @@ export default {
     id: 6940,
     name: 'Blessing of Sacrifice',
     icon: 'spell_holy_sealofsacrifice',
-  },
-  BEACON_OF_LIGHT_BUFF: {
-    id: 53563,
-    name: 'Beacon of Light',
-    icon: 'ability_paladin_beaconoflight',
   },
   HOLY_PALADIN_T19_4SET_BONUS_BUFF: {
     id: 211438,
@@ -232,6 +227,11 @@ export default {
     id: 210999,
     name: 'Obsidian Stone Spaulders',
     icon: 'inv_shoulder_plate_pvppaladin_o_01',
+  },
+  CLEANSE: {
+    id: 4987,
+    name: 'Cleanse',
+    icon: 'spell_holy_purify',
   },
   // Retribution Paladin:
   JUDGMENT_DEBUFF: {
@@ -490,11 +490,6 @@ export default {
     name: 'Avenger\'s Shield',
     icon: 'spell_holy_avengersshield',
   },
-  CONSECRATION_CAST: {
-    id: 26573,
-    name: 'Consecration',
-    icon: 'spell_holy_innerfire',
-  },
   GUARDIAN_OF_ANCIENT_KINGS: {
     id: 86659,
     name: 'Guardian of Ancient Kings',
@@ -580,5 +575,15 @@ export default {
     name: 'Judgement of Light',
     icon: 'spell_holy_divineprovidence',
   },
-
+  // Shared:
+  CONSECRATION_CAST: {
+    id: 26573,
+    name: 'Consecration',
+    icon: 'spell_holy_innerfire',
+  },
+  DIVINE_SHIELD: {
+    id: 642,
+    name: 'Divine Shield',
+    icon: 'spell_holy_divineshield',
+  },
 };
