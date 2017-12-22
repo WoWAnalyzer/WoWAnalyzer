@@ -14,8 +14,8 @@ import Shadowbind from './Shadowbind';
 import ChaoticDarkness from './ChaoticDarkness';
 import TormentTheWeak from './TormentTheWeak';
 import DarkSorrows from './DarkSorrows';
-import MasterOfShadows from 'Parser/Core/Modules/NetherlightCrucibleTraits/MasterOfShadows';
-import LightSpeed from 'Parser/Core/Modules/NetherlightCrucibleTraits/LightSpeed';
+import MasterOfShadows from './MasterOfShadows';
+import LightSpeed from './LightSpeed';
 
 class NLCTraits extends Analyzer {
   static dependencies = {
