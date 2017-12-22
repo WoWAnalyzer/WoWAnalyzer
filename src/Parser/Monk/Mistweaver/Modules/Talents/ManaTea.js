@@ -222,7 +222,7 @@ class ManaTea extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(60);
+  statisticOrder = STATISTIC_ORDER.CORE(25);
 }
 
 export default ManaTea;

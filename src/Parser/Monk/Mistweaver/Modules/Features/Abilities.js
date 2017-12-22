@@ -91,7 +91,9 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.ESSENCE_FONT,
       category: Abilities.SPELL_CATEGORIES.OTHERS,
-      getCooldown: haste => null,
+      getCooldown: haste => 12,
+      noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.SOOTHING_MIST,
