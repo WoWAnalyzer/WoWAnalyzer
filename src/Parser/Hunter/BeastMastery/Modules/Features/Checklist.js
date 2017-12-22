@@ -99,7 +99,7 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: <Wrapper>Average focus on <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> cast</Wrapper>,
             check: () => this.bestialWrathAverageFocus.focusOnBestialWrathCastThreshold,
-          })
+          }),
         ];
       },
     }),
