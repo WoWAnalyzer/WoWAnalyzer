@@ -57,7 +57,7 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Use core spell as often as possible',
-      description: <Wrapper>As a Mistweaver you only have a single rotational spell that should be cast on CD <SpellLink id={SPELLS.RENEWING_MIST.id} icon />. However, you should also make use of your artifact ability, <SpellLink id={SPELLS.SHEILUNS_GIFT.id} icon />. Keep this ability under 6 stacks or so to ensure you are regularly using it and also so that it does not overheal too much once you do use it.</Wrapper>,
+      description: <Wrapper>As a Mistweaver you only have a single rotational spell that should be cast on CD <SpellLink id={SPELLS.RENEWING_MIST.id} icon />. However, you should also make use of your artifact ability, <SpellLink id={SPELLS.SHEILUNS_GIFT.id} icon />. Use this ability at or under 6 stacks to ensure you are regularly using it and to mimimize overheal.</Wrapper>,
       requirements: () => {
         return [
           new GenericCastEfficiencyRequirement({
@@ -187,7 +187,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Try to avoid being inactive for a large portion of the fight',
-      description: <Wrapper>While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and when you're not healing try to contribute some damage. Also,there is no reason to channel <SpellLink id={SPELLS.SOOTHING_MIST.id} icon /> for extended periods of time.</Wrapper>,
+      description: <Wrapper>While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and when you're not healing try to contribute some damage. Also, there is no reason to channel <SpellLink id={SPELLS.SOOTHING_MIST.id} icon /> for extended periods of time.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
