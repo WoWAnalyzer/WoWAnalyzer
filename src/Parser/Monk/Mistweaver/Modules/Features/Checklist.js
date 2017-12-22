@@ -104,9 +104,6 @@ class Checklist extends CoreChecklist {
             when: combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.LIFE_COCOON,
-          }),
-          new GenericCastEfficiencyRequirement({
             spell: SPELLS.REVIVAL,
           }),
           new GenericCastEfficiencyRequirement({
@@ -190,7 +187,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Try to avoid being inactive for a large portion of the fight',
-      description: <Wrapper>While it\'s suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and when you\'re not healing try to contribute some damage. Also,there is no reason to channel <SpellLink id={SPELLS.SOOTHING_MIST.id} icon /> for extended periods of time.</Wrapper>,
+      description: <Wrapper>While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and when you're not healing try to contribute some damage. Also,there is no reason to channel <SpellLink id={SPELLS.SOOTHING_MIST.id} icon /> for extended periods of time.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({

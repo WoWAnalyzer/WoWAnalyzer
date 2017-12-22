@@ -160,7 +160,7 @@ class SpiritOfTheCrane extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(80);
+  statisticOrder = STATISTIC_ORDER.CORE(30);
 
   on_finished() {
     if (debug) {

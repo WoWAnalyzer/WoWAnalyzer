@@ -178,7 +178,7 @@ class SheilunsGift extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(20);
+  statisticOrder = STATISTIC_ORDER.CORE(35);
 
   on_finished() {
     if (debug) {
