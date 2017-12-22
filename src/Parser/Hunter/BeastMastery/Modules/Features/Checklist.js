@@ -13,6 +13,8 @@ import AMurderOfCrows from 'Parser/Hunter/BeastMastery/Modules/Talents/AMurderOf
 import SpellLink from 'common/SpellLink';
 import Icon from "common/Icon";
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
+import DireBeast from 'Parser/Hunter/BeastMastery/Modules/Spells/DireBeast/DireBeast';
+import BestialWrathAverageFocus from 'Parser/Hunter/BeastMastery/Modules/Spells/BestialWrath/BestialWrathAverageFocus';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -33,6 +35,9 @@ class Checklist extends CoreChecklist {
 
     //Bestial Wrath
 
+    //Dire Beast
+    direBeast: DireBeast,
+    bestialWrathAverageFocus: BestialWrathAverageFocus,
 
   };
 
@@ -75,19 +80,39 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: 'Dire Beast Efficiency',
-      description: <Wrapper>USE DireBeast properly</Wrapper>,
+      name: <Wrapper><SpellLink id={SPELLS.DIRE_BEAST.id} icon /> efficiency </Wrapper>,
+      description: <Wrapper>Use <SpellLink id={SPELLS.DIRE_BEAST.id} icon /> properly</Wrapper>,
       requirements: () => {
         return [
-        new Requirement({
-
-        })
+          new Requirement({
+            name: <Wrapper>Bad <SpellLink id={SPELLS.DIRE_BEAST.id} icon /> casts</Wrapper>,
+            check: () => this.direBeast.badDireBeastThreshold,
+          }),
         ];
       },
     }),
     new Rule({
-      name: 'Downtime',
-      description: <Wrapper> Try to reduce the delay between casting spells. If everything is on cooldown, try and use <SpellLink id={SPELLS.COBRA_SHOT.id} /> to stay off the focus cap and do some damage.</Wrapper>,
+      name: <Wrapper><SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> efficiency </Wrapper>,
+      description: <Wrapper> Use <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> properly </Wrapper>,
+      requirements: () => {
+        return [
+          new Requirement({
+            name: <Wrapper>Average focus on <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> cast</Wrapper>,
+            check: () => this.bestialWrathAverageFocus.focusOnBestialWrathCastThreshold,
+          })
+        ];
+      },
+    }),
+    new Rule({
+      name: <Wrapper><Icon
+        icon='spell_mage_altertime'
+        alt='Casting downtime'
+        style={{
+          height: '1.3em',
+          marginTop: '-.1em',
+        }}
+      /> Downtime</Wrapper>,
+      description: <Wrapper> Try to reduce the delay between casting spells. If everything is on cooldown, try and use <SpellLink id={SPELLS.COBRA_SHOT.id} icon /> to stay off the focus cap and do some damage.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
