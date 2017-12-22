@@ -84,22 +84,6 @@ class DamageTaken extends Analyzer {
       Click the bar to switch between simple and detailed mode.`;
   }
 
-  detailedView = false;
-  handleClick(){
-    this.detailedView = !this.detailedView;
-    console.log(this.state);
-    const barSimple = document.getElementById("damage-taken-bar-simple");
-    const barDetailed = document.getElementById("damage-taken-bar-detailed");
-    if((!barSimple || !barDetailed)) return; //return if one of the two bars isn't found.
-    if(!this.detailedView){
-      barDetailed.style.display = "none";
-      barSimple.style.display = "";
-    }else{
-      barDetailed.style.display = "";
-      barSimple.style.display = "none";
-    }
-  }
-
   showStatistic = false;
   statistic() {
     // TODO: Add a bar showing magic schools
