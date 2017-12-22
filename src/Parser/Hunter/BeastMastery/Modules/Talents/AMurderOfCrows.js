@@ -10,7 +10,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 //The point at which you can use crows without Bestial Wrath because they'd overlap enough for it to still be considered a good cast - this is what the APL does.
-const ALLOW_EARLY_USE = 3;
+const ALLOW_EARLY_USE = 3000;
 
 //You generally use crows if you have more than 7 seconds remaining in bestial wrath
 const BESTIAL_WRATH_REMAINING_USE_CROWS = 7000;
