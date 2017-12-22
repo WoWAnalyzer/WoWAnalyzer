@@ -5,6 +5,11 @@ import Wrapper from 'common/Wrapper';
 
 export default [
   {
+    date: new Date('2017-13-25'),
+    changes: 'Added in Mistweaver Mastery calculation to stats',
+    contributors: [Anomoly],
+  },
+  {
     date: new Date('2017-11-28'),
     changes: 'Fixed bug with TFT -> Renewing Mist cast efficiency. Updated Player Log Data tab for additional items for T21 Speadsheet version',
     contributors: [Anomoly],

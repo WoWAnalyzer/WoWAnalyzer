@@ -61,6 +61,7 @@ describe('PlayerSelectionList', () => {
         combatants={[
           {
             sourceID: playerId,
+            specID: 1,
           },
         ]}
       />

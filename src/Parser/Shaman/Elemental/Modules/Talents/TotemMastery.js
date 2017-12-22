@@ -55,7 +55,7 @@ class TotemMastery extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.TOTEM_MASTERY_TALENT.id} />}
         value={`${formatPercentage(this.minUptime)} %`}
-        label={'Uptime'}
+        label="Uptime"
         tooltip={`With ${this.casts} infight cast${this.casts > 1 ? 's' : ''}.`}
       />
     );

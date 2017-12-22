@@ -12,6 +12,11 @@ import Icon from "common/Icon";
 import { formatNumber, formatPercentage } from "common/format";
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
+/*
+ * Increases haste by 40% and causes Arcane Shot and Multi-Shot to always apply Hunter's Mark.
+ * Lasts 15 sec.
+ */
+
 class Trueshot extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -123,7 +128,7 @@ class Trueshot extends Analyzer {
             />
           </span>
         )}
-        label={'Trueshot info'}
+        label="Trueshot info"
         tooltip={`Information regarding your average Trueshot window: <ul> <li>You started your Trueshot windows with an average of ${averageFocusAtTS} focus.</li> <li> You hit an average of ${averageAimedCasts} Aimed Shots inside each Trueshot window. </li> <li> Your Trueshot Aimed Shots had a crit rate of ${percentAimedCrits}%. </li> <li>Your overall crit rate during Trueshot was ${percentCastCrits}%. </li> <li>You spent an average of ${uptimePrCast} seconds in trueshot pr cast of Trueshot.</li></ul>`} />
     );
   }

@@ -37,7 +37,7 @@ class Tier21_4p extends Analyzer {
       return;
     }
     this.totalDeathCoilDamageEvents++; 
-    this.isNextNormal ? this.isNextNormal = 0 : this.freeCastDamage += event.amount + (event.absorbed || 0)
+    this.isNextNormal ? this.isNextNormal = 0 : this.freeCastDamage += event.amount + (event.absorbed || 0);
   }
 
   item() {

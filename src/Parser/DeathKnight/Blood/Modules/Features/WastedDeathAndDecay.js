@@ -17,9 +17,6 @@ class WastedDeathAndDecay extends Analyzer {
   DeathAndDecayCounter = 0;
   WastedDeathAndDecays = 0;
 
-  on_initialized() {
-  }
-
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.DEATH_AND_DECAY.id) {
@@ -38,18 +35,15 @@ class WastedDeathAndDecay extends Analyzer {
     }
   }
 
-
   statistic() {
     this.WastedDeathAndDecays = this.CrimsonScourgeProcsCounter - this.FreeDeathAndDecayCounter;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CRIMSON_SCOURGE.id} />}
         value={this.WastedDeathAndDecays}
-        label='Wasted Death and Decays'
-        tooltip='You let a Crimson Scourge proc expire without casting DnD.'
-
+        label="Wasted Death and Decays"
+        tooltip="You let a Crimson Scourge proc expire without casting Death and Decay."
       />
-
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(5);

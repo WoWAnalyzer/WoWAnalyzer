@@ -212,6 +212,8 @@ class StatTracker extends Analyzer {
         return 0.05;
       case SPECS.SHADOW_PRIEST:
         return 0.2;
+      case SPECS.DISCIPLINE_PRIEST:
+        return 0.128;
       case SPECS.RESTORATION_SHAMAN:
         return 0.24;
       case SPECS.ENHANCEMENT_SHAMAN:
@@ -234,6 +236,8 @@ class StatTracker extends Analyzer {
         return 0.18;
       case SPECS.UNHOLY_DEATH_KNIGHT:
         return 0.18;
+      case SPECS.MISTWEAVER_MONK:
+        return 1.04;
       default:
         console.error('Mastery hasn\'t been implemented for this spec yet.');
         return 0.0;
@@ -276,6 +280,8 @@ class StatTracker extends Analyzer {
         return 32000;
       case SPECS.SHADOW_PRIEST:
         return 16000;
+      case SPECS.DISCIPLINE_PRIEST:
+        return 25000;
       case SPECS.RESTORATION_SHAMAN:
         return 13333;
       case SPECS.ENHANCEMENT_SHAMAN:
@@ -298,6 +304,8 @@ class StatTracker extends Analyzer {
         return 17778;
       case SPECS.UNHOLY_DEATH_KNIGHT:
         return 17776;
+      case SPECS.MISTWEAVER_MONK:
+        return 3076.96;
       default:
         console.error('Mastery hasn\'t been implemented for this spec yet.');
         return 99999999;
