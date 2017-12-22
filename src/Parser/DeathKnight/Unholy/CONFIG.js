@@ -11,8 +11,8 @@ export default {
   maintainers: [Khazak],
 
   // good = it matches most common manual reviews in class discords, great = it support all important class features
-  completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK,
-  specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/601',
+  completeness: SPEC_ANALYSIS_COMPLETENESS.GOOD,
+  specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/milestone/10',
   
   // Shouldn't have to change these:
   changelog: CHANGELOG,
