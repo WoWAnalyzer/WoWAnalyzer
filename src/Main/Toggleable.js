@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 class Toggleable extends React.PureComponent {
   static propTypes = {
-    toggledvalue: PropTypes.object.isRequired,
-    value: PropTypes.object.isRequired,
+    toggledvalue: PropTypes.node.isRequired,
+    value: PropTypes.node.isRequired,
   };
 
   constructor() {
