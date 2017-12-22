@@ -89,8 +89,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
           .regular(SuggestionThresholds.ABC_NOT_CASTING.regular).major(SuggestionThresholds.ABC_NOT_CASTING.major);
       });
   }
-
-  showStatistic = true;
 }
 
 export default AlwaysBeCasting;

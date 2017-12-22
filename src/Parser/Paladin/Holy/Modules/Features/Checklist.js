@@ -1,10 +1,9 @@
 import React from 'react';
 
+import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 
 import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist';
@@ -46,8 +45,17 @@ class Checklist extends CoreChecklist {
 
   rules = [
     new Rule({
-      name: 'Use core spells as often as possible',
-      description: <Wrapper>Spells such as <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} icon />, <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} icon /> and <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> (with <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} icon />) are your most efficient spells available. Try to cast them as much as possible without overhealing. <dfn data-tip="When you're not bringing too many healers.">On Mythic*</dfn> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection. <a href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list" target="_blank" rel="noopener noreferrer">More info.</a></Wrapper>,
+      // The name of the Rule as you want it to appear in the Checklist.
+      // You can also make this a React node if you want to use `SpellLink` or other JSX (HTML), in that case wrap the contents with the <Wrapper> component.
+      name: 'Use core abilities as often as possible',
+      // The description that is shown when the Rule is expanded.
+      // Avoid making too many things a URL. Including a link to a guide that goes into further detail is recommended.
+      description: (
+        <Wrapper>
+          Spells such as <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} icon />, <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} icon /> and <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> (with <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} icon />) are your most efficient spells available. Try to cast them as much as possible without overhealing. <dfn data-tip="When you're not bringing too many healers.">On Mythic*</dfn> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection. <a href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
+        </Wrapper>
+      ),
+      // The list of requirements for the Rule. Since it's a method you can run any code in here you want, but please try to keep is as simple as possible.
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -59,7 +67,7 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.JUDGMENT_CAST,
-            when: combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id) || combatant.hasRing(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id),
+            when: combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id) || combatant.hasFinger(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BESTOW_FAITH_TALENT,
@@ -106,6 +114,31 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ARCANE_TORRENT_MANA,
             when: !!this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA.id),
+          }),
+        ];
+      },
+    }),
+    new Rule({
+      name: 'Use your supportive abilities',
+      description: <Wrapper>While you shouldn't aim to cast defensives and externals on cooldown, be aware of them and try to use them whenever effective. Not using them at all is often an indication of not being aware of them enough.</Wrapper>,
+      requirements: () => {
+        const combatant = this.combatants.selected;
+        return [
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.RULE_OF_LAW_TALENT,
+            when: combatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id),
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.DIVINE_STEED,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.DIVINE_PROTECTION,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.BLESSING_OF_SACRIFICE,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.LAY_ON_HANDS,
           }),
         ];
       },
@@ -248,6 +281,7 @@ class Checklist extends CoreChecklist {
       name: 'Avoid overhealing',
       description: 'Pick the right targets when healing and use the right abilities at the right time. While overhealing still transfers to your beacons it remains inefficient. Overhealing might be unavoidable on trivial content or when bringing too many healers.',
       requirements: () => {
+        const combatant = this.combatants.selected;
         return [
           new Requirement({
             name: <SpellLink id={SPELLS.HOLY_SHOCK_HEAL.id} icon />,
@@ -264,6 +298,7 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} icon />,
             check: () => this.overhealing.bestowFaithSuggestionThresholds,
+            when: combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT.id),
           }),
         ];
       },

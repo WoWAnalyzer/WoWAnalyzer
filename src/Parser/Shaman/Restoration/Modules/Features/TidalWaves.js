@@ -20,29 +20,14 @@ class TidalWaves extends Analyzer {
   };
 
   suggestions(when) {
-    const riptide = this.abilityTracker.getAbility(SPELLS.RIPTIDE.id);
-    const healingWave = this.abilityTracker.getAbility(SPELLS.HEALING_WAVE.id);
-    const healingSurge = this.abilityTracker.getAbility(SPELLS.HEALING_SURGE_RESTORATION.id);
-    const chainHeal = this.abilityTracker.getAbility(SPELLS.CHAIN_HEAL.id);
-
-    const chainHealCasts = chainHeal.casts || 0;
-    const riptideCasts = riptide.casts || 0;
-    const twPerRiptide = this.combatants.selected.hasTalent(SPELLS.CRASHING_WAVES_TALENT.id) ? 2 : 1;
-    const totalTwGenerated = twPerRiptide * riptideCasts + chainHealCasts;
-    const twHealingWaves = healingWave.healingTwHits || 0;
-    const twHealingSurges = healingSurge.healingTwHits || 0;
-
-    const totalTwUsed = twHealingWaves + twHealingSurges;
-
-    const unusedTwRate = 1 - totalTwUsed / totalTwGenerated;
-
-    when(unusedTwRate).isGreaterThan(0.15)
+    const suggestedThresholds = this.suggestionThresholds;
+    when(suggestedThresholds.actual).isGreaterThan(suggestedThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> buffed <SpellLink id={SPELLS.HEALING_WAVE.id} /> can make for some very efficient healing, consider casting more of them ({formatPercentage(unusedTwRate)}% unused Tidal Waves).</span>)
+        return suggest(<span><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> buffed <SpellLink id={SPELLS.HEALING_WAVE.id} /> can make for some very efficient healing, consider casting more of them ({formatPercentage(suggestedThresholds.actual)}% unused Tidal Waves).</span>)
           .icon(SPELLS.TIDAL_WAVES_BUFF.icon)
-          .actual(`${formatPercentage(unusedTwRate)} % unused Tidal waves`)
-          .recommended(`Less than ${formatPercentage(recommended, 0)} % unused Tidal Waves`)
-          .regular(recommended + .25).major(recommended + .45);
+          .actual(`${formatPercentage(suggestedThresholds.actual)} % unused Tidal waves`)
+          .recommended(`Less than ${formatPercentage(suggestedThresholds.isGreaterThan.minor, 0)} % unused Tidal Waves`)
+          .regular(suggestedThresholds.isGreaterThan.average).major(suggestedThresholds.isGreaterThan.major);
       });
   }
 

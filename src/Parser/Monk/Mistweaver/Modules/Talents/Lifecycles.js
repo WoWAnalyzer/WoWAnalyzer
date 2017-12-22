@@ -69,13 +69,13 @@ class Lifecycles extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.manaSaved).isLessThan(200000)
+    when(this.manaSaved).isLessThan(this.suggestionThresholds.isLessThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your current spell usage is not taking full advantage of the <SpellLink id={SPELLS.LIFECYCLES_TALENT.id} /> talent. You should be trying to alternate the use of these spells as often as possible to take advantage of the buff.</span>)
           .icon(SPELLS.LIFECYCLES_TALENT.icon)
           .actual(`${formatNumber(this.manaSaved)} mana saved through Lifecycles`)
           .recommended(`${formatNumber(recommended)} is the recommended amount of mana savings`)
-          .regular(recommended - 30000).major(recommended - 60000);
+          .regular(this.suggestionThresholds.isLessThan.average).major(this.suggestionThresholds.isLessThan.major);
       });
   }
 

@@ -89,7 +89,7 @@ class VoidTorrent extends Analyzer {
       icon={<SpellIcon id={SPELLS.VOID_TORRENT.id} />}
       value={`${formatSeconds(this.totalWasted)} seconds`}
       label={(
-        <dfn data-tip={'Lost Void Torrent channeling time.'}>
+        <dfn data-tip="Lost Void Torrent channeling time.">
           Interrupted Void Torrents
         </dfn>
       )}

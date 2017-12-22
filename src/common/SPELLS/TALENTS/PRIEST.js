@@ -20,6 +20,11 @@ export default {
   POWER_INFUSION_TALENT: { id: 10060, name: "Power Infusion", icon: "spell_holy_powerinfusion" },
   GRACE_TALENT: { id: 200309, name: "Grace", icon: "spell_holy_hopeandgrace" },
   MINDBENDER_TALENT_SHARED: { id: 123040, name: "Mindbender", icon: "spell_shadow_soulleech_3" },
+  // Discipline
+  SCHISM_TALENT: { id: 214621, name: "Schism", icon: "spell_warlock_focusshadow", manaCost: 27500 },
+  SANCTUARY_TALENT: { id: 246393, name: "Sanctuary", icon: "spell_holy_holysmite" },
+  PURGE_THE_WICKED_TALENT: { id: 204197, name: "Purge the Wicked", icon: "ability_mage_firestarter", manaCost: 22000 },
+  EVANGELISM_TALENT: { id: 246287, name: "Evangelism", icon: "spell_holy_divineillumination" },
   // Holy
   TRAIL_OF_LIGHT_TALENT: { id: 200128, name: "Trail of Light", icon: "ability_priest_wordsofmeaning" },
   ENDURING_RENEWAL_TALENT: { id: 200153, name: "Enduring Renewal", icon: "priest_icon_chakra" },
@@ -53,9 +58,4 @@ export default {
   SHADOW_CRASH_TALENT: { id: 205385, name: "Shadow Crash", icon: "spell_shadow_shadowfury" },
   SURRENDER_TO_MADNESS_TALENT: { id: 193223, name: "Surrender to Madness", icon: "achievement_boss_generalvezax_01" },
   MINDBENDER_TALENT_SHADOW: { id: 200174, name: "Mindbender", icon: "spell_shadow_soulleech_3" },
-  // Discipline
-  SCHISM_TALENT: { id: 214621, name: "Schism", icon: "spell_warlock_focusshadow", manaCost: 27500 },
-  SANCTUARY_TALENT: { id: 246393, name: "Sanctuary", icon: "spell_holy_holysmite" },
-  PURGE_THE_WICKED_TALENT: { id: 204197, name: "Purge the Wicked", icon: "ability_mage_firestarter", manaCost: 22000 },
-  EVANGELISM_TALENT: { id: 246287, name: "Evangelism", icon: "spell_holy_divineillumination" },
 };

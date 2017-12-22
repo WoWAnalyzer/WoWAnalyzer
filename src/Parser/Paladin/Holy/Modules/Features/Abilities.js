@@ -119,13 +119,12 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
     },
-    // TODO: Add LoH accounting for relics
-    // {
-    //   spell: SPELLS.LAY_ON_HANDS,
-    //   category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-    //   getCooldown: haste => 600 - http://www.wowhead.com/spell=200326/focused-healing,
-    //   recommendedEfficiency: 0.5,
-    // },
+    {
+      spell: SPELLS.LAY_ON_HANDS,
+      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: (haste, combatant) => 600 * (1 - (combatant.traitsBySpellId[SPELLS.FOCUSED_HEALING.id] || 0) * 0.1),
+      recommendedEfficiency: 0.2,
+    },
     {
       spell: SPELLS.LIGHT_OF_THE_MARTYR,
       category: Abilities.SPELL_CATEGORIES.OTHERS,

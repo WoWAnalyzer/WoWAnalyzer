@@ -120,8 +120,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
           .regular(this.downtimeSuggestionThresholds.isGreaterThan.average).major(this.downtimeSuggestionThresholds.isGreaterThan.major);
       });
   }
-
-  showStatistic = true;
 }
 
 export default AlwaysBeCasting;

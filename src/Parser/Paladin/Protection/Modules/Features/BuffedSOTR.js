@@ -13,10 +13,7 @@ class BuffedSOTR extends Analyzer {
   };
 
   BuffedSOTR = 0;
-  NonBuffedSOTR=0;
-
-  on_initialized() {
-  }
+  NonBuffedSOTR = 0;
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -25,22 +22,18 @@ class BuffedSOTR extends Analyzer {
     }
     if (this.combatants.selected.hasBuff(SPELLS.CONSECRATION_BUFF.id, event.timestamp)) {
       this.BuffedSOTR += 1;
-    }else{
-      this.NonBuffedSOTR+= 1;
+    } else {
+      this.NonBuffedSOTR += 1;
     }
   }
-
 
   statistic() {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id} />}
-        value={`${this.BuffedSOTR} out of ${(this.BuffedSOTR+this.NonBuffedSOTR)}`}
-        label='Buffed Shield Of the Righteous'
-        tooltip=''
-
+        value={`${this.BuffedSOTR} out of ${(this.BuffedSOTR + this.NonBuffedSOTR)}`}
+        label="Buffed Shield Of the Righteous"
       />
-
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(5);

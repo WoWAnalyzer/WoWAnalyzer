@@ -51,10 +51,10 @@ class CancelledCasts extends CoreCancelledCasts {
   statistic() {
     return (
       <StatisticBox
-        icon={<Icon icon={'inv_misc_map_01'} />}
+        icon={<Icon icon="inv_misc_map_01" />}
         value={`${formatPercentage(this.CancelledPercentage)}%`}
         label={`Cancelled Casts`}
-        tooltip={`You started casting a total of ${this.totalCasts} spells with a cast timer. <ul> <li> You cancelled ${this.castsCancelled} of those casts. </li> </ul>`}
+        tooltip={`You started casting a total of ${this.totalCasts} spells with a cast timer. <ul><li> You cancelled ${this.castsCancelled} of those casts. </li></ul>`}
       />
     );
   }

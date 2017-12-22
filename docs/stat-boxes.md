@@ -133,7 +133,7 @@ For basic text with no tooltip, just use a basic double-quote string.
 For a basic tooltip via label: 
 ```javascript
 label={(
-  <dfn data-tip={'This is the effective healing contributed by the Eveloping Mists buff.'}> // tooltip
+  <dfn data-tip="This is the effective healing contributed by the Eveloping Mists buff."> // tooltip
     Healing Contributed // label
   </dfn>
 )}

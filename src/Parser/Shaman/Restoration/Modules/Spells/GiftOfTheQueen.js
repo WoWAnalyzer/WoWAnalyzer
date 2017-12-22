@@ -56,25 +56,26 @@ class GiftOfTheQueen extends Analyzer {
 
   suggestions(when) {
     const hasCBT = this.combatants.selected.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id);
-   
-    when(this.giftOfTheQueenTargetEfficiency()).isLessThan(0.95)
+    const gotqTargetEffiencyThresholds = this.giftOfQueenTargetEfficiencySuggestionThreshold;
+    when(gotqTargetEffiencyThresholds.actual).isLessThan(gotqTargetEffiencyThresholds.isLessThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Try to always cast <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} /> at a position where both the initial hit and the echo from <SpellLink id={SPELLS.DEEP_WATERS.id} /> will hit all 6 potential targets.</span>)
           .icon(SPELLS.GIFT_OF_THE_QUEEN.icon)
-          .actual(`${formatPercentage(this.giftOfTheQueenTargetEfficiency())} % of targets hit`)
-          .recommended(`> ${formatPercentage(recommended)} % of targets hit`)
-          .regular(recommended - .05).major(recommended - .15);
+          .actual(`${formatPercentage(gotqTargetEffiencyThresholds.actual)} % of targets hit`)
+          .recommended(`> ${formatPercentage(gotqTargetEffiencyThresholds.isLessThan.minor)} % of targets hit`)
+          .regular(gotqTargetEffiencyThresholds.isLessThan.average).major(gotqTargetEffiencyThresholds.isLessThan.major);
       });
     
-    const feedingPercent = this.giftOfTheQueenCBTFeedingPercent();
+
     if (hasCBT) {
-      when(feedingPercent).isLessThan(0.85)
+      const gotqFeedingEfficiency = this.CBTTotemFeedingSuggestionThreshold;
+      when(gotqFeedingEfficiency.actual).isLessThan(gotqFeedingEfficiency.isLessThan.minor)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<span>Try to cast <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} /> while <SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} /> is up as much as possible.</span>)
             .icon(SPELLS.GIFT_OF_THE_QUEEN.icon)
-            .actual(`${formatPercentage(feedingPercent)} % of GotQ healing fed into CBT`)
-            .recommended(`> ${formatPercentage(recommended)} % of GotQ healing fed into CBT`)
-            .regular(recommended - .2).major(recommended - .4);
+            .actual(`${formatPercentage(gotqFeedingEfficiency.actual)} % of GotQ healing fed into CBT`)
+            .recommended(`> ${formatPercentage(gotqFeedingEfficiency.isLessThan.minor)} % of GotQ healing fed into CBT`)
+            .regular(gotqFeedingEfficiency.isLessThan.average).major(gotqFeedingEfficiency.isLessThan.major);
         }); 
       }   
   }

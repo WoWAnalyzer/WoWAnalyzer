@@ -17,9 +17,6 @@ class WastedRimeProcs extends Analyzer {
   castsWithoutRime = 0;
   wastedRimeProcs = 0;
 
-  on_initialized() {
-  }
-
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.HOWLING_BLAST.id) {
@@ -38,15 +35,14 @@ class WastedRimeProcs extends Analyzer {
     }
   }
 
-
   statistic() {
     this.wastedRimeProcs = this.rimeProcs - this.castsWithRime;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RIME.id} />}
         value={this.wastedRimeProcs}
-        label='Wasted Rime Procs'
-        tooltip='You let a rime proc go to waste.'
+        label="Wasted Rime Procs"
+        tooltip="You let a rime proc go to waste."
       />
     );
   }
