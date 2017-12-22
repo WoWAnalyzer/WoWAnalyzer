@@ -9,6 +9,7 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import AtonementSuccessiveDamageNormalizer from './Normalizers/AtonementSuccessiveDamage';
 import EstelNormalizer from './Normalizers/EstelNormalizer';
+import ShadowfiendNormalizer from './Normalizers/ShadowfiendNormalizer';
 
 import SpellManaCost from './Modules/Core/SpellManaCost';
 import AbilityTracker from './Modules/Core/AbilityTracker';
@@ -58,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Normalizers
     atonementSuccessiveDamage: AtonementSuccessiveDamageNormalizer,
     estelNormalizer: EstelNormalizer,
+    shadowfiendNormalizer: ShadowfiendNormalizer,
 
     healingDone: [HealingDone, { showStatistic: true }],
 
