@@ -86,7 +86,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: <Wrapper> Use your Dire ability properly </Wrapper>,
-      description: <Wrapper>Using either <SpellLink id={SPELLS.DIRE_BEAST.id} icon /> or <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> properly is a key to achieving high dps. </Wrapper>,
+      description: <Wrapper>Using either <SpellLink id={SPELLS.DIRE_BEAST.id} icon /> or <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> properly is a key to achieving high dps. This means maintaining the buff from <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> as long as possible, and utilising the cooldown reduction from <SpellLink id={SPELLS.DIRE_BEAST.id} icon /> as much as possible, to ensure high uptime on <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /></Wrapper>,
       requirements: () => {
         return [
           new Requirement({
@@ -109,7 +109,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: <Wrapper>Cooldown efficiency</Wrapper>,
-      description: <Wrapper> Use <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> & <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} icon />properly </Wrapper>,
+      description: <Wrapper> Use <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> & <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} icon /> properly. This means having a high amount of focus going into <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> windows, and by using your <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} icon /> when <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> is up.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
@@ -125,7 +125,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: <Wrapper>Talent Efficiency</Wrapper>,
-      description: <Wrapper>hehe</Wrapper>,
+      description: <Wrapper>Utilising your talents to their maximum is important when trying to do as much damage as possible, if these aren't utilised properly, you may be better off using a different talent. </Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
