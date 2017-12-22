@@ -7,7 +7,7 @@ import MAGIC_SCHOOLS from 'common/MAGIC_SCHOOLS';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-
+import Toggleable from 'Main/Toggleable';
 import DamageValue from './DamageValue';
 
 class DamageTaken extends Analyzer {
@@ -65,9 +65,35 @@ class DamageTaken extends Analyzer {
     return this._addDamage(ability, -amount, -absorbed, -overkill);
   }
 
+  get tooltip(){
+      const physical = (this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL])?this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL].effective : 0;
+      const magical = this.total.effective - physical;
+      return `Damage taken by type:
+      <ul>
+      <li><b>Physical</b>: ${formatThousands(physical)} (${formatPercentage(physical / this.total.effective)}%)</li>
+      <li><b>Magic</b>: ${formatThousands(magical)} (${formatPercentage(magical / this.total.effective)}%)</li>
+      </ul>
+      Damage taken by magic school:
+      <ul>
+        ${Object.keys(this._byMagicSchool)
+          .filter(type => this._byMagicSchool[type].effective !== 0)
+          .map(type => `<li><b>${MAGIC_SCHOOLS.names[type] || 'Unknown'}</b>: ${formatThousands(this._byMagicSchool[type].effective)} (${formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>`
+          )
+      .join('')}
+      </ul>
+      Click the bar to switch between simple and detailed mode.`;
+  }
+
   showStatistic = false;
   statistic() {
     // TODO: Add a bar showing magic schools
+    const physical = (this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL])?this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL].effective : 0;
+    const magical = this.total.effective - physical;
+    const simplifiedValues = {
+      [MAGIC_SCHOOLS.ids.PHYSICAL]: physical,
+      [MAGIC_SCHOOLS.ids.SHADOW]: magical, // use shadow as placeholder for general magic
+    };
+
     return this.showStatistic && (
       <StatisticBox
         icon={(
@@ -83,29 +109,37 @@ class DamageTaken extends Analyzer {
           `The total damage taken was ${formatThousands(this.total.effective)} (${formatThousands(this.total.overkill)} overkill).`
         }
         footer={(
-          <div className="statistic-bar">
-            {Object.keys(this._byMagicSchool)
-              .map(type => {
-                const effective = this._byMagicSchool[type].effective;
-                return (
-                  <div
-                    key={type}
-                    className={`spell-school-${type}-bg`}
-                    style={{ width: `${effective / this.total.effective * 100}%` }}
-                    data-tip={
-                      `Damage taken by magic school:
-                      <ul>
-                        ${Object.keys(this._byMagicSchool)
-                          .map(type => `<li><b>${MAGIC_SCHOOLS.names[type] || 'Unknown'}</b>: ${formatThousands(this._byMagicSchool[type].effective)} (${formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>`)
-                          .join('')}
-                      </ul>`
-                    }
-                  />
-                );
-              })}
-          </div>
+          <Toggleable
+            className="statistic-bar"
+            data-tip={this.tooltip}
+            value = {
+              Object.keys(simplifiedValues)
+                .map(type =>
+                  (
+                    <div
+                      key={type}
+                      className={`spell-school-${type}-bg`}
+                      style={{ width: `${simplifiedValues[type] / this.total.effective * 100}%` }}
+                    />
+                  )
+                )
+            }
+            toggledvalue = {
+              Object.keys(this._byMagicSchool)
+                .filter(type => this._byMagicSchool[type].effective !== 0)
+                .map(type =>
+                  (
+                    <div
+                      key={type}
+                      className={`spell-school-${type}-bg`}
+                      style={{ width: `${this._byMagicSchool[type].effective / this.total.effective * 100}%` }}
+                    />
+                  )
+                )
+            }
+          />
         )}
-        footerStyle={{ overflow: 'hidden' }}
+        footerStyle={{ overflow: 'hidden'}}
       />
     );
   }
