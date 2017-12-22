@@ -9,6 +9,7 @@
 export const Zerotorescue = {
   nickname: 'Zerotorescue',
   github: 'MartijnHols',
+  twitter: 'Zerotorescue',
   avatar: require('./Images/zerotorescue-avatar.png'),
 };
 export const blazyb = {

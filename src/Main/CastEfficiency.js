@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 
 const CastEfficiency = ({ categories, abilities }) => {
   if (!abilities) {

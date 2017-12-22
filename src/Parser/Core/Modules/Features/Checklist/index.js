@@ -170,7 +170,7 @@ class Checklist extends Analyzer {
     );
   }
 
-  render({ footer }) {
+  render() {
     return (
       <Wrapper>
         {this.rules.length === 0 && (
@@ -181,11 +181,6 @@ class Checklist extends Analyzer {
         {this.rules
           .filter(this.whenFilter)
           .map(this.renderRule)}
-        {footer && (
-          <div style={{ padding: '10px 22px' }}>
-            {footer}
-          </div>
-        )}
       </Wrapper>
     );
   }

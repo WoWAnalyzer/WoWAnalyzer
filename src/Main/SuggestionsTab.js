@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Toggle from 'react-toggle';
 
 import Icon from 'common/Icon';
-
+import Wrapper from 'common/Wrapper';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import Suggestion from './Suggestion';
@@ -25,7 +25,7 @@ class SuggestionsTab extends React.Component {
     const { issues } = this.props;
 
     return (
-      <div>
+      <Wrapper>
         <div className="panel-heading">
           <div className="row">
             <div className="col-md-8">
@@ -44,7 +44,7 @@ class SuggestionsTab extends React.Component {
             </div>
           </div>
         </div>
-        <div style={{ padding: 0 }}>
+        <div>
           <ul className="list issues">
             {!issues.find(issue => issue.importance === ISSUE_IMPORTANCE.MAJOR) && (
               <li className="item major" style={{ color: '#25ff00' }}>
@@ -64,7 +64,7 @@ class SuggestionsTab extends React.Component {
             </li>
           </ul>
         </div>
-      </div>
+      </Wrapper>
     );
   }
 }

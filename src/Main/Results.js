@@ -9,7 +9,6 @@ import { Textfit } from 'react-textfit';
 import Wrapper from 'common/Wrapper';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import getBossName from 'common/getBossName';
-import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import { getResultTab } from 'selectors/url/report';
 import DevelopmentTab from 'Main/DevelopmentTab';
 import EventsTab from 'Main/EventsTab';
@@ -17,14 +16,19 @@ import Tab from 'Main/Tab';
 import Status from 'Main/Status';
 import GithubButton from 'Main/GithubButton';
 import DiscordButton from 'Main/DiscordButton';
-import Maintainer from 'Main/Maintainer';
 import SuggestionsTab from 'Main/SuggestionsTab';
 
 import SkullRaidMarker from './Images/skull-raidmarker.png';
-import SpecInformationOverlay from './SpecInformationOverlay';
 import ItemsPanel from './ItemsPanel';
+import AboutTab from './AboutTab';
 
 import './Results.css';
+
+const MAIN_TAB = {
+  CHECKLIST: 'Checklist',
+  SUGGESTIONS: 'Suggestions',
+  ABOUT: 'About',
+};
 
 class Results extends React.Component {
   static childContextTypes = {
@@ -47,21 +51,8 @@ class Results extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showSpecInformationOverlay: false,
-      showSuggestions: props.parser._modules.checklist.rules.length === 0,
+      mainTab: props.parser._modules.checklist.rules.length === 0 ? MAIN_TAB.SUGGESTIONS : MAIN_TAB.CHECKLIST,
     };
-    this.handleClickViewSpecInformation = this.handleClickViewSpecInformation.bind(this);
-    this.handleSpecInformationCloseClick = this.handleSpecInformationCloseClick.bind(this);
-  }
-  handleClickViewSpecInformation() {
-    this.setState({
-      showSpecInformationOverlay: true,
-    });
-  }
-  handleSpecInformationCloseClick() {
-    this.setState({
-      showSpecInformationOverlay: false,
-    });
   }
 
   componentDidUpdate() {
@@ -197,46 +188,29 @@ class Results extends React.Component {
                 <div className="panel-body flex" style={{ flexDirection: 'column', padding: '0' }}>
                   <div className="navigation item-divider" style={{ minHeight: 70 }}>
                     <div className="flex" style={{ paddingTop: '10px', flexDirection: 'row', flexWrap: 'wrap' }}>
-                      <button
-                        className={!this.state.showSuggestions ? 'btn-link selected' : 'btn-link'}
-                        onClick={() => {
-                          this.setState({
-                            showSuggestions: false,
-                          });
-                        }}
-                      >
-                        Checklist
-                      </button>
-                      <button
-                        className={this.state.showSuggestions ? 'btn-link selected' : 'btn-link'}
-                        onClick={() => {
-                          this.setState({
-                            showSuggestions: true,
-                          });
-                        }}
-                      >
-                        Suggestions
-                      </button>
+                      {Object.values(MAIN_TAB).map(tab => (
+                        <button
+                          className={this.state.mainTab === tab ? 'btn-link selected' : 'btn-link'}
+                          onClick={() => {
+                            this.setState({
+                              mainTab: tab,
+                            });
+                          }}
+                        >
+                          {tab}
+                        </button>
+                      ))}
                     </div>
                   </div>
                   <div>
-                    {!this.state.showSuggestions ? (
-                      modules.checklist.render({
-                        footer: (
-                          <div className="text-muted" style={{ fontSize: '1.1em' }}>
-                            The <img
-                              src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`}
-                              alt="Spec logo"
-                              style={{
-                                borderRadius: '50%',
-                                height: '1.2em',
-                              }}
-                            /> {config.spec.specName} {config.spec.className} implementation is being maintained by {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}. Its completeness is considered <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness).toLowerCase()}</dfn>. <a href="#spec-information" onClick={this.handleClickViewSpecInformation} style={{ whiteSpace: 'nowrap' }}>More information.</a>
-                          </div>
-                        ),
-                      })
-                    ) : (
+                    {this.state.mainTab === MAIN_TAB.CHECKLIST && (
+                      modules.checklist.render()
+                    )}
+                    {this.state.mainTab === MAIN_TAB.SUGGESTIONS && (
                       <SuggestionsTab issues={results.issues} />
+                    )}
+                    {this.state.mainTab === MAIN_TAB.ABOUT && (
+                      <AboutTab config={config} />
                     )}
                   </div>
                 </div>
@@ -282,10 +256,6 @@ class Results extends React.Component {
             </div>
           </div>
         </div>
-
-        {this.state.showSpecInformationOverlay && (
-          <SpecInformationOverlay config={config} onCloseClick={this.handleSpecInformationCloseClick} key="spec-description-overlay" />
-        )}
       </div>
     );
   }
