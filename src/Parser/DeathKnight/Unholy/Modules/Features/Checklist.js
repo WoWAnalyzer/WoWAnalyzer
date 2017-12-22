@@ -13,9 +13,11 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
+import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 
-import VirulentPlagueUptime from './VirulentPlagueUptime.js';
+import VirulentPlagueUptime from './VirulentPlagueUptime';
 import AlwaysBeCasting from './AlwaysBeCasting';
+import RunicPowerDetails from '../RunicPower/RunicPowerDetails';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -26,12 +28,14 @@ class Checklist extends CoreChecklist {
     prePotion: PrePotion,
     virulentPlagueUptime: VirulentPlagueUptime,
     alwaysBeCasting: AlwaysBeCasting,
+    enchantChecker: EnchantChecker,
+    runicPowerDetails: RunicPowerDetails,
   };
 
   rules = [
     new Rule({
       name: 'Use core spells as often as possible',
-      description: 'Write one here',
+      description: <Wrapper>Spells with short, static cooldowns like <SpellLink id={SPELLS.DARK_TRANSFORMATION.id}/> and <SpellLink id={SPELLS.CHAINS_OF_ICE.id}/>(when using Cold Heart) should be used as often as possible</Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -59,7 +63,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use cooldowns as often as possible',
-      description: 'Write one here',
+      description: 'You should aim to use your cooldowns as often as you can to maximize your damage output',
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -96,12 +100,24 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Try to avoid being inactive for a large portion of the fight',
-      description: 'Write here',
+      description: <Wrapper>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  You can reduce downtime by casting ranged abilities like <SpellLink id={SPELLS.OUTBREAK.id}/> or <SpellLink id={SPELLS.DEATH_COIL.id}/></Wrapper>,
       requirements: () => {
         return [
           new Requirement({
             name: 'Downtime',
             check: () => this.alwaysBeCasting.downtimeSuggestionThresholds,
+          }),
+        ];
+      },
+    }),
+    new Rule({
+      name: 'Avoid capping Runic Power',
+      description: 'Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  Try to spend Runic Power before reaching the maximum amount to avoid wasting resources',
+      requirements: () => {
+        return [
+          new Requirement({
+            name: 'Runic Power Efficiency',
+            check: () => this.runicPowerDetails.efficiencySuggestionThresholds,
           }),
         ];
       },
@@ -135,10 +151,17 @@ class Checklist extends CoreChecklist {
             name: 'Used a second potion',
             check: () => this.prePotion.secondPotionSuggestionThresholds,
           }),
-          // new Requirement({
-          //   name: 'Properly enchanted gear',
-          //   check: () => this.velens.suggestionThresholds,
-          // }),
+          new Requirement({
+            name: 'Gear has best enchants',
+            check: () => {
+              const numEnchantableSlots = Object.keys(this.enchantChecker.enchantableGear).length;
+              return {
+                actual: numEnchantableSlots - (this.enchantChecker.slotsMissingEnchant.length + this.enchantChecker.slotsMissingMaxEnchant.length),
+                isLessThan: numEnchantableSlots,
+                style: 'number',
+              };
+            },
+          }),
         ];
       },
     }),

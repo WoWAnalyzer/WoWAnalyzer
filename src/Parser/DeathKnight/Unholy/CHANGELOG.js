@@ -1,5 +1,10 @@
 export default  [
   {
+    date: new Date('12-21-2017'),
+    changes: 'Added Checklist',
+    contributors: ['Khazak'],
+  },
+  {
     date: new Date('12-15-2017'),
     changes: 'Removed Scourge of Worlds tracker after feedback',
     contributors: ['Khazak'],
