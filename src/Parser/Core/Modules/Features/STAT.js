@@ -51,6 +51,22 @@ export function getName(stat) {
     default: return null;
   }
 }
+export function getPawnStringName(stat) {
+  switch (stat) {
+    case STAT.STAMINA: return 'Stamina';
+    case STAT.STRENGTH: return 'Strength';
+    case STAT.AGILITY: return 'Agility';
+    case STAT.INTELLECT: return 'Intellect';
+    case STAT.CRITICAL_STRIKE: return 'CritRating';
+    case STAT.HASTE: return 'HasteRating';
+    case STAT.HASTE_HPCT: return 'HasteRating';
+    case STAT.HASTE_HPM: return 'HasteRating';
+    case STAT.MASTERY: return 'MasteryRating';
+    case STAT.VERSATILITY: return 'Versatility';
+    case STAT.LEECH: return 'Leech'; // TODO is this right?
+    default: return null;
+  }
+}
 export function getClassNameColor(stat) {
   switch (stat) {
     case STAT.HEALTH: return 'stat-health';

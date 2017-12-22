@@ -548,6 +548,10 @@ dfn[data-tip] {
   border-bottom: 1px dashed currentColor;
   cursor: help;
 }
+dfn[data-tip].button-tip {
+  border-bottom: none;
+  cursor: pointer;
+}
 
 .alert-danger {
   padding: 20px 30px;
@@ -797,6 +801,12 @@ table.data-table .performance-bar {
   vertical-align: middle;
 }
 
+.btn-sm.clipboard {
+  background: #da3333;
+}
+.btn-sm.clipboard:active {
+  background: #ba2222;
+}
 .btn.discord {
   background: #7289DA;
 }

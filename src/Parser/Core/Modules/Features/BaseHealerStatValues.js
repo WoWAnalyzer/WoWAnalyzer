@@ -1,5 +1,7 @@
 import React from 'react';
 
+import ClipboardCopyButton from 'Main/ClipboardCopyButton';
+
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatThousands } from 'common/format';
 
@@ -12,7 +14,7 @@ import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 import CORE_SPELL_INFO from './SpellInfo';
-import STAT, { getName, getClassNameColor, getIcon } from './STAT';
+import STAT, { getName, getPawnStringName, getClassNameColor, getIcon } from './STAT';
 
 const DEBUG = false;
 
@@ -313,6 +315,17 @@ class BaseHealerStatValues extends Analyzer {
       default: return 0;
     }
   }
+  _getPawnString() {
+    if(this._getPawnStats) {
+      const fightNameWithoutSpaces = this.owner.fight.name.replace(' ', '');
+      const playerName = this.owner.player.name;
+      const pawnStats = this._getPawnStats();
+      return `( Pawn: v1: "WoWAnalyzer-${playerName}-${fightNameWithoutSpaces}": ${pawnStats.reduce((acc, stat) =>
+        acc + getPawnStringName(stat) + '=' + this._getGain(stat).toFixed(0) + ', ', '').slice(0, -2)} )`;
+    } else {
+      return null;
+    }
+  }
   _getTooltip(stat) {
     switch (stat) {
       case STAT.HASTE_HPCT:
@@ -332,7 +345,7 @@ class BaseHealerStatValues extends Analyzer {
     const results = this._prepareResults();
     return (
       <div className="panel items">
-        <div className="panel-heading">
+        <div className="panel-heading flex">
           <h2>
             <dfn data-tip="These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat values.">Stat Values</dfn>
 
@@ -342,6 +355,9 @@ class BaseHealerStatValues extends Analyzer {
               </a>
             )}
           </h2>
+          {this._getPawnStats && (
+            <ClipboardCopyButton copyText={this._getPawnString()} label='Pawn String' />
+          )}
         </div>
         <div className="panel-body" style={{ padding: 0 }}>
           <table className="data-table compact">

@@ -48,6 +48,7 @@
     "react": "^16.2.0",
     "react-chartist": "^0.13.0",
     "react-chartjs-2": "^2.6.4",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-dev-utils": "^4.2.1",
     "react-dom": "^16.2.0",
     "react-gemini-scrollbar": "^2.3.4",
