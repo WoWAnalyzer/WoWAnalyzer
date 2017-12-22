@@ -5,6 +5,7 @@ class Toggleable extends React.PureComponent {
   static propTypes = {
     toggledvalue: PropTypes.node.isRequired,
     value: PropTypes.node.isRequired,
+    style: PropTypes.object,
   };
 
   constructor() {
@@ -23,9 +24,9 @@ class Toggleable extends React.PureComponent {
   }
 
   render() {
-    const { toggledvalue, value, ...others } = this.props;
+    const { toggledvalue, value, style, ...others } = this.props;
     return (
-      <div onClick={this.handleClick} {...others}>
+      <div onClick={this.handleClick} style={{cursor: 'pointer', ...style }} {...others}>
         {(this.state.toggled) ? toggledvalue : value}
       </div>);
   }
