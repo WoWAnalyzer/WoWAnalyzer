@@ -22,6 +22,7 @@ import BestialWrathUptime from "./Modules/Spells/BestialWrath/BestialWrathUptime
 import GainedBestialWraths from "./Modules/Spells/BestialWrath/GainedBestialWraths";
 import DireBeastUptime from "./Modules/Spells/DireBeast/DireBeastUptime";
 import BeastCleave from './Modules/Spells/BeastCleave';
+import AspectOfTheWild from './Modules/Spells/AspectOfTheWild';
 
 //Talents
 import KillerCobra from "./Modules/Talents/KillerCobra";
@@ -65,6 +66,7 @@ class CombatLogParser extends CoreCombatLogParser {
     bestialWrathUptime: BestialWrathUptime,
     gainedBestialWrathst: GainedBestialWraths,
     beastCleave: BeastCleave,
+    aspectOfTheWild: AspectOfTheWild,
 
     //Items
     soulOfTheHuntmaster: SoulOfTheHuntmaster,

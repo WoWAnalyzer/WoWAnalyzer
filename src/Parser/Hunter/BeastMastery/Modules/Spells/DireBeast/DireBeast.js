@@ -6,6 +6,7 @@ import SPELLS from "common/SPELLS/index";
 import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
+import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 
 //Threshhold for when there is less than 3s remaining on Bestial Wrath to not cast Dire Beast
 const CD_ON_BESTIAL_WRATH_BAD_DB_THRESHHOLD = 3000;
@@ -73,6 +74,7 @@ class DireBeast extends Analyzer {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.CORE(2);
 
   get badDireBeastThreshold() {
     return {
