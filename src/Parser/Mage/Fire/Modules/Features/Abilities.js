@@ -52,7 +52,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 45,
       recommendedEfficiency: 0.90,
-	    isActive: combatant => combatant.hasTalent(SPELLS.METEOR_TALENT.id),
+      isActive: combatant => combatant.hasTalent(SPELLS.METEOR_TALENT.id),
     },
     {
       spell: SPELLS.DRAGONS_BREATH,
@@ -72,7 +72,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.LIVING_BOMB_TALENT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
       getCooldown: haste => 12 / (1 + haste),
-	    isActive: combatant => combatant.hasTalent(SPELLS.LIVING_BOMB_TALENT.id),
+      isActive: combatant => combatant.hasTalent(SPELLS.LIVING_BOMB_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
     },
@@ -80,13 +80,13 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.CINDERSTORM_TALENT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 9 / (1 + haste),
-	    isActive: combatant => combatant.hasTalent(SPELLS.CINDERSTORM_TALENT.id),
+      isActive: combatant => combatant.hasTalent(SPELLS.CINDERSTORM_TALENT.id),
     },
     {
       spell: SPELLS.BLAST_WAVE_TALENT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
       getCooldown: haste => 25,
-	    isActive: combatant => combatant.hasTalent(SPELLS.BLAST_WAVE_TALENT.id),
+      isActive: combatant => combatant.hasTalent(SPELLS.BLAST_WAVE_TALENT.id),
     },
 
     // Cooldowns

@@ -51,6 +51,7 @@ class CooldownThroughputTracker extends Analyzer {
     // if you want to add some spells specific to your spec, redefine this array in your spec CooldownThroughputTracker similarly to cooldownSpells (see Marksmanship Hunter for example)
     SPELLS.ASTRAL_VULNERABILITY.id,
     SPELLS.ANNIHILATION_TRILLIAX.id,
+    SPELLS.EONARS_COMPASSION_HEAL.id,
   ];
 
   pastCooldowns = [];

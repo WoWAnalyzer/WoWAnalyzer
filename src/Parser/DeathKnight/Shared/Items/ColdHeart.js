@@ -17,7 +17,7 @@ class ColdHeart extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.COLD_HEART_BUFF.id) {
+    if (event.ability.guid !== SPELLS.COLD_HEART_DEBUFF.id) {
       return;
     }
 

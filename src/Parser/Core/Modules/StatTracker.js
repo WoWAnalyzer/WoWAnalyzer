@@ -212,10 +212,14 @@ class StatTracker extends Analyzer {
         return 0.05;
       case SPECS.SHADOW_PRIEST:
         return 0.2;
+      case SPECS.DISCIPLINE_PRIEST:
+        return 0.128;
       case SPECS.RESTORATION_SHAMAN:
         return 0.24;
       case SPECS.ENHANCEMENT_SHAMAN:
         return 0.2;
+      case SPECS.ELEMENTAL_SHAMAN:
+        return 0.15;
       case SPECS.RESTORATION_DRUID:
         return 0.048;
       case SPECS.RETRIBUTION_PALADIN:
@@ -278,10 +282,14 @@ class StatTracker extends Analyzer {
         return 32000;
       case SPECS.SHADOW_PRIEST:
         return 16000;
+      case SPECS.DISCIPLINE_PRIEST:
+        return 25000;
       case SPECS.RESTORATION_SHAMAN:
         return 13333;
       case SPECS.ENHANCEMENT_SHAMAN:
         return 13333;
+      case SPECS.ELEMENTAL_SHAMAN:
+        return 23333;
       case SPECS.RESTORATION_DRUID:
         return 66667;
       case SPECS.RETRIBUTION_PALADIN:

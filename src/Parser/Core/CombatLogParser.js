@@ -87,6 +87,7 @@ import TerminusSignalingBeacon from './Modules/Items/TerminusSignalingBeacon';
 import PrototypePersonnelDecimator from './Modules/Items/PrototypePersonnelDecimator';
 import SheathOfAsara from './Modules/Items/SheathOfAsara';
 import NorgannonsProwess from './Modules/Items/NorgannonsProwess';
+import AcridCatalystInjector from './Modules/Items/AcridCatalystInjector';
 import ShadowSingedFang from './Modules/Items/ShadowSingedFang';
 
 // Shared Buffs
@@ -199,6 +200,7 @@ class CombatLogParser {
     prototypePersonnelDecimator: PrototypePersonnelDecimator,
     sheathOfAsara: SheathOfAsara,
     norgannonsProwess: NorgannonsProwess,
+    acridCatalystInjector: AcridCatalystInjector,
     shadowSingedFang: ShadowSingedFang,
 
     // Concordance of the Legionfall
