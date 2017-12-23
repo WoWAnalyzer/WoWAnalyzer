@@ -12,6 +12,9 @@ import getDamageBonus from "Parser/Hunter/Shared/Modules/getDamageBonus";
 const MAX_STACKS = 20;
 const WARBELT_OF_THE_SENTINEL_ARMY_DAMAGE_BONUS = 0.1;
 
+/*
+ * Equip: Each enemy you hit with Multi-Shot increases the damage of your next Aimed Shot by 10%, stacking up to 20 times.
+ */
 class WarBeltOfTheSentinelArmy extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -70,7 +73,7 @@ class WarBeltOfTheSentinelArmy extends Analyzer {
 
   suggestions(when) {
     const percentCappedStacks = formatPercentage(this.cappedBeltStacks / this.totalBeltStacks);
-    const percentUnusedStacks = (this.totalBeltStacks - this.usedBeltStacks-this.cappedBeltStacks) / this.totalBeltStacks;
+    const percentUnusedStacks = (this.totalBeltStacks - this.usedBeltStacks - this.cappedBeltStacks) / this.totalBeltStacks;
     when(percentCappedStacks).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You lost out on {this.cappedBeltStacks} (or {percentCappedStacks}% of total stacks) belt stacks because you were capped. You should try and avoid this by shooting off an <SpellLink id={SPELLS.AIMED_SHOT.id} /> when you're at, or close to, 20 stacks.</span>)
@@ -82,7 +85,7 @@ class WarBeltOfTheSentinelArmy extends Analyzer {
       });
     when(percentUnusedStacks).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You finished the encounter with {this.totalBeltStacks - this.usedBeltStacks-this.cappedBeltStacks} stacks unused, try and utilise all of your stacks to get the most out of your hardest hitting ability, <SpellLink id={SPELLS.AIMED_SHOT.id} /> and to maximise the potency of this legendary.</span>)
+        return suggest(<span>You finished the encounter with {this.totalBeltStacks - this.usedBeltStacks - this.cappedBeltStacks} stacks unused, try and utilise all of your stacks to get the most out of your hardest hitting ability, <SpellLink id={SPELLS.AIMED_SHOT.id} /> and to maximise the potency of this legendary.</span>)
           .icon(ITEMS.WAR_BELT_OF_THE_SENTINEL_ARMY.icon)
           .actual(`${formatPercentage(percentUnusedStacks)}% of total stacks were unused`)
           .recommended(`${formatPercentage(recommended, 0)}% unused stacks is recommended`)

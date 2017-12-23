@@ -645,6 +645,18 @@ export default {
 
 
 
+  SHADOW_PRIEST_T21_2SET_BONUS_PASSIVE: {
+    id: 251845,
+    name: 'Shadow Priest T21 2P Bonus',
+    icon: 'ability_priest_ascension',
+  },
+
+ SHADOW_PRIEST_T21_4SET_BONUS_PASSIVE: {
+    id: 251846,
+    name: 'Shadow Priest T21 4P Bonus',
+    icon: 'ability_priest_ascension',
+  },
+
 
   // Shadow traits
 

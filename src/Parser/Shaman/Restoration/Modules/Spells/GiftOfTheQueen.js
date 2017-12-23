@@ -61,7 +61,7 @@ class GiftOfTheQueen extends Analyzer {
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<span>Try to cast <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} /> while <SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} /> is up as much as possible.</span>)
             .icon(SPELLS.GIFT_OF_THE_QUEEN.icon)
-            .actual(`${formatPercentage(giftOfTheQueenTargetEfficiency)} % of GotQ healing fed into CBT`)
+            .actual(`${formatPercentage(giftOfTheQueenCBTFeedingPercent)} % of GotQ healing fed into CBT`)
             .recommended(`> ${formatPercentage(recommended)} % of GotQ healing fed into CBT`)
             .regular(recommended - .2).major(recommended - .4);
         }); 

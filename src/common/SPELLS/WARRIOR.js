@@ -146,6 +146,11 @@ export default {
     name: 'Juggernaut',
     icon: 'warrior_talent_icon_skirmisher',
   },
+  MASSACRE: {
+    id: 206316,
+    name: 'Massacre',
+    icon: 'inv_sword_48',
+  },
 
   // Fury tier sets
   WARRIOR_FURY_T19_2P_BONUS: {

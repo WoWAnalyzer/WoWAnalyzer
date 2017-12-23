@@ -7,6 +7,9 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
 
+/*
+ * While active, your auto attacks spend 3 Focus to also launch a volley of shots that hit the target and all other nearby enemies, dealing (100% of Attack power) additional Physical damage.
+ */
 class Volley extends Analyzer {
   static dependencies = {
     combatants: Combatants,
