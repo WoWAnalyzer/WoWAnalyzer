@@ -12,6 +12,9 @@ import DiscordLogo from './Images/Discord-Logo+Wordmark-White.svg';
 import DiscordBotGif from './Images/discord-bot.gif';
 import DiscordBanner from './Images/discord-banner.jpg';
 import SpecListing from './SpecListing';
+import ChecklistOverview from './Images/checklist-overview.png';
+import ChecklistItem from './Images/checklist-item.png';
+import Results2point0 from './Images/results-2.0.png';
 
 class Home extends Component {
   render() {
@@ -33,7 +36,7 @@ class Home extends Component {
                   <div className="panel-heading">
                     <h2>The World of Warcraft Analyzer</h2>
                   </div>
-                  <div className="panel-body">
+                  <div className="panel-body" style={{ textAlign: 'justify' }}>
                     <img src={MasteryRadiusImage} alt="Mastery radius" className="pull-right" style={{ margin: 15 }} />
                     WoW Analyzer is a comprehensive tool for analyzing your performance based on important metrics for your spec. You will need a Warcraft Logs report with advanced combat logging enabled to start. Private logs can not be used, if your guild has private logs you will have to <a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a> or change the existing logs to the <i>unlisted</i> privacy option instead.<br /><br />
 
@@ -41,6 +44,42 @@ class Home extends Component {
                     <br /><br />
 
                     Feature requests and bug reports are welcome! On <a href="https://discord.gg/AxphPxU">Discord</a> or create an issue <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues">here</a>.
+                  </div>
+                </div>
+
+                <div className="panel">
+                  <div className="panel-heading">
+                    <h2>Check your fights with the all new checklist</h2>
+                  </div>
+                  <div className="panel-body" style={{ textAlign: 'justify' }}>
+                    We're very excited to finally be able to share with you the biggest improvement to WoWAnalyzer since the introduction of suggestions: the checklist. The checklist is an overview of things you should do well for optimal performance, as configured by experts of your spec. Each checklist item will be marked with a green tick if you sufficiently passed the recommended thresholds for the requirements, and a red cross if your performance was below recommended parameters.<br /><br />
+
+                    <div style={{ textAlign: 'center', marginBottom: '1em' }}>
+                      <a href="/report/LRchdHVAmWtNQ8Fj/22-Mythic+Harjatan+-+Kill+(5:54)/Zerotorescue">
+                        <img src={ChecklistOverview} alt="Checklist overview" style={{ width: '100%', maxWidth: 600 }} />
+                      </a>
+                      <div className="text-muted">A subset of the checklist items for Holy Paladins.</div>
+                    </div>
+
+                    Presenting your gameplay suggestions in such a way should give you a much better overview of what goes into playing your spec well. Checks that you pass will continue to be visible as a way to provide you with positive feedback about things you're doing well (and so you can review them for minor improvements). The item performance is also less nitpicky than individual suggestions so that we can put more focus on large improvements.<br /><br />
+
+                    <div style={{ textAlign: 'center', marginBottom: '1em' }}>
+                      <a href="/report/LRchdHVAmWtNQ8Fj/22-Mythic+Harjatan+-+Kill+(5:54)/Zerotorescue">
+                        <img src={ChecklistItem} alt="Checklist item" style={{ width: '100%', maxWidth: 600 }} />
+                      </a>
+                      <div className="text-muted">A single checklist item with its description and checks.</div>
+                    </div>
+
+                    With the introduction of the checklist we have also reworked the results page to present the most important information from top to bottom.<br /><br />
+
+                    <div style={{ textAlign: 'center', marginBottom: '1em' }}>
+                      <a href="/report/LRchdHVAmWtNQ8Fj/22-Mythic+Harjatan+-+Kill+(5:54)/Zerotorescue">
+                        <img src={Results2point0} alt="Results layout 2.0" style={{ width: '100%', maxWidth: 200 }} />
+                      </a>
+                      <div className="text-muted">The new results page is organized by how commonly info is used.</div>
+                    </div>
+
+                    The checklist is available at the launch for the specs <a href="/report/hNqbFwd7Mx3G1KnZ/18-Mythic+Antoran+High+Command+-+Kill+(6:51)/Taffly">Holy Paladin</a>, Shadow Priest, Restoration Shaman, Marksmanship Hunter, Mistweaver Monk, Frost Mage, Unholy Death Knight and Beast Mastery Hunter. More specs to follow later.
                   </div>
                 </div>
 
@@ -98,6 +137,16 @@ class Home extends Component {
               </div>
               <div className="col-lg-4 col-md-5">
                 <div className="panel">
+                  <div className="panel-heading" style={{ padding: 0 }}>
+                    <img src={DiscordBanner} alt="Discord" style={{ width: '100%' }} />
+                  </div>
+                  <div className="panel-body" style={{ textAlign: 'justify' }}>
+                    Join us on Discord with any questions, suggestions or for more information about contributing.<br /><br />
+                    <DiscordButton />
+                  </div>
+                </div>
+
+                <div className="panel">
                   <div className="panel-heading">
                     <h2>Help wanted</h2>
                   </div>
@@ -108,15 +157,6 @@ class Home extends Component {
 
                     {/* old: https://media.giphy.com/media/l1J3vV5lCmv8qx16M/giphy.gif */}
                     <img src="https://media.giphy.com/media/N56zWre4o5UlO/source.gif" style={{ width: '100%' }} alt="Sharing is caring" />
-                  </div>
-                </div>
-                <div className="panel">
-                  <div className="panel-heading" style={{ padding: 0 }}>
-                    <img src={DiscordBanner} alt="Discord" style={{ width: '100%' }} />
-                  </div>
-                  <div className="panel-body" style={{ textAlign: 'justify' }}>
-                    Join us on Discord with any questions, suggestions or for more information about contributing.<br /><br />
-                    <DiscordButton />
                   </div>
                 </div>
               </div>
