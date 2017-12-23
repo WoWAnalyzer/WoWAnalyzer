@@ -218,6 +218,8 @@ class StatTracker extends Analyzer {
         return 0.24;
       case SPECS.ENHANCEMENT_SHAMAN:
         return 0.2;
+      case SPECS.ELEMENTAL_SHAMAN:
+        return 0.15;
       case SPECS.RESTORATION_DRUID:
         return 0.048;
       case SPECS.RETRIBUTION_PALADIN:
@@ -286,6 +288,8 @@ class StatTracker extends Analyzer {
         return 13333;
       case SPECS.ENHANCEMENT_SHAMAN:
         return 13333;
+      case SPECS.ELEMENTAL_SHAMAN:
+        return 23333;
       case SPECS.RESTORATION_DRUID:
         return 66667;
       case SPECS.RETRIBUTION_PALADIN:

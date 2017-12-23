@@ -27,6 +27,9 @@ import Ascendance from './Modules/Talents/Ascendance';
 import TotemMastery from './Modules/Talents/TotemMastery';
 import LightningRod from './Modules/Talents/LightningRod';
 
+import Tier21_2Set from './Modules/Items/Tier21_2set.js';
+import Tier21_4Set from './Modules/Items/Tier21_4set.js';
+
 import './Modules/Main/main.css';
 
 function getIssueImportance(value, regular, major, higherIsWorse = false) {
@@ -60,6 +63,10 @@ class CombatLogParser extends CoreCombatLogParser {
     lightningRod: LightningRod,
 
     // Legendaries:
+
+    //Setboni
+    tier21_2p: Tier21_2Set,
+    tier21_4p: Tier21_4Set,
   };
 
   generateResults() {
