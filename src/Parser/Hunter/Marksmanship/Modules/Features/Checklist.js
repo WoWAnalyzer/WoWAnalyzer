@@ -196,6 +196,8 @@ class Checklist extends CoreChecklist {
     new Rule({
       name: 'Be well prepared',
       description: 'Being prepared is important if you want to perform to your highest potential',
+      // For this rule it wouldn't make sense for the bar to be completely green when just 1 of the requirements failed, showing the average instead of median takes care of that properly.
+      performanceMethod: 'average',
       requirements: () => {
         return [
           new Requirement({
