@@ -65,6 +65,14 @@ class Abilities extends CoreAbilities {
       extraSuggestion: <span>Normally you should be using this off CD, but if you are wearing <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id}/> it is okay to hold if <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id}/>'s CD has less than 30 seconds remaining.</span>,
     },
 
+    {
+      spell: SPELLS.OUTBREAK,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => null,
+      noExtraSuggestion: true,
+      noCanBeImproved: true,
+    },
+
     // cooldowns
     {
       spell: SPELLS.APOCALYPSE,

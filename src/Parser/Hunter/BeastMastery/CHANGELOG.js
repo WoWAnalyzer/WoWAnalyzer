@@ -1,6 +1,16 @@
+import React from 'react';
+
 import { Putro } from 'MAINTAINERS';
+import SpellLink from 'common/SpellLink';
+import Wrapper from 'common/Wrapper';
+import SPELLS from 'common/SPELLS';
 
 export default [
+  {
+    date: new Date('2017-12-22'),
+    changes: <Wrapper>Added support for <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> and <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} icon /> and gave them suggestions. </Wrapper>,
+    contributors: [Putro],
+  },
   {
     date: new Date('2017-12-22'),
     changes: 'Updated to the new checklist format, and updated AlwaysBeCasting thresholds',
