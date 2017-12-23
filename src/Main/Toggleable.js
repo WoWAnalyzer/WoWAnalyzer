@@ -11,7 +11,7 @@ class Toggleable extends React.PureComponent {
   constructor() {
     super();
     this.state = {
-      toggled: true,
+      toggled: false,
     };
 
     this.handleClick = this.handleClick.bind(this);
