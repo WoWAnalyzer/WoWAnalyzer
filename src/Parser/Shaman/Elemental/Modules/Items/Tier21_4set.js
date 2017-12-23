@@ -4,7 +4,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatNumber } from 'common/format';
 
 
 class Tier21_4set extends Analyzer {
@@ -29,7 +28,7 @@ class Tier21_4set extends Analyzer {
       id: `spell-${SPELLS.ELEMENTAL_SHAMAN_T21_4SET_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.ELEMENTAL_SHAMAN_T21_4SET_BUFF.id} />,
       title: <SpellLink id={SPELLS.ELEMENTAL_SHAMAN_T21_4SET_BUFF.id} />,
-      result: formatNumber(this.extraDmg),
+      result: this.owner.formatItemDamageDone(this.extraDmg),
     };
   }
 }
