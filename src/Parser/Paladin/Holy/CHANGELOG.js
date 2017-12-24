@@ -10,6 +10,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2017-12-24'),
+    changes: <Wrapper>Fixed a crash when using <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} icon /> without <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} icon />.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-24'),
     changes: <Wrapper>Implemented the checklist.</Wrapper>,
     contributors: [Zerotorescue],
   },

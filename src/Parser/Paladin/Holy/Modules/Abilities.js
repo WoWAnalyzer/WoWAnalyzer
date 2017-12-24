@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
+import ITEMS from 'common/ITEMS';
 
 class Abilities extends CoreAbilities {
   static ABILITIES = [
@@ -32,7 +33,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.JUDGMENT_CAST,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 12 / (1 + haste),
-      isActive: combatant => combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id),
+      isActive: combatant => combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id) || combatant.hasFinger(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id),
       isOnGCD: true,
       recommendedEfficiency: 0.85, // this rarely overheals, so keeping this on cooldown is pretty much always best
       extraSuggestion: <span>You should cast it whenever <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} /> has dropped, which is usually on cooldown without delay. Alternatively you can ignore the debuff and just cast it whenever Judgment is available; there's nothing wrong with ignoring unimportant things to focus on important things.</span>,
