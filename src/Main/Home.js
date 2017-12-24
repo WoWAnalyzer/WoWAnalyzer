@@ -52,22 +52,22 @@ class Home extends Component {
                     <h2>Version 2.0 is here! Check your fights with the all new checklist</h2>
                   </div>
                   <div className="panel-body" style={{ textAlign: 'justify' }}>
-                    We're very excited to finally be able to share with you the biggest change since the introduction of suggestions: the checklist. The checklist is a much more intuative way to convey your performance in a fight. Instead of individual (harsh) suggestions, the checklist shows an overview of items which are marked with a green tick if you sufficiently passed the recommended thresholds for the requirements, and a red cross if your performance was below recommended parameters.<br /><br />
+                    Hey all! We're very excited to finally be able to share with you version 2.0 of WoWAnalyzer! This has the biggest change since the introduction of suggestions: the checklist. The checklist is a much more intuitive way to convey your performance in a fight. Instead of individual (often considered <i>harsh</i>) suggestions, the checklist shows an overview of <i>rules</i> which are marked with a green tick if you sufficiently passed the recommended thresholds for the requirements, and a red cross if your performance was below recommended parameters.<br /><br />
 
                     <div style={{ textAlign: 'center', marginBottom: '1em' }}>
                       <a href="/report/LRchdHVAmWtNQ8Fj/22-Mythic+Harjatan+-+Kill+(5:54)/Zerotorescue">
                         <img src={ChecklistOverview} alt="Checklist overview" style={{ width: '100%', maxWidth: 600 }} />
                       </a>
-                      <div className="text-muted">A subset of the checklist items for Holy Paladins.</div>
+                      <div className="text-muted">A subset of the checklist rules for Holy Paladins.</div>
                     </div>
 
-                    Presenting your gameplay suggestions in such a way should give you a much better overview of what goes into playing your spec well. Checks that you pass will continue to be visible as a way to provide you with positive feedback about things you're doing well (and so you can review them for minor improvements). The item performance is also less nitpicky than individual suggestions so that we can put more focus on large improvements.<br /><br />
+                    Presenting your gameplay suggestions in such a way should give you a much better overview of what goes into playing your spec well. Checks that you pass will continue to be visible as a way to provide you with positive feedback about things you're doing well (and so you can review them for minor improvements). The rule performance is also less nitpicky than individual suggestions so that we can put more focus on large improvements.<br /><br />
 
                     <div style={{ textAlign: 'center', marginBottom: '1em' }}>
                       <a href="/report/LRchdHVAmWtNQ8Fj/22-Mythic+Harjatan+-+Kill+(5:54)/Zerotorescue">
-                        <img src={ChecklistItem} alt="Checklist item" style={{ width: '100%', maxWidth: 600 }} />
+                        <img src={ChecklistItem} alt="Checklist rule" style={{ width: '100%', maxWidth: 600 }} />
                       </a>
-                      <div className="text-muted">A single checklist item with its description and checks.</div>
+                      <div className="text-muted">A single checklist rule with its description and checks.</div>
                     </div>
 
                     With the introduction of the checklist we have also reworked the results page to present the most important information from top to bottom.<br /><br />
