@@ -31,7 +31,7 @@ class SacredDawn extends Analyzer {
     if (this.owner.constructor.abilitiesAffectedByHealingIncreases.indexOf(spellId) === -1) {
       return;
     }
-    if (spellId === SPELLS.BEACON_OF_LIGHT.id) {
+    if (spellId === SPELLS.BEACON_OF_LIGHT_BUFF_AND_HEAL.id) {
       // Beacon transfer doesn't double dip, so it relies on the buff having been applied to original heal target so we need `on_beacon_heal` to calculate this. (so if a beacon target gets 10% increased healing from SD it won't increase the received beacon heals except indirectly).
       return;
     }
