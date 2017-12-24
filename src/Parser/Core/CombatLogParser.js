@@ -115,8 +115,7 @@ import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
 
-const debug = false;
-const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
+const debug = true;
 
 let _modulesDeprecatedWarningSent = false;
 
@@ -165,7 +164,7 @@ class CombatLogParser {
     kiljaedensBurningWish: KiljaedensBurningWish,
     archimondesHatredReborn: ArchimondesHatredReborn,
     cinidaria: Cinidaria,
-    insigniaOfTheGrandArmy: InsigniaOfTheGrandArmy,
+    // insigniaOfTheGrandArmy: InsigniaOfTheGrandArmy,
     // Epics:
     drapeOfShame: DrapeOfShame,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
@@ -418,7 +417,7 @@ class CombatLogParser {
       .sort((a, b) => this._modules[a].priority - this._modules[b].priority) // lowest should go first, as `priority = 0` will have highest prio
       .forEach(key => {
         const module = this._modules[key];
-        if (IS_DEVELOPMENT) {
+        if (process.env.NODE_ENV === 'development') {
           const start = +new Date();
           module.triggerEvent(eventType, event, ...args);
           const duration = +new Date() - start;
