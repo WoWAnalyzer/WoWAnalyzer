@@ -120,7 +120,19 @@ class AlwaysBeCasting extends Analyzer {
       ].join('  ')}`, `color: ${timeWasted < 0 ? (timeWasted < -50 ? 'red' : 'orange') : '#000'}`);
     }
 
-    this._lastCastFinishedTimestamp = Math.max(castStartTimestamp + globalCooldown, cast.timestamp);
+    const endTimestamp = Math.max(castStartTimestamp + globalCooldown, cast.timestamp);
+    this._lastCastFinishedTimestamp = endTimestamp;
+    this.owner.triggerEvent('globalcooldown', {
+      type: 'globalcooldown',
+      spellId,
+      timestamp: cast.timestamp,
+      startTimestamp: castStartTimestamp,
+      endTimestamp,
+      globalCooldown,
+      begincast,
+      cast,
+      timeWasted,
+    });
   }
   on_finished() {
     // If the player cast something just before fight end `_lastCastFinishedTimestamp` might be in the future resulting in negative downtime. The Math.max takes care of that.

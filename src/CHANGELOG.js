@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2017-12-25'),
+    changes: <Wrapper>Added a <i>casting time</i> bar to the spell timeline that shows you the amount of time spent channeling or waiting for the GCD.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2017-12-18'),
     changes: <Wrapper>Added <ItemLink id={ITEMS.INSIGNIA_OF_THE_GRAND_ARMY.id} /> to the parser.</Wrapper>,
     contributors: [Putro],
