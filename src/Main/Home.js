@@ -79,7 +79,7 @@ class Home extends Component {
                       <div className="text-muted">The new results page is organized by how commonly info is used.</div>
                     </div>
 
-                    The checklist is available at the launch for the specs <a href="/report/hNqbFwd7Mx3G1KnZ/18-Mythic+Antoran+High+Command+-+Kill+(6:51)/Taffly">Holy Paladin</a>, Shadow Priest, Restoration Shaman, Marksmanship Hunter, Mistweaver Monk, Frost Mage, Unholy Death Knight and Beast Mastery Hunter. More specs to follow later.
+                    The checklist is available right now for <a href="/report/hNqbFwd7Mx3G1KnZ/18-Mythic+Antoran+High+Command+-+Kill+(6:51)/Taffly">Holy Paladin</a>, Shadow Priest, Restoration Shaman, Marksmanship Hunter, Mistweaver Monk, <a href="/report/t3wKdDkB7fZqbmWz/1-Normal+Garothi+Worldbreaker+-+Kill+(4:24)/Sref">Frost Mage</a>, Unholy Death Knight and Beast Mastery Hunter. More specs to follow later.
                   </div>
                 </div>
 
