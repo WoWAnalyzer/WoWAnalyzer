@@ -29,7 +29,7 @@ const CRIT_AMOUNT = 1500;
 const MASTERY_AMOUNT = 500;
 const AVOIDANCE_AMOUNT = 1000;
 const HASTE_AMOUNT = 500;
-const MOVEMENT_SPEED_AMOUNT = 650;
+const MOVEMENT_SPEED_AMOUNT = 500;
 
 class InsigniaOfTheGrandArmy extends Analyzer {
   static dependencies = {

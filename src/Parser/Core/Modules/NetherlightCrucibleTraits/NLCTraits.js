@@ -34,7 +34,7 @@ class NLCTraits extends Analyzer {
   };
 
   on_initialized() {
-    // Deactive this module if none of the underlying modules are active.
+    // Deactivate this module if none of the underlying modules are active.
     this.active = Object.keys(this.constructor.dependencies)
       .map(key => this[key])
       .some(dependency => dependency.active);

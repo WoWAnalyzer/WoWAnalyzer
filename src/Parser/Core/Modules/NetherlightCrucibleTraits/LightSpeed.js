@@ -11,11 +11,11 @@ import { formatNumber } from 'common/format';
 /**
  * Light Speed
  * Haste increased by 500.
- * Movement speed increased by 650.
+ * Movement speed increased by 500.
  */
 
 const HASTE_AMOUNT = 500;
-const MOVEMENT_SPEED_AMOUNT = 650;
+const MOVEMENT_SPEED_AMOUNT = 500;
 
 class LightSpeed extends Analyzer {
   static dependencies = {
