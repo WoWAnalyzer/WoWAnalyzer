@@ -49,10 +49,10 @@ class Home extends Component {
 
                 <div className="panel">
                   <div className="panel-heading">
-                    <h2>Check your fights with the all new checklist</h2>
+                    <h2>Version 2.0 is here! Check your fights with the all new checklist</h2>
                   </div>
                   <div className="panel-body" style={{ textAlign: 'justify' }}>
-                    We're very excited to finally be able to share with you the biggest improvement to WoWAnalyzer since the introduction of suggestions: the checklist. The checklist is an overview of things you should do well for optimal performance, as configured by experts of your spec. Each checklist item will be marked with a green tick if you sufficiently passed the recommended thresholds for the requirements, and a red cross if your performance was below recommended parameters.<br /><br />
+                    We're very excited to finally be able to share with you the biggest change since the introduction of suggestions: the checklist. The checklist is a much more intuative way to convey your performance in a fight. Instead of individual (harsh) suggestions, the checklist shows an overview of items which are marked with a green tick if you sufficiently passed the recommended thresholds for the requirements, and a red cross if your performance was below recommended parameters.<br /><br />
 
                     <div style={{ textAlign: 'center', marginBottom: '1em' }}>
                       <a href="/report/LRchdHVAmWtNQ8Fj/22-Mythic+Harjatan+-+Kill+(5:54)/Zerotorescue">
