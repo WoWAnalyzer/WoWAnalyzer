@@ -8,6 +8,11 @@ import ITEMS from 'common/ITEMS';
 
 export default [
     {
+        date: new Date('2017-12-24'),
+        changes: 'Implemented the checklist.',
+        contributors: [hassebewlen],
+    },
+    {
         date: new Date('2017-12-14'),
         changes: 'Added Tier 21 2 & 4P gains.',
         contributors: [hassebewlen],

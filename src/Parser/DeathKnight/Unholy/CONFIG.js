@@ -7,7 +7,6 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   spec: SPECS.UNHOLY_DEATH_KNIGHT,
-  // TODO: Make maintainer an array
   maintainers: [Khazak],
 
   // good = it matches most common manual reviews in class discords, great = it support all important class features

@@ -9,6 +9,26 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2017-12-24'),
+    changes: <Wrapper>Fixed a crash when using <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} icon /> without <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} icon />.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-24'),
+    changes: <Wrapper>Implemented the checklist.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-23'),
+    changes: <Wrapper>Update cast efficiency to include all available spells for a full overview.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-23'),
+    changes: <Wrapper>Added <SpellLink id={SPELLS.LAY_ON_HANDS.id} icon /> to cast efficiency with a 20% recommended cooldown time (to suggest casting it at least once).</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2017-12-11'),
     changes: <Wrapper>Fixed an issue where healing increases (such as Ilterendi and Velen's) didn't include healing buffed for <ItemLink id={ITEMS.HIGHFATHERS_MACHINATION.id} />, <ItemLink id={ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id} /> and <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} />.</Wrapper>,
     contributors: [Zerotorescue],

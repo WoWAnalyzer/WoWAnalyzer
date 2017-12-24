@@ -63,29 +63,47 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     );
   }
 
-  suggestions(when) {
-    const nonHealingTimePercentage = this.totalHealingTimeWasted / this.owner.fightDuration;
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
+  get nonHealingTimeSuggestionThresholds() {
+    return {
+      actual: this.nonHealingTimePercentage,
+      isGreaterThan: {
+        minor: 0.4,
+        average: 0.5,
+        major: 0.55,
+      },
+      style: 'percentage',
+    };
+  }
+  get downtimeSuggestionThresholds() {
+    return {
+      actual: this.downtimePercentage,
+      isGreaterThan: {
+        minor: 0.4,
+        average: 0.55,
+        major: 1,
+      },
+      style: 'percentage',
+    };
+  }
 
-    when(nonHealingTimePercentage).isGreaterThan(0.5)
+  suggestions(when) {
+    when(this.nonHealingTimePercentage).isGreaterThan(this.nonHealingTimeSuggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('Your non healing time can be improved. Try to reduce the delay between casting spells and try to continue healing when you have to move.')
           .icon('petbattle_health-down')
           .actual(`${formatPercentage(actual)}% non healing time`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.1).major(recommended + 0.15);
+          .regular(this.nonHealingTimeSuggestionThresholds.isGreaterThan.average).major(this.nonHealingTimeSuggestionThresholds.isGreaterThan.major);
       });
-    when(deadTimePercentage).isGreaterThan(0.4)
+    when(this.downtimePercentage).isGreaterThan(this.downtimeSuggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you\'re not healing try to contribute some damage.')
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.15).major(1);
+          .regular(this.downtimeSuggestionThresholds.isGreaterThan.average).major(this.downtimeSuggestionThresholds.isGreaterThan.major);
       });
   }
-
-  showStatistic = true;
 }
 
 export default AlwaysBeCasting;

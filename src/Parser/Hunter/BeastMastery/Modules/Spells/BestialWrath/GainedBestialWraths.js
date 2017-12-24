@@ -6,6 +6,7 @@ import SPELLS from "common/SPELLS/index";
 import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
 import { formatNumber } from "common/format";
+import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 
 let COOLDOWN_REDUCTION_MS = 12000;
 const BESTIAL_WRATH_BASE_CD = 90000;
@@ -51,6 +52,8 @@ class GainedBestialWraths extends Analyzer {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.CORE(5);
+
 
 }
 

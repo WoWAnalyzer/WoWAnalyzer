@@ -6,6 +6,7 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
+import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 
 const debug = false;
 
@@ -129,6 +130,8 @@ class TitansThunder extends Analyzer {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.CORE(9);
+
   subStatistic() {
     return (
       <div className="flex">

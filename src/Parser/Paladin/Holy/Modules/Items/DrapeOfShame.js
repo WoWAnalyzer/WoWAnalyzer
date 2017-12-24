@@ -6,14 +6,14 @@ import CoreDrapeOfShame, { DRAPE_OF_SHAME_CRIT_EFFECT } from 'Parser/Core/Module
 class DrapeOfShame extends CoreDrapeOfShame {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (this.owner.constructor.abilitiesAffectedByHealingIncreases.indexOf(spellId) === -1 || spellId === SPELLS.BEACON_OF_LIGHT.id) {
+    if (this.owner.constructor.abilitiesAffectedByHealingIncreases.indexOf(spellId) === -1 || spellId === SPELLS.BEACON_OF_LIGHT_CAST_AND_HEAL.id) {
       return;
     }
     super.on_byPlayer_heal(event);
   }
   on_beacon_heal(beaconTransferEvent, healEvent) {
     const spellId = healEvent.ability.guid;
-    if (this.owner.constructor.abilitiesAffectedByHealingIncreases.indexOf(spellId) === -1 || spellId === SPELLS.BEACON_OF_LIGHT.id) {
+    if (this.owner.constructor.abilitiesAffectedByHealingIncreases.indexOf(spellId) === -1 || spellId === SPELLS.BEACON_OF_LIGHT_CAST_AND_HEAL.id) {
       return;
     }
     if (healEvent.hitType !== HIT_TYPES.CRIT) {
