@@ -1,6 +1,6 @@
 export default  [
   {
-    date: new Date('2017-12-21'),
+    date: new Date('2017-12-24'),
     changes: 'Added Checklist',
     contributors: ['Khazak'],
   },

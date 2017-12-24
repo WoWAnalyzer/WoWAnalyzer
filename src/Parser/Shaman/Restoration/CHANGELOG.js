@@ -1,11 +1,16 @@
 import React from 'react';
 
-import { Anomoly, Versaya, Yuyz0112, Zerotorescue } from 'MAINTAINERS';
+import { Anomoly, Versaya, Yuyz0112, Zerotorescue, hatra344 } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 
 export default [
+  {
+    date: new Date('2017-12-24'),
+    changes: 'Implemented the checklist.',
+    contributors: [hatra344],
+  },
   {
     date: new Date('2017-11-29'),
     changes: <Wrapper>Added in T21 2 set and 4 set healing contribution values.</Wrapper>,
