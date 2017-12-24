@@ -11,6 +11,9 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
   ];
 
   totalHealingTimeWasted = 0;
+  get nonHealingTimePercentage() {
+    return this.totalHealingTimeWasted / this.owner.fightDuration;
+  }
 
   _lastHealingCastFinishedTimestamp = null;
 
@@ -45,7 +48,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
     return this.constructor.HEALING_ABILITIES_ON_GCD.indexOf(cast.ability.guid) !== -1;
   }
 
-  showStatistic = false;
+  showStatistic = true;
   statistic() {
     if (!this.showStatistic) {
       return null;

@@ -26,19 +26,17 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     ...HEALING_ABILITIES_ON_GCD,
     SPELLS.JUDGMENT_CAST.id,
     SPELLS.CRUSADER_STRIKE.id,
-    225141, // http://www.wowhead.com/spell=225141/fel-crazed-rage (Draught of Souls)
     SPELLS.DIVINE_STEED.id,
-    26573, // Consecration
+    SPELLS.CONSECRATION_CAST.id,
     SPELLS.BLINDING_LIGHT_TALENT.id,
-    642, // Divine Shield
+    SPELLS.DIVINE_SHIELD.id,
     SPELLS.BEACON_OF_FAITH_TALENT.id,
-    SPELLS.BEACON_OF_THE_LIGHTBRINGER_TALENT.id, // pretty sure this will be the logged cast when BotLB is reapplied, not the below "Beacon of Light" which is the buff. Not yet tested so leaving both in.
-    53563, // Beacon of Light
+    SPELLS.BEACON_OF_LIGHT.id, // This is the registered cast for BotLB and the primary beacon when using BoF (confirmed in logs)
     SPELLS.BEACON_OF_VIRTUE_TALENT.id,
     SPELLS.BLESSING_OF_FREEDOM.id,
-    1022, // Blessing of Protection
-    4987, // Cleanse
-    853, // Hammer of Justice
+    SPELLS.BLESSING_OF_PROTECTION.id,
+    SPELLS.CLEANSE.id,
+    SPELLS.HAMMER_OF_JUSTICE.id,
     SPELLS.HAND_OF_RECKONING.id,
   ];
 
@@ -80,29 +78,46 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     return super.countsAsHealingAbility(cast);
   }
 
+  get nonHealingTimeSuggestionThresholds() {
+    return {
+      actual: this.nonHealingTimePercentage,
+      isGreaterThan: {
+        minor: 0.3,
+        average: 0.4,
+        major: 0.45,
+      },
+      style: 'percentage',
+    };
+  }
+  get downtimeSuggestionThresholds() {
+    return {
+      actual: this.downtimePercentage,
+      isGreaterThan: {
+        minor: 0.2,
+        average: 0.35,
+        major: 1,
+      },
+      style: 'percentage',
+    };
+  }
   suggestions(when) {
-    const nonHealingTimePercentage = this.totalHealingTimeWasted / this.owner.fightDuration;
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
-
-    when(nonHealingTimePercentage).isGreaterThan(0.3)
+    when(this.nonHealingTimeSuggestionThresholds.actual).isGreaterThan(this.nonHealingTimeSuggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('Your non healing time can be improved. Try to reduce the amount of time you\'re not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.')
           .icon('petbattle_health-down')
           .actual(`${formatPercentage(actual)}% non healing time`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.1).major(recommended + 0.15);
+          .regular(this.nonHealingTimeSuggestionThresholds.isGreaterThan.average).major(this.nonHealingTimeSuggestionThresholds.isGreaterThan.major);
       });
-    when(deadTimePercentage).isGreaterThan(0.2)
+    when(this.downtimeSuggestionThresholds.actual).isGreaterThan(this.downtimeSuggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('Your downtime can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you\'re not healing try to contribute some damage.')
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.15).major(1);
+          .regular(this.downtimeSuggestionThresholds.isGreaterThan.average).major(this.downtimeSuggestionThresholds.isGreaterThan.major);
       });
   }
-
-  showStatistic = true;
 }
 
 export default AlwaysBeCasting;

@@ -15,31 +15,44 @@ class RunicPowerDetails extends Analyzer {
     runicPowerTracker: RunicPowerTracker,
   };
 
+  get rpWasted() {
+    return this.runicPowerTracker.rpWasted;
+  }
+
+  get rpWastedPercent() {
+    return this.rpWasted / this.runicPowerTracker.totalRPGained;
+  }
+
+  get efficiencySuggestionThresholds() {
+    return {
+      actual: 1 - this.rpWastedPercent,
+      isLessThan: {
+        minor: 0.90,
+        average: 0.85,
+        major: .80,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
-    const rpWasted = this.runicPowerTracker.rpWasted;
-    const rpWastedPercent = rpWasted / this.runicPowerTracker.totalRPGained;
-    const MINOR = 0.1; // 10%
-    const AVG = 0.15; // 15%
-    const MAJOR = 0.2; // 20%
-    when(rpWastedPercent).isGreaterThan(MINOR)
+    when(this.rpWastedPercent).isGreaterThan(this.efficiencySuggestionThresholds.minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(`You wasted ${formatPercentage(rpWastedPercent)}% of your Runic Power.`)
+        return suggest(`You wasted ${formatPercentage(this.rpWastedPercent)}% of your Runic Power.`)
           .icon('inv_sword_62')
-          .actual(`${rpWasted} Runic Power Wasted`)
+          .actual(`${this.rpWasted} Runic Power Wasted`)
           .recommended(` Wasting less than ${formatPercentage(recommended)}% is recommended. `)
-          .regular(AVG).major(MAJOR);
+          .regular(this.efficiencySuggestionThresholds.average).major(this.efficiencySuggestionThresholds.major);
       });
   }
 
   statistic() {
-    const rpWasted = this.runicPowerTracker.rpWasted;
-    const totalRPGained = this.runicPowerTracker.totalRPGained;
     return (
       <StatisticBox
         icon={<Icon icon="inv_sword_62" />}
-        value={`${formatPercentage(rpWasted / totalRPGained)} %`}
+        value={`${formatPercentage(this.rpWastedPercent)} %`}
         label="Runic Power Wasted"
-        tooltip={`${rpWasted} Runic Power Wasted`}
+        tooltip={`${this.rpWasted} Runic Power Wasted`}
       />
 
     );

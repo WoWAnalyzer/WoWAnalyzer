@@ -11,6 +11,10 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
+const SOTC_MANA_PER_SECOND_RETURN_MINOR = 640;
+const SOTC_MANA_PER_SECOND_RETURN_AVERAGE = SOTC_MANA_PER_SECOND_RETURN_MINOR - 100;
+const SOTC_MANA_PER_SECOND_RETURN_MAJOR = SOTC_MANA_PER_SECOND_RETURN_MINOR - 100;
+
 const debug = false;
 
 class SpiritOfTheCrane extends Analyzer {
@@ -103,15 +107,29 @@ class SpiritOfTheCrane extends Analyzer {
     }
   }
 
+  get manaReturn() {
+    return this.manaReturnSotc;
+  }
 
+  get suggestionThresholds() {
+    return {
+      actual: this.manaReturn,
+      isLessThan: {
+        minor: SOTC_MANA_PER_SECOND_RETURN_MINOR * (this.owner.fightDuration / 1000),
+        average: SOTC_MANA_PER_SECOND_RETURN_AVERAGE * (this.owner.fightDuration / 1000),
+        major: SOTC_MANA_PER_SECOND_RETURN_MAJOR * (this.owner.fightDuration / 1000),
+      },
+      style: 'number',
+    };
+  }
   suggestions(when) {
-    when(this.manaReturnSotc).isLessThan(300000)
+    when(this.manaReturn).isLessThan(this.suggestionThresholds.isLessThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You are not utilizing your <SpellLink id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} /> talent as effectively as you could. Make sure you are using any available downtime to use <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> to take advantage of this talent.</span>)
         .icon(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.icon)
-        .actual(`${formatNumber(this.manaReturnSotc)} mana returned through Spirit of the Crane`)
+        .actual(`${formatNumber(this.manaReturn)} mana returned through Spirit of the Crane`)
         .recommended(`${formatNumber(recommended)} is the recommended mana return`)
-        .regular(recommended - 50000).major(recommended - 150000);
+        .regular(this.suggestionThresholds.isLessThan.average).major(this.suggestionThresholds.isLessThan.major);
       });
   }
 
@@ -142,7 +160,7 @@ class SpiritOfTheCrane extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(80);
+  statisticOrder = STATISTIC_ORDER.CORE(30);
 
   on_finished() {
     if (debug) {

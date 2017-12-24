@@ -6,6 +6,7 @@ import SPELLS from "common/SPELLS/index";
 import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
+import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 
 //Threshhold for when there is less than 3s remaining on Bestial Wrath to not cast Dire Beast
 const CD_ON_BESTIAL_WRATH_BAD_DB_THRESHHOLD = 3000;
@@ -73,15 +74,35 @@ class DireBeast extends Analyzer {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.CORE(2);
+
+  get badDireBeastThreshold() {
+    return {
+      actual: this.badDBCasts,
+      isGreaterThan: {
+        minor: 0,
+        average: 0.5,
+        major: 1,
+      },
+      style: 'number',
+    };
+  }
   suggestions(when) {
-    when(this.badDBCasts).isGreaterThan(0)
+    const {
+      isGreaterThan: {
+        minor,
+        average,
+        major,
+      },
+    } = this.badDireBeastThreshold;
+    when(this.badDBCasts).isGreaterThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Delay casting <SpellLink id={SPELLS.DIRE_BEAST.id} /> if there is less than 3 seconds cooldown remaining on <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. It is generally better to cast something else while the remaining cooldown ticks down, so as to optimise the cooldown reduction aspect of <SpellLink id={SPELLS.DIRE_BEAST.id} />.</span>)
           .icon(SPELLS.DIRE_BEAST_SUMMON.icon)
           .actual(`You cast Dire Beast ${this.badDBCasts} times when Bestial Wrath had less than 3 seconds CD remaining.`)
           .recommended(`${recommended} is recommended`)
-          .regular(recommended)
-          .major(recommended + 1);
+          .regular(average)
+          .major(major);
       });
   }
 
