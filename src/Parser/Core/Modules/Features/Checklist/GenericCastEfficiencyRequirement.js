@@ -9,12 +9,19 @@ class GenericCastEfficiencyRequirement extends Requirement {
     super({
       name: <SpellLink id={spell.id} icon />,
       check: function () {
+        if (!this.castEfficiency) {
+          throw new Error('The CastEfficiency module needs to be a dependency of the checklist to use the GenericCastEfficiencyRequirement.');
+        }
+        const castEfficiency = this.castEfficiency.getCastEfficiencyForSpellId(spell.id);
+        if (!castEfficiency) {
+          throw new Error(`Spell not active: ${spell.id} ${spell.name}`);
+        }
         const {
           efficiency,
           recommendedEfficiency: minor,
           averageIssueEfficiency: average,
           majorIssueEfficiency: major,
-        } = this.castEfficiency.getCastEfficiencyForSpellId(spell.id);
+        } = castEfficiency;
 
         return {
           actual: efficiency,
