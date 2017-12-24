@@ -69,12 +69,12 @@ export default {
     icon: 'inv_hammer_04',
   },
   BEACON_OF_FAITH_TALENT: { ...TALENTS.BEACON_OF_FAITH_TALENT, manaCost: 6875 },
-  BEACON_OF_LIGHT_CAST: {
+  BEACON_OF_LIGHT_CAST_AND_HEAL: {
     id: 53652,
     name: 'Beacon of Light',
     icon: 'ability_paladin_beaconoflight',
   },
-  BEACON_OF_LIGHT_BUFF_AND_HEAL: {
+  BEACON_OF_LIGHT_BUFF: {
     id: 53563,
     name: 'Beacon of Light',
     icon: 'ability_paladin_beaconoflight',

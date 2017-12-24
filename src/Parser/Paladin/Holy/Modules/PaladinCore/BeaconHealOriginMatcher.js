@@ -16,14 +16,10 @@ class BeaconHealOriginMatcher extends Analyzer {
     lightOfDawn: LightOfDawn,
   };
 
-  on_byPlayer_heal(event) {
-    this.processForBeaconHealing(event);
-  }
-
   healBacklog = [];
-  processForBeaconHealing(event) {
+  on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.BEACON_OF_LIGHT_BUFF_AND_HEAL.id) {
+    if (spellId === SPELLS.BEACON_OF_LIGHT_CAST_AND_HEAL.id) {
       this.processBeaconHealing(event);
       return;
     }
@@ -48,6 +44,7 @@ class BeaconHealOriginMatcher extends Analyzer {
       });
     }
   }
+
   processBeaconHealing(beaconTransferEvent) {
     // This should make it near impossible to match the wrong spells as we usually don't cast multiple heals within 500ms while the beacon transfer usually happens within 100ms
     this.healBacklog = this.healBacklog.filter(healEvent => (this.owner.currentTimestamp - healEvent.timestamp) < 500);
