@@ -104,7 +104,7 @@ class SpellTimeline extends React.PureComponent {
           ref={comp => (this.gemini = comp)}
         >
           <div className={`ruler interval-${skipInterval}`} style={{ width: totalWidth }}>
-            {seconds && [...Array(seconds)].map((_, second) => {
+            {seconds > 0 && [...Array(seconds)].map((_, second) => {
               if (second % skipInterval !== 0) {
                 // Skip every second second when the text width becomes larger than the container
                 return null;
