@@ -9,7 +9,7 @@ import { Blazballs, JLassie82, Putro } from 'MAINTAINERS';
 
 export default [
   {
-    date: new Date('2017-12-22'),
+    date: new Date('2017-12-24'),
     changes: 'Updated to the new checklist format',
     contributors: [Putro],
   },

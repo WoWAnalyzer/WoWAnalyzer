@@ -7,13 +7,13 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
-    date: new Date('2017-12-22'),
-    changes: <Wrapper>Added support for <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> and <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} icon /> and gave them suggestions. </Wrapper>,
+    date: new Date('2017-12-24'),
+    changes: 'Updated to the new checklist format, and updated AlwaysBeCasting thresholds',
     contributors: [Putro],
   },
   {
     date: new Date('2017-12-22'),
-    changes: 'Updated to the new checklist format, and updated AlwaysBeCasting thresholds',
+    changes: <Wrapper>Added support for <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> and <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} icon /> and gave them suggestions. </Wrapper>,
     contributors: [Putro],
   },
   {

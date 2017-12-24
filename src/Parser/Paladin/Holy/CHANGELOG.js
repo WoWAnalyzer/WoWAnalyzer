@@ -9,8 +9,8 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2017-12-23'),
-    changes: <Wrapper>Implemented the checklist</Wrapper>,
+    date: new Date('2017-12-24'),
+    changes: <Wrapper>Implemented the checklist.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {
