@@ -291,6 +291,9 @@ class App extends Component {
     this.updateBossIdIfNecessary(prevProps, prevState);
   }
   fetchReportIfNecessary(prevProps) {
+    if (this.props.error || isIE()) {
+      return;
+    }
     if (this.props.reportCode && this.props.reportCode !== prevProps.reportCode) {
       this.props.fetchReport(this.props.reportCode)
         .catch(err => {
@@ -422,12 +425,11 @@ class App extends Component {
         return (
           <FullscreenError
             error="A wild INTERNET EXPLORER appeared!"
-            details="WoWAnalyzer refuses to work. It's super effective!"
+            details="This browser is too unstable for WoWAnalyzer to work properly."
             background="https://media.giphy.com/media/njYrp176NQsHS/giphy.gif"
           >
-            <div>
-              <a className="btn btn-primary" href="http://outdatedbrowser.com/">Get a proper browser</a>
-            </div>
+            {/* Lower case the button so it doesn't seem to aggressive */}
+            <a className="btn btn-primary" href="http://outdatedbrowser.com/" style={{ textTransform: 'none' }}>Download a proper browser</a>
           </FullscreenError>
         );
       }
