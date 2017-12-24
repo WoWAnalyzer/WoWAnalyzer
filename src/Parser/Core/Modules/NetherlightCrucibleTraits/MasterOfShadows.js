@@ -6,23 +6,20 @@ import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import HealingDone from 'Parser/Core/Modules/HealingDone';
-import STAT from "Parser/Core/Modules/Features/STAT";
-import StatWeights from '../Features/StatWeights';
+import { formatNumber } from 'common/format';
 
 /**
- * Mastery of Shadow
- * Mastery increased by 500, avoidance increased by 100.
- * Only the Mastery part is handled here.
+ * Master of Shadows
+ * Mastery increased by 500.
+ * Avoidance increased by 1000.
  */
 
 const MASTERY_AMOUNT = 500;
+const AVOIDANCE_AMOUNT = 1000;
 
 class MasterOfShadows extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    healingDone: HealingDone,
-    statWeights: StatWeights,
   };
 
   on_initialized() {
@@ -31,18 +28,17 @@ class MasterOfShadows extends Analyzer {
   }
 
   subStatistic() {
-    const masteryGained = MASTERY_AMOUNT * this.traitLevel;
-    const healing = this.statWeights._getGain(STAT.MASTERY) * masteryGained;
-
     return (
       <div className="flex">
         <div className="flex-main">
           <SpellLink id={SPELLS.MASTER_OF_SHADOWS_TRAIT.id}>
-            <SpellIcon id={SPELLS.MASTER_OF_SHADOWS_TRAIT.id} noLink /> Master of Shadows
+            <SpellIcon id={SPELLS.MASTER_OF_SHADOWS_TRAIT.id} noLink /> Master Of Shadows
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {this.owner.formatItemHealingDone(healing)}
+          {formatNumber(this.traitLevel * MASTERY_AMOUNT)} mastery gained
+          <br />
+          {formatNumber(this.traitLevel * AVOIDANCE_AMOUNT)} avoidance gained
         </div>
       </div>
     );

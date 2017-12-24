@@ -20,7 +20,7 @@ class Shocklight extends Analyzer {
     combatants: Combatants,
   };
 
-  traitLevel = 0
+  traitLevel = 0;
 
   on_initialized() {
     this.traitLevel = this.combatants.selected.traitsBySpellId[SPELLS.SHOCKLIGHT_TRAIT.id];

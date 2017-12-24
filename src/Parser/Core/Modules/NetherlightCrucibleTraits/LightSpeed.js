@@ -6,23 +6,20 @@ import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import HealingDone from 'Parser/Core/Modules/HealingDone';
-import STAT from "Parser/Core/Modules/Features/STAT";
-import StatWeights from '../Features/StatWeights';
+import { formatNumber } from 'common/format';
 
 /**
- * Light speed
- * Haste increased by 500, movement speed increased by 650.
- * Only the haste part is handled here.
+ * Light Speed
+ * Haste increased by 500.
+ * Movement speed increased by 500.
  */
 
 const HASTE_AMOUNT = 500;
+const MOVEMENT_SPEED_AMOUNT = 500;
 
 class LightSpeed extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    healingDone: HealingDone,
-    statWeights: StatWeights,
   };
 
   on_initialized() {
@@ -31,9 +28,6 @@ class LightSpeed extends Analyzer {
   }
 
   subStatistic() {
-    const hasteGained = HASTE_AMOUNT * this.traitLevel;
-    const healing = this.statWeights._getGain(STAT.HASTE_HPM) * hasteGained;
-
     return (
       <div className="flex">
         <div className="flex-main">
@@ -42,7 +36,9 @@ class LightSpeed extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {this.owner.formatItemHealingDone(healing)}
+          {formatNumber(this.traitLevel * HASTE_AMOUNT)} haste gained
+          <br />
+          {formatNumber(this.traitLevel * MOVEMENT_SPEED_AMOUNT)} movement speed gained
         </div>
       </div>
     );
