@@ -115,7 +115,7 @@ import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
 
-const debug = true;
+const debug = false;
 
 let _modulesDeprecatedWarningSent = false;
 
