@@ -164,7 +164,7 @@ class CombatLogParser {
     kiljaedensBurningWish: KiljaedensBurningWish,
     archimondesHatredReborn: ArchimondesHatredReborn,
     cinidaria: Cinidaria,
-    // insigniaOfTheGrandArmy: InsigniaOfTheGrandArmy,
+    insigniaOfTheGrandArmy: InsigniaOfTheGrandArmy,
     // Epics:
     drapeOfShame: DrapeOfShame,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,

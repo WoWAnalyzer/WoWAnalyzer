@@ -65,7 +65,8 @@ class InsigniaOfTheGrandArmy extends Analyzer {
   darkSorrowsDamage = 0;
 
   on_initialized() {
-    this.active = Object.keys(this.constructor.dependencies).map(key => this[key]).some(dependency => dependency.active) && this.combatants.selected.hasFinger(ITEMS.INSIGNIA_OF_THE_GRAND_ARMY.id);
+    this.active = Object.keys(this.constructor.dependencies)
+      .map(key => this[key]).some(dependency => dependency.active) && this.combatants.selected.hasFinger(ITEMS.INSIGNIA_OF_THE_GRAND_ARMY.id);
   }
 
   on_byPlayer_damage(event) {
