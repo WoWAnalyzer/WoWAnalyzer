@@ -259,13 +259,18 @@ export default {
     name: 'Marked Shot',
     icon: 'ability_hunter_markedshot',
   },
+  HUNTERS_MARK: {
+    id: 185987,
+    name: 'Hunter\'s Mark',
+    icon: 'ability_hunter_markedfordeath',
+  },
   TRUESHOT: {
     id: 193526,
     name: 'Trueshot',
     icon: 'ability_trueshot',
   },
   BURSTING_SHOT: {
-    id: 224729,
+    id: 186387,
     name: 'Bursting Shot',
     icon: 'ability_hunter_burstingshot',
   },
@@ -417,6 +422,11 @@ export default {
     name: 'Gyroscopic stabilization',
     icon: 'inv_glove_mail_raidshamanmythic_o_01',
   },
+  CELERITY_OF_THE_WINDRUNNERS_BUFF: {
+    id: 248088,
+    name: 'Celerity of the Windrunners',
+    icon: 'inv_bow_1h_artifactwindrunner_d_02',
+  },
 
   //Talent buffs/debuffs
   LOCK_AND_LOAD_BUFF: {
@@ -444,6 +454,11 @@ export default {
 
   // Shared:
   // ...
+  THE_SHADOW_HUNTERS_VOODOO_MASK_HEAL: {
+    id: 208884,
+    name: 'The Shadow Hunter\'s Voodoo Mask',
+    icon: 'ability_creature_cursed_04',
+  },
   NETHERWINDS: {
     id: 160452,
     name: 'Netherwinds',
@@ -453,7 +468,8 @@ export default {
     id: 90355,
     name: 'Ancient Hysteria',
     icon: 'spell_shadow_unholyfrenzy',
-  },  //The buff given by volley when it's activated (and also what does the damage)
+  },
+  //The buff given by volley when it's activated (and also what does the damage)
   VOLLEY_ACTIVATED: {
     id: 194392,
     name: 'Volley buff',
@@ -499,11 +515,6 @@ export default {
     name: 'Aspect of the Turtle',
     icon: 'ability_hunter_pet_turtle',
   },
-  /*  DISENGAGE: {
-      id: 781,
-      name: 'Disengage',
-      icon: 'ability_rogue_feint',
-    },*/
   FREEZING_TRAP: {
     id: 187650,
     name: 'Freezing Trap',
