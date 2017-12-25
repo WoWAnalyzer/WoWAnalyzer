@@ -28,6 +28,7 @@ import ShadowSatyrsWalk from './Modules/Legendaries/ShadowSatyrsWalk';
 import SoulOfTheShadowblade from './Modules/Legendaries/SoulOfTheShadowblade';
 import InsigniaOfRavenholdt from './Modules/Legendaries/InsigniaOfRavenholdt';
 import DreadlordsDeceit from './Modules/Legendaries/DreadlordsDeceit';
+
 import DarkShadowSpecterOfBetrayal from './Modules/Talents/DarkShadow/DarkShadowSpecterOfBetrayal';
 
 class CombatLogParser extends CoreCombatLogParser {
