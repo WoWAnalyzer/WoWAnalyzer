@@ -94,7 +94,9 @@ class SpellTimeline extends React.PureComponent {
             </div>
           </div>
           <div className="lane">
-            Casting time (GCD + channel)
+            <dfn data-tip="If the spell has a channeling time that is greater than the Global Cooldown, it will show this instead. The GCD is always triggered at the start of the channel.">
+              Casting time
+            </dfn>
           </div>
           {this.spells.map(spellId => (
             <div className="lane" key={spellId}>
@@ -128,12 +130,10 @@ class SpellTimeline extends React.PureComponent {
               return (
                 <div
                   key={`${event.startTimestamp}-${event.endTimestamp}`}
+                  className="casting-time"
                   style={{
                     left,
                     width: Math.min(maxWidth, (event.endTimestamp - event.startTimestamp) / 1000 * secondWidth),
-                    background: 'rgba(116, 79, 13, 0.7)',
-                    borderRight: '2px solid #fff',
-                    zIndex: 1,
                   }}
                   data-tip={`Casting time: ${((event.endTimestamp - event.startTimestamp) / 1000).toFixed(1)}s`}
                 />
