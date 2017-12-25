@@ -22,23 +22,6 @@ const HEALING_ABILITIES_ON_GCD = [
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD = HEALING_ABILITIES_ON_GCD;
-  static ABILITIES_ON_GCD = [
-    ...HEALING_ABILITIES_ON_GCD,
-    SPELLS.JUDGMENT_CAST.id,
-    SPELLS.CRUSADER_STRIKE.id,
-    SPELLS.DIVINE_STEED.id,
-    SPELLS.CONSECRATION_CAST.id,
-    SPELLS.BLINDING_LIGHT_TALENT.id,
-    SPELLS.DIVINE_SHIELD.id,
-    SPELLS.BEACON_OF_LIGHT_CAST_AND_HEAL.id, // This is the registered cast for BotLB and the primary beacon when using BoF (confirmed in logs)
-    SPELLS.BEACON_OF_FAITH_TALENT.id,
-    SPELLS.BEACON_OF_VIRTUE_TALENT.id,
-    SPELLS.BLESSING_OF_FREEDOM.id,
-    SPELLS.BLESSING_OF_PROTECTION.id,
-    SPELLS.CLEANSE.id,
-    SPELLS.HAMMER_OF_JUSTICE.id,
-    SPELLS.HAND_OF_RECKONING.id,
-  ];
 
   on_initialized() {
     super.on_initialized();
