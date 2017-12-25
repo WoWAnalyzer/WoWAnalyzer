@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import { formatNumber, formatPercentage, formatMilliseconds } from 'common/format';
+import { formatMilliseconds, formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
@@ -15,7 +15,7 @@ const PROC_WINDOW_MS = 100;
 class BrainFreezeTracker extends Analyzer {
 	static dependencies = {
 		combatants: Combatants,
-	}
+  };
 
 	lastFlurryTimestamp;
 
@@ -26,7 +26,7 @@ class BrainFreezeTracker extends Analyzer {
 
 	on_byPlayer_applybuff(event) {
 		const spellId = event.ability.guid;
-		if(spellId !== SPELLS.BRAIN_FREEZE.id){
+    if (spellId !== SPELLS.BRAIN_FREEZE.id) {
 			return;
 		}
 		this.totalProcs += 1;
@@ -34,17 +34,19 @@ class BrainFreezeTracker extends Analyzer {
 
 	on_byPlayer_refreshbuff(event) {
 		const spellId = event.ability.guid;
-		if(spellId !== SPELLS.BRAIN_FREEZE.id){
+    if (spellId !== SPELLS.BRAIN_FREEZE.id) {
 			return;
 		}
 		this.overwrittenProcs += 1;
 		this.totalProcs += 1;
-		if(debug) { console.log("Brain Freeze proc overwritten @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time)); }
+    if (debug) {
+      console.log("Brain Freeze proc overwritten @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
 	}
+  }
 
 	on_byPlayer_cast(event) {
 		const spellId = event.ability.guid;
-		if(spellId !== SPELLS.FLURRY.id){
+    if (spellId !== SPELLS.FLURRY.id) {
 			return;
 		}
 		this.lastFlurryTimestamp = this.owner.currentTimestamp;
@@ -55,14 +57,16 @@ class BrainFreezeTracker extends Analyzer {
 
 	on_byPlayer_removebuff(event) {
 		const spellId = event.ability.guid;
-		if(spellId !== SPELLS.BRAIN_FREEZE.id){
+    if (spellId !== SPELLS.BRAIN_FREEZE.id) {
 			return;
 		}
-		if(!this.lastFlurryTimestamp || this.lastFlurryTimestamp + PROC_WINDOW_MS < this.owner.currentTimestamp) {
+    if (!this.lastFlurryTimestamp || this.lastFlurryTimestamp + PROC_WINDOW_MS < this.owner.currentTimestamp) {
 			this.expiredProcs += 1; // it looks like Brain Freeze is always removed after the cast, and always on same timestamp
-			if(debug) { console.log("Brain Freeze proc expired @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time)); }
+      if (debug) {
+        console.log("Brain Freeze proc expired @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
 		}
 	}
+  }
 
 	get wastedProcs() {
 		return this.overwrittenProcs + this.expiredProcs;
@@ -72,12 +76,28 @@ class BrainFreezeTracker extends Analyzer {
 		return this.totalProcs - this.wastedProcs;
 	}
 
+	get brainFreezeUtil() {
+		return 1 - (this.wastedProcs / this.totalProcs) || 0;
+	}
+
+	get brainFreezeUtilSuggestionThresholds() {
+    return {
+      actual: this.brainFreezeUtil,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.85,
+        major: 0.70,
+      },
+      style: 'percentage',
+    };
+  }
+
 	suggestions(when) {
 		const overwrittenProcsPercent = (this.overwrittenProcs / this.totalProcs) || 0;
-		if(this.combatants.selected.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id)) {
+    if (this.combatants.selected.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id)) {
 			when(overwrittenProcsPercent).isGreaterThan(.05)
 				.addSuggestion((suggest, actual, recommended) => {
-					return suggest(<span>You overwrote {formatPercentage(overwrittenProcsPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id}/> procs. While this is sometimes acceptable when saving a proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id}/>, try to otherwise use your procs as soon as possible. You may hold your proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id}/> if you have 3 or more <SpellLink id={SPELLS.ICICLES_BUFF.id}/>, otherwise you should use it immediately.</span>)
+          return suggest(<span>You overwrote {formatPercentage(overwrittenProcsPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. While this is sometimes acceptable when saving a proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />, try to otherwise use your procs as soon as possible. You may hold your proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> if you have 3 or more <SpellLink id={SPELLS.ICICLES_BUFF.id} />, otherwise you should use it immediately.</span>)
 						.icon(SPELLS.BRAIN_FREEZE.icon)
 						.actual(`${formatPercentage(overwrittenProcsPercent)}% missed`)
 						.recommended(`Wasting none is recommended`)
@@ -115,12 +135,11 @@ class BrainFreezeTracker extends Analyzer {
 	}
 
 	statistic() {
-		const brainfreezeUtil = (1 - (this.wastedProcs / this.totalProcs)) || 0;
-		return(
+    return (
 			<StatisticBox
 				icon={<SpellIcon id={SPELLS.BRAIN_FREEZE.id} />}
-				value={`${formatPercentage(brainfreezeUtil, 0)} %`}
-				label='Brain Freeze Utilization'
+				value={`${formatPercentage(this.brainFreezeUtil, 0)} %`}
+        label="Brain Freeze Utilization"
 				tooltip={`You got ${this.totalProcs} total procs.
 					<ul>
 						<li>${this.usedProcs} used</li>

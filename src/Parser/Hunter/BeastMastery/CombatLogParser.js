@@ -22,6 +22,7 @@ import BestialWrathUptime from "./Modules/Spells/BestialWrath/BestialWrathUptime
 import GainedBestialWraths from "./Modules/Spells/BestialWrath/GainedBestialWraths";
 import DireBeastUptime from "./Modules/Spells/DireBeast/DireBeastUptime";
 import BeastCleave from './Modules/Spells/BeastCleave';
+import AspectOfTheWild from './Modules/Spells/AspectOfTheWild';
 
 //Talents
 import KillerCobra from "./Modules/Talents/KillerCobra";
@@ -46,6 +47,9 @@ import Thunderslash from './Modules/Traits/Thunderslash';
 //Traits and Talents list
 import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 
+//Checklist
+import Checklist from './Modules/Features/Checklist';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     damageDone: [DamageDone, { showStatistic: true }],
@@ -62,6 +66,7 @@ class CombatLogParser extends CoreCombatLogParser {
     bestialWrathUptime: BestialWrathUptime,
     gainedBestialWrathst: GainedBestialWraths,
     beastCleave: BeastCleave,
+    aspectOfTheWild: AspectOfTheWild,
 
     //Items
     soulOfTheHuntmaster: SoulOfTheHuntmaster,
@@ -94,6 +99,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Traits and Talents list
     traitsAndTalents: TraitsAndTalents,
+
+    //Checklist
+    checklist: Checklist,
 
   };
 }

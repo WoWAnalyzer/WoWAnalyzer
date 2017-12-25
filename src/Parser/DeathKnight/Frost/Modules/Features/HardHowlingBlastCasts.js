@@ -18,9 +18,6 @@ class HardHowlingBlastCasts extends Analyzer {
   hardHowlingBlastCasts = 0;
   nonrimedHB = 0;
 
-  on_initialized() {
-  }
-
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.HOWLING_BLAST.id) {
@@ -39,15 +36,14 @@ class HardHowlingBlastCasts extends Analyzer {
     }
   }
 
-
   statistic() {
     this.nonrimedHB = this.castsWithoutRime;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RIME.id} />}
         value={this.nonrimedHB}
-        label='Howling Blasts without Rime proc'
-        tooltip='You should aim to get this as close to 0 as possible.'
+        label="Howling Blasts without Rime proc"
+        tooltip="You should aim to get this as close to 0 as possible."
       />
     );
   }

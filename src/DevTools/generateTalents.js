@@ -158,7 +158,7 @@ Object.values(talents).forEach((classTalents) => {
     });
   });
 
-  const fileName = `TALENTS_${className}.js`;
+  const fileName = `${className}.js`;
   fs.writeFileSync(
     `${TALENTS_DIRECTORY}/${fileName}`,
     `// Generated file, changes will be overwritten!

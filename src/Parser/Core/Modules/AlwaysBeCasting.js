@@ -159,7 +159,14 @@ class AlwaysBeCasting extends Analyzer {
     return num1 > (goal - buffer) && num1 < (goal + buffer);
   }
 
-  showStatistic = false;
+  get downtimePercentage() {
+    return this.totalTimeWasted / this.owner.fightDuration;
+  }
+  get activeTimePercentage() {
+    return 1 - this.downtimePercentage;
+  }
+
+  showStatistic = true;
   static icons = {
     activeTime: '/img/sword.png',
     downtime: '/img/afk.png',
@@ -169,33 +176,27 @@ class AlwaysBeCasting extends Analyzer {
       return null;
     }
 
-    const downtime = this.totalTimeWasted;
-    const activeTime = this.owner.fightDuration - downtime;
-
-    const downtimePercentage = downtime / this.owner.fightDuration;
-    const activeTimePercentage = activeTime / this.owner.fightDuration;
-
     return (
       <StatisticBox
         icon={<Icon icon="spell_mage_altertime" alt="Downtime" />}
-        value={`${formatPercentage(downtimePercentage)} %`}
+        value={`${formatPercentage(this.downtimePercentage)} %`}
         label="Downtime"
         tooltip={`Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br/>
-        <li>You spent <b>${formatPercentage(activeTimePercentage)}%</b> of your time casting something.</li>
-        <li>You spent <b>${formatPercentage(downtimePercentage)}%</b> of your time casting nothing at all.</li>
+        <li>You spent <b>${formatPercentage(this.activeTimePercentage)}%</b> of your time casting something.</li>
+        <li>You spent <b>${formatPercentage(this.downtimePercentage)}%</b> of your time casting nothing at all.</li>
         `}
         footer={(
           <div className="statistic-bar">
             <div
               className="stat-health-bg"
-              style={{ width: `${activeTimePercentage * 100}%` }}
-              data-tip={`You spent <b>${formatPercentage(activeTimePercentage)}%</b> of your time casting something.`}
+              style={{ width: `${this.activeTimePercentage * 100}%` }}
+              data-tip={`You spent <b>${formatPercentage(this.activeTimePercentage)}%</b> of your time casting something.`}
             >
               <img src={this.constructor.icons.activeTime} alt="Active time" />
             </div>
             <div
               className="remainder DeathKnight-bg"
-              data-tip={`You spent <b>${formatPercentage(downtimePercentage)}%</b> of your time casting nothing at all.`}
+              data-tip={`You spent <b>${formatPercentage(this.downtimePercentage)}%</b> of your time casting nothing at all.`}
             >
               <img src={this.constructor.icons.downtime} alt="Downtime" />
             </div>

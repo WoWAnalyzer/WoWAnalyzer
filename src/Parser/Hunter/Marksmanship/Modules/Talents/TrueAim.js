@@ -117,7 +117,7 @@ True Aim contributed with ${formatNumber(this.bonusDmg)} - ${this.owner.formatIt
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(11);
+  statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 
 export default TrueAim;

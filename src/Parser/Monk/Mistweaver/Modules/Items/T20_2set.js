@@ -83,7 +83,7 @@ class T20_2set extends Analyzer {
       icon: <SpellIcon id={SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF.id} />,
       title: <SpellLink id={SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF.id} />,
       result: (
-        <dfn data-tip={'The actual mana saved by the Tier 20 2 piece effect.'}>
+        <dfn data-tip="The actual mana saved by the Tier 20 2 piece effect.">
           {formatNumber(this.manaSaved)} mana saved ({formatNumber((this.manaSaved / this.owner.fightDuration * 1000 * 5))} MP5)
         </dfn>
       ),

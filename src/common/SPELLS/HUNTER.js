@@ -46,9 +46,19 @@ export default {
     name: 'Dire Beast',
     icon: 'ability_hunter_longevity',
   },
-  DIRE_FRENZY_TALENT_BUFF: {
+  DIRE_FRENZY_TALENT_BUFF_1: {
     id: 246152,
-    name: 'Dire Frenzy Buff',
+    name: 'Dire Frenzy',
+    icon: 'ability_druid_mangle',
+  },
+  DIRE_FRENZY_TALENT_BUFF_2: {
+    id: 246851,
+    name: 'Dire Frenzy',
+    icon: 'ability_druid_mangle',
+  },
+  DIRE_FRENZY_TALENT_BUFF_3: {
+    id: 246852,
+    name: 'Dire Frenzy',
     icon: 'ability_druid_mangle',
   },
   DIRE_FRENZY_DAMAGE: {
@@ -294,6 +304,11 @@ export default {
     name: 'Careful Aim',
     icon: 'ability_hunter_piercingshots',
   },
+  BOMBARDMENT: {
+    id: 35110,
+    name: 'Bombardment',
+    icon: 'ability_hunter_focusfire',
+  },
 
   //CATEGORY
   AUTO_SHOT: {
@@ -404,6 +419,16 @@ export default {
     id: 191043,
     name: 'Legacy of the Windrunners',
     icon: 'artifactability_marksmanhunter_legacyofthewindrunners',
+  },
+  RAPID_KILLING_TRAIT: {
+    id: 191339,
+    name: 'Rapid Killing',
+    icon: 'ability_marksmanship',
+  },
+  RAPID_KILLING: {
+    id: 191342,
+    name: 'Rapid Killing',
+    icon: 'ability_hunter_assassinate',
   },
 
   //Marksmanship legendary buffs

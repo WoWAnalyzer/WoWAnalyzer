@@ -14,6 +14,8 @@ import Shadowbind from './Shadowbind';
 import ChaoticDarkness from './ChaoticDarkness';
 import TormentTheWeak from './TormentTheWeak';
 import DarkSorrows from './DarkSorrows';
+import MasterOfShadows from './MasterOfShadows';
+import LightSpeed from './LightSpeed';
 
 class NLCTraits extends Analyzer {
   static dependencies = {
@@ -27,11 +29,13 @@ class NLCTraits extends Analyzer {
     chaoticDarkness: ChaoticDarkness,
     tormentTheWeak: TormentTheWeak,
     darkSorrows: DarkSorrows,
+    masterOfShadows: MasterOfShadows,
+    lightSpeed: LightSpeed,
   };
 
   on_initialized() {
-    // Deactive this module if none of the underlying modules are active.
-      this.active = Object.keys(this.constructor.dependencies)
+    // Deactivate this module if none of the underlying modules are active.
+    this.active = Object.keys(this.constructor.dependencies)
       .map(key => this[key])
       .some(dependency => dependency.active);
   }
@@ -40,7 +44,7 @@ class NLCTraits extends Analyzer {
     return (
       <StatisticsListBox
         title="Netherlight Crucible"
-        tooltip="This provides an overview of the increased provide by the Netherlight Crucible traits."
+        tooltip="This provides an overview of the benefits provided by the Netherlight Crucible traits."
       >
         {this.murderousIntent.active && this.murderousIntent.subStatistic()}
         {this.shocklight.active && this.shocklight.subStatistic()}
@@ -52,6 +56,8 @@ class NLCTraits extends Analyzer {
         {this.chaoticDarkness.active && this.chaoticDarkness.subStatistic()}
         {this.tormentTheWeak.active && this.tormentTheWeak.subStatistic()}
         {this.darkSorrows.active && this.darkSorrows.subStatistic()}
+        {this.lightSpeed.active && this.lightSpeed.subStatistic()}
+        {this.masterOfShadows.active && this.masterOfShadows.subStatistic()}
       </StatisticsListBox>
     );
   }

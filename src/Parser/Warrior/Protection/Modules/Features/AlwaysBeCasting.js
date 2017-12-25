@@ -35,8 +35,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           .regular(recommended + 0.05).major(recommended + 0.15);
       });
   }
-
-  showStatistic = true;
 }
 
 export default AlwaysBeCasting;

@@ -49,7 +49,7 @@ class LightningRod extends Analyzer {
             {`${formatNumber(this.getDamagePerSecond)} DPS`}{' '}
           </span>
         )}
-        label={'Lightning Rod Uptime/DPS'}
+        label="Lightning Rod Uptime/DPS"
         tooltip={`DPS and Uptime of the Lightning Rod Talent.</li></ul>`} />
     );
   }

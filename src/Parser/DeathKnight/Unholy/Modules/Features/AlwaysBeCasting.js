@@ -49,20 +49,29 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     */
   ];
 
-  suggestions(when) {
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
+  get downtimeSuggestionThresholds() {
+    return {
+      actual: this.downtimePercentage,
+      isGreaterThan: {
+        minor: 0.2,
+        average: 0.35,
+        major: .4,
+      },
+      style: 'percentage',
+    };
+  }
 
-    when(deadTimePercentage).isGreaterThan(0.2)
+  suggestions(when) {
+    when(this.downtimeSuggestionThresholds.actual).isGreaterThan(this.downtimeSuggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics.  If you do have to move, try casting filler spells, such as <SpellLink id={SPELLS.DEATH_COIL.id}/> or <SpellLink id={SPELLS.OUTBREAK.id}/>.</span>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.15).major(recommended + 0.2);
+          .regular(this.downtimeSuggestionThresholds.isGreaterThan.average).major(this.downtimeSuggestionThresholds.isGreaterThan.major);
       });
   }
 
-  showStatistic = true;
   statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 

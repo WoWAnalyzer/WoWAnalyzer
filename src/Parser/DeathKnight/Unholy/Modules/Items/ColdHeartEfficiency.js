@@ -89,7 +89,7 @@ class ColdHeartEfficiency extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CHAINS_OF_ICE.id} />}
         value={`${formatPercentage(castEfficiency)} %`}
-        label={'Cold Heart Efficiency'}
+        label="Cold Heart Efficiency"
         tooltip={`${this.correctColdHeartCasts} out of ${this.totalColdHeartCasts} casts of Cold Heart were made optimally.`}
       />
     );

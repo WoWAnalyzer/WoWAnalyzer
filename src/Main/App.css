@@ -202,12 +202,10 @@ hr {
   width: 100%;
 }
 .panel-heading {
-  border-bottom: 1px solid rgba(0, 0, 0, .4);
-  box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
   padding: 16px 22px 14px;
 }
 .panel-footer {
-  border-top: 1px solid rgba(0, 0, 0, .4);
+  border-top: 1px solid rgba(0, 0, 0, .8);
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   box-shadow: 0 -1px 0 0 rgba(255, 255, 255, .1);
@@ -310,7 +308,7 @@ nav > div {
 nav .menu-item {
   flex: 0 1 auto;
   text-overflow: ellipsis;
-  border-right: 1px solid rgba(0, 0, 0, .4);
+  border-right: 1px solid rgba(0, 0, 0, .8);
   box-shadow: 1px 0 0 0 rgba(255, 255, 255, .1);
   white-space: nowrap;
   overflow: hidden;
@@ -319,7 +317,7 @@ nav .menu-item.main {
   flex: 0 0 auto;
 }
 nav .left-line {
-  border-left: 1px solid rgba(0, 0, 0, .4);
+  border-left: 1px solid rgba(0, 0, 0, .8);
   box-shadow: 1px 0 0 0 rgba(255, 255, 255, .1), inset 1px 0 0 0 rgba(255, 255, 255, .1);
 }
 nav .menu-item a {
@@ -393,6 +391,7 @@ nav .selectorHeader a {
 .list {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 .list.players li img {
   height: 1.7em;
@@ -409,8 +408,6 @@ nav .selectorHeader a {
 }
 .list.text > li {
   padding: 7px 22px;
-  border-bottom: 1px solid rgba(0, 0, 0, .4);
-  box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
 }
 .list.selection > li.selectable a {
   display: block;
@@ -424,13 +421,14 @@ nav .selectorHeader a {
   margin-left: 10px;
 }
 .list > li:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(99, 31, 31, 0.1);
   border-top-color: rgba(0, 0, 0, 0.4);
   border-bottom-color: rgba(0, 0, 0, 0.4);
 }
 svg {
   height: 1em;
   fill: currentColor;
+  stroke: currentColor;
   vertical-align: middle;
   margin-top: -0.2em;
 }
@@ -451,14 +449,8 @@ h1 {
 }
 
 /* "item" here are not just in-game items but anything with an icon, link and text. this includes items, suggestions and talents. */
-.list {
-  border-top: 1px solid rgba(0, 0, 0, .4);
-  box-shadow: 1px -1px 0 0 rgba(255, 255, 255, .1);
-}
 .list > .item {
   position: relative;
-  border-bottom: 1px solid rgba(0, 0, 0, .4);
-  box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
 }
 .list > .item header {
   margin-top: 18px;
@@ -482,10 +474,6 @@ h1 {
   margin: 10px 0;
 }
 
-.panel-body > .navigation {
-  border-right: 1px solid rgba(0,0,0,.12);
-  box-shadow: 1px 0 0 0 rgba(255,255,255,.12);
-}
 .panel-body > .navigation ul {
   list-style: none;
   padding: 0;
@@ -532,6 +520,10 @@ h1 {
 }
 .flex-sub {
   flex: 0 0 auto;
+}
+.content-middle {
+  display: flex;
+  align-items: center;
 }
 
 
@@ -603,7 +595,7 @@ table.data-table th {
   font-weight: 400;
 }
 table.data-table thead tr, table.data-table tbody tr:not(:last-child) {
-  border-bottom: 1px solid rgba(0, 0, 0, .4);
+  border-bottom: 1px solid rgba(0, 0, 0, .8);
 }
 table.data-table tr:nth-child(even) {
   background: rgba(255, 255, 255, .04);
@@ -625,15 +617,32 @@ table.data-table img {
   height: 1.6em;
   margin-top: -.1em;
 }
-table.data-table .performance-bar-container {
-  background: rgba(20, 20, 20, 0.3);
+.performance-bar-container {
+  background: rgba(20, 20, 20, 0.8);
   border: 1px solid #000;
+  border-radius: 2px;
+  overflow: hidden;
+  width: 100%;
+  position: relative;
 }
-table.data-table .performance-bar {
+.performance-bar-container:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.0) 100%);
+  z-index: 1;
+}
+.performance-bar {
   opacity: .9;
   height: 1.4em;
   min-width: 1px;
   background-color: #ffffff;
+}
+.performance-bar.small {
+  height: 1em;
 }
 
 .__react_component_tooltip.show {
@@ -900,4 +909,40 @@ code.inactive {
   height: 1.4em;
   border-radius: 50%;
   vertical-align: text-bottom;
+}
+
+.expandable > .meta {
+  cursor: pointer;
+  padding: 15px 22px;
+}
+.expandable:hover > .meta {
+  background-color: rgba(99, 31, 31, 0.1);
+}
+.expandable.expanded > .meta {
+  background-color: rgba(216, 65, 65, 0.1);
+}
+.expandable > .meta .chevron {
+  transition: transform 400ms;
+}
+.expandable:not(.expanded) > .meta .chevron {
+  transform: rotate(-180deg);
+}
+.expandable > .details {
+  background: rgba(40, 40, 40, 0.4);
+  padding: 10px 30px;
+  border-top: 1px solid rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid #000;
+  box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, .1);
+}
+
+.item-divider, .panel-heading, .list > li:not(:last-child), .expandable > .meta, .expandable > .details {
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
+}
+.item-divider-top {
+  border-top: 1px solid #000;
+  box-shadow: 1px -1px 0 0 rgba(255, 255, 255, 0.1);
+}
+.item-divider-top.item-divider {
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1), 1px -1px 0 0 rgba(255, 255, 255, 0.1);
 }

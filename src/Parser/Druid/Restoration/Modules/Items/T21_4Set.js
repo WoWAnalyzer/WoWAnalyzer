@@ -25,7 +25,7 @@ class T21_4Set extends Analyzer {
     const amount = event.amount + (event.absorbed || 0);
 
     if (this.combatants.selected.hasBuff(SPELLS.AWAKENED.id) &&
-       (spellId === SPELLS.YSERAS_GIFT_OTHERS.id || spellId === SPELLS.YSERAS_GIFT_SELF.id)) {
+      (spellId === SPELLS.YSERAS_GIFT_OTHERS.id || spellId === SPELLS.YSERAS_GIFT_SELF.id)) {
       this.yserasDuringAwakenedHealing += amount;
     }
   }
@@ -38,7 +38,7 @@ class T21_4Set extends Analyzer {
       icon: <SpellIcon id={SPELLS.RESTO_DRUID_T21_4SET_BONUS_BUFF.id} />,
       title: <SpellLink id={SPELLS.RESTO_DRUID_T21_4SET_BONUS_BUFF.id} />,
       result: (
-        <dfn data-tip={'This is the amount of healing done by the extra Ysera\'s Gift ticks only. Healing from the additional applications of Dreamer are counted under the T21 2Set number'}>
+        <dfn data-tip="This is the amount of healing done by the extra Ysera's Gift ticks only. Healing from the additional applications of Dreamer are counted under the T21 2Set number">
           {this.owner.formatItemHealingDone(healing)}
         </dfn>
       ),
