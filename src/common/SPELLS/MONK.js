@@ -509,6 +509,16 @@ export default {
     name: 'Blackout Combo',
     icon: 'ability_monk_blackoutkick',
   },
+  POTENT_KICK: {
+      id: 213047,
+      name: 'Potent Kick',
+      icon: 'ability_monk_ironskinbrew',
+  },
+  QUICK_SIP: {
+      id: 238129,
+      name: 'Quick Sip',
+      icon: 'spell_misc_drink',
+  },
 
   // Windwalker Spells
   COMBO_STRIKES: {
@@ -696,15 +706,5 @@ export default {
     id: 252768,
     name: 'Focus of Xuen',
     icon: 'ability_monk_roundhousekick',
-  },
-  POTENT_KICK: {
-      id: 213047,
-      name: 'Potent Kick',
-      icon: 'ability_monk_ironskinbrew',
-  },
-  QUICK_SIP: {
-      id: 238129,
-      name: 'Quick Sip',
-      icon: 'spell_misc_drink',
   },
 };
