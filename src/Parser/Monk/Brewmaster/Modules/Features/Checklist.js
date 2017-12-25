@@ -2,11 +2,11 @@ import React from 'react';
 
 import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
+// import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
+// import ItemLink from 'common/ItemLink';
 
-import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist';
+import CoreChecklist, { Rule, Requirement /*, GenericCastEfficiencyRequirement */ } from 'Parser/Core/Modules/Features/Checklist';
 import IronSkinBrew from '../Spells/IronSkinBrew';
 
 class Checklist extends CoreChecklist {
@@ -29,7 +29,7 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: '>98% of hits mitigated',
+            name: 'Hits mitigated with ISB',
             check: () => this.isb.suggestionThreshold,
           }),
         ];
@@ -49,10 +49,10 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: '<5% of duration lost due to clipping',
+            name: 'ISB duration lost due to clipping',
             check: () => this.isb.clipSuggestionThreshold,
-          })
-        ]
+          }),
+        ];
       },
     }),
   ];
