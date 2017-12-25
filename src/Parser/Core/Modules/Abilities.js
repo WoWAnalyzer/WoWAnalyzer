@@ -133,15 +133,10 @@ class Abilities extends Analyzer {
   getAbility(spellId) {
     return this.activeAbilities.find(ability => {
       if (ability.spell instanceof Array) {
-        if (!ability.spell.find(spell => spell.id === spellId)) {
-          return false;
-        }
+        return ability.spell.some(spell => spell.id === spellId);
       } else {
-        if (ability.spell.id !== spellId) {
-          return false;
-        }
+        return ability.spell.id === spellId;
       }
-      return ability;
     });
   }
 
