@@ -123,11 +123,15 @@ class Abilities extends Analyzer {
     },
   ];
 
+  get activeAbilities() {
+    return this.constructor.ABILITIES.filter(ability => !ability.isActive || ability.isActive(this.combatants.selected));
+  }
+
   /*
    * Returns the first ACTIVE spellInfo with the given spellId (or undefined if there is no such spellInfo)
    */
   getAbility(spellId) {
-    return this.constructor.ABILITIES.find(ability => {
+    return this.activeAbilities.find(ability => {
       if (ability.spell instanceof Array) {
         if (!ability.spell.find(spell => spell.id === spellId)) {
           return false;
@@ -137,7 +141,7 @@ class Abilities extends Analyzer {
           return false;
         }
       }
-      return !ability.isActive || ability.isActive(this.combatants.selected);
+      return ability;
     });
   }
 
@@ -156,7 +160,6 @@ class Abilities extends Analyzer {
     const ability = this.getAbility(spellId);
     return ability ? (ability.charges || 1) : undefined;
   }
-
 }
 
 export default Abilities;
