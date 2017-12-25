@@ -10,7 +10,7 @@ import EnrageUptime from './Modules/BuffDebuff/EnrageUptime';
 import FrothingBerserkerUptime from './Modules/BuffDebuff/FrothingBerserkerUptime';
 import Juggernaut from './Modules/BuffDebuff/Juggernaut';
 
-import RampageUsage from './Modules/Features/RampageUsage';
+import RampageFrothingBerserker from './Modules/Features/RampageFrothingBerserker';
 
 import PrePotion from './Modules/Items/PrePotion';
 
@@ -26,7 +26,7 @@ class CombatLogParser extends CoreCombatLogParser {
     frothingBerserkerUptime: FrothingBerserkerUptime,
     juggernaut: Juggernaut,
 
-    rampageUsage: RampageUsage,
+    rampageFrothingBerserker: RampageFrothingBerserker,
 
     // Overrides default PrePotion
     prePotion: PrePotion,

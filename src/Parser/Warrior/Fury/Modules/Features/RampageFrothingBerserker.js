@@ -14,17 +14,18 @@ import Wrapper from 'common/Wrapper';
   Whenever Battle Cry is active, user should cast Rampage whenever possible - regardless of talents
 */
 
-class RampageUsage extends Analyzer {
+class RampageFrothingBerserker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
 
-  last_rampage = null;
+  last_timestamp = null;
   casts_counter = 0;
   premature_counter = 0;
   reckless_abandon = null;
 
   on_initialized() {
+    this.active = this.combatants.selected.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id);
     this.reckless_abandon = this.combatants.selected.hasTalent(SPELLS.RECKLESS_ABANDON_TALENT.id);
   }
 
@@ -41,14 +42,14 @@ class RampageUsage extends Analyzer {
 
       if (rage < 100) {
         this.premature_counter++;
-        this.last_rampage = event;
+        this.last_timestamp = event.timestamp;
       }
 
-    } else if (event.ability.guid === SPELLS.BATTLE_CRY.id && this.last_rampage && this.reckless_abandon) {
+    } else if (event.ability.guid === SPELLS.BATTLE_CRY.id && this.last_timestamp && this.reckless_abandon) {
       
-      if (event.timestamp - this.last_rampage.timestamp < 2000) {
+      if (event.timestamp - this.last_timestamp < 2000) {
         this.premature_counter--;
-        this.last_rampage = null;
+        this.last_timestamp = null;
       }
     }
   }
@@ -57,10 +58,10 @@ class RampageUsage extends Analyzer {
     return {
       isGreaterThan: {
         minor: 0,
-        average: 1,
-        major: 5,
+        average: 0.05,
+        major: 0.10,
       },
-      style: 'fixed',
+      style: 'percentage',
     };
   }
 
@@ -75,20 +76,16 @@ class RampageUsage extends Analyzer {
       
       // Frothing Berserker users should cast Rampage at 100 rage only
       if(this.combatants.selected.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id)) {
-        when(this.premature_counter).isGreaterThan(minor)
+        when(this.premature_counter / this.casts_counter).isGreaterThan(minor)
           .addSuggestion((suggest, actual, recommended) => {
             return suggest(<Wrapper>Try to cast <SpellLink id={SPELLS.RAMPAGE.id} /> at 100 rage to proc <SpellLink id={SPELLS.FROTHING_BERSERKER_TALENT.id} />.</Wrapper>)
               .icon(SPELLS.RAMPAGE.icon)
-              .actual(`${actual} out of ${this.casts_counter} (${(actual / this.casts_counter * 100).toFixed(2)}%) of your Rampage casts were cast below 100 rage.`)
-              .recommended(`0 is recommended`)
+              .actual(`${(actual * 100).toFixed(2)}% (${this.premature_counter} out of ${this.casts_counter}) of your Rampage casts were cast below 100 rage.`)
+              .recommended(`0% is recommended`)
               .regular(average).major(major);
           });
-
-        // Carnage users should cast Rampage at 70 rage
-
-        // Otherwise cast at 80 rage
     }
   }
 }
 
-export default RampageUsage;
+export default RampageFrothingBerserker;
