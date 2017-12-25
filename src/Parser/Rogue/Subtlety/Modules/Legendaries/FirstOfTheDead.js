@@ -78,10 +78,12 @@ class FirstOfTheDead extends Analyzer {
   }
   
 	item() {
+    
+    const totalPerMinute = (this.totalValue / this.owner.fightDuration) * 1000 * 60;
 
 		return {
 			item: ITEMS.THE_FIRST_OF_THE_DEAD,
-			result: <Wrapper>{this.totalValue} combo points generated.</Wrapper>,
+			result: <Wrapper>{totalPerMinute.toFixed(2)} combo points generated per minute.</Wrapper>,
 		};
 	}
 

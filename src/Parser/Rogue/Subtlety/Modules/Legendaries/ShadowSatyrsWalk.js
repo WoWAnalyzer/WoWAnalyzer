@@ -30,11 +30,14 @@ class ShadowSatyrsWalk extends Analyzer {
 		const total = base.generated + extra.generated;
 		const avgExtra = extra.generated / base.casts;
 
+		
+    const totalPerMinute = (total / this.owner.fightDuration) * 1000 * 60;
+
 		return {
 			item: ITEMS.SHADOW_SATYRS_WALK,
 			result: <Wrapper>
-        <dfn data-tip={`Positioning yourself at maximum range from the boss could increase your energy generation.`}>
-         {total} energy generated.
+        <dfn data-tip={`Positioning at maximum range from your target could increase energy generation.`}>
+         {totalPerMinute.toFixed(2)} energy generated per minute.
 				 <br/>
 				 {avgExtra.toFixed(2)} average bonus energy per cast.
         </dfn>
