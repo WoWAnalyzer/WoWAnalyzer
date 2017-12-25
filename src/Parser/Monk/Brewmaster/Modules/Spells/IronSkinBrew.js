@@ -21,6 +21,48 @@ class IronSkinBrew extends Analyzer {
   hitsWithoutIronSkinBrew = 0;
   damageWithoutIronSkinBrew = 0;
 
+  // duration tracking to record clipping of buff
+  lastDurationCheck = 0;
+  totalDuration = 0;
+  durationLost = 0;
+  currentDuration = 0;
+  durationPerCast = 6000; // base
+  durationPerPurify = 0;
+  durationCap = -1;
+
+  on_initialized() {
+    this.durationPerCast += 500 * this.combatants.selected.traitsBySpellId[SPELLS.POTENT_KICK.id];
+    this.durationCap = 3 * this.durationPerCast;
+    this.durationPerPurify = 1000 * this.combatants.selected.traitsBySpellId[SPELLS.QUICK_SIP.id];
+  }
+
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+    if (SPELLS.IRONSKIN_BREW.id === spellId || SPELLS.PURIFYING_BREW.id === spellId) {
+      // determine the current duration on ISB
+      if (this.currentDuration > 0) {
+        this.currentDuration -= event.timestamp - this.lastDurationCheck;
+        this.currentDuration = Math.max(this.currentDuration, 0);
+      }
+      // add the duration from this buff application (?)
+      let addedDuration = 0;
+      if (SPELLS.IRONSKIN_BREW.id === spellId) {
+        addedDuration = this.durationPerCast;
+      } else if (SPELLS.PURIFYING_BREW.id === spellId) {
+        addedDuration = this.durationPerPurify;
+      }
+      this.currentDuration += addedDuration;
+      if (this.currentDuration > this.durationCap) {
+        this.durationLost += this.currentDuration - this.durationCap;
+        this.currentDuration = this.durationCap;
+      }
+      console.log(`ISB buff applied: ${this.currentDuration}`);
+      // add this duration to the total duration
+      this.totalDuration += addedDuration;
+      this.lastDurationCheck = event.timestamp;
+    }
+  }
+
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (SPELLS.IRONSKIN_BREW_BUFF.id === spellId) {
@@ -32,6 +74,7 @@ class IronSkinBrew extends Analyzer {
     const spellId = event.ability.guid;
     if (SPELLS.IRONSKIN_BREW_BUFF.id === spellId) {
       this.lastIronSkinBrewBuffApplied = 0;
+      this.currentDuration = 0;
     }
   }
 
@@ -80,6 +123,30 @@ class IronSkinBrew extends Analyzer {
       });
   }
 
+  get suggestionThreshold() {
+    return {
+      actual: this.hitsWithIronSkinBrew / (this.hitsWithIronSkinBrew + this.hitsWithoutIronSkinBrew),
+      isLessThan: {
+        minor: 0.99,
+        average: 0.98,
+        major: 0.95,
+      },
+      style: 'percentage',
+    };
+  }
+
+  get clipSuggestionThreshold() {
+    return {
+      actual: this.durationLost / this.totalDuration,
+      isGreaterThan: {
+        minor: 0.02,
+        average: 0.05,
+        major: 0.1,
+      },
+      style: 'percentage',
+    };
+  }
+
   statistic() {
     const isbUptime = this.combatants.selected.getBuffUptime(SPELLS.IRONSKIN_BREW_BUFF.id) / this.owner.fightDuration;
     const hitsMitigatedPercent = this.hitsWithIronSkinBrew / (this.hitsWithIronSkinBrew + this.hitsWithoutIronSkinBrew);
@@ -94,7 +161,7 @@ class IronSkinBrew extends Analyzer {
                 <li>You were hit <b>${this.hitsWithoutIronSkinBrew}</b> times <b><i>without</i></b> your Ironskin Brew buff (<b>${formatThousands(this.damageWithoutIronSkinBrew)}</b> damage).</li>
             </ul>
             <b>${formatPercentage(hitsMitigatedPercent)}%</b> of attacks were mitigated with Ironskin Brew.`}
-      />
+          />
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
