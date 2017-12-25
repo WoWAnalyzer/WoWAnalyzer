@@ -165,3 +165,7 @@ export const hatra344 = {
   nickname: 'hatra344',
   github: 'hatra344',
 };
+export const emallson = {
+  nickname: 'emallson',
+  github: 'emallson',
+};
