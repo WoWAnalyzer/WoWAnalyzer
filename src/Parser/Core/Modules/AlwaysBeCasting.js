@@ -6,6 +6,7 @@ import { formatMilliseconds, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import Abilities from './Abilities';
 
 import Haste from './Haste';
 
@@ -15,6 +16,7 @@ class AlwaysBeCasting extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     haste: Haste,
+    abilities: Abilities,
   };
 
   // TODO: Should all this props be lower case?
@@ -36,6 +38,32 @@ class AlwaysBeCasting extends Analyzer {
    * @type {number}
    */
   totalTimeWasted = 0;
+  /** Set by `on_initialized`: contains a list of all abilities on the GCD from the Abilities config and the ABILITIES_ON_GCD static prop of this class. */
+  abilitiesOnGlobalCooldown = null;
+
+  on_initialized() {
+    const abilities = [
+      ...this.constructor.ABILITIES_ON_GCD,
+    ];
+
+    this.abilities.activeAbilities
+      .filter(ability => ability.isOnGCD)
+      .forEach(ability => {
+        if (ability.spell instanceof Array) {
+          ability.spell.forEach(spell => {
+            abilities.push(spell.id);
+          });
+        } else {
+          abilities.push(ability.spell.id);
+        }
+      });
+
+    this.abilitiesOnGlobalCooldown = abilities;
+  }
+
+  isOnGlobalCooldown(spellId) {
+    return this.abilitiesOnGlobalCooldown.includes(spellId);
+  }
 
   _currentlyCasting = null;
   on_byPlayer_begincast(event) {
@@ -48,7 +76,7 @@ class AlwaysBeCasting extends Analyzer {
   }
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    const isOnGcd = this.constructor.ABILITIES_ON_GCD.indexOf(spellId) !== -1;
+    const isOnGcd = this.isOnGlobalCooldown(spellId);
     // This fixes a crash when boss abilities are registered as casts which could even happen while channeling. For example on Trilliax: http://i.imgur.com/7QAFy1q.png
     if (!isOnGcd) {
       return;
@@ -73,7 +101,7 @@ class AlwaysBeCasting extends Analyzer {
       return;
     }
     const spellId = cast.ability.guid;
-    const isOnGcd = this.constructor.ABILITIES_ON_GCD.indexOf(spellId) !== -1;
+    const isOnGcd = this.isOnGlobalCooldown(spellId);
     // const isFullGcd = this.constructor.FULLGCD_ABILITIES.indexOf(spellId) !== -1;
 
     if (!isOnGcd) {
