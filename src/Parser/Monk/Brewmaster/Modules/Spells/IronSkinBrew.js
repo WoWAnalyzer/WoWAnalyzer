@@ -56,7 +56,6 @@ class IronSkinBrew extends Analyzer {
         this.durationLost += this.currentDuration - this.durationCap;
         this.currentDuration = this.durationCap;
       }
-      console.log(`ISB buff applied: ${this.currentDuration}`);
       // add this duration to the total duration
       this.totalDuration += addedDuration;
       this.lastDurationCheck = event.timestamp;
