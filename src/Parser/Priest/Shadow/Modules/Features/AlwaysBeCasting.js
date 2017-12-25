@@ -85,13 +85,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     }
   }
 
-  get downtime() {
-    return this.totalTimeWasted / this.owner.fightDuration;
-  }
-
   get suggestionThresholds() {
     return {
-      actual: this.downtime,
+      actual: this.downtimePercentage,
       isGreaterThan: {
         minor: 0.1,
         average: 0.15,
@@ -103,14 +99,15 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
   suggestions(when) {
     const {
+      actual,
       isGreaterThan: {
         minor,
         average,
         major,
-      }
+      },
     } = this.suggestionThresholds;
 
-    when(this.downtime).isGreaterThan(minor)
+    when(actual).isGreaterThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant - maybe refresh your dots.</span>)
           .icon('spell_mage_altertime')

@@ -106,6 +106,48 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(10);
+
+  get nonHealingTimeSuggestionThresholds() {
+    return {
+      actual: this.nonHealingTimePercentage,
+      isGreaterThan: {
+        minor: 0.3,
+        average: 0.4,
+        major: 0.45,
+      },
+      style: 'percentage',
+    };
+  }
+  // Override these suggestion thresholds for healers: it's much less important to DPS so allow for considerable slack.
+  get downtimeSuggestionThresholds() {
+    return {
+      actual: this.downtimePercentage,
+      isGreaterThan: {
+        minor: 0.2,
+        average: 0.35,
+        major: 1,
+      },
+      style: 'percentage',
+    };
+  }
+  suggestions(when) {
+    when(this.nonHealingTimeSuggestionThresholds.actual).isGreaterThan(this.nonHealingTimeSuggestionThresholds.isGreaterThan.minor)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest('Your non healing time can be improved. Try to reduce the amount of time you\'re not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.')
+          .icon('petbattle_health-down')
+          .actual(`${formatPercentage(actual)}% non healing time`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(this.nonHealingTimeSuggestionThresholds.isGreaterThan.average).major(this.nonHealingTimeSuggestionThresholds.isGreaterThan.major);
+      });
+    when(this.downtimeSuggestionThresholds.actual).isGreaterThan(this.downtimeSuggestionThresholds.isGreaterThan.minor)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest('Your downtime can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you\'re not healing try to contribute some damage.')
+          .icon('spell_mage_altertime')
+          .actual(`${formatPercentage(actual)}% downtime`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(this.downtimeSuggestionThresholds.isGreaterThan.average).major(this.downtimeSuggestionThresholds.isGreaterThan.major);
+      });
+  }
 }
 
 export default AlwaysBeCastingHealing;

@@ -41,6 +41,13 @@ class AlwaysBeCasting extends Analyzer {
   /** Set by `on_initialized`: contains a list of all abilities on the GCD from the Abilities config and the ABILITIES_ON_GCD static prop of this class. */
   abilitiesOnGlobalCooldown = null;
 
+  get downtimePercentage() {
+    return this.totalTimeWasted / this.owner.fightDuration;
+  }
+  get activeTimePercentage() {
+    return 1 - this.downtimePercentage;
+  }
+
   on_initialized() {
     const abilities = [
       ...this.constructor.ABILITIES_ON_GCD,
@@ -199,13 +206,6 @@ class AlwaysBeCasting extends Analyzer {
     return num1 > (goal - buffer) && num1 < (goal + buffer);
   }
 
-  get downtimePercentage() {
-    return this.totalTimeWasted / this.owner.fightDuration;
-  }
-  get activeTimePercentage() {
-    return 1 - this.downtimePercentage;
-  }
-
   showStatistic = true;
   static icons = {
     activeTime: '/img/sword.png',
@@ -247,6 +247,28 @@ class AlwaysBeCasting extends Analyzer {
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(10);
+
+  get downtimeSuggestionThresholds() {
+    return {
+      actual: this.downtimePercentage,
+      isGreaterThan: {
+        minor: 0.02,
+        average: 0.04,
+        major: 0.06,
+      },
+      style: 'percentage',
+    };
+  }
+  suggestions(when) {
+    when(this.downtimeSuggestionThresholds.actual).isGreaterThan(this.downtimeSuggestionThresholds.isGreaterThan.minor)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest('Your downtime can be improved. Try to Always Be Casting (ABC), avoid delays between casting spells and cast instant spells when you have to move.')
+          .icon('spell_mage_altertime')
+          .actual(`${formatPercentage(actual)}% downtime`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(this.downtimeSuggestionThresholds.isGreaterThan.average).major(this.downtimeSuggestionThresholds.isGreaterThan.major);
+      });
+  }
 }
 
 export default AlwaysBeCasting;
