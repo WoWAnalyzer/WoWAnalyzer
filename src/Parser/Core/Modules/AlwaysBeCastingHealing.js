@@ -49,6 +49,11 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
   }
 
   showStatistic = true;
+  static icons = {
+    healingTime: '/img/healing.png',
+    activeTime: '/img/sword.png',
+    downtime: '/img/afk.png',
+  };
   statistic() {
     if (!this.showStatistic) {
       return null;
@@ -79,20 +84,20 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
               style={{ width: `${healingTimePercentage * 100}%` }}
               data-tip={`You spent <b>${formatPercentage(healingTimePercentage)}%</b> of your time casting heals.`}
             >
-              <img src="/img/healing.png" alt="Healing time" />
+              <img src={this.constructor.icons.healingTime} alt="Healing time" />
             </div>
             <div
               className="Druid-bg"
               style={{ width: `${nonHealCastTimePercentage * 100}%` }}
               data-tip={`You spent <b>${formatPercentage(nonHealCastTimePercentage)}%</b> of your time casting non-healing spells.`}
             >
-              <img src="/img/sword.png" alt="Non-heal cast time" />
+              <img src={this.constructor.icons.activeTime} alt="Non-heal cast time" />
             </div>
             <div
               className="remainder DeathKnight-bg"
               data-tip={`You spent <b>${formatPercentage(downtimePercentage)}%</b> of your time casting nothing at all.`}
             >
-              <img src="/img/afk.png" alt="Downtime" />
+              <img src={this.constructor.icons.downtime} alt="Downtime" />
             </div>
           </div>
         )}
