@@ -36,6 +36,18 @@ class EonarsCompassion extends Analyzer {
     this.active = this.combatants.selected.hasTrinket(ITEMS.EONARS_COMPASSION.id);
   }
 
+  get suggestionThresholds() {
+    return {
+      actual: this.owner.getPercentageOfTotalHealingDone(this.trinketHealing+this.pantheonShieldHealing),
+      isLessThan: {
+        minor: 0.04,
+        average: 0.035,
+        major: 0.025,
+      },
+      style: 'percentage',
+    };
+  }
+
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.EONARS_COMPASSION_HEAL.id) {

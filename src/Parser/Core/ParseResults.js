@@ -137,7 +137,6 @@ class ParseResults {
   tabs = [];
   statistics = [];
   items = [];
-  extraPanels = [];
   issues = [];
 
   constructor() {

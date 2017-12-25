@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import ITEMS from './ITEMS';
 import getItemQualityLabel from './getItemQualityLabel';
+import ItemIcon from './ItemIcon';
 
-const ItemLink = ({ id, children, details, quality }) => {
+const ItemLink = ({ id, children, details, quality, icon }) => {
   const queryString = [
     `item=${id}`,
   ];
@@ -21,7 +23,7 @@ const ItemLink = ({ id, children, details, quality }) => {
 
   return (
     <a href={`http://www.wowhead.com/${queryString.join('&')}`} target="_blank" rel="noopener noreferrer" className={getItemQualityLabel(quality || ITEMS[id].quality)}>
-      {children || ITEMS[id].name}
+      {icon && <ItemIcon id={id} style={{ height: '1.2em', marginTop: '-0.1em' }} />} {children || ITEMS[id].name}
     </a>
   );
 };
@@ -30,6 +32,10 @@ ItemLink.propTypes = {
   children: PropTypes.node,
   details: PropTypes.object,
   quality: PropTypes.number,
+  icon: PropTypes.bool,
+};
+ItemLink.defaultProps = {
+  icon: false,
 };
 
 export default ItemLink;

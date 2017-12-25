@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { findByBossId } from 'Raids';
+
 import BackgroundOverlay from './Images/background-overlay.png';
-import Backgrounds from './Backgrounds';
 
 const styles = {
   container: {
@@ -60,19 +61,18 @@ class AppBackgroundImage extends React.PureComponent {
   componentWillReceiveProps(newProps) {
     if (newProps.bossId !== this.props.bossId) {
       const bossId = newProps.bossId;
-      if (Backgrounds[bossId] && Backgrounds[bossId].length > 0) {
-        const imageIndex = Math.floor(Math.random() * Backgrounds[bossId].length);
-
+      const boss = findByBossId(bossId);
+      if (boss) {
         this.setState({
-          image: Backgrounds[bossId][imageIndex],
+          image: boss.background,
         });
       } else {
-        console.warn('Missing image for boss:', bossId);
+        console.warn('Missing boss definition:', bossId);
       }
+      this.setState({
+        show: !!newProps.bossId && boss,
+      });
     }
-    this.setState({
-      show: !!newProps.bossId && Backgrounds[newProps.bossId] && Backgrounds[newProps.bossId].length > 0,
-    });
   }
 
   render() {

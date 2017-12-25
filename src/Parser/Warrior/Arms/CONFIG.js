@@ -9,7 +9,6 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   spec: SPECS.ARMS_WARRIOR,
-  // TODO: Make maintainer an array
   maintainers: [TheBadBossy],
   description: (
     <div>

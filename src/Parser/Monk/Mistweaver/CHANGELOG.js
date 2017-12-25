@@ -5,7 +5,12 @@ import Wrapper from 'common/Wrapper';
 
 export default [
   {
-    date: new Date('2017-13-25'),
+    date: new Date('2017-12-24'),
+    changes: 'Added Mistweaver checklist items',
+    contributors: [Anomoly],
+  },
+  {
+    date: new Date('2017-12-13'),
     changes: 'Added in Mistweaver Mastery calculation to stats',
     contributors: [Anomoly],
   },

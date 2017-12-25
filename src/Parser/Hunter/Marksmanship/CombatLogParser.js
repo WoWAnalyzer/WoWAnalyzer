@@ -62,6 +62,9 @@ import LegacyOfTheWindrunners from './Modules/Traits/LegacyOfTheWindrunners';
 //Traits and Talents list
 import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 
+//Checklist
+import Checklist from './Modules/Features/Checklist';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core statistics
@@ -81,7 +84,7 @@ class CombatLogParser extends CoreCombatLogParser {
     focusTracker: FocusTracker,
 
     //Items
-    tier19_2P: Tier19_2p,
+    tier19_2p: Tier19_2p,
     tier20_2p: Tier20_2p,
     tier20_4p: Tier20_4p,
     tier21_2p: Tier21_2p,
@@ -128,6 +131,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Traits and Talents list
     traitsAndTalents: TraitsAndTalents,
+
+    //Checklist
+    checklist: Checklist,
   };
 
   generateResults() {

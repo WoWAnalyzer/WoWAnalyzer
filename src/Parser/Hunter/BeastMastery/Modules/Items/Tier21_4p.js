@@ -7,12 +7,14 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatNumber } from 'common/format';
 import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const COOLDOWN_REDUCTION_MS = 2500;
 
 class Tier21_4p extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    spellUsable: SpellUsable,
   };
 
   effectiveAspectReductionMs = 0;
@@ -24,7 +26,7 @@ class Tier21_4p extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.KILL_COMMAND) {
+    if (spellId !== SPELLS.KILL_COMMAND.id) {
       return;
     }
     const aspectIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.ASPECT_OF_THE_WILD.id);

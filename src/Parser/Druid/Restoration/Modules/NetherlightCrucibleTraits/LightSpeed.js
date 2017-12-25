@@ -4,31 +4,24 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
+import CoreLightSpeed from 'Parser/Core/Modules/NetherlightCrucibleTraits/LightSpeed';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import STAT from "Parser/Core/Modules/Features/STAT";
 import StatWeights from '../Features/StatWeights';
+
+const HASTE_AMOUNT = 500;
 
 /**
  * Light speed
  * Haste increased by 500, movement speed increased by 650.
  * Only the haste part is handled here.
  */
-
-const HASTE_AMOUNT = 500;
-
-class LightSpeed extends Analyzer {
+class LightSpeed extends CoreLightSpeed {
   static dependencies = {
-    combatants: Combatants,
+    ...CoreLightSpeed.dependencies,
     healingDone: HealingDone,
     statWeights: StatWeights,
   };
-
-  on_initialized() {
-    this.traitLevel = this.combatants.selected.traitsBySpellId[SPELLS.LIGHT_SPEED.id];
-    this.active = this.traitLevel > 0;
-  }
 
   subStatistic() {
     const hasteGained = HASTE_AMOUNT * this.traitLevel;
@@ -37,8 +30,8 @@ class LightSpeed extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.LIGHT_SPEED.id}>
-            <SpellIcon id={SPELLS.LIGHT_SPEED.id} noLink /> Light Speed
+          <SpellLink id={SPELLS.LIGHT_SPEED_TRAIT.id}>
+            <SpellIcon id={SPELLS.LIGHT_SPEED_TRAIT.id} noLink /> Light Speed
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
