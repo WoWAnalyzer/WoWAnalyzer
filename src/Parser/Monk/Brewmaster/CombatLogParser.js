@@ -5,6 +5,7 @@ import HealingDone from './Modules/Core/HealingDone';
 import DamageTaken from './Modules/Core/DamageTaken';
 import HealingReceived from './Modules/Core/HealingReceived';
 import Stagger from './Modules/Core/Stagger';
+import BrewCDR from './Modules/Core/BrewCDR';
 // Spells
 import IronSkinBrew from './Modules/Spells/IronSkinBrew';
 import BlackoutCombo from './Modules/Spells/BlackoutCombo';
@@ -24,6 +25,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageTaken: [DamageTaken, { showStatistic: true }],
     stagger: Stagger,
     damageDone: [DamageDone, { showStatistic: true }],
+    brewCdr: BrewCDR,
 
     // Features
     checklist: Checklist,
