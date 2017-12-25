@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Analyzer from 'Parser/Core/Analyzer';
 
 import ITEMS from 'common/ITEMS';

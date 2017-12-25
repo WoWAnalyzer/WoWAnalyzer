@@ -16,6 +16,10 @@ import RootsOfShaladrassil from '../Shared/Modules/Items/RootsOfShaladrassil';
 import CallOfTheWild from '../Shared/Modules/Items/CallOfTheWild';
 import TheApexPredatorsClaw from '../Shared/Modules/Items/TheApexPredatorsClaw';
 import TheShadowHuntersVoodooMask from '../Shared/Modules/Items/TheShadowHuntersVoodooMask';
+import ParselsTongue from './Modules/Items/ParselsTongue';
+import TheMantleOfCommand from './Modules/Items/TheMantleOfCommand';
+import RoarOfTheSevenLions from './Modules/Items/RoarOfTheSevenLions';
+
 //Spells
 import DireBeast from "./Modules/Spells/DireBeast/DireBeast";
 import BestialWrathAverageFocus from "./Modules/Spells/BestialWrath/BestialWrathAverageFocus";
@@ -73,6 +77,9 @@ class CombatLogParser extends CoreCombatLogParser {
     callOfTheWild: CallOfTheWild,
     rootsOfShaladrassil: RootsOfShaladrassil,
     theShadowHuntersVoodooMask: TheShadowHuntersVoodooMask,
+    parselsTongue: ParselsTongue,
+    theMantleOfCommand: TheMantleOfCommand,
+    roarOfTheSevenLions: RoarOfTheSevenLions,
     tier19_2p: Tier19_2p,
     tier20_2p: Tier20_2p,
     tier20_4p: Tier20_4p,

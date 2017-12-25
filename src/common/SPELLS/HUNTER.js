@@ -235,6 +235,17 @@ export default {
     name: 'T21 4 set bonus',
     icon: 'spell_nature_protectionformnature',
   },
+  //Beast Mastery Legendary buffs
+  PARSELS_TONGUE_BUFF: {
+    id: 248085,
+    name: 'Parsel\'s Tongue',
+    icon: 'ability_hunter_cobrashot',
+  },
+  THE_MANTLE_OF_COMMAND_BUFF: {
+    id: 247993,
+    name: 'The Mantle of Command',
+    icon: 'inv_shoulder_mail_raidshaman_m_01',
+  },
 
   // MarksmanshipHunter:
   // Marksmanship spells
@@ -480,7 +491,7 @@ export default {
   // Shared:
   // ...
   THE_SHADOW_HUNTERS_VOODOO_MASK_HEAL: {
-    id: 208884,
+    id: 208888,
     name: 'The Shadow Hunter\'s Voodoo Mask',
     icon: 'ability_creature_cursed_04',
   },

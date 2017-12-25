@@ -9,6 +9,7 @@ import SPELLS from 'common/SPELLS';
 import PETS from 'common/PETS';
 import { formatNumber } from 'common/format';
 import CorePets from 'Parser/Core/Modules/Pets';
+import Wrapper from 'common/Wrapper';
 
 /*
  * The Apex Predator's Claw
@@ -52,10 +53,12 @@ class TheApexPredatorsClaw extends Analyzer {
   on_byPlayerPet_damage(event) {
     const index = this.currentDireBeasts.findIndex(direBeast => direBeast.ID === event.sourceID && direBeast.instance === event.sourceInstance);
     const selectedDireBeast = this.currentDireBeasts[index];
+    //we're not interested in any damage coming from direbeasts
     if (selectedDireBeast) {
       return;
     }
     const pet = this.pets.getSourceEntity(event);
+    //we're not interested in any damage coming from Hati
     if (HATI_LIST.every(id => pet.guid !== id)) {
       this.bonusDmg += getDamageBonus(event, APEX_DAMAGE_MODIFIER);
     }
@@ -64,9 +67,9 @@ class TheApexPredatorsClaw extends Analyzer {
   item() {
     return {
       item: ITEMS.THE_APEX_PREDATORS_CLAW,
-      result: <span>
+      result: <Wrapper>
         {formatNumber(this.bonusDmg)} - {this.owner.formatItemDamageDone(this.bonusDmg)}
-        </span>,
+      </Wrapper>,
     };
   }
 
