@@ -43,7 +43,7 @@ class PrototypePersonnelDecimator extends Analyzer {
     return {
       item: ITEMS.PROTOTYPE_PERSONNEL_DECIMATOR,
       result: (
-        <dfn data-tip={`This trinket procced ${this.procs} times and hit ${this.hits / this.procs} targets on average per proc, for a total of ${this.hits} hits.`}>
+        <dfn data-tip={`This trinket procced ${this.procs} times and hit ${(this.hits / this.procs).toFixed(2)} targets on average per proc, for a total of ${this.hits} hits.`}>
           {this.owner.formatItemDamageDone(this.damage)}
         </dfn>
 
