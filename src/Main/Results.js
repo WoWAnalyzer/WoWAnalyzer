@@ -213,6 +213,9 @@ class Results extends React.Component {
                       <AboutTab config={config} />
                     )}
                   </div>
+                  <div>
+                    {modules.warningDisplay.render()}
+                  </div>
                 </div>
               </div>
             </div>
