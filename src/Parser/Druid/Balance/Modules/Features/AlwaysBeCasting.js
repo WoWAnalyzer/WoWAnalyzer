@@ -7,7 +7,7 @@ import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
-      // Moonkin:
+    // Moonkin:
     SPELLS.MOONFIRE.id,
     SPELLS.SUNFIRE_CAST.id,
     SPELLS.STARSURGE_MOONKIN.id,
@@ -18,7 +18,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.HALF_MOON.id,
     SPELLS.FULL_MOON.id,
 
-      // Talents
+    // Talents
     SPELLS.TYPHOON_TALENT.id,
     SPELLS.MASS_ENTANGLEMENT_TALENT.id,
     SPELLS.FORCE_OF_NATURE_TALENT.id,
@@ -66,6 +66,5 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
   statisticOrder = STATISTIC_ORDER.CORE(1);
 }
-
 
 export default AlwaysBeCasting;
