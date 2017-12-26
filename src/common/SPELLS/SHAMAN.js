@@ -232,6 +232,11 @@ export default {
     name: 'The Deceiver\'s Blood Pact',
     icon: 'ability_creature_cursed_04',
   },
+  THE_DECEIVERS_BLOOD_PACT_EQUIP: {
+    id: 214131,
+    name: 'The Deceiver\'s Blood Pact',
+    icon: 'ability_creature_cursed_04',
+  },
   //Elemental Sets
   ELEMENTAL_SHAMAN_T21_2SET_BUFF: {
     id: 251757,

@@ -24,6 +24,7 @@ import Abilities from './Modules/Abilities';
 import CastEfficiency from './Modules/CastEfficiency';
 import SpellUsable from './Modules/SpellUsable';
 import SpellHistory from './Modules/SpellHistory';
+import GlobalCooldown from './Modules/GlobalCooldown';
 import Enemies from './Modules/Enemies';
 import EnemyInstances from './Modules/EnemyInstances';
 import Pets from './Modules/Pets';
@@ -146,6 +147,7 @@ class CombatLogParser {
     CastEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
     spellHistory: SpellHistory,
+    globalCooldown: GlobalCooldown,
     manaValues: ManaValues,
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
@@ -479,6 +481,7 @@ class CombatLogParser {
             start={this.fight.start_time}
             end={this.currentTimestamp >= 0 ? this.currentTimestamp : this.fight.end_time}
             historyBySpellId={this.modules.spellHistory.historyBySpellId}
+            globalCooldownHistory={this.modules.globalCooldown.history}
             abilities={this.modules.abilities}
           />
         ),
