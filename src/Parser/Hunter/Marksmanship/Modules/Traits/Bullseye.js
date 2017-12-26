@@ -116,7 +116,7 @@ class Bullseye extends Analyzer {
           .major(recommended);
       });
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
+  statisticOrder = STATISTIC_ORDER.CORE(7);
 }
 
 export default Bullseye;

@@ -37,7 +37,7 @@ class BestialWrathAverageFocus extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(9);
+  statisticOrder = STATISTIC_ORDER.CORE(6);
 
   get averageFocusAtBestialWrathCast() {
     return formatNumber(this.accumulatedFocusAtBWCast / this.bestialWrathCasts);
