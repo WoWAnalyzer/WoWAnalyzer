@@ -172,7 +172,8 @@ class AlwaysBeCasting extends Analyzer {
     downtime: '/img/afk.png',
   };
   statistic() {
-    if (!this.showStatistic || this.owner.boss.fight.noDowntimeSuggestion === true) {
+    const boss = this.owner.boss;
+    if (!this.showStatistic || (boss && boss.fight.disableDowntimeStatistic)) {
       return null;
     }
 

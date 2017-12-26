@@ -34,8 +34,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
+    const boss = this.owner.boss;
 
-    if (this.owner.boss.fight.noDowntimeSuggestion !== true) {
+    if (!boss || !boss.fight.disableDowntimeSuggestion) {
       when(deadTimePercentage).isGreaterThan(0.2)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If you have to move, try casting <SpellLink id={SPELLS.SCORCH.id} />.</span>)

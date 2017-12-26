@@ -49,8 +49,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
-
-    if (this.owner.boss.fight.noDowntimeSuggestion !== true) {
+    const boss = this.owner.boss;
+    if (!boss || !boss.fight.disableDowntimeSuggestion) {
       when(deadTimePercentage).isGreaterThan(this.downtimeSuggestionThresholds.isGreaterThan.minor)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting instants, even unbuffed <SpellLink id={SPELLS.ICE_LANCE.id} /> spam is better than nothing.</span>)
