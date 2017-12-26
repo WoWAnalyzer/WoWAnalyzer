@@ -82,6 +82,13 @@ class Abilities extends CoreAbilities {
       extraSuggestion: <span>This should be used on cooldown, with 100 focus and while <SpellLink id={SPELLS.VULNERABLE.id} /> is on your target. If possible without delaying either, you should try to combine it with <SpellLink id={SPELLS.TRUESHOT.id} />.</span>,
     },
     {
+      spell: SPELLS.SENTINEL_TALENT,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 60,
+      recommendedEfficiency: 1,
+      isActive: combatant => combatant.hasTalent(SPELLS.SENTINEL_TALENT.id),
+    },
+    {
       spell: SPELLS.TRUESHOT,
       category:
       Abilities.SPELL_CATEGORIES.COOLDOWNS,

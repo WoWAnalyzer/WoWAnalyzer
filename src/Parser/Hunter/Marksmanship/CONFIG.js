@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Putro, Blazballs } from 'MAINTAINERS';
+import { Blazballs, Putro } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
