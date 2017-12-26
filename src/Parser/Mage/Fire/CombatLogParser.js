@@ -6,7 +6,6 @@ import FlamestrikeNormalizer from './Normalizers/Flamestrike';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Features/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
-import DeathTracker from './Modules/Features/DeathTracker';
 import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
 
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
@@ -34,7 +33,6 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     damageDone: [DamageDone, { showStatistic: true }],
     cancelledCasts: CancelledCasts,
-    deathTracker: DeathTracker,
     phoenixsFlames: PhoenixsFlames,
     hotStreak: HotStreak,
 
