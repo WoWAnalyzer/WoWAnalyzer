@@ -1,5 +1,4 @@
-import React from 'react';
-import { WOPR, Zerotorescue, emallson } from 'MAINTAINERS';
+import { WOPR, emallson } from 'MAINTAINERS';
 
 export default [
   {
