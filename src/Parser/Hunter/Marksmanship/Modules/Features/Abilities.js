@@ -96,8 +96,7 @@ class Abilities extends CoreAbilities {
         (_, combatant) => 180 - combatant.owner.modules.quickShot.traitCooldownReduction,
       recommendedEfficiency:
         1.0,
-    }
-    ,
+    },
     {
       spell: SPELLS.ARCANE_TORRENT_FOCUS,
       category:
