@@ -28,6 +28,7 @@ class Felstorm extends Analyzer {
   }
 
   suggestions(when) {
+    // TODO: this would be rather unpleasant to refactor (style issues, but still)
     const maxCasts = Math.ceil(calculateMaxCasts(FELSTORM_COOLDOWN, this.owner.fightDuration));
     const percentage = this.mainPetFelstormCount / maxCasts;
     const petType = (!this._felstormGuid || this._felstormGuid === SPELLS.FELSTORM_BUFF.id) ? "Fel" : "Wrath";
