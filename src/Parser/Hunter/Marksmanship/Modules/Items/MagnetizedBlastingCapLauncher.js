@@ -36,7 +36,7 @@ class MagnetizedBlastingCapLauncher extends Analyzer {
   item() {
     return {
       item: ITEMS.MAGNETIZED_BLASTING_CAP_LAUNCHER,
-      result: <span>{formatNumber(this.bonusDmg)} - {this.owner.formatItemDamageDone(this.bonusDmg)}</span>,
+      result: formatNumber(this.bonusDmg) - this.owner.formatItemDamageDone(this.bonusDmg),
     };
   }
 

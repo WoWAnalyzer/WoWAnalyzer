@@ -67,9 +67,7 @@ class TheApexPredatorsClaw extends Analyzer {
   item() {
     return {
       item: ITEMS.THE_APEX_PREDATORS_CLAW,
-      result: <Wrapper>
-        {formatNumber(this.bonusDmg)} - {this.owner.formatItemDamageDone(this.bonusDmg)}
-      </Wrapper>,
+      result: formatNumber(this.bonusDmg) - this.owner.formatItemDamageDone(this.bonusDmg),
     };
   }
 
