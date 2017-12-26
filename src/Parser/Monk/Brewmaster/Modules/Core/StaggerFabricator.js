@@ -11,6 +11,7 @@ const STAGGERING_AROUND_PURIFY = 0.01;
 const T20_4PC_PURIFY = 0.05;
 
 export const EVENT_STAGGER_POOL_UPDATE = "stagger_pool_update";
+export const EVENT_STAGGER_POOL_END = "stagger_pool_end";
 
 /**
  * Fabricate events corresponding to stagger pool updates. Each stagger
@@ -39,8 +40,9 @@ class StaggerFabricator extends Analyzer {
       if (event.extraAbility.guid === SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE.id) {
         return;
       }
-      this._stagger_pool += event.amount;
-      this.owner.triggerEvent(EVENT_STAGGER_POOL_UPDATE, this._fab(event, event.amount));
+      const amount = event.amount + (event.absorbed || 0);
+      this._stagger_pool += amount;
+      this.owner.triggerEvent(EVENT_STAGGER_POOL_UPDATE, this._fab(event, amount));
     }
   }
 
@@ -67,11 +69,22 @@ class StaggerFabricator extends Analyzer {
     }
   }
 
+  on_finished() {
+    // broadcast the amount of damage left in the stagger pool when the
+    // fight ends
+    // TODO: not sure if this is safe
+    this.owner.triggerEvent(EVENT_STAGGER_POOL_END, {
+      type: EVENT_STAGGER_POOL_END,
+      amount: this._stagger_pool,
+    });
+  }
+
   _fab(event, amount) {
     return {
       timestamp: event.timestamp,
       type: EVENT_STAGGER_POOL_UPDATE,
       ability: event.ability,
+      extraAbility: event.extraAbility,
       amount: amount,
       pooled_damage: this._stagger_pool,
       sourceID: event.sourceID,

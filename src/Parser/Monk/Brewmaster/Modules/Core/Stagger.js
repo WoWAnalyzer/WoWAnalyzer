@@ -6,65 +6,40 @@ import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StaggerFabricator, { EVENT_STAGGER_POOL_UPDATE } from './StaggerFabricator';
 
 const debug = false;
 const PHYSICAL_DAMAGE = 1;
-const BASE_STAGGER_TICKS = 20;
-const JEWEL_OF_THE_LOST_ABBEY_TICKS = 6;
-const STAGGER_TICK_FREQUENCY = 500;
 
 class Stagger extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    fab: StaggerFabricator,
   }
 
   totalPhysicalStaggered = 0;
   totalMagicalStaggered = 0;
   totalStaggerTaken = 0;
-  staggerLength = BASE_STAGGER_TICKS;
-  lastDamageEventNotStagger = 0;
-  lastDamageEventWasStagger = 0;
-  lastStaggerValue = 0;
   staggerMissingFromFight = 0;
 
-  on_initialized() {
-    if (this.combatants.selected.getFinger(ITEMS.JEWEL_OF_THE_LOST_ABBEY.id)) {
-      debug && console.log('Has stagger ring');
-      this.staggerLength += JEWEL_OF_THE_LOST_ABBEY_TICKS;
-    }
-  }
-
-  on_toPlayer_absorbed(event) {
-    if (event.ability.guid === SPELLS.STAGGER.id) {
-      if (event.extraAbility.guid === SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE.id) {
-        return;
-      }
-      if (event.extraAbility.type === PHYSICAL_DAMAGE) {
+  on_stagger_pool_update(event) {
+    if(event.amount > 0) {
+      // damage added to stagger pool
+      if(event.extraAbility.type === PHYSICAL_DAMAGE) {
         this.totalPhysicalStaggered += event.amount;
       } else {
         this.totalMagicalStaggered += event.amount;
       }
+    } else {
+      this.totalStaggerTaken += -event.amount;
     }
   }
 
-  on_toPlayer_damage(event) {
-    if (event.ability.guid === SPELLS.STAGGER_TAKEN.id) {
-      this.totalStaggerTaken += event.amount + (event.absorbed || 0);
-      this.lastDamageEventWasStagger = event.timestamp;
-      this.lastStaggerValue = event.amount + (event.absorbed || 0);
-    } else {
-      this.lastDamageEventNotStagger = event.timestamp;
-    }
+  on_stagger_pool_end(event) {
+    this.staggerMissingFromFight = event.amount;
   }
 
   on_finished() {
-    // End of fight correction
-    const fightEnd = this.owner.fight.end_time;
-    if (fightEnd - this.lastDamageEventWasStagger < STAGGER_TICK_FREQUENCY * 2) {
-      const numberOfTicksTaken = Math.ceil((this.lastDamageEventWasStagger - this.lastDamageEventNotStagger) / STAGGER_TICK_FREQUENCY);
-      const staggerTicksLeft = this.staggerLength - (numberOfTicksTaken > 0 ? numberOfTicksTaken : 0);
-      this.staggerMissingFromFight = this.lastStaggerValue * Math.max(staggerTicksLeft, 0);
-    }
     if (debug) {
       console.log(`Total physical staggered: ${formatNumber(this.totalPhysicalStaggered)}`);
       console.log(`Total magical staggered: ${formatNumber(this.totalMagicalStaggered)}`);
