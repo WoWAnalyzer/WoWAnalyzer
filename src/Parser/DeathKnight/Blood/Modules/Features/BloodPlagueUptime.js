@@ -11,15 +11,30 @@ class BloodPlagueUptime extends Analyzer {
     enemies: Enemies,
   };
 
+  get Uptime() {
+    return this.enemies.getBuffUptime(SPELLS.BLOOD_PLAGUE.id) / this.owner.fightDuration;
+  }
+
+  get UptimeSuggestionThresholds() {
+    return {
+      actual: this.Uptime,
+      isLessThan: {
+        minor: 0.94,
+        average: 0.84,
+        major: .74,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
-    const bloodplagueUptime = this.enemies.getBuffUptime(SPELLS.BLOOD_PLAGUE.id) / this.owner.fightDuration;
-    when(bloodplagueUptime).isLessThan(0.95)
+    when(this.UptimeSuggestionThresholds.actual).isLessThan(this.UptimeSuggestionThresholds.minor)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest('Your Blood Plague uptime can be improved. Perhaps use some debuff tracker.')
             .icon(SPELLS.BLOOD_PLAGUE.icon)
             .actual(`${formatPercentage(actual)}% Blood Plague uptime`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`)
-            .regular(recommended - 0.05).major(recommended - 0.15);
+            .regular(this.UptimeSuggestionThresholds.average).major(this.UptimeSuggestionThresholds.major);
         });
   }
 
