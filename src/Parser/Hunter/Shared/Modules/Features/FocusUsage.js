@@ -218,9 +218,7 @@ class FocusUsage extends Analyzer {
       this.focusSpenderCasts[spellId].casts += 1;
       if (this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id) && this.combatants.selected.hasWaist(ITEMS.ROAR_OF_THE_SEVEN_LIONS.id)) {
         this.focusSpenderCasts[spellId].focusUsed += VOLLEY_FOCUS_COST - (VOLLEY_FOCUS_COST * ROAR_OF_THE_SEVEN_LIONS_FOCUS_REDUCTION);
-
-      }
-      else {
+      } else {
         this.focusSpenderCasts[spellId].focusUsed += VOLLEY_FOCUS_COST;
       }
       this.lastVolleyHit = event.timestamp;
