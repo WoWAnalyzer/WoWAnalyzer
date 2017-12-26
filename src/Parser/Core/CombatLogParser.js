@@ -480,7 +480,7 @@ class CombatLogParser {
         order: 3,
         render: () => (
           <Tab title="Gear">
-            <Gear combatants={this._modules.combatants}/>
+            <Gear selectedCombatant={this._modules.combatants.selected}/>
           </Tab>
         ),
       },
