@@ -17,6 +17,7 @@ import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 import UnstableMagic from '../Shared/Modules/Features/UnstableMagic';
 import SplittingIce from './Modules/Features/SplittingIce';
+import DeathTracker from './Modules/Features/DeathTracker';
 import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
 
 import FrozenOrb from './Modules/Cooldowns/FrozenOrb';
@@ -43,6 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
+    deathTracker: DeathTracker,
     cooldownThroughputTracker: CooldownThroughputTracker,
 	  wintersChillTracker: WintersChillTracker,
 	  brainFreeze: BrainFreeze,
