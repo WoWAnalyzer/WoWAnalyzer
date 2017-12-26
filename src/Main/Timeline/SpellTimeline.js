@@ -15,6 +15,7 @@ import './SpellTimeline.css';
 class SpellTimeline extends React.PureComponent {
   static propTypes = {
     historyBySpellId: PropTypes.object.isRequired,
+    globalCooldownHistory: PropTypes.array.isRequired,
     abilities: PropTypes.object.isRequired,
     spellId: PropTypes.number,
     start: PropTypes.number.isRequired,
@@ -66,7 +67,7 @@ class SpellTimeline extends React.PureComponent {
 
   gemini = null;
   render() {
-    const { start, end, historyBySpellId } = this.props;
+    const { start, end, historyBySpellId, globalCooldownHistory } = this.props;
     const duration = end - start;
     const seconds = Math.ceil(duration / 1000);
 
@@ -77,7 +78,8 @@ class SpellTimeline extends React.PureComponent {
     // 4 for margin
     // 36 for the ruler
     // 28 for each spell
-    const totalHeight = 9 + 4 + 36 + 28 * this.spells.length;
+    // 1 additional spell for the GCD
+    const totalHeight = 9 + 4 + 36 + 28 * (1 + this.spells.length);
 
     const totalWidth = seconds * secondWidth;
 
@@ -90,6 +92,11 @@ class SpellTimeline extends React.PureComponent {
                 <button key={zoom} className={`btn btn-default btn-xs ${zoom === this.state.zoom ? 'active' : ''}`} onClick={() => this.setState({ zoom })}>{zoom}x</button>
               ))}
             </div>
+          </div>
+          <div className="lane">
+            <dfn data-tip="If the spell has a channeling time that is greater than the Global Cooldown, it will show this instead. The GCD is always triggered at the start of the channel.">
+              Casting time
+            </dfn>
           </div>
           {this.spells.map(spellId => (
             <div className="lane" key={spellId}>
@@ -104,7 +111,7 @@ class SpellTimeline extends React.PureComponent {
           ref={comp => (this.gemini = comp)}
         >
           <div className={`ruler interval-${skipInterval}`} style={{ width: totalWidth }}>
-            {[...Array(seconds)].map((_, second) => {
+            {seconds > 0 && [...Array(seconds)].map((_, second) => {
               if (second % skipInterval !== 0) {
                 // Skip every second second when the text width becomes larger than the container
                 return null;
@@ -116,8 +123,32 @@ class SpellTimeline extends React.PureComponent {
               );
             })}
           </div>
+          <div className={`events lane`} style={{ width: totalWidth }}>
+            {globalCooldownHistory.map(event => {
+              const left = (event.startTimestamp - start) / 1000 * secondWidth;
+              const maxWidth = totalWidth - left; // don't expand beyond the container width
+              return (
+                <div
+                  key={`${event.startTimestamp}-${event.endTimestamp}`}
+                  className="casting-time"
+                  style={{
+                    left,
+                    width: Math.min(maxWidth, (event.endTimestamp - event.startTimestamp) / 1000 * secondWidth),
+                  }}
+                  data-tip={`Casting time: ${((event.endTimestamp - event.startTimestamp) / 1000).toFixed(1)}s`}
+                />
+              );
+            })}
+          </div>
           {this.spells.map(spellId => (
-            <Events key={spellId} className="lane" events={historyBySpellId[spellId] || []} start={start} totalWidth={totalWidth} secondWidth={secondWidth} />
+            <Events
+              key={spellId}
+              className="lane"
+              events={historyBySpellId[spellId] || []}
+              start={start}
+              totalWidth={totalWidth}
+              secondWidth={secondWidth}
+            />
           ))}
         </GeminiScrollbar>
       </div>

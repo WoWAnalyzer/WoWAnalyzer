@@ -1,4 +1,3 @@
-import React from 'react';
 import ITEM_QUALITIES from 'common/ITEM_QUALITIES';
 import SPELLS from 'common/SPELLS';
 
@@ -13,13 +12,20 @@ class LegendaryCountChecker extends Analyzer {
     combatants: Combatants,
   };
 
-  suggestions(when) {
-    const slots = this.combatants.selected._gearItemsBySlotId;
-    const legendaryCount = Object.values(slots).filter(item => item.quality === ITEM_QUALITIES.LEGENDARY).length;
+  get legendaries() {
+    return Object.values(this.combatants.selected.gear).filter(item => item.quality === ITEM_QUALITIES.LEGENDARY);
+  }
+  get equipped() {
+    return this.legendaries.length;
+  }
+  get max() {
+    return MAX_NUMBER_OF_LEGENDARIES;
+  }
 
-    when(legendaryCount).isLessThan(MAX_NUMBER_OF_LEGENDARIES)
+  suggestions(when) {
+    when(this.legendaryCount).isLessThan(this.maxLegendaryCount)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You are not wearing the maximum number of legendaries.</span>)
+        return suggest('You are not wearing the maximum number of legendaries.')
           .icon(SPELLS.SHADOW_WORD_PAIN.icon)
           .actual(`You're wearing ${actual}`)
           .recommended(`the current maximum is ${recommended}`)

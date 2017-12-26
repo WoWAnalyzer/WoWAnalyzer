@@ -16,6 +16,16 @@ export default {
   GRIMOIRE_OF_SACRIFICE_TALENT: { id: 108503, name: "Grimoire of Sacrifice", icon: "warlock_grimoireofsacrifice" },
   SIPHON_LIFE_TALENT: { id: 63106, name: "Siphon Life", icon: "spell_shadow_requiem" },
   SOUL_CONDUIT_TALENT: { id: 215941, name: "Soul Conduit", icon: "spell_shadow_soulleech_2" },
+  // Destruction
+  BACKDRAFT_TALENT: { id: 196406, name: "Backdraft", icon: "ability_warlock_backdraft" },
+  ROARING_BLAZE_TALENT: { id: 205184, name: "Roaring Blaze", icon: "ability_warlock_inferno" },
+  SHADOWBURN_TALENT: { id: 17877, name: "Shadowburn", icon: "spell_shadow_scourgebuild", manaCost: 22000 },
+  REVERSE_ENTROPY_TALENT: { id: 205148, name: "Reverse Entropy", icon: "ability_warlock_backdraftgreen" },
+  ERADICATION_TALENT: { id: 196412, name: "Eradication", icon: "ability_warlock_eradication" },
+  CATACLYSM_TALENT: { id: 152108, name: "Cataclysm", icon: "achievement_zone_cataclysm" },
+  FIRE_AND_BRIMSTONE_TALENT: { id: 196408, name: "Fire and Brimstone", icon: "ability_warlock_fireandbrimstone" },
+  WREAK_HAVOC_TALENT: { id: 196410, name: "Wreak Havoc", icon: "ability_warlock_baneofhavoc" },
+  CHANNEL_DEMONFIRE_TALENT: { id: 196447, name: "Channel Demonfire", icon: "spell_fire_ragnaros_lavaboltgreen", manaCost: 52800 },
   // Demonology
   SHADOWY_INSPIRATION_TALENT: { id: 196269, name: "Shadowy Inspiration", icon: "warlock_curse_shadow" },
   SHADOWFLAME_TALENT: { id: 205181, name: "Shadowflame", icon: "ability_warlock_shadowflame" },
@@ -37,14 +47,4 @@ export default {
   HOWL_OF_TERROR_TALENT: { id: 5484, name: "Howl of Terror", icon: "ability_warlock_howlofterror" },
   SOW_THE_SEEDS_TALENT: { id: 196226, name: "Sow the Seeds", icon: "spell_shadow_seedofdestruction" },
   DEATHS_EMBRACE_TALENT: { id: 234876, name: "Death's Embrace", icon: "spell_shadow_deathsembrace" },
-  // Destruction
-  BACKDRAFT_TALENT: { id: 196406, name: "Backdraft", icon: "ability_warlock_backdraft" },
-  ROARING_BLAZE_TALENT: { id: 205184, name: "Roaring Blaze", icon: "ability_warlock_inferno" },
-  SHADOWBURN_TALENT: { id: 17877, name: "Shadowburn", icon: "spell_shadow_scourgebuild", manaCost: 22000 },
-  REVERSE_ENTROPY_TALENT: { id: 205148, name: "Reverse Entropy", icon: "ability_warlock_backdraftgreen" },
-  ERADICATION_TALENT: { id: 196412, name: "Eradication", icon: "ability_warlock_eradication" },
-  CATACLYSM_TALENT: { id: 152108, name: "Cataclysm", icon: "achievement_zone_cataclysm" },
-  FIRE_AND_BRIMSTONE_TALENT: { id: 196408, name: "Fire and Brimstone", icon: "ability_warlock_fireandbrimstone" },
-  WREAK_HAVOC_TALENT: { id: 196410, name: "Wreak Havoc", icon: "ability_warlock_baneofhavoc" },
-  CHANNEL_DEMONFIRE_TALENT: { id: 196447, name: "Channel Demonfire", icon: "spell_fire_ragnaros_lavaboltgreen", manaCost: 52800 },
 };

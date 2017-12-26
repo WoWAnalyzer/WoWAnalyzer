@@ -6,7 +6,7 @@ import './StatisticBox.css';
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
 
 const StatisticsListBox = ({ title, tooltip, children, bodyStyle, containerProps, ...others }) => (
-  <div className="col-lg-4 col-sm-6 col-xs-12" {...containerProps}>
+  <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" {...containerProps}>
     <div className="panel statistic-box statistic-list" {...others}>
       {title && (
         <div className="panel-heading">

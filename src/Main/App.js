@@ -19,6 +19,7 @@ import { getCombatants } from 'selectors/combatants';
 import { clearError, reportNotFoundError, apiDownError, unknownNetworkIssueError, unknownError, internetExplorerError, API_DOWN, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE, INTERNET_EXPLORER } from 'actions/error';
 import { getError } from 'selectors/error';
 
+import 'react-toggle/style.css';
 import './App.css';
 
 import ApiDownBackground from './Images/api-down-background.gif';
@@ -182,7 +183,7 @@ class App extends Component {
         progress: PROGRESS_STEP2_FETCH_EVENTS,
       });
 
-      const batchSize = 300;
+      const batchSize = 150;
       const numEvents = events.length;
       let offset = 0;
 
@@ -290,6 +291,9 @@ class App extends Component {
     this.updateBossIdIfNecessary(prevProps, prevState);
   }
   fetchReportIfNecessary(prevProps) {
+    if (this.props.error || isIE()) {
+      return;
+    }
     if (this.props.reportCode && this.props.reportCode !== prevProps.reportCode) {
       this.props.fetchReport(this.props.reportCode)
         .catch(err => {
@@ -421,12 +425,11 @@ class App extends Component {
         return (
           <FullscreenError
             error="A wild INTERNET EXPLORER appeared!"
-            details="WoWAnalyzer refuses to work. It's super effective!"
+            details="This browser is too unstable for WoWAnalyzer to work properly."
             background="https://media.giphy.com/media/njYrp176NQsHS/giphy.gif"
           >
-            <div>
-              <a className="btn btn-primary" href="http://outdatedbrowser.com/">Get a proper browser</a>
-            </div>
+            {/* Lower case the button so it doesn't seem to aggressive */}
+            <a className="btn btn-primary" href="http://outdatedbrowser.com/" style={{ textTransform: 'none' }}>Download a proper browser</a>
           </FullscreenError>
         );
       }

@@ -65,6 +65,14 @@ class Abilities extends CoreAbilities {
       extraSuggestion: <span>Normally you should be using this off CD, but if you are wearing <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id}/> it is okay to hold if <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id}/>'s CD has less than 30 seconds remaining.</span>,
     },
 
+    {
+      spell: SPELLS.OUTBREAK,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => null,
+      noExtraSuggestion: true,
+      noCanBeImproved: true,
+    },
+
     // cooldowns
     {
       spell: SPELLS.APOCALYPSE,
@@ -105,7 +113,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.SOUL_REAPER_TALENT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 45,
-      isActive: combatant => combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT),
+      isActive: combatant => combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id),
       recommendedEfficiency: 0.90,
     },
 
@@ -113,7 +121,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.BLIGHTED_RUNE_WEAPON_TALENT,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 60,
-      isActive: combatant => combatant.hasTalent(SPELLS.BLIGHTED_RUNE_WEAPON_TALENT),
+      isActive: combatant => combatant.hasTalent(SPELLS.BLIGHTED_RUNE_WEAPON_TALENT.id),
       recommendedEfficiency: 0.90,
     },
 
@@ -121,7 +129,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.EPIDEMIC_TALENT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 10 / (1 + haste),
-      isActive: combatant => combatant.hasTalent(SPELLS.EPIDEMIC_TALENT),
+      isActive: combatant => combatant.hasTalent(SPELLS.EPIDEMIC_TALENT.id),
       charges: 3,
       recommendedEfficiency: 0.90,
     },

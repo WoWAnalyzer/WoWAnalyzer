@@ -30,10 +30,11 @@ class Analyzer extends Module {
     }
   }
 
+  // Common event handler shells so that implementors can always properly call `super`
+  on_initialized() {}
+
   // Override these with functions that return info about their rendering in the specific slots
   item() { return undefined; }
-  extraPanelOrder = 100; // below 100 is reserved
-  extraPanel() { return undefined; }
   statistic() { return undefined; }
   statisticOrder = STATISTIC_ORDER.DEFAULT;
   suggestions(when) { return undefined; }

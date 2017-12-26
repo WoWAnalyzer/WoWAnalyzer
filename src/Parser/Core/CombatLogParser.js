@@ -1,12 +1,12 @@
 import React from 'react';
 
-import SuggestionsTab from 'Main/SuggestionsTab';
 import ChangelogTab from 'Main/ChangelogTab';
 import ChangelogTabTitle from 'Main/ChangelogTabTitle';
-import Tab from 'Main/Tab';
 import TimelineTab from 'Main/Timeline/TimelineTab';
 
 import { formatNumber, formatPercentage, formatThousands, formatDuration } from 'common/format';
+
+import { findByBossId } from 'Raids';
 
 import ApplyBuffNormalizer from './Normalizers/ApplyBuff';
 
@@ -24,6 +24,7 @@ import Abilities from './Modules/Abilities';
 import CastEfficiency from './Modules/CastEfficiency';
 import SpellUsable from './Modules/SpellUsable';
 import SpellHistory from './Modules/SpellHistory';
+import GlobalCooldown from './Modules/GlobalCooldown';
 import Enemies from './Modules/Enemies';
 import EnemyInstances from './Modules/EnemyInstances';
 import Pets from './Modules/Pets';
@@ -35,6 +36,7 @@ import DistanceMoved from './Modules/Others/DistanceMoved';
 
 import StatsDisplay from './Modules/Features/StatsDisplay';
 import TalentsDisplay from './Modules/Features/TalentsDisplay';
+import Checklist from './Modules/Features/Checklist';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
 
@@ -45,6 +47,8 @@ import SephuzsSecret from './Modules/Items/SephuzsSecret';
 import KiljaedensBurningWish from './Modules/Items/KiljaedensBurningWish';
 import ArchimondesHatredReborn from './Modules/Items/ArchimondesHatredReborn';
 import Cinidaria from './Modules/Items/Cinidaria';
+import InsigniaOfTheGrandArmy from './Modules/Items/InsigniaOfTheGrandArmy';
+
 // Shared Epics
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
@@ -103,6 +107,8 @@ import InfusionOfLight from './Modules/NetherlightCrucibleTraits/InfusionOfLight
 import SecureInTheLight from './Modules/NetherlightCrucibleTraits/SecureInTheLight';
 import Shocklight from './Modules/NetherlightCrucibleTraits/Shocklight';
 import MurderousIntent from './Modules/NetherlightCrucibleTraits/MurderousIntent';
+import MasterOfShadows from './Modules/NetherlightCrucibleTraits/MasterOfShadows';
+import LightSpeed from './Modules/NetherlightCrucibleTraits/LightSpeed';
 import RefractiveShell from './Modules/NetherlightCrucibleTraits/RefractiveShell';
 import NLCTraits from './Modules/NetherlightCrucibleTraits/NLCTraits';
 
@@ -111,7 +117,6 @@ import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
 
 const debug = false;
-const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 
 let _modulesDeprecatedWarningSent = false;
 
@@ -142,6 +147,7 @@ class CombatLogParser {
     CastEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
     spellHistory: SpellHistory,
+    globalCooldown: GlobalCooldown,
     manaValues: ManaValues,
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
@@ -150,6 +156,7 @@ class CombatLogParser {
 
     statsDisplay: StatsDisplay,
     talentsDisplay: TalentsDisplay,
+    checklist: Checklist,
 
     // Items:
     // Legendaries:
@@ -159,6 +166,7 @@ class CombatLogParser {
     kiljaedensBurningWish: KiljaedensBurningWish,
     archimondesHatredReborn: ArchimondesHatredReborn,
     cinidaria: Cinidaria,
+    insigniaOfTheGrandArmy: InsigniaOfTheGrandArmy,
     // Epics:
     drapeOfShame: DrapeOfShame,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
@@ -216,12 +224,14 @@ class CombatLogParser {
     shocklight: Shocklight,
     refractiveShell: RefractiveShell,
     murderousIntent: MurderousIntent,
+    masterOfShadows: MasterOfShadows,
+    lightSpeed: LightSpeed,
     nlcTraits: NLCTraits,
 
     infernalCinders: InfernalCinders,
     umbralMoonglaives: UmbralMoonglaives,
   };
-  // Override this with spec specific modules
+  // Override this with spec specific modules when extending
   static specModules = {};
 
   report = null;
@@ -270,6 +280,12 @@ class CombatLogParser {
     this.player = player;
     this.playerPets = playerPets;
     this.fight = fight;
+    if (fight) {
+      this._timestamp = fight.start_time;
+      this.boss = findByBossId(fight.boss);
+    } else if (process.env.NODE_ENV !== 'test') {
+      throw new Error('fight argument was empty.');
+    }
 
     this.initializeModules({
       ...this.constructor.defaultModules,
@@ -403,7 +419,7 @@ class CombatLogParser {
       .sort((a, b) => this._modules[a].priority - this._modules[b].priority) // lowest should go first, as `priority = 0` will have highest prio
       .forEach(key => {
         const module = this._modules[key];
-        if (IS_DEVELOPMENT) {
+        if (process.env.NODE_ENV === 'development') {
           const start = +new Date();
           module.triggerEvent(eventType, event, ...args);
           const duration = +new Date() - start;
@@ -457,24 +473,17 @@ class CombatLogParser {
 
     results.tabs = [
       {
-        title: 'Suggestions',
-        url: 'suggestions',
-        order: 0,
-        render: () => <SuggestionsTab issues={results.issues} />,
-      },
-      {
         title: 'Timeline',
         url: 'timeline',
         order: 2,
         render: () => (
-          <Tab title="Timeline">
-            <TimelineTab
-              start={this.fight.start_time}
-              end={this.currentTimestamp}
-              historyBySpellId={this.modules.spellHistory.historyBySpellId}
-              abilities={this.modules.abilities}
-            />
-          </Tab>
+          <TimelineTab
+            start={this.fight.start_time}
+            end={this.currentTimestamp >= 0 ? this.currentTimestamp : this.fight.end_time}
+            historyBySpellId={this.modules.spellHistory.historyBySpellId}
+            globalCooldownHistory={this.modules.globalCooldown.history}
+            abilities={this.modules.abilities}
+          />
         ),
       },
       {
@@ -504,16 +513,6 @@ class CombatLogParser {
           const item = module.item();
           if (item) {
             results.items.push(item);
-          }
-        }
-        if (module.extraPanel) {
-          const extraPanel = module.extraPanel();
-          if (extraPanel) {
-            results.extraPanels.push({
-              name: key,
-              order: module.extraPanelOrder,
-              content: extraPanel,
-            });
           }
         }
         if (module.tab) {

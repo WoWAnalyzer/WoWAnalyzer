@@ -11,6 +11,8 @@ import DamageValue from 'Parser/Core/Modules/DamageValue';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
+import { STATISTIC_ORDER } from 'Main/StatisticBox';
+
 import CORE_SPELL_INFO from './SpellInfo';
 import STAT, { getName, getClassNameColor, getIcon } from './STAT';
 
@@ -327,66 +329,68 @@ class BaseHealerStatValues extends Analyzer {
     }
   }
   moreInformationLink = null;
-  extraPanelOrder = 200;
-  extraPanel() {
+  statisticOrder = STATISTIC_ORDER.CORE(11);
+  statistic() {
     const results = this._prepareResults();
     return (
-      <div className="panel items">
-        <div className="panel-heading">
-          <h2>
-            <dfn data-tip="These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat values.">Stat Values</dfn>
+      <div className="col-lg-6 col-md-8 col-sm-12 col-xs-12">
+        <div className="panel items">
+          <div className="panel-heading">
+            <h2>
+              <dfn data-tip="These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat values.">Stat Values</dfn>
 
-            {this.moreInformationLink && (
-              <a href={this.moreInformationLink} className="pull-right">
-                More info
-              </a>
-            )}
-          </h2>
-        </div>
-        <div className="panel-body" style={{ padding: 0 }}>
-          <table className="data-table compact">
-            <thead>
-              <tr>
-                <th style={{ minWidth: 30 }}><b>Stat</b></th>
-                <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Normalized so Intellect is always 1.00. Hover to see the amount of healing 1 rating resulted in."><b>Value</b></dfn></th>
-                <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Amount of stat rating required to increase your total healing by 1%"><b>Rating per 1%</b></dfn></th>
-              </tr>
-            </thead>
-            <tbody>
-              {results.map(row => {
-                const stat = typeof row === 'object' ? row.stat : row;
-                const tooltip = typeof row === 'object' ? row.tooltip : this._getTooltip(stat);
-                const gain = this._getGain(stat);
-                const weight = gain / (this.totalOneInt || 1);
-                const ratingForOne = this._ratingPerOnePercent(gain);
+              {this.moreInformationLink && (
+                <a href={this.moreInformationLink} className="pull-right">
+                  More info
+                </a>
+              )}
+            </h2>
+          </div>
+          <div className="panel-body" style={{ padding: 0 }}>
+            <table className="data-table compact">
+              <thead>
+                <tr>
+                  <th style={{ minWidth: 30 }}><b>Stat</b></th>
+                  <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Normalized so Intellect is always 1.00. Hover to see the amount of healing 1 rating resulted in."><b>Value</b></dfn></th>
+                  <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Amount of stat rating required to increase your total healing by 1%"><b>Rating per 1%</b></dfn></th>
+                </tr>
+              </thead>
+              <tbody>
+                {results.map(row => {
+                  const stat = typeof row === 'object' ? row.stat : row;
+                  const tooltip = typeof row === 'object' ? row.tooltip : this._getTooltip(stat);
+                  const gain = this._getGain(stat);
+                  const weight = gain / (this.totalOneInt || 1);
+                  const ratingForOne = this._ratingPerOnePercent(gain);
 
-                const Icon = getIcon(stat);
+                  const Icon = getIcon(stat);
 
-                return (
-                  <tr key={stat}>
-                    <td className={getClassNameColor(stat)}>
-                      <Icon
-                        style={{
-                          height: '1.6em',
-                          width: '1.6em',
-                          marginRight: 10,
-                        }}
-                      />{' '}
-                      {tooltip ? <dfn data-tip={tooltip}>{getName(stat)}</dfn> : getName(stat)}
-                    </td>
-                    <td className="text-right">
-                      <dfn data-tip={gain !== null ? formatThousands(gain) + ' total healing gained per 1 rating' : 'NYI'}>
-                        {stat === STAT.HASTE_HPCT && '0.00 - '}{gain !== null ? weight.toFixed(2) : 'NYI'}
-                      </dfn>
-                    </td>
-                    <td className="text-right">{gain !== null ? (
-                      ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)
-                    ) : 'NYI'}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                  return (
+                    <tr key={stat}>
+                      <td className={getClassNameColor(stat)}>
+                        <Icon
+                          style={{
+                            height: '1.6em',
+                            width: '1.6em',
+                            marginRight: 10,
+                          }}
+                        />{' '}
+                        {tooltip ? <dfn data-tip={tooltip}>{getName(stat)}</dfn> : getName(stat)}
+                      </td>
+                      <td className="text-right">
+                        <dfn data-tip={gain !== null ? formatThousands(gain) + ' total healing gained per 1 rating' : 'NYI'}>
+                          {stat === STAT.HASTE_HPCT && '0.00 - '}{gain !== null ? weight.toFixed(2) : 'NYI'}
+                        </dfn>
+                      </td>
+                      <td className="text-right">{gain !== null ? (
+                        ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)
+                      ) : 'NYI'}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     );

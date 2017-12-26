@@ -47,19 +47,38 @@ class PatientSniperDetails extends Analyzer {
     return this.bonusAimedDamage + this.bonusPiercingDamage;
   }
 
+  get bonusDamagePercentage() {
+    return this.owner.getPercentageOfTotalDamageDone(this.bonusDamage);
+  }
+
+  get patientSniperDamageThresholds() {
+    return {
+      actual: this.bonusDamagePercentage,
+      isLessThan: {
+        minor: 0.085,
+        average: 0.08,
+        major: 0.07,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
-    const bonusDamagePercentage = this.owner.getPercentageOfTotalDamageDone(this.bonusDamage);
-    const MINOR = 0.09;
-    const AVG = 0.08;
-    const MAJOR = 0.07;
-    when(bonusDamagePercentage).isLessThan(MINOR)
+    const {
+      isLessThan: {
+        minor,
+        average,
+        major,
+      },
+    } = this.patientSniperDamageThresholds;
+    when(this.bonusDamagePercentage).isLessThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span><SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} /> increases the damage of your <SpellLink id={SPELLS.AIMED_SHOT.id} /> or <SpellLink id={SPELLS.PIERCING_SHOT_TALENT.id} /> the later you fire them inside <SpellLink id={SPELLS.VULNERABLE.id} />. While this isn't worth waiting for, it looks like you're shooting your Aimed Shots / Piercing Shots too soon, try and use <SpellLink id={SPELLS.ARCANE_SHOT.id} /> as a filler after applying Vulnerable. If you have enough haste you can fit in two Arcane Shots instead of one.</span>)
           .icon('ability_hunter_snipertraining')
           .actual(`${formatPercentage(actual)}% bonus damage`)
           .recommended(`> ${formatPercentage(recommended)}% bonus damage is recommended`)
-          .regular(AVG)
-          .major(MAJOR);
+          .regular(average)
+          .major(major);
       });
   }
 
@@ -95,7 +114,7 @@ class PatientSniperDetails extends Analyzer {
       ),
     };
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(13);
 }
 
 export default PatientSniperDetails;

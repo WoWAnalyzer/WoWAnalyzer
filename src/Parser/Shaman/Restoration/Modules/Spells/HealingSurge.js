@@ -15,7 +15,7 @@ class HealingSurge extends Analyzer {
     combatants: Combatants,
   };
 
-  suggestions(when) {
+  get suggestedThreshold(){
     const healingSurge = this.abilityTracker.getAbility(SPELLS.HEALING_SURGE_RESTORATION.id);
 
     const twHealingSurges = healingSurge.healingTwHits || 0;
@@ -23,13 +23,26 @@ class HealingSurge extends Analyzer {
     const unbuffedHealingSurges = healingSurgeCasts - twHealingSurges;
     const unbuffedHealingSurgesPerc = unbuffedHealingSurges / healingSurgeCasts;
     
-    when(unbuffedHealingSurgesPerc).isGreaterThan(0)
+    return {
+      actual: unbuffedHealingSurgesPerc ,
+      isGreaterThan: {
+        minor: 0,
+        average: 0.15,
+        major: 0.30,
+      },
+      style: 'percentage',
+    };
+  }
+
+  suggestions(when) {
+    const suggestedThreshold = this.suggestedThreshold;
+    when(suggestedThreshold.actual).isGreaterThan(suggestedThreshold.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Casting <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} /> without <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> is very inefficient, try not to cast more than is necessary.</span>)
-          .icon(SPELLS.CHAIN_HEAL.icon)
-          .actual(`${formatPercentage(unbuffedHealingSurgesPerc)} % of unbuffed Healing Surges`)
-          .recommended(`${recommended} % of unbuffed Healing Surges`)
-          .regular(recommended - .25).major(recommended - .5);
+          .icon(SPELLS.HEALING_SURGE_RESTORATION.icon)
+          .actual(`${formatPercentage(suggestedThreshold.actual)} % of unbuffed Healing Surges`)
+          .recommended(`${suggestedThreshold.isGreaterThan.minor} % of unbuffed Healing Surges`)
+          .regular(suggestedThreshold.isGreaterThan.average).major(suggestedThreshold.isGreaterThan.major);
       });
   }
 

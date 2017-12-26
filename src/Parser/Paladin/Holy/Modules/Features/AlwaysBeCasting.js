@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import { formatPercentage } from 'common/format';
 
 import CoreAlwaysBeCastingHealing from 'Parser/Core/Modules/AlwaysBeCastingHealing';
 
@@ -22,27 +21,10 @@ const HEALING_ABILITIES_ON_GCD = [
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD = HEALING_ABILITIES_ON_GCD;
-  static ABILITIES_ON_GCD = [
-    ...HEALING_ABILITIES_ON_GCD,
-    SPELLS.JUDGMENT_CAST.id,
-    SPELLS.CRUSADER_STRIKE.id,
-    225141, // http://www.wowhead.com/spell=225141/fel-crazed-rage (Draught of Souls)
-    SPELLS.DIVINE_STEED.id,
-    26573, // Consecration
-    SPELLS.BLINDING_LIGHT_TALENT.id,
-    642, // Divine Shield
-    SPELLS.BEACON_OF_FAITH_TALENT.id,
-    SPELLS.BEACON_OF_THE_LIGHTBRINGER_TALENT.id, // pretty sure this will be the logged cast when BotLB is reapplied, not the below "Beacon of Light" which is the buff. Not yet tested so leaving both in.
-    53563, // Beacon of Light
-    SPELLS.BEACON_OF_VIRTUE_TALENT.id,
-    SPELLS.BLESSING_OF_FREEDOM.id,
-    1022, // Blessing of Protection
-    4987, // Cleanse
-    853, // Hammer of Justice
-    SPELLS.HAND_OF_RECKONING.id,
-  ];
 
   on_initialized() {
+    super.on_initialized();
+
     const combatant = this.combatants.selected;
 
     if (combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id)) {
@@ -79,30 +61,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     }
     return super.countsAsHealingAbility(cast);
   }
-
-  suggestions(when) {
-    const nonHealingTimePercentage = this.totalHealingTimeWasted / this.owner.fightDuration;
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
-
-    when(nonHealingTimePercentage).isGreaterThan(0.3)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your non healing time can be improved. Try to reduce the amount of time you\'re not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.')
-          .icon('petbattle_health-down')
-          .actual(`${formatPercentage(actual)}% non healing time`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.1).major(recommended + 0.15);
-      });
-    when(deadTimePercentage).isGreaterThan(0.2)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your downtime can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you\'re not healing try to contribute some damage.')
-          .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(actual)}% downtime`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.15).major(1);
-      });
-  }
-
-  showStatistic = true;
 }
 
 export default AlwaysBeCasting;

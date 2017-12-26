@@ -6,6 +6,7 @@ import { formatMilliseconds, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import Abilities from './Abilities';
 
 import Haste from './Haste';
 
@@ -15,6 +16,7 @@ class AlwaysBeCasting extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     haste: Haste,
+    abilities: Abilities,
   };
 
   // TODO: Should all this props be lower case?
@@ -36,6 +38,39 @@ class AlwaysBeCasting extends Analyzer {
    * @type {number}
    */
   totalTimeWasted = 0;
+  /** Set by `on_initialized`: contains a list of all abilities on the GCD from the Abilities config and the ABILITIES_ON_GCD static prop of this class. */
+  abilitiesOnGlobalCooldown = null;
+
+  get downtimePercentage() {
+    return this.totalTimeWasted / this.owner.fightDuration;
+  }
+  get activeTimePercentage() {
+    return 1 - this.downtimePercentage;
+  }
+
+  on_initialized() {
+    const abilities = [
+      ...this.constructor.ABILITIES_ON_GCD,
+    ];
+
+    this.abilities.activeAbilities
+      .filter(ability => ability.isOnGCD)
+      .forEach(ability => {
+        if (ability.spell instanceof Array) {
+          ability.spell.forEach(spell => {
+            abilities.push(spell.id);
+          });
+        } else {
+          abilities.push(ability.spell.id);
+        }
+      });
+
+    this.abilitiesOnGlobalCooldown = abilities;
+  }
+
+  isOnGlobalCooldown(spellId) {
+    return this.abilitiesOnGlobalCooldown.includes(spellId);
+  }
 
   _currentlyCasting = null;
   on_byPlayer_begincast(event) {
@@ -48,7 +83,7 @@ class AlwaysBeCasting extends Analyzer {
   }
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    const isOnGcd = this.constructor.ABILITIES_ON_GCD.indexOf(spellId) !== -1;
+    const isOnGcd = this.isOnGlobalCooldown(spellId);
     // This fixes a crash when boss abilities are registered as casts which could even happen while channeling. For example on Trilliax: http://i.imgur.com/7QAFy1q.png
     if (!isOnGcd) {
       return;
@@ -73,7 +108,7 @@ class AlwaysBeCasting extends Analyzer {
       return;
     }
     const spellId = cast.ability.guid;
-    const isOnGcd = this.constructor.ABILITIES_ON_GCD.indexOf(spellId) !== -1;
+    const isOnGcd = this.isOnGlobalCooldown(spellId);
     // const isFullGcd = this.constructor.FULLGCD_ABILITIES.indexOf(spellId) !== -1;
 
     if (!isOnGcd) {
@@ -120,7 +155,19 @@ class AlwaysBeCasting extends Analyzer {
       ].join('  ')}`, `color: ${timeWasted < 0 ? (timeWasted < -50 ? 'red' : 'orange') : '#000'}`);
     }
 
-    this._lastCastFinishedTimestamp = Math.max(castStartTimestamp + globalCooldown, cast.timestamp);
+    const endTimestamp = Math.max(castStartTimestamp + globalCooldown, cast.timestamp);
+    this._lastCastFinishedTimestamp = endTimestamp;
+    this.owner.triggerEvent('globalcooldown', {
+      type: 'globalcooldown',
+      spellId,
+      timestamp: cast.timestamp,
+      startTimestamp: castStartTimestamp,
+      endTimestamp,
+      globalCooldown,
+      begincast,
+      cast,
+      timeWasted,
+    });
   }
   on_finished() {
     // If the player cast something just before fight end `_lastCastFinishedTimestamp` might be in the future resulting in negative downtime. The Math.max takes care of that.
@@ -159,7 +206,7 @@ class AlwaysBeCasting extends Analyzer {
     return num1 > (goal - buffer) && num1 < (goal + buffer);
   }
 
-  showStatistic = false;
+  showStatistic = true;
   static icons = {
     activeTime: '/img/sword.png',
     downtime: '/img/afk.png',
@@ -169,33 +216,27 @@ class AlwaysBeCasting extends Analyzer {
       return null;
     }
 
-    const downtime = this.totalTimeWasted;
-    const activeTime = this.owner.fightDuration - downtime;
-
-    const downtimePercentage = downtime / this.owner.fightDuration;
-    const activeTimePercentage = activeTime / this.owner.fightDuration;
-
     return (
       <StatisticBox
         icon={<Icon icon="spell_mage_altertime" alt="Downtime" />}
-        value={`${formatPercentage(downtimePercentage)} %`}
+        value={`${formatPercentage(this.downtimePercentage)} %`}
         label="Downtime"
         tooltip={`Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br/>
-        <li>You spent <b>${formatPercentage(activeTimePercentage)}%</b> of your time casting something.</li>
-        <li>You spent <b>${formatPercentage(downtimePercentage)}%</b> of your time casting nothing at all.</li>
+        <li>You spent <b>${formatPercentage(this.activeTimePercentage)}%</b> of your time casting something.</li>
+        <li>You spent <b>${formatPercentage(this.downtimePercentage)}%</b> of your time casting nothing at all.</li>
         `}
         footer={(
           <div className="statistic-bar">
             <div
               className="stat-health-bg"
-              style={{ width: `${activeTimePercentage * 100}%` }}
-              data-tip={`You spent <b>${formatPercentage(activeTimePercentage)}%</b> of your time casting something.`}
+              style={{ width: `${this.activeTimePercentage * 100}%` }}
+              data-tip={`You spent <b>${formatPercentage(this.activeTimePercentage)}%</b> of your time casting something.`}
             >
               <img src={this.constructor.icons.activeTime} alt="Active time" />
             </div>
             <div
               className="remainder DeathKnight-bg"
-              data-tip={`You spent <b>${formatPercentage(downtimePercentage)}%</b> of your time casting nothing at all.`}
+              data-tip={`You spent <b>${formatPercentage(this.downtimePercentage)}%</b> of your time casting nothing at all.`}
             >
               <img src={this.constructor.icons.downtime} alt="Downtime" />
             </div>
@@ -206,6 +247,28 @@ class AlwaysBeCasting extends Analyzer {
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(10);
+
+  get downtimeSuggestionThresholds() {
+    return {
+      actual: this.downtimePercentage,
+      isGreaterThan: {
+        minor: 0.02,
+        average: 0.04,
+        major: 0.06,
+      },
+      style: 'percentage',
+    };
+  }
+  suggestions(when) {
+    when(this.downtimeSuggestionThresholds.actual).isGreaterThan(this.downtimeSuggestionThresholds.isGreaterThan.minor)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest('Your downtime can be improved. Try to Always Be Casting (ABC), avoid delays between casting spells and cast instant spells when you have to move.')
+          .icon('spell_mage_altertime')
+          .actual(`${formatPercentage(actual)}% downtime`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .regular(this.downtimeSuggestionThresholds.isGreaterThan.average).major(this.downtimeSuggestionThresholds.isGreaterThan.major);
+      });
+  }
 }
 
 export default AlwaysBeCasting;
