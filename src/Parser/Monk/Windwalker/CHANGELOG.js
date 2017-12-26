@@ -1,4 +1,5 @@
 export default `
+26-12-2017 - Fixed Downtime and casting time in the timeline by setting a static GCD of 1 second (by Zerotorescue)
 05-12-2017 - Updated Cast Efficiency to better handle Serenity cooldown reduction on Fists of Fury and Strike of the Windlord (Juko)
 23-11-2017 - Added Chi breakdown tab, suggestions and chi wasted statistic (Juko)
 22-11-2017 - Added T21 4pc item breakdown (Juko)
