@@ -20,19 +20,19 @@ class SuggestionAssertion {
   constructor(options, addIssue) {
     if (typeof options === 'object') {
       this._actual = options.actual;
-      if (options.isGreaterThan) {
+      if (options.isGreaterThan !== undefined) {
         this.isGreaterThan(options.isGreaterThan);
-      } else if (options.isGreaterThanOrEqual) {
+      } else if (options.isGreaterThanOrEqual !== undefined) {
         this.isGreaterThanOrEqual(options.isGreaterThanOrEqual);
-      } else if (options.isLessThan) {
+      } else if (options.isLessThan !== undefined) {
         this.isLessThan(options.isLessThan);
-      } else if (options.isLessThanOrEqual) {
+      } else if (options.isLessThanOrEqual !== undefined) {
         this.isLessThanOrEqual(options.isLessThanOrEqual);
-      } else if (options.isTrue) {
+      } else if (options.isTrue !== undefined) {
         this.isTrue(options.isTrue);
-      } else if (options.isFalse) {
+      } else if (options.isFalse !== undefined) {
         this.isFalse(options.isFalse);
-      } else if (options.isEqual) {
+      } else if (options.isEqual !== undefined) {
         this.isEqual(options.isEqual);
       }
     } else {
