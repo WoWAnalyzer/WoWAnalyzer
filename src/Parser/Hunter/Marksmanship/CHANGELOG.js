@@ -15,7 +15,7 @@ export default [
   },
   {
     date: new Date('2017-12-26'),
-    changes: <Wrapper></Wrapper>,
+    changes: 'Fix a bug with critical strike rating showing 5% too low for Marksmanship hunters.',
     contributors: [Putro],
   },
   {
