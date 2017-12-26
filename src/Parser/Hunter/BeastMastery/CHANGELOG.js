@@ -7,6 +7,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2017-12-26'),
+    changes: 'Added a focus usage chart',
+    contributors: [Putro],
+  },
+  {
     date: new Date('2017-12-24'),
     changes: 'Updated to the new checklist format, and updated AlwaysBeCasting thresholds',
     contributors: [Putro],

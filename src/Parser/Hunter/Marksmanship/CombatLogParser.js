@@ -14,6 +14,7 @@ import VulnerableTracker from './Modules/Features/AimedInVulnerableTracker';
 import TimeFocusCapped from '../Shared/Modules/Features/TimeFocusCapped';
 import VulnerableApplications from "./Modules/Features/VulnerableApplications";
 import CancelledCasts from "../Shared/Modules/Features/CancelledCasts";
+import FocusUsage from '../Shared/Modules/Features/FocusUsage';
 
 //Tier
 import Tier21_2p from './Modules/Items/Tier21_2p';
@@ -80,6 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
     TimeFocusCapped: TimeFocusCapped,
     vulnerableApplications: VulnerableApplications,
     cancelledCasts: CancelledCasts,
+    focusUsage: FocusUsage,
 
     //Focus Chart
     focusTracker: FocusTracker,
