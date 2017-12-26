@@ -9,6 +9,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellLink from 'common/SpellLink';
+import Wrapper from 'common/Wrapper';
 
 class CorruptionUptime extends Analyzer {
   static dependencies = {
@@ -16,24 +17,41 @@ class CorruptionUptime extends Analyzer {
     combatants: Combatants,
   };
 
-  suggestions(when) {
+  get suggestionThresholds() {
     const corruptionUptime = this.enemies.getBuffUptime(SPELLS.CORRUPTION_DEBUFF.id) / this.owner.fightDuration;
-    let threshold;
-    let suggestionText;
     if (this.combatants.selected.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id)) {
-      threshold = 0.95;
-      suggestionText = <span>Your Corruption uptime can be improved. Try to pay more attention to your Corruption on the boss, which is especially important with the <SpellLink id={SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id}>T20 2-piece set bonus</SpellLink>.</span>;
+      return {
+        actual: corruptionUptime,
+        isLessThan: {
+          minor: 0.95,
+          average: 0.9,
+          major: 0.8,
+        },
+        style: 'percentage',
+        text: <Wrapper>Your Corruption uptime can be improved. Try to pay more attention to your Corruption on the boss, which is especially important with the <SpellLink id={SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id}>T20 2-piece set bonus</SpellLink>.</Wrapper>,
+      };
     } else {
-      threshold = 0.85;
-      suggestionText = 'Your Corruption uptime can be improved. Try to pay more attention to your Corruption on the boss, perhaps use some debuff tracker.';
+      return {
+        actual: corruptionUptime,
+        isLessThan: {
+          minor: 0.85,
+          average: 0.8,
+          major: 0.7,
+        },
+        style: 'percentage',
+        text: 'Your Corruption uptime can be improved. Try to pay more attention to your Corruption on the boss, perhaps use some debuff tracker.',
+      };
     }
-    when(corruptionUptime).isLessThan(threshold)
+  }
+
+  suggestions(when) {
+    const suggestions = this.suggestionThresholds;
+    when(suggestions)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(suggestionText)
+        return suggest(suggestions.text)
           .icon(SPELLS.CORRUPTION_CAST.icon)
           .actual(`${formatPercentage(actual)}% Corruption uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended - 0.05).major(recommended - 0.15);
+          .recommended(`>${formatPercentage(recommended)}% is recommended`);
       });
   }
 

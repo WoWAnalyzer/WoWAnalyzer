@@ -334,7 +334,6 @@ class Abilities extends CoreAbilities {
       noSuggestion: true,
       noCanBeImproved: true,
       isOnGCD: true,
-      isOnGCD: true,
     },
     {
       spell: SPELLS.UNENDING_BREATH,
