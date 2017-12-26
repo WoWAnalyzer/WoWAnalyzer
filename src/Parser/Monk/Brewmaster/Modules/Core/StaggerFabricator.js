@@ -9,7 +9,6 @@ const STAGGERING_AROUND_PURIFY = 0.01;
 const T20_4PC_PURIFY = 0.05;
 
 export const EVENT_STAGGER_POOL_UPDATE = "stagger_pool_update";
-export const EVENT_STAGGER_POOL_END = "stagger_pool_end";
 export const KIND_STAGGER_ADDED = "added";
 export const KIND_STAGGER_REMOVED = "removed";
 
@@ -25,6 +24,10 @@ class StaggerFabricator extends Analyzer {
   _has_t20_4pc = false;
   _PURIFY_AMOUNT = PURIFY_BASE;
   _stagger_pool = 0;
+
+  get staggerPool() {
+    return this._stagger_pool;
+  }
 
   on_initialized() {
     const player = this.combatants.selected;
@@ -67,16 +70,6 @@ class StaggerFabricator extends Analyzer {
       this._stagger_pool -= amount;
       this.owner.triggerEvent(EVENT_STAGGER_POOL_UPDATE, this._fab(event, -amount));
     }
-  }
-
-  on_finished() {
-    // broadcast the amount of damage left in the stagger pool when the
-    // fight ends
-    // TODO: not sure if this is safe
-    this.owner.triggerEvent(EVENT_STAGGER_POOL_END, {
-      type: EVENT_STAGGER_POOL_END,
-      amount: this._stagger_pool,
-    });
   }
 
   _fab(event, amount) {

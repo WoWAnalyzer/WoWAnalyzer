@@ -5,7 +5,7 @@ import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import { KIND_STAGGER_ADDED, KIND_STAGGER_REMOVED } from './StaggerFabricator';
+import StaggerFabricator, { KIND_STAGGER_ADDED, KIND_STAGGER_REMOVED } from './StaggerFabricator';
 
 const debug = false;
 const PHYSICAL_DAMAGE = 1;
@@ -13,6 +13,7 @@ const PHYSICAL_DAMAGE = 1;
 class Stagger extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    fab: StaggerFabricator,
   }
 
   totalPhysicalStaggered = 0;
@@ -33,11 +34,8 @@ class Stagger extends Analyzer {
     }
   }
 
-  on_stagger_pool_end(event) {
-    this.staggerMissingFromFight = event.amount;
-  }
-
   on_finished() {
+    this.staggerMissingFromFight = this.fab.staggerPool;
     if (debug) {
       console.log(`Total physical staggered: ${formatNumber(this.totalPhysicalStaggered)}`);
       console.log(`Total magical staggered: ${formatNumber(this.totalMagicalStaggered)}`);
