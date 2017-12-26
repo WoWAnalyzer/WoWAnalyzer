@@ -16,6 +16,7 @@ class BeaconHealing extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     abilityTracker: PaladinAbilityTracker,
+    abilities: Abilities,
   };
 
   get totalHealsOnBeaconPercentage() {
@@ -25,8 +26,7 @@ class BeaconHealing extends Analyzer {
     let casts = 0;
     let castsOnBeacon = 0;
 
-    Abilities.ABILITIES
-      .filter(ability => ability.isActive === undefined || ability.isActive(this.combatants.selected))
+    this.abilities.activeAbilities
       .filter(ability => ability.category !== Abilities.SPELL_CATEGORIES.ITEMS)
       .forEach((ability) => {
         const castCount = getCastCount(ability.spell.id);

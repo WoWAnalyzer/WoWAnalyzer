@@ -49,6 +49,11 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
   }
 
   showStatistic = true;
+  static icons = {
+    healingTime: '/img/healing.png',
+    activeTime: '/img/sword.png',
+    downtime: '/img/afk.png',
+  };
   statistic() {
     if (!this.showStatistic) {
       return null;
@@ -79,20 +84,20 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
               style={{ width: `${healingTimePercentage * 100}%` }}
               data-tip={`You spent <b>${formatPercentage(healingTimePercentage)}%</b> of your time casting heals.`}
             >
-              <img src="/img/healing.png" alt="Healing time" />
+              <img src={this.constructor.icons.healingTime} alt="Healing time" />
             </div>
             <div
               className="Druid-bg"
               style={{ width: `${nonHealCastTimePercentage * 100}%` }}
               data-tip={`You spent <b>${formatPercentage(nonHealCastTimePercentage)}%</b> of your time casting non-healing spells.`}
             >
-              <img src="/img/sword.png" alt="Non-heal cast time" />
+              <img src={this.constructor.icons.activeTime} alt="Non-heal cast time" />
             </div>
             <div
               className="remainder DeathKnight-bg"
               data-tip={`You spent <b>${formatPercentage(downtimePercentage)}%</b> of your time casting nothing at all.`}
             >
-              <img src="/img/afk.png" alt="Downtime" />
+              <img src={this.constructor.icons.downtime} alt="Downtime" />
             </div>
           </div>
         )}
@@ -101,6 +106,46 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(10);
+
+  get nonHealingTimeSuggestionThresholds() {
+    return {
+      actual: this.nonHealingTimePercentage,
+      isGreaterThan: {
+        minor: 0.3,
+        average: 0.4,
+        major: 0.45,
+      },
+      style: 'percentage',
+    };
+  }
+  // Override these suggestion thresholds for healers: it's much less important to DPS so allow for considerable slack.
+  get downtimeSuggestionThresholds() {
+    return {
+      actual: this.downtimePercentage,
+      isGreaterThan: {
+        minor: 0.2,
+        average: 0.35,
+        major: 1,
+      },
+      style: 'percentage',
+    };
+  }
+  suggestions(when) {
+    when(this.nonHealingTimeSuggestionThresholds)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest('Your non healing time can be improved. Try to reduce the amount of time you\'re not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.')
+          .icon('petbattle_health-down')
+          .actual(`${formatPercentage(actual)}% non healing time`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`);
+      });
+    when(this.downtimeSuggestionThresholds)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest('Your downtime can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you\'re not healing try to contribute some damage.')
+          .icon('spell_mage_altertime')
+          .actual(`${formatPercentage(actual)}% downtime`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`);
+      });
+  }
 }
 
 export default AlwaysBeCastingHealing;

@@ -24,6 +24,7 @@ import Abilities from './Modules/Abilities';
 import CastEfficiency from './Modules/CastEfficiency';
 import SpellUsable from './Modules/SpellUsable';
 import SpellHistory from './Modules/SpellHistory';
+import GlobalCooldown from './Modules/GlobalCooldown';
 import Enemies from './Modules/Enemies';
 import EnemyInstances from './Modules/EnemyInstances';
 import Pets from './Modules/Pets';
@@ -116,6 +117,7 @@ import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
 
 const debug = false;
+const debugEvents = false;
 
 let _modulesDeprecatedWarningSent = false;
 
@@ -146,6 +148,7 @@ class CombatLogParser {
     CastEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
     spellHistory: SpellHistory,
+    globalCooldown: GlobalCooldown,
     manaValues: ManaValues,
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
@@ -293,7 +296,7 @@ class CombatLogParser {
 
   initializeModules(modules) {
     const failedModules = [];
-    Object.keys(modules).forEach((desiredModuleName) => {
+    Object.keys(modules).forEach(desiredModuleName => {
       const moduleConfig = modules[desiredModuleName];
       if (!moduleConfig) {
         return;
@@ -311,7 +314,7 @@ class CombatLogParser {
       const availableDependencies = {};
       const missingDependencies = [];
       if (moduleClass.dependencies) {
-        Object.keys(moduleClass.dependencies).forEach((desiredDependencyName) => {
+        Object.keys(moduleClass.dependencies).forEach(desiredDependencyName => {
           const dependencyClass = moduleClass.dependencies[desiredDependencyName];
 
           const dependencyModule = this.findModule(dependencyClass);
@@ -411,6 +414,8 @@ class CombatLogParser {
 
   _moduleTime = {};
   triggerEvent(eventType, event, ...args) {
+    debugEvents && console.log(eventType, event, ...args);
+
     Object.keys(this._modules)
       .filter(key => this._modules[key].active)
       .filter(key => this._modules[key] instanceof Analyzer)
@@ -479,6 +484,7 @@ class CombatLogParser {
             start={this.fight.start_time}
             end={this.currentTimestamp >= 0 ? this.currentTimestamp : this.fight.end_time}
             historyBySpellId={this.modules.spellHistory.historyBySpellId}
+            globalCooldownHistory={this.modules.globalCooldown.history}
             abilities={this.modules.abilities}
           />
         ),

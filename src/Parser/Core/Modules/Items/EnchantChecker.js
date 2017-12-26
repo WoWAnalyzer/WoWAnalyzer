@@ -39,6 +39,14 @@ class EnchantChecker extends Analyzer {
     5428, // binding of haste
     5429, // binding of mastery
     5430, // binding of versatility
+
+    //some specs use warlords enchants because they're better than Legion ones currently
+    //if people are using them, it should be because they know they're better
+    5310, //gift of critical strike
+    5311, //gift of haste
+    5312, //gift of mastery
+    5313, //gift of critical strike 2
+    5314, //gift of versatility
   ];
 
   get enchantableGear() {

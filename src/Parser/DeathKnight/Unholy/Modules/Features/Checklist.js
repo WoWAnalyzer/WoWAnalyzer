@@ -79,7 +79,7 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BLIGHTED_RUNE_WEAPON_TALENT,
-            when: combatant.hasTalent(SPELLS.BLIGHTED_RUNE_WEAPON_TALENT),
+            when: combatant.hasTalent(SPELLS.BLIGHTED_RUNE_WEAPON_TALENT.id),
           }),
           // TODO: AOTD
         ];

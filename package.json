@@ -44,6 +44,7 @@
     "promise": "8.0.1",
     "prop-types": "^15.6.0",
     "raf": "3.4.0",
+    "raven-js": "^3.21.0",
     "rc-slider": "^8.5.0",
     "react": "^16.2.0",
     "react-chartist": "^0.13.0",

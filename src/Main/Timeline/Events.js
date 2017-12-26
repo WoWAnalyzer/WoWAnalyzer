@@ -87,7 +87,6 @@ class Events extends React.PureComponent {
                   left,
                   width,
                   background: 'rgba(150, 150, 150, 0.4)',
-                  zIndex: 1,
                 }}
                 data-tip={`Cooldown: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`}
               />
@@ -109,7 +108,7 @@ class Events extends React.PureComponent {
                   background: 'rgba(250, 250, 250, 0.6)',
                   zIndex: 2,
                 }}
-                data-tip={`Charge Restored`}
+                data-tip="Charge Restored"
               />
             );
           }

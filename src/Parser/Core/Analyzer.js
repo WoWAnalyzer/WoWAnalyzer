@@ -30,6 +30,9 @@ class Analyzer extends Module {
     }
   }
 
+  // Common event handler shells so that implementors can always properly call `super`
+  on_initialized() {}
+
   // Override these with functions that return info about their rendering in the specific slots
   item() { return undefined; }
   statistic() { return undefined; }

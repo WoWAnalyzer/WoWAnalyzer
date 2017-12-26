@@ -197,6 +197,10 @@ class StatTracker extends Analyzer {
         return standard + 0.03; // 3% from a trait everyone has. TODO: Make traits conditional
       case SPECS.FIRE_MAGE:
         return standard + 0.15; // an additional 15% is gained from the passive Critical Mass
+      case SPECS.MARKSMANSHIP_HUNTER :
+        return standard + 0.05; //baseline +5%
+      case SPECS.BEAST_MASTERY_HUNTER :
+        return standard + 0.05; //baseline +5%
       default:
         return standard;
     }
@@ -224,6 +228,8 @@ class StatTracker extends Analyzer {
         return 0.048;
       case SPECS.RETRIBUTION_PALADIN:
         return 0.14;
+      case SPECS.PROTECTION_PALADIN:
+        return 0.08;
       case SPECS.WINDWALKER_MONK:
         return 0.1;
       case SPECS.MARKSMANSHIP_HUNTER:
@@ -296,6 +302,8 @@ class StatTracker extends Analyzer {
         return 66667;
       case SPECS.RETRIBUTION_PALADIN:
         return 22850;
+      case SPECS.PROTECTION_PALADIN:
+        return 40000;
       case SPECS.WINDWALKER_MONK:
         return 32000;
       case SPECS.MARKSMANSHIP_HUNTER:
