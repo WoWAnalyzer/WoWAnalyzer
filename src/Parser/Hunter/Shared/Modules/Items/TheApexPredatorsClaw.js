@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ITEMS from 'common/ITEMS';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -9,7 +7,6 @@ import SPELLS from 'common/SPELLS';
 import PETS from 'common/PETS';
 import { formatNumber } from 'common/format';
 import CorePets from 'Parser/Core/Modules/Pets';
-import Wrapper from 'common/Wrapper';
 
 /*
  * The Apex Predator's Claw

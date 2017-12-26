@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
