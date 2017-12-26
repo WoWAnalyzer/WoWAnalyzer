@@ -320,7 +320,7 @@ class StatTracker extends Analyzer {
         return 3076.96;
       default:
         console.error('Mastery hasn\'t been implemented for this spec yet.');
-        return 99999999;
+        return null;
     }
   }
   masteryPercentage(rating, withBase = false) {
