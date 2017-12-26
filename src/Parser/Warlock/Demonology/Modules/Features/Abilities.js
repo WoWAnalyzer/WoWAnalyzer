@@ -103,7 +103,6 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
       isActive: combatant => combatant.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id),
-      isOnGCD: true,
     },
     {
       spell: SPELLS.SUMMON_DOOMGUARD_UNTALENTED,
@@ -147,7 +146,6 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 180,
       noSuggestion: true,
       noCanBeImproved: true,
-      isOnGCD: true,
     },
     {
       spell: SPELLS.DARK_PACT_TALENT,
@@ -156,7 +154,6 @@ class Abilities extends CoreAbilities {
       isActive: combatant => combatant.hasTalent(SPELLS.DARK_PACT_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
-      isOnGCD: true,
     },
     {
       spell: SPELLS.MORTAL_COIL_TALENT,
