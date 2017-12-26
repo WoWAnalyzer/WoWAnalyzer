@@ -1,12 +1,11 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import StaggerFabricator, { EVENT_STAGGER_POOL_UPDATE } from './StaggerFabricator';
+import { KIND_STAGGER_ADDED, KIND_STAGGER_REMOVED } from './StaggerFabricator';
 
 const debug = false;
 const PHYSICAL_DAMAGE = 1;
@@ -14,7 +13,6 @@ const PHYSICAL_DAMAGE = 1;
 class Stagger extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    fab: StaggerFabricator,
   }
 
   totalPhysicalStaggered = 0;
@@ -23,15 +21,15 @@ class Stagger extends Analyzer {
   staggerMissingFromFight = 0;
 
   on_stagger_pool_update(event) {
-    if(event.amount > 0) {
+    if(event.kind === KIND_STAGGER_ADDED) {
       // damage added to stagger pool
       if(event.extraAbility.type === PHYSICAL_DAMAGE) {
         this.totalPhysicalStaggered += event.amount;
       } else {
         this.totalMagicalStaggered += event.amount;
       }
-    } else {
-      this.totalStaggerTaken += -event.amount;
+    } else if (event.kind === KIND_STAGGER_REMOVED && event.ability.guid === SPELLS.STAGGER_TAKEN.id){
+      this.totalStaggerTaken += event.amount;
     }
   }
 

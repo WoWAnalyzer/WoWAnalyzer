@@ -3,8 +3,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import { GIFT_OF_THE_OX_SPELLS } from '../../Constants';
 
-const debug = false;
-
 const PURIFY_BASE = 0.4;
 const ELUSIVE_DANCE_PURIFY = 0.2;
 const STAGGERING_AROUND_PURIFY = 0.01;
@@ -12,6 +10,8 @@ const T20_4PC_PURIFY = 0.05;
 
 export const EVENT_STAGGER_POOL_UPDATE = "stagger_pool_update";
 export const EVENT_STAGGER_POOL_END = "stagger_pool_end";
+export const KIND_STAGGER_ADDED = "added";
+export const KIND_STAGGER_REMOVED = "removed";
 
 /**
  * Fabricate events corresponding to stagger pool updates. Each stagger
@@ -85,7 +85,8 @@ class StaggerFabricator extends Analyzer {
       type: EVENT_STAGGER_POOL_UPDATE,
       ability: event.ability,
       extraAbility: event.extraAbility,
-      amount: amount,
+      kind: amount > 0 ? KIND_STAGGER_ADDED : KIND_STAGGER_REMOVED,
+      amount: Math.abs(amount),
       pooled_damage: this._stagger_pool,
       sourceID: event.sourceID,
       targetID: event.targetID,
