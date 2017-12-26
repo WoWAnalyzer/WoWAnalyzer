@@ -70,7 +70,7 @@ class RoarOfTheSevenLions extends Analyzer {
       item: ITEMS.ROAR_OF_THE_SEVEN_LIONS,
       result: (
         <dfn data-tip={`This saved you an average of ${averageFocusCostReduction.toFixed(2)} focus per cast affected by this legendary.`}>
-          saved you a total of {formatNumber(this.focusSaved)} focus.
+          saved you a total of {formatNumber(this.focusSaved)} focus
         </dfn>
       ),
     };
