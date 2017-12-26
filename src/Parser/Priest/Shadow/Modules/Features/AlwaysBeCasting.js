@@ -12,6 +12,7 @@ const ONE_FILLER_GCD_HASTE_THRESHOLD = 1.4;
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static dependencies = {
+    ...CoreAlwaysBeCasting.dependencies,
     haste: Haste,
   };
 

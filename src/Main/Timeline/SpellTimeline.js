@@ -124,7 +124,7 @@ class SpellTimeline extends React.PureComponent {
             })}
           </div>
           <div className={`events lane`} style={{ width: totalWidth }}>
-            {globalCooldownHistory.map(event => {
+            {globalCooldownHistory && globalCooldownHistory.map(event => {
               const left = (event.startTimestamp - start) / 1000 * secondWidth;
               const maxWidth = totalWidth - left; // don't expand beyond the container width
               return (
