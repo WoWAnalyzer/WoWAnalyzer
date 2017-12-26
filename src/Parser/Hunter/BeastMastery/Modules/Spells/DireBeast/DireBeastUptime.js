@@ -17,8 +17,7 @@ class DireBeastUptime extends Analyzer {
 
   get percentUptime() {
     //This calculates the uptime over the course of the encounter of Dire Beast
-    const uptime = this.combatants.selected.getBuffUptime(SPELLS.DIRE_BEAST_BUFF.id) / this.owner.fightDuration;
-    return uptime;
+    return this.combatants.selected.getBuffUptime(SPELLS.DIRE_BEAST_BUFF.id) / this.owner.fightDuration;
   }
   statistic() {
     return (
