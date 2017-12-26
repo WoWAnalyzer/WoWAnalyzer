@@ -178,24 +178,37 @@ class CastEfficiency extends Analyzer {
       }
       const ability = abilityInfo.ability;
       const mainSpell = (ability.spell instanceof Array) ? ability.spell[0] : ability.spell;
-      when(abilityInfo.efficiency).isLessThan(abilityInfo.recommendedEfficiency)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<Wrapper>Try to cast <SpellLink id={mainSpell.id} /> more often. {ability.extraSuggestion || ''} <a href="#spell-timeline">View timeline</a>.</Wrapper>)
-            .icon(mainSpell.icon)
-            .actual(`${abilityInfo.casts} out of ${abilityInfo.maxCasts} possible casts. You kept it on cooldown ${formatPercentage(actual, 1)}% of the time.`)
-            .recommended(`>${formatPercentage(recommended, 1)}% is recommended`)
-            .details(() => (
-              <div style={{ margin: '0 -22px' }}>
-                <SpellTimeline
-                  historyBySpellId={this.spellHistory.historyBySpellId}
-                  spellId={mainSpell.id}
-                  start={this.owner.fight.start_time}
-                  end={this.owner.currentTimestamp}
-                />
-              </div>
-            ))
-            .regular(abilityInfo.averageIssueEfficiency).major(abilityInfo.majorIssueEfficiency).staticImportance(ability.importance);
-        });
+
+      const suggestionThresholds = {
+        actual: abilityInfo.efficiency,
+        isLessThan: {
+          minor: abilityInfo.recommendedEfficiency,
+          average: abilityInfo.averageIssueEfficiency,
+          major: abilityInfo.majorIssueEfficiency,
+        },
+      };
+
+      when(suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+        return suggest(
+          <Wrapper>
+            Try to cast <SpellLink id={mainSpell.id} /> more often. {ability.extraSuggestion || ''} <a href="#spell-timeline">View timeline</a>.
+          </Wrapper>
+        )
+          .icon(mainSpell.icon)
+          .actual(`${abilityInfo.casts} out of ${abilityInfo.maxCasts} possible casts. You kept it on cooldown ${formatPercentage(actual, 1)}% of the time.`)
+          .recommended(`>${formatPercentage(recommended, 1)}% is recommended`)
+          .details(() => (
+            <div style={{ margin: '0 -22px' }}>
+              <SpellTimeline
+                historyBySpellId={this.spellHistory.historyBySpellId}
+                spellId={mainSpell.id}
+                start={this.owner.fight.start_time}
+                end={this.owner.currentTimestamp}
+              />
+            </div>
+          ))
+          .staticImportance(ability.importance);
+      });
     });
   }
 
