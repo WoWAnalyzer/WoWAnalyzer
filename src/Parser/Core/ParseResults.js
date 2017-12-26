@@ -92,7 +92,7 @@ class SuggestionAssertion {
 
     let majorThreshold = suggestion.majorThreshold;
     let averageThreshold = suggestion.averageThreshold;
-    if (typeof this._threshold === 'object') {
+    if (this._threshold !== null && typeof this._threshold === 'object') {
       // This gets priority because we want people to use this method over the old method that's used above.
       majorThreshold = this._threshold.major;
       averageThreshold = this._threshold.average;
