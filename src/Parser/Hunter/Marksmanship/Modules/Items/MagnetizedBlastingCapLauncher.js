@@ -12,7 +12,7 @@ import { formatNumber } from 'common/format';
  * Magnetized Blasting Cap Launcher
  * Equip: Increases Bursting Shot's damage by 800% and range by 30 yards.
  */
-const DAMAGE_INCREASE = 8;
+const DAMAGE_INCREASE_MODIFIER = 8;
 
 class MagnetizedBlastingCapLauncher extends Analyzer {
   static dependencies = {
@@ -30,7 +30,7 @@ class MagnetizedBlastingCapLauncher extends Analyzer {
     if (spellId !== SPELLS.BURSTING_SHOT.id) {
       return;
     }
-    this.bonusDmg += getDamageBonus(event, DAMAGE_INCREASE);
+    this.bonusDmg += getDamageBonus(event, DAMAGE_INCREASE_MODIFIER);
   }
 
   item() {
