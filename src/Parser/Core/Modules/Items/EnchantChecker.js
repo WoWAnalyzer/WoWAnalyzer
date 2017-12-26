@@ -46,7 +46,7 @@ class EnchantChecker extends Analyzer {
     5311, //gift of haste
     5312, //gift of mastery
     5313, //gift of critical strike 2
-    5314, //gift of versatility 
+    5314, //gift of versatility
   ];
 
   get enchantableGear() {
