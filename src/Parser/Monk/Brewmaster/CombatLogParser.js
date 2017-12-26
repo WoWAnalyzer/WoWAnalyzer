@@ -9,6 +9,8 @@ import BrewCDR from './Modules/Core/BrewCDR';
 // Spells
 import IronSkinBrew from './Modules/Spells/IronSkinBrew';
 import BlackoutCombo from './Modules/Spells/BlackoutCombo';
+import KegSmash from './Modules/Spells/KegSmash';
+import TigerPalm from './Modules/Spells/TigerPalm';
 // Features
 import Checklist from './Modules/Features/Checklist';
 import Abilities from './Modules/Features/Abilities';
@@ -16,6 +18,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 // Items
 import T20_2pc from './Modules/Items/T20_2pc';
 import T20_4pc from './Modules/Items/T20_4pc';
+import AnvilHardenedWristwraps from './Modules/Items/AnvilHardenedWristwraps';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -35,10 +38,13 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spells
     ironSkinBrew: IronSkinBrew,
     blackoutCombo: BlackoutCombo,
+    kegSmash: KegSmash,
+    tigerPalm: TigerPalm,
 
     // Items
     t20_2pc: T20_2pc,
     t20_4pc: T20_4pc,
+    ahw: AnvilHardenedWristwraps,
   };
 }
 
