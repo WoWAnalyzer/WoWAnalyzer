@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import HIT_TYPES from "Parser/Core/HIT_TYPES";
-import { formatPercentage, formatNumber } from "common/format";
+import { formatNumber, formatPercentage } from "common/format";
 import getDamageBonus from "Parser/Hunter/Shared/Modules/getDamageBonus";
 
 const T20_2P_CRIT_DMG_BONUS = 0.1;
