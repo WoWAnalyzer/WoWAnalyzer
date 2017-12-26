@@ -17,6 +17,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.SHADOW_BOLT,
@@ -25,6 +26,7 @@ class Abilities extends CoreAbilities {
       isActive: combatant => !combatant.hasTalent(SPELLS.DEMONBOLT_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.DOOM,
@@ -32,11 +34,13 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.CALL_DREADSTALKERS,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 15, // can be reset via T20 2pc
+      isOnGCD: true,
     },
     {
       spell: SPELLS.HAND_OF_GULDAN_CAST,
@@ -44,6 +48,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.DEMONWRATH_CAST,
@@ -51,11 +56,13 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.THALKIELS_CONSUMPTION_CAST,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 45,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.LIFE_TAP,
@@ -64,6 +71,7 @@ class Abilities extends CoreAbilities {
       extraSuggestion: 'If you\'re using Empowered Life Tap, you should keep a very high uptime on the Empowered Life Tap buff.',
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.SHADOWFLAME_TALENT,
@@ -71,20 +79,23 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 14,
       charges: 2,
       isActive: combatant => combatant.hasTalent(SPELLS.SHADOWFLAME_TALENT.id),
+      isOnGCD: true,
     },
     {
       spell: SPELLS.SUMMON_DARKGLARE_TALENT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
       getCooldown: haste => 24,
       isActive: combatant => combatant.hasTalent(SPELLS.SUMMON_DARKGLARE_TALENT.id),
+      isOnGCD: true,
     },
     {
-      spell: SPELLS.SHADOW_BOLT,
+      spell: SPELLS.DEMONBOLT_TALENT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
       isActive: combatant => combatant.hasTalent(SPELLS.DEMONBOLT_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     // Cooldowns
     {
@@ -92,6 +103,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
       isActive: combatant => combatant.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id),
+      isOnGCD: true,
     },
     {
       spell: SPELLS.SUMMON_DOOMGUARD_UNTALENTED,
@@ -100,6 +112,7 @@ class Abilities extends CoreAbilities {
       isActive: combatant => !combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.SUMMON_INFERNAL_UNTALENTED,
@@ -108,6 +121,7 @@ class Abilities extends CoreAbilities {
       isActive: combatant => !combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: [
@@ -125,6 +139,7 @@ class Abilities extends CoreAbilities {
       recommendedEfficiency: 0.90,
       averageIssueEfficiency: 0.80,
       majorIssueEfficiency: 0.70,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.UNENDING_RESOLVE,
@@ -132,6 +147,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 180,
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.DARK_PACT_TALENT,
@@ -140,6 +156,7 @@ class Abilities extends CoreAbilities {
       isActive: combatant => combatant.hasTalent(SPELLS.DARK_PACT_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.MORTAL_COIL_TALENT,
@@ -148,6 +165,7 @@ class Abilities extends CoreAbilities {
       isActive: combatant => combatant.hasTalent(SPELLS.MORTAL_COIL_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     // Utility
     {
@@ -157,6 +175,7 @@ class Abilities extends CoreAbilities {
       isActive: combatant => combatant.hasTalent(SPELLS.BURNING_RUSH_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.DEMONIC_CIRCLE_TALENT_SUMMON,
@@ -165,6 +184,7 @@ class Abilities extends CoreAbilities {
       isActive: combatant => combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.DEMONIC_CIRCLE_TALENT_TELEPORT,
@@ -173,6 +193,7 @@ class Abilities extends CoreAbilities {
       isActive: combatant => combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.SOULSTONE,
@@ -181,6 +202,7 @@ class Abilities extends CoreAbilities {
       // TODO: shares cooldown with other combat rezzes, don't know how to calculate properly
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.SUMMON_DOOMGUARD_TALENTED,
@@ -189,6 +211,7 @@ class Abilities extends CoreAbilities {
       isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.SUMMON_INFERNAL_TALENTED,
@@ -197,6 +220,7 @@ class Abilities extends CoreAbilities {
       isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.DEMONIC_GATEWAY_CAST,
@@ -204,13 +228,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 10,
       noSuggestion: true,
       noCanBeImproved: true,
-    },
-    {
-      spell: SPELLS.SUMMON_FELGUARD,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => null,
-      noSuggestion: true,
-      noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT,
@@ -219,6 +237,7 @@ class Abilities extends CoreAbilities {
       isActive: combatant => combatant.hasTalent(SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.id),
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.BANISH,
@@ -226,6 +245,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.CREATE_HEALTHSTONE,
@@ -233,6 +253,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.CREATE_SOULWELL,
@@ -240,6 +261,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 120,
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.ENSLAVE_DEMON,
@@ -247,6 +269,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.EYE_OF_KILROGG,
@@ -254,6 +277,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.FEAR_CAST,
@@ -261,6 +285,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.HEALTH_FUNNEL_CAST,
@@ -268,34 +293,21 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
-      spell: SPELLS.SUMMON_IMP,
+      spell: [
+        SPELLS.SUMMON_FELGUARD,
+        SPELLS.SUMMON_IMP,
+        SPELLS.SUMMON_VOIDWALKER,
+        SPELLS.SUMMON_SUCCUBUS,
+        SPELLS.SUMMON_FELHUNTER,
+      ],
       category: Abilities.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
-    },
-    {
-      spell: SPELLS.SUMMON_VOIDWALKER,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => null,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-    {
-      spell: SPELLS.SUMMON_FELHUNTER,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => null,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-    {
-      spell: SPELLS.SUMMON_SUCCUBUS,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => null,
-      noSuggestion: true,
-      noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.UNENDING_BREATH,
@@ -303,6 +315,16 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => null,
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
+    },
+    {
+      spell: SPELLS.SHADOWFURY_TALENT,
+      category: Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 30,
+      isActive: combatant => combatant.hasTalent(SPELLS.SHADOWFURY_TALENT.id),
+      noSuggestion: true,
+      noCanBeImproved: true,
+      isOnGCD: true,
     },
   ];
 }
