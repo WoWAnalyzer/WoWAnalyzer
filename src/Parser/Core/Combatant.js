@@ -102,6 +102,8 @@ class Combatant extends Entity {
         return 0.18 + this.masteryRating / 17776;
       case SPECS.MISTWEAVER_MONK:
         return 1.04 + this.masteryRating / 3076.96;
+      case SPECS.FURY_WARRIOR:
+        return 0.11 + this.masteryRating / 28430;
       default:
         throw new Error('Mastery hasn\'t been implemented for this spec yet.');
     }
