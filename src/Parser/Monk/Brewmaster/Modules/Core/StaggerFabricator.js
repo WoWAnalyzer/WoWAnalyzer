@@ -6,6 +6,7 @@ import { GIFT_OF_THE_OX_SPELLS } from '../../Constants';
 const PURIFY_BASE = 0.4;
 const ELUSIVE_DANCE_PURIFY = 0.2;
 const STAGGERING_AROUND_PURIFY = 0.01;
+const ISB_QUICK_SIP_PURIFY = 0.05;
 const T20_4PC_PURIFY = 0.05;
 const debug = false;
 
@@ -25,6 +26,7 @@ class StaggerFabricator extends Analyzer {
   _has_t20_4pc = false;
   _PURIFY_AMOUNT = PURIFY_BASE;
   _stagger_pool = 0;
+  _has_quick_sip = false;
 
   get staggerPool() {
     return this._stagger_pool;
@@ -36,6 +38,7 @@ class StaggerFabricator extends Analyzer {
       this._PURIFY_AMOUNT += ELUSIVE_DANCE_PURIFY;
     }
     this._PURIFY_AMOUNT += player.traitsBySpellId[SPELLS.STAGGERING_AROUND.id] * STAGGERING_AROUND_PURIFY;
+    this._has_quick_sip = player.traitsBySpellId[SPELLS.QUICK_SIP.id] > 0;
     this._has_t20_4pc = player.hasBuff(SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id);
   }
 
@@ -65,6 +68,11 @@ class StaggerFabricator extends Analyzer {
       const amount = this._stagger_pool * this._PURIFY_AMOUNT;
       this._stagger_pool -= amount;
       debug && console.log("triggering stagger pool update due to purify");
+      this.owner.triggerEvent(EVENT_STAGGER_POOL_UPDATE, this._fab(event, -amount));
+    } else if (this._has_quick_sip && event.ability.guid === SPELLS.IRONSKIN_BREW.id) {
+      const amount = this._stagger_pool * ISB_QUICK_SIP_PURIFY;
+      this._stagger_pool -= amount;
+      debug && console.log("triggering stagger pool update due to ISB + Quick Sip");
       this.owner.triggerEvent(EVENT_STAGGER_POOL_UPDATE, this._fab(event, -amount));
     }
   }
