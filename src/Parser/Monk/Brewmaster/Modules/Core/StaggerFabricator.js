@@ -7,6 +7,7 @@ const PURIFY_BASE = 0.4;
 const ELUSIVE_DANCE_PURIFY = 0.2;
 const STAGGERING_AROUND_PURIFY = 0.01;
 const T20_4PC_PURIFY = 0.05;
+const debug = false;
 
 export const EVENT_STAGGER_POOL_UPDATE = "stagger_pool_update";
 export const KIND_STAGGER_ADDED = "added";
@@ -45,14 +46,17 @@ class StaggerFabricator extends Analyzer {
       }
       const amount = event.amount + (event.absorbed || 0);
       this._stagger_pool += amount;
+      debug && console.log("triggering stagger pool update due to absorb");
       this.owner.triggerEvent(EVENT_STAGGER_POOL_UPDATE, this._fab(event, amount));
     }
   }
 
   on_toPlayer_damage(event) {
     if (event.ability.guid === SPELLS.STAGGER_TAKEN.id) {
-      this._stagger_pool -= event.amount;
-      this.owner.triggerEvent(EVENT_STAGGER_POOL_UPDATE, this._fab(event, -event.amount));
+      const amount = event.amount + (event.absorbed || 0);
+      this._stagger_pool -= amount;
+      debug && console.log("triggering stagger pool update due to stagger tick");
+      this.owner.triggerEvent(EVENT_STAGGER_POOL_UPDATE, this._fab(event, -amount));
     }
   }
 
@@ -60,6 +64,7 @@ class StaggerFabricator extends Analyzer {
     if (event.ability.guid === SPELLS.PURIFYING_BREW.id) {
       const amount = this._stagger_pool * this._PURIFY_AMOUNT;
       this._stagger_pool -= amount;
+      debug && console.log("triggering stagger pool update due to purify");
       this.owner.triggerEvent(EVENT_STAGGER_POOL_UPDATE, this._fab(event, -amount));
     }
   }
@@ -68,6 +73,7 @@ class StaggerFabricator extends Analyzer {
     if (this._has_t20_4pc && GIFT_OF_THE_OX_SPELLS.indexOf(event.ability.guid) !== -1) {
       const amount = this._stagger_pool * T20_4PC_PURIFY;
       this._stagger_pool -= amount;
+      debug && console.log("triggering stagger pool update due to T20 4pc");
       this.owner.triggerEvent(EVENT_STAGGER_POOL_UPDATE, this._fab(event, -amount));
     }
   }
