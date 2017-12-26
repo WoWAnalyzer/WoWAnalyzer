@@ -18,7 +18,7 @@ class Tier21_2set extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if (this.combatants.selected.hasBuff(254308)) {  //ForceOfTheMountain.id
+    if (this.combatants.selected.hasBuff(SPELLS.FORCE_OF_THE_MOUNTAIN.id)) {
       if (event.ability.guid === SPELLS.ROCKBITER.id) {
         this.extraDmg += (event.amount + event.absorbed || 0)/2;
       }
