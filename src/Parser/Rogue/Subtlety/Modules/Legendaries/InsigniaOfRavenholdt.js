@@ -1,11 +1,8 @@
-import React from 'react';
-
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Wrapper from 'common/Wrapper';
 import DamageTracker from 'Parser/Core/Modules/AbilityTracker';
 
 class InsigniaOfRavenholdt extends Analyzer {
@@ -24,11 +21,7 @@ class InsigniaOfRavenholdt extends Analyzer {
 
     return {
       item: ITEMS.INSIGNIA_OF_RAVENHOLDT,
-      result: (
-        <Wrapper>
-          {this.owner.formatItemDamageDone(damage)}
-        </Wrapper>
-      ),
+      result: this.owner.formatItemDamageDone(damage),
     };
   }
 }

@@ -45,7 +45,7 @@ class FirstOfTheDead extends Analyzer {
       return;
     }
 
-    if(!this.combatants.selected.hasBuff(SPELLS.SHADOW_BLADES.id)) baseCp += 1;
+    if(this.combatants.selected.hasBuff(SPELLS.SHADOW_BLADES.id)) baseCp += 1;
 
     const gain = event.resourceChange;
     const waste = event.waste;
