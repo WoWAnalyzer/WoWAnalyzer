@@ -87,20 +87,12 @@ class CastEfficiency extends Analyzer {
    * Packs cast efficiency results for use by suggestions / tab
    */
   getCastEfficiency() {
-    return this.abilities.constructor.ABILITIES
-      .filter(ability => !ability.isActive || ability.isActive(this.combatants.selected))
+    return this.abilities.activeAbilities
       .map(ability => this.getCastEfficiencyForAbility(ability))
       .filter(item => item !== null); // getCastEfficiencyForAbility can return null, remove those from the result
   }
-  _findAbility(spellId) {
-    const abilityInfo = this.abilities.constructor.ABILITIES;
-
-    return abilityInfo
-      .filter(ability => !ability.isActive || ability.isActive(this.combatants.selected))
-      .find(ability => ability.spell.id === spellId);
-  }
   getCastEfficiencyForSpellId(spellId) {
-    const ability = this._findAbility(spellId);
+    const ability = this.abilities.getAbility(spellId);
     return ability ? this.getCastEfficiencyForAbility(ability) : null;
   }
   getCastEfficiencyForAbility(ability) {
