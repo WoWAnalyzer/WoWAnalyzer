@@ -41,6 +41,8 @@ import WayOfTheCobra from './Modules/Talents/WayOfTheCobra';
 import BlinkStrikes from './Modules/Talents/BlinkStrikes';
 import DireFrenzy from './Modules/Talents/DireFrenzy';
 import Stampede from './Modules/Talents/Stampede';
+import DireStable from './Modules/Talents/DireStable';
+
 //Traits
 import TitansThunder from "./Modules/Traits/TitansThunder";
 import CobraCommander from './Modules/Traits/CobraCommander';
@@ -99,6 +101,7 @@ class CombatLogParser extends CoreCombatLogParser {
     blinkStrikes: BlinkStrikes,
     direFrenzy: DireFrenzy,
     stampede: Stampede,
+    direStable: DireStable,
 
     //Traits
     titansThunder: TitansThunder,

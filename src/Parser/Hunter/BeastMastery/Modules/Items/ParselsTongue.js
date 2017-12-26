@@ -8,6 +8,7 @@ import SPELLS from 'common/SPELLS';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
+import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 const DAMAGE_INCREASE_PER_STACK = 0.01;
 const LEECH_PER_STACK = 0.02;
@@ -20,6 +21,7 @@ const LEECH_PER_STACK = 0.02;
 class ParselsTongue extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    statTracker: StatTracker,
   };
 
   _currentStacks = 0;
@@ -76,12 +78,13 @@ class ParselsTongue extends Analyzer {
     if (spellId !== SPELLS.LEECH.id) {
       return;
     }
-    const pullLeech = this.combatants.selected.leechRating;
-    if (pullLeech === 0) {
+    const currentLeech = this.statTracker.currentLeechPercentage;
+    if (currentLeech === 0) {
       this.bonusHealing += event.amount;
-    } else {
+    }
+    else {
       const leechFromParsel = LEECH_PER_STACK * this._currentStacks;
-      const leechModifier = leechFromParsel / (pullLeech + leechFromParsel);
+      const leechModifier = leechFromParsel / (currentLeech + leechFromParsel);
       this.bonusHealing += getDamageBonus(event, leechModifier);
     }
 
