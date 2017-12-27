@@ -34,5 +34,6 @@ It may sometimes be unclear who is who because the names on GitHub can be differ
 | @Oratio | [karlpralow](https://github.com/karlpralow) |
 | @Poneria | [poneria](https://github.com/poneria) |
 | @Tsabo | [TsaboTavok](https://github.com/TsaboTavok) |
+| @Maldark | [Maldark](https://github.com/Maldark) |
 
 If you're missing from the table please add yourself in a PR.
