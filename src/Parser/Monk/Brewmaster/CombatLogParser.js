@@ -6,6 +6,7 @@ import DamageTaken from './Modules/Core/DamageTaken';
 import HealingReceived from './Modules/Core/HealingReceived';
 import Stagger from './Modules/Core/Stagger';
 import BrewCDR from './Modules/Core/BrewCDR';
+import StaggerFabricator from './Modules/Core/StaggerFabricator';
 // Spells
 import IronSkinBrew from './Modules/Spells/IronSkinBrew';
 import BlackoutCombo from './Modules/Spells/BlackoutCombo';
@@ -19,6 +20,8 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import T20_2pc from './Modules/Items/T20_2pc';
 import T20_4pc from './Modules/Items/T20_4pc';
 import AnvilHardenedWristwraps from './Modules/Items/AnvilHardenedWristwraps';
+// normalizers
+import IronskinBrewNormalizer from './Modules/Normalizers/IronskinBrew';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -27,6 +30,7 @@ class CombatLogParser extends CoreCombatLogParser {
     healingReceived: HealingReceived,
     damageTaken: [DamageTaken, { showStatistic: true }],
     stagger: Stagger,
+    staggerFabricator: StaggerFabricator,
     damageDone: [DamageDone, { showStatistic: true }],
     brewCdr: BrewCDR,
 
@@ -45,6 +49,9 @@ class CombatLogParser extends CoreCombatLogParser {
     t20_2pc: T20_2pc,
     t20_4pc: T20_4pc,
     ahw: AnvilHardenedWristwraps,
+
+    // normalizers
+    isbNormalizer: IronskinBrewNormalizer,
   };
 }
 

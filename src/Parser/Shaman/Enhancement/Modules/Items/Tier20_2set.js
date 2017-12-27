@@ -11,6 +11,10 @@ import Analyzer from 'Parser/Core/Analyzer';
 class Tier20_2set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+  };
+
+  on_initialized() {
+    this.active = this.combatants.selected.hasBuff(SPELLS.ENHANCE_SHAMAN_T20_2SET_EQUIP.id);
   }
 
   item() {

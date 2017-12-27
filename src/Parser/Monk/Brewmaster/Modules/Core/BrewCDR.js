@@ -1,6 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import { formatPercentage } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -40,8 +41,8 @@ class BrewCDR extends Analyzer {
     }
     return (
       <StatisticBox icon={<SpellIcon id={SPELLS.TIGER_PALM.id} />}
-        value={`${this.totalCDR / 1000}s`}
-        label="Total brew cooldown reduction"
+        value={`${formatPercentage(1.0 - this.owner.fightDuration / (this.owner.fightDuration + this.totalCDR))}%`}
+        label="Effective Brew CDR"
         tooltip={`${this.ks.totalHits} Keg Smash hits (${this.ks.totalHits / this.ks.totalCasts} per cast) and ${this.tp.totalCasts} Tiger Palm hits (with ${this.tp.bocFpHits + this.tp.fpHits} Face Palm procs) ${wristsDesc}reduced your brew cooldowns by ${this.totalCDR / 1000}s.`}
       />
     );

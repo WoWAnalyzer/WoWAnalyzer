@@ -1,13 +1,59 @@
-export default `
-16-09-2017 - Added Doomguard/Infernal/Grimoire of Service to Cooldowns tab. (by Chizu)
-12-09-2017 - Added Legendaries and T20 2set. (by Chizu)
-10-09-2017 - Added Channel Demonfire and Havoc cleave module (not 100% accurate though). (by Chizu)
-10-09-2017 - Added Fire and Brimstone cleave and fragment tracker. (by Chizu).
-10-09-2017 - Added Dimensional Rift damage tracker. (by Chizu)
-09-09-2017 - Added Reverse Entropy, Eradication and Empowered Life Tap modules. (by Chizu)
-08-09-2017 - Added Backdraft, Roaring Blaze and Shadowburn modules. (by Chizu)
-07-09-2017 - Added Immolate uptime tracker. (by Chizu)
-05-09-2017 - Added Soul Shard usage breakdown. (by Chizu)
-04-09-2017 - Fixed the issues with Grimoire of Service and Summon Infernal/Doomguard. (by Chizu) 
-02-09-2017 - Added <span class="Warlock">Destruction Warlock</span> support by @Chizu.
-`;
+import React from 'react';
+
+import { Chizu } from 'MAINTAINERS';
+import Wrapper from 'common/Wrapper';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
+
+export default [
+  {
+    date: new Date('2017-09-16'),
+    changes: <Wrapper>Added <SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} icon/>/<SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} icon/>/<SpellLink id={SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id} icon/> to Cooldowns tab.</Wrapper>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2017-09-12'),
+    changes: <Wrapper>Added Legendaries and T20 2set.</Wrapper>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2017-09-10'),
+    changes: <Wrapper>Added <SpellLink id={SPELLS.CHANNEL_DEMONFIRE_TALENT.id} icon/> and <SpellLink id={SPELLS.HAVOC.id} icon/> cleave module (not 100% accurate though).</Wrapper>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2017-09-10'),
+    changes: <Wrapper>Added <SpellLink id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id} icon/> cleave and fragment tracker.</Wrapper>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2017-09-10'),
+    changes: <Wrapper>Added <SpellLink id={SPELLS.DIMENSIONAL_RIFT_CAST.id} icon/> damage tracker.</Wrapper>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2017-09-09'),
+    changes: <Wrapper>Added <SpellLink id={SPELLS.REVERSE_ENTROPY_TALENT.id} icon/>, <SpellLink id={SPELLS.ERADICATION_TALENT.id} icon/> and <SpellLink id={SPELLS.EMPOWERED_LIFE_TAP_TALENT.id}/> modules.</Wrapper>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2017-09-08'),
+    changes: <Wrapper>Added <SpellLink id={SPELLS.BACKDRAFT_TALENT.id} icon/>, <SpellLink id={SPELLS.ROARING_BLAZE_TALENT.id} icon/> and <SpellLink id={SPELLS.SHADOWBURN_TALENT.id} icon/> modules.</Wrapper>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2017-09-07'),
+    changes: <Wrapper>Added <SpellLink id={SPELLS.IMMOLATE_DEBUFF.id} icon/> uptime tracker.</Wrapper>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2017-09-05'),
+    changes: <Wrapper>Added Soul Shard usage breakdown.</Wrapper>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2017-09-04'),
+    changes: <Wrapper>Fixed the issues with <SpellLink id={SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id} icon/> and <SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} icon/>/<SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} icon/>.</Wrapper>,
+    contributors: [Chizu],
+  },
+];

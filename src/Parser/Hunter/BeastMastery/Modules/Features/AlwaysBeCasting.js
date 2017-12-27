@@ -46,16 +46,11 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.STAMPEDE_TALENT.id,
     SPELLS.WYVERN_STING_TALENT.id,
     SPELLS.INTIMIDATION_TALENT.id,
-
   ];
-
-  get downtime() {
-    return this.totalTimeWasted / this.owner.fightDuration;
-  }
 
   get suggestionThresholds() {
     return {
-      actual: this.downtime,
+      actual: this.downtimePercentage,
       isGreaterThan: {
         minor: 0.15,
         average: 0.175,
@@ -67,13 +62,14 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
   suggestions(when) {
     const {
+      actual,
       isGreaterThan: {
         minor,
         average,
         major,
       },
     } = this.suggestionThresholds;
-    when(this.downtime).isGreaterThan(minor)
+    when(actual).isGreaterThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your downtime can be improved. Try to reduce the delay between casting spells. If everything is on cooldown, try and use <SpellLink id={SPELLS.COBRA_SHOT.id} /> to stay off the focus cap and do some damage.</span>)
           .icon('spell_mage_altertime')

@@ -64,12 +64,17 @@
   display: block;
   top: 1px;
   height: 25px;
+  z-index: 1;
 }
 .spell-timeline .events > * a {
   display: inline-block;
 }
 .spell-timeline .events > * img {
   height: 25px;
+}
+.spell-timeline .events .casting-time {
+  background: rgba(120, 102, 255, 0.4);
+  border-right: 2px solid rgba(250, 250, 250, 0.6);
 }
 
 /* vertical scrollbar track */

@@ -22,47 +22,46 @@ class IronSkinBrew extends Analyzer {
   damageWithoutIronSkinBrew = 0;
 
   // duration tracking to record clipping of buff
-  lastDurationCheck = 0;
+  _lastDurationCheck = 0;
   totalDuration = 0;
   durationLost = 0;
-  currentDuration = 0;
-  durationPerCast = 6000; // base
-  durationPerPurify = 0;
-  durationCap = -1;
+  _currentDuration = 0;
+  _durationPerCast = 6000; // base
+  _durationPerPurify = 0;
+  _durationCap = -1;
 
   buffShouldBeApplied = false;
   buffNeverApplied = true;
 
   on_initialized() {
-    this.durationPerCast += 500 * this.combatants.selected.traitsBySpellId[SPELLS.POTENT_KICK.id];
-    this.durationCap = 3 * this.durationPerCast;
-    this.durationPerPurify = 1000 * this.combatants.selected.traitsBySpellId[SPELLS.QUICK_SIP.id];
+    this._durationPerCast += 500 * this.combatants.selected.traitsBySpellId[SPELLS.POTENT_KICK.id];
+    this._durationCap = 3 * this._durationPerCast;
+    this._durationPerPurify = 1000 * this.combatants.selected.traitsBySpellId[SPELLS.QUICK_SIP.id];
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (SPELLS.IRONSKIN_BREW.id === spellId || SPELLS.PURIFYING_BREW.id === spellId) {
       // determine the current duration on ISB
-      if (this.currentDuration > 0) {
-        this.currentDuration -= event.timestamp - this.lastDurationCheck;
-        this.currentDuration = Math.max(this.currentDuration, 0);
+      if (this._currentDuration > 0) {
+        this._currentDuration -= event.timestamp - this._lastDurationCheck;
+        this._currentDuration = Math.max(this._currentDuration, 0);
       }
       // add the duration from this buff application (?)
       let addedDuration = 0;
       if (SPELLS.IRONSKIN_BREW.id === spellId) {
-        this.buffShouldBeApplied = true;
-        addedDuration = this.durationPerCast;
+        addedDuration = this._durationPerCast;
       } else if (SPELLS.PURIFYING_BREW.id === spellId) {
-        addedDuration = this.durationPerPurify;
+        addedDuration = this._durationPerPurify;
       }
-      this.currentDuration += addedDuration;
-      if (this.currentDuration > this.durationCap) {
-        this.durationLost += this.currentDuration - this.durationCap;
-        this.currentDuration = this.durationCap;
+      this._currentDuration += addedDuration;
+      if (this._currentDuration > this._durationCap) {
+        this.durationLost += this._currentDuration - this._durationCap;
+        this._currentDuration = this._durationCap;
       }
       // add this duration to the total duration
       this.totalDuration += addedDuration;
-      this.lastDurationCheck = event.timestamp;
+      this._lastDurationCheck = event.timestamp;
     }
   }
 
@@ -85,7 +84,7 @@ class IronSkinBrew extends Analyzer {
     const spellId = event.ability.guid;
     if (SPELLS.IRONSKIN_BREW_BUFF.id === spellId) {
       this.lastIronSkinBrewBuffApplied = 0;
-      this.currentDuration = 0;
+      this._currentDuration = 0;
     }
   }
 
@@ -147,7 +146,7 @@ class IronSkinBrew extends Analyzer {
       });
   }
 
-  get suggestionThreshold() {
+  get uptimeSuggestionThreshold() {
     return {
       actual: this.hitsWithIronSkinBrew / (this.hitsWithIronSkinBrew + this.hitsWithoutIronSkinBrew),
       isLessThan: {

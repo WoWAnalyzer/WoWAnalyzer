@@ -232,6 +232,11 @@ export default {
     name: 'The Deceiver\'s Blood Pact',
     icon: 'ability_creature_cursed_04',
   },
+  THE_DECEIVERS_BLOOD_PACT_EQUIP: {
+    id: 214131,
+    name: 'The Deceiver\'s Blood Pact',
+    icon: 'ability_creature_cursed_04',
+  },
   //Elemental Sets
   ELEMENTAL_SHAMAN_T21_2SET_BUFF: {
     id: 251757,
@@ -476,6 +481,31 @@ export default {
     id: 242284,
     name: 'T20 2 set bonus',
     icon: 'spell_shaman_improvedstormstrike',
+  },
+  ENHANCE_SHAMAN_T20_2SET_EQUIP: {
+    id: 242283,
+    name: 'T20 2set bonus equip flag',
+    icon: 'spell_shaman_ascendance',
+  },
+  ENHANCE_SHAMAN_T21_2SET_EQUIP: {
+    id: 251762,
+    name: 'T21 2set bonus equip flag',
+    icon: 'ability_shaman_ascendance',
+  },
+  FORCE_OF_THE_MOUNTAIN: {
+    id: 254308,
+    name: 'T21 2set bonus buff',
+    icon: 'spell_nature_earthquake',
+  },
+  ENHANCE_SHAMAN_T21_4SET_EQUIP: {
+    id: 251761,
+    name: 'T21 4set bonus equip flag',
+    icon: 'ability_shaman_ascendance',
+  },
+  EXPOSED_ELEMENTS: {
+    id: 252151,
+    name: 'T21 4set bonus debuff',
+    icon: 'ability_shaman_ascendance',
   },
   //Enhancement Traits
   ALPHA_WOLF_TRAIT: {
