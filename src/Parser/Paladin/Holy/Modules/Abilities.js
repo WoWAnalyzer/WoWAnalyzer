@@ -12,7 +12,7 @@ import Wrapper from 'common/Wrapper';
 class Abilities extends CoreAbilities {
   spellbook() {
     return [
-      ...super.spellbook(),
+      ...super.spellbook(), // shared items and legendaries
       {
         spell: SPELLS.HOLY_SHOCK_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -105,8 +105,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HOLY_PRISM_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 20,
-        enabled: this.combatants.selected.hasTalent(SPELLS.HOLY_PRISM_TALENT.id),
         isOnGCD: true,
+        enabled: this.combatants.selected.hasTalent(SPELLS.HOLY_PRISM_TALENT.id),
       },
       {
         spell: SPELLS.RULE_OF_LAW_TALENT,

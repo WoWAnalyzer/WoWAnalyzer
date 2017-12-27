@@ -65,10 +65,10 @@ class Abilities extends Analyzer {
         spell: SPELLS.KILJAEDENS_BURNING_WISH_DAMAGE, // cast event never shows, we fab cast events from damage events
         category: Abilities.SPELL_CATEGORIES.ITEMS,
         cooldown: 75,
+        enabled: combatant.hasTrinket(ITEMS.KILJAEDENS_BURNING_WISH.id),
         castEfficiency: {
           extraSuggestion: 'Delaying the cast somewhat to line up with add spawns is acceptable, however.',
         },
-        enabled: combatant.hasTrinket(ITEMS.KILJAEDENS_BURNING_WISH.id),
       },
       {
         spell: SPELLS.ARCHIMONDES_HATRED_REBORN_ABSORB,
