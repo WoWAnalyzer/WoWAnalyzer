@@ -31,7 +31,18 @@ class Ability {
       return this.spell;
     }
   }
-  name = null;
+  // region name
+  _name = null;
+  get name() {
+    if (this._name) {
+      return this._name;
+    }
+    return this.primarySpell.name;
+  }
+  set name(value) {
+    this._name = value;
+  }
+  // endregion
   category = null;
   // region cooldown
   _cooldown = null;
@@ -77,6 +88,13 @@ class Ability {
   isUndetectable = null;
   castEfficiency = {
     suggestion: false,
+    recommendedEfficiency: null,
+    averageIssueEfficiency: null,
+    majorIssueEfficiency: null,
+    extraSuggestion: null,
+    casts: null,
+    maxCasts: null,
+    importance: null,
   };
   charges = 1;
   enabled = true;

@@ -15,6 +15,7 @@ class Abilities extends CoreAbilities {
       ...super.spellbook(), // shared items and legendaries
       {
         spell: SPELLS.HOLY_SHOCK_CAST,
+        name: 'BOOM', // TODO: Remvoe this when done with testing
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => {
           const hasSanctifiedWrath = this.combatants.selected.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id);
@@ -29,6 +30,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.LIGHT_OF_DAWN_CAST,
+        name: 'FWOOSH', // TODO: Remvoe this when done with testing
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         // Item - Paladin T20 Holy 2P Bonus: Reduces the cooldown of Light of Dawn by 2.0 sec.
         cooldown: haste => (12 - (this.combatants.selected.hasBuff(SPELLS.HOLY_PALADIN_T20_2SET_BONUS_BUFF.id) ? 2 : 0)) / (1 + haste),
@@ -180,42 +182,42 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FLASH_OF_LIGHT,
-        name: `Filler ${SPELLS.FLASH_OF_LIGHT.name}`,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         channel: haste => 1.5 / (1 + haste),
         isOnGCD: true,
         castEfficiency: {
+          name: `Filler ${SPELLS.FLASH_OF_LIGHT.name}`,
           suggestion: false,
           casts: castCount => (castCount.casts || 0) - (castCount.healingIolHits || 0),
         },
       },
       {
         spell: SPELLS.FLASH_OF_LIGHT,
-        name: `Infusion of Light ${SPELLS.FLASH_OF_LIGHT.name}`,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         channel: haste => 1.5 / (1 + haste),
         isOnGCD: true,
         castEfficiency: {
+          name: `${SPELLS.INFUSION_OF_LIGHT.name} ${SPELLS.FLASH_OF_LIGHT.name}`,
           suggestion: false,
           casts: castCount => castCount.healingIolHits || 0,
         },
       },
       {
         spell: SPELLS.HOLY_LIGHT,
-        name: `Filler ${SPELLS.HOLY_LIGHT.name}`,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         isOnGCD: true,
         castEfficiency: {
+          name: `Filler ${SPELLS.HOLY_LIGHT.name}`,
           suggestion: false,
           casts: castCount => (castCount.casts || 0) - (castCount.healingIolHits || 0),
         },
       },
       {
         spell: SPELLS.HOLY_LIGHT,
-        name: `Infusion of Light ${SPELLS.HOLY_LIGHT.name}`,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         isOnGCD: true,
         castEfficiency: {
+          name: `${SPELLS.INFUSION_OF_LIGHT.name} ${SPELLS.HOLY_LIGHT.name}`,
           suggestion: false,
           casts: castCount => castCount.healingIolHits || 0,
         },
