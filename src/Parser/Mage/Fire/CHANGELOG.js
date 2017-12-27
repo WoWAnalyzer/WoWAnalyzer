@@ -1,7 +1,4 @@
-import React from 'react';
-
 import { Sharrq, sref, Fyruna } from 'MAINTAINERS';
-import Wrapper from 'common/Wrapper';
 
 export default [
   {
