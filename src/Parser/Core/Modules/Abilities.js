@@ -121,12 +121,10 @@ class Abilities extends Analyzer {
   }
 
   abilities = [];
+  activeAbilities = [];
   on_initialized() {
     this.abilities = this.spellbook().map(options => new Ability(this, options));
-  }
-
-  get activeAbilities() {
-    return this.abilities.filter(ability => ability.enabled);
+    this.activeAbilities = this.abilities.filter(ability => ability.enabled);
   }
 
   /*
