@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, Yuyz0112, Zerotorescue, Hartra344, Putro } from 'MAINTAINERS';
+import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, Yuyz0112, Zerotorescue, Hartra344, Putro, Sharrq } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
@@ -8,6 +8,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2017-12-27'),
+    changes: <Wrapper>Added Death Tracking to the parser.</Wrapper>,
+    contributors: [Sharrq],
+  },
   {
     date: new Date('2017-12-18'),
     changes: <Wrapper>Added <ItemLink id={ITEMS.INSIGNIA_OF_THE_GRAND_ARMY.id} /> to the parser.</Wrapper>,
