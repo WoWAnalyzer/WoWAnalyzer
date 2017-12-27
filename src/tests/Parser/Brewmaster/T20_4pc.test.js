@@ -1,3 +1,4 @@
+import SPELLS from 'common/SPELLS';
 import StaggerFabricator from 'Parser/Monk/Brewmaster/Modules/Core/StaggerFabricator';
 import T20_4pc from 'Parser/Monk/Brewmaster/Modules/Items/T20_4pc';
 import processEvents from './Fixtures/processEvents';
@@ -13,6 +14,12 @@ describe('Brewmaster.T20_4pc', () => {
       toPlayerPet: () => false,
       byPlayerPet: () => false,
     });
+    fab.combatants = {
+      selected: {
+        hasTalent: () => false,
+        traitsBySpellId: {[SPELLS.STAGGERING_AROUND.id]: 0},
+      }
+    };
     item = new T20_4pc({
       toPlayer: () => true,
       byPlayer: () => true,
@@ -21,7 +28,7 @@ describe('Brewmaster.T20_4pc', () => {
     });
     item.fab = fab;
     fab.owner.triggerEvent = (event, obj) => item.triggerEvent(event, obj);
-    fab._has_t20_4pc = true;
+    fab._hasTier20_4pc = true;
   });
   it('how many gift of the ox orbs were absorbed as a heal', () => {
     processEvents(SimpleFight, fab, item);

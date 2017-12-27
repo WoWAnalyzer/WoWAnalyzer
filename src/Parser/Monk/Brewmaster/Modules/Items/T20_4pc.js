@@ -7,7 +7,6 @@ import { formatThousands, formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import { GIFT_OF_THE_OX_SPELLS } from '../../Constants';
-import { KIND_STAGGER_REMOVED } from '../Core/StaggerFabricator';
 
 const debug = false;
 
@@ -24,11 +23,12 @@ class T20_4pc extends Analyzer {
     this.active && debug && console.log('You have the 4pc');
   }
 
-  on_stagger_pool_update(event) {
-    if(event.kind === KIND_STAGGER_REMOVED && GIFT_OF_THE_OX_SPELLS.indexOf(event.ability.guid) !== -1) {
-      this.orbsEaten += 1;
-      this.staggerSaved += event.amount;
+  on_removestagger(event) {
+    if(!GIFT_OF_THE_OX_SPELLS.includes(event.reason.ability.guid)) {
+      return;
     }
+    this.orbsEaten += 1;
+    this.staggerSaved += event.amount;
   }
 
   on_finished() {

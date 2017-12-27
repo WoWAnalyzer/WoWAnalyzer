@@ -1,3 +1,4 @@
+import SPELLS from 'common/SPELLS';
 import StaggerFabricator from 'Parser/Monk/Brewmaster/Modules/Core/StaggerFabricator';
 import Stagger from 'Parser/Monk/Brewmaster/Modules/Core/Stagger';
 import processEvents from './Fixtures/processEvents';
@@ -13,6 +14,12 @@ describe('Brewmaster.Stagger', () => {
       toPlayerPet: () => false,
       byPlayerPet: () => false,
     });
+    fab.combatants = {
+      selected: {
+        hasTalent: () => false,
+        traitsBySpellId: {[SPELLS.STAGGERING_AROUND.id]: 0},
+      }
+    };
     stagger = new Stagger({
       toPlayer: () => true,
       byPlayer: () => true,

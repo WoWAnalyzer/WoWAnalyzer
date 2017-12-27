@@ -5,7 +5,7 @@ import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import StaggerFabricator, { KIND_STAGGER_ADDED, KIND_STAGGER_REMOVED } from './StaggerFabricator';
+import StaggerFabricator from './StaggerFabricator';
 
 const debug = false;
 const PHYSICAL_DAMAGE = 1;
@@ -21,15 +21,16 @@ class Stagger extends Analyzer {
   totalStaggerTaken = 0;
   staggerMissingFromFight = 0;
 
-  on_stagger_pool_update(event) {
-    if(event.kind === KIND_STAGGER_ADDED) {
-      // damage added to stagger pool
-      if(event.extraAbility.type === PHYSICAL_DAMAGE) {
-        this.totalPhysicalStaggered += event.amount;
-      } else {
-        this.totalMagicalStaggered += event.amount;
-      }
-    } else if (event.kind === KIND_STAGGER_REMOVED && event.ability.guid === SPELLS.STAGGER_TAKEN.id){
+  on_addstagger(event) {
+    if(event.reason.extraAbility.type === PHYSICAL_DAMAGE) {
+      this.totalPhysicalStaggered += event.amount;
+    } else {
+      this.totalMagicalStaggered += event.amount;
+    }
+  }
+
+  on_removestagger(event) {
+    if (event.reason.ability.guid === SPELLS.STAGGER_TAKEN.id){
       this.totalStaggerTaken += event.amount;
     }
   }
