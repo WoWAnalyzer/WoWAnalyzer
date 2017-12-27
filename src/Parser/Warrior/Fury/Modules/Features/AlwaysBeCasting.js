@@ -24,8 +24,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     // Talents
     SPELLS.SHOCKWAVE_TALENT.id,
     SPELLS.STORM_BOLT_TALENT.id,
-    SPELLS.AVATAR_TALENT.id,
-    SPELLS.BLOODBATH_TALENT.id,
     SPELLS.DRAGON_ROAR_TALENT.id,
   ];
 

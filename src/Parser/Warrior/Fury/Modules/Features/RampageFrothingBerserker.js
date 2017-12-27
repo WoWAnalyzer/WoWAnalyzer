@@ -6,6 +6,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
+import { formatPercentage } from 'common/format';
 
 /*
   Frothing Berserker users should maximize casts with 100 rage to proc Frothing Berserker the post
@@ -73,14 +74,16 @@ class RampageFrothingBerserker extends Analyzer {
           major,
         },
       } = this.suggestionThresholdsFrothingBerserker;
+
+      const prematureCastRatio = this.premature_counter / this.casts_counter;
       
       // Frothing Berserker users should cast Rampage at 100 rage only
       if(this.combatants.selected.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id)) {
-        when(this.premature_counter / this.casts_counter).isGreaterThan(minor)
+        when(prematureCastRatio).isGreaterThan(minor)
           .addSuggestion((suggest, actual, recommended) => {
             return suggest(<Wrapper>Try to cast <SpellLink id={SPELLS.RAMPAGE.id} /> at 100 rage to proc <SpellLink id={SPELLS.FROTHING_BERSERKER_TALENT.id} />.</Wrapper>)
               .icon(SPELLS.RAMPAGE.icon)
-              .actual(`${(actual * 100).toFixed(2)}% (${this.premature_counter} out of ${this.casts_counter}) of your Rampage casts were cast below 100 rage.`)
+              .actual(`${formatPercentage(actual)}% (${this.premature_counter} out of ${this.casts_counter}) of your Rampage casts were cast below 100 rage.`)
               .recommended(`0% is recommended`)
               .regular(average).major(major);
           });

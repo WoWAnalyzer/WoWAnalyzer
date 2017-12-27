@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import Wrapper from 'common/Wrapper';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -39,11 +38,7 @@ class T21_4set extends Analyzer {
       id: `spell-${SPELLS.WARRIOR_FURY_T21_4P_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.WARRIOR_FURY_T21_4P_BONUS_BUFF.id} />,
       title: <SpellLink id={SPELLS.WARRIOR_FURY_T21_4P_BONUS_BUFF.id} />,
-      result: (
-        <Wrapper>
-          {this.owner.formatItemDamageDone(this.damage)}
-        </Wrapper>
-      ),
+      result: this.owner.formatItemDamageDone(this.damage),
     };
   }
 }

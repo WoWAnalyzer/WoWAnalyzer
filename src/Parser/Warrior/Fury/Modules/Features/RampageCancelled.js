@@ -3,8 +3,11 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
+import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
+
+const RAMPAGE_HITS_PER_CAST = 5;
 
 class RampageCancelled extends Analyzer {
 
@@ -49,11 +52,11 @@ class RampageCancelled extends Analyzer {
     const max = Object.values(this.counter).reduce((max, current) => current > max ? current : max, 0);
     const wasted = Object.keys(this.counter).reduce((acc, current) => acc + max - this.counter[current], 0);
 
-    when(wasted / (5 * max)).isGreaterThan(minor)
+    when(wasted / (max * RAMPAGE_HITS_PER_CAST)).isGreaterThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<Wrapper>You are cancelling your <SpellLink id={SPELLS.RAMPAGE.id} /> cast by casting another Rampage immediately after. Wait for it to finish before casting another.</Wrapper>)
           .icon(SPELLS.RAMPAGE.icon)
-          .actual(`${(actual * 100).toFixed(2)}% (${wasted} out of ${max * 5}) of your Rampage hits were cancelled.`)
+          .actual(`${formatPercentage(actual)}% (${wasted} out of ${max * RAMPAGE_HITS_PER_CAST}) of your Rampage hits were cancelled.`)
           .recommended(`0% is recommended`)
           .regular(average).major(major);
       });
