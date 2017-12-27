@@ -19,7 +19,7 @@ class ResourceTracker extends Analyzer {
   spendersObj = {};
   
   initBuilderAbility(spellId) {        
-    this.buildersObj[spellId] = { generated: 0, wasted: 0 };
+    this.buildersObj[spellId] = { generated: 0, wasted: 0, casts: 0 };
   }
   
   initSpenderAbility(spellId) {        
@@ -48,6 +48,7 @@ class ResourceTracker extends Analyzer {
     
     this.buildersObj[spellId].wasted += waste;
     this.buildersObj[spellId].generated += gain;
+    this.buildersObj[spellId].casts += 1;
     this.wasted += waste;
     this.generated += gain;  
 
