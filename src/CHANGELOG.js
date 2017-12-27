@@ -10,7 +10,7 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2017-12-27'),
-    changes: <Wrapper>Added Death Tracking to the parser.</Wrapper>,
+    changes: <Wrapper>Added Death Tracking to the parser</Wrapper>,
     contributors: [Sharrq],
   },
   {
