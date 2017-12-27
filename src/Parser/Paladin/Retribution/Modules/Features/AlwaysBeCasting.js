@@ -10,7 +10,6 @@ import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
-
     // Holy Power Builders
     SPELLS.CRUSADER_STRIKE.id,
     SPELLS.ZEAL_TALENT.id,
@@ -40,11 +39,11 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.CRUSADER_STRIKE.id,
     225141, // http://www.wowhead.com/spell=225141/fel-crazed-rage (Draught of Souls)
     SPELLS.DIVINE_STEED.id,
-    26573, // Consecration
-    642, // Divine Shield
+    SPELLS.CONSECRATION_CAST.id,
+    SPELLS.DIVINE_SHIELD.id,
     SPELLS.BLESSING_OF_FREEDOM.id,
-    1022, // Blessing of Protection
-    853, // Hammer of Justice
+    SPELLS.BLESSING_OF_PROTECTION.id,
+    SPELLS.HAMMER_OF_JUSTICE.id,
     SPELLS.HAND_OF_RECKONING.id,
   ];
 

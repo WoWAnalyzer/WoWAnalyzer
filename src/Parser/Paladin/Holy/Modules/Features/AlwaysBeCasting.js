@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import { formatPercentage } from 'common/format';
 
 import CoreAlwaysBeCastingHealing from 'Parser/Core/Modules/AlwaysBeCastingHealing';
 
@@ -22,25 +21,10 @@ const HEALING_ABILITIES_ON_GCD = [
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD = HEALING_ABILITIES_ON_GCD;
-  static ABILITIES_ON_GCD = [
-    ...HEALING_ABILITIES_ON_GCD,
-    SPELLS.JUDGMENT_CAST.id,
-    SPELLS.CRUSADER_STRIKE.id,
-    SPELLS.DIVINE_STEED.id,
-    SPELLS.CONSECRATION_CAST.id,
-    SPELLS.BLINDING_LIGHT_TALENT.id,
-    SPELLS.DIVINE_SHIELD.id,
-    SPELLS.BEACON_OF_LIGHT_CAST_AND_HEAL.id, // This is the registered cast for BotLB and the primary beacon when using BoF (confirmed in logs)
-    SPELLS.BEACON_OF_FAITH_TALENT.id,
-    SPELLS.BEACON_OF_VIRTUE_TALENT.id,
-    SPELLS.BLESSING_OF_FREEDOM.id,
-    SPELLS.BLESSING_OF_PROTECTION.id,
-    SPELLS.CLEANSE.id,
-    SPELLS.HAMMER_OF_JUSTICE.id,
-    SPELLS.HAND_OF_RECKONING.id,
-  ];
 
   on_initialized() {
+    super.on_initialized();
+
     const combatant = this.combatants.selected;
 
     if (combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id)) {
@@ -76,47 +60,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       return false;
     }
     return super.countsAsHealingAbility(cast);
-  }
-
-  get nonHealingTimeSuggestionThresholds() {
-    return {
-      actual: this.nonHealingTimePercentage,
-      isGreaterThan: {
-        minor: 0.3,
-        average: 0.4,
-        major: 0.45,
-      },
-      style: 'percentage',
-    };
-  }
-  get downtimeSuggestionThresholds() {
-    return {
-      actual: this.downtimePercentage,
-      isGreaterThan: {
-        minor: 0.2,
-        average: 0.35,
-        major: 1,
-      },
-      style: 'percentage',
-    };
-  }
-  suggestions(when) {
-    when(this.nonHealingTimeSuggestionThresholds.actual).isGreaterThan(this.nonHealingTimeSuggestionThresholds.isGreaterThan.minor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your non healing time can be improved. Try to reduce the amount of time you\'re not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.')
-          .icon('petbattle_health-down')
-          .actual(`${formatPercentage(actual)}% non healing time`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(this.nonHealingTimeSuggestionThresholds.isGreaterThan.average).major(this.nonHealingTimeSuggestionThresholds.isGreaterThan.major);
-      });
-    when(this.downtimeSuggestionThresholds.actual).isGreaterThan(this.downtimeSuggestionThresholds.isGreaterThan.minor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your downtime can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you\'re not healing try to contribute some damage.')
-          .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(actual)}% downtime`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(this.downtimeSuggestionThresholds.isGreaterThan.average).major(this.downtimeSuggestionThresholds.isGreaterThan.major);
-      });
   }
 }
 

@@ -6,7 +6,7 @@ import { push as pushAction } from 'react-router-redux';
 
 import { ApiDownError, LogNotFoundError, CorruptResponseError, JsonParseError } from 'common/fetchWcl';
 import fetchEvents from 'common/fetchEvents';
-import fatalError from 'common/fatalError';
+import { captureException } from 'common/errorLogger';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 
@@ -168,11 +168,11 @@ class App extends Component {
       } else if (err instanceof ApiDownError) {
         this.props.apiDownError();
       } else if (err instanceof JsonParseError) {
-        fatalError(err);
+        captureException(err);
         this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
       } else {
         // Some kind of network error, internet may be down.
-        fatalError(err);
+        captureException(err);
         this.props.unknownNetworkIssueError(err);
       }
       return;
@@ -210,7 +210,7 @@ class App extends Component {
         progress: 1.0,
       });
     } catch (err) {
-      fatalError(err);
+      captureException(err);
       if (process.env.NODE_ENV === 'development') {
         // Something went wrong during the analysis of the log, there's probably an issue in your analyzer or one of its modules.
         throw err;
@@ -259,11 +259,11 @@ class App extends Component {
       } else if (err instanceof ApiDownError) {
         this.props.apiDownError();
       } else if (err instanceof JsonParseError) {
-        fatalError(err);
+        captureException(err);
         this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
       } else {
         // Some kind of network error, internet may be down.
-        fatalError(err);
+        captureException(err);
         this.props.unknownNetworkIssueError(err);
       }
     }
@@ -303,14 +303,14 @@ class App extends Component {
           } else if (err instanceof ApiDownError) {
             this.props.apiDownError();
           } else if (err instanceof CorruptResponseError) {
-            fatalError(err);
+            captureException(err);
             this.props.unknownError('Corrupt Warcraft Logs API response received, this report can not be processed.');
           } else if (err instanceof JsonParseError) {
-            fatalError(err);
+            captureException(err);
             this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
           } else {
             // Some kind of network error, internet may be down.
-            fatalError(err);
+            captureException(err);
             this.props.unknownNetworkIssueError(err);
           }
         });
