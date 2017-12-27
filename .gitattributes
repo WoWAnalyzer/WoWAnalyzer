@@ -1,3 +1,4 @@
 * text=auto
 
 *.jx  diff=jsx
+*.js linguist-language=JSX
