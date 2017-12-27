@@ -1,11 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import EventsNormalizer from 'Parser/Core/EventsNormalizer';
 
-const ISB_BASE_DURATION = 6000;
-const PK_EXTRA_DURATION = 500;
-const PURIFY_DURATION = 1000; // duration added by purifying brew when the Quick Sip trait is learned
-const DURATION_CAP_FACTOR = 3;
-
 const debug = false;
 
 /**
@@ -15,7 +10,18 @@ const debug = false;
  * normalize correctly in this case because no buff-related
  * events fire for it ever, only casts.
  */
-class IronskinBrewNormalizer extends EventsNormalizer {
+class IronskinBrew extends EventsNormalizer {
+  // stolen from ApplyBuff
+  _getFirstEventIndex(events) {
+    for (let i = 0; i < events.length; i += 1) {
+      const event = events[i];
+      if (event.type !== 'combatantinfo') {
+        return i;
+      }
+    }
+    throw new Error('Fight doesn\'t have a first event, something must have gone wrong.');
+  }
+
   _combatantInfoEvents = {};
   initialize(combatants) {
     this._combatantInfoEvents = combatants;
@@ -24,7 +30,6 @@ class IronskinBrewNormalizer extends EventsNormalizer {
   normalize(events) {
     const isbCasts = {};
     const isbBuffs = {};
-    let isbAbility;
     let isbBuffAbility;
     for(let i = 0; i < events.length; i++) {
       const event = events[i];
@@ -35,8 +40,7 @@ class IronskinBrewNormalizer extends EventsNormalizer {
       if(event.type === "cast" && SPELLS.IRONSKIN_BREW.id === spellId) {
         isbCasts[sourceID] = isbCasts[sourceID] ? isbCasts[sourceID] : [];
         isbCasts[sourceID].push(event);
-        isbAbility = isbAbility ? isbAbility : event.ability;
-      } else if((event.type === "applybuff" || event.type === "refreshbuff" || event.type === "removebuff") && SPELLS.IRONSKIN_BREW_BUFF.id === spellId) {
+      } else if(["applybuff", "refreshbuff", "removebuff"].includes(event.type) && SPELLS.IRONSKIN_BREW_BUFF.id === spellId) {
         isbBuffs[targetID] = isbBuffs[targetID] ? isbBuffs[targetID] : [];
         isbBuffs[targetID].push(event);
         isbBuffAbility = isbBuffAbility ? isbBuffAbility : event.ability;
@@ -51,6 +55,8 @@ class IronskinBrewNormalizer extends EventsNormalizer {
       return events;
     }
 
+    // ideally we observe the buff (i.e. on another tank), buuuuut we
+    // often won't, so we build it in that case
     if(!isbBuffAbility) {
       isbBuffAbility = {
         guid: SPELLS.IRONSKIN_BREW_BUFF.id,
@@ -59,20 +65,11 @@ class IronskinBrewNormalizer extends EventsNormalizer {
       };
     }
     
+    // to maintain sanity, we insert our events after all the
+    // combatantinfo events -- identified by this index
+    const firstNonInfoIdx = this._getFirstEventIndex(events);
     for(let i = 0; i < buggedTargets.length; i++) {
       const targetID = parseInt(buggedTargets[i], 10);
-      const targetInfo = this._combatantInfoEvents.find(event => event.sourceID === targetID);
-      // potent kick increases the duration of the isb buff
-      const pk = targetInfo.artifact.find(trait => trait.spellID === SPELLS.POTENT_KICK.id);
-      // quick sip causes purifying brew to add 1 second of the
-      // isb buff
-      const qs = targetInfo.artifact.find(trait => trait.spellID === SPELLS.QUICK_SIP.id);
-      const pk_rank = pk ? pk.rank : 0;
-      const has_qs = qs ? qs.rank === 1 : false;
-
-      const DURATION = ISB_BASE_DURATION + pk_rank * PK_EXTRA_DURATION;
-      const CAP = DURATION_CAP_FACTOR * DURATION;
-
       const fab = (ty, ts) => { 
         return {
           timestamp: ts,
@@ -87,75 +84,14 @@ class IronskinBrewNormalizer extends EventsNormalizer {
         };
       };
 
-      // first we are going to fabricate the initial applybuff
-      // immediately before the first damage the target would take. this
-      // is done because the bug occurs when we have 100% uptime, and if
-      // we don't set the timestamp to be late enough we can actually
-      // get much less than 100% uptime
-      const firstDmg = events.find(event => event.type === "damage" && event.targetID === targetID);
-      const firstDmgIdx = events.indexOf(firstDmg);
-      events.splice(firstDmgIdx, 0, fab("applybuff", firstDmg.timestamp - 1));
-      let currentBuffTime = DURATION;
-      // now we go through the event list and fabricate correct buff
-      // events
-      for(let j = firstDmgIdx; j < events.length; j++) {
-        const event = events[j];
-        const spellId = event.ability ? event.ability.guid : null;
-        if(event.__fabricated) {
-          continue;
-        }
-        if(currentBuffTime > 0) {
-          currentBuffTime -= event.timestamp - events[j-1].timestamp;
-          // using a nested if because this condition (if y modify y
-          // (call it z), then if !y, operate on z) is most naturally
-          // expressed this way
-          if(currentBuffTime <= 0) {
-            console.warn(`removebuff (${event.timestamp + currentBuffTime})-- this should not happen!`);
-            events.splice(j, 0, fab("removebuff", event.timestamp + currentBuffTime));
-            currentBuffTime = 0;
-            // we will process the same event again on the next
-            // iteration, but with a correct j for further fabs
-            continue; 
-          }
-        }
-        // the ISB buff can only result from a cast by the user, skip
-        // everything else
-        if(event.sourceID !== targetID || event.type !== "cast") {
-          continue;
-        }
-        if (SPELLS.IRONSKIN_BREW.id === spellId) {
-          if(currentBuffTime === 0) {
-            debug && console.log(`applybuff (${event.timestamp}) -- ${DURATION}`);
-            events.splice(j+1, 0, fab("applybuff", event.timestamp));
-            currentBuffTime = DURATION;
-          } else {
-            events.splice(j+1, 0, fab("refreshbuff", event.timestamp));
-            currentBuffTime += DURATION;
-            if(currentBuffTime > CAP) {
-              currentBuffTime = CAP;
-            }
-            debug && console.log(`refreshbuff (${event.timestamp}) -- ${currentBuffTime}`);
-          }
-        } else if (has_qs && SPELLS.PURIFYING_BREW.id === spellId) {
-          // if the user has the Quick Sip trait, purifying brew also
-          // applies ISB.
-          if(currentBuffTime === 0) {
-            debug && console.log(`applybuff (${event.timestamp}) -- ${PURIFY_DURATION}`);
-            events.splice(j+1, 0, fab("applybuff", event.timestamp));
-            currentBuffTime = PURIFY_DURATION;
-          } else {
-            events.splice(j+1, 0, fab("refreshbuff", event.timestamp));
-            currentBuffTime += PURIFY_DURATION;
-            if(currentBuffTime > CAP) {
-              currentBuffTime = CAP;
-            }
-            debug && console.log(`refreshbuff (${event.timestamp}) -- ${currentBuffTime}`);
-          }
-        }
-      }
+      // then we add a single applybuff event after the combatantinfo
+      // ironskinbrew does not trigger refreshbuff, and we know a priori
+      // that it was never allowed to drop (otherwise, we wouldn't be
+      // here).
+      events.splice(firstNonInfoIdx, 0, fab("applybuff", events[firstNonInfoIdx].timestamp - 1));
     }
     return events;
   }
 }
 
-export default IronskinBrewNormalizer;
+export default IronskinBrew;
