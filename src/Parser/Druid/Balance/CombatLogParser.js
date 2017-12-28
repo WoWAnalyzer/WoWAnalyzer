@@ -9,6 +9,7 @@ import AstralPower from './Modules/Features/AstralPower';
 import Abilities from './Modules/Features/Abilities';
 import LEmpowerment from './Modules/Features/LunarEmpowerment';
 import SEmpowerment from './Modules/Features/SolarEmpowerment';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 
 //Spells
 import FullMoon from './Modules/Spells/FullMoon';
@@ -32,6 +33,7 @@ class CombatLogParser extends MainCombatLogParser {
     abilities: Abilities,
     lsempowerment: LEmpowerment,
     swempowerment: SEmpowerment,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     //Spells
     fullmoon: FullMoon,
     halfmoon: HalfMoon,
