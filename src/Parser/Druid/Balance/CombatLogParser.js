@@ -18,6 +18,7 @@ import Moonfire from './Modules/Spells/Moonfire';
 import NewMoon from './Modules/Spells/NewMoon';
 import Sunfire from './Modules/Spells/Sunfire';
 import UnempoweredLs from './Modules/Spells/UnempoweredLs';
+//import MoonSpells from './Modules/Spells/MoonSpells';
 
 //Items
 import EmeraldDreamcatcher from './Modules/Items/EmeraldDreamcatcher';
@@ -41,6 +42,7 @@ class CombatLogParser extends MainCombatLogParser {
     newmoon: NewMoon,
     sunfire: Sunfire,
     unempoweredLS: UnempoweredLs,
+    //moonSpells: MoonSpells,
     //Items
     emeraldDreamcatcher: EmeraldDreamcatcher,
   };
