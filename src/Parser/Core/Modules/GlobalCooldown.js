@@ -45,7 +45,7 @@ class GlobalCooldown extends Analyzer {
     const spellId = event.ability.guid;
     const isOnGcd = this.isOnGlobalCooldown(spellId);
     if (isOnGcd) {
-      this.triggerGlobalCooldown(event);
+      this.triggerGlobalCooldown(event, 'begincast');
     }
   }
   on_byPlayer_cast(event) {
@@ -63,16 +63,17 @@ class GlobalCooldown extends Analyzer {
       // The GCD occured already at the start of this channel
       return;
     }
-    this.triggerGlobalCooldown(event);
+    this.triggerGlobalCooldown(event, 'cast');
   }
 
-  triggerGlobalCooldown(event) {
+  triggerGlobalCooldown(event, trigger) {
     this.owner.triggerEvent('globalcooldown', {
       type: 'globalcooldown',
       ability: event.ability,
       timestamp: event.timestamp,
       duration: this.getCurrentGlobalCooldown(event.ability.id),
       reason: event,
+      trigger,
     });
   }
   getCurrentGlobalCooldown(spellId = null) {

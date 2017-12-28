@@ -1,4 +1,5 @@
 import Analyzer from 'Parser/Core/Analyzer';
+import { formatMilliseconds } from 'common/format';
 
 class Channeling extends Analyzer {
   _currentChannel = null;
@@ -15,7 +16,8 @@ class Channeling extends Analyzer {
   endChannel(event) {
     const start = this._currentChannel ? this._currentChannel.timestamp : this.owner.fight.start_time;
     if (!this._currentChannel) {
-      console.warn('Channeling: `endChannel` was called while we weren\'t channeling, assuming it was a pre-combat channel.');
+      const fightDuration = formatMilliseconds(start - this.owner.fight.start_time);
+      console.warn(fightDuration, 'Channeling', event.ability.name, '`endChannel` was called while we weren\'t channeling, assuming it was a pre-combat channel.');
     }
     const duration = event.timestamp - start;
     this._currentChannel = null;

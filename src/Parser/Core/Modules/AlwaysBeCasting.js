@@ -54,7 +54,7 @@ class AlwaysBeCasting extends Analyzer {
   _lastGlobalCooldownDuration = 0;
   on_globalcooldown(event) {
     this._lastGlobalCooldownDuration = event.duration;
-    if (event.reason.type === 'begincast') {
+    if (event.trigger === 'begincast') {
       // This cast can still be interrupted. Only add the active time when the channel ends.
       return false;
     }

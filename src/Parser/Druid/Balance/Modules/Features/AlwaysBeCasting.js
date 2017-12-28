@@ -32,25 +32,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     [SPELLS.BEAR_FORM.id]: 1.5,
   };
 
-  recordCastTime(
-    castStartTimestamp,
-    globalCooldown,
-    begincast,
-    cast,
-    spellId
-  ) {
-    super.recordCastTime(
-      castStartTimestamp,
-      globalCooldown,
-      begincast,
-      cast,
-      spellId
-    );
-    this._verifyChannel(SPELLS.NEW_MOON.id, 1000, begincast, cast);
-    this._verifyChannel(SPELLS.HALF_MOON.id, 2000, begincast, cast);
-    this._verifyChannel(SPELLS.FULL_MOON.id, 3000, begincast, cast);
-  }
-
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 

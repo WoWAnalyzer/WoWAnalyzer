@@ -52,22 +52,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     // SPELLS.IRONFUR.id
   ];
 
-  recordCastTime(
-    castStartTimestamp,
-    globalCooldown,
-    begincast,
-    cast,
-    spellId
-  ) {
-    super.recordCastTime(
-      castStartTimestamp,
-      globalCooldown,
-      begincast,
-      cast,
-      spellId
-    );
-  }
-
   suggestions(when) {
     const nonHealingTimePercentage = this.totalHealingTimeWasted / this.owner.fightDuration;
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
