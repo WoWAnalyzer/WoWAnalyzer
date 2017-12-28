@@ -125,17 +125,17 @@ class SpellTimeline extends React.PureComponent {
           </div>
           <div className={`events lane`} style={{ width: totalWidth }}>
             {globalCooldownHistory && globalCooldownHistory.map(event => {
-              const left = (event.startTimestamp - start) / 1000 * secondWidth;
+              const left = (event.timestamp - start) / 1000 * secondWidth;
               const maxWidth = totalWidth - left; // don't expand beyond the container width
               return (
                 <div
-                  key={`${event.startTimestamp}-${event.endTimestamp}`}
+                  key={`${event.timestamp}-${event.duration}`}
                   className="casting-time"
                   style={{
                     left,
-                    width: Math.min(maxWidth, (event.endTimestamp - event.startTimestamp) / 1000 * secondWidth),
+                    width: Math.min(maxWidth, event.duration / 1000 * secondWidth),
                   }}
-                  data-tip={`Casting time: ${((event.endTimestamp - event.startTimestamp) / 1000).toFixed(1)}s`}
+                  data-tip={`Casting time: ${(event.duration / 1000).toFixed(1)}s`}
                 />
               );
             })}
