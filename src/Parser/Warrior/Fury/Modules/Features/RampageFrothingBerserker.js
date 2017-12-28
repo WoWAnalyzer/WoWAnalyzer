@@ -41,7 +41,7 @@ class RampageFrothingBerserker extends Analyzer {
       
       this.casts_counter++;
 
-      if (rage < 100) {
+      if (rage < 100 && !this.combatants.selected.hasBuff(SPELLS.BATTLE_CRY.id)) {
         this.premature_counter++;
         this.last_timestamp = event.timestamp;
       }
