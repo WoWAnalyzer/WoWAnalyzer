@@ -602,17 +602,17 @@ export default {
   CELESTIAL_ALIGNMENT: {
     id: 194223,
     name: 'Celestial Alignment',
-    icon: 'artifactability_balancedruid_newmoon',
+    icon: 'spell_nature_natureguardian',
   },
   LUNAR_EMP_BUFF: {
     id: 164547,
     name: 'Lunar Empowement',
-    icon: 'artifactability_balancedruid_newmoon',
+    icon: 'spell_arcane_starfire',
   },
   SOLAR_EMP_BUFF: {
     id: 164545,
     name: 'Celestial Alignment',
-    icon: 'artifactability_balancedruid_newmoon',
+    icon: 'spell_nature_wrathv2',
   },
   OWLKIN_FRENZY: {
     id: 157228,
