@@ -80,7 +80,7 @@ class UnempoweredLS extends Analyzer {
     const suboptPerMin = ((this.suboptUmempLS) / (this.owner.fightDuration / 1000)) * 60;
     when(suboptPerMin).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You casted {this.suboptUmempLS} unempowered <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> that hit less than 4 targets. Always prioritize Solar Wrath as a filler if there are less than 4 targets.</span>)
+        return suggest(<span>You casted {this.suboptUmempLS} unempowered and non instant cast <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> that hit less than 4 targets. Always prioritize Solar Wrath as a filler if there are less than 4 targets.</span>)
           .icon(SPELLS.LUNAR_STRIKE.icon)
           .actual(`${formatNumber(actual)} Unempowered LS per minute`)
           .recommended(`${recommended} Unempowered LS that hits less than 4 targets are recomended`)
