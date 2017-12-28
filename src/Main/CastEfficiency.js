@@ -68,9 +68,12 @@ CastEfficiency.propTypes = {
     ability: PropTypes.shape({
       name: PropTypes.string,
       category: PropTypes.string.isRequired,
-      spell: PropTypes.shape({
+      primarySpell: PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
+      }).isRequired,
+      castEfficiency: PropTypes.shape({
+        name: PropTypes.string,
       }).isRequired,
     }),
     cpm: PropTypes.number.isRequired,
