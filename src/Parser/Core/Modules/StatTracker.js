@@ -107,7 +107,7 @@ class StatTracker extends Analyzer {
       ...this._pullStats,
     };
 
-    this._debugPrintStats(this._currentStats);
+    debug && this._debugPrintStats(this._currentStats);
   }
 
   /*
@@ -407,7 +407,7 @@ class StatTracker extends Analyzer {
     if (debug) {
       const spellName = eventReason && eventReason.ability ? eventReason.ability.name : 'unspecified';
       console.log(`StatTracker: FORCED CHANGE from ${spellName} - Change: ${this._statPrint(delta)}`);
-      this._debugPrintStats(this._currentStats);
+      debug && this._debugPrintStats(this._currentStats);
     }
   }
 
