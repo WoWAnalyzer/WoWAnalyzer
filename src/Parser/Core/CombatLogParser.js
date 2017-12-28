@@ -488,6 +488,7 @@ class CombatLogParser {
             end={this.currentTimestamp >= 0 ? this.currentTimestamp : this.fight.end_time}
             historyBySpellId={this.modules.spellHistory.historyBySpellId}
             globalCooldownHistory={this.modules.globalCooldown.history}
+            channelHistory={this.modules.channeling.history}
             abilities={this.modules.abilities}
           />
         ),

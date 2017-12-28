@@ -16,6 +16,7 @@ class SpellTimeline extends React.PureComponent {
   static propTypes = {
     historyBySpellId: PropTypes.object.isRequired,
     globalCooldownHistory: PropTypes.array.isRequired,
+    channelHistory: PropTypes.array.isRequired,
     abilities: PropTypes.object.isRequired,
     spellId: PropTypes.number,
     start: PropTypes.number.isRequired,
@@ -67,7 +68,7 @@ class SpellTimeline extends React.PureComponent {
 
   gemini = null;
   render() {
-    const { start, end, historyBySpellId, globalCooldownHistory } = this.props;
+    const { start, end, historyBySpellId, globalCooldownHistory, channelHistory } = this.props;
     const duration = end - start;
     const seconds = Math.ceil(duration / 1000);
 
@@ -124,12 +125,13 @@ class SpellTimeline extends React.PureComponent {
             })}
           </div>
           <div className={`events lane`} style={{ width: totalWidth }}>
-            {globalCooldownHistory && globalCooldownHistory.map(event => {
-              const left = (event.timestamp - start) / 1000 * secondWidth;
+            {globalCooldownHistory && channelHistory && [...globalCooldownHistory, ...channelHistory].map(event => {
+              const eventStart = event.start || event.timestamp;
+              const left = (eventStart - start) / 1000 * secondWidth;
               const maxWidth = totalWidth - left; // don't expand beyond the container width
               return (
                 <div
-                  key={`${event.timestamp}-${event.duration}`}
+                  key={`${eventStart}-${event.duration}`}
                   className="casting-time"
                   style={{
                     left,
