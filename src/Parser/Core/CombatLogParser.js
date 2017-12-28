@@ -119,7 +119,7 @@ import EventsNormalizer from './EventsNormalizer';
 
 const debug = false;
 // This sends every event that occurs to the console, including fabricated events (unlike the Events tab)
-const debugEvents = true;
+const debugEvents = false;
 
 let _modulesDeprecatedWarningSent = false;
 
