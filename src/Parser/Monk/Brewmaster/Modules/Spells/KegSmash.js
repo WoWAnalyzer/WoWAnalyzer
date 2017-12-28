@@ -54,7 +54,7 @@ class KegSmash extends Analyzer {
       return;
     }
     this.totalHits += 1;
-    if(this.boc_apply_to_ks) {
+    if(this._boc_apply_to_ks) {
       this.bocHits += 1;
     }
   }

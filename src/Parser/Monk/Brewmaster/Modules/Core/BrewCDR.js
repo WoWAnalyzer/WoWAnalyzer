@@ -12,7 +12,7 @@ import AnvilHardenedWristwraps from '../Items/AnvilHardenedWristwraps';
 const TIGER_PALM_REDUCTION = 1000;
 const FACE_PALM_REDUCTION = 1000;
 const KEG_SMASH_REDUCTION = 4000;
-const BOC_KEG_SMASH_REDUCTION = 6000;
+const BOC_KEG_SMASH_REDUCTION = 2000;
 const WRISTS_REDUCTION = 1000;
 
 class BrewCDR extends Analyzer {
@@ -24,7 +24,11 @@ class BrewCDR extends Analyzer {
   }
 
   get ksCDR() {
-    return KEG_SMASH_REDUCTION * (this.ks.totalHits - this.ks.bocHits) + BOC_KEG_SMASH_REDUCTION * this.ks.bocHits;
+    return KEG_SMASH_REDUCTION * this.ks.totalHits;
+  }
+
+  get bocKsCDR() {
+    return BOC_KEG_SMASH_REDUCTION * this.ks.bocHits;
   }
 
   get tpCDR() {
@@ -39,6 +43,7 @@ class BrewCDR extends Analyzer {
     let totalCDR = 0;
     // add in KS CDR...
     totalCDR += this.ksCDR;
+    totalCDR += this.bocKsCDR;
     // ...and TP...
     totalCDR += this.tpCDR;
     // ...and wrists
@@ -67,12 +72,17 @@ class BrewCDR extends Analyzer {
     if(this.wristsEquipped) {
       wristsDesc = `<li>Anvil-Hardened Wristwraps and ${this.wrists.dodgedHits} dodged hits — <b>${this.wristCDR / 1000}s</b></li>`;
     }
+    let bocKsDesc = "";
+    if(this.ks.bocHits > 0) {
+      bocKsDesc = `<li>Using Blackout Combo on ${this.ks.bocHits} Keg Smash hits — <b>${this.bocKsCDR / 1000}s</b></li>`;
+    }
     return (
       <StatisticBox icon={<SpellIcon id={SPELLS.TIGER_PALM.id} />}
         value={`${formatPercentage(this.cooldownReductionRatio)}%`}
         label="Effective Brew CDR"
         tooltip={`Your cooldowns were reduced by: <ul>
               <li>${this.ks.totalHits} Keg Smash hits (${(this.ks.totalHits / this.ks.totalCasts).toFixed(2)} per cast) — <b>${this.ksCDR / 1000}s</b></li>
+              ${bocKsDesc}
               <li>${this.tp.totalCasts} Tiger Palm hits (with ${this.tp.facePalmHits} Face Palm procs) — <b>${this.tpCDR / 1000}s</b></li>
               ${wristsDesc}
             </ul>
