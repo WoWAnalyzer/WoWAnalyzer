@@ -1,13 +1,13 @@
 import React from 'react';
 
 import Icon from 'common/Icon';
-import SPELLS from 'common/SPELLS';
 import { formatMilliseconds, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Abilities from './Abilities';
 import GlobalCooldown from './GlobalCooldown';
+import Channeling from './Channeling';
 
 import Haste from './Haste';
 
@@ -19,6 +19,7 @@ class AlwaysBeCasting extends Analyzer {
     haste: Haste,
     abilities: Abilities,
     globalCooldown: GlobalCooldown, // triggers the globalcooldown event
+    channeling: Channeling, // triggers the channeling-related events
   };
 
   // TODO: Should all this props be lower case?
@@ -50,8 +51,24 @@ class AlwaysBeCasting extends Analyzer {
   }
 
   activeTime = 0;
+  _lastGlobalCooldownDuration = 0;
   on_globalcooldown(event) {
+    this._lastGlobalCooldownDuration = event.duration;
+    if (event.reason.type === 'begincast') {
+      // This cast can still be interrupted. Only add the active time when the channel ends.
+      return false;
+    }
     this.activeTime += event.duration;
+    return true;
+  }
+  on_endchannel(event) {
+    // If the channel was shorter than the GCD then use the GCD as active time
+    let amount = event.duration;
+    if (this.globalCooldown.isOnGlobalCooldown(event.ability.guid)) {
+      amount = Math.max(amount, this._lastGlobalCooldownDuration);
+    }
+    this.activeTime += amount;
+    return true;
   }
 
   processCast({ begincast, cast }) {

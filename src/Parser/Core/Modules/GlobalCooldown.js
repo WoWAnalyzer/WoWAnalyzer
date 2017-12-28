@@ -3,8 +3,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Abilities from './Abilities';
 import Haste from './Haste';
 
-const debug = true;
-
 class GlobalCooldown extends Analyzer {
   static dependencies = {
     // `alwaysBeCasting` is a dependency, but it also has a dependency on this class. We can't have circular dependencies so I cheat in this class by using the deprecated `this.owner.modules`. This class only needs the dependency on ABC for legacy reasons (it has the config we need), once that's fixed we can remove it completely.
@@ -33,7 +31,6 @@ class GlobalCooldown extends Analyzer {
         }
       });
 
-    debug && console.log('Abilities on the GCD:', abilities);
     this.abilitiesOnGlobalCooldown = abilities;
   }
 

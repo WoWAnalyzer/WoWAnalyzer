@@ -21,10 +21,22 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
   _lastHealingCastFinishedTimestamp = null;
 
   on_globalcooldown(event) {
-    super.on_globalcooldown(event);
+    if (!super.on_globalcooldown(event)) {
+      return false;
+    }
     if (this.countsAsHealingAbility(event)) {
       this.healingTime += event.duration;
     }
+    return true;
+  }
+  on_endchannel(event) {
+    if (!super.on_endchannel(event)) {
+      return false;
+    }
+    if (this.countsAsHealingAbility(event)) {
+      this.healingTime += event.duration;
+    }
+    return true;
   }
   countsAsHealingAbility(cast) {
     return this.constructor.HEALING_ABILITIES_ON_GCD.indexOf(cast.ability.guid) !== -1;
