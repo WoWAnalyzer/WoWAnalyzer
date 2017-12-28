@@ -30,9 +30,6 @@ class IronSkinBrew extends Analyzer {
   _durationPerPurify = 0;
   _durationCap = -1;
 
-  buffShouldBeApplied = false;
-  buffNeverApplied = true;
-
   on_initialized() {
     this._durationPerCast += 500 * this.combatants.selected.traitsBySpellId[SPELLS.POTENT_KICK.id];
     this._durationCap = 3 * this._durationPerCast;
@@ -68,15 +65,7 @@ class IronSkinBrew extends Analyzer {
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (SPELLS.IRONSKIN_BREW_BUFF.id === spellId) {
-      this.buffNeverApplied = false;
       this.lastIronSkinBrewBuffApplied = event.timestamp;
-    }
-  }
-
-  on_byPlayer_refreshbuff(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.IRONSKIN_BREW_BUFF.id === spellId) {
-      this.buffNeverApplied = false;
     }
   }
 
@@ -110,20 +99,7 @@ class IronSkinBrew extends Analyzer {
     }
   }
 
-  // returns true if we hit the WCL bug with 100%/0% uptime on ISB
-  get wclUptimeBug() {
-    return this.buffShouldBeApplied && this.buffNeverApplied;
-  }
-
   on_finished() {
-    if (this.wclUptimeBug) {
-      // WCL bug: if we start the fight with ISB up and never let it
-      // drop ever, it is never shown as applied
-      this.hitsWithIronSkinBrew = this.hitsWithoutIronSkinBrew;
-      this.hitsWithoutIronSkinBrew = 0;
-      this.damageWithIronSkinBrew = this.damageWithoutIronSkinBrew;
-      this.damageWithoutIronSkinBrew = 0;
-    }
     if (debug) {
       console.log(`Hits with IronSkinBrew ${this.hitsWithIronSkinBrew}`);
       console.log(`Damage with IronSkinBrew ${this.damageWithIronSkinBrew}`);

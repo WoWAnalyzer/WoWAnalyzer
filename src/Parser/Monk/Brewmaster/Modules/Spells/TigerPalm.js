@@ -22,6 +22,10 @@ class TigerPalm extends Analyzer {
   boc_buff_active = false;
   boc_apply_to_tp = false;
 
+  get facePalmHits() {
+    return this.fpHits + this.bocFpHits;
+  }
+
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if(SPELLS.BLACKOUT_COMBO_BUFF.id === spellId) {

@@ -23,27 +23,60 @@ class BrewCDR extends Analyzer {
     wrists: AnvilHardenedWristwraps,
   }
 
+  get ksCDR() {
+    return KEG_SMASH_REDUCTION * (this.ks.totalHits - this.ks.bocHits) + BOC_KEG_SMASH_REDUCTION * this.ks.bocHits;
+  }
+
+  get tpCDR() {
+    return TIGER_PALM_REDUCTION * this.tp.totalCasts + FACE_PALM_REDUCTION * (this.tp.fpHits + this.tp.bocFpHits);
+  }
+
+  get wristCDR() {
+    return WRISTS_REDUCTION * this.wrists.dodgedHits;
+  }
+
   get totalCDR() {
     let totalCDR = 0;
     // add in KS CDR...
-    totalCDR += KEG_SMASH_REDUCTION * (this.ks.totalHits - this.ks.bocHits) + BOC_KEG_SMASH_REDUCTION * this.ks.bocHits;
+    totalCDR += this.ksCDR;
     // ...and TP...
-    totalCDR += TIGER_PALM_REDUCTION * this.tp.totalCasts + FACE_PALM_REDUCTION * (this.tp.fpHits + this.tp.bocFpHits);
+    totalCDR += this.tpCDR;
     // ...and wrists
-    totalCDR += WRISTS_REDUCTION * this.wrists.dodgedHits;
+    totalCDR += this.wristCDR;
     return totalCDR;
+  }
+
+  get cooldownReductionRatio() {
+    return 1.0 - this.owner.fightDuration / (this.owner.fightDuration + this.totalCDR);
+  }
+
+  get suggestionThreshold() {
+    return {
+      actual: this.cooldownReductionRatio,
+      isLessThan: {
+        minor: 0.5,
+        average: 0.45,
+        major: 0.4,
+      },
+      style: 'percentage',
+    };
   }
 
   statistic() {
     let wristsDesc = "";
     if(this.wristsEquipped) {
-      wristsDesc = `and ${this.dodgedHits} dodged attacks `;
+      wristsDesc = `<li>Anvil-Hardened Wristwraps and ${this.wrists.dodgedHits} dodged hits — <b>${this.wristCDR / 1000}s</b></li>`;
     }
     return (
       <StatisticBox icon={<SpellIcon id={SPELLS.TIGER_PALM.id} />}
-        value={`${formatPercentage(1.0 - this.owner.fightDuration / (this.owner.fightDuration + this.totalCDR))}%`}
+        value={`${formatPercentage(this.cooldownReductionRatio)}%`}
         label="Effective Brew CDR"
-        tooltip={`${this.ks.totalHits} Keg Smash hits (${this.ks.totalHits / this.ks.totalCasts} per cast) and ${this.tp.totalCasts} Tiger Palm hits (with ${this.tp.bocFpHits + this.tp.fpHits} Face Palm procs) ${wristsDesc}reduced your brew cooldowns by ${this.totalCDR / 1000}s.`}
+        tooltip={`Your cooldowns were reduced by: <ul>
+              <li>${this.ks.totalHits} Keg Smash hits (${(this.ks.totalHits / this.ks.totalCasts).toFixed(2)} per cast) — <b>${this.ksCDR / 1000}s</b></li>
+              <li>${this.tp.totalCasts} Face Palm hits (with ${this.tp.facePalmHits} Face Palm procs) — <b>${this.tpCDR / 1000}s</b></li>
+              ${wristsDesc}
+            </ul>
+            <b>Total cooldown reduction:</b> ${this.totalCDR / 1000}s.</b>`}
       />
     );
   }
