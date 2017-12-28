@@ -17,20 +17,15 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.NEW_MOON.id,
     SPELLS.HALF_MOON.id,
     SPELLS.FULL_MOON.id,
+    SPELLS.MOONKIN_FORM.id,
+    SPELLS.DISPLACER_BEAST_TALENT.id,
+    SPELLS.BEAR_FORM.id,
 
     // Talents
     SPELLS.TYPHOON_TALENT.id,
     SPELLS.MASS_ENTANGLEMENT_TALENT.id,
     SPELLS.FORCE_OF_NATURE_TALENT.id,
   ];
-
-  static STATIC_GCD_ABILITIES = {
-    ...CoreAlwaysBeCasting.STATIC_GCD_ABILITIES,
-    // Shapeshifts
-    [SPELLS.MOONKIN_FORM.id]: 1.5,
-    [SPELLS.DISPLACER_BEAST_TALENT.id]: 1.5,
-    [SPELLS.BEAR_FORM.id]: 1.5,
-  };
 
   recordCastTime(
     castStartTimestamp,
