@@ -11,7 +11,7 @@ class WarningDisplay extends Analyzer {
       return (
         <div>
           <div style={{ padding: 0 }}>
-            <div className="flex-sub content-middle" style={{ margin: '10px 30px 10px 30px', color: '#D9A730', opacity: 0.8 }}>
+            <div className="flex-sub content-middle" style={{ margin: '10px 30px 10px 30px', color: '#FC9F06', opacity: 0.8 }}>
                 <div style={{ fontSize: '4em', lineHeight: 1, marginRight: 20 }}>
                   <WarningIcon />
                 </div>
