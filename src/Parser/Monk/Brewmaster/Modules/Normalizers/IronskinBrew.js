@@ -69,7 +69,7 @@ class IronskinBrew extends EventsNormalizer {
     // combatantinfo events -- identified by this index
     const firstNonInfoIdx = this._getFirstEventIndex(events);
     for(let i = 0; i < buggedTargets.length; i++) {
-      const targetID = parseInt(buggedTargets[i], 10);
+      const targetID = Number(buggedTargets[i]);
       const fab = (ty, ts) => { 
         return {
           timestamp: ts,
