@@ -68,11 +68,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     );
   }
 
-  static inRange(num1, goal, buffer) {
-    return num1 > (goal - buffer) && num1 < (goal + buffer);
-  }
-
-
   suggestions(when) {
     const nonHealingTimePercentage = this.totalHealingTimeWasted / this.owner.fightDuration;
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;

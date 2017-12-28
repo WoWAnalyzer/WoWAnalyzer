@@ -10,39 +10,21 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
     // Extend this class and override this property in your spec class to implement this module.
   ];
 
-  totalHealingTimeWasted = 0;
+  healingTime = 0;
+  get healingTimePercentage() {
+    return this.healingTime / this.owner.fightDuration;
+  }
   get nonHealingTimePercentage() {
-    return this.totalHealingTimeWasted / this.owner.fightDuration;
+    return 1 - this.healingTimePercentage;
   }
 
   _lastHealingCastFinishedTimestamp = null;
 
-  recordCastTime(
-    castStartTimestamp,
-    globalCooldown,
-    begincast,
-    cast,
-    spellId
-  ) {
-    super.recordCastTime(
-      castStartTimestamp,
-      globalCooldown,
-      begincast,
-      cast,
-      spellId
-    );
-
-    if (this.countsAsHealingAbility(cast)) {
-      const healTimeWasted = castStartTimestamp - (this._lastHealingCastFinishedTimestamp || this.owner.fight.start_time);
-      this.totalHealingTimeWasted += healTimeWasted;
-      this._lastHealingCastFinishedTimestamp = Math.max(castStartTimestamp + globalCooldown, cast.timestamp);
+  on_globalcooldown(event) {
+    super.on_globalcooldown(event);
+    if (this.countsAsHealingAbility(event)) {
+      this.healingTime += event.duration;
     }
-  }
-  on_finished() {
-    super.on_finished();
-
-    const healTimeWasted = this.owner.fight.end_time - (this._lastHealingCastFinishedTimestamp || this.owner.fight.start_time);
-    this.totalHealingTimeWasted += healTimeWasted;
   }
   countsAsHealingAbility(cast) {
     return this.constructor.HEALING_ABILITIES_ON_GCD.indexOf(cast.ability.guid) !== -1;
@@ -59,13 +41,9 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
       return null;
     }
 
-    const downtime = this.totalTimeWasted;
-    const healingTime = this.owner.fightDuration - this.totalHealingTimeWasted;
-    const nonHealCastTime = this.totalHealingTimeWasted - this.totalTimeWasted;
-
-    const downtimePercentage = downtime / this.owner.fightDuration;
-    const healingTimePercentage = healingTime / this.owner.fightDuration;
-    const nonHealCastTimePercentage = nonHealCastTime / this.owner.fightDuration;
+    const downtimePercentage = this.downtimePercentage;
+    const healingTimePercentage = this.healingTimePercentage;
+    const nonHealCastTimePercentage = this.activeTimePercentage - healingTimePercentage;
 
     return (
       <StatisticBox

@@ -31,6 +31,7 @@ import Pets from './Modules/Pets';
 import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
+import Channeling from './Modules/Channeling';
 
 import DistanceMoved from './Modules/Others/DistanceMoved';
 
@@ -117,7 +118,8 @@ import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
 
 const debug = false;
-const debugEvents = false;
+// This sends every event that occurs to the console, including fabricated events (unlike the Events tab)
+const debugEvents = true;
 
 let _modulesDeprecatedWarningSent = false;
 
@@ -139,6 +141,7 @@ class CombatLogParser {
     enemyInstances: EnemyInstances,
     pets: Pets,
     spellManaCost: SpellManaCost,
+    channeling: Channeling,
     abilityTracker: AbilityTracker,
     healEventTracker: HealEventTracker,
     haste: Haste,
