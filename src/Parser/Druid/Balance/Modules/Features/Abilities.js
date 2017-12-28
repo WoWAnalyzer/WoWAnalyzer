@@ -72,7 +72,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.WARRIOR_OF_ELUNE_TALENT,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: (haste, combatant) => {
-        return 45;
+        return 50;
       },
       isActive: combatant => combatant.hasTalent(SPELLS.WARRIOR_OF_ELUNE_TALENT.id),
       recommendedEfficiency: 0.9,
