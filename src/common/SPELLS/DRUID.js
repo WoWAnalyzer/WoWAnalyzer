@@ -614,6 +614,11 @@ export default {
     name: 'Celestial Alignment',
     icon: 'artifactability_balancedruid_newmoon',
   },
+  OWLKIN_FRENZY: {
+    id: 157228,
+    name: 'Owlkin Frenzy',
+    icon: 'ability_druid_owlkinfrenzy',
+  },
   EMERALD_DREAMCATCHER_BUFF: {
     id: 224706,
     name: 'The Emerald Dreamcatcher',
