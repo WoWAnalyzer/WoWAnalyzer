@@ -13,27 +13,29 @@ class KegSmash extends Analyzer {
   totalHits = 0;
   bocHits = 0;
 
-  boc_buff_active = false;
-  boc_apply_to_ks = false;
+  _next_target = 0;
+
+  _boc_buff_active = false;
+  _boc_apply_to_ks = false;
   
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if(SPELLS.BLACKOUT_COMBO_BUFF.id === spellId) {
-      this.boc_buff_active = true;
+      this._boc_buff_active = true;
     }
   }
 
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
     if(SPELLS.BLACKOUT_COMBO_BUFF.id === spellId) {
-      this.boc_buff_active = true;
+      this._boc_buff_active = true;
     }
   }
 
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
     if(SPELLS.BLACKOUT_COMBO_BUFF.id === spellId) {
-      this.boc_buff_active = false;
+      this._boc_buff_active = false;
     }
   }
 
@@ -41,17 +43,19 @@ class KegSmash extends Analyzer {
     const spellId = event.ability.guid;
     if(SPELLS.KEG_SMASH.id === spellId) {
       this.totalCasts += 1;
-      this.boc_apply_to_ks = this.boc_buff_active;
+      this._boc_apply_to_ks = this._boc_buff_active;
+      this._next_target = event.targetID;
     }
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if(SPELLS.KEG_SMASH.id === spellId) {
-      this.totalHits += 1;
-      if(this.boc_apply_to_ks) {
-        this.bocHits += 1;
-      }
+    if(SPELLS.KEG_SMASH.id !== spellId || this._next_target !== event.targetID) {
+      return;
+    }
+    this.totalHits += 1;
+    if(this.boc_apply_to_ks) {
+      this.bocHits += 1;
     }
   }
 }

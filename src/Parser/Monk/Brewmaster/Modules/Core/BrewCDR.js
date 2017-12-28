@@ -73,7 +73,7 @@ class BrewCDR extends Analyzer {
         label="Effective Brew CDR"
         tooltip={`Your cooldowns were reduced by: <ul>
               <li>${this.ks.totalHits} Keg Smash hits (${(this.ks.totalHits / this.ks.totalCasts).toFixed(2)} per cast) — <b>${this.ksCDR / 1000}s</b></li>
-              <li>${this.tp.totalCasts} Face Palm hits (with ${this.tp.facePalmHits} Face Palm procs) — <b>${this.tpCDR / 1000}s</b></li>
+              <li>${this.tp.totalCasts} Tiger Palm hits (with ${this.tp.facePalmHits} Face Palm procs) — <b>${this.tpCDR / 1000}s</b></li>
               ${wristsDesc}
             </ul>
             <b>Total cooldown reduction:</b> ${this.totalCDR / 1000}s.</b>`}
