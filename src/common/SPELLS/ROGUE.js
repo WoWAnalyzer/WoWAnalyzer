@@ -133,7 +133,13 @@ export default {
     id: 197800,
     name: 'Shadow Nova',
     icon: 'spell_fire_twilightnova',
+  },  
+  INSIGNIA_OF_RAVENHOLDT: {
+    id: 209043,
+    name: 'Insignia of Ravenholdt',
+    icon: 'ability_rogue_shadowstrikes',
   },
+  
   // CP Generation
   SHADOW_TECHNIQUES: {
     id: 196911,
@@ -177,6 +183,11 @@ export default {
     id: 235027,
     name: 'Master Assassin\'s Initiative',
     icon: 'inv_weapon_shortblade_25',
+  },
+  THE_FIRST_OF_THE_DEAD_BUFF: {
+    id: 248210,
+    name: 'The First of the Dead',
+    icon: 'inv_glove_cloth_raidwarlockmythic_q_01',
   },
 
   // Sets

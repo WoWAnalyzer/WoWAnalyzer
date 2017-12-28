@@ -190,6 +190,7 @@ class Results extends React.Component {
                     <div className="flex" style={{ paddingTop: '10px', flexDirection: 'row', flexWrap: 'wrap' }}>
                       {Object.values(MAIN_TAB).map(tab => (
                         <button
+                          key={tab}
                           className={this.state.mainTab === tab ? 'btn-link selected' : 'btn-link'}
                           onClick={() => {
                             this.setState({

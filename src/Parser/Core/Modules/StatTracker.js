@@ -107,7 +107,7 @@ class StatTracker extends Analyzer {
       ...this._pullStats,
     };
 
-    this._debugPrintStats(this._currentStats);
+    debug && this._debugPrintStats(this._currentStats);
   }
 
   /*
@@ -248,6 +248,8 @@ class StatTracker extends Analyzer {
         return 0.18;
       case SPECS.MISTWEAVER_MONK:
         return 1.04;
+      case SPECS.FURY_WARRIOR:
+        return 0.11;
       default:
         console.error('Mastery hasn\'t been implemented for this spec yet.');
         return 0.0;
@@ -322,6 +324,8 @@ class StatTracker extends Analyzer {
         return 17776;
       case SPECS.MISTWEAVER_MONK:
         return 3076.96;
+      case SPECS.FURY_WARRIOR:
+        return 28430;
       default:
         console.error('Mastery hasn\'t been implemented for this spec yet.');
         return null;
@@ -403,7 +407,7 @@ class StatTracker extends Analyzer {
     if (debug) {
       const spellName = eventReason && eventReason.ability ? eventReason.ability.name : 'unspecified';
       console.log(`StatTracker: FORCED CHANGE from ${spellName} - Change: ${this._statPrint(delta)}`);
-      this._debugPrintStats(this._currentStats);
+      debug && this._debugPrintStats(this._currentStats);
     }
   }
 

@@ -145,8 +145,8 @@ class Checklist extends Analyzer {
           </div>
         )}
         <div className="row">
-          {requirements.map(({ requirement, thresholds, performance }) => (
-            <div key={requirement.name} className="col-md-6">
+          {requirements.map(({ requirement, thresholds, performance }, index) => (
+            <div key={index} className="col-md-6">
               <div className="flex">
                 <div className="flex-main">
                   {requirement.name}
