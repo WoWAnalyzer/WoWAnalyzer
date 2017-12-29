@@ -9,6 +9,7 @@ import AstralPower from './Modules/Features/AstralPower';
 import Abilities from './Modules/Features/Abilities';
 import LEmpowerment from './Modules/Features/LunarEmpowerment';
 import SEmpowerment from './Modules/Features/SolarEmpowerment';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 
 //Spells
 import FullMoon from './Modules/Spells/FullMoon';
@@ -17,6 +18,7 @@ import Moonfire from './Modules/Spells/Moonfire';
 import NewMoon from './Modules/Spells/NewMoon';
 import Sunfire from './Modules/Spells/Sunfire';
 import UnempoweredLs from './Modules/Spells/UnempoweredLs';
+//import MoonSpells from './Modules/Spells/MoonSpells';
 
 //Items
 import EmeraldDreamcatcher from './Modules/Items/EmeraldDreamcatcher';
@@ -32,6 +34,7 @@ class CombatLogParser extends MainCombatLogParser {
     abilities: Abilities,
     lsempowerment: LEmpowerment,
     swempowerment: SEmpowerment,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     //Spells
     fullmoon: FullMoon,
     halfmoon: HalfMoon,
@@ -39,6 +42,7 @@ class CombatLogParser extends MainCombatLogParser {
     newmoon: NewMoon,
     sunfire: Sunfire,
     unempoweredLS: UnempoweredLs,
+    //moonSpells: MoonSpells,
     //Items
     emeraldDreamcatcher: EmeraldDreamcatcher,
   };

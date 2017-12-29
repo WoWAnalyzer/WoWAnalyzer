@@ -228,6 +228,8 @@ class StatTracker extends Analyzer {
         return 0.04;
       case SPECS.RESTORATION_DRUID:
         return 0.048;
+      case SPECS.BALANCE_DRUID:
+        return 0.18;
       case SPECS.RETRIBUTION_PALADIN:
         return 0.14;
       case SPECS.PROTECTION_PALADIN:
@@ -248,6 +250,8 @@ class StatTracker extends Analyzer {
         return 0.18;
       case SPECS.MISTWEAVER_MONK:
         return 1.04;
+      case SPECS.BREWMASTER_MONK:
+        return 0.08;
       case SPECS.FURY_WARRIOR:
         return 0.11;
       default:
@@ -304,6 +308,8 @@ class StatTracker extends Analyzer {
         return 40000;
       case SPECS.RESTORATION_DRUID:
         return 66667;
+      case SPECS.BALANCE_DRUID:
+        return 17778;
       case SPECS.RETRIBUTION_PALADIN:
         return 22850;
       case SPECS.PROTECTION_PALADIN:
@@ -324,6 +330,8 @@ class StatTracker extends Analyzer {
         return 17776;
       case SPECS.MISTWEAVER_MONK:
         return 3076.96;
+      case SPECS.BREWMASTER_MONK:
+        return 40000;
       case SPECS.FURY_WARRIOR:
         return 28430;
       default:

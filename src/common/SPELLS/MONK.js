@@ -519,6 +519,11 @@ export default {
       name: 'Quick Sip',
       icon: 'spell_misc_drink',
   },
+  STAGGERING_AROUND: {
+    id: 213055,
+    name: 'Staggering Around',
+    icon: 'ability_monk_fortifyingale_new',
+  },
 
   // Windwalker Spells
   COMBO_STRIKES: {

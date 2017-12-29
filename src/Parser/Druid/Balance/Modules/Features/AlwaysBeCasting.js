@@ -17,6 +17,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.NEW_MOON.id,
     SPELLS.HALF_MOON.id,
     SPELLS.FULL_MOON.id,
+    SPELLS.MOONKIN_FORM.id,
+    SPELLS.DISPLACER_BEAST_TALENT.id,
+    SPELLS.BEAR_FORM.id,
 
     // Talents
     SPELLS.TYPHOON_TALENT.id,

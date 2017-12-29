@@ -1,12 +1,6 @@
-import React from 'react';
-import { WOPR, Zerotorescue, emallson } from 'MAINTAINERS';
+import { WOPR, emallson } from 'MAINTAINERS';
 
 export default [
-  {
-    date: new Date('3000-01-01'),
-    changes: <span style={{ color: 'red' }}>Changed completion status to <i>Not actively maintained</i> as @wopr resigned. Any help is welcome to continue support for this spec, see GitHub for more information.</span>,
-    contributors: [Zerotorescue],
-  },
   {
     date: new Date('2017-12-24'),
     changes: 'Added ISB uptime and clipping checklist items.',
