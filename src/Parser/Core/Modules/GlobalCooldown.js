@@ -2,6 +2,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 // import AlwaysBeCasting from './AlwaysBeCasting';
 import Abilities from './Abilities';
 import Haste from './Haste';
+import Channeling from './Channeling';
 
 class GlobalCooldown extends Analyzer {
   static dependencies = {
@@ -9,6 +10,8 @@ class GlobalCooldown extends Analyzer {
     // alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     haste: Haste,
+    // For the `beginchannel` event among other things
+    channeling: Channeling,
   };
 
   /** Set by `on_initialized`: contains a list of all abilities on the GCD from the Abilities config and the ABILITIES_ON_GCD static prop of this class. */
@@ -39,13 +42,14 @@ class GlobalCooldown extends Analyzer {
   }
 
   _currentChannel = null;
-  on_byPlayer_begincast(event) {
+  on_byPlayer_beginchannel(event) {
     this._currentChannel = event;
 
     const spellId = event.ability.guid;
     const isOnGcd = this.isOnGlobalCooldown(spellId);
-    if (isOnGcd && !event.isCancelled) {
-      // Cancelled casts reset the GCD
+    // Cancelled casts reset the GCD (only for cast-time spells, "channels" always have a GCD but they also can't be *cancelled*, just ended early)
+    const isCancelled = event.reason.isCancelled;
+    if (isOnGcd && !isCancelled) {
       this.triggerGlobalCooldown(event, 'begincast');
     }
   }
@@ -57,6 +61,7 @@ class GlobalCooldown extends Analyzer {
       return;
     }
 
+    // We can't rely on `this.channeling` here since it will have been executed first so will already have marked the channel as ended. This is annoying since it will be more reliable and work with changes.
     const isChanneling = !!this._currentChannel;
     const isChannelingSameSpell = isChanneling && this._currentChannel.ability.guid === event.ability.guid;
 
@@ -64,6 +69,7 @@ class GlobalCooldown extends Analyzer {
       // The GCD occured already at the start of this channel
       return;
     }
+    this._currentChannel = null;
     this.triggerGlobalCooldown(event, 'cast');
   }
 

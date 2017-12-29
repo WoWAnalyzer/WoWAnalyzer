@@ -12,6 +12,7 @@ import UABuffTracker from './Modules/Features/UABuffTracker';
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
 import Channeling from './Modules/WarlockCore/Channeling';
+import GlobalCooldown from './Modules/WarlockCore/GlobalCooldown';
 import FatalEchoes from './Modules/Features/FatalEchoes';
 import Sniping from './Modules/Features/Sniping';
 
@@ -54,6 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
     channeling: Channeling,
+    globalCooldown: GlobalCooldown,
 
     // Talents
     haunt: Haunt,

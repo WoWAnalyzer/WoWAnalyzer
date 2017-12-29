@@ -18,6 +18,7 @@ class Channeling extends Analyzer {
       type: 'beginchannel',
       timestamp: event.timestamp,
       ability: event.ability,
+      sourceID: event.sourceID,
       reason: event,
     });
     debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Channeling', 'Beginning channel of', event.ability.name);
@@ -38,6 +39,7 @@ class Channeling extends Analyzer {
       type: 'endchannel',
       timestamp: event.timestamp,
       ability,
+      sourceID: event.sourceID,
       duration: duration,
       start,
       reason: event, // the reason may be for another spell, sometimes the indicator of 1 channel ending is the start of another
@@ -49,6 +51,7 @@ class Channeling extends Analyzer {
     this.owner.triggerEvent('cancelchannel', {
       type: 'cancelchannel',
       ability,
+      sourceID: event.sourceID,
       timestamp: null, // unknown, we can only know when the next cast started so passing the timestamp would be a poor guess
       reason: event,
     });
