@@ -18,9 +18,9 @@ import MoonSpells from './Modules/Features/MoonSpells';
 import UnempoweredLs from './Modules/Features/UnempoweredLs';
 
 //Spells
-import FullMoon from './Modules/Spells/FullMoon';
-import HalfMoon from './Modules/Spells/HalfMoon';
-import NewMoon from './Modules/Spells/NewMoon';
+//import FullMoon from './Modules/Spells/FullMoon';
+//import HalfMoon from './Modules/Spells/HalfMoon';
+//import NewMoon from './Modules/Spells/NewMoon';
 
 
 //Items
@@ -45,9 +45,9 @@ class CombatLogParser extends MainCombatLogParser {
     stellarFlareUptime: StellarFlareUptime,
     moonSpells: MoonSpells,
     //Spells
-    fullMoon: FullMoon,
-    halfMoon: HalfMoon,
-    newMoon: NewMoon,
+    //fullMoon: FullMoon,
+    //halfMoon: HalfMoon,
+    //newMoon: NewMoon,
     unempoweredLS: UnempoweredLs,
     //Items
     emeraldDreamcatcher: EmeraldDreamcatcher,
