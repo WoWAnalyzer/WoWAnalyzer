@@ -35,6 +35,8 @@ import ReapAndSow from './Modules/Items/Legendaries/ReapAndSow';
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
 
+import Checklist from './Modules/Features/Checklist';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
@@ -45,6 +47,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fatalEchoes: FatalEchoes,
     sniping: Sniping,
     maxTormentedSouls: MaxTormentedSouls,
+    checklist: Checklist,
 
     // DoTs
     agonyUptime: AgonyUptime,

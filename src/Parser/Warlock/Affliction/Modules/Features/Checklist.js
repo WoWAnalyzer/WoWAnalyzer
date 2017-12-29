@@ -18,6 +18,7 @@ import AgonyUptime from './AgonyUptime';
 import CorruptionUptime from './CorruptionUptime';
 import SiphonLifeUptime from '../Talents/SiphonLifeUptime';
 import SoulShardDetails from '../SoulShards/SoulShardDetails';
+import MaxTormentedSouls from './MaxTormentedSouls';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -33,6 +34,7 @@ class Checklist extends CoreChecklist {
     corruptionUptime: CorruptionUptime,
     siphonLifeUptime: SiphonLifeUptime,
     soulShardDetails: SoulShardDetails,
+    maxTormentedSouls: MaxTormentedSouls,
   };
 
   rules = [
@@ -43,15 +45,15 @@ class Checklist extends CoreChecklist {
         const combatant = this.combatants.selected;
         return [
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.AGONY.id} icon/></Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.AGONY.id} icon/> uptime</Wrapper>,
             check: () => this.agonyUptime.suggestionThresholds,
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.CORRUPTION_CAST.id} icon/></Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.CORRUPTION_CAST.id} icon/> uptime</Wrapper>,
             check: () => this.corruptionUptime.suggestionThresholds,
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.CORRUPTION_CAST.id} icon/></Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.CORRUPTION_CAST.id} icon/> uptime</Wrapper>,
             check: () => this.corruptionUptime.suggestionThresholds,
             when: combatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id),
           }),
@@ -59,11 +61,12 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <Wrapper>Don't cap your <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id} icon/>.</Wrapper>,
+      name: <Wrapper>Don't cap your <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id}/>.</Wrapper>,
       description: <Wrapper>In certain fights, it's possible to be generating a lot of <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id}/> and it's important to not let them cap as they are valuable resource that shouldn't be wasted even if it means wasting a portion of <SpellLink id={SPELLS.DEADWIND_HARVESTER.id} icon/> buff.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
+            // TODO: show the time spent in tooltip?
             name: 'Time spent on max stacks',
             check: () => this.maxTormentedSouls.suggestionThresholds,
           }),
@@ -115,7 +118,7 @@ class Checklist extends CoreChecklist {
     // TODO: maybe add a rule about buffing UA with Haunt/MG
     new Rule({
       name: 'Use your utility and defensive spells',
-      description: <Wrapper>Use other spells in your toolkit to your advantage. For example, you can try to minimize necessary movement by using <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon/>, <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon/>, <SpellLink id={SPELLS.BURNING_RUSH_TALENT.id} icon/> or mitigate incoming damage with <SpellLink id={SPELLS.UNENDING_RESOLVE.id} icon/>/<SpellLink id={SPELLS.DARK_PACT_TALENT.id}/>.</Wrapper>,
+      description: <Wrapper>Use other spells in your toolkit to your advantage. For example, you can try to minimize necessary movement by using <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon/>, <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon/>, <SpellLink id={SPELLS.BURNING_RUSH_TALENT.id} icon/> or mitigate incoming damage with <SpellLink id={SPELLS.UNENDING_RESOLVE.id} icon/>/<SpellLink id={SPELLS.DARK_PACT_TALENT.id} icon/>.</Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -135,7 +138,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Try to avoid being inactive for a large portion of the fight',
-      description: <Wrapper>You should try to avoid doing nothing during the fight. When you're out of Soul Shards, cast <SpellLink id={SPELLS.DRAIN_SOUL.id} icon/>, refresh your DoTs, replenish your mana. When you have to move, use your instant abilities or try to utilize <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon/> to reduce the movement even further.</Wrapper>,
+      description: <Wrapper>You should try to avoid doing nothing during the fight. When you're out of Soul Shards, cast <SpellLink id={SPELLS.DRAIN_SOUL.id} icon/>, refresh your DoTs, replenish your mana. When you have to move, use your instant abilities or try to utilize <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon/> or <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon/> to reduce the movement even further.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
@@ -152,17 +155,17 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: 'All legendaries upgraded to max item level',
+            name: 'Used maximum possible amount of legendaries',
             check: () => ({
-              actual: this.legendaryUpgradeChecker.upgradedLegendaries.length,
+              actual: this.legendaryCountChecker.equipped,
               isLessThan: this.legendaryCountChecker.max,
               style: 'number',
             }),
           }),
           new Requirement({
-            name: 'Used max possible legendaries',
+            name: 'All legendaries upgraded to max item level',
             check: () => ({
-              actual: this.legendaryCountChecker.equipped,
+              actual: this.legendaryUpgradeChecker.upgradedLegendaries.length,
               isLessThan: this.legendaryCountChecker.max,
               style: 'number',
             }),
