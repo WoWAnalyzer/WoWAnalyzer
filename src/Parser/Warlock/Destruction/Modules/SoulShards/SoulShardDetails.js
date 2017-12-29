@@ -20,12 +20,13 @@ class SoulShardDetails extends Analyzer {
     const fragmentsWasted = this.soulShardTracker.fragmentsWasted;
     const fragmentsWastedPerMinute = (fragmentsWasted / this.owner.fightDuration) * 1000 * 60;
 
+    // Shards wasted for Destro are much more strict because the shard generation in Destro is much more reliable and less random, so there should be almost no wasted shards (if so, it's your own fault, not RNG)
     return {
       actual: fragmentsWastedPerMinute,
       isGreaterThan: {
-        minor: 1,
-        average: 3,
-        major: 5,
+        minor: 1,   // 1 fragment per minute (1 shard in 10 minutes)
+        average: 3, // 3 fragments per minute (3 shards in 10 minutes)
+        major: 5,   // 5 fragments per minute (5 shards in 10 minutes)
       },
       style: 'number',
     };
@@ -33,7 +34,6 @@ class SoulShardDetails extends Analyzer {
 
   suggestions(when) {
     const fragmentsWasted = this.soulShardTracker.fragmentsWasted;
-    // Shards wasted for Destro are much more strict because the shard generation in Destro is much more reliable and less random, so there should be almost no wasted shards (if so, it's your own fault, not RNG)
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')

@@ -15,9 +15,13 @@ class ImmolateUptime extends Analyzer {
     enemies: Enemies,
   };
 
+  get uptime() {
+    return this.enemies.getBuffUptime(SPELLS.IMMOLATE_DEBUFF.id) / this.owner.fightDuration;
+  }
+
   get suggestionThresholds() {
     return {
-      actual: this.enemies.getBuffUptime(SPELLS.IMMOLATE_DEBUFF.id) / this.owner.fightDuration,
+      actual: this.uptime,
       isLessThan: {
         minor: 0.9,
         average: 0.85,
@@ -38,11 +42,10 @@ class ImmolateUptime extends Analyzer {
   }
 
   statistic() {
-    const uptime = this.enemies.getBuffUptime(SPELLS.IMMOLATE_DEBUFF.id) / this.owner.fightDuration;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IMMOLATE_DEBUFF.id} />}
-        value={`${formatPercentage(uptime)} %`}
+        value={`${formatPercentage(this.uptime)} %`}
         label="Immolate uptime"
       />
     );

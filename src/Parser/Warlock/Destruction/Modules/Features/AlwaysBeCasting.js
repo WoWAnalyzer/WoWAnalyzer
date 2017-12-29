@@ -11,7 +11,7 @@ import Wrapper from 'common/Wrapper';
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   get suggestionThresholds() {
     return {
-      actual: this.totalTimeWasted / this.owner.fightDuration,
+      actual: this.downtimePercentage,
       isGreaterThan: {
         minor: 0.2,
         average: 0.35,

@@ -17,50 +17,59 @@ class AgonyUptime extends Analyzer {
     combatants: Combatants,
   };
 
-  get suggestionThresholds() {
-    const agonyUptime = this.enemies.getBuffUptime(SPELLS.AGONY.id) / this.owner.fightDuration;
-    if (this.combatants.selected.hasTalent(SPELLS.WRITHE_IN_AGONY_TALENT.id)) {
-      return {
-        actual: agonyUptime,
-        isLessThan: {
-          minor: 0.95,
-          average: 0.9,
-          major: 0.8,
-        },
-        style: 'percentage',
-        text: <Wrapper>Your Agony uptime can be improved. Try to pay more attention to your Agony on the boss, especially since you're using <SpellLink id={SPELLS.WRITHE_IN_AGONY_TALENT.id} /> talent.</Wrapper>,
-      };
-    } else {
-      return {
-        actual: agonyUptime,
-        isLessThan: {
-          minor: 0.85,
-          average: 0.8,
-          major: 0.7,
-        },
-        style: 'percentage',
-        text: 'Your Agony uptime can be improved. Try to pay more attention to your Agony on the boss, perhaps use some debuff tracker.',
-      };
-    }
+  get uptime() {
+    return this.enemies.getBuffUptime(SPELLS.AGONY.id) / this.owner.fightDuration;
+  }
+
+  get defaultSuggestionThresholds() {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 0.85,
+        average: 0.8,
+        major: 0.7,
+      },
+      style: 'percentage',
+    };
+  }
+
+  get writheSuggestionThresholds() {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: 0.8,
+      },
+      style: 'percentage',
+    };
   }
 
   suggestions(when) {
-    const suggestion = this.suggestionThresholds;
-    when(suggestion)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(suggestion.text)
-          .icon(SPELLS.AGONY.icon)
-          .actual(`${formatPercentage(actual)}% Agony uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`);
-      });
+    if (this.combatants.selected.hasTalent(SPELLS.WRITHE_IN_AGONY_TALENT.id)) {
+      when(this.writheSuggestionThresholds)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest(<Wrapper>Your <SpellLink id={SPELLS.AGONY.id} /> uptime can be improved. Try to pay more attention to your Agony on the boss, especially since you're using <SpellLink id={SPELLS.WRITHE_IN_AGONY_TALENT.id} /> talent.</Wrapper>)
+            .icon(SPELLS.AGONY.icon)
+            .actual(`${formatPercentage(actual)}% Agony uptime`)
+            .recommended(`> ${formatPercentage(recommended)}% is recommended`);
+        });
+    } else {
+      when(this.defaultSuggestionThresholds)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest(<Wrapper>Your <SpellLink id={SPELLS.AGONY.id} /> uptime can be improved. Try to pay more attention to your Agony on the boss, perhaps use some debuff tracker.</Wrapper>)
+            .icon(SPELLS.AGONY.icon)
+            .actual(`${formatPercentage(actual)}% Agony uptime`)
+            .recommended(`> ${formatPercentage(recommended)}% is recommended`);
+        });
+    }
   }
 
   statistic() {
-    const agonyUptime = this.enemies.getBuffUptime(SPELLS.AGONY.id) / this.owner.fightDuration;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.AGONY.id} />}
-        value={`${formatPercentage(agonyUptime)} %`}
+        value={`${formatPercentage(this.uptime)} %`}
         label="Agony uptime"
       />
     );
