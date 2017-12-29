@@ -6,6 +6,14 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
 
+  spellbook() {
+    return [
+      ...super.spellbook(),
+      {
+        
+      }
+    ]
+  }
   static ABILITIES = [
     ...CoreAbilities.ABILITIES,
 
@@ -15,6 +23,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 60,
       recommendedEfficiency: 0.9,
       extraSuggestion: <span><SpellLink id={SPELLS.TITANS_THUNDER.id} /> should always be cast when you have <SpellLink id={SPELLS.DIRE_BEAST_BUFF.id} /> buff up, try to cast it right after using a <SpellLink id={SPELLS.DIRE_BEAST.id} /> for maximum efficiency. If you have <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> talented, you should cast <SpellLink id={SPELLS.TITANS_THUNDER.id} /> within <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> so long as you can get off a <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> cast with it while <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> is still up.</span>,
+      isOnGCD: false,
     },
     {
       spell: SPELLS.BESTIAL_WRATH,
@@ -22,17 +31,21 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 90,
       recommendedEfficiency: 1,
       extraSuggestion: <span><SpellLink id={SPELLS.BESTIAL_WRATH.id} /> should be cast on cooldown as its cooldown is quickly reset again through <SpellLink id={SPELLS.DIRE_BEAST.id} />. You want to start each <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> window with as much focus as possible.</span>,
+      isOnGCD: false,
+
     },
     {
       spell: SPELLS.KILL_COMMAND,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 7.5 / (1 + haste),
       recommendedEfficiency: 0.95,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.COBRA_SHOT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.DIRE_BEAST,
@@ -42,6 +55,7 @@ class Abilities extends CoreAbilities {
       isActive: combatant => !combatant.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
       //It's recommended to NEVER be capped on charges
       recommendedEfficiency: 1,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.DIRE_FRENZY_TALENT,
@@ -51,11 +65,13 @@ class Abilities extends CoreAbilities {
       isActive: combatant => combatant.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
       //It's recommended to NEVER be capped on charges
       recommendedEfficiency: 1,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.MULTISHOT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED,
@@ -64,6 +80,7 @@ class Abilities extends CoreAbilities {
       isActive: combatant => combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id),
       recommendedEfficiency: 0.9,
       extraSuggestion: <span> You should be casting <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> on cooldown unless <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> has less than 30 seconds remaining on CD, in which case you can delay it slightly to line them up. It will dynamically update its damage to reflect damage increases such as <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. </span>,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.ASPECT_OF_THE_WILD,
@@ -71,6 +88,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 120,
       recommendedEfficiency: 0.8,
       extraSuggestion: <span> <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> should always be cast in conjunction with <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> to maximize the potency of these increased damage windows. </span>,
+      isOnGCD: false,
     },
     {
       spell: SPELLS.BARRAGE_TALENT,
@@ -78,6 +96,23 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 20,
       isActive: combatant => combatant.hasTalent(SPELLS.BARRAGE_TALENT.id),
       recommendedEfficiency: 1.0,
+      isOnGCD: true,
+    },
+    {
+      spell: SPELLS.STAMPEDE_TALENT,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 180,
+      isActive: combatant => combatant.hasTalent(SPELLS.STAMPEDE_TALENT.id),
+      recommendedEfficiency: 0.95,
+      isOnGCD: true,
+    },
+    {
+      spell: SPELLS.CHIMAERA_SHOT_TALENT,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 15 / (1 + haste),
+      isActive: combatant => combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT.id),
+      recommendedEfficiency: 0.95,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.EXHILARATION,
@@ -85,6 +120,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 120,
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: false,
     },
     {
       spell: SPELLS.DISENGAGE_TALENT,
@@ -92,6 +128,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 20,
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: false,
     },
     {
       spell: SPELLS.CONCUSSIVE_SHOT,
@@ -99,6 +136,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 5,
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.COUNTER_SHOT,
@@ -106,6 +144,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 24,
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: false,
     },
     {
       spell: SPELLS.MISDIRECTION,
@@ -113,6 +152,25 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 30,
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: false,
+    },
+    {
+      spell: SPELLS.WYVERN_STING_TALENT,
+      category: Abilities.SPELL_CATEGORIES.UTILITY,
+      isActive: combatant => combatant.hasTalent(SPELLS.WYVERN_STING_TALENT.id),
+      getCooldown: haste => 45,
+      noSuggestion: true,
+      noCanBeImproved: true,
+      isOnGCD: true,
+    },
+    {
+      spell: SPELLS.INTIMIDATION_TALENT,
+      category: Abilities.SPELL_CATEGORIES.UTILITY,
+      isActive: combatant => combatant.hasTalent(SPELLS.INTIMIDATION_TALENT.id),
+      getCooldown: haste => 60,
+      noSuggestion: true,
+      noCanBeImproved: true,
+      isOnGCD: false,
     },
     {
       spell: SPELLS.BINDING_SHOT_TALENT,
@@ -120,6 +178,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 45,
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: false,
     },
     {
       spell: SPELLS.ASPECT_OF_THE_TURTLE,
@@ -127,6 +186,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 180, //TODO: check for Call of the wild legendary
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: false,
     },
     {
       spell: SPELLS.ASPECT_OF_THE_CHEETAH,
@@ -134,6 +194,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 180, //TODO: check for pathfinder trait and reduce CD accordingly + wrist legendary
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: false,
     },
     {
       spell: SPELLS.FREEZING_TRAP,
@@ -141,6 +202,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 30,
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
     {
       spell: SPELLS.TAR_TRAP,
@@ -148,6 +210,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 30,
       noSuggestion: true,
       noCanBeImproved: true,
+      isOnGCD: true,
     },
   ];
 }
