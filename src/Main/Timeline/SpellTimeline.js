@@ -100,7 +100,10 @@ class SpellTimeline extends React.PureComponent {
           </div>
           {this.spells.map(spellId => (
             <div className="lane" key={spellId}>
-              <SpellIcon id={spellId} noLink /> <SpellLink id={spellId} />
+              <SpellIcon id={spellId} noLink />{' '}
+              <SpellLink id={spellId}>
+                {this.props.abilities.getAbility(spellId).name}
+              </SpellLink>
             </div>
           ))}
         </div>

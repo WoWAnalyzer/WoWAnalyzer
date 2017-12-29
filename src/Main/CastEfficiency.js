@@ -24,12 +24,11 @@ const CastEfficiency = ({ categories, abilities }) => {
               {abilities
                 .filter(item => item.ability.category === categories[key])
                 .map(({ ability, cpm, maxCpm, casts, maxCasts, efficiency, canBeImproved }) => {
-                  const mainSpell = ability.spell instanceof Array ? ability.spell[0] : ability.spell;
-                  const name = ability.name || mainSpell.name;
+                  const name = ability.castEfficiency.name || ability.name;
                   return (
                     <tr key={name}>
                       <td style={{ width: '35%' }}>
-                        <SpellLink id={mainSpell.id} style={{ color: '#fff' }} icon>
+                        <SpellLink id={ability.primarySpell.id} style={{ color: '#fff' }} icon>
                           {name}
                         </SpellLink>
                       </td>
@@ -69,9 +68,12 @@ CastEfficiency.propTypes = {
     ability: PropTypes.shape({
       name: PropTypes.string,
       category: PropTypes.string.isRequired,
-      spell: PropTypes.shape({
+      primarySpell: PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
+      }).isRequired,
+      castEfficiency: PropTypes.shape({
+        name: PropTypes.string,
       }).isRequired,
     }),
     cpm: PropTypes.number.isRequired,

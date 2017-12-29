@@ -28,8 +28,8 @@ class Abilities extends CoreAbilities {
      *
      * Rarely necessary:
      * optional isUndetectable {bool} A boolean to indicate it can not be detected whether the player his this spells. This makes it so the spell is hidden when there are 0 casts in the fight. This should only be used for spells that can't be detected if a player has access to them, like racials.
-     * optional getCasts {func} A function to get the amount of casts done of a spell. Parameters provided: `castCount`, `parser`
-     * optional getMaxCasts {func} A function to get the max amount of casts for a spell. Parameters provided: `cooldown`, `fightDuration`, `getAbility`, `parser`
+     * optional casts {func} A function to get the amount of casts done of a spell. Parameters provided: `castCount`, `parser`
+     * optional maxCasts {func} A function to get the max amount of casts for a spell. Parameters provided: `cooldown`, `fightDuration`, `getAbility`, `parser`
      * optional importance {string} If set, this suggestion will get this static importance value. Use this ISSUE_IMPORTANCE enum for this.
      */
     // Most will look like this:

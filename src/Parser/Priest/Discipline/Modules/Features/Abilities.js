@@ -11,8 +11,8 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.PENANCE,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      getCasts: (_, parser) => parser.modules.penance.casts,
-      getMaxCasts: (cooldown, fightDuration, getAbility, parser) => calculateMaxCasts(cooldown, fightDuration), // temp until bolts past first can be ignored by cast checker
+      casts: (_, parser) => parser.modules.penance.casts,
+      maxCasts: (cooldown, fightDuration, getAbility, parser) => calculateMaxCasts(cooldown, fightDuration), // temp until bolts past first can be ignored by cast checker
       getCooldown: haste => 9,
     },
     {
@@ -20,7 +20,7 @@ class Abilities extends CoreAbilities {
       name: `${SPELLS.POWER_WORD_RADIANCE.name}`,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 18,
-      getCasts: castCount => castCount.casts,
+      casts: castCount => castCount.casts,
       charges: 2,
     },
     {
@@ -28,15 +28,15 @@ class Abilities extends CoreAbilities {
       name: `${SPELLS.EVANGELISM_TALENT.name}`,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 75,
-      getCasts: castCount => castCount.casts,
+      casts: castCount => castCount.casts,
     },
     {
       spell: SPELLS.POWER_WORD_SHIELD,
       name: `${SPELLS.POWER_WORD_SHIELD.name} outside Rapture`,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 9 / (1 + haste),
-      getCasts: castCount => castCount.casts - (castCount.raptureCasts || 0),
-      getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
+      casts: castCount => castCount.casts - (castCount.raptureCasts || 0),
+      maxCasts: (cooldown, fightDuration, getAbility, parser) => {
         const timeSpentInRapture = parser.modules.combatants.selected.getBuffUptime(SPELLS.RAPTURE.id);
         const maxRegularCasts = calculateMaxCasts(cooldown, fightDuration - timeSpentInRapture);
 
@@ -49,8 +49,8 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       extraSuggestion: `${SPELLS.POWER_WORD_SHIELD.name} may be cast without cooldown during Rapture.`,
       getCooldown: haste => 9 / (1 + haste),
-      getCasts: castCount => castCount.raptureCasts || 0,
-      getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
+      casts: castCount => castCount.raptureCasts || 0,
+      maxCasts: (cooldown, fightDuration, getAbility, parser) => {
         const gcd = 1.5 / (1 + parser.modules.combatants.selected.hastePercentage);
         const timeSpentInRapture = parser.modules.combatants.selected.getBuffUptime(SPELLS.RAPTURE.id);
 

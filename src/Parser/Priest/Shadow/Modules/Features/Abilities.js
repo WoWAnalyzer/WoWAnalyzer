@@ -15,7 +15,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       recommendedEfficiency: 0.85,
       getCooldown: (haste, combatant) => 4.5 / (1 + haste),
-      getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
+      maxCasts: (cooldown, fightDuration, getAbility, parser) => {
         const { averageVoidformHaste } = parser.modules.voidform;
         const cooldownVoidBolt = 4.5 / averageVoidformHaste;
 
