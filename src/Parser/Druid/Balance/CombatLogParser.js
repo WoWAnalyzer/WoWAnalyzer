@@ -3,23 +3,24 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import Haste from './Modules/Core/Haste';
 
 //Features
-//import Checklist from './Modules/Features/Checklist';
+import Checklist from './Modules/Features/Checklist';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CancelledCasts from './Modules/Features/CancelledCasts';
 import AstralPower from './Modules/Features/AstralPower';
 import Abilities from './Modules/Features/Abilities';
-import LEmpowerment from './Modules/Features/LunarEmpowerment';
-import SEmpowerment from './Modules/Features/SolarEmpowerment';
+import LunarEmpowerment from './Modules/Features/LunarEmpowerment';
+import SolarEmpowerment from './Modules/Features/SolarEmpowerment';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
+import MoonfireUptime from './Modules/Features/MoonfireUptime';
+import SunfireUptime from './Modules/Features/SunfireUptime';
+import StellarFlareUptime from './Modules/Features/StellarFlareUptime';
+import MoonSpells from './Modules/Features/MoonSpells';
 
 //Spells
 import FullMoon from './Modules/Spells/FullMoon';
 import HalfMoon from './Modules/Spells/HalfMoon';
-import Moonfire from './Modules/Spells/Moonfire';
 import NewMoon from './Modules/Spells/NewMoon';
-import Sunfire from './Modules/Spells/Sunfire';
 import UnempoweredLs from './Modules/Spells/UnempoweredLs';
-//import MoonSpells from './Modules/Spells/MoonSpells';
 
 //Items
 import EmeraldDreamcatcher from './Modules/Items/EmeraldDreamcatcher';
@@ -30,22 +31,23 @@ class CombatLogParser extends MainCombatLogParser {
     haste: Haste,
     damageDone: [DamageDone, { showStatistic: true }],
     // Features
-    //checklist: Checklist,
+    checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
     astralpower: AstralPower,
     abilities: Abilities,
-    lsempowerment: LEmpowerment,
-    swempowerment: SEmpowerment,
+    lunarempowerment: LunarEmpowerment,
+    solarempowerment: SolarEmpowerment,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    moonfireUptime: MoonfireUptime,
+    sunfireUptime: SunfireUptime,
+    stellarFlareUptime: StellarFlareUptime,
+    moonSpells: MoonSpells,
     //Spells
-    fullmoon: FullMoon,
-    halfmoon: HalfMoon,
-    moonfire: Moonfire,
-    newmoon: NewMoon,
-    sunfire: Sunfire,
+    fullMoon: FullMoon,
+    halfMoon: HalfMoon,
+    newMoon: NewMoon,
     unempoweredLS: UnempoweredLs,
-    //moonSpells: MoonSpells,
     //Items
     emeraldDreamcatcher: EmeraldDreamcatcher,
   };

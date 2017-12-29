@@ -12,7 +12,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.NEW_MOON,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => {
-        const availableCasts = combatant.owner.modules.newmoon.nmAvailableCasts;
+        const availableCasts = combatant.owner.modules.newMoon.nmAvailableCasts;
         return (combatant.owner.fightDuration / 1000) / availableCasts;
       },
       noSuggestion: true,
@@ -22,7 +22,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.HALF_MOON,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => {
-        const availableCasts = combatant.owner.modules.halfmoon.hmAvailableCasts;
+        const availableCasts = combatant.owner.modules.halfMoon.hmAvailableCasts;
         return (combatant.owner.fightDuration / 1000) / availableCasts;
       },
       noSuggestion: true,
@@ -32,7 +32,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.FULL_MOON,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => {
-        const availableCasts = combatant.owner.modules.fullmoon.fmAvailableCasts;
+        const availableCasts = combatant.owner.modules.fullMoon.fmAvailableCasts;
         return (combatant.owner.fightDuration / 1000) / availableCasts;
       },
       noSuggestion: true,
@@ -152,6 +152,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => 60,
       recommendedEfficiency: 0.8,
+      noSuggestion: true,
     },
     {
       spell: SPELLS.RENEWAL_TALENT,
@@ -159,6 +160,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 90,
       isActive: combatant => combatant.hasTalent(SPELLS.RENEWAL_TALENT.id),
       recommendedEfficiency: 0.8,
+      noSuggestion: true,
     },
     {
       spell: SPELLS.DISPLACER_BEAST_TALENT,

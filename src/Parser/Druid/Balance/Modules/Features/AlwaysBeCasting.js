@@ -27,7 +27,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   }
 
   suggestions(when) {
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
+    const deadTimePercentage = this.downtimePercentage;
 
     when(deadTimePercentage).isGreaterThan(0.02)
       .addSuggestion((suggest, actual, recommended) => {
