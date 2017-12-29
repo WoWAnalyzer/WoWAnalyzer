@@ -23,6 +23,7 @@ import FillerLightOfTheMartyrs from '../PaladinCore/FillerLightOfTheMartyrs';
 import AuraOfSacrifice from '../Talents/AuraOfSacrifice';
 import Ilterendi from '../Items/Ilterendi';
 import Overhealing from '../PaladinCore/Overhealing';
+import JudgmentOfLight from '../Talents/JudgmentOfLight';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -41,6 +42,7 @@ class Checklist extends CoreChecklist {
     prePotion: PrePotion,
     overhealing: Overhealing,
     enchantChecker: EnchantChecker,
+    judgmentOfLight: JudgmentOfLight,
   };
 
   rules = [
@@ -230,6 +232,11 @@ class Checklist extends CoreChecklist {
             name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} icon />,
             check: () => this.velens.suggestionThresholds,
             when: this.velens.active,
+          }),
+          new Requirement({
+            name: <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} icon />,
+            check: () => this.judgmentOfLight.suggestionThresholds,
+            when: this.judgmentOfLight.active,
           }),
         ];
       },
