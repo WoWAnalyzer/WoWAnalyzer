@@ -7,21 +7,22 @@ const debug = true;
 class Channeling extends Analyzer {
   _currentChannel = null;
 
-  beginChannel(event) {
+  beginChannel(event, ability = event.ability) {
     if (this.isChanneling()) {
       // There are no specific events for channel cancels, the only indicator of this are when one starts channeling something else. Whenever we're still channeling and a new channel starts, we need to mark the old channel as canceled.
       this.cancelChannel(event, this._currentChannel.ability);
     }
 
-    this._currentChannel = event;
-    this.owner.triggerEvent('beginchannel', {
+    const channelingEvent = {
       type: 'beginchannel',
       timestamp: event.timestamp,
-      ability: event.ability,
+      ability,
       sourceID: event.sourceID,
       reason: event,
-    });
-    debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Channeling', 'Beginning channel of', event.ability.name);
+    };
+    this._currentChannel = channelingEvent;
+    this.owner.triggerEvent('beginchannel', channelingEvent);
+    debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Channeling', 'Beginning channel of', ability.name);
   }
   endChannel(event) {
     const currentChannel = this._currentChannel;
