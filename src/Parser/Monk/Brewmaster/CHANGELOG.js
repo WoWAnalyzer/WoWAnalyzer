@@ -2,6 +2,11 @@ import { WOPR, emallson } from 'MAINTAINERS';
 
 export default [
   {
+    date: new Date('2017-12-29'),
+    changes: 'Changed RJW suggestion from cast efficiency to uptime.',
+    contributors: [emallson],
+  },
+  {
     date: new Date('2017-12-24'),
     changes: 'Added ISB uptime and clipping checklist items.',
     contributors: [emallson],
