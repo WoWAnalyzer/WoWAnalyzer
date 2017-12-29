@@ -8,7 +8,7 @@ class Gear extends React.PureComponent {
   };
   render() {
     const toolTipBaseUrl='http://www.wowhead.com/item=';
-    const data = Object.values(this.props.selectedCombatant._gearItemsBySlotId);
+    const gear = Object.values(this.props.selectedCombatant._gearItemsBySlotId);
     const getBorderColor = (quality) => { // Not used right now
       switch (quality) {
         case 6:
@@ -27,31 +27,14 @@ class Gear extends React.PureComponent {
           break;
       }
     };
-    const artifactData = data.filter(item => item.quality === 6 && item.gems); // get artifact from list of items to render relics
+    const artifact = gear.find(item => item.quality === 6);
+    const relics = artifact ? artifact.gems : [];
     return(
       <div>
         <div style={{marginLeft: 'auto', marginRight: 'auto', display: 'block', width: '90%'}}>
-          {data.map(item => {
-            if (item.id === 0) return null;
-            return (
-              <div key={item.id}style={{display: 'inline-block', textAlign: 'center'}}>
-                {item.itemLevel}
-                <a
-                  href={`${toolTipBaseUrl}${item.id}`}
-                  style={{ margin: '5px', display: 'block' }}
-                  rel={
-                    item.bonusIDs ?
-                    `bonus=${item.bonusIDs.join(':')}`
-                    :
-                    null
-                  }
-                >
-                  <Icon icon={item.icon} />
-                </a>
-              </div>
-            );
-          })}
-          {artifactData[0].gems.map(item => {
+          {[...gear, ...relics]
+            .filter(item => item.id !== 0)
+            .map(item => {
             return (
               <div key={item.id}style={{display: 'inline-block', textAlign: 'center'}}>
                 {item.itemLevel}
