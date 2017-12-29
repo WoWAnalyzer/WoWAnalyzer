@@ -64,6 +64,7 @@ class HalfMoon extends Analyzer {
         });
   }
 
+  /*
   statistic() {
     const abilityTracker = this.owner.modules.abilityTracker;    
     const hmCasted = abilityTracker.getAbility(SPELLS.HALF_MOON.id).casts;
@@ -77,6 +78,7 @@ class HalfMoon extends Analyzer {
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(7);
+  */
 }
 
 export default HalfMoon;

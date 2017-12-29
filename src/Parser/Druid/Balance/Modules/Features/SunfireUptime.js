@@ -53,7 +53,7 @@ class SunfireUptime extends Analyzer {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(5);
+  statisticOrder = STATISTIC_ORDER.CORE(7);
 }
 
 export default SunfireUptime;

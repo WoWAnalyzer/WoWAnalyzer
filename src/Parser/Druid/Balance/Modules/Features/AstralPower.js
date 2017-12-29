@@ -89,7 +89,7 @@ class AstralPower extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(3);
+  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 export default AstralPower;

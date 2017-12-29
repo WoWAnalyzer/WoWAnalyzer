@@ -15,12 +15,13 @@ import MoonfireUptime from './Modules/Features/MoonfireUptime';
 import SunfireUptime from './Modules/Features/SunfireUptime';
 import StellarFlareUptime from './Modules/Features/StellarFlareUptime';
 import MoonSpells from './Modules/Features/MoonSpells';
+import UnempoweredLs from './Modules/Features/UnempoweredLs';
 
 //Spells
 import FullMoon from './Modules/Spells/FullMoon';
 import HalfMoon from './Modules/Spells/HalfMoon';
 import NewMoon from './Modules/Spells/NewMoon';
-import UnempoweredLs from './Modules/Spells/UnempoweredLs';
+
 
 //Items
 import EmeraldDreamcatcher from './Modules/Items/EmeraldDreamcatcher';

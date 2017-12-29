@@ -109,7 +109,7 @@ class LunarEmpowerment extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(8);
+  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default LunarEmpowerment;

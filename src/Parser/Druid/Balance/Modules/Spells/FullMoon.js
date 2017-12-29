@@ -64,6 +64,7 @@ class FullMoon extends Analyzer {
         });
   }
 
+  /*
   statistic() {
     const abilityTracker = this.owner.modules.abilityTracker;
     const fmCasted = abilityTracker.getAbility(SPELLS.FULL_MOON.id).casts;
@@ -77,6 +78,7 @@ class FullMoon extends Analyzer {
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(8);
+  */
 }
 
 export default FullMoon;

@@ -64,6 +64,7 @@ class NewMoon extends Analyzer {
         });
   }
 
+  /*
   statistic() {
     const abilityTracker = this.owner.modules.abilityTracker;
     const nmCasted = abilityTracker.getAbility(SPELLS.NEW_MOON.id).casts;
@@ -76,7 +77,8 @@ class NewMoon extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
+  statisticOrder = STATISTIC_ORDER.CORE(6); 
+  */
 }
 
 export default NewMoon;

@@ -109,7 +109,7 @@ class SolarEmpowerment extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(8);
+  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default SolarEmpowerment;
