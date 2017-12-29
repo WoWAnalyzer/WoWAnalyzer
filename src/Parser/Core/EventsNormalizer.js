@@ -16,6 +16,17 @@ class EventsNormalizer extends Module {
   normalize(events) {
     return events;
   }
+
+  // Convenience methods
+  getFightStartIndex(events) {
+    for (let i = 0; i < events.length; i += 1) {
+      const event = events[i];
+      if (event.type !== 'combatantinfo') {
+        return i;
+      }
+    }
+    throw new Error('Fight doesn\'t have an event other than combatants, something must have gone wrong.');
+  }
 }
 
 export default EventsNormalizer;
