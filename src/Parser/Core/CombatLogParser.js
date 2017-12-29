@@ -9,6 +9,7 @@ import { formatNumber, formatPercentage, formatThousands, formatDuration } from 
 import { findByBossId } from 'Raids';
 
 import ApplyBuffNormalizer from './Normalizers/ApplyBuff';
+import CancelledCastsNormalizer from './Normalizers/CancelledCasts';
 
 import Status from './Modules/Status';
 import HealingDone from './Modules/HealingDone';
@@ -129,6 +130,7 @@ class CombatLogParser {
   static defaultModules = {
     // Normalizers
     applyBuffNormalizer: ApplyBuffNormalizer,
+    cancelledCastsNormalizer: CancelledCastsNormalizer,
 
     // Analyzers
     status: Status,
