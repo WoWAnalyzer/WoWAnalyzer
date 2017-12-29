@@ -9,15 +9,62 @@ class Gear extends React.PureComponent {
   render() {
     const toolTipBaseUrl='http://www.wowhead.com/item=';
     const data = Object.values(this.props.selectedCombatant._gearItemsBySlotId);
-
+    const getBorderColor = (quality) => { // Not used right now
+      switch (quality) {
+        case 6:
+          return '#e5cc80';
+        case 5:
+          return '#ff8000';
+        case 4:
+          return '#a335ee';
+        case 3:
+          return '#0070dd';
+        case 2:
+          return '#1eff00';
+        case 1:
+          return '#ffffff';
+        default:
+          break;
+      }
+    };
+    const artifactData = data.filter(item => item.quality === 6 && item.gems); // get artifact from list of items to render relics
     return(
       <div>
         <div style={{marginLeft: 'auto', marginRight: 'auto', display: 'block', width: '90%'}}>
           {data.map(item => {
+            if (item.id === 0) return null;
             return (
               <div key={item.id}style={{display: 'inline-block', textAlign: 'center'}}>
                 {item.itemLevel}
-                <a href={`${toolTipBaseUrl}${item.id}`} style={{ margin: '5px', display: 'block' }}>
+                <a
+                  href={`${toolTipBaseUrl}${item.id}`}
+                  style={{ margin: '5px', display: 'block' }}
+                  rel={
+                    item.bonusIDs ?
+                    `bonus=${item.bonusIDs.join(':')}`
+                    :
+                    null
+                  }
+                >
+                  <Icon icon={item.icon} />
+                </a>
+              </div>
+            );
+          })}
+          {artifactData[0].gems.map(item => {
+            return (
+              <div key={item.id}style={{display: 'inline-block', textAlign: 'center'}}>
+                {item.itemLevel}
+                <a
+                  href={`${toolTipBaseUrl}${item.id}`}
+                  style={{ margin: '5px', display: 'block' }}
+                  rel={
+                    item.bonusIDs ?
+                    `bonus=${item.bonusIDs.join(':')}`
+                    :
+                    null
+                  }
+                >
                   <Icon icon={item.icon} />
                 </a>
               </div>
