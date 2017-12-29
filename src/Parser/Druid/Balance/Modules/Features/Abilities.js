@@ -256,14 +256,6 @@ class Abilities extends CoreAbilities {
       noCanBeImproved: true,
     },
     {
-      spell: SPELLS.ENTANGLING_ROOTS,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => null,
-      noSuggestion: true,
-      noCanBeImproved: true,
-      isOnGCD: true,
-    },
-    {
       spell: SPELLS.BEAR_FORM,
       category: Abilities.SPELL_CATEGORIES.UTILITY,
       getCooldown: haste => null,
