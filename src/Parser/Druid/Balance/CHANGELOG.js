@@ -1,4 +1,5 @@
 export default `
+29-12-2017 - Added Checklist
 29-12-2017 - Added all spells to Cast efficiency
 28-12-2017 - Added cooldown thoughtput tracker
 28-09-2017 - Added a tracker module for Emerald Dreamcatcher

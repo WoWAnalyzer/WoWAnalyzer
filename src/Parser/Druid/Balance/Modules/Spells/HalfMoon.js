@@ -48,6 +48,8 @@ class HalfMoon extends Analyzer {
     if (spellId !== SPELLS.HALF_MOON.id) { this.halfMoonOrder += 1; } else { this.orderFound = true; }
   }
 
+  //I will remove the whole class when I can merge the spells in cast efficiency.
+  /*
   suggestions(when) {
     const abilityTracker = this.owner.modules.abilityTracker;
     const hmCasted = abilityTracker.getAbility(SPELLS.HALF_MOON.id).casts;
@@ -64,7 +66,6 @@ class HalfMoon extends Analyzer {
         });
   }
 
-  /*
   statistic() {
     const abilityTracker = this.owner.modules.abilityTracker;    
     const hmCasted = abilityTracker.getAbility(SPELLS.HALF_MOON.id).casts;

@@ -48,6 +48,8 @@ class NewMoon extends Analyzer {
     if (spellId !== SPELLS.NEW_MOON.id) { this.newMoonOrder += 1; } else { this.orderFound = true; }
   }
 
+  //I will remove the whole class when I can merge the spells in cast efficiency.  
+  /*
   suggestions(when) {
     const abilityTracker = this.owner.modules.abilityTracker;    
     const nmCasted = abilityTracker.getAbility(SPELLS.NEW_MOON.id).casts;
@@ -64,7 +66,6 @@ class NewMoon extends Analyzer {
         });
   }
 
-  /*
   statistic() {
     const abilityTracker = this.owner.modules.abilityTracker;
     const nmCasted = abilityTracker.getAbility(SPELLS.NEW_MOON.id).casts;

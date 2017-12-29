@@ -48,6 +48,8 @@ class FullMoon extends Analyzer {
     if (spellId !== SPELLS.FULL_MOON.id) { this.fullMoonOrder += 1; } else { this.orderFound = true; }
   }
 
+  //I will remove the whole class when I can merge the spells in cast efficiency.
+  /*
   suggestions(when) {
     const abilityTracker = this.owner.modules.abilityTracker;    
     const fmCasted = abilityTracker.getAbility(SPELLS.FULL_MOON.id).casts;
@@ -63,8 +65,7 @@ class FullMoon extends Analyzer {
             .regular(recommended - 0.1).major(recommended - 0.2);
         });
   }
-
-  /*
+  
   statistic() {
     const abilityTracker = this.owner.modules.abilityTracker;
     const fmCasted = abilityTracker.getAbility(SPELLS.FULL_MOON.id).casts;

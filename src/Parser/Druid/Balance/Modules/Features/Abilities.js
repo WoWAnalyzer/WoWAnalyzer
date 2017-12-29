@@ -12,31 +12,34 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.NEW_MOON,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => {
-        const availableCasts = combatant.owner.modules.newMoon.nmAvailableCasts;
-        return (combatant.owner.fightDuration / 1000) / availableCasts;
+        const hasRM = combatant.hasBack(ITEMS.RADIANT_MOONLIGHT.id);
+        return hasRM ? 30 : 45;
       },
       noSuggestion: true,
       isOnGCD: true,
+      charges: 2,
     },
     {
       spell: SPELLS.HALF_MOON,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => {
-        const availableCasts = combatant.owner.modules.halfMoon.hmAvailableCasts;
-        return (combatant.owner.fightDuration / 1000) / availableCasts;
+        const hasRM = combatant.hasBack(ITEMS.RADIANT_MOONLIGHT.id);
+        return hasRM ? 30 : 45;
       },
       noSuggestion: true,
       isOnGCD: true,
+      charges: 2,
     },
     {
       spell: SPELLS.FULL_MOON,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => {
-        const availableCasts = combatant.owner.modules.fullMoon.fmAvailableCasts;
-        return (combatant.owner.fightDuration / 1000) / availableCasts;
+        const hasRM = combatant.hasBack(ITEMS.RADIANT_MOONLIGHT.id);
+        return hasRM ? 15 : 45;
       },
       noSuggestion: true,
       isOnGCD: true,
+      charges: 2,
     },
     {
       spell: SPELLS.STARSURGE_MOONKIN,
