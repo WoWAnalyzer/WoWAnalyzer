@@ -203,6 +203,7 @@ class Results extends React.Component {
                     </div>
                   </div>
                   <div>
+                    {modules.warningDisplay.render()}
                     {this.state.mainTab === MAIN_TAB.CHECKLIST && (
                       modules.checklist.render()
                     )}
@@ -213,9 +214,7 @@ class Results extends React.Component {
                       <AboutTab config={config} />
                     )}
                   </div>
-                  <div>
-                    {modules.warningDisplay.render()}
-                  </div>
+
                 </div>
               </div>
             </div>
