@@ -13,7 +13,7 @@ import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
 import FatalEchoes from './Modules/Features/FatalEchoes';
 import Sniping from './Modules/Features/Sniping';
-import WastedDeadwindHarvester from './Modules/Features/WastedDeadwindHarvester';
+import MaxTormentedSouls from './Modules/Features/MaxTormentedSouls';
 
 import Haunt from './Modules/Talents/Haunt';
 import MaleficGrasp from './Modules/Talents/MaleficGrasp';
@@ -44,7 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     fatalEchoes: FatalEchoes,
     sniping: Sniping,
-    wastedDeadwindHarvester: WastedDeadwindHarvester,
+    maxTormentedSouls: MaxTormentedSouls,
 
     // DoTs
     agonyUptime: AgonyUptime,
