@@ -14,6 +14,8 @@ import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountCheck
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 
+import BoneShieldUptime from './BoneShieldUptime';
+import OssuaryUptime from './OssuaryUptime';
 import BloodPlagueUptime from './BloodPlagueUptime';
 import AlwaysBeCasting from './AlwaysBeCasting';
 import RunicPowerDetails from '../RunicPower/RunicPowerDetails';
@@ -29,6 +31,8 @@ class Checklist extends CoreChecklist {
     alwaysBeCasting: AlwaysBeCasting,
     enchantChecker: EnchantChecker,
     runicPowerDetails: RunicPowerDetails,
+    boneShieldUptime: BoneShieldUptime,
+    ossuaryUptime: OssuaryUptime,
   };
 
   rules = [
@@ -58,23 +62,31 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BLOOD_MIRROR_TALENT,
-            when: combatant.hasTalent(SPELLS.BLOOD_MIRROR_TALENT),
+            when: combatant.hasTalent(SPELLS.BLOOD_MIRROR_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BLOODDRINKER_TALENT,
-            when: combatant.hasTalent(SPELLS.BLOODDRINKER_TALENT),
+            when: combatant.hasTalent(SPELLS.BLOODDRINKER_TALENT.id),
           }),
         ];
       },
     }),
     new Rule({
-      name: 'Maintain Disease',
-      description: <Wrapper><SpellLink id={SPELLS.BLOOD_PLAGUE.id}/> Keep it up for the benifits.</Wrapper>,
+      name: 'Maintain Buffs/DeBuffs',
+      description: <Wrapper>Keep these up for their benifits.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
-            name: 'Blood Plague Uptime',
+            name: <Wrapper><SpellLink id={SPELLS.BLOOD_PLAGUE.id}/> Uptime</Wrapper>,
             check: () => this.bloodplagueUptime.UptimeSuggestionThresholds,
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.BONE_SHIELD.id}/> Uptime</Wrapper>,
+            check: () => this.boneShieldUptime.UptimeSuggestionThresholds,
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.OSSUARY.id}/> Uptime</Wrapper>,
+            check: () => this.ossuaryUptime.UptimeSuggestionThresholds,
           }),
         ];
       },

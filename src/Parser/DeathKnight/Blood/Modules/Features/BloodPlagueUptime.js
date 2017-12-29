@@ -39,11 +39,10 @@ class BloodPlagueUptime extends Analyzer {
   }
 
   statistic() {
-    const bloodplagueUptime = this.enemies.getBuffUptime(SPELLS.BLOOD_PLAGUE.id) / this.owner.fightDuration;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BLOOD_PLAGUE.id} />}
-        value={`${formatPercentage(bloodplagueUptime)} %`}
+        value={`${formatPercentage(this.Uptime)} %`}
         label="Blood Plague uptime"
         tooltip="Provides small amount of damage and healing. Auto attacks against an infected target can trigger Crimson Scourge."
       />
