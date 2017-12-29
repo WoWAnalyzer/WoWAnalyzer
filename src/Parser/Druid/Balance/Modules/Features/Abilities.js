@@ -71,9 +71,7 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.WARRIOR_OF_ELUNE_TALENT,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: (haste, combatant) => {
-        return 50;
-      },
+      getCooldown: haste => 50,
       isActive: combatant => combatant.hasTalent(SPELLS.WARRIOR_OF_ELUNE_TALENT.id),
       recommendedEfficiency: 0.9,
       noSuggestion: true,
@@ -81,9 +79,7 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.FORCE_OF_NATURE_TALENT,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: (haste, combatant) => {
-        return 60;
-      },
+      getCooldown: haste => 60,
       isActive: combatant => combatant.hasTalent(SPELLS.FORCE_OF_NATURE_TALENT.id),
       recommendedEfficiency: 0.9,
       noSuggestion: true,
