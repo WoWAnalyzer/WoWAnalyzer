@@ -188,6 +188,11 @@ export default {
     name: 'Deathstrike Venom',
     icon: 'spell_nature_nullifypoison',
   },
+  PATHFINDER_TRAIT: {
+    id: 197343,
+    name: 'Pathfinder',
+    icon: 'ability_mount_jungletiger',
+  },
 
   //Beast Mastery Tier
   HUNTER_BM_T19_2P_BONUS: {
