@@ -107,7 +107,7 @@ class StatTracker extends Analyzer {
       ...this._pullStats,
     };
 
-    this._debugPrintStats(this._currentStats);
+    debug && this._debugPrintStats(this._currentStats);
   }
 
   /*
@@ -228,6 +228,8 @@ class StatTracker extends Analyzer {
         return 0.04;
       case SPECS.RESTORATION_DRUID:
         return 0.048;
+      case SPECS.BALANCE_DRUID:
+        return 0.18;
       case SPECS.RETRIBUTION_PALADIN:
         return 0.14;
       case SPECS.PROTECTION_PALADIN:
@@ -306,6 +308,8 @@ class StatTracker extends Analyzer {
         return 40000;
       case SPECS.RESTORATION_DRUID:
         return 66667;
+      case SPECS.BALANCE_DRUID:
+        return 17778;
       case SPECS.RETRIBUTION_PALADIN:
         return 22850;
       case SPECS.PROTECTION_PALADIN:
@@ -411,7 +415,7 @@ class StatTracker extends Analyzer {
     if (debug) {
       const spellName = eventReason && eventReason.ability ? eventReason.ability.name : 'unspecified';
       console.log(`StatTracker: FORCED CHANGE from ${spellName} - Change: ${this._statPrint(delta)}`);
-      this._debugPrintStats(this._currentStats);
+      debug && this._debugPrintStats(this._currentStats);
     }
   }
 
