@@ -11,7 +11,7 @@ import UABuffTracker from './Modules/Features/UABuffTracker';
 
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
-import DrainSoul from './Modules/WarlockCore/DrainSoul';
+import Channeling from './Modules/WarlockCore/Channeling';
 import FatalEchoes from './Modules/Features/FatalEchoes';
 import Sniping from './Modules/Features/Sniping';
 
@@ -53,7 +53,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
-    drainSoul: DrainSoul,
+    channeling: Channeling,
 
     // Talents
     haunt: Haunt,
