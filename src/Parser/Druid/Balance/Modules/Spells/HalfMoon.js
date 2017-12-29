@@ -76,7 +76,7 @@ class HalfMoon extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(4);
+  statisticOrder = STATISTIC_ORDER.CORE(7);
 }
 
 export default HalfMoon;

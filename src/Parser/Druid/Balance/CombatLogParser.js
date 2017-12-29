@@ -1,10 +1,11 @@
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
-
 import Haste from './Modules/Core/Haste';
 
 //Features
+//import Checklist from './Modules/Features/Checklist';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import CancelledCasts from './Modules/Features/CancelledCasts';
 import AstralPower from './Modules/Features/AstralPower';
 import Abilities from './Modules/Features/Abilities';
 import LEmpowerment from './Modules/Features/LunarEmpowerment';
@@ -29,7 +30,9 @@ class CombatLogParser extends MainCombatLogParser {
     haste: Haste,
     damageDone: [DamageDone, { showStatistic: true }],
     // Features
+    //checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
+    cancelledCasts: CancelledCasts,
     astralpower: AstralPower,
     abilities: Abilities,
     lsempowerment: LEmpowerment,

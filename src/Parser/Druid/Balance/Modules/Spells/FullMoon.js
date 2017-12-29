@@ -76,7 +76,7 @@ class FullMoon extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
+  statisticOrder = STATISTIC_ORDER.CORE(8);
 }
 
 export default FullMoon;

@@ -31,7 +31,7 @@ class Moonfire extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
+  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default Moonfire;
