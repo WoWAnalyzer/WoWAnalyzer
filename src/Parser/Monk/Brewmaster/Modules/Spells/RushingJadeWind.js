@@ -5,10 +5,10 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-const debug = true;
+const debug = false;
 
 // the buff events all use this spell
-const RUSHING_JADE_WIND_BUFF = SPELLS.RUSHING_JADE_WIND_TALENT; 
+export const RUSHING_JADE_WIND_BUFF = SPELLS.RUSHING_JADE_WIND_TALENT; 
 
 class RushingJadeWind extends Analyzer {
   static dependencies = {
@@ -17,6 +17,7 @@ class RushingJadeWind extends Analyzer {
 
   inactiveDuration = 0;
   _lastDropped = 0;
+  _active = false;
 
   on_initialized() {
     this._lastDropped = this.owner.fight.start_time;
@@ -26,26 +27,37 @@ class RushingJadeWind extends Analyzer {
   on_byPlayer_applybuff(event) {
     if(event.ability.guid === RUSHING_JADE_WIND_BUFF.id) {
       this.inactiveDuration += event.timestamp - this._lastDropped;
-      debug && console.log("RJW re-applied", this.inactiveDuration);
+      this._active = true;
+      debug && console.log("RJW re-applied", event.timestamp, this.inactiveDuration);
     }
   }
 
   on_byPlayer_removebuff(event) {
     if(event.ability.guid === RUSHING_JADE_WIND_BUFF.id) {
       this._lastDropped = event.timestamp;
-      debug && console.log("RJW dropped");
+      this._active = false;
+      debug && console.log("RJW dropped", event.timestamp);
     }
+  }
+
+  on_finished() {
+    if(!this._active) {
+      this.inactiveDuration += this.owner.fight.end_time - this._lastDropped;
+    }
+  }
+
+  get uptime() {
+    if(this.owner.fightDuration === 0) {
+      return 0;
+    }
+    const downtime = this.inactiveDuration / this.owner.fightDuration;
+    return 1.0 - downtime;
   }
 
   // using a suggestion rather than a checklist item for this as RJW is
   // purely offensive
   suggestions(when) {
-    console.log(this.owner.fightDuration);
-    const fightDuration = this.owner.fight.end_time - this.owner.fight.start_time;
-    const downtime = this.inactiveDuration / fightDuration;
-    const uptime = 1.0 - downtime;
-    console.log(this.inactiveDuration);
-    when(uptime).isLessThan(0.95)
+    when(this.uptime).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You had low uptime on <SpellLink id={SPELLS.RUSHING_JADE_WIND.id} />. Try to maintain 100% uptime by refreshing the buff before it drops.</span>)
           .icon(SPELLS.RUSHING_JADE_WIND.icon)
