@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2017-12-29'),
+    changes: 'Implemented the Checklist.',
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2017-09-16'),
     changes: <Wrapper>Added <SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} icon/>/<SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} icon/>/<SpellLink id={SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id} icon/> to Cooldowns tab.</Wrapper>,
     contributors: [Chizu],
