@@ -1,8 +1,6 @@
 import React from 'react';
 
 import CoreCancelledCasts from 'Parser/Core/Modules/CancelledCasts';
-
-import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 

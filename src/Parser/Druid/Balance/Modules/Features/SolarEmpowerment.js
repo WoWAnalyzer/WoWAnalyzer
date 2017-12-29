@@ -4,7 +4,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ResourceTypes from 'common/RESOURCE_TYPES';
-import { formatDuration, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import Wrapper from 'common/Wrapper';
 
 class SolarEmpowerment extends Analyzer {

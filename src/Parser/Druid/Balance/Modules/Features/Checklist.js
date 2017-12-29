@@ -2,7 +2,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
-import ITEMS from 'common/ITEMS';
 
 import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
