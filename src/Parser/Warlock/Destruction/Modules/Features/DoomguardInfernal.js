@@ -29,11 +29,7 @@ class DoomguardInfernal extends Analyzer {
 
     return {
       actual: actualCasts,
-      isLessThan: {
-        minor: maxCasts,
-        average: maxCasts,
-        major: maxCasts,
-      },
+      isLessThan: maxCasts,
       style: 'number',
     };
   }
