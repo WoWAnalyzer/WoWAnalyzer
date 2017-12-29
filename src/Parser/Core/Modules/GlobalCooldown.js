@@ -44,7 +44,8 @@ class GlobalCooldown extends Analyzer {
 
     const spellId = event.ability.guid;
     const isOnGcd = this.isOnGlobalCooldown(spellId);
-    if (isOnGcd) {
+    if (isOnGcd && !event.isCancelled) {
+      // Cancelled casts reset the GCD
       this.triggerGlobalCooldown(event, 'begincast');
     }
   }

@@ -1,10 +1,18 @@
 import Analyzer from 'Parser/Core/Analyzer';
 import { formatMilliseconds } from 'common/format';
+import CASTS_THAT_ARENT_CASTS from 'Parser/Core/CASTS_THAT_ARENT_CASTS';
+
+const debug = true;
 
 class Channeling extends Analyzer {
   _currentChannel = null;
 
   beginChannel(event) {
+    if (this.isChanneling()) {
+      // There are no specific events for channel cancels, the only indicator of this are when one starts channeling something else. Whenever we're still channeling and a new channel starts, we need to mark the old channel as canceled.
+      this.cancelChannel(event, this._currentChannel.ability);
+    }
+
     this._currentChannel = event;
     this.owner.triggerEvent('beginchannel', {
       type: 'beginchannel',
@@ -12,23 +20,30 @@ class Channeling extends Analyzer {
       ability: event.ability,
       reason: event,
     });
+    debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Channeling', 'Beginning channel of', event.ability.name);
   }
   endChannel(event) {
-    const start = this._currentChannel ? this._currentChannel.timestamp : this.owner.fight.start_time;
-    if (!this._currentChannel) {
-      const fightDuration = formatMilliseconds(start - this.owner.fight.start_time);
+    const currentChannel = this._currentChannel;
+    const start = currentChannel ? currentChannel.timestamp : this.owner.fight.start_time;
+    if (!this.isChanneling()) {
+      const fightDuration = formatMilliseconds(event.timestamp - this.owner.fight.start_time);
       console.warn(fightDuration, 'Channeling', event.ability.name, '`endChannel` was called while we weren\'t channeling, assuming it was a pre-combat channel.');
     }
+
     const duration = event.timestamp - start;
     this._currentChannel = null;
+    // Since `event` may not always be the spell being ended we default to the start of the casting since that must be the right spell
+    const ability = currentChannel ? currentChannel.ability : event.ability;
     this.owner.triggerEvent('endchannel', {
       type: 'endchannel',
       timestamp: event.timestamp,
-      ability: event.ability,
+      ability,
       duration: duration,
       start,
-      reason: event,
+      reason: event, // the reason may be for another spell, sometimes the indicator of 1 channel ending is the start of another
+      beginChannel: currentChannel,
     });
+    debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Channeling', 'Ending channel of', ability.name);
   }
   cancelChannel(event, ability) {
     this.owner.triggerEvent('cancelchannel', {
@@ -37,26 +52,34 @@ class Channeling extends Analyzer {
       timestamp: null, // unknown, we can only know when the next cast started so passing the timestamp would be a poor guess
       reason: event,
     });
+    debug && console.warn(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Channeling', 'Canceled channel of', ability.name);
   }
 
   on_byPlayer_begincast(event) {
-    if (this._currentChannel) {
-      this.cancelChannel(event, this._currentChannel.ability);
-    }
     this.beginChannel(event);
   }
   on_byPlayer_cast(event) {
+    if (CASTS_THAT_ARENT_CASTS.includes(event.ability.guid)) {
+      // Some things such as boss mechanics are marked as cast-events even though they're usually just "ticks". This can even occur while channeling. We need to ignore them or it will throw off this module.
+      return;
+    }
+
     // TODO: Account for pre-pull `begincast`
     const isChanneling = !!this._currentChannel;
     if (!isChanneling) {
       return;
     }
-    const isSameSpell = this._currentChannel.ability.guid === event.ability.guid;
-    if (!isSameSpell) {
+    if (!this.isChannelingSpell(event.ability.guid)) {
       this.cancelChannel(event, this._currentChannel.ability);
     } else {
       this.endChannel(event);
     }
+  }
+  isChanneling() {
+    return !!this._currentChannel;
+  }
+  isChannelingSpell(spellId) {
+    return this._currentChannel && this._currentChannel.ability.guid === spellId;
   }
 
   // TODO: Move this to SpellTimeline, it's only used for that so it should track it itself
