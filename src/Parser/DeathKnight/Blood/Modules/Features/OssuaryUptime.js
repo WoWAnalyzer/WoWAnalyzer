@@ -15,13 +15,13 @@ class OssuaryUptime extends Analyzer {
     this.active = this.combatants.selected.hasTalent(SPELLS.OSSUARY_TALENT.id);
   }
 
-  get Uptime() {
+  get uptime() {
     return this.combatants.getBuffUptime(SPELLS.OSSUARY.id) / this.owner.fightDuration;
   }
 
-  get UptimeSuggestionThresholds() {
+  get uptimeSuggestionThresholds() {
     return {
-      actual: this.Uptime,
+      actual: this.uptime,
       isLessThan: {
         minor: 0.94,
         average: 0.84,
@@ -35,7 +35,7 @@ class OssuaryUptime extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.OSSUARY_TALENT.id} />}
-        value={`${formatPercentage(this.Uptime)}%`}
+        value={`${formatPercentage(this.uptime)}%`}
         label="Ossuary Uptime"
         tooltip="Important to maintain. Reduces cost of Death Strike and increases runic power cap by 10."
       />

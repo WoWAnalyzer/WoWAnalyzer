@@ -38,9 +38,8 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Use core spells as often as possible',
-      description: <Wrapper>Spells that are part of your main rotation.</Wrapper>,
+      description: 'Spells that are part of your main rotation.',
       requirements: () => {
-        //const combatant = this.combatants.selected;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BLOOD_BOIL,
@@ -73,27 +72,27 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Maintain Buffs/DeBuffs',
-      description: <Wrapper>Keep these up for their benifits.</Wrapper>,
+      description: 'Keep these up for their benifits.',
       requirements: () => {
         return [
           new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.BLOOD_PLAGUE.id}/> Uptime</Wrapper>,
-            check: () => this.bloodplagueUptime.UptimeSuggestionThresholds,
+            check: () => this.bloodplagueUptime.uptimeSuggestionThresholds,
           }),
           new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.BONE_SHIELD.id}/> Uptime</Wrapper>,
-            check: () => this.boneShieldUptime.UptimeSuggestionThresholds,
+            check: () => this.boneShieldUptime.uptimeSuggestionThresholds,
           }),
           new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.OSSUARY.id}/> Uptime</Wrapper>,
-            check: () => this.ossuaryUptime.UptimeSuggestionThresholds,
+            check: () => this.ossuaryUptime.uptimeSuggestionThresholds,
           }),
         ];
       },
     }),
     new Rule({
       name: 'Try to avoid being inactive for a large portion of the fight',
-      description: <Wrapper>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  You can reduce downtime by casting ranged abilities like <SpellLink id={SPELLS.OUTBREAK.id}/> or <SpellLink id={SPELLS.DEATH_COIL.id}/></Wrapper>,
+      description: <Wrapper>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  You can reduce downtime by casting ranged/filler abilities like <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id}/> or <SpellLink id={SPELLS.BLOOD_BOIL.id}/></Wrapper>,
       requirements: () => {
         return [
           new Requirement({

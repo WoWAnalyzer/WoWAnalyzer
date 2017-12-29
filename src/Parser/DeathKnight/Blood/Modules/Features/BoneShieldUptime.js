@@ -12,13 +12,13 @@ class BoneShieldUptime extends Analyzer {
     combatants: Combatants,
   };
 
-  get Uptime() {
-    return this.combatants.getBuffUptime(SPELLS.BONE_SHIELD.id) / this.owner.fightDuration;
+  get uptime() {
+    return this.combatants.selected.getBuffUptime(SPELLS.BONE_SHIELD.id) / this.owner.fightDuration;
   }
 
-  get UptimeSuggestionThresholds() {
+  get uptimeSuggestionThresholds() {
     return {
-      actual: this.Uptime,
+      actual: this.uptime,
       isLessThan: {
         minor: 0.94,
         average: 0.84,
@@ -34,7 +34,7 @@ class BoneShieldUptime extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BONE_SHIELD.id} />}
-        value={`${formatPercentage(this.Uptime)}%`}
+        value={`${formatPercentage(this.uptime)}%`}
         label="Bone Shield Uptime"
         tooltip="Important to maintain. Provides damage reduction and haste buff while you have at least one charge."
       />
