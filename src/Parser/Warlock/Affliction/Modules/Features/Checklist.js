@@ -46,15 +46,27 @@ class Checklist extends CoreChecklist {
         return [
           new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.AGONY.id} icon/> uptime</Wrapper>,
-            check: () => this.agonyUptime.suggestionThresholds,
+            check: () => this.agonyUptime.defaultSuggestionThresholds,
+            when: !combatant.hasTalent(SPELLS.WRITHE_IN_AGONY_TALENT.id),
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.AGONY.id} icon/> uptime</Wrapper>,
+            check: () => this.agonyUptime.writheSuggestionThresholds,
+            when: combatant.hasTalent(SPELLS.WRITHE_IN_AGONY_TALENT.id),
           }),
           new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.CORRUPTION_CAST.id} icon/> uptime</Wrapper>,
-            check: () => this.corruptionUptime.suggestionThresholds,
+            check: () => this.corruptionUptime.defaultSuggestionThresholds,
+            when: !combatant.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id),
           }),
           new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.CORRUPTION_CAST.id} icon/> uptime</Wrapper>,
-            check: () => this.corruptionUptime.suggestionThresholds,
+            check: () => this.corruptionUptime.t20SuggestionThresholds,
+            when: combatant.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id),
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.SIPHON_LIFE_TALENT.id} icon/> uptime</Wrapper>,
+            check: () => this.siphonLifeUptime.suggestionThresholds,
             when: combatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id),
           }),
         ];
@@ -137,7 +149,7 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: 'Try to avoid being inactive for a large portion of the fight',
+      name: 'Always be casting',
       description: <Wrapper>You should try to avoid doing nothing during the fight. When you're out of Soul Shards, cast <SpellLink id={SPELLS.DRAIN_SOUL.id} icon/>, refresh your DoTs, replenish your mana. When you have to move, use your instant abilities or try to utilize <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon/> or <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon/> to reduce the movement even further.</Wrapper>,
       requirements: () => {
         return [
