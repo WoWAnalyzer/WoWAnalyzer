@@ -7,16 +7,10 @@ import CoreGlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
 class GlobalCooldown extends CoreGlobalCooldown {
   on_byPlayer_cast(event) {
     if (event.ability.guid === SPELLS.MIND_FLAY.id) {
-      // We track Mind Flay differently
+      // This GCD gets handled by the `beginchannel` event
       return;
     }
     super.on_byPlayer_cast(event);
-  }
-
-  on_byPlayer_applybuff(event) {
-    if (event.ability.guid === SPELLS.MIND_FLAY.id) {
-      super.on_byPlayer_begincast(event);
-    }
   }
 }
 
