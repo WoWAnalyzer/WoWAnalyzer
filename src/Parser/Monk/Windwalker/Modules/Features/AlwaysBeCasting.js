@@ -35,33 +35,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.TRANSCENDENCE_TRANSFER.id,
     SPELLS.FLYING_SERPENT_KICK.id,
   ];
-  STATIC_GCD_ABILITIES = {
-    // Channeled spells
-    [SPELLS.FISTS_OF_FURY_CAST.id]: [1],
-    [SPELLS.CRACKLING_JADE_LIGHTNING.id]: [1],
 
-    // rotational:
-    [SPELLS.BLACKOUT_KICK.id]: [1],
-    [SPELLS.RISING_SUN_KICK.id]: [1],
-    [SPELLS.TIGER_PALM.id]: [1],
-    [SPELLS.STRIKE_OF_THE_WINDLORD.id]: [1],
-    [SPELLS.SPINNING_CRANE_KICK.id]: [1],
-    [SPELLS.TOUCH_OF_DEATH.id]: [1],
-
-    // talents: Chi Wave and Chi burst seemingly has haste-affected GCDs
-    [SPELLS.LEG_SWEEP_TALENT.id]: [1],
-    [SPELLS.RING_OF_PEACE_TALENT.id]: [1],
-    [SPELLS.SUMMON_BLACK_OX_STATUE_TALENT.id]: [1],
-    [SPELLS.RUSHING_JADE_WIND_TALENT.id]: [1],
-    [SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id]: [1],
-
-    // utility:
-    [SPELLS.PARALYSIS.id]: [1],
-    [SPELLS.EFFUSE.id]: [1],
-    [SPELLS.TRANSCENDENCE.id]: [1],
-    [SPELLS.TRANSCENDENCE_TRANSFER.id]: [1],
-    [SPELLS.FLYING_SERPENT_KICK.id]: [1],
-  };
+  // Windwalker has a static GCD of 1 sec on all spells
+  static BASE_GCD = 1000;
+  static MINIMUM_GCD = 1000;
 
   // This is causing negative downtime if used
   // on_toPlayer_removebuff(event) {
