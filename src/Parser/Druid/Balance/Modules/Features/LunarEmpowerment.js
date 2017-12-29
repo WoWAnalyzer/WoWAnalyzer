@@ -78,11 +78,11 @@ class LunarEmpowerment extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: this.wastedPercentage,
-      isGreaterThan: {
-        minor: 0.02,
-        average: 0.05,
-        major: 0.1,
+      actual: 1 - this.wastedPercentage,
+      isLessThan: {
+        minor: 0.98,
+        average: 0.95,
+        major: 0.9,
       },
       style: 'percentage',
     };

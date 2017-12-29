@@ -87,19 +87,19 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: 'Astral Power overcapped',
+            name: 'Astral Power efficiency',
             check: () => this.astralPower.suggestionThresholds,
           }),
           new Requirement({
-            name: 'Moon spells overcapped',
+            name: 'Moon spells efficiency',
             check: () => this.moonSpells.suggestionThresholds,
           }),
           new Requirement({
-            name: 'Solar Empowerments overcapped',
+            name: 'Solar Empowerment efficiency',
             check: () => this.solarEmpowerment.suggestionThresholds,
           }),
           new Requirement({
-            name: 'Lunar Empowerments overcapped',
+            name: 'Lunar Empowerment efficiency',
             check: () => this.lunarEmpowerment.suggestionThresholds,
           }),
         ];

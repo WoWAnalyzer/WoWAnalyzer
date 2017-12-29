@@ -58,11 +58,11 @@ class AstralPower extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: this.wastedPercentage,
-      isGreaterThan: {
-        minor: 0.00,
-        average: 0.02,
-        major: 0.05,
+      actual: 1 - this.wastedPercentage,
+      isLessThan: {
+        minor: 1.00,
+        average: 0.98,
+        major: 0.95,
       },
       style: 'percentage',
     };
@@ -75,7 +75,7 @@ class AstralPower extends Analyzer {
             .icon('ability_druid_cresentburn')
             .actual(`${formatPercentage(this.wastedPercentage)}% overcapped Astral Power per minute`)
             .recommended('0 overcapped Astral Power is recommended.')
-            .regular(recommended + 2).major(recommended + 5);
+            .regular(0.02).major(0.05);
         });
   }
 
