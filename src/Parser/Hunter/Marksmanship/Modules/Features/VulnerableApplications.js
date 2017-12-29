@@ -147,7 +147,7 @@ class VulnerableApplications extends Analyzer {
       </div>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(3);
+  statisticOrder = STATISTIC_ORDER.CORE(9);
 }
 
 export default VulnerableApplications;

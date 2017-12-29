@@ -102,7 +102,7 @@ class RoarOfTheSevenLions extends Analyzer {
     //since it can hit several mobs, this ensures we only subtract the focus once
     if (event.timestamp > (this.lastVolleyHit + BUFFER_MS)) {
       this.focusSpenderCasts[spellId].casts += 1;
-      this.focusSpenderCasts[spellId].focusSaved += VOLLEY_COST * FOCUS_COST_REDUCTION;
+      this.focusSpenderCasts[spellId].focusSaved += VOLLEY_COST - (VOLLEY_COST * FOCUS_COST_REDUCTION);
       this.lastVolleyHit = event.timestamp;
     }
 

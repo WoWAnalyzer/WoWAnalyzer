@@ -10,6 +10,11 @@ import { Blazballs, JLassie82, Putro } from 'MAINTAINERS';
 export default [
   {
     date: new Date('2017-12-26'),
+    changes: 'Added a focus usage chart',
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2017-12-26'),
     changes: <Wrapper>Added support for <ItemLink id={ITEMS.CELERITY_OF_THE_WINDRUNNERS.id} icon />, <ItemLink id={ITEMS.MAGNETIZED_BLASTING_CAP_LAUNCHER.id} icon />, <ItemLink id={ITEMS.ZEVRIMS_HUNGER.id} icon />, <ItemLink id={ITEMS.ROOTS_OF_SHALADRASSIL.id} icon />, <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} icon />, <ItemLink id={ITEMS.THE_APEX_PREDATORS_CLAW.id} icon /> and <ItemLink id={ITEMS.THE_SHADOW_HUNTERS_VOODOO_MASK.id} icon />.</Wrapper>,
     contributors: [Putro],
   },
