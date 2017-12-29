@@ -1,6 +1,16 @@
+import React from 'react';
+
 import { Sharrq, sref } from 'MAINTAINERS';
+import Wrapper from 'common/Wrapper';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+      date: new Date('2017-12-29'),
+      changes: <Wrapper>Added support for <SpellLink id={SPELLS.FROST_MAGE_T21_4SET_BONUS_BUFF.id} /></Wrapper>,
+      contributors: [sref],
+  },
   {
     date: new Date('2017-12-27'),
     changes: 'Converted Changelog to new format',
@@ -13,7 +23,7 @@ export default [
   },
   {
       date: new Date('2017-12-01'),
-      changes: 'Added support for T21 Tier Set',
+      changes: <Wrapper>Added support for <SpellLink id={SPELLS.FROST_MAGE_T21_2SET_BONUS_BUFF.id} /></Wrapper>,
       contributors: [sref],
   },
   {
