@@ -37,11 +37,13 @@ class Eradication extends Analyzer {
     this.bonusDmg += getDamageBonus(event, ERADICATION_DAMAGE_BONUS);
   }
 
-  get suggestionThresholds() {
-    const uptime = this.enemies.getBuffUptime(SPELLS.ERADICATION_DEBUFF.id) / this.owner.fightDuration;
+  get uptime() {
+    return this.enemies.getBuffUptime(SPELLS.ERADICATION_DEBUFF.id) / this.owner.fightDuration;
+  }
 
+  get suggestionThresholds() {
     return {
-      actual: uptime,
+      actual: this.uptime,
       isLessThan: {
         minor: 0.7,
         average: 0.65,
@@ -62,7 +64,6 @@ class Eradication extends Analyzer {
   }
 
   subStatistic() {
-    const uptime = this.enemies.getBuffUptime(SPELLS.ERADICATION_DEBUFF.id) / this.owner.fightDuration;
     return (
       <div className="flex">
         <div className="flex-main">
@@ -72,7 +73,7 @@ class Eradication extends Analyzer {
         </div>
         <div className="flex-sub text-right">
           <dfn data-tip={`Your Eradication contributed ${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS / ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%).`}>
-            {formatPercentage(uptime)} %
+            {formatPercentage(this.uptime)} %
           </dfn>
         </div>
       </div>

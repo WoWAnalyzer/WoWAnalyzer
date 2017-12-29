@@ -15,9 +15,13 @@ class DoomUptime extends Analyzer {
     enemies: Enemies,
   };
 
+  get uptime() {
+    return this.enemies.getBuffUptime(SPELLS.DOOM.id) / this.owner.fightDuration;
+  }
+
   get suggestionThresholds() {
     return {
-      actual: this.enemies.getBuffUptime(SPELLS.DOOM.id) / this.owner.fightDuration,
+      actual: this.uptime,
       isLessThan: {
         minor: 0.95,
         average: 0.9,
@@ -38,11 +42,10 @@ class DoomUptime extends Analyzer {
   }
 
   statistic() {
-    const uptime = this.enemies.getBuffUptime(SPELLS.DOOM.id) / this.owner.fightDuration;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DOOM.id} />}
-        value={`${formatPercentage(uptime)} %`}
+        value={`${formatPercentage(this.uptime)} %`}
         label="Doom uptime"
       />
     );

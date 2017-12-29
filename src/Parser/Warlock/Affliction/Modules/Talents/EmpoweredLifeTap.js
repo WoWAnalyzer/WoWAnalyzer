@@ -31,9 +31,13 @@ class EmpoweredLifeTap extends Analyzer {
     }
   }
 
+  get uptime() {
+    return this.combatants.selected.getBuffUptime(SPELLS.EMPOWERED_LIFE_TAP_BUFF.id) / this.owner.fightDuration;
+  }
+
   get suggestionThresholds() {
     return {
-      actual: this.combatants.selected.getBuffUptime(SPELLS.EMPOWERED_LIFE_TAP_BUFF.id) / this.owner.fightDuration,
+      actual: this.uptime,
       isLessThan: {
         minor: 0.9,
         average: 0.85,
@@ -54,11 +58,10 @@ class EmpoweredLifeTap extends Analyzer {
   }
 
   statistic() {
-    const uptime = this.combatants.selected.getBuffUptime(SPELLS.EMPOWERED_LIFE_TAP_BUFF.id) / this.owner.fightDuration;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.EMPOWERED_LIFE_TAP_TALENT.id} />}
-        value={`${formatPercentage(uptime)} %`}
+        value={`${formatPercentage(this.uptime)} %`}
         label="Empowered Life Tap uptime"
         tooltip={`Your Empowered Life Tap talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %)`}
       />
