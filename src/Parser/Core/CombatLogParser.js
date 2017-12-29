@@ -14,6 +14,7 @@ import Status from './Modules/Status';
 import HealingDone from './Modules/HealingDone';
 import DamageDone from './Modules/DamageDone';
 import DamageTaken from './Modules/DamageTaken';
+import DeathTracker from './Modules/DeathTracker';
 
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
@@ -117,6 +118,7 @@ import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
 
 const debug = false;
+const debugEvents = false;
 
 let _modulesDeprecatedWarningSent = false;
 
@@ -132,6 +134,7 @@ class CombatLogParser {
     healingDone: HealingDone,
     damageDone: DamageDone,
     damageTaken: DamageTaken,
+    deathTracker: DeathTracker,
 
     combatants: Combatants,
     enemies: Enemies,
@@ -295,7 +298,7 @@ class CombatLogParser {
 
   initializeModules(modules) {
     const failedModules = [];
-    Object.keys(modules).forEach((desiredModuleName) => {
+    Object.keys(modules).forEach(desiredModuleName => {
       const moduleConfig = modules[desiredModuleName];
       if (!moduleConfig) {
         return;
@@ -313,7 +316,7 @@ class CombatLogParser {
       const availableDependencies = {};
       const missingDependencies = [];
       if (moduleClass.dependencies) {
-        Object.keys(moduleClass.dependencies).forEach((desiredDependencyName) => {
+        Object.keys(moduleClass.dependencies).forEach(desiredDependencyName => {
           const dependencyClass = moduleClass.dependencies[desiredDependencyName];
 
           const dependencyModule = this.findModule(dependencyClass);
@@ -413,6 +416,8 @@ class CombatLogParser {
 
   _moduleTime = {};
   triggerEvent(eventType, event, ...args) {
+    debugEvents && console.log(eventType, event, ...args);
+
     Object.keys(this._modules)
       .filter(key => this._modules[key].active)
       .filter(key => this._modules[key] instanceof Analyzer)

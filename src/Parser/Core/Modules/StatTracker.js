@@ -107,7 +107,7 @@ class StatTracker extends Analyzer {
       ...this._pullStats,
     };
 
-    this._debugPrintStats(this._currentStats);
+    debug && this._debugPrintStats(this._currentStats);
   }
 
   /*
@@ -197,6 +197,10 @@ class StatTracker extends Analyzer {
         return standard + 0.03; // 3% from a trait everyone has. TODO: Make traits conditional
       case SPECS.FIRE_MAGE:
         return standard + 0.15; // an additional 15% is gained from the passive Critical Mass
+      case SPECS.MARKSMANSHIP_HUNTER :
+        return standard + 0.05; //baseline +5%
+      case SPECS.BEAST_MASTERY_HUNTER :
+        return standard + 0.05; //baseline +5%
       default:
         return standard;
     }
@@ -220,6 +224,8 @@ class StatTracker extends Analyzer {
         return 0.2;
       case SPECS.ELEMENTAL_SHAMAN:
         return 0.15;
+      case SPECS.GUARDIAN_DRUID:
+        return 0.04;
       case SPECS.RESTORATION_DRUID:
         return 0.048;
       case SPECS.RETRIBUTION_PALADIN:
@@ -242,6 +248,8 @@ class StatTracker extends Analyzer {
         return 0.18;
       case SPECS.MISTWEAVER_MONK:
         return 1.04;
+      case SPECS.FURY_WARRIOR:
+        return 0.11;
       default:
         console.error('Mastery hasn\'t been implemented for this spec yet.');
         return 0.0;
@@ -292,6 +300,8 @@ class StatTracker extends Analyzer {
         return 13333;
       case SPECS.ELEMENTAL_SHAMAN:
         return 23333;
+      case SPECS.GUARDIAN_DRUID:
+        return 40000;
       case SPECS.RESTORATION_DRUID:
         return 66667;
       case SPECS.RETRIBUTION_PALADIN:
@@ -314,9 +324,11 @@ class StatTracker extends Analyzer {
         return 17776;
       case SPECS.MISTWEAVER_MONK:
         return 3076.96;
+      case SPECS.FURY_WARRIOR:
+        return 28430;
       default:
         console.error('Mastery hasn\'t been implemented for this spec yet.');
-        return 99999999;
+        return null;
     }
   }
   masteryPercentage(rating, withBase = false) {
@@ -395,7 +407,7 @@ class StatTracker extends Analyzer {
     if (debug) {
       const spellName = eventReason && eventReason.ability ? eventReason.ability.name : 'unspecified';
       console.log(`StatTracker: FORCED CHANGE from ${spellName} - Change: ${this._statPrint(delta)}`);
-      this._debugPrintStats(this._currentStats);
+      debug && this._debugPrintStats(this._currentStats);
     }
   }
 

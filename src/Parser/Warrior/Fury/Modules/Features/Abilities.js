@@ -2,6 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import ITEMS from 'common/ITEMS';
 
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 import Wrapper from 'common/Wrapper';
@@ -92,7 +93,9 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 30,
       isActive: combatant => combatant.hasTalent(SPELLS.BLOODBATH_TALENT.id),
-      recommendedEfficiency: 0.95,
+      // Should verify that it is used with every Battle Cry
+      noCanBeImproved: true,
+      noSuggestion: true,
     },
     {
       spell: SPELLS.BLADESTORM_TALENT,
@@ -168,9 +171,22 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.HEROIC_LEAP_FURY,
       category: Abilities.SPELL_CATEGORIES.UTILITY,
       getCooldown: (haste, combatant) => 45 - (combatant.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 15 : 0),
+      recommendedEfficiency: 0.1,
       noCanBeImproved: true,
       importance: ISSUE_IMPORTANCE.MINOR,
       extraSuggestion: <Wrapper>Consider using <SpellLink id={SPELLS.WARPAINT_TALENT.id} /> if the fight requires little mobility.</Wrapper>,
+      isActive: combatant => !combatant.hasShoulder(ITEMS.TIMELESS_STRATAGEM.id),
+    },
+    {
+      spell: SPELLS.HEROIC_LEAP_FURY,
+      category: Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown: (haste, combatant) => 45 - (combatant.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 15 : 0),
+      recommendedEfficiency: 0.1,
+      noCanBeImproved: true,
+      importance: ISSUE_IMPORTANCE.MINOR,
+      extraSuggestion: <Wrapper>Consider using <SpellLink id={SPELLS.WARPAINT_TALENT.id} /> if the fight requires little mobility.</Wrapper>,
+      charges: 3,
+      isActive: combatant => combatant.hasShoulder(ITEMS.TIMELESS_STRATAGEM.id),
     },
     {
       spell: SPELLS.PUMMEL,

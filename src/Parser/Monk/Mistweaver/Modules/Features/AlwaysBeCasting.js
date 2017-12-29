@@ -22,6 +22,7 @@ const HEALING_ABILITIES_ON_GCD = [
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static dependencies = {
+    ...CoreAlwaysBeCastingHealing.dependencies,
     haste: Haste,
   };
 
