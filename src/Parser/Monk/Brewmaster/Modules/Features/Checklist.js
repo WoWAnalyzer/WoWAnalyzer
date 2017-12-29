@@ -30,7 +30,7 @@ class Checklist extends CoreChecklist {
         return [
           new Requirement({
             name: 'Hits mitigated with ISB',
-            check: () => this.isb.suggestionThreshold,
+            check: () => this.isb.uptimeSuggestionThreshold,
           }),
         ];
       },

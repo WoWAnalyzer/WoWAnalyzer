@@ -94,7 +94,7 @@ export default {
 // Buffs
   OSSUARY: {
     id: 219788,
-    name: 'OSSUARY',
+    name: 'Ossuary',
     icon: 'ability_deathknight_brittlebones',
   },
 
@@ -424,7 +424,7 @@ export default {
     name: 'Unholy Frenzy',
     icon: 'spell_shadow_unholyfrenzy',
   },
-  
+
   UNHOLY_STRENGTH_BUFF: {
 	  id: 53365,
 	  name: 'Unholy Strength',
@@ -572,7 +572,7 @@ export default {
     name: 'Wraith Walk',
     icon: 'inv_helm_plate_raiddeathknight_p_01',
   },
-  
+
   COLD_HEART_BUFF: {
     id: 235599,
     name: 'Cold Heart',
