@@ -20,7 +20,7 @@ export const EVENT_STAGGER_POOL_REMOVED = "removestagger";
 class StaggerFabricator extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-  }
+  };
 
   // causes an orb consumption to clear 5% of stagger
   _hasTier20_4pc = false;
