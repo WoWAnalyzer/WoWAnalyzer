@@ -404,6 +404,11 @@ export default {
     name: 'Breath of Fire',
     icon: 'ability_monk_breathoffire',
   },
+  BREATH_OF_FIRE_DEBUFF: {
+    id: 123725,
+    name: 'Breath of Fire',
+    icon: 'ability_monk_breathoffire',
+  },
   FORTIFYING_BREW_BRM: {
     id: 115203,
     name: 'Fortifying Brew',

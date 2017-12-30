@@ -2,15 +2,17 @@ import React from 'react';
 
 import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
-// import ITEMS from 'common/ITEMS';
+import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
-// import ItemLink from 'common/ItemLink';
+import ItemLink from 'common/ItemLink';
 
 import CoreChecklist, { Rule, Requirement /*, GenericCastEfficiencyRequirement */ } from 'Parser/Core/Modules/Features/Checklist';
 import IronSkinBrew from '../Spells/IronSkinBrew';
+import BreathOfFire from '../Spells/BreathOfFire';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
+    bof: BreathOfFire,
     isb: IronSkinBrew,
   };
 
@@ -31,6 +33,26 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: 'Hits mitigated with ISB',
             check: () => this.isb.uptimeSuggestionThreshold,
+          }),
+        ];
+      },
+    }),
+    new Rule({
+      name: (
+        <Wrapper>
+          Maintain 100% uptime on <SpellLink id={SPELLS.BREATH_OF_FIRE.id} icon />.
+        </Wrapper>
+      ),
+      description: (
+        <Wrapper>
+          <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> provides a 4-7% damage reduction through the <SpellLink id={SPELLS.HOT_BLOODED.id} /> trait. It is possible to maintain 100% uptime on this debuff both with and without <ItemLink id={ITEMS.SALSALABIMS_LOST_TUNIC.id} />.
+        </Wrapper>
+      ),
+      requirements: () => {
+        return [
+          new Requirement({
+            name: 'Breath of Fire uptime',
+            check: () => this.bof.suggestionThreshold,
           }),
         ];
       },
