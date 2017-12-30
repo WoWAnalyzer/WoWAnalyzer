@@ -48,7 +48,7 @@ class StormstoutsLastGasp extends Analyzer {
     return {
       item: ITEMS.STORMSTOUTS_LAST_GASP,
       result: (
-        <dfn data-tip={`Keg Smash dealt an additional <b>${formatNumber(this.damage)}</b> damage due to Stormstout's Last Gasp.<br/>Additional casts are not considered at this time.`}>{this.owner.formatItemDamageDone(this.damage)}</dfn>
+        <dfn data-tip={`Keg Smash dealt an additional <b>${formatNumber(this.damage)}</b> damage due to Stormstout's Last Gasp.<br/>Additional casts are not considered.`}>{this.owner.formatItemDamageDone(this.damage)}</dfn>
       ),
     };
   }
