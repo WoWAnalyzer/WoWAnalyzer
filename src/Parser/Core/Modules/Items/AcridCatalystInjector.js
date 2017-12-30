@@ -25,8 +25,8 @@ class AcridCatalystInjector extends Analyzer {
 	on_initialized() {
 		this.active = this.combatants.selected.hasTrinket(ITEMS.ACRID_CATALYST_INJECTOR.id);
 		if (this.active) {
-			this.threeStatBuff = calculateSecondaryStatDefault(930, 2183, this.combatants.selected.getItem(ITEMS.ACRID_CATALYST_INJECTOR.id).itemLevel);
-			this.oneStatBuff = calculateSecondaryStatDefault(930, 92, this.combatants.selected.getItem(ITEMS.ACRID_CATALYST_INJECTOR.id).itemLevel);
+			this.threeStatBuff = calculateSecondaryStatDefault(955, 2397, this.combatants.selected.getItem(ITEMS.ACRID_CATALYST_INJECTOR.id).itemLevel);
+			this.oneStatBuff = calculateSecondaryStatDefault(955, 210, this.combatants.selected.getItem(ITEMS.ACRID_CATALYST_INJECTOR.id).itemLevel);
 		}
 	}
 
