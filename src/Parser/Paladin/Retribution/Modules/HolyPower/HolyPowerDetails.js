@@ -17,19 +17,28 @@ class HolyPowerDetails extends Analyzer {
 		holyPowerTracker: HolyPowerTracker,
 	};
 
+	get suggestionThresholds() {
+    const hpWasted = this.holyPowerTracker.holyPowerWasted;
+    const hpWastedPercent = hpWasted / this.holyPowerTracker.totalHolyPowerGained;
+    return {
+      actual: hpWastedPercent,
+      isGreaterThan: {
+        minor: 0.02,
+        average: 0.05,
+        major: 0.08,
+      },
+      style: 'percentage',
+    };
+  }
+
 	suggestions(when) {
 		const hpWasted = this.holyPowerTracker.holyPowerWasted;
-		const hpWastedPercent = hpWasted / this.holyPowerTracker.totalHolyPowerGained;
-		const MINOR = 0.02;
-		const AVG = 0.05;
-		const MAJOR = 0.08;
-		when(hpWastedPercent).isGreaterThan(MINOR)
+		when(this.suggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(`You wasted ${formatPercentage(hpWastedPercent)}% of your Holy Power.`)
+				return suggest(`You wasted ${formatPercentage(actual)}% of your Holy Power.`)
 					.icon(holyPowerIcon)
 					.actual(`${hpWasted} Holy Power wasted`)
-					.recommended(`Wasting less than ${formatPercentage(recommended)}% is recommended.`)
-					.regular(AVG).major(MAJOR);
+					.recommended(`Wasting less than ${formatPercentage(recommended)}% is recommended.`);
 			});
 	}
 

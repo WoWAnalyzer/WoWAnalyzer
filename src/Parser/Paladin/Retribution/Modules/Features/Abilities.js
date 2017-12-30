@@ -149,6 +149,13 @@ class Abilities extends CoreAbilities {
       noCanBeImproved: true,
     },
     {
+      spell: SPELLS.LAY_ON_HANDS,
+      category: Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 600,
+      noSuggestion: true,
+      noCanBeImproved: true,
+    },
+    {
       spell: SPELLS.ARCANE_TORRENT_MANA,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,

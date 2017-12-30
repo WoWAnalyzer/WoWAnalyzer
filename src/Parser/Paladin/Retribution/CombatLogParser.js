@@ -6,6 +6,7 @@ import Haste from './Modules/PaladinCore/Haste';
 import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
+import Checklist from './Modules/Features/Checklist';
 import Judgment from './Modules/Features/Judgment';
 
 import DivinePurpose from './Modules/Talents/DivinePurpose';
@@ -43,6 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    checklist: Checklist,
     judgment: Judgment,
     retribution: Retribution,
     blessingOfTheAshbringer: BlessingOfTheAshbringer,
