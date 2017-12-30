@@ -6,27 +6,7 @@ import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-  static ABILITIES_ON_GCD = [
-    // Moonkin:
-    SPELLS.MOONFIRE.id,
-    SPELLS.SUNFIRE_CAST.id,
-    SPELLS.STARSURGE_MOONKIN.id,
-    SPELLS.STARFALL_CAST.id,
-    SPELLS.LUNAR_STRIKE.id,
-    SPELLS.SOLAR_WRATH_MOONKIN.id,
-    SPELLS.NEW_MOON.id,
-    SPELLS.HALF_MOON.id,
-    SPELLS.FULL_MOON.id,
-    SPELLS.MOONKIN_FORM.id,
-    SPELLS.DISPLACER_BEAST_TALENT.id,
-    SPELLS.BEAR_FORM.id,
-
-    // Talents
-    SPELLS.TYPHOON_TALENT.id,
-    SPELLS.MASS_ENTANGLEMENT_TALENT.id,
-    SPELLS.FORCE_OF_NATURE_TALENT.id,
-  ];
-
+  
   recordCastTime(
     castStartTimestamp,
     globalCooldown,
@@ -47,7 +27,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   }
 
   suggestions(when) {
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
+    const deadTimePercentage = this.downtimePercentage;
 
     when(deadTimePercentage).isGreaterThan(0.02)
       .addSuggestion((suggest, actual, recommended) => {
@@ -59,7 +39,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       });
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(1);
+  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default AlwaysBeCasting;

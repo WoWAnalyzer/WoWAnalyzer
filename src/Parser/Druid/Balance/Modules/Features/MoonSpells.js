@@ -8,6 +8,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import Wrapper from 'common/Wrapper';
 
 class MoonSpells extends Analyzer {
   static dependencies = {
@@ -28,32 +29,40 @@ class MoonSpells extends Analyzer {
          + this.abilityTracker.getAbility(SPELLS.FULL_MOON.id).casts;
   }
 
-  suggestions(when) {   
-    const casted = this.totalCasts;
-    const percCasted = casted / this.availableCasts;
+  get suggestionThresholds() {
+    return {
+      actual: this.totalCasts / this.availableCasts,
+      isLessThan: {
+        minor: 0.98,
+        average: 0.95,
+        major: 0.9,
+      },
+      style: 'percentage',
+    };
+  }
 
-    when(percCasted).isLessThan(1)
+  suggestions(when) {   
+    const percCasted = this.totalCasts / this.availableCasts;
+    when(percCasted).isLessThan(0.98)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span> Your <SpellLink id={SPELLS.NEW_MOON.id} />, <SpellLink id={SPELLS.HALF_MOON.id} /> and <SpellLink id={SPELLS.FULL_MOON.id} /> cast efficiency can be improved, try keeping yourself at low Moon charges at all times; you should (almost) never be at max (3) charges.</span>)
+          return suggest(<Wrapper> Your <SpellLink id={SPELLS.NEW_MOON.id} />, <SpellLink id={SPELLS.HALF_MOON.id} /> and <SpellLink id={SPELLS.FULL_MOON.id} /> cast efficiency can be improved, try keeping yourself at low Moon charges at all times; you should (almost) never be at max (3) charges.</Wrapper>)
             .icon(SPELLS.FULL_MOON.icon)
             .actual(`${Math.round(formatPercentage(actual))}% casted`)
             .recommended(`${Math.round(formatPercentage(recommended))}% Moon spells casts is recommended`)
-            .regular(recommended - 0.1).major(recommended - 0.2);
+            .regular(0.95).major(0.9);
         });
   }
 
   statistic() {
-    const casted = this.totalCasts;
-
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.FULL_MOON.id} />}
-        value={`${casted}/${this.availableCasts}`}
+        value={`${this.totalCasts}/${this.availableCasts}`}
         label="Moon spell casts"
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
+  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default MoonSpells;

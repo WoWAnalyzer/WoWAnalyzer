@@ -22,7 +22,6 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 40,
       isActive: combatant => combatant.hasTalent(SPELLS.PHANTOM_SINGULARITY_TALENT.id),
-      recommendedEfficiency: 0.95,
       isOnGCD: true,
     },
     {
@@ -97,6 +96,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 120,
       isActive: combatant => combatant.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id),
+      recommendedEfficiency: 0.9,
     },
     {
       spell: SPELLS.SUMMON_DOOMGUARD_UNTALENTED,

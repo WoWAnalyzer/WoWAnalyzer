@@ -24,7 +24,9 @@ class MagtheridonsBanishedBracers extends Analyzer {
       return;
     }
       const buff = this.combatants.selected.getBuff(SPELLS.MAGTHERIDONS_MIGHT_BUFF.id);
-      this.damage += getDamageBonus(event, DAMAGE_BONUS * buff.stacks);
+      if (buff) {
+        this.damage += getDamageBonus(event, DAMAGE_BONUS * buff.stacks);
+      }
   }
 
   item() {

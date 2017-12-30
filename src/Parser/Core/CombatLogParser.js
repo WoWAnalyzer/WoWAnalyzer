@@ -34,6 +34,7 @@ import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
 
 import DistanceMoved from './Modules/Others/DistanceMoved';
+import WarningDisplay from './Modules/Features/WarningDisplay';
 
 import StatsDisplay from './Modules/Features/StatsDisplay';
 import TalentsDisplay from './Modules/Features/TalentsDisplay';
@@ -154,6 +155,7 @@ class CombatLogParser {
     manaValues: ManaValues,
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
+    warningDisplay: WarningDisplay,
 
     critEffectBonus: CritEffectBonus,
 

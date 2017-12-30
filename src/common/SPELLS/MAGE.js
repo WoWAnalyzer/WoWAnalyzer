@@ -356,6 +356,11 @@ export default {
     name: 'Kaelthas\'s Ultimate Ability',
     icon: 'inv_bracer_robe_raidwarlock_j_01',
   },
+  ARCTIC_BLAST: { // Frost 4t21 proc
+    id: 253257,
+    name: 'Arctic Blast',
+    icon: 'inv_staff_15',
+  },
 
   //Artifact Traits
   FROZEN_VEINS_TRAIT: {
