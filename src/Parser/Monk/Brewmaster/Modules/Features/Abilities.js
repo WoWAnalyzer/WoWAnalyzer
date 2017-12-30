@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
@@ -9,6 +10,14 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.KEG_SMASH,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 8 / (1 + haste),
+      isActive: combatant => !combatant.hasShoulder(ITEMS.STORMSTOUTS_LAST_GASP.id),
+    },
+    {
+      spell: SPELLS.KEG_SMASH,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 8 / (1 + haste),
+      charges: 2,
+      isActive: combatant => combatant.hasShoulder(ITEMS.STORMSTOUTS_LAST_GASP.id),
     },
     {
       spell: SPELLS.BLACKOUT_STRIKE,
@@ -19,6 +28,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.BREATH_OF_FIRE,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: () => 15,
+      noSuggestion: true,
     },
     {
       spell: SPELLS.TIGER_PALM,

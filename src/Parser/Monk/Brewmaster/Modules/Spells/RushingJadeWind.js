@@ -18,11 +18,14 @@ class RushingJadeWind extends Analyzer {
     this.active = this.combatants.selected.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT.id);
   }
 
+  get uptime() {
+    return this.combatants.selected.getBuffUptime(RUSHING_JADE_WIND_BUFF.id) / this.owner.fightDuration;
+  }
+
   // using a suggestion rather than a checklist item for this as RJW is
   // purely offensive
   suggestions(when) {
-    const uptime = this.combatants.selected.getBuffUptime(RUSHING_JADE_WIND_BUFF.id) / this.owner.fightDuration;
-    when(uptime).isLessThan(0.95)
+    when(this.uptime).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<Wrapper>You had low uptime on <SpellLink id={SPELLS.RUSHING_JADE_WIND.id} />. Try to maintain 100% uptime by refreshing the buff before it drops.</Wrapper>)
           .icon(SPELLS.RUSHING_JADE_WIND.icon)

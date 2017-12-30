@@ -7,18 +7,18 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-class EmeraldDreamcatcher extends Analyzer {
+class TheEmeraldDreamcatcher extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
 
   isEDBuff(event) {
     const spellId = event.ability.guid;
-    return spellId === SPELLS.EMERALD_DREAMCATCHER_BUFF.id;
+    return spellId === SPELLS.THE_EMERALD_DREAMCATCHER_BUFF.id;
   }
 
   on_initialized() {
-    this.active = this.combatants.selected.hasHead(ITEMS.EMERALD_DREAMCATCHER.id);
+    this.active = this.combatants.selected.hasHead(ITEMS.THE_EMERALD_DREAMCATCHER.id);
   }
 
   dreamcatcherBuffDropped = 0;
@@ -34,8 +34,8 @@ class EmeraldDreamcatcher extends Analyzer {
 
     when(buffDropsPerMinute).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> You dropped the <SpellLink id={SPELLS.EMERALD_DREAMCATCHER_BUFF.id} /> buff {this.dreamcatcherBuffDropped} times. Try to keep it up at all times. For more information consult <a href='http://goo.gl/mH8NVj' target='_blank' rel='noopener noreferrer'>the guide on ED usage</a>.</span>)
-          .icon(SPELLS.EMERALD_DREAMCATCHER_BUFF.icon)
+        return suggest(<span> You dropped the <SpellLink id={SPELLS.THE_EMERALD_DREAMCATCHER_BUFF.id} /> buff {this.dreamcatcherBuffDropped} times. Try to keep it up at all times. For more information consult <a href='http://goo.gl/mH8NVj' target='_blank' rel='noopener noreferrer'>the guide on ED usage</a>.</span>)
+          .icon(SPELLS.THE_EMERALD_DREAMCATCHER_BUFF.icon)
           .actual(`The buff dropped ${actual} times per minute`)
           .recommended(`${recommended} times per minute is recommended`)
           .regular(recommended + 1).major(recommended + 1.5);
@@ -45,7 +45,7 @@ class EmeraldDreamcatcher extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.EMERALD_DREAMCATCHER_BUFF.id} />}
+        icon={<SpellIcon id={SPELLS.THE_EMERALD_DREAMCATCHER_BUFF.id} />}
         value={this.dreamcatcherBuffDropped}
         label="Times ED buff dropped"
       />
@@ -54,4 +54,4 @@ class EmeraldDreamcatcher extends Analyzer {
   statisticOrder = STATISTIC_ORDER.CORE(11);
 }
 
-export default EmeraldDreamcatcher;
+export default TheEmeraldDreamcatcher;
