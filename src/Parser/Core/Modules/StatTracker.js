@@ -291,57 +291,7 @@ class StatTracker extends Analyzer {
     return (withBase ? this.baseHastePercentage : 0) + rating / this.hasteRatingPerPercent;
   }
   get masteryRatingPerPercent() {
-    switch (this.combatants.selected.spec) {
-      case SPECS.HOLY_PALADIN:
-        return 26667;
-      case SPECS.HOLY_PRIEST:
-        return 32000;
-      case SPECS.SHADOW_PRIEST:
-        return 16000;
-      case SPECS.DISCIPLINE_PRIEST:
-        return 25000;
-      case SPECS.RESTORATION_SHAMAN:
-        return 13333;
-      case SPECS.ENHANCEMENT_SHAMAN:
-        return 13333;
-      case SPECS.ELEMENTAL_SHAMAN:
-        return 23333;
-      case SPECS.GUARDIAN_DRUID:
-        return 40000;
-      case SPECS.RESTORATION_DRUID:
-        return 66667;
-      case SPECS.BALANCE_DRUID:
-        return 17778;
-      case SPECS.RETRIBUTION_PALADIN:
-        return 22850;
-      case SPECS.PROTECTION_PALADIN:
-        return 40000;
-      case SPECS.WINDWALKER_MONK:
-        return 32000;
-      case SPECS.MARKSMANSHIP_HUNTER:
-        return 64000;
-      case SPECS.FROST_MAGE:
-        return 17778;
-      case SPECS.FIRE_MAGE:
-        return 53333;
-      case SPECS.SUBTLETY_ROGUE:
-        return 14492.61221;
-      case SPECS.BEAST_MASTERY_HUNTER:
-        return 17778;
-      case SPECS.UNHOLY_DEATH_KNIGHT:
-        return 17776;
-      case SPECS.MISTWEAVER_MONK:
-        return 3076.96;
-      case SPECS.BREWMASTER_MONK:
-        return 40000;
-      case SPECS.FURY_WARRIOR:
-        return 28430;
-      case SPECS.AFFLICTION_WARLOCK:
-        return 12800;
-      default:
-        console.error('Mastery hasn\'t been implemented for this spec yet.');
-        return null;
-    }
+    return 40000 / this.combatants.selected.spec.masteryCoefficient;
   }
   masteryPercentage(rating, withBase = false) {
     return (withBase ? this.baseMasteryPercentage : 0) + rating / this.masteryRatingPerPercent;
