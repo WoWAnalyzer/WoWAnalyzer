@@ -9,6 +9,7 @@ import { formatNumber, formatPercentage, formatThousands, formatDuration } from 
 import { findByBossId } from 'Raids';
 
 import ApplyBuffNormalizer from './Normalizers/ApplyBuff';
+import CancelledCastsNormalizer from './Normalizers/CancelledCasts';
 
 import Status from './Modules/Status';
 import HealingDone from './Modules/HealingDone';
@@ -32,6 +33,7 @@ import Pets from './Modules/Pets';
 import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
+import Channeling from './Modules/Channeling';
 
 import DistanceMoved from './Modules/Others/DistanceMoved';
 import WarningDisplay from './Modules/Features/WarningDisplay';
@@ -119,6 +121,7 @@ import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
 
 const debug = false;
+// This sends every event that occurs to the console, including fabricated events (unlike the Events tab)
 const debugEvents = false;
 
 let _modulesDeprecatedWarningSent = false;
@@ -129,6 +132,7 @@ class CombatLogParser {
   static defaultModules = {
     // Normalizers
     applyBuffNormalizer: ApplyBuffNormalizer,
+    cancelledCastsNormalizer: CancelledCastsNormalizer,
 
     // Analyzers
     status: Status,
@@ -142,6 +146,7 @@ class CombatLogParser {
     enemyInstances: EnemyInstances,
     pets: Pets,
     spellManaCost: SpellManaCost,
+    channeling: Channeling,
     abilityTracker: AbilityTracker,
     healEventTracker: HealEventTracker,
     haste: Haste,
@@ -489,6 +494,7 @@ class CombatLogParser {
             end={this.currentTimestamp >= 0 ? this.currentTimestamp : this.fight.end_time}
             historyBySpellId={this.modules.spellHistory.historyBySpellId}
             globalCooldownHistory={this.modules.globalCooldown.history}
+            channelHistory={this.modules.channeling.history}
             abilities={this.modules.abilities}
           />
         ),
