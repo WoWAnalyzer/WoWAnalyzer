@@ -15,7 +15,7 @@ class CancelledCasts extends CoreCancelledCasts {
           .icon('inv_misc_map_01')
           .actual(`${formatPercentage(actual)}% casts cancelled`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(.1).major(recommended + 0.2);
+          .regular(.1).major(0.2);
       });
   }
 

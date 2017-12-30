@@ -29,7 +29,7 @@ class StellarFlareUptime extends Analyzer {
         major: 0.8,
       },
       style: 'percentage',
-      text: 'Your Stellar Flare uptime can be improved. Try to pay more attention to your Moonfire on the boss.',
+      text: 'Your Stellar Flare uptime can be improved. Try to pay more attention to your Stellar Flare on the boss.',
     };
   }
 

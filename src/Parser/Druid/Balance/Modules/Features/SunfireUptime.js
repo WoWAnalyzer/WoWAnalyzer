@@ -25,7 +25,7 @@ class SunfireUptime extends Analyzer {
         major: 0.8,
       },
       style: 'percentage',
-      text: 'Your Sunfire uptime can be improved. Try to pay more attention to your Moonfire on the boss.',
+      text: 'Your Sunfire uptime can be improved. Try to pay more attention to your Sunfire on the boss.',
     };
   }
 
@@ -46,7 +46,7 @@ class SunfireUptime extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SUNFIRE.id} />}
         value={`${formatPercentage(sunfireUptime)} %`}
-        label="sunfire uptime"
+        label="Sunfire uptime"
       />
     );
   }
