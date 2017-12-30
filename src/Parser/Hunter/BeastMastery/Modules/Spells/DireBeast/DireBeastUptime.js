@@ -5,6 +5,7 @@ import SPELLS from "common/SPELLS/index";
 import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
 import { formatPercentage } from "common/format";
+import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 
 class DireBeastUptime extends Analyzer {
   static dependencies = {
@@ -29,6 +30,8 @@ class DireBeastUptime extends Analyzer {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.CORE(6);
+
 }
 
 export default DireBeastUptime;

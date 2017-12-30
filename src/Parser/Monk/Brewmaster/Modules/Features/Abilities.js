@@ -35,6 +35,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 6 / (1 + haste),
       isActive: combatant => combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT.id),
+      noSuggestion: true,
     },
     {
       spell: SPELLS.CRACKLING_JADE_LIGHTNING,

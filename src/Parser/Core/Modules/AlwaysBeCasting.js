@@ -104,11 +104,12 @@ class AlwaysBeCasting extends Analyzer {
     downtime: '/img/afk.png',
   };
   statistic() {
-    if (!this.showStatistic) {
+    const boss = this.owner.boss;
+    if (!this.showStatistic || (boss && boss.fight.disableDowntimeStatistic)) {
       return null;
     }
 
-    return (
+      return (
       <StatisticBox
         icon={<Icon icon="spell_mage_altertime" alt="Downtime" />}
         value={`${formatPercentage(this.downtimePercentage)} %`}
@@ -136,8 +137,9 @@ class AlwaysBeCasting extends Analyzer {
         )}
         footerStyle={{ overflow: 'hidden' }}
       />
-    );
+      );
   }
+
   statisticOrder = STATISTIC_ORDER.CORE(10);
 
   get downtimeSuggestionThresholds() {

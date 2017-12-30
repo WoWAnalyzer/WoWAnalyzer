@@ -36,7 +36,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   };
 
   suggestions(when) {
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
+    const deadTimePercentage = this.downtimePercentage;
 
     when(deadTimePercentage).isGreaterThan(0.02)
       .addSuggestion((suggest, actual, recommended) => {
@@ -48,7 +48,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       });
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(1);
+  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default AlwaysBeCasting;
