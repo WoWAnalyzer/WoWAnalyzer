@@ -26,7 +26,7 @@ class FirstOfTheDead extends Analyzer {
 
   on_toPlayer_energize(event) {
     if (!event.ability) return;
-    if (event.resourceChangeType !== RESOURCE_TYPES.COMBO_POINTS) return;
+    if (event.resourceChangeType !== RESOURCE_TYPES.COMBO_POINTS.id) return;
     const buffID = SPELLS.THE_FIRST_OF_THE_DEAD_BUFF.id;
     if (!this.combatants.selected.hasBuff(buffID)) return;
 

@@ -18,7 +18,7 @@ class DanceCooldownReduction extends Analyzer {
 
   on_byPlayer_spendresource(event) {
     const spent = event.resourceChange;
-    if (event.resourceChangeType !== RESOURCE_TYPES.COMBO_POINTS) return;
+    if (event.resourceChangeType !== RESOURCE_TYPES.COMBO_POINTS.id) return;
 
     if (this.spellUsable.isOnCooldown(SPELLS.SHADOW_DANCE.id)) {
       this.spellUsable.reduceCooldown(SPELLS.SHADOW_DANCE.id, this.danceReduction * spent);

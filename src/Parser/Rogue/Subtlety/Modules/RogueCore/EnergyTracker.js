@@ -9,7 +9,7 @@ class EnergyTracker extends ResourceTracker {
   };
 
   on_initialized() {
-    this.resourceType = RESOURCE_TYPES.ENERGY;
+    this.resourceType = RESOURCE_TYPES.ENERGY.id;
     this.resourceName = 'Energy';
   }
 }

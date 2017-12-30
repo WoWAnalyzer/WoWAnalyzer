@@ -72,7 +72,7 @@ class ChiTracker extends Analyzer {
     if (this.constructor.CHI_GENERATING_ABILITIES.indexOf(spellId) === -1) {
       return;
     }
-    if (event.resourceChangeType !== RESOURCE_TYPES.CHI) {
+    if (event.resourceChangeType !== RESOURCE_TYPES.CHI.id) {
       return;
     }
     if (waste !== 0) {

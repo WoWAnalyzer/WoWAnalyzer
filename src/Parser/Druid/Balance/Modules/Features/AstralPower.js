@@ -13,9 +13,11 @@ class AstralPower extends Analyzer {
   aspGenerated = 0;
 
   on_toPlayer_energize(event) {
-    if (!event.classResources) { return; }
+    if (!event.classResources) {
+      return;
+    }
     for (let i = 0; i < event.classResources.length; i += 1) {
-      if (event.classResources[i].type === RESOURCE_TYPES.ASTRAL_POWER) {
+      if (event.classResources[i].type === RESOURCE_TYPES.ASTRAL_POWER.id) {
         const maxAsP = event.classResources[i].max;
         const addedAsP = event.resourceChange * 10;
         this.aspGenerated += addedAsP;
@@ -35,13 +37,13 @@ class AstralPower extends Analyzer {
       return;
     }
 
-    for (let i = 0; i < event.classResources.length; i += 1) {
-      if (event.classResources[i].type === RESOURCE_TYPES.ASTRAL_POWER) {
-        if (event.classResources[i].cost) {
-          this.lastAstral = this.lastAstral - (event.classResources[i].cost);
+    event.classResources.forEach(classResource => {
+      if (classResource.type === RESOURCE_TYPES.ASTRAL_POWER.id) {
+        if (classResource.cost) {
+          this.lastAstral = this.lastAstral - classResource.cost;
         }
       }
-    }
+    });
   }
 
   get wastedPercentage() {
@@ -70,13 +72,13 @@ class AstralPower extends Analyzer {
 
   suggestions(when) {
     when(this.wastedPercentage).isGreaterThan(0)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<Wrapper>You overcapped {this.wasted} Astral Power. Always prioritize spending it over avoiding the overcap or any other ability.</Wrapper>)
-            .icon('ability_druid_cresentburn')
-            .actual(`${formatPercentage(this.wastedPercentage)}% overcapped Astral Power per minute`)
-            .recommended('0 overcapped Astral Power is recommended.')
-            .regular(0.02).major(0.05);
-        });
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<Wrapper>You overcapped {this.wasted} Astral Power. Always prioritize spending it over avoiding the overcap or any other ability.</Wrapper>)
+          .icon('ability_druid_cresentburn')
+          .actual(`${formatPercentage(this.wastedPercentage)}% overcapped Astral Power per minute`)
+          .recommended('0 overcapped Astral Power is recommended.')
+          .regular(0.02).major(0.05);
+      });
   }
 
   statistic() {

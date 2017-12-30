@@ -38,11 +38,11 @@ class EnergizingElixir extends Analyzer {
   on_toPlayer_energize(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.ENERGIZING_ELIXIR_TALENT.id) {
-      if (event.resourceChangeType === RESOURCE_TYPES.ENERGY) {
+      if (event.resourceChangeType === RESOURCE_TYPES.ENERGY.id) {
         this.energyWasted += event.waste;
         this.energyGained += event.resourceChange - event.waste;
       }
-      if (event.resourceChangeType === RESOURCE_TYPES.CHI) {
+      if (event.resourceChangeType === RESOURCE_TYPES.CHI.id) {
         this.chiWasted += event.waste;
         this.chiGained += event.resourceChange - event.waste;
       }

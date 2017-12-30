@@ -22,7 +22,7 @@ class DenialOfHalfGiants extends Analyzer {
   }
 
   on_byPlayer_spendresource(event) {
-    if (event.resourceChangeType !== RESOURCE_TYPES.COMBO_POINTS) return;
+    if (event.resourceChangeType !== RESOURCE_TYPES.COMBO_POINTS.id) return;
     if (!this.combatants.selected.hasBuff(SPELLS.SHADOW_BLADES.id)) return;
 
     const spent = event.resourceChange;

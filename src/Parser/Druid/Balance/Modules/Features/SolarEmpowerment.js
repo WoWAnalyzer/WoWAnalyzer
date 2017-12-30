@@ -50,7 +50,7 @@ class SolarEmpowerment extends Analyzer {
     if (!event.classResources) return;
     
     for (let i = 0; i < event.classResources.length; i += 1) {
-      if (event.classResources[i].type === RESOURCE_TYPES.ASTRAL_POWER) {
+      if (event.classResources[i].type === RESOURCE_TYPES.ASTRAL_POWER.id) {
         this.MaxAsP = event.classResources[i].max;
         this.CurrentAsP = event.classResources[i].amount;
       }
