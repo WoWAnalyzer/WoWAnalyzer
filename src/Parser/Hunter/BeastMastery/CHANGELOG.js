@@ -9,6 +9,11 @@ import ITEMS from 'common/ITEMS';
 
 export default [
   {
+    date: new Date('2017-12-30'),
+    changes: 'Added a time focus capped module, aswell as a focus chart tab',
+    contributors: [Putro],
+  },
+  {
     date: new Date('2017-12-26'),
     changes: 'Added a focus usage chart',
     contributors: [Putro],
