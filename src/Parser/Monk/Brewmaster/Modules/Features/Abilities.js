@@ -28,6 +28,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.BREATH_OF_FIRE,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: () => 15,
+      noSuggestion: true,
     },
     {
       spell: SPELLS.TIGER_PALM,

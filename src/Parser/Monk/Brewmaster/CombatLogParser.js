@@ -18,6 +18,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import T20_2pc from './Modules/Items/T20_2pc';
 import T20_4pc from './Modules/Items/T20_4pc';
 import StormstoutsLastGasp from './Modules/Items/StormstoutsLastGasp';
+import SalsalabimsLostTunic from './Modules/Items/SalsalabimsLostTunic';
 // normalizers
 import IronskinBrewNormalizer from './Modules/Normalizers/IronskinBrew';
 
@@ -45,6 +46,7 @@ class CombatLogParser extends CoreCombatLogParser {
     t20_2pc: T20_2pc,
     t20_4pc: T20_4pc,
     stormstoutsLastGasp: StormstoutsLastGasp,
+    salsalabim: SalsalabimsLostTunic,
 
     // normalizers
     isbNormalizer: IronskinBrewNormalizer,
