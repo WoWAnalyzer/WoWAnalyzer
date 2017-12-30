@@ -17,6 +17,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 // Items
 import T20_2pc from './Modules/Items/T20_2pc';
 import T20_4pc from './Modules/Items/T20_4pc';
+import StormstoutsLastGasp from './Modules/Items/StormstoutsLastGasp';
 // normalizers
 import IronskinBrewNormalizer from './Modules/Normalizers/IronskinBrew';
 
@@ -43,6 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Items
     t20_2pc: T20_2pc,
     t20_4pc: T20_4pc,
+    stormstoutsLastGasp: StormstoutsLastGasp,
 
     // normalizers
     isbNormalizer: IronskinBrewNormalizer,
