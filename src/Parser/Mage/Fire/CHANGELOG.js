@@ -2,6 +2,11 @@ import { Sharrq, sref, Fyruna } from 'MAINTAINERS';
 
 export default [
   {
+    date: new Date('2017-12-30'),
+    changes: 'Added Heating Up Module',
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2017-12-27'),
     changes: 'Converted Changelog to new format',
     contributors: [Sharrq],
