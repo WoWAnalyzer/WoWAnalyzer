@@ -3,10 +3,11 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import getDamageBonus from "Parser/Hunter/Shared/Modules/getDamageBonus";
 import SpellLink from 'common/SpellLink';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 const TRICK_SHOT_MODIFIER = 0.15;
 
@@ -43,12 +44,11 @@ class TrickShot extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {(this.owner.formatItemDamageDone(this.bonusDmg))}
+          <ItemDamageDone amount={this.bonusDmg} />
         </div>
       </div>
     );
   }
-
 }
 
 export default TrickShot;

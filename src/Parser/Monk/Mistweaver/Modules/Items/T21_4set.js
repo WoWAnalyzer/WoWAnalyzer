@@ -3,11 +3,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-
-import Analyzer from 'Parser/Core/Analyzer';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 class T21_4set extends Analyzer {
   static dependencies = {
@@ -43,7 +42,7 @@ class T21_4set extends Analyzer {
       title: <SpellLink id={SPELLS.CHIJIS_BATTLEGEAR_4_PIECE_BUFF.id} />,
       result: (
         <dfn data-tip={`Average bolts per trigger: ${this.averageBoltsPerCast.toFixed(2)}`}>
-          {this.owner.formatItemHealingDone(healing)}
+          <ItemHealingDone amount={healing} />
         </dfn>
       ),
     };

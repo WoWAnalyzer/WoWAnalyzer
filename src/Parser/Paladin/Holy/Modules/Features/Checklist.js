@@ -10,7 +10,7 @@ import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } fr
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
-import Velens from 'Parser/Core/Modules/Items/Velens';
+import VelensFutureSight from 'Parser/Core/Modules/Items/Legion/Legendaries/VelensFutureSight';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
@@ -36,7 +36,7 @@ class Checklist extends CoreChecklist {
     manaValues: ManaValues,
     auraOfSacrifice: AuraOfSacrifice,
     ilterendi: Ilterendi,
-    velens: Velens,
+    velensFutureSight: VelensFutureSight,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
@@ -230,8 +230,8 @@ class Checklist extends CoreChecklist {
           }),
           new Requirement({
             name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} icon />,
-            check: () => this.velens.suggestionThresholds,
-            when: this.velens.active,
+            check: () => this.velensFutureSight.suggestionThresholds,
+            when: this.velensFutureSight.active,
           }),
           new Requirement({
             name: <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} icon />,

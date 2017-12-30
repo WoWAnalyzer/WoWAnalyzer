@@ -62,7 +62,7 @@ class TouchOfTheGrave extends Analyzer {
     return(
       <StatisticBox
         icon={<SpellIcon id={SPELLS.TOUCH_OF_THE_GRAVE.id} />}
-        value={`${this.owner.formatItemHealingDone(atonementHealing + directHealing)}`}
+        value={this.owner.formatItemHealingDone(atonementHealing + directHealing)}
         label={(
           <dfn data-tip={`
             The Undead racial Touch of the Grave contributed ${formatPercentage(totalPct)}% of the total effective healing done

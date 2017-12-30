@@ -3,10 +3,12 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-
+import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
+import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 import isAtonement from '../Core/isAtonement';
 import Penance from '../Spells/Penance';
@@ -62,10 +64,10 @@ class Tier20_2set extends Analyzer {
       icon: <SpellIcon id={SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id} />,
       title: <SpellLink id={SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id} />,
       result: (
-        <dfn>
-        {this.owner.formatItemHealingDone(healing)} <br/>
-        {this.owner.formatItemDamageDone(damage)}
-        </dfn>
+        <Wrapper>
+          <ItemDamageDone amount={damage} /><br />
+          <ItemHealingDone amount={healing} />
+        </Wrapper>
       ),
     };
   }

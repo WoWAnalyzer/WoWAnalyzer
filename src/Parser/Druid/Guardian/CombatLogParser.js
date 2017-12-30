@@ -4,8 +4,6 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
-import Cinidaria from 'Parser/Core/Modules/Items/Cinidaria';
-
 import ActiveTargets from './Modules/Features/ActiveTargets';
 import DynamicHaste from './Modules/Features/DynamicHaste';
 import Abilities from './Modules/Features/Abilities';
@@ -66,7 +64,6 @@ class CombatLogParser extends CoreCombatLogParser {
     skysecs: SkysecsHold,
     luffaWrappings: LuffaWrappings,
     furyOfNature: FuryOfNature,
-    cinidaria: Cinidaria,
   };
 }
 

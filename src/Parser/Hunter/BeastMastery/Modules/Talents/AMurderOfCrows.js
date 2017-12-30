@@ -9,6 +9,7 @@ import StatisticBox from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 //The point at which you can use crows without Bestial Wrath because they'd overlap enough for it to still be considered a good cast - this is what the APL does.
 const ALLOW_EARLY_USE = 3000;
@@ -193,7 +194,7 @@ class AMurderOfCrows extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {(this.owner.formatItemDamageDone(this.damage))}
+          <ItemDamageDone amount={this.damage} />
         </div>
       </div>
     );

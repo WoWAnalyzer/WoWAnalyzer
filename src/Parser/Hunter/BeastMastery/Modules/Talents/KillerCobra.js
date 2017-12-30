@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
@@ -44,8 +44,8 @@ class KillerCobra extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.KILLER_COBRA_TALENT.id} />}
-        value={`${this.effectiveKillCommandResets}`}
-        label={`Kill Command Resets`}
+        value={this.effectiveKillCommandResets}
+        label="Kill Command Resets"
         tooltip={`You wasted ${formatNumber(this.wastedKillerCobraCobraShots)} Cobra Shots in Bestial Wrath by using them while Kill Command wasn't on cooldown. </br> `}
       />
     );

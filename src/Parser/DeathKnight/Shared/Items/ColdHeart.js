@@ -1,9 +1,11 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 //import getDamageBonus from 'Parser/DeathKnight/Shared/getDamageBonus';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 class ColdHeart extends Analyzer {
   static dependencies = {
@@ -28,7 +30,7 @@ class ColdHeart extends Analyzer {
     return {
       item: ITEMS.COLD_HEART,
       // removed the flat damage amount to maintain consistency with other legendaries
-      result: `${this.owner.formatItemDamageDone(this.damage)}`,
+      result: <ItemDamageDone amount={this.damage} />,
     };
   }
 }

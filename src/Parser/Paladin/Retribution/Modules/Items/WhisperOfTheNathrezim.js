@@ -10,6 +10,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import GetDamageBonus from 'Parser/Paladin/Shared/Modules/GetDamageBonus';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 const WHISPER_OF_THE_NATHREZIM_MODIFIER = 0.15;
 
@@ -28,8 +29,8 @@ class WhisperOfTheNathrezim extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if(spellId === SPELLS.TEMPLARS_VERDICT.id || spellId === SPELLS.DIVINE_STORM.id){
-      if(this.combatants.selected.hasBuff(SPELLS.WHISPER_OF_THE_NATHREZIM_BUFF.id)){
+    if (spellId === SPELLS.TEMPLARS_VERDICT.id || spellId === SPELLS.DIVINE_STORM.id) {
+      if (this.combatants.selected.hasBuff(SPELLS.WHISPER_OF_THE_NATHREZIM_BUFF.id)) {
         this.spenderInsideBuff++;
       }
       this.totalSpender++;
@@ -49,12 +50,14 @@ class WhisperOfTheNathrezim extends Analyzer {
   item() {
     return {
       item: ITEMS.WHISPER_OF_THE_NATHREZIM,
-      result: (<dfn data-tip={`
+      result: (
+        <dfn data-tip={`
         The effective damage contributed by Whisper of the Nathrezim.<br/>
         Total Damage: ${formatNumber(this.damageDone)}<br/>
         Spenders With Buff: ${formatNumber(this.spenderInsideBuff)} spenders (${formatPercentage(this.spenderInsideBuff / this.totalSpender)}%)`}>
-        {this.owner.formatItemDamageDone(this.damageDone)}
-      </dfn>),
+          <ItemDamageDone amount={this.damageDone} />
+        </dfn>
+      ),
     };
   }
 

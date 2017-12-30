@@ -1,17 +1,17 @@
 import React from 'react';
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
+
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import StatisticBox from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 const ADDITIONAL_FOCUS_PER_SUMMON = 12;
 
 const DIREBEAST_DURATION = 8000;
 
 class DireStable extends Analyzer {
-
   static dependencies = {
     combatants: Combatants,
   };
@@ -33,8 +33,8 @@ class DireStable extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DIRE_STABLE_TALENT.id} />}
-        value={`${formatNumber(gainedFocus)}`}
-        label={`Additional focus gained`}
+        value={formatNumber(gainedFocus)}
+        label="Additional focus gained"
       />
     );
   }
