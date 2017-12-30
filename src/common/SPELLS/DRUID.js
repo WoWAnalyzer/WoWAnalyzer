@@ -496,6 +496,16 @@ export default {
     name: 'Rebirth',
     icon: 'spell_nature_reincarnation',
   },
+  ENTANGLING_ROOTS: {
+    id: 339,
+    name: 'Entangling Roots',
+    icon: 'spell_nature_stranglevines',
+  },
+  REMOVE_CORRUPTION: {
+    id: 2782,
+    name: 'Remove Corruption',
+    icon: 'spell_holy_removecurse',
+  },
   GALACTIC_GUARDIAN: {
     id: 213708,
     name: 'Galactic Guardian',
@@ -633,6 +643,11 @@ export default {
     id: 202942,
     name: 'Star Power',
     icon: 'artifactability_balancedruid_moonandstars',
+  },
+  SOLAR_BEAM: {
+    id: 78675,
+    name: 'Solar Beam',
+    icon: 'ability_vehicle_sonicshockwave',
   },
   // Feral
   TIGERS_FURY: {

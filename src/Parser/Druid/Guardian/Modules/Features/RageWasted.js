@@ -39,7 +39,7 @@ class RageWasted extends Analyzer {
       console.log('no classResources', event);
       return;
     }
-    const rageResource = event.classResources.find(resource => resource.type === RESOURCE_TYPES.RAGE);
+    const rageResource = event.classResources.find(resource => resource.type === RESOURCE_TYPES.RAGE.id);
     if (rageResource) {
       this._currentRawRage = rageResource.amount;
       this._currentMaxRage = rageResource.max;
@@ -56,7 +56,7 @@ class RageWasted extends Analyzer {
 
   on_byPlayer_energize(event) {
     this.synchronizeRage(event);
-    if (event.resourceChangeType !== RESOURCE_TYPES.RAGE) {
+    if (event.resourceChangeType !== RESOURCE_TYPES.RAGE.id) {
       return;
     }
 

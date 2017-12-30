@@ -6,6 +6,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 /*
  * When you Marked Shot, Thas'dorah has a chance to call forth a barrage of wind arrows to strike all Vulnerable targets.
@@ -36,7 +37,7 @@ class CallOfTheHunter extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {(this.owner.formatItemDamageDone(this.damage))}
+          <ItemDamageDone amount={this.damage} />
         </div>
       </div>
     );

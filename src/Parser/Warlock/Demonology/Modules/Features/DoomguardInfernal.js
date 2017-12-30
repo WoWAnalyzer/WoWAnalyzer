@@ -33,11 +33,7 @@ class DoomguardInfernal extends Analyzer {
 
     return {
       actual: actualCasts,
-      isLessThan: {
-        minor: maxCasts,  // really no excuse for not casting this cooldown as much as possible
-        average: maxCasts,
-        major: maxCasts,
-      },
+      isLessThan: maxCasts,
       style: 'number',
     };
   }

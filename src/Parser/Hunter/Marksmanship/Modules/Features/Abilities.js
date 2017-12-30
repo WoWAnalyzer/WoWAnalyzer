@@ -7,7 +7,6 @@ import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 
 class Abilities extends CoreAbilities {
-
   spellbook() {
     return [
       ...super.spellbook(),
@@ -182,7 +181,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         isOnGCD: false,
-
       },
       {
         spell: SPELLS.BINDING_SHOT_TALENT,

@@ -49,6 +49,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
 
   lastPenanceStartTimestamp = null;
 
+  // TODO: Fix me
   recordCastTime(
     castStartTimestamp,
     globalCooldown,

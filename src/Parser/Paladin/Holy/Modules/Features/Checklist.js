@@ -10,7 +10,7 @@ import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } fr
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
-import Velens from 'Parser/Core/Modules/Items/Velens';
+import VelensFutureSight from 'Parser/Core/Modules/Items/Legion/Legendaries/VelensFutureSight';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
@@ -23,6 +23,7 @@ import FillerLightOfTheMartyrs from '../PaladinCore/FillerLightOfTheMartyrs';
 import AuraOfSacrifice from '../Talents/AuraOfSacrifice';
 import Ilterendi from '../Items/Ilterendi';
 import Overhealing from '../PaladinCore/Overhealing';
+import JudgmentOfLight from '../Talents/JudgmentOfLight';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -35,12 +36,13 @@ class Checklist extends CoreChecklist {
     manaValues: ManaValues,
     auraOfSacrifice: AuraOfSacrifice,
     ilterendi: Ilterendi,
-    velens: Velens,
+    velensFutureSight: VelensFutureSight,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
     overhealing: Overhealing,
     enchantChecker: EnchantChecker,
+    judgmentOfLight: JudgmentOfLight,
   };
 
   rules = [
@@ -120,7 +122,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use your supportive abilities',
-      description: <Wrapper>While you shouldn't aim to cast defensives and externals on cooldown, be aware of them and try to use them whenever effective. Not using them at all indicates you might not be aware of them enough.</Wrapper>,
+      description: <Wrapper>While you shouldn't aim to cast defensives and externals on cooldown, be aware of them and try to use them whenever effective. Not using them at all indicates you might not be aware of them enough or not utilizing them optimally.</Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -228,8 +230,13 @@ class Checklist extends CoreChecklist {
           }),
           new Requirement({
             name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} icon />,
-            check: () => this.velens.suggestionThresholds,
-            when: this.velens.active,
+            check: () => this.velensFutureSight.suggestionThresholds,
+            when: this.velensFutureSight.active,
+          }),
+          new Requirement({
+            name: <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} icon />,
+            check: () => this.judgmentOfLight.suggestionThresholds,
+            when: this.judgmentOfLight.active,
           }),
         ];
       },

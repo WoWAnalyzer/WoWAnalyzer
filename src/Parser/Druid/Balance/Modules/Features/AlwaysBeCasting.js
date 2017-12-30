@@ -27,27 +27,16 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.FORCE_OF_NATURE_TALENT.id,
   ];
 
-  recordCastTime(
-    castStartTimestamp,
-    globalCooldown,
-    begincast,
-    cast,
-    spellId
-  ) {
-    super.recordCastTime(
-      castStartTimestamp,
-      globalCooldown,
-      begincast,
-      cast,
-      spellId
-    );
-    this._verifyChannel(SPELLS.NEW_MOON.id, 1000, begincast, cast);
-    this._verifyChannel(SPELLS.HALF_MOON.id, 2000, begincast, cast);
-    this._verifyChannel(SPELLS.FULL_MOON.id, 3000, begincast, cast);
-  }
+  static STATIC_GCD_ABILITIES = {
+    ...CoreAlwaysBeCasting.STATIC_GCD_ABILITIES,
+    // Shapeshifts
+    [SPELLS.MOONKIN_FORM.id]: 1.5,
+    [SPELLS.DISPLACER_BEAST_TALENT.id]: 1.5,
+    [SPELLS.BEAR_FORM.id]: 1.5,
+  };
 
   suggestions(when) {
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
+    const deadTimePercentage = this.downtimePercentage;
 
     when(deadTimePercentage).isGreaterThan(0.02)
       .addSuggestion((suggest, actual, recommended) => {
@@ -59,7 +48,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       });
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(1);
+  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default AlwaysBeCasting;

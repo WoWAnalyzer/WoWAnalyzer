@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from 'common/ITEMS';
@@ -6,7 +7,6 @@ import SPELLS from 'common/SPELLS';
 import ItemIcon from 'common/ItemIcon';
 import ItemLink from 'common/ItemLink';
 import { formatNumber } from 'common/format';
-
 
 class TheDeceiversBloodPact extends Analyzer {
   static dependencies = {

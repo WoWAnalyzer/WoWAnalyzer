@@ -46,7 +46,7 @@ class FocusTracker extends Analyzer {
   checkForMaxFocus(event) {
     if (event.sourceID === this.owner.player.id) {
       event.classResources.forEach(classResource => {
-        if (classResource.type === RESOURCE_TYPES.FOCUS && classResource['max'] > this._maxFocus) {
+        if (classResource.type === RESOURCE_TYPES.FOCUS.id && classResource['max'] > this._maxFocus) {
           //note: this works for now, but may not work if max focus becomes changable mid-fight, then max would have to be calculated on an event-by-event basis
           this._maxFocus = classResource['max'];
         }
@@ -55,7 +55,7 @@ class FocusTracker extends Analyzer {
   }
 
   checkPassiveWaste(event) {
-    if ((event.sourceID === this.owner.player.id || event.targetID === this.owner.player.id) && event.classResources && event.classResources[0].type === RESOURCE_TYPES.FOCUS) {
+    if ((event.sourceID === this.owner.player.id || event.targetID === this.owner.player.id) && event.classResources && event.classResources[0].type === RESOURCE_TYPES.FOCUS.id) {
       this.checkForMaxFocus(event);
       this.tracker++;
       const secIntoFight = (event.timestamp - this.owner.fight.start_time);

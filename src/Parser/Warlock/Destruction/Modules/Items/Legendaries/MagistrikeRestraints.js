@@ -1,9 +1,10 @@
 import React from 'react';
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
+
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import { formatNumber } from 'common/format';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 class MagistrikeRestraints extends Analyzer {
   static dependencies = {
@@ -25,11 +26,7 @@ class MagistrikeRestraints extends Analyzer {
   item() {
     return {
       item: ITEMS.MAGISTRIKE_RESTRAINTS,
-      result: (
-        <dfn data-tip={`Total bonus damage contributed: ${formatNumber(this.bonusDmg)}`}>
-          {this.owner.formatItemDamageDone(this.bonusDmg)}
-        </dfn>
-      ),
+      result: <ItemDamageDone amount={this.bonusDmg} />,
     };
   }
 }

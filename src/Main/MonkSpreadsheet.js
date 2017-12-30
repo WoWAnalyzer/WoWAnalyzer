@@ -118,13 +118,13 @@ class MonkSpreadsheet extends React.Component {
             <tr style={styles.cellBorder}><td>{((parser.modules.amalgamsSeventhSpine.manaGained / parser.fightDuration * 1000 * 5) || 0) + ((parser.modules.darkmoonDeckPromises.manaGained / parser.fightDuration * 1000 * 5) || 0)}</td></tr>
             <tr>
               <td>
-                {(((parser.modules.prydaz.healing || 0) +
-              (parser.modules.velens.healing || 0) +
+                {(((parser.modules.prydazXavaricsMagnumOpus.healing || 0) +
+              (parser.modules.velensFutureSight.healing || 0) +
               (parser.modules.drapeOfShame.healing || 0) +
               (parser.modules.gnawedThumbRing.healing || 0) +
               (parser.modules.archiveOfFaith.healing + parser.modules.archiveOfFaith.healingOverTime || 0) +
               (parser.modules.barbaricMindslaver.healing || 0) +
-              (parser.modules.seaStar.healing || 0) +
+              (parser.modules.seaStarOfTheDepthmother.healing || 0) +
               (parser.modules.deceiversGrandDesign.healing + parser.modules.deceiversGrandDesign.healingAbsorb || 0) +
               (parser.modules.eithas.healing || 0) +
               (parser.modules.shelterOfRin.healing || 0) +

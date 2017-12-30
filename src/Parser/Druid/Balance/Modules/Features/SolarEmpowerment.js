@@ -3,9 +3,11 @@ import Icon from 'common/Icon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import ResourceTypes from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import { formatPercentage } from 'common/format';
+import Wrapper from 'common/Wrapper';
 
-class SEmpowerment extends Analyzer {
+class SolarEmpowerment extends Analyzer {
   isSolarWrath(event) {
     const spellId = event.ability.guid;
     return spellId === SPELLS.SOLAR_WRATH_MOONKIN.id;
@@ -21,6 +23,7 @@ class SEmpowerment extends Analyzer {
 
   SolarEmpsActive = 0;
   SolarEmpsOver = 0;
+  SolarEmpsTotal = 0;
 
   CurrentAsP = 0;
   MaxAsP = 0;
@@ -33,6 +36,7 @@ class SEmpowerment extends Analyzer {
 
     if (this.isSolarWrath(event) && this.SolarEmpsActive > 0){
         this.SolarEmpsActive--;
+        this.SolarEmpsTotal++;
     }
     else if (this.isStarsurge(event)){
       if (this.SolarEmpsActive < 3)
@@ -46,7 +50,7 @@ class SEmpowerment extends Analyzer {
     if (!event.classResources) return;
     
     for (let i = 0; i < event.classResources.length; i += 1) {
-      if (event.classResources[i].type === ResourceTypes.ASTRAL_POWER) {
+      if (event.classResources[i].type === RESOURCE_TYPES.ASTRAL_POWER.id) {
         this.MaxAsP = event.classResources[i].max;
         this.CurrentAsP = event.classResources[i].amount;
       }
@@ -60,15 +64,38 @@ class SEmpowerment extends Analyzer {
     if (this.isCoolDown) this.SWAsPGen = 100;
   }
   
+  get wastedPercentage() {
+    return this.SolarEmpsOver / this.SolarEmpsTotal;
+  }
+
+  get wasted() {
+    return this.SolarEmpsOver;
+  }
+
+  get generated() {
+    return this.SolarEmpsTotal;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: 1 - this.wastedPercentage,
+      isLessThan: {
+        minor: 0.98,
+        average: 0.95,
+        major: 0.9,
+      },
+      style: 'percentage',
+    };
+  }
+  
   suggestions(when) {
-    const wastedPerMin = Math.round((((this.SolarEmpsOver) / (this.owner.fightDuration / 1000)) * 60)*10) / 10;
-    when(wastedPerMin).isGreaterThan(0)
+    when(this.wastedPercentage).isGreaterThan(0.02)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>You overcapped {this.SolarEmpsOver} Solar Empowerments when you could have avoided it without overcapping Astral Power. Try to prioritize casting Solar Wrath over Starsurge when not near max AsP and having Solar Empowerment stacks up.</span>)
+          return suggest(<Wrapper>You overcapped {this.SolarEmpsOver} Solar Empowerments when you could have avoided it without overcapping Astral Power. Try to prioritize casting Solar Wrath over Starsurge when not near max AsP and having Solar Empowerment stacks up.</Wrapper>)
             .icon('ability_druid_eclipseorange')
-            .actual(`${actual} avoidable overcapped Solar Empowerments per minute`)
+            .actual(`${formatPercentage(this.wastedPercentage)}% overcapped Solar Empowerments`)
             .recommended('0 is recommended.')
-            .regular(recommended + 1).major(recommended + 2);
+            .regular(0.05).major(0.1);
         });
   }
 
@@ -78,11 +105,11 @@ class SEmpowerment extends Analyzer {
         icon={<Icon icon="ability_druid_eclipseorange" />}
         value={`${this.SolarEmpsOver}`}
         label="Overcapped Solar Emp"
-        tooltip="Solar Empowerment overcapping should never occur when it\'s possible to cast a Solar Wrath without overcapping Astral Power."
+        tooltip={`${this.wasted} out of ${this.generated} (${formatPercentage(this.wastedPercentage)}%) Solar Empowerments wasted. Solar Empowerment overcapping should never occur when it is possible to cast a Solar Wrath without overcapping Astral Power.`}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(8);
+  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
-export default SEmpowerment;
+export default SolarEmpowerment;

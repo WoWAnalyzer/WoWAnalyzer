@@ -6,16 +6,7 @@ import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 import SPELLS from 'common/SPELLS';
 
-import Haste from '../Core/Haste';
-
-const ONE_FILLER_GCD_HASTE_THRESHOLD = 1.4;
-
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-  static dependencies = {
-    ...CoreAlwaysBeCasting.dependencies,
-    haste: Haste,
-  };
-
   static ABILITIES_ON_GCD = [
     // handled in _removebuff
     SPELLS.VOID_TORRENT.id,
@@ -49,42 +40,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.LEVITATE.id,
     SPELLS.SHACKLE_UNDEAD.id,
     SPELLS.PURIFY_DISEASE.id,
-
   ];
-
-  _castsSinceLastVoidBolt = 0;
-  _skippableCastsBetweenVoidbolts = 0;
-
-  get skippableCastsBetweenVoidbolts() {
-    return this._skippableCastsBetweenVoidbolts;
-  }
-
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (this.haste.current >= ONE_FILLER_GCD_HASTE_THRESHOLD) {
-      if (spellId === SPELLS.VOID_BOLT.id) {
-        this._castsSinceLastVoidBolt = 0;
-      } else if (this.isOnGlobalCooldown(spellId)) {
-        this._castsSinceLastVoidBolt += 1;
-        if (this._castsSinceLastVoidBolt > 1) {
-          this._skippableCastsBetweenVoidbolts += 1;
-        }
-      }
-    }
-
-    super.on_byPlayer_cast(event);
-  }
-
-  on_toPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (
-      spellId === SPELLS.MIND_FLAY.id ||
-      // spellId === SPELLS.DISPERSION.id ||
-      spellId === SPELLS.VOID_TORRENT.id
-    ) {
-      this._lastCastFinishedTimestamp = event.timestamp;
-    }
-  }
 
   get suggestionThresholds() {
     return {
