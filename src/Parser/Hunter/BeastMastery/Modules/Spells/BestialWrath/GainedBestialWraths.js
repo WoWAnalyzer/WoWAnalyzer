@@ -54,7 +54,6 @@ class GainedBestialWraths extends Analyzer {
   }
   statisticOrder = STATISTIC_ORDER.CORE(5);
 
-
 }
 
 export default GainedBestialWraths;

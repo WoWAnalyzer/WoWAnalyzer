@@ -146,7 +146,14 @@ class Abilities extends CoreAbilities {
       noSuggestion: true,
       noCanBeImproved: true,
     },
-
+    {
+      spell: SPELLS.CRACKLING_JADE_LIGHTNING,
+      category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+      getCooldown: haste => null,
+      isOnGCD: true,
+      noSuggestion: true,
+      noCanBeImproved: true,
+    },
   ];
 }
 

@@ -38,7 +38,7 @@ class IronSkinBrew extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (SPELLS.IRONSKIN_BREW.id === spellId || SPELLS.PURIFYING_BREW.id === spellId) {
+    if (spellId === SPELLS.IRONSKIN_BREW.id || SPELLS.PURIFYING_BREW.id === spellId) {
       // determine the current duration on ISB
       if (this._currentDuration > 0) {
         this._currentDuration -= event.timestamp - this._lastDurationCheck;
@@ -46,9 +46,9 @@ class IronSkinBrew extends Analyzer {
       }
       // add the duration from this buff application (?)
       let addedDuration = 0;
-      if (SPELLS.IRONSKIN_BREW.id === spellId) {
+      if (spellId === SPELLS.IRONSKIN_BREW.id) {
         addedDuration = this._durationPerCast;
-      } else if (SPELLS.PURIFYING_BREW.id === spellId) {
+      } else if (spellId === SPELLS.PURIFYING_BREW.id) {
         addedDuration = this._durationPerPurify;
       }
       this._currentDuration += addedDuration;
@@ -64,14 +64,14 @@ class IronSkinBrew extends Analyzer {
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if (SPELLS.IRONSKIN_BREW_BUFF.id === spellId) {
+    if (spellId === SPELLS.IRONSKIN_BREW_BUFF.id) {
       this.lastIronSkinBrewBuffApplied = event.timestamp;
     }
   }
 
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
-    if (SPELLS.IRONSKIN_BREW_BUFF.id === spellId) {
+    if (spellId === SPELLS.IRONSKIN_BREW_BUFF.id) {
       this.lastIronSkinBrewBuffApplied = 0;
       this._currentDuration = 0;
     }

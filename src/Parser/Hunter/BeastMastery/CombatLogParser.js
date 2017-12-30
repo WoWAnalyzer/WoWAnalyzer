@@ -4,6 +4,8 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import Abilities from './Modules/Features/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import FocusUsage from '../Shared/Modules/Features/FocusUsage';
+
 //Items
 import SoulOfTheHuntmaster from '../Shared/Modules/Items/SoulOfTheHuntmaster';
 import QaplaEredunWarOrder from "./Modules/Items/QaplaEredunWarOrder";
@@ -62,6 +64,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    focusUsage: FocusUsage,
 
     //Spells
     direBeast: DireBeast,
