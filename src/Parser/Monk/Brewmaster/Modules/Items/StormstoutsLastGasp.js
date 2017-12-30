@@ -23,24 +23,15 @@ class StormstoutsLastGasp extends Analyzer {
     combatants: Combatants,
   };
 
-  _directDamage = 0;
-  _extraCastDamage = 0;
-
-  get damage() {
-    return this._directDamage + this._extraCastDamage;
-  }
+  damage = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasShoulder(ITEMS.STORMSTOUTS_LAST_GASP.id);
   }
 
-  on_byPlayer_cast() {
-    // TODO
-  }
-
   on_byPlayer_damage(event) {
     if(event.ability.guid === SPELLS.KEG_SMASH.id) {
-      this._directDamage += KEG_SMASH_DMG_FACTOR * event.amount;
+      this.damage += KEG_SMASH_DMG_FACTOR * event.amount;
     }
   }
 
