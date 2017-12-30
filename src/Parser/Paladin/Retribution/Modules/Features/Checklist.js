@@ -12,6 +12,7 @@ import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeC
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import AlwaysBeCasting from './AlwaysBeCasting';
 import HolyPowerDetails from '../HolyPower/HolyPowerDetails';
@@ -25,6 +26,7 @@ class Checklist extends CoreChecklist {
 	    legendaryCountChecker: LegendaryCountChecker,
 	    prePotion: PrePotion,
 	    enchantChecker: EnchantChecker,
+	    abilityTracker: AbilityTracker,
 
 	    holyPowerDetails: HolyPowerDetails,
 	};
@@ -127,12 +129,17 @@ class Checklist extends CoreChecklist {
 	      description: <Wrapper>Use other spells in your toolkit to your advantage. For example, you can use <SpellLink id={SPELLS.SHIELD_OF_VENGEANCE.id} icon/> to mitigate some damage and <SpellLink id={SPELLS.LAY_ON_HANDS.id} icon/> to save your own or someone elses life.</Wrapper>,
 	      requirements: () => {
 	        return [
-	          new GenericCastEfficiencyRequirement({
-	            spell: SPELLS.SHIELD_OF_VENGEANCE,
-	          }),
-	          new GenericCastEfficiencyRequirement({
-	            spell: SPELLS.LAY_ON_HANDS,
-	          }),
+		        new GenericCastEfficiencyRequirement({
+		          spell: SPELLS.SHIELD_OF_VENGEANCE,
+		        }),
+		        new Requirement({
+					name: <Wrapper> <SpellLink id={SPELLS.LAY_ON_HANDS.id} icon/> </Wrapper>,
+					check: () => ({
+						actual: this.abilityTracker.getAbility(SPELLS.LAY_ON_HANDS.id).casts,
+						isGreaterThan: 1,
+						style: 'number',
+					}),
+	    		}),
 	        ];
 	      },
 	    }),
