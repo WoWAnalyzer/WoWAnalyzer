@@ -629,7 +629,7 @@ export default {
     name: 'Owlkin Frenzy',
     icon: 'ability_druid_owlkinfrenzy',
   },
-  EMERALD_DREAMCATCHER_BUFF: {
+  THE_EMERALD_DREAMCATCHER_BUFF: {
     id: 224706,
     name: 'The Emerald Dreamcatcher',
     icon: 'inv_helmet_81',
@@ -648,6 +648,11 @@ export default {
     id: 78675,
     name: 'Solar Beam',
     icon: 'ability_vehicle_sonicshockwave',
+  },
+  SHOOTING_STARS: {
+    id: 202497,
+    name: 'Shooting Stars',
+    icon: 'spell_priest_divinestar_shadow2',
   },
   // Feral
   TIGERS_FURY: {
