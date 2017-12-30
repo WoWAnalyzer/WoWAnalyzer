@@ -3,7 +3,6 @@ import React from 'react';
 import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import ITEMS from 'common/ITEMS';
 
 import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
@@ -106,7 +105,7 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.SOUL_HARVEST_TALENT,
-            when: combatant.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id) || combatant.hasChest(ITEMS.THE_MASTER_HARVESTER.id),
+            when: combatant.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.PHANTOM_SINGULARITY_TALENT,
