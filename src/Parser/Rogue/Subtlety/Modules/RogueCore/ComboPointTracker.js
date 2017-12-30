@@ -1,5 +1,5 @@
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import ResourceTypes from 'common/RESOURCE_TYPES';
 
 import ResourceTracker from '../ResourceTracker/ResourceTracker';
 
@@ -9,8 +9,8 @@ class ComboPointTracker extends ResourceTracker {
   };
 
   on_initialized() {
-    this.resourceType = ResourceTypes.COMBO_POINTS;
-    this.resourceName = "Combo Points";
+    this.resourceType = RESOURCE_TYPES.COMBO_POINTS;
+    this.resourceName = 'Combo Points';
   }
 }
 

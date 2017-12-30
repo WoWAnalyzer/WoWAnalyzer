@@ -3,7 +3,7 @@ import Icon from 'common/Icon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import ResourceTypes from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import { formatPercentage } from 'common/format';
 import Wrapper from 'common/Wrapper';
 
@@ -50,7 +50,7 @@ class SolarEmpowerment extends Analyzer {
     if (!event.classResources) return;
     
     for (let i = 0; i < event.classResources.length; i += 1) {
-      if (event.classResources[i].type === ResourceTypes.ASTRAL_POWER) {
+      if (event.classResources[i].type === RESOURCE_TYPES.ASTRAL_POWER) {
         this.MaxAsP = event.classResources[i].max;
         this.CurrentAsP = event.classResources[i].amount;
       }

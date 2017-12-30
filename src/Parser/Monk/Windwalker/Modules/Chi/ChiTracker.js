@@ -1,7 +1,7 @@
 // Heavily inspired by resource breakdown in Feral and Retribution
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import ResourceTypes from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 import SPELLS from 'common/SPELLS';
 
@@ -72,7 +72,7 @@ class ChiTracker extends Analyzer {
     if (this.constructor.CHI_GENERATING_ABILITIES.indexOf(spellId) === -1) {
       return;
     }
-    if (event.resourceChangeType !== ResourceTypes.CHI) {
+    if (event.resourceChangeType !== RESOURCE_TYPES.CHI) {
       return;
     }
     if (waste !== 0) {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import ResourceTypes from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import StatisticBox from 'Main/StatisticBox';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -38,11 +38,11 @@ class EnergizingElixir extends Analyzer {
   on_toPlayer_energize(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.ENERGIZING_ELIXIR_TALENT.id) {
-      if (event.resourceChangeType === ResourceTypes.ENERGY) {
+      if (event.resourceChangeType === RESOURCE_TYPES.ENERGY) {
         this.energyWasted += event.waste;
         this.energyGained += event.resourceChange - event.waste;
       }
-      if (event.resourceChangeType === ResourceTypes.CHI) {
+      if (event.resourceChangeType === RESOURCE_TYPES.CHI) {
         this.chiWasted += event.waste;
         this.chiGained += event.resourceChange - event.waste;
       }

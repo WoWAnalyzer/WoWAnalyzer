@@ -3,7 +3,7 @@ import Icon from 'common/Icon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import ResourceTypes from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import { formatPercentage } from 'common/format';
 import Wrapper from 'common/Wrapper';
 
@@ -15,7 +15,7 @@ class AstralPower extends Analyzer {
   on_toPlayer_energize(event) {
     if (!event.classResources) { return; }
     for (let i = 0; i < event.classResources.length; i += 1) {
-      if (event.classResources[i].type === ResourceTypes.ASTRAL_POWER) {
+      if (event.classResources[i].type === RESOURCE_TYPES.ASTRAL_POWER) {
         const maxAsP = event.classResources[i].max;
         const addedAsP = event.resourceChange * 10;
         this.aspGenerated += addedAsP;
@@ -36,7 +36,7 @@ class AstralPower extends Analyzer {
     }
 
     for (let i = 0; i < event.classResources.length; i += 1) {
-      if (event.classResources[i].type === ResourceTypes.ASTRAL_POWER) {
+      if (event.classResources[i].type === RESOURCE_TYPES.ASTRAL_POWER) {
         if (event.classResources[i].cost) {
           this.lastAstral = this.lastAstral - (event.classResources[i].cost);
         }

@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import ResourceTypes from 'common/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -27,7 +27,7 @@ class T21_2P extends Analyzer {
 
   on_byPlayer_spendresource(event){
     const spent = event.resourceChange;
-    if(event.resourceChangeType !== ResourceTypes.COMBO_POINTS) return;
+    if(event.resourceChangeType !== RESOURCE_TYPES.COMBO_POINTS) return;
     const resetAmount = 200 * spent;
     if(this.spellUsable.isOnCooldown(SPELLS.SYMBOLS_OF_DEATH.id)){
       this.spellUsable.reduceCooldown(SPELLS.SYMBOLS_OF_DEATH.id, resetAmount);
