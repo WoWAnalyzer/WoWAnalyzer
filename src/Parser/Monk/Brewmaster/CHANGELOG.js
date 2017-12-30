@@ -2,6 +2,11 @@ import { WOPR, emallson } from 'MAINTAINERS';
 
 export default [
   {
+    date: new Date('2017-12-30'),
+    changes: 'Added stats for Stormstout\'s Last Gasp.',
+    contributors: [emallson],
+  },
+  {
     date: new Date('2017-12-29'),
     changes: 'Changed RJW suggestion from cast efficiency to uptime.',
     contributors: [emallson],
