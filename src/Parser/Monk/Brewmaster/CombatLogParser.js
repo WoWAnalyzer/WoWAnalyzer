@@ -10,6 +10,7 @@ import StaggerFabricator from './Modules/Core/StaggerFabricator';
 import IronSkinBrew from './Modules/Spells/IronSkinBrew';
 import BlackoutCombo from './Modules/Spells/BlackoutCombo';
 import RushingJadeWind from './Modules/Spells/RushingJadeWind';
+import BreathOfFire from './Modules/Spells/BreathOfFire';
 // Features
 import Checklist from './Modules/Features/Checklist';
 import Abilities from './Modules/Features/Abilities';
@@ -41,6 +42,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ironSkinBrew: IronSkinBrew,
     blackoutCombo: BlackoutCombo,
     rjw: RushingJadeWind,
+    bof: BreathOfFire,
 
     // Items
     t20_2pc: T20_2pc,
