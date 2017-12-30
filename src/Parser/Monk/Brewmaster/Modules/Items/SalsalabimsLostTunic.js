@@ -7,6 +7,11 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
+/**
+ * The Brewmaster legendary Sal'salabim's Lost Tunic, aka 'saladbums'.
+ *
+ * Resets the cooldown on Breath of Fire when you cast Keg Smash.
+ */
 class SalsalabimsLostTunic extends Analyzer {
   static dependencies = {
     combatants: Combatants,
