@@ -182,7 +182,7 @@ class AMurderOfCrows extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(7);
+  statisticOrder = STATISTIC_ORDER.CORE(9);
 
   subStatistic() {
     return (

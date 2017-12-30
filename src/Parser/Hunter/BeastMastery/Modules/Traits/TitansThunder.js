@@ -130,7 +130,7 @@ class TitansThunder extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(9);
+  statisticOrder = STATISTIC_ORDER.CORE(7);
 
   subStatistic() {
     return (
