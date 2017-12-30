@@ -11,7 +11,7 @@ const ResourceLink = ({ id, children, category = undefined, icon, ...other }) =>
 
   return (
     <a href={`http://www.wowhead.com/${RESOURCE_TYPES[id].url}`} target="_blank" rel="noopener noreferrer" className={category} {...other}>
-      {icon && <ResourceIcon id={id} noLink style={{ height: '1.2em', marginTop: '-0.1em' }} />}{' '}
+      {icon && <ResourceIcon id={id} noLink />}{' '}
       {children || RESOURCE_TYPES[id].name}
     </a>
   );

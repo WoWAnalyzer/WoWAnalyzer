@@ -1,10 +1,13 @@
 import React from 'react';
 
 import ITEMS from 'common/ITEMS';
-
-import CoreCarafeOfSearingLight from 'Parser/Core/Modules/Items/CarafeOfSearingLight';
-import { formatPercentage, formatNumber, formatThousands } from 'common/format';
+import { formatThousands } from 'common/format';
+import Wrapper from 'common/Wrapper';
+import CoreCarafeOfSearingLight from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/CarafeOfSearingLight';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
+import ItemManaGained from 'Main/ItemManaGained';
+import ItemHealingDone from 'Main/ItemHealingDone';
+
 import Rejuvenation from '../Core/Rejuvenation';
 
 class CarafeOfSearingLight extends CoreCarafeOfSearingLight {
@@ -40,10 +43,12 @@ class CarafeOfSearingLight extends CoreCarafeOfSearingLight {
     return {
       item: ITEMS.CARAFE_OF_SEARING_LIGHT,
       result: (
-        <dfn data-tip={`The actual mana gained is ${formatThousands(this.savings + this.manaGained)}. The numbers shown may actually be lower if you did not utilize the effect fully, i.e. not needing the extra mana gained.`}>
-          {formatThousands(this.savings)} mana saved ({formatThousands(this.savings / this.owner.fightDuration * 1000 * 5)} MP5)<br />
-          {formatPercentage(carafeThroughput)}% / {formatNumber((this.healingDone.total.effective * carafeThroughput) / this.owner.fightDuration * 1000)} HPS
-        </dfn>
+        <Wrapper>
+          <dfn data-tip={`The actual mana gained is ${formatThousands(this.savings + this.manaGained)}. The numbers shown may actually be lower if you did not utilize the effect fully, i.e. not needing the extra mana gained.`}>
+            <ItemManaGained amount={this.savings} />
+          </dfn><br />
+          <ItemHealingDone amount={this.healingDone.total.effective * carafeThroughput} />
+        </Wrapper>
       ),
     };
   }

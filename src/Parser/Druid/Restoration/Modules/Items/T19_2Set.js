@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 import Mastery from '../Core/Mastery';
 
@@ -26,7 +26,7 @@ class T19_2Set extends Analyzer {
       id: `spell-${SPELLS.RESTO_DRUID_T19_2SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.RESTO_DRUID_T19_2SET_BONUS_BUFF.id} />,
       title: <SpellLink id={SPELLS.RESTO_DRUID_T19_2SET_BONUS_BUFF.id} />,
-      result: this.owner.formatItemHealingDone(healing),
+      result: <ItemHealingDone amount={healing} />,
     };
   }
 }

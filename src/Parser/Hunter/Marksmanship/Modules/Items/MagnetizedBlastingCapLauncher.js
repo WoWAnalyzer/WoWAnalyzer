@@ -1,10 +1,11 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
-import { formatNumber } from 'common/format';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 /*
  * Magnetized Blasting Cap Launcher
@@ -34,10 +35,9 @@ class MagnetizedBlastingCapLauncher extends Analyzer {
   item() {
     return {
       item: ITEMS.MAGNETIZED_BLASTING_CAP_LAUNCHER,
-      result: formatNumber(this.bonusDmg) - this.owner.formatItemDamageDone(this.bonusDmg),
+      result: <ItemDamageDone amount={this.bonusDmg} />,
     };
   }
-
 }
 
 export default MagnetizedBlastingCapLauncher;

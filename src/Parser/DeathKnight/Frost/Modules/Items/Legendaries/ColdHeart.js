@@ -1,10 +1,11 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import { formatNumber } from 'common/format';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 //import getDamageBonus from 'Parser/DeathKnight/Shared/getDamageBonus';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 class ColdHeart extends Analyzer {
   static dependencies = {
@@ -28,7 +29,7 @@ class ColdHeart extends Analyzer {
   item() {
     return {
       item: ITEMS.COLD_HEART,
-      result: `${formatNumber(this.damage)} damage - ${this.owner.formatItemDamageDone(this.damage)}`,
+      result: <ItemDamageDone amount={this.damage} />,
     };
   }
 }
