@@ -78,4 +78,4 @@ export default [
     changes: <Wrapper>Added support.</Wrapper>,
     contributors: [Iskalla],
   },
-]
+];
