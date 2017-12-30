@@ -24,7 +24,7 @@ import UnempoweredLs from './Modules/Features/UnempoweredLs';
 
 
 //Items
-import EmeraldDreamcatcher from './Modules/Items/EmeraldDreamcatcher';
+import TheEmeraldDreamcatcher from './Modules/Items/TheEmeraldDreamcatcher';
 
 
 class CombatLogParser extends MainCombatLogParser {
@@ -50,7 +50,7 @@ class CombatLogParser extends MainCombatLogParser {
     //newMoon: NewMoon,
     unempoweredLS: UnempoweredLs,
     //Items
-    emeraldDreamcatcher: EmeraldDreamcatcher,
+    theEmeraldDreamcatcher: TheEmeraldDreamcatcher,
   };
 }
 
