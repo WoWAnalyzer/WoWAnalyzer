@@ -6,11 +6,9 @@ import { formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-// multiplying the damage dealt by this factor gives the damage dealt by
-// shoulders
-//
-// note that this is NOT just 0.25
-const KEG_SMASH_DMG_FACTOR = 0.2;
+import getDamageBonus from '../Core/GetDamageBonus';
+
+const KEG_SMASH_DMG_BONUS = 0.25;
 
 /**
  * The Brewmaster legendary shoulders, Stormstout's Last Gasp.
@@ -31,7 +29,7 @@ class StormstoutsLastGasp extends Analyzer {
 
   on_byPlayer_damage(event) {
     if(event.ability.guid === SPELLS.KEG_SMASH.id) {
-      this.damage += KEG_SMASH_DMG_FACTOR * event.amount;
+      this.damage += getDamageBonus(event, KEG_SMASH_DMG_BONUS);
     }
   }
 
