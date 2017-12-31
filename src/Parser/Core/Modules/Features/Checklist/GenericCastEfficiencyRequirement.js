@@ -18,13 +18,14 @@ class GenericCastEfficiencyRequirement extends Requirement {
         }
         const {
           efficiency,
+          gotMaxCasts,
           recommendedEfficiency: minor,
           averageIssueEfficiency: average,
           majorIssueEfficiency: major,
         } = castEfficiency;
 
         return {
-          actual: efficiency,
+          actual: gotMaxCasts ? 1 : efficiency,
           isLessThan: {
             minor,
             average,
