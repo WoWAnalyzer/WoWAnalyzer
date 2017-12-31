@@ -1,7 +1,8 @@
 import React from 'react';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
-import { EnchantsRequirement, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
+import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
+import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
@@ -179,44 +180,8 @@ class Checklist extends CoreChecklist {
         ];
       },
     }),
-    new Rule({
-      name: 'Be well prepared',
-      description: 'Being prepared is important if you want to perform to your highest potential',
-      // For this rule it wouldn't make sense for the bar to be completely green when just 1 of the requirements failed, showing the average instead of median takes care of that properly.
-      performanceMethod: 'average',
-      requirements: () => {
-        return [
-          new Requirement({
-            name: 'All legendaries upgraded to max item level',
-            check: () => ({
-              actual: this.legendaryUpgradeChecker.upgradedLegendaries.length,
-              isLessThan: this.legendaryCountChecker.max,
-              style: 'number',
-            }),
-          }),
-          new Requirement({
-            name: 'Used max possible legendaries',
-            check: () => ({
-              actual: this.legendaryCountChecker.equipped,
-              isLessThan: this.legendaryCountChecker.max,
-              style: 'number',
-            }),
-          }),
-          new Requirement({
-            name: 'Used a pre-potion',
-            check: () => this.prePotion.prePotionSuggestionThresholds,
-          }),
-          new Requirement({
-            name: 'Used a second potion',
-            check: () => this.prePotion.secondPotionSuggestionThresholds,
-          }),
-          new EnchantsRequirement(),
-        ];
-      },
-    }),
-
+    new PreparationRule(),
   ];
-
 }
 
 export default Checklist;
