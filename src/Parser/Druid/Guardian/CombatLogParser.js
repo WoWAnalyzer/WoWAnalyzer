@@ -21,6 +21,7 @@ import Thrash from './Modules/Spells/Thrash';
 import Moonfire from './Modules/Spells/Moonfire';
 import Pulverize from './Modules/Spells/Pulverize';
 import Earthwarden from './Modules/Talents/Earthwarden';
+import Incarnation from './Modules/Talents/Incarnation';
 import FrenziedRegeneration from './Modules/Spells/FrenziedRegeneration';
 
 import SkysecsHold from './Modules/Items/Skysecs';
@@ -54,6 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents:
     earthwarden: Earthwarden,
+    incarnation: Incarnation,
 
     // Legendaries:
     skysecs: SkysecsHold,
