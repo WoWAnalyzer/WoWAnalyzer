@@ -315,7 +315,9 @@ class Combatant extends Entity {
     return this.getTrinket(itemId) !== undefined;
   }
   getItem(itemId) {
-    return Object.keys(this._gearItemsBySlotId).map(key => this._gearItemsBySlotId[key]).find(item => item.id === itemId);
+    return Object.keys(this._gearItemsBySlotId)
+      .map(key => this._gearItemsBySlotId[key])
+      .find(item => item.id === itemId);
   }
   // endregion
 }
