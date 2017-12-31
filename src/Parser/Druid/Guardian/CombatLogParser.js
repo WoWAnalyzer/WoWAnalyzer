@@ -7,7 +7,6 @@ import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 import Cinidaria from 'Parser/Core/Modules/Items/Cinidaria';
 
 import ActiveTargets from './Modules/Features/ActiveTargets';
-import DynamicHaste from './Modules/Features/DynamicHaste';
 import Abilities from './Modules/Features/Abilities';
 import Gore from './Modules/Features/Gore';
 import GalacticGuardian from './Modules/Features/GalacticGuardian';
@@ -24,12 +23,9 @@ import Pulverize from './Modules/Spells/Pulverize';
 import Earthwarden from './Modules/Talents/Earthwarden';
 import FrenziedRegeneration from './Modules/Spells/FrenziedRegeneration';
 
-import DualDetermination from './Modules/Items/DualDetermination';
 import SkysecsHold from './Modules/Items/Skysecs';
 import LuffaWrappings from './Modules/Items/LuffaWrappings';
 import FuryOfNature from './Modules/Items/FuryOfNature';
-
-import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -41,9 +37,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Features
     activeTargets: ActiveTargets,
-    dynamicHaste: DynamicHaste,
     abilities: Abilities,
-    alwaysBeCasting: AlwaysBeCasting,
     goreProcs: Gore,
     galacticGuardianProcs: GalacticGuardian,
     guardianOfEluneProcs: GuardianOfElune,
@@ -62,7 +56,6 @@ class CombatLogParser extends CoreCombatLogParser {
     earthwarden: Earthwarden,
 
     // Legendaries:
-    dualDetermination: DualDetermination,
     skysecs: SkysecsHold,
     luffaWrappings: LuffaWrappings,
     furyOfNature: FuryOfNature,

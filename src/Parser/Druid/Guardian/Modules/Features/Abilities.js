@@ -161,6 +161,16 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.FRENZIED_REGENERATION,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => null,
+      charges: 2,
+      isActive: combatant => !combatant.traitsBySpellId[SPELLS.FLESHKNITTING_TRAIT],
+      noSuggestion: true,
+    },
+    {
+      spell: SPELLS.FRENZIED_REGENERATION,
+      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => null,
+      charges: 3,
+      isActive: combatant => combatant.traitsBySpellId[SPELLS.FLESHKNITTING_TRAIT],
       noSuggestion: true,
     },
     {
