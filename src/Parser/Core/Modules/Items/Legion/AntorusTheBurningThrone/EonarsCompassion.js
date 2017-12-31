@@ -3,17 +3,18 @@ import ITEMS from 'common/ITEMS';
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 const PANTHEON_MAX_SHIELD_PER_PROC = 4;
 
-/*
+/**
  * Eonar's Compassion -
  * Equip: Your healing effects have a chance to grow an Emerald Blossom nearby, which heals a random injured ally for 127273 every 2 sec. Lasts 12 sec.
  * Eonar's Verdant Embrace - When empowered by the Pantheon, your next 4 direct healing spells grant the target a shield that prevents 250782 damage for 30 sec.
  */
 class EonarsCompassion extends Analyzer {
   static dependencies = {
-      combatants: Combatants,
+    combatants: Combatants,
   };
 
   trinketHealing = 0;
@@ -30,7 +31,7 @@ class EonarsCompassion extends Analyzer {
     SPELLS.EONARS_COMPASSION_PANTHEONBUFF_DPRIEST.id,
     SPELLS.EONARS_COMPASSION_PANTHEONBUFF_HPRIEST.id,
     SPELLS.EONARS_COMPASSION_PANTHEONBUFF_RSHAMAN.id,
-  ]
+  ];
 
   on_initialized() {
     this.active = this.combatants.selected.hasTrinket(ITEMS.EONARS_COMPASSION.id);
@@ -38,7 +39,7 @@ class EonarsCompassion extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: this.owner.getPercentageOfTotalHealingDone(this.trinketHealing+this.pantheonShieldHealing),
+      actual: this.owner.getPercentageOfTotalHealingDone(this.trinketHealing + this.pantheonShieldHealing),
       isLessThan: {
         minor: 0.04,
         average: 0.035,
@@ -85,18 +86,22 @@ class EonarsCompassion extends Analyzer {
     return {
       item: ITEMS.EONARS_COMPASSION,
       result: (
-        <dfn data-tip={`Basic Procs
-          <ul>
-            <li>${this.owner.formatItemHealingDone(this.trinketHealing)}</li>
-            <li>${this.trinketProc} procs (${basicPpm.toFixed(1)} PPM)</li>
-          </ul>
-          Pantheon Procs
-          <ul>
-            <li>${this.owner.formatItemHealingDone(this.pantheonShieldHealing)}</li>
-            <li>${this.pantheonProc} procs (${pantheonPpm.toFixed(1)} PPM)</li>
-            ${this.pantheonProc ? `<li>Applied ${this.pantheonShieldCast} shields (out of ${possibleShields} possible)</li>` : ``}
-          </ul>`}>
-          {this.owner.formatItemHealingDone(this.totalHealing)}
+        <dfn
+          data-tip={`
+            Basic Procs
+            <ul>
+              <li>${this.owner.formatItemHealingDone(this.trinketHealing)}</li>
+              <li>${this.trinketProc} procs (${basicPpm.toFixed(1)} PPM)</li>
+            </ul>
+            Pantheon Procs
+            <ul>
+              <li>${this.owner.formatItemHealingDone(this.pantheonShieldHealing)}</li>
+              <li>${this.pantheonProc} procs (${pantheonPpm.toFixed(1)} PPM)</li>
+              ${this.pantheonProc ? `<li>Applied ${this.pantheonShieldCast} shields (out of ${possibleShields} possible)</li>` : ``}
+            </ul>
+          `}
+        >
+          <ItemHealingDone amount={this.totalHealing} />
         </dfn>
       ),
     };
