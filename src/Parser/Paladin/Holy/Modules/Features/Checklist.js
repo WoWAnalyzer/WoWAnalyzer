@@ -122,7 +122,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use your supportive abilities',
-      description: <Wrapper>While you shouldn't aim to cast defensives and externals on cooldown, be aware of them and try to use them whenever effective. Not using them at all indicates you might not be aware of them enough or not utilizing them optimally.</Wrapper>,
+      description: 'While you shouldn\'t aim to cast defensives and externals on cooldown, be aware of them and try to use them whenever effective. Not using them at all indicates you might not be aware of them enough or not utilizing them optimally.',
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -175,7 +175,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Don\'t tunnel the tanks',
-      description: 'A common misconception when it is stated that Holy Paladins are tank healers is that we focus tanks when healing. This is actually inefficient. Let your beacons do most of the work, ask your co-healers to keep efficient HoTs on the tanks and only directly heal the tanks when they would otherwise die.',
+      description: 'A common misconception about Holy Paladins is that we should focus tanks when healing. This is actually inefficient. Let your beacons do most of the work, ask your co-healers to keep efficient HoTs on the tanks and only directly heal the tanks when they would otherwise die.',
       requirements: () => {
         return [
           new Requirement({
