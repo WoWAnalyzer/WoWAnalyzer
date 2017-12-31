@@ -4,7 +4,8 @@ import SPELLS from 'common/SPELLS';
 
 import Wrapper from 'common/Wrapper';
 
-import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist';
+import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import { EnchantsRequirement, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
@@ -184,17 +185,7 @@ class Checklist extends CoreChecklist {
             name: 'Used a second potion',
             check: () => this.prePotion.secondPotionSuggestionThresholds,
           }),
-          new Requirement({
-            name: 'Gear has best enchants',
-            check: () => {
-              const numEnchantableSlots = Object.keys(this.enchantChecker.enchantableGear).length;
-              return {
-                actual: numEnchantableSlots - (this.enchantChecker.slotsMissingEnchant.length + this.enchantChecker.slotsMissingMaxEnchant.length),
-                isLessThan: numEnchantableSlots,
-                style: 'number',
-              };
-            },
-          }),
+          new EnchantsRequirement(),
         ];
       },
     }),

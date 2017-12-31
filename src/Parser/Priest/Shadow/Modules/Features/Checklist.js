@@ -7,8 +7,8 @@ import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
 // import ItemLink from 'common/ItemLink';
 
-import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist';
-
+import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import { GenericCastEfficiencyRequirement, EnchantsRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 
 // general:
 import Combatants from 'Parser/Core/Modules/Combatants';
