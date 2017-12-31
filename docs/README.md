@@ -26,10 +26,16 @@ React and JSX are used extensively throughout the app and is fairly complex to l
       />
 ```
 Renders a statistic box like this:
-![image](https://user-images.githubusercontent.com/4565223/34463567-51882456-ee60-11e7-8659-3c40fe744ab4.png)
-The icon is rendered by `SpellIcon` to which we passed the Aura of Mercy spell id that we have defined in the `SPELLS` object. The value is a template literal I showed earlier, with a formatter to make the number human readable. The label is a plain string. There are more complex posibilities with JSX but you won't need that often. If you want to learn more you can always ask in Discord (or see the links below).
 
-And finally we have our own framework. We have written a lot of classes and components to try and make analysis as easy as possible. More about this in the next chapter.
+![image](https://user-images.githubusercontent.com/4565223/34463567-51882456-ee60-11e7-8659-3c40fe744ab4.png)
+
+* The icon is rendered by the `SpellIcon` *component* to which we passed the [Aura of Mercy](http://www.wowhead.com/spell=183415/aura-of-mercy) spell id that we have defined in one of the `SPELLS` objects. The `SpellIcon` component takes care of finding the correct icon for the spell, showing the image and making it clickable.
+* The value is a template literal like we showed earlier, with a formatter to make the number human readable.
+* The label is a plain string.
+
+There are more complex posibilities with JSX but you won't need that often. If you want to learn more you can always ask in Discord (or see the links below).
+
+The final part of the project is our own framework. We have written a lot of classes and components to try and make analysis as easy as possible. More about this in the next chapter.
 
 More info about modern JS: https://github.com/getify/You-Dont-Know-JS
 More info about React: https://reactjs.org
