@@ -288,7 +288,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Avoid overhealing',
-      description: 'Pick the right targets when healing and use the right abilities at the right time. While overhealing still transfers to your beacons it remains inefficient. Overhealing might be unavoidable on trivial content or when bringing too many healers.',
+      description: 'Pick the right targets when healing and use the right abilities at the right time. While overhealing still transfers to your beacons, it\'s still inefficient. Overhealing might be unavoidable when there\'s not a lot of damage taken (such as in normal mode) or when bringing too many healers.',
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
