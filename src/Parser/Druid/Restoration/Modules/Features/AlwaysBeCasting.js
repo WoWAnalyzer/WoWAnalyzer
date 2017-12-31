@@ -40,7 +40,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.SHRED.id,
     SPELLS.SOLAR_WRATH.id,
     SPELLS.CAT_SWIPE.id,
-    SPELLS.BEAR_SWIPE.id,
+    SPELLS.SWIPE_BEAR.id,
     SPELLS.URSOLS_VORTEX.id,
     SPELLS.MIGHTY_BASH_TALENT.id,
     SPELLS.TYPHOON_TALENT.id,
