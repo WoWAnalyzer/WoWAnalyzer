@@ -5,12 +5,13 @@ import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
-import CHI_SPENDERS from 'Parser/Monk/Windwalker/Constants';
+import CHI_SPENDERS from '../../Constants';
 
 class TheEmperorsCapacitor extends Analyzer {
   static dependencies = {
-      combatants: Combatants,
+    combatants: Combatants,
   };
   totalStacks = 0;
   currentStacks = 0;
@@ -38,11 +39,11 @@ class TheEmperorsCapacitor extends Analyzer {
     const spellId = event.ability.guid;
     // You can only ever apply 1 stack at a time
     if (SPELLS.THE_EMPERORS_CAPACITOR_STACK.id === spellId) {
-      this.totalStacks += 1;     
+      this.totalStacks += 1;
       this.currentStacks += 1;
-     }
-   }
-  
+    }
+  }
+
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (this.chiSpenders.includes(spellId) && this.currentStacks === 20) {
@@ -66,37 +67,39 @@ class TheEmperorsCapacitor extends Analyzer {
   }
 
   on_byPlayerPet_damage(event) {
-      const spellId = event.ability.guid;
-      if (spellId === SPELLS.CRACKLING_JADE_LIGHTNING.id) {
-          this.damage += event.amount + (event.absorbed || 0);
-      }
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.CRACKLING_JADE_LIGHTNING.id) {
+      this.damage += event.amount + (event.absorbed || 0);
+    }
   }
 
   item() {
     return {
       item: ITEMS.THE_EMPERORS_CAPACITOR,
-      result: (<dfn data-tip={`Damage dealt does not account for opportunity cost.<br/> Stacks generated ${this.totalStacks}
+      result: (
+        <dfn data-tip={`Damage dealt does not account for opportunity cost.<br/> Stacks generated ${this.totalStacks}
         <br/>Stacks consumed: ${this.stacksUsed}<br/> Stacks wasted by generating at cap: ${this.stacksWasted}<br/> Average stacks spent on each cast: ${this.averageStacksUsed.toFixed(2)}`}>
-        {this.owner.formatItemDamageDone(this.damage)}
-      </dfn>),
+          <ItemDamageDone amount={this.damage} />
+        </dfn>
+      ),
     };
   }
 
   suggestions(when) {
     when(this.stacksWasted).isGreaterThan(0).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<span> You wasted your <SpellLink id={SPELLS.THE_EMPERORS_CAPACITOR_STACK.id}/> stacks by using chi spenders while at 20 stacks </span>)
+      return suggest(<span> You wasted your <SpellLink id={SPELLS.THE_EMPERORS_CAPACITOR_STACK.id} /> stacks by using chi spenders while at 20 stacks </span>)
         .icon(ITEMS.THE_EMPERORS_CAPACITOR.icon)
         .actual(`${this.stacksWasted} Wasted stacks`)
         .recommended(`${(recommended)} Wasted stacks is recommended`)
         .regular(recommended + 5).major(recommended + 10);
     });
     when(this.averageStacksUsed).isLessThan(18).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<span> Your average number of <SpellLink id={SPELLS.THE_EMPERORS_CAPACITOR_STACK.id} /> stacks used when you cast <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id}/> was low </span>)
-          .icon(ITEMS.THE_EMPERORS_CAPACITOR.icon)
-          .actual(`${this.averageStacksUsed.toFixed(2)} average stacks used`)
-          .recommended(`Try to cast Crackling Jade Lightning while as close to 20 stacks as possible`)
-          .regular(recommended - 3).major(recommended - 5);
-      });
+      return suggest(<span> Your average number of <SpellLink id={SPELLS.THE_EMPERORS_CAPACITOR_STACK.id} /> stacks used when you cast <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} /> was low </span>)
+        .icon(ITEMS.THE_EMPERORS_CAPACITOR.icon)
+        .actual(`${this.averageStacksUsed.toFixed(2)} average stacks used`)
+        .recommended(`Try to cast Crackling Jade Lightning while as close to 20 stacks as possible`)
+        .regular(recommended - 3).major(recommended - 5);
+    });
   }
 }
 

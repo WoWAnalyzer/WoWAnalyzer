@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2017-12-30'),
+    changes: <Wrapper>Added icons indicating the stat type to most item stats.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2017-12-27'),
     changes: <Wrapper>Added Death Tracking to the parser</Wrapper>,
     contributors: [Sharrq],

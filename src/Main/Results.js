@@ -33,10 +33,12 @@ const MAIN_TAB = {
 class Results extends React.Component {
   static childContextTypes = {
     updateResults: PropTypes.func.isRequired,
+    parser: PropTypes.object.isRequired,
   };
   getChildContext() {
     return {
       updateResults: this.forceUpdate.bind(this),
+      parser: this.props.parser,
     };
   }
   static contextTypes = {

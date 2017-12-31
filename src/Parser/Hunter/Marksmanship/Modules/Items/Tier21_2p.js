@@ -1,15 +1,17 @@
 import React from 'react';
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
+
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import getDamageBonus from "Parser/Hunter/Shared/Modules/getDamageBonus";
 import { formatNumber } from 'common/format';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 const T21_2P_DMG_BONUS = 0.3;
 
-/*
+/**
  * Your Focus generating attacks deal 30% more damage and generate 25% more Focus.
  */
 class Tier21_2p extends Analyzer {
@@ -127,13 +129,10 @@ class Tier21_2p extends Analyzer {
       icon: <SpellIcon id={SPELLS.HUNTER_MM_T21_2P_BONUS.id} />,
       title: <SpellLink id={SPELLS.HUNTER_MM_T21_2P_BONUS.id} />,
       result: (
-        <dfn data-tip={tooltipText}
-        >
-          Focus gain: {formatNumber(totalExtraFocusGenerated)} / {formatNumber(totalPotentialFocusGain)} possible
-          <br />
-          {formatNumber(totalDamageIncrease)} damage - {this.owner.formatItemDamageDone(totalDamageIncrease)}
+        <dfn data-tip={tooltipText}>
+          Focus gain: {formatNumber(totalExtraFocusGenerated)} / {formatNumber(totalPotentialFocusGain)} possible<br />
+          <ItemDamageDone amount={totalDamageIncrease} />
         </dfn>
-
       ),
     };
   }

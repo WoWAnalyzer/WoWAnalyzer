@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 const T21_4SET_YSERAS_BOOST = 5;
 
@@ -39,7 +40,7 @@ class T21_4Set extends Analyzer {
       title: <SpellLink id={SPELLS.RESTO_DRUID_T21_4SET_BONUS_BUFF.id} />,
       result: (
         <dfn data-tip="This is the amount of healing done by the extra Ysera's Gift ticks only. Healing from the additional applications of Dreamer are counted under the T21 2Set number">
-          {this.owner.formatItemHealingDone(healing)}
+          <ItemHealingDone amount={healing} />
         </dfn>
       ),
     };

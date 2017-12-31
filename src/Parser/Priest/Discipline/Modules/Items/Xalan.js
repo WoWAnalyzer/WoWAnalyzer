@@ -1,7 +1,10 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-
 import Analyzer from 'Parser/Core/Analyzer';
+import ItemHealingDone from 'Main/ItemHealingDone';
+
 import isAtonement from '../Core/isAtonement';
 
 const debug = false;
@@ -65,7 +68,7 @@ class Xalan extends Analyzer {
 
     return {
       item: ITEMS.XALAN_THE_FEAREDS_CLENCH,
-      result: this.owner.formatItemHealingDone(healing),
+      result: <ItemHealingDone amount={healing} />,
     };
   }
 }

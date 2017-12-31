@@ -10,7 +10,7 @@ import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } fr
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
-import Velens from 'Parser/Core/Modules/Items/Velens';
+import VelensFutureSight from 'Parser/Core/Modules/Items/Legion/Legendaries/VelensFutureSight';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
@@ -36,7 +36,7 @@ class Checklist extends CoreChecklist {
     manaValues: ManaValues,
     auraOfSacrifice: AuraOfSacrifice,
     ilterendi: Ilterendi,
-    velens: Velens,
+    velensFutureSight: VelensFutureSight,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
@@ -122,7 +122,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use your supportive abilities',
-      description: <Wrapper>While you shouldn't aim to cast defensives and externals on cooldown, be aware of them and try to use them whenever effective. Not using them at all indicates you might not be aware of them enough or not utilizing them optimally.</Wrapper>,
+      description: 'While you shouldn\'t aim to cast defensives and externals on cooldown, be aware of them and try to use them whenever effective. Not using them at all indicates you might not be aware of them enough or not utilizing them optimally.',
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -175,7 +175,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Don\'t tunnel the tanks',
-      description: 'A common misconception when it is stated that Holy Paladins are tank healers is that we focus tanks when healing. This is actually inefficient. Let your beacons do most of the work, ask your co-healers to keep efficient HoTs on the tanks and only directly heal the tanks when they would otherwise die.',
+      description: 'A common misconception about Holy Paladins is that we should focus tanks when healing. This is actually inefficient. Let your beacons do most of the work, ask your co-healers to keep efficient HoTs on the tanks and only directly heal the tanks when they would otherwise die.',
       requirements: () => {
         return [
           new Requirement({
@@ -230,8 +230,8 @@ class Checklist extends CoreChecklist {
           }),
           new Requirement({
             name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} icon />,
-            check: () => this.velens.suggestionThresholds,
-            when: this.velens.active,
+            check: () => this.velensFutureSight.suggestionThresholds,
+            when: this.velensFutureSight.active,
           }),
           new Requirement({
             name: <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} icon />,

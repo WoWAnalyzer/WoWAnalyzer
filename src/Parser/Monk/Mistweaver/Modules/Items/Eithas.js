@@ -1,9 +1,11 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 const debug = false;
 
@@ -16,7 +18,7 @@ class Eithas extends Analyzer {
 
   healingCleave = 0;
   healingMain = 0;
-  healing = 0
+  healing = 0;
   vivTarget = null;
   rawHealingCleave = 0;
   rawHealingMain = 0;
@@ -57,7 +59,7 @@ class Eithas extends Analyzer {
   item() {
     return {
       item: ITEMS.EITHAS_LUNAR_GLIDES,
-      result: this.owner.formatItemHealingDone(this.healing),
+      result: <ItemHealingDone amount={this.healing} />,
     };
   }
 }

@@ -219,7 +219,9 @@ class StatTracker extends Analyzer {
         return standard + 0.05; //baseline +5%
       case SPECS.BEAST_MASTERY_HUNTER :
         return standard + 0.05; //baseline +5%
-      default:
+      case SPECS.WINDWALKER_MONK:
+        return standard + 0.05; //baseline +5%
+      default:      
         return standard;
     }
   }

@@ -1,17 +1,16 @@
 import React from 'react';
 
 import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-
+import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import SPELLS from 'common/SPELLS';
 
-/*
+/**
  * Zevrim's Hunger
  * Equip: Marked Shot has a 15% chance to not remove Hunter's Mark.
  */
-
 class ZevrimsHunger extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -24,7 +23,7 @@ class ZevrimsHunger extends Analyzer {
   item() {
     return {
       item: ITEMS.ZEVRIMS_HUNGER,
-      result: <span>This gave your <SpellLink id={SPELLS.MARKED_SHOT.id} /> a 15 %chance to not consume <SpellLink id={SPELLS.HUNTERS_MARK.id} />.</span>,
+      result: <Wrapper>This gave your <SpellLink id={SPELLS.MARKED_SHOT.id} /> a 15% chance to not consume <SpellLink id={SPELLS.HUNTERS_MARK.id} />.</Wrapper>,
     };
   }
 

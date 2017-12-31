@@ -4,9 +4,9 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 // It seems some ticks of healing rain were logged slightly later than the healing end time. So add a tolerance time to catch these ticks.
 const TOLERANCE = 50;
@@ -75,7 +75,7 @@ class Restoration_Shaman_T20_4Set extends Analyzer {
       id: `spell-${SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id} />,
       title: <SpellLink id={SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id} />,
-      result: this.owner.formatItemHealingDone(this.healing),
+      result: <ItemHealingDone amount={this.healing} />,
     };
   }
 }

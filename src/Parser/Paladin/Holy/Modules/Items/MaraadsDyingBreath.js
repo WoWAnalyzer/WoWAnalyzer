@@ -6,6 +6,7 @@ import { formatMilliseconds } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 const MARAADS_HEALING_INCREASE_PER_STACK = 0.1;
 
@@ -123,7 +124,7 @@ class MaraadsDyingBreath extends Analyzer {
             The total healing done with Light of the Martyr affected by Maraad's Dying Breath was ${this.owner.formatItemHealingDone(this.totalHealing)}. This does not consider any opportunity cost (so it assumes you would have cast <b>nothing</b> in place of the buffed Light of The Martyr). The damage taken from Light of the Martyr was taken into account in this number.
           `}
         >
-          ≈{this.owner.formatItemHealingDone(this.healingGainOverFol)}
+          <ItemHealingDone amount={this.healingGainOverFol} approximate />
         </dfn>
       ),
     };

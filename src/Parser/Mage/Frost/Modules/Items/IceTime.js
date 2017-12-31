@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 /**
  * Ice Time:
@@ -43,7 +44,7 @@ class IceTime extends Analyzer {
       item: ITEMS.ICE_TIME,
       result: (
         <dfn data-tip={`Over <b>${this.casts}</b> Frozen Orb casts, your Ice Time's proc hit <b>${this.hits}</b> targets for an average of <b>${formatNumber(averageDamage)}</b> each.`}>
-          {this.owner.formatItemDamageDone(this.damage)}
+          <ItemDamageDone amount={this.damage} />
         </dfn>
       ),
     };
