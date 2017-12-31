@@ -91,7 +91,9 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.ESSENCE_FONT,
       category: Abilities.SPELL_CATEGORIES.OTHERS,
-      getCooldown: haste => null,
+      getCooldown: haste => 12,
+      noSuggestion: true,
+      noCanBeImproved: true,
     },
     {
       spell: SPELLS.SOOTHING_MIST,
@@ -144,7 +146,14 @@ class Abilities extends CoreAbilities {
       noSuggestion: true,
       noCanBeImproved: true,
     },
-
+    {
+      spell: SPELLS.CRACKLING_JADE_LIGHTNING,
+      category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+      getCooldown: haste => null,
+      isOnGCD: true,
+      noSuggestion: true,
+      noCanBeImproved: true,
+    },
   ];
 }
 

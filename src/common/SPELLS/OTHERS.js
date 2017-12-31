@@ -353,7 +353,7 @@ export default {
     name: 'Golganneth\'s Thunderous Wrath',
     icon: 'ability_thunderking_thunderstruck',
   },
-  WORLDFORGERS_FLAME_BUFF : {
+  WORLDFORGERS_FLAME_BUFF: {
     id: 256826,
     name: 'Worldforger\'s Flame',
     icon: 'inv_antorus_red',
@@ -427,6 +427,26 @@ export default {
     id: 257534,
     name: 'Norgannon\'s Shadow Bolt',
     icon: 'spell_shadow_shadowbolt',
+  },
+  CYCLE_OF_THE_LEGION: { //Acrid three stat buff
+    id: 253260,
+    name: 'Cycle of the Legion',
+    icon: 'inv_7_0raid_trinket_01c',
+  },
+  FERVOR_OF_THE_LEGION: { //Acrid Haste Buff
+    id: 253261,
+    name: 'Fervor of the Legion',
+    icon: 'inv_misc_volatilelife_green',
+  },
+  MALICE_OF_THE_LEGION: { //Acrid Mastery Buff
+    id: 255744,
+    name: 'Malice of the Legion',
+    icon: 'inv_misc_volatilewater',
+  },
+  BRUTALITY_OF_THE_LEGION: { //Acrid Crit buff
+    id: 255742,
+    name: 'Brutality of the Legion',
+    icon: 'inv_misc_volatilelife',
   },
   FLAMES_OF_FHARG: {
     id: 253308,
@@ -685,6 +705,16 @@ export default {
     name: 'Dark Sorrows',
     icon: 'inv_heart_of_the_thunder-king_icon',
   },
+  MASTER_OF_SHADOWS_TRAIT: {
+    id: 252091,
+    name: 'Master of Shadows',
+    icon: 'spell_shadow_shadesofdarkness',
+  },
+  LIGHT_SPEED_TRAIT: {
+    id: 252088,
+    name: 'Light Speed',
+    icon: 'ability_rogue_sprint',
+  },
   CONCORDANCE_OF_THE_LEGIONFALL_TRAIT: {
     id: 239042,
     name: 'Concordance of the Legionfall',
@@ -710,16 +740,7 @@ export default {
     name: 'Concordance of the Legionfall',
     icon: 'achievement_faction_legionfall',
   },
-  MASTER_OF_SHADOWS: {
-    id: 252091,
-    name: 'Master of Shadows',
-    icon: 'spell_shadow_shadesofdarkness',
-  },
-  LIGHT_SPEED: {
-    id: 252088,
-    name: 'Light Speed',
-    icon: 'ability_rogue_sprint',
-  },
+
   FEEDBACK_LOOP: {
     id: 253269,
     name: 'Feedback Loop',

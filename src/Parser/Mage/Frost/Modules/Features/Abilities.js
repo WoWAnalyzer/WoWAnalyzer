@@ -54,6 +54,13 @@ class Abilities extends CoreAbilities {
 	    isActive: combatant => combatant.hasTalent(SPELLS.COMET_STORM_TALENT.id),
     },
     {
+      spell: SPELLS.ICE_NOVA_TALENT,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 25,
+      recommendedEfficiency: 0.90,
+	    isActive: combatant => combatant.hasTalent(SPELLS.ICE_NOVA_TALENT.id),
+    },
+    {
       spell: SPELLS.BLIZZARD,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
       getCooldown: haste => null,

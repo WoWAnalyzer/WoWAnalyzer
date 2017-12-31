@@ -1,14 +1,12 @@
 import React from 'react';
 
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import Enemies from 'Parser/Core/Modules/Enemies';
-
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import Enemies from 'Parser/Core/Modules/Enemies';
 
 const CHAOS_BOLT_COST = 20;
 
@@ -58,4 +56,5 @@ class T20_2set extends Analyzer {
     };
   }
 }
+
 export default T20_2set;

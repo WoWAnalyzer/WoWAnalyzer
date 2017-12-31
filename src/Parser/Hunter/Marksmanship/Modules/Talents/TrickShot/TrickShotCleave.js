@@ -3,10 +3,15 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
+/**
+ * Aimed Shot will now also ricochet and hit all Vulnerable targets for 30% of normal damage.
+ * If there are no other Vulnerable targets, the damage of your next Aimed Shot is increased by 15%.
+ */
 class TrickShotCleave extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -41,20 +46,18 @@ class TrickShotCleave extends Analyzer {
   }
 
   subStatistic() {
-    if (this.bonusCleaveDmg > 0) {
-      return (
-        <div className="flex">
-          <div className="flex-main">
-            <SpellLink id={SPELLS.TRICK_SHOT_TALENT.id}>
-              <SpellIcon id={SPELLS.TRICK_SHOT_TALENT.id} noLink /> Trick Shot Cleave
-            </SpellLink>
-          </div>
-          <div className="flex-sub text-right">
-            {(this.owner.formatItemDamageDone(this.bonusCleaveDmg))}
-          </div>
+    return (
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.TRICK_SHOT_TALENT.id}>
+            <SpellIcon id={SPELLS.TRICK_SHOT_TALENT.id} noLink /> Trick Shot Cleave
+          </SpellLink>
         </div>
-      );
-    }
+        <div className="flex-sub text-right">
+          <ItemDamageDone amount={this.bonusCleaveDmg} />
+        </div>
+      </div>
+    );
   }
 }
 

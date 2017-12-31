@@ -72,7 +72,7 @@ class TraitsAndTalents extends Analyzer {
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(9);
+  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default TraitsAndTalents;

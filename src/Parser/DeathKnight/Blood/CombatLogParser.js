@@ -14,6 +14,8 @@ import WastedDeathAndDecay from './Modules/Features/WastedDeathAndDecay';
 import BlooddrinkerTicks from './Modules/Features/BlooddrinkerTicks';
 import UnendingThirstTracker from './Modules/Features/UnendingThirstTracker';
 
+import Checklist from './Modules/Features/Checklist';
+
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
 import RunicPowerTracker from './Modules/RunicPower/RunicPowerTracker';
 
@@ -39,6 +41,7 @@ class CombatLogParser extends CoreCombatLogParser {
     wastedDeathAndDecay: WastedDeathAndDecay,
     blooddrinkerTicks: BlooddrinkerTicks,
     unendingThirstTracker:UnendingThirstTracker,
+    checklist: Checklist,
 
 
     // DOT

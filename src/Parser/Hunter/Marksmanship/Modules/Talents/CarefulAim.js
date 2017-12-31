@@ -6,7 +6,11 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from "common/SpellIcon";
 import SpellLink from 'common/SpellLink';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
+/*
+ * Aimed Shot, Arcane Shot, Marked Shot, and Multi-Shot have 20% increased critical strike chance against targets above 80% Health, and those critical strikes deal an additional 30% damage over 8 sec.
+ */
 class CarefulAim extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -34,7 +38,7 @@ class CarefulAim extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {(this.owner.formatItemDamageDone(this.damage))}
+          <ItemDamageDone amount={this.damage} />
         </div>
       </div>
     );

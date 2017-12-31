@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from 'common/Icon';
+import ItemLink from 'common/ItemLink';
+import ItemIcon from 'common/ItemIcon';
 
 class Gear extends React.PureComponent {
   static propTypes = {
@@ -36,11 +38,11 @@ class Gear extends React.PureComponent {
             .filter(item => item.id !== 0)
             .map(item => {
             return (
-              <div key={item.id}style={{display: 'inline-block', textAlign: 'center'}}>
+              <div key={item.id} style={{display: 'inline-block', textAlign: 'center' }}>
                 {item.itemLevel}
                 <a
                   href={`${toolTipBaseUrl}${item.id}`}
-                  style={{ margin: '5px', display: 'block' }}
+                  style={{ margin: '5px', display: 'block', fontSize: '46px' }}
                   rel={
                     item.bonusIDs ?
                     `bonus=${item.bonusIDs.join(':')}`

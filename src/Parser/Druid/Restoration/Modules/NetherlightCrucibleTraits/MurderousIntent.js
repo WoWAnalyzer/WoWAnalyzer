@@ -1,12 +1,13 @@
 import React from 'react';
 
-import CoreMurderousIntent from "Parser/Core/Modules//NetherlightCrucibleTraits/MurderousIntent";
-import HealingDone from 'Parser/Core/Modules/HealingDone';
-import STAT from "Parser/Core/Modules/Features/STAT";
-
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
+import CoreMurderousIntent from 'Parser/Core/Modules//NetherlightCrucibleTraits/MurderousIntent';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
+import STAT from 'Parser/Core/Modules/Features/STAT';
+import ItemHealingDone from 'Main/ItemHealingDone';
+
 import StatWeights from '../Features/StatWeights';
 
 const VERSATILITY_AMOUNT = 1500;
@@ -31,7 +32,7 @@ class MurderousIntent extends CoreMurderousIntent {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {this.owner.formatItemHealingDone(healing)}
+          <ItemHealingDone amount={healing} />
         </div>
       </div>
     );

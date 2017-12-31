@@ -61,27 +61,41 @@ class VoidTorrent extends Analyzer {
     }
   }
 
+  get suggestionThresholds() {
+    return {
+      actual: this.totalWasted,
+      isGreaterThan: {
+        minor: 0.2,
+        average: 0.5,
+        major: 2,
+      },
+      style: 'seconds',
+    };
+  }
+
   suggestions(when) {
-    when(this.totalWasted).isGreaterThan(0.5)
+    when(this.totalWasted).isGreaterThan(this.suggestionThresholds.average)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You interrupted <SpellLink id={SPELLS.VOID_TORRENT.id} /> early, wasting {formatSeconds(this.totalWasted)} channeling seconds! Try to position yourself & time it so you don't get interrupted due to mechanics.</span>)
           .icon(SPELLS.VOID_TORRENT.icon)
           .actual(`Lost ${formatSeconds(actual)} seconds of Void Torrent.`)
           .recommended('No time wasted is recommended.')
-          .regular(recommended - 0.5).major(recommended - 2);
+          .regular(this.suggestionThresholds.average).major(this.suggestionThresholds.major);
       });
   }
 
   statistic() {
-    return (<StatisticBox
-      icon={<SpellIcon id={SPELLS.VOID_TORRENT.id} />}
-      value={`${formatSeconds(this.totalWasted)} seconds`}
-      label={(
-        <dfn data-tip={'Lost Void Torrent channeling time.'}>
-          Interrupted Void Torrents
-        </dfn>
-      )}
-    />);
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.VOID_TORRENT.id} />}
+        value={`${formatSeconds(this.totalWasted)} seconds`}
+        label={(
+          <dfn data-tip="Lost Void Torrent channeling time.">
+            Interrupted Void Torrents
+          </dfn>
+        )}
+      />
+    );
   }
 
   statisticOrder = STATISTIC_ORDER.CORE(7);

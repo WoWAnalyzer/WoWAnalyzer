@@ -14,7 +14,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 60,
       recommendedEfficiency: 0.9,
-      extraSuggestion: <span><SpellLink id={SPELLS.TITANS_THUNDER.id} /> should always be cast when you have <SpellLink id={SPELLS.DIRE_BEAST_BUFF.id} /> buff up, try to cast it right after using a <SpellLink id={SPELLS.DIRE_BEAST.id} /> for maximum efficiency. If you have <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> talented, you should cast <SpellLink id={SPELLS.TITANS_THUNDER.id} /> on cooldown.</span>,
+      extraSuggestion: <span><SpellLink id={SPELLS.TITANS_THUNDER.id} /> should always be cast when you have <SpellLink id={SPELLS.DIRE_BEAST_BUFF.id} /> buff up, try to cast it right after using a <SpellLink id={SPELLS.DIRE_BEAST.id} /> for maximum efficiency. If you have <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> talented, you should cast <SpellLink id={SPELLS.TITANS_THUNDER.id} /> within <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> so long as you can get off a <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> cast with it while <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> is still up.</span>,
     },
     {
       spell: SPELLS.BESTIAL_WRATH,
@@ -27,6 +27,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.KILL_COMMAND,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 7.5 / (1 + haste),
+      recommendedEfficiency: 0.95,
     },
     {
       spell: SPELLS.COBRA_SHOT,
@@ -39,6 +40,8 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 12 / (1 + haste),
       charges: 2,
       isActive: combatant => !combatant.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
+      //It's recommended to NEVER be capped on charges
+      recommendedEfficiency: 1,
     },
     {
       spell: SPELLS.DIRE_FRENZY_TALENT,
@@ -46,6 +49,8 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 12 / (1 + haste),
       charges: 2,
       isActive: combatant => combatant.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
+      //It's recommended to NEVER be capped on charges
+      recommendedEfficiency: 1,
     },
     {
       spell: SPELLS.MULTISHOT,

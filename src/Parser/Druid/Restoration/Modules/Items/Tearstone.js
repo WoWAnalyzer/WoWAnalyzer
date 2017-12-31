@@ -1,10 +1,11 @@
 import React from 'react';
 
-import Combatants from 'Parser/Core/Modules/Combatants';
-import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 import Rejuvenation from '../Core/Rejuvenation';
 
@@ -57,7 +58,7 @@ class Tearstone extends Analyzer {
 
     // check if this is a rejuv that was casted
     if ((SPELLS.REJUVENATION.id === spellId || SPELLS.REJUVENATION_GERMINATION.id === spellId)
-     && event.targetID === this.rejuvTarget && (event.timestamp - this.rejuvTimestamp) < 200) {
+      && event.targetID === this.rejuvTarget && (event.timestamp - this.rejuvTimestamp) < 200) {
       // "consume" the rejuv cast we were tracking
       this.rejuvTarget = null;
       this.rejuvTimestamp = null;
@@ -79,12 +80,11 @@ class Tearstone extends Analyzer {
       item: ITEMS.TEARSTONE_OF_ELUNE,
       result: (
         <dfn data-tip={`You gained <b>${this.rejuvs} bonus rejuvenations</b>, for a <b>proc rate of ${formatPercentage(procRate)}%</b>.`}>
-          {this.owner.formatItemHealingDone(healing)}
+          <ItemHealingDone amount={healing} />
         </dfn>
       ),
     };
   }
-
 }
 
 export default Tearstone;

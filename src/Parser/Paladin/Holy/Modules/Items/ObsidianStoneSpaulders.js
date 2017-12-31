@@ -1,8 +1,10 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 class ObsidianStoneSpaulders extends Analyzer {
   static dependencies = {
@@ -25,7 +27,7 @@ class ObsidianStoneSpaulders extends Analyzer {
   item() {
     return {
       item: ITEMS.OBSIDIAN_STONE_SPAULDERS,
-      result: this.owner.formatItemHealingDone(this.healing),
+      result: <ItemHealingDone amount={this.healing} />,
     };
   }
 }

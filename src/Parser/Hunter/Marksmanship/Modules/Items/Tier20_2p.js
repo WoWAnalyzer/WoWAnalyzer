@@ -1,15 +1,20 @@
 import React from 'react';
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
+
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import HIT_TYPES from "Parser/Core/HIT_TYPES";
-import { formatPercentage, formatNumber } from "common/format";
-import getDamageBonus from "Parser/Hunter/Shared/Modules/getDamageBonus";
+import { formatPercentage } from 'common/format';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import HIT_TYPES from 'Parser/Core/HIT_TYPES';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 const T20_2P_CRIT_DMG_BONUS = 0.1;
 
+/**
+ * Casting two Aimed Shots in a row increases your critical strike damage by 10% for 6 sec.
+ */
 class Tier20_2p extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -44,7 +49,7 @@ class Tier20_2p extends Analyzer {
       result: (
         <dfn data-tip={`Your utilization of tier 20 2 piece: <ul> <li> Buffed aimed shots: ${this.buffedAimed}.</li> <li> Total aimed shots:  ${this.totalAimed}.</li></ul> `}>
           Buffed Aimed Shots: {formatPercentage(this.buffedAimed / this.totalAimed)}%<br />
-          {formatNumber(this.bonusDmg)} - {this.owner.formatItemDamageDone(this.bonusDmg)}
+          <ItemDamageDone amount={this.bonusDmg} />
         </dfn>
       ),
     };

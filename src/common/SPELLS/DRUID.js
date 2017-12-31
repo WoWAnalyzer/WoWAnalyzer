@@ -496,6 +496,16 @@ export default {
     name: 'Rebirth',
     icon: 'spell_nature_reincarnation',
   },
+  ENTANGLING_ROOTS: {
+    id: 339,
+    name: 'Entangling Roots',
+    icon: 'spell_nature_stranglevines',
+  },
+  REMOVE_CORRUPTION: {
+    id: 2782,
+    name: 'Remove Corruption',
+    icon: 'spell_holy_removecurse',
+  },
   GALACTIC_GUARDIAN: {
     id: 213708,
     name: 'Galactic Guardian',
@@ -602,17 +612,22 @@ export default {
   CELESTIAL_ALIGNMENT: {
     id: 194223,
     name: 'Celestial Alignment',
-    icon: 'artifactability_balancedruid_newmoon',
+    icon: 'spell_nature_natureguardian',
   },
   LUNAR_EMP_BUFF: {
     id: 164547,
     name: 'Lunar Empowement',
-    icon: 'artifactability_balancedruid_newmoon',
+    icon: 'spell_arcane_starfire',
   },
   SOLAR_EMP_BUFF: {
     id: 164545,
     name: 'Celestial Alignment',
-    icon: 'artifactability_balancedruid_newmoon',
+    icon: 'spell_nature_wrathv2',
+  },
+  OWLKIN_FRENZY: {
+    id: 157228,
+    name: 'Owlkin Frenzy',
+    icon: 'ability_druid_owlkinfrenzy',
   },
   EMERALD_DREAMCATCHER_BUFF: {
     id: 224706,
@@ -628,6 +643,11 @@ export default {
     id: 202942,
     name: 'Star Power',
     icon: 'artifactability_balancedruid_moonandstars',
+  },
+  SOLAR_BEAM: {
+    id: 78675,
+    name: 'Solar Beam',
+    icon: 'ability_vehicle_sonicshockwave',
   },
   // Feral
   TIGERS_FURY: {

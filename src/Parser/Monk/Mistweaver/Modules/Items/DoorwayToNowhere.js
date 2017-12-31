@@ -1,8 +1,10 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 const debug = false;
 const DOORWAYACTIVETIME = 15000;
@@ -63,7 +65,7 @@ class DoorwayToNowhere extends Analyzer {
   item() {
     return {
       item: ITEMS.DOORWAY_TO_NOWHERE,
-      result: this.owner.formatItemHealingDone(this.healing),
+      result: <ItemHealingDone amount={this.healing} />,
     };
   }
 }

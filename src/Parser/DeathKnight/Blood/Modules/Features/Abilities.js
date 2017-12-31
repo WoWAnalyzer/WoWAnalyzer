@@ -40,7 +40,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.BLOOD_BOIL,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 7.5 / (1 + haste),
-      recommendedEfficiency: 0.95,
+      recommendedEfficiency: 0.85,
       extraSuggestion: <span>Should be casting it so you have at least one recharging.</span>,
     },
     {

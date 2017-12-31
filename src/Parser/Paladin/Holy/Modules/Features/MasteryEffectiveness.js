@@ -237,32 +237,41 @@ class MasteryEffectiveness extends Analyzer {
     };
   }
 
-  statistic() {
-    const report = this.report;
-    const totalMasteryEffectiveness = report.totalHealingFromMastery / (report.totalMaxPotentialMasteryHealing || 1);
+  get overallMasteryEffectiveness() {
+    return this.report.totalHealingFromMastery / (this.report.totalMaxPotentialMasteryHealing || 1);
+  }
 
+  statisticOrder = STATISTIC_ORDER.CORE(30);
+  statistic() {
     return (
       <StatisticBox
         icon={<img src={MasteryRadiusImage} style={{ border: 0 }} alt="Mastery effectiveness" />}
-        value={`${formatPercentage(totalMasteryEffectiveness)} %`}
+        value={`${formatPercentage(this.overallMasteryEffectiveness)} %`}
         label="Mastery effectiveness"
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(30);
-  suggestions(when) {
-    const report = this.report;
-    const totalMasteryEffectiveness = report.totalHealingFromMastery / (report.totalMaxPotentialMasteryHealing || 1);
 
-    when(totalMasteryEffectiveness).isLessThan(0.75)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by sticking with melee.')
-          .icon('inv_hammer_04')
-          .actual(`${formatPercentage(actual)}% mastery effectiveness`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended - 0.05).major(recommended - 0.15);
-      });
+  get suggestionThresholds() {
+    return {
+      actual: this.overallMasteryEffectiveness,
+      isLessThan: {
+        minor: 0.75,
+        average: 0.7,
+        major: 0.6,
+      },
+      style: 'percentage',
+    };
   }
+  suggestions(when) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest('Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by sticking with melee.')
+        .icon('inv_hammer_04')
+        .actual(`${formatPercentage(actual)}% mastery effectiveness`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
+    });
+  }
+
   tab() {
     return {
       title: 'Mastery effectiveness',

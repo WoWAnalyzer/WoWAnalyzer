@@ -22,21 +22,21 @@ class Tier21_4p extends Analyzer {
     this.active = this.combatants.selected.hasBuff(SPELLS.UNHOLY_DEATH_KNIGHT_T21_4SET_BONUS.id);
   }
 
-  on_byPlayer_cast(event){
+  on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if(spellId !== SPELLS.DEATH_COIL.id){
+    if (spellId !== SPELLS.DEATH_COIL.id) {
       return;
     }
-    this.totalDeathCoilCasts++; 
-    this.isNextNormal = 1;   
+    this.totalDeathCoilCasts++;
+    this.isNextNormal = 1;
   }
 
-  on_byPlayer_damage(event){
+  on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if(spellId !== SPELLS.DEATH_COIL_DAMAGE.id){
+    if (spellId !== SPELLS.DEATH_COIL_DAMAGE.id) {
       return;
     }
-    this.totalDeathCoilDamageEvents++; 
+    this.totalDeathCoilDamageEvents++;
     this.isNextNormal ? this.isNextNormal = 0 : this.freeCastDamage += event.amount + (event.absorbed || 0);
   }
 
@@ -47,9 +47,11 @@ class Tier21_4p extends Analyzer {
       id: `spell-${SPELLS.UNHOLY_DEATH_KNIGHT_T21_4SET_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.UNHOLY_DEATH_KNIGHT_T21_4SET_BONUS.id} />,
       title: <SpellLink id={SPELLS.UNHOLY_DEATH_KNIGHT_T21_4SET_BONUS.id} />,
-      result: <dfn data-tip={tooltipText}>
-        <span>{formatPercentage(freeDeathcoils)} % of Death Coil casts dealt damage a second time</span>
-      </dfn>,
+      result: (
+        <dfn data-tip={tooltipText}>
+          {formatPercentage(freeDeathcoils)} % of Death Coil casts dealt damage a second time
+        </dfn>
+      ),
     };
   }
 }

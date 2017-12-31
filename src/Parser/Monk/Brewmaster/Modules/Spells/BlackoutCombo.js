@@ -28,7 +28,7 @@ class BlackoutCombo extends Analyzer {
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if (SPELLS.BLACKOUT_COMBO_BUFF.id === spellId) {
+    if (spellId === SPELLS.BLACKOUT_COMBO_BUFF.id) {
       debug && console.log('Blackout combo applied');
       this.blackoutComboBuffs += 1;
       this.lastBlackoutComboCast = event.timestamp;
@@ -37,7 +37,7 @@ class BlackoutCombo extends Analyzer {
 
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
-    if (SPELLS.BLACKOUT_COMBO_BUFF.id === spellId) {
+    if (spellId === SPELLS.BLACKOUT_COMBO_BUFF.id) {
       debug && console.log('Blackout combo refreshed');
       this.blackoutComboBuffs += 1;
       this.lastBlackoutComboCast = event.timestamp;

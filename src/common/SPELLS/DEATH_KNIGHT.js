@@ -94,7 +94,7 @@ export default {
 // Buffs
   OSSUARY: {
     id: 219788,
-    name: 'OSSUARY',
+    name: 'Ossuary',
     icon: 'ability_deathknight_brittlebones',
   },
 
@@ -425,6 +425,12 @@ export default {
     icon: 'spell_shadow_unholyfrenzy',
   },
 
+  UNHOLY_STRENGTH_BUFF: {
+	  id: 53365,
+	  name: 'Unholy Strength',
+	  icon: 'spell_holy_blessingofstrength',
+  },
+
   // Unholy Tier Sets
   // T20 2 Piece and buff
   UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS: {
@@ -568,6 +574,12 @@ export default {
   },
 
   COLD_HEART_BUFF: {
+    id: 235599,
+    name: 'Cold Heart',
+    icon: 'spell_frost_chainsofice',
+  },
+
+  COLD_HEART_DEBUFF: {
     id: 248397,
     name: 'Cold Heart',
     icon: 'spell_frost_chainsofice',

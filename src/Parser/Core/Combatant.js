@@ -84,6 +84,8 @@ class Combatant extends Entity {
         return 0.24 + this.masteryRating / 13333.3333333;
       case SPECS.ENHANCEMENT_SHAMAN:
         return 0.2 + this.masteryRating / 13333.3333333;
+      case SPECS.ELEMENTAL_SHAMAN:
+        return 0.15 + this.masteryRating / 23333.3333333;
       case SPECS.RESTORATION_DRUID:
         return 0.048 + this.masteryRating / 66666.6666666;
       case SPECS.FROST_MAGE:
@@ -92,6 +94,8 @@ class Combatant extends Entity {
         return 0.06 + this.masteryRating / 53333.3333333;
       case SPECS.RETRIBUTION_PALADIN:
         return 0.14 + this.masteryRating / 22850;
+      case SPECS.PROTECTION_PALADIN:
+        return 0.08 + this.masteryRating / 40000;
       case SPECS.MARKSMANSHIP_HUNTER:
         return 0.05 + this.masteryRating / 64000;
       case SPECS.SUBTLETY_ROGUE:
@@ -102,6 +106,8 @@ class Combatant extends Entity {
         return 0.18 + this.masteryRating / 17776;
       case SPECS.MISTWEAVER_MONK:
         return 1.04 + this.masteryRating / 3076.96;
+      case SPECS.FURY_WARRIOR:
+        return 0.11 + this.masteryRating / 28430;
       default:
         throw new Error('Mastery hasn\'t been implemented for this spec yet.');
     }
@@ -184,7 +190,7 @@ class Combatant extends Entity {
     return this._getTalent(TALENT_ROWS.LV100);
   }
   hasTalent(spellId) {
-    return Object.keys(this._talentsByRow).find(row => this._talentsByRow[row] === spellId);
+    return !!Object.keys(this._talentsByRow).find(row => this._talentsByRow[row] === spellId);
   }
   // endregion
 
@@ -206,6 +212,9 @@ class Combatant extends Entity {
   }
   _getGearItemBySlotId(slotId) {
     return this._gearItemsBySlotId[slotId];
+  }
+  get gear() {
+    return Object.values(this._gearItemsBySlotId);
   }
   get head() {
     return this._getGearItemBySlotId(GEAR_SLOTS.HEAD);

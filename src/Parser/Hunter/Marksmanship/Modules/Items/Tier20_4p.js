@@ -1,11 +1,15 @@
 import React from 'react';
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
+
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage } from "common/format";
+import { formatPercentage } from 'common/format';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
+/**
+ * Aimed Shot reduces the cast time of your next Aimed Shot by 8% and reduces its Focus cost by 8%.
+ */
 class Tier20_4p extends Analyzer {
   static dependencies = {
     combatants: Combatants,

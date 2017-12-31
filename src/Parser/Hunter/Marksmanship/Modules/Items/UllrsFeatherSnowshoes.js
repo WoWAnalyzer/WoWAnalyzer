@@ -1,13 +1,13 @@
 import React from 'react';
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import SpellUsable from 'Parser/Core/Modules/SpellUsable';
+
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-
-import { formatNumber } from "common/format";
-import SpellLink from "common/SpellLink";
+import SpellLink from 'common/SpellLink';
+import { formatNumber } from 'common/format';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const COOLDOWN_REDUCTION_MS = 800;
 
@@ -16,8 +16,13 @@ const AFFECTED_ABILITIES = [
   SPELLS.MARKED_SHOT.id,
   SPELLS.ARCANE_SHOT.id,
   SPELLS.MULTISHOT.id,
+  SPELLS.SIDEWINDERS_TALENT.id,
+  SPELLS.BURSTING_SHOT.id,
 ];
 
+/*
+ * Equip: The remaining cooldown on Trueshot is reduced by 0.8 sec each time you cast a damaging Shot.
+ */
 class UllrsFeatherSnowshoes extends Analyzer {
   static dependencies = {
     combatants: Combatants,
