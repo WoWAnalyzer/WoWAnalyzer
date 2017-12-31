@@ -362,7 +362,7 @@ class BaseHealerStatValues extends Analyzer {
                 <tr>
                   <th style={{ minWidth: 30 }}><b>Stat</b></th>
                   <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Normalized so Intellect is always 1.00. Hover to see the amount of healing 1 rating resulted in."><b>Value</b></dfn></th>
-                  <th className="text-right" style={{ minWidth: 30 }}>HPS per 1,000</th>
+                  <th className="text-right" style={{ minWidth: 30 }}>HPS per rating</th>
                   <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Amount of stat rating required to increase your total healing by 1%"><b>Rating per 1%</b></dfn></th>
                 </tr>
               </thead>
@@ -392,7 +392,7 @@ class BaseHealerStatValues extends Analyzer {
                         {stat === STAT.HASTE_HPCT && '0.00 - '}{gain !== null ? weight.toFixed(2) : 'NYI'}
                       </td>
                       <td className="text-right">
-                        {formatThousands(gain / this.owner.fightDuration * 1000 * 1000)}
+                        {(gain / this.owner.fightDuration * 1000).toFixed(2)}
                       </td>
                       <td className="text-right">{gain !== null ? (
                         ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)
