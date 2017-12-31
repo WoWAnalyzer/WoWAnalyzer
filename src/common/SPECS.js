@@ -1,7 +1,6 @@
 import indexById from './indexById';
 
 import ROLES from './ROLES';
-import SPELLS from './SPELLS';
 import PRIMARY_STATS from './PRIMARY_STATS';
 
 const SPECS = {
