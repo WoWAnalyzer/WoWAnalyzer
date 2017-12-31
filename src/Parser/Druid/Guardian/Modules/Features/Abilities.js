@@ -18,7 +18,7 @@ const T19_2SET_CHANCE = 0.1;
 // The  amount of time after a proc has occurred when casting a filler is no longer acceptable
 const REACTION_TIME_THRESHOLD = 500;
 
-const hastedCooldown = baseCD => haste => (baseCD / (1 + haste));
+const hastedCooldown = (baseCD, haste) => (baseCD / (1 + haste));
 
 class Abilities extends CoreAbilities {
   static ABILITIES = [
@@ -32,7 +32,7 @@ class Abilities extends CoreAbilities {
           return null;
         }
 
-        return hastedCooldown(6)(haste);
+        return hastedCooldown(6, haste);
       },
 
       isOnGCD: true,
@@ -76,7 +76,7 @@ class Abilities extends CoreAbilities {
           return null;
         }
 
-        return hastedCooldown(6)(haste);
+        return hastedCooldown(6, haste);
       },
 
       isOnGCD: true,
