@@ -49,6 +49,24 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.TOME_OF_UNRAVELING_SANITY.id,
       crit: (_, item) => calculateSecondaryStatDefault(910, 2756, item.itemLevel),
     },
+    [SPELLS.BRUTALITY_OF_THE_LEGION.id]: {
+      itemId: ITEMS.ACRID_CATALYST_INJECTOR.id,
+      crit: (_, item) => calculateSecondaryStatDefault(955, 210, item.itemLevel),
+    },
+    [SPELLS.FERVOR_OF_THE_LEGION.id]: {
+      itemId: ITEMS.ACRID_CATALYST_INJECTOR.id,
+      haste: (_, item) => calculateSecondaryStatDefault(955, 210, item.itemLevel),
+    },
+    [SPELLS.MALICE_OF_THE_LEGION.id]: {
+      itemId: ITEMS.ACRID_CATALYST_INJECTOR.id,
+      mastery: (_, item) => calculateSecondaryStatDefault(955, 210, item.itemLevel),
+    },
+    [SPELLS.CYCLE_OF_THE_LEGION.id]: {
+      itemId: ITEMS.ACRID_CATALYST_INJECTOR.id,
+      crit: (_, item) => calculateSecondaryStatDefault(955, 2397, item.itemLevel),
+      haste: (_, item) => calculateSecondaryStatDefault(955, 2397, item.itemLevel),
+      mastery: (_, item) => calculateSecondaryStatDefault(955, 2397, item.itemLevel),
+    },
     // endregion
 
     // region Misc
