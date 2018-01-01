@@ -26,7 +26,7 @@ class Checklist extends CoreChecklist {
       ),
       description: (
         <Wrapper>
-          <SpellLink id={SPELLS.STAGGER.id} /> is our main damage mitigation tool. <SpellLink id={SPELLS.IRONSKIN_BREW.id} icon /> increases the amount of damage that we can mitigate with Stagger while active. It is possible to maintain 100% uptime without reaching any particular haste threshold due to the cooldown reduction applied by <SpellLink id={SPELLS.KEG_SMASH.id} icon /> and <SpellLink id={SPELLS.TIGER_PALM.id} icon />. If you are having difficulty maintaining your buff, you may need to improve your cast efficiency or reduce the amount of purification you are doing.
+          <SpellLink id={SPELLS.STAGGER.id} icon /> is our main damage mitigation tool. <SpellLink id={SPELLS.IRONSKIN_BREW.id} icon /> increases the amount of damage that we can mitigate with Stagger while active. It is possible to maintain 100% uptime without reaching any particular haste threshold due to the cooldown reduction applied by <SpellLink id={SPELLS.KEG_SMASH.id} icon /> and <SpellLink id={SPELLS.TIGER_PALM.id} icon />. If you are having difficulty maintaining your buff you may need to improve your cast efficiency or reduce the amount of purification you are doing.
         </Wrapper>
       ),
       requirements: () => {
@@ -46,7 +46,7 @@ class Checklist extends CoreChecklist {
       ),
       description: (
         <Wrapper>
-          <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> provides a 4-7% damage reduction through the <SpellLink id={SPELLS.HOT_BLOODED.id} /> trait. It is possible to maintain 100% uptime on this debuff both with and without <ItemLink id={ITEMS.SALSALABIMS_LOST_TUNIC.id} />.
+          <SpellLink id={SPELLS.BREATH_OF_FIRE.id} icon /> provides a 4-7% damage reduction through the <SpellLink id={SPELLS.HOT_BLOODED.id} icon /> trait. It is possible to maintain 100% uptime on this debuff both with and without <ItemLink id={ITEMS.SALSALABIMS_LOST_TUNIC.id} icon  />.
         </Wrapper>
       ),
       requirements: () => {
