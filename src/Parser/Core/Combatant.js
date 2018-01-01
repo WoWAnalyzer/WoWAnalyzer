@@ -86,6 +86,8 @@ class Combatant extends Entity {
         return 0.2 + this.masteryRating / 13333.3333333;
       case SPECS.ELEMENTAL_SHAMAN:
         return 0.15 + this.masteryRating / 23333.3333333;
+      case SPECS.GUARDIAN_DRUID:
+        return 0.04 + this.masteryRating / 40000;
       case SPECS.RESTORATION_DRUID:
         return 0.048 + this.masteryRating / 66666.6666666;
       case SPECS.FROST_MAGE:
