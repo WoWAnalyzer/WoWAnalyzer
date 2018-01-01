@@ -27,7 +27,7 @@ class SpellTimeline extends React.PureComponent {
     super();
     this.handleMouseWheel = this.handleMouseWheel.bind(this);
     this.state = {
-      zoom: 1,
+      zoom: 2,
     };
   }
 
@@ -72,7 +72,7 @@ class SpellTimeline extends React.PureComponent {
     const duration = end - start;
     const seconds = Math.ceil(duration / 1000);
 
-    const secondWidth = 40 / this.state.zoom;
+    const secondWidth = 80 / this.state.zoom;
     const skipInterval = Math.ceil(40 / secondWidth);
 
     // 9 for the scrollbar height
@@ -89,7 +89,7 @@ class SpellTimeline extends React.PureComponent {
         <div className="flex-sub legend">
           <div className="lane ruler-lane">
             <div className="btn-group">
-              {[1, 2, 3, 5].map(zoom => (
+              {[1, 2, 3, 5, 10].map(zoom => (
                 <button key={zoom} className={`btn btn-default btn-xs ${zoom === this.state.zoom ? 'active' : ''}`} onClick={() => this.setState({ zoom })}>{zoom}x</button>
               ))}
             </div>

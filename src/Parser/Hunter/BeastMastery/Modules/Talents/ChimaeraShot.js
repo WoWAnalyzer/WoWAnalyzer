@@ -4,9 +4,9 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 class ChimaeraShot extends Analyzer {
-
   static dependencies = {
     combatants: Combatants,
   };
@@ -26,20 +26,18 @@ class ChimaeraShot extends Analyzer {
   }
 
   subStatistic() {
-    if (this.damage > 0) {
-      return (
-        <div className="flex">
-          <div className="flex-main">
-            <SpellLink id={SPELLS.CHIMAERA_SHOT_TALENT.id}>
-              <SpellIcon id={SPELLS.CHIMAERA_SHOT_TALENT.id} noLink /> Chimaera Shot
-            </SpellLink>
-          </div>
-          <div className="flex-sub text-right">
-            {(this.owner.formatItemDamageDone(this.damage))}
-          </div>
+    return (
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.CHIMAERA_SHOT_TALENT.id}>
+            <SpellIcon id={SPELLS.CHIMAERA_SHOT_TALENT.id} noLink /> Chimaera Shot
+          </SpellLink>
         </div>
-      );
-    }
+        <div className="flex-sub text-right">
+          <ItemDamageDone amount={this.damage} />
+        </div>
+      </div>
+    );
   }
 }
 

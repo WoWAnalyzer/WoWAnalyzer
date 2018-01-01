@@ -6,6 +6,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 class Tier21_2p extends Analyzer {
   static dependencies = {
@@ -31,7 +32,7 @@ class Tier21_2p extends Analyzer {
       id: `spell-${SPELLS.UNHOLY_DEATH_KNIGHT_T21_2SET_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.UNHOLY_DEATH_KNIGHT_T21_2SET_BONUS.id} />,
       title: <SpellLink id={SPELLS.UNHOLY_DEATH_KNIGHT_T21_2SET_BONUS.id} />,
-      result: this.owner.formatItemDamageDone(this.damage),
+      result: <ItemDamageDone amount={this.damage} />,
     };
   }
 }

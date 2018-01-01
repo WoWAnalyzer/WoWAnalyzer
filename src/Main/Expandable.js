@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactTooltip from 'react-tooltip';
 
 class Expandable extends React.PureComponent {
   static propTypes = {
@@ -19,6 +20,9 @@ class Expandable extends React.PureComponent {
     this.setState({
       expanded: !this.state.expanded,
     });
+  }
+  componentDidUpdate() {
+    ReactTooltip.rebuild();
   }
 
   render() {

@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
-import CoreDrapeOfShame, { DRAPE_OF_SHAME_CRIT_EFFECT } from 'Parser/Core/Modules/Items/DrapeOfShame';
+import CoreDrapeOfShame, { DRAPE_OF_SHAME_CRIT_EFFECT } from 'Parser/Core/Modules/Items/Legion/DrapeOfShame';
 
 class DrapeOfShame extends CoreDrapeOfShame {
   on_byPlayer_heal(event) {

@@ -2,7 +2,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import { formatMilliseconds } from 'common/format';
 import CASTS_THAT_ARENT_CASTS from 'Parser/Core/CASTS_THAT_ARENT_CASTS';
 
-const debug = true;
+const debug = false;
 
 class Channeling extends Analyzer {
   _currentChannel = null;
