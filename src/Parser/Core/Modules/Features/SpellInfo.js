@@ -72,6 +72,27 @@ export default {
     mastery: false,
     vers: true,
   },
+  [SPELLS.XAVARICS_MAGNUM_OPUS.id]: { // Prydaz
+    int: false,
+    crit: false,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
+  [SPELLS.HEALTHSTONE.id]: {
+    int: false,
+    crit: false,
+    hasteHpct: false,
+    mastery: false,
+    vers: false, // not 100% sure
+  },
+  [SPELLS.MARK_OF_THE_ANCIENT_PRIESTESS.id]: {
+    int: false,
+    crit: true,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
   //TODO: Add Shadowbind, it scales from the crit on the damage part
 
 };
