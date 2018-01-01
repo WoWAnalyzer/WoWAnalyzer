@@ -74,7 +74,7 @@ class DireBeast extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
+  statisticOrder = STATISTIC_ORDER.CORE(5);
 
   get badDireBeastThreshold() {
     return {

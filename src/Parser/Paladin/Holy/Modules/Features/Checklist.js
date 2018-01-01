@@ -6,7 +6,9 @@ import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 
-import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist';
+import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
+import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
@@ -245,51 +247,7 @@ class Checklist extends CoreChecklist {
         ];
       },
     }),
-    new Rule({
-      name: 'Be well prepared',
-      description: 'Being well prepared with potions, enchants and legendaries is an easy way to improve your performance.',
-      // For this rule it wouldn't make sense for the bar to be completely green when just 1 of the requirements failed, showing the average instead of median takes care of that properly.
-      performanceMethod: 'average',
-      requirements: () => {
-        return [
-          new Requirement({
-            name: 'All legendaries upgraded to max item level',
-            check: () => ({
-              actual: this.legendaryUpgradeChecker.upgradedLegendaries.length,
-              isLessThan: this.legendaryCountChecker.max,
-              style: 'number',
-            }),
-          }),
-          new Requirement({
-            name: 'Used max possible legendaries',
-            check: () => ({
-              actual: this.legendaryCountChecker.equipped,
-              isLessThan: this.legendaryCountChecker.max,
-              style: 'number',
-            }),
-          }),
-          new Requirement({
-            name: 'Used a pre-potion',
-            check: () => this.prePotion.prePotionSuggestionThresholds,
-          }),
-          new Requirement({
-            name: 'Used a second potion',
-            check: () => this.prePotion.secondPotionSuggestionThresholds,
-          }),
-          new Requirement({
-            name: 'Gear has best enchants',
-            check: () => {
-              const numEnchantableSlots = Object.keys(this.enchantChecker.enchantableGear).length;
-              return {
-                actual: numEnchantableSlots - (this.enchantChecker.slotsMissingEnchant.length + this.enchantChecker.slotsMissingMaxEnchant.length),
-                isLessThan: numEnchantableSlots,
-                style: 'number',
-              };
-            },
-          }),
-        ];
-      },
-    }),
+    new PreparationRule(),
     new Rule({
       name: 'Avoid overhealing',
       description: 'Pick the right targets when healing and use the right abilities at the right time. While overhealing still transfers to your beacons, it\'s still inefficient. Overhealing might be unavoidable when there\'s not a lot of damage taken (such as in normal mode) or when bringing too many healers.',

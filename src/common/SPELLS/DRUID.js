@@ -181,7 +181,7 @@ export default {
     name: 'Swipe',
     icon: 'inv_misc_monsterclaw_03',
   },
-  BEAR_SWIPE: {
+  SWIPE_BEAR: {
     id: 213771,
     name: 'Swipe',
     icon: 'inv_misc_monsterclaw_03',
@@ -649,7 +649,7 @@ export default {
     name: 'Owlkin Frenzy',
     icon: 'ability_druid_owlkinfrenzy',
   },
-  EMERALD_DREAMCATCHER_BUFF: {
+  THE_EMERALD_DREAMCATCHER: {
     id: 224706,
     name: 'The Emerald Dreamcatcher',
     icon: 'inv_helmet_81',
