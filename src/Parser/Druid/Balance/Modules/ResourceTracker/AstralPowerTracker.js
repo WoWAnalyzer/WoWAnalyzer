@@ -1,7 +1,6 @@
 import Combatants from 'Parser/Core/Modules/Combatants';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
-
-import ResourceTracker from 'Parser/Rogue/Subtlety/Modules/ResourceTracker/ResourceTracker';
+import ResourceTracker from 'Parser/Core/Modules/ResourceTracker/ResourceTracker';
 
 class AstralPowerTracker extends ResourceTracker {
   static dependencies = {

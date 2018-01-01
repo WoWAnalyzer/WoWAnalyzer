@@ -10,8 +10,8 @@ import Wrapper from 'common/Wrapper';
 
 import ComboPointTracker from './ComboPointTracker';
 
-import ResourceBreakdown from '../ResourceTracker/ResourceBreakdown';
-import resourceSuggest from '../ResourceTracker/ResourceSuggest';
+import ResourceBreakdown from 'Parser/Core/Modules/ResourceTracker/ResourceBreakdown';
+import resourceSuggest from 'Parser/Core/Modules/ResourceTracker/ResourceSuggest';
 
 class ComboPointDetails extends Analyzer {
   static dependencies = {

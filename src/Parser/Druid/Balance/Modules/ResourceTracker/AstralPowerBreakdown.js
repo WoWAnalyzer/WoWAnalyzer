@@ -1,4 +1,4 @@
-import ResourceBreakdown from 'Parser/Rogue/Subtlety/Modules/ResourceTracker/ResourceBreakdown';
+import ResourceBreakdown from 'Parser/Core/Modules/ResourceTracker/ResourceBreakdown';
 
 class AstralPowerBreakdown extends ResourceBreakdown {
 
