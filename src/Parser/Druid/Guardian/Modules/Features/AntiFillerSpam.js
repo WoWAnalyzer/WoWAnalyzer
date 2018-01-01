@@ -5,19 +5,17 @@ import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
-import StatisticBox from 'Main/StatisticBox';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import Abilities from './Abilities';
+import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
+import StatisticBox from 'Main/StatisticBox';
 
+import Abilities from '../Abilities';
 import ActiveTargets from './ActiveTargets';
 
 const debug = false;
-
-const gcdSpells = Abilities.ABILITIES.filter(spell => spell.isOnGCD);
 
 // Determines whether a variable is a function or not, and returns its value
 function resolveValue(maybeFunction, ...args) {
@@ -34,6 +32,7 @@ class AntiFillerSpam extends Analyzer {
     enemyInstances: EnemyInstances,
     activeTargets: ActiveTargets,
     spellUsable: SpellUsable,
+    globalCooldown: GlobalCooldown,
   };
 
   abilityLastCasts = {};
@@ -43,7 +42,7 @@ class AntiFillerSpam extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellID = event.ability.guid;
-    const spell = gcdSpells.find(spell => spell.spell.id === spellID);
+    const spell = this.globalCooldown.abilitiesOnGlobalCooldown.find(spell => spell.spell.id === spellID);
     if (!spell) {
       return;
     }
@@ -65,7 +64,7 @@ class AntiFillerSpam extends Analyzer {
     this._totalFillerSpells += 1;
 
     const availableSpells = [];
-    gcdSpells.forEach((gcdSpell) => {
+    this.globalCooldown.abilitiesOnGlobalCooldown.forEach((gcdSpell) => {
       if (spell === gcdSpell) {
         return;
       }

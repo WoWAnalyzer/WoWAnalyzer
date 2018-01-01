@@ -87,8 +87,6 @@ In `src/Parser/CLASS/SPECIALIZATION/Modules/Features`, create or edit the `Abili
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
-/* eslint-disable no-unused-vars */
-
 class Abilities extends CoreAbilities {
   static ABILITIES = [
     ...CoreAbilitiesy.ABILITIES,
@@ -96,14 +94,13 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.SPELL_NAME,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 120,
+      cooldown: 120,
     },
 
     // Second category
     {
       spell: SPELLS.SPELL_NAME_2,
       category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => null,
     },
   ];
 }
@@ -122,13 +119,13 @@ import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 The spell categories appear in the tab in the same order as the [CoreAbilities](../src/Parser/Core/Modules/Abilities.js) SPELL_CATEGORIES. Within each category, the spells appear in order as entered in the code.
 
-`spell: ` & `getCooldown: ` are required for the page to load without errors. `category: ` is additionally required for the spell to appear in the Cast Efficiency tab. A full list of available properties are commented in the beginning of the [Ability](../src/Parser/Core/Modules/Ability.js) class and are generally self-explanatory.
+`spell: ` & `cooldown: ` are required for the page to load without errors. `category: ` is additionally required for the spell to appear in the Cast Efficiency tab. A full list of available properties are commented in the beginning of the [Ability](../src/Parser/Core/Modules/Ability.js) class and are generally self-explanatory.
 
-### getCooldown
+### cooldown
 This property can be set a number of ways. Simply, the property lists the length of the cooldown in seconds.
-* **No cooldown**:  `haste => null,`
+* **No cooldown**: `cooldown` can be omitted
     * Example: [FIREBALL](../src/Parser/Mage/Fire/Modules/Features/Abilities.js)
-* **Static cooldown**:  `haste => 120,`
+* **Static cooldown**:  `120,`
     * Example: [SOUL_HARVEST](../src/Parser/Warlock/Affliction/Modules/Features/Abilities.js)
 * **Hasted cooldown**: `haste => 15 / (1 + haste),`
     * Example: [DEMON_SPIKES](../src/Parser/DemonHunter/Vengeance/Modules/Features/Abilities.js)

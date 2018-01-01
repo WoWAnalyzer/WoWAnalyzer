@@ -22,9 +22,6 @@ class Abilities extends Analyzer {
     HEALER_DAMAGING_SPELL: 'Damaging Spell',
   };
 
-  // TODO: Remove this
-  static ABILITIES = [];
-
   /**
    * This will be called *once* during initialization. See the Ability class for the available properties. This should contain ALL spells available to a player of your spec, including utility such as interrupts, dispells, etc
    * @returns {object[]}

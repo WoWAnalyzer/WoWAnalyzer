@@ -11,14 +11,15 @@ import Wrapper from 'common/Wrapper';
 
 class Abilities extends CoreAbilities {
   spellbook() {
+    const combatant = this.combatants.selected;
     return [
       {
         spell: SPELLS.HOLY_SHOCK_CAST,
         name: 'BOOM', // TODO: Remvoe this when done with testing
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => {
-          const hasSanctifiedWrath = this.combatants.selected.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id);
-          const cdr = hasSanctifiedWrath && this.combatants.selected.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.5 : 0;
+          const hasSanctifiedWrath = combatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id);
+          const cdr = hasSanctifiedWrath && combatant.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.5 : 0;
           return 9 / (1 + haste) * (1 - cdr);
         },
         isOnGCD: true,
@@ -32,7 +33,7 @@ class Abilities extends CoreAbilities {
         name: 'FWOOSH', // TODO: Remvoe this when done with testing
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         // Item - Paladin T20 Holy 2P Bonus: Reduces the cooldown of Light of Dawn by 2.0 sec.
-        cooldown: haste => (12 - (this.combatants.selected.hasBuff(SPELLS.HOLY_PALADIN_T20_2SET_BONUS_BUFF.id) ? 2 : 0)) / (1 + haste),
+        cooldown: haste => (12 - (combatant.hasBuff(SPELLS.HOLY_PALADIN_T20_2SET_BONUS_BUFF.id) ? 2 : 0)) / (1 + haste),
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
@@ -53,7 +54,7 @@ class Abilities extends CoreAbilities {
           ),
           recommendedEfficiency: 0.85, // this rarely overheals, so keeping this on cooldown is pretty much always best
         },
-        enabled: this.combatants.selected.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id) || this.combatants.selected.hasFinger(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id),
+        enabled: combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id) || combatant.hasFinger(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id),
       },
       {
         spell: SPELLS.BESTOW_FAITH_TALENT,
@@ -69,21 +70,21 @@ class Abilities extends CoreAbilities {
             </Wrapper>
           ),
         },
-        enabled: this.combatants.selected.hasTalent(SPELLS.BESTOW_FAITH_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT.id),
       },
       {
         spell: SPELLS.LIGHTS_HAMMER_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,
         isOnGCD: true,
-        enabled: this.combatants.selected.hasTalent(SPELLS.LIGHTS_HAMMER_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.LIGHTS_HAMMER_TALENT.id),
       },
       {
         spell: SPELLS.BEACON_OF_VIRTUE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 15,
         isOnGCD: true,
-        enabled: this.combatants.selected.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id),
       },
       {
         spell: SPELLS.CRUSADER_STRIKE,
@@ -100,21 +101,21 @@ class Abilities extends CoreAbilities {
           ),
           recommendedEfficiency: 0.35,
         },
-        enabled: this.combatants.selected.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id),
       },
       {
         spell: SPELLS.HOLY_PRISM_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 20,
         isOnGCD: true,
-        enabled: this.combatants.selected.hasTalent(SPELLS.HOLY_PRISM_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.HOLY_PRISM_TALENT.id),
       },
       {
         spell: SPELLS.RULE_OF_LAW_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 30,
         charges: 2,
-        enabled: this.combatants.selected.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id),
       },
       {
         spell: SPELLS.DIVINE_PROTECTION,
@@ -148,7 +149,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HOLY_AVENGER_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
-        enabled: this.combatants.selected.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id),
       },
       {
         spell: SPELLS.AVENGING_WRATH,
@@ -168,7 +169,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LAY_ON_HANDS,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 600 * (1 - (this.combatants.selected.traitsBySpellId[SPELLS.FOCUSED_HEALING.id] || 0) * 0.1),
+        cooldown: 600 * (1 - (combatant.traitsBySpellId[SPELLS.FOCUSED_HEALING.id] || 0) * 0.1),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.1,
@@ -186,7 +187,6 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
         castEfficiency: {
           name: `Filler ${SPELLS.FLASH_OF_LIGHT.name}`,
-          suggestion: false,
           casts: castCount => (castCount.casts || 0) - (castCount.healingIolHits || 0),
         },
       },
@@ -197,7 +197,6 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
         castEfficiency: {
           name: `${SPELLS.INFUSION_OF_LIGHT.name} ${SPELLS.FLASH_OF_LIGHT.name}`,
-          suggestion: false,
           casts: castCount => castCount.healingIolHits || 0,
         },
       },
@@ -207,7 +206,6 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
         castEfficiency: {
           name: `Filler ${SPELLS.HOLY_LIGHT.name}`,
-          suggestion: false,
           casts: castCount => (castCount.casts || 0) - (castCount.healingIolHits || 0),
         },
       },
@@ -217,7 +215,6 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
         castEfficiency: {
           name: `${SPELLS.INFUSION_OF_LIGHT.name} ${SPELLS.HOLY_LIGHT.name}`,
-          suggestion: false,
           casts: castCount => castCount.healingIolHits || 0,
         },
       },
@@ -225,7 +222,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DIVINE_STEED,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
-        enabled: !this.combatants.selected.hasTalent(SPELLS.CAVALIER_TALENT.id),
+        enabled: !combatant.hasTalent(SPELLS.CAVALIER_TALENT.id),
         isOnGCD: true,
       },
       {
@@ -233,7 +230,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
         charges: 2,
-        enabled: this.combatants.selected.hasTalent(SPELLS.CAVALIER_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.CAVALIER_TALENT.id),
         isOnGCD: true,
       },
       {
@@ -259,21 +256,21 @@ class Abilities extends CoreAbilities {
         spell: [SPELLS.BEACON_OF_THE_LIGHTBRINGER_TALENT, SPELLS.BEACON_OF_LIGHT_CAST_AND_HEAL],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
-        enabled: this.combatants.selected.hasTalent(SPELLS.BEACON_OF_THE_LIGHTBRINGER_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.BEACON_OF_THE_LIGHTBRINGER_TALENT.id),
       },
       {
         // The primary beacon cast is registered as BEACON_OF_LIGHT_CAST_AND_HEAL
         spell: [SPELLS.BEACON_OF_FAITH_TALENT, SPELLS.BEACON_OF_LIGHT_CAST_AND_HEAL],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
-        enabled: this.combatants.selected.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id),
       },
       {
         spell: SPELLS.CRUSADER_STRIKE,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
         cooldown: haste => 4.5 / (1 + haste),
         charges: 2,
-        enabled: !this.combatants.selected.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id),
+        enabled: !combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id),
         isOnGCD: true,
       },
       {
@@ -286,7 +283,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLINDING_LIGHT_TALENT,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
         cooldown: 90,
-        enabled: this.combatants.selected.hasTalent(SPELLS.BLINDING_LIGHT_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.BLINDING_LIGHT_TALENT.id),
         isOnGCD: true,
       },
       {

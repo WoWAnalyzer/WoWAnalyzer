@@ -1,7 +1,7 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
-import Abilities from './Modules/Features/Abilities';
+import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import ColossusSmashUptime from './Modules/BuffDebuff/ColossusSmashUptime';
@@ -14,9 +14,9 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // WarriorCore
     damageDone: [DamageDone, {showStatistic: true}],
+    abilities: Abilities,
 
     // Features
-    abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     colossusSmashUptime: ColossusSmashUptime,

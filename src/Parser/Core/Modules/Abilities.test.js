@@ -54,13 +54,13 @@ describe('Core/Modules/Abilities', () => {
     it('ignores inactive spells', () => {
       const activeHolyShock = {
         spell: SPELLS.HOLY_SHOCK_CAST,
-        cooldown: () => 8,
+        cooldown: 8,
         enabled: true,
       };
       loadSpellbook([
         {
           spell: SPELLS.HOLY_SHOCK_CAST,
-          cooldown: () => 9,
+          cooldown: 9,
           enabled: false,
         },
         activeHolyShock,

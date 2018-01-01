@@ -10,8 +10,7 @@ import PropTypes from 'prop-types';
  * optional enabled {func} Whether the spell is enabled (available to the player) and should be displayed. This should only be used for hiding spells that are unavailable, for example due to talents. If you have a spell behaving differently with a legendary for example, you can also add that spell twice and use this property to toggle the one applicable. Parameters provided: `selectedCombatant`
  * optional charges {number} The amount of charges the spell has by default.
  * optional recommendedEfficiency {number} The custom recommended cast efficiency. Default is 80% (0.8).
- * optional noCanBeImproved {bool} If this is set to `true`, the Cast Efficiency tab won't show a "can be improved" next to a spell.
- * optional noSuggestion {bool} If this is set to `true`, this spell will not trigger a suggestion.
+ * optional suggestion {bool} If this is set to `true`, this spell will trigger a suggestion.
  * optional extraSuggestion {string} Provide additional information in the suggestion.
  *
  * Rarely necessary:
