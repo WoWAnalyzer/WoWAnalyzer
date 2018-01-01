@@ -78,7 +78,7 @@ class GlobalCooldown extends Analyzer {
       type: 'globalcooldown',
       ability: event.ability,
       timestamp: event.timestamp,
-      duration: this.getCurrentGlobalCooldown(event.ability.id),
+      duration: this.getCurrentGlobalCooldown(event.ability.guid),
       reason: event,
       trigger,
     });

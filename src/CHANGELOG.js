@@ -9,13 +9,18 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2017-12-31'),
+    changes: 'Changed the way Mastery percentage is calculated and implemented the coefficients for all specs. Let us know if Mastery still doesn\'t match the character pane.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2017-12-30'),
-    changes: <Wrapper>Added icons indicating the stat type to most item stats.</Wrapper>,
+    changes: 'Added icons indicating the stat type to most item stats.',
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-12-27'),
-    changes: <Wrapper>Added Death Tracking to the parser</Wrapper>,
+    changes: 'Added Death Tracking to the parser.',
     contributors: [Sharrq],
   },
   {

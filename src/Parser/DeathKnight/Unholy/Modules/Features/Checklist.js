@@ -6,7 +6,9 @@ import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
 
-import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist';
+import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
+import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
@@ -121,49 +123,7 @@ class Checklist extends CoreChecklist {
         ];
       },
     }),
-    new Rule({
-      name: 'Be well prepared',
-      description: 'Being well prepared with potions, enchants and legendaries is an easy way to improve your performance.',
-      requirements: () => {
-        return [
-          new Requirement({
-            name: 'All legendaries upgraded to max item level',
-            check: () => ({
-              actual: this.legendaryUpgradeChecker.upgradedLegendaries.length,
-              isLessThan: this.legendaryCountChecker.max,
-              style: 'number',
-            }),
-          }),
-          new Requirement({
-            name: 'Used max possible legendaries',
-            check: () => ({
-              actual: this.legendaryCountChecker.equipped,
-              isLessThan: this.legendaryCountChecker.max,
-              style: 'number',
-            }),
-          }),
-          new Requirement({
-            name: 'Used a pre-potion',
-            check: () => this.prePotion.prePotionSuggestionThresholds,
-          }),
-          new Requirement({
-            name: 'Used a second potion',
-            check: () => this.prePotion.secondPotionSuggestionThresholds,
-          }),
-          new Requirement({
-            name: 'Gear has best enchants',
-            check: () => {
-              const numEnchantableSlots = Object.keys(this.enchantChecker.enchantableGear).length;
-              return {
-                actual: numEnchantableSlots - (this.enchantChecker.slotsMissingEnchant.length + this.enchantChecker.slotsMissingMaxEnchant.length),
-                isLessThan: numEnchantableSlots,
-                style: 'number',
-              };
-            },
-          }),
-        ];
-      },
-    }),
+    new PreparationRule(),
   ]
 }
 

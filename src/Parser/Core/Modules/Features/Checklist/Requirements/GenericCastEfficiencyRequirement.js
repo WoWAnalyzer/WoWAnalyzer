@@ -2,13 +2,13 @@ import React from 'react';
 
 import SpellLink from 'common/SpellLink';
 
-import Requirement from './Requirement';
+import Requirement from '../Requirement';
 
 class GenericCastEfficiencyRequirement extends Requirement {
   constructor({ spell, ...others }) {
     super({
       name: <SpellLink id={spell.id} icon />,
-      check: function () {
+      check: function () { // don't use arrow function or `this` won't be set properly
         if (!this.castEfficiency) {
           throw new Error('The CastEfficiency module needs to be a dependency of the checklist to use the GenericCastEfficiencyRequirement.');
         }
@@ -18,13 +18,14 @@ class GenericCastEfficiencyRequirement extends Requirement {
         }
         const {
           efficiency,
+          gotMaxCasts,
           recommendedEfficiency: minor,
           averageIssueEfficiency: average,
           majorIssueEfficiency: major,
         } = castEfficiency;
 
         return {
-          actual: efficiency,
+          actual: gotMaxCasts ? 1 : efficiency,
           isLessThan: {
             minor,
             average,
