@@ -12,7 +12,6 @@ import Wrapper from 'common/Wrapper';
 class Abilities extends CoreAbilities {
   spellbook() {
     return [
-      ...super.spellbook(), // shared items and legendaries
       {
         spell: SPELLS.HOLY_SHOCK_CAST,
         name: 'BOOM', // TODO: Remvoe this when done with testing

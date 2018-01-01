@@ -7,10 +7,8 @@ import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 
 class Abilities extends CoreAbilities {
-
   spellbook() {
     return [
-      ...super.spellbook(),
       {
         spell: SPELLS.TITANS_THUNDER,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -144,7 +142,6 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.95,
         },
       },
-
       {
         spell: SPELLS.EXHILARATION,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
@@ -204,7 +201,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: haste => {
+        cooldown: () => {
           const hasPathfinder = this.combatants.selected.traitsBySpellId[SPELLS.PATHFINDER_TRAIT.id];
           const cooldownAfterPathFinder = hasPathfinder ? 120 : 180;
           const hasCallOfTheWild = this.combatants.selected.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
@@ -224,7 +221,6 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         isOnGCD: true,
       },
-
     ];
   }
 }

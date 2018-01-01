@@ -2,14 +2,13 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import CoreAbilities from 'Parser/Core/Modules/Abilities';
 import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
+import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
     return [
-      ...super.spellbook(),
       {
         spell: SPELLS.WINDBURST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
