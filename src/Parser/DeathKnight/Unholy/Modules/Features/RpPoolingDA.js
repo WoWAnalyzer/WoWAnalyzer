@@ -28,7 +28,7 @@ class RpPoolingDA extends Analyzer {
   maxRP = 0;
   
   
-  on_byPlayer_energize(event) {
+  on_toPlayer_energize(event) {
     const runicPowerResource = event.classResources.find(resource => resource.type === RESOURCE_TYPES.RUNIC_POWER);
     if (runicPowerResource) {
       this.currentRP = (runicPowerResource.amount || 0)/10;
