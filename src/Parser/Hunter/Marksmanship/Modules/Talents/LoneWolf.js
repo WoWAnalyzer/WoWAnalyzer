@@ -7,6 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 const LONE_WOLF_MODIFIER = 0.18;
 
@@ -36,7 +37,7 @@ class LoneWolf extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {(this.owner.formatItemDamageDone(this.damage))}
+          <ItemDamageDone amount={this.damage} />
         </div>
       </div>
     );

@@ -1,8 +1,5 @@
-import React from 'react';
-
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-
 import Analyzer from 'Parser/Core/Analyzer';
 
 const LEGENDARY_NOBUNDO_BUFF = 208764;
@@ -31,12 +28,8 @@ class Nobundo extends Analyzer {
 
   item() {
     return {
-    item: ITEMS.NOBUNDOS_REDEMPTION,
-    result: (
-        <span>
-          ${this.discounts} discounted Healing Surges
-        </span>
-      ),
+      item: ITEMS.NOBUNDOS_REDEMPTION,
+      result: `${this.discounts} discounted Healing Surges`,
     };
   }
 }

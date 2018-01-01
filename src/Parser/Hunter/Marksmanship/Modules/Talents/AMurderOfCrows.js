@@ -9,6 +9,7 @@ import SpellIcon from "common/SpellIcon";
 import { formatPercentage } from "common/format";
 import SpellLink from "common/SpellLink";
 import SPECS from 'common/SPECS';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 //generally accepted rule is to save crows if boss is below 25% health.
 const CROWS_SAVE_PERCENT = 0.25;
@@ -108,7 +109,7 @@ class AMurderOfCrows extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {(this.owner.formatItemDamageDone(this.damage))}
+          <ItemDamageDone amount={this.damage} />
         </div>
       </div>
     );

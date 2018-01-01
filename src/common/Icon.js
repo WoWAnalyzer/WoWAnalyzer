@@ -16,6 +16,7 @@ const Icon = ({ icon, alt, ...other }) => {
     <img
       src={`//render-us.worldofwarcraft.com/icons/56/${icon}.jpg`}
       alt={alt || icon}
+      className="icon"
       {...other}
     />
   );

@@ -3,10 +3,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 import { BEACON_TYPES, BASE_BEACON_TRANSFER, BEACON_OF_FAITH_TRANSFER_REDUCTION } from '../../Constants';
 
@@ -76,7 +76,7 @@ class Tier21_2set extends Analyzer {
       id: `spell-${SPELLS.HOLY_PALADIN_T21_2SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T21_2SET_BONUS_BUFF.id} />,
       title: <SpellLink id={SPELLS.HOLY_PALADIN_T21_2SET_BONUS_BUFF.id} />,
-      result: this.owner.formatItemHealingDone(this.healing),
+      result: <ItemHealingDone amount={this.healing} />,
     };
   }
 }
