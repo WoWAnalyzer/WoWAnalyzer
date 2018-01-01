@@ -1,8 +1,5 @@
 import Analyzer from 'Parser/Core/Analyzer';
 
-import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
-
 import Ability from './Ability';
 import AbilityTracker from './AbilityTracker';
 import Combatants from './Combatants';
