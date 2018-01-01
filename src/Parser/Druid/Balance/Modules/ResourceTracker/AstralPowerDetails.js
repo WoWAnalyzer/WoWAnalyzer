@@ -2,9 +2,9 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Tab from 'Main/Tab';
+import ResourceBreakdown from 'Parser/Core/Modules/ResourceTracker/ResourceBreakdown';
 
 import AstralPowerTracker from './AstralPowerTracker';
-import AstralPowerBreakdown from './AstralPowerBreakdown';
 
 class AstralPowerDetails extends Analyzer {
   static dependencies = {
@@ -17,7 +17,7 @@ class AstralPowerDetails extends Analyzer {
       url: 'astral-power-usage',
       render: () => (
         <Tab title="Astral Power usage breakdown">
-          <AstralPowerBreakdown
+          <ResourceBreakdown
             tracker={this.astralPowerTracker}
             resourceName="Astral Power"
             showSpenders={true}

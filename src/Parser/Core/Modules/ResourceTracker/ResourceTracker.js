@@ -73,13 +73,13 @@ class ResourceTracker extends Analyzer {
         return;
     }
     const eventResource = this.getResource(event);
-    const cost = eventResource.cost;
+    const cost = this.getReducedCost(event);
     
     if (!(spellId in this.spendersObj)) {
       this.initSpenderAbility(spellId);
     }
     
-    if (!cost) { 
+    if (!cost || cost === 0) { 
       return; 
     }
 
@@ -95,6 +95,10 @@ class ResourceTracker extends Analyzer {
     this.current = eventResource.amount - cost;
 
     this.triggerSpendEvent(cost, event);
+  }
+
+  getReducedCost(event) {
+    return this.getResource(event).cost;
   }
 
   triggerSpendEvent(spent, event) {
