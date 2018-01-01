@@ -3,6 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 
 import Wrapper from 'common/Wrapper';
+import SpellLink from 'common/SpellLink';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
@@ -80,7 +81,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use your procs',
-      description: <Wrapper>Frost Mage is a heavily proc dependent spec, so using your procs correctly is very important.</Wrapper>,
+      description: <Wrapper>Frost Mage is heavily dependent on correct usage of <SpellLink id={SPELLS.FINGERS_OF_FROST.id}/> and <SpellLink id={SPELLS.BRAIN_FREEZE.id}/>. Remember to use your procs promptly, and also remember to precede each <SpellLink id={SPELLS.FLURRY.id}/> with a hardcast and follow each with an <SpellLink id={SPELLS.ICE_LANCE.id}/> so that both can benefit from <SpellLink id={SPELLS.WINTERS_CHILL.id}/>.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
