@@ -6,17 +6,19 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import ItemDamageDone from 'Main/ItemDamageDone';
+import Abilities from 'Parser/Core/Modules/Abilities';
 
 const HIT_BUFFER_MS = 500;
 
 /**
- * Kil'jaeden's Burning Wish -
+ * Kil'jaeden's Burning Wish
  * Use: Launch a vortex of destruction that seeks your current enemy. When it reaches the target, it explodes, dealing a critical strike to all enemies within 10 yds for (317030 * 200 / 100) Fire damage. (1 Min, 15 Sec Cooldown)
  */
 class KiljaedensBurningWish extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     spellUsable: SpellUsable,
+    abilities: Abilities,
   };
 
   hitTimestamp;
@@ -26,6 +28,17 @@ class KiljaedensBurningWish extends Analyzer {
 
   on_initialized() {
     this.active = this.combatants.selected.hasTrinket(ITEMS.KILJAEDENS_BURNING_WISH.id);
+
+    if (this.active) {
+      this.abilities.add({
+        spell: SPELLS.KILJAEDENS_BURNING_WISH_DAMAGE, // cast event never shows, we fab cast events from damage events
+        category: Abilities.SPELL_CATEGORIES.ITEMS,
+        cooldown: 75,
+        castEfficiency: {
+          extraSuggestion: 'Delaying the cast somewhat to line up with add spawns is acceptable, however.',
+        },
+      });
+    }
   }
 
   on_byPlayer_damage(event) {
