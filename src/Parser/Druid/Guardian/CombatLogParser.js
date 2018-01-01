@@ -29,8 +29,6 @@ import FuryOfNature from './Modules/Items/FuryOfNature';
 import Tier21_2P from './Modules/Sets/Tier21_2P';
 import Tier21_4P from './Modules/Sets/Tier21_4P';
 
-import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
