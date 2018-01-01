@@ -14,7 +14,7 @@ class TheEmeraldDreamcatcher extends Analyzer {
 
   isEDBuff(event) {
     const spellId = event.ability.guid;
-    return spellId === SPELLS.THE_EMERALD_DREAMCATCHER_BUFF.id;
+    return spellId === SPELLS.THE_EMERALD_DREAMCATCHER.id;
   }
 
   on_initialized() {
@@ -34,8 +34,8 @@ class TheEmeraldDreamcatcher extends Analyzer {
 
     when(buffDropsPerMinute).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> You dropped the <SpellLink id={SPELLS.THE_EMERALD_DREAMCATCHER_BUFF.id} /> buff {this.dreamcatcherBuffDropped} times. Try to keep it up at all times. For more information consult <a href='http://goo.gl/mH8NVj' target='_blank' rel='noopener noreferrer'>the guide on ED usage</a>.</span>)
-          .icon(SPELLS.THE_EMERALD_DREAMCATCHER_BUFF.icon)
+        return suggest(<span> You dropped the <SpellLink id={SPELLS.THE_EMERALD_DREAMCATCHER.id} /> buff {this.dreamcatcherBuffDropped} times. Try to keep it up at all times. For more information consult <a href='http://goo.gl/mH8NVj' target='_blank' rel='noopener noreferrer'>the guide on ED usage</a>.</span>)
+          .icon(SPELLS.THE_EMERALD_DREAMCATCHER.icon)
           .actual(`The buff dropped ${actual} times per minute`)
           .recommended(`${recommended} times per minute is recommended`)
           .regular(recommended + 1).major(recommended + 1.5);
@@ -45,7 +45,7 @@ class TheEmeraldDreamcatcher extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.THE_EMERALD_DREAMCATCHER_BUFF.id} />}
+        icon={<SpellIcon id={SPELLS.THE_EMERALD_DREAMCATCHER.id} />}
         value={this.dreamcatcherBuffDropped}
         label="Times ED buff dropped"
       />
