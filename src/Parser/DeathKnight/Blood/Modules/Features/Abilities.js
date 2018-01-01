@@ -1,4 +1,5 @@
 import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
@@ -7,16 +8,13 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   static ABILITIES = [
-    ...CoreAbilities.ABILITIES,
-
     {
       spell: SPELLS.ICEBOUND_FORTITUDE,
       importance: ISSUE_IMPORTANCE.MINOR,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 180,
       recommendedEfficiency: 0.50,
-      extraSuggestion: <span>Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.</span>,
-
+      extraSuggestion: 'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
     },
     {
       spell: SPELLS.VAMPIRIC_BLOOD,
@@ -24,7 +22,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => 90,
       recommendedEfficiency: 0.50,
-      extraSuggestion: <span>Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.</span>,
+      extraSuggestion: 'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
     },
 
     {
@@ -33,7 +31,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 120,
       recommendedEfficiency: 0.75,
       isActive: combatant => combatant.hasTalent(SPELLS.BLOOD_MIRROR_TALENT.id),
-      extraSuggestion: <span>Mostly a DPS CD. Use it to reflect large damage back to the boss. It can be used defensively to reduce 20% damage taken for its duration.</span>,
+      extraSuggestion: 'Mostly a DPS CD. Use it to reflect large damage back to the boss. It can be used defensively to reduce 20% damage taken for its duration.',
     },
 
     {
@@ -41,14 +39,14 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 7.5 / (1 + haste),
       recommendedEfficiency: 0.85,
-      extraSuggestion: <span>Should be casting it so you have at least one recharging.</span>,
+      extraSuggestion: 'Should be casting it so you have at least one recharging.',
     },
     {
       spell: SPELLS.CONSUMPTION,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 45,
       recommendedEfficiency: 0.90,
-      extraSuggestion: <span>Should be casting this on CD for the dps unless your saving the leach for something or saving it for a pack of adds.</span>,
+      extraSuggestion: 'Should be casting this on CD for the dps unless your saving the leach for something or saving it for a pack of adds.',
     },
 
     {

@@ -7,7 +7,6 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   static ABILITIES = [
-    ...CoreAbilities.ABILITIES,
     // Riptide with EotE
     {
       spell: SPELLS.RIPTIDE,

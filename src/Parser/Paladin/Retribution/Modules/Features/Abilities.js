@@ -13,7 +13,6 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   static ABILITIES = [
-    ...CoreAbilities.ABILITIES,
     {
       spell: SPELLS.WAKE_OF_ASHES,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,

@@ -10,7 +10,6 @@ class Abilities extends CoreAbilities {
     DOTS: 'Dot',
   };
   static ABILITIES = [
-    ...CoreAbilities.ABILITIES,
     {
       spell: SPELLS.LAVA_BURST,
       charges: 2,

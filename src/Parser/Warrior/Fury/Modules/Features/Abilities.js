@@ -10,7 +10,6 @@ import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 class Abilities extends CoreAbilities {
   static ABILITIES = [
-    ...CoreAbilities.ABILITIES,
     {
       spell: SPELLS.BLOODTHIRST,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,

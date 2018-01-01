@@ -6,7 +6,6 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   static ABILITIES = [
-    ...CoreAbilities.ABILITIES,
     // HW:Sanc and HW:Serenity not included due to Serendipity causing an odd situation with their CDs
     {
       spell: SPELLS.PRAYER_OF_MENDING_CAST,

@@ -11,8 +11,6 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   static ABILITIES = [
-    ...CoreAbilities.ABILITIES,
-
     {
       spell: SPELLS.SINDRAGOSAS_FURY_ARTIFACT,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,

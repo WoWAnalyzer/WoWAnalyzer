@@ -6,7 +6,6 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   static ABILITIES = [
-    ...CoreAbilities.ABILITIES,
     {
       spell: SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,

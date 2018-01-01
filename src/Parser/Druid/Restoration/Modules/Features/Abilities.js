@@ -7,7 +7,6 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   static ABILITIES = [
-    ...CoreAbilities.ABILITIES,
     {
       spell: SPELLS.TRANQUILITY_CAST,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,

@@ -20,7 +20,6 @@ const REACTION_TIME_THRESHOLD = 500;
 
 class Abilities extends CoreAbilities {
   static ABILITIES = [
-    ...CoreAbilities.ABILITIES,
     // Rotational Spells
     {
       spell: SPELLS.MANGLE_BEAR,

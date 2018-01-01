@@ -120,9 +120,9 @@ import SpellLink from 'common/SpellLink';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 ```
 
-The spell categories appear in the tab in the same order as the [CoreAbilities](../src/Parser/Core/Modules/Abilities.js) SPELL_CATEGORIES. Within each category, the spells appear in order as entered in the code. Shared trinkets and items are included in [CoreAbilities.ABILITIES](../src/Parser/Core/Modules/Abilities.js) and do not need to be duplicated here.
+The spell categories appear in the tab in the same order as the [CoreAbilities](../src/Parser/Core/Modules/Abilities.js) SPELL_CATEGORIES. Within each category, the spells appear in order as entered in the code.
 
-`spell: ` & `getCooldown: ` are required for the page to load without errors. `category: ` is additionally required for the spell to appear in the Cast Efficiency tab. A full list of available properties are commented in the beginning of [CoreAbilities.ABILITIES](../src/Parser/Core/Modules/Abilities.js) and are generally self-explanatory.
+`spell: ` & `getCooldown: ` are required for the page to load without errors. `category: ` is additionally required for the spell to appear in the Cast Efficiency tab. A full list of available properties are commented in the beginning of the [Ability](../src/Parser/Core/Modules/Ability.js) class and are generally self-explanatory.
 
 ### getCooldown
 This property can be set a number of ways. Simply, the property lists the length of the cooldown in seconds.

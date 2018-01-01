@@ -11,8 +11,6 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   static ABILITIES = [
-    ...CoreAbilities.ABILITIES,
-
     // roational
     {
       spell: SPELLS.FESTERING_STRIKE,

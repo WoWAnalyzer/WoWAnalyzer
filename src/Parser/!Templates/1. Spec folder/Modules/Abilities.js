@@ -10,7 +10,6 @@ import SPELLS from 'common/SPELLS';
 
 class Abilities extends CoreAbilities {
   static ABILITIES = [
-    ...CoreAbilities.ABILITIES, // this copies all default shared spells, such as for items
     // TODO: Define all abilities available to the spec here
     /**
      * Available properties:

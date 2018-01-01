@@ -8,8 +8,6 @@ import calculateMaxCasts from 'Parser/Core/calculateMaxCasts';
 
 class Abilities extends CoreAbilities {
   static ABILITIES = [
-    ...CoreAbilities.ABILITIES,
-
     {
       spell: SPELLS.VOID_BOLT,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,

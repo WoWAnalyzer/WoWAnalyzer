@@ -7,7 +7,6 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   static ABILITIES = [
-    ...CoreAbilities.ABILITIES,
     // Rotational spells
     {
       spell: SPELLS.FIREBALL,

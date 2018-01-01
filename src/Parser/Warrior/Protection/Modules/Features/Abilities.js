@@ -1,11 +1,8 @@
 import SPELLS from 'common/SPELLS';
-
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
-
 
 class Abilities extends CoreAbilities {
   static ABILITIES = [
-    ...CoreAbilities.ABILITIES,
     {
       spell: SPELLS.DEVASTATE,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
