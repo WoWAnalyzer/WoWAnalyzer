@@ -27,6 +27,9 @@ import SkysecsHold from './Modules/Items/Skysecs';
 import LuffaWrappings from './Modules/Items/LuffaWrappings';
 import FuryOfNature from './Modules/Items/FuryOfNature';
 
+import Tier21_2P from './Modules/Sets/Tier21_2P';
+import Tier21_4P from './Modules/Sets/Tier21_4P';
+
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -64,6 +67,10 @@ class CombatLogParser extends CoreCombatLogParser {
     skysecs: SkysecsHold,
     luffaWrappings: LuffaWrappings,
     furyOfNature: FuryOfNature,
+
+    // Sets
+    tier21_2p: Tier21_2P,
+    tier21_4p: Tier21_4P,
   };
 }
 
