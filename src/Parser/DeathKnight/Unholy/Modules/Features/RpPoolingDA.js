@@ -42,9 +42,6 @@ class RpPoolingDA extends Analyzer {
       this.currentRP = (runicPowerResource.amount || 0)/10;
       this.maxRP = (runicPowerResource.max || 0)/10;
     }
-  }
-   
-  on_byPlayer_cast(event){
     const spellId = event.ability.guid;
     if(spellId === SPELLS.DARK_ARBITER_TALENT.id){
 		this.totalDarkArbiterCasts++;
