@@ -56,14 +56,12 @@ class ThermalVoid extends Analyzer {
   }
 
   suggestions(when) {
-    const averageDurationSeconds = this.averageDuration / 1000;
-    when(averageDurationSeconds).isLessThan(this.suggestionThresholds.isLessThan.minor)
+    when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.ICY_VEINS.id} /> duration can be improved. Make sure you use Frozen Orb to get Fingers of Frost Procs</span>)
+        return suggest(<span>Your <SpellLink id={SPELLS.THERMAL_VOID_TALENT.id} /> duration boost can be improved. Make sure you use <SpellLink id={SPELLS.FROZEN_ORB.id} /> during <SpellLink id={SPELLS.ICY_VEINS.id} /> in order to get extra <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> Procs</span>)
           .icon(SPELLS.ICY_VEINS.icon)
           .actual(`${formatNumber(actual)} seconds Average Icy Veins Duration`)
-          .recommended(`${formatNumber(recommended)} is recommended`)
-          .regular(this.suggestionThresholds.isLessThan.average).major(this.suggestionThresholds.isLessThan.average);
+          .recommended(`${formatNumber(recommended)} is recommended`);
       });
   }
 

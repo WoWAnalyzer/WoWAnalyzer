@@ -10,8 +10,8 @@ import StatisticBox from 'Main/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import Abilities from './Abilities';
-import DynamicHaste from './DynamicHaste';
 
 import ActiveTargets from './ActiveTargets';
 
@@ -32,8 +32,8 @@ class AntiFillerSpam extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     enemyInstances: EnemyInstances,
-    dynamicHaste: DynamicHaste,
     activeTargets: ActiveTargets,
+    spellUsable: SpellUsable,
   };
 
   abilityLastCasts = {};
@@ -72,31 +72,23 @@ class AntiFillerSpam extends Analyzer {
 
       const gcdSpellID = gcdSpell.spell.id;
 
-      const { isFiller, baseCD, hastedCD, condition, proc, category } = gcdSpell;
+      const { isFiller, condition, category } = gcdSpell;
       const lastCast = this.abilityLastCasts[gcdSpellID] || -Infinity;
       const isFillerEval = (typeof isFiller === 'function') ? isFiller(event, combatant, targets, lastCast) : isFiller;
       if (isFillerEval || category === Abilities.SPELL_CATEGORIES.UTILITY) {
         return;
       }
 
-      let isOffCooldown = true;
-      if (baseCD !== null) {
-        if (hastedCD) {
-          isOffCooldown = this.dynamicHaste.isHastedAbilityOffCooldown(lastCast, timestamp, baseCD);
-        } else {
-          isOffCooldown = timestamp - lastCast > baseCD;
-        }
-      }
+      const isOffCooldown = this.spellUsable.isAvailable(gcdSpellID);
 
       const args = [event, combatant, targets, lastCast];
-      const hasProc = proc && resolveValue(proc, ...args);
       const meetsCondition = (condition !== undefined) ? resolveValue(condition, ...args) : true;
 
       if (!meetsCondition) {
         return;
       }
 
-      if (!isOffCooldown && !hasProc) {
+      if (!isOffCooldown) {
         return;
       }
 
@@ -104,7 +96,6 @@ class AntiFillerSpam extends Analyzer {
         [Available non-filler]
         - ${gcdSpellID} ${SPELLS[gcdSpellID].name}
         - offCD: ${isOffCooldown}
-        - hasProc: ${hasProc}
         - canBeCast: ${meetsCondition}
       `);
       availableSpells.push(gcdSpellID);
@@ -123,7 +114,7 @@ class AntiFillerSpam extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.BEAR_SWIPE.id} />}
+        icon={<SpellIcon id={SPELLS.SWIPE_BEAR.id} />}
         value={`${formatPercentage(this.fillerSpamPercentage)}%`}
         label="Unnecessary Fillers"
         tooltip={`You cast <strong>${this._unnecessaryFillerSpells}</strong> unnecessary filler spells out of <strong>${this._totalGCDSpells}</strong> total GCDs.  Filler spells (Swipe, Moonfire without a GG proc, or Moonfire outside of pandemic if talented into Incarnation) do far less damage than your main rotational spells, and should be minimized whenever possible.`}
@@ -135,7 +126,7 @@ class AntiFillerSpam extends Analyzer {
     when(this.fillerSpamPercentage).isGreaterThan(0.1)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<Wrapper>You are casting too many unnecessary filler spells. Try to plan your casts two or three GCDs ahead of time to anticipate your main rotational spells coming off cooldown, and to give yourself time to react to <SpellLink id={SPELLS.GORE_BEAR.id} /> and <SpellLink id={SPELLS.GALACTIC_GUARDIAN_TALENT.id} /> procs.</Wrapper>)
-          .icon(SPELLS.BEAR_SWIPE.icon)
+          .icon(SPELLS.SWIPE_BEAR.icon)
           .actual(`${formatPercentage(actual)}% unnecessary filler spells cast`)
           .recommended(`${formatPercentage(recommended, 0)}% or less is recommended`)
           .regular(recommended + 0.05).major(recommended + 0.1);

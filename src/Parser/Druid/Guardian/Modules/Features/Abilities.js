@@ -18,6 +18,8 @@ const T19_2SET_CHANCE = 0.1;
 // The  amount of time after a proc has occurred when casting a filler is no longer acceptable
 const REACTION_TIME_THRESHOLD = 500;
 
+const hastedCooldown = (baseCD, haste) => (baseCD / (1 + haste));
+
 class Abilities extends CoreAbilities {
   static ABILITIES = [
     // Rotational Spells
@@ -25,45 +27,24 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.MANGLE_BEAR,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => {
-        const fightLengthSec = combatant.owner.fightDuration / 1000;
-        const gcdTime = GCD / (1 + haste);
-        const maxGCDs = Math.ceil(fightLengthSec / gcdTime);
-        const mangleCD = MANGLE_BASE_CD / (1 + haste);
-        const manglesOnCD = Math.ceil(fightLengthSec / mangleCD);
+        if (combatant.hasBuff(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)) {
+          return null;
+        }
 
-        const potentialGoreProcs = maxGCDs - manglesOnCD;
-
-        const bearHug = combatant.traitsBySpellId[SPELLS.BEAR_HUG_TRAIT.id] > 0 ? BEAR_HUG_CHANCE : 0;
-        const t19 = combatant.hasBuff(SPELLS.GUARDIAN_DRUID_T19_2SET_BONUS_BUFF.id) ? T19_2SET_CHANCE : 0;
-        const goreChance = GORE_BASE_CHANCE + bearHug + t19;
-
-        const gainedMangles = potentialGoreProcs * goreChance;
-        const totalMangles = manglesOnCD + gainedMangles;
-        const effectiveCD = fightLengthSec / totalMangles;
-
-        return effectiveCD;
+        return hastedCooldown(6, haste);
       },
-      noSuggestion: true,
 
       isOnGCD: true,
       isFiller: false,
-      baseCD: 6,
-      hastedCD: true,
-      // Specifies a way that the spell can be available outside of its normal CD
-      proc: ({ timestamp }, combatant) => {
-        const hasGoreProc = combatant.hasBuff(SPELLS.GORE_BEAR.id, timestamp);
-        return hasGoreProc;
-      },
     },
     {
-      spell: SPELLS.BEAR_SWIPE,
+      spell: SPELLS.SWIPE_BEAR,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => null,
       noSuggestion: true,
 
       isOnGCD: true,
       isFiller: (event, combatant, targets) => targets.length < 4,
-      baseCD: null,
     },
     {
       spell: SPELLS.MOONFIRE,
@@ -85,33 +66,20 @@ class Abilities extends CoreAbilities {
         );
 
       },
-      baseCD: null,
     },
     {
       spell: SPELLS.THRASH_BEAR,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: (haste, combatant) => {
-        const hasMightBuff = combatant.hasTalent(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id);
-        if (!hasMightBuff) {
-          return 6 / (1 + haste);
+        if (combatant.hasBuff(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)) {
+          return null;
         }
 
-        const fightDuration = combatant.owner.fightDuration / 1000;
-        const mightBuff = Math.ceil(fightDuration / 180);
-        const castsDuringMight = (mightBuff * 30) / (1.5 / (1 + haste));
-        const castsOutsideMight = (fightDuration - (mightBuff * 30)) / (6 / (1 + haste));
-        return fightDuration / (castsDuringMight + castsOutsideMight);
+        return hastedCooldown(6, haste);
       },
-      noSuggestion: true,
 
       isOnGCD: true,
       isFiller: false,
-      baseCD: 6,
-      hastedCD: true,
-      proc: ({ timestamp }, combatant) => {
-        const isIncarnation = combatant.hasBuff(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id, timestamp);
-        return isIncarnation;
-      },
     },
     {
       spell: SPELLS.MAUL,
@@ -121,7 +89,6 @@ class Abilities extends CoreAbilities {
 
       isOnGCD: true,
       isFiller: false,
-      baseCD: null,
       // Maul should never be considered a replacement for filler, but it should be tracked
       condition: false,
     },
@@ -132,7 +99,6 @@ class Abilities extends CoreAbilities {
       getCooldown: (haste, combatant) => {
         const baseCd = combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 90 - (90 / 3) : 90;
         const cdTrait = combatant.traitsBySpellId[SPELLS.PERPETUAL_SPRING_TRAIT.id] || 0;
-        debug && console.log(`Barkskin CD ${baseCd * (1 - (cdTrait * 3 / 100))}`);
         return baseCd * (1 - (cdTrait * 3 / 100));
       },
       noSuggestion: true,
@@ -194,6 +160,16 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.FRENZIED_REGENERATION,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       getCooldown: haste => null,
+      charges: 2,
+      isActive: combatant => !combatant.traitsBySpellId[SPELLS.FLESHKNITTING_TRAIT],
+      noSuggestion: true,
+    },
+    {
+      spell: SPELLS.FRENZIED_REGENERATION,
+      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown: haste => null,
+      charges: 3,
+      isActive: combatant => combatant.traitsBySpellId[SPELLS.FLESHKNITTING_TRAIT],
       noSuggestion: true,
     },
     {
@@ -276,8 +252,48 @@ class Abilities extends CoreAbilities {
       noSuggestion: true,
       isOnGCD: true,
     },
-    //To Do: Finish adding spells.
-
+    {
+      spell: SPELLS.INCAPACITATING_ROAR,
+      category: Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 30,
+      noSuggestion: true,
+      isOnGCD: true,
+    },
+    {
+      spell: SPELLS.INTIMIDATING_ROAR_TALENT,
+      category: Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 30,
+        noSuggestion: true,
+      isOnGCD: true,
+    },
+    {
+      spell: SPELLS.TYPHOON_TALENT,
+      category: Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 30,
+      noSuggestion: true,
+      isOnGCD: true,
+    },
+    {
+      spell: SPELLS.MASS_ENTANGLEMENT_TALENT,
+      category: Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 30,
+      noSuggestion: true,
+      isOnGCD: true,
+    },
+    {
+      spell: SPELLS.MIGHTY_BASH_TALENT,
+      category: Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 30,
+      noSuggestion: true,
+      isOnGCD: true,
+    },
+    {
+      spell: SPELLS.WILD_CHARGE_TALENT,
+      category: Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown: haste => 15,
+      noSuggestion: true,
+      isOnGCD: true,
+    },
   ];
 }
 

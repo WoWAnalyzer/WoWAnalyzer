@@ -92,6 +92,10 @@ class IceLance extends Analyzer {
 		return 1 - (this.wastedFingersProcs / this.totalFingersProcs) || 0;
 	}
 
+	get nonShatteredPercent() {
+		return (this.nonShatteredCasts / this.abilityTracker.getAbility(SPELLS.ICE_LANCE.id).casts);
+	}
+
 	get fingersUtilSuggestionThresholds() {
     return {
       actual: this.fingersUtil,
@@ -104,15 +108,25 @@ class IceLance extends Analyzer {
     };
   }
 
+	get nonShatteredSuggestionThresholds() {
+		return {
+      actual: this.nonShatteredPercent,
+      isGreaterThan: {
+        minor: 0.05,
+        average: 0.15,
+        major: 0.25,
+      },
+      style: 'percentage',
+    };
+	}
+
 	suggestions(when) {
-		const nonShatteredPercent = (this.nonShatteredCasts / this.abilityTracker.getAbility(SPELLS.ICE_LANCE.id).casts);
-		when(nonShatteredPercent).isGreaterThan(0.1)
+		when(this.nonShatteredSuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<span>You cast <SpellLink id={SPELLS.ICE_LANCE.id} /> {this.nonShatteredCasts} times ({formatPercentage(nonShatteredPercent)}%) without <SpellLink id={SPELLS.SHATTER.id} />. Make sure that you are only casting Ice Lance when the target has <SpellLink id={SPELLS.WINTERS_CHILL.id} /> (or other Shatter effects), if you have a <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> proc, or if you are moving and you cant cast anything else.</span>)
+				return suggest(<span>You cast <SpellLink id={SPELLS.ICE_LANCE.id} /> {this.nonShatteredCasts} times ({formatPercentage(this.nonShatteredPercent)}%) without <SpellLink id={SPELLS.SHATTER.id} />. Make sure that you are only casting Ice Lance when the target has <SpellLink id={SPELLS.WINTERS_CHILL.id} /> (or other Shatter effects), if you have a <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> proc, or if you are moving and you cant cast anything else.</span>)
 					.icon(SPELLS.ICE_LANCE.icon)
-					.actual(`${formatPercentage(nonShatteredPercent)}% missed`)
-					.recommended(`<${formatPercentage(recommended)}% is recommended`)
-					.regular(0.1).major(0.2);
+					.actual(`${formatPercentage(this.nonShatteredPercent)}% missed`)
+					.recommended(`<${formatPercentage(recommended)}% is recommended`);
 			});
 	}
 

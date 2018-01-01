@@ -64,73 +64,129 @@ class BrainFreezeTracker extends Analyzer {
 			this.expiredProcs += 1; // it looks like Brain Freeze is always removed after the cast, and always on same timestamp
       if (debug) {
         console.log("Brain Freeze proc expired @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+			}
 		}
-	}
   }
+
+	get overwrittenPercent() {
+		return (this.overwrittenProcs / this.totalProcs) || 0;
+	}
+
+	get expiredPercent() {
+		return (this.expiredProcs / this.totalProcs) || 0;
+	}
 
 	get wastedProcs() {
 		return this.overwrittenProcs + this.expiredProcs;
+	}
+
+	get wastedPercent() {
+		return (this.wastedProcs / this.totalProcs) || 0;
 	}
 
 	get usedProcs() {
 		return this.totalProcs - this.wastedProcs;
 	}
 
-	get brainFreezeUtil() {
-		return 1 - (this.wastedProcs / this.totalProcs) || 0;
+	get utilPercent() {
+		return 1 - this.wastedPercent;
 	}
 
-	get brainFreezeUtilSuggestionThresholds() {
+	get utilSuggestionThresholds() {
     return {
-      actual: this.brainFreezeUtil,
+      actual: this.utilPercent,
       isLessThan: {
         minor: 0.95,
-        average: 0.85,
-        major: 0.70,
+        average: 0.90,
+        major: 0.80,
       },
       style: 'percentage',
     };
   }
 
+	get overwriteSuggestionThresholds() {
+		return {
+      actual: this.overwrittenPercent,
+      isGreaterThan: {
+        minor: 0.00,
+        average: 0.08,
+        major: 0.16,
+      },
+      style: 'percentage',
+    };
+	}
+
+	// correct play with Glacial Spike puts you in a situation to sometimes overwrite BF, hence the more lax standard
+	get glacialSpikeOverwriteSuggestionThresholds() {
+		return {
+      actual: this.overwrittenPercent,
+      isGreaterThan: {
+        minor: 0.05,
+        average: 0.15,
+        major: 0.25,
+      },
+      style: 'percentage',
+    };
+	}
+
+	// there's almost never an excuse to let BF expire
+	get expiredSuggestionThresholds() {
+		return {
+      actual: this.expiredPercent,
+      isGreaterThan: {
+        minor: 0.00,
+        average: 0.03,
+        major: 0.06,
+      },
+      style: 'percentage',
+    };
+	}
+
+	get flurryWithoutProcSuggestionThresholds() {
+		return {
+      actual: this.expiredPercent,
+      isGreaterThan: {
+        minor: 0,
+        average: 0,
+        major: 3,
+      },
+      style: 'number',
+    };
+	}
+
 	suggestions(when) {
-		const overwrittenProcsPercent = (this.overwrittenProcs / this.totalProcs) || 0;
     if (this.combatants.selected.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id)) {
-			when(overwrittenProcsPercent).isGreaterThan(.05)
+			when(this.glacialSpikeOverwriteSuggestionThresholds)
 				.addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>You overwrote {formatPercentage(overwrittenProcsPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. While this is sometimes acceptable when saving a proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />, try to otherwise use your procs as soon as possible. You may hold your proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> if you have 3 or more <SpellLink id={SPELLS.ICICLES_BUFF.id} />, otherwise you should use it immediately.</span>)
+          return suggest(<span>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. While this is sometimes acceptable when saving a proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />, try to otherwise use your procs as soon as possible. You may hold your proc for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> if you have 3 or more <SpellLink id={SPELLS.ICICLES_BUFF.id} />, otherwise you should use it immediately.</span>)
 						.icon(SPELLS.BRAIN_FREEZE.icon)
-						.actual(`${formatPercentage(overwrittenProcsPercent)}% missed`)
-						.recommended(`Wasting none is recommended`)
-						.regular(.08).major(.15);
+						.actual(`${formatPercentage(this.overwrittenPercent)}% overwritten`)
+						.recommended(`Overwriting none is recommended`);
 				});
 		} else {
-			when(overwrittenProcsPercent).isGreaterThan(0)
+			when(this.overwriteSuggestionThresholds)
 				.addSuggestion((suggest, actual, recommended) => {
-					return suggest(<span>You overwrote {formatPercentage(overwrittenProcsPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. Try to use your procs as soon as possible to avoid this.</span>)
+					return suggest(<span>You overwrote {formatPercentage(this.overwrittenPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. Try to use your procs as soon as possible to avoid this.</span>)
 						.icon(SPELLS.BRAIN_FREEZE.icon)
-						.actual(`${formatPercentage(overwrittenProcsPercent)}% overwritten`)
-						.recommended(`Overwriting none is recommended`)
-						.regular(.00).major(.05);
+						.actual(`${formatPercentage(this.overwrittenPercent)}% overwritten`)
+						.recommended(`Overwriting none is recommended`);
 				});
 		}
 
-		const expiredProcsPercent = (this.expiredProcs / this.totalProcs) || 0;
-		when(expiredProcsPercent).isGreaterThan(0)
+		when(this.expiredSuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<span>You allowed {formatPercentage(expiredProcsPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs to expire. Try to use your procs as soon as possible to avoid this.</span>)
+				return suggest(<span>You allowed {formatPercentage(this.expiredPercent)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs to expire. Try to use your procs as soon as possible to avoid this.</span>)
 					.icon(SPELLS.BRAIN_FREEZE.icon)
-					.actual(`${formatPercentage(expiredProcsPercent)}% expired`)
-					.recommended(`Letting none expire is recommended`)
-					.regular(.00).major(.05);
+					.actual(`${formatPercentage(this.expiredPercent)}% expired`)
+					.recommended(`Letting none expire is recommended`);
 			});
 
-		when(this.flurryWithoutProc).isGreaterThan(0)
+		when(this.flurryWithoutProcSuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
 				return suggest(<span>You cast <SpellLink id={SPELLS.FLURRY.id} /> without <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> {this.flurryWithoutProc} times. You should never hard cast Flurry.</span>)
 					.icon(SPELLS.FLURRY.icon)
 					.actual(`${formatNumber(this.flurryWithoutProc)} casts`)
-					.recommended(`Casting none is recommended`)
-					.regular(0).major(1);
+					.recommended(`Casting none is recommended`);
 			});
 	}
 
@@ -138,7 +194,7 @@ class BrainFreezeTracker extends Analyzer {
     return (
 			<StatisticBox
 				icon={<SpellIcon id={SPELLS.BRAIN_FREEZE.id} />}
-				value={`${formatPercentage(this.brainFreezeUtil, 0)} %`}
+				value={`${formatPercentage(this.utilPercent, 0)} %`}
         label="Brain Freeze Utilization"
 				tooltip={`You got ${this.totalProcs} total procs.
 					<ul>
