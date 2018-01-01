@@ -7,11 +7,10 @@ import Icon from 'common/Icon';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
-
-import EnergyTracker from './EnergyTracker';
-
 import ResourceBreakdown from 'Parser/Core/Modules/ResourceTracker/ResourceBreakdown';
 import resourceSuggest from 'Parser/Core/Modules/ResourceTracker/ResourceSuggest';
+
+import EnergyTracker from './EnergyTracker';
 
 class EnergyDetails extends Analyzer {
   static dependencies = {
