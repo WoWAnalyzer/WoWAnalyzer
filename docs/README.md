@@ -9,17 +9,36 @@ Hey, welcome! Awesome you're interested in helping out! This should help get you
 
 Installation instructions can be found [here](installing.md). It's a one-time thing and pretty quick.
 
-# Editing
+# About the project
 
-Make a feature branch `git checkout -b my-new-feature`. Start small. Try changing something to see things change (your browser should refresh automatically after automatically recompiling). If you verified everything is working, you're ready to go to the real stuff.
+We use a modern version of JavaScript (JS) called **EcmaScript 6** (ES6). This has a lot of neat new features that help a lot. We also use a very popular library called [**React**](https://reactjs.org) for rendering things in the browser, the main thing you'll see because of this is **JSX** throughout the codebase. This is *XML-like code* directly in JavaScript. The final thing worth mentioning is that we have our own framework in place to make analysis as easy as possible.
 
-Looking into the Holy Paladin implementation is a great way to find out how to do things. This spec is usually the most up-to-date with the best practices in this project.
+Trying to get familiar with all of this at once might be overwhelming, but you don’t need to know the finer details of how all of this works to get started (it will help for more advanced contributions though). 
 
-How to develop parts of the app is further explained in the following files:
-- [a-new-spec.md](a-new-spec.md): Information on how to create a spec.
-- [a-new-module.md](a-new-module.md): Information on how to create a module.
+If you look at our existing code (and are already familiar with JS) you’ll get familiar with ES6 really quick, nothing really changed, we just have more tools at our disposal. The "weirdest" new thing is perhaps "template literals"; instead of `'Your damage: ' + totalDamageDone` you would write `` `Your damage: ${totalDamageDone}` ``.
 
-Continue reading below for more general contribution information.
+React and JSX are used extensively throughout the app and is fairly complex to learn, but unless you want to rewrite things like report selection, player selection and the results page, you don’t need to know a lot about it. The gist is that this:
+```jsx
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.AURA_OF_MERCY_TALENT.id} />}
+        value={`${formatNumber(this.hps)} HPS`}
+        label="Healing done"
+      />
+```
+Renders a statistic box like this:
+
+![image](https://user-images.githubusercontent.com/4565223/34463567-51882456-ee60-11e7-8659-3c40fe744ab4.png)
+
+* The icon is rendered by the `SpellIcon` *component* to which we passed the [Aura of Mercy](http://www.wowhead.com/spell=183415/aura-of-mercy) spell id that we have defined in one of the `SPELLS` objects. The `SpellIcon` component takes care of finding the correct icon for the spell, showing the image and making it clickable.
+* The value is a template literal like we showed earlier, with a formatter to make the number human readable.
+* The label is a plain string.
+
+There are more complex posibilities with JSX but you won't need that often. If you want to learn more you can always ask in Discord (or see the links below).
+
+The final part of the project is our own framework. We have written a lot of classes and components to try and make analysis as easy as possible. More about this in the next chapter.
+
+More info about modern JS: https://github.com/getify/You-Dont-Know-JS
+More info about React: https://reactjs.org
 
 # Quick start
 
@@ -29,7 +48,7 @@ If you want to learn (modern) JavaScript these book series are recommended: http
 
 The below image attempts to give you an overview of the app setup. If you're going to be working on a spec specific analysis you will only be working on the blue boxes shown in the image for that specific spec. Each modules (any of the blue boxes except that CombatLogParser) is an isolated class, usually found in the "Modules" folder of a spec. Most modules have dependencies on other modules, most commonly `Combatants` which contains information about the selected player, such as equipped gear and talents.
 
-![App overview](app-overview.png)
+![App overview](images/app-overview.png)
 
 At this time there are two types of modules: Analyzers and Normalizers.
 
@@ -64,6 +83,18 @@ The main folder structure of the project is as follows:
    - `/src/tests` **deprecated**, the old test location. Please add new tests next to the file they're testing with the `*.test.js` naming convention.
    - `src/CHANGELOG.js` the changelog for core features (anything all users might notice).
  - `/server` has the code for the back-end (the DiscordBot is in another repo, click the organization to find it)
+
+# Editing
+
+Make a feature branch `git checkout -b my-new-feature`. Start small. Try changing something to see things change (your browser should refresh automatically after automatically recompiling). If you verified everything is working, you're ready to go to the real stuff.
+
+Looking into the Holy Paladin implementation is a great way to find out how to do things. This spec is usually the most up-to-date with the best practices in this project.
+
+How to develop parts of the app is further explained in the following files:
+- [a-new-spec.md](a-new-spec.md): Information on how to create a spec.
+- [a-new-module.md](a-new-module.md): Information on how to create a module.
+
+Continue reading below for more general contribution information.
 
 # Sharing your changes
 

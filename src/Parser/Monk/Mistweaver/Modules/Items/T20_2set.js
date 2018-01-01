@@ -3,11 +3,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import { formatNumber } from 'common/format';
-
 import Combatants from 'Parser/Core/Modules/Combatants';
-
 import Analyzer from 'Parser/Core/Analyzer';
+import ItemManaGained from 'Main/ItemManaGained';
 
 const debug = false;
 
@@ -83,8 +81,8 @@ class T20_2set extends Analyzer {
       icon: <SpellIcon id={SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF.id} />,
       title: <SpellLink id={SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF.id} />,
       result: (
-        <dfn data-tip={'The actual mana saved by the Tier 20 2 piece effect.'}>
-          {formatNumber(this.manaSaved)} mana saved ({formatNumber((this.manaSaved / this.owner.fightDuration * 1000 * 5))} MP5)
+        <dfn data-tip="The actual mana saved by the Tier 20 2 piece effect.">
+          <ItemManaGained amount={this.manaSaved} />
         </dfn>
       ),
     };

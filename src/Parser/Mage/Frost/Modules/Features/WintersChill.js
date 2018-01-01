@@ -6,7 +6,8 @@ import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatNumber, formatMilliseconds, formatPercentage } from 'common/format';
+import Wrapper from 'common/Wrapper';
+import { formatMilliseconds, formatPercentage } from 'common/format';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -93,43 +94,81 @@ class WintersChillTracker extends Analyzer {
     }
   }
 
+  get iceLanceMissedPercent() {
+    return (this.missedIceLanceCasts / this.totalProcs) || 0;
+  }
+
+  get iceLanceUtil() {
+    return 1 - this.iceLanceMissedPercent;
+  }
+
+  get iceLanceUtilSuggestionThresholds() {
+    return {
+      actual: this.iceLanceUtil,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.85,
+        major: 0.75,
+      },
+      style: 'percentage',
+    };
+  }
+
+  get hardcastMissedPercent() {
+    return (this.missedHardcasts / this.totalProcs) || 0;
+  }
+
+  get hardcastUtil() {
+    return 1 - this.hardcastMissedPercent;
+  }
+
+  // less strict than the ice lance suggestion both because it's less important,
+  // and also because using a Brain Freeze after being forced to move is a good excuse for missing the hardcast.
+  get hardcastUtilSuggestionThresholds() {
+    return {
+      actual: this.hardcastUtil,
+      isLessThan: {
+        minor: 0.90,
+        average: 0.80,
+        major: 0.60,
+      },
+      style: 'percentage',
+    };
+  }
+
+  get doubleIceLancePercentage() {
+    return this.doubleIceLanceCasts / this.totalProcs || 0;
+  }
+
   suggestions(when) {
-    const missedIceLancesPerMinute = this.missedIceLanceCasts / (this.owner.fightDuration / 1000 / 60);
-    when(missedIceLancesPerMinute).isGreaterThan(0)
+    when(this.iceLanceUtilSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> You failed to Ice Lance into {this.missedIceLanceCasts} <SpellLink id={SPELLS.WINTERS_CHILL.id}/> ({missedIceLancesPerMinute.toFixed(1)} missed per minute).  Make sure you cast <SpellLink id={SPELLS.ICE_LANCE.id}/> after each <SpellLink id={SPELLS.FLURRY.id}/> to benefit from <SpellLink id={SPELLS.SHATTER.id}/>.</span>)
+        return suggest(<Wrapper>You failed to Ice Lance into <SpellLink id={SPELLS.WINTERS_CHILL.id}/> {this.missedIceLanceCasts} times ({formatPercentage(this.iceLanceMissedPercent)}%). Make sure you cast <SpellLink id={SPELLS.ICE_LANCE.id}/> after each <SpellLink id={SPELLS.FLURRY.id}/> to benefit from <SpellLink id={SPELLS.SHATTER.id}/>.</Wrapper>)
           .icon(SPELLS.ICE_LANCE.icon)
-          .actual(`${formatNumber(this.missedIceLanceCasts)} Winter's Chill not shattered with Ice Lance`)
-          .recommended(`${formatNumber(recommended)} is recommended`)
-          .regular(0.5).major(1);
+          .actual(`${formatPercentage(this.iceLanceMissedPercent)}% Winter's Chill not shattered with Ice Lance`)
+          .recommended(`<${formatPercentage(1 - this.iceLanceUtilSuggestionThresholds.isLessThan.minor)}% is recommended`);
       });
 
-    const missedFrostboltsPerMinute = this.missedHardcasts / (this.owner.fightDuration / 1000 / 60);
-    if(this.hasGlacialSpike) { // Different suggestion depending on talent choice (which includes a SpellLink, so can't switch inside suggestion)
-      when(missedFrostboltsPerMinute).isGreaterThan(0)
+    if(this.hasGlacialSpike) { // Different suggestion text depending on talent choice (which includes a SpellLink, so can't switch inside suggestion)
+      when(this.hardcastUtilSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span> You failed to <SpellLink id={SPELLS.FROSTBOLT.id}/>, <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id}/>, or <SpellLink id={SPELLS.EBONBOLT.id}/> into {this.missedHardcasts} <SpellLink id={SPELLS.WINTERS_CHILL.id}/> ({missedFrostboltsPerMinute.toFixed(1)} missed per minute).  Make sure you hard cast just before each instant <SpellLink id={SPELLS.FLURRY.id}/> to benefit from <SpellLink id={SPELLS.SHATTER.id}/>.</span>)
+          return suggest(<Wrapper>You failed to <SpellLink id={SPELLS.FROSTBOLT.id}/>, <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id}/>, or <SpellLink id={SPELLS.EBONBOLT.id}/> into <SpellLink id={SPELLS.WINTERS_CHILL.id}/> {this.missedHardcasts} times ({formatPercentage(this.hardcastMissedPercent)}%}). Make sure you hard cast just before each instant <SpellLink id={SPELLS.FLURRY.id}/> to benefit from <SpellLink id={SPELLS.SHATTER.id}/>.</Wrapper>)
             .icon(SPELLS.FROSTBOLT.icon)
-            .actual(`${formatNumber(this.missedHardcasts)} Winter's Chill not shattered with Frostbolt, Glacial Spike, or Ebonbolt`)
-            .recommended(`${formatNumber(recommended)} is recommended`)
-            .regular(0.5).major(1);
+            .actual(`${formatPercentage(this.hardcastMissedPercent)}% Winter's Chill not shattered with Frostbolt, Glacial Spike, or Ebonbolt`)
+            .recommended(`${formatPercentage(1 - recommended)}% is recommended`);
         });
     } else {
-      when(missedFrostboltsPerMinute).isGreaterThan(0)
+      when(this.hardcastUtilSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span> You failed to <SpellLink id={SPELLS.FROSTBOLT.id}/> or <SpellLink id={SPELLS.EBONBOLT.id}/> into {this.missedHardcasts} <SpellLink id={SPELLS.WINTERS_CHILL.id}/> ({missedFrostboltsPerMinute.toFixed(1)} missed per minute).  Make sure you hard cast just before each instant <SpellLink id={SPELLS.FLURRY.id}/> to benefit from <SpellLink id={SPELLS.SHATTER.id}/>.</span>)
-            .icon(SPELLS.FROSTBOLT.icon)
-            .actual(`${formatNumber(this.missedHardcasts)} Winter's Chill not shattered with Frostbolt or Ebonbolt`)
-            .recommended(`${formatNumber(recommended)} is recommended`)
-            .regular(0.5).major(1);
+          return suggest(<Wrapper>You failed to <SpellLink id={SPELLS.FROSTBOLT.id}/> or <SpellLink id={SPELLS.EBONBOLT.id}/> into <SpellLink id={SPELLS.WINTERS_CHILL.id}/> {this.missedHardcasts} times ({formatPercentage(this.hardcastMissedPercent)}%}). Make sure you hard cast just before each instant <SpellLink id={SPELLS.FLURRY.id}/> to benefit from <SpellLink id={SPELLS.SHATTER.id}/>.</Wrapper>)
+          .icon(SPELLS.FROSTBOLT.icon)
+          .actual(`${formatPercentage(this.hardcastMissedPercent)}% Winter's Chill not shattered with Frostbolt or Ebonbolt`)
+          .recommended(`${formatPercentage(1 - recommended)}% is recommended`);
         });
     }
   }
 
   statistic() {
-    const icelanceUtil = (1 - (this.missedIceLanceCasts / this.totalProcs)) || 0;
-    const frostboltUtil = (1 - (this.missedHardcasts / this.totalProcs)) || 0;
-    const doubleIcelancePerc = (this.doubleIceLanceCasts / this.totalProcs) || 0;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.WINTERS_CHILL.id} />}
@@ -142,7 +181,7 @@ class WintersChillTracker extends Analyzer {
                 marginBottom: '.15em',
               }}
             />
-            {' '}{formatPercentage(icelanceUtil, 0)}{' %'}
+            {' '}{formatPercentage(this.iceLanceUtil, 0)}{' %'}
             <br />
             <SpellIcon
               id={SPELLS.FROSTBOLT.id}
@@ -151,11 +190,11 @@ class WintersChillTracker extends Analyzer {
                 marginBottom: '.15em',
               }}
             />
-            {' '}{formatPercentage(frostboltUtil, 0)}{' %'}
+            {' '}{formatPercentage(this.hardcastUtil, 0)}{' %'}
           </span>
         )}
         label="Winter's Chill Utilization"
-        tooltip={`Every Brain Freeze Flurry should be preceded by a Frostbolt${this.hasGlacialSpike ? `, Glacial Spike, ` : ` `}or Ebonbolt and followed by an Ice Lance, so that both the preceding and following spells benefit from Shatter. <br><br> You double Ice Lance'd into Winter's Chill ${this.doubleIceLanceCasts} times (${formatPercentage(doubleIcelancePerc, 1)}%). Note this is usually impossible, it can only be done with strong haste buffs active and by moving towards the target while casting. It should mostly be considered 'extra credit'.`}
+        tooltip={`Every Brain Freeze Flurry should be preceded by a Frostbolt${this.hasGlacialSpike ? `, Glacial Spike, ` : ` `}or Ebonbolt and followed by an Ice Lance, so that both the preceding and following spells benefit from Shatter. <br><br> You double Ice Lance'd into Winter's Chill ${this.doubleIceLanceCasts} times (${formatPercentage(this.doubleIceLancePercentage, 1)}%). Note this is usually impossible, it can only be done with strong haste buffs active and by moving towards the target while casting. It should mostly be considered 'extra credit'.`}
       />
     );
   }

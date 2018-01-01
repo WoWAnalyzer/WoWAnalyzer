@@ -1,12 +1,13 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
 import { formatPercentage } from "common/format";
+import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 
 class BestialWrathUptime extends Analyzer {
   static dependencies = {
@@ -28,6 +29,8 @@ class BestialWrathUptime extends Analyzer {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.CORE(10);
+
 
 }
 

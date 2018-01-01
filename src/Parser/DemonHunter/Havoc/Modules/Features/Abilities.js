@@ -63,7 +63,7 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.FELBLADE_TALENT,
       isActive: combatant => combatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => 10 / (1 + haste),
+      getCooldown: haste => 15 / (1 + haste),
       recommendedEfficiency: 0.85,
       extraSuggestion: 'This is your main Fury filler spell. Try to always cast on cooldown, but beware to not waste the Fury generation it provides. So use it when you have 30 or more Fury missing. And also it can be used to charge to the desired target, making it very strong movement spell.',
     },

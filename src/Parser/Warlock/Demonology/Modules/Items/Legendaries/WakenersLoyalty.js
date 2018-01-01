@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 import getDamageBonus from '../../WarlockCore/getDamageBonus';
 
@@ -54,7 +54,7 @@ class WakenersLoyalty extends Analyzer {
       item: ITEMS.WAKENERS_LOYALTY,
       result: (
         <dfn data-tip={`Total bonus damage: ${formatNumber(this.bonusDmg)}<br />Average bonus damage per TKC cast: ${formatNumber(this.bonusDmg / tkcCasts)}<br />Average stacks of Wakener's Loyalty per TKC cast: ${(this._totalUsedStacks / tkcCasts).toFixed(2)}`}>
-          {this.owner.formatItemDamageDone(this.bonusDmg)}.
+          <ItemDamageDone amount={this.bonusDmg} />
         </dfn>
       ),
     };

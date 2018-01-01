@@ -48,7 +48,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 30,
       isActive: combatant => combatant.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id),
       recommendedEfficiency: 0.95,
-      extraSuggestion: <span><SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id}/> should be used on cooldown, and you should aim to hit it in the center of the mobs, as that will be where it does the most dmg.</span>,
+      extraSuggestion: <span><SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id} /> should be used on cooldown, and you should aim to hit it in the center of the mobs, as that will be where it does the most dmg.</span>,
     },
     {
       spell: SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED,
@@ -82,96 +82,166 @@ class Abilities extends CoreAbilities {
       extraSuggestion: <span>This should be used on cooldown, with 100 focus and while <SpellLink id={SPELLS.VULNERABLE.id} /> is on your target. If possible without delaying either, you should try to combine it with <SpellLink id={SPELLS.TRUESHOT.id} />.</span>,
     },
     {
+      spell: SPELLS.SENTINEL_TALENT,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      getCooldown: haste => 60,
+      recommendedEfficiency: 1,
+      isActive: combatant => combatant.hasTalent(SPELLS.SENTINEL_TALENT.id),
+    },
+    {
       spell: SPELLS.TRUESHOT,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: (_, combatant) => 180 - combatant.owner.modules.quickShot.traitCooldownReduction,
-      recommendedEfficiency: 1.0,
+      category:
+      Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown:
+        (_, combatant) => 180 - combatant.owner.modules.quickShot.traitCooldownReduction,
+      recommendedEfficiency:
+        1.0,
     },
     {
       spell: SPELLS.ARCANE_TORRENT_FOCUS,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 90,
-      isUndetectable: true,
-    },
+      category:
+      Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      getCooldown:
+        haste => 90,
+      isUndetectable:
+        true,
+    }
+    ,
     {
       spell: SPELLS.EXHILARATION,
-      category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-      getCooldown: haste => 120,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
+      category:
+      Abilities.SPELL_CATEGORIES.DEFENSIVE,
+      getCooldown:
+        haste => 120,
+      noSuggestion:
+        true,
+      noCanBeImproved:
+        true,
+    }
+    ,
 
     { //Marking as a defensive because of the damage reduction trait associated with it
       spell: SPELLS.DISENGAGE_TALENT,
-      category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-      getCooldown: haste => 20,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
+      category:
+      Abilities.SPELL_CATEGORIES.DEFENSIVE,
+      getCooldown:
+        haste => 20,
+      noSuggestion:
+        true,
+      noCanBeImproved:
+        true,
+    }
+    ,
     {
       spell: SPELLS.BURSTING_SHOT,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => 24,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
+      category:
+      Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown:
+        haste => 24,
+      noSuggestion:
+        true,
+      noCanBeImproved:
+        true,
+    }
+    ,
     {
       spell: SPELLS.CONCUSSIVE_SHOT,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => 5,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
+      category:
+      Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown:
+        haste => 5,
+      noSuggestion:
+        true,
+      noCanBeImproved:
+        true,
+    }
+    ,
     {
       spell: SPELLS.COUNTER_SHOT,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => 24,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
+      category:
+      Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown:
+        haste => 24,
+      noSuggestion:
+        true,
+      noCanBeImproved:
+        true,
+    }
+    ,
     {
       spell: SPELLS.MISDIRECTION,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => 30,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
+      category:
+      Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown:
+        haste => 30,
+      noSuggestion:
+        true,
+      noCanBeImproved:
+        true,
+    }
+    ,
     {
       spell: SPELLS.BINDING_SHOT_TALENT,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => 45,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
+      category:
+      Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown:
+        haste => 45,
+      noSuggestion:
+        true,
+      noCanBeImproved:
+        true,
+    }
+    ,
     {
       spell: SPELLS.ASPECT_OF_THE_TURTLE,
-      category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-      getCooldown: haste => 180,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
+      category:
+      Abilities.SPELL_CATEGORIES.DEFENSIVE,
+      getCooldown:
+        haste => 180,
+      noSuggestion:
+        true,
+      noCanBeImproved:
+        true,
+    }
+    ,
     {
       spell: SPELLS.ASPECT_OF_THE_CHEETAH,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => 180,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
+      category:
+      Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown:
+        haste => 180,
+      noSuggestion:
+        true,
+      noCanBeImproved:
+        true,
+    }
+    ,
     {
       spell: SPELLS.FREEZING_TRAP,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => 30,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
+      category:
+      Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown:
+        haste => 30,
+      noSuggestion:
+        true,
+      noCanBeImproved:
+        true,
+    }
+    ,
     {
       spell: SPELLS.TAR_TRAP,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => 30,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-  ];
+      category:
+      Abilities.SPELL_CATEGORIES.UTILITY,
+      getCooldown:
+        haste => 30,
+      noSuggestion:
+        true,
+      noCanBeImproved:
+        true,
+    }
+    ,
+  ]
+  ;
 }
 
 export default Abilities;

@@ -6,16 +6,6 @@ import EventsNormalizer from 'Parser/Core/EventsNormalizer';
 const debug = false;
 
 class ApplyBuff extends EventsNormalizer {
-  _getFirstEventIndex(events) {
-    for (let i = 0; i < events.length; i += 1) {
-      const event = events[i];
-      if (event.type !== 'combatantinfo') {
-        return i;
-      }
-    }
-    throw new Error('Fight doesn\'t have a first event, something must have gone wrong.');
-  }
-
   // We need to track `combatantinfo` events this way since they are included in the `events` passed to `normalize` due to technical reasons (it's a different API call). We still need `combatantinfo` for all players, so cache it manually.
   _combatantInfoEvents = [];
   initialize(combatants) {
@@ -30,7 +20,7 @@ class ApplyBuff extends EventsNormalizer {
    * @returns {Array}
    */
   normalize(events) {
-    const firstEventIndex = this._getFirstEventIndex(events);
+    const firstEventIndex = this.getFightStartIndex(events);
     const playersById = this.owner.playersById;
 
     // region Buff event based detection

@@ -7,7 +7,6 @@ import AbilityTracker from './AbilityTracker';
 import Combatants from './Combatants';
 import Haste from './Haste';
 
-/* eslint-disable no-unused-vars */
 class Abilities extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
@@ -124,21 +123,20 @@ class Abilities extends Analyzer {
     },
   ];
 
+  get activeAbilities() {
+    return this.constructor.ABILITIES.filter(ability => !ability.isActive || ability.isActive(this.combatants.selected));
+  }
+
   /*
    * Returns the first ACTIVE spellInfo with the given spellId (or undefined if there is no such spellInfo)
    */
   getAbility(spellId) {
-    return this.constructor.ABILITIES.find(ability => {
+    return this.activeAbilities.find(ability => {
       if (ability.spell instanceof Array) {
-        if (!ability.spell.find(spell => spell.id === spellId)) {
-          return false;
-        }
+        return ability.spell.some(spell => spell.id === spellId);
       } else {
-        if (ability.spell.id !== spellId) {
-          return false;
-        }
+        return ability.spell.id === spellId;
       }
-      return !ability.isActive || ability.isActive(this.combatants.selected);
     });
   }
 
@@ -157,7 +155,6 @@ class Abilities extends Analyzer {
     const ability = this.getAbility(spellId);
     return ability ? (ability.charges || 1) : undefined;
   }
-
 }
 
 export default Abilities;

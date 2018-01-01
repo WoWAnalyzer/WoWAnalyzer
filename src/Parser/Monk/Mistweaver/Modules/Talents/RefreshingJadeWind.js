@@ -45,16 +45,30 @@ class RefreshingJadeWind extends Analyzer {
     }
   }
 
-  suggestions(when) {
-    const avgRJWTargetsPercentage = (this.healsRJW / this.castRJW) / TARGETSPERCAST || 0;
+  get avgTargetsHitPerRJWPercentage() {
+    return (this.healsRJW / this.castRJW) / TARGETSPERCAST || 0;
+  }
 
-    when(avgRJWTargetsPercentage).isLessThan(0.9)
+  get suggestionThresholds() {
+    return {
+      actual: this.avgTargetsHitPerRJWPercentage,
+      isLessThan: {
+        minor: .9,
+        average: .8,
+        major: .7,
+      },
+      style: 'percentage',
+    };
+  }
+
+  suggestions(when) {
+    when(this.avgRJWTargetsPercentage).isLessThan(this.suggestionThresholds.isLessThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You are not utilizing your <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> effectively. <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> excells when you hit 6 targets for the duration of the spell. The easiest way to accomplish this is to stand in melee, but there can be other uses when the raid stacks for various abilities.</span>)
           .icon(SPELLS.REFRESHING_JADE_WIND_TALENT.icon)
-          .actual(`${formatPercentage(avgRJWTargetsPercentage)}% of targets hit per Refreshing Jade Wind`)
+          .actual(`${formatPercentage(this.avgRJWTargetsPercentage)}% of targets hit per Refreshing Jade Wind`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended - 0.1).major(recommended - 0.2);
+          .regular(this.suggestionThresholds.isLessThan.average).major(this.suggestionThresholds.isLessThan.major);
       });
   }
 

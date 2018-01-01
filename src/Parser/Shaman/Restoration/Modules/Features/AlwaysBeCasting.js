@@ -43,28 +43,51 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     370, // purge
   ];
 
-  suggestions(when) {
+  get nonHealingTimeSuggestionThresholds() {
     const nonHealingTimePercentage = this.totalHealingTimeWasted / this.owner.fightDuration;
+    return {
+      actual: nonHealingTimePercentage,
+      isGreaterThan: {
+        minor: 0.3,
+        average: 0.4,
+        major: 0.45,
+      },
+      style: 'percentage',
+    };
+  }
+  get downtimeSuggestionThresholds() {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
-    when(nonHealingTimePercentage).isGreaterThan(0.3)
+    return {
+      actual: deadTimePercentage,
+      isGreaterThan: {
+        minor: 0.2,
+        average: 0.35,
+        major: 1,
+      },
+      style: 'percentage',
+    };
+  }
+  
+  suggestions(when) {
+    const nonHealingTimeSuggestionThresholds = this.nonHealingTimeSuggestionThresholds;
+    const deadTimePercentage = this.downtimeSuggestionThresholds;
+    when(nonHealingTimeSuggestionThresholds.actual).isGreaterThan(nonHealingTimeSuggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) =>
-        suggest(`Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimePercentage * 100)}% non healing time).`)
+        suggest(`Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimeSuggestionThresholds.actual * 100)}% non healing time).`)
           .icon('petbattle_health-down')
-          .actual(`${formatPercentage(actual)}% non healing time`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.1).major(recommended + 0.15)
+          .actual(`${formatPercentage(nonHealingTimeSuggestionThresholds.actual)}% non healing time`)
+          .recommended(`<${formatPercentage(nonHealingTimeSuggestionThresholds.isGreaterThan.minor)}% is recommended`)
+          .regular(nonHealingTimeSuggestionThresholds.isGreaterThan.average).major(nonHealingTimeSuggestionThresholds.isGreaterThan.major)
       );
-    when(deadTimePercentage).isGreaterThan(0.2)
+    when(deadTimePercentage.actual).isGreaterThan(0.2)
       .addSuggestion((suggest, actual, recommended) =>
         suggest(`Your downtime can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage.`)
           .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(actual)}% downtime`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.15).major(recommended + 0.2)
+          .actual(`${formatPercentage(deadTimePercentage.actual)}% downtime`)
+          .recommended(`<${formatPercentage(deadTimePercentage.isGreaterThan.minor)}% is recommended`)
+          .regular(deadTimePercentage.isGreaterThan.average).major(deadTimePercentage.isGreaterThan.major)
       );
   }
-
-  showStatistic = true;
 }
 
 export default AlwaysBeCasting;

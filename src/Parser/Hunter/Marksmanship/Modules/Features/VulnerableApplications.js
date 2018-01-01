@@ -135,7 +135,7 @@ class VulnerableApplications extends Analyzer {
   }
   statistic() {
     return (
-      <div className="col-lg-4 col-sm-6 col-xs-12">
+      <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <div className="row">
           <StatisticsListBox
             title={<span><SpellLink id={SPELLS.VULNERABLE.id} /> applications</span>}
@@ -147,7 +147,7 @@ class VulnerableApplications extends Analyzer {
       </div>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(3);
+  statisticOrder = STATISTIC_ORDER.CORE(9);
 }
 
 export default VulnerableApplications;

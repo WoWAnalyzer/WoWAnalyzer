@@ -1,17 +1,22 @@
 import React from 'react';
 
+import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+import { formatNumber, formatPercentage } from 'common/format';
+import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-
-import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
-import { formatPercentage, formatNumber } from 'common/format';
+import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import getDamageBonus from "Parser/Hunter/Shared/Modules/getDamageBonus";
-import SpellLink from 'common/SpellLink';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 const MAX_STACKS = 10;
 const TRUE_AIM_MODIFIER = 0.02;
+
+/*
+ * Each successive Arcane Shot or Aimed Shot fired at the same target increases the damage those Shots deal to the target by 2%, stacking up to 10 times.
+ * Limit 1 target.
+ */
 
 class TrueAim extends Analyzer {
   static dependencies = {
@@ -90,7 +95,7 @@ class TrueAim extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {(this.owner.formatItemDamageDone(this.bonusDmg))}
+          <ItemDamageDone amount={this.bonusDmg} />
         </div>
       </div>
     );
@@ -103,16 +108,19 @@ class TrueAim extends Analyzer {
         icon={<SpellIcon id={SPELLS.TRUE_AIM_DEBUFF.id} />}
         value={`${percentTimeAtMaxTAStacks} %`}
         label="10 stack uptime"
-        tooltip={`You reset True Aim when you had 3 or more stacks (to exclude trickshot cleaving resets): ${this.timesDropped} times over the course of the encounter. <br />Your total amount of resets (including with trickshot cleaving) was: ${this.totalTimesDropped}. <br/>
-True Aim contributed with ${formatNumber(this.bonusDmg)} - ${this.owner.formatItemDamageDone(this.bonusDmg)}.
-<ul>
-<li> Aimed Shot contributed ${formatPercentage(this.aimedBonusDmg / this.bonusDmg)}%.</li>
-<li>Arcane Shot contributed ${formatPercentage(this.arcaneBonusDmg / this.bonusDmg)}%.</li>
-</ul>`}
+        tooltip={`
+          You reset True Aim when you had 3 or more stacks (to exclude trickshot cleaving resets): ${this.timesDropped} times over the course of the encounter.<br />
+          Your total amount of resets (including with trickshot cleaving) was: ${this.totalTimesDropped}.<br/>
+          True Aim contributed with ${formatNumber(this.bonusDmg)} - ${this.owner.formatItemDamageDone(this.bonusDmg)}.
+          <ul>
+            <li> Aimed Shot contributed ${formatPercentage(this.aimedBonusDmg / this.bonusDmg)}%.</li>
+            <li>Arcane Shot contributed ${formatPercentage(this.arcaneBonusDmg / this.bonusDmg)}%.</li>
+          </ul>
+        `}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(11);
+  statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 
 export default TrueAim;

@@ -39,7 +39,7 @@ class ElementalBlast extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ELEMENTAL_BLAST_TALENT.id} />}
         value={`${formatPercentage(this.elementalBlastUptime)} %`}
-        label={'Uptime'}
+        label="Uptime"
         tooltip={`
           <b class="stat-mastery">${formatPercentage(this.masteryUptime)}% Mastery</b><br/>
           <b class="stat-criticalstrike">${formatPercentage(this.critUptime)}% Crit</b><br/>

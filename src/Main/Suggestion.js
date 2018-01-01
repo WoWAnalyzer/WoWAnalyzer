@@ -25,7 +25,7 @@ class Suggestion extends React.PureComponent {
   static propTypes = {
     icon: PropTypes.string.isRequired,
     issue: PropTypes.node.isRequired,
-    stat: PropTypes.node.isRequired,
+    stat: PropTypes.node,
     importance: PropTypes.string.isRequired,
     details: PropTypes.func,
   };

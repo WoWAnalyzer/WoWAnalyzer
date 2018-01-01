@@ -5,10 +5,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
-
+import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
@@ -43,18 +44,28 @@ class Ilterendi extends Analyzer {
   item() {
     return {
       item: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON,
-      result: this.owner.formatItemHealingDone(this.healing),
+      result: <ItemHealingDone amount={this.healing} />,
+    };
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.owner.getPercentageOfTotalHealingDone(this.healing),
+      isLessThan: {
+        minor: 0.04,
+        average: 0.035,
+        major: 0.025,
+      },
+      style: 'percentage',
     };
   }
   suggestions(when) {
-    when(this.owner.getPercentageOfTotalHealingDone(this.healing)).isLessThan(0.04)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your usage of <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> can be improved. Try to line up <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> with the buff or consider using an easier legendary.</span>)
-          .icon(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.icon)
-          .actual(`${this.owner.formatItemHealingDone(this.healing)} healing contributed`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended - 0.005).major(recommended - 0.015);
-      });
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<Wrapper>Your usage of <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> can be improved. Try to line up <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> with the buff or consider using an easier legendary.</Wrapper>)
+        .icon(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.icon)
+        .actual(`${formatPercentage(actual)}% healing contributed`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
+    });
   }
 }
 

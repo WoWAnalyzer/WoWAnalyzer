@@ -1,10 +1,12 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 class ShatteredFragmentsOfSindragosa extends Analyzer {
-
   static dependencies = {
 		combatants: Combatants,
 	};
@@ -43,7 +45,7 @@ class ShatteredFragmentsOfSindragosa extends Analyzer {
     const legendaryDamage = (this.damage / (this.cometStormCasts + this.legendaryProcs)) * this.legendaryProcs;
     return {
       item: ITEMS.SHATTERED_FRAGMENTS_OF_SINDRAGOSA,
-      result: this.owner.formatItemDamageDone(legendaryDamage),
+      result: <ItemDamageDone amount={legendaryDamage} />,
     };
   }
 }

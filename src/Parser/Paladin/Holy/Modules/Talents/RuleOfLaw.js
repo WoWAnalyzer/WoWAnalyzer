@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
+import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -23,15 +24,28 @@ class RuleOfLaw extends Analyzer {
     return this.combatants.selected.getBuffUptime(SPELLS.RULE_OF_LAW_TALENT.id) / this.owner.fightDuration;
   }
 
+  get uptimeSuggestionThresholds() {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 0.25,
+        average: 0.2,
+        major: 0.1,
+      },
+      style: 'percentage',
+    };
+  }
   suggestions(when) {
-    when(this.uptime).isLessThan(0.25)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges.</span>)
-          .icon(SPELLS.RULE_OF_LAW_TALENT.icon)
-          .actual(`${formatPercentage(actual)}% uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended - 0.05).major(recommended - 0.15);
-      });
+    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(
+        <Wrapper>
+          Your <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges.
+        </Wrapper>
+      )
+        .icon(SPELLS.RULE_OF_LAW_TALENT.icon)
+        .actual(`${formatPercentage(actual)}% uptime`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
+    });
   }
   statistic() {
     return (

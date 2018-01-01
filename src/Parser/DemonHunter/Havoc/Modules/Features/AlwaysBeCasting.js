@@ -8,7 +8,6 @@ import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
-
     // Abilities
     SPELLS.DEMONS_BITE.id,
     SPELLS.ANNIHILATION.id,
@@ -41,7 +40,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       });
   }
 
-  showStatistic = true;
   statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 

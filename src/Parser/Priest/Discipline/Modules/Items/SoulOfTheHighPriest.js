@@ -4,7 +4,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
-
+import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
@@ -23,7 +23,7 @@ class SoulOfTheHighPriest extends Analyzer {
   item() {
     return {
       item: ITEMS.SOUL_OF_THE_HIGH_PRIEST,
-      result: <span>This gave you <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT.id} />.</span>,
+      result: <Wrapper>This gave you <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT.id} />.</Wrapper>,
     };
   }
 

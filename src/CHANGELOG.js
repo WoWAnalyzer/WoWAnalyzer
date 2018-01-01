@@ -1,11 +1,48 @@
 import React from 'react';
 
-import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, Yuyz0112, Zerotorescue, Hartra344 } from 'MAINTAINERS';
+import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, Yuyz0112, Zerotorescue, Hartra344, Putro, Sharrq } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2017-12-31'),
+    changes: 'Changed the way Mastery percentage is calculated and implemented the coefficients for all specs. Let us know if Mastery still doesn\'t match the character pane.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-30'),
+    changes: 'Added icons indicating the stat type to most item stats.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-27'),
+    changes: 'Added Death Tracking to the parser.',
+    contributors: [Sharrq],
+  },
+  {
+    date: new Date('2017-12-26'),
+    changes: 'Mark the Warlords of Draenor cloak enchants as a part of the good enchants',
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2017-12-25'),
+    changes: <Wrapper>Added a <i>casting time</i> bar to the spell timeline that shows you the amount of time spent channeling or waiting for the GCD.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-18'),
+    changes: <Wrapper>Added <ItemLink id={ITEMS.INSIGNIA_OF_THE_GRAND_ARMY.id} /> to the parser.</Wrapper>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2017-12-06'),
+    changes: <Wrapper><SpellLink id={SPELLS.EONARS_COMPASSION_HEAL.id} /> is now ignored in the cooldowns tab.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
   {
     date: new Date('2017-12-06'),
     changes: <Wrapper>Added <ItemLink id={ITEMS.ISHKARS_FELSHIELD_EMITTER.id} /> to items </Wrapper>,

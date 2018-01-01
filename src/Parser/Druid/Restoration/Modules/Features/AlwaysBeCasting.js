@@ -40,7 +40,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.SHRED.id,
     SPELLS.SOLAR_WRATH.id,
     SPELLS.CAT_SWIPE.id,
-    SPELLS.BEAR_SWIPE.id,
+    SPELLS.SWIPE_BEAR.id,
     SPELLS.URSOLS_VORTEX.id,
     SPELLS.MIGHTY_BASH_TALENT.id,
     SPELLS.TYPHOON_TALENT.id,
@@ -51,27 +51,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     // SPELLS.TRASH.id,
     // SPELLS.IRONFUR.id
   ];
-
-  recordCastTime(
-    castStartTimestamp,
-    globalCooldown,
-    begincast,
-    cast,
-    spellId
-  ) {
-    super.recordCastTime(
-      castStartTimestamp,
-      globalCooldown,
-      begincast,
-      cast,
-      spellId
-    );
-  }
-
-  static inRange(num1, goal, buffer) {
-    return num1 > (goal - buffer) && num1 < (goal + buffer);
-  }
-
 
   suggestions(when) {
     const nonHealingTimePercentage = this.totalHealingTimeWasted / this.owner.fightDuration;
@@ -95,8 +74,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
           .regular(SuggestionThresholds.ABC_NOT_CASTING.regular).major(SuggestionThresholds.ABC_NOT_CASTING.major);
       });
   }
-
-  showStatistic = true;
 }
 
 export default AlwaysBeCasting;

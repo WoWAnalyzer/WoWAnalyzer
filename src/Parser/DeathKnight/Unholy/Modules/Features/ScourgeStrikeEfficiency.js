@@ -81,7 +81,7 @@ class ScourgeStrikeEfficiency extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SCOURGE_STRIKE.id} />}
         value={`${formatPercentage(strikeEfficiency)} %`}
-        label={'Scourge Strike Efficiency'}
+        label="Scourge Strike Efficiency"
         tooltip={`${this.scourgeStrikeCastsZeroWounds} out of ${this.totalScourgeStrikeCasts} Scourge Strikes were used with no Festering Wounds on the target.`}
       />
     );

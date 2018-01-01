@@ -15,7 +15,7 @@ class BlooddrinkerTicks extends Analyzer {
   };
 
   _totalTicks = 0;
-  _totalCasts=0;
+  _totalCasts = 0;
   _currentTicks = 0;
   _wastedTicks = 0;
   _ruinedCasts = 0;
@@ -46,7 +46,6 @@ class BlooddrinkerTicks extends Analyzer {
     }
   }
 
-
   statistic() {
     this._totalTicks = this._totalCasts * BLOODDRINKER_TICKS_PER_CAST;
     return (
@@ -54,7 +53,7 @@ class BlooddrinkerTicks extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BLOODDRINKER_TALENT.id} />}
         value={`${this._ruinedCasts} out of ${this._totalCasts}`}
-        label='Cancelled Early'
+        label="Cancelled Early"
         tooltip={`You lost <strong>${this._wastedTicks}</strong> out of <strong>${this._totalTicks}</strong> ticks.`}
       />
 

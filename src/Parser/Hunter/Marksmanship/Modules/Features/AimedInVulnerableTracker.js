@@ -73,7 +73,7 @@ class AimedInVulnerableTracker extends Analyzer {
         tooltip={` You cast ${this.totalAimed} Aimed Shots. <ul> <li> The amount of Aimed Shot casts inside Vulnerable: ${this.inVulnerabilityAimed}.</li> <li>The amount of Aimed Shot casts outside Vulnerable without a need to focus dump: ${this.outsideVulnerabilityAimed - this.focusDumpAimed}. </li> <li> Amount of Aimed Shot outside vulnerable to dump focus: ${this.focusDumpAimed}. </li></ul>`} />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(4);
+  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default AimedInVulnerableTracker;

@@ -404,6 +404,11 @@ export default {
     name: 'Breath of Fire',
     icon: 'ability_monk_breathoffire',
   },
+  BREATH_OF_FIRE_DEBUFF: {
+    id: 123725,
+    name: 'Breath of Fire',
+    icon: 'ability_monk_breathoffire',
+  },
   FORTIFYING_BREW_BRM: {
     id: 115203,
     name: 'Fortifying Brew',
@@ -508,6 +513,21 @@ export default {
     id: 228563,
     name: 'Blackout Combo',
     icon: 'ability_monk_blackoutkick',
+  },
+  POTENT_KICK: {
+      id: 213047,
+      name: 'Potent Kick',
+      icon: 'ability_monk_ironskinbrew',
+  },
+  QUICK_SIP: {
+      id: 238129,
+      name: 'Quick Sip',
+      icon: 'spell_misc_drink',
+  },
+  STAGGERING_AROUND: {
+    id: 213055,
+    name: 'Staggering Around',
+    icon: 'ability_monk_fortifyingale_new',
   },
 
   // Windwalker Spells

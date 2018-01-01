@@ -8,7 +8,12 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from "common/SpellIcon";
 import { formatPercentage } from "common/format";
 import SpellLink from "common/SpellLink";
+import ItemDamageDone from 'Main/ItemDamageDone';
 
+/*
+ * A powerful shot which deals up to (2 * 775%) Physical damage to the target and up to 775% Physical damage to all enemies between you and the target.
+ * Damage increased against targets with Vulnerable.
+ */
 class PiercingShot extends Analyzer {
   static dependencies = {
     enemies: Enemies,
@@ -50,7 +55,7 @@ class PiercingShot extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {(this.owner.formatItemDamageDone(this.damage))}
+          <ItemDamageDone amount={this.damage} />
         </div>
       </div>
     );

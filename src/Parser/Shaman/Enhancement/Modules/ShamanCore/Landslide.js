@@ -37,7 +37,7 @@ class Landslide extends Analyzer {
         icon={<SpellIcon id={SPELLS.LANDSLIDE_BUFF.id} />}
         value={`${formatPercentage(landslideUptime)} %`}
         label="Landslide Uptime"
-        tooltip={'One of your highest priorities, get as close to 100% as possible'}
+        tooltip="One of your highest priorities, get as close to 100% as possible"
       />)
     );
   }

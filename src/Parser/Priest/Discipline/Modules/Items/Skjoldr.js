@@ -1,8 +1,10 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 const debug = false;
 const SKJOLDR_PWS_ABSORB_BONUS = 0.15;
@@ -71,7 +73,7 @@ class Skjoldr extends Analyzer {
 
     return {
       item: ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT,
-      result: this.owner.formatItemHealingDone(healing),
+      result: <ItemHealingDone amount={healing} />,
     };
   }
 }
