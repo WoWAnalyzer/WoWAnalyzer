@@ -67,7 +67,9 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.BLACK_OX_BREW_TALENT,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: () => null,
+      getCooldown: () => 90,
+      noSuggestion: true,
+      isActive: combatant => combatant.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id),
     },
     {
       spell: SPELLS.EXPEL_HARM,

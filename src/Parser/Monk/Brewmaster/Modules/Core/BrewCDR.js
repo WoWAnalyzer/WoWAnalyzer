@@ -56,7 +56,7 @@ class BrewCDR extends Analyzer {
     }
     let bobDesc = "";
     if(this.bob.active) {
-      bobDesc = `<li>${this.bob.casts} Black Ox Brew casts -- <b>${(this.bob.cdr / 1000).toFixed(2)}s</b> (<b>${(this.bob.wastedCDR / 1000).toFixed(2)}s</b> wasted)</li>`;
+      bobDesc = `<li>${this.bob.casts} Black Ox Brew casts — <b>${(this.bob.cdr / 1000).toFixed(2)}s</b> (<b>${(this.bob.wastedCDR / 1000).toFixed(2)}s</b> wasted)</li>`;
     }
     let bocKsDesc = "";
     if(this.ks.bocHits > 0) {
