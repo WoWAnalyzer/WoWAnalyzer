@@ -24,7 +24,7 @@ class GlobalCooldown extends CoreGlobalCooldown {
       return Math.max(this.owner.modules.alwaysBeCasting.constructor.MINIMUM_GCD, this.owner.modules.alwaysBeCasting.constructor.BASE_GCD / (1 + this.haste.current) * 0.8);
     }
     //Default
-    super.getCurrentGlobalCooldown(spellId);
+    return (spellId && this.owner.modules.alwaysBeCasting.constructor.STATIC_GCD_ABILITIES[spellId]) || this.constructor.calculateGlobalCooldown(this.haste.current, this.owner.modules.alwaysBeCasting.constructor.BASE_GCD, this.owner.modules.alwaysBeCasting.constructor.MINIMUM_GCD);
   }
 }
 
