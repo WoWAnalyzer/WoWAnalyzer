@@ -14,6 +14,7 @@ import KegSmash from './Modules/Spells/KegSmash';
 import TigerPalm from './Modules/Spells/TigerPalm';
 import RushingJadeWind from './Modules/Spells/RushingJadeWind';
 import BreathOfFire from './Modules/Spells/BreathOfFire';
+import BlackOxBrew from './Modules/Spells/BlackOxBrew';
 // Features
 import Checklist from './Modules/Features/Checklist';
 import Abilities from './Modules/Features/Abilities';
@@ -50,6 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tigerPalm: TigerPalm,
     rjw: RushingJadeWind,
     bof: BreathOfFire,
+    bob: BlackOxBrew,
 
     // Items
     t20_2pc: T20_2pc,
