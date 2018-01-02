@@ -9,24 +9,7 @@ class Gear extends React.PureComponent {
   render() {
     const toolTipBaseUrl='http://www.wowhead.com/item=';
     const gear = Object.values(this.props.selectedCombatant._gearItemsBySlotId);
-    const getBorderColor = (quality) => { // Not used right now
-      switch (quality) {
-        case 6:
-          return '#e5cc80';
-        case 5:
-          return '#ff8000';
-        case 4:
-          return '#a335ee';
-        case 3:
-          return '#0070dd';
-        case 2:
-          return '#1eff00';
-        case 1:
-          return '#ffffff';
-        default:
-          break;
-      }
-    };
+
     const artifact = gear.find(item => item.quality === 6);
     const relics = artifact ? artifact.gems : [];
     return(
