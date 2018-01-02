@@ -28,7 +28,7 @@ class AlwaysBeCasting extends Analyzer {
   ];
   static STATIC_GCD_ABILITIES = {
     // Abilities which GCD is not affected by haste.
-    // [spellId] : [gcd value in seconds]
+    // [spellId]: gcd value in seconds
   };
 
   // TODO: Add channels array to fix issues where is channel started pre-combat it doesn't register the `begincast` and considers the finish a GCD adding downtime. This can also be used to automatically add the channelVerifiers.

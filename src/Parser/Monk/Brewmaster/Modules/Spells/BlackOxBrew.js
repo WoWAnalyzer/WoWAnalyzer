@@ -30,7 +30,6 @@ class BlackOxBrew extends Analyzer {
     }
     this.casts += 1;
 
-    let chargesReset = 0;
     // reset all charges of ISB (and PB, but waiting on Abilities
     // refactor for linking the CDs...)
     //

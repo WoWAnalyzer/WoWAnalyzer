@@ -7,6 +7,8 @@ import HealingReceived from './Modules/Core/HealingReceived';
 import Stagger from './Modules/Core/Stagger';
 import BrewCDR from './Modules/Core/BrewCDR';
 import StaggerFabricator from './Modules/Core/StaggerFabricator';
+import GlobalCooldown from './Modules/Core/GlobalCooldown';
+import Channeling from './Modules/Core/Channeling';
 // Spells
 import IronSkinBrew from './Modules/Spells/IronSkinBrew';
 import BlackoutCombo from './Modules/Spells/BlackoutCombo';
@@ -38,6 +40,8 @@ class CombatLogParser extends CoreCombatLogParser {
     staggerFabricator: StaggerFabricator,
     damageDone: [DamageDone, { showStatistic: true }],
     brewCdr: BrewCDR,
+    channeling: Channeling,
+    globalCooldown: GlobalCooldown,
 
     // Features
     checklist: Checklist,
