@@ -10,7 +10,7 @@ import ItemHealingDone from 'Main/ItemHealingDone';
 export const DRAPE_OF_SHAME_CRIT_EFFECT = 0.05;
 
 /**
- * Drape of Shame -
+ * Drape of Shame
  * Equip: Increases the healing of your critical healing effects by 5%.
  */
 class DrapeOfShame extends Analyzer {
@@ -18,11 +18,20 @@ class DrapeOfShame extends Analyzer {
     critEffectBonus: CritEffectBonus,
     combatants: Combatants,
   };
+  baseStats = {
+    itemLevel: 825,
+    primary: 606,
+    stamina: 910,
+    criticalStrike: 260,
+    versatility: 400,
+  };
 
   healing = 0;
+  equippedItem = null;
 
   on_initialized() {
-    this.active = this.combatants.selected.hasBack(ITEMS.DRAPE_OF_SHAME.id);
+    this.equippedItem = this.combatants.selected.getItem(ITEMS.DRAPE_OF_SHAME.id);
+    this.active = !!this.equippedItem;
 
     if (this.active) {
       this.critEffectBonus.hook(this.getCritEffectBonus);
