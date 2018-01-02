@@ -2,6 +2,8 @@ import React from 'react';
 
 import ChangelogTab from 'Main/ChangelogTab';
 import ChangelogTabTitle from 'Main/ChangelogTabTitle';
+import Gear from 'Main/Gear';
+import Tab from 'Main/Tab';
 import TimelineTab from 'Main/Timeline/TimelineTab';
 
 import { formatNumber, formatPercentage, formatThousands, formatDuration } from 'common/format';
@@ -484,7 +486,7 @@ class CombatLogParser {
 
   generateResults() {
     const results = new ParseResults();
-
+    
     results.tabs = [
       {
         title: 'Timeline',
@@ -499,6 +501,16 @@ class CombatLogParser {
             channelHistory={this.modules.channeling.history}
             abilities={this.modules.abilities}
           />
+        ),
+      },
+      {
+        title: 'Gear',
+        url: 'gear',
+        order: 3,
+        render: () => (
+          <Tab title="Gear">
+            <Gear selectedCombatant={this._modules.combatants.selected}/>
+          </Tab>
         ),
       },
       {
