@@ -9,12 +9,6 @@ import KegSmash from '../Spells/KegSmash';
 import TigerPalm from '../Spells/TigerPalm';
 import AnvilHardenedWristwraps from '../Items/AnvilHardenedWristwraps';
 
-const TIGER_PALM_REDUCTION = 1000;
-const FACE_PALM_REDUCTION = 1000;
-const KEG_SMASH_REDUCTION = 4000;
-const BOC_KEG_SMASH_REDUCTION = 2000;
-const WRISTS_REDUCTION = 1000;
-
 class BrewCDR extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -23,31 +17,15 @@ class BrewCDR extends Analyzer {
     wrists: AnvilHardenedWristwraps,
   }
 
-  get ksCDR() {
-    return KEG_SMASH_REDUCTION * this.ks.totalHits;
-  }
-
-  get bocKsCDR() {
-    return BOC_KEG_SMASH_REDUCTION * this.ks.bocHits;
-  }
-
-  get tpCDR() {
-    return TIGER_PALM_REDUCTION * this.tp.totalCasts + FACE_PALM_REDUCTION * (this.tp.fpHits + this.tp.bocFpHits);
-  }
-
-  get wristCDR() {
-    return WRISTS_REDUCTION * this.wrists.dodgedHits;
-  }
-
   get totalCDR() {
     let totalCDR = 0;
     // add in KS CDR...
-    totalCDR += this.ksCDR;
-    totalCDR += this.bocKsCDR;
+    totalCDR += this.ks.cdr;
+    totalCDR += this.ks.bocCDR;
     // ...and TP...
-    totalCDR += this.tpCDR;
+    totalCDR += this.tp.cdr + this.tp.fpCDR;
     // ...and wrists
-    totalCDR += this.wristCDR;
+    totalCDR += this.wrists.cdr;
     return totalCDR;
   }
 
@@ -69,24 +47,24 @@ class BrewCDR extends Analyzer {
 
   statistic() {
     let wristsDesc = "";
-    if(this.wristsEquipped) {
-      wristsDesc = `<li>Anvil-Hardened Wristwraps and ${this.wrists.dodgedHits} dodged hits — <b>${this.wristCDR / 1000}s</b></li>`;
+    if(this.wrists.active) {
+      wristsDesc = `<li>Anvil-Hardened Wristwraps and ${this.wrists.dodgedHits} dodged hits — <b>${(this.wrists.cdr / 1000).toFixed(2)}s</b> (<b>${(this.wrists.wastedCDR / 1000).toFixed(2)}s</b> wasted)</li>`;
     }
     let bocKsDesc = "";
     if(this.ks.bocHits > 0) {
-      bocKsDesc = `<li>Using Blackout Combo on ${this.ks.bocHits} Keg Smash hits — <b>${this.bocKsCDR / 1000}s</b></li>`;
+      bocKsDesc = `<li>Using Blackout Combo on ${this.ks.bocHits} Keg Smash hits — <b>${(this.ks.bocCDR / 1000).toFixed(2)}s</b> (<b>${(this.ks.wastedBocCDR / 1000).toFixed(2)}s</b> wasted)</li>`;
     }
     return (
       <StatisticBox icon={<SpellIcon id={SPELLS.TIGER_PALM.id} />}
         value={`${formatPercentage(this.cooldownReductionRatio)}%`}
         label="Effective Brew CDR"
         tooltip={`Your cooldowns were reduced by: <ul>
-              <li>${this.ks.totalHits} Keg Smash hits (${(this.ks.totalHits / this.ks.totalCasts).toFixed(2)} per cast) — <b>${this.ksCDR / 1000}s</b></li>
+              <li>${this.ks.totalHits} Keg Smash hits (${(this.ks.totalHits / this.ks.totalCasts).toFixed(2)} per cast) — <b>${(this.ks.cdr / 1000).toFixed(2)}s</b> (<b>${(this.ks.wastedCDR / 1000).toFixed(2)}s</b> wasted)</li>
               ${bocKsDesc}
-              <li>${this.tp.totalCasts} Tiger Palm hits (with ${this.tp.facePalmHits} Face Palm procs) — <b>${this.tpCDR / 1000}s</b></li>
+              <li>${this.tp.totalCasts} Tiger Palm hits (with ${this.tp.facePalmHits} Face Palm procs) — <b>${((this.tp.cdr + this.tp.fpCDR) / 1000).toFixed(2)}s</b> (<b>${((this.tp.wastedCDR + this.tp.wastedFpCDR) / 1000).toFixed(2)}s</b> wasted)</li>
               ${wristsDesc}
             </ul>
-            <b>Total cooldown reduction:</b> ${this.totalCDR / 1000}s.</b>`}
+            <b>Total cooldown reduction:</b> ${(this.totalCDR / 1000).toFixed(2)}s.</b>`}
       />
     );
   }

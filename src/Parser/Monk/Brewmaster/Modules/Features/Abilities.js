@@ -56,7 +56,7 @@ class Abilities extends CoreAbilities {
     {
       spell: SPELLS.IRONSKIN_BREW,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: () => null,
+      getCooldown: haste => 21 / (1 + haste),
     },
     {
       spell: SPELLS.PURIFYING_BREW,

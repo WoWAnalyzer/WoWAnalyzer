@@ -6,12 +6,14 @@ import { formatPercentage, formatThousands } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const debug = false;
 
 class IronSkinBrew extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    spellUsable: SpellUsable,
   }
 
   lastIronSkinBrewBuffApplied = 0;
@@ -29,6 +31,15 @@ class IronSkinBrew extends Analyzer {
   _durationPerCast = 6000; // base
   _durationPerPurify = 0;
   _durationCap = -1;
+
+  // reduces the cooldown of ISB in SpellUsable, returning the amount by
+  // which the CD was reduced (0 if it was not on cooldown)
+  reduceCooldown(amount) {
+    if(!this.spellUsable.isOnCooldown(SPELLS.IRONSKIN_BREW.id)) {
+      return 0;
+    }
+    return this.spellUsable.reduceCooldown(SPELLS.IRONSKIN_BREW.id, amount);
+  }
 
   on_initialized() {
     this._durationPerCast += 500 * this.combatants.selected.traitsBySpellId[SPELLS.POTENT_KICK.id];
