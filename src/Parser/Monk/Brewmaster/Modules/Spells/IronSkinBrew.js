@@ -35,6 +35,7 @@ class IronSkinBrew extends Analyzer {
   // reduces the cooldown of ISB in SpellUsable, returning the amount by
   // which the CD was reduced (0 if it was not on cooldown)
   //
+  // also reduces BoB cd
   // TODO: where to put this?
   reduceCooldown(amount) {
     if(this.spellUsable.isOnCooldown(SPELLS.BLACK_OX_BREW_TALENT.id)) {
