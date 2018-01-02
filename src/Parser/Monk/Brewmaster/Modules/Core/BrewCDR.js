@@ -34,7 +34,7 @@ class BrewCDR extends Analyzer {
   }
 
   get cooldownReductionRatio() {
-    return 1.0 - this.owner.fightDuration / (this.owner.fightDuration + this.totalCDR);
+    return this.totalCDR / (this.owner.fightDuration + this.totalCDR);
   }
 
   get suggestionThreshold() {
