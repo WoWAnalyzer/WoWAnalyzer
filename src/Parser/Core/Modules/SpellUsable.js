@@ -6,6 +6,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Abilities from './Abilities';
 
 const debug = false;
+const INVALID_COOLDOWN_CONFIG_LAG_MARGIN = 150; // not sure what this is based around, but <150 seems to catch most false positives
 
 function spellName(spellId) {
   return SPELLS[spellId] ? SPELLS[spellId].name : '???';
@@ -78,8 +79,8 @@ class SpellUsable extends Analyzer {
         this._triggerEvent('updatespellusable', this._makeEvent(spellId, timestamp, 'addcooldowncharge'));
       } else {
         const remainingCooldown = this.cooldownRemaining(spellId, timestamp);
-        if (remainingCooldown > 50) {
-          // No need to report if it was expected to reset within 50ms, as latency can cause this fluctuation.
+        if (remainingCooldown > INVALID_COOLDOWN_CONFIG_LAG_MARGIN) {
+          // No need to report if it was expected to reset within the set margin, as latency can cause this fluctuation.
           console.error(
             formatMilliseconds(this.owner.fightDuration),
             'SpellUsable',

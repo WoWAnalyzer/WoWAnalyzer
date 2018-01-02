@@ -60,7 +60,7 @@ class Event extends React.Component {
       <tr
         onClick={this.handleClick}
         data-tip={`<pre>${JSON.stringify(event, null, 2)}</pre>`}
-        data-place="left"
+        data-place="top"
         data-effect="solid"
         className={(event.__fabricated || event.__modified) ? 'modified' : undefined}
       >

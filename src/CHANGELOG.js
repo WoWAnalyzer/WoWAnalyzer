@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, Yuyz0112, Zerotorescue, Hartra344, Putro } from 'MAINTAINERS';
+import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, Yuyz0112, Zerotorescue, Hartra344, Putro, Sharrq } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
@@ -8,6 +8,21 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2017-12-31'),
+    changes: 'Changed the way Mastery percentage is calculated and implemented the coefficients for all specs. Let us know if Mastery still doesn\'t match the character pane.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-30'),
+    changes: 'Added icons indicating the stat type to most item stats.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-27'),
+    changes: 'Added Death Tracking to the parser.',
+    contributors: [Sharrq],
+  },
   {
     date: new Date('2017-12-26'),
     changes: 'Mark the Warlords of Draenor cloak enchants as a part of the good enchants',

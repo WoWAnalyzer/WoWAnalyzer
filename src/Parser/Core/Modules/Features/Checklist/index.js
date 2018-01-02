@@ -16,7 +16,6 @@ import calculateMedian from './calculateMedian';
 export { performanceForThresholds };
 export { default as Rule } from './Rule';
 export { default as Requirement } from './Requirement';
-export { default as GenericCastEfficiencyRequirement } from './GenericCastEfficiencyRequirement';
 
 class Checklist extends Analyzer {
   rules = [];
@@ -145,14 +144,17 @@ class Checklist extends Analyzer {
           </div>
         )}
         <div className="row">
-          {requirements.map(({ requirement, thresholds, performance }) => (
-            <div key={requirement.name} className="col-md-6">
+          {requirements.map(({ requirement, thresholds, performance }, index) => (
+            <div key={index} className="col-md-6">
               <div className="flex">
                 <div className="flex-main">
                   {requirement.name}
                 </div>
                 <div className="flex-sub text-muted" style={{ margin: '0 15px' }}>
-                  {thresholds.prefix} {this.formatThresholdsActual(thresholds)} {thresholds.suffix}
+                  {thresholds.prefix}{' '}
+                  {this.formatThresholdsActual(thresholds)}{' '}
+                  {thresholds.max !== undefined && `/ ${thresholds.max}`}{' '}
+                  {thresholds.suffix}
                 </div>
                 <div className="flex-sub content-middle" style={{ width: 50 }}>
                   <div className="performance-bar-container">

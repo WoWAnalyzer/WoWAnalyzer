@@ -35,31 +35,13 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     }
   }
 
-  recordCastTime(
-    castStartTimestamp,
-    globalCooldown,
-    begincast,
-    cast,
-    spellId
-  ) {
-    super.recordCastTime(
-      castStartTimestamp,
-      globalCooldown,
-      begincast,
-      cast,
-      spellId
-    );
-    this._verifyChannel(SPELLS.FLASH_OF_LIGHT.id, 1500, begincast, cast);
-    // Can't really verify Holy Light as it can get a reduced CD from Infusion of Light
-  }
-
-  countsAsHealingAbility(cast) {
-    const spellId = cast.ability.guid;
-    if (spellId === SPELLS.HOLY_SHOCK_CAST.id && !cast.targetIsFriendly) {
-      debug && console.log(`%cABC: ${cast.ability.name} (${spellId}) skipped for healing time; target is not friendly`, 'color: orange');
+  countsAsHealingAbility(event) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.HOLY_SHOCK_CAST.id && !event.reason.targetIsFriendly) {
+      debug && console.log(`%cABC: ${event.ability.name} (${spellId}) skipped for healing time; target is not friendly`, 'color: orange');
       return false;
     }
-    return super.countsAsHealingAbility(cast);
+    return super.countsAsHealingAbility(event);
   }
 }
 

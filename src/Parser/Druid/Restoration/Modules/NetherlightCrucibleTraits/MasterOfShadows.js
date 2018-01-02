@@ -3,10 +3,11 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-
 import CoreMasterOfShadows from 'Parser/Core/Modules/NetherlightCrucibleTraits/MasterOfShadows';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import STAT from 'Parser/Core/Modules/Features/STAT';
+import ItemHealingDone from 'Main/ItemHealingDone';
+
 import StatWeights from '../Features/StatWeights';
 
 const MASTERY_AMOUNT = 500;
@@ -35,7 +36,7 @@ class MasterOfShadows extends CoreMasterOfShadows {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {this.owner.formatItemHealingDone(healing)}
+          <ItemHealingDone amount={healing} />
         </div>
       </div>
     );

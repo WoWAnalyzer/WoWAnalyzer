@@ -2,6 +2,8 @@ import React from 'react';
 
 import ChangelogTab from 'Main/ChangelogTab';
 import ChangelogTabTitle from 'Main/ChangelogTabTitle';
+import Gear from 'Main/Gear';
+import Tab from 'Main/Tab';
 import TimelineTab from 'Main/Timeline/TimelineTab';
 
 import { formatNumber, formatPercentage, formatThousands, formatDuration } from 'common/format';
@@ -9,11 +11,13 @@ import { formatNumber, formatPercentage, formatThousands, formatDuration } from 
 import { findByBossId } from 'Raids';
 
 import ApplyBuffNormalizer from './Normalizers/ApplyBuff';
+import CancelledCastsNormalizer from './Normalizers/CancelledCasts';
 
 import Status from './Modules/Status';
 import HealingDone from './Modules/HealingDone';
 import DamageDone from './Modules/DamageDone';
 import DamageTaken from './Modules/DamageTaken';
+import DeathTracker from './Modules/DeathTracker';
 
 import Combatants from './Modules/Combatants';
 import AbilityTracker from './Modules/AbilityTracker';
@@ -31,8 +35,10 @@ import Pets from './Modules/Pets';
 import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
+import Channeling from './Modules/Channeling';
 
 import DistanceMoved from './Modules/Others/DistanceMoved';
+import WarningDisplay from './Modules/Features/WarningDisplay';
 
 import StatsDisplay from './Modules/Features/StatsDisplay';
 import TalentsDisplay from './Modules/Features/TalentsDisplay';
@@ -40,59 +46,61 @@ import Checklist from './Modules/Features/Checklist';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
 
-// Shared Legendaries
-import Prydaz from './Modules/Items/Prydaz';
-import Velens from './Modules/Items/Velens';
-import SephuzsSecret from './Modules/Items/SephuzsSecret';
-import KiljaedensBurningWish from './Modules/Items/KiljaedensBurningWish';
-import ArchimondesHatredReborn from './Modules/Items/ArchimondesHatredReborn';
-import Cinidaria from './Modules/Items/Cinidaria';
-import InsigniaOfTheGrandArmy from './Modules/Items/InsigniaOfTheGrandArmy';
-
-// Shared Epics
-import DrapeOfShame from './Modules/Items/DrapeOfShame';
-import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
-import AmalgamsSeventhSpine from './Modules/Items/AmalgamsSeventhSpine';
-import ArchiveOfFaith from './Modules/Items/ArchiveOfFaith';
-import BarbaricMindslaver from './Modules/Items/BarbaricMindslaver';
-import CharmOfTheRisingTide from './Modules/Items/CharmOfTheRisingTide';
-import ErraticMetronome from './Modules/Items/ErraticMetronome';
-import SeaStar from './Modules/Items/SeaStarOfTheDepthmother';
-import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
 import PrePotion from './Modules/Items/PrePotion';
 import LegendaryUpgradeChecker from './Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from './Modules/Items/LegendaryCountChecker';
 import EnchantChecker from './Modules/Items/EnchantChecker';
-import GnawedThumbRing from './Modules/Items/GnawedThumbRing';
-import VialOfCeaselessToxins from './Modules/Items/VialOfCeaselessToxins';
-import SpecterOfBetrayal from './Modules/Items/SpecterOfBetrayal';
-import EngineOfEradication from './Modules/Items/EngineOfEradication';
-import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedallion';
-import SpectralThurible from './Modules/Items/SpectralThurible';
-import TerrorFromBelow from './Modules/Items/TerrorFromBelow';
-import TomeOfUnravelingSanity from './Modules/Items/TomeOfUnravelingSanity';
-import InfernalCinders from './Modules/Items/InfernalCinders';
-import UmbralMoonglaives from './Modules/Items/UmbralMoonglaives';
-// T21 Healing trinkets
-import TarratusKeystone from './Modules/Items/TarratusKeystone';
-import HighFathersMachination from './Modules/Items/HighfathersMachination';
-import EonarsCompassion from './Modules/Items/EonarsCompassion';
-import GarothiFeedbackConduit from './Modules/Items/GarothiFeedbackConduit';
-import CarafeOfSearingLight from './Modules/Items/CarafeOfSearingLight';
-import IshkarsFelshieldEmitter from './Modules/Items/IshkarsFelshieldEmitter';
 
-// T21 Dps Trinkets
-import SeepingScourgewing from './Modules/Items/SeepingScourgewing';
-import GorshalachsLegacy from './Modules/Items/GorshalachsLegacy';
-import GolgannethsVitality from './Modules/Items/GolgannethsVitality';
-import ForgefiendsFabricator from './Modules/Items/ForgefiendsFabricator';
-import KhazgorothsCourage from './Modules/Items/KhazgorothsCourage';
-import TerminusSignalingBeacon from './Modules/Items/TerminusSignalingBeacon';
-import PrototypePersonnelDecimator from './Modules/Items/PrototypePersonnelDecimator';
-import SheathOfAsara from './Modules/Items/SheathOfAsara';
-import NorgannonsProwess from './Modules/Items/NorgannonsProwess';
-import AcridCatalystInjector from './Modules/Items/AcridCatalystInjector';
-import ShadowSingedFang from './Modules/Items/ShadowSingedFang';
+// Legendaries
+import PrydazXavaricsMagnumOpus from './Modules/Items/Legion/Legendaries/PrydazXavaricsMagnumOpus';
+import VelensFutureSight from './Modules/Items/Legion/Legendaries/VelensFutureSight';
+import SephuzsSecret from './Modules/Items/Legion/Legendaries/SephuzsSecret';
+import KiljaedensBurningWish from './Modules/Items/Legion/Legendaries/KiljaedensBurningWish';
+import ArchimondesHatredReborn from './Modules/Items/Legion/Legendaries/ArchimondesHatredReborn';
+import CinidariaTheSymbiote from './Modules/Items/Legion/Legendaries/CinidariaTheSymbiote';
+import InsigniaOfTheGrandArmy from './Modules/Items/Legion/Legendaries/InsigniaOfTheGrandArmy';
+// Dungeons/crafted
+import DrapeOfShame from './Modules/Items/Legion/DrapeOfShame';
+import DarkmoonDeckPromises from './Modules/Items/Legion/DarkmoonDeckPromises';
+import AmalgamsSeventhSpine from './Modules/Items/Legion/AmalgamsSeventhSpine';
+import GnawedThumbRing from './Modules/Items/Legion/GnawedThumbRing';
+// The Nighthold (T19)
+import ErraticMetronome from './Modules/Items/Legion/TheNighthold/ErraticMetronome';
+// Tomb of Sargeras (T20)
+import ArchiveOfFaith from './Modules/Items/Legion/TombOfSargeras/ArchiveOfFaith';
+import TarnishedSentinelMedallion from './Modules/Items/Legion/TombOfSargeras/TarnishedSentinelMedallion';
+import SeaStarOfTheDepthmother from './Modules/Items/Legion/TombOfSargeras/SeaStarOfTheDepthmother';
+import DeceiversGrandDesign from './Modules/Items/Legion/TombOfSargeras/DeceiversGrandDesign';
+import BarbaricMindslaver from './Modules/Items/Legion/TombOfSargeras/BarbaricMindslaver';
+import CharmOfTheRisingTide from './Modules/Items/Legion/TombOfSargeras/CharmOfTheRisingTide';
+import EngineOfEradication from './Modules/Items/Legion/TombOfSargeras/EngineOfEradication';
+import InfernalCinders from './Modules/Items/Legion/TombOfSargeras/InfernalCinders';
+import SpecterOfBetrayal from './Modules/Items/Legion/TombOfSargeras/SpecterOfBetrayal';
+import SpectralThurible from './Modules/Items/Legion/TombOfSargeras/SpectralThurible';
+import TerrorFromBelow from './Modules/Items/Legion/TombOfSargeras/TerrorFromBelow';
+import TomeOfUnravelingSanity from './Modules/Items/Legion/TombOfSargeras/TomeOfUnravelingSanity';
+import UmbralMoonglaives from './Modules/Items/Legion/TombOfSargeras/UmbralMoonglaives';
+import VialOfCeaselessToxins from './Modules/Items/Legion/TombOfSargeras/VialOfCeaselessToxins';
+// Antorus, the Burning Throne (T21)
+// Healing
+import TarratusKeystone from './Modules/Items/Legion/AntorusTheBurningThrone/TarratusKeystone';
+import HighFathersMachination from './Modules/Items/Legion/AntorusTheBurningThrone/HighfathersMachination';
+import EonarsCompassion from './Modules/Items/Legion/AntorusTheBurningThrone/EonarsCompassion';
+import GarothiFeedbackConduit from './Modules/Items/Legion/AntorusTheBurningThrone/GarothiFeedbackConduit';
+import CarafeOfSearingLight from './Modules/Items/Legion/AntorusTheBurningThrone/CarafeOfSearingLight';
+import IshkarsFelshieldEmitter from './Modules/Items/Legion/AntorusTheBurningThrone/IshkarsFelshieldEmitter';
+// DPS
+import SeepingScourgewing from './Modules/Items/Legion/AntorusTheBurningThrone/SeepingScourgewing';
+import GorshalachsLegacy from './Modules/Items/Legion/AntorusTheBurningThrone/GorshalachsLegacy';
+import GolgannethsVitality from './Modules/Items/Legion/AntorusTheBurningThrone/GolgannethsVitality';
+import ForgefiendsFabricator from './Modules/Items/Legion/AntorusTheBurningThrone/ForgefiendsFabricator';
+import KhazgorothsCourage from './Modules/Items/Legion/AntorusTheBurningThrone/KhazgorothsCourage';
+import TerminusSignalingBeacon from './Modules/Items/Legion/AntorusTheBurningThrone/TerminusSignalingBeacon';
+import PrototypePersonnelDecimator from './Modules/Items/Legion/AntorusTheBurningThrone/PrototypePersonnelDecimator';
+import SheathOfAsara from './Modules/Items/Legion/AntorusTheBurningThrone/SheathOfAsara';
+import NorgannonsProwess from './Modules/Items/Legion/AntorusTheBurningThrone/NorgannonsProwess';
+import AcridCatalystInjector from './Modules/Items/Legion/AntorusTheBurningThrone/AcridCatalystInjector';
+import ShadowSingedFang from './Modules/Items/Legion/AntorusTheBurningThrone/ShadowSingedFang';
 
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
@@ -117,6 +125,7 @@ import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
 
 const debug = false;
+// This sends every event that occurs to the console, including fabricated events (unlike the Events tab)
 const debugEvents = false;
 
 let _modulesDeprecatedWarningSent = false;
@@ -127,18 +136,21 @@ class CombatLogParser {
   static defaultModules = {
     // Normalizers
     applyBuffNormalizer: ApplyBuffNormalizer,
+    cancelledCastsNormalizer: CancelledCastsNormalizer,
 
     // Analyzers
     status: Status,
     healingDone: HealingDone,
     damageDone: DamageDone,
     damageTaken: DamageTaken,
+    deathTracker: DeathTracker,
 
     combatants: Combatants,
     enemies: Enemies,
     enemyInstances: EnemyInstances,
     pets: Pets,
     spellManaCost: SpellManaCost,
+    channeling: Channeling,
     abilityTracker: AbilityTracker,
     healEventTracker: HealEventTracker,
     haste: Haste,
@@ -152,6 +164,7 @@ class CombatLogParser {
     manaValues: ManaValues,
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
+    warningDisplay: WarningDisplay,
 
     critEffectBonus: CritEffectBonus,
 
@@ -161,12 +174,12 @@ class CombatLogParser {
 
     // Items:
     // Legendaries:
-    prydaz: Prydaz,
-    velens: Velens,
+    prydazXavaricsMagnumOpus: PrydazXavaricsMagnumOpus,
+    velensFutureSight: VelensFutureSight,
     sephuzsSecret: SephuzsSecret,
     kiljaedensBurningWish: KiljaedensBurningWish,
     archimondesHatredReborn: ArchimondesHatredReborn,
-    cinidaria: Cinidaria,
+    cinidariaTheSymbiote: CinidariaTheSymbiote,
     insigniaOfTheGrandArmy: InsigniaOfTheGrandArmy,
     // Epics:
     drapeOfShame: DrapeOfShame,
@@ -183,7 +196,7 @@ class CombatLogParser {
     archiveOfFaith: ArchiveOfFaith,
     barbaricMindslaver: BarbaricMindslaver,
     charmOfTheRisingTide: CharmOfTheRisingTide,
-    seaStar: SeaStar,
+    seaStarOfTheDepthmother: SeaStarOfTheDepthmother,
     deceiversGrandDesign: DeceiversGrandDesign,
     vialCeaslessToxins: VialOfCeaselessToxins,
     specterOfBetrayal: SpecterOfBetrayal,
@@ -473,7 +486,7 @@ class CombatLogParser {
 
   generateResults() {
     const results = new ParseResults();
-
+    
     results.tabs = [
       {
         title: 'Timeline',
@@ -485,8 +498,19 @@ class CombatLogParser {
             end={this.currentTimestamp >= 0 ? this.currentTimestamp : this.fight.end_time}
             historyBySpellId={this.modules.spellHistory.historyBySpellId}
             globalCooldownHistory={this.modules.globalCooldown.history}
+            channelHistory={this.modules.channeling.history}
             abilities={this.modules.abilities}
           />
+        ),
+      },
+      {
+        title: 'Gear',
+        url: 'gear',
+        order: 3,
+        render: () => (
+          <Tab title="Gear">
+            <Gear selectedCombatant={this._modules.combatants.selected}/>
+          </Tab>
         ),
       },
       {

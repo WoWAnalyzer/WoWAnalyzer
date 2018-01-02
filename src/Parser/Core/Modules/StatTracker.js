@@ -49,6 +49,24 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.TOME_OF_UNRAVELING_SANITY.id,
       crit: (_, item) => calculateSecondaryStatDefault(910, 2756, item.itemLevel),
     },
+    [SPELLS.BRUTALITY_OF_THE_LEGION.id]: {
+      itemId: ITEMS.ACRID_CATALYST_INJECTOR.id,
+      crit: (_, item) => calculateSecondaryStatDefault(955, 210, item.itemLevel),
+    },
+    [SPELLS.FERVOR_OF_THE_LEGION.id]: {
+      itemId: ITEMS.ACRID_CATALYST_INJECTOR.id,
+      haste: (_, item) => calculateSecondaryStatDefault(955, 210, item.itemLevel),
+    },
+    [SPELLS.MALICE_OF_THE_LEGION.id]: {
+      itemId: ITEMS.ACRID_CATALYST_INJECTOR.id,
+      mastery: (_, item) => calculateSecondaryStatDefault(955, 210, item.itemLevel),
+    },
+    [SPELLS.CYCLE_OF_THE_LEGION.id]: {
+      itemId: ITEMS.ACRID_CATALYST_INJECTOR.id,
+      crit: (_, item) => calculateSecondaryStatDefault(955, 2397, item.itemLevel),
+      haste: (_, item) => calculateSecondaryStatDefault(955, 2397, item.itemLevel),
+      mastery: (_, item) => calculateSecondaryStatDefault(955, 2397, item.itemLevel),
+    },
     // endregion
 
     // region Misc
@@ -107,7 +125,7 @@ class StatTracker extends Analyzer {
       ...this._pullStats,
     };
 
-    this._debugPrintStats(this._currentStats);
+    debug && this._debugPrintStats(this._currentStats);
   }
 
   /*
@@ -201,7 +219,9 @@ class StatTracker extends Analyzer {
         return standard + 0.05; //baseline +5%
       case SPECS.BEAST_MASTERY_HUNTER :
         return standard + 0.05; //baseline +5%
-      default:
+      case SPECS.WINDWALKER_MONK:
+        return standard + 0.05; //baseline +5%
+      default:      
         return standard;
     }
   }
@@ -228,6 +248,8 @@ class StatTracker extends Analyzer {
         return 0.04;
       case SPECS.RESTORATION_DRUID:
         return 0.048;
+      case SPECS.BALANCE_DRUID:
+        return 0.18;
       case SPECS.RETRIBUTION_PALADIN:
         return 0.14;
       case SPECS.PROTECTION_PALADIN:
@@ -252,6 +274,8 @@ class StatTracker extends Analyzer {
         return 0.08;
       case SPECS.FURY_WARRIOR:
         return 0.11;
+      case SPECS.AFFLICTION_WARLOCK:
+        return 0.25;
       default:
         console.error('Mastery hasn\'t been implemented for this spec yet.');
         return 0.0;
@@ -287,53 +311,7 @@ class StatTracker extends Analyzer {
     return (withBase ? this.baseHastePercentage : 0) + rating / this.hasteRatingPerPercent;
   }
   get masteryRatingPerPercent() {
-    switch (this.combatants.selected.spec) {
-      case SPECS.HOLY_PALADIN:
-        return 26667;
-      case SPECS.HOLY_PRIEST:
-        return 32000;
-      case SPECS.SHADOW_PRIEST:
-        return 16000;
-      case SPECS.DISCIPLINE_PRIEST:
-        return 25000;
-      case SPECS.RESTORATION_SHAMAN:
-        return 13333;
-      case SPECS.ENHANCEMENT_SHAMAN:
-        return 13333;
-      case SPECS.ELEMENTAL_SHAMAN:
-        return 23333;
-      case SPECS.GUARDIAN_DRUID:
-        return 40000;
-      case SPECS.RESTORATION_DRUID:
-        return 66667;
-      case SPECS.RETRIBUTION_PALADIN:
-        return 22850;
-      case SPECS.PROTECTION_PALADIN:
-        return 40000;
-      case SPECS.WINDWALKER_MONK:
-        return 32000;
-      case SPECS.MARKSMANSHIP_HUNTER:
-        return 64000;
-      case SPECS.FROST_MAGE:
-        return 17778;
-      case SPECS.FIRE_MAGE:
-        return 53333;
-      case SPECS.SUBTLETY_ROGUE:
-        return 14492.61221;
-      case SPECS.BEAST_MASTERY_HUNTER:
-        return 17778;
-      case SPECS.UNHOLY_DEATH_KNIGHT:
-        return 17776;
-      case SPECS.MISTWEAVER_MONK:
-        return 3076.96;
-      case SPECS.BREWMASTER_MONK:
-        return 40000;
-      case SPECS.FURY_WARRIOR:
-        return 28430;
-      default:
-        console.error('Mastery hasn\'t been implemented for this spec yet.');
-        return null;
-    }
+    return 40000 / this.combatants.selected.spec.masteryCoefficient;
   }
   masteryPercentage(rating, withBase = false) {
     return (withBase ? this.baseMasteryPercentage : 0) + rating / this.masteryRatingPerPercent;
@@ -411,7 +389,7 @@ class StatTracker extends Analyzer {
     if (debug) {
       const spellName = eventReason && eventReason.ability ? eventReason.ability.name : 'unspecified';
       console.log(`StatTracker: FORCED CHANGE from ${spellName} - Change: ${this._statPrint(delta)}`);
-      this._debugPrintStats(this._currentStats);
+      debug && this._debugPrintStats(this._currentStats);
     }
   }
 

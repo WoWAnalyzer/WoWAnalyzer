@@ -10,7 +10,6 @@ const PROC_INTERVAL_MS = 10000;
  * While Icy Veins is active, you gain 1 charge of Fingers of Frost every 10 sec.
  */
 class LadyVashjsGrasp extends Analyzer {
-
   static dependencies = {
 		combatants: Combatants,
 	};

@@ -1,17 +1,14 @@
-import ITEMS from 'common/ITEMS';
+import React from 'react';
 
+import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS';
+import PETS from 'common/PETS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
-import SPELLS from 'common/SPELLS';
-import PETS from 'common/PETS';
-import { formatNumber } from 'common/format';
 import CorePets from 'Parser/Core/Modules/Pets';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
-/*
- * The Apex Predator's Claw
- * Equip: Your pet gains the passive abilities of all pet specializations and deals 5% increased damage.
- */
 const APEX_DAMAGE_MODIFIER = 0.05;
 const DIRE_BEAST_DURATION = 8000;
 
@@ -25,6 +22,10 @@ const HATI_LIST = [
   PETS.HATI_7.id,
 ];
 
+/**
+ * The Apex Predator's Claw
+ * Equip: Your pet gains the passive abilities of all pet specializations and deals 5% increased damage.
+ */
 class TheApexPredatorsClaw extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -64,7 +65,7 @@ class TheApexPredatorsClaw extends Analyzer {
   item() {
     return {
       item: ITEMS.THE_APEX_PREDATORS_CLAW,
-      result: formatNumber(this.bonusDmg) - this.owner.formatItemDamageDone(this.bonusDmg),
+      result: <ItemDamageDone amount={this.bonusDmg} />,
     };
   }
 

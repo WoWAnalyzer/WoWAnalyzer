@@ -5,6 +5,7 @@ import ITEMS from 'common/ITEMS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 class XonisCaress extends Analyzer {
   static dependencies = {
@@ -31,7 +32,7 @@ class XonisCaress extends Analyzer {
       item: ITEMS.XONIS_CARESS,
       result: (
         <dfn data-tip="This accounts only for the extra healing, and doesn't include the reduced Ironbark cooldown.">
-          {this.owner.formatItemHealingDone(this.healing)}
+          <ItemHealingDone amount={this.healing} />
         </dfn>
       ),
     };

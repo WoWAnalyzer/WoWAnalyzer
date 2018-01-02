@@ -22,7 +22,7 @@ class ManaValues extends Analyzer {
   on_byPlayer_cast(event) {
     if (event.classResources) {
       event.classResources
-        .filter(resource => resource.type === RESOURCE_TYPES.MANA)
+        .filter(resource => resource.type === RESOURCE_TYPES.MANA.id)
         .forEach(({ amount, cost, max }) => {
           const manaValue = amount;
           const manaCost = cost || 0;

@@ -34,6 +34,7 @@ import AuraOfMercy from './Modules/Talents/AuraOfMercy';
 import HolyAvenger from './Modules/Talents/HolyAvenger';
 import DivinePurpose from './Modules/Talents/DivinePurpose';
 import CrusadersMight from './Modules/Talents/CrusadersMight';
+import JudgmentOfLight from './Modules/Talents/JudgmentOfLight';
 
 import RelicTraits from './Modules/Traits/RelicTraits';
 import DeliverTheLight from './Modules/Traits/DeliverTheLight';
@@ -96,6 +97,7 @@ class CombatLogParser extends CoreCombatLogParser {
     holyAvenger: HolyAvenger,
     divinePurpose: DivinePurpose,
     crusadersMight: CrusadersMight,
+    judgmentOfLight: JudgmentOfLight,
 
     // Traits
     relicTraits: RelicTraits,

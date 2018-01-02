@@ -1,18 +1,16 @@
 import React from 'react';
-import { formatPercentage, formatNumber } from 'common/format';
-
-// dependencies
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-
 import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemManaGained from 'Main/ItemManaGained';
 
 class XanshiCloak extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-  }
+  };
 
   _xanshiActive = false;
   healing = 0;
@@ -59,14 +57,12 @@ class XanshiCloak extends Analyzer {
   }
 
   item() {
-    const cloakPercHPS = formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing));
-    const cloakHPS = formatNumber(this.healing / this.owner.fightDuration * 1000);
-
     return {
       item: ITEMS.XANSHI_CLOAK,
       result: (
         <dfn data-tip="Value of spells cast during the cloak's buff. Does not assume all healing after cloak ends would be a result of the cloak.">
-          { cloakPercHPS } % / { cloakHPS } HPS / { formatNumber(this.manaSaved) } mana saved
+          <ItemHealingDone amount={this.healing} /><br />
+          <ItemManaGained amount={this.manaSaved} />
         </dfn>
       ),
     };

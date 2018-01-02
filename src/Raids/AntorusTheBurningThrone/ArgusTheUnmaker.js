@@ -8,6 +8,7 @@ export default {
   headshot: Headshot,
   fight: {
     vantusRuneBuffId: 250146,
+    disableDeathSuggestion: true,
     // TODO: Add fight specific props
     // e.g. baseDowntime (seconds, percentage, based on (de)buff, etc)
     // e.g. ads
