@@ -20,15 +20,11 @@ class AstralPowerTracker extends ResourceTracker {
   	}
   	const cost = this.getResource(event).cost / 10;
   	const abilityId = event.ability.guid;
-  	if(abilityId === SPELLS.STARSURGE_MOONKIN.id) {
-  		if(this.combatants.selected.hasBuff(SPELLS.THE_EMERALD_DREAMCATCHER.id)){
-        const stacks = this.combatants.selected.getBuff(SPELLS.THE_EMERALD_DREAMCATCHER.id).stacks;
-  			return cost - 5 * stacks;
-  		}
-  	} else if(abilityId === SPELLS.STARFALL_CAST.id) {
-  		if(this.combatants.selected.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_BALANCE.id) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_ARCHDRUID.id)){
+  	if(abilityId === SPELLS.STARSURGE_MOONKIN.id && this.combatants.selected.hasBuff(SPELLS.THE_EMERALD_DREAMCATCHER.id)) {
+      const stacks = this.combatants.selected.getBuff(SPELLS.THE_EMERALD_DREAMCATCHER.id).stacks;
+			return cost - 5 * stacks;
+  	} else if(abilityId === SPELLS.STARFALL_CAST.id && (this.combatants.selected.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_BALANCE.id) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_ARCHDRUID.id))) {
   			return cost - 20;
-  		}
   	}
   	return cost;
   }

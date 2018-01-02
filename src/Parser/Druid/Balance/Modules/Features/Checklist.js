@@ -1,5 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 
@@ -98,10 +99,12 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: 'Solar Empowerment efficiency',
             check: () => this.solarEmpowerment.suggestionThresholds,
+            when: !this.combatants.selected.hasHead(ITEMS.THE_EMERALD_DREAMCATCHER.id),
           }),
           new Requirement({
             name: 'Lunar Empowerment efficiency',
             check: () => this.lunarEmpowerment.suggestionThresholds,
+            when: !this.combatants.selected.hasHead(ITEMS.THE_EMERALD_DREAMCATCHER.id),
           }),
         ];
       },
