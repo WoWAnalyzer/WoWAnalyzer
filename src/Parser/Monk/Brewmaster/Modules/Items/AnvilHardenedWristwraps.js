@@ -1,3 +1,4 @@
+import React from 'react';
 import ITEMS from 'common/ITEMS';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -28,6 +29,17 @@ class AnvilHardenedWristwraps extends Analyzer {
       this.cdr += actualReduction;
       this.wastedCDR += WRISTS_REDUCTION - actualReduction;
     } 
+  }
+
+  item() {
+    return {
+      item: ITEMS.ANVIL_HARDENED_WRISTWRAPS,
+      result: (
+        <dfn>
+          Brew cooldowns reduced by {(this.cdr / 1000).toFixed(2)}s.
+        </dfn>
+      ),
+    };
   }
 }
 
