@@ -10,10 +10,10 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PENANCE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        casts: (_, parser) => parser.modules.penance.casts,
         cooldown: 9,
         castEfficiency: {
           suggestion: true,
+          casts: (_, parser) => parser.modules.penance.casts,
           maxCasts: (cooldown, fightDuration) => calculateMaxCasts(cooldown, fightDuration), // temp until bolts past first can be ignored by cast checker
         },
       },
