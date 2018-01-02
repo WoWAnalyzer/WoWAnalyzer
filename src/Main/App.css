@@ -19,6 +19,22 @@ body {
     padding: 0 60px;
   }
 }
+#app-mount {
+  display: flex;
+  flex-flow: column;
+  min-height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+#app-mount > .app {
+  flex: 1 1 auto;
+}
+#app-mount > footer {
+  flex: 0 0 auto;
+}
 .app > main {
   margin-top: 40px;
 }
@@ -93,7 +109,7 @@ hr {
   z-index: 200;
 }
 .app.has-report > header {
-  margin-top: -450px;
+  margin-top: -410px;
   margin-bottom: 90px;
   opacity: 0;
   pointer-events: none;
@@ -430,6 +446,10 @@ svg {
   fill: currentColor;
   stroke: currentColor;
   vertical-align: middle;
+  margin-top: -0.2em;
+}
+img.icon {
+  height: 1.2em;
   margin-top: -0.2em;
 }
 h1 {
@@ -829,11 +849,11 @@ table.data-table img {
   background: #bf3917;
 }
 .btn.discord, .btn.github, .btn.patreon {
-  padding: .5rem 1.23rem;
-  height: 38px;
-  line-height: 2.7rem;
+  padding: .3em 0.8em;
+  height: 2.5em;
+  line-height: 1.8em;
   border: 0;
-  font-size: 1.6rem;
+  font-size: 1.1em;
 }
 .external-links .btn:not(:first-of-type) {
   margin-left: 3%;

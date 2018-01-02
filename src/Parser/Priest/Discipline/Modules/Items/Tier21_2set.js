@@ -3,9 +3,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-
 import { formatDuration } from 'common/format';
-
+import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 
 const REGULAR_RADIANCE_COOLDOWN_MS = 18000;
@@ -41,9 +40,9 @@ class Tier21_2set extends Analyzer {
       icon: <SpellIcon id={SPELLS.DISC_PRIEST_T21_2SET_BONUS_PASSIVE.id} />,
       title: <SpellLink id={SPELLS.DISC_PRIEST_T21_2SET_BONUS_PASSIVE.id} />,
       result: (
-        <span>
+        <Wrapper>
           Gross time saved: {formatDuration(this.grossTimeSaved / 1000)}
-        </span>
+        </Wrapper>
       ),
     };
   }

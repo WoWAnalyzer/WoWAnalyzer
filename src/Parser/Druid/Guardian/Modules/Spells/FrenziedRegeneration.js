@@ -23,9 +23,6 @@ class FrenziedRegeneration extends Analyzer {
   damageEventsInWindow = [];
   _healModifier = 0.5;
 
-  // Charges are not used by this module, but they may be used in a future Death Recap module
-  _charges = 2;
-
   get healModifier() {
     return this._healModifier;
   }
@@ -47,12 +44,7 @@ class FrenziedRegeneration extends Analyzer {
   on_initialized() {
     const player = this.combatants.selected;
     const wildfleshRank = player.traitsBySpellId[SPELLS.WILDFLESH_TRAIT.id];
-    const fleshknittingRank = player.traitsBySpellId[SPELLS.FLESHKNITTING_TRAIT.id];
     const versModifier = player.versatilityPercentage;
-
-    if (fleshknittingRank > 0) {
-      this._charges += 1;
-    }
 
     this._healModifier += (wildfleshRank * WILDFLESH_MODIFIER_PER_RANK);
     this._healModifier += versModifier;

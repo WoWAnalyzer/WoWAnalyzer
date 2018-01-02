@@ -5,6 +5,7 @@ import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 const DAMAGE_BONUS = 0.20;
 
@@ -15,12 +16,12 @@ const DAMAGE_BONUS = 0.20;
 class Tier21_4set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-  }
+  };
 
   damage = 0;
 
   on_initialized() {
-	   this.active = this.combatants.selected.hasBuff(SPELLS.FROST_MAGE_T21_4SET_BONUS_BUFF.id);
+    this.active = this.combatants.selected.hasBuff(SPELLS.FROST_MAGE_T21_4SET_BONUS_BUFF.id);
   }
 
   on_byPlayer_damage(event) {
@@ -35,13 +36,12 @@ class Tier21_4set extends Analyzer {
     }
   }
 
-
   item() {
     return {
       id: SPELLS.FROST_MAGE_T21_4SET_BONUS_BUFF.id,
       icon: <SpellIcon id={SPELLS.FROST_MAGE_T21_4SET_BONUS_BUFF.id} />,
       title: <SpellLink id={SPELLS.FROST_MAGE_T21_4SET_BONUS_BUFF.id} />,
-      result: this.owner.formatItemDamageDone(this.damage),
+      result: <ItemDamageDone amount={this.damage} />,
     };
   }
 }

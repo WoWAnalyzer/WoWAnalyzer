@@ -1,16 +1,18 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 const DAMAGE_BONUS = 1;
 
 class DarcklisDragonfireDiadem extends Analyzer {
-
   static dependencies = {
-		combatants: Combatants,
-	};
+    combatants: Combatants,
+  };
 
   damage = 0;
 
@@ -22,13 +24,13 @@ class DarcklisDragonfireDiadem extends Analyzer {
     if (event.ability.guid !== SPELLS.DRAGONS_BREATH.id) {
       return;
     }
-      this.damage += getDamageBonus(event, DAMAGE_BONUS);
+    this.damage += getDamageBonus(event, DAMAGE_BONUS);
   }
 
   item() {
     return {
       item: ITEMS.DARCKLIS_DRAGONFIRE_DIADEM,
-      result: this.owner.formatItemDamageDone(this.damage),
+      result: <ItemDamageDone amount={this.damage} />,
     };
   }
 }

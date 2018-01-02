@@ -47,4 +47,5 @@ class PowerCordOfLethtendris extends Analyzer {
     };
   }
 }
+
 export default PowerCordOfLethtendris;

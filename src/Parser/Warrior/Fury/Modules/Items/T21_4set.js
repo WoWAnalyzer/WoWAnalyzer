@@ -3,10 +3,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-
-import Combatants from 'Parser/Core/Modules/Combatants';
-
 import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 class T21_4set extends Analyzer {
   static dependencies = {
@@ -14,7 +13,7 @@ class T21_4set extends Analyzer {
   };
 
   // Rampage is in fact 5 separate spells cast in this sequence
-  rampage = [SPELLS.RAMPAGE_1.id, SPELLS.RAMPAGE_2.id, SPELLS.RAMPAGE_3.id, SPELLS.RAMPAGE_4.id, SPELLS.RAMPAGE_5.id]
+  rampage = [SPELLS.RAMPAGE_1.id, SPELLS.RAMPAGE_2.id, SPELLS.RAMPAGE_3.id, SPELLS.RAMPAGE_4.id, SPELLS.RAMPAGE_5.id];
   damage = 0;
 
   on_initialized() {
@@ -23,11 +22,11 @@ class T21_4set extends Analyzer {
 
   on_byPlayer_damage(event) {
     if (!this.rampage.includes(event.ability.guid)) {
-        return;
+      return;
     }
 
     if (!this.combatants.selected.hasBuff(SPELLS.WARRIOR_FURY_T21_4P_BONUS_BUFF.id, event.timestamp)) {
-        return;
+      return;
     }
 
     this.damage += event.amount * 0.2;
@@ -38,7 +37,7 @@ class T21_4set extends Analyzer {
       id: `spell-${SPELLS.WARRIOR_FURY_T21_4P_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.WARRIOR_FURY_T21_4P_BONUS_BUFF.id} />,
       title: <SpellLink id={SPELLS.WARRIOR_FURY_T21_4P_BONUS_BUFF.id} />,
-      result: this.owner.formatItemDamageDone(this.damage),
+      result: <ItemDamageDone amount={this.damage} />,
     };
   }
 }

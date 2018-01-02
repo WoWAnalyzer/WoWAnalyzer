@@ -3,11 +3,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-
 import Analyzer from 'Parser/Core/Analyzer';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 class T21_2set extends Analyzer {
   static dependencies = {
@@ -27,7 +26,7 @@ class T21_2set extends Analyzer {
       id: `spell-${SPELLS.WARRIOR_FURY_T21_2P_BONUS_DEBUFF.id}`,
       icon: <SpellIcon id={SPELLS.WARRIOR_FURY_T21_2P_BONUS_DEBUFF.id} />,
       title: <SpellLink id={SPELLS.WARRIOR_FURY_T21_2P_BONUS_DEBUFF.id} />,
-      result: this.owner.formatItemDamageDone(damage),
+      result: <ItemDamageDone amount={damage} />,
     };
   }
 }
