@@ -18,18 +18,15 @@ class RpPoolingDA extends Analyzer {
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.DARK_ARBITER_TALENT.id);
   }
-  // used to track how many stacks a target has
-  targets = {};
 
   totalRunicPowerPooled = 0;
   totalDarkArbiterCasts = 0;
-  averageRpPooled = 0;
   currentRP = 0;
   maxRP = 0;
   
   
   on_toPlayer_energize(event) {
-    const runicPowerResource = event.classResources.find(resource => resource.type === RESOURCE_TYPES.RUNIC_POWER);
+    const runicPowerResource = event.classResources && event.classResources.find(resource => resource.type === RESOURCE_TYPES.RUNIC_POWER.id);
     if (runicPowerResource) {
       this.currentRP = (runicPowerResource.amount || 0)/10;
       this.maxRP = (runicPowerResource.max || 0)/10;
@@ -37,22 +34,25 @@ class RpPoolingDA extends Analyzer {
   }
   
    on_byPlayer_cast(event) {
-    const runicPowerResource = event.classResources.find(resource => resource.type === RESOURCE_TYPES.RUNIC_POWER);
+    const runicPowerResource = event.classResources && event.classResources.find(resource => resource.type === RESOURCE_TYPES.RUNIC_POWER.id);
     if (runicPowerResource) {
       this.currentRP = (runicPowerResource.amount || 0)/10;
       this.maxRP = (runicPowerResource.max || 0)/10;
     }
     const spellId = event.ability.guid;
     if(spellId === SPELLS.DARK_ARBITER_TALENT.id){
-		this.totalDarkArbiterCasts++;
-		this.totalRunicPowerPooled += this.currentRP;
-		this.averageRpPooled = (this.totalRunicPowerPooled / this.totalDarkArbiterCasts).toFixed(0);
+      this.totalDarkArbiterCasts++;
+      this.totalRunicPowerPooled += this.currentRP;
 		}
-	}
+  }
+  
+  get averageRpPooled(){
+    return (this.totalRunicPowerPooled / this.totalDarkArbiterCasts);
+  }
 	
-   get suggestionThresholds() {
+  get suggestionThresholds() {
     return {
-      actual: (this.totalRunicPowerPooled/this.totalDarkArbiterCasts).toFixed(1),
+      actual: this.averageRpPooled,
       isLessThan: {
         minor: (this.maxRP-20),
         average: (this.maxRP-30),
@@ -68,7 +68,7 @@ class RpPoolingDA extends Analyzer {
  		  .addSuggestion((suggest, actual, recommended) => {
 			return suggest(<Wrapper> You are casting <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id}/> without enough runic power. Make sure to pool some runic power before you cast <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id}/>.</Wrapper>)
 				.icon(SPELLS.DARK_ARBITER_TALENT.icon)
-				.actual(`${this.averageRpPooled} of runic power were pooled on average`)
+				.actual(`${this.averageRpPooled.toFixed(0)} of runic power were pooled on average`)
 				.recommended(`>${(recommended)} is recommended`)
 				.regular(recommended - 20).major(recommended - 40);
         });
@@ -78,9 +78,9 @@ class RpPoolingDA extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DARK_ARBITER_TALENT.id} />}
-        value={`${this.averageRpPooled}/${this.maxRP}`}
+        value={`${this.averageRpPooled.toFixed(0)}/${this.maxRP}`}
         label={'Average Runic Power Pooled before Dark Arbiter'}
-		tooltip={`A total amount of ${this.totalRunicPowerPooled} runic power was pooled for ${this.totalDarkArbiterCasts} casts of Dark Arbiter`}
+		tooltip={`A total amount of ${this.totalRunicPowerPooled.toFixed(0)} runic power was pooled for ${this.totalDarkArbiterCasts} casts of Dark Arbiter`}
       />
     );
   }
