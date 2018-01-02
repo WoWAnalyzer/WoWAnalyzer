@@ -18,38 +18,13 @@ class GlobalCooldown extends CoreGlobalCooldown {
     channeling: Channeling,
   };
 
-  isStarlordBuffedSolarWrath(event) {
-  	return event.ability.guid === SPELLS.SOLAR_WRATH_MOONKIN.id && this.combatants.selected.hasTalent(SPELLS.STARLORD_TALENT.id) && this.combatants.selected.hasBuff(SPELLS.SOLAR_EMP_BUFF.id);
-  }
-
-  on_byPlayer_begincast(event) {
-    if (this.isStarlordBuffedSolarWrath(event)) {
-      this.triggerStarlordGlobalCooldown(event, 'begincast');
-    } 
-    return;
-  }
-  on_byPlayer_beginchannel(event) {
-  	if (this.isStarlordBuffedSolarWrath(event)) {
-      return;
-    } 
-    super.on_byPlayer_beginchannel(event);
-  }
-  on_byPlayer_cast(event) {
-  	if (this.isStarlordBuffedSolarWrath(event)) {
-      return;
-    } 
-    super.on_byPlayer_cast(event);
-  }
-
-  triggerStarlordGlobalCooldown(event, trigger) {
-    this.owner.triggerEvent('globalcooldown', {
-      type: 'globalcooldown',
-      ability: event.ability,
-      timestamp: event.timestamp,
-      duration: Math.max(750, this.getCurrentGlobalCooldown(event.ability.guid) * 0.8), //Starlord multiplier
-      reason: event,
-      trigger,
-    });
+  getCurrentGlobalCooldown(spellId = null) {
+  	//Starlord Solar Wrath
+    if (spellId === SPELLS.SOLAR_WRATH_MOONKIN.id && this.combatants.selected.hasTalent(SPELLS.STARLORD_TALENT.id) && this.combatants.selected.hasBuff(SPELLS.SOLAR_EMP_BUFF.id)){
+      return Math.max(this.owner.modules.alwaysBeCasting.constructor.MINIMUM_GCD, this.owner.modules.alwaysBeCasting.constructor.BASE_GCD / (1 + this.haste.current) * 0.8);
+    }
+    //Default
+    return (spellId && this.owner.modules.alwaysBeCasting.constructor.STATIC_GCD_ABILITIES[spellId]) || this.constructor.calculateGlobalCooldown(this.haste.current, this.owner.modules.alwaysBeCasting.constructor.BASE_GCD, this.owner.modules.alwaysBeCasting.constructor.MINIMUM_GCD);
   }
 }
 
