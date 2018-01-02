@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
+import Wrapper from 'common/Wrapper';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -69,13 +70,15 @@ class Lifecycles extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.manaSaved).isLessThan(this.suggestionThresholds.isLessThan.minor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your current spell usage is not taking full advantage of the <SpellLink id={SPELLS.LIFECYCLES_TALENT.id} /> talent. You should be trying to alternate the use of these spells as often as possible to take advantage of the buff.</span>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+        return suggest(
+          <Wrapper>
+            Your current spell usage is not taking full advantage of the <SpellLink id={SPELLS.LIFECYCLES_TALENT.id} /> talent. You should be trying to alternate the use of these spells as often as possible to take advantage of the buff.
+          </Wrapper>
+        )
           .icon(SPELLS.LIFECYCLES_TALENT.icon)
           .actual(`${formatNumber(this.manaSaved)} mana saved through Lifecycles`)
-          .recommended(`${formatNumber(recommended)} is the recommended amount of mana savings`)
-          .regular(this.suggestionThresholds.isLessThan.average).major(this.suggestionThresholds.isLessThan.major);
+          .recommended(`${formatNumber(recommended)} is the recommended amount of mana savings`);
       });
   }
 
