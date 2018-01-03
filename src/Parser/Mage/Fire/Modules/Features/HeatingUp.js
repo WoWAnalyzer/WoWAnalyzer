@@ -163,7 +163,7 @@ class HeatingUp extends Analyzer {
           </span>
         )}
         label="Heating Up Utilization"
-        tooltip={`Spells that are guaranteed to crit like Fire Blast and Phoenix's Flames should only be used to convert Heating Up to Hot Streak. While there are minor exceptions to this (like if you are about to cap on Phoenixs Flames charges or using Fireball & Phoenixs Flames to bait Heating Up/Hot Streak just before Combustion), the goal should be to waste as few of these as possible.
+        tooltip={`Spells that are guaranteed to crit like Fire Blast and Phoenix's Flames should only be used to convert Heating Up to Hot Streak. While there are minor exceptions to this (like if you are about to cap on Phoenixs Flames charges or using Fireball & Phoenixs Flames to bait Heating Up/Hot Streak just before Combustion), the goal should be to waste as few of these as possible. 
           <ul>
             <li>Fireblast Used with no procs: ${this.fireBlastWithoutHeatingUp}</li>
             <li>Fireblast used during Hot Streak: ${this.fireBlastWithHotStreak}</li>
