@@ -18,6 +18,7 @@ import Bullseye from 'Parser/Hunter/Marksmanship/Modules/Traits/Bullseye';
 import PatientSniperDetails from 'Parser/Hunter/Marksmanship/Modules/Talents/PatientSniper/PatientSniperDetails';
 import Icon from "common/Icon";
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
+import AimedInVulnerableTracker from 'Parser/Hunter/Marksmanship/Modules/Features/AimedInVulnerableTracker';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -34,6 +35,7 @@ class Checklist extends CoreChecklist {
     cancelledCasts: CancelledCasts,
     timeFocusCapped: TimeFocusCapped,
     enchantChecker: EnchantChecker,
+    aimedInVulnerableTracker: AimedInVulnerableTracker,
 
     //talents
     aMurderOfCrows: AMurderOfCrows,
@@ -182,10 +184,14 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <Wrapper><SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> Usage</Wrapper>,
-      description: <Wrapper>Try to optimise the damage from <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> by after opening <SpellLink id={SPELLS.VULNERABLE.id} icon />, then casting one or two <SpellLink id={SPELLS.ARCANE_SHOT.id} icon /> or <SpellLink id={SPELLS.MULTISHOT.id} icon /> to delay your <SpellLink id={SPELLS.AIMED_SHOT.id} icon /> until later in the <SpellLink id={SPELLS.VULNERABLE.id} icon /> window. However, remember to not stand around waiting, doing nothing and to not focus cap. These are more important to DPS, than optimising <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> is.</Wrapper>,
+      name: <Wrapper><SpellLink id={SPELLS.VULNERABLE.id} icon /> & <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> Usage</Wrapper>,
+      description: <Wrapper>Try to limit the amount of casts outside of <SpellLink id={SPELLS.VULNERABLE.id} icon /> to a minimum. Try to optimise the damage from <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> by after opening <SpellLink id={SPELLS.VULNERABLE.id} icon />, then casting one or two <SpellLink id={SPELLS.ARCANE_SHOT.id} icon /> or <SpellLink id={SPELLS.MULTISHOT.id} icon /> to delay your <SpellLink id={SPELLS.AIMED_SHOT.id} icon /> until later in the <SpellLink id={SPELLS.VULNERABLE.id} icon /> window. However, remember to not stand around waiting, doing nothing and to not focus cap. These are more important to DPS, than optimising <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> is.</Wrapper>,
       requirements: () => {
         return [
+          new Requirement({
+            name: <Wrapper>memes</Wrapper>,
+            check: () => this.aimedInVulnerableTracker.nonVulnerableAimedShotTreshold,
+          }),
           new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> damage contribution</Wrapper>,
             check: () => this.patientSniperDetails.patientSniperDamageThresholds,
