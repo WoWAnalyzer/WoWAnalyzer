@@ -8,6 +8,7 @@ import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import CooldownTracker from '../Features/CooldownThroughputTracker';
+import Wrapper from 'common/Wrapper';
 
 /*
  * When your abilities damage a target below 20% health, you gain 1% increased critical strike chance for 6 sec, stacking up to 30 times.
@@ -109,7 +110,7 @@ class Bullseye extends Analyzer {
   suggestions(when) {
     when(this.bullseyeResets).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> You reset your <SpellLink id={SPELLS.BULLSEYE_BUFF.id} /> stacks while the boss was below 20% health. Try and avoid this as it is a significant DPS loss. Make sure you're constantly refreshing and adding to your bullseye stacks on targets below 20% hp.</span>)
+        return suggest(<Wrapper> You reset your <SpellLink id={SPELLS.BULLSEYE_BUFF.id} /> stacks while the boss was below 20% health. Try and avoid this as it is a significant DPS loss. Make sure you're constantly refreshing and adding to your bullseye stacks on targets below 20% hp.</Wrapper>)
           .icon('ability_hunter_focusedaim')
           .actual(`${this.bullseyeResets} resets`)
           .recommended(`<1 reset is recommended`)

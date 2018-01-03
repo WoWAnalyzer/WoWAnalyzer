@@ -10,6 +10,7 @@ import { formatPercentage } from "common/format";
 import SpellLink from "common/SpellLink";
 import SPECS from 'common/SPECS';
 import ItemDamageDone from 'Main/ItemDamageDone';
+import Wrapper from 'common/Wrapper';
 
 //generally accepted rule is to save crows if boss is below 25% health.
 const CROWS_SAVE_PERCENT = 0.25;
@@ -73,7 +74,7 @@ class AMurderOfCrows extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} />}
         value={(
-          <span>
+          <Wrapper>
             {this.goodCrowsCasts}{'  '}
             <SpellIcon
               id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id}
@@ -92,7 +93,7 @@ class AMurderOfCrows extends Analyzer {
                 filter: 'grayscale(100%)',
               }}
             />
-          </span>
+          </Wrapper>
 
         )}
         label={`A Murder of Crows`}
@@ -129,7 +130,7 @@ class AMurderOfCrows extends Analyzer {
   }
   suggestions(when) {
     when(this.shouldHaveSavedThreshold).addSuggestion((suggest) => {
-      return suggest(<span>You should <b>generally</b> save <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> when the boss has under 25% hp so that it is ready to use when the boss hits 20% and you can start getting <SpellLink id={SPELLS.BULLSEYE_BUFF.id} /> quicker.</span>)
+      return suggest(<Wrapper>You should <b>generally</b> save <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> when the boss has under 25% hp so that it is ready to use when the boss hits 20% and you can start getting <SpellLink id={SPELLS.BULLSEYE_BUFF.id} /> quicker.</Wrapper>)
         .icon(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.icon)
         .actual(`You cast crows while boss ${formatPercentage(this.bossHP)}% HP.`)
         .recommended(`0 casts when boss has between 20 and 25% hp is recommended`);

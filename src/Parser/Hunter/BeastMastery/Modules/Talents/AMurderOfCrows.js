@@ -10,6 +10,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 import ItemDamageDone from 'Main/ItemDamageDone';
+import Wrapper from 'common/Wrapper';
 
 //The point at which you can use crows without Bestial Wrath because they'd overlap enough for it to still be considered a good cast - this is what the APL does.
 const ALLOW_EARLY_USE = 3000;
@@ -127,7 +128,7 @@ class AMurderOfCrows extends Analyzer {
     } = this.shouldHaveSavedThreshold;
     when(this.badCrowsCasts).isGreaterThan(BadCastMinor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Don't cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up (or ready to cast straight after the <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> cast), and atleast 7 seconds remaining on the buff.</span>)
+        return suggest(<Wrapper>Don't cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up (or ready to cast straight after the <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> cast), and atleast 7 seconds remaining on the buff.</Wrapper>)
           .icon(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.icon)
           .actual(`You cast A Murder of Crows ${this.badCrowsCasts} times without Bestial Wrath up or Bestial Wrath ready to cast after`)
           .recommended(`${recommended} is recommended`)
@@ -136,7 +137,7 @@ class AMurderOfCrows extends Analyzer {
       });
     when(this.shouldHaveSavedCrows).isGreaterThan(shouldHaveSavedMinor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Don't cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> without atleast 7 seconds remaining on <SpellLink id={SPELLS.BESTIAL_WRATH.id} />.</span>)
+        return suggest(<Wrapper>Don't cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> without atleast 7 seconds remaining on <SpellLink id={SPELLS.BESTIAL_WRATH.id} />.</Wrapper>)
           .icon(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.icon)
           .actual(`You cast A Murder of Crows ${this.shouldHaveSavedCrows} times with less than 7 seconds remaining on Bestial Wrath`)
           .recommended(`${recommended} is recommended`)
@@ -156,7 +157,7 @@ class AMurderOfCrows extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} />}
         value={(
-          <span>
+          <Wrapper>
             {this.goodCrowsCasts}{'  '}
             <SpellIcon
               id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id}
@@ -175,7 +176,7 @@ class AMurderOfCrows extends Analyzer {
                 filter: 'grayscale(100%)',
               }}
             />
-          </span>
+          </Wrapper>
 
         )}
         label={`A Murder of Crows`}

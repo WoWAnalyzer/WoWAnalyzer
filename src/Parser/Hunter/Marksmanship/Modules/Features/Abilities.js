@@ -3,6 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
+import Wrapper from 'common/Wrapper';
 
 class Abilities extends CoreAbilities {
 
@@ -14,7 +15,7 @@ class Abilities extends CoreAbilities {
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       getCooldown: haste => 20,
       recommendedEfficiency: 0.75,
-      extraSuggestion: <span>You should cast it whenever you cannot fit another <SpellLink id={SPELLS.AIMED_SHOT.id} /> in your current <SpellLink id={SPELLS.VULNERABLE.id} /> window, which will generally almost always translate into almost on cooldown. It is your best <SpellLink id={SPELLS.VULNERABLE.id} /> generator, as it allows extra globals to be cast inside the window, allowing you to cast <SpellLink id={SPELLS.WINDBURST.id} /> at almost no focus. </span>,
+      extraSuggestion: <Wrapper>You should cast it whenever you cannot fit another <SpellLink id={SPELLS.AIMED_SHOT.id} /> in your current <SpellLink id={SPELLS.VULNERABLE.id} /> window, which will generally almost always translate into almost on cooldown. It is your best <SpellLink id={SPELLS.VULNERABLE.id} /> generator, as it allows extra globals to be cast inside the window, allowing you to cast <SpellLink id={SPELLS.WINDBURST.id} /> at almost no focus. </Wrapper>,
     },
     {
       spell: SPELLS.AIMED_SHOT,
@@ -48,7 +49,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 30,
       isActive: combatant => combatant.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id),
       recommendedEfficiency: 0.95,
-      extraSuggestion: <span><SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id} /> should be used on cooldown, and you should aim to hit it in the center of the mobs, as that will be where it does the most dmg.</span>,
+      extraSuggestion: <Wrapper><SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id} /> should be used on cooldown, and you should aim to hit it in the center of the mobs, as that will be where it does the most dmg.</Wrapper>,
     },
     {
       spell: SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED,
@@ -56,7 +57,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 60,
       isActive: combatant => combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id),
       recommendedEfficiency: 0.8,
-      extraSuggestion: <span> You should aim to cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> on cooldown generally, and the last usage should be as early in the execute window (sub-20%) as possible, to allow for stacking of <SpellLink id={SPELLS.BULLSEYE_BUFF.id} /> as fast as possible. This can mean delaying it for up to 20-30 seconds sometimes which can lower your cast-efficiency, even though you're playing optimally.</span>,
+      extraSuggestion: <Wrapper> You should aim to cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> on cooldown generally, and the last usage should be as early in the execute window (sub-20%) as possible, to allow for stacking of <SpellLink id={SPELLS.BULLSEYE_BUFF.id} /> as fast as possible. This can mean delaying it for up to 20-30 seconds sometimes which can lower your cast-efficiency, even though you're playing optimally.</Wrapper>,
     },
     {
       spell: SPELLS.BARRAGE_TALENT,
@@ -64,7 +65,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 20,
       isActive: combatant => combatant.hasTalent(SPELLS.BARRAGE_TALENT.id),
       recommendedEfficiency: 0.9,
-      extraSuggestion: <span><SpellLink id={SPELLS.BARRAGE_TALENT.id} /> should generally be used on cooldown unless it needs to be saved for upcoming burst DPS requirement. It is however not worth using this on single-target at all, in which case you would be better off using either <SpellLink id={SPELLS.VOLLEY_TALENT.id} /> for stacked AoE or <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> for Single-target.</span>,
+      extraSuggestion: <Wrapper><SpellLink id={SPELLS.BARRAGE_TALENT.id} /> should generally be used on cooldown unless it needs to be saved for upcoming burst DPS requirement. It is however not worth using this on single-target at all, in which case you would be better off using either <SpellLink id={SPELLS.VOLLEY_TALENT.id} /> for stacked AoE or <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> for Single-target.</Wrapper>,
     },
     {
       spell: SPELLS.SIDEWINDERS_TALENT,
@@ -79,7 +80,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 30,
       isActive: combatant => combatant.hasTalent(SPELLS.PIERCING_SHOT_TALENT.id),
       recommendedEfficiency: 0.9,
-      extraSuggestion: <span>This should be used on cooldown, with 100 focus and while <SpellLink id={SPELLS.VULNERABLE.id} /> is on your target. If possible without delaying either, you should try to combine it with <SpellLink id={SPELLS.TRUESHOT.id} />.</span>,
+      extraSuggestion: <Wrapper>This should be used on cooldown, with 100 focus and while <SpellLink id={SPELLS.VULNERABLE.id} /> is on your target. If possible without delaying either, you should try to combine it with <SpellLink id={SPELLS.TRUESHOT.id} />.</Wrapper>,
     },
     {
       spell: SPELLS.SENTINEL_TALENT,

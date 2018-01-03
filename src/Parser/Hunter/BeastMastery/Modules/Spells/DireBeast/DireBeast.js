@@ -7,6 +7,7 @@ import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
+import Wrapper from 'common/Wrapper';
 
 //Threshhold for when there is less than 3s remaining on Bestial Wrath to not cast Dire Beast
 const CD_ON_BESTIAL_WRATH_BAD_DB_THRESHHOLD = 3000;
@@ -48,7 +49,7 @@ class DireBeast extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DIRE_BEAST.id} />}
         value={(
-          <span>
+          <Wrapper>
             {this.casts}{'  '}
             <SpellIcon
               id={SPELLS.DIRE_BEAST.id}
@@ -67,7 +68,7 @@ class DireBeast extends Analyzer {
                 filter: 'grayscale(100%)',
               }}
             />
-          </span>
+          </Wrapper>
         )}
         label={`Direbeast casts`}
         tooltip={`You cast Dire Beast ${this.casts} times. <br/> <ul> <li> You cast ${this.badDBCasts} Dire Beasts while there was less than 3 seconds remaining of Bestial Wrath cooldown.</li></ul>`}
@@ -97,7 +98,7 @@ class DireBeast extends Analyzer {
     } = this.badDireBeastThreshold;
     when(this.badDBCasts).isGreaterThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Delay casting <SpellLink id={SPELLS.DIRE_BEAST.id} /> if there is less than 3 seconds cooldown remaining on <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. It is generally better to cast something else while the remaining cooldown ticks down, so as to optimise the cooldown reduction aspect of <SpellLink id={SPELLS.DIRE_BEAST.id} />.</span>)
+        return suggest(<Wrapper>Delay casting <SpellLink id={SPELLS.DIRE_BEAST.id} /> if there is less than 3 seconds cooldown remaining on <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. It is generally better to cast something else while the remaining cooldown ticks down, so as to optimise the cooldown reduction aspect of <SpellLink id={SPELLS.DIRE_BEAST.id} />.</Wrapper>)
           .icon(SPELLS.DIRE_BEAST_SUMMON.icon)
           .actual(`You cast Dire Beast ${this.badDBCasts} times when Bestial Wrath had less than 3 seconds CD remaining.`)
           .recommended(`${recommended} is recommended`)

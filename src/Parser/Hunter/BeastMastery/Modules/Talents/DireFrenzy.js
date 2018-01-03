@@ -8,6 +8,7 @@ import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 import { formatPercentage } from 'common/format';
 import StatisticBox from 'Main/StatisticBox';
 import ItemDamageDone from 'Main/ItemDamageDone';
+import Wrapper from 'common/Wrapper';
 
 /*
  * Dire Frenzy
@@ -122,7 +123,7 @@ class DireFrenzy extends Analyzer {
     } = this.direFrenzyUptimeThreshold;
     when(this.percentUptimePet).isLessThan(generalUptimeMinor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your pet has a general low uptime of the buff from <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon />, you should never be sitting on 2 stacks of this spells, if you've chosen this talent, it's your most important spell to continously be casting. </span>)
+        return suggest(<Wrapper>Your pet has a general low uptime of the buff from <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon />, you should never be sitting on 2 stacks of this spells, if you've chosen this talent, it's your most important spell to continously be casting. </Wrapper>)
           .icon(SPELLS.DIRE_FRENZY_TALENT.icon)
           .actual(`Your pet had the buff from Dire Frenzy for ${this.percentUptimePet}% of the fight`)
           .recommended(`${recommended}% is recommended`)
@@ -139,7 +140,7 @@ class DireFrenzy extends Analyzer {
     } = this.direFrenzy3StackThreshold;
     when(this.percentUptimeMaxStacks).isLessThan(threeStackMinor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </span>)
+        return suggest(<Wrapper>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </Wrapper>)
           .icon(SPELLS.DIRE_FRENZY_TALENT.icon)
           .actual(`Your pet had 3 stacks of the buff from Dire Frenzy for ${this.percentUptimeMaxStacks}% of the fight`)
           .recommended(`${recommended}% is recommended`)
