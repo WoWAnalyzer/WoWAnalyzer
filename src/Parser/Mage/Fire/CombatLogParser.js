@@ -55,6 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
     darcklisDragonfireDiadem: DarcklisDragonfireDiadem,
     containedInfernalCore: ContainedInfernalCore,
     pyrotexIgnitionCloth: PyrotexIgnitionCloth,
+	marqueeBindingsOfTheSunKing: MarqueeBindingsOfTheSunKing,
 
   };
 }
