@@ -11,7 +11,6 @@ import { formatMilliseconds } from 'common/format';
  * To avoid Crackling Jade Lightning as being marked "canceled" when we start a new spell we mark it as ended instead on the begincast/cast.
  */
 class Channeling extends CoreChanneling {
-  fistsCastStart = 0;
   on_byPlayer_cast(event) {
     if (event.ability.guid === SPELLS.CRACKLING_JADE_LIGHTNING.id) {
       // We track Crackling Jade Lightning differently
@@ -19,7 +18,6 @@ class Channeling extends CoreChanneling {
     }
     if (event.ability.guid === SPELLS.FISTS_OF_FURY_CAST.id) {
       this.beginChannel(event);
-      this.fistsCastStart = event.timestamp;
       return;
     }
     super.on_byPlayer_cast(event);
@@ -60,10 +58,6 @@ class Channeling extends CoreChanneling {
     }
     if (!this.isChannelingSpell(SPELLS.FISTS_OF_FURY_CAST.id)) {
       // This may be true if we did the event-order fix in begincast/cast and it was already ended there.
-      return;
-    }
-    const fistsTime = event.timestamp - this.fistsCastStart;
-    if (fistsTime < 1000)  {
       return;
     }
     this.endChannel(event);
