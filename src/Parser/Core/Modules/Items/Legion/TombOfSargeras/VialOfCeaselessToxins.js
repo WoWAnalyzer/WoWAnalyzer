@@ -29,6 +29,9 @@ class VialOfCeaselessToxins extends Analyzer {
         name: ITEMS.VIAL_OF_CEASELESS_TOXINS.name,
         category: Abilities.SPELL_CATEGORIES.ITEMS,
         cooldown: 60, // TODO: add detection if target has died and reduced cooldown
+        castEfficiency: {
+          suggestion: true,
+        },
       });
     }
   }

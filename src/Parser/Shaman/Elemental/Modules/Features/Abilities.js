@@ -43,33 +43,48 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id),
         cooldown: 12,
-        recommendedEfficiency: 0.6,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.6,
+        },
       },
       {
         spell: SPELLS.ASCENDANCE_TALENT_ELEMENTAL,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         enabled: combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id),
-        recommendedEfficiency: 1.0,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 1.0,
+        },
       },
       {
         spell: SPELLS.STORMKEEPER,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.FIRE_ELEMENTAL,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60 * 5, // TODO: Add Elementalist -> Lava Burst cast ^= -2 sec cd
-        recommendedEfficiency: 1.0,
         enabled: !combatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 1.0,
+        },
       },
       {
         spell: SPELLS.STORM_ELEMENTAL_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60 * 2.5, // TODO: Add Elementalist -> Lava Burst cast ^= -2 sec cd
-        recommendedEfficiency: 1.0,
         enabled: combatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 1.0,
+        },
       },
       {
         spell: SPELLS.FLAME_SHOCK,

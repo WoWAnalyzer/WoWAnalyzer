@@ -32,6 +32,9 @@ class TomeOfUnravelingSanity extends Analyzer {
         name: ITEMS.TOME_OF_UNRAVELING_SANITY.name,
         category: Abilities.SPELL_CATEGORIES.ITEMS,
         cooldown: 60,
+        castEfficiency: {
+          suggestion: true,
+        },
       });
     }
   }

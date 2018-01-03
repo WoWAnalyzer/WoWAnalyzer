@@ -15,6 +15,7 @@ class Abilities extends CoreAbilities {
         cooldown: 6,
         enabled: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id),
         castEfficiency: {
+          suggestion: true,
           majorIssueEfficiency: 0.50,
           averageIssueEfficiency: 0.70,
           recommendedEfficiency: 0.90,
@@ -27,6 +28,7 @@ class Abilities extends CoreAbilities {
         cooldown: 6,
         enabled: !(combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id)),
         castEfficiency: {
+          suggestion: true,
           majorIssueEfficiency: 0.30,
           averageIssueEfficiency: 0.50,
           recommendedEfficiency: 0.70,
@@ -59,6 +61,7 @@ class Abilities extends CoreAbilities {
           return cooldown;
         },
         castEfficiency: {
+          suggestion: true,
           majorIssueEfficiency: 0.50,
           averageIssueEfficiency: 0.70,
           recommendedEfficiency: 0.90,
@@ -69,6 +72,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.6,
           importance: ISSUE_IMPORTANCE.MINOR,
         },
@@ -78,12 +82,16 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         isUndetectable: true,
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.HEALING_RAIN_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 10,
         castEfficiency: {
+          suggestion: true,
           majorIssueEfficiency: 0.30,
           averageIssueEfficiency: 0.50,
           recommendedEfficiency: 0.70,
@@ -94,6 +102,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 45,
         castEfficiency: {
+          suggestion: true,
           majorIssueEfficiency: 0.6,
           averageIssueEfficiency: 0.8,
           recommendedEfficiency: 0.90,
@@ -105,6 +114,7 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         enabled: combatant.lv90Talent === SPELLS.CLOUDBURST_TOTEM_TALENT.id,
         castEfficiency: {
+          suggestion: true,
           majorIssueEfficiency: 0.50,
           averageIssueEfficiency: 0.70,
           recommendedEfficiency: 0.90,
@@ -115,24 +125,34 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         enabled: combatant.lv75Talent === SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id,
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.ANCESTRAL_GUIDANCE_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         enabled: combatant.lv60Talent === SPELLS.ANCESTRAL_GUIDANCE_TALENT.id,
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.ASCENDANCE_TALENT_RESTORATION,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         enabled: combatant.lv100Talent === SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.HEALING_TIDE_TOTEM_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         castEfficiency: {
+          suggestion: true,
           majorIssueEfficiency: 0.20,
           averageIssueEfficiency: 0.5,
           recommendedEfficiency: 1.0,
@@ -143,6 +163,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         castEfficiency: {
+          suggestion: true,
           majorIssueEfficiency: 0.2,
           averageIssueEfficiency: 0.5,
           recommendedEfficiency: 1.0,

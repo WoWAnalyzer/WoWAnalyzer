@@ -32,6 +32,9 @@ class ArchiveOfFaith extends Analyzer {
         name: ITEMS.ARCHIVE_OF_FAITH.name,
         category: Abilities.SPELL_CATEGORIES.ITEMS,
         cooldown: 60,
+        castEfficiency: {
+          suggestion: true,
+        },
       });
     }
   }

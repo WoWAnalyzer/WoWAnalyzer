@@ -28,6 +28,9 @@ class SpecterOfBetrayal extends Analyzer {
         name: ITEMS.SPECTER_OF_BETRAYAL.name,
         category: Abilities.SPELL_CATEGORIES.ITEMS,
         cooldown: 45,
+        castEfficiency: {
+          suggestion: true,
+        },
       });
     }
   }

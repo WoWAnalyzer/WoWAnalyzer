@@ -11,6 +11,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.50,
           extraSuggestion: 'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
           importance: ISSUE_IMPORTANCE.MINOR,
@@ -21,6 +22,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.50,
           extraSuggestion: 'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
           importance: ISSUE_IMPORTANCE.MINOR,
@@ -33,6 +35,7 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.BLOOD_MIRROR_TALENT.id),
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.75,
           extraSuggestion: 'Mostly a DPS CD. Use it to reflect large damage back to the boss. It can be used defensively to reduce 20% damage taken for its duration.',
         },
@@ -43,6 +46,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 7.5 / (1 + haste),
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.85,
           extraSuggestion: 'Should be casting it so you have at least one recharging.',
         },
@@ -52,6 +56,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 45,
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.90,
           extraSuggestion: 'Should be casting this on CD for the dps unless your saving the leach for something or saving it for a pack of adds.',
         },
@@ -61,8 +66,11 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DANCING_RUNE_WEAPON,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
-        recommendedEfficiency: 0.90,
-        extraSuggestion: 'Should be used as an opener and used on CD for the dps boost.',
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+          extraSuggestion: 'Should be used as an opener and used on CD for the dps boost.',
+        },
       },
 
       {
@@ -71,6 +79,7 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         enabled: combatant.hasTalent(SPELLS.BLOODDRINKER_TALENT.id),
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.90,
           extraSuggestion: 'Mostly used as a dps CD. Should be almost casted on CD. Good to use when your running to the boss or cant melee them.',
         },
@@ -81,6 +90,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         isUndetectable: true,
+        castEfficiency: {
+          suggestion: true,
+        },
       },
     ];
   }

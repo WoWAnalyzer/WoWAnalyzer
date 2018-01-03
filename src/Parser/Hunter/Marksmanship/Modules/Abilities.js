@@ -50,6 +50,9 @@ class Abilities extends CoreAbilities {
         cooldown: haste => 15 / (1 + haste),
         isOnGCD: true,
         enabled: this.combatants.selected.hasTalent(SPELLS.BLACK_ARROW_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.EXPLOSIVE_SHOT_TALENT,
@@ -106,6 +109,9 @@ class Abilities extends CoreAbilities {
         charges: 2,
         enabled: this.combatants.selected.hasTalent(SPELLS.SIDEWINDERS_TALENT.id),
         isOnGCD: true,
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.PIERCING_SHOT_TALENT,
@@ -127,16 +133,22 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SENTINEL_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,
-        recommendedEfficiency: 0.95,
         enabled: this.combatants.selected.hasTalent(SPELLS.SENTINEL_TALENT.id),
         isOnGCD: true,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+        },
       },
       {
         spell: SPELLS.TRUESHOT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: (_, combatant) => 180 - combatant.owner.modules.quickShot.traitCooldownReduction,
-        recommendedEfficiency: 1.0,
         isOnGCD: false,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 1.0,
+        },
       },
       {
         spell: SPELLS.ARCANE_TORRENT_FOCUS,
@@ -144,6 +156,9 @@ class Abilities extends CoreAbilities {
         cooldown: 90,
         isUndetectable: true,
         isOnGCD: false,
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.EXHILARATION,

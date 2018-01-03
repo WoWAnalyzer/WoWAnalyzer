@@ -48,6 +48,9 @@ class DecieversGrandDesign extends Analyzer {
         category: Abilities.SPELL_CATEGORIES.ITEMS,
         charges: 2,
         cooldown: 120,
+        castEfficiency: {
+          suggestion: true,
+        },
       });
     }
   }

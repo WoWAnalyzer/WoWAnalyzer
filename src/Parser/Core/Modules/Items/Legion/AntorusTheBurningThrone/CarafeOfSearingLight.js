@@ -27,6 +27,9 @@ class CarafeOfSearingLight extends Analyzer {
         name: ITEMS.CARAFE_OF_SEARING_LIGHT.name,
         category: Abilities.SPELL_CATEGORIES.ITEMS,
         cooldown: 60,
+        castEfficiency: {
+          suggestion: true,
+        },
       });
     }
   }

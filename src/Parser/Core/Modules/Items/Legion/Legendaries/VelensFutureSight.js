@@ -39,6 +39,9 @@ class VelensFutureSight extends Analyzer {
         spell: SPELLS.VELENS_FUTURE_SIGHT_BUFF,
         category: Abilities.SPELL_CATEGORIES.ITEMS,
         cooldown: 75,
+        castEfficiency: {
+          suggestion: true,
+        },
       });
     }
   }

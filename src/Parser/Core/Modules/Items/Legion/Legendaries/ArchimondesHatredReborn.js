@@ -30,6 +30,9 @@ class ArchimondesHatredReborn extends Analyzer {
         spell: SPELLS.ARCHIMONDES_HATRED_REBORN_ABSORB,
         category: Abilities.SPELL_CATEGORIES.ITEMS,
         cooldown: 75,
+        castEfficiency: {
+          suggestion: true,
+        },
       });
     }
   }

@@ -95,6 +95,9 @@ class Abilities extends CoreAbilities {
       spell: SPELLS.SPELL_NAME,
       category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       cooldown: 120,
+	  castEfficiency: {
+	    suggestion: true,
+	  },
     },
 
     // Second category

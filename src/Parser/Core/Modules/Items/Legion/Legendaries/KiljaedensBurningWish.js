@@ -35,6 +35,7 @@ class KiljaedensBurningWish extends Analyzer {
         category: Abilities.SPELL_CATEGORIES.ITEMS,
         cooldown: 75,
         castEfficiency: {
+          suggestion: true,
           extraSuggestion: 'Delaying the cast somewhat to line up with add spawns is acceptable, however.',
         },
       });

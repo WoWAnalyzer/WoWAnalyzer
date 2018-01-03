@@ -46,6 +46,7 @@ class Abilities extends CoreAbilities {
         cooldown: haste => 7.5 / (1 + haste),
         isOnGCD: true,
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.95,
         },
       },
@@ -62,6 +63,7 @@ class Abilities extends CoreAbilities {
         enabled: !this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
         isOnGCD: true,
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 1,
         },
       },
@@ -73,6 +75,7 @@ class Abilities extends CoreAbilities {
         enabled: this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
         isOnGCD: true,
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 1,
         },
       },
@@ -119,6 +122,7 @@ class Abilities extends CoreAbilities {
         enabled: this.combatants.selected.hasTalent(SPELLS.BARRAGE_TALENT.id),
         isOnGCD: true,
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.95,
         },
       },
@@ -129,6 +133,7 @@ class Abilities extends CoreAbilities {
         enabled: this.combatants.selected.hasTalent(SPELLS.STAMPEDE_TALENT.id),
         isOnGCD: true,
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.95,
         },
       },
@@ -139,6 +144,7 @@ class Abilities extends CoreAbilities {
         enabled: this.combatants.selected.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT.id),
         isOnGCD: true,
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.95,
         },
       },

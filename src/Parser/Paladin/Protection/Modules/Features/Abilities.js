@@ -17,6 +17,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 9 / (1 + haste),
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.9,
         },
       },
@@ -28,6 +29,7 @@ class Abilities extends CoreAbilities {
         charges: 3,
         enabled: combatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id),
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.9,
         },
       },
@@ -36,6 +38,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 15 / (1 + haste),
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.9,
         },
       },
@@ -45,6 +48,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id),
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.6,
           importance: ISSUE_IMPORTANCE.MINOR,
         },
@@ -58,6 +62,7 @@ class Abilities extends CoreAbilities {
         cooldown: haste => 16 / (1 + haste),
         charges: 3,
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.8,
         },
       },
@@ -67,6 +72,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: (haste, combatant) => (combatant.hasShoulder(ITEMS.PILLARS_OF_INMOST_LIGHT.id) ? 45 : 60),
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.85,
         },
       },

@@ -33,6 +33,9 @@ class GnawedThumbRing extends Analyzer {
         spell: SPELLS.GNAWED_THUMB_RING,
         category: Abilities.SPELL_CATEGORIES.ITEMS,
         cooldown: 180,
+        castEfficiency: {
+          suggestion: true,
+        },
       });
     }
   }

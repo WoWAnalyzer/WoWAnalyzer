@@ -12,6 +12,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: (haste, combatant) => combatant.hasTalent(SPELLS.INNER_PEACE_TALENT.id) ? 120 : 180,
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.75,
           averageIssueEfficiency: 0.55,
           majorIssueEfficiency: 0.30,
@@ -21,11 +22,17 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.INNERVATE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.ESSENCE_OF_GHANIR,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.IRONBARK,
@@ -41,6 +48,7 @@ class Abilities extends CoreAbilities {
           return cd;
         },
         castEfficiency: {
+          suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,
           recommendedEfficiency: 0.60,
         },
@@ -50,6 +58,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         castEfficiency: {
+          suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,
           recommendedEfficiency: 0.60,
         },
@@ -59,6 +68,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 30,
         enabled: combatant.hasTalent(SPELLS.CENARION_WARD_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.FLOURISH_TALENT,
@@ -66,6 +78,7 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
         enabled: combatant.hasTalent(SPELLS.FLOURISH_TALENT.id),
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.80,
         },
       },
@@ -82,12 +95,18 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         enabled: combatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id),
         cooldown: 180,
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.ARCANE_TORRENT_MANA,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         isUndetectable: true,
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.HEALING_TOUCH,
@@ -108,6 +127,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         enabled: combatant.hasTalent(SPELLS.RENEWAL_TALENT.id),
         cooldown: 90,
+        castEfficiency: {
+          suggestion: true,
+        },
       },
     ];
   }

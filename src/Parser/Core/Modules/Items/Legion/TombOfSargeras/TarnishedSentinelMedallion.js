@@ -32,6 +32,9 @@ class TarnishedSentinelMedallion extends Analyzer {
         name: ITEMS.TARNISHED_SENTINEL_MEDALLION.name,
         category: Abilities.SPELL_CATEGORIES.ITEMS,
         cooldown: 120,
+        castEfficiency: {
+          suggestion: true,
+        },
       });
     }
   }
