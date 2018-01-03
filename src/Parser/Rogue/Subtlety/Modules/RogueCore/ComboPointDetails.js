@@ -7,11 +7,11 @@ import SPELLS from 'common/SPELLS';
 import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
+import ResourceBreakdown from 'Parser/Core/Modules/ResourceTracker/ResourceBreakdown';
+import resourceSuggest from 'Parser/Core/Modules/ResourceTracker/ResourceSuggest';
 
 import ComboPointTracker from './ComboPointTracker';
 
-import ResourceBreakdown from '../ResourceTracker/ResourceBreakdown';
-import resourceSuggest from '../ResourceTracker/ResourceSuggest';
 
 class ComboPointDetails extends Analyzer {
   static dependencies = {

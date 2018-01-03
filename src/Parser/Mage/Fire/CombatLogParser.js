@@ -1,5 +1,6 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
+import WarningDisplay from 'Parser/Core/Modules/Features/WarningDisplay';
 
 import FlamestrikeNormalizer from './Normalizers/Flamestrike';
 
@@ -13,6 +14,7 @@ import UnstableMagic from '../Shared/Modules/Features/UnstableMagic';
 import Kindling from './Modules/Features/Kindling';
 import PhoenixsFlames from './Modules/Features/PhoenixsFlames';
 import HotStreak from './Modules/Features/HotStreak';
+import HeatingUp from './Modules/Features/HeatingUp';
 
 import Tier20_4set from './Modules/Items/Tier20_4set';
 import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
@@ -24,6 +26,9 @@ import PyrotexIgnitionCloth from './Modules/Items/PyrotexIgnitionCloth';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    //Warning
+    warningDisplay: [WarningDisplay, { needsWorkWarning: true }],
+
     //Normalizers
     FlameStrikeNormalizer: FlamestrikeNormalizer,
 
@@ -35,6 +40,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cancelledCasts: CancelledCasts,
     phoenixsFlames: PhoenixsFlames,
     hotStreak: HotStreak,
+    heatingUp: HeatingUp,
 
     // Talents
     mirrorImage: MirrorImage,

@@ -1,3 +1,7 @@
+import React from 'react';
+
+import Tab from 'Main/Tab';
+
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 //Features
@@ -5,6 +9,7 @@ import Abilities from './Modules/Features/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import FocusUsage from '../Shared/Modules/Features/FocusUsage';
+import TimeFocusCapped from '../Shared/Modules/Features/TimeFocusCapped';
 
 //Items
 import SoulOfTheHuntmaster from '../Shared/Modules/Items/SoulOfTheHuntmaster';
@@ -56,6 +61,10 @@ import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 //Checklist
 import Checklist from './Modules/Features/Checklist';
 
+//Focus
+import FocusChart from '../Shared/Modules/Features/FocusChart/Focus';
+import FocusTracker from '../Shared/Modules/Features/FocusChart/FocusTracker';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     damageDone: [DamageDone, { showStatistic: true }],
@@ -65,6 +74,10 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
     focusUsage: FocusUsage,
+    timeFocusCapped: TimeFocusCapped,
+
+    //Focus Chart
+    focusTracker: FocusTracker,
 
     //Spells
     direBeast: DireBeast,
@@ -119,6 +132,35 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
 
   };
+  generateResults() {
+    const results = super.generateResults();
+    results.tabs = [
+      ...results.tabs,
+      { // TODO: Move this to an Analyzer module
+        title: 'Focus Chart',
+        url: 'focus',
+        render: () => (
+          <Tab title='focus' style={{ padding: '15px 22px' }}>
+            <FocusChart
+              start={this.fight.start_time}
+              end={this.fight.end_time}
+              playerHaste={this.modules.combatants.selected.hasteRating}
+              focusMax={this.modules.focusTracker._maxFocus}
+              focusPerSecond={this.modules.focusTracker.focusBySecond}
+              tracker={this.modules.focusTracker.tracker}
+              secondsCapped={this.modules.focusTracker.secondsCapped}
+              activeFocusGenerated={this.modules.focusTracker.activeFocusGenerated}
+              activeFocusWasted={this.modules.focusTracker.activeFocusWasted}
+              generatorCasts={this.modules.focusTracker.generatorCasts}
+              activeFocusWastedTimeline={this.modules.focusTracker.activeFocusWastedTimeline}
+            />
+          </Tab>
+        ),
+      },
+    ];
+
+    return results;
+  }
 }
 
 export default CombatLogParser;

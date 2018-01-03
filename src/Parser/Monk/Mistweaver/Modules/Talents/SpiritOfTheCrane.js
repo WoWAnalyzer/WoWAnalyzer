@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
+import Wrapper from 'common/Wrapper';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -123,13 +124,15 @@ class SpiritOfTheCrane extends Analyzer {
     };
   }
   suggestions(when) {
-    when(this.manaReturn).isLessThan(this.suggestionThresholds.isLessThan.minor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You are not utilizing your <SpellLink id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} /> talent as effectively as you could. Make sure you are using any available downtime to use <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> to take advantage of this talent.</span>)
-        .icon(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.icon)
-        .actual(`${formatNumber(this.manaReturn)} mana returned through Spirit of the Crane`)
-        .recommended(`${formatNumber(recommended)} is the recommended mana return`)
-        .regular(this.suggestionThresholds.isLessThan.average).major(this.suggestionThresholds.isLessThan.major);
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+        return suggest(
+          <Wrapper>
+            You are not utilizing your <SpellLink id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} /> talent as effectively as you could. Make sure you are using any available downtime to use <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> to take advantage of this talent.
+          </Wrapper>
+        )
+          .icon(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.icon)
+          .actual(`${formatNumber(this.manaReturn)} mana returned through Spirit of the Crane`)
+          .recommended(`${formatNumber(recommended)} is the recommended mana return`);
       });
   }
 

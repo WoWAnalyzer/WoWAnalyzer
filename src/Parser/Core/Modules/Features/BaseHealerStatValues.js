@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
-
+import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -10,7 +10,6 @@ import HealingValue from 'Parser/Core/Modules/HealingValue';
 import DamageValue from 'Parser/Core/Modules/DamageValue';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
-
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import CORE_SPELL_INFO from './SpellInfo';
@@ -298,6 +297,60 @@ class BaseHealerStatValues extends Analyzer {
     }
   }
 
+  get hpsPerIntellect() {
+    return this._getGain(STAT.INTELLECT) / this.owner.fightDuration * 1000;
+  }
+  get hpsPerCriticalStrike() {
+    return this._getGain(STAT.CRITICAL_STRIKE) / this.owner.fightDuration * 1000;
+  }
+  get hpsPerHasteHPCT() {
+    return this._getGain(STAT.HASTE_HPCT) / this.owner.fightDuration * 1000;
+  }
+  get hpsPerHasteHPM() {
+    return this._getGain(STAT.HASTE_HPM) / this.owner.fightDuration * 1000;
+  }
+  get hpsPerHaste() {
+    return this.hpsPerHasteHPCT + this.hpsPerHasteHPM;
+  }
+  get hpsPerMastery() {
+    return this._getGain(STAT.MASTERY) / this.owner.fightDuration * 1000;
+  }
+  get hpsPerVersatility() {
+    return this._getGain(STAT.VERSATILITY) / this.owner.fightDuration * 1000;
+  }
+  get hpsPerVersatilityDR() {
+    return this._getGain(STAT.VERSATILITY_DR) / this.owner.fightDuration * 1000;
+  }
+  get hpsPerLeech() {
+    return this._getGain(STAT.LEECH) / this.owner.fightDuration * 1000;
+  }
+
+  // region Item values
+  calculateItemStatsHps(baseStats, itemLevel) {
+    let hps = 0;
+    if (baseStats.primary) {
+      hps += calculatePrimaryStat(baseStats.itemLevel, baseStats.primary, itemLevel) * this.hpsPerIntellect;
+    }
+    if (baseStats.criticalStrike) {
+      hps += calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.criticalStrike, itemLevel) * this.hpsPerCriticalStrike;
+    }
+    if (baseStats.haste) {
+      hps += calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.haste, itemLevel) * this.hpsPerHaste;
+    }
+    if (baseStats.mastery) {
+      hps += calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.mastery, itemLevel) * this.hpsPerMastery;
+    }
+    if (baseStats.versatility) {
+      hps += calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.versatility, itemLevel) * this.hpsPerVersatility;
+    }
+    if (baseStats.leech) {
+      hps += calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.leech, itemLevel) * this.hpsPerLeech;
+    }
+    return hps;
+  }
+  // endregion
+
+  // region statistic
   _ratingPerOnePercent(oneRatingHealing) {
     const onePercentHealing = this.totalAdjustedHealing / 100;
     return onePercentHealing / oneRatingHealing;
@@ -394,9 +447,11 @@ class BaseHealerStatValues extends Analyzer {
                       <td className="text-right">
                         {(gain / this.owner.fightDuration * 1000).toFixed(2)}
                       </td>
-                      <td className="text-right">{gain !== null ? (
-                        ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)
-                      ) : 'NYI'}</td>
+                      <td className="text-right">
+                        {gain !== null ? (
+                          ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)
+                        ) : 'NYI'}
+                      </td>
                     </tr>
                   );
                 })}
@@ -407,6 +462,7 @@ class BaseHealerStatValues extends Analyzer {
       </div>
     );
   }
+  // endregion
 }
 
 export default BaseHealerStatValues;
