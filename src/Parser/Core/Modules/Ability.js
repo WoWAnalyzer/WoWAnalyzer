@@ -136,6 +136,11 @@ class Ability {
   charges = 1;
   enabled = true;
 
+  /**
+   * When extending this class you MUST copy-paste this function into the new class. Otherwise your new props will not be set properly.
+   * @param owner
+   * @param options
+   */
   constructor(owner, options) {
     this._owner = owner;
     this._setProps(options);
@@ -153,8 +158,11 @@ class Ability {
       });
     }
     Object.keys(props).forEach(prop => {
-      this[prop] = props[prop];
+      this._setProp(prop, props[prop]);
     });
+  }
+  _setProp(prop, value) {
+    this[prop] = value;
   }
 }
 

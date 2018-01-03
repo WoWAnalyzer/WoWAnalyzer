@@ -55,7 +55,15 @@ class AntiFillerSpam extends Analyzer {
     const combatant = this.combatants.selected;
     this.abilityLastCasts[spellId] = timestamp;
 
-    const isFiller = ability.antiFillerSpam && (typeof ability.antiFillerSpam.isFiller === 'function' ? ability.antiFillerSpam.isFiller(event, combatant, targets, spellLastCast) : ability.antiFillerSpam.isFiller);
+    let isFiller = false;
+    if (ability.antiFillerSpam) {
+      if (typeof ability.antiFillerSpam.isFiller === 'function') {
+        isFiller = ability.antiFillerSpam.isFiller(event, combatant, targets, spellLastCast);
+      } else {
+        isFiller = ability.antiFillerSpam.isFiller;
+      }
+    }
+
     if (!isFiller) {
       return;
     }
@@ -65,40 +73,43 @@ class AntiFillerSpam extends Analyzer {
     this._totalFillerSpells += 1;
 
     const availableSpells = [];
-    // Only abilities on the GCD matter since the goal is to make every GCD as efficient as possible
-    this.globalCooldown.abilitiesOnGlobalCooldown.forEach(gcdSpell => {
-      const gcdSpellId = gcdSpell.primarySpell.id;
-      if (ability.primarySpell.id === gcdSpellId) {
-        return;
-      }
+    // Only abilities on the GCD matter since the goal is to make sure every GCD is used as efficiently as possible
+    this.globalCooldown.abilitiesOnGlobalCooldown
+      .map(spellId => this.abilities.getAbility(spellId))
+      .filter(ability => ability !== null)
+      .forEach(gcdSpell => {
+        const gcdSpellId = gcdSpell.primarySpell.id;
+        if (ability.primarySpell.id === gcdSpellId) {
+          return;
+        }
 
-      const lastCast = this.abilityLastCasts[gcdSpellId] || -Infinity;
-      const isFillerEval = gcdSpell.antiFillerSpam && (typeof gcdSpell.antiFillerSpam.isFiller === 'function') ? gcdSpell.antiFillerSpam.isFiller(event, combatant, targets, lastCast) : gcdSpell.antiFillerSpam.isFiller;
-      if (isFillerEval || gcdSpell.category === Abilities.SPELL_CATEGORIES.UTILITY) {
-        return;
-      }
+        const lastCast = this.abilityLastCasts[gcdSpellId] || -Infinity;
+        const isFillerEval = gcdSpell.antiFillerSpam && (typeof gcdSpell.antiFillerSpam.isFiller === 'function' ? gcdSpell.antiFillerSpam.isFiller(event, combatant, targets, lastCast) : gcdSpell.antiFillerSpam.isFiller);
+        if (isFillerEval || gcdSpell.category === Abilities.SPELL_CATEGORIES.UTILITY) {
+          return;
+        }
 
-      const isOffCooldown = this.spellUsable.isAvailable(gcdSpellId);
+        const isOffCooldown = this.spellUsable.isAvailable(gcdSpellId);
 
-      const args = [event, combatant, targets, lastCast];
-      const meetsCondition = (gcdSpell.antiFillerSpam.condition !== undefined) ? resolveValue(gcdSpell.antiFillerSpam.condition, ...args) : true;
+        const args = [event, combatant, targets, lastCast];
+        const meetsCondition = (gcdSpell.antiFillerSpam.condition !== undefined) ? resolveValue(gcdSpell.antiFillerSpam.condition, ...args) : true;
 
-      if (!meetsCondition) {
-        return;
-      }
+        if (!meetsCondition) {
+          return;
+        }
 
-      if (!isOffCooldown) {
-        return;
-      }
+        if (!isOffCooldown) {
+          return;
+        }
 
-      debug && console.warn(`
-        [Available non-filler]
-        - ${gcdSpellId} ${SPELLS[gcdSpellId].name}
-        - offCD: ${isOffCooldown}
-        - canBeCast: ${meetsCondition}
-      `);
-      availableSpells.push(gcdSpellId);
-    });
+        debug && console.warn(`
+          [Available non-filler]
+          - ${gcdSpellId} ${SPELLS[gcdSpellId].name}
+          - offCD: ${isOffCooldown}
+          - canBeCast: ${meetsCondition}
+        `);
+        availableSpells.push(gcdSpellId);
+      });
 
     if (availableSpells.length > 0) {
       this._unnecessaryFillerSpells += 1;
