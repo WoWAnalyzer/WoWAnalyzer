@@ -56,6 +56,7 @@ class Ability {
       importance: PropTypes.string,
     }),
     enabled: PropTypes.bool,
+    isUndetectable: PropTypes.bool,
   };
 
   _owner = null;
