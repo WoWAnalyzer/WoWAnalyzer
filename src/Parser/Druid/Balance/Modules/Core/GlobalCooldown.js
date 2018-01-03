@@ -19,12 +19,11 @@ class GlobalCooldown extends CoreGlobalCooldown {
   };
 
   getCurrentGlobalCooldown(spellId = null) {
-  	//Starlord Solar Wrath
+    const gcd = super.getCurrentGlobalCooldown(spellId);
     if (spellId === SPELLS.SOLAR_WRATH_MOONKIN.id && this.combatants.selected.hasTalent(SPELLS.STARLORD_TALENT.id) && this.combatants.selected.hasBuff(SPELLS.SOLAR_EMP_BUFF.id)){
-      return Math.max(this.owner.modules.alwaysBeCasting.constructor.MINIMUM_GCD, this.owner.modules.alwaysBeCasting.constructor.BASE_GCD / (1 + this.haste.current) * 0.8);
+      return Math.max(gcd * 0.8, this.owner.modules.alwaysBeCasting.constructor.MINIMUM_GCD);
     }
-    //Default
-    return super.getCurrentGlobalCooldown(spellId);
+    return gcd;
   }
 }
 
