@@ -7,7 +7,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
-/*
+/**
  * Magnetized Blasting Cap Launcher
  * Equip: Increases Bursting Shot's damage by 800% and range by 30 yards.
  */
