@@ -1,13 +1,15 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 class ContainedInfernalCore extends Analyzer {
-
   static dependencies = {
-		combatants: Combatants,
-	};
+    combatants: Combatants,
+  };
 
   damage = 0;
   meteorCasts = 0;
@@ -36,14 +38,14 @@ class ContainedInfernalCore extends Analyzer {
     if (event.ability.guid !== SPELLS.METEOR_DAMAGE.id) {
       return;
     }
-      this.damage += event.amount + (event.absorbed || 0);
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   item() {
     const legendaryDamage = (this.damage / (this.meteorCasts + this.legendaryProcs)) * this.legendaryProcs;
     return {
       item: ITEMS.CONTAINED_INFERNAL_CORE,
-      result: this.owner.formatItemDamageDone(legendaryDamage),
+      result: <ItemDamageDone amount={legendaryDamage} />,
     };
   }
 }

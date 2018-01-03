@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -37,7 +37,7 @@ class BestialWrathAverageFocus extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
+  statisticOrder = STATISTIC_ORDER.CORE(9);
 
   get averageFocusAtBestialWrathCast() {
     return formatNumber(this.accumulatedFocusAtBWCast / this.bestialWrathCasts);

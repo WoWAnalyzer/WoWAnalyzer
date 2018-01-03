@@ -17,21 +17,20 @@ import StellarFlareUptime from './Modules/Features/StellarFlareUptime';
 import MoonSpells from './Modules/Features/MoonSpells';
 import UnempoweredLs from './Modules/Features/UnempoweredLs';
 
-//Spells
-//import FullMoon from './Modules/Spells/FullMoon';
-//import HalfMoon from './Modules/Spells/HalfMoon';
-//import NewMoon from './Modules/Spells/NewMoon';
-
+//Resources
+import AstralPowerDetails from './Modules/ResourceTracker/AstralPowerDetails';
+import AstralPowerTracker from './Modules/ResourceTracker/AstralPowerTracker';
 
 //Items
-import EmeraldDreamcatcher from './Modules/Items/EmeraldDreamcatcher';
+import TheEmeraldDreamcatcher from './Modules/Items/TheEmeraldDreamcatcher';
 
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     haste: Haste,
     damageDone: [DamageDone, { showStatistic: true }],
-    // Features
+
+    //Features
     checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
@@ -44,13 +43,14 @@ class CombatLogParser extends MainCombatLogParser {
     sunfireUptime: SunfireUptime,
     stellarFlareUptime: StellarFlareUptime,
     moonSpells: MoonSpells,
-    //Spells
-    //fullMoon: FullMoon,
-    //halfMoon: HalfMoon,
-    //newMoon: NewMoon,
     unempoweredLS: UnempoweredLs,
+
+    //Resources
+    astralPowerTracker: AstralPowerTracker,
+    astralPowerDetails: AstralPowerDetails,
+
     //Items
-    emeraldDreamcatcher: EmeraldDreamcatcher,
+    theEmeraldDreamcatcher: TheEmeraldDreamcatcher,
   };
 }
 

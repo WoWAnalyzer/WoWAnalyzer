@@ -48,7 +48,7 @@ class Trueshot extends Analyzer {
 //checks if we had a prepull trueshot, in which case the firstCast done symbolises our starting focus of that one trueshot
     if (this.prepullTrueshots > 0 && this.startFocusForCombatant === 0) {
       event.classResources.forEach(classResource => {
-        if (classResource.type === RESOURCE_TYPES.FOCUS && classResource['amount'] > this.startFocusForCombatant) {
+        if (classResource.type === RESOURCE_TYPES.FOCUS.id && classResource['amount'] > this.startFocusForCombatant) {
           this.startFocusForCombatant += classResource['amount'];
           this.accumulatedFocusAtTSCast += this.startFocusForCombatant;
         }

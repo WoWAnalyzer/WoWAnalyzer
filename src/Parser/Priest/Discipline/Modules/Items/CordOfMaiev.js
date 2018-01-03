@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-
+import Wrapper from 'common/Wrapper';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 
@@ -52,9 +52,9 @@ class CordOfMaiev extends Analyzer {
     return {
       item: ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON,
       result: (
-        <dfn>
+        <Wrapper>
           {procTimeSaved} seconds off the cooldown, {numProcs} Penances cast earlier
-        </dfn>
+        </Wrapper>
       ),
     };
   }

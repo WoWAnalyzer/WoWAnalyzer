@@ -1,13 +1,13 @@
 import React from 'react';
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import SpellUsable from 'Parser/Core/Modules/SpellUsable';
+
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-
-import { formatNumber } from "common/format";
-import SpellLink from "common/SpellLink";
+import SpellLink from 'common/SpellLink';
+import { formatNumber } from 'common/format';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const COOLDOWN_REDUCTION_MS = 800;
 

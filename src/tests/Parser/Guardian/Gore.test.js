@@ -2,6 +2,11 @@ import Gore from 'Parser/Druid/Guardian/Modules/Features/Gore';
 import { SimpleFight, damageTaken, buffsRefreshed, casts } from './Fixtures/SimpleFight';
 import processEvents from './Fixtures/processEvents';
 
+const mockSpellUsable = {
+  isOnCooldown: () => false,
+  endCooldown: () => {},
+};
+
 describe('Druid/Guardian/Gore', () => {
   let gore;
   beforeEach(() => {
@@ -10,7 +15,7 @@ describe('Druid/Guardian/Gore', () => {
       byPlayer: () => true,
       toPlayerPet: () => false,
       byPlayerPet: () => false,
-    });
+    }, { spellUsable: mockSpellUsable });
   });
   it('track gore procs with no events', () => {
     expect(gore.totalProcs).toBe(0);

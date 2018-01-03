@@ -1,5 +1,3 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
@@ -30,11 +28,7 @@ class Nazjatar extends Analyzer {
   item() {
     return {
       item: ITEMS.INTACT_NAZJATAR_MOLTING,
-      result: (
-        <span>
-          ${this.resets} Riptide resets
-        </span>
-      ),
+      result: `${this.resets} Riptide resets`,
     };
   }
 }

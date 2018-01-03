@@ -1,9 +1,11 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 const LEGENDARY_JONAT_BUFF = 210607;
 const LEGENDARY_JONAT_HEALING_INCREASE_PER_STACK = 0.10;
@@ -22,7 +24,7 @@ class Jonat extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if (!(spellId === SPELLS.CHAIN_HEAL.id)) {
+    if (spellId !== SPELLS.CHAIN_HEAL.id) {
       return;
     }
 
@@ -38,7 +40,7 @@ class Jonat extends Analyzer {
   item() {
     return {
       item: ITEMS.FOCUSER_OF_JONAT,
-      result: this.owner.formatItemHealingDone(this.healing),
+      result: <ItemHealingDone amount={this.healing} />,
     };
   }
 

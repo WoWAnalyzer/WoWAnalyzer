@@ -9,6 +9,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import GetDamageBonus from 'Parser/Paladin/Shared/Modules/GetDamageBonus';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 const RET_PALADIN_T20_2SET_MODIFIER = 0.2;
 
@@ -50,7 +51,7 @@ class Tier20_2set extends Analyzer {
           Note: This does not account for haste procs over the fight so it may be over 100%.<br/>
           Percent Uptime: ${formatPercentage(this.percentUptime)}%`}
         >
-          {this.owner.formatItemDamageDone(this.damageDone)}
+          <ItemDamageDone amount={this.damageDone} />
         </dfn>
       ),
     };

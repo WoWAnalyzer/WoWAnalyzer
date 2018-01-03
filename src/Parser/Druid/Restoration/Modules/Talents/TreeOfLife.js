@@ -1,15 +1,16 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+
 import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 import SuggestionThresholds from '../../SuggestionThresholds';
@@ -293,7 +294,7 @@ class TreeOfLife extends Analyzer {
             <li>${formatPercentage(chameleonSongUptime)}% uptime</li>
             <li>${formatPercentage(treeOfLifeProcHelmet)}% proc rate</li>
           </ul>`}>
-          {this.owner.formatItemHealingDone(treeOfLifeThroughputHelmet)}
+          <ItemHealingDone amount={treeOfLifeThroughputHelmet} />
         </dfn>
       ),
     };

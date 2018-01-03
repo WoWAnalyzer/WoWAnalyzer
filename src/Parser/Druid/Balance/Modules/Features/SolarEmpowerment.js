@@ -3,11 +3,21 @@ import Icon from 'common/Icon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import ResourceTypes from 'common/RESOURCE_TYPES';
+import ITEMS from 'common/ITEMS';
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import { formatPercentage } from 'common/format';
 import Wrapper from 'common/Wrapper';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 class SolarEmpowerment extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
+  on_initialized() {
+    this.active = !this.combatants.selected.hasHead(ITEMS.THE_EMERALD_DREAMCATCHER.id);
+  }
+
   isSolarWrath(event) {
     const spellId = event.ability.guid;
     return spellId === SPELLS.SOLAR_WRATH_MOONKIN.id;
@@ -50,7 +60,7 @@ class SolarEmpowerment extends Analyzer {
     if (!event.classResources) return;
     
     for (let i = 0; i < event.classResources.length; i += 1) {
-      if (event.classResources[i].type === ResourceTypes.ASTRAL_POWER) {
+      if (event.classResources[i].type === RESOURCE_TYPES.ASTRAL_POWER.id) {
         this.MaxAsP = event.classResources[i].max;
         this.CurrentAsP = event.classResources[i].amount;
       }
@@ -76,6 +86,10 @@ class SolarEmpowerment extends Analyzer {
     return this.SolarEmpsTotal;
   }
 
+  get wastedPerMinute() {
+    return (this.SolarEmpsOver / this.owner.fightDuration) * 1000 * 60;
+  }
+
   get suggestionThresholds() {
     return {
       actual: 1 - this.wastedPercentage,
@@ -91,10 +105,10 @@ class SolarEmpowerment extends Analyzer {
   suggestions(when) {
     when(this.wastedPercentage).isGreaterThan(0.02)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<Wrapper>You overcapped {this.SolarEmpsOver} Solar Empowerments when you could have avoided it without overcapping Astral Power. Try to prioritize casting Solar Wrath over Starsurge when not near max AsP and having Solar Empowerment stacks up.</Wrapper>)
+          return suggest(<Wrapper>You overcapped {this.wastedPerMinute.toFixed(2)} Solar Empowerments per minute when you could have cast it without overcapping Astral Power. Try to prioritize casting Solar Wrath over Starsurge when not near max AsP and having Solar Empowerment stacks up.</Wrapper>)
             .icon('ability_druid_eclipseorange')
             .actual(`${formatPercentage(this.wastedPercentage)}% overcapped Solar Empowerments`)
-            .recommended('0 is recommended.')
+            .recommended('0% is recommended.')
             .regular(0.05).major(0.1);
         });
   }
@@ -103,8 +117,8 @@ class SolarEmpowerment extends Analyzer {
     return (
       <StatisticBox
         icon={<Icon icon="ability_druid_eclipseorange" />}
-        value={`${this.SolarEmpsOver}`}
-        label="Overcapped Solar Emp"
+        value={`${this.wastedPerMinute.toFixed(2)}`}
+        label="Overcapped Solar Emp per minute"
         tooltip={`${this.wasted} out of ${this.generated} (${formatPercentage(this.wastedPercentage)}%) Solar Empowerments wasted. Solar Empowerment overcapping should never occur when it is possible to cast a Solar Wrath without overcapping Astral Power.`}
       />
     );

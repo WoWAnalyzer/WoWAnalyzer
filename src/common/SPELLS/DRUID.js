@@ -181,7 +181,7 @@ export default {
     name: 'Swipe',
     icon: 'inv_misc_monsterclaw_03',
   },
-  BEAR_SWIPE: {
+  SWIPE_BEAR: {
     id: 213771,
     name: 'Swipe',
     icon: 'inv_misc_monsterclaw_03',
@@ -556,6 +556,26 @@ export default {
     name: 'Fury of Nature',
     icon: 'ability_creature_cursed_04',
   },
+  GUARDIAN_TIER_21_2P_SET_BONUS: {
+    id: 251791,
+    name: 'Tier 21 2P Bonus',
+    icon: 'ability_druid_cower',
+  },
+  GUARDIAN_TIER_21_4P_SET_BONUS: {
+    id: 251792,
+    name: 'Tier 21 4P Bonus',
+    icon: 'ability_druid_cower',
+  },
+  GUARDIAN_TIER_21_4P_SET_BONUS_BUFF: {
+    id: 253575,
+    name: 'Regenerative Fur',
+    icon: 'ability_druid_kingofthejungle',
+  },
+  MASTERY_NATURES_GUARDIAN_HEAL: {
+    id: 227034,
+    name: 'Mastery: Nature\'s Guardian',
+    icon: 'spell_druid_primaltenacity',
+  },
   // Moonkin
   STARSURGE_MOONKIN: {
     id: 78674,
@@ -629,7 +649,7 @@ export default {
     name: 'Owlkin Frenzy',
     icon: 'ability_druid_owlkinfrenzy',
   },
-  EMERALD_DREAMCATCHER_BUFF: {
+  THE_EMERALD_DREAMCATCHER: {
     id: 224706,
     name: 'The Emerald Dreamcatcher',
     icon: 'inv_helmet_81',
@@ -648,6 +668,11 @@ export default {
     id: 78675,
     name: 'Solar Beam',
     icon: 'ability_vehicle_sonicshockwave',
+  },
+  SHOOTING_STARS: {
+    id: 202497,
+    name: 'Shooting Stars',
+    icon: 'spell_priest_divinestar_shadow2',
   },
   // Feral
   TIGERS_FURY: {

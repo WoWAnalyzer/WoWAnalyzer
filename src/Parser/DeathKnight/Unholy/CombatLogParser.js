@@ -15,6 +15,8 @@ import FesteringStrike from './Modules/Features/FesteringStrike';
 import Checklist from './Modules/Features/Checklist';
 import ScourgeStrikeEfficiency from './Modules/Features/ScourgeStrikeEfficiency';
 import ClawingShadowsEfficiency from './Modules/Features/ClawingShadowsEfficiency';
+import RpPoolingDA from './Modules/Features/RpPoolingDA';
+import Apocalypse from './Modules/Features/Apocalypse';
 
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
 import RunicPowerTracker from './Modules/RunicPower/RunicPowerTracker';
@@ -36,6 +38,8 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     scourgeStrikeEfficiency: ScourgeStrikeEfficiency,
     clawingShadowsEfficiency: ClawingShadowsEfficiency,
+	  rpPoolingDa: RpPoolingDA,
+  	apocalypse: Apocalypse,
 
     // RunicPower
     runicPowerTracker: RunicPowerTracker,
