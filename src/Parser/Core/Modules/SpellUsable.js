@@ -32,6 +32,10 @@ class SpellUsable extends Analyzer {
       return true;
     }
   }
+
+  /**
+   * For abilities with charges. Returns the number of charges that are available for a particular spell.
+   */
   chargesAvailable(spellId) {
     if (this.isOnCooldown(spellId)) {
       return this.abilities.getMaxCharges(spellId) - this._currentCooldowns[spellId].chargesOnCooldown;
