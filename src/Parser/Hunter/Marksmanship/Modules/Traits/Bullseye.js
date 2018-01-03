@@ -1,6 +1,7 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
+import Wrapper from 'common/Wrapper';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from "common/SpellIcon";
 import { formatNumber, formatPercentage } from "common/format";
@@ -8,7 +9,6 @@ import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import CooldownTracker from '../Features/CooldownThroughputTracker';
-import Wrapper from 'common/Wrapper';
 
 /*
  * When your abilities damage a target below 20% health, you gain 1% increased critical strike chance for 6 sec, stacking up to 30 times.

@@ -4,6 +4,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Tab from 'Main/Tab';
+import Wrapper from 'common/Wrapper';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -12,7 +13,6 @@ import SPELLS from 'common/SPELLS';
 
 import PatientSniperBreakdown from "./PatientSniperBreakdown";
 import PatientSniperTracker from "./PatientSniperTracker";
-import Wrapper from 'common/Wrapper';
 
 const VULNERABLE_BONUS = 0.3;
 const UNERRING_ARROWS_BONUS_PER_RANK = 0.03;

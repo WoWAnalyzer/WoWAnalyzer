@@ -21,7 +21,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.KILL_COMMAND.id,
     SPELLS.MULTISHOT.id,
     SPELLS.DIRE_BEAST.id,
-    SPELLS.TITANS_THUNDER.id,
 
     //Utility
     SPELLS.TAR_TRAP.id,
@@ -37,6 +36,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     //SPELLS.ASPECT_OF_THE_CHEETAH.id,
     //SPELLS.EXHILARATION.id,
     //SPELLS.BINDING_SHOT_TALENT.id,
+    //SPELLS.TITANS_THUNDER.id,
 
     //Talents
     SPELLS.STAMPEDE_TALENT.id,
