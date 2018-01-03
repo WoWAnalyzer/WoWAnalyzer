@@ -3,7 +3,8 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import { formatNumber } from 'common/format';
+import { formatPercentage } from 'common/format';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
@@ -11,6 +12,7 @@ class Combustion extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     spellUsable: SpellUsable,
+    abilityTracker: AbilityTracker,
   };
 
   lowPhoenixFlamesCharges = 0;
@@ -26,26 +28,29 @@ class Combustion extends Analyzer {
     }
   }
 
-  get phoenixFlamesChargesSuggestionThresholds() {
+  get phoenixFlamesChargeUtil() {
+    return 1 - (this.lowPhoenixFlamesCharges / this.abilityTracker.getAbility(SPELLS.COMBUSTION.id).casts);
+  }
+
+  get suggestionThresholds() {
     return {
-      actual: this.lowPhoenixFlamesCharges,
-      isGreaterThan: {
-        minor: 0,
-        average: 1,
-        major: 2,
+      actual: this.phoenixFlamesChargeUtil,
+      isLessThan: {
+        minor: 1,
+        average: .65,
+        major: .45,
       },
-      style: 'number',
+      style: 'percentage',
     };
   }
 
   suggestions(when) {
-    when(this.lowPhoenixFlamesCharges).isGreaterThan(this.phoenixFlamesChargesSuggestionThresholds.isGreaterThan.minor)
+    when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<Wrapper>You cast <SpellLink id={SPELLS.COMBUSTION.id}/> {this.lowPhoenixFlamesCharges} times with less than 2 charges of <SpellLink id={SPELLS.PHOENIXS_FLAMES.id}/>. Make sure you are saving at least 2 charges while Combustion is on cooldown so you can get as many <SpellLink id={SPELLS.HOT_STREAK.id}/> procs as possible before Combustion ends.</Wrapper>)
           .icon(SPELLS.COMBUSTION.icon)
-          .actual(`${formatNumber(this.lowPhoenixFlamesCharges)} Combustion Casts`)
-          .recommended(`<${formatNumber(recommended)} is recommended`)
-          .regular(this.phoenixFlamesChargesSuggestionThresholds.isGreaterThan.average).major(this.phoenixFlamesChargesSuggestionThresholds.isGreaterThan.major);
+          .actual(`${formatPercentage(this.phoenixFlamesChargeUtil)}% Utilization`)
+          .recommended(`${formatPercentage(recommended)} is recommended`);
       });
   }
 }

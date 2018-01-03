@@ -14,6 +14,7 @@ import Kindling from './Modules/Features/Kindling';
 import PhoenixsFlames from './Modules/Features/PhoenixsFlames';
 import HotStreak from './Modules/Features/HotStreak';
 import Combustion from './Modules/Features/Combustion';
+import HeatingUp from './Modules/Features/HeatingUp';
 
 import Tier20_4set from './Modules/Items/Tier20_4set';
 import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
@@ -37,6 +38,7 @@ class CombatLogParser extends CoreCombatLogParser {
     phoenixsFlames: PhoenixsFlames,
     hotStreak: HotStreak,
     combustion: Combustion,
+    heatingUp: HeatingUp,
 
     // Talents
     mirrorImage: MirrorImage,
