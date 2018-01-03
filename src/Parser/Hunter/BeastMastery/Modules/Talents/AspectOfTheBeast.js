@@ -39,22 +39,12 @@ class AspectOfTheBeast extends Analyzer {
   }
 
   suggestions(when) {
-    const {
-      isLessThan: {
-        minor,
-        average,
-        major,
-      },
-    } = this.aspectOfTheBeastDamageThreshold;
-    when(this.damage).isLessThan(minor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper><SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} /> had no damage contribution, which indiciates you did not have your pet specced into Ferocity, which it should always be.</Wrapper>)
-          .icon(SPELLS.ASPECT_OF_THE_BEAST_TALENT.icon)
-          .actual(`Aspect of the Beast did no additional damage`)
-          .recommended(`Speccing your pet into Ferocity is recommended`)
-          .regular(average)
-          .major(major);
-      });
+    when(this.aspectOfTheBeastDamageThreshold).addSuggestion((suggest) => {
+      return suggest(<Wrapper><SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} /> had no damage contribution, which indiciates you did not have your pet specced into Ferocity, which it should always be.</Wrapper>)
+        .icon(SPELLS.ASPECT_OF_THE_BEAST_TALENT.icon)
+        .actual(`Aspect of the Beast did no additional damage`)
+        .recommended(`Speccing your pet into Ferocity is recommended`);
+    });
   }
 
   subStatistic() {

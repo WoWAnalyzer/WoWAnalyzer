@@ -114,39 +114,19 @@ class DireFrenzy extends Analyzer {
   }
 
   suggestions(when) {
-    const {
-      isLessThan: {
-        generalUptimeMinor,
-        generalUptimeAverage,
-        generalUptimeMajor,
-      },
-    } = this.direFrenzyUptimeThreshold;
-    when(this.percentUptimePet).isLessThan(generalUptimeMinor)
+    when(this.direFrenzyUptimeThreshold)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<Wrapper>Your pet has a general low uptime of the buff from <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon />, you should never be sitting on 2 stacks of this spells, if you've chosen this talent, it's your most important spell to continously be casting. </Wrapper>)
           .icon(SPELLS.DIRE_FRENZY_TALENT.icon)
-          .actual(`Your pet had the buff from Dire Frenzy for ${this.percentUptimePet}% of the fight`)
-          .recommended(`${recommended}% is recommended`)
-          .regular(generalUptimeAverage)
-          .major(generalUptimeMajor);
+          .actual(`Your pet had the buff from Dire Frenzy for ${actual}% of the fight`)
+          .recommended(`${recommended}% is recommended`);
       });
-
-    const {
-      isLessThan: {
-        threeStackMinor,
-        threeStackAverage,
-        threeStackMajor,
-      },
-    } = this.direFrenzy3StackThreshold;
-    when(this.percentUptimeMaxStacks).isLessThan(threeStackMinor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </Wrapper>)
-          .icon(SPELLS.DIRE_FRENZY_TALENT.icon)
-          .actual(`Your pet had 3 stacks of the buff from Dire Frenzy for ${this.percentUptimeMaxStacks}% of the fight`)
-          .recommended(`${recommended}% is recommended`)
-          .regular(threeStackAverage)
-          .major(threeStackMajor);
-      });
+    when(this.direFrenzy3StackThreshold).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<Wrapper>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </Wrapper>)
+        .icon(SPELLS.DIRE_FRENZY_TALENT.icon)
+        .actual(`Your pet had 3 stacks of the buff from Dire Frenzy for ${actual}% of the fight`)
+        .recommended(`${recommended}% is recommended`);
+    });
   }
   statistic() {
     return (

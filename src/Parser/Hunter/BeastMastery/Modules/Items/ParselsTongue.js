@@ -109,21 +109,12 @@ class ParselsTongue extends Analyzer {
     };
   }
   suggestions(when) {
-    const {
-      isGreaterThan: {
-        minor,
-        average,
-        major,
-      },
-    } = this.suggestionThresholds;
-    when(this.timesDropped).isGreaterThan(minor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>You lost <SpellLink id={SPELLS.PARSELS_TONGUE_BUFF.id} /> buff {this.timesDropped} times, try and avoid this if possible.</Wrapper>)
-          .icon(ITEMS.PARSELS_TONGUE.icon)
-          .actual(`${actual} times dropped`)
-          .recommended(`${recommended} is recommended`)
-          .regular(average).major(major);
-      });
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<Wrapper>You lost <SpellLink id={SPELLS.PARSELS_TONGUE_BUFF.id} /> buff {this.timesDropped} times, try and avoid this if possible.</Wrapper>)
+        .icon(ITEMS.PARSELS_TONGUE.icon)
+        .actual(`${actual} times dropped`)
+        .recommended(`${recommended} is recommended`);
+    });
 
   }
   item() {
