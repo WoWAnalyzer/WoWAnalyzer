@@ -2,6 +2,8 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
+import Ability from './Ability';
+
 const debug = false;
 
 // The amount of time after a proc has occurred when casting a filler is no longer acceptable
@@ -10,6 +12,8 @@ const REACTION_TIME_THRESHOLD = 500;
 const hastedCooldown = (baseCD, haste) => (baseCD / (1 + haste));
 
 class Abilities extends CoreAbilities {
+  static ABILITY_CLASS = Ability;
+
   spellbook() { // TODO: Migrate
     const combatant = this.combatants.selected;
     return [
@@ -26,7 +30,9 @@ class Abilities extends CoreAbilities {
         },
 
         isOnGCD: true,
-        isFiller: false,
+        antiFillerSpam: {
+          isFiller: false,
+        },
         castEfficiency: {
           suggestion: true,
         },
@@ -36,25 +42,28 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
 
         isOnGCD: true,
-        isFiller: (event, combatant, targets) => targets.length < 4,
+        antiFillerSpam: {
+          isFiller: (event, combatant, targets) => targets.length < 4,
+        },
       },
       {
         spell: SPELLS.MOONFIRE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
 
         isOnGCD: true,
-        isFiller: ({ timestamp, targetID }, combatant, targets, lastCast) => {
-          if (combatant.hasTalent(SPELLS.GALACTIC_GUARDIAN_TALENT.id)) {
+        antiFillerSpam: {
+          isFiller: ({ timestamp, targetID }, combatant, targets, lastCast) => {
+            if (combatant.hasTalent(SPELLS.GALACTIC_GUARDIAN_TALENT.id)) {
+              return (
+                // Account for reaction time; the player must have had the proc for at least this long
+                !combatant.hasBuff(SPELLS.GALACTIC_GUARDIAN.id, timestamp - REACTION_TIME_THRESHOLD)
+              );
+            }
+
             return (
-              // Account for reaction time; the player must have had the proc for at least this long
-              !combatant.hasBuff(SPELLS.GALACTIC_GUARDIAN.id, timestamp - REACTION_TIME_THRESHOLD)
+              targets.every(target => target.hasBuff(SPELLS.MOONFIRE_BEAR.id, timestamp - 1)) // Moonfire was already ticking
             );
-          }
-
-          return (
-            targets.every(target => target.hasBuff(SPELLS.MOONFIRE_BEAR.id, timestamp - 1)) // Moonfire was already ticking
-          );
-
+          },
         },
       },
       {
@@ -69,7 +78,9 @@ class Abilities extends CoreAbilities {
         },
 
         isOnGCD: true,
-        isFiller: false,
+        antiFillerSpam: {
+          isFiller: false,
+        },
         castEfficiency: {
           suggestion: true,
         },
@@ -79,9 +90,11 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
 
         isOnGCD: true,
-        isFiller: false,
-        // Maul should never be considered a replacement for filler, but it should be tracked
-        condition: false,
+        antiFillerSpam: {
+          isFiller: false,
+          // Maul should never be considered a replacement for filler, but it should be tracked
+          condition: false,
+        },
       },
       // Cooldowns
       {
@@ -154,19 +167,20 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.PULVERIZE_TALENT.id),
 
         isOnGCD: true,
-        isFiller: false,
-        baseCD: null,
-        // A spell must meet these conditions to be castable
-        condition: ({ timestamp, targetID }, combatant, targets) => {
-          const pulverizeTalented = combatant.hasTalent(SPELLS.PULVERIZE_TALENT.id);
+        antiFillerSpam: {
+          isFiller: false,
+          // A spell must meet these conditions to be castable
+          condition: ({ timestamp, targetID }, combatant, targets) => {
+            const pulverizeTalented = combatant.hasTalent(SPELLS.PULVERIZE_TALENT.id);
 
-          const target = targets.find(t => t.id === targetID);
-          if (!target) {
-            return false;
-          }
+            const target = targets.find(t => t.id === targetID);
+            if (!target) {
+              return false;
+            }
 
-          const targetHasThrashStacks = target.hasBuff(SPELLS.THRASH_BEAR_DOT.id, timestamp).stacks >= 2;
-          return pulverizeTalented && targetHasThrashStacks;
+            const targetHasThrashStacks = target.hasBuff(SPELLS.THRASH_BEAR_DOT.id, timestamp).stacks >= 2;
+            return pulverizeTalented && targetHasThrashStacks;
+          },
         },
       },
       // Raid utility

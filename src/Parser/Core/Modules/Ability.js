@@ -20,6 +20,44 @@ import PropTypes from 'prop-types';
  * optional importance {string} If set, this suggestion will get this static importance value. Use this ISSUE_IMPORTANCE enum for this.
  */
 class Ability {
+  static propTypes = {
+    spell: PropTypes.oneOfType([
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        icon: PropTypes.string.isRequired,
+      }),
+      PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        icon: PropTypes.string.isRequired,
+      })),
+    ]),
+    name: PropTypes.string,
+    category: PropTypes.string.isRequired,
+    cooldown: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.number,
+    ]),
+    channel: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.number,
+    ]),
+    charges: PropTypes.number,
+    isOnGCD: PropTypes.bool,
+    castEfficiency: PropTypes.shape({
+      suggestion: PropTypes.bool,
+      recommendedEfficiency: PropTypes.number,
+      averageIssueEfficiency: PropTypes.number,
+      majorIssueEfficiency: PropTypes.number,
+      extraSuggestion: PropTypes.node,
+      casts: PropTypes.func,
+      maxCasts: PropTypes.func,
+      importance: PropTypes.string,
+    }),
+    enabled: PropTypes.bool,
+  };
+
   _owner = null;
 
   spell = null;
@@ -100,49 +138,22 @@ class Ability {
 
   constructor(owner, options) {
     this._owner = owner;
+    this._setProps(options);
+  }
+
+  _setProps(props) {
     if (process.env.NODE_ENV === 'development') {
-      const spellShape = PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        icon: PropTypes.string.isRequired,
-      });
-      PropTypes.checkPropTypes({
-        spell: PropTypes.oneOfType([
-          spellShape,
-          PropTypes.arrayOf(spellShape),
-        ]),
-        name: PropTypes.string,
-        category: PropTypes.string.isRequired,
-        cooldown: PropTypes.oneOfType([
-          PropTypes.func,
-          PropTypes.number,
-        ]),
-        channel: PropTypes.oneOfType([
-          PropTypes.func,
-          PropTypes.number,
-        ]),
-        charges: PropTypes.number,
-        isOnGCD: PropTypes.bool,
-        castEfficiency: PropTypes.shape({
-          suggestion: PropTypes.bool,
-          recommendedEfficiency: PropTypes.number,
-          averageIssueEfficiency: PropTypes.number,
-          majorIssueEfficiency: PropTypes.number,
-          extraSuggestion: PropTypes.node,
-          casts: PropTypes.func,
-          maxCasts: PropTypes.func,
-          importance: PropTypes.string,
-        }),
-        enabled: PropTypes.bool,
-      }, options, 'prop', 'Ability');
-    }
-    Object.keys(options).forEach(key => {
-      if (process.env.NODE_ENV === 'development') {
-        if (this[key] === undefined) {
-          throw new Error(`Unrecognized prop: ${key}`);
+      PropTypes.checkPropTypes(this.constructor.propTypes, props, 'prop', 'Ability');
+      Object.keys(props).forEach(prop => {
+        if (process.env.NODE_ENV === 'development') {
+          if (this.constructor.propTypes[prop] === undefined) {
+            throw new Error(`Unrecognized prop: ${prop}`);
+          }
         }
-      }
-      this[key] = options[key];
+      });
+    }
+    Object.keys(props).forEach(prop => {
+      this[prop] = props[prop];
     });
   }
 }

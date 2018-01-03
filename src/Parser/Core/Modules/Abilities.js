@@ -21,6 +21,7 @@ class Abilities extends Analyzer {
     UTILITY: 'Utility',
     HEALER_DAMAGING_SPELL: 'Damaging Spell',
   };
+  static ABILITY_CLASS = Ability;
 
   /**
    * This will be called *once* during initialization. See the Ability class for the available properties. This should contain ALL spells available to a player of your spec, including utility such as interrupts, dispells, etc
@@ -35,7 +36,7 @@ class Abilities extends Analyzer {
   abilities = [];
   activeAbilities = [];
   on_initialized() {
-    this.abilities = this.spellbook().map(options => new Ability(this, options));
+    this.abilities = this.spellbook().map(options => new this.constructor.ABILITY_CLASS(this, options));
     this.activeAbilities = this.abilities.filter(ability => ability.enabled);
   }
 
@@ -44,7 +45,7 @@ class Abilities extends Analyzer {
    * @param {object} options An object with all the properties and their values that gets passed to the Ability class.
    */
   add(options) {
-    const ability = new Ability(this, options);
+    const ability = new this.constructor.ABILITY_CLASS(this, options);
     this.abilities.push(ability);
     this.activeAbilities.push(ability);
   }
