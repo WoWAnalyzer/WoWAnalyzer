@@ -232,13 +232,15 @@ class ThunderFocusTea extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.incorrectTftCasts).isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>You are currently using <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> to buff spells other than <SpellLink id={SPELLS.VIVIFY.id} /> or <SpellLink id={SPELLS.RENEWING_MIST.id} />. It is advised to limit the number of spells buffed to only these two.</span>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+          return suggest(
+            <Wrapper>
+              You are currently using <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> to buff spells other than <SpellLink id={SPELLS.VIVIFY.id} /> or <SpellLink id={SPELLS.RENEWING_MIST.id} />. It is advised to limit the number of spells buffed to only these two.
+            </Wrapper>
+          )
             .icon(SPELLS.THUNDER_FOCUS_TEA.icon)
             .actual(`${this.incorrectTftCasts} incorrect casts with Thunder Focus Tea`)
-            .recommended(`<${recommended} incorrect cast is recommended`)
-            .regular(this.suggestionThresholds.isGreaterThan.average).major(this.suggestionThresholds.isGreaterThan.major);
+            .recommended(`<${recommended} incorrect cast is recommended`);
         });
   }
 

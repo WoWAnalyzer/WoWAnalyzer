@@ -669,6 +669,11 @@ export default {
     name: 'Solar Beam',
     icon: 'ability_vehicle_sonicshockwave',
   },
+  SHOOTING_STARS: {
+    id: 202497,
+    name: 'Shooting Stars',
+    icon: 'spell_priest_divinestar_shadow2',
+  },
   // Feral
   TIGERS_FURY: {
     id: 5217,

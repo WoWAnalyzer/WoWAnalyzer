@@ -8,6 +8,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  { 
+    date: new Date('2018-1-2'),
+    changes: <Wrapper>Added Astral Power usage tab.</Wrapper>,
+    contributors: [Gebuz],
+  },
   {
     date: new Date('2017-12-29'),
     changes: <Wrapper>Added Checklist.</Wrapper>,
