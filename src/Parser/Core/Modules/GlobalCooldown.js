@@ -82,11 +82,13 @@ class GlobalCooldown extends Analyzer {
     const isChanneling = !!this._currentChannel;
     const isChannelingSameSpell = isChanneling && this._currentChannel.ability.guid === event.ability.guid;
 
+    // Reset the current channel prior to returning if `isChannelingSameSpell`, since the player might cast the same ability again and the second `cast` event might be an instant (e.g. channeled Aimed Shot into proc into instant Aimed Shot).
+    this._currentChannel = null;
+
     if (isChannelingSameSpell) {
       // The GCD occured already at the start of this channel
       return;
     }
-    this._currentChannel = null;
     this.triggerGlobalCooldown(event, 'cast');
   }
 

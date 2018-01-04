@@ -674,6 +674,11 @@ export default {
     name: 'Shooting Stars',
     icon: 'spell_priest_divinestar_shadow2',
   },
+  BLESSING_OF_ANSHE: {
+    id: 202739,
+    name: 'Blessing of An\'she',
+    icon: 'spell_priest_divinestar_holy',
+  },
   // Feral
   TIGERS_FURY: {
     id: 5217,

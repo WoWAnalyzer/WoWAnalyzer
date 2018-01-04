@@ -19,7 +19,7 @@ class SpellUsable extends Analyzer {
   _currentCooldowns = {};
 
   /**
-   * Whether the spell can be cast. This is not the opposite of `isOnCooldown`! A spell with 2 charges, 1 available and 1 on cooldown would be both available and on cooldown at the same time.
+   * Whether the spell can be cast. This is not the opposite of `isOnCooldown`! A spell with 2 charges, 1 available and 1 on cooldown would be both available and on cooldown at the same time
    */
   isAvailable(spellId) {
     if (this.isOnCooldown(spellId)) {
@@ -30,6 +30,17 @@ class SpellUsable extends Analyzer {
       return false;
     } else {
       return true;
+    }
+  }
+
+  /**
+   * For abilities with charges. Returns the number of charges that are available for a particular spell.
+   */
+  chargesAvailable(spellId) {
+    if (this.isOnCooldown(spellId)) {
+      return this.abilities.getMaxCharges(spellId) - this._currentCooldowns[spellId].chargesOnCooldown;
+    } else {
+      return this.abilities.getMaxCharges(spellId);
     }
   }
   /**

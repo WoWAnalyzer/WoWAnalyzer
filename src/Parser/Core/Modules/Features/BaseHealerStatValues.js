@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import { formatNumber, formatThousands } from 'common/format';
+import { formatNumber } from 'common/format';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
@@ -13,7 +13,7 @@ import StatTracker from 'Parser/Core/Modules/StatTracker';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import CORE_SPELL_INFO from './SpellInfo';
-import STAT, { getName, getClassNameColor, getIcon } from './STAT';
+import STAT, { getClassNameColor, getIcon, getName } from './STAT';
 
 const DEBUG = false;
 
@@ -357,15 +357,24 @@ class BaseHealerStatValues extends Analyzer {
   }
   _getGain(stat) {
     switch (stat) {
-      case STAT.INTELLECT: return this.totalOneInt;
-      case STAT.CRITICAL_STRIKE: return this.totalOneCrit;
-      case STAT.HASTE_HPCT: return this.totalOneHasteHpct;
-      case STAT.HASTE_HPM: return this.totalOneHasteHpm;
-      case STAT.MASTERY: return this.totalOneMastery;
-      case STAT.VERSATILITY: return this.totalOneVers;
-      case STAT.VERSATILITY_DR: return this.totalOneVers + this.totalOneVersDr;
-      case STAT.LEECH: return this.totalOneLeech;
-      default: return 0;
+      case STAT.INTELLECT:
+        return this.totalOneInt;
+      case STAT.CRITICAL_STRIKE:
+        return this.totalOneCrit;
+      case STAT.HASTE_HPCT:
+        return this.totalOneHasteHpct;
+      case STAT.HASTE_HPM:
+        return this.totalOneHasteHpm;
+      case STAT.MASTERY:
+        return this.totalOneMastery;
+      case STAT.VERSATILITY:
+        return this.totalOneVers;
+      case STAT.VERSATILITY_DR:
+        return this.totalOneVers + this.totalOneVersDr;
+      case STAT.LEECH:
+        return this.totalOneLeech;
+      default:
+        return 0;
     }
   }
   _getTooltip(stat) {
@@ -378,7 +387,8 @@ class BaseHealerStatValues extends Analyzer {
         return 'Weight includes only the boost to healing, and does not include the damage reduction.';
       case STAT.VERSATILITY_DR:
         return 'Weight includes both healing boost and damage reduction, counting damage reduction as additional throughput.';
-      default: return null;
+      default:
+        return null;
     }
   }
   moreInformationLink = null;
@@ -405,6 +415,7 @@ class BaseHealerStatValues extends Analyzer {
                 <tr>
                   <th style={{ minWidth: 30 }}><b>Stat</b></th>
                   <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Normalized so Intellect is always 1.00. Hover to see the amount of healing 1 rating resulted in."><b>Value</b></dfn></th>
+                  <th className="text-right" style={{ minWidth: 30 }}>HPS per rating</th>
                   <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Amount of stat rating required to increase your total healing by 1%"><b>Rating per 1%</b></dfn></th>
                 </tr>
               </thead>
@@ -431,9 +442,10 @@ class BaseHealerStatValues extends Analyzer {
                         {tooltip ? <dfn data-tip={tooltip}>{getName(stat)}</dfn> : getName(stat)}
                       </td>
                       <td className="text-right">
-                        <dfn data-tip={gain !== null ? formatThousands(gain) + ' total healing gained per 1 rating' : 'NYI'}>
-                          {stat === STAT.HASTE_HPCT && '0.00 - '}{gain !== null ? weight.toFixed(2) : 'NYI'}
-                        </dfn>
+                        {stat === STAT.HASTE_HPCT && '0.00 - '}{gain !== null ? weight.toFixed(2) : 'NYI'}
+                      </td>
+                      <td className="text-right">
+                        {(gain / this.owner.fightDuration * 1000).toFixed(2)}
                       </td>
                       <td className="text-right">
                         {gain !== null ? (
