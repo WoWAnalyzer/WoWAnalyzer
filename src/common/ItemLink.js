@@ -23,7 +23,8 @@ const ItemLink = ({ id, children, details, quality, icon }) => {
 
   return (
     <a href={`http://www.wowhead.com/${queryString.join('&')}`} target="_blank" rel="noopener noreferrer" className={getItemQualityLabel(quality || ITEMS[id].quality)}>
-      {icon && <ItemIcon id={id} style={{ height: '1.2em', marginTop: '-0.1em' }} />} {children || ITEMS[id].name}
+      {icon && <ItemIcon id={id} noLink style={{ height: '1.2em', marginTop: '-0.1em' }} />}{' '}
+      {children || ITEMS[id].name}
     </a>
   );
 };

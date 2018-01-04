@@ -7,6 +7,7 @@ import { push as pushAction } from 'react-router-redux';
 import { ApiDownError, LogNotFoundError, CorruptResponseError, JsonParseError } from 'common/fetchWcl';
 import fetchEvents from 'common/fetchEvents';
 import { captureException } from 'common/errorLogger';
+import Wrapper from 'common/Wrapper';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 
@@ -502,36 +503,38 @@ class App extends Component {
     const hasReport = reportCode || this.props.error;
 
     return (
-      <div className={`app ${hasReport ? 'has-report' : ''}`}>
-        <AppBackgroundImage bossId={this.state.bossId} />
+      <Wrapper>
+        <div className={`app ${hasReport ? 'has-report' : ''}`}>
+          <AppBackgroundImage bossId={this.state.bossId} />
 
-        <NavigationBar
-          parser={parser}
-          progress={progress}
-        />
-        <header>
-          <div className="container image-overlay">
-            <div className="row">
-              <div className="col-lg-6 col-md-10">
-                <h1>WoW&shy;Analyzer</h1>
-                <div className="description">
-                  Analyze your raid logs to view metrics and get personalized suggestions to improve your performance. Just enter a Warcraft Logs report:
+          <NavigationBar
+            parser={parser}
+            progress={progress}
+          />
+          <header>
+            <div className="container image-overlay">
+              <div className="row">
+                <div className="col-lg-6 col-md-10">
+                  <h1>WoW&shy;Analyzer</h1>
+                  <div className="description">
+                    Analyze your raid logs to view metrics and get personalized suggestions to improve your performance. Just enter a Warcraft Logs report:
+                  </div>
+                  {!hasReport && (
+                    <ReportSelecter />
+                  )}
                 </div>
-                {!hasReport && (
-                  <ReportSelecter />
-                )}
               </div>
             </div>
-          </div>
-        </header>
-        <main>
-          {this.renderContent()}
-        </main>
-        {!error && <Footer />}
+          </header>
+          <main>
+            {this.renderContent()}
+          </main>
 
-        <ReactTooltip html place="bottom" />
-        <DocumentTitleUpdater />
-      </div>
+          <ReactTooltip html place="bottom" />
+          <DocumentTitleUpdater />
+        </div>
+        {!error && <Footer />}
+      </Wrapper>
     );
   }
 }

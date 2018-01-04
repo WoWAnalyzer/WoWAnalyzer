@@ -1,16 +1,15 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-
+import ITEMS from 'common/ITEMS/HUNTER';
+import PETS from 'common/PETS';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import { formatNumber } from 'common/format';
-import getDamageBonus from "Parser/Hunter/Shared/Modules/getDamageBonus";
-import SpellIcon from "common/SpellIcon";
-import ITEMS from "common/ITEMS/HUNTER";
-import SpellLink from "common/SpellLink";
+import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import CorePets from 'Parser/Core/Modules/Pets';
-import PETS from "common/PETS";
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 const T19_2P_DAMAGE_MODIFIER = 0.5;
 const T19_2P_DAMAGE_MODIFIER_DIRE_FRENZY = 0.1;
@@ -80,11 +79,7 @@ class Tier19_2p extends Analyzer {
       id: `spell-${SPELLS.HUNTER_BM_T19_2P_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.HUNTER_BM_T19_2P_BONUS_BUFF.id} />,
       title: <SpellLink id={SPELLS.HUNTER_BM_T19_2P_BONUS_BUFF.id} />,
-      result: (
-        <dfn>
-          {formatNumber(this.bonusDmg)} - {this.owner.formatItemDamageDone(this.bonusDmg)}
-        </dfn>
-      ),
+      result: <ItemDamageDone amount={this.bonusDmg} />,
     };
   }
 }

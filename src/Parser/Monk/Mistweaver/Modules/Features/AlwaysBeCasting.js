@@ -4,8 +4,6 @@ import { formatPercentage } from 'common/format';
 import CoreAlwaysBeCastingHealing from 'Parser/Core/Modules/AlwaysBeCastingHealing';
 import Haste from 'Parser/Core/Modules/Haste';
 
-const ESSENCE_FONT_CAST_TIME = 3000;
-
 const HEALING_ABILITIES_ON_GCD = [
   SPELLS.EFFUSE.id,
   SPELLS.ENVELOPING_MISTS.id,
@@ -43,26 +41,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.TRANSCENDENCE_TRANSFER.id,
     SPELLS.TIGER_PALM.id,
   ];
-
-  recordCastTime(
-    castStartTimestamp,
-    globalCooldown,
-    begincast,
-    cast,
-    spellId
-  ) {
-    // There is no `begincast` event for Essence Font, so as such, we override the cast.timestamp value to be the point at which the cast would end
-    if (spellId === SPELLS.ESSENCE_FONT.id) {
-      cast.timestamp = cast.timestamp + (ESSENCE_FONT_CAST_TIME / (1 + this.haste.current));
-    }
-    super.recordCastTime(
-      castStartTimestamp,
-      globalCooldown,
-      begincast,
-      cast,
-      spellId
-    );
-  }
 
   get nonHealingTimeSuggestionThresholds() {
     return {

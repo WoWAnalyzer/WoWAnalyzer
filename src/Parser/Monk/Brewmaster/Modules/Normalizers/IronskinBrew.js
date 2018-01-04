@@ -37,10 +37,10 @@ class IronskinBrew extends EventsNormalizer {
       const targetID = event.targetID;
       const spellId = event.ability ? event.ability.guid : null;
 
-      if(event.type === "cast" && SPELLS.IRONSKIN_BREW.id === spellId) {
+      if(event.type === "cast" && spellId === SPELLS.IRONSKIN_BREW.id) {
         isbCasts[sourceID] = isbCasts[sourceID] ? isbCasts[sourceID] : [];
         isbCasts[sourceID].push(event);
-      } else if(["applybuff", "refreshbuff", "removebuff"].includes(event.type) && SPELLS.IRONSKIN_BREW_BUFF.id === spellId) {
+      } else if(["applybuff", "refreshbuff", "removebuff"].includes(event.type) && spellId === SPELLS.IRONSKIN_BREW_BUFF.id) {
         isbBuffs[targetID] = isbBuffs[targetID] ? isbBuffs[targetID] : [];
         isbBuffs[targetID].push(event);
         isbBuffAbility = isbBuffAbility ? isbBuffAbility : event.ability;

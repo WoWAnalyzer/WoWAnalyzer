@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Chizu } from 'MAINTAINERS';
+import { Chizu, Zerotorescue } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
@@ -8,6 +8,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2017-12-29'),
+    changes: <Wrapper>Fixed display in the timeline and the inclusion in active time of channeled abilities.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
   {
     date: new Date('2017-12-29'),
     changes: 'Implemented the Checklist.',

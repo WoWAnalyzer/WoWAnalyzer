@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
@@ -6,7 +7,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-
 
 class Tier21_4set extends Analyzer {
   static dependencies = {
@@ -24,10 +24,9 @@ class Tier21_4set extends Analyzer {
       id: `spell-${SPELLS.EXPOSED_ELEMENTS.id}`,
       icon: <SpellIcon id={SPELLS.EXPOSED_ELEMENTS.id} />,
       title: <SpellLink id={SPELLS.EXPOSED_ELEMENTS.id} />,
-      result: (
-        `${formatPercentage(T214setUptime)}% uptime`
-      ),
+      result: `${formatPercentage(T214setUptime)}% uptime`,
     };
   }
 }
+
 export default Tier21_4set;

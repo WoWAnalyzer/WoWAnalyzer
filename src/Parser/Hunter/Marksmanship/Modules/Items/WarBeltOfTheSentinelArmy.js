@@ -2,17 +2,17 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-
+import { formatPercentage } from 'common/format';
+import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import { formatNumber, formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
-import getDamageBonus from "Parser/Hunter/Shared/Modules/getDamageBonus";
+import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 const MAX_STACKS = 20;
 const WARBELT_OF_THE_SENTINEL_ARMY_DAMAGE_BONUS = 0.1;
 
-/*
+/**
  * Equip: Each enemy you hit with Multi-Shot increases the damage of your next Aimed Shot by 10%, stacking up to 20 times.
  */
 class WarBeltOfTheSentinelArmy extends Analyzer {
@@ -99,7 +99,7 @@ class WarBeltOfTheSentinelArmy extends Analyzer {
       item: ITEMS.WAR_BELT_OF_THE_SENTINEL_ARMY,
       result: (
         <dfn data-tip={`You gained ${this.unCappedBeltStacks} stacks and wasted ${this.cappedBeltStacks} through capping. <br /> Try and avoid this if you can, as each stack buffs Aimed Shot damage by 10%, leading you to effectively having lost out on damage equivalent to ${this.cappedBeltStacks / 10} Aimed Shots. <br />You used ${formatPercentage(this.usedBeltStacks / this.totalBeltStacks)}% of gained stacks. Try and utilise all of your gained belt stacks, so as to not let the buff expire or let the fight end before you can gain the damage benefit.`}>
-          {formatNumber(this.bonusDmg)} - {this.owner.formatItemDamageDone(this.bonusDmg)}
+          <ItemDamageDone amount={this.bonusDmg} />
         </dfn>
       ),
     };

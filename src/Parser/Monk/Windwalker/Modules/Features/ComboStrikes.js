@@ -50,10 +50,6 @@ class ComboStrikes extends Analyzer {
     this._lastSpellUsed = spellId;
   }
 
-  on_finished() {
-      this.masteryDropSpellSequence.forEach(item => item.reverse());
-  }
-
   suggestions(when) {
     when(this.masteryDropSpellSequence.length).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
@@ -99,7 +95,9 @@ class ComboStrikes extends Analyzer {
                     <th scope="row">{formatDuration((item[0].timestamp - this.owner.fight.start_time) / 1000)}</th>
                     <td><SpellIcon id={item[0].ability} style={{ height: '2.4em' }} /></td>
                     <td><SpellIcon id={item[1].ability} style={{ height: '2.4em' }} /></td>
-                    <td><SpellIcon id={item[2].ability} style={{ height: '2.4em' }} /></td>
+                    {item[2] && item[2].ability && (
+                      <td><SpellIcon id={item[2].ability} style={{ height: '2.4em' }} /></td>
+                    )}
                   </tr>
                 ))
             }

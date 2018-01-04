@@ -13,6 +13,8 @@ import ShadowfiendNormalizer from './Normalizers/ShadowfiendNormalizer';
 
 import SpellManaCost from './Modules/Core/SpellManaCost';
 import AbilityTracker from './Modules/Core/AbilityTracker';
+import Channeling from './Modules/Core/Channeling';
+import GlobalCooldown from './Modules/Core/GlobalCooldown';
 
 import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -55,19 +57,18 @@ class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
-
     // Normalizers
     atonementSuccessiveDamage: AtonementSuccessiveDamageNormalizer,
     estelNormalizer: EstelNormalizer,
     shadowfiendNormalizer: ShadowfiendNormalizer,
 
     healingDone: [HealingDone, { showStatistic: true }],
-
-    // Override the ability tracker so we also get stats for IoL and beacon healing
     spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
     lowHealthHealing: LowHealthHealing,
     abilities: Abilities,
+    channeling: Channeling,
+    globalCooldown: GlobalCooldown,
 
     // Abilities
     penance: Penance,

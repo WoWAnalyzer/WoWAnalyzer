@@ -63,7 +63,7 @@ class PrePotion extends Analyzer {
       this.usedSecondPotion = true;
     }
 
-    if (event.classResources && event.classResources[0] && event.classResources[0].type === RESOURCE_TYPES.MANA) {
+    if (event.classResources && event.classResources[0] && event.classResources[0].type === RESOURCE_TYPES.MANA.id) {
       const resource = event.classResources[0];
       const manaLeftAfterCast = resource.amount - resource.cost;
       if (manaLeftAfterCast < ANCIENT_MANA_POTION_AMOUNT) {
@@ -82,26 +82,26 @@ class PrePotion extends Analyzer {
   get prePotionSuggestionThresholds() {
     return {
       actual: this.usedPrePotion,
-      is: false,
+      isEqual: false,
       style: 'boolean',
     };
   }
   get secondPotionSuggestionThresholds() {
     return {
       actual: this.usedSecondPotion,
-      is: false,
+      isEqual: false,
       style: 'boolean',
     };
   }
 
   suggestions(when) {
-    when(this.prePotionSuggestionThresholds.actual).isFalse()
+    when(this.prePotionSuggestionThresholds)
       .addSuggestion((suggest) => {
         return suggest(<Wrapper>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> can be very effective (even for healers), especially during shorter encounters.</Wrapper>)
           .icon(ITEMS.POTION_OF_PROLONGED_POWER.icon)
           .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
       });
-    when(this.secondPotionSuggestionThresholds.actual).isFalse()
+    when(this.secondPotionSuggestionThresholds)
       .addSuggestion((suggest) => {
         let suggestionText;
         let importance;

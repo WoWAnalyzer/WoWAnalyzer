@@ -8,11 +8,10 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 const COMBUST_REDUCTION_MS = 9000;
 
 class PyrotexIgnitionCloth extends Analyzer {
-
   static dependencies = {
-		combatants: Combatants,
+    combatants: Combatants,
     spellUsable: SpellUsable,
-	};
+  };
 
   cooldownReduction = 0;
 
@@ -26,7 +25,7 @@ class PyrotexIgnitionCloth extends Analyzer {
       return;
     }
     if (this.spellUsable.isOnCooldown(SPELLS.COMBUSTION.id)) {
-      this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.COMBUSTION.id,(COMBUST_REDUCTION_MS));
+      this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.COMBUSTION.id, COMBUST_REDUCTION_MS);
     }
   }
 

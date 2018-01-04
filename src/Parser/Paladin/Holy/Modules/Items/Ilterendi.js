@@ -6,10 +6,10 @@ import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
 import Wrapper from 'common/Wrapper';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
@@ -44,7 +44,7 @@ class Ilterendi extends Analyzer {
   item() {
     return {
       item: ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON,
-      result: this.owner.formatItemHealingDone(this.healing),
+      result: <ItemHealingDone amount={this.healing} />,
     };
   }
 

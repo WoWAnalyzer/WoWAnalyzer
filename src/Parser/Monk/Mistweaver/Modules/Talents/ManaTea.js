@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatThousands } from 'common/format';
+import Wrapper from 'common/Wrapper';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
@@ -180,13 +181,15 @@ class ManaTea extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.avgMTsaves).isLessThan(this.suggestionThresholds.isLessThan.minor)
-    .addSuggestion((suggest, actual, recommended) => {
-      return suggest(<span>Your mana spent during <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> can be improved. Always aim to cast your highest mana spells such as <SpellLink id={SPELLS.ESSENCE_FONT.id} /> or <SpellLink id={SPELLS.VIVIFY.id} />.</span>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(
+        <Wrapper>
+          Your mana spent during <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> can be improved. Always aim to cast your highest mana spells such as <SpellLink id={SPELLS.ESSENCE_FONT.id} /> or <SpellLink id={SPELLS.VIVIFY.id} />.
+        </Wrapper>
+      )
         .icon(SPELLS.MANA_TEA_TALENT.icon)
         .actual(`${formatNumber(this.avgMTsaves)} average mana saved per Mana Tea cast`)
-        .recommended(`${(recommended / 1000).toFixed(0)}k average mana saved is recommended`)
-        .regular(this.suggestionThresholds.isLessThan.average).major(this.suggestionThresholds.isLessThan.major);
+        .recommended(`${(recommended / 1000).toFixed(0)}k average mana saved is recommended`);
     });
   }
 

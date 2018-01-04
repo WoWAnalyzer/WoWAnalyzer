@@ -52,8 +52,8 @@ export default function performanceForThresholds(thresholds) {
     } else {
       return thresholds.actual / thresholds.isLessThan;
     }
-  } else if (thresholds.is !== undefined) {
-    return thresholds.actual !== thresholds.is ? 1 : 0;
+  } else if (thresholds.isEqual !== undefined) {
+    return thresholds.actual !== thresholds.isEqual ? 1 : 0;
   } else {
     throw new Error('Failed to recognize threshold type');
   }

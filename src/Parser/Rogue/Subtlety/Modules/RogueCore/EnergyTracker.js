@@ -1,7 +1,7 @@
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import ResourceTypes from 'common/RESOURCE_TYPES';
 
-import ResourceTracker from '../ResourceTracker/ResourceTracker';
+import ResourceTracker from 'Parser/Core/Modules/ResourceTracker/ResourceTracker';
 
 class EnergyTracker extends ResourceTracker {
   static dependencies = {
@@ -9,8 +9,8 @@ class EnergyTracker extends ResourceTracker {
   };
 
   on_initialized() {
-    this.resourceType = ResourceTypes.ENERGY;
-    this.resourceName = "Energy";
+    this.resourceType = RESOURCE_TYPES.ENERGY.id;
+    this.resourceName = 'Energy';
   }
 }
 
