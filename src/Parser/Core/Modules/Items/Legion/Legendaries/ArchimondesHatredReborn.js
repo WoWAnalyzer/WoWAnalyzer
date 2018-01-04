@@ -7,14 +7,16 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 import ItemDamageDone from 'Main/ItemDamageDone';
+import Abilities from 'Parser/Core/Modules/Abilities';
 
-/*
- * Archimondes Hatred Reborn -
+/**
+ * Archimondes Hatred Reborn
  * Use: Gain an absorb shield for 30% of your maximum health for 10 sec. When the shield is consumed or expires, 75% of the damage absorbed is dealt to nearby enemies, split evenly.
  */
 class ArchimondesHatredReborn extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    abilities: Abilities,
   };
 
   healing = 0;
@@ -22,6 +24,17 @@ class ArchimondesHatredReborn extends Analyzer {
 
   on_initialized() {
     this.active = this.combatants.selected.hasTrinket(ITEMS.ARCHIMONDES_HATRED_REBORN.id);
+
+    if (this.active) {
+      this.abilities.add({
+        spell: SPELLS.ARCHIMONDES_HATRED_REBORN_ABSORB,
+        category: Abilities.SPELL_CATEGORIES.ITEMS,
+        cooldown: 75,
+        castEfficiency: {
+          suggestion: true,
+        },
+      });
+    }
   }
 
   on_byPlayer_absorbed(event) {
