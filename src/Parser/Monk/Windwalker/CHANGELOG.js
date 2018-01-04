@@ -1,4 +1,5 @@
 export default `
+03-01-2018 - Updated AlwaysBeCasting with channeling and more accurate GCD and fixed Gol'ganneths ravaging storm being shown in Cooldown usage breakdown (Juko)
 05-12-2017 - Updated Cast Efficiency to better handle Serenity cooldown reduction on Fists of Fury and Strike of the Windlord (Juko)
 23-11-2017 - Added Chi breakdown tab, suggestions and chi wasted statistic (Juko)
 22-11-2017 - Added T21 4pc item breakdown (Juko)
