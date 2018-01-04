@@ -6,8 +6,8 @@ import Tab from 'Main/Tab';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
+import Abilities from './Modules/Abilities';
 
-import Abilities from './Modules/Main/Abilities';
 import Maelstrom from './Modules/Main/Maelstrom';
 
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';

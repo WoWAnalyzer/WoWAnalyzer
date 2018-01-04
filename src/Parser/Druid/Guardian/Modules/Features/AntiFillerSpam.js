@@ -5,19 +5,17 @@ import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
-import StatisticBox from 'Main/StatisticBox';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import Abilities from './Abilities';
+import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
+import StatisticBox from 'Main/StatisticBox';
 
+import Abilities from '../Abilities';
 import ActiveTargets from './ActiveTargets';
 
 const debug = false;
-
-const gcdSpells = Abilities.ABILITIES.filter(spell => spell.isOnGCD);
 
 // Determines whether a variable is a function or not, and returns its value
 function resolveValue(maybeFunction, ...args) {
@@ -34,6 +32,8 @@ class AntiFillerSpam extends Analyzer {
     enemyInstances: EnemyInstances,
     activeTargets: ActiveTargets,
     spellUsable: SpellUsable,
+    globalCooldown: GlobalCooldown,
+    abilities: Abilities,
   };
 
   abilityLastCasts = {};
@@ -42,64 +42,74 @@ class AntiFillerSpam extends Analyzer {
   _unnecessaryFillerSpells = 0;
 
   on_byPlayer_cast(event) {
-    const spellID = event.ability.guid;
-    const spell = gcdSpells.find(spell => spell.spell.id === spellID);
-    if (!spell) {
+    const spellId = event.ability.guid;
+    const ability = this.abilities.getAbility(spellId);
+    if (!ability || !ability.isOnGCD) {
       return;
     }
 
     this._totalGCDSpells += 1;
     const timestamp = event.timestamp;
-    const spellLastCast = this.abilityLastCasts[spellID] || -Infinity;
+    const spellLastCast = this.abilityLastCasts[spellId] || -Infinity;
     const targets = this.activeTargets.getActiveTargets(event.timestamp).map(enemyID => this.enemyInstances.enemies[enemyID]).filter(enemy => !!enemy);
     const combatant = this.combatants.selected;
-    this.abilityLastCasts[spellID] = timestamp;
+    this.abilityLastCasts[spellId] = timestamp;
 
-    const isFillerEval = (typeof spell.isFiller === 'function') ? spell.isFiller(event, combatant, targets, spellLastCast) : spell.isFiller;
-    if (!isFillerEval) {
+    let isFiller = false;
+    if (ability.antiFillerSpam) {
+      if (typeof ability.antiFillerSpam.isFiller === 'function') {
+        isFiller = ability.antiFillerSpam.isFiller(event, combatant, targets, spellLastCast);
+      } else {
+        isFiller = ability.antiFillerSpam.isFiller;
+      }
+    }
+
+    if (!isFiller) {
       return;
     }
 
-    debug && console.group(`[FILLER SPELL] - ${spellID} ${SPELLS[spellID].name}`);
+    debug && console.group(`[FILLER SPELL] - ${spellId} ${SPELLS[spellId].name}`);
 
     this._totalFillerSpells += 1;
 
     const availableSpells = [];
-    gcdSpells.forEach((gcdSpell) => {
-      if (spell === gcdSpell) {
-        return;
-      }
+    // Only abilities on the GCD matter since the goal is to make sure every GCD is used as efficiently as possible
+    this.globalCooldown.abilitiesOnGlobalCooldown
+      .map(spellId => this.abilities.getAbility(spellId))
+      .filter(ability => ability !== null)
+      .forEach(gcdSpell => {
+        const gcdSpellId = gcdSpell.primarySpell.id;
+        if (ability.primarySpell.id === gcdSpellId) {
+          return;
+        }
 
-      const gcdSpellID = gcdSpell.spell.id;
+        const lastCast = this.abilityLastCasts[gcdSpellId] || -Infinity;
+        const isFillerEval = gcdSpell.antiFillerSpam && (typeof gcdSpell.antiFillerSpam.isFiller === 'function' ? gcdSpell.antiFillerSpam.isFiller(event, combatant, targets, lastCast) : gcdSpell.antiFillerSpam.isFiller);
+        if (isFillerEval || gcdSpell.category === Abilities.SPELL_CATEGORIES.UTILITY) {
+          return;
+        }
 
-      const { isFiller, condition, category } = gcdSpell;
-      const lastCast = this.abilityLastCasts[gcdSpellID] || -Infinity;
-      const isFillerEval = (typeof isFiller === 'function') ? isFiller(event, combatant, targets, lastCast) : isFiller;
-      if (isFillerEval || category === Abilities.SPELL_CATEGORIES.UTILITY) {
-        return;
-      }
+        const isOffCooldown = this.spellUsable.isAvailable(gcdSpellId);
 
-      const isOffCooldown = this.spellUsable.isAvailable(gcdSpellID);
+        const args = [event, combatant, targets, lastCast];
+        const meetsCondition = (gcdSpell.antiFillerSpam.condition !== undefined) ? resolveValue(gcdSpell.antiFillerSpam.condition, ...args) : true;
 
-      const args = [event, combatant, targets, lastCast];
-      const meetsCondition = (condition !== undefined) ? resolveValue(condition, ...args) : true;
+        if (!meetsCondition) {
+          return;
+        }
 
-      if (!meetsCondition) {
-        return;
-      }
+        if (!isOffCooldown) {
+          return;
+        }
 
-      if (!isOffCooldown) {
-        return;
-      }
-
-      debug && console.warn(`
-        [Available non-filler]
-        - ${gcdSpellID} ${SPELLS[gcdSpellID].name}
-        - offCD: ${isOffCooldown}
-        - canBeCast: ${meetsCondition}
-      `);
-      availableSpells.push(gcdSpellID);
-    });
+        debug && console.warn(`
+          [Available non-filler]
+          - ${gcdSpellId} ${SPELLS[gcdSpellId].name}
+          - offCD: ${isOffCooldown}
+          - canBeCast: ${meetsCondition}
+        `);
+        availableSpells.push(gcdSpellId);
+      });
 
     if (availableSpells.length > 0) {
       this._unnecessaryFillerSpells += 1;
@@ -125,7 +135,11 @@ class AntiFillerSpam extends Analyzer {
   suggestions(when) {
     when(this.fillerSpamPercentage).isGreaterThan(0.1)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>You are casting too many unnecessary filler spells. Try to plan your casts two or three GCDs ahead of time to anticipate your main rotational spells coming off cooldown, and to give yourself time to react to <SpellLink id={SPELLS.GORE_BEAR.id} /> and <SpellLink id={SPELLS.GALACTIC_GUARDIAN_TALENT.id} /> procs.</Wrapper>)
+        return suggest(
+          <Wrapper>
+            You are casting too many unnecessary filler spells. Try to plan your casts two or three GCDs ahead of time to anticipate your main rotational spells coming off cooldown, and to give yourself time to react to <SpellLink id={SPELLS.GORE_BEAR.id} /> and <SpellLink id={SPELLS.GALACTIC_GUARDIAN_TALENT.id} /> procs.
+          </Wrapper>
+        )
           .icon(SPELLS.SWIPE_BEAR.icon)
           .actual(`${formatPercentage(actual)}% unnecessary filler spells cast`)
           .recommended(`${formatPercentage(recommended, 0)}% or less is recommended`)

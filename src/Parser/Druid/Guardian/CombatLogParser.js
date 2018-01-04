@@ -4,8 +4,8 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
+import Abilities from './Modules/Abilities';
 import ActiveTargets from './Modules/Features/ActiveTargets';
-import Abilities from './Modules/Features/Abilities';
 import Gore from './Modules/Features/Gore';
 import GalacticGuardian from './Modules/Features/GalacticGuardian';
 import GuardianOfElune from './Modules/Features/GuardianOfElune';
@@ -36,10 +36,10 @@ class CombatLogParser extends CoreCombatLogParser {
     healingDone: [HealingDone, { showStatistic: true }],
     damageDone: [DamageDone, { showStatistic: true }],
     abilityTracker: AbilityTracker,
+    abilities: Abilities,
 
     // Features
     activeTargets: ActiveTargets,
-    abilities: Abilities,
     goreProcs: Gore,
     galacticGuardianProcs: GalacticGuardian,
     guardianOfEluneProcs: GuardianOfElune,
