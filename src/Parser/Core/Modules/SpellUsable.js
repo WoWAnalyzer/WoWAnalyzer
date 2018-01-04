@@ -19,7 +19,7 @@ class SpellUsable extends Analyzer {
   _currentCooldowns = {};
 
   /**
-   * Whether the spell can be cast. This is not the opposite of `isOnCooldown`! A spell with 2 charges, 1 available and 1 on cooldown would be both available and on cooldown at the same time.
+   * Whether the spell can be cast. This is not the opposite of `isOnCooldown`! A spell with 2 charges, 1 available and 1 on cooldown would be both available and on cooldown at the same time
    */
   isAvailable(spellId) {
     if (this.isOnCooldown(spellId)) {
