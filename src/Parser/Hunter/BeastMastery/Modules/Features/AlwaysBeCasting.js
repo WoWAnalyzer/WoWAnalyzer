@@ -15,40 +15,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     combatants: Combatants,
   };
 
-  static ABILITIES_ON_GCD = [
-    // Rotational
-    SPELLS.COBRA_SHOT.id,
-    SPELLS.KILL_COMMAND.id,
-    SPELLS.MULTISHOT.id,
-    SPELLS.DIRE_BEAST.id,
-
-    //Utility
-    SPELLS.TAR_TRAP.id,
-    SPELLS.FREEZING_TRAP.id,
-    SPELLS.CONCUSSIVE_SHOT.id,
-    SPELLS.FLARE.id,
-    SPELLS.REVIVE_PET_AND_MEND_PET.id,
-
-    //Off GCD
-    //SPELLS.ASPECT_OF_THE_WILD.id,
-    //SPELLS.DISENGAGE_TALENT.id,
-    //SPELLS.ASPECT_OF_THE_TURTLE.id,
-    //SPELLS.ASPECT_OF_THE_CHEETAH.id,
-    //SPELLS.EXHILARATION.id,
-    //SPELLS.BINDING_SHOT_TALENT.id,
-    //SPELLS.TITANS_THUNDER.id,
-
-    //Talents
-    SPELLS.STAMPEDE_TALENT.id,
-    SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id,
-    SPELLS.BARRAGE_TALENT.id,
-    SPELLS.DIRE_FRENZY_TALENT.id,
-    SPELLS.CHIMAERA_SHOT_TALENT.id,
-    SPELLS.STAMPEDE_TALENT.id,
-    SPELLS.WYVERN_STING_TALENT.id,
-    SPELLS.INTIMIDATION_TALENT.id,
-  ];
-
   get suggestionThresholds() {
     return {
       actual: this.downtimePercentage,
@@ -62,8 +28,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(<Wrapper>Your downtime can be improved. Try to reduce the delay between casting spells. If everything is on cooldown, try and use <SpellLink id={SPELLS.COBRA_SHOT.id} /> to stay off the focus cap and do some damage.</Wrapper>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
