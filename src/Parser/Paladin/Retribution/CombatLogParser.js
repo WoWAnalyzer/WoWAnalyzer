@@ -7,7 +7,7 @@ import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import Checklist from './Modules/Features/Checklist';
-import Judgment from './Modules/Features/Judgment';
+import Judgment from './Modules/PaladinCore/Judgment';
 
 import DivinePurpose from './Modules/Talents/DivinePurpose';
 import BoWProcTracker from './Modules/PaladinCore/BoWProcTracker';

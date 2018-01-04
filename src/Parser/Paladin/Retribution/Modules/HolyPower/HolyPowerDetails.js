@@ -18,17 +18,17 @@ class HolyPowerDetails extends Analyzer {
 	};
 
 	get suggestionThresholds() {
-    const hpWasted = this.holyPowerTracker.holyPowerWasted;
-    const hpWastedPercent = hpWasted / this.holyPowerTracker.totalHolyPowerGained;
-    return {
-      actual: hpWastedPercent,
-      isGreaterThan: {
-        minor: 0.02,
-        average: 0.05,
-        major: 0.08,
-      },
-      style: 'percentage',
-    };
+		const hpWasted = this.holyPowerTracker.holyPowerWasted;
+		const hpWastedPercent = hpWasted / this.holyPowerTracker.totalHolyPowerGained;
+		return {
+			actual: hpWastedPercent,
+			isGreaterThan: {
+			minor: 0.02,
+			average: 0.05,
+			major: 0.08,
+		},
+		style: 'percentage',
+	};
   }
 
 	suggestions(when) {

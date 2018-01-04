@@ -16,6 +16,8 @@ import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import AlwaysBeCasting from './AlwaysBeCasting';
 import HolyPowerDetails from '../HolyPower/HolyPowerDetails';
+import BoWProcTracker from '../PaladinCore/BoWProcTracker';
+import Judgment from '../PaladinCore/Judgment';
 
 class Checklist extends CoreChecklist {
 	static dependencies = {
@@ -29,6 +31,8 @@ class Checklist extends CoreChecklist {
 	    abilityTracker: AbilityTracker,
 
 	    holyPowerDetails: HolyPowerDetails,
+	    boWProcTracker: BoWProcTracker,
+	    judgment: Judgment,
 	};
 
 	rules = [
@@ -113,13 +117,21 @@ class Checklist extends CoreChecklist {
     		},
     	}),
     	new Rule({
-    		name: 'Don\'t over cap your Holy Power',
-    		description: 'Holy Power is your main resource and it\'s very important not to let it cap.',
+    		name: 'Use your resources efficently',
+    		description: <Wrapper>Holy Power is your main resource and it's very important not to let it cap. You should also only be spending Holy Power inside of the <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/> debuff window.</Wrapper>,
     		requirements: () => {
     			return [
     				new Requirement({
     					name: 'Wasted Holy Power',
     					check: () => this.holyPowerDetails.suggestionThresholds,
+    				}),
+    				new Requirement({
+    					name: 'Holy Power Spent with Judgment',
+    					check: () => this.judgment.suggestionThresholds,
+    				}),
+    				new Requirement({
+    					name: 'Wasted Blade of Wrath Procs',
+    					check: () => this.boWProcTracker.suggestionThresholds,
     				}),
     			];
     		},
