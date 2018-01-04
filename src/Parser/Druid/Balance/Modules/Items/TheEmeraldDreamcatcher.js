@@ -69,7 +69,7 @@ class TheEmeraldDreamcatcher extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<Wrapper>You dropped the <ItemLink id={ITEMS.THE_EMERALD_DREAMCATCHER.id} /> buff {actual.toFixed(2)} times per minute. Try to keep it up at all times. For more information consult <a href='http://goo.gl/mH8NVj' target='_blank' rel='noopener noreferrer'>the guide on ED usage</a>.</Wrapper>)
         .icon(ITEMS.THE_EMERALD_DREAMCATCHER.icon)
-        .actual(`${actual.toFixed(2)} buffs dropped times per minute`)
+        .actual(`${actual.toFixed(2)} buffs dropped per minute`)
         .recommended(`${recommended} is recommended`);
     });
   }
