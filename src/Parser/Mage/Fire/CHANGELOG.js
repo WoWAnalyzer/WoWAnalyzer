@@ -2,6 +2,11 @@ import { Sharrq, sref, Fyruna } from 'MAINTAINERS';
 
 export default [
   {
+    date: new Date('2017-1-3'),
+    changes: 'Added support for Marquee Bindings of the Sun King',
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2017-1-2'),
     changes: 'Added Heating Up Module',
     contributors: [Sharrq],
