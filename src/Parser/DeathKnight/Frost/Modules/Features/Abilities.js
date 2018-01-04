@@ -8,7 +8,7 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 //import ItemLink from 'common/ItemLink';
 
 class Abilities extends CoreAbilities {
-  spellbook() { // TODO: Migrate
+  spellbook() {
     const combatant = this.combatants.selected;
     return [
       {

@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
-  spellbook() { // TODO: Migrate
+  spellbook() {
     return [
       {
         spell: SPELLS.MORTAL_STRIKE,

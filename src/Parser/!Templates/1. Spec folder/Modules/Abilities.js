@@ -9,7 +9,7 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 import SPELLS from 'common/SPELLS';
 
 class Abilities extends CoreAbilities {
-  spellbook() { // TODO: Migrate
+  spellbook() {
     const combatant = this.combatants.selected;
     return [
       // TODO: Define all abilities available to the spec here

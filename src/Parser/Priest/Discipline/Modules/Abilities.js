@@ -4,7 +4,7 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 import calculateMaxCasts from 'Parser/Core/calculateMaxCasts';
 
 class Abilities extends CoreAbilities {
-  spellbook() { // TODO: Migrate
+  spellbook() {
     const combatant = this.combatants.selected;
     return [
       {

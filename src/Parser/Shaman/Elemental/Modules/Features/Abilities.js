@@ -7,7 +7,7 @@ class Abilities extends CoreAbilities {
     ...CoreAbilities.SPELL_CATEGORIES,
     DOTS: 'Dot',
   };
-  spellbook() { // TODO: Migrate
+  spellbook() {
     const combatant = this.combatants.selected;
     return [
       {

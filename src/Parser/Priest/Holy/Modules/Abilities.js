@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
-  spellbook() { // TODO: Migrate
+  spellbook() {
     const combatant = this.combatants.selected;
     return [
       // HW:Sanc and HW:Serenity not included due to Serendipity causing an odd situation with their CDs

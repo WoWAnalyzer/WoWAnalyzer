@@ -14,7 +14,7 @@ const hastedCooldown = (baseCD, haste) => (baseCD / (1 + haste));
 class Abilities extends CoreAbilities {
   static ABILITY_CLASS = Ability;
 
-  spellbook() { // TODO: Migrate
+  spellbook() {
     const combatant = this.combatants.selected;
     return [
       // Rotational Spells
