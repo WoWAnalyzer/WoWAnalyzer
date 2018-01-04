@@ -31,7 +31,7 @@ const RESOURCE_TYPES = {
     icon: 'inv_mace_2h_pvp410_c_01',
     url: 'combo-points',
   },
-  RUNES: { // Deaht Knight
+  RUNES: { // Death Knight
     id: 5,
     name: 'Runes',
     icon: 'spell_deathknight_frozenruneweapon',

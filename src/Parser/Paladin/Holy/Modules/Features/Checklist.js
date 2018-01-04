@@ -6,11 +6,13 @@ import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 
-import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist';
+import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
+import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
-import Velens from 'Parser/Core/Modules/Items/Velens';
+import VelensFutureSight from 'Parser/Core/Modules/Items/Legion/Legendaries/VelensFutureSight';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
@@ -36,7 +38,7 @@ class Checklist extends CoreChecklist {
     manaValues: ManaValues,
     auraOfSacrifice: AuraOfSacrifice,
     ilterendi: Ilterendi,
-    velens: Velens,
+    velensFutureSight: VelensFutureSight,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
@@ -122,7 +124,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use your supportive abilities',
-      description: <Wrapper>While you shouldn't aim to cast defensives and externals on cooldown, be aware of them and try to use them whenever effective. Not using them at all indicates you might not be aware of them enough or not utilizing them optimally.</Wrapper>,
+      description: 'While you shouldn\'t aim to cast defensives and externals on cooldown, be aware of them and try to use them whenever effective. Not using them at all indicates you might not be aware of them enough or not utilizing them optimally.',
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -159,7 +161,11 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Try to avoid being inactive for a large portion of the fight',
-      description: 'While it\'s suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and when you\'re not healing try to contribute some damage.',
+      description: (
+        <Wrapper>
+          While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and <dfn data-tip="While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else.">when you're not healing try to contribute some damage*</dfn>.
+        </Wrapper>
+      ),
       requirements: () => {
         return [
           new Requirement({
@@ -175,7 +181,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Don\'t tunnel the tanks',
-      description: 'A common misconception when it is stated that Holy Paladins are tank healers is that we focus tanks when healing. This is actually inefficient. Let your beacons do most of the work, ask your co-healers to keep efficient HoTs on the tanks and only directly heal the tanks when they would otherwise die.',
+      description: 'A common misconception about Holy Paladins is that we should focus tanks when healing. This is actually inefficient. Let your beacons do most of the work, ask your co-healers to keep efficient HoTs on the tanks and only directly heal the tanks when they would otherwise die.',
       requirements: () => {
         return [
           new Requirement({
@@ -187,7 +193,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: <Wrapper>Only use <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} icon /> when absolutely necessary</Wrapper>,
-      description: <Wrapper><SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} icon /> is an inefficient spell to cast compared to the alternatives. Try to only cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} icon /> when it will save someone's life or when moving and all other instant cast spells are on cooldown.</Wrapper>,
+      description: <Wrapper><SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} icon /> is an inefficient spell to cast compared to the alternatives. Try to only cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} icon /> when it will save someone's life or when you have to move and all other instant cast spells are on cooldown.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
@@ -230,8 +236,8 @@ class Checklist extends CoreChecklist {
           }),
           new Requirement({
             name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} icon />,
-            check: () => this.velens.suggestionThresholds,
-            when: this.velens.active,
+            check: () => this.velensFutureSight.suggestionThresholds,
+            when: this.velensFutureSight.active,
           }),
           new Requirement({
             name: <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} icon />,
@@ -241,54 +247,10 @@ class Checklist extends CoreChecklist {
         ];
       },
     }),
-    new Rule({
-      name: 'Be well prepared',
-      description: 'Being well prepared with potions, enchants and legendaries is an easy way to improve your performance.',
-      // For this rule it wouldn't make sense for the bar to be completely green when just 1 of the requirements failed, showing the average instead of median takes care of that properly.
-      performanceMethod: 'average',
-      requirements: () => {
-        return [
-          new Requirement({
-            name: 'All legendaries upgraded to max item level',
-            check: () => ({
-              actual: this.legendaryUpgradeChecker.upgradedLegendaries.length,
-              isLessThan: this.legendaryCountChecker.max,
-              style: 'number',
-            }),
-          }),
-          new Requirement({
-            name: 'Used max possible legendaries',
-            check: () => ({
-              actual: this.legendaryCountChecker.equipped,
-              isLessThan: this.legendaryCountChecker.max,
-              style: 'number',
-            }),
-          }),
-          new Requirement({
-            name: 'Used a pre-potion',
-            check: () => this.prePotion.prePotionSuggestionThresholds,
-          }),
-          new Requirement({
-            name: 'Used a second potion',
-            check: () => this.prePotion.secondPotionSuggestionThresholds,
-          }),
-          new Requirement({
-            name: 'Gear has best enchants',
-            check: () => {
-              const numEnchantableSlots = Object.keys(this.enchantChecker.enchantableGear).length;
-              return {
-                actual: numEnchantableSlots - (this.enchantChecker.slotsMissingEnchant.length + this.enchantChecker.slotsMissingMaxEnchant.length),
-                isLessThan: numEnchantableSlots,
-                style: 'number',
-              };
-            },
-          }),
-        ];
-      },
-    }),
+    new PreparationRule(),
     new Rule({
       name: 'Avoid overhealing',
-      description: 'Pick the right targets when healing and use the right abilities at the right time. While overhealing still transfers to your beacons it remains inefficient. Overhealing might be unavoidable on trivial content or when bringing too many healers.',
+      description: 'Pick the right targets when healing and use the right abilities at the right time. While overhealing still transfers to your beacons, it\'s still inefficient. Overhealing might be unavoidable when there\'s not a lot of damage taken (such as in normal mode) or when bringing too many healers.',
       requirements: () => {
         const combatant = this.combatants.selected;
         return [

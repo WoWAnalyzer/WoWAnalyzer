@@ -6,6 +6,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 /*
  * While active, your auto attacks spend 3 Focus to also launch a volley of shots that hit the target and all other nearby enemies, dealing (100% of Attack power) additional Physical damage.
@@ -80,7 +81,7 @@ class Volley extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {(this.owner.formatItemDamageDone(this.damage))}
+          <ItemDamageDone amount={this.damage} />
         </div>
       </div>
     );

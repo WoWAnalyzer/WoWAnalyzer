@@ -78,7 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     vulnerableUptime: VulnerableUptime,
     vulnerableTracker: VulnerableTracker,
-    TimeFocusCapped: TimeFocusCapped,
+    timeFocusCapped: TimeFocusCapped,
     vulnerableApplications: VulnerableApplications,
     cancelledCasts: CancelledCasts,
     focusUsage: FocusUsage,

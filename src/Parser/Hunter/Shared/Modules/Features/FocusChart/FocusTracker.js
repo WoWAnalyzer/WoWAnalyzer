@@ -42,6 +42,10 @@ class FocusTracker extends Analyzer {
     this.checkPassiveWaste(event);
     this.checkActiveWaste(event);
   }
+  on_toPlayer_energize(event) {
+    this.checkPassiveWaste(event);
+    this.checkActiveWaste(event);
+  }
 
   checkForMaxFocus(event) {
     if (event.sourceID === this.owner.player.id) {
@@ -77,7 +81,7 @@ class FocusTracker extends Analyzer {
   }
 
   checkActiveWaste(event) {
-    if (event.sourceID === this.owner.player.id) {
+    if ((event.sourceID === this.owner.player.id || event.targetID === this.owner.player.id) && event.classResources && event.classResources[0].type === RESOURCE_TYPES.FOCUS) {
       this.tracker++;
       if (this.generatorCasts[event.ability.guid]) {
         this.generatorCasts[event.ability.guid]++;

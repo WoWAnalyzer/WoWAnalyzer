@@ -2,6 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import Wrapper from 'common/Wrapper';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -49,13 +50,15 @@ class SoothingMist extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.soomTicksPerDuration).isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You are allowing <SpellLink id={SPELLS.SOOTHING_MIST.id} /> to channel for an extended period of time. <SpellLink id={SPELLS.SOOTHING_MIST.id} /> does little healing, so your time is better spent DPS'ing throug the use of <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} />.</span>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+        return suggest(
+          <Wrapper>
+            You are allowing <SpellLink id={SPELLS.SOOTHING_MIST.id} /> to channel for an extended period of time. <SpellLink id={SPELLS.SOOTHING_MIST.id} /> does little healing, so your time is better spent DPS'ing throug the use of <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} />.
+          </Wrapper>
+        )
           .icon(SPELLS.SOOTHING_MIST.icon)
           .actual(`${this.soomTicksPerDuration.toFixed(2)} ticks per second`)
-          .recommended(`<${recommended} ticks per second is recommended`)
-          .regular(this.suggestionThresholds.isGreaterThan.average).major(this.suggestionThresholds.isGreaterThan.major);
+          .recommended(`<${recommended} ticks per second is recommended`);
       });
   }
 }

@@ -4,6 +4,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from "common/SpellIcon";
 import SpellLink from 'common/SpellLink';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 class CobraCommander extends Analyzer {
   static dependencies = {
@@ -48,7 +49,7 @@ class CobraCommander extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {(this.owner.formatItemDamageDone(this.sneakySnakeDamage))}
+          <ItemDamageDone amount={this.sneakySnakeDamage} />
         </div>
       </div>
     );

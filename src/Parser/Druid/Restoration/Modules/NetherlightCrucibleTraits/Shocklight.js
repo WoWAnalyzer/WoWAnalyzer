@@ -1,12 +1,12 @@
 import React from 'react';
 
-import STAT from "Parser/Core/Modules/Features/STAT";
-import CoreShocklight from "Parser/Core/Modules//NetherlightCrucibleTraits/Shocklight";
-import HealingDone from 'Parser/Core/Modules/HealingDone';
-
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
+import STAT from 'Parser/Core/Modules/Features/STAT';
+import CoreShocklight from 'Parser/Core/Modules/NetherlightCrucibleTraits/Shocklight';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 import StatWeights from '../Features/StatWeights';
 
@@ -32,7 +32,7 @@ class MurderousIntent extends CoreShocklight {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {this.owner.formatItemHealingDone(healing)}
+          <ItemHealingDone amount={healing} />
         </div>
       </div>
     );

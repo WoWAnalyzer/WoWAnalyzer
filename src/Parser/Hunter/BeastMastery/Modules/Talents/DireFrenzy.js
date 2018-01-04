@@ -7,6 +7,7 @@ import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 import { formatPercentage } from 'common/format';
 import StatisticBox from 'Main/StatisticBox';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 /*
  * Dire Frenzy
@@ -167,7 +168,7 @@ class DireFrenzy extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {(this.owner.formatItemDamageDone(this.damage))}
+          <ItemDamageDone amount={this.damage} />
         </div>
       </div>
     );

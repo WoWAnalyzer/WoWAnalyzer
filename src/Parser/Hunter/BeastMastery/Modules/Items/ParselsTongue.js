@@ -6,9 +6,11 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
+import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 const DAMAGE_INCREASE_PER_STACK = 0.01;
 const LEECH_PER_STACK = 0.02;
@@ -128,9 +130,8 @@ class ParselsTongue extends Analyzer {
       item: ITEMS.PARSELS_TONGUE,
       result: (
         <dfn data-tip={`You had a ${formatPercentage(this.buffUptime)}% uptime on the Parsel's Tongue buff.`}>
-          {formatNumber(this.bonusDmg)} - {this.owner.formatItemDamageDone(this.bonusDmg)}
-          <br />
-          {formatNumber(this.bonusHealing)} - {this.owner.formatItemHealingDone(this.bonusHealing)}
+          <ItemDamageDone amount={this.bonusDmg} /><br />
+          <ItemHealingDone amount={this.bonusHealing} />
         </dfn>
       ),
     };

@@ -3,11 +3,21 @@ import Icon from 'common/Icon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import { formatPercentage } from 'common/format';
 import Wrapper from 'common/Wrapper';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 class LunarEmpowerment extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
+  on_initialized() {
+    this.active = !this.combatants.selected.hasHead(ITEMS.THE_EMERALD_DREAMCATCHER.id);
+  }
+
   isLunarStrike(event) {
     const spellId = event.ability.guid;
     return spellId === SPELLS.LUNAR_STRIKE.id;
@@ -65,7 +75,7 @@ class LunarEmpowerment extends Analyzer {
   }
 
   get wastedPercentage() {
-    return this.LunarEmpsOver / this.LunarEmpsTotal;
+    return this.wasted / this.generated;
   }
 
   get wasted() {
@@ -73,7 +83,11 @@ class LunarEmpowerment extends Analyzer {
   }
 
   get generated() {
-    return this.LunarEmpsTotal;
+    return this.LunarEmpsTotal + this.wasted;
+  }
+
+  get wastedPerMinute() {
+    return (this.LunarEmpsOver / this.owner.fightDuration) * 1000 * 60;
   }
 
   get suggestionThresholds() {
@@ -91,10 +105,10 @@ class LunarEmpowerment extends Analyzer {
   suggestions(when) {
     when(this.wastedPercentage).isGreaterThan(0.02)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<Wrapper>You overcapped {this.LunarEmpsOver} Lunar Empowerments when you could have avoided it without overcapping Astral Power. Try to prioritize casting Lunar Strike over Starsurge when not near max AsP and having Lunar Empowerment stacks up.</Wrapper>)
+          return suggest(<Wrapper>You overcapped {this.wastedPerMinute.toFixed(2)} Lunar Empowerments per minute when you could have cast it without overcapping Astral Power. Try to prioritize casting Lunar Strike over Starsurge when not near max AsP and having Lunar Empowerment stacks up.</Wrapper>)
             .icon('ability_druid_eclipse')
             .actual(`${formatPercentage(this.wastedPercentage)}% overcapped Lunar Empowerments`)
-            .recommended('0 is recommended.')
+            .recommended('0% is recommended.')
             .regular(0.05).major(0.1);
         });
   }
@@ -103,8 +117,8 @@ class LunarEmpowerment extends Analyzer {
     return (
       <StatisticBox
         icon={<Icon icon="ability_druid_eclipse" />}
-        value={`${this.LunarEmpsOver}`}
-        label="Overcapped Lunar Emp"
+        value={`${this.wastedPerMinute.toFixed(2)}`}
+        label="Overcapped Lunar Emp per minute"
         tooltip={`${this.wasted} out of ${this.generated} (${formatPercentage(this.wastedPercentage)}%) Lunar Empowerments wasted. Lunar Empowerment overcapping should never occur when it is possible to cast a Lunar Strike without overcapping Astral Power.`}
       />
     );
