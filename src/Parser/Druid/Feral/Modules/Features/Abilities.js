@@ -110,6 +110,7 @@ class Abilities extends CoreAbilities {
       getCooldown: haste => 120,
       noSuggestion: true,
       noCanBeImproved: true,
+      isUndetectable: true,
     },
     {
       spell: SPELLS.SURVIVAL_INSTINCTS,
