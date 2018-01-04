@@ -8,6 +8,7 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatisticsListBox from 'Main/StatisticsListBox';
 import STATISTIC_ORDER from "Main/STATISTIC_ORDER";
+import Wrapper from 'common/Wrapper';
 
 const CHART_SIZE = 50;
 
@@ -138,7 +139,7 @@ class VulnerableApplications extends Analyzer {
       <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <div className="row">
           <StatisticsListBox
-            title={<span><SpellLink id={SPELLS.VULNERABLE.id} /> applications</span>}
+            title={<Wrapper><SpellLink id={SPELLS.VULNERABLE.id} /> applications</Wrapper>}
             containerProps={{ className: 'col-xs-12' }}
           >
             {this.vulnApplicationChart()}
