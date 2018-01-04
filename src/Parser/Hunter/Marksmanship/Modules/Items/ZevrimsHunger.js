@@ -23,10 +23,13 @@ class ZevrimsHunger extends Analyzer {
   item() {
     return {
       item: ITEMS.ZEVRIMS_HUNGER,
-      result: <Wrapper>This gave your <SpellLink id={SPELLS.MARKED_SHOT.id} /> a 15% chance to not consume <SpellLink id={SPELLS.HUNTERS_MARK.id} />.</Wrapper>,
+      result: (
+        <Wrapper>
+          This gave your <SpellLink id={SPELLS.MARKED_SHOT.id} /> a 15% chance to not consume <SpellLink id={SPELLS.HUNTERS_MARK.id} />.
+        </Wrapper>
+      ),
     };
   }
-
 }
 
 export default ZevrimsHunger;

@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2017-01-04'),
+    changes: 'Fixed a bug where procs that changed an ability from a cast time ability to instant might not properly register the GCD.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2017-12-31'),
     changes: 'Changed the way Mastery percentage is calculated and implemented the coefficients for all specs. Let us know if Mastery still doesn\'t match the character pane.',
     contributors: [Zerotorescue],

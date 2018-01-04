@@ -13,13 +13,13 @@ import Feeding from 'Main/Feeding';
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
+import Abilities from './Modules/Abilities';
 
 import ShamanAbilityTracker from './Modules/ShamanCore/ShamanAbilityTracker';
 
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
-import Abilities from './Modules/Features/Abilities';
 import Checklist from './Modules/Features/Checklist';
 
 import AncestralVigor from './Modules/Features/AncestralVigor';
@@ -56,6 +56,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilityTracker: ShamanAbilityTracker,
     lowHealthHealing: LowHealthHealing,
     healingDone: [HealingDone, { showStatistic: true }],
+    abilities: Abilities,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -63,7 +64,6 @@ class CombatLogParser extends CoreCombatLogParser {
     highTide: HighTide,
     cooldownThroughputTracker: CooldownThroughputTracker,
     ancestralVigor: AncestralVigor,
-    abilities: Abilities,
     tidalWaves: TidalWaves,
     castBehavior: CastBehavior,
     checklist: Checklist,
