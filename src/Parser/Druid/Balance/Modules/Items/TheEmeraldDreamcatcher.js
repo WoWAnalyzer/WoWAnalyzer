@@ -6,7 +6,6 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Wrapper from 'common/Wrapper';
-import { formatNumber } from 'common/format';
 
 class TheEmeraldDreamcatcher extends Analyzer {
   static dependencies = {
@@ -81,10 +80,10 @@ class TheEmeraldDreamcatcher extends Analyzer {
       result: (
         <dfn
           data-tip={`
-            You dropped the buff ${this.buffDropped} times over the duration of the encounter.
+            You dropped the buff ${this.buffDropped} times in total.
           `}
         >
-          <Wrapper>Average <SpellLink id={SPELLS.STARSURGE_MOONKIN.id}/> cast reduced by {this.averageDiscount.toFixed(2)}</Wrapper>
+          <Wrapper>Reduced the cost of <SpellLink id={SPELLS.STARSURGE_MOONKIN.id}/> by an average of {this.averageDiscount.toFixed(2)}.</Wrapper>
         </dfn>
       ),
     };
