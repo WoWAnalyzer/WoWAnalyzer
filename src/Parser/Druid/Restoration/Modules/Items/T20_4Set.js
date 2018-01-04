@@ -11,6 +11,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 const HEAL_INCREASE = 2;
 
@@ -52,7 +53,7 @@ class T20_4Set extends Analyzer {
       title: <SpellLink id={SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id} />,
       result: (
         <dfn data-tip={`Blossoming Efflorescence uptime: <b>${formatPercentage(uptime)}%</b>`}>
-          {this.owner.formatItemHealingDone(this.healing)}
+          <ItemHealingDone amount={this.healing} />
         </dfn>
       ),
     };

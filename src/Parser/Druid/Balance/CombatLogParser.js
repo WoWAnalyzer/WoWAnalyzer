@@ -1,6 +1,7 @@
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import Haste from './Modules/Core/Haste';
+import GlobalCooldown from './Modules/Core/GlobalCooldown';
 
 //Features
 import Checklist from './Modules/Features/Checklist';
@@ -17,11 +18,9 @@ import StellarFlareUptime from './Modules/Features/StellarFlareUptime';
 import MoonSpells from './Modules/Features/MoonSpells';
 import UnempoweredLs from './Modules/Features/UnempoweredLs';
 
-//Spells
-//import FullMoon from './Modules/Spells/FullMoon';
-//import HalfMoon from './Modules/Spells/HalfMoon';
-//import NewMoon from './Modules/Spells/NewMoon';
-
+//Resources
+import AstralPowerDetails from './Modules/ResourceTracker/AstralPowerDetails';
+import AstralPowerTracker from './Modules/ResourceTracker/AstralPowerTracker';
 
 //Items
 import TheEmeraldDreamcatcher from './Modules/Items/TheEmeraldDreamcatcher';
@@ -30,8 +29,10 @@ import TheEmeraldDreamcatcher from './Modules/Items/TheEmeraldDreamcatcher';
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     haste: Haste,
+    globalCooldown: GlobalCooldown,
     damageDone: [DamageDone, { showStatistic: true }],
-    // Features
+
+    //Features
     checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
@@ -44,11 +45,12 @@ class CombatLogParser extends MainCombatLogParser {
     sunfireUptime: SunfireUptime,
     stellarFlareUptime: StellarFlareUptime,
     moonSpells: MoonSpells,
-    //Spells
-    //fullMoon: FullMoon,
-    //halfMoon: HalfMoon,
-    //newMoon: NewMoon,
     unempoweredLS: UnempoweredLs,
+
+    //Resources
+    astralPowerTracker: AstralPowerTracker,
+    astralPowerDetails: AstralPowerDetails,
+
     //Items
     theEmeraldDreamcatcher: TheEmeraldDreamcatcher,
   };

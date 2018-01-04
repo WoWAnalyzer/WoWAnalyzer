@@ -7,6 +7,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+      date: new Date('2018-01-01'),
+      changes: <Wrapper>Added a 'Fish for procs' entry to the Checklist, and reworded/updated several suggestion metrics.</Wrapper>,
+      contributors: [sref],
+  },
+  {
       date: new Date('2017-12-29'),
       changes: <Wrapper>Added support for <SpellLink id={SPELLS.FROST_MAGE_T21_4SET_BONUS_BUFF.id} /></Wrapper>,
       contributors: [sref],

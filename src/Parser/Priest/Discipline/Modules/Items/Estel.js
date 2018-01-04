@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
-
+import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -21,11 +21,11 @@ class Estel extends Analyzer {
   // with pets, but getting that many atonments out is nigh impossible.
   // ideally I think I would use a dictionary... but this works for now while I get it working
   _timePerHastePercentage = [0, 0, 0, 0, 0,
-                             0, 0, 0, 0, 0,
-                             0, 0, 0, 0, 0,
-                             0, 0, 0, 0, 0,
-                             0, 0, 0, 0, 0,
-                             0, 0, 0, 0, 0];
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0];
   lastBuffTimestamp = 0;
   lastHasteValue = 0;
 
@@ -63,17 +63,17 @@ class Estel extends Analyzer {
   on_finished() {
     let time = 0;
 
-    for (let i = 0; i < this._timePerHastePercentage.length; i++) { 
+    for (let i = 0; i < this._timePerHastePercentage.length; i++) {
       time += this._timePerHastePercentage[i];
       this.avgHaste += this._timePerHastePercentage[i] * i;
     }
 
     this.avgHaste = this.avgHaste / this.owner.fightDuration;
-    
+
     // verifing that the total buff time matches the getBuffUptime implementation.
     if (DEBUG) {
       console.log(`Total Buff Time: ${time}`);
-      console.log(`Total Buff Uptime: ${time/this.owner.fightDuration}`);
+      console.log(`Total Buff Uptime: ${time / this.owner.fightDuration}`);
       console.log(`Average Haste: ${this.avgHaste}`);
     }
   }
@@ -85,11 +85,9 @@ class Estel extends Analyzer {
     return {
       item: ITEMS.ESTEL_DEJAHNAS_INSPIRATION,
       result: (
-        <span>
-          <dfn>
-            {formatPercentage(avgHaste)} % average haste / {formatPercentage(uptimePercent)} % uptime
-          </dfn>
-        </span>
+        <Wrapper>
+          {formatPercentage(avgHaste)} % average haste / {formatPercentage(uptimePercent)} % uptime
+        </Wrapper>
       ),
     };
   }

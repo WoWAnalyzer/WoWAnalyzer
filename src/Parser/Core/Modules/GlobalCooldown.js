@@ -4,6 +4,9 @@ import Abilities from './Abilities';
 import Haste from './Haste';
 import Channeling from './Channeling';
 
+/**
+ * This triggers a fabricated `globalcooldown` event when appropriate.
+ */
 class GlobalCooldown extends Analyzer {
   static dependencies = {
     // `alwaysBeCasting` is a dependency, but it also has a dependency on this class. We can't have circular dependencies so I cheat in this class by using the deprecated `this.owner.modules`. This class only needs the dependency on ABC for legacy reasons (it has the config we need), once that's fixed we can remove it completely.
@@ -37,11 +40,21 @@ class GlobalCooldown extends Analyzer {
     this.abilitiesOnGlobalCooldown = abilities;
   }
 
+  /**
+   * Returns true if this ability is on the Global Cooldown, false if not.
+   * @param spellId
+   * @return {bool} Whether this ability has a GCD.
+   */
   isOnGlobalCooldown(spellId) {
     return this.abilitiesOnGlobalCooldown.includes(spellId);
   }
 
   _currentChannel = null;
+  /**
+   * Listening to `beginchannel` instead of `begincast` since this also includes *channeled* abilities which don't usually trigger a `begincast` event.
+   * If the channel of the cast was cancelled before it was finished (in the case of cast-time abilities, not channels), the GCD event will *not* be fired since it will reset upon cancel. We have no way of knowing *when* the cancel is (regardless if it's 100ms into the channel or 1400ms), but in most cases not triggering the entire GCD is enough.
+   * @param event
+   */
   on_byPlayer_beginchannel(event) {
     this._currentChannel = event;
 
@@ -53,6 +66,10 @@ class GlobalCooldown extends Analyzer {
       this.triggerGlobalCooldown(event, 'begincast');
     }
   }
+  /**
+   * `cast` events only trigger a GCD if the spell is instant and doesn't have a channeling/casting time.
+   * @param event
+   */
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     const isOnGcd = this.isOnGlobalCooldown(spellId);
@@ -65,24 +82,36 @@ class GlobalCooldown extends Analyzer {
     const isChanneling = !!this._currentChannel;
     const isChannelingSameSpell = isChanneling && this._currentChannel.ability.guid === event.ability.guid;
 
+    // Reset the current channel prior to returning if `isChannelingSameSpell`, since the player might cast the same ability again and the second `cast` event might be an instant (e.g. channeled Aimed Shot into proc into instant Aimed Shot).
+    this._currentChannel = null;
+
     if (isChannelingSameSpell) {
       // The GCD occured already at the start of this channel
       return;
     }
-    this._currentChannel = null;
     this.triggerGlobalCooldown(event, 'cast');
   }
 
+  /**
+   * Trigger a `globalcooldown`-event at this timestamp for the `ability` in the provided event.
+   * @param event
+   * @param trigger Either 'begincast' or 'cast', `begincast` are ignored in AlwaysBeCasting so that the channel time can be used instead (if it's higher than the GCD).
+   */
   triggerGlobalCooldown(event, trigger) {
     this.owner.triggerEvent('globalcooldown', {
       type: 'globalcooldown',
       ability: event.ability,
       timestamp: event.timestamp,
-      duration: this.getCurrentGlobalCooldown(event.ability.id),
+      duration: this.getCurrentGlobalCooldown(event.ability.guid),
       reason: event,
       trigger,
     });
   }
+  /**
+   * Returns the current Global Cooldown duration in milliseconds for the specified spell (some spells have custom GCDs).
+   * @param spellId
+   * @returns {number} The duration in milliseconds.
+   */
   getCurrentGlobalCooldown(spellId = null) {
     return (spellId && this.owner.modules.alwaysBeCasting.constructor.STATIC_GCD_ABILITIES[spellId]) || this.constructor.calculateGlobalCooldown(this.haste.current, this.owner.modules.alwaysBeCasting.constructor.BASE_GCD, this.owner.modules.alwaysBeCasting.constructor.MINIMUM_GCD);
   }
@@ -93,13 +122,17 @@ class GlobalCooldown extends Analyzer {
     this.history.push(event);
   }
 
+  /**
+   * Calculates the GCD based on the current Haste, taking into account the minimum possible GCD.
+   * @param haste
+   * @param baseGcd
+   * @param minGcd
+   * @returns {number}
+   */
   static calculateGlobalCooldown(haste, baseGcd, minGcd) {
     const gcd = baseGcd / (1 + haste);
     // Global cooldowns can't normally drop below a certain threshold
     return Math.max(minGcd, gcd);
-  }
-  static inRange(num1, goal, buffer) {
-    return num1 > (goal - buffer) && num1 < (goal + buffer);
   }
 }
 

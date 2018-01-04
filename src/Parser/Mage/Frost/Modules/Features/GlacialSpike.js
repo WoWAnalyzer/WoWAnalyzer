@@ -57,13 +57,12 @@ class GlacialSpike extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.overcappedPercentage).isGreaterThan(0.05)
+    when(this.utilSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You overcapped on {formatPercentage(this.overcappedPercentage, 1)}% of gained <SpellLink id={SPELLS.ICICLES_BUFF.id} />. Casting Frostbolt at max Icicles will cause an Icicle to automatically launch. While this Icicle still does damage, there is an opportunity cost to delaying your Glacial Spike cast. You should try to cast <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> as soon as you reach 5 icicles. Overcapping some <SpellLink id={SPELLS.ICICLES_BUFF.id} /> is unavoidable due to <SpellLink id={SPELLS.ICE_NINE.id} />, but you should try and keep this number as low as possible.</span>)
           .icon(SPELLS.GLACIAL_SPIKE_TALENT.icon)
           .actual(`${formatPercentage(this.overcappedPercentage, 1)}% overcapped`)
-          .recommended(`<${formatPercentage(recommended, 1)}% is recommended`)
-          .regular(0.10).major(0.20);
+          .recommended(`<${formatPercentage(1-recommended, 1)}% is recommended`);
       });
   }
   statistic() {
