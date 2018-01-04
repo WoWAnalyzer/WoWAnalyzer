@@ -49,7 +49,7 @@ class BoWProcTracker extends Analyzer {
       isGreaterThan: {
         minor: 0,
         average: 0.05,
-        major: 0.01,
+        major: 0.1,
       },
       style: 'percentage',
     };

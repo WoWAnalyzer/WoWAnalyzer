@@ -29,20 +29,29 @@ class LiadrinsFuryUnleashed extends Analyzer {
     };
   }
 
-  suggestions(when) {
+  get suggestionThresholds() {
     const hpWasted = this.holyPowerTracker.generatedAndWasted[SPELLS.LIADRINS_FURY_UNLEASHED_BUFF.id].wasted;
     const hpGained = this.holyPowerTracker.generatedAndWasted[SPELLS.LIADRINS_FURY_UNLEASHED_BUFF.id].generated;
     const hpWastedPercent = hpWasted / hpGained;
-    const MINOR = 0.1;
-    const AVG = 0.2;
-    const MAJOR = 0.3;
-    when(hpWastedPercent).isGreaterThan(MINOR)
+    return {
+      actual: hpWastedPercent,
+      isGreaterThan: {
+        minor: 0.1,
+        average: 0.2,
+        major: 0.3,
+      },
+      style: 'percentage',
+    };
+  }
+
+  suggestions(when) {
+    const hpWasted = this.holyPowerTracker.generatedAndWasted[SPELLS.LIADRINS_FURY_UNLEASHED_BUFF.id].wasted;
+    when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommneded) => {
-        return suggest(`You wasted ${formatPercentage(hpWastedPercent)}% of the holy power from Liadrin's. Consider using an easier legendary.`)
+        return suggest(`You wasted ${formatPercentage(actual)}% of the holy power from Liadrin's. Consider using an easier legendary.`)
           .icon(ITEMS.LIADRINS_FURY_UNLEASHED.icon)
           .actual(`${hpWasted} Holy Power wasted`)
-          .recommneded(`Wasting less than ${formatPercentage(recommneded)}% is recommneded.`)
-          .regular(AVG).major(MAJOR);
+          .recommneded(`Wasting less than ${formatPercentage(recommneded)}% is recommneded.`);
       });
   }
 }

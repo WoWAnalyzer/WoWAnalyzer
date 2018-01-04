@@ -61,14 +61,25 @@ class WhisperOfTheNathrezim extends Analyzer {
     };
   }
 
+  get suggestionThresholds() {
+    return {
+      actual: this.owner.getPercentageOfTotalDamageDone(this.damageDone),
+      isLessThan: {
+        minor: 0.05,
+        average: 0.045,
+        major: 0.04,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
-    when(this.owner.getPercentageOfTotalDamageDone(this.damageDone)).isLessThan(0.05)
+    when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your usage of <ItemLink id={ITEMS.WHISPER_OF_THE_NATHREZIM.id} /> can be improved. Make sure to save up five holy power before your next <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> window to get more time on the Whisper buff.</span>)
           .icon(ITEMS.WHISPER_OF_THE_NATHREZIM.icon)
-          .actual(`${this.owner.formatItemDamageDone(this.damageDone)} damage contributed`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended - 0.005).major(recommended - 0.01);
+          .actual(`${formatPercentage(actual)}% damage contributed`)
+          .recommended(`>${formatPercentage(recommended)}% is recommended`);
       });
   }
 }

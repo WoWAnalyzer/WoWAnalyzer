@@ -4,8 +4,10 @@ import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ITEMS from 'common/ITEMS';
+import ItemLink from 'common/ItemLink';
 
-import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist';
+import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
@@ -18,6 +20,8 @@ import AlwaysBeCasting from './AlwaysBeCasting';
 import HolyPowerDetails from '../HolyPower/HolyPowerDetails';
 import BoWProcTracker from '../PaladinCore/BoWProcTracker';
 import Judgment from '../PaladinCore/Judgment';
+import Liadrins from '../Items/LiadrinsFuryUnleashed';
+import Whisper from '../Items/WhisperOfTheNathrezim';
 
 class Checklist extends CoreChecklist {
 	static dependencies = {
@@ -33,6 +37,8 @@ class Checklist extends CoreChecklist {
 	    holyPowerDetails: HolyPowerDetails,
 	    boWProcTracker: BoWProcTracker,
 	    judgment: Judgment,
+	    liadrins: Liadrins,
+	    whisper: Whisper,
 	};
 
 	rules = [
@@ -93,6 +99,34 @@ class Checklist extends CoreChecklist {
       		},
     	}),
     	new Rule({
+    		name: 'Use core abilities as often as possible',
+    		description:<Wrapper>Spells with short cooldowns like <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/>, <SpellLink id={SPELLS.BLADE_OF_JUSTICE.id} icon/>, and <SpellLink id={SPELLS.CRUSADER_STRIKE.id} icon/> should be used as often as possible.</Wrapper>,
+    		requirements: () => {
+    			const combatant = this.combatants.selected;
+    			return [
+    				new GenericCastEfficiencyRequirement({
+    					spell: SPELLS.ZEAL_TALENT,
+    					when: combatant.hasTalent(SPELLS.ZEAL_TALENT.id),
+    				}),
+    				new GenericCastEfficiencyRequirement({
+    					spell: SPELLS.CRUSADER_STRIKE,
+    					when: !combatant.hasTalent(SPELLS.ZEAL_TALENT.id),
+    				}),
+    				new GenericCastEfficiencyRequirement({
+    					spell: SPELLS.JUDGMENT_CAST,
+    				}),
+    				new GenericCastEfficiencyRequirement({
+    					spell: SPELLS.BLADE_OF_JUSTICE,
+    					when: !combatant.hasTalent(SPELLS.DIVINE_HAMMER_TALENT.id),
+    				}),
+    				new GenericCastEfficiencyRequirement({
+    					spell: SPELLS.DIVINE_HAMMER_TALENT,
+    					when: combatant.hasTalent(SPELLS.DIVINE_HAMMER_TALENT.id),
+    				}),
+    			];
+    		},
+    	}),
+    	new Rule({
     		name: 'Use your cooldowns',
     		description: <Wrapper>Ret is a very cooldown dependant spec. Make sure you are keeping <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon/> and <SpellLink id={SPELLS.WAKE_OF_ASHES.id} icon /> on cooldown.</Wrapper>,
     		requirements: () => {
@@ -117,6 +151,24 @@ class Checklist extends CoreChecklist {
     		},
     	}),
     	new Rule({
+    		name: 'Pick the right tools for the fight',
+    		description: 'The throughput gain of some legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly.',
+    		requirements: () => {
+    			return [
+    				new Requirement({
+    					name: <ItemLink id={ITEMS.LIADRINS_FURY_UNLEASHED.id} icon/>,
+    					check: () => this.liadrins.suggestionThresholds,
+    					when: this.liadrins.active,
+    				}),
+    				new Requirement({
+    					name: <ItemLink id={ITEMS.WHISPER_OF_THE_NATHREZIM.id} icon/>,
+    					check: () => this.whisper.suggestionThresholds,
+    					when: this.whisper.active,
+    				}),
+    			];
+    		},
+    	}),
+    	new Rule({
     		name: 'Use your resources efficently',
     		description: <Wrapper>Holy Power is your main resource and it's very important not to let it cap. You should also only be spending Holy Power inside of the <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/> debuff window.</Wrapper>,
     		requirements: () => {
@@ -126,11 +178,11 @@ class Checklist extends CoreChecklist {
     					check: () => this.holyPowerDetails.suggestionThresholds,
     				}),
     				new Requirement({
-    					name: 'Holy Power Spent with Judgment',
+    					name: 'Holy power spent without Judgment',
     					check: () => this.judgment.suggestionThresholds,
     				}),
     				new Requirement({
-    					name: 'Wasted Blade of Wrath Procs',
+    					name: 'Wasted Blade of Wrath procs',
     					check: () => this.boWProcTracker.suggestionThresholds,
     				}),
     			];
