@@ -10,7 +10,7 @@ import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
 const BONUS_DAMAGE = 3;
 const CAST_BUFFER = 250;
 
-const debug = true;
+const debug = false;
 
 class MarqueeBindingsOfTheSunKing extends Analyzer {
 
