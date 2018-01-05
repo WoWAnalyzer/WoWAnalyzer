@@ -102,7 +102,7 @@ class Sentinel extends Analyzer {
         icon={<SpellIcon id={SPELLS.SENTINEL_TALENT.id} />}
         value={`${this.goodTicks}/${this.totalPossibleTicks}`}
         label={`flawless ticks + ${this.buggedTicks} bugged`}
-        tooltip={`You applied Hunter's Mark with Sentinel ${this.appliedDebuffsFromSentinel} times spread over ${this.sentinelCasts} casts of Sentinel. This gives an average of ${this.debuffsPerCast} debuffs per cast. <br/> You wasted ${this.wastedApplications} possible applications with Sentinel ticking on targets who already had Hunter's Mark debuff. </br> Out of ${this.totalPossibleTicks} possible ticks: <ul><li>${this.goodTicks} ticks were good ticks where no target already had Hunter's Mark when it ticked.</li><li>${this.wastedTicks} ticks had one or more targets already with Hunter's Mark on them.</li><li>${this.buggedTicks} ticks bugged and didn't happen.</li></ul>`}
+        tooltip={`You applied Hunter's Mark with Sentinel ${this.appliedDebuffsFromSentinel} times spread over ${this.sentinelCasts} casts of Sentinel. This gives an average of ${this.debuffsPerCast} debuffs per cast. <br/> You wasted ${this.wastedApplications} possible applications with Sentinel ticking on targets who already had Hunter's Mark debuff. </br> Out of ${this.totalPossibleTicks} possible ticks: <ul><li>${this.goodTicks} ticks were good ticks where no target already had Hunter's Mark when it ticked.</li><li>${this.wastedTicks} ticks had one or more targets already with Hunter's Mark on them.</li><li>${this.buggedTicks} ticks bugged and didn't happen. This bug can somewhat be circumvented by not casting any spells right before you're meant to get a proc (every 6 seconds after cast).</li></ul>`}
         footer={(
           <div className="statistic-bar">
             <div
@@ -120,7 +120,7 @@ class Sentinel extends Analyzer {
             <div
               className="Druid-bg"
               style={{ width: `${formatPercentage(this.buggedTicks / this.totalPossibleTicks)}%` }}
-              data-tip={`<b>${formatPercentage(this.buggedTicks / this.totalPossibleTicks)}%</b> of your expected Sentinel ticks bugged and didn't happen.`}
+              data-tip={`<b>${formatPercentage(this.buggedTicks / this.totalPossibleTicks)}%</b> of your expected Sentinel ticks bugged and didn't happen. This bug can somewhat be circumvented by not casting any spells right before you're meant to get a proc (every 6 seconds after cast).`}
             >
             </div>
           </div>
