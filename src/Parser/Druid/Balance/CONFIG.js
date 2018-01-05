@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Iskalla } from 'MAINTAINERS';
+import { Iskalla, Gebuz } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
@@ -9,7 +9,7 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   spec: SPECS.BALANCE_DRUID,
-  maintainers: [Iskalla],
+  maintainers: [Iskalla, Gebuz],
   description: (
     <div>
       Hello Moonkins! This tool is intended to show major statistics and potential issues in your rotation. Please, mind that this is still work in progress and will continue to grow and change!<br/>

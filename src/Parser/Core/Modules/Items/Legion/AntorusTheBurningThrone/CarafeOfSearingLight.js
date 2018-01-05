@@ -7,10 +7,12 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemManaGained from 'Main/ItemManaGained';
 import ItemDamageDone from 'Main/ItemDamageDone';
+import Abilities from 'Parser/Core/Modules/Abilities';
 
 class CarafeOfSearingLight extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    abilities: Abilities,
   };
 
   damage = 0;
@@ -18,6 +20,18 @@ class CarafeOfSearingLight extends Analyzer {
 
   on_initialized() {
     this.active = this.combatants.selected.hasTrinket(ITEMS.CARAFE_OF_SEARING_LIGHT.id);
+
+    if (this.active) {
+      this.abilities.add({
+        spell: SPELLS.REFRESHING_AGONY_DOT,
+        name: ITEMS.CARAFE_OF_SEARING_LIGHT.name,
+        category: Abilities.SPELL_CATEGORIES.ITEMS,
+        cooldown: 60,
+        castEfficiency: {
+          suggestion: true,
+        },
+      });
+    }
   }
 
   on_byPlayer_damage(event) {

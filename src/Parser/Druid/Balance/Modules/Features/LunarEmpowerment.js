@@ -75,7 +75,7 @@ class LunarEmpowerment extends Analyzer {
   }
 
   get wastedPercentage() {
-    return this.LunarEmpsOver / this.LunarEmpsTotal;
+    return this.wasted / this.generated;
   }
 
   get wasted() {
@@ -83,7 +83,7 @@ class LunarEmpowerment extends Analyzer {
   }
 
   get generated() {
-    return this.LunarEmpsTotal;
+    return this.LunarEmpsTotal + this.wasted;
   }
 
   get wastedPerMinute() {

@@ -1,6 +1,7 @@
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import Haste from './Modules/Core/Haste';
+import GlobalCooldown from './Modules/Core/GlobalCooldown';
 
 //Features
 import Checklist from './Modules/Features/Checklist';
@@ -23,11 +24,12 @@ import AstralPowerTracker from './Modules/ResourceTracker/AstralPowerTracker';
 
 //Items
 import TheEmeraldDreamcatcher from './Modules/Items/TheEmeraldDreamcatcher';
-
+import ImpeccableFelEssence from './Modules/Items/ImpeccableFelEssence';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     haste: Haste,
+    globalCooldown: GlobalCooldown,
     damageDone: [DamageDone, { showStatistic: true }],
 
     //Features
@@ -51,6 +53,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     //Items
     theEmeraldDreamcatcher: TheEmeraldDreamcatcher,
+    impeccableFelEssence : ImpeccableFelEssence,
   };
 }
 

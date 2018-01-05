@@ -3,7 +3,7 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
-import ImportTarnishedSentinelMedallion from 'Parser/Core/Modules/Items/Legion/TombOfSargeras/TarnishedSentinelMedallion';
+import CoreTarnishedSentinelMedallion from 'Parser/Core/Modules/Items/Legion/TombOfSargeras/TarnishedSentinelMedallion';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
@@ -12,8 +12,9 @@ import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
 /**
  * Use: Call upon a spectral owl to attack your target, inflicting 61201 Arcane damage every 1 sec for 20 sec. Your ranged attacks and spells against the same enemy have a chance to make the owl perform an additional attack for 75602 damage. (2 Min Cooldown)
  */
-class TarnishedSentinelMedallion extends ImportTarnishedSentinelMedallion {
+class TarnishedSentinelMedallion extends CoreTarnishedSentinelMedallion {
   static dependencies = {
+    ...CoreTarnishedSentinelMedallion.dependencies,
     cooldownThroughputTracker: CooldownThroughputTracker,
     combatants: Combatants,
   };

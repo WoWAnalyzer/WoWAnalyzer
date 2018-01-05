@@ -75,7 +75,7 @@ class SolarEmpowerment extends Analyzer {
   }
   
   get wastedPercentage() {
-    return this.SolarEmpsOver / this.SolarEmpsTotal;
+    return this.wasted / this.generated;
   }
 
   get wasted() {
@@ -83,7 +83,7 @@ class SolarEmpowerment extends Analyzer {
   }
 
   get generated() {
-    return this.SolarEmpsTotal;
+    return this.SolarEmpsTotal + this.wasted;
   }
 
   get wastedPerMinute() {

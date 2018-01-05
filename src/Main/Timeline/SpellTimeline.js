@@ -79,7 +79,7 @@ class SpellTimeline extends React.PureComponent {
     // 4 for margin
     // 36 for the ruler
     // 28 for each spell
-    // 1 additional spell for the GCD
+    // 1 additional spell for the GCD and 1 for channeling
     const totalHeight = 9 + 4 + 36 + 28 * (2 + this.spells.length);
 
     const totalWidth = seconds * secondWidth;
@@ -102,7 +102,10 @@ class SpellTimeline extends React.PureComponent {
           </div>
           {this.spells.map(spellId => (
             <div className="lane" key={spellId}>
-              <SpellIcon id={spellId} noLink /> <SpellLink id={spellId} />
+              <SpellIcon id={spellId} noLink />{' '}
+              <SpellLink id={spellId}>
+                {this.props.abilities.getAbility(spellId).name}
+              </SpellLink>
             </div>
           ))}
         </div>
