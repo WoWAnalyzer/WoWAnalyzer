@@ -90,14 +90,12 @@ class Sentinel extends Analyzer {
   }
 
   on_finished() {
-    console.log("fight: ", this.owner.fight.end_time);
-    console.log("lastCastTimestamp : ", this.lastSentinelCastTimestamp);
     if (this.lastSentinelCastTimestamp > (this.owner.fight.end_time - SENTINEL_DURATION)) {
       const timeLostOnSentinel = this.owner.fight.end_time - this.lastSentinelCastTimestamp;
       this.lostTicksFromCombatEnd = Math.floor(timeLostOnSentinel / TIME_BETWEEN_TICKS);
     }
   }
-  
+
   statistic() {
     return (
       <StatisticBox
