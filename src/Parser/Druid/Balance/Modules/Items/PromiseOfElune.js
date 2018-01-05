@@ -1,0 +1,60 @@
+import React from 'react';
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
+import SpellLink from 'common/SpellLink';
+import { formatPercentage } from 'common/format';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import Wrapper from 'common/Wrapper';
+import ItemDamageDone from 'Main/ItemDamageDone';
+
+const DAMAGE_MODIFIER = 0.08;
+
+class PromiseOfElune extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
+  solarWrathDamage = 0;
+  lunarStrikeDamage = 0;
+
+  on_initialized() {
+    this.active = this.combatants.selected.hasFeet(ITEMS.PROMISE_OF_ELUNE.id);
+  }
+
+  on_byPlayer_damage(event) {
+    if (event.ability.guid === SPELLS.SOLAR_WRATH_MOONKIN.id) {
+      this.solarWrathDamage += this.damageContribution(event, DAMAGE_MODIFIER);
+    }
+    if (event.ability.guid === SPELLS.LUNAR_STRIKE.id) {
+      this.lunarStrikeDamage += this.damageContribution(event, DAMAGE_MODIFIER);
+    }     
+  }
+
+  damageContribution(event, mod) {
+    const raw = (event.amount || 0) + (event.absorbed || 0);
+    return raw - (raw / (1 + mod));
+  }
+
+  get bonusDamage() {
+    return this.solarWrathDamage + this.lunarStrikeDamage;
+  }
+
+  item() {
+    return {
+      item: ITEMS.PROMISE_OF_ELUNE,
+      result: (
+        <dfn data-tip={`Damage Breakdown:
+          <ul>
+            <li>Solar Wrath: <b>${this.owner.formatItemDamageDone(this.solarWrathDamage)}</b></li>
+            <li>Lunar Strike: <b>${this.owner.formatItemDamageDone(this.lunarStrikeDamage)}</b></li>
+          </ul>
+        `}>
+          <ItemDamageDone amount={this.bonusDamage} />
+        </dfn>
+      ),
+    };
+  }
+}
+
+export default PromiseOfElune;

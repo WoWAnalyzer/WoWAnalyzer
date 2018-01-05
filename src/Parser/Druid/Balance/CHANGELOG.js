@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   { 
+    date: new Date('2018-1-5'),
+    changes: <Wrapper>Added most legendaries.</Wrapper>,
+    contributors: [Gebuz],
+  },
+  { 
     date: new Date('2018-1-2'),
     changes: <Wrapper>Added Astral Power usage tab.</Wrapper>,
     contributors: [Gebuz],

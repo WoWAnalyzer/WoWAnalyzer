@@ -28,6 +28,7 @@ import ImpeccableFelEssence from './Modules/Items/ImpeccableFelEssence';
 import SoulOfTheArchdruid from './Modules/Items/SoulOfTheArchdruid';
 import LadyAndTheChild from './Modules/Items/LadyAndTheChild';
 import OnethsIntuition from './Modules/Items/OnethsIntuition';
+import PromiseOfElune from './Modules/Items/PromiseOfElune';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -60,6 +61,7 @@ class CombatLogParser extends MainCombatLogParser {
     soulOfTheArchdruid : SoulOfTheArchdruid,
     ladyAndTheChild : LadyAndTheChild,
     onethsIntuition : OnethsIntuition,
+    promiseOfElune : PromiseOfElune,
   };
 }
 
