@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import BlackoutCombo from './BlackoutCombo';
-import IronskinBrew from './IronSkinBrew';
+import SharedBrews from '../Core/SharedBrews';
 
 const debug = false;
 const FACE_PALM_AP_RATIO = 1.281;
@@ -14,7 +14,7 @@ class TigerPalm extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     boc: BlackoutCombo,
-    isb: IronskinBrew,
+    brews: SharedBrews,
   }
 
   totalCasts = 0;
@@ -69,14 +69,14 @@ class TigerPalm extends Analyzer {
     const spellId = event.ability.guid;
     if(SPELLS.TIGER_PALM.id === spellId) {
       // OK SO we have a hit, lets reduce the CD by the base amount...
-      const actualReduction = this.isb.reduceCooldown(TIGER_PALM_REDUCTION);
+      const actualReduction = this.brews.reduceCooldown(TIGER_PALM_REDUCTION);
       this.cdr += actualReduction;
       this.wastedCDR += TIGER_PALM_REDUCTION - actualReduction;
 
       if(this._face_palm_proc(event)) {
         // BUT this is also FACE PALM so we reduce it by an extra amount
         // too!
-        const actualFpReduction = this.isb.reduceCooldown(FACE_PALM_REDUCTION);
+        const actualFpReduction = this.brews.reduceCooldown(FACE_PALM_REDUCTION);
         this.fpCDR += actualFpReduction;
         this.wastedFpCDR += FACE_PALM_REDUCTION - actualFpReduction;
         if(this.boc_apply_to_tp) {

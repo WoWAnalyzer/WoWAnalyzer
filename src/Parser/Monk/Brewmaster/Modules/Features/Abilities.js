@@ -63,10 +63,14 @@ class Abilities extends CoreAbilities {
       },
       // Cooldowns
       {
-        spell: SPELLS.IRONSKIN_BREW,
+        spell: SPELLS.FAKE_SHARED_BREWS,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: haste => 21 / (1 + haste),
         charges: 3,
+      },
+      {
+        spell: SPELLS.IRONSKIN_BREW,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       },
       {
         spell: SPELLS.PURIFYING_BREW,
@@ -79,7 +83,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: false,
         },
-        enabled: combatant => combatant.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id),
       },
       {
         spell: SPELLS.EXPEL_HARM,
@@ -88,6 +92,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FORTIFYING_BREW_BRM,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 420,
       },
       {
         spell: SPELLS.HEALING_ELIXIR_TALENT,

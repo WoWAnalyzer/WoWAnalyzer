@@ -7,6 +7,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
+import SharedBrews from '../Core/SharedBrews';
 
 const debug = false;
 
@@ -14,6 +15,7 @@ class IronSkinBrew extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     spellUsable: SpellUsable,
+    brews: SharedBrews,
   }
 
   lastIronSkinBrewBuffApplied = 0;
@@ -32,20 +34,6 @@ class IronSkinBrew extends Analyzer {
   _durationPerPurify = 0;
   _durationCap = -1;
 
-  // reduces the cooldown of ISB in SpellUsable, returning the amount by
-  // which the CD was reduced (0 if it was not on cooldown)
-  //
-  // also reduces BoB cd
-  // TODO: where to put this?
-  reduceCooldown(amount) {
-    if(this.spellUsable.isOnCooldown(SPELLS.BLACK_OX_BREW_TALENT.id)) {
-      this.spellUsable.reduceCooldown(SPELLS.BLACK_OX_BREW_TALENT.id, amount);
-    }
-    if(!this.spellUsable.isOnCooldown(SPELLS.IRONSKIN_BREW.id)) {
-      return 0;
-    }
-    return this.spellUsable.reduceCooldown(SPELLS.IRONSKIN_BREW.id, amount);
-  }
 
   on_initialized() {
     this._durationPerCast += 500 * this.combatants.selected.traitsBySpellId[SPELLS.POTENT_KICK.id];
@@ -64,6 +52,7 @@ class IronSkinBrew extends Analyzer {
       // add the duration from this buff application (?)
       let addedDuration = 0;
       if (spellId === SPELLS.IRONSKIN_BREW.id) {
+        this.brews.consumeCharge(event); // purifying brew is handled in PurifyingBrew
         addedDuration = this._durationPerCast;
       } else if (spellId === SPELLS.PURIFYING_BREW.id) {
         addedDuration = this._durationPerPurify;

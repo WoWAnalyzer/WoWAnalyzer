@@ -6,11 +6,13 @@ import DamageTaken from './Modules/Core/DamageTaken';
 import HealingReceived from './Modules/Core/HealingReceived';
 import Stagger from './Modules/Core/Stagger';
 import BrewCDR from './Modules/Core/BrewCDR';
+import SharedBrews from './Modules/Core/SharedBrews';
 import StaggerFabricator from './Modules/Core/StaggerFabricator';
 import GlobalCooldown from './Modules/Core/GlobalCooldown';
 import Channeling from './Modules/Core/Channeling';
 // Spells
 import IronSkinBrew from './Modules/Spells/IronSkinBrew';
+import PurifyingBrew from './Modules/Spells/PurifyingBrew';
 import BlackoutCombo from './Modules/Spells/BlackoutCombo';
 import KegSmash from './Modules/Spells/KegSmash';
 import TigerPalm from './Modules/Spells/TigerPalm';
@@ -40,6 +42,7 @@ class CombatLogParser extends CoreCombatLogParser {
     staggerFabricator: StaggerFabricator,
     damageDone: [DamageDone, { showStatistic: true }],
     brewCdr: BrewCDR,
+    brews: SharedBrews,
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
 
@@ -50,6 +53,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Spells
     ironSkinBrew: IronSkinBrew,
+    purifyingBrew: PurifyingBrew,
     blackoutCombo: BlackoutCombo,
     kegSmash: KegSmash,
     tigerPalm: TigerPalm,
