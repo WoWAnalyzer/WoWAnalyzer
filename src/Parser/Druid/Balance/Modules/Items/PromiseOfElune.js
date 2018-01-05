@@ -1,11 +1,8 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Wrapper from 'common/Wrapper';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 const DAMAGE_MODIFIER = 0.08;
