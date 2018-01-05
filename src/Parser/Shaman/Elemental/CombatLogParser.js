@@ -34,6 +34,12 @@ import TheDeceiversBloodPact from './Modules/Items/TheDeceiversBloodPact';
 
 import './Modules/Main/main.css';
 
+
+import MaelstromChart from '../Shared/MaelstromChart/Maelstrom';
+import MaelstromTracker from '../Shared/MaelstromChart/MaelstromTracker';
+
+
+
 function getIssueImportance(value, regular, major, higherIsWorse = false) {
   if (higherIsWorse ? value > major : value < major) {
     return ISSUE_IMPORTANCE.MAJOR;
@@ -48,6 +54,8 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     damageDone: [DamageDone, { showStatistic: true }],
 
+
+    maelstromTracker: MaelstromTracker,
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
@@ -70,56 +78,31 @@ class CombatLogParser extends CoreCombatLogParser {
     //Setboni
     tier21_2p: Tier21_2Set,
     tier21_4p: Tier21_4Set,
+
+
   };
 
   generateResults() {
     const results = super.generateResults();
-
-    const fightDuration = this.fightDuration;
-
-    const nonDpsTimePercentage = this.modules.alwaysBeCasting.totalDamagingTimeWasted / fightDuration;
-    const deadTimePercentage = this.modules.alwaysBeCasting.totalTimeWasted / fightDuration;
-
-    if (nonDpsTimePercentage > 0.3) {
-      results.addIssue({
-        issue: `[NYI] Your non DPS time can be improved. Try to cast damaging spells more regularly (${Math.round(nonDpsTimePercentage * 100)}% non DPS time).`,
-        icon: 'petbattle_health-down',
-        importance: getIssueImportance(nonDpsTimePercentage, 0.4, 0.45, true),
-      });
-    }
-    if (deadTimePercentage > 0.2) {
-      results.addIssue({
-        issue: `Your downtime can be improved. (${Math.round(deadTimePercentage * 100)}% downtime).`,
-        icon: 'spell_mage_altertime',
-        importance: getIssueImportance(deadTimePercentage, 0.35, 0.4, true),
-      });
-    }
-
-    results.statistics = [
-      <StatisticBox
-        icon={<Icon icon="spell_mage_altertime" alt="Downtime" />}
-        value={`${formatPercentage(deadTimePercentage)} %`}
-        label={(
-          <dfn data-tip="Downtime is available casting time not used. This can be caused by latency, cast interrupting, not casting anything (e.g. due to movement/stunned), etc.">
-            Downtime
-          </dfn>
-        )}
-      />,
-      ...results.statistics,
-    ];
-
     results.tabs = [
       ...results.tabs,
       { // TODO: Move this to an Analyzer module
-        title: 'Maelstrom',
+        title: 'Maelstrom Chart',
         url: 'maelstrom',
         render: () => (
-          <Tab title="Maelstrom" style={{ padding: '15px 22px' }}>
-            <Maelstrom
-              reportCode={this.report.code}
-              actorId={this.playerId}
+          <Tab title='Maelstrom' style={{ padding: '15px 22px' }}>
+            <MaelstromChart
               start={this.fight.start_time}
               end={this.fight.end_time}
+              playerHaste={this.modules.combatants.selected.hasteRating}
+              maelstromMax={this.modules.maelstromTracker._maxMaelstrom}
+              maelstromPerSecond={this.modules.maelstromTracker.maelstromBySecond}
+              tracker={this.modules.maelstromTracker.tracker}
+              secondsCapped={this.modules.maelstromTracker.secondsCapped}
+              activeMaelstromGenerated={this.modules.maelstromTracker.activeFocusGenerated}
+              activeMaelstromWasted={this.modules.maelstromTracker.activeFocusWasted}
+              generatorCasts={this.modules.maelstromTracker.generatorCasts}
+              activeMaelstromWastedTimeline={this.modules.maelstromTracker.activeMaelstromWastedTimeline}
             />
           </Tab>
         ),
