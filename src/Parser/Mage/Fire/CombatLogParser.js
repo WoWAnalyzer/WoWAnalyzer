@@ -23,6 +23,7 @@ import SoulOfTheArchmage from './Modules/Items/SoulOfTheArchmage';
 import DarcklisDragonfireDiadem from './Modules/Items/DarcklisDragonfireDiadem';
 import ContainedInfernalCore from './Modules/Items/ContainedInfernalCore';
 import PyrotexIgnitionCloth from './Modules/Items/PyrotexIgnitionCloth';
+import MarqueeBindingsOfTheSunKing from './Modules/Items/MarqueeBindingsOfTheSunKing';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -56,6 +57,7 @@ class CombatLogParser extends CoreCombatLogParser {
     darcklisDragonfireDiadem: DarcklisDragonfireDiadem,
     containedInfernalCore: ContainedInfernalCore,
     pyrotexIgnitionCloth: PyrotexIgnitionCloth,
+	marqueeBindingsOfTheSunKing: MarqueeBindingsOfTheSunKing,
 
   };
 }
