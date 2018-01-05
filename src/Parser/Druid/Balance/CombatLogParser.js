@@ -27,6 +27,7 @@ import TheEmeraldDreamcatcher from './Modules/Items/TheEmeraldDreamcatcher';
 import ImpeccableFelEssence from './Modules/Items/ImpeccableFelEssence';
 import SoulOfTheArchdruid from './Modules/Items/SoulOfTheArchdruid';
 import LadyAndTheChild from './Modules/Items/LadyAndTheChild';
+import OnethsIntuition from './Modules/Items/OnethsIntuition';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -58,6 +59,7 @@ class CombatLogParser extends MainCombatLogParser {
     impeccableFelEssence : ImpeccableFelEssence,
     soulOfTheArchdruid : SoulOfTheArchdruid,
     ladyAndTheChild : LadyAndTheChild,
+    onethsIntuition : OnethsIntuition,
   };
 }
 

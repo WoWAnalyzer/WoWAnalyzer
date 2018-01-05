@@ -28,7 +28,7 @@ export default {
     icon: 'inv_misc_ring_mop13',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  ONETH_INTUITION: {
+  ONETHS_INTUITION: {
     id: 137092,
     name: 'Oneth\'s Intuition',
     icon: 'inv_bracer_40',
