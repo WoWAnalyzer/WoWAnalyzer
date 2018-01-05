@@ -120,7 +120,7 @@ class Sentinel extends Analyzer {
             <div
               className="Druid-bg"
               style={{ width: `${formatPercentage(this.buggedTicks / this.totalPossibleTicks)}%` }}
-              data-tip={`<b>${formatPercentage(this.buggedTicks / this.totalPossibleTicks)}%</b> of your expected Sentinel ticks bugged and didn't happen. It's a bug on Blizzard's end, and we can only hope it gets fixed soon.  This bug can somewhat be circumvented by not casting any spells right before you're meant to get a proc (every 6 seconds after cast).`}
+              data-tip={`<b>${formatPercentage(this.buggedTicks / this.totalPossibleTicks)}%</b> of your expected Sentinel ticks bugged and didn't happen. It's a bug on Blizzard's end, and we can only hope it gets fixed soon. This bug can somewhat be circumvented by not casting any spells right before you're meant to get a proc (every 6 seconds after cast).`}
             >
             </div>
           </div>
