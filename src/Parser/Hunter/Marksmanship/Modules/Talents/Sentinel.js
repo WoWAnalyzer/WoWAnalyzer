@@ -35,13 +35,13 @@ class Sentinel extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SENTINEL_CAST.id && spellId !== SPELLS.SENTINEL_TALENT.id) {
+    if (spellId !== SPELLS.SENTINEL_TICK.id && spellId !== SPELLS.SENTINEL_TALENT.id) {
       return;
     }
     if (spellId === SPELLS.SENTINEL_TALENT.id) {
       this.sentinelCasts++;
     }
-    if (spellId === SPELLS.SENTINEL_CAST.id) {
+    if (spellId === SPELLS.SENTINEL_TICK.id) {
       this.applyDebuffTimestamp = event.timestamp;
       this.sentinelTicks++;
     }

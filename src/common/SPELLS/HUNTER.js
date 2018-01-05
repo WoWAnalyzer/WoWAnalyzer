@@ -505,7 +505,7 @@ export default {
     name: 'Posthaste',
     icon: 'ability_hunter_posthaste',
   },
-  SENTINEL_CAST: {
+  SENTINEL_TICK: {
     id: 236348,
     name: 'Sentinel',
     icon: 'spell_nature_sentinal',
