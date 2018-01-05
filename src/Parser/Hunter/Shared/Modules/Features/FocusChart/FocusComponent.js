@@ -61,7 +61,7 @@ const FocusComponent = ({ categories, abilities, passive, focusBySecondCoord, ov
                       {wasted || '0'}
                     </td>
                     <td style={{ width: '25%', color: 'orange' }}>
-                      {canBeImproved && !ability.noCanBeImproved && 'Can be improved.'}
+                      {canBeImproved && ability.castEfficiency && ability.castEfficiency.suggestion && 'Can be improved.'}
                     </td>
                   </tr>
                 );

@@ -5,16 +5,18 @@ import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
+import Abilities from 'Parser/Core/Modules/Abilities';
 
 const debug = false;
 
 /**
- * Archive of Faith -
+ * Archive of Faith
  * Use: Channel a cleansing matrix into an ally, healing them for 1,618,326 over 3 sec. Fully completing the channel also grants the ally a shield that prevents 590,030 damage for 10 sec.
  */
 class ArchiveOfFaith extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    abilities: Abilities,
   };
 
   casts = 0;
@@ -23,6 +25,18 @@ class ArchiveOfFaith extends Analyzer {
 
   on_initialized() {
     this.active = this.combatants.selected.hasTrinket(ITEMS.ARCHIVE_OF_FAITH.id);
+
+    if (this.active) {
+      this.abilities.add({
+        spell: SPELLS.CLEANSING_MATRIX,
+        name: ITEMS.ARCHIVE_OF_FAITH.name,
+        category: Abilities.SPELL_CATEGORIES.ITEMS,
+        cooldown: 60,
+        castEfficiency: {
+          suggestion: true,
+        },
+      });
+    }
   }
 
   on_byPlayer_cast(event) {
