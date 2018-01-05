@@ -4,6 +4,7 @@ import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const DAMAGE_MODIFIER = 0.08;
 
@@ -21,16 +22,11 @@ class PromiseOfElune extends Analyzer {
 
   on_byPlayer_damage(event) {
     if (event.ability.guid === SPELLS.SOLAR_WRATH_MOONKIN.id) {
-      this.solarWrathDamage += this.damageContribution(event, DAMAGE_MODIFIER);
+      this.solarWrathDamage += calculateEffectiveDamage(event, DAMAGE_MODIFIER);
     }
     if (event.ability.guid === SPELLS.LUNAR_STRIKE.id) {
-      this.lunarStrikeDamage += this.damageContribution(event, DAMAGE_MODIFIER);
+      this.lunarStrikeDamage += calculateEffectiveDamage(event, DAMAGE_MODIFIER);
     }     
-  }
-
-  damageContribution(event, mod) {
-    const raw = (event.amount || 0) + (event.absorbed || 0);
-    return raw - (raw / (1 + mod));
   }
 
   get bonusDamage() {
