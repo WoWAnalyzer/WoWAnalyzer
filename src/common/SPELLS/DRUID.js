@@ -679,6 +679,16 @@ export default {
     name: 'Blessing of An\'she',
     icon: 'spell_priest_divinestar_holy',
   },
+  ONETHS_INTUITION: {
+    id: 209406,
+    name: 'Oneth\'s Intuition',
+    icon: 'spell_arcane_invocation',
+  },
+  ONETHS_OVERCONFIDENCE: {
+    id: 209407,
+    name: 'Oneth\'s Overconfidence',
+    icon: 'ability_druid_stellarflare',
+  },
   // Feral
   TIGERS_FURY: {
     id: 5217,
