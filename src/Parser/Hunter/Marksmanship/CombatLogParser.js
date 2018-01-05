@@ -4,8 +4,8 @@ import Tab from 'Main/Tab';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
+import Abilities from './Modules/Abilities';
 //Features
-import Abilities from './Modules/Features/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import VulnerableUptime from './Modules/Features/VulnerableUptime';
@@ -71,10 +71,10 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core statistics
     damageDone: [DamageDone, { showStatistic: true }],
+    abilities: Abilities,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
-    abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
     vulnerableUptime: VulnerableUptime,
     vulnerableTracker: VulnerableTracker,

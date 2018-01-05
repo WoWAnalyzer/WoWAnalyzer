@@ -8,23 +8,36 @@ import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 import ItemDamageDone from 'Main/ItemDamageDone';
+import Abilities from 'Parser/Core/Modules/Abilities';
 
 const GNAWED_THUMB_RING_HEALING_INCREASE = 0.05;
 const GNAWED_THUMB_RING_DAMAGE_INCREASE = 0.05;
 
-/*
- * Gnawed Thumb Ring -
+/**
+ * Gnawed Thumb Ring
  * Use: Have a nibble, increasing your healing and magic damage done by 5% for 12 sec. (3 Min Cooldown)
  */
 class GnawedThumbRing extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    abilities: Abilities,
   };
   healing = 0;
   damage = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasFinger(ITEMS.GNAWED_THUMB_RING.id);
+
+    if (this.active) {
+      this.abilities.add({
+        spell: SPELLS.GNAWED_THUMB_RING,
+        category: Abilities.SPELL_CATEGORIES.ITEMS,
+        cooldown: 180,
+        castEfficiency: {
+          suggestion: true,
+        },
+      });
+    }
   }
 
   on_byPlayer_heal(event) {

@@ -8,6 +8,11 @@ export default [
   },
   {
     date: new Date('2017-1-2'),
+    changes: 'Added Suggestion for Phoenix Flames Charge Count before Combustion',
+    contributors: [Sharrq],
+  },
+  {
+    date: new Date('2017-1-2'),
     changes: 'Added Heating Up Module',
     contributors: [Sharrq],
   },

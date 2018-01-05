@@ -20,7 +20,7 @@ const AFFECTED_ABILITIES = [
   SPELLS.BURSTING_SHOT.id,
 ];
 
-/*
+/**
  * Equip: The remaining cooldown on Trueshot is reduced by 0.8 sec each time you cast a damaging Shot.
  */
 class UllrsFeatherSnowshoes extends Analyzer {

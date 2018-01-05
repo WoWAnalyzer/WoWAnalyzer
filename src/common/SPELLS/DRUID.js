@@ -419,7 +419,7 @@ export default {
   INCAPACITATING_ROAR: {
     id: 99,
     name: 'Incapacitating Roar',
-    icon: 'ability_druid_demorolizingroar',
+    icon: 'ability_druid_demoralizingroar',
   },
   RAGE_OF_THE_SLEEPER: {
     id: 200851,
