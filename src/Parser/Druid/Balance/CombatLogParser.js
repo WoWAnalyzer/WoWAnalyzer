@@ -26,6 +26,7 @@ import AstralPowerTracker from './Modules/ResourceTracker/AstralPowerTracker';
 import TheEmeraldDreamcatcher from './Modules/Items/TheEmeraldDreamcatcher';
 import ImpeccableFelEssence from './Modules/Items/ImpeccableFelEssence';
 import SoulOfTheArchdruid from './Modules/Items/SoulOfTheArchdruid';
+import LadyAndTheChild from './Modules/Items/LadyAndTheChild';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -56,6 +57,7 @@ class CombatLogParser extends MainCombatLogParser {
     theEmeraldDreamcatcher: TheEmeraldDreamcatcher,
     impeccableFelEssence : ImpeccableFelEssence,
     soulOfTheArchdruid : SoulOfTheArchdruid,
+    ladyAndTheChild : LadyAndTheChild,
   };
 }
 

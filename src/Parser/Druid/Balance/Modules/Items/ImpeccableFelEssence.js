@@ -34,7 +34,7 @@ class ImpeccableFelEssence extends Analyzer {
     return {
       item: ITEMS.IMPECCABLE_FEL_ESSENCE,
       result:(
-        <dfn data-tip={`You wasted ${formatNumber(this.astralPowerTracker.cooldownReductionWasted / 1000)} seconds of cooldown reduction.<br/> `}>
+        <dfn data-tip={`You wasted ${formatNumber(this.astralPowerTracker.cooldownReductionWasted / 1000)} seconds of cooldown reduction.`}>
           <Wrapper>Reduced the cooldown of <SpellLink id={this.cooldownID} /> by a total of {formatNumber( this.astralPowerTracker.cooldownReduction / 1000)} seconds.</Wrapper>
         </dfn>
       ),
