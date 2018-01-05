@@ -79,9 +79,8 @@ class FocusTracker extends Analyzer {
       this.focusBySecond[secIntoFight] = Math.floor(this.focusBySecond[secIntoFight]);
     }
   }
-
   checkActiveWaste(event) {
-    if ((event.sourceID === this.owner.player.id || event.targetID === this.owner.player.id) && event.classResources && event.classResources[0].type === RESOURCE_TYPES.FOCUS) {
+    if ((event.sourceID === this.owner.player.id || event.targetID === this.owner.player.id) && event.classResources && event.classResources[0].type === RESOURCE_TYPES.FOCUS.id) {
       this.tracker++;
       if (this.generatorCasts[event.ability.guid]) {
         this.generatorCasts[event.ability.guid]++;
