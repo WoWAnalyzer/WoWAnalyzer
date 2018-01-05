@@ -7,7 +7,7 @@ const View = ({ articleId }) => {
   const article = articles.find(article => article.title === articleId);
   return (
     <div className="container">
-      {React.cloneElement(article.full, article)}
+      {React.cloneElement(article.full || article.short, article)}
     </div>
   );
 };
