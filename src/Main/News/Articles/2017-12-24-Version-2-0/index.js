@@ -7,18 +7,18 @@ import ChecklistOverview from './checklist-overview.png';
 import ChecklistItem from './checklist-item.png';
 import Results2point0 from './results-2.0.png';
 
-const title = 'Version 2.0 is here! Check your fights with the all new checklist';
+// noinspection RequiredAttributes
 
 export default {
   date: new Date('2017-12-24'),
-  title,
+  title: 'Version 2.0 is here! Check your fights with the all new checklist',
   short: (
-    <Preview title={title} image={ChecklistOverview}>
+    <Preview image={ChecklistOverview}>
       Hey all! We're very excited to finally be able to share with you version 2.0 of WoWAnalyzer! This has the biggest change since the introduction of suggestions: the checklist. The checklist is a much more intuitive way to convey your performance in a fight.
     </Preview>
   ),
   full: (
-    <RegularArticle title={title}>
+    <RegularArticle>
       Hey all! We're very excited to finally be able to share with you version 2.0 of WoWAnalyzer! This has the biggest change since the introduction of suggestions: the checklist. The checklist is a much more intuitive way to convey your performance in a fight. Instead of individual (often considered <i>harsh</i>) suggestions, the checklist shows an overview of <i>rules</i> which are marked with a green tick if you sufficiently passed the recommended thresholds for the requirements, and a red cross if your performance was below recommended parameters.<br /><br />
 
       <div style={{ textAlign: 'center', marginBottom: '1em' }}>

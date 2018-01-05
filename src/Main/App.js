@@ -14,6 +14,7 @@ import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 import { fetchReport as fetchReportAction } from 'actions/report';
 import { fetchCombatants as fetchCombatantsAction } from 'actions/combatants';
 import { getReportCode, getFightId, getPlayerName } from 'selectors/url/report';
+import { getArticleId } from 'selectors/url/news';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import { getCombatants } from 'selectors/combatants';
@@ -36,6 +37,7 @@ import FullscreenError from './FullscreenError';
 import NavigationBar from './Layout/NavigationBar';
 import DocumentTitleUpdater from './Layout/DocumentTitleUpdater';
 import Footer from './Layout/Footer';
+import NewsView from './News/View';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
@@ -55,6 +57,7 @@ function isIE() {
 class App extends Component {
   static propTypes = {
     reportCode: PropTypes.string,
+    articleId: PropTypes.string,
     playerName: PropTypes.string,
     fightId: PropTypes.number,
     report: PropTypes.shape({
@@ -451,6 +454,13 @@ class App extends Component {
         </FullscreenError>
       );
     }
+
+    if (this.props.articleId) {
+      return (
+        <NewsView articleId={this.props.articleId} />
+      );
+    }
+
     if (!this.props.reportCode) {
       return <Home />;
     }
@@ -550,6 +560,8 @@ const mapStateToProps = state => {
     report: getReport(state),
     fight: getFightById(state, fightId),
     combatants: getCombatants(state),
+
+    articleId: getArticleId(state),
 
     error: getError(state),
   });

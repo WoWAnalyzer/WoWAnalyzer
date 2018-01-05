@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import makeUrl from './makeUrl';
 
@@ -23,8 +24,8 @@ class Preview extends React.PureComponent {
           <div className="panel-heading">
             <h2>{title}</h2>
           </div>
-          <div className="panel-body">
-            {children} <a href={makeUrl(title)}>Read more</a>
+          <div className="panel-body" style={{ padding: '15px 22px' }}>
+            {children} <Link to={makeUrl(title)}>Read more</Link>
           </div>
         </div>
       </div>
