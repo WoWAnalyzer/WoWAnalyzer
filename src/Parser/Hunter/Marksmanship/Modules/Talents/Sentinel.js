@@ -13,6 +13,10 @@ import { formatPercentage } from 'common/format';
  */
 const MS_BUFFER = 100;
 
+const SENTINEL_DURATION = 18000;
+
+const TIME_BETWEEN_TICKS = 6000;
+
 const TICKS_PER_CAST = 4;
 
 class Sentinel extends Analyzer {
@@ -28,6 +32,8 @@ class Sentinel extends Analyzer {
   wastedApplications = 0;
   wastedTicks = 0;
   lastBadTickTimestamp = 0;
+  lastSentinelCastTimestamp = 0;
+  lostTicksFromCombatEnd = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.SENTINEL_TALENT.id);
@@ -39,6 +45,7 @@ class Sentinel extends Analyzer {
       return;
     }
     if (spellId === SPELLS.SENTINEL_TALENT.id) {
+      this.lastSentinelCastTimestamp = event.timestamp;
       this.sentinelCasts++;
     }
     if (spellId === SPELLS.SENTINEL_TICK.id) {
@@ -73,7 +80,7 @@ class Sentinel extends Analyzer {
     return (this.appliedDebuffsFromSentinel / this.sentinelCasts).toFixed(1);
   }
   get totalPossibleTicks() {
-    return this.sentinelCasts * TICKS_PER_CAST;
+    return (this.sentinelCasts * TICKS_PER_CAST) - this.lostTicksFromCombatEnd;
   }
   get buggedTicks() {
     return this.totalPossibleTicks - this.sentinelTicks;
@@ -82,6 +89,15 @@ class Sentinel extends Analyzer {
     return this.totalPossibleTicks - this.buggedTicks - this.wastedTicks;
   }
 
+  on_finished() {
+    console.log("fight: ", this.owner.fight.end_time);
+    console.log("lastCastTimestamp : ", this.lastSentinelCastTimestamp);
+    if (this.lastSentinelCastTimestamp > (this.owner.fight.end_time - SENTINEL_DURATION)) {
+      const timeLostOnSentinel = this.owner.fight.end_time - this.lastSentinelCastTimestamp;
+      this.lostTicksFromCombatEnd = Math.floor(timeLostOnSentinel / TIME_BETWEEN_TICKS);
+    }
+  }
+  
   statistic() {
     return (
       <StatisticBox
