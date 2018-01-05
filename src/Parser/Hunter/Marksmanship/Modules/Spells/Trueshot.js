@@ -98,17 +98,14 @@ class Trueshot extends Analyzer {
   }
 
   statistic() {
-    const averageAimedCasts = formatNumber(this.aimedShotsPrTS / this.trueshotCasts);
-    const averageFocusAtTS = formatNumber(this.accumulatedFocusAtTSCast / this.trueshotCasts);
     const percentAimedCrits = formatPercentage(this.aimedCritsInTS / this.aimedShotsPrTS);
     const percentCastCrits = formatPercentage(this.totalCritsInTS / this.totalCastsPrTS);
-    const uptimePrCast = ((this.combatants.getBuffUptime(SPELLS.TRUESHOT.id) / this.trueshotCasts) / 1000).toFixed(2);
 
     return (
       <StatisticBox icon={<SpellIcon id={SPELLS.TRUESHOT.id} />}
         value={(
           <span>
-            {averageAimedCasts}{' '}
+            {this.averageAimedShots}{' '}
             <SpellIcon
               id={SPELLS.AIMED_SHOT.id}
               style={{
@@ -117,7 +114,7 @@ class Trueshot extends Analyzer {
               }}
             />
             {'  '}
-            {averageFocusAtTS}{' '}
+            {this.averageFocus}{' '}
             <Icon
               icon='ability_hunter_focusfire'
               alt='Average Focus At Trueshot Cast'
@@ -129,11 +126,11 @@ class Trueshot extends Analyzer {
           </span>
         )}
         label="Trueshot info"
-        tooltip={`Information regarding your average Trueshot window: <ul> <li>You started your Trueshot windows with an average of ${averageFocusAtTS} focus.</li> <li> You hit an average of ${averageAimedCasts} Aimed Shots inside each Trueshot window. </li> <li> Your Trueshot Aimed Shots had a crit rate of ${percentAimedCrits}%. </li> <li>Your overall crit rate during Trueshot was ${percentCastCrits}%. </li> <li>You spent an average of ${uptimePrCast} seconds in trueshot pr cast of Trueshot.</li></ul>`} />
+        tooltip={`Information regarding your average Trueshot window: <ul> <li>You started your Trueshot windows with an average of ${this.averageFocus} focus.</li> <li> You hit an average of ${this.averageAimedShots} Aimed Shots inside each Trueshot window. </li> <li> Your Trueshot Aimed Shots had a crit rate of ${percentAimedCrits}%. </li> <li>Your overall crit rate during Trueshot was ${percentCastCrits}%. </li> <li>You spent an average of ${this.uptimePerCast} seconds in trueshot pr cast of Trueshot.</li></ul>`} />
     );
   }
   get averageAimedShots() {
-    return formatNumber(this.aimedShotsPrTS / this.trueshotCasts);
+    return (this.aimedShotsPrTS / this.trueshotCasts).toFixed(1);
   }
   get averageFocus() {
     return formatNumber(this.accumulatedFocusAtTSCast / this.trueshotCasts);
