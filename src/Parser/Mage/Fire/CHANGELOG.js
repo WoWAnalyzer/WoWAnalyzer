@@ -3,7 +3,12 @@ import { Sharrq, sref, Fyruna } from 'MAINTAINERS';
 export default [
   {
     date: new Date('2017-1-6'),
-    changes: 'Added analysis for Hot Streak to determine if there was a hard cast before Hot Streak was used and also to check for direct damage crits while Hot Streak is up',
+    changes: 'Added analysis for Hot Streak to determine if there was a hard cast before Hot Streak was used and also to check for direct damage crits while Hot Streak is up.',
+    contributors: [Sharrq],
+  },
+  {
+    date: new Date('2017-1-3'),
+    changes: 'Added support for Marquee Bindings of the Sun King',
     contributors: [Sharrq],
   },
   {
