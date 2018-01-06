@@ -7,6 +7,7 @@ class KaelthasUltimateAbility extends EventsNormalizer {
    * @param {Array} events
    * @returns {Array}
    */
+  //Ensures that the  ApplyBuff, RefreshBuff, and RemoveBuff events are not occuring before the pyroblast events... so the buff doesnt get applied, removed, or refreshed before the pyroblast actually casts
   normalize(events) {
     const fixedEvents = [];
     events.forEach((event, eventIndex) => {

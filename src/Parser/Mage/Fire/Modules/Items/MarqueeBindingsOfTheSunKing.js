@@ -21,7 +21,6 @@ class MarqueeBindingsOfTheSunKing extends Analyzer {
   damage = 0;
   beginCastTimestamp = 0;
   castTimestamp = 0;
-  hasBindingsBuff = false;
   buffUsed = false;
   isBuffed = false;
   beginCastFound = false;
@@ -39,7 +38,6 @@ class MarqueeBindingsOfTheSunKing extends Analyzer {
     if (spellId !== SPELLS.KAELTHAS_ULTIMATE_ABILITY.id) {
       return;
     }
-    this.hasBindingsBuff = true;
     this.buffUsed = false;
     this.totalProcs += 1;
     this.buffAppliedTimestamp = event.timestamp;
@@ -51,7 +49,6 @@ class MarqueeBindingsOfTheSunKing extends Analyzer {
     if (spellId !== SPELLS.KAELTHAS_ULTIMATE_ABILITY.id) {
       return;
     }
-    this.hasBindingsBuff = true;
     this.buffUsed = false;
     this.wastedProcs += 1;
     this.totalProcs += 1;
@@ -63,7 +60,6 @@ class MarqueeBindingsOfTheSunKing extends Analyzer {
     if (spellId !== SPELLS.KAELTHAS_ULTIMATE_ABILITY.id) {
       return;
     }
-    this.hasBindingsBuff = false;
     debug && console.log("Buff Removed @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     if (this.buffUsed === false) {
       this.wastedProcs += 1;
@@ -93,7 +89,8 @@ class MarqueeBindingsOfTheSunKing extends Analyzer {
     debug && console.log("Pyroblast Casted @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     this.castTimestamp = event.timestamp;
     const castTime = this.castTimestamp - this.beginCastTimestamp;
-    if (castTime >= CAST_BUFFER && this.hasBindingsBuff === true) {
+    //Checks the begincast and cast timestamps to determine if it is instant cast or not. This doesnt matter for ABT and ToS because hot streak pyroblasts dont have a begincast, but in Nighthold they do. So this needs to remain for backwards compatibility
+    if (castTime >= CAST_BUFFER && this.combatants.selected.hasBuff(SPELLS.KAELTHAS_ULTIMATE_ABILITY.id)) {
       this.isBuffed = true;
       this.buffUsed = true;
       debug && console.log("Buff Used @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
@@ -118,9 +115,13 @@ class MarqueeBindingsOfTheSunKing extends Analyzer {
     return this.damage / this.usedProcs;
   }
 
+  get procsPerMinute() {
+    return this.totalProcs / (this.owner.fightDuration / 60000);
+  }
+
   on_finished() {
     if (this.combatants.selected.hasBuff(SPELLS.KAELTHAS_ULTIMATE_ABILITY.id)) {
-      const adjustedFightEnding = this.owner.currentTimestamp - 5000;
+      const adjustedFightEnding = this.owner.currentTimestamp - 7500;
       if (this.buffAppliedTimestamp < adjustedFightEnding) {
         this.wastedProcs += 1;
         debug && console.log("Fight Ended with Unused Proc @ " + formatMilliseconds(this.owner.currentTimestamp - this.owner.fight.start_time));
@@ -134,14 +135,13 @@ class MarqueeBindingsOfTheSunKing extends Analyzer {
     return {
       item: ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING,
       result: (
-        <dfn data-tip={`${this.totalProcs} Total Procs
-        <ul>
-          <li>${this.usedProcs} Procs Used</li>
-          <li>${this.wastedProcs} Procs Wasted</li>
-          <li>${formatNumber(this.avgBonusDamage)} Average Bonus Damage</li>
-        </ul>
+        <dfn data-tip={`
+          <ul>
+            <li>${formatNumber(this.usedProcs)} Procs Used</li>
+            <li>${formatNumber(this.wastedProcs)} Procs Wasted</li>
+          </ul>
         `}>
-          {this.owner.formatItemDamageDone(this.damage)}
+          {formatNumber(this.totalProcs)} Total Procs ({formatNumber(this.procsPerMinute)} PPM)
         </dfn>
       ),
     };
