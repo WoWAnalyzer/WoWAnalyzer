@@ -2,6 +2,11 @@ import { Sharrq, sref, Fyruna } from 'MAINTAINERS';
 
 export default [
   {
+    date: new Date('2017-1-6'),
+    changes: 'Added analysis for Hot Streak to determine if there was a hard cast before Hot Streak was used and also to check for direct damage crits while Hot Streak is up',
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2017-1-2'),
     changes: 'Added Suggestion for Phoenix Flames Charge Count before Combustion',
     contributors: [Sharrq],
