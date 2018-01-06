@@ -10,7 +10,7 @@ import SpellLink from 'common/SpellLink';
 export default [
   { 
     date: new Date('2018-1-6'),
-    changes: <Wrapper>Added tier 20 and 21.</Wrapper>,
+    changes: <Wrapper>Added tier 21.</Wrapper>,
     contributors: [Gebuz],
   },
   { 
