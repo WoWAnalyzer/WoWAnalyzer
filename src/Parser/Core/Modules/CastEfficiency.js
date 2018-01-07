@@ -201,13 +201,14 @@ class CastEfficiency extends Analyzer {
             <div style={{ margin: '0 -22px' }}>
               <SpellTimeline
                 historyBySpellId={this.spellHistory.historyBySpellId}
+                abilities={this.abilities}
                 spellId={mainSpell.id}
                 start={this.owner.fight.start_time}
                 end={this.owner.currentTimestamp}
               />
             </div>
           ))
-          .staticImportance(ability.importance);
+          .staticImportance(ability.castEfficiency.importance);
       });
     });
   }
