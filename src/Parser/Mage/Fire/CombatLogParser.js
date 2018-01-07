@@ -19,6 +19,7 @@ import Combustion from './Modules/Features/Combustion';
 import HeatingUp from './Modules/Features/HeatingUp';
 
 import Tier20_4set from './Modules/Items/Tier20_4set';
+import Tier21_4set from './Modules/Items/Tier21_4set';
 import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
 import SoulOfTheArchmage from './Modules/Items/SoulOfTheArchmage';
 import DarcklisDragonfireDiadem from './Modules/Items/DarcklisDragonfireDiadem';
@@ -54,6 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
 	  //Items
 	  tier20_4set: Tier20_4set,
+    tier21_4set: Tier21_4set,
     shardOfTheExodar: ShardOfTheExodar,
     soulOfTheArchmage: SoulOfTheArchmage,
     darcklisDragonfireDiadem: DarcklisDragonfireDiadem,
