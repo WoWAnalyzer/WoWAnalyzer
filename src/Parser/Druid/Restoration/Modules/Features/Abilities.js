@@ -120,7 +120,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SWIFTMEND,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: (haste, combatant) => combatant.hasTalent(SPELLS.PROSPERITY_TALENT.id) ? 27 : 30,
-        importance: ISSUE_IMPORTANCE.MINOR,
+        castEfficiency: {
+          importance: ISSUE_IMPORTANCE.MINOR,
+        },
       },
       {
         spell: SPELLS.RENEWAL_TALENT,
