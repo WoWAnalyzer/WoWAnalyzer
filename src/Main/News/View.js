@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import articles from './Articles';
 
 const View = ({ articleId }) => {
-  const article = articles.find(article => article.title === articleId);
+  const article = articles.find(article => article.props.title === articleId);
   return (
     <div className="container">
-      {React.cloneElement(article.full || article.short, article)}
+      {article}
     </div>
   );
 };

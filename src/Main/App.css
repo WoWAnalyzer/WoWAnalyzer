@@ -125,11 +125,18 @@ hr {
     font-size: 3em;
   }
 }
-.app > header .image-overlay .description {
-  font-size: 1.4em;
-}
 .app > header .image-overlay h1 {
   font-size: 4em;
+}
+.app > header .image-overlay .description {
+  font-size: 1.4em;
+  margin-bottom: 20px;
+}
+.app > header .image-overlay .report-selector {
+  margin-bottom: 10px;
+}
+.app > header .image-overlay .about {
+  font-size: 0.8em;
 }
 @media (max-width: 400px) {
   .app > header .image-overlay {
@@ -155,7 +162,6 @@ hr {
 }
 
 .report-selector {
-  margin-top: 20px;
   display: flex;
 }
 .report-selector .form-control {

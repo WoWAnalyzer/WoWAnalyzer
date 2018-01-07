@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import { push as pushAction } from 'react-router-redux';
+import { Link } from 'react-router-dom';
 
 import { ApiDownError, LogNotFoundError, CorruptResponseError, JsonParseError } from 'common/fetchWcl';
 import fetchEvents from 'common/fetchEvents';
@@ -38,6 +39,8 @@ import NavigationBar from './Layout/NavigationBar';
 import DocumentTitleUpdater from './Layout/DocumentTitleUpdater';
 import Footer from './Layout/Footer';
 import NewsView from './News/View';
+import { default as makeNewsUrl } from './News/makeUrl';
+import { title as AboutArticleTitle } from './News/Articles/2017-01-31-About';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
@@ -532,6 +535,9 @@ class App extends Component {
                   {!hasReport && (
                     <ReportSelecter />
                   )}
+                  <div className="about">
+                    <Link to={makeNewsUrl(AboutArticleTitle)}>About WoWAnalyzer.</Link>
+                  </div>
                 </div>
               </div>
             </div>
