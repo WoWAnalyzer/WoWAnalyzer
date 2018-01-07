@@ -56,6 +56,7 @@ class HotStreak extends Analyzer {
     if (!HOT_STREAK_CONTRIBUTORS.includes(spellId) || !this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id) || event.hitType !== HIT_TYPES.CRIT) {
       return;
     }
+    //If Pyromaniac caused the player to immediately get a new hot streak after spending one, then dont count the damage crits that were cast before Pyromaniac Proc's since the user cant do anything to prevent this
     if ((spellId === SPELLS.FIREBALL.id || spellId === SPELLS.SCORCH.id || spellId === SPELLS.PYROBLAST.id) && this.pyromaniacProc) {
       debug && console.log("Wasted Crit Ignored @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     } else if (HOT_STREAK_CONTRIBUTORS.includes(spellId)) {
@@ -69,6 +70,7 @@ class HotStreak extends Analyzer {
     if (spellId !== SPELLS.HOT_STREAK.id) {
       return;
     }
+    //If Hot Streak is removed and re-applied within 100ms of eachother then Pyromaniac Proc'd and granted a new hot streak
     if (this.combatants.selected.hasTalent(SPELLS.PYROMANIAC_TALENT.id) && this.buffAppliedTimestamp - this.hotStreakRemoved < PROC_WINDOW_MS) {
       this.pyromaniacProc = true;
     }
@@ -87,6 +89,8 @@ class HotStreak extends Analyzer {
       return;
     }
 
+    //Check for Expired Procs, also if Fireball or Scorch was cast at the same time that Hot Streak was removed, then it was cast alongside Hot Streak (For the cast before hot streak check). Excluded Hot Streak procs during Combustion.
+    //Also checks to see if the bracer proc was removed within 100ms of Hot Streak getting removed (i.e. they hard casted Pyroblast for the bracer proc and used Hot Streak on the end of it.)
     if (!this.lastCastTimestamp || this.lastCastTimestamp + PROC_WINDOW_MS < this.owner.currentTimestamp) {
       this.expiredProcs += 1;
       debug && console.log("Hot Streak proc expired @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
