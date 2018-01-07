@@ -5,8 +5,10 @@ import { formatPercentage } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import Abilities from '../Features/Abilities';
 import KegSmash from '../Spells/KegSmash';
 import TigerPalm from '../Spells/TigerPalm';
+import IronskinBrew from '../Spells/IronSkinBrew';
 import BlackOxBrew from '../Spells/BlackOxBrew';
 import AnvilHardenedWristwraps from '../Items/AnvilHardenedWristwraps';
 
@@ -17,6 +19,8 @@ class BrewCDR extends Analyzer {
     tp: TigerPalm,
     wrists: AnvilHardenedWristwraps,
     bob: BlackOxBrew,
+    isb: IronskinBrew,
+    abilities: Abilities,
   }
 
   get totalCDR() {
@@ -37,13 +41,20 @@ class BrewCDR extends Analyzer {
     return this.totalCDR / (this.owner.fightDuration + this.totalCDR);
   }
 
+  // the amount of CDR required so that you can cast ISB often enough to
+  // actually hit 100% uptime
+  get cdrRequiredForUptime() {
+    return 1 - this.isb.durationPerCast / this.abilities.getExpectedCooldownDuration(SPELLS.FAKE_SHARED_BREWS.id);
+  }
+
   get suggestionThreshold() {
+    const target = this.cdrRequiredForUptime;
     return {
       actual: this.cooldownReductionRatio,
       isLessThan: {
-        minor: 0.5,
-        average: 0.45,
-        major: 0.4,
+        minor: target * 1.1,
+        average: target,
+        major: target * 0.9,
       },
       style: 'percentage',
     };
@@ -73,7 +84,8 @@ class BrewCDR extends Analyzer {
               ${bobDesc}
               ${wristsDesc}
             </ul>
-            <b>Total cooldown reduction:</b> ${(this.totalCDR / 1000).toFixed(2)}s.</b>`}
+            <b>Total cooldown reduction:</b> ${(this.totalCDR / 1000).toFixed(2)}s.</b><br/>
+            <b>Minimum Cooldown Reduction for 100% ISB uptime:</b> ${formatPercentage(this.cdrRequiredForUptime)}%`}
       />
     );
   }
