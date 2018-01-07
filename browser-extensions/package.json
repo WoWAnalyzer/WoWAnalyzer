@@ -1,7 +1,7 @@
 {
   "name": "wow-analyzer-browser-extension",
   "version": "0.0.2",
-  "description": "Browser extensions for WoW Analyzer.",
+  "description": "Browser extensions for WoWAnalyzer.",
   "scripts": {
     "chrome-build": "cross-env TARGET=chrome gulp",
     "firefox-build": "cross-env TARGET=firefox gulp",

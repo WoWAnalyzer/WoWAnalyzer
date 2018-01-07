@@ -28,7 +28,7 @@ class DocumentTitleUpdater extends React.PureComponent {
   render() {
     const { reportCode, playerName, report, fight } = this.props;
 
-    let title = 'WoW Analyzer';
+    let title = 'WoWAnalyzer';
     if (reportCode && report) {
       if (playerName) {
         if (fight) {

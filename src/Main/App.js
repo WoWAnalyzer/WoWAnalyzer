@@ -527,7 +527,7 @@ class App extends Component {
                 <div className="col-lg-6 col-md-10">
                   <h1>WoW&shy;Analyzer</h1>
                   <div className="description">
-                    Analyze your raid logs to view metrics and get personalized suggestions to improve your performance. Just enter a Warcraft Logs report:
+                    Analyze your raid logs to get personal suggestions and metrics to improve your performance. Just enter a Warcraft Logs report:
                   </div>
                   {!hasReport && (
                     <ReportSelecter />
