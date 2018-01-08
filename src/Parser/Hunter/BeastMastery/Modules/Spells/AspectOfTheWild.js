@@ -17,7 +17,8 @@ const BESTIAL_WRATH_REMAINING_USE_ASPECT = 7000;
 //remaining time in combat where you just use AotW regardless
 const FIGHT_ENDING_USE_ASPECT = 15000;
 
-//
+//allows early usage of AotW
+const USE_BEFORE_BW = 3000;
 
 class AspectOfTheWild extends Analyzer {
 
@@ -45,7 +46,7 @@ class AspectOfTheWild extends Analyzer {
     }
     if (spellId === SPELLS.ASPECT_OF_THE_WILD.id) {
       this.totalAspectCasts += 1;
-      if ((this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id) && event.timestamp < (this.bestialWrathEnd - BESTIAL_WRATH_REMAINING_USE_ASPECT)) || !this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id) || (this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id) && this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id) < 3000)) {
+      if ((this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id) && event.timestamp < (this.bestialWrathEnd - BESTIAL_WRATH_REMAINING_USE_ASPECT)) || !this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id) || (this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id) && this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id) < USE_BEFORE_BW)) {
         this.goodAspectCasts += 1;
       } else {
         this.badAspectCasts += 1;
