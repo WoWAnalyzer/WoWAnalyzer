@@ -191,7 +191,7 @@ class CastEfficiency extends Analyzer {
       when(suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(
           <Wrapper>
-            Try to cast <SpellLink id={mainSpell.id} /> more often. {ability.extraSuggestion || ''} <a href="#spell-timeline">View timeline</a>.
+            Try to cast <SpellLink id={mainSpell.id} /> more often. {ability.castEfficiency.extraSuggestion || ''} <a href="#spell-timeline">View timeline</a>.
           </Wrapper>
         )
           .icon(mainSpell.icon)
