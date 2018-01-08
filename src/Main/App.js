@@ -43,7 +43,6 @@ import { default as makeNewsUrl } from './News/makeUrl';
 import { title as AboutArticleTitle } from './News/Articles/2017-01-31-About';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
-import PatreonButton from 'Main/PatreonButton';
 
 const timeAvailable = console.time && console.timeEnd;
 
