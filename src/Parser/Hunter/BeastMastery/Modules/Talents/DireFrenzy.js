@@ -14,8 +14,11 @@ import ItemDamageDone from 'Main/ItemDamageDone';
  * Causes your pet to enter a frenzy, performing a flurry of 5 attacks on the target,
  * and gaining 30% increased attack speed for 8 sec, stacking up to 3 times.
  */
+
 //max stacks pet can have of Dire Frenzy buff
 const MAX_DIRE_FRENZY_STACKS = 3;
+
+const DIRE_FRENZY_DURATION = 8000;
 
 class DireFrenzy extends Analyzer {
 
@@ -30,9 +33,22 @@ class DireFrenzy extends Analyzer {
   startOfMaxStacks = 0;
   timeAtMaxStacks = 0;
   timeBuffed = 0;
+  lastDireFrenzyCast = null;
+
+  //allows me to do a on_finished
+  timeCalculated = null;
+  lastDamageEvent = null;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id);
+  }
+
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.DIRE_FRENZY_TALENT.id) {
+      return;
+    }
+    this.lastDireFrenzyCast = event.timestamp;
   }
 
   on_byPlayerPet_damage(event) {
@@ -40,6 +56,7 @@ class DireFrenzy extends Analyzer {
     if (spellId !== SPELLS.DIRE_FRENZY_DAMAGE.id) {
       return;
     }
+    this.lastDamageEvent = event.timestamp;
     this.damage += event.amount + (event.absorbed || 0);
   }
 
@@ -53,27 +70,53 @@ class DireFrenzy extends Analyzer {
       this.timeAtMaxStacks += event.timestamp - this.startOfMaxStacks;
     }
     this.currentStacks = 0;
+    this.timeCalculated = true;
   }
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.DIRE_FRENZY_TALENT.id) {
       return;
     }
-    this.buffStart = event.timestamp;
-    this.currentStacks += 1;
-    if (this.currentStacks > 3) {
+    if (this.currentStacks > 0) {
+      this.timeBuffed += (this.lastDireFrenzyCast + DIRE_FRENZY_DURATION) - this.buffStart;
+      if (this.currentStacks === MAX_DIRE_FRENZY_STACKS) {
+        this.timeAtMaxStacks += (this.lastDireFrenzyCast + DIRE_FRENZY_DURATION) - this.startOfMaxStacks;
+      }
     }
+    this.buffStart = event.timestamp;
+    this.currentStacks = 1;
+    this.timeCalculated = false;
   }
   on_byPlayer_applybuffstack(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.DIRE_FRENZY_TALENT.id) {
       return;
     }
-    this.currentStacks += 1;
+    this.currentStacks = event.stack;
     if (this.currentStacks === MAX_DIRE_FRENZY_STACKS) {
       this.startOfMaxStacks = event.timestamp;
     }
 
+  }
+
+  on_finished() {
+    if (!this.timeCalculated) {
+      if ((this.lastDireFrenzyCast + DIRE_FRENZY_DURATION) > this.owner.fight.end_time) {
+        if (this.currentStacks > 0) {
+          this.timeBuffed += this.owner.fight.end_time - this.buffStart;
+        }
+        if (this.currentStacks === 3) {
+          this.timeAtMaxStacks += this.owner.fight.end_time - this.startOfMaxStacks;
+        }
+      } else {
+        if (this.currentStacks > 0) {
+          this.timeBuffed += (this.lastDireFrenzyCast + DIRE_FRENZY_DURATION) - this.buffStart;
+        }
+        if (this.currentStacks === 3) {
+          this.timeAtMaxStacks += (this.lastDireFrenzyCast + DIRE_FRENZY_DURATION) - this.startOfMaxStacks;
+        }
+      }
+    }
   }
 
   get percentUptimeMaxStacks() {
@@ -85,8 +128,7 @@ class DireFrenzy extends Analyzer {
 
   get percentPlayerUptime() {
     //This calculates the uptime over the course of the encounter of Dire Frenzy for the player
-    const uptime = (this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_1.id) + this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_2.id) + this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_3.id)) / this.owner.fightDuration;
-    return uptime;
+    return (this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_1.id) + this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_2.id) + this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_3.id)) / this.owner.fightDuration;
   }
 
   get direFrenzyUptimeThreshold() {
@@ -157,7 +199,7 @@ class DireFrenzy extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
+  statisticOrder = STATISTIC_ORDER.CORE(5);
 
   subStatistic() {
     return (

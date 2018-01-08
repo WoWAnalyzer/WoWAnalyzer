@@ -6,6 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox from 'Main/StatisticBox';
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 //Duration of Bestial Wrath
 const BESTIAL_WRATH_DURATION = 15000;
@@ -16,10 +17,14 @@ const BESTIAL_WRATH_REMAINING_USE_ASPECT = 7000;
 //remaining time in combat where you just use AotW regardless
 const FIGHT_ENDING_USE_ASPECT = 15000;
 
+//
+
 class AspectOfTheWild extends Analyzer {
 
   static dependencies = {
     combatants: Combatants,
+    spellUsable: SpellUsable,
+
   };
 
   totalAspectCasts = 0;
@@ -40,7 +45,7 @@ class AspectOfTheWild extends Analyzer {
     }
     if (spellId === SPELLS.ASPECT_OF_THE_WILD.id) {
       this.totalAspectCasts += 1;
-      if (this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id) && event.timestamp < (this.bestialWrathEnd - BESTIAL_WRATH_REMAINING_USE_ASPECT)) {
+      if ((this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id) && event.timestamp < (this.bestialWrathEnd - BESTIAL_WRATH_REMAINING_USE_ASPECT)) || !this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id) || (this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id) && this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id) < 3000)) {
         this.goodAspectCasts += 1;
       } else {
         this.badAspectCasts += 1;
@@ -78,7 +83,7 @@ class AspectOfTheWild extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Don't cast <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up and atleast 7 seconds remaining on the buff (or with under than 15 seconds remaining of the encounter) </span>)
           .icon(SPELLS.ASPECT_OF_THE_WILD.icon)
-          .actual(`You cast Aspect of the Wild ${this.badAspectCasts} times without Bestial Wrath up or with less than 7s remaining of Bestial Wrath duration`)
+          .actual(`You cast Aspect of the Wild ${this.badAspectCasts} times without Bestial Wrath up or with less than 7s remaining of Bestial Wrath duration, or without having Bestial Wrath off cooldown (or within 3 seconds of coming off cooldown)`)
           .recommended(`${recommended} is recommended`)
           .regular(average)
           .major(major);
@@ -86,7 +91,7 @@ class AspectOfTheWild extends Analyzer {
   }
   statistic() {
     let tooltipText = `You cast Aspect of the Wild a total of ${this.totalAspectCasts} times.`;
-    tooltipText += this.badAspectCasts > 0 ? `<ul><li>You had ${this.badAspectCasts} bad cast(s) of Aspect of the Wild. <ul><li>Bad casts indicate that Aspect of the Wild was cast without Bestial Wrath up with atleast 7 seconds remaining. (The only exception is if the fight is about to end in which you just cast Aspect of the Wild)</li></ul></li></ul>` : ``;
+    tooltipText += this.badAspectCasts > 0 ? `<ul><li>You had ${this.badAspectCasts} bad cast(s) of Aspect of the Wild. <ul><li>Bad casts indicate that Aspect of the Wild was cast without Bestial Wrath up with atleast 7 seconds remaining, r without having Bestial Wrath off cooldown (or within 3 seconds of coming off cooldown)<li> (The only exception is if the fight is about to end in which you just cast Aspect of the Wild)</li></li></ul></li></ul>` : ``;
 
     return (
       <StatisticBox
