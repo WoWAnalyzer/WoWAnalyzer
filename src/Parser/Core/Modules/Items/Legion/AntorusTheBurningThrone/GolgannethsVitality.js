@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS/OTHERS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
 /*
  * Golganneth's Vitality
@@ -21,6 +21,8 @@ class GolgannethsVitality extends Analyzer {
   };
 
   damage = 0;
+  normalDamage = 0;
+  empoweredDamage = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTrinket(ITEMS.GOLGANNETHS_VITALITY.id);
@@ -28,8 +30,13 @@ class GolgannethsVitality extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellID = event.ability.guid;
-    if (spellID === SPELLS.GOLGANNETHS_VITALITY_RAVAGING_STORM.id || spellID === SPELLS.GOLGANNETHS_VITALITY_THUNDEROUS_WRATH.id) {
+    if (spellID === SPELLS.GOLGANNETHS_VITALITY_RAVAGING_STORM.id) {
       this.damage += event.amount + (event.absorbed || 0);
+      this.normalDamage += event.amount + (event.absorbed || 0);
+    }
+    if (spellID === SPELLS.GOLGANNETHS_VITALITY_THUNDEROUS_WRATH.id) {
+      this.damage += event.amount + (event.absorbed || 0);
+      this.empoweredDamage += event.amount + (event.absorbed || 0);
     }
   }
 
@@ -39,14 +46,26 @@ class GolgannethsVitality extends Analyzer {
 
   get normalProcUptime() {
     return this.combatants.selected.getBuffUptime(SPELLS.GOLGANNETHS_VITALITY_MARK_OF_GOLGANNETH.id) / this.owner.fightDuration;
-
   }
 
   item() {
     return {
       item: ITEMS.GOLGANNETHS_VITALITY,
       result: (
-        <dfn data-tip={`You had the following uptime on the two procs of this trinket: <ul><li>Normal: ${formatPercentage(this.normalProcUptime)}%</li><li>Empowered: ${formatPercentage(this.empoweredProcUptime)}%</li></ul>`}>
+        <dfn data-tip={`This shows a breakdown of the damage contribution of this trinket: <ul>
+    <li>Normal:
+      <ul>
+      <li> ${formatPercentage(this.normalProcUptime)}% uptime</li>
+      <li> ${formatNumber(this.normalDamage)} damage</li>
+      </ul>
+    </li>
+    <li>Empowered:
+      <ul>
+      <li> ${formatPercentage(this.empoweredProcUptime)}%</li>
+      <li> ${formatNumber(this.empoweredDamage)} damage</li>
+      </ul>
+    </li>
+  </ul>`}>
           <ItemDamageDone amount={this.damage} />
         </dfn>
       ),
