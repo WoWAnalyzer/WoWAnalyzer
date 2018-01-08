@@ -57,7 +57,7 @@ class Tier21_4set extends Analyzer {
   
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Your <SpellLink id={SPELLS.BALANCE_DRUID_T21_4SET_BONUS_BUFF.id} /> uptime was {formatPercentage(actual)}. Try to your spenders 4-6 seconds apart to maintain higher uptime.</Wrapper>)
+      return suggest(<Wrapper>Your <SpellLink id={SPELLS.BALANCE_DRUID_T21_4SET_BONUS_BUFF.id} /> uptime was {formatPercentage(actual)}%. Try to cast your spenders 4-6 seconds apart to maintain higher uptime.</Wrapper>)
         .icon(SPELLS.BALANCE_DRUID_T21_4SET_BONUS_BUFF.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);

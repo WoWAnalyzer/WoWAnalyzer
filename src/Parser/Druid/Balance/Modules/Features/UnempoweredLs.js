@@ -3,6 +3,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
+import Wrapper from 'common/Wrapper';
 
 class UnempoweredLS extends Analyzer {
   _castQueue = {
@@ -76,16 +77,29 @@ class UnempoweredLS extends Analyzer {
     this.suboptUmempLS = this.casts.filter((cast) =>  !cast.empowered && cast.enemies > 0 && cast.enemies < 4).length;
   }
 
+  get subOptimalPerMinute(){
+    return ((this.suboptUmempLS) / (this.owner.fightDuration / 1000)) * 60;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.subOptimalPerMinute,
+      isGreaterThan: {
+        minor: 0,
+        average: 1,
+        major: 2,
+      },
+      style: 'number',
+    };
+  }
+
   suggestions(when) {
-    const suboptPerMin = ((this.suboptUmempLS) / (this.owner.fightDuration / 1000)) * 60;
-    when(suboptPerMin).isGreaterThan(0)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You casted {this.suboptUmempLS} unempowered and non instant cast <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> that hit less than 4 targets. Always prioritize Solar Wrath as a filler if there are less than 4 targets.</span>)
-          .icon(SPELLS.LUNAR_STRIKE.icon)
-          .actual(`${formatNumber(actual)} Unempowered LS per minute`)
-          .recommended(`${recommended} Unempowered LS that hits less than 4 targets are recomended`)
-          .regular(recommended + 2).major(recommended + 4);
-      });
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<Wrapper>You casted {this.suboptUmempLS} unempowered and non instant cast <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> that hit less than 4 targets. Always prioritize Solar Wrath as a filler if there are less than 4 targets.</Wrapper>)
+        .icon(SPELLS.LUNAR_STRIKE.icon)
+        .actual(`${formatNumber(actual)} Unempowered LS per minute`)
+        .recommended(`${recommended} Unempowered LS are recomended`);
+    });
   }
 }
 

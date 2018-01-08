@@ -6,7 +6,7 @@ import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
-  get downtimeSuggestionThresholds() {
+  get suggestionThresholds() {
     return {
       actual: this.downtimePercentage,
       isGreaterThan: {
@@ -17,16 +17,13 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       style: 'percentage',
     };
   }
-  suggestions(when) {
-    const deadTimePercentage = this.downtimePercentage;
 
-    when(deadTimePercentage).isGreaterThan(0.05)
-      .addSuggestion((suggest, actual, recommended) => {
+  suggestions(when) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(<span> Your downtime can be improved. Try to Always Be Casting (ABC)...</span>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
-          .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
-          .regular(0.075).major(0.1);
+          .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`);
       });
   }
 
