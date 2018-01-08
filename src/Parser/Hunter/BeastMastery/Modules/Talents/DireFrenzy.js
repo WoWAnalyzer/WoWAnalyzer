@@ -124,7 +124,7 @@ class DireFrenzy extends Analyzer {
 
   get percentPlayerUptime() {
     //This calculates the uptime over the course of the encounter of Dire Frenzy for the player
-    return (this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_1.id) + this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_2.id) + this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_3.id)) / this.owner.fightDuration;
+    return (this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_1.id) + this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_2.id) + this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_3.id) + this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_4.id) + this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_5.id)) / this.owner.fightDuration;
   }
 
   get direFrenzyUptimeThreshold() {

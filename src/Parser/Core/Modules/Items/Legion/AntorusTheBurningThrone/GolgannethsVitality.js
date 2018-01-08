@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS/OTHERS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
+import { formatPercentage } from 'common/format';
 
 /*
  * Golganneth's Vitality
@@ -32,10 +33,23 @@ class GolgannethsVitality extends Analyzer {
     }
   }
 
+  get empoweredProcUptime() {
+    return this.combatants.selected.getBuffUptime(SPELLS.GOLGANNETHS_VITALITY_THUNDEROUS_WRATH_BUFF.id) / this.owner.fightDuration;
+  }
+
+  get normalProcUptime() {
+    return this.combatants.selected.getBuffUptime(SPELLS.GOLGANNETHS_VITALITY_MARK_OF_GOLGANNETH.id) / this.owner.fightDuration;
+
+  }
+
   item() {
     return {
       item: ITEMS.GOLGANNETHS_VITALITY,
-      result: <ItemDamageDone amount={this.damage} />,
+      result: (
+        <dfn data-tip={`You had the following uptime on the two procs of this trinket: <ul><li>Normal: ${formatPercentage(this.normalProcUptime)}%</li><li>Empowered: ${formatPercentage(this.empoweredProcUptime)}%</li></ul>`}>
+          <ItemDamageDone amount={this.damage} />
+        </dfn>
+      ),
     };
   }
 }
