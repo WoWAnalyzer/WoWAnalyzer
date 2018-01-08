@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import AppBackgroundImage from './AppBackgroundImage';
 import DiscordButton from './DiscordButton';
-import PatreonButton from './PatreonButton';
 import GithubButton from './GithubButton';
+import PatreonButton from './PatreonButton';
 
 const FullscreenError = ({ error, details, background, children }) => {
   // I want this to permanently block rendering since we need people to refresh to load the new version. If they don't refresh they might try requests that may not work anymore.
@@ -18,8 +18,8 @@ const FullscreenError = ({ error, details, background, children }) => {
       {children}
       <div style={{ marginTop: 30 }}>
         <DiscordButton />
-        <PatreonButton style={{ marginLeft: 20 }} />
         <GithubButton style={{ marginLeft: 20 }} />
+        <PatreonButton style={{ marginLeft: 20 }} />
       </div>
       <AppBackgroundImage override={background} />
     </div>
