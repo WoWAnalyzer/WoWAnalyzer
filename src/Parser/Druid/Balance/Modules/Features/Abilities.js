@@ -120,7 +120,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ASTRAL_COMMUNION_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 75,
+        cooldown: 80,
         enabled: combatant.hasTalent(SPELLS.ASTRAL_COMMUNION_TALENT.id),
         castEfficiency: {
           suggestion: true,

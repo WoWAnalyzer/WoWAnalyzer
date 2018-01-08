@@ -10,6 +10,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   { 
     date: new Date('2018-1-8'),
+    changes: <Wrapper>Added L90 talents potential Astral Power gains.</Wrapper>,
+    contributors: [Gebuz],
+  },
+  { 
+    date: new Date('2018-1-8'),
     changes: <Wrapper>Added tier 20.</Wrapper>,
     contributors: [Gebuz],
   },

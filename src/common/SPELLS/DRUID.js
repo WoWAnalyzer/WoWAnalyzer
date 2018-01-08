@@ -679,6 +679,11 @@ export default {
     name: 'Blessing of An\'she',
     icon: 'spell_priest_divinestar_holy',
   },
+  BLESSING_OF_ELUNE: {
+    id: 202737,
+    name: 'Blessing of Elune',
+    icon: 'achievement_worldevent_lunar',
+  },
   ONETHS_INTUITION: {
     id: 209406,
     name: 'Oneth\'s Intuition',
