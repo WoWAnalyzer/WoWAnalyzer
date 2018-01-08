@@ -50,7 +50,7 @@ class AspectOfTheWild extends Analyzer {
   }
 
   on_finished() {
-    if (this.lastAspectCastTime > (this.owner.fightDuration - FIGHT_ENDING_USE_ASPECT) && this.badAspectCasts > 0) {
+    if (this.lastAspectCastTime > (this.owner.fight.end_time - FIGHT_ENDING_USE_ASPECT) && this.badAspectCasts > 0) {
       this.badAspectCasts -= 1;
       this.goodAspectCasts += 1;
     }

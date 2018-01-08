@@ -78,9 +78,9 @@ class SpellTimeline extends React.PureComponent {
     // 9 for the scrollbar height
     // 4 for margin
     // 36 for the ruler
-    // 28 for each spell
-    // 1 additional spell for the GCD and 1 for channeling
-    const totalHeight = 9 + 4 + 36 + 28 * (2 + this.spells.length);
+    // 28 for each timeline row
+    const rows = this.spells.length + (globalCooldownHistory ? 1 : 0) + (channelHistory ? 1 : 0);
+    const totalHeight = 9 + 4 + 36 + 28 * rows;
 
     const totalWidth = seconds * secondWidth;
 
@@ -94,12 +94,16 @@ class SpellTimeline extends React.PureComponent {
               ))}
             </div>
           </div>
-          <div className="lane">
-            GCD
-          </div>
-          <div className="lane">
-            Channeling
-          </div>
+          {globalCooldownHistory &&
+            <div className="lane">
+              GCD
+            </div>
+          }
+          {channelHistory &&
+            <div className="lane">
+              Channeling
+            </div>
+          }
           {this.spells.map(spellId => (
             <div className="lane" key={spellId}>
               <SpellIcon id={spellId} noLink />{' '}
@@ -128,42 +132,46 @@ class SpellTimeline extends React.PureComponent {
               );
             })}
           </div>
-          <div className={`events lane`} style={{ width: totalWidth }}>
-            {globalCooldownHistory && globalCooldownHistory.map(event => {
-              const eventStart = event.start || event.timestamp;
-              const left = (eventStart - start) / 1000 * secondWidth;
-              const maxWidth = totalWidth - left; // don't expand beyond the container width
-              return (
-                <div
-                  key={`${eventStart}-${event.duration}`}
-                  className="casting-time"
-                  style={{
-                    left,
-                    width: Math.min(maxWidth, event.duration / 1000 * secondWidth),
-                  }}
-                  data-tip={`GCD: ${(event.duration / 1000).toFixed(1)}s (${event.ability.name})`}
-                />
-              );
-            })}
-          </div>
-          <div className={`events lane`} style={{ width: totalWidth }}>
-            {channelHistory && channelHistory.map(event => {
-              const eventStart = event.start || event.timestamp;
-              const left = (eventStart - start) / 1000 * secondWidth;
-              const maxWidth = totalWidth - left; // don't expand beyond the container width
-              return (
-                <div
-                  key={`${eventStart}-${event.duration}`}
-                  className="casting-time"
-                  style={{
-                    left,
-                    width: Math.min(maxWidth, event.duration / 1000 * secondWidth),
-                  }}
-                  data-tip={`Casting time: ${(event.duration / 1000).toFixed(1)}s (${event.ability.name})`}
-                />
-              );
-            })}
-          </div>
+          {globalCooldownHistory &&
+            <div className={`events lane`} style={{ width: totalWidth }}>
+              {globalCooldownHistory.map(event => {
+                const eventStart = event.start || event.timestamp;
+                const left = (eventStart - start) / 1000 * secondWidth;
+                const maxWidth = totalWidth - left; // don't expand beyond the container width
+                return (
+                  <div
+                    key={`${eventStart}-${event.duration}`}
+                    className="casting-time"
+                    style={{
+                      left,
+                      width: Math.min(maxWidth, event.duration / 1000 * secondWidth),
+                    }}
+                    data-tip={`GCD: ${(event.duration / 1000).toFixed(1)}s (${event.ability.name})`}
+                  />
+                );
+              })}
+            </div>
+          }
+          {channelHistory &&
+            <div className={`events lane`} style={{ width: totalWidth }}>
+              {channelHistory.map(event => {
+                const eventStart = event.start || event.timestamp;
+                const left = (eventStart - start) / 1000 * secondWidth;
+                const maxWidth = totalWidth - left; // don't expand beyond the container width
+                return (
+                  <div
+                    key={`${eventStart}-${event.duration}`}
+                    className="casting-time"
+                    style={{
+                      left,
+                      width: Math.min(maxWidth, event.duration / 1000 * secondWidth),
+                    }}
+                    data-tip={`Casting time: ${(event.duration / 1000).toFixed(1)}s (${event.ability.name})`}
+                  />
+                );
+              })}
+            </div>
+          }
           {this.spells.map(spellId => (
             <Events
               key={spellId}

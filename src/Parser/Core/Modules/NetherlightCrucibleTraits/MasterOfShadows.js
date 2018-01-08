@@ -11,11 +11,11 @@ import { formatNumber } from 'common/format';
 /**
  * Master of Shadows
  * Mastery increased by 500.
- * Avoidance increased by 1000.
+ * Avoidance increased by 500.
  */
 
 const MASTERY_AMOUNT = 500;
-const AVOIDANCE_AMOUNT = 1000;
+const AVOIDANCE_AMOUNT = 500;
 
 class MasterOfShadows extends Analyzer {
   static dependencies = {

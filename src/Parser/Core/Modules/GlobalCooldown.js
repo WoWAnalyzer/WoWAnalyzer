@@ -101,6 +101,8 @@ class GlobalCooldown extends Analyzer {
     this.owner.triggerEvent('globalcooldown', {
       type: 'globalcooldown',
       ability: event.ability,
+      sourceID: event.sourceID,
+      targetID: event.sourceID, // no guarantees the original targetID is the player
       timestamp: event.timestamp,
       duration: this.getCurrentGlobalCooldown(event.ability.guid),
       reason: event,
@@ -116,10 +118,12 @@ class GlobalCooldown extends Analyzer {
     return (spellId && this.owner.modules.alwaysBeCasting.constructor.STATIC_GCD_ABILITIES[spellId]) || this.constructor.calculateGlobalCooldown(this.haste.current, this.owner.modules.alwaysBeCasting.constructor.BASE_GCD, this.owner.modules.alwaysBeCasting.constructor.MINIMUM_GCD);
   }
 
-  // TODO: Move this to SpellTimeline, it's only used for that so it should track it itself
-  history = [];
-  on_globalcooldown(event) {
+  /** @type {object} The last GCD event that occured, can be used to check if the player is affected by the GCD. */
+  lastGlobalCooldown = null;
+  history = []; // TODO: Move this to SpellTimeline, it's only used for that so it should track it itself
+  on_toPlayer_globalcooldown(event) {
     this.history.push(event);
+    this.lastGlobalCooldown = event;
   }
 
   /**

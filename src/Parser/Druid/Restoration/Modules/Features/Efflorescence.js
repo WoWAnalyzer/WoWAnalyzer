@@ -7,8 +7,6 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 
-import SuggestionThresholds from '../../SuggestionThresholds';
-
 const DURATION = 30000;
 
 class Efflorescence extends Analyzer {
@@ -53,14 +51,25 @@ class Efflorescence extends Analyzer {
     return this.uptime / this.owner.fightDuration;
   }
 
+  get suggestionThresholds() {
+    return {
+      actual: this.uptimePercent,
+      isLessThan: {
+        minor: 0.90,
+        average: 0.50,
+        major: 0.25,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
-    when(this.uptimePercent).isLessThan(SuggestionThresholds.EFFLORESCENCE_UPTIME.minor)
+    when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> uptime can be improved.</span>)
           .icon(SPELLS.EFFLORESCENCE_CAST.icon)
           .actual(`${formatPercentage(this.uptimePercent)}% uptime`)
-          .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`)
-          .regular(SuggestionThresholds.EFFLORESCENCE_UPTIME.regular).major(SuggestionThresholds.EFFLORESCENCE_UPTIME.major);
+          .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`);
       });
 
     // TODO suggestion for early refreshes
