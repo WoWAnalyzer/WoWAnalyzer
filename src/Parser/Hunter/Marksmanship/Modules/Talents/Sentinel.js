@@ -41,9 +41,6 @@ class Sentinel extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SENTINEL_TICK.id && spellId !== SPELLS.SENTINEL_TALENT.id) {
-      return;
-    }
     if (spellId === SPELLS.SENTINEL_TALENT.id) {
       this.lastSentinelCastTimestamp = event.timestamp;
       this.sentinelCasts++;
