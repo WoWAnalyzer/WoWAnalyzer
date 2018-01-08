@@ -55,14 +55,14 @@ class GolgannethsVitality extends Analyzer {
         <dfn data-tip={`This shows a breakdown of the damage contribution of this trinket: <ul>
     <li>Normal:
       <ul>
-      <li> ${formatPercentage(this.normalProcUptime)}% uptime</li>
-      <li> ${formatNumber(this.normalDamage)} damage</li>
+      <li> Uptime: ${formatPercentage(this.normalProcUptime)}%</li>
+      <li> Damage contribution: ${formatNumber(this.normalDamage)}</li>
       </ul>
     </li>
     <li>Empowered:
       <ul>
-      <li> ${formatPercentage(this.empoweredProcUptime)}%</li>
-      <li> ${formatNumber(this.empoweredDamage)} damage</li>
+      <li> Uptime: ${formatPercentage(this.empoweredProcUptime)}%</li>
+      <li> Damage contribution: ${formatNumber(this.empoweredDamage)}</li>
       </ul>
     </li>
   </ul>`}>
