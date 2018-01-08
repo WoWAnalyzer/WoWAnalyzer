@@ -694,6 +694,16 @@ export default {
     name: 'Echoing Stars',
     icon: 'ability_socererking_forcenova',
   },
+  BALANCE_DRUID_T20_2SET_BONUS_BUFF: {
+    id: 242231,
+    name: 'T20 2 set bonus',
+    icon: 'spell_nature_starfall',
+  },
+  BALANCE_DRUID_T20_4SET_BONUS_BUFF: {
+    id: 242233,
+    name: 'T20 4 set bonus',
+    icon: 'spell_nature_starfall',
+  },
   BALANCE_DRUID_T21_2SET_BONUS_BUFF: {
     id: 251803,
     name: 'T21 2 set bonus',
