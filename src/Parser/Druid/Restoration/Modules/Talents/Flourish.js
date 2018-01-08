@@ -5,11 +5,10 @@ import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
+import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-
-import SuggestionThresholds from '../../SuggestionThresholds';
 
 const debug = false;
 
@@ -103,30 +102,58 @@ class Flourish extends Analyzer {
         .reduce((total, player) => total += (player.hasBuff(hotId, timestamp, 0, 0) ? 1 : 0), 0);
   }
 
+  get percentWgsExtended() {
+    return (this.wildGrowthCasts / this.flourishCount) || 0;
+  }
+
+  get wildGrowthSuggestionThresholds() {
+    return {
+      actual: this.percentWgsExtended,
+      isLessThan: {
+        minor: 1.00,
+        average: 0.75,
+        major: 0.50,
+      },
+      style: 'percentage',
+    };
+  }
+
+  get percentCwsExtended() {
+    return (this.cenarionWard / this.flourishCount) || 0;
+  }
+
+  get cenarionWardSuggestionThresholds() {
+    return {
+      actual: this.percentCwsExtended,
+      isLessThan: {
+        minor: 1.00,
+        average: 0.00,
+        major: 0.00,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
     if(this.flourishCount === 0) {
       return;
     }
 
-    const wgsExtended = this.wildGrowthCasts / this.flourishCount;
-    when(wgsExtended).isLessThan(SuggestionThresholds.FLOURISH_WG_EXTEND.minor)
+    when(this.wildGrowthSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.WILD_GROWTH.id} /></span>)
+        return suggest(<Wrapper>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.WILD_GROWTH.id} /></Wrapper>)
           .icon(SPELLS.FLOURISH_TALENT.icon)
           .actual(`${formatPercentage(this.wildGrowthCasts / this.flourishCount, 0)}% WGs extended.`)
-          .recommended(`${formatPercentage(recommended)}% is recommended`)
-          .regular(SuggestionThresholds.FLOURISH_WG_EXTEND.regular).major(SuggestionThresholds.FLOURISH_WG_EXTEND.major);
+          .recommended(`${formatPercentage(recommended)}% is recommended`);
       });
 
     if(this.hasCenarionWard) {
-      const cwsExtended = this.cenarionWard / this.flourishCount;
-      when(cwsExtended).isLessThan(SuggestionThresholds.FLOURISH_CW_EXTEND.minor)
+      when(this.cenarionWardSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.CENARION_WARD.id} /></span>)
+          return suggest(<Wrapper>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.CENARION_WARD.id} /></Wrapper>)
             .icon(SPELLS.FLOURISH_TALENT.icon)
             .actual(`${this.cenarionWard}/${this.flourishCount} CWs extended.`)
-            .recommended(`${formatPercentage(recommended)}% is recommended`)
-            .regular(SuggestionThresholds.FLOURISH_CW_EXTEND.regular).major(SuggestionThresholds.FLOURISH_CW_EXTEND.major);
+            .recommended(`${formatPercentage(recommended)}% is recommended`);
         });
     }
   }

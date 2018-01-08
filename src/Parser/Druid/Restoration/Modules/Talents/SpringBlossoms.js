@@ -20,24 +20,40 @@ class SpringBlossoms extends Analyzer {
     this.active = hasSpringBlossoms;
   }
 
+  get directPercent() {
+    return this.owner.getPercentageOfTotalHealingDone(this.mastery.getDirectHealing(SPELLS.SPRING_BLOSSOMS.id));
+  }
+
+  get masteryPercent() {
+    return this.owner.getPercentageOfTotalHealingDone(this.mastery.getMasteryHealing(SPELLS.SPRING_BLOSSOMS.id));
+  }
+
+  get totalPercent() {
+    return this.directPercent + this.masteryPercent;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.totalPercent,
+      isLessThan: {
+        minor: 0.07,
+        average: 0.05,
+        major: 0.03,
+      },
+      style: 'percentage',
+    };
+  }
+
   statistic() {
-    const direct = this.mastery.getDirectHealing(SPELLS.SPRING_BLOSSOMS.id);
-    const directPercent = this.owner.getPercentageOfTotalHealingDone(direct);
-
-    const mastery = this.mastery.getMasteryHealing(SPELLS.SPRING_BLOSSOMS.id);
-    const masteryPercent = this.owner.getPercentageOfTotalHealingDone(mastery);
-
-    const totalPercent = directPercent + masteryPercent;
-
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SPRING_BLOSSOMS.id} />}
-        value={`${formatPercentage(totalPercent)} %`}
+        value={`${formatPercentage(this.totalPercent)} %`}
         label="Spring Blossoms Healing"
         tooltip={`This is the sum of the direct healing from Spring Blossoms and the healing enabled by Spring Blossom's extra mastery stack.
             <ul>
-            <li>Direct: <b>${formatPercentage(directPercent)}%</b></li>
-            <li>Mastery: <b>${formatPercentage(masteryPercent)}%</b></li>
+            <li>Direct: <b>${formatPercentage(this.directPercent)}%</b></li>
+            <li>Mastery: <b>${formatPercentage(this.masteryPercent)}%</b></li>
             </ul>`}
       />
     );
@@ -45,22 +61,13 @@ class SpringBlossoms extends Analyzer {
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
 
   suggestions(when) {
-    const direct = this.mastery.getDirectHealing(SPELLS.SPRING_BLOSSOMS.id);
-    const directPercent = this.owner.getPercentageOfTotalHealingDone(direct);
-
-    const mastery = this.mastery.getMasteryHealing(SPELLS.SPRING_BLOSSOMS.id);
-    const masteryPercent = this.owner.getPercentageOfTotalHealingDone(mastery);
-
-    const totalPercent = directPercent + masteryPercent;
-
-    when(totalPercent).isLessThan(0.07)
+    when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your healing from <SpellLink id={SPELLS.SPRING_BLOSSOMS.id} /> could be improved.
           Either your efflorescence uptime could be improved or the encounter doesn't fit this talent very well.</span>)
           .icon(SPELLS.SPRING_BLOSSOMS.icon)
-          .actual(`${formatPercentage(totalPercent)}% healing`)
-          .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`)
-          .regular(recommended - 0.02).major(recommended - 0.02);
+          .actual(`${formatPercentage(this.totalPercent)}% healing`)
+          .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`);
       });
   }
 }

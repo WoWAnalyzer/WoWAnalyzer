@@ -3,6 +3,7 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import WarningDisplay from 'Parser/Core/Modules/Features/WarningDisplay';
 
 import FlamestrikeNormalizer from './Normalizers/Flamestrike';
+import KaelthasUltimateAbility from './Normalizers/KaelthasUltimateAbility';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Features/Abilities';
@@ -23,6 +24,7 @@ import SoulOfTheArchmage from './Modules/Items/SoulOfTheArchmage';
 import DarcklisDragonfireDiadem from './Modules/Items/DarcklisDragonfireDiadem';
 import ContainedInfernalCore from './Modules/Items/ContainedInfernalCore';
 import PyrotexIgnitionCloth from './Modules/Items/PyrotexIgnitionCloth';
+import MarqueeBindingsOfTheSunKing from './Modules/Items/MarqueeBindingsOfTheSunKing';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -32,6 +34,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Normalizers
     FlameStrikeNormalizer: FlamestrikeNormalizer,
+    kaelthasUltimateAbility: KaelthasUltimateAbility,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -56,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     darcklisDragonfireDiadem: DarcklisDragonfireDiadem,
     containedInfernalCore: ContainedInfernalCore,
     pyrotexIgnitionCloth: PyrotexIgnitionCloth,
+    marqueeBindingsOfTheSunKing: MarqueeBindingsOfTheSunKing,
 
   };
 }

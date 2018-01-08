@@ -12,6 +12,7 @@ class AstralPowerTracker extends ResourceTracker {
   };
 
   totalCooldownReduction = 0;
+  totalCooldownReductionWasted = 0;
 
   on_initialized() {
     this.resourceType = RESOURCE_TYPES.ASTRAL_POWER.id;
@@ -45,6 +46,7 @@ class AstralPowerTracker extends ResourceTracker {
       cooldownID = SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id;
     }
     if (!this.spellUsable.isOnCooldown(cooldownID)){
+      this.totalCooldownReductionWasted += cost * COOLDOWN_REDUCTION_MS;
       return;
     }
     const reduction = this.spellUsable.reduceCooldown(cooldownID, cost * COOLDOWN_REDUCTION_MS);
@@ -53,6 +55,10 @@ class AstralPowerTracker extends ResourceTracker {
 
   get cooldownReduction(){
     return this.totalCooldownReduction;
+  }
+
+  get cooldownReductionWasted(){
+    return this.totalCooldownReductionWasted;
   }
   
 }
