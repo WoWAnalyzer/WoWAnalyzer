@@ -14,6 +14,9 @@ class Clearcasting extends Analyzer {
     combatants: Combatants,
   };
 
+  // With MoC, there's no actual indication in the events that you have it...
+  // In fact the Clearcasting buff doesn't show with stacks.
+  // You'll appear as casting Regrowths without the buff disappating, and then on the 3rd Regrowth it goes away.
   hasMoC;
   procsPerCC;
 
@@ -22,7 +25,7 @@ class Clearcasting extends Analyzer {
   overwrittenProcs = 0;
   usedProcs = 0;
 
-  availableProcs = 0;
+  availableProcs = 0; // number of free regrowths remaining in current Clearcast. Usually 1, but becomes 3 with MoC.
 
   nonCCRegrowths = 0;
   totalRegrowths = 0;
