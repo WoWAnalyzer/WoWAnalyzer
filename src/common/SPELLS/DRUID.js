@@ -679,6 +679,36 @@ export default {
     name: 'Blessing of An\'she',
     icon: 'spell_priest_divinestar_holy',
   },
+  ONETHS_INTUITION: {
+    id: 209406,
+    name: 'Oneth\'s Intuition',
+    icon: 'spell_arcane_invocation',
+  },
+  ONETHS_OVERCONFIDENCE: {
+    id: 209407,
+    name: 'Oneth\'s Overconfidence',
+    icon: 'ability_druid_stellarflare',
+  },
+  ECHOING_STARS: {
+    id: 226104,
+    name: 'Echoing Stars',
+    icon: 'ability_socererking_forcenova',
+  },
+  BALANCE_DRUID_T21_2SET_BONUS_BUFF: {
+    id: 251803,
+    name: 'T21 2 set bonus',
+    icon: 'ability_druid_cower',
+  },
+  BALANCE_DRUID_T21_4SET_BONUS_BUFF: {
+    id: 251809,
+    name: 'T21 4 set bonus',
+    icon: 'ability_druid_cower',
+  },
+  SOLAR_SOLSTICE: {
+    id: 252767,
+    name: 'Solar Solstice',
+    icon: 'spell_druid_sunfall',
+  },
   // Feral
   TIGERS_FURY: {
     id: 5217,

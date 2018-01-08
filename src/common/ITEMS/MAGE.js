@@ -69,7 +69,7 @@ export default {
   MARQUEE_BINDINGS_OF_THE_SUN_KING: {
     id: 132406,
     name: 'Marquee Bindings of the Sun King',
-    icon: 'inv_bracer_robe_raidwarlock-j-01',
+    icon: 'inv_bracer_robe_raidwarlock_j_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
   PYROTEX_IGNITION_CLOTH: {
