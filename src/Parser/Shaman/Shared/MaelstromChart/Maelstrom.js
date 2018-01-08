@@ -13,9 +13,6 @@ import 'Main/Mana.css';
 import MaelstromComponent from './MaelstromComponent';
 import './Maelstrom.css';
 
-const passiveWasteThresholdPercentage = .03; // (wasted passive focus generated) / (total passive focus generated), anything higher will trigger "CAN BE IMPROVED"
-//TODO: get a "real" number approved by a MMS expert
-
 class Maelstrom extends React.PureComponent {
   static propTypes = {
     start: PropTypes.number.isRequired,
@@ -45,7 +42,6 @@ class Maelstrom extends React.PureComponent {
     const { start, end } = this.props;
 
     //not it's own module since it's "fake data" meant to look visually accurate, not be numerically accurate
-    const passiveCap = this.props.secondsCapped; //counts time focus capped (in seconds)
     let lastCatch = 0; //records the timestamp of the last event
     const overCapBySecond = [];
     const maelstromBySecond = [];
@@ -68,27 +64,18 @@ class Maelstrom extends React.PureComponent {
       });
     }
 
-
-
-      for (let i = 0; i < lastCatch; i++) { //extrapolates for passive focus gain
+      for (let i = 0; i < lastCatch; i++) {
         if (!maelstromBySecond[i]) {
           if (maelstromBySecond[i - 1] > maxMaelstrom)
             maelstromBySecond[i] = maxMaelstrom;
           else
             maelstromBySecond[i] = maelstromBySecond[i - 1];
-
-
-        if (maelstromBySecond[i] >= maxMaelstrom)
-          if (this.props.activeMaelstromWastedTimeline[i])
-            overCapBySecond[i] = this.props.activeMaelstromWastedTimeline[i];
-          else
-            overCapBySecond[i] = 0;
-        else
-          if (this.props.activeMaelstromWastedTimeline[i] && maelstromBySecond[i] + this.props.activeMaelstromWastedTimeline[i] > maxMaelstrom)
-            overCapBySecond[i] = (maelstromBySecond[i] + this.props.activeMaelstromWastedTimeline[i]) - maxMaelstrom;
-          else
-            overCapBySecond[i] = 0;
       }
+
+        if (this.props.activeMaelstromWastedTimeline[i] && maelstromBySecond[i] + this.props.activeMaelstromWastedTimeline[i] > maxMaelstrom)
+          overCapBySecond[i] = (maelstromBySecond[i] + this.props.activeMaelstromWastedTimeline[i]) - maxMaelstrom;
+        else
+          overCapBySecond[i] = 0;
     }
 
     const abilitiesAll = {};
@@ -115,17 +102,16 @@ class Maelstrom extends React.PureComponent {
 
     const abilities = Object.keys(abilitiesAll).map(key => abilitiesAll[key]);
     abilities.sort((a, b) => {
-      if (a.created < b.created) {
+      if (a.created < b.created)
         return 1;
-      } else if (a.created === b.created) {
+      if (a.created === b.created)
         return 0;
-      }
       return -1;
     });
 
     const fightDurationSec = Math.floor((end - start) / 1000);
     const labels = [];
-    for (let i = 0; i <= fightDurationSec; i += 1) {
+    for (let i = 0; i <= fightDurationSec; i++) {
       labels.push(i);
 
       maelstromBySecond[i] = maelstromBySecond[i] !== undefined ? maelstromBySecond[i] : null;
@@ -134,13 +120,6 @@ class Maelstrom extends React.PureComponent {
       }
       overCapBySecond[i] = overCapBySecond[i] !== undefined ? overCapBySecond[i] : null;
     }
-    const wastedMaelstrom = Math.round(passiveCap * 0);
-    const totalMaelstrom = Math.floor(fightDurationSec * 0);
-    let ratingOfPassiveWaste = "";
-    if (passiveCap / this.totalMaelstrom > passiveWasteThresholdPercentage) {
-      ratingOfPassiveWaste = "Can be improved.";
-    }
-    const totalWasted = [totalMaelstrom, wastedMaelstrom, ratingOfPassiveWaste];
 
     let maxX;
     const myLabels = [];
@@ -150,7 +129,6 @@ class Maelstrom extends React.PureComponent {
       }
     }
     myLabels[maxX - 1] = formatDuration(maxX - 1);
-
     const myData = {
       labels: myLabels,
       datasets: [{
@@ -220,11 +198,9 @@ class Maelstrom extends React.PureComponent {
           height={100}
           width={300}
         />
-
         <MaelstromComponent
           abilities={abilities}
           categories={categories}
-          passive={(totalWasted)}
         />
       </div>
     );

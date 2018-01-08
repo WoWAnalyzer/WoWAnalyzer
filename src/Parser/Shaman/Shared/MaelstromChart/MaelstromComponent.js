@@ -5,9 +5,6 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 
 const MaelstromComponent = ({ categories, abilities, passive, maelstromBySecondCoord, overCapBySecondCoord }) => {
-  if (!abilities) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div style={{ marginTop: -10, marginBottom: -10 }}>
@@ -16,7 +13,7 @@ const MaelstromComponent = ({ categories, abilities, passive, maelstromBySecondC
           <tbody key={key}>
             <tr>
               <th>{categories[key]}</th>
-              <th className="text-center"><dfn data-tip="Times you gained focus from this ability">Times gained focus</dfn></th>
+              <th className="text-center"><dfn data-tip="Times you gained maelstrom from this ability">Times gained focus</dfn></th>
 
               <th className="text-center">{key === 'generated' ? <dfn data-tip="Approximately.">Generated</dfn> : ''}</th>
               <th className="text-center"><dfn data-tip="Approximately.">Wasted</dfn></th>
