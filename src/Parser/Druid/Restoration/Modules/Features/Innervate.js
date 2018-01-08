@@ -5,10 +5,9 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
+import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-
-import SuggestionThresholds from '../../SuggestionThresholds';
 
 const BASE_MANA = 220000;
 const WILD_GROWTH_BASE_MANA = 0.34;
@@ -159,30 +158,58 @@ class Innervate extends Analyzer {
     }
   }
 
+  get averageManaSaved() {
+    return (this.manaSaved / this.innervateCount) || 0;
+  }
+
+  get averageManaSavedSuggestionThresholds() {
+    return {
+      actual: this.averageManaSaved,
+      isLessThan: {
+        minor: 220000,
+        average: 180000,
+        major: 130000,
+      },
+      style: 'number',
+    };
+  }
+
+  get wholeSecondsCapped() {
+    return Math.round(this.secondsManaCapped);
+  }
+
+  get secondsCappedSuggestionThresholds() {
+    return {
+      actual: this.wholeSecondsCapped,
+      isGreaterThan: {
+        minor: 0,
+        average: 0,
+        major: 0,
+      },
+      style: 'number',
+    };
+  }
+
   suggestions(when) {
     if(this.innervateCount === 0) {
       return;
     }
 
-    const manaPerInnervate = this.manaSaved / this.innervateCount;
-    when(manaPerInnervate).isLessThan(SuggestionThresholds.INNERVATE_MANA_SPENT.minor)
+    when(this.averageManaSavedSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your mana spent during an <SpellLink id={SPELLS.INNERVATE.id} /> can be improved.
-              Always aim to cast 1 wild growth, 1 efflorescence, and fill the rest with rejuvations for optimal usage.</span>)
+        return suggest(<Wrapper>Your mana spent during an <SpellLink id={SPELLS.INNERVATE.id} /> can be improved.
+              Always aim to cast 1 wild growth, 1 efflorescence, and fill the rest with rejuvations for optimal usage.</Wrapper>)
           .icon(SPELLS.INNERVATE.icon)
-          .actual(`${formatNumber(manaPerInnervate)} avg mana spent.`)
-          .recommended(`>${formatNumber(recommended)} is recommended`)
-          .regular(SuggestionThresholds.INNERVATE_MANA_SPENT.regular).major(SuggestionThresholds.INNERVATE_MANA_SPENT.major);
+          .actual(`${formatNumber(this.averageManaSaved.toFixed(0))} avg mana spent.`)
+          .recommended(`>${formatNumber(recommended)} is recommended`);
       });
 
-    const wholeSecondsCapped = Math.round(this.secondsManaCapped);
-    when(wholeSecondsCapped).isGreaterThan(SuggestionThresholds.INNERVATE_TIME_CAPPED.minor)
+    when(this.secondsCappedSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You were capped on mana during <SpellLink id={SPELLS.INNERVATE.id} />. Try to not use Innervate if you are above 90% mana.</span>)
+        return suggest(<Wrapper>You were capped on mana during <SpellLink id={SPELLS.INNERVATE.id} />. Try to not use Innervate if you are above 90% mana.</Wrapper>)
           .icon(SPELLS.INNERVATE.icon)
-          .actual(`~${wholeSecondsCapped} seconds capped`)
-          .recommended(`${recommended} is recommended`)
-          .regular(SuggestionThresholds.INNERVATE_TIME_CAPPED.regular).major(SuggestionThresholds.INNERVATE_TIME_CAPPED.major);
+          .actual(`~${this.wholeSecondsCapped} seconds capped`)
+          .recommended(`${recommended} is recommended`);
       });
   }
 
@@ -190,7 +217,7 @@ class Innervate extends Analyzer {
     return(
       <StatisticBox
         icon={<SpellIcon id={SPELLS.INNERVATE.id} />}
-        value={`${formatNumber((this.manaSaved / this.innervateCount) | 0)} mana`}
+        value={`${this.averageManaSaved.toFixed(0)} mana`}
         label="Mana saved per Innervate"
         tooltip={
           `<ul>

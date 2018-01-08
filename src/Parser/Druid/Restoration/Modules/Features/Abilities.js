@@ -10,7 +10,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.TRANQUILITY_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (haste, combatant) => combatant.hasTalent(SPELLS.INNER_PEACE_TALENT.id) ? 120 : 180,
+        cooldown: (_, combatant) => combatant.hasTalent(SPELLS.INNER_PEACE_TALENT.id) ? 120 : 180,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.75,
@@ -32,6 +32,9 @@ class Abilities extends CoreAbilities {
         cooldown: 90,
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.80,
+          averageIssueEfficiency: 0.60,
+          majorIssueEfficiency: 0.40,
         },
       },
       {
@@ -79,7 +82,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.FLOURISH_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.80,
         },
       },
       {
@@ -97,6 +99,9 @@ class Abilities extends CoreAbilities {
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.80,
+          averageIssueEfficiency: 0.60,
+          majorIssueEfficiency: 0.40,
         },
       },
       {
@@ -122,6 +127,7 @@ class Abilities extends CoreAbilities {
         cooldown: (haste, combatant) => combatant.hasTalent(SPELLS.PROSPERITY_TALENT.id) ? 27 : 30,
         castEfficiency: {
           importance: ISSUE_IMPORTANCE.MINOR,
+          recommendedEfficiency: 0.60,
         },
       },
       {
