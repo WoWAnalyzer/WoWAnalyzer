@@ -34,10 +34,7 @@ class DireFrenzy extends Analyzer {
   timeAtMaxStacks = 0;
   timeBuffed = 0;
   lastDireFrenzyCast = null;
-
-  //allows me to do a on_finished
   timeCalculated = null;
-  lastDamageEvent = null;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id);
@@ -56,7 +53,6 @@ class DireFrenzy extends Analyzer {
     if (spellId !== SPELLS.DIRE_FRENZY_DAMAGE.id) {
       return;
     }
-    this.lastDamageEvent = event.timestamp;
     this.damage += event.amount + (event.absorbed || 0);
   }
 
