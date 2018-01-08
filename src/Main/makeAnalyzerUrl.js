@@ -1,4 +1,5 @@
 import getFightName from 'common/getFightName';
+import prettyEncodeURI from 'common/prettyEncodeURI';
 
 export default function makeReportUrl(report = undefined, fightId = undefined, playerName = undefined, tab = undefined) {
   const parts = [];
@@ -8,7 +9,7 @@ export default function makeReportUrl(report = undefined, fightId = undefined, p
       const fight = report.fights.find(fight => fight.id === fightId);
       const fightName = fight && getFightName(report, fight);
       if (fightName) {
-        parts.push(`${fightId}-${encodeURI(fightName).replace(/%20/g, '+')}`);
+        parts.push(`${fightId}-${prettyEncodeURI(fightName)}`);
         if (playerName) {
           parts.push(encodeURI(playerName));
           if (tab) {

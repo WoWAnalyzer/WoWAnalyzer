@@ -326,9 +326,14 @@ export default {
     icon: 'ability_hunter_piercingshots',
   },
   BOMBARDMENT: {
-    id: 35110,
+    id: 82921,
     name: 'Bombardment',
     icon: 'ability_hunter_focusfire',
+  },
+  HUNTERS_MARK_DEBUFF: {
+    id: 185365,
+    name: 'Hunter\'s Mark',
+    icon: 'ability_hunter_markedfordeath',
   },
 
   //CATEGORY
@@ -451,6 +456,11 @@ export default {
     name: 'Rapid Killing',
     icon: 'ability_hunter_assassinate',
   },
+  SURVIVAL_OF_THE_FITTEST_BUFF: {
+    id: 190515,
+    name: 'Survival of the Fittest',
+    icon: 'ability_rogue_feint',
+  },
 
   //Marksmanship legendary buffs
   SENTINELS_SIGHT: {
@@ -489,6 +499,16 @@ export default {
     id: 227272,
     name: 'Trick Shot',
     icon: 'ability_hunter_runningshot',
+  },
+  POSTHASTE_BUFF: {
+    id: 118922,
+    name: 'Posthaste',
+    icon: 'ability_hunter_posthaste',
+  },
+  SENTINEL_TICK: {
+    id: 236348,
+    name: 'Sentinel',
+    icon: 'spell_nature_sentinal',
   },
   // Survival:
   // ...

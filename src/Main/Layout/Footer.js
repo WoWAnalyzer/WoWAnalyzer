@@ -25,8 +25,8 @@ class Footer extends React.PureComponent {
           Most artwork is copyright of Blizzard Entertainment, Inc. This is a fan site and we are not affiliated.<br /><br />
 
           <DiscordButton />
-          <PatreonButton style={{ marginLeft: 20 }} />
           <GithubButton style={{ marginLeft: 20 }} />
+          <PatreonButton style={{ marginLeft: 20 }} />
         </div>
       </footer>
     );
