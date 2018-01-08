@@ -43,6 +43,7 @@ import { default as makeNewsUrl } from './News/makeUrl';
 import { title as AboutArticleTitle } from './News/Articles/2017-01-31-About';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
+import PatreonButton from 'Main/PatreonButton';
 
 const timeAvailable = console.time && console.timeEnd;
 
@@ -536,7 +537,10 @@ class App extends Component {
                     <ReportSelecter />
                   )}
                   <div className="about">
-                    <Link to={makeNewsUrl(AboutArticleTitle)}>About WoWAnalyzer.</Link>
+                    <Link to={makeNewsUrl(AboutArticleTitle)}>About WoWAnalyzer</Link>
+                    {' '}| <a href="https://discord.gg/AxphPxU">Join Discord</a>
+                    {' '}| <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">View source</a>
+                    {' '}| <a href="https://www.patreon.com/wowanalyzer">Become a Patron</a>
                   </div>
                 </div>
               </div>
