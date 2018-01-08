@@ -1,0 +1,56 @@
+.timeline.year-recap {
+  position: relative;
+}
+.timeline.year-recap:before {
+  content: '';
+  position: absolute;
+  left: 120px;
+  width: 2px;
+  background: #d84141;
+  top: 25px;
+  bottom: 25px;
+}
+.timeline.year-recap > div {
+  margin-left: 150px;
+  width: calc(100% - 150px);
+}
+.timeline.year-recap > .panel {
+  position: relative;
+  background: #000;
+}
+.timeline.year-recap > .panel:before {
+  content: '';
+  position: absolute;
+  left: -30px;
+  top: 25px;
+  transform: translate(-50%, -50%);
+  width: 1.4em;
+  height: 1.4em;
+  border-radius: 50%;
+  border: 2px solid #d84141;
+  background: #0b1319;
+}
+.timeline.year-recap > .panel > .date {
+  position: absolute;
+  left: -150px;
+  margin-top: 10px;
+  width: 100px;
+  text-align: right;
+  font-size: 1.2em;
+  line-height: 1.7;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.timeline.year-recap > .panel img {
+  max-width: 100%;
+}
+
+figure {
+  margin: 1em 0;
+  text-align: center;
+}
+figure figcaption {
+  margin-top: 0.4em;
+  opacity: 0.6;
+  font-size: 90%;
+}
