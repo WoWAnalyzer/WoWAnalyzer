@@ -78,10 +78,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (haste, combatant) => {
-          const hasIFE = combatant.hasFinger(ITEMS.IMPECCABLE_FEL_ESSENCE.id);
-          return hasIFE ? 105 : 180;
-        },
+        cooldown: 180,
         enabled: combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -91,10 +88,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CELESTIAL_ALIGNMENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (haste, combatant) => {
-          const hasIFE = combatant.hasFinger(ITEMS.IMPECCABLE_FEL_ESSENCE.id);
-          return hasIFE ? 105 : 180;
-        },
+        cooldown: 180,
         enabled: !combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id),
         castEfficiency: {
           suggestion: true,

@@ -9,6 +9,11 @@ import ITEMS from 'common/ITEMS';
 
 export default [
   {
+    date: new Date('2018-01-07'),
+    changes: <Wrapper>Adjusted how cast efficiency for <SpellLink id={SPELLS.KILL_COMMAND.id} icon /> was calculated when using <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} icon /> to show realistic amount of possible casts.</Wrapper>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2017-12-30'),
     changes: 'Added a time focus capped module, aswell as a focus chart tab',
     contributors: [Putro],
