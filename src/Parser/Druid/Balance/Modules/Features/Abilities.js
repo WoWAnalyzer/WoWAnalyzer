@@ -1,6 +1,7 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
+import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -134,13 +135,20 @@ class Abilities extends CoreAbilities {
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.8,
+          recommendedEfficiency: 0.70,
+          averageIssueEfficiency: 0.50,
+          majorIssueEfficiency: 0.30,
         },
       },
       {
         spell: SPELLS.BARKSKIN,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.6,
+          importance: ISSUE_IMPORTANCE.MINOR,
+        },
       },
       {
         spell: SPELLS.RENEWAL_TALENT,
