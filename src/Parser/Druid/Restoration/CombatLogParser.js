@@ -8,6 +8,7 @@ import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import WildGrowthNormalizer from './Normalizers/WildGrowth';
+import ClearcastingNormalizer from './Normalizers/ClearcastingNormalizer';
 
 import Mastery from './Modules/Core/Mastery';
 import Rejuvenation from './Modules/Core/Rejuvenation';
@@ -79,6 +80,7 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizers
     wildGrowthNormalizer: WildGrowthNormalizer,
+    clearcastingNormalizer: ClearcastingNormalizer,
 
     // Core
     healingDone: [HealingDone, { showStatistic: true }],

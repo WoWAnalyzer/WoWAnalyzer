@@ -8,8 +8,6 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import SuggestionThresholds from '../../SuggestionThresholds';
-
 class Lifebloom extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -22,26 +20,37 @@ class Lifebloom extends Analyzer {
         uptime + player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id), 0);
   }
 
-  suggestions(when) {
-    const uptimePercent = this.uptime / this.owner.fightDuration;
+  get uptimePercent() {
+    return this.uptime / this.owner.fightDuration;
+  }
 
-    when(uptimePercent).isLessThan(SuggestionThresholds.LIFEBLOOM_UPTIME.minor)
+  get suggestionThresholds() {
+    return {
+      actual: this.uptimePercent,
+      isLessThan: {
+        minor: 0.85,
+        average: 0.70,
+        major: 0.50,
+      },
+      style: 'percentage',
+    };
+  }
+
+  suggestions(when) {
+    when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> uptime can be improved.</span>)
           .icon(SPELLS.LIFEBLOOM_HOT_HEAL.icon)
-          .actual(`${formatPercentage(uptimePercent)}% uptime`)
-          .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`)
-          .regular(SuggestionThresholds.LIFEBLOOM_UPTIME.regular).major(SuggestionThresholds.LIFEBLOOM_UPTIME.major);
+          .actual(`${formatPercentage(this.uptimePercent)}% uptime`)
+          .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`);
       });
   }
 
   statistic() {
-    const uptimePercent = this.uptime / this.owner.fightDuration;
-
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.LIFEBLOOM_HOT_HEAL.id} />}
-        value={`${formatPercentage(uptimePercent)} %`}
+        value={`${formatPercentage(this.uptimePercent)} %`}
         label="Lifebloom Uptime"
       />
     );

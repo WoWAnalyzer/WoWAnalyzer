@@ -10,7 +10,6 @@ import SpellLink from 'common/SpellLink';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import SuggestionThresholds from '../../SuggestionThresholds';
 
 const REGROWTH_HEALING_INCREASE = 2;
 const REJUVENATION_HEALING_INCREASE = 2;
@@ -119,17 +118,30 @@ class SoulOfTheForest extends Analyzer {
     }
   }
 
-  suggestions(when) {
-    const wgUsage = this.wildGrowths / this.proccs;
+  get wgUsagePercent() {
+    return this.wildGrowths / this.proccs;
+  }
 
-    when(wgUsage).isLessThan(SuggestionThresholds.SOTF_WG_USAGE.minor)
+  get suggestionThresholds() {
+    return {
+      actual: this.wgUsagePercent,
+      isLessThan: {
+        minor: 1.00,
+        average: 0.80,
+        major: 0.60,
+      },
+      style: 'percentage',
+    };
+  }
+
+  suggestions(when) {
+    when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You didn't consume all your <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> buffs with <SpellLink id={SPELLS.WILD_GROWTH.id} />.
+        return suggest(<span>You did not consume all your <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> buffs with <SpellLink id={SPELLS.WILD_GROWTH.id} />.
           Try to use <SpellLink id={SPELLS.WILD_GROWTH.id} /> every time you get a <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> buff.</span>)
           .icon(SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.icon)
-          .actual(`Wild growth consumed ${formatPercentage(wgUsage)}% of all the buffs.`)
-          .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`)
-          .regular(SuggestionThresholds.SOTF_WG_USAGE.regular).major(SuggestionThresholds.SOTF_WG_USAGE.major);
+          .actual(`Wild growth consumed ${formatPercentage(this.wgUsage)}% of all the buffs.`)
+          .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`);
       });
   }
 
