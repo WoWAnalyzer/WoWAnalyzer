@@ -1,16 +1,9 @@
 import React from 'react';
 
-import Icon from 'common/Icon';
-import { formatPercentage } from 'common/format';
-
-import StatisticBox from 'Main/StatisticBox';
 import Tab from 'Main/Tab';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
-import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
-
-import Maelstrom from './Modules/Features/Maelstrom/Maelstrom';
 
 import Abilities from './Modules/Features/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
@@ -34,28 +27,13 @@ import TheDeceiversBloodPact from './Modules/Items/TheDeceiversBloodPact';
 
 import './Modules/Main/main.css';
 
+import MaelstromTab from '../Shared/MaelstromChart/MaelstromTab';
 
-import MaelstromChart from '../Shared/MaelstromChart/Maelstrom';
-import MaelstromTracker from '../Shared/MaelstromChart/MaelstromTracker';
-
-
-
-function getIssueImportance(value, regular, major, higherIsWorse = false) {
-  if (higherIsWorse ? value > major : value < major) {
-    return ISSUE_IMPORTANCE.MAJOR;
-  }
-  if (higherIsWorse ? value > regular : value < regular) {
-    return ISSUE_IMPORTANCE.REGULAR;
-  }
-  return ISSUE_IMPORTANCE.MINOR;
-}
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     damageDone: [DamageDone, { showStatistic: true }],
 
-
-    maelstromTracker: MaelstromTracker,
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
@@ -80,37 +58,10 @@ class CombatLogParser extends CoreCombatLogParser {
     tier21_4p: Tier21_4Set,
 
 
+    maelstromTab: MaelstromTab,
+
   };
 
-  generateResults() {
-    const results = super.generateResults();
-    results.tabs = [
-      ...results.tabs,
-      { // TODO: Move this to an Analyzer module
-        title: 'Maelstrom Chart',
-        url: 'maelstrom',
-        render: () => (
-          <Tab title='Maelstrom' style={{ padding: '15px 22px' }}>
-            <MaelstromChart
-              start={this.fight.start_time}
-              end={this.fight.end_time}
-              playerHaste={this.modules.combatants.selected.hasteRating}
-              maelstromMax={this.modules.maelstromTracker._maxMaelstrom}
-              maelstromPerSecond={this.modules.maelstromTracker.maelstromBySecond}
-              tracker={this.modules.maelstromTracker.tracker}
-              secondsCapped={this.modules.maelstromTracker.secondsCapped}
-              activeMaelstromGenerated={this.modules.maelstromTracker.activeFocusGenerated}
-              activeMaelstromWasted={this.modules.maelstromTracker.activeFocusWasted}
-              generatorCasts={this.modules.maelstromTracker.generatorCasts}
-              activeMaelstromWastedTimeline={this.modules.maelstromTracker.activeMaelstromWastedTimeline}
-            />
-          </Tab>
-        ),
-      },
-    ];
-
-    return results;
-  }
 }
 
 export default CombatLogParser;
