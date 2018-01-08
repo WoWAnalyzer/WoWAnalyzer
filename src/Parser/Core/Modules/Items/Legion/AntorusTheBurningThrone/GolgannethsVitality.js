@@ -56,13 +56,13 @@ class GolgannethsVitality extends Analyzer {
     <li>Normal:
       <ul>
       <li> Uptime: ${formatPercentage(this.normalProcUptime)}%</li>
-      <li> Damage contribution: ${formatNumber(this.normalDamage)}</li>
+      <li> Damage contribution: ${formatNumber(this.normalDamage)} / ${formatNumber(this.normalDamage / this.owner.fightDuration * 1000)} DPS</li>
       </ul>
     </li>
     <li>Empowered:
       <ul>
       <li> Uptime: ${formatPercentage(this.empoweredProcUptime)}%</li>
-      <li> Damage contribution: ${formatNumber(this.empoweredDamage)}</li>
+      <li> Damage contribution: ${formatNumber(this.empoweredDamage)} / ${formatNumber(this.empoweredDamage / this.owner.fightDuration * 1000)} DPS</li>
       </ul>
     </li>
   </ul>`}>
