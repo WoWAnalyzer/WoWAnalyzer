@@ -55,6 +55,8 @@ import BlackArrow from './Modules/Talents/BlackArrow';
 import Sidewinders from './Modules/Talents/Sidewinders';
 import LoneWolf from './Modules/Talents/LoneWolf';
 import CarefulAim from './Modules/Talents/CarefulAim';
+import Sentinel from './Modules/Talents/Sentinel';
+
 //Traits
 import QuickShot from './Modules/Traits/QuickShot';
 import Bullseye from './Modules/Traits/Bullseye';
@@ -124,6 +126,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sidewinders: Sidewinders,
     loneWolf: LoneWolf,
     carefulAim: CarefulAim,
+    sentinel: Sentinel,
 
     //Traits
     quickShot: QuickShot,

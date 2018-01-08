@@ -9,6 +9,11 @@ import { Blazballs, JLassie82, Putro } from 'MAINTAINERS';
 
 export default [
   {
+    date: new Date('2018-01-05'),
+    changes: <Wrapper>Added support for <SpellLink id={SPELLS.SENTINEL_TALENT.id} icon />, and included the current bugged ticks of Sentinel.</Wrapper>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2017-12-30'),
     changes: 'Fixed a bug in the focus chart, that sometimes indicated you were at negative focus at any given moment',
     contributors: [Putro],
