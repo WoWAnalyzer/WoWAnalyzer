@@ -98,7 +98,7 @@ class UnempoweredLS extends Analyzer {
       return suggest(<Wrapper>You casted {this.suboptUmempLS} unempowered and non instant cast <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> that hit less than 4 targets. Always prioritize Solar Wrath as a filler if there are less than 4 targets.</Wrapper>)
         .icon(SPELLS.LUNAR_STRIKE.icon)
         .actual(`${formatNumber(actual)} Unempowered LS per minute`)
-        .recommended(`${recommended} Unempowered LS are recomended`);
+        .recommended(`${recommended} Unempowered LS are recommended`);
     });
   }
 }

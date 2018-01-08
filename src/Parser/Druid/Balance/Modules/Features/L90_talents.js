@@ -116,6 +116,7 @@ class L90_talents extends Analyzer {
                 marginTop: '-.1em',
               }}
             />
+            {' '}
             {formatNumber(this.shootingStarsValue)}
             {' '}
             <SpellIcon
@@ -125,17 +126,9 @@ class L90_talents extends Analyzer {
                 marginTop: '-.1em',
               }}
             />
+            {' '}
             {formatNumber(this.astralCommunionValue)}
             <br />
-            <SpellIcon
-              id={SPELLS.BLESSING_OF_ELUNE.id}
-              style={{
-                height: '1.3em',
-                marginTop: '-.1em',
-              }}
-            />
-            {formatNumber(this.BlessingOfEluneValue)}
-            {' '}
             <SpellIcon
               id={SPELLS.BLESSING_OF_ANSHE.id}
               style={{
@@ -143,7 +136,18 @@ class L90_talents extends Analyzer {
                 marginTop: '-.1em',
               }}
             />
+            {' '}
             {formatNumber(this.BlessingOfAnsheValue)}
+            {' '}
+            <SpellIcon
+              id={SPELLS.BLESSING_OF_ELUNE.id}
+              style={{
+                height: '1.3em',
+                marginTop: '-.1em',
+              }}
+            />
+            {' '}
+            {formatNumber(this.BlessingOfEluneValue)}
           </Wrapper>
         )}
         label="L90 talents potential Astral Power gains"
