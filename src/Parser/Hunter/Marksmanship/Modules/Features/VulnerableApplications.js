@@ -139,7 +139,7 @@ class VulnerableApplications extends Analyzer {
       <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <div className="row">
           <StatisticsListBox
-            title={<Wrapper><SpellLink id={SPELLS.VULNERABLE.id} /> applications</Wrapper>}
+            title={<Wrapper><SpellLink id={SPELLS.VULNERABLE.id} icon /> applications</Wrapper>}
             containerProps={{ className: 'col-xs-12' }}
           >
             {this.vulnApplicationChart()}

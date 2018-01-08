@@ -55,7 +55,7 @@ class SoulOfTheHuntmaster extends Analyzer {
   item() {
     return {
       item: ITEMS.SOUL_OF_THE_HUNTMASTER,
-      result: <Wrapper>This gave you <SpellLink id={this.talentGained} />.</Wrapper>,
+      result: <Wrapper>This gave you <SpellLink id={this.talentGained} icon />.</Wrapper>,
     };
   }
 

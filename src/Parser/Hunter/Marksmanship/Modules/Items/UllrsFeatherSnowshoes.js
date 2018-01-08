@@ -54,7 +54,7 @@ class UllrsFeatherSnowshoes extends Analyzer {
       item: ITEMS.ULLRS_FEATHER_SNOWSHOES,
       result: (
         <dfn data-tip={`You wasted ${formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR.<br/> `}>
-          reduced <SpellLink id={SPELLS.TRUESHOT.id} /> CD by {formatNumber(this.effectiveTrueshotReductionMs / 1000)}s in total.
+          reduced <SpellLink id={SPELLS.TRUESHOT.id} icon /> CD by {formatNumber(this.effectiveTrueshotReductionMs / 1000)}s in total.
         </dfn>
       ),
     };

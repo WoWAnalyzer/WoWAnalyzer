@@ -25,7 +25,7 @@ class ZevrimsHunger extends Analyzer {
       item: ITEMS.ZEVRIMS_HUNGER,
       result: (
         <Wrapper>
-          This gave your <SpellLink id={SPELLS.MARKED_SHOT.id} /> a 15% chance to not consume <SpellLink id={SPELLS.HUNTERS_MARK.id} />.
+          This gave your <SpellLink id={SPELLS.MARKED_SHOT.id} icon /> a 15% chance to not consume <SpellLink id={SPELLS.HUNTERS_MARK.id} />.
         </Wrapper>
       ),
     };
