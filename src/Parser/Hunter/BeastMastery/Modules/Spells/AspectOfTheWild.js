@@ -7,6 +7,7 @@ import SpellLink from 'common/SpellLink';
 import StatisticBox from 'Main/StatisticBox';
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
+import Wrapper from 'common/Wrapper';
 
 //Duration of Bestial Wrath
 const BESTIAL_WRATH_DURATION = 15000;
@@ -73,21 +74,11 @@ class AspectOfTheWild extends Analyzer {
     };
   }
   suggestions(when) {
-    const {
-      isGreaterThan: {
-        minor,
-        average,
-        major,
-      },
-    } = this.badCastThreshold;
-    when(this.badAspectCasts).isGreaterThan(minor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Don't cast <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up and atleast 7 seconds remaining on the buff (or with under than 15 seconds remaining of the encounter) </span>)
+    when(this.badCastThreshold).addSuggestion((suggest, actual, recommended) => {
+        return suggest(<Wrapper>Don't cast <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up and atleast 7 seconds remaining on the buff (or with under than 15 seconds remaining of the encounter) </Wrapper>)
           .icon(SPELLS.ASPECT_OF_THE_WILD.icon)
-          .actual(`You cast Aspect of the Wild ${this.badAspectCasts} times without Bestial Wrath up or with less than 7s remaining of Bestial Wrath duration, or without having Bestial Wrath off cooldown (or within 3 seconds of coming off cooldown)`)
-          .recommended(`${recommended} is recommended`)
-          .regular(average)
-          .major(major);
+          .actual(`You cast Aspect of the Wild ${this.badAspectCasts} times without Bestial Wrath up or with less than 7s remaining of Bestial Wrath duration`)
+          .recommended(`${recommended} is recommended`);
       });
   }
   statistic() {
@@ -98,7 +89,7 @@ class AspectOfTheWild extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ASPECT_OF_THE_WILD.id} />}
         value={(
-          <span>
+          <Wrapper>
             {this.goodAspectCasts}{'  '}
             <SpellIcon
               id={SPELLS.ASPECT_OF_THE_WILD.id}
@@ -117,7 +108,7 @@ class AspectOfTheWild extends Analyzer {
                 filter: 'grayscale(100%)',
               }}
             />
-          </span>
+          </Wrapper>
 
         )}
         label={`Aspect of the Wild`}

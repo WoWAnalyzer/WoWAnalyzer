@@ -9,6 +9,7 @@ import SpellIcon from "common/SpellIcon";
 import { formatPercentage } from "common/format";
 import SpellLink from "common/SpellLink";
 import ItemDamageDone from 'Main/ItemDamageDone';
+import Wrapper from 'common/Wrapper';
 
 /*
  * A powerful shot which deals up to (2 * 775%) Physical damage to the target and up to 775% Physical damage to all enemies between you and the target.
@@ -64,7 +65,7 @@ class PiercingShot extends Analyzer {
     const percentPiercingInsideVulnerability = this.inVulnerablePiercing / this.totalPiercing;
     when(percentPiercingInsideVulnerability).isLessThan(1)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You should be casting all of your <SpellLink id={SPELLS.PIERCING_SHOT_TALENT.id} />s inside <SpellLink id={SPELLS.VULNERABLE.id} /> to ensure it does the most damage it possible can. </span>)
+        return suggest(<Wrapper>You should be casting all of your <SpellLink id={SPELLS.PIERCING_SHOT_TALENT.id} />s inside <SpellLink id={SPELLS.VULNERABLE.id} /> to ensure it does the most damage it possible can. </Wrapper>)
           .icon(SPELLS.PIERCING_SHOT_TALENT.icon)
           .actual(`${formatPercentage(1 - percentPiercingInsideVulnerability)}% were outside Vulnerable`)
           .recommended(`${formatPercentage(recommended)}% of total Piercing Shots inside Vulnerable is recommended`)
