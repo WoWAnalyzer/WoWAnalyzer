@@ -11,6 +11,9 @@ import Timeline from './Timeline';
 import v001 from './v0.0.1.gif';
 import v020 from './v0.2.0.gif';
 import v031 from './v0.3.1-small.png';
+import v09 from './v0.9.png';
+import HolyPaladinAnalyzerV141 from './v1.4.1-small.png';
+import HolyPaladinAnalyzerV20 from './HolyPaladinAnalyzer-2.0.gif';
 
 function completeness(completeness) {
   return <dfn data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>;
@@ -18,8 +21,6 @@ function completeness(completeness) {
 
 export default (
   <RegularArticle title="WoWAnalyzer's first anniversary" published="2017-12-24">
-    <h1>This is a concept right now, it needs a lot more work. It probably goes too much into detail in some areas, and is missing some other things. Any feedback and help writing would be much appreciated!</h1>
-
     It has already been a year! Time flies when you're having fun working hard. We want to use this milestone to look back at the progress we have made during this past year.<br /><br />
 
     In addition to the detailed recap below, here are some other interesting statistics:<br /><br />
@@ -78,7 +79,7 @@ export default (
             </figcaption>
           </figure><br />
 
-          With the mantra <a href="https://en.wikipedia.org/wiki/Release_early,_release_often" target="_blank" rel="noopener noreferrer">release early, release often</a> in mind I quickly went through a lot of minor versions during this month. Among other things I removed the need for users to enter their own WCL API key, added URL routing (so you can directly link to a log) and added a <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} icon /> uptime display (which improves a Holy Paladin's mastery effectiveness so was related).
+          With the mantra <a href="https://en.wikipedia.org/wiki/Release_early,_release_often" target="_blank" rel="noopener noreferrer">release early, release often</a> in mind the project quickly went through a lot of minor versions during this month. Among other things the need for users to enter their own WCL API key was removed, URL routing was added (so you can directly link to a log) and a <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} icon /> uptime display (which improves a Holy Paladin's mastery effectiveness so was related) was added.
         </div>
       </div>
 
@@ -90,7 +91,7 @@ export default (
           <h2>The first items</h2>
         </div>
         <div className="panel-body">
-          In March I added a statistic that broadened the scope of project as it wasn't just related to a Holy Paladin's mastery effectiveness; the <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} icon /> healing contribution statistic. For the first time this statistic gave insight into the exact value of <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} icon />.<br /><br />
+          In March a statistic that broadened the scope of project was added as it wasn't just related to a Holy Paladin's mastery effectiveness; the <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} icon /> healing contribution statistic. For the first time this statistic gave insight into the exact value of <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} icon />.<br /><br />
 
           <figure>
             <img src={v031} alt="v0.3.1" />
@@ -99,7 +100,7 @@ export default (
             </figcaption>
           </figure><br />
 
-          The implementation of <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} icon /> included a large part of the work needed for adding items, so I was able to quickly add statistics for the similar legendaries <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} icon /> and <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} icon /> in the next few days.
+          The implementation of <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} icon /> included a large part of the work needed for adding items, so it was possible to quickly add statistics for the similar legendaries <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} icon /> and <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} icon /> in the next few days.
         </div>
       </div>
 
@@ -108,24 +109,84 @@ export default (
           25 Mar
         </div>
         <div className="panel-heading">
-          <h2>Other statistics</h2>
+          <h2>Cast behavior statistics</h2>
         </div>
         <div className="panel-body">
-          Next I added statistics important to filling in the Holy Paladin stat weights spreadsheet: cast behavior.
+          At the time Holy Paladins used a spreadsheet that I maintained to calculate their stat weights since healers can't be simmed. In an attempt to make filling the required fields easier and more accurate, I decided to add the required <b>cast behavior</b> statistics. This was the most important non-trivial information required that was used in the spreadsheet. This addition opened the door to showing more ability based statistics.<br /><br />
 
-          ![Holy Paladin mastery effectiveness calculator v0.9](./v0.9.png)
-          Holy Paladin mastery effectiveness calculator v0.9 at 25 Mar 2017
+          <figure>
+            <img src={v09} alt="v0.9" />
+            <figcaption>
+              Holy Paladin mastery effectiveness calculator v0.9 at 25 Mar 2017
+            </figcaption>
+          </figure>
+        </div>
+      </div>
 
-          At 26 Mar 2017 I did a big rewrite of the code in place to make it modular, making it easier to maintain and extend. This modular approach is still in place today. Accompanying this big rewrite was a name change and a version bump to **Holy Paladin Analyzer v1.0**. I spent a few days adding more interesting item statistics; Chain of Thrayn, Prydaz, Obsidian Stone Spaulders and Maraad's Dying Breath before getting to the first version of the downtime statistic ("Always Be Casting").
+      <div className="panel">
+        <div className="date">
+          26 Mar
+        </div>
+        <div className="panel-heading">
+          <h2>The big rewrite and a name change</h2>
+        </div>
+        <div className="panel-body">
+          The project was growing rapidly and that didn't seem to be going to stop anytime soon. Due to the organic growth of the project things had kind of gotten... a mess. So it was time for spring cleaning!<br /><br />
 
-          ![Holy Paladin Analyzer v1.4.1](./v1.4.1-small.png)
-          Holy Paladin Analyzer v1.4.1: new downtime statistic at 4 Apr 2017
+          I rewrote and rewired pretty much every part of the codebase so that it would become easier to maintain and extend. The idea was to make every statistic a standalone module that completely isolates the analysis logic, and there would be a central "command center" that would take care of <i>rendering</i> the information in the proper way. This turned out to work really well and this modular approach is still largely in place today.<br /><br />
 
-          By this time I felt we needed a new layout. Inspired by [Blur Admin](http://akveo.com/blur-admin/#/dashboard) I designed a new layout that was the basis for what we have today (disclaimer: I'm not a graphic designer).
+          Accompanying this big rewrite was a name change and a version bump to <b>Holy Paladin Analyzer v1.0</b>. It only made sense since we no longer just calculated mastery effectiveness.
+        </div>
+      </div>
 
-          ![Holy Paladin Analyzer v2.0 new layout](./HolyPaladinAnalyzer-2.0.gif)
-          Holy Paladin Analyzer v2.0: a new look at 7 Apr 2017
+      <div className="panel">
+        <div className="date">
+          4 Apr
+        </div>
+        <div className="panel-heading">
+          <h2>A few items and <b>Always Be Casting</b></h2>
+        </div>
+        <div className="panel-body">
+          The rewrite made it much easier to add new modules so I spent a few days adding more interesting item statistics; <ItemLink id={ITEMS.CHAIN_OF_THRAYN.id} icon />, <ItemLink id={ITEMS.PRYDAZ_XAVARICS_MAGNUM_OPUS.id} icon />, <ItemLink id={ITEMS.OBSIDIAN_STONE_SPAULDERS.id} icon /> and <ItemLink id={ITEMS.MARAADS_DYING_BREATH.id} icon />.<br /><br />
 
+          TODO: before getting to the first version of the downtime statistic (<i>Always Be Casting</i>).<br /><br />
+
+          <figure>
+            <img src={HolyPaladinAnalyzerV141} alt="Holy Paladin Analyzer v1.4.1" />
+            <figcaption>
+              Holy Paladin Analyzer v1.4.1: new downtime statistic at 4 Apr 2017
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          7 Apr
+        </div>
+        <div className="panel-heading">
+          <h2>A new layout</h2>
+        </div>
+        <div className="panel-body">
+          I usually start disliking a layout I designed myself in less than 2 days, and the project had been stuck with this basic layout for over 2 months so it was time to redo it once again. Inspired by <a href="http://akveo.com/blur-admin/#/dashboard" target="_blank" rel="noopener noreferrer">Blur Admin</a> I designed a new layout that was the basis for what we have today (disclaimer: I'm not a graphic designer).<br /><br />
+
+          <figure style={{ maxWidth: 800 }}>
+            <img src={HolyPaladinAnalyzerV20} alt="Holy Paladin Analyzer v2.0" />
+            <figcaption>
+              Holy Paladin Analyzer v2.0: a new look at 7 Apr 2017
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          11 Apr
+        </div>
+        <div className="panel-heading">
+          <h2>Cast efficiency</h2>
+        </div>
+        <div className="panel-body">
           Because cast efficiency is very important for a Holy Paladin's performance I added a Cast Efficiency panel showing the actual casts and an estimated max possible casts. The *Can be improved.* indicator in this panel was the first step towards showing gameplay suggestings. I had been thinking about doing *suggestions* for a long time at this point.
 
           ![Holy Paladin Analyzer v2.4 Cast Efficiency](./HolyPaladinAnalyzer-2.4.png)
