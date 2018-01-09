@@ -18,6 +18,7 @@ class HotTracker extends Analyzer {
     mastery: Mastery,
   };
 
+  // objects hold attribution running totals
   powerOfTheArchdruid = {
     rejuvenation: { healing: 0, masteryHealing: 0, procs: 0 },
     regrowth: { healing: 0, masteryHealing: 0, procs: 0 },
@@ -29,7 +30,7 @@ class HotTracker extends Analyzer {
 
   // {
   //   [playerId]: {
-  //      [hotId]: { applied, attributions },
+  //      [hotId]: { applied, attributions, ... },
   //   },
   // }
   hots = {};
@@ -57,7 +58,7 @@ class HotTracker extends Analyzer {
   on_initialized() {
     this.hasTearstone = this.combatants.selected.hasFinger(ITEMS.TEARSTONE_OF_ELUNE.id);
     this.has4t19 = this.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T19_4SET_BONUS_BUFF.id);
-    this.hotInfo = this._generateHotInfo();
+    this.hotInfo = this._generateHotInfo(); // some HoT info depends on traits and so must be generated dynamically
   }
 
   on_byPlayer_cast(event) {
@@ -92,23 +93,28 @@ class HotTracker extends Analyzer {
 
     // TODO attribute Dreamwalker...
 
-    if(!event.tick || !(spellId in this.hotInfo)) {
+    // if(!event.tick || !(spellId in this.hotInfo)) {
+    //   return;
+    // }
+    //
+    // const target = this.combatants.getEntity(event);
+    // if (!target) {
+    //   return; // target wasn't important (a pet probably)
+    // }
+    // const targetId = event.targetID;
+    // if (!targetId) {
+    //   debug && console.log(`${event.ability.name} healed target without ID @${this.owner.formatTimestamp(event.timestamp)}... no attribution possible.`);
+    //   return;
+    // }
+    // if (!this.hots[targetId] || !this.hots[targetId][spellId]) {
+    //   console.warn(`${event.ability.name} healed target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but that player isn't recorded as having that HoT...`);
+    //   return;
+    // }
+    const target = this._validateAndGetTarget(event);
+    if (!target || !event.tick) {
       return;
-    }
-
-    const target = this.combatants.getEntity(event);
-    if (!target) {
-      return; // target wasn't important (a pet probably)
     }
     const targetId = event.targetID;
-    if (!targetId) {
-      debug && console.log(`${event.ability.name} healed target without ID @${this.owner.formatTimestamp(event.timestamp)}... no attribution possible.`);
-      return;
-    }
-    if (!this.hots[targetId] || !this.hots[targetId][spellId]) {
-      console.warn(`${event.ability.name} healed target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but that player isn't recorded as having that HoT...`);
-      return;
-    }
     const hot = this.hots[targetId][spellId];
 
     const healing = event.amount + (event.absorbed || 0);
@@ -150,25 +156,56 @@ class HotTracker extends Analyzer {
     console.log(this.t194p);
   }
 
-  _applyBuff(event) {
+  // validates an event and gets its target ... returns null if for any reason the event should not be further processed
+  _validateAndGetTarget(event) {
     const spellId = event.ability.guid;
     if (!(spellId in this.hotInfo)) {
-      return;
+      return null; // we only care about the listed HoTs
     }
+
     const target = this.combatants.getEntity(event);
     if (!target) {
-      return; // target wasn't important (a pet probably)
+      return null; // target wasn't important (a pet probably)
     }
+
     const targetId = event.targetID;
     if (!targetId) {
-      debug && console.log(`${event.ability.name} applied to target without ID @${this.owner.formatTimestamp(event.timestamp)}... HoT will not be tracked.`);
-      return; // this being sometimes triggered because occasionally Rejuv heal event comes before applybuff... TODO fix with normalizer
+      debug && console.log(`${event.ability.name} ${event.type} to target without ID @${this.owner.formatTimestamp(event.timestamp)}... HoT will not be tracked.`);
+      return null;
     } else {
-      debug && console.log(`${event.ability.name} applied to ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)}`);
+      debug && console.log(`${event.ability.name} ${event.type} to ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)}`);
     }
-    if(!this.hots[targetId]) {
-      this.hots[targetId] = {};
+
+    if (['removebuff', 'refreshbuff', 'heal'].includes(event.type) &&
+       (!this.hots[targetId] || !this.hots[targetId][spellId])) {
+      console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there's no record of the HoT being added...`);
+      return null;
     }
+
+    return target;
+  }
+
+  _applyBuff(event) {
+    const spellId = event.ability.guid;
+    // if (!(spellId in this.hotInfo)) {
+    //   return;
+    // }
+    // const target = this.combatants.getEntity(event);
+    // if (!target) {
+    //   return; // target wasn't important (a pet probably)
+    // }
+    // const targetId = event.targetID;
+    // if (!targetId) {
+    //   debug && console.log(`${event.ability.name} applied to target without ID @${this.owner.formatTimestamp(event.timestamp)}... HoT will not be tracked.`);
+    //   return; // this being sometimes triggered because occasionally Rejuv heal event comes before applybuff... TODO fix with normalizer
+    // } else {
+    //   debug && console.log(`${event.ability.name} applied to ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)}`);
+    // }
+    const target = this._validateAndGetTarget(event);
+    if (!target) {
+      return;
+    }
+    const targetId = event.targetID;
 
     const newHot = {
       start: event.timestamp,
@@ -179,6 +216,9 @@ class HotTracker extends Analyzer {
       boosts: [], // strength boost to existing HoT
       // TODO need more fields (like expected end)?
     };
+    if(!this.hots[targetId]) {
+      this.hots[targetId] = {};
+    }
     this.hots[targetId][spellId] = newHot;
 
     if(event.prepull) {
@@ -189,23 +229,28 @@ class HotTracker extends Analyzer {
 
   _refreshBuff(event) {
     const spellId = event.ability.guid;
-    if (!(spellId in this.hotInfo)) {
-      return;
-    }
-    const target = this.combatants.getEntity(event);
+    // if (!(spellId in this.hotInfo)) {
+    //   return;
+    // }
+    // const target = this.combatants.getEntity(event);
+    // if (!target) {
+    //   return; // target wasn't important (a pet probably)
+    // }
+    // const targetId = event.targetID;
+    // if (!targetId) {
+    //   debug && console.log(`${event.ability.name} refreshed on target without ID @${this.owner.formatTimestamp(event.timestamp)}...`);
+    //   return;
+    // } else {
+    //   debug && console.log(`${event.ability.name} refreshed on ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)}`);
+    // }
+    // if(!this.hots[targetId] || !this.hots[targetId][spellId]) {
+    //   console.warn(`${event.ability.name} refreshed on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there's no record of the HoT being added...`);
+    // }
+    const target = this._validateAndGetTarget(event);
     if (!target) {
-      return; // target wasn't important (a pet probably)
+      return;
     }
     const targetId = event.targetID;
-    if (!targetId) {
-      debug && console.log(`${event.ability.name} refreshed on target without ID @${this.owner.formatTimestamp(event.timestamp)}...`);
-      return;
-    } else {
-      debug && console.log(`${event.ability.name} refreshed on ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)}`);
-    }
-    if(!this.hots[targetId] || !this.hots[targetId][spellId]) {
-      console.warn(`${event.ability.name} refreshed on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there's no record of the HoT being added...`);
-    }
 
     const hot = this.hots[targetId][spellId];
     const oldEnd = hot.end;
@@ -221,23 +266,28 @@ class HotTracker extends Analyzer {
 
   _removeBuff(event) {
     const spellId = event.ability.guid;
-    if (!(spellId in this.hotInfo)) {
-      return;
-    }
-    const target = this.combatants.getEntity(event);
+    // if (!(spellId in this.hotInfo)) {
+    //   return;
+    // }
+    // const target = this.combatants.getEntity(event);
+    // if (!target) {
+    //   return; // target wasn't important (a pet probably)
+    // }
+    // const targetId = event.targetID;
+    // if (!targetId) {
+    //   debug && console.log(`${event.ability.name} removed from target without ID @${this.owner.formatTimestamp(event.timestamp)}...`);
+    //   return;
+    // } else {
+    //   debug && console.log(`${event.ability.name} fell from ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)}`);
+    // }
+    // if(!this.hots[targetId] || !this.hots[targetId][spellId]) {
+    //   console.warn(`${event.ability.name} fell from target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there's no record of the HoT being added...`);
+    // }
+    const target = this._validateAndGetTarget(event);
     if (!target) {
-      return; // target wasn't important (a pet probably)
+      return;
     }
     const targetId = event.targetID;
-    if (!targetId) {
-      debug && console.log(`${event.ability.name} removed from target without ID @${this.owner.formatTimestamp(event.timestamp)}...`);
-      return;
-    } else {
-      debug && console.log(`${event.ability.name} fell from ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)}`);
-    }
-    if(!this.hots[targetId] || !this.hots[targetId][spellId]) {
-      console.warn(`${event.ability.name} fell from target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there's no record of the HoT being added...`);
-    }
 
     // TODO assign HoT extension contribution now
     // TODO check how well actual fall time matched expcted fall time
