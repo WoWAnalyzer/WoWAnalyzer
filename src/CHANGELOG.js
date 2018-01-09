@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2017-01-09'),
+    changes: <Wrapper>Updated the tooltip for <ItemLink id={ITEMS.GOLGANNETHS_VITALITY.id} icon /> to show uptime aswell as damage contribution of the two procs</Wrapper>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2017-01-04'),
     changes: 'Fixed a bug where procs that changed an ability from a cast time ability to instant might not properly register the GCD.',
     contributors: [Zerotorescue],
