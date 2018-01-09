@@ -62,6 +62,7 @@ class AspectOfTheWild extends Analyzer {
       this.goodAspectCasts += 1;
     }
   }
+  
   get badCastThreshold() {
     return {
       actual: this.badCrowsCasts,
@@ -73,13 +74,14 @@ class AspectOfTheWild extends Analyzer {
       style: 'number',
     };
   }
+
   suggestions(when) {
     when(this.badCastThreshold).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Don't cast <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up and atleast 7 seconds remaining on the buff (or with under than 15 seconds remaining of the encounter) </Wrapper>)
-          .icon(SPELLS.ASPECT_OF_THE_WILD.icon)
-          .actual(`You cast Aspect of the Wild ${this.badAspectCasts} times without Bestial Wrath up or with less than 7s remaining of Bestial Wrath duration`)
-          .recommended(`${recommended} is recommended`);
-      });
+      return suggest(<Wrapper>Don't cast <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up and atleast 7 seconds remaining on the buff (or with under than 15 seconds remaining of the encounter) </Wrapper>)
+        .icon(SPELLS.ASPECT_OF_THE_WILD.icon)
+        .actual(`You cast Aspect of the Wild ${this.badAspectCasts} times without Bestial Wrath up or with less than 7s remaining of Bestial Wrath duration`)
+        .recommended(`${recommended} is recommended`);
+    });
   }
   statistic() {
     let tooltipText = `You cast Aspect of the Wild a total of ${this.totalAspectCasts} times.`;
