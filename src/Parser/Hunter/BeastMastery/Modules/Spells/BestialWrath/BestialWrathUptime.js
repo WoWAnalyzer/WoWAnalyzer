@@ -16,8 +16,7 @@ class BestialWrathUptime extends Analyzer {
 
   get percentUptime() {
     //This calculates the uptime over the course of the encounter of Bestial Wrath
-    const uptime = this.combatants.selected.getBuffUptime(SPELLS.BESTIAL_WRATH.id) / this.owner.fightDuration;
-    return uptime;
+    return this.combatants.selected.getBuffUptime(SPELLS.BESTIAL_WRATH.id) / this.owner.fightDuration;
   }
 
   statistic() {
@@ -30,7 +29,6 @@ class BestialWrathUptime extends Analyzer {
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(10);
-
 
 }
 
