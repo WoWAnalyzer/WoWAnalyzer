@@ -1,14 +1,16 @@
 import React from 'react';
 
 import SpellLink from 'common/SpellLink';
+import ItemLink from 'common/ItemLink';
 import SPELLS from 'common/SPELLS';
-import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
+import ITEMS from 'common/ITEMS';
+import SPEC_ANALYSIS_COMPLETENESS, { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import RegularArticle from 'Main/News/RegularArticle';
 import Timeline from './Timeline';
 
 import v001 from './v0.0.1.gif';
 import v020 from './v0.2.0.gif';
-import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
+import v031 from './v0.3.1-small.png';
 
 function completeness(completeness) {
   return <dfn data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>;
@@ -48,7 +50,7 @@ export default (
 
           To understand what the project did back then you need to know that <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} icon>Mastery</SpellLink> causes a Holy Paladin's healing to be increased based on how close she is to the player she's healing. 0-10 yards provides full effectiveness and 10-40 yards decreases the boost to 0% linearly. In order to calculate how effective Mastery is you need to know the distance between the Holy Paladin and her target.<br /><br />
 
-          For a long time it seemed impossible to accurately calculate this based on a log, but after a night of playing with Warcraft Logs' replay function to estimate my Mastery Effectiveness, I realized that it must have access to a player locations to be able to show the replay like it does. After some figuring out I got a proof of concept working, which became the <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/commit/bd7971995fe16d14aec7286765c13c2984c44d76" target="_blank" rel="noopener noreferrer">first commit</a> at <b>31 Jan 2017 00:02 CET</b>. I named project "Holy Paladin mastery effectiveness calculator" at the time because that was all it did.
+          For a long time it seemed impossible to accurately calculate this based on a log, but after a night of playing with Warcraft Logs' replay function to estimate my Mastery Effectiveness, I realized that it must have access to a player locations to be able to show the replay like it does. After some figuring out I got a proof of concept working, which became the <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/commit/bd7971995fe16d14aec7286765c13c2984c44d76" target="_blank" rel="noopener noreferrer">first commit</a> at <b>31 Jan 2017 00:02 CET</b>. I named project "Holy Paladin mastery effectiveness calculator" at the time because that was all it did.<br /><br />
 
           <figure>
             <img src={v001} alt="v0.0.1" />
@@ -67,31 +69,49 @@ export default (
           <h2>A new layout</h2>
         </div>
         <div className="panel-body">
-          As the project was getting a lot of attention in the Holy Paladin community, the layout was cleaned up a bit and a player breakdown was added. I kept this theme for a couple of months, with only minor changes.
+          As the project was getting a lot of attention in the Holy Paladin community, the layout was cleaned up a bit and a player breakdown was added. This layout stayed largely the same for a couple of months.<br /><br />
 
           <figure>
             <img src={v020} alt="v0.2.0" />
             <figcaption>
               Holy Paladin mastery effectiveness calculator v0.2.0
             </figcaption>
-          </figure>
+          </figure><br />
+
+          With the mantra <a href="https://en.wikipedia.org/wiki/Release_early,_release_often" target="_blank" rel="noopener noreferrer">release early, release often</a> in mind I quickly went through a lot of minor versions during this month. Among other things I removed the need for users to enter their own WCL API key, added URL routing (so you can directly link to a log) and added a <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} icon /> uptime display (which improves a Holy Paladin's mastery effectiveness so was related).
         </div>
       </div>
 
       <div className="panel">
         <div className="date">
-          18 Mar 2017
+          18 Mar
         </div>
         <div className="panel-heading">
-          <h2>Drape of Shame</h2>
+          <h2>The first items</h2>
         </div>
         <div className="panel-body">
-          I quickly went through a lot of minor versions during this month. I removed the need for users to enter their own WCL API key, added URL routing (so you can directly link to a log) and added a [Rule of Law](http://www.wowhead.com/spell=214202/rule-of-law) uptime display (which improves a Holy Paladin's mastery effectiveness so was related) among other things. In March I added a statistic not related to a Holy Paladin's mastery effectiveness; the [Drape of Shame](http://www.wowhead.com/item=142170/drape-of-shame) healing contribution statistic. For the first time this gave us insight into the exact healing contribution of Drape of Shame.
+          In March I added a statistic that broadened the scope of project as it wasn't just related to a Holy Paladin's mastery effectiveness; the <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} icon /> healing contribution statistic. For the first time this statistic gave insight into the exact value of <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} icon />.<br /><br />
 
-          ![Holy Paladin mastery effectiveness calculator v0.3.1: the first item](./v0.3.1-small.png)
-          Holy Paladin mastery effectiveness calculator v0.3.1 statistics at 18 Mar 2017
+          <figure>
+            <img src={v031} alt="v0.3.1" />
+            <figcaption>
+              Holy Paladin mastery effectiveness calculator v0.3.1 statistics at 18 Mar 2017
+            </figcaption>
+          </figure><br />
 
-          With the majority of the work done, I quickly added statistics for the legendaries Ilterendi, Crown Jewel of Silvermoon and Velen's Future Sight in the following few days. Next I added statistics important to filling in the Holy Paladin stat weights spreadsheet: cast behavior.
+          The implementation of <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} icon /> included a large part of the work needed for adding items, so I was able to quickly add statistics for the similar legendaries <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} icon /> and <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} icon /> in the next few days.
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          25 Mar
+        </div>
+        <div className="panel-heading">
+          <h2>Other statistics</h2>
+        </div>
+        <div className="panel-body">
+          Next I added statistics important to filling in the Holy Paladin stat weights spreadsheet: cast behavior.
 
           ![Holy Paladin mastery effectiveness calculator v0.9](./v0.9.png)
           Holy Paladin mastery effectiveness calculator v0.9 at 25 Mar 2017

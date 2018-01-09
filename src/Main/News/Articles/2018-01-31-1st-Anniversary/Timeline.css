@@ -46,14 +46,11 @@
 }
 
 figure {
-  margin: 1.5em 0;
   text-align: center;
+  margin: 0;
 }
 figure figcaption {
   margin-top: 0.4em;
   opacity: 0.6;
   font-size: 90%;
-}
-.timeline.year-recap > .panel > .panel-body > figure:last-child {
-  margin-bottom: 0;
 }
