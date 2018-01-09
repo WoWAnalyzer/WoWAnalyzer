@@ -71,11 +71,10 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     focusUsage: FocusUsage,
     timeFocusCapped: TimeFocusCapped,
+
+    //FocusChart
     focusTab: FocusTab,
     focusTracker: FocusTracker,
-
-    //Focus Chart
-    //focusTracker: FocusTracker,
 
     //Spells
     direBeast: DireBeast,
@@ -130,35 +129,6 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
 
   };
-  /*generateResults() {
-    const results = super.generateResults();
-    results.tabs = [
-      ...results.tabs,
-      { // TODO: Move this to an Analyzer module
-        title: 'Focus Chart',
-        url: 'focus',
-        render: () => (
-          <Tab title='focus' style={{ padding: '15px 22px' }}>
-            <FocusChart
-              start={this.fight.start_time}
-              end={this.fight.end_time}
-              playerHaste={this.modules.combatants.selected.hasteRating}
-              focusMax={this.modules.focusTracker._maxFocus}
-              focusPerSecond={this.modules.focusTracker.focusBySecond}
-              tracker={this.modules.focusTracker.tracker}
-              secondsCapped={this.modules.focusTracker.secondsCapped}
-              activeFocusGenerated={this.modules.focusTracker.activeFocusGenerated}
-              activeFocusWasted={this.modules.focusTracker.activeFocusWasted}
-              generatorCasts={this.modules.focusTracker.generatorCasts}
-              activeFocusWastedTimeline={this.modules.focusTracker.activeFocusWastedTimeline}
-            />
-          </Tab>
-        ),
-      },
-    ];
-
-    return results;
-  }*/
 }
 
 export default CombatLogParser;

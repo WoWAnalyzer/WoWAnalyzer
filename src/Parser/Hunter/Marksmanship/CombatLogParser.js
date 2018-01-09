@@ -80,6 +80,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Focus Chart
     focusTracker: FocusTracker,
+    focusTab: FocusTab,
 
     //Items
     tier19_2p: Tier19_2p,
@@ -132,8 +133,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Checklist
     checklist: Checklist,
-
-    focusTab: FocusTab,
   };
 }
 
