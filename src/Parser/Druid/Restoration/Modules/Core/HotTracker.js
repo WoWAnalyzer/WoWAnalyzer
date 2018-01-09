@@ -3,6 +3,7 @@ import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import Mastery from './Mastery';
 
 const BUFFER_MS = 100;
 
@@ -14,15 +15,17 @@ const debug = true;
 class HotTracker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    mastery: Mastery,
   };
 
   powerOfTheArchdruid = {
-    rejuvenation: { healing: 0, procs: 0 },
-    regrowth: { healing: 0, procs: 0 },
+    rejuvenation: { healing: 0, masteryHealing: 0, procs: 0 },
+    regrowth: { healing: 0, masteryHealing: 0, procs: 0 },
   };
-  tearstoneOfElune = { healing: 0, procs: 0 };
-  t194p = { healing: 0, procs: 0 };
-  t214p = { healing: 0, procs: 0 }; // used to distinguish Dreamer procs that would not have happened but for the 4pc
+  tearstoneOfElune = { healing: 0, masteryHealing: 0, procs: 0 };
+  t194p = { healing: 0, masteryHealing: 0, procs: 0 };
+  t214p = { healing: 0, masteryHealing: 0, procs: 0 }; // used to distinguish Dreamer procs that would not have happened but for the 4pc
+  t212p = { healing: 0, masteryHealing: 0, procs: 0 }; // for all the Dreamer procs except those attributable to 4pc
 
   // {
   //   [playerId]: {
@@ -86,16 +89,22 @@ class HotTracker extends Analyzer {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
+
+    // TODO attribute Dreamwalker...
+
     if(!event.tick || !(spellId in this.hotInfo)) {
       return;
     }
 
+    const target = this.combatants.getEntity(event);
+    if (!target) {
+      return; // target wasn't important (a pet probably)
+    }
     const targetId = event.targetID;
     if (!targetId) {
       debug && console.log(`${event.ability.name} healed target without ID @${this.owner.formatTimestamp(event.timestamp)}... no attribution possible.`);
       return;
     }
-
     if (!this.hots[targetId] || !this.hots[targetId][spellId]) {
       console.warn(`${event.ability.name} healed target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but that player isn't recorded as having that HoT...`);
       return;
@@ -105,8 +114,20 @@ class HotTracker extends Analyzer {
     const healing = event.amount + (event.absorbed || 0);
     hot.ticks.push({ healing, timestamp: event.timestamp });
 
-    hot.attributions.forEach(att => att.healing += healing); // TODO add mastery benefit
+    hot.attributions.forEach(att => att.healing += healing);
     hot.boosts.forEach(att => att.healing += calculateEffectiveHealing(event, att.boost));
+    // TODO handle extensions?
+
+    // attribute mastery boosting as well to all the other HoTs on the heal's target
+    const oneStack = this.mastery.decomposeHeal(event).oneStack;
+    Object.keys(this.hots[targetId]).forEach(otherSpellId => {
+      if (otherSpellId !== spellId) {
+        const otherHot = this.hots[targetId][otherSpellId];
+        otherHot.attributions.forEach(att => att.masteryHealing += oneStack); // TODO populate a different field to show mastery healing vs direct?
+        // boosts don't get mastery benefit because the hot was there with or without the boost
+        // TODO handle extensions?
+      }
+    });
   }
 
   on_byPlayer_applybuff(event) {
@@ -133,6 +154,10 @@ class HotTracker extends Analyzer {
     const spellId = event.ability.guid;
     if (!(spellId in this.hotInfo)) {
       return;
+    }
+    const target = this.combatants.getEntity(event);
+    if (!target) {
+      return; // target wasn't important (a pet probably)
     }
     const targetId = event.targetID;
     if (!targetId) {
@@ -167,6 +192,10 @@ class HotTracker extends Analyzer {
     if (!(spellId in this.hotInfo)) {
       return;
     }
+    const target = this.combatants.getEntity(event);
+    if (!target) {
+      return; // target wasn't important (a pet probably)
+    }
     const targetId = event.targetID;
     if (!targetId) {
       debug && console.log(`${event.ability.name} refreshed on target without ID @${this.owner.formatTimestamp(event.timestamp)}...`);
@@ -195,6 +224,10 @@ class HotTracker extends Analyzer {
     if (!(spellId in this.hotInfo)) {
       return;
     }
+    const target = this.combatants.getEntity(event);
+    if (!target) {
+      return; // target wasn't important (a pet probably)
+    }
     const targetId = event.targetID;
     if (!targetId) {
       debug && console.log(`${event.ability.name} removed from target without ID @${this.owner.formatTimestamp(event.timestamp)}...`);
@@ -208,7 +241,8 @@ class HotTracker extends Analyzer {
 
     // TODO assign HoT extension contribution now
     // TODO check how well actual fall time matched expcted fall time
-    this.hots[targetId][spellId] = null;
+
+    delete this.hots[targetId][spellId];
   }
 
   _getAttributions(spellId, targetId, timestamp) {
@@ -241,6 +275,9 @@ class HotTracker extends Analyzer {
       } else {
         console.warn(`Unable to attribute Regrowth @${this.owner.formatTimestamp(timestamp)} on ${this.owner.targetId}`);
       }
+
+    } else if (spellId === SPELLS.DREAMER.id) {
+      // 4t21 appears to cause FIVE dreamer procs that would not otherwise have happened... seems best to attribute the next five...
 
     } else {
       // ...
