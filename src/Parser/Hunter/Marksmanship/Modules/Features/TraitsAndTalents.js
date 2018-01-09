@@ -10,10 +10,10 @@ import ExplosiveShot from '../Talents/ExplosiveShot';
 import PiercingShot from '../Talents/PiercingShot';
 import TrickShot from '../Talents/TrickShot/TrickShot';
 import TrickShotCleave from '../Talents/TrickShot/TrickShotCleave';
-import Volley from '../Talents/Volley';
+import Volley from '../../../Shared/Modules/Talents/Volley';
 import TrueAim from '../Talents/TrueAim';
 import Sidewinders from '../Talents/Sidewinders';
-import Barrage from '../Talents/Barrage';
+import Barrage from '../../../Shared/Modules/Talents/Barrage';
 import BlackArrow from '../Talents/BlackArrow';
 import LoneWolf from '../Talents/LoneWolf';
 import CarefulAim from '../Talents/CarefulAim';
@@ -72,7 +72,7 @@ class TraitsAndTalents extends Analyzer {
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(9);
+  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default TraitsAndTalents;

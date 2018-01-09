@@ -46,10 +46,30 @@ export default {
     name: 'Dire Beast',
     icon: 'ability_hunter_longevity',
   },
-  DIRE_FRENZY_TALENT_BUFF: {
+  DIRE_FRENZY_TALENT_BUFF_1: {
     id: 246152,
-    name: 'Dire Frenzy Buff',
+    name: 'Dire Frenzy',
     icon: 'ability_druid_mangle',
+  },
+  DIRE_FRENZY_TALENT_BUFF_2: {
+    id: 246851,
+    name: 'Dire Frenzy',
+    icon: 'ability_druid_mangle',
+  },
+  DIRE_FRENZY_TALENT_BUFF_3: {
+    id: 246852,
+    name: 'Dire Frenzy',
+    icon: 'ability_druid_mangle',
+  },
+  DIRE_FRENZY_DAMAGE: {
+    id: 217207,
+    name: 'Dire Frenzy',
+    icon: 'ability_druid_mangle',
+  },
+  STAMPEDE_DAMAGE: {
+    id: 201594,
+    name: 'Stampede',
+    icon: 'ability_hunter_bestialdiscipline',
   },
   EAGLE_EYE: {
     id: 6197,
@@ -100,6 +120,16 @@ export default {
     id: 191413,
     name: 'Bestial Ferocity',
     icon: 'ability_hunter_invigeration',
+  },
+  CHIMAERA_SHOT_NATURE_DAMAGE: {
+    id: 171457,
+    name: 'Chimaera Shot',
+    icon: 'ability_hunter_chimerashot2',
+  },
+  CHIMAERA_SHOT_FROST_DAMAGE: {
+    id: 171454,
+    name: 'Chimaera Shot',
+    icon: 'ability_hunter_chimerashot2',
   },
 
   //Beast Mastery Artifact Traits
@@ -158,6 +188,11 @@ export default {
     name: 'Deathstrike Venom',
     icon: 'spell_nature_nullifypoison',
   },
+  PATHFINDER_TRAIT: {
+    id: 197343,
+    name: 'Pathfinder',
+    icon: 'ability_mount_jungletiger',
+  },
 
   //Beast Mastery Tier
   HUNTER_BM_T19_2P_BONUS: {
@@ -205,6 +240,17 @@ export default {
     name: 'T21 4 set bonus',
     icon: 'spell_nature_protectionformnature',
   },
+  //Beast Mastery Legendary buffs
+  PARSELS_TONGUE_BUFF: {
+    id: 248085,
+    name: 'Parsel\'s Tongue',
+    icon: 'ability_hunter_cobrashot',
+  },
+  THE_MANTLE_OF_COMMAND_BUFF: {
+    id: 247993,
+    name: 'The Mantle of Command',
+    icon: 'inv_shoulder_mail_raidshaman_m_01',
+  },
 
   // MarksmanshipHunter:
   // Marksmanship spells
@@ -234,13 +280,23 @@ export default {
     name: 'Marked Shot',
     icon: 'ability_hunter_markedshot',
   },
+  MARKED_SHOT_DAMAGE: {
+    id: 212621,
+    name: 'Marked Shot',
+    icon: 'ability_hunter_markedshot',
+  },
+  HUNTERS_MARK: {
+    id: 185987,
+    name: 'Hunter\'s Mark',
+    icon: 'ability_hunter_markedfordeath',
+  },
   TRUESHOT: {
     id: 193526,
     name: 'Trueshot',
     icon: 'ability_trueshot',
   },
   BURSTING_SHOT: {
-    id: 224729,
+    id: 186387,
     name: 'Bursting Shot',
     icon: 'ability_hunter_burstingshot',
   },
@@ -264,15 +320,20 @@ export default {
     name: 'Sidewinders',
     icon: 'ability_hunter_serpentswiftness',
   },
-  BARRAGE_DAMAGE: {
-    id: 120361,
-    name: 'Barrage',
-    icon: 'ability_hunter_rapidregeneration',
-  },
   CAREFUL_AIM_DAMAGE: {
     id: 63468,
     name: 'Careful Aim',
     icon: 'ability_hunter_piercingshots',
+  },
+  BOMBARDMENT: {
+    id: 82921,
+    name: 'Bombardment',
+    icon: 'ability_hunter_focusfire',
+  },
+  HUNTERS_MARK_DEBUFF: {
+    id: 185365,
+    name: 'Hunter\'s Mark',
+    icon: 'ability_hunter_markedfordeath',
   },
 
   //CATEGORY
@@ -385,6 +446,21 @@ export default {
     name: 'Legacy of the Windrunners',
     icon: 'artifactability_marksmanhunter_legacyofthewindrunners',
   },
+  RAPID_KILLING_TRAIT: {
+    id: 191339,
+    name: 'Rapid Killing',
+    icon: 'ability_marksmanship',
+  },
+  RAPID_KILLING: {
+    id: 191342,
+    name: 'Rapid Killing',
+    icon: 'ability_hunter_assassinate',
+  },
+  SURVIVAL_OF_THE_FITTEST_BUFF: {
+    id: 190515,
+    name: 'Survival of the Fittest',
+    icon: 'ability_rogue_feint',
+  },
 
   //Marksmanship legendary buffs
   SENTINELS_SIGHT: {
@@ -396,6 +472,11 @@ export default {
     id: 235712,
     name: 'Gyroscopic stabilization',
     icon: 'inv_glove_mail_raidshamanmythic_o_01',
+  },
+  CELERITY_OF_THE_WINDRUNNERS_BUFF: {
+    id: 248088,
+    name: 'Celerity of the Windrunners',
+    icon: 'inv_bow_1h_artifactwindrunner_d_02',
   },
 
   //Talent buffs/debuffs
@@ -419,11 +500,26 @@ export default {
     name: 'Trick Shot',
     icon: 'ability_hunter_runningshot',
   },
+  POSTHASTE_BUFF: {
+    id: 118922,
+    name: 'Posthaste',
+    icon: 'ability_hunter_posthaste',
+  },
+  SENTINEL_TICK: {
+    id: 236348,
+    name: 'Sentinel',
+    icon: 'spell_nature_sentinal',
+  },
   // Survival:
   // ...
 
   // Shared:
   // ...
+  THE_SHADOW_HUNTERS_VOODOO_MASK_HEAL: {
+    id: 208888,
+    name: 'The Shadow Hunter\'s Voodoo Mask',
+    icon: 'ability_creature_cursed_04',
+  },
   NETHERWINDS: {
     id: 160452,
     name: 'Netherwinds',
@@ -480,11 +576,6 @@ export default {
     name: 'Aspect of the Turtle',
     icon: 'ability_hunter_pet_turtle',
   },
-  /*  DISENGAGE: {
-      id: 781,
-      name: 'Disengage',
-      icon: 'ability_rogue_feint',
-    },*/
   FREEZING_TRAP: {
     id: 187650,
     name: 'Freezing Trap',
@@ -559,5 +650,10 @@ export default {
     id: 117405,
     name: 'Binding Shot Tether',
     icon: 'spell_shaman_bindelemental',
+  },
+  BARRAGE_DAMAGE: {
+    id: 120361,
+    name: 'Barrage',
+    icon: 'ability_hunter_rapidregeneration',
   },
 };

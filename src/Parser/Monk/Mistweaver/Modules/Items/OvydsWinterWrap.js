@@ -1,10 +1,11 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 const debug = false;
 const OVYDS_HEALING_INCREASE = 0.4;
@@ -51,7 +52,7 @@ class OvydsWinterWrap extends Analyzer {
   item() {
     return {
       item: ITEMS.OVYDS_WINTER_WRAP,
-      result: this.owner.formatItemHealingDone(this.healing),
+      result: <ItemHealingDone amount={this.healing} />,
     };
   }
 }

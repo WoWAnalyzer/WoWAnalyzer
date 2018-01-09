@@ -30,6 +30,14 @@ export default {
     mastery: false,
     vers: true,
   },
+  [SPELLS.HIGHFATHERS_TIMEKEEPING_HEAL.id]: { // Highfather's Machination
+    int: false,
+    crit: true,
+    hasteHpct: true,
+    hasteHpm: false,
+    mastery: false,
+    vers: true,
+  },
   [SPELLS.LEECH.id]: { // procs a percent of all your healing, so we ignore for weights and total healing
     multiplier: true,
   },
@@ -58,6 +66,27 @@ export default {
     vers: true,
   },
   [SPELLS.EONARS_COMPASSION_HEAL.id]: {
+    int: false,
+    crit: true,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
+  [SPELLS.XAVARICS_MAGNUM_OPUS.id]: { // Prydaz
+    int: false,
+    crit: false,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
+  [SPELLS.HEALTHSTONE.id]: {
+    int: false,
+    crit: false,
+    hasteHpct: false,
+    mastery: false,
+    vers: false, // not 100% sure
+  },
+  [SPELLS.MARK_OF_THE_ANCIENT_PRIESTESS.id]: {
     int: false,
     crit: true,
     hasteHpct: false,

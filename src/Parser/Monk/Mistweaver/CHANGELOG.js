@@ -1,9 +1,24 @@
 import React from 'react';
 
-import { Anomoly } from 'MAINTAINERS';
+import { Anomoly, Zerotorescue } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 
 export default [
+  {
+    date: new Date('2017-12-29'),
+    changes: <Wrapper>Fixed display in the timeline and the inclusion in active time of channeled abilities.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-24'),
+    changes: 'Added Mistweaver checklist items',
+    contributors: [Anomoly],
+  },
+  {
+    date: new Date('2017-12-13'),
+    changes: 'Added in Mistweaver Mastery calculation to stats',
+    contributors: [Anomoly],
+  },
   {
     date: new Date('2017-11-28'),
     changes: 'Fixed bug with TFT -> Renewing Mist cast efficiency. Updated Player Log Data tab for additional items for T21 Speadsheet version',

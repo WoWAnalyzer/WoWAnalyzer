@@ -40,7 +40,7 @@ class FlameShock extends Analyzer {
   on_byPlayer_cast(event) {
     if (event.ability.guid === SPELLS.FLAME_SHOCK.id) {
       const resource = event.classResources[0];
-      if (resource.type === RESOURCE_TYPES.MAELSTROM) {
+      if (resource.type === RESOURCE_TYPES.MAELSTROM.id) {
         const amount = resource.amount;
         const spend = (amount < 20 ? amount : 20);
         this.maelstromSpend.push(spend);
@@ -74,7 +74,7 @@ class FlameShock extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.FLAME_SHOCK.id} />}
         value={`${formatPercentage(this.uptime)} %`}
-        label={'Uptime'}
+        label="Uptime"
         tooltip = {
           `With an average of ${this.avgMalestromSpend} Maelstrom spend and ${this.elementalFocusCasts.buffed} / ${this.elementalFocusCasts.total} casts with Elemental Focus.`
         }

@@ -1,18 +1,19 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+
 import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-
+import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
-import SuggestionThresholds from '../../SuggestionThresholds';
 import Rejuvenation from '../Core/Rejuvenation';
 
 const debug = false;
@@ -195,44 +196,69 @@ class TreeOfLife extends Analyzer {
     debug && console.log(`tolcasts: ${this.tolCasts}`);
   }
 
+  get rejuvenationIncreasedThroughput() {
+    return (this.totalHealingFromRejuvenationDuringToL / 1.15) - (this.totalHealingFromRejuvenationDuringToL / (1.15 * 1.5)); // TODO what's up with this calc?
+  }
+  get rejuvenationIncreasedThroughputPercent() {
+    return this.owner.getPercentageOfTotalHealingDone(this.rejuvenationIncreasedThroughput);
+  }
+
+  get tolIncreasedThroughput() {
+    return this.totalHealingDuringToL - this.totalHealingDuringToL / 1.15;
+  }
+  get tolIncreasedThroughputPercent() {
+    return this.owner.getPercentageOfTotalHealingDone(this.tolIncreasedThroughput);
+  }
+
+  get rejuvManaThroughput() {
+    return (((this.totalRejuvenationsDuringToL * 10) * 0.3) / 10) * this.rejuvenation.avgRejuvHealing; // TODO what's up with this calc?
+  }
+  get rejuvManaThroughputPercent() {
+    return this.owner.getPercentageOfTotalHealingDone(this.rejuvManaThroughput);
+  }
+
+  get wildGrowthIncreasedThroughput() {
+    return this.totalHealingFromWildgrowthsDuringToL / 1.15 - this.totalHealingFromWildgrowthsDuringToL / (1.15 * (8 / 6)); // TODO what's up with this calc?
+  }
+  get wildGrowthIncreasedThroughputPercent() {
+    return this.owner.getPercentageOfTotalHealingDone(this.wildGrowthIncreasedThroughput);
+  }
+
+  get totalThroughput() {
+    return this.rejuvenationIncreasedThroughput + this.tolIncreasedThroughput + this.rejuvManaThroughput + this.wildGrowthIncreasedThroughput;
+  }
+  get totalThroughputPercent() {
+    return this.owner.getPercentageOfTotalHealingDone(this.totalThroughput);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.totalThroughputPercent,
+      isLessThan: {
+        minor: 0.11,
+        average: 0.07,
+        major: 0.04,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
     if(!this.hasTol) { return; }
 
-    const oneRejuvenationThroughput = this.rejuvenation.avgRejuvHealing;
-    const rejuvenationIncreasedEffect = (this.totalHealingFromRejuvenationDuringToL / 1.15) - (this.totalHealingFromRejuvenationDuringToL / (1.15 * 1.5));
-    const tolIncreasedHealingDone = this.totalHealingDuringToL - this.totalHealingDuringToL / 1.15;
-    const rejuvenationMana = (((this.totalRejuvenationsDuringToL * 10) * 0.3) / 10) * oneRejuvenationThroughput;
-    const wildGrowthIncreasedEffect = this.totalHealingFromWildgrowthsDuringToL / 1.15 - this.totalHealingFromWildgrowthsDuringToL / (1.15 * (8 / 6));
-
-    const treeOfLifeThroughput = rejuvenationIncreasedEffect + tolIncreasedHealingDone + rejuvenationMana + wildGrowthIncreasedEffect;
-    const treeOfLifeThroughputPercent = this.owner.getPercentageOfTotalHealingDone(treeOfLifeThroughput);
-
-    when(treeOfLifeThroughputPercent).isLessThan(SuggestionThresholds.TOL_THROUGHPUT.minor)
+    when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> is not providing you much throughput. You may want to plan your CD usage better or pick another talent.</span>)
+        return suggest(<Wrapper>Your <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> is not providing you much throughput. You may want to plan your CD usage better or pick another talent.</Wrapper>)
           .icon(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.icon)
-          .actual(`${formatPercentage(treeOfLifeThroughputPercent)}% healing`)
-          .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`)
-          .regular(SuggestionThresholds.TOL_THROUGHPUT.regular).major(SuggestionThresholds.TOL_THROUGHPUT.major);
+          .actual(`${formatPercentage(this.totalThroughputPercent)}% healing`)
+          .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`);
       });
   }
 
   statistic() {
-    if(!this.hasTol) { return; }
-
-    const oneRejuvenationThroughput = this.rejuvenation.avgRejuvHealing;
-    const rejuvenationIncreasedEffect = (this.totalHealingFromRejuvenationDuringToL / 1.15) - (this.totalHealingFromRejuvenationDuringToL / (1.15 * 1.5));
-    const tolIncreasedHealingDone = this.totalHealingDuringToL - this.totalHealingDuringToL / 1.15;
-    const rejuvenationMana = (((this.totalRejuvenationsDuringToL * 10) * 0.3) / 10) * oneRejuvenationThroughput;
-    const wildGrowthIncreasedEffect = this.totalHealingFromWildgrowthsDuringToL / 1.15 - this.totalHealingFromWildgrowthsDuringToL / (1.15 * (8 / 6));
-
-    const treeOfLifeThroughput = rejuvenationIncreasedEffect + tolIncreasedHealingDone + rejuvenationMana + wildGrowthIncreasedEffect;
-
-    const treeOfLifeThroughputPercent = this.owner.getPercentageOfTotalHealingDone(treeOfLifeThroughput);
-    const rejuvenationIncreasedEffectPercent = this.owner.getPercentageOfTotalHealingDone(rejuvenationIncreasedEffect);
-    const rejuvenationManaPercent = this.owner.getPercentageOfTotalHealingDone(rejuvenationMana);
-    const wildGrowthIncreasedEffectPercent = this.owner.getPercentageOfTotalHealingDone(wildGrowthIncreasedEffect);
-    const tolIncreasedHealingDonePercent = this.owner.getPercentageOfTotalHealingDone(tolIncreasedHealingDone);
+    if(!this.hasTol) {
+      return;
+    }
 
     let treeOfLifeUptime = this.combatants.selected.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) / this.owner.fightDuration;
     const chameleonSongUptime = (this.combatants.selected.getBuffUptime(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) - (this.tolCasts * 30000) + this.adjustHelmetUptime) / this.owner.fightDuration;
@@ -243,14 +269,14 @@ class TreeOfLife extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} />}
-        value={`${formatPercentage(treeOfLifeThroughputPercent)} %`}
+        value={`${formatPercentage(this.totalThroughputPercent)} %`}
         label="Tree of Life Healing"
         tooltip={`
           <ul>
-            <li>${formatPercentage(rejuvenationIncreasedEffectPercent)}% from increased rejuvenation healing</li>
-            <li>${formatPercentage(rejuvenationManaPercent)}% from reduced rejuvenation cost</li>
-            <li>${formatPercentage(wildGrowthIncreasedEffectPercent)}% from increased wildgrowth healing</li>
-            <li>${formatPercentage(tolIncreasedHealingDonePercent)}% from overall increased healing</li>
+            <li>${formatPercentage(this.rejuvenationIncreasedThroughputPercent)}% from increased rejuvenation healing</li>
+            <li>${formatPercentage(this.rejuvManaThroughputPercent)}% from reduced rejuvenation cost</li>
+            <li>${formatPercentage(this.wildGrowthIncreasedThroughputPercent)}% from increased wildgrowth healing</li>
+            <li>${formatPercentage(this.tolIncreasedThroughputPercent)}% from overall increased healing</li>
             <li>${formatPercentage(treeOfLifeUptime)}% uptime</li>
           </ul>
         `}
@@ -293,7 +319,7 @@ class TreeOfLife extends Analyzer {
             <li>${formatPercentage(chameleonSongUptime)}% uptime</li>
             <li>${formatPercentage(treeOfLifeProcHelmet)}% proc rate</li>
           </ul>`}>
-          {this.owner.formatItemHealingDone(treeOfLifeThroughputHelmet)}
+          <ItemHealingDone amount={treeOfLifeThroughputHelmet} />
         </dfn>
       ),
     };

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './EventsTab.css';
-import EventsTable from "./EventsTable";
+import EventsTable from './EventsTable';
 
 class EventsTab extends React.Component {
   static propTypes = {

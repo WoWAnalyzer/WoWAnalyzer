@@ -7,16 +7,20 @@ import Raven from 'raven';
 import api from './api';
 import status from './status';
 
-Raven.config('https://f9b55775efbe4c0ab9a0d23236123364:99a7618f90104600b67e64e05106c535@sentry.io/242066', {
-  captureUnhandledRejections: true,
-}).install();
+if (process.env.NODE_ENV === 'production') {
+  Raven.config('https://f9b55775efbe4c0ab9a0d23236123364:99a7618f90104600b67e64e05106c535@sentry.io/242066', {
+    captureUnhandledRejections: true,
+  }).install();
+}
 
 const app = express();
 
-// The Raven request handler must be the first middleware on the app
-app.use(Raven.requestHandler());
-// The error handler must be before any other error middleware
-app.use(Raven.errorHandler());
+if (Raven.installed) {
+  // The Raven request handler must be the first middleware on the app
+  app.use(Raven.requestHandler());
+  // The error handler must be before any other error middleware
+  app.use(Raven.errorHandler());
+}
 
 app.use(compression());
 
@@ -55,8 +59,8 @@ app.get('/report/:reportCode([A-Za-z0-9]+)/:fightId([0-9]+)?:fightName(-[^/]+)?/
 
     // This is a bit hacky, better solution welcome
     response = response
-      .replace('property="og:title" content="WoW Analyzer"', `property="og:title" content="WoW Analyzer: ${escapeHtml(title)}"`)
-      .replace('<title>WoW Analyzer</title>', `<title>WoW Analyzer: ${escapeHtml(title)}</title>`);
+      .replace('property="og:title" content="WoWAnalyzer"', `property="og:title" content="WoWAnalyzer: ${escapeHtml(title)}"`)
+      .replace('<title>WoWAnalyzer</title>', `<title>WoWAnalyzer: ${escapeHtml(title)}</title>`);
   }
 
   res.send(response);

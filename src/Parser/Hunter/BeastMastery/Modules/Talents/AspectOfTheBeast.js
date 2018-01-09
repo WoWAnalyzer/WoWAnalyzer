@@ -4,6 +4,8 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
+import ItemDamageDone from 'Main/ItemDamageDone';
+import Wrapper from 'common/Wrapper';
 
 class AspectOfTheBeast extends Analyzer {
 
@@ -13,7 +15,7 @@ class AspectOfTheBeast extends Analyzer {
 
   damage = 0;
 
-  on_intiialized() {
+  on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.ASPECT_OF_THE_BEAST_TALENT.id);
   }
 
@@ -24,33 +26,40 @@ class AspectOfTheBeast extends Analyzer {
     }
     this.damage += event.amount + (event.absorbed || 0);
   }
+  get aspectOfTheBeastDamageThreshold() {
+    return {
+      actual: this.damage,
+      isLessThan: {
+        minor: 3,
+        average: 2,
+        major: 1,
+      },
+      style: 'number',
+    };
+  }
 
   suggestions(when) {
-    when(this.damage).isLessThan(1)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span><SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} /> had no damage contribution, which indiciates you did not have your pet specced into Ferocity, which it should always be.</span>)
-          .icon(SPELLS.ASPECT_OF_THE_BEAST_TALENT.icon)
-          .actual(`Aspect of the Beast did no additional damage`)
-          .recommended(`Speccing your pet into Ferocity is recommended`)
-          .major(recommended);
-      });
+    when(this.aspectOfTheBeastDamageThreshold).addSuggestion((suggest) => {
+      return suggest(<Wrapper><SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} /> had no damage contribution, which indiciates you did not have your pet specced into Ferocity, which it should always be.</Wrapper>)
+        .icon(SPELLS.ASPECT_OF_THE_BEAST_TALENT.icon)
+        .actual(`Aspect of the Beast did no additional damage`)
+        .recommended(`Speccing your pet into Ferocity is recommended`);
+    });
   }
 
   subStatistic() {
-    if (this.damage > 0) {
-      return (
-        <div className="flex">
-          <div className="flex-main">
-            <SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id}>
-              <SpellIcon id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} noLink /> Bestial Ferocity
-            </SpellLink>
-          </div>
-          <div className="flex-sub text-right">
-            {(this.owner.formatItemDamageDone(this.damage))}
-          </div>
+    return (
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id}>
+            <SpellIcon id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} noLink /> Bestial Ferocity
+          </SpellLink>
         </div>
-      );
-    }
+        <div className="flex-sub text-right">
+          <ItemDamageDone amount={this.damage} />
+        </div>
+      </div>
+    );
   }
 }
 

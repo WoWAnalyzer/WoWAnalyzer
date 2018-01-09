@@ -5,6 +5,8 @@ import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
 import Toggle from 'react-toggle';
 
+import Wrapper from 'common/Wrapper';
+
 class AtonementHealingBreakdown extends React.Component {
   static propTypes = {
     totalAtonement: PropTypes.object.isRequired,
@@ -52,11 +54,12 @@ class AtonementHealingBreakdown extends React.Component {
           {bySource && Object.keys(bySource)
             .sort((a, b) => bySource[b].healing.effective - bySource[a].healing.effective)
             .map((spellId) => {
-              const { ability, healing } = bySource[spellId];
+              const { ability, healing, bolts } = bySource[spellId];
 
               const performanceBarPercentage = healing.effective / highestHealing;
 
               return (
+                <Wrapper>
                 <tr key={ability.guid}>
                   <td style={{ width: '30%' }}>
                     <SpellLink id={ability.guid}>
@@ -77,14 +80,44 @@ class AtonementHealingBreakdown extends React.Component {
                   <td style={{ width: '70%' }}>
                     {/* TODO: Color the bar based on the damage type, physical = yellow, chaos = gradient, etc. idk */}
                     <div
-                      className={'performance-bar'}
+                      className="performance-bar"
                       style={{ width: `${performanceBarPercentage * 100}%` }}
                     />
                   </td>
                 </tr>
-              );
-            })}
-        </tbody>
+
+              {(bolts && bolts.map((value,index) => {
+
+                const penanceBarPercentage = value / healing.effective;
+
+                if(!value) return null;
+
+                const currentTotal = this.state.absolute ? total : totalAtonement.effective;
+
+                return (
+                  <tr>
+                    <td style={{ width: '30%', paddingLeft:50 }}>
+                      <SpellLink id={ability.guid}>
+                        <Icon icon={ability.abilityIcon} />{' '}
+                        {ability.name} Bolt {index + 1}
+                      </SpellLink>
+                    </td>
+                    <td style={{ width: 60, paddingRight: 5, textAlign: 'center' }}>
+                      {(Math.round(value / currentTotal * 10000) / 100).toFixed(2)}%
+                    </td>
+                    <td style={{ width: '70%', paddingLeft: 50 }}>
+                      <div
+                        className="performance-bar"
+                        style={{ width: `${penanceBarPercentage * 100}%` }}
+                      />
+                    </td>
+                  </tr>
+                );
+              }))}
+            </Wrapper>);
+          })}
+
+          </tbody>
       </table>
       </div>
     );

@@ -138,9 +138,9 @@ export class PlayerSelectionList extends React.PureComponent {
     }
     if (combatants.length === 0) {
       return (
-        <li className="text-danger" style={{ padding: '15px 22px' }}>
-          Could not find any players in this report. Make sure the log is recorded with Advanced Combat Logging enabled. You can enable this in-game in the network settings.
-        </li>
+        <div className="text-danger" style={{ padding: '15px 22px' }}>
+          No player data (such as gear, talents and traits) was found for this fight. This usually happens because you did not record with <b>Advanced Combat Logging</b> enabled. Make sure it is enabled, you can enable this in-game in the network settings.
+        </div>
       );
     }
 
@@ -159,7 +159,7 @@ export class PlayerSelectionList extends React.PureComponent {
         return (
           <div key={roleID === null ? -1 : roleID} className="card">
             {this.renderRoleHeader(roleID, friendlies.length)}
-            <ul className="list selection players">
+            <ul className="list selection players item-divider item-divider-top">
               {friendlies
                 .sort((a, b) => {
                   if (a.name > b.name) {

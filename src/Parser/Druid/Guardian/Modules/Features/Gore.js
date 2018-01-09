@@ -5,12 +5,17 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 
 const GORE_DURATION = 10000;
 const debug = false;
 
 class Gore extends Analyzer {
+  static dependencies = {
+    spellUsable: SpellUsable,
+  };
+
   totalProcs = 0;
   lastGoreProcTime = 0;
   consumedGoreProc = 0;
@@ -20,6 +25,9 @@ class Gore extends Analyzer {
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (SPELLS.GORE_BEAR.id === spellId) {
+      if (this.spellUsable.isOnCooldown(SPELLS.MANGLE_BEAR.id)) {
+        this.spellUsable.endCooldown(SPELLS.MANGLE_BEAR.id);
+      }
       this.lastGoreProcTime = event.timestamp;
       debug && console.log('Gore applied');
       this.totalProcs += 1;
@@ -30,6 +38,9 @@ class Gore extends Analyzer {
     const spellId = event.ability.guid;
     if (SPELLS.GORE_BEAR.id === spellId) {
       // Captured Overwritten Gore Buffs for use in wasted buff calculations
+      if (this.spellUsable.isOnCooldown(SPELLS.MANGLE_BEAR.id)) {
+        this.spellUsable.endCooldown(SPELLS.MANGLE_BEAR.id);
+      }
       this.lastGoreProcTime = event.timestamp;
       debug && console.log('Gore Overwritten');
       this.totalProcs += 1;

@@ -4,8 +4,6 @@ import { formatPercentage } from 'common/format';
 import CoreAlwaysBeCastingHealing from 'Parser/Core/Modules/AlwaysBeCastingHealing';
 import Haste from 'Parser/Core/Modules/Haste';
 
-const ESSENCE_FONT_CAST_TIME = 3000;
-
 const HEALING_ABILITIES_ON_GCD = [
   SPELLS.EFFUSE.id,
   SPELLS.ENVELOPING_MISTS.id,
@@ -22,6 +20,7 @@ const HEALING_ABILITIES_ON_GCD = [
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static dependencies = {
+    ...CoreAlwaysBeCastingHealing.dependencies,
     haste: Haste,
   };
 
@@ -43,49 +42,47 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.TIGER_PALM.id,
   ];
 
-  recordCastTime(
-    castStartTimestamp,
-    globalCooldown,
-    begincast,
-    cast,
-    spellId
-  ) {
-    // There is no `begincast` event for Essence Font, so as such, we override the cast.timestamp value to be the point at which the cast would end
-    if (spellId === SPELLS.ESSENCE_FONT.id) {
-      cast.timestamp = cast.timestamp + (ESSENCE_FONT_CAST_TIME / (1 + this.haste.current));
-    }
-    super.recordCastTime(
-      castStartTimestamp,
-      globalCooldown,
-      begincast,
-      cast,
-      spellId
-    );
+  get nonHealingTimeSuggestionThresholds() {
+    return {
+      actual: this.nonHealingTimePercentage,
+      isGreaterThan: {
+        minor: 0.4,
+        average: 0.5,
+        major: 0.55,
+      },
+      style: 'percentage',
+    };
+  }
+  get downtimeSuggestionThresholds() {
+    return {
+      actual: this.downtimePercentage,
+      isGreaterThan: {
+        minor: 0.4,
+        average: 0.55,
+        major: 1,
+      },
+      style: 'percentage',
+    };
   }
 
   suggestions(when) {
-    const nonHealingTimePercentage = this.totalHealingTimeWasted / this.owner.fightDuration;
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
-
-    when(nonHealingTimePercentage).isGreaterThan(0.5)
+    when(this.nonHealingTimePercentage).isGreaterThan(this.nonHealingTimeSuggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('Your non healing time can be improved. Try to reduce the delay between casting spells and try to continue healing when you have to move.')
           .icon('petbattle_health-down')
           .actual(`${formatPercentage(actual)}% non healing time`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.1).major(recommended + 0.15);
+          .regular(this.nonHealingTimeSuggestionThresholds.isGreaterThan.average).major(this.nonHealingTimeSuggestionThresholds.isGreaterThan.major);
       });
-    when(deadTimePercentage).isGreaterThan(0.4)
+    when(this.downtimePercentage).isGreaterThan(this.downtimeSuggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you\'re not healing try to contribute some damage.')
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.15).major(1);
+          .regular(this.downtimeSuggestionThresholds.isGreaterThan.average).major(this.downtimeSuggestionThresholds.isGreaterThan.major);
       });
   }
-
-  showStatistic = true;
 }
 
 export default AlwaysBeCasting;

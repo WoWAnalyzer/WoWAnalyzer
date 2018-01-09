@@ -4,6 +4,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from "common/SpellIcon";
 import SpellLink from 'common/SpellLink';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 class SurgeOfTheStormgod extends Analyzer {
   static dependencies = {
@@ -25,20 +26,21 @@ class SurgeOfTheStormgod extends Analyzer {
   }
 
   subStatistic() {
-    return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.SURGE_OF_THE_STORMGOD_TRAIT.id}>
-            <SpellIcon id={SPELLS.SURGE_OF_THE_STORMGOD_TRAIT.id} noLink /> Surge of the Stormgod
-          </SpellLink>
+    if (this.damage > 0) {
+      return (
+        <div className="flex">
+          <div className="flex-main">
+            <SpellLink id={SPELLS.SURGE_OF_THE_STORMGOD_TRAIT.id}>
+              <SpellIcon id={SPELLS.SURGE_OF_THE_STORMGOD_TRAIT.id} noLink /> Surge of the Stormgod
+            </SpellLink>
+          </div>
+          <div className="flex-sub text-right">
+            <ItemDamageDone amount={this.damage} />
+          </div>
         </div>
-        <div className="flex-sub text-right">
-          {(this.owner.formatItemDamageDone(this.damage))}
-        </div>
-      </div>
-    );
+      );
+    }
   }
-
 }
 
 export default SurgeOfTheStormgod;

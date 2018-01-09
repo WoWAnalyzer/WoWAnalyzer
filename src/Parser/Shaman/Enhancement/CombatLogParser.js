@@ -6,8 +6,8 @@ import Tab from 'Main/Tab';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
+import Abilities from './Modules/Abilities';
 
-import Abilities from './Modules/Main/Abilities';
 import Maelstrom from './Modules/Main/Maelstrom';
 
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
@@ -21,6 +21,8 @@ import Frostbrand from './Modules/ShamanCore/Frostbrand';
 import FuryOfAir from './Modules/ShamanCore/FuryOfAir';
 import Rockbiter from './Modules/ShamanCore/Rockbiter';
 import Tier20_2set from './Modules/Items/Tier20_2set';
+import Tier21_2set from './Modules/Items/Tier21_2set';
+import Tier21_4set from './Modules/Items/Tier21_4set';
 
 
 // import SmolderingHeart from './Modules/Legendaries/SmolderingHeart';
@@ -44,6 +46,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // Legendaries:
     // Tier
     tier20_2set: Tier20_2set,
+    tier21_2set: Tier21_2set,
+    tier21_4set: Tier21_4set,
   };
 
   generateResults() {

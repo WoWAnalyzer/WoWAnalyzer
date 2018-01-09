@@ -43,7 +43,7 @@ export default {
   SPITTING_COBRA_TALENT: { id: 194407, name: "Spitting Cobra", icon: "ability_hunter_cobrastrikes" },
   EXPERT_TRAPPER_TALENT: { id: 199543, name: "Expert Trapper", icon: "inv_pet_pettrap02" },
   A_MURDER_OF_CROWS_TALENT_SURVIVAL: { id: 206505, name: "A Murder of Crows", icon: "ability_hunter_murderofcrows", focusCost: 30 },
-  // MarksmanshipHunter
+  // Marksmanship
   LONE_WOLF_TALENT: { id: 155228, name: "Lone Wolf", icon: "spell_hunter_lonewolf" },
   STEADY_FOCUS_TALENT: { id: 193533, name: "Steady Focus", icon: "ability_hunter_improvedsteadyshot" },
   CAREFUL_AIM_TALENT: { id: 53238, name: "Careful Aim", icon: "ability_hunter_zenarchery" },

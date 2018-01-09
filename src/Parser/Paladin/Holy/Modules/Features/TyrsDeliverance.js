@@ -51,7 +51,8 @@ class TyrsDeliverance extends Analyzer {
         this.buffFoLHLHealing += calculateEffectiveHealing(event, this.tyrsHealingIncrease);
         break;
       }
-      default: break;
+      default:
+        break;
     }
   }
   on_beacon_heal(beaconTransferEvent, healEvent) {

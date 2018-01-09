@@ -11,26 +11,39 @@ class BloodPlagueUptime extends Analyzer {
     enemies: Enemies,
   };
 
+  get uptime() {
+    return this.enemies.getBuffUptime(SPELLS.BLOOD_PLAGUE.id) / this.owner.fightDuration;
+  }
+
+  get uptimeSuggestionThresholds() {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 0.94,
+        average: 0.84,
+        major: .74,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
-    const bloodplagueUptime = this.enemies.getBuffUptime(SPELLS.BLOOD_PLAGUE.id) / this.owner.fightDuration;
-    when(bloodplagueUptime).isLessThan(0.95)
+    when(this.uptimeSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest('Your Blood Plague uptime can be improved. Perhaps use some debuff tracker.')
             .icon(SPELLS.BLOOD_PLAGUE.icon)
             .actual(`${formatPercentage(actual)}% Blood Plague uptime`)
-            .recommended(`>${formatPercentage(recommended)}% is recommended`)
-            .regular(recommended - 0.05).major(recommended - 0.15);
+            .recommended(`>${formatPercentage(recommended)}% is recommended`);
         });
   }
 
   statistic() {
-    const bloodplagueUptime = this.enemies.getBuffUptime(SPELLS.BLOOD_PLAGUE.id) / this.owner.fightDuration;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BLOOD_PLAGUE.id} />}
-        value={`${formatPercentage(bloodplagueUptime)} %`}
+        value={`${formatPercentage(this.uptime)} %`}
         label="Blood Plague uptime"
-        tooltip={'Provides small amount of damage and healing. Auto attacks against an infected target can trigger Crimson Scourge.'}
+        tooltip="Provides small amount of damage and healing. Auto attacks against an infected target can trigger Crimson Scourge."
       />
     );
   }

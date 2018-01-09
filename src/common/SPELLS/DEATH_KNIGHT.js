@@ -94,7 +94,7 @@ export default {
 // Buffs
   OSSUARY: {
     id: 219788,
-    name: 'OSSUARY',
+    name: 'Ossuary',
     icon: 'ability_deathknight_brittlebones',
   },
 
@@ -107,6 +107,11 @@ export default {
     id: 192567,
     name: 'Unending Thirst',
     icon: 'inv_axe_2h_artifactmaw_d_02',
+  },
+  VAMPIRIC_AURA: {
+    id: 238698,
+    name: 'Vampiric Aura',
+    icon: 'ability_ironmaidens_maraksbloodcalling',
   },
 
   // CC
@@ -346,6 +351,12 @@ export default {
     icon: 'spell_shadow_deathcoil',
   },
 
+  DEATH_COIL_DAMAGE: {
+    id: 47632,
+    name: 'Death Coil',
+    icon: 'spell_shadow_deathcoil',
+  },
+
   FESTERING_STRIKE: {
     id: 85948,
     name: 'Festering Strike',
@@ -414,11 +425,17 @@ export default {
     icon: 'spell_shadow_unholyfrenzy',
   },
 
+  UNHOLY_STRENGTH_BUFF: {
+	  id: 53365,
+	  name: 'Unholy Strength',
+	  icon: 'spell_holy_blessingofstrength',
+  },
+
   // Unholy Tier Sets
   // T20 2 Piece and buff
   UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS: {
     id: 242064,
-    name: 'T20 2 set Bonus',
+    name: 'T20 2 Set Bonus',
     icon: 'spell_deathknight_unholypresence',
   },
 
@@ -426,6 +443,24 @@ export default {
     id: 246995,
     name: 'Master of Ghouls',
     icon: 'spell_deathknight_unholypresence',
+  },
+
+  UNHOLY_DEATH_KNIGHT_T21_4SET_BONUS: {
+    id: 251872,
+    name: 'T21 4 Set Bonus',
+    icon: 'ability_paladin_conviction',
+  },
+
+  UNHOLY_DEATH_KNIGHT_T21_2SET_BONUS: {
+    id: 251871,
+    name: 'T21 2 Set Bonus',
+    icon: 'ability_paladin_conviction',
+  },
+
+  COILS_OF_DEVASTATION: { // debuff and damage from t21 2p
+    id: 253367,
+    name: 'Coils of Devastation (T21 2 Set Bonus)',
+    icon: 'ability_malkorok_blightofyshaarj_green',
   },
 
   // Artifact traits:
@@ -539,6 +574,12 @@ export default {
   },
 
   COLD_HEART_BUFF: {
+    id: 235599,
+    name: 'Cold Heart',
+    icon: 'spell_frost_chainsofice',
+  },
+
+  COLD_HEART_DEBUFF: {
     id: 248397,
     name: 'Cold Heart',
     icon: 'spell_frost_chainsofice',

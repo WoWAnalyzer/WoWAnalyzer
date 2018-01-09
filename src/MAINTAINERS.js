@@ -9,6 +9,7 @@
 export const Zerotorescue = {
   nickname: 'Zerotorescue',
   github: 'MartijnHols',
+  twitter: 'Zerotorescue',
   avatar: require('./Images/zerotorescue-avatar.png'),
 };
 export const blazyb = {
@@ -111,6 +112,7 @@ export const Oratio = {
 };
 export const hassebewlen = {
   nickname: 'hassebewlen',
+  github: 'hasseboulen',
 };
 export const tsabo = {
   nickname: 'tsabo',
@@ -154,4 +156,21 @@ export const Gurupitka = {
 export const Hartra344 = {
   nickname: 'hartra344',
   github: 'hartra344',
+};
+export const Maldark = {
+  nickname: 'Maldark',
+  github: 'Maldark',
+};
+export const hatra344 = {
+  nickname: 'hatra344',
+  github: 'hatra344',
+};
+export const emallson = {
+  nickname: 'emallson',
+  github: 'emallson',
+};
+export const Gebuz = {
+  nickname: 'Gebuz',
+  github: 'Gebuz',
+  avatar: require('./Images/gebuz-avatar.png'),
 };

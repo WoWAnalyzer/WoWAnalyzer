@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatThousands } from 'common/format';
+import Wrapper from 'common/Wrapper';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
@@ -157,36 +158,46 @@ class ManaTea extends Analyzer {
     }
   }
 
-  suggestions(when) {
+  get avgMtSaves() {
     const abilityTracker = this.abilityTracker;
     const getAbility = spellId => abilityTracker.getAbility(spellId);
 
     const manaTea = getAbility(SPELLS.MANA_TEA_TALENT.id);
     const mtCasts = manaTea.casts || 0;
-    const avgMTsaves = this.manaSavedMT / mtCasts || 0;
 
-    when(avgMTsaves).isLessThan(180000)
-    .addSuggestion((suggest, actual, recommended) => {
-      return suggest(<span>Your mana spent during <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> can be improved. Always aim to cast your highest mana spells such as <SpellLink id={SPELLS.ESSENCE_FONT.id} /> or <SpellLink id={SPELLS.VIVIFY.id} />.</span>)
+    return this.manaSavedMT / mtCasts || 0;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.avgMtSaves,
+      isLessThan: {
+        minor: 150000,
+        average: 120000,
+        major: 100000,
+      },
+      style: 'number',
+    };
+  }
+
+  suggestions(when) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(
+        <Wrapper>
+          Your mana spent during <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> can be improved. Always aim to cast your highest mana spells such as <SpellLink id={SPELLS.ESSENCE_FONT.id} /> or <SpellLink id={SPELLS.VIVIFY.id} />.
+        </Wrapper>
+      )
         .icon(SPELLS.MANA_TEA_TALENT.icon)
-        .actual(`${formatNumber(avgMTsaves)} average mana saved per Mana Tea cast`)
-        .recommended(`${(recommended / 1000).toFixed(0)}k average mana saved is recommended`)
-        .regular(recommended - 30000).major(recommended - 60000);
+        .actual(`${formatNumber(this.avgMTsaves)} average mana saved per Mana Tea cast`)
+        .recommended(`${(recommended / 1000).toFixed(0)}k average mana saved is recommended`);
     });
   }
 
   statistic() {
-    const abilityTracker = this.abilityTracker;
-    const getAbility = spellId => abilityTracker.getAbility(spellId);
-
-    const manaTea = getAbility(SPELLS.MANA_TEA_TALENT.id);
-    const mtCasts = manaTea.casts || 0;
-    const avgMTsaves = this.manaSavedMT / mtCasts || 0;
-
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.MANA_TEA_TALENT.id} />}
-        value={`${formatNumber(avgMTsaves)}`}
+        value={`${formatNumber(this.avgMtSaves)}`}
         label={(
           <dfn
             data-tip={`
@@ -214,7 +225,7 @@ class ManaTea extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(60);
+  statisticOrder = STATISTIC_ORDER.CORE(25);
 }
 
 export default ManaTea;

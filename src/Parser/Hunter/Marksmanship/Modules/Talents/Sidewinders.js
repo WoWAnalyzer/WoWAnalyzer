@@ -6,7 +6,13 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
+import ItemDamageDone from 'Main/ItemDamageDone';
 
+/*
+ * Launches Sidewinders that travel toward the target, weaving back and forth and dealing (500% of Attack power) Nature damage to each target they hit. Cannot hit the same target twice. Applies Vulnerable to all targets hit.
+ * Generates 35 Focus.
+ * Replaces Arcane Shot and Multi-Shot.
+ */
 class Sidewinders extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -33,12 +39,11 @@ class Sidewinders extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {(this.owner.formatItemDamageDone(this.damage))}
+          <ItemDamageDone amount={this.damage} />
         </div>
       </div>
     );
   }
-
 }
 
 export default Sidewinders;

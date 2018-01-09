@@ -1,19 +1,20 @@
 import React from 'react';
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
+
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 class Stomp extends Analyzer {
-
   static dependencies = {
     combatants: Combatants,
   };
 
   damage = 0;
 
-  on_intiialized() {
+  on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.STOMP_TALENT.id);
   }
 
@@ -29,12 +30,12 @@ class Stomp extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.STOMP_DAMAGE.id}>
-            <SpellIcon id={SPELLS.STOMP_DAMAGE.id} noLink /> Stomp
+          <SpellLink id={SPELLS.STOMP_TALENT.id}>
+            <SpellIcon id={SPELLS.STOMP_TALENT.id} noLink /> Stomp
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {(this.owner.formatItemDamageDone(this.damage))}
+          <ItemDamageDone amount={this.damage} />
         </div>
       </div>
     );

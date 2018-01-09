@@ -133,7 +133,13 @@ export default {
     id: 197800,
     name: 'Shadow Nova',
     icon: 'spell_fire_twilightnova',
+  },  
+  INSIGNIA_OF_RAVENHOLDT: {
+    id: 209043,
+    name: 'Insignia of Ravenholdt',
+    icon: 'ability_rogue_shadowstrikes',
   },
+  
   // CP Generation
   SHADOW_TECHNIQUES: {
     id: 196911,
@@ -178,6 +184,11 @@ export default {
     name: 'Master Assassin\'s Initiative',
     icon: 'inv_weapon_shortblade_25',
   },
+  THE_FIRST_OF_THE_DEAD_BUFF: {
+    id: 248210,
+    name: 'The First of the Dead',
+    icon: 'inv_glove_cloth_raidwarlockmythic_q_01',
+  },
 
   // Sets
   
@@ -202,6 +213,16 @@ export default {
   SUB_ROGUE_T21_4SET_BONUS: {
     id: 251788,
     name: 'T21 4 set bonus',
+    icon: 'ability_rogue_eviscerate',
+  },
+  SUB_ROGUE_T21_4SET_BONUS_BUFF: {
+    id: 257945,
+    name: 'Shadow Gestures',
+    icon: 'spell_shadow_painspike',
+  },
+  SUB_ROGUE_T21_4SET_BONUS_CP_EFFECT: {
+    id: 252732,
+    name: 'Shadow Gestures',
     icon: 'ability_rogue_eviscerate',
   },
 };

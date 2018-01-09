@@ -26,7 +26,8 @@ class NightbladeDuringSymbols extends Analyzer {
         .icon(SPELLS.NIGHTBLADE.icon)
         .actual(`You refreshed Nightblade ${filtered.casts} times during Symbols of Death.`)
         .recommended(`${recommended} is recommended`)
-        .regular(0.1).major(0.2);
+        .regular(0.1);
+        // No Major, its not a huge loss. 
     });
   }
 }

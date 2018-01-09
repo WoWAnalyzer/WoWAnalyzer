@@ -14,32 +14,43 @@ class CancelledCasts extends CoreCancelledCasts {
     SPELLS.WINDBURST_MOVEMENT_SPEED.id,
     SPELLS.CYCLONIC_BURST_IMPACT_TRAIT.id,
     SPELLS.CYCLONIC_BURST_TRAIT.id,
+    SPELLS.GOLGANNETHS_VITALITY_RAVAGING_STORM.id,
   ];
-  cancelledPercentage = 0;
+  get CancelledPercentage() {
+    return this.castsCancelled / this.totalCasts;
+  }
 
+  get suggestionThresholds() {
+    return {
+      actual: this.CancelledPercentage,
+      isGreaterThan: {
+        minor: 0.05,
+        average: 0.075,
+        major: 0.1,
+      },
+      style: 'percentage',
+    };
+  }
   suggestions(when) {
-    this.cancelledPercentage = this.castsCancelled / this.totalCasts;
-
-    when(this.cancelledPercentage).isGreaterThan(0.05)
+    when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You cancelled {formatPercentage(this.cancelledPercentage)}% of your spells. While it is expected that you will have to cancel a few casts to react to a boss mechanic or to move, you should try to ensure that you are cancelling as few casts as possible. This is generally done by planning ahead in terms of positioning, and moving while you're casting instant cast spells.</span>)
+        return suggest(<span>You cancelled {formatPercentage(this.CancelledPercentage)}% of your spells. While it is expected that you will have to cancel a few casts to react to a boss mechanic or to move, you should try to ensure that you are cancelling as few casts as possible. This is generally done by planning ahead in terms of positioning, and moving while you're casting instant cast spells.</span>)
           .icon('inv_misc_map_01')
           .actual(`${formatPercentage(actual)}% casts cancelled`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(.02).major(recommended + 0.04);
+          .recommended(`<${formatPercentage(recommended)}% is recommended`);
       });
   }
   statistic() {
     return (
       <StatisticBox
-        icon={<Icon icon={'inv_misc_map_01'} />}
-        value={`${formatPercentage(this.cancelledPercentage)}%`}
+        icon={<Icon icon="inv_misc_map_01" />}
+        value={`${formatPercentage(this.CancelledPercentage)}%`}
         label={`Cancelled Casts`}
-        tooltip={`You started casting a total of ${this.totalCasts} spells with a cast timer. <ul> <li> You cancelled ${this.castsCancelled} of those casts. </li> </ul>`}
+        tooltip={`You started casting a total of ${this.totalCasts} spells with a cast timer. <ul><li> You cancelled ${this.castsCancelled} of those casts. </li></ul>`}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(9);
+  statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 
 export default CancelledCasts;

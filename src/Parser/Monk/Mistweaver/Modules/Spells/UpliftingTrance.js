@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
+import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
@@ -64,25 +65,41 @@ class UpliftingTrance extends Analyzer {
     }
   }
 
+  get unusedUTProcs() {
+    return 1 - (this.consumedUTProc / this.UTProcsTotal);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.unusedUTProcs,
+      isGreaterThan: {
+        minor: 0.3,
+        average: 0.4,
+        major: 0.5,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
-    const unusedUTProcs = 1 - (this.consumedUTProc / this.UTProcsTotal);
-    when(unusedUTProcs).isGreaterThan(0.3)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs should be used as soon as you get them so they are not overwritten. While some will be overwritten due to the nature of the spell interactions, holding <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs is not optimal.</span>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+        return suggest(
+          <Wrapper>
+            Your <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs should be used as soon as you get them so they are not overwritten. While some will be overwritten due to the nature of the spell interactions, holding <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs is not optimal.
+          </Wrapper>
+        )
           .icon(SPELLS.UPLIFTING_TRANCE_BUFF.icon)
-          .actual(`${formatPercentage(unusedUTProcs)}% Unused Uplifting Trance procs`)
-          .recommended(`<${formatPercentage(recommended)}% wasted UT Buffs is recommended`)
-          .regular(recommended + 0.1).major(recommended + 0.2);
+          .actual(`${formatPercentage(this.unusedUTProcs)}% Unused Uplifting Trance procs`)
+          .recommended(`<${formatPercentage(recommended)}% wasted UT Buffs is recommended`);
       });
   }
 
   statistic() {
-    const unusedUTProcsPerc = 1 - (this.consumedUTProc / this.UTProcsTotal);
     const unusedUTProc = this.UTProcsTotal - this.consumedUTProc;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.UPLIFTING_TRANCE_BUFF.id} />}
-        value={`${formatPercentage(unusedUTProcsPerc)}%`}
+        value={`${formatPercentage(this.unusedUTProcs)}%`}
         label={(
           <dfn data-tip={`${this.nonUTVivify} of your vivify's were used without an uplifting trance procs.`}>
             Unused Procs

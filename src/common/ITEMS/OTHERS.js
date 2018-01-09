@@ -309,4 +309,56 @@ export default {
     icon: 'inv_misc_enggizmos_06',
     quality: ITEM_QUALITIES.EPIC,
   },
+  GORSHALACHS_LEGACY: {
+    id: 152093,
+    name: 'Gorshalach\'s Legacy',
+    icon: 'inv_sword_1h_firelandsraid_d_01',
+  },
+  GOLGANNETHS_VITALITY: {
+    id: 154174,
+    name: 'Golganneth\'s Vitality',
+    icon: 'inv_antorus_grey',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  KHAZGOROTHS_COURAGE: {
+    id: 154176,
+    name: 'Khaz\'goroths Courage',
+    icon: 'inv_antorus_red',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  FORGEFIENDS_FABRICATOR: {
+    id: 151963,
+    name: 'Forgefiend\'s Fabricator',
+    icon: 'inv_jewelry_orgrimmarraid_trinket_04_green',
+  },
+  TERMINUS_SIGNALING_BEACON: {
+    id: 151969,
+    name: 'Terminus Signaling Beacon',
+    icon: 'inv_7_0raid_trinket_010d',
+  },
+  PROTOTYPE_PERSONNEL_DECIMATOR: {
+    id: 151962,
+    name: 'Prototype Personnel Decimator',
+    icon: 'ability_rogue_cannonballbarrage',
+  },
+  SHEATH_OF_ASARA: {
+    id: 151971,
+    name: 'Sheath of Asara',
+    icon: 'spell_shadow_ritualofsacrifice',
+  },
+  NORGANNONS_PROWESS: {
+    id: 154177,
+    name: 'Norgannon\'s Prowess',
+    icon: 'inv_antorus_blue',
+  },
+  ACRID_CATALYST_INJECTOR: {
+    id: 151955,
+    name: 'Acrid Catalyst Injector',
+    icon: 'inv_7_0raid_trinket_01c',
+  },
+  SHADOW_SINGED_FANG: {
+    id: 151968,
+    name: 'Shadow-Singed Fang',
+    icon: 'inv_misc_blacksaberonfang',
+  },
 };

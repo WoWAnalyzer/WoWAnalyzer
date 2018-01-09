@@ -86,115 +86,130 @@ class CastEfficiency extends Analyzer {
   /*
    * Packs cast efficiency results for use by suggestions / tab
    */
-  _generateCastEfficiencyInfo() {
-    const abilityInfo = this.abilities.constructor.ABILITIES;
-
+  getCastEfficiency() {
+    return this.abilities.activeAbilities
+      .map(ability => this.getCastEfficiencyForAbility(ability))
+      .filter(item => item !== null); // getCastEfficiencyForAbility can return null, remove those from the result
+  }
+  getCastEfficiencyForSpellId(spellId) {
+    const ability = this.abilities.getAbility(spellId);
+    return ability ? this.getCastEfficiencyForAbility(ability) : null;
+  }
+  getCastEfficiencyForAbility(ability) {
+    const spellId = ability.spell.id;
     const fightDurationMs = this.owner.fightDuration;
     const fightDurationMinutes = fightDurationMs / 1000 / 60;
 
-    return abilityInfo
-      .filter(ability => !ability.isActive || ability.isActive(this.combatants.selected))
-      .map(ability => {
-        const spellId = ability.spell.id;
-        const cooldown = ability.getCooldown(this.combatants.selected.hastePercentage, this.combatants.selected);
-        const cooldownMs = (cooldown === null) ? null : cooldown * 1000;
-        const cdInfo = this._getCooldownInfo(ability);
+    const cooldown = ability.cooldown;
+    const cooldownMs = !cooldown ? null : cooldown * 1000;
+    const cdInfo = this._getCooldownInfo(ability);
 
-        // ability.getCasts is used for special cases that show the wrong number of cast events, like Penance
-        // and also for splitting up differently buffed versions of the same spell (this use has nothing to do with CastEfficiency)
-        let casts;
-        if (ability.getCasts) {
-          casts = ability.getCasts(this.abilityTracker.getAbility(spellId), this.owner);
-        } else {
-          casts = cdInfo.casts;
-        }
-        const cpm = casts / fightDurationMinutes;
+    // ability.casts is used for special cases that show the wrong number of cast events, like Penance
+    // and also for splitting up differently buffed versions of the same spell (this use has nothing to do with CastEfficiency)
+    let casts;
+    if (ability.castEfficiency.casts) {
+      casts = ability.castEfficiency.casts(this.abilityTracker.getAbility(spellId), this.owner);
+    } else {
+      casts = cdInfo.casts;
+    }
+    const cpm = casts / fightDurationMinutes;
 
-        if (ability.isUndetectable && casts === 0) {
-          // Some spells (most notably Racials) can not be detected if a player has them. This hides those spells if they have 0 casts.
-          return null;
-        }
+    if (ability.isUndetectable && casts === 0) {
+      // Some spells (most notably Racials) can not be detected if a player has them. This hides those spells if they have 0 casts.
+      return null;
+    }
 
-        // ability.getMaxCasts is used for special cases for spells that have a variable availability or CD based on state, like Void Bolt.
-        // This same behavior should be managable using SpellUsable's interface, so getMaxCasts is deprecated.
-        // Legacy support: if getMaxCasts is defined, cast efficiency will be calculated using casts/rawMaxCasts
-        let rawMaxCasts;
-        const averageCooldown = (cdInfo.recharges === 0) ? null : (cdInfo.completedRechargeTime / cdInfo.recharges);
-        if (ability.getMaxCasts) {
-          // getMaxCasts expects cooldown in seconds
-          rawMaxCasts = ability.getMaxCasts(cooldown, this.owner.fightDuration, this.abilityTracker.getAbility, this.owner);
-        } else if (averageCooldown) { // no average CD if spell hasn't been cast
-          rawMaxCasts = (this.owner.fightDuration / averageCooldown) + (ability.charges || 1) - 1;
-        } else {
-          rawMaxCasts = (this.owner.fightDuration / cooldownMs) + (ability.charges || 1) - 1;
-        }
-        const maxCasts = Math.ceil(rawMaxCasts) || 0;
-        const maxCpm = (cooldown === null) ? null : maxCasts / fightDurationMinutes;
+    // ability.maxCasts is used for special cases for spells that have a variable availability or CD based on state, like Void Bolt.
+    // This same behavior should be managable using SpellUsable's interface, so maxCasts is deprecated.
+    // Legacy support: if maxCasts is defined, cast efficiency will be calculated using casts/rawMaxCasts
+    let rawMaxCasts;
+    const averageCooldown = (cdInfo.recharges === 0) ? null : (cdInfo.completedRechargeTime / cdInfo.recharges);
+    if (ability.castEfficiency.maxCasts) {
+      // maxCasts expects cooldown in seconds
+      rawMaxCasts = ability.castEfficiency.maxCasts(cooldown, this.owner.fightDuration, this.abilityTracker.getAbility, this.owner);
+    } else if (averageCooldown) { // no average CD if spell hasn't been cast
+      rawMaxCasts = (this.owner.fightDuration / averageCooldown) + (ability.charges || 1) - 1;
+    } else {
+      rawMaxCasts = (this.owner.fightDuration / cooldownMs) + (ability.charges || 1) - 1;
+    }
+    const maxCasts = Math.ceil(rawMaxCasts) || 0;
+    const maxCpm = (cooldown === null) ? null : maxCasts / fightDurationMinutes;
 
-        let castEfficiency;
-        if (ability.getMaxCasts) { // legacy support for custom getMaxCasts
-          castEfficiency = Math.min(1, casts / rawMaxCasts);
-        } else {
-          // Cast efficiency calculated as the percent of fight time spell was on cooldown
-          if (cooldown && this.owner.fightDuration) {
-            const timeOnCd = cdInfo.completedRechargeTime + cdInfo.endingRechargeTime;
-            castEfficiency = timeOnCd / this.owner.fightDuration;
-          } else {
-            castEfficiency = null;
-          }
-        }
+    let efficiency;
+    if (ability.castEfficiency.maxCasts) { // legacy support for custom maxCasts
+      efficiency = Math.min(1, casts / rawMaxCasts);
+    } else {
+      // Cast efficiency calculated as the percent of fight time spell was on cooldown
+      if (cooldown && this.owner.fightDuration) {
+        const timeOnCd = cdInfo.completedRechargeTime + cdInfo.endingRechargeTime;
+        efficiency = timeOnCd / this.owner.fightDuration;
+      } else {
+        efficiency = null;
+      }
+    }
 
-        const recommendedCastEfficiency = ability.recommendedCastEfficiency || DEFAULT_RECOMMENDED;
-        const averageIssueCastEfficiency = ability.averageIssueCastEfficiency || (recommendedCastEfficiency - DEFAULT_AVERAGE_DOWNSTEP);
-        const majorIssueCastEfficiency = ability.majorIssueCastEfficiency || (recommendedCastEfficiency - DEFAULT_MAJOR_DOWNSTEP);
+    const recommendedEfficiency = ability.castEfficiency.recommendedEfficiency || DEFAULT_RECOMMENDED;
+    const averageIssueEfficiency = ability.castEfficiency.averageIssueEfficiency || (recommendedEfficiency - DEFAULT_AVERAGE_DOWNSTEP);
+    const majorIssueEfficiency = ability.castEfficiency.majorIssueEfficiency || (recommendedEfficiency - DEFAULT_MAJOR_DOWNSTEP);
 
-        const gotMaxCasts = (casts === maxCasts);
-        const canBeImproved = castEfficiency !== null && castEfficiency < recommendedCastEfficiency && !gotMaxCasts;
+    const gotMaxCasts = (casts === maxCasts);
+    const canBeImproved = efficiency !== null && efficiency < recommendedEfficiency && !gotMaxCasts;
 
-        return {
-          ability,
-          cpm,
-          maxCpm,
-          casts,
-          maxCasts,
-          castEfficiency,
-          recommendedCastEfficiency,
-          averageIssueCastEfficiency,
-          majorIssueCastEfficiency,
-          gotMaxCasts,
-          canBeImproved,
-        };
-      })
-      .filter(item => item !== null);
+    return {
+      ability,
+      cpm,
+      maxCpm,
+      casts,
+      maxCasts,
+      efficiency,
+      recommendedEfficiency,
+      averageIssueEfficiency,
+      majorIssueEfficiency,
+      gotMaxCasts,
+      canBeImproved,
+    };
   }
 
   suggestions(when) {
-    const castEfficiencyInfo = this._generateCastEfficiencyInfo();
+    const castEfficiencyInfo = this.getCastEfficiency();
     castEfficiencyInfo.forEach(abilityInfo => {
-      if (abilityInfo.ability.noSuggestion || abilityInfo.castEfficiency === null || abilityInfo.gotMaxCasts) {
+      if (!abilityInfo.ability.castEfficiency.suggestion || abilityInfo.efficiency === null || abilityInfo.gotMaxCasts) {
         return;
       }
       const ability = abilityInfo.ability;
       const mainSpell = (ability.spell instanceof Array) ? ability.spell[0] : ability.spell;
-      when(abilityInfo.castEfficiency).isLessThan(abilityInfo.recommendedCastEfficiency)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<Wrapper>Try to cast <SpellLink id={mainSpell.id} /> more often. {ability.extraSuggestion || ''} <a href="#spell-timeline">View timeline</a>.</Wrapper>)
-            .icon(mainSpell.icon)
-            .actual(`${abilityInfo.casts} out of ${abilityInfo.maxCasts} possible casts. You kept it on cooldown ${formatPercentage(actual, 1)}% of the time.`)
-            .recommended(`>${formatPercentage(recommended, 1)}% is recommended`)
-            .details(() => (
-              <div style={{ margin: '0 -22px' }}>
-                <SpellTimeline
-                  historyBySpellId={this.spellHistory.historyBySpellId}
-                  castEfficiency={this.castEfficiency}
-                  spellId={mainSpell.id}
-                  start={this.owner.fight.start_time}
-                  end={this.owner.currentTimestamp}
-                />
-              </div>
-            ))
-            .regular(abilityInfo.averageIssueCastEfficiency).major(abilityInfo.majorIssueCastEfficiency).staticImportance(ability.importance);
-        });
+
+      const suggestionThresholds = {
+        actual: abilityInfo.efficiency,
+        isLessThan: {
+          minor: abilityInfo.recommendedEfficiency,
+          average: abilityInfo.averageIssueEfficiency,
+          major: abilityInfo.majorIssueEfficiency,
+        },
+      };
+
+      when(suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+        return suggest(
+          <Wrapper>
+            Try to cast <SpellLink id={mainSpell.id} /> more often. {ability.castEfficiency.extraSuggestion || ''} <a href="#spell-timeline">View timeline</a>.
+          </Wrapper>
+        )
+          .icon(mainSpell.icon)
+          .actual(`${abilityInfo.casts} out of ${abilityInfo.maxCasts} possible casts. You kept it on cooldown ${formatPercentage(actual, 1)}% of the time.`)
+          .recommended(`>${formatPercentage(recommended, 1)}% is recommended`)
+          .details(() => (
+            <div style={{ margin: '0 -22px' }}>
+              <SpellTimeline
+                historyBySpellId={this.spellHistory.historyBySpellId}
+                abilities={this.abilities}
+                spellId={mainSpell.id}
+                start={this.owner.fight.start_time}
+                end={this.owner.currentTimestamp}
+              />
+            </div>
+          ))
+          .staticImportance(ability.castEfficiency.importance);
+      });
     });
   }
 
@@ -206,7 +221,7 @@ class CastEfficiency extends Analyzer {
         <Tab title="Cast efficiency">
           <CastEfficiencyComponent
             categories={this.abilities.constructor.SPELL_CATEGORIES}
-            abilities={this._generateCastEfficiencyInfo()}
+            abilities={this.getCastEfficiency()}
           />
         </Tab>
       ),

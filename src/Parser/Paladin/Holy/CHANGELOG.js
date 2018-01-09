@@ -1,11 +1,58 @@
 import React from 'react';
 
-import { sref, Zerotorescue } from 'MAINTAINERS';
+import { sref, Zerotorescue, blazyb } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2017-12-31'),
+    changes: <Wrapper><ItemLink id={ITEMS.DRAPE_OF_SHAME.id} icon /> now shows an estimated item level.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-30'),
+    changes: <Wrapper>Added a suggestion to consider using <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} icon /> when not using it.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-24'),
+    changes: <Wrapper>Fixed a crash when using <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} icon /> without <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} icon />.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-24'),
+    changes: <Wrapper>Implemented the checklist.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-23'),
+    changes: <Wrapper>Update cast efficiency to include all available spells for a full overview.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-23'),
+    changes: <Wrapper>Added <SpellLink id={SPELLS.LAY_ON_HANDS.id} icon /> to cast efficiency with a 20% recommended cooldown time (to suggest casting it at least once).</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-11'),
+    changes: <Wrapper>Fixed an issue where healing increases (such as Ilterendi and Velen's) didn't include healing buffed for <ItemLink id={ITEMS.HIGHFATHERS_MACHINATION.id} />, <ItemLink id={ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id} /> and <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} />.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-08'),
+    changes: <Wrapper>Increased <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} />\'s suggestion healing requirement to 60k HPS for minor, 50k HPS for average and 40k HPS for major (up from 30k/25k/20k).</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-07'),
+    changes: 'Stat values shows healing gained per 1 rating on hover.',
+    contributors: [blazyb],
+  },
   {
     date: new Date('2017-11-05'),
     changes: 'Reworded haste tooltip and changed the display to be 0.00 - value to be more obvious it\'s a max.',

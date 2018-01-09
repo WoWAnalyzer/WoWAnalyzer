@@ -112,10 +112,14 @@ class ApiRequestHandler {
       this.sendJson(jsonString);
       console.log('Finished', 'wcl:', wclResponseTime, 'ms');
     } catch (error) {
-      Raven.captureException(error);
+      // if this is a `request` error, `error` contains the plain JSON while `message` also has the statusCode so is polluted.
+      const message = error.error || error.message;
+      console.error(`WCL Error (${error.statusCode}): ${message}`);
+      if (error.statusCode !== 400) {
+        // Ignore "This report does not exist or is private."
+        Raven.installed && Raven.captureException(error);
+      }
       if (error.statusCode >= 400 && error.statusCode < 600) {
-        const message = error.error || error.message; // if this is a `request` error, `error` contains the plain JSON while `message` also has the statusCode so is polluted.
-        console.error(`WCL Error (${error.statusCode}): ${message}`);
         this.res.status(error.statusCode);
         this.sendJson({
           error: 'WCL API error',

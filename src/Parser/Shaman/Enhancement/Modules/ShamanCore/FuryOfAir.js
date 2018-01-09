@@ -68,7 +68,7 @@ class FuryOfAir extends Analyzer {
         icon={<SpellIcon id={FURY_ID} />}
         value={`${formatPercentage(furyofairUptime)} %`}
         label="Fury of Air uptime"
-        tooltip={'One of your highest priorities, get as close to 100% as possible'}
+        tooltip="One of your highest priorities, get as close to 100% as possible"
       />)
     );
   }

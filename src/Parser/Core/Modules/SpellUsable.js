@@ -6,6 +6,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Abilities from './Abilities';
 
 const debug = false;
+const INVALID_COOLDOWN_CONFIG_LAG_MARGIN = 150; // not sure what this is based around, but <150 seems to catch most false positives
 
 function spellName(spellId) {
   return SPELLS[spellId] ? SPELLS[spellId].name : '???';
@@ -18,7 +19,7 @@ class SpellUsable extends Analyzer {
   _currentCooldowns = {};
 
   /**
-   * Whether the spell can be cast. This is not the opposite of `isOnCooldown`! A spell with 2 charges, 1 available and 1 on cooldown would be both available and on cooldown at the same time.
+   * Whether the spell can be cast. This is not the opposite of `isOnCooldown`! A spell with 2 charges, 1 available and 1 on cooldown would be both available and on cooldown at the same time
    */
   isAvailable(spellId) {
     if (this.isOnCooldown(spellId)) {
@@ -29,6 +30,17 @@ class SpellUsable extends Analyzer {
       return false;
     } else {
       return true;
+    }
+  }
+
+  /**
+   * For abilities with charges. Returns the number of charges that are available for a particular spell.
+   */
+  chargesAvailable(spellId) {
+    if (this.isOnCooldown(spellId)) {
+      return this.abilities.getMaxCharges(spellId) - this._currentCooldowns[spellId].chargesOnCooldown;
+    } else {
+      return this.abilities.getMaxCharges(spellId);
     }
   }
   /**
@@ -78,8 +90,8 @@ class SpellUsable extends Analyzer {
         this._triggerEvent('updatespellusable', this._makeEvent(spellId, timestamp, 'addcooldowncharge'));
       } else {
         const remainingCooldown = this.cooldownRemaining(spellId, timestamp);
-        if (remainingCooldown > 50) {
-          // No need to report if it was expected to reset within 50ms, as latency can cause this fluctuation.
+        if (remainingCooldown > INVALID_COOLDOWN_CONFIG_LAG_MARGIN) {
+          // No need to report if it was expected to reset within the set margin, as latency can cause this fluctuation.
           console.error(
             formatMilliseconds(this.owner.fightDuration),
             'SpellUsable',
@@ -100,8 +112,9 @@ class SpellUsable extends Analyzer {
    * @param {number} spellId The ID of the spell.
    * @param {boolean} resetAllCharges Whether all charges should be reset or just the last stack. Does nothing for spells with just 1 stack.
    * @param {number} timestamp Override the timestamp if it may be different from the current timestamp.
+   * @param {number} remainingCDR For abilities with charges, the remaining cooldown reduction if the reduction is more than the remaining cooldown of the charge and more than 1 charge is on cooldown
    */
-  endCooldown(spellId, resetAllCharges = false, timestamp = this.owner.currentTimestamp) {
+  endCooldown(spellId, resetAllCharges = false, timestamp = this.owner.currentTimestamp, remainingCDR = 0) {
     if (!this.isOnCooldown(spellId)) {
       throw new Error(`Tried to end the cooldown of ${spellId}, but it's not on cooldown.`);
     }
@@ -118,6 +131,7 @@ class SpellUsable extends Analyzer {
       cooldown.chargesOnCooldown -= 1;
       this._triggerEvent('updatespellusable', this._makeEvent(spellId, timestamp, 'restorecharge', cooldown));
       this.refreshCooldown(spellId, timestamp);
+      if (remainingCDR !== 0) {this.reduceCooldown(spellId,remainingCDR,timestamp);}
     }
   }
   /**
@@ -154,7 +168,8 @@ class SpellUsable extends Analyzer {
     }
     const cooldownRemaining = this.cooldownRemaining(spellId, timestamp);
     if (cooldownRemaining < reductionMs) {
-      this.endCooldown(spellId, false, timestamp);
+      const remainingCDR = reductionMs - cooldownRemaining;
+      this.endCooldown(spellId, false, timestamp, remainingCDR);
       return cooldownRemaining;
     } else {
       this._currentCooldowns[spellId].totalReductionTime += reductionMs;

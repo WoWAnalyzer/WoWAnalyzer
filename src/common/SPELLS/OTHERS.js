@@ -333,7 +333,131 @@ export default {
     name: 'Isolated Strike',
     icon: 'ability_creature_poison_03',
   },
-
+  GORSHALACHS_LEGACY_FIRST_HIT: {
+    id: 253329,
+    name: 'Gorshalach\'s Legacy',
+    icon: 'inv_sword_1h_firelandsraid_d_01',
+  },
+  GORSHALACHS_LEGACY_SECOND_HIT: {
+    id: 255673,
+    name: 'Gorshalach\'s Legacy',
+    icon: 'inv_sword_1h_firelandsraid_d_01',
+  },
+  GOLGANNETHS_VITALITY_RAVAGING_STORM: { //Each tick is a cast event of this spell
+    id: 257286,
+    name: 'Ravaging Storm',
+    icon: 'inv_antorus_grey',
+  },
+  GOLGANNETHS_VITALITY_THUNDEROUS_WRATH: {
+    id: 257430,
+    name: 'Golganneth\'s Thunderous Wrath',
+    icon: 'ability_thunderking_thunderstruck',
+  },
+  WORLDFORGERS_FLAME_BUFF: {
+    id: 256826,
+    name: 'Worldforger\'s Flame',
+    icon: 'inv_antorus_red',
+  },
+  WORLDFORGERS_FLAME_DAMAGE: { //Khaz'goroths Courage damage proc
+    id: 257244,
+    name: 'Worldforger\'s Flame',
+    icon: 'inv_antorus_red',
+  },
+  KHAZGOROTHS_SHAPING: { //Khaz'goroths Pantheon Proc
+    id: 256835,
+    name: 'Khaz\'goroth\'s Shaping',
+    icon: 'spell_nature_unleashedrage',
+  },
+  FIRE_MINES: { // forgefiends fabricator
+    id: 253321,
+    name: 'Fire Mines',
+    icon: 'inv_jewelry_orgrimmarraid_trinket_04_green',
+  },
+  LEGION_BOMBARDMENT: { // terminus signaling beacon
+    id: 257376,
+    name: 'Legion Bombardment',
+    icon: 'spell_fire_felrainoffire',
+  },
+  PROTOTYPE_PERSONNEL_DECIMATOR: {
+    id: 255629,
+    name: 'Prototype Personnel Decimator',
+    icon: 'ability_rogue_cannonballbarrage',
+  },
+  SHEATH_OF_ASARA_SHADOW_BLADES: { // sheath of asara
+    id: 257702,
+    name: 'Shadow Blades',
+    icon: 'spell_shadow_shadowbolt',
+  },
+  RUSH_OF_KNOWLEDGE: { //Norgannon's Prowess Int Buff
+    id: 256828,
+    name: 'Rush of Knowledge',
+    icon: 'inv_antorus_blue',
+  },
+  NORGANNONS_COMMAND: { //Norgannon's Prowess Pantheon Buff
+    id: 256836,
+    name: 'Norgannon\'s Command',
+    icon: 'ability_monk_forcesphere_arcane',
+  },
+  NORGANNONS_FIREBALL: {
+    id: 257241,
+    name: 'Norgannon\'s Fireball',
+    icon: 'spell_fire_fireball02',
+  },
+  NORGANNONS_FROSTBOLT: {
+    id: 257242,
+    name: 'Norgannon\'s Frostbolt',
+    icon: 'spell_frost_frostbolt02',
+  },
+  NORGANNONS_ARCANE_MISSLE: {
+    id: 257243,
+    name: 'Norgannon\'s Arcane Missle',
+    icon: 'spell_nature_starfall',
+  },
+  NORGANNONS_DIVINE_SMITE: {
+    id: 257532,
+    name: 'Norgannon\'s Divine Smite',
+    icon: 'spell_holy_holysmite',
+  },
+  NORGANNONS_WRATH: {
+    id: 257533,
+    name: 'Norgannon\'s Wrath',
+    icon: 'spell_nature_wrathv2',
+  },
+  NORGANNONS_SHADOW_BOLT: {
+    id: 257534,
+    name: 'Norgannon\'s Shadow Bolt',
+    icon: 'spell_shadow_shadowbolt',
+  },
+  CYCLE_OF_THE_LEGION: { //Acrid three stat buff
+    id: 253260,
+    name: 'Cycle of the Legion',
+    icon: 'inv_7_0raid_trinket_01c',
+  },
+  FERVOR_OF_THE_LEGION: { //Acrid Haste Buff
+    id: 253261,
+    name: 'Fervor of the Legion',
+    icon: 'inv_misc_volatilelife_green',
+  },
+  MALICE_OF_THE_LEGION: { //Acrid Mastery Buff
+    id: 255744,
+    name: 'Malice of the Legion',
+    icon: 'inv_misc_volatilewater',
+  },
+  BRUTALITY_OF_THE_LEGION: { //Acrid Crit buff
+    id: 255742,
+    name: 'Brutality of the Legion',
+    icon: 'inv_misc_volatilelife',
+  },
+  FLAMES_OF_FHARG: {
+    id: 253308,
+    name: 'Flames of F\'harg',
+    icon: 'ability_warlock_backdraft',
+  },
+  CORRUPTION_OF_SHATUG: {
+    id: 253307,
+    name: 'Corruption of Shatug',
+    icon: 'spell_fire_twilightimmolation',
+  },
   // Item Abilities
   SPECTRAL_OWL: {
     id: 242570,
@@ -581,6 +705,16 @@ export default {
     name: 'Dark Sorrows',
     icon: 'inv_heart_of_the_thunder-king_icon',
   },
+  MASTER_OF_SHADOWS_TRAIT: {
+    id: 252091,
+    name: 'Master of Shadows',
+    icon: 'spell_shadow_shadesofdarkness',
+  },
+  LIGHT_SPEED_TRAIT: {
+    id: 252088,
+    name: 'Light Speed',
+    icon: 'ability_rogue_sprint',
+  },
   CONCORDANCE_OF_THE_LEGIONFALL_TRAIT: {
     id: 239042,
     name: 'Concordance of the Legionfall',
@@ -606,16 +740,7 @@ export default {
     name: 'Concordance of the Legionfall',
     icon: 'achievement_faction_legionfall',
   },
-  MASTER_OF_SHADOWS: {
-    id: 252091,
-    name: 'Master of Shadows',
-    icon: 'spell_shadow_shadesofdarkness',
-  },
-  LIGHT_SPEED: {
-    id: 252088,
-    name: 'Light Speed',
-    icon: 'ability_rogue_sprint',
-  },
+
   FEEDBACK_LOOP: {
     id: 253269,
     name: 'Feedback Loop',

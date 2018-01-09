@@ -14,23 +14,44 @@ class ShadowWordPain extends Analyzer {
     enemies: Enemies,
   };
 
+  get uptime() {
+    return this.enemies.getBuffUptime(SPELLS.SHADOW_WORD_PAIN.id) / this.owner.fightDuration;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.90,
+        major: 0.8,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
-    const shadowWordPainUptime = this.enemies.getBuffUptime(SPELLS.SHADOW_WORD_PAIN.id) / this.owner.fightDuration;
-    when(shadowWordPainUptime).isLessThan(0.95)
+    const {
+        isLessThan: {
+            minor,
+            average,
+            major,
+    }} = this.suggestionThresholds;
+
+    when(this.uptime).isLessThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> on the boss.</span>)
           .icon(SPELLS.SHADOW_WORD_PAIN.icon)
           .actual(`${formatPercentage(actual)}% Shadow Word: Pain uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended - 0.05).major(recommended - 0.10);
+          .regular(average).major(major);
       });
   }
 
   statistic() {
-    const shadowWordPainUptime = this.enemies.getBuffUptime(SPELLS.SHADOW_WORD_PAIN.id) / this.owner.fightDuration;
     return (<SmallStatisticBox
       icon={<SpellIcon id={SPELLS.SHADOW_WORD_PAIN.id} />}
-      value={`${formatPercentage(shadowWordPainUptime)} %`}
+      value={`${formatPercentage(this.uptime)} %`}
       label="Shadow Word: Pain uptime"
     />);
   }

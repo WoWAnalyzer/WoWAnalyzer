@@ -5,8 +5,8 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import getDamageBonus from '../WarlockCore/getDamageBonus';
 
@@ -30,19 +30,22 @@ class ReverseEntropy extends Analyzer {
     this.bonusDmg += getDamageBonus(event, REVERSE_ENTROPY_DAMAGE_BONUS);
   }
 
-  statistic() {
-    // could show mana returned too, but that's kinda irrelevant for Warlocks anyway
+  subStatistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.REVERSE_ENTROPY_TALENT.id} />}
-        value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
-        label="Damage contributed"
-        tooltip={`Your Reverse Entropy talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %)`}
-      />
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.REVERSE_ENTROPY_TALENT.id}>
+            <SpellIcon id={SPELLS.REVERSE_ENTROPY_TALENT.id} noLink /> Reverse Entropy Gain
+          </SpellLink>
+        </div>
+        <div className="flex-sub text-right">
+          <dfn data-tip={`Your Reverse Entropy talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%)`}>
+            {formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS
+          </dfn>
+        </div>
+      </div>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(1);
 }
 
 export default ReverseEntropy;
