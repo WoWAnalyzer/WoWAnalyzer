@@ -15,7 +15,7 @@ class TigerPalm extends Analyzer {
     combatants: Combatants,
     boc: BlackoutCombo,
     brews: SharedBrews,
-  }
+  };
 
   totalCasts = 0;
   normalHits = 0;
@@ -29,8 +29,8 @@ class TigerPalm extends Analyzer {
   fpCDR = 0;
   wastedFpCDR = 0;
 
-  boc_buff_active = false;
-  boc_apply_to_tp = false;
+  bocBuffActive = false;
+  bocApplyToTP = false;
 
   get facePalmHits() {
     return this.fpHits + this.bocFpHits;
@@ -39,21 +39,21 @@ class TigerPalm extends Analyzer {
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if(SPELLS.BLACKOUT_COMBO_BUFF.id === spellId) {
-      this.boc_buff_active = true;
+      this.bocBuffActive = true;
     }
   }
 
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
     if(SPELLS.BLACKOUT_COMBO_BUFF.id === spellId) {
-      this.boc_buff_active = true;
+      this.bocBuffActive = true;
     }
   }
 
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
     if(SPELLS.BLACKOUT_COMBO_BUFF.id === spellId) {
-      this.boc_buff_active = false;
+      this.bocBuffActive = false;
     }
   }
 
@@ -61,7 +61,7 @@ class TigerPalm extends Analyzer {
     const spellId = event.ability.guid;
     if(SPELLS.TIGER_PALM.id === spellId) {
       this.totalCasts += 1;
-      this.boc_apply_to_tp = this.boc_buff_active;
+      this.bocApplyToTP = this.bocBuffActive;
     }
   }
 
@@ -73,19 +73,19 @@ class TigerPalm extends Analyzer {
       this.cdr += actualReduction;
       this.wastedCDR += TIGER_PALM_REDUCTION - actualReduction;
 
-      if(this._face_palm_proc(event)) {
+      if(this._facePalmProc(event)) {
         // BUT this is also FACE PALM so we reduce it by an extra amount
         // too!
         const actualFpReduction = this.brews.reduceCooldown(FACE_PALM_REDUCTION);
         this.fpCDR += actualFpReduction;
         this.wastedFpCDR += FACE_PALM_REDUCTION - actualFpReduction;
-        if(this.boc_apply_to_tp) {
+        if(this.bocApplyToTP) {
           this.bocFpHits += 1;
         } else {
           this.fpHits += 1;
         }
       } else {
-        if(this.boc_apply_to_tp) {
+        if(this.bocApplyToTP) {
           this.bocHits += 1;
         } else {
           this.normalHits += 1;
@@ -97,7 +97,7 @@ class TigerPalm extends Analyzer {
   on_toPlayer_damage(event) {
     // record the last known AP to estimate the amount of damage a
     // non-FP TP should do
-    if (event.hasOwnProperty("attackPower") && event.attackPower > 0) {
+    if (event.attackPower !== undefined && event.attackPower > 0) {
       this.lastAttackPower = event.attackPower;
     }
   }
@@ -108,9 +108,9 @@ class TigerPalm extends Analyzer {
   // we're going to do this by using halfway between non-fp/fp as a
   // cutoff. anything >= the cut-off is FP, and anything < the cut-off
   // is non-FP
-  _face_palm_proc(event) {
+  _facePalmProc(event) {
     let normalDamage = this.lastAttackPower * FACE_PALM_AP_RATIO * (1.0 + this.combatants.selected.versatilityPercentage);
-    if(this.boc_apply_to_tp) {
+    if(this.bocApplyToTP) {
       normalDamage *= 3;
     }
     const critDamage = normalDamage * 2;

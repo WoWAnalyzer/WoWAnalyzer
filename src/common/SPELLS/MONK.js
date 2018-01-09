@@ -530,7 +530,7 @@ export default {
     icon: 'ability_monk_fortifyingale_new',
   },
   FAKE_SHARED_BREWS: {
-    id: 9001,
+    id: -115308,
     name: 'Ironskin / Purifying Brew',
     icon: 'ability_monk_ironskinbrew',
   },
