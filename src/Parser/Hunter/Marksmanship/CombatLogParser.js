@@ -133,6 +133,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Checklist
     checklist: Checklist,
+
   };
 }
 

@@ -72,9 +72,9 @@ class CombatLogParser extends CoreCombatLogParser {
     focusUsage: FocusUsage,
     timeFocusCapped: TimeFocusCapped,
 
-    //FocusChart
-    focusTab: FocusTab,
+    //Focus Chart
     focusTracker: FocusTracker,
+    focusTab: FocusTab,
 
     //Spells
     direBeast: DireBeast,
