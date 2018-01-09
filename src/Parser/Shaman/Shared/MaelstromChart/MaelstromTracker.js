@@ -1,12 +1,7 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 class MaelstromTracker extends Analyzer {
-
-  static dependencies = {
-    combatants: Combatants,
-  };
 
   lastEventTimestamp = 0;
   maelstromBySecond = [];
@@ -19,12 +14,8 @@ class MaelstromTracker extends Analyzer {
 
   on_initialized() {
     this.lastEventTimestamp = this.owner.fight.start_time;
-    this.secondsCapped = 0;
   }
 
-  on_byPlayer_energize(event) {
-    this.checkActiveWaste(event);
-    }
   on_toPlayer_energize(event) {
     this.checkActiveWaste(event);
   }
@@ -94,13 +85,14 @@ class MaelstromTracker extends Analyzer {
           this.activeMaelstromWastedTimeline[Math.floor((event.timestamp - this.owner.fight.start_time) / 1000)] = event.waste;
       }
     }
+    console.log(this.generatorCasts);
   }
 
   extrapolateFocus(eventTimestamp) {
     this.maelstromBySecond[0] = 0;
     for (let i = this.lastEventTimestamp - this.owner.fight.start_time; i < (eventTimestamp - this.owner.fight.start_time); i++) {
       if (!this.maelstromBySecond[i])
-          this.maelstromBySecond[i] = this.maelstromBySecond[i - 1];
+        this.maelstromBySecond[i] = this.maelstromBySecond[i - 1];
     }
     this.lastEventTimestamp = eventTimestamp;
   }

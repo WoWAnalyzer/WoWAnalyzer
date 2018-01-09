@@ -17,11 +17,9 @@ class Maelstrom extends React.PureComponent {
   static propTypes = {
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
-    playerHaste: PropTypes.number.isRequired,
     maelstromMax: PropTypes.number,
     maelstromPerSecond: PropTypes.array,
     tracker: PropTypes.number,
-    secondsCapped: PropTypes.number,
     activeMaelstromGenerated: PropTypes.object,
     activeMaelstromWasted: PropTypes.object,
     generatorCasts: PropTypes.object,

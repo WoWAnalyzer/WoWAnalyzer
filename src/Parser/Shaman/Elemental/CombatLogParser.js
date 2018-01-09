@@ -1,7 +1,3 @@
-import React from 'react';
-
-import Tab from 'Main/Tab';
-
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
@@ -28,7 +24,7 @@ import TheDeceiversBloodPact from './Modules/Items/TheDeceiversBloodPact';
 import './Modules/Main/main.css';
 
 import MaelstromTab from '../Shared/MaelstromChart/MaelstromTab';
-
+import MaelstromTracker from '../Shared/MaelstromChart/MaelstromTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -58,8 +54,8 @@ class CombatLogParser extends CoreCombatLogParser {
     tier21_4p: Tier21_4Set,
 
 
+    maelstromTracker: MaelstromTracker,
     maelstromTab: MaelstromTab,
-
   };
 
 }

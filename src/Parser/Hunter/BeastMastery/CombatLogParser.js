@@ -1,7 +1,3 @@
-import React from 'react';
-
-import Tab from 'Main/Tab';
-
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 //Features
@@ -62,8 +58,8 @@ import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 import Checklist from './Modules/Features/Checklist';
 
 //Focus
-import FocusChart from '../Shared/Modules/Features/FocusChart/Focus';
 import FocusTracker from '../Shared/Modules/Features/FocusChart/FocusTracker';
+import FocusTab from '../Shared/Modules/Features/FocusChart/FocusTab';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -75,9 +71,11 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     focusUsage: FocusUsage,
     timeFocusCapped: TimeFocusCapped,
+    focusTab: FocusTab,
+    focusTracker: FocusTracker,
 
     //Focus Chart
-    focusTracker: FocusTracker,
+    //focusTracker: FocusTracker,
 
     //Spells
     direBeast: DireBeast,
@@ -132,7 +130,7 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
 
   };
-  generateResults() {
+  /*generateResults() {
     const results = super.generateResults();
     results.tabs = [
       ...results.tabs,
@@ -160,7 +158,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ];
 
     return results;
-  }
+  }*/
 }
 
 export default CombatLogParser;

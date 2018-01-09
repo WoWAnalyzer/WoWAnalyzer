@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 
-const MaelstromComponent = ({ categories, abilities, passive, maelstromBySecondCoord, overCapBySecondCoord }) => {
+const MaelstromComponent = ({ categories, abilities}) => {
 
   return (
     <div style={{ marginTop: -10, marginBottom: -10 }}>
@@ -13,7 +13,7 @@ const MaelstromComponent = ({ categories, abilities, passive, maelstromBySecondC
           <tbody key={key}>
             <tr>
               <th>{categories[key]}</th>
-              <th className="text-center"><dfn data-tip="Times you gained maelstrom from this ability">Times gained focus</dfn></th>
+              <th className="text-center"><dfn data-tip="Times you gained maelstrom from this ability">Times gained Maelstrom</dfn></th>
 
               <th className="text-center">{key === 'generated' ? <dfn data-tip="Approximately.">Generated</dfn> : ''}</th>
               <th className="text-center"><dfn data-tip="Approximately.">Wasted</dfn></th>
@@ -61,9 +61,6 @@ MaelstromComponent.propTypes = {
     }).isRequired,
   })).isRequired,
   categories: PropTypes.object,
-  passive: PropTypes.array,
-  maelstromBySecondCoord: PropTypes.array,
-  overCapBySecondCoord: PropTypes.array,
-};
+  };
 
 export default MaelstromComponent;
