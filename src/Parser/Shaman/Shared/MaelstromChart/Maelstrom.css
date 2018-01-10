@@ -9,15 +9,14 @@
   background-color: #ff6dd7;
   border-color: #ff6dd7;
 }
-
-.ct-series.maelstrom .ct-bar, .ct-series.maelstrom .ct-line, .ct-series.maelstrom .ct-point, .ct-series.maelstrom .ct-slice-donut {
+.ct-series.pain .ct-bar, .ct-series.pain .ct-line, .ct-series.pain .ct-point, .ct-series.pain .ct-slice-donut {
   stroke: #008fff;
 }
-.ct-series.maelstrom .ct-area, .ct-series.maelstrom .ct-slice-donut-solid, .ct-series.maelstrom .ct-slice-pie {
+.ct-series.pain .ct-area, .ct-series.pain .ct-slice-donut-solid, .ct-series.pain .ct-slice-pie {
   fill: #008fff;
   fill-opacity: 0.2;
 }
-.ct-legend .maelstrom:before {
+.ct-legend .pain:before {
   background-color: #008fff;
   border-color: #008fff;
 }
