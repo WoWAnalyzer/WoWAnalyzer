@@ -41,6 +41,7 @@ import Footer from './Layout/Footer';
 import NewsView from './News/View';
 import { default as makeNewsUrl } from './News/makeUrl';
 import { title as AboutArticleTitle } from './News/Articles/2017-01-31-About';
+import { title as UnlistedLogsTitle } from './News/Articles/2017-01-31-UnlistedLogs';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
@@ -537,6 +538,7 @@ class App extends Component {
                   )}
                   <div className="about">
                     <Link to={makeNewsUrl(AboutArticleTitle)}>About WoWAnalyzer</Link>
+                    {' '}| <Link to={makeNewsUrl(UnlistedLogsTitle)}>About unlisted logs</Link>
                     {' '}| <a href="https://discord.gg/AxphPxU">Join Discord</a>
                     {' '}| <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">View source</a>
                     {' '}| <a href="https://www.patreon.com/wowanalyzer">Become a Patron</a>

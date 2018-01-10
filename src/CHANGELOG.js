@@ -9,9 +9,19 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2017-01-10'),
+    changes: 'Added a note about unlisted logs to the report selector.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2017-01-09'),
     changes: <Wrapper>Updated the tooltip for <ItemLink id={ITEMS.GOLGANNETHS_VITALITY.id} icon /> to show uptime aswell as damage contribution of the two procs</Wrapper>,
     contributors: [Putro],
+  },
+  {
+    date: new Date('2017-01-08'),
+    changes: 'Replaced the articles on the frontpage with a basic news system so we can more easily add and maintain articles.',
+    contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-01-04'),
