@@ -24,15 +24,12 @@ class T19_4Set extends Analyzer {
   get directHealing() {
     return this.hotTracker.t194p.healing;
   }
-
   get masteryHealing() {
     return this.hotTracker.t194p.masteryHealing;
   }
-
   get totalHealing() {
     return this.directHealing + this.masteryHealing;
   }
-
   get procs() {
     return this.hotTracker.t194p.procs;
   }

@@ -5,7 +5,8 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Mastery from './Mastery';
 
-const BUFFER_MS = 100;
+const BUFFER_MS = 150; // saw a few cases of taking close to 150ms from cast -> applybuff
+const PANDEMIC_FACTOR = 1.3;
 
 const debug = false;
 
@@ -54,6 +55,9 @@ class HotTracker extends Analyzer {
 
   // 4T19 tracking stuff
   has4t19;
+
+  // 4T21 tracking stuff
+  remaining4t21attributes = 0;
 
   on_initialized() {
     this.hasTearstone = this.combatants.selected.hasFinger(ITEMS.TEARSTONE_OF_ELUNE.id);
@@ -114,7 +118,7 @@ class HotTracker extends Analyzer {
     Object.keys(this.hots[targetId]).forEach(otherSpellId => {
       if (otherSpellId !== spellId) {
         const otherHot = this.hots[targetId][otherSpellId];
-        otherHot.attributions.forEach(att => att.masteryHealing += oneStack); // TODO populate a different field to show mastery healing vs direct?
+        otherHot.attributions.forEach(att => att.masteryHealing += oneStack);
         // boosts don't get mastery benefit because the hot was there with or without the boost
         // TODO handle extensions?
       }
@@ -122,6 +126,13 @@ class HotTracker extends Analyzer {
   }
 
   on_byPlayer_applybuff(event) {
+    if (event.ability.guid === SPELLS.AWAKENED.id) {
+      // 4t21 proc causes 5 dreamer procs that would not otherwise have happened
+      // while in reality there is usually a quick sequence of 6 dreamers, one of which is "natural",
+      // we simplify by attributing the next 5 to 4t21
+      this.remaining4t21attributes = 5;
+    }
+
     const spellId = event.ability.guid;
     const target = this._validateAndGetTarget(event);
     if (!target) {
@@ -136,17 +147,13 @@ class HotTracker extends Analyzer {
       attributions: [], // new generated HoT
       extensions: [], // duration extensions to existing HoT
       boosts: [], // strength boost to existing HoT
-      // TODO need more fields (like expected end)?
     };
     if(!this.hots[targetId]) {
       this.hots[targetId] = {};
     }
     this.hots[targetId][spellId] = newHot;
 
-    if(event.prepull) {
-      return; // prepull HoTs can confuse things, we just assume they were hardcast
-    }
-    newHot.attributions = this._getAttributions(spellId, targetId,  event.timestamp);
+    newHot.attributions = this._getAttributions(spellId, targetId, event.timestamp, event);
   }
 
   on_byPlayer_refreshbuff(event) {
@@ -161,10 +168,10 @@ class HotTracker extends Analyzer {
     const oldEnd = hot.end;
     // TODO do something about early refreshes or whatever
     const newEndMax = oldEnd + this.hotInfo[spellId].duration;
-    const pandemicMax = event.timestamp + this.hotInfo[spellId].duration * 1.3;
+    const pandemicMax = event.timestamp + (this.hotInfo[spellId].duration * PANDEMIC_FACTOR);
     hot.end = Math.min(newEndMax, pandemicMax);
 
-    hot.attributions = this._getAttributions(spellId, targetId,  event.timestamp); // new attributions on refresh
+    hot.attributions = this._getAttributions(spellId, targetId, event.timestamp, event); // new attributions on refresh
     // TODO do something smart with extensions
     hot.boosts = [];
   }
@@ -182,7 +189,7 @@ class HotTracker extends Analyzer {
     const targetId = event.targetID;
 
     // TODO assign HoT extension contribution now
-    // TODO check how well actual fall time matched expcted fall time
+    // TODO check how well actual hot remove time matched expected hot remove time
 
     delete this.hots[targetId][spellId];
   }
@@ -216,11 +223,11 @@ class HotTracker extends Analyzer {
     return target;
   }
 
-  _getAttributions(spellId, targetId, timestamp) {
+  _getAttributions(spellId, targetId, timestamp, event) {
     const attributions = [];
     let attName = "NONE";
     if (spellId === SPELLS.REJUVENATION.id || spellId === SPELLS.REJUVENATION_GERMINATION.id) {
-      if (this.lastRejuvCastTimestamp + BUFFER_MS > timestamp && this.lastRejuvTarget === targetId) { // regular cast
+      if (event.prepull || (this.lastRejuvCastTimestamp + BUFFER_MS > timestamp && this.lastRejuvTarget === targetId)) { // regular cast (assume prepull applications are hardcast)
         // standard hardcast gets no special attribution
         attName = "Hardcast";
       } else if (this.lastPotaRejuvTimestamp + BUFFER_MS > timestamp && this.potaTarget !== targetId) { // PotA proc but not primary target
@@ -233,22 +240,29 @@ class HotTracker extends Analyzer {
         attributions.push(this.t194p);
         attName = "Tier19 4pc";
       } else {
-        console.warn(`Unable to attribute Rejuv @${this.owner.formatTimestamp(timestamp)} on ${this.owner.targetId}`);
+        console.warn(`Unable to attribute Rejuv @${this.owner.formatTimestamp(timestamp)} on ${targetId}`);
       }
 
     } else if (spellId === SPELLS.REGROWTH.id) {
-      if (this.lastRegrowthCastTimestamp + BUFFER_MS > timestamp && this.lastRegrowthTarget === targetId) { // regular cast
+      if (event.prepull || (this.lastRegrowthCastTimestamp + BUFFER_MS > timestamp && this.lastRegrowthTarget === targetId)) { // regular cast (assume prepull applications are hardcast)
         // standard hardcast gets no special attribution
         attName = "Hardcast";
       } else if (this.lastPotalRegrowthTimestamp + BUFFER_MS > timestamp && this.potaTarget !== targetId) { // PotA proc but not primary target
         attributions.push(this.powerOfTheArchdruid.regrowth);
         attName = "Power of the Archdruid";
       } else {
-        console.warn(`Unable to attribute Regrowth @${this.owner.formatTimestamp(timestamp)} on ${this.owner.targetId}`);
+        console.warn(`Unable to attribute Regrowth @${this.owner.formatTimestamp(timestamp)} on ${targetId}`);
       }
 
     } else if (spellId === SPELLS.DREAMER.id) {
-      // 4t21 appears to cause FIVE dreamer procs that would not otherwise have happened... seems best to attribute the next five...
+      if(this.remaining4t21attributes > 0) {
+        attributions.push(this.t214p);
+        this.remaining4t21attributes -= 1;
+        attName = "Tier21 4pc";
+      } else {
+        attributions.push(this.t212p);
+        attName = "Tier21 2pc";
+      }
 
     } else {
       // ...
