@@ -72,7 +72,7 @@ class Checklist extends CoreChecklist {
             spell: SPELLS.TRUESHOT,
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.SIDEWINDERS_TALENT,
+            spell: SPELLS.SIDEWINDERS_CAST,
             when: combatant.hasTalent(SPELLS.SIDEWINDERS_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
