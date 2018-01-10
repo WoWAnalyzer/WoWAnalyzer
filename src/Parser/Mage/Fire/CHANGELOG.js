@@ -1,64 +1,71 @@
+import React from 'react';
+
 import { Sharrq, sref, Fyruna } from 'MAINTAINERS';
+import Wrapper from 'common/Wrapper';
+import ItemLink from 'common/ItemLink';
+import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2017-1-3'),
-    changes: 'Added support for Marquee Bindings of the Sun King',
+    date: new Date('2018-01-03'),
+    changes: <Wrapper>Added support for <ItemLink id={ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id} icon /></Wrapper>,
     contributors: [Sharrq],
   },
   {
-    date: new Date('2017-1-2'),
-    changes: 'Added Suggestion for Phoenix Flames Charge Count before Combustion',
+    date: new Date('2018-01-02'),
+    changes: <Wrapper>Added Suggestion for <SpellLink id={SPELLS.PHOENIXS_FLAMES.id} icon /> Charge Count before <SpellLink id={SPELLS.COMBUSTION.id} icon /></Wrapper>,
     contributors: [Sharrq],
   },
   {
-    date: new Date('2017-1-2'),
-    changes: 'Added Heating Up Module',
+    date: new Date('2018-01-02'),
+    changes: <Wrapper>Added <SpellLink id={SPELLS.HEATING_UP.id} icon /> Module</Wrapper>,
     contributors: [Sharrq],
   },
   {
-    date: new Date('2017-1-2'),
-    changes: 'Added Warning regarding spec completeness',
+    date: new Date('2018-01-02'),
+    changes: <Wrapper>Added Warning regarding spec completeness</Wrapper>,
     contributors: [Sharrq],
   },
   {
     date: new Date('2017-12-27'),
-    changes: 'Converted Changelog to new format',
+    changes: <Wrapper>Converted Changelog to new format</Wrapper>,
     contributors: [Sharrq],
   },
   {
     date: new Date('2017-12-02'),
-    changes: 'Added Hot Streak module',
+    changes: <Wrapper>Added <SpellLink id={SPELLS.HOT_STREAK.id} icon /> module</Wrapper>,
     contributors: [Sharrq],
   },
   {
     date: new Date('2017-11-23'),
-    changes: 'Added Cooldown Reduction for Phoenix\'s Flame',
+    changes: <Wrapper>Added Cooldown Reduction for <SpellLink id={SPELLS.PHOENIXS_FLAMES.id} icon /></Wrapper>,
     contributors: [Sharrq],
   },
   {
     date: new Date('2017-11-23'),
-    changes: 'Added support for Darckli\'s Dragonfire Diadem, Contained Infernal Core, and Pyrotex Ignition Cloth',
+    changes: <Wrapper>Added support for <ItemLink id={ITEMS.DARCKLIS_DRAGONFIRE_DIADEM.id} icon />, <ItemLink id={ITEMS.CONTAINED_INFERNAL_CORE.id} icon />, and <ItemLink id={ITEMS.PYROTEX_IGNITION_CLOTH.id} icon /></Wrapper>,
     contributors: [Sharrq],
   },
   {
     date: new Date('2017-11-22'),
-    changes: 'Added Cooldown Reduction for Combustion',
+    changes: <Wrapper>Added Cooldown Reduction for <SpellLink id={SPELLS.COMBUSTION.id} icon /></Wrapper>,
     contributors: [Sharrq],
   },
   {
     date: new Date('2017-10-17'),
-    changes: 'Added Unstable Magic module',
+    changes: <Wrapper>Added <SpellLink id={SPELLS.UNSTABLE_MAGIC_DAMAGE_FIRE.id} icon /> module</Wrapper>,
     contributors: [sref],
   },
   {
     date: new Date('2017-10-17'),
-    changes: 'Added Mirror Image module',
+    changes: <Wrapper>Added <SpellLink id={SPELLS.MIRROR_IMAGE_SUMMON.id} icon /> module</Wrapper>,
     contributors: [sref],
   },
   {
     date: new Date('2017-10-14'),
-    changes: 'Added Spec',
+    changes: <Wrapper>Added Spec</Wrapper>,
     contributors: [Fyruna],
   },
 ];

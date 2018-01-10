@@ -1,10 +1,44 @@
-export default `
-23/10/2017 Filtered some unnecessary spells from CD tracking.
-3/10/2017 Updated cast efficency ratios and text. Added CD tracking for vampiric blood and dancing rune weapon.
-14/9/2017 Added runic power graphs/table.
-12/9/2017 Added Tier 20 2 and 4 piece tracking. Talent checking/filtering.
-9/9/2017 Added blood drinker tracking and updated statistic wording.
-7/9/2017 Updated haste calculates for spells. Added boneshield haste buff to.
-4/9/2017 Initial Blood Death Knight (By Yajinni)
+import React from 'react';
 
-`;
+import { Yajinni } from 'MAINTAINERS';
+import Wrapper from 'common/Wrapper';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
+
+export default [
+    {
+      date: new Date('2017-10-23'),
+      changes: <Wrapper>Filtered some unnecessary spells from CD tracking.</Wrapper>,
+      contributors: [Yajinni],
+    },
+    {
+      date: new Date('2017-10-03'),
+      changes: <Wrapper>Updated cast efficency ratios and text. Added CD tracking for <SpellLink id={SPELLS.VAMPIRIC_BLOOD.id} icon /> and <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} icon />.</Wrapper>,
+      contributors: [Yajinni],
+    },
+    {
+      date: new Date('2017-09-14'),
+      changes: <Wrapper>Added runic power graphs/table.</Wrapper>,
+      contributors: [Yajinni],
+    },
+    {
+      date: new Date('2017-09-12'),
+      changes: <Wrapper>Added <SpellLink id={SPELLS.BLOOD_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id} /> and <SpellLink id={SPELLS.BLOOD_DEATH_KNIGHT_T20_4SET_BONUS_BUFF.id} /> tracking. Talent checking/filtering.</Wrapper>,
+      contributors: [Yajinni],
+    },
+    {
+      date: new Date('2017-09-09'),
+      changes: <Wrapper>Added <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} icon /> tracking and updated statistic wording.</Wrapper>,
+      contributors: [Yajinni],
+    },
+    {
+      date: new Date('2017-09-07'),
+      changes: <Wrapper>Updated haste calculates for spells. Added <SpellLink id={SPELLS.BONE_SHIELD.id} icon /> haste buff too.</Wrapper>,
+      contributors: [Yajinni],
+    },
+    {
+      date: new Date('2017-09-04'),
+      changes: <Wrapper>Initial Blood Death Knight</Wrapper>,
+      contributors: [Yajinni],
+    },
+];
