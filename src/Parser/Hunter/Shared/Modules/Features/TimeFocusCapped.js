@@ -61,11 +61,11 @@ class TimeFocusCapped extends Analyzer {
   }
   get suggestionThresholds() {
     return {
-      actual: formatPercentage(this.focusTracker.secondsCapped / (this.owner.fightDuration / 1000)),
+      actual: this.focusTracker.secondsCapped / (this.owner.fightDuration / 1000),
       isGreaterThan: {
-        minor: 2.5,
-        average: 3.5,
-        major: 4.5,
+        minor: 0.025,
+        average: 0.035,
+        major: 0.045,
       },
       style: 'percentage',
     };
