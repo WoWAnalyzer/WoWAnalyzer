@@ -37,13 +37,21 @@ class BlessingOfTheAshbringer extends Analyzer {
 		return uptime;
 	}
 
+	get suggestionThresholds() {
+		return {
+			actual: this.uptime,
+			isLessThan: {
+				major: .95,
+			}
+		}
+	}
+
 	suggestions(when) {
-		when(this.uptime).isLessThan(0.95).addSuggestion((suggest, actual, recommended) => {
+		when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
 				return suggest(<span>Your <SpellLink id={SPELLS.BLESSING_OF_THE_ASHBRINGER.id} /> uptime is low. Make sure to apply <SpellLink id={SPELLS.GREATER_BLESSING_OF_WISDOM.id} /> and <SpellLink id={SPELLS.GREATER_BLESSING_OF_KINGS.id} /> before the fight starts.</span>)
 					.icon(SPELLS.BLESSING_OF_THE_ASHBRINGER.icon)
 					.actual(`${formatPercentage(this.uptime)}%`)
-					.recommended(`${formatPercentage(recommended)}% is recommended`)
-					.major(recommended);
+					.recommended(`${formatPercentage(recommended)}% is recommended`);
 		});
 	}
 }

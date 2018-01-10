@@ -22,6 +22,7 @@ import BoWProcTracker from '../PaladinCore/BoWProcTracker';
 import Judgment from '../PaladinCore/Judgment';
 import Liadrins from '../Items/LiadrinsFuryUnleashed';
 import Whisper from '../Items/WhisperOfTheNathrezim';
+import BotA from '../PaladinCore/BlessingOfTheAshbringer'
 
 class Checklist extends CoreChecklist {
 	static dependencies = {
@@ -39,6 +40,7 @@ class Checklist extends CoreChecklist {
 	    judgment: Judgment,
 	    liadrins: Liadrins,
 	    whisper: Whisper,
+        bota: BotA,
 	};
 
 	rules = [
@@ -160,6 +162,10 @@ class Checklist extends CoreChecklist {
 						style: 'number',
 					}),
 	    		}),
+                new Requirement({
+                    name: <Wrapper> <SpellLink id={SPELLS.SPELLS.BLESSING_OF_THE_ASHBRINGER_BUFF.id} icon/> </Wrapper>,
+                    check: () => this.bota.suggestionThresholds,
+                }),
 	        ];
 	      },
 	    }),
