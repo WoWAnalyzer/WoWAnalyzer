@@ -72,13 +72,12 @@ class Judgment extends Analyzer {
 	}
 
 	suggestions(when) {
-		when(this.suggestionThresholds)
-			.addSuggestion((suggest,actual,recommended) => {
+		when(this.suggestionThresholds).addSuggestion((suggest,actual,recommended) => {
 				return suggest(<span>You're spending Holy Power outisde of the <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> debuff. It is optimal to only spend Holy Power while the enemy is debuffed with <SpellLink id={SPELLS.JUDGMENT_CAST.id} />.</span>)
 					.icon(SPELLS.JUDGMENT_DEBUFF.icon)
 					.actual(`${formatNumber(this.spenderOutsideJudgment)} Holy Power spenders used outside of Judgment (${formatPercentage(actual)}%).`)
 					.recommended(`<${formatPercentage(recommended)}% is recommended`);
-				});
+		});
 	}
 
 	statistic() {

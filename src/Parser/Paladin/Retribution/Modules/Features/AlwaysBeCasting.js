@@ -79,7 +79,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(average).major(major);
       });
-  }
+    }
   }
 
   static icons = {

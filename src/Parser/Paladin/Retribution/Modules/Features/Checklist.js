@@ -42,50 +42,6 @@ class Checklist extends CoreChecklist {
 	};
 
 	rules = [
-		new Rule({
-	      name: 'Be well prepared',
-	      description: 'Being well prepared with potions, enchants and legendaries is an easy way to improve your performance.',
-	      performanceMethod: 'average',
-	      requirements: () => {
-	        return [
-	          new Requirement({
-	            name: 'Used maximum possible amount of legendaries',
-	            check: () => ({
-	              actual: this.legendaryCountChecker.equipped,
-	              isLessThan: this.legendaryCountChecker.max,
-	              style: 'number',
-	            }),
-	          }),
-	          new Requirement({
-	            name: 'All legendaries upgraded to max item level',
-	            check: () => ({
-	              actual: this.legendaryUpgradeChecker.upgradedLegendaries.length,
-	              isLessThan: this.legendaryCountChecker.max,
-	              style: 'number',
-	            }),
-	          }),
-	          new Requirement({
-	            name: 'Used a pre-potion',
-	            check: () => this.prePotion.prePotionSuggestionThresholds,
-	          }),
-	          new Requirement({
-	            name: 'Used a second potion',
-	            check: () => this.prePotion.secondPotionSuggestionThresholds,
-	          }),
-	          new Requirement({
-	            name: 'Gear has best enchants',
-	            check: () => {
-	              const numEnchantableSlots = Object.keys(this.enchantChecker.enchantableGear).length;
-	              return {
-	                actual: numEnchantableSlots - (this.enchantChecker.slotsMissingEnchant.length + this.enchantChecker.slotsMissingMaxEnchant.length),
-	                isLessThan: numEnchantableSlots,
-	                style: 'number',
-	              };
-	            },
-	          }),
-	        ];
-	      },
-	    }),
 	    new Rule({
       		name: 'Always be casting',
      		description: <Wrapper>You should try to avoid doing nothing during the fight. If you have to move, use your <SpellLink id={SPELLS.DIVINE_STEED.id} icon/> to minimize downtime. Also use ranged abilities like <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/>, <SpellLink id={SPELLS.BLADE_OF_JUSTICE.id} icon/>, or <SpellLink id={SPELLS.DIVINE_STORM.id} icon/> if out of melee range for extended periods.</Wrapper>,
@@ -128,7 +84,7 @@ class Checklist extends CoreChecklist {
     	}),
     	new Rule({
     		name: 'Use your cooldowns',
-    		description: <Wrapper>Ret is a very cooldown dependant spec. Make sure you are keeping <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon/> and <SpellLink id={SPELLS.WAKE_OF_ASHES.id} icon /> on cooldown.</Wrapper>,
+    		description: <Wrapper>Retribution Paladin is a very cooldown dependant spec. Make sure you are keeping <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon/> and <SpellLink id={SPELLS.WAKE_OF_ASHES.id} icon /> on cooldown.</Wrapper>,
     		requirements: () => {
     			const combatant = this.combatants.selected;
     			return [

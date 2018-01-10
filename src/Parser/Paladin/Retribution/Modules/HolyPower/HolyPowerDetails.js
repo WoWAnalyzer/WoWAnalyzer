@@ -17,9 +17,12 @@ class HolyPowerDetails extends Analyzer {
 		holyPowerTracker: HolyPowerTracker,
 	};
 
+	get hpWasted() {
+		return this.holyPowerTracker.holyPowerWasted;
+	}
+
 	get suggestionThresholds() {
-		const hpWasted = this.holyPowerTracker.holyPowerWasted;
-		const hpWastedPercent = hpWasted / this.holyPowerTracker.totalHolyPowerGained;
+		const hpWastedPercent = this.hpWasted / this.holyPowerTracker.totalHolyPowerGained;
 		return {
 			actual: hpWastedPercent,
 			isGreaterThan: {
@@ -32,18 +35,15 @@ class HolyPowerDetails extends Analyzer {
   }
 
 	suggestions(when) {
-		const hpWasted = this.holyPowerTracker.holyPowerWasted;
-		when(this.suggestionThresholds)
-			.addSuggestion((suggest, actual, recommended) => {
+		when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
 				return suggest(`You wasted ${formatPercentage(actual)}% of your Holy Power.`)
 					.icon(holyPowerIcon)
-					.actual(`${hpWasted} Holy Power wasted`)
+					.actual(`${this.hpWasted} Holy Power wasted`)
 					.recommended(`Wasting less than ${formatPercentage(recommended)}% is recommended.`);
-			});
+		});
 	}
 
 	statistic() {
-		const hpWasted = this.holyPowerTracker.holyPowerWasted;
 		const totalHPGained = this.holyPowerTracker.totalHolyPowerGained;
 		return (
 			<StatisticBox
@@ -53,9 +53,9 @@ class HolyPowerDetails extends Analyzer {
             			alt="Wasted Holy Power"
           			/>
         		)}
-		        value={formatNumber(hpWasted)}
+		        value={formatNumber(this.hpWasted)}
 		        label="Holy Power Wasted"
-		        tooltip={`${formatPercentage(hpWasted / totalHPGained)}% wasted`}
+		        tooltip={`${formatPercentage(this.hpWasted / totalHPGained)}% wasted`}
       		/>
 		);
 	}
