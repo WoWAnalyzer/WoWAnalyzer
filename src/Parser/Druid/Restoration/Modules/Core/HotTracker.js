@@ -7,7 +7,7 @@ import Mastery from './Mastery';
 
 const BUFFER_MS = 100;
 
-const debug = true;
+const debug = false;
 
 /*
  * Backend module for tracking attribution of HoTs, e.g. what applied them / applied parts of them / boosted them
@@ -93,32 +93,17 @@ class HotTracker extends Analyzer {
 
     // TODO attribute Dreamwalker...
 
-    // if(!event.tick || !(spellId in this.hotInfo)) {
-    //   return;
-    // }
-    //
-    // const target = this.combatants.getEntity(event);
-    // if (!target) {
-    //   return; // target wasn't important (a pet probably)
-    // }
-    // const targetId = event.targetID;
-    // if (!targetId) {
-    //   debug && console.log(`${event.ability.name} healed target without ID @${this.owner.formatTimestamp(event.timestamp)}... no attribution possible.`);
-    //   return;
-    // }
-    // if (!this.hots[targetId] || !this.hots[targetId][spellId]) {
-    //   console.warn(`${event.ability.name} healed target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but that player isn't recorded as having that HoT...`);
-    //   return;
-    // }
     const target = this._validateAndGetTarget(event);
-    if (!target || !event.tick) {
+    if (!target) {
       return;
     }
     const targetId = event.targetID;
     const hot = this.hots[targetId][spellId];
 
     const healing = event.amount + (event.absorbed || 0);
-    hot.ticks.push({ healing, timestamp: event.timestamp });
+    if (event.tick) { // direct healing (say from a PotA procced regrowth) still should be counted for attribution, but not part of tick tracking
+      hot.ticks.push({ healing, timestamp: event.timestamp });
+    }
 
     hot.attributions.forEach(att => att.healing += healing);
     hot.boosts.forEach(att => att.healing += calculateEffectiveHealing(event, att.boost));
@@ -137,23 +122,69 @@ class HotTracker extends Analyzer {
   }
 
   on_byPlayer_applybuff(event) {
-    this._applyBuff(event);
+    const spellId = event.ability.guid;
+    const target = this._validateAndGetTarget(event);
+    if (!target) {
+      return;
+    }
+    const targetId = event.targetID;
+
+    const newHot = {
+      start: event.timestamp,
+      end: event.timestamp + this.hotInfo[spellId].duration,
+      ticks: [], // listing of ticks w/ effective heal amount and timestamp
+      attributions: [], // new generated HoT
+      extensions: [], // duration extensions to existing HoT
+      boosts: [], // strength boost to existing HoT
+      // TODO need more fields (like expected end)?
+    };
+    if(!this.hots[targetId]) {
+      this.hots[targetId] = {};
+    }
+    this.hots[targetId][spellId] = newHot;
+
+    if(event.prepull) {
+      return; // prepull HoTs can confuse things, we just assume they were hardcast
+    }
+    newHot.attributions = this._getAttributions(spellId, targetId,  event.timestamp);
   }
 
   on_byPlayer_refreshbuff(event) {
-    this._refreshBuff(event);
+    const spellId = event.ability.guid;
+    const target = this._validateAndGetTarget(event);
+    if (!target) {
+      return;
+    }
+    const targetId = event.targetID;
+
+    const hot = this.hots[targetId][spellId];
+    const oldEnd = hot.end;
+    // TODO do something about early refreshes or whatever
+    const newEndMax = oldEnd + this.hotInfo[spellId].duration;
+    const pandemicMax = event.timestamp + this.hotInfo[spellId].duration * 1.3;
+    hot.end = Math.min(newEndMax, pandemicMax);
+
+    hot.attributions = this._getAttributions(spellId, targetId,  event.timestamp); // new attributions on refresh
+    // TODO do something smart with extensions
+    hot.boosts = [];
   }
 
   on_byPlayer_removebuff(event) {
-    this._removeBuff(event);
     if(event.ability.guid === SPELLS.POWER_OF_THE_ARCHDRUID_BUFF.id) {
       this.potaFallTimestamp = event.timestamp; // FIXME temp until figure out hasBuff problem
     }
-  }
 
-  on_finished() {
-    // FIXME placeholder
-    console.log(this.t194p);
+    const spellId = event.ability.guid;
+    const target = this._validateAndGetTarget(event);
+    if (!target) {
+      return;
+    }
+    const targetId = event.targetID;
+
+    // TODO assign HoT extension contribution now
+    // TODO check how well actual fall time matched expcted fall time
+
+    delete this.hots[targetId][spellId];
   }
 
   // validates an event and gets its target ... returns null if for any reason the event should not be further processed
@@ -183,116 +214,6 @@ class HotTracker extends Analyzer {
     }
 
     return target;
-  }
-
-  _applyBuff(event) {
-    const spellId = event.ability.guid;
-    // if (!(spellId in this.hotInfo)) {
-    //   return;
-    // }
-    // const target = this.combatants.getEntity(event);
-    // if (!target) {
-    //   return; // target wasn't important (a pet probably)
-    // }
-    // const targetId = event.targetID;
-    // if (!targetId) {
-    //   debug && console.log(`${event.ability.name} applied to target without ID @${this.owner.formatTimestamp(event.timestamp)}... HoT will not be tracked.`);
-    //   return; // this being sometimes triggered because occasionally Rejuv heal event comes before applybuff... TODO fix with normalizer
-    // } else {
-    //   debug && console.log(`${event.ability.name} applied to ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)}`);
-    // }
-    const target = this._validateAndGetTarget(event);
-    if (!target) {
-      return;
-    }
-    const targetId = event.targetID;
-
-    const newHot = {
-      start: event.timestamp,
-      end: event.timestamp + this.hotInfo[spellId].duration,
-      ticks: [], // listing of ticks w/ effective heal amount and timestamp
-      attributions: [], // new generated HoT
-      extensions: [], // duration extensions to existing HoT
-      boosts: [], // strength boost to existing HoT
-      // TODO need more fields (like expected end)?
-    };
-    if(!this.hots[targetId]) {
-      this.hots[targetId] = {};
-    }
-    this.hots[targetId][spellId] = newHot;
-
-    if(event.prepull) {
-      return; // prepull HoTs can confuse things, we just assume they were hardcast
-    }
-    newHot.attributions = this._getAttributions(spellId, targetId,  event.timestamp);
-  }
-
-  _refreshBuff(event) {
-    const spellId = event.ability.guid;
-    // if (!(spellId in this.hotInfo)) {
-    //   return;
-    // }
-    // const target = this.combatants.getEntity(event);
-    // if (!target) {
-    //   return; // target wasn't important (a pet probably)
-    // }
-    // const targetId = event.targetID;
-    // if (!targetId) {
-    //   debug && console.log(`${event.ability.name} refreshed on target without ID @${this.owner.formatTimestamp(event.timestamp)}...`);
-    //   return;
-    // } else {
-    //   debug && console.log(`${event.ability.name} refreshed on ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)}`);
-    // }
-    // if(!this.hots[targetId] || !this.hots[targetId][spellId]) {
-    //   console.warn(`${event.ability.name} refreshed on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there's no record of the HoT being added...`);
-    // }
-    const target = this._validateAndGetTarget(event);
-    if (!target) {
-      return;
-    }
-    const targetId = event.targetID;
-
-    const hot = this.hots[targetId][spellId];
-    const oldEnd = hot.end;
-    // TODO do something about early refreshes or whatever
-    const newEndMax = oldEnd + this.hotInfo[spellId].duration;
-    const pandemicMax = event.timestamp + this.hotInfo[spellId].duration * 1.3;
-    hot.end = Math.min(newEndMax, pandemicMax);
-
-    hot.attributions = this._getAttributions(spellId, targetId,  event.timestamp); // new attributions on refresh
-    // TODO do something smart with extensions
-    hot.boosts = [];
-  }
-
-  _removeBuff(event) {
-    const spellId = event.ability.guid;
-    // if (!(spellId in this.hotInfo)) {
-    //   return;
-    // }
-    // const target = this.combatants.getEntity(event);
-    // if (!target) {
-    //   return; // target wasn't important (a pet probably)
-    // }
-    // const targetId = event.targetID;
-    // if (!targetId) {
-    //   debug && console.log(`${event.ability.name} removed from target without ID @${this.owner.formatTimestamp(event.timestamp)}...`);
-    //   return;
-    // } else {
-    //   debug && console.log(`${event.ability.name} fell from ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)}`);
-    // }
-    // if(!this.hots[targetId] || !this.hots[targetId][spellId]) {
-    //   console.warn(`${event.ability.name} fell from target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there's no record of the HoT being added...`);
-    // }
-    const target = this._validateAndGetTarget(event);
-    if (!target) {
-      return;
-    }
-    const targetId = event.targetID;
-
-    // TODO assign HoT extension contribution now
-    // TODO check how well actual fall time matched expcted fall time
-
-    delete this.hots[targetId][spellId];
   }
 
   _getAttributions(spellId, targetId, timestamp) {
