@@ -42,8 +42,9 @@ class BlessingOfTheAshbringer extends Analyzer {
 			actual: this.uptime,
 			isLessThan: {
 				major: .95,
-			}
-		}
+			},
+			style: 'percentage',
+		};
 	}
 
 	suggestions(when) {
