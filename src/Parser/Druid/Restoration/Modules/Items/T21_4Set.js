@@ -57,7 +57,7 @@ class T21_4Set extends Analyzer {
       result: (
         <dfn data-tip={`This is the amount of healing done by the <i>extra</i> Ysera's Gift ticks AND by the <i>extra</i> Dreamer HoTs procced by those ticks. Dreamer gives a mastery stack, so the extra healing enabled by that stack is also counted.
         <ul>
-          <li>Ysera's Gift Direct: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.yserasHealing))}%</b></li>
+          <li>Ysera's Gift: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.yserasHealing))}%</b></li>
           <li>Dreamer Direct: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.directHealing))}%</b></li>
           <li>Dreamer Mastery: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.masteryHealing))}%</b></li>
         </ul>

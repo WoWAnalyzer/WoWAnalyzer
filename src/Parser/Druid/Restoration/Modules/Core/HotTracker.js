@@ -69,7 +69,7 @@ class HotTracker extends Analyzer {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
 
-    // set last cast timestamps
+    // set last cast timestamps, used for attribution of HoT applications later
     if (spellId === SPELLS.REJUVENATION.id) {
       this.lastRejuvCastTimestamp = event.timestamp;
       this.lastRejuvTarget = targetId;
@@ -111,7 +111,8 @@ class HotTracker extends Analyzer {
 
     hot.attributions.forEach(att => att.healing += healing);
     hot.boosts.forEach(att => att.healing += calculateEffectiveHealing(event, att.boost));
-    // TODO handle extensions?
+
+    // TODO add handling for HoT extensions
 
     // attribute mastery boosting as well to all the other HoTs on the heal's target
     const oneStack = this.mastery.decomposeHeal(event).oneStack;
@@ -120,7 +121,7 @@ class HotTracker extends Analyzer {
         const otherHot = this.hots[targetId][otherSpellId];
         otherHot.attributions.forEach(att => att.masteryHealing += oneStack);
         // boosts don't get mastery benefit because the hot was there with or without the boost
-        // TODO handle extensions?
+        // TODO add handling for HoT extensions
       }
     });
   }
@@ -143,10 +144,10 @@ class HotTracker extends Analyzer {
     const newHot = {
       start: event.timestamp,
       end: event.timestamp + this.hotInfo[spellId].duration,
-      ticks: [], // listing of ticks w/ effective heal amount and timestamp
-      attributions: [], // new generated HoT
-      extensions: [], // duration extensions to existing HoT
-      boosts: [], // strength boost to existing HoT
+      ticks: [], // listing of ticks w/ effective heal amount and timestamp, to be used as part of the HoT extension calculations
+      attributions: [], // The effect or bonus that procced this HoT application. No attribution implies the spell was hardcast.
+      extensions: [], // The effects or bonuses that caused this HoT to have extended duration. TODO NYI
+      boosts: [], // The effects or bonuses that caused the strength of this HoT to be boosted for its full duration.
     };
     if(!this.hots[targetId]) {
       this.hots[targetId] = {};
@@ -166,13 +167,15 @@ class HotTracker extends Analyzer {
 
     const hot = this.hots[targetId][spellId];
     const oldEnd = hot.end;
-    // TODO do something about early refreshes or whatever
+
+    // TODO check / build suggestion for early refreshes, etc
+
     const newEndMax = oldEnd + this.hotInfo[spellId].duration;
     const pandemicMax = event.timestamp + (this.hotInfo[spellId].duration * PANDEMIC_FACTOR);
     hot.end = Math.min(newEndMax, pandemicMax);
 
     hot.attributions = this._getAttributions(spellId, targetId, event.timestamp, event); // new attributions on refresh
-    // TODO do something smart with extensions
+    // TODO add handling for HoT extensions... how should extensions be handled in the case of an early refresh?
     hot.boosts = [];
   }
 
@@ -188,8 +191,8 @@ class HotTracker extends Analyzer {
     }
     const targetId = event.targetID;
 
-    // TODO assign HoT extension contribution now
-    // TODO check how well actual hot remove time matched expected hot remove time
+    // TODO here's where HoT extensions will actually be tallied
+    // TODO check how well actual HoT remove time matched with the expected HoT remove time
 
     delete this.hots[targetId][spellId];
   }
@@ -232,7 +235,7 @@ class HotTracker extends Analyzer {
         attName = "Hardcast";
       } else if (this.lastPotaRejuvTimestamp + BUFFER_MS > timestamp && this.potaTarget !== targetId) { // PotA proc but not primary target
         attributions.push(this.powerOfTheArchdruid.rejuvenation);
-        attName = "Power of the Archdruid"; // TODO sometimes get order Pota Removed -> Rejuv Applied -> Rejuv Cast -> Rejuv Applied -> Rejuv Applied... fix with normalizer
+        attName = "Power of the Archdruid";
       } else if (this.hasTearstone && this.lastWildGrowthCastTimestamp + BUFFER_MS > timestamp) {
         attributions.push(this.tearstoneOfElune);
         attName = "Tearstone of Elune";
