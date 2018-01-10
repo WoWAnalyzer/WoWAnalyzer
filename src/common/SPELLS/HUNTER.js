@@ -340,6 +340,11 @@ export default {
     name: 'Sidewinders',
     icon: 'ability_hunter_serpentswiftness',
   },
+  SIDEWINDERS_CAST: {
+    id: 240711,
+    name: 'Sidewinders',
+    icon: 'ability_hunter_serpentswiftness',
+  },
   CAREFUL_AIM_DAMAGE: {
     id: 63468,
     name: 'Careful Aim',

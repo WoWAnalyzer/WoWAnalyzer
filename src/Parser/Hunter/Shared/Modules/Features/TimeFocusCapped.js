@@ -61,11 +61,11 @@ class TimeFocusCapped extends Analyzer {
   }
   get suggestionThresholds() {
     return {
-      actual: formatPercentage(this.focusTracker.secondsCapped / (this.owner.fightDuration / 1000)),
+      actual: this.focusTracker.secondsCapped / (this.owner.fightDuration / 1000),
       isGreaterThan: {
-        minor: 2.5,
-        average: 3.5,
-        major: 4.5,
+        minor: 0.025,
+        average: 0.035,
+        major: 0.045,
       },
       style: 'percentage',
     };
@@ -76,16 +76,16 @@ class TimeFocusCapped extends Analyzer {
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<Wrapper>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. It's better to shoot a non-vulnerable <SpellLink id={SPELLS.AIMED_SHOT.id} />, than spend time at max focus. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</Wrapper>)
             .icon('ability_hunter_focusfire')
-            .actual(`${actual}%`)
-            .recommended(`<${recommended}% is recommended`);
+            .actual(`${formatPercentage(actual)}%`)
+            .recommended(`<${formatPercentage(recommended)}% is recommended`);
         });
     } else if (this.combatants.selected.spec === SPECS.BEAST_MASTERY_HUNTER) {
       when(this.suggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<Wrapper>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. Remember to cast <SpellLink id={SPELLS.COBRA_SHOT.id} /> to stay off the focus cap, if no other focus spender is ready to use. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</Wrapper>)
             .icon('ability_hunter_focusfire')
-            .actual(`${actual}%`)
-            .recommended(`<${recommended}% is recommended`);
+            .actual(`${formatPercentage(actual)}%`)
+            .recommended(`<${formatPercentage(recommended)}% is recommended`);
         });
     }
   }
