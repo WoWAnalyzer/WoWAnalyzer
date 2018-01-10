@@ -179,11 +179,14 @@ class Ability {
 
   _setProps(props) {
     if (process.env.NODE_ENV === 'development') {
+      /**
+       * We verify the sanity of the abilities props to avoid mistakes. First we check the types by reusing React's PropTypes which prints to your console, and next we verify if all the props of the abilities exist in the possible proptypes. If not they're likely mislocated.
+       */
       PropTypes.checkPropTypes(this.constructor.propTypes, props, 'prop', 'Ability');
       Object.keys(props).forEach(prop => {
         if (process.env.NODE_ENV === 'development') {
           if (this.constructor.propTypes[prop] === undefined) {
-            throw new Error(`Unrecognized prop: ${prop}`);
+            throw new Error(`Unrecognized prop in Abilities: ${prop} seems misplaced in ${JSON.stringify(props.spell)}`);
           }
         }
       });

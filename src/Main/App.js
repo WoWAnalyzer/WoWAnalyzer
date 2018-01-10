@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import { push as pushAction } from 'react-router-redux';
+import { Link } from 'react-router-dom';
 
 import { ApiDownError, LogNotFoundError, CorruptResponseError, JsonParseError } from 'common/fetchWcl';
 import fetchEvents from 'common/fetchEvents';
@@ -14,6 +15,7 @@ import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 import { fetchReport as fetchReportAction } from 'actions/report';
 import { fetchCombatants as fetchCombatantsAction } from 'actions/combatants';
 import { getReportCode, getFightId, getPlayerName } from 'selectors/url/report';
+import { getArticleId } from 'selectors/url/news';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import { getCombatants } from 'selectors/combatants';
@@ -36,6 +38,10 @@ import FullscreenError from './FullscreenError';
 import NavigationBar from './Layout/NavigationBar';
 import DocumentTitleUpdater from './Layout/DocumentTitleUpdater';
 import Footer from './Layout/Footer';
+import NewsView from './News/View';
+import { default as makeNewsUrl } from './News/makeUrl';
+import { title as AboutArticleTitle } from './News/Articles/2017-01-31-About';
+import { title as UnlistedLogsTitle } from './News/Articles/2017-01-31-UnlistedLogs';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
@@ -55,6 +61,7 @@ function isIE() {
 class App extends Component {
   static propTypes = {
     reportCode: PropTypes.string,
+    articleId: PropTypes.string,
     playerName: PropTypes.string,
     fightId: PropTypes.number,
     report: PropTypes.shape({
@@ -451,6 +458,13 @@ class App extends Component {
         </FullscreenError>
       );
     }
+
+    if (this.props.articleId) {
+      return (
+        <NewsView articleId={this.props.articleId} />
+      );
+    }
+
     if (!this.props.reportCode) {
       return <Home />;
     }
@@ -517,11 +531,18 @@ class App extends Component {
                 <div className="col-lg-6 col-md-10">
                   <h1>WoW&shy;Analyzer</h1>
                   <div className="description">
-                    Analyze your raid logs to view metrics and get personalized suggestions to improve your performance. Just enter a Warcraft Logs report:
+                    Analyze your raid logs to get personal suggestions and metrics to improve your performance. Just enter a Warcraft Logs report:
                   </div>
                   {!hasReport && (
                     <ReportSelecter />
                   )}
+                  <div className="about">
+                    <Link to={makeNewsUrl(AboutArticleTitle)}>About WoWAnalyzer</Link>
+                    {' '}| <Link to={makeNewsUrl(UnlistedLogsTitle)}>About unlisted logs</Link>
+                    {' '}| <a href="https://discord.gg/AxphPxU">Join Discord</a>
+                    {' '}| <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">View source</a>
+                    {' '}| <a href="https://www.patreon.com/wowanalyzer">Become a Patron</a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -550,6 +571,8 @@ const mapStateToProps = state => {
     report: getReport(state),
     fight: getFightById(state, fightId),
     combatants: getCombatants(state),
+
+    articleId: getArticleId(state),
 
     error: getError(state),
   });

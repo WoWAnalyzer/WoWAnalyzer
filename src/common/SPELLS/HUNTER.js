@@ -61,6 +61,16 @@ export default {
     name: 'Dire Frenzy',
     icon: 'ability_druid_mangle',
   },
+  DIRE_FRENZY_TALENT_BUFF_4: {
+    id: 246853,
+    name: 'Dire Frenzy',
+    icon: 'ability_druid_mangle',
+  },
+  DIRE_FRENZY_TALENT_BUFF_5: {
+    id: 246854,
+    name: 'Dire Frenzy',
+    icon: 'ability_druid_mangle',
+  },
   DIRE_FRENZY_DAMAGE: {
     id: 217207,
     name: 'Dire Frenzy',
@@ -148,6 +158,11 @@ export default {
     name: 'Titan\'s Thunder',
     icon: 'inv_firearm_2h_artifactlegion_d_01',
   },
+  TITANS_THUNDER_DIRE_FRENZY_PET_BUFF: {
+    id: 218638,
+    name: 'Titan\'s Thunder',
+    icon: 'ability_hunter_longevity',
+  },
   COBRA_COMMANDER_TRAIT: {
     id: 238123,
     name: 'Cobra Commander',
@@ -191,6 +206,11 @@ export default {
   PATHFINDER_TRAIT: {
     id: 197343,
     name: 'Pathfinder',
+    icon: 'ability_mount_jungletiger',
+  },
+  SPIRIT_BOND_HEAL: {
+    id: 197205,
+    name: 'Spirit Bond',
     icon: 'ability_mount_jungletiger',
   },
 
@@ -320,15 +340,25 @@ export default {
     name: 'Sidewinders',
     icon: 'ability_hunter_serpentswiftness',
   },
+  SIDEWINDERS_CAST: {
+    id: 240711,
+    name: 'Sidewinders',
+    icon: 'ability_hunter_serpentswiftness',
+  },
   CAREFUL_AIM_DAMAGE: {
     id: 63468,
     name: 'Careful Aim',
     icon: 'ability_hunter_piercingshots',
   },
   BOMBARDMENT: {
-    id: 35110,
+    id: 82921,
     name: 'Bombardment',
     icon: 'ability_hunter_focusfire',
+  },
+  HUNTERS_MARK_DEBUFF: {
+    id: 185365,
+    name: 'Hunter\'s Mark',
+    icon: 'ability_hunter_markedfordeath',
   },
 
   //CATEGORY
@@ -451,6 +481,11 @@ export default {
     name: 'Rapid Killing',
     icon: 'ability_hunter_assassinate',
   },
+  SURVIVAL_OF_THE_FITTEST_BUFF: {
+    id: 190515,
+    name: 'Survival of the Fittest',
+    icon: 'ability_rogue_feint',
+  },
 
   //Marksmanship legendary buffs
   SENTINELS_SIGHT: {
@@ -489,6 +524,16 @@ export default {
     id: 227272,
     name: 'Trick Shot',
     icon: 'ability_hunter_runningshot',
+  },
+  POSTHASTE_BUFF: {
+    id: 118922,
+    name: 'Posthaste',
+    icon: 'ability_hunter_posthaste',
+  },
+  SENTINEL_TICK: {
+    id: 236348,
+    name: 'Sentinel',
+    icon: 'spell_nature_sentinal',
   },
   // Survival:
   // ...

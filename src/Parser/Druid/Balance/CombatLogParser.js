@@ -25,6 +25,12 @@ import AstralPowerTracker from './Modules/ResourceTracker/AstralPowerTracker';
 //Items
 import TheEmeraldDreamcatcher from './Modules/Items/TheEmeraldDreamcatcher';
 import ImpeccableFelEssence from './Modules/Items/ImpeccableFelEssence';
+import SoulOfTheArchdruid from './Modules/Items/SoulOfTheArchdruid';
+import LadyAndTheChild from './Modules/Items/LadyAndTheChild';
+import OnethsIntuition from './Modules/Items/OnethsIntuition';
+import PromiseOfElune from './Modules/Items/PromiseOfElune';
+import Tier21_2set from './Modules/Items/Tier21_2set';
+import Tier21_4set from './Modules/Items/Tier21_4set';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -54,6 +60,12 @@ class CombatLogParser extends MainCombatLogParser {
     //Items
     theEmeraldDreamcatcher: TheEmeraldDreamcatcher,
     impeccableFelEssence : ImpeccableFelEssence,
+    soulOfTheArchdruid : SoulOfTheArchdruid,
+    ladyAndTheChild : LadyAndTheChild,
+    onethsIntuition : OnethsIntuition,
+    promiseOfElune : PromiseOfElune,
+    tier21_2set : Tier21_2set,
+    tier21_4set : Tier21_4set,
   };
 }
 

@@ -2,6 +2,11 @@ import { WOPR, emallson } from 'MAINTAINERS';
 
 export default [
   {
+    date: new Date('2018-01-02'),
+    changes: 'Added brew cooldown reduction tracking.',
+    contributors: [emallson],
+  },
+  {
     date: new Date('2017-12-30'),
     changes: 'Added stats for Stormstout\'s Last Gasp and Sal\'salabim\'s Lost Tunic; updated the Breath of Fire suggestion and checklist item.',
     contributors: [emallson],

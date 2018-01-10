@@ -11,6 +11,7 @@ import SpellLink from 'common/SpellLink';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import ItemHealingDone from 'Main/ItemHealingDone';
 import ItemDamageDone from 'Main/ItemDamageDone';
+import Wrapper from 'common/Wrapper';
 
 const DAMAGE_INCREASE_PER_STACK = 0.01;
 const LEECH_PER_STACK = 0.02;
@@ -108,21 +109,12 @@ class ParselsTongue extends Analyzer {
     };
   }
   suggestions(when) {
-    const {
-      isGreaterThan: {
-        minor,
-        average,
-        major,
-      },
-    } = this.suggestionThresholds;
-    when(this.timesDropped).isGreaterThan(minor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You lost <SpellLink id={SPELLS.PARSELS_TONGUE_BUFF.id} /> buff {this.timesDropped} times, try and avoid this if possible.</span>)
-          .icon(ITEMS.PARSELS_TONGUE.icon)
-          .actual(`${actual} times dropped`)
-          .recommended(`${recommended} is recommended`)
-          .regular(average).major(major);
-      });
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<Wrapper>You lost <SpellLink id={SPELLS.PARSELS_TONGUE_BUFF.id} /> buff {this.timesDropped} times, try and avoid this if possible.</Wrapper>)
+        .icon(ITEMS.PARSELS_TONGUE.icon)
+        .actual(`${actual} times dropped`)
+        .recommended(`${recommended} is recommended`);
+    });
 
   }
   item() {

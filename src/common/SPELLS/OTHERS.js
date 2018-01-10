@@ -353,6 +353,16 @@ export default {
     name: 'Golganneth\'s Thunderous Wrath',
     icon: 'ability_thunderking_thunderstruck',
   },
+  GOLGANNETHS_VITALITY_MARK_OF_GOLGANNETH: {
+    id: 256821,
+    name: 'Mark of Golganneth',
+    icon: 'inv_antorus_grey',
+  },
+  GOLGANNETHS_VITALITY_THUNDEROUS_WRATH_BUFF: {
+    id: 256833,
+    name: 'Golganneth\'s Thunderous Wrath',
+    icon: 'ability_thunderking_thunderstruck',
+  },
   WORLDFORGERS_FLAME_BUFF: {
     id: 256826,
     name: 'Worldforger\'s Flame',

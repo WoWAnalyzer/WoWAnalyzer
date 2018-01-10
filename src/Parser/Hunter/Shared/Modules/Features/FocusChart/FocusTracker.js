@@ -38,10 +38,6 @@ class FocusTracker extends Analyzer {
     this.checkPassiveWaste(event);
   }
 
-  on_byPlayer_energize(event) {
-    this.checkPassiveWaste(event);
-    this.checkActiveWaste(event);
-  }
   on_toPlayer_energize(event) {
     this.checkPassiveWaste(event);
     this.checkActiveWaste(event);
@@ -79,9 +75,8 @@ class FocusTracker extends Analyzer {
       this.focusBySecond[secIntoFight] = Math.floor(this.focusBySecond[secIntoFight]);
     }
   }
-
   checkActiveWaste(event) {
-    if ((event.sourceID === this.owner.player.id || event.targetID === this.owner.player.id) && event.classResources && event.classResources[0].type === RESOURCE_TYPES.FOCUS) {
+    if ((event.sourceID === this.owner.player.id || event.targetID === this.owner.player.id) && event.classResources && event.classResources[0].type === RESOURCE_TYPES.FOCUS.id) {
       this.tracker++;
       if (this.generatorCasts[event.ability.guid]) {
         this.generatorCasts[event.ability.guid]++;

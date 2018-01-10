@@ -9,12 +9,14 @@ import ItemLink from 'common/ItemLink';
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
 // import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import IronSkinBrew from '../Spells/IronSkinBrew';
+import BrewCDR from '../Core/BrewCDR';
 import BreathOfFire from '../Spells/BreathOfFire';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
     bof: BreathOfFire,
     isb: IronSkinBrew,
+    brewcdr: BrewCDR,
   };
 
   rules = [
@@ -74,6 +76,22 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: 'ISB duration lost due to clipping',
             check: () => this.isb.clipSuggestionThreshold,
+          }),
+        ];
+      },
+    }),
+    new Rule({
+      name: 'Generate enough brews through your rotation.',
+      description: (
+        <Wrapper>
+          The cooldown of all brews is reduced by your key rotational abilities: <SpellLink id={SPELLS.KEG_SMASH.id} icon /> and <SpellLink id={SPELLS.TIGER_PALM.id} icon />. Maintaining a proper rotation will help ensure you have enough brews available to maintain <SpellLink id={SPELLS.IRONSKIN_BREW.id} icon />.
+        </Wrapper>
+      ),
+      requirements: () => {
+        return [
+          new Requirement({
+            name: 'Effective CDR from your rotation.', 
+            check: () => this.brewcdr.suggestionThreshold,
           }),
         ];
       },

@@ -103,7 +103,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SIDEWINDERS_TALENT,
+        spell: SPELLS.SIDEWINDERS_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 12 / (1 + haste),
         charges: 2,

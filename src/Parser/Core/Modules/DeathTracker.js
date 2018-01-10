@@ -1,5 +1,6 @@
 import React from 'react';
 
+import SPELLS from 'common/SPELLS';
 import { formatNumber, formatMilliseconds, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -32,6 +33,13 @@ class DeathTracker extends Analyzer {
 
   on_byPlayer_cast(event) {
     this.castCount += 1;
+
+    if (event.ability.guid === SPELLS.REINCARNATION.id) {
+      this.lastResurrectionTimestamp = this.owner.currentTimestamp;
+      this.timeDead += this.lastResurrectionTimestamp - this.lastDeathTimestamp;
+      debug && console.log("Player was Resurrected @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      this.isAlive = true;
+    }
   }
 
   get totalTimeDead() {
