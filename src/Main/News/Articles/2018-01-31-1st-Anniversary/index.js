@@ -168,7 +168,7 @@ export default (
           <h2>A new layout</h2>
         </div>
         <div className="panel-body">
-          I usually start disliking a layout I designed myself in less than 2 days, and the project had been stuck with this basic layout for over 2 months so it was time to redo it once again. Inspired by <a href="http://akveo.com/blur-admin/#/dashboard" target="_blank" rel="noopener noreferrer">Blur Admin</a> I designed a new layout that was the basis for what we have today (disclaimer: I'm not a graphic designer).<br /><br />
+          I usually start disliking things I designed myself in less than 2 days, and the project had been stuck with this basic layout for over 2 months so it was time to redo it once again. Inspired by <a href="http://akveo.com/blur-admin/#/dashboard" target="_blank" rel="noopener noreferrer">Blur Admin</a> I designed a new layout that was the basis for what we have today (disclaimer: I'm not a graphic designer).<br /><br />
 
           <figure style={{ maxWidth: 800 }}>
             <img src={HolyPaladinAnalyzerV20} alt="Holy Paladin Analyzer v2.0" />
@@ -187,6 +187,8 @@ export default (
           <h2>Cast efficiency</h2>
         </div>
         <div className="panel-body">
+          Casting your spells with cooldowns regularly is one of the most important things for Holy Paladins.
+
           Because cast efficiency is very important for a Holy Paladin's performance I added a Cast Efficiency panel showing the actual casts and an estimated max possible casts. The *Can be improved.* indicator in this panel was the first step towards showing gameplay suggestings. I had been thinking about doing *suggestions* for a long time at this point.
 
           ![Holy Paladin Analyzer v2.4 Cast Efficiency](./HolyPaladinAnalyzer-2.4.png)
