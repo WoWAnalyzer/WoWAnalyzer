@@ -11,6 +11,9 @@ describe('Brewmaster.IronskinBrew', () => {
       toPlayerPet: () => false,
       byPlayerPet: () => false,
     });
+    isb.brews = {
+      consumeCharge: () => {},
+    };
   });
   it('tracks the number of hits with the ironskin brew buff with no events', () => {
     expect(isb.hitsWithIronSkinBrew).toBe(0);

@@ -529,6 +529,11 @@ export default {
     name: 'Staggering Around',
     icon: 'ability_monk_fortifyingale_new',
   },
+  FAKE_SHARED_BREWS: {
+    id: -115308,
+    name: 'Ironskin / Purifying Brew',
+    icon: 'ability_monk_ironskinbrew',
+  },
 
   // Windwalker Spells
   COMBO_STRIKES: {
