@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Wrapper from 'common/Wrapper';
 import ResourceIcon from 'common/ResourceIcon';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import connectParser from 'common/connectParser';
 
 class ItemManaGained extends React.PureComponent {
   static propTypes = {
@@ -27,4 +28,8 @@ class ItemManaGained extends React.PureComponent {
   }
 }
 
-export default ItemManaGained;
+const mapParserToProps = parser => ({
+  // Ensure the component is re-rendered when the Parser-context changes
+  eventCount: parser.eventCount,
+});
+export default connectParser(mapParserToProps)(ItemManaGained);
