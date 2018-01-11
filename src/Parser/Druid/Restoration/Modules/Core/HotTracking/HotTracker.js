@@ -19,7 +19,7 @@ class HotTracker extends Analyzer {
 
   // {
   //   [playerId]: {
-  //      [hotId]: { applied, attributions, ... },
+  //      [hotId]: { start, end, ticks, attributions, extensions, boosts },
   //   },
   // }
   hots = {};
@@ -33,49 +33,52 @@ class HotTracker extends Analyzer {
 
     // TODO attribute Dreamwalker...
 
-    const target = this._validateAndGetTarget(event);
+    const target = this._getTarget(event);
     if (!target) {
       return;
     }
     const targetId = event.targetID;
-    const hot = this.hots[targetId][spellId];
-
     const healing = event.amount + (event.absorbed || 0);
+
+    // handle mastery attribution
+    if(this.hots[targetId]) {
+      const oneStack = this.mastery.decomposeHeal(event).oneStack; // TODO move this before target validation so still counts direct healing
+      Object.keys(this.hots[targetId]).forEach(otherSpellId => {
+        if (otherSpellId !== spellId) {
+          const otherHot = this.hots[targetId][otherSpellId];
+          otherHot.attributions.forEach(att => att.masteryHealing += oneStack);
+          // boosts don't get mastery benefit because the hot was there with or without the boost
+          // TODO add handling for HoT extensions
+        }
+      });
+    }
+
+    // handle Dreamwalker
+    // TODO implement
+
+    if(!this._validateHot(event)) {
+      return;
+    }
+    const hot = this.hots[targetId][spellId];
     if (event.tick) { // direct healing (say from a PotA procced regrowth) still should be counted for attribution, but not part of tick tracking
       hot.ticks.push({ healing, timestamp: event.timestamp });
     }
 
     hot.attributions.forEach(att => att.healing += healing);
     hot.boosts.forEach(att => att.healing += calculateEffectiveHealing(event, att.boost));
-
     // TODO add handling for HoT extensions
-
-    // attribute mastery boosting as well to all the other HoTs on the heal's target
-    const oneStack = this.mastery.decomposeHeal(event).oneStack; // TODO move this before target validation so still counts direct healing
-    Object.keys(this.hots[targetId]).forEach(otherSpellId => {
-      if (otherSpellId !== spellId) {
-        const otherHot = this.hots[targetId][otherSpellId];
-        otherHot.attributions.forEach(att => att.masteryHealing += oneStack);
-        // boosts don't get mastery benefit because the hot was there with or without the boost
-        // TODO add handling for HoT extensions
-      }
-    });
   }
 
   on_byPlayer_applybuff(event) {
-    // if (event.ability.guid === SPELLS.AWAKENED.id) {
-    //   // 4t21 proc causes 5 dreamer procs that would not otherwise have happened
-    //   // while in reality there is usually a quick sequence of 6 dreamers, one of which is "natural",
-    //   // we simplify by attributing the next 5 to 4t21
-    //   this.remaining4t21attributes = 5;
-    // }
-
     const spellId = event.ability.guid;
-    const target = this._validateAndGetTarget(event);
+    const target = this._getTarget(event);
     if (!target) {
       return;
     }
     const targetId = event.targetID;
+    if (!this._validateHot(event)) {
+      return;
+    }
 
     const newHot = {
       start: event.timestamp,
@@ -93,16 +96,19 @@ class HotTracker extends Analyzer {
 
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
-    const target = this._validateAndGetTarget(event);
+    const target = this._getTarget(event);
     if (!target) {
       return;
     }
     const targetId = event.targetID;
+    if (!this._validateHot(event)) {
+      return;
+    }
 
     const hot = this.hots[targetId][spellId];
     const oldEnd = hot.end;
 
-    // TODO check / build suggestion for early refreshes, etc
+    // TODO check and build suggestions for early refreshes, etc
 
     const newEndMax = oldEnd + this.hotInfo[spellId].duration;
     const pandemicMax = event.timestamp + (this.hotInfo[spellId].duration * PANDEMIC_FACTOR);
@@ -114,16 +120,15 @@ class HotTracker extends Analyzer {
   }
 
   on_byPlayer_removebuff(event) {
-    if(event.ability.guid === SPELLS.POWER_OF_THE_ARCHDRUID_BUFF.id) {
-      this.potaFallTimestamp = event.timestamp; // FIXME temp until figure out hasBuff problem
-    }
-
     const spellId = event.ability.guid;
-    const target = this._validateAndGetTarget(event);
+    const target = this._getTarget(event);
     if (!target) {
       return;
     }
     const targetId = event.targetID;
+    if (!this._validateHot(event)) {
+      return;
+    }
 
     // TODO here's where HoT extensions will actually be tallied
     // TODO check how well actual HoT remove time matched with the expected HoT remove time
@@ -131,13 +136,8 @@ class HotTracker extends Analyzer {
     delete this.hots[targetId][spellId];
   }
 
-  // validates an event and gets its target ... returns null if for any reason the event should not be further processed
-  _validateAndGetTarget(event) {
-    const spellId = event.ability.guid;
-    if (!(spellId in this.hotInfo)) {
-      return null; // we only care about the listed HoTs
-    }
-
+  // gets an event's target ... returns null if for any reason the event should not be further processed
+  _getTarget(event) {
     const target = this.combatants.getEntity(event);
     if (!target) {
       return null; // target wasn't important (a pet probably)
@@ -151,13 +151,27 @@ class HotTracker extends Analyzer {
       debug && console.log(`${event.ability.name} ${event.type} to ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)}`);
     }
 
-    if (['removebuff', 'refreshbuff', 'heal'].includes(event.type) &&
-       (!this.hots[targetId] || !this.hots[targetId][spellId])) {
-      console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there's no record of the HoT being added...`);
-      return null;
+    return target;
+  }
+
+  // validates that event is for one of the tracked hots and that HoT tracking involving it is in the expected state
+  _validateHot(event) {
+    const spellId = event.ability.guid;
+    const targetId = event.targetID;
+    if (!(spellId in this.hotInfo)) {
+      return false; // we only care about the listed HoTs
     }
 
-    return target;
+    if (['removebuff', 'refreshbuff', 'heal'].includes(event.type) &&
+       (!this.hots[targetId] || !this.hots[targetId][spellId])) {
+      console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there's no record of that HoT being added...`);
+      return false;
+    } else if ('applybuff' === event.type && this.hots[targetId] && this.hots[targetId][spellId]) {
+      console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but that HoT is recorded as already added...`);
+      return false;
+    }
+
+    return true;
   }
 
   _generateHotInfo() { // must be generated dynamically because it reads from traits
