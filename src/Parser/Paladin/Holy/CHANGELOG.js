@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-01-11'),
+    changes: <Wrapper>Changed the <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} icon /> suggestion thresholds to 80k minor/60k average/40k major importance (up from 60k minor/50k average/40k major) to more closely match the <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} icon /> average.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2017-12-31'),
     changes: <Wrapper><ItemLink id={ITEMS.DRAPE_OF_SHAME.id} icon /> now shows an estimated item level.</Wrapper>,
     contributors: [Zerotorescue],
