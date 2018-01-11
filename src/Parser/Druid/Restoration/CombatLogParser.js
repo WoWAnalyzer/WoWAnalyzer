@@ -14,7 +14,11 @@ import PotaNormalizer from './Normalizers/PotaNormalizer';
 
 import Mastery from './Modules/Core/Mastery';
 import Rejuvenation from './Modules/Core/Rejuvenation';
-import HotTracker from './Modules/Core/HotTracker';
+
+import HotTracker from './Modules/Core/HotTracking/HotTracker';
+import RejuvenationAttributor from './Modules/Core/HotTracking/RejuvenationAttributor';
+import RegrowthAttributor from './Modules/Core/HotTracking/RegrowthAttributor';
+import DreamerAttributor from './Modules/Core/HotTracking/DreamerAttributor';
 
 import Ekowraith from './Modules/Items/Ekowraith';
 import XonisCaress from './Modules/Items/XonisCaress';
@@ -92,7 +96,12 @@ class CombatLogParser extends CoreCombatLogParser {
     healingDone: [HealingDone, { showStatistic: true }],
     rejuvenation: Rejuvenation,
     mastery: Mastery,
+
+    // Hot Tracking
     hotTracker: HotTracker,
+    rejuvenationAttributor: RejuvenationAttributor,
+    regrowthAttributor: RegrowthAttributor,
+    dreamerAttributor: DreamerAttributor,
 
     // Features
     healingTouch : HealingTouch,

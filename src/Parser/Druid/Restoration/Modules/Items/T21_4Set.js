@@ -8,14 +8,14 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
-import HotTracker from '../Core/HotTracker';
+import DreamerAttributor from '../Core/HotTracking/DreamerAttributor';
 
 const T21_4SET_YSERAS_BOOST = 5;
 
 class T21_4Set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    hotTracker: HotTracker,
+    dreamerAttributor: DreamerAttributor,
   };
 
   yserasDuringAwakenedHealing = 0;
@@ -40,10 +40,10 @@ class T21_4Set extends Analyzer {
 
   // these track the HoTs attributable to the extra Ysera's ticks
   get directHealing() {
-    return this.hotTracker.t214p.healing;
+    return this.dreamerAttributor.t214p.healing;
   }
   get masteryHealing() {
-    return this.hotTracker.t214p.masteryHealing;
+    return this.dreamerAttributor.t214p.masteryHealing;
   }
   get totalHealing() {
     return this.yserasHealing + this.directHealing + this.masteryHealing;

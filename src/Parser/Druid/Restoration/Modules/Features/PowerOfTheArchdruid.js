@@ -7,38 +7,40 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
-import HotTracker from '../Core/HotTracker';
+import RejuvenationAttributor from '../Core/HotTracking/RejuvenationAttributor';
+import RegrowthAttributor from '../Core/HotTracking/RegrowthAttributor';
 
 class PowerOfTheArchdruid extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    hotTracker: HotTracker,
+    rejuvenationAttributor: RejuvenationAttributor,
+    regrowthAttributor: RegrowthAttributor,
   };
 
   get directRejuvenationHealing() {
-    return this.hotTracker.powerOfTheArchdruid.rejuvenation.healing;
+    return this.rejuvenationAttributor.powerOfTheArchdruid.healing;
   }
   get masteryRejuvenationHealing() {
-    return this.hotTracker.powerOfTheArchdruid.rejuvenation.masteryHealing;
+    return this.rejuvenationAttributor.powerOfTheArchdruid.masteryHealing;
   }
   get totalRejuvenationHealing() {
     return this.directRejuvenationHealing + this.masteryRejuvenationHealing;
   }
   get rejuvenationProcs() {
-    return this.hotTracker.powerOfTheArchdruid.rejuvenation.procs;
+    return this.rejuvenationAttributor.powerOfTheArchdruid.procs;
   }
 
   get directRegrowthHealing() {
-    return this.hotTracker.powerOfTheArchdruid.regrowth.healing;
+    return this.regrowthAttributor.powerOfTheArchdruid.healing;
   }
   get masteryRegrowthHealing() {
-    return this.hotTracker.powerOfTheArchdruid.regrowth.masteryHealing;
+    return this.regrowthAttributor.powerOfTheArchdruid.masteryHealing;
   }
   get totalRegrowthHealing() {
     return this.directRegrowthHealing + this.masteryRegrowthHealing;
   }
   get regrowthProcs() {
-    return this.hotTracker.powerOfTheArchdruid.regrowth.procs;
+    return this.regrowthAttributor.powerOfTheArchdruid.procs;
   }
 
   get totalHealing() {

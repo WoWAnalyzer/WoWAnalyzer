@@ -7,13 +7,12 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
-//import Rejuvenation from '../Core/Rejuvenation';
-import HotTracker from '../Core/HotTracker';
+import RejuvenationAttributor from '../Core/HotTracking/RejuvenationAttributor';
 
 class Tearstone extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    hotTracker: HotTracker,
+    rejuvenationAttributor: RejuvenationAttributor,
   };
 
   wildGrowths = 0;
@@ -34,21 +33,17 @@ class Tearstone extends Analyzer {
   }
 
   get directHealing() {
-    return this.hotTracker.tearstoneOfElune.healing;
+    return this.rejuvenationAttributor.tearstoneOfElune.healing;
   }
-
   get masteryHealing() {
-    return this.hotTracker.tearstoneOfElune.masteryHealing;
+    return this.rejuvenationAttributor.tearstoneOfElune.masteryHealing;
   }
-
   get totalHealing() {
     return this.directHealing + this.masteryHealing;
   }
-
   get procs() {
-    return this.hotTracker.tearstoneOfElune.procs;
+    return this.rejuvenationAttributor.tearstoneOfElune.procs;
   }
-
   get procRate() {
     return this.procs / this.wildGrowths;
   }

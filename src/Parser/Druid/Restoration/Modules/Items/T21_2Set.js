@@ -8,12 +8,12 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
-import HotTracker from '../Core/HotTracker';
+import DreamerAttributor from '../Core/HotTracking/DreamerAttributor';
 
 class T21_2Set extends Analyzer {
   static dependencies = {
-    hotTracker: HotTracker,
     combatants: Combatants,
+    dreamerAttributor: DreamerAttributor,
   };
 
   has4pc = false;
@@ -24,10 +24,10 @@ class T21_2Set extends Analyzer {
   }
 
   get directHealing() {
-    return this.hotTracker.t212p.healing;
+    return this.dreamerAttributor.t212p.healing;
   }
   get masteryHealing() {
-    return this.hotTracker.t212p.masteryHealing;
+    return this.dreamerAttributor.t212p.masteryHealing;
   }
   get totalHealing() {
     return this.directHealing + this.masteryHealing;

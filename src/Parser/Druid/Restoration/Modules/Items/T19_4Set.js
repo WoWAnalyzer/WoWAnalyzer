@@ -9,12 +9,12 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
-import HotTracker from '../Core/HotTracker';
+import RejuvenationAttributor from '../Core/HotTracking/RejuvenationAttributor';
 
 class T19_4Set extends Analyzer {
   static dependencies = {
-    hotTracker: HotTracker,
     combatants: Combatants,
+    rejuvenationAttributor: RejuvenationAttributor,
   };
 
   on_initialized() {
@@ -22,16 +22,16 @@ class T19_4Set extends Analyzer {
   }
 
   get directHealing() {
-    return this.hotTracker.t194p.healing;
+    return this.rejuvenationAttributor.t194p.healing;
   }
   get masteryHealing() {
-    return this.hotTracker.t194p.masteryHealing;
+    return this.rejuvenationAttributor.t194p.masteryHealing;
   }
   get totalHealing() {
     return this.directHealing + this.masteryHealing;
   }
   get procs() {
-    return this.hotTracker.t194p.procs;
+    return this.rejuvenationAttributor.t194p.procs;
   }
 
   item() {
