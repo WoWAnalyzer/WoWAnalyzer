@@ -35,6 +35,7 @@ class Haste extends Analyzer {
     [SPELLS.TRUESHOT.id]: 0.4, // MM Hunter main CD
     [SPELLS.ICY_VEINS.id]: 0.3,
     [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
+    // Haste RATING buffs are handled by the StatTracker module
 
     // Boss abilities:
     [209166]: 0.3, // DEBUFF - Fast Time from Elisande
