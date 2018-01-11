@@ -78,7 +78,7 @@ class RegrowthAttributor extends Analyzer {
     if (event.prepull || (this.lastRegrowthCastTimestamp + BUFFER_MS > timestamp && this.lastRegrowthTarget === targetId)) { // regular cast (assume prepull applications are hardcast)
       // standard hardcast gets no special attribution
       attName = "Hardcast";
-    } else if (this.lastPotalRegrowthTimestamp + BUFFER_MS > timestamp && this.potaTarget !== targetId) { // PotA proc but not primary target
+    } else if (this.lastPotaRegrowthTimestamp + BUFFER_MS > timestamp && this.potaTarget !== targetId) { // PotA proc but not primary target
       attributions.push(this.powerOfTheArchdruid);
       attName = "Power of the Archdruid";
     } else {

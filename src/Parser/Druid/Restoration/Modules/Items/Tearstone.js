@@ -38,8 +38,11 @@ class Tearstone extends Analyzer {
   get masteryHealing() {
     return this.rejuvenationAttributor.tearstoneOfElune.masteryHealing;
   }
+  get dreamwalkerHealing() {
+    return this.rejuvenationAttributor.tearstoneOfElune.dreamwalkerHealing;
+  }
   get totalHealing() {
-    return this.directHealing + this.masteryHealing;
+    return this.directHealing + this.masteryHealing + this.dreamwalkerHealing;
   }
   get procs() {
     return this.rejuvenationAttributor.tearstoneOfElune.procs;
@@ -52,10 +55,11 @@ class Tearstone extends Analyzer {
     return {
       item: ITEMS.TEARSTONE_OF_ELUNE,
       result: (
-        <dfn data-tip={`You procced <b>${this.procs}</b> Rejuvenations, for a <b>proc rate of ${formatPercentage(this.procRate)}%</b>. This is the sum of the direct healing from those Rejuvernations and the healing enabled by their extra mastery stacks.
+        <dfn data-tip={`You procced <b>${this.procs}</b> Rejuvenations, for a <b>proc rate of ${formatPercentage(this.procRate)}%</b>. This is the sum of the direct healing from those Rejuvernations and the healing enabled by their extra mastery stacks and the healing enabled by extra Dreamwalker procs.
             <ul>
             <li>Direct: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.directHealing))}%</b></li>
             <li>Mastery: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.masteryHealing))}%</b></li>
+            <li>Dreamwalker: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.dreamwalkerHealing))}%</b></li>
             </ul>`}>
           <ItemHealingDone amount={this.totalHealing} />
         </dfn>

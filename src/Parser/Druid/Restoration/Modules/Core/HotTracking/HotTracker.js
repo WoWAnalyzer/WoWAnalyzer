@@ -6,6 +6,11 @@ import Mastery from '../Mastery';
 
 const PANDEMIC_FACTOR = 1.3;
 
+const REJUV_IDS = [
+  SPELLS.REJUVENATION.id,
+  SPELLS.REJUVENATION_GERMINATION.id,
+];
+
 const debug = false;
 
 /*
@@ -30,9 +35,6 @@ class HotTracker extends Analyzer {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-
-    // TODO attribute Dreamwalker...
-
     const target = this._getTarget(event);
     if (!target) {
       return;
@@ -41,11 +43,10 @@ class HotTracker extends Analyzer {
     const healing = event.amount + (event.absorbed || 0);
 
     // handle mastery attribution
-    if(this.hots[targetId]) {
+    if (this.hots[targetId]) {
       const oneStack = this.mastery.decomposeHeal(event).oneStack; // TODO move this before target validation so still counts direct healing
-      Object.keys(this.hots[targetId]).forEach(otherSpellId => {
-        if (otherSpellId !== spellId) {
-          const otherHot = this.hots[targetId][otherSpellId];
+      Object.values(this.hots[targetId]).forEach(otherHot => {
+        if (otherHot.spellId !== spellId) {
           otherHot.attributions.forEach(att => att.masteryHealing += oneStack);
           // boosts don't get mastery benefit because the hot was there with or without the boost
           // TODO add handling for HoT extensions
@@ -53,8 +54,21 @@ class HotTracker extends Analyzer {
       });
     }
 
-    // handle Dreamwalker
-    // TODO implement
+    // handle Dreamwalker attribution (can be attributed to rejuvenation that procced it)
+    if (spellId === SPELLS.DREAMWALKER.id) {
+      if (!this.hots[targetId]) {
+        console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there is no Rejuvenation on that target???`);
+        return;
+      }
+      const rejuvsOnTarget = Object.values(this.hots[targetId]).filter(otherHot => REJUV_IDS.includes(otherHot.spellId));
+      if (rejuvsOnTarget.length === 0) {
+        console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there is no Rejuvenation on that target???`);
+      } else if (rejuvsOnTarget.length === 1) { // for now only attribute if one rejuv on target .... TODO more complex logic for handling rejuv + germ
+        rejuvsOnTarget[0].attributions.forEach(att => att.dreamwalkerHealing += healing);
+        // boosts don't get mastery benefit because the hot was there with or without the boost
+        // TODO add handling for HoT extensions
+      }
+    }
 
     if(!this._validateHot(event)) {
       return;
@@ -83,6 +97,7 @@ class HotTracker extends Analyzer {
     const newHot = {
       start: event.timestamp,
       end: event.timestamp + this.hotInfo[spellId].duration,
+      spellId, // stored extra here so I don't have to convert string to number like I would if I used its key in the object.
       ticks: [], // listing of ticks w/ effective heal amount and timestamp, to be used as part of the HoT extension calculations
       attributions: [], // The effect or bonus that procced this HoT application. No attribution implies the spell was hardcast.
       extensions: [], // The effects or bonuses that caused this HoT to have extended duration. TODO NYI

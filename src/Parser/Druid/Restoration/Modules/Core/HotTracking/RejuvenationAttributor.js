@@ -24,9 +24,9 @@ class RejuvenationAttributor extends Analyzer {
   };
 
   // objects hold attribution running totals
-  powerOfTheArchdruid = { healing: 0, masteryHealing: 0, procs: 0 };
-  tearstoneOfElune = { healing: 0, masteryHealing: 0, procs: 0 };
-  t194p = { healing: 0, masteryHealing: 0, procs: 0 };
+  powerOfTheArchdruid = { healing: 0, masteryHealing: 0, dreamwalkerHealing: 0, procs: 0 };
+  tearstoneOfElune = { healing: 0, masteryHealing: 0, dreamwalkerHealing: 0, procs: 0 };
+  t194p = { healing: 0, masteryHealing: 0, dreamwalkerHealing: 0, procs: 0 };
 
   // cast tracking stuff
   lastRejuvCastTimestamp;

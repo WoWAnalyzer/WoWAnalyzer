@@ -23,8 +23,11 @@ class PowerOfTheArchdruid extends Analyzer {
   get masteryRejuvenationHealing() {
     return this.rejuvenationAttributor.powerOfTheArchdruid.masteryHealing;
   }
+  get dreamwalkerRejuvenationHealing() {
+    return this.rejuvenationAttributor.powerOfTheArchdruid.dreamwalkerHealing;
+  }
   get totalRejuvenationHealing() {
-    return this.directRejuvenationHealing + this.masteryRejuvenationHealing;
+    return this.directRejuvenationHealing + this.masteryRejuvenationHealing + this.dreamwalkerRejuvenationHealing;
   }
   get rejuvenationProcs() {
     return this.rejuvenationAttributor.powerOfTheArchdruid.procs;
@@ -53,11 +56,12 @@ class PowerOfTheArchdruid extends Analyzer {
         icon={<SpellIcon id={SPELLS.POWER_OF_THE_ARCHDRUID.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealing))} %`}
         label="Power of the Archdruid"
-        tooltip={`
+        tooltip={`This tally includes not only the direct healing done by the procced Rejuvenations and Regrowths, but also healing that would have not have occured if the procced HoTs hadn't been present. This includes healing from the extra mastery stack, and healing from extra Dreamwalker procs.
           You procced <b>${this.rejuvenationProcs}</b> Rejuvenations, which did <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalRejuvenationHealing))}%</b> healing.
             <ul>
             <li>Direct: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.directRejuvenationHealing))}%</b></li>
             <li>Mastery: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.masteryRejuvenationHealing))}%</b></li>
+            <li>Dreamwalker: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.dreamwalkerRejuvenationHealing))}%</b></li>
             </ul>
           You procced <b>${this.regrowthProcs}</b> Regrowths, which did <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalRegrowthHealing))}%</b> healing.
             <ul>
