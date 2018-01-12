@@ -7,8 +7,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import SharedBrews from '../Core/SharedBrews';
 
-const HEAVY_STAGGER_LEVEL = 2/3;
-
 class PurifyingBrew extends Analyzer {
   static dependencies = {
     brews: SharedBrews,
@@ -18,6 +16,14 @@ class PurifyingBrew extends Analyzer {
   purifyAmounts = [];
 
   heavyPurifies = 0;
+
+  _heavyStaggerDropped = false;
+
+  on_byPlayer_removedebuff(event) {
+    if(event.ability.guid === SPELLS.HEAVY_STAGGER_DEBUFF.id) {
+      this._heavyStaggerDropped = true;
+    }
+  }
 
   on_byPlayer_cast(event) {
     if(event.ability.guid === SPELLS.PURIFYING_BREW.id) {
@@ -59,14 +65,15 @@ class PurifyingBrew extends Analyzer {
 
   on_removestagger(event) {
     if(event.reason.ability.guid !== SPELLS.PURIFYING_BREW.id) {
+      // reset this, something else took us out of heavy stagger
+      this._heavyStaggerDropped = false; 
       return;
     }
     this.purifyAmounts.push(event.amount);
-    // cannot (easily) rely on this.combatants.selected.hasBuff due to
-    // ordering issues
-    if(event.amount + event.newPooledDamage >= HEAVY_STAGGER_LEVEL * event.reason.maxHitPoints) {
+    if(this.combatants.selected.hasBuff(SPELLS.HEAVY_STAGGER_DEBUFF.id) || this._heavyStaggerDropped) {
       this.heavyPurifies += 1;
     }
+    this._heavyStaggerDropped = false;
   }
 
   statistic() {
