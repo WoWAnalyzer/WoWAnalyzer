@@ -142,9 +142,13 @@ class Haste extends Analyzer {
     const haste = this._getHastePerStackGain(spellId);
 
     if (haste) {
-      // Haste stacks are usually additive, so at 5 stacks with 3% per you'd be at 15%, 6 stacks = 18%. This means the only right way to add a Haste stack is to reset to Haste without the old total and then add the new total Haste again.
-      this._applyHasteLoss(event, haste * event.oldStacks);
-      this._applyHasteGain(event, haste * event.newStacks);
+      // Haste stacks are additive, so at 5 stacks with 3% per you'd be at 15%, 6 stacks = 18%. This means the only right way to add a Haste stack is to reset to Haste without the old total and then add the new total Haste again.
+      // 1. Calculate the total Haste percentage without the buff
+      const baseHaste = this.constructor.removeHaste(this.current, event.oldStacks * haste);
+      // 2. Calculate the new total Haste percentage with the Haste from the new amount of stacks
+      const newHastePercentage = this.constructor.addHaste(baseHaste, event.newStacks * haste);
+
+      this._setHaste(event, newHastePercentage);
 
       debug && console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (gained ${formatPercentage(haste * event.stacksGained)}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
     }

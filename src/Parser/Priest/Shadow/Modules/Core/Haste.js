@@ -1,16 +1,12 @@
-import CoreHaste from 'Parser/Core/Modules/Haste';
 import SPELLS from 'common/SPELLS';
-
 import { formatMilliseconds, formatPercentage } from 'common/format';
+import CoreHaste from 'Parser/Core/Modules/Haste';
 
 const debug = false;
 
-
 const VOIDFORM_HASTE_PER_STACK = 0.01;
 
-
 class Haste extends CoreHaste {
-
   _highestVoidformStack = 0;
   _highestLingeringStack = 0;
 
@@ -18,11 +14,11 @@ class Haste extends CoreHaste {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.LINGERING_INSANITY.id) {
       this._highestLingeringStack = this._highestVoidformStack;
-      this._highestVoidformStack  = 0;
+      this._highestVoidformStack = 0;
       return;
     }
 
-    if (spellId === SPELLS.VOIDFORM_BUFF.id){
+    if (spellId === SPELLS.VOIDFORM_BUFF.id) {
       this._highestVoidformStack = 1;
       this._applyHasteGain(event, this._highestVoidformStack * VOIDFORM_HASTE_PER_STACK);
       debug && console.log(`ABC: Current haste: ${this.current} (gained ${VOIDFORM_HASTE_PER_STACK * this._highestVoidformStack} from VOIDFORM_BUFF)`, event.timestamp);
@@ -39,18 +35,25 @@ class Haste extends CoreHaste {
   on_toPlayer_applybuffstack(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.VOIDFORM_BUFF.id) {
-      this._applyHasteLoss(event, this._highestVoidformStack * VOIDFORM_HASTE_PER_STACK);
-      this._highestVoidformStack = event.stack;
-      this._applyHasteGain(event, this._highestVoidformStack * VOIDFORM_HASTE_PER_STACK);
+      const oldStacks = this._highestVoidformStack;
+      const newStacks = event.stack;
+      this._highestVoidformStack = newStacks;
 
-      if(debug){
+      // Haste stacks are additive, so at 5 stacks with 3% per you'd be at 15%, 6 stacks = 18%. This means the only right way to add a Haste stack is to reset to Haste without the old total and then add the new total Haste again.
+      // 1. Calculate the total Haste percentage without the buff
+      const baseHaste = this.constructor.removeHaste(this.current, oldStacks * VOIDFORM_HASTE_PER_STACK);
+      // 2. Calculate the new total Haste percentage with the Haste from the new amount of stacks
+      const newHastePercentage = this.constructor.addHaste(baseHaste, newStacks * VOIDFORM_HASTE_PER_STACK);
+
+      this._setHaste(event, newHastePercentage);
+
+      if (debug) {
         const fightDuration = formatMilliseconds(this.owner.fightDuration);
         console.log(`%c${[
           'Haste:',
           fightDuration,
           `+0.01 from VOIDFORM_BUFF (now ${event.stack} stacks)`,
           'current:', `${formatPercentage(this.current)}%`,
-
         ].join('  ')}`, `color: green`);
       }
     }
@@ -60,9 +63,9 @@ class Haste extends CoreHaste {
 
   on_toPlayer_removebuff(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.VOIDFORM_BUFF.id){
+    if (spellId === SPELLS.VOIDFORM_BUFF.id) {
       this._highestLingeringStack = this._highestVoidformStack;
-      if(debug){
+      if (debug) {
         const fightDuration = formatMilliseconds(this.owner.fightDuration);
         console.log(`%c${[
           'Haste:',
@@ -74,10 +77,10 @@ class Haste extends CoreHaste {
       return;
     }
 
-    if(spellId === SPELLS.LINGERING_INSANITY.id){
+    if (spellId === SPELLS.LINGERING_INSANITY.id) {
       // last 1-2 stacks doesn't trigger removebuffstack, so it gets handled here:
       this._applyHasteLoss(event, this._highestLingeringStack * VOIDFORM_HASTE_PER_STACK);
-      if(debug){
+      if (debug) {
         const fightDuration = formatMilliseconds(this.owner.fightDuration);
         console.log(`%c${[
           'Haste:',
@@ -96,11 +99,19 @@ class Haste extends CoreHaste {
   on_toPlayer_removebuffstack(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.LINGERING_INSANITY.id) {
-      this._applyHasteLoss(event, this._highestLingeringStack * VOIDFORM_HASTE_PER_STACK);
-      this._highestLingeringStack = event.stack;
-      this._applyHasteGain(event, this._highestLingeringStack * VOIDFORM_HASTE_PER_STACK);
+      const oldStacks = this._highestLingeringStack;
+      const newStacks = event.stack;
+      this._highestLingeringStack = newStacks;
 
-      if(debug){
+      // Haste stacks are additive, so at 5 stacks with 3% per you'd be at 15%, 6 stacks = 18%. This means the only right way to add a Haste stack is to reset to Haste without the old total and then add the new total Haste again.
+      // 1. Calculate the total Haste percentage without the buff
+      const baseHaste = this.constructor.removeHaste(this.current, oldStacks * VOIDFORM_HASTE_PER_STACK);
+      // 2. Calculate the new total Haste percentage with the Haste from the new amount of stacks
+      const newHastePercentage = this.constructor.addHaste(baseHaste, newStacks * VOIDFORM_HASTE_PER_STACK);
+
+      this._setHaste(event, newHastePercentage);
+
+      if (debug) {
         const fightDuration = formatMilliseconds(this.owner.fightDuration);
         console.log(`%c${[
           'Haste:',
