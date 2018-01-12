@@ -19,7 +19,7 @@ class SoulOfTheHighlord extends Analyzer {
   item() {
     return {
       item: ITEMS.SOUL_OF_THE_HIGHLORD,
-      result: <Wrapper>This gave you <SpellLink id={SPELLS.DIVINE_PURPOSE_TALENT_RETRIBUTION.id} />.</Wrapper>,
+      result: <Wrapper>This gave you <SpellLink id={SPELLS.DIVINE_PURPOSE_TALENT_RETRIBUTION.id} icon/>.</Wrapper>,
     };
   }
 }
