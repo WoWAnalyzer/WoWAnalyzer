@@ -9,6 +9,8 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
+const debug = true;
+
 class Clearcasting extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -41,16 +43,19 @@ class Clearcasting extends Analyzer {
       return;
     }
 
+    debug && console.log(`Clearcasting applied @${this.owner.formatTimestamp(event.timestamp)} - ${this.procsPerCC} procs remaining`);
     this.totalProcs += this.procsPerCC;
     this.availableProcs = this.procsPerCC;
   }
 
+  // it looks right now like the refreshbuff handling will never be used, because for whatever reason CC doesn't fire an event when it refreshes...
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.CLEARCASTING_BUFF.id) {
       return;
     }
 
+    debug && console.log(`Clearcasting refreshed @${this.owner.formatTimestamp(event.timestamp)} - overwriting ${this.availableProcs} procs - ${this.procsPerCC} procs remaining`);
     this.totalProcs += this.procsPerCC;
     this.overwrittenProcs += this.availableProcs;
     this.availableProcs = this.procsPerCC;
@@ -62,6 +67,11 @@ class Clearcasting extends Analyzer {
       return;
     }
 
+    debug && console.log(`Clearcasting expired @${this.owner.formatTimestamp(event.timestamp)} - ${this.availableProcs} procs expired`);
+    if (this.availableProcs < 0) { // there was an invisible refresh after some but not all the MoC charges consumed...
+      debug && console.log(`There was an invisible refresh after some but not all MoC charges consumed ... setting available to 0...`);
+      this.availableProcs = 0;
+    }
     this.expiredProcs += this.availableProcs;
     this.availableProcs = 0;
   }
@@ -76,6 +86,7 @@ class Clearcasting extends Analyzer {
     if (this.combatants.selected.hasBuff(SPELLS.CLEARCASTING_BUFF.id)) {
       this.availableProcs -= 1;
       this.usedProcs += 1;
+      debug && console.log(`Regrowth w/CC cast @${this.owner.formatTimestamp(event.timestamp)} - ${this.availableProcs} procs remaining`);
     } else {
       this.nonCCRegrowths += 1;
     }
@@ -86,7 +97,12 @@ class Clearcasting extends Analyzer {
   }
 
   get clearcastingUtilPercent() {
-    return this.usedProcs / this.totalProcs;
+    const util = this.usedProcs / this.totalProcs;
+    return (util > 1) ? 1 : util; // invisible refresh + MoC can make util greater than 100% ... in that case clamp to 100%
+  }
+
+  get hadInvisibleRefresh() {
+    return this.usedProcs > this.totalProcs;
   }
 
   get clearcastingUtilSuggestionThresholds() {
@@ -140,16 +156,16 @@ class Clearcasting extends Analyzer {
         icon={<SpellIcon id={SPELLS.CLEARCASTING_BUFF.id} />}
         value={`${formatPercentage(this.clearcastingUtilPercent, 1)} %`}
         label="Clearcasting Util"
-        tooltip={`Clearcasting proced <b>${this.totalProcs} free Regrowths</b>
+        tooltip={`Clearcasting procced <b>${this.totalProcs} free Regrowths</b>
             <ul>
-              <li>Used: <b>${this.usedProcs}</b></li>
+              <li>Used: <b>${this.usedProcs} ${this.hadInvisibleRefresh ? '*' : ''}</b></li>
               <li>Expired: <b>${this.expiredProcs}</b></li>
-              <li>Overwritten: <b>${this.overwrittenProcs}</b></li>
             </ul>
             <b>${this.nonCCRegrowths} of your Regrowths were cast without a Clearcasting proc</b>.
             Using a clearcasting proc as soon as you get it should be one of your top priorities.
             Even if it overheals you still get that extra mastery stack on a target and the minor HoT.
-            Spending your GCD on a free spell also helps with mana management in the long run.`}
+            Spending your GCD on a free spell also helps with mana management in the long run.<br />
+            ${this.hadInvisibleRefresh ? `<i>* Mark of Clarity can sometimes 'invisibly refresh', which can make your total procs show as lower than you actually got. Basically, you invisibly overwrote some number of procs, but we aren't able to see how many.</i>` : ''}`}
       />
     );
   }
