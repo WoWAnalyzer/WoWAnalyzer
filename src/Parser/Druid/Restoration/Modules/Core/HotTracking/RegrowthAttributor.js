@@ -18,7 +18,7 @@ class RegrowthAttributor extends Analyzer {
   };
 
   // objects hold attribution running totals
-  powerOfTheArchdruid = { healing: 0, masteryHealing: 0, procs: 0 }
+  powerOfTheArchdruid = { name: 'Power of the Archdrud', healing: 0, masteryHealing: 0, procs: 0 }
 
   // cast tracking stuff
   lastRegrowthCastTimestamp;
@@ -88,8 +88,7 @@ class RegrowthAttributor extends Analyzer {
     debug && this._logAttribution(spellId, targetId, timestamp, attName);
 
     attributions.forEach(att => {
-      att.procs += 1;
-      this.hotTracker.hots[targetId][spellId].attributions.push(att);
+      this.hotTracker.addAttribution(att, targetId, spellId);
     });
   }
 

@@ -15,8 +15,8 @@ class DreamerAttributor extends Analyzer {
     hotTracker: HotTracker,
   };
 
-  t214p = { healing: 0, masteryHealing: 0, procs: 0 }; // used to distinguish Dreamer procs that would not have happened but for the 4pc
-  t212p = { healing: 0, masteryHealing: 0, procs: 0 }; // for all the Dreamer procs except those attributable to 4pc
+  t214p = { name: 'T21 4pc', healing: 0, masteryHealing: 0, procs: 0 }; // used to distinguish Dreamer procs that would not have happened but for the 4pc
+  t212p = { name: 'T21 2pc', healing: 0, masteryHealing: 0, procs: 0 }; // for all the Dreamer procs except those attributable to 4pc
   remaining4t21attributes = 0;
 
   on_byPlayer_applybuff(event) {
@@ -60,8 +60,7 @@ class DreamerAttributor extends Analyzer {
     debug && this._logAttribution(spellId, targetId, event.timestamp, attName);
 
     attributions.forEach(att => {
-      att.procs += 1;
-      this.hotTracker.hots[targetId][spellId].attributions.push(att);
+      this.hotTracker.addAttribution(att, targetId, spellId);
     });
   }
 

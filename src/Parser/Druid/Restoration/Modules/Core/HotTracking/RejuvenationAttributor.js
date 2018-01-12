@@ -24,14 +24,15 @@ class RejuvenationAttributor extends Analyzer {
   };
 
   // objects hold attribution running totals
-  powerOfTheArchdruid = { healing: 0, masteryHealing: 0, dreamwalkerHealing: 0, procs: 0 };
-  tearstoneOfElune = { healing: 0, masteryHealing: 0, dreamwalkerHealing: 0, procs: 0 };
-  t194p = { healing: 0, masteryHealing: 0, dreamwalkerHealing: 0, procs: 0 };
+  powerOfTheArchdruid = { name: 'Power of the Archdruid', healing: 0, masteryHealing: 0, dreamwalkerHealing: 0, procs: 0 };
+  tearstoneOfElune = { name: 'Tearstone of Elune', healing: 0, masteryHealing: 0, dreamwalkerHealing: 0, procs: 0 };
+  t194p = { name: 'T19 4pc', healing: 0, masteryHealing: 0, dreamwalkerHealing: 0, procs: 0 };
 
   // cast tracking stuff
   lastRejuvCastTimestamp;
   lastRejuvTarget;
-  lastWildGrowthCastTimestamp
+  castRejuvApplied; // occasionally procs happen on target that was just cast on, assures that no more than 1 apply/refreshbuff is attributed per cast
+  lastWildGrowthCastTimestamp;
 
   // PotA tracking stuff
   lastPotaRejuvTimestamp;
@@ -48,6 +49,7 @@ class RejuvenationAttributor extends Analyzer {
   on_initialized() {
     this.hasTearstone = this.combatants.selected.hasFinger(ITEMS.TEARSTONE_OF_ELUNE.id);
     this.has4t19 = this.combatants.selected.hasBuff(SPELLS.RESTO_DRUID_T19_4SET_BONUS_BUFF.id);
+    this.castRejuvApplied = true;
   }
 
   on_byPlayer_cast(event) {
@@ -58,6 +60,7 @@ class RejuvenationAttributor extends Analyzer {
     if (spellId === SPELLS.REJUVENATION.id) {
       this.lastRejuvCastTimestamp = event.timestamp;
       this.lastRejuvTarget = targetId;
+      this.castRejuvApplied = false;
     } else if (spellId === SPELLS.WILD_GROWTH.id) {
       this.lastWildGrowthCastTimestamp = event.timestamp;
     }
@@ -100,18 +103,20 @@ class RejuvenationAttributor extends Analyzer {
     const attributions = [];
 
     let attName = "None";
-    if (event.prepull || (this.lastRejuvCastTimestamp + BUFFER_MS > timestamp && this.lastRejuvTarget === targetId)) { // regular cast (assume prepull applications are hardcast)
+    if (event.prepull || (this.lastRejuvCastTimestamp + BUFFER_MS > timestamp && this.lastRejuvTarget === targetId && !this.castRejuvApplied)) {
+      // regular cast (assume prepull applications are hardcast)
       // standard hardcast gets no special attribution
+      this.castRejuvApplied = true;
       attName = "Hardcast";
     } else if (this.lastPotaRejuvTimestamp + BUFFER_MS > timestamp && this.potaTarget !== targetId) { // PotA proc but not primary target
       attributions.push(this.powerOfTheArchdruid);
-      attName = "Power of the Archdruid";
+      attName = this.powerOfTheArchdruid.name;
     } else if (this.hasTearstone && this.lastWildGrowthCastTimestamp + BUFFER_MS > timestamp) {
       attributions.push(this.tearstoneOfElune);
-      attName = "Tearstone of Elune";
+      attName = this.tearstoneOfElune.name;
     } else if (this.has4t19) {
       attributions.push(this.t194p);
-      attName = "Tier19 4pc";
+      attName = this.t194p.name;
     } else {
       console.warn(`Unable to attribute Rejuv @${this.owner.formatTimestamp(timestamp)} on ${targetId}`);
     }
@@ -119,8 +124,7 @@ class RejuvenationAttributor extends Analyzer {
     debug && this._logAttribution(spellId, targetId, timestamp, attName);
 
     attributions.forEach(att => {
-      att.procs += 1;
-      this.hotTracker.hots[targetId][spellId].attributions.push(att);
+      this.hotTracker.addAttribution(att, targetId, spellId);
     });
   }
 

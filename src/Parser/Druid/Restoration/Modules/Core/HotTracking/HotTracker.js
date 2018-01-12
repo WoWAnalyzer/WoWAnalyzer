@@ -151,6 +151,17 @@ class HotTracker extends Analyzer {
     delete this.hots[targetId][spellId];
   }
 
+  // to be called by external module, adds an attribution to the HoT with the given target / spellId
+  // attribution object must have fields for name, healing, masteryHealing (and rejuv only: dreamwalkerHealing)
+  addAttribution(attribution, targetId, spellId) {
+    if (!this.hots[targetId] || !this.hots[targetId][spellId]) {
+      console.warn(`Tried to add attribution ${attribution.name} to targetId=${targetId}, spellId=${spellId}, but that HoT isn't recorded as present`);
+      return;
+    }
+    attribution.procs += 1;
+    this.hots[targetId][spellId].attributions.push(attribution);
+  }
+
   // gets an event's target ... returns null if for any reason the event should not be further processed
   _getTarget(event) {
     const target = this.combatants.getEntity(event);
