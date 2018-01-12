@@ -32,8 +32,8 @@ class Judgment extends Analyzer {
 			return;
 		}
 		if(spellId === SPELLS.TEMPLARS_VERDICT.id || 
-			    spellId === SPELLS.DIVINE_STORM.id ||
-			    spellId === SPELLS.JUSTICARS_VENGENANCE_TALENT){
+			  spellId === SPELLS.DIVINE_STORM.id ||
+				spellId === SPELLS.JUSTICARS_VENGEANCE_TALENT.id){
 			if(!enemy.hasBuff(SPELLS.JUDGMENT_DEBUFF.id)){
 				this.spenderOutsideJudgment++;
 			}
@@ -42,8 +42,8 @@ class Judgment extends Analyzer {
 	}
 
 	on_byPlayer_damage(event){
-		const enemy = this.enemies.getEntity(event);
 		const spellId = event.ability.guid;
+		const enemy = this.enemies.getEntity(event);
 
 		if(!this._hasES){
 			return;
@@ -51,12 +51,13 @@ class Judgment extends Analyzer {
 		if(!enemy){
 			return;
 		}
-		if(!enemy.hasBuff(SPELLS.JUDGMENT_DEBUFF.id)){ 
-			if(spellId === SPELLS.EXECUTION_SENTENCE_TALENT.id){
-			this.spenderOutsideJudgment++;
-			}
-			this.totalSpender++;
+		if(spellId !== SPELLS.EXECUTION_SENTENCE_TALENT.id){
+			return;
 		}
+		if(!enemy.hasBuff(SPELLS.JUDGMENT_DEBUFF.id)){
+			this.spenderOutsideJudgment++;
+		}
+		this.totalSpender++;
 	}
 
 	get suggestionThresholds() {
