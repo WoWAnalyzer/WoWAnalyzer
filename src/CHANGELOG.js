@@ -9,22 +9,27 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2017-01-10'),
+    date: new Date('2018-01-11'),
+    changes: 'Fixed a bug where item damage/healing/mana statistics (with the icons) stopped updating after the last damage/healing/mana event. This will lower most displayed item values, the impact depends on the time between the last event that increased the damage/healing/mana of the thing being analyzed and the fight ending.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-01-10'),
     changes: 'Added a note about unlisted logs to the report selector.',
     contributors: [Zerotorescue],
   },
   {
-    date: new Date('2017-01-09'),
+    date: new Date('2018-01-09'),
     changes: <Wrapper>Updated the tooltip for <ItemLink id={ITEMS.GOLGANNETHS_VITALITY.id} icon /> to show uptime aswell as damage contribution of the two procs</Wrapper>,
     contributors: [Putro],
   },
   {
-    date: new Date('2017-01-08'),
+    date: new Date('2018-01-08'),
     changes: 'Replaced the articles on the frontpage with a basic news system so we can more easily add and maintain articles.',
     contributors: [Zerotorescue],
   },
   {
-    date: new Date('2017-01-04'),
+    date: new Date('2018-01-04'),
     changes: 'Fixed a bug where procs that changed an ability from a cast time ability to instant might not properly register the GCD.',
     contributors: [Zerotorescue],
   },

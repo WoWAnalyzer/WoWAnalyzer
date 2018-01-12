@@ -22,12 +22,19 @@ class ApplyBuff extends EventsNormalizer {
   normalize(events) {
     const firstEventIndex = this.getFightStartIndex(events);
     const playersById = this.owner.playersById;
+    const playerId = this.owner.playerId;
 
     // region Buff event based detection
     // This catches most relevant buffs and is most accurate. If a player is good at juggling certain buffs they can achieve 100% uptime, if that happens `removebuff` is never called, so we also check for other indicators that are just as reliable, such as `applybuffstack`, `removebuffstack` and `refreshbuff`.
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];
       const targetId = event.targetID;
+      const sourceId = event.sourceID;
+
+      // A player can have the same buff twice given that the buff was applied by someone else. Because we only want to fabricate buffs once, we use `_buffsAppliedByPlayerId` to ensure we don't do it twice, but because it doesn't track a source we can't track other people's buffs. And that's fine too since we only care about stuff by/to the player.
+      if (![targetId, sourceId].includes(playerId)) {
+        continue;
+      }
 
       this._buffsAppliedByPlayerId[targetId] = this._buffsAppliedByPlayerId[targetId] || [];
 
@@ -44,13 +51,13 @@ class ApplyBuff extends EventsNormalizer {
 
         const fightDuration = formatDuration((event.timestamp - this.owner.fight.start_time) / 1000);
         debug && console.warn(fightDuration, 'Found a buff on', ((playersById[targetId] && playersById[targetId].name) || '???'), 'that was applied before the pull:', event.ability.name, spellId, '! Fabricating an `applybuff` event so you don\'t have to do anything special to take this into account.');
-        const targetInfo = this._combatantInfoEvents.find(event => event.sourceID === targetId);
+        const targetInfo = this._combatantInfoEvents.find(combatantInfoEvent => combatantInfoEvent.sourceID === targetId);
         const applybuff = {
           // These are all the properties a normal `applybuff` event would have.
           timestamp: events[firstEventIndex].timestamp,
           type: 'applybuff',
           ability: event.ability,
-          sourceID: event.sourceID,
+          sourceID: sourceId,
           sourceIsFriendly: event.sourceIsFriendly,
           targetID: targetId,
           targetIsFriendly: event.targetIsFriendly,
@@ -75,6 +82,12 @@ class ApplyBuff extends EventsNormalizer {
       // event.auras can be undefined if combatantinfo for any player in the fight errored
       event.auras && event.auras.forEach(aura => {
         const spellId = aura.ability;
+        const sourceId = aura.source;
+
+        // A player can have the same buff twice given that the buff was applied by someone else. Because we only want to fabricate buffs once, we use `_buffsAppliedByPlayerId` to ensure we don't do it twice, but because it doesn't track a source we can't track other people's buffs. And that's fine too since we only care about stuff by/to the player.
+        if (![targetId, sourceId].includes(playerId)) {
+          return;
+        }
 
         this._buffsAppliedByPlayerId[targetId] = this._buffsAppliedByPlayerId[targetId] || [];
 
@@ -90,10 +103,10 @@ class ApplyBuff extends EventsNormalizer {
           type: 'applybuff',
           ability: {
             guid: spellId,
-            name: 'Unknown',
+            name: SPELLS[spellId] ? SPELLS[spellId].name : 'Unknown',
             abilityIcon: aura.icon,
           },
-          sourceID: aura.source,
+          sourceID: sourceId,
           sourceIsFriendly: true,
           targetID: targetId,
           targetIsFriendly: true,
