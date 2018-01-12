@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-01-12'),
+    changes: 'Fixed current Haste percentage interaction with Haste rating buff changes (this improves ABC and spell cooldown accuracy).',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-01-11'),
     changes: 'Fixed a bug where item damage/healing/mana statistics (with the icons) stopped updating after the last damage/healing/mana event. This will lower most displayed item values, the impact depends on the time between the last event that increased the damage/healing/mana of the thing being analyzed and the fight ending.',
     contributors: [Zerotorescue],
