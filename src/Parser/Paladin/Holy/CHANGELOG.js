@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-01-12'),
+    changes: 'Fixed Garothi Feedback Conduit average Haste calculations.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-01-11'),
     changes: 'Fixed a bug where beacon tracking sometimes failed when doing a fight with multiple Holy Paladins.',
     contributors: [Zerotorescue],
