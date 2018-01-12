@@ -257,8 +257,10 @@ class SpellUsable extends Analyzer {
     Object.keys(this._currentCooldowns).forEach(spellId => {
       const cooldown = this._currentCooldowns[spellId];
       const originalExpectedDuration = cooldown.expectedDuration;
+
       const timePassed = event.timestamp - cooldown.start;
       const progress = timePassed / originalExpectedDuration;
+
       const cooldownDurationWithCurrentHaste = this.abilities.getExpectedCooldownDuration(Number(spellId));
       const newExpectedDuration = timePassed + this._calculateNewCooldownDuration(progress, cooldownDurationWithCurrentHaste);
       const fightDuration = formatMilliseconds(event.timestamp - this.owner.fight.start_time);

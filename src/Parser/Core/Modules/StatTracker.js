@@ -378,7 +378,7 @@ class StatTracker extends Analyzer {
     this._changeBuffStack(event);
   }
 
-  /*
+  /**
    * This interface allows an external analyzer to force a stat change.
    * It should ONLY be used if a stat buff is so non-standard that it can't be handled by the buff format in this module.
    * change is a stat buff object just like those in the STAT_BUFFS structure above, it is required.

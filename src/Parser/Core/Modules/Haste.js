@@ -49,7 +49,7 @@ class Haste extends Analyzer {
   on_initialized() {
     this.current = this.statTracker.currentHastePercentage;
     debug && console.log(`Haste: Starting haste: ${formatPercentage(this.current)}%`);
-    this._triggerChangeHaste(null, null, this.current, null, null);
+    this._triggerChangeHaste(null, null, this.current);
 
     // TODO: Move this to the Sephuz module
     if (this.combatants.selected.hasFinger(ITEMS.SEPHUZS_SECRET.id)) {
@@ -81,11 +81,13 @@ class Haste extends Analyzer {
       return;
     }
 
-    // as haste rating stacks additively with itself, changing rating works similar to changing buff stack
-    const oldHastePercentage = this.statTracker.baseHastePercentage + (event.before.haste / this.statTracker.hasteRatingPerPercent);
-    this._applyHasteLoss(event.reason, oldHastePercentage);
-    const newHastePercentage = this.statTracker.baseHastePercentage + (event.after.haste / this.statTracker.hasteRatingPerPercent);
-    this._applyHasteGain(event.reason, newHastePercentage);
+    // Calculating the Haste percentage difference form a rating change is hard because all rating (from gear + buffs) is additive while Haste percentage buffs are both multiplicative and additive (see the applyHaste function).
+    // 1. Calculate the total Haste percentage without any rating (since the total percentage from the total rating multiplies like any other Haste buff)
+    const remainingHasteBuffs = this.constructor.removeHaste(this.current, this.statTracker.hastePercentage(event.before.haste, true));
+    // 2. Calculate the new total Haste percentage with the new rating and the old total buff percentage
+    const newHastePercentage = this.constructor.addHaste(this.statTracker.hastePercentage(event.after.haste, true), remainingHasteBuffs);
+
+    this._setHaste(event, newHastePercentage);
 
     if (debug) {
       const spellName = event.reason.ability ? event.reason.ability.name : 'unknown';
@@ -179,19 +181,19 @@ class Haste extends Analyzer {
   }
 
   _applyHasteGain(event, haste) {
-    const oldHaste = this.current;
-    this.current = this.constructor.addHaste(this.current, haste);
-
-    this._triggerChangeHaste(event, oldHaste, this.current, haste, null);
+    this._setHaste(event, this.constructor.addHaste(this.current, haste));
   }
   _applyHasteLoss(event, haste) {
-    const oldHaste = this.current;
-    this.current = this.constructor.removeHaste(this.current, haste);
-
-    this._triggerChangeHaste(event, oldHaste, this.current, null, haste);
+    this._setHaste(event, this.constructor.removeHaste(this.current, haste));
   }
-  _triggerChangeHaste(event, oldHaste, newHaste, hasteGain, hasteLoss) {
-    this.owner.triggerEvent('changehaste', {
+  _setHaste(event, haste) {
+    const oldHaste = this.current;
+    this.current = haste;
+
+    this._triggerChangeHaste(event, oldHaste, this.current);
+  }
+  _triggerChangeHaste(event, oldHaste, newHaste) {
+    const fabricatedEvent = {
       timestamp: event ? event.timestamp : this.owner.currentTimestamp,
       type: 'changehaste',
       sourceID: event ? event.sourceID : this.owner.playerId,
@@ -199,9 +201,9 @@ class Haste extends Analyzer {
       reason: event,
       oldHaste,
       newHaste,
-      hasteGain,
-      hasteLoss,
-    });
+    };
+    debug && console.log('changehaste', fabricatedEvent);
+    this.owner.triggerEvent('changehaste', fabricatedEvent);
   }
 
   static addHaste(baseHaste, hasteGain) {
