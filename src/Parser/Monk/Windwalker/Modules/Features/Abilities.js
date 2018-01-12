@@ -132,7 +132,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CRACKLING_JADE_LIGHTNING,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        enabled: combatant.hasChest(ITEMS.THE_EMPERORS_CAPACITOR.id),
       },
       {
         spell: SPELLS.RUSHING_JADE_WIND_TALENT,
