@@ -58,10 +58,10 @@ class BoWProcTracker extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>You wasted {formatPercentage(actual)}% <SpellLink id={SPELLS.BLADE_OF_WRATH_PROC.id} icon/> procs</Wrapper>)
-          .icon(SPELLS.BLADE_OF_WRATH_PROC.icon)
-          .actual(`${formatNumber(this.overwrittenBoWProcs)} missed proc(s)`)
-          .recommended(`Wasting none is recommended`);
+      return suggest(<Wrapper>You wasted {formatPercentage(actual)}% <SpellLink id={SPELLS.BLADE_OF_WRATH_PROC.id} icon/> procs</Wrapper>)
+        .icon(SPELLS.BLADE_OF_WRATH_PROC.icon)
+        .actual(`${formatNumber(this.overwrittenBoWProcs)} missed proc(s)`)
+        .recommended(`Wasting none is recommended`);
     });
   }
 
