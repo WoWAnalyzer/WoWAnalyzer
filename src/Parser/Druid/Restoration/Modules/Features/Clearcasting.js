@@ -9,7 +9,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-const debug = true;
+const debug = false;
 
 class Clearcasting extends Analyzer {
   static dependencies = {
