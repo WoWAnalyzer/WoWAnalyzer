@@ -27,6 +27,7 @@ import CharacterAndFightPullDownMenus from './CharacterAndFightPullDownMenus.gif
 import CompletenessGreat from './Completeness-Great.png';
 import CompletenessNeedsMoreWork from './Completeness-Needs-more-work.png';
 import DistanceMoved from './DistanceMoved.png';
+import ItemIcon from 'common/ItemIcon';
 
 function completeness(completeness) {
   return <dfn data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>;
@@ -113,7 +114,7 @@ export default (
           18 Mar
         </div>
         <div className="panel-heading">
-          <h2>Analyzing the first item: Drape of Shame</h2>
+          <h2>Analyzing the first item: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} /> Drape of Shame</h2>
         </div>
         <div className="panel-body">
           In March a statistic that broadened the scope of project was added as it wasn't just related to a Holy Paladin's mastery effectiveness; the <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} icon /> healing contribution statistic. For the first time this statistic gave insight into the exact value of <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} icon />.<br /><br />
@@ -407,6 +408,11 @@ export default (
         </div>
         <div className="panel-body">
           strel guided me through this, set up TravisCI that runs on any commit. Commits to a branch of the main repo make a Docker container that automatically gets deployed to the server. The experienced downtime of this process is only a few seconds. Server is a dedicated box by Scaleway. Cloudflare in front of everything, always.
+
+          https://travis-ci.org/WoWAnalyzer/WoWAnalyzer
+          https://hub.docker.com/r/martijnhols/wowanalyzer/
+          https://www.scaleway.com
+          https://www.cloudflare.com
         </div>
       </div>
 
@@ -476,11 +482,14 @@ export default (
           25 Jul
         </div>
         <div className="panel-heading">
-          <h2>Initial Subtlety Rogue support by zealk</h2>
+          <h2>Subtlety Rogue</h2>
         </div>
         <div className="panel-body">
           <SpecIcon spec={SPECS.SUBTLETY_ROGUE} />
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/130
+
+          Initial version by <Maintainer {...MAINTAINERS.zealk} />
+          Most of what is available today by <Maintainer {...MAINTAINERS.tsabo} />
         </div>
       </div>
 
@@ -902,6 +911,8 @@ export default (
       </div>
 
       {/* TODO: Continue from https://github.com/WoWAnalyzer/WoWAnalyzer/pulls?page=17&q=is%3Apr+sort%3Acreated-asc */}
+      {/* TODO: Go through commits for a second pass since we commited a bunch of interesting thigns directly without PR */}
+      {/* TODO: Go through commits for old screenshots */}
 
       <div className="panel">
         <div className="date">

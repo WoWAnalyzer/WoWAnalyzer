@@ -123,6 +123,10 @@ export const tsabo = {
   nickname: 'tsabo',
   github: 'TsaboTavok',
 };
+export const zealk = {
+  nickname: 'zealk',
+  github: 'zealk',
+};
 export const fasib = {
   nickname: 'fasib',
   github: 'fasib',
