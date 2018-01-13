@@ -260,6 +260,11 @@ export default {
     name: 'T19 2 set bonus',
     icon: 'talentspec_druid_restoration',
   },
+  RESTO_DRUID_T19_4SET_BONUS_BUFF: {
+    id: 211170,
+    name: 'T19 4 set bonus',
+    icon: 'talentspec_druid_restoration',
+  },
   RESTO_DRUID_T20_2SET_BONUS_BUFF: {
     id: 242238,
     name: 'T20 2 set bonus',

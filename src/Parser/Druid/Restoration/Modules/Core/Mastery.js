@@ -168,6 +168,16 @@ class Mastery extends Analyzer {
     }
   }
 
+  // a version of _decompHeal for call by external modules, takes the heal event
+  decomposeHeal(event) {
+    const target = this.combatants.getEntity(event);
+    if (target === null) {
+      return null;
+    }
+    const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
+    return this._decompHeal(healVal, this.getHotCount(target));
+  }
+
   _decompHeal(healVal, hotCount) {
     const masteryBonus = this.statTracker.currentMasteryPercentage;
     const healMasteryMult = 1 + (hotCount * masteryBonus);
