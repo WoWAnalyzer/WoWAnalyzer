@@ -525,6 +525,28 @@ export default (
 
       <div className="panel">
         <div className="date">
+          15 Aug
+        </div>
+        <div className="panel-heading">
+          <h2>A fancy new dependency injection system</h2>
+        </div>
+        <div className="panel-body">
+          It's probably just me that's still excited about this one. This is technical stuffs you probably won't care about.<br /><br />
+
+          In the past we had a bunch of different ways for modules to talk to each other, but the most common way was to just hardcode a path, e.g. <code>this.owner.modules.alwaysBeCasting</code> to get the instance of the Always Be Casting module. This worked pretty well but makes things hard to test, easy to break and makes it hard to see dependencies. After discussion a few possibilities I set out to create a <a href="https://en.wikipedia.org/wiki/Dependency_injection">dependency injection system</a>.<br /><br />
+
+          It's actually a rather simple system. <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/commit/e6d3f186c819028da2796dffe3f9d0c55e7fda41#diff-f8311e439dcf107ce5cad2b9c9e57204">This commit</a> shows what changed; instead of hardcoding the direct path to the dependency, we can now request an instance of a class in a static <i>dependencies</i> property.<br /><br />
+
+          To add a dependency requirement you add an entry to the <i>dependencies</i> object with as key the name you want it available as, and as value the class you want an instance of. The DI system then figures out which module to grab, being an instance of the class itself or an instance of a class extending that class, and makes it available to the module requesting it under the property with the requested name. The injection part all happens under the hood so the implementer doesn't have to worry about it.<br /><br />
+
+          Another great thing is that <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/commit/e6d3f186c819028da2796dffe3f9d0c55e7fda41#diff-202576169845b67347bc4231e34054ccR116">the code that takes care of this</a> is actually pretty short. Who would have thought?<br /><br />
+
+          This system offers us compile-time checking that dependencies exist (since we need to pass the class we want), and it does not rely on whatever name it has been assigned elsewhere. Pretty sweet right!
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
           18 Aug
         </div>
         <div className="panel-heading">
@@ -609,6 +631,57 @@ export default (
           By Iskalla
 
           Later token over by Gebuz
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          2 Sep
+        </div>
+        <div className="panel-heading">
+          <h2>Destruction Warlock</h2>
+        </div>
+        <div className="panel-body">
+          <SpecIcon spec={SPECS.DESTRUCTION_WARLOCK} />
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/231
+
+          By Chizu (aka sMteX on GitHub)
+
+          No other maintainers
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          4 Sep
+        </div>
+        <div className="panel-heading">
+          <h2>Feral Druid</h2>
+        </div>
+        <div className="panel-body">
+          <SpecIcon spec={SPECS.FERAL_DRUID} />
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/241
+
+          By Thieseract
+
+          No other maintainers
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          6 Sep
+        </div>
+        <div className="panel-heading">
+          <h2>Blood Death Knight</h2>
+        </div>
+        <div className="panel-body">
+          <SpecIcon spec={SPECS.BLOOD_DEATH_KNIGHT} />
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/247
+
+          By Yajinni
+
+          No other maintainers
         </div>
       </div>
 
