@@ -5,6 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Wrapper from 'common/Wrapper';
+import { formatPercentage } from 'common/format';
 
 class OnethsIntuition extends Analyzer {
   static dependencies = {
@@ -15,6 +16,8 @@ class OnethsIntuition extends Analyzer {
   freeStarfallProcs = 0;
   freeStarsurgeProcsWasted = 0;
   freeStarfallProcsWasted = 0;
+  starsurgeCasts = 0;
+  starfallCasts = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasWrists(ITEMS.ONETHS_INTUITION.id);
@@ -40,6 +43,23 @@ class OnethsIntuition extends Analyzer {
       this.freeStarfallProcsWasted += 1;
     }
   }
+  on_byPlayer_cast(event){
+    const spellId = event.ability.guid;
+    if(spellId === SPELLS.STARSURGE_MOONKIN.id) {
+      this.starsurgeCasts++;
+    }
+    if(spellId === SPELLS.STARFALL_CAST.id) {
+      this.starfallCasts++;
+    }
+  }
+
+  get percentFreeStarsurgeProcs(){
+    return this.freeStarsurgeProcs / this.starfallCasts;
+  }
+
+  get percentFreeStarfallProcs(){
+    return this.freeStarfallProcs / this.starsurgeCasts;
+  }
 
   item() {
     return {
@@ -47,8 +67,8 @@ class OnethsIntuition extends Analyzer {
       result: (
         <dfn data-tip={`
           <ul>
-            <li>Free Starsurge procs gained: ${this.freeStarsurgeProcs} (${this.freeStarsurgeProcsWasted} wasted)</li>
-            <li>Free Starfall procs gained: ${this.freeStarfallProcs} (${this.freeStarfallProcsWasted} wasted)</li>
+            <li>Free Starsurge procs gained: ${this.freeStarsurgeProcs} (${this.freeStarsurgeProcsWasted} wasted) from ${this.starfallCasts} Starfall casts (${formatPercentage(this.percentFreeStarsurgeProcs)}%).</li>
+            <li>Free Starfall procs gained: ${this.freeStarfallProcs} (${this.freeStarfallProcsWasted} wasted) from ${this.starsurgeCasts} Starsurge casts (${formatPercentage(this.percentFreeStarfallProcs)}%).</li>
           </ul>
         `}>
           <Wrapper>{this.freeStarsurgeProcs} <SpellIcon id={SPELLS.ONETHS_INTUITION.id}/> {this.freeStarfallProcs} <SpellIcon id={SPELLS.ONETHS_OVERCONFIDENCE.id}/></Wrapper>

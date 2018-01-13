@@ -679,6 +679,11 @@ export default {
     name: 'Blessing of An\'she',
     icon: 'spell_priest_divinestar_holy',
   },
+  BLESSING_OF_ELUNE: {
+    id: 202737,
+    name: 'Blessing of Elune',
+    icon: 'achievement_worldevent_lunar',
+  },
   ONETHS_INTUITION: {
     id: 209406,
     name: 'Oneth\'s Intuition',
@@ -693,6 +698,16 @@ export default {
     id: 226104,
     name: 'Echoing Stars',
     icon: 'ability_socererking_forcenova',
+  },
+  BALANCE_DRUID_T20_2SET_BONUS_BUFF: {
+    id: 242231,
+    name: 'T20 2 set bonus',
+    icon: 'spell_nature_starfall',
+  },
+  BALANCE_DRUID_T20_4SET_BONUS_BUFF: {
+    id: 242233,
+    name: 'T20 4 set bonus',
+    icon: 'spell_nature_starfall',
   },
   BALANCE_DRUID_T21_2SET_BONUS_BUFF: {
     id: 251803,

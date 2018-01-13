@@ -29,28 +29,29 @@ class MoonSpells extends Analyzer {
          + this.abilityTracker.getAbility(SPELLS.FULL_MOON.id).casts;
   }
 
+  get percentageCasted(){
+    return this.totalCasts / this.availableCasts;
+  }
+
   get suggestionThresholds() {
     return {
-      actual: this.totalCasts / this.availableCasts,
+      actual: this.percentageCasted,
       isLessThan: {
-        minor: 0.98,
-        average: 0.95,
-        major: 0.9,
+        minor: 0.95,
+        average: 0.90,
+        major: 0.85,
       },
       style: 'percentage',
     };
   }
 
-  suggestions(when) {   
-    const percCasted = this.totalCasts / this.availableCasts;
-    when(percCasted).isLessThan(0.98)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<Wrapper> Your <SpellLink id={SPELLS.NEW_MOON.id} />, <SpellLink id={SPELLS.HALF_MOON.id} /> and <SpellLink id={SPELLS.FULL_MOON.id} /> cast efficiency can be improved, try keeping yourself at low Moon charges at all times; you should (almost) never be at max (3) charges.</Wrapper>)
-            .icon(SPELLS.FULL_MOON.icon)
-            .actual(`${Math.round(formatPercentage(actual))}% casted`)
-            .recommended(`${Math.round(formatPercentage(recommended))}% Moon spells casts is recommended`)
-            .regular(0.95).major(0.9);
-        });
+  suggestions(when) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<Wrapper>Your <SpellLink id={SPELLS.NEW_MOON.id} />, <SpellLink id={SPELLS.HALF_MOON.id} /> and <SpellLink id={SPELLS.FULL_MOON.id} /> cast efficiency can be improved, try keeping yourself at low Moon charges at all times; you should (almost) never be at max (3) charges.</Wrapper>)
+        .icon(SPELLS.FULL_MOON.icon)
+        .actual(`${Math.round(formatPercentage(actual))}% casted`)
+        .recommended(`${Math.round(formatPercentage(recommended))}% Moon spells casts is recommended`);
+    });
   }
 
   statistic() {
