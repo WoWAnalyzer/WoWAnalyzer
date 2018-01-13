@@ -183,3 +183,15 @@ export const milesoldenburg = {
   nickname: 'milesoldenburg',
   github: 'milesoldenburg',
 };
+export const mwwscott0 = {
+  nickname: 'mwwscott0',
+  github: 'mwwscott0',
+};
+export const Talby = {
+  nickname: 'Talby',
+  github: 'Talby223',
+};
+export const AttilioLH = {
+  nickname: 'AttilioLH',
+  github: 'AttilioLH',
+};

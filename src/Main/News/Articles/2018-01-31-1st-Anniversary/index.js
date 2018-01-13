@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import * as MAINTAINERS from 'MAINTAINERS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import SPELLS from 'common/SPELLS';
@@ -8,6 +9,7 @@ import ITEMS from 'common/ITEMS';
 import SPECS from 'common/SPECS';
 import SPEC_ANALYSIS_COMPLETENESS, { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import RegularArticle from 'Main/News/RegularArticle';
+import Maintainer from 'Main/Maintainer';
 import Timeline from './Timeline';
 
 import v001 from './v0.0.1.gif';
@@ -22,6 +24,9 @@ import RestoDruidAnalyzerV10 from './resto-druid-analyzer-1.0.png';
 import WoWAnalyzerV10 from './WoWAnalyzer-v1.0.gif';
 import WoWAnalyzerV109 from './WoWAnalyzer-v1.0.9.png';
 import CharacterAndFightPullDownMenus from './CharacterAndFightPullDownMenus.gif';
+import CompletenessGreat from './Completeness-Great.png';
+import CompletenessNeedsMoreWork from './Completeness-Needs-more-work.png';
+import DistanceMoved from './DistanceMoved.png';
 
 function completeness(completeness) {
   return <dfn data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>;
@@ -48,7 +53,7 @@ export default (
     <ul style={{ marginBottom: 20 }}>
       <li><b>34</b> specs implemented with <b>16</b> specs marked as being {completeness(SPEC_ANALYSIS_COMPLETENESS.GOOD)} or {completeness(SPEC_ANALYSIS_COMPLETENESS.GREAT)}</li>
       <li><a href="https://github.com/WoWAnalyzer/WoWAnalyzer"><b>6,378 commits</b></a> from over <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/graphs/contributors"><b>58 contributors</b></a></li>
-      <li><b>1.416 files</b> with over <b>141,371 lines of code</b></li>
+      <li><b>1,416 files</b> with over <b>141,371 lines of code</b></li>
       <li>Peak usage had over <b>140,000 unique visitors</b> and <b>13,500,000 pageviews</b> in a single month</li>
       <li><a href="https://discord.gg/AxphPxU">Our Discord server</a> has over <b>1,200 members</b></li>
       <li>It usually takes <a href="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer/builds">about <b>5 minutes</b></a> for a code-change to be available on WoWAnalyzer.com</li>
@@ -417,7 +422,6 @@ export default (
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/66
 
           By Fasib
-
         </div>
       </div>
 
@@ -444,7 +448,7 @@ export default (
           <h2>The WoWAnalyzer browser extension</h2>
         </div>
         <div className="panel-body">
-
+          This is the moment to get people to use our extension! Insert all the stuffs here! Screenshots! Other stuff!
         </div>
       </div>
 
@@ -453,11 +457,17 @@ export default (
           23 Jul
         </div>
         <div className="panel-heading">
-          <h2>AttilioLH added Windwalker Monk support</h2>
+          <h2>Windwalker Monk</h2>
         </div>
         <div className="panel-body">
           <SpecIcon spec={SPECS.WINDWALKER_MONK} />
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/129
+
+          <Maintainer {...MAINTAINERS.AttilioLH} /> made the initial implementation.
+          <Maintainer {...MAINTAINERS.mwwscott0} /> made a PR but decided not to go through with it.
+          <Maintainer {...MAINTAINERS.Anomoly} /> did a couple of things for this
+          <Maintainer {...MAINTAINERS.Juko8} /> has continued the work and added a majority of what is available today and became the main maintainer
+          <Maintainer {...MAINTAINERS.Talby} /> had a few contributions
         </div>
       </div>
 
@@ -685,7 +695,213 @@ export default (
         </div>
       </div>
 
-      {/* TODO: Continue from https://github.com/WoWAnalyzer/WoWAnalyzer/pulls?page=7&q=is%3Apr+sort%3Acreated-asc */}
+      <div className="panel">
+        <div className="date">
+          6 Sep
+        </div>
+        <div className="panel-heading">
+          <h2>Havoc Demon Hunter</h2>
+        </div>
+        <div className="panel-body">
+          <SpecIcon spec={SPECS.HAVOC_DEMON_HUNTER} />
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/262
+
+          By Mamtooth (aka ronaldpereira on GitHub)
+
+          No other maintainers
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          6 Sep
+        </div>
+        <div className="panel-heading">
+          <h2>Marksmanship Hunter</h2>
+        </div>
+        <div className="panel-body">
+          <SpecIcon spec={SPECS.MARKSMANSHIP_HUNTER} />
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/253
+
+          Initial version by Jlassie82
+          Blazballs (aka leapis on GitHub)
+          Putro (aka Pewtro on GitHub) later became the main maintainer of this spec implementation.
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          12 Sep
+        </div>
+        <div className="panel-heading">
+          <h2>Retribution Paladin</h2>
+        </div>
+        <div className="panel-body">
+          <SpecIcon spec={SPECS.RETRIBUTION_PALADIN} />
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/293
+
+          By Hewhosmites (aka CollCrom on GitHub)
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          20 Sep
+        </div>
+        <div className="panel-heading">
+          <h2>Added "completeness" ratings</h2>
+        </div>
+        <div className="panel-body">
+          The analyzer was gaining more and more specs, but the completeness of each spec varied wildly. As a result some specs would be really helpful while others might be inaccurate simply because they needed more work. To avoid users from judging the entire tool by one spec implementation we added spec "completeness" ratings and indicators. These are meant to allow users to gauge the extensiveness and accuracy of a spec's implementation.<br /><br />
+
+          <figure>
+            <img src={CompletenessGreat} alt="Great completeness" />
+            <figcaption>
+              "Great!" completeness
+            </figcaption>
+          </figure>
+          <figure>
+            <img src={CompletenessNeedsMoreWork} alt="Needs more work completeness" />
+            <figcaption>
+              "Needs more work" completeness
+            </figcaption>
+          </figure><br />
+
+          At the time of writing the following specs are considered good or great:<br />
+          <ul>
+            <li className="Paladin">Holy Paladin</li>
+            <li className="Paladin">Retribution Paladin</li>
+            <li className="Monk">Mistweaver Monk</li>
+            <li className="Monk">Brewmaster Monk</li>
+            <li className="Monk">Windwalker Monk</li>
+            <li className="Druid">Balance Druid</li>
+            <li className="Druid">Restoration Druid</li>
+            <li className="Druid">Guardian Druid</li>
+            <li className="Priest">Discipline Priest</li>
+            <li className="Priest">Shadow Priest</li>
+            <li className="Priest">Holy Priest</li>
+            <li className="DemonHunter">Vengeance Demon Hunter</li>
+            <li className="Hunter">Beast Mastery Hunter</li>
+            <li className="Hunter">Marksmanship Hunter</li>
+            <li className="Mage">Frost Mage</li>
+            <li className="DeathKnight">Unholy Death Knight</li>
+          </ul><br />
+
+          This does not mean these specs are complete as there's always more we can add. It is supposed to mean that they match most common manual log reviews and reports on all important class features.
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          22 Sep
+        </div>
+        <div className="panel-heading">
+          <h2>Protection Warrior</h2>
+        </div>
+        <div className="panel-body">
+          <SpecIcon spec={SPECS.PROTECTION_WARRIOR} />
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/363
+
+          By <Maintainer {...MAINTAINERS.Salarissia} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          8 Oct
+        </div>
+        <div className="panel-heading">
+          <h2>More precise spell cooldown tracking</h2>
+        </div>
+        <div className="panel-body">
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/466
+
+          By <Maintainer {...MAINTAINERS.Salarissia} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          10 Oct
+        </div>
+        <div className="panel-heading">
+          <h2>Fixing combatlog bugs and inconsistencies: buff applications</h2>
+        </div>
+        <div className="panel-body">
+          Combatlogs are bugged and inconsistent. We added a normalizer to fabricate buff applications to make usage easier and more consistent and fix bugs where an event might be completely missing. The combatlog has bugs where buffs applied prior to the pull may not show up anywhere in the combatlog, this most commonly occurs with Bloodlust. Using information such as buff drop, refresh and stack change events, we can fix these issues.
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/478
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          11 Oct
+        </div>
+        <div className="panel-heading">
+          <h2>Frost Mage</h2>
+        </div>
+        <div className="panel-body">
+          <SpecIcon spec={SPECS.FROST_MAGE} />
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/468
+
+          By <Maintainer {...MAINTAINERS.Sharrq} /> and <Maintainer {...MAINTAINERS.sref} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          14 Oct
+        </div>
+        <div className="panel-heading">
+          <h2>Checking legendary item levels</h2>
+        </div>
+        <div className="panel-body">
+          It's easy to forget those things you need to do just once for a couple of things.
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/506
+
+          By <Maintainer {...MAINTAINERS.Fyruna} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          14 Oct
+        </div>
+        <div className="panel-heading">
+          <h2>Implemented accurate stat tracking</h2>
+        </div>
+        <div className="panel-body">
+          This is a utility module intended to track the selected player's current stat rating. We pull initial stat rating from the combatantinfo, and track changes using a list of buffs. Obviously the list is currently quite sparse, and just there for testing. It can be freely added to, similar to the one in Haste.
+
+
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/520
+
+          By <Maintainer {...MAINTAINERS.sref} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          15 Oct
+        </div>
+        <div className="panel-heading">
+          <h2>Always be moving? 💃🕺</h2>
+        </div>
+        <div className="panel-body">
+          <figure>
+            <img src={DistanceMoved} alt="Distance moved" />
+            <figcaption>
+              The distance moved statistic shows how many times you walked from Orgrimmar to Uldum during the fight
+            </figcaption>
+          </figure>
+
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/522
+
+          By <Maintainer {...MAINTAINERS.Fyruna} />
+        </div>
+      </div>
+
+      {/* TODO: Continue from https://github.com/WoWAnalyzer/WoWAnalyzer/pulls?page=17&q=is%3Apr+sort%3Acreated-asc */}
 
       <div className="panel">
         <div className="date">
@@ -697,6 +913,7 @@ export default (
         <div className="panel-body">
           Yuyz0112: Filter kills only fight: https://github.com/WoWAnalyzer/WoWAnalyzer/pull/106
           Riglerr: Updated Cooldown Tab & components to be able to represent damage as well as healing: https://github.com/WoWAnalyzer/WoWAnalyzer/pull/53
+          BlokyKappa: Fixed main page button alignment
         </div>
       </div>
     </Timeline>

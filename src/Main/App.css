@@ -75,6 +75,9 @@ hr {
   margin: 15px 0;
   border-top: 1px solid #4f4f4f;
 }
+ul {
+  margin: 0;
+}
 .gh-label {
   background-color: #0e8a16;
   color: #fff;
