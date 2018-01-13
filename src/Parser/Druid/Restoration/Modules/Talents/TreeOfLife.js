@@ -210,9 +210,6 @@ class TreeOfLife extends Analyzer {
       return;
     }
 
-    // TODO get uptimes and proc rates
-
-
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} />}
@@ -235,8 +232,6 @@ class TreeOfLife extends Analyzer {
     if(!this.hasCs) {
       return;
     }
-
-    // TODO get uptimes and proc rates
 
     return {
       item: ITEMS.CHAMELEON_SONG,
