@@ -9,6 +9,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
+import EnemyInstances, { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 
 const debug = false;
 
@@ -25,6 +26,7 @@ const HOT_STREAK_CONTRIBUTORS = [
 class HotStreak extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    enemies: EnemyInstances,
   };
 
   totalProcs = 0;
@@ -41,6 +43,7 @@ class HotStreak extends Analyzer {
   pyromaniacProc = false;
   currentHealth = 0;
   maxHealth = 0;
+  targetId = 0;
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -50,24 +53,26 @@ class HotStreak extends Analyzer {
     if (spellId === SPELLS.FIREBALL.id || spellId === SPELLS.SCORCH.id) {
       this.castTimestamp = event.timestamp;
     }
+    this.targetId = encodeTargetString(event.targetID, event.targetInstance);
     this.lastCastTimestamp = this.owner.currentTimestamp;
     this.pyromaniacProc = false;
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
+    const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
     //If the player has Firestarter, get the target's health
     if (this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id) && HOT_STREAK_CONTRIBUTORS.includes(spellId)) {
       this.currentHealth = event.hitPoints;
       this.maxHealth = event.maxHitPoints;
     }
-    if (!HOT_STREAK_CONTRIBUTORS.includes(spellId) || !this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id) || event.hitType !== HIT_TYPES.CRIT) {
+    if (!HOT_STREAK_CONTRIBUTORS.includes(spellId) || !this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id) || event.hitType !== HIT_TYPES.CRIT || (spellId === SPELLS.PHOENIXS_FLAMES.id && this.targetId !== damageTarget)) {
       return;
     }
     //If Pyromaniac caused the player to immediately get a new hot streak after spending one, then dont count the damage crits that were cast before Pyromaniac Proc's since the user cant do anything to prevent this.
     if ((spellId === SPELLS.FIREBALL.id || spellId === SPELLS.SCORCH.id || spellId === SPELLS.PYROBLAST.id) && this.pyromaniacProc) {
       debug && console.log("Wasted Crit Ignored @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-    } else if (HOT_STREAK_CONTRIBUTORS.includes(spellId) && event.timestamp - PROC_WINDOW_MS > this.hotStreakRemoved) {
+    } else if (HOT_STREAK_CONTRIBUTORS.includes(spellId) && this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id,null,-50)) {
       this.wastedCrits += 1;
       debug && console.log("Hot Streak overwritten @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     }
