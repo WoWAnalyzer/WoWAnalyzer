@@ -23,7 +23,7 @@ export default [
   },
   {
     date: new Date('2017-11-16'),
-    changes: <Wrapper>Refactored Restoration Shaman spec to be in line with current spec module implementations.</Wrapper>,
+    changes: 'Refactored Restoration Shaman spec to be in line with current spec module implementations.',
     contributors: [Anomoly],
   },
   {
@@ -43,7 +43,7 @@ export default [
   },
   {
     date: new Date('2017-05-28'),
-    changes: <Wrapper>Added <span className="Shaman">Restoration Shaman</span> support by <b>@Versaya</b>! Thanks a lot for your contribution!</Wrapper>,
-    contributors: [Zerotorescue],
+    changes: 'Added the initial support.',
+    contributors: [Versaya],
   },
 ];

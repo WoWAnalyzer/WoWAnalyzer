@@ -8,7 +8,7 @@ import ITEMS from 'common/ITEMS';
 export default [
   {
     date: new Date('2017-12-29'),
-    changes: <Wrapper>Fixed display in the timeline and the inclusion in active time of channeled abilities.</Wrapper>,
+    changes: 'Fixed display in the timeline and the inclusion in active time of channeled abilities.',
     contributors: [Zerotorescue],
   },
   {
@@ -38,12 +38,11 @@ export default [
   },
   {
     date: new Date('2017-11-15'),
-    changes: <Wrapper>Added
-      <ItemLink id={ITEMS.THE_TWINS_PAINFUL_TOUCH.id} />,
-      <ItemLink id={ITEMS.ANUNDS_SEARED_SHACKLES.id} />,
-      <ItemLink id={ITEMS.HEART_OF_THE_VOID.id} />,
-      <ItemLink id={ITEMS.ZENKARAM_IRIDIS_ANADEM.id} />.
-    </Wrapper>,
+    changes: (
+      <Wrapper>
+        Added <ItemLink id={ITEMS.THE_TWINS_PAINFUL_TOUCH.id} />, <ItemLink id={ITEMS.ANUNDS_SEARED_SHACKLES.id} />, <ItemLink id={ITEMS.HEART_OF_THE_VOID.id} />, and <ItemLink id={ITEMS.ZENKARAM_IRIDIS_ANADEM.id} />.
+      </Wrapper>
+    ),
     contributors: [hassebewlen],
   },
   {
