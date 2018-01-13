@@ -69,7 +69,7 @@ class HotStreak extends Analyzer {
       debug && console.log("Wasted Crit Ignored @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     } else if (HOT_STREAK_CONTRIBUTORS.includes(spellId) && event.timestamp - PROC_WINDOW_MS > this.hotStreakRemoved) {
       this.wastedCrits += 1;
-      debug && console.log("Hot Streak overwritten @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time) + this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id,null,-1));
+      debug && console.log("Hot Streak overwritten @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     }
   }
 
