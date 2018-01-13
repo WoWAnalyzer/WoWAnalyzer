@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatNumber } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
@@ -21,6 +21,7 @@ const ALL_BOOST = 0.15;
 const ALL_MULT = 1.15;
 const REJUV_BOOST = 0.50;
 const REJUV_MANA_SAVED = 0.30;
+const REJUV_MANA_COST = 220000 * 0.1;
 const WG_INCREASE = (8 / 6) - 1; // TODO get more accuracy by implementing with attributor
 const TOL_DURATION = 30000;
 
@@ -54,7 +55,6 @@ class TreeOfLife extends Analyzer {
   completedCsUptime = 0;
 
   hardcast = {
-    //procs: 0,
     allBoostHealing: 0,
     rejuvBoostHealing: 0,
     rejuvManaSaved: 0,
@@ -62,7 +62,6 @@ class TreeOfLife extends Analyzer {
   };
 
   chameleonSong = {
-    //procs: 0,
     allBoostHealing: 0,
     rejuvBoostHealing: 0,
     rejuvManaSaved: 0,
@@ -177,6 +176,10 @@ class TreeOfLife extends Analyzer {
     return accumulator.rejuvManaSaved * this.rejuvenation.avgRejuvHealing;
   }
 
+  _getManaSaved(accumulator) {
+    return accumulator.rejuvManaSaved * REJUV_MANA_COST;
+  }
+
   _getTotalHealing(accumulator) {
     return accumulator.allBoostHealing + accumulator.rejuvBoostHealing + accumulator.extraWgHealing + this._getManaSavedHealing(accumulator);
   }
@@ -185,9 +188,9 @@ class TreeOfLife extends Analyzer {
     return {
       actual: this.owner.getPercentageOfTotalHealingDone(this._getTotalHealing(this.hardcast)),
       isLessThan: {
-        minor: 0.11,
-        average: 0.07,
-        major: 0.04,
+        minor: 0.09,
+        average: 0.06,
+        major: 0.03,
       },
       style: 'percentage',
     };
@@ -219,7 +222,7 @@ class TreeOfLife extends Analyzer {
           <ul>
             <li>Overall Increased Healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.allBoostHealing))}%</b></li>
             <li>Rejuv Increased Healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.rejuvBoostHealing))}%</b></li>
-            <li>Rejuv Mana Saved est. throughtput: <b>~${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getManaSavedHealing(this.hardcast)))}%</b></li>
+            <li>Rejuv Mana Saved: <b>${formatNumber(this._getManaSaved(this.hardcast))}</b> (assuming mana used to fill with Rejuvs: <b>≈${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getManaSavedHealing(this.hardcast)))}%</b> healing)</li>
             <li>Increased Wild Growths: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.extraWgHealing))}%</b></li>
           </ul>
         `}
@@ -240,7 +243,7 @@ class TreeOfLife extends Analyzer {
           <ul>
             <li>Overall Increased Healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.chameleonSong.allBoostHealing))}%</b></li>
             <li>Rejuv Increased Healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.chameleonSong.rejuvBoostHealing))}%</b></li>
-            <li>Rejuv Mana Saved est. throughtput: <b>~${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getManaSavedHealing(this.chameleonSong)))}%</b></li>
+            <li>Rejuv Mana Saved: <b>${this._getManaSaved(this.chameleonSong)}</b> (assuming mana used to fill with Rejuvs: <b>≈${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getManaSavedHealing(this.chameleonSong)))}%</b> healing)</li>
             <li>Increased Wild Growths: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.chameleonSong.extraWgHealing))}%</b></li>
           </ul>`}>
           <ItemHealingDone amount={this._getTotalHealing(this.chameleonSong)} />
