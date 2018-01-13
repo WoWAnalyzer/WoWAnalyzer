@@ -10,7 +10,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import EnemyInstances, { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 
-const debug = true;
+const debug = false;
 
 const GUARANTEE_CRIT_SPELLS = [
   SPELLS.FIRE_BLAST.id,
