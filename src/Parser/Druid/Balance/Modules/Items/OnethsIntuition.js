@@ -58,7 +58,7 @@ class OnethsIntuition extends Analyzer {
   }
 
   get percentFreeStarfallProcs(){
-    return this.freeStarfallProcs / this.starsurgeCasts
+    return this.freeStarfallProcs / this.starsurgeCasts;
   }
 
   item() {
