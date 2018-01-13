@@ -21,6 +21,7 @@ import KillerCobra from 'Parser/Hunter/BeastMastery/Modules/Talents/KillerCobra'
 import AspectOfTheBeast from 'Parser/Hunter/BeastMastery/Modules/Talents/AspectOfTheBeast';
 import AspectOfTheWild from 'Parser/Hunter/BeastMastery/Modules/Spells/AspectOfTheWild';
 import DireFrenzy from 'Parser/Hunter/BeastMastery/Modules/Talents/DireFrenzy';
+import TitansThunder from 'Parser/Hunter/BeastMastery/Modules/Traits/TitansThunder';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -46,6 +47,9 @@ class Checklist extends CoreChecklist {
     direBeast: DireBeast,
     direFrenzy: DireFrenzy,
     bestialWrathAverageFocus: BestialWrathAverageFocus,
+
+    //Traits
+    titansThunder: TitansThunder,
   };
 
   rules = [

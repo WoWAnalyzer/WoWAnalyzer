@@ -19,7 +19,7 @@ export default {
 
       As for a general rule of thumb - don't overcap your shards, try to get them wherever you can, snipe shards from adds when they're present. Always try to buff your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id}/>s as much as possible, with <SpellLink id={SPELLS.DRAIN_SOUL.id}/>, <SpellLink id={SPELLS.REAP_SOULS.id}/> or <SpellLink id={SPELLS.HAUNT_TALENT.id}/>. Don't let your dots fall off and try to move as least as you can (but don't ignore encounter mechanics... too much, hehe). <br /> <br />
 
-      If you have any questions about Warlocks, feel free to pay a visit to <a href="https://goo.gl/7PH6Bn" target="_blank" rel="noopener noreferrer">Council of the Black Harvest Discord</a>, if you'd like to discuss anything about this analyzer, leave a message on the GitHub issue or message me @Chizu on WoW Analyzer Discord.
+      If you have any questions about Warlocks, feel free to pay a visit to <a href="https://goo.gl/7PH6Bn" target="_blank" rel="noopener noreferrer">Council of the Black Harvest Discord</a>, if you'd like to discuss anything about this analyzer, leave a message on the GitHub issue or message me @Chizu on WoWAnalyzer Discord.
     </div>
   ),
   changelog: CHANGELOG,

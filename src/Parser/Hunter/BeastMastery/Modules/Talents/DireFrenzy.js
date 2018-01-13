@@ -8,14 +8,18 @@ import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 import { formatPercentage } from 'common/format';
 import StatisticBox from 'Main/StatisticBox';
 import ItemDamageDone from 'Main/ItemDamageDone';
+import Wrapper from 'common/Wrapper';
 
 /*
  * Dire Frenzy
  * Causes your pet to enter a frenzy, performing a flurry of 5 attacks on the target,
  * and gaining 30% increased attack speed for 8 sec, stacking up to 3 times.
  */
+
 //max stacks pet can have of Dire Frenzy buff
 const MAX_DIRE_FRENZY_STACKS = 3;
+
+const DIRE_FRENZY_DURATION = 8000;
 
 class DireFrenzy extends Analyzer {
 
@@ -30,9 +34,19 @@ class DireFrenzy extends Analyzer {
   startOfMaxStacks = 0;
   timeAtMaxStacks = 0;
   timeBuffed = 0;
+  lastDireFrenzyCast = null;
+  timeCalculated = null;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id);
+  }
+
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.DIRE_FRENZY_TALENT.id) {
+      return;
+    }
+    this.lastDireFrenzyCast = event.timestamp;
   }
 
   on_byPlayerPet_damage(event) {
@@ -53,27 +67,53 @@ class DireFrenzy extends Analyzer {
       this.timeAtMaxStacks += event.timestamp - this.startOfMaxStacks;
     }
     this.currentStacks = 0;
+    this.timeCalculated = true;
   }
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.DIRE_FRENZY_TALENT.id) {
       return;
     }
-    this.buffStart = event.timestamp;
-    this.currentStacks += 1;
-    if (this.currentStacks > 3) {
+    if (this.currentStacks > 0) {
+      this.timeBuffed += (this.lastDireFrenzyCast + DIRE_FRENZY_DURATION) - this.buffStart;
+      if (this.currentStacks === MAX_DIRE_FRENZY_STACKS) {
+        this.timeAtMaxStacks += (this.lastDireFrenzyCast + DIRE_FRENZY_DURATION) - this.startOfMaxStacks;
+      }
     }
+    this.buffStart = event.timestamp;
+    this.currentStacks = 1;
+    this.timeCalculated = false;
   }
   on_byPlayer_applybuffstack(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.DIRE_FRENZY_TALENT.id) {
       return;
     }
-    this.currentStacks += 1;
+    this.currentStacks = event.stack;
     if (this.currentStacks === MAX_DIRE_FRENZY_STACKS) {
       this.startOfMaxStacks = event.timestamp;
     }
 
+  }
+
+  on_finished() {
+    if (!this.timeCalculated) {
+      if ((this.lastDireFrenzyCast + DIRE_FRENZY_DURATION) > this.owner.fight.end_time) {
+        if (this.currentStacks > 0) {
+          this.timeBuffed += this.owner.fight.end_time - this.buffStart;
+        }
+        if (this.currentStacks === 3) {
+          this.timeAtMaxStacks += this.owner.fight.end_time - this.startOfMaxStacks;
+        }
+      } else {
+        if (this.currentStacks > 0) {
+          this.timeBuffed += (this.lastDireFrenzyCast + DIRE_FRENZY_DURATION) - this.buffStart;
+        }
+        if (this.currentStacks === 3) {
+          this.timeAtMaxStacks += (this.lastDireFrenzyCast + DIRE_FRENZY_DURATION) - this.startOfMaxStacks;
+        }
+      }
+    }
   }
 
   get percentUptimeMaxStacks() {
@@ -85,8 +125,7 @@ class DireFrenzy extends Analyzer {
 
   get percentPlayerUptime() {
     //This calculates the uptime over the course of the encounter of Dire Frenzy for the player
-    const uptime = (this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_1.id) + this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_2.id) + this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_3.id)) / this.owner.fightDuration;
-    return uptime;
+    return (this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_1.id) + this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_2.id) + this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_3.id) + this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_4.id) + this.combatants.selected.getBuffUptime(SPELLS.DIRE_FRENZY_TALENT_BUFF_5.id)) / this.owner.fightDuration;
   }
 
   get direFrenzyUptimeThreshold() {
@@ -113,39 +152,19 @@ class DireFrenzy extends Analyzer {
   }
 
   suggestions(when) {
-    const {
-      isLessThan: {
-        generalUptimeMinor,
-        generalUptimeAverage,
-        generalUptimeMajor,
-      },
-    } = this.direFrenzyUptimeThreshold;
-    when(this.percentUptimePet).isLessThan(generalUptimeMinor)
+    when(this.direFrenzyUptimeThreshold)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your pet has a general low uptime of the buff from <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon />, you should never be sitting on 2 stacks of this spells, if you've chosen this talent, it's your most important spell to continously be casting. </span>)
+        return suggest(<Wrapper>Your pet has a general low uptime of the buff from <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon />, you should never be sitting on 2 stacks of this spells, if you've chosen this talent, it's your most important spell to continously be casting. </Wrapper>)
           .icon(SPELLS.DIRE_FRENZY_TALENT.icon)
-          .actual(`Your pet had the buff from Dire Frenzy for ${this.percentUptimePet}% of the fight`)
-          .recommended(`${recommended}% is recommended`)
-          .regular(generalUptimeAverage)
-          .major(generalUptimeMajor);
+          .actual(`Your pet had the buff from Dire Frenzy for ${actual}% of the fight`)
+          .recommended(`${recommended}% is recommended`);
       });
-
-    const {
-      isLessThan: {
-        threeStackMinor,
-        threeStackAverage,
-        threeStackMajor,
-      },
-    } = this.direFrenzy3StackThreshold;
-    when(this.percentUptimeMaxStacks).isLessThan(threeStackMinor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </span>)
-          .icon(SPELLS.DIRE_FRENZY_TALENT.icon)
-          .actual(`Your pet had 3 stacks of the buff from Dire Frenzy for ${this.percentUptimeMaxStacks}% of the fight`)
-          .recommended(`${recommended}% is recommended`)
-          .regular(threeStackAverage)
-          .major(threeStackMajor);
-      });
+    when(this.direFrenzy3StackThreshold).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<Wrapper>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </Wrapper>)
+        .icon(SPELLS.DIRE_FRENZY_TALENT.icon)
+        .actual(`Your pet had 3 stacks of the buff from Dire Frenzy for ${actual}% of the fight`)
+        .recommended(`${recommended}% is recommended`);
+    });
   }
   statistic() {
     return (
@@ -157,7 +176,7 @@ class DireFrenzy extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
+  statisticOrder = STATISTIC_ORDER.CORE(5);
 
   subStatistic() {
     return (

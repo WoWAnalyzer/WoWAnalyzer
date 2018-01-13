@@ -1,14 +1,14 @@
 {
   "appName": {
-    "message": "WoW Analyzer",
-    "description": "WoW analyzer browser extension."
+    "message": "WoWAnalyzer",
+    "description": "WoWanalyzer browser extension."
   },
   "appDescription": {
-    "message": "Help you navigating from your wcl report to wow analyzer report.",
+    "message": "Help you navigating from your WCL report to WoWAnalyzer report.",
     "description": "You can active this extension when you are on a wcl report page."
   },
   "btnTooltip": {
-    "message": "WoW Analyzer",
-    "description": "WoW Analyzer"
+    "message": "WoWAnalyzer",
+    "description": "WoWAnalyzer"
   }
 }

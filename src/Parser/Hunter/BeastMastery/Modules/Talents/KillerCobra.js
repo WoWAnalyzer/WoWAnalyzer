@@ -8,13 +8,14 @@ import { formatNumber } from 'common/format';
 import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
 import SpellLink from 'common/SpellLink';
+import Wrapper from 'common/Wrapper';
 import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
 
 class KillerCobra extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     spellUsable: SpellUsable,
-    globalCooldown: GlobalCooldown, // triggers the globalcooldown event
+    globalCooldown: GlobalCooldown,
   };
 
   effectiveKillCommandResets = 0;
@@ -66,22 +67,12 @@ class KillerCobra extends Analyzer {
     };
   }
   suggestions(when) {
-    const {
-      isGreaterThan: {
-        minor,
-        average,
-        major,
-      },
-    } = this.wastedKillerCobraThreshold;
-    when(this.wastedKillerCobraCobraShots).isGreaterThan(minor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Avoid casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> whilst <SpellLink id={SPELLS.KILL_COMMAND.id} /> isn't on cooldown, when you have <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up. Utilize the reset effect of <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> by only casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> to reset <SpellLink id={SPELLS.KILL_COMMAND.id} /> when <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> is up. </span>)
-          .icon(SPELLS.KILLER_COBRA_TALENT.icon)
-          .actual(`You cast Cobra Shot while Kill Command wasn't on cooldown, whilst Bestial Wrath was up ${this.wastedKillerCobraCobraShots} times.`)
-          .recommended(`${recommended} is recommended.`)
-          .regular(average)
-          .major(major);
-      });
+    when(this.wastedKillerCobraThreshold).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<Wrapper>Avoid casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> whilst <SpellLink id={SPELLS.KILL_COMMAND.id} /> isn't on cooldown, when you have <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up. Utilize the reset effect of <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> by only casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> to reset <SpellLink id={SPELLS.KILL_COMMAND.id} /> when <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> is up. </Wrapper>)
+        .icon(SPELLS.KILLER_COBRA_TALENT.icon)
+        .actual(`You cast Cobra Shot while Kill Command wasn't on cooldown, whilst Bestial Wrath was up ${actual} times.`)
+        .recommended(`${recommended} is recommended.`);
+    });
   }
 }
 

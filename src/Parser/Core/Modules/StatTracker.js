@@ -67,6 +67,10 @@ class StatTracker extends Analyzer {
       haste: (_, item) => calculateSecondaryStatDefault(955, 2397, item.itemLevel),
       mastery: (_, item) => calculateSecondaryStatDefault(955, 2397, item.itemLevel),
     },
+    [SPELLS.FEEDBACK_LOOP.id]: {
+      itemId: ITEMS.GAROTHI_FEEDBACK_CONDUIT.id,
+      haste: (_, item) => calculateSecondaryStatDefault(930, 856, item.itemLevel),
+    },
     // endregion
 
     // region Misc
@@ -221,7 +225,7 @@ class StatTracker extends Analyzer {
         return standard + 0.05; //baseline +5%
       case SPECS.WINDWALKER_MONK:
         return standard + 0.05; //baseline +5%
-      default:      
+      default:
         return standard;
     }
   }
@@ -233,7 +237,7 @@ class StatTracker extends Analyzer {
       case SPECS.HOLY_PALADIN:
         return 0.12;
       case SPECS.HOLY_PRIEST:
-        return 0.05;
+        return 0.10;
       case SPECS.SHADOW_PRIEST:
         return 0.2;
       case SPECS.DISCIPLINE_PRIEST:
@@ -408,7 +412,7 @@ class StatTracker extends Analyzer {
       const delta = this._changeStats(statBuff, event.newStacks - event.oldStacks);
       const after = Object.assign({}, this._currentStats);
       this._triggerChangeStats(event, before, delta, after);
-      debug && console.log(`StatTracker: (${event.oldStacks} -> ${event.newStacks}) ${SPELLS[spellId] ? SPELLS[spellId].name : spellId} @ ${formatMilliseconds(this.owner.currentTimestamp)} - Change: ${this._statPrint(delta)}`);
+      debug && console.log(`StatTracker: (${event.oldStacks} -> ${event.newStacks}) ${SPELLS[spellId] ? SPELLS[spellId].name : spellId} @ ${formatMilliseconds(this.owner.fightDuration)} - Change: ${this._statPrint(delta)}`);
       debug && this._debugPrintStats(this._currentStats);
     }
   }
@@ -484,7 +488,6 @@ class StatTracker extends Analyzer {
   _statPrint(stats) {
     return `STR=${stats.strength} AGI=${stats.agility} INT=${stats.intellect} STM=${stats.stamina} CRT=${stats.crit} HST=${stats.haste} MST=${stats.mastery} VRS=${stats.versatility} AVD=${this._currentStats.avoidance} LCH=${stats.leech} SPD=${stats.speed}`;
   }
-
 }
 
 export default StatTracker;

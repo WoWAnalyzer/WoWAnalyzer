@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import { formatPercentage, formatMilliseconds } from 'common/format';
+import { formatMilliseconds, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -35,24 +35,22 @@ class Haste extends Analyzer {
     [SPELLS.TRUESHOT.id]: 0.4, // MM Hunter main CD
     [SPELLS.ICY_VEINS.id]: 0.3,
     [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
+    // Haste RATING buffs are handled by the StatTracker module
 
     // Boss abilities:
     [209166]: 0.3, // DEBUFF - Fast Time from Elisande
     [209165]: -0.3, // DEBUFF - Slow Time from Elisande
     // [208944]: -Infinity, // DEBUFF - Time Stop from Elisande
-    [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
     [SPELLS.SEPHUZS_SECRET_BUFF.id]: 0.25 - 0.02, // 2% is already applied as base
   };
 
   current = null;
   on_initialized() {
-    const combatant = this.combatants.selected;
-    this.current = combatant.hastePercentage;
-
+    this.current = this.statTracker.currentHastePercentage;
     debug && console.log(`Haste: Starting haste: ${formatPercentage(this.current)}%`);
+    this._triggerChangeHaste(null, null, this.current, null, null);
 
-    this._triggerChangeHaste(null, null, this.current, null, combatant.hastePercentage);
-
+    // TODO: Move this to the Sephuz module
     if (this.combatants.selected.hasFinger(ITEMS.SEPHUZS_SECRET.id)) {
       // Sephuz Secret provides a 2% Haste gain on top of its secondary stats
       this._applyHasteGain(null, 0.02);
@@ -78,7 +76,7 @@ class Haste extends Analyzer {
   }
 
   on_toPlayer_changestats(event) { // fabbed event from StatTracker
-    if(!event.delta.haste) {
+    if (!event.delta.haste) {
       return;
     }
 
@@ -88,7 +86,7 @@ class Haste extends Analyzer {
     const newHastePercentage = this.statTracker.baseHastePercentage + (event.after.haste / this.statTracker.hasteRatingPerPercent);
     this._applyHasteGain(event.reason, newHastePercentage);
 
-    if(debug) {
+    if (debug) {
       const spellName = event.reason.ability ? event.reason.ability.name : 'unknown';
       console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (haste RATING changed by ${event.delta.haste} from ${spellName})`);
     }

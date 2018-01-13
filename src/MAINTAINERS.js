@@ -52,6 +52,11 @@ export const Sharrq = {
 };
 export const Khazak = {
   nickname: 'Khazak',
+  github: 'jjs451',
+};
+export const Bicepspump = {
+  nickname: 'Bicepspump',
+  github: 'Bicepspump',
 };
 export const Mamtooth = {
   nickname: 'Mamtooth',
@@ -97,6 +102,7 @@ export const Noichxd = {
 export const Hewhosmites = {
   nickname: 'Hewhosmites',
   github: 'CollCrom',
+  avatar: require('./Images/hewhosmites-avatar.png'),
 };
 export const Reglitch = {
   nickname: 'Reglitch',

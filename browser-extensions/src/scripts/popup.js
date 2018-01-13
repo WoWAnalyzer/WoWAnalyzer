@@ -11,7 +11,7 @@ var template = (data) => {
     <p className="description">
       Report code is: <code>${data.code}</code>.
       <br/>
-      You can navigate to WoW Analyzer by pressing the Analyze button.
+      You can navigate to WoWAnalyzer by pressing the Analyze button.
     </p>
   </div>
   <div class="action-container">

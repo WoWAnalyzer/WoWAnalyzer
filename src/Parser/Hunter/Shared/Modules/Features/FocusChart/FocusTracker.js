@@ -38,10 +38,6 @@ class FocusTracker extends Analyzer {
     this.checkPassiveWaste(event);
   }
 
-  on_byPlayer_energize(event) {
-    this.checkPassiveWaste(event);
-    this.checkActiveWaste(event);
-  }
   on_toPlayer_energize(event) {
     this.checkPassiveWaste(event);
     this.checkActiveWaste(event);
