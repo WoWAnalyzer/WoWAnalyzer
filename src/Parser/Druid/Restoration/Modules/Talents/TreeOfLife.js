@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatDuration } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
@@ -48,6 +48,10 @@ class TreeOfLife extends Analyzer {
   lastTolCast = null;
 
   hasCs = false;
+
+  lastTolApply = null;
+  completedTolUptime = 0;
+  completedCsUptime = 0;
 
   hardcast = {
     //procs: 0,
@@ -122,16 +126,51 @@ class TreeOfLife extends Analyzer {
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id && event.prepull && this.hasTol) {
-      this.lastTolCast = event.timestamp; // if player has ToL talent and buff was present on pull, assume it was from a precast
+    if (spellId === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) {
+      this.lastTolApply = event.timestamp;
+      if (event.prepull && this.hasTol) {
+        this.lastTolCast = event.timestamp; // if player has ToL talent and buff was present on pull, assume it was from a precast
+      }
     }
   }
 
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) {
+      const buffUptime = event.timestamp - this.lastTolApply;
+      // find out how much of this buff uptime was due to ToL and how much due to CS
+      if (this.lastTolCast) {
+        this.completedTolUptime += Math.min(TOL_DURATION, buffUptime);
+        this.completedCsUptime += Math.max(buffUptime - TOL_DURATION, 0);
+      } else {
+        this.completedCsUptime += buffUptime;
+      }
+
       this.lastTolCast = null;
+      this.lastTolApply = null;
     }
+  }
+
+  get hardcastUptime() {
+    const currentUptime = !(this.lastTolCast) ? 0 : Math.min(TOL_DURATION, this.owner.currentTimestamp - this.lastTolCast);
+    return currentUptime + this.completedTolUptime;
+  }
+  get hardcastUptimePercent() {
+    return this.hardcastUptime / this.owner.fightDuration;
+  }
+
+  get csUptime() {
+    let currentUptime = 0;
+    if (this.lastTolApply) {
+      currentUptime = this.owner.currentTimestamp - this.lastTolApply;
+      if (this.lastTolCast) {
+        currentUptime -= Math.min(TOL_DURATION, this.owner.currentTimestamp - this.lastTolApply);
+      }
+    }
+    return currentUptime + this.completedCsUptime;
+  }
+  get csUptimePercent() {
+    return this.csUptime / this.owner.fightDuration;
   }
 
   _getManaSavedHealing(accumulator) {
@@ -173,12 +212,13 @@ class TreeOfLife extends Analyzer {
 
     // TODO get uptimes and proc rates
 
+
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getTotalHealing(this.hardcast)))} %`}
         label="Tree of Life Healing"
-        tooltip={`
+        tooltip={`The Tree of Life buff ${this.hasCs ? '(not including from Chameleon Song procs) ' : ''}was active for <b>${formatDuration(this.hardcastUptime/1000)}</b>, or <b>${formatPercentage(this.hardcastUptimePercent)}%</b> of the encounter. The displayed healing number ${this.hasCs ? 'does not include healing from Chameleon Song procs and ' : ''} is the sum of several benefits, listed below.
           <ul>
             <li>Overall Increased Healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.allBoostHealing))}%</b></li>
             <li>Rejuv Increased Healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.rejuvBoostHealing))}%</b></li>
@@ -201,7 +241,7 @@ class TreeOfLife extends Analyzer {
     return {
       item: ITEMS.CHAMELEON_SONG,
       result: (
-        <dfn data-tip={`
+        <dfn data-tip={`The Tree of Life buff ${this.hasTol ? '(from procs only, not including Tree of Life casts) ' : ''}was active for <b>${formatDuration(this.csUptime/1000)}</b>, or <b>${formatPercentage(this.csUptimePercent)}%</b> of the encounter. The displayed healing number ${this.hasTol ? 'includes healing from procs only, and ' : ''} is the sum of several benefits, listed below.
           <ul>
             <li>Overall Increased Healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.chameleonSong.allBoostHealing))}%</b></li>
             <li>Rejuv Increased Healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.chameleonSong.rejuvBoostHealing))}%</b></li>
