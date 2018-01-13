@@ -425,6 +425,8 @@ class CombatLogParser {
     return events;
   }
 
+  /** @type {number} The amount of events parsed. This can reliably be used to determine if something should re-render. */
+  eventCount = 0;
   _moduleTime = {};
   triggerEvent(eventType, event, ...args) {
     debugEvents && console.log(eventType, event, ...args);
@@ -445,6 +447,7 @@ class CombatLogParser {
           module.triggerEvent(eventType, event, ...args);
         }
       });
+    this.eventCount += 1;
   }
 
   byPlayer(event, playerId = this.player.id) {

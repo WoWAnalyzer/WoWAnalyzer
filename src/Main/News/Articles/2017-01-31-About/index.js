@@ -6,7 +6,7 @@ import MasteryRadiusImage from 'Main/Images/mastery-radius.png';
 export const title = "About WoWAnalyzer the World of Warcraft analyzer";
 
 export default (
-  <RegularArticle title={title} published="2017-12-24">
+  <RegularArticle title={title} published="2017-01-31">
     <img src={MasteryRadiusImage} alt="Mastery radius" className="pull-right" style={{ margin: 15 }} />
     WoWAnalyzer is a comprehensive tool for analyzing your performance based on important metrics for your spec. You will need a Warcraft Logs report with advanced combat logging enabled to start. Private logs can not be used, if your guild has private logs you will have to <a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a> or change the existing logs to the <i>unlisted</i> privacy option instead.<br /><br />
 

@@ -37,6 +37,10 @@ class TrueAim extends Analyzer {
   aimedBonusDmg = 0;
   arcaneBonusDmg = 0;
 
+  //allows us to do a on_finished
+  maxTimeCalculated = null;
+  lastDamageEvent = null;
+
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.TRUE_AIM_TALENT.id);
   }
@@ -53,6 +57,7 @@ class TrueAim extends Analyzer {
     }
     this._currentStacks += 1;
     if (this._currentStacks === MAX_STACKS) {
+      this.maxTimeCalculated = false;
       this.startOfMaxStacks = event.timestamp;
     }
   }
@@ -63,6 +68,7 @@ class TrueAim extends Analyzer {
     }
     if (this._currentStacks === MAX_STACKS) {
       this.timeAtMaxStacks += event.timestamp - this.startOfMaxStacks;
+      this.maxTimeCalculated = true;
     }
     //ensures Trickshot cleaving doesn't count as multiple resets of stacks
     if (this._currentStacks >= 3) {
@@ -73,6 +79,7 @@ class TrueAim extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
+    this.lastDamageEvent = event.timestamp;
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.AIMED_SHOT.id && spellId !== SPELLS.ARCANE_SHOT.id) {
       return;
@@ -84,6 +91,12 @@ class TrueAim extends Analyzer {
       this.arcaneBonusDmg += getDamageBonus(event, (TRUE_AIM_MODIFIER * this._currentStacks));
     }
     this.bonusDmg += getDamageBonus(event, (TRUE_AIM_MODIFIER * this._currentStacks));
+  }
+
+  on_finished() {
+    if (this.maxTimeCalculated === false) {
+      this.timeAtMaxStacks += this.lastDamageEvent - this.startOfMaxStacks;
+    }
   }
 
   subStatistic() {

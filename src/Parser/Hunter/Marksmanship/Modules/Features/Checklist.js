@@ -20,6 +20,10 @@ import Bullseye from 'Parser/Hunter/Marksmanship/Modules/Traits/Bullseye';
 import PatientSniperDetails from 'Parser/Hunter/Marksmanship/Modules/Talents/PatientSniper/PatientSniperDetails';
 import Icon from "common/Icon";
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
+import AimedInVulnerableTracker from 'Parser/Hunter/Marksmanship/Modules/Features/AimedInVulnerableTracker';
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import ResourceIcon from 'common/ResourceIcon';
+import VulnerableUpTime from 'Parser/Hunter/Marksmanship/Modules/Features/VulnerableUptime';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -36,6 +40,8 @@ class Checklist extends CoreChecklist {
     cancelledCasts: CancelledCasts,
     timeFocusCapped: TimeFocusCapped,
     enchantChecker: EnchantChecker,
+    aimedInVulnerableTracker: AimedInVulnerableTracker,
+    vulnerableUptime: VulnerableUpTime,
 
     //talents
     aMurderOfCrows: AMurderOfCrows,
@@ -66,7 +72,7 @@ class Checklist extends CoreChecklist {
             spell: SPELLS.TRUESHOT,
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.SIDEWINDERS_TALENT,
+            spell: SPELLS.SIDEWINDERS_CAST,
             when: combatant.hasTalent(SPELLS.SIDEWINDERS_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
@@ -184,13 +190,25 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <Wrapper><SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> Usage</Wrapper>,
-      description: <Wrapper>Try to optimise the damage from <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> by after opening <SpellLink id={SPELLS.VULNERABLE.id} icon />, then casting one or two <SpellLink id={SPELLS.ARCANE_SHOT.id} icon /> or <SpellLink id={SPELLS.MULTISHOT.id} icon /> to delay your <SpellLink id={SPELLS.AIMED_SHOT.id} icon /> until later in the <SpellLink id={SPELLS.VULNERABLE.id} icon /> window. However, remember to not stand around waiting, doing nothing and to not focus cap. These are more important to DPS, than optimising <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> is.</Wrapper>,
+      name: <Wrapper><SpellLink id={SPELLS.VULNERABLE.id} icon /> & <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> Usage </Wrapper>,
+      description: <Wrapper>Try to limit the amount of casts outside of <SpellLink id={SPELLS.VULNERABLE.id} icon /> to a minimum. Try to optimise the damage from <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> by after opening <SpellLink id={SPELLS.VULNERABLE.id} icon />, then casting one or two <SpellLink id={SPELLS.ARCANE_SHOT.id} icon /> or <SpellLink id={SPELLS.MULTISHOT.id} icon /> to delay your <SpellLink id={SPELLS.AIMED_SHOT.id} icon /> until later in the <SpellLink id={SPELLS.VULNERABLE.id} icon /> window. However, remember to not stand around waiting, doing nothing and to not focus cap. These are more important to DPS, than optimising <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> is.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.AIMED_SHOT.id} icon />s outside <SpellLink id={SPELLS.VULNERABLE.id} icon /></Wrapper>,
+            check: () => this.aimedInVulnerableTracker.nonVulnerableAimedShotThreshold,
+          }),
+          new Requirement({
+            name: <Wrapper><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Focus dump <SpellLink id={SPELLS.AIMED_SHOT.id} icon />s</Wrapper>,
+            check: () => this.aimedInVulnerableTracker.focusDumpThreshold,
+          }),
+          new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> damage contribution</Wrapper>,
             check: () => this.patientSniperDetails.patientSniperDamageThresholds,
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.VULNERABLE.id} icon /> uptime</Wrapper>,
+            check: () => this.vulnerableUptime.uptimeThreshold,
           }),
         ];
       },

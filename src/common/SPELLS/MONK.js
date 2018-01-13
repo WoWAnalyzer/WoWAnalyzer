@@ -429,6 +429,21 @@ export default {
     name: 'Stagger',
     icon: 'ability_rogue_cheatdeath',
   },
+  LIGHT_STAGGER_DEBUFF: {
+    id: 124275,
+    name: 'Light Stagger',
+    icon: 'priest_icon_chakra_green',
+  },
+  MODERATE_STAGGER_DEBUFF: {
+    id: 124274,
+    name: 'Moderate Stagger',
+    icon: 'priest_icon_chakra',
+  },
+  HEAVY_STAGGER_DEBUFF: {
+    id: 124273,
+    name: 'Heavy Stagger',
+    icon: 'priest_icon_chakra_red',
+  },
   EXPEL_HARM_DAMAGE: {
     id: 115129,
     name: 'Expel Harm',
@@ -528,6 +543,11 @@ export default {
     id: 213055,
     name: 'Staggering Around',
     icon: 'ability_monk_fortifyingale_new',
+  },
+  FAKE_SHARED_BREWS: {
+    id: -115308,
+    name: 'Ironskin / Purifying Brew',
+    icon: 'ability_monk_ironskinbrew',
   },
 
   // Windwalker Spells

@@ -1,14 +1,11 @@
-// Based on Main/Abilities.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 
-const Abilities = ({ categories, abilities }) => {
-  if (!abilities) {
-    return <div>Loading...</div>;
-  }
+const MaelstromComponent = ({ categories, abilities}) => {
+
   return (
     <div style={{ marginTop: -10, marginBottom: -10 }}>
       <table className="data-table" style={{ marginTop: 10, marginBottom: 10 }}>
@@ -16,16 +13,17 @@ const Abilities = ({ categories, abilities }) => {
           <tbody key={key}>
             <tr>
               <th>{categories[key]}</th>
-              <th className="text-center">Casts</th>
-              <th className="text-center">{key === 'spend' ? <dfn data-tip="Approxomatly.">Spend</dfn> : ''}</th>
-              <th className="text-center">{key === 'generated' ? <dfn data-tip="Approxomatly.">Generated</dfn> : ''}</th>
-              <th className="text-center"><dfn data-tip="Approxomatly.">Wasted</dfn></th>
+              <th className="text-center"><dfn data-tip="Times you gained maelstrom from this ability">Times gained Maelstrom</dfn></th>
+
+              <th className="text-center">{key === 'generated' ? <dfn data-tip="Approximately.">Generated</dfn> : ''}</th>
+              <th className="text-center"><dfn data-tip="Approximately.">Wasted</dfn></th>
               <th />
             </tr>
             {abilities
               .filter(item => item.ability.category === categories[key])
-              .map(({ ability, casts, spend, created, wasted, canBeImproved }) => {
+              .map(({ ability, casts, created, wasted, canBeImproved }) => {
                 const name = ability.name;
+
                 return (
                   <tr key={name}>
                     <td style={{ width: '35%' }}>
@@ -37,13 +35,10 @@ const Abilities = ({ categories, abilities }) => {
                       {casts}
                     </td>
                     <td className="text-center" style={{ minWidth: 80 }}>
-                      {spend || ''}
-                    </td>
-                    <td className="text-center" style={{ minWidth: 80 }}>
                       {created || ''}
                     </td>
                     <td className="text-center" style={{ minWidth: 80 }}>
-                      {wasted || ''}
+                      {wasted || '0'}
                     </td>
                     <td style={{ width: '25%', color: 'orange' }}>
                       {canBeImproved && ability.castEfficiency && ability.castEfficiency.suggestion && 'Can be improved.'}
@@ -57,7 +52,7 @@ const Abilities = ({ categories, abilities }) => {
     </div>
   );
 };
-Abilities.propTypes = {
+MaelstromComponent.propTypes = {
   abilities: PropTypes.arrayOf(PropTypes.shape({
     ability: PropTypes.shape({
       name: PropTypes.string.isRequired,
@@ -65,7 +60,7 @@ Abilities.propTypes = {
       spellId: PropTypes.number.isRequired,
     }).isRequired,
   })).isRequired,
-  categories: PropTypes.shape(),
-};
+  categories: PropTypes.object,
+  };
 
-export default Abilities;
+export default MaelstromComponent;
