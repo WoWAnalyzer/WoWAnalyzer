@@ -9,7 +9,7 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-01-12'),
+    date: new Date('2018-01-13'),
     changes: 'Fixed current Haste percentage interaction with Haste rating buff changes (this improves ABC and spell cooldown accuracy).',
     contributors: [Zerotorescue],
   },
