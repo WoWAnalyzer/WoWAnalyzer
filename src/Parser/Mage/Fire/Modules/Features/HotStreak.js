@@ -12,7 +12,7 @@ import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
 const debug = false;
 
-const PROC_WINDOW_MS = 100;
+const PROC_WINDOW_MS = 200;
 
 const HOT_STREAK_CONTRIBUTORS = [
   SPELLS.FIREBALL.id,
@@ -38,6 +38,9 @@ class HotStreak extends Analyzer {
   castsIntoHotStreak = 0;
   castedBeforeHotStreak = 0;
   noCastBeforeHotStreak = 0;
+  pyromaniacProc = false;
+  currentHealth = 0;
+  maxHealth = 0;
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -53,15 +56,20 @@ class HotStreak extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
+    //If the player has Firestarter, get the target's health
+    if (this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id) && HOT_STREAK_CONTRIBUTORS.includes(spellId)) {
+      this.currentHealth = event.hitPoints;
+      this.maxHealth = event.maxHitPoints;
+    }
     if (!HOT_STREAK_CONTRIBUTORS.includes(spellId) || !this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id) || event.hitType !== HIT_TYPES.CRIT) {
       return;
     }
     //If Pyromaniac caused the player to immediately get a new hot streak after spending one, then dont count the damage crits that were cast before Pyromaniac Proc's since the user cant do anything to prevent this.
     if ((spellId === SPELLS.FIREBALL.id || spellId === SPELLS.SCORCH.id || spellId === SPELLS.PYROBLAST.id) && this.pyromaniacProc) {
       debug && console.log("Wasted Crit Ignored @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-    } else if (HOT_STREAK_CONTRIBUTORS.includes(spellId)) {
+    } else if (HOT_STREAK_CONTRIBUTORS.includes(spellId) && event.timestamp - PROC_WINDOW_MS > this.hotStreakRemoved) {
       this.wastedCrits += 1;
-      debug && console.log("Hot Streak overwritten @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      debug && console.log("Hot Streak overwritten @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time) + this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id,null,-1));
     }
   }
 
@@ -88,15 +96,15 @@ class HotStreak extends Analyzer {
       this.bracerProcRemoved = event.timestamp;
       return;
     }
-
     //Check for Expired Procs, also if Fireball or Scorch was cast at the same time that Hot Streak was removed, then it was cast alongside Hot Streak (For the cast before hot streak check). Excluded Hot Streak procs during Combustion.
     //Also checks to see if the bracer proc was removed within 100ms of Hot Streak getting removed (i.e. they hard casted Pyroblast for the bracer proc and used Hot Streak on the end of it.)
+    //Also checks to see if the player has Firestarter or Combustion and if they have Firestarter, checks to see if the boss is less than 90% health
     if (!this.lastCastTimestamp || this.lastCastTimestamp + PROC_WINDOW_MS < this.owner.currentTimestamp) {
       this.expiredProcs += 1;
       debug && console.log("Hot Streak proc expired @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     } else if (this.hotStreakRemoved - PROC_WINDOW_MS < this.castTimestamp || this.hotStreakRemoved - PROC_WINDOW_MS < this.bracerProcRemoved) {
       this.castedBeforeHotStreak += 1;
-    } else if (!this.combatants.selected.hasBuff(SPELLS.COMBUSTION.id)) {
+    } else if (!this.combatants.selected.hasBuff(SPELLS.COMBUSTION.id) && (!this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id) || (this.currentHealth / this.maxHealth) < 0.90)) {
       this.noCastBeforeHotStreak += 1;
       debug && console.log("No hard cast before Hot Streak @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     }
@@ -118,6 +126,10 @@ class HotStreak extends Analyzer {
     return 1 - (this.noCastBeforeHotStreak / (this.castedBeforeHotStreak + this.noCastBeforeHotStreak));
   }
 
+  get wastedCritsPerMinute() {
+    return this.wastedCrits / (this.owner.fightDuration / 60000);
+  }
+
   get expiredProcsThresholds() {
     return {
       actual: this.expiredProcsPercent,
@@ -132,11 +144,11 @@ class HotStreak extends Analyzer {
 
   get wastedCritsThresholds() {
     return {
-      actual: this.wastedCrits,
+      actual: this.wastedCritsPerMinute,
       isGreaterThan: {
-        minor: 5,
-        average: 10,
-        major: 15,
+        minor: 0,
+        average: 1,
+        major: 3,
       },
       style: 'number',
     };
@@ -164,10 +176,10 @@ class HotStreak extends Analyzer {
       });
       when(this.wastedCritsThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>You crit with {formatNumber(this.wastedCrits)} direct damage abilities while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active. This is a waste since those crits could have contibuted towards your next Hot Streak. Try to use your procs as soon as possible to avoid this.</span>)
+          return suggest(<Wrapper>You crit with {formatNumber(this.wastedCrits)} ({formatNumber(this.wastedCritsPerMinute)} Per Minute) direct damage abilities while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active. This is a waste since those crits could have contibuted towards your next Hot Streak. Try to use your procs as soon as possible to avoid this.</Wrapper>)
             .icon(SPELLS.HOT_STREAK.icon)
             .actual(`${formatNumber(this.wastedCrits)} crits wasted`)
-            .recommended(`<${formatNumber(recommended)} is recommended`);
+            .recommended(`${formatNumber(recommended)} is recommended`);
       });
       when(this.castBeforeHotStreakThresholds)
         .addSuggestion((suggest, actual, recommended) => {
