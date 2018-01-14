@@ -21,6 +21,7 @@ import Tier21_4Set from './Modules/Items/Tier21_4set.js';
 
 import TheDeceiversBloodPact from './Modules/Items/TheDeceiversBloodPact';
 import EchoesOfTheGreatSundering from './Modules/Items/EchoesOfTheGreatSundering';
+import SmolderingHeart from './Modules/Items/SmolderingHeart';
 
 import './Modules/Main/main.css';
 
@@ -50,6 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Legendaries:
     theDeceiversBloodPact: TheDeceiversBloodPact,
     echoesOfTheGreatSundering: EchoesOfTheGreatSundering,
+    smolderingHeart: SmolderingHeart,
 
     //Setboni
     tier21_2p: Tier21_2Set,
