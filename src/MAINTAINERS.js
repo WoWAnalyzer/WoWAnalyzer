@@ -199,3 +199,11 @@ export const AttilioLH = {
   nickname: 'AttilioLH',
   github: 'AttilioLH',
 };
+export const poneria = {
+  nickname: 'poneria',
+  github: 'poneria',
+};
+export const Nekorsis = {
+  nickname: 'Nekorsis',
+  github: 'Nekorsis',
+};

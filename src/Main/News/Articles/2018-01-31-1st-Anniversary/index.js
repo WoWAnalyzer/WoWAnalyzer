@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import * as MAINTAINERS from 'MAINTAINERS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
+import ItemIcon from 'common/ItemIcon';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SPECS from 'common/SPECS';
@@ -27,7 +28,9 @@ import CharacterAndFightPullDownMenus from './CharacterAndFightPullDownMenus.gif
 import CompletenessGreat from './Completeness-Great.png';
 import CompletenessNeedsMoreWork from './Completeness-Needs-more-work.png';
 import DistanceMoved from './DistanceMoved.png';
-import ItemIcon from 'common/ItemIcon';
+import RestoDruidStatWeights from './RestoDruidStatWeights.png';
+import ApiIsDown from './ApiIsDown.gif';
+import EnchantChecker from './EnchantChecker.png';
 
 function completeness(completeness) {
   return <dfn data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>;
@@ -395,7 +398,7 @@ export default (
           Other maintainers:
           Yuyz0112: Added <SpellLink id={SPELLS.ANCESTRAL_VIGOR_TALENT.id} /> metric
           Anomoly: Migrated to the new version and added T21 2 set and 4 set
-          hatra344: Implemented the checklist
+          <Maintainer {...MAINTAINERS.Hartra344} />: Implemented the checklist
         </div>
       </div>
 
@@ -428,6 +431,8 @@ export default (
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/66
 
           By Fasib
+
+          janvavra did a fix https://github.com/WoWAnalyzer/WoWAnalyzer/pull/469
         </div>
       </div>
 
@@ -487,6 +492,7 @@ export default (
         <div className="panel-body">
           <SpecIcon spec={SPECS.SUBTLETY_ROGUE} />
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/130
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/830
 
           Initial version by <Maintainer {...MAINTAINERS.zealk} />
           Most of what is available today by <Maintainer {...MAINTAINERS.tsabo} />
@@ -649,7 +655,7 @@ export default (
 
           By Iskalla
 
-          Later token over by Gebuz
+          Later token over by <Maintainer {...MAINTAINERS.Gebuz} />
         </div>
       </div>
 
@@ -907,10 +913,401 @@ export default (
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/522
 
           By <Maintainer {...MAINTAINERS.Fyruna} />
+
+          janvavra added a <i>time spent moving</i> indicator relative to fight duration https://github.com/WoWAnalyzer/WoWAnalyzer/pull/689
         </div>
       </div>
 
-      {/* TODO: Continue from https://github.com/WoWAnalyzer/WoWAnalyzer/pulls?page=17&q=is%3Apr+sort%3Acreated-asc */}
+      <div className="panel">
+        <div className="date">
+          20 Oct
+        </div>
+        <div className="panel-heading">
+          <h2>Arms Warrior</h2>
+        </div>
+        <div className="panel-body">
+          <SpecIcon spec={SPECS.ARMS_WARRIOR} />
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/571
+
+          By <Maintainer {...MAINTAINERS.TheBadBossy} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          24 Oct
+        </div>
+        <div className="panel-heading">
+          <h2>Added support for healer stat weights</h2>
+        </div>
+        <div className="panel-body">
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/604
+
+          Later renamed to https://github.com/WoWAnalyzer/WoWAnalyzer/pull/700
+
+          <figure>
+            <img src={RestoDruidStatWeights} alt="The initial Stat Weights panel" />
+            <figcaption>
+              The initial Stat Weights panel
+            </figcaption>
+          </figure>
+
+          Initial support by <Maintainer {...MAINTAINERS.sref} />, generalized and extended a little by <Maintainer {...MAINTAINERS.Zerotorescue} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          2 Nov
+        </div>
+        <div className="panel-heading">
+          <h2>Frost Death Knight</h2>
+        </div>
+        <div className="panel-body">
+          <SpecIcon spec={SPECS.FROST_DEATH_KNIGHT} />
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/712
+
+          By <Maintainer {...MAINTAINERS.Bonebasher} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          4 Nov
+        </div>
+        <div className="panel-heading">
+          <h2>Automatic fight and player selection</h2>
+        </div>
+        <div className="panel-body">
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/729
+
+          By <Maintainer {...MAINTAINERS.Gao} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          5 Nov
+        </div>
+        <div className="panel-heading">
+          <h2>Spell timelines</h2>
+        </div>
+        <div className="panel-body">
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/740
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/783
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/843
+
+          By <Maintainer {...MAINTAINERS.Zerotorescue} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          5 Nov
+        </div>
+        <div className="panel-heading">
+          <h2>Documentation, documentation, documentation</h2>
+        </div>
+        <div className="panel-body">
+          Reason for picking this date: https://github.com/WoWAnalyzer/WoWAnalyzer/pull/743
+          Subject: all doc improvements recently
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/748
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/779
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/983
+
+
+          By <Maintainer {...MAINTAINERS.poneria} /> and <Maintainer {...MAINTAINERS.Zerotorescue} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          6 Nov
+        </div>
+        <div className="panel-heading">
+          <h2>Changelog tab</h2>
+        </div>
+        <div className="panel-body">
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/747
+
+          By <Maintainer {...MAINTAINERS.Zerotorescue} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          8 Nov
+        </div>
+        <div className="panel-heading">
+          <h2>Improved error messages</h2>
+        </div>
+        <div className="panel-body">
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/755
+
+          <figure>
+            <img src={ApiIsDown} alt="API is down error" />
+            <figcaption>
+              When the API is down for a known reason we explain what is going on and what you can expect
+            </figcaption>
+          </figure>
+
+          By <Maintainer {...MAINTAINERS.Zerotorescue} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          10 Nov
+        </div>
+        <div className="panel-heading">
+          <h2>Checking your legendaries 2.0</h2>
+        </div>
+        <div className="panel-body">
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/780
+
+          By <Maintainer {...MAINTAINERS.Gao} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          2 Nov
+        </div>
+        <div className="panel-heading">
+          <h2>Protection Paladin</h2>
+        </div>
+        <div className="panel-body">
+          <SpecIcon spec={SPECS.PROTECTION_PALADIN} />
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/781
+
+          By <Maintainer {...MAINTAINERS.Yajinni} /> and <Maintainer {...MAINTAINERS.Noichxd} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          12 Nov
+        </div>
+        <div className="panel-heading">
+          <h2>A big warning for specs that aren't maintained</h2>
+        </div>
+        <div className="panel-body">
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/785
+
+          Mention here that even if a spec is being maintained we are still always looking for more interested people to help us continue extending it
+
+          By <Maintainer {...MAINTAINERS.Yajinni} /> and <Maintainer {...MAINTAINERS.Noichxd} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          12 Nov
+        </div>
+        <div className="panel-heading">
+          <h2>Using the time on cooldown for cast efficiency</h2>
+        </div>
+        <div className="panel-body">
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/799
+
+          By <Maintainer {...MAINTAINERS.sref} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          28 Nov
+        </div>
+        <div className="panel-heading">
+          <h2>Updated for Antorus</h2>
+        </div>
+        <div className="panel-body">
+          While not every change is listed in this article (see the changelog for smaller changes), this milestone marks the release of the Antorus raid. We've been hard at work to update all the things changed and add support for all the new items and stuff.
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          28 Nov
+        </div>
+        <div className="panel-heading">
+          <h2>Frontpage reworked</h2>
+        </div>
+        <div className="panel-body">
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/882
+
+          By <Maintainer {...MAINTAINERS.Zerotorescue} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          30 Nov
+        </div>
+        <div className="panel-heading">
+          <h2>Stats on pull</h2>
+        </div>
+        <div className="panel-body">
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/890
+
+          By <Maintainer {...MAINTAINERS.Zerotorescue} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          7 Dec
+        </div>
+        <div className="panel-heading">
+          <h2>Google's translation disabled to fix crashes</h2>
+        </div>
+        <div className="panel-body">
+          Bug in React that causes constant crashes
+          Realistically nothing we can do to fix it
+
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/949
+
+          By <Maintainer {...MAINTAINERS.Zerotorescue} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          14 Dec
+        </div>
+        <div className="panel-heading">
+          <h2>Checking your items for proper enchants</h2>
+        </div>
+        <div className="panel-body">
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/974
+
+          <figure>
+            <img src={EnchantChecker} alt="Example suggestions" />
+            <figcaption>
+              The suggestions shown when missing an enchant or using a cheap enchant. It's easy performance!
+            </figcaption>
+          </figure>
+
+          By <Maintainer {...MAINTAINERS.Khazak} />
+          Putro added support for WoD cloak enchants https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1072
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          14 Dec
+        </div>
+        <div className="panel-heading">
+          <h2>Fury Warrior</h2>
+        </div>
+        <div className="panel-body">
+          <SpecIcon spec={SPECS.FURY_WARRIOR} />
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/982
+
+          By <Maintainer {...MAINTAINERS.Maldark} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          24 Dec
+        </div>
+        <div className="panel-heading">
+          <h2>Version 2.0 is here! Check your fights with the all new checklist</h2>
+        </div>
+        <div className="panel-body">
+          Bug in React that causes constant crashes
+          Realistically nothing we can do to fix it
+
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/970
+          https://www.reddit.com/r/wow/comments/7lvuu7/version_20_of_wowanalyzer_is_live_with_a_big_new/
+
+          By <Maintainer {...MAINTAINERS.Zerotorescue} /> and find everyone that added support
+          <Maintainer {...MAINTAINERS.hassebewlen} />: Shadow Priest https://github.com/WoWAnalyzer/WoWAnalyzer/pull/981
+          <Maintainer {...MAINTAINERS.Putro} />: Marksmanship Hunter https://github.com/WoWAnalyzer/WoWAnalyzer/pull/999
+          <Maintainer {...MAINTAINERS.Putro} />: Beast Mastery Hunter https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1032
+          <Maintainer {...MAINTAINERS.Anomoly} />: Mistweaver Monk https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1005
+          <Maintainer {...MAINTAINERS.sref} />: Frost Mage https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1006
+          <Maintainer {...MAINTAINERS.Hartra344} />: Restoration Shaman https://github.com/WoWAnalyzer/WoWAnalyzer/pull/988
+          <Maintainer {...MAINTAINERS.Khazak} />: Unholy Death Knight https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1031
+          <Maintainer {...MAINTAINERS.Chizu} />: Affliction Warlock https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1092
+          <Maintainer {...MAINTAINERS.Gebuz} />: Balance Druid https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1096
+          <Maintainer {...MAINTAINERS.Hewhosmites} />: Retribution Paladin https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1136
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          28 Dec
+        </div>
+        <div className="panel-heading">
+          <h2>Death tracking</h2>
+        </div>
+        <div className="panel-body">
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1066
+
+          By <Maintainer {...MAINTAINERS.Sharrq} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          2 Jan
+        </div>
+        <div className="panel-heading">
+          <h2>Casting time bar in the spell timeline tab</h2>
+        </div>
+        <div className="panel-body">
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1050
+
+          While not a major change, this has shown to be incredibly useful for fixing bugs in the gcd/channel time displays
+
+          By <Maintainer {...MAINTAINERS.Zerotorescue} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          2 Jan
+        </div>
+        <div className="panel-heading">
+          <h2>Nekorsis added a gear tab</h2>
+        </div>
+        <div className="panel-body">
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1017
+
+          By <Maintainer {...MAINTAINERS.Nekorsis} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          4 Jan
+        </div>
+        <div className="panel-heading">
+          <h2>A major rework to the abilities config</h2>
+        </div>
+        <div className="panel-body">
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1086
+
+          By <Maintainer {...MAINTAINERS.Zerotorescue} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          8 Jan
+        </div>
+        <div className="panel-heading">
+          <h2>You're looking at it! Added a news system</h2>
+        </div>
+        <div className="panel-body">
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1154
+
+          By <Maintainer {...MAINTAINERS.Zerotorescue} />
+        </div>
+      </div>
+
       {/* TODO: Go through commits for a second pass since we commited a bunch of interesting thigns directly without PR */}
       {/* TODO: Go through commits for old screenshots */}
 
@@ -925,6 +1322,8 @@ export default (
           Yuyz0112: Filter kills only fight: https://github.com/WoWAnalyzer/WoWAnalyzer/pull/106
           Riglerr: Updated Cooldown Tab & components to be able to represent damage as well as healing: https://github.com/WoWAnalyzer/WoWAnalyzer/pull/53
           BlokyKappa: Fixed main page button alignment
+          kyle-glick: https://github.com/WoWAnalyzer/WoWAnalyzer/pull/924
+          Zeboot: Merge magic schools in Damage Taken https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1013
         </div>
       </div>
     </Timeline>
