@@ -31,8 +31,7 @@ import DistanceMoved from './DistanceMoved.png';
 import RestoDruidStatWeights from './RestoDruidStatWeights.png';
 import ApiIsDown from './ApiIsDown.gif';
 import EnchantChecker from './EnchantChecker.png';
-import { sref } from 'MAINTAINERS';
-import { Sharrq } from 'MAINTAINERS';
+import WoWAnalyzerV11 from './WoWAnalyzer-v1.1.png';
 
 function completeness(completeness) {
   return <dfn data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>;
@@ -319,7 +318,7 @@ export default (
           <figure>
             <img src={WoWAnalyzerV109} alt="WoWAnalyzer v1.0.9" />
             <figcaption>
-              Discipline Priest (WoWAnalyzer v1.0.9 at 19 May 2017)
+              Discipline Priest (WoWAnalyzer v1.1.0 at 20 May 2017)
             </figcaption>
           </figure><br />
 
@@ -343,16 +342,20 @@ export default (
 
       <div className="panel">
         <div className="date">
-          21 May
+          20 May
         </div>
         <div className="panel-heading">
           <h2>Cooldowns overview</h2>
         </div>
         <div className="panel-body">
-          I added the **Cooldowns** tab at 21 May 2017 to give more insight into cooldown usages, spells cast during them and throughput as a result.
+          I added the **Cooldowns** tab at 20 May 2017 to give more insight into cooldown usages, spells cast during them and throughput as a result.
 
-          ![WoWAnalyzer v1.1](./WoWAnalyzer-v1.1.png)
-          WoWAnalyzer v1.1 at 21 May 2017
+          <figure>
+            <img src={WoWAnalyzerV11} alt="Cooldown tab" />
+            <figcaption>
+              The cooldown overview shows all spell casts during a cooldown, when expanded it shows the time delay of each spell to reveal inefficient cooldown usages.
+            </figcaption>
+          </figure>
         </div>
       </div>
 
