@@ -31,6 +31,8 @@ import DistanceMoved from './DistanceMoved.png';
 import RestoDruidStatWeights from './RestoDruidStatWeights.png';
 import ApiIsDown from './ApiIsDown.gif';
 import EnchantChecker from './EnchantChecker.png';
+import { sref } from 'MAINTAINERS';
+import { Sharrq } from 'MAINTAINERS';
 
 function completeness(completeness) {
   return <dfn data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>;
@@ -63,7 +65,7 @@ export default (
       <li>It usually takes <a href="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer/builds">about <b>5 minutes</b></a> for a code-change to be available on WoWAnalyzer.com</li>
     </ul>
 
-    The project was started by <b>Zerotorescue</b>, a <span className="Paladin">Holy Paladin</span> theorycrafter at the time. Since it took several months before other contributors joined the project, the first half of the recap will be written from my point of view.<br /><br />
+    The project was started by <Maintainer {...MAINTAINERS.Zerotorescue} />, a <span className="Paladin">Holy Paladin</span> theorycrafter at the time. Since it took several months before other contributors joined the project, the first half of the recap will be written from my point of view.<br /><br />
 
     <hr style={{ marginBottom: 20 }} />
 
@@ -280,9 +282,9 @@ export default (
         </div>
         <div className="panel-body">
           <SpecIcon spec={SPECS.RESTORATION_DRUID} />
-          At 6 May 2017 <b>blazyb</b> reached out about creating an analyzer for <span className="Druid">Restoration Druid</span>. I talking him through it for a bit and he shared a lot feedback during the process. His feedback helped a lot to rewrite even more of the codebase to make it easier for others to work with and to make it more natural to implement different specs. After talking with blazyb about the future of the project a lot I decided that the best approach would be to launch a single website for multiple specs with it selecting the spec analyzer needed.<br /><br />
+          At 6 May 2017 <Maintainer {...MAINTAINERS.blazyb} /> reached out about creating an analyzer for <span className="Druid">Restoration Druid</span>. I talking him through it for a bit and he shared a lot feedback during the process. His feedback helped a lot to rewrite even more of the codebase to make it easier for others to work with and to make it more natural to implement different specs. After talking with <Maintainer {...MAINTAINERS.blazyb} /> about the future of the project a lot I decided that the best approach would be to launch a single website for multiple specs with it selecting the spec analyzer needed.<br /><br />
 
-          Meanwhile blazyb worked on the <b>Resto Druid Analyzer</b> and ran an extensive private beta test. For this private beta test he had created a Discord server for feedback. Seeing this working well led to the shared <a href="https://discord.gg/AxphPxU">WoWAnalyzer Discord server</a> that we use today.<br /><br />
+          Meanwhile <Maintainer {...MAINTAINERS.blazyb} /> worked on the <b>Resto Druid Analyzer</b> and ran an extensive private beta test. For this private beta test he had created a Discord server for feedback. Seeing this working well led to the shared <a href="https://discord.gg/AxphPxU">WoWAnalyzer Discord server</a> that we use today.<br /><br />
 
           The Resto Druid Analyzer was publicly released at 15 May 2017. Due to the amount of work involved in moving it into the shared project, it was initially released as a standalone "fork". The Resto Druid Analyzer was fully merged into the WoWAnalyzer project at 21 May 2017.<br /><br />
 
@@ -295,9 +297,9 @@ export default (
 
           Other contributions to this spec:<br /><br />
 
-          <b>greatman</b> contributored the initial Dreamwalker statistic.<br />
-          <b>rubensayshi</b> introduced the concept of fixing bugs in Blizzard's combatlogs by re-ordering events. This concept evolved to "Events Normalizers" that we use today for fixing all sorts of weird combatlog bugs. He also improved a couple of features of the Resto Druid analyzer.<br />
-          <b>Sref</b> (aka kfinch on GitHub) has done a lot of work on the Restoration Druid implementation and has added and improved a large part of the spec implementation.
+          <Maintainer {...MAINTAINERS.greatman} /> contributored the initial Dreamwalker statistic.<br />
+          <Maintainer {...MAINTAINERS.rubensayshi} /> introduced the concept of fixing bugs in Blizzard's combatlogs by re-ordering events. This concept evolved to "Events Normalizers" that we use today for fixing all sorts of weird combatlog bugs. He also improved a couple of features of the Resto Druid analyzer.<br />
+          <Maintainer {...MAINTAINERS.sref} /> has done a lot of work on the Restoration Druid implementation and has added and improved a large part of the spec implementation.
         </div>
       </div>
 
@@ -310,7 +312,7 @@ export default (
         </div>
         <div className="panel-body">
           <SpecIcon spec={SPECS.DISCIPLINE_PRIEST} />
-          At 31 March 2017 <b>Josh</b> (MethodJosh since there are so many Joshes) contacted me about putting the code under an open license so that he could use parts for Disc Priest analysis. This led to a license that allows usage in non-commercial open source projects which was later replaced with the more formal <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/LICENSE">AGPL</a> license that we still use today.<br /><br />
+          At 31 March 2017 <b>Josh</b> (aka MethodJosh) contacted me about putting the code under an open license so that he could use parts for Disc Priest analysis. This led to a license that allows usage in non-commercial open source projects which was later replaced with the more formal <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/LICENSE">AGPL</a> license that we still use today.<br /><br />
 
           Around the start of May I started thinking and talking about possibly adding support for another spec. I wanted to do this to continue growing the project and experience adding a new spec myself (after all the changes) and refine any rough edges I would run into. I got to talking with <b>Josh</b> again and he showed me a lot of research material that would help a lot in adding analysis for the spec. So I decided to start working on adding support for <b>Discipline Priest</b>. The first version of the Discipline Priest was added at 14 May 2017, and it was in a good state by 19 May 2017.<br /><br />
 
@@ -321,7 +323,7 @@ export default (
             </figcaption>
           </figure><br />
 
-          This spec had a lot of people contributing code: Zerotorescue, Reglitch, nutspanther, Oratio, Gao, hassebewlen, and milesoldenburg.
+          This spec had a lot of people contributing code: <Maintainer {...MAINTAINERS.Zerotorescue} />, <Maintainer {...MAINTAINERS.Reglitch} />, <Maintainer {...MAINTAINERS.nutspanther} />, <Maintainer {...MAINTAINERS.Oratio} />, <Maintainer {...MAINTAINERS.Gao} />, <Maintainer {...MAINTAINERS.hassebewlen} />, and <Maintainer {...MAINTAINERS.milesoldenburg} />.
         </div>
       </div>
 
@@ -333,9 +335,9 @@ export default (
           <h2>The first PR by an outside contributor!</h2>
         </div>
         <div className="panel-body">
-          Getting the first PR is very exciting! It means someone else is interested in your project enough to dedicate their free time to working on improving it. <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/22">Our first PR</a> was created by <b>Reglitch</b> (aka rp4rk on GitHub) at 19 May 2017. In it he contributed an "editorconfig" file: "Fairly self explanatory, enforces consistency when multiple devs are working on the project.". It was merged a day later.<br /><br />
+          Getting the first PR is very exciting! It means someone else is interested in your project enough to dedicate their free time to working on improving it. <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/22">Our first PR</a> was created by <Maintainer {...MAINTAINERS.Reglitch} /> at 19 May 2017. In it he contributed an "editorconfig" file: "Fairly self explanatory, enforces consistency when multiple devs are working on the project.". It was merged a day later.<br /><br />
 
-          Reglitch has later done a lot more work since then, primarily on the Discipline Priest implementation. He is now a part of the WoWAnalyzer admin team.
+          <Maintainer {...MAINTAINERS.Reglitch} /> has later done a lot more work since then, primarily on the Discipline Priest implementation. He is now a part of the WoWAnalyzer admin team.
         </div>
       </div>
 
@@ -375,7 +377,7 @@ export default (
         </div>
         <div className="panel-body">
           <SpecIcon spec={SPECS.MISTWEAVER_MONK} />
-          <span className="Monk">Mistweaver Monk</span> support was [first proposed](https://github.com/WoWAnalyzer/WoWAnalyzer/pull/33) by **@Anomoly** at 23 May 2017, and merged to WoWAnalyzer.com after a short review process a day later.
+          <span className="Monk">Mistweaver Monk</span> support was [first proposed](https://github.com/WoWAnalyzer/WoWAnalyzer/pull/33) by <Maintainer {...MAINTAINERS.Anomoly} /> at 23 May 2017, and merged to WoWAnalyzer.com after a short review process a day later.
 
           ![WoWAnalyzer v1.1.1](./WoWAnalyzer-v1.1.1.gif)
           WoWAnalyzer v1.1.1: initial Mistweaver support at 25 May 2017
@@ -393,11 +395,11 @@ export default (
         </div>
         <div className="panel-body">
           <SpecIcon spec={SPECS.RESTORATION_SHAMAN} />
-          <span className="Shaman">Restoration Shaman</span> support was <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/39">first added</a> by <b>versaya</b>.
+          <span className="Shaman">Restoration Shaman</span> support was <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/39">first added</a> by <Maintainer {...MAINTAINERS.Versaya} />.
 
           Other maintainers:
-          Yuyz0112: Added <SpellLink id={SPELLS.ANCESTRAL_VIGOR_TALENT.id} /> metric
-          Anomoly: Migrated to the new version and added T21 2 set and 4 set
+          <Maintainer {...MAINTAINERS.Yuyz0112} />: Added <SpellLink id={SPELLS.ANCESTRAL_VIGOR_TALENT.id} /> metric
+          <Maintainer {...MAINTAINERS.Anomoly} />: Migrated to the new version and added T21 2 set and 4 set
           <Maintainer {...MAINTAINERS.Hartra344} />: Implemented the checklist
         </div>
       </div>
@@ -410,7 +412,7 @@ export default (
           <h2>Setup CI and first server</h2>
         </div>
         <div className="panel-body">
-          strel guided me through this, set up TravisCI that runs on any commit. Commits to a branch of the main repo make a Docker container that automatically gets deployed to the server. The experienced downtime of this process is only a few seconds. Server is a dedicated box by Scaleway. Cloudflare in front of everything, always.
+          <Maintainer {...MAINTAINERS.strel} /> guided me through this, set up TravisCI that runs on any commit. Commits to a branch of the main repo make a Docker container that automatically gets deployed to the server. The experienced downtime of this process is only a few seconds. Server is a dedicated box by Scaleway. Cloudflare in front of everything, always.
 
           https://travis-ci.org/WoWAnalyzer/WoWAnalyzer
           https://hub.docker.com/r/martijnhols/wowanalyzer/
@@ -424,15 +426,16 @@ export default (
           4 Jun
         </div>
         <div className="panel-heading">
-          <h2>Basic Elemental Shaman support</h2>
+          <h2>Elemental Shaman</h2>
         </div>
         <div className="panel-body">
           <SpecIcon spec={SPECS.ELEMENTAL_SHAMAN} />
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/66
 
-          By Fasib
+          By <Maintainer {...MAINTAINERS.fasib} />
 
-          janvavra did a fix https://github.com/WoWAnalyzer/WoWAnalyzer/pull/469
+          <Maintainer {...MAINTAINERS.janvavra} /> did a fix https://github.com/WoWAnalyzer/WoWAnalyzer/pull/469
+          <Maintainer {...MAINTAINERS.HawkCorrigan} /> https://github.com/WoWAnalyzer/WoWAnalyzer/pulls?utf8=%E2%9C%93&q=is%3Apr+sort%3Acreated-asc+author%3AHawkCorrigan+
         </div>
       </div>
 
@@ -441,13 +444,13 @@ export default (
           1 Jul
         </div>
         <div className="panel-heading">
-          <h2>Holy Priest </h2>
+          <h2>Holy Priest</h2>
         </div>
         <div className="panel-body">
           <SpecIcon spec={SPECS.HOLY_PRIEST} />
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/96
-          support added by enragednuke
-          Skamer also contributed a couple of improvements, such as the Divinty Talent.
+          support added by <Maintainer {...MAINTAINERS.enragednuke} />
+          <Maintainer {...MAINTAINERS.Skamer} /> also contributed a couple of improvements, such as the Divinty Talent.
         </div>
       </div>
 
@@ -508,8 +511,8 @@ export default (
         </div>
         <div className="panel-body">
           <SpecIcon spec={SPECS.GUARDIAN_DRUID} />
-          Initial version by WOPR (aka shignman on GitHub)
-          Later taken over by <b>faide</b> (aka FaideWW on GitHub).
+          Initial version by <Maintainer {...MAINTAINERS.WOPR} />
+          Taken over by <Maintainer {...MAINTAINERS.faide} />
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/137
         </div>
       </div>
@@ -525,9 +528,7 @@ export default (
           <SpecIcon spec={SPECS.ENHANCEMENT_SHAMAN} />
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/145
 
-          By Nighteyez07
-
-          No other maintainers
+          By <Maintainer {...MAINTAINERS.Nighteyez07} />
         </div>
       </div>
 
@@ -542,9 +543,7 @@ export default (
           <SpecIcon spec={SPECS.VENGEANCE_DEMON_HUNTER} />
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/157
 
-          By Mamtooth (aka ronaldpereira on GitHub)
-
-          No other maintainers
+          By <Maintainer {...MAINTAINERS.Mamtooth} />
         </div>
       </div>
 
@@ -581,9 +580,7 @@ export default (
           <SpecIcon spec={SPECS.AFFLICTION_WARLOCK} />
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/166
 
-          By Chizu (aka sMteX on GitHub)
-
-          No other maintainers
+          By <Maintainer {...MAINTAINERS.Chizu} />
         </div>
       </div>
 
@@ -598,9 +595,9 @@ export default (
           <SpecIcon spec={SPECS.BREWMASTER_MONK} />
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/177
 
-          By WOPR (aka shighman on GitHub)
+          By <Maintainer {...MAINTAINERS.WOPR} />
 
-          emallson later took over as the primary maintainer of this spec and has since done a lot of work.
+          <Maintainer {...MAINTAINERS.emallson} /> later took over as the primary maintainer of this spec and has since done a lot of work.
         </div>
       </div>
 
@@ -615,7 +612,7 @@ export default (
           <SpecIcon spec={SPECS.SHADOW_PRIEST} />
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/197
 
-          By hassebewlen (aka hasseboulen on GitHub)
+          By <Maintainer {...MAINTAINERS.hassebewlen} />
 
           No other maintainers
         </div>
@@ -629,6 +626,7 @@ export default (
           <h2>Character and fight selection pull down menus</h2>
         </div>
         <div className="panel-body">
+          By <Maintainer {...MAINTAINERS.fasib} />
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/200
 
           <figure>
@@ -638,7 +636,7 @@ export default (
             </figcaption>
           </figure>
 
-          Later broken by Zerotorescue
+          Later broken by <Maintainer {...MAINTAINERS.Zerotorescue} />
         </div>
       </div>
 
@@ -653,7 +651,7 @@ export default (
           <SpecIcon spec={SPECS.BALANCE_DRUID} />
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/210
 
-          By Iskalla
+          By <Maintainer {...MAINTAINERS.Iskalla} />
 
           Later token over by <Maintainer {...MAINTAINERS.Gebuz} />
         </div>
@@ -670,9 +668,7 @@ export default (
           <SpecIcon spec={SPECS.DESTRUCTION_WARLOCK} />
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/231
 
-          By Chizu (aka sMteX on GitHub)
-
-          No other maintainers
+          By <Maintainer {...MAINTAINERS.Chizu} />
         </div>
       </div>
 
@@ -687,9 +683,7 @@ export default (
           <SpecIcon spec={SPECS.FERAL_DRUID} />
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/241
 
-          By Thieseract
-
-          No other maintainers
+          By <Maintainer {...MAINTAINERS.Thieseract} />
         </div>
       </div>
 
@@ -704,9 +698,7 @@ export default (
           <SpecIcon spec={SPECS.BLOOD_DEATH_KNIGHT} />
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/247
 
-          By Yajinni
-
-          No other maintainers
+          By <Maintainer {...MAINTAINERS.Yajinni} />
         </div>
       </div>
 
@@ -721,9 +713,7 @@ export default (
           <SpecIcon spec={SPECS.HAVOC_DEMON_HUNTER} />
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/262
 
-          By Mamtooth (aka ronaldpereira on GitHub)
-
-          No other maintainers
+          By <Maintainer {...MAINTAINERS.Mamtooth} />
         </div>
       </div>
 
@@ -738,9 +728,9 @@ export default (
           <SpecIcon spec={SPECS.MARKSMANSHIP_HUNTER} />
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/253
 
-          Initial version by Jlassie82
-          Blazballs (aka leapis on GitHub)
-          Putro (aka Pewtro on GitHub) later became the main maintainer of this spec implementation.
+          Initial version by <Maintainer {...MAINTAINERS.JLassie82} />
+          <Maintainer {...MAINTAINERS.Blazballs} />
+          <Maintainer {...MAINTAINERS.Putro} /> later became the main maintainer of this spec implementation.
         </div>
       </div>
 
@@ -755,7 +745,22 @@ export default (
           <SpecIcon spec={SPECS.RETRIBUTION_PALADIN} />
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/293
 
-          By Hewhosmites (aka CollCrom on GitHub)
+          By <Maintainer {...MAINTAINERS.Hewhosmites} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          17 Sep
+        </div>
+        <div className="panel-heading">
+          <h2>Demonology Warlock</h2>
+        </div>
+        <div className="panel-body">
+          <SpecIcon spec={SPECS.DEMONOLOGY_WARLOCK} />
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pulls?utf8=%E2%9C%93&q=is%3Apr+demonology+
+
+          By <Maintainer {...MAINTAINERS.Chizu} />
         </div>
       </div>
 
@@ -920,6 +925,23 @@ export default (
 
       <div className="panel">
         <div className="date">
+          16 Oct
+        </div>
+        <div className="panel-heading">
+          <h2>Fire Mage</h2>
+        </div>
+        <div className="panel-body">
+          <SpecIcon spec={SPECS.FIRE_MAGE} />
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/521
+
+          Initial version by <Maintainer {...MAINTAINERS.Fyruna} />
+          <Maintainer {...MAINTAINERS.sref} /> added a couple of things
+          <Maintainer {...MAINTAINERS.Sharrq} /> added a lot of modules
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
           20 Oct
         </div>
         <div className="panel-heading">
@@ -930,6 +952,21 @@ export default (
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/571
 
           By <Maintainer {...MAINTAINERS.TheBadBossy} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          23 Oct
+        </div>
+        <div className="panel-heading">
+          <h2>Unholy Death Knight</h2>
+        </div>
+        <div className="panel-body">
+          <SpecIcon spec={SPECS.UNHOLY_DEATH_KNIGHT} />
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/602
+
+          By <Maintainer {...MAINTAINERS.Khazak} />
         </div>
       </div>
 
@@ -953,6 +990,22 @@ export default (
           </figure>
 
           Initial support by <Maintainer {...MAINTAINERS.sref} />, generalized and extended a little by <Maintainer {...MAINTAINERS.Zerotorescue} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          29 Oct
+        </div>
+        <div className="panel-heading">
+          <h2>Beast Mastery Hunter</h2>
+        </div>
+        <div className="panel-body">
+          <SpecIcon spec={SPECS.BEAST_MASTERY_HUNTER} />
+          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/681
+
+          By <Maintainer {...MAINTAINERS.Putro} />
+
         </div>
       </div>
 
@@ -1071,7 +1124,7 @@ export default (
 
       <div className="panel">
         <div className="date">
-          2 Nov
+          11 Nov
         </div>
         <div className="panel-heading">
           <h2>Protection Paladin</h2>
@@ -1189,7 +1242,7 @@ export default (
           </figure>
 
           By <Maintainer {...MAINTAINERS.Khazak} />
-          Putro added support for WoD cloak enchants https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1072
+          <Maintainer {...MAINTAINERS.Putro} /> added support for WoD cloak enchants https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1072
         </div>
       </div>
 
@@ -1319,11 +1372,11 @@ export default (
           <h2>Other contributions</h2>
         </div>
         <div className="panel-body">
-          Yuyz0112: Filter kills only fight: https://github.com/WoWAnalyzer/WoWAnalyzer/pull/106
-          Riglerr: Updated Cooldown Tab & components to be able to represent damage as well as healing: https://github.com/WoWAnalyzer/WoWAnalyzer/pull/53
-          BlokyKappa: Fixed main page button alignment
-          kyle-glick: https://github.com/WoWAnalyzer/WoWAnalyzer/pull/924
-          Zeboot: Merge magic schools in Damage Taken https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1013
+          <Maintainer {...MAINTAINERS.Yuyz0112} />: Filter kills only fight: https://github.com/WoWAnalyzer/WoWAnalyzer/pull/106
+          <Maintainer {...MAINTAINERS.Riglerr} />: Updated Cooldown Tab & components to be able to represent damage as well as healing: https://github.com/WoWAnalyzer/WoWAnalyzer/pull/53
+          <Maintainer {...MAINTAINERS.BlokyKappa} />: Fixed main page button alignment
+          <Maintainer {...MAINTAINERS.kyleglick} />: https://github.com/WoWAnalyzer/WoWAnalyzer/pull/924
+          <Maintainer {...MAINTAINERS.Zeboot} />: Merge magic schools in Damage Taken https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1013
         </div>
       </div>
     </Timeline>
