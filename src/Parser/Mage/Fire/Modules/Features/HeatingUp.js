@@ -29,6 +29,8 @@ class HeatingUp extends Analyzer {
   fireBlastWithHotStreak = 0;
   phoenixFlamesWithHotStreak = 0;
   targetId = 0;
+  currentHealth = 0;
+  maxHealth = 0;
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -41,25 +43,29 @@ class HeatingUp extends Analyzer {
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
+    if (this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id) && GUARANTEE_CRIT_SPELLS.includes(spellId)) {
+      this.currentHealth = event.hitPoints;
+      this.maxHealth = event.maxHitPoints;
+    }
     if (!GUARANTEE_CRIT_SPELLS.includes(spellId) || (spellId === SPELLS.PHOENIXS_FLAMES.id && (this.targetId !== damageTarget))) {
       return;
     }
-    const hasHeatingUp = this.combatants.selected.hasBuff(SPELLS.HEATING_UP.id);
-    const hasHotStreak = this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id);
 
-    if (spellId === SPELLS.FIRE_BLAST.id) {
-      if (hasHotStreak) {
+    if ((this.combatants.selected.hasBuff(SPELLS.COMBUSTION.id) || (this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id) && this.healthPercent > .90)) && !this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id)) {
+      debug && console.log("Event Ignored @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+    } else if (spellId === SPELLS.FIRE_BLAST.id) {
+      if (this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id)) {
         this.fireBlastWithHotStreak += 1;
         debug && console.log("Fire Blast with Hot Streak @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-      } else if (!hasHeatingUp) {
+      } else if (!this.combatants.selected.hasBuff(SPELLS.HEATING_UP.id)) {
         this.fireBlastWithoutHeatingUp += 1;
         debug && console.log("Fire Blast without Heating Up @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
       }
     } else if (spellId === SPELLS.PHOENIXS_FLAMES.id) {
-        if (hasHotStreak) {
+        if (this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id)) {
           this.phoenixFlamesWithHotStreak += 1;
           debug && console.log("Phoenix Flames with Hot Streak @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-        } else if (!hasHeatingUp) {
+        } else if (!this.combatants.selected.hasBuff(SPELLS.HEATING_UP.id)) {
           this.phoenixFlamesWithoutHeatingUp += 1;
           debug && console.log("Phoenix Flames without Heating Up @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
         }
@@ -92,6 +98,10 @@ class HeatingUp extends Analyzer {
 
   get phoenixFlamesMissedPercent() {
     return this.phoenixFlamesWasted / this.abilityTracker.getAbility(SPELLS.PHOENIXS_FLAMES.id).casts;
+  }
+
+  get healthPercent() {
+    return this.currentHealth / this.maxHealth;
   }
 
   get fireBlastUtilSuggestionThresholds() {

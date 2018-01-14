@@ -1,12 +1,13 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
+import Wrapper from 'common/Wrapper';
 
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
-  get downtimeSuggestionThresholds() {
+  get suggestionThresholds() {
     return {
       actual: this.downtimePercentage,
       isGreaterThan: {
@@ -17,16 +18,13 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       style: 'percentage',
     };
   }
-  suggestions(when) {
-    const deadTimePercentage = this.downtimePercentage;
 
-    when(deadTimePercentage).isGreaterThan(0.05)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> Your downtime can be improved. Try to Always Be Casting (ABC)...</span>)
+  suggestions(when) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+        return suggest(<Wrapper> Your downtime can be improved. Try to Always Be Casting (ABC)...</Wrapper>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
-          .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
-          .regular(0.075).major(0.1);
+          .recommended(`${formatPercentage(recommended)}% or less is recommended`);
       });
   }
 

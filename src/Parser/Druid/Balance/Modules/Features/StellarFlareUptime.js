@@ -34,14 +34,12 @@ class StellarFlareUptime extends Analyzer {
   }
 
   suggestions(when) {
-    const suggestion = this.suggestionThresholds;
-    when(suggestion)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(suggestion.text)
-          .icon(SPELLS.STELLAR_FLARE_TALENT.icon)
-          .actual(`${formatPercentage(actual)}% Stellar Flare uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`);
-      });
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(suggest.text)
+        .icon(SPELLS.STELLAR_FLARE_TALENT.icon)
+        .actual(`${formatPercentage(actual)}% Stellar Flare uptime`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
+    });
   }
 
   statistic() {

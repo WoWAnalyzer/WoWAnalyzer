@@ -41,8 +41,7 @@ class Tier21_2set extends Analyzer {
         <dfn data-tip={`
           The effective damage contributed by tier 21 2 peice.<br/>
           Damage: ${this.owner.formatItemDamageDone(this.damageDone)}<br/>
-          Total Damage: ${formatNumber(this.damageDone)}`}
-        >
+          Total Damage: ${formatNumber(this.damageDone)}`}>
           <ItemDamageDone amount={this.damageDone} />
         </dfn>
       ),

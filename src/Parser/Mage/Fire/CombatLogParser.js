@@ -3,6 +3,7 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import WarningDisplay from 'Parser/Core/Modules/Features/WarningDisplay';
 
 import FlamestrikeNormalizer from './Normalizers/Flamestrike';
+import Scorch from './Normalizers/Scorch';
 import KaelthasUltimateAbility from './Normalizers/KaelthasUltimateAbility';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -35,6 +36,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Normalizers
     FlameStrikeNormalizer: FlamestrikeNormalizer,
+    scorch: Scorch,
     kaelthasUltimateAbility: KaelthasUltimateAbility,
 
     // Features

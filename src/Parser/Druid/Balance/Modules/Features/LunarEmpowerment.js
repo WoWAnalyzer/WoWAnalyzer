@@ -103,14 +103,12 @@ class LunarEmpowerment extends Analyzer {
   }
   
   suggestions(when) {
-    when(this.wastedPercentage).isGreaterThan(0.02)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<Wrapper>You overcapped {this.wastedPerMinute.toFixed(2)} Lunar Empowerments per minute when you could have cast it without overcapping Astral Power. Try to prioritize casting Lunar Strike over Starsurge when not near max AsP and having Lunar Empowerment stacks up.</Wrapper>)
-            .icon('ability_druid_eclipse')
-            .actual(`${formatPercentage(this.wastedPercentage)}% overcapped Lunar Empowerments`)
-            .recommended('0% is recommended.')
-            .regular(0.05).major(0.1);
-        });
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<Wrapper>You overcapped {this.wastedPerMinute.toFixed(2)} Lunar Empowerments per minute when you could have cast it without overcapping Astral Power. Try to prioritize casting Lunar Strike over Starsurge when not near max AsP and having Lunar Empowerment stacks up.</Wrapper>)
+        .icon('ability_druid_eclipse')
+        .actual(`${formatPercentage(this.wastedPercentage)}% overcapped Lunar Empowerments`)
+        .recommended(`<${formatPercentage(1 - recommended)}% is recommended`);
+    });
   }
 
   statistic() {

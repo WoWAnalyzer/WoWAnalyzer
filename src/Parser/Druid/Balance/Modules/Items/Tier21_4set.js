@@ -43,6 +43,27 @@ class Tier21_4set extends Analyzer {
     return this.combatants.selected.getBuffUptime(SPELLS.SOLAR_SOLSTICE.id) / this.owner.fightDuration;
   }
 
+  get suggestionThresholds() {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 0.9,
+        average: 0.8,
+        major: 0.7,
+      },
+      style: 'number',
+    };
+  }
+  
+  suggestions(when) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<Wrapper>Your <SpellLink id={SPELLS.BALANCE_DRUID_T21_4SET_BONUS_BUFF.id} /> uptime was {formatPercentage(actual)}%. Try to cast your spenders 4-6 seconds apart to maintain higher uptime.</Wrapper>)
+        .icon(SPELLS.BALANCE_DRUID_T21_4SET_BONUS_BUFF.icon)
+        .actual(`${formatPercentage(actual)}% uptime`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
+    });
+  }
+
   item() {
     return {
       id: SPELLS.BALANCE_DRUID_T21_4SET_BONUS_BUFF.id,
