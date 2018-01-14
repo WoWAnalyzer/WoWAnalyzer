@@ -82,6 +82,10 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 9 / (1 + haste),
         enabled: combatant.hasTalent(SPELLS.CINDERSTORM_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
       },
       {
         spell: SPELLS.BLAST_WAVE_TALENT,
