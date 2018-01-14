@@ -15,23 +15,31 @@ class Tearstone extends Analyzer {
     rejuvenationAttributor: RejuvenationAttributor,
   };
 
-  wildGrowths = 0;
+  wildGrowthApplications = 0;
+  wildGrowthCasts = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasFinger(ITEMS.TEARSTONE_OF_ELUNE.id);
   }
 
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.WILD_GROWTH.id) {
+      this.wildGrowthCasts += 1;
+    }
+  }
+
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.WILD_GROWTH.id) {
-      this.wildGrowths += 1;
+      this.wildGrowthApplications += 1;
     }
   }
 
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.WILD_GROWTH.id) {
-      this.wildGrowths += 1;
+      this.wildGrowthApplications += 1;
     }
   }
 
@@ -51,14 +59,17 @@ class Tearstone extends Analyzer {
     return this.rejuvenationAttributor.tearstoneOfElune.procs;
   }
   get procRate() {
-    return this.procs / this.wildGrowths;
+    return (this.procs / this.wildGrowthApplications) || 0;
+  }
+  get procsPerCast() {
+    return (this.procs / this.wildGrowthCasts) || 0;
   }
 
   item() {
     return {
       item: ITEMS.TEARSTONE_OF_ELUNE,
       result: (
-        <dfn data-tip={`You procced <b>${this.procs}</b> Rejuvenations, for a <b>proc rate of ${formatPercentage(this.procRate)}%</b>. This is the sum of the direct healing from those Rejuvernations and the healing enabled by their extra mastery stacks and the healing enabled by extra Dreamwalker procs.
+        <dfn data-tip={`Over ${this.wildGrowthCasts} Wild Growth casts and ${this.wildGrowthApplications} Wild Growth HoT applications, you procced <b>${this.procs}</b> Rejuvenations. This is <b>${this.procsPerCast.toFixed(2)}</b> bonus Rejuvs per Wild Growth cast, and a proc rate of <b>${formatPercentage(this.procRate)}%</b> on each Wild Growth HoT application. <br><br>The reported healing value is the sum of the direct healing from those Rejuvenations, the healing enabled by their extra mastery stacks, and the healing enabled by extra Dreamwalker procs.
             <ul>
             <li>Direct: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.directHealing))}%</b></li>
             <li>Mastery: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.masteryHealing))}%</b></li>
