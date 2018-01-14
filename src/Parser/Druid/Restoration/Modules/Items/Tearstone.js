@@ -21,15 +21,18 @@ class Tearstone extends Analyzer {
     this.active = this.combatants.selected.hasFinger(ITEMS.TEARSTONE_OF_ELUNE.id);
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if (SPELLS.WILD_GROWTH.id === spellId) {
-        if (this.combatants.selected.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
-          this.wildGrowths += 8;
-        } else {
-          this.wildGrowths += 6;
-        }
-      }
+    if (spellId === SPELLS.WILD_GROWTH.id) {
+      this.wildGrowths += 1;
+    }
+  }
+
+  on_byPlayer_refreshbuff(event) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.WILD_GROWTH.id) {
+      this.wildGrowths += 1;
+    }
   }
 
   get directHealing() {

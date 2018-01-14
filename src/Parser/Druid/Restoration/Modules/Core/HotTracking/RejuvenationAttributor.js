@@ -37,6 +37,7 @@ class RejuvenationAttributor extends Analyzer {
   // PotA tracking stuff
   lastPotaRejuvTimestamp;
   potaFallTimestamp; // FIXME temp until figure out hasBuff problem
+  potaRejuvsRemaining = 0; // occasionally procs happen at same time as PotA consumption, assures that no more than 2 apply/refreshbuff is attributed per PotA
   potaTarget;
 
   // Tearstone tracking stuff
@@ -70,6 +71,7 @@ class RejuvenationAttributor extends Analyzer {
     const hadPota = this.potaFallTimestamp && this.potaFallTimestamp + BUFFER_MS > event.timestamp;
     if (spellId === SPELLS.REJUVENATION.id && hadPota) {
       this.lastPotaRejuvTimestamp = event.timestamp;
+      this.potaRejuvsRemaining = 2;
       this.potaTarget = targetId;
     }
   }
@@ -108,8 +110,9 @@ class RejuvenationAttributor extends Analyzer {
       // standard hardcast gets no special attribution
       this.castRejuvApplied = true;
       attName = "Hardcast";
-    } else if (this.lastPotaRejuvTimestamp + BUFFER_MS > timestamp && this.potaTarget !== targetId) { // PotA proc but not primary target
+    } else if (this.lastPotaRejuvTimestamp + BUFFER_MS > timestamp && this.potaTarget !== targetId && this.potaRejuvsRemaining > 0) { // PotA proc but not primary target
       attributions.push(this.powerOfTheArchdruid);
+      this.potaRejuvsRemaining -= 1;
       attName = this.powerOfTheArchdruid.name;
     } else if (this.hasTearstone && this.lastWildGrowthCastTimestamp + BUFFER_MS > timestamp) {
       attributions.push(this.tearstoneOfElune);
