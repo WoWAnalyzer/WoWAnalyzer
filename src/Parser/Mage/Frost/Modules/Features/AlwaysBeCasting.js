@@ -35,6 +35,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 	  SPELLS.COMET_STORM_TALENT.id,
   ];
 
+get deadTimePercentage() {
+  return this.totalTimeWasted / this.owner.fightDuration;
+}
+
   get downtimeSuggestionThresholds() {
     return {
       actual: this.downtimePercentage,
@@ -48,16 +52,14 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   }
 
   suggestions(when) {
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
     const boss = this.owner.boss;
     if (!boss || !boss.fight.disableDowntimeSuggestion) {
-      when(deadTimePercentage).isGreaterThan(this.downtimeSuggestionThresholds.isGreaterThan.minor)
+      when(this.downtimeSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting instants, even unbuffed <SpellLink id={SPELLS.ICE_LANCE.id} /> spam is better than nothing.</span>)
             .icon('spell_mage_altertime')
             .actual(`${formatPercentage(actual)}% downtime`)
-            .recommended(`<${formatPercentage(recommended)}% is recommended`)
-            .regular(this.downtimeSuggestionThresholds.isGreaterThan.average).major(this.downtimeSuggestionThresholds.isGreaterThan.major);
+            .recommended(`<${formatPercentage(recommended)}% is recommended`);
         });
     }
   }

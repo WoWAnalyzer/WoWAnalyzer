@@ -9,6 +9,10 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
+/**
+ * Soul of the Archmage:
+ * Gain the Frozen Touch talent
+ */
 class SoulOfTheArchmage extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -29,7 +33,7 @@ class SoulOfTheArchmage extends Analyzer {
   suggestions(when) {
     when(this.hasPickedOtherTalent).isFalse()
       .addSuggestion((suggest) => {
-        return suggest(<span>When using <ItemLink id={ITEMS.SOUL_OF_THE_ARCHMAGE.id} /> please make sure to pick another talent in the same talent row. Your choices are <SpellLink id={SPELLS.ICE_NOVA_TALENT.id} /> or <SpellLink id={SPELLS.SPLITTING_ICE_TALENT.id} />.</span>)
+        return suggest(<Wrapper>When using <ItemLink id={ITEMS.SOUL_OF_THE_ARCHMAGE.id} /> please make sure to pick another talent in the same talent row. Your choices are <SpellLink id={SPELLS.ICE_NOVA_TALENT.id} /> or <SpellLink id={SPELLS.SPLITTING_ICE_TALENT.id} />.</Wrapper>)
           .icon(ITEMS.SOUL_OF_THE_ARCHMAGE.icon)
           .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
       });
