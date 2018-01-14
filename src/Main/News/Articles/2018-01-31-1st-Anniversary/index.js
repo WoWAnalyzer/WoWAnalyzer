@@ -444,6 +444,20 @@ export default (
 
       <div className="panel">
         <div className="date">
+          25 Jun
+        </div>
+        <div className="panel-heading">
+          <h2>Development tab</h2>
+        </div>
+        <div className="panel-body">
+          86c6c930dd8a2a606055f47fa0a4793c314e907b
+
+          By <Maintainer {...MAINTAINERS.Zerotorescue} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
           1 Jul
         </div>
         <div className="panel-heading">
@@ -790,7 +804,7 @@ export default (
             </figcaption>
           </figure><br />
 
-          At the time of writing the following specs are considered good or great:<br />
+          At the time of writing the following specs are considered {completeness(SPEC_ANALYSIS_COMPLETENESS.GOOD)} or {completeness(SPEC_ANALYSIS_COMPLETENESS.GREAT)}:<br />
           <ul>
             <li className="Paladin">Holy Paladin</li>
             <li className="Paladin">Retribution Paladin</li>
