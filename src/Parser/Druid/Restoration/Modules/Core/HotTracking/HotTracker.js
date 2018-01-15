@@ -162,6 +162,27 @@ class HotTracker extends Analyzer {
     this.hots[targetId][spellId].attributions.push(attribution);
   }
 
+  // to be called by external module, adds an extension to the HoT with the given target / spellId
+  // attribution object must have fields for name, healing, masteryHealing (and rejuv only: dreamwalkerHealing)
+  // amount is the number of ms to extend the HoT, and iff tickClamps is true the extension may be clamped depending on a formula TODO better description of this
+  addExtensions(attribution, amount, tickClamps, targetId, spellId) {
+    if (!this.hots[targetId] || !this.hots[targetId][spellId]) {
+      console.warn(`Tried to add extension ${attribution.name} to targetId=${targetId}, spellId=${spellId}, but that HoT isn't recorded as present`);
+      return;
+    }
+
+    let finalAmount = amount;
+    if (tickClamps) {
+      // TODO do clamping formula
+    }
+
+    attribution.procs += 1;
+    this.hots[targetId][spellId].extensions.push({
+      attribution,
+      amount: finalAmount,
+    });
+  }
+
   // gets an event's target ... returns null if for any reason the event should not be further processed
   _getTarget(event) {
     const target = this.combatants.getEntity(event);
