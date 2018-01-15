@@ -57,5 +57,5 @@ export default [
     date: new Date('2017-08-13'),
     changes: <Wrapper>Added damage type into the tooltip of damage taken, added logic for <SpellLink id={SPELLS.PULVERIZE_TALENT.id} /> and minor fixes.</Wrapper>,
     contributors: [WOPR],
-  }
+  },
 ];
