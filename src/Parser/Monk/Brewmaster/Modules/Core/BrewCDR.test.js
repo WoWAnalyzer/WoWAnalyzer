@@ -6,7 +6,6 @@ import fs from 'fs';
 import CombatLogParser from '../../CombatLogParser'; 
 import BrewCDR from './BrewCDR';
 import report from '../../test-logs/report_nxzcqJKmYwHbdWMp';
-// import { events } from '../../test-logs/eisenpelz_felhounds_h_nxzcqJKmYwHbdWMp';
 
 
 describe('BrewCDR', () => {

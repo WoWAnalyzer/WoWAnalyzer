@@ -63,18 +63,12 @@ class Abilities extends CoreAbilities {
       },
       // Cooldowns
       {
-        spell: SPELLS.FAKE_SHARED_BREWS,
+        // it is possible to refer to the shared CD using *either* spell
+        // id
+        spell: [SPELLS.IRONSKIN_BREW, SPELLS.PURIFYING_BREW],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: haste => 21 / (1 + haste),
         charges: 3,
-      },
-      {
-        spell: SPELLS.IRONSKIN_BREW,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      },
-      {
-        spell: SPELLS.PURIFYING_BREW,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       },
       {
         spell: SPELLS.BLACK_OX_BREW_TALENT,
