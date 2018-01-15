@@ -86,7 +86,11 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.WILD_GROWTH,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+      },
+      {
+        spell: SPELLS.EFFLORESCENCE_CAST,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
       },
       {
         spell: SPELLS.REJUVENATION,
