@@ -778,4 +778,15 @@ export default {
     name: 'Felshield',
     icon: 'ability-vehicle-shellshieldgenerator-green',
   },
+  //Aman'Thul's Vision
+  AMANTHULS_GRANDEUR: { //Pantheon Proc
+    id: 256832,
+    name: 'Aman\'Thul\'s Grandeur',
+    icon: 'ability_shaman_repulsiontotem',
+  },
+  GLIMPSE_OF_ENLIGHTENMENT: { //Regular Proc
+    id: 256818,
+    name: 'Glimpse of Enlightenment',
+    icon: 'inv_antorus_turquoise',
+  },
 };
