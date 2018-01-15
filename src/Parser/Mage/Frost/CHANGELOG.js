@@ -4,6 +4,8 @@ import { Sharrq, sref } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import ItemLink from 'common/ItemLink';
+import ITEMS from 'common/ITEMS';
 
 export default [
     {
