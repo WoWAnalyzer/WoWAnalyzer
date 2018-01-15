@@ -3,13 +3,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Wrapper from 'common/Wrapper';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-
-const DAMAGE_WINDOW_MS = 5000;
 
 class Cinderstorm extends Analyzer {
   static dependencies = {
@@ -18,19 +16,9 @@ class Cinderstorm extends Analyzer {
   };
 
   cinderHits = 0;
-  totalHits = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.CINDERSTORM_TALENT.id);
-  }
-
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.CINDERSTORM_TALENT.id) {
-      return;
-    }
-    this.castTimestamp = event.timestamp;
-    this.cinderHits = 0;
   }
 
   on_byPlayer_damage(event) {
@@ -38,56 +26,32 @@ class Cinderstorm extends Analyzer {
     if (spellId !== SPELLS.CINDERSTORM_DAMAGE.id) {
       return;
     }
-    if (this.castTimestamp - event.timestamp < DAMAGE_WINDOW_MS && this.cinderHits < 6) {
-      this.cinderHits += 1;
-      this.totalHits += 1;
-    }
-  }
-
-  get cindersHitPercent() {
-    return this.totalHits / this.totalCinders;
-  }
-
-  get totalCinders() {
-    return this.abilityTracker.getAbility(SPELLS.CINDERSTORM_TALENT.id).casts * 6;
-  }
-
-  get missedCinders() {
-    return this.totalCinders - this.totalHits;
-  }
-
-  get missedCindersPercent() {
-    return this.missedCinders / this.totalCinders;
+    this.cinderHits += 1;
   }
 
   get averageHitsPerCast() {
-    return 6 - ((this.totalHits / 6) / (this.totalCinders / 6));
+    return this.cinderHits / this.abilityTracker.getAbility(SPELLS.CINDERSTORM_TALENT.id).casts;
   }
 
   get suggestionThreshold() {
     return {
-      actual: this.cindersHitPercent,
+      actual: this.averageHitsPerCast,
       isLessThan: {
-        minor: 1,
-        average: 0.95,
-        major: 0.85,
+        minor: 6,
+        average: 5.7,
+        major: 5.4,
       },
-      style: 'percentage',
+      style: 'number',
     };
-  }
-
-  on_finished() {
-    console.log(this.totalHits);
-    console.log(this.totalCinders);
   }
 
   suggestions(when) {
 		when(this.suggestionThreshold)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<Wrapper>When using <SpellLink id={SPELLS.CINDERSTORM_TALENT.id}/>, {formatNumber(this.missedCinders)} cinders ({formatPercentage(this.missedCindersPercent)}%) did not hit anything. You should either aim the spell better so that all cinders hit the target, or pick a different talent. On AoE, this spell should be used so that each cinder hits every mob.</Wrapper>)
+				return suggest(<Wrapper>Your Cinders from <SpellLink id={SPELLS.CINDERSTORM_TALENT.id}/>, on average, hit {this.averageHitsPerCast.toFixed(2)} targets per cast. When using the Cinderstorm talent, you need to ensure that you are aiming the ability such that every cinder hits every enemy. If you are unable to do this or are having trouble aiming the spell, then you should pick a different talent.</Wrapper>)
 					.icon(SPELLS.CINDERSTORM_TALENT.icon)
-					.actual(`${formatPercentage(this.cindersHitPercent)}% Hit`)
-					.recommended(`${formatPercentage(recommended)}% is recommended`);
+					.actual(`${this.averageHitsPerCast.toFixed(2)} Hits Per Cast`)
+					.recommended(`${formatNumber(recommended)} is recommended`);
 			});
   }
 

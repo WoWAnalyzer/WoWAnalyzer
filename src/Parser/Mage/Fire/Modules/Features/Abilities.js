@@ -84,7 +84,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.CINDERSTORM_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.70,
         },
       },
       {
