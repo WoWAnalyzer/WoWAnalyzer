@@ -537,7 +537,7 @@ class App extends Component {
                   {!hasReport && (
                     <ReportSelecter />
                   )}
-                  <ServiceStatus style={{ marginBottom: 5 }} />
+                  {process.env.NODE_ENV !== 'test' && <ServiceStatus style={{ marginBottom: 5 }} />}
                   <div className="about">
                     <Link to={makeNewsUrl(AboutArticleTitle)}>About WoWAnalyzer</Link>
                     {' '}| <Link to={makeNewsUrl(UnlistedLogsTitle)}>About unlisted logs</Link>
