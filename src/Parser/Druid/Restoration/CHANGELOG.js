@@ -2,6 +2,11 @@ import { blazyb, sref, Zerotorescue } from 'MAINTAINERS';
 
 export default [
   {
+    date: new Date('2018-01-10'),
+    changes: 'Added framework for tracking HoT attribution, allowing updates to several modules: Tearstone of Elune, Power of the Archdruid, T21 2pc, and T21 4pc. Also added T19 4pc module.',
+    contributors: [sref],
+  },
+  {
     date: new Date('2018-01-07'),
     changes: 'Clearcasting module now shows percent used instead of percent missed, tooltip updated, and now works with MoC',
     contributors: [sref],

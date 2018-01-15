@@ -28,7 +28,7 @@ class Status extends React.Component {
   load() {
     return fetch(makeApiUrl('status'))
       .then(response => response.json())
-      .then((json) => {
+      .then(json => {
         console.log('Received status', json);
         this.setState({
           status: json,

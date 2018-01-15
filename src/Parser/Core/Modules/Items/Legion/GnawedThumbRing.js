@@ -55,6 +55,10 @@ class GnawedThumbRing extends Analyzer {
     if (event.ability.type === SCHOOLS.ids.PHYSICAL) {
       return;
     }
+    if (event.targetIsFriendly) {
+      // Friendly fire does not get increased
+      return;
+    }
     if (this.combatants.selected.hasBuff(SPELLS.GNAWED_THUMB_RING.id)) {
       this.damage += event.amount - (event.amount / (1 + GNAWED_THUMB_RING_DAMAGE_INCREASE));
     }
@@ -64,7 +68,8 @@ class GnawedThumbRing extends Analyzer {
     return {
       item: ITEMS.GNAWED_THUMB_RING,
       result: (
-        <dfn data-tip={`The effective healing and damage contributed by Gnawed Thumb Ring.<br/>
+        <dfn
+          data-tip={`The effective healing and damage contributed by Gnawed Thumb Ring.<br/>
             Damage: ${this.owner.formatItemDamageDone(this.damage)} <br/>
             Healing: ${this.owner.formatItemHealingDone(this.healing)}`}
         >

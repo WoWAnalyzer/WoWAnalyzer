@@ -75,14 +75,12 @@ class AstralPower extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.wastedPercentage).isGreaterThan(0)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>You overcapped {this.wastedPerMinute.toFixed(2)} Astral Power per minute. Always prioritize spending it over avoiding the overcap or any other ability.</Wrapper>)
-          .icon('ability_druid_cresentburn')
-          .actual(`${formatPercentage(this.wastedPercentage)}% overcapped Astral Power`)
-          .recommended('0% overcapped Astral Power is recommended.')
-          .regular(0.02).major(0.05);
-      });
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<Wrapper>You overcapped {this.wastedPerMinute.toFixed(2)} Astral Power per minute. Always prioritize spending it over avoiding the overcap or any other ability.</Wrapper>)
+        .icon('ability_druid_cresentburn')
+        .actual(`${formatPercentage(this.wastedPercentage)}% overcapped Astral Power`)
+        .recommended(`${formatPercentage(1-recommended)}% overcapped Astral Power is recommended.`);
+    });
   }
 
   statistic() {

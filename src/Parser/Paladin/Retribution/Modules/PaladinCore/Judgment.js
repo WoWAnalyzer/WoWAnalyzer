@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -31,8 +32,8 @@ class Judgment extends Analyzer {
 			return;
 		}
 		if(spellId === SPELLS.TEMPLARS_VERDICT.id || 
-			    spellId === SPELLS.DIVINE_STORM.id ||
-			    spellId === SPELLS.JUSTICARS_VENGENANCE_TALENT){
+			  spellId === SPELLS.DIVINE_STORM.id ||
+				spellId === SPELLS.JUSTICARS_VENGEANCE_TALENT.id){
 			if(!enemy.hasBuff(SPELLS.JUDGMENT_DEBUFF.id)){
 				this.spenderOutsideJudgment++;
 			}
@@ -41,8 +42,8 @@ class Judgment extends Analyzer {
 	}
 
 	on_byPlayer_damage(event){
-		const enemy = this.enemies.getEntity(event);
 		const spellId = event.ability.guid;
+		const enemy = this.enemies.getEntity(event);
 
 		if(!this._hasES){
 			return;
@@ -50,12 +51,13 @@ class Judgment extends Analyzer {
 		if(!enemy){
 			return;
 		}
-		if(!enemy.hasBuff(SPELLS.JUDGMENT_DEBUFF.id)){ 
-			if(spellId === SPELLS.EXECUTION_SENTENCE_TALENT.id){
-			this.spenderOutsideJudgment++;
-			}
-			this.totalSpender++;
+		if(spellId !== SPELLS.EXECUTION_SENTENCE_TALENT.id){
+			return;
 		}
+		if(!enemy.hasBuff(SPELLS.JUDGMENT_DEBUFF.id)){
+			this.spenderOutsideJudgment++;
+		}
+		this.totalSpender++;
 	}
 
 	get suggestionThresholds() {
@@ -73,10 +75,10 @@ class Judgment extends Analyzer {
 
 	suggestions(when) {
 		when(this.suggestionThresholds).addSuggestion((suggest,actual,recommended) => {
-				return suggest(<span>You're spending Holy Power outisde of the <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> debuff. It is optimal to only spend Holy Power while the enemy is debuffed with <SpellLink id={SPELLS.JUDGMENT_CAST.id} />.</span>)
-					.icon(SPELLS.JUDGMENT_DEBUFF.icon)
-					.actual(`${formatNumber(this.spenderOutsideJudgment)} Holy Power spenders used outside of Judgment (${formatPercentage(actual)}%).`)
-					.recommended(`<${formatPercentage(recommended)}% is recommended`);
+			return suggest(<Wrapper>You're spending Holy Power outisde of the <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/> debuff. It is optimal to only spend Holy Power while the enemy is debuffed with <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/>.</Wrapper>)
+				.icon(SPELLS.JUDGMENT_DEBUFF.icon)
+				.actual(`${formatNumber(this.spenderOutsideJudgment)} Holy Power spenders used outside of Judgment (${formatPercentage(actual)}%).`)
+				.recommended(`<${formatPercentage(recommended)}% is recommended`);
 		});
 	}
 

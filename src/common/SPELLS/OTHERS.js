@@ -119,7 +119,7 @@ export default {
   },
   GNAWED_THUMB_RING: {
     id: 228461,
-    name: 'Gnawed Thumb Ring',
+    name: 'Taste of Mana',
     icon: 'inv_70_dungeon_ring6a',
   },
   VELENS_FUTURE_SIGHT_BUFF: {
