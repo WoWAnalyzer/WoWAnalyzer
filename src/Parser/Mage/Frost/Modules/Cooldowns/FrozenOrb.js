@@ -22,7 +22,8 @@ class FrozenOrb extends Analyzer {
 	}
 
   on_byPlayer_damage(event) {
-		if(event.ability.guid !== SPELLS.BLIZZARD_DAMAGE.id) {
+		const spellId = event.ability.guid;
+		if(spellId !== SPELLS.BLIZZARD_DAMAGE.id) {
 			return;
 		}
 		if (this.spellUsable.isOnCooldown(SPELLS.FROZEN_ORB.id)) {

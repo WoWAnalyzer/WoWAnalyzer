@@ -571,13 +571,22 @@ dfn[data-tip] {
   cursor: help;
 }
 
-.alert-danger {
+.alert {
   padding: 20px 30px;
-  background-color: rgba(119, 47, 46, 0.6);
-  border-color: transparent;
-  text-align: justify;
-  color: #ff1d19;
   border-radius: 0;
+  border: 0;
+}
+.alert-info {
+  background-color: rgba(52, 152, 219, 0.6);
+  color: white;
+}
+.alert-warning {
+  background-color: rgba(255, 188, 0, 0.6);
+  color: white;
+}
+.alert-danger {
+  background-color: rgba(119, 47, 46, 0.6);
+  color: #ff1d19;
 }
 .alert-danger a {
   color: #fff;

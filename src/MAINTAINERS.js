@@ -106,6 +106,7 @@ export const Noichxd = {
 export const Hewhosmites = {
   nickname: 'Hewhosmites',
   github: 'CollCrom',
+  avatar: require('./Images/hewhosmites-avatar.png'),
 };
 export const Reglitch = {
   nickname: 'Reglitch',
