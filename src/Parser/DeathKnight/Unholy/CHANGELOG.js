@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Khazak } from 'MAINTAINERS';
+import { Bicepspump, Khazak } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
