@@ -32,6 +32,8 @@ import RestoDruidStatWeights from './RestoDruidStatWeights.png';
 import ApiIsDown from './ApiIsDown.gif';
 import EnchantChecker from './EnchantChecker.png';
 import WoWAnalyzerV11 from './WoWAnalyzer-v1.1.png';
+import StatusPage from './StatusPage.png';
+import OutageAlert from './OutageAlert.png';
 
 function completeness(completeness) {
   return <dfn data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>;
@@ -1373,6 +1375,38 @@ export default (
         </div>
         <div className="panel-body">
           https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1154
+
+          By <Maintainer {...MAINTAINERS.Zerotorescue} />
+        </div>
+      </div>
+
+      <div className="panel">
+        <div className="date">
+          15 Jan
+        </div>
+        <div className="panel-heading">
+          <h2>Know what's the matter with the all new status page</h2>
+        </div>
+        <div className="panel-body">
+          In order to provide quick status updates when our service is degraded due to an outage or for another reason, we added a <a href="https://status.wowanalyzer.com/">status page</a>. On this status page we can indicate when something is not running optimally and what the cause and impact are.<br /><br />
+
+          <figure>
+            <img src={StatusPage} alt="Status page" />
+            <figcaption>
+              We rely heavily on the data from Warcraft Logs. If it's unavailable we can no longer analyze fights for players that haven't been analyzed before.
+            </figcaption>
+          </figure><br />
+
+          When there's a service degradation we will show an alert on the report selector to inform everyone of potential issues.<br /><br />
+
+          <figure>
+            <img src={OutageAlert} alt="Outage alert in the report selection" />
+            <figcaption>
+              When there's something not working optimally we will show a big indicator on the report selection.
+            </figcaption>
+          </figure><br />
+
+          The status page runs on an different server in a different datacenter in a different country. This should ensure that it will be there when the main server is down. In hindsight I'm not sure what the point of that is considering we can all use <a href="https://discord.gg/AxphPxU">Discord</a> anyway, but it's there nonetheless.<br /><br />
 
           By <Maintainer {...MAINTAINERS.Zerotorescue} />
         </div>
