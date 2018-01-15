@@ -50,7 +50,9 @@ class SmolderingHeart extends Analyzer {
   on_byPlayer_applybuff(event) {
     if (event.ability.guid === SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) {
         if (this.AscendanceCastEventIds.has(event.eventUniqueId + 1)) {
-            // On manual Ascendance cast, the applybuff event occurs one event before the cast event/
+            // On manual Ascendance cast, the applybuff event occurs one event before the cast event, so checking if 
+            // a cast event exists one place after the applybuff event is a robust way of determining whether an Ascendance
+            // buff was manually casted or is a result of a Smoldering Heart proc.
             return;
         } else {
             // Magic number: 10000ms is the duration of the Smoldering Heart Asc proc.
