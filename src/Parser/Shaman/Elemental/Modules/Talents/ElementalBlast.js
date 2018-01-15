@@ -14,6 +14,26 @@ class ElementalBlast extends Analyzer {
     combatants: Combatants,
   };
 
+  currentBuffAmount=0;
+  lastFreshApply=0;
+  resultDuration=0;
+
+  on_removebuff(event) {
+    if (event.ability.guid === SPELLS.ELEMENTAL_BLAST_CRIT.id ||event.ability.guid === SPELLS.ELEMENTAL_BLAST_MASTERY.id ||event.ability.guid === SPELLS.ELEMENTAL_BLAST_HASTE.id){
+      this.currentBuffAmount--;
+      if (this.currentBuffAmount===0)
+        this.resultDuration+=event.timestamp-this.lastFreshApply;
+    }
+  }
+
+  on_applybuff(event) {
+    if (event.ability.guid === SPELLS.ELEMENTAL_BLAST_CRIT.id ||event.ability.guid === SPELLS.ELEMENTAL_BLAST_MASTERY.id ||event.ability.guid === SPELLS.ELEMENTAL_BLAST_HASTE.id){
+      if (this.currentBuffAmount===0)
+        this.lastFreshApply=event.timestamp;
+      this.currentBuffAmount++;
+    }
+  }
+
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
   }
@@ -31,7 +51,7 @@ class ElementalBlast extends Analyzer {
   }
 
   get elementalBlastUptime() {
-    return this.hasteUptime + this.critUptime + this.masteryUptime;
+    return this.resultDuration/this.owner.fightDuration;
   }
 
   statistic() {
