@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import Haste from 'Parser/Core/Modules/Haste';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Mastery from '../Mastery';
 
@@ -12,6 +13,7 @@ const REJUV_IDS = [
 ];
 
 const debug = false;
+const extensionDebug = false;
 
 /*
  * Backend module for tracking attribution of HoTs, e.g. what applied them / applied parts of them / boosted them
@@ -20,6 +22,7 @@ class HotTracker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     mastery: Mastery,
+    haste: Haste,
   };
 
   // {
@@ -80,7 +83,7 @@ class HotTracker extends Analyzer {
 
     hot.attributions.forEach(att => att.healing += healing);
     hot.boosts.forEach(att => att.healing += calculateEffectiveHealing(event, att.boost));
-    // TODO add handling for HoT extensions
+    // extensions handled when HoT falls, using ticks list
   }
 
   on_byPlayer_applybuff(event) {
@@ -100,7 +103,7 @@ class HotTracker extends Analyzer {
       spellId, // stored extra here so I don't have to convert string to number like I would if I used its key in the object.
       ticks: [], // listing of ticks w/ effective heal amount and timestamp, to be used as part of the HoT extension calculations
       attributions: [], // The effect or bonus that procced this HoT application. No attribution implies the spell was hardcast.
-      extensions: [], // The effects or bonuses that caused this HoT to have extended duration. TODO NYI
+      extensions: [], // The effects or bonuses that caused this HoT to have extended duration. Format: { amount, attribution }
       boosts: [], // The effects or bonuses that caused the strength of this HoT to be boosted for its full duration.
     };
     if(!this.hots[targetId]) {
@@ -171,16 +174,48 @@ class HotTracker extends Analyzer {
       return;
     }
 
+    const hot = this.hots[targetId][spellId];
     let finalAmount = amount;
     if (tickClamps) {
-      // TODO do clamping formula
+      const currentTimeRemaining = hot.end - this.owner.currentTimestamp;
+      // TODO error handling if this is negative
+      const currentTickPeriod = this.hotInfo[spellId].tickPeriod / (1 + this.haste.current);
+      // TODO error handling if can't find hotInfo
+      finalAmount = this._calculateExtension(amount, currentTimeRemaining, currentTickPeriod);
     }
+    hot.end += finalAmount;
 
     attribution.procs += 1;
     this.hots[targetId][spellId].extensions.push({
       attribution,
       amount: finalAmount,
     });
+  }
+
+  /*
+   * HoT extensions (for whatever reason) do not always extend by exactly the listed amount.
+   * Instead, they follow the following formula, which this function implements:
+   *
+   * Add the raw extension amount to the current time remaining on the HoT, then round to the nearest whole number of ticks (with respect to haste)
+   * Note that as most tick periods scale with haste, this rounding effectively works on a snapshot of the player's haste at the moment of the extension.
+   *
+   * An example:
+   * The player casts Flourish (raw extension = 6 seconds), extending a Rejuvenation with 5.4s remaining.
+   * The player's current haste is 20%, meaning rejuv's current tick period = 3 / (1 + 0.2) = 2.5
+   * Time remaining after raw extension = 5.4 + 6 = 11.6
+   * Ticks remaining after extension, before rounding = 11.6 / 2.5 = 4.64
+   * Round(4.64) = 5 ticks => 5 * 2.5 = 12.5 seconds remaining after extension and rounding
+   * Effective extension amount = 12.6 - 5.4 = 7.2
+   * Note that this can round up or down
+   *
+   * Thanks @tremaho for the detailed explanation of the formula
+   */
+  _calculateExtension(rawAmount, currentTimeRemaining, tickPeriod) {
+    const newTimeRemaining = currentTimeRemaining + rawAmount;
+    const ticksRemaining = newTimeRemaining / tickPeriod;
+    const roundedTimeRemaining = Math.round(ticksRemaining) * tickPeriod;
+    // TODO debug prints
+    return roundedTimeRemaining - currentTimeRemaining;
   }
 
   // gets an event's target ... returns null if for any reason the event should not be further processed
