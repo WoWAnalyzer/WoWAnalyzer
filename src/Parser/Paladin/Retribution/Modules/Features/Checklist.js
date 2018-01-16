@@ -23,7 +23,6 @@ import BoWProcTracker from '../PaladinCore/BoWProcTracker';
 import Judgment from '../PaladinCore/Judgment';
 import Liadrins from '../Items/LiadrinsFuryUnleashed';
 import Whisper from '../Items/WhisperOfTheNathrezim';
-import AshesToDust from '../Items/AshesToDust';
 import BotA from '../PaladinCore/BlessingOfTheAshbringer';
 
 class Checklist extends CoreChecklist {
@@ -42,7 +41,6 @@ class Checklist extends CoreChecklist {
     judgment: Judgment,
     liadrins: Liadrins,
     whisper: Whisper,
-    ashesToDust: AshesToDust,
     bota: BotA,
 	};
 
