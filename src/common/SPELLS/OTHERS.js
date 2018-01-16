@@ -61,6 +61,21 @@ export default {
     name: 'Flask of the Whispered Pact',
     icon: 'inv_alchemy_70_flask03purple',
   },
+  FLASK_OF_THE_SEVENTH_DEMON: {
+    id: 188033,
+    name: 'Flask of the Seventh Demon',
+    icon: 'inv_alchemy_70_flask03orange',
+  },
+  FLASK_OF_THE_COUNTLESS_ARMIES: {
+    id: 188034,
+    name: 'Flask of the Countless Armies',
+    icon: 'inv_alchemy_70_flask03red',
+  },
+  FLASK_OF_TEN_THOUSAND_SCARS: {
+    id: 188035,
+    name: 'Flask of Ten Thousand Scars',
+    icon: 'inv_alchemy_70_flask03green',
+  },
   DEFILED_AUGMENT_RUNE: {
     id: 224001,
     name: 'Defiled Augment Rune',
@@ -110,6 +125,47 @@ export default {
     id: 190909,
     name: 'Mark of the Claw',
     icon: 'classicon_druid',
+  },
+  // Food Buffs
+  THE_HUNGRY_MAGISTER: {
+    id: 225602,
+    name: 'The Hungry Magister',
+    icon: 'spell_misc_food',
+  },
+  AZSHARI_SALAD: {
+    id: 225603,
+    name: 'Azshari Salad',
+    icon: 'spell_misc_food',
+  },
+  NIGHTBORNE_DELICACY_PLATTER: {
+    id: 225604,
+    name: 'Nightborne Delicacy Platter',
+    icon: 'spell_misc_food',
+  },
+  SEED_BATTERED_FISH_PLATE: {
+    id: 225605,
+    name: 'Seed-Battered Fish Plate',
+    icon: 'spell_misc_food',
+  },
+  STAM_FEAST: {
+    id: 201637,
+    name: 'Lavish Suramar Feast',
+    icon: 'spell_misc_food',
+  },
+  STR_FEAST: {
+    id: 201638,
+    name: 'Lavish Suramar Feast',
+    icon: 'spell_misc_food',
+  },
+  AGI_FEAST: {
+    id: 201639,
+    name: 'Lavish Suramar Feast',
+    icon: 'spell_misc_food',
+  },
+  INT_FEAST: {
+    id: 201640,
+    name: 'Lavish Suramar Feast',
+    icon: 'spell_misc_food',
   },
   // Items buffs:
   JACINS_RUSE: {
