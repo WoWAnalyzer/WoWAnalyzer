@@ -37,9 +37,9 @@ class Cinderstorm extends Analyzer {
     return {
       actual: this.averageHitsPerCast,
       isLessThan: {
-        minor: 6,
-        average: 5.7,
-        major: 5.4,
+        minor: 5.7,
+        average: 5.4,
+        major: 4.8,
       },
       style: 'number',
     };
