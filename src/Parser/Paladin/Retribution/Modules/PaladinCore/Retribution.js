@@ -23,6 +23,10 @@ class Retribution extends Analyzer {
     if (!this.combatants.selected.hasBuff(SPELLS.RETRIBUTION_BUFF.id)) {
       return;
     }
+    if (event.targetIsFriendly) {
+      // Friendly fire does not get increased
+      return;
+    }
     this.bonusDmg += GetDamageBonus(event, RETRIBUTION_DAMAGE_BONUS);
   }
 
