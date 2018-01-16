@@ -23,25 +23,27 @@ import BoWProcTracker from '../PaladinCore/BoWProcTracker';
 import Judgment from '../PaladinCore/Judgment';
 import Liadrins from '../Items/LiadrinsFuryUnleashed';
 import Whisper from '../Items/WhisperOfTheNathrezim';
+import AshesToDust from '../Items/AshesToDust';
 import BotA from '../PaladinCore/BlessingOfTheAshbringer';
 
 class Checklist extends CoreChecklist {
 	static dependencies = {
 		castEfficiency: CastEfficiency,
-	    combatants: Combatants,
-	    alwaysBeCasting: AlwaysBeCasting,
-	    legendaryUpgradeChecker: LegendaryUpgradeChecker,
-	    legendaryCountChecker: LegendaryCountChecker,
-	    prePotion: PrePotion,
-	    enchantChecker: EnchantChecker,
-	    abilityTracker: AbilityTracker,
+    combatants: Combatants,
+    alwaysBeCasting: AlwaysBeCasting,
+    legendaryUpgradeChecker: LegendaryUpgradeChecker,
+    legendaryCountChecker: LegendaryCountChecker,
+    prePotion: PrePotion,
+    enchantChecker: EnchantChecker,
+    abilityTracker: AbilityTracker,
 
-	    holyPowerDetails: HolyPowerDetails,
-	    boWProcTracker: BoWProcTracker,
-	    judgment: Judgment,
-	    liadrins: Liadrins,
-	    whisper: Whisper,
-        bota: BotA,
+    holyPowerDetails: HolyPowerDetails,
+    boWProcTracker: BoWProcTracker,
+    judgment: Judgment,
+    liadrins: Liadrins,
+    whisper: Whisper,
+    ashesToDust: AshesToDust,
+    bota: BotA,
 	};
 
 	rules = [

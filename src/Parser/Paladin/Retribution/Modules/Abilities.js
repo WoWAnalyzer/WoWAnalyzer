@@ -21,7 +21,7 @@ class Abilities extends CoreAbilities {
         enabled: !combatant.hasShoulder(ITEMS.ASHES_TO_DUST.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9,
+          recommendedEfficiency: 0.85,
           extraSuggestion: 'It has a high damage per execute time and generates a lot of holy power. It is better to waste 1-2 holy power than to hold the ability. Only hold the ability if adds are coming out in less than 3 seconds',
         },
       },
@@ -32,7 +32,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasShoulder(ITEMS.ASHES_TO_DUST.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 1,
+          recommendedEfficiency: .95,
           extraSuggestion: <Wrapper>With <ItemLink id={ITEMS.ASHES_TO_DUST.id} icon/> it is imperative you cast this on cooldown to get the damage bonus.</Wrapper>,
           importance: ISSUE_IMPORTANCE.MAJOR,
         },
