@@ -10,9 +10,9 @@ Feature requests (and bug reports provided that you're not using one of Microsof
 
 ## Battle for Azeroth
 
-Battle for Azeroth changes will be applied to the [next](https://github.com/WoWAnalyzer/WoWAnalyzer/tree/next) branch. Any changes to this branch will automatically be deployed here: https://next.wowanalyzer.com.
+Battle for Azeroth changes will be applied to the [bfa](https://github.com/WoWAnalyzer/WoWAnalyzer/tree/bfa) branch. Any changes to this branch will automatically be deployed here: https://bfa.wowanalyzer.com.
 
-When you make a pull request for the `next` branch please include it in the title of your PR.
+When you make a pull request for the `bfa` branch please include BFA in the title of your PR.
 
 ## Contributing
 
