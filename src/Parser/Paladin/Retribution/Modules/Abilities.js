@@ -18,6 +18,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.WAKE_OF_ASHES,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 30,
+        enabled: !combatant.hasShoulder(ITEMS.ASHES_TO_DUST.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
