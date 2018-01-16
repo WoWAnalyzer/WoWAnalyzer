@@ -240,6 +240,11 @@ export default {
     name: 'Meteor',
     icon: 'spell_mage_meteor',
   },
+  CINDERSTORM_DAMAGE: {
+    id: 198928,
+    name: 'Cinderstorm',
+    icon: 'spell_fire_flare',
+  },
 
   //Arcane
   ARCANE_BLAST: {
