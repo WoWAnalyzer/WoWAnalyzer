@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
@@ -52,9 +53,9 @@ class WhisperOfTheNathrezim extends Analyzer {
       item: ITEMS.WHISPER_OF_THE_NATHREZIM,
       result: (
         <dfn data-tip={`
-        The effective damage contributed by Whisper of the Nathrezim.<br/>
-        Total Damage: ${formatNumber(this.damageDone)}<br/>
-        Spenders With Buff: ${formatNumber(this.spenderInsideBuff)} spenders (${formatPercentage(this.spenderInsideBuff / this.totalSpender)}%)`}>
+          The effective damage contributed by Whisper of the Nathrezim.<br/>
+          Total Damage: ${formatNumber(this.damageDone)}<br/>
+          Spenders With Buff: ${formatNumber(this.spenderInsideBuff)} spenders (${formatPercentage(this.spenderInsideBuff / this.totalSpender)}%)`}>
           <ItemDamageDone amount={this.damageDone} />
         </dfn>
       ),
@@ -63,11 +64,11 @@ class WhisperOfTheNathrezim extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: this.owner.getPercentageOfTotalDamageDone(this.damageDone),
+      actual: this.spenderInsideBuff / this.totalSpender,
       isLessThan: {
-        minor: 0.05,
-        average: 0.045,
-        major: 0.04,
+        minor: 0.80,
+        average: 0.75,
+        major: 0.70,
       },
       style: 'percentage',
     };
@@ -75,10 +76,10 @@ class WhisperOfTheNathrezim extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your usage of <ItemLink id={ITEMS.WHISPER_OF_THE_NATHREZIM.id} /> can be improved. Make sure to save up five holy power before your next <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> window to get more time on the Whisper buff.</span>)
-          .icon(ITEMS.WHISPER_OF_THE_NATHREZIM.icon)
-          .actual(`${formatPercentage(actual)}% damage contributed`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`);
+      return suggest(<Wrapper>Your usage of <ItemLink id={ITEMS.WHISPER_OF_THE_NATHREZIM.id} icon/> can be improved. Make sure to save up five holy power before your next <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/> window to get more time on the buff.</Wrapper>)
+        .icon(ITEMS.WHISPER_OF_THE_NATHREZIM.icon)
+        .actual(`${formatPercentage(actual)}% damage contributed`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
   }
 }

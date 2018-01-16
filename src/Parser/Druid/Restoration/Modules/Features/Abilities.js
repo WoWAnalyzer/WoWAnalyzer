@@ -58,7 +58,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BARKSKIN,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 60,
         castEfficiency: {
           suggestion: true,
@@ -86,11 +86,15 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.WILD_GROWTH,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+      },
+      {
+        spell: SPELLS.EFFLORESCENCE_CAST,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
       },
       {
         spell: SPELLS.REJUVENATION,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
       {
         spell: SPELLS.INCARNATION_TREE_OF_LIFE_TALENT,
@@ -115,11 +119,11 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HEALING_TOUCH,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
       {
         spell: SPELLS.REGROWTH,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
       {
         spell: SPELLS.SWIFTMEND,
@@ -138,6 +142,18 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
+      },
+      {
+        spell: SPELLS.SOLAR_WRATH,
+        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+      },
+      {
+        spell: SPELLS.MOONFIRE,
+        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+      },
+      {
+        spell: SPELLS.SUNFIRE_CAST,
+        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
       },
     ];
   }

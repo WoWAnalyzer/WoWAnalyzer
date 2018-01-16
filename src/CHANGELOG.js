@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, Yuyz0112, Zerotorescue, Hartra344, Putro, Sharrq } from 'MAINTAINERS';
+import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, Yuyz0112, Zerotorescue, Hartra344, Putro, Sharrq, Hewhosmites } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
@@ -9,8 +9,18 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-01-13'),
+    date: new Date('2018-01-16'),
     changes: 'Fixed current Haste percentage interaction with Haste rating buff changes (this improves ABC and spell cooldown accuracy).',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-01-15'),
+    changes: <Wrapper>Added in <ItemLink id={ITEMS.AMANTHULS_VISION.id} icon/></Wrapper>,
+    contributors: [Hewhosmites],
+  },
+  {
+    date: new Date('2018-01-15'),
+    changes: <Wrapper>Fixed a bug where friendly fire damage (from for example the passive of <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} icon />) would be included in the damage gain from <ItemLink id={ITEMS.GNAWED_THUMB_RING.id} icon />.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {

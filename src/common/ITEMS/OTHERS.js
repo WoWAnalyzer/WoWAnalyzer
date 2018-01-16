@@ -89,7 +89,12 @@ export default {
     icon: 'inv_jewelry_ring_60',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-
+  AMANTHULS_VISION: {
+    id: 154172,
+    name: 'Aman\'Thul\'s Vision',
+    icon: 'inv_antorus_turquoise',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   //Crafted legendaries
   CELUMBRA_THE_NIGHTS_DICHOTOMY: {
     id: 146666,

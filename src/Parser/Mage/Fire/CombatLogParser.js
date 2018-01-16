@@ -3,6 +3,7 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import WarningDisplay from 'Parser/Core/Modules/Features/WarningDisplay';
 
 import FlamestrikeNormalizer from './Normalizers/Flamestrike';
+import Scorch from './Normalizers/Scorch';
 import KaelthasUltimateAbility from './Normalizers/KaelthasUltimateAbility';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -17,6 +18,7 @@ import PhoenixsFlames from './Modules/Features/PhoenixsFlames';
 import HotStreak from './Modules/Features/HotStreak';
 import Combustion from './Modules/Features/Combustion';
 import HeatingUp from './Modules/Features/HeatingUp';
+import Cinderstorm from './Modules/Features/Cinderstorm';
 
 import Tier20_4set from './Modules/Items/Tier20_4set';
 import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
@@ -34,6 +36,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Normalizers
     FlameStrikeNormalizer: FlamestrikeNormalizer,
+    scorch: Scorch,
     kaelthasUltimateAbility: KaelthasUltimateAbility,
 
     // Features
@@ -46,6 +49,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hotStreak: HotStreak,
     combustion: Combustion,
     heatingUp: HeatingUp,
+    cinderstorm: Cinderstorm,
 
     // Talents
     mirrorImage: MirrorImage,

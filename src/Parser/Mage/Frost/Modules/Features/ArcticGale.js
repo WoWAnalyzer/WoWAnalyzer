@@ -7,8 +7,7 @@ import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
-
-import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const DAMAGE_BONUS = 0.3;
 
@@ -24,23 +23,16 @@ class ArcticGale extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid === SPELLS.BLIZZARD_DAMAGE.id) {
-      this.damage += getDamageBonus(event, DAMAGE_BONUS);
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.BLIZZARD_DAMAGE.id) {
+      this.damage += calculateEffectiveDamage(event, DAMAGE_BONUS);
     }
   }
 
-  statistic() {
-    const damagePercent = this.owner.getPercentageOfTotalDamageDone(this.damage);
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.ARCTIC_GALE_TALENT.id} />}
-        value={`${formatPercentage(damagePercent)} %`}
-        label="Arctic Gale damage"
-        tooltip="This is the portion of your total damage attributable to Arctic Gale. This number only considers the damage bonus to Blizzard, and does not factor in extra targets you may have hit due to the increased area of effect."
-      />
-    );
+
+  get damagePercent() {
+    return this.owner.getPercentageOfTotalDamageDone(this.damage);
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(10);
 
   get suggestionThresholds() {
     return {
@@ -49,6 +41,18 @@ class ArcticGale extends Analyzer {
       style: 'number',
     };
   }
+
+  statistic() {
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.ARCTIC_GALE_TALENT.id} />}
+        value={`${formatPercentage(this.damagePercent)} %`}
+        label="Arctic Gale damage"
+        tooltip="This is the portion of your total damage attributable to Arctic Gale. This number only considers the damage bonus to Blizzard, and does not factor in extra targets you may have hit due to the increased area of effect."
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(10);
 
   // TODO suggest when Arctic Gale damage is very low but non-zero?
   suggestions(when) {

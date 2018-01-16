@@ -59,6 +59,7 @@ import KiljaedensBurningWish from './Modules/Items/Legion/Legendaries/Kiljaedens
 import ArchimondesHatredReborn from './Modules/Items/Legion/Legendaries/ArchimondesHatredReborn';
 import CinidariaTheSymbiote from './Modules/Items/Legion/Legendaries/CinidariaTheSymbiote';
 import InsigniaOfTheGrandArmy from './Modules/Items/Legion/Legendaries/InsigniaOfTheGrandArmy';
+import AmanthulsVision from './Modules/Items/Legion/Legendaries/AmanthulsVision';
 // Dungeons/crafted
 import DrapeOfShame from './Modules/Items/Legion/DrapeOfShame';
 import DarkmoonDeckPromises from './Modules/Items/Legion/DarkmoonDeckPromises';
@@ -181,6 +182,7 @@ class CombatLogParser {
     archimondesHatredReborn: ArchimondesHatredReborn,
     cinidariaTheSymbiote: CinidariaTheSymbiote,
     insigniaOfTheGrandArmy: InsigniaOfTheGrandArmy,
+    amanthulsVision: AmanthulsVision,
     // Epics:
     drapeOfShame: DrapeOfShame,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,

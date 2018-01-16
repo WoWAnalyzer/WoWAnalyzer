@@ -25,6 +25,10 @@ class LoneWolf extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
+    if (event.targetIsFriendly) {
+      // Friendly fire does not get increased
+      return;
+    }
     this.damage += getDamageBonus(event, LONE_WOLF_MODIFIER);
   }
 

@@ -37,6 +37,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.RIP.id,
     SPELLS.SHRED.id,
     SPELLS.SOLAR_WRATH.id,
+    SPELLS.SUNFIRE_CAST.id,
+    SPELLS.MOONFIRE.id,
     SPELLS.CAT_SWIPE.id,
     SPELLS.SWIPE_BEAR.id,
     SPELLS.URSOLS_VORTEX.id,

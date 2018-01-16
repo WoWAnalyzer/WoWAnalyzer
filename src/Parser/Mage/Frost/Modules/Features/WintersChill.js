@@ -51,10 +51,10 @@ class WintersChillTracker extends Analyzer {
 
     if (spellId === SPELLS.ICE_LANCE_DAMAGE.id) {
       this.iceLanceHits += 1;
-      if(debug) { console.log("Ice Lance into Winter's Chill"); }
+      debug && console.log("Ice Lance into Winter's Chill");
     } else if(HARDCAST_HITS.includes(spellId)) {
       this.hardcastHits += 1;
-      if(debug) { console.log(`${event.ability.name} into Winter's Chill`); }
+      debug && console.log(`${event.ability.name} into Winter's Chill`);
     }
   }
 

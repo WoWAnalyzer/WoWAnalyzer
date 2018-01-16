@@ -1,6 +1,9 @@
 import React from 'react';
+
+import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
+import ItemLink from 'common/ItemLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -49,7 +52,7 @@ class LiadrinsFuryUnleashed extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(`You wasted ${formatPercentage(actual)}% of the holy power from Liadrin's. Consider using an easier legendary.`)
+        return suggest(<Wrapper>You wasted {formatPercentage(actual)}% of the holy power from <ItemLink id={ITEMS.LIADRINS_FURY_UNLEASHED.id} icon/>. Consider using an easier legendary.</Wrapper>)
           .icon(ITEMS.LIADRINS_FURY_UNLEASHED.icon)
           .actual(`${this.hpWasted} Holy Power wasted`)
           .recommended(`Wasting less than ${formatPercentage(recommended)}% is recommended.`);

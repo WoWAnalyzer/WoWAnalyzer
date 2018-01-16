@@ -2,6 +2,11 @@ import { WOPR, emallson } from 'MAINTAINERS';
 
 export default [
   {
+    date: new Date('2018-01-12'),
+    changes: 'Added Purifying Brew statistic.',
+    contributors: [emallson],
+  },
+  {
     date: new Date('2018-01-02'),
     changes: 'Added brew cooldown reduction tracking.',
     contributors: [emallson],

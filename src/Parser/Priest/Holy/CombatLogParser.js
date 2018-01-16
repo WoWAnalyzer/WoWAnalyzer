@@ -28,6 +28,7 @@ import MasteryBreakdown from './Modules/PriestCore/MasteryBreakdown';
 import Serendipity from './Modules/PriestCore/Serendipity';
 import SanctifyReduction from './Modules/PriestCore/SerendipityReduction/SanctifyReduction';
 import SerenityReduction from './Modules/PriestCore/SerendipityReduction/SerenityReduction';
+import HymnBuffBenefit from './Modules/PriestCore/HymnBuffBenefit';
 
 // Items
 import TrousersOfAnjuna from './Modules/Items/TrousersOfAnjuna';
@@ -57,6 +58,7 @@ class CombatLogParser extends CoreCombatLogParser {
     serendipity: Serendipity,
     sancReduction: SanctifyReduction,
     sereReduction: SerenityReduction,
+    hymnBuffBenefit: HymnBuffBenefit,
 
     // Spells
     prayerOfMending: PrayerOfMending,

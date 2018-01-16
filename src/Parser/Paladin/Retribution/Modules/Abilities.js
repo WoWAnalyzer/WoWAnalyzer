@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
@@ -17,9 +18,10 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.WAKE_OF_ASHES,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 30,
+        enabled: !combatant.hasShoulder(ITEMS.ASHES_TO_DUST.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9,
+          recommendedEfficiency: 0.85,
           extraSuggestion: 'It has a high damage per execute time and generates a lot of holy power. It is better to waste 1-2 holy power than to hold the ability. Only hold the ability if adds are coming out in less than 3 seconds',
         },
       },
@@ -30,8 +32,8 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasShoulder(ITEMS.ASHES_TO_DUST.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 1,
-          extraSuggestion: <span>With <ItemLink id={ITEMS.ASHES_TO_DUST.id} /> it is imperative you cast this on cooldown to get the damage bonus.</span>,
+          recommendedEfficiency: .95,
+          extraSuggestion: <Wrapper>With <ItemLink id={ITEMS.ASHES_TO_DUST.id} icon/> it is imperative you cast this on cooldown to get the damage bonus.</Wrapper>,
           importance: ISSUE_IMPORTANCE.MAJOR,
         },
       },
@@ -44,7 +46,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
           importance: ISSUE_IMPORTANCE.MAJOR,
-          extraSuggestion: <span>This is our only cooldown and where most of our damage comes from. You really want to not lose a cast of this over a fight.<br />Note: It may be off by one cast if you use <SpellLink id={SPELLS.CRUSADE_TALENT.id} /> before the fight starts. You want to avoid doing this since your first GCD with the <SpellLink id={SPELLS.CRUSADE_TALENT.id} /> buff should be a spender.</span>,
+          extraSuggestion: 'This is our only cooldown and where most of our damage comes from. You really want to not lose a cast of this over a fight.',
         },
       },
       {
@@ -114,7 +116,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-          extraSuggestion: <span>With tier 20 and tier 21 it is even more important to use <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> on cooldown</span>,
+          extraSuggestion: <Wrapper>With tier 20 and tier 21 it is even more important to use <SpellLink id={SPELLS.JUDGMENT_CAST.id}/> on cooldown</Wrapper>,
         },
       },
       {

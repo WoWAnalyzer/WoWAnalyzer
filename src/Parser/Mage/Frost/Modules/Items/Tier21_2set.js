@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
-import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 const DAMAGE_BONUS_PER_BOLT = 0.15;
@@ -29,18 +29,20 @@ class Tier21_2set extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.FLURRY_DAMAGE.id) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.FLURRY_DAMAGE.id) {
       return;
     }
 
     const bonusMult = this.iceBolt <= 2 ? this.iceBolt : 1;
-    this.damage += getDamageBonus(event, bonusMult * DAMAGE_BONUS_PER_BOLT);
+    this.damage += calculateEffectiveDamage(event, bonusMult * DAMAGE_BONUS_PER_BOLT);
 
     this.iceBolt += 1;
   }
 
   on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.FLURRY.id) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.FLURRY.id) {
       return;
     }
 

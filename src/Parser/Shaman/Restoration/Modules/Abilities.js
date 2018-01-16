@@ -173,25 +173,33 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HEALING_WAVE,
         name: `Filler ${SPELLS.HEALING_WAVE.name}`,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        casts: castCount => (castCount.casts || 0) - (castCount.healingTwHits || 0),
+        castEfficiency: {
+          casts: castCount => (castCount.casts || 0) - (castCount.healingTwHits || 0),
+        },
       },
       {
         spell: SPELLS.HEALING_WAVE,
         name: `Tidal Waves ${SPELLS.HEALING_WAVE.name}`,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        casts: castCount => castCount.healingTwHits || 0,
+        castEfficiency: {
+          casts: castCount => castCount.healingTwHits || 0,
+        },
       },
       {
         spell: SPELLS.HEALING_SURGE_RESTORATION,
         name: `Filler ${SPELLS.HEALING_SURGE_RESTORATION.name}`,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        casts: castCount => (castCount.casts || 0) - (castCount.healingTwHits || 0),
+        castEfficiency: {
+          casts: castCount => (castCount.casts || 0) - (castCount.healingTwHits || 0),
+        },
       },
       {
         spell: SPELLS.HEALING_SURGE_RESTORATION,
         name: `Tidal Waves ${SPELLS.HEALING_SURGE_RESTORATION.name}`,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        casts: castCount => castCount.healingTwHits || 0,
+        castEfficiency: {
+          casts: castCount => castCount.healingTwHits || 0,
+        },
       },
     ];
   }

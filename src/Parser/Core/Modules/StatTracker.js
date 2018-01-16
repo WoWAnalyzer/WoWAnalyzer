@@ -19,9 +19,28 @@ class StatTracker extends Analyzer {
     // region Potions
     [SPELLS.POTION_OF_PROLONGED_POWER.id]: { stamina: 2500, strength: 2500, agility: 2500, intellect: 2500 },
     // endregion
-    // TODO: add flasks
-    // TODO: add food
-    // TODO: add runes
+
+    // region Runes
+    [SPELLS.DEFILED_AUGMENT_RUNE.id]: {strength: 325, agility: 325, intellect: 325},
+    // endregion
+
+    //region Flasks
+    [SPELLS.FLASK_OF_THE_WHISPERED_PACT.id]: {intellect: 1300},
+    [SPELLS.FLASK_OF_THE_SEVENTH_DEMON.id]: {agility: 1300},
+    [SPELLS.FLASK_OF_THE_COUNTLESS_ARMIES.id]: {strength: 1300},
+    [SPELLS.FLASK_OF_TEN_THOUSAND_SCARS.id]: {stamina: 1950},
+    // endregion
+
+    //region Food
+    [SPELLS.THE_HUNGRY_MAGISTER.id]: {crit: 375},
+    [SPELLS.AZSHARI_SALAD.id]: {haste: 375},
+    [SPELLS.NIGHTBORNE_DELICACY_PLATTER.id]: {mastery: 375},
+    [SPELLS.SEED_BATTERED_FISH_PLATE.id]: {versatility: 375},
+    [SPELLS.STAM_FEAST.id]: {stamina: 600},
+    [SPELLS.STR_FEAST.id]: {strength: 500},
+    [SPELLS.AGI_FEAST.id]: {agility: 500},
+    [SPELLS.INT_FEAST.id]: {intellect: 500},
+    //endregion
 
     // region Trinkets
     [SPELLS.SHADOWS_STRIKE.id]: {
@@ -225,7 +244,7 @@ class StatTracker extends Analyzer {
         return standard + 0.05; //baseline +5%
       case SPECS.WINDWALKER_MONK:
         return standard + 0.05; //baseline +5%
-      default:      
+      default:
         return standard;
     }
   }
@@ -237,7 +256,7 @@ class StatTracker extends Analyzer {
       case SPECS.HOLY_PALADIN:
         return 0.12;
       case SPECS.HOLY_PRIEST:
-        return 0.05;
+        return 0.10;
       case SPECS.SHADOW_PRIEST:
         return 0.2;
       case SPECS.DISCIPLINE_PRIEST:
