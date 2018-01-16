@@ -13,7 +13,7 @@ import Wrapper from 'common/Wrapper';
 
 const debug = false;
 
-const TITANS_THUNDER_USE_REGARDLESS_THRESHHOLD = 30;
+const TITANS_THUNDER_USE_REGARDLESS_THRESHHOLD = 30000;
 
 class TitansThunder extends Analyzer {
   static dependencies = {
@@ -59,6 +59,7 @@ class TitansThunder extends Analyzer {
     this.totalTTCasts += 1;
     const bestialWrathIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id);
     if (bestialWrathIsOnCooldown) {
+      debug && console.log("remaining CD: ", this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id));
       if (!this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id) && this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id) < TITANS_THUNDER_USE_REGARDLESS_THRESHHOLD) {
         this.shouldHaveSavedTT += 1;
         return;
