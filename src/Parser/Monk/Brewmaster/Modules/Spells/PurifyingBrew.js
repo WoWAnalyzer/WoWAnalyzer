@@ -25,12 +25,6 @@ class PurifyingBrew extends Analyzer {
     }
   }
 
-  on_byPlayer_cast(event) {
-    if(event.ability.guid === SPELLS.PURIFYING_BREW.id) {
-      this.brews.consumeCharge(event);
-    }
-  }
-
   get meanPurify() {
     if(this.purifyAmounts.length === 0) {
       return 0;
