@@ -12,6 +12,8 @@ const REJUV_IDS = [
   SPELLS.REJUVENATION_GERMINATION.id,
 ];
 
+const EXPECTED_REMOVAL_THRESHOLD = 500;
+
 const debug = false;
 const extensionDebug = false;
 
@@ -45,14 +47,21 @@ class HotTracker extends Analyzer {
     const targetId = event.targetID;
     const healing = event.amount + (event.absorbed || 0);
 
-    // handle mastery attribution
+    // handle Mastery attribution
     if (this.hots[targetId]) {
       const oneStack = this.mastery.decomposeHeal(event).oneStack; // TODO move this before target validation so still counts direct healing
       Object.values(this.hots[targetId]).forEach(otherHot => {
         if (otherHot.spellId !== spellId) {
           otherHot.attributions.forEach(att => att.masteryHealing += oneStack);
+
           // boosts don't get mastery benefit because the hot was there with or without the boost
-          // TODO add handling for HoT extensions
+
+          // to avoid making a crazy number of array elements but still be able to include mastery info for extensions,
+          // mastery healing stored with the tick that immediately preceded it, can be read from there while calc extension benefit
+          const numTicks = otherHot.ticks.length
+          if(numTicks > 0) {
+            otherHot.ticks[numTicks-1].masteryHealing += oneStack;
+          }
         }
       });
     }
@@ -68,8 +77,14 @@ class HotTracker extends Analyzer {
         console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there is no Rejuvenation on that target???`);
       } else if (rejuvsOnTarget.length === 1) { // for now only attribute if one rejuv on target .... TODO more complex logic for handling rejuv + germ
         rejuvsOnTarget[0].attributions.forEach(att => att.dreamwalkerHealing += healing);
+
         // boosts don't get mastery benefit because the hot was there with or without the boost
-        // TODO add handling for HoT extensions
+
+        // stored for use by extensions
+        if(!rejuvsOnTarget[0].dreamwalkers) {
+          rejuvsOnTarget[0].dreamwalkers = [];
+        }
+        rejuvsOnTarget[0].dreamwalkers.push({ healing, timestamp: event.timestamp });
       }
     }
 
@@ -78,7 +93,8 @@ class HotTracker extends Analyzer {
     }
     const hot = this.hots[targetId][spellId];
     if (event.tick) { // direct healing (say from a PotA procced regrowth) still should be counted for attribution, but not part of tick tracking
-      hot.ticks.push({ healing, timestamp: event.timestamp });
+      // mastery healing populated with all healing due to mastery after this tick but before the next... done this way to avoid array size getting out of control
+      hot.ticks.push({ healing, masteryHealing: 0, timestamp: event.timestamp });
     }
 
     hot.attributions.forEach(att => att.healing += healing);
@@ -101,6 +117,7 @@ class HotTracker extends Analyzer {
       start: event.timestamp,
       end: event.timestamp + this.hotInfo[spellId].duration,
       spellId, // stored extra here so I don't have to convert string to number like I would if I used its key in the object.
+      name: event.ability.name, // stored for logging
       ticks: [], // listing of ticks w/ effective heal amount and timestamp, to be used as part of the HoT extension calculations
       attributions: [], // The effect or bonus that procced this HoT application. No attribution implies the spell was hardcast.
       extensions: [], // The effects or bonuses that caused this HoT to have extended duration. Format: { amount, attribution }
@@ -147,6 +164,8 @@ class HotTracker extends Analyzer {
     if (!this._validateHot(event)) {
       return;
     }
+
+    this._checkRemovalTime(this.hots[targetId][spellId], event.timestamp);
 
     // TODO here's where HoT extensions will actually be tallied
     // TODO check how well actual HoT remove time matched with the expected HoT remove time
@@ -216,6 +235,22 @@ class HotTracker extends Analyzer {
     const roundedTimeRemaining = Math.round(ticksRemaining) * tickPeriod;
     // TODO debug prints
     return roundedTimeRemaining - currentTimeRemaining;
+  }
+
+  // Returns the difference between the timestamp and the expected removal time listed in the hot object.
+  // Return will be positive if HoT actually ended after expected end (eg HoT lasted longer than expected).
+  // Return will be negative if HoT actually ended before expected end (eg HoT lasted shorter than expected).
+  // Logs when difference is over a certain threshold.
+  _checkRemovalTime(hot, actual) {
+    const expected = hot.end;
+    const diff = actual - expected;
+    if (diff > EXPECTED_REMOVAL_THRESHOLD) {
+      // The only reason HoT could last longer than expected is we are missing an extension, which is a bug -> log a warning
+      console.warn(`${hot.name} fell @${this.owner.formatTimestamp(actual)}, which is ${(diff/1000).toFixed(1)}s LATER than expected... Missing an extension?`);
+    } else if (diff < (-1 * EXPECTED_REMOVAL_THRESHOLD)) {
+      // Several legitimate reasons HoT could last shorter than expected: target dies, target was purged, target cancelled the spell -> log only when debug on
+      extensionDebug && console.log(`${hot.name} fell @${this.owner.formatTimestamp(actual)}, which is ${(diff/1000).toFixed(1)}s earlier than expected`);
+    }
   }
 
   // gets an event's target ... returns null if for any reason the event should not be further processed
