@@ -87,6 +87,14 @@ class TimeFocusCapped extends Analyzer {
             .actual(`${formatPercentage(actual)}%`)
             .recommended(`<${formatPercentage(recommended)}% is recommended`);
         });
+    } else if (this.combatants.selected.spec === SPECS.SURVIVAL_HUNTER) {
+      when(this.suggestionThresholds)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest(<Wrapper>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. Remember to cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} /> to stay off the focus cap, if no other focus spender is ready to use. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</Wrapper>)
+            .icon('ability_hunter_focusfire')
+            .actual(`${formatPercentage(actual)}%`)
+            .recommended(`<${formatPercentage(recommended)}% is recommended`);
+        });
     }
   }
 
