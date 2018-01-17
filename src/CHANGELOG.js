@@ -9,13 +9,18 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-01-18'),
+    changes: <Wrapper>Added support for <ItemLink id={ITEMS.EYE_OF_COMMAND.id} icon /></Wrapper>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-01-16'),
     changes: 'Fixed current Haste percentage interaction with Haste rating buff changes (this improves ABC and spell cooldown accuracy).',
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-01-15'),
-    changes: <Wrapper>Added in <ItemLink id={ITEMS.AMANTHULS_VISION.id} icon/></Wrapper>,
+    changes: <Wrapper>Added in <ItemLink id={ITEMS.AMANTHULS_VISION.id} icon /></Wrapper>,
     contributors: [Hewhosmites],
   },
   {
