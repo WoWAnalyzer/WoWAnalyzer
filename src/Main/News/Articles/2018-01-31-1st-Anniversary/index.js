@@ -11,6 +11,8 @@ import SPECS from 'common/SPECS';
 import SPEC_ANALYSIS_COMPLETENESS, { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import RegularArticle from 'Main/News/RegularArticle';
 import Maintainer from 'Main/Maintainer';
+import DiscordButton from 'Main/DiscordButton';
+
 import Timeline from './Timeline';
 
 import v001 from './v0.0.1.gif';
@@ -34,6 +36,13 @@ import EnchantChecker from './EnchantChecker.png';
 import WoWAnalyzerV11 from './WoWAnalyzer-v1.1.png';
 import StatusPage from './StatusPage.png';
 import OutageAlert from './OutageAlert.png';
+import DiscordChannels from './DiscordChannels.png';
+import WoWAnalyzerV111 from './WoWAnalyzer-v1.1.1.gif';
+import GitHubLogo from './GitHub_Logo_White.png';
+import TravisCILogo from './TravisCI-Full-Color-light.png';
+import DockerLogo from './docker.png';
+import ScalewayLogo from './ScalewayLogo.svg';
+import CloudflareLogo from './CloudflareLogo.svg';
 
 function completeness(completeness) {
   return <dfn data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>;
@@ -109,7 +118,8 @@ export default (
             <figcaption>
               Holy Paladin mastery effectiveness calculator v0.2.0
             </figcaption>
-          </figure><br />
+          </figure>
+          <br />
 
           With the mantra <a href="https://en.wikipedia.org/wiki/Release_early,_release_often">release early, release often</a> in mind the project quickly went through a lot of minor versions during this month. Among other things the need for users to enter their own WCL API key was removed, URL routing was added (so you can directly link to a log) and a <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} icon /> uptime display (which improves a Holy Paladin's mastery effectiveness so was related) was added.
         </div>
@@ -130,7 +140,8 @@ export default (
             <figcaption>
               Holy Paladin mastery effectiveness calculator v0.3.1 statistics at 18 Mar 2017
             </figcaption>
-          </figure><br />
+          </figure>
+          <br />
 
           The implementation of <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} icon /> included a large part of the work needed for adding items, so it was possible to quickly add statistics for the similar legendaries <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} icon /> and <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} icon /> in the next few days.
         </div>
@@ -205,7 +216,8 @@ export default (
             <figcaption>
               Holy Paladin Analyzer v2.0: a new look at 7 Apr 2017
             </figcaption>
-          </figure><br />
+          </figure>
+          <br />
 
           Over the next few months this layout has been updated left and right to improve it. Things like the red border on top of panels, added icons and color coding to panels to make them easier to scan, etc.
         </div>
@@ -226,7 +238,8 @@ export default (
             <figcaption>
               The initial cast efficiency panel (Holy Paladin Analyzer v2.4 at 11 Apr 2017)
             </figcaption>
-          </figure><br />
+          </figure>
+          <br />
 
           With cast efficiency implemented, the Holy Paladin Analyzer now calculated the biggest part of the important metrics for Holy Paladins.
         </div>
@@ -247,7 +260,8 @@ export default (
             <figcaption>
               The first suggestions (Holy Paladin Analyzer v3.0 at 14 Apr 2017)
             </figcaption>
-          </figure><br />
+          </figure>
+          <br />
 
           The introduction of suggestions shifted the focus of the project a fair bit. In the past the focus was on showing hard to calculate metrics for helping theorycrafting, comparing items and improving data for other tools. After the introduction of suggestions the primary focus became more about helping the player improve his own performance. Calculating useful metrics for other purposes is still a goal but it is no longer the primary focus.<br /><br />
 
@@ -285,16 +299,15 @@ export default (
           <SpecIcon spec={SPECS.RESTORATION_DRUID} />
           At 6 May 2017 <Maintainer {...MAINTAINERS.blazyb} /> reached out about creating an analyzer for <span className="Druid">Restoration Druid</span>. I talking him through it for a bit and he shared a lot feedback during the process. His feedback helped a lot to rewrite even more of the codebase to make it easier for others to work with and to make it more natural to implement different specs. After talking with <Maintainer {...MAINTAINERS.blazyb} /> about the future of the project a lot I decided that the best approach would be to launch a single website for multiple specs with it selecting the spec analyzer needed.<br /><br />
 
-          Meanwhile <Maintainer {...MAINTAINERS.blazyb} /> worked on the <b>Resto Druid Analyzer</b> and ran an extensive private beta test. For this private beta test he had created a Discord server for feedback. Seeing this working well led to the shared <a href="https://discord.gg/AxphPxU">WoWAnalyzer Discord server</a> that we use today.<br /><br />
-
-          The Resto Druid Analyzer was publicly released at 15 May 2017. Due to the amount of work involved in moving it into the shared project, it was initially released as a standalone "fork". The Resto Druid Analyzer was fully merged into the WoWAnalyzer project at 21 May 2017.<br /><br />
+          Meanwhile <Maintainer {...MAINTAINERS.blazyb} /> worked on the <b>Resto Druid Analyzer</b> and ran an extensive private beta test. The Resto Druid Analyzer was finally publicly released at 15 May 2017. Due to the amount of work involved in moving it into the shared project, it was initially released as a standalone "fork". The Resto Druid Analyzer was fully merged into the WoWAnalyzer project at 21 May 2017.<br /><br />
 
           <figure>
             <img src={RestoDruidAnalyzerV10} alt="Resto Druid Analyzer v1.0" />
             <figcaption>
               Resto Druid Analyzer v1.0 at 15 May 2017
             </figcaption>
-          </figure><br />
+          </figure>
+          <br />
 
           Other contributions to this spec:<br /><br />
 
@@ -322,7 +335,8 @@ export default (
             <figcaption>
               Discipline Priest (WoWAnalyzer v1.1.0 at 20 May 2017)
             </figcaption>
-          </figure><br />
+          </figure>
+          <br />
 
           This spec had a lot of people contributing code: <Maintainer {...MAINTAINERS.Zerotorescue} />, <Maintainer {...MAINTAINERS.Reglitch} />, <Maintainer {...MAINTAINERS.nutspanther} />, <Maintainer {...MAINTAINERS.Oratio} />, <Maintainer {...MAINTAINERS.Gao} />, <Maintainer {...MAINTAINERS.hassebewlen} />, and <Maintainer {...MAINTAINERS.milesoldenburg} />.
         </div>
@@ -336,9 +350,9 @@ export default (
           <h2>The first PR by an outside contributor!</h2>
         </div>
         <div className="panel-body">
-          Getting the first PR is very exciting! It means someone else is interested in your project enough to dedicate their free time to working on improving it. <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/22">Our first PR</a> was created by <Maintainer {...MAINTAINERS.Reglitch} /> at 19 May 2017. In it he contributed an "editorconfig" file: "Fairly self explanatory, enforces consistency when multiple devs are working on the project.". It was merged a day later.<br /><br />
+          Getting the first PR was very exciting! It meant someone else was interested enough in my project to dedicate time and effort towards improving it. <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/22">Our first PR</a> was created by <Maintainer {...MAINTAINERS.Reglitch} /> at 19 May 2017. In it he contributed an "editorconfig" file: "Fairly self explanatory, enforces consistency when multiple devs are working on the project.". It was merged a day later.<br /><br />
 
-          <Maintainer {...MAINTAINERS.Reglitch} /> has later done a lot more work since then, primarily on the Discipline Priest implementation. He is now a part of the WoWAnalyzer admin team.
+          <Maintainer {...MAINTAINERS.Reglitch} /> has done a lot more work since then, primarily on the Discipline Priest implementation. He is now a part of the WoWAnalyzer admin team.
         </div>
       </div>
 
@@ -350,7 +364,7 @@ export default (
           <h2>Cooldowns overview</h2>
         </div>
         <div className="panel-body">
-          I added the **Cooldowns** tab at 20 May 2017 to give more insight into cooldown usages, spells cast during them and throughput as a result.
+          The cooldowns tab was added to give easy insight into important cooldown usages, spells cast during them and the resulting throughput, all in one simple view.<br /><br />
 
           <figure>
             <img src={WoWAnalyzerV11} alt="Cooldown tab" />
@@ -369,7 +383,21 @@ export default (
           <h2>A wild Discord server appeared!</h2>
         </div>
         <div className="panel-body">
+          Since the start of the project I had been using the <kbd>#holy</kbd> channel of the <a href="https://discordapp.com/invite/hammerofwrath">Hammer of Wrath</a> Discord server to discuss changes and receive feedback. I didn't want to make another Discord server since I wanted to avoid moving Holy Paladin specific analysis discussions and questions away from the HoW server. At the same time it was often difficult discussing more technical aspects in this channel.<br /><br />
 
+          While <Maintainer {...MAINTAINERS.blazyb} /> was working on developing the Resto Druid Analyzer he used a Discord server for feedback, updates, questions and requests. Seeing how well this worked led to making the shared <a href="https://discord.gg/AxphPxU">WoWAnalyzer Discord server</a> that we use today.<br /><br />
+
+          <figure>
+            <img src={DiscordChannels} alt="Discord channels" />
+            <figcaption>
+              The public channels available today.
+            </figcaption>
+          </figure>
+          <br />
+
+          If you're interested in learning more about the development of WoWAnalyzer, have any sort of feedback or just want to talk with us come join!<br />
+
+          <DiscordButton />
         </div>
       </div>
 
@@ -382,12 +410,14 @@ export default (
         </div>
         <div className="panel-body">
           <SpecIcon spec={SPECS.MISTWEAVER_MONK} />
-          <span className="Monk">Mistweaver Monk</span> support was [first proposed](https://github.com/WoWAnalyzer/WoWAnalyzer/pull/33) by <Maintainer {...MAINTAINERS.Anomoly} /> at 23 May 2017, and merged to WoWAnalyzer.com after a short review process a day later.
+          <span className="Monk">Mistweaver Monk</span> support was <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/33">first proposed</a> by <Maintainer {...MAINTAINERS.Anomoly} /> at 23 May 2017, and merged to WoWAnalyzer.com after a short review process a day later.<br /><br />
 
-          ![WoWAnalyzer v1.1.1](./WoWAnalyzer-v1.1.1.gif)
-          WoWAnalyzer v1.1.1: initial Mistweaver support at 25 May 2017
-
-          No other maintainers
+          <figure>
+            <img src={WoWAnalyzerV111} alt="WoWAnalyzer v1.1.1: initial Mistweaver support" />
+            <figcaption>
+              WoWAnalyzer v1.1.1: initial Mistweaver support
+            </figcaption>
+          </figure>
         </div>
       </div>
 
@@ -414,15 +444,60 @@ export default (
           2 Jun
         </div>
         <div className="panel-heading">
-          <h2>Setup CI and first server</h2>
+          <h2>Continuous deployment (and our first server)</h2>
         </div>
         <div className="panel-body">
-          <Maintainer {...MAINTAINERS.strel} /> guided me through this, set up TravisCI that runs on any commit. Commits to a branch of the main repo make a Docker container that automatically gets deployed to the server. The experienced downtime of this process is only a few seconds. Server is a dedicated box by Scaleway. Cloudflare in front of everything, always.
+          <div className="flex wrapable text-center">
+            <div className="content-middle">
+              <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
+                <img src={GitHubLogo} style={{ width: 120 }} alt="GitHub" />
+              </a>
+            </div>
+            <div className="content-middle">
+              <a href="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer">
+                <img src={TravisCILogo} style={{ width: 120 }} alt="TravisCI" />
+              </a>
+            </div>
+            <div className="content-middle">
+              <a href="https://hub.docker.com/r/martijnhols/wowanalyzer/">
+                <img src={DockerLogo} style={{ width: 120 }} alt="Docker" />
+              </a>
+            </div>
+            <div className="content-middle">
+              <a href="https://www.scaleway.com/">
+                <img src={ScalewayLogo} style={{ width: 120 }} alt="Scaleway" />
+              </a>
+            </div>
+            <div className="content-middle">
+              <a href="https://www.cloudflare.com/">
+                <img src={CloudflareLogo} style={{ width: 120 }} alt="Cloudflare" />
+              </a>
+            </div>
+          </div>
+          Up until this point new versions were deployed by manually building the application on a computer and pushing <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/commit/f163fb3764cf91c73b40fc83831ebdc9b5a24bd5">the production optimized build</a> to the repository. We used GitHub pages to provide the application. This was a tedious and slow process for the <a href="https://en.wikipedia.org/wiki/Release_early,_release_often">release early, release often</a> mantra and didn't allow us to run any server-side code.<br /><br />
 
-          https://travis-ci.org/WoWAnalyzer/WoWAnalyzer
-          https://hub.docker.com/r/martijnhols/wowanalyzer/
-          https://www.scaleway.com
-          https://www.cloudflare.com
+          To improve this I wanted to setup a server with a <b>continuous deployment</b> approach taking care of the deploys. Continuous deployment means that every change automatically goes through the entire deployment pipeline and gets deployed to production. This is what we implemented.<br /><br />
+
+          Our current deployment pipeline looks like this:
+          <ol>
+            <li>Changes get pushed to <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a></li>
+            <li><a href="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer">TravisCI</a> gets notified and takes about 5 to 6 minutes to
+              <ol>
+                <li>fire up a VM,</li>
+                <li>pull the latest code,</li>
+                <li>install all dependencies,</li>
+                <li>run all tests,</li>
+                <li>create a production optimized build,</li>
+                <li>create a new Docker image,</li>
+                <li>and push the Docker image to <a href="https://hub.docker.com/r/martijnhols/wowanalyzer/">Docker Hub</a>.</li>
+              </ol>
+            </li>
+            <li>Docker Cloud gets notified about the new version in Docker Hub and automatically tells the server to stop the old version and start the new version</li>
+          </ol><br />
+
+          To host the app we used a dedicated server from <a href="https://www.scaleway.com">Scaleway</a>. They had an easy to install Docker image that made installing it a breeze. We have <a href="https://www.cloudflare.com">CloudFlare</a> sitting in front of the server for the free SSL, as a CDN, DDOS protection and some other things.<br /><br />
+
+          <Maintainer {...MAINTAINERS.strel} /> guided me through setting up most of this initially; we wouldn't have this amazing setup without his help. Since the initial setup we have made some improvements, we will give more insight into our full setup in a future article.
         </div>
       </div>
 
@@ -804,7 +879,8 @@ export default (
             <figcaption>
               "Needs more work" completeness
             </figcaption>
-          </figure><br />
+          </figure>
+          <br />
 
           At the time of writing the following specs are considered {completeness(SPEC_ANALYSIS_COMPLETENESS.GOOD)} or {completeness(SPEC_ANALYSIS_COMPLETENESS.GREAT)}:<br />
           <ul>
@@ -824,7 +900,8 @@ export default (
             <li className="Hunter">Marksmanship Hunter</li>
             <li className="Mage">Frost Mage</li>
             <li className="DeathKnight">Unholy Death Knight</li>
-          </ul><br />
+          </ul>
+          <br />
 
           This does not mean these specs are complete as there's always more we can add. It is supposed to mean that they match most common manual log reviews and reports on all important class features.
         </div>
@@ -1395,7 +1472,8 @@ export default (
             <figcaption>
               We rely heavily on the data from Warcraft Logs. If it's unavailable we can no longer analyze fights for players that haven't been analyzed before.
             </figcaption>
-          </figure><br />
+          </figure>
+          <br />
 
           When there's a service degradation we will show an alert on the report selector to inform everyone of potential issues.<br /><br />
 
@@ -1404,7 +1482,8 @@ export default (
             <figcaption>
               When there's something not working optimally we will show a big indicator on the report selection.
             </figcaption>
-          </figure><br />
+          </figure>
+          <br />
 
           The status page runs on an different server in a different datacenter in a different country. This should ensure that it will be there when the main server is down. In hindsight I'm not sure what the point of that is considering we can all use <a href="https://discord.gg/AxphPxU">Discord</a> anyway, but it's there nonetheless.<br /><br />
 

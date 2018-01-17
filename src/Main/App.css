@@ -926,9 +926,10 @@ code.inactive {
 .maintainer-name {
   background: rgba(0, 0, 0, 0.4);
   color: #f1c40f;
-  padding: .2em .4em;
+  padding: .2em .2em;
   margin: -.2em 0;
   border-radius: .2em;
+  font-weight: bold;
 }
 .maintainer-name[data-tip] {
   cursor: help;
