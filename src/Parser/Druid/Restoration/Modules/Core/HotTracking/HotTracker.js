@@ -251,6 +251,7 @@ class HotTracker extends Analyzer {
       // Several legitimate reasons HoT could last shorter than expected: target dies, target was purged, target cancelled the spell -> log only when debug on
       extensionDebug && console.log(`${hot.name} fell @${this.owner.formatTimestamp(actual)}, which is ${(diff/1000).toFixed(1)}s earlier than expected`);
     }
+    return diff;
   }
 
   // gets an event's target ... returns null if for any reason the event should not be further processed
