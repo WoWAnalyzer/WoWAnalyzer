@@ -31,7 +31,7 @@ class Abilities extends CoreAbilities {
         cooldown: haste => 6 / (1 + haste),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: .95,
+          recommendedEfficiency: .9,
         },
       },
       {
@@ -75,7 +75,7 @@ class Abilities extends CoreAbilities {
         enabled: this.combatants.selected.hasTalent(SPELLS.SNAKE_HUNTER_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.95,
+          recommendedEfficiency: 0.85,
         },
       },
       {
