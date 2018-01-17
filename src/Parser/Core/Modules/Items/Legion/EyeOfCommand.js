@@ -16,48 +16,46 @@ class EyeOfCommand extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
-  eyeOfCommand = {
-    [SPELLS.LEGIONS_GAZE.id]: {
-      1: {
-        start: 0,
-        uptime: 0,
-      },
-      2: {
-        start: 0,
-        uptime: 0,
-      },
-      3: {
-        start: 0,
-        uptime: 0,
-      },
-      4: {
-        start: 0,
-        uptime: 0,
-      },
-      5: {
-        start: 0,
-        uptime: 0,
-      },
-      6: {
-        start: 0,
-        uptime: 0,
-      },
-      7: {
-        start: 0,
-        uptime: 0,
-      },
-      8: {
-        start: 0,
-        uptime: 0,
-      },
-      9: {
-        start: 0,
-        uptime: 0,
-      },
-      10: {
-        start: 0,
-        uptime: 0,
-      },
+  [SPELLS.LEGIONS_GAZE.id] = {
+    1: {
+      start: 0,
+      uptime: 0,
+    },
+    2: {
+      start: 0,
+      uptime: 0,
+    },
+    3: {
+      start: 0,
+      uptime: 0,
+    },
+    4: {
+      start: 0,
+      uptime: 0,
+    },
+    5: {
+      start: 0,
+      uptime: 0,
+    },
+    6: {
+      start: 0,
+      uptime: 0,
+    },
+    7: {
+      start: 0,
+      uptime: 0,
+    },
+    8: {
+      start: 0,
+      uptime: 0,
+    },
+    9: {
+      start: 0,
+      uptime: 0,
+    },
+    10: {
+      start: 0,
+      uptime: 0,
     },
   };
 
@@ -79,7 +77,7 @@ class EyeOfCommand extends Analyzer {
       return;
     }
     this.currentStacks = 1;
-    this.eyeOfCommand[spellId][this.currentStacks].start = event.timestamp;
+    this[spellId][this.currentStacks].start = event.timestamp;
     this.buffIsUp = true;
   }
   on_byPlayer_applybuffstack(event) {
@@ -87,9 +85,9 @@ class EyeOfCommand extends Analyzer {
     if (spellId !== SPELLS.LEGIONS_GAZE.id) {
       return;
     }
-    this.eyeOfCommand[spellId][this.currentStacks].uptime += event.timestamp - this.eyeOfCommand[spellId][this.currentStacks].start;
+    this[spellId][this.currentStacks].uptime += event.timestamp - this[spellId][this.currentStacks].start;
     this.currentStacks = event.stack;
-    this.eyeOfCommand[spellId][this.currentStacks].start = event.timestamp;
+    this[spellId][this.currentStacks].start = event.timestamp;
 
   }
   on_byPlayer_removebuff(event) {
@@ -97,14 +95,14 @@ class EyeOfCommand extends Analyzer {
     if (spellId !== SPELLS.LEGIONS_GAZE.id) {
       return;
     }
-    this.eyeOfCommand[spellId][this.currentStacks].uptime += event.timestamp - this.eyeOfCommand[spellId][this.currentStacks].start;
+    this[spellId][this.currentStacks].uptime += event.timestamp - this[spellId][this.currentStacks].start;
     this.currentStacks = 0;
     this.buffIsUp = false;
   }
 
   on_finished() {
     if (this.buffIsUp === true) {
-      this.eyeOfCommand[SPELLS.LEGIONS_GAZE.id][this.currentStacks].uptime += this.owner.fight.end_time - this.eyeOfCommand[SPELLS.LEGIONS_GAZE.id][this.currentStacks].start;
+      this[SPELLS.LEGIONS_GAZE.id][this.currentStacks].uptime += this.owner.fight.end_time - this[SPELLS.LEGIONS_GAZE.id][this.currentStacks].start;
     }
   }
 
@@ -113,7 +111,7 @@ class EyeOfCommand extends Analyzer {
     const spellId = SPELLS.LEGIONS_GAZE.id;
     for (let i = 0; i < 10; i++) {
       const stacks = i + 1;
-      const uptime = this.eyeOfCommand[spellId][stacks].uptime / this.owner.fightDuration;
+      const uptime = this[spellId][stacks].uptime / this.owner.fightDuration;
       const increasedCrit = stacks * this.critPerStack;
       averageCritGain += increasedCrit * uptime;
     }
@@ -123,7 +121,7 @@ class EyeOfCommand extends Analyzer {
     return this.combatants.selected.getBuffUptime(SPELLS.LEGIONS_GAZE.id) / this.owner.fightDuration;
   }
   get maxStackUptime() {
-    return this.eyeOfCommand[SPELLS.LEGIONS_GAZE.id][10].uptime / this.owner.fightDuration;
+    return this[SPELLS.LEGIONS_GAZE.id][10].uptime / this.owner.fightDuration;
   }
 
   item() {
