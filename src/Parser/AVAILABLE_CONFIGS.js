@@ -10,8 +10,9 @@ import FeralDruid from './Druid/Feral/CONFIG';
 import GuardianDruid from './Druid/Guardian/CONFIG';
 import RestoDruid from './Druid/Restoration/CONFIG';
 
-import MarksmanshipHunter from './Hunter/Marksmanship/CONFIG';
 import BeastMasteryHunter from './Hunter/BeastMastery/CONFIG';
+import MarksmanshipHunter from './Hunter/Marksmanship/CONFIG';
+import SurvivalHunter from './Hunter/Survival/CONFIG';
 
 import FrostMage from './Mage/Frost/CONFIG';
 import FireMage from './Mage/Fire/CONFIG';
@@ -23,7 +24,6 @@ import MistweaverMonk from './Monk/Mistweaver/CONFIG';
 import HolyPaladin from './Paladin/Holy/CONFIG';
 import RetributionPaladin from './Paladin/Retribution/CONFIG';
 import ProtectionPaladin from './Paladin/Protection/CONFIG';
-
 
 import DisciplinePriest from './Priest/Discipline/CONFIG';
 import HolyPriest from './Priest/Holy/CONFIG';
@@ -56,8 +56,9 @@ export default [
   GuardianDruid,
   RestoDruid,
 
-  MarksmanshipHunter,
   BeastMasteryHunter,
+  MarksmanshipHunter,
+  SurvivalHunter,
 
   FrostMage,
   FireMage,
