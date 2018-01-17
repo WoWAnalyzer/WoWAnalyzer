@@ -698,6 +698,13 @@ export default {
     name: 'In for the Kill',
     icon: 'ability_hunter_combatexperience',
   },
+  //Survival legendaries
+  NESINGWARYS_TRAPPING_TREADS_FOCUS_GAIN: {
+    id: 212575,
+    name: 'Nesingwary\'s Trapping Treads',
+    icon: 'inv_boots_mail_panda_b_02',
+  },
+
   //------------------------------------------------------------
 
   // Shared:
