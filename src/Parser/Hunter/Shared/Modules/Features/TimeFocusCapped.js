@@ -60,12 +60,24 @@ class TimeFocusCapped extends Analyzer {
     );
   }
   get suggestionThresholds() {
+    let minor;
+    let average;
+    let major;
+    if (this.combatants.selected.spec === SPECS.SURVIVAL_HUNTER) {
+      minor = 0.04;
+      average = 0.06;
+      major = 0.08;
+    } else {
+      minor = 0.025;
+      average = 0.035;
+      major = 0.045;
+    }
     return {
       actual: this.focusTracker.secondsCapped / (this.owner.fightDuration / 1000),
       isGreaterThan: {
-        minor: 0.025,
-        average: 0.035,
-        major: 0.045,
+        minor: minor,
+        average: average,
+        major: major,
       },
       style: 'percentage',
     };
