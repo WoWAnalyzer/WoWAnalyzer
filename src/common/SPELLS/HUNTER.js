@@ -537,7 +537,11 @@ export default {
   },
   // Survival:
   // ...
-
+  NESINGWARYS_TRAPPING_TREADS_FOCUS_GAIN: {
+    id: 212575,
+    name: 'Nesingwary\'s Trapping Treads',
+    icon: 'inv_boots_mail_panda_b_02',
+  },
   // Shared:
   // ...
   THE_SHADOW_HUNTERS_VOODOO_MASK_HEAL: {
