@@ -44,7 +44,7 @@ class BrewCDR extends Analyzer {
   // the amount of CDR required so that you can cast ISB often enough to
   // actually hit 100% uptime
   get cdrRequiredForUptime() {
-    return 1 - this.isb.durationPerCast / this.abilities.getExpectedCooldownDuration(SPELLS.FAKE_SHARED_BREWS.id);
+    return 1 - this.isb.durationPerCast / this.abilities.getExpectedCooldownDuration(SPELLS.IRONSKIN_BREW.id);
   }
 
   get suggestionThreshold() {
