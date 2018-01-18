@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/index';
 
 import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Core/Modules/CooldownThroughputTracker';
 
@@ -6,13 +6,13 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.TRUESHOT,
+      spell: SPELLS.MONGOOSE_FURY,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
     {
-      spell: SPELLS.BULLSEYE_BUFF,
+      spell: SPELLS.ASPECT_OF_THE_EAGLE,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
@@ -21,11 +21,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
 
   static ignoredSpells = [
     ...CooldownThroughputTracker.ignoredSpells,
-    SPELLS.WINDBURST_MOVEMENT_SPEED.id,
-    SPELLS.CYCLONIC_BURST_TRAIT.id,
-    SPELLS.CYCLONIC_BURST_IMPACT_TRAIT.id,
-    SPELLS.BINDING_SHOT_STUN.id,
-    SPELLS.BINDING_SHOT_TETHER.id,
+    SPELLS.CALTROPS_DAMAGE.id,
   ];
 }
 
