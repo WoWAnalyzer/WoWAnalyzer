@@ -44,6 +44,10 @@ import TravisCILogo from './TravisCI-Full-Color-light.png';
 import DockerLogo from './docker.png';
 import ScalewayLogo from './ScalewayLogo.svg';
 import CloudflareLogo from './CloudflareLogo.svg';
+import ElementalShamanCastEfficiency from './ElementalShamanCastEfficiency.jpg';
+import ElementalShamanCooldowns from './ElementalShamanCooldowns.jpg';
+import ElementalShamanProcs from './ElementalShamanProcs.jpg';
+import ElementalShamanMaelstrom from './ElementalShamanMaelstrom.jpg';
 
 function completeness(completeness) {
   return <dfn data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>;
@@ -479,16 +483,39 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.ELEMENTAL_SHAMAN} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/66
+            The initial version of Elemental Shaman was added by <Maintainer {...MAINTAINERS.fasib} />. This included cast efficiency, the cooldown tab only included <SpellLink id={SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id} icon /> (if specced) and <SpellLink id={SPELLS.STORMKEEPER.id} icon />, and introduced two new things: a procs tab and a Maelstrom tab.<br /><br />
 
-            By <Maintainer {...MAINTAINERS.fasib} />
+            <figure>
+              <img src={ElementalShamanCastEfficiency} alt="Elemental Shaman cast efficiency" />
+              <figcaption>
+                Elemental Shaman cast efficiency
+              </figcaption>
+            </figure><br />
 
-            <Maintainer {...MAINTAINERS.janvavra} /> did a fix https://github.com/WoWAnalyzer/WoWAnalyzer/pull/469
-            <Maintainer {...MAINTAINERS.HawkCorrigan} /> https://github.com/WoWAnalyzer/WoWAnalyzer/pulls?utf8=%E2%9C%93&q=is%3Apr+sort%3Acreated-asc+author%3AHawkCorrigan+
+            <div className="row">
+              <div className="col-xs-4">
+                <a href={ElementalShamanCooldowns}>
+                  <img src={ElementalShamanCooldowns} alt="Elemental Shaman cooldowns" style={{ width: '100%' }} />
+                </a>
+              </div>
+              <div className="col-xs-4">
+                <a href={ElementalShamanProcs}>
+                  <img src={ElementalShamanProcs} alt="Elemental Shaman procs" style={{ width: '100%' }} />
+                </a>
+              </div>
+              <div className="col-xs-4">
+                <a href={ElementalShamanMaelstrom}>
+                  <img src={ElementalShamanMaelstrom} alt="Elemental Shaman maelstrom" style={{ width: '100%' }} />
+                </a>
+              </div>
+            </div><br />
+
+            <Maintainer {...MAINTAINERS.janvavra} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/469">contributed a couple of simple fixes</a> for Elemental Shamans using <SpellLink id={SPELLS.STORM_ELEMENTAL_TALENT.id} icon />. <Maintainer {...MAINTAINERS.HawkCorrigan} /> migrated Elemental Shaman's code to a new version of WoWAnalyzer and implemented a bunch of things such as T21, <ItemLink id={ITEMS.THE_DECEIVERS_BLOOD_PACT.id} icon /> and others.
           </div>
         </div>
 
-        <div className="panel">
+        {/* Not interesting */}
+        {/*<div className="panel">
           <div className="date">
             25 Jun
           </div>
@@ -499,8 +526,15 @@ class Article extends React.PureComponent {
             86c6c930dd8a2a606055f47fa0a4793c314e907b
 
             By <Maintainer {...MAINTAINERS.Zerotorescue} />
+
+            <figure>
+              <img src={DevelopmentTools} alt="The development tab" />
+              <figcaption>
+                The development tab at introduction
+              </figcaption>
+            </figure>
           </div>
-        </div>
+        </div>*/}
 
         <div className="panel">
           <div className="date">
@@ -789,11 +823,13 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.MARKSMANSHIP_HUNTER} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/253
+            <Maintainer {...MAINTAINERS.JLassie82} /> added initial support for Marksmanship Hunter.
 
-            Initial version by <Maintainer {...MAINTAINERS.JLassie82} />
-            <Maintainer {...MAINTAINERS.Blazballs} />
-            <Maintainer {...MAINTAINERS.Putro} /> later became the main maintainer of this spec implementation.
+            Wanting to replace Check My Wow after it was announced it would no longer be maintained, with a better, prettier and overall more precise product <Maintainer {...MAINTAINERS.Putro} /> later became the main maintainer of this spec implementation, and has implemented almost everything you see today. This was done while gathering feedback and suggestions from the rest of the Hunter community the other theorycrafters. It now replaces (or alternately enhances) many manual log-reviews, and provides a lot of information up-front that is relevant to players of all skill levels.
+
+            <Maintainer {...MAINTAINERS.Blazballs} /> assisted in the Marksmanship module by amongst other things, creating the associated focus tracking chart, which now sees usage in both Beast Mastery and Survival implementations as well.
+
+             later became the main maintainer of this spec implementation.
           </div>
         </div>
 
