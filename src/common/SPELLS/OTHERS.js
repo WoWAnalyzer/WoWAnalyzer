@@ -832,12 +832,12 @@ export default {
   FELSHIELD_ABSORB: {
     id: 253277,
     name: 'Felshield',
-    icon: 'ability-vehicle-shellshieldgenerator-green',
+    icon: 'ability_vehicle_shellshieldgenerator_green',
   },
   FELSHIELD_DAMAGE: {
     id: 253278,
     name: 'Felshield',
-    icon: 'ability-vehicle-shellshieldgenerator-green',
+    icon: 'ability_vehicle_shellshieldgenerator_green',
   },
   //Aman'Thul's Vision
   AMANTHULS_GRANDEUR: { //Pantheon Proc
