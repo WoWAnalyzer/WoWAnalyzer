@@ -35,15 +35,19 @@ class GarothiFeedbackConduit extends Analyzer {
   }
 
   _lastChange = null;
+  _addStackUptime(stacks, uptime) {
+    // When the stacks changed (either gained 1 stack or lost all stacks), we add the Haste gained so far to the total.
+    const uptimeOfLastStack = uptime / 1000;
+    this._totalStacks += stacks * uptimeOfLastStack;
+  }
   on_byPlayer_changebuffstack(event) {
     if (event.ability.guid !== SPELLS.FEEDBACK_LOOP.id) {
       return;
     }
 
     if (this._lastChange) {
-      // When the stacks changed (either gained 1 stack or lost all stacks), we add the Haste gained so far to the total. This requires the `oldStacks` since we can only add Haste after it has happened. This event also triggers when the buff drops, so this includes the last stack.
-      const uptimeOfLastStack = (event.timestamp - this._lastChange.timestamp) / 1000;
-      this._totalStacks += event.oldStacks * uptimeOfLastStack;
+      // This requires the `oldStacks` since we can only add Haste after it has happened. This event also triggers when the buff drops, so this includes the last stack.
+      this._addStackUptime(event.oldStacks, event.timestamp - this._lastChange.timestamp);
     }
 
     if (event.newStacks === 0) {
@@ -51,6 +55,14 @@ class GarothiFeedbackConduit extends Analyzer {
       this._lastChange = null;
     } else {
       this._lastChange = event;
+    }
+  }
+
+  on_finished() {
+    // If the buff is still up when the fight is over we need to add the uptime of the buff that is still active
+    if (this._lastChange) {
+      // Since the buff is still up we need to know the current stacks so we use `newStacks`
+      this._addStackUptime(this._lastChange.newStacks, this.owner.currentTimestamp - this._lastChange.timestamp);
     }
   }
 

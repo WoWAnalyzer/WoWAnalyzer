@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-01-18'),
+    changes: <Wrapper>Fixed an issue where <ItemLink id={ITEMS.GAROTHI_FEEDBACK_CONDUIT.id} icon /> did not always add the Haste from the last buff.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-01-16'),
     changes: 'Fixed current Haste percentage interaction with Haste rating buff changes (this improves ABC and spell cooldown accuracy).',
     contributors: [Zerotorescue],
