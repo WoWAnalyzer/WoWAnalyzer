@@ -143,6 +143,14 @@ describe('Core/Modules/SpellUsable', () => {
       expect(result).toBe(7500);
       expect(instance.isOnCooldown(SPELLS.FAKE_SPELL.id)).toBe(false);
     });
+    it('reducing a spell with multiple charges on cooldown reduces the CD time on the next charge if it fully recharges the first charge', () => {
+      abilitiesMock.getMaxCharges = jest.fn(() => 2);
+      triggerCast(SPELLS.FAKE_SPELL.id);
+      triggerCast(SPELLS.FAKE_SPELL.id);
+      parserMock.currentTimestamp = 6000; //Leaves 1500ms cooldown remaining of the total 7500ms of the first charge recharging.
+      const reduction = instance.reduceCooldown(SPELLS.FAKE_SPELL.id, 5000); 
+      expect(reduction).toBe(5000);    
+    });
     it('reduceCooldown on a spell not on cooldown throws', () => {
       // We throw instead of returning something like null so that implementers *have* to take this into consideration.
       expect(() => {
@@ -359,15 +367,6 @@ describe('Core/Modules/SpellUsable', () => {
           targetID: parserMock.playerId,
         });
       }
-    });
-    it('A charge spell that has the cooldown of more than a single charge reduced should return the full reduction value', () => {
-      abilitiesMock.getMaxCharges = jest.fn(() => 3);
-      triggerCast(SPELLS.FAKE_SPELL.id);
-      triggerCast(SPELLS.FAKE_SPELL.id);
-      triggerCast(SPELLS.FAKE_SPELL.id);
-      parserMock.currentTimestamp = 6000; //Leaves 1500ms cooldown remainig
-      const reduction = instance.reduceCooldown(SPELLS.FAKE_SPELL.id, 5000); 
-      expect(reduction).toBe(5000);    
     });
   });
 
