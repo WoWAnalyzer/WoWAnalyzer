@@ -12,56 +12,19 @@ import { formatPercentage } from 'common/format';
  * Eye of Command
  * Your melee auto attacks increase your Critical Strike by X for 10 sec, stacking up to 10 times. This effect is reset if you auto attack a different target.
  */
+
+const MAX_STACKS = 10;
+
 class EyeOfCommand extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
-  [SPELLS.LEGIONS_GAZE.id] = {
-    1: {
-      start: 0,
-      uptime: 0,
-    },
-    2: {
-      start: 0,
-      uptime: 0,
-    },
-    3: {
-      start: 0,
-      uptime: 0,
-    },
-    4: {
-      start: 0,
-      uptime: 0,
-    },
-    5: {
-      start: 0,
-      uptime: 0,
-    },
-    6: {
-      start: 0,
-      uptime: 0,
-    },
-    7: {
-      start: 0,
-      uptime: 0,
-    },
-    8: {
-      start: 0,
-      uptime: 0,
-    },
-    9: {
-      start: 0,
-      uptime: 0,
-    },
-    10: {
-      start: 0,
-      uptime: 0,
-    },
-  };
 
   critPerStack = 0;
   currentStacks = 0;
-  buffIsUp = false;
+  _totalStacks = 0;
+  maxStackTime = 0;
+  startOfMaxStacks = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTrinket(ITEMS.EYE_OF_COMMAND.id);
@@ -71,66 +34,61 @@ class EyeOfCommand extends Analyzer {
     }
   }
 
-  on_byPlayer_applybuff(event) {
+  _lastChange = null;
+  on_byPlayer_changebuffstack(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.LEGIONS_GAZE.id) {
       return;
     }
-    this.currentStacks = 1;
-    this[spellId][this.currentStacks].start = event.timestamp;
-    this.buffIsUp = true;
-  }
-  on_byPlayer_applybuffstack(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.LEGIONS_GAZE.id) {
-      return;
+    if (this._lastChange) {
+      // When the stacks changed (either gained 1 stack or lost all stacks), we add the Crit gained so far to the total. This requires the `oldStacks` since we can only add Crit after it has happened. This event also triggers when the buff drops, so this includes the last stack.
+      const uptimeOfLastStack = (event.timestamp - this._lastChange.timestamp) / 1000;
+      this._totalStacks += event.oldStacks * uptimeOfLastStack;
+      if (event.oldStacks === MAX_STACKS) {
+        this.maxStackTime += uptimeOfLastStack * 1000;
+      }
     }
-    this[spellId][this.currentStacks].uptime += event.timestamp - this[spellId][this.currentStacks].start;
-    this.currentStacks = event.stack;
-    this[spellId][this.currentStacks].start = event.timestamp;
-
-  }
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.LEGIONS_GAZE.id) {
-      return;
+    if (event.newStacks === 0) {
+      // This makes it so the first stack being applied doesn't wrongly add Crit
+      this._lastChange = null;
+    } else {
+      this._lastChange = event;
     }
-    this[spellId][this.currentStacks].uptime += event.timestamp - this[spellId][this.currentStacks].start;
-    this.currentStacks = 0;
-    this.buffIsUp = false;
+    this.currentStacks = event.newStacks;
+    if (this.currentStacks === MAX_STACKS) {
+      this.startOfMaxStacks = event.timestamp;
+    }
   }
 
   on_finished() {
-    if (this.buffIsUp === true) {
-      this[SPELLS.LEGIONS_GAZE.id][this.currentStacks].uptime += this.owner.fight.end_time - this[SPELLS.LEGIONS_GAZE.id][this.currentStacks].start;
+    if (this._lastChange) {
+      const uptimeOfLastStack = (this.owner.fight.end_time - this.startOfMaxStacks) / 1000;
+      this._totalStacks += this.currentStacks * uptimeOfLastStack;
+      if (this.currentStacks === MAX_STACKS) {
+        this.maxStackTime += uptimeOfLastStack * 1000;
+      }
     }
   }
 
-  get averageCritGain() {
-    let averageCritGain = 0;
-    const spellId = SPELLS.LEGIONS_GAZE.id;
-    for (let i = 0; i < 10; i++) {
-      const stacks = i + 1;
-      const uptime = this[spellId][stacks].uptime / this.owner.fightDuration;
-      const increasedCrit = stacks * this.critPerStack;
-      averageCritGain += increasedCrit * uptime;
-    }
-    return averageCritGain;
+  get averageStacks() {
+    return this._totalStacks / this.owner.fightDuration * 1000;
+  }
+  get averageCrit() {
+    return this.averageStacks * this.critPerStack;
+  }
+  get maxStackUptime() {
+    return this.maxStackTime / this.owner.fightDuration;
   }
   get totalBuffUptime() {
     return this.combatants.selected.getBuffUptime(SPELLS.LEGIONS_GAZE.id) / this.owner.fightDuration;
   }
-  get maxStackUptime() {
-    return this[SPELLS.LEGIONS_GAZE.id][10].uptime / this.owner.fightDuration;
-  }
-
   item() {
     return {
       item: ITEMS.EYE_OF_COMMAND,
       result: (
         <dfn data-tip={`Your overall uptime was ${formatPercentage(this.totalBuffUptime)}%.`}>
           {formatPercentage(this.maxStackUptime)}% uptime at 10 stacks <br />
-          {this.averageCritGain.toFixed(0)} average crit
+          {this.averageCrit.toFixed(0)} average crit
         </dfn>
       ),
     };
