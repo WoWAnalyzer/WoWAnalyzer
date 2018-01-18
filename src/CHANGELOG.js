@@ -10,6 +10,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-01-18'),
+    changes: <Wrapper>Added <ItemLink id={ITEMS.ISHKARS_FELSHIELD_EMITTER.id} icon /> to cast efficiency.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-01-18'),
     changes: <Wrapper>Fixed an issue where <ItemLink id={ITEMS.GAROTHI_FEEDBACK_CONDUIT.id} icon /> did not always add the Haste from the last buff.</Wrapper>,
     contributors: [Zerotorescue],
   },
