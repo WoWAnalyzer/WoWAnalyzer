@@ -5,6 +5,7 @@ import { formatMilliseconds, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
+import { HIGH_TOLERANCE_HASTE_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/HighTolerance';
 
 const debug = false;
 
@@ -35,6 +36,7 @@ class Haste extends Analyzer {
     [SPELLS.TRUESHOT.id]: 0.4, // MM Hunter main CD
     [SPELLS.ICY_VEINS.id]: 0.3,
     [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
+    ...HIGH_TOLERANCE_HASTE_FNS,
     // Haste RATING buffs are handled by the StatTracker module
 
     // Boss abilities:

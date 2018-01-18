@@ -1,5 +1,4 @@
 import React from 'react';
-import Wrapper from 'common/Wrapper';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SPELLS from 'common/SPELLS';
@@ -8,10 +7,20 @@ import { formatPercentage, formatThousands } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-const HIGH_TOLERANCE_HASTE = {
+export const HIGH_TOLERANCE_HASTE = {
   [SPELLS.LIGHT_STAGGER_DEBUFF.id]: 0.08,
   [SPELLS.MODERATE_STAGGER_DEBUFF.id]: 0.12,
   [SPELLS.HEAVY_STAGGER_DEBUFF.id]: 0.15,
+};
+
+function hasteFnGenerator(value) {
+  return { haste: combatant => combatant.hasTalent(SPELLS.HIGH_TOLERANCE_TALENT.id) ? value : 0.0 };
+}
+
+export const HIGH_TOLERANCE_HASTE_FNS = {
+  [SPELLS.LIGHT_STAGGER_DEBUFF.id]: hasteFnGenerator(0.08),
+  [SPELLS.MODERATE_STAGGER_DEBUFF.id]: hasteFnGenerator(0.12),
+  [SPELLS.HEAVY_STAGGER_DEBUFF.id]: hasteFnGenerator(0.15),
 };
 
 class HighTolerance extends Analyzer {
