@@ -48,6 +48,10 @@ import ElementalShamanCastEfficiency from './ElementalShamanCastEfficiency.jpg';
 import ElementalShamanCooldowns from './ElementalShamanCooldowns.jpg';
 import ElementalShamanProcs from './ElementalShamanProcs.jpg';
 import ElementalShamanMaelstrom from './ElementalShamanMaelstrom.jpg';
+import ManaTab from './ManaTab.PNG';
+import RestoShaman from './RestoShaman.png';
+import RestoShamanFeeding from './RestoShamanFeeding.png';
+import HolyPriest from './HolyPriest.PNG';
 
 function completeness(completeness) {
   return <dfn data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>;
@@ -244,6 +248,25 @@ class Article extends React.PureComponent {
 
         <div className="panel">
           <div className="date">
+            19 Apr
+          </div>
+          <div className="panel-heading">
+            <h2>Mana graph</h2>
+          </div>
+          <div className="panel-body">
+            A good rule of thumb when learning to manage your mana is to try to match your mana level with the boss's health pool. The mana tab was added to make it easy to see this.<br /><br />
+
+            <figure>
+              <img src={ManaTab} alt="Mana tab" />
+              <figcaption>
+                The mana tab for Elisande
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div className="panel">
+          <div className="date">
             13 May
           </div>
           <div className="panel-heading">
@@ -403,12 +426,25 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.RESTORATION_SHAMAN} />
-            <span className="Shaman">Restoration Shaman</span> support was <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/39">first added</a> by <Maintainer {...MAINTAINERS.Versaya} />.
+            Original support for Restoration Shaman was <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/39">added</a> by <Maintainer {...MAINTAINERS.Versaya} />. He worked on this for a long time to make it into a big part of what it is today.<br /><br />
 
-            Other maintainers:
-            <Maintainer {...MAINTAINERS.Yuyz0112} />: Added <SpellLink id={SPELLS.ANCESTRAL_VIGOR_TALENT.id} /> metric
-            <Maintainer {...MAINTAINERS.Anomoly} />: Migrated to the new version and added T21 2 set and 4 set
-            <Maintainer {...MAINTAINERS.Hartra344} />: Implemented the checklist
+            <figure>
+              <img src={RestoShaman} alt="Initial Restoration Shaman" />
+              <figcaption>
+                Initial Restoration Shaman
+              </figcaption>
+            </figure><br />
+
+            <Maintainer {...MAINTAINERS.Versaya} /> also added the unique <b>feeding</b> tab. This shows the healing done by spells that feed into <SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} icon /> while it was up.<br /><br />
+
+            <figure>
+              <img src={RestoShamanFeeding} alt="Feeding tab" />
+              <figcaption>
+                The feeding tab
+              </figcaption>
+            </figure><br />
+
+            The spec had contributions from a couple of other maintainers. <Maintainer {...MAINTAINERS.Yuyz0112} /> added the very interesting <SpellLink id={SPELLS.ANCESTRAL_VIGOR_TALENT.id} /> metric that shows amount of lives saved. <Maintainer {...MAINTAINERS.Anomoly} /> migrated the spec to the new WoWAnalyzer version so that it would become easier to maintain and added T21 2 set and 4 set. <Maintainer {...MAINTAINERS.Hartra344} /> later took over as maintainer of the spec and implemented the checklist as well as a bunch of other features.
           </div>
         </div>
 
@@ -545,9 +581,16 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.HOLY_PRIEST} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/96
-            support added by <Maintainer {...MAINTAINERS.enragednuke} />
-            <Maintainer {...MAINTAINERS.Skamer} /> also contributed a couple of improvements, such as the Divinty Talent.
+            Holy Priest support was <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/96">added</a> by <Maintainer {...MAINTAINERS.enragednuke} />.<br /><br />
+
+            <figure>
+              <img src={HolyPriest} alt="The initial Holy Priest version" />
+              <figcaption>
+                The initial Holy Priest version
+              </figcaption>
+            </figure><br />
+
+            <Maintainer {...MAINTAINERS.Skamer} /> also contributed a couple of things, such as support for the <SpellLink id={SPELLS.DIVINITY_TALENT.id} icon />.
           </div>
         </div>
 
@@ -823,13 +866,11 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.MARKSMANSHIP_HUNTER} />
-            <Maintainer {...MAINTAINERS.JLassie82} /> added initial support for Marksmanship Hunter.
+            <Maintainer {...MAINTAINERS.JLassie82} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/253">added</a> initial support for Marksmanship Hunter.<br /><br />
 
-            Wanting to replace Check My Wow after it was announced it would no longer be maintained, with a better, prettier and overall more precise product <Maintainer {...MAINTAINERS.Putro} /> later became the main maintainer of this spec implementation, and has implemented almost everything you see today. This was done while gathering feedback and suggestions from the rest of the Hunter community the other theorycrafters. It now replaces (or alternately enhances) many manual log-reviews, and provides a lot of information up-front that is relevant to players of all skill levels.
+            <Maintainer {...MAINTAINERS.Putro} /> later became the main maintainer of this spec implementation because he wanted to replace <a href="http://www.checkmywow.com">Check My Wow</a> after it was announced it would no longer be maintained, with a better, prettier and overall more precise product. He has implemented almost everything you see today. This was done while gathering feedback and suggestions from the rest of the Hunter community and the other theorycrafters. It now replaces (or alternately enhances) many manual log-reviews, and provides a lot of information up-front that is relevant to players of all skill levels.<br /><br />
 
             <Maintainer {...MAINTAINERS.Blazballs} /> assisted in the Marksmanship module by amongst other things, creating the associated focus tracking chart, which now sees usage in both Beast Mastery and Survival implementations as well.
-
-             later became the main maintainer of this spec implementation.
           </div>
         </div>
 
@@ -963,7 +1004,11 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.FROST_MAGE} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/468
+            <Maintainer {...MAINTAINERS.Sharrq} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/468">added</a> initial support for Frost Mages. His motivation was as follows:<br /><br />
+
+            <blockquote>
+              A friend of mine saw the boomkin stuff and was like "Hey Sharrq, check out this awesome site", and i looked at it and was like "oh thats why i havent seen this ... no mage support", and he jokingly said "You should do it!" so i looked at it to see how complicated it was ... and hey presto, mages
+            </blockquote>
 
             By <Maintainer {...MAINTAINERS.Sharrq} /> and <Maintainer {...MAINTAINERS.sref} />
           </div>
@@ -1107,6 +1152,8 @@ class Article extends React.PureComponent {
 
             By <Maintainer {...MAINTAINERS.Putro} />
 
+            With the Marksmanship module gaining large popularity in the hunter community, requests for getting a Beast-Mastery equivalent grew, and with feedback/suggestions from the community and theorycrafters it’s now in a state where it also can replace (or enhance) many manual log reviews.
+
           </div>
         </div>
 
@@ -1249,8 +1296,6 @@ class Article extends React.PureComponent {
             https://github.com/WoWAnalyzer/WoWAnalyzer/pull/785
 
             Mention here that even if a spec is being maintained we are still always looking for more interested people to help us continue extending it
-
-            By <Maintainer {...MAINTAINERS.Yajinni} /> and <Maintainer {...MAINTAINERS.Noichxd} />
           </div>
         </div>
 
@@ -1495,6 +1540,10 @@ class Article extends React.PureComponent {
             By <Maintainer {...MAINTAINERS.Zerotorescue} />
           </div>
         </div>
+
+        Survival:
+        https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1202 Initial version by Putro.
+        With both Beast-Mastery and Marksmanship modules being close to completed, Putro began work on the Survival module in early 2018.
 
         {/* TODO: Go through commits for a second pass since we commited a bunch of interesting thigns directly without PR */}
         {/* TODO: Go through commits for old screenshots */}
