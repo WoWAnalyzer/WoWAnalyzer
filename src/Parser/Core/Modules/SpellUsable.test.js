@@ -15,6 +15,7 @@ describe('Core/Modules/SpellUsable', () => {
     abilitiesMock = {
       getExpectedCooldownDuration: jest.fn(() => 7500),
       getMaxCharges: jest.fn(),
+      getAbility: jest.fn((id) => {spell: {id: id}}),
     };
 
     instance = new SpellUsable(parserMock, {

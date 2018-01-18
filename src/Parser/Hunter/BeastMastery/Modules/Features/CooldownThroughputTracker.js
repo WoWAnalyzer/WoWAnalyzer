@@ -21,8 +21,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
 
   static ignoredSpells = [
     ...CooldownThroughputTracker.ignoredSpells,
-    SPELLS.GOLGANNETHS_VITALITY_RAVAGING_STORM.id,
-    SPELLS.GOLGANNETHS_VITALITY_THUNDEROUS_WRATH.id,
   ];
 }
 

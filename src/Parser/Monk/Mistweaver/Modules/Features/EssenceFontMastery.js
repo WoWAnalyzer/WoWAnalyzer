@@ -76,9 +76,9 @@ class EssenceFontMastery extends Analyzer {
     return {
       actual: this.avgMasteryCastsPerEF,
       isLessThan: {
-        minor: 2,
-        average: 1.5,
-        major: 1,
+        minor: 1.5,
+        average: 1,
+        major: .5,
       },
       style: 'number',
     };

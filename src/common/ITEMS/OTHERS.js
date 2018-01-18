@@ -164,6 +164,12 @@ export default {
     icon: 'inv_jewelcrafting_shadowsongamethyst_01',
     quality: ITEM_QUALITIES.EPIC,
   },
+  EYE_OF_COMMAND: {
+    id: 142167,
+    name: 'Eye of Command',
+    icon: 'inv_7_0raid_trinket_010d',
+    quality: ITEM_QUALITIES.EPIC,
+  },
 
   // T20 Trinkets
   // Heal Trinkets

@@ -10,6 +10,11 @@ export default {
     name: 'Astral Shift',
     icon: 'ability_shaman_astralshift',
   },
+  PURIFY_SPIRIT: {
+    id: 77130,
+    name: 'Purify Spirit',
+    icon: 'ability_shaman_cleansespirit',
+  },
   WIND_SHEAR: {
     id: 57994,
     name: 'Wind Shear',

@@ -234,6 +234,11 @@ export default {
     name: "Swarming Shadows",
     icon: 'spell_shadow_shadesofdarkness',
   },
+  LEGIONS_GAZE: { //Eye of Command buff
+    id: 230152,
+    name: 'Legion\'s Gaze',
+    icon: 'inv_pet_inquisitoreye',
+  },
 
   // Nighthold Trinkets
   RECURSIVE_STRIKES: {
@@ -827,12 +832,12 @@ export default {
   FELSHIELD_ABSORB: {
     id: 253277,
     name: 'Felshield',
-    icon: 'ability-vehicle-shellshieldgenerator-green',
+    icon: 'ability_vehicle_shellshieldgenerator_green',
   },
   FELSHIELD_DAMAGE: {
     id: 253278,
     name: 'Felshield',
-    icon: 'ability-vehicle-shellshieldgenerator-green',
+    icon: 'ability_vehicle_shellshieldgenerator_green',
   },
   //Aman'Thul's Vision
   AMANTHULS_GRANDEUR: { //Pantheon Proc
