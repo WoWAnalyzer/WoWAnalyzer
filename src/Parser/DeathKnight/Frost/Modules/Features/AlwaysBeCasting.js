@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellLink from 'common/SpellLink';
+import Wrapper from 'common/Wrapper';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
@@ -57,7 +58,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   suggestions(when) {
     when(this.downtimeSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics.  If you do have to move, try casting filler spells, such as <SpellLink id={SPELLS.HOWLING_BLAST.id}/> or <SpellLink id={SPELLS.FROST_STRIKE.id}/>.</span>)
+        return suggest(<Wrapper>Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics.  If you do have to move, try casting filler spells, such as <SpellLink id={SPELLS.HOWLING_BLAST.id}/> or <SpellLink id={SPELLS.FROST_STRIKE.id}/>.</Wrapper>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);

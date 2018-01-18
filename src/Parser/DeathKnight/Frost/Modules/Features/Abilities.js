@@ -1,11 +1,11 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-//import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
+import Wrapper from 'common/Wrapper';
+
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
-//import ItemLink from 'common/ItemLink';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -18,7 +18,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-          extraSuggestion: <span>Making sure to use <SpellLink id={SPELLS.SINDRAGOSAS_FURY_ARTIFACT.id} /> immediately after it's cooldown is up is important and if you have 5 stacks of <SpellLink id={SPELLS.RAZORICE.id} /> use as it is coming off cooldown.</span>,
+          extraSuggestion: <Wrapper>Making sure to use <SpellLink id={SPELLS.SINDRAGOSAS_FURY_ARTIFACT.id} /> immediately after it's cooldown is up is important and if you have 5 stacks of <SpellLink id={SPELLS.RAZORICE.id} /> use as it is coming off cooldown.</Wrapper>,
         },
       },
       {
@@ -60,7 +60,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.60,
-          extraSuggestion: <span>You should use this whenever you are out of Runes and Runic Power.  Alternatively, some players use this during heroism to get more casts of <SpellLink id={SPELLS.OBLITERATE.id}/>.</span>,
+          extraSuggestion: <Wrapper>You should use this whenever you are out of Runes and Runic Power.  Alternatively, some players use this during heroism to get more casts of <SpellLink id={SPELLS.OBLITERATE.id}/>.</Wrapper>,
         },
       },
       {
