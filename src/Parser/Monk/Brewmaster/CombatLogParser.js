@@ -19,6 +19,7 @@ import TigerPalm from './Modules/Spells/TigerPalm';
 import RushingJadeWind from './Modules/Spells/RushingJadeWind';
 import BreathOfFire from './Modules/Spells/BreathOfFire';
 import BlackOxBrew from './Modules/Spells/BlackOxBrew';
+import HighTolerance from './Modules/Spells/HighTolerance';
 // Features
 import Checklist from './Modules/Features/Checklist';
 import Abilities from './Modules/Features/Abilities';
@@ -60,6 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
     rjw: RushingJadeWind,
     bof: BreathOfFire,
     bob: BlackOxBrew,
+    highTolerance: HighTolerance,
 
     // Items
     t20_2pc: T20_2pc,

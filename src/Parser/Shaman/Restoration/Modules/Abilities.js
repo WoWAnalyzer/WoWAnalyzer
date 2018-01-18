@@ -201,6 +201,12 @@ class Abilities extends CoreAbilities {
           casts: castCount => castCount.healingTwHits || 0,
         },
       },
+      {
+        spell: SPELLS.PURIFY_SPIRIT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 8,
+        isOnGCD: true,
+      },
     ];
   }
 }

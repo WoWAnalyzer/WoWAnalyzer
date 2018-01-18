@@ -23,6 +23,14 @@ class BrewCDR extends Analyzer {
     abilities: Abilities,
   }
 
+  _totalHaste = 0;
+  _newHaste = 0;
+  _lastHasteChange = 0;
+
+  get meanHaste() {
+    return this._totalHaste / this.owner.fightDuration;
+  }
+
   get totalCDR() {
     let totalCDR = 0;
     // add in KS CDR...
@@ -44,7 +52,8 @@ class BrewCDR extends Analyzer {
   // the amount of CDR required so that you can cast ISB often enough to
   // actually hit 100% uptime
   get cdrRequiredForUptime() {
-    return 1 - this.isb.durationPerCast / this.abilities.getExpectedCooldownDuration(SPELLS.FAKE_SHARED_BREWS.id);
+    const ability = this.abilities.getAbility(SPELLS.IRONSKIN_BREW.id);
+    return 1 - this.isb.durationPerCast / (ability._cooldown(this.meanHaste) * 1000);
   }
 
   get suggestionThreshold() {
@@ -59,6 +68,17 @@ class BrewCDR extends Analyzer {
       style: 'percentage',
     };
   }
+
+  on_changehaste(event) {
+    this._totalHaste += event.oldHaste * (event.timestamp - this._lastHasteChange);
+    this._lastHasteChange = event.timestamp;
+    this._newHaste = event.newHaste;
+  }
+
+  on_finished() {
+    this._totalHaste += this._newHaste * (this.owner.fight.end_time - this._lastHasteChange);
+  }
+
 
   statistic() {
     let wristsDesc = "";

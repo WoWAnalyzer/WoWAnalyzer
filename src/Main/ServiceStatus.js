@@ -54,11 +54,11 @@ class ServiceStatus extends React.PureComponent {
     let className;
     switch (this.state.status) {
       case STATUS.PERFORMANCE_ISSUES:
-        message = 'Some systems are experiencing issues';
+        message = 'Some systems are experiencing performance issues';
         className = 'alert-info';
         break;
       case STATUS.PARTIAL_OUTAGE:
-        message = 'Some systems are experiencing a partial outage';
+        message = 'Some systems are experiencing issues';
         className = 'alert-warning';
         break;
       case STATUS.MAJOR_OUTAGE:
