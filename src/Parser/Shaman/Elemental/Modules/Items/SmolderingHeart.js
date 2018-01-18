@@ -41,7 +41,7 @@ class SmolderingHeart extends Analyzer {
           this.MaelstromSpent += event.classResources[0].cost;
       } else if (event.ability.guid === SPELLS.FROST_SHOCK.id || event.ability.guid === SPELLS.FLAME_SHOCK.id) {
           // FS and FrS spend up to 20 Maesltrom, based on the amount available.
-          this.MaelstromSpent += (event.classResources[0].amount > 20 ? 20 : event.classResources[0].amount);
+          this.MaelstromSpent += (event.classResources[0].amount >= 20 ? 20 : event.classResources[0].amount);
       } else if (event.ability.guid === SPELLS.EARTHQUAKE.id) {
           this.MaelstromSpent += 50;
       }
@@ -50,7 +50,7 @@ class SmolderingHeart extends Analyzer {
   on_byPlayer_applybuff(event) {
     if (event.ability.guid === SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) {
         if (this.AscendanceCastEventIds.has(event.eventUniqueId + 1)) {
-            // On manual Ascendance cast, the applybuff event occurs one event before the cast event, so checking if 
+            // On manual Ascendance cast, the applybuff event occurs one event before the cast event, so checking if
             // a cast event exists one place after the applybuff event is a robust way of determining whether an Ascendance
             // buff was manually casted or is a result of a Smoldering Heart proc.
             return;
