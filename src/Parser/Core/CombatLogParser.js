@@ -65,6 +65,8 @@ import DrapeOfShame from './Modules/Items/Legion/DrapeOfShame';
 import DarkmoonDeckPromises from './Modules/Items/Legion/DarkmoonDeckPromises';
 import AmalgamsSeventhSpine from './Modules/Items/Legion/AmalgamsSeventhSpine';
 import GnawedThumbRing from './Modules/Items/Legion/GnawedThumbRing';
+import EyeOfCommand from './Modules/Items/Legion/EyeOfCommand';
+
 // The Nighthold (T19)
 import ErraticMetronome from './Modules/Items/Legion/TheNighthold/ErraticMetronome';
 // Tomb of Sargeras (T20)
@@ -194,6 +196,7 @@ class CombatLogParser {
     gnawedThumbRing: GnawedThumbRing,
     ishkarsFelshieldEmitter: IshkarsFelshieldEmitter,
     erraticMetronome: ErraticMetronome,
+    eyeOfCommand: EyeOfCommand,
     // Tomb trinkets:
     archiveOfFaith: ArchiveOfFaith,
     barbaricMindslaver: BarbaricMindslaver,
@@ -491,7 +494,7 @@ class CombatLogParser {
 
   generateResults() {
     const results = new ParseResults();
-    
+
     results.tabs = [
       {
         title: 'Timeline',
@@ -514,7 +517,7 @@ class CombatLogParser {
         order: 3,
         render: () => (
           <Tab title="Gear">
-            <Gear selectedCombatant={this._modules.combatants.selected}/>
+            <Gear selectedCombatant={this._modules.combatants.selected} />
           </Tab>
         ),
       },

@@ -10,6 +10,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-01-18'),
+    changes: <Wrapper>Added support for <ItemLink id={ITEMS.EYE_OF_COMMAND.id} icon />.</Wrapper>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-01-18'),
     changes: <Wrapper>Added <ItemLink id={ITEMS.ISHKARS_FELSHIELD_EMITTER.id} icon /> to cast efficiency.</Wrapper>,
     contributors: [Zerotorescue],
   },
@@ -25,7 +30,7 @@ export default [
   },
   {
     date: new Date('2018-01-15'),
-    changes: <Wrapper>Added in <ItemLink id={ITEMS.AMANTHULS_VISION.id} icon/></Wrapper>,
+    changes: <Wrapper>Added in <ItemLink id={ITEMS.AMANTHULS_VISION.id} icon /></Wrapper>,
     contributors: [Hewhosmites],
   },
   {

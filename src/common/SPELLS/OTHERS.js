@@ -234,6 +234,11 @@ export default {
     name: "Swarming Shadows",
     icon: 'spell_shadow_shadesofdarkness',
   },
+  LEGIONS_GAZE: { //Eye of Command buff
+    id: 230152,
+    name: 'Legion\'s Gaze',
+    icon: 'inv_pet_inquisitoreye',
+  },
 
   // Nighthold Trinkets
   RECURSIVE_STRIKES: {
