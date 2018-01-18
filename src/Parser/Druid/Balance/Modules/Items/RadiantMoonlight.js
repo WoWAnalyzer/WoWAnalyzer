@@ -67,7 +67,7 @@ class RadiantMoonlight extends Analyzer {
   item() {
     return {
       item: ITEMS.RADIANT_MOONLIGHT,
-      result: <Wrapper>Gave you {formatNumber(this.freeFullMoons)} free <SpellLink id={SPELLS.FULL_MOON.id} /> casts and reduced the cooldown of your Moon spells by ~{this.averageCooldownReduction.toFixed(1)} seconds.</Wrapper>,
+      result: <Wrapper>Gave you {formatNumber(this.freeFullMoons)} free <SpellLink id={SPELLS.FULL_MOON.id} /> casts and reduced the cooldown of your Moon spells by an average of ~{this.averageCooldownReduction.toFixed(1)} seconds.</Wrapper>,
     };
   }
 }

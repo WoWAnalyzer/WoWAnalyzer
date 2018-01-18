@@ -360,6 +360,15 @@ describe('Core/Modules/SpellUsable', () => {
         });
       }
     });
+    it('A charge spell that has the cooldown of more than a single charge reduced should return the full reduction value', () => {
+      abilitiesMock.getMaxCharges = jest.fn(() => 3);
+      triggerCast(SPELLS.FAKE_SPELL.id);
+      triggerCast(SPELLS.FAKE_SPELL.id);
+      triggerCast(SPELLS.FAKE_SPELL.id);
+      parserMock.currentTimestamp = 6000; //Leaves 1500ms cooldown remainig
+      const reduction = instance.reduceCooldown(SPELLS.FAKE_SPELL.id, 5000); 
+      expect(reduction).toBe(5000);    
+    });
   });
 
   describe('Haste scaling cooldowns', () => {
