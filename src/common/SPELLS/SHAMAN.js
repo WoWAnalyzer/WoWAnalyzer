@@ -237,6 +237,11 @@ export default {
     name: 'The Deceiver\'s Blood Pact',
     icon: 'ability_creature_cursed_04',
   },
+  ECHOES_OF_THE_GREAT_SUNDERING_BUFF: {
+    id: 208723,
+    name: 'Echoes of the Great Sundering',
+    icon: 'inv_shoulder_plate_raidwarrior_j_01',
+  },
   //Elemental Sets
   ELEMENTAL_SHAMAN_T21_2SET_BUFF: {
     id: 251757,
