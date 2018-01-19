@@ -303,6 +303,8 @@ class StatTracker extends Analyzer {
         return 0.11;
       case SPECS.AFFLICTION_WARLOCK:
         return 0.25;
+      case SPECS.FROST_DEATH_KNIGHT:
+        return 0.12;
       default:
         console.error('Mastery hasn\'t been implemented for this spec yet.');
         return 0.0;
