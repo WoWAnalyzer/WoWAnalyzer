@@ -81,7 +81,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CALTROPS_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 12,
+        cooldown: 15,
         isOnGCD: true,
         enabled: this.combatants.selected.hasTalent(SPELLS.CALTROPS_TALENT.id),
         castEfficiency: {
