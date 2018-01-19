@@ -28,7 +28,7 @@ class Trueshot extends Analyzer {
   aimedShotsPrTS = 0;
   aimedCritsInTS = 0;
   totalCritsInTS = 0;
-  totalCastsPrTS = 0;
+  nonCritsInTS = 0;
   executeTrueshots = 0;
   startFocusForCombatant = 0;
   prepullTrueshots = 0;
@@ -78,21 +78,21 @@ class Trueshot extends Analyzer {
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     const isCrit = event.hitType === HIT_TYPES.CRIT;
-
     if (!this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id, event.timestamp)) {
       return;
+    }
+    if (isCrit) {
+      this.totalCritsInTS += 1;
+    } else {
+      this.nonCritsInTS += 1;
     }
     if (spellId !== SPELLS.AIMED_SHOT.id) {
       return;
     }
     const primaryTargetEventIndex = this._primaryTargets.findIndex(primary => primary.targetID === event.targetID && primary.targetInstance === event.targetInstance);
     if (primaryTargetEventIndex !== -1) {
-      this.totalCastsPrTS += 1;
       if (isCrit) {
-        this.totalCritsInTS += 1;
-        if (spellId === SPELLS.AIMED_SHOT.id) {
-          this.aimedCritsInTS += 1;
-        }
+        this.aimedCritsInTS += 1;
       }
       this.aimedShotsPrTS += 1;
     }
@@ -100,7 +100,7 @@ class Trueshot extends Analyzer {
 
   statistic() {
     const percentAimedCrits = formatPercentage(this.aimedCritsInTS / this.aimedShotsPrTS);
-    const percentCastCrits = formatPercentage(this.totalCritsInTS / this.totalCastsPrTS);
+    const percentCastCrits = formatPercentage(this.totalCritsInTS / (this.totalCritsInTS + this.nonCritsInTS));
     return (
       <StatisticBox icon={<SpellIcon id={SPELLS.TRUESHOT.id} />}
         value={(
@@ -126,9 +126,17 @@ class Trueshot extends Analyzer {
           </Wrapper>
         )}
         label="Trueshot info"
-        tooltip={`Information regarding your average Trueshot window: <ul> <li>You started your Trueshot windows with an average of ${this.averageFocus} focus.</li> <li> You hit an average of ${this.averageAimedShots} Aimed Shots inside each Trueshot window. </li> <li> Your Trueshot Aimed Shots had a crit rate of ${percentAimedCrits}%. </li> <li>Your overall crit rate during Trueshot was ${percentCastCrits}%. </li> <li>You spent an average of ${this.uptimePerCast} seconds in trueshot pr cast of Trueshot.</li></ul>`} />
+        tooltip={`Information regarding your average Trueshot window:
+        <ul>
+          <li>You started your Trueshot windows with an average of ${this.averageFocus} focus.</li>
+          <li> You hit an average of ${this.averageAimedShots} Aimed Shots inside each Trueshot window. </li>
+          <li> Your Trueshot Aimed Shots had a crit rate of ${percentAimedCrits}%. </li>
+          <li>Your overall crit rate during Trueshot was ${percentCastCrits}%. </li>
+          <li>You spent an average of ${this.uptimePerCast} seconds in trueshot pr cast of Trueshot.</li>
+        </ul>`} />
     );
   }
+
   get averageAimedShots() {
     return (this.aimedShotsPrTS / this.trueshotCasts).toFixed(1);
   }
