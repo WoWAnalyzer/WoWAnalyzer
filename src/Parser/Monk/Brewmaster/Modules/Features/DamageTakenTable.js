@@ -78,14 +78,9 @@ class DamageTakenTable extends Analyzer {
     const fbActive = this.combatants.selected.hasBuff(SPELLS.FORTIFYING_BREW_BRM.id);
     // additive increase of 10%
     const hasHT = this.ht.active;
-    // multiplicative increase of 40% for magic damage
-    // const hasMV = this.combatants.selected.hasTalent(SPELLS.MYSTIC_VITALITY_TALENT.id) || this.combatants.selected.hasRing(ITEMS.SOUL_OF_THE_GRANDMASTER.id);
 
     const physicalStaggerPct = 0.4 + hasHT * 0.1 + isbActive * 0.35 + isbActive * this._has2pcT19 * 0.05 + fbActive * 0.1;
-    // const magicalStaggerPct = physicalStaggerPct * 0.4 * (hasMV ? 1.4 : 1);
-
     const actualPct = event.absorbed / (event.absorbed + event.amount);
-    console.log(actualPct, physicalStaggerPct, event, hasHT, isbActive, this._has2pcT19, fbActive);
 
     // multiply by 0.95 to allow for minor floating-point / integer
     // division error
