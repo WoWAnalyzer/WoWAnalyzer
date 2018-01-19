@@ -667,6 +667,11 @@ export default {
     name: 'Embrace of the Aspects',
     icon: 'spell_hunter_aspectofthehawk',
   },
+  JAWS_OF_THE_MONGOOSE: {
+    id: 238053,
+    name: 'Jaws of the Mongoose',
+    icon: 'ability_hunter_mongoosebite',
+  },
   //Survival tier and their buffs
   HUNTER_SV_T20_2P_BONUS: {
     id: 242244,

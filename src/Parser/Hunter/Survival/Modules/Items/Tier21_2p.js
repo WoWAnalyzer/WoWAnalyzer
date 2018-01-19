@@ -6,20 +6,19 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
+import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 import ItemDamageDone from 'Main/ItemDamageDone';
-import Enemies from 'Parser/Core/Modules/Enemies';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
-const T21_2P_DMG_BONUS = 1;
+const T21_2P_CRIT_DMG_BONUS = 1;
 
 /**
  * Flanking Strike has a 50% chance to increase the critical strike chance of your next Raptor Strike by 100% and the critical strike damage of Raptor Strike by 100% within the next 20 sec.
  */
 class Tier21_2p extends Analyzer {
   static dependencies = {
-    enemies: Enemies,
     combatants: Combatants,
+    critEffectBonus: CritEffectBonus,
   };
   bonusDmg = 0;
   applications = 0;
@@ -29,14 +28,28 @@ class Tier21_2p extends Analyzer {
 
   on_initialized() {
     this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_SV_T21_2P_BONUS.id);
+    if (this.active) {
+      this.critEffectBonus.hook(this.getCritEffectBonus.bind(this));
+    }
   }
+
+  getCritEffectBonus(critEffectModifier, event) {
+    if (this.isApplicable(event)) {
+      critEffectModifier += T21_2P_CRIT_DMG_BONUS;
+    }
+    return critEffectModifier;
+  }
+
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.FLANKING_STRIKE.id) {
-      return;
+    if (spellId === SPELLS.FLANKING_STRIKE.id) {
+      this.flankingStrikeCasts++;
     }
-    this.flankingStrikeCasts++;
+    if (spellId === SPELLS.RAPTOR_STRIKE.id) {
+      this.totalRaptorStrikes++;
+    }
   }
+
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.HUNTER_SV_T21_2P_BONUS_BUFF.id) {
@@ -44,19 +57,30 @@ class Tier21_2p extends Analyzer {
     }
     this.applications++;
   }
+
   on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    const isCrit = event.hitType === HIT_TYPES.CRIT;
-    if (spellId !== SPELLS.RAPTOR_STRIKE.id) {
+    if (!this.isApplicable(event)) {
       return;
     }
-    if (this.combatants.selected.hasBuff(SPELLS.HUNTER_SV_T21_2P_BONUS_BUFF.id, event.timestamp)) {
-      if (isCrit) {
-        this.buffedRaptorStrikes++;
-        this.bonusDmg += getDamageBonus(event, T21_2P_DMG_BONUS);
-      }
+    const amount = event.amount;
+    const absorbed = event.absorbed || 0;
+    const raw = amount + absorbed;
+    this.buffedRaptorStrikes++;
+    this.bonusDmg += (raw / this.critEffectBonus.getBonus(event));
+  }
+
+  isApplicable(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.RAPTOR_STRIKE.id) {
+      return false;
     }
-    this.totalRaptorStrikes++;
+    if (!this.combatants.selected.hasBuff(SPELLS.HUNTER_SV_T21_2P_BONUS_BUFF.id, event.timestamp)) {
+      return false;
+    }
+    if (event.hitType !== HIT_TYPES.CRIT) {
+      return false;
+    }
+    return true;
   }
 
   item() {
