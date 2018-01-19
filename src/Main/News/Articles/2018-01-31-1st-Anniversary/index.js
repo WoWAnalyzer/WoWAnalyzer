@@ -52,6 +52,7 @@ import ManaTab from './ManaTab.PNG';
 import RestoShaman from './RestoShaman.png';
 import RestoShamanFeeding from './RestoShamanFeeding.png';
 import HolyPriest from './HolyPriest.PNG';
+import LowHealthHealing from './LowHealthHealing.png';
 
 function completeness(completeness) {
   return <dfn data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>;
@@ -581,7 +582,7 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.HOLY_PRIEST} />
-            Holy Priest support was <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/96">added</a> by <Maintainer {...MAINTAINERS.enragednuke} />.<br /><br />
+            Holy Priest support was <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/96">added</a> by <Maintainer {...MAINTAINERS.enragednuke} />. He says his motivation to add it was mostly a combination of watching <Maintainer {...MAINTAINERS.Reglitch} /> develop the Discipline Priest module (he was occasionally streaming development at the time) and a want to learn more JavaScript. And he just happened to play a spec not yet supported.<br /><br />
 
             <figure>
               <img src={HolyPriest} alt="The initial Holy Priest version" />
@@ -590,7 +591,28 @@ class Article extends React.PureComponent {
               </figcaption>
             </figure><br />
 
-            <Maintainer {...MAINTAINERS.Skamer} /> also contributed a couple of things, such as support for the <SpellLink id={SPELLS.DIVINITY_TALENT.id} icon />.
+            <Maintainer {...MAINTAINERS.Skamer} /> also contributed a couple of things to this spec, such as support for the <SpellLink id={SPELLS.DIVINITY_TALENT.id} icon />.
+          </div>
+        </div>
+
+        <div className="panel">
+          <div className="date">
+            5 Jul
+          </div>
+          <div className="panel-heading">
+            <h2>Low health healing</h2>
+          </div>
+          <div className="panel-body">
+            Sparked by a discussion in the Holy Paladin Discord about what healers actually save most lives I decided I wanted to make this easier to see. So I create the <b>low health healing</b> tab so display any heals on players below a certain amount of health. The tab is fully configurable to find exactly the kind of data you need to win whatever argument you're having.<br /><br />
+
+            One thing that stands out is <SpellLink id={SPELLS.MARK_OF_THE_ANCIENT_PRIESTESS.id} icon /> shows up in the list a lot. It might be worth reconsidering your neck enchant.<br /><br />
+
+            <figure>
+              <img src={LowHealthHealing} alt="Low health healing by a Paladin on Mythic Krosus" />
+              <figcaption>
+                Low health healing by a Paladin on Mythic Krosus
+              </figcaption>
+            </figure>
           </div>
         </div>
 
