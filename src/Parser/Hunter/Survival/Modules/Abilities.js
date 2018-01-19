@@ -86,7 +86,7 @@ class Abilities extends CoreAbilities {
         enabled: this.combatants.selected.hasTalent(SPELLS.CALTROPS_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.6,
+          recommendedEfficiency: 0.55,
         },
       },
       {
