@@ -407,7 +407,11 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.MISTWEAVER_MONK} />
-            <span className="Monk">Mistweaver Monk</span> support was <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/33">first proposed</a> by <Maintainer {...MAINTAINERS.Anomoly} /> at 23 May 2017, and merged to WoWAnalyzer.com after a short review process a day later.<br /><br />
+            <span className="Monk">Mistweaver Monk</span> support was <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/33">first proposed</a> by <Maintainer {...MAINTAINERS.Anomoly} /> at 23 May 2017, and merged to WoWAnalyzer.com after a short review process a day later. His reasoning for getting involved:<br /><br />
+
+            <blockquote>
+              I was looking at a way to help out and extend support for the CheckMyWoW site, which at the time was the only analysis site I was aware of. I built a list of suggestions and features to potentially work on with that site, but this was just around the time Zerotorescue had started to extend and open up WoWAnalyzer to other specs. I figured this was a great opportunity to both get involved in something WoW related, help my fellow Mistweavers and also learn some JavaScript / React in the process!
+            </blockquote>
 
             <figure>
               <img src={WoWAnalyzerV111} alt="WoWAnalyzer v1.1.1: initial Mistweaver support" />
