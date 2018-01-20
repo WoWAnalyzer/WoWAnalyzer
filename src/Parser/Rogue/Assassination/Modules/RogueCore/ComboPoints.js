@@ -30,8 +30,8 @@ class ComboPoints extends Analyzer {
     resourceSuggest(when,  this.comboPointTracker, {
       spell: SPELLS.GARROTE,
       minor: 0,
-      avg: 0.05, 
-      major: 0.1,
+      avg: 0.1, 
+      major: 0.2,
       extraSuggestion: this.makeExtraSuggestion(SPELLS.GARROTE),
     });
     resourceSuggest(when,  this.comboPointTracker, {

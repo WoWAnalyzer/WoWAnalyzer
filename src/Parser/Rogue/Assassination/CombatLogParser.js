@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import Abilities from './Modules/Features/Abilities';
+import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
 import ComboPointDetails from '../Common/Resources/ComboPointDetails';
 import ComboPointTracker from '../Common/Resources/ComboPointTracker';
@@ -21,6 +22,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Feature
     damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
+    alwaysBeCasting: AlwaysBeCasting,
 
     //Resource
     comboPointTracker: ComboPointTracker,
