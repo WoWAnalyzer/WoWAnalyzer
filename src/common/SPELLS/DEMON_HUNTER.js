@@ -158,6 +158,24 @@ export default {
   },
 
   // Havoc
+  //T21 Bonus
+  HAVOC_T21_2PC_BONUS: {
+    id: 251767,
+    name: 'Havoc T21 2PC Bonus',
+    icon: 'ability_demonhunter_eyebeam',
+  },
+  HAVOC_T21_4PC_BONUS: {
+    id: 251769,
+    name: 'Havoc T21 4PC Bonus',
+    icon: 'ability_demonhunter_eyebeam',
+  },
+  //T21 Buff
+  HAVOC_T21_4PC_BUFF: {
+    id: 252165,
+    name: 'Betrayer\'s Fury',
+    icon: 'ability_demonhunter_eyebeam',
+  },
+  //spells
   DEMONS_BITE: {
     id: 162243,
     name: 'Demon\'s Bite',
