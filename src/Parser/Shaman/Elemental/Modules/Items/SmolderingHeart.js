@@ -8,54 +8,58 @@ import ItemIcon from 'common/ItemIcon';
 import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
 
+import { SMOLDERING } from '../../Constants';
+
 class SmolderingHeart extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
 
-  SmolderingProcs = 0;
-  SmolderingDuration = 0;
-  MaelstromSpent = 0;
-  AscendanceCastEventIds = new Set();
-
-  smoldering_uptime() {
-    return this.SmolderingDuration / this.owner.fightDuration;
-  }
-
-  expected_smoldering_uptime() {
-    // Smoldering Heart (Elemental) gives a 0.10% (0.001 decimal) chance per point of Maelstrom spent to grant Ascendance for 10 seconds (10000ms).
-    const EXPECTED_PROC_COUNT = this.MaelstromSpent * 0.001;
-    const EXPECTED_UPTIME = (EXPECTED_PROC_COUNT * 10000) / this.owner.fightDuration;
-    return EXPECTED_UPTIME;
-  }
+  smolderingProcs = 0;
+  smolderingDuration = 0;
+  maelstromSpent = 0;
+  ascendanceCastEventIds = new Set();
 
   on_initialized() {
     this.active = this.combatants.selected.hasHands(ITEMS.SMOLDERING_HEART.id);
   }
 
+  smoldering_uptime() {
+    return this.smolderingDuration / this.owner.fightDuration;
+  }
+
+  expected_smoldering_uptime() {
+    // Smoldering Heart (Elemental) gives a 0.10% (0.001 decimal) chance per point of Maelstrom spent to grant Ascendance for 10 seconds (10000ms).
+    const EXPECTED_PROC_COUNT = this.maelstromSpent*SMOLDERING.PROC_CHANCE;
+    const EXPECTED_UPTIME = (EXPECTED_PROC_COUNT * SMOLDERING.PROC_DURATION) / this.owner.fightDuration;
+    return EXPECTED_UPTIME;
+  }
+
+
+
   on_byPlayer_cast(event) {
       if (event.ability.guid === SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) {
-          this.AscendanceCastEventIds.add(event.eventUniqueId);
+          this.ascendanceCastEventIds.add(event.eventUniqueId);
       }
       if (event.ability.guid === SPELLS.EARTH_SHOCK.id) {
-          this.MaelstromSpent += event.classResources[0].cost;
+          this.maelstromSpent += event.classResources[0].cost;
       } else if (event.ability.guid === SPELLS.FROST_SHOCK.id || event.ability.guid === SPELLS.FLAME_SHOCK.id) {
           // FS and FrS spend up to 20 Maesltrom, based on the amount available.
-          this.MaelstromSpent += (event.classResources[0].amount >= 20 ? 20 : event.classResources[0].amount);
+          this.maelstromSpent += (event.classResources[0].amount >= 20 ? 20 : event.classResources[0].amount);
       } else if (event.ability.guid === SPELLS.EARTHQUAKE.id) {
-          this.MaelstromSpent += 50;
+          this.maelstromSpent += 50;
       }
   }
 
   on_byPlayer_applybuff(event) {
     if (event.ability.guid === SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) {
-        if (!this.AscendanceCastEventIds.has(event.eventUniqueId + 1)) {
+        if (!this.ascendanceCastEventIds.has(event.eventUniqueId + 1)) {
             // On manual Ascendance cast, the applybuff event occurs one event before the cast event, so checking if
             // a cast event exists one place after the applybuff event is a robust way of determining whether an Ascendance
             // buff was manually casted or is a result of a Smoldering Heart proc.
             // Magic number: 10000ms is the duration of the Smoldering Heart Asc proc.
-            this.SmolderingProcs += 1;
-            this.SmolderingDuration += 10000;
+            this.smolderingProcs += 1;
+            this.smolderingDuration += 10000;
         }
     }
   }

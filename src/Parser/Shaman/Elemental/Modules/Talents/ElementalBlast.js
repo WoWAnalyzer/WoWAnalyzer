@@ -9,6 +9,8 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
+import { ELEMENTAL_BLAST_IDS } from '../../Constants';
+
 class ElementalBlast extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -18,24 +20,27 @@ class ElementalBlast extends Analyzer {
   lastFreshApply=0;
   resultDuration=0;
 
-  on_removebuff(event) {
-    if (event.ability.guid === SPELLS.ELEMENTAL_BLAST_CRIT.id ||event.ability.guid === SPELLS.ELEMENTAL_BLAST_MASTERY.id ||event.ability.guid === SPELLS.ELEMENTAL_BLAST_HASTE.id){
-      this.currentBuffAmount--;
-      if (this.currentBuffAmount===0)
-        this.resultDuration+=event.timestamp-this.lastFreshApply;
-    }
-  }
-
-  on_applybuff(event) {
-    if (event.ability.guid === SPELLS.ELEMENTAL_BLAST_CRIT.id ||event.ability.guid === SPELLS.ELEMENTAL_BLAST_MASTERY.id ||event.ability.guid === SPELLS.ELEMENTAL_BLAST_HASTE.id){
-      if (this.currentBuffAmount===0)
-        this.lastFreshApply=event.timestamp;
-      this.currentBuffAmount++;
-    }
-  }
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
+  }
+
+  on_toPlayer_removebuff(event) {
+    if (ELEMENTAL_BLAST_IDS.includes(event.ability.guid)){
+      this.currentBuffAmount--;
+      if (this.currentBuffAmount===0) {
+        this.resultDuration += event.timestamp - this.lastFreshApply;
+      }
+    }
+  }
+
+  on_toPlayer_applybuff(event) {
+    if (ELEMENTAL_BLAST_IDS.includes(event.ability.guid)){
+      if (this.currentBuffAmount===0) {
+        this.lastFreshApply = event.timestamp;
+      }
+      this.currentBuffAmount++;
+    }
   }
 
   get hasteUptime() {
