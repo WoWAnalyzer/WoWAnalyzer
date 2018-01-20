@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Anomoly, Versaya, Yuyz0112, Zerotorescue, hatra344 } from 'MAINTAINERS';
+import { Anomoly, Versaya, aryu, Zerotorescue, hatra344 } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
@@ -29,7 +29,7 @@ export default [
   {
     date: new Date('2017-08-20'),
     changes: 'Added Ancestral Vigor metric.',
-    contributors: [Yuyz0112],
+    contributors: [aryu],
   },
   {
     date: new Date('2017-07-06'),

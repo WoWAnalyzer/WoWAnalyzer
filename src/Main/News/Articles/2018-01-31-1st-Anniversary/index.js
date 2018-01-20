@@ -53,6 +53,8 @@ import RestoShaman from './RestoShaman.png';
 import RestoShamanFeeding from './RestoShamanFeeding.png';
 import HolyPriest from './HolyPriest.PNG';
 import LowHealthHealing from './LowHealthHealing.png';
+import ExtensionToolbar from './ExtensionToolbar.jpg';
+import ExtensionActive from './ExtensionActive.jpg';
 
 function completeness(completeness) {
   return <dfn data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>;
@@ -449,7 +451,7 @@ class Article extends React.PureComponent {
               </figcaption>
             </figure><br />
 
-            The spec had contributions from a couple of other maintainers. <Maintainer {...MAINTAINERS.Yuyz0112} /> added the very interesting <SpellLink id={SPELLS.ANCESTRAL_VIGOR_TALENT.id} /> metric that shows amount of lives saved. <Maintainer {...MAINTAINERS.Anomoly} /> migrated the spec to the new WoWAnalyzer version so that it would become easier to maintain and added T21 2 set and 4 set. <Maintainer {...MAINTAINERS.Hartra344} /> later took over as maintainer of the spec and implemented the checklist as well as a bunch of other features.
+            The spec had contributions from a couple of other maintainers. <Maintainer {...MAINTAINERS.aryu} /> added the very interesting <SpellLink id={SPELLS.ANCESTRAL_VIGOR_TALENT.id} /> metric that shows amount of lives saved. <Maintainer {...MAINTAINERS.Anomoly} /> migrated the spec to the new WoWAnalyzer version so that it would become easier to maintain and added T21 2 set and 4 set. <Maintainer {...MAINTAINERS.Hartra344} /> later took over as maintainer of the spec and implemented the checklist as well as a bunch of other features.
           </div>
         </div>
 
@@ -628,7 +630,22 @@ class Article extends React.PureComponent {
             <h2>The WoWAnalyzer browser extension</h2>
           </div>
           <div className="panel-body">
-            This is the moment to get people to use our extension! Insert all the stuffs here! Screenshots! Other stuff!
+            <Maintainer {...MAINTAINERS.aryu} /> created a browser extension to make it easier to analyze your logs directly from Warcraft Logs. The extension adds the WoWAnalyzer logo to your browser toolbar that, when clicked on a valid WCL report, will allow you to analyze it directly with WoWAnalyzer.<br /><br />
+
+            <figure>
+              <img src={ExtensionToolbar} alt="Extension icon" />
+              <figcaption>
+                The extension adds an icon to your toolbar
+              </figcaption>
+            </figure>
+            <figure>
+              <img src={ExtensionActive} alt="Extension active" />
+              <figcaption>
+                Clicking the icon on a valid WCL report will allow you to analyze it with WoWAnalyzer
+              </figcaption>
+            </figure><br />
+
+            Want it? Get it for Google Chrome <a href="https://chrome.google.com/webstore/detail/wow-analyzer/dnmgmiogknpdbgfgmolloddhiijkpekd">here</a> and for Firefox here.
           </div>
         </div>
 
@@ -744,9 +761,7 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.AFFLICTION_WARLOCK} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/166
-
-            By <Maintainer {...MAINTAINERS.Chizu} />
+            <Maintainer {...MAINTAINERS.Chizu} />'s accounting: Our journey started in July, when my dearest friend and fellow Affliction Warlock <b>Aki</b> found about log analyzers. Firstly she found <a href="http://www.checkmywow.com">Check My Wow</a>, but was disappointed that they didn't support Affliction. A little while later in August, she found that CMW added the support, but was kinda lacking in features, and around that time she also found WoWAnalyzer and loved the features and design for Holy Paladin. I was curious about this site myself and when I noticed that it's open source, I decided to crawl through the source code even though I had no experience in ES6 whatsoever. It took about a week of silent reading but on August, 16th I made first few Affliction modules and afterwards it went downhill with development. Rest of Affliction modules, support for Destruction and Demonology. I'd like to thank her for showing me this site, if it wasn't for her, none of Warlock specs would probably be here.
           </div>
         </div>
 
@@ -1582,7 +1597,7 @@ class Article extends React.PureComponent {
             <h2>Other contributions</h2>
           </div>
           <div className="panel-body">
-            <Maintainer {...MAINTAINERS.Yuyz0112} />: Filter kills only fight: https://github.com/WoWAnalyzer/WoWAnalyzer/pull/106
+            <Maintainer {...MAINTAINERS.aryu} />: Filter kills only fight: https://github.com/WoWAnalyzer/WoWAnalyzer/pull/106
             <Maintainer {...MAINTAINERS.Riglerr} />: Updated Cooldown Tab & components to be able to represent damage as well as healing: https://github.com/WoWAnalyzer/WoWAnalyzer/pull/53
             <Maintainer {...MAINTAINERS.BlokyKappa} />: Fixed main page button alignment
             <Maintainer {...MAINTAINERS.kyleglick} />: https://github.com/WoWAnalyzer/WoWAnalyzer/pull/924
@@ -1604,7 +1619,7 @@ class Article extends React.PureComponent {
           <li><b>34</b> specs implemented with <b>16</b> specs marked as being {completeness(SPEC_ANALYSIS_COMPLETENESS.GOOD)} or {completeness(SPEC_ANALYSIS_COMPLETENESS.GREAT)}</li>
           <li><a href="https://github.com/WoWAnalyzer/WoWAnalyzer"><b>6,378 commits</b></a> from over <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/graphs/contributors"><b>58 contributors</b></a></li>
           <li><b>1,416 files</b> with over <b>141,371 lines of code</b></li>
-          <li>Peak usage had over <b>140,000 unique visitors</b> and <b>13,500,000 pageviews</b> in a single month</li>
+          <li>Peak usage had over <b>140,000 unique visitors</b> and <b>13,500,000 requests</b> in a single month</li>
           <li><a href="https://discord.gg/AxphPxU">Our Discord server</a> has over <b>1,200 members</b></li>
           <li>It usually takes <a href="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer/builds">about <b>5 minutes</b></a> for a code-change to be available on WoWAnalyzer.com</li>
         </ul>

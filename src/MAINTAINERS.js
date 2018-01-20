@@ -161,8 +161,8 @@ export const JLassie82 = {
   nickname: 'JLassie82',
   github: 'JLassie82',
 };
-export const Yuyz0112 = {
-  nickname: 'Yuyz0112',
+export const aryu = {
+  nickname: 'aryu',
   github: 'Yuyz0112',
 };
 export const Dyspho = {
