@@ -12,6 +12,12 @@ import EnergyTracker from '../Common/Resources/EnergyTracker';
 import Energy from './Modules/RogueCore/Energy';
 
 
+
+import EnvenomUptime from './Modules/Spells/EnvenomUptime';
+import GarroteUptime from './Modules/Spells/GarroteUptime';
+import RuptureUptime from './Modules/Spells/RuptureUptime';
+
+
 import MantleOfTheMasterAssassin from '../Common/Legendaries/MantleOfTheMasterAssassin';
 import SoulOfTheShadowblade from '../Common/Legendaries/SoulOfTheShadowblade';
 import InsigniaOfRavenholdt from '../Common/Legendaries/InsigniaOfRavenholdt';
@@ -36,6 +42,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // mantleDamageTracker: MantleDamageTracker,
 
     //Core
+    envenomUptime: EnvenomUptime,
+    garroteUptime: GarroteUptime,
+    ruptureUptime: RuptureUptime,
 
     //Items
 
