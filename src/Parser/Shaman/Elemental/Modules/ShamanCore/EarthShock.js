@@ -22,60 +22,101 @@ class EarthShock extends Analyzer {
 
   maelstromSpendOutAscendence = [];
   maelstromSpendInAscendence = [];
-  latershock=false;
-  gambling=false;
+  latershock = false;
+  gambling = false;
 
   on_initialized() {
     this.gambling = (this.combatants.selected.hasHands(ITEMS.SMOLDERING_HEART.id) && this.combatants.selected.hasFeet(ITEMS.THE_DECEIVERS_BLOOD_PACT.id));
+    this.pseudogambling = (this.combatants.selected.hasShoulder(ITEMS.ECHOES_OF_THE_GREAT_SUNDERING.id) && this.combatants.selected.hasFeet(ITEMS.THE_DECEIVERS_BLOOD_PACT.id));
   }
 
-  get avgMaelstromSpend() {
+  get avgMaelstromSpendOutOfAsc() {
     let spend = this.maelstromSpendOutAscendence.reduce((prev, cur) => {
       return prev + cur;
     }, 0);
     spend /= this.maelstromSpendOutAscendence.length || 1;
     return spend;
   }
+  get avgMaelstromSpendInAsc() {
+    let spend = this.maelstromSpendInAscendence.reduce((prev, cur) => {
+      return prev + cur;
+    },0);
+    spend /= this.maelstromSpendInAscendence.length||1;
+    return spend;
+  }
 
   on_byPlayer_cast(event) {
     if (event.ability.guid === SPELLS.EARTH_SHOCK.id && !this.latershock) {
-      this.latershock=true;
-      if (event.classResources[0].type === RESOURCE_TYPES.MAELSTROM.id){
-          if (this.combatants.selected.hasBuff(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id)) {
-            this.maelstromSpendInAscendence.push(event.classResources[0].amount);
-          }
-          else {
-            this.maelstromSpendOutAscendence.push(event.classResources[0].amount);
-          }
+      this.latershock = true;
+      if (event.classResources[0].type === RESOURCE_TYPES.MAELSTROM.id) {
+        if (this.combatants.selected.hasBuff(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id)) {
+          this.maelstromSpendInAscendence.push(event.classResources[0].amount);
         }
+        else {
+          this.maelstromSpendOutAscendence.push(event.classResources[0].amount);
+        }
+      }
     }
-    if(event.classResources[0].amount < 40 && event.classResources[0].type === RESOURCE_TYPES.MAELSTROM.id) {
-      this.latershock=false;
+    if (event.classResources[0].amount < 40 && event.classResources[0].type === RESOURCE_TYPES.MAELSTROM.id) {
+      this.latershock = false;
     }
   }
 
   suggestions(when) {
-    if (true) {
-      when(Math.abs((70+85)/2-this.avgMaelstromSpend)).isGreaterThan(12.5)
-        .addSuggestion((suggest, actual, recommended) => {
+    if (this.gambling) {
+      when(Math.abs((70 + 85) / 2 - this.avgMaelstromSpendOutOfAsc)).isGreaterThan(12.5)
+        .addSuggestion((suggest) => {
           return suggest(<span>Try to cast <SpellLink id={SPELLS.EARTH_SHOCK.id} /> at 70 to 85 Maelstrom when using
           <ItemLink id={ITEMS.SMOLDERING_HEART.id} /> and <ItemLink id={ITEMS.THE_DECEIVERS_BLOOD_PACT.id} /> together.
           <SpellLink id={SPELLS.AFTERSHOCK_TALENT.id} /> causes procs from <ItemLink id={ITEMS.THE_DECEIVERS_BLOOD_PACT.id} />  to <em>generate</em> Maelstrom.
           Casting at 70 to 85 Maelstrom allows for a buffer to avoid Maelstrom overflow on chained <ItemLink id={ITEMS.THE_DECEIVERS_BLOOD_PACT.id} />  procs.</span>)
             .icon(SPELLS.EARTH_SHOCK.icon)
-            .actual(`Average Maelstrom spent: ${formatNumber(this.avgMaelstromSpend)}`)
+            .actual(`Average Maelstrom spent: ${formatNumber(this.avgMaelstromSpendOutOfAsc)}`)
             .recommended(`70 to 85 is recommended`)
             .regular(5).major(15);
         });
     }
+    else if (this.pseudogambling) {
+      when(Math.abs((85 + 95) / 2 - this.avgMaelstromSpendOutOfAsc)).isGreaterThan(12.5)
+        .addSuggestion((suggest) => {
+          return suggest(<span>Try to cast <SpellLink id={SPELLS.EARTH_SHOCK.id} /> at 85 to 95 Maelstrom when using
+          <ItemLink id={ITEMS.ECHOES_OF_THE_GREAT_SUNDERING.id} /> and <ItemLink id={ITEMS.THE_DECEIVERS_BLOOD_PACT.id} /> together.
+          <SpellLink id={SPELLS.AFTERSHOCK_TALENT.id} /> causes procs from <ItemLink id={ITEMS.THE_DECEIVERS_BLOOD_PACT.id} />  to <em>generate</em> Maelstrom.
+          Casting at 85 to 95 Maelstrom allows for a buffer to avoid Maelstrom overflow on chained <ItemLink id={ITEMS.THE_DECEIVERS_BLOOD_PACT.id} />  procs.</span>)
+            .icon(SPELLS.EARTH_SHOCK.icon)
+            .actual(`Average Maelstrom spent: ${formatNumber(this.avgMaelstromSpendOutOfAsc)}`)
+            .recommended(`85 to 95 is recommended`)
+            .regular(5).major(15);
+        });
+    }
+    else {
+      when(this.avgMaelstromSpendOutOfAsc).isLessThan(111)
+        .addSuggestion((suggest) => {
+          return suggest(<span>Try to cast <SpellLink id={SPELLS.EARTH_SHOCK.id} /> at 111 Maelstrom or more.</span>)
+            .icon(SPELLS.EARTH_SHOCK.icon)
+            .actual(`Average Maelstrom spent: ${formatNumber(this.avgMaelstromSpendOutOfAsc)}`)
+            .recommended(`More than 111 is recommended`)
+            .regular(5).major(15);
+        });
+    }
+
+    when(this.avgMaelstromSpendInAsc).isLessThan(111)
+      .addSuggestion((suggest) => {
+        return suggest(<span>Try to cast <SpellLink id={SPELLS.EARTH_SHOCK.id} /> at 111 Maelstrom or more during Ascendence</span>)
+          .icon(SPELLS.EARTH_SHOCK.icon)
+          .actual(`Average Maelstrom spent: ${formatNumber(this.avgMaelstromSpendInAsc)}`)
+          .recommended(`111 or more is recommended`)
+          .regular(5).major(15);
+      });
+
   }
 
   statistic() {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.EARTH_SHOCK.id} />}
-        value={`${formatNumber(this.avgMaelstromSpend)}`}
-        label="Average Maelstrom spent"
+        value={`${formatNumber(this.avgMaelstromSpendOutOfAsc)}`}
+        label="Average Maelstrom spent on Earthshock while not in Ascendence"
       />
     );
   }
