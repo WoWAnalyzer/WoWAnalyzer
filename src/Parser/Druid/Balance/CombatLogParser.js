@@ -30,6 +30,7 @@ import SoulOfTheArchdruid from './Modules/Items/SoulOfTheArchdruid';
 import LadyAndTheChild from './Modules/Items/LadyAndTheChild';
 import OnethsIntuition from './Modules/Items/OnethsIntuition';
 import PromiseOfElune from './Modules/Items/PromiseOfElune';
+import RadiantMoonlight from './Modules/Items/RadiantMoonlight';
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
 import Tier21_2set from './Modules/Items/Tier21_2set';
@@ -68,6 +69,7 @@ class CombatLogParser extends MainCombatLogParser {
     ladyAndTheChild : LadyAndTheChild,
     onethsIntuition : OnethsIntuition,
     promiseOfElune : PromiseOfElune,
+    radiantMoonlight : RadiantMoonlight,
     tier20_2set : Tier20_2set,
     tier20_4set : Tier20_4set,
     tier21_2set : Tier21_2set,

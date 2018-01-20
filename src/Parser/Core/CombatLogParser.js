@@ -104,6 +104,8 @@ import SheathOfAsara from './Modules/Items/Legion/AntorusTheBurningThrone/Sheath
 import NorgannonsProwess from './Modules/Items/Legion/AntorusTheBurningThrone/NorgannonsProwess';
 import AcridCatalystInjector from './Modules/Items/Legion/AntorusTheBurningThrone/AcridCatalystInjector';
 import ShadowSingedFang from './Modules/Items/Legion/AntorusTheBurningThrone/ShadowSingedFang';
+// Tanking
+import AggramarsConviction from './Modules/Items/Legion/AntorusTheBurningThrone/AggramarsConviction';
 
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
@@ -229,6 +231,9 @@ class CombatLogParser {
     norgannonsProwess: NorgannonsProwess,
     acridCatalystInjector: AcridCatalystInjector,
     shadowSingedFang: ShadowSingedFang,
+
+    // T21 Tanking Trinkets
+    aggramarsConviction: AggramarsConviction,
 
     // Concordance of the Legionfall
     concordance: Concordance,
