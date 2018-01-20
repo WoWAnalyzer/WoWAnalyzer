@@ -66,6 +66,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DRAGONS_BREATH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 20,
+        castEfficiency: {
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.FLAMESTRIKE,
@@ -139,34 +142,58 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ICE_BLOCK,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 240,
+        castEfficiency: {
+          disabled: true,
+        },
       },
 
       //Utility
       {
         spell: SPELLS.FROST_NOVA,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
         enabled: !combatant.hasTalent(SPELLS.ICE_WARD_TALENT.id),
+        castEfficiency: {
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.FROST_NOVA,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.ICE_WARD_TALENT.id),
+        castEfficiency: {
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.BLINK,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 15,
         enabled: !combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
+        castEfficiency: {
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.SHIMMER_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 15,
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
+        castEfficiency: {
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.COUNTERSPELL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 24,
+        castEfficiency: {
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.SLOW_FALL,
@@ -179,6 +206,10 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.INVISIBILITY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 300,
+        castEfficiency: {
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.ARCANE_TORRENT_MANA,
