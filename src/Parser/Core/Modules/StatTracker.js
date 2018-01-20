@@ -246,6 +246,8 @@ class StatTracker extends Analyzer {
         return standard + 0.06; //baseline +6%
       case SPECS.WINDWALKER_MONK:
         return standard + 0.05; //baseline +5%
+      case SPECS.HAVOC_DEMON_HUNTER:
+        return standard + 0.06; //baseline +5% + Night Elf/Blood Elf +1%
       default:
         return standard;
     }
