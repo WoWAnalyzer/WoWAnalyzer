@@ -136,6 +136,7 @@ class SpellUsable extends Analyzer {
    * @param {boolean} resetAllCharges Whether all charges should be reset or just the last stack. Does nothing for spells with just 1 stack.
    * @param {number} timestamp Override the timestamp if it may be different from the current timestamp.
    * @param {number} remainingCDR For abilities with charges, the remaining cooldown reduction if the reduction is more than the remaining cooldown of the charge and more than 1 charge is on cooldown
+   * @returns {*}
    */
   endCooldown(spellId, resetAllCharges = false, timestamp = this.owner.currentTimestamp, remainingCDR = 0) {
     const canSpellId = this._getCanonicalId(spellId);
@@ -150,12 +151,15 @@ class SpellUsable extends Analyzer {
         ...cooldown,
         end: timestamp,
       }));
+      return 0;
     } else {
       // We have another charge ready to go on cooldown, this simply adds a charge and then refreshes the cooldown (spells with charges don't cooldown simultaneously)
       cooldown.chargesOnCooldown -= 1;
       this._triggerEvent('updatespellusable', this._makeEvent(canSpellId, timestamp, 'restorecharge', cooldown));
       this.refreshCooldown(canSpellId, timestamp);
-      if (remainingCDR !== 0) {this.reduceCooldown(canSpellId,remainingCDR,timestamp);}
+      if (remainingCDR !== 0) {
+        return this.reduceCooldown(canSpellId,remainingCDR,timestamp);
+      }
     }
   }
   /**
@@ -195,8 +199,7 @@ class SpellUsable extends Analyzer {
     const cooldownRemaining = this.cooldownRemaining(canSpellId, timestamp);
     if (cooldownRemaining < reductionMs) {
       const remainingCDR = reductionMs - cooldownRemaining;
-      this.endCooldown(canSpellId, false, timestamp, remainingCDR);
-      return cooldownRemaining;
+      return cooldownRemaining + this.endCooldown(canSpellId, false, timestamp, remainingCDR);
     } else {
       this._currentCooldowns[canSpellId].totalReductionTime += reductionMs;
       const fightDuration = formatMilliseconds(timestamp - this.owner.fight.start_time);
