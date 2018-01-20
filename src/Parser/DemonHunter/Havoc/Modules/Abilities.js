@@ -1,4 +1,13 @@
+import React from 'react';
+
+import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
+import SpellLink from 'common/SpellLink';
+import ItemLink from 'common/ItemLink';
+
+import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
@@ -21,7 +30,8 @@ class Abilities extends CoreAbilities {
         cooldown: (haste, combatant) => 300 - (combatant.traitsBySpellId[SPELLS.UNLEASHED_DEMONS.id] || 0) * 20,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 1.0,
+          recommendedEfficiency: .95,
+          importance: ISSUE_IMPORTANCE.MAJOR,
         },
       },
       {
@@ -44,17 +54,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.95,
           extraSuggestion: `This plus Nemesis and Metamorphosis make up your huge windows.`,
-        },
-      },
-      {
-        spell: SPELLS.MOMENTUM_TALENT,
-        enabled: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 10,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-          extraSuggestion: 'This is your main damage increase buff. You should use it as much as you can to maximize your damage output.',
+          importance: ISSUE_IMPORTANCE.MAJOR,
         },
       },
       {
@@ -92,8 +92,21 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.EYE_BEAM,
+        enabled: !combatant.hasTalent(SPELLS.DEMONIC_TALENT.id) && !combatant.hasBuff(SPELLS.HAVOC_T21_4PC_BONUS.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 45,
+      },
+      //T21 Eye Beam
+      {
+        spell: SPELLS.EYE_BEAM,
+        enabled: combatant.hasTalent(SPELLS.DEMONIC_TALENT.id) || combatant.hasBuff(SPELLS.HAVOC_T21_4PC_BONUS.id),
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 45,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: .9,
+          extraSuggestion: <Wrapper>With <SpellLink id={SPELLS.DEMONIC_TALENT.id} icon/> or <SpellLink id={SPELLS.HAVOC_T21_4PC_BONUS.id} icon/> you should be using <SpellLink id={SPELLS.EYE_BEAM.id} icon/> as much as possible to have high uptime on <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} icon/> and/or <SpellLink id={SPELLS.HAVOC_T21_4PC_BUFF.id} icon/>.</Wrapper>,
+        },
       },
       {
         spell: SPELLS.DEMONS_BITE,
@@ -119,10 +132,13 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.THROW_GLAIVE_HAVOC,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        charges: combatant.hasTalent(SPELLS.MASTER_OF_THE_GLAIVE_TALENT.id) ? 2 : 1,
+        cooldown: haste => 10 / (1 + haste),
       },
       {
         spell: SPELLS.FEL_RUSH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        charges: 2,
         cooldown: 10,
       },
       {
@@ -143,7 +159,12 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHAOS_NOVA,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 60,
+        cooldown: combatant.hasTalent(SPELLS.UNLEASHED_POWER_TALENT) ? 40 : 60,
+      },
+      {
+        spell: SPELLS.NETHERWALK_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 120,
       },
     ];
   }

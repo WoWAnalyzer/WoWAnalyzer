@@ -247,7 +247,7 @@ class StatTracker extends Analyzer {
       case SPECS.WINDWALKER_MONK:
         return standard + 0.05; //baseline +5%
       case SPECS.HAVOC_DEMON_HUNTER:
-        return standard + 0.06; //baseline +5% + Night Elf/Blood Elf +1%
+        return standard + 0.06; //baseline +6%
       default:
         return standard;
     }
@@ -306,6 +306,8 @@ class StatTracker extends Analyzer {
       case SPECS.AFFLICTION_WARLOCK:
         return 0.25;
       case SPECS.FROST_DEATH_KNIGHT:
+        return 0.12;
+      case SPECS.HAVOC_DEMON_HUNTER:
         return 0.12;
       default:
         console.error('Mastery hasn\'t been implemented for this spec yet.');
