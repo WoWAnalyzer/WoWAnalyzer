@@ -8,7 +8,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Wrapper from 'common/Wrapper';
 
 
-import EnergyTracker from '../RogueCore/EnergyTracker';
+import EnergyTracker from '../../../Common/Resources/EnergyTracker';
 
 class ShadowSatyrsWalk extends Analyzer {
   static dependencies = {
