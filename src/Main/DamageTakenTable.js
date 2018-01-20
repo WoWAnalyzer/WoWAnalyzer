@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import { formatNumber } from 'common/format';
@@ -24,7 +23,7 @@ class DamageTakenTable extends React.Component {
 
   render() {
     const row = (abilityData)  => {
-      const { ability, mitigatedAs, totalDmg, largestSpike } = abilityData;
+      const { ability, totalDmg, largestSpike } = abilityData;
       return (
         <tr key={ability.guid}>
           <td></td>
