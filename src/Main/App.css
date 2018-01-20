@@ -35,8 +35,9 @@ body {
 #app-mount > footer {
   flex: 0 0 auto;
 }
-.app > main {
-  margin-top: 40px;
+.app > main > section:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
 }
 section {
   margin-top: 50px;
@@ -89,9 +90,9 @@ hr {
   background-position: center center;
   margin-top: 0px;
   min-height: 400px;
-  padding-bottom: 60px; /* so that the divider in `after` doesn't overlap content */
+  padding-bottom: 67px; /* so that the divider in `after` doesn't overlap content */
   position: relative;
-  margin-bottom: 30px;
+  margin-bottom: 90px;
   transition: all 600ms;
   opacity: 1;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), 0 0 0 5px rgba(0, 0, 0, 0.5);
@@ -102,10 +103,10 @@ hr {
   background-size: auto 200%;
   background-position: 50% 0;
   position: absolute;
-  bottom: -87px;
+  bottom: -67px;
   left: 0;
   right: 0;
-  height: 154px;
+  height: 134px;
   z-index: 200;
 }
 .app.has-report > header {
@@ -125,11 +126,18 @@ hr {
     font-size: 3em;
   }
 }
-.app > header .image-overlay .description {
-  font-size: 1.4em;
-}
 .app > header .image-overlay h1 {
   font-size: 4em;
+}
+.app > header .image-overlay .description {
+  font-size: 1.4em;
+  margin-bottom: 20px;
+}
+.app > header .image-overlay .report-selector {
+  margin-bottom: 10px;
+}
+.app > header .image-overlay .about {
+  font-size: 0.8em;
 }
 @media (max-width: 400px) {
   .app > header .image-overlay {
@@ -155,7 +163,6 @@ hr {
 }
 
 .report-selector {
-  margin-top: 20px;
   display: flex;
 }
 .report-selector .form-control {
@@ -561,13 +568,22 @@ dfn[data-tip] {
   cursor: help;
 }
 
-.alert-danger {
+.alert {
   padding: 20px 30px;
-  background-color: rgba(119, 47, 46, 0.6);
-  border-color: transparent;
-  text-align: justify;
-  color: #ff1d19;
   border-radius: 0;
+  border: 0;
+}
+.alert-info {
+  background-color: rgba(52, 152, 219, 0.6);
+  color: white;
+}
+.alert-warning {
+  background-color: rgba(255, 188, 0, 0.6);
+  color: white;
+}
+.alert-danger {
+  background-color: rgba(119, 47, 46, 0.6);
+  color: #ff1d19;
 }
 .alert-danger a {
   color: #fff;

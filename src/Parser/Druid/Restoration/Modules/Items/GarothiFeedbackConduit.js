@@ -17,9 +17,7 @@ class GarothiFeedbackConduit extends CoreGarothiFeedbackConduit {
   };
 
   item() {
-    const avgHaste =
-      this.totalProccValue.reduce((acc, proc) => acc + (proc[0] * proc[1]), 0) / this.owner.fightDuration;
-    const healing = this.statWeights._getGain(STAT.HASTE_HPM) * avgHaste;
+    const healing = this.statWeights._getGain(STAT.HASTE_HPM) * this.averageHaste;
 
     return {
       item: ITEMS.GAROTHI_FEEDBACK_CONDUIT,
@@ -29,7 +27,7 @@ class GarothiFeedbackConduit extends CoreGarothiFeedbackConduit {
             The amount of healing one rating of haste yielded was ${formatNumber(this.statWeights._getGain(STAT.HASTE_HPM))}</b>`}
         >
           <ItemHealingDone amount={healing} /><br />
-          {formatThousands(avgHaste)} average haste rating gained
+          {formatThousands(this.averageHaste)} average haste rating gained
         </dfn>
       ),
     };

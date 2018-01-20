@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
-import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 const FROZEN_MASS_DAMAGE_BONUS = 0.2;
@@ -31,7 +31,7 @@ class Tier20_2set extends Analyzer {
       return;
     }
     if (this.combatants.selected.hasBuff(SPELLS.FROZEN_MASS.id)) {
-      this.damage += getDamageBonus(event, FROZEN_MASS_DAMAGE_BONUS);
+      this.damage += calculateEffectiveDamage(event, FROZEN_MASS_DAMAGE_BONUS);
     }
   }
 

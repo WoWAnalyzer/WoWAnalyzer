@@ -9,10 +9,11 @@ import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 import ItemDamageDone from 'Main/ItemDamageDone';
+import Wrapper from 'common/Wrapper';
 
 const debug = false;
 
-const TITANS_THUNDER_USE_REGARDLESS_THRESHHOLD = 30;
+const TITANS_THUNDER_USE_REGARDLESS_THRESHHOLD = 30000;
 
 class TitansThunder extends Analyzer {
   static dependencies = {
@@ -58,6 +59,7 @@ class TitansThunder extends Analyzer {
     this.totalTTCasts += 1;
     const bestialWrathIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id);
     if (bestialWrathIsOnCooldown) {
+      debug && console.log("remaining CD: ", this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id));
       if (!this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id) && this.spellUsable.cooldownRemaining(SPELLS.BESTIAL_WRATH.id) < TITANS_THUNDER_USE_REGARDLESS_THRESHHOLD) {
         this.shouldHaveSavedTT += 1;
         return;
@@ -105,7 +107,7 @@ class TitansThunder extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.TITANS_THUNDER.id} />}
         value={(
-          <span>
+          <Wrapper>
             {this.goodTTCasts}{'  '}
             <SpellIcon
               id={SPELLS.TITANS_THUNDER.id}
@@ -124,7 +126,7 @@ class TitansThunder extends Analyzer {
                 filter: 'grayscale(100%)',
               }}
             />
-          </span>
+          </Wrapper>
 
         )}
         label={`Titan's Thunder`}
@@ -148,23 +150,44 @@ class TitansThunder extends Analyzer {
       </div>
     );
   }
+
+  get badCastThreshold() {
+    return {
+      actual: this.badTTCasts,
+      isGreaterThan: {
+        minor: 0,
+        average: 0.9,
+        major: 1,
+      },
+      style: 'number',
+    };
+  }
+
+  get shouldHaveSavedThreshold() {
+    return {
+      actual: this.shouldHaveSavedTT,
+      isGreaterThan: {
+        minor: 0,
+        average: 0.9,
+        major: 1,
+      },
+      style: 'number',
+    };
+  }
+
   suggestions(when) {
-    when(this.badTTCasts).isGreaterThan(0)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Don't cast <SpellLink id={SPELLS.TITANS_THUNDER.id} /> without <SpellLink id={SPELLS.DIRE_BEAST.id} /> up, or if using <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up.</span>)
-          .icon(SPELLS.TITANS_THUNDER.icon)
-          .actual(`You cast Titan's Thunder ${this.badTTCasts} times without Dire Beasts up, or if using Dire Frenzy without Bestial Wrath up.`)
-          .recommended(`${recommended} is recommended`)
-          .major(recommended);
-      });
-    when(this.shouldHaveSavedTT).isGreaterThan(0)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Don't cast <SpellLink id={SPELLS.TITANS_THUNDER.id} /> when there is less than 30 seconds cooldown remaining on <SpellLink id={SPELLS.BESTIAL_WRATH.id} />.</span>)
-          .icon(SPELLS.TITANS_THUNDER.icon)
-          .actual(`You cast Titan's Thunder ${this.badTTCasts} times when there was less than 30 seconds cooldown on Bestial Wrath`)
-          .recommended(`${recommended} is recommended`)
-          .major(recommended);
-      });
+    when(this.badCastThreshold).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<Wrapper>Don't cast <SpellLink id={SPELLS.TITANS_THUNDER.id} /> without <SpellLink id={SPELLS.DIRE_BEAST.id} /> up, or if using <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up.</Wrapper>)
+        .icon(SPELLS.TITANS_THUNDER.icon)
+        .actual(`You cast Titan's Thunder ${actual} times without Dire Beasts up, or if using Dire Frenzy without Bestial Wrath up.`)
+        .recommended(`${recommended} is recommended`);
+    });
+    when(this.shouldHaveSavedThreshold).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<Wrapper>Don't cast <SpellLink id={SPELLS.TITANS_THUNDER.id} /> when there is less than 30 seconds cooldown remaining on <SpellLink id={SPELLS.BESTIAL_WRATH.id} />.</Wrapper>)
+        .icon(SPELLS.TITANS_THUNDER.icon)
+        .actual(`You cast Titan's Thunder ${actual} times when there was less than 30 seconds cooldown on Bestial Wrath`)
+        .recommended(`${recommended} is recommended`);
+    });
   }
 
 }

@@ -1,11 +1,7 @@
-import React from 'react';
-
-import Tab from 'Main/Tab';
-
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 //Features
-import Abilities from './Modules/Features/Abilities';
+import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import FocusUsage from '../Shared/Modules/Features/FocusUsage';
@@ -40,7 +36,7 @@ import KillerCobra from "./Modules/Talents/KillerCobra";
 import AMurderOfCrows from "./Modules/Talents/AMurderOfCrows";
 import BestialFury from './Modules/Talents/BestialFury';
 import Stomp from './Modules/Talents/Stomp';
-import AspectOfTheBeast from './Modules/Talents/AspectOfTheBeast';
+import AspectOfTheBeast from '../Shared/Modules/Talents/AspectOfTheBeast';
 import ChimaeraShot from './Modules/Talents/ChimaeraShot';
 import Barrage from '../Shared/Modules/Talents/Barrage';
 import Volley from '../Shared/Modules/Talents/Volley';
@@ -62,8 +58,8 @@ import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 import Checklist from './Modules/Features/Checklist';
 
 //Focus
-import FocusChart from '../Shared/Modules/Features/FocusChart/Focus';
 import FocusTracker from '../Shared/Modules/Features/FocusChart/FocusTracker';
+import FocusTab from '../Shared/Modules/Features/FocusChart/FocusTab';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -78,6 +74,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Focus Chart
     focusTracker: FocusTracker,
+    focusTab: FocusTab,
 
     //Spells
     direBeast: DireBeast,
@@ -132,35 +129,6 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
 
   };
-  generateResults() {
-    const results = super.generateResults();
-    results.tabs = [
-      ...results.tabs,
-      { // TODO: Move this to an Analyzer module
-        title: 'Focus Chart',
-        url: 'focus',
-        render: () => (
-          <Tab title='focus' style={{ padding: '15px 22px' }}>
-            <FocusChart
-              start={this.fight.start_time}
-              end={this.fight.end_time}
-              playerHaste={this.modules.combatants.selected.hasteRating}
-              focusMax={this.modules.focusTracker._maxFocus}
-              focusPerSecond={this.modules.focusTracker.focusBySecond}
-              tracker={this.modules.focusTracker.tracker}
-              secondsCapped={this.modules.focusTracker.secondsCapped}
-              activeFocusGenerated={this.modules.focusTracker.activeFocusGenerated}
-              activeFocusWasted={this.modules.focusTracker.activeFocusWasted}
-              generatorCasts={this.modules.focusTracker.generatorCasts}
-              activeFocusWastedTimeline={this.modules.focusTracker.activeFocusWastedTimeline}
-            />
-          </Tab>
-        ),
-      },
-    ];
-
-    return results;
-  }
 }
 
 export default CombatLogParser;

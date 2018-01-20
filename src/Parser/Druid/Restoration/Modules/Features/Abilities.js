@@ -10,7 +10,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.TRANQUILITY_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (haste, combatant) => combatant.hasTalent(SPELLS.INNER_PEACE_TALENT.id) ? 120 : 180,
+        cooldown: (_, combatant) => combatant.hasTalent(SPELLS.INNER_PEACE_TALENT.id) ? 120 : 180,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.75,
@@ -32,6 +32,9 @@ class Abilities extends CoreAbilities {
         cooldown: 90,
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.80,
+          averageIssueEfficiency: 0.60,
+          majorIssueEfficiency: 0.40,
         },
       },
       {
@@ -55,7 +58,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BARKSKIN,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 60,
         castEfficiency: {
           suggestion: true,
@@ -79,16 +82,19 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.FLOURISH_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.80,
         },
       },
       {
         spell: SPELLS.WILD_GROWTH,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+      },
+      {
+        spell: SPELLS.EFFLORESCENCE_CAST,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
       },
       {
         spell: SPELLS.REJUVENATION,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
       {
         spell: SPELLS.INCARNATION_TREE_OF_LIFE_TALENT,
@@ -97,6 +103,9 @@ class Abilities extends CoreAbilities {
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.80,
+          averageIssueEfficiency: 0.60,
+          majorIssueEfficiency: 0.40,
         },
       },
       {
@@ -110,17 +119,20 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HEALING_TOUCH,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
       {
         spell: SPELLS.REGROWTH,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
       {
         spell: SPELLS.SWIFTMEND,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: (haste, combatant) => combatant.hasTalent(SPELLS.PROSPERITY_TALENT.id) ? 27 : 30,
-        importance: ISSUE_IMPORTANCE.MINOR,
+        castEfficiency: {
+          importance: ISSUE_IMPORTANCE.MINOR,
+          recommendedEfficiency: 0.60,
+        },
       },
       {
         spell: SPELLS.RENEWAL_TALENT,
@@ -130,6 +142,18 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
+      },
+      {
+        spell: SPELLS.SOLAR_WRATH,
+        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+      },
+      {
+        spell: SPELLS.MOONFIRE,
+        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+      },
+      {
+        spell: SPELLS.SUNFIRE_CAST,
+        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
       },
     ];
   }

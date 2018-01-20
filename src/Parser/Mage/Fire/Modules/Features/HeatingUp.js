@@ -29,6 +29,8 @@ class HeatingUp extends Analyzer {
   fireBlastWithHotStreak = 0;
   phoenixFlamesWithHotStreak = 0;
   targetId = 0;
+  currentHealth = 0;
+  maxHealth = 0;
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -41,25 +43,29 @@ class HeatingUp extends Analyzer {
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
+    if (this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id) && GUARANTEE_CRIT_SPELLS.includes(spellId)) {
+      this.currentHealth = event.hitPoints;
+      this.maxHealth = event.maxHitPoints;
+    }
     if (!GUARANTEE_CRIT_SPELLS.includes(spellId) || (spellId === SPELLS.PHOENIXS_FLAMES.id && (this.targetId !== damageTarget))) {
       return;
     }
-    const hasHeatingUp = this.combatants.selected.hasBuff(SPELLS.HEATING_UP.id);
-    const hasHotStreak = this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id);
 
-    if (spellId === SPELLS.FIRE_BLAST.id) {
-      if (hasHotStreak) {
+    if ((this.combatants.selected.hasBuff(SPELLS.COMBUSTION.id) || (this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id) && this.healthPercent > .90)) && !this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id)) {
+      debug && console.log("Event Ignored @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+    } else if (spellId === SPELLS.FIRE_BLAST.id) {
+      if (this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id)) {
         this.fireBlastWithHotStreak += 1;
         debug && console.log("Fire Blast with Hot Streak @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-      } else if (!hasHeatingUp) {
+      } else if (!this.combatants.selected.hasBuff(SPELLS.HEATING_UP.id)) {
         this.fireBlastWithoutHeatingUp += 1;
         debug && console.log("Fire Blast without Heating Up @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
       }
     } else if (spellId === SPELLS.PHOENIXS_FLAMES.id) {
-        if (hasHotStreak) {
+        if (this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id)) {
           this.phoenixFlamesWithHotStreak += 1;
           debug && console.log("Phoenix Flames with Hot Streak @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-        } else if (!hasHeatingUp) {
+        } else if (!this.combatants.selected.hasBuff(SPELLS.HEATING_UP.id)) {
           this.phoenixFlamesWithoutHeatingUp += 1;
           debug && console.log("Phoenix Flames without Heating Up @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
         }
@@ -94,6 +100,10 @@ class HeatingUp extends Analyzer {
     return this.phoenixFlamesWasted / this.abilityTracker.getAbility(SPELLS.PHOENIXS_FLAMES.id).casts;
   }
 
+  get healthPercent() {
+    return this.currentHealth / this.maxHealth;
+  }
+
   get fireBlastUtilSuggestionThresholds() {
     return {
       actual: this.fireBlastUtil,
@@ -119,21 +129,19 @@ class HeatingUp extends Analyzer {
   }
 
   suggestions(when) {
-		when(this.fireBlastMissedPercent).isLessThan(this.fireBlastUtilSuggestionThresholds.isLessThan.minor)
+		when(this.fireBlastUtilSuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
 				return suggest(<Wrapper>You cast <SpellLink id={SPELLS.FIRE_BLAST.id} /> {this.fireBlastWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id}/> was active and {this.fireBlastWithoutHeatingUp} times while you didnt have <SpellLink id={SPELLS.HEATING_UP.id}/>. Make sure that you are only using Fire Blast to convert Heating Up into Hot Streak.</Wrapper>)
 					.icon(SPELLS.FIRE_BLAST.icon)
-					.actual(`${formatPercentage(this.fireBlastMissedPercent)}% missed`)
-					.recommended(`<${formatPercentage(recommended)}% is recommended`)
-					.regular(this.fireBlastUtilSuggestionThresholds.isLessThan.average).major(this.fireBlastUtilSuggestionThresholds.isLessThan.major);
+					.actual(`${formatPercentage(this.fireBlastUtil)}% Utilization`)
+					.recommended(`<${formatPercentage(recommended)}% is recommended`);
 			});
-    when(this.phoenixFlamesMissedPercent).isLessThan(this.phoenixFlamesUtilSuggestionThresholds.isLessThan.minor)
+    when(this.phoenixFlamesUtilSuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
 				return suggest(<Wrapper>You cast <SpellLink id={SPELLS.PHOENIXS_FLAMES.id} /> {this.phoenixFlamesWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id}/> was active and {this.phoenixFlamesWithoutHeatingUp} times while you didnt have <SpellLink id={SPELLS.HEATING_UP.id}/>. While ideally you should only be using these to convert Heating Up into Hot Streak, there are some minor circumstances where it is acceptable (i.e. If you are about to cap on Phoenixs Flames charges or when used alongside <SpellLink id={SPELLS.FIREBALL.id}/> to bait Heating Up or Hot Streak just before <SpellLink id={SPELLS.COMBUSTION.id}/>.</Wrapper>)
-					.icon(SPELLS.FIRE_BLAST.icon)
-					.actual(`${formatPercentage(this.phoenixFlamesMissedPercent)}% missed`)
-					.recommended(`<${formatPercentage(recommended)}% is recommended`)
-					.regular(this.phoenixFlamesUtilSuggestionThresholds.isLessThan.average).major(this.phoenixFlamesUtilSuggestionThresholds.isLessThan.major);
+					.icon(SPELLS.PHOENIXS_FLAMES.icon)
+					.actual(`${formatPercentage(this.phoenixFlamesUtil)}% Utilization`)
+					.recommended(`<${formatPercentage(recommended)}% is recommended`);
 			});
 	}
 
@@ -163,7 +171,7 @@ class HeatingUp extends Analyzer {
           </span>
         )}
         label="Heating Up Utilization"
-        tooltip={`Spells that are guaranteed to crit like Fire Blast and Phoenix's Flames should only be used to convert Heating Up to Hot Streak. While there are minor exceptions to this (like if you are about to cap on Phoenixs Flames charges or using Fireball & Phoenixs Flames to bait Heating Up/Hot Streak just before Combustion), the goal should be to waste as few of these as possible. 
+        tooltip={`Spells that are guaranteed to crit like Fire Blast and Phoenix's Flames should only be used to convert Heating Up to Hot Streak. While there are minor exceptions to this (like if you are about to cap on Phoenixs Flames charges or using Fireball & Phoenixs Flames to bait Heating Up/Hot Streak just before Combustion), the goal should be to waste as few of these as possible.
           <ul>
             <li>Fireblast Used with no procs: ${this.fireBlastWithoutHeatingUp}</li>
             <li>Fireblast used during Hot Streak: ${this.fireBlastWithHotStreak}</li>

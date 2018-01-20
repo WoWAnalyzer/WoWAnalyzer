@@ -63,16 +63,21 @@ class Abilities extends CoreAbilities {
       },
       // Cooldowns
       {
-        spell: SPELLS.IRONSKIN_BREW,
+        // it is possible to refer to the shared CD using *either* spell
+        // id
+        spell: [SPELLS.IRONSKIN_BREW, SPELLS.PURIFYING_BREW],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      },
-      {
-        spell: SPELLS.PURIFYING_BREW,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: haste => 21 / (1 + haste),
+        charges: 3,
       },
       {
         spell: SPELLS.BLACK_OX_BREW_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 90,
+        castEfficiency: {
+          suggestion: false,
+        },
+        enabled: combatant.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id),
       },
       {
         spell: SPELLS.EXPEL_HARM,
@@ -81,6 +86,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FORTIFYING_BREW_BRM,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 420,
       },
       {
         spell: SPELLS.HEALING_ELIXIR_TALENT,

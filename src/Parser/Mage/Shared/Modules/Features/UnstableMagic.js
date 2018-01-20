@@ -37,31 +37,43 @@ class UnstableMagic extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if(PROCS.includes(event.ability.guid)) {
+    const spellId = event.ability.guid;
+    if(PROCS.includes(spellId)) {
       this.damage += event.amount + (event.absorbed || 0);
       this.hits += 1;
       if(!this.hitTimestamp || this.hitTimestamp + PROC_WINDOW_MS < this.owner.currentTimestamp) {
         this.hitTimestamp = this.owner.currentTimestamp;
         this.procs += 1;
       }
-    } else if(PROCCERS.includes(event.ability.guid)) {
+    } else if(PROCCERS.includes(spellId)) {
       this.proccerHits += 1;
     }
   }
 
+
+  get damagePercent() {
+    return this.owner.getPercentageOfTotalDamageDone(this.damage);
+  }
+
+
+  get averageHits() {
+    return (this.hits / this.procs) || 0;
+  }
+
+  get procRate() {
+    return (this.procs / this.proccerHits) || 0;
+  }
+
   statistic() {
-    const damagePercent = this.owner.getPercentageOfTotalDamageDone(this.damage);
-    const averageHits = (this.hits / this.procs) || 0;
-    const procRate = (this.procs / this.proccerHits) || 0;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.UNSTABLE_MAGIC_TALENT.id} />}
-        value={`${formatPercentage(damagePercent)} %`}
+        value={`${formatPercentage(this.damagePercent)} %`}
         label="Unstable Magic damage"
         tooltip={`This is the portion of your total damage attributable to Unstable Magic.
           <ul>
-          <li>Targets Hit per Proc: <b>${averageHits.toFixed(2)}</b> (including primary target)</li>
-          <li>Proc Rate: <b>${formatPercentage(procRate)}%</b></li>
+          <li>Targets Hit per Proc: <b>${this.averageHits.toFixed(2)}</b> (including primary target)</li>
+          <li>Proc Rate: <b>${formatPercentage(this.procRate)}%</b></li>
           </ul>`}
       />
     );

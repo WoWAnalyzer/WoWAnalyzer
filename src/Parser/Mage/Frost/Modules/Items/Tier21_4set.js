@@ -4,7 +4,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
-import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 const DAMAGE_BONUS = 0.20;
@@ -25,14 +25,15 @@ class Tier21_4set extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.ICE_LANCE_DAMAGE.id) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.ICE_LANCE_DAMAGE.id) {
       return;
     }
 
     // the buff indicating damage boosted ice lance appears to take its time disappating,
     // allowing us to check the buff on damage rather than tracking which cast has/hasn't got it
     if (this.combatants.selected.hasBuff(SPELLS.ARCTIC_BLAST.id)) {
-      this.damage += getDamageBonus(event, DAMAGE_BONUS);
+      this.damage += calculateEffectiveDamage(event, DAMAGE_BONUS);
     }
   }
 

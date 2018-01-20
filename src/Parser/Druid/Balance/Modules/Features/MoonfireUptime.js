@@ -30,14 +30,12 @@ class MoonfireUptime extends Analyzer {
   }
 
   suggestions(when) {
-    const suggestion = this.suggestionThresholds;
-    when(suggestion)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(suggestion.text)
-          .icon(SPELLS.MOONFIRE_BEAR.icon)
-          .actual(`${formatPercentage(actual)}% Moonfire uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`);
-      });
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(suggest.text)
+        .icon(SPELLS.MOONFIRE_BEAR.icon)
+        .actual(`${formatPercentage(actual)}% Moonfire uptime`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
+    });
   }
 
   statistic() {

@@ -59,11 +59,14 @@ import KiljaedensBurningWish from './Modules/Items/Legion/Legendaries/Kiljaedens
 import ArchimondesHatredReborn from './Modules/Items/Legion/Legendaries/ArchimondesHatredReborn';
 import CinidariaTheSymbiote from './Modules/Items/Legion/Legendaries/CinidariaTheSymbiote';
 import InsigniaOfTheGrandArmy from './Modules/Items/Legion/Legendaries/InsigniaOfTheGrandArmy';
+import AmanthulsVision from './Modules/Items/Legion/Legendaries/AmanthulsVision';
 // Dungeons/crafted
 import DrapeOfShame from './Modules/Items/Legion/DrapeOfShame';
 import DarkmoonDeckPromises from './Modules/Items/Legion/DarkmoonDeckPromises';
 import AmalgamsSeventhSpine from './Modules/Items/Legion/AmalgamsSeventhSpine';
 import GnawedThumbRing from './Modules/Items/Legion/GnawedThumbRing';
+import EyeOfCommand from './Modules/Items/Legion/EyeOfCommand';
+
 // The Nighthold (T19)
 import ErraticMetronome from './Modules/Items/Legion/TheNighthold/ErraticMetronome';
 // Tomb of Sargeras (T20)
@@ -181,6 +184,7 @@ class CombatLogParser {
     archimondesHatredReborn: ArchimondesHatredReborn,
     cinidariaTheSymbiote: CinidariaTheSymbiote,
     insigniaOfTheGrandArmy: InsigniaOfTheGrandArmy,
+    amanthulsVision: AmanthulsVision,
     // Epics:
     drapeOfShame: DrapeOfShame,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
@@ -192,6 +196,7 @@ class CombatLogParser {
     gnawedThumbRing: GnawedThumbRing,
     ishkarsFelshieldEmitter: IshkarsFelshieldEmitter,
     erraticMetronome: ErraticMetronome,
+    eyeOfCommand: EyeOfCommand,
     // Tomb trinkets:
     archiveOfFaith: ArchiveOfFaith,
     barbaricMindslaver: BarbaricMindslaver,
@@ -425,6 +430,8 @@ class CombatLogParser {
     return events;
   }
 
+  /** @type {number} The amount of events parsed. This can reliably be used to determine if something should re-render. */
+  eventCount = 0;
   _moduleTime = {};
   triggerEvent(eventType, event, ...args) {
     debugEvents && console.log(eventType, event, ...args);
@@ -445,6 +452,7 @@ class CombatLogParser {
           module.triggerEvent(eventType, event, ...args);
         }
       });
+    this.eventCount += 1;
   }
 
   byPlayer(event, playerId = this.player.id) {
@@ -486,7 +494,7 @@ class CombatLogParser {
 
   generateResults() {
     const results = new ParseResults();
-    
+
     results.tabs = [
       {
         title: 'Timeline',
@@ -509,7 +517,7 @@ class CombatLogParser {
         order: 3,
         render: () => (
           <Tab title="Gear">
-            <Gear selectedCombatant={this._modules.combatants.selected}/>
+            <Gear selectedCombatant={this._modules.combatants.selected} />
           </Tab>
         ),
       },

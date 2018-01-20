@@ -49,8 +49,7 @@ class Tier20_2set extends Analyzer {
           Total Damage: ${formatNumber(this.damageDone)}<br/>
           The percent uptime is your actual uptime over the max uptime based on your haste.<br/>
           Note: This does not account for haste procs over the fight so it may be over 100%.<br/>
-          Percent Uptime: ${formatPercentage(this.percentUptime)}%`}
-        >
+          Percent Uptime: ${formatPercentage(this.percentUptime)}%`}>
           <ItemDamageDone amount={this.damageDone} />
         </dfn>
       ),

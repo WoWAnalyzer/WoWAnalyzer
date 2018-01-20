@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS/OTHERS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
+import { formatNumber, formatPercentage } from 'common/format';
 
 /*
  * Golganneth's Vitality
@@ -20,6 +21,8 @@ class GolgannethsVitality extends Analyzer {
   };
 
   damage = 0;
+  normalDamage = 0;
+  empoweredDamage = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTrinket(ITEMS.GOLGANNETHS_VITALITY.id);
@@ -27,15 +30,45 @@ class GolgannethsVitality extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellID = event.ability.guid;
-    if (spellID === SPELLS.GOLGANNETHS_VITALITY_RAVAGING_STORM.id || spellID === SPELLS.GOLGANNETHS_VITALITY_THUNDEROUS_WRATH.id) {
+    if (spellID === SPELLS.GOLGANNETHS_VITALITY_RAVAGING_STORM.id) {
       this.damage += event.amount + (event.absorbed || 0);
+      this.normalDamage += event.amount + (event.absorbed || 0);
     }
+    if (spellID === SPELLS.GOLGANNETHS_VITALITY_THUNDEROUS_WRATH.id) {
+      this.damage += event.amount + (event.absorbed || 0);
+      this.empoweredDamage += event.amount + (event.absorbed || 0);
+    }
+  }
+
+  get empoweredProcUptime() {
+    return this.combatants.selected.getBuffUptime(SPELLS.GOLGANNETHS_VITALITY_THUNDEROUS_WRATH_BUFF.id) / this.owner.fightDuration;
+  }
+
+  get normalProcUptime() {
+    return this.combatants.selected.getBuffUptime(SPELLS.GOLGANNETHS_VITALITY_MARK_OF_GOLGANNETH.id) / this.owner.fightDuration;
   }
 
   item() {
     return {
       item: ITEMS.GOLGANNETHS_VITALITY,
-      result: <ItemDamageDone amount={this.damage} />,
+      result: (
+        <dfn data-tip={`This shows a breakdown of the damage contribution of this trinket: <ul>
+    <li>Normal:
+      <ul>
+      <li> Uptime: ${formatPercentage(this.normalProcUptime)}%</li>
+      <li> Damage contribution: ${formatNumber(this.normalDamage)} / ${formatNumber(this.normalDamage / this.owner.fightDuration * 1000)} DPS</li>
+      </ul>
+    </li>
+    <li>Empowered:
+      <ul>
+      <li> Uptime: ${formatPercentage(this.empoweredProcUptime)}%</li>
+      <li> Damage contribution: ${formatNumber(this.empoweredDamage)} / ${formatNumber(this.empoweredDamage / this.owner.fightDuration * 1000)} DPS</li>
+      </ul>
+    </li>
+  </ul>`}>
+          <ItemDamageDone amount={this.damage} />
+        </dfn>
+      ),
     };
   }
 }
