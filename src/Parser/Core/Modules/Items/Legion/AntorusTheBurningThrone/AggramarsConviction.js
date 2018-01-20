@@ -51,7 +51,7 @@ class AggramarsConviction extends Analyzer {
     }
   }
 
-  on_byPlayer_healing(event) {
+  on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.AGGRAMARS_FORTITUDE.id) {
       return;
@@ -63,7 +63,7 @@ class AggramarsConviction extends Analyzer {
     const versUptimePercent = this.combatants.selected.getBuffUptime(SPELLS.CELESTIAL_BULWARK.id) / this.owner.fightDuration;
 
     return {
-      item: ITEMS.AGGRAMAR_CONVICTION,
+      item: ITEMS.AGGRAMARS_CONVICTION,
       result: (
         <Wrapper>
           <dfn data-tip={`Procced the vers buff <b>${this.versProc}</b> times`}>
