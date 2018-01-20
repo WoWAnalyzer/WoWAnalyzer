@@ -850,4 +850,15 @@ export default {
     name: 'Glimpse of Enlightenment',
     icon: 'inv_antorus_turquoise',
   },
+  //Aggramar's Conviction Argus Tanking Pantheon Trinket
+  AGGRAMARS_FORTITUDE: { //Pantheon Proc
+    id: 256831,
+    name: 'Aggramar\'s Fortitude',
+    icon: 'spell_holy_empowerchampion',
+  },
+  CELESTIAL_BULWARK: { //Regular Proc
+    id: 256816,
+    name: 'Celestial Bulwark',
+    icon: 'inv_antorus_orange',
+  },
 };
