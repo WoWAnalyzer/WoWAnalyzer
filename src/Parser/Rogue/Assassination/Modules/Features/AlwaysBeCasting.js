@@ -33,9 +33,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     return {
       actual: this.downtimePercentage,
       isGreaterThan: {
-        minor: 0.25,
-        average: 0.30,
-        major: 0.35,
+        minor: 0.4,
+        average: 0.45,
+        major: 0.5,
       },
       style: 'percentage',
     };
