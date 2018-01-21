@@ -37,8 +37,8 @@ class Haste extends Analyzer {
     [SPELLS.ICY_VEINS.id]: 0.3,
     [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
     ...HIGH_TOLERANCE_HASTE_FNS,
-    [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 25,
-    [SPELLS.HAVOC_T21_4PC_BUFF.id]: 25,
+    [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
+    [SPELLS.HAVOC_T21_4PC_BUFF.id]: 0.25,
     // Haste RATING buffs are handled by the StatTracker module
 
     // Boss abilities:
