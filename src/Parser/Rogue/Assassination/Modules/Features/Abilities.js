@@ -17,7 +17,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 1.0,
-          extraSuggestion: 'In most cases should be used on cooldown',
+          extraSuggestion: 'Only delay Vendetta if it will not reduce the total amount of casts.',
         },
       },
       {
