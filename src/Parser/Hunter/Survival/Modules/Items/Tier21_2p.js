@@ -6,11 +6,12 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
+import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 
-const T21_2P_CRIT_DMG_BONUS = 1;
+//It's a 100% increase to critical strike damage, which is already a 100% modifier, making it effectively only hit 50% harder than a crit otherwise would.
+const T21_2P_CRIT_DMG_BONUS = 0.5;
 
 /**
  * Flanking Strike has a 50% chance to increase the critical strike chance of your next Raptor Strike by 100% and the critical strike damage of Raptor Strike by 100% within the next 20 sec.
@@ -18,7 +19,6 @@ const T21_2P_CRIT_DMG_BONUS = 1;
 class Tier21_2p extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    critEffectBonus: CritEffectBonus,
   };
   bonusDmg = 0;
   applications = 0;
@@ -28,16 +28,6 @@ class Tier21_2p extends Analyzer {
 
   on_initialized() {
     this.active = this.combatants.selected.hasBuff(SPELLS.HUNTER_SV_T21_2P_BONUS.id);
-    if (this.active) {
-      this.critEffectBonus.hook(this.getCritEffectBonus.bind(this));
-    }
-  }
-
-  getCritEffectBonus(critEffectModifier, event) {
-    if (this.isApplicable(event)) {
-      critEffectModifier += T21_2P_CRIT_DMG_BONUS;
-    }
-    return critEffectModifier;
   }
 
   on_byPlayer_cast(event) {
@@ -62,11 +52,8 @@ class Tier21_2p extends Analyzer {
     if (!this.isApplicable(event)) {
       return;
     }
-    const amount = event.amount;
-    const absorbed = event.absorbed || 0;
-    const raw = amount + absorbed;
     this.buffedRaptorStrikes++;
-    this.bonusDmg += (raw / this.critEffectBonus.getBonus(event));
+    this.bonusDmg += getDamageBonus(event, T21_2P_CRIT_DMG_BONUS);
   }
 
   isApplicable(event) {
