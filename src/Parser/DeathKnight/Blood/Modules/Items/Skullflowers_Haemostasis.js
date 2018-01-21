@@ -28,7 +28,7 @@ class SkullflowersHaemostasis extends Analyzer {
 
   on_byPlayer_applybuffstack(event) {
     if (event.ability.guid === SPELLS.Haemostasis_Buff.id) {
-      if(this.buffstack <= this.maxBuffStacks) {
+      if(this.buffstack >= this.maxBuffStacks) {
         this.wastedBuff+=1;
         this.buffStack = this.maxBuffStacks;
         console.log("BS Wasted");
