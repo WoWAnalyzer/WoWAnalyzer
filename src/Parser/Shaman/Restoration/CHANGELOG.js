@@ -7,7 +7,7 @@ import ItemLink from 'common/ItemLink';
 
 export default [
   {
-    date: new Date('2017-01-16'),
+    date: new Date('2018-01-16'),
     changes: 'Added support for purify spirit to timeline.',
     contributors: [hatra344],
   },
