@@ -40,7 +40,7 @@ class UnendingThirstTracker extends Analyzer {
         icon={<SpellIcon id={SPELLS.UNENDING_THIRST.id} />}
         value={`${this.bloodShieldRefreshed} out of ${this.totalDSCounter}`}
         label="Empowered Death Strikes"
-        tooltip="If you're looking to increase your dps at the cost of defense try increasing this number more."
+        tooltip="It is possible to trade healing done for damage done by using Death Strikes in sequence to take advantage of Unending Thirst. This does increase the chances you won't have Death Strike avalible when you need it."
       />
     );
   }
