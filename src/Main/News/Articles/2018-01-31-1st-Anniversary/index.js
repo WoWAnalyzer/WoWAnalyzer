@@ -55,6 +55,7 @@ import HolyPriest from './HolyPriest.PNG';
 import LowHealthHealing from './LowHealthHealing.png';
 import ExtensionToolbar from './ExtensionToolbar.jpg';
 import ExtensionActive from './ExtensionActive.jpg';
+import WindwalkerMonk from './WindwalkerMonk.png';
 
 function completeness(completeness) {
   return <dfn data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>;
@@ -658,13 +659,16 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.WINDWALKER_MONK} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/129
+            Initial support for the Windwalker Monk spec was <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/129">added</a> by <Maintainer {...MAINTAINERS.AttilioLH} />. This included all the bootstrapping but not a lot of analysis.<br /><br />
 
-            <Maintainer {...MAINTAINERS.AttilioLH} /> made the initial implementation.
-            <Maintainer {...MAINTAINERS.mwwscott0} /> made a PR but decided not to go through with it.
-            <Maintainer {...MAINTAINERS.Anomoly} /> did a couple of things for this
-            <Maintainer {...MAINTAINERS.Juko8} /> has continued the work and added a majority of what is available today and became the main maintainer
-            <Maintainer {...MAINTAINERS.Talby} /> had a few contributions
+            <figure>
+              <img src={WindwalkerMonk} alt="Initial version" />
+              <figcaption>
+                The initial version of the Windwalker Monk
+              </figcaption>
+            </figure><br />
+
+            <Maintainer {...MAINTAINERS.mwwscott0} /> made a PR to add a bit more but decided not to go through with it. <Maintainer {...MAINTAINERS.Anomoly} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/381">added</a> a couple of things to provide better basic support before <Maintainer {...MAINTAINERS.Juko8} /> took over maintainership at 10 October 2017 and contributed most of what we have today. Some other minor contributions were done by <Maintainer {...MAINTAINERS.Coryn} /> who added an <SpellLink id={SPELLS.ENERGIZING_ELIXIR_TALENT.id} icon /> analyzer, and <Maintainer {...MAINTAINERS.Talby} /> who contributed a few minor miscellaneous improvements.
           </div>
         </div>
 
@@ -923,10 +927,14 @@ class Article extends React.PureComponent {
             <h2>Retribution Paladin</h2>
           </div>
           <div className="panel-body">
-            <SpecIcon spec={SPECS.RETRIBUTION_PALADIN} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/293
+            <div className="clearfix">
+              <SpecIcon spec={SPECS.RETRIBUTION_PALADIN} />
+              Support for Retribution Paladin was added by <Maintainer {...MAINTAINERS.Hewhosmites} />. His motivation for adding it:
+            </div>
 
-            By <Maintainer {...MAINTAINERS.Hewhosmites} />
+            <blockquote>
+              I was a Holy Paladin main and a frequent user to the site before switching to Retribution. It was kind of disheartening that I wasn't able to get the same data and analysis from the WoW Analyzer with my new spec. I had a little programming knowledge, an average amount of class knowledge, and a lot of free time so I started working on Retribution. Normally when working on hobby projects I tend to lose interest quite quickly but my love of the game and drive to make a useful tool for myself and others has kept me going.
+            </blockquote>
           </div>
         </div>
 
@@ -1611,7 +1619,9 @@ class Article extends React.PureComponent {
   render() {
     return (
       <RegularArticle bodyStyle={{ position: 'relative', overflow: 'hidden' }} {...this.props}>
-        It has already been a year! Time flies when you're having fun working hard. We want to use this milestone to look back at the progress we have made during this past year.<br /><br />
+        It has already been a year! Time flies when you're having fun working hard. We want to use this milestone to look back at the progress we have made during this past year. It's a lot of work supporting all specs with sufficiently useful information, but we've made good progress.<br /><br />
+
+        The project was started by <Maintainer {...MAINTAINERS.Zerotorescue} /> (a <span className="Paladin">Holy Paladin</span> theorycrafter) to do additional analysis to help with theorycrafting. Since it took several months before other contributors joined the project, the first half of the recap will be written from my point of view.<br /><br />
 
         In addition to the detailed recap below, here are some other interesting statistics:<br /><br />
 
@@ -1623,8 +1633,6 @@ class Article extends React.PureComponent {
           <li><a href="https://discord.gg/AxphPxU">Our Discord server</a> has over <b>1,200 members</b></li>
           <li>It usually takes <a href="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer/builds">about <b>5 minutes</b></a> for a code-change to be available on WoWAnalyzer.com</li>
         </ul>
-
-        The project was started by <Maintainer {...MAINTAINERS.Zerotorescue} /> (a <span className="Paladin">Holy Paladin</span> theorycrafter) to do additional analysis to help with theorycrafting. Since it took several months before other contributors joined the project, the first half of the recap will be written from my point of view.<br /><br />
 
         <hr style={{ marginBottom: 20 }} />
 

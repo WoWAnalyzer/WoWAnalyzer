@@ -207,6 +207,10 @@ export const Talby = {
   nickname: 'Talby',
   github: 'Talby223',
 };
+export const Coryn = {
+  nickname: 'Coryn',
+  github: 'terndrup',
+};
 export const AttilioLH = {
   nickname: 'AttilioLH',
   github: 'AttilioLH',
