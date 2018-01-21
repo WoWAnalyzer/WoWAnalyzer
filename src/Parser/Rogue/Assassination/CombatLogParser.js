@@ -38,9 +38,6 @@ class CombatLogParser extends CoreCombatLogParser {
     energyDetails: EnergyDetails,
     energy: Energy,
 
-    //Trackers
-    // mantleDamageTracker: MantleDamageTracker,
-
     //Core
     envenomUptime: EnvenomUptime,
     garroteUptime: GarroteUptime,
