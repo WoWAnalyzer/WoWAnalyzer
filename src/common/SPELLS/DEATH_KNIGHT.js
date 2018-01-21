@@ -589,4 +589,11 @@ export default {
     name: 'Cold Heart',
     icon: 'spell_frost_chainsofice',
   },
-};
+
+  //Skullflower's Haemostasis blood dk legendary buff
+  Haemostasis_Buff: {
+    id: 235559,
+    name: 'Haemostasis',
+    icon: 'ability_deathwing_bloodcorruption_earth',
+  },
+  };
