@@ -5,6 +5,8 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import Haste from './Modules/Core/Haste';
 import AbilityTracker from './Modules/Core/AbilityTracker';
 import Insanity from './Modules/Core/Insanity';
+import Channeling from './Modules/Core/Channeling';
+import GlobalCooldown from './Modules/Core/GlobalCooldown';
 
 // features
 import Abilities from './Modules/Features/Abilities';
@@ -35,12 +37,13 @@ import Tier21_4set from './Modules/Items/Tier21_4set';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
-
     // core
     haste: Haste,
     damageDone: [DamageDone, { showStatistic: true }],
     abilityTracker: AbilityTracker,
     insanity: Insanity,
+    channeling: Channeling,
+    globalCooldown: GlobalCooldown,
 
     // features:
     abilities: Abilities,

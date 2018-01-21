@@ -28,7 +28,7 @@ export default {
     icon: 'inv_misc_ring_mop13',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  ONETH_INTUITION: {
+  ONETHS_INTUITION: {
     id: 137092,
     name: 'Oneth\'s Intuition',
     icon: 'inv_bracer_40',
@@ -40,7 +40,7 @@ export default {
     icon: 'inv_shoulder_leather_draenorcrafted_d_01_alliance',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-  EMERALD_DREAMCATCHER: {
+  THE_EMERALD_DREAMCATCHER: {
     id: 137062,
     name: 'The Emerald Dreamcatcher',
     icon: 'inv_helmet_81',

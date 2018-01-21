@@ -146,7 +146,7 @@ export default {
   SINDRAGOSAS_FURY_ARTIFACT: {
     id: 190778,
     name: 'Sindragosa\'s Fury',
-    icon: 'spell_deathknight_frostfever',
+    icon: 'achievement_boss_sindragosa',
   },
   // Damage Dealing
   FROST_FEVER: {
@@ -169,12 +169,17 @@ export default {
     name: 'Howling Blast',
     icon: 'spell_frost_arcticwinds',
   },
-  REMORSELESS_WINTER_STACKS: {
+  REMORSELESS_WINTER_ENV_CAST: {
+    id: 211793,
+    name: 'Remorseless Winter',
+    icon: 'ability_deathknight_remorselesswinters2',
+  },
+  REMORSELESS_WINTER_BUFF: {
     id: 196771,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
   },
-  REMORSELESS_WINTER: {
+  REMORSELESS_WINTER: { // This the spell the player see
     id: 196770,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',

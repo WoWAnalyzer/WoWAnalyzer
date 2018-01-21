@@ -1,11 +1,11 @@
 import React from 'react';
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import { formatNumber } from 'common/format';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import Enemies from 'Parser/Core/Modules/Enemies';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 import getDamageBonus from '../../WarlockCore/getDamageBonus';
 
@@ -50,11 +50,7 @@ class OdrShawlOfTheYmirjar extends Analyzer {
   item() {
     return {
       item: ITEMS.ODR_SHAWL_OF_THE_YMIRJAR,
-      result: (
-        <dfn data-tip={`Total bonus damage contributed: ${formatNumber(this.bonusDmg)}`}>
-          {this.owner.formatItemDamageDone(this.bonusDmg)}
-        </dfn>
-      ),
+      result: <ItemDamageDone amount={this.bonusDmg} />,
     };
   }
 }

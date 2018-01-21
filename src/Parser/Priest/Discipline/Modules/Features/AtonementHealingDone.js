@@ -18,7 +18,7 @@ class AtonementHealingDone extends Analyzer {
   };
 
   _totalAtonement = new HealingValue();
-  _total = 0;
+  total = 0;
 
   _lastPenanceBoltNumber = 0;
 
@@ -27,8 +27,8 @@ class AtonementHealingDone extends Analyzer {
   }
   bySource = {};
 
-  on_byPlayer_absorbed(event){
-    this._total += event.amount || 0;
+  on_byPlayer_absorbed(event) {
+    this.total += event.amount || 0;
   }
 
   on_byPlayer_damage(event) {
@@ -38,9 +38,8 @@ class AtonementHealingDone extends Analyzer {
   }
 
   on_byPlayer_heal(event) {
-
-    this._total += event.amount || 0;
-    this._total += event.absorbed || 0;
+    this.total += event.amount || 0;
+    this.total += event.absorbed || 0;
 
     if (!isAtonement(event)) {
       return;
@@ -61,14 +60,16 @@ class AtonementHealingDone extends Analyzer {
     this.bySource[spellId].ability = ability;
     this.bySource[spellId].healing = (this.bySource[spellId].healing || new HealingValue()).add(amount, absorbed, overheal);
 
-    if(spellId === SPELLS.PENANCE.id) {
-      if(!this.bySource[SPELLS.PENANCE.id].bolts) {
-        this.bySource[SPELLS.PENANCE.id].bolts = [];
+    if (spellId === SPELLS.PENANCE.id) {
+      const source = this.bySource[SPELLS.PENANCE.id];
+      if (!source.bolts) {
+        source.bolts = [];
       }
 
-      this.bySource[SPELLS.PENANCE.id].bolts[this._lastPenanceBoltNumber] =
-      (this.bySource[SPELLS.PENANCE.id].bolts[this._lastPenanceBoltNumber] || 0) + amount + (absorbed || 0);
-
+      if (!source.bolts[this._lastPenanceBoltNumber]) {
+        source.bolts[this._lastPenanceBoltNumber] = new HealingValue();
+      }
+      source.bolts[this._lastPenanceBoltNumber] = source.bolts[this._lastPenanceBoltNumber].add(amount, absorbed, overheal);
     }
   }
 
@@ -78,11 +79,7 @@ class AtonementHealingDone extends Analyzer {
       url: 'atonement-sources',
       render: () => (
         <Tab title="Atonement sources">
-          <AtonementHealingBreakdown
-            totalAtonement={this.totalAtonement}
-            bySource={this.bySource}
-            total={this._total}
-          />
+          <AtonementHealingBreakdown analyzer={this} />
         </Tab>
       ),
     };

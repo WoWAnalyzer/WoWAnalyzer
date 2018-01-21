@@ -79,13 +79,15 @@ class Combatant extends Entity {
       case SPECS.HOLY_PALADIN:
         return 0.12 + this.masteryRating / 26667;
       case SPECS.HOLY_PRIEST:
-        return 0.05 + this.masteryRating / 32000;
+        return 0.10 + this.masteryRating / 32000;
       case SPECS.RESTORATION_SHAMAN:
         return 0.24 + this.masteryRating / 13333.3333333;
       case SPECS.ENHANCEMENT_SHAMAN:
         return 0.2 + this.masteryRating / 13333.3333333;
       case SPECS.ELEMENTAL_SHAMAN:
         return 0.15 + this.masteryRating / 23333.3333333;
+      case SPECS.GUARDIAN_DRUID:
+        return 0.04 + this.masteryRating / 40000;
       case SPECS.RESTORATION_DRUID:
         return 0.048 + this.masteryRating / 66666.6666666;
       case SPECS.FROST_MAGE:
@@ -96,18 +98,22 @@ class Combatant extends Entity {
         return 0.14 + this.masteryRating / 22850;
       case SPECS.PROTECTION_PALADIN:
         return 0.08 + this.masteryRating / 40000;
-      case SPECS.MARKSMANSHIP_HUNTER:
-        return 0.05 + this.masteryRating / 64000;
-      case SPECS.SUBTLETY_ROGUE:
-        return 0.2208 + this.masteryRating / 14492.61221;
       case SPECS.BEAST_MASTERY_HUNTER:
         return 0.18 + this.masteryRating / 17777.7777777;
+      case SPECS.MARKSMANSHIP_HUNTER:
+        return 0.05 + this.masteryRating / 64000;
+      case SPECS.SURVIVAL_HUNTER:
+        return 0.04 + this.masteryRating / 80000;
+      case SPECS.SUBTLETY_ROGUE:
+        return 0.2208 + this.masteryRating / 14492.61221;
       case SPECS.UNHOLY_DEATH_KNIGHT:
         return 0.18 + this.masteryRating / 17776;
       case SPECS.MISTWEAVER_MONK:
         return 1.04 + this.masteryRating / 3076.96;
       case SPECS.FURY_WARRIOR:
         return 0.11 + this.masteryRating / 28430;
+      case SPECS.FROST_DEATH_KNIGHT:
+        return 0.12 + this.masteryRating / 26666;
       default:
         throw new Error('Mastery hasn\'t been implemented for this spec yet.');
     }
@@ -315,7 +321,9 @@ class Combatant extends Entity {
     return this.getTrinket(itemId) !== undefined;
   }
   getItem(itemId) {
-    return Object.keys(this._gearItemsBySlotId).map(key => this._gearItemsBySlotId[key]).find(item => item.id === itemId);
+    return Object.keys(this._gearItemsBySlotId)
+      .map(key => this._gearItemsBySlotId[key])
+      .find(item => item.id === itemId);
   }
   // endregion
 }

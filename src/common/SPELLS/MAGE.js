@@ -240,6 +240,11 @@ export default {
     name: 'Meteor',
     icon: 'spell_mage_meteor',
   },
+  CINDERSTORM_DAMAGE: {
+    id: 198928,
+    name: 'Cinderstorm',
+    icon: 'spell_fire_flare',
+  },
 
   //Arcane
   ARCANE_BLAST: {
@@ -355,6 +360,11 @@ export default {
     id: 209455,
     name: 'Kaelthas\'s Ultimate Ability',
     icon: 'inv_bracer_robe_raidwarlock_j_01',
+  },
+  ARCTIC_BLAST: { // Frost 4t21 proc
+    id: 253257,
+    name: 'Arctic Blast',
+    icon: 'inv_staff_15',
   },
 
   //Artifact Traits

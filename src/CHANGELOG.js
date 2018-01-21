@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, Yuyz0112, Zerotorescue, Hartra344, Putro, Sharrq } from 'MAINTAINERS';
+import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, Yuyz0112, Zerotorescue, Hartra344, Putro, Sharrq, Hewhosmites } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
@@ -9,8 +9,73 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-01-18'),
+    changes: <Wrapper>Added support for <ItemLink id={ITEMS.EYE_OF_COMMAND.id} icon />.</Wrapper>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-01-18'),
+    changes: <Wrapper>Added <ItemLink id={ITEMS.ISHKARS_FELSHIELD_EMITTER.id} icon /> to cast efficiency.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-01-18'),
+    changes: <Wrapper>Fixed an issue where <ItemLink id={ITEMS.GAROTHI_FEEDBACK_CONDUIT.id} icon /> did not always add the Haste from the last buff.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-01-16'),
+    changes: 'Fixed current Haste percentage interaction with Haste rating buff changes (this improves ABC and spell cooldown accuracy).',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-01-15'),
+    changes: <Wrapper>Added in <ItemLink id={ITEMS.AMANTHULS_VISION.id} icon /></Wrapper>,
+    contributors: [Hewhosmites],
+  },
+  {
+    date: new Date('2018-01-15'),
+    changes: <Wrapper>Fixed a bug where friendly fire damage (from for example the passive of <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} icon />) would be included in the damage gain from <ItemLink id={ITEMS.GNAWED_THUMB_RING.id} icon />.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-01-11'),
+    changes: 'Fixed a bug where item damage/healing/mana statistics (with the icons) stopped updating after the last damage/healing/mana event. This will lower most displayed item values, the impact depends on the time between the last event that increased the damage/healing/mana of the thing being analyzed and the fight ending.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-01-10'),
+    changes: 'Added a note about unlisted logs to the report selector.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-01-09'),
+    changes: <Wrapper>Updated the tooltip for <ItemLink id={ITEMS.GOLGANNETHS_VITALITY.id} icon /> to show uptime aswell as damage contribution of the two procs</Wrapper>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-01-08'),
+    changes: 'Replaced the articles on the frontpage with a basic news system so we can more easily add and maintain articles.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-01-04'),
+    changes: 'Fixed a bug where procs that changed an ability from a cast time ability to instant might not properly register the GCD.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-31'),
+    changes: 'Changed the way Mastery percentage is calculated and implemented the coefficients for all specs. Let us know if Mastery still doesn\'t match the character pane.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-30'),
+    changes: 'Added icons indicating the stat type to most item stats.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2017-12-27'),
-    changes: <Wrapper>Added Death Tracking to the parser</Wrapper>,
+    changes: 'Added Death Tracking to the parser.',
     contributors: [Sharrq],
   },
   {

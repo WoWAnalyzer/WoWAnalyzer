@@ -1,4 +1,4 @@
-# WoW Analyzer [![Build Status](https://travis-ci.org/WoWAnalyzer/WoWAnalyzer.svg?branch=master)](https://travis-ci.org/WoWAnalyzer/WoWAnalyzer)
+# WoWAnalyzer [![Build Status](https://travis-ci.org/WoWAnalyzer/WoWAnalyzer.svg?branch=master)](https://travis-ci.org/WoWAnalyzer/WoWAnalyzer)
 
 Use this tool to analyze your performance based on important metrics for your spec using a Warcraft Logs report.
 
@@ -7,6 +7,12 @@ You will need a Warcraft Logs report with advanced combat logging enabled to sta
 Run it: [https://wowanalyzer.com](https://wowanalyzer.com)
 
 Feature requests (and bug reports provided that you're not using one of Microsoft's browsers) are welcome! On our Discord: https://discord.gg/AxphPxU or create an issue [here](https://github.com/WoWAnalyzer/WoWAnalyzer/issues).
+
+## Battle for Azeroth
+
+Battle for Azeroth changes will be applied to the [bfa](https://github.com/WoWAnalyzer/WoWAnalyzer/tree/bfa) branch. Any changes to this branch will automatically be deployed here: https://bfa.wowanalyzer.com.
+
+When you make a pull request for the `bfa` branch please include BFA in the title of your PR.
 
 ## Contributing
 

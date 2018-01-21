@@ -181,7 +181,7 @@ export default {
     name: 'Swipe',
     icon: 'inv_misc_monsterclaw_03',
   },
-  BEAR_SWIPE: {
+  SWIPE_BEAR: {
     id: 213771,
     name: 'Swipe',
     icon: 'inv_misc_monsterclaw_03',
@@ -258,6 +258,11 @@ export default {
   RESTO_DRUID_T19_2SET_BONUS_BUFF: {
     id: 211165,
     name: 'T19 2 set bonus',
+    icon: 'talentspec_druid_restoration',
+  },
+  RESTO_DRUID_T19_4SET_BONUS_BUFF: {
+    id: 211170,
+    name: 'T19 4 set bonus',
     icon: 'talentspec_druid_restoration',
   },
   RESTO_DRUID_T20_2SET_BONUS_BUFF: {
@@ -419,7 +424,7 @@ export default {
   INCAPACITATING_ROAR: {
     id: 99,
     name: 'Incapacitating Roar',
-    icon: 'ability_druid_demorolizingroar',
+    icon: 'ability_druid_demoralizingroar',
   },
   RAGE_OF_THE_SLEEPER: {
     id: 200851,
@@ -496,6 +501,16 @@ export default {
     name: 'Rebirth',
     icon: 'spell_nature_reincarnation',
   },
+  ENTANGLING_ROOTS: {
+    id: 339,
+    name: 'Entangling Roots',
+    icon: 'spell_nature_stranglevines',
+  },
+  REMOVE_CORRUPTION: {
+    id: 2782,
+    name: 'Remove Corruption',
+    icon: 'spell_holy_removecurse',
+  },
   GALACTIC_GUARDIAN: {
     id: 213708,
     name: 'Galactic Guardian',
@@ -545,6 +560,26 @@ export default {
     id: 248522,
     name: 'Fury of Nature',
     icon: 'ability_creature_cursed_04',
+  },
+  GUARDIAN_TIER_21_2P_SET_BONUS: {
+    id: 251791,
+    name: 'Tier 21 2P Bonus',
+    icon: 'ability_druid_cower',
+  },
+  GUARDIAN_TIER_21_4P_SET_BONUS: {
+    id: 251792,
+    name: 'Tier 21 4P Bonus',
+    icon: 'ability_druid_cower',
+  },
+  GUARDIAN_TIER_21_4P_SET_BONUS_BUFF: {
+    id: 253575,
+    name: 'Regenerative Fur',
+    icon: 'ability_druid_kingofthejungle',
+  },
+  MASTERY_NATURES_GUARDIAN_HEAL: {
+    id: 227034,
+    name: 'Mastery: Nature\'s Guardian',
+    icon: 'spell_druid_primaltenacity',
   },
   // Moonkin
   STARSURGE_MOONKIN: {
@@ -602,19 +637,24 @@ export default {
   CELESTIAL_ALIGNMENT: {
     id: 194223,
     name: 'Celestial Alignment',
-    icon: 'artifactability_balancedruid_newmoon',
+    icon: 'spell_nature_natureguardian',
   },
   LUNAR_EMP_BUFF: {
     id: 164547,
     name: 'Lunar Empowement',
-    icon: 'artifactability_balancedruid_newmoon',
+    icon: 'spell_arcane_starfire',
   },
   SOLAR_EMP_BUFF: {
     id: 164545,
     name: 'Celestial Alignment',
-    icon: 'artifactability_balancedruid_newmoon',
+    icon: 'spell_nature_wrathv2',
   },
-  EMERALD_DREAMCATCHER_BUFF: {
+  OWLKIN_FRENZY: {
+    id: 157228,
+    name: 'Owlkin Frenzy',
+    icon: 'ability_druid_owlkinfrenzy',
+  },
+  THE_EMERALD_DREAMCATCHER: {
     id: 224706,
     name: 'The Emerald Dreamcatcher',
     icon: 'inv_helmet_81',
@@ -628,6 +668,66 @@ export default {
     id: 202942,
     name: 'Star Power',
     icon: 'artifactability_balancedruid_moonandstars',
+  },
+  SOLAR_BEAM: {
+    id: 78675,
+    name: 'Solar Beam',
+    icon: 'ability_vehicle_sonicshockwave',
+  },
+  SHOOTING_STARS: {
+    id: 202497,
+    name: 'Shooting Stars',
+    icon: 'spell_priest_divinestar_shadow2',
+  },
+  BLESSING_OF_ANSHE: {
+    id: 202739,
+    name: 'Blessing of An\'she',
+    icon: 'spell_priest_divinestar_holy',
+  },
+  BLESSING_OF_ELUNE: {
+    id: 202737,
+    name: 'Blessing of Elune',
+    icon: 'achievement_worldevent_lunar',
+  },
+  ONETHS_INTUITION: {
+    id: 209406,
+    name: 'Oneth\'s Intuition',
+    icon: 'spell_arcane_invocation',
+  },
+  ONETHS_OVERCONFIDENCE: {
+    id: 209407,
+    name: 'Oneth\'s Overconfidence',
+    icon: 'ability_druid_stellarflare',
+  },
+  ECHOING_STARS: {
+    id: 226104,
+    name: 'Echoing Stars',
+    icon: 'ability_socererking_forcenova',
+  },
+  BALANCE_DRUID_T20_2SET_BONUS_BUFF: {
+    id: 242231,
+    name: 'T20 2 set bonus',
+    icon: 'spell_nature_starfall',
+  },
+  BALANCE_DRUID_T20_4SET_BONUS_BUFF: {
+    id: 242233,
+    name: 'T20 4 set bonus',
+    icon: 'spell_nature_starfall',
+  },
+  BALANCE_DRUID_T21_2SET_BONUS_BUFF: {
+    id: 251803,
+    name: 'T21 2 set bonus',
+    icon: 'ability_druid_cower',
+  },
+  BALANCE_DRUID_T21_4SET_BONUS_BUFF: {
+    id: 251809,
+    name: 'T21 4 set bonus',
+    icon: 'ability_druid_cower',
+  },
+  SOLAR_SOLSTICE: {
+    id: 252767,
+    name: 'Solar Solstice',
+    icon: 'spell_druid_sunfall',
   },
   // Feral
   TIGERS_FURY: {

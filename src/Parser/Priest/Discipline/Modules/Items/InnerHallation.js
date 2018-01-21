@@ -2,11 +2,9 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import { formatThousands } from 'common/format';
-
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
-
+import ItemManaGained from 'Main/ItemManaGained';
 
 const debug = false;
 
@@ -51,11 +49,7 @@ class InnerHallation extends Analyzer {
 
     return {
       item: ITEMS.INNER_HALLATION,
-      result: (
-        <dfn>
-          {formatThousands(manaGained)} mana saved ({formatThousands(manaGained / this.owner.fightDuration * 1000 * 5)} MP5)
-        </dfn>
-      ),
+      result: <ItemManaGained amount={manaGained} />,
     };
   }
 }

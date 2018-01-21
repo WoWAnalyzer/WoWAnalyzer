@@ -44,6 +44,9 @@ function escapeHtml(unsafe) {
 app.get('/', (req, res) => {
   res.sendFile(path.join(buildFolder, 'index.html'));
 });
+app.get('/news/:article', (req, res) => {
+  res.send(index);
+});
 app.get('/report/:reportCode([A-Za-z0-9]+)/:fightId([0-9]+)?:fightName(-[^/]+)?/:playerName([^/]{2,})?/:tab([A-Za-z0-9-]+)?', (req, res) => {
   let response = index;
   if (req.params.fightName) {
@@ -59,8 +62,8 @@ app.get('/report/:reportCode([A-Za-z0-9]+)/:fightId([0-9]+)?:fightName(-[^/]+)?/
 
     // This is a bit hacky, better solution welcome
     response = response
-      .replace('property="og:title" content="WoW Analyzer"', `property="og:title" content="WoW Analyzer: ${escapeHtml(title)}"`)
-      .replace('<title>WoW Analyzer</title>', `<title>WoW Analyzer: ${escapeHtml(title)}</title>`);
+      .replace('property="og:title" content="WoWAnalyzer"', `property="og:title" content="WoWAnalyzer: ${escapeHtml(title)}"`)
+      .replace('<title>WoWAnalyzer</title>', `<title>WoWAnalyzer: ${escapeHtml(title)}</title>`);
   }
 
   res.send(response);

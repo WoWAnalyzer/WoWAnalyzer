@@ -9,6 +9,31 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-01-12'),
+    changes: 'Fixed Garothi Feedback Conduit average Haste calculations.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-01-11'),
+    changes: 'Fixed a bug where beacon tracking sometimes failed when doing a fight with multiple Holy Paladins.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-01-11'),
+    changes: <Wrapper>Changed the <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} icon /> suggestion thresholds to 80k minor/60k average/40k major importance (up from 60k minor/50k average/40k major) to more closely match the <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} icon /> average.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-31'),
+    changes: <Wrapper><ItemLink id={ITEMS.DRAPE_OF_SHAME.id} icon /> now shows an estimated item level.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-30'),
+    changes: <Wrapper>Added a suggestion to consider using <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} icon /> when not using it.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2017-12-24'),
     changes: <Wrapper>Fixed a crash when using <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} icon /> without <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} icon />.</Wrapper>,
     contributors: [Zerotorescue],

@@ -18,6 +18,10 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
   ];
+
+  static ignoredSpells = [
+    ...CooldownThroughputTracker.ignoredSpells,
+  ];
 }
 
 export default CooldownThroughputTracker;

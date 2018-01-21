@@ -28,17 +28,11 @@ class SpellHistory extends Analyzer {
       return null;
     }
 
-    let mainSpellId;
-    if(ability.spell instanceof Array) {
-      mainSpellId = ability.spell[0].id;
-    } else {
-      mainSpellId = ability.spell.id;
+    const primarySpellUd = ability.primarySpell.id;
+    if (!this.historyBySpellId[primarySpellUd]) {
+      this.historyBySpellId[primarySpellUd] = [];
     }
-
-    if (!this.historyBySpellId[mainSpellId]) {
-      this.historyBySpellId[mainSpellId] = [];
-    }
-    return this.historyBySpellId[mainSpellId];
+    return this.historyBySpellId[primarySpellUd];
   }
 
   _append(spellId, event) {

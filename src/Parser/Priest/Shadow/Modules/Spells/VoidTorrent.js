@@ -85,15 +85,17 @@ class VoidTorrent extends Analyzer {
   }
 
   statistic() {
-    return (<StatisticBox
-      icon={<SpellIcon id={SPELLS.VOID_TORRENT.id} />}
-      value={`${formatSeconds(this.totalWasted)} seconds`}
-      label={(
-        <dfn data-tip="Lost Void Torrent channeling time.">
-          Interrupted Void Torrents
-        </dfn>
-      )}
-    />);
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.VOID_TORRENT.id} />}
+        value={`${formatSeconds(this.totalWasted)} seconds`}
+        label={(
+          <dfn data-tip="Lost Void Torrent channeling time.">
+            Interrupted Void Torrents
+          </dfn>
+        )}
+      />
+    );
   }
 
   statisticOrder = STATISTIC_ORDER.CORE(7);

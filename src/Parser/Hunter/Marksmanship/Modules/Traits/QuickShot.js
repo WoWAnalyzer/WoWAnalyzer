@@ -2,10 +2,9 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 
-/*
+/**
  * Reduces the cooldown of Trueshot by 10 sec. (has diminished returns)
  */
-
 class QuickShot extends Analyzer {
   static dependencies = {
     combatants: Combatants,

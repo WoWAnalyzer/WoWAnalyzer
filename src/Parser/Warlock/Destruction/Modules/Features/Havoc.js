@@ -28,7 +28,7 @@ class Havoc extends Analyzer {
 
   // TODO: this could perhaps be reworked somehow to be more accurate but not sure how yet. Take it as a Havoc v1.0
   statistic() {
-    if (this.damage === 0){
+    if (this.damage === 0) {
       return;
     }
 

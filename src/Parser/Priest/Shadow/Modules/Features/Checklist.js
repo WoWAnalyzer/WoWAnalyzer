@@ -7,14 +7,16 @@ import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
 // import ItemLink from 'common/ItemLink';
 
-import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist';
-
+import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
+import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 
 // general:
 import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
+import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 
 // features:
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
@@ -27,7 +29,6 @@ import VampiricTouch from '../Spells/VampiricTouch';
 import Voidform from '../Spells/Voidform';
 import VoidTorrent from '../Spells/VoidTorrent';
 
-
 class Checklist extends CoreChecklist {
   static dependencies = {
     combatants: Combatants,
@@ -36,6 +37,7 @@ class Checklist extends CoreChecklist {
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
+    enchantChecker: EnchantChecker,
 
     // features:
     castEfficiency: CastEfficiency,
@@ -163,41 +165,7 @@ class Checklist extends CoreChecklist {
         ];
       },
     }),
-    new Rule({
-      name: 'Be well prepared',
-      description: 'Being well prepared with potions, enchants and legendaries is an easy way to improve your performance.',
-      // For this rule it wouldn't make sense for the bar to be completely green when just 1 of the requirements failed, showing the average instead of median takes care of that properly.
-      performanceMethod: 'average',
-      requirements: () => {
-        return [
-          new Requirement({
-            name: 'All legendaries upgraded to max item level',
-            check: () => ({
-              actual: this.legendaryUpgradeChecker.upgradedLegendaries.length,
-              isLessThan: this.legendaryCountChecker.max,
-              style: 'number',
-            }),
-          }),
-          new Requirement({
-            name: 'Used max possible legendaries',
-            check: () => ({
-              actual: this.legendaryCountChecker.equipped,
-              isLessThan: this.legendaryCountChecker.max,
-              style: 'number',
-            }),
-          }),
-          new Requirement({
-            name: 'Used a pre-potion',
-            check: () => this.prePotion.prePotionSuggestionThresholds,
-          }),
-          new Requirement({
-            name: 'Used a second potion',
-            check: () => this.prePotion.secondPotionSuggestionThresholds,
-          }),
-        ];
-      },
-    }),
-
+    new PreparationRule(),
   ];
 }
 

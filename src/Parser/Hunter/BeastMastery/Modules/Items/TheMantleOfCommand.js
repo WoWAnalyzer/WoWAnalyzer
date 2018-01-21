@@ -1,12 +1,12 @@
 import React from 'react';
 
 import ITEMS from 'common/ITEMS';
-
+import SPELLS from 'common/SPELLS';
+import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import SPELLS from 'common/SPELLS';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
-import { formatNumber, formatPercentage } from 'common/format';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 const DAMAGE_INCREASE = 0.05;
 
@@ -51,7 +51,7 @@ class TheMantleOfCommand extends Analyzer {
       item: ITEMS.THE_MANTLE_OF_COMMAND,
       result: (
         <dfn data-tip={`You had a ${formatPercentage(this.buffUptime)}% uptime on The Mantle of Command buff.`}>
-          {formatNumber(this.bonusDmg)} - {this.owner.formatItemDamageDone(this.bonusDmg)}
+          <ItemDamageDone amount={this.bonusDmg} />
         </dfn>
       ),
     };

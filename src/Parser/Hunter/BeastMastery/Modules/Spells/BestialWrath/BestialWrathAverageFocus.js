@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -9,6 +9,7 @@ import SpellIcon from "common/SpellIcon";
 import { formatNumber } from "common/format";
 import SpellLink from "common/SpellLink";
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
+import Wrapper from 'common/Wrapper';
 
 class BestialWrathAverageFocus extends Analyzer {
   static dependencies = {
@@ -27,17 +28,16 @@ class BestialWrathAverageFocus extends Analyzer {
     this.accumulatedFocusAtBWCast += event.classResources[0]['amount'] || 0;
   }
   statistic() {
-    const averageFocusAtBW = formatNumber(this.accumulatedFocusAtBWCast / this.bestialWrathCasts);
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BESTIAL_WRATH.id} />}
-        value={formatNumber(averageFocusAtBW)}
+        value={this.averageFocusAtBestialWrathCast}
         label={`Average Focus on cast`}
-        tooltip={`You started your average Bestial Wrath window with ${averageFocusAtBW} focus.`}
+        tooltip={`You started your average Bestial Wrath window with ${this.averageFocusAtBestialWrathCast} focus.`}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
+  statisticOrder = STATISTIC_ORDER.CORE(9);
 
   get averageFocusAtBestialWrathCast() {
     return formatNumber(this.accumulatedFocusAtBWCast / this.bestialWrathCasts);
@@ -68,22 +68,12 @@ class BestialWrathAverageFocus extends Analyzer {
   }
 
   suggestions(when) {
-    const {
-      isLessThan: {
-        minor,
-        average,
-        major,
-      },
-    } = this.focusOnBestialWrathCastThreshold;
-    when(this.averageFocusAtBestialWrathCast).isLessThan(minor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You started your average <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> at {this.averageFocusAtBestialWrathCast} focus, try and pool a bit more before casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. This can be achieved by not casting abilities a few moments before <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> comes off cooldown.</span>)
-          .icon(SPELLS.BESTIAL_WRATH.icon)
-          .actual(`Average of ${this.averageFocusAtBestialWrathCast} focus at start of Bestial Wrath`)
-          .recommended(`>${recommended} focus is recommended`)
-          .regular(average)
-          .major(major);
-      });
+    when(this.focusOnBestialWrathCastThreshold).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<Wrapper>You started your average <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> at {this.averageFocusAtBestialWrathCast} focus, try and pool a bit more before casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. This can be achieved by not casting abilities a few moments before <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> comes off cooldown.</Wrapper>)
+        .icon(SPELLS.BESTIAL_WRATH.icon)
+        .actual(`Average of ${this.averageFocusAtBestialWrathCast} focus at start of Bestial Wrath`)
+        .recommended(`>${recommended} focus is recommended`);
+    });
   }
 
 }

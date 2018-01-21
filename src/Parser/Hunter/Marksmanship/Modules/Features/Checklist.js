@@ -1,6 +1,8 @@
 import React from 'react';
 
-import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist';
+import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
+import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
@@ -18,6 +20,10 @@ import Bullseye from 'Parser/Hunter/Marksmanship/Modules/Traits/Bullseye';
 import PatientSniperDetails from 'Parser/Hunter/Marksmanship/Modules/Talents/PatientSniper/PatientSniperDetails';
 import Icon from "common/Icon";
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
+import AimedInVulnerableTracker from 'Parser/Hunter/Marksmanship/Modules/Features/AimedInVulnerableTracker';
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import ResourceIcon from 'common/ResourceIcon';
+import VulnerableUpTime from 'Parser/Hunter/Marksmanship/Modules/Features/VulnerableUptime';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -34,6 +40,8 @@ class Checklist extends CoreChecklist {
     cancelledCasts: CancelledCasts,
     timeFocusCapped: TimeFocusCapped,
     enchantChecker: EnchantChecker,
+    aimedInVulnerableTracker: AimedInVulnerableTracker,
+    vulnerableUptime: VulnerableUpTime,
 
     //talents
     aMurderOfCrows: AMurderOfCrows,
@@ -64,7 +72,7 @@ class Checklist extends CoreChecklist {
             spell: SPELLS.TRUESHOT,
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.SIDEWINDERS_TALENT,
+            spell: SPELLS.SIDEWINDERS_CAST,
             when: combatant.hasTalent(SPELLS.SIDEWINDERS_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
@@ -182,65 +190,31 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <Wrapper><SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> Usage</Wrapper>,
-      description: <Wrapper>Try to optimise the damage from <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> by after opening <SpellLink id={SPELLS.VULNERABLE.id} icon />, then casting one or two <SpellLink id={SPELLS.ARCANE_SHOT.id} icon /> or <SpellLink id={SPELLS.MULTISHOT.id} icon /> to delay your <SpellLink id={SPELLS.AIMED_SHOT.id} icon /> until later in the <SpellLink id={SPELLS.VULNERABLE.id} icon /> window. However, remember to not stand around waiting, doing nothing and to not focus cap. These are more important to DPS, than optimising <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> is.</Wrapper>,
+      name: <Wrapper><SpellLink id={SPELLS.VULNERABLE.id} icon /> & <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> Usage </Wrapper>,
+      description: <Wrapper>Try to limit the amount of casts outside of <SpellLink id={SPELLS.VULNERABLE.id} icon /> to a minimum. Try to optimise the damage from <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> by after opening <SpellLink id={SPELLS.VULNERABLE.id} icon />, then casting one or two <SpellLink id={SPELLS.ARCANE_SHOT.id} icon /> or <SpellLink id={SPELLS.MULTISHOT.id} icon /> to delay your <SpellLink id={SPELLS.AIMED_SHOT.id} icon /> until later in the <SpellLink id={SPELLS.VULNERABLE.id} icon /> window. However, remember to not stand around waiting, doing nothing and to not focus cap. These are more important to DPS, than optimising <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> is.</Wrapper>,
       requirements: () => {
         return [
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.AIMED_SHOT.id} icon />s outside <SpellLink id={SPELLS.VULNERABLE.id} icon /></Wrapper>,
+            check: () => this.aimedInVulnerableTracker.nonVulnerableAimedShotThreshold,
+          }),
+          new Requirement({
+            name: <Wrapper><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Focus dump <SpellLink id={SPELLS.AIMED_SHOT.id} icon />s</Wrapper>,
+            check: () => this.aimedInVulnerableTracker.focusDumpThreshold,
+          }),
           new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> damage contribution</Wrapper>,
             check: () => this.patientSniperDetails.patientSniperDamageThresholds,
           }),
-        ];
-      },
-    }),
-    new Rule({
-      name: 'Be well prepared',
-      description: 'Being prepared is important if you want to perform to your highest potential',
-      // For this rule it wouldn't make sense for the bar to be completely green when just 1 of the requirements failed, showing the average instead of median takes care of that properly.
-      performanceMethod: 'average',
-      requirements: () => {
-        return [
           new Requirement({
-            name: 'All legendaries upgraded to max item level',
-            check: () => ({
-              actual: this.legendaryUpgradeChecker.upgradedLegendaries.length,
-              isLessThan: this.legendaryCountChecker.max,
-              style: 'number',
-            }),
-          }),
-          new Requirement({
-            name: 'Used max possible legendaries',
-            check: () => ({
-              actual: this.legendaryCountChecker.equipped,
-              isLessThan: this.legendaryCountChecker.max,
-              style: 'number',
-            }),
-          }),
-          new Requirement({
-            name: 'Used a pre-potion',
-            check: () => this.prePotion.prePotionSuggestionThresholds,
-          }),
-          new Requirement({
-            name: 'Used a second potion',
-            check: () => this.prePotion.secondPotionSuggestionThresholds,
-          }),
-          new Requirement({
-            name: 'Gear has best enchants',
-            check: () => {
-              const numEnchantableSlots = Object.keys(this.enchantChecker.enchantableGear).length;
-              return {
-                actual: numEnchantableSlots - (this.enchantChecker.slotsMissingEnchant.length + this.enchantChecker.slotsMissingMaxEnchant.length),
-                isLessThan: numEnchantableSlots,
-                style: 'number',
-              };
-            },
+            name: <Wrapper><SpellLink id={SPELLS.VULNERABLE.id} icon /> uptime</Wrapper>,
+            check: () => this.vulnerableUptime.uptimeThreshold,
           }),
         ];
       },
     }),
-
+    new PreparationRule(),
   ];
-
 }
 
 export default Checklist;
