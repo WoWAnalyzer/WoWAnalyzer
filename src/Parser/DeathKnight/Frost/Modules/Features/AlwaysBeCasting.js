@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellLink from 'common/SpellLink';
+import Wrapper from 'common/Wrapper';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
@@ -42,16 +43,25 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     */
   ];
 
-  suggestions(when) {
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
+  get downtimeSuggestionThresholds() {
+    return {
+      actual: this.downtimePercentage,
+      isGreaterThan: {
+        minor: 0.2,
+        average: 0.35,
+        major: .4,
+      },
+      style: 'percentage',
+    };
+  }
 
-    when(deadTimePercentage).isGreaterThan(0.2)
+  suggestions(when) {
+    when(this.downtimeSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics.  If you do have to move, try casting filler spells, such as <SpellLink id={SPELLS.FROST_STRIKE.id}/> or <SpellLink id={SPELLS.OBLITERATE.id}/>.</span>)
+        return suggest(<Wrapper>Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics.  If you do have to move, try casting filler spells, such as <SpellLink id={SPELLS.HOWLING_BLAST.id}/> or <SpellLink id={SPELLS.FROST_STRIKE.id}/>.</Wrapper>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.15).major(recommended + 0.2);
+          .recommended(`<${formatPercentage(recommended)}% is recommended`);
       });
   }
 

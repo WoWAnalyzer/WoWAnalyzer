@@ -1,5 +1,7 @@
-import ITEMS from 'common/ITEMS';
+import React from 'react';
+import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
@@ -9,34 +11,22 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational Spells
       {
-        spell: SPELLS.NEW_MOON,
+        spell: [SPELLS.NEW_MOON, SPELLS.HALF_MOON, SPELLS.FULL_MOON],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, combatant) => {
-          const hasRM = combatant.hasBack(ITEMS.RADIANT_MOONLIGHT.id);
-          return hasRM ? 30 : 45;
-        },
+        cooldown: 15,
         isOnGCD: true,
-        charges: 2,
-      },
-      {
-        spell: SPELLS.HALF_MOON,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, combatant) => {
-          const hasRM = combatant.hasBack(ITEMS.RADIANT_MOONLIGHT.id);
-          return hasRM ? 30 : 45;
+        charges: 3,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+          averageIssueEfficiency: 0.9,
+          majorIssueEfficiency: 0.85,
+          extraSuggestion: (
+            <Wrapper>
+              Your <SpellLink id={SPELLS.NEW_MOON.id} />, <SpellLink id={SPELLS.HALF_MOON.id} /> and <SpellLink id={SPELLS.FULL_MOON.id} /> cast efficiency can be improved, try keeping yourself at low Moon charges at all times; you should (almost) never be at max (3) charges.
+            </Wrapper>
+          ),
         },
-        isOnGCD: true,
-        charges: 2,
-      },
-      {
-        spell: SPELLS.FULL_MOON,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, combatant) => {
-          const hasRM = combatant.hasBack(ITEMS.RADIANT_MOONLIGHT.id);
-          return hasRM ? 15 : 45;
-        },
-        isOnGCD: true,
-        charges: 2,
       },
       {
         spell: SPELLS.STARSURGE_MOONKIN,
