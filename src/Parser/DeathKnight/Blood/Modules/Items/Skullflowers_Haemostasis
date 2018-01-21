@@ -10,7 +10,7 @@ class SkullflowersHaemostasis extends Analyzer {
   };
 
   on_initialized() {
-    this.active = this.combatants.selected.hasChest(ITEMS.SKULLFLOWERS_HAEMOSTASIS.id);
+    this.active = this.combatants.selected.hasShoulder(ITEMS.SKULLFLOWERS_HAEMOSTASIS.id);
   }
 
   buffStack=0;
