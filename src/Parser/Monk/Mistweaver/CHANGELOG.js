@@ -2,6 +2,10 @@ import React from 'react';
 
 import { Anomoly, Zerotorescue } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
+import ITEMS from 'common/ITEMS';
+import ItemLink from 'common/ItemLink';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 
 export default [
   {
@@ -21,17 +25,17 @@ export default [
   },
   {
     date: new Date('2017-11-28'),
-    changes: 'Fixed bug with TFT -> Renewing Mist cast efficiency. Updated Player Log Data tab for additional items for T21 Speadsheet version',
+    changes: <Wrapper>Fixed bug with <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> -> <SpellLink id={SPELLS.RENEWING_MIST.id} /> cast efficiency. Updated Player Log Data tab for additional items for T21 Speadsheet version</Wrapper>,
     contributors: [Anomoly],
   },
   {
     date: new Date('2017-11-06'),
-    changes: 'Updated Always Be Casting calculation to take into consideration Essence Font not having a begincast event',
+    changes: <Wrapper>Updated Always Be Casting calculation to take into consideration <SpellLink id={SPELLS.ESSENCE_FONT.id} /> not having a begincast event</Wrapper>,
     contributors: [Anomoly],
   },
   {
     date: new Date('2017-10-24'),
-    changes: 'Updated Thunder Focus Tea, Dancing Mist, and Uplifting Trance statistics formating',
+    changes: <Wrapper>Updated <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} />, <SpellLink id={SPELLS.DANCING_MISTS.id} />, and <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> statistics formatting</Wrapper>,
     contributors: [Anomoly],
   },
   {
