@@ -226,7 +226,7 @@ export default {
     name: 'Consume Magic',
     icon: 'ability_demonhunter_consumemagic',
   },
-  CONSUME_MAGIC_2: {
+  CONSUME_MAGIC_FURY_GEN: {
     id: 218903,
     name: 'Consume Magic',
     icon: 'ability_demonhunter_consumemagic',

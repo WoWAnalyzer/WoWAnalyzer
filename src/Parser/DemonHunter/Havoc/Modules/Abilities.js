@@ -29,7 +29,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: .95,
-          importance: ISSUE_IMPORTANCE.MAJOR,
         },
       },
       {
