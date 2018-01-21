@@ -93,7 +93,7 @@ class RegrowthAttributor extends Analyzer {
   }
 
   _logAttribution(spellId, targetId, timestamp, attName) {
-    debug && console.log(`${spellId} on ${targetId} @${this.owner.formatTimestamp(timestamp)} attributed to ${attName}`);
+    //debug && console.log(`${spellId} on ${targetId} @${this.owner.formatTimestamp(timestamp)} attributed to ${attName}`);
   }
 
 }

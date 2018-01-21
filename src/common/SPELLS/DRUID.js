@@ -57,7 +57,7 @@ export default {
     id: 48438,
     name: 'Wild Growth',
     icon: 'ability_druid_flourish',
-    manaCost: 68816,
+    //manaCost: 68816,
   },
   REJUVENATION: {
     id: 774,
