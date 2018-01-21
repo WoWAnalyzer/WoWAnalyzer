@@ -56,6 +56,8 @@ import LowHealthHealing from './LowHealthHealing.png';
 import ExtensionToolbar from './ExtensionToolbar.jpg';
 import ExtensionActive from './ExtensionActive.jpg';
 import WindwalkerMonk from './WindwalkerMonk.png';
+import SubtletyRogue from './SubtletyRogue.png';
+import GuardianDruid from './GuardianDruid.png';
 
 function completeness(completeness) {
   return <dfn data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>;
@@ -674,23 +676,6 @@ class Article extends React.PureComponent {
 
         <div className="panel">
           <div className="date">
-            25 Jul
-          </div>
-          <div className="panel-heading">
-            <h2>Subtlety Rogue</h2>
-          </div>
-          <div className="panel-body">
-            <SpecIcon spec={SPECS.SUBTLETY_ROGUE} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/130
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/830
-
-            Initial version by <Maintainer {...MAINTAINERS.zealk} />
-            Most of what is available today by <Maintainer {...MAINTAINERS.tsabo} />
-          </div>
-        </div>
-
-        <div className="panel">
-          <div className="date">
             7 Aug
           </div>
           <div className="panel-heading">
@@ -698,9 +683,36 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.GUARDIAN_DRUID} />
-            Initial version by <Maintainer {...MAINTAINERS.WOPR} />
-            Taken over by <Maintainer {...MAINTAINERS.faide} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/137
+            Guardian Druid was the first supported tanking spec. It was originally <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/137">added</a> by <Maintainer {...MAINTAINERS.WOPR} /> with a bunch of new core tools useful for all tanking specs. Shortly after <Maintainer {...MAINTAINERS.faide} /> joined the Guardian Druid team adding a lot of useful analysis and cool new features such as the filler spell spam detection among many other things. <Maintainer {...MAINTAINERS.faide} /> took full ownership of the spec from September so that <Maintainer {...MAINTAINERS.WOPR} /> would be able to focus on Brewmaster.<br /><br />
+
+            <figure>
+              <img src={GuardianDruid} alt="Initial version" />
+              <figcaption>
+                The initial version of the Guardian Druid
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div className="panel">
+          <div className="date">
+            11 Aug
+          </div>
+          <div className="panel-heading">
+            <h2>Subtlety Rogue</h2>
+          </div>
+          <div className="panel-body">
+            <SpecIcon spec={SPECS.SUBTLETY_ROGUE} />
+            <Maintainer {...MAINTAINERS.zealk} /> added the initial version for this spec. While the first pieces were <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/130">added</a> at 25 July 2017, it wasn't enabled until 11 August.<br /><br />
+
+            <figure>
+              <img src={SubtletyRogue} alt="Subtlety Rogue" />
+              <figcaption>
+                The initial version of the Subtlety Rogue
+              </figcaption>
+            </figure><br />
+
+            From 19 November 2017 and onwards <Maintainer {...MAINTAINERS.tsabo} /> has taken over as the main maintainer of this spec's analysis. He has added <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pulls?utf8=✓&q=is%3Apr+Rogue">a lot of things</a> since then which is now most of what we have for the spec today.
           </div>
         </div>
 
