@@ -2,6 +2,36 @@ import { Sharrq, sref, Fyruna } from 'MAINTAINERS';
 
 export default [
   {
+    date: new Date('2017-1-13'),
+    changes: 'Added support for Cinderstorm.',
+    contributors: [Sharrq],
+  },
+  {
+    date: new Date('2017-1-6'),
+    changes: 'Added analysis for Hot Streak to determine if there was a hard cast before Hot Streak was used and also to check for direct damage crits while Hot Streak is up.',
+    contributors: [Sharrq],
+  },
+  {
+    date: new Date('2017-1-3'),
+    changes: 'Added support for Marquee Bindings of the Sun King',
+    contributors: [Sharrq],
+  },
+  {
+    date: new Date('2017-1-2'),
+    changes: 'Added Suggestion for Phoenix Flames Charge Count before Combustion',
+    contributors: [Sharrq],
+  },
+  {
+    date: new Date('2017-1-2'),
+    changes: 'Added Heating Up Module',
+    contributors: [Sharrq],
+  },
+  {
+    date: new Date('2017-1-2'),
+    changes: 'Added Warning regarding spec completeness',
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2017-12-27'),
     changes: 'Converted Changelog to new format',
     contributors: [Sharrq],

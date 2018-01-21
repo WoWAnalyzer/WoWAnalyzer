@@ -1,8 +1,10 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 import isAtonement from '../Core/isAtonement';
 import AtonementSource from '../Features/AtonementSource';
@@ -44,13 +46,13 @@ class NeroBandOfPromises extends Analyzer {
       this.healing += event.amount + (event.absorbed || 0);
     }
   }
-  
+
   item() {
     const healing = this.healing || 0;
 
     return {
       item: ITEMS.NERO_BAND_OF_PROMISES,
-      result: this.owner.formatItemHealingDone(healing),
+      result: <ItemHealingDone amount={healing} />,
     };
   }
 }

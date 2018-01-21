@@ -1,11 +1,10 @@
 import React from 'react';
 
+import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
-
-import ITEMS from 'common/ITEMS';
-import { formatNumber } from 'common/format';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 import getDamageBonus from '../../WarlockCore/getDamageBonus';
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../../Constants';
@@ -35,11 +34,7 @@ class StretensSleeplessShackles extends Analyzer {
   item() {
     return {
       item: ITEMS.STRETENS_SLEEPLESS_SHACKLES,
-      result: (
-        <dfn data-tip={`Total bonus damage contributed: ${formatNumber(this.bonusDmg)}`}>
-          {this.owner.formatItemDamageDone(this.bonusDmg)}
-        </dfn>
-      ),
+      result: <ItemDamageDone amount={this.bonusDmg} />,
     };
   }
 }

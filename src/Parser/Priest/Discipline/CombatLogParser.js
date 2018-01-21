@@ -11,10 +11,13 @@ import AtonementSuccessiveDamageNormalizer from './Normalizers/AtonementSuccessi
 import EstelNormalizer from './Normalizers/EstelNormalizer';
 import ShadowfiendNormalizer from './Normalizers/ShadowfiendNormalizer';
 
+import Abilities from './Modules/Abilities';
+import SpellUsable from './Modules/Core/SpellUsable';
 import SpellManaCost from './Modules/Core/SpellManaCost';
 import AbilityTracker from './Modules/Core/AbilityTracker';
+import Channeling from './Modules/Core/Channeling';
+import GlobalCooldown from './Modules/Core/GlobalCooldown';
 
-import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import PowerWordShieldWasted from './Modules/Features/PowerWordShieldWasted';
@@ -55,19 +58,19 @@ class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
-
     // Normalizers
     atonementSuccessiveDamage: AtonementSuccessiveDamageNormalizer,
     estelNormalizer: EstelNormalizer,
     shadowfiendNormalizer: ShadowfiendNormalizer,
 
     healingDone: [HealingDone, { showStatistic: true }],
-
-    // Override the ability tracker so we also get stats for IoL and beacon healing
+    spellUsable: SpellUsable,
     spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
     lowHealthHealing: LowHealthHealing,
     abilities: Abilities,
+    channeling: Channeling,
+    globalCooldown: GlobalCooldown,
 
     // Abilities
     penance: Penance,

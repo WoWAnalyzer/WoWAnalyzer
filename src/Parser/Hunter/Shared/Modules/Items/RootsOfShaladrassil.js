@@ -1,14 +1,15 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
-/*
+/**
  * Roots of Shaladrassil
  * Equip: Standing still causes you to send deep roots into the ground, healing you for 3% of your maximum health every 1 sec.
  */
-
 class RootsOfShaladrassil extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -30,7 +31,7 @@ class RootsOfShaladrassil extends Analyzer {
   item() {
     return {
       item: ITEMS.ROOTS_OF_SHALADRASSIL,
-      result: this.owner.formatItemHealingDone(this.healing),
+      result: <ItemHealingDone amount={this.healing} />,
     };
   }
 }

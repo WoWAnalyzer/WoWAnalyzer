@@ -20,4 +20,4 @@ When you open a WCL report page, for example [this one](https://www.warcraftlogs
 
 ![active](screenshots/popup-active.jpeg).
 
-Pressing the analyze button in the popup and the extension will navigate to the WoW Analyzer report page.
+Pressing the analyze button in the popup and the extension will navigate to the WoWAnalyzer report page.

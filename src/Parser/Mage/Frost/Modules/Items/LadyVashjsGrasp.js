@@ -10,7 +10,6 @@ const PROC_INTERVAL_MS = 10000;
  * While Icy Veins is active, you gain 1 charge of Fingers of Frost every 10 sec.
  */
 class LadyVashjsGrasp extends Analyzer {
-
   static dependencies = {
 		combatants: Combatants,
 	};
@@ -23,19 +22,25 @@ class LadyVashjsGrasp extends Analyzer {
   }
 
   on_byPlayer_applybuff(event) {
-    if (event.ability.guid === SPELLS.ICY_VEINS.id) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.ICY_VEINS.id) {
       this.icyVeinsAppliedTimestamp = this.owner.currentTimestamp;
     }
   }
 
   on_byPlayer_removebuff(event) {
-    if (event.ability.guid === SPELLS.ICY_VEINS.id) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.ICY_VEINS.id) {
       this._newProcs();
     }
   }
 
   on_finished() {
     this._newProcs(); // make sure to count procs gained from Icy Veins that's still going when fight ends
+  }
+
+  get procsPerMinute() {
+    return this.procs / (this.owner.fightDuration / 60000);
   }
 
   _newProcs() {
@@ -48,10 +53,9 @@ class LadyVashjsGrasp extends Analyzer {
   }
 
   item() {
-    const ppm = this.procs / (this.owner.fightDuration / 60000);
     return {
       item: ITEMS.LADY_VASHJS_GRASP,
-      result: `${this.procs} bonus charges / ${ppm.toFixed(1)} PPM`,
+      result: `${this.procs} bonus charges / ${this.procsPerMinute.toFixed(1)} PPM`,
     };
   }
 }

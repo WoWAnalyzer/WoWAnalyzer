@@ -3,24 +3,21 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-
+import ItemLink from 'common/ItemLink';
 import SPECS from 'common/SPECS';
-
+import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import ItemLink from "common/ItemLink";
-
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 const debug = false;
 
-/*
+/**
  * Gain one of the following talents based on your specialization:
  * Beast Mastery: Bestial Fury
  * Marksmanship: Lock and Load
  * Survival: Serpent Sting
  */
-
 class SoulOfTheHuntmaster extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -53,19 +50,18 @@ class SoulOfTheHuntmaster extends Analyzer {
         break;
     }
     this.hasPickedOtherTalent = this.combatants.selected.hasTalent(this.option1) || this.combatants.selected.hasTalent(this.option2);
-
   }
 
   item() {
     return {
       item: ITEMS.SOUL_OF_THE_HUNTMASTER,
-      result: <span>This gave you <SpellLink id={this.talentGained} />.</span>,
+      result: <Wrapper>This gave you <SpellLink id={this.talentGained} icon />.</Wrapper>,
     };
   }
 
   suggestions(when) {
     when(this.hasPickedOtherTalent).isFalse().addSuggestion((suggest) => {
-      return suggest(<span>When using <ItemLink id={ITEMS.SOUL_OF_THE_HUNTMASTER.id} /> please make sure to pick another talent in the talent row. Your choices are <SpellLink id={this.option1} /> or <SpellLink id={this.option2} />.</span>)
+      return suggest(<Wrapper>When using <ItemLink id={ITEMS.SOUL_OF_THE_HUNTMASTER.id} /> please make sure to pick another talent in the talent row. Your choices are <SpellLink id={this.option1} /> or <SpellLink id={this.option2} />.</Wrapper>)
         .icon(ITEMS.SOUL_OF_THE_HUNTMASTER.icon)
         .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
     });

@@ -75,7 +75,7 @@ class SoulShardEvents extends Analyzer {
   }
 
   on_byPlayer_energize(event) {
-    if (event.resourceChangeType !== RESOURCE_TYPES.SOUL_SHARDS) {
+    if (event.resourceChangeType !== RESOURCE_TYPES.SOUL_SHARDS.id) {
       return;
     }
     if (this._FRAGMENT_GENERATING_ABILITIES[event.ability.guid]) {

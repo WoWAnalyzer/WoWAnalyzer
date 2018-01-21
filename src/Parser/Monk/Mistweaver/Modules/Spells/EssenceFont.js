@@ -2,12 +2,13 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
 const debug = false;
 
-class EssenceFontMastery extends Analyzer {
+class EssenceFont extends Analyzer {
   castEF = 0;
   targetsEF = 0;
 
@@ -60,15 +61,17 @@ class EssenceFontMastery extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.avgTargetsHitPerEF).isLessThan(this.suggestionThresholds.isLessThan.minor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You are currently using not utilizing your <SpellLink id={SPELLS.ESSENCE_FONT.id} /> effectively. Each <SpellLink id={SPELLS.ESSENCE_FONT.id} /> cast should hit a total of 18 targets. Either hold the cast til 6 or more targets are injured or move while casting to increase the effective range of the spell.</span>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+        return suggest(
+          <Wrapper>
+            You are currently using not utilizing your <SpellLink id={SPELLS.ESSENCE_FONT.id} /> effectively. Each <SpellLink id={SPELLS.ESSENCE_FONT.id} /> cast should hit a total of 18 targets. Either hold the cast til 6 or more targets are injured or move while casting to increase the effective range of the spell.
+          </Wrapper>
+        )
           .icon(SPELLS.ESSENCE_FONT.icon)
           .actual(`${this.avgTargetsHitPerEF.toFixed(2)} average targets hit per cast`)
-          .recommended(`${recommended} targets hit is recommended`)
-          .regular(this.suggestionThresholds.isLessThan.average).major(this.suggestionThresholds.isLessThan.major);
+          .recommended(`${recommended} targets hit is recommended`);
       });
   }
 }
 
-export default EssenceFontMastery;
+export default EssenceFont;

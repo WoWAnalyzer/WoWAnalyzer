@@ -19,9 +19,28 @@ class StatTracker extends Analyzer {
     // region Potions
     [SPELLS.POTION_OF_PROLONGED_POWER.id]: { stamina: 2500, strength: 2500, agility: 2500, intellect: 2500 },
     // endregion
-    // TODO: add flasks
-    // TODO: add food
-    // TODO: add runes
+
+    // region Runes
+    [SPELLS.DEFILED_AUGMENT_RUNE.id]: { strength: 325, agility: 325, intellect: 325 },
+    // endregion
+
+    //region Flasks
+    [SPELLS.FLASK_OF_THE_WHISPERED_PACT.id]: { intellect: 1300 },
+    [SPELLS.FLASK_OF_THE_SEVENTH_DEMON.id]: { agility: 1300 },
+    [SPELLS.FLASK_OF_THE_COUNTLESS_ARMIES.id]: { strength: 1300 },
+    [SPELLS.FLASK_OF_TEN_THOUSAND_SCARS.id]: { stamina: 1950 },
+    // endregion
+
+    //region Food
+    [SPELLS.THE_HUNGRY_MAGISTER.id]: { crit: 375 },
+    [SPELLS.AZSHARI_SALAD.id]: { haste: 375 },
+    [SPELLS.NIGHTBORNE_DELICACY_PLATTER.id]: { mastery: 375 },
+    [SPELLS.SEED_BATTERED_FISH_PLATE.id]: { versatility: 375 },
+    [SPELLS.STAM_FEAST.id]: { stamina: 600 },
+    [SPELLS.STR_FEAST.id]: { strength: 500 },
+    [SPELLS.AGI_FEAST.id]: { agility: 500 },
+    [SPELLS.INT_FEAST.id]: { intellect: 500 },
+    //endregion
 
     // region Trinkets
     [SPELLS.SHADOWS_STRIKE.id]: {
@@ -48,6 +67,28 @@ class StatTracker extends Analyzer {
     [SPELLS.TOME_OF_UNRAVELING_SANITY_BUFF.id]: {
       itemId: ITEMS.TOME_OF_UNRAVELING_SANITY.id,
       crit: (_, item) => calculateSecondaryStatDefault(910, 2756, item.itemLevel),
+    },
+    [SPELLS.BRUTALITY_OF_THE_LEGION.id]: {
+      itemId: ITEMS.ACRID_CATALYST_INJECTOR.id,
+      crit: (_, item) => calculateSecondaryStatDefault(955, 210, item.itemLevel),
+    },
+    [SPELLS.FERVOR_OF_THE_LEGION.id]: {
+      itemId: ITEMS.ACRID_CATALYST_INJECTOR.id,
+      haste: (_, item) => calculateSecondaryStatDefault(955, 210, item.itemLevel),
+    },
+    [SPELLS.MALICE_OF_THE_LEGION.id]: {
+      itemId: ITEMS.ACRID_CATALYST_INJECTOR.id,
+      mastery: (_, item) => calculateSecondaryStatDefault(955, 210, item.itemLevel),
+    },
+    [SPELLS.CYCLE_OF_THE_LEGION.id]: {
+      itemId: ITEMS.ACRID_CATALYST_INJECTOR.id,
+      crit: (_, item) => calculateSecondaryStatDefault(955, 2397, item.itemLevel),
+      haste: (_, item) => calculateSecondaryStatDefault(955, 2397, item.itemLevel),
+      mastery: (_, item) => calculateSecondaryStatDefault(955, 2397, item.itemLevel),
+    },
+    [SPELLS.FEEDBACK_LOOP.id]: {
+      itemId: ITEMS.GAROTHI_FEEDBACK_CONDUIT.id,
+      haste: (_, item) => calculateSecondaryStatDefault(930, 856, item.itemLevel),
     },
     // endregion
 
@@ -197,9 +238,13 @@ class StatTracker extends Analyzer {
         return standard + 0.03; // 3% from a trait everyone has. TODO: Make traits conditional
       case SPECS.FIRE_MAGE:
         return standard + 0.15; // an additional 15% is gained from the passive Critical Mass
+      case SPECS.BEAST_MASTERY_HUNTER :
+        return standard + 0.05; //baseline +5%
       case SPECS.MARKSMANSHIP_HUNTER :
         return standard + 0.05; //baseline +5%
-      case SPECS.BEAST_MASTERY_HUNTER :
+      case SPECS.SURVIVAL_HUNTER :
+        return standard + 0.06; //baseline +6%
+      case SPECS.WINDWALKER_MONK:
         return standard + 0.05; //baseline +5%
       default:
         return standard;
@@ -213,7 +258,7 @@ class StatTracker extends Analyzer {
       case SPECS.HOLY_PALADIN:
         return 0.12;
       case SPECS.HOLY_PRIEST:
-        return 0.05;
+        return 0.10;
       case SPECS.SHADOW_PRIEST:
         return 0.2;
       case SPECS.DISCIPLINE_PRIEST:
@@ -228,28 +273,38 @@ class StatTracker extends Analyzer {
         return 0.04;
       case SPECS.RESTORATION_DRUID:
         return 0.048;
+      case SPECS.BALANCE_DRUID:
+        return 0.18;
       case SPECS.RETRIBUTION_PALADIN:
         return 0.14;
       case SPECS.PROTECTION_PALADIN:
         return 0.08;
       case SPECS.WINDWALKER_MONK:
         return 0.1;
+      case SPECS.BEAST_MASTERY_HUNTER:
+        return 0.18;
       case SPECS.MARKSMANSHIP_HUNTER:
         return 0.05;
+      case SPECS.SURVIVAL_HUNTER:
+        return 0.04;
       case SPECS.FROST_MAGE:
         return 0.18;
       case SPECS.FIRE_MAGE:
         return 0.06;
       case SPECS.SUBTLETY_ROGUE:
         return 0.2208;
-      case SPECS.BEAST_MASTERY_HUNTER:
-        return 0.18;
       case SPECS.UNHOLY_DEATH_KNIGHT:
         return 0.18;
       case SPECS.MISTWEAVER_MONK:
         return 1.04;
+      case SPECS.BREWMASTER_MONK:
+        return 0.08;
       case SPECS.FURY_WARRIOR:
         return 0.11;
+      case SPECS.AFFLICTION_WARLOCK:
+        return 0.25;
+      case SPECS.FROST_DEATH_KNIGHT:
+        return 0.12;
       default:
         console.error('Mastery hasn\'t been implemented for this spec yet.');
         return 0.0;
@@ -285,51 +340,7 @@ class StatTracker extends Analyzer {
     return (withBase ? this.baseHastePercentage : 0) + rating / this.hasteRatingPerPercent;
   }
   get masteryRatingPerPercent() {
-    switch (this.combatants.selected.spec) {
-      case SPECS.HOLY_PALADIN:
-        return 26667;
-      case SPECS.HOLY_PRIEST:
-        return 32000;
-      case SPECS.SHADOW_PRIEST:
-        return 16000;
-      case SPECS.DISCIPLINE_PRIEST:
-        return 25000;
-      case SPECS.RESTORATION_SHAMAN:
-        return 13333;
-      case SPECS.ENHANCEMENT_SHAMAN:
-        return 13333;
-      case SPECS.ELEMENTAL_SHAMAN:
-        return 23333;
-      case SPECS.GUARDIAN_DRUID:
-        return 40000;
-      case SPECS.RESTORATION_DRUID:
-        return 66667;
-      case SPECS.RETRIBUTION_PALADIN:
-        return 22850;
-      case SPECS.PROTECTION_PALADIN:
-        return 40000;
-      case SPECS.WINDWALKER_MONK:
-        return 32000;
-      case SPECS.MARKSMANSHIP_HUNTER:
-        return 64000;
-      case SPECS.FROST_MAGE:
-        return 17778;
-      case SPECS.FIRE_MAGE:
-        return 53333;
-      case SPECS.SUBTLETY_ROGUE:
-        return 14492.61221;
-      case SPECS.BEAST_MASTERY_HUNTER:
-        return 17778;
-      case SPECS.UNHOLY_DEATH_KNIGHT:
-        return 17776;
-      case SPECS.MISTWEAVER_MONK:
-        return 3076.96;
-      case SPECS.FURY_WARRIOR:
-        return 28430;
-      default:
-        console.error('Mastery hasn\'t been implemented for this spec yet.');
-        return null;
-    }
+    return 40000 / this.combatants.selected.spec.masteryCoefficient;
   }
   masteryPercentage(rating, withBase = false) {
     return (withBase ? this.baseMasteryPercentage : 0) + rating / this.masteryRatingPerPercent;
@@ -392,7 +403,7 @@ class StatTracker extends Analyzer {
     this._changeBuffStack(event);
   }
 
-  /*
+  /**
    * This interface allows an external analyzer to force a stat change.
    * It should ONLY be used if a stat buff is so non-standard that it can't be handled by the buff format in this module.
    * change is a stat buff object just like those in the STAT_BUFFS structure above, it is required.
@@ -426,7 +437,7 @@ class StatTracker extends Analyzer {
       const delta = this._changeStats(statBuff, event.newStacks - event.oldStacks);
       const after = Object.assign({}, this._currentStats);
       this._triggerChangeStats(event, before, delta, after);
-      debug && console.log(`StatTracker: (${event.oldStacks} -> ${event.newStacks}) ${SPELLS[spellId] ? SPELLS[spellId].name : spellId} @ ${formatMilliseconds(this.owner.currentTimestamp)} - Change: ${this._statPrint(delta)}`);
+      debug && console.log(`StatTracker: (${event.oldStacks} -> ${event.newStacks}) ${SPELLS[spellId] ? SPELLS[spellId].name : spellId} @ ${formatMilliseconds(this.owner.fightDuration)} - Change: ${this._statPrint(delta)}`);
       debug && this._debugPrintStats(this._currentStats);
     }
   }
@@ -502,7 +513,6 @@ class StatTracker extends Analyzer {
   _statPrint(stats) {
     return `STR=${stats.strength} AGI=${stats.agility} INT=${stats.intellect} STM=${stats.stamina} CRT=${stats.crit} HST=${stats.haste} MST=${stats.mastery} VRS=${stats.versatility} AVD=${this._currentStats.avoidance} LCH=${stats.leech} SPD=${stats.speed}`;
   }
-
 }
 
 export default StatTracker;

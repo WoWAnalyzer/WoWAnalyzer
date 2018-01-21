@@ -6,6 +6,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import Tab from 'Main/Tab';
 import CooldownOverview from 'Main/CooldownOverview';
+import CASTS_THAT_ARENT_CASTS from 'Parser/Core/CASTS_THAT_ARENT_CASTS';
 
 const debug = false;
 
@@ -49,9 +50,7 @@ class CooldownThroughputTracker extends Analyzer {
   static ignoredSpells = [
     // general spells that you don't want to see in the Cooldown overview (could be boss mechanics etc.) should belong here
     // if you want to add some spells specific to your spec, redefine this array in your spec CooldownThroughputTracker similarly to cooldownSpells (see Marksmanship Hunter for example)
-    SPELLS.ASTRAL_VULNERABILITY.id,
-    SPELLS.ANNIHILATION_TRILLIAX.id,
-    SPELLS.EONARS_COMPASSION_HEAL.id,
+    ...CASTS_THAT_ARENT_CASTS,
   ];
 
   pastCooldowns = [];

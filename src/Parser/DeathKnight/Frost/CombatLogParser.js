@@ -1,9 +1,9 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
+import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 
 import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-//import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import FrostFeverUptime from './Modules/Features/FrostFeverUptime';
 import WastedRimeProcs from './Modules/Features/WastedRimeProcs';
 import HardHowlingBlastCasts from './Modules/Features/HardHowlingBlastCasts';
@@ -14,11 +14,12 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
     damageDone: [DamageDone, { showStatistic: true }],
+    cooldownThroughputTracker: CooldownThroughputTracker,
+
 
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
-    //cooldownThroughputTracker: CooldownThroughputTracker,
     HardHowlingBlastCasts: HardHowlingBlastCasts,
 
     // DOT

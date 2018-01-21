@@ -4,6 +4,10 @@ import { formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
+/**
+ * Shard of the Exodar:
+ * Your Time Warp does not cause Temporal Displacement on yourself and is not affected by Temporal Displacement or similar effects on yourself.
+ */
 const BLOODLUST_BUFFS = [
   SPELLS.HEROISM.id,
   SPELLS.BLOODLUST.id,
@@ -32,25 +36,39 @@ class ShardOfTheExodar extends Analyzer {
   }
 
   on_toPlayer_applybuff(event) {
-    if (BLOODLUST_BUFFS.some(buff => event.ability.guid === buff)) {
+    const spellId = event.ability.guid;
+    if (BLOODLUST_BUFFS.some(buff => spellId === buff)) {
       this.actualCasts += 1;
     }
   }
 
   on_toPlayer_refreshbuff(event) {
-    if (BLOODLUST_BUFFS.some(buff => event.ability.guid === buff)) {
+    const spellId = event.ability.guid;
+    if (BLOODLUST_BUFFS.some(buff => spellId === buff)) {
       this.actualCasts += 1;
     }
   }
 
+  get fightDurationSeconds() {
+    return this.owner.fightDuration / 1000;
+  }
+
+  get teamCasts() {
+    return 1 + Math.floor(this.fightDurationSeconds / TEAM_COOLDOWN);
+  }
+
+  get personalCasts() {
+    return 1+ Math.floor((this.fightDurationSeconds - DURATION) / PERSONAL_COOLDOWN);
+  }
+
+  get possibleCasts() {
+    return this.teamCasts + this.personalCasts;
+  }
+
   item() {
-    const fightInSeconds = this.owner.fightDuration / 1000;
-    const teamCasts = 1 + Math.floor(fightInSeconds / TEAM_COOLDOWN);
-    const personalCasts = 1 + Math.floor((fightInSeconds - DURATION) / PERSONAL_COOLDOWN);
-    const possibleCasts = teamCasts + personalCasts;
     return {
       item: ITEMS.SHARD_OF_THE_EXODAR,
-      result: `Gained Time Warp effect ${formatNumber(this.actualCasts)} Times. (${formatNumber(possibleCasts)} Possible)`,
+      result: `Gained Time Warp effect ${formatNumber(this.actualCasts)} Times. (${formatNumber(this.possibleCasts)} Possible)`,
     };
   }
 }

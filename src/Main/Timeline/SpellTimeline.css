@@ -71,6 +71,7 @@
 }
 .spell-timeline .events > * img {
   height: 25px;
+  margin-top: 0;
 }
 .spell-timeline .events .casting-time {
   background: rgba(120, 102, 255, 0.4);

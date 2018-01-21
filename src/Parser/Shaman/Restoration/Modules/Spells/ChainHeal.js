@@ -21,6 +21,8 @@ class ChainHeal extends Analyzer {
 
   suggestions(when) {
     const suggestedThreshold = this.suggestionThreshold;
+    if (isNaN(suggestedThreshold.actual))
+        return;
     const maxTargets = this.combatants.selected.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
     when(suggestedThreshold.actual).isLessThan(suggestedThreshold.isLessThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
@@ -34,11 +36,11 @@ class ChainHeal extends Analyzer {
 
   get suggestionThreshold(){
     const chainHeal = this.abilityTracker.getAbility(SPELLS.CHAIN_HEAL.id);
-    
+
     const casts = chainHeal.casts || 0;
     const hits = chainHeal.healingHits || 0;
     const avgHits = hits / casts;
-    
+
     const maxTargets = this.combatants.selected.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
     const suggestedTargets = maxTargets * CHAIN_HEAL_TARGET_EFFICIENCY;
 
@@ -51,21 +53,21 @@ class ChainHeal extends Analyzer {
       },
       style: 'number',
     };
-        
+
   }
   statistic() {
     const chainHeal = this.abilityTracker.getAbility(SPELLS.CHAIN_HEAL.id);
-    
+
     const casts = chainHeal.casts || 0;
     const hits = chainHeal.healingHits || 0;
     const avgHits = hits / casts;
-    
+
     const maxTargets = this.combatants.selected.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
 
     return (
         <StatisticBox
             icon={<SpellIcon id={SPELLS.CHAIN_HEAL.id} />}
-            value={`${avgHits.toFixed(2)}`}
+            value={`${isNaN(avgHits) ? "N/A" : avgHits.toFixed(2)}`}
             label={(
                 <dfn data-tip={`The average percentage of targets healed by Chain Heal out of the maximum amount of targets. You cast a total of ${casts} Chain Heals, which healed an average of ${avgHits.toFixed(2)} out of ${maxTargets} targets.`}>
                     Average Chain Heal targets

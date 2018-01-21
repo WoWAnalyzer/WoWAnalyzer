@@ -40,7 +40,7 @@ class FlameShock extends Analyzer {
   on_byPlayer_cast(event) {
     if (event.ability.guid === SPELLS.FLAME_SHOCK.id) {
       const resource = event.classResources[0];
-      if (resource.type === RESOURCE_TYPES.MAELSTROM) {
+      if (resource.type === RESOURCE_TYPES.MAELSTROM.id) {
         const amount = resource.amount;
         const spend = (amount < 20 ? amount : 20);
         this.maelstromSpend.push(spend);

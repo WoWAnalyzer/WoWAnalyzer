@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
+import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -75,22 +76,24 @@ class EssenceFontMastery extends Analyzer {
     return {
       actual: this.avgMasteryCastsPerEF,
       isLessThan: {
-        minor: 2,
-        average: 1.5,
-        major: 1,
+        minor: 1.5,
+        average: 1,
+        major: .5,
       },
       style: 'number',
     };
   }
 
   suggestions(when) {
-    when(this.avgMasteryCastsPerEF).isLessThan(this.suggestionThresholds.isLessThan.minor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You are currently not utilizing your <SpellLink id={SPELLS.ESSENCE_FONT.id} /> HOT buffs effectively. Casting into injured targets with the <SpellLink id={SPELLS.ESSENCE_FONT.id} /> allows you to take advantage of the double <SpellLink id={SPELLS.GUSTS_OF_MISTS.id} /> procs.</span>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+        return suggest(
+          <Wrapper>
+            You are currently not utilizing your <SpellLink id={SPELLS.ESSENCE_FONT.id} /> HOT buffs effectively. Casting into injured targets with the <SpellLink id={SPELLS.ESSENCE_FONT.id} /> allows you to take advantage of the double <SpellLink id={SPELLS.GUSTS_OF_MISTS.id} /> procs.
+          </Wrapper>
+        )
           .icon(SPELLS.ESSENCE_FONT.icon)
           .actual(`${this.avgMasteryCastsPerEF.toFixed(2)} average EF HoTs`)
-          .recommended(`${recommended} or more EF HoTs utilized is recommended`)
-          .regular(this.suggestionThresholds.isLessThan.average).major(this.suggestionThresholds.isLessThan.major);
+          .recommended(`${recommended} or more EF HoTs utilized is recommended`);
       });
   }
 

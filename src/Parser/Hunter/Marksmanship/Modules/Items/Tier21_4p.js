@@ -1,15 +1,16 @@
 import React from 'react';
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
+
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
-/*
+/**
  * Marked Shot has a 50% chance to fire at up to 3 additional targets hit by Marked Shot an additional time.
  */
-
 class Tier21_4p extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -61,8 +62,9 @@ class Tier21_4p extends Analyzer {
       result: (
         <dfn data-tip={`${this.tierProcs} procs from ${this.casts} casts (${(this.tierProcs / this.casts).toFixed(2)} procs per cast) <br/>
 ${formatPercentage(this.tierProcs / this.hits)}% of Marked Shot hits came from the set bonus. `}>
-          {formatNumber(this.damage)} - {this.owner.formatItemDamageDone(this.damage)}
-        </dfn>),
+          <ItemDamageDone amount={this.damage} />
+        </dfn>
+      ),
     };
   }
 }

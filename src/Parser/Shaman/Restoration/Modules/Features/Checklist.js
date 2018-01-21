@@ -7,13 +7,15 @@ import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import Wrapper from 'common/Wrapper';
 
-import CoreChecklist, { Rule, Requirement, GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist';
+import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
+import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
-import IshkarsFelshieldEmitter from 'Parser/Core/Modules/Items/IshkarsFelshieldEmitter';
-import EonarsCompassion from 'Parser/Core/Modules/Items/EonarsCompassion';
-import Velens from 'Parser/Core/Modules/Items/Velens';
+import IshkarsFelshieldEmitter from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/IshkarsFelshieldEmitter';
+import EonarsCompassion from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/EonarsCompassion';
+import VelensFutureSight from 'Parser/Core/Modules/Items/Legion/Legendaries/VelensFutureSight';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
@@ -28,7 +30,6 @@ import HealingRain from '../Spells/HealingRain';
 import HealingSurge from '../Spells/HealingSurge';
 import HealingWave from '../Spells/HealingWave';
 
-
 class Checklist extends CoreChecklist {
   static dependencies = {
     castEfficiency: CastEfficiency,
@@ -36,7 +37,7 @@ class Checklist extends CoreChecklist {
     masteryEffectiveness: MasteryEffectiveness,
     alwaysBeCasting: AlwaysBeCasting,
     manaValues: ManaValues,
-    velens: Velens,
+    velensFutureSight: VelensFutureSight,
     ishkarsFelshieldEmitter: IshkarsFelshieldEmitter,
     eonarsCompassion: EonarsCompassion,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
@@ -88,7 +89,7 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.SPIRIT_LINK_TOTEM,
-          }),     
+          }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ARCANE_TORRENT_MANA,
             when: !!this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA.id),
@@ -107,13 +108,13 @@ class Checklist extends CoreChecklist {
         return [
           new Requirement({
             name: <Wrapper>
-              Unused <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon/>
+              Unused <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon />
             </Wrapper>,
             check: () => this.tidalWaves.suggestionThresholds,
           }),
           new Requirement({
             name: <Wrapper>
-              Unbuffed <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} icon/>
+              Unbuffed <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} icon />
             </Wrapper>,
             check: () => this.healingSurge.suggestedThreshold,
           }),
@@ -154,13 +155,13 @@ class Checklist extends CoreChecklist {
           }),
           new Requirement({
             name: <Wrapper>
-              Average <SpellLink id={SPELLS.CHAIN_HEAL.id} icon/> targets
+              Average <SpellLink id={SPELLS.CHAIN_HEAL.id} icon /> targets
             </Wrapper>,
             check: () => this.chainHeal.suggestionThreshold,
           }),
           new Requirement({
             name: <Wrapper>
-              Average <SpellLink id={SPELLS.HEALING_RAIN_HEAL.id} icon/> targets
+              Average <SpellLink id={SPELLS.HEALING_RAIN_HEAL.id} icon /> targets
             </Wrapper>,
             check: () => this.healingRain.suggestionThreshold,
           }),
@@ -190,8 +191,8 @@ class Checklist extends CoreChecklist {
         return [
           new Requirement({
             name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} icon />,
-            check: () => this.velens.suggestionThresholds,
-            when: this.velens.active,
+            check: () => this.velensFutureSight.suggestionThresholds,
+            when: this.velensFutureSight.active,
           }),
           new Requirement({
             name: <ItemLink id={ITEMS.EONARS_COMPASSION.id} icon />,
@@ -218,51 +219,7 @@ class Checklist extends CoreChecklist {
         ];
       },
     }),
-    new Rule({
-      name: 'Be well prepared',
-      description: 'Being well prepared with potions, enchants and legendaries is an easy way to improve your performance.',
-      // For this rule it wouldn't make sense for the bar to be completely green when just 1 of the requirements failed, showing the average instead of median takes care of that properly.
-      performanceMethod: 'average',
-      requirements: () => {
-        return [
-          new Requirement({
-            name: 'All legendaries upgraded to max item level',
-            check: () => ({
-              actual: this.legendaryUpgradeChecker.upgradedLegendaries.length,
-              isLessThan: this.legendaryCountChecker.max,
-              style: 'number',
-            }),
-          }),
-          new Requirement({
-            name: 'Used max possible legendaries',
-            check: () => ({
-              actual: this.legendaryCountChecker.equipped,
-              isLessThan: this.legendaryCountChecker.max,
-              style: 'number',
-            }),
-          }),
-          new Requirement({
-            name: 'Used a pre-potion',
-            check: () => this.prePotion.prePotionSuggestionThresholds,
-          }),
-          new Requirement({
-            name: 'Used a second potion',
-            check: () => this.prePotion.secondPotionSuggestionThresholds,
-          }),
-          new Requirement({
-            name: 'Gear has best enchants',
-            check: () => {
-              const numEnchantableSlots = Object.keys(this.enchantChecker.enchantableGear).length;
-              return {
-                actual: numEnchantableSlots - (this.enchantChecker.slotsMissingEnchant.length + this.enchantChecker.slotsMissingMaxEnchant.length),
-                isLessThan: numEnchantableSlots,
-                style: 'number',
-              };
-            },
-          }),
-        ];
-      },
-    }),
+    new PreparationRule(),
   ];
 }
 

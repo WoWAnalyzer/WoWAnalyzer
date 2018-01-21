@@ -1,10 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import { formatPercentage, formatMilliseconds } from 'common/format';
+import { formatMilliseconds, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
+import { HIGH_TOLERANCE_HASTE_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/HighTolerance';
 
 const debug = false;
 
@@ -35,24 +36,23 @@ class Haste extends Analyzer {
     [SPELLS.TRUESHOT.id]: 0.4, // MM Hunter main CD
     [SPELLS.ICY_VEINS.id]: 0.3,
     [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
+    ...HIGH_TOLERANCE_HASTE_FNS,
+    // Haste RATING buffs are handled by the StatTracker module
 
     // Boss abilities:
     [209166]: 0.3, // DEBUFF - Fast Time from Elisande
     [209165]: -0.3, // DEBUFF - Slow Time from Elisande
     // [208944]: -Infinity, // DEBUFF - Time Stop from Elisande
-    [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
     [SPELLS.SEPHUZS_SECRET_BUFF.id]: 0.25 - 0.02, // 2% is already applied as base
   };
 
   current = null;
   on_initialized() {
-    const combatant = this.combatants.selected;
-    this.current = combatant.hastePercentage;
-
+    this.current = this.statTracker.currentHastePercentage;
     debug && console.log(`Haste: Starting haste: ${formatPercentage(this.current)}%`);
+    this._triggerChangeHaste(null, null, this.current);
 
-    this._triggerChangeHaste(null, null, this.current, null, combatant.hastePercentage);
-
+    // TODO: Move this to the Sephuz module
     if (this.combatants.selected.hasFinger(ITEMS.SEPHUZS_SECRET.id)) {
       // Sephuz Secret provides a 2% Haste gain on top of its secondary stats
       this._applyHasteGain(null, 0.02);
@@ -78,17 +78,19 @@ class Haste extends Analyzer {
   }
 
   on_toPlayer_changestats(event) { // fabbed event from StatTracker
-    if(!event.delta.haste) {
+    if (!event.delta.haste) {
       return;
     }
 
-    // as haste rating stacks additively with itself, changing rating works similar to changing buff stack
-    const oldHastePercentage = this.statTracker.baseHastePercentage + (event.before.haste / this.statTracker.hasteRatingPerPercent);
-    this._applyHasteLoss(event.reason, oldHastePercentage);
-    const newHastePercentage = this.statTracker.baseHastePercentage + (event.after.haste / this.statTracker.hasteRatingPerPercent);
-    this._applyHasteGain(event.reason, newHastePercentage);
+    // Calculating the Haste percentage difference form a rating change is hard because all rating (from gear + buffs) is additive while Haste percentage buffs are both multiplicative and additive (see the applyHaste function).
+    // 1. Calculate the total Haste percentage without any rating (since the total percentage from the total rating multiplies like any other Haste buff)
+    const remainingHasteBuffs = this.constructor.removeHaste(this.current, this.statTracker.hastePercentage(event.before.haste, true));
+    // 2. Calculate the new total Haste percentage with the new rating and the old total buff percentage
+    const newHastePercentage = this.constructor.addHaste(this.statTracker.hastePercentage(event.after.haste, true), remainingHasteBuffs);
 
-    if(debug) {
+    this._setHaste(event, newHastePercentage);
+
+    if (debug) {
       const spellName = event.reason.ability ? event.reason.ability.name : 'unknown';
       console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (haste RATING changed by ${event.delta.haste} from ${spellName})`);
     }
@@ -141,9 +143,13 @@ class Haste extends Analyzer {
     const haste = this._getHastePerStackGain(spellId);
 
     if (haste) {
-      // Haste stacks are usually additive, so at 5 stacks with 3% per you'd be at 15%, 6 stacks = 18%. This means the only right way to add a Haste stack is to reset to Haste without the old total and then add the new total Haste again.
-      this._applyHasteLoss(event, haste * event.oldStacks);
-      this._applyHasteGain(event, haste * event.newStacks);
+      // Haste stacks are additive, so at 5 stacks with 3% per you'd be at 15%, 6 stacks = 18%. This means the only right way to add a Haste stack is to reset to Haste without the old total and then add the new total Haste again.
+      // 1. Calculate the total Haste percentage without the buff
+      const baseHaste = this.constructor.removeHaste(this.current, event.oldStacks * haste);
+      // 2. Calculate the new total Haste percentage with the Haste from the new amount of stacks
+      const newHastePercentage = this.constructor.addHaste(baseHaste, event.newStacks * haste);
+
+      this._setHaste(event, newHastePercentage);
 
       debug && console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (gained ${formatPercentage(haste * event.stacksGained)}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
     }
@@ -180,19 +186,19 @@ class Haste extends Analyzer {
   }
 
   _applyHasteGain(event, haste) {
-    const oldHaste = this.current;
-    this.current = this.constructor.addHaste(this.current, haste);
-
-    this._triggerChangeHaste(event, oldHaste, this.current, haste, null);
+    this._setHaste(event, this.constructor.addHaste(this.current, haste));
   }
   _applyHasteLoss(event, haste) {
-    const oldHaste = this.current;
-    this.current = this.constructor.removeHaste(this.current, haste);
-
-    this._triggerChangeHaste(event, oldHaste, this.current, null, haste);
+    this._setHaste(event, this.constructor.removeHaste(this.current, haste));
   }
-  _triggerChangeHaste(event, oldHaste, newHaste, hasteGain, hasteLoss) {
-    this.owner.triggerEvent('changehaste', {
+  _setHaste(event, haste) {
+    const oldHaste = this.current;
+    this.current = haste;
+
+    this._triggerChangeHaste(event, oldHaste, this.current);
+  }
+  _triggerChangeHaste(event, oldHaste, newHaste) {
+    const fabricatedEvent = {
       timestamp: event ? event.timestamp : this.owner.currentTimestamp,
       type: 'changehaste',
       sourceID: event ? event.sourceID : this.owner.playerId,
@@ -200,9 +206,9 @@ class Haste extends Analyzer {
       reason: event,
       oldHaste,
       newHaste,
-      hasteGain,
-      hasteLoss,
-    });
+    };
+    debug && console.log('changehaste', fabricatedEvent);
+    this.owner.triggerEvent('changehaste', fabricatedEvent);
   }
 
   static addHaste(baseHaste, hasteGain) {
