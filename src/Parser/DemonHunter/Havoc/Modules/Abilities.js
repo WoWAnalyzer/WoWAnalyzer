@@ -28,7 +28,7 @@ class Abilities extends CoreAbilities {
         cooldown: (haste, combatant) => 300 - (combatant.traitsBySpellId[SPELLS.UNLEASHED_DEMONS.id] || 0) * 20,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: .95,
+          recommendedEfficiency: 0.95,
         },
       },
       {
