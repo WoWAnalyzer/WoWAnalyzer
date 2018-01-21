@@ -76,7 +76,8 @@ class Tier21_2p extends Analyzer {
       icon: <SpellIcon id={SPELLS.HUNTER_SV_T21_2P_BONUS.id} />,
       title: <SpellLink id={SPELLS.HUNTER_SV_T21_2P_BONUS.id} />,
       result: (
-        <dfn data-tip={`Your utilization of tier 21 2 piece:
+        <dfn data-tip={`The damage shown here only accounts for the added crit damage, and not what the increased crit chance theoretically contributed with. </br>
+          Your utilization of tier 21 2 piece:
         <ul>
           <li> Flanking strike casts: ${this.flankingStrikeCasts}.</li>
           <li> Tier procs:  ${this.applications}.</li>
