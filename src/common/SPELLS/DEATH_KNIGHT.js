@@ -106,7 +106,7 @@ export default {
   UNENDING_THIRST: {
     id: 192567,
     name: 'Unending Thirst',
-    icon: 'inv_axe_2h_artifactmaw_d_02',
+    icon: 'ability_ironmaidens_whirlofblood',
   },
   VAMPIRIC_AURA: {
     id: 238698,
