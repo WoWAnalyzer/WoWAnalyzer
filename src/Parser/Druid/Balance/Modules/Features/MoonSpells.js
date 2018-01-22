@@ -1,14 +1,11 @@
 import React from 'react';
 import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Wrapper from 'common/Wrapper';
 
 class MoonSpells extends Analyzer {
   static dependencies = {
@@ -43,15 +40,6 @@ class MoonSpells extends Analyzer {
       },
       style: 'percentage',
     };
-  }
-
-  suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Your <SpellLink id={SPELLS.NEW_MOON.id} />, <SpellLink id={SPELLS.HALF_MOON.id} /> and <SpellLink id={SPELLS.FULL_MOON.id} /> cast efficiency can be improved, try keeping yourself at low Moon charges at all times; you should (almost) never be at max (3) charges.</Wrapper>)
-        .icon(SPELLS.FULL_MOON.icon)
-        .actual(`${Math.round(formatPercentage(actual))}% casted`)
-        .recommended(`${Math.round(formatPercentage(recommended))}% Moon spells casts is recommended`);
-    });
   }
 
   statistic() {

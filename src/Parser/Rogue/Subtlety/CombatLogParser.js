@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import Abilities from './Modules/Features/Abilities';
+import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 
 import ShadowBladesUptime from "./Modules/Features/ShadowBladesUptime";
 import SymbolsOfDeathUptime from "./Modules/Features/SymbolsOfDeathUptime";
@@ -37,6 +38,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     shadowBladesUptime : ShadowBladesUptime,
     abilities: Abilities,
+    alwaysBeCasting: AlwaysBeCasting,
     symbolsOfDeathUptime:  SymbolsOfDeathUptime,
 
     //Resource
