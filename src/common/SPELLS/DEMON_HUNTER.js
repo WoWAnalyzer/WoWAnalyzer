@@ -186,6 +186,11 @@ export default {
     name: 'Chaos Strike',
     icon: 'ability_demonhunter_chaosstrike',
   },
+  CHAOS_STRIKE_FURY: {
+    id: 193840,
+    name: 'Chaos Strike',
+    icon: 'ability_demonhunter_chaosstrike',
+  },
   ANNIHILATION: {
     id: 201427,
     name: 'Annihilation',
@@ -275,6 +280,16 @@ export default {
     id: 179057,
     name: 'Chaos Nova',
     icon: 'spell_fire_felfirenova',
+  },
+  DEMONIC_APPETITE_FURY: {
+    id: 210041,
+    name: 'Demonic Appetite',
+    icon: 'spell_misc_zandalari_council_soulswap',
+  },
+  ANGER_OF_THE_HALF_GIANTS_FURY: {
+    id: 208828,
+    name: 'Gigantic Anger',
+    icon: 'inv_60pvp_ring1a',
   },
   //Havoc Talents
   CHAOS_BLADES_DAMAGE_MH: {

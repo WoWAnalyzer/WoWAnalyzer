@@ -21,10 +21,10 @@ class FuryTracker extends ResourceTracker {
 
 	getReducedCost(event) {
 		if(!this.getResource(event).cost) {
-			return 0
+			return 0;
 		}
-		let cost = this.getResource(event).cost / 10;
-		const spellId = event.abilityId.guid;
+		let cost = this.getResource(event).cost;
+		const spellId = event.ability.guid;
 		if ((spellId === SPELLS.BLADE_DANCE.id || spellId === SPELLS.DEATH_SWEEP.id) 
 			 && (this.combatants.selected.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) || this.combatants.selected.hasRing(SPELLS.SOUL_OF_THE_SLAYER.id))) {
 			cost = cost - 20;
