@@ -30,7 +30,6 @@ class SkullflowersHaemostasis extends Analyzer {
     if (event.ability.guid === SPELLS.Haemostasis_Buff.id) {
       this.buffStack += 1;
       this.savedBuffStack=this.buffStack;
-      console.log("BS Added#", this.buffStack);
     }
   }
 
@@ -40,48 +39,46 @@ class SkullflowersHaemostasis extends Analyzer {
         this.wastedBuff += 1;
         this.buffStack = this.maxBuffStacks;
         this.savedBuffStack=this.buffStack;
-        console.log("BS Wasted");
       }
       else {
         this.buffStack += 1;
         this.savedBuffStack=this.buffStack;
       }
-      console.log("BS Added#", this.buffStack);
     }
   }
 
   on_byPlayer_removebuff(event) {
     if (event.ability.guid === SPELLS.Haemostasis_Buff.id) {
       this.buffStack = 0;
-      console.log("BS Reset#", this.buffStack);
     }
   }
 
   on_byPlayer_heal(event) {
-    if (event.ability.guid !== SPELLS.DEATH_STRIKE.id) {
+    if (event.ability.guid !== SPELLS.DEATH_STRIKE_HEAL.id) {
       return;
     }
     this.heal += event.amount * this.percentBuff * this.savedBuffStack;
-    console.log("Heal BS stack at DS cast#", this.savedBuffStack);
   }
 
   on_byPlayer_damage(event) {
     if (event.ability.guid !== SPELLS.DEATH_STRIKE.id) {
-      console.log("test");
       return;
     }
     this.damage += event.amount * this.percentBuff * this.savedBuffStack;
-    console.log("Damage BS stack at DS cast#", this.savedBuffStack);
   }
+
+
 
   item() {
     return {
       item: ITEMS.SKULLFLOWERS_HAEMOSTASIS,
-      result:
+      result:(
         <Wrapper>
           <ItemDamageDone amount={this.damage} /><br />
-          <ItemHealingDone amount={this.heal} />
+          <ItemHealingDone amount={this.heal} /><br />
+          Overcapped {this.wastedBuff} Times
         </Wrapper>
+      ),
     };
   }
 }

@@ -542,6 +542,12 @@ export default {
     icon: 'spell_deathknight_butcher2',
   },
 
+  DEATH_STRIKE_HEAL: {
+    id: 45470,
+    name: 'Death Strike Heal',
+    icon: 'spell_deathknight_butcher2',
+  },
+
   ICEBOUND_FORTITUDE: {
     id: 48792,
     name: 'Icebound Fortitude',
