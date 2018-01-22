@@ -58,6 +58,22 @@ import ExtensionActive from './ExtensionActive.jpg';
 import WindwalkerMonk from './WindwalkerMonk.png';
 import SubtletyRogue from './SubtletyRogue.png';
 import GuardianDruid from './GuardianDruid.png';
+import EnhancementShaman from './EnhancementShaman.png';
+import VengeanceDemonHunter from './VengeanceDemonHunter.png';
+import EventsTab from './EventsTab.png';
+import AfflictionWarlock from './AfflictionWarlock.png';
+import BrewmasterMonk from './BrewmasterMonk.png';
+import ShadowPriest from './ShadowPriest.png';
+import BalanceDruid from './BalanceDruid.png';
+import FeralDruid from './FeralDruid.png';
+import DestructionWarlock from './DestructionWarlock.png';
+import BloodDeathKnight from './BloodDeathKnight.png';
+import HavocDemonHunter from './HavocDemonHunter.png';
+import MarksmanshipHunter from './MarksmanshipHunter.png';
+import RetributionPaladin from './RetributionPaladin.png';
+import DemonologyWarlock from './DemonologyWarlock.png';
+import ProtectionWarrior from './ProtectionWarrior.png';
+import FrostMage from './FrostMage.png';
 
 function completeness(completeness) {
   return <dfn data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>;
@@ -725,9 +741,14 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.ENHANCEMENT_SHAMAN} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/145
+            Enhancement Shaman support was <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/145">added</a> by <Maintainer {...MAINTAINERS.Nighteyez07} />. Today's version is quite complete but hasn't received any significant changes since October and does not yet have support for new things such as tier 21 or the checklist. If you know Enhancement well enough, can program or want to learn how to program, and if you have the time and motivation to actually do it then please consider giving it a try! See <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> or ask in <a href="https://discord.gg/AxphPxU">Discord</a> for more information.<br /><br />
 
-            By <Maintainer {...MAINTAINERS.Nighteyez07} />
+            <figure>
+              <img src={EnhancementShaman} alt="Initial version" />
+              <figcaption>
+                The initial version of the Enhancement Shaman
+              </figcaption>
+            </figure>
           </div>
         </div>
 
@@ -740,9 +761,14 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.VENGEANCE_DEMON_HUNTER} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/157
+            Support for this spec was <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/157">added</a> by <Maintainer {...MAINTAINERS.Mamtooth} />. He has done all of the work on the specific things for this spec. If you compare the screenshot below of the version at the initial release and what we have today you'll see the amazing work that has been done. Of course there are still a few things left to do such as tier 21 and implementing the checklist, but most things are already covered.<br /><br />
 
-            By <Maintainer {...MAINTAINERS.Mamtooth} />
+            <figure>
+              <img src={VengeanceDemonHunter} alt="Initial version" />
+              <figcaption>
+                The initial version of the Vengeance Demon Hunter analyzer
+              </figcaption>
+            </figure>
           </div>
         </div>
 
@@ -754,9 +780,9 @@ class Article extends React.PureComponent {
             <h2>A fancy new dependency injection system</h2>
           </div>
           <div className="panel-body">
-            It's probably just me that's still excited about this one. This is technical stuffs you probably won't care about.<br /><br />
+            It's probably just me that's still excited about this one. This is technical stuffs you likely won't care about.<br /><br />
 
-            In the past we had a bunch of different ways for modules to talk to each other, but the most common way was to just hardcode a path, e.g. <code>this.owner.modules.alwaysBeCasting</code> to get the instance of the Always Be Casting module. This worked pretty well but makes things hard to test, easy to break and makes it hard to see dependencies. After discussion a few possibilities I set out to create a <a href="https://en.wikipedia.org/wiki/Dependency_injection">dependency injection system</a>.<br /><br />
+            In the past we had a bunch of different ways for modules to talk to each other, but the most common way was to just hardcode a path following hard property names, e.g. <code>this.owner.modules.alwaysBeCasting</code> to get the instance of the Always Be Casting module. This worked pretty well but makes things hard to test, easy to break and makes it hard to see dependencies. After discussion a few possibilities I set out to create a <a href="https://en.wikipedia.org/wiki/Dependency_injection">dependency injection system</a>.<br /><br />
 
             It's actually a rather simple system. <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/commit/e6d3f186c819028da2796dffe3f9d0c55e7fda41#diff-f8311e439dcf107ce5cad2b9c9e57204">This commit</a> shows what changed; instead of hardcoding the direct path to the dependency, we can now request an instance of a class in a static <i>dependencies</i> property.<br /><br />
 
@@ -770,6 +796,27 @@ class Article extends React.PureComponent {
 
         <div className="panel">
           <div className="date">
+            17 Aug
+          </div>
+          <div className="panel-heading">
+            <h2>A development-only events tab</h2>
+          </div>
+          <div className="panel-body">
+            Our analysis is based around all events in the combatlog from and to the selected player and his or her pets. To give more insight into what events are logged and what information they contain, a development-only events tab was added. This shows all events that we can use to make analysis easier.<br /><br />
+
+            Since the initial release we've added advanced filters and done other enhancements so that it assists us as well as possible during development. It's not (yet) available in production because the tab has a few issues that are hard to solve (performance and security).<br /><br />
+
+            <figure>
+              <img src={EventsTab} alt="A subsection of the events that we can use" />
+              <figcaption>
+                A subsection of the events that we can view
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div className="panel">
+          <div className="date">
             18 Aug
           </div>
           <div className="panel-heading">
@@ -777,7 +824,18 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.AFFLICTION_WARLOCK} />
-            <Maintainer {...MAINTAINERS.Chizu} />'s accounting: Our journey started in July, when my dearest friend and fellow Affliction Warlock <b>Aki</b> found about log analyzers. Firstly she found <a href="http://www.checkmywow.com">Check My Wow</a>, but was disappointed that they didn't support Affliction. A little while later in August, she found that CMW added the support, but was kinda lacking in features, and around that time she also found WoWAnalyzer and loved the features and design for Holy Paladin. I was curious about this site myself and when I noticed that it's open source, I decided to crawl through the source code even though I had no experience in ES6 whatsoever. It took about a week of silent reading but on August, 16th I made first few Affliction modules and afterwards it went downhill with development. Rest of Affliction modules, support for Destruction and Demonology. I'd like to thank her for showing me this site, if it wasn't for her, none of Warlock specs would probably be here.
+            <Maintainer {...MAINTAINERS.Chizu} />'s accounting: Our journey started in July, when my dearest friend and fellow Affliction Warlock <b>Aki</b> found about log analyzers. Firstly she found <a href="http://www.checkmywow.com">Check My Wow</a>, but was disappointed that they didn't support Affliction.<br /><br />
+
+            A little while later in August, she found that CMW added the support, but was kinda lacking in features, and around that time she also found WoWAnalyzer and loved the features and design for Holy Paladin. I was curious about this site myself and when I noticed that it's open source, I decided to crawl through the source code even though I had no experience in ES6 whatsoever.<br /><br />
+
+            It took about a week of silent reading but on August, 16th I made first few Affliction modules and afterwards it went downhill with development. Rest of Affliction modules, support for Destruction and Demonology. I'd like to thank her for showing me this site, if it wasn't for her, none of Warlock specs would probably be here.<br /><br />
+
+            <figure>
+              <img src={AfflictionWarlock} alt="Affliction Warlock's initial version" />
+              <figcaption>
+                Affliction Warlock's initial release had a bunch of statistics
+              </figcaption>
+            </figure>
           </div>
         </div>
 
@@ -790,11 +848,18 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.BREWMASTER_MONK} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/177
+            After adding support for Guardian Druid, <Maintainer {...MAINTAINERS.WOPR} /> had gotten the hang of it and started work on Brewmaster Monk. Just like with the Guardian Druid analyzer the first version was pretty comprehensive, adding all sorts of interesting new statistics and even accounting well for all the weird combatlog interactions of <SpellLink id={SPELLS.STAGGER.id} icon />.<br /><br />
 
-            By <Maintainer {...MAINTAINERS.WOPR} />
+            <figure>
+              <img src={BrewmasterMonk} alt="Brewmaster as it was on release" />
+              <figcaption>
+                Brewmaster as it was on release
+              </figcaption>
+            </figure><br />
 
-            <Maintainer {...MAINTAINERS.emallson} /> later took over as the primary maintainer of this spec and has since done a lot of work.
+            <Maintainer {...MAINTAINERS.WOPR} /> made the analyzer pretty complete before resigning as contributor at the start of September because of not having enough time.<br /><br />
+
+            In December 2017 <Maintainer {...MAINTAINERS.emallson} /> took over as the primary maintainer of this spec and has since added a lot of things such as adding the checklist, fixing issues with cooldown tracking and others.
           </div>
         </div>
 
@@ -807,11 +872,14 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.SHADOW_PRIEST} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/197
+            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/197">Added</a> by <Maintainer {...MAINTAINERS.hassebewlen} />.<br /><br />
 
-            By <Maintainer {...MAINTAINERS.hassebewlen} />
-
-            No other maintainers
+            <figure>
+              <img src={ShadowPriest} alt="Initial version of the Shadow Priest analyzer" />
+              <figcaption>
+                Initial version of the Shadow Priest analyzer
+              </figcaption>
+            </figure>
           </div>
         </div>
 
@@ -846,11 +914,14 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.BALANCE_DRUID} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/210
+            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/210">Added</a> by <Maintainer {...MAINTAINERS.Iskalla} />, later taken over by <Maintainer {...MAINTAINERS.Gebuz} />.<br /><br />
 
-            By <Maintainer {...MAINTAINERS.Iskalla} />
-
-            Later token over by <Maintainer {...MAINTAINERS.Gebuz} />
+            <figure>
+              <img src={BalanceDruid} alt="Initial version of the Balance Druid analyzer" />
+              <figcaption>
+                Initial version of the Balance Druid analyzer
+              </figcaption>
+            </figure>
           </div>
         </div>
 
@@ -863,9 +934,28 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.DESTRUCTION_WARLOCK} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/231
+            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/231">Added</a> by <Maintainer {...MAINTAINERS.Chizu} /> after also doing Affliction Warlock. See Affliction Warlock's bit for his motiviation to start working on WoWAnalyzer.<br /><br />
 
-            By <Maintainer {...MAINTAINERS.Chizu} />
+            <figure>
+              <img src={DestructionWarlock} alt="Initial version of the Destruction Warlock analyzer" />
+              <figcaption>
+                Initial version of the Destruction Warlock analyzer
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div className="panel">
+          <div className="date">
+            4 Sep
+          </div>
+          <div className="panel-heading">
+            <h2>Warcraft Logs API proxy caching</h2>
+          </div>
+          <div className="panel-body">
+            Because the Warcraft Logs API has a restrictive API request limit there has always been a big fear of hitting this cap and locking users out. To combat this issue we added a caching layer to our Warcraft Logs API proxy to aggressively cache all of our API requests. This considerably reduces the amount of API requests we have to do allowing us to serve a lot more users. This has the added benefit that cached requests are insanely quick, and are even available when Warcraft Logs goes down.<br /><br />
+
+            The API proxy was put in place to protect our API key from abuse and to normalize behavior of the API by solving issues in the Warcraft Logs API.
           </div>
         </div>
 
@@ -878,9 +968,38 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.FERAL_DRUID} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/241
+            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/241">Added</a> by <Maintainer {...MAINTAINERS.Thieseract} />.<br /><br />
 
-            By <Maintainer {...MAINTAINERS.Thieseract} />
+            <figure>
+              <img src={FeralDruid} alt="Initial version of the Feral Druid analyzer" />
+              <figcaption>
+                Initial version of the Feral Druid analyzer
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div className="panel">
+          <div className="date">
+            5 Sep
+          </div>
+          <div className="panel-heading">
+            <h2>Marksmanship Hunter</h2>
+          </div>
+          <div className="panel-body">
+            <SpecIcon spec={SPECS.MARKSMANSHIP_HUNTER} />
+            <Maintainer {...MAINTAINERS.JLassie82} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/253">added</a> initial support for Marksmanship Hunter.<br /><br />
+
+            <Maintainer {...MAINTAINERS.Putro} /> later became the main maintainer of this spec implementation because he wanted to replace <a href="http://www.checkmywow.com">Check My Wow</a> after it was announced it would no longer be maintained, with a better, prettier and overall more precise product. He has implemented almost everything you see today. This was done while gathering feedback and suggestions from the rest of the Hunter community and the other theorycrafters. It now replaces (or alternately enhances) many manual log-reviews, and provides a lot of information up-front that is relevant to players of all skill levels.<br /><br />
+
+            <Maintainer {...MAINTAINERS.Blazballs} /> assisted in the Marksmanship module by amongst other things, creating the associated focus tracking chart, which now sees usage in both Beast Mastery and Survival implementations as well.<br /><br />
+
+            <figure>
+              <img src={MarksmanshipHunter} alt="Initial version of the Marksmanship Hunter analyzer" />
+              <figcaption>
+                Initial version of the Marksmanship Hunter analyzer
+              </figcaption>
+            </figure>
           </div>
         </div>
 
@@ -892,10 +1011,21 @@ class Article extends React.PureComponent {
             <h2>Blood Death Knight</h2>
           </div>
           <div className="panel-body">
-            <SpecIcon spec={SPECS.BLOOD_DEATH_KNIGHT} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/247
+            <div className="clearfix">
+              <SpecIcon spec={SPECS.BLOOD_DEATH_KNIGHT} />
+              <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/247">Added</a> by <Maintainer {...MAINTAINERS.Yajinni} />:
+            </div>
 
-            By <Maintainer {...MAINTAINERS.Yajinni} />
+            <blockquote>
+              so take what you want from this backstory. no idea where to start or what u need.  I used to be a pretty hard core raider from BC to WoD. Got burned out and just didnt have the time for it anymore so after a break, new account and new server, i tried the casual life lol Ended up making my own lil casual raiding guild and just helping noobs get better at the game by improving thier game play. After EN in legion i took another break and came back for ToS. Found my guildies had struggled alot while i was gone and i was on the WoW reddit looking for a piece of info to help one of them and saw someone made a reference to wowanalyzer in it. I checked it out and loved the idea of it. All for automation and not doing the same log analysis repeatedly.  Work in IT but have no programming experience. beyond a highschool class 15 years ago for a hello world project lol Decided this would be a good way to give back to the game that i have been playing from its start and a good way to make sure my guildies get the support they needed. Pretty much mained blood dks since wraith time so i decided to take it up. Recently got a guildie thats interested in pally tanking, was gonna co help on it. But the 2 people that said they were interested in programing it from the discord basically helped with gathering a couple of spells to add to the abilities list and thats is. Havent heard from them since. Havent had time to do more on the pally tanking even though i would love to. But will get to it once i get the blood dk stuff to good status.  there we go.
+            </blockquote><br />
+
+            <figure>
+              <img src={BloodDeathKnight} alt="Initial version of the Blood Death Knight analyzer" />
+              <figcaption>
+                Initial version of the Blood Death Knight analyzer
+              </figcaption>
+            </figure>
           </div>
         </div>
 
@@ -908,26 +1038,14 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.HAVOC_DEMON_HUNTER} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/262
+            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/262">Added</a> by <Maintainer {...MAINTAINERS.Mamtooth} />.<br /><br />
 
-            By <Maintainer {...MAINTAINERS.Mamtooth} />
-          </div>
-        </div>
-
-        <div className="panel">
-          <div className="date">
-            6 Sep
-          </div>
-          <div className="panel-heading">
-            <h2>Marksmanship Hunter</h2>
-          </div>
-          <div className="panel-body">
-            <SpecIcon spec={SPECS.MARKSMANSHIP_HUNTER} />
-            <Maintainer {...MAINTAINERS.JLassie82} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/253">added</a> initial support for Marksmanship Hunter.<br /><br />
-
-            <Maintainer {...MAINTAINERS.Putro} /> later became the main maintainer of this spec implementation because he wanted to replace <a href="http://www.checkmywow.com">Check My Wow</a> after it was announced it would no longer be maintained, with a better, prettier and overall more precise product. He has implemented almost everything you see today. This was done while gathering feedback and suggestions from the rest of the Hunter community and the other theorycrafters. It now replaces (or alternately enhances) many manual log-reviews, and provides a lot of information up-front that is relevant to players of all skill levels.<br /><br />
-
-            <Maintainer {...MAINTAINERS.Blazballs} /> assisted in the Marksmanship module by amongst other things, creating the associated focus tracking chart, which now sees usage in both Beast Mastery and Survival implementations as well.
+            <figure>
+              <img src={HavocDemonHunter} alt="Initial version of the Havoc Demon Hunter analyzer" />
+              <figcaption>
+                Initial version of the Havoc Demon Hunter analyzer
+              </figcaption>
+            </figure>
           </div>
         </div>
 
@@ -941,12 +1059,19 @@ class Article extends React.PureComponent {
           <div className="panel-body">
             <div className="clearfix">
               <SpecIcon spec={SPECS.RETRIBUTION_PALADIN} />
-              Support for Retribution Paladin was added by <Maintainer {...MAINTAINERS.Hewhosmites} />. His motivation for adding it:
+              Support for Retribution Paladin was <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/293">added</a> by <Maintainer {...MAINTAINERS.Hewhosmites} />. His motivation for adding it:
             </div>
 
             <blockquote>
               I was a Holy Paladin main and a frequent user to the site before switching to Retribution. It was kind of disheartening that I wasn't able to get the same data and analysis from the WoW Analyzer with my new spec. I had a little programming knowledge, an average amount of class knowledge, and a lot of free time so I started working on Retribution. Normally when working on hobby projects I tend to lose interest quite quickly but my love of the game and drive to make a useful tool for myself and others has kept me going.
-            </blockquote>
+            </blockquote><br />
+
+            <figure>
+              <img src={RetributionPaladin} alt="Initial version of the Retribution Paladin analyzer" />
+              <figcaption>
+                Initial version of the Retribution Paladin analyzer
+              </figcaption>
+            </figure>
           </div>
         </div>
 
@@ -959,9 +1084,14 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.DEMONOLOGY_WARLOCK} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pulls?utf8=%E2%9C%93&q=is%3Apr+demonology+
+            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/315">Added</a> by <Maintainer {...MAINTAINERS.Chizu} /> after also doing Affliction and Destruction Warlock analyzers. See Affliction Warlock's bit for his motiviation to start working on WoWAnalyzer.<br /><br />
 
-            By <Maintainer {...MAINTAINERS.Chizu} />
+            <figure>
+              <img src={DemonologyWarlock} alt="Initial version of the Demonology Warlock analyzer" />
+              <figcaption>
+                Initial version of the Demonology Warlock analyzer
+              </figcaption>
+            </figure>
           </div>
         </div>
 
@@ -1016,16 +1146,21 @@ class Article extends React.PureComponent {
 
         <div className="panel">
           <div className="date">
-            22 Sep
+            23 Sep
           </div>
           <div className="panel-heading">
             <h2>Protection Warrior</h2>
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.PROTECTION_WARRIOR} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/363
+            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/363">Added</a> by <Maintainer {...MAINTAINERS.Salarissia} />.<br /><br />
 
-            By <Maintainer {...MAINTAINERS.Salarissia} />
+            <figure>
+              <img src={ProtectionWarrior} alt="Initial version of the Protection Warrior analyzer" />
+              <figcaption>
+                Initial version of the Protection Warrior analyzer
+              </figcaption>
+            </figure>
           </div>
         </div>
 
@@ -1038,8 +1173,6 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             https://github.com/WoWAnalyzer/WoWAnalyzer/pull/466
-
-            By <Maintainer {...MAINTAINERS.Salarissia} />
           </div>
         </div>
 
@@ -1069,9 +1202,16 @@ class Article extends React.PureComponent {
 
             <blockquote>
               A friend of mine saw the boomkin stuff and was like "Hey Sharrq, check out this awesome site", and i looked at it and was like "oh thats why i havent seen this ... no mage support", and he jokingly said "You should do it!" so i looked at it to see how complicated it was ... and hey presto, mages
-            </blockquote>
+            </blockquote><br />
 
-            By <Maintainer {...MAINTAINERS.Sharrq} /> and <Maintainer {...MAINTAINERS.sref} />
+            <figure>
+              <img src={FrostMage} alt="Initial version of the Frost Mage analyzer" />
+              <figcaption>
+                Initial version of the Frost Mage analyzer
+              </figcaption>
+            </figure><br />
+
+            <Maintainer {...MAINTAINERS.sref} /> has also done a considerable amount of work on this spec.
           </div>
         </div>
 
@@ -1172,6 +1312,10 @@ class Article extends React.PureComponent {
           <div className="panel-body">
             <SpecIcon spec={SPECS.UNHOLY_DEATH_KNIGHT} />
             https://github.com/WoWAnalyzer/WoWAnalyzer/pull/602
+
+            <blockquote>
+              Saw Unholy wasn't supported, saw it was pretty easy to get a spec setup, started unholy
+            </blockquote>
 
             By <Maintainer {...MAINTAINERS.Khazak} />
           </div>
