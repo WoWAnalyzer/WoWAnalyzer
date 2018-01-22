@@ -20,7 +20,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.DEATH_SWEEP.id,
     SPELLS.EYE_BEAM.id,
     SPELLS.FURY_OF_THE_ILLIDARI.id,
-    SPELLS.METAMORPHOSIS_HAVOC.id,
     SPELLS.THROW_GLAIVE_HAVOC.id,
     SPELLS.CHAOS_NOVA.id,
 

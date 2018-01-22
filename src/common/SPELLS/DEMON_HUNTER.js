@@ -201,6 +201,16 @@ export default {
     name: 'Death Sweep',
     icon: 'inv_glaive_1h_artifactaldrochi_d_02dual',
   },
+  DEATH_SWEEP_DAMAGE: {
+    id: 210153,
+    name : 'Death Sweep',
+    icon: 'inv_glaive_1h_artifactaldrochi_d_02dual',
+  },
+  DEATH_SWEEP_DAMAGE_LAST_HIT: {
+    id: 210155,
+    name: 'Death Sweep',
+    icon: 'inv_glaive_1h_artifactaldrochi_d_02dual',
+  },
   FEL_RUSH: {
     id: 195072,
     name: 'Fel Rush',
@@ -213,6 +223,11 @@ export default {
   },
   EYE_BEAM: {
     id: 198013,
+    name: 'Eye Beam',
+    icon: 'ability_demonhunter_eyebeam',
+  },
+  EYE_BEAM_DAMAGE: {
+    id: 198030,
     name: 'Eye Beam',
     icon: 'ability_demonhunter_eyebeam',
   },
@@ -405,5 +420,10 @@ export default {
     id: 201460,
     name: 'Unleashed Demons',
     icon: 'ability_demonhunter_metamorphasisdps',
+  },
+  WIDE_EYES: {
+    id: 238045,
+    name: 'Wide Eyes',
+    icon: 'ability_demonhunter_eyebeam',
   },
 };

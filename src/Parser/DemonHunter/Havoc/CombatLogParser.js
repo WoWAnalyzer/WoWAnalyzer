@@ -8,6 +8,10 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import Momentum from './Modules/Statistics/Spells/Momentum';
 import Nemesis from './Modules/Statistics/Spells/Nemesis';
 
+//Resources
+import FuryDetails from './Modules/ResourceTracker/FuryDetails';
+import FuryTracker from './Modules/ResourceTracker/FuryTracker';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
@@ -21,6 +25,10 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spells
     momentum: Momentum,
     nemesis: Nemesis,
+
+    //Resources
+    furyTracker: FuryTracker,
+    furyDetails: FuryDetails,
   };
 }
 
