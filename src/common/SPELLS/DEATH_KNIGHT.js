@@ -589,4 +589,11 @@ export default {
     name: 'Cold Heart',
     icon: 'spell_frost_chainsofice',
   },
+
+  //Shackles of Bryndaor blood dk legendary buff
+  SHACKLES_OF_BRYNDAOR_BUFF: {
+    id: 209232,
+    name: 'Shackles of Bryndaor',
+    icon: 'ability_deathknight_runicimpowerment',
+  },
 };
