@@ -59,7 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Items:
     t20_2pc: T20_2pc,
     t20_4pc: T20_4pc,
-    shacklesofBryndaor:ShacklesofBryndaor
+    shacklesofBryndaor:ShacklesofBryndaor,
   };
 }
 
