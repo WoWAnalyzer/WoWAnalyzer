@@ -13,7 +13,7 @@ import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
 
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 import UnstableMagic from '../Shared/Modules/Features/UnstableMagic';
-import RuneOfPower from './Modules/Features/RuneOfPower';
+import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
 import Kindling from './Modules/Features/Kindling';
 import PhoenixsFlames from './Modules/Features/PhoenixsFlames';
 import HotStreak from './Modules/Features/HotStreak';
@@ -55,7 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     mirrorImage: MirrorImage,
     unstableMagic: UnstableMagic,
-    runeOfPower: RuneOfPower,
+    runeOfPower: [RuneOfPower, { showStatistic: false, showSuggestion: false }],
     kindling: Kindling,
 
 	  //Items
