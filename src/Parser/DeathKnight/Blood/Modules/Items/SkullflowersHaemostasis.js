@@ -18,6 +18,7 @@ class SkullflowersHaemostasis extends Analyzer {
   }
 
   buffStack = 0;
+  savedBuffStack=0;
   wastedBuff = 0;
   maxBuffStacks = 5;
   damage=0;
@@ -27,14 +28,14 @@ class SkullflowersHaemostasis extends Analyzer {
 
 
   on_byPlayer_applybuff(event) {
-    if (event.ability.guid === SPELLS.Haemostasis_Buff.id) {
+    if (event.ability.guid === SPELLS.HAEMOSTASIS_BUFF.id) {
       this.buffStack += 1;
       this.savedBuffStack=this.buffStack;
     }
   }
 
   on_byPlayer_applybuffstack(event) {
-    if (event.ability.guid === SPELLS.Haemostasis_Buff.id) {
+    if (event.ability.guid === SPELLS.HAEMOSTASIS_BUFF.id) {
       if (this.buffstack >= this.maxBuffStacks) {
         this.wastedBuff += 1;
         this.buffStack = this.maxBuffStacks;
@@ -48,7 +49,7 @@ class SkullflowersHaemostasis extends Analyzer {
   }
 
   on_byPlayer_removebuff(event) {
-    if (event.ability.guid === SPELLS.Haemostasis_Buff.id) {
+    if (event.ability.guid === SPELLS.HAEMOSTASIS_BUFF.id) {
       this.buffStack = 0;
     }
   }
@@ -57,14 +58,14 @@ class SkullflowersHaemostasis extends Analyzer {
     if (event.ability.guid !== SPELLS.DEATH_STRIKE_HEAL.id) {
       return;
     }
-    this.heal += event.amount * this.percentBuff * this.savedBuffStack;
+    this.heal += (event.amount + (event.absorbed || 0)) * this.percentBuff * this.savedBuffStack;
   }
 
   on_byPlayer_damage(event) {
     if (event.ability.guid !== SPELLS.DEATH_STRIKE.id) {
       return;
     }
-    this.damage += event.amount * this.percentBuff * this.savedBuffStack;
+    this.damage += (event.amount + (event.absorbed || 0)) * this.percentBuff * this.savedBuffStack;
   }
 
 

@@ -597,7 +597,7 @@ export default {
   },
 
   //Skullflower's Haemostasis blood dk legendary buff
-  Haemostasis_Buff: {
+  HAEMOSTASIS_BUFF: {
     id: 235559,
     name: 'Haemostasis',
     icon: 'ability_deathwing_bloodcorruption_earth',
