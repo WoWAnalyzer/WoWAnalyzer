@@ -9,13 +9,10 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import TimeFocusCapped from '../Shared/Modules/Features/TimeFocusCapped';
 
 //Tier
-/*
-TODO
 import Tier21_2p from './Modules/Items/Tier21_2p';
 import Tier21_4p from './Modules/Items/Tier21_4p';
 import Tier20_2p from './Modules/Items/Tier20_2p';
 import Tier20_4p from './Modules/Items/Tier20_4p';
-*/
 //Focus
 import FocusTracker from '../Shared/Modules/Features/FocusChart/FocusTracker';
 import FocusTab from '../Shared/Modules/Features/FocusChart/FocusTab';
@@ -50,6 +47,10 @@ class CombatLogParser extends CoreCombatLogParser {
     focusTab: FocusTab,
 
     //Items
+    tier20_2p: Tier20_2p,
+    tier20_4p: Tier20_4p,
+    tier21_2p: Tier21_2p,
+    tier21_4p: Tier21_4p,
     soulOfTheHuntmaster: SoulOfTheHuntmaster,
     callOfTheWild: CallOfTheWild,
     rootsOfShaladrassil: RootsOfShaladrassil,
