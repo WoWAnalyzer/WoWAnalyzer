@@ -667,6 +667,11 @@ export default {
     name: 'Embrace of the Aspects',
     icon: 'spell_hunter_aspectofthehawk',
   },
+  JAWS_OF_THE_MONGOOSE: {
+    id: 238053,
+    name: 'Jaws of the Mongoose',
+    icon: 'ability_hunter_mongoosebite',
+  },
   //Survival tier and their buffs
   HUNTER_SV_T20_2P_BONUS: {
     id: 242244,
@@ -681,7 +686,7 @@ export default {
   HUNTER_SV_T21_2P_BONUS: {
     id: 251751,
     name: 'T21 2 set bonus',
-    icon: 'ability_hunter_focusedaim',
+    icon: 'ability_rogue_findweakness',
   },
   HUNTER_SV_T21_2P_BONUS_BUFF: {
     id: 252094,
@@ -691,7 +696,7 @@ export default {
   HUNTER_SV_T21_4P_BONUS: {
     id: 251752,
     name: 'T21 4 set bonus',
-    icon: 'ability_hunter_focusedaim',
+    icon: 'ability_hunter_combatexperience',
   },
   HUNTER_SV_T21_4P_BONUS_BUFF: {
     id: 252095,
