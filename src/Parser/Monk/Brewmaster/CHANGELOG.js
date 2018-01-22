@@ -2,6 +2,11 @@ import { WOPR, emallson } from 'MAINTAINERS';
 
 export default [
   {
+    date: new Date('2018-01-22'),
+    changes: 'Added \'Damage Taken by Ability\' table.',
+    contributors: [emallson],
+  },
+  {
     date: new Date('2018-01-18'),
     changes: 'Added High Tolerance haste statistic & changed Brew CDR to use average haste to determine target CDR value.',
     contributors: [emallson],
