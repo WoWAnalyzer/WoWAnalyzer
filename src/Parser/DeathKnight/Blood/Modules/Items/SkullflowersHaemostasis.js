@@ -37,14 +37,15 @@ class SkullflowersHaemostasis extends Analyzer {
   }
 
   on_byPlayer_applybuffstack(event) {
-    if (event.ability.guid === SPELLS.HAEMOSTASIS_BUFF.id) {
-      if (this.buffstack >= this.maxBuffStacks) {
-        this.wastedBuff += 1;
-        this.buffStack = this.maxBuffStacks;
-      }
-      else {
-        this.buffStack += 1;
-      }
+    if (event.ability.guid !== SPELLS.HAEMOSTASIS_BUFF.id) {
+      return;
+    }
+    if (this.buffstack >= this.maxBuffStacks) {
+      this.wastedBuff += 1;
+      this.buffStack = this.maxBuffStacks;
+    }
+    else {
+      this.buffStack += 1;
     }
   }
 
