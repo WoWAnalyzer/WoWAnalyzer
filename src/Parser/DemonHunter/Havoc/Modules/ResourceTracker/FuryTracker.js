@@ -56,11 +56,11 @@ class FuryTracker extends ResourceTracker {
 	}
 
 	get cooldownReduction(){
-    return this.totalCooldownReduction;
+    return this.totalCooldownReduction / 1000;
   }
 
   get cooldownReductionWasted(){
-    return this.totalCooldownReductionWasted;
+    return this.totalCooldownReductionWasted / 1000;
   }
 }
 

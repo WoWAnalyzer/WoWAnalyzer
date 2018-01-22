@@ -12,6 +12,9 @@ import Nemesis from './Modules/Statistics/Spells/Nemesis';
 import FuryDetails from './Modules/ResourceTracker/FuryDetails';
 import FuryTracker from './Modules/ResourceTracker/FuryTracker';
 
+//Items
+import DelusionsOfGrandeur from './Modules/Items/DelusionsOfGrandeur';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
@@ -29,6 +32,9 @@ class CombatLogParser extends CoreCombatLogParser {
     //Resources
     furyTracker: FuryTracker,
     furyDetails: FuryDetails,
+
+    //Items
+    delusionsOfGrandeur: DelusionsOfGrandeur,
   };
 }
 

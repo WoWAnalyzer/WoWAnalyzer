@@ -286,6 +286,31 @@ export default {
     name: 'Demonic Appetite',
     icon: 'spell_misc_zandalari_council_soulswap',
   },
+  DEMON_BLADES_FURY: {
+    id: 203796,
+    name: 'Demon Blades',
+    icon: 'inv_weapon_shortblade_92',
+  },
+  BLADE_DANCE_FURY: {
+    id: 245862,
+    name: 'Blade Dance',
+    icon: 'ability_demonhunter_bladedance',
+  },
+  PREPARED_FURY: {
+    id: 203650,
+    name: 'Prepared',
+    icon: 'ability_demonhunter_vengefulretreat',
+  },
+  DECEIVERS_FURY_FURY: {
+    id: 202120,
+    name: 'Deceiver\'s Fury',
+    icon: 'ability_demonhunter_blur',
+  },
+  FEL_MASTERY_FURY: {
+    id: 234244,
+    name: 'Fel Mastery',
+    icon: 'ability_skyreach_piercing_rush',
+  },
   ANGER_OF_THE_HALF_GIANTS_FURY: {
     id: 208828,
     name: 'Gigantic Anger',
