@@ -15,7 +15,7 @@ export default {
   // Damage Dealing
   // Provides the 1 RP tick on DnD from Rapid Decomposition Talent
   RAPID_DECOMPOSITION_RP_TICK: {
-    id: 188290,
+    id: 255203,
     name: 'Rapid Decomposition RP Tick',
     icon: 'ability_deathknight_deathsiphon2',
   },

@@ -27,7 +27,6 @@ class ShacklesofBryndaor extends Analyzer {
       return;
     }
     this.rpGained += (event.resourceChange || 0);
-    console.log("RP:", this.rpGained);
   }
 
 
@@ -38,8 +37,7 @@ class ShacklesofBryndaor extends Analyzer {
       result:(
         <Wrapper>
           Runic Power Refunded : {this.rpGained}<br />
-          {formatPercentage(this.rpPercent)} % <br />
-          {this.runicPowerTracker.totalRPGained}
+          {formatPercentage(this.rpPercent)} % of total RP <br />
 
         </Wrapper>
       ),
