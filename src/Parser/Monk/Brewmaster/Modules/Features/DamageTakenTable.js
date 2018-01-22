@@ -1,7 +1,8 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import DamageTakenTableComponent, { MITIGATED_NONE, MITIGATED_PHYSICAL, MITIGATED_MAGICAL } from 'Main/DamageTakenTable';
+import DamageTaken from 'Parser/Core/Modules/DamageTaken';
+import DamageTakenTableComponent, { MITIGATED_PHYSICAL, MITIGATED_MAGICAL } from 'Main/DamageTakenTable';
 import Tab from 'Main/Tab';
 import SPELLS from 'common/SPELLS';
 
@@ -11,14 +12,19 @@ class DamageTakenTable extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     ht: HighTolerance,
+    dmg: DamageTaken,
   };
 
   // additive increase of 5% while isb is up
   _has2pcT19 = false;
-  abilityData = {};
+  abilityData = {}; // contains `ability` and `mitigatedAs`
 
   get tableData() {
-    const vals = Object.values(this.abilityData);
+    const vals = Object.values(this.abilityData)
+      .map(raw => {
+        const value = this.dmg.byAbility(raw.ability.guid);
+        return { totalDmg: value.effective, largestSpike: value.largestHit,  ...raw};
+      });
     vals.sort((a, b) => b.largestSpike - a.largestSpike);
     return vals;
   }
@@ -34,37 +40,22 @@ class DamageTakenTable extends Analyzer {
     if(event.amount === 0) {
       return;
     }
-    // stagger always does *something* if an ability can be mitigated,
-    // so we detect unmitigable abilities by checking if it did anything
-    if(event.absorbed === 0) {
-      this._addToAbility(event.ability.guid, event.ability.name, event.amount, MITIGATED_NONE);
-      return;
-    }
-
-    const damage = event.amount;
     const mitigatedAs = this._classifyMitigation(event);
-    this._addToAbility(event.ability, damage, mitigatedAs);
+    this._addToAbility(event.ability, mitigatedAs);
   }
 
-  _addToAbility(ability, damage, mitigationType) {
+  _addToAbility(ability, mitigationType) {
     const spellId = ability.guid;
     if(!(spellId in this.abilityData)) {
       this.abilityData[spellId] = {
-        totalDmg: damage,
-        largestSpike: damage,
         mitigatedAs: mitigationType,
         ability: ability,
       };
       return;
     }
-    this.abilityData[spellId].totalDmg += damage;
-    this.abilityData[spellId].largestSpike = Math.max(this.abilityData[spellId].largestSpike, damage);
 
     const curMitAs = this.abilityData[spellId].mitigatedAs;
-    if(curMitAs === MITIGATED_PHYSICAL) {
-      // we *can* drop down, but not go up
-      this.abilityData[spellId].mitigatedAs = this._minMitigationType(curMitAs, mitigationType);
-    }
+    this.abilityData[spellId].mitigatedAs = this._minMitigationType(curMitAs, mitigationType);
   }
 
   _minMitigationType(a, b) {
