@@ -74,14 +74,18 @@ class RuneOfPower extends Analyzer {
     };
   }
 
+  showSuggestion = true;
+
   suggestions(when) {
-    when(this.damageSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> damage boost is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />. Either find ways to make better use of the talent, or switch to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />.</Wrapper>)
-          .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
-          .actual(`${formatPercentage(this.damageIncreasePercent)}% damage increase from Rune of Power`)
-          .recommended(`${formatPercentage(recommended)}% is the passive gain from Incanter's Flow`);
-      });
+    if (this.showSuggestion) {
+      when(this.damageSuggestionThresholds)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest(<Wrapper>Your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> damage boost is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />. Either find ways to make better use of the talent, or switch to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />.</Wrapper>)
+            .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
+            .actual(`${formatPercentage(this.damageIncreasePercent)}% damage increase from Rune of Power`)
+            .recommended(`${formatPercentage(recommended)}% is the passive gain from Incanter's Flow`);
+        });
+    }
     if (this.abilityTracker.getAbility(SPELLS.RUNE_OF_POWER_BUFF.id).casts > 0) {
       when(this.roundedSecondsSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
@@ -93,7 +97,10 @@ class RuneOfPower extends Analyzer {
     }
   }
 
+  showStatistic = true;
+
   statistic() {
+    if (!this.showStatistic) return null;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RUNE_OF_POWER_TALENT.id} />}
