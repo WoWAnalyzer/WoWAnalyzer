@@ -24,7 +24,6 @@ class SkullflowersHaemostasis extends Analyzer {
   damage=0;
   heal=0;
   percentBuff=1/6;
-  dsCastWithBuff=false;
 
 
   on_byPlayer_applybuff(event) {
