@@ -2,6 +2,11 @@ import { Sharrq, sref, Fyruna } from 'MAINTAINERS';
 
 export default [
   {
+    date: new Date('2017-1-21'),
+    changes: 'Added Combustion Checks for Firestarter, Banked Charges, Spell Usage, and Marquee Bindings Procs (Adds full Combustion Usage Support).',
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2017-1-13'),
     changes: 'Added support for Cinderstorm.',
     contributors: [Sharrq],
