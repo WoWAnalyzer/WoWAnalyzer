@@ -1,4 +1,4 @@
-import { Mamtooth } from 'MAINTAINERS';
+import { Mamtooth, Hewhosmites } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
@@ -7,7 +7,7 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   spec: SPECS.HAVOC_DEMON_HUNTER,
-  maintainers: [Mamtooth],
+  maintainers: [Mamtooth, Hewhosmites],
   completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK, // good = it matches most common manual reviews in class discords, great = it support all important class features
   changelog: CHANGELOG,
   parser: CombatLogParser,
