@@ -104,7 +104,7 @@ class CombustionMarqueeBindings extends Analyzer {
   }
 
   get bracerBuffUtil() {
-    return this.expectedPyroblastCasts / this.actualPyroblastCasts;
+    return (this.actualPyroblastCasts / this.expectedPyroblastCasts) || 0;
   }
 
   get landedDuringCombustionPercent() {

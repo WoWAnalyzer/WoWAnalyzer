@@ -44,16 +44,11 @@ class CombustionFirestarter extends Analyzer {
       return;
     }
     this.combustionCasted = false;
-    this.currentHealth = event.hitPoints;
-    this.maxHealth = event.maxHitPoints;
-    if (this.healthPercent > .90) {
+    const healthPercent = event.hitPoints / event.maxHitPoints;
+    if (healthPercent > .90) {
       this.combustionDuringFirestarter = true;
       debug && console.log("Combustion Used During Firestarter @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     }
-  }
-
-  get healthPercent() {
-    return this.currentHealth / this.maxHealth;
   }
 
   get SuggestionThresholds() {
