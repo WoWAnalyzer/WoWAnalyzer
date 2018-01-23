@@ -129,45 +129,53 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ANTI_MAGIC_SHELL,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isOnGCD: true,
+        cooldown: 60,
       },
 
       {
         spell: SPELLS.MIND_FREEZE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 15,
       },
 
       {
         spell: SPELLS.DARK_COMMAND,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 8,
       },
 
       {
         spell: SPELLS.DEATH_GRIP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         //isOnGCD: true, special GCD have to look into it
+        cooldown: 25,
       },
 
       {
         spell: SPELLS.WRAITH_WALK,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
+        cooldown: 45,
       },
 
       {
         spell: SPELLS.GOREFIENDS_GRASP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
+        cooldown: this.combatants.selected.hasTalent(SPELLS.TIGHTENING_GRASP_TALENT.id) ? 90 : 120,
       },
 
       {
         spell: SPELLS.RAISE_ALLY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 600,
         isOnGCD: true,
       },
 
       {
         spell: SPELLS.ASPHYXIATE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 45,
         isOnGCD: true,
       },
 
@@ -180,34 +188,46 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEATH_GATE,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
+        cooldown: 60,
         isOnGCD: true,
       },
 
       {
         spell: SPELLS.BLOOD_TAP_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        enabled: combatant.hasTalent(SPELLS.BLOOD_TAP_TALENT.id),
+        cooldown: 60,
+        charges: 2,
       },
 
       {
         spell: SPELLS.MARK_OF_BLOOD,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        enabled: combatant.hasTalent(SPELLS.MARK_OF_BLOOD.id),
         isOnGCD: true,
       },
 
       {
         spell: SPELLS.TOMBSTONE_TALENT,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        enabled: combatant.hasTalent(SPELLS.TOMBSTONE_TALENT.id),
+        cooldown: 60,
       },
 
       {
         spell: SPELLS.RUNE_TAP_TALENT,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        enabled: combatant.hasTalent(SPELLS.RUNE_TAP_TALENT.id),
+        cooldown: 25,
         isOnGCD: true,
+        charges: 2,
       },
 
       {
         spell: SPELLS.BONESTORM_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        enabled: combatant.hasTalent(SPELLS.BONESTORM_TALENT.id),
+        cooldown: 60,
         isOnGCD: true,
       },
 
