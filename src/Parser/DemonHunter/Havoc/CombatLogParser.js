@@ -8,6 +8,8 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import Momentum from './Modules/Statistics/Spells/Momentum';
 import Nemesis from './Modules/Statistics/Spells/Nemesis';
 
+import RaddonsCascadingEyes from './Modules/Items/RaddonsCascadingEyes';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
@@ -21,6 +23,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spells
     momentum: Momentum,
     nemesis: Nemesis,
+
+    // Items
+    raddonsCascadingEyes: RaddonsCascadingEyes,
   };
 }
 

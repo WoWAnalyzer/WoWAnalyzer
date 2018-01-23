@@ -216,6 +216,11 @@ export default {
     name: 'Eye Beam',
     icon: 'ability_demonhunter_eyebeam',
   },
+  EYE_BEAM_DAMAGE: {
+    id: 198030,
+    name: 'EYE_BEAM',
+    icon: 'ability_demonhunter_eyebeam',
+  },
   FURY_OF_THE_ILLIDARI: {
     id: 201467,
     name: 'Fury of the Illidari',
@@ -405,5 +410,10 @@ export default {
     id: 201460,
     name: 'Unleashed Demons',
     icon: 'ability_demonhunter_metamorphasisdps',
+  },
+  FEAST_ON_THE_SOULS: {
+    id: 201468,
+    name: 'Feast of the Souls',
+    icon: 'spell_warlock_soulburn',
   },
 };
