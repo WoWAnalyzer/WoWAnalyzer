@@ -873,7 +873,7 @@ class Article extends React.PureComponent {
 
             <Maintainer {...MAINTAINERS.WOPR} /> made the analyzer pretty complete before resigning as contributor at the start of September because of not having enough time.<br /><br />
 
-            In December 2017 <Maintainer {...MAINTAINERS.emallson} /> took over as the primary maintainer of this spec and has since added a lot of things such as adding the checklist, fixing issues with cooldown tracking and others.
+            In December 2017 <Maintainer {...MAINTAINERS.emallson} /> took over as the primary maintainer of this spec. Initially, he wanted to use WoWAnalyzer as a platform for understanding the difficult-to-manually-analyze effectiveness of the <SpellLink id={SPELLS.STAGGER.id} icon /> and <SpellLink id={SPELLS.IRONSKIN_BREW.id} icon>Ironskin</SpellLink> / <SpellLink id={SPELLS.PURIFYING_BREW.id} icon /> system. New Brewmasters often come to the <code>#brew_questions</code> channel with questions about Brew usage and Stagger, but actual performance on the spec can be very time-intensive both to explain and to analyze. To help address this, he's added statistics and suggestions that help explain why common issues (most often with <SpellLink id={SPELLS.IRONSKIN_BREW.id} icon /> uptime) are occurring.
           </div>
         </div>
 
