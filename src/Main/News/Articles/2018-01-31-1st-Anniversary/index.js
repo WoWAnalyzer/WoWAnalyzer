@@ -74,6 +74,14 @@ import RetributionPaladin from './RetributionPaladin.png';
 import DemonologyWarlock from './DemonologyWarlock.png';
 import ProtectionWarrior from './ProtectionWarrior.png';
 import FrostMage from './FrostMage.png';
+import FireMage from './FireMage.png';
+import ArmsWarrior from './ArmsWarrior.png';
+import UnholyDeathKnight from './UnholyDeathKnight.png';
+import BeastMasteryHunter from './BeastMasteryHunter.png';
+import FrostDeathKnight from './FrostDeathKnight.png';
+import ProtectionPaladin from './ProtectionPaladin.png';
+import FuryWarrior from './FuryWarrior.png';
+import SurvivalHunter from './SurvivalHunter.png';
 
 function completeness(completeness) {
   return <dfn data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>;
@@ -823,12 +831,18 @@ class Article extends React.PureComponent {
             <h2>Affliction Warlock</h2>
           </div>
           <div className="panel-body">
-            <SpecIcon spec={SPECS.AFFLICTION_WARLOCK} />
-            <Maintainer {...MAINTAINERS.Chizu} />'s accounting: Our journey started in July, when my dearest friend and fellow Affliction Warlock <b>Aki</b> found about log analyzers. Firstly she found <a href="http://www.checkmywow.com">Check My Wow</a>, but was disappointed that they didn't support Affliction.<br /><br />
+            <div className="clearfix">
+              <SpecIcon spec={SPECS.AFFLICTION_WARLOCK} />
+              <Maintainer {...MAINTAINERS.Chizu} />'s accounting:
+            </div>
 
-            A little while later in August, she found that CMW added the support, but was kinda lacking in features, and around that time she also found WoWAnalyzer and loved the features and design for Holy Paladin. I was curious about this site myself and when I noticed that it's open source, I decided to crawl through the source code even though I had no experience in ES6 whatsoever.<br /><br />
+            <blockquote>
+              Our journey started in July, when my dearest friend and fellow Affliction Warlock <b>Aki</b> found about log analyzers. Firstly she found <a href="http://www.checkmywow.com">Check My Wow</a>, but was disappointed that they didn't support Affliction.<br /><br />
 
-            It took about a week of silent reading but on August, 16th I made first few Affliction modules and afterwards it went downhill with development. Rest of Affliction modules, support for Destruction and Demonology. I'd like to thank her for showing me this site, if it wasn't for her, none of Warlock specs would probably be here.<br /><br />
+              A little while later in August, she found that CMW added the support, but was kinda lacking in features, and around that time she also found WoWAnalyzer and loved the features and design for Holy Paladin. I was curious about this site myself and when I noticed that it's open source, I decided to crawl through the source code even though I had no experience in ES6 whatsoever.<br /><br />
+
+              It took about a week of silent reading but on August, 16th I made first few Affliction modules and afterwards it went downhill with development. Rest of Affliction modules, support for Destruction and Demonology. I'd like to thank her for showing me this site, if it wasn't for her, none of Warlock specs would probably be here.
+            </blockquote><br />
 
             <figure>
               <img src={AfflictionWarlock} alt="Affliction Warlock's initial version" />
@@ -891,17 +905,18 @@ class Article extends React.PureComponent {
             <h2>Character and fight selection pull down menus</h2>
           </div>
           <div className="panel-body">
-            By <Maintainer {...MAINTAINERS.fasib} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/200
+            Previously when examining a specific WCL record you must either use the back button or menu item that takes you back a screen to select a different character to analyze against. Then if you would like to change the encounter you have to go back yet again, select the different encounter, then select the character again.<br /><br />
+
+            To improve this <Maintainer {...MAINTAINERS.fasib} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/200">added</a> the character and fight selection popover menus that we have today.<br /><br />
 
             <figure>
-              <img src={CharacterAndFightPullDownMenus} alt="Holy Paladin mastery effectiveness calculator v0.9" />
+              <img src={CharacterAndFightPullDownMenus} alt="The character and fight selection popover menus" />
               <figcaption>
-                NYI
+                The character and fight selection popover menus
               </figcaption>
-            </figure>
+            </figure><br />
 
-            Later broken by <Maintainer {...MAINTAINERS.Zerotorescue} />
+            Later when <Maintainer {...MAINTAINERS.Zerotorescue} /> glued the navigation bar to the top of the browser viewport he introduced a bug where you could no longer scroll down the list and select the bottom few players. <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/824">This still is an open issue.</a> If you'd like to see it fixed please consider <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">making a pull request</a>!
           </div>
         </div>
 
@@ -953,9 +968,7 @@ class Article extends React.PureComponent {
             <h2>Warcraft Logs API proxy caching</h2>
           </div>
           <div className="panel-body">
-            Because the Warcraft Logs API has a restrictive API request limit there has always been a big fear of hitting this cap and locking users out. To combat this issue we added a caching layer to our Warcraft Logs API proxy to aggressively cache all of our API requests. This considerably reduces the amount of API requests we have to do allowing us to serve a lot more users. This has the added benefit that cached requests are insanely quick, and are even available when Warcraft Logs goes down.<br /><br />
-
-            The API proxy was put in place to protect our API key from abuse and to normalize behavior of the API by solving issues in the Warcraft Logs API.
+            Because the Warcraft Logs API has a restrictive API request limit there has always been a big fear of hitting the cap and locking users out. To combat this issue we added a caching layer to our Warcraft Logs API proxy to aggressively cache all of our API requests. This considerably reduces the amount of API requests we have to do allowing us to serve a lot more users. This has the added benefit that cached requests are insanely quick, and are even available when Warcraft Logs goes down.
           </div>
         </div>
 
@@ -1140,7 +1153,7 @@ class Article extends React.PureComponent {
             </ul>
             <br />
 
-            This does not mean these specs are complete as there's always more we can add. It is supposed to mean that they match most common manual log reviews and reports on all important class features.
+            This does not mean these specs are complete as there's always more we can add. It is supposed to mean that they match most common things looked at during manual log reviews and reports on all important class features.
           </div>
         </div>
 
@@ -1197,8 +1210,10 @@ class Article extends React.PureComponent {
             <h2>Frost Mage</h2>
           </div>
           <div className="panel-body">
-            <SpecIcon spec={SPECS.FROST_MAGE} />
-            <Maintainer {...MAINTAINERS.Sharrq} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/468">added</a> initial support for Frost Mages. His motivation was as follows:<br /><br />
+            <div className="clearfix">
+              <SpecIcon spec={SPECS.FROST_MAGE} />
+              <Maintainer {...MAINTAINERS.Sharrq} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/468">added</a> initial support for Frost Mages. His motivation was as follows:<br /><br />
+            </div>
 
             <blockquote>
               A friend of mine saw the boomkin stuff and was like "Hey Sharrq, check out this awesome site", and i looked at it and was like "oh thats why i havent seen this ... no mage support", and he jokingly said "You should do it!" so i looked at it to see how complicated it was ... and hey presto, mages
@@ -1279,11 +1294,14 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.FIRE_MAGE} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/521
+            Initial version was <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/521">added</a> by <Maintainer {...MAINTAINERS.Fyruna} />. <Maintainer {...MAINTAINERS.sref} /> added a couple of things. <Maintainer {...MAINTAINERS.Sharrq} /> added a lot of modules.<br /><br />
 
-            Initial version by <Maintainer {...MAINTAINERS.Fyruna} />
-            <Maintainer {...MAINTAINERS.sref} /> added a couple of things
-            <Maintainer {...MAINTAINERS.Sharrq} /> added a lot of modules
+            <figure>
+              <img src={FireMage} alt="Initial version of the Fire Mage analyzer" />
+              <figcaption>
+                Initial version of the Fire Mage analyzer
+              </figcaption>
+            </figure>
           </div>
         </div>
 
@@ -1296,9 +1314,14 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.ARMS_WARRIOR} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/571
+            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/571">Added</a> by <Maintainer {...MAINTAINERS.TheBadBossy} />.<br /><br />
 
-            By <Maintainer {...MAINTAINERS.TheBadBossy} />
+            <figure>
+              <img src={ArmsWarrior} alt="Initial version of the Arms Warrior analyzer" />
+              <figcaption>
+                Initial version of the Arms Warrior analyzer
+              </figcaption>
+            </figure>
           </div>
         </div>
 
@@ -1310,14 +1333,21 @@ class Article extends React.PureComponent {
             <h2>Unholy Death Knight</h2>
           </div>
           <div className="panel-body">
-            <SpecIcon spec={SPECS.UNHOLY_DEATH_KNIGHT} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/602
+            <div className="clearfix">
+              <SpecIcon spec={SPECS.UNHOLY_DEATH_KNIGHT} />
+              <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/602">Added</a> by <Maintainer {...MAINTAINERS.Khazak} />, his motivation:<br /><br />
+            </div>
 
             <blockquote>
-              Saw Unholy wasn't supported, saw it was pretty easy to get a spec setup, started unholy
+              Raid leader linked WoWAnalyzer in one of our log channels and I noticed that Unholy Death Knight wasn't supported.  I read the documentation on how to add support for a spec and it looked pretty easy.  I knew a little Javascript and had decent knowledge of my spec so I figured it was something I could do.  I got started on Friday evening and by the end of the weekend I had basic support for the spec done.
             </blockquote>
 
-            By <Maintainer {...MAINTAINERS.Khazak} />
+            <figure>
+              <img src={UnholyDeathKnight} alt="Initial version of the Unholy Death Knight analyzer" />
+              <figcaption>
+                Initial version of the Unholy Death Knight analyzer
+              </figcaption>
+            </figure>
           </div>
         </div>
 
@@ -1352,13 +1382,21 @@ class Article extends React.PureComponent {
             <h2>Beast Mastery Hunter</h2>
           </div>
           <div className="panel-body">
-            <SpecIcon spec={SPECS.BEAST_MASTERY_HUNTER} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/681
+            <div className="clearfix">
+              <SpecIcon spec={SPECS.BEAST_MASTERY_HUNTER} />
+              <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/681">Added</a> by <Maintainer {...MAINTAINERS.Putro} />. His motivation for adding it:<br /><br />
+            </div>
 
-            By <Maintainer {...MAINTAINERS.Putro} />
+            <blockquote>
+              With the Marksmanship module gaining large popularity in the hunter community, requests for getting a Beast-Mastery equivalent grew, and with feedback/suggestions from the community and theorycrafters it’s now in a state where it also can replace (or enhance) many manual log reviews.
+            </blockquote><br />
 
-            With the Marksmanship module gaining large popularity in the hunter community, requests for getting a Beast-Mastery equivalent grew, and with feedback/suggestions from the community and theorycrafters it’s now in a state where it also can replace (or enhance) many manual log reviews.
-
+            <figure>
+              <img src={BeastMasteryHunter} alt="Initial version of the Beast Mastery Hunter analyzer" />
+              <figcaption>
+                Initial version of the Beast Mastery Hunter analyzer
+              </figcaption>
+            </figure>
           </div>
         </div>
 
@@ -1371,9 +1409,14 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.FROST_DEATH_KNIGHT} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/712
+            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/712">Added</a> by <Maintainer {...MAINTAINERS.Bonebasher} />.<br /><br />
 
-            By <Maintainer {...MAINTAINERS.Bonebasher} />
+            <figure>
+              <img src={FrostDeathKnight} alt="Initial version of the Frost Death Knight analyzer" />
+              <figcaption>
+                Initial version of the Frost Death Knight analyzer
+              </figcaption>
+            </figure>
           </div>
         </div>
 
@@ -1484,9 +1527,14 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.PROTECTION_PALADIN} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/781
+            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/781">Added</a> by <Maintainer {...MAINTAINERS.Yajinni} /> and <Maintainer {...MAINTAINERS.Noichxd} />.<br /><br />
 
-            By <Maintainer {...MAINTAINERS.Yajinni} /> and <Maintainer {...MAINTAINERS.Noichxd} />
+            <figure>
+              <img src={ProtectionPaladin} alt="Initial version of the Protection Paladin analyzer" />
+              <figcaption>
+                Initial version of the Protection Paladin analyzer
+              </figcaption>
+            </figure>
           </div>
         </div>
 
@@ -1606,9 +1654,14 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.FURY_WARRIOR} />
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/982
+            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/982">Added</a> by <Maintainer {...MAINTAINERS.Maldark} />.<br /><br />
 
-            By <Maintainer {...MAINTAINERS.Maldark} />
+            <figure>
+              <img src={FuryWarrior} alt="Initial version of the Fury Warrior analyzer" />
+              <figcaption>
+                Initial version of the Fury Warrior analyzer
+              </figcaption>
+            </figure>
           </div>
         </div>
 
@@ -1742,25 +1795,40 @@ class Article extends React.PureComponent {
 
             The status page runs on an different server in a different datacenter in a different country. This should ensure that it will be there when the main server is down. In hindsight I'm not sure what the point of that is considering we can all use <a href="https://discord.gg/AxphPxU">Discord</a> anyway, but it's there nonetheless.<br /><br />
 
-            By <Maintainer {...MAINTAINERS.Zerotorescue} />
+            By <Maintainer {...MAINTAINERS.Zerotorescue} />.
           </div>
         </div>
 
-        Survival:
-        https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1202 Initial version by Putro.
-        With both Beast-Mastery and Marksmanship modules being close to completed, Putro began work on the Survival module in early 2018.
+        <div className="panel">
+          <div className="date">
+            18 Jan
+          </div>
+          <div className="panel-heading">
+            <h2>Survival Hunter</h2>
+          </div>
+          <div className="panel-body">
+            <SpecIcon spec={SPECS.SURVIVAL_HUNTER} />
+            With both Beast-Mastery and Marksmanship modules being close to completed, <Maintainer {...MAINTAINERS.Putro} /> began work on the Survival module in early 2018. It was <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1202">merged</a> 18 January.<br /><br />
 
-        {/* TODO: Go through commits for a second pass since we commited a bunch of interesting thigns directly without PR */}
-        {/* TODO: Go through commits for old screenshots */}
+            <figure>
+              <img src={SurvivalHunter} alt="Initial version of the Survival Hunter analyzer" />
+              <figcaption>
+                Initial version of the Survival Hunter analyzer
+              </figcaption>
+            </figure>
+          </div>
+        </div>
 
         <div className="panel">
           <div className="date">
-            10 Jul
+            31 Jan
           </div>
           <div className="panel-heading">
-            <h2>Other contributions</h2>
+            <h2>First anniversary!</h2>
           </div>
           <div className="panel-body">
+
+
             <Maintainer {...MAINTAINERS.aryu} />: Filter kills only fight: https://github.com/WoWAnalyzer/WoWAnalyzer/pull/106
             <Maintainer {...MAINTAINERS.Riglerr} />: Updated Cooldown Tab & components to be able to represent damage as well as healing: https://github.com/WoWAnalyzer/WoWAnalyzer/pull/53
             <Maintainer {...MAINTAINERS.BlokyKappa} />: Fixed main page button alignment
@@ -1779,15 +1847,17 @@ class Article extends React.PureComponent {
 
         The project was started by <Maintainer {...MAINTAINERS.Zerotorescue} /> (a <span className="Paladin">Holy Paladin</span> theorycrafter) to do additional analysis to help with theorycrafting. Since it took several months before other contributors joined the project, the first half of the recap will be written from my point of view.<br /><br />
 
+        There were a lot more contributors than we could list in the recap below. <b>Thanks to every single person that has helped with this project!</b> Thanks to all <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/graphs/contributors">GitHub contributors</a>, <a href="https://www.patreon.com/wowanalyzer">all of our patrons</a>, everyone that sent us feedback, everyone that helped spread the word, and thank you for your interest! Every single one of you give us the energy we need to spend our free time on this project.<br /><br />
+
         In addition to the detailed recap below, here are some other interesting statistics:<br /><br />
 
         <ul style={{ marginBottom: 20 }}>
           <li><b>34</b> specs implemented with <b>16</b> specs marked as being {completeness(SPEC_ANALYSIS_COMPLETENESS.GOOD)} or {completeness(SPEC_ANALYSIS_COMPLETENESS.GREAT)}</li>
-          <li><a href="https://github.com/WoWAnalyzer/WoWAnalyzer"><b>6,378 commits</b></a> from over <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/graphs/contributors"><b>58 contributors</b></a></li>
-          <li><b>1,416 files</b> with over <b>141,371 lines of code</b></li>
+          <li><a href="https://github.com/WoWAnalyzer/WoWAnalyzer"><b>6,694 commits</b></a> from over <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/graphs/contributors"><b>58 contributors</b></a></li>
+          <li><b>1,441 files</b> with over <b>145,000 lines of code</b></li>
           <li>Peak usage had over <b>140,000 unique visitors</b> and <b>13,500,000 requests</b> in a single month</li>
-          <li><a href="https://discord.gg/AxphPxU">Our Discord server</a> has over <b>1,200 members</b></li>
-          <li>It usually takes <a href="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer/builds">about <b>5 minutes</b></a> for a code-change to be available on WoWAnalyzer.com</li>
+          <li><a href="https://discord.gg/AxphPxU">Our Discord server</a> has over <b>1,300 members</b></li>
+          <li>It usually takes <a href="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer/builds">about <b>6 minutes</b></a> for a code-change to be available on WoWAnalyzer.com</li>
         </ul>
 
         <hr style={{ marginBottom: 20 }} />

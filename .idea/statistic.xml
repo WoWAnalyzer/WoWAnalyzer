@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/server/node_modules" />
         <option value="$PROJECT_DIR$/build" />
         <option value="$PROJECT_DIR$/src/static" />
+        <option value="$PROJECT_DIR$/browser-extensions/src/_locales" />
       </list>
     </option>
   </component>
