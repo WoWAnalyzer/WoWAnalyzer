@@ -177,6 +177,40 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
       },
 
+      {
+        spell: SPELLS.DEATH_GATE,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        isOnGCD: true,
+      },
+
+      {
+        spell: SPELLS.BLOOD_TAP_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+      },
+
+      {
+        spell: SPELLS.MARK_OF_BLOOD,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isOnGCD: true,
+      },
+
+      {
+        spell: SPELLS.TOMBSTONE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+      },
+
+      {
+        spell: SPELLS.RUNE_TAP_TALENT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isOnGCD: true,
+      },
+
+      {
+        spell: SPELLS.BONESTORM_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        isOnGCD: true,
+      },
+
     ];
   }
 }
