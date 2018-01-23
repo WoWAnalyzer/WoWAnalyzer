@@ -26,6 +26,7 @@ import DarkTitanAdvice from './Modules/Items/DarkTitanAdvice';
 import EssenceOfInfusion from './Modules/Items/EssenceOfInfusion';
 import SoulOfTheArchdruid from './Modules/Items/SoulOfTheArchdruid';
 import Tearstone from './Modules/Items/Tearstone';
+import AmanthulsWisdom from './Modules/Items/AmanthulsWisdom';
 import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
 import GarothiFeedbackConduit from './Modules/Items/GarothiFeedbackConduit';
 import CarafeOfSearingLight from './Modules/Items/CarafeOfSearingLight';
@@ -134,6 +135,7 @@ class CombatLogParser extends CoreCombatLogParser {
     essenceOfInfusion: EssenceOfInfusion,
     soulOfTheArchdruid: SoulOfTheArchdruid,
     tearstone: Tearstone,
+    amanthulsWisdom: AmanthulsWisdom,
     t19_2set: T19_2Set,
     t19_4set: T19_4Set,
     t20_2set: T20_2Set,

@@ -6,7 +6,6 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
 
-import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
 import HotTracker from '../Core/HotTracking/HotTracker';
@@ -29,7 +28,7 @@ class AmanthulsWisdom extends Analyzer {
     healing: 0,
     masteryHealing: 0,
     dreamwalkerHealing: 0,
-    procs: 0
+    procs: 0,
   };
 
   remainingProcs = {};
@@ -37,7 +36,7 @@ class AmanthulsWisdom extends Analyzer {
   rejuvApplications = 0;
 
   on_initialized() {
-    this.active = this.combatants.selected.hasWaist(ITEMS.AMANTHULS_WISDOM.id);
+    this.active = this.combatants.selected.hasShoulder(ITEMS.AMANTHULS_WISDOM.id);
   }
 
   on_byPlayer_heal(event) {
@@ -80,6 +79,7 @@ class AmanthulsWisdom extends Analyzer {
       return;
     }
 
+    this.rejuvApplications += 1;
     if (!this.remainingProcs[targetId]) {
       this.remainingProcs[targetId] = {};
     }
@@ -91,14 +91,14 @@ class AmanthulsWisdom extends Analyzer {
   }
 
   get extensionsPerApplication() {
-    return (this.attribution.procs / this.rejuvApplications) || 0;
+    return this.rejuvApplications === 0 ? 0 : (this.attribution.procs / this.rejuvApplications);
   }
 
   item() {
     return {
       item: ITEMS.AMANTHULS_WISDOM,
       result: (
-        <dfn data-tip={`You procced ${this.attribution.procs} Rejuvenation extensions, which is ${this.extensionsPerApplication} per application.
+        <dfn data-tip={`You procced <b>${this.attribution.procs}</b> Rejuvenation extensions, which is <b>${this.extensionsPerApplication.toFixed(1)}</b> procs per rejuvenation. The healing that extra HoT time did can be broken down as follows:
           <ul>
           <li>Direct: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.attribution.healing))}%</b></li>
           <li>Mastery: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.attribution.masteryHealing))}%</b></li>

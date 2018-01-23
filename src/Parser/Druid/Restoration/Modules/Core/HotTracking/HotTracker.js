@@ -150,7 +150,10 @@ class HotTracker extends Analyzer {
     hot.end += this._calculateExtension(this.hotInfo[spellId].duration, hot, spellId, true, true);
 
     hot.attributions = []; // new attributions on refresh
-    // TODO add handling for HoT extensions... how should extensions be handled in the case of an early refresh?
+
+    this._tallyExtensions(hot); // TODO how should extensions be handled in the case of an early refresh?
+    hot.extensions = [];
+
     hot.boosts = [];
   }
 
@@ -166,9 +169,7 @@ class HotTracker extends Analyzer {
     }
 
     this._checkRemovalTime(this.hots[targetId][spellId], event.timestamp, targetId);
-
-    // TODO here's where HoT extensions will actually be tallied
-    // TODO check how well actual HoT remove time matched with the expected HoT remove time
+    this._tallyExtensions(this.hots[targetId][spellId]);
 
     delete this.hots[targetId][spellId];
   }
@@ -214,6 +215,47 @@ class HotTracker extends Analyzer {
       });
     }
     debug && console.log(`${hot.name} on ${targetId} @${this.owner.formatTimestamp(this.owner.currentTimestamp, 1)} extended ${(finalAmount/1000).toFixed(1)}s by ${attribution.name}`);
+  }
+
+  /*
+   * For each attributed extension on a HoT, tallies the granted healing
+   */
+  _tallyExtensions(hot) {
+    hot.extensions.forEach(ext => {
+      this._tallyExtension(hot.ticks, ext.amount, ext.attribution);
+    });
+  }
+
+  _tallyExtension(ticks, amount, attribution) {
+    const now = this.owner.currentTimestamp;
+
+    let foundEarlier = false;
+    let latestOutside = now;
+    let healing = 0;
+    let masteryHealing = 0;
+    // sums healing of every tick within 'amount',
+    // also gets the latest tick outside the range, used to scale the healing amount
+    for (let i = ticks.length-1; i >= 0; i--) {
+      const tick = ticks[i];
+      latestOutside = tick.timestamp;
+      if ((now - tick.timestamp) > amount) {
+        foundEarlier = true;
+        break;
+      }
+
+      healing += tick.healing;
+      masteryHealing += tick.masteryHealing;
+      // TODO dreamwalker
+    }
+
+    if (foundEarlier) {
+      const scale = amount / (now - latestOutside);
+      attribution.healing += (healing * scale);
+      attribution.masteryHealing += (masteryHealing * scale);
+      // TODO dreamwalker
+    } else {
+      // TODO error log, because this means the extension was almost all the HoT's duration? Check for an early removal of HoT.
+    }
   }
 
   /*
