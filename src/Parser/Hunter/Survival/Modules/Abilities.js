@@ -1,6 +1,10 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
+import Wrapper from 'common/Wrapper';
+import SpellLink from 'common/SpellLink';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -53,7 +57,8 @@ class Abilities extends CoreAbilities {
         cooldown: 24,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: .75,
+          recommendedEfficiency: .70,
+          extraSuggestion: <Wrapper> Please do note, that because <SpellLink id={SPELLS.EXPLOSIVE_TRAP_CAST.id} icon /> is meant to be used as a filler spell, you might have bad cast efficiency on it, despite playing correctly because you had a lot of <SpellLink id={SPELLS.MONGOOSE_BITE.id} icon /> resets, in which case you'd ignore this suggestion. </Wrapper>,
         },
       },
       {
