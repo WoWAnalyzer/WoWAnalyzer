@@ -57,7 +57,7 @@ class DelusionsOfGrandeur extends Analyzer {
 			item: ITEMS.DELUSIONS_OF_GRANDEUR,
 			result:(
 				<dfn data-tip={`You wasted ${formatNumber(this.furyTracker.cooldownReductionWasted)} second of cooldown reduction.`}>
-					<Wrapper>Reduced the cooldown of <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} icon/> by a total of {formatNumber(this.furyTracker.cooldownReduction)} seconds.</Wrapper>
+					<Wrapper>Reduced the cooldown of <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} icon/> by {formatNumber(this.furyTracker.cooldownReduction / this.owner.fightDuration * 60000)} seconds per minute.</Wrapper>
 				</dfn>
 			),
 		};
