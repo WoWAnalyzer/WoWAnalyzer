@@ -135,6 +135,12 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.UNENDING_RESOLVE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 180,
+        castEfficiency: {
+          suggestion: false,
+          recommendedEfficiency: 0.40,
+          averageIssueEfficiency: 0.30,
+          majorIssueEfficiency: 0.20,
+        },
       },
       {
         spell: SPELLS.DEMONIC_CIRCLE_TALENT_SUMMON,
@@ -148,6 +154,12 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         enabled: combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
         isOnGCD: true,
+        castEfficiency: {
+          suggestion: false,
+          recommendedEfficiency: 0.40,
+          averageIssueEfficiency: 0.30,
+          majorIssueEfficiency: 0.20,
+        },
       },
       {
         spell: SPELLS.SOULSTONE,
