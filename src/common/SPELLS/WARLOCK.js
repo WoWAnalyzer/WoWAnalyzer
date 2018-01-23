@@ -298,7 +298,11 @@ export default {
     name: 'Affliction Warlock T21 4P bonus',
     icon: 'inv_helm_cloth_raidwarlock_s_01',
   },
-
+  WARLOCK_AFFLI_T21_4P_DEBUFF: {
+    id: 252938,
+    name: 'Tormented Agony',
+    icon: 'ability_warlock_improvedsoulleech',
+  },
 
   // Affliction artifact traits
   FATAL_ECHOES: {
