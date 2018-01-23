@@ -39,22 +39,19 @@ class Checklist extends CoreChecklist {
 
   rules = [
     new Rule({
-      name: 'Use core spells as often as possible',
-      description: 'Spells that are part of your main rotation.',
+      name: 'Fillers',
+      description: '',
       requirements: () => {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BLOOD_BOIL,
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.CONSUMPTION,
           }),
         ];
       },
     }),
     new Rule({
       name: 'Use these cooldowns as often as possible',
-      description: 'You should aim to use your cooldowns as often as you can to maximize your damage output',
+      description: 'You should aim to use your cooldowns as often as you can to maximize your damage output unless your saving them for thier defensive value.',
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -68,6 +65,9 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BLOODDRINKER_TALENT,
             when: combatant.hasTalent(SPELLS.BLOODDRINKER_TALENT.id),
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.CONSUMPTION,
           }),
         ];
       },
@@ -92,18 +92,38 @@ class Checklist extends CoreChecklist {
         ];
       },
     }),
+
     new Rule({
-      name: 'Try to avoid being inactive for a large portion of the fight',
-      description: <Wrapper>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  You can reduce downtime by casting ranged/filler abilities like <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id}/> or <SpellLink id={SPELLS.BLOOD_BOIL.id}/></Wrapper>,
+      name: 'Defensive Cooldowns',
+      description: 'Use these to block damage spikes and keep damage smooth to reduce healing need.',
       requirements: () => {
+        const combatant = this.combatants.selected;
         return [
-          new Requirement({
-            name: 'Downtime',
-            check: () => this.alwaysBeCasting.downtimeSuggestionThresholds,
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.VAMPIRIC_BLOOD,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.ICEBOUND_FORTITUDE,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.ANTI_MAGIC_SHELL,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.RUNE_TAP_TALENT,
+            when: combatant.hasTalent(SPELLS.RUNE_TAP_TALENT.id),
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.MARK_OF_BLOOD_TALENT,
+            when: combatant.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT.id),
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.TOMBSTONE_TALENT,
+            when: combatant.hasTalent(SPELLS.TOMBSTONE_TALENT.id),
           }),
         ];
       },
     }),
+
     new Rule({
       name: 'Avoid capping Runic Power',
       description: 'Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  Try to spend Runic Power before reaching the maximum amount to avoid wasting resources',
@@ -116,6 +136,20 @@ class Checklist extends CoreChecklist {
         ];
       },
     }),
+
+    new Rule({
+      name: 'Try to avoid being inactive for a large portion of the fight',
+      description: <Wrapper>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  You can reduce downtime by casting ranged/filler abilities like <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id}/> or <SpellLink id={SPELLS.BLOOD_BOIL.id}/></Wrapper>,
+      requirements: () => {
+        return [
+          new Requirement({
+            name: 'Downtime',
+            check: () => this.alwaysBeCasting.downtimeSuggestionThresholds,
+          }),
+        ];
+      },
+    }),
+
     new PreparationRule(),
   ]
 }
