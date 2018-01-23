@@ -94,6 +94,10 @@ class Abilities extends CoreAbilities {
           suggestion: true,
         },
       },
+      {
+        spell: SPELLS.DEATH_STRIKE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      },
     ];
   }
 }

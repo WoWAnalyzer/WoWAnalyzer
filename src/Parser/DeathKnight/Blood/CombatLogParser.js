@@ -21,6 +21,7 @@ import RunicPowerTracker from './Modules/RunicPower/RunicPowerTracker';
 import T20_2pc from './Modules/Items/T20_2pc';
 import T20_4pc from './Modules/Items/T20_4pc';
 import SkullflowersHaemostasis from './Modules/Items/SkullflowersHaemostasis';
+import ShacklesofBryndaor from './Modules/Items/ShacklesofBryndaor';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -62,6 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     skullflowersHaemostasis: SkullflowersHaemostasis,
 
 
+    shacklesofBryndaor:ShacklesofBryndaor,
   };
 }
 

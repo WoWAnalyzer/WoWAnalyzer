@@ -15,7 +15,7 @@ export default {
   // Damage Dealing
   // Provides the 1 RP tick on DnD from Rapid Decomposition Talent
   RAPID_DECOMPOSITION_RP_TICK: {
-    id: 188290,
+    id: 255203,
     name: 'Rapid Decomposition RP Tick',
     icon: 'ability_deathknight_deathsiphon2',
   },
@@ -602,4 +602,11 @@ export default {
     name: 'Haemostasis',
     icon: 'ability_deathwing_bloodcorruption_earth',
   },
-  };
+  
+  //Shackles of Bryndaor blood dk legendary buff
+  SHACKLES_OF_BRYNDAOR_BUFF: {
+    id: 209232,
+    name: 'Shackles of Bryndaor',
+    icon: 'ability_deathknight_runicimpowerment',
+  },
+};
