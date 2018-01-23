@@ -17,7 +17,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 1.0,
-          extraSuggestion: 'Only delay Vendetta if it will not reduce the total amount of casts.',
         },
       },
       {
@@ -49,7 +48,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-          extraSuggestion: 'Use on cooldown.',
         },
         enabled: combatant.hasTalent(SPELLS.DEATH_FROM_ABOVE_TALENT.id),
       },
