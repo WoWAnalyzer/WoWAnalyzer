@@ -316,6 +316,16 @@ export default {
     name: 'Gigantic Anger',
     icon: 'inv_60pvp_ring1a',
   },
+  ANGER_OF_THE_HALF_GIANTS_BUFF: {
+    id: 208827,
+    name: 'Anger of the Half Giants',
+    icon: 'inv_60pvp_ring1a',
+  },
+  RADDONS_CASCADING_EYES: {
+    id: 215149,
+    name: 'Raddon\'s Cascading Eyes',
+    icon: 'inv_misc_bandana_01',
+  },
   //Havoc Talents
   CHAOS_BLADES_DAMAGE_MH: {
     id: 211796,
