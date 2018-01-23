@@ -31,6 +31,13 @@ export default {
     mastery: false, 
     vers: true,
   },
+  [SPELLS.ESSENCE_FONT_BUFF.id]: {
+    int: true,
+    crit: true,
+    hasteHpm: true,
+    mastery: false, 
+    vers: true,
+  },
   [SPELLS.RENEWING_MIST_HEAL.id]: {
     int: true,
     crit: true,
@@ -63,7 +70,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.GUSTS_OF_MIST.id]: {
+  [SPELLS.GUSTS_OF_MISTS.id]: {
     int: false,
     crit: true,
     hasteHpm: false,
@@ -76,22 +83,87 @@ export default {
     crit: true,
     hasteHpm: false,
     hasteHpct: false,
-    mastery: false, // Procs Gusts
+    mastery: false,
     vers: true,
   },
-
-
-  /*
-LIFE_COCOON
-REVIVAL
-SOOTHING_MIST
-CRANE_HEAL
-REFRESHING_JADE_WIND_TALENT
-BLESSINGS_OF_YULON
-CELESTIAL_BREATH
-MISTS_OF_SHEILUN
-CHI_BOLT
-TRANQUIL_MIST
-*/
-
+  [SPELLS.CELESTIAL_BREATH.id]: { 
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: false,
+    mastery: false, 
+    vers: true,
+  },
+  [SPELLS.SOOTHING_MIST.id]: { 
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: true,
+    mastery: false, 
+    vers: true,
+  },
+  [SPELLS.REFRESHING_JADE_WIND_HEAL.id]: { 
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: false,
+    mastery: false, 
+    vers: true,
+  },
+  [SPELLS.MISTS_OF_SHEILUN.id]: { 
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: false,
+    mastery: false, 
+    vers: true,
+  },
+  [SPELLS.REVIVAL.id]: { 
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
+  [SPELLS.BLESSINGS_OF_YULON.id]: { 
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: false,
+    mastery: false, 
+    vers: true,
+  },
+  [SPELLS.LIFE_COCOON.id]: { 
+    int: true,
+    crit: false,
+    hasteHpm: false,
+    hasteHpct: false,
+    mastery: false, 
+    vers: true,
+  },
+  [SPELLS.CRANE_HEAL.id]: { 
+    int: true,
+    crit: false,
+    hasteHpm: false,
+    hasteHpct: true,
+    mastery: false, 
+    vers: true,
+  },
+  [SPELLS.TRANQUIL_MIST.id]: { // T21 2P HoT
+    int: true,
+    crit: true,
+    hasteHpm: true,
+    hasteHpct: false,
+    mastery: false, 
+    vers: true,
+  },
+  [SPELLS.CHI_BOLT.id]: { // T21 2P HoT
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: false,
+    mastery: false, 
+    vers: true,
+  },
 };

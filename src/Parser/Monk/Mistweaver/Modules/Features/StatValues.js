@@ -48,7 +48,7 @@ class StatValues extends BaseHealerStatValues {
           <b>The easiest advice here is to get Haste to a point you're comfortable at. This is usually around 5-9%.</b>
         `,
       },
-      // STAT.HASTE_HPM, this is always 0 for Holy Paladins
+      STAT.HASTE_HPM,
       STAT.MASTERY,
       STAT.VERSATILITY,
       STAT.VERSATILITY_DR,
