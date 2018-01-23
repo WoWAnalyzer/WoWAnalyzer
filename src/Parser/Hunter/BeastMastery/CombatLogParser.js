@@ -36,7 +36,7 @@ import KillerCobra from "./Modules/Talents/KillerCobra";
 import AMurderOfCrows from "./Modules/Talents/AMurderOfCrows";
 import BestialFury from './Modules/Talents/BestialFury';
 import Stomp from './Modules/Talents/Stomp';
-import AspectOfTheBeast from './Modules/Talents/AspectOfTheBeast';
+import AspectOfTheBeast from '../Shared/Modules/Talents/AspectOfTheBeast';
 import ChimaeraShot from './Modules/Talents/ChimaeraShot';
 import Barrage from '../Shared/Modules/Talents/Barrage';
 import Volley from '../Shared/Modules/Talents/Volley';

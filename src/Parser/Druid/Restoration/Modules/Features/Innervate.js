@@ -217,7 +217,7 @@ class Innervate extends Analyzer {
     return(
       <StatisticBox
         icon={<SpellIcon id={SPELLS.INNERVATE.id} />}
-        value={`${this.averageManaSaved.toFixed(0)} mana`}
+        value={`${formatNumber(this.averageManaSaved)} mana`}
         label="Mana saved per Innervate"
         tooltip={
           `<ul>

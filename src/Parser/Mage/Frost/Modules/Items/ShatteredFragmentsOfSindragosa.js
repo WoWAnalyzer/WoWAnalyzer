@@ -49,7 +49,7 @@ class ShatteredFragmentsOfSindragosa extends Analyzer {
   }
 
   get legendaryDamage() {
-    return (this.damage / (this.comerStormCasts + this.legendaryProcs)) * this.legendaryProcs;
+    return (this.damage / (this.cometStormCasts + this.legendaryProcs)) * this.legendaryProcs;
   }
 
   item() {

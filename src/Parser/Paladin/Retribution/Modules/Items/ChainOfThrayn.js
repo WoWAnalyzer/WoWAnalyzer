@@ -23,6 +23,10 @@ class ChainOfThrayn extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
+    if (event.targetIsFriendly) {
+      // Friendly fire does not get increased
+      return;
+    }
     if (this.combatants.selected.hasBuff(SPELLS.CRUSADE_TALENT.id) || this.combatants.selected.hasBuff(SPELLS.AVENGING_WRATH_RET.id)) {
       this.damageDone += GetDamageBonus(event, CHAIN_OF_THRAYN_INCREASE);
     }

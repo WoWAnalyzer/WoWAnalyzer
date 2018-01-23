@@ -5,6 +5,11 @@ import Wrapper from 'common/Wrapper';
 
 export default [
   {
+    date: new Date('2018-01-18'),
+    changes: <Wrapper>Updated Essence Font HoT usage thresholds to lower values based on current healing methods. Also, fixed a rare 'NaN' error.</Wrapper>,
+    contributors: [Anomoly],
+  },
+  {
     date: new Date('2017-12-29'),
     changes: 'Fixed display in the timeline and the inclusion in active time of channeled abilities.',
     contributors: [Zerotorescue],

@@ -13,11 +13,13 @@ import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
 
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 import UnstableMagic from '../Shared/Modules/Features/UnstableMagic';
+import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
 import Kindling from './Modules/Features/Kindling';
 import PhoenixsFlames from './Modules/Features/PhoenixsFlames';
 import HotStreak from './Modules/Features/HotStreak';
 import Combustion from './Modules/Features/Combustion';
 import HeatingUp from './Modules/Features/HeatingUp';
+import Cinderstorm from './Modules/Features/Cinderstorm';
 
 import Tier20_4set from './Modules/Items/Tier20_4set';
 import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
@@ -48,10 +50,12 @@ class CombatLogParser extends CoreCombatLogParser {
     hotStreak: HotStreak,
     combustion: Combustion,
     heatingUp: HeatingUp,
+    cinderstorm: Cinderstorm,
 
     // Talents
     mirrorImage: MirrorImage,
     unstableMagic: UnstableMagic,
+    runeOfPower: [RuneOfPower, { showStatistic: false, showSuggestion: false }],
     kindling: Kindling,
 
 	  //Items

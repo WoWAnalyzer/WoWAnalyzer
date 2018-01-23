@@ -1,11 +1,11 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-//import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
+import Wrapper from 'common/Wrapper';
+
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
-//import ItemLink from 'common/ItemLink';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -18,7 +18,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-          extraSuggestion: <span>Making sure to use <SpellLink id={SPELLS.SINDRAGOSAS_FURY_ARTIFACT.id} /> immediately after it's cooldown is up is important and if you have 5 stacks of <SpellLink id={SPELLS.RAZORICE.id} /> use as it is coming off cooldown.</span>,
+          extraSuggestion: <Wrapper>Making sure to use <SpellLink id={SPELLS.SINDRAGOSAS_FURY_ARTIFACT.id} /> immediately after it's cooldown is up is important and if you have 5 stacks of <SpellLink id={SPELLS.RAZORICE.id} /> use as it is coming off cooldown.</Wrapper>,
         },
       },
       {
@@ -29,7 +29,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
-          extraSuggestion: 'Normally you should be using this off CD.',
+          extraSuggestion: 'Only save it if you are about to move and will waste more than half the duration.',
         },
       },
       {
@@ -40,17 +40,17 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
-          extraSuggestion: <span>Normally you should be using this off CD.</span>,
+          extraSuggestion: 'You should only save this if you are about to move and would immediately lose the breath.',
         },
       },
       {
         spell: SPELLS.PILLAR_OF_FROST, // TO DO: Add support for Gravewarden extension bonus, Ice Cap reduction
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (haste, combatant) => 60 - (combatant.hasBuff(SPELLS.ICECAP_TALENT.id) ? 3 : 0),
+        cooldown: 60,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
-          extraSuggestion: <span>Normally you should be using this off CD.</span>,
+          extraSuggestion: 'You should aim to use this off CD.  Only save it if you are about to move and will waste more than half the duration.',
         },
       },
       {
@@ -59,8 +59,8 @@ class Abilities extends CoreAbilities {
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
-          extraSuggestion: <span>Normally you should be using this off CD.</span>,
+          recommendedEfficiency: 0.60,
+          extraSuggestion: <Wrapper>You should use this whenever you are out of Runes and Runic Power.  Alternatively, some players use this during heroism to get more casts of <SpellLink id={SPELLS.OBLITERATE.id}/>.</Wrapper>,
         },
       },
       {
@@ -71,7 +71,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
-          extraSuggestion: <span>Normally you should be using this off CD.</span>,
         },
       },
       {

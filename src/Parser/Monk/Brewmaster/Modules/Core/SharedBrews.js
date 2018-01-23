@@ -22,15 +22,10 @@ class SharedBrews extends Analyzer {
     if(this.spellUsable.isOnCooldown(SPELLS.FORTIFYING_BREW_BRM.id)) {
       this.spellUsable.reduceCooldown(SPELLS.FORTIFYING_BREW_BRM.id, amount);
     }
-    if(!this.spellUsable.isOnCooldown(SPELLS.FAKE_SHARED_BREWS.id)) {
+    if(!this.spellUsable.isOnCooldown(SPELLS.IRONSKIN_BREW.id)) {
       return 0;
     }
-    return this.spellUsable.reduceCooldown(SPELLS.FAKE_SHARED_BREWS.id, amount);
-  }
-
-  consumeCharge(event) {
-    this.spellUsable.beginCooldown(SPELLS.FAKE_SHARED_BREWS.id);
-    this.spellHistory._append(SPELLS.FAKE_SHARED_BREWS.id, event);
+    return this.spellUsable.reduceCooldown(SPELLS.IRONSKIN_BREW.id, amount);
   }
 }
 

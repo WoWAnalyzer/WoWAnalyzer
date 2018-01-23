@@ -15,7 +15,7 @@ export default {
   // Damage Dealing
   // Provides the 1 RP tick on DnD from Rapid Decomposition Talent
   RAPID_DECOMPOSITION_RP_TICK: {
-    id: 188290,
+    id: 255203,
     name: 'Rapid Decomposition RP Tick',
     icon: 'ability_deathknight_deathsiphon2',
   },
@@ -106,7 +106,7 @@ export default {
   UNENDING_THIRST: {
     id: 192567,
     name: 'Unending Thirst',
-    icon: 'inv_axe_2h_artifactmaw_d_02',
+    icon: 'ability_ironmaidens_whirlofblood',
   },
   VAMPIRIC_AURA: {
     id: 238698,
@@ -119,6 +119,13 @@ export default {
     id: 108199,
     name: 'Gorefiend\'s Grasp',
     icon: 'ability_deathknight_aoedeathgrip',
+  },
+
+  //Blood DK Version
+  ASPHYXIATE: {
+    id: 221562,
+    name: 'Asphyxiate',
+    icon: 'ability_deathknight_asphixiate',
   },
 
   // Blood Tier Sets
@@ -146,7 +153,7 @@ export default {
   SINDRAGOSAS_FURY_ARTIFACT: {
     id: 190778,
     name: 'Sindragosa\'s Fury',
-    icon: 'spell_deathknight_frostfever',
+    icon: 'achievement_boss_sindragosa',
   },
   // Damage Dealing
   FROST_FEVER: {
@@ -169,12 +176,17 @@ export default {
     name: 'Howling Blast',
     icon: 'spell_frost_arcticwinds',
   },
-  REMORSELESS_WINTER_STACKS: {
+  REMORSELESS_WINTER_ENV_CAST: {
+    id: 211793,
+    name: 'Remorseless Winter',
+    icon: 'ability_deathknight_remorselesswinters2',
+  },
+  REMORSELESS_WINTER_BUFF: {
     id: 196771,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
   },
-  REMORSELESS_WINTER: {
+  REMORSELESS_WINTER: { // This the spell the player see
     id: 196770,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
@@ -583,5 +595,12 @@ export default {
     id: 248397,
     name: 'Cold Heart',
     icon: 'spell_frost_chainsofice',
+  },
+
+  //Shackles of Bryndaor blood dk legendary buff
+  SHACKLES_OF_BRYNDAOR_BUFF: {
+    id: 209232,
+    name: 'Shackles of Bryndaor',
+    icon: 'ability_deathknight_runicimpowerment',
   },
 };

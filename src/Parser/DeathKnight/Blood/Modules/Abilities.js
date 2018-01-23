@@ -8,7 +8,7 @@ class Abilities extends CoreAbilities {
     return [
       {
         spell: SPELLS.ICEBOUND_FORTITUDE,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
@@ -19,7 +19,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.VAMPIRIC_BLOOD,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 90,
         castEfficiency: {
           suggestion: true,
@@ -45,6 +45,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLOOD_BOIL,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 7.5 / (1 + haste),
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
@@ -94,6 +95,122 @@ class Abilities extends CoreAbilities {
           suggestion: true,
         },
       },
+      {
+        spell: SPELLS.DEATH_STRIKE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
+      },
+
+      {
+        spell: SPELLS.DEATHS_CARESS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
+      },
+
+      {
+        spell: SPELLS.DEATH_AND_DECAY,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
+      },
+
+      {
+        spell: SPELLS.HEART_STRIKE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
+      },
+
+      {
+        spell: SPELLS.MARROWREND,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
+      },
+
+      {
+        spell: SPELLS.ANTI_MAGIC_SHELL,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isOnGCD: true,
+      },
+
+      {
+        spell: SPELLS.MIND_FREEZE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+      },
+
+      {
+        spell: SPELLS.DARK_COMMAND,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+      },
+
+      {
+        spell: SPELLS.DEATH_GRIP,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        //isOnGCD: true, special GCD have to look into it
+      },
+
+      {
+        spell: SPELLS.WRAITH_WALK,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: true,
+      },
+
+      {
+        spell: SPELLS.GOREFIENDS_GRASP,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: true,
+      },
+
+      {
+        spell: SPELLS.RAISE_ALLY,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: true,
+      },
+
+      {
+        spell: SPELLS.ASPHYXIATE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: true,
+      },
+
+      {
+        spell: SPELLS.CONTROL_UNDEAD,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        isOnGCD: true,
+      },
+
+      {
+        spell: SPELLS.DEATH_GATE,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        isOnGCD: true,
+      },
+
+      {
+        spell: SPELLS.BLOOD_TAP_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+      },
+
+      {
+        spell: SPELLS.MARK_OF_BLOOD,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isOnGCD: true,
+      },
+
+      {
+        spell: SPELLS.TOMBSTONE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+      },
+
+      {
+        spell: SPELLS.RUNE_TAP_TALENT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isOnGCD: true,
+      },
+
+      {
+        spell: SPELLS.BONESTORM_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        isOnGCD: true,
+      },
+
     ];
   }
 }

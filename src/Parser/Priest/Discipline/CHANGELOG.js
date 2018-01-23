@@ -11,8 +11,13 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-01-18'),
+    changes: <Wrapper>Added HPS, total healing and overheal to the <b>atonement sources</b> tab.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2017-12-29'),
-    changes: <Wrapper>Fixed display in the timeline and the inclusion in active time of Penance.</Wrapper>,
+    changes: 'Fixed display in the timeline and the inclusion in active time of Penance.',
     contributors: [Zerotorescue],
   },
   {

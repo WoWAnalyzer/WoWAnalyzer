@@ -8,6 +8,12 @@ Run it: [https://wowanalyzer.com](https://wowanalyzer.com)
 
 Feature requests (and bug reports provided that you're not using one of Microsoft's browsers) are welcome! On our Discord: https://discord.gg/AxphPxU or create an issue [here](https://github.com/WoWAnalyzer/WoWAnalyzer/issues).
 
+## Battle for Azeroth
+
+Battle for Azeroth changes will be applied to the [bfa](https://github.com/WoWAnalyzer/WoWAnalyzer/tree/bfa) branch. Any changes to this branch will automatically be deployed here: https://bfa.wowanalyzer.com.
+
+When you make a pull request for the `bfa` branch please include BFA in the title of your PR.
+
 ## Contributing
 
 You don't need to to do anything special to add a spec. The real issue preventing specs from being added is that in order to add a spec, you need to have the following 3 properties:
