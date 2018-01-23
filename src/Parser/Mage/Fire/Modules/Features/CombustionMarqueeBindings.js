@@ -25,7 +25,6 @@ class CombustionMarqueeBindings extends Analyzer {
   pyroblastCastTimestamp = 0;
   expectedPyroblastCasts = 0;
   actualPyroblastCasts = 0;
-  didntLandDuringCombustion = 0;
 
   //Check for Marquee Bindings Item, and calculate the duration of Combustion
   //Accounts for the extra 2 seconds from Tier 21 2 Set, and 1 Second per point of Pre Ignited
@@ -47,19 +46,6 @@ class CombustionMarqueeBindings extends Analyzer {
       return;
     }
     this.pyroblastCastTimestamp = event.timestamp;
-  }
-
-  //Check to see if the Bracer Proc used during Combustion landed while Combustion was still active.
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.PYROBLAST.id || !this.buffUsedDuringCombustion) {
-      return;
-    }
-    this.buffUsedDuringCombustion = false;
-    if (!this.combatants.selected.hasBuff(SPELLS.COMBUSTION.id)) {
-      this.didntLandDuringCombustion += 1;
-      debug && console.log("Pyroblast Did Not Land During Combustion @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-    }
   }
 
   on_toPlayer_applybuff(event) {
@@ -100,15 +86,10 @@ class CombustionMarqueeBindings extends Analyzer {
     debug && console.log('Combustion Duration MS: ' + this.combustionDuration);
     debug && console.log('Expected Pyroblasts: ' + this.expectedPyroblastCasts);
     debug && console.log('Actual Pyroblasts: ' + this.actualPyroblastCasts);
-    debug && console.log('Hard Cast Pyroblasts that didnt land during Combustion: ' + this.didntLandDuringCombustion);
   }
 
   get bracerBuffUtil() {
     return (this.actualPyroblastCasts / this.expectedPyroblastCasts) || 0;
-  }
-
-  get landedDuringCombustionPercent() {
-    return 1 - (this.didntLandDuringCombustion / this.actualPyroblastCasts);
   }
 
   get combustionEndTime() {
@@ -127,31 +108,12 @@ class CombustionMarqueeBindings extends Analyzer {
     };
   }
 
-  get pyroblastLandPercentThresholds() {
-    return {
-      actual: this.landedDuringCombustionPercent,
-      isLessThan: {
-        minor: 1,
-        average: .70,
-        major: .40,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     when(this.bracerUtilThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<Wrapper>During <SpellLink id={SPELLS.COMBUSTION.id}/> you had enough time to use {this.expectedPyroblastCasts} procs from your <ItemLink id={ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id}/>, but you only used {this.actualPyroblastCasts} of them. If there is more than 5 seconds of Combustion left, you should use your proc so that your hard casted <SpellLink id={SPELLS.PYROBLAST.id}/> will do 300% damage and be guaranteed to crit.</Wrapper>)
           .icon(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.icon)
           .actual(`${formatPercentage(this.bracerBuffUtil)}% Utilization`)
-          .recommended(`${formatPercentage(recommended)} is recommended`);
-      });
-    when(this.pyroblastLandPercentThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>During <SpellLink id={SPELLS.COMBUSTION.id}/> you used your <ItemLink id={ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id}/> procs and hard casted <SpellLink id={SPELLS.PYROBLAST.id}/> {this.actualPyroblastCasts} times, but {this.didntLandDuringCombustion} of them did not land while Combustion was up. Make sure you are casting Pyroblast with enough time for it to hit the target during Combustion, or move closer to the target to reduce the travel time of the spell.</Wrapper>)
-          .icon(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.icon)
-          .actual(`${formatPercentage(this.landedDuringCombustionPercent)}% Landed During Combustion`)
           .recommended(`${formatPercentage(recommended)} is recommended`);
       });
   }

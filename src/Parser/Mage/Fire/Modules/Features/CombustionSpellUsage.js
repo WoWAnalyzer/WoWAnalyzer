@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import { formatMilliseconds, formatPercentage } from 'common/format';
+import { formatMilliseconds, formatNumber } from 'common/format';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
@@ -52,8 +52,8 @@ class CombustionSpellUsage extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<Wrapper>You cast <SpellLink id={SPELLS.FIREBALL.id}/> or <SpellLink id={SPELLS.SCORCH.id}/> {this.castedWithInstants} times ({this.castsWithInstantsPerCombustion.toFixed(2)} per Combustion) while you had charges of <SpellLink id={SPELLS.FIRE_BLAST.id}/> or <SpellLink id={SPELLS.PHOENIXS_FLAMES.id}/> available. Make sure you are using up all of your charges of Fire Blast and Phoenix Flames before using Fireball or Scorch during Combustion.</Wrapper>)
           .icon(SPELLS.COMBUSTION.icon)
-          .actual(`${formatPercentage(this.castsWithInstantsPerCombustion)} Casts Per Combustion`)
-          .recommended(`${formatPercentage(recommended)} is recommended`);
+          .actual(`${this.castsWithInstantsPerCombustion.toFixed(2)} Casts Per Combustion`)
+          .recommended(`${formatNumber(recommended)} is recommended`);
       });
   }
 }
