@@ -9,6 +9,9 @@ import Wrapper from 'common/Wrapper';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
+const MAX_BUFF_STACKS = 5;
+const PERCENT_BUFF=0.2;
+
 class SkullflowersHaemostasis extends Analyzer {
 
   static dependencies = {
@@ -21,10 +24,8 @@ class SkullflowersHaemostasis extends Analyzer {
 
   buffStack = 0;
   wastedBuff = 0;
-  maxBuffStacks = 5;
   damage=0;
   heal=0;
-  percentBuff=0.2;
   deathStrikeDamageIsDone = false;
   deathStrikeHealingIsDone = false;
 
@@ -40,9 +41,9 @@ class SkullflowersHaemostasis extends Analyzer {
     if (event.ability.guid !== SPELLS.HAEMOSTASIS_BUFF.id) {
       return;
     }
-    if (this.buffstack >= this.maxBuffStacks) {
+    if (this.buffstack >= MAX_BUFF_STACKS) {
       this.wastedBuff += 1;
-      this.buffStack = this.maxBuffStacks;
+      this.buffStack = MAX_BUFF_STACKS;
     }
     else {
       this.buffStack += 1;
@@ -53,9 +54,9 @@ class SkullflowersHaemostasis extends Analyzer {
     if (event.ability.guid !== SPELLS.DEATH_STRIKE_HEAL.id) {
       return;
     }
-    this.heal += calculateEffectiveHealing(event,this.percentBuff * this.buffStack);
+    this.heal += calculateEffectiveHealing(event,PERCENT_BUFF * this.buffStack);
     this.deathStrikeHealingIsDone = true;
-    if (this.deathStrikeHealingIsDone && this.deathStrikeDamageIsDone === true) {
+    if (this.deathStrikeHealingIsDone && this.deathStrikeDamageIsDone) {
       this.buffStack = 0;
       this.deathStrikeDamageIsDone = false;
       this.deathStrikeHealingIsDone = false;
@@ -66,9 +67,9 @@ class SkullflowersHaemostasis extends Analyzer {
     if (event.ability.guid !== SPELLS.DEATH_STRIKE.id) {
       return;
     }
-    this.damage += calculateEffectiveDamage(event,this.percentBuff * this.buffStack);
+    this.damage += calculateEffectiveDamage(event,PERCENT_BUFF * this.buffStack);
     this.deathStrikeDamageIsDone = true;
-    if (this.deathStrikeHealingIsDone && this.deathStrikeDamageIsDone === true) {
+    if (this.deathStrikeHealingIsDone && this.deathStrikeDamageIsDone) {
       this.buffStack = 0;
       this.deathStrikeDamageIsDone = false;
       this.deathStrikeHealingIsDone = false;
