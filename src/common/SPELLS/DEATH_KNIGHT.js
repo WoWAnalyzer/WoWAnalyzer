@@ -121,6 +121,13 @@ export default {
     icon: 'ability_deathknight_aoedeathgrip',
   },
 
+  //Blood DK Version
+  ASPHYXIATE: {
+    id: 221562,
+    name: 'Asphyxiate',
+    icon: 'ability_deathknight_asphixiate',
+  },
+
   // Blood Tier Sets
   // T20 2 Piece
   BLOOD_DEATH_KNIGHT_T20_2SET_BONUS_BUFF: {
