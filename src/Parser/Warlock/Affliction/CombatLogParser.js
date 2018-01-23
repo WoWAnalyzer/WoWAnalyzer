@@ -36,6 +36,7 @@ import ReapAndSow from './Modules/Items/Legendaries/ReapAndSow';
 
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
+import Tier21_2set from './Modules/Items/Tier21_2set';
 
 import Checklist from './Modules/Features/Checklist';
 
@@ -84,6 +85,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Items
     tier20_2set: Tier20_2set,
     tier20_4set: Tier20_4set,
+    tier21_2set: Tier21_2set,
   };
 }
 
