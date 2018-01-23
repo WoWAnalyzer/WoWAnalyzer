@@ -50,7 +50,7 @@ export default {
     int: true,
     crit: true,
     hasteHpm: false,
-    hasteHpct: true,
+    hasteHpct: false,
     mastery: true, // Procs Gusts
     vers: true,
   },
@@ -71,7 +71,7 @@ export default {
     vers: true,
   },
   [SPELLS.GUSTS_OF_MISTS.id]: {
-    int: false,
+    int: true,
     crit: true,
     hasteHpm: false,
     hasteHpct: false,
@@ -106,7 +106,7 @@ export default {
     int: true,
     crit: true,
     hasteHpm: false,
-    hasteHpct: false,
+    hasteHpct: true,
     mastery: false, 
     vers: true,
   },
