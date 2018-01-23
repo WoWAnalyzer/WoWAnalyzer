@@ -7,7 +7,7 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 
 import AgonyUptime from './Modules/Features/AgonyUptime';
 import CorruptionUptime from './Modules/Features/CorruptionUptime';
-import UABuffTracker from './Modules/Features/UABuffTracker';
+import ReapBuffTracker from './Modules/Features/ReapBuffTracker';
 
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
@@ -26,6 +26,7 @@ import SoulHarvest from './Modules/Talents/SoulHarvest';
 import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
 import DeathsEmbrace from './Modules/Talents/DeathsEmbrace';
 import SiphonLifeUptime from './Modules/Talents/SiphonLifeUptime';
+import SoulConduit from './Modules/Talents/SoulConduit';
 
 import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
 import StretensSleeplessShackles from './Modules/Items/Legendaries/StretensSleeplessShackles';
@@ -54,7 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // DoTs
     agonyUptime: AgonyUptime,
     corruptionUptime: CorruptionUptime,
-    uaBuffTracker: UABuffTracker,
+    reapBuffTracker: ReapBuffTracker,
 
     // Core
     soulShardTracker: SoulShardTracker,
@@ -72,6 +73,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soulHarvestTalent: SoulHarvestTalent,
     deathsEmbrace: DeathsEmbrace,
     siphonLifeUptime: SiphonLifeUptime,
+    soulConduit: SoulConduit,
 
     // Legendaries
     masterHarvester: TheMasterHarvester,
