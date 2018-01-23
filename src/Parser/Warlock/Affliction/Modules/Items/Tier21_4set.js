@@ -16,7 +16,6 @@ const AFFECTED_ABILITIES = new Set([
   SPELLS.SIPHON_LIFE_TALENT.id,
 ]);
 const DAMAGE_BONUS = 0.15;
-const debug = false;
 
 // When you cast Unstable Affliction or Seed of Corruption, all targets within 60 yards suffering from your Agony take 15% increased damage from your Corruption and Agony for 8 sec.
 class Tier21_4set extends Analyzer {
