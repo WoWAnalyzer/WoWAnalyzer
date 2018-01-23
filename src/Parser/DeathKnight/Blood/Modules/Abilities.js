@@ -46,6 +46,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 7.5 / (1 + haste),
         isOnGCD: true,
+        charges: 2,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
@@ -130,6 +131,12 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isOnGCD: true,
         cooldown: 60,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.50,
+          extraSuggestion: 'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
+          importance: ISSUE_IMPORTANCE.MINOR,
+        },
       },
 
       {
@@ -198,6 +205,12 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.BLOOD_TAP_TALENT.id),
         cooldown: 60,
         charges: 2,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.50,
+          extraSuggestion: 'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
+          importance: ISSUE_IMPORTANCE.MINOR,
+        },
       },
 
       {
@@ -205,6 +218,12 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         enabled: combatant.hasTalent(SPELLS.MARK_OF_BLOOD.id),
         isOnGCD: true,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.50,
+          extraSuggestion: 'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
+          importance: ISSUE_IMPORTANCE.MINOR,
+        },
       },
 
       {
@@ -212,6 +231,12 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         enabled: combatant.hasTalent(SPELLS.TOMBSTONE_TALENT.id),
         cooldown: 60,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.50,
+          extraSuggestion: 'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
+          importance: ISSUE_IMPORTANCE.MINOR,
+        },
       },
 
       {
@@ -221,6 +246,12 @@ class Abilities extends CoreAbilities {
         cooldown: 25,
         isOnGCD: true,
         charges: 2,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.50,
+          extraSuggestion: 'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
+          importance: ISSUE_IMPORTANCE.MINOR,
+        },
       },
 
       {
