@@ -7,6 +7,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-01-24'),
+    changes: 'Added a focus usage chart to track what you\'re spending your focus on',
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-01-18'),
     changes: <Wrapper>Added support for <SpellLink id={SPELLS.HUNTER_SV_T20_2P_BONUS.id} icon />, <SpellLink id={SPELLS.HUNTER_SV_T20_4P_BONUS.id} icon />, <SpellLink id={SPELLS.HUNTER_SV_T21_2P_BONUS.id} icon />, <SpellLink id={SPELLS.HUNTER_SV_T21_4P_BONUS.id} icon />.</Wrapper>,
     contributors: [Putro],

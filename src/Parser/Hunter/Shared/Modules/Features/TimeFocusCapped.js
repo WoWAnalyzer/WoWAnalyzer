@@ -64,9 +64,9 @@ class TimeFocusCapped extends Analyzer {
     let average;
     let major;
     if (this.combatants.selected.spec === SPECS.SURVIVAL_HUNTER) {
-      minor = 0.04;
-      average = 0.06;
-      major = 0.08;
+      minor = 0.06;
+      average = 0.08;
+      major = 0.1;
     } else {
       minor = 0.025;
       average = 0.035;
