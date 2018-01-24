@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -27,16 +26,16 @@ class DelusionsOfGrandeur extends Analyzer {
 		this.active = this.combatants.selected.hasShoulder(ITEMS.DELUSIONS_OF_GRANDEUR.id);
 	}
 
-	get percentCDRWasted(){
-		return this.furyTracker.cooldownReductionWasted / this.furyTracker.cooldownReduction;
+	get cooldownReductionRatio(){
+		return this.furyTracker.cooldownReduction / (this.owner.fightDuration + this.furyTracker.cooldownReduction);
 	}
 
 	item() {
 		return {
 			item: ITEMS.DELUSIONS_OF_GRANDEUR,
 			result:(
-				<dfn data-tip={`You wasted ${formatNumber(this.furyTracker.cooldownReductionWasted)} second of cooldown reduction.`}>
-					<Wrapper>Reduced the cooldown of <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} icon/> by {formatNumber(this.furyTracker.cooldownReduction / this.owner.fightDuration * 60000)} seconds per minute.</Wrapper>
+				<dfn data-tip={`You had ${formatNumber(this.furyTracker.cooldownReduction / 1000)} seconds of cooldown reduction, ${formatNumber(this.furyTracker.cooldownReductionWasted / 1000)} seconds of which were wasted.`}>
+					<Wrapper>Reduced the cooldown of <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} icon/> by {formatPercentage(this.cooldownReductionRatio)}%</Wrapper>
 				</dfn>
 			),
 		};

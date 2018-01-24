@@ -8,14 +8,13 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import Momentum from './Modules/Spells/Momentum';
 import Nemesis from './Modules/Spells/Nemesis';
 
-import RaddonsCascadingEyes from './Modules/Items/RaddonsCascadingEyes';
-
 //Resources
 import FuryDetails from './Modules/ResourceTracker/FuryDetails';
 import FuryTracker from './Modules/ResourceTracker/FuryTracker';
 
 //Items
 import DelusionsOfGrandeur from './Modules/Items/DelusionsOfGrandeur';
+import RaddonsCascadingEyes from './Modules/Items/RaddonsCascadingEyes';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

@@ -5,6 +5,8 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
+const DOG_COOLDOWN_REDUCTION_MS = 1000/30;
+
 class FuryTracker extends ResourceTracker {
 	static dependencies = {
 		combatants: Combatants,
@@ -45,22 +47,21 @@ class FuryTracker extends ResourceTracker {
 		if(!this.combatants.selected.hasShoulder(ITEMS.DELUSIONS_OF_GRANDEUR.id)){
 			return;
 		}
-		const COOLDOWN_REDUCTION_MS = 1000/30;
 		const spellId = SPELLS.METAMORPHOSIS_HAVOC.id;
 		if(!this.spellUsable.isOnCooldown(spellId)){
-			this.totalCooldownReductionWasted += cost * COOLDOWN_REDUCTION_MS;
+			this.totalCooldownReductionWasted += cost * DOG_COOLDOWN_REDUCTION_MS;
 			return;
 		}
-		const reduction = this.spellUsable.reduceCooldown(spellId, cost * COOLDOWN_REDUCTION_MS);
+		const reduction = this.spellUsable.reduceCooldown(spellId, cost * DOG_COOLDOWN_REDUCTION_MS);
 		this.totalCooldownReduction += reduction;
 	}
 
 	get cooldownReduction(){
-    return this.totalCooldownReduction / 1000;
+    return this.totalCooldownReduction;
   }
 
   get cooldownReductionWasted(){
-    return this.totalCooldownReductionWasted / 1000;
+    return this.totalCooldownReductionWasted;
   }
 }
 
