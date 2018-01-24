@@ -775,4 +775,16 @@ export default {
     name: 'Thrash',
     icon: 'spell_druid_thrash',
   },
+  // Traits:
+  // The Ashamane's Bite trait creates the Ashamane's Rip debuff.
+  ASHAMANES_BITE: {
+    id: 210702,
+    name: 'Ashamane\'s Bite',
+    icon: 'artifactability_feraldruid_ashamanesbite',
+  },
+  ASHAMANES_RIP: {
+    id: 210705,
+    name: 'Ashamane\'s Rip',
+    icon: 'artifactability_feraldruid_ashamanesbite',
+  },
 };
