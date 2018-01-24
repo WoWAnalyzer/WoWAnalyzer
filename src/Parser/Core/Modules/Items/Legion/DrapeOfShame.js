@@ -39,7 +39,7 @@ class DrapeOfShame extends Analyzer {
   }
 
   getCritEffectBonus(critEffectModifier, event) {
-    return critEffectModifier + 0.05;
+    return critEffectModifier + DRAPE_OF_SHAME_CRIT_EFFECT;
   }
 
   on_byPlayer_heal(event) {

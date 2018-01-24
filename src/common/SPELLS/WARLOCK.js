@@ -288,6 +288,21 @@ export default {
     name: 'Demonic Speed',
     icon: 'spell_shadow_soulleech_3',
   },
+  WARLOCK_AFFLI_T21_2P_BONUS: {
+    id: 251847,
+    name: 'Affliction Warlock T21 2P bonus',
+    icon: 'inv_shoulder_cloth_raidwarlock_s_01',
+  },
+  WARLOCK_AFFLI_T21_4P_BONUS: {
+    id: 251849,
+    name: 'Affliction Warlock T21 4P bonus',
+    icon: 'inv_helm_cloth_raidwarlock_s_01',
+  },
+  WARLOCK_AFFLI_T21_4P_DEBUFF: {
+    id: 252938,
+    name: 'Tormented Agony',
+    icon: 'ability_warlock_improvedsoulleech',
+  },
 
   // Affliction artifact traits
   FATAL_ECHOES: {

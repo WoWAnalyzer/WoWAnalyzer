@@ -14,13 +14,13 @@ import SpellLink from 'common/SpellLink';
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 import getDamageBonus from '../WarlockCore/getDamageBonus';
 
-const AFFECTED_ABILITIES = new Set([
+const AFFECTED_ABILITIES = [
   SPELLS.AGONY.id,
   SPELLS.CORRUPTION_DEBUFF.id,
   SPELLS.SIPHON_LIFE_TALENT.id,
   ...UNSTABLE_AFFLICTION_DEBUFF_IDS,
-]);
-const UA_IDS_SET = new Set(UNSTABLE_AFFLICTION_DEBUFF_IDS);
+];
+
 const MALEFIC_GRASP_DAMAGE_BONUS = 0.25;
 
 class MaleficGrasp extends Analyzer {
@@ -44,7 +44,7 @@ class MaleficGrasp extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (!AFFECTED_ABILITIES.has(spellId)) {
+    if (!AFFECTED_ABILITIES.includes(spellId)) {
       return;
     }
 

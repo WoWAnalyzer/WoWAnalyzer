@@ -11,6 +11,11 @@ export default {
     name: 'Arcane Torrent',
     icon: 'spell_shadow_teleport',
   },
+  ARCANE_TORRENT_RUNIC_POWER: {
+    id: 50613,
+    name: 'Arcane Torrent',
+    icon: 'spell_shadow_teleport',
+  },
   // Troll
   BERSERKING: {
     id: 26297,
