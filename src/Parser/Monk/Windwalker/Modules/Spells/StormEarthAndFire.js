@@ -83,7 +83,7 @@ class StormEarthAndFire extends Analyzer{
        label={
           <div>
           During your {this.sefCount} {icon.name}s you cast: 
-          <li>{this.risingSunKicks}/{this.sefCount*2+1} Rising Sun kicks</li> 
+          <li>{this.risingSunKicks}/{this.sefCount*2+1} Rising Sun Kicks</li> 
           <li>{this.fistsOfFuries}/{this.sefCount} Fists of Furies</li>
           <li>{this.strikeOfTheWindlords}/{this.sefCount} Strikes of the Windlord</li>
               {this.whirlingDragonPunches > 0
