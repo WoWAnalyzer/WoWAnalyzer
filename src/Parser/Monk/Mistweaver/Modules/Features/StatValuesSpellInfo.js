@@ -21,7 +21,7 @@ export default {
     crit: true,
     hasteHpm: true,
     hasteHpct: true,
-    mastery: true, //Procs Gusts
+    mastery: false, //Procs Gusts
     vers: true,
   },
   [SPELLS.ESSENCE_FONT.id]: {
@@ -43,7 +43,7 @@ export default {
     crit: true,
     hasteHpm: true,
     hasteHpct: false,
-    mastery: true, // Procs Gusts
+    mastery: false, // Procs Gusts
     vers: true,
   },
   [SPELLS.SHEILUNS_GIFT.id]: {
@@ -51,7 +51,7 @@ export default {
     crit: true,
     hasteHpm: false,
     hasteHpct: false,
-    mastery: true, // Procs Gusts
+    mastery: false, // Procs Gusts
     vers: true,
   },
   [SPELLS.VIVIFY.id]: {
@@ -59,7 +59,7 @@ export default {
     crit: true,
     hasteHpm: false,
     hasteHpct: true,
-    mastery: true, // Procs Gusts
+    mastery: false, // Procs Gusts
     vers: true,
   },
   [SPELLS.CHI_BURST_HEAL.id]: {
