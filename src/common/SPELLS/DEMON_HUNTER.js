@@ -476,4 +476,9 @@ export default {
     name: 'Wide Eyes',
     icon: 'ability_demonhunter_eyebeam',
   },
+  FEAST_ON_THE_SOULS: {
+    id: 201468,
+    name: 'Feast of the Souls',
+    icon: 'spell_warlock_soulburn',
+  },
 };

@@ -5,8 +5,10 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 
-import Momentum from './Modules/Statistics/Spells/Momentum';
-import Nemesis from './Modules/Statistics/Spells/Nemesis';
+import Momentum from './Modules/Spells/Momentum';
+import Nemesis from './Modules/Spells/Nemesis';
+
+import RaddonsCascadingEyes from './Modules/Items/RaddonsCascadingEyes';
 
 //Resources
 import FuryDetails from './Modules/ResourceTracker/FuryDetails';
@@ -35,6 +37,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Items
     delusionsOfGrandeur: DelusionsOfGrandeur,
+    raddonsCascadingEyes: RaddonsCascadingEyes,
   };
 }
 
