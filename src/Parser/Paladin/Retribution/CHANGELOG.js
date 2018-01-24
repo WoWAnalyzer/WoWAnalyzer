@@ -2,7 +2,12 @@ import { Hewhosmites, Zerotorescue } from 'MAINTAINERS';
 
 export default [
 	{
-		date: new Date('2017-10-22'),
+		date: new Date('2018-13-01'),
+		changes: 'Updated to new checklist format,',
+		contributors: [Hewhosmites],
+	},
+	{
+		date: new Date('2017-22-10'),
 		changes: 'Changed the active time icon to something more befitting.',
 		contributors: [Zerotorescue],
 	},
