@@ -12,7 +12,6 @@ import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
 const TICKS_PER_UA = 4;
-const UA_IDS_SET = new Set(UNSTABLE_AFFLICTION_DEBUFF_IDS);
 const debug = false;
 
 // When Agony deals damage, there is a 8% chance to increase the duration of Unstable Affliction on the target by 2.0 sec
@@ -41,7 +40,7 @@ class Tier21_2set extends Analyzer {
 
   on_byPlayer_applydebuff(event) {
     const id = event.ability.guid;
-    if (!UA_IDS_SET.has(id)) {
+    if (!UNSTABLE_AFFLICTION_DEBUFF_IDS.includes(id)) {
       return;
     }
     const enemy = encodeTargetString(event.targetID, event.targetInstance);
@@ -54,7 +53,7 @@ class Tier21_2set extends Analyzer {
 
   on_byPlayer_removedebuff(event) {
     const id = event.ability.guid;
-    if (!UA_IDS_SET.has(id)) {
+    if (!UNSTABLE_AFFLICTION_DEBUFF_IDS.includes(id)) {
       return;
     }
     const enemy = encodeTargetString(event.targetID, event.targetInstance);
@@ -64,7 +63,7 @@ class Tier21_2set extends Analyzer {
 
   on_byPlayer_refreshdebuff(event) {
     const id = event.ability.guid;
-    if (!UA_IDS_SET.has(id)) {
+    if (!UNSTABLE_AFFLICTION_DEBUFF_IDS.includes(id)) {
       return;
     }
     const enemy = encodeTargetString(event.targetID, event.targetInstance);
@@ -73,7 +72,7 @@ class Tier21_2set extends Analyzer {
 
   on_byPlayer_damage(event) {
     const id = event.ability.guid;
-    if (!UA_IDS_SET.has(id)) {
+    if (!UNSTABLE_AFFLICTION_DEBUFF_IDS.includes(id)) {
       return;
     }
     const enemy = encodeTargetString(event.targetID, event.targetInstance);

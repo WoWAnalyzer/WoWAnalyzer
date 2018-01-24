@@ -10,11 +10,11 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 import { formatNumber, formatPercentage } from 'common/format';
 import getDamageBonus from 'Parser/Warlock/Affliction/Modules/WarlockCore/getDamageBonus';
 
-const AFFECTED_ABILITIES = new Set([
+const AFFECTED_ABILITIES = [
   SPELLS.AGONY.id,
   SPELLS.CORRUPTION_DEBUFF.id,
   SPELLS.SIPHON_LIFE_TALENT.id,
-]);
+];
 const DAMAGE_BONUS = 0.15;
 
 // When you cast Unstable Affliction or Seed of Corruption, all targets within 60 yards suffering from your Agony take 15% increased damage from your Corruption and Agony for 8 sec.
@@ -32,7 +32,7 @@ class Tier21_4set extends Analyzer {
 
   on_byPlayer_damage(event) {
     const id = event.ability.guid;
-    if (!AFFECTED_ABILITIES.has(id)) {
+    if (!AFFECTED_ABILITIES.includes(id)) {
       return;
     }
     const enemy = this.enemies.getEntity(event);
