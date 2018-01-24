@@ -9,13 +9,13 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-01-23'),
-    changes: <Wrapper>Implemented Tier 21 set bonuses.</Wrapper>,
+    date: new Date('2018-01-24'),
+    changes: <Wrapper>Updated some thresholds, added <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} icon/> statistic box and reworked the module that showed how much you buffed your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} icon/>.</Wrapper>,
     contributors: [Chizu],
   },
   {
-    date: new Date('2018-01-24'),
-    changes: <Wrapper>Updated some thresholds, added <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} icon/> statistic box and reworked the module that showed how much you buffed your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} icon/>.</Wrapper>,
+    date: new Date('2018-01-23'),
+    changes: <Wrapper>Implemented Tier 21 set bonuses.</Wrapper>,
     contributors: [Chizu],
   },
   {

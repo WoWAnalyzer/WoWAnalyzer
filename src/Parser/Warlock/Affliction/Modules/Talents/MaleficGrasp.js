@@ -54,7 +54,7 @@ class MaleficGrasp extends Analyzer {
     }
 
     const drained = target.hasBuff(SPELLS.DRAIN_SOUL.id, event.timestamp);
-    if (UA_IDS_SET.has(spellId)) {
+    if (AFFECTED_ABILITIES.includes(spellId)) {
       this.totalTicks += 1;
       if (drained) {
         this.buffedTicks += 1;
