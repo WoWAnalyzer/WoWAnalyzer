@@ -6,6 +6,7 @@ import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Mastery from '../Mastery';
 
 const PANDEMIC_FACTOR = 1.3;
+const PANDEMIC_EXTRA = 0.3;
 
 const REJUV_IDS = [
   SPELLS.REJUVENATION.id,
@@ -79,15 +80,21 @@ class HotTracker extends Analyzer {
       if (rejuvsOnTarget.length === 0) {
         console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp, 1)} but there is no Rejuvenation on that target???`);
       } else if (rejuvsOnTarget.length === 1) { // for now only attribute if one rejuv on target .... TODO more complex logic for handling rejuv + germ
-        rejuvsOnTarget[0].attributions.forEach(att => att.dreamwalkerHealing += healing);
+        const rejuv = rejuvsOnTarget[0];
+        rejuv.attributions.forEach(att => att.dreamwalkerHealing += healing);
 
-        // boosts don't get mastery benefit because the hot was there with or without the boost
+        // boosts don't get dreamwalker benefit because the hot was there with or without the boost
 
-        // stored for use by extensions
-        if(!rejuvsOnTarget[0].dreamwalkers) {
-          rejuvsOnTarget[0].dreamwalkers = [];
+        // to avoid making a crazy number of array elements but still be able to include dreamwalker info for extensions,
+        // dreamwalker healing stored with the tick that immediately preceded it, can be read from there while calc extension benefit
+        const numTicks = rejuv.ticks.length;
+        if(numTicks > 0) {
+          const mostRecentTick = rejuv.ticks[numTicks-1];
+          if (!mostRecentTick.dreamwalkerHealing) {
+            mostRecentTick.dreamwalkerHealing = 0;
+          }
+          mostRecentTick.dreamwalkerHealing += healing;
         }
-        rejuvsOnTarget[0].dreamwalkers.push({ healing, timestamp: event.timestamp });
       }
     }
 
@@ -144,14 +151,26 @@ class HotTracker extends Analyzer {
     }
 
     const hot = this.hots[targetId][spellId];
-    const oldEnd = hot.end;
-    // TODO check and build suggestions for early refreshes, etc
 
-    hot.end += this._calculateExtension(this.hotInfo[spellId].duration, hot, spellId, true, true);
+    const oldEnd = hot.end;
+    const freshDuration = this.hotInfo[spellId].duration;
+    hot.end += this._calculateExtension(freshDuration, hot, spellId, true, true);
+
+    // seperately calculating if refresh was in pandemic, because for display to the player I want to avoid factoring in tick clipping...
+    const remaining = oldEnd - event.timestamp;
+    const clipped = remaining - (freshDuration * PANDEMIC_EXTRA);
+    if (clipped > 0) {
+      debug && console.log(`${event.ability.name} on target ID ${targetId} was refreshed early @${this.owner.formatTimestamp(event.timestamp)}, clipping ${(clipped/1000).toFixed(1)}s`);
+      hot.extensions.forEach(ext => {
+        ext.amount -= clipped;
+        extensionDebug && console.log(`Extension ${ext.attribution.name} on ${event.ability.name} / ${targetId} @${this.owner.formatTimestamp(event.timestamp)} was clipped by ${(clipped/1000).toFixed(1)}s`);
+      });
+      // TODO do more stuff about clipped HoT duration (a suggestion?). Only suggest for clipping hardcasts, of course.
+    }
 
     hot.attributions = []; // new attributions on refresh
 
-    this._tallyExtensions(hot); // TODO how should extensions be handled in the case of an early refresh?
+    this._tallyExtensions(hot);
     hot.extensions = [];
 
     hot.boosts = [];
@@ -221,9 +240,9 @@ class HotTracker extends Analyzer {
    * For each attributed extension on a HoT, tallies the granted healing
    */
   _tallyExtensions(hot) {
-    hot.extensions.forEach(ext => {
-      this._tallyExtension(hot.ticks, ext.amount, ext.attribution);
-    });
+    hot.extensions
+        .filter(ext => ext.amount > 0) // early refreshes can wipe out the effect of an extension, filter those ones out
+        .forEach(ext => this._tallyExtension(hot.ticks, ext.amount, ext.attribution));
   }
 
   _tallyExtension(ticks, amount, attribution) {
@@ -233,6 +252,7 @@ class HotTracker extends Analyzer {
     let latestOutside = now;
     let healing = 0;
     let masteryHealing = 0;
+    let dreamwalkerHealing = 0;
     // sums healing of every tick within 'amount',
     // also gets the latest tick outside the range, used to scale the healing amount
     for (let i = ticks.length-1; i >= 0; i--) {
@@ -245,14 +265,20 @@ class HotTracker extends Analyzer {
 
       healing += tick.healing;
       masteryHealing += tick.masteryHealing;
-      // TODO dreamwalker
+      if (tick.dreamwalkerHealing !== undefined) {
+        dreamwalkerHealing += tick.dreamwalkerHealing;
+      }
     }
 
     if (foundEarlier) {
+      // TODO better explanation of why I need to scale direct healing
       const scale = amount / (now - latestOutside);
       attribution.healing += (healing * scale);
-      attribution.masteryHealing += (masteryHealing * scale);
-      // TODO dreamwalker
+      // mastery and dreamwalker heals are either inside the extension range or they aren't, as such they shouldn't be scaled
+      attribution.masteryHealing += masteryHealing;
+      if (attribution.dreamwalkerHealing !== undefined) {
+        attribution.dreamwalkerHealing += dreamwalkerHealing;
+      }
     } else {
       // TODO error log, because this means the extension was almost all the HoT's duration? Check for an early removal of HoT.
     }
