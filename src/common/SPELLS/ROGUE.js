@@ -225,4 +225,143 @@ export default {
     name: 'Shadow Gestures',
     icon: 'ability_rogue_eviscerate',
   },
+
+  //Assassination
+
+  //Builders
+  MUTILATE: {
+    id: 1329,
+    name: 'Mutilate',
+    icon: 'ability_rogue_shadowstrikes',
+  },
+  MUTILATE_MAINHAND: {
+    id: 5374,
+    name: 'Mutilate',
+    icon: 'ability_dualwield',
+  },
+  MUTILATE_OFFHAND: {
+    id: 27576,
+    name: 'Mutilate Off-Hand',
+    icon: 'ability_dualwield',
+  },
+  GARROTE: {
+    id: 703,
+    name: 'Garrote',
+    icon: 'ability_rogue_garrote',
+  },
+  FAN_OF_KNIVES: {
+    id: 51723,
+    name: 'Fan of Knives',
+    icon: 'ability_rogue_fanofknives',
+  },
+  FAN_OF_KNIVES_COMBOPOINTS: {
+    id: 234278,
+    name: 'Fan of Knives',
+    icon: 'ability_rogue_fanofknives',
+  },
+  POISONED_KNIFE: {
+    id: 185565,
+    name: 'Poisoned Knife',
+    icon: 'ability_rogue_poisonedknife',
+  },
+
+  //Finishers
+  ENVENOM: {
+    id: 32645,
+    name: 'Envenom',
+    icon: 'ability_rogue_disembowel',
+  },
+  RUPTURE: {
+    id: 1943,
+    name: 'Rupture',
+    icon: 'ability_rogue_rupture',
+  },
+
+  //Cooldowns    
+  KINGSBANE: {
+    id: 192759,
+    name: 'Kingsbane',
+    icon: 'inv_knife_1h_artifactgarona_d_01',
+  },  
+  KINGSBANE_OFFHAND: {
+    id: 192760,
+    name: 'Kingsbane',
+    icon: 'inv_knife_1h_artifactgarona_d_01',
+  },
+  KINGSBANE_MAINHAND: {
+    id: 222062,
+    name: 'Kingsbane',
+    icon: 'inv_knife_1h_artifactgarona_d_01',
+  },
+  VENDETTA: {
+    id: 79140,
+    name: 'Vendetta',
+    icon: 'ability_rogue_deadliness',
+  },
+
+  //Procs/Poisons
+  DEADLY_POISON_PROC: {
+    id: 113780,
+    name: 'Deadly Poison',
+    icon: 'ability_poisons',
+  },
+  DEADLY_POISON_DOT: {
+    id: 2818,
+    name: 'Deadly Poison',
+    icon: 'ability_rogue_dualweild',
+  },
+  FROM_THE_SHADOWS: {
+    id: 192434,
+    name: 'From the Shadows',
+    icon: 'ability_rogue_deadlybrew',
+  },
+  POISON_BOMB: {
+    id: 192660,
+    name: 'Poison Bomb',
+    icon: 'rogue_paralytic_poison',
+  },
+  VENOMOUS_VIM: {
+    id: 51637,
+    name: 'Venomous Vim',
+    icon: 'ability_rogue_venomouswounds',
+  },
+  URGE_TO_KILL: {
+    id: 242164,
+    name: 'Urge to Kill',
+    icon: 'ability_rogue_improvedrecuperate',
+  },
+  SEAL_FATE: {
+    id: 14189,
+    name: 'Seal Fate',
+    icon: 'ability_rogue_improvedrecuperate',
+  },
+  POISON_KNIVES: {
+    id: 192380,
+    name: 'Poison Knives',
+    icon: 'ability_rogue_dualweild',
+  },
+
+
+  //Tier    
+  ASSA_ROGUE_T21_2SET_BONUS: {
+    id: 251776,
+    name: 'Virulent Poisons',
+    icon: 'ability_rogue_poisonedknife',
+  },  
+  ASSA_ROGUE_T21_2SET_BONUS_BUFF: {
+    id: 252277,
+    name: 'Virulent Poisons',
+    icon: 'ability_rogue_poisonedknife',
+  },
+  ASSA_ROGUE_T21_4SET_BONUS: {
+    id: 251777,
+    name: 'Toxic Rush',
+    icon: 'ability_rogue_poisonedknife',
+  },
+  ASSA_ROGUE_T21_4SET_BONUS_ENERGY_EFFECT: {
+    id: 252284,
+    name: 'Toxic Rush',
+    icon: 'ability_rogue_poisonedknife',
+  },
+  
 };
