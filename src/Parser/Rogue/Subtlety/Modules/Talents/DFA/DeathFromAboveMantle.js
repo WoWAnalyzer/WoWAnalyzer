@@ -11,7 +11,7 @@ import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
 
 import DamageTracker from 'Parser/Core/Modules/AbilityTracker';
-import MantleDamageTracker from './../../Legendaries/MantleDamageTracker';
+import MantleDamageTracker from '../../../../Common/Legendaries/MantleDamageTracker';
 
 class DeathFromAboveMantle extends Analyzer {
 	static dependencies = {
