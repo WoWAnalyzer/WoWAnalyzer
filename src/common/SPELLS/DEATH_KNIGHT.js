@@ -12,6 +12,19 @@ export default {
     name: 'Consumption',
     icon: 'inv_axe_2h_artifactmaw_d_01',
   },
+
+  UMBILICUS_ETERNUS: { //Artifact Trait
+    id: 193213,
+    name: 'Umbilicus Eternus',
+    icon: 'artifactability_blooddeathknight_umbilicuseternus',
+  },
+
+  UMBILICUS_ETERNUS_BUFF: {
+    id: 193320,
+    name: 'Umbilicus Eternus Buff',
+    icon: 'artifactability_blooddeathknight_umbilicuseternus',
+  },
+
   // Damage Dealing
   // Provides the 1 RP tick on DnD from Rapid Decomposition Talent
   RAPID_DECOMPOSITION_RP_TICK: {
@@ -609,7 +622,7 @@ export default {
     name: 'Haemostasis',
     icon: 'ability_deathwing_bloodcorruption_earth',
   },
-  
+
   //Shackles of Bryndaor blood dk legendary buff
   SHACKLES_OF_BRYNDAOR_BUFF: {
     id: 209232,
