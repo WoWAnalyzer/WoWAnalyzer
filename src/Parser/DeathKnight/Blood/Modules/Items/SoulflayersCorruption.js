@@ -29,7 +29,6 @@ class SoulflayersCorruption extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.BLOOD_PLAGUE.id) {
-      console.log("heal", this.heal);
       this.heal += calculateEffectiveHealing(event,1);
     }
   }
