@@ -430,6 +430,26 @@ export default {
     name: 'Destruction Warlock T20 4P bonus',
     icon: 'inv_chest_cloth_raidwarlock_r_01',
   },
+  WARLOCK_DESTRO_T21_2P_BONUS: {
+    id: 251854,
+    name: 'Destruction Warlock T21 2P bonus',
+    icon: 'inv_shoulder_cloth_raidwarlock_s_01',
+  },
+  WARLOCK_DESTRO_T21_4P_BONUS: {
+    id: 251855,
+    name: 'Destruction Warlock T21 4P bonus',
+    icon: 'inv_helm_cloth_raidwarlock_s_01',
+  },
+  WARLOCK_DESTRO_T21_2P_DEBUFF: {
+    id: 253092,
+    name: 'Chaotic Flames',
+    icon: 'ability_mage_worldinflamesgreen',
+  },
+  WARLOCK_DESTRO_T21_4P_DEBUFF: {
+    id: 253097,
+    name: 'Flames of Argus',
+    icon: 'spell_volatilefiregreen',
+  },
   // Destruction legendary effects
   FERETORY_OF_SOULS_FRAGMENT_GEN: {
     id: 205704,
