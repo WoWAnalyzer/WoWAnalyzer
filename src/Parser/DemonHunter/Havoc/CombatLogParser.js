@@ -16,6 +16,9 @@ import FuryTracker from './Modules/ResourceTracker/FuryTracker';
 import DelusionsOfGrandeur from './Modules/Items/DelusionsOfGrandeur';
 import RaddonsCascadingEyes from './Modules/Items/RaddonsCascadingEyes';
 
+//Traits
+import UnleashedDemons from './Modules/Traits/UnleashedDemons';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
@@ -37,6 +40,9 @@ class CombatLogParser extends CoreCombatLogParser {
     //Items
     delusionsOfGrandeur: DelusionsOfGrandeur,
     raddonsCascadingEyes: RaddonsCascadingEyes,
+
+    //Traits
+    unleashedDemons: UnleashedDemons,
   };
 }
 

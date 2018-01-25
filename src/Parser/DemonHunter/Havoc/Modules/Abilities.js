@@ -25,7 +25,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.METAMORPHOSIS_HAVOC,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (haste, combatant) => 300 - (combatant.traitsBySpellId[SPELLS.UNLEASHED_DEMONS.id] || 0) * 20,
+        cooldown: (_, combatant) => 300 - combatant.owner.modules.unleashedDemons.traitCooldownReduction,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,

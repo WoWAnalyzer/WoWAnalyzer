@@ -6,7 +6,7 @@ import ResourceBreakdown from 'Parser/Core/Modules/ResourceTracker/ResourceBreak
 
 import FuryTracker from './FuryTracker';
 
-class AstralPowerDetails extends Analyzer {
+class FuryDetails extends Analyzer {
   static dependencies = {
     furyTracker: FuryTracker,
   };
@@ -29,4 +29,4 @@ class AstralPowerDetails extends Analyzer {
 
 }
 
-export default AstralPowerDetails;
+export default FuryDetails;
