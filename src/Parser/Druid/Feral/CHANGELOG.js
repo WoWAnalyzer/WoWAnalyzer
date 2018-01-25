@@ -1,5 +1,5 @@
 export default `
-24-01-2018 - Feral Druid: Added Ashamane's Rip uptime tracking.
+24-01-2018 - Feral Druid: Added Ashamane's Rip uptime tracking (bt Anatta336).
 22-09-2019 - Feral Druid: Added 5 combo point finisher tracking (by Thieseract).
 11-09-2019 - Feral Druid: Refactored combo point tracking properties (by Thieseract).
 11-09-2019 - Feral Druid: Added Savage Roar damage contribution (by Thieseract).

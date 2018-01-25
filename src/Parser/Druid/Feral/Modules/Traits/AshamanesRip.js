@@ -44,19 +44,29 @@ class AshamanesRip extends Analyzer {
     return this.enemies.getBuffUptime(SPELLS.ASHAMANES_RIP.id) / this.owner.fightDuration;
   }
 
+  get suggestionThresholds() {
+    return {
+      actual: this.ashamanesRipUptime,
+      isLessThan: {
+        minor: 0.40,
+        average: 0.30,
+        major: 0.20,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
-    when(this.ashamanesRipUptime).isLessThan(0.40)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>
-          Your <SpellLink id={SPELLS.ASHAMANES_BITE.id} /> uptime can be improved. Pooling energy before refreshing Rip lets you maximise the chance of triggering a long duration Ashamane's Rip.
-          </Wrapper>
-        )
-          .icon(SPELLS.ASHAMANES_BITE.icon)
-          .actual(`${formatPercentage(actual)}% Ashamane's Rip uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(0.30)
-          .major(0.20);
-      });
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(
+        <Wrapper>
+          Your <SpellLink id={SPELLS.ASHAMANES_RIP.id} /> uptime can be improved. Pooling energy before refreshing Rip lets you maximise the chance of triggering a long duration Ashamane's Rip.
+        </Wrapper>
+      )
+        .icon(SPELLS.ASHAMANES_RIP.icon)
+        .actual(`${formatPercentage(actual)}% Ashamane's Rip uptime`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
+    });
   }
 
   statistic() {
@@ -65,11 +75,11 @@ class AshamanesRip extends Analyzer {
         icon={<SpellIcon id={SPELLS.ASHAMANES_RIP.id} />}
         value={`${formatPercentage(this.ashamanesRipUptime)} %`}
         label={`Ashamane's Rip uptime`}
-        tooltip={`Your Ashamane's Rip contributed ${formatNumber(this.damage)} damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} %)`}
+        tooltip={`Your Ashamane's Rip contributed ${formatNumber(this.damage)} damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))}%)`}
       />
     );
   }
-
+  
   statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
