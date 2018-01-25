@@ -63,6 +63,15 @@ class EonarsCompassion extends Analyzer {
     }
   }
 
+  // pantheon proc is a stacking buff, if it occurs while previous proc still active, will show as an applybuffstack
+  // logs confirm that this will refresh current stacks to 4, still will never go above 4.
+  on_byPlayer_applybuffstack(event) {
+    const spellId = event.ability.guid;
+    if (this.triggerBuffs.includes(spellId)) {
+      this.pantheonProc += 1;
+    }
+  }
+
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.EONARS_COMPASSION_PROCBUFF.id) {
