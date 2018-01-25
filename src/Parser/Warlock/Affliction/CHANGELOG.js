@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-01-25'),
+    changes: <Wrapper>Added a statistic box with information about <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id} icon /> generation and merged the time spent on max stacks into it.</Wrapper>,
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-01-23'),
     changes: <Wrapper>Implemented Tier 21 set bonuses.</Wrapper>,
     contributors: [Chizu],

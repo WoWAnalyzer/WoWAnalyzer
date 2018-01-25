@@ -15,7 +15,7 @@ import Channeling from './Modules/WarlockCore/Channeling';
 import GlobalCooldown from './Modules/WarlockCore/GlobalCooldown';
 import FatalEchoes from './Modules/Features/FatalEchoes';
 import Sniping from './Modules/Features/Sniping';
-import MaxTormentedSouls from './Modules/Features/MaxTormentedSouls';
+import TormentedSouls from './Modules/Features/TormentedSouls';
 
 import Haunt from './Modules/Talents/Haunt';
 import MaleficGrasp from './Modules/Talents/MaleficGrasp';
@@ -50,7 +50,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     fatalEchoes: FatalEchoes,
     sniping: Sniping,
-    maxTormentedSouls: MaxTormentedSouls,
+    tormentedSouls: TormentedSouls,
     checklist: Checklist,
 
     // DoTs
