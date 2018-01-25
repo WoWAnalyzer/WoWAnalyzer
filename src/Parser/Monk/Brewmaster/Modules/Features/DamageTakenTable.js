@@ -5,6 +5,8 @@ import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 import DamageTakenTableComponent, { MITIGATED_PHYSICAL, MITIGATED_MAGICAL } from 'Main/DamageTakenTable';
 import Tab from 'Main/Tab';
 import SPELLS from 'common/SPELLS';
+import SPECS from 'common/SPECS';
+import SpellLink from 'common/SpellLink';
 
 import HighTolerance from '../Spells/HighTolerance';
 
@@ -88,7 +90,10 @@ class DamageTakenTable extends Analyzer {
       url: 'damage-taken-by-ability',
       render: () => (
         <Tab title="Damage Taken by Ability">
-          <DamageTakenTableComponent data={this.tableData} />
+          <DamageTakenTableComponent data={this.tableData} spec={SPECS[this.combatants.selected.specId]}/>
+          <div style={{padding: "10px"}}>
+            <strong>Note:</strong> Damage taken by <SpellLink id={SPELLS.STAGGER_TAKEN.id} icon /> is not accounted for in this table.
+          </div>
         </Tab>
       ),
     };

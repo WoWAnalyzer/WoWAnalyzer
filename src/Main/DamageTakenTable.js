@@ -11,7 +11,8 @@ export const MITIGATED_PHYSICAL = 2;
 
 class DamageTakenTable extends React.Component {
   static propTypes = {
-    data: PropTypes.object.isRequired,
+    data: PropTypes.array.isRequired,
+    spec: PropTypes.object.isRequired,
   };
 
   mitigationNames = {
@@ -22,11 +23,25 @@ class DamageTakenTable extends React.Component {
 
 
   render() {
+    const specClassName = this.props.spec.className.replace(' ', '');
+    const sumTotalDmg = this.props.data.reduce((sum, cur) => sum + cur.totalDmg, 0);
     const row = (abilityData)  => {
       const { ability, totalDmg, largestSpike } = abilityData;
       return (
         <tr key={ability.guid}>
-          <td></td>
+          <td>
+            <div className="flex performance-bar-container"
+                 data-tip={`Total Damage Taken: ${formatNumber(totalDmg)} of ${formatNumber(sumTotalDmg)}.`} >
+              <div
+                className={`flex-sub performance-bar ${specClassName}-bg`}
+                style={{ width: `${(totalDmg - largestSpike) / sumTotalDmg * 100}%` }}
+              />
+              <div
+                className="flex-sub performance-bar Hunter-bg"
+                style={{ width: `${(largestSpike / sumTotalDmg * 100)}%`, opacity: 0.4 }}
+              />
+            </div>
+          </td>
           <td>
             <SpellLink id={ability.guid}>
               <Icon icon={ability.abilityIcon} alt={ability.name} /> {ability.name}
@@ -47,7 +62,7 @@ class DamageTakenTable extends React.Component {
         <table className="data-table">
           <thead>
             <tr>
-              <th><b>Physical</b></th>
+              <th><dfn data-tip="Damage mitigated by stats &amp; abilities that reduce or absorb Physical damage, such as armor, Death Knights' Blood Shield, and Demon Hunters' Demon Spikes."><b>Physical</b></dfn></th>
               <th>Ability</th>
               <th>Total Damage Taken</th>
               <th>Largest Spike</th>
@@ -62,7 +77,7 @@ class DamageTakenTable extends React.Component {
           </tbody>
           <thead>
             <tr>
-              <th><b>Magical</b></th>
+              <th><dfn data-tip="Damage mitigated by stats &amp; abilities that reduce or absorb Magical damage, such as Paladins' Blessing of Spellwarding, Brewmasters' Stagger (especially with Mystic Vitality), and Demon Hunters' Empower Wards."><b>Magical</b></dfn></th>
               <th>Ability</th>
               <th>Total Damage Taken</th>
               <th>Largest Spike</th>

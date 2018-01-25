@@ -18,11 +18,11 @@ class DamageValue {
     return this._largestHit;
   }
 
-  constructor(regular = 0, absorbed = 0, overkill = 0, largestHit = 0) {
+  constructor(regular = 0, absorbed = 0, overkill = 0, largestHit = null) {
     this._regular = regular;
     this._absorbed = absorbed;
     this._overkill = overkill;
-    this._largestHit = largestHit;
+    this._largestHit = (largestHit === null) ? regular + absorbed + overkill : largestHit;
   }
 
   add(regular, absorbed, overkill) {
