@@ -310,6 +310,11 @@ export default {
     name: 'Fatal Echoes',
     icon: 'inv_misc_bell_01',
   },
+  REND_SOUL: {
+    id: 242834,
+    name: 'Rend Soul',
+    icon: 'spell_deathknight_strangulate',
+  },
 
   // Affliction shard generating effects
   AGONY_SHARD_GEN: {
