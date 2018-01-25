@@ -38,6 +38,7 @@ import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
 
 import T20_2set from './Modules/Items/T20_2set';
 import T21_2set from './Modules/Items/T21_2set';
+import T21_4set from './Modules/Items/T21_4set';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -85,6 +86,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Items
     t20_2set: T20_2set,
     t21_2set: T21_2set,
+    t21_4set: T21_4set,
   };
 }
 
