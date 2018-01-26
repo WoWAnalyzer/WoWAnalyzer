@@ -1,10 +1,11 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import SPELLS from "common/SPELLS/index";
+import SPELLS from "common/SPELLS";
 import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
 import { formatPercentage } from "common/format";
+import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 
 class DireBeastUptime extends Analyzer {
   static dependencies = {
@@ -17,8 +18,7 @@ class DireBeastUptime extends Analyzer {
 
   get percentUptime() {
     //This calculates the uptime over the course of the encounter of Dire Beast
-    const uptime = this.combatants.selected.getBuffUptime(SPELLS.DIRE_BEAST_BUFF.id) / this.owner.fightDuration;
-    return uptime;
+    return this.combatants.selected.getBuffUptime(SPELLS.DIRE_BEAST_BUFF.id) / this.owner.fightDuration;
   }
   statistic() {
     return (
@@ -30,6 +30,8 @@ class DireBeastUptime extends Analyzer {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.CORE(6);
+
 }
 
 export default DireBeastUptime;

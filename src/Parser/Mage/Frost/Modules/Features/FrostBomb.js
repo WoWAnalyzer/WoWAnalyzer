@@ -14,7 +14,7 @@ class FrostBomb extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     abilityTracker: AbilityTracker,
-  }
+  };
 
   damage = 0;
   hits = 0;
@@ -26,7 +26,8 @@ class FrostBomb extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid === SPELLS.FROST_BOMB_DAMAGE.id) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.FROST_BOMB_DAMAGE.id) {
       this.damage += event.amount + (event.absorbed || 0);
       this.hits += 1;
       if (!this.hitTimestamp || this.hitTimestamp + PROC_WINDOW_MS < this.owner.currentTimestamp) {
@@ -36,20 +37,32 @@ class FrostBomb extends Analyzer {
     }
   }
 
+  get damagePercent() {
+    return this.owner.getPercentageOfTotalDamageDone(this.damage);
+  }
+
+  get averageHits () {
+    return (this.hits / this.procs) || 0;
+  }
+
+  get totalCasts() {
+    return this.abilityTracker.getAbility(SPELLS.FROST_BOMB_TALENT.id).casts || 0;
+  }
+
+  get averageProcs() {
+    return (this.procs / this.totalCasts) || 0;
+  }
+
   statistic() {
-    const damagePercent = this.owner.getPercentageOfTotalDamageDone(this.damage);
-    const averageHits = (this.hits / this.procs) || 0;
-    const casts = (this.abilityTracker.getAbility(SPELLS.FROST_BOMB_TALENT.id).casts || 0);
-    const averageProcs = (this.procs / casts) || 0;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.FROST_BOMB_TALENT.id} />}
-        value={`${formatPercentage(damagePercent)} %`}
+        value={`${formatPercentage(this.damagePercent)} %`}
         label="Frost Bomb damage"
         tooltip={`This is the portion of your total damage attributable to Frost Bomb.
           <ul>
-          <li>Procs per Cast: <b>${averageProcs.toFixed(2)}</b></li>
-          <li>Targets Hit per Proc: <b>${averageHits.toFixed(2)}</b> (including primary target)</li>
+          <li>Procs per Cast: <b>${this.averageProcs.toFixed(2)}</b></li>
+          <li>Targets Hit per Proc: <b>${this.averageHits.toFixed(2)}</b> (including primary target)</li>
           </ul>`}
       />
     );

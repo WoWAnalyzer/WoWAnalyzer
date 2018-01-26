@@ -19,7 +19,8 @@ import Overhealing from './Modules/PaladinCore/Overhealing';
 import FillerLightOfTheMartyrs from './Modules/PaladinCore/FillerLightOfTheMartyrs';
 import LightOfDawn from './Modules/PaladinCore/LightOfDawn';
 
-import Abilities from './Modules/Features/Abilities';
+import Abilities from './Modules/Abilities';
+import Checklist from './Modules/Features/Checklist';
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import TyrsDeliverance from './Modules/Features/TyrsDeliverance';
@@ -33,6 +34,7 @@ import AuraOfMercy from './Modules/Talents/AuraOfMercy';
 import HolyAvenger from './Modules/Talents/HolyAvenger';
 import DivinePurpose from './Modules/Talents/DivinePurpose';
 import CrusadersMight from './Modules/Talents/CrusadersMight';
+import JudgmentOfLight from './Modules/Talents/JudgmentOfLight';
 
 import RelicTraits from './Modules/Traits/RelicTraits';
 import DeliverTheLight from './Modules/Traits/DeliverTheLight';
@@ -79,6 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lightOfDawn: LightOfDawn,
 
     // Features
+    checklist: Checklist,
     abilities: Abilities,
     masteryEffectiveness: MasteryEffectiveness,
     alwaysBeCasting: AlwaysBeCasting,
@@ -94,6 +97,7 @@ class CombatLogParser extends CoreCombatLogParser {
     holyAvenger: HolyAvenger,
     divinePurpose: DivinePurpose,
     crusadersMight: CrusadersMight,
+    judgmentOfLight: JudgmentOfLight,
 
     // Traits
     relicTraits: RelicTraits,

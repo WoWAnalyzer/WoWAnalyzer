@@ -96,7 +96,7 @@ class BorrowedTime extends Analyzer {
 
   statistic() {
     return (
-      <div className="col-lg-4 col-sm-6 col-xs-12">
+      <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <div className="row">
           <StatisticBox
             icon={<SpellIcon id={SPELLS.BORROWED_TIME.id} />}
@@ -110,7 +110,7 @@ class BorrowedTime extends Analyzer {
             icon={<SpellIcon id={SPELLS.BORROWED_TIME.id} />}
             value={`${formatDuration(this.timeSaved / 1000)}`}
             label={(
-              <dfn data-tip={'This is the amount of saved time that you actively casted during, this will not account for having to move or other similar checks.'}>
+              <dfn data-tip="This is the amount of saved time that you actively casted during, this will not account for having to move or other similar checks.">
                 Time Saved Used
               </dfn>
             )}

@@ -6,6 +6,7 @@ import Mana from 'Main/Mana';
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
+import Abilities from './Modules/Abilities';
 
 import SpellManaCost from './Modules/Core/SpellManaCost';
 
@@ -15,7 +16,6 @@ import DivineHymn from './Modules/Spells/DivineHymn';
 import Sanctify from './Modules/Spells/Sanctify';
 
 // Features
-import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 
@@ -28,6 +28,7 @@ import MasteryBreakdown from './Modules/PriestCore/MasteryBreakdown';
 import Serendipity from './Modules/PriestCore/Serendipity';
 import SanctifyReduction from './Modules/PriestCore/SerendipityReduction/SanctifyReduction';
 import SerenityReduction from './Modules/PriestCore/SerendipityReduction/SerenityReduction';
+import HymnBuffBenefit from './Modules/PriestCore/HymnBuffBenefit';
 
 // Items
 import TrousersOfAnjuna from './Modules/Items/TrousersOfAnjuna';
@@ -57,6 +58,7 @@ class CombatLogParser extends CoreCombatLogParser {
     serendipity: Serendipity,
     sancReduction: SanctifyReduction,
     sereReduction: SerenityReduction,
+    hymnBuffBenefit: HymnBuffBenefit,
 
     // Spells
     prayerOfMending: PrayerOfMending,

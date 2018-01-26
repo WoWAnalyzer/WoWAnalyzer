@@ -1,9 +1,11 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 class CenedrilReflectorOfHatred extends Analyzer {
   static dependencies = {
@@ -21,7 +23,7 @@ class CenedrilReflectorOfHatred extends Analyzer {
 
     return {
       item: ITEMS.CENEDRIL_REFLECTOR_OF_HATRED,
-      result: this.owner.formatItemDamageDone(damage),
+      result: <ItemDamageDone amount={damage} />,
     };
   }
 }

@@ -23,4 +23,5 @@ class RecurrentRitual extends Analyzer {
     };
   }
 }
+
 export default RecurrentRitual;

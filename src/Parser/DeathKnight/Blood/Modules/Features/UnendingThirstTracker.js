@@ -12,35 +12,36 @@ class UnendingThirstTracker extends Analyzer {
     combatants: Combatants,
   };
 
-  RecentDSCounter = 0;
-  DScost=0;
-
-  on_initialized() {
-  }
+  bloodShieldRefreshed = 0;
+  totalDSCounter = 0;
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.DEATH_STRIKE.id) {
       return;
     }
-    if (this.combatants.selected.hasBuff(SPELLS.BLOOD_SHIELD.id, event.timestamp)) {
-      this.RecentDSCounter += 1;
-      this.DScost=event.classResources[0].cost;
-      console.log('DScost is ', this.DScost);
+    this.totalDSCounter += 1;
+  }
+
+  //Death Strike causes the buff blood shield. If blood shield is refreshed it means death strike was casted when the blood shield buff was active.
+  on_byPlayer_refreshbuff(event) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.BLOOD_SHIELD.id) {
+      this.bloodShieldRefreshed += 1;
     }
   }
+
+
 
 
   statistic() {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.UNENDING_THIRST.id} />}
-        value={this.RecentDSCounter}
-        label='Empowered Death Strike'
-        tooltip='If your looking to increase your dps as the cost of defense try increasing this.'
-
+        value={`${this.bloodShieldRefreshed} out of ${this.totalDSCounter}`}
+        label="Empowered Death Strikes"
+        tooltip="It is possible to trade healing done for damage done by using Death Strikes in sequence to take advantage of Unending Thirst. This does increase the chances you won't have Death Strike avalible when you need it."
       />
-
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(5);

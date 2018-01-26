@@ -7,11 +7,12 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
+import Wrapper from 'common/Wrapper';
+import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
-const UA_IDS_SET = new Set(UNSTABLE_AFFLICTION_DEBUFF_IDS);
 
 class UABuffTracker extends Analyzer {
   static dependencies = {
@@ -35,7 +36,7 @@ class UABuffTracker extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (!UA_IDS_SET.has(spellId)) {
+    if (!UNSTABLE_AFFLICTION_DEBUFF_IDS.includes(spellId)) {
       return;
     }
     const target = this.enemies.getEntity(event);
@@ -74,15 +75,25 @@ class UABuffTracker extends Analyzer {
     }
   }
 
+  get suggestionThresholds() {
+    return {
+      actual: (this.unbuffedTicks / this.totalTicks) || 1,  // if no UAs were cast (totalTicks and unbuffedTicks = 0), it should return NaN and thus be 1 (100% unbuffed ticks)
+      isGreaterThan: {
+        minor: 0.15,
+        average: 0.2,
+        major: 0.25,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
-    const unbuffedTicksPercentage = (this.unbuffedTicks / this.totalTicks ) || 1; // if no UAs were cast (totalTicks and unbuffedTicks = 0), it should return NaN and thus be 1 (100% unbuffed ticks)
-    when(unbuffedTicksPercentage).isGreaterThan(0.15)
+    when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your Unstable Afflictions could be buffed more. Unstable Affliction is your main source of damage so keeping it buffed as much as possible with Reap Souls, Drain Soul (if using the Malefic Grasp talent) or Haunt (if using the talent) is very important.')
+        return suggest(<Wrapper>Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id}/> could be buffed more. Unstable Affliction is your main source of damage so keeping it buffed as much as possible with <SpellLink id={SPELLS.REAP_SOULS.id}/>, <SpellLink id={SPELLS.DRAIN_SOUL.id}/> (if using the <SpellLink id={SPELLS.MALEFIC_GRASP_TALENT.id}/> talent) or <SpellLink id={SPELLS.HAUNT_TALENT.id}/> (if using the talent) is very important.</Wrapper>)
           .icon(SPELLS.UNSTABLE_AFFLICTION_CAST.icon)
           .actual(`${formatPercentage(actual)}% unbuffed Unstable Affliction ticks.`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.05).major(recommended + 0.1);
+          .recommended(`<${formatPercentage(recommended)}% is recommended`);
       });
   }
 

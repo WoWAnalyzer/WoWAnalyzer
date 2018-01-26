@@ -2,28 +2,28 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
+import Wrapper from 'common/Wrapper';
 import { formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 
 class ThermalVoid extends Analyzer {
-
   static dependencies = {
     combatants: Combatants,
-	}
+  };
 
   casts = 0;
   buffApplied = 0;
   extraUptime = 0;
 
   on_initialized() {
-	   this.active = this.combatants.selected.hasTalent(SPELLS.THERMAL_VOID_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.THERMAL_VOID_TALENT.id);
   }
 
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if(spellId === SPELLS.ICY_VEINS.id) {
+    if (spellId === SPELLS.ICY_VEINS.id) {
       this.casts += 1;
       this.buffApplied = event.timestamp;
     }
@@ -36,28 +36,47 @@ class ThermalVoid extends Analyzer {
     }
   }
 
+  get uptime() {
+    return this.combatants.selected.getBuffUptime(SPELLS.ICY_VEINS.id) - this.extraUptime;
+  }
+
+  get averageDuration() {
+    return this.uptime / this.casts;
+  }
+
+  get averageDurationSeconds() {
+    return this.averageDuration / 1000;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.averageDuration / 1000,
+      isLessThan: {
+        minor: 40,
+        average: 37,
+        major: 33,
+      },
+      style: 'number',
+    };
+  }
+
   suggestions(when) {
-    const uptime = this.combatants.selected.getBuffUptime(SPELLS.ICY_VEINS.id) - this.extraUptime;
-    const averageDuration = (uptime / this.casts) / 1000;
-    when(averageDuration).isLessThan(40)
+    when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.ICY_VEINS.id}/> duration can be improved. Make sure you use Frozen Orb to get Fingers of Frost Procs</span>)
+        return suggest(<Wrapper>Your <SpellLink id={SPELLS.THERMAL_VOID_TALENT.id} /> duration boost can be improved. Make sure you use <SpellLink id={SPELLS.FROZEN_ORB.id} /> during <SpellLink id={SPELLS.ICY_VEINS.id} /> in order to get extra <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> Procs</Wrapper>)
           .icon(SPELLS.ICY_VEINS.icon)
           .actual(`${formatNumber(actual)} seconds Average Icy Veins Duration`)
-          .recommended(`${formatNumber(recommended)} is recommended`)
-          .regular(37).major(33);
+          .recommended(`${formatNumber(recommended)} is recommended`);
       });
   }
 
   statistic() {
-    const uptime = this.combatants.selected.getBuffUptime(SPELLS.ICY_VEINS.id) - this.extraUptime;
-    const averageDuration = (uptime / this.casts) / 1000;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ICY_VEINS.id} />}
-        value={`${formatNumber(averageDuration)}s`}
+        value={`${formatNumber(this.averageDurationSeconds)}s`}
         label="Avg Icy Veins Duration"
-        tooltip={"Icy Veins Casts that do not complete before the fight ends are removed from this statistic"}
+        tooltip="Icy Veins Casts that do not complete before the fight ends are removed from this statistic"
       />
     );
   }

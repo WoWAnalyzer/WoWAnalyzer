@@ -2,12 +2,13 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
 const debug = false;
 
-class EssenceFontMastery extends Analyzer {
+class EssenceFont extends Analyzer {
   castEF = 0;
   targetsEF = 0;
 
@@ -43,17 +44,34 @@ class EssenceFontMastery extends Analyzer {
     }
   }
 
+  get avgTargetsHitPerEF() {
+    return (this.targetsEF / this.castEF) || 0;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.avgTargetsHitPerEF,
+      isLessThan: {
+        minor: 17,
+        average: 14,
+        major: 12,
+      },
+      style: 'number',
+    };
+  }
+
   suggestions(when) {
-    const avgTargetsHitPerEF = (this.targetsEF / this.castEF) || 0;
-    when(avgTargetsHitPerEF).isLessThan(17)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You are currently using not utilizing your <SpellLink id={SPELLS.ESSENCE_FONT.id} /> effectively. Each <SpellLink id={SPELLS.ESSENCE_FONT.id} /> cast should hit a total of 18 targets. Either hold the cast til 6 or more targets are injured or move while casting to increase the effective range of the spell.</span>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+        return suggest(
+          <Wrapper>
+            You are currently using not utilizing your <SpellLink id={SPELLS.ESSENCE_FONT.id} /> effectively. Each <SpellLink id={SPELLS.ESSENCE_FONT.id} /> cast should hit a total of 18 targets. Either hold the cast til 6 or more targets are injured or move while casting to increase the effective range of the spell.
+          </Wrapper>
+        )
           .icon(SPELLS.ESSENCE_FONT.icon)
-          .actual(`${avgTargetsHitPerEF.toFixed(2)} average targets hit per cast`)
-          .recommended(`${recommended} targets hit is recommended`)
-          .regular(recommended - 3).major(recommended - 5);
+          .actual(`${this.avgTargetsHitPerEF.toFixed(2)} average targets hit per cast`)
+          .recommended(`${recommended} targets hit is recommended`);
       });
   }
 }
 
-export default EssenceFontMastery;
+export default EssenceFont;

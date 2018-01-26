@@ -13,11 +13,11 @@ export default {
   maintainers: [Maldark],
   description: (
     <div>
-      The Fury Warrior parser only holds very basic functionality. Does not analyze legendaries, cast sequence or tier bonuses.
+      The Fury Warrior parser only holds very basic functionality. Currently does not analyze legendaries, cast sequence or tier bonuses.
       </div>
   ),
   // good = it matches most common manual reviews in class discords, great = it support all important class features
-  completeness: SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED,
+  completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK,
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/milestone/13',
 
   // Shouldn't have to change these:

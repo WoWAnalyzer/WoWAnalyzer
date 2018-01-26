@@ -8,10 +8,16 @@ import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
 import PETS from 'common/PETS';
 import CorePets from 'Parser/Core/Modules/Pets';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 const BLACK_ARROW_SUMMON = [
   PETS.BLACK_ARROW_MINION.id,
 ];
+
+/*
+ * Fires a Black Arrow at the target, dealing (520% of Attack power) Shadow damage over 8 sec and summoning a Dark Minion to taunt it for the duration.
+ * When you kill an enemy, the remaining cooldown on Black Arrow will reset.
+ */
 
 class BlackArrow extends Analyzer {
   static dependencies = {
@@ -50,12 +56,11 @@ class BlackArrow extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {(this.owner.formatItemDamageDone(this.damage))}
+          <ItemDamageDone amount={this.damage} />
         </div>
       </div>
     );
   }
-
 }
 
 export default BlackArrow;

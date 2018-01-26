@@ -20,7 +20,7 @@ export default {
 
       As for a general rule of thumb - keep your <SpellLink id={SPELLS.IMMOLATE_DEBUFF.id}/> up as much as you can, cast <SpellLink id={SPELLS.CONFLAGRATE.id}/> on CD, same with <SpellLink id={SPELLS.DIMENSIONAL_RIFT_CAST.id}/> (unless you have Lessons of Space-Time). Dump shards into fat <SpellLink id={SPELLS.CHAOS_BOLT.id}/> and just overall don't forget to cast spells when you have them (<SpellLink id={SPELLS.CHANNEL_DEMONFIRE_TALENT.id}/>, <SpellLink id={SPELLS.HAVOC.id}/> when there's something to cleave etc.). <br /> <br />
 
-      If you have any questions about Warlocks, feel free to pay a visit to <a href="https://goo.gl/7PH6Bn" target="_blank" rel="noopener noreferrer">Council of the Black Harvest Discord</a>, if you'd like to discuss anything about this analyzer, leave a message on the GitHub issue or message me @Chizu on WoW Analyzer Discord.
+      If you have any questions about Warlocks, feel free to pay a visit to <a href="https://goo.gl/7PH6Bn" target="_blank" rel="noopener noreferrer">Council of the Black Harvest Discord</a>, if you'd like to discuss anything about this analyzer, leave a message on the GitHub issue or message me @Chizu on WoWAnalyzer Discord.
     </div>
   ),
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/259',

@@ -9,13 +9,14 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-import Abilities from '../Features/Abilities';
+import Abilities from '../Abilities';
 import PaladinAbilityTracker from '../PaladinCore/PaladinAbilityTracker';
 
 class BeaconHealing extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     abilityTracker: PaladinAbilityTracker,
+    abilities: Abilities,
   };
 
   get totalHealsOnBeaconPercentage() {
@@ -25,8 +26,7 @@ class BeaconHealing extends Analyzer {
     let casts = 0;
     let castsOnBeacon = 0;
 
-    Abilities.ABILITIES
-      .filter(ability => ability.isActive === undefined || ability.isActive(this.combatants.selected))
+    this.abilities.activeAbilities
       .filter(ability => ability.category !== Abilities.SPELL_CATEGORIES.ITEMS)
       .forEach((ability) => {
         const castCount = getCastCount(ability.spell.id);
@@ -37,16 +37,25 @@ class BeaconHealing extends Analyzer {
     return castsOnBeacon / casts;
   }
 
+  get suggestionThresholds() {
+    return {
+      actual: this.totalHealsOnBeaconPercentage,
+      isGreaterThan: {
+        minor: 0.2,
+        average: 0.25,
+        major: 0.35,
+      },
+      style: 'percentage',
+    };
+  }
   suggestions(when) {
-    const totalHealsOnBeaconPercentage = this.totalHealsOnBeaconPercentage;
-
-    when(totalHealsOnBeaconPercentage).isGreaterThan(0.2)
+    when(this.suggestionThresholds.actual).isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('You cast a lot of direct heals on beacon targets. Direct healing beacon targets is inefficient. Try to only cast on beacon targets when they would otherwise die.')
           .icon('ability_paladin_beaconoflight')
           .actual(`${formatPercentage(actual)}% of all your healing spell casts were on a beacon target`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.05).major(recommended + 0.15);
+          .regular(this.suggestionThresholds.isGreaterThan.average).major(this.suggestionThresholds.isGreaterThan.major);
       });
   }
   statistic() {

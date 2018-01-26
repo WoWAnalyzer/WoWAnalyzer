@@ -43,7 +43,7 @@ class RelicTraits extends Analyzer {
       </StatisticsListBox>
     );
   }
-  statisticOrder = STATISTIC_ORDER.UNIMPORTANT(1);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(60);
 }
 
 export default RelicTraits;

@@ -108,6 +108,31 @@ export default {
     name: 'Rampage',
     icon: 'ability_warrior_rampage',
   },
+  RAMPAGE_1: {
+    id: 218617,
+    name: 'Rampage',
+    icon: 'ability_ironmaidens_bladerush',
+  },
+  RAMPAGE_2: {
+    id: 184707,
+    name: 'Rampage',
+    icon: 'ability_ironmaidens_bladerush',
+  },
+  RAMPAGE_3: {
+    id: 184709,
+    name: 'Rampage',
+    icon: 'ability_ironmaidens_bladerush',
+  },
+  RAMPAGE_4: {
+    id: 201364,
+    name: 'Rampage',
+    icon: 'ability_ironmaidens_bladerush',
+  },
+  RAMPAGE_5: {
+    id: 201363,
+    name: 'Rampage',
+    icon: 'ability_ironmaidens_bladerush',
+  },
   WHIRLWIND_FURY: {
     id: 190411,
     name: 'Whirlwind',
@@ -146,38 +171,58 @@ export default {
     name: 'Juggernaut',
     icon: 'warrior_talent_icon_skirmisher',
   },
+  MASSACRE: {
+    id: 206316,
+    name: 'Massacre',
+    icon: 'inv_sword_48',
+  },
 
   // Fury tier sets
   WARRIOR_FURY_T19_2P_BONUS: {
     id: 212157,
-    name: 'T19 2 set bonus',
+    name: 'T19 2P Bonus',
+    icon: 'trade_engineering',
+  },
+  WARRIOR_FURY_T19_4P_BONUS: {
+    id: 212158,
+    name: 'T19 4P Bonus',
     icon: 'trade_engineering',
   },
   WARRIOR_FURY_T20_2P_BONUS: {
     id: 242299,
-    name: 'T20 2 set bonus',
+    name: 'T20 2P Bonus',
     icon: 'ability_warrior_innerrage',
   },
   WARRIOR_FURY_T20_2P_BONUS_BUFF: {
     id: 242300,
-    name: 'T20 2 set bonus',
+    name: 'T20 2P Bonus',
     icon: 'warrior_wild_strike',
-  },
-  WARRIOR_FURY_T19_4P_BONUS: {
-    id: 212158,
-    name: 'T19 4 set bonus',
-    icon: 'trade_engineering',
   },
   WARRIOR_FURY_T20_4P_BONUS: {
     id: 242301,
-    name: 'T20 4 set bonus',
+    name: 'T20 4P Bonus',
     icon: 'ability_warrior_innerrage',
   },
-  // WARRIOR_FURY_T20_4P_BONUS_BUFF: {
-  //   id: 246153,
-  //   name: 'T20 4 set bonus',
-  //   icon: 'inv_spear_07',
-  // },
+  WARRIOR_FURY_T21_2P_BONUS: {
+    id: 251880,
+    name: 'T21 2P Bonus',
+    icon: 'spell_nature_reincarnation',
+  },
+  WARRIOR_FURY_T21_2P_BONUS_DEBUFF: {
+    id: 253384,
+    name: 'T21 2P Bonus',
+    icon: 'ability_warrior_weaponmastery',
+  },
+  WARRIOR_FURY_T21_4P_BONUS: {
+    id: 251881,
+    name: 'T21 4P Bonus',
+    icon: 'spell_nature_reincarnation',
+  },
+  WARRIOR_FURY_T21_4P_BONUS_BUFF: {
+    id: 253385,
+    name: 'T21 4P Bonus',
+    icon: 'ability_warrior_rampage',
+  },
 
   // Protection:
   //Rotational Spells

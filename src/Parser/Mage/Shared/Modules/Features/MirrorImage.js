@@ -2,6 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
+import Wrapper from 'common/Wrapper';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -36,29 +37,43 @@ class MirrorImage extends Analyzer {
     }
   }
 
-  suggestions(when) {
-    const damagePercent = this.owner.getPercentageOfTotalDamageDone(this.damage);
-    const damageIncreasePercent = damagePercent/(1-damagePercent);
+  get damagePercent() {
+    return this.owner.getPercentageOfTotalDamageDone(this.damage);
+  }
 
-    when(damageIncreasePercent).isLessThan(INCANTERS_FLOW_EXPECTED_BOOST)
+  get damageIncreasePercent() {
+    return this.damagePercent / (1 - this.damagePercent);
+  }
+
+  get damageSuggestionThresholds() {
+    return {
+      actual: this.damageIncreasePercent,
+      isLessThan: {
+        minor: INCANTERS_FLOW_EXPECTED_BOOST,
+        average: INCANTERS_FLOW_EXPECTED_BOOST,
+        major: INCANTERS_FLOW_EXPECTED_BOOST - 0.03,
+      },
+      style: 'percentage',
+    };
+  }
+
+  suggestions(when) {
+    when(this.damageSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.MIRROR_IMAGE_TALENT.id}/> damage is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id}/>. Consider switching to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id}/>.</span>)
+        return suggest(<Wrapper>Your <SpellLink id={SPELLS.MIRROR_IMAGE_TALENT.id}/> damage is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id}/>. Consider switching to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id}/>.</Wrapper>)
           .icon(SPELLS.MIRROR_IMAGE_TALENT.icon)
-          .actual(`${formatPercentage(damageIncreasePercent)}% damage increase from Mirror Image`)
-          .recommended(`${formatPercentage(recommended)}% is the passive gain from Incanter's Flow`)
-          .regular(recommended).major(recommended-0.03);
+          .actual(`${formatPercentage(this.damageIncreasePercent)}% damage increase from Mirror Image`)
+          .recommended(`${formatPercentage(recommended)}% is the passive gain from Incanter's Flow`);
         });
   }
 
   statistic() {
-    const damagePercent = this.owner.getPercentageOfTotalDamageDone(this.damage);
-    const damageIncreasePercent = damagePercent/(1-damagePercent);
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.MIRROR_IMAGE_TALENT.id} />}
-        value={`${formatPercentage(damagePercent)} %`}
+        value={`${formatPercentage(this.damagePercent)} %`}
         label="Mirror Image damage"
-        tooltip={`This is the portion of your total damage attributable to Mirror Image. Expressed as an increase vs never using Mirror Image, this is a <b>${formatPercentage(damageIncreasePercent)}% damage increase</b>.`}
+        tooltip={`This is the portion of your total damage attributable to Mirror Image. Expressed as an increase vs never using Mirror Image, this is a <b>${formatPercentage(this.damageIncreasePercent)}% damage increase</b>.`}
       />
     );
   }

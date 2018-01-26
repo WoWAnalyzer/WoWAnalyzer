@@ -21,7 +21,8 @@ class IcyVeins extends Analyzer {
 	}
 
   on_byPlayer_damage(event) {
-		if(event.ability.guid !== SPELLS.FROSTBOLT_DAMAGE.id || event.hitType !== HIT_TYPES.CRIT) {
+		const spellId = event.ability.guid;
+		if(spellId !== SPELLS.FROSTBOLT_DAMAGE.id || event.hitType !== HIT_TYPES.CRIT) {
 			return;
 		}
 		if (this.spellUsable.isOnCooldown(SPELLS.ICY_VEINS.id)) {

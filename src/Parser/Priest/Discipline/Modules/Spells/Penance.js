@@ -2,18 +2,16 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-
 import Combatants from 'Parser/Core/Modules/Combatants';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-
 import Analyzer from 'Parser/Core/Analyzer';
-
-/* This module will try to use Speed of the Pious to determine new Penance casts
- * If Speed of the Pious is not available, we fallback to an estimate
- */
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another
 
+/**
+ * This module will try to use Speed of the Pious to determine new Penance casts
+ * If Speed of the Pious is not available, we fallback to an estimate
+ */
 class Penance extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -28,6 +26,17 @@ class Penance extends Analyzer {
 
   isNewPenanceCast(timestamp) {
     return !this._previousPenanceTimestamp || (timestamp - this._previousPenanceTimestamp) > PENANCE_MINIMUM_RECAST_TIME;
+  }
+
+  // Speed of the Pious is applied at the start of Penance
+  on_byPlayer_applybuff(event) {
+    if (event.ability.guid !== SPELLS.SPEED_OF_THE_PIOUS.id) {
+      return;
+    }
+    this._speedOfThePiousAcquired = true;
+    this.casts += 1;
+    this._penanceBoltHitNumber = 0;
+    this._penanceBoltCastNumber = 0;
   }
 
   on_byPlayer_cast(event) {
@@ -48,17 +57,6 @@ class Penance extends Analyzer {
     }
 
     event.penanceBoltNumber = this._penanceBoltCastNumber;
-  }
-
-  // Speed of the Pious is applied at the start of Penance
-  on_byPlayer_applybuff(event) {
-    if (event.ability.guid !== SPELLS.SPEED_OF_THE_PIOUS.id) {
-      return;
-    }
-    this._speedOfThePiousAcquired = true;
-    this.casts += 1;
-    this._penanceBoltHitNumber = 0;
-    this._penanceBoltCastNumber = 0;
   }
 
   on_byPlayer_damage(event) {

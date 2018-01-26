@@ -35,7 +35,7 @@ class StatsDisplay extends Analyzer {
     switch (stat) {
       case STAT.CRITICAL_STRIKE: return this.statTracker.critPercentage(this.statTracker.startingCritRating, true);
       case STAT.HASTE: return this.statTracker.hastePercentage(this.statTracker.startingHasteRating, true);
-      case STAT.MASTERY: return this.statTracker.masteryPercentage(this.statTracker.startingMasteryRating, true);
+      case STAT.MASTERY: return this.statTracker.masteryRatingPerPercent === null ? null : this.statTracker.masteryPercentage(this.statTracker.startingMasteryRating, true);
       case STAT.VERSATILITY: return this.statTracker.versatilityPercentage(this.statTracker.startingVersatilityRating, true);
       case STAT.LEECH: return this.statTracker.leechPercentage(this.statTracker.startingLeechRating, true);
       case STAT.AVOIDANCE: return this.statTracker.avoidancePercentage(this.statTracker.startingAvoidanceRating, true);
@@ -75,8 +75,8 @@ class StatsDisplay extends Analyzer {
     );
   }
 
-  extraPanelOrder = 0;
-  extraPanel() {
+  // This is a special module, we're giving it a custom position. Normally we'd use "statistic" instead.
+  render() {
     const mainStats = [
       this.primaryStat,
       STAT.STAMINA,
@@ -106,7 +106,7 @@ class StatsDisplay extends Analyzer {
               const Icon = getIcon(stat);
 
               return (
-                <div className={`flex-main ${getClassNameColor(stat)}`}>
+                <div className={`flex-main ${getClassNameColor(stat)}`} key={stat}>
                   <Icon
                     style={{
                       width: '3em',
@@ -124,7 +124,7 @@ class StatsDisplay extends Analyzer {
           <div style={{ background: 'rgba(255, 255, 255, 0.2)', height: 1 }} />
           <div className="flex wrapable text-center" style={{ margin: '3px 0px 7px 0' }}>
             {tertiaries.map(stat => (
-              <div className={`flex-main ${getClassNameColor(stat)}`}>
+              <div key={stat} className={`flex-main ${getClassNameColor(stat)}`}>
                 <SpellIcon id={this.getTertiarySpell(stat)} style={{ height: '1em', borderRadius: 2 }} />{' '}
                 {this.renderStatValue(stat)} {getName(stat)}
               </div>

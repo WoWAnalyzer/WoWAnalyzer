@@ -240,6 +240,11 @@ export default {
     name: 'Meteor',
     icon: 'spell_mage_meteor',
   },
+  CINDERSTORM_DAMAGE: {
+    id: 198928,
+    name: 'Cinderstorm',
+    icon: 'spell_fire_flare',
+  },
 
   //Arcane
   ARCANE_BLAST: {
@@ -356,6 +361,11 @@ export default {
     name: 'Kaelthas\'s Ultimate Ability',
     icon: 'inv_bracer_robe_raidwarlock_j_01',
   },
+  ARCTIC_BLAST: { // Frost 4t21 proc
+    id: 253257,
+    name: 'Arctic Blast',
+    icon: 'inv_staff_15',
+  },
 
   //Artifact Traits
   FROZEN_VEINS_TRAIT: {
@@ -382,6 +392,11 @@ export default {
     id: 248147,
     name: 'Erupting Infernal Core',
     icon: 'spell_mage_flameorb',
+  },
+  PRE_IGNITED_TRAIT: {
+    id: 238055,
+    name: 'Pre-Ignited',
+    icon: 'spell_fire_sealoffire',
   },
 
   //Tier Sets
@@ -414,6 +429,16 @@ export default {
     id: 242250,
     name: 'T20 4 set bonus',
     icon: 'spell_fire_firebolt02',
+  },
+  FIRE_MAGE_T21_2SET_BONUS_BUFF: {
+    id: 251857,
+    name: 'T21 2 set bonus',
+    icon: 'ability_mage_greaterinvisibility',
+  },
+  FIRE_MAGE_T21_4SET_BONUS_BUFF: {
+    id: 251858,
+    name: 'T21 4 set bonus',
+    icon: 'ability_mage_greaterinvisibility',
   },
 
 };

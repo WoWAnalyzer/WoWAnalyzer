@@ -1,15 +1,94 @@
-export default `
-01-12-2017 - Added support for T21 2set. (by Sref)
-04-11-2017 - Reworked and updated Glacial Spike module. (by Sref)
-04-11-2017 - Added support for T20 4set. (by Sref)
-04-11-2017 - Added support for Ice Time and Lady Vashj's Grasp. (by Sref)
-30-10-2017 - Added Cancelled Casts Module. (by Sharrq)
-29-10-2017 - Added Ice Lance Utiliztion Module. (by Sharrq)
-28-10-2017 - Enhanced display of Winter's Chill and Brain Freeze statistics. (by Sref)
-28-10-2017 - Added Splitting Ice module. (by Sref)
-17-10-2017 - Added Frozen Bomb, Unstable Magic, and Arctic Gale modules. (by Sref)
-17-10-2017 - Added Rune of Power and Mirror Image modules. (by Sref)
-16-10-2017 - Added Cooldown Reduction Tracking for Frozen Orb and Icy Veins. (by Sharrq)
-15-10-2017 - Added Support for Zann'esu Journey, Magtheridon's Banished Bracers, and Shattered Fragments of Sindragosa. (by Sharrq)
-8-10-2017 - Added Spec. (by Sharrq)
-`;
+import React from 'react';
+
+import { Sharrq, sref } from 'MAINTAINERS';
+import Wrapper from 'common/Wrapper';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
+
+export default [
+  {
+      date: new Date('2018-01-01'),
+      changes: <Wrapper>Added a 'Fish for procs' entry to the Checklist, and reworded/updated several suggestion metrics.</Wrapper>,
+      contributors: [sref],
+  },
+  {
+      date: new Date('2017-12-29'),
+      changes: <Wrapper>Added support for <SpellLink id={SPELLS.FROST_MAGE_T21_4SET_BONUS_BUFF.id} /></Wrapper>,
+      contributors: [sref],
+  },
+  {
+    date: new Date('2017-12-27'),
+    changes: 'Converted Changelog to new format',
+    contributors: [Sharrq],
+  },
+  {
+    date: new Date('2017-12-24'),
+    changes: 'Added Checklist',
+    contributors: [sref],
+  },
+  {
+      date: new Date('2017-12-01'),
+      changes: <Wrapper>Added support for <SpellLink id={SPELLS.FROST_MAGE_T21_2SET_BONUS_BUFF.id} /></Wrapper>,
+      contributors: [sref],
+  },
+  {
+      date: new Date('2017-11-04'),
+      changes: 'Reworked and updated Glacial Spike module',
+      contributors: [sref],
+  },
+  {
+      date: new Date('2017-11-04'),
+      changes: 'Added support for T20 4pc Bonus',
+      contributors: [sref],
+  },
+  {
+      date: new Date('2017-11-04'),
+      changes: 'Added support for Ice Time and Lady Vashj\'s Grasp Legendaries',
+      contributors: [sref],
+  },
+  {
+      date: new Date('2017-10-30'),
+      changes: 'Added Cancelled Casts module',
+      contributors: [Sharrq],
+  },
+  {
+      date: new Date('2017-10-29'),
+      changes: 'Added Ice Lance Utilization module',
+      contributors: [Sharrq],
+  },
+  {
+      date: new Date('2017-10-28'),
+      changes: 'Enhanced display of Winter\'s Chill and Brain Freeze statistics',
+      contributors: [sref],
+  },
+  {
+      date: new Date('2017-10-28'),
+      changes: 'Added Splitting Ice module',
+      contributors: [sref],
+  },
+  {
+      date: new Date('2017-10-17'),
+      changes: 'Added Frost Bomb, Unstable Magic, and Arctic Gale modules',
+      contributors: [sref],
+  },
+  {
+      date: new Date('2017-10-17'),
+      changes: 'Added Rune of Power and Mirror Image modules',
+      contributors: [sref],
+  },
+  {
+      date: new Date('2017-10-16'),
+      changes: 'Added Cooldown Reduction Tracking for Frozen Orb and Icy Veins',
+      contributors: [Sharrq],
+  },
+  {
+      date: new Date('2017-10-15'),
+      changes: 'Added Support for Zann\'esu Journey, Magtheridon\'s Banished Bracers, and Shattered Fragments of Sindragosa',
+      contributors: [Sharrq],
+  },
+  {
+      date: new Date('2017-10-08'),
+      changes: 'Added spec',
+      contributors: [Sharrq],
+  },
+];

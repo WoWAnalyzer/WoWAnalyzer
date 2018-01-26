@@ -1,13 +1,20 @@
 import React from 'react';
-import ImportTarnishedSentinelMedallion from 'Parser/Core/Modules/Items/TarnishedSentinelMedallion';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
+import CoreTarnishedSentinelMedallion from 'Parser/Core/Modules/Items/Legion/TombOfSargeras/TarnishedSentinelMedallion';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemDamageDone from 'Main/ItemDamageDone';
+
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
 
-class TarnishedSentinelMedallion extends ImportTarnishedSentinelMedallion {
+/**
+ * Use: Call upon a spectral owl to attack your target, inflicting 61201 Arcane damage every 1 sec for 20 sec. Your ranged attacks and spells against the same enemy have a chance to make the owl perform an additional attack for 75602 damage. (2 Min Cooldown)
+ */
+class TarnishedSentinelMedallion extends CoreTarnishedSentinelMedallion {
   static dependencies = {
+    ...CoreTarnishedSentinelMedallion.dependencies,
     cooldownThroughputTracker: CooldownThroughputTracker,
     combatants: Combatants,
   };
@@ -62,7 +69,7 @@ class TarnishedSentinelMedallion extends ImportTarnishedSentinelMedallion {
       item: ITEMS.TARNISHED_SENTINEL_MEDALLION,
       result: (
         <dfn data-tip={`<b> ${formatNumber(this.medallionCastsWithTS)} out of ${formatNumber(this.medallionCasts)} </b> Medallion casts were combined with Trueshot. <br/><b>OBS:</b> For a medallion cast to be considered combined with Trueshot, 10 seconds of it has to be affected by Trueshot.`}>
-          {formatNumber(this.damage)} damage - {this.owner.formatItemDamageDone(this.damage)}
+          <ItemDamageDone amount={this.damage} />
         </dfn>
       ),
     };

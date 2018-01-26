@@ -8,37 +8,57 @@ const ASSERTION_MODES = {
   IS_LESS_THAN_OR_EQUAL: '<=',
   IS_TRUE: '==true',
   IS_FALSE: '==false',
+  IS_EQUAL: '===',
 };
 class SuggestionAssertion {
   _actual = null;
   _addIssue = null;
 
   _mode = null;
-  _breakpoint = null;
+  _threshold = null;
 
-  constructor(actual, addIssue) {
-    this._actual = actual;
+  constructor(options, addIssue) {
+    if (typeof options === 'object') {
+      this._actual = options.actual;
+      if (options.isGreaterThan !== undefined) {
+        this.isGreaterThan(options.isGreaterThan);
+      } else if (options.isGreaterThanOrEqual !== undefined) {
+        this.isGreaterThanOrEqual(options.isGreaterThanOrEqual);
+      } else if (options.isLessThan !== undefined) {
+        this.isLessThan(options.isLessThan);
+      } else if (options.isLessThanOrEqual !== undefined) {
+        this.isLessThanOrEqual(options.isLessThanOrEqual);
+      } else if (options.isTrue !== undefined) {
+        this.isTrue(options.isTrue);
+      } else if (options.isFalse !== undefined) {
+        this.isFalse(options.isFalse);
+      } else if (options.isEqual !== undefined) {
+        this.isEqual(options.isEqual);
+      }
+    } else {
+      this._actual = options;
+    }
     this._addIssue = addIssue;
   }
 
   isGreaterThan(value) {
     this._mode = ASSERTION_MODES.IS_GREATER_THAN;
-    this._breakpoint = value;
+    this._threshold = value;
     return this;
   }
   isGreaterThanOrEqual(value) {
     this._mode = ASSERTION_MODES.IS_GREATER_THAN_OR_EQUAL;
-    this._breakpoint = value;
+    this._threshold = value;
     return this;
   }
   isLessThan(value) {
     this._mode = ASSERTION_MODES.IS_LESS_THAN;
-    this._breakpoint = value;
+    this._threshold = value;
     return this;
   }
   isLessThanOrEqual(value) {
     this._mode = ASSERTION_MODES.IS_LESS_THAN_OR_EQUAL;
-    this._breakpoint = value;
+    this._threshold = value;
     return this;
   }
   isTrue() {
@@ -49,17 +69,39 @@ class SuggestionAssertion {
     this._mode = ASSERTION_MODES.IS_FALSE;
     return this;
   }
+  isEqual(value) {
+    this._mode = ASSERTION_MODES.IS_EQUAL;
+    this._threshold = value;
+    return this;
+  }
+  get triggerThreshold() {
+    let threshold = this._threshold;
+    if (threshold !== null && typeof threshold === 'object') {
+      // `null` is also of type 'object'
+      threshold = threshold.minor;
+    }
+    return threshold;
+  }
   _isApplicable() {
-    return this._compare(this._actual, this._breakpoint);
+    return this._compare(this._actual, this.triggerThreshold);
   }
   _getIssueImportance(suggestion) {
     if (suggestion._staticImportance) {
       return suggestion._staticImportance;
     }
-    if (this._compare(this._actual, suggestion._breakpointMajor)) {
+
+    let majorThreshold = suggestion.majorThreshold;
+    let averageThreshold = suggestion.averageThreshold;
+    if (this._threshold !== null && typeof this._threshold === 'object') {
+      // This gets priority because we want people to use this method over the old method that's used above.
+      majorThreshold = this._threshold.major;
+      averageThreshold = this._threshold.average;
+    }
+
+    if (majorThreshold !== undefined && this._compare(this._actual, majorThreshold)) {
       return ISSUE_IMPORTANCE.MAJOR;
     }
-    if (this._compare(this._actual, suggestion._breakpointRegular)) {
+    if (averageThreshold !== undefined && this._compare(this._actual, averageThreshold)) {
       return ISSUE_IMPORTANCE.REGULAR;
     }
     return ISSUE_IMPORTANCE.MINOR;
@@ -72,13 +114,14 @@ class SuggestionAssertion {
       case ASSERTION_MODES.IS_LESS_THAN_OR_EQUAL: return actual <= breakpoint;
       case ASSERTION_MODES.IS_TRUE: return !!actual;
       case ASSERTION_MODES.IS_FALSE: return !actual;
+      case ASSERTION_MODES.IS_EQUAL: return actual === breakpoint;
       default: throw new Error('Assertion mode not set.');
     }
   }
 
   addSuggestion(func) {
     if (this._isApplicable()) {
-      const suggestion = func(suggestionText => new Suggestion(suggestionText), this._actual, this._breakpoint);
+      const suggestion = func(suggestionText => new Suggestion(suggestionText), this._actual, this.triggerThreshold);
 
       this._addIssue({
         issue: suggestion._text,
@@ -95,8 +138,8 @@ class Suggestion {
   _icon = null;
   _actualText = null;
   _recommendedText = null;
-  _breakpointRegular = null;
-  _breakpointMajor = null;
+  averageThreshold = null;
+  majorThreshold = null;
   _staticImportance = null;
   _details = null;
 
@@ -116,11 +159,11 @@ class Suggestion {
     return this;
   }
   regular(value) {
-    this._breakpointRegular = value;
+    this.averageThreshold = value;
     return this;
   }
   major(value) {
-    this._breakpointMajor = value;
+    this.majorThreshold = value;
     return this;
   }
   staticImportance(value) {
@@ -137,7 +180,6 @@ class ParseResults {
   tabs = [];
   statistics = [];
   items = [];
-  extraPanels = [];
   issues = [];
 
   constructor() {

@@ -1,6 +1,8 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
+import Checklist from './Modules/Features/Checklist';
+
 import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
@@ -24,6 +26,7 @@ import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
 import Tier21_2set from './Modules/Items/Tier21_2set';
+import Tier21_4set from './Modules/Items/Tier21_4set';
 import ZannesuJourney from './Modules/Items/ZannesuJourney';
 import IceTime from './Modules/Items/IceTime';
 import MagtheridonsBanishedBracers from './Modules/Items/MagtheridonsBanishedBracers';
@@ -35,6 +38,8 @@ import SoulOfTheArchmage from './Modules/Items/SoulOfTheArchmage';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    checklist: Checklist,
+
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
@@ -61,6 +66,7 @@ class CombatLogParser extends CoreCombatLogParser {
 	  tier20_2set: Tier20_2set,
     tier20_4set: Tier20_4set,
     tier21_2set: Tier21_2set,
+    tier21_4set: Tier21_4set,
 	  shardOfTheExodar: ShardOfTheExodar,
     zannesuJourney: ZannesuJourney,
     iceTime: IceTime,

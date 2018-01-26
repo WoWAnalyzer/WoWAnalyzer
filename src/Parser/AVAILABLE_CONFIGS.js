@@ -10,8 +10,9 @@ import FeralDruid from './Druid/Feral/CONFIG';
 import GuardianDruid from './Druid/Guardian/CONFIG';
 import RestoDruid from './Druid/Restoration/CONFIG';
 
-import MarksmanshipHunter from './Hunter/Marksmanship/CONFIG';
 import BeastMasteryHunter from './Hunter/BeastMastery/CONFIG';
+import MarksmanshipHunter from './Hunter/Marksmanship/CONFIG';
+import SurvivalHunter from './Hunter/Survival/CONFIG';
 
 import FrostMage from './Mage/Frost/CONFIG';
 import FireMage from './Mage/Fire/CONFIG';
@@ -24,12 +25,12 @@ import HolyPaladin from './Paladin/Holy/CONFIG';
 import RetributionPaladin from './Paladin/Retribution/CONFIG';
 import ProtectionPaladin from './Paladin/Protection/CONFIG';
 
-
 import DisciplinePriest from './Priest/Discipline/CONFIG';
 import HolyPriest from './Priest/Holy/CONFIG';
 import ShadowPriest from './Priest/Shadow/CONFIG';
 
 import SubtletyRogue from './Rogue/Subtlety/CONFIG';
+import AssassinationRogue from './Rogue/Assassination/CONFIG';
 
 import ElementalShaman from './Shaman/Elemental/CONFIG';
 import EnhancementShaman from './Shaman/Enhancement/CONFIG';
@@ -56,8 +57,9 @@ export default [
   GuardianDruid,
   RestoDruid,
 
-  MarksmanshipHunter,
   BeastMasteryHunter,
+  MarksmanshipHunter,
+  SurvivalHunter,
 
   FrostMage,
   FireMage,
@@ -75,6 +77,7 @@ export default [
   ShadowPriest,
 
   SubtletyRogue,
+  AssassinationRogue,
 
   ElementalShaman,
   EnhancementShaman,

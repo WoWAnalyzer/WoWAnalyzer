@@ -4,268 +4,220 @@ import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 import calculateMaxCasts from 'Parser/Core/calculateMaxCasts';
 
-/* eslint-disable no-unused-vars */
-
 class Abilities extends CoreAbilities {
-  static ABILITIES = [
-    ...CoreAbilities.ABILITIES,
+  spellbook() {
+    const combatant = this.combatants.selected;
+    return [
+      {
+        spell: SPELLS.VOID_BOLT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: haste => 4.5 / (1 + haste),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.85,
+          maxCasts: (cooldown, fightDuration, getAbility, parser) => {
+            const { averageVoidformHaste } = parser.modules.voidform;
+            const cooldownVoidBolt = 4.5 / averageVoidformHaste;
 
-    {
-      spell: SPELLS.VOID_BOLT,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      recommendedEfficiency: 0.85,
-      getCooldown: (haste, combatant) => 4.5 / (1 + haste),
-      getMaxCasts: (cooldown, fightDuration, getAbility, parser) => {
-        const { averageVoidformHaste } = parser.modules.voidform;
-        const cooldownVoidBolt = 4.5 / averageVoidformHaste;
-
-        return calculateMaxCasts(cooldownVoidBolt, parser.modules.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id));
+            return calculateMaxCasts(cooldownVoidBolt, parser.modules.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id));
+          },
+        },
       },
-    },
+      {
+        spell: SPELLS.MIND_BLAST,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: (haste, combatant) => ((combatant.hasBuff(SPELLS.VOIDFORM_BUFF.id) ? 6 : 9) / (1 + haste)),
+        enabled: !combatant.hasWaist(ITEMS.MANGAZAS_MADNESS.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.55,
+        },
+      },
+      {
+        spell: SPELLS.MIND_BLAST,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: (haste, combatant) => ((combatant.hasBuff(SPELLS.VOIDFORM_BUFF.id) ? 6 : 9) / (1 + haste)),
+        enabled: combatant.hasWaist(ITEMS.MANGAZAS_MADNESS.id),
+        charges: 2,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.85,
+        },
+      },
+      {
+        spell: SPELLS.MIND_FLAY,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      },
+      {
+        spell: SPELLS.SHADOW_WORD_DEATH,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 9,
+        charges: 2,
+      },
+      {
+        spell: SPELLS.SHADOW_WORD_VOID_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 20,
+        enabled: combatant.hasTalent(SPELLS.SHADOW_WORD_VOID_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
+      },
+      {
+        spell: SPELLS.SHADOW_WORD_PAIN,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      },
+      {
+        spell: SPELLS.VAMPIRIC_TOUCH,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      },
+      {
+        spell: SPELLS.VOID_ERUPTION,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      },
 
-    {
-      spell: SPELLS.MIND_BLAST,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      isActive: combatant => !combatant.hasWaist(ITEMS.MANGAZAS_MADNESS.id),
-      recommendedEfficiency: 0.55,
-      getCooldown: (haste, combatant) => ((combatant.hasBuff(SPELLS.VOIDFORM_BUFF.id) ? 6 : 9) / ( 1 + haste )),
-    },
+      // Cooldowns
+      {
+        spell: SPELLS.VOID_TORRENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 60,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.75,
+        },
+      },
+      {
+        spell: SPELLS.MINDBENDER_TALENT_SHADOW,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 60,
+        enabled: combatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
+      },
+      {
+        spell: SPELLS.SHADOWFIEND,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 180,
+        enabled: !combatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
+      },
+      {
+        spell: SPELLS.POWER_INFUSION_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 120,
+        enabled: combatant.hasTalent(SPELLS.POWER_INFUSION_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
+      },
+      {
+        spell: SPELLS.SHADOW_CRASH_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 20,
+        enabled: combatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
+      },
+      {
+        spell: SPELLS.SURRENDER_TO_MADNESS_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 600,
+        enabled: combatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id),
+      },
 
-    {
-      spell: SPELLS.MIND_BLAST,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      isActive: combatant => combatant.hasWaist(ITEMS.MANGAZAS_MADNESS.id),
-      recommendedEfficiency: 0.85,
-      getCooldown: (haste, combatant) => ((combatant.hasBuff(SPELLS.VOIDFORM_BUFF.id) ? 6 : 9) / ( 1 + haste )),
-      charges: 2,
-    },
-
-    {
-      spell: SPELLS.MIND_FLAY,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => null,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-
-    {
-      spell: SPELLS.SHADOW_WORD_DEATH,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      noCanBeImproved: true,
-      noSuggestion: true,
-      getCooldown: haste => 9,
-      charges: 2,
-    },
-
-    {
-      spell: SPELLS.SHADOW_WORD_VOID_TALENT,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      recommendedEfficiency: 0.8,
-      getCooldown: haste => 20,
-      isActive: combatant => combatant.hasTalent(SPELLS.SHADOW_WORD_VOID_TALENT.id),
-    },
-
-    {
-      spell: SPELLS.SHADOW_WORD_PAIN,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => null,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-
-    {
-      spell: SPELLS.VAMPIRIC_TOUCH,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => null,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-
-    {
-      spell: SPELLS.VOID_ERUPTION,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      getCooldown: haste => null,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-
-    // Cooldowns
-    {
-      spell: SPELLS.VOID_TORRENT,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      recommendedEfficiency: 0.9,
-      getCooldown: haste => 60,
-    },
-
-    {
-      spell: SPELLS.MINDBENDER_TALENT_SHADOW,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      recommendedEfficiency: 0.8,
-      getCooldown: haste => 60,
-      isActive: combatant => combatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id),
-    },
-
-    {
-      spell: SPELLS.SHADOWFIEND,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      recommendedEfficiency: 0.8,
-      getCooldown: haste => 180,
-      isActive: combatant => !combatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id),
-    },
-
-    {
-      spell: SPELLS.POWER_INFUSION_TALENT,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      recommendedEfficiency: 0.8,
-      getCooldown: haste => 120,
-      isActive: combatant => combatant.hasTalent(SPELLS.POWER_INFUSION_TALENT.id),
-    },
-
-    {
-      spell: SPELLS.SHADOW_CRASH_TALENT,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      recommendedEfficiency: 0.8,
-      getCooldown: haste => 20,
-      isActive: combatant => combatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id),
-    },
-
-    {
-      spell: SPELLS.SURRENDER_TO_MADNESS_TALENT,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      getCooldown: haste => 600,
-      noSuggestion: true,
-      noCanBeImproved: true,
-      isActive: combatant => combatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id),
-    },
-
-    // Utility
-    {
-      spell: SPELLS.DISPERSION,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: (haste, selectedCombatant) => 90 - (10 * selectedCombatant.traitsBySpellId[SPELLS.FROM_THE_SHADOWS_TRAIT.id]),
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-
-    {
-      spell: SPELLS.SILENCE,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => 45,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-
-    {
-      spell: SPELLS.MIND_BOMB_TALENT,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => 30,
-      isActive: combatant => combatant.hasTalent(SPELLS.MIND_BOMB_TALENT.id),
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-
-    {
-      spell: SPELLS.VAMPIRIC_EMBRACE,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => 180,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-
-    {
-      spell: SPELLS.POWER_WORD_SHIELD,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => 7.5 / (1 + haste),
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-
-    {
-      spell: SPELLS.SHADOW_MEND,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => null,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-
-    {
-      spell: SPELLS.FADE,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => 30,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-
-    {
-      spell: SPELLS.ARCANE_TORRENT_MANA,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => 90,
-      isUndetectable: true,
-    },
-
-    {
-      spell: SPELLS.MASS_DISPEL,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => 15,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-    {
-      spell: SPELLS.DISPEL_MAGIC,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => null,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-    {
-      spell: SPELLS.MIND_CONTROL,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: (haste, selectedCombatant) => (selectedCombatant.hasTalent(SPELLS.DOMINANT_MIND_TALENT.id) ? 120 : 0),
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-
-    {
-      spell: SPELLS.SHACKLE_UNDEAD,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => null,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-    {
-      spell: SPELLS.PSYCHIC_SCREAM,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: (haste, selectedCombatant) => 60 - (selectedCombatant.hasTalent(SPELLS.PSYCHIC_VOICE_TALENT.id) ? 30 : 0),
-      isActive: combatant => !combatant.hasTalent(SPELLS.MIND_BOMB_TALENT.id),
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-
-    {
-      spell: SPELLS.MIND_VISION,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => null,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-
-    {
-      spell: SPELLS.PURIFY_DISEASE,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => 8,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-
-    {
-      spell: SPELLS.SHADOWFORM,
-      category: Abilities.SPELL_CATEGORIES.UTILITY,
-      getCooldown: haste => null,
-      noSuggestion: true,
-      noCanBeImproved: true,
-    },
-
-  ];
+      // Utility
+      {
+        spell: SPELLS.DISPERSION,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: (haste, selectedCombatant) => 90 - (10 * selectedCombatant.traitsBySpellId[SPELLS.FROM_THE_SHADOWS_TRAIT.id]),
+      },
+      {
+        spell: SPELLS.SILENCE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 45,
+      },
+      {
+        spell: SPELLS.MIND_BOMB_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        enabled: combatant.hasTalent(SPELLS.MIND_BOMB_TALENT.id),
+      },
+      {
+        spell: SPELLS.VAMPIRIC_EMBRACE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 180,
+      },
+      {
+        spell: SPELLS.POWER_WORD_SHIELD,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: haste => 7.5 / (1 + haste),
+      },
+      {
+        spell: SPELLS.SHADOW_MEND,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+      },
+      {
+        spell: SPELLS.FADE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+      },
+      {
+        spell: SPELLS.ARCANE_TORRENT_MANA,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 90,
+        isUndetectable: true,
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      {
+        spell: SPELLS.MASS_DISPEL,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 15,
+      },
+      {
+        spell: SPELLS.DISPEL_MAGIC,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+      },
+      {
+        spell: SPELLS.MIND_CONTROL,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: (haste, selectedCombatant) => (selectedCombatant.hasTalent(SPELLS.DOMINANT_MIND_TALENT.id) ? 120 : 0),
+      },
+      {
+        spell: SPELLS.SHACKLE_UNDEAD,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+      },
+      {
+        spell: SPELLS.PSYCHIC_SCREAM,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: (haste, selectedCombatant) => 60 - (selectedCombatant.hasTalent(SPELLS.PSYCHIC_VOICE_TALENT.id) ? 30 : 0),
+        enabled: !combatant.hasTalent(SPELLS.MIND_BOMB_TALENT.id),
+      },
+      {
+        spell: SPELLS.MIND_VISION,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+      },
+      {
+        spell: SPELLS.PURIFY_DISEASE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 8,
+      },
+      {
+        spell: SPELLS.SHADOWFORM,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+      },
+    ];
+  }
 }
 
 export default Abilities;

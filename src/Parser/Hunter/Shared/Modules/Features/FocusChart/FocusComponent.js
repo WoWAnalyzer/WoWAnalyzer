@@ -16,7 +16,7 @@ const FocusComponent = ({ categories, abilities, passive, focusBySecondCoord, ov
           <tbody key={key}>
             <tr>
               <th>{categories[key]}</th>
-              <th className="text-center"><dfn data-tip="Only those that generated/spent focus">Casts</dfn></th>
+              <th className="text-center"><dfn data-tip="Times you gained focus from this ability">Times gained focus</dfn></th>
 
               <th className="text-center">{key === 'generated' ? <dfn data-tip="Approximately.">Generated</dfn> : ''}</th>
               <th className="text-center"><dfn data-tip="Approximately.">Wasted</dfn></th>
@@ -61,7 +61,7 @@ const FocusComponent = ({ categories, abilities, passive, focusBySecondCoord, ov
                       {wasted || '0'}
                     </td>
                     <td style={{ width: '25%', color: 'orange' }}>
-                      {canBeImproved && !ability.noCanBeImproved && 'Can be improved.'}
+                      {canBeImproved && ability.castEfficiency && ability.castEfficiency.suggestion && 'Can be improved.'}
                     </td>
                   </tr>
                 );

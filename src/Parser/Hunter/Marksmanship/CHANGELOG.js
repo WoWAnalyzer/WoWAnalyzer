@@ -9,6 +9,41 @@ import { Blazballs, JLassie82, Putro } from 'MAINTAINERS';
 
 export default [
   {
+    date: new Date('2018-01-05'),
+    changes: <Wrapper>Added support for <SpellLink id={SPELLS.SENTINEL_TALENT.id} icon />, and included the current bugged ticks of Sentinel.</Wrapper>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2017-12-30'),
+    changes: 'Fixed a bug in the focus chart, that sometimes indicated you were at negative focus at any given moment',
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2017-12-26'),
+    changes: 'Added a focus usage chart',
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2017-12-26'),
+    changes: <Wrapper>Added support for <ItemLink id={ITEMS.CELERITY_OF_THE_WINDRUNNERS.id} icon />, <ItemLink id={ITEMS.MAGNETIZED_BLASTING_CAP_LAUNCHER.id} icon />, <ItemLink id={ITEMS.ZEVRIMS_HUNGER.id} icon />, <ItemLink id={ITEMS.ROOTS_OF_SHALADRASSIL.id} icon />, <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} icon />, <ItemLink id={ITEMS.THE_APEX_PREDATORS_CLAW.id} icon /> and <ItemLink id={ITEMS.THE_SHADOW_HUNTERS_VOODOO_MASK.id} icon />.</Wrapper>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2017-12-26'),
+    changes: 'Fix a bug with critical strike rating showing 5% too low for Marksmanship hunters.',
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2017-12-24'),
+    changes: 'Updated to the new checklist format',
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2017-12-15'),
+    changes: 'Reworked T21 almost from the ground up, the 4p now includes damage and procs',
+    contributors: [Putro],
+  },
+  {
     date: new Date('2017-12-04'),
     changes: 'Added many talents and traits. Moved them into a singular box to improve visibility.',
     contributors: [Putro],

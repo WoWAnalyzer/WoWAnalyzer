@@ -1,10 +1,10 @@
+import React from 'react';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-
 import Combatants from 'Parser/Core/Modules/Combatants';
-
-const debug = false;
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 class ShelterOfRin extends Analyzer {
   static dependencies = {
@@ -25,16 +25,10 @@ class ShelterOfRin extends Analyzer {
     }
   }
 
-  on_finished() {
-    if (debug) {
-      console.log(`Shelter of Rin Healing: ${this.healing}`);
-    }
-  }
-
   item() {
     return {
       item: ITEMS.SHELTER_OF_RIN,
-      result: this.owner.formatItemHealingDone(this.healing),
+      result: <ItemHealingDone amount={this.healing} />,
     };
   }
 }

@@ -158,6 +158,24 @@ export default {
   },
 
   // Havoc
+  //T21 Bonus
+  HAVOC_T21_2PC_BONUS: {
+    id: 251767,
+    name: 'Havoc T21 2PC Bonus',
+    icon: 'ability_demonhunter_eyebeam',
+  },
+  HAVOC_T21_4PC_BONUS: {
+    id: 251769,
+    name: 'Havoc T21 4PC Bonus',
+    icon: 'ability_demonhunter_eyebeam',
+  },
+  //T21 Buff
+  HAVOC_T21_4PC_BUFF: {
+    id: 252165,
+    name: 'Betrayer\'s Fury',
+    icon: 'ability_demonhunter_eyebeam',
+  },
+  //spells
   DEMONS_BITE: {
     id: 162243,
     name: 'Demon\'s Bite',
@@ -198,6 +216,11 @@ export default {
     name: 'Eye Beam',
     icon: 'ability_demonhunter_eyebeam',
   },
+  EYE_BEAM_DAMAGE: {
+    id: 198030,
+    name: 'EYE_BEAM',
+    icon: 'ability_demonhunter_eyebeam',
+  },
   FURY_OF_THE_ILLIDARI: {
     id: 201467,
     name: 'Fury of the Illidari',
@@ -208,7 +231,7 @@ export default {
     name: 'Consume Magic',
     icon: 'ability_demonhunter_consumemagic',
   },
-  CONSUME_MAGIC_2: {
+  CONSUME_MAGIC_FURY_GEN: {
     id: 218903,
     name: 'Consume Magic',
     icon: 'ability_demonhunter_consumemagic',
@@ -387,5 +410,10 @@ export default {
     id: 201460,
     name: 'Unleashed Demons',
     icon: 'ability_demonhunter_metamorphasisdps',
+  },
+  FEAST_ON_THE_SOULS: {
+    id: 201468,
+    name: 'Feast of the Souls',
+    icon: 'spell_warlock_soulburn',
   },
 };

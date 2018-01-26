@@ -1,11 +1,26 @@
 import React from 'react';
 
-import { Anomoly } from 'MAINTAINERS';
+import { Anomoly, Zerotorescue } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 
 export default [
   {
-    date: new Date('2017-13-25'),
+    date: new Date('2018-01-18'),
+    changes: <Wrapper>Updated Essence Font HoT usage thresholds to lower values based on current healing methods. Also, fixed a rare 'NaN' error.</Wrapper>,
+    contributors: [Anomoly],
+  },
+  {
+    date: new Date('2017-12-29'),
+    changes: <Wrapper>Fixed display in the timeline and the inclusion in active time of channeled abilities.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-24'),
+    changes: 'Added Mistweaver checklist items',
+    contributors: [Anomoly],
+  },
+  {
+    date: new Date('2017-12-13'),
     changes: 'Added in Mistweaver Mastery calculation to stats',
     contributors: [Anomoly],
   },

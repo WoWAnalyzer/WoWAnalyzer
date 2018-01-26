@@ -89,7 +89,12 @@ export default {
     icon: 'inv_jewelry_ring_60',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
-
+  AMANTHULS_VISION: {
+    id: 154172,
+    name: 'Aman\'Thul\'s Vision',
+    icon: 'inv_antorus_turquoise',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
   //Crafted legendaries
   CELUMBRA_THE_NIGHTS_DICHOTOMY: {
     id: 146666,
@@ -157,6 +162,12 @@ export default {
     id: 144480,
     name: 'Dreadstone of Endless Shadows',
     icon: 'inv_jewelcrafting_shadowsongamethyst_01',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  EYE_OF_COMMAND: {
+    id: 142167,
+    name: 'Eye of Command',
+    icon: 'inv_7_0raid_trinket_010d',
     quality: ITEM_QUALITIES.EPIC,
   },
 
@@ -351,9 +362,19 @@ export default {
     name: 'Norgannon\'s Prowess',
     icon: 'inv_antorus_blue',
   },
+  ACRID_CATALYST_INJECTOR: {
+    id: 151955,
+    name: 'Acrid Catalyst Injector',
+    icon: 'inv_7_0raid_trinket_01c',
+  },
   SHADOW_SINGED_FANG: {
     id: 151968,
     name: 'Shadow-Singed Fang',
     icon: 'inv_misc_blacksaberonfang',
+  },
+  AGGRAMARS_CONVICTION: {
+    id: 154173,
+    name: 'Aggramar\'s Conviction',
+    icon: 'inv_antorus_orange',
   },
 };

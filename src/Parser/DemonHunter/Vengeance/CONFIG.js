@@ -20,12 +20,12 @@ export default {
 
 			Also, I have implemented a pain chart tracker. It makes more visual to see if you are capping and wasting too much pain during the fight. It also shows the pain gained/spent breakdown for each of your abilities that you've used in each fight. In my opinion, this is the core of the Vengeance spec analyzer, because resource management is always the decisive point between wiping your group or using a defensive cooldown to avoid it. As you might have experimented, this is one of the hardest things to improve and to master. My desire is to make  this easier for you with this feature.<br/><br/>
 
-			If you have any more questions about Demon Hunters, feel free to pay a visit to <a href="https://discord.gg/zGGkNGC" target="_blank" rel="noopener noreferrer">The Fel Hammer Discord</a>, if it's about a general tanking issue, there's also the <a href="https://discord.gg/j9Q5cy7" target="_blank" rel="noopener noreferrer">Tank Chat Discord</a> but if you'd like to discuss anything related to this analyzer, leave a message on GitHub issue or message @Mamtooth on WoW Analyzer Discord.<br/><br/>
+			If you have any more questions about Demon Hunters, feel free to pay a visit to <a href="https://discord.gg/zGGkNGC" target="_blank" rel="noopener noreferrer">The Fel Hammer Discord</a>, if it's about a general tanking issue, there's also the <a href="https://discord.gg/j9Q5cy7" target="_blank" rel="noopener noreferrer">Tank Chat Discord</a> but if you'd like to discuss anything related to this analyzer, leave a message on GitHub issue or message @Mamtooth on WoWAnalyzer Discord.<br/><br/>
 
 			<center>NOW YOU ARE PREPARED!</center>
 		</div>
 	),
-  completeness: SPEC_ANALYSIS_COMPLETENESS.GREAT, // good = it matches most common manual reviews in class discords, great = it support all important class features
+  completeness: SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED, // good = it matches most common manual reviews in class discords, great = it support all important class features
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/milestone/7',
   changelog: CHANGELOG,
   parser: CombatLogParser,

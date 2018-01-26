@@ -11,8 +11,11 @@ import UABuffTracker from './Modules/Features/UABuffTracker';
 
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
+import Channeling from './Modules/WarlockCore/Channeling';
+import GlobalCooldown from './Modules/WarlockCore/GlobalCooldown';
 import FatalEchoes from './Modules/Features/FatalEchoes';
 import Sniping from './Modules/Features/Sniping';
+import TormentedSouls from './Modules/Features/TormentedSouls';
 
 import Haunt from './Modules/Talents/Haunt';
 import MaleficGrasp from './Modules/Talents/MaleficGrasp';
@@ -33,6 +36,10 @@ import ReapAndSow from './Modules/Items/Legendaries/ReapAndSow';
 
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier20_4set from './Modules/Items/Tier20_4set';
+import Tier21_2set from './Modules/Items/Tier21_2set';
+import Tier21_4set from './Modules/Items/Tier21_4set';
+
+import Checklist from './Modules/Features/Checklist';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -43,6 +50,8 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     fatalEchoes: FatalEchoes,
     sniping: Sniping,
+    tormentedSouls: TormentedSouls,
+    checklist: Checklist,
 
     // DoTs
     agonyUptime: AgonyUptime,
@@ -52,6 +61,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
+    channeling: Channeling,
+    globalCooldown: GlobalCooldown,
 
     // Talents
     haunt: Haunt,
@@ -75,6 +86,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // Items
     tier20_2set: Tier20_2set,
     tier20_4set: Tier20_4set,
+    tier21_2set: Tier21_2set,
+    tier21_4set: Tier21_4set,
   };
 }
 

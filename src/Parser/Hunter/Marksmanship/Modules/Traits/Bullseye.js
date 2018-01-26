@@ -1,6 +1,7 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
+import Wrapper from 'common/Wrapper';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from "common/SpellIcon";
 import { formatNumber, formatPercentage } from "common/format";
@@ -9,6 +10,9 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import CooldownTracker from '../Features/CooldownThroughputTracker';
 
+/*
+ * When your abilities damage a target below 20% health, you gain 1% increased critical strike chance for 6 sec, stacking up to 30 times.
+ */
 class Bullseye extends Analyzer {
   executeTimestamp;
   bullseyeResets = 0; //only resets when boss < 20% health, so resets we can confirm shouldn't have happened
@@ -68,9 +72,7 @@ class Bullseye extends Analyzer {
 
   statistic() {
     const lastBullseyeIndex = this.bullseyeInstances.length - 1;
-    if (!this.bullseyeInstances[0]) {
-      return;
-    }
+
     if (this.bullseyeInstances[lastBullseyeIndex] && !this.bullseyeInstances[lastBullseyeIndex].end) {
       this.bullseyeInstances[lastBullseyeIndex].end = this.owner.fight.end_time - this.owner.fight.start_time;
     }
@@ -93,11 +95,22 @@ class Bullseye extends Analyzer {
     );
   }
 
-  suggestions(when) {
+  get bullseyeResetThreshold() {
+    return {
+      actual: this.bullseyeResets,
+      isGreaterThan: {
+        minor: 0.1,
+        average: 0.3,
+        major: 0.5,
+      },
+      style: 'number',
+    };
+  }
 
+  suggestions(when) {
     when(this.bullseyeResets).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> You reset your <SpellLink id={SPELLS.BULLSEYE_BUFF.id} /> stacks while the boss was below 20% health. Try and avoid this as it is a significant DPS loss. Make sure you're constantly refreshing and adding to your bullseye stacks on targets below 20% hp.</span>)
+        return suggest(<Wrapper> You reset your <SpellLink id={SPELLS.BULLSEYE_BUFF.id} /> stacks while the boss was below 20% health. Try and avoid this as it is a significant DPS loss. Make sure you're constantly refreshing and adding to your bullseye stacks on targets below 20% hp.</Wrapper>)
           .icon('ability_hunter_focusedaim')
           .actual(`${this.bullseyeResets} resets`)
           .recommended(`<1 reset is recommended`)

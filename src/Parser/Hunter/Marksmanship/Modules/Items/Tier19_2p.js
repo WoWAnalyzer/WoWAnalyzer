@@ -23,6 +23,10 @@ const AFFECTED_ABILITIES = [
   SPELLS.VOLLEY_ACTIVATED.id,
 ];
 
+/*
+ * Every 45 Focus you spend reduces the cooldown of Trueshot by 1 sec.
+ */
+
 class Tier19_2p extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -59,7 +63,7 @@ class Tier19_2p extends Analyzer {
       title: <SpellLink id={SPELLS.HUNTER_MM_T19_2P_BONUS.id} />,
       result: (
         <dfn data-tip={`You wasted ${formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR.<br/> `}>
-          reduced <SpellLink id={SPELLS.TRUESHOT.id} /> CD by {formatNumber(this.effectiveTrueshotReductionMs / 1000)}s in total.
+          reduced <SpellLink id={SPELLS.TRUESHOT.id} icon /> CD by {formatNumber(this.effectiveTrueshotReductionMs / 1000)}s in total.
         </dfn>
       ),
     };

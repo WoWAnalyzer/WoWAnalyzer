@@ -1,10 +1,11 @@
 import React from 'react';
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
+
 import ITEMS from 'common/ITEMS';
-import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import PETS from 'common/PETS';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 import DemoPets from '../../WarlockCore/Pets';
 import getDamageBonus from '../../WarlockCore/getDamageBonus';
@@ -89,11 +90,7 @@ class KazzaksFinalCurse extends Analyzer {
   item() {
     return {
       item: ITEMS.KAZZAKS_FINAL_CURSE,
-      result: (
-        <dfn data-tip={`Total damage contributed - ${formatNumber(this.bonusDmg)}`}>
-          {this.owner.formatItemDamageDone(this.bonusDmg)}
-        </dfn>
-      ),
+      result: <ItemDamageDone amount={this.bonusDmg} />,
     };
   }
 }
