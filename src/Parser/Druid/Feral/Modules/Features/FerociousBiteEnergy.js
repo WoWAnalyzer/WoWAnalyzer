@@ -8,8 +8,14 @@ import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
+import { formatNumber, formatPercentage } from 'common/format';
 
-const ENERGY_FOR_FULL_DAMAGE = 50;
+const ENERGY_MIN_USED_BY_BITE = 25;
+const ENERGY_FOR_FULL_DAMAGE_BITE = 50;
+const MAX_DAMAGE_BONUS_FROM_ENERGY = 1.0;
+const LEEWAY_BETWEEN_CAST_AND_DAMAGE = 100; // in thousandths of a second
+
+const debug = false;
 
 /**
  * Although Ferocious Bite costs 25 energy, it does up to double damage if the character has more.
@@ -22,40 +28,108 @@ class FerociousBiteEnergy extends Analyzer {
     combatants: Combatants,
   };
   
-  lowEnergyBites = 0;
-  sumEnergyBelowTarget = 0;
+  biteCount = 0
+  lowEnergyBiteCount = 0;
+  lostDamageTotal = 0;
+
+  biteDamageEvents = [];
+  lowEnergyBiteCastEvents = [];
+  
+  on_byPlayer_damage(event) {
+    if (event.ability.guid !== SPELLS.FEROCIOUS_BITE.id) {
+      return;
+    }
+
+    // Damage event only provides a feral druid's mana in classResources, not their energy.
+    // So store damage and link it with energy information from cast event after parsing is complete.
+    this.biteDamageEvents.push(event);
+  }
 
   on_byPlayer_cast(event) {
     if (event.ability.guid !== SPELLS.FEROCIOUS_BITE.id) {
       return;
     }
+    this.biteCount++;
 
     const resource = event.classResources[0];
-    if (resource.type !== RESOURCE_TYPES.ENERGY.id ||
-        (resource.type === RESOURCE_TYPES.ENERGY.id && !resource.cost)) {
+    if (resource.type !== RESOURCE_TYPES.ENERGY.id || !resource.cost) {
       // Ferocious Bite didn't consume energy, and so ignores the character's energy level.
       return;
     }
 
-    // 'amount' is the resource present before the spell alters it.
-    if (resource.amount < ENERGY_FOR_FULL_DAMAGE) {
-      this.lowEnergyBites++;
-      this.sumEnergyBelowTarget += (ENERGY_FOR_FULL_DAMAGE - resource.amount);
+    // 'amount' is energy before the ability uses it.
+    if (resource.amount < ENERGY_FOR_FULL_DAMAGE_BITE) {
+      this.lowEnergyBiteCount++;
+      this.lowEnergyBiteCastEvents.push(event);
     }
   }
 
+  on_finished() {
+    this.lowEnergyBiteCastEvents.forEach((castEvent) => {
+      const damageEvent = this.linearSearchByTimestamp(
+        this.biteDamageEvents, castEvent.timestamp, LEEWAY_BETWEEN_CAST_AND_DAMAGE);
+      if (damageEvent) {
+        const actualDamage = damageEvent.amount + damageEvent.absorbed;
+        const actualEnergy = castEvent.classResources[0].amount;
+        const lostDamage = this.calcPotentialBiteDamage(actualDamage, actualEnergy) - actualDamage;
+        this.lostDamageTotal += lostDamage;
+        
+        debug && console.log(`Ferocious Bite at ${formatNumber(castEvent.timestamp / 1000)}s did ${formatNumber(actualDamage)} damage with ${actualEnergy} energy, but could have done ${formatNumber(lostDamage)} more.`);
+      }
+    });
+
+    // No longer need these events, so let the GC eat them
+    this.lowEnergyBiteCastEvents = null;
+    this.biteDamageEvents = null;
+  }
+
   /**
-   * Use a sum of the magnitude of error to trigger suggestion rather than a simple count
-   * of low energy bites. This way using Bite at 49 energy is correctly seen as a minor error
-   * with only slight damage loss, while a Bite at 25 energy is more significant.
+   * As we're searching for a timestamp in data ordered by timestamp, we could be much
+   * more efficient than this linear search. But the collection is expected to be <100
+   * in length, so a simple solution should be fine.
    */
+  linearSearchByTimestamp(timestampedArray, targetTime, maxDifference) {
+    let closest = null;
+    let closestDifference = maxDifference;
+
+    timestampedArray.forEach((item) =>{
+      const difference = Math.abs(item.timestamp - targetTime);
+      if (difference < closestDifference) {
+        closest = item;
+        closestDifference = difference;
+      }
+    });
+    return closest;
+  }
+
+  /**
+   * Calculate what damage a bite could have done if it'd been given the maximum bonus energy
+   * @param {number} actualDamage Observed damage of the Bite
+   * @param {number} energy Energy available when Bite was cast
+   */
+  calcPotentialBiteDamage(actualDamage, energy) {
+    if (energy >= ENERGY_FOR_FULL_DAMAGE_BITE) {
+      // Bite was already doing its maximum damage
+      return actualDamage;
+    }
+
+    const actualMulti = 1 + MAX_DAMAGE_BONUS_FROM_ENERGY * (energy - ENERGY_MIN_USED_BY_BITE) /
+      (ENERGY_FOR_FULL_DAMAGE_BITE - ENERGY_MIN_USED_BY_BITE);
+    const baseDamage = actualDamage / actualMulti;
+    return baseDamage * (1 + MAX_DAMAGE_BONUS_FROM_ENERGY);
+  }
+
+  get dpsLostFromLowEnergyBites() {
+    return (this.lostDamageTotal / this.owner.fightDuration) * 1000;
+  }
+
   get suggestionThresholds() {
     return {
-      actual: this.sumEnergyBelowTarget,
+      actual: this.lowEnergyBiteCount / this.biteCount,
       isGreaterThan: {
-        minor: 5,
-        average: 25,
-        major: 60,
+        minor: 0,
+        average: 0.10,
+        major: 0.25,
       },
       style: 'number',
     };
@@ -63,23 +137,14 @@ class FerociousBiteEnergy extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      let actualText = '';
-      // Vary message for clarity and grammar
-      if (this.lowEnergyBites === 1) {
-        actualText = `1 low energy bite at ${ENERGY_FOR_FULL_DAMAGE - this.sumEnergyBelowTarget} energy.`;
-      }
-      else {
-        actualText = `${this.lowEnergyBites} low energy bites, ` + 
-          `averaging ${(this.sumEnergyBelowTarget / this.lowEnergyBites).toFixed(1)} below ${ENERGY_FOR_FULL_DAMAGE} energy.`;
-      }
       return suggest(
         <Wrapper>
-          <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> does double damage if used with at least {ENERGY_FOR_FULL_DAMAGE} energy. It's usually worth delaying the bite until you have that energy.
+          You used <SpellLink id={SPELLS.FEROCIOUS_BITE.id}/> below {ENERGY_FOR_FULL_DAMAGE_BITE} energy {formatPercentage(actual)}% of the time. Reducing your <SpellLink id={SPELLS.FEROCIOUS_BITE.id}/> damage by {formatNumber(this.dpsLostFromLowEnergyBites)} DPS.
         </Wrapper>
       )
         .icon(SPELLS.FEROCIOUS_BITE.icon)
-        .actual(actualText)
-        .recommended(`0 is recommended`);
+        .actual(`${formatPercentage(actual)}% low energy Ferocious Bites.`)
+        .recommended(`${recommended}% is recommended.`);
     });
   }
 }
