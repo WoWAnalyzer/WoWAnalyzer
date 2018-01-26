@@ -203,8 +203,8 @@ class TreeOfLife extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<Wrapper>Your <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> is not providing you much throughput. You may want to plan your CD usage better or pick another talent.</Wrapper>)
           .icon(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.icon)
-          .actual(`${formatPercentage(this.totalThroughputPercent)}% healing`)
-          .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`);
+          .actual(`${formatPercentage(actual)}% healing`)
+          .recommended(`>${formatPercentage(recommended, 0)}% is recommended`);
       });
   }
 
@@ -243,7 +243,7 @@ class TreeOfLife extends Analyzer {
           <ul>
             <li>Overall Increased Healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.chameleonSong.allBoostHealing))}%</b></li>
             <li>Rejuv Increased Healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.chameleonSong.rejuvBoostHealing))}%</b></li>
-            <li>Rejuv Mana Saved: <b>${this._getManaSaved(this.chameleonSong)}</b> (assuming mana used to fill with Rejuvs: <b>≈${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getManaSavedHealing(this.chameleonSong)))}%</b> healing)</li>
+            <li>Rejuv Mana Saved: <b>${formatNumber(this._getManaSaved(this.chameleonSong))}</b> (assuming mana used to fill with Rejuvs: <b>≈${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getManaSavedHealing(this.chameleonSong)))}%</b> healing)</li>
             <li>Increased Wild Growths: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.chameleonSong.extraWgHealing))}%</b></li>
           </ul>`}>
           <ItemHealingDone amount={this._getTotalHealing(this.chameleonSong)} />

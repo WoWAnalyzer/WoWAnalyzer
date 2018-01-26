@@ -372,4 +372,9 @@ export default {
     name: 'Shadow-Singed Fang',
     icon: 'inv_misc_blacksaberonfang',
   },
+  AGGRAMARS_CONVICTION: {
+    id: 154173,
+    name: 'Aggramar\'s Conviction',
+    icon: 'inv_antorus_orange',
+  },
 };
