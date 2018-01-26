@@ -14,7 +14,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import getDamageBonus from '../WarlockCore/getDamageBonus';
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
-const UA_IDS_SET = new Set(UNSTABLE_AFFLICTION_DEBUFF_IDS);
 const HAUNT_DAMAGE_BONUS = 0.15;
 
 class Haunt extends Analyzer {
@@ -39,7 +38,7 @@ class Haunt extends Analyzer {
     }
     const hasHaunt = target.hasBuff(SPELLS.HAUNT_TALENT.id, event.timestamp);
 
-    if (UA_IDS_SET.has(event.ability.guid)) {
+    if (UNSTABLE_AFFLICTION_DEBUFF_IDS.includes(event.ability.guid)) {
       this.totalTicks += 1;
       if (hasHaunt) {
         this.buffedTicks += 1;

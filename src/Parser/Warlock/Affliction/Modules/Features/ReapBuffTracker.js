@@ -12,8 +12,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
-const UA_IDS_SET = new Set(UNSTABLE_AFFLICTION_DEBUFF_IDS);
-
 class ReapBuffTracker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -24,7 +22,7 @@ class ReapBuffTracker extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (!UA_IDS_SET.has(spellId)) {
+    if (!UNSTABLE_AFFLICTION_DEBUFF_IDS.includes(spellId)) {
       return;
     }
     this.totalTicks += 1;
