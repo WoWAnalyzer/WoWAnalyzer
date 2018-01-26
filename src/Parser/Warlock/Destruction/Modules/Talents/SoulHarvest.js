@@ -2,8 +2,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-
-import getDamageBonus from '../WarlockCore/getDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const SOUL_HARVEST_DAMAGE_BONUS = 0.2;
 
@@ -31,13 +30,13 @@ class SoulHarvest extends Analyzer {
 
   on_byPlayer_damage(event) {
     if (this.combatants.selected.hasBuff(SPELLS.SOUL_HARVEST_TALENT.id, event.timestamp)) {
-      this._addToCorrectSource(getDamageBonus(event, SOUL_HARVEST_DAMAGE_BONUS));
+      this._addToCorrectSource(calculateEffectiveDamage(event, SOUL_HARVEST_DAMAGE_BONUS));
     }
   }
 
   on_byPlayerPet_damage(event) {
     if (this.combatants.selected.hasBuff(SPELLS.SOUL_HARVEST_TALENT.id, event.timestamp)) {
-      this._addToCorrectSource(getDamageBonus(event, SOUL_HARVEST_DAMAGE_BONUS));
+      this._addToCorrectSource(calculateEffectiveDamage(event, SOUL_HARVEST_DAMAGE_BONUS));
     }
   }
 

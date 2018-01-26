@@ -8,8 +8,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
 import { formatNumber, formatPercentage } from 'common/format';
-
-import getDamageBonus from '../WarlockCore/getDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const ELT_DAMAGE_BONUS = 0.1;
 
@@ -26,7 +25,7 @@ class EmpoweredLifeTap extends Analyzer {
 
   on_byPlayer_damage(event) {
     if (this.combatants.selected.hasBuff(SPELLS.EMPOWERED_LIFE_TAP_BUFF.id, event.timestamp)) {
-      this.bonusDmg += getDamageBonus(event, ELT_DAMAGE_BONUS);
+      this.bonusDmg += calculateEffectiveDamage(event, ELT_DAMAGE_BONUS);
     }
   }
 
