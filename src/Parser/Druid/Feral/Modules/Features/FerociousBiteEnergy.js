@@ -4,11 +4,12 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
 
-const energyResourceType = 3;
-const energyForFullDamage = 50;
+const ENERGY_FOR_FULL_DAMAGE = 50;
 
 /**
  * Although Ferocious Bite costs 25 energy, it does up to double damage if the character has more.
@@ -29,21 +30,17 @@ class FerociousBiteEnergy extends Analyzer {
       return;
     }
 
-    if (event.classResources[0].type !== energyResourceType) {
-      // classResources[0] not being energy means Ferocious Bite didn't consume any energy,
-      // and so ignores the character's energy level.
-      return;
-    }
-    if (event.classResources[0].type === energyResourceType && !event.classResources[0].cost) {
+    const resource = event.classResources[0];
+    if (resource.type !== RESOURCE_TYPES.ENERGY.id ||
+        (resource.type === RESOURCE_TYPES.ENERGY.id && !resource.cost)) {
       // Ferocious Bite didn't consume energy, and so ignores the character's energy level.
       return;
     }
 
     // 'amount' is the resource present before the spell alters it.
-    const energy = event.classResources[0].amount;
-    if (energy < energyForFullDamage) {
+    if (resource.amount < ENERGY_FOR_FULL_DAMAGE) {
       this.lowEnergyBites++;
-      this.sumEnergyBelowTarget += (energyForFullDamage - energy);
+      this.sumEnergyBelowTarget += (ENERGY_FOR_FULL_DAMAGE - resource.amount);
     }
   }
 
@@ -69,15 +66,15 @@ class FerociousBiteEnergy extends Analyzer {
       let actualText = '';
       // Vary message for clarity and grammar
       if (this.lowEnergyBites === 1) {
-        actualText = `1 low energy bite at ${energyForFullDamage - this.sumEnergyBelowTarget} energy.`;
+        actualText = `1 low energy bite at ${ENERGY_FOR_FULL_DAMAGE - this.sumEnergyBelowTarget} energy.`;
       }
       else {
         actualText = `${this.lowEnergyBites} low energy bites, ` + 
-          `averaging ${(this.sumEnergyBelowTarget / this.lowEnergyBites).toFixed(1)} below ${energyForFullDamage} energy.`;
+          `averaging ${(this.sumEnergyBelowTarget / this.lowEnergyBites).toFixed(1)} below ${ENERGY_FOR_FULL_DAMAGE} energy.`;
       }
       return suggest(
         <Wrapper>
-          <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> does double damage if used with at least {energyForFullDamage} energy. It's usually worth delaying the bite until you have that energy.
+          <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> does double damage if used with at least {ENERGY_FOR_FULL_DAMAGE} energy. It's usually worth delaying the bite until you have that energy.
         </Wrapper>
       )
         .icon(SPELLS.FEROCIOUS_BITE.icon)
