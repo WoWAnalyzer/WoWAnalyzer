@@ -100,7 +100,7 @@ class CastEfficiency extends Analyzer {
     const fightDurationMs = this.owner.fightDuration;
     const fightDurationMinutes = fightDurationMs / 1000 / 60;
 
-    const cooldown = ability.cooldown;
+    const cooldown = ability.castEfficiency.disabled ? null : ability.cooldown;
     const cooldownMs = !cooldown ? null : cooldown * 1000;
     const cdInfo = this._getCooldownInfo(ability);
 
@@ -123,7 +123,7 @@ class CastEfficiency extends Analyzer {
     // This same behavior should be managable using SpellUsable's interface, so maxCasts is deprecated.
     // Legacy support: if maxCasts is defined, cast efficiency will be calculated using casts/rawMaxCasts
     let rawMaxCasts;
-    const averageCooldown = (cdInfo.recharges === 0) ? null : (cdInfo.completedRechargeTime / cdInfo.recharges);
+    const averageCooldown = (cdInfo.recharges === 0) || ability.castEfficiency.disabled ? null : (cdInfo.completedRechargeTime / cdInfo.recharges);
     if (ability.castEfficiency.maxCasts) {
       // maxCasts expects cooldown in seconds
       rawMaxCasts = ability.castEfficiency.maxCasts(cooldown, this.owner.fightDuration, this.abilityTracker.getAbility, this.owner);

@@ -25,7 +25,7 @@ export default {
 			<center>NOW YOU ARE PREPARED!</center>
 		</div>
 	),
-  completeness: SPEC_ANALYSIS_COMPLETENESS.GOOD, // good = it matches most common manual reviews in class discords, great = it support all important class features
+  completeness: SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED, // good = it matches most common manual reviews in class discords, great = it support all important class features
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/milestone/7',
   changelog: CHANGELOG,
   parser: CombatLogParser,

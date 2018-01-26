@@ -66,6 +66,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DRAGONS_BREATH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 20,
+        castEfficiency: {
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.FLAMESTRIKE,
@@ -92,6 +95,10 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 25,
         enabled: combatant.hasTalent(SPELLS.BLAST_WAVE_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
       },
 
       // Cooldowns
@@ -99,12 +106,20 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.COMBUSTION,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
       },
       {
         spell: SPELLS.MIRROR_IMAGE_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.MIRROR_IMAGE_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
       },
       {
         spell: SPELLS.RUNE_OF_POWER_TALENT,
@@ -112,6 +127,10 @@ class Abilities extends CoreAbilities {
         cooldown: 40,
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
       },
 
       //Defensives
@@ -124,6 +143,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ICE_BLOCK,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 240,
+        castEfficiency: {
+          disabled: true,
+        },
       },
 
       //Utility
@@ -132,6 +154,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         enabled: !combatant.hasTalent(SPELLS.ICE_WARD_TALENT.id),
+        castEfficiency: {
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.FROST_NOVA,
@@ -139,12 +164,18 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.ICE_WARD_TALENT.id),
+        castEfficiency: {
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.BLINK,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
         enabled: !combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
+        castEfficiency: {
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.SHIMMER_TALENT,
@@ -152,11 +183,17 @@ class Abilities extends CoreAbilities {
         cooldown: 15,
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
+        castEfficiency: {
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.COUNTERSPELL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 24,
+        castEfficiency: {
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.SLOW_FALL,
@@ -170,6 +207,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.INVISIBILITY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 300,
+        castEfficiency: {
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.ARCANE_TORRENT_MANA,

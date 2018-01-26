@@ -51,6 +51,14 @@ class RunicPowerTracker extends Analyzer {
       generated: 0,
       wasted: 0,
     },
+    [SPELLS.ARCANE_TORRENT_RUNIC_POWER.id]: {
+      generated: 0,
+      wasted: 0,
+    },
+    [SPELLS.SHACKLES_OF_BRYNDAOR_BUFF.id]: {
+      generated: 0,
+      wasted: 0,
+    },
   };
 
   spent = {
@@ -68,7 +76,7 @@ class RunicPowerTracker extends Analyzer {
     this.generatedAndWasted[spellId].generated += (event.resourceChange || 0);
     this.generatedAndWasted[spellId].wasted += (event.waste || 0);
     this.rpWasted += (event.waste || 0);
-    this.totalRPGained += (event.resourceChange || 0) + (event.waste || 0);
+    this.totalRPGained += (event.resourceChange || 0);
   }
 
 

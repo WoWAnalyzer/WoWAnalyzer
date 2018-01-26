@@ -13,10 +13,14 @@ import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
 
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 import UnstableMagic from '../Shared/Modules/Features/UnstableMagic';
+import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
 import Kindling from './Modules/Features/Kindling';
 import PhoenixsFlames from './Modules/Features/PhoenixsFlames';
 import HotStreak from './Modules/Features/HotStreak';
-import Combustion from './Modules/Features/Combustion';
+import CombustionFirestarter from './Modules/Features/CombustionFirestarter';
+import CombustionCharges from './Modules/Features/CombustionCharges';
+import CombustionSpellUsage from './Modules/Features/CombustionSpellUsage';
+import CombustionMarqueeBindings from './Modules/Features/CombustionMarqueeBindings';
 import HeatingUp from './Modules/Features/HeatingUp';
 import Cinderstorm from './Modules/Features/Cinderstorm';
 
@@ -47,13 +51,17 @@ class CombatLogParser extends CoreCombatLogParser {
     cancelledCasts: CancelledCasts,
     phoenixsFlames: PhoenixsFlames,
     hotStreak: HotStreak,
-    combustion: Combustion,
+    combustionFirestarter: CombustionFirestarter,
+    combustionCharges: CombustionCharges,
+    combustionSpellUsage: CombustionSpellUsage,
+    combustionMarqueeBindings: CombustionMarqueeBindings,
     heatingUp: HeatingUp,
     cinderstorm: Cinderstorm,
 
     // Talents
     mirrorImage: MirrorImage,
     unstableMagic: UnstableMagic,
+    runeOfPower: [RuneOfPower, { showStatistic: false, showSuggestion: false }],
     kindling: Kindling,
 
 	  //Items

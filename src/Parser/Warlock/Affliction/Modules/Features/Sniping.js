@@ -14,7 +14,6 @@ import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 // it's still possible that it can be a coincidence (mob dies and at the same time something falls off somewhere unrelated), but shouldn't happen too much
 // I'll test and adjust if needed
 const ENERGIZE_REMOVEDEBUFF_THRESHOLD = 100;
-const UA_IDS_SET = new Set(UNSTABLE_AFFLICTION_DEBUFF_IDS);
 
 class Sniping extends Analyzer {
   static dependencies = {
@@ -45,7 +44,7 @@ class Sniping extends Analyzer {
   }
 
   on_byPlayer_removedebuff(event) {
-    if (!UA_IDS_SET.has(event.ability.guid) && event.ability.guid !== SPELLS.DRAIN_SOUL.id) {
+    if (!UNSTABLE_AFFLICTION_DEBUFF_IDS.includes(event.ability.guid) && event.ability.guid !== SPELLS.DRAIN_SOUL.id) {
       return;
     }
     if (event.timestamp < this._lastEnergize + ENERGIZE_REMOVEDEBUFF_THRESHOLD) {
