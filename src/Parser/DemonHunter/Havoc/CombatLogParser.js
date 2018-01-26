@@ -8,6 +8,7 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import Momentum from './Modules/Spells/Momentum';
 import Nemesis from './Modules/Spells/Nemesis';
 
+import Tier21_2set from './Modules/Items/Tier21_2set';
 import RaddonsCascadingEyes from './Modules/Items/RaddonsCascadingEyes';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -25,6 +26,7 @@ class CombatLogParser extends CoreCombatLogParser {
     nemesis: Nemesis,
 
     // Items
+    tier21_2set: Tier21_2set,
     raddonsCascadingEyes: RaddonsCascadingEyes,
   };
 }
