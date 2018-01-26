@@ -23,16 +23,40 @@ class Mindbender extends Pet {
     super.on_initialized();
   }
 
+  get suggestionStackThresholds() {
+    return (mindbender) => ({
+      actual: mindbender.voidformStacks,
+      isLessThan: {
+        minor: 23,
+        average: 21,
+        major: 19,
+      },
+      style: 'number',
+    });
+  }
+
+  get mindbenders() {
+    return Object.keys(this._mindbenders).map(timestamp => this._mindbenders[timestamp]);
+  }
+
   on_byPlayer_summon(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.MINDBENDER_TALENT_SHADOW.id || !this.voidform.inVoidform) return;
+    if (spellId !== SPELLS.MINDBENDER_TALENT_SHADOW.id) return;
 
+    this._mindbenders[event.timestamp] = {
+      voidformStacks: (this.voidform.inVoidform && this.voidform.currentVoidform.stacks[this.voidform.currentVoidform.stacks.length -1].stack) || 0,
+    };
+
+
+    if(!this.voidform.inVoidform) return;
     const duration = MINDBENDER_UPTIME_MS + (MINDBENDER_ADDED_UPTIME_MS_PER_TRAIT * this.combatants.selected.traitsBySpellId[SPELLS.FIENDING_DARK_TRAIT.id]);
     this.voidform.addVoidformEvent(SPELLS.MINDBENDER_TALENT_SHADOW.id, {
       start: this.voidform.normalizeTimestamp(event),
       end: this.voidform.normalizeTimestamp({timestamp: event.timestamp + duration}),
       stack: this.voidform.currentVoidform.stacks[this.voidform.currentVoidform.stacks.length -1].stack,
     });
+
+
   }
 }
 

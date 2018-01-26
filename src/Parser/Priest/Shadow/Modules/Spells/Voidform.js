@@ -190,10 +190,6 @@ class Voidform extends Analyzer {
     debug && console.log(this.voidforms);
   }
 
-  get uptime(){
-    return this.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id) / (this.owner.fightDuration - this.combatants.selected.getBuffUptime(SPELLS.DISPERSION.id));
-  }
-
   get suggestionUptimeThresholds() {
     return {
       actual: this.uptime,
