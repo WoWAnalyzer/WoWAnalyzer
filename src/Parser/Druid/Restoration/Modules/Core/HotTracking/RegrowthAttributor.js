@@ -6,8 +6,6 @@ import HotTracker from './HotTracker';
 
 const BUFFER_MS = 150; // saw a few cases of taking close to 150ms from cast -> applybuff
 
-const debug = false;
-
 /*
  * Backend module tracks attribution of Regrowth
  */
@@ -74,26 +72,17 @@ class RegrowthAttributor extends Analyzer {
     const timestamp = event.timestamp;
     const attributions = [];
 
-    let attName = "None";
     if (event.prepull || (this.lastRegrowthCastTimestamp + BUFFER_MS > timestamp && this.lastRegrowthTarget === targetId)) { // regular cast (assume prepull applications are hardcast)
       // standard hardcast gets no special attribution
-      attName = "Hardcast";
     } else if (this.lastPotaRegrowthTimestamp + BUFFER_MS > timestamp && this.potaTarget !== targetId) { // PotA proc but not primary target
       attributions.push(this.powerOfTheArchdruid);
-      attName = "Power of the Archdruid";
     } else {
       console.warn(`Unable to attribute Regrowth @${this.owner.formatTimestamp(timestamp)} on ${targetId}`);
     }
 
-    debug && this._logAttribution(spellId, targetId, timestamp, attName);
-
     attributions.forEach(att => {
       this.hotTracker.addAttribution(att, targetId, spellId);
     });
-  }
-
-  _logAttribution(spellId, targetId, timestamp, attName) {
-    //debug && console.log(`${spellId} on ${targetId} @${this.owner.formatTimestamp(timestamp)} attributed to ${attName}`);
   }
 
 }

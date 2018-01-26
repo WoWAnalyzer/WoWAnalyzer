@@ -12,8 +12,6 @@ const REJUV_IDS = [
 
 const BUFFER_MS = 150; // saw a few cases of taking close to 150ms from cast -> applybuff
 
-const debug = true;
-
 /*
  * Backend module tracks attribution of Rejuvenations
  */
@@ -104,35 +102,24 @@ class RejuvenationAttributor extends Analyzer {
     const timestamp = event.timestamp;
     const attributions = [];
 
-    let attName = "None";
     if (event.prepull || (this.lastRejuvCastTimestamp + BUFFER_MS > timestamp && this.lastRejuvTarget === targetId && !this.castRejuvApplied)) {
       // regular cast (assume prepull applications are hardcast)
       // standard hardcast gets no special attribution
       this.castRejuvApplied = true;
-      attName = "Hardcast";
     } else if (this.lastPotaRejuvTimestamp + BUFFER_MS > timestamp && this.potaTarget !== targetId && this.potaRejuvsRemaining > 0) { // PotA proc but not primary target
       attributions.push(this.powerOfTheArchdruid);
       this.potaRejuvsRemaining -= 1;
-      attName = this.powerOfTheArchdruid.name;
     } else if (this.hasTearstone && this.lastWildGrowthCastTimestamp + BUFFER_MS > timestamp) {
       attributions.push(this.tearstoneOfElune);
-      attName = this.tearstoneOfElune.name;
     } else if (this.has4t19) {
       attributions.push(this.t194p);
-      attName = this.t194p.name;
     } else {
       console.warn(`Unable to attribute Rejuv @${this.owner.formatTimestamp(timestamp)} on ${targetId}`);
     }
 
-    debug && this._logAttribution(spellId, targetId, timestamp, attName);
-
     attributions.forEach(att => {
       this.hotTracker.addAttribution(att, targetId, spellId);
     });
-  }
-
-  _logAttribution(spellId, targetId, timestamp, attName) {
-    //debug && console.log(`${spellId} on ${targetId} @${this.owner.formatTimestamp(timestamp)} attributed to ${attName}`);
   }
 
 }

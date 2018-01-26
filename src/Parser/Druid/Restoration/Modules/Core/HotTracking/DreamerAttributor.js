@@ -4,8 +4,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import HotTracker from './HotTracker';
 
-const debug = false;
-
 /*
  * Backend module tracks attribution of Dreamer
  */
@@ -47,27 +45,17 @@ class DreamerAttributor extends Analyzer {
 
     const attributions = [];
 
-    let attName = "None";
     if (this.remaining4t21attributes > 0) {
       attributions.push(this.t214p);
       this.remaining4t21attributes -= 1;
-      attName = "Tier21 4pc";
     } else {
       attributions.push(this.t212p);
-      attName = "Tier21 2pc";
     }
-
-    debug && this._logAttribution(spellId, targetId, event.timestamp, attName);
 
     attributions.forEach(att => {
       this.hotTracker.addAttribution(att, targetId, spellId);
     });
   }
-
-  _logAttribution(spellId, targetId, timestamp, attName) {
-    //debug && console.log(`${spellId} on ${targetId} @${this.owner.formatTimestamp(timestamp)} attributed to ${attName}`);
-  }
-
 }
 
 export default DreamerAttributor;
