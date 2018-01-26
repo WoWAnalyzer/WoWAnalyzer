@@ -886,7 +886,13 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             <SpecIcon spec={SPECS.SHADOW_PRIEST} />
-            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/197">Added</a> by <Maintainer {...MAINTAINERS.hassebewlen} />.<br /><br />
+            After using the analyzer for Discipline Priest for a while, <Maintainer {...MAINTAINERS.hassebewlen} /> implemented it for Shadow Priest.
+
+            <blockquote>
+              I have healed for most of my time in WoW and played priest since WotLK. Legion is the first expansion which I started raiding on a higher level (previous ones were just PvP) and found shadow to be pretty fun. But when they nerfed surrender to madness, I went back to healing my fellow teammates and just had shadow as an offspec.<br /><br />
+
+              When I found out about this project and that it was coded in ES6, I thought it would be a nice side project, learning more about git, working in a project with others while combining an hobby.
+            </blockquote>
 
             <figure>
               <img src={ShadowPriest} alt="Initial version of the Shadow Priest analyzer" />
@@ -894,6 +900,11 @@ class Article extends React.PureComponent {
                 Initial version of the Shadow Priest analyzer
               </figcaption>
             </figure>
+
+            <blockquote>
+              I implemented the shadow priest portion mostly for myself, as I found it tedious to look for what I wanted on warcraftlogs (so I could more easily bash my fellow SPs in my guild).
+              And knowing that others can use it for their own benefit is also great.
+            </blockquote>
           </div>
         </div>
 
