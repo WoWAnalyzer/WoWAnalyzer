@@ -8,8 +8,17 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import Momentum from './Modules/Spells/Momentum';
 import Nemesis from './Modules/Spells/Nemesis';
 
-import Tier21_2set from './Modules/Items/Tier21_2set';
+//Resources
+import FuryDetails from './Modules/ResourceTracker/FuryDetails';
+import FuryTracker from './Modules/ResourceTracker/FuryTracker';
+
+//Items
+import DelusionsOfGrandeur from './Modules/Items/DelusionsOfGrandeur';
 import RaddonsCascadingEyes from './Modules/Items/RaddonsCascadingEyes';
+import Tier21_2set from './Modules/Items/Tier21_2set';
+
+//Traits
+import UnleashedDemons from './Modules/Traits/UnleashedDemons';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -25,9 +34,17 @@ class CombatLogParser extends CoreCombatLogParser {
     momentum: Momentum,
     nemesis: Nemesis,
 
-    // Items
-    tier21_2set: Tier21_2set,
+    //Resources
+    furyTracker: FuryTracker,
+    furyDetails: FuryDetails,
+
+    //Items
+    delusionsOfGrandeur: DelusionsOfGrandeur,
     raddonsCascadingEyes: RaddonsCascadingEyes,
+    tier21_2set: Tier21_2set,
+
+    //Traits
+    unleashedDemons: UnleashedDemons,
   };
 }
 
