@@ -20,7 +20,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.DEATH_SWEEP.id,
     SPELLS.EYE_BEAM.id,
     SPELLS.FURY_OF_THE_ILLIDARI.id,
-    SPELLS.METAMORPHOSIS_HAVOC.id,
     SPELLS.THROW_GLAIVE_HAVOC.id,
     SPELLS.CHAOS_NOVA.id,
 
@@ -28,7 +27,16 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.FELBLADE_TALENT.id,
     SPELLS.FEL_BARRAGE_TALENT.id,
     SPELLS.FEL_ERUPTION_TALENT.id,
+
+    //Utility
+    SPELLS.FEL_RUSH.id,
+    SPELLS.VENGEFUL_RETREAT.id,
   ];
+
+  static STATIC_GCD_ABILITIES = {
+    [SPELLS.FEL_RUSH]: 250,
+    [SPELLS.VENGEFUL_RETREAT]: 1000, //Not actually on the GCD but blocks all spells during its animation for 1 second
+  }
 
   get suggestionThresholds() {
     return {
