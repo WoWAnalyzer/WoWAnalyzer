@@ -135,47 +135,17 @@ class Checklist extends CoreChecklist {
         While you shouldn't cast these defensives on cooldown, be aware of them and use them whenever effective. Not using them at all indicates you might not be aware of them or not using them optimally.</Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
-        const teleportEfficiency = this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.DEMONIC_CIRCLE_TALENT_TELEPORT.id);
-        const unendingEfficiency = this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.UNENDING_RESOLVE.id);
-        const darkPactEfficiency = this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.DARK_PACT_TALENT.id);
         return [
-          new Requirement({
-            name: <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT_TELEPORT.id} icon/>,
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.DEMONIC_CIRCLE_TALENT_TELEPORT,
             when: combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
-            check: () => ({
-              actual: teleportEfficiency.casts / teleportEfficiency.maxCasts,
-              isLessThan: {
-                minor: 0.4,
-                average: 0.3,
-                major: 0.2,
-              },
-              style: 'percentage',
-            }),
           }),
-          new Requirement({
-            name: <SpellLink id={SPELLS.UNENDING_RESOLVE.id} icon/>,
-            check: () => ({
-              actual: unendingEfficiency.casts / unendingEfficiency.maxCasts,
-              isLessThan: {
-                minor: 0.4,
-                average: 0.3,
-                major: 0.2,
-              },
-              style: 'percentage',
-            }),
-          }),
-          new Requirement({
-            name: <SpellLink id={SPELLS.DARK_PACT_TALENT.id} icon/>,
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.DARK_PACT_TALENT,
             when: combatant.hasTalent(SPELLS.DARK_PACT_TALENT.id),
-            check: () => ({
-              actual: darkPactEfficiency.casts / darkPactEfficiency.maxCasts,
-              isLessThan: {
-                minor: 0.5,
-                average: 0.4,
-                major: 0.3,
-              },
-              style: 'percentage',
-            }),
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.UNENDING_RESOLVE,
           }),
         ];
       },
