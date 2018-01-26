@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-01-25'),
+    changes: <Wrapper>Added a statistic box with information about <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id} icon /> generation and merged the time spent on max stacks into it.</Wrapper>,
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-01-24'),
     changes: <Wrapper>Updated some thresholds, added <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} icon/> statistic box and reworked the module that showed how much you buffed your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} icon/>.</Wrapper>,
     contributors: [Chizu],

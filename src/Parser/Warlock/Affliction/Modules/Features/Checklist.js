@@ -19,7 +19,7 @@ import AgonyUptime from './AgonyUptime';
 import CorruptionUptime from './CorruptionUptime';
 import SiphonLifeUptime from '../Talents/SiphonLifeUptime';
 import SoulShardDetails from '../SoulShards/SoulShardDetails';
-import MaxTormentedSouls from './MaxTormentedSouls';
+import TormentedSouls from './TormentedSouls';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -35,7 +35,7 @@ class Checklist extends CoreChecklist {
     corruptionUptime: CorruptionUptime,
     siphonLifeUptime: SiphonLifeUptime,
     soulShardDetails: SoulShardDetails,
-    maxTormentedSouls: MaxTormentedSouls,
+    tormentedSouls: TormentedSouls,
   };
 
   rules = [
@@ -81,7 +81,7 @@ class Checklist extends CoreChecklist {
           new Requirement({
             // TODO: show the time spent in tooltip?
             name: 'Time spent on max stacks',
-            check: () => this.maxTormentedSouls.suggestionThresholds,
+            check: () => this.tormentedSouls.suggestionThresholds,
           }),
         ];
       },
