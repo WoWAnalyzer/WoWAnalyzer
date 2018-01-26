@@ -13,13 +13,14 @@ const REJUV_IDS = [
   SPELLS.REJUVENATION_GERMINATION.id,
 ];
 
+// tolerated difference between expected and actual HoT fall before a 'mismatch' is logged
 const EXPECTED_REMOVAL_THRESHOLD = 100;
 
 // this class does a lot, a few different debug areas to cut down on the spam while debugging
 const debug = true;
-const extensionDebug = true;
-const applyRemoveDebug = false; // logs tracked HoT apply / refresh / remove
-const healDebug = false; // logs tracked HoT heals
+const extensionDebug = true; // logs pertaining to extensions
+const applyRemoveDebug = false; // logs tracking HoT apply / refresh / remove
+const healDebug = false; // logs tracking HoT heals
 
 /*
  * Backend module for tracking attribution of HoTs, e.g. what applied them / applied parts of them / boosted them
@@ -193,8 +194,15 @@ class HotTracker extends Analyzer {
     delete this.hots[targetId][spellId];
   }
 
-  // to be called by external module, adds an attribution to the HoT with the given target / spellId
-  // attribution object must have fields for name, healing, masteryHealing (and rejuv only: dreamwalkerHealing)
+  /*
+   * Adds an attribution to the HoT with the given spellId on the given targetId.
+   * Attribution object passed in will be modified as the HoT heals, and must have the following fields:
+   *    name: String (used only for logging)
+   *    healing: Number (tallies the direct healing attributable)
+   *    masteryHealing: Number (tallies the mastery healing attributable)
+   *    (for Rejuv/Germ only) dreamwalkerHealing: Number (tallies the dreamwalker healing attributable)
+   *    procs: Number (tallies the number of times this attribution was made)
+   */
   addAttribution(attribution, targetId, spellId) {
     if (!this.hots[targetId] || !this.hots[targetId][spellId]) {
       console.warn(`Tried to add attribution ${attribution.name} to targetId=${targetId}, spellId=${spellId}, but that HoT isn't recorded as present`);
@@ -205,15 +213,22 @@ class HotTracker extends Analyzer {
     debug && console.log(`${this.hots[targetId][spellId].name} on ${targetId} @${this.owner.formatTimestamp(this.owner.currentTimestamp, 1)} attributed to ${attribution.name}`);
   }
 
-  // to be called by external module, adds an extension to the HoT with the given target / spellId
-  // attribution object must have fields for name, healing, masteryHealing (and rejuv only: dreamwalkerHealing)
-  // if extension attribution with the same name is already present on the given target/spell, extension amount will be added to the existing attribution
-  // amount is the number of ms to extend the HoT,
-  // iff tickClamps the extension is clamped to a whole number of ticks,
-  // iff pandemicClamps the extension is clamped based on 1.3 * base duration
+  /*
+   * Extends the duration of the HoT with the the given spellId on the given targetId, and adds an attribution to that extension.
+   * Attribution object passed in will be modified when the HoT expires, and must have the following fields:
+   *    name: String (used only for logging)
+   *    healing: Number (tallies the direct healing attributable)
+   *    masteryHealing: Number (tallies the mastery healing attributable)
+   *    (for Rejuv/Germ only) dreamwalkerHealing: Number (tallies the dreamwalker healing attributable)
+   *    procs: Number (tallies the number of times this attribution was made)
+   *    duration: Number (tallies the actual amount of extension applied, after clamping)
+   * tickClamps and pandemicClamps specify if / how the extension should be clamped
+   *
+   * NOTE: can pass a null attribution to extend HoT without attributing it
+   */
   addExtension(attribution, amount, targetId, spellId, tickClamps = true, pandemicClamps = false) {
     if (!this.hots[targetId] || !this.hots[targetId][spellId]) {
-      console.warn(`Tried to add extension ${attribution.name} to targetId=${targetId}, spellId=${spellId}, but that HoT isn't recorded as present`);
+      console.warn(`Tried to add extension ${attribution.name || 'NO-ATT'} to targetId=${targetId}, spellId=${spellId}, but that HoT isn't recorded as present`);
       return;
     }
 
@@ -223,6 +238,10 @@ class HotTracker extends Analyzer {
     hot.end += finalAmount;
 
     // TODO log the result
+    if (!attribution) {
+      return;
+    }
+
     attribution.procs += 1;
     const existingExtension = hot.extensions.find(extension => extension.attribution.name === attribution.name);
     if (existingExtension) {
@@ -279,6 +298,7 @@ class HotTracker extends Analyzer {
       if (attribution.dreamwalkerHealing !== undefined) {
         attribution.dreamwalkerHealing += dreamwalkerHealing;
       }
+      attribution.duration += amount;
     } else {
       // TODO error log, because this means the extension was almost all the HoT's duration? Check for an early removal of HoT.
     }

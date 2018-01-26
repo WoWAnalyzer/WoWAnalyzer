@@ -29,6 +29,7 @@ class AmanthulsWisdom extends Analyzer {
     masteryHealing: 0,
     dreamwalkerHealing: 0,
     procs: 0,
+    amount: 0,
   };
 
   remainingProcs = {};

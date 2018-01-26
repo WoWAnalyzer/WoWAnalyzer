@@ -384,6 +384,11 @@ export default {
     name: 'Armor of the Ancients',
     icon: 'spell_druid_ironbark',
   },
+  DEEP_ROOTED_TRAIT: {
+    id: 238122,
+    name: 'Deep Rooted',
+    icon: 'inv_misc_herb_liferoot_stem',
+  },
 
   // GUARDIAN //
   MANGLE_BEAR: {
