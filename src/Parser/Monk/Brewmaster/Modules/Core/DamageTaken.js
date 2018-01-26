@@ -13,7 +13,7 @@ class DamageTaken extends CoreDamageTaken {
     // so this also works nicely with external absorbs.
 
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.STAGGER.id) {
+    if (spellId !== SPELLS.STAGGER.id) {
       return;
     }
     this._subtractDamage(event.extraAbility, 0, event.amount, 0);
