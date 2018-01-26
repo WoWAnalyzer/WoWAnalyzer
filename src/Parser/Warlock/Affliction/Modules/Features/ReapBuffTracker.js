@@ -8,7 +8,6 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
-
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';

@@ -1,7 +1,7 @@
+import SPELLS from 'common/SPELLS';
+
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
-
-import SPELLS from 'common/SPELLS';
 
 class Abilities extends CoreAbilities {
   spellbook() {

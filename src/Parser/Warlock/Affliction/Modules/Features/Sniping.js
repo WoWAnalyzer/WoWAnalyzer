@@ -1,16 +1,12 @@
 import React from 'react';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
-
 import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
 import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
-import SPELLS from 'common/SPELLS';
-
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-
+import SPELLS from 'common/SPELLS';
 import SoulShardTracker from '../SoulShards/SoulShardTracker';
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 

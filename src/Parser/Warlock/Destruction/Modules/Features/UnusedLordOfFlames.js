@@ -2,10 +2,10 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import calculateMaxCasts from 'Parser/Core/calculateMaxCasts';
 
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
+import calculateMaxCasts from 'Parser/Core/calculateMaxCasts';
 import Wrapper from 'common/Wrapper';
 
 // Lord of Flames is a trait that makes your Summon Infernal summon 3 additional infernals which makes it a higher priority summon, but it can be used only every 10 minutes

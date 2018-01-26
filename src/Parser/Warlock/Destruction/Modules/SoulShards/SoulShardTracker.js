@@ -1,7 +1,7 @@
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import SoulShardEvents from './SoulShardEvents';
 
 const SHADOWBURN_KILL = 'Shadowburn kill';

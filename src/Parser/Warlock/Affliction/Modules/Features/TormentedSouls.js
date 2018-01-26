@@ -7,7 +7,6 @@ import SPELLS from 'common/SPELLS';
 import { formatDuration, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
-
 import StatisticsListBox from 'Main/StatisticsListBox';
 
 const MAX_SOULS = 12;

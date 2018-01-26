@@ -6,8 +6,8 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-
 import SoulShardTracker from '../SoulShards/SoulShardTracker';
+
 
 const debug = true;
 

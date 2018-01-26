@@ -7,9 +7,8 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import SPELLS from 'common/SPELLS';
 import PETS from 'common/PETS';
 import { formatNumber, formatPercentage } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
-
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
 
 import DemoPets from '../WarlockCore/Pets';
 

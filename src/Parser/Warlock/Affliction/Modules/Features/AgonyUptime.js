@@ -7,10 +7,9 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
-
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class AgonyUptime extends Analyzer {
   static dependencies = {

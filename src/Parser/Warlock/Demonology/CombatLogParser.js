@@ -4,14 +4,14 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
-import DemoPets from './Modules/WarlockCore/Pets';
-
 import DoomguardInfernal from './Modules/Features/DoomguardInfernal';
 import Felstorm from './Modules/Features/Felstorm';
+
 import Doom from './Modules/Features/DoomUptime';
 
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
+import DemoPets from './Modules/WarlockCore/Pets';
 
 import ShadowyInspiration from './Modules/Talents/ShadowyInspiration';
 import Shadowflame from './Modules/Talents/Shadowflame';

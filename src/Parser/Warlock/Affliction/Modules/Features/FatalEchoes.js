@@ -2,11 +2,10 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
-
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 

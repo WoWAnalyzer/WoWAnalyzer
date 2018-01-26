@@ -4,7 +4,6 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
-
 import DoomguardInfernal from './Modules/Features/DoomguardInfernal';
 import UnusedLordOfFlames from './Modules/Features/UnusedLordOfFlames';
 import ImmolateUptime from './Modules/Features/ImmolateUptime';

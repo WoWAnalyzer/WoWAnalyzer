@@ -1,15 +1,13 @@
 import React from 'react';
 
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
-
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
-
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import ItemDamageDone from 'Main/ItemDamageDone';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const DAMAGE_BONUS_PER_STACK = 0.03;
 

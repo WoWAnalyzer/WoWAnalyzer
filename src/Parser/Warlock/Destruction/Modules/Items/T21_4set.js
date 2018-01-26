@@ -1,14 +1,12 @@
 import React from 'react';
 
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import Wrapper from 'common/Wrapper';
-
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 // Chaos Bolt will deal an additional 12% of its direct damage caused to the target over 4 sec.

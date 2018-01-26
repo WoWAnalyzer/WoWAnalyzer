@@ -1,10 +1,9 @@
-import React from 'react';
-
-import CoreAbilities from 'Parser/Core/Modules/Abilities';
-
 import SPELLS from 'common/SPELLS';
+import React from 'react';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
+
+import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {

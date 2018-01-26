@@ -1,16 +1,13 @@
 import React from 'react';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
-
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
-import { formatNumber } from 'common/format';
-
 import ItemDamageDone from 'Main/ItemDamageDone';
+import { formatNumber } from 'common/format';
+import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 

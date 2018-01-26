@@ -1,12 +1,11 @@
 import React from 'react';
 
+import { Chizu } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-
-import { Chizu } from 'MAINTAINERS';
 
 export default [
   {

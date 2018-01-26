@@ -6,7 +6,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
-
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import StatisticsListBox from 'Main/StatisticsListBox';
 

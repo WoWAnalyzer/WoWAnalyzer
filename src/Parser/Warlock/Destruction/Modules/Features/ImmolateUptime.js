@@ -7,9 +7,8 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
-
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import Wrapper from 'common/Wrapper';
 
 class ImmolateUptime extends Analyzer {
   static dependencies = {

@@ -1,9 +1,8 @@
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Enemies from 'Parser/Core/Modules/Enemies';
-
-import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 const debug = false;

@@ -4,10 +4,9 @@ import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
+import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
-
-import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   get suggestionThresholds() {

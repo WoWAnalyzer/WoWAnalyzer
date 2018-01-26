@@ -1,14 +1,12 @@
 import React from 'react';
 
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
-
-import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
-
 import ItemDamageDone from 'Main/ItemDamageDone';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const ODR_SHAWL_OF_THE_YMIRJAR_DAMAGE_BONUS = 0.15;
 
