@@ -5,6 +5,16 @@ import { Hewhosmites, Mamtooth } from 'MAINTAINERS';
 
 export default [
 	{
+		date: new Date('2018-1-26'),
+		changes: <Wrapper>Added in <SpellLink id={SPELLS.HAVOC_T21_2PC_BONUS.id} icon/></Wrapper>,
+		contributors: [Hewhosmites],
+	},
+	{
+		date: new Date('2018-1-24'),
+		changes: <Wrapper>Added in <ItemLink id={ITEMS.RADDONS_CASCADING_EYES.id} icon/></Wrapper>,
+		contributors: [Hewhosmites],
+	},
+	{
 		date: new Date('2018-1-20'),
 		changes: 'Changed some Cast Efficiency values, Updated ABC, and added the haste from meta and T21 to get the correct downtime',
 		contributors: [Hewhosmites],
