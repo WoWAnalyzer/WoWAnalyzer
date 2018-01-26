@@ -3,6 +3,8 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import Channeling from './Modules/Core/Channeling';
 import GlobalCooldown from './Modules/Core/GlobalCooldown';
 
+import MetamorphosisNormalizer from './Normalizers/Metamorphosis';
+
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
@@ -27,6 +29,9 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
+
+    //Normalizer
+    metamorphosisNormalizer: MetamorphosisNormalizer,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
