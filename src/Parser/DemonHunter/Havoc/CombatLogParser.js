@@ -6,8 +6,19 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 
-import Momentum from './Modules/Statistics/Spells/Momentum';
-import Nemesis from './Modules/Statistics/Spells/Nemesis';
+import Momentum from './Modules/Spells/Momentum';
+import Nemesis from './Modules/Spells/Nemesis';
+
+//Resources
+import FuryDetails from './Modules/ResourceTracker/FuryDetails';
+import FuryTracker from './Modules/ResourceTracker/FuryTracker';
+
+//Items
+import DelusionsOfGrandeur from './Modules/Items/DelusionsOfGrandeur';
+import RaddonsCascadingEyes from './Modules/Items/RaddonsCascadingEyes';
+
+//Traits
+import UnleashedDemons from './Modules/Traits/UnleashedDemons';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -23,6 +34,17 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spells
     momentum: Momentum,
     nemesis: Nemesis,
+
+    //Resources
+    furyTracker: FuryTracker,
+    furyDetails: FuryDetails,
+
+    //Items
+    delusionsOfGrandeur: DelusionsOfGrandeur,
+    raddonsCascadingEyes: RaddonsCascadingEyes,
+
+    //Traits
+    unleashedDemons: UnleashedDemons,
   };
 }
 

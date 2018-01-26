@@ -106,6 +106,8 @@ class Combatant extends Entity {
         return 0.04 + this.masteryRating / 80000;
       case SPECS.SUBTLETY_ROGUE:
         return 0.2208 + this.masteryRating / 14492.61221;
+      case SPECS.ASSASSINATION_ROGUE:
+        return 0.32 + this.masteryRating / 10000;
       case SPECS.UNHOLY_DEATH_KNIGHT:
         return 0.18 + this.masteryRating / 17776;
       case SPECS.MISTWEAVER_MONK:

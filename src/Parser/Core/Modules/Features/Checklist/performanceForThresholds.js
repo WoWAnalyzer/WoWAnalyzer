@@ -30,10 +30,10 @@ function performanceForGreaterThanThresholds(actual, { minor, average, major }) 
     return 0.333 * major / actual;
   } else if (actual > average) {
     // average issue (between major and average issue)
-    return 0.333 + 0.333 * ((actual - average) / (major - average));
+    return 0.666 - 0.333 * ((actual - average) / (major - average));
   } else if (actual > minor) {
     // minor issue (between average and minor issue)
-    return 0.666 + 0.333 * ((actual - minor) / (average - minor));
+    return 1 - 0.333 * ((actual - minor) / (average - minor));
   } else {
     // no issue
     return 1;

@@ -186,6 +186,11 @@ export default {
     name: 'Chaos Strike',
     icon: 'ability_demonhunter_chaosstrike',
   },
+  CHAOS_STRIKE_FURY: {
+    id: 193840,
+    name: 'Chaos Strike',
+    icon: 'ability_demonhunter_chaosstrike',
+  },
   ANNIHILATION: {
     id: 201427,
     name: 'Annihilation',
@@ -201,6 +206,16 @@ export default {
     name: 'Death Sweep',
     icon: 'inv_glaive_1h_artifactaldrochi_d_02dual',
   },
+  DEATH_SWEEP_DAMAGE: {
+    id: 210153,
+    name : 'Death Sweep',
+    icon: 'inv_glaive_1h_artifactaldrochi_d_02dual',
+  },
+  DEATH_SWEEP_DAMAGE_LAST_HIT: {
+    id: 210155,
+    name: 'Death Sweep',
+    icon: 'inv_glaive_1h_artifactaldrochi_d_02dual',
+  },
   FEL_RUSH: {
     id: 195072,
     name: 'Fel Rush',
@@ -213,6 +228,11 @@ export default {
   },
   EYE_BEAM: {
     id: 198013,
+    name: 'Eye Beam',
+    icon: 'ability_demonhunter_eyebeam',
+  },
+  EYE_BEAM_DAMAGE: {
+    id: 198030,
     name: 'Eye Beam',
     icon: 'ability_demonhunter_eyebeam',
   },
@@ -260,6 +280,51 @@ export default {
     id: 179057,
     name: 'Chaos Nova',
     icon: 'spell_fire_felfirenova',
+  },
+  DEMONIC_APPETITE_FURY: {
+    id: 210041,
+    name: 'Demonic Appetite',
+    icon: 'spell_misc_zandalari_council_soulswap',
+  },
+  DEMON_BLADES_FURY: {
+    id: 203796,
+    name: 'Demon Blades',
+    icon: 'inv_weapon_shortblade_92',
+  },
+  BLADE_DANCE_FURY: {
+    id: 245862,
+    name: 'Blade Dance',
+    icon: 'ability_demonhunter_bladedance',
+  },
+  PREPARED_FURY: {
+    id: 203650,
+    name: 'Prepared',
+    icon: 'ability_demonhunter_vengefulretreat',
+  },
+  DECEIVERS_FURY_FURY: {
+    id: 202120,
+    name: 'Deceiver\'s Fury',
+    icon: 'ability_demonhunter_blur',
+  },
+  FEL_MASTERY_FURY: {
+    id: 234244,
+    name: 'Fel Mastery',
+    icon: 'ability_skyreach_piercing_rush',
+  },
+  ANGER_OF_THE_HALF_GIANTS_FURY: {
+    id: 208828,
+    name: 'Gigantic Anger',
+    icon: 'inv_60pvp_ring1a',
+  },
+  ANGER_OF_THE_HALF_GIANTS_BUFF: {
+    id: 208827,
+    name: 'Anger of the Half Giants',
+    icon: 'inv_60pvp_ring1a',
+  },
+  RADDONS_CASCADING_EYES: {
+    id: 215149,
+    name: 'Raddon\'s Cascading Eyes',
+    icon: 'inv_misc_bandana_01',
   },
   //Havoc Talents
   CHAOS_BLADES_DAMAGE_MH: {
@@ -405,5 +470,15 @@ export default {
     id: 201460,
     name: 'Unleashed Demons',
     icon: 'ability_demonhunter_metamorphasisdps',
+  },
+  WIDE_EYES: {
+    id: 238045,
+    name: 'Wide Eyes',
+    icon: 'ability_demonhunter_eyebeam',
+  },
+  FEAST_ON_THE_SOULS: {
+    id: 201468,
+    name: 'Feast of the Souls',
+    icon: 'spell_warlock_soulburn',
   },
 };

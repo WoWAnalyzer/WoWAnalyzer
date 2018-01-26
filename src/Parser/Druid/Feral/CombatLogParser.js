@@ -14,6 +14,8 @@ import SavageRoarUptime from './Modules/Talents/SavageRoarUptime';
 import MoonfireUptime from './Modules/Talents/MoonfireUptime';
 import SavageRoarDmg from './Modules/Talents/SavageRoarDmg';
 
+import AshamanesRip from './Modules/Traits/AshamanesRip';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // FeralCore
@@ -36,6 +38,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // resources
     comboPointTracker: ComboPointTracker,
     comboPointDetails: ComboPointDetails,
+
+    // traits
+    ashamanesRip: AshamanesRip,
   };
 }
 
