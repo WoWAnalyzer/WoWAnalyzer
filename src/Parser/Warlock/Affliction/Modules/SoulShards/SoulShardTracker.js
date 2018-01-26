@@ -3,13 +3,20 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 
+const MAX_SHARDS = 5;
+
 class SoulShardTracker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
 
+  _current = 3;   // you regenerate 3 shards out of combat so you should be starting combat always with 3 shards
+  _fullShardTimestamp = null;
+
+
   shardsWasted = 0;
   shardsSpent = 0;
+  timeOnFullShards = 0;
 
   // stores number of shards generated/spent/wasted per ability ID
   generatedAndWasted = {
@@ -68,6 +75,10 @@ class SoulShardTracker extends Analyzer {
       this.shardsWasted += 1;
     } else {
       this.generatedAndWasted[spellId].generated += 1;
+      this._current += 1;
+      if (this._current === MAX_SHARDS) {
+        this._fullShardTimestamp = event.timestamp;
+      }
     }
   }
 
@@ -78,6 +89,14 @@ class SoulShardTracker extends Analyzer {
     }
     this.spent[spellId] += 1;
     this.shardsSpent += 1;
+    if (this._current === MAX_SHARDS) {
+      this.timeOnFullShards += event.timestamp - this._fullShardTimestamp;
+    }
+    this._current -= 1;
+  }
+
+  get timeOnFullShardsSeconds() {
+    return Math.floor(this.timeOnFullShards / 1000);
   }
 }
 

@@ -62,6 +62,8 @@ class Checklist extends Analyzer {
         return `${formatNumber(thresholds.actual)}`;
       case 'thousands':
         return `${formatThousands(thresholds.actual)}`;
+      case 'decimal':
+        return `${thresholds.actual.toFixed(2)}`;
       case 'boolean':
         return thresholds.actual ? 'Yes' : 'No';
       case 'seconds':

@@ -20,6 +20,10 @@ import CorruptionUptime from './CorruptionUptime';
 import SiphonLifeUptime from '../Talents/SiphonLifeUptime';
 import SoulShardDetails from '../SoulShards/SoulShardDetails';
 import TormentedSouls from './TormentedSouls';
+import SoulShardTracker from '../SoulShards/SoulShardTracker';
+import ReapBuffTracker from './ReapBuffTracker';
+import MaleficGrasp from '../Talents/MaleficGrasp';
+import Haunt from '../Talents/Haunt';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -35,7 +39,12 @@ class Checklist extends CoreChecklist {
     corruptionUptime: CorruptionUptime,
     siphonLifeUptime: SiphonLifeUptime,
     soulShardDetails: SoulShardDetails,
+    soulShardTracker: SoulShardTracker,
     tormentedSouls: TormentedSouls,
+
+    reapBuffTracker: ReapBuffTracker,
+    maleficGrasp: MaleficGrasp,
+    haunt: Haunt,
   };
 
   rules = [
@@ -74,13 +83,37 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
+      name: <Wrapper>Buff your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> as much as possible</Wrapper>,
+      description: <Wrapper><SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} icon /> is your biggest source of damage and you should try to buff its damage as much as possible with <SpellLink id={SPELLS.REAP_SOULS.id} icon /> and <SpellLink id={SPELLS.MALEFIC_GRASP_TALENT.id} icon /> or <SpellLink id={SPELLS.HAUNT_TALENT.id} icon /> (if talented). <br />
+        If you don't have <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id} icon />, it's ok to wait a bit (as long as you're not wasting Soul Shards while waiting) and cast Unstable Affliction when you can buff it with Reap Souls.
+      </Wrapper>,
+      requirements: () => {
+        const combatant = this.combatants.selected;
+        return [
+          new Requirement({
+            name: <Wrapper>UA ticks buffed by <SpellLink id={SPELLS.REAP_SOULS.id} icon/></Wrapper>,
+            check: () => this.reapBuffTracker.positiveSuggestionThresholds,
+          }),
+          new Requirement({
+            name: <Wrapper>UA ticks buffed by <SpellLink id={SPELLS.MALEFIC_GRASP_TALENT.id} icon/></Wrapper>,
+            check: () => this.maleficGrasp.positiveSuggestionThresholds,
+            when: combatant.hasTalent(SPELLS.MALEFIC_GRASP_TALENT.id),
+          }),
+          new Requirement({
+            name: <Wrapper>UA ticks buffed by <SpellLink id={SPELLS.HAUNT_TALENT.id} icon/></Wrapper>,
+            check: () => this.haunt.positiveSuggestionThresholds,
+            when: combatant.hasTalent(SPELLS.HAUNT_TALENT.id),
+          }),
+        ];
+      },
+    }),
+    new Rule({
       name: <Wrapper>Don't cap your <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id}/>.</Wrapper>,
-      description: <Wrapper>In certain fights, it's possible to be generating a lot of <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id}/> and it's important to not let them cap as they are valuable resource that shouldn't be wasted even if it means wasting a portion of <SpellLink id={SPELLS.DEADWIND_HARVESTER.id} icon/> buff.</Wrapper>,
+      description: <Wrapper>In certain fights, it's possible to be generating a lot of <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id} icon/> and it's important to not let them cap as they are valuable resource that shouldn't be wasted even if it means wasting a portion of <SpellLink id={SPELLS.REAP_SOULS.id} icon/> buff.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
-            // TODO: show the time spent in tooltip?
-            name: 'Time spent on max stacks',
+            name: <Wrapper><dfn data-tip={`You spent ${this.tormentedSouls.maxStacksSeconds} seconds on max stacks.`}>Portion of fight spent on max stacks</dfn></Wrapper>,
             check: () => this.tormentedSouls.suggestionThresholds,
           }),
         ];
@@ -92,8 +125,7 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            // TODO: maybe show time spent on max stacks
-            name: 'Wasted shards',
+            name: <Wrapper><dfn data-tip={`You spent ${this.soulShardTracker.timeOnFullShardsSeconds} seconds on full shards.`}>Wasted shards per minute</dfn></Wrapper>,
             check: () => this.soulShardDetails.suggestionThresholds,
           }),
         ];
@@ -128,7 +160,6 @@ class Checklist extends CoreChecklist {
         ];
       },
     }),
-    // TODO: maybe add a rule about buffing UA with Haunt/MG
     new Rule({
       name: 'Use your utility and defensive spells',
       description: <Wrapper>Use other spells in your toolkit to your advantage. For example, you can try to minimize necessary movement by using <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon/>, <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon/>, <SpellLink id={SPELLS.BURNING_RUSH_TALENT.id} icon/> or mitigate incoming damage with <SpellLink id={SPELLS.UNENDING_RESOLVE.id} icon/>/<SpellLink id={SPELLS.DARK_PACT_TALENT.id} icon/>.<br />

@@ -25,7 +25,7 @@ class SoulShardDetails extends Analyzer {
         average: 5 / 3, // 5 shards in 3 minute fight
         major: 10 / 3,  // 10 shards in 3 minute fight
       },
-      style: 'number',  // TODO: not sure about this yet
+      style: 'decimal',
     };
   }
 
