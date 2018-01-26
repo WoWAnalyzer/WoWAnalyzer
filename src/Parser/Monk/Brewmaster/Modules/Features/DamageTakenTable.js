@@ -1,7 +1,6 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 import DamageTakenTableComponent, { MITIGATED_PHYSICAL, MITIGATED_MAGICAL } from 'Main/DamageTakenTable';
 import Tab from 'Main/Tab';
 import SPELLS from 'common/SPELLS';
@@ -9,6 +8,7 @@ import SPECS from 'common/SPECS';
 import SpellLink from 'common/SpellLink';
 
 import HighTolerance from '../Spells/HighTolerance';
+import DamageTaken from '../Core/DamageTaken';
 
 class DamageTakenTable extends Analyzer {
   static dependencies = {
@@ -25,7 +25,9 @@ class DamageTakenTable extends Analyzer {
     const vals = Object.values(this.abilityData)
       .map(raw => {
         const value = this.dmg.byAbility(raw.ability.guid);
-        return { totalDmg: value.effective, largestSpike: value.largestHit,  ...raw};
+        const staggered = this.dmg.staggeredByAbility(raw.ability.guid);
+        // console.log(staggered);
+        return { totalDmg: value.effective + staggered, largestSpike: value.largestHit,  ...raw};
       });
     vals.sort((a, b) => b.largestSpike - a.largestSpike);
     return vals;
@@ -90,9 +92,12 @@ class DamageTakenTable extends Analyzer {
       url: 'damage-taken-by-ability',
       render: () => (
         <Tab title="Damage Taken by Ability">
-          <DamageTakenTableComponent data={this.tableData} spec={SPECS[this.combatants.selected.specId]}/>
+          <DamageTakenTableComponent 
+            data={this.tableData} 
+            spec={SPECS[this.combatants.selected.specId]} 
+            total={this.dmg.total.effective} />
           <div style={{padding: "10px"}}>
-            <strong>Note:</strong> Damage taken by <SpellLink id={SPELLS.STAGGER_TAKEN.id} icon /> is not accounted for in this table.
+            <strong>Note:</strong> Damage taken includes all damage put into the <SpellLink id={SPELLS.STAGGER_TAKEN.id} icon /> pool.
           </div>
         </Tab>
       ),

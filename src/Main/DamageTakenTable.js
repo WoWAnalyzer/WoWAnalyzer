@@ -13,6 +13,7 @@ class DamageTakenTable extends React.Component {
   static propTypes = {
     data: PropTypes.array.isRequired,
     spec: PropTypes.object.isRequired,
+    total: PropTypes.number.isRequired,
   };
 
   mitigationNames = {
@@ -24,21 +25,20 @@ class DamageTakenTable extends React.Component {
 
   render() {
     const specClassName = this.props.spec.className.replace(' ', '');
-    const sumTotalDmg = this.props.data.reduce((sum, cur) => sum + cur.totalDmg, 0);
     const row = (abilityData)  => {
       const { ability, totalDmg, largestSpike } = abilityData;
       return (
         <tr key={ability.guid}>
           <td>
             <div className="flex performance-bar-container"
-                 data-tip={`Total Damage Taken: ${formatNumber(totalDmg)} of ${formatNumber(sumTotalDmg)}.`} >
+                 data-tip={`Total Damage Taken: ${formatNumber(totalDmg)} of ${formatNumber(this.props.total)}.`} >
               <div
                 className={`flex-sub performance-bar ${specClassName}-bg`}
-                style={{ width: `${(totalDmg - largestSpike) / sumTotalDmg * 100}%` }}
+                style={{ width: `${(totalDmg - largestSpike) / this.props.total * 100}%` }}
               />
               <div
                 className="flex-sub performance-bar Hunter-bg"
-                style={{ width: `${(largestSpike / sumTotalDmg * 100)}%`, opacity: 0.4 }}
+                style={{ width: `${(largestSpike / this.props.total * 100)}%`, opacity: 0.4 }}
               />
             </div>
           </td>
