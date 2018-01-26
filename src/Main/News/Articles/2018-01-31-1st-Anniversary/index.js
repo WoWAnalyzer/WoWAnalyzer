@@ -13,6 +13,7 @@ import Wrapper from 'common/Wrapper';
 import RegularArticle from 'Main/News/RegularArticle';
 import Maintainer from 'Main/Maintainer';
 import DiscordButton from 'Main/DiscordButton';
+import DiscordLogo from 'Main/Images/Discord-Logo+Wordmark-White.svg';
 
 import Timeline from './Timeline';
 
@@ -82,6 +83,11 @@ import FrostDeathKnight from './FrostDeathKnight.png';
 import ProtectionPaladin from './ProtectionPaladin.png';
 import FuryWarrior from './FuryWarrior.png';
 import SurvivalHunter from './SurvivalHunter.png';
+import DiscordBotGif from '../2017-10-21-DiscordBot/discord-bot.gif';
+import HolyShockAvailableSuggestion from './HolyShockAvailableSuggestion.png';
+import FirstPR from './FirstPR.png';
+import LegendaryItemLevelSuggestion from './LegendaryItemLevelSuggestion.png';
+import DistanceMoved20 from './DistanceMoved2.0.png';
 
 function completeness(completeness) {
   return <dfn data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>;
@@ -332,8 +338,7 @@ class Article extends React.PureComponent {
               <figcaption>
                 Resto Druid Analyzer v1.0 at 15 May 2017
               </figcaption>
-            </figure>
-            <br />
+            </figure><br />
 
             Other contributions to this spec:<br /><br />
 
@@ -377,6 +382,13 @@ class Article extends React.PureComponent {
           </div>
           <div className="panel-body">
             Getting the first PR was very exciting! It meant someone else was interested enough in my project to dedicate time and effort towards improving it. <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/22">Our first PR</a> was created by <Maintainer {...MAINTAINERS.Reglitch} /> at 19 May 2017. In it he contributed an "editorconfig" file: "Fairly self explanatory, enforces consistency when multiple devs are working on the project.". It was merged a day later.<br /><br />
+
+            <figure>
+              <img src={FirstPR} alt="The first PR" />
+              <figcaption>
+                The first PR
+              </figcaption>
+            </figure><br />
 
             <Maintainer {...MAINTAINERS.Reglitch} /> has done a lot more work since then, primarily on the Discipline Priest implementation. He is now a part of the WoWAnalyzer admin team.
           </div>
@@ -581,6 +593,22 @@ class Article extends React.PureComponent {
             </div><br />
 
             <Maintainer {...MAINTAINERS.janvavra} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/469">contributed a couple of simple fixes</a> for Elemental Shamans using <SpellLink id={SPELLS.STORM_ELEMENTAL_TALENT.id} icon />. <Maintainer {...MAINTAINERS.HawkCorrigan} /> migrated Elemental Shaman's code to a new version of WoWAnalyzer and implemented a bunch of things such as T21, <ItemLink id={ITEMS.THE_DECEIVERS_BLOOD_PACT.id} icon /> and others.
+          </div>
+        </div>
+
+        <div className="panel">
+          <div className="date">
+            15 Jun
+          </div>
+          <div className="panel-heading">
+            <h2>Warcraft Logs API proxy</h2>
+          </div>
+          <div className="panel-body">
+            To get log data we fetch data from the Warcraft Logs API. In the past the app made a direct link to Warcraft Logs API but this had several disadvantages such as revealing our API key, lacking caching, hard to use due to several issues with the API and missing any form of logging.<br /><br />
+
+            At the start of this month Warcraft Logs had introduced strict rate limiting of their API. Because of this restrictive API request limit we had a big fear of hitting the cap and locking users out, especially when report links would be shared in Discord servers and a bunch of users would open the same report at the same time.<br /><br />
+
+            To combat these issue we added a proxy for the Warcraft Logs API on our server. We also added a caching layer to aggressively cache all of our API requests. This considerably reduces the amount of API requests we have to do allowing us to serve a lot more users. This has the added benefit that cached requests are very quick and are even available when Warcraft Logs goes down.
           </div>
         </div>
 
@@ -976,10 +1004,10 @@ class Article extends React.PureComponent {
             4 Sep
           </div>
           <div className="panel-heading">
-            <h2>Warcraft Logs API proxy caching</h2>
+            <h2>Database</h2>
           </div>
           <div className="panel-body">
-            Because the Warcraft Logs API has a restrictive API request limit there has always been a big fear of hitting the cap and locking users out. To combat this issue we added a caching layer to our Warcraft Logs API proxy to aggressively cache all of our API requests. This considerably reduces the amount of API requests we have to do allowing us to serve a lot more users. This has the added benefit that cached requests are insanely quick, and are even available when Warcraft Logs goes down.
+            The initial version of our Warcraft Logs API proxy cache had an in-memory cache that would forget old logs automatically to prevent running out of memory. This didn't give us the max possible cache hit ratio, while a database would be able to permanently store items in its cache. I also had a couple of features in mind that would allow us to grow WoWAnalyzer further but that also required a database. To tackle this big project I took a week off work and implemented the database.
           </div>
         </div>
 
@@ -1196,7 +1224,14 @@ class Article extends React.PureComponent {
             <h2>More precise spell cooldown tracking</h2>
           </div>
           <div className="panel-body">
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/466
+            The combatlog contains no information about ability cooldowns making it hard to know if an ability was available at a certain point of time. Because this is useful information we created a <i>spell usable</i> module that tracks when a spell was last used and predicts when it goes off cooldown. With this information we can show spell cooldowns on the timeline, and make suggestions when casting something like a filler when a strong ability would have been better, or when you could have used a defensive.<br /><br />
+
+            <figure>
+              <img src={HolyShockAvailableSuggestion} alt="One of the new suggestions possible because of this module" />
+              <figcaption>
+                One of the new suggestions possible because of this module
+              </figcaption>
+            </figure>
           </div>
         </div>
 
@@ -1208,8 +1243,11 @@ class Article extends React.PureComponent {
             <h2>Fixing combatlog bugs and inconsistencies: buff applications</h2>
           </div>
           <div className="panel-body">
-            Combatlogs are bugged and inconsistent. We added a normalizer to fabricate buff applications to make usage easier and more consistent and fix bugs where an event might be completely missing. The combatlog has bugs where buffs applied prior to the pull may not show up anywhere in the combatlog, this most commonly occurs with Bloodlust. Using information such as buff drop, refresh and stack change events, we can fix these issues.
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/478
+            Combat logs have a lot of bugs, inconsistencies and other things that make them hard to read. <b>Buff</b> events have many issues, such as spells like <SpellLink id={SPELLS.BLOODLUST.id} icon /> never getting an apply-event, spells that have a 100% uptime never appear and buffs applied before combat appear differently from all other buffs.<br /><br />
+
+            Using information such as buff drop events, refreshes and stack change events we can fix these issues. To do this we <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/478">created</a> a normalizer that fabricates buff applications whenever necessary. This way we have one reliable event to listen to and we can avoid creating a fix for every bugged buff.<br /><br />
+
+            Today we have a couple of event normalizers to fix issues with the combatlog helping us develop quicker and keep code clean.
           </div>
         </div>
 
@@ -1243,16 +1281,63 @@ class Article extends React.PureComponent {
 
         <div className="panel">
           <div className="date">
+            12 Oct
+          </div>
+          <div className="panel-heading">
+            <h2>Introducing the WoWAnalyzer Discord Bot</h2>
+          </div>
+          <div className="panel-body">
+            <div className="flex wrapable">
+              <div className="flex-main" style={{ padding: '20px 15px', minWidth: 300 }}>
+                <div className="flex">
+                  <div className="flex-sub" style={{ padding: 5 }}>
+                    <img src="/favicon.png" alt="Logo" style={{ width: 80, float: 'left' }} />
+                  </div>
+                  <div className="flex-main" style={{ fontSize: 24, padding: '5px 15px', lineHeight: 1.4 }}>
+                    Introducing the <b>WoWAnalyzer</b> <img src={DiscordLogo} alt="Discord logo" style={{ height: '2em', marginTop: 3 }} /> bot
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div style={{ fontSize: 16, margin: '10px 25px 20px 25px' }}>
+                    Get users to analyze themselves without lifting a finger (even if they don't read the pins).<br />
+                  </div>
+                  <div style={{ marginBottom: 7 }}>
+                    <a
+                      className="btn btn-default btn-lg"
+                      style={{ borderRadius: 0 }}
+                      href="https://discordapp.com/oauth2/authorize?&client_id=368144406181838861&scope=bot&permissions=3072"
+                    >
+                      Add to Discord
+                    </a>
+                  </div>
+
+                  <a href="https://github.com/WoWAnalyzer/DiscordBot#wowanalyzer-discord-bot-">More info</a>
+                  by <Maintainer {...MAINTAINERS.Zerotorescue} />
+                </div>
+              </div>
+              <div className="flex-sub">
+                <img src={DiscordBotGif} alt="Bot example gif" style={{ height: 200 }} />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="panel">
+          <div className="date">
             14 Oct
           </div>
           <div className="panel-heading">
             <h2>Checking legendary item levels</h2>
           </div>
           <div className="panel-body">
-            It's easy to forget those things you need to do just once for a couple of things.
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/506
+            To help you notice legendaries you forgot to upgrade, <Maintainer {...MAINTAINERS.Fyruna} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/506">added</a> a suggestion for legendaries below the max possible item level.<br /><br />
 
-            By <Maintainer {...MAINTAINERS.Fyruna} />
+            <figure style={{ maxWidth: 800 }}>
+              <img src={LegendaryItemLevelSuggestion} alt="An example suggestion" />
+              <figcaption>
+                An example suggestion when an item is not the max item level
+              </figcaption>
+            </figure>
           </div>
         </div>
 
@@ -1264,12 +1349,11 @@ class Article extends React.PureComponent {
             <h2>Implemented accurate stat tracking</h2>
           </div>
           <div className="panel-body">
-            This is a utility module intended to track the selected player's current stat rating. We pull initial stat rating from the combatantinfo, and track changes using a list of buffs. Obviously the list is currently quite sparse, and just there for testing. It can be freely added to, similar to the one in Haste.
+            <Maintainer {...MAINTAINERS.sref} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/520">implemented</a> a module for accurate stat rating tracking. This is a utility module intended to track the selected player's current stat rating at any point in the fight.<br /><br />
 
+            We pull the initial stat rating from the combatant information (stats at pull), and track changes using a list of buffs with known stat rating values.<br /><br />
 
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/520
-
-            By <Maintainer {...MAINTAINERS.sref} />
+            This information allows us to accurately calculate your current stat values (given all applicable buffs are implemented) which can be used for all sorts of other modules, most notably for accurately calculating stat weights.
           </div>
         </div>
 
@@ -1281,18 +1365,27 @@ class Article extends React.PureComponent {
             <h2>Always be moving? 💃🕺</h2>
           </div>
           <div className="panel-body">
+            With the Holy Paladin mastery effectiveness module we learned it's possible to find a player's position and calculate distance. Using a similar technique it's possible to get a high accuracy distance moved statistic. It could indicate ineffective play, probably reveals some fights are more movement intensive than other, but mainly it would for the fun of it.<br /><br />
+
+            <Maintainer {...MAINTAINERS.Fyruna} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/522">added</a> this distance moved statistic.<br /><br />
+
             <figure>
               <img src={DistanceMoved} alt="Distance moved" />
               <figcaption>
-                The distance moved statistic shows how many times you walked from Orgrimmar to Uldum during the fight
+                The distance moved statistic shows how many times you walked the distance of Orgrimmar to Uldum during the fight
+              </figcaption>
+            </figure><br /><br />
+
+            The initial version was bugged as it included the distance moved of other players. This was <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/551">spotted</a> by <Maintainer {...MAINTAINERS.Chizu} />. This was quickly <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/commit/f674f68a418d16dbc1612ada2ae43f1c22babae9">fixed</a> by <Maintainer {...MAINTAINERS.Zerotorescue} />.<br /><br />
+
+            <Maintainer {...MAINTAINERS.janvavra} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/689">added</a> a <i>time spent moving</i> indicator relative to fight duration. This is meant to be a better indicator of time wasted by movement.<br /><br />
+
+            <figure>
+              <img src={DistanceMoved20} alt="Distance moved 2.0" />
+              <figcaption>
+                The corrected distance moved with time spent moving
               </figcaption>
             </figure>
-
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/522
-
-            By <Maintainer {...MAINTAINERS.Fyruna} />
-
-            janvavra added a <i>time spent moving</i> indicator relative to fight duration https://github.com/WoWAnalyzer/WoWAnalyzer/pull/689
           </div>
         </div>
 
