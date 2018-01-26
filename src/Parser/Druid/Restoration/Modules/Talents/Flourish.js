@@ -23,8 +23,6 @@ class Flourish extends Analyzer {
     hotTracker: HotTracker,
   };
 
-  flourishAttribution = { name: 'Flourish', healing: 0, masteryHealing: 0, dreamwalkerHealing: 0, procs: 0, amount: 0 };
-
   flourishCount = 0;
   flourishes = [];
 
@@ -60,7 +58,7 @@ class Flourish extends Analyzer {
       masteryHealing: 0,
       dreamwalkerHealing: 0,
       procs: 0,
-      amount: 0,
+      duration: 0,
     };
     this.flourishes.push(newFlourish);
 
@@ -69,7 +67,7 @@ class Flourish extends Analyzer {
 
     Object.keys(this.hotTracker.hots).forEach(playerId => {
       Object.keys(this.hotTracker.hots[playerId]).forEach(spellIdString => {
-        const spellId = parseInt(spellIdString, 10);
+        const spellId = Number(spellIdString);
         // due to flourish's refresh mechanc, we don't include it in Flourish numbers
         const attribution = spellId === SPELLS.CULTIVATION.id ? null : newFlourish;
         this.hotTracker.addExtension(attribution, FLOURISH_EXTENSION, playerId, spellId);
@@ -92,8 +90,8 @@ class Flourish extends Analyzer {
         } else if (spellId === SPELLS.CULTIVATION.id) {
           this.cultCount += 1;
         }
-      }, this);
-    }, this);
+      });
+    });
 
     if (foundWg) {
       this.wgsExtended += 1;

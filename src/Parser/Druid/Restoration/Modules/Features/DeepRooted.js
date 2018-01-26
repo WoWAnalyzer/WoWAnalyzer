@@ -26,7 +26,7 @@ class DeepRooted extends Analyzer {
     masteryHealing: 0,
     dreamwalkerHealing: 0,
     procs: 0,
-    amount: 0,
+    duration: 0,
   };
 
   wgAttribution = {
@@ -34,7 +34,7 @@ class DeepRooted extends Analyzer {
     healing: 0,
     masteryHealing: 0,
     procs: 0,
-    amount: 0,
+    duration: 0,
   };
 
   regrowthAttribution = {
@@ -42,7 +42,7 @@ class DeepRooted extends Analyzer {
     healing: 0,
     masteryHealing: 0,
     procs: 0,
-    amount: 0,
+    duration: 0,
   };
 
   idToAttribution = {
@@ -103,18 +103,18 @@ class DeepRooted extends Analyzer {
         icon={<SpellIcon id={SPELLS.DEEP_ROOTED_TRAIT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealing))} %`}
         label="Deep Rooted"
-        tooltip={`Rejuvenation - <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalRejuvHealing))}%</b> healing
+        tooltip={`Rejuvenation - <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalRejuvHealing))}%</b> healing over <b>${(this.rejuvAttribution.duration/1000).toFixed(1)}s</b> extended
             <ul>
             <li>Direct: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.rejuvAttribution.healing))}%</b></li>
             <li>Mastery: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.rejuvAttribution.masteryHealing))}%</b></li>
             <li>Dreamwalker: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.rejuvAttribution.dreamwalkerHealing))}%</b></li>
             </ul>
-          Wild Growth - <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalWgHealing))}%</b> healing
+          Wild Growth - <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalWgHealing))}%</b> healing over <b>${(this.wgAttribution.duration/1000).toFixed(1)}s</b> extended
             <ul>
             <li>Direct: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.wgAttribution.healing))}%</b></li>
             <li>Mastery: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.wgAttribution.masteryHealing))}%</b></li>
             </ul>
-          Regrowth - <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalRegrowthHealing))}%</b> healing
+          Regrowth - <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalRegrowthHealing))}%</b> healing over <b>${(this.regrowthAttribution.duration/1000).toFixed(1)}s</b> extended
             <ul>
             <li>Direct: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.regrowthAttribution.healing))}%</b></li>
             <li>Mastery: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.regrowthAttribution.masteryHealing))}%</b></li>

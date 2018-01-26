@@ -23,6 +23,7 @@ import DreamerAttributor from './Modules/Core/HotTracking/DreamerAttributor';
 import Ekowraith from './Modules/Items/Ekowraith';
 import XonisCaress from './Modules/Items/XonisCaress';
 import DarkTitanAdvice from './Modules/Items/DarkTitanAdvice';
+import EdraithBondsOfAglaya from './Modules/Items/EdraithBondsOfAglaya';
 import EssenceOfInfusion from './Modules/Items/EssenceOfInfusion';
 import SoulOfTheArchdruid from './Modules/Items/SoulOfTheArchdruid';
 import Tearstone from './Modules/Items/Tearstone';
@@ -131,6 +132,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ironbark: Ironbark,
 
     // Items:
+    edraithBondsOfAglaya: EdraithBondsOfAglaya,
     ekowraith: Ekowraith,
     xonisCaress: XonisCaress,
     darkTitanAdvice: DarkTitanAdvice,
