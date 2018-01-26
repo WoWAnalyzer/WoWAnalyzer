@@ -10,8 +10,8 @@ import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
-import getDamageBonus from '../WarlockCore/getDamageBonus';
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
 const HAUNT_DAMAGE_BONUS = 0.15;
@@ -46,7 +46,7 @@ class Haunt extends Analyzer {
     }
 
     if (hasHaunt) {
-      this.bonusDmg += getDamageBonus(event, HAUNT_DAMAGE_BONUS);
+      this.bonusDmg += calculateEffectiveDamage(event, HAUNT_DAMAGE_BONUS);
     }
   }
 

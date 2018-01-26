@@ -7,8 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
-
-import getDamageBonus from '../WarlockCore/getDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const REVERSE_ENTROPY_DAMAGE_BONUS = 0.1;
 
@@ -27,7 +26,7 @@ class ReverseEntropy extends Analyzer {
     if (event.ability.guid !== SPELLS.CHAOS_BOLT.id && event.ability.guid !== SPELLS.RAIN_OF_FIRE_DAMAGE.id) {
       return;
     }
-    this.bonusDmg += getDamageBonus(event, REVERSE_ENTROPY_DAMAGE_BONUS);
+    this.bonusDmg += calculateEffectiveDamage(event, REVERSE_ENTROPY_DAMAGE_BONUS);
   }
 
   subStatistic() {

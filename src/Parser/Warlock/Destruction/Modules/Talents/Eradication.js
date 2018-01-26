@@ -10,8 +10,7 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Wrapper from 'common/Wrapper';
 import { formatNumber, formatPercentage } from 'common/format';
-
-import getDamageBonus from '../WarlockCore/getDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const ERADICATION_DAMAGE_BONUS = 0.15;
 
@@ -34,7 +33,7 @@ class Eradication extends Analyzer {
     if (!enemy || !enemy.hasBuff(SPELLS.ERADICATION_DEBUFF.id, event.timestamp)) {
       return;
     }
-    this.bonusDmg += getDamageBonus(event, ERADICATION_DAMAGE_BONUS);
+    this.bonusDmg += calculateEffectiveDamage(event, ERADICATION_DAMAGE_BONUS);
   }
 
   get uptime() {
