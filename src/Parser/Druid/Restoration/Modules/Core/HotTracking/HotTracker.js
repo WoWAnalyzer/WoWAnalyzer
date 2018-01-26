@@ -17,8 +17,8 @@ const REJUV_IDS = [
 const EXPECTED_REMOVAL_THRESHOLD = 100;
 
 // this class does a lot, a few different debug areas to cut down on the spam while debugging
-const debug = true;
-const extensionDebug = true; // logs pertaining to extensions
+const debug = false;
+const extensionDebug = false; // logs pertaining to extensions
 const applyRemoveDebug = false; // logs tracking HoT apply / refresh / remove
 const healDebug = false; // logs tracking HoT heals
 
@@ -365,10 +365,10 @@ class HotTracker extends Analyzer {
     const diff = actual - expected;
     if (diff > EXPECTED_REMOVAL_THRESHOLD) {
       // The only reason HoT could last longer than expected is we are missing an extension, which is a bug -> log a warning
-      console.warn(`${hot.name} on ${targetId} fell @${this.owner.formatTimestamp(actual, 1)}, which is ${(diff/1000).toFixed(1)}s LATER than expected... Missing an extension?`);
+      extensionDebug && console.warn(`${hot.name} on ${targetId} fell @${this.owner.formatTimestamp(actual, 1)}, which is ${(diff/1000).toFixed(1)}s LATER than expected... Missing an extension?`);
     } else if (diff < (-1 * EXPECTED_REMOVAL_THRESHOLD)) {
       // Several legitimate reasons HoT could last shorter than expected: lifebloom swap, target dies, target was purged, target cancelled the spell -> log only when debug on
-      extensionDebug && console.log(`${hot.name} on ${targetId} fell @${this.owner.formatTimestamp(actual, 1)}, which is ${-(diff/1000).toFixed(1)}s earlier than expected`);
+      extensionDebug && console.warn(`${hot.name} on ${targetId} fell @${this.owner.formatTimestamp(actual, 1)}, which is ${-(diff/1000).toFixed(1)}s earlier than expected`);
     }
     return diff;
   }
