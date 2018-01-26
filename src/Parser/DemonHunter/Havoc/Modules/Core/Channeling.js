@@ -1,25 +1,47 @@
 import SPELLS from 'common/SPELLS';
 import CoreChanneling from 'Parser/Core/Modules/Channeling';
-import { formatMilliseconds } from 'common/format';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 class Channeling extends CoreChanneling {
+	static dependencies = {
+		combatants: Combatants,
+	}
 
 	cancelChannel(event, ability) {
 		if(this.isChannelingSpell(SPELLS.EYE_BEAM.id)) {
 			this.endChannel(event);
-			console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Channeling', 'Marking', this._currentChannel.ability.name, 'as ended since we started casting something else');
 		}
 		else {
 			super.cancelChannel(event, ability);
 		}
 	}
 
+	//Eye beam with the Meta buff doesn't get caught by applybuff for some reason so we also include the on cast
+
+	//Eye Beam w/o the meta buff
 	on_byPlayer_applybuff(event) {
-		const spellId = event.ability.guid;
-		if(spellId !== SPELLS.EYE_BEAM.id) {
+		if(!this.combatants.selected.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id)){
 			return;
 		}
-		this.beginChannel(event);
+		const spellId = event.ability.guid;
+		if(spellId === SPELLS.EYE_BEAM.id) {
+			this.beginChannel(event);
+			return;
+		}
+		super.on_byPlayer_cast(event);
+	}
+
+	//Eye beam with the meta buff
+	on_byPlayer_cast(event) {
+		if(this.combatants.selected.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id)){
+			return;
+		}
+		const spellId = event.ability.guid;
+		if(spellId === SPELLS.EYE_BEAM.id) {
+			this.beginChannel(event);
+			return;
+		}
+		super.on_byPlayer_cast(event);
 	}
 
 	on_byPlayer_removebuff(event) {

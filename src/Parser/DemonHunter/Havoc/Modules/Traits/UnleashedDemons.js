@@ -42,7 +42,6 @@ class UnleashedDemons extends Analyzer {
 					break;
 			}
 		}
-		console.log(this.metamorphosisCDReduction);
 		const cdReduciton = this.metamorphosisCDReduction;
 		return cdReduciton;
 	}
