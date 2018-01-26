@@ -1,10 +1,9 @@
 import React from 'react';
 
-import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
-
 import Analyzer from 'Parser/Core/Analyzer';
 
-//credit to hpal mod, i modified the traits script
+import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+
 import Backdraft from './Backdraft';
 import SoulHarvestTalent from './SoulHarvestTalent';
 import ChannelDemonfire from './ChannelDemonfire';
@@ -30,13 +29,11 @@ class TalentHub extends Analyzer {
 
   statistic() {
     return (
-      <StatisticsListBox
-        title="Talents"
-      >
+      <StatisticsListBox title="Talents">
         {this.backdraft.active && this.backdraft.subStatistic()}
         {this.eradication.active && this.eradication.subStatistic()}
         {this.empoweredLifeTap.active && this.empoweredLifeTap.subStatistic()}
-        {this.channelDemonfire.active && this.channelDemonfire.subStatistic()}        
+        {this.channelDemonfire.active && this.channelDemonfire.subStatistic()}
         {this.soulHarvestTalent.active && this.soulHarvestTalent.subStatistic()}
         {this.fnb.active && this.fnb.subStatistic()}
         {this.entropy.active && this.entropy.subStatistic()}

@@ -1,12 +1,14 @@
 import React from 'react';
 
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
+
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import PETS from 'common/PETS';
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
+
 import ItemDamageDone from 'Main/ItemDamageDone';
-import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import DemoPets from '../../WarlockCore/Pets';
 

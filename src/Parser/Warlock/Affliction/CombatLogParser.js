@@ -4,15 +4,14 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
+import Channeling from './Modules/WarlockCore/Channeling';
+import GlobalCooldown from './Modules/WarlockCore/GlobalCooldown';
 
 import AgonyUptime from './Modules/Features/AgonyUptime';
 import CorruptionUptime from './Modules/Features/CorruptionUptime';
 import ReapBuffTracker from './Modules/Features/ReapBuffTracker';
-
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
-import Channeling from './Modules/WarlockCore/Channeling';
-import GlobalCooldown from './Modules/WarlockCore/GlobalCooldown';
 import FatalEchoes from './Modules/Features/FatalEchoes';
 import Sniping from './Modules/Features/Sniping';
 import TormentedSouls from './Modules/Features/TormentedSouls';

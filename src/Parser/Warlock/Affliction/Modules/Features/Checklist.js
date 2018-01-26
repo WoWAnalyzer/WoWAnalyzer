@@ -1,9 +1,5 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
-import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
@@ -13,6 +9,10 @@ import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeC
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
+
+import Wrapper from 'common/Wrapper';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 
 import AlwaysBeCasting from './AlwaysBeCasting';
 import AgonyUptime from './AgonyUptime';

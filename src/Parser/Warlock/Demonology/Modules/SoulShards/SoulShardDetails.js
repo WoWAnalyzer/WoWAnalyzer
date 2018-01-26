@@ -1,15 +1,15 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
+
 import Tab from 'Main/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import SoulShardBreakdown from './SoulShardBreakdown';
 import SoulShardTracker from './SoulShardTracker';
-
 import WastedShardsIcon from '../../Images/warlock_soulshard_bw.jpg';
 
-const soulShardIcon = 'inv_misc_gem_amethyst_02';
+const SOUL_SHARD_ICON = 'inv_misc_gem_amethyst_02';
 
 class SoulShardDetails extends Analyzer {
   static dependencies = {
@@ -35,7 +35,7 @@ class SoulShardDetails extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')
-          .icon(soulShardIcon)
+          .icon(SOUL_SHARD_ICON)
           .actual(`${shardsWasted} Soul Shards wasted (${actual.toFixed(2)} per minute)`)
           .recommended(`< ${recommended.toFixed(2)} Soul Shards per minute wasted are recommended`);
       });

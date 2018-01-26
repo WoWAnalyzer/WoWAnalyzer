@@ -5,9 +5,10 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
+
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class Havoc extends Analyzer {
   static dependencies = {
