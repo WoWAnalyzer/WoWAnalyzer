@@ -6,6 +6,8 @@ import FlamestrikeNormalizer from './Normalizers/Flamestrike';
 import Scorch from './Normalizers/Scorch';
 import KaelthasUltimateAbility from './Normalizers/KaelthasUltimateAbility';
 
+import Checklist from './Modules/Features/Checklist';
+
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Features/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
@@ -42,6 +44,9 @@ class CombatLogParser extends CoreCombatLogParser {
     FlameStrikeNormalizer: FlamestrikeNormalizer,
     scorch: Scorch,
     kaelthasUltimateAbility: KaelthasUltimateAbility,
+
+    //Checklist
+    checklist: Checklist,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
