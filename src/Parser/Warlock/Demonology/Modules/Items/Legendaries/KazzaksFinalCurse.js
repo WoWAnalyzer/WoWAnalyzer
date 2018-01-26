@@ -6,9 +6,9 @@ import PETS from 'common/PETS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import DemoPets from '../../WarlockCore/Pets';
-import getDamageBonus from '../../WarlockCore/getDamageBonus';
 
 const DAMAGE_BONUS_PER_PET = 0.05;
 const HAND_OF_DOOM_SUMMON_THRESHOLD = 70;
@@ -84,7 +84,7 @@ class KazzaksFinalCurse extends Analyzer {
       // shouldn't happen, we add the debuff on cast
       return;
     }
-    this.bonusDmg += getDamageBonus(event, doom.damageBonus);
+    this.bonusDmg += calculateEffectiveDamage(event, doom.damageBonus);
   }
 
   item() {

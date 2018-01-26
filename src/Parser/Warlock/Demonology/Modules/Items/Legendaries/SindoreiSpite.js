@@ -5,8 +5,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import ItemDamageDone from 'Main/ItemDamageDone';
-
-import getDamageBonus from '../../WarlockCore/getDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const SINDOREI_SPITE_DAMAGE_BONUS = 0.15;
 
@@ -23,7 +22,7 @@ class SindoreiSpite extends Analyzer {
 
   on_byPlayerPet_damage(event) {
     if (this.combatants.selected.hasBuff(SPELLS.SINDOREI_SPITE_BUFF.id, event.timestamp)) {
-      this.bonusDmg += getDamageBonus(event, SINDOREI_SPITE_DAMAGE_BONUS);
+      this.bonusDmg += calculateEffectiveDamage(event, SINDOREI_SPITE_DAMAGE_BONUS);
     }
   }
 
@@ -33,7 +32,7 @@ class SindoreiSpite extends Analyzer {
     }
     // so friendly TKC damage doesn't get counted
     if (!event.targetIsFriendly) {
-      this.bonusDmg += getDamageBonus(event, SINDOREI_SPITE_DAMAGE_BONUS);
+      this.bonusDmg += calculateEffectiveDamage(event, SINDOREI_SPITE_DAMAGE_BONUS);
     }
   }
 
