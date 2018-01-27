@@ -913,11 +913,13 @@ class Article extends React.PureComponent {
             <h2>Shadow Priest</h2>
           </div>
           <div className="panel-body">
-            <SpecIcon spec={SPECS.SHADOW_PRIEST} />
-            After using the analyzer for Discipline Priest for a while, <Maintainer {...MAINTAINERS.hassebewlen} /> implemented it for Shadow Priest.
+            <div className="clearfix">
+              <SpecIcon spec={SPECS.SHADOW_PRIEST} />
+              After using the analyzer for Discipline Priest for a while, <Maintainer {...MAINTAINERS.hassebewlen} /> implemented it for Shadow Priest.<br /><br />
+            </div>
 
             <blockquote>
-              I have healed for most of my time in WoW and played priest since WotLK. Legion is the first expansion which I started raiding on a higher level (previous ones were just PvP) and found shadow to be pretty fun. But when they nerfed surrender to madness, I went back to healing my fellow teammates and just had shadow as an offspec.<br /><br />
+              I have healed for most of my time in WoW and played priest since WotLK. Legion is the first expansion which I started raiding on a higher level (previous ones were just PvP) and found Shadow to be pretty fun. But when they nerfed <SpellLink id={SPELLS.SURRENDER_TO_MADNESS_TALENT.id} icon />, I went back to healing my fellow teammates and just had Shadow as an offspec.<br /><br />
 
               When I found out about this project and that it was coded in ES6, I thought it would be a nice side project, learning more about git, working in a project with others while combining an hobby.
             </blockquote>
@@ -927,10 +929,10 @@ class Article extends React.PureComponent {
               <figcaption>
                 Initial version of the Shadow Priest analyzer
               </figcaption>
-            </figure>
+            </figure><br />
 
             <blockquote>
-              I implemented the shadow priest portion mostly for myself, as I found it tedious to look for what I wanted on warcraftlogs (so I could more easily bash my fellow SPs in my guild).
+              I implemented the Shadow Priest portion mostly for myself, as I found it tedious to look for what I wanted on Warcraft Logs (so I could more easily bash my fellow SPs in my guild).
               And knowing that others can use it for their own benefit is also great.
             </blockquote>
           </div>
@@ -1007,7 +1009,9 @@ class Article extends React.PureComponent {
             <h2>Database</h2>
           </div>
           <div className="panel-body">
-            The initial version of our Warcraft Logs API proxy cache had an in-memory cache that would forget old logs automatically to prevent running out of memory. This didn't give us the max possible cache hit ratio, while a database would be able to permanently store items in its cache. I also had a couple of features in mind that would allow us to grow WoWAnalyzer further but that also required a database. To tackle this big project I took a week off work and implemented the database.
+            The initial version of our Warcraft Logs API proxy cache had an in-memory cache that would forget old logs automatically to prevent running out of memory. This didn't give us the max possible cache hit ratio, while a database would be able to permanently store items in its cache. I also had a couple of other features in mind that would require a database.<br /><br />
+
+            To tackle this big project I took a week off from work and implemented the database as a MariaDB container. We connect to it from NodeJS through <a href="http://sequelizejs.com">SequelizeJS</a>. The proxy has been using the database as cache storage for a while now, no other features have been implemented yet.
           </div>
         </div>
 
@@ -1444,7 +1448,7 @@ class Article extends React.PureComponent {
 
             <blockquote>
               Raid leader linked WoWAnalyzer in one of our log channels and I noticed that Unholy Death Knight wasn't supported.  I read the documentation on how to add support for a spec and it looked pretty easy.  I knew a little Javascript and had decent knowledge of my spec so I figured it was something I could do.  I got started on Friday evening and by the end of the weekend I had basic support for the spec done.
-            </blockquote>
+            </blockquote><br />
 
             <figure>
               <img src={UnholyDeathKnight} alt="Initial version of the Unholy Death Knight analyzer" />
@@ -1463,18 +1467,20 @@ class Article extends React.PureComponent {
             <h2>Added support for healer stat weights</h2>
           </div>
           <div className="panel-body">
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/604
+            <Maintainer {...MAINTAINERS.sref} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/604">added</a> a module to generate stat weights based on what actually happened in a fight. This module generates the players stat weights using the actual logged events. We keep a listing of all the player's healing spells along with which stats those spells scales with, and for each stat a heal scales with we do some simple math to find out how much the last point of that stat healed. We compare the total healing increases of each stat in order to generate weights. The simplicity of this module is pretty brilliant and makes calculating stat weights from logs pretty easy.<br /><br />
 
-            Later renamed to https://github.com/WoWAnalyzer/WoWAnalyzer/pull/700
+            <Maintainer {...MAINTAINERS.sref} /> wrote a full explanation of the calculation of the Restoration Druid Stat Weights <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/e650befd581620eaf62503e96550f4507ea56450/src/Parser/Druid/Restoration/Modules/Features/StatWeights.js#L14">here</a>.<br /><br />
 
             <figure>
               <img src={RestoDruidStatWeights} alt="The initial Stat Weights panel" />
               <figcaption>
                 The initial Stat Weights panel
               </figcaption>
-            </figure>
+            </figure><br />
 
-            Initial support by <Maintainer {...MAINTAINERS.sref} />, generalized and extended a little by <Maintainer {...MAINTAINERS.Zerotorescue} />
+            Since the initial version the stat weights module has had several improvements by both <Maintainer {...MAINTAINERS.sref} /> and <Maintainer {...MAINTAINERS.Zerotorescue} /> (he also implemented the weights for Holy Paladins).<br /><br />
+
+            The accuracy was improved with several changes to the calculations, the module was changed to make it reasonably easy to implement it in other (healing) specs and finally we changed its name to <i>stat values</i> to better indicate they're not exact stat weights. The name change was done since <i>stat weights</i> usually have opinionated modifiers to account for other factors such as Haste's mana usage. Our <i>stat values</i> are as unopinionated as possible and will require you to account for things such as mana yourself.
           </div>
         </div>
 
@@ -1532,9 +1538,7 @@ class Article extends React.PureComponent {
             <h2>Automatic fight and player selection</h2>
           </div>
           <div className="panel-body">
-            https://github.com/WoWAnalyzer/WoWAnalyzer/pull/729
-
-            By <Maintainer {...MAINTAINERS.Gao} />
+            <Maintainer {...MAINTAINERS.Gao} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/729">improved</a> the report selector to automatically select the fight and player if they were selected in the Warcraft Logs report. This should make analyzing from Warcraft Logs reports a bit quicker.
           </div>
         </div>
 
@@ -1959,7 +1963,7 @@ class Article extends React.PureComponent {
           <li><b>34</b> specs implemented with <b>16</b> specs marked as being {completeness(SPEC_ANALYSIS_COMPLETENESS.GOOD)} or {completeness(SPEC_ANALYSIS_COMPLETENESS.GREAT)}</li>
           <li><a href="https://github.com/WoWAnalyzer/WoWAnalyzer"><b>6,694 commits</b></a> from over <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/graphs/contributors"><b>58 contributors</b></a></li>
           <li><b>1,441 files</b> with over <b>145,000 lines of code</b></li>
-          <li>Peak usage had over <b>140,000 unique visitors</b> and <b>13,500,000 requests</b> in a single month</li>
+          <li>Peak usage had over <b>145,000 unique visitors</b> and <b>14,000,000 requests</b> in a single month</li>
           <li><a href="https://discord.gg/AxphPxU">Our Discord server</a> has over <b>1,300 members</b></li>
           <li>It usually takes <a href="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer/builds">about <b>6 minutes</b></a> for a code-change to be available on WoWAnalyzer.com</li>
         </ul>
