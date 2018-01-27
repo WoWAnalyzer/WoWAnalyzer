@@ -252,6 +252,66 @@ export default {
     name: 'Arcane Blast',
     icon: 'spell_arcane_blast',
   },
+  ARCANE_MISSILES: {
+    id: 7268,
+    name: 'Arcane Missiles',
+    icon: 'spell_nature_starfall',
+  },
+  ARCANE_BARRAGE: {
+    id: 44425,
+    name: 'Arcane Barrage',
+    icon: 'ability_mage_arcanebarrage',
+  },
+  ARCANE_EXPLOSION: {
+    id: 1449,
+    name: 'Arcane Explosion',
+    icon: 'spell_nature_wispsplode',
+  },
+  ARCANE_POWER: {
+    id: 12042,
+    name: 'Arcane Power',
+    icon: 'spell_nature_lightning',
+  },
+  DISPLACEMENT: {
+    id: 212801,
+    name: 'Displacement',
+    icon: 'ability_hunter_displacement',
+  },
+  EVOCATION: {
+    id: 12051,
+    name: 'Evocation',
+    icon: 'spell_nature_purge',
+  },
+  GREATER_INVISIBILITY: {
+    id: 110959,
+    name: 'Greater Invisibility',
+    icon: 'ability_mage_greaterinvisibility',
+  },
+  MASTERY_SAVANT: {
+    id: 190740,
+    name: 'Mastery: Savant',
+    icon: 'spell_arcane_manatap',
+  },
+  PRESENCE_OF_MIND: {
+    id: 205025,
+    name: 'Presence of Mind',
+    icon: 'spell_nature_enchantarmor',
+  },
+  PRISMATIC_BARRIER: {
+    id: 235450,
+    name: 'Prismatic Barrier',
+    icon: 'spell_magearmor',
+  },
+  MARK_OF_ALUNETH: {
+    id: 224968,
+    name: 'Mark of Aluneth',
+    icon: 'inv_staff_2h_artifactaegwynsstaff_d_01',
+  },
+  ARCANE_CHARGE: {
+    id: 36032,
+    name: 'Arcane Charge',
+    icon: 'spell_arcane_arcane01',
+  },
 
   //Passives
   SHATTER: {
@@ -365,6 +425,16 @@ export default {
     id: 253257,
     name: 'Arctic Blast',
     icon: 'inv_staff_15',
+  },
+  ARCANE_MISSILES_BUFF: {
+    id: 79683,
+    name: 'Arcane Missiles!',
+    icon: 'spell_nature_starfall',
+  },
+  ARCANE_MISSILES_ENERGIZE: {
+    id: 208030,
+    name: 'Arcane Missiles',
+    icon: 'spell_nature_starfall',
   },
 
   //Artifact Traits
