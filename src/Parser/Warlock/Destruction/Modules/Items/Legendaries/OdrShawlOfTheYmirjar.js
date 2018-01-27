@@ -6,8 +6,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import ItemDamageDone from 'Main/ItemDamageDone';
-
-import getDamageBonus from '../../WarlockCore/getDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const ODR_SHAWL_OF_THE_YMIRJAR_DAMAGE_BONUS = 0.15;
 
@@ -44,7 +43,7 @@ class OdrShawlOfTheYmirjar extends Analyzer {
     if (!enemy || !enemy.hasBuff(SPELLS.ODR_SHAWL_OF_THE_YMIRJAR_DEBUFF.id, event.timestamp) || !AFFECTED_SPELLS.has(event.ability.guid)) {
       return;
     }
-    this.bonusDmg += getDamageBonus(event, ODR_SHAWL_OF_THE_YMIRJAR_DAMAGE_BONUS);
+    this.bonusDmg += calculateEffectiveDamage(event, ODR_SHAWL_OF_THE_YMIRJAR_DAMAGE_BONUS);
   }
 
   item() {

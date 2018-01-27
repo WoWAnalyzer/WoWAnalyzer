@@ -8,8 +8,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
-
-import getDamageBonus from '../WarlockCore/getDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const debug = false;
 
@@ -61,7 +60,7 @@ class RoaringBlaze extends Analyzer {
       // (1.25)^conflag - 1 gives us the total damage multiplier bonus of the base damage, number that getDamageBonus() can work with
       const bonusMultiplier = (1 + DAMAGE_BONUS_PER_CONFLAG) ** this._currentBonus - 1;
       debug && console.log('bonus multiplier', bonusMultiplier);
-      this.bonusDmg += getDamageBonus(event, bonusMultiplier);
+      this.bonusDmg += calculateEffectiveDamage(event, bonusMultiplier);
       debug && console.log('current bonus dmg', this.bonusDmg);
     }
   }

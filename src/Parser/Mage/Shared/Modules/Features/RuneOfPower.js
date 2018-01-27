@@ -46,7 +46,7 @@ class RuneOfPower extends Analyzer {
   }
 
   get roundedSecondsPerCast() {
-    return ((this.uptimeMS / this.abilityTracker.getAbility(SPELLS.RUNE_OF_POWER_BUFF.id).casts) / 1000).toFixed(1);
+    return ((this.uptimeMS / this.abilityTracker.getAbility(SPELLS.RUNE_OF_POWER_TALENT.id).casts) / 1000).toFixed(1);
   }
 
   get damageSuggestionThresholds() {
@@ -70,7 +70,7 @@ class RuneOfPower extends Analyzer {
         average: RUNE_DURATION - 1,
         major: RUNE_DURATION - 3,
       },
-      style: 'percentage',
+      style: 'number',
     };
   }
 
@@ -86,7 +86,7 @@ class RuneOfPower extends Analyzer {
             .recommended(`${formatPercentage(recommended)}% is the passive gain from Incanter's Flow`);
         });
     }
-    if (this.abilityTracker.getAbility(SPELLS.RUNE_OF_POWER_BUFF.id).casts > 0) {
+    if (this.abilityTracker.getAbility(SPELLS.RUNE_OF_POWER_TALENT.id).casts > 0) {
       when(this.roundedSecondsSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<Wrapper>You sometimes aren't standing in your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.</Wrapper>)

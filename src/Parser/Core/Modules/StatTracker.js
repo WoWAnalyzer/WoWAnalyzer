@@ -293,6 +293,8 @@ class StatTracker extends Analyzer {
         return 0.18;
       case SPECS.FIRE_MAGE:
         return 0.06;
+      case SPECS.ARCANE_MAGE:
+        return 0.0960;
       case SPECS.SUBTLETY_ROGUE:
         return 0.2208;
       case SPECS.ASSASSINATION_ROGUE:
@@ -308,6 +310,8 @@ class StatTracker extends Analyzer {
       case SPECS.AFFLICTION_WARLOCK:
         return 0.25;
       case SPECS.FROST_DEATH_KNIGHT:
+        return 0.12;
+      case SPECS.BLOOD_DEATH_KNIGHT:
         return 0.12;
       case SPECS.HAVOC_DEMON_HUNTER:
         return 0.12;

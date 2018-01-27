@@ -8,9 +8,9 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
-import getDamageBonus from '../WarlockCore/getDamageBonus';
 
 const CONTAGION_DAMAGE_BONUS = 0.15;
 
@@ -36,7 +36,7 @@ class Contagion extends Analyzer {
       return;
     }
 
-    this.bonusDmg += getDamageBonus(event, CONTAGION_DAMAGE_BONUS);
+    this.bonusDmg += calculateEffectiveDamage(event, CONTAGION_DAMAGE_BONUS);
   }
 
   statistic() {

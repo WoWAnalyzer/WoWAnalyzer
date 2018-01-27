@@ -10,9 +10,9 @@ import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
-import getDamageBonus from '../WarlockCore/getDamageBonus';
 
 const AFFECTED_ABILITIES = [
   SPELLS.AGONY.id,
@@ -62,7 +62,7 @@ class MaleficGrasp extends Analyzer {
     }
 
     if (drained) {
-      const bonus = getDamageBonus(event, MALEFIC_GRASP_DAMAGE_BONUS);
+      const bonus = calculateEffectiveDamage(event, MALEFIC_GRASP_DAMAGE_BONUS);
       this.totalBonusDmg += bonus;
 
       switch (spellId) {

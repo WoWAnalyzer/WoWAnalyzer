@@ -1,4 +1,5 @@
 export default `
+27-01-2018 - Added item breakdown for Drinking Horn Cover showing average time gained for each Storm, Earth and Fire or Serenity cast (Juko)
 24-01-2018 - Added Statistic showing actual casts vs expected casts of important spells during Storm, Earth and Fire or Serenity (Juko)
 20-01-2018 - Updated Cooldown Tracker to include extended SEF duration from Drinking Horn Cover (Juko)
 03-01-2018 - Updated AlwaysBeCasting with channeling and more accurate GCD and fixed Gol'ganneths ravaging storm being shown in Cooldown usage breakdown (Juko)
