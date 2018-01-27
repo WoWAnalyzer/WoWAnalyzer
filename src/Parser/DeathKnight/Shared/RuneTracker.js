@@ -2,14 +2,11 @@ import React from 'react';
 
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import { formatNumber , formatPercentage } from 'common/format';
 import Wrapper from 'common/Wrapper';
 import SpellIcon from 'common/SpellIcon';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import ResourceTracker from 'Parser/Core/Modules/ResourceTracker/ResourceTracker';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 
@@ -36,11 +33,10 @@ class RuneTracker extends Analyzer {
   on_byPlayer_cast(event) {
   	event.classResources
       .filter(resource => resource.type === this.resourceType)
-      .forEach(({ amount, cost }) => {
-        const runeAmount = amount;
+      .forEach(({ cost }) => {
+        //should add a check here to see if amount matches our rune count.
         const runeCost = cost || 0;
-        //should add a check here to see if amount matches our rune cooldown. If it does not, update our rune cooldown to match.
-      	for(let i = 0; i < cost; i++){
+      	for(let i = 0; i < runeCost; i++){
       		this.startCooldown();
       	}
       });
@@ -74,7 +70,7 @@ class RuneTracker extends Analyzer {
   }
 
   get runeEfficiency(){
-    let runeCastEfficiencies = [];
+    const runeCastEfficiencies = [];
     const reducer = (accumulator, currentValue) => accumulator + currentValue;
     runeCastEfficiencies.push(this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.RUNE_1.id).efficiency);
     runeCastEfficiencies.push(this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.RUNE_2.id).efficiency);
@@ -83,7 +79,7 @@ class RuneTracker extends Analyzer {
   }
 
   get runesWasted(){
-    let runeMaxCasts = [];
+    const runeMaxCasts = [];
     const reducer = (accumulator, currentValue) => accumulator + currentValue;
     runeMaxCasts.push(this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.RUNE_1.id).maxCasts);
     runeMaxCasts.push(this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.RUNE_2.id).maxCasts);
