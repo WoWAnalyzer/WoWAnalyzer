@@ -9,6 +9,16 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import DamageTaken from './DamageTaken';
 
+function _clampProb(prob) {
+  if(prob > 1.0) {
+    return 1.0;
+  } else if(prob < 0.0) {
+    return 0.0;
+  } else {
+    return prob;
+  }
+}
+
 /**
  * This class represents the Markov Chain with which the Mastery stacks
  * are modeled. The transition probabilities are defined by two
@@ -31,16 +41,6 @@ import DamageTaken from './DamageTaken';
  */
 class StackMarkovChain {
   _stackProbs = [1.0];
-
-  _clampProb(prob) {
-    if(prob > 1.0) {
-      return 1.0;
-    } else if(prob < 0.0) {
-      return 0.0;
-    } else {
-      return prob;
-    }
-  }
 
   _assertSum() {
     const sum = this._stackProbs.reduce((sum, p) => p + sum, 0);
@@ -70,7 +70,7 @@ class StackMarkovChain {
     let zeroProb = 0;
     // didn't dodge, gain a stack
     for(let stacks = n-1; stacks >= 0; stacks--) {
-      const prob = this._clampProb(dodgeProb + masteryValue * stacks);
+      const prob = _clampProb(dodgeProb + masteryValue * stacks);
       zeroProb += prob * this._stackProbs[stacks]; // dodge -> go to 0
       const hitProb = 1 - prob;
       this._stackProbs[stacks+1] = hitProb * this._stackProbs[stacks]; // hit -> go to stacks + 1
@@ -131,7 +131,7 @@ class MasteryValue extends Analyzer {
   // event is dodgeable
   dodgeChance(masteryStacks, masteryRating, sourceID) {
     const masteryPercentage = this.stats.masteryPercentage(masteryRating, true);
-    return masteryPercentage * masteryStacks + this.baseDodge - this.dodgePenalty(sourceID);
+    return _clampProb(masteryPercentage * masteryStacks + this.baseDodge - this.dodgePenalty(sourceID));
   }
 
 
