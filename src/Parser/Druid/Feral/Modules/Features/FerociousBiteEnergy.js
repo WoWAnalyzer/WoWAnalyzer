@@ -8,7 +8,7 @@ import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 
 const ENERGY_MIN_USED_BY_BITE = 25;
 const ENERGY_FOR_FULL_DAMAGE_BITE = 50;
@@ -16,7 +16,6 @@ const MAX_DAMAGE_BONUS_FROM_ENERGY = 1.0;
 const LEEWAY_BETWEEN_CAST_AND_DAMAGE = 100; // in thousandths of a second
 
 const debug = false;
-
 
 /**
  * Although Ferocious Bite costs 25 energy, it does up to double damage if the character has more.
@@ -29,10 +28,12 @@ class FerociousBiteEnergy extends Analyzer {
     combatants: Combatants,
   };
   
-  biteCount = 0
+  biteCount = 0;
+  freeBiteCount = 0;
   lowEnergyBiteCount = 0;
   lostDamageTotal = 0;
-
+  energySpentOnBiteTotal = 0;
+  
   biteDamageEvents = [];
   lowEnergyBiteCastEvents = [];
   
@@ -55,13 +56,18 @@ class FerociousBiteEnergy extends Analyzer {
     const resource = event.classResources[0];
     if (resource.type !== RESOURCE_TYPES.ENERGY.id || !resource.cost) {
       // Ferocious Bite didn't consume energy, and so ignores the character's energy level.
+      this.freeBiteCount++;
       return;
     }
 
     // 'amount' is energy before the ability uses it.
     if (resource.amount < ENERGY_FOR_FULL_DAMAGE_BITE) {
+      this.energySpentOnBiteTotal += resource.amount;
       this.lowEnergyBiteCount++;
       this.lowEnergyBiteCastEvents.push(event);
+    }
+    else {
+      this.energySpentOnBiteTotal += ENERGY_FOR_FULL_DAMAGE_BITE;
     }
   }
 
@@ -124,13 +130,18 @@ class FerociousBiteEnergy extends Analyzer {
     return (this.lostDamageTotal / this.owner.fightDuration) * 1000;
   }
 
+  get averageEnergySpentOnBite() {
+    const notFreeBiteCount = this.biteCount - this.freeBiteCount;
+    return notFreeBiteCount > 0 ? this.energySpentOnBiteTotal / notFreeBiteCount : ENERGY_FOR_FULL_DAMAGE_BITE;
+  }
+
   get suggestionThresholds() {
     return {
-      actual: this.lowEnergyBiteCount / this.biteCount,
-      isGreaterThan: {
-        minor: 0,
-        average: 0.10,
-        major: 0.25,
+      actual: this.averageEnergySpentOnBite,
+      isLessThan: {
+        minor: ENERGY_FOR_FULL_DAMAGE_BITE,
+        average: ENERGY_FOR_FULL_DAMAGE_BITE - 5,
+        major: ENERGY_FOR_FULL_DAMAGE_BITE - 10,
       },
       style: 'number',
     };
@@ -140,12 +151,12 @@ class FerociousBiteEnergy extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <Wrapper>
-          You used <SpellLink id={SPELLS.FEROCIOUS_BITE.id}/> below {ENERGY_FOR_FULL_DAMAGE_BITE} energy {formatPercentage(actual)}% of the time. Reducing your <SpellLink id={SPELLS.FEROCIOUS_BITE.id}/> damage by {formatNumber(this.dpsLostFromLowEnergyBites)} DPS.
+          You used an average of {actual.toFixed(1)} energy on <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />. You should aim to always have {ENERGY_FOR_FULL_DAMAGE_BITE} energy available when using Ferocious Bite. Your Ferocious Bite damage was reduced by {formatNumber(this.dpsLostFromLowEnergyBites)} DPS due to lack of energy.
         </Wrapper>
       )
         .icon(SPELLS.FEROCIOUS_BITE.icon)
-        .actual(`${formatPercentage(actual)}% low energy Ferocious Bites.`)
-        .recommended(`${recommended}% is recommended.`);
+        .actual(`${actual.toFixed(1)} average energy spent on Ferocious Bite.`)
+        .recommended(`${recommended} is recommended.`);
     });
   }
 }
