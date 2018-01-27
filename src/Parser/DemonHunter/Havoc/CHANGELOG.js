@@ -9,6 +9,11 @@ import { Hewhosmites, Mamtooth } from 'MAINTAINERS';
 
 export default [
 	{
+		date: new Date('2018-01-27'),
+		changes: <Wrapper>Added a channeled bar to <SpellLink id={SPELLS.EYE_BEAM.id} icon/> in the timeline</Wrapper>,
+		contributors: [Hewhosmites],
+	},
+	{
 		date: new Date('2018-01-25'),
 		changes: <Wrapper>Added in <SpellLink id={SPELLS.HAVOC_T21_2PC_BONUS.id} icon/></Wrapper>,
 		contributors: [Hewhosmites],
