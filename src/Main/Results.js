@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Masonry from 'react-masonry-component';
-import { Textfit } from 'react-textfit';
+import Textfit from 'react-textfit';
 
 import Wrapper from 'common/Wrapper';
-import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
+import SPEC_ANALYSIS_COMPLETENESS, { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import getBossName from 'common/getBossName';
 import { getResultTab } from 'selectors/url/report';
 import DevelopmentTab from 'Main/DevelopmentTab';
@@ -17,6 +17,7 @@ import Status from 'Main/Status';
 import GithubButton from 'Main/GithubButton';
 import DiscordButton from 'Main/DiscordButton';
 import SuggestionsTab from 'Main/SuggestionsTab';
+import Maintainer from 'Main/Maintainer';
 
 import SkullRaidMarker from './Images/skull-raidmarker.png';
 import ItemsPanel from './ItemsPanel';
@@ -217,7 +218,41 @@ class Results extends React.Component {
                       <AboutTab config={config} />
                     )}
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
+          <div className="divider" />
+
+          <div className="row">
+            <div className="col-md-6">
+              <div className="row">
+                <div className="col-md-4">
+                  <div style={{ border: '7px solid #fff', background: 'rgba(0, 0, 0, 0.4)', padding: '8px 14px', fontSize: 40, fontWeight: 700, lineHeight: 1.1 }}>
+                    <Textfit mode="single" max={40}>
+                    How It's<br />
+                    Made
+                    </Textfit>
+                  </div>
+                </div>
+                <div className="col-md-8" style={{ fontSize: 20 }}>
+                  Curious how something is analyzed? Want to better understand your spec? You can find this spec's source <a href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`}>here</a>.
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="row">
+                <div className="col-md-4">
+                  <div style={{ border: '7px solid #fff', background: 'rgba(0, 0, 0, 0.4)', padding: '8px 14px', fontSize: 40, fontWeight: 700, lineHeight: 1.1 }}>
+                    <Textfit mode="single" max={40}>
+                      How To<br />
+                      Change
+                    </Textfit>
+                  </div>
+                </div>
+                <div className="col-md-8" style={{ fontSize: 20 }}>
+                  Spotted a bug? Want a new feature? Suggestion or checklist threshold off? You can investigate the source <a href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`}>here</a> and a guide on contributing <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/docs#contributing">here</a>.
                 </div>
               </div>
             </div>
@@ -228,6 +263,42 @@ class Results extends React.Component {
           <div className="row">
             <div className="col-md-12">
               {this.renderStatistics(results.statistics)}
+            </div>
+          </div>
+
+          <div className="divider" />
+
+          <div className="row">
+            <div className="col-md-6">
+              <div className="row">
+                <div className="col-md-4">
+                  <div style={{ border: '7px solid #fff', background: 'rgba(0, 0, 0, 0.4)', padding: '8px 14px', fontSize: 32, fontWeight: 700, lineHeight: 1.2 }}>
+                    <Textfit mode="single" max={32}>
+                      Spec<br />
+                      Maintainer
+                    </Textfit>
+                  </div>
+                </div>
+                <div className="col-md-8" style={{ fontSize: 20 }}>
+                  The {config.spec.specName} {config.spec.className} analyzer is being maintained by
+                  {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}. New maintainers are <b>always</b> welcome.
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="row">
+                <div className="col-md-4">
+                  <div style={{ border: '7px solid #fff', background: 'rgba(0, 0, 0, 0.4)', padding: '8px 14px', fontSize: 32, fontWeight: 700, lineHeight: 1.2 }}>
+                    <Textfit mode="single" max={32}>
+                      State Of<br />
+                      The Spec
+                    </Textfit>
+                  </div>
+                </div>
+                <div className="col-md-8" style={{ fontSize: 20 }}>
+                  The {config.spec.specName} {config.spec.className} analyzer is currently considered to be in <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn> state. The <i>about</i> tab at the top might have more information.
+                </div>
+              </div>
             </div>
           </div>
 
