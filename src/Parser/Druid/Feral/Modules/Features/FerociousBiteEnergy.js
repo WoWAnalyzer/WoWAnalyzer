@@ -17,6 +17,7 @@ const LEEWAY_BETWEEN_CAST_AND_DAMAGE = 100; // in thousandths of a second
 
 const debug = false;
 
+
 /**
  * Although Ferocious Bite costs 25 energy, it does up to double damage if the character has more.
  * It's recommended that feral druids use Bite when at 50 energy or higher.
