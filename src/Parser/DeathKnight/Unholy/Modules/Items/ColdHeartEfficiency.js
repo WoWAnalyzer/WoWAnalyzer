@@ -21,49 +21,93 @@ class ColdHeartEfficiency extends Analyzer {
   totalColdHeartCasts = 0;
   correctColdHeartCasts = 0;
   buffColdHeart = 0;
+  
   unholyStrengthStart = 0;
   unholyStrengthRemaining = 0;
+  
+  concordanceStart = 0;
+  concordanceRemaining = 0;
+  
+  khazgorothStart = 0;
+  khazgorothRemaining = 0;
+  
+  timeAtMaxStacksStart = 0;
+  timeAtMaxStacks = 0;
 
   on_byPlayer_applybuff(event) {
     const spellID = event.ability.guid;
     if (spellID === SPELLS.UNHOLY_STRENGTH_BUFF.id) {
       this.unholyStrengthStart = event.timestamp;
     }
+	if (spellID === SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH.id) {
+		this.concordanceStart = event.timestamp;
+	}
+	if (spellID === SPELLS.KHAZGOROTHS_SHAPING.id) {
+		this.khazgorothStart = event.timestamp;
+	}
   }
-
+  
+  on_byPlayer_refreshbuff(event) {
+	const spellID = event.ability.guid;
+	if (spellID === SPELLS.UNHOLY_STRENGTH_BUFF.id) {
+      this.unholyStrengthStart = event.timestamp;
+    }
+	if (spellID === SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH.id) {
+		this.concordanceStart = event.timestamp;
+	}
+	if (spellID === SPELLS.KHAZGOROTHS_SHAPING.id) {
+		this.khazgorothStart = event.timestamp;
+	}
+  }
+  
   on_byPlayer_removebuff(event) {
     const spellID = event.ability.guid;
     if (spellID === SPELLS.UNHOLY_STRENGTH_BUFF.id) {
       this.unholyStrengthStart = 0;
     }
+	if (spellID === SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH.id) {
+		this.concordanceStart = 0;
+    }
+	if (spellID === SPELLS.KHAZGOROTHS_SHAPING.id) {
+		this.khazgorothStart = 0;
+	}
   }
 
   on_byPlayer_applybuffstack(event) {
     const spellID = event.ability.guid;
     if (spellID === SPELLS.COLD_HEART_BUFF.id) {
       this.buffColdHeart = event.stack;
+	  if (this.buffColdHeart == 20) {
+		  this.timeAtMaxStacksStart = event.timestamp;
+	  }
     }
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
+	
     const unholyStrengthDuration = 15000;
+	const concordanceDuration = 10000;
+	const khazgorothDuration = 15000;
+	
     const coldHeartMaxStack = 20;
-    const coldHeartOptimalMinStack = 17;
-    const remainingUnholyStrengthAllowed = 4000;
+    const coldHeartOptimalMinStack = 14;
+	
+    const remainingDurationAllowed = 4000;
+	
+	this.timeAtMaxStacks = event.timestamp - this.timeAtMaxStacksStart;
+	
     this.unholyStrengthRemaining = unholyStrengthDuration - (event.timestamp - this.unholyStrengthStart);
+	this.concordanceRemaining = concordanceDuration - (event.timestamp - this.concordanceStart);
+	this.khazgorothRemaining = khazgorothDuration - (event.timestamp - this.khazgorothStart);
+	
     if (spellId === SPELLS.CHAINS_OF_ICE.id) {
       this.totalColdHeartCasts++;
-      if (this.unholyStrengthRemaining > 0) {
-        if (this.unholyStrengthRemaining < remainingUnholyStrengthAllowed) {
-          if (this.buffColdHeart < coldHeartMaxStack) {
-            if (this.buffColdHeart >= coldHeartOptimalMinStack) {
-              this.correctColdHeartCasts++;
-            }
-          }
-        }
+	  //This checks wether or not any of the three buffs are about to fall off within the next 4 seconds.
+      if ((this.unholyStrengthRemaining > 0 & this.unholyStrengthRemaining < remainingDurationAllowed) || (this.concordanceRemaining > 0 & this.concordanceRemaining < remainingDurationAllowed) || (this.khazgorothRemaining > 0 & this.khazgorothRemaining < remainingDurationAllowed) & this.buffColdHeart < coldHeartMaxStack & this.buffColdHeart >= coldHeartOptimalMinStack) {
+         this.correctColdHeartCasts++;
       }
-      if (this.buffColdHeart === 20) {
+      if (this.buffColdHeart === 20 & this.timeAtMaxStacks <= 4000) {
         this.correctColdHeartCasts++;
       }
       //This is only here for double casting Cold Heart. If Cold Heart is casted again before it reaches 2 stacks, the event won't update.
