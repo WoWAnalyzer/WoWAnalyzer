@@ -172,7 +172,7 @@ class MasteryValue extends Analyzer {
   // returns true of the event represents a cast that applies a stack of
   // mastery
   //
-  // TODO: blackout combo + purify
+  // neither blackout combo + purify nor t21 are supported yet
   _appliesStack(event) {
     return [SPELLS.BLACKOUT_STRIKE.id, SPELLS.BREATH_OF_FIRE.id].includes(event.ability.guid);
   }
@@ -287,7 +287,8 @@ class MasteryValue extends Analyzer {
           <em>Technical Information:</em><br/>
           <b>Estimated Actual Damage</b> is calculated by calculating the average damage per hit of an ability, then multiplying that by the number of times you dodged each ability.<br/>
           <b>Expected</b> values are calculated by computing the expected number of mastery stacks each time you <em>could</em> dodge an ability.<br/>
-          An ability is considered <b>dodgeable</b> if you dodged it at least once.`}
+          An ability is considered <b>dodgeable</b> if you dodged it at least once.<br/>
+          Blackout Combo with Purifying Brew and Tier 21 are not supported (yet).`}
       />
     );
   }
