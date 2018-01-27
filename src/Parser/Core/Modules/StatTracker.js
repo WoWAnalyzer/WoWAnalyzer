@@ -309,6 +309,8 @@ class StatTracker extends Analyzer {
         return 0.25;
       case SPECS.FROST_DEATH_KNIGHT:
         return 0.12;
+      case SPECS.BLOOD_DEATH_KNIGHT:
+        return 0.12;
       case SPECS.HAVOC_DEMON_HUNTER:
         return 0.12;
       default:
