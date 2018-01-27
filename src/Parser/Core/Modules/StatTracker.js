@@ -293,6 +293,8 @@ class StatTracker extends Analyzer {
         return 0.18;
       case SPECS.FIRE_MAGE:
         return 0.06;
+      case SPECS.ARCANE_MAGE:
+        return 0.0960;
       case SPECS.SUBTLETY_ROGUE:
         return 0.2208;
       case SPECS.ASSASSINATION_ROGUE:
