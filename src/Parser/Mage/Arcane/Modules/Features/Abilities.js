@@ -63,12 +63,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.CHARGED_UP_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        cooldown: haste => 12 / (1 + haste),
-        enabled: combatant.hasTalent(SPELLS.LIVING_BOMB_TALENT.id),
-      },
-      {
         spell: SPELLS.NETHER_TEMPEST_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.NETHER_TEMPEST_TALENT.id),
