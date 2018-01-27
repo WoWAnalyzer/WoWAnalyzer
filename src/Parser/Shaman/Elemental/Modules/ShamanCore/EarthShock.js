@@ -70,7 +70,7 @@ class EarthShock extends Analyzer {
     };
   }
 
-  get outAscSuggestionTreshold() {
+  get outAscSuggestionThreshold() {
     if (this.gambling) {
       return {
         actual: Math.abs(this.avgMaelstromSpendOutOfAsc - 77.5),
