@@ -20,6 +20,7 @@ class Abilities extends Analyzer {
     OTHERS: 'Spell',
     UTILITY: 'Utility',
     HEALER_DAMAGING_SPELL: 'Damaging Spell',
+    HIDDEN: '',
   };
   static ABILITY_CLASS = Ability;
 
