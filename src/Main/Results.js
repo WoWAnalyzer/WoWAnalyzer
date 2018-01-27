@@ -252,7 +252,7 @@ class Results extends React.Component {
                   </div>
                 </div>
                 <div className="col-md-8" style={{ fontSize: 20 }}>
-                  Spotted a bug? Want a new feature? Suggestion or checklist threshold off? You can investigate the source <a href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`}>here</a> and a guide on contributing <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/docs#contributing">here</a>.
+                  Spotted a bug? Want a new feature? Suggestion or checklist threshold off? You can investigate the source <a href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`}>here</a> and a guide on contributing is <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/docs#contributing">here</a>.
                 </div>
               </div>
             </div>
