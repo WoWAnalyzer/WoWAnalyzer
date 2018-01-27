@@ -133,7 +133,7 @@ class EarthShock extends Analyzer {
         });
     }
     else {
-      when(this.outAscSuggestionTreshold)
+      when(this.outAscSuggestionThreshold)
         .addSuggestion((suggest) => {
           return suggest(<span>Try to cast <SpellLink id={SPELLS.EARTH_SHOCK.id} /> at 111 Maelstrom or more.</span>)
             .icon(SPELLS.EARTH_SHOCK.icon)
