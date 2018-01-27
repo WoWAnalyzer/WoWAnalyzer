@@ -115,8 +115,9 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: <Wrapper><dfn data-tip={`You spent ${this.tormentedSouls.maxStacksSeconds} seconds on max stacks.`}>Portion of fight spent on max stacks</dfn></Wrapper>,
+            name: 'Portion of fight spent on max stacks',
             check: () => this.tormentedSouls.suggestionThresholds,
+            valueTooltip: `${this.tormentedSouls.maxStacksSeconds} seconds on max stacks`,
           }),
         ];
       },
@@ -127,8 +128,9 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: <Wrapper><dfn data-tip={`You spent ${this.soulShardTracker.timeOnFullShardsSeconds} seconds on full shards.`}>Wasted shards per minute</dfn></Wrapper>,
+            name: 'Wasted shards per minute',
             check: () => this.soulShardDetails.suggestionThresholds,
+            valueTooltip: `You wasted ${this.soulShardTracker.shardsWasted} shards and spent ${this.soulShardTracker.timeOnFullShardsSeconds} seconds on full shards`,
           }),
         ];
       },
