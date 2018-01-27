@@ -180,3 +180,6 @@ export const Gebuz = {
   github: 'Gebuz',
   avatar: require('./Images/gebuz-avatar.png'),
 };
+export const Anatta336 = {
+  nickname: 'Anatta336',
+};

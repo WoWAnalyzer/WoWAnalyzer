@@ -19,7 +19,7 @@ import AgonyUptime from './AgonyUptime';
 import CorruptionUptime from './CorruptionUptime';
 import SiphonLifeUptime from '../Talents/SiphonLifeUptime';
 import SoulShardDetails from '../SoulShards/SoulShardDetails';
-import MaxTormentedSouls from './MaxTormentedSouls';
+import TormentedSouls from './TormentedSouls';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -35,7 +35,7 @@ class Checklist extends CoreChecklist {
     corruptionUptime: CorruptionUptime,
     siphonLifeUptime: SiphonLifeUptime,
     soulShardDetails: SoulShardDetails,
-    maxTormentedSouls: MaxTormentedSouls,
+    tormentedSouls: TormentedSouls,
   };
 
   rules = [
@@ -81,7 +81,7 @@ class Checklist extends CoreChecklist {
           new Requirement({
             // TODO: show the time spent in tooltip?
             name: 'Time spent on max stacks',
-            check: () => this.maxTormentedSouls.suggestionThresholds,
+            check: () => this.tormentedSouls.suggestionThresholds,
           }),
         ];
       },
@@ -131,7 +131,8 @@ class Checklist extends CoreChecklist {
     // TODO: maybe add a rule about buffing UA with Haunt/MG
     new Rule({
       name: 'Use your utility and defensive spells',
-      description: <Wrapper>Use other spells in your toolkit to your advantage. For example, you can try to minimize necessary movement by using <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon/>, <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon/>, <SpellLink id={SPELLS.BURNING_RUSH_TALENT.id} icon/> or mitigate incoming damage with <SpellLink id={SPELLS.UNENDING_RESOLVE.id} icon/>/<SpellLink id={SPELLS.DARK_PACT_TALENT.id} icon/>.</Wrapper>,
+      description: <Wrapper>Use other spells in your toolkit to your advantage. For example, you can try to minimize necessary movement by using <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon/>, <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon/>, <SpellLink id={SPELLS.BURNING_RUSH_TALENT.id} icon/> or mitigate incoming damage with <SpellLink id={SPELLS.UNENDING_RESOLVE.id} icon/>/<SpellLink id={SPELLS.DARK_PACT_TALENT.id} icon/>.<br />
+        While you shouldn't cast these defensives on cooldown, be aware of them and use them whenever effective. Not using them at all indicates you might not be aware of them or not using them optimally.</Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -140,11 +141,11 @@ class Checklist extends CoreChecklist {
             when: combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.UNENDING_RESOLVE,
-          }),
-          new GenericCastEfficiencyRequirement({
             spell: SPELLS.DARK_PACT_TALENT,
             when: combatant.hasTalent(SPELLS.DARK_PACT_TALENT.id),
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.UNENDING_RESOLVE,
           }),
         ];
       },

@@ -9,7 +9,6 @@ import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../../Constants';
 import SoulShardTracker from '../../SoulShards/SoulShardTracker';
 
 const TICKS_PER_UA = 4;
-const UA_IDS_SET = new Set(UNSTABLE_AFFLICTION_DEBUFF_IDS);
 
 class PowerCordOfLethtendris extends Analyzer {
   static dependencies = {
@@ -25,7 +24,7 @@ class PowerCordOfLethtendris extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if (UA_IDS_SET.has(event.ability.guid)) {
+    if (UNSTABLE_AFFLICTION_DEBUFF_IDS.includes(event.ability.guid)) {
       this._totalTicks += 1;
       this._totalUAdamage += event.amount + (event.absorbed || 0);
     }

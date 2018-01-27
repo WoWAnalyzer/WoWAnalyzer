@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
+import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -135,6 +136,13 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.UNENDING_RESOLVE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 180,
+        castEfficiency: {
+          suggestion: false,
+          importance: ISSUE_IMPORTANCE.MINOR,
+          recommendedEfficiency: 0.33,
+          averageIssueEfficiency: 0.20,
+          majorIssueEfficiency: 0.10,
+        },
       },
       {
         spell: SPELLS.DEMONIC_CIRCLE_TALENT_SUMMON,
@@ -148,6 +156,13 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         enabled: combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
         isOnGCD: true,
+        castEfficiency: {
+          suggestion: false,
+          importance: ISSUE_IMPORTANCE.MINOR,
+          recommendedEfficiency: 0.15,
+          averageIssueEfficiency: 0.07,
+          majorIssueEfficiency: 0.01,
+        },
       },
       {
         spell: SPELLS.SOULSTONE,
@@ -179,6 +194,13 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
         enabled: combatant.hasTalent(SPELLS.DARK_PACT_TALENT.id),
+        castEfficiency: {
+          suggestion: false,
+          importance: ISSUE_IMPORTANCE.MINOR,
+          recommendedEfficiency: 0.33,
+          averageIssueEfficiency: 0.20,
+          majorIssueEfficiency: 0.10,
+        },
       },
       {
         spell: SPELLS.MORTAL_COIL_TALENT,

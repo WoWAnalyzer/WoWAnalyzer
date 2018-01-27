@@ -9,7 +9,6 @@ import { formatNumber } from 'common/format';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
-const UA_IDS_SET = new Set(UNSTABLE_AFFLICTION_DEBUFF_IDS);
 const TICKS_PER_UA = 4;
 
 class FatalEchoes extends Analyzer {
@@ -20,7 +19,7 @@ class FatalEchoes extends Analyzer {
   totalDamage = 0;
 
   on_byPlayer_damage(event) {
-    if (UA_IDS_SET.has(event.ability.guid)) {
+    if (UNSTABLE_AFFLICTION_DEBUFF_IDS.includes(event.ability.guid)) {
       this._totalTicks += 1;
       this.totalDamage += event.amount + (event.absorbed || 0);
     }
@@ -32,7 +31,7 @@ class FatalEchoes extends Analyzer {
   }
 
   on_byPlayer_applydebuff(event) {
-    if (UA_IDS_SET.has(event.ability.guid)) {
+    if (UNSTABLE_AFFLICTION_DEBUFF_IDS.includes(event.ability.guid)) {
       this._uasApplied += 1;
     }
   }
