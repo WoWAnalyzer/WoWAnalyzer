@@ -34,6 +34,7 @@ import StormstoutsLastGasp from './Modules/Items/StormstoutsLastGasp';
 import SalsalabimsLostTunic from './Modules/Items/SalsalabimsLostTunic';
 // normalizers
 import IronskinBrewNormalizer from './Modules/Normalizers/IronskinBrew';
+import GarothiWorldbreakerMeleeNormalizer from './Modules/Normalizers/GarothiWorldbreakerMelee';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -76,6 +77,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // normalizers
     isbNormalizer: IronskinBrewNormalizer,
+    garothi: GarothiWorldbreakerMeleeNormalizer,
   };
 }
 
