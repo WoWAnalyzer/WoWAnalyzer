@@ -549,6 +549,11 @@ export default {
     name: 'Staggering Around',
     icon: 'ability_monk_fortifyingale_new',
   },
+  MASTERY_ELUSIVE_BRAWLER: {
+    id: 117906,
+    name: 'Mastery: Elusive Brawler',
+    icon: 'ability_monk_shuffle',
+  },
 
   // Windwalker Spells
   COMBO_STRIKES: {

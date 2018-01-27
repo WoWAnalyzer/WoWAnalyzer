@@ -10,6 +10,7 @@ import SharedBrews from './Modules/Core/SharedBrews';
 import StaggerFabricator from './Modules/Core/StaggerFabricator';
 import GlobalCooldown from './Modules/Core/GlobalCooldown';
 import Channeling from './Modules/Core/Channeling';
+import MasteryValue from './Modules/Core/MasteryValue';
 // Spells
 import IronSkinBrew from './Modules/Spells/IronSkinBrew';
 import PurifyingBrew from './Modules/Spells/PurifyingBrew';
@@ -47,6 +48,7 @@ class CombatLogParser extends CoreCombatLogParser {
     brews: SharedBrews,
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
+    masteryValue: MasteryValue,
 
     // Features
     checklist: Checklist,
