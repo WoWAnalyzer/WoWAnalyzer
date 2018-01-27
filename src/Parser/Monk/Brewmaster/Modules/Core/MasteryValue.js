@@ -124,13 +124,14 @@ class MasteryValue extends Analyzer {
   }
 
   dodgePenalty(_source) {
-    return 0.045; // 1.5% per level, bosses are three levels over players. not sure how to get trash levels yet
+    return 0.045; // 1.5% per level, bosses are three levels over players. not sure how to get trash levels yet -- may not matter
   }
 
   // returns the current chance to dodge a damage event assuming the
   // event is dodgeable
-  dodgeChance(masteryStacks, event) {
-    return (event._masteryPercentage || this.stats.currentMasteryPercentage) * masteryStacks + this.baseDodge - this.dodgePenalty(event.sourceID);
+  dodgeChance(masteryStacks, masteryRating, sourceID) {
+    const masteryPercentage = this.stats.masteryPercentage(masteryRating, true);
+    return masteryPercentage * masteryStacks + this.baseDodge - this.dodgePenalty(sourceID);
   }
 
 
@@ -141,7 +142,6 @@ class MasteryValue extends Analyzer {
   }
 
   on_toPlayer_damage(event) {
-    event._masteryPercentage = this.stats.currentMasteryPercentage;
     event._masteryRating = this.stats.currentMasteryRating;
     if(event.hitType === HIT_TYPES.DODGE) {
       this._addDodge(event);
@@ -193,25 +193,36 @@ class MasteryValue extends Analyzer {
   get _expectedValues() {
     // expected damage mitigated according to the markov chain
     let expectedDamageMitigated = 0;
+    let noMasteryExpectedDamageMitigated = 0;
     // estimate of the damage that was actually dodged in this log
     let estimatedDamageMitigated = 0;
     // average dodge % across each event that could be dodged
     let meanExpectedDodge = 0;
     let dodgeableEvents = 0;
+
     const stacks = new StackMarkovChain(); // mutating a const object irks me to no end
+    const noMasteryStacks = new StackMarkovChain();
 
     // timeline replay is expensive, compute several things here and
     // provide individual getters for each of the values
     this.relevantTimeline.forEach(event => {
       if(event.type === "cast") {
         stacks.guaranteeStack();
+        noMasteryStacks.guaranteeStack();
       } else if(event.type === "damage") {
-        const expectedDodgeChance = this.dodgeChance(stacks.expected, event);
-        expectedDamageMitigated += expectedDodgeChance * ((event.amount + event.absorbed) || this.meanHitByAbility(event.ability.guid));
-        estimatedDamageMitigated += (event.hitType === HIT_TYPES.DODGE) * this.meanHitByAbility(event.ability.guid);
+        const noMasteryDodgeChance = this.dodgeChance(noMasteryStacks.expected, 0, event.sourceID);
+        const expectedDodgeChance = this.dodgeChance(stacks.expected, event._masteryRating, event.sourceID);
+        const baseDodgeChance = this.dodgeChance(0, 0, event.sourceID);
+
+        const damage = (event.amount + event.absorbed) || this.meanHitByAbility(event.ability.guid);
+        expectedDamageMitigated += expectedDodgeChance * damage;
+        noMasteryExpectedDamageMitigated += noMasteryDodgeChance * damage;
+        estimatedDamageMitigated += (event.hitType === HIT_TYPES.DODGE) * damage;
         meanExpectedDodge += expectedDodgeChance;
         dodgeableEvents += 1;
-        stacks.processAttack(this.dodgeChance(0, event), event._masteryPercentage);
+
+        stacks.processAttack(baseDodgeChance, this.stats.masteryPercentage(event._masteryRating, true));
+        noMasteryStacks.processAttack(baseDodgeChance, this.stats.masteryPercentage(0, true));
       }
     });
 
@@ -221,6 +232,7 @@ class MasteryValue extends Analyzer {
       expectedDamageMitigated,
       estimatedDamageMitigated,
       meanExpectedDodge,
+      noMasteryExpectedDamageMitigated,
     };
   }
 
@@ -252,17 +264,25 @@ class MasteryValue extends Analyzer {
     }, 0) / this.relevantTimeline.filter(event => event.type === "damage").length;
   }
 
+  get noMasteryExpectedMitigation() {
+    return this._expectedValues.noMasteryExpectedDamageMitigated;
+  }
+
   get expectedMitigationPerSecond() {
     return this.expectedMitigation / this.owner.fightDuration * 1000;
+  }
+
+  get noMasteryExpectedMitigationPerSecond () {
+    return this.noMasteryExpectedMitigation / this.owner.fightDuration * 1000;
   }
 
   statistic() {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} />}
-        value={`${formatNumber(this.expectedMitigationPerSecond)} DTPS`}
-        label="Expected Damage Mitigated by Dodge"
-        tooltip={`On average, you would dodge about <b>${formatNumber(this.expectedMitigation)}</b> damage on this fight. You had an average expected dodge chance of <b>${formatPercentage(this.expectedMeanDodge)}%</b> and actually dodged about <b>${formatNumber(this.estimatedActualMitigation)}</b> damage with an overall rate of <b>${formatPercentage(this.actualDodgeRate)}%</b>. This amounts to an expected reduction of <b>${formatNumber(this.expectedMitigationPerSecond / this.averageMasteryRating)} DTPS per 1 Mastery</b> <em>on this fight</em>.<br/><br/>
+        value={`${formatNumber(this.expectedMitigationPerSecond - this.noMasteryExpectedMitigationPerSecond)} DTPS`}
+        label="Expected Damage Mitigated by Mastery"
+        tooltip={`On average, you would dodge about <b>${formatNumber(this.expectedMitigation)}</b> damage on this fight. This value was increased by about <b>${formatNumber(this.expectedMitigation - this.noMasteryExpectedMitigation)}</b> due to Mastery. You had an average expected dodge chance of <b>${formatPercentage(this.expectedMeanDodge)}%</b> and actually dodged about <b>${formatNumber(this.estimatedActualMitigation)}</b> damage with an overall rate of <b>${formatPercentage(this.actualDodgeRate)}%</b>. This amounts to an expected reduction of <b>${formatNumber((this.expectedMitigationPerSecond - this.noMasteryExpectedMitigationPerSecond) / this.averageMasteryRating)} DTPS per 1 Mastery</b> <em>on this fight</em>.<br/><br/>
 
           <em>Technical Information:</em><br/>
           <b>Estimated Actual Damage</b> is calculated by calculating the average damage per hit of an ability, then multiplying that by the number of times you dodged each ability.<br/>
