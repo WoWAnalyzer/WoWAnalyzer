@@ -77,7 +77,7 @@ class ColdHeartEfficiency extends Analyzer {
     const spellID = event.ability.guid;
     if (spellID === SPELLS.COLD_HEART_BUFF.id) {
       this.buffColdHeart = event.stack;
-	  if (this.buffColdHeart == 20) {
+	  if (this.buffColdHeart === 20) {
 		  this.timeAtMaxStacksStart = event.timestamp;
 	  }
     }
@@ -120,7 +120,7 @@ class ColdHeartEfficiency extends Analyzer {
     const castEfficiency = this.correctColdHeartCasts / this.totalColdHeartCasts;
     when(castEfficiency).isLessThan(0.8)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You are casting <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> at non optimal times. You either want to cast <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> when at 20 stacks of <SpellLink id={SPELLS.COLD_HEART_BUFF.id} /> or when you are above 16 stacks and your buff <SpellLink id={SPELLS.UNHOLY_STRENGTH_BUFF.id} /> is about to run out.</span>)
+        return suggest(<span> You are casting <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> at non optimal times. You either want to cast <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> when at 20 stacks of <SpellLink id={SPELLS.COLD_HEART_BUFF.id} /> or when you are above 13 stacks and either of your buffs <SpellLink id={SPELLS.UNHOLY_STRENGTH_BUFF.id}/> or <SpellLink id={SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH.id} />  or <SpellLink id={SPELLS.KHAZGOROTHS_SHAPING.id} /> are about to run out. You also don't want to hold <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> at 20 stacks for too long. </span>)
           .icon(SPELLS.CHAINS_OF_ICE.icon)
           .actual(`${formatPercentage(actual)}% of Chains of Ice were cast correctly.`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
