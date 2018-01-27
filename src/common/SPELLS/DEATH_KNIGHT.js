@@ -629,4 +629,20 @@ export default {
     name: 'Shackles of Bryndaor',
     icon: 'ability_deathknight_runicimpowerment',
   },
+
+  RUNE_1: {
+    id: -101,
+    name: 'Rune 1',
+    icon: 'spell_deathknight_frozenruneweapon',
+  },
+  RUNE_2: {
+    id: -102,
+    name: 'Rune 2',
+    icon: 'spell_deathknight_frozenruneweapon',
+  },
+  RUNE_3: {
+    id: -103,
+    name: 'Rune 3',
+    icon: 'spell_deathknight_frozenruneweapon',
+  },
 };
