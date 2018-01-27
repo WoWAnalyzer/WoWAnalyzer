@@ -20,7 +20,7 @@ class Channeling extends CoreChanneling {
 
 	//Eye Beam w/o the meta buff
 	on_byPlayer_applybuff(event) {
-		if(!this.combatants.selected.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id)){
+		if(!this.combatants.selected.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id)) {
 			return;
 		}
 		const spellId = event.ability.guid;
@@ -33,7 +33,7 @@ class Channeling extends CoreChanneling {
 
 	//Eye beam with the meta buff
 	on_byPlayer_cast(event) {
-		if(this.combatants.selected.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id)){
+		if(this.combatants.selected.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id)) {
 			return;
 		}
 		const spellId = event.ability.guid;
