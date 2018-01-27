@@ -17,7 +17,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 //add cooldown reduction through spells
 
 /*
- * Runes are tracked as 3 fake spells with 2 charges to similate 3 runes charging at the same time.
+ * Runes are tracked as 3 fake spells with 2 charges to simulate 3 runes charging at the same time.
  * aslong as spells always use the rune pair with the shortest cooldown remaining it should match
  * its in game functionality.
  */
@@ -54,10 +54,11 @@ class RuneTracker extends Analyzer {
   	if(runeOneCooldown <= runeTwoCooldown && runeOneCooldown <= runeThreeCooldown){
   		return SPELLS.RUNE_1.id;
   	}
-  	if(runeTwoCooldown <= runeThreeCooldown){
+  	else if(runeTwoCooldown <= runeThreeCooldown){
   		return SPELLS.RUNE_2.id;
-  	}
-  	return SPELLS.RUNE_3.id;
+  	} else {
+      return SPELLS.RUNE_3.id;
+    }
   }
 
   getCooldown(spellId){
@@ -71,20 +72,18 @@ class RuneTracker extends Analyzer {
 
   get runeEfficiency(){
     const runeCastEfficiencies = [];
-    const reducer = (accumulator, currentValue) => accumulator + currentValue;
     runeCastEfficiencies.push(this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.RUNE_1.id).efficiency);
     runeCastEfficiencies.push(this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.RUNE_2.id).efficiency);
     runeCastEfficiencies.push(this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.RUNE_3.id).efficiency);
-    return runeCastEfficiencies.reduce(reducer) / runeCastEfficiencies.length;
+    return runeCastEfficiencies.reduce((accumulator, currentValue) => accumulator + currentValue) / runeCastEfficiencies.length;
   }
 
   get runesWasted(){
     const runeMaxCasts = [];
-    const reducer = (accumulator, currentValue) => accumulator + currentValue;
     runeMaxCasts.push(this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.RUNE_1.id).maxCasts);
     runeMaxCasts.push(this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.RUNE_2.id).maxCasts);
     runeMaxCasts.push(this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.RUNE_3.id).maxCasts);
-    const maxCasts = runeMaxCasts.reduce(reducer);
+    const maxCasts = runeMaxCasts.reduce((accumulator, currentValue) => accumulator + currentValue);
     return maxCasts * (1 - this.runeEfficiency);
   }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Yajinni} from 'MAINTAINERS';
+import {Yajinni, Gebuz} from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
@@ -8,6 +8,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-01-27'),
+    changes: 'Added overcapped Runes',
+    contributors: [Gebuz],
+  },
   {
     date: new Date('2018-01-22'),
     changes: <Wrapper>Large rework of listing abilities. Updated thier GCD/CD status. Most abilities now show in the time line and cast efficiency tabs. Updated the checklist.</Wrapper>,
