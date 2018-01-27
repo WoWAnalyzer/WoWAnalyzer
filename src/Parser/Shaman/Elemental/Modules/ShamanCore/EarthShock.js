@@ -37,7 +37,7 @@ class EarthShock extends Analyzer {
   }
   get avgMaelstromSpendInAsc() {
     let spend = this.maelstromSpendInAscendence.reduce((prev, cur) => prev + cur, 0);
-    spend /= this.maelstromSpendInAscendence.length||1;
+    spend /= this.maelstromSpendInAscendence.length || 1;
     return spend;
   }
 
@@ -45,7 +45,7 @@ class EarthShock extends Analyzer {
     if (event.ability.guid === SPELLS.EARTH_SHOCK.id && !this.latershock) {
       this.latershock = true;
       if (event.classResources[0].type === RESOURCE_TYPES.MAELSTROM.id) {
-        if (this.combatants.selected.hasBuff(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id,event.timestamp)) {
+        if (this.combatants.selected.hasBuff(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id, event.timestamp)) {
           this.maelstromSpendInAscendence.push(event.classResources[0].amount);
         }
         else {
@@ -53,7 +53,10 @@ class EarthShock extends Analyzer {
         }
       }
     }
-    if (event.classResources[0].amount < 40 && event.classResources[0].type === RESOURCE_TYPES.MAELSTROM.id) {
+    if (!event.classResources) {
+      return;
+    }
+    if (event.classResources[0].amount < 40 && (event.classResources[0].type === RESOURCE_TYPES.MAELSTROM.id)) {
       this.latershock = false;
     }
   }
@@ -82,28 +85,27 @@ class EarthShock extends Analyzer {
         style: 'number',
       };
     }
-      else
-        if (this.pseudogambling){
-        return {
-          actual: Math.abs(this.avgMaelstromSpendOutOfAsc-87.5),
-          isGreaterThan: {
-            minor: 12.5,
-            average: 17.5,
-            major: 25,
-          },
-          style: 'number',
-        };
-        }
-        else {
-          return {
-            actual: this.avgMaelstromSpendOutOfAsc,
-            isLessThan: {
-              minor: 111,
-              average: 100,
-              major: 90,
-            },
-            style: 'number',
-        };
+    else if (this.pseudogambling) {
+      return {
+        actual: Math.abs(this.avgMaelstromSpendOutOfAsc - 87.5),
+        isGreaterThan: {
+          minor: 12.5,
+          average: 17.5,
+          major: 25,
+        },
+        style: 'number',
+      };
+    }
+    else {
+      return {
+        actual: this.avgMaelstromSpendOutOfAsc,
+        isLessThan: {
+          minor: 111,
+          average: 100,
+          major: 90,
+        },
+        style: 'number',
+      };
     }
   }
 
