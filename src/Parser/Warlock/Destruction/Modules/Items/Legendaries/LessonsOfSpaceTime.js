@@ -5,8 +5,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import ItemDamageDone from 'Main/ItemDamageDone';
-
-import getDamageBonus from '../../WarlockCore/getDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const LESSONS_OF_SPACETIME_DAMAGE_BONUS = 0.1;
 
@@ -23,13 +22,13 @@ class LessonsOfSpaceTime extends Analyzer {
 
   on_byPlayer_damage(event) {
     if (this.combatants.selected.hasBuff(SPELLS.LESSONS_OF_SPACETIME_BUFF.id, event.timestamp)) {
-      this.bonusDmg += getDamageBonus(event, LESSONS_OF_SPACETIME_DAMAGE_BONUS);
+      this.bonusDmg += calculateEffectiveDamage(event, LESSONS_OF_SPACETIME_DAMAGE_BONUS);
     }
   }
 
   on_byPlayerPet_damage(event) {
     if (this.combatants.selected.hasBuff(SPELLS.LESSONS_OF_SPACETIME_BUFF.id, event.timestamp)) {
-      this.bonusDmg += getDamageBonus(event, LESSONS_OF_SPACETIME_DAMAGE_BONUS);
+      this.bonusDmg += calculateEffectiveDamage(event, LESSONS_OF_SPACETIME_DAMAGE_BONUS);
     }
   }
 
