@@ -117,6 +117,7 @@ class MasteryValue extends Analyzer {
   _dodgeableSpells = {};
   _timeline = [];
   _hitCounts = {};
+  _dodgeCounts = {};
 
   get baseDodge() {
     return 0.15;
@@ -152,6 +153,10 @@ class MasteryValue extends Analyzer {
   _addDodge(event) {
     const spellId = event.ability.guid;
     this._dodgeableSpells[spellId] = true;
+    if(!(spellId in this._dodgeCounts)) {
+      this._dodgeCounts[spellId] = 0;
+    }
+    this._dodgeCounts[spellId] += 1;
     this._timeline.push(event);
   }
 
@@ -174,7 +179,7 @@ class MasteryValue extends Analyzer {
 
   meanHitByAbility(spellId) {
     if(spellId in this._hitCounts) {
-      return this.dmg.byAbility(spellId).effective / this._hitCounts[spellId];
+      return (this.dmg.byAbility(spellId).effective + this.dmg.staggeredByAbility(spellId)) / this._hitCounts[spellId];
     }
     return 0;
   }
@@ -202,7 +207,7 @@ class MasteryValue extends Analyzer {
         stacks.guaranteeStack();
       } else if(event.type === "damage") {
         const expectedDodgeChance = this.dodgeChance(stacks.expected, event);
-        expectedDamageMitigated += expectedDodgeChance * (event.amount || this.meanHitByAbility(event.ability.guid));
+        expectedDamageMitigated += expectedDodgeChance * ((event.amount + event.absorbed) || this.meanHitByAbility(event.ability.guid));
         estimatedDamageMitigated += (event.hitType === HIT_TYPES.DODGE) * this.meanHitByAbility(event.ability.guid);
         meanExpectedDodge += expectedDodgeChance;
         dodgeableEvents += 1;
@@ -225,6 +230,12 @@ class MasteryValue extends Analyzer {
   
   get expectedMeanDodge() {
     return this._expectedValues.meanExpectedDodge;
+  }
+
+  get actualDodgeRate() {
+    const totalHits = Object.keys(this._dodgeableSpells).reduce((sum, spellId) => sum + (this._hitCounts[spellId] || 0), 0);
+    const totalDodges = Object.keys(this._dodgeableSpells).reduce((sum, spellId) => sum + this._dodgeCounts[spellId], 0);
+    return totalDodges / (totalHits + totalDodges);
   }
 
   get estimatedActualMitigation() {
@@ -251,8 +262,8 @@ class MasteryValue extends Analyzer {
         icon={<SpellIcon id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} />}
         value={`${formatNumber(this.expectedMitigationPerSecond)} DTPS`}
         label="Expected Damage Mitigated by Dodge"
-        tooltip={`On average, you would dodge about <b>${formatNumber(this.expectedMitigation)}</b> damage on this fight. You had an average expected dodge chance of <b>${formatPercentage(this.expectedMeanDodge)}%</b> and actually dodged about <b>${formatNumber(this.estimatedActualMitigation)}</b> damage. This amounts to an expected reduction of <b>${formatNumber(this.expectedMitigationPerSecond / this.averageMasteryRating)} DTPS per 1 Mastery</b> <em>on this fight</em>.<br/><br/>
-          
+        tooltip={`On average, you would dodge about <b>${formatNumber(this.expectedMitigation)}</b> damage on this fight. You had an average expected dodge chance of <b>${formatPercentage(this.expectedMeanDodge)}%</b> and actually dodged about <b>${formatNumber(this.estimatedActualMitigation)}</b> damage with an overall rate of <b>${formatPercentage(this.actualDodgeRate)}%</b>. This amounts to an expected reduction of <b>${formatNumber(this.expectedMitigationPerSecond / this.averageMasteryRating)} DTPS per 1 Mastery</b> <em>on this fight</em>.<br/><br/>
+
           <em>Technical Information:</em><br/>
           <b>Estimated Actual Damage</b> is calculated by calculating the average damage per hit of an ability, then multiplying that by the number of times you dodged each ability.<br/>
           <b>Expected</b> values are calculated by computing the expected number of mastery stacks each time you <em>could</em> dodge an ability.<br/>
