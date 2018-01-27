@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import FilteredDamageTracker from '../CastTracker/FilteredDamageTracker';
+import FilteredDamageTracker from '../../../Common/CastTracker/FilteredDamageTracker';
 
 class SymbolsDamageTracker extends FilteredDamageTracker {
   static dependencies = {

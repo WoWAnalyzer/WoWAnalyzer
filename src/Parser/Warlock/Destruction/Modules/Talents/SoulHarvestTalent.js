@@ -1,24 +1,15 @@
 import React from 'react';
 
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
+import SpellLink from 'common/SpellLink';
 
-import SoulHarvest from './SoulHarvest';
+import SharedSoulHarvestTalent from '../../../Shared/Modules/Talents/SoulHarvestTalent';
 
-class SoulHarvestTalent extends Analyzer {
-  static dependencies = {
-    soulHarvest: SoulHarvest,
-    combatants: Combatants,
-  };
-
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id);
-  }
+class SoulHarvestTalent extends SharedSoulHarvestTalent {
+  // Destro has the module listed only as a substatistic, so override the shared statistic to not show
+  statistic() {}
 
   subStatistic() {
     const bonusDmg = this.soulHarvest.talentBonusDmg;

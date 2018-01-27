@@ -393,6 +393,11 @@ export default {
     name: 'Erupting Infernal Core',
     icon: 'spell_mage_flameorb',
   },
+  PRE_IGNITED_TRAIT: {
+    id: 238055,
+    name: 'Pre-Ignited',
+    icon: 'spell_fire_sealoffire',
+  },
 
   //Tier Sets
   FROST_MAGE_T20_2SET_BONUS_BUFF: {
@@ -424,6 +429,16 @@ export default {
     id: 242250,
     name: 'T20 4 set bonus',
     icon: 'spell_fire_firebolt02',
+  },
+  FIRE_MAGE_T21_2SET_BONUS_BUFF: {
+    id: 251857,
+    name: 'T21 2 set bonus',
+    icon: 'ability_mage_greaterinvisibility',
+  },
+  FIRE_MAGE_T21_4SET_BONUS_BUFF: {
+    id: 251858,
+    name: 'T21 4 set bonus',
+    icon: 'ability_mage_greaterinvisibility',
   },
 
 };

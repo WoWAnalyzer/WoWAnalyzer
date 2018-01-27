@@ -7,9 +7,9 @@ import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import DemoPets from '../WarlockCore/Pets';
-import getDamageBonus from '../WarlockCore/getDamageBonus';
 
 const DEMONBOLT_DAMAGE_BONUS_PER_PET = 0.1;
 
@@ -31,7 +31,7 @@ class Demonbolt extends Analyzer {
     }
     // Demonbolt has additive bonus for each pet
     const bonusMultiplier = DEMONBOLT_DAMAGE_BONUS_PER_PET * this.demoPets.getPets(event.timestamp).length;
-    this.bonusDmg += getDamageBonus(event, bonusMultiplier);
+    this.bonusDmg += calculateEffectiveDamage(event, bonusMultiplier);
   }
 
   statistic() {

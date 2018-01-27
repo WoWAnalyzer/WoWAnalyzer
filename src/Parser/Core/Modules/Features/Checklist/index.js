@@ -95,6 +95,9 @@ class Checklist extends Analyzer {
         };
       });
 
+    if (requirements.length === 0) {
+      return null;
+    }
     const requirementPerformances = requirements.map(requirement => requirement.performance);
     const rulePerformance = requirementPerformances.length > 0 ? this.calculateRulePerformance(requirementPerformances, rule.performanceMethod) : 1;
 
@@ -148,7 +151,7 @@ class Checklist extends Analyzer {
             <div key={index} className="col-md-6">
               <div className="flex">
                 <div className="flex-main">
-                  {requirement.name}
+                  {requirement.tooltip ? <dfn data-tip={requirement.tooltip}>{requirement.name}</dfn> : requirement.name}
                 </div>
                 <div className="flex-sub text-muted" style={{ margin: '0 15px' }}>
                   {thresholds.prefix}{' '}
