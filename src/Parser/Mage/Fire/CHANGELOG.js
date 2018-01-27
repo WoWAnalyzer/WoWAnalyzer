@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-1-25'),
+    changes: 'Added Checklist.',
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2018-1-21'),
     changes: 'Added Combustion Checks for Firestarter, Banked Charges, Spell Usage, and Marquee Bindings Procs (Adds full Combustion Usage Support).',
     contributors: [Sharrq],
@@ -19,7 +24,7 @@ export default [
     contributors: [Sharrq],
   },
   {
-    date: new Date('2017-01-06'),
+    date: new Date('2018-01-06'),
     changes: <Wrapper>Added analysis for <SpellLink id={SPELLS.HOT_STREAK.id} /> to determine if there was a hard cast before SpellLink id={SPELLS.HOT_STREAK.id} /> was used and also to check for direct damage crits while SpellLink id={SPELLS.HOT_STREAK.id} /> is up.</Wrapper>,
     contributors: [Sharrq],
   },
