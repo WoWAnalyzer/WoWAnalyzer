@@ -12,10 +12,23 @@ export default {
     name: 'Consumption',
     icon: 'inv_axe_2h_artifactmaw_d_01',
   },
+
+  UMBILICUS_ETERNUS: { //Artifact Trait
+    id: 193213,
+    name: 'Umbilicus Eternus',
+    icon: 'artifactability_blooddeathknight_umbilicuseternus',
+  },
+
+  UMBILICUS_ETERNUS_BUFF: {
+    id: 193320,
+    name: 'Umbilicus Eternus Buff',
+    icon: 'artifactability_blooddeathknight_umbilicuseternus',
+  },
+
   // Damage Dealing
   // Provides the 1 RP tick on DnD from Rapid Decomposition Talent
   RAPID_DECOMPOSITION_RP_TICK: {
-    id: 188290,
+    id: 255203,
     name: 'Rapid Decomposition RP Tick',
     icon: 'ability_deathknight_deathsiphon2',
   },
@@ -106,7 +119,7 @@ export default {
   UNENDING_THIRST: {
     id: 192567,
     name: 'Unending Thirst',
-    icon: 'inv_axe_2h_artifactmaw_d_02',
+    icon: 'ability_ironmaidens_whirlofblood',
   },
   VAMPIRIC_AURA: {
     id: 238698,
@@ -119,6 +132,13 @@ export default {
     id: 108199,
     name: 'Gorefiend\'s Grasp',
     icon: 'ability_deathknight_aoedeathgrip',
+  },
+
+  //Blood DK Version
+  ASPHYXIATE: {
+    id: 221562,
+    name: 'Asphyxiate',
+    icon: 'ability_deathknight_asphixiate',
   },
 
   // Blood Tier Sets
@@ -542,6 +562,12 @@ export default {
     icon: 'spell_deathknight_butcher2',
   },
 
+  DEATH_STRIKE_HEAL: {
+    id: 45470,
+    name: 'Death Strike Heal',
+    icon: 'spell_deathknight_butcher2',
+  },
+
   ICEBOUND_FORTITUDE: {
     id: 48792,
     name: 'Icebound Fortitude',
@@ -588,5 +614,19 @@ export default {
     id: 248397,
     name: 'Cold Heart',
     icon: 'spell_frost_chainsofice',
+  },
+
+  //Skullflower's Haemostasis blood dk legendary buff
+  HAEMOSTASIS_BUFF: {
+    id: 235559,
+    name: 'Haemostasis',
+    icon: 'ability_deathwing_bloodcorruption_earth',
+  },
+
+  //Shackles of Bryndaor blood dk legendary buff
+  SHACKLES_OF_BRYNDAOR_BUFF: {
+    id: 209232,
+    name: 'Shackles of Bryndaor',
+    icon: 'ability_deathknight_runicimpowerment',
   },
 };

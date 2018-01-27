@@ -94,6 +94,8 @@ class Combatant extends Entity {
         return 0.18 + this.masteryRating / 17777.7777777;
       case SPECS.FIRE_MAGE:
         return 0.06 + this.masteryRating / 53333.3333333;
+      case SPECS.ARCANE_MAGE:
+        return 0.960 + this.masteryRating / 33333.3333333;
       case SPECS.RETRIBUTION_PALADIN:
         return 0.14 + this.masteryRating / 22850;
       case SPECS.PROTECTION_PALADIN:
@@ -106,6 +108,8 @@ class Combatant extends Entity {
         return 0.04 + this.masteryRating / 80000;
       case SPECS.SUBTLETY_ROGUE:
         return 0.2208 + this.masteryRating / 14492.61221;
+      case SPECS.ASSASSINATION_ROGUE:
+        return 0.32 + this.masteryRating / 10000;
       case SPECS.UNHOLY_DEATH_KNIGHT:
         return 0.18 + this.masteryRating / 17776;
       case SPECS.MISTWEAVER_MONK:

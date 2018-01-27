@@ -52,11 +52,11 @@ class Checklist extends CoreChecklist {
         return [
           new Requirement({
             name: 'Downtime',
-            check: () => this.alwaysBeCasting.downtimeSuggestionThresholds,
+            check: () => this.alwaysBeCasting.suggestionThresholds,
           }),
           new Requirement({
             name: 'Cancelled Casts',
-            check: () => this.cancelledCasts.cancelledCastSuggestionThresholds,
+            check: () => this.cancelledCasts.suggestionThresholds,
           }),
         ];
       },

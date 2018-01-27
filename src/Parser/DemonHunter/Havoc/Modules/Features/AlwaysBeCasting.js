@@ -1,4 +1,8 @@
+import React from 'react';
+
+import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 
 import { formatPercentage } from 'common/format';
 
@@ -16,31 +20,51 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.DEATH_SWEEP.id,
     SPELLS.EYE_BEAM.id,
     SPELLS.FURY_OF_THE_ILLIDARI.id,
-    SPELLS.METAMORPHOSIS_HAVOC.id,
-    SPELLS.THROW_GLAIVE.id,
+    SPELLS.THROW_GLAIVE_HAVOC.id,
     SPELLS.CHAOS_NOVA.id,
-    SPELLS.BLUR.id,
 
     // Talents
     SPELLS.FELBLADE_TALENT.id,
     SPELLS.FEL_BARRAGE_TALENT.id,
     SPELLS.FEL_ERUPTION_TALENT.id,
+
+    //Utility
+    SPELLS.FEL_RUSH.id,
+    SPELLS.VENGEFUL_RETREAT.id,
   ];
 
-  suggestions(when) {
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
-
-    when(deadTimePercentage).isGreaterThan(0.15)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you\'re not healing try to contribute some damage.')
-          .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(actual)}% downtime`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.05).major(recommended + 0.15);
-      });
+  static STATIC_GCD_ABILITIES = {
+    [SPELLS.FEL_RUSH]: 250,
+    [SPELLS.VENGEFUL_RETREAT]: 1000, //Not actually on the GCD but blocks all spells during its animation for 1 second
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(2);
+  get suggestionThresholds() {
+    return {
+      actual: this.downtimePercentage,
+      isGreaterThan: {
+        minor: 0.15,
+        average: 0.25,
+        major: 0.35,
+      },
+      style: 'percentage',
+    };
+  }
+
+
+  suggestions(when) {
+    const boss = this.owner.boss;
+
+    if (!boss || !boss.fight.disableDowntimeSuggestion) {
+      when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+        return suggest(<Wrapper>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, use your movement spells like <SpellLink id={SPELLS.FEL_RUSH.id} icon/>, <SpellLink id={SPELLS.FELBLADE_TALENT.id} icon/>, or <SpellLink id={SPELLS.VENGEFUL_RETREAT.id} icon/> to quickly get back to the boss.</Wrapper>)
+          .icon('spell_mage_altertime')
+          .actual(`${formatPercentage(actual)}% downtime`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`);
+      });
+    }
+  }
+
+  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 export default AlwaysBeCasting;

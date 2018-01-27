@@ -252,6 +252,66 @@ export default {
     name: 'Arcane Blast',
     icon: 'spell_arcane_blast',
   },
+  ARCANE_MISSILES: {
+    id: 7268,
+    name: 'Arcane Missiles',
+    icon: 'spell_nature_starfall',
+  },
+  ARCANE_BARRAGE: {
+    id: 44425,
+    name: 'Arcane Barrage',
+    icon: 'ability_mage_arcanebarrage',
+  },
+  ARCANE_EXPLOSION: {
+    id: 1449,
+    name: 'Arcane Explosion',
+    icon: 'spell_nature_wispsplode',
+  },
+  ARCANE_POWER: {
+    id: 12042,
+    name: 'Arcane Power',
+    icon: 'spell_nature_lightning',
+  },
+  DISPLACEMENT: {
+    id: 212801,
+    name: 'Displacement',
+    icon: 'ability_hunter_displacement',
+  },
+  EVOCATION: {
+    id: 12051,
+    name: 'Evocation',
+    icon: 'spell_nature_purge',
+  },
+  GREATER_INVISIBILITY: {
+    id: 110959,
+    name: 'Greater Invisibility',
+    icon: 'ability_mage_greaterinvisibility',
+  },
+  MASTERY_SAVANT: {
+    id: 190740,
+    name: 'Mastery: Savant',
+    icon: 'spell_arcane_manatap',
+  },
+  PRESENCE_OF_MIND: {
+    id: 205025,
+    name: 'Presence of Mind',
+    icon: 'spell_nature_enchantarmor',
+  },
+  PRISMATIC_BARRIER: {
+    id: 235450,
+    name: 'Prismatic Barrier',
+    icon: 'spell_magearmor',
+  },
+  MARK_OF_ALUNETH: {
+    id: 224968,
+    name: 'Mark of Aluneth',
+    icon: 'inv_staff_2h_artifactaegwynsstaff_d_01',
+  },
+  ARCANE_CHARGE: {
+    id: 36032,
+    name: 'Arcane Charge',
+    icon: 'spell_arcane_arcane01',
+  },
 
   //Passives
   SHATTER: {
@@ -366,6 +426,16 @@ export default {
     name: 'Arctic Blast',
     icon: 'inv_staff_15',
   },
+  ARCANE_MISSILES_BUFF: {
+    id: 79683,
+    name: 'Arcane Missiles!',
+    icon: 'spell_nature_starfall',
+  },
+  ARCANE_MISSILES_ENERGIZE: {
+    id: 208030,
+    name: 'Arcane Missiles',
+    icon: 'spell_nature_starfall',
+  },
 
   //Artifact Traits
   FROZEN_VEINS_TRAIT: {
@@ -392,6 +462,11 @@ export default {
     id: 248147,
     name: 'Erupting Infernal Core',
     icon: 'spell_mage_flameorb',
+  },
+  PRE_IGNITED_TRAIT: {
+    id: 238055,
+    name: 'Pre-Ignited',
+    icon: 'spell_fire_sealoffire',
   },
 
   //Tier Sets
@@ -424,6 +499,16 @@ export default {
     id: 242250,
     name: 'T20 4 set bonus',
     icon: 'spell_fire_firebolt02',
+  },
+  FIRE_MAGE_T21_2SET_BONUS_BUFF: {
+    id: 251857,
+    name: 'T21 2 set bonus',
+    icon: 'ability_mage_greaterinvisibility',
+  },
+  FIRE_MAGE_T21_4SET_BONUS_BUFF: {
+    id: 251858,
+    name: 'T21 4 set bonus',
+    icon: 'ability_mage_greaterinvisibility',
   },
 
 };

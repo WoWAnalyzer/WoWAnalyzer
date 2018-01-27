@@ -25,7 +25,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     },
     {
       spell: SPELLS.STORM_EARTH_AND_FIRE_CAST,
-      duration: 15,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
