@@ -198,6 +198,7 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: 'Time spent < 5% mana',
             check: () => this.lowMana.suggestionThresholds,
+            valueTooltip: `${this.lowMana.lowManaSeconds.toFixed(2)} seconds`,
           }),
         ];
       },
