@@ -9,6 +9,7 @@ import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
+import Abilities from 'Parser/Core/Modules/Abilities';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -25,6 +26,7 @@ class RuneTracker extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
     castEfficiency: CastEfficiency,
+    abilities: Abilities,
   };
 
   timeSpentWithRunesOnCooldown = {};
@@ -67,7 +69,8 @@ class RuneTracker extends Analyzer {
   	}
   	const chargesOnCooldown = 2 - this.spellUsable.chargesAvailable(spellId);
   	const cooldownRemaining = this.spellUsable.cooldownRemaining(spellId);
-  	return (chargesOnCooldown - 1) * 10000 + cooldownRemaining;
+  	const fullChargeCooldown = this.abilities.getExpectedCooldownDuration(spellId);
+    return (chargesOnCooldown - 1) * fullChargeCooldown + cooldownRemaining;
   }
 
   get runeEfficiency(){
