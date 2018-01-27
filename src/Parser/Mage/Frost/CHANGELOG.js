@@ -9,6 +9,11 @@ import ITEMS from 'common/ITEMS';
 
 export default [
     {
+        date: new Date('2018-01-27'),
+        changes: <Wrapper>Marked spec completeness as Great!</Wrapper>,
+        contributors: [Sharrq],
+    },
+    {
         date: new Date('2018-01-01'),
         changes: <Wrapper>Added a 'Fish for procs' entry to the Checklist, and reworded/updated several suggestion metrics.</Wrapper>,
         contributors: [sref],
