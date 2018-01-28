@@ -28,7 +28,7 @@ class IceLance extends Analyzer {
 	}
 
 	hadFingersProc;
-	iceLancetargetId = 0;
+	iceLanceTargetId = 0;
 	nonShatteredCasts = 0;
 
 	iceLanceCastTimestamp;
@@ -42,8 +42,8 @@ class IceLance extends Analyzer {
 			return;
 		}
 		this.iceLanceCastTimestamp = event.timestamp;
-		if (event.targetId) {
-			this.iceLancetargetId = encodeTargetString(event.targetId, event.targetInstance);
+		if (event.targetID) {
+			this.iceLanceTargetId = encodeTargetString(event.targetID, event.targetInstance);
 		}
 		this.hadFingersProc = false;
 		if (this.combatants.selected.hasBuff(SPELLS.FINGERS_OF_FROST.id)) {
@@ -53,8 +53,8 @@ class IceLance extends Analyzer {
 
 	on_byPlayer_damage(event) {
 		const spellId = event.ability.guid;
-		const damageTarget = encodeTargetString(event.targetId, event.targetInstance);
-		if (spellId !== SPELLS.ICE_LANCE_DAMAGE.id || this.iceLancetargetId !== damageTarget) {
+		const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
+		if (spellId !== SPELLS.ICE_LANCE_DAMAGE.id || this.iceLanceTargetId !== damageTarget) {
 			return;
 		}
 		const enemy = this.enemies.getEntity(event);
