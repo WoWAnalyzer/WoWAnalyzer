@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const TimelineItemImage = ({ source, description, wide }) => (
   <figure style={wide ? { maxWidth: 800 } : undefined}>
-    <img src={source} alt={description} />
+    <a href={source} target="_blank"><img src={source} alt={description} /></a>
     <figcaption>
       {description}
     </figcaption>

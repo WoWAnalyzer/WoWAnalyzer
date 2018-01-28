@@ -99,6 +99,13 @@ import LegendaryCountChecker from './LegendaryCountChecker.png';
 import NotActivelyMaintainedBox from './NotActivelyMaintainedBox.png';
 import Frontpage20 from './Frontpage2.0.png';
 import StatsOnPull from './StatsOnPull.png';
+import AssassinationRogue from './AssassinationRogue.png';
+import HolyPaladinChecklist from './HolyPaladinChecklist.png';
+import HolyPaladinChecklistRule from './HolyPaladinChecklistRule.png';
+import ChecklistResultsLayout from './ChecklistResultsLayout.png';
+import DeathTracker from './DeathTracker.png';
+import CastingTime from './CastingTime.png';
+import GearTab from './GearTab.png';
 
 function completeness(completeness) {
   return <dfn data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>;
@@ -883,12 +890,13 @@ class Article extends React.PureComponent {
         </Item>
 
         <Item title="Checking your items for proper enchants" date="14 Dec">
-          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/974
+          It's easy to overlook simple things like enchants, but it's free throughput that you should get for optimal performance. <Maintainer {...MAINTAINERS.Khazak} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/974">added</a> a suggestion that checks for missing enchants and one that checks for poor quality enchants.<br /><br />
+
+          <Maintainer {...MAINTAINERS.Putro} /> also <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1072">added</a> support for Warlords of Draenor cloak enchants which are regularly used due to the massive power disparity between secondary and primary stats.<br /><br />
+
+          Missing enchants happens to even the best of us.<br /><br />
 
           <Image source={EnchantChecker} description="The suggestions shown when missing an enchant or using a cheap enchant. It's easy performance!" />
-
-          By <Maintainer {...MAINTAINERS.Khazak} />
-          <Maintainer {...MAINTAINERS.Putro} /> added support for WoD cloak enchants https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1072
         </Item>
 
         <Item title="Fury Warrior" date="14 Dec">
@@ -899,55 +907,41 @@ class Article extends React.PureComponent {
         </Item>
 
         <Item title="Version 2.0 is here! Check your fights with the all new checklist" date="24 Dec">
-          Bug in React that causes constant crashes
-          Realistically nothing we can do to fix it
+          We released version 2.0 of WoWAnalyzer at 24 December. This included the biggest change since the introduction of suggestions: the checklist. The checklist is a much more intuitive way to convey your performance in a fight. Instead of individual (often considered <i>harsh</i>) suggestions, the checklist shows an overview of <i>rules</i> which are marked with a green tick if you sufficiently passed the recommended thresholds for the requirements, and a red cross if your performance was below recommended parameters.<br /><br />
 
-          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/970
-          https://www.reddit.com/r/wow/comments/7lvuu7/version_20_of_wowanalyzer_is_live_with_a_big_new/
+          <Image source={HolyPaladinChecklist} description="A subset of the checklist rules for Holy Paladins." /><br />
 
-          By <Maintainer {...MAINTAINERS.Zerotorescue} /> and find everyone that added support
-          <Maintainer {...MAINTAINERS.hassebewlen} />: Shadow Priest https://github.com/WoWAnalyzer/WoWAnalyzer/pull/981
-          <Maintainer {...MAINTAINERS.Putro} />: Marksmanship Hunter https://github.com/WoWAnalyzer/WoWAnalyzer/pull/999
-          <Maintainer {...MAINTAINERS.Putro} />: Beast Mastery Hunter https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1032
-          <Maintainer {...MAINTAINERS.Anomoly} />: Mistweaver Monk https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1005
-          <Maintainer {...MAINTAINERS.sref} />: Frost Mage https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1006
-          <Maintainer {...MAINTAINERS.Hartra344} />: Restoration Shaman https://github.com/WoWAnalyzer/WoWAnalyzer/pull/988
-          <Maintainer {...MAINTAINERS.Khazak} />: Unholy Death Knight https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1031
-          <Maintainer {...MAINTAINERS.Chizu} />: Affliction Warlock https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1092
-          <Maintainer {...MAINTAINERS.Gebuz} />: Balance Druid https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1096
-          <Maintainer {...MAINTAINERS.Hewhosmites} />: Retribution Paladin https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1136
+          Presenting your gameplay suggestions in such a way should give you a much better overview of what goes into playing your spec well. Checks that you pass will continue to be visible as a way to provide you with positive feedback about things you're doing well (and so you can review them for minor improvements). The rule performance is also less nitpicky than individual suggestions so that we can put more focus on large improvements.<br /><br />
+
+          <Image source={HolyPaladinChecklistRule} description="A single checklist rule with its description and checks." /><br />
+
+          With the introduction of the checklist we have also reworked the results page to present the most important information from top to bottom.<br /><br />
+
+          <Image source={ChecklistResultsLayout} description="The new results page is organized by how commonly info is used." /><br />
+
+          The checklist is available right now for <a href="/report/hNqbFwd7Mx3G1KnZ/18-Mythic+Antoran+High+Command+-+Kill+(6:51)/Taffly">Holy Paladin</a>, <a href="/report/wmfhYRxTpvZyHLdF/1-Mythic+Garothi+Worldbreaker+-+Kill+(4:48)/Hassebewlen">Shadow Priest</a>, <a href="/report/mtjvg4FQ6A8RGz1V/3-Mythic+Garothi+Worldbreaker+-+Kill+(6:18)/Paranema">Restoration Shaman</a>, <a href="/report/wXPNHQqrjmVbafJL/38-Mythic+Garothi+Worldbreaker+-+Kill+(5:05)/Maareczek">Marksmanship Hunter</a>, <a href="/report/2MNkGb36FW1gX8zx/15-Mythic+Imonar+the+Soulhunter+-+Kill+(7:45)/Anom">Mistweaver Monk</a>, <a href="/report/t3wKdDkB7fZqbmWz/1-Normal+Garothi+Worldbreaker+-+Kill+(4:24)/Sref">Frost Mage</a>, <a href="/report/72t9vbcAqdpVRfBQ/12-Mythic+Garothi+Worldbreaker+-+Kill+(6:15)/Maxweii">Unholy Death Knight</a> and <a href="/report/hxzFPBaWLJrG1NQR/24-Heroic+Imonar+the+Soulhunter+-+Kill+(3:38)/Putro">Beast Mastery Hunter</a>. More specs to follow later (at the maintainers discretion).
         </Item>
 
         <Item title="Death tracking" date="28 Dec">
-          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1066
+          <Maintainer {...MAINTAINERS.Sharrq} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1066">added</a> a module that tracks player deaths and resurrections, calculates the time spent dead, has a suggestion for avoiding damage and recommends using defensives.<br /><br />
 
-          By <Maintainer {...MAINTAINERS.Sharrq} />
+          <Image source={DeathTracker} description="The suggestion when you died" wide />
         </Item>
 
         <Item title="Casting time bar in the spell timeline tab" date="2 Jan">
-          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1050
+          While not a major change, this has shown to be incredibly useful for visualizing your downtime. A great bonus is that is greatly helps us to find and fix bugs in the gcd/channel time displays. <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1050">Added</a> by <Maintainer {...MAINTAINERS.Zerotorescue} />.<br /><br />
 
-          While not a major change, this has shown to be incredibly useful for fixing bugs in the gcd/channel time displays
-
-          By <Maintainer {...MAINTAINERS.Zerotorescue} />
+          <Image source={CastingTime} description="The initial casting time bar, the GCD was later separated from channel times to be less misleading" wide />
         </Item>
 
         <Item title="Nekorsis added a gear tab" date="2 Jan">
-          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1017
+          <Maintainer {...MAINTAINERS.Nekorsis} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1017">added</a> a gear tab to show what gear you have equipped. Unfortunately the Warcraft Logs API does not provide item names and since we also do not have a complete item database we are unable to show item names.<br /><br />
 
-          By <Maintainer {...MAINTAINERS.Nekorsis} />
-        </Item>
-
-        <Item title="A major rework to the abilities config" date="4 Jan">
-          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1086
-
-          By <Maintainer {...MAINTAINERS.Zerotorescue} />
+          <Image source={GearTab} description="The gear tab showing all items equipped" wide />
         </Item>
 
         <Item title="You're looking at it! Added a news system" date="8 Jan">
-          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1154
-
-          By <Maintainer {...MAINTAINERS.Zerotorescue} />
+          A simple news system to write articles was <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1154">added</a> by <Maintainer {...MAINTAINERS.Zerotorescue} />. We'll try to keep you updated about interesting developments.
         </Item>
 
         <Item title="Know what's the matter with the all new status page" date="15 Jan">
@@ -971,6 +965,13 @@ class Article extends React.PureComponent {
           With both Beast-Mastery and Marksmanship modules being close to completed, <Maintainer {...MAINTAINERS.Putro} /> began work on the Survival module in early 2018. It was <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1202">merged</a> 18 January.<br /><br />
 
           <Image source={SurvivalHunter} description="Initial version of the Survival Hunter analyzer" />
+        </Item>
+
+        <Item title="Assassination Rogue" date="18 Jan">
+          <SpecIcon spec={SPECS.ASSASSINATION_ROGUE} />
+          <Maintainer {...MAINTAINERS.tsabo} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1227">added</a> basic support for the Assassination Rogue spec.<br /><br />
+
+          <Image source={AssassinationRogue} description="Initial version of the Assassination Rogue analyzer" />
         </Item>
 
         <Item title="First anniversary!" date="31 Jan">
