@@ -10,7 +10,7 @@ class SoulShardTracker extends Analyzer {
     combatants: Combatants,
   };
 
-  _current = 3;   // you regenerate 3 shards out of combat so you should be starting combat always with 3 shards
+  _current = 3;   // assume 3 shards at combat start (gets set correctly at Unstable Affliction cast event)
   _fullShardTimestamp = null;
 
 
@@ -92,7 +92,14 @@ class SoulShardTracker extends Analyzer {
     if (this._current === MAX_SHARDS) {
       this.timeOnFullShards += event.timestamp - this._fullShardTimestamp;
     }
-    this._current -= 1;
+    if (!event.classResources || !event.classResources[0]) {
+      // if something goes wrong, subtract 1 shard as usual, but getting the info from classResources is accurate
+      this._current -= 1;
+    }
+    else {
+      // amount contains the amount of shards *before* the cast, so to get the amount after the cast, we subtract the cost
+      this._current = (event.classResources[0].amount - event.classResources[0].cost) / 10;
+    }
   }
 
   get timeOnFullShardsSeconds() {
