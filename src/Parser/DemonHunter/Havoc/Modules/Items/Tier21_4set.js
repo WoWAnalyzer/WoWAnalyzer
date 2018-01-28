@@ -47,8 +47,8 @@ class Tier21_4set extends Analyzer {
       actual: 1 - this.betrayersFuryBuffCount / this.eyeBeamCasts,
       isGreaterThan: {
         minor: 0,
-        average: 0.05,
-        major: 0.1,
+        average: 0.1,
+        major: 0.2,
       },
       style: 'percentage',
     };
