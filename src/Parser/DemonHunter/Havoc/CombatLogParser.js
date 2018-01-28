@@ -17,8 +17,12 @@ import DelusionsOfGrandeur from './Modules/Items/DelusionsOfGrandeur';
 import RaddonsCascadingEyes from './Modules/Items/RaddonsCascadingEyes';
 import Tier21_2set from './Modules/Items/Tier21_2set';
 
+//Talents
+import DemonReborn from './Modules/Talents/DemonReborn';
+
 //Traits
 import UnleashedDemons from './Modules/Traits/UnleashedDemons';
+import FeastOnTheSouls from './Modules/Traits/FeastOnTheSouls';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -43,8 +47,12 @@ class CombatLogParser extends CoreCombatLogParser {
     raddonsCascadingEyes: RaddonsCascadingEyes,
     tier21_2set: Tier21_2set,
 
+    //Talents
+    demonReborn: DemonReborn,
+
     //Traits
     unleashedDemons: UnleashedDemons,
+    feastOnTheSouls: FeastOnTheSouls,
   };
 }
 
