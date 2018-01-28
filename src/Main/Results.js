@@ -237,7 +237,7 @@ class Results extends React.Component {
                   </div>
                 </div>
                 <div className="col-md-8" style={{ fontSize: 20 }}>
-                  Curious how something is analyzed? Want to better understand your spec? You can find this spec's source <a href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`}>here</a>.
+                  Curious how we're doing the analysis? Want to change something? You can find this spec's source <a href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`}>here</a> and a guide on contributing <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/docs#contributing">here</a>.
                 </div>
               </div>
             </div>
@@ -246,13 +246,13 @@ class Results extends React.Component {
                 <div className="col-md-4">
                   <div style={{ border: '7px solid #fff', background: 'rgba(0, 0, 0, 0.4)', padding: '8px 14px', fontSize: 40, fontWeight: 700, lineHeight: 1.1 }}>
                     <Textfit mode="single" max={40}>
-                      How To<br />
-                      Change
+                      Feedback<br />
+                      Welcome
                     </Textfit>
                   </div>
                 </div>
                 <div className="col-md-8" style={{ fontSize: 20 }}>
-                  Spotted a bug? Want a new feature? Suggestion or checklist threshold off? You can investigate the source <a href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`}>here</a> and a guide on contributing is <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/docs#contributing">here</a>.
+                  Do you have a really cool idea? Is a suggestion or checklist threshold off? Spotted a bug? Let us know on <a href="https://discord.gg/AxphPxU">Discord</a>.
                 </div>
               </div>
             </div>
