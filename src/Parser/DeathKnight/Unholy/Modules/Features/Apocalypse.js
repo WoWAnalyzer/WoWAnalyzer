@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
@@ -39,8 +38,8 @@ class Apocalypse extends Analyzer {
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<span>You are casting <SpellLink id={SPELLS.APOCALYPSE.id}/> with too few <SpellLink id={SPELLS.FESTERING_WOUND.id}/> on the target. When casting <SpellLink id={SPELLS.APOCALYPSE.id}/>, make sure to have at least 6 <SpellLink id={SPELLS.FESTERING_WOUND.id}/> on the target.</span>)
             .icon(SPELLS.APOCALYPSE.icon)
-            .actual(`An average ${(actual)}% of Festering Wounds were popped by Apocalypse`)
-            .recommended(`>${formatPercentage(recommended)}% is recommended`)
+            .actual(`An average ${(actual)} of Festering Wounds were popped by Apocalypse`)
+            .recommended(`${(recommended)} is recommended`)
             .regular(recommended - 1).major(recommended - 2);
         });
   }

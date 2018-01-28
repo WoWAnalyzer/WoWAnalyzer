@@ -14,6 +14,11 @@ export default [
 		contributors: [Hewhosmites],
 	},
 	{
+		date: new Date('2018-01-27'),
+		changes: <Wrapper>Added cooldown reduction for <SpellLink id={SPELLS.EYE_BEAM.id} icon/>></Wrapper>,
+		contributors: [Hewhosmites],
+	},
+	{
 		date: new Date('2018-01-25'),
 		changes: <Wrapper>Added in <SpellLink id={SPELLS.HAVOC_T21_2PC_BONUS.id} icon/></Wrapper>,
 		contributors: [Hewhosmites],
