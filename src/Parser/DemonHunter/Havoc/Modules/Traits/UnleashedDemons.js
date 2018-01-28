@@ -13,7 +13,7 @@ class UnleashedDemons extends Analyzer {
 	};
 
 	on_initialized() {
-		this.active = this.combatants.selected.traitsBySpellId[SPELLS.UNLEASHED_DEMONS.id];
+		this.active = this.combatants.selected.traitsBySpellId[SPELLS.UNLEASHED_DEMONS.id] > 0;
 	}
 
 	metamorphosisCDReduction = 0;
