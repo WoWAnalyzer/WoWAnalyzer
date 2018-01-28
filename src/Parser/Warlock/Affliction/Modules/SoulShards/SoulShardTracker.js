@@ -2,6 +2,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 const MAX_SHARDS = 5;
 
@@ -92,13 +93,18 @@ class SoulShardTracker extends Analyzer {
     if (this._current === MAX_SHARDS) {
       this.timeOnFullShards += event.timestamp - this._fullShardTimestamp;
     }
-    if (!event.classResources || !event.classResources[0]) {
-      // if something goes wrong, subtract 1 shard as usual, but getting the info from classResources is accurate
+    if (!event.classResources || !event.classResources[0] || !event.classResources[0].type !== RESOURCE_TYPES.SOUL_SHARDS.id) {
+      // if something goes wrong, subtract 1 shard as usual, but getting the info from classResources should accurate
       this._current -= 1;
     }
     else {
       // amount contains the amount of shards *before* the cast, so to get the amount after the cast, we subtract the cost
-      this._current = (event.classResources[0].amount - event.classResources[0].cost) / 10;
+      let amount = event.classResources[0].amount - event.classResources[0].cost;
+      if (amount >= 10) {
+        // old logs (I think Nighthold era) used to have soul shards expressed as 0 - 5 whereas the new logs have 0 - 50 (multiples of 10 to be precise)
+        amount /= 10;
+      }
+      this._current = amount;
     }
   }
 
