@@ -14,6 +14,7 @@ import RegularArticle from 'Main/News/RegularArticle';
 import Maintainer from 'Main/Maintainer';
 import DiscordButton from 'Main/DiscordButton';
 import DiscordLogo from 'Main/Images/Discord-Logo+Wordmark-White.svg';
+import AntorusImage from 'Raids/AntorusTheBurningThrone/Images/antorus.jpg';
 
 import Timeline from './Timeline';
 import Item from './TimelineItem';
@@ -93,6 +94,11 @@ import DistanceMoved20 from './DistanceMoved2.0.png';
 import LightOfDawnSpellTimeline from './LightOfDawnSpellTimeline.png';
 import SpellTimeline from './SpellTimeline.png';
 import Documentation from './Documentation.gif';
+import ChangelogTab from './ChangelogTab.png';
+import LegendaryCountChecker from './LegendaryCountChecker.png';
+import NotActivelyMaintainedBox from './NotActivelyMaintainedBox.png';
+import Frontpage20 from './Frontpage2.0.png';
+import StatsOnPull from './StatsOnPull.png';
 
 function completeness(completeness) {
   return <dfn data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>;
@@ -814,23 +820,23 @@ class Article extends React.PureComponent {
         </Item>
 
         <Item title="Changelog tab" date="6 Nov">
-          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/747
+          With this update <Maintainer {...MAINTAINERS.Zerotorescue} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/747">added</a> a changelog tab to the results page. This has made the changelog for the spec you're looking at easier to find and track.<br /><br />
 
-          By <Maintainer {...MAINTAINERS.Zerotorescue} />
+          <Image source={ChangelogTab} description="The changelog tab, showing 5 recent changes" wide />
         </Item>
 
         <Item title="Improved error messages" date="8 Nov">
-          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/755
+          In an effort to improve the information when an error occurs <Maintainer {...MAINTAINERS.Zerotorescue} /> reworked most of the error messages to be much more informative and less boring. One such instance is when the API is down due to it being updated, although you'll likely never see that again since our downtime while rolling out updates is now usually no more than a (few) second(s). I guess all that work was for nothing.<br /><br />
 
           <Image source={ApiIsDown} description="When the API is down for a known reason we explain what is going on and what you can expect" />
-
-          By <Maintainer {...MAINTAINERS.Zerotorescue} />
         </Item>
 
-        <Item title="Checking your legendaries 2.0" date="10 Nov">
-          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/780
+        <Item title="Let's not forget to equip 2 legendaries" date="10 Nov">
+          It's an easy mistakes to make. You're swapping around your gear, equipping different pieces of tier or having a hard time deciding what legendaries to equip and <b>oops</b> you ended up doing a raid without the max possible amount of legendaries equipped.<br /><br />
 
-          By <Maintainer {...MAINTAINERS.Gao} />
+          Next boss/raid you're good though since <Maintainer {...MAINTAINERS.Gao} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/780">added</a> a suggestion that detects this and lets you know. Phew!<br /><br />
+
+          <Image source={LegendaryCountChecker} description="Never forget again!" wide />
         </Item>
 
         <Item title="Protection Paladin" date="11 Nov">
@@ -840,41 +846,40 @@ class Article extends React.PureComponent {
           <Image source={ProtectionPaladin} description="Initial version of the Protection Paladin analyzer" />
         </Item>
 
-        <Item title="A big warning for specs that aren't maintained" date="12 Nov">
-          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/785
+        <Item title="A big info box for specs that aren't maintained" date="12 Nov">
+          <Maintainer {...MAINTAINERS.Zerotorescue} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/785">added</a> a large information box to specs that are not actively maintained. This serves as a warning that the spec's analysis might not be useful and/or accurate and we hope that the rest of the specs that are actually good will not be judged by the accuracy of the incomplete specs.<br /><br />
 
-          Mention here that even if a spec is being maintained we are still always looking for more interested people to help us continue extending it
+          We are also hopeful that this warning, with instructions on how to join the project, will motivate new contributors to pick up specs that have no maintainer actively working on it. But even if a spec already has a maintainer, new maintainers are <b>always</b> welcome.<br /><br />
+
+          <Image source={NotActivelyMaintainedBox} description="The information box" wide />
         </Item>
 
         <Item title="Using the time on cooldown for cast efficiency" date="12 Nov">
-          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/799
-
-          By <Maintainer {...MAINTAINERS.sref} />
+          <Maintainer {...MAINTAINERS.sref} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/799">changed</a> the basis for cast efficiency into the time on cooldown as recorded by the <i>spell usable</i> module (the cooldown tracker mentioned earlier). This should increase the accuracy.
         </Item>
 
         <Item title="Updated for Antorus" date="28 Nov">
-          While not every change is listed in this article (see the changelog for smaller changes), this milestone marks the release of the Antorus raid. We've been hard at work to update all the things changed and add support for all the new items and stuff.
+          While not every change is listed in this article (see the changelog for smaller changes), this milestone marks the release of the Antorus raid. We've been hard at work to update all the things changed and add support for all the new items and stuff.<br /><br />
+
+          <Image source={AntorusImage} description="Updated for Antorus" />
         </Item>
 
         <Item title="Frontpage reworked" date="28 Nov">
-          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/882
+          <Maintainer {...MAINTAINERS.Zerotorescue} /> released a <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/882">reworked</a> frontpage.<br /><br />
 
-          By <Maintainer {...MAINTAINERS.Zerotorescue} />
+          <Image source={Frontpage20} description="The new frontpage upon release." />
         </Item>
 
         <Item title="Stats on pull" date="30 Nov">
-          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/890
+          <Maintainer {...MAINTAINERS.Zerotorescue} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/890">added</a> a much requested feature: a stats on pull panel.<br /><br />
 
-          By <Maintainer {...MAINTAINERS.Zerotorescue} />
+          <Image source={StatsOnPull} description="The new frontpage upon release." />
         </Item>
 
         <Item title="Google's translation disabled to fix crashes" date="7 Dec">
-          Bug in React that causes constant crashes
-          Realistically nothing we can do to fix it
+          While monitoring our error logs we've been noticing a lot of <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/948">weird errors</a> that we could not reproduce. After some investigating <Maintainer {...MAINTAINERS.Zerotorescue} /> discovered that this was caused by a bug in React 16 (the most important third party library we use) when the app is opened with Google translator (Google Chrome does this automatically if configured). This is not an issue that would be easy for us to fix, and realistically there is nothing we can do about it to prevent crashes.<br /><br />
 
-          https://github.com/WoWAnalyzer/WoWAnalyzer/pull/949
-
-          By <Maintainer {...MAINTAINERS.Zerotorescue} />
+          We decided that the best course of action would be to <a href="https://github.com/facebook/react/issues/11538#issuecomment-350110297">disable Google's translation</a> so that the app would at least not crash. We realize that some users rely on the translation to use our app and we apologize for any inconvenience this may cause.
         </Item>
 
         <Item title="Checking your items for proper enchants" date="14 Dec">
