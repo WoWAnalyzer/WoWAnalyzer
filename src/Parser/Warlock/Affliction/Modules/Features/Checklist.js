@@ -58,23 +58,11 @@ class Checklist extends CoreChecklist {
         return [
           new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.AGONY.id} icon/> uptime</Wrapper>,
-            check: () => this.agonyUptime.defaultSuggestionThresholds,
-            when: !combatant.hasTalent(SPELLS.WRITHE_IN_AGONY_TALENT.id),
-          }),
-          new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.AGONY.id} icon/> uptime</Wrapper>,
-            check: () => this.agonyUptime.writheSuggestionThresholds,
-            when: combatant.hasTalent(SPELLS.WRITHE_IN_AGONY_TALENT.id),
+            check: () => this.agonyUptime.suggestionThresholds,
           }),
           new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.CORRUPTION_CAST.id} icon/> uptime</Wrapper>,
-            check: () => this.corruptionUptime.defaultSuggestionThresholds,
-            when: !combatant.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id),
-          }),
-          new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.CORRUPTION_CAST.id} icon/> uptime</Wrapper>,
-            check: () => this.corruptionUptime.t20SuggestionThresholds,
-            when: combatant.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id),
+            check: () => this.corruptionUptime.suggestionThresholds,
           }),
           new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.SIPHON_LIFE_TALENT.id} icon/> uptime</Wrapper>,
