@@ -24,6 +24,8 @@ import SkullflowersHaemostasis from './Modules/Items/SkullflowersHaemostasis';
 import ShacklesofBryndaor from './Modules/Items/ShacklesofBryndaor';
 import SoulflayersCorruption from './Modules/Items/SoulflayersCorruption';
 
+import RuneTracker from '../Shared/RuneTracker';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -65,6 +67,9 @@ class CombatLogParser extends CoreCombatLogParser {
     skullflowersHaemostasis: SkullflowersHaemostasis,
     shacklesofBryndaor:ShacklesofBryndaor,
     soulflayersCorruption:SoulflayersCorruption,
+
+    //Rune tracker
+    runeTracker: RuneTracker,
   };
 }
 

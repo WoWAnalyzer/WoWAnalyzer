@@ -13,7 +13,7 @@ class UnleashedDemons extends Analyzer {
 	};
 
 	on_initialized() {
-		this.active = this.combatants.selected.traitsBySpellId[SPELLS.UNLEASHED_DEMONS.id];
+		this.active = this.combatants.selected.traitsBySpellId[SPELLS.UNLEASHED_DEMONS.id] > 0;
 	}
 
 	metamorphosisCDReduction = 0;
@@ -42,7 +42,6 @@ class UnleashedDemons extends Analyzer {
 					break;
 			}
 		}
-		console.log(this.metamorphosisCDReduction);
 		const cdReduciton = this.metamorphosisCDReduction;
 		return cdReduciton;
 	}

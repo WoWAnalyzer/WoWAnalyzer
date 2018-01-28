@@ -43,6 +43,23 @@ class WarningDisplay extends Analyzer {
         </div>
       );
     }
+    if (this.feedbackWarning) {
+      return (
+        <div>
+          <div style={{ padding: 0 }}>
+            <div className="flex-sub content-middle" style={{ margin: '0px 30px 0px 0px', color: '#FFA100', opacity: 0.8 }}>
+                <div style={{ fontSize: '5.5em', lineHeight: 1, marginRight: 10, marginLeft: 10 }}>
+                  <WarningIcon />
+                </div>
+                <div>
+                  This spec is believed to be complete, but needs additional feedback. If there is something missing, incorrect, or inaccurate, please contact this specs maintainer so it can be fixed before being marked as "Good". Contact info can be found in the About Tab.
+                </div>
+            </div>
+            <div style={{ background: 'rgba(255, 255, 255, 0.2)', height: 1 }} />
+          </div>
+        </div>
+      );
+    }
   }
 }
 
