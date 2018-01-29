@@ -135,7 +135,7 @@ class Checklist extends CoreChecklist {
           <br />Using Mindbender too early shortens your Voidform and might thus greatly affect the next voidforms (by still having it on cooldown).
       </Wrapper>,
       requirements: () => {
-        return this.mindbender.mindbenders.filter(mindbender => mindbender.voidformStacks).map((mindbender, index) => {
+        return this.mindbender.mindbenders.map((mindbender, index) => {
             return (
                 new Requirement({
                   name: `Mindbender #${index + 1} used at # stacks`,

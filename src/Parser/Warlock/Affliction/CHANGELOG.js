@@ -14,6 +14,11 @@ export default [
     contributors: [Chizu],
   },
   {
+    date: new Date('2018-01-28'),
+    changes: <Wrapper>Updated the thresholds for DOTs to be more strict.</Wrapper>,
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-01-27'),
     changes: <Wrapper>Updated the Checklist to show a Rule about buffing <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} icon/>, low mana Rule and also refined some texts.</Wrapper>,
     contributors: [Chizu],

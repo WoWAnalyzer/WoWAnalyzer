@@ -7,7 +7,8 @@ import { formatNumber } from 'common/format';
 
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
+import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import Voidform from './Voidform';
 
@@ -48,15 +49,34 @@ class VoidformAverageStacks extends Analyzer {
 
     const lastVoidformWasExcluded = voidforms[voidforms.length - 1].excluded;
 
-    return (<StatisticBox
+    return (<ExpandableStatisticBox
       icon={<SpellIcon id={SPELLS.VOIDFORM.id} />}
       value={`${formatNumber(this.voidform.averageVoidformStacks)} stacks`}
       label={(<dfn data-tip={`The average stacks of your voidforms.${lastVoidformWasExcluded ? 'The last voidform of the fight was excluded since it skewed the average.' : ''}`}>Average voidform</dfn>)}
-    />);
+    >
+      <table className="table table-condensed">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Stacks</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            voidforms
+              .map((voidform, index) => (
+                <tr key={index}>
+                  <th scope="row">{ index + 1 }</th>
+                  <td>{ voidform.stacks.length}</td>
+                </tr>
+              ))
+          }
+        </tbody>
+      </table>
+    </ExpandableStatisticBox>);
   }
 
   statisticOrder = STATISTIC_ORDER.CORE(0);
 }
 
 export default VoidformAverageStacks;
-
