@@ -141,6 +141,7 @@ class SpellUsable extends Analyzer {
   endCooldown(spellId, resetAllCharges = false, timestamp = this.owner.currentTimestamp, remainingCDR = 0) {
     const canSpellId = this._getCanonicalId(spellId);
     if (!this.isOnCooldown(canSpellId)) {
+      // We want implementers to check this themselves so they *have* to think about how to handle it properly in whatever module they're working on.
       throw new Error(`Tried to end the cooldown of ${canSpellId}, but it's not on cooldown.`);
     }
 
