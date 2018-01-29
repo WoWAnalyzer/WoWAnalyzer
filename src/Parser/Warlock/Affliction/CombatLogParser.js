@@ -3,6 +3,7 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import LowMana from './Modules/Features/LowMana';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 
 import AgonyUptime from './Modules/Features/AgonyUptime';
@@ -52,6 +53,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fatalEchoes: FatalEchoes,
     sniping: Sniping,
     tormentedSouls: TormentedSouls,
+    lowMana: LowMana,
     checklist: Checklist,
 
     // DoTs

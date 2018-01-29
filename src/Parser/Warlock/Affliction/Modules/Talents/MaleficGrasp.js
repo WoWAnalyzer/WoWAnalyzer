@@ -96,10 +96,22 @@ class MaleficGrasp extends Analyzer {
     return {
       actual: (this.unbuffedTicks / this.totalTicks) || 1,
       isGreaterThan: {
-        // TODO
-        minor: 0.15,
-        average: 0.2,
-        major: 0.25,
+        minor: 0.25,
+        average: 0.3,
+        major: 0.35,
+      },
+      style: 'percentage',
+    };
+  }
+
+  // used in Checklist, mirrors the numbers from suggestionThresholds()
+  get positiveSuggestionThresholds() {
+    return {
+      actual: (this.buffedTicks / this.totalTicks) || 0,
+      isLessThan: {
+        minor: 0.75,
+        average: 0.7,
+        major: 0.65,
       },
       style: 'percentage',
     };
