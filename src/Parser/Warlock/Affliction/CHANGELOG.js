@@ -10,6 +10,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-01-28'),
+    changes: <Wrapper>Upgrade the spec completeness to Great!</Wrapper>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-01-28'),
     changes: <Wrapper>Updated the thresholds for DOTs to be more strict.</Wrapper>,
     contributors: [Chizu],
   },
