@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
+import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -65,17 +66,34 @@ class EssenceFontMastery extends Analyzer {
     }
   }
 
-  suggestions(when) {
+  get avgMasteryCastsPerEF() {
     const efMasteryCasts = (this.healEF / 2) || 0;
-    const avgMasteryCastsPerEF = (efMasteryCasts / this.castEF) || 0;
 
-    when(avgMasteryCastsPerEF).isLessThan(3)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You are currently not utilizing your <SpellLink id={SPELLS.ESSENCE_FONT.id} /> HOT buffs effectively. Casting into injured targets with the <SpellLink id={SPELLS.ESSENCE_FONT.id} /> allows you to take advantage of the double <SpellLink id={SPELLS.GUSTS_OF_MISTS.id} /> procs.</span>)
+    return (efMasteryCasts / this.castEF) || 0;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.avgMasteryCastsPerEF,
+      isLessThan: {
+        minor: 1.5,
+        average: 1,
+        major: .5,
+      },
+      style: 'number',
+    };
+  }
+
+  suggestions(when) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+        return suggest(
+          <Wrapper>
+            You are currently not utilizing your <SpellLink id={SPELLS.ESSENCE_FONT.id} /> HOT buffs effectively. Casting into injured targets with the <SpellLink id={SPELLS.ESSENCE_FONT.id} /> allows you to take advantage of the double <SpellLink id={SPELLS.GUSTS_OF_MISTS.id} /> procs.
+          </Wrapper>
+        )
           .icon(SPELLS.ESSENCE_FONT.icon)
-          .actual(`${avgMasteryCastsPerEF.toFixed(2)} average EF HoTs`)
-          .recommended(`${recommended} or more EF HoTs utilized is recommended`)
-          .regular(recommended - 1).major(recommended - 2);
+          .actual(`${this.avgMasteryCastsPerEF.toFixed(2)} average EF HoTs`)
+          .recommended(`${recommended} or more EF HoTs utilized is recommended`);
       });
   }
 
@@ -83,14 +101,13 @@ class EssenceFontMastery extends Analyzer {
     const efMasteryCasts = (this.healEF / 2) || 0;
     const efMasteryEffectiveHealing = ((this.healing) / 2) || 0;
     const avgEFMasteryHealing = efMasteryEffectiveHealing / efMasteryCasts || 0;
-    const avgMasteryCastsPerEF = (efMasteryCasts / this.castEF) || 0;
 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.GUSTS_OF_MISTS.id} />}
         value={`${efMasteryCasts}`}
         label={(
-          <dfn data-tip={`You healed an average of ${avgMasteryCastsPerEF.toFixed(2)} targets per Essence Font cast.<ul>
+          <dfn data-tip={`You healed an average of ${this.avgMasteryCastsPerEF.toFixed(2)} targets per Essence Font cast.<ul>
             <li>${formatNumber(avgEFMasteryHealing)} average healing per cast</li>
             <li>${formatNumber(this.secondGustOverheal)} Second Gust of Mists overhealing (${formatPercentage(this.secondGustOverheal / this.secondGustHealing)}%)</li>
             </ul>`}>

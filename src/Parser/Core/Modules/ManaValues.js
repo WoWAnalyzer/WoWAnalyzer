@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import { formatPercentage, formatNumber } from 'common/format';
@@ -9,8 +7,7 @@ import ROLES from 'common/ROLES';
 class ManaValues extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-  }
-  static SUGGESTION_MANA_BREAKPOINT = 0.1;
+  };
 
   lowestMana = null; // start at `null` and fill it with the first value to account for users starting at a non-default amount for whatever reason
   endingMana = 0;
@@ -25,7 +22,7 @@ class ManaValues extends Analyzer {
   on_byPlayer_cast(event) {
     if (event.classResources) {
       event.classResources
-        .filter(resource => resource.type === RESOURCE_TYPES.MANA)
+        .filter(resource => resource.type === RESOURCE_TYPES.MANA.id)
         .forEach(({ amount, cost, max }) => {
           const manaValue = amount;
           const manaCost = cost || 0;
@@ -47,18 +44,29 @@ class ManaValues extends Analyzer {
     }
   }
 
+  get manaLeftPercentage() {
+    return this.endingMana/this.maxMana;
+  }
+  get suggestionThresholds() {
+    return {
+      actual: this.manaLeftPercentage,
+      isGreaterThan: {
+        minor: 0.1,
+        average: 0.2,
+        major: 0.3,
+      },
+      style: 'percentage',
+    };
+  }
   suggestions(when) {
-    const manaPercentageLeft = this.endingMana/this.maxMana;
-
-    when(manaPercentageLeft).isGreaterThan(this.constructor.SUGGESTION_MANA_BREAKPOINT)
+    when(this.suggestionThresholds.actual).isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You had mana left at the end of the fight. A good rule of thumb is having the same mana percentage as the bosses health percentage.
-          Mana is indirectly tied with healing throughput and should be optimized. </span>)
+        return suggest('You had mana left at the end of the fight. A good rule of thumb is having the same mana percentage as the bosses health percentage. Mana is indirectly tied with healing throughput and should be optimized.')
           .icon('inv_elemental_mote_mana')
-          .actual(`${formatPercentage(manaPercentageLeft)}% (${formatNumber(this.endingMana)}) mana left`)
+          .actual(`${formatPercentage(actual)}% (${formatNumber(this.endingMana)}) mana left`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.1)
-          .major(recommended + 0.2);
+          .regular(this.suggestionThresholds.isGreaterThan.average)
+          .major(this.suggestionThresholds.isGreaterThan.major);
       });
   }
 }

@@ -23,7 +23,7 @@ class SpellManaCost extends Analyzer {
   getRawManaCost(event) {
     const hardcodedCost = this.getHardcodedManaCost(event);
     const actualCost = event.classResources ? event.classResources.reduce((cost, resource) => {
-      if (resource.type !== RESOURCE_TYPES.MANA) {
+      if (resource.type !== RESOURCE_TYPES.MANA.id) {
         return cost;
       }
       return cost + (resource.cost || 0);

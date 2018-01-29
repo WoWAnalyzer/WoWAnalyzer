@@ -6,7 +6,11 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
+import ItemDamageDone from 'Main/ItemDamageDone';
 
+/*
+ * The trail of wind left by Windburst deals (300% of Attack power) damage every 1 sec to enemies within, and reduces their movement speed by 50%.
+ */
 class CyclonicBurst extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -33,7 +37,7 @@ class CyclonicBurst extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {(this.owner.formatItemDamageDone(this.damage))}
+          <ItemDamageDone amount={this.damage} />
         </div>
       </div>
     );

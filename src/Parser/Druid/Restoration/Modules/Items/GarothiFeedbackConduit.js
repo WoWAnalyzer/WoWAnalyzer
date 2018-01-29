@@ -1,10 +1,12 @@
 import React from 'react';
-import { formatThousands, formatNumber } from 'common/format';
 
-import CoreGarothiFeedbackConduit from 'Parser/Core/Modules/Items/GarothiFeedbackConduit';
-import STAT from "Parser/Core/Modules/Features/STAT";
-import HealingDone from 'Parser/Core/Modules/HealingDone';
+import { formatNumber, formatThousands } from 'common/format';
 import ITEMS from 'common/ITEMS';
+import CoreGarothiFeedbackConduit from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/GarothiFeedbackConduit';
+import STAT from 'Parser/Core/Modules/Features/STAT';
+import HealingDone from 'Parser/Core/Modules/HealingDone';
+import ItemHealingDone from 'Main/ItemHealingDone';
+
 import StatWeights from '../Features/StatWeights';
 
 class GarothiFeedbackConduit extends CoreGarothiFeedbackConduit {
@@ -15,9 +17,7 @@ class GarothiFeedbackConduit extends CoreGarothiFeedbackConduit {
   };
 
   item() {
-    const avgHaste =
-      this.totalProccValue.reduce((acc, proc) => acc + (proc[0] * proc[1]), 0) / this.owner.fightDuration;
-    const healing = this.statWeights._getGain(STAT.HASTE_HPM) * avgHaste;
+    const healing = this.statWeights._getGain(STAT.HASTE_HPM) * this.averageHaste;
 
     return {
       item: ITEMS.GAROTHI_FEEDBACK_CONDUIT,
@@ -26,8 +26,8 @@ class GarothiFeedbackConduit extends CoreGarothiFeedbackConduit {
           data-tip={`The throughput shown is calculated by using the amount of healing one rating of haste yielded and multiplied with the average haste gained.
             The amount of healing one rating of haste yielded was ${formatNumber(this.statWeights._getGain(STAT.HASTE_HPM))}</b>`}
         >
-          {formatThousands(avgHaste)} average haste rating gained.<br />
-          {this.owner.formatItemHealingDone(healing)}
+          <ItemHealingDone amount={healing} /><br />
+          {formatThousands(this.averageHaste)} average haste rating gained
         </dfn>
       ),
     };

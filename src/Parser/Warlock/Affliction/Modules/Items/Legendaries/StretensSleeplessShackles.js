@@ -1,13 +1,12 @@
 import React from 'react';
 
+import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemDamageDone from 'Main/ItemDamageDone';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
-import ITEMS from 'common/ITEMS';
-import { formatNumber } from 'common/format';
-
-import getDamageBonus from '../../WarlockCore/getDamageBonus';
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../../Constants';
 
 const DAMAGE_BONUS_PER_TARGET = 0.04;
@@ -29,17 +28,13 @@ class StretensSleeplessShackles extends Analyzer {
     const numberOfEnemiesWithUA = Object.keys(enemies)
       .map(x => enemies[x])
       .filter(enemy => UNSTABLE_AFFLICTION_DEBUFF_IDS.some(uaId => enemy.hasBuff(uaId, event.timestamp))).length;
-    this.bonusDmg += getDamageBonus(event, numberOfEnemiesWithUA * DAMAGE_BONUS_PER_TARGET);
+    this.bonusDmg += calculateEffectiveDamage(event, numberOfEnemiesWithUA * DAMAGE_BONUS_PER_TARGET);
   }
 
   item() {
     return {
       item: ITEMS.STRETENS_SLEEPLESS_SHACKLES,
-      result: (
-        <dfn data-tip={`Total bonus damage contributed: ${formatNumber(this.bonusDmg)}`}>
-          {this.owner.formatItemDamageDone(this.bonusDmg)}
-        </dfn>
-      ),
+      result: <ItemDamageDone amount={this.bonusDmg} />,
     };
   }
 }

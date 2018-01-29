@@ -3,22 +3,26 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import { push as pushAction } from 'react-router-redux';
+import { Link } from 'react-router-dom';
 
 import { ApiDownError, LogNotFoundError, CorruptResponseError, JsonParseError } from 'common/fetchWcl';
 import fetchEvents from 'common/fetchEvents';
-import fatalError from 'common/fatalError';
+import { captureException } from 'common/errorLogger';
+import Wrapper from 'common/Wrapper';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 
 import { fetchReport as fetchReportAction } from 'actions/report';
 import { fetchCombatants as fetchCombatantsAction } from 'actions/combatants';
 import { getReportCode, getFightId, getPlayerName } from 'selectors/url/report';
+import { getArticleId } from 'selectors/url/news';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import { getCombatants } from 'selectors/combatants';
 import { clearError, reportNotFoundError, apiDownError, unknownNetworkIssueError, unknownError, internetExplorerError, API_DOWN, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE, INTERNET_EXPLORER } from 'actions/error';
 import { getError } from 'selectors/error';
 
+import 'react-toggle/style.css';
 import './App.css';
 
 import ApiDownBackground from './Images/api-down-background.gif';
@@ -34,8 +38,13 @@ import FullscreenError from './FullscreenError';
 import NavigationBar from './Layout/NavigationBar';
 import DocumentTitleUpdater from './Layout/DocumentTitleUpdater';
 import Footer from './Layout/Footer';
+import NewsView from './News/View';
+import { default as makeNewsUrl } from './News/makeUrl';
+import { title as AboutArticleTitle } from './News/Articles/2017-01-31-About';
+import { title as UnlistedLogsTitle } from './News/Articles/2017-01-31-UnlistedLogs';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
+import ServiceStatus from './ServiceStatus';
 
 const timeAvailable = console.time && console.timeEnd;
 
@@ -53,6 +62,7 @@ function isIE() {
 class App extends Component {
   static propTypes = {
     reportCode: PropTypes.string,
+    articleId: PropTypes.string,
     playerName: PropTypes.string,
     fightId: PropTypes.number,
     report: PropTypes.shape({
@@ -167,11 +177,11 @@ class App extends Component {
       } else if (err instanceof ApiDownError) {
         this.props.apiDownError();
       } else if (err instanceof JsonParseError) {
-        fatalError(err);
+        captureException(err);
         this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
       } else {
         // Some kind of network error, internet may be down.
-        fatalError(err);
+        captureException(err);
         this.props.unknownNetworkIssueError(err);
       }
       return;
@@ -182,7 +192,7 @@ class App extends Component {
         progress: PROGRESS_STEP2_FETCH_EVENTS,
       });
 
-      const batchSize = 300;
+      const batchSize = 150;
       const numEvents = events.length;
       let offset = 0;
 
@@ -209,7 +219,7 @@ class App extends Component {
         progress: 1.0,
       });
     } catch (err) {
-      fatalError(err);
+      captureException(err);
       if (process.env.NODE_ENV === 'development') {
         // Something went wrong during the analysis of the log, there's probably an issue in your analyzer or one of its modules.
         throw err;
@@ -258,11 +268,11 @@ class App extends Component {
       } else if (err instanceof ApiDownError) {
         this.props.apiDownError();
       } else if (err instanceof JsonParseError) {
-        fatalError(err);
+        captureException(err);
         this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
       } else {
         // Some kind of network error, internet may be down.
-        fatalError(err);
+        captureException(err);
         this.props.unknownNetworkIssueError(err);
       }
     }
@@ -290,6 +300,9 @@ class App extends Component {
     this.updateBossIdIfNecessary(prevProps, prevState);
   }
   fetchReportIfNecessary(prevProps) {
+    if (this.props.error || isIE()) {
+      return;
+    }
     if (this.props.reportCode && this.props.reportCode !== prevProps.reportCode) {
       this.props.fetchReport(this.props.reportCode)
         .catch(err => {
@@ -299,14 +312,14 @@ class App extends Component {
           } else if (err instanceof ApiDownError) {
             this.props.apiDownError();
           } else if (err instanceof CorruptResponseError) {
-            fatalError(err);
+            captureException(err);
             this.props.unknownError('Corrupt Warcraft Logs API response received, this report can not be processed.');
           } else if (err instanceof JsonParseError) {
-            fatalError(err);
+            captureException(err);
             this.props.unknownError('JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.');
           } else {
             // Some kind of network error, internet may be down.
-            fatalError(err);
+            captureException(err);
             this.props.unknownNetworkIssueError(err);
           }
         });
@@ -421,12 +434,11 @@ class App extends Component {
         return (
           <FullscreenError
             error="A wild INTERNET EXPLORER appeared!"
-            details="WoWAnalyzer refuses to work. It's super effective!"
+            details="This browser is too unstable for WoWAnalyzer to work properly."
             background="https://media.giphy.com/media/njYrp176NQsHS/giphy.gif"
           >
-            <div>
-              <a className="btn btn-primary" href="http://outdatedbrowser.com/">Get a proper browser</a>
-            </div>
+            {/* Lower case the button so it doesn't seem to aggressive */}
+            <a className="btn btn-primary" href="http://outdatedbrowser.com/" style={{ textTransform: 'none' }}>Download a proper browser</a>
           </FullscreenError>
         );
       }
@@ -447,6 +459,13 @@ class App extends Component {
         </FullscreenError>
       );
     }
+
+    if (this.props.articleId) {
+      return (
+        <NewsView articleId={this.props.articleId} />
+      );
+    }
+
     if (!this.props.reportCode) {
       return <Home />;
     }
@@ -499,36 +518,47 @@ class App extends Component {
     const hasReport = reportCode || this.props.error;
 
     return (
-      <div className={`app ${hasReport ? 'has-report' : ''}`}>
-        <AppBackgroundImage bossId={this.state.bossId} />
+      <Wrapper>
+        <div className={`app ${hasReport ? 'has-report' : ''}`}>
+          <AppBackgroundImage bossId={this.state.bossId} />
 
-        <NavigationBar
-          parser={parser}
-          progress={progress}
-        />
-        <header>
-          <div className="container image-overlay">
-            <div className="row">
-              <div className="col-lg-6 col-md-10">
-                <h1>WoW&shy;Analyzer</h1>
-                <div className="description">
-                  Analyze your raid logs to view metrics and get personalized suggestions to improve your performance. Just enter a Warcraft Logs report:
+          <NavigationBar
+            parser={parser}
+            progress={progress}
+          />
+          <header>
+            <div className="container image-overlay">
+              <div className="row">
+                <div className="col-lg-6 col-md-10">
+                  <h1>WoW&shy;Analyzer</h1>
+                  <div className="description">
+                    Analyze your raid logs to get personal suggestions and metrics to improve your performance. Just enter a Warcraft Logs report:
+                  </div>
+                  {!hasReport && (
+                    <ReportSelecter />
+                  )}
+                  {process.env.NODE_ENV !== 'test' && <ServiceStatus style={{ marginBottom: 5 }} />}
+                  <div className="about">
+                    <Link to={makeNewsUrl(AboutArticleTitle)}>About WoWAnalyzer</Link>
+                    {' '}| <Link to={makeNewsUrl(UnlistedLogsTitle)}>About unlisted logs</Link>
+                    {' '}| <a href="https://discord.gg/AxphPxU">Join Discord</a>
+                    {' '}| <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">View source</a>
+                    {' '}| <a href="https://www.patreon.com/wowanalyzer">Become a Patron</a>
+                    {' '}| <a href="https://status.wowanalyzer.com/">Status</a>
+                  </div>
                 </div>
-                {!hasReport && (
-                  <ReportSelecter />
-                )}
               </div>
             </div>
-          </div>
-        </header>
-        <main>
-          {this.renderContent()}
-        </main>
-        {!error && <Footer />}
+          </header>
+          <main>
+            {this.renderContent()}
+          </main>
 
-        <ReactTooltip html place="bottom" />
-        <DocumentTitleUpdater />
-      </div>
+          <ReactTooltip html place="bottom" />
+          <DocumentTitleUpdater />
+        </div>
+        {!error && <Footer />}
+      </Wrapper>
     );
   }
 }
@@ -544,6 +574,8 @@ const mapStateToProps = state => {
     report: getReport(state),
     fight: getFightById(state, fightId),
     combatants: getCombatants(state),
+
+    articleId: getArticleId(state),
 
     error: getError(state),
   });

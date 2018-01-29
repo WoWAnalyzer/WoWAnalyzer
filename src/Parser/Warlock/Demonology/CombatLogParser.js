@@ -20,8 +20,8 @@ import ImpendingDoom from './Modules/Talents/ImpendingDoom';
 import ImprovedDreadstalkers from './Modules/Talents/ImprovedDreadstalkers';
 import Implosion from './Modules/Talents/Implosion';
 import HandOfDoom from './Modules/Talents/HandOfDoom';
-import SoulHarvest from './Modules/Talents/SoulHarvest';
-import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
+import SoulHarvest from '../Shared/Modules/Talents/SoulHarvest';
+import SoulHarvestTalent from '../Shared/Modules/Talents/SoulHarvestTalent';
 import GrimoireOfService from './Modules/Talents/GrimoireOfService';
 import GrimoireOfSynergy from './Modules/Talents/GrimoireOfSynergy';
 import SummonDarkglare from './Modules/Talents/SummonDarkglare';
@@ -29,10 +29,10 @@ import Demonbolt from './Modules/Talents/Demonbolt';
 
 import WakenersLoyalty from './Modules/Items/Legendaries/WakenersLoyalty';
 import RecurrentRitual from './Modules/Items/Legendaries/RecurrentRitual';
-import SindoreiSpite from './Modules/Items/Legendaries/SindoreiSpite';
+import SindoreiSpite from '../Shared/Modules/Items/SindoreiSpite';
 import KazzaksFinalCurse from './Modules/Items/Legendaries/KazzaksFinalCurse';
 import WilfredRing from './Modules/Items/Legendaries/WilfredRing';
-import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
+import TheMasterHarvester from '../Shared/Modules/Items/TheMasterHarvester';
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
 
 import T20_2set from './Modules/Items/T20_2set';

@@ -7,97 +7,68 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Rejuvenation from '../Core/Rejuvenation';
+import RejuvenationAttributor from '../Core/HotTracking/RejuvenationAttributor';
+import RegrowthAttributor from '../Core/HotTracking/RegrowthAttributor';
 
 class PowerOfTheArchdruid extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    rejuvenation: Rejuvenation,
+    rejuvenationAttributor: RejuvenationAttributor,
+    regrowthAttributor: RegrowthAttributor,
   };
 
-  potaRejuvs = 0;
-  regrowths = 0;
-
-  lastPotaRemovedTimestamp = null;
-  lastPotaRegrowthTimestamp = null;
-  proccs = 0;
-  regrowthDirect = 0;
-  potaRegrowthCounter = 0;
-
-  on_initialized() {
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.POWER_OF_THE_ARCHDRUID.id] > 0;
+  get directRejuvenationHealing() {
+    return this.rejuvenationAttributor.powerOfTheArchdruid.healing;
+  }
+  get masteryRejuvenationHealing() {
+    return this.rejuvenationAttributor.powerOfTheArchdruid.masteryHealing;
+  }
+  get dreamwalkerRejuvenationHealing() {
+    return this.rejuvenationAttributor.powerOfTheArchdruid.dreamwalkerHealing;
+  }
+  get totalRejuvenationHealing() {
+    return this.directRejuvenationHealing + this.masteryRejuvenationHealing + this.dreamwalkerRejuvenationHealing;
+  }
+  get rejuvenationProcs() {
+    return this.rejuvenationAttributor.powerOfTheArchdruid.procs;
   }
 
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.POWER_OF_THE_ARCHDRUID_BUFF.id !== spellId) {
-      return;
-    }
-    this.proccs += 1;
-
-    // Our 4PT19 can procc PotA
-    if (this.lastPotaRemovedTimestamp !== null && Math.abs(event.timestamp - this.lastPotaRemovedTimestamp) < 32) {
-      if (SPELLS.REJUVENATION.id === spellId) {
-        this.potaRejuvs = this.potaRejuvs + 2;
-      } else if (SPELLS.REGROWTH.id === spellId) {
-        this.regrowths = this.regrowths + 2;
-        this.lastPotaRegrowthTimestamp = event.timestamp;
-      }
-      this.lastPotaRemovedTimestamp = null;
-    }
+  get directRegrowthHealing() {
+    return this.regrowthAttributor.powerOfTheArchdruid.healing;
+  }
+  get masteryRegrowthHealing() {
+    return this.regrowthAttributor.powerOfTheArchdruid.masteryHealing;
+  }
+  get totalRegrowthHealing() {
+    return this.directRegrowthHealing + this.masteryRegrowthHealing;
+  }
+  get regrowthProcs() {
+    return this.regrowthAttributor.powerOfTheArchdruid.procs;
   }
 
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.POWER_OF_THE_ARCHDRUID_BUFF.id !== spellId) {
-      return;
-    }
-    this.lastPotaRemovedTimestamp = event.timestamp;
-  }
-
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-
-    if (this.lastPotaRemovedTimestamp !== null && Math.abs(event.timestamp - this.lastPotaRemovedTimestamp) < 32) {
-      if (SPELLS.REJUVENATION.id === spellId) {
-        this.potaRejuvs = this.potaRejuvs + 2;
-      } else if (SPELLS.REGROWTH.id === spellId) {
-        this.regrowths = this.regrowths + 2;
-        this.lastPotaRegrowthTimestamp = event.timestamp;
-      }
-      this.lastPotaRemovedTimestamp = null;
-    }
-  }
-
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-
-    if (SPELLS.REGROWTH.id !== spellId) {
-      return;
-    }
-    if (this.lastPotaRegrowthTimestamp !== null) {
-      // Skipping the first regrowth, only taking the 2 other.
-      if (this.potaRegrowthCounter > 0) {
-        this.regrowthDirect += event.amount + (event.absorbed || 0);
-      }
-      this.potaRegrowthCounter += 1;
-      if (this.potaRegrowthCounter === 3) {
-        this.lastPotaRegrowthTimestamp = null;
-        this.potaRegrowthCounter = 0;
-      }
-    }
+  get totalHealing() {
+    return this.totalRejuvenationHealing + this.totalRegrowthHealing;
   }
 
   statistic() {
-    const potaHealing = (this.rejuvenation.avgRejuvHealing * this.potaRejuvs) + this.regrowthDirect;
-    const potaHealingPercent = this.owner.getPercentageOfTotalHealingDone(potaHealing);
-
     return(
       <StatisticBox
         icon={<SpellIcon id={SPELLS.POWER_OF_THE_ARCHDRUID.id} />}
-        value={`${formatPercentage(potaHealingPercent)} %`}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealing))} %`}
         label="Power of the Archdruid"
-        tooltip={`Power of the Archdruid gave you ${this.potaRejuvs} bonus rejuvenations, ${this.regrowths} bonus regrowths`}
+        tooltip={`This tally includes not only the direct healing done by the procced Rejuvenations and Regrowths, but also healing that would have not have occured if the procced HoTs hadn't been present. This includes healing from the extra mastery stack, and healing from extra Dreamwalker procs.
+          You procced <b>${this.rejuvenationProcs}</b> Rejuvenations, which did <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalRejuvenationHealing))}%</b> healing.
+            <ul>
+            <li>Direct: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.directRejuvenationHealing))}%</b></li>
+            <li>Mastery: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.masteryRejuvenationHealing))}%</b></li>
+            <li>Dreamwalker: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.dreamwalkerRejuvenationHealing))}%</b></li>
+            </ul>
+          You procced <b>${this.regrowthProcs}</b> Regrowths, which did <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalRegrowthHealing))}%</b> healing.
+            <ul>
+            <li>Direct: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.directRegrowthHealing))}%</b></li>
+            <li>Mastery: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.masteryRegrowthHealing))}%</b></li>
+            </ul>
+            `}
       />
     );
   }

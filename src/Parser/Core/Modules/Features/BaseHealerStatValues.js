@@ -1,8 +1,8 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import { formatNumber, formatThousands } from 'common/format';
-
+import { formatNumber } from 'common/format';
+import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -10,9 +10,10 @@ import HealingValue from 'Parser/Core/Modules/HealingValue';
 import DamageValue from 'Parser/Core/Modules/DamageValue';
 import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
+import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import CORE_SPELL_INFO from './SpellInfo';
-import STAT, { getName, getClassNameColor, getIcon } from './STAT';
+import STAT, { getClassNameColor, getIcon, getName } from './STAT';
 
 const DEBUG = false;
 
@@ -296,21 +297,84 @@ class BaseHealerStatValues extends Analyzer {
     }
   }
 
+  get hpsPerIntellect() {
+    return this._getGain(STAT.INTELLECT) / this.owner.fightDuration * 1000;
+  }
+  get hpsPerCriticalStrike() {
+    return this._getGain(STAT.CRITICAL_STRIKE) / this.owner.fightDuration * 1000;
+  }
+  get hpsPerHasteHPCT() {
+    return this._getGain(STAT.HASTE_HPCT) / this.owner.fightDuration * 1000;
+  }
+  get hpsPerHasteHPM() {
+    return this._getGain(STAT.HASTE_HPM) / this.owner.fightDuration * 1000;
+  }
+  get hpsPerHaste() {
+    return this.hpsPerHasteHPCT + this.hpsPerHasteHPM;
+  }
+  get hpsPerMastery() {
+    return this._getGain(STAT.MASTERY) / this.owner.fightDuration * 1000;
+  }
+  get hpsPerVersatility() {
+    return this._getGain(STAT.VERSATILITY) / this.owner.fightDuration * 1000;
+  }
+  get hpsPerVersatilityDR() {
+    return this._getGain(STAT.VERSATILITY_DR) / this.owner.fightDuration * 1000;
+  }
+  get hpsPerLeech() {
+    return this._getGain(STAT.LEECH) / this.owner.fightDuration * 1000;
+  }
+
+  // region Item values
+  calculateItemStatsHps(baseStats, itemLevel) {
+    let hps = 0;
+    if (baseStats.primary) {
+      hps += calculatePrimaryStat(baseStats.itemLevel, baseStats.primary, itemLevel) * this.hpsPerIntellect;
+    }
+    if (baseStats.criticalStrike) {
+      hps += calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.criticalStrike, itemLevel) * this.hpsPerCriticalStrike;
+    }
+    if (baseStats.haste) {
+      hps += calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.haste, itemLevel) * this.hpsPerHaste;
+    }
+    if (baseStats.mastery) {
+      hps += calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.mastery, itemLevel) * this.hpsPerMastery;
+    }
+    if (baseStats.versatility) {
+      hps += calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.versatility, itemLevel) * this.hpsPerVersatility;
+    }
+    if (baseStats.leech) {
+      hps += calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.leech, itemLevel) * this.hpsPerLeech;
+    }
+    return hps;
+  }
+  // endregion
+
+  // region statistic
   _ratingPerOnePercent(oneRatingHealing) {
     const onePercentHealing = this.totalAdjustedHealing / 100;
     return onePercentHealing / oneRatingHealing;
   }
   _getGain(stat) {
     switch (stat) {
-      case STAT.INTELLECT: return this.totalOneInt;
-      case STAT.CRITICAL_STRIKE: return this.totalOneCrit;
-      case STAT.HASTE_HPCT: return this.totalOneHasteHpct;
-      case STAT.HASTE_HPM: return this.totalOneHasteHpm;
-      case STAT.MASTERY: return this.totalOneMastery;
-      case STAT.VERSATILITY: return this.totalOneVers;
-      case STAT.VERSATILITY_DR: return this.totalOneVers + this.totalOneVersDr;
-      case STAT.LEECH: return this.totalOneLeech;
-      default: return 0;
+      case STAT.INTELLECT:
+        return this.totalOneInt;
+      case STAT.CRITICAL_STRIKE:
+        return this.totalOneCrit;
+      case STAT.HASTE_HPCT:
+        return this.totalOneHasteHpct;
+      case STAT.HASTE_HPM:
+        return this.totalOneHasteHpm;
+      case STAT.MASTERY:
+        return this.totalOneMastery;
+      case STAT.VERSATILITY:
+        return this.totalOneVers;
+      case STAT.VERSATILITY_DR:
+        return this.totalOneVers + this.totalOneVersDr;
+      case STAT.LEECH:
+        return this.totalOneLeech;
+      default:
+        return 0;
     }
   }
   _getTooltip(stat) {
@@ -323,74 +387,82 @@ class BaseHealerStatValues extends Analyzer {
         return 'Weight includes only the boost to healing, and does not include the damage reduction.';
       case STAT.VERSATILITY_DR:
         return 'Weight includes both healing boost and damage reduction, counting damage reduction as additional throughput.';
-      default: return null;
+      default:
+        return null;
     }
   }
   moreInformationLink = null;
-  extraPanelOrder = 200;
-  extraPanel() {
+  statisticOrder = STATISTIC_ORDER.CORE(11);
+  statistic() {
     const results = this._prepareResults();
     return (
-      <div className="panel items">
-        <div className="panel-heading">
-          <h2>
-            <dfn data-tip="These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat values.">Stat Values</dfn>
+      <div className="col-lg-6 col-md-8 col-sm-12 col-xs-12">
+        <div className="panel items">
+          <div className="panel-heading">
+            <h2>
+              <dfn data-tip="These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat values.">Stat Values</dfn>
 
-            {this.moreInformationLink && (
-              <a href={this.moreInformationLink} className="pull-right">
-                More info
-              </a>
-            )}
-          </h2>
-        </div>
-        <div className="panel-body" style={{ padding: 0 }}>
-          <table className="data-table compact">
-            <thead>
-              <tr>
-                <th style={{ minWidth: 30 }}><b>Stat</b></th>
-                <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Normalized so Intellect is always 1.00. Hover to see the amount of healing 1 rating resulted in."><b>Value</b></dfn></th>
-                <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Amount of stat rating required to increase your total healing by 1%"><b>Rating per 1%</b></dfn></th>
-              </tr>
-            </thead>
-            <tbody>
-              {results.map(row => {
-                const stat = typeof row === 'object' ? row.stat : row;
-                const tooltip = typeof row === 'object' ? row.tooltip : this._getTooltip(stat);
-                const gain = this._getGain(stat);
-                const weight = gain / (this.totalOneInt || 1);
-                const ratingForOne = this._ratingPerOnePercent(gain);
+              {this.moreInformationLink && (
+                <a href={this.moreInformationLink} className="pull-right">
+                  More info
+                </a>
+              )}
+            </h2>
+          </div>
+          <div className="panel-body" style={{ padding: 0 }}>
+            <table className="data-table compact">
+              <thead>
+                <tr>
+                  <th style={{ minWidth: 30 }}><b>Stat</b></th>
+                  <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Normalized so Intellect is always 1.00. Hover to see the amount of healing 1 rating resulted in."><b>Value</b></dfn></th>
+                  <th className="text-right" style={{ minWidth: 30 }}>HPS per rating</th>
+                  <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Amount of stat rating required to increase your total healing by 1%"><b>Rating per 1%</b></dfn></th>
+                </tr>
+              </thead>
+              <tbody>
+                {results.map(row => {
+                  const stat = typeof row === 'object' ? row.stat : row;
+                  const tooltip = typeof row === 'object' ? row.tooltip : this._getTooltip(stat);
+                  const gain = this._getGain(stat);
+                  const weight = gain / (this.totalOneInt || 1);
+                  const ratingForOne = this._ratingPerOnePercent(gain);
 
-                const Icon = getIcon(stat);
+                  const Icon = getIcon(stat);
 
-                return (
-                  <tr key={stat}>
-                    <td className={getClassNameColor(stat)}>
-                      <Icon
-                        style={{
-                          height: '1.6em',
-                          width: '1.6em',
-                          marginRight: 10,
-                        }}
-                      />{' '}
-                      {tooltip ? <dfn data-tip={tooltip}>{getName(stat)}</dfn> : getName(stat)}
-                    </td>
-                    <td className="text-right">
-                      <dfn data-tip={gain !== null ? formatThousands(gain) + ' total healing gained per 1 rating' : 'NYI'}>
+                  return (
+                    <tr key={stat}>
+                      <td className={getClassNameColor(stat)}>
+                        <Icon
+                          style={{
+                            height: '1.6em',
+                            width: '1.6em',
+                            marginRight: 10,
+                          }}
+                        />{' '}
+                        {tooltip ? <dfn data-tip={tooltip}>{getName(stat)}</dfn> : getName(stat)}
+                      </td>
+                      <td className="text-right">
                         {stat === STAT.HASTE_HPCT && '0.00 - '}{gain !== null ? weight.toFixed(2) : 'NYI'}
-                      </dfn>
-                    </td>
-                    <td className="text-right">{gain !== null ? (
-                      ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)
-                    ) : 'NYI'}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                      </td>
+                      <td className="text-right">
+                        {(gain / this.owner.fightDuration * 1000).toFixed(2)}
+                      </td>
+                      <td className="text-right">
+                        {gain !== null ? (
+                          ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)
+                        ) : 'NYI'}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     );
   }
+  // endregion
 }
 
 export default BaseHealerStatValues;

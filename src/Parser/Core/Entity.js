@@ -65,6 +65,28 @@ class Entity {
   /**
    * @param {number} buffAbilityId - buff ID to check for
    * @param {number} sourceID - source ID the buff must have come from, or any source if null.
+   * @returns {number} - Time (in ms) the specified buff has been active weighted by the number of stacks active.
+   *      For example if buff was up for 10000ms with 1 stack and 20000ms with 2 stacks, would return 50000.
+   */
+  getStackWeightedBuffUptime(buffAbilityId, sourceID = null) {
+    return this.buffs
+      .filter(buff => (buff.ability.guid === buffAbilityId) && (sourceID === null || sourceID === buff.sourceID))
+      .reduce((totalUptime, buff) => {
+        let startTime;
+        let startStacks;
+        const buffUptime = buff.stackHistory.reduce((stackUptime, stack) => {
+          const result = !startTime ? 0 : (stack.timestamp - startTime) * startStacks;
+          startTime = stack.timestamp;
+          startStacks = stack.stacks;
+          return stackUptime + result;
+        }, 0);
+        return totalUptime + buffUptime;
+      }, 0);
+  }
+
+  /**
+   * @param {number} buffAbilityId - buff ID to check for
+   * @param {number} sourceID - source ID the buff must have come from, or any source if null.
    * @returns {number} - The number of times the specified buff has been applied (only applications count, not stack changes or refreshes).
    */
   getBuffTriggerCount(buffAbilityId, sourceID = null) {

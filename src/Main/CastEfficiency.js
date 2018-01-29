@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
+
+import Abilities from 'Parser/Core/Modules/Abilities';
 
 const CastEfficiency = ({ categories, abilities }) => {
   if (!abilities) {
@@ -13,6 +14,7 @@ const CastEfficiency = ({ categories, abilities }) => {
       <table className="data-table" style={{ marginTop: 10, marginBottom: 10 }}>
         {Object.keys(categories)
           .filter(key => abilities.some(item => item.ability.category === categories[key])) // filters out categories without any abilities in it
+          .filter(key => categories[key] !== Abilities.SPELL_CATEGORIES.HIDDEN) //filters out the hidden category
           .map(key => (
             <tbody key={key}>
               <tr>
@@ -25,13 +27,12 @@ const CastEfficiency = ({ categories, abilities }) => {
               {abilities
                 .filter(item => item.ability.category === categories[key])
                 .map(({ ability, cpm, maxCpm, casts, maxCasts, efficiency, canBeImproved }) => {
-                  const mainSpell = (ability.spell instanceof Array) ? ability.spell[0] : ability.spell;
-                  const name = ability.name || mainSpell.name;
+                  const name = ability.castEfficiency.name || ability.name;
                   return (
                     <tr key={name}>
                       <td style={{ width: '35%' }}>
-                        <SpellLink id={mainSpell.id} style={{ color: '#fff' }}>
-                          <SpellIcon id={mainSpell.id} noLink /> {name}
+                        <SpellLink id={ability.primarySpell.id} style={{ color: '#fff' }} icon iconStyle={{ height: undefined, marginTop: undefined }}>
+                          {name}
                         </SpellLink>
                       </td>
                       <td className="text-center" style={{ minWidth: 80 }}>
@@ -54,7 +55,7 @@ const CastEfficiency = ({ categories, abilities }) => {
                         {maxCpm !== null ? `${(efficiency * 100).toFixed(2)}%` : ''}
                       </td>
                       <td style={{ width: '25%', color: 'orange' }}>
-                        {canBeImproved && !ability.noCanBeImproved && 'Can be improved.'}
+                        {canBeImproved && ability.castEfficiency && ability.castEfficiency.suggestion && 'Can be improved.'}
                       </td>
                     </tr>
                   );
@@ -70,9 +71,12 @@ CastEfficiency.propTypes = {
     ability: PropTypes.shape({
       name: PropTypes.string,
       category: PropTypes.string.isRequired,
-      spell: PropTypes.shape({
+      primarySpell: PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
+      }).isRequired,
+      castEfficiency: PropTypes.shape({
+        name: PropTypes.string,
       }).isRequired,
     }),
     cpm: PropTypes.number.isRequired,

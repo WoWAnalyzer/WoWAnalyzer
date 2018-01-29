@@ -5,10 +5,13 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import Haste from './Modules/Core/Haste';
 import AbilityTracker from './Modules/Core/AbilityTracker';
 import Insanity from './Modules/Core/Insanity';
+import Channeling from './Modules/Core/Channeling';
+import GlobalCooldown from './Modules/Core/GlobalCooldown';
 
 // features
 import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import Checklist from './Modules/Features/Checklist';
 import SkippableCasts from './Modules/Features/SkippableCasts';
 
 // spells:
@@ -29,18 +32,23 @@ import AnundsSearedShackles from './Modules/Items/AnundsSearedShackles';
 import HeartOfTheVoid from './Modules/Items/HeartOfTheVoid';
 import ZenkaramIridisAnadem from './Modules/Items/ZenkaramIridisAnadem';
 
+import Tier21_2set from './Modules/Items/Tier21_2set';
+import Tier21_4set from './Modules/Items/Tier21_4set';
+
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
-
     // core
     haste: Haste,
     damageDone: [DamageDone, { showStatistic: true }],
     abilityTracker: AbilityTracker,
     insanity: Insanity,
+    channeling: Channeling,
+    globalCooldown: GlobalCooldown,
 
     // features:
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
+    checklist: Checklist,
     skippableCasts: SkippableCasts,
 
     // spells:
@@ -60,6 +68,9 @@ class CombatLogParser extends MainCombatLogParser {
     anundsSearedShackles: AnundsSearedShackles,
     heartOfTheVoid: HeartOfTheVoid,
     zenkaramIridisAnadem: ZenkaramIridisAnadem,
+
+    tier21_2set: Tier21_2set,
+    tier21_4set: Tier21_4set,
   };
 }
 

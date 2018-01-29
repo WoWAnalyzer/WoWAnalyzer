@@ -9,6 +9,7 @@
 export const Zerotorescue = {
   nickname: 'Zerotorescue',
   github: 'MartijnHols',
+  twitter: 'Zerotorescue',
   avatar: require('./Images/zerotorescue-avatar.png'),
 };
 export const blazyb = {
@@ -51,6 +52,11 @@ export const Sharrq = {
 };
 export const Khazak = {
   nickname: 'Khazak',
+  github: 'jjs451',
+};
+export const Bicepspump = {
+  nickname: 'Bicepspump',
+  github: 'Bicepspump',
 };
 export const Mamtooth = {
   nickname: 'Mamtooth',
@@ -96,6 +102,7 @@ export const Noichxd = {
 export const Hewhosmites = {
   nickname: 'Hewhosmites',
   github: 'CollCrom',
+  avatar: require('./Images/hewhosmites-avatar.png'),
 };
 export const Reglitch = {
   nickname: 'Reglitch',
@@ -155,4 +162,27 @@ export const Gurupitka = {
 export const Hartra344 = {
   nickname: 'hartra344',
   github: 'hartra344',
+};
+export const Maldark = {
+  nickname: 'Maldark',
+  github: 'Maldark',
+};
+export const hatra344 = {
+  nickname: 'hatra344',
+  github: 'hatra344',
+};
+export const emallson = {
+  nickname: 'emallson',
+  github: 'emallson',
+};
+export const Gebuz = {
+  nickname: 'Gebuz',
+  github: 'Gebuz',
+  avatar: require('./Images/gebuz-avatar.png'),
+};
+export const Anatta336 = {
+  nickname: 'Anatta336',
+};
+export const Herusx = {
+  nickname: 'Herusx',
 };

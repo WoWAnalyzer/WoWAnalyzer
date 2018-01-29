@@ -2,9 +2,11 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-
+import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemHealingDone from 'Main/ItemHealingDone';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 import isAtonement from '../Core/isAtonement';
 import AtonementSource from '../Features/AtonementSource';
@@ -59,10 +61,10 @@ class TarnishedSentinelMedallion extends Analyzer {
     return {
       item: ITEMS.TARNISHED_SENTINEL_MEDALLION,
       result: (
-        <dfn>
-          {this.owner.formatItemHealingDone(healing)} <br/>
-          {this.owner.formatItemDamageDone(damage)}
-        </dfn>
+        <Wrapper>
+          <ItemHealingDone amount={healing} /><br />
+          <ItemDamageDone amount={damage} />
+        </Wrapper>
       ),
     };
   }

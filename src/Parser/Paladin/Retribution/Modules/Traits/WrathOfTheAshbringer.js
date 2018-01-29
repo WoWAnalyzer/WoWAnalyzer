@@ -31,6 +31,9 @@ class WrathOfTheAshbringer extends Analyzer {
 		if(!this.combatants.selected.hasBuff(SPELLS.CRUSADE_TALENT.id)){
 			return;
 		}
+		if(event.targetIsFriendly) {
+			return;
+		}
 		this.wingsDamage += (event.amount || 0) + (event.aborbed || 0);
 	}
 

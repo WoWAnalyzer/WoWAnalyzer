@@ -6,11 +6,14 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox from 'Main/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import ITEMS from "common/ITEMS/HUNTER";
 
 const debug = false;
 
+/*
+ * Your ranged auto attacks have a 8% chance to trigger Lock and Load, causing your next two Aimed Shots to cost no Focus and be instant.
+ */
 class LockAndLoad extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -89,6 +92,7 @@ class LockAndLoad extends Analyzer {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.CORE(12);
 
 }
 

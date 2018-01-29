@@ -1,35 +1,169 @@
-export default `
-07-12-2017 - Resto Druid: Stat values shows healing gained per 1 rating on hover. (By Blazyb)
-05-12-2017 - Resto Druid: Added throughput rates for some NLC traits. (By Blazyb)
-23-10-2017 - Resto Druid: Added Stat Weights calculator. (by Sref)
-14-10-2017 - Resto Druid: Now uses the base Sephuz's Secret module, which displays average haste gained. (by Sref)
-06-10-2017 - Resto Druid: Added Ironbark module. (by Sref)
-29-09-2017 - Resto Druid: More Flourish updates. (by Sref)
-26-09-2017 - Resto Druid: Updated display of flourish. (by Blazyb)
-26-09-2017 - Resto Druid: Added suggestions on Soul of the forest/archdruid on WG usage. (by Blazyb)
-23-09-2017 - Resto Druid: Updated Mastery calculations to be less friendly to overhealing. Expect lower results from Cultivation, Cenarion Ward, Spring Blossoms, and 2PT19. (by Sref)
-22-09-2017 - Resto Druid: Updated display of 2PT20 to show average refunded cooldown instead of throughput estimate. (by Sref)
-21-09-2017 - Resto Druid: Minor bug fix to clearcasting module. (by Blazyb)
-19-09-2017 - Resto Druid: Added Average HoTs statistic (by Sref)
-18-09-2017 - Resto Druid: Added Essence of G'hanir to the cooldowns tab. (by Blazyb)
-09-07-2017 - Resto Druid: Added relic traits module (by Blazyb)
-09-09-2017 - Resto Druid: Added suggestion when high Nature's Essence overheal. (by Sref)
-07-09-2017 - Resto Druid: Added support for T21. (by Sref)
-07-09-2017 - Resto Druid: Activated low health healing module (by Blazyb)
-07-09-2017 - Resto Druid: Added suggestions to cultivation and spring blossoms (by Blazyb)
-04-09-2017 - Resto Druid: Added Mastery calculations, with support for Spring Blossoms, Cenarion Ward, Cultivation, and the T19 2Set (by Sref)
-06-07-2017 - Resto Druid: Added mana costs for spells, the cooldown tab should now properly calculate mana costs
-06-07-2017 - Resto Druid: Fixed a bug on 4PT20 calculations. Also added swiftmend to cast efficiency tab. (by Blazyb)
-23-06-2017 - Resto Druid: Added Essence of G'hanir (by Blazyb)
-20-06-2017 - Resto Druid: Added Gnawed Thumb Ring (by Blazyb)
-16-06-2017 - Resto Druid: Added reduction to promises if you did not utilize the effect fully, i.e not needing the extra mana saved. Honorable mentions to Feidan for providing the formula. (by Blazyb)
-15-06-2017 - Resto Druid: Adjusted promises to base of ilvl 900 also added throughput calc on promises. (by Blazyb)
-01-06-2017 - Resto Druid: Updated T20 calculations for the 200%/10seconds change.
-30-05-2017 - Resto Druid: Added Dreamwalker calculations. Thanks @greatman
-30-05-2017 - Resto Druid: Added SotF + Soul of the Archdruid analyzer.
-26-05-2017 - Resto Druid: Added Non healing time and dead GCD.
-26-05-2017 - Resto Druid: Added Chameleon Song legendary analyzer. Also added additional information on tree of life tool tip.
-25-05-2017 - Resto Druid: Added support for T20.
-25-05-2017 - Resto Druid: Fixed a minor error in DTA calculations with partial overheals.
-21-05-2017 - Added Resto Druid support by <b>@blazyb</b> (see: <a href="https://github.com/buimichael/RestoDruidAnalyzer">https://github.com/buimichael/RestoDruidAnalyzer</a>).
-`;
+import { blazyb, sref, Zerotorescue } from 'MAINTAINERS';
+
+export default [
+  {
+    date: new Date('2018-01-10'),
+    changes: 'Added framework for tracking HoT attribution, allowing updates to several modules: Tearstone of Elune, Power of the Archdruid, T21 2pc, and T21 4pc. Also added T19 4pc module.',
+    contributors: [sref],
+  },
+  {
+    date: new Date('2018-01-07'),
+    changes: 'Clearcasting module now shows percent used instead of percent missed, tooltip updated, and now works with MoC',
+    contributors: [sref],
+  },
+  {
+    date: new Date('2017-12-24'),
+    changes: 'Fixed crash with the new Insignia of the Grand Army module.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2017-12-07'),
+    changes: 'Stat values show healing gained per 1 rating on hover.',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-12-05'),
+    changes: 'Added throughput for some NLC traits.',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-10-23'),
+    changes: 'Added Stat Weights calculator',
+    contributors: [sref],
+  },
+  {
+    date: new Date('2017-10-14'),
+    changes: "Now uses the base Sephuz's Secret module, which displays average haste gained.",
+    contributors: [sref],
+  },
+  {
+    date: new Date('2017-10-06'),
+    changes: 'Added Ironbark module.',
+    contributors: [sref],
+  },
+  {
+    date: new Date('2017-09-29'),
+    changes: 'Flourish display updates.',
+    contributors: [blazyb, sref],
+  },
+  {
+    date: new Date('2017-09-26'),
+    changes: 'Added suggestions for Soul of the Forest / Archdruid WG usage',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-09-23'),
+    changes: 'Updated Mastery calculations to be less friendly to overhealing. Expect lower results from Cultivation, Cenarion Ward, Spring Blossoms, and 2PT19.',
+    contributors: [sref],
+  },
+  {
+    date: new Date('2017-09-22'),
+    changes: 'Updated display of 2PT20 to show average refunded cooldown instead of throughput estimate.',
+    contributors: [sref],
+  },
+  {
+    date: new Date('2017-09-21'),
+    changes: 'Minor bug fix to clearcasting module.',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-09-19'),
+    changes: 'Added Average HoTs statistic',
+    contributors: [sref],
+  },
+  {
+    date: new Date('2017-09-18'),
+    changes: "Added Essence of G'Hanir to the cooldowns tab",
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-09-07'),
+    changes: 'Added relic traits module',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-09-07'),
+    changes: "Added suggestion when high Nature's Essence overheal",
+    contributors: [sref],
+  },
+  {
+    date: new Date('2017-09-07'),
+    changes: 'Added preliminary support for T21',
+    contributors: [sref],
+  },
+  {
+    date: new Date('2017-09-07'),
+    changes: 'Activated low health healing module',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-09-07'),
+    changes: 'Added suggestions for low healing from Cultivation and Spring Blossoms',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-09-04'),
+    changes: 'Added Mastery calculations, with support for Spring Blossoms, Cenarion Ward, Cultivation, and the T19 2Set',
+    contributors: [sref],
+  },
+  {
+    date: new Date('2017-07-06'),
+    changes: 'Added mana costs for spells, and the cooldown tab should now properly calculate mana costs',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-07-06'),
+    changes: 'Fixed a bug in 4PT20 calculations, and added Swiftmend to the cast efficiency tab',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-06-23'),
+    changes: "Added Essence of G'Hanir module",
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-06-20'),
+    changes: 'Added Gnawed Thumb Ring module',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-06-16'),
+    changes: 'Adjustments to DMD:Promises module',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-06-01'),
+    changes: 'Updated T20 calculations based on PTR changes',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-05-30'),
+    changes: 'Added Dreamwalker calculations (thanks @greatman)',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-05-30'),
+    changes: 'Added SotF + SotA modules',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-05-26'),
+    changes: 'Added non-healing time and downtime calculations',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-05-26'),
+    changes: 'Added Chameleon Song module. Also updated Tree of Life module',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-05-25'),
+    changes: 'Added T20 module',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2017-05-21'),
+    changes: 'Added Resto Druid Analyzer',
+    contributors: [blazyb],
+  },
+];

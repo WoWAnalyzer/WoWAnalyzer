@@ -13,13 +13,14 @@ import Feeding from 'Main/Feeding';
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
+import Abilities from './Modules/Abilities';
 
 import ShamanAbilityTracker from './Modules/ShamanCore/ShamanAbilityTracker';
 
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
-import Abilities from './Modules/Features/Abilities';
+import Checklist from './Modules/Features/Checklist';
 
 import AncestralVigor from './Modules/Features/AncestralVigor';
 import TidalWaves from './Modules/Features/TidalWaves';
@@ -42,6 +43,8 @@ import Restoration_Shaman_T21_4Set from './Modules/Items/T21_4Set';
 import ChainHeal from './Modules/Spells/ChainHeal';
 import HealingSurge from './Modules/Spells/HealingSurge';
 import GiftOfTheQueen from './Modules/Spells/GiftOfTheQueen';
+import HealingRain from './Modules/Spells/HealingRain';
+import HealingWave from './Modules/Spells/HealingWave';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -53,6 +56,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilityTracker: ShamanAbilityTracker,
     lowHealthHealing: LowHealthHealing,
     healingDone: [HealingDone, { showStatistic: true }],
+    abilities: Abilities,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -60,9 +64,9 @@ class CombatLogParser extends CoreCombatLogParser {
     highTide: HighTide,
     cooldownThroughputTracker: CooldownThroughputTracker,
     ancestralVigor: AncestralVigor,
-    abilities: Abilities,
     tidalWaves: TidalWaves,
     castBehavior: CastBehavior,
+    checklist: Checklist,
 
     // Talents:
     earthenShieldTotem: EarthenShieldTotem,
@@ -83,6 +87,8 @@ class CombatLogParser extends CoreCombatLogParser {
     chainHeal: ChainHeal,
     giftOfTheQueen: GiftOfTheQueen,
     healingSurge: HealingSurge,
+    healingRain: HealingRain,
+    healingWave: HealingWave,
   };
 
   generateResults() {

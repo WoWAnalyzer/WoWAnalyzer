@@ -7,6 +7,7 @@ import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
 
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 const DARK_TITAN_FINAL_HEALING_INCREASE = 2;
 
@@ -68,7 +69,7 @@ class DarkTitanAdvice extends Analyzer {
           <li>Procs: <b>${formatPercentage(procsPercent)}%</b></li>
           </ul>
         `}>
-          {this.owner.formatItemHealingDone(total)}
+          <ItemHealingDone amount={total} />
         </dfn>
       ),
     };

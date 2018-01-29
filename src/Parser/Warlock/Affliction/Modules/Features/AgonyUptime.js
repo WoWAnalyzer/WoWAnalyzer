@@ -9,6 +9,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellLink from 'common/SpellLink';
+import Wrapper from 'common/Wrapper';
 
 class AgonyUptime extends Analyzer {
   static dependencies = {
@@ -16,33 +17,44 @@ class AgonyUptime extends Analyzer {
     combatants: Combatants,
   };
 
+  get uptime() {
+    return this.enemies.getBuffUptime(SPELLS.AGONY.id) / this.owner.fightDuration;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: 0.8,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
-    const agonyUptime = this.enemies.getBuffUptime(SPELLS.AGONY.id) / this.owner.fightDuration;
-    let threshold;
-    let suggestionText;
+    let text;
     if (this.combatants.selected.hasTalent(SPELLS.WRITHE_IN_AGONY_TALENT.id)) {
-      threshold = 0.95;
-      suggestionText = <span>Your Agony uptime can be improved. Try to pay more attention to your Agony on the boss, especially since you're using <SpellLink id={SPELLS.WRITHE_IN_AGONY_TALENT.id} /> talent.</span>;
-    } else {
-      threshold = 0.85;
-      suggestionText = 'Your Agony uptime can be improved. Try to pay more attention to your Agony on the boss, perhaps use some debuff tracker.';
+      text = <Wrapper>Your <SpellLink id={SPELLS.AGONY.id} /> uptime can be improved as it is your main source of Soul Shards. Try to pay more attention to your Agony on the boss, especially since you're using <SpellLink id={SPELLS.WRITHE_IN_AGONY_TALENT.id} /> talent.</Wrapper>;
     }
-    when(agonyUptime).isLessThan(threshold)
+    else {
+      text = <Wrapper>Your <SpellLink id={SPELLS.AGONY.id} /> uptime can be improved as it is your main source of Soul Shards. Try to pay more attention to your Agony on the boss, perhaps use some debuff tracker.</Wrapper>;
+    }
+    when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(suggestionText)
+        return suggest(text)
           .icon(SPELLS.AGONY.icon)
           .actual(`${formatPercentage(actual)}% Agony uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended - 0.05).major(recommended - 0.15);
+          .recommended(`> ${formatPercentage(recommended)}% is recommended`);
       });
   }
 
   statistic() {
-    const agonyUptime = this.enemies.getBuffUptime(SPELLS.AGONY.id) / this.owner.fightDuration;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.AGONY.id} />}
-        value={`${formatPercentage(agonyUptime)} %`}
+        value={`${formatPercentage(this.uptime)} %`}
         label="Agony uptime"
       />
     );

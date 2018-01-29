@@ -10,6 +10,11 @@ export default {
     name: 'Astral Shift',
     icon: 'ability_shaman_astralshift',
   },
+  PURIFY_SPIRIT: {
+    id: 77130,
+    name: 'Purify Spirit',
+    icon: 'ability_shaman_cleansespirit',
+  },
   WIND_SHEAR: {
     id: 57994,
     name: 'Wind Shear',
@@ -232,6 +237,42 @@ export default {
     name: 'The Deceiver\'s Blood Pact',
     icon: 'ability_creature_cursed_04',
   },
+  THE_DECEIVERS_BLOOD_PACT_EQUIP: {
+    id: 214131,
+    name: 'The Deceiver\'s Blood Pact',
+    icon: 'ability_creature_cursed_04',
+  },
+  ECHOES_OF_THE_GREAT_SUNDERING_BUFF: {
+    id: 208723,
+    name: 'Echoes of the Great Sundering',
+    icon: 'inv_shoulder_plate_raidwarrior_j_01',
+  },
+  //Elemental Sets
+  ELEMENTAL_SHAMAN_T21_2SET_BUFF: {
+    id: 251757,
+    name: 'Tier21 2 Set Bonus',
+    icon: 'ability_creature_cursed_04',
+  },
+  ELEMENTAL_SHAMAN_T21_4SET_BUFF: {
+    id: 251758,
+    name: 'Tier21 4 Set Bonus',
+    icon: 'ability_shaman_ascendance',
+  },
+  EARTHEN_STRENGTH: {
+    id: 252141,
+    name: 'Earthen Strength',
+    icon: 'spell_nature_shamanrage',
+  },
+  FROST_SHOCK_OVERLOAD: {
+    id: 256561,
+    name: 'Frost Shock Overload',
+    icon: 'spell_frost_frostshock',
+  },
+  EARTH_SHOCK_OVERLOAD: {
+    id: 252143,
+    name: 'Earth Shock Overload',
+    icon: 'spell_nature_earthshock',
+  },
   // Enhancement Shaman
   ROCKBITER: {
     id: 193786,
@@ -451,6 +492,31 @@ export default {
     name: 'T20 2 set bonus',
     icon: 'spell_shaman_improvedstormstrike',
   },
+  ENHANCE_SHAMAN_T20_2SET_EQUIP: {
+    id: 242283,
+    name: 'T20 2set bonus equip flag',
+    icon: 'spell_shaman_ascendance',
+  },
+  ENHANCE_SHAMAN_T21_2SET_EQUIP: {
+    id: 251762,
+    name: 'T21 2set bonus equip flag',
+    icon: 'ability_shaman_ascendance',
+  },
+  FORCE_OF_THE_MOUNTAIN: {
+    id: 254308,
+    name: 'T21 2set bonus buff',
+    icon: 'spell_nature_earthquake',
+  },
+  ENHANCE_SHAMAN_T21_4SET_EQUIP: {
+    id: 251761,
+    name: 'T21 4set bonus equip flag',
+    icon: 'ability_shaman_ascendance',
+  },
+  EXPOSED_ELEMENTS: {
+    id: 252151,
+    name: 'T21 4set bonus debuff',
+    icon: 'ability_shaman_ascendance',
+  },
   //Enhancement Traits
   ALPHA_WOLF_TRAIT: {
     id: 198434,
@@ -547,9 +613,9 @@ export default {
     icon: 'inv_mace_1h_artifactazshara_d_02',
   },
   GIFT_OF_THE_QUEEN_DUPLICATE: {
-     id:255227,
-     name: 'Gift of the Queen Duplicate',
-     icon: 'inv_mace_1h_artifactazshara_d_02',
+    id:255227,
+    name: 'Gift of the Queen Duplicate',
+    icon: 'inv_mace_1h_artifactazshara_d_02',
   },
   CLOUDBURST_TOTEM_HEAL: {
     id: 157503,

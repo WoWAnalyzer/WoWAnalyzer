@@ -5,6 +5,7 @@ import ITEMS from 'common/ITEMS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ItemHealingDone from 'Main/ItemHealingDone';
 
 const GUARDIAN_DAMAGE_REDUCTION = 0.06;
 const EKOWRAITH_INCREASED_EFFECT = 1.75;
@@ -49,7 +50,7 @@ class Ekowraith extends Analyzer {
         ${!this.hasGuardianAffinity ? '' :
         ` <b>In addition, the damage reduction attributable to the boosted strength of Guardian Affinity prevented the equivalent of ${this.owner.formatItemHealingDone(this.damageReduction)}</b>`}
         `}>
-          {this.owner.formatItemHealingDone(this.healing)}
+          <ItemHealingDone amount={this.healing} />
         </dfn>
       ),
     };

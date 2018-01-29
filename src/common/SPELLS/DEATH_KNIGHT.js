@@ -12,10 +12,23 @@ export default {
     name: 'Consumption',
     icon: 'inv_axe_2h_artifactmaw_d_01',
   },
+
+  UMBILICUS_ETERNUS: { //Artifact Trait
+    id: 193213,
+    name: 'Umbilicus Eternus',
+    icon: 'artifactability_blooddeathknight_umbilicuseternus',
+  },
+
+  UMBILICUS_ETERNUS_BUFF: {
+    id: 193320,
+    name: 'Umbilicus Eternus Buff',
+    icon: 'artifactability_blooddeathknight_umbilicuseternus',
+  },
+
   // Damage Dealing
   // Provides the 1 RP tick on DnD from Rapid Decomposition Talent
   RAPID_DECOMPOSITION_RP_TICK: {
-    id: 188290,
+    id: 255203,
     name: 'Rapid Decomposition RP Tick',
     icon: 'ability_deathknight_deathsiphon2',
   },
@@ -94,7 +107,7 @@ export default {
 // Buffs
   OSSUARY: {
     id: 219788,
-    name: 'OSSUARY',
+    name: 'Ossuary',
     icon: 'ability_deathknight_brittlebones',
   },
 
@@ -106,7 +119,7 @@ export default {
   UNENDING_THIRST: {
     id: 192567,
     name: 'Unending Thirst',
-    icon: 'inv_axe_2h_artifactmaw_d_02',
+    icon: 'ability_ironmaidens_whirlofblood',
   },
   VAMPIRIC_AURA: {
     id: 238698,
@@ -119,6 +132,13 @@ export default {
     id: 108199,
     name: 'Gorefiend\'s Grasp',
     icon: 'ability_deathknight_aoedeathgrip',
+  },
+
+  //Blood DK Version
+  ASPHYXIATE: {
+    id: 221562,
+    name: 'Asphyxiate',
+    icon: 'ability_deathknight_asphixiate',
   },
 
   // Blood Tier Sets
@@ -146,7 +166,7 @@ export default {
   SINDRAGOSAS_FURY_ARTIFACT: {
     id: 190778,
     name: 'Sindragosa\'s Fury',
-    icon: 'spell_deathknight_frostfever',
+    icon: 'achievement_boss_sindragosa',
   },
   // Damage Dealing
   FROST_FEVER: {
@@ -169,12 +189,17 @@ export default {
     name: 'Howling Blast',
     icon: 'spell_frost_arcticwinds',
   },
-  REMORSELESS_WINTER_STACKS: {
+  REMORSELESS_WINTER_ENV_CAST: {
+    id: 211793,
+    name: 'Remorseless Winter',
+    icon: 'ability_deathknight_remorselesswinters2',
+  },
+  REMORSELESS_WINTER_BUFF: {
     id: 196771,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
   },
-  REMORSELESS_WINTER: {
+  REMORSELESS_WINTER: { // This the spell the player see
     id: 196770,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
@@ -351,6 +376,12 @@ export default {
     icon: 'spell_shadow_deathcoil',
   },
 
+  DEATH_COIL_DAMAGE: {
+    id: 47632,
+    name: 'Death Coil',
+    icon: 'spell_shadow_deathcoil',
+  },
+
   FESTERING_STRIKE: {
     id: 85948,
     name: 'Festering Strike',
@@ -419,11 +450,17 @@ export default {
     icon: 'spell_shadow_unholyfrenzy',
   },
 
+  UNHOLY_STRENGTH_BUFF: {
+	  id: 53365,
+	  name: 'Unholy Strength',
+	  icon: 'spell_holy_blessingofstrength',
+  },
+
   // Unholy Tier Sets
   // T20 2 Piece and buff
   UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS: {
     id: 242064,
-    name: 'T20 2 set Bonus',
+    name: 'T20 2 Set Bonus',
     icon: 'spell_deathknight_unholypresence',
   },
 
@@ -431,6 +468,24 @@ export default {
     id: 246995,
     name: 'Master of Ghouls',
     icon: 'spell_deathknight_unholypresence',
+  },
+
+  UNHOLY_DEATH_KNIGHT_T21_4SET_BONUS: {
+    id: 251872,
+    name: 'T21 4 Set Bonus',
+    icon: 'ability_paladin_conviction',
+  },
+
+  UNHOLY_DEATH_KNIGHT_T21_2SET_BONUS: {
+    id: 251871,
+    name: 'T21 2 Set Bonus',
+    icon: 'ability_paladin_conviction',
+  },
+
+  COILS_OF_DEVASTATION: { // debuff and damage from t21 2p
+    id: 253367,
+    name: 'Coils of Devastation (T21 2 Set Bonus)',
+    icon: 'ability_malkorok_blightofyshaarj_green',
   },
 
   // Artifact traits:
@@ -507,6 +562,12 @@ export default {
     icon: 'spell_deathknight_butcher2',
   },
 
+  DEATH_STRIKE_HEAL: {
+    id: 45470,
+    name: 'Death Strike Heal',
+    icon: 'spell_deathknight_butcher2',
+  },
+
   ICEBOUND_FORTITUDE: {
     id: 48792,
     name: 'Icebound Fortitude',
@@ -544,8 +605,44 @@ export default {
   },
 
   COLD_HEART_BUFF: {
+    id: 235599,
+    name: 'Cold Heart',
+    icon: 'spell_frost_chainsofice',
+  },
+
+  COLD_HEART_DEBUFF: {
     id: 248397,
     name: 'Cold Heart',
     icon: 'spell_frost_chainsofice',
+  },
+
+  //Skullflower's Haemostasis blood dk legendary buff
+  HAEMOSTASIS_BUFF: {
+    id: 235559,
+    name: 'Haemostasis',
+    icon: 'ability_deathwing_bloodcorruption_earth',
+  },
+
+  //Shackles of Bryndaor blood dk legendary buff
+  SHACKLES_OF_BRYNDAOR_BUFF: {
+    id: 209232,
+    name: 'Shackles of Bryndaor',
+    icon: 'ability_deathknight_runicimpowerment',
+  },
+
+  RUNE_1: {
+    id: -101,
+    name: 'Rune 1',
+    icon: 'spell_deathknight_frozenruneweapon',
+  },
+  RUNE_2: {
+    id: -102,
+    name: 'Rune 2',
+    icon: 'spell_deathknight_frozenruneweapon',
+  },
+  RUNE_3: {
+    id: -103,
+    name: 'Rune 3',
+    icon: 'spell_deathknight_frozenruneweapon',
   },
 };

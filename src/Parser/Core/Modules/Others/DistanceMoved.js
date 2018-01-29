@@ -86,7 +86,7 @@ class DistanceMoved extends Analyzer {
     debug && console.log(`Time spent moving: ${this.timeSpentMoving / 1000} s, Total distance moved: ${this.totalDistanceMoved} yds`);
 
     return (
-      <div className="col-lg-4 col-sm-6 col-xs-12">
+      <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <div className="panel statistic-box small">
           <div className="panel-body flex wrapable">
             <div className="flex-main">

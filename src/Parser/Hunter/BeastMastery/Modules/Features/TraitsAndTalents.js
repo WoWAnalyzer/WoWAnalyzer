@@ -11,7 +11,7 @@ import AMurderOfCrows from '../Talents/AMurderOfCrows';
 import BestialFury from '../Talents/BestialFury';
 import TitansThunder from '../Traits/TitansThunder';
 import Stomp from '../Talents/Stomp';
-import AspectOfTheBeast from '../Talents/AspectOfTheBeast';
+import AspectOfTheBeast from '../../../Shared/Modules/Talents/AspectOfTheBeast';
 import ChimaeraShot from '../Talents/ChimaeraShot';
 import WayOfTheCobra from '../Talents/WayOfTheCobra';
 import BlinkStrikes from '../Talents/BlinkStrikes';
@@ -74,7 +74,7 @@ class TraitsAndTalents extends Analyzer {
       </StatisticsListBox>
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(9);
+  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default TraitsAndTalents;

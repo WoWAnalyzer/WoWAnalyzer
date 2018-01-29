@@ -1,0 +1,18 @@
+.flexJustify {
+  display: flex;
+  justify-content: space-between;
+}
+.inlineBlocks span {
+  display: inline-block;
+}
+@media (min-width: 768px) {
+  .flexJustify span {
+    margin-top: -0.5rem;
+    line-height: 1.2em;
+  }
+}
+@media (min-width: 1200px) {
+  .hideWider1200 {
+    display: none;
+  }
+}

@@ -100,7 +100,7 @@ class MonkSpreadsheet extends React.Component {
             <tr><td>{((parser.modules.thunderFocusTea.castsTftRem / parser.modules.thunderFocusTea.castsTft) || 0).toFixed(4)}</td></tr>
             <tr><td>{((parser.modules.thunderFocusTea.castsTftViv / parser.modules.thunderFocusTea.castsTft) || 0).toFixed(4)}</td></tr>
             <tr style={styles.cellBorder}><td>{parser.modules.upliftingTrance.UTProcsTotal}</td></tr>
-            <tr><td>{(1 - (parser.modules.upliftingTrance.consumedUTProc / parser.modules.upliftingTrance.UTProcsTotal)).toFixed(4)}</td></tr>
+            <tr><td>{(1 - (parser.modules.upliftingTrance.consumedUTProc / parser.modules.upliftingTrance.UTProcsTotal) || 0).toFixed(4)}</td></tr>
             <tr style={styles.cellBorder}><td>{(parser.modules.manaTea.manaSavedMT / parser.fightDuration * 1000 * 5).toFixed(0)}</td></tr>
             <tr style={styles.cellBorder}><td>{(parser.modules.combatants.selected.hasTalent(SPELLS.LIFECYCLES_TALENT.id) && ((parser.modules.lifecycles.castsRedViv / (parser.modules.lifecycles.castsRedViv + parser.modules.lifecycles.castsNonRedViv)).toFixed(4))) || 0}</td></tr>
             <tr><td>{(parser.modules.combatants.selected.hasTalent(SPELLS.LIFECYCLES_TALENT.id) && ((parser.modules.lifecycles.castsRedEnm / (parser.modules.lifecycles.castsRedEnm + parser.modules.lifecycles.castsNonRedEnm)).toFixed(4))) || 0}</td></tr>
@@ -118,13 +118,13 @@ class MonkSpreadsheet extends React.Component {
             <tr style={styles.cellBorder}><td>{((parser.modules.amalgamsSeventhSpine.manaGained / parser.fightDuration * 1000 * 5) || 0) + ((parser.modules.darkmoonDeckPromises.manaGained / parser.fightDuration * 1000 * 5) || 0)}</td></tr>
             <tr>
               <td>
-                {(((parser.modules.prydaz.healing || 0) +
-              (parser.modules.velens.healing || 0) +
+                {(((parser.modules.prydazXavaricsMagnumOpus.healing || 0) +
+              (parser.modules.velensFutureSight.healing || 0) +
               (parser.modules.drapeOfShame.healing || 0) +
               (parser.modules.gnawedThumbRing.healing || 0) +
               (parser.modules.archiveOfFaith.healing + parser.modules.archiveOfFaith.healingOverTime || 0) +
               (parser.modules.barbaricMindslaver.healing || 0) +
-              (parser.modules.seaStar.healing || 0) +
+              (parser.modules.seaStarOfTheDepthmother.healing || 0) +
               (parser.modules.deceiversGrandDesign.healing + parser.modules.deceiversGrandDesign.healingAbsorb || 0) +
               (parser.modules.eithas.healing || 0) +
               (parser.modules.shelterOfRin.healing || 0) +

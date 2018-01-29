@@ -10,7 +10,7 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.FROST_MAGE,
   maintainers: [Sharrq, sref],
-  completeness: SPEC_ANALYSIS_COMPLETENESS.GOOD, // good = it matches most common manual reviews in class discords, great = it support all important class features
+  completeness: SPEC_ANALYSIS_COMPLETENESS.GREAT, // good = it matches most common manual reviews in class discords, great = it support all important class features
   changelog: CHANGELOG,
   description: (
     <div>

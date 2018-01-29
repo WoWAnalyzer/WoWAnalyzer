@@ -6,10 +6,13 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import Wrapper from 'common/Wrapper';
+import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
-import getDamageBonus from '../WarlockCore/getDamageBonus';
+import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
 const HAUNT_DAMAGE_BONUS = 0.15;
 
@@ -21,6 +24,8 @@ class Haunt extends Analyzer {
   };
 
   bonusDmg = 0;
+  totalTicks = 0;
+  buffedTicks = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.HAUNT_TALENT.id);
@@ -32,19 +37,66 @@ class Haunt extends Analyzer {
       return;
     }
     const hasHaunt = target.hasBuff(SPELLS.HAUNT_TALENT.id, event.timestamp);
-    if (!hasHaunt) {
-      return;
+
+    if (UNSTABLE_AFFLICTION_DEBUFF_IDS.includes(event.ability.guid)) {
+      this.totalTicks += 1;
+      if (hasHaunt) {
+        this.buffedTicks += 1;
+      }
     }
 
-    this.bonusDmg += getDamageBonus(event, HAUNT_DAMAGE_BONUS);
+    if (hasHaunt) {
+      this.bonusDmg += calculateEffectiveDamage(event, HAUNT_DAMAGE_BONUS);
+    }
+  }
+
+  get unbuffedTicks() {
+    return this.totalTicks - this.buffedTicks;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: (this.unbuffedTicks / this.totalTicks) || 1,
+      isGreaterThan: {
+        // TODO
+        minor: 0.15,
+        average: 0.2,
+        major: 0.25,
+      },
+      style: 'percentage',
+    };
+  }
+
+  // used in Checklist, mirrors the numbers from suggestionThresholds()
+  get positiveSuggestionThresholds() {
+    return {
+      actual: (this.buffedTicks / this.totalTicks) || 0,
+      isLessThan: {
+        minor: 0.85,
+        average: 0.8,
+        major: 0.75,
+      },
+      style: 'percentage',
+    };
+  }
+
+  suggestions(when) {
+    when(this.suggestionThresholds)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<Wrapper>Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id}/> aren't buffed enough by <SpellLink id={SPELLS.HAUNT_TALENT.id}/>. You should try to cast your Unstable Affliction in the burst windows provided by Haunt (but <strong>don't overcap</strong> your Soul Shards while waiting).</Wrapper>)
+          .icon(SPELLS.HAUNT_TALENT.icon)
+          .actual(`${formatPercentage(actual)}% unbuffed Unstable Affliction ticks.`)
+          .recommended(`< ${formatPercentage(recommended)}% is recommended`);
+      });
   }
 
   statistic() {
+    const buffedTicksPercentage = (this.buffedTicks / this.totalTicks) || 1;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HAUNT_TALENT.id} />}
-        value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
-        label="Damage contributed"
+        value={`${formatPercentage(buffedTicksPercentage)} %`}
+        label="UA ticks buffed by Haunt"
         tooltip={`Your Haunt talent contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %).`}
       />
     );
