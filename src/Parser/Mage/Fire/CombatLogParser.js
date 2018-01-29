@@ -38,7 +38,7 @@ import MarqueeBindingsOfTheSunKing from './Modules/Items/MarqueeBindingsOfTheSun
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Warning
-    warningDisplay: [WarningDisplay, { needsWorkWarning: true }],
+    warningDisplay: [WarningDisplay, { feedbackWarning: true }],
 
     //Normalizers
     FlameStrikeNormalizer: FlamestrikeNormalizer,

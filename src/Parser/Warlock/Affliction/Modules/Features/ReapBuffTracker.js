@@ -48,6 +48,19 @@ class ReapBuffTracker extends Analyzer {
     };
   }
 
+  // used in Checklist, mirrors the numbers from suggestionThresholds()
+  get positiveSuggestionThresholds() {
+    return {
+      actual: (this.buffedTicks / this.totalTicks) || 0,
+      isLessThan: {
+        minor: 0.85,
+        average: 0.8,
+        major: 0.75,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {

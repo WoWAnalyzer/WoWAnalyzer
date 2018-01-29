@@ -22,7 +22,7 @@ class EchoesOfTheGreatSundering extends Analyzer {
     get estimate_bonus_damage() {
         // Sorry for the magic number, but the goal is to estimate the bonus damage from buffed EQs by ~roughly~ calculating
         // what fraction of EQ damage can be considered a result of the shoulder buff's 100% increase.
-        return  (0.5 * this.totalEarthquakeDamage * (this.buffedEarthquakeCasts / this.totalEarthquakeCasts));
+        return  (0.5 * this.totalEarthquakeDamage * (this.buffedEarthquakeCasts / this.totalEarthquakeCasts)) || 0;
     }
 
     on_initialized() {
@@ -62,7 +62,7 @@ class EchoesOfTheGreatSundering extends Analyzer {
             result: (
                 <dfn data-tip={`Your utilization of Echoes of the Great Sundering: <ul> <li> Buffed Earthquakes: ${this.buffedEarthquakeCasts}.</li> <li> Total procs:  ${this.echoesProcsCounter}.</li></ul> `}>
                  Earthquake procs used: {formatPercentage(this.buffedEarthquakeCasts / this.echoesProcsCounter)}%<br />
-                 <ItemDamageDone amount={this.estimate_bonus_damage()} />
+                 <ItemDamageDone amount={this.estimate_bonus_damage} />
               </dfn>
             ),
         };
