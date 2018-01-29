@@ -15,6 +15,7 @@ class StaggerPoolGraph extends Analyzer {
     fab: StaggerFabricator,
   };
   
+  _hpEvents = [];
   _staggerEvents = [];
   _purifyTimestamps = [];
   _deathTimestamps = [];
@@ -35,12 +36,21 @@ class StaggerPoolGraph extends Analyzer {
     this._deathTimestamps.push(event.timestamp);
   }
 
+  on_toPlayer_damage(event) {
+    this._hpEvents.push(event);
+  }
+
+  on_toPlayer_heal(event) {
+    this._hpEvents.push(event);
+  }
+
   plot() {
     const labels = Array.from({length: Math.ceil(this.owner.fightDuration / 1000)}, (x, i) => i);
     const poolBySeconds = labels.reduce((obj, sec) => {
       obj[sec] = undefined;
       return obj;
     }, {});
+    const hpBySeconds = Object.assign({}, poolBySeconds);
 
     const purifies = this._purifyTimestamps.map(timestamp => Math.floor((timestamp - this.owner.fight.start_time) / 1000));
     const deaths = this._deathTimestamps.map(timestamp => Math.floor((timestamp - this.owner.fight.start_time) / 1000));
@@ -50,22 +60,53 @@ class StaggerPoolGraph extends Analyzer {
       poolBySeconds[seconds] = newPooledDamage;
     });
 
+    this._hpEvents.forEach(({ timestamp, hitPoints, maxHitPoints }) => {
+      const seconds = Math.floor((timestamp - this.owner.fight.start_time) / 1000);
+      if(!!hitPoints) {
+        // we fill in the blanks later if hitPoints is not defined
+        hpBySeconds[seconds] = { hitPoints, maxHitPoints };
+      }
+    });
+
     // fix stagger after deaths
     let lastPoolContents = 0;
+    let lastHpContents = { hitPoints: 0, maxHitPoints: 0 };
     for(const label in labels) {
       if(poolBySeconds[label] === undefined) {
         poolBySeconds[label] = lastPoolContents;
       } else {
         lastPoolContents = poolBySeconds[label];
       }
+
+      if(hpBySeconds[label] === undefined) {
+        hpBySeconds[label] = lastHpContents;
+      } else {
+        lastHpContents = hpBySeconds[label];
+      }
+
       if(deaths.includes(Number(label))) {
         lastPoolContents = 0;
+        lastHpContents = { hitPoints: 0, maxHitPoints: lastHpContents.maxHitPoints };
       }
     }
 
     const chartData = {
       labels,
       datasets: [ 
+        {
+          label: 'Health',
+          data: Object.values(hpBySeconds).map(({ hitPoints }) => hitPoints),
+          backgroundColor: 'rgba(255, 139, 45, 0.2)',
+          borderColor: 'rgb(255, 139, 45)',
+          borderWidth: 2,
+        },
+        {
+          label: 'Max Health',
+          data: Object.values(hpBySeconds).map(({ maxHitPoints }) => maxHitPoints),
+          backgroundColor: 'rgba(255, 139, 45, 0.0)',
+          borderColor: 'red',
+          borderWidth: 2,
+        },
         {
           label: 'Stagger Pool Contents',
           data: Object.values(poolBySeconds),
@@ -141,7 +182,7 @@ class StaggerPoolGraph extends Analyzer {
                 },
               }],
               yAxes: [{
-                labelString: 'Damage in Stagger Pool',
+                labelString: 'Damage',
                 ticks: {
                   fontColor: '#ccc',
                   callback: formatNumber,
