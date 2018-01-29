@@ -1,0 +1,11 @@
+.ct-series.stagger-pool .ct-bar, .ct-series.stagger-pool .ct-line, .ct-series.stagger-pool .ct-point, .ct-series.stagger-pool .ct-slice-donut {
+  stroke: #f0ead6;
+}
+.ct-series.stagger-pool .ct-area, .ct-series.stagger-pool .ct-slice-donut-solid, .ct-series.stagger-pool .ct-slice-pie {
+  fill: #f0ead6;
+  fill-opacity: 0.2;
+}
+.ct-legend .stagger-pool:before {
+  background-color: #f0ead6;
+  border-color: #f0ead6;
+}
