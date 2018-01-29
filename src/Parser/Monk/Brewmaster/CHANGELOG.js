@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-01-29'),
+    changes: 'Added plot of damage in Stagger pool over time.',
+    contributors: [emallson],
+  },
+  {
     date: new Date('2018-01-22'),
     changes: 'Added \'Damage Taken by Ability\' table.',
     contributors: [emallson],
