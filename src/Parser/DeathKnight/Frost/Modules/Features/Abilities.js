@@ -90,6 +90,27 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FROST_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
+
+      {
+        spell: SPELLS.RUNE_1,
+        category: Abilities.SPELL_CATEGORIES.HIDDEN,
+        cooldown: haste => 10 / (1 + haste),
+        charges: 2,
+      },
+
+      {
+        spell: SPELLS.RUNE_2,
+        category: Abilities.SPELL_CATEGORIES.HIDDEN,
+        cooldown: haste => 10 / (1 + haste),
+        charges: 2,
+      },
+
+      {
+        spell: SPELLS.RUNE_3,
+        category: Abilities.SPELL_CATEGORIES.HIDDEN,
+        cooldown: haste => 10 / (1 + haste),
+        charges: 2,
+      },
     ];
   }
 }

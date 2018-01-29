@@ -10,6 +10,8 @@ import HardHowlingBlastCasts from './Modules/Features/HardHowlingBlastCasts';
 
 import ColdHeart from './Modules/Items/Legendaries/ColdHeart';
 
+import RuneTracker from '../Shared/RuneTracker';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
@@ -30,6 +32,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Items
     coldHeart: ColdHeart,
+
+    //rune tracker
+    runeTracker: RuneTracker,
   };
 }
 
