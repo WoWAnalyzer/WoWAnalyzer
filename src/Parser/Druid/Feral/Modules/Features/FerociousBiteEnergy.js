@@ -13,7 +13,9 @@ import { formatNumber } from 'common/format';
 const ENERGY_MIN_USED_BY_BITE = 25;
 const ENERGY_FOR_FULL_DAMAGE_BITE = 50;
 const MAX_DAMAGE_BONUS_FROM_ENERGY = 1.0;
-const LEEWAY_BETWEEN_CAST_AND_DAMAGE = 100; // in thousandths of a second
+const LEEWAY_BETWEEN_CAST_AND_DAMAGE = 500; // in thousandths of a second
+
+const debug = false;
 
 /**
  * Although Ferocious Bite costs 25 energy, it does up to double damage if the character has more.
@@ -32,77 +34,56 @@ class FerociousBiteEnergy extends Analyzer {
   lostDamageTotal = 0;
   energySpentOnBiteTotal = 0;
   
-  biteDamageEvents = [];
-  lowEnergyBiteCastEvents = [];
-  
-  on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.FEROCIOUS_BITE.id) {
-      return;
-    }
-
-    // Damage event only provides a feral druid's mana in classResources, not their energy.
-    // So store damage and link it with energy information from cast event after parsing is complete.
-    this.biteDamageEvents.push(event);
-  }
+  lastBiteCast = { timestamp: 0, energy: 0, isPaired: true };
 
   on_byPlayer_cast(event) {
     if (event.ability.guid !== SPELLS.FEROCIOUS_BITE.id) {
       return;
     }
-    this.biteCount++;
+    
+    this.lastBiteCast.timestamp = event.timestamp;
+    this.lastBiteCast.energy = this.getEnergyUsedByBite(event);
+    this.lastBiteCast.isPaired = false;
+  }
 
-    const resource = event.classResources[0];
-    if (resource.type !== RESOURCE_TYPES.ENERGY.id || !resource.cost) {
-      // Ferocious Bite didn't consume energy, and so ignores the character's energy level.
-      this.freeBiteCount++;
+  on_byPlayer_damage(event) {
+    if (event.ability.guid !== SPELLS.FEROCIOUS_BITE.id) {
       return;
     }
-
-    // 'amount' is energy before the ability uses it.
-    if (resource.amount < ENERGY_FOR_FULL_DAMAGE_BITE) {
-      this.energySpentOnBiteTotal += resource.amount;
+    if (this.lastBiteCast.isPaired || event.timestamp > this.lastBiteCast.timestamp + LEEWAY_BETWEEN_CAST_AND_DAMAGE) {
+      debug && console.warn(
+        `Ferocious Bite damage event at ${event.timestamp} couldn't find a matching cast event. Last Ferocious Bite cast event was at ${this.lastBiteCast.timestamp}${this.lastBiteCast.isPaired ? ' but has already been paired' : ''}.`);
+      return;
+    }
+    
+    if (this.lastBiteCast.energy === 0) {
+      this.freeBiteCount++;
+    }
+    else if (this.lastBiteCast.energy < ENERGY_FOR_FULL_DAMAGE_BITE) {
       this.lowEnergyBiteCount++;
-      this.lowEnergyBiteCastEvents.push(event);
+      this.energySpentOnBiteTotal += this.lastBiteCast.energy;
+      const actualDamage = event.amount + event.absorbed;
+      const lostDamage = this.calcPotentialBiteDamage(actualDamage, this.lastBiteCast.energy) - actualDamage;
+      this.lostDamageTotal += lostDamage;
     }
     else {
-      this.energySpentOnBiteTotal += ENERGY_FOR_FULL_DAMAGE_BITE;
+      this.energySpentOnBiteTotal += this.lastBiteCast.energy;
     }
+    this.biteCount++;
+    this.lastBiteCast.isPaired = true;
   }
 
-  on_finished() {
-    this.lowEnergyBiteCastEvents.forEach((castEvent) => {
-      const damageEvent = this.linearSearchByTimestamp(
-        this.biteDamageEvents, castEvent.timestamp, LEEWAY_BETWEEN_CAST_AND_DAMAGE);
-      if (damageEvent) {
-        const actualDamage = damageEvent.amount + damageEvent.absorbed;
-        const actualEnergy = castEvent.classResources[0].amount;
-        const lostDamage = this.calcPotentialBiteDamage(actualDamage, actualEnergy) - actualDamage;
-        this.lostDamageTotal += lostDamage;
-      }
-    });
-
-    // No longer need these events, so let the GC eat them
-    this.lowEnergyBiteCastEvents = null;
-    this.biteDamageEvents = null;
-  }
-
-  /**
-   * As we're searching for a timestamp in data ordered by timestamp, we could be much
-   * more efficient than this linear search. But the collection is expected to be <100
-   * in length, so a simple solution should be fine.
-   */
-  linearSearchByTimestamp(timestampedArray, targetTime, maxDifference) {
-    let closest = null;
-    let closestDifference = maxDifference;
-
-    timestampedArray.forEach((item) =>{
-      const difference = Math.abs(item.timestamp - targetTime);
-      if (difference < closestDifference) {
-        closest = item;
-        closestDifference = difference;
-      }
-    });
-    return closest;
+  getEnergyUsedByBite(event) {
+    const resource = event.classResources[0];
+    if (resource.type !== RESOURCE_TYPES.ENERGY.id || !resource.cost) {
+      return 0;
+    }
+    else if (resource.amount < ENERGY_FOR_FULL_DAMAGE_BITE) {
+      return resource.amount;
+    }
+    else {
+      return ENERGY_FOR_FULL_DAMAGE_BITE;
+    }
   }
 
   /**
