@@ -25,6 +25,7 @@ import FireAndBrimstone from './Modules/Talents/FireAndBrimstone';
 import SoulHarvest from './Modules/Talents/SoulHarvest';
 import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
 import ChannelDemonfire from './Modules/Talents/ChannelDemonfire';
+import SoulConduit from './Modules/Talents/SoulConduit';
 import TalentHub from './Modules/Talents/TalentHub';
 
 import AlythesssPyrogenics from './Modules/Items/Legendaries/AlythesssPyrogenics';
@@ -69,6 +70,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soulHarvest: SoulHarvest,
     soulHarvestTalent: SoulHarvestTalent,
     channelDemonfire: ChannelDemonfire,
+    soulConduit: SoulConduit,
     talentHub: TalentHub,
 
     // Legendaries

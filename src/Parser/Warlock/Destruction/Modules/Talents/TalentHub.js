@@ -14,6 +14,7 @@ import FireAndBrimstone from './FireAndBrimstone';
 import ReverseEntropy from './ReverseEntropy';
 import RoaringBlaze from './RoaringBlaze';
 import Shadowburn from './Shadowburn';
+import SoulConduit from './SoulConduit';
 
 class TalentHub extends Analyzer {
   static dependencies = {
@@ -26,6 +27,7 @@ class TalentHub extends Analyzer {
     entropy: ReverseEntropy,
     roaringBlaze: RoaringBlaze,
     shadowburn: Shadowburn,
+    soulConduit: SoulConduit,
   };
 
   statistic() {
@@ -34,6 +36,7 @@ class TalentHub extends Analyzer {
         title="Talents"
       >
         {this.backdraft.active && this.backdraft.subStatistic()}
+        {this.soulConduit.active && this.soulConduit.subStatistic()}
         {this.eradication.active && this.eradication.subStatistic()}
         {this.empoweredLifeTap.active && this.empoweredLifeTap.subStatistic()}
         {this.channelDemonfire.active && this.channelDemonfire.subStatistic()}        
