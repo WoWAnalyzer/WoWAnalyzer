@@ -1,8 +1,7 @@
 import EventsNormalizer from 'Parser/Core/EventsNormalizer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import SPELLS from 'common/SPELLS';
-
-const GAROTHI_WORLDBREAKER = 2076;
+import GarothiWorldbreaker from 'Raids/AntorusTheBurningThrone/GarothiWorldbreaker';
 
 /**
  * The issue with Garothi Worldbreaker is that he has two melee
@@ -16,7 +15,7 @@ const GAROTHI_WORLDBREAKER = 2076;
  */
 class GarothiWorldbreakerMelee extends EventsNormalizer {
   normalize(events) {
-    if(this.owner.fight.boss !== GAROTHI_WORLDBREAKER) {
+    if(this.owner.fight.boss !== GarothiWorldbreaker.id) {
       return events;
     }
     return events.filter(event => {

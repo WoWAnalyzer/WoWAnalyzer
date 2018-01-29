@@ -119,9 +119,8 @@ class MasteryValue extends Analyzer {
   _hitCounts = {};
   _dodgeCounts = {};
 
-  get baseDodge() {
-    return 0.15;
-  }
+  // in the future, this will be determined based on player agility
+  baseDodge = 0.15;
 
   dodgePenalty(_source) {
     return 0.045; // 1.5% per level, bosses are three levels over players. not sure how to get trash levels yet -- may not matter
