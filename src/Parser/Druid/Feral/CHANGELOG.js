@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   { 
-    date: new Date('2018-01-26'),
+    date: new Date('2018-01-29'),
     changes: <Wrapper>Added low energy <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> tracking</Wrapper>,
     contributors: [Anatta336],
   },
