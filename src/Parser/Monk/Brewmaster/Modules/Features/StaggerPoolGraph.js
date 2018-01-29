@@ -9,6 +9,7 @@ import Tab from 'Main/Tab';
 import specialEventIndicators from 'Main/Chartist/specialEventIndicators';
 import { formatDuration } from 'Main/ManaLevelGraph';
 import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
 
 import './StaggerPoolGraph.css';
 
@@ -19,34 +20,65 @@ class StaggerPoolGraph extends Analyzer {
     fab: StaggerFabricator,
   };
   
-  _staggerValues = [];
+  _staggerEvents = [];
+  _purifyTimestamps = [];
 
   on_addstagger(event) {
-    this._staggerValues.push(event);
+    this._staggerEvents.push(event);
   }
 
   on_removestagger(event) {
-    this._staggerValues.push(event);
+    this._staggerEvents.push(event);
+
+    if(event.reason.ability.guid === SPELLS.PURIFYING_BREW.id) {
+      this._purifyTimestamps.push(event.timestamp);
+    }
   }
 
   plot() {
-    const poolBySeconds = {
-      0: 0,
-    };
+    const labels = Array.from({length: Math.ceil(this.owner.fightDuration / 1000)}, (x, i) => i);
+    const poolBySeconds = labels.reduce((obj, sec) => {
+      obj[sec] = undefined;
+      return obj;
+    }, {});
 
-    this._staggerValues.forEach(({ timestamp, newPooledDamage }) => {
+    const purifiesBySeconds = labels.reduce((obj, sec) => {
+      obj[sec] = undefined;
+      return obj;
+    }, {});
+
+    this._staggerEvents.forEach(({ timestamp, newPooledDamage }) => {
       const seconds = Math.floor((timestamp - this.owner.fight.start_time) / 1000);
       poolBySeconds[seconds] = newPooledDamage;
+      purifiesBySeconds[seconds] = undefined; // intentionally set to undefined for `specialEventIndicators`
+    });
+    this._purifyTimestamps.forEach(timestamp => {
+      const seconds = Math.floor((timestamp - this.owner.fight.start_time) / 1000);
+      purifiesBySeconds[seconds] = true; // note that we can't have two purifies in a second due to brew gcd
     });
 
-    const labels = Object.keys(poolBySeconds);
+    let lastPoolContents = 0;
+    for(const label in labels) {
+      if(poolBySeconds[label] === undefined) {
+        poolBySeconds[label] = lastPoolContents;
+        continue;
+      }
+
+      lastPoolContents = poolBySeconds[label];
+    }
+
     const chartData = {
       labels,
       series: [ 
         {
           className: 'stagger-pool',
-          name: 'Staggered Damage',
+          name: 'Stagger Pool Contents',
           data: Object.values(poolBySeconds),
+        },
+        {
+          className: 'purifies',
+          name: 'Purifying Brew Cast',
+          data: Object.values(purifiesBySeconds),
         },
       ],
     };
@@ -80,6 +112,12 @@ class StaggerPoolGraph extends Analyzer {
                 return formatNumber(dmg);
               },
             },
+            plugins: [ 
+              Chartist.plugins.legend({
+                classNames: [ 'stagger-pool', 'purifies' ],
+              }),
+              specialEventIndicators({ series: [ 'purifies' ]}),
+            ],
           }}
           />
       </div>

@@ -9,3 +9,15 @@
   background-color: #f0ead6;
   border-color: #f0ead6;
 }
+
+.ct-series.purifies .ct-bar, .ct-series.purifies .ct-line, .ct-series.purifies .ct-point, .ct-series.purifies .ct-slice-donut {
+  stroke: #00ff96;
+}
+.ct-series.purifies .ct-area, .ct-series.purifies .ct-slice-donut-solid, .ct-series.purifies .ct-slice-pie {
+  fill: #00ff96;
+  fill-opacity: 0.2;
+}
+.ct-legend .purifies:before {
+  background-color: #00ff96;
+  border-color: #00ff96;
+}
