@@ -133,10 +133,10 @@ This property can be set a number of ways. Simply, the property lists the length
 * **Hasted cooldown**: `haste => 15 / (1 + haste),`
     * Example: [DEMON_SPIKES](../src/Parser/DemonHunter/Vengeance/Modules/Features/Abilities.js)
 * A **dynamic cooldown** may require a custom function to define the potential cast efficiency. Examples:
-    * [METAMORPHOSIS_HAVOC](../src/Parser/DemonHunter/Havoc/Modules/Features/Abilities.js) - artifact relic trait reduces cooldown
+    * [METAMORPHOSIS_HAVOC](../src/Parser/DemonHunter/Havoc/Abilities.js) - artifact relic trait reduces cooldown
     * [SWIFTMEND](../src/Parser/Druid/Restoration/Modules/Features/Abilities.js) - passive talent reduces cooldown
     * [FISTS_OF_FURY_CAST](../src/Parser/Monk/Windwalker/Modules/Features/Abilities.js) - active talent buff further reduces hasted cooldown
-    * [HEALING_STREAM_TOTEM_CAST](../src/Parser/Shaman/Restoration/Modules/Features/Abilities.js) - other spell interactions with tier bonus reduces cooldown
+    * [HEALING_STREAM_TOTEM_CAST](../src/Parser/Shaman/Restoration/Abilities.js) - other spell interactions with tier bonus reduces cooldown
     * [MANGLE_BEAR](../src/Parser/Druid/Guardian/Modules/Features/Abilities.js) - estimated cooldown resets from a proc, but proc's chance is determined by multiple factors
 
 # Add Always Be Casting
