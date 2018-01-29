@@ -12,7 +12,7 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.AFFLICTION_WARLOCK,
   maintainers: [Chizu],
-  completeness: SPEC_ANALYSIS_COMPLETENESS.GOOD, // good = it matches most common manual reviews in class discords, great = it support all important class features
+  completeness: SPEC_ANALYSIS_COMPLETENESS.GREAT, // good = it matches most common manual reviews in class discords, great = it support all important class features
   description: (
     <div>
       Hello fellow Netherlords! With some help from a theorycrafter from Warlock Discord, we've put together this fight to help you improve your gameplay. It should be fine for you generally, but it will be even more useful in an expert's hands. <br /> <br />
