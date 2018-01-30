@@ -5,7 +5,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
-import { formatNumber } from 'common/format';
 
 const MAX_STACKS = 6;
 
