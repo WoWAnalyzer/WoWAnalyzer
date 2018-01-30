@@ -7,7 +7,12 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
-    date: new Date('2018-01-24'),
+    date: new Date('2018-01-30'),
+    changes: <Wrapper>Added two statistic modules for <SpellLink id={SPELLS.MONGOOSE_FURY.id} icon /></Wrapper>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-01-30'),
     changes: 'Added a focus usage chart to track what you\'re spending your focus on',
     contributors: [Putro],
   },

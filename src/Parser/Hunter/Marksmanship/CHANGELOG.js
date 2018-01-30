@@ -120,7 +120,7 @@ export default [
   },
   {
     date: new Date('2017-10-22'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.TRUESHOT.id} /> statistic with average <SpellLink id={SPELLS.AIMED_SHOT.id} /> pr <SpellLink id={SPELLS.TRUESHOT.id} />, and average starting focus pr <SpellLink id={SPELLS.TRUESHOT.id} />.</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.TRUESHOT.id} /> statistic with average <SpellLink id={SPELLS.AIMED_SHOT.id} /> per <SpellLink id={SPELLS.TRUESHOT.id} />, and average starting focus per <SpellLink id={SPELLS.TRUESHOT.id} />.</Wrapper>,
     contributors: [Putro],
   },
   {

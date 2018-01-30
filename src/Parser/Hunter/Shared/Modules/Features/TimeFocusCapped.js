@@ -64,8 +64,8 @@ class TimeFocusCapped extends Analyzer {
     let average;
     let major;
     if (this.combatants.selected.spec === SPECS.SURVIVAL_HUNTER) {
-      minor = 0.06;
-      average = 0.08;
+      minor = 0.05;
+      average = 0.075;
       major = 0.1;
     } else {
       minor = 0.025;
@@ -102,7 +102,7 @@ class TimeFocusCapped extends Analyzer {
     } else if (this.combatants.selected.spec === SPECS.SURVIVAL_HUNTER) {
       when(this.suggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<Wrapper>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. Remember to cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} icon /> to stay off the focus cap, if no other focus spender is ready to use. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</Wrapper>)
+          return suggest(<Wrapper>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. Remember to cast focus spenders such as <SpellLink id={SPELLS.FLANKING_STRIKE.id} icon /> to stay off the focus cap. If no other focus spender is ready to use, you can cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} icon />. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</Wrapper>)
             .icon('ability_hunter_focusfire')
             .actual(`${formatPercentage(actual)}%`)
             .recommended(`<${formatPercentage(recommended)}% is recommended`);

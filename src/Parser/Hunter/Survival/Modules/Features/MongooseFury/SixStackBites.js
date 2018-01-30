@@ -5,10 +5,11 @@ import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
+import { formatNumber } from 'common/format';
 
 const MAX_STACKS = 6;
 
-class SixBiteWindows extends Analyzer {
+class SixStackBites extends Analyzer {
 
   _currentStacks = 0;
   totalWindowsStarted = 0;
@@ -59,12 +60,12 @@ class SixBiteWindows extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.MONGOOSE_FURY.id} />}
-        value={`${this.sixBiteWindows}/${this.totalWindowsStarted}`}
-        label="6 stack windows"
-        tooltip={`You had a total of <strong>${this.sixBiteWindows}</strong> six bite windows out of a total of <strong>${this.totalWindowsStarted}</strong> windows started`} />
+        value={`${this.sixBiteWindowBites}/${this.totalBites}`}
+        label="6 stack bites"
+        tooltip={`<ul><li>You hit an average of ${(this.sixBiteWindowBites / this.sixBiteWindows).toFixed(1)} bites when you had 6 stacks of Mongoose Fury. </li><li>You hit an average of ${(this.totalBites / this.totalWindowsStarted).toFixed(1)} bites per Mongoose Fury window started.</li></ul> `} />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
+  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
-export default SixBiteWindows;
+export default SixStackBites;
