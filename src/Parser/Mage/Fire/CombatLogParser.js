@@ -1,10 +1,11 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
-import WarningDisplay from 'Parser/Core/Modules/Features/WarningDisplay';
 
 import FlamestrikeNormalizer from './Normalizers/Flamestrike';
 import Scorch from './Normalizers/Scorch';
 import KaelthasUltimateAbility from './Normalizers/KaelthasUltimateAbility';
+
+import Checklist from './Modules/Features/Checklist';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Features/Abilities';
@@ -32,16 +33,17 @@ import ContainedInfernalCore from './Modules/Items/ContainedInfernalCore';
 import PyrotexIgnitionCloth from './Modules/Items/PyrotexIgnitionCloth';
 import MarqueeBindingsOfTheSunKing from './Modules/Items/MarqueeBindingsOfTheSunKing';
 
-
 class CombatLogParser extends CoreCombatLogParser {
-  static specModules = {
-    //Warning
-    warningDisplay: [WarningDisplay, { needsWorkWarning: true }],
+  feedbackWarning = true;
 
+  static specModules = {
     //Normalizers
     FlameStrikeNormalizer: FlamestrikeNormalizer,
     scorch: Scorch,
     kaelthasUltimateAbility: KaelthasUltimateAbility,
+
+    //Checklist
+    checklist: Checklist,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,

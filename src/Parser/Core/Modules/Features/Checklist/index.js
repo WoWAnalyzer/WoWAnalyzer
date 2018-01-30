@@ -62,6 +62,8 @@ class Checklist extends Analyzer {
         return `${formatNumber(thresholds.actual)}`;
       case 'thousands':
         return `${formatThousands(thresholds.actual)}`;
+      case 'decimal':
+        return `${thresholds.actual.toFixed(2)}`;
       case 'boolean':
         return thresholds.actual ? 'Yes' : 'No';
       case 'seconds':
@@ -95,6 +97,9 @@ class Checklist extends Analyzer {
         };
       });
 
+    if (requirements.length === 0) {
+      return null;
+    }
     const requirementPerformances = requirements.map(requirement => requirement.performance);
     const rulePerformance = requirementPerformances.length > 0 ? this.calculateRulePerformance(requirementPerformances, rule.performanceMethod) : 1;
 
@@ -144,29 +149,29 @@ class Checklist extends Analyzer {
           </div>
         )}
         <div className="row">
-          {requirements.map(({ requirement, thresholds, performance }, index) => (
-            <div key={index} className="col-md-6">
-              <div className="flex">
-                <div className="flex-main">
-                  {requirement.name}
-                </div>
-                <div className="flex-sub text-muted" style={{ margin: '0 15px' }}>
-                  {thresholds.prefix}{' '}
-                  {this.formatThresholdsActual(thresholds)}{' '}
-                  {thresholds.max !== undefined && `/ ${thresholds.max}`}{' '}
-                  {thresholds.suffix}
-                </div>
-                <div className="flex-sub content-middle" style={{ width: 50 }}>
-                  <div className="performance-bar-container">
-                    <div
-                      className={`performance-bar small`}
-                      style={{ width: `${performance * 100}%`, transition: 'background-color 800ms', backgroundColor: this.colorForPerformance(performance) }}
-                    />
+          {requirements.map(({ requirement, thresholds, performance }, index) => {
+            const displayedValue = <Wrapper>{thresholds.prefix} {this.formatThresholdsActual(thresholds)} {thresholds.max !== undefined && `/ ${thresholds.max}`} {thresholds.suffix}</Wrapper>;
+            return (
+              <div key={index} className="col-md-6">
+                <div className="flex">
+                  <div className="flex-main">
+                    {requirement.tooltip ? <dfn data-tip={requirement.tooltip}>{requirement.name}</dfn> : requirement.name}
+                  </div>
+                  <div className="flex-sub text-muted" style={{ margin: '0 15px' }}>
+                    {requirement.valueTooltip ? <dfn data-tip={requirement.valueTooltip}>{displayedValue}</dfn> : displayedValue}
+                  </div>
+                  <div className="flex-sub content-middle" style={{ width: 50 }}>
+                    <div className="performance-bar-container">
+                      <div
+                        className={`performance-bar small`}
+                        style={{ width: `${performance * 100}%`, transition: 'background-color 800ms', backgroundColor: this.colorForPerformance(performance) }}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </Expandable>
     );

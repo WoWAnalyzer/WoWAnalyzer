@@ -10,7 +10,7 @@ const VoidformsTab = ({ voidforms = [], insanityEvents, ...modules }) => {
         key={i}
         {...voidform}
         {...modules}
-        insanityEvents={insanityEvents.filter(event => event.timestamp >= voidform.start && event.timestamp <= voidform.ended)}
+        insanityEvents={insanityEvents.filter(event => event.timestamp >= voidform.start && event.timestamp <= voidform.start + voidform.duration)}
       />)
 		)}
   </div>);

@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Masonry from 'react-masonry-component';
-import { Textfit } from 'react-textfit';
+import Textfit from 'react-textfit';
 
 import Wrapper from 'common/Wrapper';
-import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
+import SPEC_ANALYSIS_COMPLETENESS, { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import getBossName from 'common/getBossName';
 import { getResultTab } from 'selectors/url/report';
 import DevelopmentTab from 'Main/DevelopmentTab';
@@ -17,10 +17,12 @@ import Status from 'Main/Status';
 import GithubButton from 'Main/GithubButton';
 import DiscordButton from 'Main/DiscordButton';
 import SuggestionsTab from 'Main/SuggestionsTab';
+import Maintainer from 'Main/Maintainer';
 
 import SkullRaidMarker from './Images/skull-raidmarker.png';
 import ItemsPanel from './ItemsPanel';
 import AboutTab from './AboutTab';
+import ResultsWarning from './ResultsWarning';
 
 import './Results.css';
 
@@ -73,6 +75,22 @@ class Results extends React.Component {
           }))}
       </Masonry>
     );
+  }
+
+  get warning() {
+    const parser = this.props.parser;
+    const boss = parser.boss;
+    if (boss && boss.fight.resultsWarning) {
+      return boss.fight.resultsWarning;
+    }
+    const config = this.context.config;
+    if (config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED || config.completeness === SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK) {
+      return 'The analysis for this spec is still under development. The information shown may be flawed, inaccurate, missing, or incomplete. Contact the spec maintainer for feature requests and bug reports, see the about tab for more information.';
+    }
+    if (parser.feedbackWarning) {
+      return 'This spec is believed to be complete, but needs additional feedback. If there is something missing, incorrect, or inaccurate, please contact this specs maintainer so it can be fixed before being marked as "Good". Contact info can be found in the About Tab.';
+    }
+    return null;
   }
 
   render() {
@@ -206,7 +224,7 @@ class Results extends React.Component {
                     </div>
                   </div>
                   <div>
-                    {modules.warningDisplay.render()}
+                    <ResultsWarning warning={this.warning} />
                     {this.state.mainTab === MAIN_TAB.CHECKLIST && (
                       modules.checklist.render()
                     )}
@@ -217,7 +235,41 @@ class Results extends React.Component {
                       <AboutTab config={config} />
                     )}
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
+          <div className="divider" />
+
+          <div className="row">
+            <div className="col-md-6">
+              <div className="row">
+                <div className="col-md-4">
+                  <div style={{ border: '7px solid #fff', background: 'rgba(0, 0, 0, 0.4)', padding: '8px 14px', fontSize: 40, fontWeight: 700, lineHeight: 1.1 }}>
+                    <Textfit mode="single" max={40}>
+                    How It's<br />
+                    Made
+                    </Textfit>
+                  </div>
+                </div>
+                <div className="col-md-8" style={{ fontSize: 20 }}>
+                  Curious how we're doing the analysis? Want to change something? You can find this spec's source <a href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`}>here</a> and a guide on contributing <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/docs#contributing">here</a>.
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="row">
+                <div className="col-md-4">
+                  <div style={{ border: '7px solid #fff', background: 'rgba(0, 0, 0, 0.4)', padding: '8px 14px', fontSize: 40, fontWeight: 700, lineHeight: 1.1 }}>
+                    <Textfit mode="single" max={40}>
+                      Feedback<br />
+                      Welcome
+                    </Textfit>
+                  </div>
+                </div>
+                <div className="col-md-8" style={{ fontSize: 20 }}>
+                  Do you have a really cool idea? Is a suggestion or checklist threshold off? Spotted a bug? Let us know on <a href="https://discord.gg/AxphPxU">Discord</a>.
                 </div>
               </div>
             </div>
@@ -228,6 +280,42 @@ class Results extends React.Component {
           <div className="row">
             <div className="col-md-12">
               {this.renderStatistics(results.statistics)}
+            </div>
+          </div>
+
+          <div className="divider" />
+
+          <div className="row">
+            <div className="col-md-6">
+              <div className="row">
+                <div className="col-md-4">
+                  <div style={{ border: '7px solid #fff', background: 'rgba(0, 0, 0, 0.4)', padding: '8px 14px', fontSize: 32, fontWeight: 700, lineHeight: 1.2 }}>
+                    <Textfit mode="single" max={32}>
+                      Spec<br />
+                      Maintainer
+                    </Textfit>
+                  </div>
+                </div>
+                <div className="col-md-8" style={{ fontSize: 20 }}>
+                  The {config.spec.specName} {config.spec.className} analyzer is being maintained by
+                  {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}. New maintainers are <b>always</b> welcome.
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="row">
+                <div className="col-md-4">
+                  <div style={{ border: '7px solid #fff', background: 'rgba(0, 0, 0, 0.4)', padding: '8px 14px', fontSize: 32, fontWeight: 700, lineHeight: 1.2 }}>
+                    <Textfit mode="single" max={32}>
+                      State Of<br />
+                      The Spec
+                    </Textfit>
+                  </div>
+                </div>
+                <div className="col-md-8" style={{ fontSize: 20 }}>
+                  The {config.spec.specName} {config.spec.className} analyzer is currently considered to be in <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn> state. The <i>about</i> tab at the top might have more information.
+                </div>
+              </div>
             </div>
           </div>
 

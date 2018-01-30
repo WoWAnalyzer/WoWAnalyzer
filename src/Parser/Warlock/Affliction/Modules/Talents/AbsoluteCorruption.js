@@ -6,8 +6,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-
-import getDamageBonus from '../WarlockCore/getDamageBonus';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const AC_DAMAGE_BONUS = 0.25;
 
@@ -25,7 +24,7 @@ class AbsoluteCorruption extends Analyzer {
     if (event.ability.guid !== SPELLS.CORRUPTION_DEBUFF.id) {
       return;
     }
-    this.bonusDmg += getDamageBonus(event, AC_DAMAGE_BONUS);
+    this.bonusDmg += calculateEffectiveDamage(event, AC_DAMAGE_BONUS);
   }
 
   statistic() {

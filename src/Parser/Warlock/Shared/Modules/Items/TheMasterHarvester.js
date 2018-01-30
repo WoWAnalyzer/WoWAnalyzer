@@ -5,7 +5,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
-import SoulHarvest from '../../Talents/SoulHarvest';
+import SoulHarvest from '../Talents/SoulHarvest';
 
 class TheMasterHarvester extends Analyzer {
   static dependencies = {

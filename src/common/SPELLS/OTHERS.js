@@ -239,6 +239,56 @@ export default {
     name: 'Legion\'s Gaze',
     icon: 'inv_pet_inquisitoreye',
   },
+  QUITE_SATISFIED_VERSATILITY: { //Majordomo's Dinner Bell vers proc
+    id: 230105,
+    name: 'Quite Satisfied',
+    icon: 'inv_misc_food_03',
+  },
+  QUITE_SATISFIED_CRIT: { //Majordomo's Dinner Bell crit proc
+    id: 230102,
+    name: 'Quite Satisfied',
+    icon: 'inv_misc_food_03',
+  },
+  QUITE_SATISFIED_HASTE: { //Majordomo's Dinner Bell haste proc
+    id: 230103,
+    name: 'Quite Satisfied',
+    icon: 'inv_misc_food_03',
+  },
+  QUITE_SATISFIED_MASTERY: { //Majordomo's Dinner Bell mastery proc
+    id: 230104,
+    name: 'Quite Satisfied',
+    icon: 'inv_misc_food_03',
+  },
+  DIRGE_OF_ANGERBODA: { //Memento of Angerboda mastery proc
+    id: 214807,
+    name: 'Dirge of Angerboda',
+    icon: 'spell_deathknight_unholypresence',
+  },
+  HOWL_OF_INGVAR: { //Memento of Angerboda crit proc
+    id: 214802,
+    name: 'Howl of Ingvar',
+    icon: 'spell_deathknight_bloodpresence',
+  },
+  WAIL_OF_SVALA: { //Memento of Angerboda haste proc
+    id: 214803,
+    name: 'Wail of Svala',
+    icon: 'spell_deathknight_frostpresence',
+  },
+  DOWN_DRAFT: { //Nightmare Egg Shell buff
+    id: 214340,
+    name: 'Down Draft',
+    icon: 'ability_skyreach_wind',
+  },
+  ACCELERATION: { //Chrono Shard buff
+    id: 137419,
+    name: 'Acceleration',
+    icon: 'inv_7_0raid_trinket_05a',
+  },
+  GREASE_THE_GEARS: { //Fel-Oiled Infernal Machine buff
+    id: 238534,
+    name: 'Grease the Gears',
+    icon: 'inv_misc_enggizmos_14',
+  },
 
   // Nighthold Trinkets
   RECURSIVE_STRIKES: {
@@ -321,6 +371,16 @@ export default {
     id: 242642,
     name: 'Strength of Will',
     icon: 'inv_wand_36',
+  },
+  SOLAR_INFUSION: { //Chalice of Moonlight crit proc
+    id: 242544,
+    name: 'Solar Infusion',
+    icon: 'achievment_raid_houroftwilight',
+  },
+  LUNAR_INFUSION: { //Chalice of Moonlight haste proc
+    id: 242543,
+    name: 'Lunar Infusion',
+    icon: 'ability_druid_lunarguidance',
   },
   // T21 Healing trinkets
   TARRATUS_KEYSTONE: {
@@ -565,11 +625,6 @@ export default {
     name: 'Extracted Sanity',
     icon: 'inv_archaeology_70_demon_flayedskinchronicle',
   },
-  LUNAR_INFUSION: {
-    id: 242543,
-    name: 'Lunar Infusion',
-    icon: 'ability_druid_lunarguidance',
-  },
   RISING_TIDES: {
     id: 242458,
     name: 'Rising Tides',
@@ -580,12 +635,6 @@ export default {
     id: 242612,
     name: 'Demonic Vigor',
     icon: 'inv_relics_warpring',
-  },
-  // Chrono Shard buff
-  ACCELERATION: {
-    id: 137419,
-    name: 'Acceleration',
-    icon: 'inv_7_0raid_trinket_05a',
   },
   MARCH_OF_THE_LEGION: {
     id: 228446,
