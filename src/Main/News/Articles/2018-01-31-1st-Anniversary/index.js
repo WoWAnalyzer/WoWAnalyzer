@@ -106,6 +106,7 @@ import ChecklistResultsLayout from './ChecklistResultsLayout.png';
 import DeathTracker from './DeathTracker.png';
 import CastingTime from './CastingTime.png';
 import GearTab from './GearTab.png';
+import WoWAnalyzerPartyHat from './WoWAnalyzerPartyHat.png';
 
 function completeness(completeness) {
   return <dfn data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>;
@@ -371,7 +372,7 @@ class Article extends React.PureComponent {
         <Item title="Warcraft Logs API proxy" date="15 Jun">
           To get log data we fetch data from the Warcraft Logs API. In the past the app made a direct link to Warcraft Logs API but this had several disadvantages such as revealing our API key, lacking caching, hard to use due to several issues with the API and missing any form of logging.<br /><br />
 
-          At the start of this month Warcraft Logs had introduced strict rate limiting of their API. Because of this restrictive API request limit we had a big fear of hitting the cap and locking users out, especially when report links would be shared in Discord servers and a bunch of users would open the same report at the same time.<br /><br />
+          At the start of June, Warcraft Logs had introduced strict rate limiting of their API. Because of this restrictive API request limit we had a big fear of hitting the cap and locking users out, especially when report links would be shared in Discord servers and a bunch of users would open the same report at the same time.<br /><br />
 
           To combat these issue we added a proxy for the Warcraft Logs API on our server. We also added a caching layer to aggressively cache all of our API requests. This considerably reduces the amount of API requests we have to do allowing us to serve a lot more users. This has the added benefit that cached requests are very quick and are even available when Warcraft Logs goes down.
         </Item>
@@ -408,7 +409,7 @@ class Article extends React.PureComponent {
           <Image source={ExtensionToolbar} description="The extension adds an icon to your toolbar" />
           <Image source={ExtensionActive} description="Clicking the icon on a valid WCL report will allow you to analyze it with WoWAnalyzer" /><br />
 
-          Want it? Get it for Google Chrome <a href="https://chrome.google.com/webstore/detail/wow-analyzer/dnmgmiogknpdbgfgmolloddhiijkpekd">here</a> and for Firefox here.
+          Want it? Get it for Google Chrome <a href="https://chrome.google.com/webstore/detail/wow-analyzer/dnmgmiogknpdbgfgmolloddhiijkpekd">here</a> and the link for Firefox was lost.
         </Item>
 
         <Item title="Windwalker Monk" date="23 Jul">
@@ -467,7 +468,7 @@ class Article extends React.PureComponent {
         <Item title="A development-only events tab" date="17 Aug">
           Our analysis is based around all events in the combatlog from and to the selected player and his or her pets. To give more insight into what events are logged and what information they contain, a development-only events tab was added. This shows all events that we can use to make analysis easier.<br /><br />
 
-          Since the initial release we've added advanced filters and done other enhancements so that it assists us as well as possible during development. It's not (yet) available in production because the tab has a few issues that are hard to solve (performance and security).<br /><br />
+          Since the initial release we've added advanced filters and done other enhancements so that it assists us as well as possible during development. It's not (yet) available publicly because the tab has a few issues with regards to performance and security that are hard to solve.<br /><br />
 
           <Image source={EventsTab} description="A subsection of the events that we can view" />
         </Item>
@@ -545,8 +546,8 @@ class Article extends React.PureComponent {
           <Image source={DestructionWarlock} description="Initial version of the Destruction Warlock analyzer" />
         </Item>
 
-        <Item title="Database" date="4 Sep">
-          The initial version of our Warcraft Logs API proxy cache had an in-memory cache that would forget old logs automatically to prevent running out of memory. This didn't give us the max possible cache hit ratio, while a database would be able to permanently store items in its cache. I also had a couple of other features in mind that would require a database.<br /><br />
+        <Item title="Adding a database" date="4 Sep">
+          The initial version of our Warcraft Logs API proxy cache had an in-memory cache that would forget old logs automatically to prevent running out of memory. This didn't give us the max possible cache hit ratio, and we figured a database would be able to permanently store items in its cache. There were also a couple of other features in mind that would require a database.<br /><br />
 
           To tackle this big project I took a week off from work and implemented the database as a MariaDB container. We connect to it from NodeJS through <a href="http://sequelizejs.com">SequelizeJS</a>. The proxy has been using the database as cache storage for a while now, no other features have been implemented yet.
         </Item>
@@ -838,7 +839,7 @@ class Article extends React.PureComponent {
           <Image source={ApiIsDown} description="When the API is down for a known reason we explain what is going on and what you can expect" />
         </Item>
 
-        <Item title="Let's not forget to equip 2 legendaries" date="10 Nov">
+        <Item title="Don't forget to equip 2 legendaries" date="10 Nov">
           It's an easy mistakes to make. You're swapping around your gear, equipping different pieces of tier or having a hard time deciding what legendaries to equip and <b>oops</b> you ended up doing a raid without the max possible amount of legendaries equipped.<br /><br />
 
           Next boss/raid you're good though since <Maintainer {...MAINTAINERS.Gao} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/780">added</a> a suggestion that detects this and lets you know. Phew!<br /><br />
@@ -872,7 +873,7 @@ class Article extends React.PureComponent {
         </Item>
 
         <Item title="Frontpage reworked" date="28 Nov">
-          <Maintainer {...MAINTAINERS.Zerotorescue} /> released a <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/882">reworked</a> frontpage.<br /><br />
+          <Maintainer {...MAINTAINERS.Zerotorescue} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/882">released</a> a reworked frontpage.<br /><br />
 
           <Image source={Frontpage20} description="The new frontpage upon release." />
         </Item>
@@ -975,11 +976,9 @@ class Article extends React.PureComponent {
         </Item>
 
         <Item title="First anniversary!" date="31 Jan">
-          <Maintainer {...MAINTAINERS.aryu} />: Filter kills only fight: https://github.com/WoWAnalyzer/WoWAnalyzer/pull/106
-          <Maintainer {...MAINTAINERS.Riglerr} />: Updated Cooldown Tab & components to be able to represent damage as well as healing: https://github.com/WoWAnalyzer/WoWAnalyzer/pull/53
-          <Maintainer {...MAINTAINERS.BlokyKappa} />: Fixed main page button alignment
-          <Maintainer {...MAINTAINERS.kyleglick} />: https://github.com/WoWAnalyzer/WoWAnalyzer/pull/924
-          <Maintainer {...MAINTAINERS.Zeboot} />: Merge magic schools in Damage Taken https://github.com/WoWAnalyzer/WoWAnalyzer/pull/1013
+          Thank you soo much for your continued support!<br /><br />
+
+          We'll continue working on making WoWAnalyzer the best place for (automated) analysis. There are a lot of things planned for 2018, we're thinking Battle for Azeroth support for as many specs as possible, layout reworks and other interface improvements, <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues">fixing all issues/suggestions</a>, account system with personal customizations, Patreon integration that will support cool new <a href="https://www.patreon.com/wowanalyzer">Patreon-funded</a> features and much more!
         </Item>
       </Wrapper>
     );
@@ -988,22 +987,25 @@ class Article extends React.PureComponent {
   render() {
     return (
       <RegularArticle bodyStyle={{ position: 'relative', overflow: 'hidden' }} {...this.props}>
-        It has already been a year! Time flies when you're having fun working hard. We want to use this milestone to look back at the progress we have made during this past year. It's a lot of work supporting all specs with sufficiently useful information, but we've made good progress.<br /><br />
+        <img src={WoWAnalyzerPartyHat} style={{ float: 'right', maxWidth: 200, marginLeft: 15, marginBottom: 15 }} alt="1" />
+        WoWAnalyzer turned one! Time flies when you're having fun working hard. We want to use this milestone to look back at the progress we have made during this past year. So much progress has been made!<br /><br />
 
-        The project was started by <Maintainer {...MAINTAINERS.Zerotorescue} /> (a <span className="Paladin">Holy Paladin</span> theorycrafter) to do additional analysis to help with theorycrafting. Since it took several months before other contributors joined the project, the first half of the recap will be written from my point of view.<br /><br />
+        The project was started by <Maintainer {...MAINTAINERS.Zerotorescue} /> (a <span className="Paladin">Holy Paladin</span> theorycrafter) to do additional analysis to help with theorycrafting. Since it took several months before other contributors joined the project, the first half of the recap will be written from his point of view.<br /><br />
 
         There were a lot more contributors than we could list in the recap below. <b>Thanks to every single person that has helped with this project!</b> Thanks to all <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/graphs/contributors">GitHub contributors</a>, <a href="https://www.patreon.com/wowanalyzer">all of our patrons</a>, everyone that sent us feedback, everyone that helped spread the word, and thank you for your interest! Every single one of you give us the energy we need to spend our free time on this project.<br /><br />
 
-        In addition to the detailed recap below, here are some other interesting statistics:<br /><br />
+        Over the year we have gathered some interesting statistics:<br /><br />
 
         <ul style={{ marginBottom: 20 }}>
-          <li><b>34</b> specs implemented with <b>16</b> specs marked as being {completeness(SPEC_ANALYSIS_COMPLETENESS.GOOD)} or {completeness(SPEC_ANALYSIS_COMPLETENESS.GREAT)}</li>
-          <li><a href="https://github.com/WoWAnalyzer/WoWAnalyzer"><b>6,694 commits</b></a> from over <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/graphs/contributors"><b>58 contributors</b></a></li>
-          <li><b>1,441 files</b> with over <b>145,000 lines of code</b></li>
+          <li><b>36</b> specs implemented with <b>16</b> specs marked as being {completeness(SPEC_ANALYSIS_COMPLETENESS.GOOD)} or {completeness(SPEC_ANALYSIS_COMPLETENESS.GREAT)}</li>
+          <li>Nearly <a href="https://github.com/WoWAnalyzer/WoWAnalyzer"><b>7,000 commits</b></a> from over <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/graphs/contributors"><b>60 contributors</b></a></li>
+          <li>Over <b>1,500 files</b> with over <b>150,000 lines of code</b></li>
           <li>Peak usage had over <b>145,000 unique visitors</b> and <b>14,000,000 requests</b> in a single month</li>
-          <li><a href="https://discord.gg/AxphPxU">Our Discord server</a> has over <b>1,300 members</b></li>
+          <li><a href="https://discord.gg/AxphPxU">Our Discord server</a> has over <b>1,400 members</b></li>
           <li>It usually takes <a href="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer/builds">about <b>6 minutes</b></a> for a code-change to be available on WoWAnalyzer.com</li>
         </ul>
+
+        Continue reading to see the full timeline of the project over the past year.
 
         <hr style={{ marginBottom: 20 }} />
 

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="Statistic">
     <option name="fileTypes" value="class;svn-base;svn-work;Extra;gif;png;jpg;jpeg;bmp;tga;tiff;ear;war;zip;jar;iml;iws;ipr;bz2;gz;psd;mp3;" />
+    <option name="separateTabsFileTypes" value="java;xml;css;html;js;properties;jsp;txt;php;php4;php5;phtml;inc;json" />
     <option name="excludedDirectories">
       <list>
         <option value="$PROJECT_DIR$/node_modules" />
