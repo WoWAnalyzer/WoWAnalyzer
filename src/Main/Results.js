@@ -22,6 +22,7 @@ import Maintainer from 'Main/Maintainer';
 import SkullRaidMarker from './Images/skull-raidmarker.png';
 import ItemsPanel from './ItemsPanel';
 import AboutTab from './AboutTab';
+import ResultsWarning from './ResultsWarning';
 
 import './Results.css';
 
@@ -74,6 +75,22 @@ class Results extends React.Component {
           }))}
       </Masonry>
     );
+  }
+
+  get warning() {
+    const parser = this.props.parser;
+    const boss = parser.boss;
+    if (boss && boss.fight.resultsWarning) {
+      return boss.fight.resultsWarning;
+    }
+    const config = this.context.config;
+    if (config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED || config.completeness === SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK) {
+      return 'The analysis for this spec is still under development. The information shown may be flawed, inaccurate, missing, or incomplete. Contact the spec maintainer for feature requests and bug reports, see the about tab for more information.';
+    }
+    if (parser.feedbackWarning) {
+      return 'This spec is believed to be complete, but needs additional feedback. If there is something missing, incorrect, or inaccurate, please contact this specs maintainer so it can be fixed before being marked as "Good". Contact info can be found in the About Tab.';
+    }
+    return null;
   }
 
   render() {
@@ -207,7 +224,7 @@ class Results extends React.Component {
                     </div>
                   </div>
                   <div>
-                    {modules.warningDisplay.render()}
+                    <ResultsWarning warning={this.warning} />
                     {this.state.mainTab === MAIN_TAB.CHECKLIST && (
                       modules.checklist.render()
                     )}
