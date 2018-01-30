@@ -141,6 +141,11 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.GAROTHI_FEEDBACK_CONDUIT.id,
       haste: (_, item) => calculateSecondaryStatDefault(930, 856, item.itemLevel),
     },
+    // Khaz'goroth's Courage is handed in it's own module since all 4 stat buffs use the same ID.
+    //[SPELLS.KHAZGOROTHS_SHAPING.id]: {
+    //  itemId: ITEMS.KHAZGOROTHS_COURAGE.id,
+    //  haste: (_, item) => calculateSecondaryStatDefault(940, 4219, item.itemLevel),
+    //},
     // endregion 
 
     // region Misc

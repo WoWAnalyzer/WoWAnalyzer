@@ -14,6 +14,8 @@ import ItemDamageDone from 'Main/ItemDamageDone';
  * Khaz'Goroths Courage -
  * Equip: Your damaging attacks have a chance to make your weapon glow hot with the fire of Khaz'goroth's forge, causing your autoattacks to do (1 * Mainhand weapon base speed * 46809) additional Fire damage for 12 sec.
  * When empowered by the Pantheon, your Critical Strike, Haste, Mastery, or Versatility is increased by 4219 for 15 sec. Khaz'goroth always empowers your highest stat.
+ *
+ * This module also handles adding the secondary stats from the pantheon proc to statTracker.
  */
 class KhazgorothsCourage extends Analyzer {
   static dependencies = {
@@ -97,16 +99,7 @@ class KhazgorothsCourage extends Analyzer {
   }
 
   _makeStatChange(ratingChange, statName, eventReason) {
-    let statChangeObj;
-    if(statName === 'haste'){
-      statChangeObj = { 'haste': ratingChange };
-    } else if(statName === 'crit'){
-      statChangeObj = { 'crit': ratingChange };
-    } else if(statName === 'mastery'){
-      statChangeObj = { 'mastery': ratingChange };
-    } else{
-      statChangeObj = { 'versatility': ratingChange };
-    }
+    const statChangeObj = { [statName]: ratingChange };
     this.statTracker.forceChangeStats(statChangeObj, eventReason);
   }
 
