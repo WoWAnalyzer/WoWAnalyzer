@@ -26,7 +26,7 @@ const MONK_DODGE_COEFFS = {
   diminished: {
     k: 1.064161593,
     C_d: 0.5558721267,
-  }
+  },
 };
 
 function _clampProb(prob) {
