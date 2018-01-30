@@ -36,7 +36,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: .9,
-          extraSuggestion: <Wrapper> While <SpellLink id={SPELLS.FLANKING_STRIKE.id} icon /> is a very important spell to be casting as often as possible because of its damage, you want to be casting it at opportune moments because of its resetting <SpellLink id={SPELLS.MONGOOSE_BITE.id} icon /> functionality. This means <strong>BEFORE</strong> you run out of charges on <SpellLink id={SPELLS.MONGOOSE_BITE.id} icon />, but also not while at 2 or 3 stacks of <SpellLink id={SPELLS.MONGOOSE_BITE.id} icon />.</Wrapper>,
+          extraSuggestion: <Wrapper> While <SpellLink id={SPELLS.FLANKING_STRIKE.id} icon /> is a very important spell to be casting as often as possible because of its damage, you want to be casting it at opportune moments because of its resetting <SpellLink id={SPELLS.MONGOOSE_BITE.id} icon /> functionality. This means you should cast it <strong>BEFORE</strong> you run out of charges on <SpellLink id={SPELLS.MONGOOSE_BITE.id} icon />, but also not while at 2 or 3 charges of <SpellLink id={SPELLS.MONGOOSE_BITE.id} icon />.</Wrapper>,
         },
       },
       {
