@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Bicepspump, Khazak } from 'MAINTAINERS';
+import { Bicepspump, Khazak, Gebuz } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
@@ -8,6 +8,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default  [
+  {
+    date: new Date('2018-01-30'),
+    changes: 'Added overcapped Runes',
+    contributors: [Gebuz],
+  },
   {
     date: new Date('2018-1-1'),
     changes: 'Added Runic Power pooled before Dark Arbiter statistic',
