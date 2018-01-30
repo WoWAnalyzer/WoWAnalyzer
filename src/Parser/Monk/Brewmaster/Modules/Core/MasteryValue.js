@@ -9,6 +9,26 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import DamageTaken from './DamageTaken';
 
+// coefficients to calculate dodge chance from agility
+//
+// see here for data: 
+// https://docs.google.com/spreadsheets/d/1sgFT4lGgBPiqkGjvpeReG2QKJv-jhzZdKIako37bURw/edit?usp=sharing 
+const MONK_DODGE_COEFFS = {
+  base_dodge: 0.03,
+  base_agi: 9028,
+  // solved via linear regression from data
+  tooltip: {
+    slope: 0.000007631531252,
+    intercept: 0.00001700268385,
+  },
+  // names of individual coefficients are taken from ancient lore, err,
+  // formulae
+  diminished: {
+    k: 1.064161593,
+    C_d: 0.5558721267,
+  }
+};
+
 function _clampProb(prob) {
   if(prob > 1.0) {
     return 1.0;
@@ -119,8 +139,10 @@ class MasteryValue extends Analyzer {
   _hitCounts = {};
   _dodgeCounts = {};
 
-  // in the future, this will be determined based on player agility
-  baseDodge = 0.15;
+  baseDodge(agility) {
+    const tooltip = MONK_DODGE_COEFFS.tooltip.intercept + MONK_DODGE_COEFFS.tooltip.slope * (agility - MONK_DODGE_COEFFS.base_agi);
+    return (tooltip * MONK_DODGE_COEFFS.diminished.C_d) / (tooltip + MONK_DODGE_COEFFS.diminished.k * MONK_DODGE_COEFFS.diminished.C_d) + MONK_DODGE_COEFFS.base_dodge;
+  }
 
   dodgePenalty(_source) {
     return 0.045; // 1.5% per level, bosses are three levels over players. not sure how to get trash levels yet -- may not matter
@@ -128,9 +150,9 @@ class MasteryValue extends Analyzer {
 
   // returns the current chance to dodge a damage event assuming the
   // event is dodgeable
-  dodgeChance(masteryStacks, masteryRating, sourceID) {
+  dodgeChance(masteryStacks, masteryRating, agility, sourceID) {
     const masteryPercentage = this.stats.masteryPercentage(masteryRating, true);
-    return _clampProb(masteryPercentage * masteryStacks + this.baseDodge - this.dodgePenalty(sourceID));
+    return _clampProb(masteryPercentage * masteryStacks + this.baseDodge(agility) - this.dodgePenalty(sourceID));
   }
 
 
@@ -142,6 +164,7 @@ class MasteryValue extends Analyzer {
 
   on_toPlayer_damage(event) {
     event._masteryRating = this.stats.currentMasteryRating;
+    event._agility = this.stats.currentAgilityRating;
     if(event.hitType === HIT_TYPES.DODGE) {
       this._addDodge(event);
     } else {
@@ -209,9 +232,9 @@ class MasteryValue extends Analyzer {
         stacks.guaranteeStack();
         noMasteryStacks.guaranteeStack();
       } else if(event.type === "damage") {
-        const noMasteryDodgeChance = this.dodgeChance(noMasteryStacks.expected, 0, event.sourceID);
-        const expectedDodgeChance = this.dodgeChance(stacks.expected, event._masteryRating, event.sourceID);
-        const baseDodgeChance = this.dodgeChance(0, 0, event.sourceID);
+        const noMasteryDodgeChance = this.dodgeChance(noMasteryStacks.expected, 0, event._agility, event.sourceID);
+        const expectedDodgeChance = this.dodgeChance(stacks.expected, event._masteryRating, event._agility, event.sourceID);
+        const baseDodgeChance = this.dodgeChance(0, 0, event._agility, event.sourceID);
 
         const damage = (event.amount + event.absorbed) || this.meanHitByAbility(event.ability.guid);
         expectedDamageMitigated += expectedDodgeChance * damage;
