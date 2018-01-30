@@ -930,16 +930,19 @@ code.inactive {
   margin: -.2em 0;
   border-radius: .2em;
   font-weight: bold;
+  white-space: nowrap;
+  display: inline-block;
+  line-height: 1; /* this keeps the height of the maintainer box acceptable */
 }
 .maintainer-name[data-tip] {
   cursor: help;
 }
-.maintainer-name + .maintainer-name {
+.maintainers .maintainer-name + .maintainer-name {
   position: relative;
   margin-left: 1.2em;
 }
-.maintainer-name + .maintainer-name:before {
-  content: '&';
+.maintainers .maintainer-name + .maintainer-name:before {
+  content: ' & ';
   position: absolute;
   left: -1em;
   color: #fff;
