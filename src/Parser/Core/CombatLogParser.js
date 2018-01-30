@@ -491,8 +491,8 @@ class CombatLogParser {
   formatManaRestored(manaRestored) {
     return `${formatThousands(manaRestored)} mana / ${formatThousands(manaRestored / this.fightDuration * 1000 * 5)} MP5`;
   }
-  formatTimestamp(timestamp) {
-    return formatDuration((timestamp - this.fight.start_time) / 1000);
+  formatTimestamp(timestamp, precision = 0) {
+    return formatDuration((timestamp - this.fight.start_time) / 1000, precision);
   }
 
   generateResults() {
