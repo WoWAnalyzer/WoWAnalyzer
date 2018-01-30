@@ -14,9 +14,8 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-
-//TODO
-//add cooldown reduction through spells
+const RUNIC_CORRUPTION_INCREASE = 1;
+const T21_4PIECE_BLOOD_INCREASE = .4;
 
 /*
  * Runes are tracked as 3 fake spells with 2 charges to simulate 3 runes charging at the same time.
@@ -34,7 +33,7 @@ class RuneTracker extends Analyzer {
   timeSpentWithRunesOnCooldown = {};
   resourceType = RESOURCE_TYPES.RUNES.id;
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event){
     if(!event.classResources){
       return;
     }
@@ -59,6 +58,44 @@ class RuneTracker extends Analyzer {
     for(let i = 0; i < amount; i++){
       this.addCharge();
     }
+  }
+  on_toPlayer_applybuff(event){
+    if(event.ability.guid === SPELLS.RUNIC_CORRUPTION.id){
+      const multiplier = 1 / (1 + RUNIC_CORRUPTION_INCREASE);
+      this.changeCooldown(SPELLS.RUNE_1.id, multiplier);
+      this.changeCooldown(SPELLS.RUNE_2.id, multiplier);
+      this.changeCooldown(SPELLS.RUNE_3.id, multiplier);
+    }
+    if(event.ability.guid === SPELLS.RUNE_MASTER.id){
+      const multiplier = 1 / (1 + T21_4PIECE_BLOOD_INCREASE);
+      this.changeCooldown(SPELLS.RUNE_1.id, multiplier);
+      this.changeCooldown(SPELLS.RUNE_2.id, multiplier);
+      this.changeCooldown(SPELLS.RUNE_3.id, multiplier);
+    }
+  }
+  on_toPlayer_removebuff(event){
+    if(event.ability.guid === SPELLS.RUNIC_CORRUPTION.id){
+      const multiplier = 1 + RUNIC_CORRUPTION_INCREASE;
+      this.changeCooldown(SPELLS.RUNE_1.id, multiplier);
+      this.changeCooldown(SPELLS.RUNE_2.id, multiplier);
+      this.changeCooldown(SPELLS.RUNE_3.id, multiplier);
+    }
+    if(event.ability.guid === SPELLS.RUNE_MASTER.id){
+      const multiplier = 1 / (1 + T21_4PIECE_BLOOD_INCREASE);
+      this.changeCooldown(SPELLS.RUNE_1.id, multiplier);
+      this.changeCooldown(SPELLS.RUNE_2.id, multiplier);
+      this.changeCooldown(SPELLS.RUNE_3.id, multiplier);
+    }
+  }
+
+  changeCooldown(spellId, multiplier){
+    if(!this.spellUsable.isOnCooldown(spellId)){
+      return;
+    }
+    const remainingCooldown = this.spellUsable.cooldownRemaining(spellId);
+    const newCooldown = remainingCooldown * multiplier;
+    const reduction = remainingCooldown - newCooldown;
+    this.spellUsable.reduceCooldown(spellId, reduction);
   }
 
   addCharge(){

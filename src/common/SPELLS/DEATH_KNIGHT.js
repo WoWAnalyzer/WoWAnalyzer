@@ -154,6 +154,13 @@ export default {
     name: 'T20 4 Set Bonus',
     icon: 'spell_deathknight_bloodpresence',
   },
+  // Blood T21 4 Piece buff
+  RUNE_MASTER: {
+    id: 253381,
+    name: 'Rune Master',
+    icon: '70_inscription_vantus_rune_nightmare',
+  },
+
   // T20 Buff
   GRAVEWARDEN: {
     id: 242010,
@@ -308,7 +315,7 @@ export default {
   },
 
   RUNIC_CORRUPTION: {
-    id: 51462,
+    id: 51460,
     name: 'Runic Corruption',
     icon: 'spell_shadow_rune',
   },
