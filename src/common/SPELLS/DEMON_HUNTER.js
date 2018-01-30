@@ -326,6 +326,11 @@ export default {
     name: 'Raddon\'s Cascading Eyes',
     icon: 'inv_misc_bandana_01',
   },
+  CONSUME_SOUL: {
+    id: 228532,
+    name: 'Consume Soul',
+    icon: 'ability_warlock_improvedsoulleech',
+  },
   //Havoc Talents
   CHAOS_BLADES_DAMAGE_MH: {
     id: 211796,

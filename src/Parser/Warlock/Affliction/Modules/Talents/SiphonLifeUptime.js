@@ -29,9 +29,9 @@ class SiphonLifeUptime extends Analyzer {
     return {
       actual: this.uptime,
       isLessThan: {
-        minor: 0.85,
-        average: 0.8,
-        major: 0.7,
+        minor: 0.95,
+        average: 0.9,
+        major: 0.8,
       },
       style: 'percentage',
     };

@@ -128,7 +128,7 @@ const SPECS = {
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 77513,
-    masteryCoefficient: 1, // might be 1.5, not sure which the character panel uses
+    masteryCoefficient: 1.5, // confirmed
   },
   FROST_DEATH_KNIGHT: {
     id: 251,

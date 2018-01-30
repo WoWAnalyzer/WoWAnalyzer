@@ -42,7 +42,7 @@ class StatTracker extends Analyzer {
     [SPELLS.INT_FEAST.id]: { intellect: 500 },
     //endregion
 
-    // region Trinkets
+    // region Dungeon Trinkets
     [SPELLS.SHADOWS_STRIKE.id]: {
       itemId: ITEMS.DREADSTONE_OF_ENDLESS_SHADOWS.id,
       crit: (_, item) => calculateSecondaryStatDefault(845, 3480, item.itemLevel),
@@ -55,6 +55,49 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.DREADSTONE_OF_ENDLESS_SHADOWS.id,
       haste: (_, item) => calculateSecondaryStatDefault(845, 3480, item.itemLevel),
     },
+    [SPELLS.QUITE_SATISFIED_VERSATILITY.id]: {
+      itemId: ITEMS.MAJORDOMOS_DINNER_BELL.id,
+      versatility: (_, item) => calculateSecondaryStatDefault(845, 5252, item.itemLevel),
+    },
+    [SPELLS.QUITE_SATISFIED_CRIT.id]: {
+      itemId: ITEMS.MAJORDOMOS_DINNER_BELL.id,
+      crit: (_, item) => calculateSecondaryStatDefault(845, 5252, item.itemLevel),
+    },
+    [SPELLS.QUITE_SATISFIED_HASTE.id]: {
+      itemId: ITEMS.MAJORDOMOS_DINNER_BELL.id,
+      haste: (_, item) => calculateSecondaryStatDefault(845, 5252, item.itemLevel),
+    },
+    [SPELLS.QUITE_SATISFIED_MASTERY.id]: {
+      itemId: ITEMS.MAJORDOMOS_DINNER_BELL.id,
+      mastery: (_, item) => calculateSecondaryStatDefault(845, 5252, item.itemLevel),
+    },
+    [SPELLS.HOWL_OF_INGVAR.id]: {
+      itemId: ITEMS.MEMENTO_OF_ANGERBODA.id,
+      crit: (_, item) => calculateSecondaryStatDefault(845, 4207, item.itemLevel),
+    },
+    [SPELLS.DIRGE_OF_ANGERBODA.id]: {
+      itemId: ITEMS.MEMENTO_OF_ANGERBODA.id,
+      mastery: (_, item) => calculateSecondaryStatDefault(845, 4207, item.itemLevel),
+    },
+    [SPELLS.WAIL_OF_SVALA.id]: {
+      itemId: ITEMS.MEMENTO_OF_ANGERBODA.id,
+      haste: (_, item) => calculateSecondaryStatDefault(845, 4207, item.itemLevel),
+    },
+    [SPELLS.DOWN_DRAFT.id]: {
+      itemId: ITEMS.NIGHTMARE_EGG_SHELL.id,
+      haste: (_, item) => calculateSecondaryStatDefault(845, 361, item.itemLevel),
+    },
+    [SPELLS.ACCELERATION.id]: {
+      itemId: ITEMS.CHRONO_SHARD.id,
+      haste: (_, item) => calculateSecondaryStatDefault(845, 5269, item.itemLevel),
+    },
+    [SPELLS.GREASE_THE_GEARS.id]: {
+      itemId: ITEMS.FELOILED_INFERNAL_MACHINE.id,
+      haste: (_, item) => calculateSecondaryStatDefault(845, 3074, item.itemLevel),
+    },
+    //endregion
+
+    // region Raid Trinkets
     // Event weirdness makes it impossible to handle CotRT normally, it's handled instead by the CharmOfTheRisingTide module
     //[SPELLS.RISING_TIDES.id]: {
     //  itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
@@ -63,6 +106,14 @@ class StatTracker extends Analyzer {
     [SPELLS.ACCELERANDO.id]: {
       itemId: ITEMS.ERRATIC_METRONOME.id,
       haste: (_, item) => calculateSecondaryStatDefault(870, 657, item.itemLevel),
+    },
+    [SPELLS.SOLAR_INFUSION.id]: {
+      itemId: ITEMS.CHALICE_OF_MOONLIGHT.id,
+      crit: (_, item) => calculateSecondaryStatDefault(900, 3619, item.itemLevel),
+    },
+    [SPELLS.LUNAR_INFUSION.id]: {
+      itemId: ITEMS.CHALICE_OF_MOONLIGHT.id,
+      haste: (_, item) => calculateSecondaryStatDefault(900, 3619, item.itemLevel),
     },
     [SPELLS.TOME_OF_UNRAVELING_SANITY_BUFF.id]: {
       itemId: ITEMS.TOME_OF_UNRAVELING_SANITY.id,
@@ -90,7 +141,12 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.GAROTHI_FEEDBACK_CONDUIT.id,
       haste: (_, item) => calculateSecondaryStatDefault(930, 856, item.itemLevel),
     },
-    // endregion
+    // Khaz'goroth's Courage is handled in it's own module since all 4 stat buffs use the same ID.
+    //[SPELLS.KHAZGOROTHS_SHAPING.id]: {
+    //  itemId: ITEMS.KHAZGOROTHS_COURAGE.id,
+    //  haste: (_, item) => calculateSecondaryStatDefault(940, 4219, item.itemLevel),
+    //},
+    // endregion 
 
     // region Misc
     [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH.id]: { // check numbers
@@ -293,6 +349,8 @@ class StatTracker extends Analyzer {
         return 0.18;
       case SPECS.FIRE_MAGE:
         return 0.06;
+      case SPECS.ARCANE_MAGE:
+        return 0.0960;
       case SPECS.SUBTLETY_ROGUE:
         return 0.2208;
       case SPECS.ASSASSINATION_ROGUE:
@@ -308,6 +366,8 @@ class StatTracker extends Analyzer {
       case SPECS.AFFLICTION_WARLOCK:
         return 0.25;
       case SPECS.FROST_DEATH_KNIGHT:
+        return 0.12;
+      case SPECS.BLOOD_DEATH_KNIGHT:
         return 0.12;
       case SPECS.HAVOC_DEMON_HUNTER:
         return 0.12;

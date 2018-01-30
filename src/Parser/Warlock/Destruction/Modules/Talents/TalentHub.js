@@ -13,6 +13,7 @@ import FireAndBrimstone from './FireAndBrimstone';
 import ReverseEntropy from './ReverseEntropy';
 import RoaringBlaze from './RoaringBlaze';
 import Shadowburn from './Shadowburn';
+import SoulConduit from './SoulConduit';
 import SoulHarvestTalent from './SoulHarvestTalent';
 
 class TalentHub extends Analyzer {
@@ -26,6 +27,7 @@ class TalentHub extends Analyzer {
     fireAndBrimstone: FireAndBrimstone,
     soulHarvestTalent: SoulHarvestTalent,
     channelDemonfire: ChannelDemonfire,
+    soulConduit: SoulConduit,
   };
 
   statistic() {
@@ -40,6 +42,7 @@ class TalentHub extends Analyzer {
         {this.fireAndBrimstone.active && this.fireAndBrimstone.subStatistic()}
         {this.soulHarvestTalent.active && this.soulHarvestTalent.subStatistic()}
         {this.channelDemonfire.active && this.channelDemonfire.subStatistic()}
+        {this.soulConduit.active && this.soulConduit.subStatistic()}
       </StatisticsListBox>
     );
   }

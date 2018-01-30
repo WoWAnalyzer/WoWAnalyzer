@@ -258,3 +258,6 @@ export const HawkCorrigan = {
 export const Anatta336 = {
   nickname: 'Anatta336',
 };
+export const Herusx = {
+  nickname: 'Herusx',
+};

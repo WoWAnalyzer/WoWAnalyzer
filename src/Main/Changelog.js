@@ -79,7 +79,7 @@ class Changelog extends React.PureComponent {
                     className={`flex wrapable ${includeCore && isFromCoreChangelog ? 'text-muted' : ''}`}
                   >
                     <div className="flex-sub" style={{ minWidth: 100, paddingRight: 15 }}>
-                      {date.toLocaleDateString()}
+                      {date.toLocaleDateString(undefined, {timeZone: 'UTC'})}
                     </div>
                     <div className="flex-main" style={{ minWidth: 200 }}>
                       {changes}
