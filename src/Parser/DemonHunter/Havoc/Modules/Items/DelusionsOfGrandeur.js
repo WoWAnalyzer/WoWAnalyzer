@@ -39,7 +39,7 @@ class DelusionsOfGrandeur extends Analyzer {
 	}
 
 	get metaCooldownWithShoulders(){
-		return this.metaCooldown * this.cooldownReductionRatio || 0;
+		return this.metaCooldown * this.cooldownReductionRatio || 1;
 	}
 
 	get suggestionThresholds() {
