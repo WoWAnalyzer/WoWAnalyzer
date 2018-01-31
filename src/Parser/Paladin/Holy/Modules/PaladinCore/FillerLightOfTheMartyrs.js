@@ -103,7 +103,7 @@ class FillerLightOfTheMartyrs extends Analyzer {
         </Wrapper>
       )
         .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
-        .actual(`${actual} casts while Holy Shock was available`)
+        .actual(`${this.inefficientCasts} casts while Holy Shock was available`)
         .recommended(`No inefficient casts is recommended`);
     });
   }

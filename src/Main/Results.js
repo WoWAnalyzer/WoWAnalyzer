@@ -296,7 +296,7 @@ class Results extends React.Component {
                     </Textfit>
                   </div>
                 </div>
-                <div className="col-md-8" style={{ fontSize: 20 }}>
+                <div className="col-md-8 maintainers" style={{ fontSize: 20 }}>
                   The {config.spec.specName} {config.spec.className} analyzer is being maintained by
                   {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}. New maintainers are <b>always</b> welcome.
                 </div>
