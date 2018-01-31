@@ -36,7 +36,7 @@ class SixStackBites extends Analyzer {
     }
   }
 
-  on_byPlater_removebuff(event) {
+  on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.MONGOOSE_FURY.id) {
       return;

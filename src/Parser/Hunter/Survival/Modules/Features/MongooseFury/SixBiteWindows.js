@@ -13,8 +13,6 @@ class SixBiteWindows extends Analyzer {
   _currentStacks = 0;
   totalWindowsStarted = 0;
   sixBiteWindows = 0;
-  sixBiteWindowBites = 0;
-  totalBites = 0;
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
@@ -36,23 +34,12 @@ class SixBiteWindows extends Analyzer {
     }
   }
 
-  on_byPlater_removebuff(event) {
+  on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.MONGOOSE_FURY.id) {
       return;
     }
     this._currentStacks = 0;
-  }
-
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.MONGOOSE_BITE.id) {
-      return;
-    }
-    this.totalBites++;
-    if (this._currentStacks === MAX_STACKS) {
-      this.sixBiteWindowBites += 1;
-    }
   }
 
   statistic() {
