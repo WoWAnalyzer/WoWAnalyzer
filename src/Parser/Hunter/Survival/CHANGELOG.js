@@ -7,6 +7,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-01-31'),
+    changes: <Wrapper>Added a module for tracking <SpellLink id={SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.id} icon />. </Wrapper>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-01-30'),
     changes: <Wrapper>Added two statistic modules for <SpellLink id={SPELLS.MONGOOSE_FURY.id} icon /></Wrapper>,
     contributors: [Putro],

@@ -27,6 +27,9 @@ import CallOfTheWild from '../Shared/Modules/Items/CallOfTheWild';
 import TheApexPredatorsClaw from '../Shared/Modules/Items/TheApexPredatorsClaw';
 import TheShadowHuntersVoodooMask from '../Shared/Modules/Items/TheShadowHuntersVoodooMask';
 
+//Talents
+import WayOfTheMokNathal from './Modules/Talents/WayOfTheMokNathal';
+
 //Traits
 
 //Traits and Talents list
@@ -64,7 +67,7 @@ class CombatLogParser extends CoreCombatLogParser {
     theShadowHuntersVoodooMask: TheShadowHuntersVoodooMask,
 
     //Talents
-
+    wayOfTheMokNathal: WayOfTheMokNathal,
     //Traits
 
     //Traits and Talents list
