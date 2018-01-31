@@ -57,7 +57,7 @@ export default {
     id: 48438,
     name: 'Wild Growth',
     icon: 'ability_druid_flourish',
-    manaCost: 68816,
+    //manaCost: 68816,
   },
   REJUVENATION: {
     id: 774,
@@ -383,6 +383,11 @@ export default {
     id: 189754,
     name: 'Armor of the Ancients',
     icon: 'spell_druid_ironbark',
+  },
+  DEEP_ROOTED_TRAIT: {
+    id: 238122,
+    name: 'Deep Rooted',
+    icon: 'inv_misc_herb_liferoot_stem',
   },
 
   // GUARDIAN //

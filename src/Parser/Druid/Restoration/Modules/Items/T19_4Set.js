@@ -27,8 +27,11 @@ class T19_4Set extends Analyzer {
   get masteryHealing() {
     return this.rejuvenationAttributor.t194p.masteryHealing;
   }
+  get dreamwalkerHealing() {
+    return this.rejuvenationAttributor.t194p.dreamwalkerHealing;
+  }
   get totalHealing() {
-    return this.directHealing + this.masteryHealing;
+    return this.directHealing + this.masteryHealing + this.dreamwalkerHealing;
   }
   get procs() {
     return this.rejuvenationAttributor.t194p.procs;
@@ -40,10 +43,11 @@ class T19_4Set extends Analyzer {
       icon: <SpellIcon id={SPELLS.RESTO_DRUID_T19_4SET_BONUS_BUFF.id} />,
       title: <SpellLink id={SPELLS.RESTO_DRUID_T19_4SET_BONUS_BUFF.id} />,
       result: (
-        <dfn data-tip={`You procced <b>${this.procs}</b> Rejuvenations. This is the sum of the direct healing from those Rejuvernations and the healing enabled by their extra mastery stacks.
+        <dfn data-tip={`You procced <b>${this.procs}</b> Rejuvenations. This is the sum of the direct healing from those Rejuvernations, the healing enabled by their extra mastery stacks, and the healing enabled by extra Dreamwalker procs.
             <ul>
             <li>Direct: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.directHealing))}%</b></li>
             <li>Mastery: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.masteryHealing))}%</b></li>
+            <li>Dreamwalker: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.dreamwalkerHealing))}%</b></li>
             </ul>`}>
           <ItemHealingDone amount={this.totalHealing} />
         </dfn>

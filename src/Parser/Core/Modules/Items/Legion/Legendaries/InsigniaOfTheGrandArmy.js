@@ -182,7 +182,7 @@ class InsigniaOfTheGrandArmy extends Analyzer {
     //Refractive Shell
     tooltip += this.combatants.selected.traitsBySpellId[SPELLS.REFRACTIVE_SHELL_TRAIT.id] > 0 ? `<li>Refractive Shell:<ul><li>${this.owner.formatItemHealingDone(this.refractiveHealing / 3)}</li></ul></li>` : ``;
     //Secure In The Light
-    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.SECURE_IN_THE_LIGHT_TRAIT.id] > 0 ? `<li>The ring contributed with the following damage and healing over the course of the encounter from Secure In The Light: <li>${this.owner.formatItemDamageDone(this.secureInTheLightDamage / 3)}</li><li>${this.owner.formatItemHealingDone(this.secureInTheLightHealing / 3)}</li></li>` : ``;
+    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.SECURE_IN_THE_LIGHT_TRAIT.id] > 0 ? `<li>Secure In The Light: <ul><li>${this.owner.formatItemDamageDone(this.secureInTheLightDamage / 3)}</li><li>${this.owner.formatItemHealingDone(this.secureInTheLightHealing / 3)}</li></li></ul>` : ``;
     //Infusion Of Light
     tooltip += this.combatants.selected.traitsBySpellId[SPELLS.INFUSION_OF_LIGHT_TRAIT.id] > 0 ? `<li>Infusion Of Light: <ul><li>${this.owner.formatItemDamageDone(this.infusionOfLightDamage / 3)}</li><li>${this.owner.formatItemHealingDone(this.infusionOfLightHealing / 3)}</li></ul></li>` : ``;
     //Lights Embrace

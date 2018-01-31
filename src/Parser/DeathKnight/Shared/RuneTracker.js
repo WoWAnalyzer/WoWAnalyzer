@@ -42,7 +42,7 @@ class RuneTracker extends Analyzer {
       .forEach(({ cost }) => {
         //should add a check here to see if amount matches our rune count.
         let runeCost = cost || 0;
-        if(event.ability.guid === SPELLS.OBLITERATE.id && this.combatants.selected.hasBuff(SPELLS.OBLITERATION_TALENT.id)){
+        if(event.ability.guid === SPELLS.OBLITERATE_CAST.id && this.combatants.selected.hasBuff(SPELLS.OBLITERATION_TALENT.id)){
           runeCost--;
         }
       	for(let i = 0; i < runeCost; i++){

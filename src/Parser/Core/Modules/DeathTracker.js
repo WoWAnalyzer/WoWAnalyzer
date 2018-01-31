@@ -69,7 +69,7 @@ class DeathTracker extends Analyzer {
     if (!boss || !boss.fight.disableDeathSuggestion) {
       when(this.totalTimeDead).isGreaterThan(0)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>You died during this fight and were dead for {formatNumber(this.timeDeadSeconds)} seconds ({formatPercentage(this.timeDeadPercent)}% of the fight). Make sure you are paying attention to mechanics and dodging avoidable damage. Additionally, make sure you are using your defensive abilities to avoid damage and Health Potions, Healthstones, or self healing abilities to heal yourself when you are very low.</span>)
+          return suggest(<span>You died during this fight and you were dead for {formatNumber(this.timeDeadSeconds)} seconds ({formatPercentage(this.timeDeadPercent)}% of the fight). Make sure you are paying attention to mechanics and dodging avoidable damage. Additionally, make sure you are using your defensive abilities to avoid damage and Health Potions, Healthstones, or self healing abilities to heal yourself when you are very low.</span>)
             .icon('ability_fiegndead')
             .actual(`${formatNumber(this.timeDeadSeconds)} seconds dead`)
             .recommended(`${formatNumber(recommended)} is recommended`)

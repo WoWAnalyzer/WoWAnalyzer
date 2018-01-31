@@ -7,6 +7,9 @@ import Channeling from './Modules/Helper/Channeling';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import TimeFocusCapped from '../Shared/Modules/Features/TimeFocusCapped';
+import FocusUsage from '../Shared/Modules/Features/FocusUsage';
+import SixBiteWindows from './Modules/Features/MongooseFury/SixBiteWindows';
+import SixStackBites from './Modules/Features/MongooseFury/SixStackBites';
 
 //Tier
 import Tier21_2p from './Modules/Items/Tier21_2p';
@@ -41,6 +44,9 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     timeFocusCapped: TimeFocusCapped,
+    focusUsage: FocusUsage,
+    sixBiteWindows: SixBiteWindows,
+    sixStackBites: SixStackBites,
 
     //Focus Chart
     focusTracker: FocusTracker,

@@ -35,9 +35,9 @@ export function formatPercentage(percentage, precision = 2) {
  * Formats a duration in seconds to be a String expressed as minutes and seconds.
  * Ex: 317.3 => 5:17
  */
-export function formatDuration(duration) {
-  const seconds = Math.floor(duration % 60);
-  return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
+export function formatDuration(duration, precision = 0) {
+  const seconds = duration % 60;
+  return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds.toFixed(precision)}` : seconds.toFixed(precision)}`;
 }
 
 /*
