@@ -179,8 +179,18 @@ export default {
     name: 'Frost Strike',
     icon: 'spell_deathknight_empowerruneblade2',
   },
-  OBLITERATE: {
+  OBLITERATE_CAST: {
     id: 49020,
+    name: 'Obliterate',
+    icon: 'spell_deathknight_classicon',
+  },
+  OBLITERATE_MAIN_HAND_DAMAGE: {
+    id: 222024,
+    name: 'Obliterate',
+    icon: 'spell_deathknight_classicon',
+  },
+  OBLITERATE_OFF_HAND_DAMAGE: {
+    id: 66198,
     name: 'Obliterate',
     icon: 'spell_deathknight_classicon',
   },
@@ -231,6 +241,8 @@ export default {
     name: 'Razorice',
     icon: 'spell_deathknight_frozenruneweapon',
   },
+
+  // Frost tier 
   // T20 2P
   FROST_DEATH_KNIGHT_T20_2SET_BONUS_BUFF: {
     id: 242058,
@@ -242,6 +254,23 @@ export default {
     id: 242063,
     name: 'T20 4 Set Bonus',
     icon: 'spell_deathknight_frostpresence',
+  },
+  // T21 2P
+  FROST_DEATH_KNIGHT_T21_2SET_BONUS: {
+    id: 251873,
+    name: 'T21 2 Set Bonus',
+    icon: 'spell_deathknight_frostpresence',
+  },
+  // T21 4P
+  FROST_DEATH_KNIGHT_T21_4SET_BONUS: {
+    id: 251875,
+    name: 'T21 4 Set Bonus',
+    icon: 'spell_deathknight_frostpresence',
+  },
+  FREEZING_DEATH: { // damage event from 4 set
+    id: 253590,
+    name: 'Freezing Death',
+    icon: 'ability_deathknight_chillstreak',
   },
   
   // Unholy:

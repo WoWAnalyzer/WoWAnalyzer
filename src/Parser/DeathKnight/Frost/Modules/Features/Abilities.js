@@ -60,7 +60,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.60,
-          extraSuggestion: <Wrapper>You should use this whenever you are out of Runes and Runic Power.  Alternatively, some players use this during heroism to get more casts of <SpellLink id={SPELLS.OBLITERATE.id}/>.</Wrapper>,
+          extraSuggestion: <Wrapper>You should use this whenever you are out of Runes and Runic Power.  Alternatively, some players use this during heroism to get more casts of <SpellLink id={SPELLS.OBLITERATE_CAST.id}/>.</Wrapper>,
         },
       },
       {
@@ -74,7 +74,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.OBLITERATE,
+        spell: SPELLS.OBLITERATE_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
       {
