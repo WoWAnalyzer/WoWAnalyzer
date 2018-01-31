@@ -27,7 +27,7 @@ class StaggerPoolGraph extends Analyzer {
   on_removestagger(event) {
     this._staggerEvents.push(event);
 
-    if(event.reason.ability.guid === SPELLS.PURIFYING_BREW.id) {
+    if(event.reason.ability && event.reason.ability.guid === SPELLS.PURIFYING_BREW.id) {
       this._purifyTimestamps.push(event.timestamp);
     }
   }
@@ -52,7 +52,7 @@ class StaggerPoolGraph extends Analyzer {
     }, {});
     const hpBySeconds = Object.assign({}, poolBySeconds);
 
-    const purifies = this._purifyTimestamps.map(timestamp => Math.floor((timestamp - this.owner.fight.start_time) / 1000));
+    const purifies = this._purifyTimestamps.map(timestamp => Math.floor((timestamp - this.owner.fight.start_time) / 1000) - 1);
     const deaths = this._deathTimestamps.map(timestamp => Math.floor((timestamp - this.owner.fight.start_time) / 1000));
 
     this._staggerEvents.forEach(({ timestamp, newPooledDamage }) => {
@@ -90,9 +90,24 @@ class StaggerPoolGraph extends Analyzer {
       }
     }
 
+    const purifiesBySeconds = Object.keys(poolBySeconds).map(sec => {
+      if(purifies.includes(Number(sec))) {
+        return poolBySeconds[sec];
+      } else {
+        return undefined;
+      }
+    });
+
     const chartData = {
       labels,
       datasets: [ 
+        {
+          label: 'Max Health',
+          data: Object.values(hpBySeconds).map(({ maxHitPoints }) => maxHitPoints),
+          backgroundColor: 'rgba(255, 139, 45, 0.0)',
+          borderColor: 'red',
+          borderWidth: 2,
+        },
         {
           label: 'Health',
           data: Object.values(hpBySeconds).map(({ hitPoints }) => hitPoints),
@@ -101,11 +116,12 @@ class StaggerPoolGraph extends Analyzer {
           borderWidth: 2,
         },
         {
-          label: 'Max Health',
-          data: Object.values(hpBySeconds).map(({ maxHitPoints }) => maxHitPoints),
-          backgroundColor: 'rgba(255, 139, 45, 0.0)',
-          borderColor: 'red',
-          borderWidth: 2,
+          label: 'Purifying Brew Cast',
+          pointBackgroundColor: '#00ff96',
+          backgroundColor: '#00ff96',
+          data: purifiesBySeconds,
+          fillOpacity: 0,
+          pointRadius: 4,
         },
         {
           label: 'Stagger Pool Contents',
@@ -116,13 +132,7 @@ class StaggerPoolGraph extends Analyzer {
         },
         // add labels to legend
         {
-          label: 'Purifying Brew Cast',
-          backgroundColor: '#00ff96',
-          data: [],
-          fillOpacity: 0.2,
-        },
-        {
-          label: 'Player Deaths',
+          label: 'Player Death',
           backgroundColor: 'rgb(183, 76, 75)',
           data: [],
           fillOpacity: 0.2,
@@ -191,8 +201,7 @@ class StaggerPoolGraph extends Analyzer {
             },
             annotation: {
               annotations: [
-                ...annotations(purifies, 'rgba(0, 255, 150, 0.5)'),
-                ...annotations(deaths, 'rgba(183, 76, 75, 0.8)'),
+                ...annotations(deaths, 'rgba(183, 76, 75, 1)'),
               ],
             },
           }}
