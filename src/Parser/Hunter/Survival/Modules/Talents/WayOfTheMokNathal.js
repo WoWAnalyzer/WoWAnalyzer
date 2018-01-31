@@ -19,9 +19,9 @@ class WayOfTheMokNathal extends Analyzer {
   };
 
   _currentStacks = 0;
-  fourStackUptime = 0;
-  fourStackStart = 0;
-  timesDropped = 0;
+  _fourStackUptime = 0;
+  _fourStackStart = 0;
+  _timesDropped = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.id);
@@ -46,7 +46,7 @@ class WayOfTheMokNathal extends Analyzer {
     }
     this._currentStacks = event.stack;
     if (this._currentStacks === MAX_STACKS) {
-      this.fourStackStart = event.timestamp;
+      this._fourStackStart = event.timestamp;
     }
   }
 
@@ -56,21 +56,21 @@ class WayOfTheMokNathal extends Analyzer {
       return;
     }
     if (this._currentStacks === MAX_STACKS) {
-      this.fourStackUptime += event.timestamp - this.fourStackStart;
+      this._fourStackUptime += event.timestamp - this._fourStackStart;
     }
     this._currentStacks = 0;
-    this.timesDropped += 1;
+    this._timesDropped += 1;
   }
 
   on_finished() {
     if (this._currentStacks === MAX_STACKS) {
-      this.fourStackUptime += this.owner.fight.end_time - this.fourStackStart;
+      this._fourStackUptime += this.owner.fight.end_time - this._fourStackStart;
     }
   }
 
   get timesDroppedThreshold() {
     return {
-      actual: this.timesDropped,
+      actual: this._timesDropped,
       isGreaterThan: {
         minor: 0.9,
         average: 1.9,
@@ -84,7 +84,7 @@ class WayOfTheMokNathal extends Analyzer {
     when(this.timesDroppedThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<Wrapper>Try your best to maintain 4 stacks on <SpellLink id={SPELLS.MOKNATHAL_TACTICS.id} icon />. This can be achieved by casting <SpellLink id={SPELLS.RAPTOR_STRIKE.id} icon /> right before having to halt attacking for an extended period of time. </Wrapper>)
         .icon(SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.icon)
-        .actual(`You dropped Mok'Nathals Tactic ${this.timesDropped} times`)
+        .actual(`You dropped Mok'Nathals Tactic ${this._timesDropped} times`)
         .recommended(`${recommended} is recommended`);
     });
   }
@@ -93,12 +93,12 @@ class WayOfTheMokNathal extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.id} />}
-        value={`${formatPercentage(this.fourStackUptime / this.owner.fightDuration)}%`}
+        value={`${formatPercentage(this._fourStackUptime / this.owner.fightDuration)}%`}
         label="4 stack uptime"
         tooltip={`Way of the MokNathal breakdown:
           <ul>
             <li> Overall uptime: ${formatPercentage(this.overallUptime)}%</li>
-            <li> Times dropped: ${this.timesDropped}</li>
+            <li> Times dropped: ${this._timesDropped}</li>
           </ul> `} />
     );
   }
