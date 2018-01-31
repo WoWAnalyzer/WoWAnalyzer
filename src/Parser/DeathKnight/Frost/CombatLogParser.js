@@ -8,8 +8,7 @@ import FrostFeverUptime from './Modules/Features/FrostFeverUptime';
 import WastedRimeProcs from './Modules/Features/WastedRimeProcs';
 import HardHowlingBlastCasts from './Modules/Features/HardHowlingBlastCasts';
 
-import ColdHeart from './Modules/Items/Legendaries/ColdHeart';
-
+import ColdHeart from '../Shared/Items/ColdHeart';
 import RuneTracker from '../Shared/RuneTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
