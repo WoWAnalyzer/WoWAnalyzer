@@ -1,6 +1,5 @@
 import React from 'react';
 import { Line as LineChart } from 'react-chartjs-2';
-import 'chartjs-plugin-annotation';
 import Analyzer from 'Parser/Core/Analyzer';
 import Tab from 'Main/Tab';
 
@@ -55,7 +54,7 @@ class StaggerPoolGraph extends Analyzer {
     const deaths = this._deathEvents.map(({ timestamp, killingAbility }) => {
       return { 
         seconds: Math.floor((timestamp - this.owner.fight.start_time) / 1000),
-        ability: killingAbility 
+        ability: killingAbility,
       };
     });
 
@@ -169,8 +168,7 @@ class StaggerPoolGraph extends Analyzer {
         case DEATH_LABEL:
           return `Player died when hit by ${deathsBySeconds[index].ability.name} at ${formatNumber(deathsBySeconds[index].hp)} HP.`;
         case PURIFY_LABEL:
-          const staggerData = data.datasets.find(set => set.label === STAGGER_LABEL).data;
-          return `Purifying Brew cast with ${formatNumber(staggerData[tooltipItem.index])} damage staggered.`;
+          return `Purifying Brew cast with ${formatNumber(tooltipItem.yLabel)} damage staggered.`;
         default:
           return `${dataset.label}: ${formatNumber(tooltipItem.yLabel)}`;
       }
