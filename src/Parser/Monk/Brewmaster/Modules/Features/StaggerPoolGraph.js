@@ -161,12 +161,20 @@ class StaggerPoolGraph extends Analyzer {
       ],
     };
 
+    function safeAbilityName(ability) {
+      if(ability === undefined || ability.name === undefined) {
+        return 'an Unknown Ability';
+      } else {
+        return ability.name;
+      }
+    }
+
     function labelItem(tooltipItem, data) {
       const { index } = tooltipItem;
       const dataset = data.datasets[tooltipItem.datasetIndex];
       switch(dataset.label) {
         case DEATH_LABEL:
-          return `Player died when hit by ${deathsBySeconds[index].ability.name} at ${formatNumber(deathsBySeconds[index].hp)} HP.`;
+          return `Player died when hit by ${safeAbilityName(deathsBySeconds[index].ability)} at ${formatNumber(deathsBySeconds[index].hp)} HP.`;
         case PURIFY_LABEL:
           return `Purifying Brew cast with ${formatNumber(tooltipItem.yLabel)} damage staggered.`;
         default:
