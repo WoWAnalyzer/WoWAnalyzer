@@ -8,6 +8,16 @@ import SPELLS from 'common/SPELLS';
 
 import StaggerFabricator from '../Core/StaggerFabricator';
 
+/**
+ * A graph of staggered damage (and related quantities) over time.
+ *
+ * The idea of this is to help people identify the root cause of:
+ *   - overly high dtps (purifying well after a peak instead of at the peak)
+ *   - death (stagger ticking too high? one-shot? health trickling away without heals?)
+ *
+ * As well as just giving a generally interesting look into when damage
+ * actually hit your health bar on a fight.
+ */
 class StaggerPoolGraph extends Analyzer {
   static dependencies = {
     fab: StaggerFabricator,
@@ -15,8 +25,8 @@ class StaggerPoolGraph extends Analyzer {
   
   _hpEvents = [];
   _staggerEvents = [];
-  _purifyTimestamps = [];
   _deathEvents = [];
+  _purifyTimestamps = [];
 
   on_addstagger(event) {
     this._staggerEvents.push(event);
@@ -43,7 +53,12 @@ class StaggerPoolGraph extends Analyzer {
   }
 
   plot() {
+    // x indices
     const labels = Array.from({length: Math.ceil(this.owner.fightDuration / 1000)}, (x, i) => i);
+
+    // somethingBySeconds are all objects mapping from seconds ->
+    // something, where if a value is unknown for that timestamp it is
+    // undefined (the key is still present)
     const poolBySeconds = labels.reduce((obj, sec) => {
       obj[sec] = undefined;
       return obj;
@@ -60,18 +75,28 @@ class StaggerPoolGraph extends Analyzer {
 
     this._staggerEvents.forEach(({ timestamp, newPooledDamage }) => {
       const seconds = Math.floor((timestamp - this.owner.fight.start_time) / 1000);
+      // for simplicity, we plot the right-edge of each bin. stagger
+      // actually ticks twice a second
       poolBySeconds[seconds] = newPooledDamage;
     });
 
     this._hpEvents.forEach(({ timestamp, hitPoints, maxHitPoints }) => {
       const seconds = Math.floor((timestamp - this.owner.fight.start_time) / 1000);
+      // we fill in the blanks later if hitPoints is not defined
       if(!!hitPoints) {
-        // we fill in the blanks later if hitPoints is not defined
         hpBySeconds[seconds] = { hitPoints, maxHitPoints };
       }
     });
 
-    // fix stagger after deaths
+    // fill in blanks. after deaths hp and stagger should be set to
+    // zero. in periods of no activity, the same hp/stagger should be
+    // preserved.
+    //
+    // you might wonder "but i thought stagger ticked twice a second? so
+    // either you're dead or damage is incoming!" Friendo, let me
+    // introduce you to the joy of stagger pausing: BoC + ISB pauses the
+    // dot for 3 seconds so we may have gaps where we are *not* dead and
+    // also not taking damage
     let lastPoolContents = 0;
     let lastHpContents = { hitPoints: 0, maxHitPoints: 0 };
     for(const label in labels) {
@@ -110,6 +135,7 @@ class StaggerPoolGraph extends Analyzer {
       }
     });
 
+    // some labels are referred to later for drawing tooltips
     const DEATH_LABEL = 'Player Death';
     const PURIFY_LABEL = 'Purifying Brew Cast';
     const HP_LABEL = 'Health';
@@ -169,6 +195,7 @@ class StaggerPoolGraph extends Analyzer {
       }
     }
 
+    // labels an item in the tooltip
     function labelItem(tooltipItem, data) {
       const { index } = tooltipItem;
       const dataset = data.datasets[tooltipItem.datasetIndex];
