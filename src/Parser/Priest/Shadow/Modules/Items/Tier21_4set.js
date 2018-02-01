@@ -39,7 +39,7 @@ class Tier21_4set extends Analyzer {
     const critChanceWithSet = increasedCritChance + critChanceWithoutSet;
     var hitDamage = 0.0;
     
-    if( spellID !== SPELLS.VOID_BOLT.id )
+    if( spellId !== SPELLS.VOID_BOLT.id )
     {
     hitDamage = event.hitType === HIT_TYPES.CRIT ? (calculateEffectiveDamage(event, 1) / CRIT_TO_HIT_MODIFIER) : (calculateEffectiveDamage(event, 1));
     }
