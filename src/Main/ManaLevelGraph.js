@@ -10,10 +10,10 @@ import specialEventIndicators from './Chartist/specialEventIndicators';
 
 import './Mana.css';
 
-export function formatDuration(duration) {
+const formatDuration = (duration) => {
   const seconds = Math.floor(duration % 60);
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
-}
+};
 
 class Mana extends React.PureComponent {
   static propTypes = {
