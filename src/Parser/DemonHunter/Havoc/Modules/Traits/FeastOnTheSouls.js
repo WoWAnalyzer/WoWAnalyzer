@@ -63,6 +63,10 @@ class FeastOnTheSouls extends Analyzer {
 		this.totalCooldownReduction += reduction;
 	}
 
+	on_finished() {
+		this.active = this.totalCooldownReduction > 0 || this.totalCooldownReductionWasted > 0;
+	}
+
 	statistic() {
 		return (
 			<StatisticBox
