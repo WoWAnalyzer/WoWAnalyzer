@@ -14,7 +14,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.SINDRAGOSAS_FURY_ARTIFACT.id,
     // core frost abilities
     SPELLS.FROST_STRIKE.id,
-    SPELLS.OBLITERATE.id,
+    SPELLS.OBLITERATE_CAST.id,
     SPELLS.HOWLING_BLAST.id,
     SPELLS.REMORSELESS_WINTER.id,
 

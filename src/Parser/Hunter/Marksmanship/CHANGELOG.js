@@ -9,6 +9,11 @@ import { Blazballs, JLassie82, Putro } from 'MAINTAINERS';
 
 export default [
   {
+    date: new Date('2018-01-30'),
+    changes: 'Added a tooltip on the focus usage chart that shows focus used aswell as amount of casts of the the given ability',
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-01-05'),
     changes: <Wrapper>Added support for <SpellLink id={SPELLS.SENTINEL_TALENT.id} icon />, and included the current bugged ticks of Sentinel.</Wrapper>,
     contributors: [Putro],
@@ -115,7 +120,7 @@ export default [
   },
   {
     date: new Date('2017-10-22'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.TRUESHOT.id} /> statistic with average <SpellLink id={SPELLS.AIMED_SHOT.id} /> pr <SpellLink id={SPELLS.TRUESHOT.id} />, and average starting focus pr <SpellLink id={SPELLS.TRUESHOT.id} />.</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.TRUESHOT.id} /> statistic with average <SpellLink id={SPELLS.AIMED_SHOT.id} /> per <SpellLink id={SPELLS.TRUESHOT.id} />, and average starting focus per <SpellLink id={SPELLS.TRUESHOT.id} />.</Wrapper>,
     contributors: [Putro],
   },
   {

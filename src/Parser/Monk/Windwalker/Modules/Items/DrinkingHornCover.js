@@ -25,12 +25,14 @@ class DrinkingHornCover extends Analyzer {
   }
   on_toPlayer_removebuff(event) {
     const spellId = event.ability.guid;
-    if (SPELLS.STORM_EARTH_AND_FIRE_CAST.id === spellId) {
-      this.totalTimeGained += (event.timestamp - this.lastCastTime) / 1000 - 15;
+    const duration = event.timestamp - this.lastCastTime;
+    // the duration checks are to not have negative values from SEFs/Serenities ended early because of death or cancelling the buff. 
+    if (SPELLS.STORM_EARTH_AND_FIRE_CAST.id === spellId && duration > 15000) {
+      this.totalTimeGained += duration / 1000 - 15;
       this.averageTimeGained = this.totalTimeGained / this.abilityTracker.getAbility(SPELLS.STORM_EARTH_AND_FIRE_CAST.id).casts;
     }
-    if (SPELLS.SERENITY_TALENT.id === spellId) {
-      this.totalTimeGained += (event.timestamp - this.lastCastTime) / 1000 - 8;
+    if (SPELLS.SERENITY_TALENT.id === spellId && duration > 8000) {
+      this.totalTimeGained += duration / 1000 - 8;
       this.averageTimeGained = this.totalTimeGained / this.abilityTracker.getAbility(SPELLS.SERENITY_TALENT.id).casts;
     }
   }

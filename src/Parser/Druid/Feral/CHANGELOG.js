@@ -7,6 +7,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   { 
+    date: new Date('2018-01-29'),
+    changes: <Wrapper>Added low energy <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> tracking</Wrapper>,
+    contributors: [Anatta336],
+  },
+  { 
     date: new Date('2018-01-24'),
     changes: <Wrapper>Added <SpellLink id={SPELLS.ASHAMANES_RIP.id} /> uptime tracking</Wrapper>,
     contributors: [Anatta336],

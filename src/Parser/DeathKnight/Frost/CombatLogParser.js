@@ -8,7 +8,11 @@ import FrostFeverUptime from './Modules/Features/FrostFeverUptime';
 import WastedRimeProcs from './Modules/Features/WastedRimeProcs';
 import HardHowlingBlastCasts from './Modules/Features/HardHowlingBlastCasts';
 
-import ColdHeart from './Modules/Items/Legendaries/ColdHeart';
+import Tier21_2p from './Modules/Items/Tier21_2p';
+import Tier21_4p from './Modules/Items/Tier21_4p';
+
+import ColdHeart from '../Shared/Items/ColdHeart';
+import RuneTracker from '../Shared/RuneTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -30,6 +34,11 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Items
     coldHeart: ColdHeart,
+    tier21_2p: Tier21_2p,
+    tier21_4p: Tier21_4p,
+
+    //rune tracker
+    runeTracker: RuneTracker,
   };
 }
 

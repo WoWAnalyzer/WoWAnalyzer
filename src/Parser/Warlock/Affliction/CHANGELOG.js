@@ -10,6 +10,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-01-28'),
+    changes: <Wrapper>Upgrade the spec completeness to Great!</Wrapper>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-01-28'),
     changes: <Wrapper>Updated the thresholds for DOTs to be more strict.</Wrapper>,
     contributors: [Chizu],
   },
@@ -35,7 +40,7 @@ export default [
   },
   {
     date: new Date('2017-12-29'),
-    changes: <Wrapper>Fixed display in the timeline and the inclusion in active time of channeled abilities.</Wrapper>,
+    changes: 'Fixed display in the timeline and the inclusion in active time of channeled abilities.',
     contributors: [Zerotorescue],
   },
   {

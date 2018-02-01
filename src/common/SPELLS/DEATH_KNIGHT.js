@@ -179,8 +179,18 @@ export default {
     name: 'Frost Strike',
     icon: 'spell_deathknight_empowerruneblade2',
   },
-  OBLITERATE: {
+  OBLITERATE_CAST: {
     id: 49020,
+    name: 'Obliterate',
+    icon: 'spell_deathknight_classicon',
+  },
+  OBLITERATE_MAIN_HAND_DAMAGE: {
+    id: 222024,
+    name: 'Obliterate',
+    icon: 'spell_deathknight_classicon',
+  },
+  OBLITERATE_OFF_HAND_DAMAGE: {
+    id: 66198,
     name: 'Obliterate',
     icon: 'spell_deathknight_classicon',
   },
@@ -231,6 +241,8 @@ export default {
     name: 'Razorice',
     icon: 'spell_deathknight_frozenruneweapon',
   },
+
+  // Frost tier 
   // T20 2P
   FROST_DEATH_KNIGHT_T20_2SET_BONUS_BUFF: {
     id: 242058,
@@ -243,112 +255,24 @@ export default {
     name: 'T20 4 Set Bonus',
     icon: 'spell_deathknight_frostpresence',
   },
-  // Talents
-  RUNIC_ATTENUATION_TALENT: {
-    id: 207104,
-    name: 'Runic Attenuation',
-    icon: 'Boss_odunrunes_blue',
+  // T21 2P
+  FROST_DEATH_KNIGHT_T21_2SET_BONUS: {
+    id: 251873,
+    name: 'T21 2 Set Bonus',
+    icon: 'spell_deathknight_frostpresence',
   },
-  ABOMINATIONS_MIGHT_TALENT: {
-    id: 207161,
-    name: 'Abomination\'s Might',
-    icon: 'spell_deathknight_icetouch',
+  // T21 4P
+  FROST_DEATH_KNIGHT_T21_4SET_BONUS: {
+    id: 251875,
+    name: 'T21 4 Set Bonus',
+    icon: 'spell_deathknight_frostpresence',
   },
-  AVALANCHE_TALENT: {
-    id: 207142,
-    name: 'Avalanche',
-    icon: 'spell-frost-icestorm',
+  FREEZING_DEATH: { // damage event from 4 set
+    id: 253590,
+    name: 'Freezing Death',
+    icon: 'ability_deathknight_chillstreak',
   },
-  BLINDING_SLEET_TALENT: {
-    id: 207167,
-    name: 'Blinding Sleet',
-    icon: 'spell-frost-chillingblast',
-  },
-  BREATH_OF_SINDRAGOSA_TALENT: {
-    id: 152279,
-    name: 'Breath of Sindragosa',
-    icon: 'spell_deathknight_breathofsindragosa',
-  },
-  FREEZING_FOG_TALENT: {
-    id: 207060,
-    name: 'Freezing Fog',
-    icon: 'spell_frost_arcticwinds',
-  },
-  FROSTSCYTHE_TALENT: {
-    id: 207230,
-    name: 'Frostscythe',
-    icon: 'inv_misc_2h_farmscythe_a_01',
-  },
-  FROZEN_PULSE_TALENT: {
-    id: 194909,
-    name: 'Frozen Pulse',
-    icon: 'inv_misc_permafrostshard',
-  },
-  GATHERING_STORM_TALENT: {
-    id: 194912,
-    name: 'Gathering Storm',
-    icon: 'spell_frost_ice-shards',
-  },
-  GLACIAL_ADVANCE_TALENT: {
-    id: 194913,
-    name: 'Glacial Advance',
-    icon: 'ability_hunter_glacialtrap',
-  },
-  HORN_OF_WINTER_TALENT: {
-    id: 57330,
-    name: 'Horn of Winter',
-    icon: 'inv_misc_horn_02',
-  },
-  HUNGERING_RUNE_WEAPON_TALENT: {
-    id: 207127,
-    name: 'Hungering Rune Weapon',
-    icon: 'ability_deathknight_hungeringruneblade',
-  },
-  ICECAP_TALENT: {
-    id: 207126,
-    name: 'Icecap',
-    icon: 'inv_misc_herb_icecap',
-  },
-  ICY_TALONS_TALENT: {
-    id: 194878,
-    name: 'Icy Talons',
-    icon: 'spell_deathknight_icytalon',
-  },
-  INEXORABLE_ASSAULT_TALENT: {
-    id: 253593,
-    name: 'Inexorable Assault',
-    icon: 'achievement_dungeon_icecrown_frostmourne',
-  },
-  MURDEROUS_EFFICIENCY_TALENT: {
-    id: 207061,
-    name: 'Murderous Efficiency',
-    icon: 'spell_frost_frostarmor',
-  },
-  OBLITERATION_TALENT: {
-    id: 207256,
-    name: 'Obliteration',
-    icon: 'inv_axe_114',
-  },
-  PERMAFROST_TALENT: {
-    id: 207200,
-    name: 'Permafrost',
-    icon: 'achievement_zone_frostfire',
-  },
-  SHATTERING_STRIKES_TALENT: {
-    id: 207057,
-    name: 'Shattering Strikes',
-    icon: 'ability_warrior_shatteringthrow',
-  },
-  VOLATILE_SHIELDING_TALENT: {
-    id: 207188,
-    name: 'Volatile Shielding',
-    icon: 'ability_mage_shattershield',
-  },
-  WINTER_IS_COMING_TALENT: {
-    id: 207170,
-    name: 'Winter is Coming',
-    icon: 'inv_wolfdraenormountfrost',
-  },
+  
   // Unholy:
   // Aritfact ability
   APOCALYPSE: {

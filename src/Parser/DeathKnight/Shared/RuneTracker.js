@@ -10,6 +10,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Abilities from 'Parser/Core/Modules/Abilities';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -27,21 +28,46 @@ class RuneTracker extends Analyzer {
     spellUsable: SpellUsable,
     castEfficiency: CastEfficiency,
     abilities: Abilities,
+    combatants: Combatants,
   };
 
   timeSpentWithRunesOnCooldown = {};
   resourceType = RESOURCE_TYPES.RUNES.id;
 
   on_byPlayer_cast(event) {
+    if(!event.classResources){
+      return;
+    }
   	event.classResources
       .filter(resource => resource.type === this.resourceType)
       .forEach(({ cost }) => {
         //should add a check here to see if amount matches our rune count.
-        const runeCost = cost || 0;
+        let runeCost = cost || 0;
+        if(event.ability.guid === SPELLS.OBLITERATE_CAST.id && this.combatants.selected.hasBuff(SPELLS.OBLITERATION_TALENT.id)){
+          runeCost--;
+        }
       	for(let i = 0; i < runeCost; i++){
       		this.startCooldown();
       	}
       });
+  }
+  on_toPlayer_energize(event){
+    if(event.resourceChangeType !== this.resourceType){
+      return;
+    }
+    const amount = event.resourceChange;
+    for(let i = 0; i < amount; i++){
+      this.addCharge();
+    }
+  }
+
+  addCharge(){
+    const runeId = this.longestCooldown;
+    if(!this.spellUsable.isOnCooldown(runeId)){
+      return;
+    }
+    const expectedCooldown = this.abilities.getExpectedCooldownDuration(runeId);
+    this.spellUsable.reduceCooldown(runeId, expectedCooldown);
   }
 
   startCooldown(){
@@ -59,6 +85,20 @@ class RuneTracker extends Analyzer {
   	else if(runeTwoCooldown <= runeThreeCooldown){
   		return SPELLS.RUNE_2.id;
   	} else {
+      return SPELLS.RUNE_3.id;
+    }
+  }
+
+  get longestCooldown(){
+    const runeOneCooldown = this.getCooldown(SPELLS.RUNE_1.id) || 0;
+    const runeTwoCooldown = this.getCooldown(SPELLS.RUNE_2.id) || 0;
+    const runeThreeCooldown = this.getCooldown(SPELLS.RUNE_3.id) || 0;
+    if(runeOneCooldown >= runeTwoCooldown && runeOneCooldown >= runeThreeCooldown){
+      return SPELLS.RUNE_1.id;
+    }
+    else if(runeTwoCooldown >= runeThreeCooldown){
+      return SPELLS.RUNE_2.id;
+    } else {
       return SPELLS.RUNE_3.id;
     }
   }

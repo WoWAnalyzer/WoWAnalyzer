@@ -60,7 +60,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.60,
-          extraSuggestion: <Wrapper>You should use this whenever you are out of Runes and Runic Power.  Alternatively, some players use this during heroism to get more casts of <SpellLink id={SPELLS.OBLITERATE.id}/>.</Wrapper>,
+          extraSuggestion: <Wrapper>You should use this whenever you are out of Runes and Runic Power.  Alternatively, some players use this during heroism to get more casts of <SpellLink id={SPELLS.OBLITERATE_CAST.id}/>.</Wrapper>,
         },
       },
       {
@@ -74,7 +74,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.OBLITERATE,
+        spell: SPELLS.OBLITERATE_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
       {
@@ -89,6 +89,27 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FROST_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      },
+
+      {
+        spell: SPELLS.RUNE_1,
+        category: Abilities.SPELL_CATEGORIES.HIDDEN,
+        cooldown: haste => 10 / (1 + haste),
+        charges: 2,
+      },
+
+      {
+        spell: SPELLS.RUNE_2,
+        category: Abilities.SPELL_CATEGORIES.HIDDEN,
+        cooldown: haste => 10 / (1 + haste),
+        charges: 2,
+      },
+
+      {
+        spell: SPELLS.RUNE_3,
+        category: Abilities.SPELL_CATEGORIES.HIDDEN,
+        cooldown: haste => 10 / (1 + haste),
+        charges: 2,
       },
     ];
   }
