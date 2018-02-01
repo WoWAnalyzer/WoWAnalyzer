@@ -652,6 +652,11 @@ export default {
     name: 'Talon Strike',
     icon: 'inv_misc_bone_06',
   },
+  HUNTERS_GUILE_TRAIT: {
+    id: 203752,
+    name: 'Hunter\'s Guile',
+    icon: 'ability_mage_potentspirit',
+  },
   ASPECT_OF_THE_SKYLORD_BUFF: {
     id: 203927,
     name: 'Aspect of the Skylord',
