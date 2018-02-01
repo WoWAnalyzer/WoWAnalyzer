@@ -11,29 +11,7 @@ import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-  static ABILITIES_ON_GCD = [
-    // Abilities
-    SPELLS.DEMONS_BITE.id,
-    SPELLS.ANNIHILATION.id,
-    SPELLS.BLADE_DANCE.id,
-    SPELLS.CHAOS_STRIKE.id,
-    SPELLS.DEATH_SWEEP.id,
-    SPELLS.EYE_BEAM.id,
-    SPELLS.FURY_OF_THE_ILLIDARI.id,
-    SPELLS.THROW_GLAIVE_HAVOC.id,
-    SPELLS.CHAOS_NOVA.id,
-    SPELLS.METAMORPHOSIS_HAVOC.id,
-
-    // Talents
-    SPELLS.FELBLADE_TALENT.id,
-    SPELLS.FEL_BARRAGE_TALENT.id,
-    SPELLS.FEL_ERUPTION_TALENT.id,
-
-    //Utility
-    SPELLS.FEL_RUSH.id,
-    SPELLS.VENGEFUL_RETREAT.id,
-  ];
-
+  
   static STATIC_GCD_ABILITIES = {
     [SPELLS.FEL_RUSH.id]: 250,
     [SPELLS.VENGEFUL_RETREAT.id]: 1000, //Not actually on the GCD but blocks all spells during its animation for 1 second
