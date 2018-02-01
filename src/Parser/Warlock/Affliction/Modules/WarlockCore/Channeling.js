@@ -1,5 +1,6 @@
-import SPELLS from 'common/SPELLS';
 import CoreChanneling from 'Parser/Core/Modules/Channeling';
+
+import SPELLS from 'common/SPELLS';
 import { formatMilliseconds } from 'common/format';
 
 /**
