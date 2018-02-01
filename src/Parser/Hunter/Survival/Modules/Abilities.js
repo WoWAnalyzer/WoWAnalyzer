@@ -55,7 +55,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EXPLOSIVE_TRAP_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
-        cooldown: 24,
+        cooldown: this.combatants.selected.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 30 * 0.8 : 30,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: .70,
@@ -87,7 +87,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CALTROPS_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 12,
+        cooldown: this.combatants.selected.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 15 * 0.8 : 15,
         isOnGCD: true,
         enabled: this.combatants.selected.hasTalent(SPELLS.CALTROPS_TALENT.id),
         castEfficiency: {
@@ -98,7 +98,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.STEEL_TRAP_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 48,
+        cooldown: this.combatants.selected.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 60 * 0.8 : 60,
         isOnGCD: true,
         enabled: this.combatants.selected.hasTalent(SPELLS.STEEL_TRAP_TALENT.id),
         castEfficiency: {
@@ -229,14 +229,14 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FREEZING_TRAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 24,
+        cooldown: this.combatants.selected.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 30 * 0.8 : 30,
         enabled: !this.combatants.selected.hasTalent(SPELLS.STEEL_TRAP_TALENT.id),
         isOnGCD: true,
       },
       {
         spell: SPELLS.TAR_TRAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 24,
+        cooldown: this.combatants.selected.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 30 * 0.8 : 30,
         enabled: !this.combatants.selected.hasTalent(SPELLS.CALTROPS_TALENT.id),
         isOnGCD: true,
       },
