@@ -6,6 +6,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
+
 import StatisticBox from 'Main/StatisticBox';
 
 import SoulHarvest from './SoulHarvest';
