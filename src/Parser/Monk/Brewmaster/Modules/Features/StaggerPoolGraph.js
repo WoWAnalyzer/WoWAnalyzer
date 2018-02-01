@@ -4,8 +4,7 @@ import 'chartjs-plugin-annotation';
 import Analyzer from 'Parser/Core/Analyzer';
 import Tab from 'Main/Tab';
 
-import { formatDuration } from 'Main/ManaLevelGraph';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 
 import StaggerFabricator from '../Core/StaggerFabricator';
@@ -18,7 +17,7 @@ class StaggerPoolGraph extends Analyzer {
   _hpEvents = [];
   _staggerEvents = [];
   _purifyTimestamps = [];
-  _deathTimestamps = [];
+  _deathEvents = [];
 
   on_addstagger(event) {
     this._staggerEvents.push(event);
@@ -33,7 +32,7 @@ class StaggerPoolGraph extends Analyzer {
   }
 
   on_toPlayer_death(event) {
-    this._deathTimestamps.push(event.timestamp);
+    this._deathEvents.push(event);
   }
 
   on_toPlayer_damage(event) {
@@ -53,7 +52,12 @@ class StaggerPoolGraph extends Analyzer {
     const hpBySeconds = Object.assign({}, poolBySeconds);
 
     const purifies = this._purifyTimestamps.map(timestamp => Math.floor((timestamp - this.owner.fight.start_time) / 1000) - 1);
-    const deaths = this._deathTimestamps.map(timestamp => Math.floor((timestamp - this.owner.fight.start_time) / 1000));
+    const deaths = this._deathEvents.map(({ timestamp, killingAbility }) => {
+      return { 
+        seconds: Math.floor((timestamp - this.owner.fight.start_time) / 1000),
+        ability: killingAbility 
+      };
+    });
 
     this._staggerEvents.forEach(({ timestamp, newPooledDamage }) => {
       const seconds = Math.floor((timestamp - this.owner.fight.start_time) / 1000);
@@ -84,7 +88,7 @@ class StaggerPoolGraph extends Analyzer {
         lastHpContents = hpBySeconds[label];
       }
 
-      if(deaths.includes(Number(label))) {
+      if(!!deaths.find(event => event.seconds === Number(label))) {
         lastPoolContents = 0;
         lastHpContents = { hitPoints: 0, maxHitPoints: lastHpContents.maxHitPoints };
       }
@@ -98,25 +102,49 @@ class StaggerPoolGraph extends Analyzer {
       }
     });
 
+    const deathsBySeconds = Object.keys(hpBySeconds).map(sec => {
+      const deathEvent = deaths.find(event => event.seconds === Number(sec));
+      if(!!deathEvent) {
+        return { hp: hpBySeconds[sec].maxHitPoints, ...deathEvent };
+      } else {
+        return undefined;
+      }
+    });
+
+    const DEATH_LABEL = 'Player Death';
+    const PURIFY_LABEL = 'Purifying Brew Cast';
+    const HP_LABEL = 'Health';
+    const STAGGER_LABEL = 'Stagger Pool Contents';
     const chartData = {
       labels,
       datasets: [ 
         {
+          label: DEATH_LABEL,
+          backgroundColor: '#ff2222',
+          borderColor: '#ff2222',
+          borderWidth: 2,
+          data: deathsBySeconds.map(obj => !!obj ? obj.hp : undefined),
+          pointRadius: 6,
+          pointStyle: 'crossRot',
+        },
+        {
           label: 'Max Health',
           data: Object.values(hpBySeconds).map(({ maxHitPoints }) => maxHitPoints),
           backgroundColor: 'rgba(255, 139, 45, 0.0)',
-          borderColor: 'red',
+          borderColor: 'rgb(183, 76, 75)',
           borderWidth: 2,
+          pointStyle: 'line',
         },
         {
-          label: 'Health',
+          label: HP_LABEL,
           data: Object.values(hpBySeconds).map(({ hitPoints }) => hitPoints),
           backgroundColor: 'rgba(255, 139, 45, 0.2)',
           borderColor: 'rgb(255, 139, 45)',
           borderWidth: 2,
+          pointStyle: 'rect',
         },
         {
-          label: 'Purifying Brew Cast',
+          label: PURIFY_LABEL,
           pointBackgroundColor: '#00ff96',
           backgroundColor: '#00ff96',
           data: purifiesBySeconds,
@@ -124,33 +152,28 @@ class StaggerPoolGraph extends Analyzer {
           pointRadius: 4,
         },
         {
-          label: 'Stagger Pool Contents',
+          label: STAGGER_LABEL,
           data: Object.values(poolBySeconds),
           backgroundColor: 'rgba(240, 234, 214, 0.2)',
           borderColor: 'rgb(240, 234, 214)',
           borderWidth: 2,
-        },
-        // add labels to legend
-        {
-          label: 'Player Death',
-          backgroundColor: 'rgb(183, 76, 75)',
-          data: [],
-          fillOpacity: 0.2,
+          pointStyle: 'rect',
         },
       ],
     };
 
-    function annotations(values, color) {
-      return values.map(index => { 
-        return {
-          type: 'line',
-          mode: 'vertical',
-          borderColor: color,
-          borderWidth: 2,
-          value: index,
-          scaleID: 'x-axis-0',
-        };
-      });
+    function labelItem(tooltipItem, data) {
+      const { index } = tooltipItem;
+      const dataset = data.datasets[tooltipItem.datasetIndex];
+      switch(dataset.label) {
+        case DEATH_LABEL:
+          return `Player died when hit by ${deathsBySeconds[index].ability.name} at ${formatNumber(deathsBySeconds[index].hp)} HP.`;
+        case PURIFY_LABEL:
+          const staggerData = data.datasets.find(set => set.label === STAGGER_LABEL).data;
+          return `Purifying Brew cast with ${formatNumber(staggerData[tooltipItem.index])} damage staggered.`;
+        default:
+          return `${dataset.label}: ${formatNumber(tooltipItem.yLabel)}`;
+      }
     }
 
     return (
@@ -162,13 +185,12 @@ class StaggerPoolGraph extends Analyzer {
           options={{
             tooltips: {
               callbacks: {
-                label: function(tooltipItem, data) {
-                  return `Damage in Stagger Pool: ${formatNumber(tooltipItem.yLabel)}`;
-                },
+                label: labelItem,
               },
             },
             legend: {
               labels: {
+                usePointStyle: true,
                 fontColor: '#ccc',
               },
             },
@@ -198,11 +220,6 @@ class StaggerPoolGraph extends Analyzer {
                   callback: formatNumber,
                 },
               }],
-            },
-            annotation: {
-              annotations: [
-                ...annotations(deaths, 'rgba(183, 76, 75, 1)'),
-              ],
             },
           }}
         />
