@@ -2,11 +2,13 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import Wrapper from 'common/Wrapper';
 
 import SoulShardEvents from '../SoulShards/SoulShardEvents';
 
@@ -50,6 +52,20 @@ class FireAndBrimstone extends Analyzer {
     // should be cleaved damage
     this.generatedCleaveFragments += event.amount;
     this.bonusDmg += event.damage;
+  }
+
+  suggestions(when) {
+    // this is incorrect in certain situations with pre-casted Incinerates, but there's very little I can do about it
+    // example: pre-cast Incinerate -> *combat starts* -> hard cast Incinerate -> first Incinerate lands -> second Incinerate lands
+    // but because the second Incinerate "technically" doesn't have a cast event to pair with, it's incorrectly recognized as cleaved
+    when(this.generatedCleaveFragments).isEqual(0)
+      .addSuggestion(suggest => {
+        return suggest(<Wrapper>Your <SpellLink id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id} icon/> talent didn't contribute any bonus fragments. When there are no adds to cleave onto, this talent is useless and you should switch to a different talent.</Wrapper>)
+          .icon(SPELLS.FIRE_AND_BRIMSTONE_TALENT.icon)
+          .actual('No bonus Soul Shard Fragments generated')
+          .recommended('Different talent is recommended')
+          .staticImportance(ISSUE_IMPORTANCE.MAJOR);
+      });
   }
 
   subStatistic() {

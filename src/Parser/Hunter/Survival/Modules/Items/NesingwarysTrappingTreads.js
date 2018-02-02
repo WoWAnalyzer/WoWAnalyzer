@@ -4,6 +4,7 @@ import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
+import { formatNumber } from 'common/format';
 
 /**
  * Nesingwary's Trapping Treads
@@ -38,8 +39,8 @@ class NesingwarysTrappingTreads extends Analyzer {
     return {
       item: ITEMS.NESINGWARYS_TRAPPING_TREADS,
       result: (
-        <dfn data-tip={`You procced Nesingwary's Trapping Treads ${this.possibleGain / FOCUS_PER_PROC} times.`}>
-          <span>You gained {this.focusGain} out of {this.possibleGain} possible focus.</span>
+        <dfn data-tip={`You procced Nesingwary's Trapping Treads ${this.possibleGain / FOCUS_PER_PROC} times. <br/>You wasted ${formatNumber(this.focusWaste / this.owner.fightDuration * 60000)} focus per minute by overcapping with the proc.`}>
+          You gained {formatNumber(this.focusGain / this.owner.fightDuration * 60000)} focus per minute.
         </dfn>
       ),
     };
