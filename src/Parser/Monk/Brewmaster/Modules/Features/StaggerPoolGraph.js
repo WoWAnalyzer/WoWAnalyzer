@@ -116,8 +116,7 @@ class StaggerPoolGraph extends Analyzer {
 
       if(!!deaths.find(event => event.seconds === Number(label))) {
         lastPoolContents = 0;
-        // dont plot max hp while dead
-        lastHpContents = { hitPoints: 0, maxHitPoints: undefined };
+        lastHpContents = { hitPoints: 0, maxHitPoints: lastHpContents.maxHitPoints };
       }
     }
 
