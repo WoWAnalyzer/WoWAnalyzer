@@ -595,6 +595,11 @@ export default {
     name: 'Harpoon',
     icon: 'ability_hunter_harpoon',
   },
+  HARPOON_DAMAGE: { //doesn't actually do damage, but it's categorized as that
+    id: 190927,
+    name: 'Harpoon',
+    icon: 'ability_hunter_harpoon',
+  },
   MUZZLE: {
     id: 187707,
     name: 'Muzzle',
@@ -713,6 +718,21 @@ export default {
     id: 212575,
     name: 'Nesingwary\'s Trapping Treads',
     icon: 'inv_boots_mail_panda_b_02',
+  },
+  UNSEEN_PREDATORS_CLOAK_BUFF: {
+    id: 248212,
+    name: 'Unseen Predator\'s Cloak',
+    icon: 'ability_vehicle_demolisherflamecatapult',
+  },
+  MARK_OF_HELBRINE: {
+    id: 213156,
+    name: 'Mark of Helbrine',
+    icon: 'inv_spear_04',
+  },
+  BUTCHERS_BONE_APRON_BUFF: {
+    id: 236446,
+    name: 'Butcher\'s Bone Apron',
+    icon: 'ability_hunter_carve',
   },
 
   //------------------------------------------------------------
