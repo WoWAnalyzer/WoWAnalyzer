@@ -5,6 +5,8 @@ import Tab from 'Main/Tab';
 
 import { formatNumber, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
+import 'common/chartjs-plugin-vertical';
 
 import StaggerFabricator from '../Core/StaggerFabricator';
 
@@ -145,12 +147,11 @@ class StaggerPoolGraph extends Analyzer {
       datasets: [ 
         {
           label: DEATH_LABEL,
-          backgroundColor: '#ff2222',
           borderColor: '#ff2222',
           borderWidth: 2,
           data: deathsBySeconds.map(obj => !!obj ? obj.hp : undefined),
-          pointRadius: 6,
-          pointStyle: 'crossRot',
+          pointStyle: 'line',
+          verticalLine: true,
         },
         {
           label: 'Max Health',
@@ -243,7 +244,9 @@ class StaggerPoolGraph extends Analyzer {
                 labelString: 'Time',
                 ticks: {
                   fontColor: '#ccc',
-                  callback: formatDuration,
+                  callback: function(x) {
+                    return formatDuration(x, 1);
+                  },
                 },
               }],
               yAxes: [{
@@ -267,6 +270,9 @@ class StaggerPoolGraph extends Analyzer {
       render: () => (
         <Tab title="Stagger Pool">
           {this.plot()}
+          <div style={{paddingLeft: "1em"}}>
+            Damage you take is placed into a <em>pool</em> by <SpellLink id={SPELLS.STAGGER.id} icon />. This damage is then removed by the damage-over-time component of <SpellLink id={SPELLS.STAGGER.id} icon /> or by <SpellLink id={SPELLS.PURIFYING_BREW.id} icon /> (or other sources of purification). This plot shows the amount of damage pooled over the course of the fight.
+          </div>
         </Tab>
       ),
     };
