@@ -9,6 +9,11 @@ import { Blazballs, JLassie82, Putro } from 'MAINTAINERS';
 
 export default [
   {
+    date: new Date('2018-02-02'),
+    changes: <Wrapper>Added additional information to the <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} icon /> module, to show cooldown reduction on the various affected spells. </Wrapper>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-01-30'),
     changes: 'Added a tooltip on the focus usage chart that shows focus used aswell as amount of casts of the the given ability',
     contributors: [Putro],
