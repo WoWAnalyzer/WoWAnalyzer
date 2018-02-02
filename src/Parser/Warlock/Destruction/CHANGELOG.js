@@ -8,6 +8,11 @@ import { Chizu } from 'MAINTAINERS';
 
 export default [
   {
+    date: new Date('2018-02-02'),
+    changes: <Wrapper>Added more information to <SpellLink id={SPELLS.ERADICATION_TALENT.id} icon/> statistic box, now showing uptime on <SpellLink id={SPELLS.LESSONS_OF_SPACETIME_BUFF.id} icon/> buff and also a suggestion about wrong talent choice when running <SpellLink id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id} icon/> on single target.</Wrapper>,
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-01-26'),
     changes: <Wrapper>Implemented Tier 21 set bonuses.</Wrapper>,
     contributors: [Chizu],
