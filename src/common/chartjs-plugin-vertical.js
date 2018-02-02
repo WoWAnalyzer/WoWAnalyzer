@@ -12,8 +12,11 @@ function renderVecticalLine(ctx, pos, scale, color, borderWidth = 1) {
 const verticalLinesPlugin = {
   beforeDatasetDraw: function(chart, meta) {
     const dataset = chart.data.datasets[meta.index];
-    // this point style is not normally defined, we override drawing it
-    // to draw vertical lines
+    // this point style is normally horizontal, we override drawing it
+    // to draw vertical lines when `verticalLine` is set
+    //
+    // it is done this way so the legend still draws the point style
+    // correctly
     if(dataset.pointStyle === 'line' && dataset.verticalLine) {
       meta.meta.data.forEach(element => {
         if(!Number.isFinite(element._model.y)) {
