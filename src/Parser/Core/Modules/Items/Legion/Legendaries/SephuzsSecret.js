@@ -28,7 +28,7 @@ class SephuzsSecret extends Analyzer {
   item() {
     const uptimePercent = this.combatants.selected.getBuffUptime(SPELLS.SEPHUZS_SECRET_BUFF.id) / this.owner.fightDuration;
     const startHaste = this.statTracker.startingHasteRating / 37500;
-    const avgHaste = (uptimePercent * ((1 + startHaste) * ACTIVE_HASTE)) + ((1 - uptimePercent) * ((1 + startHaste) * PASSIVE_HASTE));
+    const avgHaste = (1 + startHaste * (((uptimePercent * ACTIVE_HASTE * PASSIVE_HASTE)) + ((1 - uptimePercent) * PASSIVE_HASTE))) - 1 + PASSIVE_HASTE;
     return {
       item: ITEMS.SEPHUZS_SECRET,
       result: (
