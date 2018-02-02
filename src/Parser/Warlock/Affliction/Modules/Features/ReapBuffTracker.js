@@ -8,6 +8,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
+
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
@@ -39,7 +40,6 @@ class ReapBuffTracker extends Analyzer {
     return {
       actual: (this.unbuffedTicks / this.totalTicks) || 1,  // if no UAs were cast (totalTicks and unbuffedTicks = 0), it should return NaN and thus be 1 (100% unbuffed ticks)
       isGreaterThan: {
-        // TODO
         minor: 0.15,
         average: 0.2,
         major: 0.25,

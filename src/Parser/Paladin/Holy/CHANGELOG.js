@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-02-01'),
+    changes: <Wrapper>Added <i>total filler <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} icon /> casts while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} icon /> was available</i> suggestion, and changed the filler <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} icon /> check to also include a 200ms buffer time.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-01-12'),
     changes: 'Fixed Garothi Feedback Conduit average Haste calculations.',
     contributors: [Zerotorescue],

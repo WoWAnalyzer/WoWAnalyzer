@@ -17,7 +17,6 @@ class SpellUsable extends Analyzer {
     abilities: Abilities,
   };
   _currentCooldowns = {};
-  _warnedNoAbilities = false;
 
   /**
    * Find the canonical spell id of an ability. For most abilities, this

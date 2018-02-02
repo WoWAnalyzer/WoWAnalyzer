@@ -157,7 +157,7 @@ class Checklist extends Analyzer {
                   <div className="flex-main">
                     {requirement.tooltip ? <dfn data-tip={requirement.tooltip}>{requirement.name}</dfn> : requirement.name}
                   </div>
-                  <div className="flex-sub text-muted" style={{ margin: '0 15px' }}>
+                  <div className="flex-sub content-middle text-muted" style={{ margin: '0 15px' }}>
                     {requirement.valueTooltip ? <dfn data-tip={requirement.valueTooltip}>{displayedValue}</dfn> : displayedValue}
                   </div>
                   <div className="flex-sub content-middle" style={{ width: 50 }}>

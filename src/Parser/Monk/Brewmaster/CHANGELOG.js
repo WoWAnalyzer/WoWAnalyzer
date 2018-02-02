@@ -14,6 +14,11 @@ export default [
     contributors: [emallson],
   },
   {
+    date: new Date('2018-01-27'),
+    changes: <Wrapper>Added statistic for <SpellLink id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} icon /> effectiveness</Wrapper>,
+    contributors: [emallson],
+  },
+  {
     date: new Date('2018-01-22'),
     changes: 'Added \'Damage Taken by Ability\' table.',
     contributors: [emallson],

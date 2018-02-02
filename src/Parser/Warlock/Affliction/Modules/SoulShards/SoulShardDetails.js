@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
+
 import Tab from 'Main/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 

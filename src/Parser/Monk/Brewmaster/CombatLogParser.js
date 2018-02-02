@@ -10,6 +10,7 @@ import SharedBrews from './Modules/Core/SharedBrews';
 import StaggerFabricator from './Modules/Core/StaggerFabricator';
 import GlobalCooldown from './Modules/Core/GlobalCooldown';
 import Channeling from './Modules/Core/Channeling';
+import MasteryValue from './Modules/Core/MasteryValue';
 // Spells
 import IronSkinBrew from './Modules/Spells/IronSkinBrew';
 import PurifyingBrew from './Modules/Spells/PurifyingBrew';
@@ -34,6 +35,7 @@ import StormstoutsLastGasp from './Modules/Items/StormstoutsLastGasp';
 import SalsalabimsLostTunic from './Modules/Items/SalsalabimsLostTunic';
 // normalizers
 import IronskinBrewNormalizer from './Modules/Normalizers/IronskinBrew';
+import GarothiWorldbreakerMeleeNormalizer from './Modules/Normalizers/GarothiWorldbreakerMelee';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -48,6 +50,7 @@ class CombatLogParser extends CoreCombatLogParser {
     brews: SharedBrews,
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
+    masteryValue: MasteryValue,
 
     // Features
     checklist: Checklist,
@@ -76,6 +79,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // normalizers
     isbNormalizer: IronskinBrewNormalizer,
+    garothi: GarothiWorldbreakerMeleeNormalizer,
   };
 }
 

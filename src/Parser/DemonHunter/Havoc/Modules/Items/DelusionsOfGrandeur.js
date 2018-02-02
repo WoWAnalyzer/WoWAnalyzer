@@ -3,7 +3,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
+import ItemLink from 'common/ItemLink';
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
+import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -37,11 +39,28 @@ class DelusionsOfGrandeur extends Analyzer {
 	}
 
 	get metaCooldownWithShoulders(){
-		return this.metaCooldown * this.cooldownReductionRatio || 0;
+		return this.metaCooldown * this.cooldownReductionRatio || 1;
 	}
 
-	item() {
+	get suggestionThresholds() {
+    return {
+      actual: this.owner.fightDuration < this.metaCooldownWithShoulders,
+      isEqual: false,
+      style: 'boolean',
+    };
+  }
 
+  suggestions(when) {
+  	when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>{
+  		return suggest(
+  			<Wrapper>The fight duration of {formatDuration(this.owner.fightDuration / 1000)} minutes was shorter than your cooldown on <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} icon/> ({formatDuration(this.metaCooldownWithShoulders)} minutes). <ItemLink id={ITEMS.DELUSIONS_OF_GRANDEUR.id} icon/> are only useful if you get and extra cast of <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} icon/>.</Wrapper>
+  		)
+  		.icon(ITEMS.DELUSIONS_OF_GRANDEUR.icon)
+  		.staticImportance(SUGGESTION_IMPORTANCE.REGULAR);
+  	});
+  }
+
+	item() {
 		return {
 			item: ITEMS.DELUSIONS_OF_GRANDEUR,
 			result:(

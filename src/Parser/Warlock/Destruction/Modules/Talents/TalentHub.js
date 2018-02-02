@@ -1,10 +1,9 @@
 import React from 'react';
 
-import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
-
 import Analyzer from 'Parser/Core/Analyzer';
 
-//credit to hpal mod, i modified the traits script
+import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+
 import Backdraft from './Backdraft';
 import ChannelDemonfire from './ChannelDemonfire';
 import Eradication from './Eradication';

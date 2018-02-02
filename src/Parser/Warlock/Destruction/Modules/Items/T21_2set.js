@@ -1,13 +1,14 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS';
-import { formatPercentage } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
+
+import SPELLS from 'common/SPELLS';
+import { formatPercentage } from 'common/format';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
 
 // Chaos Bolt increases the critical strike chance of Incinerate on the target by 40% for 8 sec.

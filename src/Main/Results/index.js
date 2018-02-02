@@ -8,7 +8,6 @@ import Textfit from 'react-textfit';
 
 import Wrapper from 'common/Wrapper';
 import SPEC_ANALYSIS_COMPLETENESS, { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
-import getBossName from 'common/getBossName';
 import { getResultTab } from 'selectors/url/report';
 import DevelopmentTab from 'Main/DevelopmentTab';
 import EventsTab from 'Main/EventsTab';
@@ -19,10 +18,10 @@ import DiscordButton from 'Main/DiscordButton';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Maintainer from 'Main/Maintainer';
 
-import SkullRaidMarker from './Images/skull-raidmarker.png';
 import ItemsPanel from './ItemsPanel';
 import AboutTab from './AboutTab';
 import ResultsWarning from './ResultsWarning';
+import Header from './Header';
 
 import './Results.css';
 
@@ -97,7 +96,6 @@ class Results extends React.Component {
     const { parser, tab, onChangeTab } = this.props;
     const report = parser.report;
     const fight = parser.fight;
-    const boss = parser.boss;
     const config = this.context.config;
     const modules = parser._modules;
     const selectedCombatant = modules.combatants.selected;
@@ -160,21 +158,7 @@ class Results extends React.Component {
     return (
       <div className="container">
         <div className="results">
-          <header>
-            <div className={`player ${config.spec.className.replace(' ', '')}`}>
-              <img src={`/specs/${config.spec.className.replace(' ', '')}-${config.spec.specName.replace(' ', '')}.jpg`} alt="Player avatar" />{' '}
-              <Textfit mode="single" max={80}>
-                {selectedCombatant.name}
-              </Textfit>
-            </div>
-            <div className="versus">versus</div>
-            <div className="boss">
-              <img src={boss ? boss.headshot : SkullRaidMarker} alt="Boss avatar" />
-              <Textfit mode="single" max={80}>
-                {getBossName(fight)}
-              </Textfit>
-            </div>
-          </header>
+          <Header spec={config.spec} playerName={selectedCombatant.name} boss={parser.boss} fight={fight} />
 
           {config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED && (
             <Wrapper>
