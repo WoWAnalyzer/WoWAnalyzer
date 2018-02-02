@@ -24,6 +24,8 @@ import RunicPowerTracker from './Modules/RunicPower/RunicPowerTracker';
 import DarkArbiter from './Modules/Talents/DarkArbiter';
 import UnholyFrenzy from './Modules/Talents/UnholyFrenzy';
 
+import RuneTracker from '../Shared/RuneTracker';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
@@ -55,6 +57,9 @@ class CombatLogParser extends CoreCombatLogParser {
     coldHeartEfficiency: ColdHeartEfficiency,
     tier21_2p: Tier21_2p,
     tier21_4p: Tier21_4p,
+
+    //RuneTracker
+    runeTracker: RuneTracker,
 
   };
 }
