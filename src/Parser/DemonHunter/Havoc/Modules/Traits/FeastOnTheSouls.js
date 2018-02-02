@@ -44,6 +44,8 @@ class FeastOnTheSouls extends Analyzer {
 			return;
 		}
 		const reduction = this.spellUsable.reduceCooldown(SPELLS.EYE_BEAM.id, FEAST_ON_THE_SOULS_CDR);
+	
+		this.totalCooldownReductionWasted += FEAST_ON_THE_SOULS_CDR - reduction;
 		this.totalCooldownReduction += reduction;
 	}
 
@@ -60,7 +62,13 @@ class FeastOnTheSouls extends Analyzer {
 			return;
 		}
 		const reduction = this.spellUsable.reduceCooldown(SPELLS.EYE_BEAM.id, FEAST_ON_THE_SOULS_CDR);
+
+		this.totalCooldownReductionWasted += FEAST_ON_THE_SOULS_CDR - reduction;
 		this.totalCooldownReduction += reduction;
+	}
+
+	on_finished() {
+		this.active = this.totalCooldownReduction > 0 || this.totalCooldownReductionWasted > 0;
 	}
 
 	statistic() {
