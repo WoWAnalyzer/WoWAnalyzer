@@ -6,7 +6,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Wrapper from 'common/Wrapper';
-import SpellLink from 'common/SpellLink';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import GetDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
@@ -60,8 +59,8 @@ class HelbrineRopeOfTheMistMarauder extends Analyzer {
       result: (
         <dfn data-tip={`You applied the Mark of Helbrine debuff ${this.applications} times. </br> The reason this shows as "up to X dmg" is because the tooltip has no information on the potency of the applied Mark of Helbrine. To maximize the potential of this legendary, you want to stand as far away as possible and cast Harpoon when engaging the first time with mobs.`}>
           <Wrapper>
-            You had {formatPercentage(this.uptimePercentage)}% uptime on <SpellLink id={SPELLS.MARK_OF_HELBRINE.id} />. <br />
-            It contributed with up to <ItemDamageDone amount={this.bonusDamage} />
+            {formatPercentage(this.uptimePercentage)}% uptime<br />
+            Up to <ItemDamageDone amount={this.bonusDamage} />
           </Wrapper>
         </dfn>
       ),
