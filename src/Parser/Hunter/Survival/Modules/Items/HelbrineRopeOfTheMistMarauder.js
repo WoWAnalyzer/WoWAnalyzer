@@ -62,7 +62,6 @@ class HelbrineRopeOfTheMistMarauder extends Analyzer {
           <Wrapper>
             You had {formatPercentage(this.uptimePercentage)}% uptime on <SpellLink id={SPELLS.MARK_OF_HELBRINE.id} />. <br />
             It contributed with up to <ItemDamageDone amount={this.bonusDamage} />
-
           </Wrapper>
         </dfn>
       ),
