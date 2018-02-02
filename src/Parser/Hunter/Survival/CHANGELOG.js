@@ -10,6 +10,11 @@ import ItemLink from 'common/ItemLink';
 export default [
   {
     date: new Date('2018-02-02'),
+    changes: <Wrapper>Added a module for tracking <SpellLink id={SPELLS.SPITTING_COBRA_TALENT.id} icon />, and ensure cast efficiency works properly for the talent even if precast. </Wrapper>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-02-02'),
     changes: <Wrapper>Added support for <ItemLink id={ITEMS.BUTCHERS_BONE_APRON.id} icon />, <ItemLink id={ITEMS.FRIZZOS_FINGERTRAP.id} icon />, <ItemLink id={ITEMS.HELBRINE_ROPE_OF_THE_MIST_MARAUDER.id} icon />, <ItemLink id={ITEMS.NESINGWARYS_TRAPPING_TREADS.id} icon />, <ItemLink id={ITEMS.UNSEEN_PREDATORS_CLOAK.id} icon />.</Wrapper>,
     contributors: [Putro],
   },
