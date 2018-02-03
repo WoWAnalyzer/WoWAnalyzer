@@ -342,6 +342,56 @@ export default {
     name: 'Chaos Blades',
     icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
   },
+  NEMESIS_DEMON: {
+    id: 208579,
+    name: 'Nemesis',
+    icon: 'spell_shadow_demonicfortitude',
+  },
+  NEMESIS_HUMANOID: {
+    id: 208605,
+    name: 'Nemesis',
+    icon: 'inv_misc_head_human_01',
+  },
+  NEMESIS_ABERRATION: {
+    id: 208607,
+    name: 'Nemesis',
+    icon: 'ability_shawaterelemental_swirl',
+  },
+  NEMESIS_BEAST: {
+    id: 208608,
+    name: 'Nemesis',
+    icon: 'inv_misc_head_tiger_01',
+  },
+  NEMESIS_CRITTER: {
+    id: 208609,
+    name: 'Nemesis',
+    icon: 'inv_pet_mouse',
+  },
+  NEMESIS_DRAGONKIN: {
+    id: 208610,
+    name: 'Nemesis',
+    icon: 'inv_misc_head_dragon_green',
+  },
+  NEMESIS_ELEMENTAL: {
+    id: 208611,
+    name: 'Nemesis',
+    icon: 'spell_fire_elemental_totem',
+  },
+  NEMESIS_GIANT: {
+    id: 208612,
+    name: 'Nemesis',
+    icon: 'achievement_dungeon_ulduarraid_icegiant_01',
+  },
+  NEMESIS_MECHANICAL: {
+    id: 208613,
+    name: 'Nemesis',
+    icon: 'inv_pet_mechanicalbearcub',
+  },
+  NEMESIS_UNDEAD: {
+    id: 208614,
+    name: 'Nemesis',
+    icon: 'spell_holy_senseundead',
+  },
   // Talents
   FRAILTY_SPIRIT_BOMB_DEBUFF: {
     id: 247456,
