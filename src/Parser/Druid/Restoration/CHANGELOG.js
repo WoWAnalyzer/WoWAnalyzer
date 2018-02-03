@@ -17,6 +17,7 @@ export default [
   {
     date: new Date('2018-02-02'),
     changes: <Wrapper>Fixed a bug in <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} icon /> Util module where overwritten procs weren't shown if player doesn't take <SpellLink id={SPELLS.MOMENT_OF_CLARITY_TALENT_RESTORATION.id} icon />.</Wrapper>,
+    contributors: [sref],
   },
   {
     date: new Date('2018-01-26'),
