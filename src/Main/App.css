@@ -209,23 +209,13 @@ ul {
   width: 100%;
   margin-bottom: 20px;
   position: relative;
-  background: rgba(9, 20, 27, 0.7);
+  background: rgba(10, 10, 10, 0.7);
   border: 1px solid #000;
   border-radius: 5px;
   box-shadow: 0 6px 13px 0 rgba(0,0,0,.2), 0 0 2px rgba(0,0,0,.5);
 }
 .panel:not(.statistic-box) {
   border-top: 4px solid #d84141;
-}
-.panel:not(.statistic-box):before {
-  content: '';
-  position: absolute;
-  top: -4px;
-  height: 4px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  background: url(./Images/border.png);
-  width: 100%;
 }
 .panel-heading {
   padding: 16px 22px 14px;
