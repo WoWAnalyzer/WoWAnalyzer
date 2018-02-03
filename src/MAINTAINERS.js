@@ -30,6 +30,10 @@ export const enragednuke = {
   nickname: 'enragednuke',
   github: 'enragednuke',
 };
+export const Skamer = {
+  nickname: 'Skamer',
+  github: 'Skamer',
+};
 export const Salarissia = {
   nickname: 'Salarissia',
   github: 'Salarissia',
@@ -124,9 +128,17 @@ export const tsabo = {
   nickname: 'tsabo',
   github: 'TsaboTavok',
 };
+export const zealk = {
+  nickname: 'zealk',
+  github: 'zealk',
+};
 export const fasib = {
   nickname: 'fasib',
   github: 'fasib',
+};
+export const janvavra = {
+  nickname: 'janvavra',
+  github: 'janvavra',
 };
 export const Nighteyez07 = {
   nickname: 'Nighteyez07',
@@ -149,8 +161,8 @@ export const JLassie82 = {
   nickname: 'JLassie82',
   github: 'JLassie82',
 };
-export const Yuyz0112 = {
-  nickname: 'Yuyz0112',
+export const aryu = {
+  nickname: 'aryu',
   github: 'Yuyz0112',
 };
 export const Dyspho = {
@@ -162,6 +174,9 @@ export const Gurupitka = {
 export const Hartra344 = {
   nickname: 'hartra344',
   github: 'hartra344',
+};
+export const strel = {
+  nickname: 'strel',
 };
 export const Maldark = {
   nickname: 'Maldark',
@@ -179,6 +194,66 @@ export const Gebuz = {
   nickname: 'Gebuz',
   github: 'Gebuz',
   avatar: require('./Images/gebuz-avatar.png'),
+};
+export const milesoldenburg = {
+  nickname: 'milesoldenburg',
+  github: 'milesoldenburg',
+};
+export const mwwscott0 = {
+  nickname: 'mwwscott0',
+  github: 'mwwscott0',
+};
+export const Talby = {
+  nickname: 'Talby',
+  github: 'Talby223',
+};
+export const Coryn = {
+  nickname: 'Coryn',
+  github: 'terndrup',
+};
+export const AttilioLH = {
+  nickname: 'AttilioLH',
+  github: 'AttilioLH',
+};
+export const poneria = {
+  nickname: 'poneria',
+  github: 'poneria',
+};
+export const Nekorsis = {
+  nickname: 'Nekorsis',
+  github: 'Nekorsis',
+};
+export const greatman = {
+  nickname: 'greatman',
+  github: 'greatman',
+};
+export const rubensayshi = {
+  nickname: 'rubensayshi',
+  github: 'rubensayshi',
+};
+export const nutspanther = {
+  nickname: 'nutspanther',
+  github: 'nutspanther',
+};
+export const Riglerr = {
+  nickname: 'Riglerr',
+  github: 'Riglerr',
+};
+export const BlokyKappa = {
+  nickname: 'BlokyKappa',
+  github: 'BlokyKappa',
+};
+export const kyleglick = {
+  nickname: 'kyle-glick',
+  github: 'kyle-glick',
+};
+export const Zeboot = {
+  nickname: 'Zeboot',
+  github: 'Zeboot',
+};
+export const HawkCorrigan = {
+  nickname: 'HawkCorrigan',
+  github: 'HawkCorrigan',
 };
 export const Anatta336 = {
   nickname: 'Anatta336',

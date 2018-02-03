@@ -1,9 +1,9 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
+import calculateMaxCasts from 'Parser/Core/calculateMaxCasts';
 
 import SPELLS from 'common/SPELLS';
-import calculateMaxCasts from 'Parser/Core/calculateMaxCasts';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 

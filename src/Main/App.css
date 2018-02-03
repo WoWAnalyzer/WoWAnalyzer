@@ -75,6 +75,9 @@ hr {
   margin: 15px 0;
   border-top: 1px solid #4f4f4f;
 }
+ul {
+  margin: 0;
+}
 .gh-label {
   background-color: #0e8a16;
   color: #fff;
@@ -480,7 +483,7 @@ h1 {
   position: relative;
 }
 .list > .item header {
-  margin-top: 18px;
+  margin-top: 15px;
 }
 .list > .item main {
   margin-bottom: 15px;
@@ -923,19 +926,23 @@ code.inactive {
 .maintainer-name {
   background: rgba(0, 0, 0, 0.4);
   color: #f1c40f;
-  padding: .2em .4em;
+  padding: .2em .2em;
   margin: -.2em 0;
   border-radius: .2em;
+  font-weight: bold;
+  white-space: nowrap;
+  display: inline-block;
+  line-height: 1; /* this keeps the height of the maintainer box acceptable */
 }
 .maintainer-name[data-tip] {
   cursor: help;
 }
-.maintainer-name + .maintainer-name {
+.maintainers .maintainer-name + .maintainer-name {
   position: relative;
   margin-left: 1.2em;
 }
-.maintainer-name + .maintainer-name:before {
-  content: '&';
+.maintainers .maintainer-name + .maintainer-name:before {
+  content: ' & ';
   position: absolute;
   left: -1em;
   color: #fff;

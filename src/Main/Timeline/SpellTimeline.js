@@ -142,7 +142,7 @@ class SpellTimeline extends React.PureComponent {
                 const maxWidth = totalWidth - left; // don't expand beyond the container width
                 return (
                   <div
-                    key={`${eventStart}-${event.duration}`}
+                    key={`${event.reason.type}-${eventStart}-${event.duration}`}
                     className="casting-time"
                     style={{
                       left,

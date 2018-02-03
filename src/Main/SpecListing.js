@@ -56,7 +56,7 @@ class SpecListing extends React.PureComponent {
                                 <GitHubMarkIcon />
                               </a>
                             </div>
-                            <div>
+                            <div className="maintainers">
                               Maintained by {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}
                             </div>
                             <div>

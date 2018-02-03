@@ -1,8 +1,9 @@
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
+
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const SOUL_HARVEST_DAMAGE_BONUS = 0.2;
 

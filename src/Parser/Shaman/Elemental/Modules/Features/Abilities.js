@@ -92,7 +92,11 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FROST_SHOCK,
-        category: Abilities.SPELL_CATEGORIES.DOTS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      },
+      {
+        spell: SPELLS.EARTH_SHOCK,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
     ];
   }

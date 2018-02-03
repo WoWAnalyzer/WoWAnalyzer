@@ -5,7 +5,7 @@ import ITEMS from './ITEMS';
 import getItemQualityLabel from './getItemQualityLabel';
 import ItemIcon from './ItemIcon';
 
-const ItemLink = ({ id, children, details, quality, icon }) => {
+const ItemLink = ({ id, children, details, quality, icon, ...others }) => {
   const queryString = [
     `item=${id}`,
   ];
@@ -21,8 +21,18 @@ const ItemLink = ({ id, children, details, quality, icon }) => {
     }
   }
 
+  if (quality === undefined || quality === null) {
+    quality = ITEMS[id] ? ITEMS[id].quality : 0;
+  }
+
   return (
-    <a href={`http://www.wowhead.com/${queryString.join('&')}`} target="_blank" rel="noopener noreferrer" className={getItemQualityLabel(quality || ITEMS[id].quality)}>
+    <a
+      href={`http://www.wowhead.com/${queryString.join('&')}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={getItemQualityLabel(quality)}
+      {...others}
+    >
       {icon && <ItemIcon id={id} noLink style={{ height: '1.2em', marginTop: '-0.1em' }} />}{' '}
       {children || ITEMS[id].name}
     </a>

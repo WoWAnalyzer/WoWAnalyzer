@@ -26,6 +26,14 @@ import RootsOfShaladrassil from '../Shared/Modules/Items/RootsOfShaladrassil';
 import CallOfTheWild from '../Shared/Modules/Items/CallOfTheWild';
 import TheApexPredatorsClaw from '../Shared/Modules/Items/TheApexPredatorsClaw';
 import TheShadowHuntersVoodooMask from '../Shared/Modules/Items/TheShadowHuntersVoodooMask';
+import UnseenPredatorsCloak from './Modules/Items/UnseenPredatorsCloak';
+import HelbrineRopeOfTheMistMarauder from './Modules/Items/HelbrineRopeOfTheMistMarauder';
+import NesingwarysTrappingTreads from './Modules/Items/NesingwarysTrappingTreads';
+import ButchersBoneApron from './Modules/Items/ButchersBoneApron';
+import FrizzosFingertrap from './Modules/Items/FrizzosFingertrap';
+
+//Talents
+import WayOfTheMokNathal from './Modules/Talents/WayOfTheMokNathal';
 
 //Traits
 
@@ -62,9 +70,14 @@ class CombatLogParser extends CoreCombatLogParser {
     rootsOfShaladrassil: RootsOfShaladrassil,
     theApexPredatorsClaw: TheApexPredatorsClaw,
     theShadowHuntersVoodooMask: TheShadowHuntersVoodooMask,
+    unseenPredatorsCloak: UnseenPredatorsCloak,
+    helbrineRopeOfTheMistMarauder: HelbrineRopeOfTheMistMarauder,
+    nesingwarysTrappingTreads: NesingwarysTrappingTreads,
+    butchersBoneApron: ButchersBoneApron,
+    frizzosFingertrap: FrizzosFingertrap,
 
     //Talents
-
+    wayOfTheMokNathal: WayOfTheMokNathal,
     //Traits
 
     //Traits and Talents list

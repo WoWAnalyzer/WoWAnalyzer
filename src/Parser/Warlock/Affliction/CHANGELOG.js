@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Chizu, Zerotorescue } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+
+import { Chizu, Zerotorescue } from 'MAINTAINERS';
 
 export default [
   {
@@ -40,7 +41,7 @@ export default [
   },
   {
     date: new Date('2017-12-29'),
-    changes: <Wrapper>Fixed display in the timeline and the inclusion in active time of channeled abilities.</Wrapper>,
+    changes: 'Fixed display in the timeline and the inclusion in active time of channeled abilities.',
     contributors: [Zerotorescue],
   },
   {

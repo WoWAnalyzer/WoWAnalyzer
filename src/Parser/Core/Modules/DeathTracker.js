@@ -1,12 +1,13 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import { formatNumber, formatMilliseconds, formatPercentage } from 'common/format';
+import { formatMilliseconds, formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const debug = true;
 
+// Log where someone died: https://wowanalyzer.com/report/RjH6AnYdP8GWzX4h/2-Heroic+Aggramar+-+Kill+(6:23)/Kantasai
 class DeathTracker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -75,14 +76,14 @@ class DeathTracker extends Analyzer {
             .recommended(`${formatNumber(recommended)} is recommended`)
             .major(this.deathSuggestionThresholds.isGreaterThan.major);
         });
-      }
-      when(this.castCount).isLessThan(1)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>You did not cast a single spell this fight. You were either dead for the entire fight, or were AFK.</span>)
-            .icon('ability_fiegndead')
-            .major(this.deathSuggestionThresholds.isGreaterThan.major);
-      });
     }
+    when(this.castCount).isLessThan(1)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<span>You did not cast a single spell this fight. You were either dead for the entire fight, or were AFK.</span>)
+          .icon('ability_fiegndead')
+          .major(this.deathSuggestionThresholds.isGreaterThan.major);
+      });
   }
+}
 
 export default DeathTracker;

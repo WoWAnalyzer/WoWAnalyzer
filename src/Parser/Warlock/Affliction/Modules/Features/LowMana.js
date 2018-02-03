@@ -1,4 +1,5 @@
 import Analyzer from 'Parser/Core/Analyzer';
+
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 const LOW_MANA_THRESHOLD = 0.05;

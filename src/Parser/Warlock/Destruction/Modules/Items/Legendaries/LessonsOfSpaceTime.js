@@ -2,10 +2,15 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
+
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
+import Wrapper from 'common/Wrapper';
+import SpellLink from 'common/SpellLink';
+import { formatPercentage } from 'common/format';
+
 import ItemDamageDone from 'Main/ItemDamageDone';
-import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 const LESSONS_OF_SPACETIME_DAMAGE_BONUS = 0.1;
 
@@ -32,10 +37,16 @@ class LessonsOfSpaceTime extends Analyzer {
     }
   }
 
+  get uptime() {
+    return this.combatants.selected.getBuffUptime(SPELLS.LESSONS_OF_SPACETIME_BUFF.id) / this.owner.fightDuration;
+  }
   item() {
     return {
       item: ITEMS.LESSONS_OF_SPACETIME,
-      result: <ItemDamageDone amount={this.bonusDmg} />,
+      result: (<Wrapper>
+        {formatPercentage(this.uptime)} % uptime on <SpellLink id={SPELLS.LESSONS_OF_SPACETIME_BUFF.id} icon/> <br />
+        <ItemDamageDone amount={this.bonusDmg} />
+      </Wrapper>),
     };
   }
 }
