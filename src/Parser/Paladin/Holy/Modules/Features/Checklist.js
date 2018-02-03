@@ -22,6 +22,7 @@ import MasteryEffectiveness from './MasteryEffectiveness';
 import AlwaysBeCasting from './AlwaysBeCasting';
 import BeaconHealing from '../PaladinCore/BeaconHealing';
 import FillerLightOfTheMartyrs from '../PaladinCore/FillerLightOfTheMartyrs';
+import FillerFlashOfLight from '../PaladinCore/FillerFlashOfLight';
 import AuraOfSacrifice from '../Talents/AuraOfSacrifice';
 import Ilterendi from '../Items/Ilterendi';
 import Overhealing from '../PaladinCore/Overhealing';
@@ -35,6 +36,7 @@ class Checklist extends CoreChecklist {
     alwaysBeCasting: AlwaysBeCasting,
     beaconHealing: BeaconHealing,
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
+    fillerFlashOfLight: FillerFlashOfLight,
     manaValues: ManaValues,
     auraOfSacrifice: AuraOfSacrifice,
     ilterendi: Ilterendi,
@@ -88,6 +90,10 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.HOLY_PRISM_TALENT,
             when: combatant.hasTalent(SPELLS.HOLY_PRISM_TALENT.id),
+          }),
+          new Requirement({
+            name: <Wrapper>Total filler <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} icon />s cast while<br /><SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} icon /> was available</Wrapper>,
+            check: () => this.fillerFlashOfLight.suggestionThresholds,
           }),
         ];
       },

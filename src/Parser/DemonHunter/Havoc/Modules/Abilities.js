@@ -48,7 +48,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CHAOS_BLADES_TALENT,
         enabled: combatant.hasTalent(SPELLS.CHAOS_BLADES_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
+        cooldown: 120,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -171,7 +171,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHAOS_NOVA,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: combatant.hasTalent(SPELLS.UNLEASHED_POWER_TALENT) ? 40 : 60,
+        cooldown: combatant.hasTalent(SPELLS.UNLEASHED_POWER_TALENT.id) ? 40 : 60,
         isOnGCD: true,
       },
       {

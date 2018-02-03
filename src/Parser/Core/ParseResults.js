@@ -125,6 +125,7 @@ class SuggestionAssertion {
 
       this._addIssue({
         issue: suggestion._text,
+        // stat is a string and not a React node on purpose: this is quicker and we don't want the stats to become complicated
         stat: suggestion._actualText ? `${suggestion._actualText} (${suggestion._recommendedText})` : null,
         icon: suggestion._icon,
         importance: this._getIssueImportance(suggestion),

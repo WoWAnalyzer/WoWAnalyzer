@@ -6,7 +6,6 @@ import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 
 import Backdraft from './Backdraft';
 import ChannelDemonfire from './ChannelDemonfire';
-import Eradication from './Eradication';
 import EmpoweredLifeTap from './EmpoweredLifeTap';
 import FireAndBrimstone from './FireAndBrimstone';
 import ReverseEntropy from './ReverseEntropy';
@@ -20,7 +19,6 @@ class TalentHub extends Analyzer {
     backdraft: Backdraft,
     shadowburn: Shadowburn,
     roaringBlaze: RoaringBlaze,
-    eradication: Eradication,
     empoweredLifeTap: EmpoweredLifeTap,
     reverseEntropy: ReverseEntropy,
     fireAndBrimstone: FireAndBrimstone,
@@ -35,7 +33,6 @@ class TalentHub extends Analyzer {
         {this.backdraft.active && this.backdraft.subStatistic()}
         {this.shadowburn.active && this.shadowburn.subStatistic()}
         {this.roaringBlaze.active && this.roaringBlaze.subStatistic()}
-        {this.eradication.active && this.eradication.subStatistic()}
         {this.empoweredLifeTap.active && this.empoweredLifeTap.subStatistic()}
         {this.reverseEntropy.active && this.reverseEntropy.subStatistic()}
         {this.fireAndBrimstone.active && this.fireAndBrimstone.subStatistic()}
