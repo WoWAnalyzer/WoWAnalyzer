@@ -1,9 +1,11 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 
 import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
+import { formatPercentage } from 'common/format';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
@@ -14,6 +16,7 @@ import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeC
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
+import ManaValues from 'Parser/Core/Modules/ManaValues';
 
 import AlwaysBeCasting from './AlwaysBeCasting';
 import Clearcasting from './Clearcasting';
@@ -22,6 +25,10 @@ import Innervate from './Innervate';
 import Lifebloom from './Lifebloom';
 import NaturesEssence from './NaturesEssence';
 import WildGrowth from './WildGrowth';
+
+import Cultivation from '../Talents/Cultivation';
+import SpringBlossoms from '../Talents/SpringBlossoms';
+import TreeOfLife from '../Talents/TreeOfLife';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -33,8 +40,13 @@ class Checklist extends CoreChecklist {
     efflorescence: Efflorescence,
     innervate: Innervate,
     lifebloom: Lifebloom,
+    manaValues: ManaValues,
     naturesEssence: NaturesEssence,
     wildGrowth: WildGrowth,
+
+    cultivation: Cultivation,
+    springBlossoms: SpringBlossoms,
+    treeOfLife: TreeOfLife,
 
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
@@ -108,7 +120,15 @@ class Checklist extends CoreChecklist {
             when: combatant.hasTalent(SPELLS.FLOURISH_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
+            spell: SPELLS.VELENS_FUTURE_SIGHT_BUFF,
+            when: combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
+          }),
+          new GenericCastEfficiencyRequirement({
             spell: SPELLS.ESSENCE_OF_GHANIR,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.INCARNATION_TREE_OF_LIFE_TALENT,
+            when: combatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TRANQUILITY_CAST,
@@ -139,12 +159,17 @@ class Checklist extends CoreChecklist {
             check: () => this.clearcasting.nonCCRegrowthsSuggestionThresholds,
             tooltip: `This is the number of no-clearcasting Regrowths you cast per minute. Regrowth is very mana inefficient, and should only be used in emergency situations (and when you've already expended Swiftmend). Usually, you should rely on other healers in your raid to triage.`,
           }),
+          new Requirement({
+            name: 'Mana remaining at fight end',
+            check: () => this.manaValues.suggestionThresholds,
+            tooltip: `Try to spend your mana at roughly the same rate the boss is dying. Having too much mana left at fight end could mean you were too conservative with your spell casts. If your mana is in good shape but there isn't much to heal, consider mixing Moonfire and Sunfire into your DPS rotation, which will burn some mana for extra DPS contribution.`,
+          }),
         ];
       },
     }),
     new Rule({
       name: 'Use your defensive / emergency spells',
-      description: <Wrapper>Restoration Druids unfortunately do not have many tools to deal with burst damage, but you should take care to use the ones you have. The below percentages represent the percentage of time you kept each spell on cooldown.</Wrapper>,
+      description: <Wrapper>Restoration Druids unfortunately do not have many tools to deal with burst damage, but you should take care to use the ones you have. Swiftmend is a fairly inefficient spell, and should only be used in an emergency. The below percentages represent the percentage of time you kept each spell on cooldown.</Wrapper>,
       requirements: () => {
         return [
           new GenericCastEfficiencyRequirement({
@@ -155,6 +180,32 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BARKSKIN,
+          }),
+        ];
+      },
+    }),
+    new Rule({
+      name: 'Pick the right tools for the fight',
+      description: <Wrapper>Different talent choices can be more or less effective depending on the fight. Listed below you will see how much throughput some talents were providing.</Wrapper>,
+      requirements: () => {
+        return [
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.CULTIVATION.id} icon /> throughput</Wrapper>,
+            check: () => this.cultivation.suggestionThresholds,
+            tooltip: `This is the percent of your total healing that Cultivation contributed. Below around ${formatPercentage(this.cultivation.suggestionThresholds.isLessThan.average, 0)}%, you either had too many healers in this fight, or the fight is better for Tree of Life`,
+            when: this.cultivation.active,
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.SPRING_BLOSSOMS.id} icon /> throughput</Wrapper>,
+            check: () => this.springBlossoms.suggestionThresholds,
+            tooltip: `This is the percent of your total healing that Spring Blossoms contributed. Below around ${formatPercentage(this.springBlossoms.suggestionThresholds.isLessThan.average, 0)}%, you either weren't doing a good job with Efflorescence placement or you would have been better off picking Germination`,
+            when: this.springBlossoms.active,
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} icon /> throughput</Wrapper>,
+            check: () => this.treeOfLife.suggestionThresholds,
+            tooltip: `This is the percent of your total healing that Tree of Life contributed. Below around ${formatPercentage(this.treeOfLife.suggestionThresholds.isLessThan.average, 0)}%, you either didn't pick good times to use ToL or you would have been better off picking Cultivation`,
+            when: this.treeOfLife.active,
           }),
         ];
       },
