@@ -15,11 +15,26 @@ import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountCheck
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 
+import AlwaysBeCasting from './AlwaysBeCasting';
+import Clearcasting from './Clearcasting';
+import Efflorescence from './Efflorescence';
+import Innervate from './Innervate';
+import Lifebloom from './Lifebloom';
+import NaturesEssence from './NaturesEssence';
+import WildGrowth from './WildGrowth';
+
 class Checklist extends CoreChecklist {
   static dependencies = {
     castEfficiency: CastEfficiency,
     combatants: Combatants,
 
+    alwaysBeCasting: AlwaysBeCasting,
+    clearcasting: Clearcasting,
+    efflorescence: Efflorescence,
+    innervate: Innervate,
+    lifebloom: Lifebloom,
+    naturesEssence: NaturesEssence,
+    wildGrowth: WildGrowth,
     // TODO resto modules here
 
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
@@ -30,125 +45,117 @@ class Checklist extends CoreChecklist {
 
   rules = [
     new Rule({
-      name: 'Always be casting',
-      description: <Wrapper><em><b>Continuously chaining casts throughout an encounter is the single most important thing for achieving good DPS as a caster</b></em>. There shoule be no delay at all between your spell casts, it's better to start casting the wrong spell than to think for a few seconds and then cast the right spell. You should be able to handle a fight's mechanics with the minimum possible interruption to your casting. Some fights (like Argus) have unavoidable downtime due to phase transitions and the like, so in these cases 0% downtime will not be possible.</Wrapper>,
+      name: 'Stay active throughout the fight',
+      description: <Wrapper>While constantly casting heals will quickly run you out of mana, you should still try to always be doing something throughout the fight. You can reduce your downtime while saving mana by spamming <SpellLink id={SPELLS.SOLAR_WRATH.id} /> on the boss when there is nothing serious to heal. If you safely healed through the entire fight and still had high non-healing time, your raid team is probably bringing too many healers.</Wrapper>,
       requirements: () => {
         return [
+          new Requirement({
+            name: 'Non healing time',
+            check: () => this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
+          }),
           new Requirement({
             name: 'Downtime',
             check: () => this.alwaysBeCasting.downtimeSuggestionThresholds,
           }),
-          new Requirement({
-            name: 'Cancelled Casts',
-            check: () => this.cancelledCasts.cancelledCastSuggestionThresholds,
-          }),
         ];
       },
     }),
     new Rule({
-      name: 'Fish for procs',
-      description: <Wrapper>When you don't have any Brain Freeze, Fingers of Frost, or Glacial Spike procs, you should spam Frostbolt to fish for procs. Never cast Flurry without Brain Freeze, and the only reason you should ever cast Ice Lance without Shatter is if you're forced to move and have no other instants available.</Wrapper>,
+      name: <Wrapper>Use <SpellLink id={SPELLS.WILD_GROWTH.id} icon /> effectively</Wrapper>,
+      description: <Wrapper>Effective use of <SpellLink id={SPELLS.WILD_GROWTH.id} /> is incredibly important to your healing performance. It provides not only the directly applied HoT, but also procs <SpellLink id={SPELLS.NATURES_ESSENCE_DRUID.id} /> and <SpellLink id={SPELLS.DREAMWALKER.id} />. When more than 3 raiders are wounded, it is probably the most efficienct and effective spell you can cast. Try to time your <SpellLink id={SPELLS.WILD_GROWTH.id} /> cast to land just after a boss ability in order to keep raiders healthy even through heavy AoE.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
-            name: "Flurries without Brain Freeze",
-            check: () => this.brainFreeze.flurryWithoutProcSuggestionThresholds,
+            name: <Wrapper><SpellLink id={SPELLS.WILD_GROWTH.id} icon /> / <SpellLink id={SPELLS.REJUVENATION.id} icon /> ratio</Wrapper>,
+            check: () => this.wildGrowth.suggestionThresholds,
+            tooltip: `This is your ratio of Wild Growth casts to Rejuvenation casts. If this number is too low, it probably indicates you were missing good opportunities to cast Wild Growth.`,
           }),
           new Requirement({
-            name: "Ice Lances without Shatter",
-            check: () => this.iceLance.nonShatteredSuggestionThresholds,
+            name: <Wrapper>Low target <SpellLink id={SPELLS.WILD_GROWTH.id} icon /> casts</Wrapper>,
+            check: () => this.naturesEssence.suggestionThresholds,
+            tooltip: `This is your percent of Wild Growth casts that hit too few wounded targets. Low target casts happen either by casting it when almost all the raid was full health, or casting it on an isolated target. Remember that Wild Growth can only apply to players within 30 yds of the primary target, so if you use it on a target far away from the rest of the raid your cast will not be effective.`,
           }),
         ];
       },
     }),
     new Rule({
-      name: 'Use your procs',
-      description: <Wrapper>Frost Mage is heavily dependent on correct usage of <SpellLink id={SPELLS.FINGERS_OF_FROST.id}/> and <SpellLink id={SPELLS.BRAIN_FREEZE.id}/>. Remember to use your procs promptly, and also remember to precede each <SpellLink id={SPELLS.FLURRY.id}/> with a hardcast and follow each with an <SpellLink id={SPELLS.ICE_LANCE.id}/> so that both can benefit from <SpellLink id={SPELLS.WINTERS_CHILL.id}/>.</Wrapper>,
+      name: <Wrapper>Keep <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} icon /> and <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} icon /> active</Wrapper>,
+      description: <Wrapper>Maintaining uptime on these two important spells will improve your mana efficiency and overall throughput. It is good to keep <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> constantly active on a tank. While its throughput is comparable to a <SpellLink id={SPELLS.REJUVENATION.id} />, it also provides a constant chance to proc <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} />. <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> is very mana efficient when it can tick over its full duration. Place it where raiders are liable to be and refresh it as soon as it expires.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
-            name: "Used Brain Freeze procs",
-            check: () => this.brainFreeze.utilSuggestionThresholds,
+            name: <Wrapper><SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} icon /> uptime</Wrapper>,
+            check: () => this.lifebloom.suggestionThresholds,
           }),
           new Requirement({
-            name: "Used Fingers of Frost procs",
-            check: () => this.iceLance.fingersUtilSuggestionThresholds,
-          }),
-          new Requirement({
-            name: "Ice Lance into Winter's Chill",
-            check: () => this.wintersChill.iceLanceUtilSuggestionThresholds,
-          }),
-          new Requirement({
-            name: "Hardcast into Winter's Chill",
-            check: () => this.wintersChill.hardcastUtilSuggestionThresholds,
+            name: <Wrapper><SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} icon /> uptime</Wrapper>,
+            check: () => this.efflorescence.suggestionThresholds,
           }),
         ];
       },
     }),
     new Rule({
-      name: 'Use your cooldowns',
-      description: <Wrapper>Your cooldowns are a major contributor to your DPS, and should be used as frequently as possible throughout a fight. A cooldown should be held on to only if a priority DPS phase is coming <em>soon</em>. Holding cooldowns too long will hurt your DPS.</Wrapper>,
+      name: 'Use your healing cooldowns',
+      description: <Wrapper>Your cooldowns can be a big contributor to healing throughput when used frequently throughout the fight. When used early and often they can contribute a lot of healing for very little mana. Try to plan your major cooldowns (<SpellLink id={SPELLS.TRANQUILITY_CAST.id} /> and <SpellLink id={SPELLS.ESSENCE_OF_GHANIR.id} />) around big damage boss abilities, like the Transition Phase on Imonar or Fusillade on Antoran High Command. The below percentages represent the percentage of time you kept each spell on cooldown.</Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.FROZEN_ORB,
+            spell: SPELLS.CENARION_WARD_TALENT,
+            when: combatant.hasTalent(SPELLS.CENARION_WARD_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.EBONBOLT,
+            spell: SPELLS.FLOURISH_TALENT,
+            when: combatant.hasTalent(SPELLS.FLOURISH_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.ICY_VEINS,
+            spell: SPELLS.ESSENCE_OF_GHANIR,
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.RAY_OF_FROST_TALENT,
-            when: combatant.hasTalent(SPELLS.RAY_OF_FROST_TALENT.id),
+            spell: SPELLS.TRANQUILITY_CAST,
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.MIRROR_IMAGE_TALENT,
-            when: combatant.hasTalent(SPELLS.MIRROR_IMAGE_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.RUNE_OF_POWER_TALENT,
-            when: combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.ICE_NOVA_TALENT,
-            when: combatant.hasTalent(SPELLS.ICE_NOVA_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.COMET_STORM_TALENT,
-            when: combatant.hasTalent(SPELLS.COMET_STORM_TALENT.id),
+            spell: SPELLS.INNERVATE,
           }),
         ];
       },
     }),
-
     new Rule({
-      name: 'Maximize your talents',
-      description: <Wrapper>Talent choice can effect playstyle, it is important to use your talents to their fullest.</Wrapper>,
+      name: 'Manage your mana',
+      description: <Wrapper>Casting on targets who don't need healing or recklessly using inefficienct heals can result in running out of mana well before an encounter ends. Adapt your spell use to the situation, and as a rule of thumb try and keep your current mana percentage just above the bosses health percentage.</Wrapper>,
       requirements: () => {
-        const combatant = this.combatants.selected;
         return [
           new Requirement({
-            name: "Mirror Image utilized",
-            check: () => this.mirrorImage.damageSuggestionThresholds,
-            when: combatant.hasTalent(SPELLS.MIRROR_IMAGE_TALENT.id),
+            name: <Wrapper>Mana saved during <SpellLink id={SPELLS.INNERVATE.id} icon /></Wrapper>,
+            check: () => this.innervate.averageManaSavedSuggestionThresholds,
+            tooltip: `All spells cost no mana during Innervate, so take care to chain cast for its duration. Typically this means casting a Wild Growth, refreshing Efflorescence, and spamming Rejuvenation. It's also fine to Regrowth a target that is in immediate danger of dying.`,
           }),
           new Requirement({
-            name: "Rune of Power utilized",
-            check: () => this.runeOfPower.damageSuggestionThresholds,
-            when: combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id),
+            name: <Wrapper>Use your <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} icon /> procs</Wrapper>,
+            check: () => this.clearcasting.clearcastingUtilSuggestionThresholds,
+            tooltip: `This is the percentage of Clearcasting procs that you used. Regrowth is normally very expensive, but it's completely free with a Clearcasting proc. Use your procs in a timely fashion for a lot of free healing.`,
           }),
           new Requirement({
-            name: "Maximized Thermal Void extension",
-            check: () => this.thermalVoid.suggestionThresholds,
-            when: combatant.hasTalent(SPELLS.THERMAL_VOID_TALENT.id),
+            name: <Wrapper>Don't overuse <SpellLink id={SPELLS.REGROWTH.id} icon /></Wrapper>,
+            check: () => this.clearcasting.nonCCRegrowthsSuggestionThresholds,
+            tooltip: `This is the number of no-clearcasting Regrowths you cast per minute. Regrowth is very mana inefficient, and should only be used in emergency situations (and when you've already expended Swiftmend). Usually, you should rely on other healers in your raid to triage.`,
           }),
-          new Requirement({
-            name: "All Icicles into Glacial Spike",
-            check: () => this.glacialSpike.utilSuggestionThresholds,
-            when: combatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id),
+        ];
+      },
+    }),
+    new Rule({
+      name: 'Use your defensive / emergency spells',
+      description: <Wrapper>Restoration Druids unfortunately do not have many tools to deal with burst damage, but you should take care to use the ones you have. The below percentages represent the percentage of time you kept each spell on cooldown.</Wrapper>,
+      requirements: () => {
+        return [
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.SWIFTMEND,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.IRONBARK,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.BARKSKIN,
           }),
         ];
       },
