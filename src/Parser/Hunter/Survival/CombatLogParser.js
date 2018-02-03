@@ -34,6 +34,7 @@ import FrizzosFingertrap from './Modules/Items/FrizzosFingertrap';
 
 //Talents
 import WayOfTheMokNathal from './Modules/Talents/WayOfTheMokNathal';
+import SpittingCobra from './Modules/Talents/SpittingCobra';
 
 //Traits
 
@@ -78,6 +79,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Talents
     wayOfTheMokNathal: WayOfTheMokNathal,
+    spittingCobra: SpittingCobra,
     //Traits
 
     //Traits and Talents list
