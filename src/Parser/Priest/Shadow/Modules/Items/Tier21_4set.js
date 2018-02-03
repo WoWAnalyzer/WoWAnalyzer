@@ -37,7 +37,7 @@ class Tier21_4set extends Analyzer {
 
     const critChanceWithoutSet = 1 + combatant.critPercentage;
     const critChanceWithSet = increasedCritChance + critChanceWithoutSet;
-    var hitDamage = 0.0;
+    let hitDamage = 0.0;
     
     if( spellId !== SPELLS.VOID_BOLT.id )
     {
