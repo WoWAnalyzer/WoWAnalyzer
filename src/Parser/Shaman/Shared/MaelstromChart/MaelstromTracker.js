@@ -85,7 +85,6 @@ class MaelstromTracker extends Analyzer {
           this.activeMaelstromWastedTimeline[Math.floor((event.timestamp - this.owner.fight.start_time) / 1000)] = event.waste;
       }
     }
-    console.log(this.generatorCasts);
   }
 
   extrapolateFocus(eventTimestamp) {
