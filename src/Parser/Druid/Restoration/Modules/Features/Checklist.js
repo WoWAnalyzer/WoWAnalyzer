@@ -35,7 +35,6 @@ class Checklist extends CoreChecklist {
     lifebloom: Lifebloom,
     naturesEssence: NaturesEssence,
     wildGrowth: WildGrowth,
-    // TODO resto modules here
 
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
