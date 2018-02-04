@@ -221,6 +221,11 @@ export default {
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
   },
+  BREATH_OF_SINDRAGOSA_TALENT_DAMAGE_TICK: {
+    id: 155166,
+    name: 'Breath of Sindragosa',
+    icon: 'spell_deathknight_breathofsindragosa',
+  },
   // Buffs
   EMPOWER_RUNE_WEAPON: {
     id: 47568,
