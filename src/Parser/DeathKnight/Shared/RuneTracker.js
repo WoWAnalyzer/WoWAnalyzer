@@ -15,12 +15,12 @@ import Abilities from 'Parser/Core/Modules/Abilities';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ResourceTracker from 'Parser/Core/Modules/ResourceTracker/ResourceTracker';
 
-const RUNIC_CORRUPTION_INCREASE = 1;
-const T21_4PIECE_BLOOD_INCREASE = .4;
+const RUNIC_CORRUPTION_INCREASE = 1; //Runic Corruption
+const T21_4PIECE_BLOOD_INCREASE = .4;  //Rune Master
 const RUNE_IDS = [
-  SPELLS.RUNE_1.id,
-  SPELLS.RUNE_2.id,
-  SPELLS.RUNE_3.id,
+  SPELLS.RUNE_1.id, //-101
+  SPELLS.RUNE_2.id, //-102
+  SPELLS.RUNE_3.id, //-103
 ];
 
 /*
@@ -36,9 +36,9 @@ class RuneTracker extends ResourceTracker {
     combatants: Combatants,
   };
 
-  runesReady = [];
-  _runesReadySum;
-  _lastTimestamp;
+  runesReady = []; //{x, y} points of {time, runeCount} for the chart
+  _runesReadySum; //time spent at each rune. _runesReadySum[1] is time spent at one rune available.
+  _lastTimestamp; //used to find time since last rune change for the _runesReadySum
 
   on_initialized(){
     this.resourceName = 'Runes';
@@ -73,6 +73,7 @@ class RuneTracker extends ResourceTracker {
         }
         this._runesReadySum[this.runesAvailable] += event.timestamp - this._lastTimestamp;
         this._lastTimestamp = event.timestamp;
+        //Adding two points to the rune chart, one at {time, lastRuneCount} and one at {time, newRuneCount} so the chart does not have diagonal lines.
         this.runesReady.push({ x: this.timeFromStart(event.timestamp), y: this.runesAvailable});
         this.runesReady.push({ x: this.timeFromStart(event.timestamp), y: this.runesAvailable - runeCost});
       	for(let i = 0; i < runeCost; i++){ //start rune cooldown
@@ -127,6 +128,7 @@ class RuneTracker extends ResourceTracker {
     }
     this._runesReadySum[this.runesAvailable - 1] += event.timestamp - this._lastTimestamp;
     this._lastTimestamp = event.timestamp;
+    //Adding two points to the rune chart, one at {time, lastRuneCount} and one at {time, newRuneCount} so the chart does not have diagonal lines.
     this.runesReady.push({ x: this.timeFromStart(event.timestamp), y: this.runesAvailable - 1});
     this.runesReady.push({ x: this.timeFromStart(event.timestamp), y: this.runesAvailable});
   }
@@ -140,11 +142,11 @@ class RuneTracker extends ResourceTracker {
     //add to total generated & wasted (used to ensure proper bar sizes)
     this.generated += passiveRunesGained;
     this.wasted += Math.round(passiveRunesWasted);
-    //add runic corruption gained
+    //add runic corruption gained (and subtract it from passive regn)
     const runicCorruptionContribution = this.addPassiveAccelerator(SPELLS.RUNIC_CORRUPTION.id, passiveRunesGained, passiveRunesWasted, RUNIC_CORRUPTION_INCREASE);
     passiveRunesGained *= 1 - runicCorruptionContribution; 
     passiveRunesWasted *= 1 - runicCorruptionContribution;
-    //add Blood 4p21 gained
+    //add Blood 4p21 gained (and subtract it from passive regn)
     const runeMasterContribution = this.addPassiveAccelerator(SPELLS.RUNE_MASTER.id, passiveRunesGained, passiveRunesWasted, T21_4PIECE_BLOOD_INCREASE);
     passiveRunesGained *= 1 - runeMasterContribution; 
     passiveRunesWasted *= 1 - runeMasterContribution;
