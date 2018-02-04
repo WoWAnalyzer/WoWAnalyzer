@@ -228,12 +228,12 @@ ul {
   background: transparent;
 }
 .panel-heading h2 {
-  font-weight: 400;
   opacity: .9;
-  font-variant: small-caps;
-  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 600;
   margin: 0;
-  font-size: 1.2em;
+  font-size: 1em;
 }
 .panel > .panel-body {
   padding: 15px 22px;

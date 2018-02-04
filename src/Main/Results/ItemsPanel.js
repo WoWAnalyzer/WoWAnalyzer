@@ -10,7 +10,7 @@ const ItemsPanel = ({ items, selectedCombatant }) => (
     <div className="panel-heading">
       <h2>
         <dfn data-tip="The values shown are only for the special equip effects of the items. The passive gain from the stats is <b>not</b> included.">
-          <ArmorIcon /> Items
+          <ArmorIcon /> Item bonuses
         </dfn>
       </h2>
     </div>
