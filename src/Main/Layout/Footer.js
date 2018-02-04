@@ -20,6 +20,9 @@ class Footer extends React.PureComponent {
                 <li>Skull by Royyan Razka</li>
                 <li>Heart by Emir Palavan</li>
                 <li>armor by Jetro Cabau Quirós</li>
+                <li>Checklist by David</li>
+                <li>Idea by Anne</li>
+                <li>Information Document by ProSymbols</li>
               </ul>
             `}
           >Icons from the <a href="https://thenounproject.com">Noun Project</a>.</dfn><br />
