@@ -12,6 +12,8 @@ import ClearcastingNormalizer from './Normalizers/ClearcastingNormalizer';
 import HotApplicationNormalizer from './Normalizers/HotApplicationNormalizer';
 import PotaNormalizer from './Normalizers/PotaNormalizer';
 
+import Checklist from './Modules/Features/Checklist';
+
 import Mastery from './Modules/Core/Mastery';
 import Rejuvenation from './Modules/Core/Rejuvenation';
 
@@ -100,6 +102,9 @@ class CombatLogParser extends CoreCombatLogParser {
     rejuvenation: Rejuvenation,
     mastery: Mastery,
 
+    // Checklist
+    checklist: Checklist,
+
     // Hot Tracking
     hotTracker: HotTracker,
     rejuvenationAttributor: RejuvenationAttributor,
@@ -146,9 +151,6 @@ class CombatLogParser extends CoreCombatLogParser {
     t20_4set: T20_4Set,
     t21_2set: T21_2Set,
     t21_4set: T21_4Set,
-    // TODO:
-    // Edraith
-    // Aman'Thul's Wisdom
 
     // NLC
     murderousIntent: MurderousIntent,
