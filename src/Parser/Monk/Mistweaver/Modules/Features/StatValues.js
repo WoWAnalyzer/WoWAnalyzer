@@ -2,9 +2,6 @@
 
 import BaseHealerStatValues from 'Parser/Core/Modules/Features/BaseHealerStatValues';
 import STAT from 'Parser/Core/Modules/Features/STAT';
-import Combatants from 'Parser/Core/Modules/Combatants';
-
-import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 import SPELL_INFO from './StatValuesSpellInfo';
@@ -15,8 +12,6 @@ import SPELL_INFO from './StatValuesSpellInfo';
 
 class StatValues extends BaseHealerStatValues {
   static dependencies = {
-    combatants: Combatants,
-    critEffectBonus: CritEffectBonus,
     statTracker: StatTracker,
   };
 
@@ -24,7 +19,7 @@ class StatValues extends BaseHealerStatValues {
 
   _mastery(event, healVal) {
     if (healVal.overheal) {
-      // If a spell overheals, it could not have healed for more. Seeing as Mastery only adds HP on top of the existing heal we can skip it as increasing the power of this heal would only be more overhealing.
+      // If a spell overheals, it could not have healed for more. Seeing as Mastery is a secondary heal, that is proc'ed by our single target heals, any overheal can be ignored.
       return 0;
     }
 
