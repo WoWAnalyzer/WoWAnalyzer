@@ -130,8 +130,10 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: (haste, combatant) => combatant.hasTalent(SPELLS.PROSPERITY_TALENT.id) ? 27 : 30,
         castEfficiency: {
-          importance: ISSUE_IMPORTANCE.MINOR,
-          recommendedEfficiency: 0.60,
+          suggestion: true,
+          recommendedEfficiency: 0.40,
+          averageIssueEfficiency: 0.20,
+          majorIssueEfficiency: 0.00,
         },
       },
       {

@@ -14,9 +14,13 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-
-//TODO
-//add cooldown reduction through spells
+const RUNIC_CORRUPTION_INCREASE = 1;
+const T21_4PIECE_BLOOD_INCREASE = .4;
+const RUNE_IDS = [
+  SPELLS.RUNE_1.id,
+  SPELLS.RUNE_2.id,
+  SPELLS.RUNE_3.id,
+];
 
 /*
  * Runes are tracked as 3 fake spells with 2 charges to simulate 3 runes charging at the same time.
@@ -34,7 +38,7 @@ class RuneTracker extends Analyzer {
   timeSpentWithRunesOnCooldown = {};
   resourceType = RESOURCE_TYPES.RUNES.id;
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_cast(event){
     if(!event.classResources){
       return;
     }
@@ -59,6 +63,44 @@ class RuneTracker extends Analyzer {
     for(let i = 0; i < amount; i++){
       this.addCharge();
     }
+  }
+  on_toPlayer_applybuff(event){
+    if(event.ability.guid === SPELLS.RUNIC_CORRUPTION.id){
+      const multiplier = 1 / (1 + RUNIC_CORRUPTION_INCREASE);
+      RUNE_IDS.forEach((spellId) => {
+        this.changeCooldown(spellId, multiplier);
+      });
+    }
+    if(event.ability.guid === SPELLS.RUNE_MASTER.id){
+      const multiplier = 1 / (1 + T21_4PIECE_BLOOD_INCREASE);
+      RUNE_IDS.forEach((spellId) => {
+        this.changeCooldown(spellId, multiplier);
+      });
+    }
+  }
+  on_toPlayer_removebuff(event){
+    if(event.ability.guid === SPELLS.RUNIC_CORRUPTION.id){
+      const multiplier = 1 + RUNIC_CORRUPTION_INCREASE;
+      RUNE_IDS.forEach((spellId) => {
+        this.changeCooldown(spellId, multiplier);
+      });
+    }
+    if(event.ability.guid === SPELLS.RUNE_MASTER.id){
+      const multiplier = 1 + T21_4PIECE_BLOOD_INCREASE;
+      RUNE_IDS.forEach((spellId) => {
+        this.changeCooldown(spellId, multiplier);
+      });
+    }
+  }
+
+  changeCooldown(spellId, multiplier){
+    if(!this.spellUsable.isOnCooldown(spellId)){
+      return;
+    }
+    const remainingCooldown = this.spellUsable.cooldownRemaining(spellId);
+    const newCooldown = remainingCooldown * multiplier;
+    const reduction = remainingCooldown - newCooldown;
+    this.spellUsable.reduceCooldown(spellId, reduction);
   }
 
   addCharge(){
@@ -115,17 +157,17 @@ class RuneTracker extends Analyzer {
 
   get runeEfficiency(){
     const runeCastEfficiencies = [];
-    runeCastEfficiencies.push(this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.RUNE_1.id).efficiency);
-    runeCastEfficiencies.push(this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.RUNE_2.id).efficiency);
-    runeCastEfficiencies.push(this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.RUNE_3.id).efficiency);
+    RUNE_IDS.forEach((spellId) => {
+        runeCastEfficiencies.push(this.castEfficiency.getCastEfficiencyForSpellId(spellId).efficiency);
+      });
     return runeCastEfficiencies.reduce((accumulator, currentValue) => accumulator + currentValue) / runeCastEfficiencies.length;
   }
 
   get runesWasted(){
     const runeMaxCasts = [];
-    runeMaxCasts.push(this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.RUNE_1.id).maxCasts);
-    runeMaxCasts.push(this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.RUNE_2.id).maxCasts);
-    runeMaxCasts.push(this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.RUNE_3.id).maxCasts);
+    RUNE_IDS.forEach((spellId) => {
+        runeMaxCasts.push(this.castEfficiency.getCastEfficiencyForSpellId(spellId).maxCasts);
+      });
     const maxCasts = runeMaxCasts.reduce((accumulator, currentValue) => accumulator + currentValue);
     return maxCasts * (1 - this.runeEfficiency);
   }

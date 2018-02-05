@@ -1,6 +1,5 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS';
 import { formatMilliseconds, formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -35,7 +34,34 @@ class DeathTracker extends Analyzer {
   on_byPlayer_cast(event) {
     this.castCount += 1;
 
-    if (event.ability.guid === SPELLS.REINCARNATION.id) {
+    if (!this.isAlive) {
+      this.lastResurrectionTimestamp = this.owner.currentTimestamp;
+      this.timeDead += this.lastResurrectionTimestamp - this.lastDeathTimestamp;
+      debug && console.log("Player was Resurrected @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      this.isAlive = true;
+    }
+  }
+
+  on_byPlayer_begincast(event) {
+    if (!this.isAlive) {
+      this.lastResurrectionTimestamp = this.owner.currentTimestamp;
+      this.timeDead += this.lastResurrectionTimestamp - this.lastDeathTimestamp;
+      debug && console.log("Player was Resurrected @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      this.isAlive = true;
+    }
+  }
+
+  on_toPlayer_heal(event) {
+    if (!this.isAlive) {
+      this.lastResurrectionTimestamp = this.owner.currentTimestamp;
+      this.timeDead += this.lastResurrectionTimestamp - this.lastDeathTimestamp;
+      debug && console.log("Player was Resurrected @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      this.isAlive = true;
+    }
+  }
+
+  on_toPlayer_damage(event) {
+    if (!this.isAlive) {
       this.lastResurrectionTimestamp = this.owner.currentTimestamp;
       this.timeDead += this.lastResurrectionTimestamp - this.lastDeathTimestamp;
       debug && console.log("Player was Resurrected @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));

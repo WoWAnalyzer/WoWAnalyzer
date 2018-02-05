@@ -9,8 +9,13 @@ import ItemLink from 'common/ItemLink';
 
 export default [
   {
-    date: new Date('2018-02-02'),
+    date: new Date('2018-02-05'),
     changes: <Wrapper>Added additional information to the <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} icon /> module, to show cooldown reduction on the various affected spells. </Wrapper>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-02-02'),
+    changes: <Wrapper>Added a module for tracking <SpellLink id={SPELLS.SPITTING_COBRA_TALENT.id} icon />, and ensure cast efficiency works properly for the talent even if precast. </Wrapper>,
     contributors: [Putro],
   },
   {

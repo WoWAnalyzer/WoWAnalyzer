@@ -280,9 +280,9 @@ export default {
     icon: 'ability_skyreach_wind',
   },
   ACCELERATION: { //Chrono Shard buff
-    id: 137419,
+    id: 214128,
     name: 'Acceleration',
-    icon: 'inv_7_0raid_trinket_05a',
+    icon: 'inv_enchant_shardbrilliantsmall',
   },
   GREASE_THE_GEARS: { //Fel-Oiled Infernal Machine buff
     id: 238534,

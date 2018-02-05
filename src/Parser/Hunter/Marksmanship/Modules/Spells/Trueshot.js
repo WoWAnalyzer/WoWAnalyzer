@@ -12,6 +12,7 @@ import Icon from "common/Icon";
 import { formatNumber, formatPercentage } from "common/format";
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import Wrapper from 'common/Wrapper';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 /*
  * Increases haste by 40% and causes Arcane Shot and Multi-Shot to always apply Hunter's Mark.
@@ -21,6 +22,7 @@ import Wrapper from 'common/Wrapper';
 class Trueshot extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    spellUsable: SpellUsable,
   };
 
   trueshotCasts = 0;
@@ -43,6 +45,8 @@ class Trueshot extends Analyzer {
     //adds 1 to trueshotCasts to properly show that it was cast prepull
     this.trueshotCasts += 1;
     this.prepullTrueshots += 1;
+    //starts the cooldown to ensure proper cast efficiency statistics
+    this.spellUsable.beginCooldown(SPELLS.TRUESHOT.id);
   }
 
   on_byPlayer_cast(event) {
