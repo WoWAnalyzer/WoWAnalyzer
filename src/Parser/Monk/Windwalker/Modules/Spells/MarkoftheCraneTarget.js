@@ -23,8 +23,10 @@ class MarkoftheCraneTarget {
   constructor(id, instance, timestamp) {
 
     this.motcTimestamp = timestamp;
-    this.motcTimestamp = Id;
+    this.motcTimestamp = id;
     this.instance = instance;
   }
 
 }
+
+export default MarkoftheCraneTarget;
