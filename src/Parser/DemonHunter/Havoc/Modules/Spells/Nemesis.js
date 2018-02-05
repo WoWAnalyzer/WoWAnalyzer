@@ -48,7 +48,6 @@ class Nemesis extends Analyzer {
       return;
     }
     const enemy = this.enemies.getEntity(event);
-    console.log(enemy)
     if(enemy.hasBuff(SPELLS.NEMESIS_TALENT.id) || this.hasNemesisBuff) {
       this.bonusDmg += calculateEffectiveDamage(event, NEMESIS_DAMAGE_MODIFIER);
     }
