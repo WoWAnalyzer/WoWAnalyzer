@@ -68,6 +68,9 @@ class StaggerFabricator extends Analyzer {
     if (event.ability.guid === SPELLS.STAGGER_TAKEN.id) {
       const amount = event.amount + (event.absorbed || 0);
       this._staggerPool -= amount;
+      // sometimes a stagger tick is recorded immediately after death.
+      // this ensures we don't go into negative stagger
+      this._staggerPool = Math.max(this._staggerPool, 0); 
       debug && console.log("triggering stagger pool update due to stagger tick");
       this.owner.triggerEvent(EVENT_STAGGER_POOL_REMOVED, this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount));
     }
@@ -94,6 +97,12 @@ class StaggerFabricator extends Analyzer {
     const amount = this._staggerPool * T20_4PC_PURIFY;
     this._staggerPool -= amount;
     debug && console.log("triggering stagger pool update due to T20 4pc");
+    this.owner.triggerEvent(EVENT_STAGGER_POOL_REMOVED, this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount));
+  }
+  
+  on_toPlayer_death(event) {
+    const amount = this._staggerPool;
+    this._staggerPool = 0;
     this.owner.triggerEvent(EVENT_STAGGER_POOL_REMOVED, this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount));
   }
 
