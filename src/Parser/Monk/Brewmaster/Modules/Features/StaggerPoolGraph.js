@@ -141,7 +141,7 @@ class StaggerPoolGraph extends Analyzer {
     const DEATH_LABEL = 'Player Death';
     const PURIFY_LABEL = 'Purifying Brew Cast';
     const HP_LABEL = 'Health';
-    const STAGGER_LABEL = 'Stagger Pool Contents';
+    const STAGGER_LABEL = 'Stagger Pool Size';
     const chartData = {
       labels,
       datasets: [ 
