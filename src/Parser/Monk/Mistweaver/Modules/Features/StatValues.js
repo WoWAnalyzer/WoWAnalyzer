@@ -10,9 +10,9 @@ import StatTracker from 'Parser/Core/Modules/StatTracker';
 import SPELL_INFO from './StatValuesSpellInfo';
 
 /**
- * Mistweaver Monk Stat Values Methodology
- *
- */
+ * Mistweaver Monk Stat Values
+**/
+
 class StatValues extends BaseHealerStatValues {
   static dependencies = {
     combatants: Combatants,
@@ -28,13 +28,13 @@ class StatValues extends BaseHealerStatValues {
       return 0;
     }
 
-    const currMastery = this.statTracker.currentMasteryRating;
-    const healIncreaseFromOneMastery = 1 / currMastery;
-    return healVal.effective * healIncreaseFromOneMastery;
+    // assuming gust heal vs. mastery % are linear and start at 0 ( gust_heal = K * mast_pct )
+    // h2 / h1 = mast_pct(rat) / mast_pct(rat-1)
+    // solving that for h2 - h1 brings...
+    return healVal.effective * ( 1 - (this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating - 1, true) / this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating, true)));
 
-  }
+   }
 
-  
   _prepareResults() {
     return [
       STAT.INTELLECT,
