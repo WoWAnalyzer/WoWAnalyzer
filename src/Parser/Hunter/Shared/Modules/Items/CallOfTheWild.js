@@ -43,10 +43,10 @@ class CallOfTheWild extends Analyzer {
   wildCDR = 0;
 
   //cast time variables
-  cheetahCastTime = 0;
-  eagleCastTime = 0;
-  turtleCastTime = 0;
-  wildCastTime = 0;
+  lastCheetahCastTime = 0;
+  lastEagleCastTime = 0;
+  lastTurtleCastTime = 0;
+  lastWildCastTime = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
@@ -72,50 +72,43 @@ class CallOfTheWild extends Analyzer {
       return;
     }
     if (spellId === SPELLS.ASPECT_OF_THE_EAGLE.id) {
-      this.eagleCDR += BASE_EAGLE_COOLDOWN * COTW_CDR;
-      this.eagleCastTime = event.timestamp;
+      if (this.lastEagleCastTime && BASE_EAGLE_COOLDOWN > (event.timestamp - this.lastEagleCastTime)) {
+        this.eagleCDR += Math.max((BASE_EAGLE_COOLDOWN - (event.timestamp - this.lastEagleCastTime)), 0);
+      }
+      this.lastEagleCastTime = event.timestamp;
     }
     if (spellId === SPELLS.ASPECT_OF_THE_CHEETAH.id) {
-      this.cheetahCDR += BASE_CHEETAH_COOLDOWN * COTW_CDR;
-      this.cheetahCastTime = event.timestamp;
+      if (this.lastCheetahCastTime && BASE_CHEETAH_COOLDOWN > (event.timestamp - this.lastCheetahCastTime)) {
+        this.cheetahCDR += Math.max((BASE_CHEETAH_COOLDOWN - (event.timestamp - this.lastCheetahCastTime)), 0);
+
+      }
+      this.lastCheetahCastTime = event.timestamp;
     }
     if (spellId === SPELLS.ASPECT_OF_THE_TURTLE.id) {
-      this.turtleCDR += BASE_TURTLE_COOLDOWN * COTW_CDR;
-      this.turtleCastTime = event.timestamp;
+      if (this.lastTurtleCastTime && BASE_TURTLE_COOLDOWN > (event.timestamp - this.lastTurtleCastTime)) {
+        this.turtleCDR += Math.max((BASE_TURTLE_COOLDOWN - (event.timestamp - this.lastTurtleCastTime)), 0);
+      }
+      this.lastTurtleCastTime = event.timestamp;
     }
     if (spellId === SPELLS.ASPECT_OF_THE_WILD.id) {
-      this.wildCDR += BASE_WILD_COOLDOWN * COTW_CDR;
-      this.wildCastTime = event.timestamp;
-    }
-  }
-
-  on_finished() {
-    //checks if any given ability was cast at a point in the fight where the CDR granted by the bracers doesn't allow for another cast, in which case the CDR is ineffective
-    if (this.eagleCastTime > (this.owner.fight.end_time - this.eagleCooldownWithBracers && this.eagleCDR > 0)) {
-      this.eagleCDR -= BASE_EAGLE_COOLDOWN * COTW_CDR;
-    }
-    if (this.cheetahCastTime > (this.owner.fight.end_time - this.cheetahCooldownWithBracers && this.cheetahCDR > 0)) {
-      this.cheetahCDR -= BASE_CHEETAH_COOLDOWN * COTW_CDR;
-    }
-    if (this.turtleCastTime > (this.owner.fight.end_time - this.turtleCooldownWithBracers && this.turtleCDR > 0)) {
-      this.turtleCDR -= BASE_TURTLE_COOLDOWN * COTW_CDR;
-    }
-    if (this.wildCastTime > (this.owner.fight.end_time - this.wildCooldownWithBracers && this.wildCDR > 0)) {
-      this.wildCDR -= BASE_WILD_COOLDOWN * COTW_CDR;
+      if (this.lastWildCastTime && BASE_WILD_COOLDOWN > (event.timestamp - this.lastWildCastTime)) {
+        this.wildCDR += Math.max((BASE_WILD_COOLDOWN - (event.timestamp - this.lastWildCastTime)), 0);
+      }
+      this.lastWildCastTime = event.timestamp;
     }
   }
 
   item() {
-    let tooltipText = `This shows a breakdown of the cooldown reduction provided by Call of the Wild: <br/> We only count CDR that was effective, so if you spend a cast near the end of the fight where you won't be getting a new cast no matter what, we don't count that as CDR. <ul>`;
-    tooltipText += (this.eagleCDR > 0) ? `<li>Aspect of the Eagle</li><ul><li>Total CDR: ${this.eagleCDR / 1000} seconds</li><li>Gained casts: ${(this.eagleCDR / BASE_EAGLE_COOLDOWN).toFixed(1)}</li></ul>` : ``;
-    tooltipText += (this.cheetahCDR > 0) ? `<li>Aspect of the Cheetah</li><ul><li>Total CDR: ${this.cheetahCDR / 1000} seconds</li><li>Gained casts: ${(this.cheetahCDR / BASE_CHEETAH_COOLDOWN).toFixed(1)}</li></ul>` : ``;
-    tooltipText += (this.turtleCDR > 0) ? `<li>Aspect of the Turtle</li><ul><li>Total CDR: ${this.turtleCDR / 1000} seconds</li><li>Gained casts: ${(this.turtleCDR / BASE_TURTLE_COOLDOWN).toFixed(1)}</li></ul>` : ``;
-    tooltipText += (this.wildCDR > 0) ? `<li>Aspect of the Wild</li><ul><li>Total CDR: ${this.wildCDR / 1000} seconds</li><li>Gained casts: ${(this.wildCDR / BASE_WILD_COOLDOWN).toFixed(1)}</li></ul>` : ``;
+    let tooltipText = `This shows a breakdown of the cooldown reduction provided by Call of the Wild: <br/> We only count CDR that was effective, meaning we are only showing the time between your casts that happened too soon after your last cast than would have been possible without Call of the Wild equipped.<ul>`;
+    tooltipText += (this.eagleCDR > 0) ? `<li>Aspect of the Eagle</li><ul><li>Total CDR: ${(this.eagleCDR / 1000).toFixed(1)} seconds</li><li>Gained casts: ${(this.eagleCDR / BASE_EAGLE_COOLDOWN).toFixed(1)}</li></ul>` : ``;
+    tooltipText += (this.cheetahCDR > 0) ? `<li>Aspect of the Cheetah</li><ul><li>Total CDR: ${(this.cheetahCDR / 1000).toFixed(1)} seconds</li><li>Gained casts: ${(this.cheetahCDR / BASE_CHEETAH_COOLDOWN).toFixed(1)}</li></ul>` : ``;
+    tooltipText += (this.turtleCDR > 0) ? `<li>Aspect of the Turtle</li><ul><li>Total CDR: ${(this.turtleCDR / 1000).toFixed(1)} seconds</li><li>Gained casts: ${(this.turtleCDR / BASE_TURTLE_COOLDOWN).toFixed(1)}</li></ul>` : ``;
+    tooltipText += (this.wildCDR > 0) ? `<li>Aspect of the Wild</li><ul><li>Total CDR: ${(this.wildCDR / 1000).toFixed(1)} seconds</li><li>Gained casts: ${(this.wildCDR / BASE_WILD_COOLDOWN).toFixed(1)}</li></ul>` : ``;
     tooltipText += `</ul>`;
     return {
       item: ITEMS.CALL_OF_THE_WILD,
       result: (
-        <dfn data-tip={tooltipText}>
+        <dfn data-tip={(this.eagleCDR + this.cheetahCDR + this.turtleCDR + this.wildCDR) > 0 ? tooltipText : `You didn't gain any effective cooldown reduction from having the bracers equipped.`}>
           This reduced the cooldown of all your Aspect spells by 35%
         </dfn>
       ),
