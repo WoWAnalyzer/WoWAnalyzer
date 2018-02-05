@@ -621,6 +621,11 @@ export default {
     name: 'Serpent Sting',
     icon: 'ability_hunter_serpentswiftness',
   },
+  SPITTING_COBRA_DAMAGE: {
+    id: 206685,
+    name: 'Cobra Spit',
+    icon: 'ability_creature_poison_02',
+  },
   //Survival traits:
   ECHOES_OF_OHNARA_TRAIT: {
     id: 238125,
