@@ -77,7 +77,7 @@ export default {
     name: 'Every Man for Himself',
     icon: 'spell_shadow_charm',
   },
-  NIGHT_ELF_SHADOWMELD: {
+  SHADOWMELD: {
     id: 58984,
     name: 'Shadowmeld',
     icon: 'ability_ambush',
