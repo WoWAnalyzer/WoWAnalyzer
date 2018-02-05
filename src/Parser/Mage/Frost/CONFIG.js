@@ -12,6 +12,7 @@ export default {
   maintainers: [Sharrq, sref],
   completeness: SPEC_ANALYSIS_COMPLETENESS.GREAT, // good = it matches most common manual reviews in class discords, great = it support all important class features
   changelog: CHANGELOG,
+  compatibility: '7.3.5',
   description: (
     <div>
       Hello Everyone! We are always looking to improve the Frost Mage Analyzers and Modules; so if you find any issues or if there is something missing that you would like to see added, please open an Issue on GitHub or send a message to us on Discord (Sharrq#7530 or Sref#3865) <br /> <br />

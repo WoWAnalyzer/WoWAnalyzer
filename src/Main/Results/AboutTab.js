@@ -24,6 +24,11 @@ class AboutTab extends React.Component {
           <Textfit mode="single">
             The {config.spec.specName} {config.spec.className} analyzer
           </Textfit>
+          {config.compatibility && (
+            <h3 align="left" style={{ fontWeight: 'bold', marginLeft: 20 }}>
+              Updated for Patch {config.compatibility}
+            </h3>
+          )}
         </h1>
 
         <div className="row">

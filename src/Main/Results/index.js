@@ -83,11 +83,14 @@ class Results extends React.Component {
       return boss.fight.resultsWarning;
     }
     const config = this.context.config;
-    if (config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED || config.completeness === SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK) {
-      return 'The analysis for this spec is still under development. The information shown may be flawed, inaccurate, missing, or incomplete. Contact the spec maintainer for feature requests and bug reports, see the about tab for more information.';
+    if (config.compatibility && config.compatibility < '7.3.5') {
+      return 'This spec has not been verified/updated for the latest patch. As a result, some information may be flawed, inaccurate, missing, or incomplete. Contact the spec maintainer to get this spec updated to the latest patch.'
     }
     if (parser.feedbackWarning) {
       return 'This spec is believed to be complete, but needs additional feedback. If there is something missing, incorrect, or inaccurate, please contact this specs maintainer so it can be fixed before being marked as "Good". Contact info can be found in the About Tab.';
+    }
+    if (config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED || config.completeness === SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK) {
+      return 'The analysis for this spec is still under development. The information shown may be flawed, inaccurate, missing, or incomplete. Contact the spec maintainer for feature requests and bug reports, see the about tab for more information.';
     }
     return null;
   }
