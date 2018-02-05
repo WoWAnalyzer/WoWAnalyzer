@@ -103,7 +103,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
       },
       {
-        spell: SPELLS.SHADOWMELD,
+        spell: SPELLS.NIGHT_ELF_SHADOWMELD,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 120,
       },

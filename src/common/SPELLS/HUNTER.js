@@ -323,11 +323,6 @@ export default {
     name: 'Vulnerable',
     icon: 'ability_hunter_mastermarksman',
   },
-  ARCANE_TORRENT_FOCUS: {
-    id: 80483,
-    name: 'Arcane Torrent',
-    icon: 'spell_shadow_teleport',
-  },
   MARKING_TARGETS: {
     id: 223138,
     name: 'Marking Targets',
