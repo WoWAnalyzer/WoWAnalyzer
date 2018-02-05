@@ -40,7 +40,7 @@ class NorgannonsProwess extends Analyzer {
   on_initialized() {
     this.active = this.combatants.selected.hasTrinket(ITEMS.NORGANNONS_PROWESS.id);
     if(this.active) {
-      this.intBuff = calculatePrimaryStat(940, 3257, this.combatants.selected.getItem(ITEMS.NORGANNONS_PROWESS.id).itemLevel);
+      this.intBuff = calculatePrimaryStat(940, 11483, this.combatants.selected.getItem(ITEMS.NORGANNONS_PROWESS.id).itemLevel);
     }
   }
 

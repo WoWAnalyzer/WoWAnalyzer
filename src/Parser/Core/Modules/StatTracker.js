@@ -143,7 +143,7 @@ class StatTracker extends Analyzer {
     },
     [SPELLS.RUSH_OF_KNOWLEDGE.id]: {
       itemId: ITEMS.NORGANNONS_PROWESS.id,
-      intellect: (_, item) => calculatePrimaryStat(940, 3257, item.itemLevel),
+      intellect: (_, item) => calculatePrimaryStat(940, 11483, item.itemLevel),
     },
     // Khaz'goroth's Courage is handled in it's own module since all 4 stat buffs use the same ID.
     //[SPELLS.KHAZGOROTHS_SHAPING.id]: {
