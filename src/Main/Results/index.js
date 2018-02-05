@@ -144,39 +144,39 @@ class Results extends React.Component {
 
     const results = parser.generateResults();
 
-    // if (process.env.NODE_ENV === 'development') {
-    //   results.tabs.push({
-    //     title: 'Development',
-    //     url: 'development',
-    //     order: 100000,
-    //     render: () => (
-    //       <DevelopmentTab
-    //         parser={parser}
-    //         results={results}
-    //       />
-    //     ),
-    //   });
-    //   results.tabs.push({
-    //     title: 'Events',
-    //     url: 'events',
-    //     order: 100001,
-    //     render: () => (
-    //       <EventsTab
-    //         parser={parser}
-    //       />
-    //     ),
-    //   });
-    //   results.tabs.push({
-    //     title: 'Status',
-    //     url: 'status',
-    //     order: 100002,
-    //     render: () => (
-    //       <Tab title="Status" style={{ padding: '15px 22px' }}>
-    //         <Status />
-    //       </Tab>
-    //     ),
-    //   });
-    // }
+    if (process.env.NODE_ENV === 'development') {
+      results.tabs.push({
+        title: 'Development',
+        url: 'development',
+        order: 100000,
+        render: () => (
+          <DevelopmentTab
+            parser={parser}
+            results={results}
+          />
+        ),
+      });
+      results.tabs.push({
+        title: 'Events',
+        url: 'events',
+        order: 100001,
+        render: () => (
+          <EventsTab
+            parser={parser}
+          />
+        ),
+      });
+      results.tabs.push({
+        title: 'Status',
+        url: 'status',
+        order: 100002,
+        render: () => (
+          <Tab title="Status" style={{ padding: '15px 22px' }}>
+            <Status />
+          </Tab>
+        ),
+      });
+    }
 
     const tabUrl = tab || results.tabs[0].url;
     const activeTab = results.tabs.find(tab => tab.url === tabUrl) || results.tabs[0];
