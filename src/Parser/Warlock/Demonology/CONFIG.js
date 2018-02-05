@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { Chizu } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
+
+import { Chizu } from 'MAINTAINERS';
 
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';

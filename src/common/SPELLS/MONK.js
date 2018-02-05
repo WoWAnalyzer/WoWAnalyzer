@@ -484,6 +484,11 @@ export default {
     name: 'Monk T20 Brewmaster 4P Bonus',
     icon: 'spell_monk_brewmaster_spec',
   },
+  T19_2_PIECE_BUFF_BRM: {
+    id: 211415,
+    name: 'Monk T19 Brewmaster 2P Bonus',
+    icon: 'spell_monk_brewmaster_spec',
+  },
   GIFT_OF_THE_OX_1: {
     id: 124507,
     name: 'Gift of the Ox',
@@ -543,6 +548,11 @@ export default {
     id: 213055,
     name: 'Staggering Around',
     icon: 'ability_monk_fortifyingale_new',
+  },
+  MASTERY_ELUSIVE_BRAWLER: {
+    id: 117906,
+    name: 'Mastery: Elusive Brawler',
+    icon: 'ability_monk_shuffle',
   },
 
   // Windwalker Spells

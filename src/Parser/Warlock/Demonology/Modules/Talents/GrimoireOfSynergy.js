@@ -3,15 +3,15 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import CorePets from 'Parser/Core/Modules/Pets';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import PETS from 'common/PETS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-import getDamageBonus from '../WarlockCore/getDamageBonus';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const GRIMOIRE_OF_SYNERGY_DAMAGE_BONUS = 0.25;
 
@@ -30,7 +30,7 @@ class GrimoireOfSynergy extends Analyzer {
 
   on_byPlayer_damage(event) {
     if (this.combatants.selected.hasBuff(SPELLS.GRIMOIRE_OF_SYNERGY_BUFF.id, event.timestamp)) {
-      this._bonusPlayerDamage += getDamageBonus(event, GRIMOIRE_OF_SYNERGY_DAMAGE_BONUS);
+      this._bonusPlayerDamage += calculateEffectiveDamage(event, GRIMOIRE_OF_SYNERGY_DAMAGE_BONUS);
     }
   }
 
@@ -44,7 +44,7 @@ class GrimoireOfSynergy extends Analyzer {
       return;
     }
     if (pet.hasBuff(SPELLS.GRIMOIRE_OF_SYNERGY_BUFF.id, event.timestamp)) {
-      this._bonusPetDamage += getDamageBonus(event, GRIMOIRE_OF_SYNERGY_DAMAGE_BONUS);
+      this._bonusPetDamage += calculateEffectiveDamage(event, GRIMOIRE_OF_SYNERGY_DAMAGE_BONUS);
     }
   }
 

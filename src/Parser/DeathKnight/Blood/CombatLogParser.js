@@ -20,6 +20,12 @@ import RunicPowerTracker from './Modules/RunicPower/RunicPowerTracker';
 
 import T20_2pc from './Modules/Items/T20_2pc';
 import T20_4pc from './Modules/Items/T20_4pc';
+import SkullflowersHaemostasis from './Modules/Items/SkullflowersHaemostasis';
+import ShacklesofBryndaor from './Modules/Items/ShacklesofBryndaor';
+import SoulflayersCorruption from './Modules/Items/SoulflayersCorruption';
+
+import RuneTracker from '../Shared/RuneTracker';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -58,6 +64,12 @@ class CombatLogParser extends CoreCombatLogParser {
     // Items:
     t20_2pc: T20_2pc,
     t20_4pc: T20_4pc,
+    skullflowersHaemostasis: SkullflowersHaemostasis,
+    shacklesofBryndaor:ShacklesofBryndaor,
+    soulflayersCorruption:SoulflayersCorruption,
+
+    //Rune tracker
+    runeTracker: RuneTracker,
   };
 }
 

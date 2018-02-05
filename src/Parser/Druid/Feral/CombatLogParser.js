@@ -6,6 +6,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import RakeUptime from './Modules/Bleeds/RakeUptime';
 import RipUptime from './Modules/Bleeds/RipUptime';
+import FerociousBiteEnergy from './Modules/Features/FerociousBiteEnergy';
 
 import ComboPointTracker from './Modules/ComboPoints/ComboPointTracker';
 import ComboPointDetails from './Modules/ComboPoints/ComboPointDetails';
@@ -13,6 +14,8 @@ import ComboPointDetails from './Modules/ComboPoints/ComboPointDetails';
 import SavageRoarUptime from './Modules/Talents/SavageRoarUptime';
 import MoonfireUptime from './Modules/Talents/MoonfireUptime';
 import SavageRoarDmg from './Modules/Talents/SavageRoarDmg';
+
+import AshamanesRip from './Modules/Traits/AshamanesRip';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -23,6 +26,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    ferociousBiteEnergy: FerociousBiteEnergy,
 
     // bleeds
     rakeUptime: RakeUptime,
@@ -36,6 +40,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // resources
     comboPointTracker: ComboPointTracker,
     comboPointDetails: ComboPointDetails,
+
+    // traits
+    ashamanesRip: AshamanesRip,
   };
 }
 

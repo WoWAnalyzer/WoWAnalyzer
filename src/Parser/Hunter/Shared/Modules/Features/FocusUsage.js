@@ -35,6 +35,15 @@ const LIST_OF_FOCUS_SPENDERS = [
   SPELLS.PIERCING_SHOT_TALENT.id,
   SPELLS.BLACK_ARROW_TALENT.id,
   SPELLS.EXPLOSIVE_SHOT_TALENT.id,
+  //sv specific
+  SPELLS.RAPTOR_STRIKE.id,
+  SPELLS.LACERATE.id,
+  SPELLS.BUTCHERY_TALENT.id,
+  SPELLS.FLANKING_STRIKE.id,
+  SPELLS.WING_CLIP.id,
+  SPELLS.THROWING_AXES_TALENT.id,
+  SPELLS.A_MURDER_OF_CROWS_TALENT_SURVIVAL.id,
+  SPELLS.RANGERS_NET_TALENT.id,
   //shared
   SPELLS.REVIVE_PET_AND_MEND_PET.id,
   SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id,
@@ -48,6 +57,7 @@ class FocusUsage extends Analyzer {
   };
 
   focusSpenderCasts = {
+    //BEAST MASTERY
     [SPELLS.COBRA_SHOT.id]: {
       casts: 0,
       focusUsed: 0,
@@ -66,30 +76,7 @@ class FocusUsage extends Analyzer {
       name: SPELLS.KILL_COMMAND.name,
       color: '#abff3d',
     },
-    [SPELLS.REVIVE_PET_AND_MEND_PET.id]: {
-      casts: 0,
-      focusUsed: 0,
-      name: SPELLS.REVIVE_PET_AND_MEND_PET.name,
-      color: '#ec0003',
-    },
-    [SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id]: {
-      casts: 0,
-      focusUsed: 0,
-      name: SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.name,
-      color: '#8b8dec',
-    },
-    [SPELLS.BARRAGE_TALENT.id]: {
-      casts: 0,
-      focusUsed: 0,
-      name: SPELLS.BARRAGE_TALENT.name,
-      color: '#ec5c58',
-    },
-    [SPELLS.VOLLEY_ACTIVATED.id]: {
-      casts: 0,
-      focusUsed: 0,
-      name: SPELLS.VOLLEY_ACTIVATED.name,
-      color: '#66ecd8',
-    },
+    //MARKSMANSHIP
     [SPELLS.AIMED_SHOT.id]: {
       casts: 0,
       focusUsed: 0,
@@ -126,12 +113,86 @@ class FocusUsage extends Analyzer {
       name: SPELLS.EXPLOSIVE_SHOT_TALENT.name,
       color: '#ecda4c',
     },
+    //SURVIVAL
+    [SPELLS.RAPTOR_STRIKE.id]: {
+      casts: 0,
+      focusUsed: 0,
+      name: SPELLS.RAPTOR_STRIKE.name,
+      color: '#4ce4ec',
+    },
+    [SPELLS.LACERATE.id]: {
+      casts: 0,
+      focusUsed: 0,
+      name: SPELLS.LACERATE.name,
+      color: '#2a74ec',
+    },
+    [SPELLS.BUTCHERY_TALENT.id]: {
+      casts: 0,
+      focusUsed: 0,
+      name: SPELLS.BUTCHERY_TALENT.name,
+      color: '#8b4507',
+    },
+    [SPELLS.FLANKING_STRIKE.id]: {
+      casts: 0,
+      focusUsed: 0,
+      name: SPELLS.FLANKING_STRIKE.name,
+      color: '#98ff00',
+    },
+    [SPELLS.WING_CLIP.id]: {
+      casts: 0,
+      focusUsed: 0,
+      name: SPELLS.WING_CLIP.name,
+      color: '#ecda4c',
+    },
+    [SPELLS.THROWING_AXES_TALENT.id]: {
+      casts: 0,
+      focusUsed: 0,
+      name: SPELLS.THROWING_AXES_TALENT.name,
+      color: '#00ec62',
+    },
+    [SPELLS.A_MURDER_OF_CROWS_TALENT_SURVIVAL.id]: {
+      casts: 0,
+      focusUsed: 0,
+      name: SPELLS.A_MURDER_OF_CROWS_TALENT_SURVIVAL.name,
+      color: '#3eec85',
+    },
+    [SPELLS.RANGERS_NET_TALENT.id]: {
+      casts: 0,
+      focusUsed: 0,
+      name: SPELLS.RANGERS_NET_TALENT.name,
+      color: '#ecda4c',
+    },
+    //SHARED
+    [SPELLS.REVIVE_PET_AND_MEND_PET.id]: {
+      casts: 0,
+      focusUsed: 0,
+      name: SPELLS.REVIVE_PET_AND_MEND_PET.name,
+      color: '#ec0003',
+    },
+    [SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id]: {
+      casts: 0,
+      focusUsed: 0,
+      name: SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.name,
+      color: '#8b8dec',
+    },
+    [SPELLS.BARRAGE_TALENT.id]: {
+      casts: 0,
+      focusUsed: 0,
+      name: SPELLS.BARRAGE_TALENT.name,
+      color: '#ec5c58',
+    },
+    [SPELLS.VOLLEY_ACTIVATED.id]: {
+      casts: 0,
+      focusUsed: 0,
+      name: SPELLS.VOLLEY_ACTIVATED.name,
+      color: '#66ecd8',
+    },
   };
   lastVolleyHit = 0;
 
   legend(items, total) {
     const numItems = items.length;
-    return items.map(({ color, label, tooltip, value, spellId }, index) => {
+    return items.map(({ color, label, tooltip, value, casts, spellId }, index) => {
       label = tooltip ? (
         <dfn data-tip={tooltip}>{label}</dfn>
       ) : label;
@@ -163,7 +224,7 @@ class FocusUsage extends Analyzer {
             {label}
           </div>
           <div className="flex-sub">
-            <dfn data-tip={value}>
+            <dfn data-tip={`${casts} casts <br/> ${value} focus used`}>
               {formatPercentage(value / total, 1)}%
             </dfn>
           </div>
@@ -236,6 +297,7 @@ class FocusUsage extends Analyzer {
           label: this.focusSpenderCasts[id].name,
           spellId: id,
           value: Math.round(this.focusSpenderCasts[id].focusUsed),
+          casts: this.focusSpenderCasts[id].casts,
         });
         totalFocusUsed += this.focusSpenderCasts[id].focusUsed;
       }

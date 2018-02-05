@@ -48,7 +48,7 @@ class Clearcasting extends Analyzer {
     this.availableProcs = this.procsPerCC;
   }
 
-  // it looks right now like the refreshbuff handling will never be used, because for whatever reason CC doesn't fire an event when it refreshes...
+  // refreshbuff does show without MoC, but doesn't show with it.... at least I can get overwrites when player doesn't have it...
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.CLEARCASTING_BUFF.id) {
@@ -159,6 +159,7 @@ class Clearcasting extends Analyzer {
         tooltip={`Clearcasting procced <b>${this.totalProcs} free Regrowths</b>
             <ul>
               <li>Used: <b>${this.usedProcs} ${this.hadInvisibleRefresh ? '*' : ''}</b></li>
+              ${this.hadInvisibleRefresh ? '' : `<li>Overwritten: <b>${this.overwrittenProcs}</b></li>`}
               <li>Expired: <b>${this.expiredProcs}</b></li>
             </ul>
             <b>${this.nonCCRegrowths} of your Regrowths were cast without a Clearcasting proc</b>.

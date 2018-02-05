@@ -1,13 +1,13 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
+
 import Tab from 'Main/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
+import WastedShardsIcon from 'Parser/Warlock/Shared/Images/warlock_soulshard_bw.jpg';
 import SoulShardBreakdown from './SoulShardBreakdown';
 import SoulShardTracker from './SoulShardTracker';
-
-import WastedShardsIcon from '../../Images/warlock_soulshard_bw.jpg';
 
 const soulShardIcon = 'inv_misc_gem_amethyst_02';
 
@@ -26,7 +26,7 @@ class SoulShardDetails extends Analyzer {
         average: 5 / 3, // 5 shards in 3 minute fight
         major: 10 / 3,  // 10 shards in 3 minute fight
       },
-      style: 'number',  // TODO: not sure about this yet
+      style: 'decimal',
     };
   }
 

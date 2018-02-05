@@ -7,6 +7,8 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
+import Voidform from './Voidform';
+
 function formatSeconds(seconds) {
   return Math.round(seconds * 10) / 10;
 }
@@ -16,6 +18,10 @@ const TIMESTAMP_ERROR_MARGIN = 100;
 const VOID_TORRENT_MAX_TIME = 4000;
 
 class VoidTorrent extends Analyzer {
+  static dependencies = {
+    voidform: Voidform,
+  };
+
   _voidTorrents = {};
   _previousVoidTorrentCast = null;
 
@@ -33,6 +39,14 @@ class VoidTorrent extends Analyzer {
       wastedTime,
       end: event.timestamp,
     };
+
+    // due to sometimes being able to cast it at the same time as you leave voidform:
+    if(this.voidform.inVoidform){
+      this.voidform.addVoidformEvent(SPELLS.VOID_TORRENT.id, {
+        start: this.voidform.normalizeTimestamp({timestamp: this._previousVoidTorrentCast.timestamp}),
+        end: this.voidform.normalizeTimestamp(event),
+      });
+    }
 
     this._previousVoidTorrentCast = null;
   }

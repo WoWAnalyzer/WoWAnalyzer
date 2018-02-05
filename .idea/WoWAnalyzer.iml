@@ -9,5 +9,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jest-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="@types/react" level="application" />
   </component>
 </module>

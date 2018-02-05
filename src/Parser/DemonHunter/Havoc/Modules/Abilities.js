@@ -16,6 +16,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FURY_OF_THE_ILLIDARI,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -25,7 +26,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.METAMORPHOSIS_HAVOC,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (haste, combatant) => 300 - (combatant.traitsBySpellId[SPELLS.UNLEASHED_DEMONS.id] || 0) * 20,
+        cooldown: (_, combatant) => 300 - combatant.owner.modules.unleashedDemons.traitCooldownReduction,
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -46,7 +48,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CHAOS_BLADES_TALENT,
         enabled: combatant.hasTalent(SPELLS.CHAOS_BLADES_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
+        cooldown: 120,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -59,6 +61,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.FEL_ERUPTION_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 30,
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -70,6 +73,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.FEL_BARRAGE_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
@@ -81,6 +85,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 15 / (1 + haste),
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
@@ -92,6 +97,7 @@ class Abilities extends CoreAbilities {
         enabled: !combatant.hasTalent(SPELLS.DEMONIC_TALENT.id) && !combatant.hasBuff(SPELLS.HAVOC_T21_4PC_BONUS.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 45,
+        isOnGCD: true,
       },
       //T21 Eye Beam
       {
@@ -99,6 +105,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.DEMONIC_TALENT.id) || combatant.hasBuff(SPELLS.HAVOC_T21_4PC_BONUS.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 45,
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: .9,
@@ -109,39 +116,47 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DEMONS_BITE,
         enabled: !combatant.hasTalent(SPELLS.DEMON_BLADES_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.CHAOS_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.ANNIHILATION,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.BLADE_DANCE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL, //10 / (1 + haste),
+        isOnGCD: true,
       },
       {
         spell: SPELLS.DEATH_SWEEP,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL, //8 / (1+ haste),
+        isOnGCD: true,
       },
       {
         spell: SPELLS.THROW_GLAIVE_HAVOC,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         charges: combatant.hasTalent(SPELLS.MASTER_OF_THE_GLAIVE_TALENT.id) ? 2 : 1,
         cooldown: haste => 10 / (1 + haste),
+        isOnGCD: true,
       },
       {
         spell: SPELLS.FEL_RUSH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         charges: 2,
         cooldown: 10,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.VENGEFUL_RETREAT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 25,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.BLUR,
@@ -156,10 +171,12 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHAOS_NOVA,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: combatant.hasTalent(SPELLS.UNLEASHED_POWER_TALENT) ? 40 : 60,
+        cooldown: combatant.hasTalent(SPELLS.UNLEASHED_POWER_TALENT.id) ? 40 : 60,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.NETHERWALK_TALENT,
+         enabled: combatant.hasTalent(SPELLS.NETHERWALK_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 120,
       },

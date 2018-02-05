@@ -12,6 +12,7 @@ import Icon from "common/Icon";
 import { formatNumber, formatPercentage } from "common/format";
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import Wrapper from 'common/Wrapper';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 /*
  * Increases haste by 40% and causes Arcane Shot and Multi-Shot to always apply Hunter's Mark.
@@ -21,6 +22,7 @@ import Wrapper from 'common/Wrapper';
 class Trueshot extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    spellUsable: SpellUsable,
   };
 
   trueshotCasts = 0;
@@ -43,6 +45,8 @@ class Trueshot extends Analyzer {
     //adds 1 to trueshotCasts to properly show that it was cast prepull
     this.trueshotCasts += 1;
     this.prepullTrueshots += 1;
+    //starts the cooldown to ensure proper cast efficiency statistics
+    this.spellUsable.beginCooldown(SPELLS.TRUESHOT.id);
   }
 
   on_byPlayer_cast(event) {
@@ -132,7 +136,7 @@ class Trueshot extends Analyzer {
           <li> You hit an average of ${this.averageAimedShots} Aimed Shots inside each Trueshot window. </li>
           <li> Your Trueshot Aimed Shots had a crit rate of ${percentAimedCrits}%. </li>
           <li>Your overall crit rate during Trueshot was ${percentCastCrits}%. </li>
-          <li>You spent an average of ${this.uptimePerCast} seconds in trueshot pr cast of Trueshot.</li>
+          <li>You spent an average of ${this.uptimePerCast} seconds in trueshot per cast of Trueshot.</li>
         </ul>`} />
     );
   }
@@ -196,7 +200,7 @@ class Trueshot extends Analyzer {
     when(this.aimedShotThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<Wrapper>You only cast {actual} <SpellLink id={SPELLS.AIMED_SHOT.id} />s inside your average <SpellLink id={SPELLS.TRUESHOT.id} /> window. This is your only DPS cooldown, and it's important to maximize it to it's fullest potential by getting as many Aimed Shot squeezed in as possible, while still making sure that they are all within <SpellLink id={SPELLS.VULNERABLE.id} />. <br /> This can be done by making sure to use <SpellLink id={SPELLS.WINDBURST.id} /> to open <SpellLink id={SPELLS.VULNERABLE.id} /> windows, not using <SpellLink id={TALENTS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> while in <SpellLink id={SPELLS.TRUESHOT.id} /> or starting <SpellLink id={SPELLS.TRUESHOT.id} /> at higher focus. </Wrapper>)
         .icon(SPELLS.TRUESHOT.icon)
-        .actual(`Average of ${actual} Aimed Shots pr Trueshot.`)
+        .actual(`Average of ${actual} Aimed Shots per Trueshot.`)
         .recommended(`>${recommended} is recommended`);
     });
     when(this.focusThreshold).addSuggestion((suggest, actual, recommended) => {

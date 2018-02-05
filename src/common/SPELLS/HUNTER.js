@@ -595,6 +595,11 @@ export default {
     name: 'Harpoon',
     icon: 'ability_hunter_harpoon',
   },
+  HARPOON_DAMAGE: { //doesn't actually do damage, but it's categorized as that
+    id: 190927,
+    name: 'Harpoon',
+    icon: 'ability_hunter_harpoon',
+  },
   MUZZLE: {
     id: 187707,
     name: 'Muzzle',
@@ -615,6 +620,11 @@ export default {
     id: 118253,
     name: 'Serpent Sting',
     icon: 'ability_hunter_serpentswiftness',
+  },
+  SPITTING_COBRA_DAMAGE: {
+    id: 206685,
+    name: 'Cobra Spit',
+    icon: 'ability_creature_poison_02',
   },
   //Survival traits:
   ECHOES_OF_OHNARA_TRAIT: {
@@ -652,6 +662,11 @@ export default {
     name: 'Talon Strike',
     icon: 'inv_misc_bone_06',
   },
+  HUNTERS_GUILE_TRAIT: {
+    id: 203752,
+    name: 'Hunter\'s Guile',
+    icon: 'ability_mage_potentspirit',
+  },
   ASPECT_OF_THE_SKYLORD_BUFF: {
     id: 203927,
     name: 'Aspect of the Skylord',
@@ -667,6 +682,11 @@ export default {
     name: 'Embrace of the Aspects',
     icon: 'spell_hunter_aspectofthehawk',
   },
+  JAWS_OF_THE_MONGOOSE: {
+    id: 238053,
+    name: 'Jaws of the Mongoose',
+    icon: 'ability_hunter_mongoosebite',
+  },
   //Survival tier and their buffs
   HUNTER_SV_T20_2P_BONUS: {
     id: 242244,
@@ -681,7 +701,7 @@ export default {
   HUNTER_SV_T21_2P_BONUS: {
     id: 251751,
     name: 'T21 2 set bonus',
-    icon: 'ability_hunter_focusedaim',
+    icon: 'ability_rogue_findweakness',
   },
   HUNTER_SV_T21_2P_BONUS_BUFF: {
     id: 252094,
@@ -691,7 +711,7 @@ export default {
   HUNTER_SV_T21_4P_BONUS: {
     id: 251752,
     name: 'T21 4 set bonus',
-    icon: 'ability_hunter_focusedaim',
+    icon: 'ability_hunter_combatexperience',
   },
   HUNTER_SV_T21_4P_BONUS_BUFF: {
     id: 252095,
@@ -703,6 +723,21 @@ export default {
     id: 212575,
     name: 'Nesingwary\'s Trapping Treads',
     icon: 'inv_boots_mail_panda_b_02',
+  },
+  UNSEEN_PREDATORS_CLOAK_BUFF: {
+    id: 248212,
+    name: 'Unseen Predator\'s Cloak',
+    icon: 'ability_vehicle_demolisherflamecatapult',
+  },
+  MARK_OF_HELBRINE: {
+    id: 213156,
+    name: 'Mark of Helbrine',
+    icon: 'inv_spear_04',
+  },
+  BUTCHERS_BONE_APRON_BUFF: {
+    id: 236446,
+    name: 'Butcher\'s Bone Apron',
+    icon: 'ability_hunter_carve',
   },
 
   //------------------------------------------------------------

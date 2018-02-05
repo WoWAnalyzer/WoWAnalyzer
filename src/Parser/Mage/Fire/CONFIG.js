@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Fyruna, Sharrq } from 'MAINTAINERS';
+import { Sharrq } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
 import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
@@ -9,7 +9,7 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   spec: SPECS.FIRE_MAGE,
-  maintainers: [Fyruna, Sharrq],
+  maintainers: [Sharrq],
   completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK, // good = it matches most common manual reviews in class discords, great = it support all important class features
   changelog: CHANGELOG,
   description: (

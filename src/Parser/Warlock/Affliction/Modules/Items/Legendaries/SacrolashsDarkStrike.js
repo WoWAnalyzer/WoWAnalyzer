@@ -2,11 +2,12 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
+
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import ItemDamageDone from 'Main/ItemDamageDone';
 
-import getDamageBonus from '../../WarlockCore/getDamageBonus';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 const SACROLASH_DAMAGE_BONUS = 0.15;
 
@@ -25,7 +26,7 @@ class SacrolashsDarkStrike extends Analyzer {
     if (event.ability.guid !== SPELLS.CORRUPTION_DEBUFF.id) {
       return;
     }
-    this.bonusDmg += getDamageBonus(event, SACROLASH_DAMAGE_BONUS);
+    this.bonusDmg += calculateEffectiveDamage(event, SACROLASH_DAMAGE_BONUS);
   }
 
   item() {

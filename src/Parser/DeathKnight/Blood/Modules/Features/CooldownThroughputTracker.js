@@ -15,6 +15,22 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       spell: SPELLS.VAMPIRIC_BLOOD,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,
+        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
+      ],
+    },
+
+    {
+      spell: SPELLS.BLOOD_MIRROR_TALENT,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.DAMAGE,
+        BUILT_IN_SUMMARY_TYPES.ABSORBED,
+      ],
+    },
+
+    {
+      spell: SPELLS.ANTI_MAGIC_SHELL,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.ABSORBED,
       ],
     },
 

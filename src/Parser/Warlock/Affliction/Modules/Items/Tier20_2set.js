@@ -1,6 +1,8 @@
 import React from 'react';
+
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -10,7 +12,6 @@ import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 import SoulShardTracker from '../SoulShards/SoulShardTracker';
 
 const TICKS_PER_UA = 4;
-const UA_IDS_SET = new Set(UNSTABLE_AFFLICTION_DEBUFF_IDS);
 
 class Tier20_2set extends Analyzer {
   static dependencies = {
@@ -26,7 +27,7 @@ class Tier20_2set extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if (UA_IDS_SET.has(event.ability.guid)) {
+    if (UNSTABLE_AFFLICTION_DEBUFF_IDS.includes(event.ability.guid)) {
       this._totalTicks += 1;
       this.totalUAdamage += event.amount + (event.absorbed || 0);
     }

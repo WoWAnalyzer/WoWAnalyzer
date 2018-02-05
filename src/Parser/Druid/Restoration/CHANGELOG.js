@@ -1,9 +1,32 @@
+import React from 'react';
+
 import { blazyb, sref, Zerotorescue } from 'MAINTAINERS';
+
+import Wrapper from 'common/Wrapper';
+import ItemLink from 'common/ItemLink';
+import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-02-03'),
+    changes: 'Added a Checklist to the top of the page, which is a more organized and better explained version of the Suggestion system.',
+    contributors: [sref],
+  },
+  {
+    date: new Date('2018-02-02'),
+    changes: <Wrapper>Fixed a bug in <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} icon /> Util module where overwritten procs weren't shown if player doesn't take <SpellLink id={SPELLS.MOMENT_OF_CLARITY_TALENT_RESTORATION.id} icon />.</Wrapper>,
+    contributors: [sref],
+  },
+  {
+    date: new Date('2018-01-26'),
+    changes: <Wrapper>Updated HoT tracking framework to allow attribution of HoT extensions, allowing updates to <SpellLink id={SPELLS.FLOURISH_TALENT.id} icon />. Also added modules for <ItemLink id={ITEMS.EDRAITH_BONDS_OF_AGLAYA.id} icon />, <ItemLink id={ITEMS.AMANTHULS_WISDOM.id} icon />, and <SpellLink id={SPELLS.DEEP_ROOTED_TRAIT.id} icon />.</Wrapper>,
+    contributors: [sref],
+  },
+  {
     date: new Date('2018-01-10'),
-    changes: 'Added framework for tracking HoT attribution, allowing updates to several modules: Tearstone of Elune, Power of the Archdruid, T21 2pc, and T21 4pc. Also added T19 4pc module.',
+    changes: <Wrapper>Added framework for tracking HoT attribution, allowing updates to several modules: <ItemLink id={ITEMS.TEARSTONE_OF_ELUNE.id} icon />, <SpellLink id={SPELLS.POWER_OF_THE_ARCHDRUID.id} icon />, <SpellLink id={SPELLS.RESTO_DRUID_T21_2SET_BONUS_BUFF.id} icon />, and <SpellLink id={SPELLS.RESTO_DRUID_T21_4SET_BONUS_BUFF.id} icon />. Also added <SpellLink id={SPELLS.RESTO_DRUID_T19_4SET_BONUS_BUFF.id} icon />.</Wrapper>,
     contributors: [sref],
   },
   {

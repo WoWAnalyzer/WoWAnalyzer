@@ -12,10 +12,23 @@ export default {
     name: 'Consumption',
     icon: 'inv_axe_2h_artifactmaw_d_01',
   },
+
+  UMBILICUS_ETERNUS: { //Artifact Trait
+    id: 193213,
+    name: 'Umbilicus Eternus',
+    icon: 'artifactability_blooddeathknight_umbilicuseternus',
+  },
+
+  UMBILICUS_ETERNUS_BUFF: {
+    id: 193320,
+    name: 'Umbilicus Eternus Buff',
+    icon: 'artifactability_blooddeathknight_umbilicuseternus',
+  },
+
   // Damage Dealing
   // Provides the 1 RP tick on DnD from Rapid Decomposition Talent
   RAPID_DECOMPOSITION_RP_TICK: {
-    id: 188290,
+    id: 255203,
     name: 'Rapid Decomposition RP Tick',
     icon: 'ability_deathknight_deathsiphon2',
   },
@@ -121,6 +134,13 @@ export default {
     icon: 'ability_deathknight_aoedeathgrip',
   },
 
+  //Blood DK Version
+  ASPHYXIATE: {
+    id: 221562,
+    name: 'Asphyxiate',
+    icon: 'ability_deathknight_asphixiate',
+  },
+
   // Blood Tier Sets
   // T20 2 Piece
   BLOOD_DEATH_KNIGHT_T20_2SET_BONUS_BUFF: {
@@ -134,6 +154,13 @@ export default {
     name: 'T20 4 Set Bonus',
     icon: 'spell_deathknight_bloodpresence',
   },
+  // Blood T21 4 Piece buff
+  RUNE_MASTER: {
+    id: 253381,
+    name: 'Rune Master',
+    icon: '70_inscription_vantus_rune_nightmare',
+  },
+
   // T20 Buff
   GRAVEWARDEN: {
     id: 242010,
@@ -159,8 +186,18 @@ export default {
     name: 'Frost Strike',
     icon: 'spell_deathknight_empowerruneblade2',
   },
-  OBLITERATE: {
+  OBLITERATE_CAST: {
     id: 49020,
+    name: 'Obliterate',
+    icon: 'spell_deathknight_classicon',
+  },
+  OBLITERATE_MAIN_HAND_DAMAGE: {
+    id: 222024,
+    name: 'Obliterate',
+    icon: 'spell_deathknight_classicon',
+  },
+  OBLITERATE_OFF_HAND_DAMAGE: {
+    id: 66198,
     name: 'Obliterate',
     icon: 'spell_deathknight_classicon',
   },
@@ -183,6 +220,11 @@ export default {
     id: 196770,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
+  },
+  BREATH_OF_SINDRAGOSA_TALENT_DAMAGE_TICK: {
+    id: 155166,
+    name: 'Breath of Sindragosa',
+    icon: 'spell_deathknight_breathofsindragosa',
   },
   // Buffs
   EMPOWER_RUNE_WEAPON: {
@@ -211,6 +253,8 @@ export default {
     name: 'Razorice',
     icon: 'spell_deathknight_frozenruneweapon',
   },
+
+  // Frost tier 
   // T20 2P
   FROST_DEATH_KNIGHT_T20_2SET_BONUS_BUFF: {
     id: 242058,
@@ -223,112 +267,24 @@ export default {
     name: 'T20 4 Set Bonus',
     icon: 'spell_deathknight_frostpresence',
   },
-  // Talents
-  RUNIC_ATTENUATION_TALENT: {
-    id: 207104,
-    name: 'Runic Attenuation',
-    icon: 'Boss_odunrunes_blue',
+  // T21 2P
+  FROST_DEATH_KNIGHT_T21_2SET_BONUS: {
+    id: 251873,
+    name: 'T21 2 Set Bonus',
+    icon: 'spell_deathknight_frostpresence',
   },
-  ABOMINATIONS_MIGHT_TALENT: {
-    id: 207161,
-    name: 'Abomination\'s Might',
-    icon: 'spell_deathknight_icetouch',
+  // T21 4P
+  FROST_DEATH_KNIGHT_T21_4SET_BONUS: {
+    id: 251875,
+    name: 'T21 4 Set Bonus',
+    icon: 'spell_deathknight_frostpresence',
   },
-  AVALANCHE_TALENT: {
-    id: 207142,
-    name: 'Avalanche',
-    icon: 'spell-frost-icestorm',
+  FREEZING_DEATH: { // damage event from 4 set
+    id: 253590,
+    name: 'Freezing Death',
+    icon: 'ability_deathknight_chillstreak',
   },
-  BLINDING_SLEET_TALENT: {
-    id: 207167,
-    name: 'Blinding Sleet',
-    icon: 'spell-frost-chillingblast',
-  },
-  BREATH_OF_SINDRAGOSA_TALENT: {
-    id: 152279,
-    name: 'Breath of Sindragosa',
-    icon: 'spell_deathknight_breathofsindragosa',
-  },
-  FREEZING_FOG_TALENT: {
-    id: 207060,
-    name: 'Freezing Fog',
-    icon: 'spell_frost_arcticwinds',
-  },
-  FROSTSCYTHE_TALENT: {
-    id: 207230,
-    name: 'Frostscythe',
-    icon: 'inv_misc_2h_farmscythe_a_01',
-  },
-  FROZEN_PULSE_TALENT: {
-    id: 194909,
-    name: 'Frozen Pulse',
-    icon: 'inv_misc_permafrostshard',
-  },
-  GATHERING_STORM_TALENT: {
-    id: 194912,
-    name: 'Gathering Storm',
-    icon: 'spell_frost_ice-shards',
-  },
-  GLACIAL_ADVANCE_TALENT: {
-    id: 194913,
-    name: 'Glacial Advance',
-    icon: 'ability_hunter_glacialtrap',
-  },
-  HORN_OF_WINTER_TALENT: {
-    id: 57330,
-    name: 'Horn of Winter',
-    icon: 'inv_misc_horn_02',
-  },
-  HUNGERING_RUNE_WEAPON_TALENT: {
-    id: 207127,
-    name: 'Hungering Rune Weapon',
-    icon: 'ability_deathknight_hungeringruneblade',
-  },
-  ICECAP_TALENT: {
-    id: 207126,
-    name: 'Icecap',
-    icon: 'inv_misc_herb_icecap',
-  },
-  ICY_TALONS_TALENT: {
-    id: 194878,
-    name: 'Icy Talons',
-    icon: 'spell_deathknight_icytalon',
-  },
-  INEXORABLE_ASSAULT_TALENT: {
-    id: 253593,
-    name: 'Inexorable Assault',
-    icon: 'achievement_dungeon_icecrown_frostmourne',
-  },
-  MURDEROUS_EFFICIENCY_TALENT: {
-    id: 207061,
-    name: 'Murderous Efficiency',
-    icon: 'spell_frost_frostarmor',
-  },
-  OBLITERATION_TALENT: {
-    id: 207256,
-    name: 'Obliteration',
-    icon: 'inv_axe_114',
-  },
-  PERMAFROST_TALENT: {
-    id: 207200,
-    name: 'Permafrost',
-    icon: 'achievement_zone_frostfire',
-  },
-  SHATTERING_STRIKES_TALENT: {
-    id: 207057,
-    name: 'Shattering Strikes',
-    icon: 'ability_warrior_shatteringthrow',
-  },
-  VOLATILE_SHIELDING_TALENT: {
-    id: 207188,
-    name: 'Volatile Shielding',
-    icon: 'ability_mage_shattershield',
-  },
-  WINTER_IS_COMING_TALENT: {
-    id: 207170,
-    name: 'Winter is Coming',
-    icon: 'inv_wolfdraenormountfrost',
-  },
+  
   // Unholy:
   // Aritfact ability
   APOCALYPSE: {
@@ -393,7 +349,7 @@ export default {
   },
 
   RUNIC_CORRUPTION: {
-    id: 51462,
+    id: 51460,
     name: 'Runic Corruption',
     icon: 'spell_shadow_rune',
   },
@@ -542,6 +498,12 @@ export default {
     icon: 'spell_deathknight_butcher2',
   },
 
+  DEATH_STRIKE_HEAL: {
+    id: 45470,
+    name: 'Death Strike Heal',
+    icon: 'spell_deathknight_butcher2',
+  },
+
   ICEBOUND_FORTITUDE: {
     id: 48792,
     name: 'Icebound Fortitude',
@@ -588,5 +550,35 @@ export default {
     id: 248397,
     name: 'Cold Heart',
     icon: 'spell_frost_chainsofice',
+  },
+
+  //Skullflower's Haemostasis blood dk legendary buff
+  HAEMOSTASIS_BUFF: {
+    id: 235559,
+    name: 'Haemostasis',
+    icon: 'ability_deathwing_bloodcorruption_earth',
+  },
+
+  //Shackles of Bryndaor blood dk legendary buff
+  SHACKLES_OF_BRYNDAOR_BUFF: {
+    id: 209232,
+    name: 'Shackles of Bryndaor',
+    icon: 'ability_deathknight_runicimpowerment',
+  },
+
+  RUNE_1: {
+    id: -101,
+    name: 'Rune 1',
+    icon: 'spell_deathknight_frozenruneweapon',
+  },
+  RUNE_2: {
+    id: -102,
+    name: 'Rune 2',
+    icon: 'spell_deathknight_frozenruneweapon',
+  },
+  RUNE_3: {
+    id: -103,
+    name: 'Rune 3',
+    icon: 'spell_deathknight_frozenruneweapon',
   },
 };

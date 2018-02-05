@@ -22,6 +22,7 @@ import KatsuosEclipse from './Modules/Items/KatsuosEclipse';
 import CenedrilReflectorOfHatred from './Modules/Items/CenedrilReflectorOfHatred';
 import SoulOfTheGrandmaster from './Modules/Items/SoulOfTheGrandmaster';
 import TheEmperorsCapacitor from './Modules/Items/TheEmperorsCapacitor';
+import DrinkingHornCover from './Modules/Items/DrinkingHornCover';
 import T21_4set from './Modules/Items/T21_4set';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -54,6 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cenedrilReflectorOfHatred: CenedrilReflectorOfHatred,
     soulOfTheGrandmaster: SoulOfTheGrandmaster,
     theEmperorsCapacitor: TheEmperorsCapacitor,
+    drinkingHornCover: DrinkingHornCover,
     T21_4set: T21_4set,
   };
 }

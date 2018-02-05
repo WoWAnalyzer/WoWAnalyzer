@@ -168,6 +168,11 @@ export default {
     name: 'Fire Elemental',
     icon: 'spell_fire_elemental_totem',
   },
+  SUMMON_FIRE_ELEMENTAL: {
+    id:188592,
+    name: 'Fire Elemental',
+    icon: 'spell_fire_elemental_totem',
+  },
   FLAME_SHOCK: {
     id: 188389,
     name: 'Flame Shock',
@@ -242,6 +247,11 @@ export default {
     name: 'The Deceiver\'s Blood Pact',
     icon: 'ability_creature_cursed_04',
   },
+  ECHOES_OF_THE_GREAT_SUNDERING_BUFF: {
+    id: 208723,
+    name: 'Echoes of the Great Sundering',
+    icon: 'inv_shoulder_plate_raidwarrior_j_01',
+  },
   //Elemental Sets
   ELEMENTAL_SHAMAN_T21_2SET_BUFF: {
     id: 251757,
@@ -267,6 +277,12 @@ export default {
     id: 252143,
     name: 'Earth Shock Overload',
     icon: 'spell_nature_earthshock',
+  },
+  //PETS
+  FIRE_ELEMENTAL_FIRE_BLAST: {
+    id:57984,
+    name: 'Fire Elemental Fire Blast',
+    icon: 'spell_fire_fireball',
   },
   // Enhancement Shaman
   ROCKBITER: {

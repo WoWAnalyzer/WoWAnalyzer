@@ -59,7 +59,9 @@ class SpellTimeline extends React.PureComponent {
     const { spellId, historyBySpellId, abilities } = this.props;
     const spellIds = spellId ? [spellId] : Object.keys(historyBySpellId).map(Number);
 
-    return spellIds.sort((a, b) => {
+    return spellIds
+      .filter(key => key > 0) //filter out fake spells (spell id <= 0)
+      .sort((a, b) => {
       const aCooldown = abilities.getExpectedCooldownDuration(Number(a));
       const bCooldown = abilities.getExpectedCooldownDuration(Number(b));
       return aCooldown - bCooldown;
@@ -140,7 +142,7 @@ class SpellTimeline extends React.PureComponent {
                 const maxWidth = totalWidth - left; // don't expand beyond the container width
                 return (
                   <div
-                    key={`${eventStart}-${event.duration}`}
+                    key={`${event.reason.type}-${eventStart}-${event.duration}`}
                     className="casting-time"
                     style={{
                       left,
