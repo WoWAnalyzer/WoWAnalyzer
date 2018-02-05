@@ -84,7 +84,7 @@ class Results extends React.Component {
     }
     const config = this.context.config;
     if (config.compatibility && config.compatibility < '7.3.5') {
-      return 'This spec has not been verified/updated for the latest patch. As a result, some information may be flawed, inaccurate, missing, or incomplete. Contact the spec maintainer to get this spec updated to the latest patch.'
+      return 'This spec has not been verified/updated for the latest patch. As a result, some information may be flawed, inaccurate, missing, or incomplete. Contact the spec maintainer to get this spec updated to the latest patch.';
     }
     if (parser.feedbackWarning) {
       return 'This spec is believed to be complete, but needs additional feedback. If there is something missing, incorrect, or inaccurate, please contact this specs maintainer so it can be fixed before being marked as "Good". Contact info can be found in the About Tab.';
