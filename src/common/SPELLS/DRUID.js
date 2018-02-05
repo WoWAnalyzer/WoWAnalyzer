@@ -745,11 +745,6 @@ export default {
     name: 'Skull Bash',
     icon: 'inv_bone_skull_04',
   },
-  SHADOWMELD: {
-    id: 58984,
-    name: 'Shadowmeld',
-    icon: 'ability_ambush',
-  },
   ASHAMANES_FRENZY: {
     id: 210722,
     name: 'Ashamane\'s Frenzy',

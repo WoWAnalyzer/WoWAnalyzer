@@ -31,13 +31,6 @@ export default {
     icon: 'spell_warlock_soulburn',
   },
 
-  // Racial:
-  ARCANE_TORRENT: {
-    id: 202719,
-    name: 'Arcane Torrent',
-    icon: 'spell_shadow_teleport',
-  },
-
   // Vengeance
 
   // Passive:
