@@ -6,6 +6,7 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 const PASSIVE_HASTE = 0.02;
 const ACTIVE_HASTE = 0.25;
@@ -17,6 +18,7 @@ const ACTIVE_HASTE = 0.25;
 class SephuzsSecret extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    statTracker: StatTracker,
   };
 
   on_initialized() {
@@ -25,14 +27,14 @@ class SephuzsSecret extends Analyzer {
 
   item() {
     const uptimePercent = this.combatants.selected.getBuffUptime(SPELLS.SEPHUZS_SECRET_BUFF.id) / this.owner.fightDuration;
-    const avgHaste = (uptimePercent * ACTIVE_HASTE) + ((1 - uptimePercent) * PASSIVE_HASTE);
-
+    const startHaste = this.statTracker.startingHasteRating / 37500;
+    const avgHaste = (1 + startHaste * PASSIVE_HASTE + PASSIVE_HASTE) + (uptimePercent * ACTIVE_HASTE) - 1;
     return {
       item: ITEMS.SEPHUZS_SECRET,
       result: (
         <span>
           <dfn
-            data-tip={`This is the average haste percentage gained, factoring in both the passive and active bonuses. The active's uptime was <b>${formatPercentage(uptimePercent)}%</b>`}
+            data-tip={`This is the average haste percentage gained, factoring in both the passive and active bonuses. The active's uptime was <b>${formatPercentage(uptimePercent)}%</b>. <br/> The average haste gained with 0% uptime can still be higher than 2%, as Sephuz also increases your existing haste by 2% before applying the flat 2%.`}
           >
             {formatPercentage(avgHaste)} % average haste
           </dfn>
