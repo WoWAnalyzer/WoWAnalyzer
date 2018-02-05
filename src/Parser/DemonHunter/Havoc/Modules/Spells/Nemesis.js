@@ -48,15 +48,15 @@ class Nemesis extends Analyzer {
       return;
     }
     const enemy = this.enemies.getEntity(event);
+    console.log(enemy)
     if(enemy.hasBuff(SPELLS.NEMESIS_TALENT.id) || this.hasNemesisBuff) {
       this.bonusDmg += calculateEffectiveDamage(event, NEMESIS_DAMAGE_MODIFIER);
     }
   }
 
   get nemesisUptimePercent() {
-    let playerUptime = 0;
     const enemyUptime = this.enemies.getBuffUptime(SPELLS.NEMESIS_TALENT.id);
-    NEMESIS_BUFF_IDS.forEach( spellId => playerUptime += this.combatants.selected.getBuffUptime(spellId));
+    const playerUptime = NEMESIS_BUFF_IDS.reduce((uptime, spellId) => uptime + this.combatants.selected.getBuffUptime(spellId), 0);
     return (enemyUptime + playerUptime) / this.owner.fightDuration;
   }
 
@@ -64,9 +64,9 @@ class Nemesis extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.NEMESIS_TALENT.id} />}
-        value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%`}
         label="Damage Contributed"
-        tooltip={`Nemesis Contributed ${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}% / ${formatNumber(this.bonusDmg)} total damage. <br/> You had ${formatPercentage(this.nemesisUptimePercent)}% uptime.`}
+        tooltip={`Nemesis Contributed ${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS / ${formatNumber(this.bonusDmg)} total damage. <br/> You had ${formatPercentage(this.nemesisUptimePercent)}% uptime.`}
       />
     );
   }
