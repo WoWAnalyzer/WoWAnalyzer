@@ -28,8 +28,8 @@ class WildGrowth extends Analyzer {
     return {
       actual: this.wgsPerRejuv,
       isLessThan: {
-        minor: 0.20,
-        average: 0.12,
+        minor: 0.16,
+        average: 0.10,
         major: 0.04,
       },
       style: 'percentage',

@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-01-29'),
+    changes: 'Added plot of damage in Stagger pool over time.',
+    contributors: [emallson],
+  },
+  {
     date: new Date('2018-01-27'),
     changes: <Wrapper>Added statistic for <SpellLink id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} icon /> effectiveness</Wrapper>,
     contributors: [emallson],

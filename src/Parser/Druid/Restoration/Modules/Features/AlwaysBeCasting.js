@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import CoreAlwaysBeCastingHealing from 'Parser/Core/Modules/AlwaysBeCastingHealing';
-import { formatPercentage } from 'common/format';
 
 const HEALING_ABILITIES_ON_GCD = [
   SPELLS.REJUVENATION.id,
@@ -23,6 +22,7 @@ const HEALING_ABILITIES_ON_GCD = [
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD = HEALING_ABILITIES_ON_GCD;
+
   static ABILITIES_ON_GCD = [
     ...HEALING_ABILITIES_ON_GCD,
     SPELLS.BEAR_FORM.id,
@@ -52,55 +52,30 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     // SPELLS.IRONFUR.id
   ];
 
-  get nonHealingTimePercentage() {
-    return this.totalHealingTimeWasted / this.owner.fightDuration;
-  }
-
-  get nonCastingTimePercentage() {
-    return this.totalTimeWasted / this.owner.fightDuration;
-  }
-
-  get nonHealingSuggestionThresholds() {
+  get nonHealingTimeSuggestionThresholds() {
     return {
       actual: this.nonHealingTimePercentage,
       isGreaterThan: {
-        minor: 0.30,
-        average: 0.45,
-        major: 1.00,
+        minor: 0.3,
+        average: 0.4,
+        major: 0.8,
       },
       style: 'percentage',
     };
   }
 
-  get nonCastingSuggestionThresholds() {
+  get downtimeSuggestionThresholds() {
     return {
-      actual: this.nonCastingTimePercentage,
+      actual: this.downtimePercentage,
       isGreaterThan: {
-        minor: 0.20,
-        average: 0.35,
-        major: 0.50,
+        minor: 0.2,
+        average: 0.3,
+        major: 0.5,
       },
       style: 'percentage',
     };
   }
 
-  suggestions(when) {
-    when(this.nonHealingSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your non healing time can be improved. Try to reduce the delay between casting spells and try to continue healing when you have to move.')
-          .icon('petbattle_health-down')
-          .actual(`${formatPercentage(actual)}% non healing time`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`);
-      });
-
-    when(this.nonCastingSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you\'re not healing try to contribute some damage.')
-          .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(actual)}% downtime`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`);
-      });
-  }
 }
 
 export default AlwaysBeCasting;
