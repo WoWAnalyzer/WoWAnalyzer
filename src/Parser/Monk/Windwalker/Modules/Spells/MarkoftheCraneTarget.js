@@ -23,7 +23,7 @@ class MarkoftheCraneTarget {
   constructor(id, instance, timestamp) {
 
     this.motcTimestamp = timestamp;
-    this.motcTimestamp = id;
+    this.id = id;
     this.instance = instance;
   }
 

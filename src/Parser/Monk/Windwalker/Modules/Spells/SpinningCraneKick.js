@@ -22,27 +22,30 @@ class SpinningCraneKick extends Analyzer {
 
   on_byPlayer_applydebuff(event) {
     const spellId = event.ability.guid;
-    const targetId = event.targetId;
-    const targetInstance = event.targetInstance;
+    let targetInstance = event.targetInstance;
     if (spellId !== SPELLS.MARK_OF_THE_CRANE.id) {
       return;
     }
-    const markoftheCraneTarget = MarkoftheCraneTarget(targetId, targetInstance, event.timestamp);
+    if (targetInstance === undefined) {
+      targetInstance = 1;
+    }
+    console.log(event.targetID, targetInstance, event.timestamp);
+    const markoftheCraneTarget = new MarkoftheCraneTarget(event.targetID, targetInstance, event.timestamp);
     this.markoftheCraneTargets.push(markoftheCraneTarget);
   }
 
-  on_byPlayer_refreshdebuff(event) {
-    const spellId = event.ability.guid;
-    const targetId = event.targetID;
-    const targetInstance = event.targetInstance;
-    if (spellId !== SPELLS.MARK_OF_THE_CRANE.id) {
-      return;
-    }
-    const markoftheCraneTarget = MarkoftheCraneTarget(targetId, targetInstance, event.timestamp);
-    if (this.markoftheCraneTargets.includes(markoftheCraneTarget)) {
-      this.markoftheCraneTargets.find(markoftheCraneTarget).refreshMark(event.timestamp);
-    }
-  }
+  //on_byPlayer_refreshdebuff(event) {
+  //  const spellId = event.ability.guid;
+  //  const targetId = event.targetID;
+  //  const targetInstance = event.targetInstance;
+  //  if (spellId !== SPELLS.MARK_OF_THE_CRANE.id) {
+  //    return;
+  //  }
+  //  const markoftheCraneTarget = MarkoftheCraneTarget(targetId, targetInstance, event.timestamp);
+  //  if (this.markoftheCraneTargets.includes(markoftheCraneTarget)) {
+  //    this.markoftheCraneTargets.find(markoftheCraneTarget).refreshMark(event.timestamp);
+  //  }
+  //}
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
