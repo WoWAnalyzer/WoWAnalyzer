@@ -63,11 +63,6 @@ export default {
     name: 'Kidney Shot',
     icon: 'ability_rogue_kidneyshot',
   },
-  ARCANE_TORRENT_ROGUE: {
-    id: 25046,
-    name: 'Arcane Torrent',
-    icon: 'spell_shadow_teleport',
-  },
 
   // Subtlety spells
   // Combo point generating damage ability
@@ -133,13 +128,13 @@ export default {
     id: 197800,
     name: 'Shadow Nova',
     icon: 'spell_fire_twilightnova',
-  },  
+  },
   INSIGNIA_OF_RAVENHOLDT: {
     id: 209043,
     name: 'Insignia of Ravenholdt',
     icon: 'ability_rogue_shadowstrikes',
   },
-  
+
   // CP Generation
   SHADOW_TECHNIQUES: {
     id: 196911,
@@ -177,7 +172,7 @@ export default {
     name: 'Shadow Satyr\'s Walk',
     icon: 'inv_boots_mail_dungeonmail_c_04',
   },
-  
+
   //Buffs
   MASTER_ASSASSINS_INITIATIVE_BUFF: {
     id: 235027,
@@ -191,9 +186,9 @@ export default {
   },
 
   // Sets
-  
+
   //Tooltips for T20 are swapped on Wowhead.
-  //Names of variables correctly reflect in-game.  
+  //Names of variables correctly reflect in-game.
   SUB_ROGUE_T20_2SET_BONUS: {
     id: 242280,
     name: 'T20 2 set bonus',
@@ -204,7 +199,7 @@ export default {
     name: 'T20 4 set bonus',
     icon: 'ability_stealth',
   },
-  
+
   SUB_ROGUE_T21_2SET_BONUS: {
     id: 251785,
     name: 'T21 2 set bonus',
@@ -277,12 +272,12 @@ export default {
     icon: 'ability_rogue_rupture',
   },
 
-  //Cooldowns    
+  //Cooldowns
   KINGSBANE: {
     id: 192759,
     name: 'Kingsbane',
     icon: 'inv_knife_1h_artifactgarona_d_01',
-  },  
+  },
   KINGSBANE_OFFHAND: {
     id: 192760,
     name: 'Kingsbane',
@@ -342,12 +337,12 @@ export default {
   },
 
 
-  //Tier    
+  //Tier
   ASSA_ROGUE_T21_2SET_BONUS: {
     id: 251776,
     name: 'Virulent Poisons',
     icon: 'ability_rogue_poisonedknife',
-  },  
+  },
   ASSA_ROGUE_T21_2SET_BONUS_BUFF: {
     id: 252277,
     name: 'Virulent Poisons',
@@ -363,5 +358,5 @@ export default {
     name: 'Toxic Rush',
     icon: 'ability_rogue_poisonedknife',
   },
-  
+
 };

@@ -30,7 +30,7 @@ class Stagger extends Analyzer {
   }
 
   on_removestagger(event) {
-    if (event.reason.ability.guid === SPELLS.STAGGER_TAKEN.id){
+    if (event.reason.ability && event.reason.ability.guid === SPELLS.STAGGER_TAKEN.id){
       this.totalStaggerTaken += event.amount;
     }
   }
