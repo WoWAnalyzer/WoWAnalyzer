@@ -780,6 +780,11 @@ export default {
     name: 'Thrash',
     icon: 'spell_druid_thrash',
   },
+  BERSERK: {
+    id: 106951,
+    name: 'Berserk',
+    icon: 'ability_druid_berserk',
+  },
   // Traits:
   // The Ashamane's Bite trait creates the Ashamane's Rip debuff.
   ASHAMANES_BITE: {
