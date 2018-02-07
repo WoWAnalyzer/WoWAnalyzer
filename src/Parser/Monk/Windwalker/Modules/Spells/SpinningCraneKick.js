@@ -104,6 +104,7 @@ class SpinningCraneKick extends Analyzer {
         label={(
           <span> Ratio between <SpellLink id={SPELLS.MARK_OF_THE_CRANE.id} /> stacks and targets hit by <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> </span>
         )}
+        tooltip={`If your ratio is less than 1, you're using Spinning Crane Kick before having Mark of the Crane on all targets.`}
       />
     );  
   }
