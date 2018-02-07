@@ -133,10 +133,10 @@ class Checklist extends CoreChecklist {
   		description: <Wrapper>Holy Power is your main resource and it's very important not to let it cap. You should also only be spending Holy Power inside of the <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/> debuff window.</Wrapper>,
   		requirements: () => {
   			return [
-  				new Requirement({
-  					name: 'Wasted Holy Power',
-  					check: () => this.holyPowerDetails.suggestionThresholds,
-  				}),
+  				// new Requirement({
+  				// 	name: 'Wasted Holy Power',
+  				// 	check: () => this.holyPowerDetails.suggestionThresholds,
+  				// }),
   				new Requirement({
   					name: 'Holy power spent without Judgment',
   					check: () => this.judgment.suggestionThresholds,
