@@ -7,9 +7,13 @@ export function setReport(report) {
     payload: report,
   };
 }
+function timeout(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 export function fetchReport(code, refresh = false) {
   return async dispatch => {
     dispatch(setReport(null));
+    // await timeout(15000);
     let json = await fetchWcl(`report/fights/${code}`, {
       _: refresh ? +new Date() : undefined,
       translate: true, // so long as we don't have the entire site localized, it's better to have 1 consistent language
