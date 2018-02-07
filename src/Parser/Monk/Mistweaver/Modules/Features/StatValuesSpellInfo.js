@@ -62,6 +62,14 @@ export default {
     mastery: false, // Procs Gusts
     vers: true,
   },
+  [SPELLS.EFFUSE.id]: {
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: true,
+    mastery: false, // Procs Gusts
+    vers: true,
+  },
   [SPELLS.CHI_BURST_HEAL.id]: {
     int: true,
     crit: true,
