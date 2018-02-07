@@ -32,6 +32,7 @@ class Nemesis extends Analyzer {
     enemies: Enemies,
   };
 
+  everHadNemesisBuff = false;
   bonusDmg = 0;
 
   on_initialized() {
@@ -48,6 +49,9 @@ class Nemesis extends Analyzer {
       return;
     }
     const enemy = this.enemies.getEntity(event);
+    if(this.hasNemesisBuff) {
+      this.everHadNemesisBuff = true;
+    }
     if(enemy.hasBuff(SPELLS.NEMESIS_TALENT.id) || this.hasNemesisBuff) {
       this.bonusDmg += calculateEffectiveDamage(event, NEMESIS_DAMAGE_MODIFIER);
     }
@@ -65,7 +69,11 @@ class Nemesis extends Analyzer {
         icon={<SpellIcon id={SPELLS.NEMESIS_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%`}
         label="Damage Contributed"
-        tooltip={`Nemesis Contributed ${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS / ${formatNumber(this.bonusDmg)} total damage. <br/> You had ${formatPercentage(this.nemesisUptimePercent)}% uptime.`}
+        tooltip={`
+          Nemesis Contributed ${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS / ${formatNumber(this.bonusDmg)} total damage. 
+          <br/> You had ${formatPercentage(this.nemesisUptimePercent)}% uptime. 
+          ${this.everHadNemesisBuff ? `<br/><br/> Due to technical limitations it is not currently possible to tell if your nemesis buff type is the same as the boss type. This limitation may cause the damage contributed by nemesis to appear higher than it otherwise would.` : ''}
+        `}
       />
     );
   }
