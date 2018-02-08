@@ -43,35 +43,24 @@ class Combatant extends Entity {
     return SPECS[this.specId];
   }
 
-  // Primaries
-  get stamina() {
-    return this._combatantInfo.stamina;
-  }
-  get agility() {
-    return this._combatantInfo.agility;
-  }
-  get strength() {
-    return this._combatantInfo.strength;
-  }
-  get intellect() {
-    return this._combatantInfo.intellect;
-  }
-
   // Secondaries
   get critRating() {
+    console.warn('Using stat properties from the Combatant class is deprecated. Use the StatTracker module instead.');
     return this._combatantInfo.critSpell;
   }
   get critPercentage() {
-    // TODO: Look for a way to include Blood Elf racial
+    console.warn('Using stat properties from the Combatant class is deprecated. Use the StatTracker module instead.');
     return 0.08 + this.critRating / 40000;
   }
   get hasteRating() {
+    console.warn('Using stat properties from the Combatant class is deprecated. Use the StatTracker module instead.');
     return this._combatantInfo.hasteSpell;
   }
   get hastePercentage() {
     return this.hasteRating / 37500;
   }
   get masteryRating() {
+    console.warn('Using stat properties from the Combatant class is deprecated. Use the StatTracker module instead.');
     return this._combatantInfo.mastery;
   }
   get masteryPercentage() {
@@ -123,32 +112,13 @@ class Combatant extends Entity {
     }
   }
   get versatilityRating() {
+    console.warn('Using stat properties from the Combatant class is deprecated. Use the StatTracker module instead.');
     return this._combatantInfo.versatilityHealingDone;
   }
   get versatilityPercentage() {
     return this.versatilityRating / 47500;
   }
-
-  // Others
-  get armorRating() {
-    return this._combatantInfo.armor;
-  }
-  get blockRating() {
-    return this._combatantInfo.block;
-  }
-  get parryRating() {
-    return this._combatantInfo.parry;
-  }
-  get avoidanceRating() {
-    return this._combatantInfo.avoidance;
-  }
-  get leechRating() {
-    return this._combatantInfo.leech;
-  }
-  get speedRating() {
-    return this._combatantInfo.speed;
-  }
-
+  
   _combatantInfo = null;
   constructor(parser, combatantInfo) {
     super(parser);
