@@ -28,10 +28,7 @@ class ToravonsWhiteoutBindings extends Analyzer{
   }
 
   on_byPlayer_damage(event){    
-    if(event.ability.type !== SCHOOLS.ids.FROST) {
-      return;
-    }
-    if(event.targetIsFriendly) {
+    if(event.ability.type !== SCHOOLS.ids.FROST || event.targetIsFriendly) {
       return;
     }
     if(this.combatants.selected.hasBuff(SPELLS.TORAVONS_WHITEOUT_BINDINGS.id)){
