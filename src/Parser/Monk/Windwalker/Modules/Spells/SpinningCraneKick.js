@@ -45,18 +45,11 @@ class SpinningCraneKick extends Analyzer {
     }
     const markoftheCraneTarget = {targetID: event.targetID, targetInstance: targetInstance, timestamp: event.timestamp };
     let i = 0;
-    let found = null;
     while (i <= this.markoftheCraneTargets.length - 1) {
       if (this.markoftheCraneTargets[i].targetID === markoftheCraneTarget.targetID && this.markoftheCraneTargets[i].targetInstance === markoftheCraneTarget.targetInstance) {
         this.markoftheCraneTargets[i].timestamp = markoftheCraneTarget.timestamp;
-        found = true;
       }
       i++;
-    }
-    // on_byPlayer_cast occasionally removes the wrong target, which doesn't hurt the immediate following calculation, but causes wrong calculations on the next cast.
-    // This re- adds any wrongfully removed marks 
-    if (found === null) {
-      this.markoftheCraneTargets.push(markoftheCraneTarget);
     }
   }
 
@@ -71,7 +64,7 @@ class SpinningCraneKick extends Analyzer {
       // removing expired targets to avoid looking through huge arrays in logs with a lot of targets
       if (event.timestamp - this.markoftheCraneTargets[i].timestamp > 15000) {
         console.log(this.markoftheCraneTargets[i], "Mark of the Crane expired and to be removed");
-        console.log(this.markoftheCraneTargets.splice(this.markoftheCraneTargets[i], 1), "Mark Removed");
+        console.log(this.markoftheCraneTargets.splice(i, 1), "Mark Removed");
       }
       else {
         this.markoftheCraneStacks++;
