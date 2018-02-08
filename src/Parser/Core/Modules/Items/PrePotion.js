@@ -48,10 +48,15 @@ class PrePotion extends Analyzer {
   usedPrePotion = false;
   usedSecondPotion = false;
   neededManaSecondPotion = false;
+  maxPrepotWindow = 0;
+
+  on_initialized() {
+    this.maxPrepotWindow = this.owner.fight.start_time + 1000;
+  }
 
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if(PRE_POTIONS.includes(spellId) && event.prepull) {
+    if(PRE_POTIONS.includes(spellId) && (event.prepull || this.maxPrepotWindow > event.timestamp)) {
       this.usedPrePotion = true;
     }
   }
