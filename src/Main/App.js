@@ -41,10 +41,9 @@ import NewsView from './News/View';
 import { default as makeNewsUrl } from './News/makeUrl';
 import { title as AboutArticleTitle } from './News/Articles/2017-01-31-About';
 import { title as UnlistedLogsTitle } from './News/Articles/2017-01-31-UnlistedLogs';
-
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 import ServiceStatus from './ServiceStatus';
-import ActivityIndicator from 'Main/ActivityIndicator';
+import ActivityIndicator from './ActivityIndicator';
 
 const timeAvailable = console.time && console.timeEnd;
 

@@ -7,9 +7,6 @@ export function setReport(report) {
     payload: report,
   };
 }
-function timeout(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
 export function fetchReport(code, refresh = false) {
   return async dispatch => {
     dispatch(setReport(null));

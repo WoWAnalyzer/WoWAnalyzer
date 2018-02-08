@@ -8,7 +8,7 @@ import { getReport } from 'selectors/report';
 import { getCombatants } from 'selectors/combatants';
 
 import PlayerSelectionList from './PlayerSelectionList';
-import ActivityIndicator from 'Main/ActivityIndicator';
+import ActivityIndicator from './ActivityIndicator';
 
 class PlayerSelecter extends Component {
   static propTypes = {
