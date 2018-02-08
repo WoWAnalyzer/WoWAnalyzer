@@ -12,13 +12,14 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MONGOOSE_BITE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
+        /* -- Commenting out the cooldown of this spell since there is no current way of tracking the resets on it properly
         cooldown: haste => 12 / (1 + haste),
         charges: 3,
-        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-        },
+        },*/
       },
       {
         spell: SPELLS.THROWING_AXES_TALENT,
@@ -41,7 +42,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CARVE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         isOnGCD: true,
         enabled: !this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id),
       },
@@ -122,7 +123,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BUTCHERY_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: haste => 12 / (1 + haste),
         charges: 3,
         isOnGCD: true,

@@ -36,7 +36,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.MULTISHOT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         isOnGCD: true,
       },
       {
@@ -88,7 +88,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BARRAGE_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 20,
         enabled: this.combatants.selected.hasTalent(SPELLS.BARRAGE_TALENT.id),
         isOnGCD: true,
@@ -147,7 +147,7 @@ class Abilities extends CoreAbilities {
         isOnGCD: false,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 1.0,
+          recommendedEfficiency: 0.95,
         },
       },
       {
@@ -211,7 +211,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: this.combatants.selected.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 180 - (180 * 0.35) : 180,
         isOnGCD: false,
       },
