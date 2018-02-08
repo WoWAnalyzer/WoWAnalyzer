@@ -10,6 +10,16 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-02-03'),
+    changes: 'Added a Checklist to the top of the page, which is a more organized and better explained version of the Suggestion system.',
+    contributors: [sref],
+  },
+  {
+    date: new Date('2018-02-02'),
+    changes: <Wrapper>Fixed a bug in <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} icon /> Util module where overwritten procs weren't shown if player doesn't take <SpellLink id={SPELLS.MOMENT_OF_CLARITY_TALENT_RESTORATION.id} icon />.</Wrapper>,
+    contributors: [sref],
+  },
+  {
     date: new Date('2018-01-26'),
     changes: <Wrapper>Updated HoT tracking framework to allow attribution of HoT extensions, allowing updates to <SpellLink id={SPELLS.FLOURISH_TALENT.id} icon />. Also added modules for <ItemLink id={ITEMS.EDRAITH_BONDS_OF_AGLAYA.id} icon />, <ItemLink id={ITEMS.AMANTHULS_WISDOM.id} icon />, and <SpellLink id={SPELLS.DEEP_ROOTED_TRAIT.id} icon />.</Wrapper>,
     contributors: [sref],

@@ -44,8 +44,8 @@ class DelusionsOfGrandeur extends Analyzer {
 
 	get suggestionThresholds() {
     return {
-      actual: this.owner.fightDuration < this.metaCooldownWithShoulders,
-      isEqual: false,
+      actual: this.owner.fightDuration / 1000 < this.metaCooldownWithShoulders,
+      isEqual: true,
       style: 'boolean',
     };
   }

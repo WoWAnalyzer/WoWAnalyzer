@@ -143,6 +143,36 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.90,
         },
       },
+
+      {
+        spell: SPELLS.RUNE_1,
+        category: Abilities.SPELL_CATEGORIES.HIDDEN,
+        cooldown: (haste, combatantCurrent) => {
+          const multiplier = combatantCurrent.hasBuff(SPELLS.RUNIC_CORRUPTION.id) ? 1 : 0;
+          return 10 / (1 + haste) / (1 + multiplier);
+        },
+        charges: 2,
+      },
+
+      {
+        spell: SPELLS.RUNE_2,
+        category: Abilities.SPELL_CATEGORIES.HIDDEN,
+        cooldown: (haste, combatantCurrent) => {
+          const multiplier = combatantCurrent.hasBuff(SPELLS.RUNIC_CORRUPTION.id) ? 1 : 0;
+          return 10 / (1 + haste) / (1 + multiplier);
+        },
+        charges: 2,
+      },
+
+      {
+        spell: SPELLS.RUNE_3,
+        category: Abilities.SPELL_CATEGORIES.HIDDEN,
+        cooldown: (haste, combatantCurrent) => {
+          const multiplier = combatantCurrent.hasBuff(SPELLS.RUNIC_CORRUPTION.id) ? 1 : 0;
+          return 10 / (1 + haste) / (1 + multiplier);
+        },
+        charges: 2,
+      },
     ];
   }
 }

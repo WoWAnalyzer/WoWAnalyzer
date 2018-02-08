@@ -17,9 +17,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HOLY_SHOCK_CAST,
         name: 'BOOM', // TODO: Remvoe this when done with testing
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => {
+        cooldown: (haste, combatantCurrent) => {
           const hasSanctifiedWrath = combatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id);
-          const cdr = hasSanctifiedWrath && combatant.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.5 : 0;
+          const cdr = hasSanctifiedWrath && combatantCurrent.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.5 : 0;
           return 9 / (1 + haste) * (1 - cdr);
         },
         isOnGCD: true,

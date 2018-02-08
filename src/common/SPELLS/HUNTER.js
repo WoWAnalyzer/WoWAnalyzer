@@ -323,11 +323,6 @@ export default {
     name: 'Vulnerable',
     icon: 'ability_hunter_mastermarksman',
   },
-  ARCANE_TORRENT_FOCUS: {
-    id: 80483,
-    name: 'Arcane Torrent',
-    icon: 'spell_shadow_teleport',
-  },
   MARKING_TARGETS: {
     id: 223138,
     name: 'Marking Targets',
@@ -595,6 +590,11 @@ export default {
     name: 'Harpoon',
     icon: 'ability_hunter_harpoon',
   },
+  HARPOON_DAMAGE: { //doesn't actually do damage, but it's categorized as that
+    id: 190927,
+    name: 'Harpoon',
+    icon: 'ability_hunter_harpoon',
+  },
   MUZZLE: {
     id: 187707,
     name: 'Muzzle',
@@ -615,6 +615,11 @@ export default {
     id: 118253,
     name: 'Serpent Sting',
     icon: 'ability_hunter_serpentswiftness',
+  },
+  SPITTING_COBRA_DAMAGE: {
+    id: 206685,
+    name: 'Cobra Spit',
+    icon: 'ability_creature_poison_02',
   },
   //Survival traits:
   ECHOES_OF_OHNARA_TRAIT: {
@@ -713,6 +718,21 @@ export default {
     id: 212575,
     name: 'Nesingwary\'s Trapping Treads',
     icon: 'inv_boots_mail_panda_b_02',
+  },
+  UNSEEN_PREDATORS_CLOAK_BUFF: {
+    id: 248212,
+    name: 'Unseen Predator\'s Cloak',
+    icon: 'ability_vehicle_demolisherflamecatapult',
+  },
+  MARK_OF_HELBRINE: {
+    id: 213156,
+    name: 'Mark of Helbrine',
+    icon: 'inv_spear_04',
+  },
+  BUTCHERS_BONE_APRON_BUFF: {
+    id: 236446,
+    name: 'Butcher\'s Bone Apron',
+    icon: 'ability_hunter_carve',
   },
 
   //------------------------------------------------------------

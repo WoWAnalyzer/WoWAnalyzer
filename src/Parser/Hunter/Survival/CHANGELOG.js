@@ -4,8 +4,25 @@ import { Putro } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
+import ItemLink from 'common/ItemLink';
 
 export default [
+  {
+    date: new Date('2018-02-05'),
+    changes: <Wrapper>Added additional information to the <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} icon /> module, to show cooldown reduction on the various affected spells. </Wrapper>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-02-02'),
+    changes: <Wrapper>Added a module for tracking <SpellLink id={SPELLS.SPITTING_COBRA_TALENT.id} icon />, and ensure cast efficiency works properly for the talent even if precast. </Wrapper>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-02-02'),
+    changes: <Wrapper>Added support for <ItemLink id={ITEMS.BUTCHERS_BONE_APRON.id} icon />, <ItemLink id={ITEMS.FRIZZOS_FINGERTRAP.id} icon />, <ItemLink id={ITEMS.HELBRINE_ROPE_OF_THE_MIST_MARAUDER.id} icon />, <ItemLink id={ITEMS.NESINGWARYS_TRAPPING_TREADS.id} icon />, <ItemLink id={ITEMS.UNSEEN_PREDATORS_CLOAK.id} icon />.</Wrapper>,
+    contributors: [Putro],
+  },
   {
     date: new Date('2018-01-31'),
     changes: <Wrapper>Added a module for tracking <SpellLink id={SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.id} icon />. </Wrapper>,

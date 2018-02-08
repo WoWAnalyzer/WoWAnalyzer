@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SPECS from 'common/SPECS';
-import { calculateSecondaryStatDefault } from 'common/stats';
+import { calculateSecondaryStatDefault, calculatePrimaryStat } from 'common/stats';
 import { formatMilliseconds } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -140,6 +140,10 @@ class StatTracker extends Analyzer {
     [SPELLS.FEEDBACK_LOOP.id]: {
       itemId: ITEMS.GAROTHI_FEEDBACK_CONDUIT.id,
       haste: (_, item) => calculateSecondaryStatDefault(930, 856, item.itemLevel),
+    },
+    [SPELLS.RUSH_OF_KNOWLEDGE.id]: {
+      itemId: ITEMS.NORGANNONS_PROWESS.id,
+      intellect: (_, item) => calculatePrimaryStat(940, 11483, item.itemLevel),
     },
     // Khaz'goroth's Courage is handled in it's own module since all 4 stat buffs use the same ID.
     //[SPELLS.KHAZGOROTHS_SHAPING.id]: {
