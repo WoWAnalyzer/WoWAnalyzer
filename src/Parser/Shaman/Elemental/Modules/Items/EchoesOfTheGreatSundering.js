@@ -16,35 +16,39 @@ class EchoesOfTheGreatSundering extends Analyzer {
 
     buffedEarthquakeCasts = 0;
     echoesProcsCounter = 0;
-    totalEarthquakeDamage = 0;
+    unbuffedEarthquakeDamage = 0;
     totalEarthquakeCasts = 0;
 
-    get estimate_bonus_damage() {
-        // Sorry for the magic number, but the goal is to estimate the bonus damage from buffed EQs by ~roughly~ calculating
-        // what fraction of EQ damage can be considered a result of the shoulder buff's 100% increase.
-        return  (0.5 * this.totalEarthquakeDamage * (this.buffedEarthquakeCasts / this.totalEarthquakeCasts)) || 0;
-    }
+    state=0;
 
     on_initialized() {
         this.active = this.combatants.selected.hasShoulder(ITEMS.ECHOES_OF_THE_GREAT_SUNDERING.id);
     }
 
     on_byPlayer_cast(event) {
-        const spellId = event.ability.guid;
-        if (spellId !== SPELLS.EARTHQUAKE.id) {
-            return;
-        }
-        if (this.combatants.selected.hasBuff(SPELLS.ECHOES_OF_THE_GREAT_SUNDERING_BUFF.id, event.timestamp)) {
-            this.buffedEarthquakeCasts += 1;
-        }
-        this.totalEarthquakeCasts += 1;
+        if (event.spellId !== SPELLS.EARTHQUAKE.id)
+          return;
+
+        if(this.player.hasBuff(SPELLS.ECHOES_OF_THE_GREAT_SUNDERING_BUFF))
+          this.endtime=this.timstamp+6000;
+        else
+          if(this.timestamp < this.buffEndtime)
+            this.state=2;
     }
 
     on_byPlayer_damage(event) {
-        const spellId = event.ability.guid;
-        if (spellId === SPELLS.EARTHQUAKE_DAMAGE.id) {
-            this.totalEarthquakeDamage += event.amount;
-        }
+      if(event.timestamp>this.endtime)
+        this.state=0;
+      const spellId = event.ability.guid;
+      if (spellId !== SPELLS.EARTHQUAKE_DAMAGE.id)
+        return;
+
+      if(this.state===0) {
+        this.unbuffedEarthquakeDamage += event.amount;
+        this.unbuffedNormalizedEarthquakeDamage += event.amount/event.hitType;
+      }
+      if(this.state===1)
+        this.buffedEarthquakeDamage += event.amount;
     }
 
     on_byPlayer_applybuff(event) {
@@ -60,9 +64,8 @@ class EchoesOfTheGreatSundering extends Analyzer {
             icon: <ItemIcon id={ITEMS.ECHOES_OF_THE_GREAT_SUNDERING.id} />,
             title: <ItemLink id={ITEMS.ECHOES_OF_THE_GREAT_SUNDERING.id} />,
             result: (
-                <dfn data-tip={`Your utilization of Echoes of the Great Sundering: <ul> <li> Buffed Earthquakes: ${this.buffedEarthquakeCasts}.</li> <li> Total procs:  ${this.echoesProcsCounter}.</li></ul> `}>
-                 Earthquake procs used: {formatPercentage(this.buffedEarthquakeCasts / this.echoesProcsCounter)}%<br />
-                 <ItemDamageDone amount={this.estimate_bonus_damage} />
+              <dfn data-tip={``}>
+                 <ItemDamageDone amount={this.buffedEarthquakeDamage} />
               </dfn>
             ),
         };
