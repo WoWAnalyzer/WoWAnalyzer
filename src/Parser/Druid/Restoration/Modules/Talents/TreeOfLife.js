@@ -32,6 +32,14 @@ const CS_DURATION = 12000;
 // we correct for this by dividing out the all boost before calcing either the rejuv boost or the wg increase
 
 /*
+ * This module handles both the 'Incarnation: Tree of Life' talent and the 'Chameleon Song' legendary
+ *
+ * Incarnation: Tree of Life -
+ * Shapeshift into the Tree of Life, increasing healing done by 15%, increasing armor by 120%, and granting protection from Polymorph effects.  Functionality of Rejuvenation, Wild Growth, Regrowth, and Entangling Roots is enhanced.
+ *
+ * Chameleon Song -
+ * Equip: Wild Growth has a 15% chance to grant you Incarnation: Tree of Life for 12 sec.
+ *
  * Tree of Life bonuses:
  *  - ALL: +15% healing
  *  - Rejuv: +50% healing and -30% mana
