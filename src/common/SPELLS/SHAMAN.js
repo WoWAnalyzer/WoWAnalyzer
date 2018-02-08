@@ -168,6 +168,11 @@ export default {
     name: 'Fire Elemental',
     icon: 'spell_fire_elemental_totem',
   },
+  SUMMON_FIRE_ELEMENTAL: {
+    id:188592,
+    name: 'Fire Elemental',
+    icon: 'spell_fire_elemental_totem',
+  },
   FLAME_SHOCK: {
     id: 188389,
     name: 'Flame Shock',
@@ -272,6 +277,12 @@ export default {
     id: 252143,
     name: 'Earth Shock Overload',
     icon: 'spell_nature_earthshock',
+  },
+  //PETS
+  FIRE_ELEMENTAL_FIRE_BLAST: {
+    id:57984,
+    name: 'Fire Elemental Fire Blast',
+    icon: 'spell_fire_fireball',
   },
   // Enhancement Shaman
   ROCKBITER: {

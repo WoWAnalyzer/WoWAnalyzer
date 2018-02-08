@@ -10,6 +10,7 @@ import Overload from './Modules/Features/Overload';
 import FlameShock from './Modules/ShamanCore/FlameShock';
 import EarthShock from './Modules/ShamanCore/EarthShock';
 import ElementalFocus from './Modules/ShamanCore/ElementalFocus';
+import FireElemental from './Modules/Features/FireElemental';
 
 import Aftershock from './Modules/Talents/Aftershock';
 import ElementalBlast from './Modules/Talents/ElementalBlast';
@@ -42,6 +43,7 @@ class CombatLogParser extends CoreCombatLogParser {
     earthShock: EarthShock,
     overload: Overload,
     elementalFocus: ElementalFocus,
+    fireElemental: FireElemental,
 
     // Talents
     aftershock: Aftershock,

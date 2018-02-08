@@ -8,6 +8,10 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
+/**
+ * When you deal Frost damage, you have a chance to release a barrage of icy spikes at your target dealing (210% * 3) Frost damage.
+ */
+
 class Tier21_4p extends Analyzer {
   static dependencies = {
     combatants: Combatants,
