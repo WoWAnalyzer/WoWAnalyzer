@@ -24,7 +24,7 @@ class T20_4pc extends Analyzer {
   }
 
   on_removestagger(event) {
-    if(!GIFT_OF_THE_OX_SPELLS.includes(event.reason.ability.guid)) {
+    if(!event.reason.ability || !GIFT_OF_THE_OX_SPELLS.includes(event.reason.ability.guid)) {
       return;
     }
     this.orbsEaten += 1;

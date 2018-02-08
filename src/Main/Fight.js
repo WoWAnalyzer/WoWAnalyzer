@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import SkullIcon from 'Icons/Skull';
 import CancelIcon from 'Icons/Cancel';
-
 import DIFFICULTIES from 'common/DIFFICULTIES';
+import { findByBossId } from 'Raids';
 
 import ProgressBar from './ProgressBar';
 
@@ -13,20 +13,21 @@ const formatDuration = (duration) => {
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 };
 
-const Fight = ({ difficulty, name, kill, start_time, end_time, wipes, fightPercentage, ...others }) => {
+const Fight = ({ difficulty, name, kill, start_time, end_time, wipes, fightPercentage, boss: bossId, ...others }) => {
   const duration = Math.round((end_time - start_time) / 1000);
 
-  delete others.boss;
   delete others.bossPercentage;
   delete others.partial;
   delete others.fightPercentage;
   delete others.lastPhaseForPercentageDisplay;
 
   const Icon = kill ? SkullIcon : CancelIcon;
+  const boss = findByBossId(bossId);
 
   return (
     <div className="flex wrapable" {...others}>
       <div className="flex-sub" style={{ minWidth: 350 }}>
+        {boss && boss.headshot && <img src={boss.headshot} style={{ height: '1.8em', borderRadius: 5, marginRight: 10, marginTop: '-0.2em' }} alt="Boss headshot" />}
         {DIFFICULTIES[difficulty]} {name} {!kill && `(Wipe ${wipes})`}
       </div>
       <div className={`flex-main ${kill ? 'kill' : 'wipe'}`} style={{ whiteSpace: 'nowrap' }}>

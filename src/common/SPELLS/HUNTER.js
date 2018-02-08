@@ -323,11 +323,6 @@ export default {
     name: 'Vulnerable',
     icon: 'ability_hunter_mastermarksman',
   },
-  ARCANE_TORRENT_FOCUS: {
-    id: 80483,
-    name: 'Arcane Torrent',
-    icon: 'spell_shadow_teleport',
-  },
   MARKING_TARGETS: {
     id: 223138,
     name: 'Marking Targets',
@@ -620,6 +615,11 @@ export default {
     id: 118253,
     name: 'Serpent Sting',
     icon: 'ability_hunter_serpentswiftness',
+  },
+  SPITTING_COBRA_DAMAGE: {
+    id: 206685,
+    name: 'Cobra Spit',
+    icon: 'ability_creature_poison_02',
   },
   //Survival traits:
   ECHOES_OF_OHNARA_TRAIT: {

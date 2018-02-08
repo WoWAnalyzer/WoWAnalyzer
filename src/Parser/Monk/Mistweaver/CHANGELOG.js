@@ -1,11 +1,16 @@
 import React from 'react';
 
-import { Anomoly, Zerotorescue } from 'MAINTAINERS';
+import { Anomoly, Zerotorescue, Scaleable } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-02-05'),
+    changes: 'Implemented Stat Values for Mistweaver Monk',
+    contributors: [Scaleable, Anomoly],
+  },
   {
     date: new Date('2018-01-18'),
     changes: <Wrapper>Updated Essence Font HoT usage thresholds to lower values based on current healing methods. Also, fixed a rare 'NaN' error.</Wrapper>,
