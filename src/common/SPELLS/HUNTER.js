@@ -736,7 +736,7 @@ export default {
   //The buff given by volley when it's activated (and also what does the damage)
   VOLLEY_ACTIVATED: {
     id: 194392,
-    name: 'Volley buff',
+    name: 'Volley',
     icon: 'ability_marksmanship',
   },
   FLARE: {
