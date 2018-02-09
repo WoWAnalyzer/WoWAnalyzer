@@ -24,7 +24,8 @@ import RunicPowerTracker from './Modules/RunicPower/RunicPowerTracker';
 import DarkArbiter from './Modules/Talents/DarkArbiter';
 import UnholyFrenzy from './Modules/Talents/UnholyFrenzy';
 
-import RuneTracker from '../Shared/RuneTracker';
+import RuneTracker from './Modules/Features/RuneTracker';
+import RuneDetails from '../Shared/RuneDetails';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -60,6 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //RuneTracker
     runeTracker: RuneTracker,
+    runeDetails: RuneDetails,
 
   };
 }
