@@ -52,7 +52,7 @@ class RuneBreakdown extends ResourceBreakdown {
                 <tr>
                   <td style={{ width: '30%' }}>
                     <SpellIcon id={ability.abilityId} noLink={true} />{' '}
-                    {'Passive Rune regeneration'}
+                    Passive Rune regeneration
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
                     <dfn data-tip={`${formatPercentage(ability.generated / totalGenerated)} %`}>{ability.generated}</dfn>
