@@ -1,15 +1,18 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 class SpinningCraneKick extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    abilityTracker: AbilityTracker,
+    statTracker: StatTracker,
   };
   badCasts = 0;
   markoftheCraneTargets = [];
@@ -17,6 +20,7 @@ class SpinningCraneKick extends Analyzer {
   spinningCraneKickHits = 0;
   totalMarksDuringHits = 0;
   markoftheCraneStacks = 0;
+  spinningCraneKickDuration = 15000;
 
   on_byPlayer_applydebuff(event) {
     const spellId = event.ability.guid;
@@ -28,10 +32,8 @@ class SpinningCraneKick extends Analyzer {
     if (targetInstance === undefined) {
       targetInstance = 1;
     }
-    //console.log(event.targetID, targetInstance, event.timestamp);
     const markoftheCraneTarget = {targetID: event.targetID, targetInstance: targetInstance, timestamp: event.timestamp };
     this.markoftheCraneTargets.push(markoftheCraneTarget);
-    //console.log(markoftheCraneTarget, "added");
   }
 
   on_byPlayer_refreshdebuff(event) {
@@ -63,7 +65,6 @@ class SpinningCraneKick extends Analyzer {
     while (i < this.markoftheCraneTargets.length) {
       // removing expired targets to avoid looking through huge arrays in logs with a lot of targets
       if (event.timestamp - this.markoftheCraneTargets[i].timestamp > 15000) {
-        console.log(this.markoftheCraneTargets[i], "Mark of the Crane expired and to be removed");
         console.log(this.markoftheCraneTargets.splice(i, 1), "Mark Removed");
       }
       else {
@@ -72,6 +73,10 @@ class SpinningCraneKick extends Analyzer {
       }
       i++;
     }
+    // TODO: Expand this to also check for targets hit
+    if (this.markoftheCraneStacks <= 1) {
+      this.badCasts += 1;
+    }
   }
 
   on_byPlayer_damage(event) {
@@ -79,26 +84,69 @@ class SpinningCraneKick extends Analyzer {
     if (spellId !== SPELLS.SPINNING_CRANE_KICK_DAMAGE.id) {
       return;
     }
+    this.spinningCraneKickDuration = 1500 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
     this.spinningCraneKickHits++;
     console.log("mark of the crane stacks", this.markoftheCraneStacks, event.timestamp);
-    if (event.timestamp - this.lastSpinningCraneKickTick > 100) {
+    // Spinning Crane Kick deals damage 3 times over 1.5 seconds (reduced by haste)
+    // This makes sure it only counts once per cast and only on casts that hit something
+    if (event.timestamp - this.lastSpinningCraneKickTick > this.spinningCraneKickDuration) {
       this.totalMarksDuringHits += this.markoftheCraneStacks;
       this.lastSpinningCraneKickTick = event.timestamp;
     }
-    //console.log("Total marks during hits", this.totalMarksDuringHits, "Total hits", this.spinningCraneKickHits, event.timestamp);
+  }
+
+  averageHits() {
+    const averageHits = this.spinningCraneKickHits / this.abilityTracker.getAbility(SPELLS.SPINNING_CRANE_KICK.id).casts;
+    return (
+      <div className="flex">
+        <div className="flex-main">
+            <SpellIcon id={SPELLS.SPINNING_CRANE_KICK.id} /> Average hits
+        </div>
+        <div className="flex-sub text-right">
+          {averageHits.toFixed(2)}
+        </div>
+      </div>
+    );
+  }
+
+  averageMarks() {
+    const averageMarks = this.totalMarksDuringHits / this.abilityTracker.getAbility(SPELLS.SPINNING_CRANE_KICK.id).casts;
+    return (
+      <div className="flex">
+        <div className="flex-main">
+            <SpellIcon id={SPELLS.MARK_OF_THE_CRANE.id} /> Average marks 
+        </div>
+        <div className="flex-sub text-right">
+          {averageMarks.toFixed(2)}
+        </div>
+      </div>
+    );
+  }
+
+  badCastsStatistic() {
+    return (
+      <div className="flex">
+        <div className="flex-main">
+            <SpellIcon id={SPELLS.SPINNING_CRANE_KICK.id} /> Bad casts         
+        </div>
+        <div className="flex-sub text-right">
+          {this.badCasts}
+        </div>
+      </div>
+    );
   }
 
   statistic() {
-    const averageRatio = this.totalMarksDuringHits / this.spinningCraneKickHits;
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.SPINNING_CRANE_KICK_DAMAGE.id} />}
-        value={averageRatio.toFixed(2)}
-        label={(
-          <span> Ratio between <SpellLink id={SPELLS.MARK_OF_THE_CRANE.id} /> stacks and targets hit by <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> </span>
-        )}
-        tooltip={`If your ratio is less than 1, you're using Spinning Crane Kick before having Mark of the Crane on all targets.`}
-      />
+     return (
+      <StatisticsListBox
+        title="Spinning Crane Kick"
+        tooltip=""
+        style={{ minHeight: 186 }}
+       >
+         {this.averageMarks()}
+         {this.averageHits()}
+         {this.badCastsStatistic()}
+      </StatisticsListBox>
     );  
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL(4);
