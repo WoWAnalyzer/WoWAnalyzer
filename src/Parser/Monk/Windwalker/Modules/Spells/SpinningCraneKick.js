@@ -100,7 +100,11 @@ class SpinningCraneKick extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-            <SpellIcon id={SPELLS.SPINNING_CRANE_KICK.id} /> Average hits
+          <SpellIcon id={SPELLS.SPINNING_CRANE_KICK.id} />
+          &nbsp;
+          <dfn data-tip={`Spinning Crane Kick hits all nearby enemies 4 times over 1.5 seconds`}>
+             	Average hits
+            </dfn>
         </div>
         <div className="flex-sub text-right">
           {averageHits.toFixed(2)}
@@ -114,7 +118,11 @@ class SpinningCraneKick extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-            <SpellIcon id={SPELLS.MARK_OF_THE_CRANE.id} /> Average marks 
+          <SpellIcon id={SPELLS.MARK_OF_THE_CRANE.id} />
+          &nbsp;
+          <dfn data-tip={`You had an average of ${averageMarks.toFixed(2)} Mark of the Crane stacks while hitting enemies with Spinning Crane Kick`}>
+            Average marks
+            </dfn>
         </div>
         <div className="flex-sub text-right">
           {averageMarks.toFixed(2)}
@@ -141,7 +149,7 @@ class SpinningCraneKick extends Analyzer {
       <StatisticsListBox
         title="Spinning Crane Kick"
         tooltip=""
-        style={{ minHeight: 186 }}
+        style={{ minHeight: 150 }}
        >
          {this.averageMarks()}
          {this.averageHits()}
