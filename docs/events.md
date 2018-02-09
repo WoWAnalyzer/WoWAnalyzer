@@ -29,8 +29,8 @@ The following events are available:
 * `interrupt` ???
 * `steal` ???
 * `leech` ???
-* `energize` triggered when a buff gives mana (e.g. Blessing of Wisdom).
-* `drain` ???
+* `energize` triggered when an effect gives resources (e.g. Mana from Blessing of Wisdom).
+* `drain` triggered when an effect drains resources (e.g. the extra Energy spend for Ferocious Bite)
 * `resurrect` ???
 * `encounterstart` never triggered as we filter by selected player's actor id and this has no actor id. Use `on_initialized()` instead.
 * `encounterend` never triggered as we filter by selected player's actor id and this has no actor id. Use `on_finished()` instead.
