@@ -15,8 +15,9 @@ import Abilities from 'Parser/Core/Modules/Abilities';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ResourceTracker from 'Parser/Core/Modules/ResourceTracker/ResourceTracker';
 
+const MAX_RUNES = 6;
 const RUNIC_CORRUPTION_INCREASE = 1; //Runic Corruption
-const T21_4PIECE_BLOOD_INCREASE = .4;  //Rune Master
+const RUNE_MASTER_INCREASE = .4;  //4p21 blood
 const RUNE_IDS = [
   SPELLS.RUNE_1.id, //-101
   SPELLS.RUNE_2.id, //-102
@@ -44,8 +45,8 @@ class RuneTracker extends ResourceTracker {
     this.resourceName = 'Runes';
     this.resourceType = RESOURCE_TYPES.RUNES.id;
     this._lastTimestamp = this.owner.fight.start_time;
-    this._runesReadySum = [7];
-    for(let i = 0; i < 7; i++){
+    this._runesReadySum = [MAX_RUNES + 1];
+    for(let i = 0; i <= MAX_RUNES; i++){
       this._runesReadySum[i] = 0;
     }
   }
@@ -71,11 +72,6 @@ class RuneTracker extends ResourceTracker {
         if(runeCost <= 0){
           return;
         }
-        this._runesReadySum[this.runesAvailable] += event.timestamp - this._lastTimestamp;
-        this._lastTimestamp = event.timestamp;
-        //Adding two points to the rune chart, one at {time, lastRuneCount} and one at {time, newRuneCount} so the chart does not have diagonal lines.
-        this.runesReady.push({ x: this.timeFromStart(event.timestamp), y: this.runesAvailable});
-        this.runesReady.push({ x: this.timeFromStart(event.timestamp), y: this.runesAvailable - runeCost});
       	for(let i = 0; i < runeCost; i++){ //start rune cooldown
       		this.startCooldown();
       	}
@@ -99,7 +95,7 @@ class RuneTracker extends ResourceTracker {
       });
     }
     if(event.ability.guid === SPELLS.RUNE_MASTER.id){
-      const multiplier = 1 / (1 + T21_4PIECE_BLOOD_INCREASE);
+      const multiplier = 1 / (1 + RUNE_MASTER_INCREASE);
       RUNE_IDS.forEach((spellId) => {
         this.changeCooldown(spellId, multiplier);
       });
@@ -113,7 +109,7 @@ class RuneTracker extends ResourceTracker {
       });
     }
     if(event.ability.guid === SPELLS.RUNE_MASTER.id){
-      const multiplier = 1 + T21_4PIECE_BLOOD_INCREASE;
+      const multiplier = 1 + RUNE_MASTER_INCREASE;
       RUNE_IDS.forEach((spellId) => {
         this.changeCooldown(spellId, multiplier);
       });
@@ -123,18 +119,24 @@ class RuneTracker extends ResourceTracker {
     if(!RUNE_IDS.includes(event.spellId)){
       return;
     }
-    if(event.trigger !== 'endcooldown' && event.trigger !== 'restorecharge'){
+    let change = 0;
+    if(event.trigger === 'endcooldown' || event.trigger === 'restorecharge'){ //gained a rune
+      change++;
+    } else if(event.trigger === 'begincooldown' || event.trigger === 'addcooldowncharge'){ //spent a rune
+      change--;
+    } else { //no change
       return;
     }
-    this._runesReadySum[this.runesAvailable - 1] += event.timestamp - this._lastTimestamp;
+    //time since last rune change was spent at current runes minus the change.
+    this._runesReadySum[this.runesAvailable - change] += event.timestamp - this._lastTimestamp;
     this._lastTimestamp = event.timestamp;
     //Adding two points to the rune chart, one at {time, lastRuneCount} and one at {time, newRuneCount} so the chart does not have diagonal lines.
-    this.runesReady.push({ x: this.timeFromStart(event.timestamp), y: this.runesAvailable - 1});
+    this.runesReady.push({ x: this.timeFromStart(event.timestamp), y: this.runesAvailable - change});
     this.runesReady.push({ x: this.timeFromStart(event.timestamp), y: this.runesAvailable});
   }
 
   addPassiveRuneRegeneration(){ //add passive rune regeneration and RC/4p21blood
-    let passiveRunesGained = this.runesMaxCasts - this.runesWasted - 6; //subtracts wasted and starting runes
+    let passiveRunesGained = this.runesMaxCasts - this.runesWasted - MAX_RUNES; //subtracts wasted and starting runes
     let passiveRunesWasted = this.runesWasted; //wasted from passive regeneration
     for(const builder in this.buildersObj){ //subtract gained from energize events
       passiveRunesGained -= this.buildersObj[builder].generated;
@@ -147,7 +149,7 @@ class RuneTracker extends ResourceTracker {
     passiveRunesGained *= 1 - runicCorruptionContribution; 
     passiveRunesWasted *= 1 - runicCorruptionContribution;
     //add Blood 4p21 gained (and subtract it from passive regn)
-    const runeMasterContribution = this.addPassiveAccelerator(SPELLS.RUNE_MASTER.id, passiveRunesGained, passiveRunesWasted, T21_4PIECE_BLOOD_INCREASE);
+    const runeMasterContribution = this.addPassiveAccelerator(SPELLS.RUNE_MASTER.id, passiveRunesGained, passiveRunesWasted, RUNE_MASTER_INCREASE);
     passiveRunesGained *= 1 - runeMasterContribution; 
     passiveRunesWasted *= 1 - runeMasterContribution;
     //add passive rune regn
