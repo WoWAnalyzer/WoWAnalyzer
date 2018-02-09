@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/SPELLS/TALENTS/SHAMAN';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -34,11 +33,11 @@ class FrostShock extends Analyzer {
   }
   suggestions(when) {
     when(this.badFrostShockCount).isGreaterThan(0)
-      .addSuggestion((suggest, actual, recommended) => {
+      .addSuggestion((suggest) => {
         return suggest(<span>Your <SpellLink id={SPELLS.FROST_SHOCK.id} /> can be improved.</span>)
           .icon(SPELLS.FROST_SHOCK.icon)
           .actual(`${this.badFrostShockCount} bad Casts. Only cast Frost Shock when you have Ice Fury-Stacks left and at least 20 Maelstrom`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`)
+          .recommended(`0 is recommended`)
           .regular(1).major(3);
       });
   }
