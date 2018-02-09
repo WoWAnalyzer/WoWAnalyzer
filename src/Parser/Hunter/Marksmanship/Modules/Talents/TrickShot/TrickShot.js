@@ -36,18 +36,20 @@ class TrickShot extends Analyzer {
   }
 
   subStatistic() {
-    return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.TRICK_SHOT_TALENT.id}>
-            <SpellIcon id={SPELLS.TRICK_SHOT_TALENT.id} noLink /> Trick Shot ST
-          </SpellLink>
+    if (this.bonusDmg > 0) {
+      return (
+        <div className="flex">
+          <div className="flex-main">
+            <SpellLink id={SPELLS.TRICK_SHOT_TALENT.id}>
+              <SpellIcon id={SPELLS.TRICK_SHOT_TALENT.id} noLink /> Trick Shot ST
+            </SpellLink>
+          </div>
+          <div className="flex-sub text-right">
+            <ItemDamageDone amount={this.bonusDmg} />
+          </div>
         </div>
-        <div className="flex-sub text-right">
-          <ItemDamageDone amount={this.bonusDmg} />
-        </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
