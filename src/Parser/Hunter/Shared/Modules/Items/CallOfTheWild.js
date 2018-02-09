@@ -124,7 +124,9 @@ class CallOfTheWild extends Analyzer {
     tooltipText += (this.eagleCDR > 0) ? `<li>Aspect of the Eagle</li><ul><li>Total CDR: ${(this.eagleCDR / 1000).toFixed(1)} seconds</li><li>Gained casts: ${(this.eagleCDR / this.baseEagleCooldown).toFixed(1)}</li></ul>` : ``;
     tooltipText += (this.cheetahCDR > 0) ? `<li>Aspect of the Cheetah</li><ul><li>Total CDR: ${(this.cheetahCDR / 1000).toFixed(1)} seconds</li><li>Gained casts: ${(this.cheetahCDR / this.baseCheetahCooldown).toFixed(1)}</li></ul>` : ``;
     tooltipText += (this.turtleCDR > 0) ? `<li>Aspect of the Turtle</li><ul><li>Total CDR: ${(this.turtleCDR / 1000).toFixed(1)} seconds</li><li>Gained casts: ${(this.turtleCDR / this.baseTurtleCooldown).toFixed(1)}</li></ul>` : ``;
-    tooltipText += (this.wildCDR > 0) ? `<li>Aspect of the Wild</li></br>Due to the nature of Convergence of Fates these figures may not be accurate, but they are calculated exempt of any possible Convergence procs.<ul><li>Total approximate CDR: ${(this.wildCDR / 1000).toFixed(1)} seconds</li><li>Approximate gained casts: ${(this.wildCDR / this.baseWildCooldown).toFixed(1)}</li></ul>` : ``;
+    tooltipText += (this.wildCDR > 0) ? `<li>Aspect of the Wild</li><ul>` : ``;
+    tooltipText += ((this.wildCDR > 0) && this.combatants.selected.hasTrinket(ITEMS.CONVERGENCE_OF_FATES.id)) ? `<li>Due to the nature of Convergence of Fates these figures may not be accurate, but they are calculated exempt of any possible Convergence procs.</li>` : ``;
+    tooltipText += (this.wildCDR > 0) ? `<li>Total approximate CDR: ${(this.wildCDR / 1000).toFixed(1)} seconds</li><li>Approximate gained casts: ${(this.wildCDR / this.baseWildCooldown).toFixed(1)}</li></>` : ``;
     tooltipText += `</ul>`;
     return {
       item: ITEMS.CALL_OF_THE_WILD,
