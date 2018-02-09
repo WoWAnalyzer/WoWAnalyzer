@@ -43,7 +43,7 @@ class Voidform extends Analyzer {
       return 0;
     }
     // ignores last voidform if seen as skewing
-    return this.nonExcludedVoidforms.reduce((p, c) => p += c.stacks.length, 0) / this.nonExcludedVoidforms.length;
+    return this.nonExcludedVoidforms.reduce((p, c) => p + c.stacks.length, 0) / this.nonExcludedVoidforms.length;
   }
 
   get averageVoidformHaste() {
@@ -141,10 +141,10 @@ class Voidform extends Analyzer {
     // calculates the average gained haste from voidform stacks & lingering insanity within the voidform:
     this.currentVoidform.averageGainedHaste = (this.currentVoidform.stacks.reduce((total, { stack, timestamp }, i) => {
       const nextTimestamp = this.currentVoidform.stacks[i + 1] ? this.currentVoidform.stacks[i + 1].timestamp : timestamp + 1000;
-      return total += ((nextTimestamp - timestamp) / 1000) * stack / 100;
+      return total + ((nextTimestamp - timestamp) / 1000) * stack / 100;
     }, 0) + this.currentVoidform.lingeringInsanityStacks.reduce((total, { stack, timestamp }, i) => {
       const nextTimestamp = this.currentVoidform.lingeringInsanityStacks[i + 1] ? this.currentVoidform.lingeringInsanityStacks[i + 1].timestamp : timestamp + 1000;
-      return total += ((nextTimestamp - timestamp) / 1000) * stack / 100;
+      return total + ((nextTimestamp - timestamp) / 1000) * stack / 100;
     }, 0)) / (this.currentVoidform.duration / 1000);
 
   }
@@ -176,7 +176,7 @@ class Voidform extends Analyzer {
   on_finished() {
     if (this.combatants.selected.hasBuff(SPELLS.VOIDFORM_BUFF.id)) {
       // excludes last one to avoid skewing the average (if in voidform when the encounter ends):
-      const averageVoidformStacks = this.voidforms.slice(0, -1).reduce((p, c) => p += c.stacks.length, 0) / (this.voidforms.length - 1);
+      const averageVoidformStacks = this.voidforms.slice(0, -1).reduce((p, c) => p + c.stacks.length, 0) / (this.voidforms.length - 1);
       const lastVoidformStacks = this.currentVoidform.stacks.length;
 
       if (lastVoidformStacks + 5 < averageVoidformStacks) {
@@ -220,7 +220,7 @@ class Voidform extends Analyzer {
         minor,
         average,
         major,
-      }
+      },
     } = this.suggestionUptimeThresholds;
 
     when(this.uptime).isLessThan(minor)
