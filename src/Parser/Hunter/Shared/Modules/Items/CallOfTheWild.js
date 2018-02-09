@@ -112,7 +112,6 @@ class CallOfTheWild extends Analyzer {
         if (remainingMs > TIER_COOLDOWN_REDUCTION_MS) {
           this.tier21WildCDR += TIER_COOLDOWN_REDUCTION_MS;
         } else {
-          console.log("under 3s : ", remainingMs);
           this.tier21WildCDR += remainingMs;
         }
       }

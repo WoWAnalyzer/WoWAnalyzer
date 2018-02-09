@@ -119,7 +119,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BARRAGE_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 20,
         enabled: this.combatants.selected.hasTalent(SPELLS.BARRAGE_TALENT.id),
         isOnGCD: true,
