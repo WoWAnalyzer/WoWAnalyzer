@@ -65,25 +65,29 @@ class DarkmoonDeckImmortality extends Analyzer {
       return;
     }
 
-    const item = (selected.trinket1 && selected.trinket1.id === ITEMS.DARKMOON_DECK_IMMORTALITY.id) ? selected.trinket1 : selected.trinket2;
+    const item = this.combatants.selected.getItem(ITEMS.DARKMOON_DECK_IMMORTALITY.id);
     Object.keys(BASE_ARMOR_PER_CARD).forEach(key => {
       this.ARMOR_PER_CARD[key] = calculateSecondaryStatDefault(BASE_IMMORTALITY_ILVL, BASE_ARMOR_PER_CARD[key], item.itemLevel);
     });
   }
 
   on_toPlayer_applybuff(event) {
-    if(event.ability.guid in this.ARMOR_PER_CARD) {
-      this._totalArmor += this.currentArmor * (event.timestamp - this._lastBuffChange);
+    // actually adding armor gained to _totalArmor is done in removebuff
+    //
+    // Note that the keys of this.ARMOR_PER_CARD are returned as strings
+    // by Object.keys() >.>
+    if(Object.keys(this.ARMOR_PER_CARD).includes(String(event.ability.guid))) {
       this._lastBuffChange = event.timestamp;
       this.currentArmor = this.ARMOR_PER_CARD[event.ability.guid];
     }
   }
 
-  // the only way we get no buff is by dying
-  on_toPlayer_death(event) {
-    this._totalArmor += this.currentArmor * (event.timestamp - this._lastBuffChange);
-    this._lastBuffChange = event.timestamp;
-    this.currentArmor = 0;
+  on_toPlayer_removebuff(event) {
+    if(Object.keys(this.ARMOR_PER_CARD).includes(String(event.ability.guid))) {
+      this._totalArmor += this.currentArmor * (event.timestamp - this._lastBuffChange);
+      this._lastBuffChange = event.timestamp;
+      this.currentArmor = 0;
+    }
   }
 
   item() {
