@@ -111,14 +111,14 @@ class ResourceBreakdown extends React.Component {
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
                     <dfn data-tip={`${formatPercentage(ability.spent / totalSpent)} %`}>{ability.spent}</dfn>
                   </td>
-                  <td style={{ width: '35%' }}>
+                  <td style={{ width: '40%' }}>
                     <div
                       className="performance-bar"
                       style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
                     />
                   </td>
-                  <td style={{ width: 150, textAlign: 'center' }}>{ability.maxCP} / {ability.casts}</td>
-                  <td style={{ width: '25%' }} />
+                  <td style={{ width: 50, paddingRight: 5 }} />
+                  <td style={{ width: '30%', textAlign: 'left' }}>{ability.maxCP} / {ability.casts}</td>
                 </tr>
               ))}
           </tbody>
