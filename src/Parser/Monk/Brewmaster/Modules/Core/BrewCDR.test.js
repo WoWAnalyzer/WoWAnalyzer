@@ -30,6 +30,6 @@ describe('BrewCDR', () => {
   });
 
   it("should report 427.09s of CDR", () => {
-    expect(Math.round(parser.findModule(BrewCDR).totalCDR)).toBe(449098);
+    expect(Math.round(parser.findModule(BrewCDR).totalCDR)).toBe(451469);
   });
 });
