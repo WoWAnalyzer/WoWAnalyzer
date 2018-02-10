@@ -504,7 +504,7 @@ class App extends Component {
       <Results
         parser={parser}
         dataVersion={this.state.dataVersion}
-        onChangeTab={newTab => this.props.push(makeAnalyzerUrl(report, this.props.fightId, this.props.playerName, newTab))}
+        onChangeTab={newTab => this.props.push(makeAnalyzerUrl(report, this.props.fightId, this.props.playerId, newTab))}
       />
     );
   }

@@ -47,7 +47,7 @@ app.get('/', (req, res) => {
 app.get('/news/:article', (req, res) => {
   res.send(index);
 });
-app.get('/report/:reportCode([A-Za-z0-9]+)/:fightId([0-9]+)?:fightName(-[^/]+)?/:playerId([0-9]+)?:playerName(-[^/]{2,})?/:tab([A-Za-z0-9-]+)?', (req, res) => {
+app.get('/report/:reportCode([A-Za-z0-9]+)/:fightId([0-9]+)?:fightName(-[^/]+)?/:playerId([0-9]+-)?:playerName([^/]{2,})?/:tab([A-Za-z0-9-]+)?', (req, res) => {
   let response = index;
   if (req.params.fightName) {
     const fightName = decodeURI(req.params.fightName.substr(1).replace(/\+/g, ' '));
