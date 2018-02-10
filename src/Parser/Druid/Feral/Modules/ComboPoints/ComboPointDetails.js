@@ -3,6 +3,8 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Tab from 'Main/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import Wrapper from 'common/Wrapper';
+import { formatPercentage } from 'common/format';
 import ResourceBreakdown from './ComboPointBreakdown';
 
 import WastedPointsIcon from '../Images/feralComboPointIcon.png';
@@ -61,20 +63,19 @@ class ComboPointDetails extends Analyzer {
           .recommended(`< ${recommended.toFixed(2)} Combo Points per minute wasted are recommended`);
       });
 
-    // TODO implement
 
-    // const maxComboPointCasts = this.comboPointTracker.maxCPCasts;
-    // const totalCasts = this.comboPointTracker.totalCasts;
-    // const maxComboPointPercent = maxComboPointCasts / totalCasts;
-    //
-    // when(maxComboPointPercent).isLessThan(0.95)
-    //   .addSuggestion((suggest, actual, recommended) => {
-    //     return suggest(<span>You are casting too many finishers with less that 5 combo points. Try to make sure that you are generating 5 combo points before casting a finisher unless it is an emergency.</span>)
-    //       .icon('creatureportrait_bubble')
-    //       .actual(`${formatPercentage(actual)}% of finishers were cast with 5 combo points`)
-    //       .recommended(`>${formatPercentage(recommended)}% is recommended`)
-    //       .regular(recommended - 0.05).major(recommended - 0.10);
-    //   });
+    const maxComboPointCasts = Object.values(this.comboPointTracker.spendersObj).reduce((acc, spell) => acc + spell.spentByCast.filter(cps => cps === 5).length, 0);
+    const totalCasts = this.comboPointTracker.spendersCasts;
+    const maxComboPointPercent = maxComboPointCasts / totalCasts;
+
+    when(maxComboPointPercent).isLessThan(0.95)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<Wrapper>You are casting too many finishers with less that 5 combo points. Try to make sure that you are generating 5 combo points before casting a finisher unless it is an emergency.</Wrapper>)
+          .icon('creatureportrait_bubble')
+          .actual(`${formatPercentage(actual)}% of finishers were cast with 5 combo points`)
+          .recommended(`>${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended - 0.05).major(recommended - 0.10);
+      });
   }
 
   tab() {
