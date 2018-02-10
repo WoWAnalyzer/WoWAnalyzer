@@ -21,7 +21,7 @@ class ComboPointTracker extends ResourceTracker {
     const spellId = event.ability.guid;
 
     // some point generating spells do not have energize events so they are handled here
-    if (spellId === SPELLS.THRASH_FERAL.id || spellId === SPELLS.BRUTAL_SLASH_TALENT.id) {
+    if ([SPELLS.THRASH_FERAL.id, SPELLS.CAT_SWIPE.id, SPELLS.BRUTAL_SLASH_TALENT.id].includes(spellId)) {
       this.processInvisibleEnergize(spellId, 1);
     }
 

@@ -97,7 +97,7 @@ class ResourceBreakdown extends React.Component {
             <tr>
               <th>Ability</th>
               <th colSpan="2">{resourceName} spent</th>
-              <th colSpan="2">Casts</th>
+              <th colSpan="2">Max CP Casts / Total Casts</th>
             </tr>
           </thead>
           <tbody>
