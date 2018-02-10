@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
+import SPECS from 'common/SPECS';
+import ROLES from 'common/ROLES';
 import { getFightId } from 'selectors/url/report';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import { getCombatants } from 'selectors/combatants';
-import SPECS from 'common/SPECS';
-import ROLES from 'common/ROLES';
+import ActivityIndicator from 'Main/ActivityIndicator';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
@@ -126,15 +127,7 @@ export class PlayerSelectionList extends React.PureComponent {
     const { report, fightId, combatants } = this.props;
 
     if (!combatants) {
-      return (
-        <div className="container">
-          <div>
-            <h1>Fetching players...</h1>
-
-            <div className="spinner" />
-          </div>
-        </div>
-      );
+      return <ActivityIndicator text="Fetching players..." />;
     }
     if (combatants.length === 0) {
       return (

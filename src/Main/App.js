@@ -41,9 +41,9 @@ import NewsView from './News/View';
 import { default as makeNewsUrl } from './News/makeUrl';
 import { title as AboutArticleTitle } from './News/Articles/2017-01-31-About';
 import { title as UnlistedLogsTitle } from './News/Articles/2017-01-31-UnlistedLogs';
-
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 import ServiceStatus from './ServiceStatus';
+import ActivityIndicator from './ActivityIndicator';
 
 const timeAvailable = console.time && console.timeEnd;
 
@@ -117,7 +117,6 @@ class App extends Component {
     this.state = {
       progress: 0,
       dataVersion: 0,
-      bossId: null,
       config: null,
     };
 
@@ -296,7 +295,6 @@ class App extends Component {
     this.fetchReportIfNecessary(prevProps);
     this.fetchCombatantsIfNecessary(prevProps, prevState);
     this.fetchEventsAndParseIfNecessary(prevProps, prevState);
-    this.updateBossIdIfNecessary(prevProps, prevState);
   }
   fetchReportIfNecessary(prevProps) {
     if (this.props.error || isIE()) {
@@ -357,17 +355,6 @@ class App extends Component {
         this.fetchEventsAndParse(report, fight, combatants, combatant, player);
       }
     }
-  }
-  updateBossIdIfNecessary(prevProps, prevState) {
-    if (this.props.reportCode !== prevProps.reportCode || this.props.report !== prevProps.report || this.props.fightId !== prevProps.fightId) {
-      this.updateBossId();
-    }
-  }
-
-  updateBossId() {
-    this.setState({
-      bossId: (this.props.reportCode && this.isReportValid && this.props.fight && this.props.fight.boss) || null,
-    });
   }
 
   renderContent() {
@@ -460,23 +447,13 @@ class App extends Component {
     }
 
     if (this.props.articleId) {
-      return (
-        <NewsView articleId={this.props.articleId} />
-      );
+      return <NewsView articleId={this.props.articleId} />;
     }
-
     if (!this.props.reportCode) {
       return <Home />;
     }
-
     if (!report) {
-      return (
-        <div className="container">
-          <h1>Fetching report information...</h1>
-
-          <div className="spinner" />
-        </div>
-      );
+      return <ActivityIndicator text="Pulling report info..." />;
     }
     if (!this.props.fightId) {
       return <FightSelecter />;
@@ -485,13 +462,7 @@ class App extends Component {
       return <PlayerSelecter />;
     }
     if (!parser) {
-      return (
-        <div className="container">
-          <h1>Initializing...</h1>
-
-          <div className="spinner" />
-        </div>
-      );
+      return <ActivityIndicator text="Initializing analyzer..." />;
     }
 
     return (
