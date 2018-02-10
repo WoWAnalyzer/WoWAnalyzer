@@ -44,14 +44,12 @@ class ResourceBreakdown extends React.Component {
     let totalWasted = tracker.wasted;
 
     let totalSpent = tracker.spent;
-    let totalCasts = tracker.spendersCasts;
 
     // looks wrong but totals are only for the purpose of percentage, and if nothing was wasted, then 0/1 gives correct result 0% wasted, if it's not 0 it retains its original value
     totalGenerated = (totalGenerated === 0) ? 1 : totalGenerated;
     totalWasted = (totalWasted === 0) ? 1 : totalWasted;
 
     totalSpent = (totalSpent === 0) ? 1 : totalSpent;
-    totalCasts = (totalCasts === 0) ? 1 : totalCasts;
 
     return (
       <div>

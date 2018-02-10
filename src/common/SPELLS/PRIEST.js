@@ -595,6 +595,11 @@ export default {
     name: 'Mind Sear',
     icon: 'spell_shadow_mindshear',
   },
+  SHADOWY_APPARITION: {
+    id: 147193,
+    name: 'Shadowy Apparition',
+    icon: 'ability_priest_shadowyapparition',
+  },
 
   // Shadow Buffs
 

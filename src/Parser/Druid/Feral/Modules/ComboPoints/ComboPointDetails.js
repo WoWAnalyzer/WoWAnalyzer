@@ -34,7 +34,7 @@ class ComboPointDetails extends Analyzer {
       )}
         value={`${this.pointsWastedPerMinute.toFixed(2)}`}
         label="Wasted Combo Points per minute"
-        tooltip={`You wasted a total of <b>${this.pointsWasted}</b> combo points.`}
+        tooltip={`You wasted a total of <b>${this.pointsWasted}</b> combo points. This number does NOT include Primal Fury procs that happened on a point builder used at 4 CPs, because this waste can't be controlled.`}
       />
     );
   }

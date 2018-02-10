@@ -10,10 +10,6 @@ class ResourceTracker extends Analyzer {
     combatants: Combatants,
   };
 
-  generated = 0;
-  wasted = 0;
-  spent = 0;
-  spendersCasts = 0;
   current = 0;
 
   // stores resource gained/spent/wasted by ability ID
@@ -39,7 +35,7 @@ class ResourceTracker extends Analyzer {
     this.spendersObj[spellId] = { spent: 0, spentByCast: [], casts: 0 };
   }
 
-  //Builders
+  // BUILDERS - Handled on energize, using the 'resourceChange' field
   on_toPlayer_energize(event) {
     const spellId = event.ability.guid;
 
@@ -51,6 +47,8 @@ class ResourceTracker extends Analyzer {
     const gain = event.resourceChange - waste;
     this._applyBuilder(spellId, this.getResource(event), gain, waste);
   }
+
+  // FIXME Track resource drains too, so that the 'current' value can be more accurate
 
   // TODO if a resource gain isn't showing as an energize in events, handle it manually by calling this
   /**
@@ -66,7 +64,7 @@ class ResourceTracker extends Analyzer {
     this._applyBuilder(spellId, null, gain, waste);
   }
 
-  _applyBuilder(spellId, currentAfterGain, gain, waste) {
+  _applyBuilder(spellId, resource, gain, waste) {
     if (!(spellId in this.buildersObj)) {
         this.initBuilderAbility(spellId);
     }
@@ -74,17 +72,16 @@ class ResourceTracker extends Analyzer {
     this.buildersObj[spellId].wasted += waste;
     this.buildersObj[spellId].generated += gain;
     this.buildersObj[spellId].casts += 1;
-    this.wasted += waste;
-    this.generated += gain;
 
-    if (currentAfterGain !== null && currentAfterGain !== undefined) {
-      this.current = currentAfterGain;
+    // resource.amount for an energize is the amount AFTER the energize
+    if (resource !== null && resource !== undefined && resource.amount !== undefined) {
+      this.current = resource.amount;
     } else {
       this.current += gain;
     }
   }
 
-  //Spenders
+  // SPENDERS - Handled on cast, using the 'classResources' field
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
@@ -103,12 +100,10 @@ class ResourceTracker extends Analyzer {
     }
 
     this.spendersObj[spellId].casts += 1;
-    this.spendersCasts += 1;
     this.spendersObj[spellId].spentByCast.push(cost);
     if(cost > 0)
     {
       this.spendersObj[spellId].spent += cost;
-      this.spent += cost;
     }
 
     //Re-sync current amount, to update not-tracked gains.
@@ -120,6 +115,14 @@ class ResourceTracker extends Analyzer {
   // TODO if your spec has an ability cost reduction that doesn't show in events, handle it manually by overriding here
   getReducedCost(event) {
     return this.getResource(event).cost;
+  }
+
+  getResource(event) {
+    if(!event.classResources) {
+      return null;
+    } else {
+      return event.classResources.find(r=>r.type === this.resource.id);
+    }
   }
 
   triggerSpendEvent(spent, event) {
@@ -139,12 +142,20 @@ class ResourceTracker extends Analyzer {
     return !!this.getResource(event);
   }
 
-  getResource(event) {
-    if(!event.classResources) {
-      return null;
-    } else {
-      return event.classResources.find(r=>r.type === this.resource.id);
-    }
+  get generated() {
+    return Object.values(this.buildersObj).reduce((acc, spell) => acc + spell.generated, 0);
+  }
+
+  get wasted() {
+    return Object.values(this.buildersObj).reduce((acc, spell) => acc + spell.wasted, 0);
+  }
+
+  get spent() {
+    return Object.values(this.spendersObj).reduce((acc, spell) => acc + spell.spent, 0);
+  }
+
+  get spendersCasts() {
+    return Object.values(this.spendersObj).reduce((acc, spell) => acc + spell.casts, 0);
   }
 }
 
