@@ -25,6 +25,7 @@ import ShacklesofBryndaor from './Modules/Items/ShacklesofBryndaor';
 import SoulflayersCorruption from './Modules/Items/SoulflayersCorruption';
 
 import RuneTracker from '../Shared/RuneTracker';
+import RuneDetails from '../Shared/RuneDetails';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -70,6 +71,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Rune tracker
     runeTracker: RuneTracker,
+    runeDetails: RuneDetails,
   };
 }
 

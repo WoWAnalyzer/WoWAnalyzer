@@ -8,6 +8,7 @@ import { getReport } from 'selectors/report';
 import { getCombatants } from 'selectors/combatants';
 
 import PlayerSelectionList from './PlayerSelectionList';
+import ActivityIndicator from './ActivityIndicator';
 
 class PlayerSelecter extends Component {
   static propTypes = {
@@ -31,15 +32,7 @@ class PlayerSelecter extends Component {
     const { report, combatants } = this.props;
 
     if (!combatants) {
-      return (
-        <div className="container">
-          <div>
-            <h1>Fetching players...</h1>
-
-            <div className="spinner" />
-          </div>
-        </div>
-      );
+      return <ActivityIndicator text="Fetching players..." />;
     }
 
     return (

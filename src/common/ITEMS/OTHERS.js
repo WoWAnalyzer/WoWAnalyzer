@@ -407,4 +407,10 @@ export default {
     name: 'Aggramar\'s Conviction',
     icon: 'inv_antorus_orange',
   },
+  // T19 Trinkets
+  CONVERGENCE_OF_FATES: {
+    id: 140806,
+    name: 'Convergence of Fates',
+    icon: 'ability_bossmagistrix_timewarp1',
+  },
 };
