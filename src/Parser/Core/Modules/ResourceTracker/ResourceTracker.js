@@ -22,10 +22,12 @@ class ResourceTracker extends Analyzer {
   // TODO a classes 'main' resource passes the max along with events, but for other resources this may need to be defined
   maxResource;
 
+
+  // FIXME implement natural regen
   // TODO if the tracked resource naturally regenerates (like Energy), set this to true and set the parameters of the regeneration in the below fields
-  naturallyRegenerates = false;
-  baseRegenRate; // TODO resource's base regeneration rate in points per second
-  isRegenHasted; // TODO iff true, regeneration rate will be scaled with haste
+  // naturallyRegenerates = false;
+  // baseRegenRate; // TODO resource's base regeneration rate in points per second
+  // isRegenHasted; // TODO iff true, regeneration rate will be scaled with haste
 
   // TODO if you wish an ability to show in results even if it wasn't used, add it using these functions on_initialized
   initBuilderAbility(spellId) {
@@ -58,7 +60,7 @@ class ResourceTracker extends Analyzer {
    * @param {number} amount - The raw amount of resources to gain
    */
   processInvisibleEnergize(spellId, amount) {
-    const maxGain = this.maxResource - this.current;
+    const maxGain = this.maxResource !== undefined ? this.maxResource - this.current : amount;
     const gain = Math.min(amount, maxGain);
     const waste = Math.max(amount - maxGain, 0);
     this._applyBuilder(spellId, null, gain, waste);
@@ -76,6 +78,9 @@ class ResourceTracker extends Analyzer {
     // resource.amount for an energize is the amount AFTER the energize
     if (resource !== null && resource !== undefined && resource.amount !== undefined) {
       this.current = resource.amount;
+      if (resource.max !== undefined) {
+        this.maxResource = resource.max; // track changes in max resource, which can happen due to procs / casts
+      }
     } else {
       this.current += gain;
     }
@@ -89,6 +94,9 @@ class ResourceTracker extends Analyzer {
         return;
     }
     const eventResource = this.getResource(event);
+    if (eventResource && eventResource.max) {
+      this.maxResource = eventResource.max; // track changes in max resource, which can happen due to procs / casts
+    }
     const cost = this.getReducedCost(event);
 
     if (!(spellId in this.spendersObj)) {

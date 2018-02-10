@@ -28,7 +28,7 @@ class ResourceBreakdown extends React.Component {
 				abilityId: Number(abilityId),
 				spent: spendersObj[abilityId].spent,
 				casts: spendersObj[abilityId].casts,
-        maxCP: spendersObj[abilityId].spentByCast.filter(spent => spent === 5/*this.tracker.maxResource*/).length,
+        maxCP: spendersObj[abilityId].spentByCast.filter(spent => spent === 5).length,
 			}))
 			.sort((a,b) => b.spent - a.spent)
 			.filter(ability => ability.spent > 0);
