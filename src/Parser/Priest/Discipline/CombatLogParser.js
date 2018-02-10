@@ -10,6 +10,7 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
 import AtonementSuccessiveDamageNormalizer from './Normalizers/AtonementSuccessiveDamage';
 import EstelNormalizer from './Normalizers/EstelNormalizer';
 import ShadowfiendNormalizer from './Normalizers/ShadowfiendNormalizer';
+import PowerWordRadianceNormalizer from './Normalizers/PowerWordRadianceNormalizer';
 
 import Abilities from './Modules/Abilities';
 import SpellUsable from './Modules/Core/SpellUsable';
@@ -62,6 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     atonementSuccessiveDamage: AtonementSuccessiveDamageNormalizer,
     estelNormalizer: EstelNormalizer,
     shadowfiendNormalizer: ShadowfiendNormalizer,
+    powerWordRadianceNormalizer: PowerWordRadianceNormalizer,
 
     healingDone: [HealingDone, { showStatistic: true }],
     spellUsable: SpellUsable,
