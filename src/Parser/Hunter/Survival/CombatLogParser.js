@@ -32,13 +32,19 @@ import NesingwarysTrappingTreads from './Modules/Items/NesingwarysTrappingTreads
 import ButchersBoneApron from './Modules/Items/ButchersBoneApron';
 import FrizzosFingertrap from './Modules/Items/FrizzosFingertrap';
 
+//Spells
+import ExplosiveTrap from './Modules/Spells/ExplosiveTrap';
+
 //Talents
 import WayOfTheMokNathal from './Modules/Talents/WayOfTheMokNathal';
 import SpittingCobra from './Modules/Talents/SpittingCobra';
+import Caltrops from './Modules/Talents/Caltrops';
+import SteelTrap from './Modules/Talents/SteelTrap';
 
 //Traits
 
 //Traits and Talents list
+import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 
 //Checklist
 
@@ -77,12 +83,18 @@ class CombatLogParser extends CoreCombatLogParser {
     butchersBoneApron: ButchersBoneApron,
     frizzosFingertrap: FrizzosFingertrap,
 
+    //Spells
+    explosiveTrap: ExplosiveTrap,
+
     //Talents
     wayOfTheMokNathal: WayOfTheMokNathal,
     spittingCobra: SpittingCobra,
+    caltrops: Caltrops,
+    steelTrap: SteelTrap,
     //Traits
 
     //Traits and Talents list
+    traitsAndTalents: TraitsAndTalents,
 
     //Checklist
   };
