@@ -252,6 +252,13 @@ export default {
     name: 'Soul of the Forest',
     icon: 'ability_druid_manatree',
   },
+  // This buff indicates if the player is ABLE to assume Incarnation: Tree of Life form.
+  // Actually BEING in the form is indicated by the INCARNATION_TREE_OF_LIFE_TALENT id.
+  INCARNATION: {
+    id: 117679,
+    name: 'Incarnation',
+    icon: 'spell_druid_incarnation',
+  },
 
   // Sets/Items:
   // Hidden buffs that indicate set is equipped:
