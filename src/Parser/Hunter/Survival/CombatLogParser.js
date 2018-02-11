@@ -40,6 +40,11 @@ import WayOfTheMokNathal from './Modules/Talents/WayOfTheMokNathal';
 import SpittingCobra from './Modules/Talents/SpittingCobra';
 import Caltrops from './Modules/Talents/Caltrops';
 import SteelTrap from './Modules/Talents/SteelTrap';
+import AspectOfTheBeast from '../Shared/Modules/Talents/AspectOfTheBeast';
+import SerpentSting from './Modules/Talents/SerpentSting';
+import AMurderOfCrows from './Modules/Talents/AMurderOfCrows';
+import DragonsfireGrenade from './Modules/Talents/DragonsfireGrenade';
+import ThrowingAxes from './Modules/Talents/ThrowingAxes';
 
 //Traits
 
@@ -91,6 +96,11 @@ class CombatLogParser extends CoreCombatLogParser {
     spittingCobra: SpittingCobra,
     caltrops: Caltrops,
     steelTrap: SteelTrap,
+    aspectOfTheBeast: AspectOfTheBeast,
+    serpentSting: SerpentSting,
+    aMurderOfCrows: AMurderOfCrows,
+    dragonsfireGrenade: DragonsfireGrenade,
+    throwingAxes: ThrowingAxes,
     //Traits
 
     //Traits and Talents list

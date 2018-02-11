@@ -8,12 +8,22 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Caltrops from 'Parser/Hunter/Survival/Modules/Talents/Caltrops';
 import SteelTrap from 'Parser/Hunter/Survival/Modules/Talents/SteelTrap';
 import ExplosiveTrap from 'Parser/Hunter/Survival/Modules/Spells/ExplosiveTrap';
+import AspectOfTheBeast from 'Parser/Hunter/Shared/Modules/Talents/AspectOfTheBeast';
+import SerpentSting from 'Parser/Hunter/Survival/Modules/Talents/SerpentSting';
+import AMurderOfCrows from 'Parser/Hunter/Survival/Modules/Talents/AMurderOfCrows';
+import DragonsfireGrenade from 'Parser/Hunter/Survival/Modules/Talents/DragonsfireGrenade';
+import ThrowingAxes from 'Parser/Hunter/Survival/Modules/Talents/ThrowingAxes';
 
 class TraitsAndTalents extends Analyzer {
   static dependencies = {
     caltrops: Caltrops,
     steelTrap: SteelTrap,
     explosiveTrap: ExplosiveTrap,
+    aspectOfTheBeast: AspectOfTheBeast,
+    serpentSting: SerpentSting,
+    aMurderOfCrows: AMurderOfCrows,
+    dragonsfireGrenade: DragonsfireGrenade,
+    throwingAxes: ThrowingAxes,
   };
 
   on_initialized() {
@@ -32,6 +42,11 @@ class TraitsAndTalents extends Analyzer {
         {this.caltrops.active && this.caltrops.subStatistic()}
         {this.steelTrap.active && this.steelTrap.subStatistic()}
         {this.explosiveTrap.active && this.explosiveTrap.subStatistic()}
+        {this.aspectOfTheBeast.active && this.aspectOfTheBeast.subStatistic()}
+        {this.serpentSting.active && this.serpentSting.subStatistic()}
+        {this.aMurderOfCrows.active && this.aMurderOfCrows.subStatistic()}
+        {this.dragonsfireGrenade.active && this.dragonsfireGrenade.subStatistic()}
+        {this.throwingAxes.active && this.throwingAxes.subStatistic()}
       </StatisticsListBox>
 
     );
