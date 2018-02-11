@@ -95,7 +95,7 @@ export class PlayerSelectionList extends React.PureComponent {
       return (
         <li key={friendly.id} className="item selectable">
           <Link
-            to={makeAnalyzerUrl(report, fightId, friendly.name)}
+            to={makeAnalyzerUrl(report, fightId, friendly.id)}
             style={{ marginLeft: 47 }}
             onClick={e => {
               e.preventDefault();
@@ -109,7 +109,7 @@ export class PlayerSelectionList extends React.PureComponent {
     } else {
       return (
         <li key={friendly.id} className="item selectable">
-          <Link to={makeAnalyzerUrl(report, fightId, friendly.name)} className={spec.className.replace(' ', '')} style={{ marginLeft: 47 }}>
+          <Link to={makeAnalyzerUrl(report, fightId, friendly.id)} className={spec.className.replace(' ', '')} style={{ marginLeft: 47 }}>
             {this.renderSpecIcon(spec)} {friendly.name} ({spec.specName})
           </Link>
         </li>

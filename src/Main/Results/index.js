@@ -181,7 +181,7 @@ class Results extends React.Component {
     return (
       <div className="container">
         <div className="results">
-          <Header spec={config.spec} playerName={selectedCombatant.name} boss={parser.boss} fight={fight} />
+          <Header config={config} playerName={selectedCombatant.name} boss={parser.boss} fight={fight} />
 
           {config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED && (
             <Wrapper>
