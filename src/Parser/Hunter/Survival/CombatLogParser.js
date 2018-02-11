@@ -45,6 +45,7 @@ import SerpentSting from './Modules/Talents/SerpentSting';
 import AMurderOfCrows from './Modules/Talents/AMurderOfCrows';
 import DragonsfireGrenade from './Modules/Talents/DragonsfireGrenade';
 import ThrowingAxes from './Modules/Talents/ThrowingAxes';
+import Butchery from './Modules/Talents/Butchery';
 
 //Traits
 import EaglesBite from './Modules/Traits/EaglesBite';
@@ -106,6 +107,7 @@ class CombatLogParser extends CoreCombatLogParser {
     aMurderOfCrows: AMurderOfCrows,
     dragonsfireGrenade: DragonsfireGrenade,
     throwingAxes: ThrowingAxes,
+    butchery: Butchery,
 
     //Traits
     eaglesBite: EaglesBite,

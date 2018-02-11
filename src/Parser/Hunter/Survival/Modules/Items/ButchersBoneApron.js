@@ -32,6 +32,10 @@ class ButchersBoneApron extends Analyzer {
     this.active = this.combatants.selected.hasChest(ITEMS.BUTCHERS_BONE_APRON.id);
   }
 
+  get apronStacks() {
+    return this._currentStacks;
+  }
+
   on_byPlayer_cast(event) {
     const spellID = event.ability.guid;
     if (spellID === SPELLS.MONGOOSE_BITE.id && this._currentStacks === MAX_STACKS) {
