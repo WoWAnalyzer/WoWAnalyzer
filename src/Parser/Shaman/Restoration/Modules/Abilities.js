@@ -89,7 +89,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HEALING_RAIN_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 10,
+        cooldown: haste => 10 + 2 / (1 + haste),
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.30,
@@ -100,7 +100,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.GIFT_OF_THE_QUEEN,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 45,
+        cooldown: haste => 45 + 2 / (1 + haste),
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.6,
