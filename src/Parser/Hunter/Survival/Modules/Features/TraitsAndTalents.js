@@ -18,7 +18,7 @@ import TalonStrike from 'Parser/Hunter/Survival/Modules/Traits/TalonStrike';
 import TalonBond from 'Parser/Hunter/Survival/Modules/Traits/TalonBond';
 import EchoesOfOhnara from 'Parser/Hunter/Survival/Modules/Traits/EchoesOfOhnara';
 import AspectOfTheSkylord from 'Parser/Hunter/Survival/Modules/Traits/AspectOfTheSkylord';
-import Butchery from 'Parser/Hunter/Survival/Modules/Talents/Butchery';
+import Butchery from 'Parser/Hunter/Survival/Modules/Talents/ButcheryCarve';
 
 class TraitsAndTalents extends Analyzer {
   static dependencies = {

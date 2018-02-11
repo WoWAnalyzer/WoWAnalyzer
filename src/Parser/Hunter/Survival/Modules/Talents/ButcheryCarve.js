@@ -10,7 +10,7 @@ import StatisticBox from 'Main/StatisticBox';
 import ITEMS from 'common/ITEMS/HUNTER';
 import Wrapper from 'common/Wrapper';
 
-class Butchery extends Analyzer {
+class ButcheryCarve extends Analyzer {
 
   static dependencies = {
     combatants: Combatants,
@@ -20,9 +20,12 @@ class Butchery extends Analyzer {
   damageHits = 0;
   casts = 0;
   totalStacksUsed = 0;
+  butcherySelected = false;
 
   on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id);
+    if (this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id)) {
+      this.butcherySelected = true;
+    }
   }
 
   get averageTargetsHit() {
@@ -31,7 +34,7 @@ class Butchery extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BUTCHERY_TALENT.id) {
+    if (spellId !== SPELLS.BUTCHERY_TALENT.id && spellId !== SPELLS.CARVE.id) {
       return;
     }
     if (this.combatants.selected.hasBuff(SPELLS.BUTCHERS_BONE_APRON_BUFF.id, event.timestamp)) {
@@ -42,12 +45,13 @@ class Butchery extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BUTCHERY_TALENT.id) {
+    if (spellId !== SPELLS.BUTCHERY_TALENT.id && spellId !== SPELLS.CARVE.id) {
       return;
     }
     this.damageHits++;
     this.bonusDamage += event.amount + (event.absorbed || 0);
   }
+  
   get averageTargetsThreshold() {
     return {
       actual: this.averageTargetsHit,
@@ -59,10 +63,12 @@ class Butchery extends Analyzer {
       style: 'number',
     };
   }
+
   suggestions(when) {
+    const spellLink = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
     when(this.averageTargetsThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Your <SpellLink id={SPELLS.BUTCHERY_TALENT.id} icon /> hit a low amount of targets on average throughout this encounter. Try and position yourself so that you'll hit as many targets as possible with <SpellLink id={SPELLS.BUTCHERY_TALENT.id} icon />.</Wrapper>)
-        .icon(SPELLS.BUTCHERY_TALENT.icon)
+      return suggest(<Wrapper>Your <SpellLink id={spellLink.id} icon /> hit a low amount of targets on average throughout this encounter. Try and position yourself so that you'll hit as many targets as possible with <SpellLink id={spellLink.id} icon />.</Wrapper>)
+        .icon(spellLink.icon)
         .actual(`${this.averageTargetsHit} targets hit on averages`)
         .recommended(`>${recommended} targets hit on average is recommended`);
     });
@@ -70,9 +76,10 @@ class Butchery extends Analyzer {
 
   statistic() {
     const tooltipText = this.combatants.selected.hasChest(ITEMS.BUTCHERS_BONE_APRON.id) ? `You had an average of ${(this.totalStacksUsed / this.casts).toFixed(1)} stacks of the Butchers Bone Apron buff when casting Butchery` : ``;
+    const spellLink = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.BUTCHERY_TALENT.id} />}
+        icon={<SpellIcon id={spellLink.id} />}
         value={this.averageTargetsHit}
         label="Average targets hit"
         tooltip={tooltipText} />
@@ -80,11 +87,12 @@ class Butchery extends Analyzer {
   }
 
   subStatistic() {
+    const spellLink = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.BUTCHERY_TALENT.id}>
-            <SpellIcon id={SPELLS.BUTCHERY_TALENT.id} noLink /> Butchery
+          <SpellLink id={spellLink.id}>
+            <SpellIcon id={spellLink.id} noLink /> {spellLink.name}
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
@@ -95,4 +103,4 @@ class Butchery extends Analyzer {
   }
 }
 
-export default Butchery;
+export default ButcheryCarve;
