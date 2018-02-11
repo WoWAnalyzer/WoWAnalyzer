@@ -10,6 +10,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.QUEENS_DECREE.id,
   SPELLS.TIDAL_TOTEM.id,
   SPELLS.GIFT_OF_THE_QUEEN.id,
+  SPELLS.GIFT_OF_THE_QUEEN_DUPLICATE.id,
   SPELLS.HEALING_RAIN_HEAL.id,
   SPELLS.WELLSPRING_TALENT.id,
   // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
