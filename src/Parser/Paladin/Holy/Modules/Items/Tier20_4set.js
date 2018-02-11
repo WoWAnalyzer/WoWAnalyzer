@@ -11,7 +11,7 @@ import ItemHealingDone from 'Main/ItemHealingDone';
 
 import { BEACON_TYPES, BASE_BEACON_TRANSFER, BEACON_OF_FAITH_TRANSFER_REDUCTION } from '../../Constants';
 
-import LightOfDawn from '../PaladinCore/LightOfDawn';
+import LightOfDawnIndexer from '../PaladinCore/LightOfDawnIndexer';
 
 const LIGHTS_EMBRACE_BEACON_HEAL_INCREASE = 0.4;
 
@@ -21,7 +21,7 @@ const LIGHTS_EMBRACE_BEACON_HEAL_INCREASE = 0.4;
 class Tier20_4set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    lightOfDawn: LightOfDawn,
+    lightOfDawnIndexer: LightOfDawnIndexer, // for the heal event index
   };
 
   healing = 0;
