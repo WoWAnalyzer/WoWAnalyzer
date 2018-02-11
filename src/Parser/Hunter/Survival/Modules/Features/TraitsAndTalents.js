@@ -27,7 +27,7 @@ class TraitsAndTalents extends Analyzer {
     return (
       <StatisticsListBox
         title="Traits and Talents"
-        tooltip="This provides an overview of the damage contributions of various talents and traits. This isn't meant as a way to 1:1 evaluate talents, as some talents bring other strengths to the table than pure dmg."
+        tooltip="This provides an overview of the damage contributions of various talents and traits. This isn't meant as a way to 1:1 evaluate talents, as some talents bring other strengths to the table than pure damage."
       >
         {this.caltrops.active && this.caltrops.subStatistic()}
         {this.steelTrap.active && this.steelTrap.subStatistic()}
