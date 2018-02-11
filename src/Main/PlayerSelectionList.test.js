@@ -75,6 +75,6 @@ describe('PlayerSelectionList', () => {
         combatants={null}
       />
     ));
-    expect(tree.find('.spinner').exists()).toBe(true);
+    expect(tree.find('ActivityIndicator').exists()).toBe(true);
   });
 });

@@ -2,16 +2,14 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-
+import StatTracker from 'Parser/Core/Modules/StatTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import MasteryRadiusImage from 'Main/Images/mastery-radius.png';
 import PlayerBreakdownTab from 'Main/PlayerBreakdownTab';
 
 import BeaconTargets from '../PaladinCore/BeaconTargets';
-
 import { ABILITIES_AFFECTED_BY_MASTERY, BEACON_TYPES } from '../../Constants';
 
 const debug = false;
@@ -20,6 +18,7 @@ class MasteryEffectiveness extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     beaconTargets: BeaconTargets,
+    statTracker: StatTracker,
   };
 
   lastPlayerPositionUpdate = null;
@@ -114,6 +113,9 @@ class MasteryEffectiveness extends Analyzer {
       return;
     } else if (this.combatants.selected === null) {
       console.error('Received a heal before selected combatant meta data was received.', event);
+      if (process.env.NODE_ENV === 'development') {
+        throw new Error('This shouldn\'t happen anymore. Save to remove after 8 march 2018.');
+      }
       return;
     }
     const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.includes(event.ability.guid);
@@ -131,11 +133,11 @@ class MasteryEffectiveness extends Analyzer {
       const masteryEffectiveness = this.constructor.calculateMasteryEffectiveness(distance, isRuleOfLawActive);
 
       // The base healing of the spell (excluding any healing added by mastery)
-      const baseHealingDone = healingDone / (1 + this.combatants.selected.masteryPercentage * masteryEffectiveness);
+      const baseHealingDone = healingDone / (1 + this.statTracker.currentMasteryPercentage * masteryEffectiveness);
       const masteryHealingDone = healingDone - baseHealingDone;
       // The max potential mastery healing if we had a mastery effectiveness of 100% on this spell. This does NOT include the base healing
       // Example: a heal that did 1,324 healing with 32.4% mastery with 100% mastery effectiveness will have a max potential mastery healing of 324.
-      const maxPotentialMasteryHealing = baseHealingDone * this.combatants.selected.masteryPercentage; // * 100% mastery effectiveness
+      const maxPotentialMasteryHealing = baseHealingDone * this.statTracker.currentMasteryPercentage; // * 100% mastery effectiveness
 
       this.masteryHealEvents.push({
         ...event,

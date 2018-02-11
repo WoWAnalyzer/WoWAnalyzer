@@ -162,8 +162,8 @@ class StatTracker extends Analyzer {
     [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_INTELLECT.id]: { // check numbers
       intellect: combatant => 4000 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
     },
-    [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_VERSATILITY.id]: { // check numbers
-      versatility: combatant => 1500 + 100 * (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
+    [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_VERSATILITY.id]: {
+      versatility: combatant => 1500 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
     },
     [SPELLS.JACINS_RUSE.id]: { mastery: 3000 },
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 1000, haste: 1000 },
@@ -192,17 +192,17 @@ class StatTracker extends Analyzer {
   on_initialized() {
     // TODO: Use combatantinfo event directly
     this._pullStats = {
-      strength: this.combatants.selected.strength,
-      agility: this.combatants.selected.agility,
-      intellect: this.combatants.selected.intellect,
-      stamina: this.combatants.selected.stamina,
-      crit: this.combatants.selected.critRating,
-      haste: this.combatants.selected.hasteRating,
-      mastery: this.combatants.selected.masteryRating,
-      versatility: this.combatants.selected.versatilityRating,
-      avoidance: this.combatants.selected.avoidanceRating,
-      leech: this.combatants.selected.leechRating,
-      speed: this.combatants.selected.speedRating,
+      strength: this.combatants.selected._combatantInfo.strength,
+      agility: this.combatants.selected._combatantInfo.agility,
+      intellect: this.combatants.selected._combatantInfo.intellect,
+      stamina: this.combatants.selected._combatantInfo.stamina,
+      crit: this.combatants.selected._combatantInfo.critSpell,
+      haste: this.combatants.selected._combatantInfo.hasteSpell,
+      mastery: this.combatants.selected._combatantInfo.mastery,
+      versatility: this.combatants.selected._combatantInfo.versatilityHealingDone,
+      avoidance: this.combatants.selected._combatantInfo.avoidance,
+      leech: this.combatants.selected._combatantInfo.leech,
+      speed: this.combatants.selected._combatantInfo.speed,
     };
     this._currentStats = {
       ...this._pullStats,
