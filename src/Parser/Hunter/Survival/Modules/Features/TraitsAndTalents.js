@@ -13,6 +13,11 @@ import SerpentSting from 'Parser/Hunter/Survival/Modules/Talents/SerpentSting';
 import AMurderOfCrows from 'Parser/Hunter/Survival/Modules/Talents/AMurderOfCrows';
 import DragonsfireGrenade from 'Parser/Hunter/Survival/Modules/Talents/DragonsfireGrenade';
 import ThrowingAxes from 'Parser/Hunter/Survival/Modules/Talents/ThrowingAxes';
+import EaglesBite from 'Parser/Hunter/Survival/Modules/Traits/EaglesBite';
+import TalonStrike from 'Parser/Hunter/Survival/Modules/Traits/TalonStrike';
+import TalonBond from 'Parser/Hunter/Survival/Modules/Traits/TalonBond';
+import EchoesOfOhnara from 'Parser/Hunter/Survival/Modules/Traits/EchoesOfOhnara';
+import AspectOfTheSkylord from 'Parser/Hunter/Survival/Modules/Traits/AspectOfTheSkylord';
 
 class TraitsAndTalents extends Analyzer {
   static dependencies = {
@@ -24,6 +29,14 @@ class TraitsAndTalents extends Analyzer {
     aMurderOfCrows: AMurderOfCrows,
     dragonsfireGrenade: DragonsfireGrenade,
     throwingAxes: ThrowingAxes,
+
+    //traits
+    eaglesBite: EaglesBite,
+    talonStrike: TalonStrike,
+    talonBond: TalonBond,
+    echoesOfOhnara: EchoesOfOhnara,
+    aspectOfTheSkylord: AspectOfTheSkylord,
+
   };
 
   on_initialized() {
@@ -47,6 +60,11 @@ class TraitsAndTalents extends Analyzer {
         {this.aMurderOfCrows.active && this.aMurderOfCrows.subStatistic()}
         {this.dragonsfireGrenade.active && this.dragonsfireGrenade.subStatistic()}
         {this.throwingAxes.active && this.throwingAxes.subStatistic()}
+        {this.eaglesBite.active && this.eaglesBite.subStatistic()}
+        {this.echoesOfOhnara.active && this.echoesOfOhnara.subStatistic()}
+        {this.aspectOfTheSkylord.active && this.aspectOfTheSkylord.subStatistic()}
+        {this.talonStrike.active && this.talonStrike.subStatistic()}
+        {this.talonBond.active && this.talonBond.subStatistic()}
       </StatisticsListBox>
 
     );

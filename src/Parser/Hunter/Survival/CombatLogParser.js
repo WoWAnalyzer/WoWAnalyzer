@@ -47,6 +47,11 @@ import DragonsfireGrenade from './Modules/Talents/DragonsfireGrenade';
 import ThrowingAxes from './Modules/Talents/ThrowingAxes';
 
 //Traits
+import EaglesBite from './Modules/Traits/EaglesBite';
+import TalonStrike from './Modules/Traits/TalonStrike';
+import TalonBond from './Modules/Traits/TalonBond';
+import EchoesOfOhnara from './Modules/Traits/EchoesOfOhnara';
+import AspectOfTheSkylord from './Modules/Traits/AspectOfTheSkylord';
 
 //Traits and Talents list
 import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
@@ -101,7 +106,13 @@ class CombatLogParser extends CoreCombatLogParser {
     aMurderOfCrows: AMurderOfCrows,
     dragonsfireGrenade: DragonsfireGrenade,
     throwingAxes: ThrowingAxes,
+
     //Traits
+    eaglesBite: EaglesBite,
+    talonStrike: TalonStrike,
+    talonBond: TalonBond,
+    echoesOfOhnara: EchoesOfOhnara,
+    aspectOfTheSkylord: AspectOfTheSkylord,
 
     //Traits and Talents list
     traitsAndTalents: TraitsAndTalents,
