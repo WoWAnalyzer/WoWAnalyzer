@@ -34,7 +34,7 @@ class AspectOfTheSkylord extends Analyzer {
     }
     this.damage += getDamageBonus(event, ASPECT_MODIFIER);
   }
-  
+
   on_byPlayerPet_damage(event) {
     if (event.targetIsFriendly) {
       // Friendly fire does not get increased
