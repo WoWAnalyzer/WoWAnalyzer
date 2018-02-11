@@ -5,6 +5,7 @@ html {
 body {
   line-height: 1.8;
   font-family: 'Open Sans', 'Century Gothic', sans-serif;
+  font-weight: 200;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   background: url(./Images/legion-bg.jpg); /* Created by and property of Blizzard Entertainment. source: http://eu.battle.net/wow/en/legion/ */
