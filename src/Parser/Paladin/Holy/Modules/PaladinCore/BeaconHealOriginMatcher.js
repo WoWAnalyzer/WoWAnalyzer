@@ -5,7 +5,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import BeaconTargets from './BeaconTargets';
 import { BEACON_TRANSFERING_ABILITIES, BEACON_TYPES } from '../../Constants';
-import LightOfDawn from './LightOfDawn';
+import LightOfDawnIndexer from './LightOfDawnIndexer';
 
 const debug = false;
 
@@ -13,7 +13,7 @@ class BeaconHealOriginMatcher extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     beaconTargets: BeaconTargets,
-    lightOfDawn: LightOfDawn,
+    lightOfDawnIndexer: LightOfDawnIndexer, // for the heal event index
   };
 
   healBacklog = [];

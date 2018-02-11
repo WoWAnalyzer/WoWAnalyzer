@@ -12,7 +12,6 @@ class LightOfDawn extends Analyzer {
     secondSunrise: SecondSunrise,
   };
 
-  _lightOfDawnHealIndex = 0;
   casts = 0;
   heals = 0;
 
@@ -22,7 +21,6 @@ class LightOfDawn extends Analyzer {
       return;
     }
 
-    this._lightOfDawnHealIndex = 0;
     this.casts += 1;
   }
 
@@ -32,8 +30,6 @@ class LightOfDawn extends Analyzer {
       return;
     }
 
-    event.lightOfDawnHealIndex = this._lightOfDawnHealIndex;
-    this._lightOfDawnHealIndex += 1;
     this.heals += 1;
   }
   statistic() {
