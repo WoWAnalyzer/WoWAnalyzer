@@ -33,7 +33,7 @@ const HTTP_CODES = {
   },
 };
 
-export default async function fetchWcl(endpoint, queryParams) {
+async function rawFetchWcl(endpoint, queryParams) {
   const url = makeWclUrl(endpoint, queryParams);
   const response = await fetch(url);
 
@@ -54,8 +54,39 @@ export default async function fetchWcl(endpoint, queryParams) {
     }
     throw new Error(message || json.error);
   }
-  if (response.status !== HTTP_CODES.OK) {
+  if (!response.ok) {
     throw new UnknownApiError(`${response.status}: ${json.message}`);
   }
   return json;
+}
+
+const defaultOptions = {
+  timeout: 15000,
+};
+export default function fetchWclWithTimeout(endpoint, queryParams, options) {
+  options = !options ? defaultOptions : { ...defaultOptions, ...options };
+
+  return new Promise((resolve, reject) => {
+    let timedOut = false;
+    const timeoutTimer = setTimeout(() => {
+      timedOut = true;
+      reject(new Error('Request timed out. This usually happens because the Warcraft Logs API did not respond in a timely fashion. Try again.'));
+    }, options.timeout);
+
+    rawFetchWcl(endpoint, queryParams)
+      .then(results => {
+        clearTimeout(timeoutTimer);
+        if (timedOut) {
+          return;
+        }
+        resolve(results);
+      })
+      .catch(err => {
+        clearTimeout(timeoutTimer);
+        if (timedOut) {
+          return;
+        }
+        reject(err);
+      });
+  });
 }

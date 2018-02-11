@@ -265,6 +265,11 @@ export default {
     name: 'Borrowed Time',
     icon: 'ability_priest_angelicbulwark',
   },
+  SINS_OF_THE_MANY:{
+    id: 198076,
+    name: 'Sins of the Many',
+    icon: 'spell_holy_holyguidance',
+  },
 
   // Holy Priest Spells
   GREATER_HEAL: {

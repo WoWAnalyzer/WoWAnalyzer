@@ -140,6 +140,12 @@ export default {
     icon: '70_inscription_deck_promises',
     quality: ITEM_QUALITIES.EPIC,
   },
+  DARKMOON_DECK_IMMORTALITY: {
+    id: 128711,
+    name: 'Darkmoon Deck: Immortality',
+    icon: '70_inscription_deck_immortality',
+    quality: ITEM_QUALITIES.EPIC,
+  },
   AMALGAMS_SEVENTH_SPINE: {
     id: 136714,
     name: 'Amalgam\'s Seventh Spine',

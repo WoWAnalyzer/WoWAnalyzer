@@ -7,7 +7,6 @@ import MaelstromTab from '../Shared/MaelstromChart/MaelstromTab';
 
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-// import ShamanStats from './Modules/ShamanCore/ShamanStats';
 import AlphaWolf from './Modules/ShamanCore/AlphaWolf';
 import Flametongue from './Modules/ShamanCore/Flametongue';
 import FlametongueRefresh from './Modules/ShamanCore/FlametongueRefresh';
@@ -26,7 +25,6 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // ShamanCore
     damageDone: [DamageDone, { showStatistic: true }],
-    // shamanStats: ShamanStats,
     flametongue: Flametongue,
     landslide: Landslide,
     frostbrand: Frostbrand,

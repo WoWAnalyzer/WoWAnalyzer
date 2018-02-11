@@ -67,7 +67,7 @@ class RuneTracker extends ResourceTracker {
         let runeCost = cost || 0;
         //adjust for resource cost reduction
         if(event.ability.guid === SPELLS.OBLITERATE_CAST.id && this.combatants.selected.hasBuff(SPELLS.OBLITERATION_TALENT.id)){
-          runeCost--;
+          runeCost -= 1;
         }
         if(runeCost <= 0){
           return;
@@ -121,9 +121,9 @@ class RuneTracker extends ResourceTracker {
     }
     let change = 0;
     if(event.trigger === 'endcooldown' || event.trigger === 'restorecharge'){ //gained a rune
-      change++;
+      change += 1;
     } else if(event.trigger === 'begincooldown' || event.trigger === 'addcooldowncharge'){ //spent a rune
-      change--;
+      change -= 1;
     } else { //no change
       return;
     }
@@ -142,7 +142,7 @@ class RuneTracker extends ResourceTracker {
       passiveRunesGained -= this.buildersObj[builder].generated;
     }
     //add to total generated & wasted (used to ensure proper bar sizes)
-    this.generated += passiveRunesGained;
+    this.generated += Math.round(passiveRunesGained);
     this.wasted += Math.round(passiveRunesWasted);
     //add runic corruption gained (and subtract it from passive regn)
     const runicCorruptionContribution = this.addPassiveAccelerator(SPELLS.RUNIC_CORRUPTION.id, passiveRunesGained, passiveRunesWasted, RUNIC_CORRUPTION_INCREASE);
