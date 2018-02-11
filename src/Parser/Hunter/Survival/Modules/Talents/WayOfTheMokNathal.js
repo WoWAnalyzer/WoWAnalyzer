@@ -81,11 +81,11 @@ class WayOfTheMokNathal extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.timesDroppedThreshold).addSuggestion((suggest, actual, recommended) => {
+    when(this.timesDroppedThreshold).addSuggestion((suggest, actual) => {
       return suggest(<Wrapper>Try your best to maintain 4 stacks on <SpellLink id={SPELLS.MOKNATHAL_TACTICS.id} icon />. This can be achieved by casting <SpellLink id={SPELLS.RAPTOR_STRIKE.id} icon /> right before having to halt attacking for an extended period of time. </Wrapper>)
         .icon(SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.icon)
-        .actual(`You dropped Mok'Nathals Tactic ${this._timesDropped} times`)
-        .recommended(`${recommended} is recommended`);
+        .actual(`You dropped Mok'Nathals Tactic ${actual} times`)
+        .recommended(`0 is recommended`);
     });
   }
 
