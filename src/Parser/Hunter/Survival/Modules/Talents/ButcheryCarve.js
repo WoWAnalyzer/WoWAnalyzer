@@ -75,33 +75,37 @@ class ButcheryCarve extends Analyzer {
   }
 
   statistic() {
-    const spellLink = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
-    let tooltipText = this.combatants.selected.hasChest(ITEMS.BUTCHERS_BONE_APRON.id) ? `You had an average of ${(this.totalStacksUsed / this.casts).toFixed(1)} stacks of the Butchers Bone Apron buff when casting Butchery` : ``;
-    tooltipText += this.combatants.selected.hasChest(ITEMS.BUTCHERS_BONE_APRON.id) && this.combatants.selected.traitsBySpellId[SPELLS.HELLCARVER_TRAIT.id] ? `<br/>` : ``;
-    tooltipText += this.combatants.selected.traitsBySpellId[SPELLS.HELLCARVER_TRAIT.id] ? `Hellcarver contributed with ${this.combatants.selected.owner.modules.hellcarver.damageContribution} of the damage that ${spellLink.name} dealt.` : ``;
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={spellLink.id} />}
-        value={this.averageTargetsHit}
-        label="Average targets hit"
-        tooltip={tooltipText} />
-    );
+    if (this.averageTargetsHit > 0) {
+      const spellLink = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
+      let tooltipText = this.combatants.selected.hasChest(ITEMS.BUTCHERS_BONE_APRON.id) ? `You had an average of ${(this.totalStacksUsed / this.casts).toFixed(1)} stacks of the Butchers Bone Apron buff when casting Butchery` : ``;
+      tooltipText += this.combatants.selected.hasChest(ITEMS.BUTCHERS_BONE_APRON.id) && this.combatants.selected.traitsBySpellId[SPELLS.HELLCARVER_TRAIT.id] ? `<br/>` : ``;
+      tooltipText += this.combatants.selected.traitsBySpellId[SPELLS.HELLCARVER_TRAIT.id] ? `Hellcarver contributed with ${this.combatants.selected.owner.modules.hellcarver.damageContribution} of the damage that ${spellLink.name} dealt.` : ``;
+      return (
+        <StatisticBox
+          icon={<SpellIcon id={spellLink.id} />}
+          value={this.averageTargetsHit}
+          label="Average targets hit"
+          tooltip={tooltipText} />
+      );
+    }
   }
 
   subStatistic() {
-    const spellLink = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
-    return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={spellLink.id}>
-            <SpellIcon id={spellLink.id} noLink /> {spellLink.name}
-          </SpellLink>
+    if (this.averageTargetsHit > 0) {
+      const spellLink = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
+      return (
+        <div className="flex">
+          <div className="flex-main">
+            <SpellLink id={spellLink.id}>
+              <SpellIcon id={spellLink.id} noLink /> {spellLink.name}
+            </SpellLink>
+          </div>
+          <div className="flex-sub text-right">
+            <ItemDamageDone amount={this.bonusDamage} />
+          </div>
         </div>
-        <div className="flex-sub text-right">
-          <ItemDamageDone amount={this.bonusDamage} />
-        </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
