@@ -20,13 +20,6 @@ class ButcheryCarve extends Analyzer {
   damageHits = 0;
   casts = 0;
   totalStacksUsed = 0;
-  butcherySelected = false;
-
-  on_initialized() {
-    if (this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id)) {
-      this.butcherySelected = true;
-    }
-  }
 
   get averageTargetsHit() {
     return (this.damageHits / this.casts).toFixed(2);
@@ -51,7 +44,7 @@ class ButcheryCarve extends Analyzer {
     this.damageHits++;
     this.bonusDamage += event.amount + (event.absorbed || 0);
   }
-  
+
   get averageTargetsThreshold() {
     return {
       actual: this.averageTargetsHit,
@@ -75,31 +68,35 @@ class ButcheryCarve extends Analyzer {
   }
 
   statistic() {
-    const tooltipText = this.combatants.selected.hasChest(ITEMS.BUTCHERS_BONE_APRON.id) ? `You had an average of ${(this.totalStacksUsed / this.casts).toFixed(1)} stacks of the Butchers Bone Apron buff when casting Butchery` : ``;
-    const spellLink = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={spellLink.id} />}
-        value={this.averageTargetsHit}
-        label="Average targets hit"
-        tooltip={tooltipText} />
-    );
+    if (this.bonusDamage > 0) {
+      const tooltipText = this.combatants.selected.hasChest(ITEMS.BUTCHERS_BONE_APRON.id) ? `You had an average of ${(this.totalStacksUsed / this.casts).toFixed(1)} stacks of the Butchers Bone Apron buff when casting Butchery` : ``;
+      const spellLink = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
+      return (
+        <StatisticBox
+          icon={<SpellIcon id={spellLink.id} />}
+          value={this.averageTargetsHit}
+          label="Average targets hit"
+          tooltip={tooltipText} />
+      );
+    }
   }
 
   subStatistic() {
-    const spellLink = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
-    return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={spellLink.id}>
-            <SpellIcon id={spellLink.id} noLink /> {spellLink.name}
-          </SpellLink>
+    if (this.bonusDamage > 0) {
+      const spellLink = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
+      return (
+        <div className="flex">
+          <div className="flex-main">
+            <SpellLink id={spellLink.id}>
+              <SpellIcon id={spellLink.id} noLink /> {spellLink.name}
+            </SpellLink>
+          </div>
+          <div className="flex-sub text-right">
+            <ItemDamageDone amount={this.bonusDamage} />
+          </div>
         </div>
-        <div className="flex-sub text-right">
-          <ItemDamageDone amount={this.bonusDamage} />
-        </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
