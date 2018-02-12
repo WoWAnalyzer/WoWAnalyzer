@@ -51,7 +51,7 @@ class ButcheryCarve extends Analyzer {
     this.damageHits++;
     this.bonusDamage += event.amount + (event.absorbed || 0);
   }
-  
+
   get averageTargetsThreshold() {
     return {
       actual: this.averageTargetsHit,
@@ -75,8 +75,10 @@ class ButcheryCarve extends Analyzer {
   }
 
   statistic() {
-    const tooltipText = this.combatants.selected.hasChest(ITEMS.BUTCHERS_BONE_APRON.id) ? `You had an average of ${(this.totalStacksUsed / this.casts).toFixed(1)} stacks of the Butchers Bone Apron buff when casting Butchery` : ``;
     const spellLink = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
+    let tooltipText = this.combatants.selected.hasChest(ITEMS.BUTCHERS_BONE_APRON.id) ? `You had an average of ${(this.totalStacksUsed / this.casts).toFixed(1)} stacks of the Butchers Bone Apron buff when casting Butchery` : ``;
+    tooltipText += this.combatants.selected.hasChest(ITEMS.BUTCHERS_BONE_APRON.id) && this.combatants.selected.traitsBySpellId[SPELLS.HELLCARVER_TRAIT.id] ? `<br/>` : ``;
+    tooltipText += this.combatants.selected.traitsBySpellId[SPELLS.HELLCARVER_TRAIT.id] ? `Hellcarver contributed with ${this.combatants.selected.owner.modules.hellcarver.damageContribution} of the damage that ${spellLink.name} dealt.` : ``;
     return (
       <StatisticBox
         icon={<SpellIcon id={spellLink.id} />}
