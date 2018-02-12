@@ -359,4 +359,116 @@ export default {
     icon: 'ability_rogue_poisonedknife',
   },
 
+
+  //Outlaw  
+
+  //Builders
+  SABER_SLASH: {
+    id: 193315,
+    name: 'Saber Slash',
+    icon: 'ability_rogue_sabreslash',
+  },
+  SABER_SLASH_PROC: {
+    id: 197834,
+    name: 'Saber Slash',
+    icon: 'ability_rogue_sabreslash',
+  },
+  PISTOL_SHOT: {
+    id: 185763,
+    name: 'Pistol Shot',
+    icon: 'ability_rogue_pistolshot',
+  },
+  BLUNDERBUSS: {
+    id: 202895,
+    name: 'Blunderbuss',
+    icon: 'inv_weapon_rifle_07',
+  },
+  AMBUSH: {
+    id: 8676,
+    name: 'Ambush',
+    icon: 'ability_rogue_ambush',
+  },
+  
+  //Finishers
+  RUN_THROUGH: {
+    id: 2098,
+    name: 'Run Through',
+    icon: 'ability_rogue_waylay',
+  },
+  BETWEEN_THE_EYES: {
+    id: 199804,
+    name: 'Between the Eyes',
+    icon: 'inv_weapon_rifle_01',
+  },
+  ROLL_THE_BONES: {
+    id: 193316,
+    name: 'Roll the Bones',
+    icon: 'ability_rogue_rollthebones',
+  },
+
+  //CDs  
+  ADRENALINE_RUSH: {
+    id: 13750,
+    name: 'Adrenaline Rush',
+    icon: 'spell_shadow_shadowworddominate',
+  },
+  CURSE_OF_THE_DREADBLADES: {
+    id: 202665,
+    name: 'Curse of the Dreadblades',
+    icon: 'inv_sword_1h_artifactskywall_d_01dual',
+  },
+  CURSE_OF_THE_DREADBLADES_DAMAGE: {
+    id: 202669,
+    name: 'Curse of the Dreadblades',
+    icon: 'inv_sword_1h_artifactskywall_d_01dual',
+  },
+  CURSE_OF_THE_DREADBLADES_CP: {
+    id: 202668,
+    name: 'Curse of the Dreadblades',
+    icon: 'inv_sword_1h_artifactskywall_d_01dual',
+  },
+
+  //Other  
+  BLADE_FLURRY: {
+    id: 13877,
+    name: 'Blade Flurry',
+    icon: 'ability_warrior_punishingblow',
+  },
+  BLADE_FLURRY_DAMAGE: {
+    id: 22482,
+    name: 'Blade Flurry',
+    icon: 'ability_warrior_punishingblow',
+  },
+
+  //Procs
+  COMBO_POINT: {
+    id: 139546,
+    name: 'Combo Point',
+    icon: 'ability_druid_catformattack',
+  },
+  MAIN_GAUCHE: {
+    id: 86392,
+    name: 'Main Gauche',
+    icon: 'inv_weapon_shortblade_15',
+  },
+  COMBAT_POTENCY: {
+    id: 35546,
+    name: 'Combat Potency',
+    icon: 'inv_weapon_shortblade_38',
+  },
+  GREED_1: {
+    id: 202822,
+    name: 'Greed',
+    icon: 'ability_rogue_rollthebones02',
+  },
+  GREED_2: {
+    id: 202823,
+    name: 'Greed',
+    icon: 'ability_rogue_rollthebones02',
+  },
+  GREED_3: {
+    id: 202824,
+    name: 'Greed',
+    icon: 'ability_rogue_rollthebones02',
+  },
 };
