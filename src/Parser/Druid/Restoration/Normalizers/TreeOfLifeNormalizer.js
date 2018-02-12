@@ -26,7 +26,7 @@ class TreeOfLifeNormalizer extends EventsNormalizer {
       if (event.type === 'cast' && event.ability.guid === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) {
         const castTimestamp = event.timestamp;
 
-        // Look ahead through the events to see if there an INCARNATION application within a brief buffer period
+        // Look ahead through the events to see if there is an INCARNATION application within a brief buffer period
         for (let nextEventIndex = eventIndex; nextEventIndex < events.length-1; nextEventIndex += 1) {
           const nextEvent = events[nextEventIndex];
           if ((nextEvent.timestamp - castTimestamp) > MAX_DELAY) {
