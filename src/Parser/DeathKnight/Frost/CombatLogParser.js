@@ -15,6 +15,8 @@ import Tier21_4p from './Modules/Items/Tier21_4p';
 import ColdHeart from '../Shared/Items/ColdHeart';
 import RuneTracker from '../Shared/RuneTracker';
 
+import GatheringStorm from './Modules/Talents/GatheringStorm';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
@@ -41,6 +43,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //rune tracker
     runeTracker: RuneTracker,
+
+    //talents
+    gatheringStorm: GatheringStorm,
   };
 }
 
