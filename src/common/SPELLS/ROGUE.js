@@ -11,7 +11,7 @@ export default {
     name: 'Feint',
     icon: 'ability_rogue_feint',
   },
-  CRIMSON_VAIL: {
+  CRIMSON_VIAL: {
     id: 185311,
     name: 'Crimson Vial',
     icon: 'ability_rogue_crimsonvial',

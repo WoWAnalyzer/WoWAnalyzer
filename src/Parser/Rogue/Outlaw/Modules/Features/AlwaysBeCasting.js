@@ -19,7 +19,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         SPELLS.ROLL_THE_BONES.id,
         SPELLS.SLICE_AND_DICE_TALENT.id,
 
-        SPELLS.CRIMSON_VAIL.id,
+        SPELLS.CRIMSON_VIAL.id,
         SPELLS.FEINT.id,
     ]
 

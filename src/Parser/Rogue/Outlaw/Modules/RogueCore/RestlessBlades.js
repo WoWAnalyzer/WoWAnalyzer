@@ -10,11 +10,6 @@ class RestlessBlades extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  danceReduction;
-
-  on_initialized() {
-  }
-
   on_byPlayer_spendresource(event) {
     const spent = event.resourceChange;
     if (event.resourceChangeType !== RESOURCE_TYPES.COMBO_POINTS.id) return;

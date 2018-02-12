@@ -14,8 +14,8 @@ class SliceAndDiceUptime extends Analyzer {
     combatants: Combatants,
   };
   
-	on_initialized(){
-		this.active = this.combatants.selected.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
+  on_initialized() {
+    this.active = this.combatants.selected.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
   }
 
   get percentUptime() {
@@ -25,7 +25,7 @@ class SliceAndDiceUptime extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.GARROTE.id} />}
+        icon={<SpellIcon id={SPELLS.SLICE_AND_DICE_TALENT.id} />}
         value={`${formatPercentage(this.percentUptime)}%`}
         label={`Slice And Dice Uptime`}
       />

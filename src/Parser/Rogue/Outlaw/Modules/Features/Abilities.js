@@ -11,7 +11,7 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 1.0,
+          recommendedEfficiency: 0.95,
         },
       },
       {
@@ -20,7 +20,7 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 1.0,
+          recommendedEfficiency: 0.95,
         },
       },
       {
@@ -29,7 +29,7 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 1.0,
+          recommendedEfficiency: 0.95,
         },
       },
       {
