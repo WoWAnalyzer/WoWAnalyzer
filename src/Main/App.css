@@ -185,25 +185,8 @@ ul {
 }
 
 /* Components */
-
-.circular-progress-bar {
-  position: relative;
-  display: inline-block;
-  width: 74px;
-  height: 74px;
-  text-align: center;
-  float: left;
-}
-.circular-progress-bar .text {
-  display: inline-block;
-  line-height: 74px;
-  z-index: 2;
-  font-size: 12px;
-}
-.circular-progress-bar canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
+.completeness {
+  font-weight: 600;
 }
 
 .panel {

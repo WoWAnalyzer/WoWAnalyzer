@@ -45,7 +45,7 @@
 
 /* header */
 .results > header {
-  margin: 5px auto 45px auto;
+  margin: 5px auto 25px auto;
   overflow: hidden;
   max-width: 1300px;
 }
@@ -102,6 +102,14 @@
   transform: scaleY(0.8) translateY(-5px);
   /* so that the player and boss names just overlap */
   margin: -22.5px 0;
+}
+.results > header .about {
+  text-align: center;
+  margin-top: 0.7em;
+  font-size: 1.4em;
+  /*text-transform: uppercase;*/
+  font-weight: 400;
+  color: #ddd;
 }
 
 
