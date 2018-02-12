@@ -45,6 +45,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ROLL_THE_BONES,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: !combatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id),
       },
       {
         spell: SPELLS.RUN_THROUGH,

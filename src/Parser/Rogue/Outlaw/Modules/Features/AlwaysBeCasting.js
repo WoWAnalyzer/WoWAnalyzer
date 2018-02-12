@@ -11,7 +11,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         SPELLS.BLUNDERBUSS.id,
         SPELLS.PISTOL_SHOT.id,
         SPELLS.SABER_SLASH.id,
-        SPELLS.CURSE_OF_THE_DREADBLADES.id,
 
         SPELLS.DEATH_FROM_ABOVE_TALENT.id,
 
@@ -27,9 +26,25 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     static STATIC_GCD_ABILITIES = {
         [SPELLS.DEATH_FROM_ABOVE_TALENT.id]: 2000,
     }
+  
+    on_byPlayer_applybuff(event) {
+      const spellId = event.ability.guid;
+      if (spellId === SPELLS.ADRENALINE_RUSH.id) {
+        this.constructor.BASE_GCD = 800;
+        this.constructor.MINIMUM_GCD = 800;
+      }
+    }
 
+    on_byPlayer_removebuff(event) {
+      const spellId = event.ability.guid;
+      if (spellId === SPELLS.ADRENALINE_RUSH.id) {
+        this.constructor.BASE_GCD = 1000;
+        this.constructor.MINIMUM_GCD = 1000;
+      }
+    }
     
   get downtimeSuggestionThresholds() {
+    //TODO Varied for SnD and RtB?
     return {
       actual: this.downtimePercentage,
       isGreaterThan: {

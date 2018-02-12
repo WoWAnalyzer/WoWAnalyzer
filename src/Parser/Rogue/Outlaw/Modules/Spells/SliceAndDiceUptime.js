@@ -31,7 +31,7 @@ class SliceAndDiceUptime extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(110);
+  statisticOrder = STATISTIC_ORDER.CORE(100);
 
 }
 
