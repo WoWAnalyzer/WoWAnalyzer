@@ -124,7 +124,7 @@ class ButchersBoneApron extends Analyzer {
   }
   suggestions(when) {
     when(this.cappedStacksThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You lost out on {this.wastedStacks} (or {formatPercentage(this.percentCappedStacks)}% of total stacks) chest stacks because you were capped. You should try and avoid this by casting a <SpellLink id={SPELLS.BUTCHERY_TALENT.id} icon /> when you're at at {MAX_STACKS} stacks. </Wrapper>)
+      return suggest(<Wrapper>You lost out on {this.wastedStacks} (or {formatPercentage(this.percentCappedStacks)}% of total stacks) chest stacks because you were capped. You should try and avoid this by casting a <SpellLink id={SPELLS.BUTCHERY_TALENT.id} icon /> when you're at {MAX_STACKS} stacks. </Wrapper>)
         .icon(ITEMS.BUTCHERS_BONE_APRON.icon)
         .actual(`${this.wastedStacks} or ${formatPercentage(actual)}% of total stacks were wasted due to overcapping`)
         .recommended(`${recommended}% is recommended`);
