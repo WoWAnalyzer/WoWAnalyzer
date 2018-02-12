@@ -19,15 +19,15 @@ class RestlessBlades extends Analyzer {
       cdr = 1500;
     const amount = cdr*spent;
 
-    this.reduce_cd(SPELLS.ADRENALINE_RUSH.id,amount);
-    this.reduce_cd(SPELLS.BETWEEN_THE_EYES.id,amount);
-    this.reduce_cd(SPELLS.CANNONBALL_BARRAGE_TALENT.id,amount);
-    this.reduce_cd(SPELLS.KILLING_SPREE_TALENT.id,amount);
-    this.reduce_cd(SPELLS.DEATH_FROM_ABOVE_TALENT.id,amount);
-    this.reduce_cd(SPELLS.MARKED_FOR_DEATH_TALENT.id,amount);
+    this.reduceCooldown(SPELLS.ADRENALINE_RUSH.id,amount);
+    this.reduceCooldown(SPELLS.BETWEEN_THE_EYES.id,amount);
+    this.reduceCooldown(SPELLS.CANNONBALL_BARRAGE_TALENT.id,amount);
+    this.reduceCooldown(SPELLS.KILLING_SPREE_TALENT.id,amount);
+    this.reduceCooldown(SPELLS.DEATH_FROM_ABOVE_TALENT.id,amount);
+    this.reduceCooldown(SPELLS.MARKED_FOR_DEATH_TALENT.id,amount);
   }
 
-  reduce_cd(spellId,amount)
+  reduceCooldown(spellId,amount)
   {    
     if (this.spellUsable.isOnCooldown(spellId)) {
       this.spellUsable.reduceCooldown(spellId, amount);
