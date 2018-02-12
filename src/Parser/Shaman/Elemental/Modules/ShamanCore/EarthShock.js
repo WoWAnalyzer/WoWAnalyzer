@@ -24,6 +24,7 @@ class EarthShock extends Analyzer {
   maelstromSpendInAscendence = [];
   latershock = false;
   gambling = false;
+  active = false;
 
   on_initialized() {
     this.gambling = (this.combatants.selected.hasTalent(SPELLS.AFTERSHOCK_TALENT.id) && this.combatants.selected.hasHands(ITEMS.SMOLDERING_HEART.id) && this.combatants.selected.hasFeet(ITEMS.THE_DECEIVERS_BLOOD_PACT.id));
@@ -43,6 +44,7 @@ class EarthShock extends Analyzer {
 
   on_byPlayer_cast(event) {
     if (event.ability.guid === SPELLS.EARTH_SHOCK.id && !this.latershock) {
+      this.active = true;
       this.latershock = true;
       if (event.classResources[0].type === RESOURCE_TYPES.MAELSTROM.id) {
         if (this.combatants.selected.hasBuff(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id, event.timestamp)) {
@@ -110,7 +112,7 @@ class EarthShock extends Analyzer {
   }
 
   suggestions(when) {
-    if (this.gambling) {
+    if (this.gambling && this.avgMaelstromSpendOutOfAsc > 0) {
       when(this.outAscSuggestionThreshold)
         .addSuggestion((suggest) => {
           return suggest(<span>Try to cast <SpellLink id={SPELLS.EARTH_SHOCK.id} /> at 70 to 85 Maelstrom when using
@@ -122,7 +124,7 @@ class EarthShock extends Analyzer {
             .recommended(`70 to 85 is recommended`);
         });
     }
-    else if (this.pseudogambling) {
+    else if (this.pseudogambling && this.avgMaelstromSpendOutOfAsc > 0) {
       when(this.outAscSuggestionThreshold)
         .addSuggestion((suggest) => {
           return suggest(<span>Try to cast <SpellLink id={SPELLS.EARTH_SHOCK.id} /> at 85 to 95 Maelstrom when using
@@ -135,23 +137,26 @@ class EarthShock extends Analyzer {
         });
     }
     else {
-      when(this.outAscSuggestionThreshold)
+      if (this.avgMaelstromSpendOutOfAsc > 0) {
+
+        when(this.outAscSuggestionThreshold)
+          .addSuggestion((suggest) => {
+            return suggest(<span>Try to cast <SpellLink id={SPELLS.EARTH_SHOCK.id} /> at 111 Maelstrom or more.</span>)
+              .icon(SPELLS.EARTH_SHOCK.icon)
+              .actual(`Average Maelstrom spent: ${formatNumber(this.avgMaelstromSpendOutOfAsc)}`)
+              .recommended(`More than 111 is recommended`);
+          });
+      }
+    }
+    if (this.avgMaelstromSpendInAsc>0) {
+      when(this.inAscSuggestionThreshold)
         .addSuggestion((suggest) => {
-          return suggest(<span>Try to cast <SpellLink id={SPELLS.EARTH_SHOCK.id} /> at 111 Maelstrom or more.</span>)
+          return suggest(<span>Try to cast <SpellLink id={SPELLS.EARTH_SHOCK.id} /> at 111 Maelstrom or more during Ascendence</span>)
             .icon(SPELLS.EARTH_SHOCK.icon)
-            .actual(`Average Maelstrom spent: ${formatNumber(this.avgMaelstromSpendOutOfAsc)}`)
-            .recommended(`More than 111 is recommended`);
+            .actual(`Average Maelstrom spent: ${formatNumber(this.avgMaelstromSpendInAsc)}`)
+            .recommended(`111 or more is recommended`);
         });
     }
-
-    when(this.inAscSuggestionThreshold)
-      .addSuggestion((suggest) => {
-        return suggest(<span>Try to cast <SpellLink id={SPELLS.EARTH_SHOCK.id} /> at 111 Maelstrom or more during Ascendence</span>)
-          .icon(SPELLS.EARTH_SHOCK.icon)
-          .actual(`Average Maelstrom spent: ${formatNumber(this.avgMaelstromSpendInAsc)}`)
-          .recommended(`111 or more is recommended`);
-      });
-
   }
 
   statistic() {

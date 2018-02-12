@@ -14,7 +14,7 @@ import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 
 import { fetchReport as fetchReportAction } from 'actions/report';
 import { fetchCombatants as fetchCombatantsAction } from 'actions/combatants';
-import { getReportCode, getFightId, getPlayerName } from 'selectors/url/report';
+import { getReportCode, getFightId, getPlayerId, getPlayerName } from 'selectors/url/report';
 import { getArticleId } from 'selectors/url/news';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
@@ -63,6 +63,7 @@ class App extends Component {
     reportCode: PropTypes.string,
     articleId: PropTypes.string,
     playerName: PropTypes.string,
+    playerId: PropTypes.number,
     fightId: PropTypes.number,
     report: PropTypes.shape({
       title: PropTypes.string.isRequired,
@@ -101,7 +102,10 @@ class App extends Component {
     return this.props.report && this.props.report.code === this.props.reportCode;
   }
 
-  getPlayerFromReport(report, playerName) {
+  getPlayerFromReport(report, playerId, playerName) {
+    if(playerId){
+      return report.friendlies.find(friendly => friendly.id === playerId);
+    }
     const fetchByNameAttempt = report.friendlies.find(friendly => friendly.name === playerName);
     if (!fetchByNameAttempt) {
       return report.friendlies.find(friendly => friendly.id === Number(playerName));
@@ -332,17 +336,19 @@ class App extends Component {
     const changed = this.props.report !== prevProps.report
       || this.props.combatants !== prevProps.combatants
       || this.props.fightId !== prevProps.fightId
-      || this.props.playerName !== prevProps.playerName;
+      || this.props.playerName !== prevProps.playerName
+      || this.props.playerId !== prevProps.playerId;
     if (changed) {
       this.reset();
 
       const report = this.props.report;
       const fight = this.props.fight;
       const combatants = this.props.combatants;
+      const playerId = this.props.playerId;
       const playerName = this.props.playerName;
-      const valid = report && fight && combatants && playerName;
+      const valid = report && fight && combatants && (playerName || playerId);
       if (valid) {
-        const player = this.getPlayerFromReport(report, playerName);
+        const player = this.getPlayerFromReport(report, playerId, playerName);
         if (!player) {
           alert(`Unknown player: ${playerName}`);
           return;
@@ -469,7 +475,7 @@ class App extends Component {
       <Results
         parser={parser}
         dataVersion={this.state.dataVersion}
-        onChangeTab={newTab => this.props.push(makeAnalyzerUrl(report, this.props.fightId, this.props.playerName, newTab))}
+        onChangeTab={newTab => this.props.push(makeAnalyzerUrl(report, this.props.fightId, this.props.playerId, newTab))}
       />
     );
   }
@@ -538,6 +544,7 @@ const mapStateToProps = state => {
     reportCode: getReportCode(state),
     fightId,
     playerName: getPlayerName(state),
+    playerId: getPlayerId(state),
 
     report: getReport(state),
     fight: getFightById(state, fightId),

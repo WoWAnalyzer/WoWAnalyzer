@@ -19,6 +19,7 @@ import Overhealing from './Modules/PaladinCore/Overhealing';
 import FillerLightOfTheMartyrs from './Modules/PaladinCore/FillerLightOfTheMartyrs';
 import FillerFlashOfLight from './Modules/PaladinCore/FillerFlashOfLight';
 import LightOfDawn from './Modules/PaladinCore/LightOfDawn';
+import LightOfDawnIndexer from './Modules/PaladinCore/LightOfDawnIndexer';
 
 import Abilities from './Modules/Abilities';
 import Checklist from './Modules/Features/Checklist';
@@ -81,6 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
     fillerFlashOfLight: FillerFlashOfLight,
     lightOfDawn: LightOfDawn,
+    lightOfDawnIndexer: LightOfDawnIndexer,
 
     // Features
     checklist: Checklist,
