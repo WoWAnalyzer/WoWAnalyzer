@@ -13,7 +13,9 @@ import Tier21_2p from './Modules/Items/Tier21_2p';
 import Tier21_4p from './Modules/Items/Tier21_4p';
 
 import ColdHeart from '../Shared/Items/ColdHeart';
-import RuneTracker from '../Shared/RuneTracker';
+
+import RuneTracker from './Modules/Features/RuneTracker';
+import RuneDetails from '../Shared/RuneDetails';
 
 import GatheringStorm from './Modules/Talents/GatheringStorm';
 
@@ -43,6 +45,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //rune tracker
     runeTracker: RuneTracker,
+    runeDetails: RuneDetails,
 
     //talents
     gatheringStorm: GatheringStorm,

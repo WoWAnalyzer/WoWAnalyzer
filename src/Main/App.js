@@ -14,7 +14,7 @@ import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 
 import { fetchReport as fetchReportAction } from 'actions/report';
 import { fetchCombatants as fetchCombatantsAction } from 'actions/combatants';
-import { getReportCode, getFightId, getPlayerName } from 'selectors/url/report';
+import { getReportCode, getFightId, getPlayerId, getPlayerName } from 'selectors/url/report';
 import { getArticleId } from 'selectors/url/news';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
@@ -41,9 +41,9 @@ import NewsView from './News/View';
 import { default as makeNewsUrl } from './News/makeUrl';
 import { title as AboutArticleTitle } from './News/Articles/2017-01-31-About';
 import { title as UnlistedLogsTitle } from './News/Articles/2017-01-31-UnlistedLogs';
-
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 import ServiceStatus from './ServiceStatus';
+import ActivityIndicator from './ActivityIndicator';
 
 const timeAvailable = console.time && console.timeEnd;
 
@@ -63,6 +63,7 @@ class App extends Component {
     reportCode: PropTypes.string,
     articleId: PropTypes.string,
     playerName: PropTypes.string,
+    playerId: PropTypes.number,
     fightId: PropTypes.number,
     report: PropTypes.shape({
       title: PropTypes.string.isRequired,
@@ -101,7 +102,10 @@ class App extends Component {
     return this.props.report && this.props.report.code === this.props.reportCode;
   }
 
-  getPlayerFromReport(report, playerName) {
+  getPlayerFromReport(report, playerId, playerName) {
+    if(playerId){
+      return report.friendlies.find(friendly => friendly.id === playerId);
+    }
     const fetchByNameAttempt = report.friendlies.find(friendly => friendly.name === playerName);
     if (!fetchByNameAttempt) {
       return report.friendlies.find(friendly => friendly.id === Number(playerName));
@@ -117,7 +121,6 @@ class App extends Component {
     this.state = {
       progress: 0,
       dataVersion: 0,
-      bossId: null,
       config: null,
     };
 
@@ -296,7 +299,6 @@ class App extends Component {
     this.fetchReportIfNecessary(prevProps);
     this.fetchCombatantsIfNecessary(prevProps, prevState);
     this.fetchEventsAndParseIfNecessary(prevProps, prevState);
-    this.updateBossIdIfNecessary(prevProps, prevState);
   }
   fetchReportIfNecessary(prevProps) {
     if (this.props.error || isIE()) {
@@ -334,17 +336,19 @@ class App extends Component {
     const changed = this.props.report !== prevProps.report
       || this.props.combatants !== prevProps.combatants
       || this.props.fightId !== prevProps.fightId
-      || this.props.playerName !== prevProps.playerName;
+      || this.props.playerName !== prevProps.playerName
+      || this.props.playerId !== prevProps.playerId;
     if (changed) {
       this.reset();
 
       const report = this.props.report;
       const fight = this.props.fight;
       const combatants = this.props.combatants;
+      const playerId = this.props.playerId;
       const playerName = this.props.playerName;
-      const valid = report && fight && combatants && playerName;
+      const valid = report && fight && combatants && (playerName || playerId);
       if (valid) {
-        const player = this.getPlayerFromReport(report, playerName);
+        const player = this.getPlayerFromReport(report, playerId, playerName);
         if (!player) {
           alert(`Unknown player: ${playerName}`);
           return;
@@ -357,17 +361,6 @@ class App extends Component {
         this.fetchEventsAndParse(report, fight, combatants, combatant, player);
       }
     }
-  }
-  updateBossIdIfNecessary(prevProps, prevState) {
-    if (this.props.reportCode !== prevProps.reportCode || this.props.report !== prevProps.report || this.props.fightId !== prevProps.fightId) {
-      this.updateBossId();
-    }
-  }
-
-  updateBossId() {
-    this.setState({
-      bossId: (this.props.reportCode && this.isReportValid && this.props.fight && this.props.fight.boss) || null,
-    });
   }
 
   renderContent() {
@@ -460,23 +453,13 @@ class App extends Component {
     }
 
     if (this.props.articleId) {
-      return (
-        <NewsView articleId={this.props.articleId} />
-      );
+      return <NewsView articleId={this.props.articleId} />;
     }
-
     if (!this.props.reportCode) {
       return <Home />;
     }
-
     if (!report) {
-      return (
-        <div className="container">
-          <h1>Fetching report information...</h1>
-
-          <div className="spinner" />
-        </div>
-      );
+      return <ActivityIndicator text="Pulling report info..." />;
     }
     if (!this.props.fightId) {
       return <FightSelecter />;
@@ -485,20 +468,14 @@ class App extends Component {
       return <PlayerSelecter />;
     }
     if (!parser) {
-      return (
-        <div className="container">
-          <h1>Initializing...</h1>
-
-          <div className="spinner" />
-        </div>
-      );
+      return <ActivityIndicator text="Initializing analyzer..." />;
     }
 
     return (
       <Results
         parser={parser}
         dataVersion={this.state.dataVersion}
-        onChangeTab={newTab => this.props.push(makeAnalyzerUrl(report, this.props.fightId, this.props.playerName, newTab))}
+        onChangeTab={newTab => this.props.push(makeAnalyzerUrl(report, this.props.fightId, this.props.playerId, newTab))}
       />
     );
   }
@@ -567,6 +544,7 @@ const mapStateToProps = state => {
     reportCode: getReportCode(state),
     fightId,
     playerName: getPlayerName(state),
+    playerId: getPlayerId(state),
 
     report: getReport(state),
     fight: getFightById(state, fightId),

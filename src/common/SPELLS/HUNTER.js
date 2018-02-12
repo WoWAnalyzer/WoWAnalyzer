@@ -621,6 +621,16 @@ export default {
     name: 'Cobra Spit',
     icon: 'ability_creature_poison_02',
   },
+  STEEL_TRAP_DAMAGE: { //the event is a damage event, but it merely applies the debuff
+    id: 162480,
+    name: 'Steel Trap',
+    icon: 'inv_pet_pettrap02',
+  },
+  STEEL_TRAP_DEBUFF: {
+    id: 162487,
+    name: 'Steel Trap',
+    icon: 'inv_pet_pettrap02',
+  },
   //Survival traits:
   ECHOES_OF_OHNARA_TRAIT: {
     id: 238125,
@@ -756,7 +766,7 @@ export default {
   //The buff given by volley when it's activated (and also what does the damage)
   VOLLEY_ACTIVATED: {
     id: 194392,
-    name: 'Volley buff',
+    name: 'Volley',
     icon: 'ability_marksmanship',
   },
   FLARE: {

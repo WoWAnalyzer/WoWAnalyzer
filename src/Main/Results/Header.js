@@ -3,14 +3,18 @@ import PropTypes from 'prop-types';
 import Textfit from 'react-textfit';
 
 import getBossName from 'common/getBossName';
+import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
+import Maintainer from 'Main/Maintainer';
 
 import SkullRaidMarker from './Images/skull-raidmarker.png';
 
 class Headers extends React.PureComponent {
   static propTypes = {
-    spec: PropTypes.shape({
-      className: PropTypes.string.isRequired,
-      specName: PropTypes.string.isRequired,
+    config: PropTypes.shape({
+      spec: PropTypes.shape({
+        className: PropTypes.string.isRequired,
+        specName: PropTypes.string.isRequired,
+      }).isRequired,
     }).isRequired,
     playerName: PropTypes.string.isRequired,
     boss: PropTypes.shape({
@@ -20,7 +24,7 @@ class Headers extends React.PureComponent {
   };
 
   render() {
-    const { spec, playerName, boss, fight } = this.props;
+    const { config: { spec, maintainers, completeness }, playerName, boss, fight } = this.props;
 
     return (
       <header>
@@ -36,6 +40,12 @@ class Headers extends React.PureComponent {
           <Textfit mode="single" max={80}>
             {getBossName(fight)}
           </Textfit>
+        </div>
+
+        <div className="about maintainers">
+          {spec.specName} {spec.className} analysis by {maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}
+          {' | '}
+          Completeness rating: <dfn className="completeness" data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>
         </div>
       </header>
     );
