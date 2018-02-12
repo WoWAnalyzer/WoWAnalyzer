@@ -631,6 +631,21 @@ export default {
     name: 'Steel Trap',
     icon: 'inv_pet_pettrap02',
   },
+  DRAGONSFIRE_GRENADE_DEBUFF: {
+    id: 194858,
+    name: 'Dragonsfire Grenade',
+    icon: 'spell_fire_incinerate',
+  },
+  DRAGONSFIRE_GRENADE_CONFLAGARATION: {
+    id: 194859,
+    name: 'Dragonsfire Grenade',
+    icon: 'spell_fire_incinerate',
+  },
+  THROWING_AXES_DAMAGE: {
+    id: 200167,
+    name: 'Throwing Axes',
+    icon: 'inv_throwingaxepvp320_07',
+  },
   //Survival traits:
   ECHOES_OF_OHNARA_TRAIT: {
     id: 238125,
