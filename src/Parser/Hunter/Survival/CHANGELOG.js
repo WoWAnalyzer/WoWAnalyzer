@@ -10,6 +10,11 @@ import ItemLink from 'common/ItemLink';
 export default [
   {
     date: new Date('2018-02-11'),
+    changes: <Wrapper>Added support for <SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} icon />, <SpellLink id={SPELLS.SERPENT_STING_TALENT.id} icon />, <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SURVIVAL.id} icon />, <SpellLink id={SPELLS.DRAGONSFIRE_GRENADE_TALENT.id} icon />, <SpellLink id={SPELLS.THROWING_AXES_TALENT.id} icon /> into the Talents/Trait listbox.</Wrapper>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-02-11'),
     changes: <Wrapper>Added a preliminary Talents and Traits list which will include damage information about various talents and traits as they get implemented. Implemented modules for <SpellLink id={SPELLS.STEEL_TRAP_TALENT.id} icon />, <SpellLink id={SPELLS.EXPLOSIVE_TRAP_CAST.id} icon />, <SpellLink id={SPELLS.CALTROPS_TALENT.id} icon /> and added prepull handling for all three. </Wrapper>,
     contributors: [Putro],
   },
