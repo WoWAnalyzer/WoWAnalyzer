@@ -60,14 +60,6 @@ class Checklist extends CoreChecklist {
         const combatant = this.combatants.selected;
         return [
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.DIRE_BEAST,
-            when: !combatant.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.DIRE_FRENZY_TALENT,
-            when: combatant.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
             spell: SPELLS.KILL_COMMAND,
           }),
           new GenericCastEfficiencyRequirement({

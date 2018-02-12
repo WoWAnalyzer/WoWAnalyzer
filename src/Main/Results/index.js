@@ -6,6 +6,9 @@ import ReactTooltip from 'react-tooltip';
 import Masonry from 'react-masonry-component';
 import Textfit from 'react-textfit';
 
+import ChecklistIcon from 'Icons/Checklist';
+import SuggestionIcon from 'Icons/Suggestion';
+import AboutIcon from 'Icons/About';
 import Wrapper from 'common/Wrapper';
 import SPEC_ANALYSIS_COMPLETENESS, { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import { getResultTab } from 'selectors/url/report';
@@ -17,6 +20,7 @@ import GithubButton from 'Main/GithubButton';
 import DiscordButton from 'Main/DiscordButton';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Maintainer from 'Main/Maintainer';
+import ActivityIndicator from 'Main/ActivityIndicator';
 
 import ItemsPanel from './ItemsPanel';
 import AboutTab from './AboutTab';
@@ -30,6 +34,29 @@ const MAIN_TAB = {
   SUGGESTIONS: 'Suggestions',
   ABOUT: 'About',
 };
+function mainTabLabel(tab) {
+  switch (tab) {
+    case MAIN_TAB.CHECKLIST:
+      return (
+        <Wrapper>
+          <ChecklistIcon /> Checklist
+        </Wrapper>
+      );
+    case MAIN_TAB.SUGGESTIONS:
+      return (
+        <Wrapper>
+          <SuggestionIcon /> Suggestions
+        </Wrapper>
+      );
+    case MAIN_TAB.ABOUT:
+      return (
+        <Wrapper>
+          <AboutIcon /> About
+        </Wrapper>
+      );
+    default: return tab;
+  }
+}
 
 class Results extends React.Component {
   static childContextTypes = {
@@ -102,16 +129,12 @@ class Results extends React.Component {
     if (!selectedCombatant) {
       return (
         <div>
-          <h1>
-            <div className="back-button">
-              <Link to={`/report/${report.code}/${fight.id}`} data-tip="Back to player selection">
-                <span className="glyphicon glyphicon-chevron-left" aria-hidden />
-              </Link>
-            </div>
-            Initializing report...
-          </h1>
-
-          <div className="spinner" />
+          <div className="back-button">
+            <Link to={`/report/${report.code}/${fight.id}`} data-tip="Back to player selection">
+              <span className="glyphicon glyphicon-chevron-left" aria-hidden />
+            </Link>
+          </div>
+          <ActivityIndicator text="Fetching players..." />
         </div>
       );
     }
@@ -158,7 +181,7 @@ class Results extends React.Component {
     return (
       <div className="container">
         <div className="results">
-          <Header spec={config.spec} playerName={selectedCombatant.name} boss={parser.boss} fight={fight} />
+          <Header config={config} playerName={selectedCombatant.name} boss={parser.boss} fight={fight} />
 
           {config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED && (
             <Wrapper>
@@ -188,10 +211,10 @@ class Results extends React.Component {
               </div>
             </div>
             <div className="col-md-8">
-              <div className="panel">
+              <div className="panel tabbed">
                 <div className="panel-body flex" style={{ flexDirection: 'column', padding: '0' }}>
-                  <div className="navigation item-divider" style={{ minHeight: 70 }}>
-                    <div className="flex" style={{ paddingTop: '10px', flexDirection: 'row', flexWrap: 'wrap' }}>
+                  <div className="navigation item-divider">
+                    <div className="flex" style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                       {Object.values(MAIN_TAB).map(tab => (
                         <button
                           key={tab}
@@ -202,7 +225,7 @@ class Results extends React.Component {
                             });
                           }}
                         >
-                          {tab}
+                          {mainTabLabel(tab)}
                         </button>
                       ))}
                     </div>
@@ -305,10 +328,10 @@ class Results extends React.Component {
 
           <div className="divider" />
 
-          <div className="panel" style={{ marginTop: 15, marginBottom: 100 }}>
+          <div className="panel tabbed" style={{ marginTop: 15, marginBottom: 100 }}>
             <div className="panel-body flex" style={{ flexDirection: 'column', padding: '0' }}>
-              <div className="navigation item-divider" style={{ minHeight: 70 }}>
-                <div className="flex" style={{ paddingTop: '10px', flexDirection: 'row', flexWrap: 'wrap' }}>
+              <div className="navigation item-divider">
+                <div className="flex" style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                   {results.tabs
                     .sort((a, b) => {
                       const aOrder = a.order !== undefined ? a.order : 100;

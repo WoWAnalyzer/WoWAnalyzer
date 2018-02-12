@@ -51,7 +51,7 @@ class TraitsAndTalents extends Analyzer {
     return (
       <StatisticsListBox
         title="Traits and Talents"
-        tooltip="This provides an overview of the damage contributions of various talents and traits. This isn't meant as a way to 1:1 evaluate talents, as some talents bring other strengths to the table than pure dmg. Sidewinders is the most obvious example of this for Marksmanship hunters."
+        tooltip="This provides an overview of the damage contributions of various talents and traits. This isn't meant as a way to 1:1 evaluate talents, as some talents bring other strengths to the table than pure damage. Sidewinders is the most obvious example of this for Marksmanship hunters."
       >
         {this.loneWolf.active && this.loneWolf.subStatistic()}
         {this.trueAim.active && this.trueAim.subStatistic()}

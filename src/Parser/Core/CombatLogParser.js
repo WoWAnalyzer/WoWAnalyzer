@@ -62,6 +62,7 @@ import AmanthulsVision from './Modules/Items/Legion/Legendaries/AmanthulsVision'
 // Dungeons/crafted
 import DrapeOfShame from './Modules/Items/Legion/DrapeOfShame';
 import DarkmoonDeckPromises from './Modules/Items/Legion/DarkmoonDeckPromises';
+import DarkmoonDeckImmortality from './Modules/Items/Legion/DarkmoonDeckImmortality';
 import AmalgamsSeventhSpine from './Modules/Items/Legion/AmalgamsSeventhSpine';
 import GnawedThumbRing from './Modules/Items/Legion/GnawedThumbRing';
 import EyeOfCommand from './Modules/Items/Legion/EyeOfCommand';
@@ -189,6 +190,7 @@ class CombatLogParser {
     drapeOfShame: DrapeOfShame,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
     darkmoonDeckPromises: DarkmoonDeckPromises,
+    darkmoonDeckImmortality: DarkmoonDeckImmortality,
     prePotion: PrePotion,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
