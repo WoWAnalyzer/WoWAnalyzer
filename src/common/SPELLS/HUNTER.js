@@ -657,6 +657,11 @@ export default {
     name: 'Echoes of Ohn\'ara',
     icon: 'ability_hunter_eagleeye',
   },
+  EAGLES_BITE_TRAIT: {
+    id: 203757,
+    name: 'Eagle\'s Bite',
+    icon: 'artifactability_survivalhunter_eaglesbite',
+  },
   ON_THE_TRAIL_DAMAGE: {
     id: 204081,
     name: 'On The Trail',
@@ -682,10 +687,25 @@ export default {
     name: 'Talon Strike',
     icon: 'inv_misc_bone_06',
   },
+  TALON_BOND_TRAIT: {
+    id: 238089,
+    name: 'Talon Bond',
+    icon: 'inv_misc_bone_06',
+  },
+  TALON_BOND_DAMAGE: {
+    id: 242735,
+    name: 'Talon Slash',
+    icon: 'inv_misc_bone_06',
+  },
   HUNTERS_GUILE_TRAIT: {
     id: 203752,
     name: 'Hunter\'s Guile',
     icon: 'ability_mage_potentspirit',
+  },
+  ASPECT_OF_THE_SKYLORD_TRAIT: {
+    id: 203755,
+    name: 'Aspect of the Skylord',
+    icon: 'inv_pet_undeadeagle',
   },
   ASPECT_OF_THE_SKYLORD_BUFF: {
     id: 203927,
