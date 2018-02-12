@@ -13,7 +13,7 @@ class ComboPointDetails extends Analyzer {
   static dependencies = {
     comboPointTracker: ComboPointTracker,
   };
-  
+
 
   statistic() {
     const pointsWasted = this.comboPointTracker.wasted;
@@ -39,7 +39,6 @@ class ComboPointDetails extends Analyzer {
         <Tab title="Combo Point usage breakdown">
           <ResourceBreakdown
             tracker={this.comboPointTracker}
-            resourceName="Combo Points"
             showSpenders={true}
           />
         </Tab>
