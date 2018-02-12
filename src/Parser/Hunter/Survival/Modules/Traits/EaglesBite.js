@@ -9,12 +9,15 @@ import SpellLink from "common/SpellLink";
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 /*
-* Harpoon applies On the Trail, a unique damage over time effect that deals [ 360% of Attack Power ] damage over until cancelled. Your melee autoattacks extend its duration by 6 sec.
+ * Harpoon applies On the Trail, a unique damage over time effect that deals [ 360% of Attack Power ] damage over until cancelled.
+ * Your melee autoattacks extend its duration by 6 sec.
  */
+//TODO: Dig through logs and find average uptimes and make suggestions for this
 class EaglesBite extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
+
   damage = 0;
 
   on_initialized() {
@@ -28,6 +31,7 @@ class EaglesBite extends Analyzer {
     }
     this.damage += event.amount + (event.absorbed || 0);
   }
+
   subStatistic() {
     return (
       <div className="flex">
