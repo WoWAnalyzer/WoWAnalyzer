@@ -435,6 +435,39 @@ export default {
     icon: 'ability_warrior_punishingblow',
   },
 
+  //Buffs
+  JOLLY_ROGER: {
+    id: 199603,
+    name: 'Jolly Roger',
+    icon: 'ability_rogue_rollthebones01',
+  },
+  GRAND_MELEE: {
+    id: 193358,
+    name: 'Grand Melee',
+    icon: 'ability_rogue_rollthebones02',
+  },
+  SHARK_INFESTED_WATERS: {
+    id: 193357,
+    name: 'Shark Infested Waters',
+    icon: 'ability_rogue_rollthebones03',
+  },
+  TRUE_BEARING: {
+    id: 193359,
+    name: 'True Bearing',
+    icon: 'ability_rogue_rollthebones04',
+  },
+  BURIED_TREASURE: {
+    id: 199600,
+    name: 'Buried Treasure',
+    icon: 'ability_rogue_rollthebones05',
+  },
+  BROADSIDES: {
+    id: 193356,
+    name: 'Broadsides',
+    icon: 'ability_rogue_rollthebones06',
+  },
+
+
   //Procs
   COMBO_POINT: {
     id: 139546,

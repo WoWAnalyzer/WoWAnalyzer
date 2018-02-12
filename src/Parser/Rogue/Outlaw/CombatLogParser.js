@@ -11,6 +11,7 @@ import EnergyDetails from '../Common/Resources/EnergyDetails';
 import EnergyTracker from '../Common/Resources/EnergyTracker';
 import Energy from './Modules/RogueCore/Energy';
 
+import RestlessBlades from './Modules/RogueCore/RestlessBlades';
 import SliceAndDiceUptime from './Modules/Spells/SliceAndDiceUptime';
 
 import MantleOfTheMasterAssassin from '../Common/Legendaries/MantleOfTheMasterAssassin';
@@ -34,7 +35,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Core
     sliceAndDiceUptime: SliceAndDiceUptime,
-
+    restlessBlades: RestlessBlades,
     //Items
 
     //Legendaries
