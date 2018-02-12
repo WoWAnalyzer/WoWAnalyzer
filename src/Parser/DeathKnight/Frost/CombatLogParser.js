@@ -13,10 +13,14 @@ import Tier21_2p from './Modules/Items/Tier21_2p';
 import Tier21_4p from './Modules/Items/Tier21_4p';
 import KoltirasNewfoundWill from './Modules/Items/KoltirasNewfoundWill';
 
+import ToravonsWhiteoutBindings from './Modules/Items/ToravonsWhiteoutBindings';
+
 import ColdHeart from '../Shared/Items/ColdHeart';
 
 import RuneTracker from './Modules/Features/RuneTracker';
 import RuneDetails from '../Shared/RuneDetails';
+
+import GatheringStorm from './Modules/Talents/GatheringStorm';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -43,9 +47,14 @@ class CombatLogParser extends CoreCombatLogParser {
     tier21_4p: Tier21_4p,
     koltirasNewfoundwill: KoltirasNewfoundWill,
 
+    toravonsWhiteoutBindings: ToravonsWhiteoutBindings,
+
     //rune tracker
     runeTracker: RuneTracker,
     runeDetails: RuneDetails,
+
+    //talents
+    gatheringStorm: GatheringStorm,
   };
 }
 
