@@ -72,7 +72,7 @@ class FightSelectorHeader extends SelectorBase {
                     fights={
                       parser.player.fights.map(f => report.fights[f.id - 1]) // TODO: We should check if the id's match!
                     }
-                    playerName={parser.player.name}
+                    playerId={parser.player.id}
                     killsOnly={this.state.killsOnly}
                   />
                 )}

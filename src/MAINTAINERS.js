@@ -261,3 +261,8 @@ export const Anatta336 = {
 export const Herusx = {
   nickname: 'Herusx',
 };
+export const Scaleable = {
+  nickname: 'Scaleable',
+  github: 'wkrueger',
+  avatar: require('./Images/scaleable-avatar.png'),
+};

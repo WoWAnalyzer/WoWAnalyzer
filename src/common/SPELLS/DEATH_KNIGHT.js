@@ -253,6 +253,41 @@ export default {
     name: 'Razorice',
     icon: 'spell_deathknight_frozenruneweapon',
   },
+  RUNIC_EMPOWERMENT: {
+    id: 193486,
+    name: 'Runic Empowerment',
+    icon: 'inv_misc_rune_10',
+  },
+  MURDEROUS_EFFICIENCY: {
+    id: 207062,
+    name: 'Murderous Efficiency',
+    icon: 'spell_frost_frostarmor',
+  },
+  KOLTIRAS_NEWFOUND_WILL: {
+    id: 208783,
+    name: 'Koltira\'s Newfound Will',
+    icon: 'ability_warrior_unrelentingassault',
+  },
+  DRAUGR_GIRDLE_OF_THE_EVERLASTING_KING: {
+    id: 224166,
+    name: 'Draugr, Girdle of the Everlasting King',
+    icon: 'ability_warrior_unrelentingassault',
+  },
+  UVARNIMOR_THE_UNBEATIFUL: {
+    id: 208800,
+    name: 'Uvanimor, the Unbeautiful',
+    icon: 'ability_warrior_unrelentingassault',
+  },
+  SCOURGE_THE_UNBELIEVER: {
+    id: 191492,
+    name: 'Scourge the Unbeliever',
+    icon: 'spell_deathknight_plaguestrike',
+  },
+  PESTILENT_PUSTULES: {
+    id: 220211,
+    name: 'Pestilent Pustules',
+    icon: 'spell_yorsahj_bloodboil_purpleoil',
+  },
 
   // Frost tier 
   // T20 2P

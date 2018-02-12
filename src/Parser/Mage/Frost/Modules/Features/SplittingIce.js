@@ -35,8 +35,8 @@ class SplittingIce extends Analyzer {
       return;
     }
 
-    if(event.targetId) {
-      this.castTarget = encodeTargetString(event.targetId, event.targetInstance);
+    if(event.targetID) {
+      this.castTarget = encodeTargetString(event.targetID, event.targetInstance);
     }
   }
 
@@ -46,7 +46,7 @@ class SplittingIce extends Analyzer {
       return;
     }
 
-    const damageTarget = encodeTargetString(event.targetId, event.targetInstance);
+    const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
     if(this.castTarget === damageTarget) {
       let damageBonus = DAMAGE_BONUS;
       if(spellId === SPELLS.GLACIAL_SPIKE_DAMAGE.id) {

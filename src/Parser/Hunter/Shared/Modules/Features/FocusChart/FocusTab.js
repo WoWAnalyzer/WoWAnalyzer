@@ -1,15 +1,16 @@
 import React from 'react';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import Tab from 'Main/Tab';
+
 import Analyzer from 'Parser/Core/Analyzer';
+import StatTracker from 'Parser/Core/Modules/StatTracker';
+import Tab from 'Main/Tab';
+
 import FocusChart from './Focus';
 import FocusTracker from './FocusTracker';
 
 class FocusTab extends Analyzer {
-
   static dependencies = {
     focusTracker: FocusTracker,
-    combatants: Combatants,
+    statTracker: StatTracker,
   };
 
   tab() {
@@ -21,7 +22,7 @@ class FocusTab extends Analyzer {
           <FocusChart
             start={this.owner.fight.start_time}
             end={this.owner.fight.end_time}
-            playerHaste={this.combatants.selected.hasteRating}
+            playerHaste={this.statTracker.startingHasteRating} // TODO: Account for Haste buffs
             focusMax={this.focusTracker._maxFocus}
             focusPerSecond={this.focusTracker.focusBySecond}
             tracker={this.focusTracker.tracker}
