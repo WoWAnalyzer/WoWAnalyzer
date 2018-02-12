@@ -206,20 +206,25 @@ export default {
     name: 'Howling Blast',
     icon: 'spell_frost_arcticwinds',
   },
-  REMORSELESS_WINTER_ENV_CAST: {
+  REMORSELESS_WINTER_ENV_CAST: { // not actually sure what this does
     id: 211793,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
   },
-  REMORSELESS_WINTER_BUFF: {
+  REMORSELESS_WINTER_DAMAGE: { // every tick puts a cast event on the environment and also the id of the damage event
     id: 196771,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
   },
-  REMORSELESS_WINTER: { // This the spell the player see
+  REMORSELESS_WINTER: { // This the spell the player casts, triggers energize event, also exists as buff on player
     id: 196770,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
+  },
+  GATHERING_STORM_TALENT_BUFF:{
+    id: 211805,
+    name: 'Gathering Storm',
+    icon: 'spell_frost_ice-shards',
   },
   BREATH_OF_SINDRAGOSA_TALENT_DAMAGE_TICK: {
     id: 155166,

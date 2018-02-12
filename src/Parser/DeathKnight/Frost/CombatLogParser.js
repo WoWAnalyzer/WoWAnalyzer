@@ -19,6 +19,8 @@ import ColdHeart from '../Shared/Items/ColdHeart';
 import RuneTracker from './Modules/Features/RuneTracker';
 import RuneDetails from '../Shared/RuneDetails';
 
+import GatheringStorm from './Modules/Talents/GatheringStorm';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
@@ -48,6 +50,9 @@ class CombatLogParser extends CoreCombatLogParser {
     //rune tracker
     runeTracker: RuneTracker,
     runeDetails: RuneDetails,
+
+    //talents
+    gatheringStorm: GatheringStorm,
   };
 }
 
