@@ -319,6 +319,11 @@ export default {
     name: 'Freezing Death',
     icon: 'ability_deathknight_chillstreak',
   },
+  TORAVONS_WHITEOUT_BINDINGS: {
+    id: 205659,
+    name: 'Toravon\'s Whiteout Bindings',
+    icon: 'ability_warrior_unrelentingassault',
+  },
   
   // Unholy:
   // Aritfact ability

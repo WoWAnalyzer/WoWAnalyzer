@@ -12,6 +12,8 @@ import Tier20_2p from './Modules/Items/Tier20_2p';
 import Tier21_2p from './Modules/Items/Tier21_2p';
 import Tier21_4p from './Modules/Items/Tier21_4p';
 
+import ToravonsWhiteoutBindings from './Modules/Items/ToravonsWhiteoutBindings';
+
 import ColdHeart from '../Shared/Items/ColdHeart';
 
 import RuneTracker from './Modules/Features/RuneTracker';
@@ -40,6 +42,8 @@ class CombatLogParser extends CoreCombatLogParser {
     tier20_2p: Tier20_2p,
     tier21_2p: Tier21_2p,
     tier21_4p: Tier21_4p,
+
+    toravonsWhiteoutBindings: ToravonsWhiteoutBindings,
 
     //rune tracker
     runeTracker: RuneTracker,
