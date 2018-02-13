@@ -87,7 +87,7 @@ class SpinningCraneKick extends Analyzer {
     this.spinningCraneKickDuration = 1500 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
     this.spinningCraneKickHits++;
     console.log("mark of the crane stacks", this.markoftheCraneStacks, event.timestamp);
-    // Spinning Crane Kick deals damage 3 times over 1.5 seconds (reduced by haste)
+    // Spinning Crane Kick deals damage 4 times over 1.5 seconds (reduced by haste)
     // This makes sure it only counts once per cast and only on casts that hit something
     if (event.timestamp - this.lastSpinningCraneKickTick > this.spinningCraneKickDuration) {
       this.totalMarksDuringHits += this.markoftheCraneStacks;
@@ -100,7 +100,7 @@ class SpinningCraneKick extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-            <SpellIcon id={SPELLS.SPINNING_CRANE_KICK.id} /> Average hits
+            Average hits
         </div>
         <div className="flex-sub text-right">
           {averageHits.toFixed(2)}
@@ -114,7 +114,7 @@ class SpinningCraneKick extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-            <SpellIcon id={SPELLS.MARK_OF_THE_CRANE.id} /> Average marks 
+            Average marks 
         </div>
         <div className="flex-sub text-right">
           {averageMarks.toFixed(2)}
@@ -127,7 +127,7 @@ class SpinningCraneKick extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-            <SpellIcon id={SPELLS.SPINNING_CRANE_KICK.id} /> Bad casts         
+             Bad casts         
         </div>
         <div className="flex-sub text-right">
           {this.badCasts}
@@ -137,11 +137,12 @@ class SpinningCraneKick extends Analyzer {
   }
 
   statistic() {
-     return (
+    // TODO: only show the statistic if Spinning Crane Kick was actually cast during the fight
+    return (
       <StatisticsListBox
-        title="Spinning Crane Kick"
+        title={`${<SpellIcon id={SPELLS.SPINNING_CRANE_KICK.id}> </SpellIcon>} Spinning Crane Kick`}
         tooltip=""
-        style={{ minHeight: 186 }}
+        style={{ minHeight: 150 }}
        >
          {this.averageMarks()}
          {this.averageHits()}
