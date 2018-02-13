@@ -20,7 +20,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         SPELLS.RUPTURE.id,
         SPELLS.KIDNEY_SHOT.id,
 
-        SPELLS.CRIMSON_VAIL.id,
+        SPELLS.CRIMSON_VIAL.id,
         SPELLS.FEINT.id,
     ]
 

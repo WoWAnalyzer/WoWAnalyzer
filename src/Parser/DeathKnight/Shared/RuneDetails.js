@@ -74,7 +74,6 @@ class RuneDetails extends Analyzer {
 
         <RuneBreakdown
           tracker={this.runeTracker}
-          resourceName="Runes"
           showSpenders={true}
         />
       </div>

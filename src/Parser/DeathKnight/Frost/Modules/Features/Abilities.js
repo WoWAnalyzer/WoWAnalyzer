@@ -90,7 +90,10 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FROST_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
-
+      {
+        spell: SPELLS.HOWLING_BLAST,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      },
       {
         spell: SPELLS.RUNE_1,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,

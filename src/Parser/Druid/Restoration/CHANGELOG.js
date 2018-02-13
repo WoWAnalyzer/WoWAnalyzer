@@ -10,6 +10,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-02-11'),
+    changes: <Wrapper>Fixed a bug that could cause incorrect proc counts and uptimes for players using <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} icon /> and <ItemLink id={ITEMS.CHAMELEON_SONG.id} icon /> together.</Wrapper>,
+    contributors: [sref],
+  },
+  {
     date: new Date('2018-02-03'),
     changes: 'Added a Checklist to the top of the page, which is a more organized and better explained version of the Suggestion system.',
     contributors: [sref],
