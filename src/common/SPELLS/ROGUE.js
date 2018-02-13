@@ -336,6 +336,12 @@ export default {
     icon: 'ability_rogue_dualweild',
   },
 
+  //Artifact Traits
+  MASTER_ASSASSIN: {
+    id: 192349,
+    name: 'Master Assassin',
+    icon: 'ability_rogue_deadliness',
+  },
 
   //Tier
   ASSA_ROGUE_T21_2SET_BONUS: {
@@ -360,7 +366,7 @@ export default {
   },
 
 
-  //Outlaw  
+  //Outlaw
 
   //Builders
   SABER_SLASH: {
@@ -388,7 +394,7 @@ export default {
     name: 'Ambush',
     icon: 'ability_rogue_ambush',
   },
-  
+
   //Finishers
   RUN_THROUGH: {
     id: 2098,
@@ -406,7 +412,7 @@ export default {
     icon: 'ability_rogue_rollthebones',
   },
 
-  //CDs  
+  //CDs
   ADRENALINE_RUSH: {
     id: 13750,
     name: 'Adrenaline Rush',
@@ -428,7 +434,7 @@ export default {
     icon: 'inv_sword_1h_artifactskywall_d_01dual',
   },
 
-  //Other  
+  //Other
   BLADE_FLURRY: {
     id: 13877,
     name: 'Blade Flurry',

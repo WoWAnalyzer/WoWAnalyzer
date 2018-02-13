@@ -13,14 +13,14 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.VENDETTA, // TODO: Reduced by Convergence of Fates
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
+        cooldown: (_, combatant) => 120 - combatant.owner.modules.masterAssassin.traitCooldownReduction,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 1.0,
         },
       },
       {
-        spell: SPELLS.TOXIC_BLADE_TALENT, 
+        spell: SPELLS.TOXIC_BLADE_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 25,
         enabled: combatant.hasTalent(SPELLS.TOXIC_BLADE_TALENT.id),
