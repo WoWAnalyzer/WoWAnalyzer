@@ -10,7 +10,7 @@ class AnvilHardenedWristwraps extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     brews: SharedBrews,
-  }
+  };
 
   dodgedHits = 0;
 
@@ -27,7 +27,7 @@ class AnvilHardenedWristwraps extends Analyzer {
       const actualReduction = this.brews.reduceCooldown(WRISTS_REDUCTION);
       this.cdr += actualReduction;
       this.wastedCDR += WRISTS_REDUCTION - actualReduction;
-    } 
+    }
   }
 
   item() {

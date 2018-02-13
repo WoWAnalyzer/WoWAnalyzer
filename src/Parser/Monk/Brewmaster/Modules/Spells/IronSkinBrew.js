@@ -16,7 +16,7 @@ class IronSkinBrew extends Analyzer {
     combatants: Combatants,
     spellUsable: SpellUsable,
     brews: SharedBrews,
-  }
+  };
 
   lastIronSkinBrewBuffApplied = 0;
 

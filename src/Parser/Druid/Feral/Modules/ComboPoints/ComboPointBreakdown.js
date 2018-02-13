@@ -5,48 +5,50 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-class ComboPointBreakdown extends React.Component {
+// Copied from core breakdown, but with support for 'max CP casts' in spenders display
+class ResourceBreakdown extends React.Component {
   static propTypes = {
-    pointsGained: PropTypes.object.isRequired,
-    pointsSpent: PropTypes.object.isRequired,
-    pointsWasted: PropTypes.object.isRequired,
-    pointsCast: PropTypes.object.isRequired,
+    tracker: PropTypes.object.isRequired,
+    showSpenders: PropTypes.bool,
   };
-  prepareGenerated(pointGen, pointWasted) {
-    return Object.keys(pointGen)
-      .map(abilityId => ({
-        abilityId: Number(abilityId),
-        generated: pointGen[abilityId].points,
-        wasted: pointWasted[abilityId].points,
-      }))
-      .sort((a, b) => b.generated - a.generated);
-  }
-  prepareSpent(pointSpent, pointCast) {
-    return Object.keys(pointSpent)
-      .map(abilityId => ({
-        abilityId: Number(abilityId),
-        spent: pointSpent[abilityId].points,
-        maxCP: pointCast[abilityId].maxCP,
-        total: pointCast[abilityId].total,
-      }))
-      .sort((a, b) => b.spent - a.spent);
-  }
-  render() {
-    const { pointsGained, pointsSpent, pointsWasted, pointsCast } = this.props;
-    const generated = this.prepareGenerated(pointsGained, pointsWasted);
-    const spent = this.prepareSpent(pointsSpent, pointsCast);
 
-    let totalGenerated = 0;
-    let totalWasted = 0;
-    let totalSpent = 0;
-    generated.forEach((ability) => {
-      totalGenerated += ability.generated;
-      totalWasted += ability.wasted;
-    });
-    spent.forEach(ability => totalSpent += ability.spent);
+  prepareGenerated(buildersObj) {
+		return Object.keys(buildersObj)
+			.map(abilityId => ({
+				abilityId: Number(abilityId),
+				generated: buildersObj[abilityId].generated,
+				wasted: buildersObj[abilityId].wasted,
+			}))
+			.sort((a,b) => b.generated - a.generated)
+			.filter(ability => ability.generated > 0);
+  }
+  prepareSpent(spendersObj) {
+		return Object.keys(spendersObj)
+			.map(abilityId => ({
+				abilityId: Number(abilityId),
+				spent: spendersObj[abilityId].spent,
+				casts: spendersObj[abilityId].casts,
+        maxCP: spendersObj[abilityId].spentByCast.filter(spent => spent === 5).length,
+			}))
+			.sort((a,b) => b.spent - a.spent)
+			.filter(ability => ability.spent > 0);
+  }
+
+  render() {
+    const { tracker, showSpenders } = this.props;
+    const resourceName = tracker.resource.name;
+    const generated = this.prepareGenerated(tracker.buildersObj);
+    const spent = this.prepareSpent(tracker.spendersObj);
+
+    let totalGenerated = tracker.generated;
+    let totalWasted = tracker.wasted;
+
+    let totalSpent = tracker.spent;
+
     // looks wrong but totals are only for the purpose of percentage, and if nothing was wasted, then 0/1 gives correct result 0% wasted, if it's not 0 it retains its original value
     totalGenerated = (totalGenerated === 0) ? 1 : totalGenerated;
     totalWasted = (totalWasted === 0) ? 1 : totalWasted;
+
     totalSpent = (totalSpent === 0) ? 1 : totalSpent;
 
     return (
@@ -55,8 +57,8 @@ class ComboPointBreakdown extends React.Component {
           <thead>
             <tr>
               <th>Ability</th>
-              <th colSpan="2">Combo Points generated</th>
-              <th colSpan="2"><dfn data-tip="This is the amount of points that were generated while you were already at cap.">points wasted</dfn></th>
+              <th colSpan="2">{resourceName} generated</th>
+              <th colSpan="2"><dfn data-tip="This is the amount of resources that were generated while you were already at cap.">{resourceName} wasted</dfn></th>
             </tr>
           </thead>
           <tbody>
@@ -89,41 +91,43 @@ class ComboPointBreakdown extends React.Component {
               ))}
           </tbody>
         </table>
+        {showSpenders &&
         <table className="data-table">
           <thead>
-          <tr>
-            <th>Ability</th>
-            <th colSpan='2'>Points spent</th>
-            <th colSpan='2'>5 CP uses</th>
-          </tr>
+            <tr>
+              <th>Ability</th>
+              <th colSpan="2">{resourceName} spent</th>
+              <th colSpan="2">Max CP Casts / Total Casts</th>
+            </tr>
           </thead>
           <tbody>
             {spent && spent
-            .map(ability => (
-              <tr>
-                <td style={{ width: '30%' }}>
-                  <SpellIcon id={ability.abilityId} />{' '}
-                  <SpellLink id={ability.abilityId} />
-                </td>
-                <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
-                  <dfn data-tip={`${formatPercentage(ability.spent / totalGenerated)} %`}>{ability.spent}</dfn>
-                </td>
-                <td style={{ width: '35%' }}>
-                  <div
-                    className="performance-bar"
-                    style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
-                  />
-                </td>
-                <td style={{ width: 150, textAlign: 'center' }}>{ability.maxCP} / {ability.total}</td>
-                <td style={{ width: '25%' }} />
-              </tr>
-            ))}
+              .map(ability => (
+                <tr>
+                  <td style={{ width: '30%' }}>
+                    <SpellIcon id={ability.abilityId} />{' '}
+                    <SpellLink id={ability.abilityId} />
+                  </td>
+                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
+                    <dfn data-tip={`${formatPercentage(ability.spent / totalSpent)} %`}>{ability.spent}</dfn>
+                  </td>
+                  <td style={{ width: '40%' }}>
+                    <div
+                      className="performance-bar"
+                      style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
+                    />
+                  </td>
+                  <td style={{ width: 50, paddingRight: 5 }} />
+                  <td style={{ width: '30%', textAlign: 'left' }}>{ability.maxCP} / {ability.casts}</td>
+                </tr>
+              ))}
           </tbody>
         </table>
+        }
       </div>
 
     );
   }
 }
 
-export default ComboPointBreakdown;
+export default ResourceBreakdown;

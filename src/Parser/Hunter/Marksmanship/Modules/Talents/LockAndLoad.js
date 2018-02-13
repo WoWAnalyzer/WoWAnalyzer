@@ -30,7 +30,7 @@ class LockAndLoad extends Analyzer {
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.LOCK_AND_LOAD_TALENT.id) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id);
   }
-  //ch
+
   on_byPlayer_applybuff(event) {
     const buffId = event.ability.guid;
     if (buffId !== SPELLS.LOCK_AND_LOAD_BUFF.id) {

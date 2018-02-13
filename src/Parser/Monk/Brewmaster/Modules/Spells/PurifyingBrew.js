@@ -58,8 +58,8 @@ class PurifyingBrew extends Analyzer {
   }
 
   on_removestagger(event) {
-    if(event.reason.ability.guid !== SPELLS.PURIFYING_BREW.id) {
-      // reset this, something else took us out of heavy stagger
+    if(!event.reason.ability || event.reason.ability.guid !== SPELLS.PURIFYING_BREW.id) {
+      // reset this, death or another ability took us out of heavy stagger
       this._heavyStaggerDropped = false; 
       return;
     }

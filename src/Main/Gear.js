@@ -13,7 +13,7 @@ class Gear extends React.PureComponent {
     const gear = Object.values(this.props.selectedCombatant._gearItemsBySlotId);
 
     const artifact = gear.find(item => item.quality === 6);
-    const relics = artifact ? artifact.gems : [];
+    const relics = artifact && artifact.gems ? artifact.gems : [];
 
     return (
       <div>

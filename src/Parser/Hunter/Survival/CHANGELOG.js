@@ -9,6 +9,26 @@ import ItemLink from 'common/ItemLink';
 
 export default [
   {
+    date: new Date('2018-02-12'),
+    changes: <Wrapper>Added support for the most prominent traits into the listbox <SpellLink id={SPELLS.ASPECT_OF_THE_SKYLORD_TRAIT.id} icon />, <SpellLink id={SPELLS.EAGLES_BITE_TRAIT.id} icon />, <SpellLink id={SPELLS.ECHOES_OF_OHNARA_TRAIT.id} icon />, <SpellLink id={SPELLS.TALON_BOND_TRAIT.id} icon />, <SpellLink id={SPELLS.TALON_STRIKE_TRAIT.id} icon />. </Wrapper>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-02-11'),
+    changes: <Wrapper>Added support for <SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} icon />, <SpellLink id={SPELLS.SERPENT_STING_TALENT.id} icon />, <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SURVIVAL.id} icon />, <SpellLink id={SPELLS.DRAGONSFIRE_GRENADE_TALENT.id} icon />, <SpellLink id={SPELLS.THROWING_AXES_TALENT.id} icon /> into the Talents/Trait listbox.</Wrapper>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-02-11'),
+    changes: <Wrapper>Added a preliminary Talents and Traits list which will include damage information about various talents and traits as they get implemented. Implemented modules for <SpellLink id={SPELLS.STEEL_TRAP_TALENT.id} icon />, <SpellLink id={SPELLS.EXPLOSIVE_TRAP_CAST.id} icon />, <SpellLink id={SPELLS.CALTROPS_TALENT.id} icon /> and added prepull handling for all three. </Wrapper>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-02-05'),
+    changes: <Wrapper>Added additional information to the <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} icon /> module, to show cooldown reduction on the various affected spells. </Wrapper>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-02-02'),
     changes: <Wrapper>Added a module for tracking <SpellLink id={SPELLS.SPITTING_COBRA_TALENT.id} icon />, and ensure cast efficiency works properly for the talent even if precast. </Wrapper>,
     contributors: [Putro],

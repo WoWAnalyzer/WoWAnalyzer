@@ -21,7 +21,7 @@ class BrewCDR extends Analyzer {
     bob: BlackOxBrew,
     isb: IronskinBrew,
     abilities: Abilities,
-  }
+  };
 
   _totalHaste = 0;
   _newHaste = 0;
@@ -79,18 +79,17 @@ class BrewCDR extends Analyzer {
     this._totalHaste += this._newHaste * (this.owner.fight.end_time - this._lastHasteChange);
   }
 
-
   statistic() {
     let wristsDesc = "";
-    if(this.wrists.active) {
+    if (this.wrists.active) {
       wristsDesc = `<li>Anvil-Hardened Wristwraps and ${this.wrists.dodgedHits} dodged hits — <b>${(this.wrists.cdr / 1000).toFixed(2)}s</b> (<b>${(this.wrists.wastedCDR / 1000).toFixed(2)}s</b> wasted)</li>`;
     }
     let bobDesc = "";
-    if(this.bob.active) {
+    if (this.bob.active) {
       bobDesc = `<li>${this.bob.casts} Black Ox Brew casts — <b>${(this.bob.cdr / 1000).toFixed(2)}s</b> (<b>${(this.bob.wastedCDR / 1000).toFixed(2)}s</b> wasted)</li>`;
     }
     let bocKsDesc = "";
-    if(this.ks.bocHits > 0) {
+    if (this.ks.bocHits > 0) {
       bocKsDesc = `<li>Using Blackout Combo on ${this.ks.bocHits} Keg Smash hits — <b>${(this.ks.bocCDR / 1000).toFixed(2)}s</b> (<b>${(this.ks.wastedBocCDR / 1000).toFixed(2)}s</b> wasted)</li>`;
     }
     return (

@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SPECS from 'common/SPECS';
-import { calculateSecondaryStatDefault } from 'common/stats';
+import { calculateSecondaryStatDefault, calculatePrimaryStat } from 'common/stats';
 import { formatMilliseconds } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -141,6 +141,10 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.GAROTHI_FEEDBACK_CONDUIT.id,
       haste: (_, item) => calculateSecondaryStatDefault(930, 856, item.itemLevel),
     },
+    [SPELLS.RUSH_OF_KNOWLEDGE.id]: {
+      itemId: ITEMS.NORGANNONS_PROWESS.id,
+      intellect: (_, item) => calculatePrimaryStat(940, 11483, item.itemLevel),
+    },
     // Khaz'goroth's Courage is handled in it's own module since all 4 stat buffs use the same ID.
     //[SPELLS.KHAZGOROTHS_SHAPING.id]: {
     //  itemId: ITEMS.KHAZGOROTHS_COURAGE.id,
@@ -158,8 +162,8 @@ class StatTracker extends Analyzer {
     [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_INTELLECT.id]: { // check numbers
       intellect: combatant => 4000 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
     },
-    [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_VERSATILITY.id]: { // check numbers
-      versatility: combatant => 1500 + 100 * (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
+    [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_VERSATILITY.id]: {
+      versatility: combatant => 1500 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
     },
     [SPELLS.JACINS_RUSE.id]: { mastery: 3000 },
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 1000, haste: 1000 },
@@ -188,17 +192,17 @@ class StatTracker extends Analyzer {
   on_initialized() {
     // TODO: Use combatantinfo event directly
     this._pullStats = {
-      strength: this.combatants.selected.strength,
-      agility: this.combatants.selected.agility,
-      intellect: this.combatants.selected.intellect,
-      stamina: this.combatants.selected.stamina,
-      crit: this.combatants.selected.critRating,
-      haste: this.combatants.selected.hasteRating,
-      mastery: this.combatants.selected.masteryRating,
-      versatility: this.combatants.selected.versatilityRating,
-      avoidance: this.combatants.selected.avoidanceRating,
-      leech: this.combatants.selected.leechRating,
-      speed: this.combatants.selected.speedRating,
+      strength: this.combatants.selected._combatantInfo.strength,
+      agility: this.combatants.selected._combatantInfo.agility,
+      intellect: this.combatants.selected._combatantInfo.intellect,
+      stamina: this.combatants.selected._combatantInfo.stamina,
+      crit: this.combatants.selected._combatantInfo.critSpell,
+      haste: this.combatants.selected._combatantInfo.hasteSpell,
+      mastery: this.combatants.selected._combatantInfo.mastery,
+      versatility: this.combatants.selected._combatantInfo.versatilityHealingDone,
+      avoidance: this.combatants.selected._combatantInfo.avoidance,
+      leech: this.combatants.selected._combatantInfo.leech,
+      speed: this.combatants.selected._combatantInfo.speed,
     };
     this._currentStats = {
       ...this._pullStats,
@@ -304,6 +308,12 @@ class StatTracker extends Analyzer {
         return standard + 0.05; //baseline +5%
       case SPECS.HAVOC_DEMON_HUNTER:
         return standard + 0.06; //baseline +6%
+      case SPECS.SUBTLETY_ROGUE:
+        return standard + 0.05; //baseline +5%
+      case SPECS.ASSASSINATION_ROGUE:
+        return standard + 0.05; //baseline +5%
+      case SPECS.OUTLAW_ROGUE:
+        return standard + 0.05; //baseline +5%
       default:
         return standard;
     }
@@ -355,6 +365,8 @@ class StatTracker extends Analyzer {
         return 0.2208;
       case SPECS.ASSASSINATION_ROGUE:
         return 0.32;
+      case SPECS.OUTLAW_ROGUE:
+        return 0.1760;
       case SPECS.UNHOLY_DEATH_KNIGHT:
         return 0.18;
       case SPECS.MISTWEAVER_MONK:

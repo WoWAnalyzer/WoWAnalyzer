@@ -23,6 +23,9 @@ class AshesToDust extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
+    if(event.targetIsFriendly) {
+      return;
+    }
     const enemy = this.enemies.getEntity(event);
     if (enemy && enemy.hasBuff(SPELLS.WAKE_OF_ASHES.id)) {
       this.damageDone += GetDamageBonus(event, ASHES_TO_DUST_MODIFIER);

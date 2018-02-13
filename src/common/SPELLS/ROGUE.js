@@ -11,7 +11,7 @@ export default {
     name: 'Feint',
     icon: 'ability_rogue_feint',
   },
-  CRIMSON_VAIL: {
+  CRIMSON_VIAL: {
     id: 185311,
     name: 'Crimson Vial',
     icon: 'ability_rogue_crimsonvial',
@@ -62,11 +62,6 @@ export default {
     id: 408,
     name: 'Kidney Shot',
     icon: 'ability_rogue_kidneyshot',
-  },
-  ARCANE_TORRENT_ROGUE: {
-    id: 25046,
-    name: 'Arcane Torrent',
-    icon: 'spell_shadow_teleport',
   },
 
   // Subtlety spells
@@ -133,13 +128,13 @@ export default {
     id: 197800,
     name: 'Shadow Nova',
     icon: 'spell_fire_twilightnova',
-  },  
+  },
   INSIGNIA_OF_RAVENHOLDT: {
     id: 209043,
     name: 'Insignia of Ravenholdt',
     icon: 'ability_rogue_shadowstrikes',
   },
-  
+
   // CP Generation
   SHADOW_TECHNIQUES: {
     id: 196911,
@@ -177,7 +172,7 @@ export default {
     name: 'Shadow Satyr\'s Walk',
     icon: 'inv_boots_mail_dungeonmail_c_04',
   },
-  
+
   //Buffs
   MASTER_ASSASSINS_INITIATIVE_BUFF: {
     id: 235027,
@@ -191,9 +186,9 @@ export default {
   },
 
   // Sets
-  
+
   //Tooltips for T20 are swapped on Wowhead.
-  //Names of variables correctly reflect in-game.  
+  //Names of variables correctly reflect in-game.
   SUB_ROGUE_T20_2SET_BONUS: {
     id: 242280,
     name: 'T20 2 set bonus',
@@ -204,7 +199,7 @@ export default {
     name: 'T20 4 set bonus',
     icon: 'ability_stealth',
   },
-  
+
   SUB_ROGUE_T21_2SET_BONUS: {
     id: 251785,
     name: 'T21 2 set bonus',
@@ -277,12 +272,12 @@ export default {
     icon: 'ability_rogue_rupture',
   },
 
-  //Cooldowns    
+  //Cooldowns
   KINGSBANE: {
     id: 192759,
     name: 'Kingsbane',
     icon: 'inv_knife_1h_artifactgarona_d_01',
-  },  
+  },
   KINGSBANE_OFFHAND: {
     id: 192760,
     name: 'Kingsbane',
@@ -342,12 +337,12 @@ export default {
   },
 
 
-  //Tier    
+  //Tier
   ASSA_ROGUE_T21_2SET_BONUS: {
     id: 251776,
     name: 'Virulent Poisons',
     icon: 'ability_rogue_poisonedknife',
-  },  
+  },
   ASSA_ROGUE_T21_2SET_BONUS_BUFF: {
     id: 252277,
     name: 'Virulent Poisons',
@@ -363,5 +358,150 @@ export default {
     name: 'Toxic Rush',
     icon: 'ability_rogue_poisonedknife',
   },
+
+
+  //Outlaw  
+
+  //Builders
+  SABER_SLASH: {
+    id: 193315,
+    name: 'Saber Slash',
+    icon: 'ability_rogue_sabreslash',
+  },
+  SABER_SLASH_PROC: {
+    id: 197834,
+    name: 'Saber Slash',
+    icon: 'ability_rogue_sabreslash',
+  },
+  PISTOL_SHOT: {
+    id: 185763,
+    name: 'Pistol Shot',
+    icon: 'ability_rogue_pistolshot',
+  },
+  BLUNDERBUSS: {
+    id: 202895,
+    name: 'Blunderbuss',
+    icon: 'inv_weapon_rifle_07',
+  },
+  AMBUSH: {
+    id: 8676,
+    name: 'Ambush',
+    icon: 'ability_rogue_ambush',
+  },
   
+  //Finishers
+  RUN_THROUGH: {
+    id: 2098,
+    name: 'Run Through',
+    icon: 'ability_rogue_waylay',
+  },
+  BETWEEN_THE_EYES: {
+    id: 199804,
+    name: 'Between the Eyes',
+    icon: 'inv_weapon_rifle_01',
+  },
+  ROLL_THE_BONES: {
+    id: 193316,
+    name: 'Roll the Bones',
+    icon: 'ability_rogue_rollthebones',
+  },
+
+  //CDs  
+  ADRENALINE_RUSH: {
+    id: 13750,
+    name: 'Adrenaline Rush',
+    icon: 'spell_shadow_shadowworddominate',
+  },
+  CURSE_OF_THE_DREADBLADES: {
+    id: 202665,
+    name: 'Curse of the Dreadblades',
+    icon: 'inv_sword_1h_artifactskywall_d_01dual',
+  },
+  CURSE_OF_THE_DREADBLADES_DAMAGE: {
+    id: 202669,
+    name: 'Curse of the Dreadblades',
+    icon: 'inv_sword_1h_artifactskywall_d_01dual',
+  },
+  CURSE_OF_THE_DREADBLADES_CP: {
+    id: 202668,
+    name: 'Curse of the Dreadblades',
+    icon: 'inv_sword_1h_artifactskywall_d_01dual',
+  },
+
+  //Other  
+  BLADE_FLURRY: {
+    id: 13877,
+    name: 'Blade Flurry',
+    icon: 'ability_warrior_punishingblow',
+  },
+  BLADE_FLURRY_DAMAGE: {
+    id: 22482,
+    name: 'Blade Flurry',
+    icon: 'ability_warrior_punishingblow',
+  },
+
+  //Buffs
+  JOLLY_ROGER: {
+    id: 199603,
+    name: 'Jolly Roger',
+    icon: 'ability_rogue_rollthebones01',
+  },
+  GRAND_MELEE: {
+    id: 193358,
+    name: 'Grand Melee',
+    icon: 'ability_rogue_rollthebones02',
+  },
+  SHARK_INFESTED_WATERS: {
+    id: 193357,
+    name: 'Shark Infested Waters',
+    icon: 'ability_rogue_rollthebones03',
+  },
+  TRUE_BEARING: {
+    id: 193359,
+    name: 'True Bearing',
+    icon: 'ability_rogue_rollthebones04',
+  },
+  BURIED_TREASURE: {
+    id: 199600,
+    name: 'Buried Treasure',
+    icon: 'ability_rogue_rollthebones05',
+  },
+  BROADSIDES: {
+    id: 193356,
+    name: 'Broadsides',
+    icon: 'ability_rogue_rollthebones06',
+  },
+
+
+  //Procs
+  COMBO_POINT: {
+    id: 139546,
+    name: 'Combo Point',
+    icon: 'ability_druid_catformattack',
+  },
+  MAIN_GAUCHE: {
+    id: 86392,
+    name: 'Main Gauche',
+    icon: 'inv_weapon_shortblade_15',
+  },
+  COMBAT_POTENCY: {
+    id: 35546,
+    name: 'Combat Potency',
+    icon: 'inv_weapon_shortblade_38',
+  },
+  GREED_1: {
+    id: 202822,
+    name: 'Greed',
+    icon: 'ability_rogue_rollthebones02',
+  },
+  GREED_2: {
+    id: 202823,
+    name: 'Greed',
+    icon: 'ability_rogue_rollthebones02',
+  },
+  GREED_3: {
+    id: 202824,
+    name: 'Greed',
+    icon: 'ability_rogue_rollthebones02',
+  },
 };

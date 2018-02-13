@@ -17,6 +17,7 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import EssenceFontMastery from './Modules/Features/EssenceFontMastery';
 import Checklist from './Modules/Features/Checklist';
+import StatValues from './Modules/Features/StatValues';
 
 // Traits
 import MistsOfSheilun from './Modules/Traits/MistsOfSheilun';
@@ -77,6 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     essenceFontMastery: EssenceFontMastery,
     checklist: Checklist,
+    statValues: StatValues,
 
     // Traits
     mistsOfSheilun: MistsOfSheilun,

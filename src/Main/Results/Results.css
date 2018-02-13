@@ -5,26 +5,31 @@
   padding: 0 10px;
 }
 .results .navigation {
-  margin-top: -10px;
+  border-bottom: 4px solid #d84141;
 }
 .results .btn-link {
   min-width: 120px;
-  min-height: 60px;
-  color: #aaaaaa;
+  min-height: 50px;
   outline: none;
   padding: 5px;
-  transition: 300ms border-bottom;
+  transition: 300ms background;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.2em;
 }
 .results .btn-link, .results .btn-link:hover, .results .btn-link:active {
   text-decoration: none;
 }
 .results .btn-link:hover {
-  color: #eeeeee;
   background-color: rgba(255, 255, 255, 0.1);
 }
 .results .btn-link.selected {
   color: #ffffff;
-  border-bottom: 4px solid #d84141;
+  background: #d84141;
+}
+.results .btn-link svg {
+  font-size: 1.8em;
 }
 
 /* layout */
@@ -40,7 +45,7 @@
 
 /* header */
 .results > header {
-  margin: 5px auto 45px auto;
+  margin: 5px auto 25px auto;
   overflow: hidden;
   max-width: 1300px;
 }
@@ -97,6 +102,14 @@
   transform: scaleY(0.8) translateY(-5px);
   /* so that the player and boss names just overlap */
   margin: -22.5px 0;
+}
+.results > header .about {
+  text-align: center;
+  margin-top: 0.7em;
+  font-size: 1.4em;
+  /*text-transform: uppercase;*/
+  font-weight: 400;
+  color: #ddd;
 }
 
 

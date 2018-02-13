@@ -46,18 +46,20 @@ class TrickShotCleave extends Analyzer {
   }
 
   subStatistic() {
-    return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.TRICK_SHOT_TALENT.id}>
-            <SpellIcon id={SPELLS.TRICK_SHOT_TALENT.id} noLink /> Trick Shot Cleave
-          </SpellLink>
+    if (this.bonusDmg > 0) {
+      return (
+        <div className="flex">
+          <div className="flex-main">
+            <SpellLink id={SPELLS.TRICK_SHOT_TALENT.id}>
+              <SpellIcon id={SPELLS.TRICK_SHOT_TALENT.id} noLink /> Trick Shot Cleave
+            </SpellLink>
+          </div>
+          <div className="flex-sub text-right">
+            <ItemDamageDone amount={this.bonusCleaveDmg} />
+          </div>
         </div>
-        <div className="flex-sub text-right">
-          <ItemDamageDone amount={this.bonusCleaveDmg} />
-        </div>
-      </div>
-    );
+      );
+    }
   }
 }
 

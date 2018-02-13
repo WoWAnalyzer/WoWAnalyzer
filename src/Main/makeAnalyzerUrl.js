@@ -1,7 +1,7 @@
 import getFightName from 'common/getFightName';
 import prettyEncodeURI from 'common/prettyEncodeURI';
 
-export default function makeReportUrl(report = undefined, fightId = undefined, playerName = undefined, tab = undefined) {
+export default function makeReportUrl(report = undefined, fightId = undefined, playerId = undefined, tab = undefined) {
   const parts = [];
   if (report) {
     parts.push(`report/${report.code}`);
@@ -10,15 +10,17 @@ export default function makeReportUrl(report = undefined, fightId = undefined, p
       const fightName = fight && getFightName(report, fight);
       if (fightName) {
         parts.push(`${fightId}-${prettyEncodeURI(fightName)}`);
-        if (playerName) {
-          parts.push(encodeURI(playerName));
-          if (tab) {
-            parts.push(tab);
+        if (playerId) {
+          const playerName = report.friendlies.find(friendly => friendly.id === playerId).name;
+          if(playerName){
+            parts.push(`${playerId}-${prettyEncodeURI(playerName)}`);
+            if (tab) {
+              parts.push(tab);
+            }
           }
         }
       }
     }
   }
-
   return `/${parts.join('/')}`;
 }
