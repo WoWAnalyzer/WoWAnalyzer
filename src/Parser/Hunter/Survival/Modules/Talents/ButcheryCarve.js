@@ -73,7 +73,6 @@ class ButcheryCarve extends Analyzer {
           icon={<SpellIcon id={spellLink.id} />}
           value={this.averageTargetsHit}
           label="Average targets hit"
-
         />
       );
     }
