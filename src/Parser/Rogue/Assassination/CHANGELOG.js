@@ -1,9 +1,15 @@
+import React from 'react';
+
+import ITEMS from 'common/ITEMS';
+import ItemLink from 'common/ItemLink';
+import Wrapper from 'common/Wrapper';
+
 import { tsabo, Cloake } from 'MAINTAINERS';
 
 export default  [
   {
     date: new Date('2018-02-12'),
-    changes: 'Added support for Duskwalker\'s Footpads',
+    changes: <Wrapper>Added support for <ItemLink id={ITEMS.DUSKWALKERS_FOOTPADS.id} icon/>.</Wrapper>,
     contributors: [Cloake],
   },
   {

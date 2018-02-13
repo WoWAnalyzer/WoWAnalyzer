@@ -8,7 +8,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 
 // Equip: The remaining cooldown on Vendetta is reduced by 1 sec for every 65 Energy you expend.
 
