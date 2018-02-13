@@ -73,6 +73,9 @@ class GatheringStorm extends Analyzer{
   }
 
   on_byPlayer_cast(event){
+    if(!this.combatants.selected.hasBuff(SPELLS.REMORSELESS_WINTER.id)){
+      return;
+    }
     if(event.ability.guid === SPELLS.HOWLING_BLAST.id && this.combatants.selected.hasBuff(SPELLS.RIME.id)){ // handles the free HB from Rime proc,
       this.extendedDuration += DURATION_BOOST;
       return;
