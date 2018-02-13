@@ -254,7 +254,7 @@ export default {
   },
   // This buff indicates if the player is ABLE to assume Incarnation: Tree of Life form.
   // Actually BEING in the form is indicated by the INCARNATION_TREE_OF_LIFE_TALENT id.
-  INCARNATION: {
+  INCARNATION_TOL_ALLOWED: {
     id: 117679,
     name: 'Incarnation',
     icon: 'spell_druid_incarnation',

@@ -138,7 +138,7 @@ class TreeOfLife extends Analyzer {
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.INCARNATION.id) {
+    if (spellId === SPELLS.INCARNATION_TOL_ALLOWED.id) {
       this.lastTolApply = event.timestamp;
       if (event.prepull && this.hasTol) {
         this.lastTolCast = event.timestamp; // if player has ToL talent and buff was present on pull, assume it was from a precast
@@ -148,7 +148,7 @@ class TreeOfLife extends Analyzer {
 
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.INCARNATION.id) {
+    if (spellId === SPELLS.INCARNATION_TOL_ALLOWED.id) {
       const buffUptime = event.timestamp - this.lastTolApply;
       // find out how much of this buff uptime was due to ToL and how much due to CS
       if (this.lastTolCast) {
