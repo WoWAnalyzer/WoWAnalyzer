@@ -12,32 +12,45 @@ import Wrapper from 'common/Wrapper';
 
 // Equip: The remaining cooldown on Vendetta is reduced by 1 sec for every 65 Energy you expend.
 
+const VENDETTA_CDR_PER_ENERGY = 1/65;
+
 class DuskwalkersFootpads extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     spellUsable: SpellUsable,
       };
 
-  vendettaCDReduction = 1;
   totalReduction = 0;
+  wastedReduction = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasFeet(ITEMS.DUSKWALKERS_FOOTPADS.id);
   }
 
   on_byPlayer_spendresource(event) {
-    if (event.resourceChangeType !== RESOURCE_TYPES.ENERGY.id) return;
-    if (!this.spellUsable.isOnCooldown(SPELLS.VENDETTA.id)) return;
+    if (event.resourceChangeType !== RESOURCE_TYPES.ENERGY.id) {
+      return;
+    }
 
     const spent = event.resourceChange;
 
-    this.totalReduction += (spent / 65) * this.vendettaCDReduction;
+    if (!this.spellUsable.isOnCooldown(SPELLS.VENDETTA.id)) {
+      this.wastedReduction += spent * VENDETTA_CDR_PER_ENERGY;
+    } else {
+
+    this.totalReduction += spent * VENDETTA_CDR_PER_ENERGY;
+
+    }
   }
 
   item() {
     return {
       item: ITEMS.DUSKWALKERS_FOOTPADS,
-      result: <Wrapper><SpellLink id={SPELLS.VENDETTA.id}/> cooldown reduced by {this.totalReduction.toFixed(1)} seconds.</Wrapper>,
+      result: (
+      <dfn data-tip={`You wasted ${this.wastedReduction.toFixed(1)} seconds of cooldown reduction.`}>
+        Reduced <SpellLink id={SPELLS.VENDETTA.id} icon /> cooldown by {this.totalReduction.toFixed(1)} seconds.
+      </dfn>
+      ),
     };
   }
 }
