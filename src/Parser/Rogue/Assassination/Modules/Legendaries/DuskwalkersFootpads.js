@@ -30,7 +30,7 @@ class DuskwalkersFootpads extends Analyzer {
 
   on_byPlayer_spendresource(event) {
     if (event.resourceChangeType !== RESOURCE_TYPES.ENERGY.id
-        || event.ability === SPELLS.FEINT.id) {
+        || event.ability.guid === SPELLS.FEINT.id) {
       return;
     }
 
