@@ -21,7 +21,7 @@ class EnergyDetails extends Analyzer {
         icon={<Icon icon="ability_warrior_decisivestrike" alt="Waisted Energy" />}
         value={`${pointsWastedPerMinute.toFixed(2)}`}
         label="Wasted Energy per minute"
-        tooltip={`You waisted a total of ${energyWasted} energy. Some waste is expected due to the random nature of some generation abilities.`}
+        tooltip={`You wasted a total of ${energyWasted} energy. Some waste is expected due to the random nature of some generation abilities.`}
       />
     );
   }
