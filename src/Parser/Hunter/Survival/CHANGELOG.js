@@ -10,6 +10,11 @@ import ItemLink from 'common/ItemLink';
 export default [
   {
     date: new Date('2018-02-12'),
+    changes: <Wrapper>Added modules for <SpellLink id={SPELLS.MORTAL_WOUNDS_TALENT.id} icon /> and merged <SpellLink id={SPELLS.CARVE.id} icon /> and <SpellLink id={SPELLS.BUTCHERY_TALENT.id} icon />.</Wrapper>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-02-12'),
     changes: <Wrapper>Added support for the most prominent traits into the listbox <SpellLink id={SPELLS.ASPECT_OF_THE_SKYLORD_TRAIT.id} icon />, <SpellLink id={SPELLS.EAGLES_BITE_TRAIT.id} icon />, <SpellLink id={SPELLS.ECHOES_OF_OHNARA_TRAIT.id} icon />, <SpellLink id={SPELLS.TALON_BOND_TRAIT.id} icon />, <SpellLink id={SPELLS.TALON_STRIKE_TRAIT.id} icon />. </Wrapper>,
     contributors: [Putro],
   },
