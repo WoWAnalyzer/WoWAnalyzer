@@ -13,33 +13,31 @@ class MasterAssassin extends Analyzer {
       this.active = this.combatants.selected.traitsBySpellId[SPELLS.MASTER_ASSASSIN.id] > 0;
   }
 
-  vendettaCDReduction = 0;
-
   get traitCooldownReduction() {
-      const rank = this.combatants.selected.traitsBySpellId[SPELLS.MASTER_ASSASSIN.id];
+    const rank = this.combatants.selected.traitsBySpellId[SPELLS.MASTER_ASSASSIN.id];
+    let cdReduction = 0;
 
-      if (rank < 4) {
-        this.vendettaCDReduction = rank * 10;
+    if (rank < 4) {
+      cdReduction = rank * 10;
+    }
+    else {
+      switch (rank) {
+        case 4:
+          cdReduction = 38;
+          break;
+        case 5:
+          cdReduction = 44;
+          break;
+        case 6:
+          cdReduction = 48;
+          break;
+        case 7:
+          cdReduction = 52;
+          break;
+        default:
+          break;
       }
-      else {
-        switch (rank) {
-            case 4:
-              this.vendettaCDReduction = 38;
-              break;
-            case 5:
-              this.vendettaCDReduction = 44;
-              break;
-            case 6:
-              this.vendettaCDReduction = 48;
-              break;
-            case 7:
-              this.vendettaCDReduction = 52;
-              break;
-            default:
-              break;
-        }
-      }
-    const cdReduction = this.vendettaCDReduction;
+    }
     return cdReduction;
   }
 }

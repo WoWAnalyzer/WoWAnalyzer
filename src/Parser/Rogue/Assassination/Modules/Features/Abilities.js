@@ -1,7 +1,13 @@
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import MasterAssassin from '../Traits/MasterAssassin';
 
 class Abilities extends CoreAbilities {
+  static dependencies = {
+    masterAssassin: MasterAssassin,
+    combatants: Combatants,
+  }
   spellbook() {
     const combatant = this.combatants.selected;
     return [
@@ -13,7 +19,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.VENDETTA, // TODO: Reduced by Convergence of Fates
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (_, combatant) => 120 - combatant.owner.modules.masterAssassin.traitCooldownReduction,
+        cooldown: 120 - this.masterAssassin.traitCooldownReduction,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 1.0,

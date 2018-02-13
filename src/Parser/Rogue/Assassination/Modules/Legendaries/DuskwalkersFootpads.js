@@ -37,7 +37,11 @@ class DuskwalkersFootpads extends Analyzer {
       this.wastedReduction += spent * VENDETTA_CDR_PER_ENERGY;
     } else {
 
-    this.totalReduction += spent * VENDETTA_CDR_PER_ENERGY;
+    const reduction = spent * VENDETTA_CDR_PER_ENERGY;
+
+    this.spellUsable.reduceCooldown(SPELLS.VENDETTA.id, reduction * 1000);
+
+    this.totalReduction += reduction;
 
     }
   }
