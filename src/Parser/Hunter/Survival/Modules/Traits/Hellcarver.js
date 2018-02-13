@@ -55,6 +55,14 @@ class Hellcarver extends Analyzer {
     }
   }
 
+  get hellcarverRanks() {
+    return this.rank;
+  }
+
+  get hellcarverModifierPrTarget() {
+    return this.rank * HELLCARVER_MODIFIER_PER_RANK;
+  }
+
   get damageContribution() {
     return formatNumber(this.bonusDamage);
   }
