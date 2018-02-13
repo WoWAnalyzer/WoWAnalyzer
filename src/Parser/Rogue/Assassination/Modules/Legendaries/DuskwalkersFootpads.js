@@ -9,7 +9,9 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import SpellLink from 'common/SpellLink';
 
-// Equip: The remaining cooldown on Vendetta is reduced by 1 sec for every 65 Energy you expend.
+/*
+* Equip: The remaining cooldown on Vendetta is reduced by 1 sec for every 65 Energy you expend.
+*/
 
 const VENDETTA_CDR_PER_ENERGY = 1/65;
 
@@ -27,7 +29,8 @@ class DuskwalkersFootpads extends Analyzer {
   }
 
   on_byPlayer_spendresource(event) {
-    if (event.resourceChangeType !== RESOURCE_TYPES.ENERGY.id) {
+    if (event.resourceChangeType !== RESOURCE_TYPES.ENERGY.id
+        || event.ability === SPELLS.FEINT.id) {
       return;
     }
 
@@ -37,11 +40,11 @@ class DuskwalkersFootpads extends Analyzer {
       this.wastedReduction += spent * VENDETTA_CDR_PER_ENERGY;
     } else {
 
-    const reduction = spent * VENDETTA_CDR_PER_ENERGY;
+      const reduction = spent * VENDETTA_CDR_PER_ENERGY;
 
-    this.spellUsable.reduceCooldown(SPELLS.VENDETTA.id, reduction * 1000);
+      this.spellUsable.reduceCooldown(SPELLS.VENDETTA.id, reduction * 1000);
 
-    this.totalReduction += reduction;
+      this.totalReduction += reduction;
 
     }
   }
