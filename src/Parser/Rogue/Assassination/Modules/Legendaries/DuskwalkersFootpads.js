@@ -36,11 +36,12 @@ class DuskwalkersFootpads extends Analyzer {
 
     const spent = event.resourceChange;
 
-    if (!this.spellUsable.isOnCooldown(SPELLS.VENDETTA.id)) {
-      this.wastedReduction += spent * VENDETTA_CDR_PER_ENERGY;
-    } else {
+    const reduction = spent * VENDETTA_CDR_PER_ENERGY;
 
-      const reduction = spent * VENDETTA_CDR_PER_ENERGY;
+
+    if (!this.spellUsable.isOnCooldown(SPELLS.VENDETTA.id)) {
+      this.wastedReduction += reduction;
+    } else {
 
       this.spellUsable.reduceCooldown(SPELLS.VENDETTA.id, reduction * 1000);
 
