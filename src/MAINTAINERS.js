@@ -266,3 +266,7 @@ export const Scaleable = {
   github: 'wkrueger',
   avatar: require('./Images/scaleable-avatar.png'),
 };
+export const Cloake = {
+  nickname: 'Cloake',
+  github: 'adilasif',
+};

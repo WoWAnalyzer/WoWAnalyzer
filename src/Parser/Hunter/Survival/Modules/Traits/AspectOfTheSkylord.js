@@ -35,6 +35,17 @@ class AspectOfTheSkylord extends Analyzer {
     this.damage += getDamageBonus(event, ASPECT_MODIFIER);
   }
 
+  on_byPlayerPet_damage(event) {
+    if (event.targetIsFriendly) {
+      // Friendly fire does not get increased
+      return;
+    }
+    if (!this.combatants.selected.hasBuff(SPELLS.ASPECT_OF_THE_SKYLORD_BUFF.id, event.timestamp)) {
+      return;
+    }
+    this.damage += getDamageBonus(event, ASPECT_MODIFIER);
+  }
+
   subStatistic() {
     return (
       <div className="flex">

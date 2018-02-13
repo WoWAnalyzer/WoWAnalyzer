@@ -15,16 +15,16 @@ class RuneBreakdown extends ResourceBreakdown {
     tracker: PropTypes.object.isRequired,
     showSpenders: PropTypes.bool,
   };
-  
+
   render() {
     const { tracker, showSpenders } = this.props;
-    const resourceName = tracker.resourceName;
+    const resourceName = tracker.resource.name;
     const generated = this.prepareGenerated(tracker.buildersObj);
     const spent = this.prepareSpent(tracker.spendersObj);
 
     let totalGenerated = tracker.generated;
     let totalWasted = tracker.wasted;
-    
+
     let totalSpent = tracker.spent;
     let totalCasts = tracker.spendersCasts;
 
@@ -104,7 +104,7 @@ class RuneBreakdown extends ResourceBreakdown {
               ))}
           </tbody>
         </table>
-        {showSpenders && 
+        {showSpenders &&
         <table className="data-table">
           <thead>
             <tr>

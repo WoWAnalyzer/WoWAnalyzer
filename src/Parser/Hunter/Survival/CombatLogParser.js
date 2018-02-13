@@ -45,7 +45,7 @@ import SerpentSting from './Modules/Talents/SerpentSting';
 import AMurderOfCrows from './Modules/Talents/AMurderOfCrows';
 import DragonsfireGrenade from './Modules/Talents/DragonsfireGrenade';
 import ThrowingAxes from './Modules/Talents/ThrowingAxes';
-import Butchery from './Modules/Talents/ButcheryCarve';
+import ButcheryCarve from './Modules/Talents/ButcheryCarve';
 import MortalWounds from './Modules/Talents/MortalWounds';
 
 //Traits
@@ -109,7 +109,7 @@ class CombatLogParser extends CoreCombatLogParser {
     aMurderOfCrows: AMurderOfCrows,
     dragonsfireGrenade: DragonsfireGrenade,
     throwingAxes: ThrowingAxes,
-    butchery: Butchery,
+    butcheryCarve: ButcheryCarve,
     mortalWounds: MortalWounds,
 
     //Traits
@@ -118,7 +118,6 @@ class CombatLogParser extends CoreCombatLogParser {
     talonBond: TalonBond,
     echoesOfOhnara: EchoesOfOhnara,
     aspectOfTheSkylord: AspectOfTheSkylord,
-    //HJELLLO???
     hellcarver: Hellcarver,
 
     //Traits and Talents list

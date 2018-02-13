@@ -31,6 +31,7 @@ class ButchersBoneApron extends Analyzer {
   bonusDamage = 0;
   totalStacks = 0;
   usedStacks = 0;
+  butcheryCarveCasts = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasChest(ITEMS.BUTCHERS_BONE_APRON.id);
@@ -45,6 +46,7 @@ class ButchersBoneApron extends Analyzer {
     if (spellID === SPELLS.BUTCHERY_TALENT.id || spellID === SPELLS.CARVE.id) {
       this._savedStacks = this._currentStacks;
       this.usedStacks += this._currentStacks;
+      this.butcheryCarveCasts++;
     }
   }
 
@@ -95,19 +97,16 @@ class ButchersBoneApron extends Analyzer {
   get unusedStacks() {
     return this.totalStacks - this.usedStacks - this.wastedStacks;
   }
-  get percentUnusedStacks() {
-    return this.unusedStacks / this.totalStacks;
-  }
 
   get unusedStacksThreshold() {
     return {
-      actual: this.percentUnusedStacks,
+      actual: this.unusedStacks,
       isGreaterThan: {
-        minor: 0,
-        average: 0.05,
-        major: 0.1,
+        minor: 2.9,
+        average: 5.9,
+        major: 8.9,
       },
-      style: 'percentage',
+      style: 'number',
     };
   }
 
@@ -123,25 +122,28 @@ class ButchersBoneApron extends Analyzer {
     };
   }
   suggestions(when) {
+    const spellLinkId = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT.id : SPELLS.CARVE.id;
+
     when(this.cappedStacksThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You lost out on {this.wastedStacks} (or {formatPercentage(this.percentCappedStacks)}% of total stacks) chest stacks because you were capped. You should try and avoid this by casting a <SpellLink id={SPELLS.BUTCHERY_TALENT.id} icon /> when you're at at {MAX_STACKS} stacks. </Wrapper>)
+      return suggest(<Wrapper>You lost out on {this.wastedStacks} (or {formatPercentage(this.percentCappedStacks)}% of total stacks) chest stacks because you were capped. You should try and avoid this by casting a <SpellLink id={spellLinkId} icon /> when you're at {MAX_STACKS} stacks. </Wrapper>)
         .icon(ITEMS.BUTCHERS_BONE_APRON.icon)
         .actual(`${this.wastedStacks} or ${formatPercentage(actual)}% of total stacks were wasted due to overcapping`)
         .recommended(`${recommended}% is recommended`);
     });
-    when(this.unusedStacksThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You finished the encounter with {this.unusedStacks} stacks unused, try and utilise all of your stacks to get the most out of your equipped legendary and <SpellLink id={SPELLS.BUTCHERY_TALENT.id} icon />.</Wrapper>)
+    when(this.unusedStacksThreshold).addSuggestion((suggest, actual) => {
+      return suggest(<Wrapper>You finished the encounter with {this.unusedStacks} stacks unused, try and utilise all of your stacks to get the most out of your equipped legendary and <SpellLink id={spellLinkId} icon />.</Wrapper>)
         .icon(ITEMS.BUTCHERS_BONE_APRON.icon)
-        .actual(`${formatPercentage(actual)}% of total stacks were unused`)
-        .recommended(`${formatPercentage(recommended, 0)}% unused stacks is recommended`);
+        .actual(`${(actual)} stacks were unused`)
+        .recommended(`0 unused stacks is recommended`);
     });
   }
 
   item() {
+    const spellLinkName = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT.name : SPELLS.CARVE.name;
     return {
       item: ITEMS.BUTCHERS_BONE_APRON,
       result: (
-        <dfn data-tip={`You applied the Butchers Bone Apron buff ${(this.totalStacks - this.wastedStacks)} times, and wasted ${this.wastedStacks} stacks by casting Mongoose Bite while you were already at 10 stacks.`}>
+        <dfn data-tip={`You applied the Butchers Bone Apron buff ${(this.totalStacks - this.wastedStacks)} times, and wasted ${this.wastedStacks} stacks by casting Mongoose Bite while you were already at 10 stacks. <br/> You had an average of ${(this.usedStacks / this.butcheryCarveCasts).toFixed(1)} stacks of the Butchers Bone Apron buff when casting ${spellLinkName}.`}>
           <ItemDamageDone amount={this.bonusDamage} />
         </dfn>
       ),

@@ -7,8 +7,9 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import StatisticBox from 'Main/StatisticBox';
-import ITEMS from 'common/ITEMS/HUNTER';
 import Wrapper from 'common/Wrapper';
+import ItemLink from 'common/ItemLink';
+import ITEMS from 'common/ITEMS/HUNTER';
 
 class ButcheryCarve extends Analyzer {
 
@@ -20,13 +21,6 @@ class ButcheryCarve extends Analyzer {
   damageHits = 0;
   casts = 0;
   totalStacksUsed = 0;
-  butcherySelected = false;
-
-  on_initialized() {
-    if (this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id)) {
-      this.butcherySelected = true;
-    }
-  }
 
   get averageTargetsHit() {
     return (this.damageHits / this.casts).toFixed(2);
@@ -36,9 +30,6 @@ class ButcheryCarve extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BUTCHERY_TALENT.id && spellId !== SPELLS.CARVE.id) {
       return;
-    }
-    if (this.combatants.selected.hasBuff(SPELLS.BUTCHERS_BONE_APRON_BUFF.id, event.timestamp)) {
-      this.totalStacksUsed += this.combatants.selected.owner.modules.butchersBoneApron.apronStacks;
     }
     this.casts++;
   }
@@ -67,7 +58,7 @@ class ButcheryCarve extends Analyzer {
   suggestions(when) {
     const spellLink = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
     when(this.averageTargetsThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Your <SpellLink id={spellLink.id} icon /> hit a low amount of targets on average throughout this encounter. Try and position yourself so that you'll hit as many targets as possible with <SpellLink id={spellLink.id} icon />.</Wrapper>)
+      return suggest(<Wrapper>Your <SpellLink id={spellLink.id} icon /> hit a low amount of targets on average throughout this encounter. Try and position yourself so that you'll hit as many targets as possible with <SpellLink id={spellLink.id} icon />. <strong>Note:</strong> that when using <ItemLink id={ITEMS.BUTCHERS_BONE_APRON.id} icon /> it can be worth using <SpellLink id={spellLink.id} icon /> on single-target when at 10 stacks, however it's generally recommended to use a different legendary if possible for largely single-target fights.</Wrapper>)
         .icon(spellLink.icon)
         .actual(`${this.averageTargetsHit} targets hit on averages`)
         .recommended(`>${recommended} targets hit on average is recommended`);
@@ -75,23 +66,21 @@ class ButcheryCarve extends Analyzer {
   }
 
   statistic() {
-    if (this.averageTargetsHit > 0) {
+    if (this.bonusDamage > 0) {
       const spellLink = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
-      let tooltipText = this.combatants.selected.hasChest(ITEMS.BUTCHERS_BONE_APRON.id) ? `You had an average of ${(this.totalStacksUsed / this.casts).toFixed(1)} stacks of the Butchers Bone Apron buff when casting Butchery` : ``;
-      tooltipText += this.combatants.selected.hasChest(ITEMS.BUTCHERS_BONE_APRON.id) && this.combatants.selected.traitsBySpellId[SPELLS.HELLCARVER_TRAIT.id] ? `<br/>` : ``;
-      tooltipText += this.combatants.selected.traitsBySpellId[SPELLS.HELLCARVER_TRAIT.id] ? `Hellcarver contributed with ${this.combatants.selected.owner.modules.hellcarver.damageContribution} of the damage that ${spellLink.name} dealt.` : ``;
       return (
         <StatisticBox
           icon={<SpellIcon id={spellLink.id} />}
           value={this.averageTargetsHit}
           label="Average targets hit"
-          tooltip={tooltipText} />
+
+        />
       );
     }
   }
 
   subStatistic() {
-    if (this.averageTargetsHit > 0) {
+    if (this.bonusDamage > 0) {
       const spellLink = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
       return (
         <div className="flex">

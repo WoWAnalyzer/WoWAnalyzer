@@ -17,11 +17,11 @@ class EnergyDetails extends Analyzer {
     const energyWasted = this.energyTracker.wasted;
     const pointsWastedPerMinute = (energyWasted / this.owner.fightDuration) * 1000 * 60;
     return (
-      <StatisticBox      
+      <StatisticBox
         icon={<Icon icon="ability_warrior_decisivestrike" alt="Waisted Energy" />}
         value={`${pointsWastedPerMinute.toFixed(2)}`}
         label="Wasted Energy per minute"
-        tooltip={`You waisted a total of ${energyWasted} energy. Some waste is expected due to the random nature of some generation abilities.`}        
+        tooltip={`You wasted a total of ${energyWasted} energy. Some waste is expected due to the random nature of some generation abilities.`}
       />
     );
   }
@@ -34,7 +34,6 @@ class EnergyDetails extends Analyzer {
         <Tab title="Energy usage breakdown">
           <ResourceBreakdown
             tracker={this.energyTracker}
-            resourceName="Energy"
           />
         </Tab>
       ),
