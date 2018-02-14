@@ -66,16 +66,15 @@ class SpinningCraneKick extends Analyzer {
     while (i < this.markoftheCraneTargets.length) {
       // removing expired targets to avoid looking through huge arrays in logs with a lot of targets
       if (event.timestamp - this.markoftheCraneTargets[i].timestamp > 15000) {
-        console.log(this.markoftheCraneTargets.splice(i, 1), "Mark Removed");
+        this.markoftheCraneTargets.splice(i, 1);
       }
       else {
         this.markoftheCraneStacks++;
-        //console.log(this.markoftheCraneTargets[i], "Mark of the Crane found and counted");       
       }
       i++;
     }
-    // TODO: Currently only marking casts with lower DPET than Blackout Kick
-    // Expand to also mark targets with lower DPChi than Blackout Kick
+    // Currently only marking casts with lower DPET than Blackout Kick
+    // TODO: Expand to also mark targets with lower DPChi than Blackout Kick
     if (this.markoftheCraneStacks <= 1) {
       this.badCasts += 1;
     }
@@ -95,6 +94,17 @@ class SpinningCraneKick extends Analyzer {
       this.totalMarksDuringHits += this.markoftheCraneStacks;
       this.lastSpinningCraneKickTick = event.timestamp;
     }
+  }
+
+  suggestions(when) {
+    when(this.badCasts).isGreaterThan(0).addSuggestion(
+      (suggest, actual, recommended) => {
+        return suggest(<span>You have ineffecient casts of <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> </span>)
+        .icon(SPELLS.SPINNING_CRANE_KICK.icon)
+        .actual(`${this.badCasts} Bad Casts`)
+        .recommended("0 Bad Casts are recommended")
+        .regular(3).major(5);
+      });
   }
 
   averageHits() {
