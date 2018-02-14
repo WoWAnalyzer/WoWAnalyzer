@@ -10,7 +10,7 @@ class ResourceBreakdown extends React.Component {
     tracker: PropTypes.object.isRequired,
     showSpenders: PropTypes.bool,
   };
-  
+
   prepareGenerated(buildersObj) {
 		return Object.keys(buildersObj)
 			.map(abilityId => ({
@@ -31,16 +31,16 @@ class ResourceBreakdown extends React.Component {
 			.sort((a,b) => b.spent - a.spent)
 			.filter(ability => ability.spent > 0);
   }
-  
+
   render() {
     const { tracker, showSpenders } = this.props;
-    const resourceName = tracker.resourceName;
+    const resourceName = tracker.resource.name;
     const generated = this.prepareGenerated(tracker.buildersObj);
     const spent = this.prepareSpent(tracker.spendersObj);
 
     let totalGenerated = tracker.generated;
     let totalWasted = tracker.wasted;
-    
+
     let totalSpent = tracker.spent;
     let totalCasts = tracker.spendersCasts;
 
@@ -91,7 +91,7 @@ class ResourceBreakdown extends React.Component {
               ))}
           </tbody>
         </table>
-        {showSpenders && 
+        {showSpenders &&
         <table className="data-table">
           <thead>
             <tr>

@@ -17,8 +17,7 @@ class FuryTracker extends ResourceTracker {
 	totalCooldownReductionWasted = 0;
 
 	on_initialized() {
-		this.resourceType = RESOURCE_TYPES.FURY.id;
-		this.resourceName = 'Fury';
+		this.resource = RESOURCE_TYPES.FURY;
 	}
 
 	getReducedCost(event) {
@@ -27,7 +26,7 @@ class FuryTracker extends ResourceTracker {
 		}
 		let cost = this.getResource(event).cost;
 		const spellId = event.ability.guid;
-		if ((spellId === SPELLS.BLADE_DANCE.id || spellId === SPELLS.DEATH_SWEEP.id) 
+		if ((spellId === SPELLS.BLADE_DANCE.id || spellId === SPELLS.DEATH_SWEEP.id)
 			 && (this.combatants.selected.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_SLAYER.id))) {
 			cost = cost - 20;
 		}
@@ -41,7 +40,7 @@ class FuryTracker extends ResourceTracker {
 		this.reduceCooldown(cost);
 		return cost;
 	}
-	
+
 
 	reduceCooldown(cost) {
 		if(!this.combatants.selected.hasShoulder(ITEMS.DELUSIONS_OF_GRANDEUR.id)){

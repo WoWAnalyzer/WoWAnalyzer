@@ -5,8 +5,8 @@ html {
 body {
   line-height: 1.8;
   font-family: 'Open Sans', 'Century Gothic', sans-serif;
+  font-weight: 200;
   text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
   background: url(./Images/legion-bg.jpg); /* Created by and property of Blizzard Entertainment. source: http://eu.battle.net/wow/en/legion/ */
   color: #fff;
 }
@@ -184,48 +184,21 @@ ul {
 }
 
 /* Components */
-
-.circular-progress-bar {
-  position: relative;
-  display: inline-block;
-  width: 74px;
-  height: 74px;
-  text-align: center;
-  float: left;
-}
-.circular-progress-bar .text {
-  display: inline-block;
-  line-height: 74px;
-  z-index: 2;
-  font-size: 12px;
-}
-.circular-progress-bar canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
+.completeness {
+  font-weight: 600;
 }
 
 .panel {
   width: 100%;
   margin-bottom: 20px;
   position: relative;
-  background: rgba(9, 20, 27, 0.7);
+  background: rgba(10, 10, 10, 0.7);
   border: 1px solid #000;
   border-radius: 5px;
   box-shadow: 0 6px 13px 0 rgba(0,0,0,.2), 0 0 2px rgba(0,0,0,.5);
 }
 .panel:not(.statistic-box) {
   border-top: 4px solid #d84141;
-}
-.panel:not(.statistic-box):before {
-  content: '';
-  position: absolute;
-  top: -4px;
-  height: 4px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  background: url(./Images/border.png);
-  width: 100%;
 }
 .panel-heading {
   padding: 16px 22px 14px;
@@ -238,12 +211,12 @@ ul {
   background: transparent;
 }
 .panel-heading h2 {
-  font-weight: 400;
   opacity: .9;
-  font-variant: small-caps;
-  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 600;
   margin: 0;
-  font-size: 1.2em;
+  font-size: 1em;
 }
 .panel > .panel-body {
   padding: 15px 22px;
@@ -308,15 +281,15 @@ nav {
   width: 100%;
   z-index: 999; /* 1000 is where modals start*/
   line-height: 40px;
-  background: rgba(17, 17, 29, 1);
-  background: linear-gradient(to bottom, rgba(28, 39, 53, 1) 0%, rgba(11, 13, 18, 1) 100%);
+  background: rgba(12, 12, 12, 1);
+  background: linear-gradient(to bottom, rgba(18, 18, 18, 1) 0%, rgba(8, 8, 8, 1) 100%);
   border: 0;
   margin-bottom: 24px;
 }
 .has-report nav {
   /* Reduce opacity by 20% */
-  background: rgba(9, 20, 27, 0.8);
-  background: linear-gradient(to bottom, rgba(14, 34, 41, 0.8) 0%, rgba(11, 13, 18, 0.8) 100%);
+  background: rgba(12, 12, 12, 0.8);
+  background: linear-gradient(to bottom, rgba(18, 18, 18, 0.8) 0%, rgba(8, 8, 8, 0.8) 100%);
 }
 body {
   padding-top: 48px;
@@ -387,19 +360,17 @@ nav .container {
   width: 700px;
   z-index: 10;
   max-width: calc(100vw - 45px);
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  white-space: normal; /* menu-items have this set to nowrap */
 }
 .selectorHeader .panel {
-  background: rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.95);
 }
 nav .selectorHeader a {
   color: #e45a5a;
   display: inline;
   padding: 0;
-}
-@media (min-width: 1200px) {
-  nav .selectorHeader {
-    font-size: 0.8em;
-  }
 }
 
 /* Mobile nav bar */
@@ -456,7 +427,7 @@ svg {
   fill: currentColor;
   stroke: currentColor;
   vertical-align: middle;
-  margin-top: -0.2em;
+  margin-top: -0.15em;
 }
 img.icon {
   height: 1.2em;
@@ -601,29 +572,19 @@ dfn[data-tip] {
   height: 100px;
   background-color: #e45a5a;
 
-  margin: 150px auto;
-  -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+  margin: 0 auto;
   animation: sk-rotateplane 1.2s infinite ease-in-out;
-}
-
-@-webkit-keyframes sk-rotateplane {
-  0% { -webkit-transform: perspective(120px) }
-  50% { -webkit-transform: perspective(120px) rotateY(180deg) }
-  100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
 }
 
 @keyframes sk-rotateplane {
   0% {
     transform: perspective(120px) rotateX(0deg) rotateY(0deg);
-    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
   }
   50% {
     transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
-    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
   }
   100% {
     transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
-    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
   }
 }
 

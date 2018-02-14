@@ -1,128 +1,54 @@
-import Analyzer from 'Parser/Core/Analyzer';
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import Combatants from 'Parser/Core/Modules/Combatants';
-
 import SPELLS from 'common/SPELLS';
 
-class ComboPointTracker extends Analyzer {
+import ResourceTracker from 'Parser/Core/Modules/ResourceTracker/ResourceTracker';
+
+class ComboPointTracker extends ResourceTracker {
   static dependencies = {
     combatants: Combatants,
   };
 
-  pointsGained = 0;
-  pointsWasted = 0;
-  pointsSpent = 0;
-  currentPoints = 0;
-  maxCPCasts = 0;
-  totalCasts = 0;
-  maxPoints = 5;
-
-  // stores number of points gained/spent/wasted per ability ID
-  gained = {};
-  spent = {};
-  wasted = {};
-  casts = {};
-
-  static POINT_GENERATING_ABILITIES = [
-    SPELLS.SHRED.id,
-    SPELLS.RAKE.id,
-    SPELLS.THRASH_FERAL.id,
-    SPELLS.PRIMAL_FURY.id,
-    SPELLS.ASHAMANES_FRENZY.id,
-  ];
-
-  static POINT_SPENDING_ABILITIES = [
-    SPELLS.RIP.id,
-    SPELLS.MAIM.id,
-    SPELLS.FEROCIOUS_BITE.id,
-  ];
+  castToMaxCpTimestamp;
 
   on_initialized() {
-    const combatant = this.combatants.selected;
+    this.resource = RESOURCE_TYPES.COMBO_POINTS;
 
-    if (combatant.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id)) {
-      this.constructor.POINT_GENERATING_ABILITIES.push(SPELLS.LUNAR_INSPIRATION_TALENT.id);
-    }
-    if (combatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id)) {
-      this.constructor.POINT_GENERATING_ABILITIES.push(SPELLS.BRUTAL_SLASH_TALENT.id);
-    } else {
-      this.constructor.POINT_GENERATING_ABILITIES.push(SPELLS.CAT_SWIPE.id);
-    }
-    if (combatant.hasTalent(SPELLS.SAVAGE_ROAR_TALENT.id)) {
-      this.constructor.POINT_SPENDING_ABILITIES.push(SPELLS.SAVAGE_ROAR_TALENT.id);
-    }
-
-    // initialize abilties
-    this.constructor.POINT_GENERATING_ABILITIES.forEach((x) => {
-      this.gained[x] = { points: 0 };
-      this.wasted[x] = { points: 0 };
-    });
-    this.constructor.POINT_SPENDING_ABILITIES.forEach(x => {
-      this.spent[x] = { points: 0 };
-      this.casts[x] = { total: 0, maxCP: 0 };
-    });
-  }
-
-  on_toPlayer_energize(event) {
-    const spellId = event.ability.guid;
-    const waste = event.waste;
-    const gain = event.resourceChange - waste;
-
-    if (this.constructor.POINT_GENERATING_ABILITIES.indexOf(spellId) === -1) {
-      return;
-    }
-
-    if (waste !== 0) {
-      this.wasted[spellId].points += waste;
-      this.pointsWasted += waste;
-    }
-    if (gain !== 0) {
-      this.gained[spellId].points += gain;
-      this.pointsGained += gain;
-      this.currentPoints += gain;
-    }
+    this.maxResource = 5;
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
     // some point generating spells do not have energize events so they are handled here
-    if (spellId === SPELLS.THRASH_FERAL.id || spellId === SPELLS.BRUTAL_SLASH_TALENT.id) {
-      this.processNonEnergizeCast(spellId);
+    if ([SPELLS.THRASH_FERAL.id, SPELLS.CAT_SWIPE.id, SPELLS.BRUTAL_SLASH_TALENT.id].includes(spellId)) {
+      this.processInvisibleEnergize(spellId, 1);
     }
-    if (this.constructor.POINT_SPENDING_ABILITIES.indexOf(spellId) === -1) {
+
+    // set bonus can proc "free Ferocious Bite that counts as if it spent the full 5 CPs"
+    // the energy cost is properly missing from the cast, but the CP cost shows very strangely. (amount: x, max: 5, cost: 5) where x is the amount of CPs you had on cast.
+    // Returning before this CP cost can be processed to avoid messing up the results
+    if (spellId === SPELLS.FEROCIOUS_BITE.id && !event.classResources.find(res => res.type === RESOURCE_TYPES.ENERGY.id)) {
       return;
     }
-    // checking for free no CP procs, classResources seems to be the only difference
-    if (!event.classResources[1]) {
 
-    } else if (event.classResources[1].amount) {
-      this.processPointSpenders(event, spellId);
-    }
+    super.on_byPlayer_cast(event);
   }
 
-  processNonEnergizeCast(spellId) {
-    if (this.currentPoints === this.maxPoints) {
-      this.wasted[spellId].points += 1;
-      this.pointsWasted += 1;
-    } else {
-      this.gained[spellId].points += 1;
-      this.pointsGained += 1;
-    }
-  }
+  on_toPlayer_energize(event) {
+    const spellId = event.ability.guid;
 
-  processPointSpenders(event, spellId) {
-    // each finisher uses all available points, varying from 1 to 5
-    const pointsInCast = event.classResources[1].amount;
+    const notMaxBefore = this.current !== this.maxResource;
+    super.on_toPlayer_energize(event);
+    const maxAfter = this.current === this.maxResource;
 
-    this.spent[spellId].points += pointsInCast;
-    this.pointsSpent += pointsInCast;
-    if (pointsInCast === 5){
-      this.casts[spellId].maxCP += 1;
-      this.maxCPCasts += 1;
+    // we don't want to count primal fury procs that happen right after a cast that brought us to max CP to count as waste, because it wasn't controlled.
+    // procced Primal Fury appears to always appear after the energize that procced it, and always on the same timestamp
+    if (notMaxBefore && maxAfter) {
+      this.castToMaxCpTimestamp = event.timestamp;
+    } else if (spellId === SPELLS.PRIMAL_FURY.id && event.timestamp === this.castToMaxCpTimestamp) {
+      this.buildersObj[SPELLS.PRIMAL_FURY.id].wasted -= 1;
     }
-    this.casts[spellId].total += 1;
-    this.totalCasts += 1;
-    this.currentPoints = 0;
   }
 }
 

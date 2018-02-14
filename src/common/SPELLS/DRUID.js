@@ -252,6 +252,13 @@ export default {
     name: 'Soul of the Forest',
     icon: 'ability_druid_manatree',
   },
+  // This buff indicates if the player is ABLE to assume Incarnation: Tree of Life form.
+  // Actually BEING in the form is indicated by the INCARNATION_TREE_OF_LIFE_TALENT id.
+  INCARNATION_TOL_ALLOWED: {
+    id: 117679,
+    name: 'Incarnation',
+    icon: 'spell_druid_incarnation',
+  },
 
   // Sets/Items:
   // Hidden buffs that indicate set is equipped:
@@ -745,11 +752,6 @@ export default {
     name: 'Skull Bash',
     icon: 'inv_bone_skull_04',
   },
-  SHADOWMELD: {
-    id: 58984,
-    name: 'Shadowmeld',
-    icon: 'ability_ambush',
-  },
   ASHAMANES_FRENZY: {
     id: 210722,
     name: 'Ashamane\'s Frenzy',
@@ -779,6 +781,11 @@ export default {
     id: 106830,
     name: 'Thrash',
     icon: 'spell_druid_thrash',
+  },
+  BERSERK: {
+    id: 106951,
+    name: 'Berserk',
+    icon: 'ability_druid_berserk',
   },
   // Traits:
   // The Ashamane's Bite trait creates the Ashamane's Rip debuff.

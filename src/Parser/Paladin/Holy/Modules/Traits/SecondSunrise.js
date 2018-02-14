@@ -7,12 +7,15 @@ import { formatPercentage, formatThousands } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import LightOfDawnIndexer from '../PaladinCore/LightOfDawnIndexer';
 
 /**
  * Second Sunrise does not cause any special events aside from additional Light of Dawn heals. These heals occur after a static amount of time, this looks to be about 700ms. Initial LoD heals always occur within 100ms, so this is a save middle where the SS delay is more likely to vary than the initial heal delay.
+ * An exception to the 300ms delay: report/XdVPajNB8vpJkyCF/16-Mythic+Antoran+High+Command+-+Kill+(7:17)/177/events. This is handled by also looking at the amount of heals since the last cast, if more than max per cast it will also be from SS.
  */
 const SECOND_SUNRISE_MINIMAL_DELAY = 300;
 const SECOND_SUNRISE_PROC_CHANCE = 0.05;
+const LIGHT_OF_DAWN_MAX_PEOPLE_HEALED = 5;
 
 /**
  * Second Sunrise (Artifact Trait)
@@ -21,6 +24,7 @@ const SECOND_SUNRISE_PROC_CHANCE = 0.05;
 class SecondSunrise extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    lightOfDawnIndexer: LightOfDawnIndexer, // for the heal event index
   };
 
   rank = 0;
@@ -36,35 +40,40 @@ class SecondSunrise extends Analyzer {
     this.active = this.rank > 0;
   }
 
-  _lastCast = null;
+  _lastCastTimestamp = null;
   _pendingProcRecording = false;
   on_byPlayer_cast(event) {
     if (event.ability.guid !== SPELLS.LIGHT_OF_DAWN_CAST.id) {
       return;
     }
-    this._lastCast = event.timestamp;
+    this._lastCastTimestamp = event.timestamp;
     this._pendingProcRecording = true;
   }
   on_byPlayer_heal(event) {
-    if (event.ability.guid !== SPELLS.LIGHT_OF_DAWN_HEAL.id || this._lastCast === null) {
+    if (event.ability.guid !== SPELLS.LIGHT_OF_DAWN_HEAL.id) {
       return;
     }
-    const timeSinceLastCast = event.timestamp - this._lastCast;
-    if (timeSinceLastCast > SECOND_SUNRISE_MINIMAL_DELAY) {
+    if (this._lastCastTimestamp === null) {
+      console.warn('Seeing a LoD heal without a cast, something weird must have happened. Prepull LoD?');
+      return;
+    }
+    const timeSinceLastCast = event.timestamp - this._lastCastTimestamp;
+    if (timeSinceLastCast > SECOND_SUNRISE_MINIMAL_DELAY || event.lightOfDawnHealIndex >= LIGHT_OF_DAWN_MAX_PEOPLE_HEALED) {
+      // We're also counting heals since the heals can sometimes occur within the minimal delay, probably due to latency issues, as seen here: report/XdVPajNB8vpJkyCF/16-Mythic+Antoran+High+Command+-+Kill+(7:17)/177/events (100ms)
       if (this._pendingProcRecording) {
         this.procs += 1;
         this._pendingProcRecording = false;
       }
-      this.healing += (event.amount + (event.absorbed || 0));
+      this.healing += event.amount + (event.absorbed || 0);
     }
   }
   on_beacon_heal(beaconTransferEvent, healEvent) {
     if (healEvent.ability.guid !== SPELLS.LIGHT_OF_DAWN_HEAL.id) {
       return;
     }
-    const timeSinceLastCast = healEvent.timestamp - this._lastCast;
-    if (timeSinceLastCast > SECOND_SUNRISE_MINIMAL_DELAY) {
-      this.healing += (beaconTransferEvent.amount + (beaconTransferEvent.absorbed || 0));
+    const timeSinceLastCast = healEvent.timestamp - this._lastCastTimestamp;
+    if (timeSinceLastCast > SECOND_SUNRISE_MINIMAL_DELAY || healEvent.lightOfDawnHealIndex >= LIGHT_OF_DAWN_MAX_PEOPLE_HEALED) {
+      this.healing += beaconTransferEvent.amount + (beaconTransferEvent.absorbed || 0);
     }
   }
 

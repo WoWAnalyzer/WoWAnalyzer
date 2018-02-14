@@ -1,7 +1,8 @@
-import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
+import HIT_TYPES from 'Parser/Core/HIT_TYPES';
+import StatTracker from 'Parser/Core/Modules/StatTracker';
+
 import BlackoutCombo from './BlackoutCombo';
 import SharedBrews from '../Core/SharedBrews';
 
@@ -12,9 +13,9 @@ const FACE_PALM_REDUCTION = 1000;
 
 class TigerPalm extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     boc: BlackoutCombo,
     brews: SharedBrews,
+    statTracker: StatTracker,
   };
 
   totalCasts = 0;
@@ -38,28 +39,28 @@ class TigerPalm extends Analyzer {
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if(SPELLS.BLACKOUT_COMBO_BUFF.id === spellId) {
+    if (SPELLS.BLACKOUT_COMBO_BUFF.id === spellId) {
       this.bocBuffActive = true;
     }
   }
 
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
-    if(SPELLS.BLACKOUT_COMBO_BUFF.id === spellId) {
+    if (SPELLS.BLACKOUT_COMBO_BUFF.id === spellId) {
       this.bocBuffActive = true;
     }
   }
 
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
-    if(SPELLS.BLACKOUT_COMBO_BUFF.id === spellId) {
+    if (SPELLS.BLACKOUT_COMBO_BUFF.id === spellId) {
       this.bocBuffActive = false;
     }
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if(SPELLS.TIGER_PALM.id === spellId) {
+    if (SPELLS.TIGER_PALM.id === spellId) {
       this.totalCasts += 1;
       this.bocApplyToTP = this.bocBuffActive;
     }
@@ -67,25 +68,25 @@ class TigerPalm extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if(SPELLS.TIGER_PALM.id === spellId) {
+    if (SPELLS.TIGER_PALM.id === spellId) {
       // OK SO we have a hit, lets reduce the CD by the base amount...
       const actualReduction = this.brews.reduceCooldown(TIGER_PALM_REDUCTION);
       this.cdr += actualReduction;
       this.wastedCDR += TIGER_PALM_REDUCTION - actualReduction;
 
-      if(this._facePalmProc(event)) {
+      if (this._facePalmProc(event)) {
         // BUT this is also FACE PALM so we reduce it by an extra amount
         // too!
         const actualFpReduction = this.brews.reduceCooldown(FACE_PALM_REDUCTION);
         this.fpCDR += actualFpReduction;
         this.wastedFpCDR += FACE_PALM_REDUCTION - actualFpReduction;
-        if(this.bocApplyToTP) {
+        if (this.bocApplyToTP) {
           this.bocFpHits += 1;
         } else {
           this.fpHits += 1;
         }
       } else {
-        if(this.bocApplyToTP) {
+        if (this.bocApplyToTP) {
           this.bocHits += 1;
         } else {
           this.normalHits += 1;
@@ -109,8 +110,8 @@ class TigerPalm extends Analyzer {
   // cutoff. anything >= the cut-off is FP, and anything < the cut-off
   // is non-FP
   _facePalmProc(event) {
-    let normalDamage = this.lastAttackPower * FACE_PALM_AP_RATIO * (1.0 + this.combatants.selected.versatilityPercentage);
-    if(this.bocApplyToTP) {
+    let normalDamage = this.lastAttackPower * FACE_PALM_AP_RATIO * (1.0 + this.statTracker.currentVersatilityPercentage);
+    if (this.bocApplyToTP) {
       normalDamage *= 3;
     }
     const critDamage = normalDamage * 2;
