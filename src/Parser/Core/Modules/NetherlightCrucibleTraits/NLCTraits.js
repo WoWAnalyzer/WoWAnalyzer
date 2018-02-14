@@ -3,6 +3,7 @@ import React from 'react';
 import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
+import Concordance from 'Parser/Core/Modules/Spells/Concordance';
 
 import MurderousIntent from './MurderousIntent';
 import RefractiveShell from './RefractiveShell';
@@ -16,7 +17,6 @@ import TormentTheWeak from './TormentTheWeak';
 import DarkSorrows from './DarkSorrows';
 import MasterOfShadows from './MasterOfShadows';
 import LightSpeed from './LightSpeed';
-import Concordance from 'Parser/Core/Modules/Spells/Concordance';
 
 class NLCTraits extends Analyzer {
   static dependencies = {
