@@ -12,7 +12,7 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import BloodPlagueUptime from './Modules/Features/BloodPlagueUptime';
 import BoneShieldUptime from './Modules/Features/BoneShieldUptime';
 import OssuaryUptime from './Modules/Features/OssuaryUptime';
-import WastedDeathAndDecay from './Modules/Features/WastedDeathAndDecay';
+import CrimsonScourge from './Modules/Features/CrimsonScourge';
 import BlooddrinkerTicks from './Modules/Features/BlooddrinkerTicks';
 import UnendingThirstTracker from './Modules/Features/UnendingThirstTracker';
 
@@ -48,7 +48,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     boneShieldUptime: BoneShieldUptime,
     ossuaryUptime: OssuaryUptime,
-    wastedDeathAndDecay: WastedDeathAndDecay,
+    crimsonScourge: CrimsonScourge,
     blooddrinkerTicks: BlooddrinkerTicks,
     unendingThirstTracker:UnendingThirstTracker,
     checklist: Checklist,
