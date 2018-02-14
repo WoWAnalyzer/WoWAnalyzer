@@ -37,7 +37,9 @@ class MurderousIntent extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {formatNumber(averageVersatilityGained)} avg. vers gained
+          <dfn data-tip={`${this.traitLevel} ${this.traitLevel > 1 ? `traits` : `trait`}`}>
+            {formatNumber(averageVersatilityGained)} avg. vers gained
+          </dfn>
         </div>
       </div>
     );

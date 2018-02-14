@@ -20,19 +20,20 @@ class DarkSorrows extends Analyzer {
   damage = 0;
 
   on_initialized() {
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.DARK_SORROWS_TRAIT.id] > 0;
+    this.traitLevel = this.combatants.selected.traitsBySpellId[SPELLS.DARK_SORROWS_TRAIT.id];
+    this.active = this.traitLevel > 0;
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
 
-    if (spellId !== SPELLS.DARK_SORROWS_DAMAGE.id){
+    if (spellId !== SPELLS.DARK_SORROWS_DAMAGE.id) {
       return;
     }
 
     this.damage += (event.amount || 0) + (event.absorbed || 0) + (event.overkill || 0);
   }
-  
+
   subStatistic() {
     return (
       <div className="flex">
@@ -42,7 +43,9 @@ class DarkSorrows extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-        {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % damage
+          <dfn data-tip={`${this.traitLevel} ${this.traitLevel > 1 ? `traits` : `trait`}`}>
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % damage
+          </dfn>
         </div>
       </div>
     );

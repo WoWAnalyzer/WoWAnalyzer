@@ -36,9 +36,11 @@ class MasterOfShadows extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {formatNumber(this.traitLevel * MASTERY_AMOUNT)} mastery gained
-          <br />
-          {formatNumber(this.traitLevel * AVOIDANCE_AMOUNT)} avoidance gained
+          <dfn data-tip={`${this.traitLevel} ${this.traitLevel > 1 ? `traits` : `trait`}`}>
+            {formatNumber(this.traitLevel * MASTERY_AMOUNT)} mastery gained
+            <br />
+            {formatNumber(this.traitLevel * AVOIDANCE_AMOUNT)} avoidance gained
+          </dfn>
         </div>
       </div>
     );

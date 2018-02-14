@@ -16,9 +16,11 @@ import TormentTheWeak from './TormentTheWeak';
 import DarkSorrows from './DarkSorrows';
 import MasterOfShadows from './MasterOfShadows';
 import LightSpeed from './LightSpeed';
+import Concordance from 'Parser/Core/Modules/Spells/Concordance';
 
 class NLCTraits extends Analyzer {
   static dependencies = {
+    concordance: Concordance,
     murderousIntent: MurderousIntent,
     refractiveShell: RefractiveShell,
     shocklight: Shocklight,
@@ -43,9 +45,10 @@ class NLCTraits extends Analyzer {
   statistic() {
     return (
       <StatisticsListBox
-        title="Netherlight Crucible"
-        tooltip="This provides an overview of the benefits provided by the Netherlight Crucible traits."
+        title="Concordance and NLC"
+        tooltip="This provides an overview of the benefits provided by Concordance of the Legionfall and the Netherlight Crucible traits."
       >
+        {this.concordance.active && this.concordance.subStatistic()}
         {this.murderousIntent.active && this.murderousIntent.subStatistic()}
         {this.shocklight.active && this.shocklight.subStatistic()}
         {this.refractiveShell.active && this.refractiveShell.subStatistic()}

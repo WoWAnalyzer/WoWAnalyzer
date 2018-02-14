@@ -5,9 +5,10 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
 import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
+import SpellLink from 'common/SpellLink';
 
 const debug = false;
 const CONCORDANCE_SPELLS = {
@@ -22,6 +23,9 @@ class Concordance extends Analyzer {
     combatants: Combatants,
   };
 
+  on_initialized() {
+    this.active = this.rank > 0;
+  }
   get rank() {
     return this.combatants.selected.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id];
   }
@@ -40,25 +44,28 @@ class Concordance extends Analyzer {
 
     return buff;
   }
-
-  statistic() {
+  subStatistic() {
     if (!this.appliedBuff) {
       return;
     }
-
     if (debug) {
       console.log("Concordance: Rank", this.rank, "; Uptime: ", this.appliedBuff.uptime);
     }
     return (
-      <SmallStatisticBox
-        icon={<SpellIcon id={this.appliedBuff.id} />}
-        value={`${formatPercentage(this.appliedBuff.uptime)} %`}
-        label="Concordance uptime"
-        tooltip={`Rank ${this.rank}`}
-      />
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={this.appliedBuff.id}>
+            <SpellIcon id={this.appliedBuff.id} noLink /> Concordance
+          </SpellLink>
+        </div>
+        <div className="flex-sub text-right">
+          <dfn data-tip={`Rank ${this.rank}`}>
+            {formatPercentage(this.appliedBuff.uptime)}% uptime
+          </dfn>
+        </div>
+      </div>
     );
   }
-  statisticOrder = STATISTIC_ORDER.UNIMPORTANT();
 }
 
 export default Concordance;
