@@ -2,9 +2,10 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
-import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
+import StatisticsListBox from 'Main/StatisticsListBox';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
@@ -20,7 +21,7 @@ class SpinningCraneKick extends Analyzer {
   spinningCraneKickHits = 0;
   totalMarksDuringHits = 0;
   markoftheCraneStacks = 0;
-  spinningCraneKickDuration = 15000;
+  spinningCraneKickDuration = 1500;
 
   on_byPlayer_applydebuff(event) {
     const spellId = event.ability.guid;
@@ -73,7 +74,8 @@ class SpinningCraneKick extends Analyzer {
       }
       i++;
     }
-    // TODO: Expand this to also check for targets hit
+    // TODO: Currently only marking casts with lower DPET than Blackout Kick
+    // Expand to also mark targets with lower DPChi than Blackout Kick
     if (this.markoftheCraneStacks <= 1) {
       this.badCasts += 1;
     }
@@ -100,8 +102,6 @@ class SpinningCraneKick extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellIcon id={SPELLS.SPINNING_CRANE_KICK.id} />
-          &nbsp;
           <dfn data-tip={`Spinning Crane Kick hits all nearby enemies 4 times over 1.5 seconds`}>
              	Average hits
             </dfn>
@@ -118,8 +118,6 @@ class SpinningCraneKick extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellIcon id={SPELLS.MARK_OF_THE_CRANE.id} />
-          &nbsp;
           <dfn data-tip={`You had an average of ${averageMarks.toFixed(2)} Mark of the Crane stacks while hitting enemies with Spinning Crane Kick`}>
             Average marks
             </dfn>
@@ -135,7 +133,9 @@ class SpinningCraneKick extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-             Bad casts         
+          <dfn data-tip={`Bad casts is currently only counting casts with lower DPET (Damage Per Execute Time) than Blackout Kick.`}>
+            Bad casts
+            </dfn>
         </div>
         <div className="flex-sub text-right">
           {this.badCasts}
@@ -145,20 +145,24 @@ class SpinningCraneKick extends Analyzer {
   }
 
   statistic() {
-    // TODO: only show the statistic if Spinning Crane Kick was actually cast during the fight
-    return (
-      <StatisticsListBox
-        title={`${<SpellIcon id={SPELLS.SPINNING_CRANE_KICK.id}> </SpellIcon>} Spinning Crane Kick`}
-        tooltip=""
-        style={{ minHeight: 150 }}
-       >
-         {this.averageMarks()}
-         {this.averageHits()}
-         {this.badCastsStatistic()}
-      </StatisticsListBox>
-    );  
+    if (this.abilityTracker.getAbility(SPELLS.SPINNING_CRANE_KICK.id).casts > 0) {
+      return (
+        <StatisticsListBox
+          title={
+            <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id}>
+              <SpellIcon id={SPELLS.SPINNING_CRANE_KICK.id} noLink /> Spinning Crane Kick
+          </SpellLink>
+          }
+          tooltip=""
+          style={{ minHeight: 150 }}
+        >
+          {this.averageMarks()}
+          {this.averageHits()}
+          {this.badCastsStatistic()}
+        </StatisticsListBox>
+      );
+    }
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(4);
 }
 
 export default SpinningCraneKick;
