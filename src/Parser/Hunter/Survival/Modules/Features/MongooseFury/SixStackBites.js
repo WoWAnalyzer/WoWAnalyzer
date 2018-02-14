@@ -16,6 +16,10 @@ class SixStackBites extends Analyzer {
   sixBiteWindowBites = 0;
   totalBites = 0;
 
+  get currentMFStacks() {
+    return this._currentStacks;
+  }
+
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.MONGOOSE_FURY.id) {
@@ -31,7 +35,7 @@ class SixStackBites extends Analyzer {
       return;
     }
     this._currentStacks = event.stack;
-    if (this._currentStacks === MAX_STACKS) {
+    if (this.currentMFStacks === MAX_STACKS) {
       this.sixBiteWindows++;
     }
   }
@@ -50,7 +54,7 @@ class SixStackBites extends Analyzer {
       return;
     }
     this.totalBites++;
-    if (this._currentStacks === MAX_STACKS) {
+    if (this.currentMFStacks === MAX_STACKS) {
       this.sixBiteWindowBites += 1;
     }
   }

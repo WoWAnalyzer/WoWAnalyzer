@@ -49,6 +49,7 @@ import ButcheryCarve from './Modules/Talents/ButcheryCarve';
 import MortalWounds from './Modules/Talents/MortalWounds';
 
 //Traits
+import FuryOfTheEagle from './Modules/Traits/FuryOfTheEagle'; //artifact ability
 import EaglesBite from './Modules/Traits/EaglesBite';
 import TalonStrike from './Modules/Traits/TalonStrike';
 import TalonBond from './Modules/Traits/TalonBond';
@@ -112,6 +113,7 @@ class CombatLogParser extends CoreCombatLogParser {
     mortalWounds: MortalWounds,
 
     //Traits
+    furyOfTheEagle: FuryOfTheEagle,
     eaglesBite: EaglesBite,
     talonStrike: TalonStrike,
     talonBond: TalonBond,
