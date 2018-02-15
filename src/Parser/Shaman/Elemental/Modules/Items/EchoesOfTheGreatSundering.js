@@ -8,23 +8,34 @@ import ItemIcon from 'common/ItemIcon';
 import ItemLink from 'common/ItemLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
+import {formatPercentage} from 'common/format';
+import { ECHOES, CRIT_MULTIPLIER } from '../../Constants.js';
 
 class EchoesOfTheGreatSundering extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
 
-  buffedEarthquakeCasts = 0;
   echoesProcsCounter = 0;
   unbuffedEarthquakeDamage = 0;
   buffedEarthquakeDamage = 0;
-  totalEarthquakeCasts = 0;
 
-  state = 0;
+  unbuffedTickCounter = 0;
+  buffedTickCounter = 0;
+  buffedCastCounter=0;
+
+  state = 0;  //0=guaranteed not buffed; 1=guaranteed buffed; 2=not too sure(use heuristic)
   endtime = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasShoulder(ITEMS.ECHOES_OF_THE_GREAT_SUNDERING.id);
+  }
+
+  on_byPlayer_applybuff(event) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.ECHOES_OF_THE_GREAT_SUNDERING_BUFF.id) {
+      this.echoesProcsCounter += 1;
+    }
   }
 
   on_byPlayer_cast(event) {
@@ -33,11 +44,15 @@ class EchoesOfTheGreatSundering extends Analyzer {
       return;
 
     if (this.combatants.selected.hasBuff(SPELLS.ECHOES_OF_THE_GREAT_SUNDERING_BUFF.id, event.timestamp)) {
-      this.endtime = event.timestamp + 6000 + 150; //timestamp+duration+buffer; buffer can be as big as necessary but let's try 150
+      this.buffedCastCounter++;
+      this.endtime = event.timestamp + ECHOES.PROC_DURATION + ECHOES.LAG_TOLERANCE;
       this.state = 1;
     }
-    else if (this.timestamp < this.endtime)
-      this.state = 2;
+    else {
+      if (this.timestamp < this.endtime) {
+        this.state = 2;
+      }
+    }
   }
 
   on_byPlayer_damage(event) {
@@ -48,25 +63,36 @@ class EchoesOfTheGreatSundering extends Analyzer {
     if (spellId !== SPELLS.EARTHQUAKE_DAMAGE.id)
       return;
 
-    const critMultiplier = (event.hitType === HIT_TYPES.CRIT) ? 2 : 1;
-    const normalizedDamage = event.amount / critMultiplier;
+    const critMultiplier = (event.hitType === HIT_TYPES.CRIT) ? CRIT_MULTIPLIER : 1;
+    const baseDamage = event.amount / critMultiplier;
+
     switch (this.state) {
       case 0:
-        this.unbuffedNormalizedEarthquakeDamage += normalizedDamage;
+        this.unbuffedBaseDamage += baseDamage;
+        this.unbuffedTickCounter++;
         break;
       case  1:
         this.buffedEarthquakeDamage += event.amount;
-        this.buffedNormalizedEarthquakeDamage += normalizedDamage;
+        this.buffedBaseDamage += baseDamage;
+        this.buffedTickCounter++;
         break;
       default:
-        if (this.buffedNormalizedEarthquakeDamage !== 0) {
-          if (Math.abs(normalizedDamage / this.buffedNormalizedEarthquakeDamage) < 0.2) {
+        if (this.buffedBaseDamage !== 0 && this.buffedTickCounter > 0) {
+          const averageBuffedBaseDamage = this.buffedBaseDamage / this.buffedTickCounter;
+          if (Math.abs(baseDamage / averageBuffedBaseDamage) < 0.2) {
             this.buffedEarthquakeDamage += event.amount;
+            this.buffedBaseDamage += baseDamage;
+            this.buffedTickCounter++;
+            return;
           }
-          else if (this.unbuffedNormalizedEarthquakeDamage !== 0) {
-            if (Math.abs(normalizedDamage / this.unbuffedNormalizedEarthquakeDamage) > 0.2) {
-              this.buffedEarthquakeDamage += event.amount;
-            }
+        }
+        if (this.unbuffedBaseDamage !== 0 && this.unbuffedTickCounter > 0) {
+          const averageUnbuffedBaseDamage = this.unbuffedBaseDamage / this.unbuffedTickCounter;
+          if (Math.abs(baseDamage / averageUnbuffedBaseDamage) > 0.2) {
+            this.unbuffedEarthquakeDamage += event.amount;
+            this.unbuffedBaseDamage+=baseDamage;
+            this.unbuffedTickCounter++;
+            return;
           }
         }
         break;
@@ -79,7 +105,8 @@ class EchoesOfTheGreatSundering extends Analyzer {
       icon: <ItemIcon id={ITEMS.ECHOES_OF_THE_GREAT_SUNDERING.id} />,
       title: <ItemLink id={ITEMS.ECHOES_OF_THE_GREAT_SUNDERING.id} />,
       result: (
-        <dfn data-tip={``}>
+        <dfn data-tip={`Your utiliziation of Echoes of the Great Sundering :<ul><li> Buffed Earthquakes: ${this.buffedCastCounter}.</li><li>Total procs: ${this.echoesProcsCounter} procs</li></ul>`}>
+          Earthquake procs used: {formatPercentage(this.buffedCastCounter / this.echoesProcsCounter)}%<br />
           <ItemDamageDone amount={this.buffedEarthquakeDamage} />
         </dfn>
       ),
