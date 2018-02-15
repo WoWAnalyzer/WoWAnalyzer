@@ -10,9 +10,10 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 class Abilities extends CoreAbilities {
   static dependencies = {
+    ...CoreAbilities.dependencies,
     quickShot: QuickShot,
-    combatants: Combatants,
   };
+  
   spellbook() {
     return [
       {
