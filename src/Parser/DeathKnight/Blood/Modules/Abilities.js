@@ -114,7 +114,11 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DEATH_AND_DECAY,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
-        //cooldown: 15 leaving it commented out until crimson scourge resets has been added.
+        cooldown: 15,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
       },
 
       {
