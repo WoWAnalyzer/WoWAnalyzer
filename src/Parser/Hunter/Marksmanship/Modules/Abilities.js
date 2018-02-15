@@ -6,14 +6,13 @@ import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 import QuickShot from 'Parser/Hunter/Marksmanship/Modules/Traits/QuickShot';
-import Combatants from 'Parser/Core/Modules/Combatants';
 
 class Abilities extends CoreAbilities {
   static dependencies = {
     ...CoreAbilities.dependencies,
     quickShot: QuickShot,
   };
-  
+
   spellbook() {
     return [
       {
