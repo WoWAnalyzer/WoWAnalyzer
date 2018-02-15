@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -21,9 +20,13 @@ class T21_2P extends Analyzer {
   item() {
     return {
       id: SPELLS.ASSA_ROGUE_T21_2SET_BONUS_BUFF.id,
-      icon: <SpellIcon id={SPELLS.ASSA_ROGUE_T21_2SET_BONUS_BUFF.id} />,
+      icon: <SpellIcon id={SPELLS.ASSA_ROGUE_T21_2SET_BONUS.id} />,
       title: <SpellLink id={SPELLS.ASSA_ROGUE_T21_2SET_BONUS.id} />,
-      result: <Wrapper>Your <SpellLink id={SPELLS.ASSA_ROGUE_T21_2SET_BONUS_BUFF.id} icon /> uptime was {formatPercentage(this.percentUptime)}%.</Wrapper>,
+      result: (
+        <dfn data-tip={`It's worth keeping this in mind and trying to maximize your uptime, but not at the expense of your primary rotation. This should, most of the time, naturally happen in the process of clipping your Envenom debuff.`}>
+          {formatPercentage(this.percentUptime)}% <SpellLink id={SPELLS.ASSA_ROGUE_T21_2SET_BONUS_BUFF.id} icon /> uptime
+        </dfn>
+      ),
     };
   }
 }
