@@ -17,8 +17,9 @@ class EchoesOfTheGreatSundering extends Analyzer {
   };
 
   echoesProcsCounter = 0;
-  unbuffedEarthquakeDamage = 0;
-  buffedEarthquakeDamage = 0;
+  unbuffedBaseDamageSum = 0;
+  buffedBaseDamageSum = 0;
+  buffedEarthquakeDamage=0;
 
   unbuffedTickCounter = 0;
   buffedTickCounter = 0;
@@ -26,6 +27,7 @@ class EchoesOfTheGreatSundering extends Analyzer {
 
   state = 0;  //0=guaranteed not buffed; 1=guaranteed buffed; 2=not too sure(use heuristic)
   endtime = 0;
+
 
   on_initialized() {
     this.active = this.combatants.selected.hasShoulder(ITEMS.ECHOES_OF_THE_GREAT_SUNDERING.id);
@@ -49,7 +51,7 @@ class EchoesOfTheGreatSundering extends Analyzer {
       this.state = 1;
     }
     else {
-      if (this.timestamp < this.endtime) {
+      if (event.timestamp < this.endtime) {
         this.state = 2;
       }
     }
@@ -68,33 +70,37 @@ class EchoesOfTheGreatSundering extends Analyzer {
 
     switch (this.state) {
       case 0:
-        this.unbuffedBaseDamage += baseDamage;
+        this.unbuffedBaseDamageSum += baseDamage;
         this.unbuffedTickCounter++;
         break;
       case  1:
         this.buffedEarthquakeDamage += event.amount;
-        this.buffedBaseDamage += baseDamage;
+        this.buffedBaseDamageSum += baseDamage;
         this.buffedTickCounter++;
         break;
-      default:
-        if (this.buffedBaseDamage !== 0 && this.buffedTickCounter > 0) {
-          const averageBuffedBaseDamage = this.buffedBaseDamage / this.buffedTickCounter;
-          if (Math.abs(baseDamage / averageBuffedBaseDamage) < 0.2) {
+      case 2:
+        if (this.buffedBaseDamageSum !== 0 && this.buffedTickCounter > 0) {
+          const averageBuffedBaseDamage = this.buffedBaseDamageSum / this.buffedTickCounter;
+          if (Math.abs(baseDamage / averageBuffedBaseDamage) < ECHOES.TRESHOLD_PERCENTAGE) {
             this.buffedEarthquakeDamage += event.amount;
-            this.buffedBaseDamage += baseDamage;
+            this.buffedBaseDamageSum += baseDamage;
             this.buffedTickCounter++;
+            console.log(this.buffedBaseDamageSum);
             return;
           }
         }
-        if (this.unbuffedBaseDamage !== 0 && this.unbuffedTickCounter > 0) {
-          const averageUnbuffedBaseDamage = this.unbuffedBaseDamage / this.unbuffedTickCounter;
-          if (Math.abs(baseDamage / averageUnbuffedBaseDamage) > 0.2) {
+        if (this.unbuffedBaseDamageSum !== 0 && this.unbuffedTickCounter > 0) {
+          const averageUnbuffedBaseDamage = this.unbuffedBaseDamageSum / this.unbuffedTickCounter;
+          if (Math.abs(baseDamage / averageUnbuffedBaseDamage) < ECHOES.TRESHOLD_PERCENTAGE) {
             this.unbuffedEarthquakeDamage += event.amount;
-            this.unbuffedBaseDamage+=baseDamage;
+            this.unbuffedBaseDamageSum+=baseDamage;
             this.unbuffedTickCounter++;
+            console.log(this.unbuffedBaseDamageSum);
             return;
           }
         }
+        break;
+      default:
         break;
     }
   }

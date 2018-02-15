@@ -13,6 +13,7 @@ export const ELEMENTAL_BLAST_IDS = [
 export const ECHOES = {
   PROC_DURATION : 6000,
   LAG_TOLERANCE : 150,
+  TRESHOLD_PERCENTAGE : 0.3,
 };
 
 export const CRIT_MULTIPLIER = 2.5;
