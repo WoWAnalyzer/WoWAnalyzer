@@ -10,11 +10,14 @@ import StatisticBox from 'Main/StatisticBox';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS/HUNTER';
+import Hellcarver from 'Parser/Hunter/Survival/Modules/Traits/Hellcarver';
+import { formatPercentage } from 'common/format';
 
 class ButcheryCarve extends Analyzer {
 
   static dependencies = {
     combatants: Combatants,
+    hellcarver: Hellcarver,
   };
 
   bonusDamage = 0;
@@ -68,12 +71,13 @@ class ButcheryCarve extends Analyzer {
   statistic() {
     if (this.bonusDamage > 0) {
       const spellLink = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
+      const tooltipText = this.hellcarver.hellcarverRanks > 0 ? `${this.hellcarver.hellcarverRanks} ranks of Hellcarver increased ${spellLink.name} damage by ${formatPercentage(this.hellcarver.hellcarverModifierPrTarget)}% per additional target hit. <br/> This contributed with ${this.hellcarver.damageContribution} of the total damage that ${spellLink.name} dealt.` : ``;
       return (
         <StatisticBox
           icon={<SpellIcon id={spellLink.id} />}
           value={this.averageTargetsHit}
           label="Average targets hit"
-        />
+          tooltip={tooltipText} />
       );
     }
   }
