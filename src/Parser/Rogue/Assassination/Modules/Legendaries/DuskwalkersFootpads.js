@@ -13,7 +13,7 @@ import SpellLink from 'common/SpellLink';
 * Equip: The remaining cooldown on Vendetta is reduced by 1 sec for every 65 Energy you expend.
 */
 
-const VENDETTA_CDR_PER_ENERGY = 1/65;
+const VENDETTA_CDR_PER_ENERGY = 1 / 65;
 
 class DuskwalkersFootpads extends Analyzer {
   static dependencies = {
@@ -35,9 +35,7 @@ class DuskwalkersFootpads extends Analyzer {
     }
 
     const spent = event.resourceChange;
-
     const reduction = spent * VENDETTA_CDR_PER_ENERGY;
-
 
     if (!this.spellUsable.isOnCooldown(SPELLS.VENDETTA.id)) {
       this.wastedReduction += reduction;
