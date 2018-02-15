@@ -347,7 +347,7 @@ export default {
   ASSA_ROGUE_T21_2SET_BONUS: {
     id: 251776,
     name: 'T21 2 Set Bonus',
-    icon: 'ability_rogue_poisonedknife',
+    icon: 'ability_demonhunter_eyebeam',
   },
   ASSA_ROGUE_T21_2SET_BONUS_BUFF: {
     id: 252277,
