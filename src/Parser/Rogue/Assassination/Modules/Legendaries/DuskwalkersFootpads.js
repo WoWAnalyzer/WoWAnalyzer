@@ -29,23 +29,22 @@ class DuskwalkersFootpads extends Analyzer {
   }
 
   on_byPlayer_spendresource(event) {
-    if (event.resourceChangeType !== RESOURCE_TYPES.ENERGY.id
-        || event.ability.guid === SPELLS.FEINT.id) {
+    if (event.resourceChangeType !== RESOURCE_TYPES.ENERGY.id || event.ability.guid === SPELLS.FEINT.id) {
       return;
     }
 
     const spent = event.resourceChange;
-    const reduction = spent * VENDETTA_CDR_PER_ENERGY;
+    const potentialReduction = spent * VENDETTA_CDR_PER_ENERGY;
 
-    if (!this.spellUsable.isOnCooldown(SPELLS.VENDETTA.id)) {
-      this.wastedReduction += reduction;
+    if (this.spellUsable.isOnCooldown(SPELLS.VENDETTA.id)) {
+      const reduced = this.spellUsable.reduceCooldown(SPELLS.VENDETTA.id, potentialReduction * 1000) / 1000;
+
+      this.totalReduction += reduced;
+      this.wastedReduction += potentialReduction - reduced;
     } else {
-
-      this.spellUsable.reduceCooldown(SPELLS.VENDETTA.id, reduction * 1000);
-
-      this.totalReduction += reduction;
-
+      this.wastedReduction += potentialReduction;
     }
+
   }
 
   item() {
