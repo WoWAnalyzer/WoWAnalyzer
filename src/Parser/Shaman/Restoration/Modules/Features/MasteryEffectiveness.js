@@ -22,16 +22,8 @@ class MasteryEffectiveness extends Analyzer {
   totalMasteryHealing = 0;
   totalMaxPotentialMasteryHealing = 0;
 
-  on_byPlayer_summon(event) {
-    if (event.ability.guid === SPELLS.HEALING_TIDE_TOTEM_CAST.id) {
-      this.httID = event.targetID;
-    } else if (event.ability.guid === SPELLS.HEALING_STREAM_TOTEM_CAST.id) {
-      this.hstID = event.targetID;
-    }
-  }
-
   on_heal(event) {
-    if (this.owner.byPlayer(event) || event.sourceID === this.httID  || event.sourceID === this.hstID) {
+    if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
       const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.indexOf(event.ability.guid) !== -1;
 
       const healingDone = event.amount + (event.absorb || 0) + (event.overheal || 0);
