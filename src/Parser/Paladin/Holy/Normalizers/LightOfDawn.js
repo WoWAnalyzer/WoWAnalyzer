@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import EventsNormalizer from 'Parser/Core/EventsNormalizer';
 
 // the max delay between the heal and cast events never looks to be more than this.
-const MAX_DELAY = 50;
+const MAX_DELAY = 100; // XdVPajNB8vpJkyCF/16-Mythic+Antoran+High+Command+-+Kill+(7:17)/177/events has one of 83ms
 
 class LightOfDawn extends EventsNormalizer {
   /**

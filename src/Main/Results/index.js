@@ -20,6 +20,7 @@ import GithubButton from 'Main/GithubButton';
 import DiscordButton from 'Main/DiscordButton';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Maintainer from 'Main/Maintainer';
+import ActivityIndicator from 'Main/ActivityIndicator';
 
 import ItemsPanel from './ItemsPanel';
 import AboutTab from './AboutTab';
@@ -128,16 +129,12 @@ class Results extends React.Component {
     if (!selectedCombatant) {
       return (
         <div>
-          <h1>
-            <div className="back-button">
-              <Link to={`/report/${report.code}/${fight.id}`} data-tip="Back to player selection">
-                <span className="glyphicon glyphicon-chevron-left" aria-hidden />
-              </Link>
-            </div>
-            Initializing report...
-          </h1>
-
-          <div className="spinner" />
+          <div className="back-button">
+            <Link to={`/report/${report.code}/${fight.id}`} data-tip="Back to player selection">
+              <span className="glyphicon glyphicon-chevron-left" aria-hidden />
+            </Link>
+          </div>
+          <ActivityIndicator text="Fetching players..." />
         </div>
       );
     }
@@ -184,7 +181,7 @@ class Results extends React.Component {
     return (
       <div className="container">
         <div className="results">
-          <Header spec={config.spec} playerName={selectedCombatant.name} boss={parser.boss} fight={fight} />
+          <Header config={config} playerName={selectedCombatant.name} boss={parser.boss} fight={fight} />
 
           {config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED && (
             <Wrapper>

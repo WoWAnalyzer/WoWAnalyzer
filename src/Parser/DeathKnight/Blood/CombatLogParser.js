@@ -4,12 +4,15 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
 import Abilities from './Modules/Abilities';
+import Channeling from './Modules/Core/Channeling';
+import GlobalCooldown from './Modules/Core/GlobalCooldown';
+
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import BloodPlagueUptime from './Modules/Features/BloodPlagueUptime';
 import BoneShieldUptime from './Modules/Features/BoneShieldUptime';
 import OssuaryUptime from './Modules/Features/OssuaryUptime';
-import WastedDeathAndDecay from './Modules/Features/WastedDeathAndDecay';
+import CrimsonScourge from './Modules/Features/CrimsonScourge';
 import BlooddrinkerTicks from './Modules/Features/BlooddrinkerTicks';
 import UnendingThirstTracker from './Modules/Features/UnendingThirstTracker';
 
@@ -25,6 +28,7 @@ import ShacklesofBryndaor from './Modules/Items/ShacklesofBryndaor';
 import SoulflayersCorruption from './Modules/Items/SoulflayersCorruption';
 
 import RuneTracker from '../Shared/RuneTracker';
+import RuneDetails from '../Shared/RuneDetails';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -36,13 +40,15 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // DeathKnight Core
     abilities: Abilities,
+    channeling: Channeling,
+    globalCooldown: GlobalCooldown,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     boneShieldUptime: BoneShieldUptime,
     ossuaryUptime: OssuaryUptime,
-    wastedDeathAndDecay: WastedDeathAndDecay,
+    crimsonScourge: CrimsonScourge,
     blooddrinkerTicks: BlooddrinkerTicks,
     unendingThirstTracker:UnendingThirstTracker,
     checklist: Checklist,
@@ -70,6 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Rune tracker
     runeTracker: RuneTracker,
+    runeDetails: RuneDetails,
   };
 }
 

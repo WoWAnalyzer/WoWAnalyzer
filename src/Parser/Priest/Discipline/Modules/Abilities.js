@@ -1,9 +1,16 @@
 import SPELLS from 'common/SPELLS';
-
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 import calculateMaxCasts from 'Parser/Core/calculateMaxCasts';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import Haste from 'Parser/Core/Modules/Haste';
 
 class Abilities extends CoreAbilities {
+  static dependencies = {
+    ...CoreAbilities.dependencies,
+    combatants: Combatants,
+    haste: Haste,
+  };
+
   spellbook() {
     const combatant = this.combatants.selected;
     return [
@@ -11,11 +18,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.PENANCE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 9,
-        castEfficiency: {
-          suggestion: true,
-          casts: (_, parser) => parser.modules.penance.casts,
-          maxCasts: (cooldown, fightDuration) => calculateMaxCasts(cooldown, fightDuration), // temp until bolts past first can be ignored by cast checker
-        },
       },
       {
         spell: SPELLS.POWER_WORD_RADIANCE,
@@ -62,7 +64,7 @@ class Abilities extends CoreAbilities {
           extraSuggestion: `${SPELLS.POWER_WORD_SHIELD.name} may be cast without cooldown during Rapture.`,
           casts: castCount => castCount.raptureCasts || 0,
           maxCasts: (cooldown, fightDuration, getAbility, parser) => {
-            const gcd = 1.5 / (1 + parser.modules.combatants.selected.hastePercentage);
+            const gcd = 1.5 / (1 + parser.modules.haste.current);
             const timeSpentInRapture = parser.modules.combatants.selected.getBuffUptime(SPELLS.RAPTURE.id);
 
             const maxRaptureCasts = calculateMaxCasts(gcd, timeSpentInRapture);

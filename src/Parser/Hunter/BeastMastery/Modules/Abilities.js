@@ -58,30 +58,32 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DIRE_BEAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 12 / (1 + haste),
-        charges: 2,
         enabled: !this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
         isOnGCD: true,
+        /* -- Commenting out the cooldown of this spell since there is no current way of tracking the resets on it properly
+        cooldown: haste => 12 / (1 + haste),
+        charges: 2,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 1,
-        },
+        },*/
       },
       {
         spell: SPELLS.DIRE_FRENZY_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 12 / (1 + haste),
-        charges: 2,
         enabled: this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
         isOnGCD: true,
+        /* -- Commenting out the cooldown of this spell since there is no current way of tracking the resets on it properly
+        cooldown: haste => 12 / (1 + haste),
+        charges: 2,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 1,
-        },
+        },*/
       },
       {
         spell: SPELLS.MULTISHOT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         isOnGCD: true,
       },
       {

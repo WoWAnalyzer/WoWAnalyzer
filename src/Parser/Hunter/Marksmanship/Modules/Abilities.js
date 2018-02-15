@@ -5,8 +5,14 @@ import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
+import QuickShot from 'Parser/Hunter/Marksmanship/Modules/Traits/QuickShot';
 
 class Abilities extends CoreAbilities {
+  static dependencies = {
+    ...CoreAbilities.dependencies,
+    quickShot: QuickShot,
+  };
+
   spellbook() {
     return [
       {
@@ -36,7 +42,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.MULTISHOT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         isOnGCD: true,
       },
       {
@@ -143,11 +149,11 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.TRUESHOT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (_, combatant) => 180 - combatant.owner.modules.quickShot.traitCooldownReduction,
+        cooldown: 180 - this.quickShot.traitCooldownReduction,
         isOnGCD: false,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 1.0,
+          recommendedEfficiency: 0.95,
         },
       },
       {
@@ -211,7 +217,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: this.combatants.selected.hasWrists(ITEMS.CALL_OF_THE_WILD.id) ? 180 - (180 * 0.35) : 180,
         isOnGCD: false,
       },

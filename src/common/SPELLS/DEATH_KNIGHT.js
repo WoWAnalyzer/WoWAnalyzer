@@ -206,20 +206,25 @@ export default {
     name: 'Howling Blast',
     icon: 'spell_frost_arcticwinds',
   },
-  REMORSELESS_WINTER_ENV_CAST: {
+  REMORSELESS_WINTER_ENV_CAST: { // not actually sure what this does
     id: 211793,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
   },
-  REMORSELESS_WINTER_BUFF: {
+  REMORSELESS_WINTER_DAMAGE: { // every tick puts a cast event on the environment and also the id of the damage event
     id: 196771,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
   },
-  REMORSELESS_WINTER: { // This the spell the player see
+  REMORSELESS_WINTER: { // This the spell the player casts, triggers energize event, also exists as buff on player
     id: 196770,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
+  },
+  GATHERING_STORM_TALENT_BUFF:{
+    id: 211805,
+    name: 'Gathering Storm',
+    icon: 'spell_frost_ice-shards',
   },
   BREATH_OF_SINDRAGOSA_TALENT_DAMAGE_TICK: {
     id: 155166,
@@ -253,6 +258,41 @@ export default {
     name: 'Razorice',
     icon: 'spell_deathknight_frozenruneweapon',
   },
+  RUNIC_EMPOWERMENT: {
+    id: 193486,
+    name: 'Runic Empowerment',
+    icon: 'inv_misc_rune_10',
+  },
+  MURDEROUS_EFFICIENCY: {
+    id: 207062,
+    name: 'Murderous Efficiency',
+    icon: 'spell_frost_frostarmor',
+  },
+  KOLTIRAS_NEWFOUND_WILL: {
+    id: 208783,
+    name: 'Koltira\'s Newfound Will',
+    icon: 'ability_warrior_unrelentingassault',
+  },
+  DRAUGR_GIRDLE_OF_THE_EVERLASTING_KING: {
+    id: 224166,
+    name: 'Draugr, Girdle of the Everlasting King',
+    icon: 'ability_warrior_unrelentingassault',
+  },
+  UVARNIMOR_THE_UNBEATIFUL: {
+    id: 208800,
+    name: 'Uvanimor, the Unbeautiful',
+    icon: 'ability_warrior_unrelentingassault',
+  },
+  SCOURGE_THE_UNBELIEVER: {
+    id: 191492,
+    name: 'Scourge the Unbeliever',
+    icon: 'spell_deathknight_plaguestrike',
+  },
+  PESTILENT_PUSTULES: {
+    id: 220211,
+    name: 'Pestilent Pustules',
+    icon: 'spell_yorsahj_bloodboil_purpleoil',
+  },
 
   // Frost tier 
   // T20 2P
@@ -283,6 +323,11 @@ export default {
     id: 253590,
     name: 'Freezing Death',
     icon: 'ability_deathknight_chillstreak',
+  },
+  TORAVONS_WHITEOUT_BINDINGS: {
+    id: 205659,
+    name: 'Toravon\'s Whiteout Bindings',
+    icon: 'ability_warrior_unrelentingassault',
   },
   
   // Unholy:

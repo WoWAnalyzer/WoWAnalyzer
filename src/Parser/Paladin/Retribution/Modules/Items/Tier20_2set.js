@@ -4,10 +4,9 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
-
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-
+import Haste from 'Parser/Core/Modules/Haste';
 import GetDamageBonus from 'Parser/Paladin/Shared/Modules/GetDamageBonus';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
@@ -16,6 +15,7 @@ const RET_PALADIN_T20_2SET_MODIFIER = 0.2;
 class Tier20_2set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    haste: Haste,
   };
 
   damageDone = 0;
@@ -26,7 +26,7 @@ class Tier20_2set extends Analyzer {
 
   get percentUptime() {
     // This calculates the total possible uptime based on buff duration (eight seconds) and the cooldown of judgement based on haste
-    const maxUptime = 8 * (1 + this.combatants.selected.hastePercentage) / 12;
+    const maxUptime = 8 * (1 + this.haste.current) / 12;
     const actualUptime = this.combatants.selected.getBuffUptime(SPELLS.RET_PALADIN_T20_2SET_BONUS_BUFF.id) / this.owner.fightDuration;
     // This is how much uptime you had over your actual uptime based on your haste
     return actualUptime / maxUptime;

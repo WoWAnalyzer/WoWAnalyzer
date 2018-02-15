@@ -32,6 +32,7 @@ import ShadowPriest from './Priest/Shadow/CONFIG';
 
 import SubtletyRogue from './Rogue/Subtlety/CONFIG';
 import AssassinationRogue from './Rogue/Assassination/CONFIG';
+import OutlawRogue from './Rogue/Outlaw/CONFIG';
 
 import ElementalShaman from './Shaman/Elemental/CONFIG';
 import EnhancementShaman from './Shaman/Enhancement/CONFIG';
@@ -80,6 +81,7 @@ export default [
 
   SubtletyRogue,
   AssassinationRogue,
+  OutlawRogue,
 
   ElementalShaman,
   EnhancementShaman,

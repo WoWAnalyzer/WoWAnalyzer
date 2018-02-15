@@ -11,6 +11,7 @@ import WildGrowthNormalizer from './Normalizers/WildGrowth';
 import ClearcastingNormalizer from './Normalizers/ClearcastingNormalizer';
 import HotApplicationNormalizer from './Normalizers/HotApplicationNormalizer';
 import PotaNormalizer from './Normalizers/PotaNormalizer';
+import TreeOfLifeNormalizer from './Normalizers/TreeOfLifeNormalizer';
 
 import Checklist from './Modules/Features/Checklist';
 
@@ -96,6 +97,7 @@ class CombatLogParser extends CoreCombatLogParser {
     clearcastingNormalizer: ClearcastingNormalizer,
     potaNormalizer: PotaNormalizer,
     hotApplicationNormalizer: HotApplicationNormalizer, // this needs to be loaded after potaNormalizer, as potaNormalizer can sometimes unfix the events if loaded before...
+    treeOfLifeNormalizer: TreeOfLifeNormalizer,
 
     // Core
     healingDone: [HealingDone, { showStatistic: true }],

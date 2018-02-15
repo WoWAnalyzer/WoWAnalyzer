@@ -1,11 +1,12 @@
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import StatTracker from 'Parser/Core/Modules/StatTracker';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 class FocusTracker extends Analyzer {
-
   static dependencies = {
     combatants: Combatants,
+    statTracker: StatTracker,
   };
 
   lastEventTimestamp = 0;
@@ -109,7 +110,8 @@ class FocusTracker extends Analyzer {
   }
 
   extrapolateFocus(eventTimestamp) {
-    this.focusGen = Math.round((10 + .1 * this.combatants.selected.hasteRating / 375) * 100) / 100;
+    // TODO: Account for Haste buffs
+    this.focusGen = Math.round((10 + .1 * this.statTracker.startingHasteRating / 375) * 100) / 100;
     const maxFocus = this._maxFocus;
     this.focusBySecond[0] = maxFocus;
     for (let i = this.lastEventTimestamp - this.owner.fight.start_time; i < (eventTimestamp - this.owner.fight.start_time); i++) {  //extrapolates focus given passive focus gain (TODO: Update for pulls with Volley)

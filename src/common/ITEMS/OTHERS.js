@@ -140,6 +140,12 @@ export default {
     icon: '70_inscription_deck_promises',
     quality: ITEM_QUALITIES.EPIC,
   },
+  DARKMOON_DECK_IMMORTALITY: {
+    id: 128711,
+    name: 'Darkmoon Deck: Immortality',
+    icon: '70_inscription_deck_immortality',
+    quality: ITEM_QUALITIES.EPIC,
+  },
   AMALGAMS_SEVENTH_SPINE: {
     id: 136714,
     name: 'Amalgam\'s Seventh Spine',
@@ -406,5 +412,11 @@ export default {
     id: 154173,
     name: 'Aggramar\'s Conviction',
     icon: 'inv_antorus_orange',
+  },
+  // T19 Trinkets
+  CONVERGENCE_OF_FATES: {
+    id: 140806,
+    name: 'Convergence of Fates',
+    icon: 'ability_bossmagistrix_timewarp1',
   },
 };

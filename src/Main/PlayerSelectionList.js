@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
+import SPECS from 'common/SPECS';
+import ROLES from 'common/ROLES';
 import { getFightId } from 'selectors/url/report';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import { getCombatants } from 'selectors/combatants';
-import SPECS from 'common/SPECS';
-import ROLES from 'common/ROLES';
+import ActivityIndicator from 'Main/ActivityIndicator';
 
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 
@@ -92,26 +93,22 @@ export class PlayerSelectionList extends React.PureComponent {
     if (!spec) {
       // Spec might not be found if the combatantinfo errored, this happens extremely rarely. Example report: CJBdLf3c2zQXkPtg/13-Heroic+Kil'jaeden+-+Kill+(7:40)
       return (
-        <li key={friendly.id} className="item selectable">
-          <Link
-            to={makeAnalyzerUrl(report, fightId, friendly.name)}
-            style={{ marginLeft: 47 }}
-            onClick={e => {
-              e.preventDefault();
-              alert('The combatlog did not give us any information about this player. This player can not be analyzed.');
-            }}
-          >
-            {friendly.name} (Error - Spec unknown)
-          </Link>
-        </li>
+        <Link
+          to={makeAnalyzerUrl(report, fightId, friendly.id)}
+          style={{ marginLeft: 47 }}
+          onClick={e => {
+            e.preventDefault();
+            alert('The combatlog did not give us any information about this player. This player can not be analyzed.');
+          }}
+        >
+          {friendly.name} (Error - Spec unknown)
+        </Link>
       );
     } else {
       return (
-        <li key={friendly.id} className="item selectable">
-          <Link to={makeAnalyzerUrl(report, fightId, friendly.name)} className={spec.className.replace(' ', '')} style={{ marginLeft: 47 }}>
-            {this.renderSpecIcon(spec)} {friendly.name} ({spec.specName})
-          </Link>
-        </li>
+        <Link to={makeAnalyzerUrl(report, fightId, friendly.id)} className={spec.className.replace(' ', '')} style={{ marginLeft: 47 }}>
+          {this.renderSpecIcon(spec)} {friendly.name} ({spec.specName})
+        </Link>
       );
     }
   }
@@ -126,15 +123,7 @@ export class PlayerSelectionList extends React.PureComponent {
     const { report, fightId, combatants } = this.props;
 
     if (!combatants) {
-      return (
-        <div className="container">
-          <div>
-            <h1>Fetching players...</h1>
-
-            <div className="spinner" />
-          </div>
-        </div>
-      );
+      return <ActivityIndicator text="Fetching players..." />;
     }
     if (combatants.length === 0) {
       return (
@@ -159,7 +148,7 @@ export class PlayerSelectionList extends React.PureComponent {
         return (
           <div key={roleID === null ? -1 : roleID} className="card">
             {this.renderRoleHeader(roleID, friendlies.length)}
-            <ul className="list selection players item-divider item-divider-top" style={{ columnCount: 2, columnGap: 0, border: 0 }}>
+            <ul className="list selection players item-divider item-divider-top clearfix" style={{ border: 0 }}>
               {friendlies
                 .sort((a, b) => {
                   if (a.name > b.name) {
@@ -169,7 +158,11 @@ export class PlayerSelectionList extends React.PureComponent {
                   }
                   return 0;
                 })
-                .map(friendly => this.renderFriendly(report, fightId, friendly))}
+                .map(friendly => (
+                  <li key={friendly.id} className="item selectable col-md-6">
+                    {this.renderFriendly(report, fightId, friendly)}
+                  </li>
+                ))}
             </ul>
           </div>
         );
