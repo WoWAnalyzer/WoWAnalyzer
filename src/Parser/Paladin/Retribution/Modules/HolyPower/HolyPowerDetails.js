@@ -2,9 +2,14 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Tab from 'Main/Tab';
+import { formatPercentage, formatNumber } from 'common/format';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import ResourceBreakdown from 'Parser/Core/Modules/ResourceTracker/ResourceBreakdown';
-
 import HolyPowerTracker from './HolyPowerTracker';
+
+import WastedHPIcon from '../../images/paladin_hp.jpg';
+
+const holyPowerIcon = 'inv_helmet_96';
 
 class HolyPowerDetails extends Analyzer {
 	static dependencies = {
@@ -33,6 +38,22 @@ class HolyPowerDetails extends Analyzer {
 		});
 	}
 
+	statistic() {
+		return (
+			<StatisticBox
+				icon={(
+					<img
+						src={WastedHPIcon}
+						alt="Wasted Holy Power"
+					/>
+				)}
+				value={formatNumber(this.holyPowerTracker.wasted)}
+				label="Holy Power Wasted"
+				tooltip={`${formatPercentage(this.holyPowerTracker.wasted / this.holyPowerTracker.generated)}% wasted`}
+			/>
+		);
+	}
+
 	tab() {
 		return {
 			title: 'Holy Power Usage',
@@ -48,6 +69,7 @@ class HolyPowerDetails extends Analyzer {
 			),
 		};
 	}
+	statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default HolyPowerDetails;
