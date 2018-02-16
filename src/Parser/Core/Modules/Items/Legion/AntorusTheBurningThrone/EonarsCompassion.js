@@ -83,6 +83,14 @@ class EonarsCompassion extends Analyzer {
     }
   }
 
+  //if the regular proc procs again while it's already active
+  on_byPlayer_refreshbuff(event) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.EONARS_COMPASSION_PROCBUFF.id || this.triggerBuffs.includes(spellId)) {
+      this.trinketProc += 1;
+    }
+  }
+
   get totalHealing() {
     return this.trinketHealing + this.pantheonShieldHealing;
   }
