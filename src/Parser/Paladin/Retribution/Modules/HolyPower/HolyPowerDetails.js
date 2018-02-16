@@ -11,6 +11,19 @@ class HolyPowerDetails extends Analyzer {
 		holyPowerTracker: HolyPowerTracker,
 	};
 
+	get suggestionThresholds() {
+		const hpWastedPercent = this.holyPowerTracker.wasted / this.holyPowerTracker.generated;
+		return {
+			actual: hpWastedPercent,
+			isGreaterThan: {
+				minor: 0.02,
+				average: 0.05,
+				major: 0.08,
+			},
+			style: 'percentage',
+		};
+  }
+
 	tab() {
 		return {
 			title: 'Holy Power Usage',
