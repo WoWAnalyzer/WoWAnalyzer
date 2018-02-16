@@ -6,6 +6,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
     // Note: I need to add a few more instant cast procs with different ids
     // Elemental:
+    SPELLS.ICEFURY_TALENT.id,
     SPELLS.FROST_SHOCK.id,
     SPELLS.FLAME_SHOCK.id,
     SPELLS.ELEMENTAL_BLAST_TALENT.id,
