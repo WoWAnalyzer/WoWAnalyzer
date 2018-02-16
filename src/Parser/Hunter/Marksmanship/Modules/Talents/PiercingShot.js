@@ -65,7 +65,7 @@ class PiercingShot extends Analyzer {
     const percentPiercingInsideVulnerability = this.inVulnerablePiercing / this.totalPiercing;
     when(percentPiercingInsideVulnerability).isLessThan(1)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>You should be casting all of your <SpellLink id={SPELLS.PIERCING_SHOT_TALENT.id} />s inside <SpellLink id={SPELLS.VULNERABLE.id} /> to ensure it does the most damage it possible can. </Wrapper>)
+        return suggest(<Wrapper>You should be casting all of your <SpellLink id={SPELLS.PIERCING_SHOT_TALENT.id} icon children="Piercing Shots"/> inside <SpellLink id={SPELLS.VULNERABLE.id} icon /> to ensure it does the most damage it possible can. </Wrapper>)
           .icon(SPELLS.PIERCING_SHOT_TALENT.icon)
           .actual(`${formatPercentage(1 - percentPiercingInsideVulnerability)}% were outside Vulnerable`)
           .recommended(`${formatPercentage(recommended)}% of total Piercing Shots inside Vulnerable is recommended`)
