@@ -39,14 +39,12 @@ class CancelledCasts extends CoreCancelledCasts {
   }
 
   statistic() {
-    const tooltipText = Object.keys(this.cancelledSpellList).map((cancelledSpell) => {
-      const cancelledSpellText = `${this.cancelledSpellList[cancelledSpell].spellName} : ${this.cancelledSpellList[cancelledSpell].amount}`;
-      return (
-        `<li>
-          ${cancelledSpellText}
-        </li>`
-      );
-    });
+    console.log(Object.keys(this.cancelledSpellList));
+    const tooltipText = Object.keys(this.cancelledSpellList).map(cancelledSpell =>
+      `<li>
+        ${this.cancelledSpellList[cancelledSpell].spellName}: ${this.cancelledSpellList[cancelledSpell].amount}
+      </li>`
+    ).join(' ');
 
     return (
       <StatisticBox

@@ -6,7 +6,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-const debug = true;
+const debug = false;
 
 class CancelledCasts extends Analyzer {
   static dependencies = {
