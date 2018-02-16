@@ -346,8 +346,8 @@ export default {
   //Tier
   ASSA_ROGUE_T21_2SET_BONUS: {
     id: 251776,
-    name: 'Virulent Poisons',
-    icon: 'ability_rogue_poisonedknife',
+    name: 'T21 2 Set Bonus',
+    icon: 'ability_demonhunter_eyebeam',
   },
   ASSA_ROGUE_T21_2SET_BONUS_BUFF: {
     id: 252277,
@@ -357,12 +357,12 @@ export default {
   ASSA_ROGUE_T21_4SET_BONUS: {
     id: 251777,
     name: 'Toxic Rush',
-    icon: 'ability_rogue_poisonedknife',
+    icon: 'ability_rogue_eviscerate',
   },
   ASSA_ROGUE_T21_4SET_BONUS_ENERGY_EFFECT: {
     id: 252284,
     name: 'Toxic Rush',
-    icon: 'ability_rogue_poisonedknife',
+    icon: 'ability_rogue_eviscerate',
   },
 
 

@@ -9,6 +9,11 @@ import ItemLink from 'common/ItemLink';
 
 export default [
   {
+    date: new Date('2018-02-14'),
+    changes: <Wrapper>Added a module for <SpellLink id={SPELLS.FURY_OF_THE_EAGLE_TRAIT.id} icon />.</Wrapper>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-02-12'),
     changes: <Wrapper>Added modules for <SpellLink id={SPELLS.MORTAL_WOUNDS_TALENT.id} icon /> and merged <SpellLink id={SPELLS.CARVE.id} icon /> and <SpellLink id={SPELLS.BUTCHERY_TALENT.id} icon />.</Wrapper>,
     contributors: [Putro],
