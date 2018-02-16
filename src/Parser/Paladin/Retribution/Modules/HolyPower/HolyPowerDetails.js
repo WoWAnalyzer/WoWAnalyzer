@@ -17,7 +17,8 @@ class HolyPowerDetails extends Analyzer {
 	};
 
 	get suggestionThresholds() {
-		const hpWastedPercent = this.holyPowerTracker.wasted / this.holyPowerTracker.generated;
+		console.log(this.holyPowerTracker.spent)
+		const hpWastedPercent = this.holyPowerTracker.wasted / (this.holyPowerTracker.generated + this.holyPowerTracker.wasted);
 		return {
 			actual: hpWastedPercent,
 			isGreaterThan: {

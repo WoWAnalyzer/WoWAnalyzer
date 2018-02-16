@@ -17,7 +17,7 @@ class HolyPowerTracker extends ResourceTracker {
       return 0;
     }
     let cost = this.getResource(event).cost;
-    if(this.combatants.selected.hasBuff(SPELLS.THE_FIRES_OF_JUSTICE_BUFF.id) || SPELLS.RET_PALADIN_T21_4SET_BONUS_BUFF.id) {
+    if(this.combatants.selected.hasBuff(SPELLS.THE_FIRES_OF_JUSTICE_BUFF.id) || this.combatants.selected.hasBuff(SPELLS.RET_PALADIN_T21_4SET_BONUS_BUFF.id)) {
       cost = cost - 1;
     }
     return cost;
