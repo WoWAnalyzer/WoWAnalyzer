@@ -9,8 +9,7 @@ class HolyPowerTracker extends ResourceTracker {
   };
 
   on_initialized() {
-    this.resourceType = RESOURCE_TYPES.HOLY_POWER.id;
-    this.resourceName = 'Holy Power';
+    this.resource = RESOURCE_TYPES.HOLY_POWER;
   }
 
   getReducedCost(event) {
@@ -21,6 +20,7 @@ class HolyPowerTracker extends ResourceTracker {
     if(this.combatants.selected.hasBuff(SPELLS.THE_FIRES_OF_JUSTICE_BUFF.id) || SPELLS.RET_PALADIN_T21_4SET_BONUS_BUFF.id) {
       cost = cost - 1;
     }
+    return cost;
   }
 }
 
