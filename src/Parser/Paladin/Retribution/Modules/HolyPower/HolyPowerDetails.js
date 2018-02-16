@@ -24,6 +24,15 @@ class HolyPowerDetails extends Analyzer {
 		};
   }
 
+  suggestions(when) {
+		when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+			return suggest(`You wasted ${formatPercentage(actual)}% of your Holy Power.`)
+				.icon(holyPowerIcon)
+				.actual(`${this.hpWasted} Holy Power wasted`)
+				.recommended(`Wasting less than ${formatPercentage(recommended)}% is recommended.`);
+		});
+	}
+
 	tab() {
 		return {
 			title: 'Holy Power Usage',
