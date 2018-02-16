@@ -16,10 +16,13 @@ class HolyPowerDetails extends Analyzer {
 		holyPowerTracker: HolyPowerTracker,
 	};
 
+	get wastedHolyPowerPercent() {
+		return this.holyPowerTracker.wasted / (this.holyPowerTracker.wasted + this.holyPowerTracker.generated);
+	}
+
 	get suggestionThresholds() {
-		const hpWastedPercent = this.holyPowerTracker.wasted / (this.holyPowerTracker.generated + this.holyPowerTracker.wasted);
 		return {
-			actual: hpWastedPercent,
+			actual: this.wastedHolyPowerPercent,
 			isGreaterThan: {
 				minor: 0.02,
 				average: 0.05,
@@ -49,7 +52,7 @@ class HolyPowerDetails extends Analyzer {
 				)}
 				value={formatNumber(this.holyPowerTracker.wasted)}
 				label="Holy Power Wasted"
-				tooltip={`${formatPercentage(this.holyPowerTracker.wasted / this.holyPowerTracker.generated)}% wasted`}
+				tooltip={`${formatPercentage(this.wastedHolyPowerPercent)}% wasted`}
 			/>
 		);
 	}
