@@ -6,7 +6,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-const debug = false;
+const debug = true;
 
 class CancelledCasts extends Analyzer {
   static dependencies = {
@@ -15,11 +15,11 @@ class CancelledCasts extends Analyzer {
 
   castsCancelled = 0;
   castsFinished = 0;
-  beginCastSpellId = 0;
+  beginCastSpell = 0;
   wasCastStarted;
+  cancelledSpellList = {};
 
-  static IGNORED_ABILITIES = [
-  ];
+  static IGNORED_ABILITIES = [];
 
   on_byPlayer_begincast(event) {
     const spellId = event.ability.guid;
@@ -28,8 +28,9 @@ class CancelledCasts extends Analyzer {
     }
     if (this.wasCastStarted) {
       this.castsCancelled += 1;
+      this.addToCancelledList(event);
     }
-    this.beginCastSpellId = event.ability.guid;
+    this.beginCastSpell = event.ability;
     this.wasCastStarted = true;
   }
 
@@ -38,15 +39,27 @@ class CancelledCasts extends Analyzer {
     if (this.constructor.IGNORED_ABILITIES.includes(spellId)) {
       return;
     }
-    if (this.beginCastSpellId !== spellId && this.wasCastStarted) {
+    if (this.beginCastSpell.guid !== spellId && this.wasCastStarted) {
       this.castsCancelled += 1;
+      this.addToCancelledList(event);
     }
-    if (this.beginCastSpellId === spellId && this.wasCastStarted) {
+    if (this.beginCastSpell.guid === spellId && this.wasCastStarted) {
       this.castsFinished += 1;
     }
     this.wasCastStarted = false;
   }
 
+  addToCancelledList(event) {
+    if (!this.cancelledSpellList[this.beginCastSpell.guid]) {
+      this.cancelledSpellList[this.beginCastSpell.guid] = {
+        'spellName': this.beginCastSpell.name,
+        'amount': 1,
+      };
+    } else {
+      this.cancelledSpellList[this.beginCastSpell.guid].amount += 1;
+    }
+    debug && console.log("cast cancelled at: ", event.timestamp);
+  }
   get totalCasts() {
     return this.castsCancelled + this.castsFinished;
   }

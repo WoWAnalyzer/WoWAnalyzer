@@ -16,13 +16,10 @@ class CancelledCasts extends CoreCancelledCasts {
     SPELLS.CYCLONIC_BURST_TRAIT.id,
     SPELLS.GOLGANNETHS_VITALITY_RAVAGING_STORM.id,
   ];
-  get CancelledPercentage() {
-    return this.castsCancelled / this.totalCasts;
-  }
 
   get suggestionThresholds() {
     return {
-      actual: this.CancelledPercentage,
+      actual: this.cancelledPercentage,
       isGreaterThan: {
         minor: 0.05,
         average: 0.075,
@@ -40,13 +37,23 @@ class CancelledCasts extends CoreCancelledCasts {
           .recommended(`<${formatPercentage(recommended)}% is recommended`);
       });
   }
+
   statistic() {
+    const tooltipText = Object.keys(this.cancelledSpellList).map((cancelledSpell) => {
+      const cancelledSpellText = `${this.cancelledSpellList[cancelledSpell].spellName} : ${this.cancelledSpellList[cancelledSpell].amount}`;
+      return (
+        `<li>
+          ${cancelledSpellText}
+        </li>`
+      );
+    });
+
     return (
       <StatisticBox
         icon={<Icon icon="inv_misc_map_01" />}
-        value={`${formatPercentage(this.CancelledPercentage)}%`}
+        value={`${formatPercentage(this.cancelledPercentage)}%`}
         label={`Cancelled Casts`}
-        tooltip={`You started casting a total of ${this.totalCasts} spells with a cast timer. <ul><li> You cancelled ${this.castsCancelled} of those casts. </li></ul>`}
+        tooltip={`You started casting a total of ${this.totalCasts} spells with a cast timer. <ul><li> You cancelled ${this.castsCancelled} of those casts. </li><ul>${tooltipText}</ul></ul>`}
       />
     );
   }
