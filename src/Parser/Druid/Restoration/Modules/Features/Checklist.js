@@ -90,22 +90,6 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <Wrapper>Keep <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} icon /> and <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} icon /> active</Wrapper>,
-      description: <Wrapper>Maintaining uptime on these two important spells will improve your mana efficiency and overall throughput. It is good to keep <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> constantly active on a tank. While its throughput is comparable to a <SpellLink id={SPELLS.REJUVENATION.id} />, it also provides a constant chance to proc <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} />. <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> is very mana efficient when it can tick over its full duration. Place it where raiders are liable to be and refresh it as soon as it expires.</Wrapper>,
-      requirements: () => {
-        return [
-          new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} icon /> uptime</Wrapper>,
-            check: () => this.lifebloom.suggestionThresholds,
-          }),
-          new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} icon /> uptime</Wrapper>,
-            check: () => this.efflorescence.suggestionThresholds,
-          }),
-        ];
-      },
-    }),
-    new Rule({
       name: 'Use your healing cooldowns',
       description: <Wrapper>Your cooldowns can be a big contributor to healing throughput when used frequently throughout the fight. When used early and often they can contribute a lot of healing for very little mana. Try to plan your major cooldowns (<SpellLink id={SPELLS.TRANQUILITY_CAST.id} /> and <SpellLink id={SPELLS.ESSENCE_OF_GHANIR.id} />) around big damage boss abilities, like the Transition Phase on Imonar or Fusillade on Antoran High Command. The below percentages represent the percentage of time you kept each spell on cooldown.</Wrapper>,
       requirements: () => {
@@ -135,6 +119,30 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.INNERVATE,
+          }),
+        ];
+      },
+    }),
+    new Rule({
+      name: <Wrapper>Keep <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} icon /> and <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} icon /> active</Wrapper>,
+      description: <Wrapper>Maintaining uptime on these two important spells will improve your mana efficiency and overall throughput. It is good to keep <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> constantly active on a tank. While its throughput is comparable to a <SpellLink id={SPELLS.REJUVENATION.id} />, it also provides a constant chance to proc <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} />. <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> is very mana efficient when it can tick over its full duration. Place it where raiders are liable to be and refresh it as soon as it expires.</Wrapper>,
+      requirements: () => {
+        const combatant = this.combatants.selected;
+        return [
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} icon /> uptime</Wrapper>,
+            check: () => this.lifebloom.suggestionThresholds,
+            when: !combatant.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id),
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} icon /> uptime</Wrapper>,
+            tooltip: `This requirement is more stringent because you have The Dark Titans Advice equipped`,
+            check: () => this.lifebloom.suggestionThresholds,
+            when: combatant.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id),
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} icon /> uptime</Wrapper>,
+            check: () => this.efflorescence.suggestionThresholds,
           }),
         ];
       },

@@ -308,6 +308,12 @@ class StatTracker extends Analyzer {
         return standard + 0.05; //baseline +5%
       case SPECS.HAVOC_DEMON_HUNTER:
         return standard + 0.06; //baseline +6%
+      case SPECS.SUBTLETY_ROGUE:
+        return standard + 0.05; //baseline +5%
+      case SPECS.ASSASSINATION_ROGUE:
+        return standard + 0.05; //baseline +5%
+      case SPECS.OUTLAW_ROGUE:
+        return standard + 0.05; //baseline +5%
       default:
         return standard;
     }
@@ -359,6 +365,8 @@ class StatTracker extends Analyzer {
         return 0.2208;
       case SPECS.ASSASSINATION_ROGUE:
         return 0.32;
+      case SPECS.OUTLAW_ROGUE:
+        return 0.1760;
       case SPECS.UNHOLY_DEATH_KNIGHT:
         return 0.18;
       case SPECS.MISTWEAVER_MONK:

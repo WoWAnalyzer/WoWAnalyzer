@@ -14,6 +14,7 @@ import Channeling from './Modules/Core/Channeling';
 import ComboBreaker from './Modules/Spells/ComboBreaker';
 import StormEarthAndFire from './Modules/Spells/StormEarthAndFire';
 import FistsofFury from './Modules/Spells/FistsofFury';
+import SpinningCraneKick from './Modules/Spells/SpinningCraneKick';
 // Talents
 import HitCombo from './Modules/Talents/HitCombo';
 import EnergizingElixir from './Modules/Talents/EnergizingElixir';
@@ -49,6 +50,7 @@ class CombatLogParser extends CoreCombatLogParser {
     comboBreaker: ComboBreaker,
     stormEarthAndFire: StormEarthAndFire,
     fistsofFury: FistsofFury,
+    spinningCraneKick: SpinningCraneKick,
 
     // Legendaries / Items:
     katsuosEclipse: KatsuosEclipse,

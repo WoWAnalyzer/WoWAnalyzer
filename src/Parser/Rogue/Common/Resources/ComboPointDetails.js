@@ -13,7 +13,7 @@ class ComboPointDetails extends Analyzer {
   static dependencies = {
     comboPointTracker: ComboPointTracker,
   };
-  
+
 
   statistic() {
     const pointsWasted = this.comboPointTracker.wasted;
@@ -23,7 +23,7 @@ class ComboPointDetails extends Analyzer {
         icon={<Icon icon="ability_rogue_masterofsubtlety" alt="Waisted Combo Points" />}
         value={`${pointsWastedPerMinute.toFixed(2)}`}
         label="Wasted Combo Points per minute"
-        tooltip={`You waisted a total of ${pointsWasted} combo points. Some waste is expected due to the random nature of some generation abilities.`}
+        tooltip={`You wasted a total of ${pointsWasted} combo points. Some waste is expected due to the random nature of some generation abilities.`}
       />
     );
   }
@@ -39,7 +39,6 @@ class ComboPointDetails extends Analyzer {
         <Tab title="Combo Point usage breakdown">
           <ResourceBreakdown
             tracker={this.comboPointTracker}
-            resourceName="Combo Points"
             showSpenders={true}
           />
         </Tab>

@@ -15,9 +15,7 @@ class AstralPowerTracker extends ResourceTracker {
   totalCooldownReductionWasted = 0;
 
   on_initialized() {
-    this.resourceType = RESOURCE_TYPES.ASTRAL_POWER.id;
-    this.resourceName = 'Astral Power';
-    
+    this.resource = RESOURCE_TYPES.ASTRAL_POWER;
   }
 
   getReducedCost(event) {
@@ -60,7 +58,7 @@ class AstralPowerTracker extends ResourceTracker {
   get cooldownReductionWasted(){
     return this.totalCooldownReductionWasted;
   }
-  
+
 }
 
 export default AstralPowerTracker;
