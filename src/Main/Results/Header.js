@@ -24,7 +24,7 @@ class Headers extends React.PureComponent {
   };
 
   render() {
-    const { config: { spec, maintainers, completeness }, playerName, boss, fight } = this.props;
+    const { config: { spec, maintainers, completeness, compatibility }, playerName, boss, fight } = this.props;
 
     return (
       <header>
@@ -45,7 +45,8 @@ class Headers extends React.PureComponent {
         <div className="about maintainers">
           {spec.specName} {spec.className} analysis by {maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}
           {' | '}
-          Completeness rating: <dfn className="completeness" data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>
+          Analysis Accuracy: <dfn className="completeness" data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>
+          {compatibility ? ` | Updated for Patch ${compatibility}`: '' }
         </div>
       </header>
     );

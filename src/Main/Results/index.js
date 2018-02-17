@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Masonry from 'react-masonry-component';
-import Textfit from 'react-textfit';
 
 import ChecklistIcon from 'Icons/Checklist';
 import SuggestionIcon from 'Icons/Suggestion';
@@ -19,7 +18,6 @@ import Status from 'Main/Status';
 import GithubButton from 'Main/GithubButton';
 import DiscordButton from 'Main/DiscordButton';
 import SuggestionsTab from 'Main/SuggestionsTab';
-import Maintainer from 'Main/Maintainer';
 import ActivityIndicator from 'Main/ActivityIndicator';
 
 import ItemsPanel from './ItemsPanel';
@@ -111,7 +109,7 @@ class Results extends React.Component {
     }
     const config = this.context.config;
     if (config.compatibility && config.compatibility < '7.3.5') {
-      return 'This spec has not been verified/updated for the latest patch. As a result, some information may be flawed, inaccurate, missing, or incomplete. Contact the spec maintainer to get this spec updated to the latest patch.';
+      return 'This spec has not been verified/updated for the latest patch. If you find an error, or if something is missing from this analysis, please contact this specs maintainer or join the WoWAnalyzer Discord and report the issue.';
     }
     if (parser.feedbackWarning) {
       return 'This spec is believed to be complete, but needs additional feedback. If there is something missing, incorrect, or inaccurate, please contact this specs maintainer so it can be fixed before being marked as "Good". Contact info can be found in the About Tab.';
@@ -250,43 +248,6 @@ class Results extends React.Component {
             </div>
           </div>
 
-          <div className="divider" />
-
-          <div className="row">
-            <div className="col-md-6">
-              <div className="row">
-                <div className="col-md-4">
-                  <div style={{ border: '7px solid #fff', background: 'rgba(0, 0, 0, 0.4)', padding: '8px 14px', fontSize: 40, fontWeight: 700, lineHeight: 1.1 }}>
-                    <Textfit mode="single" max={40}>
-                    How It's<br />
-                    Made
-                    </Textfit>
-                  </div>
-                </div>
-                <div className="col-md-8" style={{ fontSize: 20 }}>
-                  Curious how we're doing the analysis? Want to change something? You can find this spec's source <a href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`}>here</a> and a guide on contributing <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/docs#contributing">here</a>.
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="row">
-                <div className="col-md-4">
-                  <div style={{ border: '7px solid #fff', background: 'rgba(0, 0, 0, 0.4)', padding: '8px 14px', fontSize: 40, fontWeight: 700, lineHeight: 1.1 }}>
-                    <Textfit mode="single" max={40}>
-                      Feedback<br />
-                      Welcome
-                    </Textfit>
-                  </div>
-                </div>
-                <div className="col-md-8" style={{ fontSize: 20 }}>
-                  Do you have a really cool idea? Is a suggestion or checklist threshold off? Spotted a bug? Let us know on <a href="https://discord.gg/AxphPxU">Discord</a>.
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="divider" />
-
           <div className="row">
             <div className="col-md-12">
               {this.renderStatistics(results.statistics)}
@@ -296,33 +257,18 @@ class Results extends React.Component {
           <div className="divider" />
 
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-10" style={{ marginLeft: 80 }}>
               <div className="row">
-                <div className="col-md-4">
-                  <div style={{ border: '7px solid #fff', background: 'rgba(0, 0, 0, 0.4)', padding: '8px 14px', fontSize: 32, fontWeight: 700, lineHeight: 1.2 }}>
-                    <Textfit mode="single" max={32}>
-                      Spec<br />
-                      Maintainer
-                    </Textfit>
-                  </div>
+                <div className="col-md-4" style={{ fontSize: 16 }}>
+                  <h3><strong>Spec Source Code</strong></h3>
+                  Curious how we're doing the analysis? Want to change something? You can find this spec's source <a href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`}>here</a> and a guide on contributing <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/docs#contributing">here</a>.
                 </div>
-                <div className="col-md-8 maintainers" style={{ fontSize: 20 }}>
-                  The {config.spec.specName} {config.spec.className} analyzer is being maintained by
-                  {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}. New maintainers are <b>always</b> welcome.
+                <div className="col-md-4" style={{ fontSize: 16 }}>
+                  <h3><strong>Provide Feedback</strong></h3>
+                  Do you have a really cool idea? Is a suggestion or checklist threshold off? Spotted a bug? Let us know on <a href="https://discord.gg/AxphPxU">Discord</a>.
                 </div>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="row">
-                <div className="col-md-4">
-                  <div style={{ border: '7px solid #fff', background: 'rgba(0, 0, 0, 0.4)', padding: '8px 14px', fontSize: 32, fontWeight: 700, lineHeight: 1.2 }}>
-                    <Textfit mode="single" max={32}>
-                      State Of<br />
-                      The Spec
-                    </Textfit>
-                  </div>
-                </div>
-                <div className="col-md-8" style={{ fontSize: 20 }}>
+                <div className="col-md-4" style={{ fontSize: 16 }}>
+                  <h3><strong>Spec Analysis Accuracy</strong></h3>
                   The {config.spec.specName} {config.spec.className} analyzer is currently considered to be in <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn> state. The <i>about</i> tab at the top might have more information.
                 </div>
               </div>
