@@ -3,6 +3,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -72,16 +73,21 @@ class GatheringStorm extends Analyzer{
   }
 
   on_byPlayer_cast(event){
-    const resource = event.classResources[0];
-    if(event.ability.guid === SPELLS.HOWLING_BLAST.id && this.combatants.selected.hasBuff(SPELLS.RIME.id)){
+    if(!this.combatants.selected.hasBuff(SPELLS.REMORSELESS_WINTER.id)){
+      return;
+    }
+    if(event.ability.guid === SPELLS.HOWLING_BLAST.id && this.combatants.selected.hasBuff(SPELLS.RIME.id)){ // handles the free HB from Rime proc,
       this.extendedDuration += DURATION_BOOST;
       return;
     }    
-    if(resource.type !== 5){
-      return;
+    if (event.classResources) {
+      event.classResources
+      .filter(resource => resource.type === RESOURCE_TYPES.RUNES.id)
+      .forEach(({ cost }) => {        
+        this.extendedDuration = this.extendedDuration + (DURATION_BOOST * cost);
+        debug && console.log(`Added ${(DURATION_BOOST * cost)} to the duration for a total of ${this.extendedDuration} boost to duration`);
+      });
     }
-    this.extendedDuration = resource.hasOwnProperty("cost") ? this.extendedDuration + (DURATION_BOOST * resource.cost): this.extendedDuration;
-    debug && console.log(`Added ${(DURATION_BOOST * resource.cost)} to the duration for a total of ${this.extendedDuration} boost to duration`);
   }
   
   get averageExtension() {

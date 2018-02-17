@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Textfit from 'react-textfit';
 
 import getBossName from 'common/getBossName';
-import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import Maintainer from 'Main/Maintainer';
 
 import SkullRaidMarker from './Images/skull-raidmarker.png';

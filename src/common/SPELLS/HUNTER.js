@@ -702,6 +702,11 @@ export default {
     name: 'Hunter\'s Guile',
     icon: 'ability_mage_potentspirit',
   },
+  HELLCARVER_TRAIT: {
+    id: 203673,
+    name: 'Hellcarver',
+    icon: 'ability_hunter_carve',
+  },
   ASPECT_OF_THE_SKYLORD_TRAIT: {
     id: 203755,
     name: 'Aspect of the Skylord',

@@ -23,7 +23,7 @@ class ComboPointDetails extends Analyzer {
         icon={<Icon icon="ability_rogue_masterofsubtlety" alt="Waisted Combo Points" />}
         value={`${pointsWastedPerMinute.toFixed(2)}`}
         label="Wasted Combo Points per minute"
-        tooltip={`You waisted a total of ${pointsWasted} combo points. Some waste is expected due to the random nature of some generation abilities.`}
+        tooltip={`You wasted a total of ${pointsWasted} combo points. Some waste is expected due to the random nature of some generation abilities.`}
       />
     );
   }

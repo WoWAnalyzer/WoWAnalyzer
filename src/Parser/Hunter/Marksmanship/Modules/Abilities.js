@@ -5,8 +5,14 @@ import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
+import QuickShot from 'Parser/Hunter/Marksmanship/Modules/Traits/QuickShot';
 
 class Abilities extends CoreAbilities {
+  static dependencies = {
+    ...CoreAbilities.dependencies,
+    quickShot: QuickShot,
+  };
+
   spellbook() {
     return [
       {
@@ -143,7 +149,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.TRUESHOT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (_, combatant) => 180 - combatant.owner.modules.quickShot.traitCooldownReduction,
+        cooldown: 180 - this.quickShot.traitCooldownReduction,
         isOnGCD: false,
         castEfficiency: {
           suggestion: true,

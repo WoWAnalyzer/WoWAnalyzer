@@ -18,6 +18,8 @@ import TalonStrike from 'Parser/Hunter/Survival/Modules/Traits/TalonStrike';
 import TalonBond from 'Parser/Hunter/Survival/Modules/Traits/TalonBond';
 import EchoesOfOhnara from 'Parser/Hunter/Survival/Modules/Traits/EchoesOfOhnara';
 import AspectOfTheSkylord from 'Parser/Hunter/Survival/Modules/Traits/AspectOfTheSkylord';
+import ButcheryCarve from 'Parser/Hunter/Survival/Modules/Talents/ButcheryCarve';
+import FuryOfTheEagle from 'Parser/Hunter/Survival/Modules/Traits/FuryOfTheEagle';
 
 class TraitsAndTalents extends Analyzer {
   static dependencies = {
@@ -29,14 +31,15 @@ class TraitsAndTalents extends Analyzer {
     aMurderOfCrows: AMurderOfCrows,
     dragonsfireGrenade: DragonsfireGrenade,
     throwingAxes: ThrowingAxes,
+    butcheryCarve: ButcheryCarve,
 
     //traits
+    furyOfTheEagle: FuryOfTheEagle,
     eaglesBite: EaglesBite,
     talonStrike: TalonStrike,
     talonBond: TalonBond,
     echoesOfOhnara: EchoesOfOhnara,
     aspectOfTheSkylord: AspectOfTheSkylord,
-
   };
 
   on_initialized() {
@@ -53,6 +56,8 @@ class TraitsAndTalents extends Analyzer {
         tooltip="This provides an overview of the damage contributions of various talents and traits. This isn't meant as a way to 1:1 evaluate talents, as some talents bring other strengths to the table than pure damage."
       >
         {this.caltrops.active && this.caltrops.subStatistic()}
+        {this.furyOfTheEagle.active && this.furyOfTheEagle.subStatistic()}
+        {this.butcheryCarve.active && this.butcheryCarve.subStatistic()}
         {this.steelTrap.active && this.steelTrap.subStatistic()}
         {this.explosiveTrap.active && this.explosiveTrap.subStatistic()}
         {this.aspectOfTheBeast.active && this.aspectOfTheBeast.subStatistic()}

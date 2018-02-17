@@ -143,7 +143,7 @@ class BrainFreezeTracker extends Analyzer {
 
 	get flurryWithoutProcSuggestionThresholds() {
 		return {
-      actual: this.expiredPercent,
+      actual: this.flurryWithoutProc,
       isGreaterThan: {
         minor: 0,
         average: 0,
