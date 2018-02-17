@@ -339,6 +339,11 @@ export default {
     name: 'Greater Blessing of Wisdom',
     icon: 'spell_holy_greaterblessingofwisdom',
   },
+  THE_FIRES_OF_JUSTICE_BUFF: {
+    id: 209785,
+    name: 'The Fires of Justice',
+    icon: 'spell_holy_crusaderstrike',
+  },
   // Ret Item Effects
   WHISPER_OF_THE_NATHREZIM_BUFF: {
     id: 207635,
