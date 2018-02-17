@@ -168,9 +168,20 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.CONSECRATION_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: haste => 12 / (1 + haste),
+        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.CONSECRATION_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      //Utility
+      {
         spell: SPELLS.SHIELD_OF_VENGEANCE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: (haste, combatant) => 120 - (combatant.traitsBySpellId[SPELLS.DEFLECTION.id] || 0) * 10,
+        cooldown: ( _, combatant) => 120 - (combatant.traitsBySpellId[SPELLS.DEFLECTION.id] || 0) * 10,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
@@ -186,7 +197,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.EYE_FOR_AN_EYE_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: haste => 60,
+        cooldown: 60,
         isOnGCD: true,
         enabled: combatant.hasTalent(SPELLS.EYE_FOR_AN_EYE_TALENT.id),
       },
@@ -197,10 +208,24 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.WORD_OF_GLORY_TALENT.id),
       },
       {
+        spell: SPELLS.BLINDING_LIGHT_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 90,
+        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.BLINDING_LIGHT_TALENT.id),
+      },
+      {
+        spell: SPELLS.REPENTANCE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 15,
+        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.REPENTANCE_TALENT.id),
+      },
+      {
         spell: SPELLS.DIVINE_STEED,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         charges: combatant.hasTalent(SPELLS.CAVALIER_TALENT.id) ? 2 : 1,
-        cooldown: haste => 45,
+        cooldown: 45,
         isOnGCD: true,
       },
       {
@@ -208,10 +233,41 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 600,
         castEfficiency: {
-          suggestion: true,
           recommendedEfficiency: 0.1,
-          importance: ISSUE_IMPORTANCE.MINOR,
         },
+      },
+      {
+        spell: SPELLS.BLESSING_OF_FREEDOM,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 25,
+        isOnGCD: true,
+      },
+      {
+        spell: SPELLS.BLESSING_OF_PROTECTION,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: ( _, combatant) => 300 - (combatant.traitsBySpellId[SPELLS.PROTECTOR_OF_THE_ASHEN_BLADE.id] || 0) * 30 ,
+        isOnGCD: true,
+      },
+      {
+        spell: SPELLS.HAMMER_OF_JUSTICE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 60,
+      },
+      {
+        spell: SPELLS.HAND_OF_RECKONING,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 8,
+      },
+      {
+        spell: SPELLS.DIVINE_SHIELD,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: combatant.hasTalent(SPELLS.DIVINE_INTERVENTION_TALENT.id) ? 300 : 240,
+        isOnGCD: true, 
+      },
+      {
+        spell: SPELLS.FLASH_OF_LIGHT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.ARCANE_TORRENT_MANA,

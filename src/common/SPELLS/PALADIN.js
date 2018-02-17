@@ -483,6 +483,11 @@ export default {
     name: 'Blessing of the Ashbringer',
     icon: 'inv_sword_2h_artifactashbringer_d_01',
   },
+  PROTECTOR_OF_THE_ASHEN_BLADE: {
+    id: 186944,
+    name: 'Protector of the Ashen Blade',
+    icon: 'spell_holy_sealofprotection',
+  },
 
 	// Protection
   ARDENT_DEFENDER: {
