@@ -3,8 +3,11 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
+import ItemLink from 'common/ItemLink';
+import Wrapper from 'common/Wrapper';
 
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -12,6 +15,12 @@ class Lifebloom extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
+
+  hasDta;
+
+  on_initialized() {
+    this.hasDta = this.combatants.selected.hasWaist(ITEMS.THE_DARK_TITANS_ADVICE.id);
+  }
 
   get uptime() {
     return Object.keys(this.combatants.players)
@@ -24,22 +33,35 @@ class Lifebloom extends Analyzer {
     return this.uptime / this.owner.fightDuration;
   }
 
+  // "The Dark Titan's Advice" legendary buffs Lifebloom, making high uptime more important
   get suggestionThresholds() {
-    return {
-      actual: this.uptimePercent,
-      isLessThan: {
-        minor: 0.85,
-        average: 0.70,
-        major: 0.50,
-      },
-      style: 'percentage',
-    };
+    if (this.hasDta) {
+      return {
+        actual: this.uptimePercent,
+        isLessThan: {
+          minor: 0.90,
+          average: 0.80,
+          major: 0.70,
+        },
+        style: 'percentage',
+      };
+    } else {
+      return {
+        actual: this.uptimePercent,
+        isLessThan: {
+          minor: 0.80,
+          average: 0.60,
+          major: 0.40,
+        },
+        style: 'percentage',
+      };
+    }
   }
 
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> uptime can be improved.</span>)
+        return suggest(<Wrapper>Your <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> uptime can be improved. {this.hasDta ? <Wrapper>High uptime is particularly important for taking advantage of your equipped <ItemLink id={ITEMS.THE_DARK_TITANS_ADVICE.id} icon /></Wrapper> : ''}</Wrapper>)
           .icon(SPELLS.LIFEBLOOM_HOT_HEAL.icon)
           .actual(`${formatPercentage(this.uptimePercent)}% uptime`)
           .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`);
