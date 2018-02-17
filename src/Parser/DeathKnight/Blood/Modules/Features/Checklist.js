@@ -17,7 +17,7 @@ import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 
 import BoneShieldUptime from './BoneShieldUptime';
-import OssuaryUptime from './OssuaryUptime';
+import Ossuary from '../Talents/Ossuary';
 import BloodPlagueUptime from './BloodPlagueUptime';
 import AlwaysBeCasting from './AlwaysBeCasting';
 
@@ -36,7 +36,7 @@ class Checklist extends CoreChecklist {
     enchantChecker: EnchantChecker,
     runicPowerDetails: RunicPowerDetails,
     boneShieldUptime: BoneShieldUptime,
-    ossuaryUptime: OssuaryUptime,
+    ossuary: Ossuary,
     runeTracker: RuneTracker,
   };
 
@@ -115,7 +115,7 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.OSSUARY.id}/> Uptime</Wrapper>,
             when: this.combatants.selected.hasTalent(SPELLS.OSSUARY_TALENT.id),
-            check: () => this.ossuaryUptime.uptimeSuggestionThresholds,
+            check: () => this.ossuary.uptimeSuggestionThresholds,
           }),
         ];
       },
