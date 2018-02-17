@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Textfit from 'react-textfit';
-
+import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import getBossName from 'common/getBossName';
 import Maintainer from 'Main/Maintainer';
 
