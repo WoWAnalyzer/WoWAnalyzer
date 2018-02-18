@@ -39,6 +39,7 @@ import Channeling from './Modules/Channeling';
 
 import DistanceMoved from './Modules/Others/DistanceMoved';
 
+import CharacterPanel from './Modules/Features/CharacterPanel';
 import StatsDisplay from './Modules/Features/StatsDisplay';
 import TalentsDisplay from './Modules/Features/TalentsDisplay';
 import Checklist from './Modules/Features/Checklist';
@@ -172,6 +173,7 @@ class CombatLogParser {
 
     critEffectBonus: CritEffectBonus,
 
+    characterPanel: CharacterPanel,
     statsDisplay: StatsDisplay,
     talentsDisplay: TalentsDisplay,
     checklist: Checklist,
@@ -514,16 +516,6 @@ class CombatLogParser {
             channelHistory={this.modules.channeling.history}
             abilities={this.modules.abilities}
           />
-        ),
-      },
-      {
-        title: 'Gear',
-        url: 'gear',
-        order: 3,
-        render: () => (
-          <Tab title="Gear">
-            <Gear selectedCombatant={this._modules.combatants.selected} />
-          </Tab>
         ),
       },
       {

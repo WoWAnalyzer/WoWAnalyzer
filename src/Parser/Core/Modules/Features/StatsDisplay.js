@@ -68,11 +68,7 @@ class StatsDisplay extends Analyzer {
     const rating = this.getStatRating(stat);
     const percentage = this.getStatPercentage(stat);
 
-    return percentage === null ? formatThousands(rating) : (
-      <dfn data-tip={`${formatThousands(rating)} rating`}>
-        {formatPercentage(percentage)}%
-      </dfn>
-    );
+    return percentage === null ? formatThousands(rating) : `${formatPercentage(percentage)}% - ${formatThousands(rating)} Rating`;
   }
 
   // This is a special module, we're giving it a custom position. Normally we'd use "statistic" instead.
@@ -92,7 +88,7 @@ class StatsDisplay extends Analyzer {
     ];
 
     return (
-      <div className="panel">
+      <div className="panel" style={{ border: 0 }}>
         <div className="panel-heading">
           <h2>
             <dfn data-tip="These stats includes any <b>rating</b> buffs, such as flasks, potions and other buffs. Percentage buffs such as Bloodlust are <b>not</b> included.">
@@ -100,35 +96,52 @@ class StatsDisplay extends Analyzer {
             </dfn>
           </h2>
         </div>
-        <div className="panel-body" style={{ padding: 0 }}>
-          <div className="flex wrapable text-center" style={{ margin: '10px 0' }}>
+        <div className="panel-body flex" style={{ flexDirection: 'row', padding: 0 }}>
+          <div className="row">
             {mainStats.map(stat => {
               const Icon = getIcon(stat);
 
               return (
-                <div className={`flex-main ${getClassNameColor(stat)}`} key={stat}>
-                  <Icon
-                    style={{
-                      width: '3em',
-                      height: '3em',
-                    }}
-                  /><br />
-                  {this.renderStatValue(stat)}
-                  <div style={{ fontSize: 10, textTransform: 'uppercase' }}>
-                    {getName(stat)}
+                <div className={`flex-main ${getClassNameColor(stat)}`} key={stat} style={{ height: '3em', marginTop: 10 }}>
+                  <div className="col-md-1"/>
+                  <div className="col-md-2">
+                    <Icon style={{ width: '3em', height: '3em' }} />
+                  </div>
+                  <div className="col-md-8">
+                    <div style={{ fontSize: 14, fontWeight: 700, textTransform: 'uppercase' }}>
+                      {getName(stat)}
+                    </div>
+                    <div style={{ fontSize: 13 }}>
+                      {this.renderStatValue(stat)}
+                    </div>
+                    <div className="col-md-1"/>
                   </div>
                 </div>
               );
             })}
-          </div>
-          <div style={{ background: 'rgba(255, 255, 255, 0.2)', height: 1 }} />
-          <div className="flex wrapable text-center" style={{ margin: '3px 0px 7px 0' }}>
-            {tertiaries.map(stat => (
-              <div key={stat} className={`flex-main ${getClassNameColor(stat)}`}>
-                <SpellIcon id={this.getTertiarySpell(stat)} style={{ height: '1em', borderRadius: 2 }} />{' '}
-                {this.renderStatValue(stat)} {getName(stat)}
-              </div>
-            ))}
+            {tertiaries.map(stat => {
+              if (this.getStatRating(stat) > 0) {
+                return (
+                  <div key={stat} className={`flex-main ${getClassNameColor(stat)}`} style={{ height: '3em', marginTop: 10 }}>
+                    <div className="col-md-1"/>
+                    <div className="col-md-2">
+                      <SpellIcon id={this.getTertiarySpell(stat)} style={{ height: '3em', borderRadius: 2 }} />
+                    </div>
+                    <div className="col-md-8">
+                      <div style={{ fontSize: 14, fontWeight: 700, textTransform: 'uppercase' }}>
+                        {getName(stat)}
+                      </div>
+                      <div style={{ fontSize: 13 }}>
+                        {this.renderStatValue(stat)}
+                      </div>
+                      <div className="col-md-1"/>
+                    </div>
+                  </div>
+                );
+              } else {
+                return null;
+              }
+            })}
           </div>
         </div>
       </div>

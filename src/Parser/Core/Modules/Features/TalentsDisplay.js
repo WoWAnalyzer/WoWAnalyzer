@@ -1,5 +1,5 @@
 import React from 'react';
-
+import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from '../Combatants';
@@ -18,20 +18,27 @@ class TalentsDisplay extends Analyzer {
     const rows = [15, 30, 45, 60, 75, 90, 100];
 
     return (
-      <div className="panel">
-        <div className="panel-body" style={{ padding: 0 }}>
-          <div className="flex wrapable text-center" style={{ margin: '10px 0px 3px 0px' }}>
+      <div className="panel" style={{ border: 0 }}>
+        <div className="panel-heading">
+          <h2>
+            Talents
+          </h2>
+        </div>
+        <div className="panel-body">
+          <div>
             {talents.map((spellId, index) => (
-              <div key={index} className="flex-main">
-                <SpellIcon
-                  id={spellId}
-                  style={{
-                    width: '3em',
-                    height: '3em',
-                  }}
-                /><br />
-                <div style={{ fontSize: 10 }}>
-                  {rows[index]}
+              <div key={index} className="flex-main" style={{ height: '3.5em' }}>
+                <div className="row" style={{ fontSize: 18 }}>
+                  <div className="col-md-1"/>
+                  <div className="col-md-1">
+                    {rows[index]}
+                  </div>
+                  <div className ="col-md-2">
+                    <SpellIcon id={spellId} style={{ width: '2em', height: '2em' }} />
+                  </div>
+                  <div className="col-md-8">
+                    {SPELLS[spellId].name}
+                  </div>
                 </div>
               </div>
             ))}
