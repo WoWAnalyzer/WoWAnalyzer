@@ -99,7 +99,11 @@ class SpinningCraneKick extends Analyzer {
   suggestions(when) {
     when(this.badCasts).isGreaterThan(0).addSuggestion(
       (suggest, actual, recommended) => {
-        return suggest(<span>You have ineffecient casts of <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> </span>)
+        return suggest(
+          <wrapper>
+            You have ineffecient casts of <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} />
+          </wrapper>
+        )
         .icon(SPELLS.SPINNING_CRANE_KICK.icon)
         .actual(`${this.badCasts} Bad Casts`)
         .recommended("0 Bad Casts are recommended")
@@ -112,7 +116,7 @@ class SpinningCraneKick extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <dfn data-tip={`Spinning Crane Kick hits all nearby enemies 4 times over 1.5 seconds`}>
+          <dfn data-tip={"Spinning Crane Kick hits all nearby enemies 4 times over 1.5 seconds"}>
              	Average hits
             </dfn>
         </div>
@@ -143,9 +147,9 @@ class SpinningCraneKick extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <dfn data-tip={`Bad casts is currently only counting casts with lower DPET (Damage Per Execute Time) than Blackout Kick.`}>
+          <dfn data-tip={"Bad casts is currently only counting casts with lower DPET (Damage Per Execute Time) than Blackout Kick."}>
             Bad casts
-            </dfn>
+          </dfn>
         </div>
         <div className="flex-sub text-right">
           {this.badCasts}
@@ -163,7 +167,6 @@ class SpinningCraneKick extends Analyzer {
               <SpellIcon id={SPELLS.SPINNING_CRANE_KICK.id} noLink /> Spinning Crane Kick
           </SpellLink>
           }
-          tooltip=""
           style={{ minHeight: 150 }}
         >
           {this.averageMarks()}

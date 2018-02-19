@@ -47,7 +47,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9,
+          recommendedEfficiency: 0.85,
           extraSuggestion: 'Delaying the cast somewhat to line up with add spawns is acceptable, however.',
         },
       },
@@ -58,6 +58,8 @@ class Abilities extends CoreAbilities {
         cooldown: 90,
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.6,
+          extraSuggestion: "Only use Touch of Karma when you can take enough damage for it to get good value"
         },
       },
       {
@@ -122,7 +124,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.7,
+          recommendedEfficiency: 0.65,
         },
       },
       {
