@@ -199,17 +199,6 @@ class Results extends React.Component {
               {modules.statsDisplay.render()}
               {modules.talentsDisplay.render()}
               <ItemsPanel items={results.items} selectedCombatant={selectedCombatant} />
-
-              <div>
-                <a
-                  href={`https://www.warcraftlogs.com/reports/${report.code}/#fight=${fight.id}&source=${parser.playerId}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ fontSize: 24 }}
-                >
-                  <span className="glyphicon glyphicon-link" aria-hidden /> View on Warcraft Logs
-                </a>
-              </div>
             </div>
             <div className="col-md-8">
               <div className="panel tabbed">
@@ -248,6 +237,16 @@ class Results extends React.Component {
             </div>
           </div>
 
+          <div>
+            <a
+              href={`https://www.warcraftlogs.com/reports/${report.code}/#fight=${fight.id}&source=${parser.playerId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontSize: 24 }}
+            >
+              <span className="glyphicon glyphicon-link" aria-hidden /> View on Warcraft Logs
+            </a>
+          </div>
           <div className="row">
             <div className="col-md-12">
               {this.renderStatistics(results.statistics)}
@@ -257,22 +256,36 @@ class Results extends React.Component {
           <div className="divider" />
 
           <div className="row">
-            <div className="col-md-10" style={{ marginLeft: 80 }}>
+            <div className="col-md-1"/>
+            <div className="col-md-10">
               <div className="row">
                 <div className="col-md-4" style={{ fontSize: 16 }}>
-                  <h3><strong>Spec Source Code</strong></h3>
+                  <h3 style={{ borderBottom: 0 }}>
+                    <strong>
+                      Spec Source Code
+                    </strong>
+                  </h3>
                   Curious how we're doing the analysis? Want to change something? You can find this spec's source <a href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`}>here</a> and a guide on contributing <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/docs#contributing">here</a>.
                 </div>
                 <div className="col-md-4" style={{ fontSize: 16 }}>
-                  <h3><strong>Provide Feedback</strong></h3>
+                  <h3 style={{ borderBottom: 0 }}>
+                    <strong>
+                      Provide Feedback
+                    </strong>
+                  </h3>
                   Do you have a really cool idea? Is a suggestion or checklist threshold off? Spotted a bug? Let us know on <a href="https://discord.gg/AxphPxU">Discord</a>.
                 </div>
                 <div className="col-md-4" style={{ fontSize: 16 }}>
-                  <h3><strong>Spec Analysis Accuracy</strong></h3>
+                  <h3 style={{ borderBottom: 0 }}>
+                    <strong>
+                      Spec Analysis Accuracy
+                    </strong>
+                  </h3>
                   The {config.spec.specName} {config.spec.className} analyzer is currently considered to be in <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn> state. The <i>about</i> tab at the top might have more information.
                 </div>
               </div>
             </div>
+            <div className="col-md-1"/>
           </div>
 
           <div className="divider" />
