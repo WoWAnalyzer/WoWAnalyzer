@@ -119,7 +119,7 @@ class CallOfTheWild extends Analyzer {
   }
 
   item() {
-    let tooltipText = `This shows a breakdown of the cooldown reduction provided by Call of the Wild: <br/> We only count CDR that was effective, meaning we are only showing the time between your casts that happened too soon after your last cast than would have been possible without Call of the Wild equipped.<ul>`;
+    let tooltipText = `This shows a breakdown of the cooldown reduction provided by Call of the Wild: <br/> We only count CDR that was effective. This means this only sums the time between casts, that were too close together to have been possible without having Call of the Wild equipped.<ul>`;
     tooltipText += (this.eagleCDR > 0) ? `<li>Aspect of the Eagle</li><ul><li>Total CDR: ${(this.eagleCDR / 1000).toFixed(1)} seconds</li><li>Gained casts: ${(this.eagleCDR / this.baseEagleCooldown).toFixed(1)}</li></ul>` : ``;
     tooltipText += (this.cheetahCDR > 0) ? `<li>Aspect of the Cheetah</li><ul><li>Total CDR: ${(this.cheetahCDR / 1000).toFixed(1)} seconds</li><li>Gained casts: ${(this.cheetahCDR / this.baseCheetahCooldown).toFixed(1)}</li></ul>` : ``;
     tooltipText += (this.turtleCDR > 0) ? `<li>Aspect of the Turtle</li><ul><li>Total CDR: ${(this.turtleCDR / 1000).toFixed(1)} seconds</li><li>Gained casts: ${(this.turtleCDR / this.baseTurtleCooldown).toFixed(1)}</li></ul>` : ``;
