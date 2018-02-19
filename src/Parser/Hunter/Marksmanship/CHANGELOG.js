@@ -9,6 +9,11 @@ import { Blazballs, JLassie82, Putro } from 'MAINTAINERS';
 
 export default [
   {
+    date: new Date('2018-02-19'),
+    changes: 'Spring cleaning in many modules. Added icons to Vulnerable Applications and Focus Usage modules, added a breakdown of which casts were cancelled',
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-02-05'),
     changes: <Wrapper>Added additional information to the <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} icon /> module, to show cooldown reduction on the various affected spells. </Wrapper>,
     contributors: [Putro],
@@ -65,7 +70,7 @@ export default [
   },
   {
     date: new Date('2017-11-29'),
-    changes: <Wrapper>Updated <SpellLink id={SPELLS.TRICK_SHOT_TALENT.id} icon /> to properly account for both single-target and cleave damage, added support for tier 21, and fixed a bug in the <SpellLink id={SPELLS.TRUESHOT.id} icon /> module where it counted too many <SpellLink id={SPELLS.AIMED_SHOT.id} icon/> than it should.</Wrapper>,
+    changes: <Wrapper>Updated <SpellLink id={SPELLS.TRICK_SHOT_TALENT.id} icon /> to properly account for both single-target and cleave damage, added support for tier 21, and fixed a bug in the <SpellLink id={SPELLS.TRUESHOT.id} icon /> module where it counted too many <SpellLink id={SPELLS.AIMED_SHOT.id} icon /> than it should.</Wrapper>,
     contributors: [Putro],
   },
   {

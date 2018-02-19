@@ -4,7 +4,7 @@ import { formatMilliseconds, formatNumber, formatPercentage } from 'common/forma
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-const debug = true;
+const debug = false;
 
 // Log where someone died: https://wowanalyzer.com/report/RjH6AnYdP8GWzX4h/2-Heroic+Aggramar+-+Kill+(6:23)/Kantasai
 class DeathTracker extends Analyzer {
