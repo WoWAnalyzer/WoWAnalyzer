@@ -44,7 +44,7 @@ class DelusionsOfGrandeur extends Analyzer {
 
 	get suggestionThresholds() {
     return {
-      actual: this.owner.fightDuration / 1000 < this.metaCooldownWithShoulders,
+      actual: this.owner.fightDuration / 1000 < this.metaCooldownWithShoulders && this.abilityTracker.getAbility(SPELLS.METAMORPHOSIS_HAVOC.id).casts < 2,
       isEqual: true,
       style: 'boolean',
     };
