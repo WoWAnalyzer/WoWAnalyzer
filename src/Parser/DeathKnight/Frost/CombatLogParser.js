@@ -21,6 +21,7 @@ import RuneTracker from './Modules/Features/RuneTracker';
 import RuneDetails from '../Shared/RuneDetails';
 
 import GatheringStorm from './Modules/Talents/GatheringStorm';
+import Frostscythe from './Modules/Talents/Frostscythe';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -55,6 +56,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //talents
     gatheringStorm: GatheringStorm,
+    frostscythe: Frostscythe,
   };
 }
 
