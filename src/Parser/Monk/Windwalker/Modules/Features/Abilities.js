@@ -59,7 +59,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.6,
-          extraSuggestion: "Only use Touch of Karma when you can take enough damage for it to get good value"
+          extraSuggestion: "Touch of Karma is typically used offensively as often as possible, but use changes a lot varying on the encounter",
         },
       },
       {
