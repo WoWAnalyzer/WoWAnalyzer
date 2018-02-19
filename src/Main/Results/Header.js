@@ -49,7 +49,6 @@ class Headers extends React.PureComponent {
           {completeness === SPEC_ANALYSIS_COMPLETENESS.GREAT ? <Wrapper> and is considered <dfn className="completeness" data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>complete</dfn></Wrapper> : ''}
 
           {!compatibility && completeness !== SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED ? '.' : ''}
-          {compatibility && completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED ? ` Last Updated for Patch ${compatibility}.` : ''}
           {compatibility && (completeness === SPEC_ANALYSIS_COMPLETENESS.GOOD || completeness === SPEC_ANALYSIS_COMPLETENESS.GREAT) ? ` and updated for Patch ${compatibility}.` : ''}
         </div>
       </header>
