@@ -695,6 +695,11 @@ export default {
     icon: 'spell_shaman_spiritwalkersgrace',
     manaCost: 31020,
   },
+  WELLSPRING_HEAL: {
+    id: 198117,
+    name: 'Wellspring',
+    icon: 'ability_shawaterelemental_split', 
+  },
 
   // Traits:
   // Restoration Shaman:

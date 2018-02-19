@@ -1,4 +1,5 @@
 export default `
+16-02-2018 - Added Spinning Crane Kick statistics and suggestion on bad use of Spinning Crane Kick (Juko)
 27-01-2018 - Added item breakdown for Drinking Horn Cover showing average time gained for each Storm, Earth and Fire or Serenity cast (Juko)
 24-01-2018 - Added Statistic showing actual casts vs expected casts of important spells during Storm, Earth and Fire or Serenity (Juko)
 20-01-2018 - Updated Cooldown Tracker to include extended SEF duration from Drinking Horn Cover (Juko)
