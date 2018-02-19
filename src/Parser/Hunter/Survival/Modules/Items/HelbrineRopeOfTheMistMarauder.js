@@ -57,7 +57,7 @@ class HelbrineRopeOfTheMistMarauder extends Analyzer {
     return {
       item: ITEMS.HELBRINE_ROPE_OF_THE_MIST_MARAUDER,
       result: (
-        <dfn data-tip={`You applied the Mark of Helbrine debuff ${this.applications} times. </br> The reason this shows as "up to X dmg" is because the tooltip has no information on the potency of the applied Mark of Helbrine. To maximize the potential of this legendary, you want to stand as far away as possible and cast Harpoon when engaging the first time with mobs.`}>
+        <dfn data-tip={`You applied the Mark of Helbrine debuff ${this.applications} times. </br> The reason this shows as "up to X dmg" is because the tooltip has no information on the potency of the applied Mark of Helbrine. To maximize the potential of Helbrine, Rope of the Mist Marauder, you want to stand as far away as possible and cast Harpoon when engaging the first time with mobs.`}>
           <Wrapper>
             {formatPercentage(this.uptimePercentage)}% uptime<br />
             Up to <ItemDamageDone amount={this.bonusDamage} />

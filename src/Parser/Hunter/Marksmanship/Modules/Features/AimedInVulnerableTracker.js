@@ -84,7 +84,7 @@ class AimedInVulnerableTracker extends Analyzer {
         .recommended(`<${formatPercentage(recommended)}% focus dump no Aimed Shots is recommended, with 0% being the ideal`);
     });
     when(this.nonVulnerableAimedShotThreshold).addSuggestion((suggest, actual) => {
-      return suggest(<Wrapper> You cast {this.outsideVulnerabilityAimed} <SpellLink id={SPELLS.AIMED_SHOT.id} icon children={SPELLS.AIMED_SHOT.name + 's'} /> outside <SpellLink id={SPELLS.VULNERABLE.id} /> and without high enough focus to warrant focus dumping.<br /> <b>Only cast <SpellLink id={SPELLS.AIMED_SHOT.id} /> outside of <SpellLink id={SPELLS.VULNERABLE.id} /> when you're at 95 focus or more, and you don't have <SpellLink id={SPELLS.MARKED_SHOT.id} /> or <SpellLink id={SPELLS.WINDBURST.id} /> ready. </b> <br /> <b>Note:</b> <SpellLink id={SPELLS.VULNERABLE.id} /> damage is calculated <u><b>when the cast finishes</b></u>, so <SpellLink id={SPELLS.AIMED_SHOT.id} /> does not have to hit inside the window for it to register properly - use this knowledge to your advantage to squeeze more <SpellLink id={SPELLS.AIMED_SHOT.id} icon children={SPELLS.AIMED_SHOT.name + 's'} /> inside the <SpellLink id={SPELLS.VULNERABLE.id} /> window. </Wrapper>)
+      return suggest(<Wrapper> You cast {this.outsideVulnerabilityAimed} <SpellLink id={SPELLS.AIMED_SHOT.id} icon />s outside <SpellLink id={SPELLS.VULNERABLE.id} /> and without high enough focus to warrant focus dumping.<br /> <b>Only cast <SpellLink id={SPELLS.AIMED_SHOT.id} /> outside of <SpellLink id={SPELLS.VULNERABLE.id} /> when you're at 95 focus or more, and you don't have <SpellLink id={SPELLS.MARKED_SHOT.id} /> or <SpellLink id={SPELLS.WINDBURST.id} /> ready. </b> <br /> <b>Note:</b> <SpellLink id={SPELLS.VULNERABLE.id} /> damage is calculated <u><b>when the cast finishes</b></u>, so <SpellLink id={SPELLS.AIMED_SHOT.id} /> does not have to hit inside the window for it to register properly - use this knowledge to your advantage to squeeze more <SpellLink id={SPELLS.AIMED_SHOT.id} icon />s inside the <SpellLink id={SPELLS.VULNERABLE.id} /> window. </Wrapper>)
         .icon(SPELLS.AIMED_SHOT.icon)
         .actual(`${formatPercentage(actual)}% of total Aimed Shots were outside Vulnerable without a need to dump focus`)
         .recommended(`No Aimed Shots should be cast outside Vulnerable, unless you're close to focus capping`);
@@ -97,7 +97,7 @@ class AimedInVulnerableTracker extends Analyzer {
         icon={<SpellIcon id={SPELLS.VULNERABLE.id} />}
         value={`${formatPercentage(percentAimedInVulnerable)}%`}
         label="Vulnerable Aimed Shots"
-        tooltip={` You cast ${this.totalAimed} Aimed Shots. <ul> <li> The amount of Aimed Shot casts inside Vulnerable: ${this.inVulnerabilityAimed}.</li> <li>The amount of Aimed Shot casts outside Vulnerable without a need to focus dump: ${this.outsideVulnerabilityAimed - this.focusDumpAimed}. </li> <li> Amount of Aimed Shot outside vulnerable to dump focus: ${this.focusDumpAimed}. </li></ul>`} />
+        tooltip={` You cast ${this.totalAimed} Aimed Shots. <ul> <li> The amount of Aimed Shot casts inside Vulnerable: ${this.inVulnerabilityAimed}.</li> <li>The amount of Aimed Shot casts outside Vulnerable without a need to focus dump: ${this.outsideVulnerabilityAimed - this.focusDumpAimed}. </li> <li> Amount of Aimed Shot casts outside vulnerable to dump focus: ${this.focusDumpAimed}. </li></ul>`} />
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(5);

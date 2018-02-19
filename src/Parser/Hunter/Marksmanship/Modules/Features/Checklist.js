@@ -195,11 +195,11 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.AIMED_SHOT.id} icon children={SPELLS.AIMED_SHOT.name + 's'} /> outside <SpellLink id={SPELLS.VULNERABLE.id} icon /></Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.AIMED_SHOT.id} icon />s outside <SpellLink id={SPELLS.VULNERABLE.id} icon /></Wrapper>,
             check: () => this.aimedInVulnerableTracker.nonVulnerableAimedShotThreshold,
           }),
           new Requirement({
-            name: <Wrapper><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Focus dump <SpellLink id={SPELLS.AIMED_SHOT.id} icon children={SPELLS.AIMED_SHOT.name + 's'} /></Wrapper>,
+            name: <Wrapper><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Focus dump <SpellLink id={SPELLS.AIMED_SHOT.id} icon />s</Wrapper>,
             check: () => this.aimedInVulnerableTracker.focusDumpThreshold,
           }),
           new Requirement({

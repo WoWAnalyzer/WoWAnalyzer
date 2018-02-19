@@ -48,7 +48,7 @@ class Tier20_2p extends Analyzer {
       title: <SpellLink id={SPELLS.HUNTER_MM_T20_2P_BONUS_BUFF.id} />,
       result: (
         <dfn data-tip={`Your utilization of tier 20 2 piece: <ul> <li> Buffed aimed shots: ${this.buffedAimed}.</li> <li> Total aimed shots:  ${this.totalAimed}.</li></ul> `}>
-          Buffed {<SpellLink id={SPELLS.AIMED_SHOT.id} icon children={SPELLS.AIMED_SHOT.name + 's'} />}: {formatPercentage(this.buffedAimed / this.totalAimed)}%<br />
+          Buffed {<SpellLink id={SPELLS.AIMED_SHOT.id} icon />}s: {formatPercentage(this.buffedAimed / this.totalAimed)}%<br />
           <ItemDamageDone amount={this.bonusDmg} />
         </dfn>
       ),

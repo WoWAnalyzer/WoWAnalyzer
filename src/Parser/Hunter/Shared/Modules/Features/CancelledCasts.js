@@ -7,6 +7,8 @@ import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Icon from 'common/Icon';
 
+const debug = false;
+
 class CancelledCasts extends CoreCancelledCasts {
   static IGNORED_ABILITIES = [
     //Include the spells that you do not want to be tracked and spells that are castable while casting
@@ -39,7 +41,7 @@ class CancelledCasts extends CoreCancelledCasts {
   }
 
   statistic() {
-    console.log(Object.keys(this.cancelledSpellList));
+    debug && console.log(Object.keys(this.cancelledSpellList));
     const tooltipText = Object.keys(this.cancelledSpellList).map(cancelledSpell =>
       `<li>
         ${this.cancelledSpellList[cancelledSpell].spellName}: ${this.cancelledSpellList[cancelledSpell].amount}
