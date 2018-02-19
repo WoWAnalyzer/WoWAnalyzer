@@ -7,28 +7,32 @@ import Abilities from './Modules/Abilities';
 import Channeling from './Modules/Core/Channeling';
 import GlobalCooldown from './Modules/Core/GlobalCooldown';
 
+// Features
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import BloodPlagueUptime from './Modules/Features/BloodPlagueUptime';
 import BoneShieldUptime from './Modules/Features/BoneShieldUptime';
-import OssuaryUptime from './Modules/Features/OssuaryUptime';
 import CrimsonScourge from './Modules/Features/CrimsonScourge';
 import BlooddrinkerTicks from './Modules/Features/BlooddrinkerTicks';
 import UnendingThirstTracker from './Modules/Features/UnendingThirstTracker';
-
 import Checklist from './Modules/Features/Checklist';
 
+// Resources
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
 import RunicPowerTracker from './Modules/RunicPower/RunicPowerTracker';
+import RuneTracker from '../Shared/RuneTracker';
+import RuneDetails from '../Shared/RuneDetails';
 
+// Talents
+import Ossuary from './Modules/Talents/Ossuary';
+import RedThirst from './Modules/Talents/RedThirst';
+
+// Items
 import T20_2pc from './Modules/Items/T20_2pc';
 import T20_4pc from './Modules/Items/T20_4pc';
 import SkullflowersHaemostasis from './Modules/Items/SkullflowersHaemostasis';
 import ShacklesofBryndaor from './Modules/Items/ShacklesofBryndaor';
 import SoulflayersCorruption from './Modules/Items/SoulflayersCorruption';
-
-import RuneTracker from '../Shared/RuneTracker';
-import RuneDetails from '../Shared/RuneDetails';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -47,7 +51,6 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     boneShieldUptime: BoneShieldUptime,
-    ossuaryUptime: OssuaryUptime,
     crimsonScourge: CrimsonScourge,
     blooddrinkerTicks: BlooddrinkerTicks,
     unendingThirstTracker:UnendingThirstTracker,
@@ -57,12 +60,15 @@ class CombatLogParser extends CoreCombatLogParser {
     // DOT
     bloodplagueUptime: BloodPlagueUptime,
 
-    // RunicPower
+    // Resources
     runicPowerTracker: RunicPowerTracker,
     runicPowerDetails: RunicPowerDetails,
+    runeTracker: RuneTracker,
+    runeDetails: RuneDetails,
 
     // Talents
-
+    ossuary: Ossuary,
+    redThirst: RedThirst,
 
     // Traits
 
@@ -72,11 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
     t20_4pc: T20_4pc,
     skullflowersHaemostasis: SkullflowersHaemostasis,
     shacklesofBryndaor:ShacklesofBryndaor,
-    soulflayersCorruption:SoulflayersCorruption,
-
-    //Rune tracker
-    runeTracker: RuneTracker,
-    runeDetails: RuneDetails,
+    soulflayersCorruption:SoulflayersCorruption,    
   };
 }
 

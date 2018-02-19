@@ -6,7 +6,7 @@ import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-class OssuaryUptime extends Analyzer {
+class Ossuary extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
@@ -46,4 +46,4 @@ class OssuaryUptime extends Analyzer {
   statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
-export default OssuaryUptime;
+export default Ossuary;
