@@ -71,7 +71,7 @@ class ButcheryCarve extends Analyzer {
   statistic() {
     if (this.bonusDamage > 0) {
       const spellLink = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
-      const tooltipText = this.hellcarver.hellcarverRanks > 0 ? `${this.hellcarver.hellcarverRanks} ranks of Hellcarver increased ${spellLink.name} damage by ${formatPercentage(this.hellcarver.hellcarverModifierPrTarget)}% per additional target hit. <br/> This contributed with ${formatNumber(this.hellcarver.damageContribution)} (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.hellcarver.damageContribution))}% of total damage - ${formatNumber(this.hellcarver.damageContribution / this.owner.fightDuration * 1000)} DPS) of the total damage that ${spellLink.name} dealt.` : ``;
+      const tooltipText = this.hellcarver.hellcarverRanks > 0 ? `${this.hellcarver.hellcarverRanks} ranks of Hellcarver increased ${spellLink.name} damage by ${formatPercentage(this.hellcarver.hellcarverModifierPrTarget)}% per additional target hit. <br/> This contributed with ${formatNumber(this.hellcarver.damageContribution)} of the total damage that ${spellLink.name} dealt, this is the same as ${formatNumber(this.hellcarver.damageContribution / this.owner.fightDuration * 1000)} DPS or ${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.hellcarver.damageContribution))}% of your total damage` : ``;
       return (
         <StatisticBox
           icon={<SpellIcon id={spellLink.id} />}
