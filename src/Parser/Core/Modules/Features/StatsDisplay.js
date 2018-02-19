@@ -89,7 +89,7 @@ class StatsDisplay extends Analyzer {
 
     return (
       <div className="panel" style={{ border: 0 }}>
-        <div className="panel-heading">
+        <div className="panel-heading" style={{ boxShadow: 'none', borderBottom: 0 }}>
           <h2>
             <dfn data-tip="These stats includes any <b>rating</b> buffs, such as flasks, potions and other buffs. Percentage buffs such as Bloodlust are <b>not</b> included.">
               Stats on pull

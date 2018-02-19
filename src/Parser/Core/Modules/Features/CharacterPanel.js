@@ -23,7 +23,7 @@ class CharacterPanel extends Analyzer {
             {this.talentsDisplay.render()}
           </div>
         </div>
-        <div className="panel-heading">
+        <div className="panel-heading" style={{ boxShadow: 'none', borderBottom: 0 }}>
           <h2>
             Equipped Gear
           </h2>

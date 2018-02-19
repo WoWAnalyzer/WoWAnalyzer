@@ -19,7 +19,7 @@ class TalentsDisplay extends Analyzer {
 
     return (
       <div className="panel" style={{ border: 0 }}>
-        <div className="panel-heading">
+        <div className="panel-heading" style={{ boxShadow: 'none', borderBottom: 0 }}>
           <h2>
             Talents
           </h2>
