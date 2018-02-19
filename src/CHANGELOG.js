@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-02-19'),
+    changes: `Moved the Stats on Pull, Talents, and Gear to a new Character Tab in the Main Panel.`,
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2018-01-28'),
     changes: <Wrapper>Added <i>How It's Made</i>, <i>How To Change</i>, <i>Spec Maintainer</i> and <i>State Of The Spec</i> boxes to the results page.</Wrapper>,
     contributors: [Zerotorescue],
