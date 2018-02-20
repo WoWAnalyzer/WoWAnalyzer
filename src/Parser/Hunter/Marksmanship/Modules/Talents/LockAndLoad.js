@@ -140,7 +140,8 @@ class LockAndLoad extends Analyzer {
   }
 
   statistic() {
-    let tooltipText = `You had ${this.noGainLNLProcs} procs with 2 lnl stacks remaining and ${this.halfLNLProcs} while you had 1 stack remaining. <br/> You had ${formatPercentage(this.totalProcs / this.expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br /> You had a total of ${this.totalProcs} procs, and your expected amount of procs was ${this.expectedProcs}. <br /> <ul><li>You had a ~${formatPercentage(this.binomialCalculation(this.totalProcs, this.autoShots, PROC_CHANCE))}% chance of getting this amount of procs or fewer. </li><li>`;
+    let tooltipText = `You had ${this.noGainLNLProcs} ${this.noGainLNLProcs > 1 ? `procs` : `proc`} with 2 lnl stacks remaining and ${this.halfLNLProcs} ${this.halfLNLProcs > 1 ? `
+  procs` : `proc`} while you had 1 lnl stack remaining. <br/> You had ${formatPercentage(this.totalProcs / this.expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br /> You had a total of ${this.totalProcs} procs, and your expected amount of procs was ${this.expectedProcs}. <br /> <ul><li>You had a ~${formatPercentage(this.binomialCalculation(this.totalProcs, this.autoShots, PROC_CHANCE))}% chance of getting this amount of procs or fewer. </li><li>`;
     //this two first tooltipText additions will probably NEVER happen, but it'd be fun if they ever did.
     tooltipText += this.binomialCalculation(this.totalProcs, this.autoShots, PROC_CHANCE) === 1 ? `You had so many procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 100%. Consider yourself the luckiest man alive.` : ``;
     tooltipText += this.binomialCalculation(this.totalProcs, this.autoShots, PROC_CHANCE) === 0 ? `You had so few procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 0%. Consider yourself the unluckiest man alive.` : ``;
@@ -151,7 +152,7 @@ class LockAndLoad extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.LOCK_AND_LOAD_TALENT.id} />}
         value={`${this.wastedInstants} (${formatPercentage(this.wastedInstants / (this.totalProcs * 2))}%)`}
-        label={`lost instant casts`}
+        label={`lost Lock and Load stacks`}
         tooltip={tooltipText}
       />
     );
