@@ -2,7 +2,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import { formatNumber } from 'common/format';
 
 const HELLCARVER_MODIFIER_PER_RANK = (1 / 30); //3.33% repeat ofcourse
 
@@ -64,7 +63,7 @@ class Hellcarver extends Analyzer {
   }
 
   get damageContribution() {
-    return formatNumber(this.bonusDamage);
+    return this.bonusDamage;
   }
 
 }
