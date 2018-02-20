@@ -9,6 +9,11 @@ import { Hewhosmites, Mamtooth } from 'MAINTAINERS';
 
 export default [
 	{
+		date: new Date('2018-02-19'),
+		changes: <Wrapper>Added <ItemLink id={ITEMS.ANGER_OF_THE_HALF_GIANTS.id} icon/></Wrapper>,
+		contributors: [Hewhosmites],
+	},
+	{
 		date: new Date('2018-01-27'),
 		changes: <Wrapper>Added in <SpellLink id={SPELLS.HAVOC_T21_4PC_BONUS.id} icon/></Wrapper>,
 		contributors: [Hewhosmites],

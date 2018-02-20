@@ -12,6 +12,13 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import FuryTracker from '../ResourceTracker/FuryTracker';
 
+/**
+* Anger Of The Half Giants
+* Equip: Demon Blades/Demon Blades
+* Demon's Bite/Demon Blades generates an additional 1 to 14 Fury.
+**/
+
+
 class AngerOfTheHalfGiants extends Analyzer {
 	static dependencies = {
 		furyTracker: FuryTracker,
@@ -21,10 +28,10 @@ class AngerOfTheHalfGiants extends Analyzer {
 
 	_hasDemonBlades = false;
 
-	on_initizlied() {
+	on_initialized() {
 		this.active = this.combatants.selected.hasFinger(ITEMS.ANGER_OF_THE_HALF_GIANTS.id);
 		if(this.active) {
-			this._hasDemonBlades = this.combatants.selected.hasTalent(SPELLS.DEMON_BLADES.id);
+			this._hasDemonBlades = this.combatants.selected.hasTalent(SPELLS.DEMON_BLADES_TALENT.id);
 		}
 	}
 
@@ -36,7 +43,10 @@ class AngerOfTheHalfGiants extends Analyzer {
 		if(!this._hasDemonBlades) {
 			return this.abilityTracker.getAbility(SPELLS.DEMONS_BITE.id).casts;
 		}
-		return this.furyTracker.buildersObj[SPELLS.DEMON_BLADES_FURY.id].casts;
+		if(this.furyTracker.buildersObj[SPELLS.DEMON_BLADES_FURY.id]) {
+			return this.furyTracker.buildersObj[SPELLS.DEMON_BLADES_FURY.id].casts;
+		}
+		return 0;
 	}
 
 	get furyGenerated() {
@@ -58,7 +68,7 @@ class AngerOfTheHalfGiants extends Analyzer {
 	}
 
 	item() {
-		const builderId = this._hasDemonBlades ? SPELLS.DEMON_BLADES.id : SPELLS.DEMONS_BITE.id;
+		const builderId = this._hasDemonBlades ? SPELLS.DEMON_BLADES_TALENT.id : SPELLS.DEMONS_BITE.id;
 		return {
 			item: ITEMS.ANGER_OF_THE_HALF_GIANTS,
 			result: (
@@ -68,27 +78,6 @@ class AngerOfTheHalfGiants extends Analyzer {
 			),
 		};
 	}
-
-	get suggestionThresholds() {
-    return {
-      actual: this.furyWasted / this.totalFury,
-      isGreaterThan: {
-        minor: 0.05,
-        average: 0.1,
-        major: 0.15,
-      },
-      style: 'percentage',
-    };
-  }
-
-  suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You wasted {formatPercentage(actual)}% of the fury from <ItemLink id={ITEMS.ANGER_OF_THE_HALF_GIANTS.id} icon/>. Consider using an easier legendary.</Wrapper>)
-        .icon(ITEMS.ANGER_OF_THE_HALF_GIANTS.icon)
-        .actual(`${this.furyWasted} Fury wasted`)
-        .recommended(`Wasting less than ${formatPercentage(recommended)}% is recommended.`);
-    });
-  }
 }
 
 export default AngerOfTheHalfGiants;
