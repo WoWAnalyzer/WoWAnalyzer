@@ -9,6 +9,11 @@ import ITEMS from 'common/ITEMS';
 
 export default [
   {
+    date: new Date('2018-02-20'),
+    changes: 'Spring cleaning in many modules. Added icons to Focus Usage modules and elsewhere around the analyzer',
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-02-05'),
     changes: <Wrapper>Added additional information to the <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} icon /> module, to show cooldown reduction on the various affected spells. </Wrapper>,
     contributors: [Putro],

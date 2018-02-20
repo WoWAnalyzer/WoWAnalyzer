@@ -37,7 +37,7 @@ class TimeFocusCapped extends Analyzer {
         tooltip={`You wasted <b> ${totalFocusWaste}  </b> focus. <br />
         That's <b>  ${formatPercentage(totalFocusWaste / (this.owner.fightDuration / 1000 * this.focusTracker.focusGen))}% </b> of your total focus generated.
         <br /> For more details, see the Focus Chart tab.`}
-        value={`${percentCapped} %`}
+        value={`${percentCapped}%`}
         //Time not Focus-Capped: {Math.round((this.owner.fightDuration / 1000 - this.focusTracker.secondsCapped) * 100) / 100}s / {Math.floor(this.owner.fightDuration / 1000)}
         footer={(
           <div className="statistic-bar">

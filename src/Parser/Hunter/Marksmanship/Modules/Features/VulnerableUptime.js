@@ -43,7 +43,7 @@ class VulnerableUpTime extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.VULNERABLE.id} />}
-        value={`${formatPercentage(this.uptimePercentage)} %`}
+        value={`${formatPercentage(this.uptimePercentage)}%`}
         label="Vulnerable uptime"
       />
     );
