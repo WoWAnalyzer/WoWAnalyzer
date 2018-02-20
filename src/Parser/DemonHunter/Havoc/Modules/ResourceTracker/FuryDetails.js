@@ -34,9 +34,9 @@ class FuryDetails extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(`You wasted ${formatPercentage(actual)}% of your Fury.`)
+      return suggest(`You wasted ${formatNumber(this.furyTracker.wasted)} Fury.`)
         .icon(furyIcon)
-        .actual(`${this.furyTracker.wasted} Fury wasted`)
+        .actual(`${formatPercentage(actual)}% Fury wasted`)
         .recommended(`Wasting less than ${formatPercentage(recommended)}% is recommended.`);
     });
   }

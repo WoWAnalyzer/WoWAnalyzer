@@ -34,9 +34,9 @@ class HolyPowerDetails extends Analyzer {
 
   suggestions(when) {
 		when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-			return suggest(`You wasted ${formatPercentage(actual)}% of your Holy Power.`)
+			return suggest(`You wasted ${formatNumber(this.holyPowerTracker.wasted)} Holy Power.`)
 				.icon(holyPowerIcon)
-				.actual(`${this.holyPowerTracker.wasted} Holy Power wasted`)
+				.actual(`${formatPercentage(actual)}% Holy Power wasted`)
 				.recommended(`Wasting less than ${formatPercentage(recommended)}% is recommended.`);
 		});
 	}
