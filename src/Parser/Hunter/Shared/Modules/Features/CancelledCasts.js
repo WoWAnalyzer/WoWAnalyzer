@@ -8,8 +8,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Icon from 'common/Icon';
 import Wrapper from 'common/Wrapper';
 
-const debug = false;
-
 class CancelledCasts extends CoreCancelledCasts {
   static IGNORED_ABILITIES = [
     //Include the spells that you do not want to be tracked and spells that are castable while casting
@@ -42,7 +40,6 @@ class CancelledCasts extends CoreCancelledCasts {
   }
 
   statistic() {
-    debug && console.log(Object.keys(this.cancelledSpellList));
     const tooltipText = Object.keys(this.cancelledSpellList).map(cancelledSpell =>
       `<li>
         ${this.cancelledSpellList[cancelledSpell].spellName}: ${this.cancelledSpellList[cancelledSpell].amount}
@@ -54,7 +51,7 @@ class CancelledCasts extends CoreCancelledCasts {
         icon={<Icon icon="inv_misc_map_01" />}
         value={`${formatPercentage(this.cancelledPercentage)}%`}
         label={`Cancelled Casts`}
-        tooltip={`You started casting a total of ${this.totalCasts} spells with a cast timer. You cancelled ${this.castsCancelled} of those casts. <ul><li>${tooltipText}</li></ul>`}
+        tooltip={`You started casting a total of ${this.totalCasts} spells with a cast timer. You cancelled ${this.castsCancelled} of those casts. <ul>${tooltipText}</ul>`}
       />
     );
   }
