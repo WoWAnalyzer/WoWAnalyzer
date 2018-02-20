@@ -69,7 +69,7 @@ class BestialWrathAverageFocus extends Analyzer {
 
   suggestions(when) {
     when(this.focusOnBestialWrathCastThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You started your average <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> at {this.averageFocusAtBestialWrathCast} focus, try and pool a bit more before casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. This can be achieved by not casting abilities a few moments before <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> comes off cooldown.</Wrapper>)
+      return suggest(<Wrapper>You started your average <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> at {this.averageFocusAtBestialWrathCast} focus, try and pool a bit more before casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon />. This can be achieved by not casting abilities a few moments before <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> comes off cooldown.</Wrapper>)
         .icon(SPELLS.BESTIAL_WRATH.icon)
         .actual(`Average of ${this.averageFocusAtBestialWrathCast} focus at start of Bestial Wrath`)
         .recommended(`>${recommended} focus is recommended`);
