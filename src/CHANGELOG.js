@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-02-20'),
+    changes: <Wrapper>Moved <SpellLink id={SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_AGILITY.id} icon /> statistic into the Netherlight Crucible list and renamed it.</Wrapper>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-01-28'),
     changes: <Wrapper>Added <i>How It's Made</i>, <i>How To Change</i>, <i>Spec Maintainer</i> and <i>State Of The Spec</i> boxes to the results page.</Wrapper>,
     contributors: [Zerotorescue],
