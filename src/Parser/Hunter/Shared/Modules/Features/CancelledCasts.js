@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Icon from 'common/Icon';
+import Wrapper from 'common/Wrapper';
 
 const debug = false;
 
@@ -33,7 +34,7 @@ class CancelledCasts extends CoreCancelledCasts {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You cancelled {formatPercentage(this.cancelledPercentage)}% of your spells. While it is expected that you will have to cancel a few casts to react to a boss mechanic or to move, you should try to ensure that you are cancelling as few casts as possible. This is generally done by planning ahead in terms of positioning, and moving while you're casting instant cast spells.</span>)
+        return suggest(<Wrapper>You cancelled {formatPercentage(this.cancelledPercentage)}% of your spells. While it is expected that you will have to cancel a few casts to react to a boss mechanic or to move, you should try to ensure that you are cancelling as few casts as possible. This is generally done by planning ahead in terms of positioning, and moving while you're casting instant cast spells.</Wrapper>)
           .icon('inv_misc_map_01')
           .actual(`${formatPercentage(actual)}% casts cancelled`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);
@@ -53,7 +54,7 @@ class CancelledCasts extends CoreCancelledCasts {
         icon={<Icon icon="inv_misc_map_01" />}
         value={`${formatPercentage(this.cancelledPercentage)}%`}
         label={`Cancelled Casts`}
-        tooltip={`You started casting a total of ${this.totalCasts} spells with a cast timer. <ul><li> You cancelled ${this.castsCancelled} of those casts. </li><ul>${tooltipText}</ul></ul>`}
+        tooltip={`You started casting a total of ${this.totalCasts} spells with a cast timer. You cancelled ${this.castsCancelled} of those casts. <ul><li>${tooltipText}</li></ul>`}
       />
     );
   }
