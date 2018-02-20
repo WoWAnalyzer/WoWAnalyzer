@@ -9,6 +9,11 @@ import { Blazballs, JLassie82, Putro } from 'MAINTAINERS';
 
 export default [
   {
+    date: new Date('2018-02-20'),
+    changes: <Wrapper>Updated the <SpellLink id={SPELLS.LOCK_AND_LOAD_TALENT.id} icon /> module to include some probability calculations on your chance of getting that amount or lower procs.</Wrapper>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-02-19'),
     changes: 'Spring cleaning in many modules. Added icons to Vulnerable Applications and Focus Usage modules, added a breakdown of which casts were cancelled',
     contributors: [Putro],
