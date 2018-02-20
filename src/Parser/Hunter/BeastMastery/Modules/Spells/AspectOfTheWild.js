@@ -85,7 +85,7 @@ class AspectOfTheWild extends Analyzer {
   }
   statistic() {
     let tooltipText = `You cast Aspect of the Wild a total of ${this.totalAspectCasts} times.`;
-    tooltipText += this.badAspectCasts > 0 ? `<ul><li>You had ${this.badAspectCasts} bad cast(s) of Aspect of the Wild. <ul><li>Bad casts indicate that Aspect of the Wild was cast without Bestial Wrath up with atleast 7 seconds remaining, or without having Bestial Wrath off cooldown (or within 3 seconds of coming off cooldown)<li> (The only exception is if the fight is about to end in which you just cast Aspect of the Wild)</li></li></ul></li></ul>` : ``;
+    tooltipText += this.badAspectCasts > 0 ? `<ul><li>You had ${this.badAspectCasts} bad cast(s) of Aspect of the Wild. <ul><li>Bad casts indicate that Aspect of the Wild was cast without Bestial Wrath up with atleast 7 seconds remaining, or without having Bestial Wrath off cooldown (or within 3 seconds of coming off cooldown)<li> (The only exception is if the fight is about to end in which case you just cast Aspect of the Wild)</li></li></ul></li></ul>` : ``;
 
     return (
       <StatisticBox
