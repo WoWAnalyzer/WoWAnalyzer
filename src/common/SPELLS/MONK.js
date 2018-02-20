@@ -49,6 +49,11 @@ export default {
     icon: 'ability_monk_cranekick_new',
     manaPerc: 0.01,
   },
+  SPINNING_CRANE_KICK_DAMAGE: {
+    id: 107270,
+    name: 'Spinning Crane Kick',
+    icon: 'ability_monk_cranekick_new',
+  },
   TIGER_PALM: {
     id: 100780,
     name: 'Tiger Palm',
@@ -662,6 +667,11 @@ export default {
     id: 195403,
     name: 'Gale Burst',
     icon: 'ability_monk_palmstrike',
+  },
+  MARK_OF_THE_CRANE: {
+    id: 228287,
+    name: 'Mark of the Crane',
+    icon: 'ability_monk_cranekick_new',
   },
   // Windwalker Talents
   POWER_STRIKES: {

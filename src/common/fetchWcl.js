@@ -44,6 +44,7 @@ async function rawFetchWcl(endpoint, queryParams) {
   try {
     json = await response.json();
   } catch (error) {
+    console.error(error);
     throw new JsonParseError();
   }
 

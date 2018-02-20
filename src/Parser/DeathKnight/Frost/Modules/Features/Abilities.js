@@ -95,6 +95,11 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
       {
+        spell: SPELLS.FROSTSCYTHE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.FROSTSCYTHE_TALENT.id),
+      },
+      {
         spell: SPELLS.RUNE_1,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
         cooldown: haste => 10 / (1 + haste),

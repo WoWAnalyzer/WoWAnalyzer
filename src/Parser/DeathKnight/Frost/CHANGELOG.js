@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
     {
+      date: new Date('2018-02-18'),
+      changes: <Wrapper>Added efficiency reporting for <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} icon/></Wrapper>,
+      contributors: [Khazak],
+    },
+    {
       date: new Date('2018-02-12'),
       changes: <Wrapper>Added stats for <ItemLink id={ITEMS.KOLTIRAS_NEWFOUND_WILL.id}/></Wrapper>,
       contributors: [Khazak],

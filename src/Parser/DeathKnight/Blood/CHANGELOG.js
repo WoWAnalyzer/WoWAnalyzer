@@ -8,6 +8,16 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+{
+    date: new Date('2018-02-17'),
+    changes: <Wrapper>Added cooldown reduction from <SpellLink id={SPELLS.RED_THIRST_TALENT.id} icon/>.</Wrapper>,
+    contributors: [Gebuz],
+  },
+  {
+    date: new Date('2018-02-14'),
+    changes: <Wrapper>Updated the checklist and added Rune efficiency, <SpellLink id={SPELLS.DEATH_AND_DECAY.id} icon/> and <SpellLink id={SPELLS.BLOOD_TAP_TALENT.id} icon/> to it.</Wrapper>,
+    contributors: [Gebuz],
+  },
   {
     date: new Date('2018-01-27'),
     changes: 'Added overcapped Runes',

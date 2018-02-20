@@ -249,7 +249,7 @@ export default {
     icon: 'spell_frost_arcticwinds',
   },
   KILLING_MACHINE: {
-    id: 51128,
+    id: 51124,
     name: 'Killing Machine',
     icon: 'inv_sword_122',
   },

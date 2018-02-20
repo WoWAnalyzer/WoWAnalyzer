@@ -55,6 +55,7 @@ import TalonStrike from './Modules/Traits/TalonStrike';
 import TalonBond from './Modules/Traits/TalonBond';
 import EchoesOfOhnara from './Modules/Traits/EchoesOfOhnara';
 import AspectOfTheSkylord from './Modules/Traits/AspectOfTheSkylord';
+import Hellcarver from './Modules/Traits/Hellcarver';
 
 //Traits and Talents list
 import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
@@ -119,6 +120,7 @@ class CombatLogParser extends CoreCombatLogParser {
     talonBond: TalonBond,
     echoesOfOhnara: EchoesOfOhnara,
     aspectOfTheSkylord: AspectOfTheSkylord,
+    hellcarver: Hellcarver,
 
     //Traits and Talents list
     traitsAndTalents: TraitsAndTalents,

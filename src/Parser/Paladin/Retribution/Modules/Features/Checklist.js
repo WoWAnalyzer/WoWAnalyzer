@@ -156,21 +156,11 @@ class Checklist extends CoreChecklist {
 	        new GenericCastEfficiencyRequirement({
 	          spell: SPELLS.SHIELD_OF_VENGEANCE,
 	        }),
-	        new Requirement({
-				  	name: <Wrapper> <SpellLink id={SPELLS.LAY_ON_HANDS.id} icon/> </Wrapper>,
-						check: () => ({
-							actual: this.abilityTracker.getAbility(SPELLS.LAY_ON_HANDS.id).casts,
-							isLessThan:
-	            {
-	              major: 0,
-	              average: 1,
-	              minor: 1,
-	            },
-							style: 'number',
-						}),
+	        new GenericCastEfficiencyRequirement({
+            spell: SPELLS.LAY_ON_HANDS,
 					}),
           new Requirement({
-            name: <Wrapper> <SpellLink id={SPELLS.BLESSING_OF_THE_ASHBRINGER_BUFF.id} icon/> </Wrapper>,
+            name: <Wrapper> <SpellLink id={SPELLS.BLESSING_OF_THE_ASHBRINGER_BUFF.id} icon/></Wrapper>,
             check: () => this.bota.suggestionThresholds,
           }),
         ];

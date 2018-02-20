@@ -57,7 +57,7 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Use core spells as often as possible',
-      description: <Wrapper>Spells such as <SpellLink id={SPELLS.TRUESHOT.id} icon />, <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} icon /> should be used as often as possible, unless nearing execute, and <SpellLink id={SPELLS.WINDBURST.id} icon />, should be used as often as possible in situations where you need to open <SpellLink id={SPELLS.VULNERABLE.id} icon /> windows. Any added talents that need activation are generally used on cooldown. <a href="https://www.icy-veins.com/wow/marksmanship-hunter-pve-dps-rotation-cooldowns-abilities" target="_blank" rel="noopener noreferrer">More info.</a></Wrapper>,
+      description: <Wrapper>Spells such as <SpellLink id={SPELLS.TRUESHOT.id} icon />, <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} icon /> should be used as often as possible (unless nearing execute) and <SpellLink id={SPELLS.WINDBURST.id} icon />, should be used as often as possible in situations where you need to open <SpellLink id={SPELLS.VULNERABLE.id} icon /> windows. Any added talents that need activation are generally used on cooldown. <a href="https://www.icy-veins.com/wow/marksmanship-hunter-pve-dps-rotation-cooldowns-abilities" target="_blank" rel="noopener noreferrer">More info.</a></Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -105,7 +105,7 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: <Wrapper>Average <SpellLink id={SPELLS.AIMED_SHOT.id} icon /> casts per Trueshot</Wrapper>,
+            name: <Wrapper>Average <SpellLink id={SPELLS.AIMED_SHOT.id} icon /> casts per <SpellLink id={SPELLS.TRUESHOT.id} icon /></Wrapper>,
             check: () => this.trueshot.aimedShotThreshold,
           }),
           new Requirement({
@@ -116,11 +116,11 @@ class Checklist extends CoreChecklist {
                 height: '1.3em',
                 marginTop: '-.1em',
               }}
-            /> <a href="http://www.wowhead.com/focus">Focus</a> when casting Trueshot</Wrapper>,
+            /> <a href="http://www.wowhead.com/focus">Focus</a> when casting <SpellLink id={SPELLS.TRUESHOT.id} icon /></Wrapper>,
             check: () => this.trueshot.focusThreshold,
           }),
           new Requirement({
-            name: `Average Trueshot uptime per cast`,
+            name: <Wrapper>Average<SpellLink id={SPELLS.TRUESHOT.id} icon /> uptime per cast</Wrapper>,
             check: () => this.trueshot.uptimeThreshold,
           }),
         ];
@@ -149,7 +149,7 @@ class Checklist extends CoreChecklist {
     new Rule({
       name: 'Downtime, cancelled casts and focus capping',
       description: <Wrapper>
-        Try to minimize your time spent not casting. Use your instant casts (<SpellLink id={SPELLS.ARCANE_SHOT.id} icon /> or <SpellLink id={SPELLS.MULTISHOT.id} icon />) while moving to avoid spending time doing nothing.
+        Try to minimize your time spent not casting. Use your instant casts (<SpellLink id={SPELLS.ARCANE_SHOT.id} icon /> or <SpellLink id={SPELLS.MULTISHOT.id} icon />) while moving to avoid spending time doing nothing. Even while using <SpellLink id={SPELLS.SIDEWINDERS_TALENT.id} icon />, you can have too much downtime so try and spend the natural downtime moving, and utilise the rest of the time to cast your damaging spells.
       </Wrapper>,
       requirements: () => {
         return [

@@ -408,7 +408,7 @@ export default {
   HUNTER_MM_T21_4P_BONUS: {
     id: 251753,
     name: 'T21 4 set bonus',
-    icon: 'ability_hunter_focusedaim',
+    icon: 'ability_hunter_markedshot',
   },
 
   // Marksmanship artifact traits
@@ -701,6 +701,11 @@ export default {
     id: 203752,
     name: 'Hunter\'s Guile',
     icon: 'ability_mage_potentspirit',
+  },
+  HELLCARVER_TRAIT: {
+    id: 203673,
+    name: 'Hellcarver',
+    icon: 'ability_hunter_carve',
   },
   ASPECT_OF_THE_SKYLORD_TRAIT: {
     id: 203755,

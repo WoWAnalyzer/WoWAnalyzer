@@ -28,7 +28,7 @@ class CelerityOfTheWindrunners extends Analyzer {
   item() {
     return {
       item: ITEMS.CELERITY_OF_THE_WINDRUNNERS,
-      result: <Wrapper>You had {formatPercentage(this.buffUptime)}% uptime on <SpellLink id={SPELLS.CELERITY_OF_THE_WINDRUNNERS_BUFF.id} />.</Wrapper>,
+      result: <Wrapper>You had {formatPercentage(this.buffUptime)}% uptime on <SpellLink id={SPELLS.CELERITY_OF_THE_WINDRUNNERS_BUFF.id} icon />.</Wrapper>,
     };
   }
 }

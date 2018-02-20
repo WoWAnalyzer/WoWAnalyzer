@@ -95,6 +95,16 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
       {
+        spell: SPELLS.ICEFURY_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 30,
+        enabled: combatant.hasTalent(SPELLS.ICEFURY_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
+      },
+      {
         spell: SPELLS.EARTH_SHOCK,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
