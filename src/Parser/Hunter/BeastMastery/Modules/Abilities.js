@@ -14,13 +14,29 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,
         isOnGCD: false,
-        enabled: this.combatants.selected.traitsBySpellId[SPELLS.TITANS_THUNDER.id],
+        enabled: this.combatants.selected.traitsBySpellId[SPELLS.TITANS_THUNDER.id] && !this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
           extraSuggestion: (
             <Wrapper>
-              <SpellLink id={SPELLS.TITANS_THUNDER.id} icon /> should always be cast when you have <SpellLink id={SPELLS.DIRE_BEAST_BUFF.id} icon /> buff up, try to cast it right after using a <SpellLink id={SPELLS.DIRE_BEAST.id} icon /> for maximum efficiency. If you have <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> talented, you should cast <SpellLink id={SPELLS.TITANS_THUNDER.id} /> within <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> so long as you can get off a <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> cast with it while <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> is still up.
+              <SpellLink id={SPELLS.TITANS_THUNDER.id} icon /> should always be cast when you have <SpellLink id={SPELLS.DIRE_BEAST_BUFF.id} icon /> buff up, try to cast it right after using a <SpellLink id={SPELLS.DIRE_BEAST.id} icon /> for maximum efficiency.
+            </Wrapper>
+          ),
+        },
+      },
+      {
+        spell: SPELLS.TITANS_THUNDER,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 60,
+        isOnGCD: false,
+        enabled: this.combatants.selected.traitsBySpellId[SPELLS.TITANS_THUNDER.id] && this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          extraSuggestion: (
+            <Wrapper>
+              Since you have <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> talented, you should cast <SpellLink id={SPELLS.TITANS_THUNDER.id} /> within <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> so long as you can get off a <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> cast while <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> is still up.
             </Wrapper>
           ),
         },
