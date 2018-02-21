@@ -36,9 +36,11 @@ class LightSpeed extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {formatNumber(this.traitLevel * HASTE_AMOUNT)} haste gained
-          <br />
-          {formatNumber(this.traitLevel * MOVEMENT_SPEED_AMOUNT)} movement speed gained
+          <dfn data-tip={`${this.traitLevel} ${this.traitLevel > 1 ? `traits` : `trait`}`}>
+            {formatNumber(this.traitLevel * HASTE_AMOUNT)} haste gained
+            <br />
+            {formatNumber(this.traitLevel * MOVEMENT_SPEED_AMOUNT)} movement speed gained
+          </dfn>
         </div>
       </div>
     );

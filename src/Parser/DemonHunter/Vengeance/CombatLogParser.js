@@ -23,6 +23,7 @@ import SigilOfFlame from './Modules/Statistics/Spells/SigilOfFlame';
 
 import Tier202PBonus from './Modules/Tier/Tier20/Tier20-2P.js';
 import Tier204PBonus from './Modules/Tier/Tier20/Tier20-4P.js';
+import SoulOfTheSlayer from '../Shared/Modules/Items/SoulOfTheSlayer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -51,6 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Tier 20
     tier202PBonus: Tier202PBonus,
     tier204PBonus: Tier204PBonus,
+    soulOfTheSlayer: SoulOfTheSlayer,
   };
 
   generateResults() {
