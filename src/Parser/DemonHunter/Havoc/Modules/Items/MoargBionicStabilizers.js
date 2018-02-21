@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 const MOARG_MODIFIER = 0.25;
@@ -17,20 +18,20 @@ const MS_BUFFER = 1000;
 class MoargBionicStabiliziers extends Analyzer {
 	static dependencies = {
 		combatants: Combatants,
+		abilityTracker: AbilityTracker,
 	};
 	rank = 0;
 	bonusDamage = 0;
 	lastCastTimestamp = 0;
 	enemiesHit = 0;
 	damagePreCalc = 0;
-	modifier = 0;
 
 	on_initialized() {
 		this.active = this.combatants.selected.hasWrists(ITEMS.MOARG_BIONIC_STABILIZERS.id);
 	}
 
 	get averageTargetsHit() {
-    return this.damageHits / this.casts;
+    return (this.abilityTracker.getAbility(SPELLS.THROW_GLAIVE_HAVOC.id).damageHits / this.abilityTracker.getAbility(SPELLS.THROW_GLAIVE_HAVOC.id).casts).toFixed(2);
   }
 
 	on_byPlayer_cast(event) {
@@ -38,6 +39,7 @@ class MoargBionicStabiliziers extends Analyzer {
 		if (spellId !== SPELLS.THROW_GLAIVE_HAVOC.id) {
 			return;
 		}
+		this.casts++;
 		this.lastCastTimestamp = event.timestamp;
     this.enemiesHit = 0;
     this.damagePreCalc = 0;
@@ -46,14 +48,14 @@ class MoargBionicStabiliziers extends Analyzer {
 	on_byPlayer_damage(event) {
 		const spellId = event.ability.guid;
 		if (this.lastCastTimestamp && (this.lastCastTimestamp + MS_BUFFER < event.timestamp) && this.damagePreCalc > 0) {
-			this.modifier = MOARG_MODIFIER * this.enemiesHit;
-			this.bonusDamage += this.damagePreCalc - (this.damagePreCalc / (1 + this.modifier));
+			const modifier = MOARG_MODIFIER * this.enemiesHit;
+			this.bonusDamage += this.damagePreCalc - (this.damagePreCalc / (1 + modifier));
 			this.lastCastTimestamp = null;
 		}
 		if (spellId !== SPELLS.THROW_GLAIVE_HAVOC.id) {
 			return;
 		}
-		if ((this.lastCastTimestamp + MS_BUFFER) > event.timestamp) {
+		if ((this.lastCastTimestamp + MS_BUFFER) > event.timestamp && this.enemiesHit < 3) {
 			this.damagePreCalc += event.amount + (event.absorbed || 0);
 			this.enemiesHit++;
 		}
@@ -62,7 +64,11 @@ class MoargBionicStabiliziers extends Analyzer {
 	item() {
 		return {
 			item: ITEMS.MOARG_BIONIC_STABILIZERS,
-			result: <ItemDamageDone amount={this.bonusDamage}/>,
+			result: (
+				<dfn data-tip={`You hit an average of <b>${this.averageTargetsHit}</b> targets with throw glaive.`}>
+					<ItemDamageDone amount={this.bonusDamage}/>
+				</dfn>
+				),
 		};
 	}
 }
