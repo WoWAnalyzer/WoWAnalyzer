@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
-import { formatNumber, formatPercentage, formatDuration, formatMilliseconds } from 'common/format';
+import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import Analyzer from 'Parser/Core/Analyzer';
