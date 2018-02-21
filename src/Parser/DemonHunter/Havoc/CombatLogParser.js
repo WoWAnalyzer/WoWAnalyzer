@@ -19,11 +19,8 @@ import FuryTracker from './Modules/ResourceTracker/FuryTracker';
 //Items
 import DelusionsOfGrandeur from './Modules/Items/DelusionsOfGrandeur';
 import RaddonsCascadingEyes from './Modules/Items/RaddonsCascadingEyes';
-<<<<<<< HEAD
 import MoargBionicStabilizers from './Modules/Items/MoargBionicStabilizers';
-=======
 import SoulOfTheSlayer from '../Shared/Modules/Items/SoulOfTheSlayer';
->>>>>>> ccf54471f02aaf7a773b5bd2ba7acf71c97a5290
 import AngerOfTheHalfGiants from './Modules/Items/AngerOfTheHalfGiants';
 import Tier21_2set from './Modules/Items/Tier21_2set';
 import Tier21_4set from './Modules/Items/Tier21_4set';
@@ -61,11 +58,8 @@ class CombatLogParser extends CoreCombatLogParser {
     //Items
     delusionsOfGrandeur: DelusionsOfGrandeur,
     raddonsCascadingEyes: RaddonsCascadingEyes,
-<<<<<<< HEAD
     moargBionicStabilizers: MoargBionicStabilizers,
-=======
     soulOfTheSlayer: SoulOfTheSlayer,
->>>>>>> ccf54471f02aaf7a773b5bd2ba7acf71c97a5290
     angerOfTheHalfGiants: AngerOfTheHalfGiants,
     tier21_2set: Tier21_2set,
     tier21_4set: Tier21_4set,
