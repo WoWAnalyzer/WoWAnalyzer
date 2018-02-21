@@ -20,27 +20,42 @@ class LiadrinsFuryUnleashed extends Analyzer {
     this.active = this.combatants.selected.hasFinger(ITEMS.LIADRINS_FURY_UNLEASHED.id);
   }
 
+  get liadrinsHP() {
+    return this.holyPowerTracker.buildersObj[SPELLS.LIADRINS_FURY_UNLEASHED_BUFF.id];
+  }
+
+  get holyPowerGenerated() {
+    if(this.liadrinsHP){
+      return this.liadrinsHP.generated;
+    }
+    return 0;
+  }
+
+  get holyPowerWasted() {
+    if(this.liadrinsHP){
+      return this.liadrinsHP.wasted;
+    }
+    return 0;
+  }
+
+  get totalHolyPower() {
+    return this.holyPowerGenerated + this.holyPowerWasted;
+  }
+
   item() {
-    const hpGained = this.holyPowerTracker.generatedAndWasted[SPELLS.LIADRINS_FURY_UNLEASHED_BUFF.id].generated;
     return {
       item: ITEMS.LIADRINS_FURY_UNLEASHED,
       result: (
-        <dfn data-tip={`Total Holy Power Gained: ${formatNumber(hpGained)}`}>
-          {formatNumber(hpGained / this.owner.fightDuration * 60000)} Holy Power gained per minute.
+        <dfn data-tip={`Total Holy Power Gained: ${formatNumber(this.holyPowerGenerated)}`}>
+          {formatNumber(this.holyPowerGenerated / this.owner.fightDuration * 60000)} Holy Power gained per minute.
         </dfn>
       ),
     };
   }
 
-  get hpWasted() {
-    return this.holyPowerTracker.generatedAndWasted[SPELLS.LIADRINS_FURY_UNLEASHED_BUFF.id].wasted;
-  }
-
   get suggestionThresholds() {
-    const hpGained = this.holyPowerTracker.generatedAndWasted[SPELLS.LIADRINS_FURY_UNLEASHED_BUFF.id].generated;
-    const hpWastedPercent = this.hpWasted / hpGained;
     return {
-      actual: hpWastedPercent,
+      actual: this.holyPowerWasted / this.totalHolyPower,
       isGreaterThan: {
         minor: 0.1,
         average: 0.2,
@@ -52,10 +67,10 @@ class LiadrinsFuryUnleashed extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>You wasted {formatPercentage(actual)}% of the holy power from <ItemLink id={ITEMS.LIADRINS_FURY_UNLEASHED.id} icon/>. Consider using an easier legendary.</Wrapper>)
-          .icon(ITEMS.LIADRINS_FURY_UNLEASHED.icon)
-          .actual(`${this.hpWasted} Holy Power wasted`)
-          .recommended(`Wasting less than ${formatPercentage(recommended)}% is recommended.`);
+      return suggest(<Wrapper>You wasted {formatPercentage(actual)}% of the holy power from <ItemLink id={ITEMS.LIADRINS_FURY_UNLEASHED.id} icon/>. Consider using an easier legendary.</Wrapper>)
+        .icon(ITEMS.LIADRINS_FURY_UNLEASHED.icon)
+        .actual(`${this.hpWasted} Holy Power wasted`)
+        .recommended(`Wasting less than ${formatPercentage(recommended)}% is recommended.`);
     });
   }
 }
