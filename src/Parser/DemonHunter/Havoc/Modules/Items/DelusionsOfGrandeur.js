@@ -63,7 +63,7 @@ class DelusionsOfGrandeur extends Analyzer {
   }
 
   suggestions(when) {
-  	when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>{
+  	when(this.suggestionThresholds).addSuggestion((suggest) =>{
   		return suggest(
   			<Wrapper>The fight duration of {formatDuration(this.owner.fightDuration / 1000)} minutes was shorter than your cooldown on <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} icon/> ({formatDuration(this.metaCooldownWithShoulders)} minutes). <ItemLink id={ITEMS.DELUSIONS_OF_GRANDEUR.id} icon/> are only useful if you get and extra cast of <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} icon/>.</Wrapper>
   		)
