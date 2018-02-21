@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
-import { formatNumber, formatPercentage, formatDuration } from 'common/format';
+import { formatNumber, formatPercentage, formatDuration, formatMilliseconds } from 'common/format';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -27,7 +27,11 @@ class DelusionsOfGrandeur extends Analyzer {
 		abilityTracker: AbilityTracker,
 		unleashedDemons: UnleashedDemons,
 	};
+
 	metaCooldown = 300;
+	lastTimestamp = 0;
+	halfMetaDuration = 15000
+
 	on_initialized() {
 		this.active = this.combatants.selected.hasShoulder(ITEMS.DELUSIONS_OF_GRANDEUR.id);
 		this.metaCooldown = this.metaCooldown - this.unleashedDemons.traitCooldownReduction;
@@ -42,9 +46,17 @@ class DelusionsOfGrandeur extends Analyzer {
 		return this.metaCooldown * this.cooldownReductionRatio || 1;
 	}
 
+	on_byPlayer_cast(event) {
+		const spellId = event.ability.guid;
+		if(spellId !== SPELLS.METAMORPHOSIS_HAVOC.id) {
+			return;
+		}
+		this.lastTimestamp = event.timestamp;
+	}
+
 	get suggestionThresholds() {
-    return {
-      actual: this.owner.fightDuration / 1000 < this.metaCooldownWithShoulders && this.abilityTracker.getAbility(SPELLS.METAMORPHOSIS_HAVOC.id).casts < 2,
+    return {                                                                      //This makes sure you are getting at least half of your meta off to make the shoulders worth it to wear
+      actual: (this.owner.fightDuration / 1000 < this.metaCooldownWithShoulders && this.owner.fight.end_time - this.lastTimestamp < this.halfMetaDuration) || this.abilityTracker.getAbility(SPELLS.METAMORPHOSIS_HAVOC.id).casts < 2,
       isEqual: true,
       style: 'boolean',
     };
