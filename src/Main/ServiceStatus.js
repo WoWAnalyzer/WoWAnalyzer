@@ -23,14 +23,12 @@ class ServiceStatus extends React.PureComponent {
   }
 
   componentWillMount() {
-    setTimeout(() => {
-      this.loadStatus()
-        .then(status => {
-          this.setState({
-            status,
-          });
+    this.loadStatus()
+      .then(status => {
+        this.setState({
+          status,
         });
-    }, 50); // wait a bit so this doesn't delay the initial load
+      });
   }
   loadStatus() {
     const url = `${baseStatusUrl}/api/v1/components`;
