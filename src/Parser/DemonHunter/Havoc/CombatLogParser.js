@@ -19,6 +19,7 @@ import FuryTracker from './Modules/ResourceTracker/FuryTracker';
 //Items
 import DelusionsOfGrandeur from './Modules/Items/DelusionsOfGrandeur';
 import RaddonsCascadingEyes from './Modules/Items/RaddonsCascadingEyes';
+import SoulOfTheSlayer from '../Shared/Modules/Items/SoulOfTheSlayer';
 import Tier21_2set from './Modules/Items/Tier21_2set';
 import Tier21_4set from './Modules/Items/Tier21_4set';
 
@@ -55,6 +56,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Items
     delusionsOfGrandeur: DelusionsOfGrandeur,
     raddonsCascadingEyes: RaddonsCascadingEyes,
+    soulOfTheSlayer: SoulOfTheSlayer,
     tier21_2set: Tier21_2set,
     tier21_4set: Tier21_4set,
 
