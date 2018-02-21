@@ -11,6 +11,11 @@ export default [
 	{
 		date: new Date('2018-02-20'),
 		changes: <Wrapper>Added <ItemLink id={ITEMS.MOARG_BIONIC_STABILIZERS.id} icon/></Wrapper>,
+    contributors: [Hewhosmites],
+  },
+  {
+		date: new Date('2018-02-19'),
+		changes: <Wrapper>Added <ItemLink id={ITEMS.ANGER_OF_THE_HALF_GIANTS.id} icon/></Wrapper>,
 		contributors: [Hewhosmites],
 	},
 	{
