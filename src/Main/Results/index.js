@@ -22,6 +22,8 @@ import DiscordButton from 'Main/DiscordButton';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import Maintainer from 'Main/Maintainer';
 import ActivityIndicator from 'Main/ActivityIndicator';
+import WarcraftLogsLogo from 'Main/Images/WarcraftLogs-logo.png';
+import WipefestLogo from 'Main/Images/Wipefest-logo.png';
 
 import ItemsPanel from './ItemsPanel';
 import AboutTab from './AboutTab';
@@ -210,9 +212,22 @@ class Results extends React.Component {
                   href={`https://www.warcraftlogs.com/reports/${report.code}/#fight=${fight.id}&source=${parser.playerId}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="btn"
                   style={{ fontSize: 24 }}
+                  data-tip="View the original report"
                 >
-                  <span className="glyphicon glyphicon-link" aria-hidden /> View on Warcraft Logs
+                  <img src={WarcraftLogsLogo} alt="Wracraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
+                </a>
+                {' '}
+                <a
+                  href={`https://www.wipefest.net/report/${report.code}/fight/${fight.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn"
+                  style={{ fontSize: 24 }}
+                  data-tip="View insights and timelines for raid encounters"
+                >
+                  <img src={WipefestLogo} alt="Wipefest logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
                 </a>
               </div>
             </div>

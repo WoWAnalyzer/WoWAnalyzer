@@ -32,7 +32,7 @@ class VulnerableUpTime extends Analyzer {
   }
   suggestions(when) {
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Your <SpellLink id={SPELLS.VULNERABLE.id} /> uptime can be improved. Make sure you use Windburst or Marked Shot to open the Vulnerable Window to maximize damage with your Aimed Shots</Wrapper>)
+      return suggest(<Wrapper>Your <SpellLink id={SPELLS.VULNERABLE.id} icon /> uptime can be improved. Make sure you use Windburst or Marked Shot to open the Vulnerable Window to maximize damage with your Aimed Shots</Wrapper>)
         .icon(SPELLS.VULNERABLE.icon)
         .actual(`${formatPercentage(actual)}% Vulnerable uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);

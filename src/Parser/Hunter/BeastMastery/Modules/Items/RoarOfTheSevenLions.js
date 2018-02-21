@@ -116,7 +116,7 @@ class RoarOfTheSevenLions extends Analyzer {
     focusSpenders.map(ability => focusCostCasts += this.focusSpenderCasts[ability].casts);
     const averageFocusCostReduction = totalFocusSaved / focusCostCasts;
 
-    let tooltipText = `Overall this legendary saved you an average of ${averageFocusCostReduction.toFixed(2)} focus per affected cast <br/>This shows a more accurate breakdown of which abilities were cast during Bestial Wrath, and where the various focus reduction occured:<ul>`;
+    let tooltipText = `Overall Roar of the Seven Lions saved you an average of ${averageFocusCostReduction.toFixed(2)} focus per affected cast <br/>This shows a more accurate breakdown of which abilities were cast during Bestial Wrath, and where the various focus reduction occured:<ul>`;
     focusSpenders.forEach(focusSpender => {
       if (this.focusSpenderCasts[focusSpender].casts > 0) {
         tooltipText += `<li>${this.focusSpenderCasts[focusSpender].name}<ul><li>Casts: ${this.focusSpenderCasts[focusSpender].casts}</li><li>Focus saved: ${formatNumber(this.focusSpenderCasts[focusSpender].focusSaved)}</li></ul></li>`;

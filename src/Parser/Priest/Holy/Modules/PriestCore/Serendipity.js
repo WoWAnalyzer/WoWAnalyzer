@@ -37,7 +37,7 @@ class Serendipity extends Analyzer {
         label="Wasted Serendipity"
         tooltip={
           `${formatNumber(this.serenity.overcast / 1000)}s wasted Serenity reduction (of ${formatNumber(this.serenity.rawReduction / 1000)}s total)<br/>
-          ${formatNumber(this.sanctify.overcast / 1000)}s wasted Sanctify redudction (of ${formatNumber(this.sanctify.rawReduction / 1000)}s total)<br/>`
+          ${formatNumber(this.sanctify.overcast / 1000)}s wasted Sanctify reduction (of ${formatNumber(this.sanctify.rawReduction / 1000)}s total)<br/>`
         }
       />
     );

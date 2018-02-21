@@ -408,7 +408,7 @@ export default {
   HUNTER_MM_T21_4P_BONUS: {
     id: 251753,
     name: 'T21 4 set bonus',
-    icon: 'ability_hunter_focusedaim',
+    icon: 'ability_hunter_markedshot',
   },
 
   // Marksmanship artifact traits

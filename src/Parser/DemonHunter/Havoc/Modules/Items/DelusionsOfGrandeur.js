@@ -27,7 +27,11 @@ class DelusionsOfGrandeur extends Analyzer {
 		abilityTracker: AbilityTracker,
 		unleashedDemons: UnleashedDemons,
 	};
+
 	metaCooldown = 300;
+	lastTimestamp = 0;
+	halfMetaDuration = 15000
+
 	on_initialized() {
 		this.active = this.combatants.selected.hasShoulder(ITEMS.DELUSIONS_OF_GRANDEUR.id);
 		this.metaCooldown = this.metaCooldown - this.unleashedDemons.traitCooldownReduction;
@@ -42,16 +46,24 @@ class DelusionsOfGrandeur extends Analyzer {
 		return this.metaCooldown * this.cooldownReductionRatio || 1;
 	}
 
+	on_byPlayer_cast(event) {
+		const spellId = event.ability.guid;
+		if(spellId !== SPELLS.METAMORPHOSIS_HAVOC.id) {
+			return;
+		}
+		this.lastTimestamp = event.timestamp;
+	}
+
 	get suggestionThresholds() {
-    return {
-      actual: this.owner.fightDuration / 1000 < this.metaCooldownWithShoulders,
+    return {                                                                      //This makes sure you are getting at least half of your meta off to make the shoulders worth it to wear
+      actual: (this.owner.fightDuration / 1000 < this.metaCooldownWithShoulders && this.owner.fight.end_time - this.lastTimestamp < this.halfMetaDuration) || this.abilityTracker.getAbility(SPELLS.METAMORPHOSIS_HAVOC.id).casts < 2,
       isEqual: true,
       style: 'boolean',
     };
   }
 
   suggestions(when) {
-  	when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>{
+  	when(this.suggestionThresholds).addSuggestion((suggest) =>{
   		return suggest(
   			<Wrapper>The fight duration of {formatDuration(this.owner.fightDuration / 1000)} minutes was shorter than your cooldown on <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} icon/> ({formatDuration(this.metaCooldownWithShoulders)} minutes). <ItemLink id={ITEMS.DELUSIONS_OF_GRANDEUR.id} icon/> are only useful if you get and extra cast of <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} icon/>.</Wrapper>
   		)
