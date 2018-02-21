@@ -46,8 +46,8 @@ class LiadrinsFuryUnleashed extends Analyzer {
     return {
       item: ITEMS.LIADRINS_FURY_UNLEASHED,
       result: (
-        <dfn data-tip={`Total Holy Power Gained: ${formatNumber(this.totalHolyPower)}`}>
-          {formatNumber(this.totalHolyPower / this.owner.fightDuration * 60000)} Holy Power gained per minute.
+        <dfn data-tip={`Total Holy Power Gained: ${formatNumber(this.holyPowerGenerated)}`}>
+          {formatNumber(this.holyPowerGenerated / this.owner.fightDuration * 60000)} Holy Power gained per minute.
         </dfn>
       ),
     };

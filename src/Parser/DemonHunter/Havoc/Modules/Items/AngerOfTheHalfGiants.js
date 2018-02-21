@@ -4,7 +4,8 @@ import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
-import { formatNumber } from 'common/format';
+import ItemLink from 'common/ItemLink';
+import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -71,12 +72,33 @@ class AngerOfTheHalfGiants extends Analyzer {
 		return {
 			item: ITEMS.ANGER_OF_THE_HALF_GIANTS,
 			result: (
-				<dfn data-tip={`Total Fury Gained: <b>${formatNumber(this.totalFury)}</b>.`}>
-					<Wrapper>{formatNumber(this.totalFury / this.dBCasts)} Fury gained per <SpellLink id={builderId} icon/>.</Wrapper>
+				<dfn data-tip={`Total Fury Gained: <b>${formatNumber(this.furyGenerated)}</b>.`}>
+					<Wrapper>{formatNumber(this.furyGenerated / this.dBCasts)} Fury gained per <SpellLink id={builderId} icon/>.</Wrapper>
 				</dfn>
 			),
 		};
 	}
+
+	get suggestionThresholds() {
+    return {
+      actual: this.furyWasted / this.totalFury,
+      isGreaterThan: {
+        minor: 0.02,
+        average: 0.05,
+        major: 0.08,
+      },
+      style: 'percentage',
+    };
+  }
+
+  suggestions(when) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<Wrapper>You wasted {formatNumber(this.furyWasted)} of the Fury from <ItemLink id={ITEMS.ANGER_OF_THE_HALF_GIANTS.id} icon/>.</Wrapper>)
+        .icon(ITEMS.LIADRINS_FURY_UNLEASHED.icon)
+        .actual(`${formatPercentage(actual)}% fury wasted`)
+        .recommended(`Wasting less than ${formatPercentage(recommended)}% is recommended.`);
+    });
+  }
 }
 
 export default AngerOfTheHalfGiants;
