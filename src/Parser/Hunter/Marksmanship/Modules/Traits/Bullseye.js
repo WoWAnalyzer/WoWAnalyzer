@@ -88,7 +88,7 @@ class Bullseye extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BULLSEYE_BUFF.id} />}
-        value={`${this.percentBullseyeAtMax} %`}
+        value={`${this.percentBullseyeAtMax}%`}
         label={`% of Bullseye at ${this.MAX_STACKS} stacks`}
         tooltip={`You reset Bullseye ${this.bullseyeResets} times during the execute phase (boss below 20% health). <br /> You had ${formatNumber(this.bullseyeUptime / 1000)} seconds of Bullseye uptime during the fight, and ${formatNumber(this.bullseyeMaxUptime / 1000)} seconds of uptime at ${this.MAX_STACKS} stacks.`}
       />

@@ -9,6 +9,11 @@ import ItemLink from 'common/ItemLink';
 
 export default [
   {
+    date: new Date('2018-02-20'),
+    changes: <Wrapper>Spring cleaning in many modules. Added icons to Focus Usage modules and elsewhere around the analyzer and added support for <SpellLink id={SPELLS.CALTROPS_TALENT.id} icon />.</Wrapper>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-02-14'),
     changes: <Wrapper>Added a module for <SpellLink id={SPELLS.FURY_OF_THE_EAGLE_TRAIT.id} icon />.</Wrapper>,
     contributors: [Putro],
