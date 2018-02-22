@@ -13,6 +13,7 @@ import DivinePurpose from './Modules/Talents/DivinePurpose';
 import BoWProcTracker from './Modules/PaladinCore/BoWProcTracker';
 import Retribution from './Modules/PaladinCore/Retribution';
 import BlessingOfTheAshbringer from './Modules/PaladinCore/BlessingOfTheAshbringer';
+import Crusade from './Modules/PaladinCore/Crusade';
 
 import HolyPowerTracker from './Modules/HolyPower/HolyPowerTracker';
 import HolyPowerDetails from './Modules/HolyPower/HolyPowerDetails';
@@ -48,6 +49,7 @@ class CombatLogParser extends CoreCombatLogParser {
     judgment: Judgment,
     retribution: Retribution,
     blessingOfTheAshbringer: BlessingOfTheAshbringer,
+    crusade: Crusade,
     
     // Talents
     divinePurpose: DivinePurpose,

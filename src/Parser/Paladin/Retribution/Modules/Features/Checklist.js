@@ -24,6 +24,7 @@ import Judgment from '../PaladinCore/Judgment';
 import Liadrins from '../Items/LiadrinsFuryUnleashed';
 import Whisper from '../Items/WhisperOfTheNathrezim';
 import BotA from '../PaladinCore/BlessingOfTheAshbringer';
+import Crusade from '../PaladinCore/Crusade';
 
 class Checklist extends CoreChecklist {
 	static dependencies = {
@@ -42,6 +43,7 @@ class Checklist extends CoreChecklist {
     liadrins: Liadrins,
     whisper: Whisper,
     bota: BotA,
+    crusade: Crusade,
 	};
 
 	rules = [
@@ -96,6 +98,11 @@ class Checklist extends CoreChecklist {
   					spell: SPELLS.CRUSADE_TALENT,
   					when: combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
   				}),
+          new Requirement({
+            name: <Wrapper>Bad first global with <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon/> buff</Wrapper>,
+            check: () => this.crusade.suggestionThresholds,
+            when: this.crusade.active,
+          }),
   				new GenericCastEfficiencyRequirement({
   					spell: SPELLS.AVENGING_WRATH,
   					when: !combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
