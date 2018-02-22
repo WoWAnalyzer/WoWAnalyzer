@@ -99,7 +99,7 @@ class Checklist extends CoreChecklist {
   					when: combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
   				}),
           new Requirement({
-            name: <Wrapper>Bad first globals with <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon/> buff</Wrapper>,
+            name: <Wrapper>Bad first global with <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon/> buff</Wrapper>,
             check: () => this.crusade.suggestionThresholds,
             when: this.crusade.active,
           }),
