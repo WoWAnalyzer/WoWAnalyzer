@@ -9,6 +9,7 @@ import Textfit from 'react-textfit';
 import ChecklistIcon from 'Icons/Checklist';
 import SuggestionIcon from 'Icons/Suggestion';
 import AboutIcon from 'Icons/About';
+import ArmorIcon from 'Icons/Armor';
 import Wrapper from 'common/Wrapper';
 import SPEC_ANALYSIS_COMPLETENESS, { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import { getResultTab } from 'selectors/url/report';
@@ -34,6 +35,7 @@ import './Results.css';
 const MAIN_TAB = {
   CHECKLIST: 'Checklist',
   SUGGESTIONS: 'Suggestions',
+  CHARACTER: 'Character',
   ABOUT: 'About',
 };
 function mainTabLabel(tab) {
@@ -50,6 +52,12 @@ function mainTabLabel(tab) {
           <SuggestionIcon /> Suggestions
         </Wrapper>
       );
+    case MAIN_TAB.CHARACTER:
+      return (
+        <Wrapper>
+          <ArmorIcon /> CHARACTER
+          </Wrapper>
+        );
     case MAIN_TAB.ABOUT:
       return (
         <Wrapper>
@@ -197,8 +205,6 @@ class Results extends React.Component {
 
           <div className="row">
             <div className="col-md-4">
-              {modules.statsDisplay.render()}
-              {modules.talentsDisplay.render()}
               <ItemsPanel items={results.items} selectedCombatant={selectedCombatant} />
 
               <div>
@@ -252,6 +258,9 @@ class Results extends React.Component {
                     )}
                     {this.state.mainTab === MAIN_TAB.SUGGESTIONS && (
                       <SuggestionsTab issues={results.issues} />
+                    )}
+                    {this.state.mainTab === MAIN_TAB.CHARACTER && (
+                      modules.characterPanel.render()
                     )}
                     {this.state.mainTab === MAIN_TAB.ABOUT && (
                       <AboutTab config={config} />
