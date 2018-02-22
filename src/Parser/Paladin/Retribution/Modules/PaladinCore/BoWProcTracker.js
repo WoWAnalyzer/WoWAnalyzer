@@ -51,9 +51,9 @@ class BoWProcTracker extends Analyzer {
     return {
       actual: 1 - this.missedProcsPercent,
       isLessThan: {
-        minor: 100,
-        average: 0.95,
-        major: 0.9,
+        minor: 0.95,
+        average: 0.9,
+        major: 0.85,
       },
       style: 'percentage',
     };
@@ -61,10 +61,10 @@ class BoWProcTracker extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You wasted {formatPercentage(this.missedProcsPercent)}% <SpellLink id={SPELLS.BLADE_OF_WRATH_PROC.id} icon/> procs</Wrapper>)
+      return suggest(<Wrapper>You wasted {formatNumber(this.overwrittenBoWProcs)} <SpellLink id={SPELLS.BLADE_OF_WRATH_PROC.id} icon/> proc(s)</Wrapper>)
         .icon(SPELLS.BLADE_OF_WRATH_PROC.icon)
-        .actual(`${formatNumber(this.overwrittenBoWProcs)} missed proc(s)`)
-        .recommended(`Wasting none is recommended`);
+        .actual(`${formatPercentage(this.missedProcsPercent)}% proc(s) missed`)
+        .recommended(`Wasting <${formatPercentage(1 - recommended)}% is recommended.`);
     });
   }
 

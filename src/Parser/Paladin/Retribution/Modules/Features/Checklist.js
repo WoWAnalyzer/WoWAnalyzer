@@ -124,15 +124,15 @@ class Checklist extends CoreChecklist {
   		requirements: () => {
   			return [
   				new Requirement({
-  					name: 'Wasted Holy Power',
+  					name: 'Holy Power efficiency',
   					check: () => this.holyPowerDetails.suggestionThresholds,
   				}),
   				new Requirement({
-  					name: <Wrapper>Holy power spent without <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/></Wrapper>,
+  					name: <Wrapper>Holy power spent with <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/></Wrapper>,
   					check: () => this.judgment.suggestionThresholds,
   				}),
   				new Requirement({
-  					name: <Wrapper>Consumed <SpellLink id={SPELLS.BLADE_OF_WRATH_TALENT.id} icon/> procs</Wrapper>,
+  					name: <Wrapper><SpellLink id={SPELLS.BLADE_OF_WRATH_TALENT.id} icon/> procs consumed</Wrapper>,
   					check: () => this.boWProcTracker.suggestionThresholds,
   				}),
   			];
@@ -144,12 +144,12 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: <Wrapper>Holy power wasted from <ItemLink id={ITEMS.LIADRINS_FURY_UNLEASHED.id} icon/></Wrapper>,
+            name: <Wrapper><ItemLink id={ITEMS.LIADRINS_FURY_UNLEASHED.id} icon/> Holy Power efficiency</Wrapper>,
             check: () => this.liadrins.suggestionThresholds,
             when: this.liadrins.active,
           }),
           new Requirement({
-            name: <Wrapper>Spenders with the <ItemLink id={ITEMS.WHISPER_OF_THE_NATHREZIM.id} icon/> buff</Wrapper>,
+            name: <Wrapper>Spenders buffed by <ItemLink id={ITEMS.WHISPER_OF_THE_NATHREZIM.id} icon/></Wrapper>,
             check: () => this.whisper.suggestionThresholds,
             when: this.whisper.active,
           }),
