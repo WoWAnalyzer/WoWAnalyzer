@@ -9,6 +9,11 @@ import { Blazballs, JLassie82, Putro } from 'MAINTAINERS';
 
 export default [
   {
+    date: new Date('2018-02-22'),
+    changes: <Wrapper>Added a <SpellLink id={SPELLS.MARKING_TARGETS.id} icon /> and <SpellLink id={SPELLS.HUNTERS_MARK.id} icon /> module. </Wrapper>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-02-19'),
     changes: 'Spring cleaning in many modules. Added icons to Vulnerable Applications and Focus Usage modules, added a breakdown of which casts were cancelled',
     contributors: [Putro],
