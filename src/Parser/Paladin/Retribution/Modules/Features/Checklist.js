@@ -23,6 +23,7 @@ import BoWProcTracker from '../PaladinCore/BoWProcTracker';
 import Judgment from '../PaladinCore/Judgment';
 import Liadrins from '../Items/LiadrinsFuryUnleashed';
 import Whisper from '../Items/WhisperOfTheNathrezim';
+import SoulOfTheHighlord from '../Items/SoulOfTheHighlord';
 import BotA from '../PaladinCore/BlessingOfTheAshbringer';
 
 class Checklist extends CoreChecklist {
@@ -40,6 +41,7 @@ class Checklist extends CoreChecklist {
     boWProcTracker: BoWProcTracker,
     judgment: Judgment,
     liadrins: Liadrins,
+    soulOfTheHighlord: SoulOfTheHighlord,
     whisper: Whisper,
     bota: BotA,
 	};
@@ -125,6 +127,11 @@ class Checklist extends CoreChecklist {
   					check: () => this.whisper.suggestionThresholds,
   					when: this.whisper.active,
   				}),
+          new Requirement({
+            name: <Wrapper>Picked the right talent with <ItemLink id={ITEMS.SOUL_OF_THE_HIGHLORD.id} icon/></Wrapper>,
+            check: () => this.soulOfTheHighlord.suggestionThresholds,
+            when: this.soulOfTheHighlord.active,
+          }),
   			];
   		},
   	}),
