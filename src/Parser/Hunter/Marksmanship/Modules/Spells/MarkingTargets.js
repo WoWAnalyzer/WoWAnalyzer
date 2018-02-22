@@ -117,6 +117,7 @@ class MarkingTargets extends Analyzer {
   }
 
   on_finished() {
+    console.log(this._totalPossible);
     if (this.buffApplication) {
       this._totalPossible--;
     }
@@ -140,7 +141,7 @@ class MarkingTargets extends Analyzer {
                 height: '1.3em',
                 marginTop: '-.1em',
               }}
-            />
+            />{' '}
             {this.huntersMarkActiveCasts}{' '}
             <SpellIcon
               id={SPELLS.HUNTERS_MARK_DEBUFF.id}
