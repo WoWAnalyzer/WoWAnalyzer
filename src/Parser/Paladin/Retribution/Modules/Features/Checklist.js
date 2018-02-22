@@ -145,11 +145,11 @@ class Checklist extends CoreChecklist {
   					check: () => this.holyPowerDetails.suggestionThresholds,
   				}),
   				new Requirement({
-  					name: 'Holy power spent without Judgment',
+  					name: <Wrapper>Holy power spent without <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/></Wrapper>,
   					check: () => this.judgment.suggestionThresholds,
   				}),
   				new Requirement({
-  					name: 'Wasted Blade of Wrath procs',
+  					name: <Wrapper>Wasted <SpellLink id={SPELLS.BLADE_OF_WRATH_TALENT.id} icon/> procs</Wrapper>,
   					check: () => this.boWProcTracker.suggestionThresholds,
   				}),
   			];
@@ -167,7 +167,7 @@ class Checklist extends CoreChecklist {
             spell: SPELLS.LAY_ON_HANDS,
 					}),
           new Requirement({
-            name: <Wrapper> <SpellLink id={SPELLS.BLESSING_OF_THE_ASHBRINGER_BUFF.id} icon/></Wrapper>,
+            name: <Wrapper> <SpellLink id={SPELLS.BLESSING_OF_THE_ASHBRINGER_BUFF.id} icon/> uptime</Wrapper>,
             check: () => this.bota.suggestionThresholds,
           }),
         ];
