@@ -116,12 +116,12 @@ class Checklist extends CoreChecklist {
   		requirements: () => {
   			return [
   				new Requirement({
-  					name: <ItemLink id={ITEMS.LIADRINS_FURY_UNLEASHED.id} icon/>,
+  					name: <Wrapper>Holy power wasted from <ItemLink id={ITEMS.LIADRINS_FURY_UNLEASHED.id} icon/></Wrapper>,
   					check: () => this.liadrins.suggestionThresholds,
   					when: this.liadrins.active,
   				}),
   				new Requirement({
-  					name: <ItemLink id={ITEMS.WHISPER_OF_THE_NATHREZIM.id} icon/>,
+  					name: <Wrapper>Spenders with the <ItemLink id={ITEMS.WHISPER_OF_THE_NATHREZIM.id} icon/> buff</Wrapper>,
   					check: () => this.whisper.suggestionThresholds,
   					when: this.whisper.active,
   				}),
