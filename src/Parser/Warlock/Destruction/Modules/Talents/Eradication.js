@@ -34,8 +34,7 @@ class Eradication extends Analyzer {
     this._hasCDF = this.combatants.selected.hasTalent(SPELLS.CHANNEL_DEMONFIRE_TALENT.id);
   }
 
-  // TODO: SPELL QUEUE ON CAST, SPELLS SNAPSHOT ON CAST, NOT ON HIT SO THIS IS INACCURATE
-  on_byPlayer_damage(event) {
+  on_byPlayer_cast(event) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy) {
       return;
