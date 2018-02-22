@@ -132,7 +132,7 @@ class Checklist extends CoreChecklist {
   					check: () => this.judgment.suggestionThresholds,
   				}),
   				new Requirement({
-  					name: <Wrapper>Wasted <SpellLink id={SPELLS.BLADE_OF_WRATH_TALENT.id} icon/> procs</Wrapper>,
+  					name: <Wrapper>Consumed <SpellLink id={SPELLS.BLADE_OF_WRATH_TALENT.id} icon/> procs</Wrapper>,
   					check: () => this.boWProcTracker.suggestionThresholds,
   				}),
   			];
