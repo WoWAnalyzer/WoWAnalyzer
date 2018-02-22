@@ -53,9 +53,13 @@ class LiadrinsFuryUnleashed extends Analyzer {
     };
   }
 
+  get holyPowerWastedPercent() {
+    return this.holyPowerWasted / this.totalHolyPower;
+  }
+
   get suggestionThresholds() {
     return {
-      actual: 1 - this.holyPowerWasted / this.totalHolyPower,
+      actual: 1 - this.holyPowerWastedPercent,
       isLessThan: {
         minor: 0.9,
         average: 0.8,
