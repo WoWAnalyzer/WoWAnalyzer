@@ -1,6 +1,15 @@
+import React from 'react';
+import Wrapper from 'common/Wrapper';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 import { Hewhosmites, Zerotorescue } from 'MAINTAINERS';
 
 export default [
+	{
+		date: new Date('2018-02-21'),
+		changes: <Wrapper>Added a <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon/> module.</Wrapper>,
+		contributors: [Hewhosmites],
+	},
 	{
 		date: new Date('2018-01-13'),
 		changes: 'Updated to new checklist format,',
