@@ -124,7 +124,7 @@ class TrueAim extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.TRUE_AIM_DEBUFF.id} />}
-        value={`${percentTimeAtMaxTAStacks} %`}
+        value={`${percentTimeAtMaxTAStacks}%`}
         label="10 stack uptime"
         tooltip={tooltipText}
       />

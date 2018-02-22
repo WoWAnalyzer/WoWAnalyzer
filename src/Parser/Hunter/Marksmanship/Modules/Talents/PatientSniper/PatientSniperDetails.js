@@ -76,10 +76,10 @@ class PatientSniperDetails extends Analyzer {
   statistic() {
     let tooltipText = `Your Aimed Shots ${this.hasPiercingShot ? 'and Piercing Shots ' : ''}did ${formatNumber(this.bonusDamage)} (${this.owner.formatItemDamageDone(this.bonusDamage)}) bonus damage thanks to the Patient Sniper talent. Below you'll see them individually, and if you want to see more Patient Sniper information (such as without Trueshot windows), please check the "Patient Sniper Usage" tab in the menu. <br />`;
     const aimed = this.abilityTracker.getAbility(SPELLS.AIMED_SHOT.id);
-    tooltipText += `<ul> <li>Aimed Shot bonus damage: ${formatNumber(this.bonusAimedDamage)} (${formatPercentage(this.bonusAimedDamage / aimed.damageEffective)} %) </li>`;
+    tooltipText += `<ul> <li>Aimed Shot bonus damage: ${formatNumber(this.bonusAimedDamage)} (${formatPercentage(this.bonusAimedDamage / aimed.damageEffective)}%) </li>`;
     if (this.hasPiercingShot) {
       const piercing = this.abilityTracker.getAbility(SPELLS.PIERCING_SHOT_TALENT.id);
-      tooltipText += `<li> Piercing Shot bonus damage: ${formatNumber(this.bonusPiercingDamage)} (${formatPercentage(this.bonusPiercingDamage / piercing.damageEffective)} %)</li>`;
+      tooltipText += `<li> Piercing Shot bonus damage: ${formatNumber(this.bonusPiercingDamage)} (${formatPercentage(this.bonusPiercingDamage / piercing.damageEffective)}%)</li>`;
     }
     return (
       <StatisticBox

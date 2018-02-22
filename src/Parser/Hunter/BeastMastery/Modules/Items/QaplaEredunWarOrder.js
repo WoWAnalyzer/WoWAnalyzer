@@ -49,7 +49,7 @@ class QaplaEredunWarOrder extends Analyzer {
       item: ITEMS.QAPLA_EREDUN_WAR_ORDER,
       result: (
         <dfn data-tip={`You wasted ${formatNumber(this.wastedKillCommandReductionMs / 1000)} seconds of CDR by using Dire Beast when Kill Command wasn't on cooldown or had less than 3(+GCD) seconds remaning on CD.`}>
-          reduced <SpellLink id={SPELLS.KILL_COMMAND.id} /> CD by {formatNumber(this.effectiveKillCommandReductionMs / 1000)}s in total.
+          reduced <SpellLink id={SPELLS.KILL_COMMAND.id} icon /> CD by {formatNumber(this.effectiveKillCommandReductionMs / 1000)}s in total.
         </dfn>
       ),
     };

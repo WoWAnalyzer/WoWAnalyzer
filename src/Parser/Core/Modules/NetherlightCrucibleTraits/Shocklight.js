@@ -20,8 +20,6 @@ class Shocklight extends Analyzer {
     combatants: Combatants,
   };
 
-  traitLevel = 0;
-
   on_initialized() {
     this.traitLevel = this.combatants.selected.traitsBySpellId[SPELLS.SHOCKLIGHT_TRAIT.id];
     this.active = this.traitLevel > 0;
@@ -38,7 +36,9 @@ class Shocklight extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-          {formatNumber(averageCritGained)} avg. crit gained
+          <dfn data-tip={`${this.traitLevel} ${this.traitLevel > 1 ? `traits` : `trait`}`}>
+            {formatNumber(averageCritGained)} avg. crit gained
+          </dfn>
         </div>
       </div>
     );

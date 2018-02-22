@@ -135,6 +135,7 @@ class Abilities extends CoreAbilities {
         enabled: !combatant.hasTalent(SPELLS.DIVINE_HAMMER_TALENT.id),
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.75,
         },
       },
       {

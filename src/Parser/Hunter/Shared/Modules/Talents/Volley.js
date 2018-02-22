@@ -57,7 +57,7 @@ class Volley extends Analyzer {
   suggestions(when) {
     when(this.volleyRemoved).isGreaterThan(0)
       .addSuggestion((suggest) => {
-        return suggest(<Wrapper>It looks like you turned <SpellLink id={SPELLS.VOLLEY_TALENT.id} /> off during the encounter, this should never be done. <SpellLink id={SPELLS.VOLLEY_TALENT.id} /> should always be active, no matter what. </Wrapper>)
+        return suggest(<Wrapper>It looks like you turned <SpellLink id={SPELLS.VOLLEY_TALENT.id} icon /> off during the encounter, this should never be done. <SpellLink id={SPELLS.VOLLEY_TALENT.id} icon /> should always be active, no matter what. </Wrapper>)
           .icon(SPELLS.VOLLEY_TALENT.icon)
           .actual(`Volley was toggled off ${this.volleyRemoved} times`)
           .recommended(`Volley should never be turned off`)
@@ -65,7 +65,7 @@ class Volley extends Analyzer {
       });
     when(this.volleyApplied).isLessThan(this.deaths)
       .addSuggestion((suggest) => {
-        return suggest(<Wrapper>It looks like you forgot to turn <SpellLink id={SPELLS.VOLLEY_TALENT.id} /> on again after dying. <SpellLink id={SPELLS.VOLLEY_TALENT.id} /> should always be active, no matter what. </Wrapper>)
+        return suggest(<Wrapper>It looks like you forgot to turn <SpellLink id={SPELLS.VOLLEY_TALENT.id} icon /> on again after dying. <SpellLink id={SPELLS.VOLLEY_TALENT.id} icon /> should always be active, no matter what. </Wrapper>)
           .icon(SPELLS.VOLLEY_TALENT.icon)
           .actual(`You died ${this.deaths} time(s), and toggled Volley on ${this.volleyApplied} times.`)
           .recommended(`Remember to toggle Volley back on after dying`)

@@ -9,6 +9,11 @@ import ITEMS from 'common/ITEMS';
 
 export default [
   {
+    date: new Date('2018-02-20'),
+    changes: 'Spring cleaning in many modules. Added icons to Focus Usage modules and elsewhere around the analyzer',
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-02-05'),
     changes: <Wrapper>Added additional information to the <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} icon /> module, to show cooldown reduction on the various affected spells. </Wrapper>,
     contributors: [Putro],
@@ -60,12 +65,12 @@ export default [
   },
   {
     date: new Date('2017-12-03'),
-    changes: 'Upgraded spec completeness to good, added t192p support, added t21 support and added a suggestion for Killer Cobra',
+    changes: <Wrapper>Upgraded spec completeness to good, added <SpellLink id={SPELLS.HUNTER_BM_T19_2P_BONUS.id} icon /> support, added <SpellLink id={SPELLS.HUNTER_BM_T21_2P_BONUS.id} icon /> and <SpellLink id={SPELLS.HUNTER_BM_T21_4P_BONUS.id} icon /> support and added a suggestion for <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} icon />.</Wrapper>,
     contributors: [Putro],
   },
   {
     date: new Date('2017-11-01'),
-    changes: 'Added Mark of the claw, Bestial Wrath modules, Dire Beast modules, Qapla module, Titan\'s Thunder module, Killer Cobra module.',
+    changes: <Wrapper>Added <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> modules, <SpellLink id={SPELLS.DIRE_BEAST.id} icon /> modules, <ItemLink id={ITEMS.QAPLA_EREDUN_WAR_ORDER.id} icon /> module, <SpellLink id={SPELLS.TITANS_THUNDER.id} icon /> module, <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} icon /> module.</Wrapper>,
     contributors: [Putro],
   },
   {

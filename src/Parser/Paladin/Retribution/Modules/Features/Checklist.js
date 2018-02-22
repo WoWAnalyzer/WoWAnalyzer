@@ -23,7 +23,9 @@ import BoWProcTracker from '../PaladinCore/BoWProcTracker';
 import Judgment from '../PaladinCore/Judgment';
 import Liadrins from '../Items/LiadrinsFuryUnleashed';
 import Whisper from '../Items/WhisperOfTheNathrezim';
+import SoulOfTheHighlord from '../Items/SoulOfTheHighlord';
 import BotA from '../PaladinCore/BlessingOfTheAshbringer';
+import Crusade from '../PaladinCore/Crusade';
 
 class Checklist extends CoreChecklist {
 	static dependencies = {
@@ -40,8 +42,10 @@ class Checklist extends CoreChecklist {
     boWProcTracker: BoWProcTracker,
     judgment: Judgment,
     liadrins: Liadrins,
+    soulOfTheHighlord: SoulOfTheHighlord,
     whisper: Whisper,
     bota: BotA,
+    crusade: Crusade,
 	};
 
 	rules = [
@@ -96,6 +100,11 @@ class Checklist extends CoreChecklist {
   					spell: SPELLS.CRUSADE_TALENT,
   					when: combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
   				}),
+          new Requirement({
+            name: <Wrapper>Bad first global with <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon/> buff</Wrapper>,
+            check: () => this.crusade.suggestionThresholds,
+            when: this.crusade.active,
+          }),
   				new GenericCastEfficiencyRequirement({
   					spell: SPELLS.AVENGING_WRATH,
   					when: !combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
@@ -116,15 +125,20 @@ class Checklist extends CoreChecklist {
   		requirements: () => {
   			return [
   				new Requirement({
-  					name: <ItemLink id={ITEMS.LIADRINS_FURY_UNLEASHED.id} icon/>,
+  					name: <Wrapper>Holy power wasted from <ItemLink id={ITEMS.LIADRINS_FURY_UNLEASHED.id} icon/></Wrapper>,
   					check: () => this.liadrins.suggestionThresholds,
   					when: this.liadrins.active,
   				}),
   				new Requirement({
-  					name: <ItemLink id={ITEMS.WHISPER_OF_THE_NATHREZIM.id} icon/>,
+  					name: <Wrapper>Spenders with the <ItemLink id={ITEMS.WHISPER_OF_THE_NATHREZIM.id} icon/> buff</Wrapper>,
   					check: () => this.whisper.suggestionThresholds,
   					when: this.whisper.active,
   				}),
+          new Requirement({
+            name: <Wrapper>Picked the right talent with <ItemLink id={ITEMS.SOUL_OF_THE_HIGHLORD.id} icon/></Wrapper>,
+            check: () => this.soulOfTheHighlord.suggestionThresholds,
+            when: this.soulOfTheHighlord.active,
+          }),
   			];
   		},
   	}),
@@ -138,11 +152,11 @@ class Checklist extends CoreChecklist {
   					check: () => this.holyPowerDetails.suggestionThresholds,
   				}),
   				new Requirement({
-  					name: 'Holy power spent without Judgment',
+  					name: <Wrapper>Holy power spent without <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/></Wrapper>,
   					check: () => this.judgment.suggestionThresholds,
   				}),
   				new Requirement({
-  					name: 'Wasted Blade of Wrath procs',
+  					name: <Wrapper>Wasted <SpellLink id={SPELLS.BLADE_OF_WRATH_TALENT.id} icon/> procs</Wrapper>,
   					check: () => this.boWProcTracker.suggestionThresholds,
   				}),
   			];
@@ -160,7 +174,7 @@ class Checklist extends CoreChecklist {
             spell: SPELLS.LAY_ON_HANDS,
 					}),
           new Requirement({
-            name: <Wrapper> <SpellLink id={SPELLS.BLESSING_OF_THE_ASHBRINGER_BUFF.id} icon/></Wrapper>,
+            name: <Wrapper> <SpellLink id={SPELLS.BLESSING_OF_THE_ASHBRINGER_BUFF.id} icon/> uptime</Wrapper>,
             check: () => this.bota.suggestionThresholds,
           }),
         ];
