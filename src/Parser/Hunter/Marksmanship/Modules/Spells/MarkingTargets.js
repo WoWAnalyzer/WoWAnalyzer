@@ -21,7 +21,6 @@ class MarkingTargets extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
-//event.ability && [185365, 223138].includes(event.ability.guid)
   overwrittenProcs = 0;
   _totalPossible = 0;
   usedProcs = 0;
@@ -33,9 +32,7 @@ class MarkingTargets extends Analyzer {
   lastTrueshotRefresh = 0;
   trueshotRefreshCasts = 0;
   trueshotApplication = 0;
-  firstTrueshotCastChecked = false;
   expiredBuffs = 0;
-
   buffApplication = 0;
 
   wastedApplications = {};
@@ -78,24 +75,12 @@ class MarkingTargets extends Analyzer {
     if (spellID !== SPELLS.ARCANE_SHOT.id && spellID !== SPELLS.SIDEWINDERS_TALENT.id && spellID !== SPELLS.MULTISHOT.id) {
       return;
     }
-    if (this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id)) {
-      if (this.buffApplication) {
-        this._totalPossible--;
-        this.buffApplication = null;
-      } else if (this.buffApplicationRefresh) {
-        this.overwrittenProcs--;
-        this._totalPossible--;
-        this.buffApplicationRefresh = null;
-      }
-      return;
-    }
-    if (!this.combatants.selected.hasBuff(SPELLS.MARKING_TARGETS.id)) {
+    if (!this.combatants.selected.hasBuff(SPELLS.MARKING_TARGETS.id) || this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id)) {
       return;
     }
     this.specificCast = event.ability;
     this.castTimeStamp = event.timestamp;
     this.usedProcs++;
-
   }
 
   on_byPlayer_refreshdebuff(event) {
@@ -131,13 +116,19 @@ class MarkingTargets extends Analyzer {
     }
   }
 
+  on_finished() {
+    if (this.buffApplication) {
+      this._totalPossible--;
+    }
+  }
+
   statistic() {
     const applicators = Object.keys(this.wastedApplications).map(wastedApplication =>
       `<li>
         ${this.wastedApplications[wastedApplication].spellName}: ${this.wastedApplications[wastedApplication].amount} times
       </li>`
     ).join(' ');
-    const applicatorTooltipText = applicators.length > 0 ? `<li>You cast the following spells while the target(s) already had Hunter's Mark applied to them: </li><ul>  ${applicators} </ul>` : ``;
+    const applicatorTooltipText = applicators.length > 0 ? `<ul>  ${applicators} </ul>` : ``;
     return (
       <StatisticBox icon={<SpellIcon id={SPELLS.MARKING_TARGETS.id} />}
         value={(
@@ -162,11 +153,12 @@ class MarkingTargets extends Analyzer {
           </Wrapper>
         )}
         label="Marking Targets info"
-        tooltip={`This module ignores Trueshot, but if you have any Hunter's Mark wasted during Trueshot, it'll show in the bottom of this tooltip. <br/> You had a Marking Targets proc while you already had the buff active ${this.overwrittenProcs} ${this.overwrittenProcs > 1 ? `times` : `time`}. </br>The Marking Targets buff expired ${this.expiredBuffs} ${this.expiredBuffs > 1 ? `times` : `time`}.
+        tooltip={`This module ignores Trueshot, but if you have any Hunter's Mark wasted during Trueshot, it'll show in the bottom of this tooltip.
+${this.overwrittenProcs > 0 ? `</br>You had a Marking Targets proc while you already had the buff active ${this.overwrittenProcs} ${this.overwrittenProcs > 1 ? `times` : `time`}.` : ``}
+${this.expiredBuffs > 0 ? `</br>The Marking Targets buff expired ${this.expiredBuffs} ${this.expiredBuffs > 1 ? `times` : `time`}.` : ``}
         <ul>
-            ${applicatorTooltipText}
-          ${this.totalHuntersMarkWasted > 0 ? <li>You reapplied Hunter's Mark to a target while it was already active on the target ${this.totalHuntersMarkWasted} ${this.totalHuntersMarkWasted > 1 ? `times` : `time`}. </li> : ``}
-          ${this.trueshotHuntersMarkWasted > 0 ? <li>The above ignores Trueshot, but during Trueshot you reapplied Hunter's Mark a total of ${this.trueshotHuntersMarkWasted} ${this.trueshotHuntersMarkWasted > 1 ? `times` : `time`} over ${this.trueshotRefreshCasts} ${this.trueshotRefreshCasts > 1 ? `casts` : `cast`}. </li> : ``}
+          ${this.totalHuntersMarkWasted > 0 ? `<li>You reapplied Hunter's Mark to a target while it was already active on the target ${this.totalHuntersMarkWasted} ${this.totalHuntersMarkWasted > 1 ? `times` : `time`}, distributed over the following casts: </li> ${applicatorTooltipText}` : ``}
+          ${this.trueshotHuntersMarkWasted > 0 ? `<li>The above ignores Trueshot, but during Trueshot you reapplied Hunter's Mark a total of ${this.trueshotHuntersMarkWasted} ${this.trueshotHuntersMarkWasted > 1 ? `times` : `time`} over ${this.trueshotRefreshCasts} ${this.trueshotRefreshCasts > 1 ? `casts` : `cast`}. </li>` : ``}
         </ul>`} />
     );
   }
