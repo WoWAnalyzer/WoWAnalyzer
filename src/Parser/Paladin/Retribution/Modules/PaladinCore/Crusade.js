@@ -48,10 +48,10 @@ class Crusade extends Analyzer {
 
 	get suggestionThresholds() {
 		return {
-			actual: this.badGlobalPercent,
-			isGreaterThan: {
-				minor: 0,
-				average: 0.25,
+			actual: 1 - this.badGlobalPercent,
+			isLessThan: {
+				minor: 1,
+				average: 0.75,
 				major: 0.5,
 			},
 			style: 'percentage',

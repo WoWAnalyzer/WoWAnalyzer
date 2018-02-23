@@ -61,7 +61,6 @@ class Checklist extends CoreChecklist {
       		];
     		},
   	}),
-  	new PreparationRule(),
   	new Rule({
   		name: 'Use core abilities as often as possible',
   		description:<Wrapper>Spells with short cooldowns like <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/>, <SpellLink id={SPELLS.BLADE_OF_JUSTICE.id} icon/>, and <SpellLink id={SPELLS.CRUSADER_STRIKE.id} icon/> should be used as often as possible.</Wrapper>,
@@ -101,7 +100,7 @@ class Checklist extends CoreChecklist {
   					when: combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
   				}),
           new Requirement({
-            name: <Wrapper>Bad first global with <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon/> buff</Wrapper>,
+            name: <Wrapper>Good first global with <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon/> buff</Wrapper>,
             check: () => this.crusade.suggestionThresholds,
             when: this.crusade.active,
           }),
@@ -120,48 +119,48 @@ class Checklist extends CoreChecklist {
   		},
   	}),
   	new Rule({
-  		name: 'Pick the right tools for the fight',
-  		description: 'The throughput gain of some legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly.',
-  		requirements: () => {
-  			return [
-  				new Requirement({
-  					name: <Wrapper>Holy power wasted from <ItemLink id={ITEMS.LIADRINS_FURY_UNLEASHED.id} icon/></Wrapper>,
-  					check: () => this.liadrins.suggestionThresholds,
-  					when: this.liadrins.active,
-  				}),
-  				new Requirement({
-  					name: <Wrapper>Spenders with the <ItemLink id={ITEMS.WHISPER_OF_THE_NATHREZIM.id} icon/> buff</Wrapper>,
-  					check: () => this.whisper.suggestionThresholds,
-  					when: this.whisper.active,
-  				}),
-          new Requirement({
-            name: <Wrapper>Picked the right talent with <ItemLink id={ITEMS.SOUL_OF_THE_HIGHLORD.id} icon/></Wrapper>,
-            check: () => this.soulOfTheHighlord.suggestionThresholds,
-            when: this.soulOfTheHighlord.active,
-          }),
-  			];
-  		},
-  	}),
-  	new Rule({
   		name: 'Use your resources efficently',
   		description: <Wrapper>Holy Power is your main resource and it's very important not to let it cap. You should also only be spending Holy Power inside of the <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/> debuff window.</Wrapper>,
   		requirements: () => {
   			return [
   				new Requirement({
-  					name: 'Wasted Holy Power',
+  					name: 'Holy Power efficiency',
   					check: () => this.holyPowerDetails.suggestionThresholds,
   				}),
   				new Requirement({
-  					name: <Wrapper>Holy power spent without <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/></Wrapper>,
+  					name: <Wrapper>Holy power spent with <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/></Wrapper>,
   					check: () => this.judgment.suggestionThresholds,
   				}),
   				new Requirement({
-  					name: <Wrapper>Wasted <SpellLink id={SPELLS.BLADE_OF_WRATH_TALENT.id} icon/> procs</Wrapper>,
+  					name: <Wrapper><SpellLink id={SPELLS.BLADE_OF_WRATH_TALENT.id} icon/> procs consumed</Wrapper>,
   					check: () => this.boWProcTracker.suggestionThresholds,
   				}),
   			];
   		},
   	}),
+    new Rule({
+      name: 'Pick the right tools for the fight',
+      description: 'The throughput gain of some legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly.',
+      requirements: () => {
+        return [
+          new Requirement({
+            name: <Wrapper><ItemLink id={ITEMS.LIADRINS_FURY_UNLEASHED.id} icon/> Holy Power efficiency</Wrapper>,
+            check: () => this.liadrins.suggestionThresholds,
+            when: this.liadrins.active,
+          }),
+          new Requirement({
+            name: <Wrapper>Spenders buffed by <ItemLink id={ITEMS.WHISPER_OF_THE_NATHREZIM.id} icon/></Wrapper>,
+            check: () => this.whisper.suggestionThresholds,
+            when: this.whisper.active,
+          }),
+          new Requirement({
+            name: <Wrapper>Picked the right talent with <ItemLink id={ITEMS.SOUL_OF_THE_HIGHLORD.id} icon/></Wrapper>,
+            check: () => this.soulOfTheHighlord.suggestionThresholds,
+            when: this.soulOfTheHighlord.active,
+          }),
+        ];
+      },
+    }),
   	new Rule({
       name: 'Use your utility and defensive spells',
       description: <Wrapper>Use other spells in your toolkit to your advantage. For example, you can use <SpellLink id={SPELLS.SHIELD_OF_VENGEANCE.id} icon/> to mitigate some damage and <SpellLink id={SPELLS.LAY_ON_HANDS.id} icon/> to save your own or someone elses life.</Wrapper>,
@@ -180,6 +179,7 @@ class Checklist extends CoreChecklist {
         ];
       },
     }),
+    new PreparationRule(),
 	];
 }
 

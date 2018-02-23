@@ -60,14 +60,17 @@ class Judgment extends Analyzer {
 		this.totalSpender++;
 	}
 
+	get unbuffedJudgmentPercentage() {
+		return this.spenderOutsideJudgment / this.totalSpender;
+	}
+
 	get suggestionThresholds() {
-		const unbuffedJudgmentPercentage = this.spenderOutsideJudgment / this.totalSpender;
 		return {
-			actual: unbuffedJudgmentPercentage,
-			isGreaterThan: {
-				minor: 0.05,
-				average: 0.1,
-				major: 0.15,
+			actual: 1 - this.unbuffedJudgmentPercentage,
+			isLessThan: {
+				minor: 0.95,
+				average: 0.9,
+				major: 0.85,
 			},
 			style: 'percentage',
 		};
@@ -77,8 +80,8 @@ class Judgment extends Analyzer {
 		when(this.suggestionThresholds).addSuggestion((suggest,actual,recommended) => {
 			return suggest(<Wrapper>You're spending Holy Power outisde of the <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/> debuff. It is optimal to only spend Holy Power while the enemy is debuffed with <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/>.</Wrapper>)
 				.icon(SPELLS.JUDGMENT_DEBUFF.icon)
-				.actual(`${formatNumber(this.spenderOutsideJudgment)} Holy Power spenders used outside of Judgment (${formatPercentage(actual)}%).`)
-				.recommended(`<${formatPercentage(recommended)}% is recommended`);
+				.actual(`${formatNumber(this.spenderOutsideJudgment)} Holy Power spenders (${formatPercentage(1 - actual)}%) used outside of Judgment`)
+				.recommended(`<${formatPercentage(1 - recommended)}% is recommended`);
 		});
 	}
 

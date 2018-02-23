@@ -53,13 +53,17 @@ class LiadrinsFuryUnleashed extends Analyzer {
     };
   }
 
+  get holyPowerWastedPercent() {
+    return this.holyPowerWasted / this.totalHolyPower;
+  }
+
   get suggestionThresholds() {
     return {
-      actual: this.holyPowerWasted / this.totalHolyPower,
-      isGreaterThan: {
-        minor: 0.1,
-        average: 0.2,
-        major: 0.3,
+      actual: 1 - this.holyPowerWastedPercent,
+      isLessThan: {
+        minor: 0.9,
+        average: 0.8,
+        major: 0.7,
       },
       style: 'percentage',
     };
@@ -67,10 +71,10 @@ class LiadrinsFuryUnleashed extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You wasted {formatPercentage(actual)}% of the holy power from <ItemLink id={ITEMS.LIADRINS_FURY_UNLEASHED.id} icon/>. Consider using an easier legendary.</Wrapper>)
+      return suggest(<Wrapper>You wasted {this.holyPowerWasted} of the Holy Power from <ItemLink id={ITEMS.LIADRINS_FURY_UNLEASHED.id} icon/>. Consider using an easier legendary.</Wrapper>)
         .icon(ITEMS.LIADRINS_FURY_UNLEASHED.icon)
-        .actual(`${this.hpWasted} Holy Power wasted`)
-        .recommended(`Wasting less than ${formatPercentage(recommended)}% is recommended.`);
+        .actual(`${formatPercentage(this.holyPowerWastedPercent)}% Holy Power wasted`)
+        .recommended(`Wasting <${formatPercentage(recommended)}% is recommended.`);
     });
   }
 }
