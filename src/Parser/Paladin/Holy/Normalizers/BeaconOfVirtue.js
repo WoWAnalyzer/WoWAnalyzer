@@ -19,6 +19,9 @@ const MAX_DELAY = 100;
  * However after analyzing Disc Priest's Atonement interactions with PW:R and Evangelism (PW:R is cast, then Evangelism, then Atonement lands in the combatlog but in-game its duration was properly extended), it seems most likely to be that 2 is the case.
  *
  * Because of the wrong ordering of the combatlog where the `heal` is prior to the `applybuff` events, our beacon healing tracking modules are off. Because it seems most likely that the game treats `applybuff`s as if they happened on the `cast` event, I think it best we try to recreate that. That's what this normalizer does.
+ *
+ * Example log that is fixed by this:
+ * https://wowanalyzer.com/report/yJXmz31TMnCZN2b9/4-Mythic+Garothi+Worldbreaker+-+Kill+(3:33)/12-Ubpal
  */
 class BeaconOfVirtue extends EventsNormalizer {
   findPreviousCast(previousEvents, event) {
