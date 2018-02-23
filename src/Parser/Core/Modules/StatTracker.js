@@ -6,6 +6,7 @@ import { formatMilliseconds } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import { STAT_TRACKER_BUFFS as DARKMOON_DECK_IMMORTALITY_BUFFS } from 'Parser/Core/Modules/Items/Legion/DarkmoonDeckImmortality';
 
 const debug = false;
 
@@ -151,6 +152,10 @@ class StatTracker extends Analyzer {
     //  haste: (_, item) => calculateSecondaryStatDefault(940, 4219, item.itemLevel),
     //},
     // endregion 
+    
+    // region Crafted Trinkets
+    ...DARKMOON_DECK_IMMORTALITY_BUFFS,
+    // endregion
 
     // region Misc
     [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH.id]: { // check numbers
@@ -203,6 +208,7 @@ class StatTracker extends Analyzer {
       avoidance: this.combatants.selected._combatantInfo.avoidance,
       leech: this.combatants.selected._combatantInfo.leech,
       speed: this.combatants.selected._combatantInfo.speed,
+      armor: this.combatants.selected._combatantInfo.armor,
     };
     this._currentStats = {
       ...this._pullStats,
@@ -248,6 +254,9 @@ class StatTracker extends Analyzer {
   get startingSpeedRating() {
     return this._pullStats.speed;
   }
+  get startingArmorRating() {
+    return this._pullStats.armor;
+  }
 
   /*
    * Current stat rating, as tracked by this module.
@@ -284,6 +293,9 @@ class StatTracker extends Analyzer {
   }
   get currentSpeedRating() {
     return this._currentStats.speed;
+  }
+  get currentArmorRating() {
+    return this._currentStats.armor;
   }
 
   // TODO: I think these should be ratings. They behave like ratings and I think the only reason they're percentages here is because that's how they're **displayed** in-game, but not because it's more correct.
@@ -447,6 +459,9 @@ class StatTracker extends Analyzer {
   speedPercentage(rating, withBase = false) {
     return (withBase ? this.baseSpeedPercentage : 0) + rating / this.speedRatingPerPercent;
   }
+  armorPercentage(rating, attackerLevel = 110) {
+    return rating / (rating + (467.5 * attackerLevel - 22167.5));
+  }
 
   /*
    * For percentage stats, the current stat percentage as tracked by this module.
@@ -471,6 +486,9 @@ class StatTracker extends Analyzer {
   }
   get currentSpeedPercentage() {
     return this.speedPercentage(this.currentSpeedRating, true);
+  }
+  get currentArmorPercentage() {
+    return this.armorPercentage(this.currentArmorRating);
   }
 
   on_toPlayer_changebuffstack(event) {
@@ -533,6 +551,7 @@ class StatTracker extends Analyzer {
       avoidance: this._getBuffValue(change, change.avoidance) * factor,
       leech: this._getBuffValue(change, change.leech) * factor,
       speed: this._getBuffValue(change, change.speed) * factor,
+      armor: this._getBuffValue(change, change.armor) * factor,
     };
 
     Object.keys(this._currentStats).forEach(key => {
@@ -589,7 +608,7 @@ class StatTracker extends Analyzer {
   }
 
   _statPrint(stats) {
-    return `STR=${stats.strength} AGI=${stats.agility} INT=${stats.intellect} STM=${stats.stamina} CRT=${stats.crit} HST=${stats.haste} MST=${stats.mastery} VRS=${stats.versatility} AVD=${this._currentStats.avoidance} LCH=${stats.leech} SPD=${stats.speed}`;
+    return `STR=${stats.strength} AGI=${stats.agility} INT=${stats.intellect} STM=${stats.stamina} CRT=${stats.crit} HST=${stats.haste} MST=${stats.mastery} VRS=${stats.versatility} AVD=${this._currentStats.avoidance} LCH=${stats.leech} SPD=${stats.speed} ARMOR=${this._currentStats.armor}`;
   }
 }
 
