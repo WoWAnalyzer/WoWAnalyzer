@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-02-23'),
+    changes: <Wrapper>Fixed beacon healing tracking for precasted <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} icon /> into <SpellLink id={SPELLS.BEACON_OF_VIRTUE_TALENT.id} icon />.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-02-09'),
     changes: <Wrapper>Fixed an issue where sometimes <SpellLink id={SPELLS.SECOND_SUNRISE.id} icon /> would not be detected properly, throwing off the average players hit per <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} icon /> and some other things. This likely only might have occured if the logger had a poor internet connection.</Wrapper>,
     contributors: [Zerotorescue],
