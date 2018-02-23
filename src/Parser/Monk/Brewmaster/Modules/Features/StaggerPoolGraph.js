@@ -237,6 +237,8 @@ class StaggerPoolGraph extends Analyzer {
               },
               point: {
                 radius: 0,
+                hitRadius: 4,
+                hoverRadius: 4,
               },
             },
             scales: {
