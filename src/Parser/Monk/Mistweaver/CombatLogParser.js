@@ -50,6 +50,7 @@ import Lifecycles from './Modules/Talents/Lifecycles';
 import SpiritOfTheCrane from './Modules/Talents/SpiritOfTheCrane';
 
 // Items
+import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Eithas from './Modules/Items/Eithas';
 import T20_4set from './Modules/Items/T20_4set';
 import T20_2set from './Modules/Items/T20_2set';
@@ -111,6 +112,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spiritOfTheCrane: SpiritOfTheCrane,
 
     // Legendaries / Items:
+    drapeOfShame: DrapeOfShame,
     eithas: Eithas,
     t20_4set: T20_4set,
     t20_2set: T20_2set,
