@@ -16,6 +16,23 @@ class StatTracker extends Analyzer {
     combatants: Combatants,
   };
 
+  // These are multipliers to the stats applied *on pull* that are not
+  // included in the stats reported by WCL. These are *baked in* and do
+  // not multiply temporary buffs.
+  //
+  // In general, it looks like armor is the only one that isn't applied
+  // by WCL.
+  static SPEC_MULTIPLIERS = {
+    [SPECS.BREWMASTER_MONK.id]: { armor: 1.25, },
+  };
+
+  // These are multipliers from *binary* (have it or don't) artifact
+  // traits. These are *baked in* and do not multiply temporary buffs.
+  static ARTIFACT_MULTIPLIERS = {
+    [SPELLS.ENDURANCE_OF_THE_BROKEN_TEMPLE_TRAIT.id]: { armor: 1.35, }, // also: damage: 1.1
+    [SPELLS.WANDERERS_HARDINESS_TRAIT.id]: { armor: 1.17, },
+  };
+
   static STAT_BUFFS = {
     // region Potions
     [SPELLS.POTION_OF_PROLONGED_POWER.id]: { stamina: 2500, strength: 2500, agility: 2500, intellect: 2500 },
@@ -210,11 +227,35 @@ class StatTracker extends Analyzer {
       speed: this.combatants.selected._combatantInfo.speed,
       armor: this.combatants.selected._combatantInfo.armor,
     };
+
+    this.applySpecModifiers();
+    this.applyArtifactModifiers();
+
     this._currentStats = {
       ...this._pullStats,
     };
 
     debug && this._debugPrintStats(this._currentStats);
+  }
+
+  applySpecModifiers() {
+    const modifiers = this.constructor.SPEC_MULTIPLIERS[this.combatants.selected.spec.id];
+    this.applyMultipliers(this._pullStats, modifiers)
+  }
+
+  applyArtifactModifiers() {
+    Object.entries(this.constructor.ARTIFACT_MULTIPLIERS).forEach(([spellId, modifiers]) => {
+      if(this.combatants.selected.traitsBySpellId[spellId] > 0) {
+        this.applyMultipliers(this._pullStats, modifiers);
+      }
+    });
+  }
+
+  applyMultipliers(stats, modifiers) {
+    if(!modifiers) {
+      return;
+    }
+    Object.entries(modifiers).forEach(([stat, multiplier]) => stats[stat] *= multiplier);
   }
 
   /*
@@ -459,8 +500,9 @@ class StatTracker extends Analyzer {
   speedPercentage(rating, withBase = false) {
     return (withBase ? this.baseSpeedPercentage : 0) + rating / this.speedRatingPerPercent;
   }
-  armorPercentage(rating, attackerLevel = 110) {
-    return rating / (rating + (467.5 * attackerLevel - 22167.5));
+  armorPercentage(rating) {
+    // tfw you get a formula from a rando on the wow forums
+    return rating / (rating + 7390);
   }
 
   /*
