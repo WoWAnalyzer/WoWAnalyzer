@@ -31,7 +31,7 @@ class MKIIGyroscopicStabilizer extends Analyzer {
   item() {
     return {
       item: ITEMS.MKII_GYROSCOPIC_STABILIZER,
-      result: <Wrapper>This allowed you to move while casting {this.usedBuffs} <SpellLink id={SPELLS.AIMED_SHOT.id} />s throughout the fight, these <SpellLink id={SPELLS.AIMED_SHOT.id} />s also had 15% increased crit chance.</Wrapper>,
+      result: <Wrapper>This allowed you to move while casting {this.usedBuffs} <SpellLink id={SPELLS.AIMED_SHOT.id} icon /> throughout the fight, these <SpellLink id={SPELLS.AIMED_SHOT.id} icon />s also had 15% increased crit chance.</Wrapper>,
     };
   }
 }

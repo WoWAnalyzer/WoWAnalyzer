@@ -22,11 +22,11 @@ class HolyPowerDetails extends Analyzer {
 
 	get suggestionThresholds() {
 		return {
-			actual: this.wastedHolyPowerPercent,
-			isGreaterThan: {
-				minor: 0.02,
-				average: 0.05,
-				major: 0.08,
+			actual: 1 - this.wastedHolyPowerPercent,
+			isLessThan: {
+				minor: 0.98,
+				average: 0.95,
+				major: 0.92,
 			},
 			style: 'percentage',
 		};
@@ -34,10 +34,10 @@ class HolyPowerDetails extends Analyzer {
 
   suggestions(when) {
 		when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-			return suggest(`You wasted ${formatPercentage(actual)}% of your Holy Power.`)
+			return suggest(`You wasted ${formatNumber(this.holyPowerTracker.wasted)} Holy Power.`)
 				.icon(holyPowerIcon)
-				.actual(`${this.hpWasted} Holy Power wasted`)
-				.recommended(`Wasting less than ${formatPercentage(recommended)}% is recommended.`);
+				.actual(`${formatPercentage(this.wastedHolyPowerPercent)}% Holy Power wasted`)
+				.recommended(`Wasting <${formatPercentage(1 - recommended)}% is recommended.`);
 		});
 	}
 

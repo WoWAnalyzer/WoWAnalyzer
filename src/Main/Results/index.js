@@ -8,6 +8,7 @@ import Masonry from 'react-masonry-component';
 import ChecklistIcon from 'Icons/Checklist';
 import SuggestionIcon from 'Icons/Suggestion';
 import AboutIcon from 'Icons/About';
+import ArmorIcon from 'Icons/Armor';
 import Wrapper from 'common/Wrapper';
 import SPEC_ANALYSIS_COMPLETENESS, { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import { getResultTab } from 'selectors/url/report';
@@ -19,6 +20,8 @@ import GithubButton from 'Main/GithubButton';
 import DiscordButton from 'Main/DiscordButton';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import ActivityIndicator from 'Main/ActivityIndicator';
+import WarcraftLogsLogo from 'Main/Images/WarcraftLogs-logo.png';
+import WipefestLogo from 'Main/Images/Wipefest-logo.png';
 
 import ItemsPanel from './ItemsPanel';
 import AboutTab from './AboutTab';
@@ -30,6 +33,7 @@ import './Results.css';
 const MAIN_TAB = {
   CHECKLIST: 'Checklist',
   SUGGESTIONS: 'Suggestions',
+  CHARACTER: 'Character',
   ABOUT: 'About',
 };
 function mainTabLabel(tab) {
@@ -46,6 +50,12 @@ function mainTabLabel(tab) {
           <SuggestionIcon /> Suggestions
         </Wrapper>
       );
+    case MAIN_TAB.CHARACTER:
+      return (
+        <Wrapper>
+          <ArmorIcon /> CHARACTER
+          </Wrapper>
+        );
     case MAIN_TAB.ABOUT:
       return (
         <Wrapper>
@@ -196,9 +206,8 @@ class Results extends React.Component {
 
           <div className="row">
             <div className="col-md-4">
-              {modules.statsDisplay.render()}
-              {modules.talentsDisplay.render()}
               <ItemsPanel items={results.items} selectedCombatant={selectedCombatant} />
+
             </div>
             <div className="col-md-8">
               <div className="panel tabbed">
@@ -228,6 +237,9 @@ class Results extends React.Component {
                     {this.state.mainTab === MAIN_TAB.SUGGESTIONS && (
                       <SuggestionsTab issues={results.issues} />
                     )}
+                    {this.state.mainTab === MAIN_TAB.CHARACTER && (
+                      modules.characterPanel.render()
+                    )}
                     {this.state.mainTab === MAIN_TAB.ABOUT && (
                       <AboutTab config={config} />
                     )}
@@ -242,9 +254,22 @@ class Results extends React.Component {
               href={`https://www.warcraftlogs.com/reports/${report.code}/#fight=${fight.id}&source=${parser.playerId}`}
               target="_blank"
               rel="noopener noreferrer"
+              className="btn"
               style={{ fontSize: 24 }}
+              data-tip="View the original report"
             >
-              <span className="glyphicon glyphicon-link" aria-hidden /> View on Warcraft Logs
+              <img src={WarcraftLogsLogo} alt="Wracraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
+            </a>
+            {' '}
+            <a
+              href={`https://www.wipefest.net/report/${report.code}/fight/${fight.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn"
+              style={{ fontSize: 24 }}
+              data-tip="View insights and timelines for raid encounters"
+            >
+              <img src={WipefestLogo} alt="Wipefest logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
             </a>
           </div>
           <div className="row">

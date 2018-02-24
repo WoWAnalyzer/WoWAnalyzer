@@ -22,7 +22,8 @@ class RefractiveShell extends Analyzer {
   healing = 0;
 
   on_initialized() {
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.REFRACTIVE_SHELL_TRAIT.id] > 0;
+    this.traitLevel = this.combatants.selected.traitsBySpellId[SPELLS.REFRACTIVE_SHELL_TRAIT.id];
+    this.active = this.traitLevel > 0;
   }
 
   subStatistic() {
@@ -35,7 +36,9 @@ class RefractiveShell extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-        {formatPercentage(this.owner.getPercentageOfTotalHealingDone(healing))} % healing
+          <dfn data-tip={`${this.traitLevel} ${this.traitLevel > 1 ? `traits` : `trait`}`}>
+            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(healing))} % healing
+          </dfn>
         </div>
       </div>
     );

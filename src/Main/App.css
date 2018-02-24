@@ -58,6 +58,16 @@ a {
 a:hover {
   color: #ad4b4b;
 }
+.btn:hover,
+.btn:focus,
+.btn.focus {
+  color: #964747;
+}
+.btn:hover img,
+.btn:focus img,
+.btn.focus img {
+  opacity: 0.5;
+}
 h1 {
   margin-top: 0;
   margin-bottom: 1em;

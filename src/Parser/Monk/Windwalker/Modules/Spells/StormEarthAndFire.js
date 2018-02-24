@@ -149,9 +149,9 @@ class StormEarthAndFire extends Analyzer{
     return (
       <StatisticsListBox
         title={
-          <span>
+          <wrapper>
             <SpellIcon id={this.ability.id} noLink /> {this.ability.name}
-          </span>
+          </wrapper>
         }
         tooltip={`This shows the possible amount of casts during ${this.ability.name}`}
         style={{ minHeight: 186 }}

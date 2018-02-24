@@ -88,7 +88,7 @@ class Bullseye extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BULLSEYE_BUFF.id} />}
-        value={`${this.percentBullseyeAtMax} %`}
+        value={`${this.percentBullseyeAtMax}%`}
         label={`% of Bullseye at ${this.MAX_STACKS} stacks`}
         tooltip={`You reset Bullseye ${this.bullseyeResets} times during the execute phase (boss below 20% health). <br /> You had ${formatNumber(this.bullseyeUptime / 1000)} seconds of Bullseye uptime during the fight, and ${formatNumber(this.bullseyeMaxUptime / 1000)} seconds of uptime at ${this.MAX_STACKS} stacks.`}
       />
@@ -110,7 +110,7 @@ class Bullseye extends Analyzer {
   suggestions(when) {
     when(this.bullseyeResets).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper> You reset your <SpellLink id={SPELLS.BULLSEYE_BUFF.id} /> stacks while the boss was below 20% health. Try and avoid this as it is a significant DPS loss. Make sure you're constantly refreshing and adding to your bullseye stacks on targets below 20% hp.</Wrapper>)
+        return suggest(<Wrapper> You reset your <SpellLink id={SPELLS.BULLSEYE_BUFF.id} icon /> stacks while the boss was below 20% health. Try and avoid this as it is a significant DPS loss. Make sure you're constantly refreshing and adding to your bullseye stacks on targets below 20% hp.</Wrapper>)
           .icon('ability_hunter_focusedaim')
           .actual(`${this.bullseyeResets} resets`)
           .recommended(`<1 reset is recommended`)
