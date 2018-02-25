@@ -10,7 +10,7 @@ import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
-const debug = false;
+const debug = true;
 
 class CombustionMarqueeBindings extends Analyzer {
   static dependencies = {
@@ -109,13 +109,15 @@ class CombustionMarqueeBindings extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.bracerUtilThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>During <SpellLink id={SPELLS.COMBUSTION.id}/> you had enough time to use {this.expectedPyroblastCasts} procs from your <ItemLink id={ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id}/>, but you only used {this.actualPyroblastCasts} of them. If there is more than 5 seconds of Combustion left, you should use your proc so that your hard casted <SpellLink id={SPELLS.PYROBLAST.id}/> will do 300% damage and be guaranteed to crit.</Wrapper>)
-          .icon(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.icon)
-          .actual(`${formatPercentage(this.bracerBuffUtil)}% Utilization`)
-          .recommended(`${formatPercentage(recommended)} is recommended`);
-      });
+    if (this.expectedPyroblastCasts > 0) {
+      when(this.bracerUtilThresholds)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest(<Wrapper>During <SpellLink id={SPELLS.COMBUSTION.id}/> you had enough time to use {this.expectedPyroblastCasts} procs from your <ItemLink id={ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id}/>, but you only used {this.actualPyroblastCasts} of them. If there is more than 5 seconds of Combustion left, you should use your proc so that your hard casted <SpellLink id={SPELLS.PYROBLAST.id}/> will do 300% damage and be guaranteed to crit.</Wrapper>)
+            .icon(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.icon)
+            .actual(`${formatPercentage(this.bracerBuffUtil)}% Utilization`)
+            .recommended(`${formatPercentage(recommended)} is recommended`);
+        });
+    }
   }
 }
 export default CombustionMarqueeBindings;
