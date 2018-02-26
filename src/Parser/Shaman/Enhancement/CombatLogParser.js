@@ -4,9 +4,10 @@ import Abilities from './Modules/Abilities';
 
 import MaelstromTracker from '../Shared/MaelstromChart/MaelstromTracker';
 import MaelstromTab from '../Shared/MaelstromChart/MaelstromTab';
-
+// Features
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+// ShamanCore
 import AlphaWolf from './Modules/ShamanCore/AlphaWolf';
 import Flametongue from './Modules/ShamanCore/Flametongue';
 import FlametongueRefresh from './Modules/ShamanCore/FlametongueRefresh';
@@ -14,12 +15,12 @@ import Landslide from './Modules/ShamanCore/Landslide';
 import Frostbrand from './Modules/ShamanCore/Frostbrand';
 import FuryOfAir from './Modules/ShamanCore/FuryOfAir';
 import Rockbiter from './Modules/ShamanCore/Rockbiter';
+import Stormbringer from './Modules/ShamanCore/Stormbringer.js'
+// Items
 import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier21_2set from './Modules/Items/Tier21_2set';
 import Tier21_4set from './Modules/Items/Tier21_4set';
-
-
-// import SmolderingHeart from './Modules/Legendaries/SmolderingHeart';
+import SmolderingHeart from './Modules/Items/SmolderingHeart';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -32,11 +33,13 @@ class CombatLogParser extends CoreCombatLogParser {
     rockbiter: Rockbiter,
     flametongueRefresh: FlametongueRefresh,
     alphaWolf: AlphaWolf,
+    stormbringer: Stormbringer,
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    // Legendaries:
+    // Legendaries
+    smolderingheart: SmolderingHeart,
     // Tier
     tier20_2set: Tier20_2set,
     tier21_2set: Tier21_2set,

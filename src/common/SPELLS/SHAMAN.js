@@ -343,6 +343,11 @@ export default {
     name: 'Stormbringer',
     icon: 'spell_nature_stormreach',
   },
+  STORMBRINGER_BUFF: {
+    id: 201846,
+    name: 'Stormbringer',
+    icon: 'spell_nature_stormreach',
+  },
   MAELSTROM_WEAPON: {
     id: 187890,
     name: 'Maelstrom Weapon',
@@ -698,7 +703,7 @@ export default {
   WELLSPRING_HEAL: {
     id: 198117,
     name: 'Wellspring',
-    icon: 'ability_shawaterelemental_split', 
+    icon: 'ability_shawaterelemental_split',
   },
 
   // Traits:
