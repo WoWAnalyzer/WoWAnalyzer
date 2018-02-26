@@ -1,4 +1,5 @@
 import React from 'react';
+import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
@@ -31,6 +32,13 @@ class HeatingUp extends Analyzer {
   targetId = 0;
   currentHealth = 0;
   maxHealth = 0;
+  hasFirestarterTalent;
+  hasLegendaryBelt;
+
+  on_initialized() {
+    this.hasFirestarterTalent = this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
+    this.hasLegendaryBelt = this.combatants.selected.hasWaist(ITEMS.KORALONS_BURNING_TOUCH.id);
+  }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -43,6 +51,8 @@ class HeatingUp extends Analyzer {
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
+    const combustionActive = this.combatants.selected.hasBuff(SPELLS.COMBUSTION.id);
+    const hasHotStreak = this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id);
     if (this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id) && GUARANTEE_CRIT_SPELLS.includes(spellId)) {
       this.currentHealth = event.hitPoints;
       this.maxHealth = event.maxHitPoints;
@@ -51,7 +61,7 @@ class HeatingUp extends Analyzer {
       return;
     }
 
-    if ((this.combatants.selected.hasBuff(SPELLS.COMBUSTION.id) || (this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id) && this.healthPercent > .90)) && !this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id)) {
+    if ((combustionActive || (this.hasFirestarterTalent && this.healthPercent > .90) || (this.hasLegendaryBelt && this.healthPercent < .30)) && !hasHotStreak) {
       debug && console.log("Event Ignored @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     } else if (spellId === SPELLS.FIRE_BLAST.id) {
       if (this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id)) {
