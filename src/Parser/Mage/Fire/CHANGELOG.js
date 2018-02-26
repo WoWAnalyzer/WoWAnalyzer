@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-2-25'),
+    changes: <Wrapper>Added Support for <ItemLink id={ITEMS.KORALONS_BURNING_TOUCH.id}/>.</Wrapper>,
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2018-1-25'),
     changes: 'Added Checklist.',
     contributors: [Sharrq],
