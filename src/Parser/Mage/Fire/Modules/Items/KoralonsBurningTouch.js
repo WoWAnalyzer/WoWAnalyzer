@@ -3,11 +3,13 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatMilliseconds } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Wrapper from 'common/Wrapper';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+
+const debug = false;
 
 class KoralonsBurningTouch extends Analyzer {
   static dependencies = {
@@ -16,6 +18,7 @@ class KoralonsBurningTouch extends Analyzer {
   };
 
   badCasts = 0;
+  totalCasts = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasWaist(ITEMS.KORALONS_BURNING_TOUCH.id);
@@ -27,22 +30,17 @@ class KoralonsBurningTouch extends Analyzer {
       this.currentHealth = event.hitPoints;
       this.maxHealth = event.maxHitPoints;
     }
-
+    if (this.healthPercent < .30) {
+      this.totalCasts += 1;
+    }
     if (spellId === SPELLS.FIREBALL.id && this.healthPercent < .30) {
       this.badCasts += 1;
+      debug && console.log("Cast Fireball under 30% Health @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     }
   }
 
   get healthPercent() {
     return this.currentHealth / this.maxHealth;
-  }
-
-  get scorchCasts() {
-    return this.abilityTracker.getAbility(SPELLS.SCORCH.id).casts || 0;
-  }
-
-  get totalCasts() {
-    return this.scorchCasts + this.badCasts;
   }
 
   get scorchUtil() {

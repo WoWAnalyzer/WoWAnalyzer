@@ -61,7 +61,7 @@ class HeatingUp extends Analyzer {
       return;
     }
 
-    if ((combustionActive || (this.hasFirestarterTalent && this.healthPercent > .90) || (this.hasLegendaryBelt && spellId === SPELLS.SCORCH.id && this.healthPercent < .30)) && !hasHotStreak) {
+    if ((combustionActive || (this.hasFirestarterTalent && this.healthPercent > .90) || (this.hasLegendaryBelt && this.healthPercent < .30)) && !hasHotStreak) {
       debug && console.log("Event Ignored @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     } else if (spellId === SPELLS.FIRE_BLAST.id) {
       if (this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id)) {
