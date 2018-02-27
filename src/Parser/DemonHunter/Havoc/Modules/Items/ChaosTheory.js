@@ -21,6 +21,7 @@ class ChaosTheory extends Analyzer {
 		combatants: Combatants,
 		abilityTracker: AbilityTracker,
 	};
+	hits = 0;
 	procs = 0;
 	bonusDamage = 0;
 	lastCastTimestamp = 0;
@@ -42,7 +43,7 @@ class ChaosTheory extends Analyzer {
 		if (spellId !== SPELLS.CHAOS_BLADES_TALENT.id) {
 			return;
 		}
-		if(this.lastCastTimestamp && (this.lastCastTimestamp + MS_BUFFER > event.timestamp)) {
+		if(this.lastCastTimestamp && (event.timestamp < this.lastCastTimestamp + MS_BUFFER)) {
 			this.procs++;
 			this.lastCastTimestamp = null;
 			this.lastApplybuffTimestamp = event.timestamp;
@@ -51,12 +52,11 @@ class ChaosTheory extends Analyzer {
 
 	on_byPlayer_damage(event) {
 		const spellId = event.ability.guid;
-		if (this.lastApplybuffTimestamp + CHAOS_THEORY.DURATION > event.timestamp) {
-			this.lastApplybuffTimestamp = null;
+		if(event.timestamp > this.lastApplybuffTimestamp + CHAOS_THEORY.DURATION) {
 			return;
 		}
 		if (spellId === SPELLS.CHAOS_BLADES_DAMAGE_MH.id || spellId === SPELLS.CHAOS_BLADES_DAMAGE_OH.id) {
-			this.bonusDamage += (event.amount || 0) + (event.absorbed || 0);
+			this.bonusDamage += event.amount + (event.absorbed || 0);
 		}
 	}
 
@@ -68,7 +68,7 @@ class ChaosTheory extends Analyzer {
 		return {
 			item: ITEMS.CHAOS_THEORY,
 			result: (
-				<dfn data-tip={`You had ${this.procs} procs (${formatNumber(this.expectedProcs)} expected procs)`}>
+				<dfn data-tip={`You had <b>${this.procs}</b> procs (<b>${formatNumber(this.expectedProcs)}</b> expected procs)</br> Total Damage: ${formatNumber(this.bonusDamage)}`}>
 					<ItemDamageDone amount={this.bonusDamage}/>
 				</dfn>
 			),
