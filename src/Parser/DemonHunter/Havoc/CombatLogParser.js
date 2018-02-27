@@ -2,7 +2,6 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import EyeBeamNormalizer from './Normalizers/EyeBeam';
-import ChaosBladesNormalizer from './Normalizers/ChaosBlades';
 import Channeling from './Modules/Core/Channeling';
 import GlobalCooldown from './Modules/Core/GlobalCooldown';
 
@@ -43,7 +42,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Normalizer
     eyeBeamNormalizer: EyeBeamNormalizer,
-    chaosBladesNormalizer: ChaosBladesNormalizer,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
