@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
 import { formatNumber } from 'common/format';
 
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
