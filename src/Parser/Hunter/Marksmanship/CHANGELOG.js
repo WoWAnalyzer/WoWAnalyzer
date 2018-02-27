@@ -9,7 +9,7 @@ import { Blazballs, JLassie82, Putro } from 'MAINTAINERS';
 
 export default [
   {
-    date: new Date('2018-02-20'),
+    date: new Date('2018-02-27'),
     changes: <Wrapper>Updated the <SpellLink id={SPELLS.LOCK_AND_LOAD_TALENT.id} icon /> module to include some probability calculations on your chance of getting that amount or lower procs.</Wrapper>,
     contributors: [Putro],
   },

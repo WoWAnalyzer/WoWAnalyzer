@@ -42,7 +42,7 @@ class LockAndLoad extends Analyzer {
     this.fullLNLProcs += 1;
     this.totalProcs += 1;
     this._currentStacks = 2;
-    debug && console.log('full lnl proc, this is number ', this.fullLNLProcs);
+    debug && console.log('full LnL proc, this is number ', this.fullLNLProcs);
 
   }
 
@@ -134,15 +134,15 @@ class LockAndLoad extends Analyzer {
     return PROC_CHANCE * this.autoShots;
   }
 
-  //pn is the mean value of non-procs
+  //qn is the mean value of non-procs
   get qn() {
     return (1 - PROC_CHANCE) * this.autoShots;
   }
 
   statistic() {
     const binomCalc = this.binomialCalculation(this.totalProcs, this.autoShots, PROC_CHANCE);
-    let tooltipText = `You had ${this.noGainLNLProcs} ${this.noGainLNLProcs > 1 ? `procs` : `proc`} with 2 lnl stacks remaining and ${this.halfLNLProcs} ${this.halfLNLProcs > 1 ? `
-  procs` : `proc`} with 1 lnl stack remaining. <br/> You had ${formatPercentage(this.totalProcs / this.expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br /> You had a total of ${this.totalProcs} procs, and your expected amount of procs was ${this.expectedProcs}. <br /> <ul><li>You have a ~${formatPercentage(binomCalc)}% chance of getting this amount of procs or fewer in the future with this amount of autoattacks. </li><li>`;
+    let tooltipText = `You had ${this.noGainLNLProcs} ${this.noGainLNLProcs > 1 ? `procs` : `proc`} with 2 LnL stacks remaining and ${this.halfLNLProcs} ${this.halfLNLProcs > 1 ? `
+  procs` : `proc`} with 1 LnL stack remaining. <br/> You had ${formatPercentage(this.totalProcs / this.expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br /> You had a total of ${this.totalProcs} procs, and your expected amount of procs was ${this.expectedProcs}. <br /> <ul><li>You have a ~${formatPercentage(binomCalc)}% chance of getting this amount of procs or fewer in the future with this amount of autoattacks. </li><li>`;
     //this two first tooltipText additions will probably NEVER happen, but it'd be fun if they ever did.
     tooltipText += binomCalc === 1 ? `You had so many procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 100%. Consider yourself the luckiest man alive.` : ``;
     tooltipText += binomCalc === 0 ? `You had so few procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 0%. Consider yourself the unluckiest man alive.` : ``;
@@ -153,7 +153,7 @@ class LockAndLoad extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.LOCK_AND_LOAD_TALENT.id} />}
         value={`${this.wastedInstants} (${formatPercentage(this.wastedInstants / (this.totalProcs * 2))}%)`}
-        label={`lost Lock and Load stacks`}
+        label={`lost LnL stacks`}
         tooltip={tooltipText}
       />
     );
