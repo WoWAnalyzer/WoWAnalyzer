@@ -11,6 +11,7 @@ import SpellIcon from 'common/SpellIcon';
  * Hunter's Mark activates Marked Shot.
  *
  * Note: Trueshot causes Sidewinders, Arcane Shot and Multi-Shot to always apply Hunter's Mark.
+ * CHANGE MY MIND TAKE IT BAAAACK
  */
 
 const MS_BUFFER = 500;
@@ -72,7 +73,7 @@ class MarkingTargets extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellID = event.ability.guid;
-    if (spellID !== SPELLS.ARCANE_SHOT.id && spellID !== SPELLS.SIDEWINDERS_TALENT.id && spellID !== SPELLS.MULTISHOT.id) {
+    if (spellID !== SPELLS.ARCANE_SHOT.id && spellID !== SPELLS.SIDEWINDERS_TALENT.id && spellID !== SPELLS.MULTISHOT.id && spellID !== SPELLS.SIDEWINDERS_CAST.id) {
       return;
     }
     if (!this.combatants.selected.hasBuff(SPELLS.MARKING_TARGETS.id) || this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id)) {
@@ -90,13 +91,13 @@ class MarkingTargets extends Analyzer {
     }
     if (this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id)) {
       this.trueshotHuntersMarkWasted++; //counts any while under the effects of Trueshot
-      if (event.timestamp > this.lastTrueshotRefresh + MS_BUFFER) {
+      if (event.timestamp > this.lastTrueshotRefresh + MS_BUFFER) { //counts once per cast to ensure that Sidewinders/Multi Shot hitting several mobs isn't counted more than needed.
         this.trueshotRefreshCasts++;
       }
       this.lastTrueshotRefresh = event.timestamp;
       return;
     }
-    //counts AoE wasted applications (outside of trueshot)
+    //counts all (including AoE) wasted applications (outside of trueshot)
     this.totalHuntersMarkWasted++;
     //counting only once per cast
     if (this.specificCast) {
