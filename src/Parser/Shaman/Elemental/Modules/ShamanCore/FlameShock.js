@@ -76,7 +76,7 @@ class FlameShock extends Analyzer {
         value={`${formatPercentage(this.uptime)} %`}
         label="Uptime"
         tooltip = {
-          `With an average of ${this.avgMalestromSpend} Maelstrom spend and ${this.elementalFocusCasts.buffed} / ${this.elementalFocusCasts.total} casts with Elemental Focus.`
+          `With an average of ${this.avgMalestromSpend.toFixed(2)} Maelstrom spend and ${this.elementalFocusCasts.buffed} / ${this.elementalFocusCasts.total} casts with Elemental Focus.`
         }
       />
     );
