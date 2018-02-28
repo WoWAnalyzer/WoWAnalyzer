@@ -1,13 +1,12 @@
 import React from 'react';
-
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
-
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Analyzer from 'Parser/Core/Analyzer';
-
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 const CB_DURATION = 15000;
@@ -16,12 +15,12 @@ const debug = false;
 class ComboBreaker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    abilityTracker: AbilityTracker,
   };
   CBProcsTotal = 0;
   lastCBProcTime = null;
   consumedCBProc = 0;
   overwrittenCBProc = 0;
-  nonCBBoK = 0;
   serenityBoKCast = 0;
 
   on_byPlayer_applybuff(event) {
@@ -49,13 +48,10 @@ class ComboBreaker extends Analyzer {
     }
     if (this.lastCBProcTime !== event.timestamp) {
      if (this.lastCBProcTime === null) {
-        this.nonCBBoK += 1;
         return;
       }
       const cbTimeframe = this.lastCBProcTime + CB_DURATION;
-      if (event.timestamp > cbTimeframe) {
-        this.nonCBBoK += 1;
-      } else {
+      if (event.timestamp <= cbTimeframe) {
        this.consumedCBProc += 1;
         debug && console.log(`CB Proc Consumed / Timestamp: ${event.timestamp}`);
        this.lastCBProcTime = null;
@@ -77,16 +73,18 @@ class ComboBreaker extends Analyzer {
   }
   
   statistic() {
-   const unusedCBProcs = 1 - (this.consumedCBProc / this.CBProcsTotal);
+    const unusedCBProcs = 1 - (this.consumedCBProc / this.CBProcsTotal);
+    let procsFromTigerPalm = this.CBProcsTotal
+    if (this.combatants.selected.hasHead(ITEMS.THE_WIND_BLOWS.id)) {
+      procsFromTigerPalm = this.CBProcsTotal - this.abilityTracker.getAbility(SPELLS.STRIKE_OF_THE_WINDLORD.id).casts;
+    }
+    const averageCBProcs = this.abilityTracker.getAbility(SPELLS.TIGER_PALM.id).casts * (0.08 + 0.02 * this.combatants.selected.traitsBySpellId[SPELLS.STRENGTH_OF_XUEN.id]);
     return (
       <StatisticBox
-       icon={<SpellIcon id={SPELLS.COMBO_BREAKER_BUFF.id} />}
+        icon={<SpellIcon id={SPELLS.COMBO_BREAKER_BUFF.id} />}
         value={`${formatPercentage(unusedCBProcs)}%`}
-        label={(
-         <dfn data-tip={`You got total <b>${this.CBProcsTotal} Combo Breaker procs</b> and <b>used ${this.consumedCBProc}</b> of them. ${this.nonCBBoK} of your Blackout Kicks were used without a Combo Breaker buff.`}>
-            Unused Procs
-          </dfn>
-        )}
+        label={`Unused Procs`}
+        tooltip={`You got a total of <b>${this.CBProcsTotal} Combo Breaker procs</b> and <b>used ${this.consumedCBProc}</b> of them. Average number of procs from your tiger palms this fight is <b>${averageCBProcs.toFixed(2)}</b>, and you got <b>${procsFromTigerPalm}</b>.`}
       />
    );
   }
