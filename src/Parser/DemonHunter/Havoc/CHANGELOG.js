@@ -9,6 +9,11 @@ import { Hewhosmites, Mamtooth } from 'MAINTAINERS';
 
 export default [
 	{
+		date: new Date('2018-02-27'),
+		changes: <Wrapper>Added <ItemLink id={ITEMS.CHAOS_THEORY.id} icon/></Wrapper>,
+		contributors: [Hewhosmites],
+	},
+	{
 		date: new Date('2018-02-20'),
 		changes: <Wrapper>Added <ItemLink id={ITEMS.MOARG_BIONIC_STABILIZERS.id} icon/></Wrapper>,
     contributors: [Hewhosmites],
