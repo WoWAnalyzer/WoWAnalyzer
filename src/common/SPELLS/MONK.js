@@ -653,6 +653,11 @@ export default {
     name: 'Split Personality',
     icon: 'spell_nature_giftofthewild',
   },
+  STRENGTH_OF_XUEN: {
+    id: 195267,
+    name: 'Strength of Xuen',
+    icon: 'ability_monk_summontigerstatue',
+  },
   INNER_PEACE: {
     id: 195243,
     name: 'Inner Peace',
