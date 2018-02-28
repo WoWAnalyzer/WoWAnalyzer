@@ -656,7 +656,7 @@ export default {
   STRENGTH_OF_XUEN: {
     id: 195267,
     name: 'Strength of Xuen',
-    icon: 'ability_monk_summontigerstatue'
+    icon: 'ability_monk_summontigerstatue',
   },
   INNER_PEACE: {
     id: 195243,

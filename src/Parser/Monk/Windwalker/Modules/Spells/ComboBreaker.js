@@ -74,7 +74,8 @@ class ComboBreaker extends Analyzer {
   
   statistic() {
     const unusedCBProcs = 1 - (this.consumedCBProc / this.CBProcsTotal);
-    let procsFromTigerPalm = this.CBProcsTotal
+    let procsFromTigerPalm = this.CBProcsTotal;
+    // Strike of the Windlord procs Combo Breaker if legendary head "The Wind Blows" is equipped
     if (this.combatants.selected.hasHead(ITEMS.THE_WIND_BLOWS.id)) {
       procsFromTigerPalm = this.CBProcsTotal - this.abilityTracker.getAbility(SPELLS.STRIKE_OF_THE_WINDLORD.id).casts;
     }
