@@ -85,7 +85,7 @@ class ComboBreaker extends Analyzer {
         icon={<SpellIcon id={SPELLS.COMBO_BREAKER_BUFF.id} />}
         value={`${formatPercentage(unusedCBProcs)}%`}
         label={`Unused Procs`}
-        tooltip={`You got a total of <b>${this.CBProcsTotal} Combo Breaker procs</b> and <b>used ${this.consumedCBProc}</b> of them. Average number of procs from your tiger palms this fight is <b>${averageCBProcs.toFixed(2)}</b>, and you got <b>${procsFromTigerPalm}</b>.`}
+        tooltip={`You got a total of <b>${this.CBProcsTotal} Combo Breaker procs</b> and <b>used ${this.consumedCBProc}</b> of them. Average number of procs from your Tiger Palms this fight is <b>${averageCBProcs.toFixed(2)}</b>, and you got <b>${procsFromTigerPalm}</b>.`}
       />
    );
   }
