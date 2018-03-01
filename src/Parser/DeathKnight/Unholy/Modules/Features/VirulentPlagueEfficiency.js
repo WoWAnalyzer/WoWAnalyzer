@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -82,7 +81,7 @@ class VirulentPlagueEfficiency extends Analyzer {
 			return suggest(<Wrapper> You are casting <SpellLink id={SPELLS.VIRULENT_PLAGUE.id}/> too often. Try to cast <SpellLink id={SPELLS.VIRULENT_PLAGUE.id}/> as close to it falling off as possible.</Wrapper>)
 				.icon(SPELLS.VIRULENT_PLAGUE.icon)
 				.actual(`${(this.totalTimeWasted/this.totalOutBreakCasts).toFixed(1)} seconds of Virulent Plague uptime was wasted on average for each cast of Outbreak`)
-				.recommended(`<${6-(recommended)} is recommended`)
+				.recommended(`<${6-(recommended)} is recommended`);
         });
   }
 
@@ -100,4 +99,4 @@ class VirulentPlagueEfficiency extends Analyzer {
 }
 
 
-export default VirulentPlagueEfficiency
+export default VirulentPlagueEfficiency;
