@@ -11,7 +11,7 @@ import SpellLink from "common/SpellLink";
 import ItemDamageDone from 'Main/ItemDamageDone';
 import Wrapper from 'common/Wrapper';
 
-/*
+/**
  * A powerful shot which deals up to (2 * 775%) Physical damage to the target and up to 775% Physical damage to all enemies between you and the target.
  * Damage increased against targets with Vulnerable.
  */

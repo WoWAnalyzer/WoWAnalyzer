@@ -14,7 +14,7 @@ import Wrapper from 'common/Wrapper';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import ResourceIcon from 'common/ResourceIcon';
 
-/*
+/**
  * Increases haste by 40% and causes Arcane Shot and Multi-Shot to always apply Hunter's Mark.
  * Lasts 15 sec.
  */

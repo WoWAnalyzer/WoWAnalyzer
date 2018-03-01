@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
 
 const PATIENT_SNIPER_BONUS_PER_SEC = 0.06;
-/*
+/**
  * Gain the patience of a veteran sniper, increasing the damage bonus of Vulnerable by 6% every 1 sec.
  */
 class PatientSniperBreakdown extends React.Component {
