@@ -20,6 +20,16 @@ class FuryTracker extends ResourceTracker {
 		this.resource = RESOURCE_TYPES.FURY;
 	}
 
+	on_byPlayer_cast(event) {
+		const spellId = event.ability.guid;
+		const blindFuryId = SPELLS.BLIND_FURY_TALENT.id
+		// Blind Fury resource gain does not have an energize event so it is handled here
+		if(spellId === SPELLS.EYE_BEAM.id && this.combatants.selected.hasTalent(blindFuryId)) {
+			this.processInvisibleEnergize(blindFuryId, 105);
+		}
+		super.on_byPlayer_cast(event);
+	}
+
 	getReducedCost(event) {
 		if(!this.getResource(event).cost) {
 			return 0;
