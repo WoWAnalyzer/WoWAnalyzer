@@ -24,9 +24,9 @@ class FuryDetails extends Analyzer {
     return {
       actual: this.wastedFuryPercent,
       isGreaterThan: {
-        minor: 0.02,
-        average: 0.05,
-        major: 0.08,
+        minor: 0.06,
+        average: 0.10,
+        major: 0.14,
       },
       style: 'percentage',
     };
@@ -37,7 +37,7 @@ class FuryDetails extends Analyzer {
       return suggest(`You wasted ${formatNumber(this.furyTracker.wasted)} Fury.`)
         .icon(furyIcon)
         .actual(`${formatPercentage(actual)}% Fury wasted`)
-        .recommended(`Wasting less than ${formatPercentage(recommended)}% is recommended.`);
+        .recommended(`<${formatPercentage(recommended)}% is recommended.`);
     });
   }
 
