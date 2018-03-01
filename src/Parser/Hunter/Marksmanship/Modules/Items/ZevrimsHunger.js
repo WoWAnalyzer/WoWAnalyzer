@@ -9,7 +9,6 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 /**
  * Zevrim's Hunger
  * Equip: Marked Shot has a 15% chance to not remove Hunter's Mark.
- * event.ability && [185365, 212621].includes(event.ability.guid)
  */
 const MS_BUFFER = 750;
 
