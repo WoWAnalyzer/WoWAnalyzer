@@ -20,6 +20,10 @@ class ZevrimsHunger extends Analyzer {
     this.active = this.combatants.selected.hasFinger(ITEMS.ZEVRIMS_HUNGER.id);
   }
 
+  on_byPlayer_cast() {
+    
+  }
+
   item() {
     return {
       item: ITEMS.ZEVRIMS_HUNGER,
