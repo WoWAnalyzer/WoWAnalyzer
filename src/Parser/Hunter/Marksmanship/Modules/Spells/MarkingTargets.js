@@ -17,6 +17,8 @@ const MS_BUFFER = 500;
 
 const MARKING_TARGETS_DURATION = 15000;
 
+const APPLICATORS = [SPELLS.ARCANE_SHOT.id, SPELLS.SIDEWINDERS_TALENT.id, SPELLS.SIDEWINDERS_CAST.id, SPELLS.MULTISHOT.id];
+
 class MarkingTargets extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -83,7 +85,7 @@ class MarkingTargets extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellID = event.ability.guid;
-    if (spellID !== SPELLS.ARCANE_SHOT.id && spellID !== SPELLS.SIDEWINDERS_TALENT.id && spellID !== SPELLS.MULTISHOT.id && spellID !== SPELLS.SIDEWINDERS_CAST.id) {
+    if (!APPLICATORS.includes(spellID)) {
       return;
     }
     if (!this.combatants.selected.hasBuff(SPELLS.MARKING_TARGETS.id) || this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id)) {
@@ -127,8 +129,6 @@ class MarkingTargets extends Analyzer {
   }
 
   on_finished() {
-    console.log(this._totalPossible);
-    console.log(this.buffApplication);
     if (this.buffApplication) {
       this._totalPossible--;
     }
