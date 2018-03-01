@@ -9,8 +9,13 @@ import { Blazballs, JLassie82, Putro } from 'MAINTAINERS';
 
 export default [
   {
-    date: new Date('2018-02-22'),
-    changes: <Wrapper>Added a <SpellLink id={SPELLS.MARKING_TARGETS.id} icon /> and <SpellLink id={SPELLS.HUNTERS_MARK.id} icon /> module. </Wrapper>,
+    date: new Date('2018-03-01'),
+    changes: <Wrapper>Added a <SpellLink id={SPELLS.MARKING_TARGETS.id} icon /> and <SpellLink id={SPELLS.HUNTERS_MARK.id} icon /> module. Also updated handling for <ItemLink id={ITEMS.ZEVRIMS_HUNGER.id} icon /></Wrapper>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-02-27'),
+    changes: <Wrapper>Updated the <SpellLink id={SPELLS.LOCK_AND_LOAD_TALENT.id} icon /> module to include some probability calculations on your chance of getting that amount or lower procs.</Wrapper>,
     contributors: [Putro],
   },
   {

@@ -94,7 +94,7 @@ class AngerOfTheHalfGiants extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<Wrapper>You wasted {formatNumber(this.furyWasted)} of the Fury from <ItemLink id={ITEMS.ANGER_OF_THE_HALF_GIANTS.id} icon/>.</Wrapper>)
-        .icon(ITEMS.LIADRINS_FURY_UNLEASHED.icon)
+        .icon(ITEMS.ANGER_OF_THE_HALF_GIANTS.icon)
         .actual(`${formatPercentage(actual)}% fury wasted`)
         .recommended(`Wasting less than ${formatPercentage(recommended)}% is recommended.`);
     });

@@ -14,6 +14,7 @@ class BeaconHealOriginMatcher extends Analyzer {
     combatants: Combatants,
     beaconTargets: BeaconTargets,
     lightOfDawnIndexer: LightOfDawnIndexer, // for the heal event index
+    // This also relies on the BeaconOfVirtueNormalizer so precasting FoL into BoV is accounted for properly.
   };
 
   healBacklog = [];

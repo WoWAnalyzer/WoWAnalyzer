@@ -77,7 +77,7 @@ class AspectOfTheWild extends Analyzer {
 
   suggestions(when) {
     when(this.badCastThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Don't cast <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up and atleast 7 seconds remaining on the buff (or with under than 15 seconds remaining of the encounter) </Wrapper>)
+      return suggest(<Wrapper>Don't cast <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} icon /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> up and atleast 7 seconds remaining on the buff (or with under than 15 seconds remaining of the encounter) </Wrapper>)
         .icon(SPELLS.ASPECT_OF_THE_WILD.icon)
         .actual(`You cast Aspect of the Wild ${this.badAspectCasts} times without Bestial Wrath up or with less than 7s remaining of Bestial Wrath duration`)
         .recommended(`${recommended} is recommended`);
@@ -85,7 +85,7 @@ class AspectOfTheWild extends Analyzer {
   }
   statistic() {
     let tooltipText = `You cast Aspect of the Wild a total of ${this.totalAspectCasts} times.`;
-    tooltipText += this.badAspectCasts > 0 ? `<ul><li>You had ${this.badAspectCasts} bad cast(s) of Aspect of the Wild. <ul><li>Bad casts indicate that Aspect of the Wild was cast without Bestial Wrath up with atleast 7 seconds remaining, or without having Bestial Wrath off cooldown (or within 3 seconds of coming off cooldown)<li> (The only exception is if the fight is about to end in which you just cast Aspect of the Wild)</li></li></ul></li></ul>` : ``;
+    tooltipText += this.badAspectCasts > 0 ? `<ul><li>You had ${this.badAspectCasts} bad cast(s) of Aspect of the Wild. <ul><li>Bad casts indicate that Aspect of the Wild was cast without Bestial Wrath up with atleast 7 seconds remaining, or without having Bestial Wrath off cooldown (or within 3 seconds of coming off cooldown)<li> (The only exception is if the fight is about to end in which case you just cast Aspect of the Wild)</li></li></ul></li></ul>` : ``;
 
     return (
       <StatisticBox

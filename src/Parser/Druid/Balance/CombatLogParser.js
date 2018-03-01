@@ -7,7 +7,6 @@ import GlobalCooldown from './Modules/Core/GlobalCooldown';
 import Checklist from './Modules/Features/Checklist';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CancelledCasts from './Modules/Features/CancelledCasts';
-import AstralPower from './Modules/Features/AstralPower';
 import Abilities from './Modules/Features/Abilities';
 import LunarEmpowerment from './Modules/Features/LunarEmpowerment';
 import SolarEmpowerment from './Modules/Features/SolarEmpowerment';
@@ -18,6 +17,7 @@ import StellarFlareUptime from './Modules/Features/StellarFlareUptime';
 import MoonSpells from './Modules/Features/MoonSpells';
 import UnempoweredLs from './Modules/Features/UnempoweredLs';
 import L90_talents from './Modules/Features/L90_talents';
+
 
 //Resources
 import AstralPowerDetails from './Modules/ResourceTracker/AstralPowerDetails';
@@ -46,7 +46,6 @@ class CombatLogParser extends MainCombatLogParser {
     checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
-    astralPower: AstralPower,
     abilities: Abilities,
     lunarEmpowerment: LunarEmpowerment,
     solarEmpowerment: SolarEmpowerment,

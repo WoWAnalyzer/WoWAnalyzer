@@ -19,10 +19,11 @@ import AlwaysBeCasting from './AlwaysBeCasting';
 import MoonfireUptime from './MoonfireUptime';
 import SunfireUptime from './SunfireUptime';
 import StellarFlareUptime from './StellarFlareUptime';
-import AstralPower from './AstralPower';
+import MoonSpells from './MoonSpells';
 import LunarEmpowerment from './LunarEmpowerment';
 import SolarEmpowerment from './SolarEmpowerment';
-import MoonSpells from './MoonSpells';
+
+import AstralPowerDetails from '../ResourceTracker/AstralPowerDetails';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -33,7 +34,6 @@ class Checklist extends CoreChecklist {
     moonfireUptime: MoonfireUptime,
     sunfireUptime: SunfireUptime,
     stellarFlareUptime: StellarFlareUptime,
-    astralPower: AstralPower,
     lunarEmpowerment: LunarEmpowerment,
     solarEmpowerment: SolarEmpowerment,
     moonSpells: MoonSpells,
@@ -42,6 +42,8 @@ class Checklist extends CoreChecklist {
     legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
     enchantChecker: EnchantChecker,
+
+    astralPowerDetails: AstralPowerDetails,
   };
 
   rules = [
@@ -90,7 +92,7 @@ class Checklist extends CoreChecklist {
         return [
           new Requirement({
             name: 'Astral Power efficiency',
-            check: () => this.astralPower.suggestionThresholds,
+            check: () => this.astralPowerDetails.suggestionThresholds,
           }),
           new Requirement({
             name: 'Moon spells efficiency',

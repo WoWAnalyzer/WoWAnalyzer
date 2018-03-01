@@ -22,8 +22,8 @@ class CancelledCasts extends CoreCancelledCasts {
     return {
       actual: this.cancelledPercentage,
       isGreaterThan: {
-        minor: 0.05,
-        average: 0.075,
+        minor: 0.025,
+        average: 0.05,
         major: 0.1,
       },
       style: 'percentage',
