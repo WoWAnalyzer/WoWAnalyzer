@@ -72,7 +72,7 @@ class ZevrimsHunger extends Analyzer {
       item: ITEMS.ZEVRIMS_HUNGER,
       result: (
         <dfn data-tip={`You could expect it to proc ${this.casts * PROC_CHANCE} times.<br />`}>
-          you utilised {this.procs - this.wastedProc} / {this.procs} {this.procs > 1 ? `procs` : `proc`}
+          you utilized {this.procs - this.wastedProc} / {this.procs} {this.procs > 1 ? `procs` : `proc`}
         </dfn>
       ),
     };
