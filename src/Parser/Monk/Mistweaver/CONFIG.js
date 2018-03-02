@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Anomoly } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
-import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
@@ -17,7 +16,6 @@ export default {
       The tool is not perfect so I am always looking to improve it. If you have any suggestions or comments, don't hesitated to swing by the GitHub Issue linked below, or the <a href="https://discord.gg/0dkfBMAxzTkWj21F" target="_blank" rel="noopener noreferrer">Peak of Serenity</a> discord server. You can also contact me directly on either BattleNet (Anomoly#1464) or Discord (Anomoly#6931). Thanks and I hope you continue to enjoy the tool!
     </div>
   ),
-  completeness: SPEC_ANALYSIS_COMPLETENESS.GREAT, // good = it matches most common manual reviews in class discords, great = it support all important class features
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/59',
   changelog: CHANGELOG,
   parser: CombatLogParser,

@@ -1,11 +1,9 @@
 import React from 'react';
 
 import { Zerotorescue } from 'MAINTAINERS';
-
 import SPECS from 'common/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
@@ -22,8 +20,6 @@ export default {
       If you want to learn more about Holy Paladins, join the Paladin community at the Hammer of Wrath discord: <a href="https://discordapp.com/invite/hammerofwrath" target="_blank" rel="noopener noreferrer">https://discordapp.com/invite/hammerofwrath</a>. The <kbd>#holy-faq</kbd> channel has a lot of useful information including links to good guides.
     </div>
   ),
-  // good = it matches most common manual reviews in class discords, great = it support all important class features
-  completeness: SPEC_ANALYSIS_COMPLETENESS.GREAT,
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/milestone/2',
 
   // Shouldn't have to change these:

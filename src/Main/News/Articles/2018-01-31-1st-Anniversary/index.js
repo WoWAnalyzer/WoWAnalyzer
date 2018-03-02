@@ -8,7 +8,6 @@ import ItemIcon from 'common/ItemIcon';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SPECS from 'common/SPECS';
-import SPEC_ANALYSIS_COMPLETENESS, { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import Wrapper from 'common/Wrapper';
 import RegularArticle from 'Main/News/RegularArticle';
 import Maintainer from 'Main/Maintainer';
@@ -108,9 +107,6 @@ import CastingTime from './CastingTime.png';
 import GearTab from './GearTab.png';
 import WoWAnalyzerPartyHat from './WoWAnalyzerPartyHat.png';
 
-function completeness(completeness) {
-  return <dfn data-tip={getCompletenessExplanation(completeness)} style={{ color: getCompletenessColor(completeness) }}>{getCompletenessLabel(completeness)}</dfn>;
-}
 const SpecIcon = ({ spec }) => (
   <img
     src={`/specs/${spec.className.replace(' ', '')}-${spec.specName.replace(' ', '')}.jpg`}
@@ -618,7 +614,7 @@ class Article extends React.PureComponent {
           <Image source={CompletenessGreat} description='"Great!" completeness' />
           <Image source={CompletenessNeedsMoreWork} description='"Needs more work" completeness' /><br />
 
-          At the time of writing the following specs are considered {completeness(SPEC_ANALYSIS_COMPLETENESS.GOOD)} or {completeness(SPEC_ANALYSIS_COMPLETENESS.GREAT)}:<br />
+          At the time of writing the following specs are considered Good or Great:<br />
           <ul>
             <li className="Paladin">Holy Paladin</li>
             <li className="Paladin">Retribution Paladin</li>
@@ -997,7 +993,7 @@ class Article extends React.PureComponent {
         Over the year we have gathered some interesting statistics:<br /><br />
 
         <ul style={{ marginBottom: 20 }}>
-          <li><b>36</b> specs implemented with <b>16</b> specs marked as being {completeness(SPEC_ANALYSIS_COMPLETENESS.GOOD)} or {completeness(SPEC_ANALYSIS_COMPLETENESS.GREAT)}</li>
+          <li><b>36</b> specs implemented with <b>16</b> specs marked as being Good or Great</li>
           <li>Nearly <a href="https://github.com/WoWAnalyzer/WoWAnalyzer"><b>7,000 commits</b></a> from over <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/graphs/contributors"><b>60 contributors</b></a></li>
           <li>Over <b>1,500 files</b> with over <b>150,000 lines of code</b></li>
           <li>Peak usage had over <b>145,000 unique visitors</b> and <b>14,000,000 requests</b> in a single month</li>

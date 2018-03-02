@@ -3,7 +3,6 @@ import React from 'react';
 import { blazyb, sref } from 'MAINTAINERS';
 
 import SPECS from 'common/SPECS';
-import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
@@ -19,7 +18,6 @@ export default {
       If you want to learn more about Resto Druids, join the Druid community at the <a href="https://discord.gg/dreamgrove" target="_blank" rel="noopener noreferrer">Dreamgrove discord channel</a>. Remember to check the pins (ctrl-P while in #resto channel) for guides, FAQs, and gearing guidelines.
     </div>
   ),
-  completeness: SPEC_ANALYSIS_COMPLETENESS.GREAT, // good = it matches most common manual reviews in class discords, great = it support all important class features
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/55',
   changelog: CHANGELOG,
   parser: CombatLogParser,

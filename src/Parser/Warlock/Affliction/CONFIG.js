@@ -1,11 +1,9 @@
 import React from 'react';
 
+import { Chizu } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
-import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-
-import { Chizu } from 'MAINTAINERS';
 
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
@@ -13,7 +11,6 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.AFFLICTION_WARLOCK,
   maintainers: [Chizu],
-  completeness: SPEC_ANALYSIS_COMPLETENESS.GREAT, // good = it matches most common manual reviews in class discords, great = it support all important class features
   description: (
     <div>
       Hello fellow Netherlords! With some help from a theorycrafter from Warlock Discord, we've put together this tool to help you improve your gameplay. It should be fine for you generally, but it will be even more useful in an expert's hands. <br /> <br />

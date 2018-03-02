@@ -1,14 +1,14 @@
 import React from 'react';
+
 import { Hartra344, Versaya } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
-import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
+
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
 
 export default {
   spec: SPECS.RESTORATION_SHAMAN,
   maintainers: [Hartra344, Versaya],
-  completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK,
   description: (
     <div>
       Welcome to the Resto Shaman analyzer! We hope you find these suggestions and statistics useful.

@@ -1,12 +1,12 @@
 import React from 'react';
 
-import SPECS from 'common/SPECS';
-import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
-import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
-import Wrapper from 'common/Wrapper';
-import Maintainer from 'Main/Maintainer';
 import FingerprintFilledIcon from 'Icons/FingerprintFilled';
 import GitHubMarkIcon from 'Icons/GitHubMark';
+
+import Wrapper from 'common/Wrapper';
+import SPECS from 'common/SPECS';
+import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
+import Maintainer from 'Main/Maintainer';
 
 import './SpecListing.css';
 
@@ -43,7 +43,7 @@ class SpecListing extends React.PureComponent {
                     <div
                       className="flex spec-card"
                       style={{
-                        opacity: !config /*|| config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED*/ ? 0.3 : undefined,
+                        opacity: !config ? 0.3 : undefined,
                       }}
                     >
                       <div className="flex-sub icon" style={{ backgroundImage: `url(/specs/${className}-${spec.specName.replace(' ', '')}.jpg)` }} />
@@ -58,9 +58,6 @@ class SpecListing extends React.PureComponent {
                             </div>
                             <div className="maintainers">
                               Maintained by {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}
-                            </div>
-                            <div>
-                              Rating: <dfn className="completeness" data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn>
                             </div>
                           </Wrapper>
                         ) : (

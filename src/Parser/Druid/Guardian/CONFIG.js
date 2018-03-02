@@ -2,7 +2,6 @@ import React from 'react';
 
 import { faide } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
-import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
@@ -23,7 +22,6 @@ export default {
       If you have any suggestions or feedback on the analyzer, check out the Github issue below. If you'd like to know more about Guardian Druid, head over to the <a href="https://discord.gg/dreamgrove" target="_blank" rel="noopener noreferrer">Dreamgrove</a> discord server.  We have tons of resources and guides to get you started.
     </div>
   ),
-  completeness: SPEC_ANALYSIS_COMPLETENESS.GOOD, // good = it matches most common manual reviews in class discords, great = it support all important class features
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/413',
 
   changelog: CHANGELOG,

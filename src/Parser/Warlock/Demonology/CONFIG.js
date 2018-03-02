@@ -1,9 +1,7 @@
 import React from 'react';
 
-import SPECS from 'common/SPECS';
-import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
-
 import { Chizu } from 'MAINTAINERS';
+import SPECS from 'common/SPECS';
 
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
@@ -11,7 +9,6 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.DEMONOLOGY_WARLOCK,
   maintainers: [Chizu],
-  completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK, // good = it matches most common manual reviews in class discords, great = it support all important class features
   changelog: CHANGELOG,
   description: (
     <div>

@@ -21,6 +21,10 @@ class SpellTimeline extends React.PureComponent {
     spellId: PropTypes.number,
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
+    showCooldowns: PropTypes.bool,
+  };
+  static defaultProps = {
+    showCooldowns: false,
   };
 
   constructor() {
@@ -70,7 +74,7 @@ class SpellTimeline extends React.PureComponent {
 
   gemini = null;
   render() {
-    const { start, end, historyBySpellId, globalCooldownHistory, channelHistory } = this.props;
+    const { start, end, historyBySpellId, globalCooldownHistory, channelHistory, showCooldowns } = this.props;
     const duration = end - start;
     const seconds = Math.ceil(duration / 1000);
 
@@ -96,16 +100,16 @@ class SpellTimeline extends React.PureComponent {
               ))}
             </div>
           </div>
-          {globalCooldownHistory &&
+          {globalCooldownHistory && (
             <div className="lane">
               GCD
             </div>
-          }
-          {channelHistory &&
+          )}
+          {channelHistory && (
             <div className="lane">
               Channeling
             </div>
-          }
+          )}
           {this.spells.map(spellId => (
             <div className="lane" key={spellId}>
               <SpellIcon id={spellId} noLink />{' '}
@@ -182,6 +186,7 @@ class SpellTimeline extends React.PureComponent {
               start={start}
               totalWidth={totalWidth}
               secondWidth={secondWidth}
+              showCooldowns={showCooldowns}
             />
           ))}
         </GeminiScrollbar>

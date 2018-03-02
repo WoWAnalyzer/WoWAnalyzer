@@ -5,7 +5,6 @@ import Textfit from 'react-textfit';
 import GitHubMarkIcon from 'Icons/GitHubMark';
 import TwitterIcon from 'Icons/Twitter';
 
-import { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import Maintainer from 'Main/Maintainer';
 
 class AboutTab extends React.Component {
@@ -69,13 +68,7 @@ class AboutTab extends React.Component {
         <div className="row">
           <div className="col-xs-12">
             <div className="row">
-              <div className="col-sm-4">
-                <h1>Completeness</h1>
-                <main>
-                  <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn>
-                </main>
-              </div>
-              <div className="col-sm-4">
+              <div className="col-sm-6">
                 <h1>Spec discussion</h1>
                 <main>
                   {config.specDiscussionUrl ? (
@@ -85,7 +78,7 @@ class AboutTab extends React.Component {
                   ) : 'Unavailable'}
                 </main>
               </div>
-              <div className="col-sm-4">
+              <div className="col-sm-6">
                 <h1>Source code</h1>
                 <main>
                   <a href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`}>

@@ -85,7 +85,7 @@ class BaseHealerStatValues extends Analyzer {
 
   playerHealthMissing = 0;
 
-  scaleWeightsWithHealth = false;
+  scaleWeightsWithHealth = true;
 
   on_heal(event) {
     if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
@@ -159,6 +159,9 @@ class BaseHealerStatValues extends Analyzer {
     }
   }
   _adjustGain(gain, targetHealthPercentage) {
+    if (gain === 0) {
+      return 0;
+    }
     // We want 0-20% health to get value gain, and then linearly decay to 100% health
     const maxValueHealthPercentage = 0.3;
     const mult = 1 - Math.max(0, (targetHealthPercentage - maxValueHealthPercentage) / (1 - maxValueHealthPercentage));
@@ -262,8 +265,10 @@ class BaseHealerStatValues extends Analyzer {
     this._updateMissingHealth(event);
 
     const damageVal = new DamageValue(event.amount, event.absorbed, event.overkill);
-    const targetHealthPercentage = event.hitPoints / event.maxHitPoints; // hitPoints contains HP *after* the damage taken, which in this case is desirable
-    this.totalOneVersDr += this._adjustGain(this._versatilityDamageReduction(event, damageVal), targetHealthPercentage);
+    // const targetHealthPercentage = event.hitPoints / event.maxHitPoints; // hitPoints contains HP *after* the damage taken, which in this case is desirable
+    // this.totalOneVersDr += this._adjustGain(this._versatilityDamageReduction(event, damageVal), targetHealthPercentage);
+    // TODO: Figure out how to make this account for target health since damage event don't appear to have hitPoints info
+    this.totalOneVersDr += this._versatilityDamageReduction(event, damageVal);
   }
   _versatilityDamageReduction(event, damageVal) {
     const amount = damageVal.effective;

@@ -500,29 +500,29 @@ class CombatLogParser {
   generateResults() {
     const results = new ParseResults();
 
-    results.tabs = [
-      {
-        title: 'Timeline',
-        url: 'timeline',
-        order: 2,
-        render: () => (
-          <TimelineTab
-            start={this.fight.start_time}
-            end={this.currentTimestamp >= 0 ? this.currentTimestamp : this.fight.end_time}
-            historyBySpellId={this.modules.spellHistory.historyBySpellId}
-            globalCooldownHistory={this.modules.globalCooldown.history}
-            channelHistory={this.modules.channeling.history}
-            abilities={this.modules.abilities}
-          />
-        ),
-      },
-      {
-        title: <ChangelogTabTitle />,
-        url: 'changelog',
-        order: 1000,
-        render: () => <ChangelogTab />,
-      },
-    ];
+    results.tabs = [];
+    results.tabs.push({
+      title: 'Timeline',
+      url: 'timeline',
+      order: 2,
+      render: () => (
+        <TimelineTab
+          start={this.fight.start_time}
+          end={this.currentTimestamp >= 0 ? this.currentTimestamp : this.fight.end_time}
+          historyBySpellId={this.modules.spellHistory.historyBySpellId}
+          globalCooldownHistory={this.modules.globalCooldown.history}
+          channelHistory={this.modules.channeling.history}
+          abilities={this.modules.abilities}
+          showCooldowns={this.modules.spellUsable.isAccurate}
+        />
+      ),
+    });
+    results.tabs.push({
+      title: <ChangelogTabTitle />,
+      url: 'changelog',
+      order: 1000,
+      render: () => <ChangelogTab />,
+    });
 
     Object.keys(this._modules)
       .filter(key => this._modules[key].active)

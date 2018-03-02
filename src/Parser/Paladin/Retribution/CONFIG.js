@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Hewhosmites } from 'MAINTAINERS';
 import SPECS from 'common/SPECS';
-import SPEC_ANALYSIS_COMPLETENESS from 'common/SPEC_ANALYSIS_COMPLETENESS';
 
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
@@ -21,7 +20,6 @@ export default {
   		Feel free to message me on discord or post in the spec discussion URL with any bugs or ideas for things I could work on!
   	</div>
   ),
-  completeness: SPEC_ANALYSIS_COMPLETENESS.GOOD, // good = it matches most common manual reviews in class discords, great = it support all important class features
   specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/323',
   changelog: CHANGELOG,
   parser: CombatLogParser,

@@ -11,16 +11,12 @@ import SuggestionIcon from 'Icons/Suggestion';
 import AboutIcon from 'Icons/About';
 import ArmorIcon from 'Icons/Armor';
 import Wrapper from 'common/Wrapper';
-import SPEC_ANALYSIS_COMPLETENESS, { getCompletenessColor, getCompletenessExplanation, getCompletenessLabel } from 'common/SPEC_ANALYSIS_COMPLETENESS';
 import { getResultTab } from 'selectors/url/report';
 import DevelopmentTab from 'Main/DevelopmentTab';
 import EventsTab from 'Main/EventsTab';
 import Tab from 'Main/Tab';
 import Status from 'Main/Status';
-import GithubButton from 'Main/GithubButton';
-import DiscordButton from 'Main/DiscordButton';
 import SuggestionsTab from 'Main/SuggestionsTab';
-import Maintainer from 'Main/Maintainer';
 import ActivityIndicator from 'Main/ActivityIndicator';
 import WarcraftLogsLogo from 'Main/Images/WarcraftLogs-logo.png';
 import WipefestLogo from 'Main/Images/Wipefest-logo.png';
@@ -120,9 +116,6 @@ class Results extends React.Component {
       return boss.fight.resultsWarning;
     }
     const config = this.context.config;
-    if (config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED || config.completeness === SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK) {
-      return 'The analysis for this spec is still under development. The information shown may be flawed, inaccurate, missing, or incomplete. Contact the spec maintainer for feature requests and bug reports, see the about tab for more information.';
-    }
     if (parser.feedbackWarning) {
       return 'This spec is believed to be complete, but needs additional feedback. If there is something missing, incorrect, or inaccurate, please contact this specs maintainer so it can be fixed before being marked as "Good". Contact info can be found in the About Tab.';
     }
@@ -192,16 +185,6 @@ class Results extends React.Component {
       <div className="container">
         <div className="results">
           <Header config={config} playerName={selectedCombatant.name} boss={parser.boss} fight={fight} />
-
-          {config.completeness === SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED && (
-            <Wrapper>
-              <div className="alert alert-danger" style={{ fontSize: '1.5em' }}>
-                This spec is not actively being maintained. In order to continue providing useful and accurate information we are looking for an active maintainer for this spec. See our GitHub page or join Discord for more information.<br />
-                <GithubButton /> <DiscordButton />
-              </div>
-              <div className="divider" />
-            </Wrapper>
-          )}
 
           <div className="row">
             <div className="col-md-4">
@@ -311,42 +294,6 @@ class Results extends React.Component {
           <div className="row">
             <div className="col-md-12">
               {this.renderStatistics(results.statistics)}
-            </div>
-          </div>
-
-          <div className="divider" />
-
-          <div className="row">
-            <div className="col-md-6">
-              <div className="row">
-                <div className="col-md-4">
-                  <div style={{ border: '7px solid #fff', background: 'rgba(0, 0, 0, 0.4)', padding: '8px 14px', fontSize: 32, fontWeight: 700, lineHeight: 1.2 }}>
-                    <Textfit mode="single" max={32}>
-                      Spec<br />
-                      Maintainer
-                    </Textfit>
-                  </div>
-                </div>
-                <div className="col-md-8 maintainers" style={{ fontSize: 20 }}>
-                  The {config.spec.specName} {config.spec.className} analyzer is being maintained by
-                  {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}. New maintainers are <b>always</b> welcome.
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="row">
-                <div className="col-md-4">
-                  <div style={{ border: '7px solid #fff', background: 'rgba(0, 0, 0, 0.4)', padding: '8px 14px', fontSize: 32, fontWeight: 700, lineHeight: 1.2 }}>
-                    <Textfit mode="single" max={32}>
-                      State Of<br />
-                      The Spec
-                    </Textfit>
-                  </div>
-                </div>
-                <div className="col-md-8" style={{ fontSize: 20 }}>
-                  The {config.spec.specName} {config.spec.className} analyzer is currently considered to be in <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn> state. The <i>about</i> tab at the top might have more information.
-                </div>
-              </div>
             </div>
           </div>
 
