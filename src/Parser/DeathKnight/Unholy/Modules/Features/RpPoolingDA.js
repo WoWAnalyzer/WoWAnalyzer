@@ -70,7 +70,6 @@ class RpPoolingDA extends Analyzer {
 				.icon(SPELLS.DARK_ARBITER_TALENT.icon)
 				.actual(`${this.averageRpPooled.toFixed(0)} of runic power were pooled on average`)
 				.recommended(`>${(recommended)} is recommended`)
-				.regular(recommended - 20).major(recommended - 40);
         });
   }
 
