@@ -14,6 +14,12 @@ class AtonementSource extends Analyzer {
     [SPELLS.SHADOW_MEND.id, SPELLS.SHADOW_MEND.atonementDuration],
   ]);
 
+  // Spells / Items that do not generate atonement
+  blacklist = [
+    SPELLS.ENTROPIC_EMBRACE_DAMAGE.id, //Void Elf Racial
+    SPELLS.COLLAPSE.id, //Ring of Collapsing Futures
+  ];
+
   get atonementDuration() {
     return this.atonementApplicators;
   }
@@ -48,6 +54,11 @@ class AtonementSource extends Analyzer {
     if (!this.owner.byPlayer(event) && !this.owner.byPlayerPet(event)) {
       return;
     }
+
+    if(this.blacklist.includes(event.ability.guid)){
+      return;
+    }
+
     // Some Atonement events have the type 'damage', this prevents them registering as a source
     if (event.ability.guid === SPELLS.ATONEMENT_HEAL_NON_CRIT.id) {
       return;
