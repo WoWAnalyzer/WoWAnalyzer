@@ -53,7 +53,7 @@ class ZoldyckFamilyTrainingShackles extends Analyzer {
   	this.currentHealth = event.hitPoints;
   	this.maxHealth = event.maxHitPoints;
   	if(this.healthPercent < ZOLDYCK_FAMILY_TRAINING_SHACKLES.HEALTH_PERCENT) {
-  		this.bonusDamage += calculateEffectiveDamage(event, ZOLDYCK_FAMILY_TRAINING_SHACKLES.INCREASE)
+  		this.bonusDamage += calculateEffectiveDamage(event, ZOLDYCK_FAMILY_TRAINING_SHACKLES.INCREASE);
   	}
   }
 
