@@ -13,6 +13,7 @@ class Events extends React.PureComponent {
     secondWidth: PropTypes.number.isRequired,
     className: PropTypes.string,
     showCooldowns: PropTypes.bool,
+    showGlobalCooldownDuration: PropTypes.bool,
   };
 
   /**

@@ -8,10 +8,11 @@ import SpellTimeline from './SpellTimeline';
 class TimelineTab extends React.PureComponent {
   static propTypes = {
     showCooldowns: PropTypes.bool,
+    showGlobalCooldownDuration: PropTypes.bool,
   };
 
   render() {
-    const { showCooldowns } = this.props;
+    const { showCooldowns, showGlobalCooldownDuration } = this.props;
 
     return (
       <Tab style={{ padding: 0 }}>
@@ -21,6 +22,11 @@ class TimelineTab extends React.PureComponent {
         {!showCooldowns && (
           <div className="alert alert-danger">
             Spell cooldown durations could not be shown because this spec's spell cooldown durations have not been properly configured yet. See <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> or join us on <a href="https://discord.gg/AxphPxU">Discord</a> if you're interested in contributing this.
+          </div>
+        )}
+        {!showGlobalCooldownDuration && (
+          <div className="alert alert-danger">
+            Because this spec's global cooldown durations do not appear to have been properly configured yet, the global cooldown durations and downtime statistic could not be shown. See <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> or join us on <a href="https://discord.gg/AxphPxU">Discord</a> if you're interested in contributing this.
           </div>
         )}
         <SpellTimeline {...this.props} />

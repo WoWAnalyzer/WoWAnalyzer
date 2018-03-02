@@ -108,8 +108,11 @@ class AlwaysBeCasting extends Analyzer {
     if (!this.showStatistic || (boss && boss.fight.disableDowntimeStatistic)) {
       return null;
     }
+    if (!this.globalCooldown.isAccurate) {
+      return null;
+    }
 
-      return (
+    return (
       <StatisticBox
         icon={<Icon icon="spell_mage_altertime" alt="Downtime" />}
         value={`${formatPercentage(this.downtimePercentage)} %`}
@@ -137,7 +140,7 @@ class AlwaysBeCasting extends Analyzer {
         )}
         footerStyle={{ overflow: 'hidden' }}
       />
-      );
+    );
   }
 
   statisticOrder = STATISTIC_ORDER.CORE(10);

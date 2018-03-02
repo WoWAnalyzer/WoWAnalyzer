@@ -514,6 +514,7 @@ class CombatLogParser {
           channelHistory={this.modules.channeling.history}
           abilities={this.modules.abilities}
           showCooldowns={this.modules.spellUsable.isAccurate}
+          showGlobalCooldownDuration={this.modules.globalCooldown.isAccurate}
         />
       ),
     });
