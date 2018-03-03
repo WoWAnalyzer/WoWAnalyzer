@@ -29,8 +29,8 @@ class StatTracker extends Analyzer {
   // These are multipliers from *binary* (have it or don't) artifact
   // traits. These are *baked in* and do not multiply temporary buffs.
   static ARTIFACT_MULTIPLIERS = {
-    [SPELLS.ENDURANCE_OF_THE_BROKEN_TEMPLE_TRAIT.id]: { armor: 1.35 }, // also: damage: 1.1
-    [SPELLS.WANDERERS_HARDINESS_TRAIT.id]: { armor: 1.17 },
+    [SPELLS.ENDURANCE_OF_THE_BROKEN_TEMPLE_TRAIT.id]: { armor: 0.35 },
+    [SPELLS.WANDERERS_HARDINESS_TRAIT.id]: { armor: 0.17 },
   };
 
   static STAT_BUFFS = {
@@ -240,22 +240,14 @@ class StatTracker extends Analyzer {
 
   applySpecModifiers() {
     const modifiers = this.constructor.SPEC_MULTIPLIERS[this.combatants.selected.spec.id];
-    this.applyMultipliers(this._pullStats, modifiers);
+    Object.entries(modifiers).forEach(([stat, multiplier]) => this._pullStats[stat] *= multiplier);
   }
 
   applyArtifactModifiers() {
     Object.entries(this.constructor.ARTIFACT_MULTIPLIERS).forEach(([spellId, modifiers]) => {
-      if(this.combatants.selected.traitsBySpellId[spellId] > 0) {
-        this.applyMultipliers(this._pullStats, modifiers);
-      }
+      const rank = this.combatants.selected.traitsBySpellId[spellId] || 0;
+      Object.entries(modifiers).forEach(([stat, multiplier]) => this._pullStats[stat] *= 1 + multiplier * rank);
     });
-  }
-
-  applyMultipliers(stats, modifiers) {
-    if(!modifiers) {
-      return;
-    }
-    Object.entries(modifiers).forEach(([stat, multiplier]) => stats[stat] *= multiplier);
   }
 
   /*
