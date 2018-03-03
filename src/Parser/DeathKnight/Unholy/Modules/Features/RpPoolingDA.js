@@ -69,7 +69,7 @@ class RpPoolingDA extends Analyzer {
 			return suggest(<Wrapper> You are casting <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id}/> without enough runic power. Make sure to pool some runic power before you cast <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id}/>.</Wrapper>)
 				.icon(SPELLS.DARK_ARBITER_TALENT.icon)
 				.actual(`${this.averageRpPooled.toFixed(0)} of runic power were pooled on average`)
-				.recommended(`>${(recommended)} is recommended`)
+				.recommended(`>${(recommended)} is recommended`);
         });
   }
 
