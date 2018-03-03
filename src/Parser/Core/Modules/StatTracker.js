@@ -239,7 +239,7 @@ class StatTracker extends Analyzer {
   }
 
   applySpecModifiers() {
-    const modifiers = this.constructor.SPEC_MULTIPLIERS[this.combatants.selected.spec.id];
+    const modifiers = this.constructor.SPEC_MULTIPLIERS[this.combatants.selected.spec.id] || {};
     Object.entries(modifiers).forEach(([stat, multiplier]) => this._pullStats[stat] *= multiplier);
   }
 
