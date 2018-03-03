@@ -23,7 +23,7 @@ const POISONS_AND_BLEEDS = [
   SPELLS.KINGSBANE_MAINHAND.id,
   SPELLS.KINGSBANE_OFFHAND.id,
   SPELLS.ENVENOM.id,
-  SPELLS.POISONED_KNIFE.id,
+  SPELLS.POISONED_KNIFE.id, 
   SPELLS.TOXIC_BLADE_TALENT.id,
   SPELLS.GARROTE.id,
   SPELLS.RUPTURE.id,
@@ -55,7 +55,7 @@ class ZoldyckFamilyTrainingShackles extends Analyzer {
     }
   }
 
-  get healthPercent(currentHealth, maxHealth) {
+  healthPercent(currentHealth, maxHealth) {
     return currentHealth / maxHealth;
   }
 
