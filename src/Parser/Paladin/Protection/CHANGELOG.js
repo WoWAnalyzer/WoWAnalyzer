@@ -1,7 +1,5 @@
 import React from 'react';
 import Wrapper from 'common/Wrapper';
-import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import { Hewhosmites } from 'MAINTAINERS';
