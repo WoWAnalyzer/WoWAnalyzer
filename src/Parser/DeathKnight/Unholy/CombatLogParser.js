@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import ColdHeart from 'Parser/DeathKnight/Shared/Items/ColdHeart';
+import TaktheritrixsShoulderpads from './Modules/Items/TaktheritrixsShoulderpads';
 import Tier20_2p from './Modules/Items/Tier20_2p';
 import ColdHeartEfficiency from './Modules/Items/ColdHeartEfficiency';
 import Tier21_2p from './Modules/Items/Tier21_2p';
@@ -54,6 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // items
     coldHeart: ColdHeart,
+    taktheritrixsShoulderpads: TaktheritrixsShoulderpads,
     tier20_2p: Tier20_2p,
     coldHeartEfficiency: ColdHeartEfficiency,
     tier21_2p: Tier21_2p,
