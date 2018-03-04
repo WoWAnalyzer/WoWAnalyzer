@@ -100,9 +100,9 @@ class SpinningCraneKick extends Analyzer {
     when(this.badCasts).isGreaterThan(0).addSuggestion(
       (suggest, actual, recommended) => {
         return suggest(
-          <wrapper>
+          <Wrapper>
             You have ineffecient casts of <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} />
-          </wrapper>
+          </Wrapper>
         )
         .icon(SPELLS.SPINNING_CRANE_KICK.icon)
         .actual(`${this.badCasts} Bad Casts`)
