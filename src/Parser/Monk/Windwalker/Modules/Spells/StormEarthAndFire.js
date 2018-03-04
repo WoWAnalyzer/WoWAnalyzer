@@ -7,6 +7,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+import Wrapper from 'common/Wrapper';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 
@@ -149,9 +150,9 @@ class StormEarthAndFire extends Analyzer{
     return (
       <StatisticsListBox
         title={
-          <wrapper>
+          <Wrapper>
             <SpellIcon id={this.ability.id} noLink /> {this.ability.name}
-          </wrapper>
+          </Wrapper>
         }
         tooltip={`This shows the possible amount of casts during ${this.ability.name}`}
         style={{ minHeight: 186 }}
