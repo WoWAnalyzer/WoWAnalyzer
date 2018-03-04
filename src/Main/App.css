@@ -553,9 +553,13 @@ dfn[data-tip] {
 }
 
 .alert {
-  padding: 20px 30px;
+  padding: 15px 22px;
   border-radius: 0;
   border: 0;
+}
+.panel-body > .alert {
+  margin-left: -22px;
+  margin-right: -22px;
 }
 .alert-info {
   background-color: rgba(52, 152, 219, 0.6);

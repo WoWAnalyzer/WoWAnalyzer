@@ -10,6 +10,7 @@ import ChecklistIcon from 'Icons/Checklist';
 import SuggestionIcon from 'Icons/Suggestion';
 import ArmorIcon from 'Icons/Armor';
 import Wrapper from 'common/Wrapper';
+import ReadableList from 'common/ReadableList';
 import { getResultTab } from 'selectors/url/report';
 import DevelopmentTab from 'Main/DevelopmentTab';
 import EventsTab from 'Main/EventsTab';
@@ -187,8 +188,11 @@ class Results extends React.Component {
                 <div className="panel-body">
                   {description}
 
-                  <div className="maintainers" style={{ marginTop: '1em' }}>
-                    {spec.specName} {spec.className} was implemented by {maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}. If you have any feedback please let us know on <a href="https://discord.gg/AxphPxU">Discord</a>, and <dfn title="Pun intended">check out</dfn> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> for the source of the analysis and information on how to contribute.
+                  <div style={{ marginTop: '1em' }}>
+                    <ReadableList>
+                      {maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}
+                    </ReadableList>{' '}
+                    {maintainers.length > 2 && 'all'} worked on {spec.specName} {spec.className}. If you have any feedback please let us know on <a href="https://discord.gg/AxphPxU">Discord</a>, and <dfn title="Pun intended">check out</dfn>{/*ok so I did title instead of data-tip by accident but then decided to stick with it so it doesn't attract attention since the title version isn't styled*/} <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> for the source of the analysis and information on how to contribute.
                   </div>
                 </div>
               </div>
