@@ -22,7 +22,6 @@ export default {
       If you have any questions about Warlocks, feel free to pay a visit to <a href="https://goo.gl/7PH6Bn" target="_blank" rel="noopener noreferrer">Council of the Black Harvest Discord</a>, if you'd like to discuss anything about this analyzer, leave a message on the GitHub issue or message me @Chizu on WoWAnalyzer Discord.
     </div>
   ),
-  specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/259',
   parser: CombatLogParser,
   path: __dirname, // used for generating a GitHub link directly to your spec
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Maldark } from 'MAINTAINERS';
+import Wrapper from 'common/Wrapper';
 import SPECS from 'common/SPECS';
 
 import CombatLogParser from './CombatLogParser';
@@ -11,11 +12,10 @@ export default {
   
   maintainers: [Maldark],
   description: (
-    <div>
-      The Fury Warrior parser only holds very basic functionality. Currently does not analyze legendaries, cast sequence or tier bonuses.
-      </div>
+    <Wrapper>
+      Hey there! Right now the Fury Warrior parser only holds very basic functionality. It does not yet analyze legendaries, cast sequence or tier bonuses. What we do show should be good to use, but it does not show the complete picture.
+    </Wrapper>
   ),
-  specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/milestone/13',
 
   // Shouldn't have to change these:
   changelog: CHANGELOG,

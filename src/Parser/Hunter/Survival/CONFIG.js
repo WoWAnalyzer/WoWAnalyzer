@@ -18,8 +18,6 @@ export default {
       If you want to learn more about Survival Hunters, join the Hunter community on the Trueshot Lodge discord: <a href="https://discordapp.com/invite/trueshot" target="_blank" rel="noopener noreferrer">https://discordapp.com/invite/trueshot</a>. The <kbd>#Survival</kbd> channel has a lot of helpful people, and if you post your logs in <kbd>#log-reviews</kbd>, you can expect to get some good pointers for improvement from the community. The <kbd>#Survival</kbd> channel is also a great place to post feedback for this analyzer, as I'll be very likely to see it there. <br /><br />The best guide available currently is the guide on <a href="https://www.icy-veins.com/wow/survival-hunter-pve-dps-guide">Icy-Veins</a>. It is maintained by Azortharion, one of the best hunters in the world, and it is constantly fact-checked by community-members, and improved upon on an almost weekly basis.
     </div>
   ),
-  //Link to GitHub issue
-  specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/milestone/22',
 
   // Don't change these:
   changelog: CHANGELOG,

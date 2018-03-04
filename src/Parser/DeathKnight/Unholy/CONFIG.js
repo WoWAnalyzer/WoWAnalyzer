@@ -8,8 +8,6 @@ export default {
   spec: SPECS.UNHOLY_DEATH_KNIGHT,
   maintainers: [Khazak, Bicepspump],
 
-  specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/milestone/10',
-  
   // Shouldn't have to change these:
   changelog: CHANGELOG,
   parser: CombatLogParser,

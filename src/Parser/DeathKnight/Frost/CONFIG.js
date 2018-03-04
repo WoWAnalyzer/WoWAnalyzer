@@ -8,8 +8,6 @@ export default {
   spec: SPECS.FROST_DEATH_KNIGHT,
   maintainers: [Khazak],
 
-  specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/milestone/6',
-  
   // Shouldn't have to change these:
   changelog: CHANGELOG,
   parser: CombatLogParser,

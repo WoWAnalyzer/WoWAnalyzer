@@ -24,7 +24,6 @@ export default {
     </div>
   ),
   changelog: CHANGELOG,
-  specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/258',
   parser: CombatLogParser,
   path: __dirname, // used for generating a GitHub link directly to your spec
 };

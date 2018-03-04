@@ -22,7 +22,6 @@ export default {
       If you have any suggestions or feedback on the analyzer, check out the Github issue below. If you'd like to know more about Guardian Druid, head over to the <a href="https://discord.gg/dreamgrove" target="_blank" rel="noopener noreferrer">Dreamgrove</a> discord server.  We have tons of resources and guides to get you started.
     </div>
   ),
-  specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/413',
 
   changelog: CHANGELOG,
   parser: CombatLogParser,

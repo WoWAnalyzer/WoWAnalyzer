@@ -8,7 +8,6 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.MY_NEW_SPEC,
   maintainers: [MyHandle],
-  // TODO: specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/milestone/2',
 
   // Shouldn't have to change these:
   changelog: CHANGELOG,

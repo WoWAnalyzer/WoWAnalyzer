@@ -20,7 +20,6 @@ export default {
       If you want to learn more about Holy Paladins, join the Paladin community at the Hammer of Wrath discord: <a href="https://discordapp.com/invite/hammerofwrath" target="_blank" rel="noopener noreferrer">https://discordapp.com/invite/hammerofwrath</a>. The <kbd>#holy-faq</kbd> channel has a lot of useful information including links to good guides.
     </div>
   ),
-  specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/milestone/2',
 
   // Shouldn't have to change these:
   changelog: CHANGELOG,

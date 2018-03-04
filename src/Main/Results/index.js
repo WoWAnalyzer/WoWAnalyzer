@@ -8,7 +8,6 @@ import Textfit from 'react-textfit';
 
 import ChecklistIcon from 'Icons/Checklist';
 import SuggestionIcon from 'Icons/Suggestion';
-import AboutIcon from 'Icons/About';
 import ArmorIcon from 'Icons/Armor';
 import Wrapper from 'common/Wrapper';
 import { getResultTab } from 'selectors/url/report';
@@ -20,9 +19,9 @@ import SuggestionsTab from 'Main/SuggestionsTab';
 import ActivityIndicator from 'Main/ActivityIndicator';
 import WarcraftLogsLogo from 'Main/Images/WarcraftLogs-logo.png';
 import WipefestLogo from 'Main/Images/Wipefest-logo.png';
+import Maintainer from 'Main/Maintainer';
 
 import ItemsPanel from './ItemsPanel';
-import AboutTab from './AboutTab';
 import ResultsWarning from './ResultsWarning';
 import Header from './Header';
 
@@ -32,7 +31,6 @@ const MAIN_TAB = {
   CHECKLIST: 'Checklist',
   SUGGESTIONS: 'Suggestions',
   CHARACTER: 'Character',
-  ABOUT: 'About',
 };
 function mainTabLabel(tab) {
   switch (tab) {
@@ -54,12 +52,6 @@ function mainTabLabel(tab) {
           <ArmorIcon /> CHARACTER
           </Wrapper>
         );
-    case MAIN_TAB.ABOUT:
-      return (
-        <Wrapper>
-          <AboutIcon /> About
-        </Wrapper>
-      );
     default: return tab;
   }
 }
@@ -115,9 +107,8 @@ class Results extends React.Component {
     if (boss && boss.fight.resultsWarning) {
       return boss.fight.resultsWarning;
     }
-    const config = this.context.config;
     if (parser.feedbackWarning) {
-      return 'This spec is believed to be complete, but needs additional feedback. If there is something missing, incorrect, or inaccurate, please contact this specs maintainer so it can be fixed before being marked as "Good". Contact info can be found in the About Tab.';
+      return 'This spec is believed to be complete, but needs additional feedback. If there is something missing, incorrect, or inaccurate, please contact this specs maintainer so it can be fixed before being marked as "Good".';
     }
     return null;
   }
@@ -180,6 +171,7 @@ class Results extends React.Component {
 
     const tabUrl = tab || results.tabs[0].url;
     const activeTab = results.tabs.find(tab => tab.url === tabUrl) || results.tabs[0];
+    const { spec, description, maintainers } = this.context.config;
 
     return (
       <div className="container">
@@ -188,6 +180,19 @@ class Results extends React.Component {
 
           <div className="row">
             <div className="col-md-4">
+              <div className="panel items">
+                <div className="panel-heading">
+                  <h2>About {spec.specName} {spec.className}</h2>
+                </div>
+                <div className="panel-body">
+                  {description}
+
+                  <div className="maintainers" style={{ marginTop: '1em' }}>
+                    {spec.specName} {spec.className} was implemented by {maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}. If you have any feedback please let us know on <a href="https://discord.gg/AxphPxU">Discord</a>, and <dfn title="Pun intended">check out</dfn> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> for the source of the analysis and information on how to contribute.
+                  </div>
+                </div>
+              </div>
+
               <ItemsPanel items={results.items} selectedCombatant={selectedCombatant} />
 
               <div>
@@ -199,7 +204,7 @@ class Results extends React.Component {
                   style={{ fontSize: 24 }}
                   data-tip="View the original report"
                 >
-                  <img src={WarcraftLogsLogo} alt="Wracraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
+                  <img src={WarcraftLogsLogo} alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
                 </a>
                 {' '}
                 <a
@@ -244,9 +249,6 @@ class Results extends React.Component {
                     )}
                     {this.state.mainTab === MAIN_TAB.CHARACTER && (
                       modules.characterPanel.render()
-                    )}
-                    {this.state.mainTab === MAIN_TAB.ABOUT && (
-                      <AboutTab config={config} />
                     )}
                   </div>
                 </div>

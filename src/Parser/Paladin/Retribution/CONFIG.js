@@ -20,7 +20,6 @@ export default {
   		Feel free to message me on discord or post in the spec discussion URL with any bugs or ideas for things I could work on!
   	</div>
   ),
-  specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/323',
   changelog: CHANGELOG,
   parser: CombatLogParser,
   path: __dirname, // used for generating a GitHub link directly to your spec

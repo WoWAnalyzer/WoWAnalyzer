@@ -19,7 +19,6 @@ export default {
       <a href="https://www.icy-veins.com/wow/frost-mage-pve-dps-guide" target="_blank" rel="noopener noreferrer">Icy Veins (Frost Mage Guide)</a> <br/>
     </div>
   ),
-  specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/milestone/3',
   parser: CombatLogParser,
   path: __dirname, // used for generating a GitHub link directly to your spec
 };

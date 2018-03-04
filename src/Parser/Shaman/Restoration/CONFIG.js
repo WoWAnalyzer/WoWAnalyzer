@@ -17,7 +17,6 @@ export default {
       If you want to learn more about Resto Shaman, join the Resto Shaman community at the <a href="https://discord.gg/AcTek6e" target="_blank" rel="noopener noreferrer">Ancestral Guidance channel</a>.
     </div>
   ),
-  specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/56',
   // Shouldn't have to change these:
   changelog: CHANGELOG,
   parser: CombatLogParser,

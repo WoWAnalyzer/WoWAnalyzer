@@ -16,7 +16,6 @@ export default {
       The tool is not perfect so I am always looking to improve it. If you have any suggestions or comments, don't hesitated to swing by the GitHub Issue linked below, or the <a href="https://discord.gg/0dkfBMAxzTkWj21F" target="_blank" rel="noopener noreferrer">Peak of Serenity</a> discord server. You can also contact me directly on either BattleNet (Anomoly#1464) or Discord (Anomoly#6931). Thanks and I hope you continue to enjoy the tool!
     </div>
   ),
-  specDiscussionUrl: 'https://github.com/WoWAnalyzer/WoWAnalyzer/issues/59',
   changelog: CHANGELOG,
   parser: CombatLogParser,
   path: __dirname, // used for generating a GitHub link directly to your spec
