@@ -28,7 +28,7 @@ class TheWindBlows extends Analyzer {
   item() {
     return {
       item: ITEMS.THE_WIND_BLOWS,
-      result: <Wrapper>{this.freeBlackoutKicks} free <SpellLink id={SPELLS.COMBO_BREAKER_BUFF} icon/></Wrapper>,
+      result: <Wrapper>{this.freeBlackoutKicks} free <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} icon/>(s)</Wrapper>,
     };
   }
 }
