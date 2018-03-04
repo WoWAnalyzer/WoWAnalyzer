@@ -8,13 +8,13 @@ import TALENTS from 'common/SPELLS/TALENTS/HUNTER';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellLink from "common/SpellLink";
 import SpellIcon from "common/SpellIcon";
-import Icon from "common/Icon";
 import { formatNumber, formatPercentage } from "common/format";
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import Wrapper from 'common/Wrapper';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
+import ResourceIcon from 'common/ResourceIcon';
 
-/*
+/**
  * Increases haste by 40% and causes Arcane Shot and Multi-Shot to always apply Hunter's Mark.
  * Lasts 15 sec.
  */
@@ -101,10 +101,15 @@ class Trueshot extends Analyzer {
       this.aimedShotsPrTS += 1;
     }
   }
+  get percentAimedCrits() {
+    return formatPercentage(this.aimedCritsInTS / this.aimedShotsPrTS);
+  }
+
+  get percentCastCrits() {
+    return formatPercentage(this.totalCritsInTS / (this.totalCritsInTS + this.nonCritsInTS));
+  }
 
   statistic() {
-    const percentAimedCrits = formatPercentage(this.aimedCritsInTS / this.aimedShotsPrTS);
-    const percentCastCrits = formatPercentage(this.totalCritsInTS / (this.totalCritsInTS + this.nonCritsInTS));
     return (
       <StatisticBox icon={<SpellIcon id={SPELLS.TRUESHOT.id} />}
         value={(
@@ -119,9 +124,8 @@ class Trueshot extends Analyzer {
             />
             {'  '}
             {this.averageFocus}{' '}
-            <Icon
-              icon='ability_hunter_focusfire'
-              alt='Average Focus At Trueshot Cast'
+            <ResourceIcon
+              id={RESOURCE_TYPES.FOCUS.id}
               style={{
                 height: '1.3em',
                 marginTop: '-.1em',
@@ -134,8 +138,8 @@ class Trueshot extends Analyzer {
         <ul>
           <li>You started your Trueshot windows with an average of ${this.averageFocus} focus.</li>
           <li> You hit an average of ${this.averageAimedShots} Aimed Shots inside each Trueshot window. </li>
-          <li> Your Trueshot Aimed Shots had a crit rate of ${percentAimedCrits}%. </li>
-          <li>Your overall crit rate during Trueshot was ${percentCastCrits}%. </li>
+          <li> Your Trueshot Aimed Shots had a crit rate of ${this.percentAimedCrits}%. </li>
+          <li>Your overall crit rate during Trueshot was ${this.percentCastCrits}%. </li>
           <li>You spent an average of ${this.uptimePerCast} seconds in trueshot per cast of Trueshot.</li>
         </ul>`} />
     );

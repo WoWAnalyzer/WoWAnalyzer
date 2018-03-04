@@ -8,7 +8,7 @@ import StatisticBox from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
-/*
+/**
  * Your Sentinel watches over the target area for 18 sec, applying Hunter's Mark to all enemies every 6 sec.
  */
 const MS_BUFFER = 100;

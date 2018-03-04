@@ -14,7 +14,7 @@ const BLACK_ARROW_SUMMON = [
   PETS.BLACK_ARROW_MINION.id,
 ];
 
-/*
+/**
  * Fires a Black Arrow at the target, dealing (520% of Attack power) Shadow damage over 8 sec and summoning a Dark Minion to taunt it for the duration.
  * When you kill an enemy, the remaining cooldown on Black Arrow will reset.
  */

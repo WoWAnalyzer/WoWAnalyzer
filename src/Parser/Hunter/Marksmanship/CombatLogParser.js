@@ -18,6 +18,8 @@ import Tier20_4p from './Modules/Items/Tier20_4p';
 import Tier19_2p from "./Modules/Items/Tier19_2p";
 //Spells
 import Trueshot from './Modules/Spells/Trueshot';
+import MarkingTargets from './Modules/Spells/MarkingTargets';
+
 //Focus
 import FocusTracker from '../Shared/Modules/Features/FocusChart/FocusTracker';
 import FocusTab from '../Shared/Modules/Features/FocusChart/FocusTab';
@@ -101,10 +103,11 @@ class CombatLogParser extends CoreCombatLogParser {
     rootsOfShaladrassil: RootsOfShaladrassil,
     theApexPredatorsClaw: TheApexPredatorsClaw,
     theShadowHuntersVoodooMask: TheShadowHuntersVoodooMask,
+    tarnishedSentinelMedallion: TarnishedSentinelMedallion,
 
     //Spells
     trueshot: Trueshot,
-    tarnishedSentinelMedallion: TarnishedSentinelMedallion,
+    markingTargets: MarkingTargets,
 
     //Talents
     patientSniperTracker: PatientSniperTracker,

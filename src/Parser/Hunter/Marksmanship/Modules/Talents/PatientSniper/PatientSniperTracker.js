@@ -10,7 +10,7 @@ const LAG_TOLERANCE = 300;
 const MAX_AIMED_SHOT_TRAVEL_TIME = 1000;
 
 const debug = false;
- /*
+ /**
   * Gain the patience of a veteran sniper, increasing the damage bonus of Vulnerable by 6% every 1 sec.
   */
 class PatientSniperTracker extends Analyzer {
