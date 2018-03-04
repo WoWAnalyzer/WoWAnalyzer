@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
