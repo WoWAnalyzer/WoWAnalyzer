@@ -1,3 +1,4 @@
+import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -27,7 +28,7 @@ class TheWindBlows extends Analyzer {
   item() {
     return {
       item: ITEMS.THE_WIND_BLOWS,
-      result: <Wrapper>{this.freeBlackoutKicks} free Blackout Kicks</Wrapper>,
+      result: <Wrapper>{this.freeBlackoutKicks} free <SpellLink id={SPELLS.COMBO_BREAKER_BUFF} icon/></Wrapper>,
     };
   }
 }
