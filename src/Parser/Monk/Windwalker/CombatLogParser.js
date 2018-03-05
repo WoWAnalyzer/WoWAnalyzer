@@ -24,6 +24,7 @@ import CenedrilReflectorOfHatred from './Modules/Items/CenedrilReflectorOfHatred
 import SoulOfTheGrandmaster from './Modules/Items/SoulOfTheGrandmaster';
 import TheEmperorsCapacitor from './Modules/Items/TheEmperorsCapacitor';
 import DrinkingHornCover from './Modules/Items/DrinkingHornCover';
+import TheWindBlows from './Modules/Items/TheWindBlows';
 import T21_4set from './Modules/Items/T21_4set';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -58,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soulOfTheGrandmaster: SoulOfTheGrandmaster,
     theEmperorsCapacitor: TheEmperorsCapacitor,
     drinkingHornCover: DrinkingHornCover,
+    theWindBlows: TheWindBlows,
     T21_4set: T21_4set,
   };
 }

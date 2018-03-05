@@ -1,5 +1,15 @@
-import { Juko8, Coryn, Talby, Anomoly, AttilioLH } from 'MAINTAINERS';
+import React from 'react';
+import ITEMS from 'common/ITEMS';
+import ItemLink from 'common/ItemLink';
+import Wrapper from 'common/Wrapper';
+
+import { Juko8, Coryn, Talby, Anomoly, AttilioLH, Hewhosmites } from 'MAINTAINERS';
 export default [
+  {
+    date: new Date('2018-03-03'),
+    changes: <Wrapper>Added <ItemLink id={ITEMS.THE_WIND_BLOWS.id} icon/></Wrapper>,
+    contributors: [Hewhosmites],
+  },
   {
     date: new Date('2018-02-16'),
     changes: 'Added Spinning Crane Kick statistics and suggestion on bad use of Spinning Crane Kick',
