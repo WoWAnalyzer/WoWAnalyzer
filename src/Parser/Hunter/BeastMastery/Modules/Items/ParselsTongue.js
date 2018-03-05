@@ -12,6 +12,7 @@ import StatTracker from 'Parser/Core/Modules/StatTracker';
 import ItemHealingDone from 'Main/ItemHealingDone';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import Wrapper from 'common/Wrapper';
+import ItemLink from 'common/ItemLink';
 
 const DAMAGE_INCREASE_PER_STACK = 0.01;
 const LEECH_PER_STACK = 0.02;
@@ -127,12 +128,12 @@ class ParselsTongue extends Analyzer {
         .actual(`${actual} times dropped`)
         .recommended(`${recommended} is recommended`);
     });
-when(this.buffUptimeThreshold).addSuggestion((suggest,actual, recommended) => {
-  return suggest(<Wrapper>memes</Wrapper>)
-    .icon(ITEMS.PARSELS_TONGUE.icon)
-    .actual(`${formatPercentage(actual)}% uptime`)
-    .recommended(`${formatPercentage(recommended)} is recommended`);
-});
+    when(this.buffUptimeThreshold).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<Wrapper>You had a low uptime of the buff from <ItemLink id={ITEMS.PARSELS_TONGUE.id} icon />, make sure to cast <SpellLink id={SPELLS.COBRA_SHOT.id} icon /> more often to ensure a better uptime of this buff. </Wrapper>)
+        .icon(ITEMS.PARSELS_TONGUE.icon)
+        .actual(`${formatPercentage(actual)}% uptime`)
+        .recommended(`${formatPercentage(recommended)} is recommended`);
+    });
   }
   item() {
     return {

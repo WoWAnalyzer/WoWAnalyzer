@@ -22,6 +22,11 @@ import AspectOfTheBeast from 'Parser/Hunter/Shared/Modules/Talents/AspectOfTheBe
 import AspectOfTheWild from 'Parser/Hunter/BeastMastery/Modules/Spells/AspectOfTheWild';
 import DireFrenzy from 'Parser/Hunter/BeastMastery/Modules/Talents/DireFrenzy';
 import TitansThunder from 'Parser/Hunter/BeastMastery/Modules/Traits/TitansThunder';
+import ParselsTongue from 'Parser/Hunter/BeastMastery/Modules/Items/ParselsTongue';
+import QaplaEredunWarOrder from 'Parser/Hunter/BeastMastery/Modules/Items/QaplaEredunWarOrder';
+import TheMantleOfCommand from 'Parser/Hunter/BeastMastery/Modules/Items/TheMantleOfCommand';
+import ITEMS from 'common/ITEMS/HUNTER';
+import ItemLink from 'common/ItemLink';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -50,6 +55,11 @@ class Checklist extends CoreChecklist {
 
     //Traits
     titansThunder: TitansThunder,
+
+    //Legendaries
+    parselsTongue: ParselsTongue,
+    qaplaEredunWarOrder: QaplaEredunWarOrder,
+    theMantleOfCommand: TheMantleOfCommand,
   };
 
   rules = [
@@ -83,7 +93,7 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <Wrapper> Use your Dire ability properly </Wrapper>,
+      name: <Wrapper> Use your Dire ability properly</Wrapper>,
       description: <Wrapper>Using either <SpellLink id={SPELLS.DIRE_BEAST.id} icon /> or <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> properly is a key to achieving high dps. This means maintaining the buff from <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> as long as possible, and utilising the cooldown reduction from <SpellLink id={SPELLS.DIRE_BEAST.id} icon />/<SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> as much as possible, to ensure high uptime on <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /></Wrapper>,
       requirements: () => {
         return [
@@ -122,8 +132,8 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <Wrapper>Talent Efficiency</Wrapper>,
-      description: <Wrapper>Utilising your talents to their maximum is important when trying to do as much damage as possible, if these aren't utilised properly, you may be better off using a different talent. </Wrapper>,
+      name: 'Pick the right tools for the fight',
+      description: 'The throughput gain of some talents or legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly.',
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -146,6 +156,31 @@ class Checklist extends CoreChecklist {
             name: <Wrapper><SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} icon /> casts without <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> ready to cast after</Wrapper>,
             when: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id),
             check: () => this.aMurderOfCrows.badCastThreshold,
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} icon /> and <ItemLink id={ITEMS.QAPLA_EREDUN_WAR_ORDER.id} icon /></Wrapper>,
+            when: combatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id) && combatant.hasFeet(ITEMS.QAPLA_EREDUN_WAR_ORDER.id),
+            check: () => this.qaplaEredunWarOrder.killerCobraThreshold,
+          }),
+          new Requirement({
+            name: <Wrapper><ItemLink id={ITEMS.QAPLA_EREDUN_WAR_ORDER.id} icon /> average reduction</Wrapper>,
+            when: combatant.hasFeet(ITEMS.QAPLA_EREDUN_WAR_ORDER.id),
+            check: () => this.qaplaEredunWarOrder.wastedSuggestionThreshold,
+          }),
+          new Requirement({
+            name: <Wrapper><ItemLink id={ITEMS.PARSELS_TONGUE.id} icon /> buffs dropped</Wrapper>,
+            when: combatant.hasChest(ITEMS.PARSELS_TONGUE.id),
+            check: () => this.parselsTongue.timesDroppedThreshold,
+          }),
+          new Requirement({
+            name: <Wrapper><ItemLink id={ITEMS.PARSELS_TONGUE.id} icon /> uptime</Wrapper>,
+            when: combatant.hasChest(ITEMS.PARSELS_TONGUE.id),
+            check: () => this.parselsTongue.buffUptimeThreshold,
+          }),
+          new Requirement({
+            name: <Wrapper><ItemLink id={ITEMS.THE_MANTLE_OF_COMMAND.id} icon /> uptime</Wrapper>,
+            when: combatant.hasShoulder(ITEMS.THE_MANTLE_OF_COMMAND.id),
+            check: () => this.theMantleOfCommand.buffUptimeThreshold,
           }),
         ];
       },

@@ -48,15 +48,27 @@ class TheMantleOfCommand extends Analyzer {
   }
 
   get buffUptimeThreshold() {
-    return {
-      actual: this.buffUptime,
-      isLessThan: {
-        minor: 0.95,
-        average: 0.85,
-        major: 0.75,
-      },
-      style: 'percentage',
-    };
+    if (this.combatants.selected.hasTalent(SPELLS.ONE_WITH_THE_PACK_TALENT.id)) {
+      return {
+        actual: this.buffUptime,
+        isLessThan: {
+          minor: 0.95,
+          average: 0.90,
+          major: 0.80,
+        },
+        style: 'percentage',
+      };
+    } else {
+      return {
+        actual: this.buffUptime,
+        isLessThan: {
+          minor: 0.85,
+          average: 0.8,
+          major: 0.70,
+        },
+        style: 'percentage',
+      };
+    }
   }
 
   suggestions(when) {
@@ -64,7 +76,7 @@ class TheMantleOfCommand extends Analyzer {
       return suggest(<Wrapper>memes</Wrapper>)
         .icon(ITEMS.THE_MANTLE_OF_COMMAND.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
-        .recommended(`${formatPercentage(recommended)} is recommended`);
+        .recommended(`${formatPercentage(recommended)}% is recommended`);
     });
   }
 

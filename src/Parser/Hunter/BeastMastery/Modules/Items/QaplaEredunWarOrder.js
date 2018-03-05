@@ -4,12 +4,13 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import ITEMS from "common/ITEMS/HUNTER";
 import SpellLink from "common/SpellLink";
 import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
 import Wrapper from 'common/Wrapper';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+import ItemLink from 'common/ItemLink';
 
 const COOLDOWN_REDUCTION_MS = 3000;
 
@@ -47,8 +48,24 @@ class QaplaEredunWarOrder extends Analyzer {
     }
   }
 
-  wastedKillCommandPercent() {
+  wastedKillCommandCDRPercent() {
     return this.wastedKillCommandReductionMs / (this.wastedKillCommandReductionMs + this.effectiveKillCommandReductionMs);
+  }
+
+  averageEffectiveCDR() {
+    return (this.effectiveKillCommandReductionMs / ((this.wastedKillCommandReductionMs + this.effectiveKillCommandReductionMs) / (COOLDOWN_REDUCTION_MS / 1000)));
+  }
+
+  get wastedSuggestionThreshold() {
+    return {
+      actual: this.averageEffectiveCDR(),
+      isLessThan: {
+        minor: 2.5,
+        average: 2.25,
+        major: 2,
+      },
+      style: 'decimal',
+    };
   }
 
   get killerCobraThreshold() {
@@ -59,16 +76,10 @@ class QaplaEredunWarOrder extends Analyzer {
     };
   }
 
-  get wastedSuggestionThreshold() {
-    return {
-      actual: this.wastedKillCommandPercent(),
-      isGreaterThan: {},
-      style: 'number',
-    };
-  }
   suggestions(when) {
+    const spellName = this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT) ? SPELLS.DIRE_FRENZY_TALENT.name : SPELLS.DIRE_BEAST.name;
     when(this.killerCobraThreshold).addSuggestion((suggest) => {
-      return suggest(<Wrapper>dont use killer cobra and qapla together</Wrapper>)
+      return suggest(<Wrapper>Due to the <SpellLink id={SPELLS.KILL_COMMAND.id} icon /> reduction capabilities of both <ItemLink id={ITEMS.QAPLA_EREDUN_WAR_ORDER.id} icon /> and <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} icon />, using them together is generally not recommended. </Wrapper>)
         .icon(ITEMS.QAPLA_EREDUN_WAR_ORDER.icon)
         .actual(`You had both Qa'pla, Eredun War Order equipped and talented Killer Cobra`)
         .recommended(`Only one or the other is recommended`)
@@ -76,17 +87,17 @@ class QaplaEredunWarOrder extends Analyzer {
 
     });
     when(this.wastedSuggestionThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper> mega memes </Wrapper>)
+      return suggest(<Wrapper>Your average cast of {spellName} reduced <SpellLink id={SPELLS.KILL_COMMAND.id} icon /> by less than {recommended} seconds. Try and optimise this legendary by making sure to utilise it's cooldown reduction utility better. </Wrapper>)
         .icon(ITEMS.QAPLA_EREDUN_WAR_ORDER.icon)
-        .actual(`ehehe`)
-        .recommended(`hehehehe`);
+        .actual(`${(actual).toFixed(2)} average seconds of CDR per ${spellName} cast`)
+        .recommended(`>${recommended}s of CDR per ${spellName} is recommended`);
     });
   }
   item() {
     return {
       item: ITEMS.QAPLA_EREDUN_WAR_ORDER,
       result: (
-        <dfn data-tip={`You wasted ${formatNumber(this.wastedKillCommandReductionMs / 1000)} seconds of CDR by using Dire Beast when Kill Command wasn't on cooldown or had less than 3(+GCD) seconds remaning on CD.`}>
+        <dfn data-tip={`You wasted ${formatNumber(this.wastedKillCommandReductionMs / 1000)} (${formatPercentage(this.wastedKillCommandCDRPercent())}%) seconds of CDR by using Dire Beast when Kill Command wasn't on cooldown or had less than 3(+GCD) seconds remaning on CD.`}>
           reduced <SpellLink id={SPELLS.KILL_COMMAND.id} icon /> CD by {formatNumber(this.effectiveKillCommandReductionMs / 1000)}s in total.
         </dfn>
       ),
