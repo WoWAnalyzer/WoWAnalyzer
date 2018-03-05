@@ -86,11 +86,11 @@ class TheEmperorsCapacitor extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.stacksWasted).isGreaterThan(0).addSuggestion((suggest, actual, recommended) => {
+    when(this.stacksWasted).isGreaterThan(5).addSuggestion((suggest, actual, recommended) => {
       return suggest(<span> You wasted your <SpellLink id={SPELLS.THE_EMPERORS_CAPACITOR_STACK.id} /> stacks by using chi spenders while at 20 stacks </span>)
         .icon(ITEMS.THE_EMPERORS_CAPACITOR.icon)
         .actual(`${this.stacksWasted} Wasted stacks`)
-        .recommended(`${(recommended)} Wasted stacks is recommended`)
+        .recommended(`<${(recommended)} Wasted stacks is recommended`)
         .regular(recommended + 5).major(recommended + 10);
     });
     when(this.averageStacksUsed).isLessThan(18).addSuggestion((suggest, actual, recommended) => {
@@ -98,7 +98,7 @@ class TheEmperorsCapacitor extends Analyzer {
         .icon(ITEMS.THE_EMPERORS_CAPACITOR.icon)
         .actual(`${this.averageStacksUsed.toFixed(2)} average stacks used`)
         .recommended(`Try to cast Crackling Jade Lightning while as close to 20 stacks as possible`)
-        .regular(recommended - 3).major(recommended - 5);
+        .regular(recommended - 2).major(recommended - 4);
     });
   }
 }
