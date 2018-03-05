@@ -569,6 +569,11 @@ export default {
     name: "Endurance of the Broken Temple",
     icon: "misc_legionfall_monk",
   },
+  BREW_STACHE: {
+    id: 214373,
+    name: "Brew-Stache",
+    icon: "inv_misc_archaeology_vrykuldrinkinghorn",
+  },
 
   // Windwalker Spells
   COMBO_STRIKES: {
