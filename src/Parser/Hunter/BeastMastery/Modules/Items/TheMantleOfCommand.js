@@ -7,6 +7,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import ItemDamageDone from 'Main/ItemDamageDone';
+import Wrapper from 'common/Wrapper';
 
 const DAMAGE_INCREASE = 0.05;
 
@@ -44,6 +45,27 @@ class TheMantleOfCommand extends Analyzer {
   get buffUptime() {
     return this.combatants.selected.getBuffUptime(SPELLS.THE_MANTLE_OF_COMMAND_BUFF.id) / this.owner.fightDuration;
 
+  }
+
+  get buffUptimeThreshold() {
+    return {
+      actual: this.buffUptime,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.85,
+        major: 0.75,
+      },
+      style: 'percentage',
+    };
+  }
+
+  suggestions(when) {
+    when(this.buffUptimeThreshold).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<Wrapper>memes</Wrapper>)
+        .icon(ITEMS.THE_MANTLE_OF_COMMAND.icon)
+        .actual(`${formatPercentage(actual)}% uptime`)
+        .recommended(`${formatPercentage(recommended)} is recommended`);
+    });
   }
 
   item() {

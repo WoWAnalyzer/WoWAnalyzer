@@ -8,6 +8,8 @@ import { formatNumber } from 'common/format';
 import ITEMS from "common/ITEMS/HUNTER";
 import SpellLink from "common/SpellLink";
 import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
+import Wrapper from 'common/Wrapper';
+import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 const COOLDOWN_REDUCTION_MS = 3000;
 
@@ -43,6 +45,42 @@ class QaplaEredunWarOrder extends Analyzer {
     } else {
       this.wastedKillCommandReductionMs += COOLDOWN_REDUCTION_MS;
     }
+  }
+
+  wastedKillCommandPercent() {
+    return this.wastedKillCommandReductionMs / (this.wastedKillCommandReductionMs + this.effectiveKillCommandReductionMs);
+  }
+
+  get killerCobraThreshold() {
+    return {
+      actual: this.combatants.selected.hasTalent(SPELLS.KILLER_COBRA_TALENT.id),
+      isEqual: true,
+      style: 'boolean',
+    };
+  }
+
+  get wastedSuggestionThreshold() {
+    return {
+      actual: this.wastedKillCommandPercent(),
+      isGreaterThan: {},
+      style: 'number',
+    };
+  }
+  suggestions(when) {
+    when(this.killerCobraThreshold).addSuggestion((suggest) => {
+      return suggest(<Wrapper>dont use killer cobra and qapla together</Wrapper>)
+        .icon(ITEMS.QAPLA_EREDUN_WAR_ORDER.icon)
+        .actual(`You had both Qa'pla, Eredun War Order equipped and talented Killer Cobra`)
+        .recommended(`Only one or the other is recommended`)
+        .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
+
+    });
+    when(this.wastedSuggestionThreshold).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<Wrapper> mega memes </Wrapper>)
+        .icon(ITEMS.QAPLA_EREDUN_WAR_ORDER.icon)
+        .actual(`ehehe`)
+        .recommended(`hehehehe`);
+    });
   }
   item() {
     return {

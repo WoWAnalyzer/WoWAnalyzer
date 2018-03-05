@@ -125,7 +125,7 @@ class CallOfTheWild extends Analyzer {
     tooltipText += (this.turtleCDR > 0) ? `<li>Aspect of the Turtle</li><ul><li>Total CDR: ${(this.turtleCDR / 1000).toFixed(1)} seconds</li><li>Gained casts: ${(this.turtleCDR / this.baseTurtleCooldown).toFixed(1)}</li></ul>` : ``;
     tooltipText += (this.wildCDR > 0) ? `<li>Aspect of the Wild</li><ul>` : ``;
     tooltipText += ((this.wildCDR > 0) && this.combatants.selected.hasTrinket(ITEMS.CONVERGENCE_OF_FATES.id)) ? `<li>Due to the nature of Convergence of Fates these figures may not be accurate, but they are calculated exempt of any possible Convergence procs.</li>` : ``;
-    tooltipText += (this.wildCDR > 0) ? `<li>Total approximate CDR: ${(this.wildCDR / 1000).toFixed(1)} seconds</li><li>Approximate gained casts: ${(this.wildCDR / this.baseWildCooldown).toFixed(1)}</li></>` : ``;
+    tooltipText += (this.wildCDR > 0) ? `<li>Total approximate CDR: ${(this.wildCDR / 1000).toFixed(1)} seconds</li><li>Approximate gained casts: ${(this.wildCDR / this.baseWildCooldown).toFixed(1)}</li></ul>` : ``;
     tooltipText += `</ul>`;
     return {
       item: ITEMS.CALL_OF_THE_WILD,
