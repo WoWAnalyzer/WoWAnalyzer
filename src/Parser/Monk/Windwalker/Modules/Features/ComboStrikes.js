@@ -57,7 +57,7 @@ class ComboStrikes extends Analyzer {
           .icon(SPELLS.COMBO_STRIKES.icon)
           .actual(`${this.masteryDropSpellSequence.length} instances where mastery dropped.`)
           .recommended(`${recommended} times mastery should be dropped`)
-          .regular(recommended).major(recommended);
+          .regular(recommended).major(recommended+1);
       });
   }
 
