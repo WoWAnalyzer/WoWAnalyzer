@@ -5,7 +5,6 @@ import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import Wrapper from  'common/Wrapper';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import ComboBreaker from 'Parser/Monk/Windwalker/Modules/Spells/ComboBreaker';
 
 class TheWindBlows extends Analyzer {
   static dependencies = {
@@ -20,8 +19,7 @@ class TheWindBlows extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    const cbTimeframe = ComboBreaker.lastCBProcTime + 15000;
-    if (spellId !== SPELLS.STRIKE_OF_THE_WINDLORD.id || event.timestamp > cbTimeframe) {
+    if (spellId !== SPELLS.STRIKE_OF_THE_WINDLORD.id || this.combatatants.selected.hasBuff(SPELLS.COMBO_BREAKER_BUFF.id)) {
       return;
     }
     this.freeBlackoutKicks++;
