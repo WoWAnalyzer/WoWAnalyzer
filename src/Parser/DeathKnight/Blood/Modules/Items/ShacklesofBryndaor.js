@@ -5,8 +5,8 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS';
 import Wrapper from 'common/Wrapper';
+import SpellLink from 'common/SpellLink';
 import RunicPowerTracker from 'Parser/DeathKnight/Blood/Modules/RunicPower/RunicPowerTracker';
-
 
 class ShacklesofBryndaor extends Analyzer {
 
@@ -15,7 +15,6 @@ class ShacklesofBryndaor extends Analyzer {
     runicPowerTracker: RunicPowerTracker,
   };
 
-  rpGained=0;
   dsCost = 45;
 
   on_initialized() {
@@ -28,28 +27,27 @@ class ShacklesofBryndaor extends Analyzer {
     }
   }
 
-  get rpGainedPerMinute(){
-    return this.rpGained / this.owner.fightDuration * 1000 * 60;
-  }
-
-  on_toPlayer_energize(event) {
-    if (event.ability.guid !== SPELLS.SHACKLES_OF_BRYNDAOR_BUFF.id) {
-      return;
+  get runicPowerGained(){
+    if(this.runicPowerTracker.buildersObj[SPELLS.SHACKLES_OF_BRYNDAOR_BUFF.id]){
+      return this.runicPowerTracker.buildersObj[SPELLS.SHACKLES_OF_BRYNDAOR_BUFF.id].generated;
     }
-    this.rpGained += (event.resourceChange || 0);
+    return 0;
   }
 
+  get rpGainedPerMinute(){
+    return this.runicPowerGained / this.owner.fightDuration * 1000 * 60;
+  }
 
   item() {
-    const rpPercent=this.rpGained / this.runicPowerTracker.totalRPGained;
-    const extraDS=this.rpGained /this.dsCost;
+    const rpPercent=this.runicPowerGained / this.runicPowerTracker.generated;
+    const extraDS=this.runicPowerGained / this.dsCost;
     return {
       item: ITEMS.SHACKLES_OF_BRYNDAOR,
       result:(
         <Wrapper>
-          Runic Power Refunded : {Math.trunc(this.rpGainedPerMinute)} per min. {this.rpGained} total.<br />
-          {formatPercentage(rpPercent)} % of total RP <br />
-          Extra Death Strikes possible: {Math.trunc(extraDS)}
+          Refunded {Math.trunc(this.rpGainedPerMinute)} Runic Power per minute ({this.runicPowerGained} total).<br />
+          {formatPercentage(rpPercent)} % of total Runic Power generated <br />
+          This is a potential {Math.trunc(extraDS)} extra <SpellLink id={SPELLS.DEATH_STRIKE.id} /> casts.
 
         </Wrapper>
       ),
