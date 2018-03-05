@@ -9,6 +9,9 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import DamageTaken from './DamageTaken';
 
+// Brew-Stache is a buff that adds 10% dodge after consuming a brew
+const BREW_STACHE_DODGE = 0.1;
+
 // coefficients to calculate dodge chance from agility
 //
 // see here for data: 
@@ -150,9 +153,10 @@ class MasteryValue extends Analyzer {
 
   // returns the current chance to dodge a damage event assuming the
   // event is dodgeable
-  dodgeChance(masteryStacks, masteryRating, agility, sourceID) {
+  dodgeChance(masteryStacks, masteryRating, agility, sourceID, timestamp = null) {
+    const brewStacheDodge = this.combatants.selected.hasBuff(SPELLS.BREW_STACHE.id, timestamp) ? BREW_STACHE_DODGE : 0;
     const masteryPercentage = this.stats.masteryPercentage(masteryRating, true);
-    return _clampProb(masteryPercentage * masteryStacks + this.baseDodge(agility) - this.dodgePenalty(sourceID));
+    return _clampProb(masteryPercentage * masteryStacks + this.baseDodge(agility) + brewStacheDodge - this.dodgePenalty(sourceID));
   }
 
 
@@ -232,9 +236,9 @@ class MasteryValue extends Analyzer {
         stacks.guaranteeStack();
         noMasteryStacks.guaranteeStack();
       } else if(event.type === "damage") {
-        const noMasteryDodgeChance = this.dodgeChance(noMasteryStacks.expected, 0, event._agility, event.sourceID);
-        const expectedDodgeChance = this.dodgeChance(stacks.expected, event._masteryRating, event._agility, event.sourceID);
-        const baseDodgeChance = this.dodgeChance(0, 0, event._agility, event.sourceID);
+        const noMasteryDodgeChance = this.dodgeChance(noMasteryStacks.expected, 0, event._agility, event.sourceID, event.timestamp);
+        const expectedDodgeChance = this.dodgeChance(stacks.expected, event._masteryRating, event._agility, event.sourceID, event.timestamp);
+        const baseDodgeChance = this.dodgeChance(0, 0, event._agility, event.sourceID, event.timestamp);
 
         const damage = (event.amount + event.absorbed) || this.meanHitByAbility(event.ability.guid);
         expectedDamageMitigated += expectedDodgeChance * damage;
