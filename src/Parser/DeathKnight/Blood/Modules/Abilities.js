@@ -117,7 +117,7 @@ class Abilities extends CoreAbilities {
         cooldown: 15,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.80, //reduced because of proc resets
         },
       },
 
