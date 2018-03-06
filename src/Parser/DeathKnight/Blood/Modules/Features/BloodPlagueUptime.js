@@ -43,7 +43,6 @@ class BloodPlagueUptime extends Analyzer {
         icon={<SpellIcon id={SPELLS.BLOOD_PLAGUE.id} />}
         value={`${formatPercentage(this.uptime)} %`}
         label="Blood Plague uptime"
-        tooltip="Provides small amount of damage and healing. Auto attacks against an infected target can trigger Crimson Scourge."
       />
     );
   }

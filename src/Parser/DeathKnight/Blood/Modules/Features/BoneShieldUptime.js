@@ -34,9 +34,8 @@ class BoneShieldUptime extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BONE_SHIELD.id} />}
-        value={`${formatPercentage(this.uptime)}%`}
+        value={`${formatPercentage(this.uptime)} %`}
         label="Bone Shield Uptime"
-        tooltip="Important to maintain. Provides damage reduction and haste buff while you have at least one charge."
       />
 
     );

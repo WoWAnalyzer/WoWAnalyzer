@@ -31,16 +31,12 @@ class UnendingThirstTracker extends Analyzer {
     }
   }
 
-
-
-
   statistic() {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.UNENDING_THIRST.id} />}
         value={`${this.bloodShieldRefreshed} out of ${this.totalDSCounter}`}
         label="Empowered Death Strikes"
-        tooltip="It is possible to trade healing done for damage done by using Death Strikes in sequence to take advantage of Unending Thirst. This does increase the chances you won't have Death Strike avalible when you need it."
       />
     );
   }

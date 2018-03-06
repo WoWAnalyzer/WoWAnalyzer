@@ -35,9 +35,8 @@ class Ossuary extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.OSSUARY_TALENT.id} />}
-        value={`${formatPercentage(this.uptime)}%`}
+        value={`${formatPercentage(this.uptime)} %`}
         label="Ossuary Uptime"
-        tooltip="Important to maintain. Reduces cost of Death Strike and increases runic power cap by 10."
       />
 
 

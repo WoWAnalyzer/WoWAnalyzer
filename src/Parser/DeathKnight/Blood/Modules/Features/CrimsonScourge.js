@@ -50,34 +50,12 @@ class CrimsonScourge extends Analyzer {
     return this.wastedCrimsonScourgeProcs / this.crimsonScourgeProcsCounter;
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.wastedCrimsonScourgeProcsPercent,
-      isGreaterThan: {
-        minor: 0.05,
-        average: 0.1,
-        major: 0.15,
-      },
-      style: 'percentage',
-      text: 'You had unspent Crimson Scourge procs. Make sure you always use them.',
-    };
-  }
-
-  suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(suggest.text)
-        .icon(SPELLS.CRIMSON_SCOURGE.icon)
-        .actual(`${formatPercentage(actual)}% Crimson Scourge procs wasted`)
-        .recommended(`<${formatPercentage(recommended)}% is recommended`);
-    });
-  }
-
   statistic() {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CRIMSON_SCOURGE.id} />}
         value={`${formatPercentage(this.wastedCrimsonScourgeProcsPercent)} %`}
-        label='Crimson Scourge procs Wasted'
+        label='Crimson Scourge procs wasted'
         tooltip={`${this.wastedCrimsonScourgeProcs} out of ${this.crimsonScourgeProcsCounter} procs wasted.`}
       />
     );
