@@ -30,7 +30,7 @@ class EyeOfTheTwistingNether extends Analyzer {
 		if(event.targetIsFriendly) {
       return;
     }
-    const buffs = 0;
+    let buffs = 0;
     if(this.combatants.selected.hasBuff(SPELLS.SHOCK_OF_THE_TWISTING_NETHER.id)) {
     	buffs++;
     }
