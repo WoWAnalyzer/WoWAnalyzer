@@ -40,7 +40,7 @@ class EyeOfTheTwistingNether extends Analyzer {
     if(this.combatants.selected.hasBuff(SPELLS.FIRE_OF_THE_TWISTING_NETHER.id)) {
     	buffs++;
     }
-    this.damageDone += calculateEffectiveDamage(event, (1 + EYE_OF_THE_TWISTING_NETHER_MODIFIER) ** buffs - 1));
+    this.damageDone += calculateEffectiveDamage(event, (1 + EYE_OF_THE_TWISTING_NETHER_MODIFIER) ** buffs - 1);
 	}
 
 	item() {
