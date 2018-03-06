@@ -112,9 +112,6 @@ class Results extends React.Component {
     if (boss && boss.fight.resultsWarning) {
       return boss.fight.resultsWarning;
     }
-    if (parser.feedbackWarning) {
-      return 'This spec is believed to be complete, but needs additional feedback. If there is something missing, incorrect, or inaccurate, please contact this specs maintainer so it can be fixed before being marked as "Good".';
-    }
     return null;
   }
 

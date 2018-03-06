@@ -35,8 +35,6 @@ import MarqueeBindingsOfTheSunKing from './Modules/Items/MarqueeBindingsOfTheSun
 import KoralonsBurningTouch from './Modules/Items/KoralonsBurningTouch';
 
 class CombatLogParser extends CoreCombatLogParser {
-  feedbackWarning = true;
-
   static specModules = {
     //Normalizers
     FlameStrikeNormalizer: FlamestrikeNormalizer,

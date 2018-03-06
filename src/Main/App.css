@@ -571,6 +571,13 @@ dfn[data-tip] {
   color: #fff;
   font-weight: 400;
 }
+.alert-warning a {/* default URLs are unreadable on the orange background, this makes it look like a button. */
+  color: #fff;
+  background: #cd594a;
+  padding: 2px 4px;
+  margin: 0 -1px;
+  border-radius: 2px;
+}
 .alert-danger {
   background-color: rgba(119, 47, 46, 0.6);
   color: #ff1d19;
