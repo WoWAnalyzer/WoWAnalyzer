@@ -7,6 +7,7 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.ELEMENTAL_SHAMAN,
   maintainers: [HawkCorrigan,fasib],
+  patchCompatibility: '7.3.5',
   changelog: CHANGELOG,
   parser: CombatLogParser,
   path: __dirname, // used for generating a GitHub link directly to your spec

@@ -11,6 +11,7 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.AFFLICTION_WARLOCK,
   maintainers: [Chizu],
+  patchCompatibility: '7.3.5',
   description: (
     <div>
       Hello fellow Netherlords! With some help from a theorycrafter from Warlock Discord, we've put together this tool to help you improve your gameplay. It should be fine for you generally, but it will be even more useful in an expert's hands. <br /> <br />

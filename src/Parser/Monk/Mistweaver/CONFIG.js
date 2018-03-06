@@ -9,6 +9,7 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.MISTWEAVER_MONK,
   maintainers: [Anomoly],
+  patchCompatibility: '7.3.5',
   description: (
     <div>
       Hello all! Thanks so much for taking the time use this tool as a way to improve your play. The goal is to provide targeted suggestions to improve your overall Mistweaver Monk play. The suggestions are based on the current theorycrafting and practical knowledge from some of the best Mistweavers playing this game. (And even some former mistweavers who still like to help us dreamers out.) <br /> <br />

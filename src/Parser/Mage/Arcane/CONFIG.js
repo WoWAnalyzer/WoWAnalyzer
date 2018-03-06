@@ -9,7 +9,7 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.ARCANE_MAGE,
   maintainers: [Sharrq, Herusx],
-  changelog: CHANGELOG,
+  patchCompatibility: '7.3.5',
   description: (
     <div>
       Hello Everyone! We are always looking to improve the Arcane Mage Analyzers and Modules; so if you find any issues or if there is something missing that you would like to see added, please open an Issue on GitHub or send a message to Sharrq on Discord (Sharrq#7530) <br /> <br />
@@ -20,6 +20,7 @@ export default {
       <a href="https://www.icy-veins.com/wow/arcane-mage-pve-dps-guide" target="_blank" rel="noopener noreferrer">Icy Veins (Arcane Mage Guide)</a> <br/>
     </div>
   ),
+  changelog: CHANGELOG,
   parser: CombatLogParser,
   path: __dirname, // used for generating a GitHub link directly to your spec
 };

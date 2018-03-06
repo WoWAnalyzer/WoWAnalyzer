@@ -1,3 +1,9 @@
-export default `
-22-09-2017 - Protection Warrior: Added basic support (by @Salarissia)
-`;
+import { Salarissia } from 'MAINTAINERS';
+
+export default [
+  {
+    date: new Date('2017-09-22'),
+    changes: 'Added basic support.',
+    contributors: [Salarissia],
+  },
+];

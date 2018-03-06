@@ -7,6 +7,7 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.UNHOLY_DEATH_KNIGHT,
   maintainers: [Khazak, Bicepspump],
+  patchCompatibility: '7.3.5',
 
   // Shouldn't have to change these:
   changelog: CHANGELOG,

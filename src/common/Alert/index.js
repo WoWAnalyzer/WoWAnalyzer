@@ -8,10 +8,10 @@ class Alert extends React.PureComponent {
   };
 
   render() {
-    const { kind, children } = this.props;
+    const { kind, children, ...others } = this.props;
 
     return (
-      <div className={`alert alert-${kind}`}>
+      <div className={`alert alert-${kind}`} {...others}>
         {children}
       </div>
     );

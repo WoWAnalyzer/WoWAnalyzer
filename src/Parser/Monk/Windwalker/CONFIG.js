@@ -9,6 +9,7 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.WINDWALKER_MONK,
   maintainers: [Juko8],
+  patchCompatibility: '7.3.5',
   description: (
   <div>
       Hello! We have been working hard to make the Windwalker analyzer good, but there is still things left to improve.  We hope that the suggestions and statistics will be helpful in improving your overall performance. Try and focus on improving only a few things at a time, until those become ingrained in your muscle memory so as to not be concentrating on many different things. <br /> <br/>

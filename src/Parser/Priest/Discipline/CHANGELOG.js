@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 import { Oratio, Gao, Reglitch, hassebewlen, Zerotorescue, milesoldenburg } from 'MAINTAINERS';

@@ -9,6 +9,7 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.RETRIBUTION_PALADIN,
   maintainers: [Hewhosmites],
+  patchCompatibility: '7.3.5',
   description: (
   	<div>
   		I hope you get some use out this analyzer I have been working on. It is kind of hard to determine exactly what seperates the okay from the good and the good from the great (other than getting a Retribution proc on the great ones wings). <br/><br/>

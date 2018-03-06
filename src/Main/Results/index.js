@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 import Masonry from 'react-masonry-component';
-import Textfit from 'react-textfit';
 
 import ChecklistIcon from 'Icons/Checklist';
 import SuggestionIcon from 'Icons/Suggestion';
 import ArmorIcon from 'Icons/Armor';
+
 import Wrapper from 'common/Wrapper';
 import ReadableList from 'common/ReadableList';
+import parseVersionString from 'common/parseVersionString';
+import Warning from 'common/Alert/Warning';
 import { getResultTab } from 'selectors/url/report';
 import DevelopmentTab from 'Main/DevelopmentTab';
 import EventsTab from 'Main/EventsTab';
@@ -27,6 +29,8 @@ import ResultsWarning from './ResultsWarning';
 import Header from './Header';
 
 import './Results.css';
+
+const CURRENT_GAME_PATCH = '7.3.5';
 
 const MAIN_TAB = {
   CHECKLIST: 'Checklist',
@@ -172,7 +176,10 @@ class Results extends React.Component {
 
     const tabUrl = tab || results.tabs[0].url;
     const activeTab = results.tabs.find(tab => tab.url === tabUrl) || results.tabs[0];
-    const { spec, description, maintainers } = this.context.config;
+    const { spec, description, maintainers, patchCompatibility } = this.context.config;
+    const specPatchCompatibility = parseVersionString(patchCompatibility);
+    const latestPatch = parseVersionString(CURRENT_GAME_PATCH);
+    const isOutdated = specPatchCompatibility.major < latestPatch.major || specPatchCompatibility.minor < latestPatch.minor || specPatchCompatibility.patch < latestPatch.patch;
 
     return (
       <div className="container">
@@ -181,19 +188,36 @@ class Results extends React.Component {
 
           <div className="row">
             <div className="col-md-4">
-              <div className="panel items">
+              <div className="panel">
                 <div className="panel-heading">
                   <h2>About {spec.specName} {spec.className}</h2>
                 </div>
                 <div className="panel-body">
                   {description}
 
-                  <div style={{ marginTop: '1em' }}>
-                    <ReadableList>
-                      {maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}
-                    </ReadableList>{' '}
-                    {maintainers.length > 2 && 'all'} worked on {spec.specName} {spec.className}. If you have any feedback please let us know on <a href="https://discord.gg/AxphPxU">Discord</a>, and <dfn title="Pun intended">check out</dfn>{/*ok so I did title instead of data-tip by accident but then decided to stick with it so it doesn't attract attention since the title version isn't styled*/} <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> for the source of the analysis and information on how to contribute.
+                  <div className="row" style={{ marginTop: '1em' }}>
+                    <div className="col-lg-4" style={{ fontWeight: 'bold', paddingRight: 0 }}>
+                      Contributor{maintainers.length > 1 && 's'}
+                    </div>
+                    <div className="col-lg-8">
+                      <ReadableList>
+                        {maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}
+                      </ReadableList>
+                    </div>
                   </div>
+                  <div className="row" style={{ marginTop: '0.5em' }}>
+                    <div className="col-lg-4" style={{ fontWeight: 'bold', paddingRight: 0 }}>
+                      Updated for patch
+                    </div>
+                    <div className="col-lg-8">
+                      {patchCompatibility}
+                    </div>
+                  </div>
+                  {isOutdated && (
+                    <Warning style={{ marginTop: '1em' }}>
+                      The analysis for this spec is outdated. It may be inaccurate for spells that were changed since patch {patchCompatibility}.
+                    </Warning>
+                  )}
                 </div>
               </div>
 
@@ -255,41 +279,6 @@ class Results extends React.Component {
                       modules.characterPanel.render()
                     )}
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="divider" />
-
-          <div className="row">
-            <div className="col-md-6">
-              <div className="row">
-                <div className="col-md-4">
-                  <div style={{ border: '7px solid #fff', background: 'rgba(0, 0, 0, 0.4)', padding: '8px 14px', fontSize: 40, fontWeight: 700, lineHeight: 1.1 }}>
-                    <Textfit mode="single" max={40}>
-                    How It's<br />
-                    Made
-                    </Textfit>
-                  </div>
-                </div>
-                <div className="col-md-8" style={{ fontSize: 20 }}>
-                  Curious how we're doing the analysis? Want to change something? You can find this spec's source <a href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`}>here</a> and a guide on contributing <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/docs#contributing">here</a>.
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="row">
-                <div className="col-md-4">
-                  <div style={{ border: '7px solid #fff', background: 'rgba(0, 0, 0, 0.4)', padding: '8px 14px', fontSize: 40, fontWeight: 700, lineHeight: 1.1 }}>
-                    <Textfit mode="single" max={40}>
-                      Feedback<br />
-                      Welcome
-                    </Textfit>
-                  </div>
-                </div>
-                <div className="col-md-8" style={{ fontSize: 20 }}>
-                  Do you have a really cool idea? Is a suggestion or checklist threshold off? Spotted a bug? Let us know on <a href="https://discord.gg/AxphPxU">Discord</a>.
                 </div>
               </div>
             </div>

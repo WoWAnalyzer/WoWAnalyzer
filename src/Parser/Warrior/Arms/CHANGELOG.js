@@ -1,4 +1,14 @@
-export default `
-21-10-2017 - Added tactician procs
-19-10-2017 - Added Arms Warrior Initial Setup. (by TheBadBossy)
-`;
+import { TheBadBossy } from 'MAINTAINERS';
+
+export default [
+  {
+    date: new Date('2017-10-21'),
+    changes: 'Added tactician procs.',
+    contributors: [TheBadBossy],
+  },
+  {
+    date: new Date('2017-10-19'),
+    changes: 'Added initial support.',
+    contributors: [TheBadBossy],
+  },
+];

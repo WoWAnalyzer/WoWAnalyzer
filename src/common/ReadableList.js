@@ -10,12 +10,13 @@ const ReadableList = ({ children }) => {
   const results = [];
   React.Children.forEach(children, (child, index) => {
     const isFirst = index === 0;
-    const isLast = index === numItems - 1;
-
-    if (isLast) {
-      results.push(' and ');
-    } else if (!isFirst) {
-      results.push(', ');
+    if (!isFirst) {
+      const isLast = index === numItems - 1;
+      if (isLast) {
+        results.push(' and ');
+      } else {
+        results.push(', ');
+      }
     }
     results.push(child);
   });

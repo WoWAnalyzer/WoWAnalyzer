@@ -9,6 +9,7 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.SURVIVAL_HUNTER,
   maintainers: [Putro],
+  patchCompatibility: '7.3.5',
   description: (
     <div>
       Hey, I've been hard at work to make this analyzer as good as I can. You'll notice a lot of things are still missing, and these will be included as time passes as I work on getting everything in this analyzer module up to scratch. <br />

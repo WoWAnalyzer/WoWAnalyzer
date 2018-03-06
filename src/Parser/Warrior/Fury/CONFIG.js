@@ -16,6 +16,7 @@ export default {
       Hey there! Right now the Fury Warrior parser only holds very basic functionality. It does not yet analyze legendaries, cast sequence or tier bonuses. What we do show should be good to use, but it does not show the complete picture.
     </Warning>
   ),
+  patchCompatibility: '7.3',
 
   // Shouldn't have to change these:
   changelog: CHANGELOG,

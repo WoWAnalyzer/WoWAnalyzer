@@ -9,6 +9,7 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.BEAST_MASTERY_HUNTER,
   maintainers: [Putro],
+  patchCompatibility: '7.3.5',
   description: (
     <div>
       Hey, I am working on making this analyzer as good as I can. I hope that the suggestions that will be implemented in the future, will be helpful in aiding you improve your overall performance.<br /><br />

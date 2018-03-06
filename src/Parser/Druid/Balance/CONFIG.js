@@ -9,6 +9,7 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.BALANCE_DRUID,
   maintainers: [Gebuz, Iskalla],
+  patchCompatibility: '7.3',
   description: (
     <div>
       Hello Moonkins! This tool is intended to show major statistics and potential issues in your rotation. Please mind that it can always be improved upon, so if you see anything that you disagree with or think is missing please let us know!<br/><br/>

@@ -10,17 +10,17 @@ import SpellLink from 'common/SpellLink';
 export default [
   { 
     date: new Date('2018-1-13'),
-    changes: <Wrapper>Added L90 talents Astral Power gains.</Wrapper>,
+    changes: 'Added L90 talents Astral Power gains.',
     contributors: [Gebuz],
   },
   { 
     date: new Date('2018-1-13'),
-    changes: <Wrapper>Added tier 20.</Wrapper>,
+    changes: 'Added tier 20.',
     contributors: [Gebuz],
   },
   { 
     date: new Date('2018-1-6'),
-    changes: <Wrapper>Added tier 21.</Wrapper>,
+    changes: 'Added tier 21.',
     contributors: [Gebuz],
   },
   { 
@@ -30,22 +30,22 @@ export default [
   },
   { 
     date: new Date('2018-1-2'),
-    changes: <Wrapper>Added Astral Power usage tab.</Wrapper>,
+    changes: 'Added Astral Power usage tab.',
     contributors: [Gebuz],
   },
   {
     date: new Date('2017-12-29'),
-    changes: <Wrapper>Added Checklist.</Wrapper>,
+    changes: 'Added Checklist.',
     contributors: [Gebuz],
   },
   {
     date: new Date('2017-12-29'),
-    changes: <Wrapper>Added all spells to Cast efficiency.</Wrapper>,
+    changes: 'Added all spells to Cast efficiency.',
     contributors: [Gebuz],
   },
   {
     date: new Date('2017-12-28'),
-    changes: <Wrapper>Added cooldown thoughtput tracker.</Wrapper>,
+    changes: 'Added cooldown thoughtput tracker.',
     contributors: [Gebuz],
   },
   {
@@ -55,7 +55,7 @@ export default [
   },
   {
     date: new Date('2017-9-22'),
-    changes: <Wrapper>Added Overcapped Lunar and Solar empowerments modules.</Wrapper>,
+    changes: 'Added Overcapped Lunar and Solar empowerments modules.',
     contributors: [Iskalla],
   },
   {
@@ -70,27 +70,27 @@ export default [
   },
   {
     date: new Date('2017-9-12'),
-    changes: <Wrapper>Added the Damage module and Reorder of Stat boxes.</Wrapper>,
+    changes: 'Added the Damage module and Reorder of Stat boxes.',
     contributors: [Iskalla],
   },
   {
     date: new Date('2017-9-12'),
-    changes: <Wrapper>Minor text fixes.</Wrapper>,
+    changes: 'Minor text fixes.',
     contributors: [Iskalla],
   },
   {
     date: new Date('2017-9-07'),
-    changes: <Wrapper>Fixed stackable buffs - Now the ABC module should be more reliable.</Wrapper>,
+    changes: 'Fixed stackable buffs - Now the ABC module should be more reliable.',
     contributors: [Iskalla],
   },
   {
     date: new Date('2017-9-05'),
-    changes: <Wrapper>Added Moon spells casted module.</Wrapper>,
+    changes: 'Added Moon spells casted module.',
     contributors: [Iskalla],
   },
   {
     date: new Date('2017-9-04'),
-    changes: <Wrapper>Added wasted Astral Power module.</Wrapper>,
+    changes: 'Added wasted Astral Power module.',
     contributors: [Iskalla],
   },
   {
@@ -100,7 +100,7 @@ export default [
   },
   {
     date: new Date('2017-8-30'),
-    changes: <Wrapper>Added support.</Wrapper>,
+    changes: 'Added support.',
     contributors: [Iskalla],
   },
 ];

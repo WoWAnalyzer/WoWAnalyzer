@@ -556,6 +556,7 @@ dfn[data-tip] {
   padding: 15px 22px;
   border-radius: 0;
   border: 0;
+  margin: 0;
 }
 .panel-body > .alert {
   margin-left: -22px;
@@ -566,8 +567,9 @@ dfn[data-tip] {
   color: white;
 }
 .alert-warning {
-  background-color: rgba(255, 188, 0, 0.6);
-  color: white;
+  background-color: #cc790b;
+  color: #fff;
+  font-weight: 400;
 }
 .alert-danger {
   background-color: rgba(119, 47, 46, 0.6);
@@ -899,10 +901,10 @@ code.inactive {
 }
 
 .maintainer-name {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.8);
   color: #f1c40f;
   padding: .2em .2em;
-  margin: -.2em 0;
+  margin: -.2em -.2em;
   border-radius: .2em;
   font-weight: bold;
   white-space: nowrap;

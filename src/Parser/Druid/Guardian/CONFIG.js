@@ -11,6 +11,7 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.GUARDIAN_DRUID,
   maintainers: [faide],
+  patchCompatibility: '7.3',
   description: (
     <div>
       Hi! I'm faide, and I maintain the guardian druid analyzer.  Thanks for being here!<br /><br />

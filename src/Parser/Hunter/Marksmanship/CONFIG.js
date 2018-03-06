@@ -9,6 +9,7 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.MARKSMANSHIP_HUNTER,
   maintainers: [Putro, Blazballs],
+  patchCompatibility: '7.3.5',
   description: (
     <div>
       Hey, we've been hard at work to make this analyzer as good as we can. We hope that the suggestions and statistics will be helpful in improving your overall performance. Try and focus on improving only a few things at a time, until those become ingrained in your muscle memory so as to not be concentrating on many different things. <br /><br />

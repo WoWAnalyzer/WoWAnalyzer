@@ -1,4 +1,5 @@
 import { Juko8, Coryn, Talby, Anomoly, AttilioLH } from 'MAINTAINERS';
+
 export default [
   {
     date: new Date('2018-02-16'),

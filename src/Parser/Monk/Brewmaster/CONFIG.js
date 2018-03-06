@@ -8,6 +8,7 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.BREWMASTER_MONK,
   maintainers: [emallson],
+  patchCompatibility: '7.3.5',
   description: (
     <div>
       This spec is maintained by <a href="//raider.io/characters/us/arthas/Eisenpelz"><code>emallson</code></a>. If you have implementation or theorycrafting questions, hit me up in the <code>#brewcraft</code> channel of the <a href="http://discord.gg/peakofserenity">Peak of Serenity</a> Discord server. For general help in evaluating your logs, use the <code>#brew_questions</code> channel.

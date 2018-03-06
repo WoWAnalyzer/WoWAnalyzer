@@ -12,6 +12,7 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.VENGEANCE_DEMON_HUNTER,
   maintainers: [Mamtooth],
+  patchCompatibility: '7.3',
 	description: (
 		<Wrapper>
 			Hi there fellow Illidari. I've put some time in developing this tool for all Vengeance Demon Hunters and I'll always try to keep this spec update. But as you might have thought, you opinion and suggestion is always great to make me improve it more and more for you. So, if you ever have anything to say, please leave a message in some channel that I'll be specifically showing to you later.<br/><br/>
