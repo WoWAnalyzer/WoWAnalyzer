@@ -3,8 +3,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Analyzer from 'Parser/Core/Analyzer';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -12,8 +10,6 @@ import Wrapper from 'common/Wrapper';
 
 class TouchOfKarma extends Analyzer {
 	static dependencies = {
-		combatants: Combatants,
-    abilityTracker: AbilityTracker,
     healingDone: HealingDone,
   };
   totalPossibleAbsorb = 0;
@@ -26,15 +22,26 @@ class TouchOfKarma extends Analyzer {
     this.totalPossibleAbsorb += event.maxHitPoints * 0.5;
   }
 
+  get suggestionThresholds() {
+    const absorbUsed = this.healingDone.byAbility(SPELLS.TOUCH_OF_KARMA_CAST.id).effective / this.totalPossibleAbsorb;
+    return {
+      actual: absorbUsed,
+      isLessThan: {
+        minor: 0.8,
+        average: 0.65,
+        major: 0.5,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
     const absorbUsed = this.healingDone.byAbility(SPELLS.TOUCH_OF_KARMA_CAST.id).effective / this.totalPossibleAbsorb;
-    const recommendedAbsorbUsed = 0.8;
-    when(absorbUsed).isLessThan(recommendedAbsorbUsed).addSuggestion((suggest, actual, recommended) => {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<Wrapper> You consumed a low amount of your total <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> absorb. It's best used when you can take enough damage to consume most of the absorb. Getting full absorb usage shouldn't be expected on lower difficulty encounters </Wrapper>)
         .icon(SPELLS.TOUCH_OF_KARMA_CAST.icon)
         .actual(`${formatPercentage(absorbUsed)}% Touch of Karma absorb used`)
-        .recommended(`>${formatPercentage(recommended)} Touch of Karma absorb use is recommended`)
-        .regular(recommended - 0.15).major(recommended - 0.30);
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
   }
 
