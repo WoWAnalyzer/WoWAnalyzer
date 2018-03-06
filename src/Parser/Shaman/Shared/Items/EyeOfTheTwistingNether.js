@@ -30,15 +30,17 @@ class EyeOfTheTwistingNether extends Analyzer {
 		if(event.targetIsFriendly) {
       return;
     }
+    const buffs = 0;
     if(this.combatants.selected.hasBuff(SPELLS.SHOCK_OF_THE_TWISTING_NETHER.id)) {
-    	this.damageDone += calculateEffectiveDamage(event, EYE_OF_THE_TWISTING_NETHER_MODIFIER);
+    	buffs++;
     }
     if(this.combatants.selected.hasBuff(SPELLS.CHILL_OF_THE_TWISTING_NETHER.id)) {
-    	this.damageDone += calculateEffectiveDamage(event, EYE_OF_THE_TWISTING_NETHER_MODIFIER);
+    	buffs++;
     }
     if(this.combatants.selected.hasBuff(SPELLS.FIRE_OF_THE_TWISTING_NETHER.id)) {
-    	this.damageDone += calculateEffectiveDamage(event, EYE_OF_THE_TWISTING_NETHER_MODIFIER);
+    	buffs++;
     }
+    this.damageDone += calculateEffectiveDamage(event, (1 + EYE_OF_THE_TWISTING_NETHER_MODIFIER) ** buffs - 1));
 	}
 
 	item() {
