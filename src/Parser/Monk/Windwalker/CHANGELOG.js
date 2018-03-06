@@ -6,6 +6,11 @@ import Wrapper from 'common/Wrapper';
 import { Juko8, Coryn, Talby, Anomoly, AttilioLH, Hewhosmites } from 'MAINTAINERS';
 export default [
   {
+    date: new Date('2018-03-06'),
+    changes: <Wrapper>Added Statistics and Suggestions on use of <ItemLink id={ITEMS.THE_WIND_BLOWS.id} icon /></Wrapper>,
+    contributors: [Juko8],
+  },
+  {
     date: new Date('2018-03-03'),
     changes: <Wrapper>Added <ItemLink id={ITEMS.THE_WIND_BLOWS.id} icon/></Wrapper>,
     contributors: [Hewhosmites],
