@@ -2,10 +2,12 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatMilliseconds } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import Analyzer from 'Parser/Core/Analyzer';
+
+const debug = false;
 
 class ArcaneMissiles extends Analyzer {
 	static dependencies = {
@@ -20,7 +22,8 @@ class ArcaneMissiles extends Analyzer {
 		if (spellId !== SPELLS.ARCANE_BARRAGE.id) {
 			return;
 		}
-		if (this.combatants.selected.hasBuff(SPELLS.ARCANE_MISSILES_BUFF.id)) {
+		if (this.combatants.selected.hasBuff(SPELLS.ARCANE_MISSILES_BUFF.id,event.timestamp - 100)) {
+			debug && console.log("Arcane Barrage with Missiles Procs @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
 			this.barrageWithMissilesProc += 1;
 		}
 	}
