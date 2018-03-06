@@ -1,10 +1,17 @@
 import React from 'react';
 import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS';
 import ItemLink from 'common/ItemLink';
+import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
 
 import { Juko8, Coryn, Talby, Anomoly, AttilioLH, Hewhosmites } from 'MAINTAINERS';
 export default [
+  {
+    date: new Date('2018-03-06'),
+    changes: <Wrapper>Added Statistics and Suggestions on use of <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} icon/></Wrapper>,
+    contributors: [Juko8],
+  },
   {
     date: new Date('2018-03-03'),
     changes: <Wrapper>Added <ItemLink id={ITEMS.THE_WIND_BLOWS.id} icon/></Wrapper>,
