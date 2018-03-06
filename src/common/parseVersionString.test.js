@@ -8,10 +8,11 @@ describe('ReadableList', () => {
       patch: 5,
     });
   });
-  it('recognizes a major patch', () => {
+  it('autofills missing decimals', () => {
     expect(parseVersionString('7.2')).toEqual({
       major: 7,
       minor: 2,
+      patch: 0,
     });
   });
 });
