@@ -53,8 +53,8 @@ class VirulentPlagueEfficiency extends Analyzer {
 		  this.totalOutBreakCasts += 1;
 		  if (this.targets[encodeTargetString(event.targetID, event.targetInstance)]) {
 		  	//We subtract 6 seconds from the total duration since this is the time left after Outbreak finishes.
-			  if (((event.timestamp -  this.targets[encodeTargetString(event.targetID, event.targetInstance)]) / 1000) >= 0) {
-			  	this.totalTimeWasted += (event.timestamp -  this.targets[encodeTargetString(event.targetID, event.targetInstance)]) / 1000;
+			  if (((this.targets[encodeTargetString(event.targetID, event.targetInstance)]) - event.timestamp) >= 0) {
+			  	this.totalTimeWasted += ((this.targets[encodeTargetString(event.targetID, event.targetInstance)]) - event.timestamp) / 1000;
 			  }	
 		  }
 	  }  
