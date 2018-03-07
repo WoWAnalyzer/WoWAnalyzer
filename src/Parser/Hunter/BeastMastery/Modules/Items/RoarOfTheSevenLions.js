@@ -6,6 +6,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
+import FocusTracker from 'Parser/Hunter/Shared/Modules/Features/FocusChart/FocusTracker';
 
 /*
  * Roar of the Seven Lions
@@ -30,8 +31,11 @@ const FOCUS_COST_REDUCTION = 0.15;
 class RoarOfTheSevenLions extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    focusTracker: FocusTracker,
   };
 
+  focusCostCasts = 0;
+  totalFocusSaved = 0;
   lastFocusCost = 0;
   lastVolleyHit = 0;
   focusSpenderCasts = {
@@ -109,12 +113,10 @@ class RoarOfTheSevenLions extends Analyzer {
   }
 
   item() {
-    let totalFocusSaved = 0;
-    let focusCostCasts = 0;
     const focusSpenders = [[SPELLS.COBRA_SHOT.id], [SPELLS.MULTISHOT.id], [SPELLS.KILL_COMMAND.id], [SPELLS.REVIVE_PET_AND_MEND_PET.id], [SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id], [SPELLS.BARRAGE_TALENT.id], [SPELLS.VOLLEY_ACTIVATED.id]];
-    focusSpenders.map(ability => totalFocusSaved += this.focusSpenderCasts[ability].focusSaved);
-    focusSpenders.map(ability => focusCostCasts += this.focusSpenderCasts[ability].casts);
-    const averageFocusCostReduction = totalFocusSaved / focusCostCasts;
+    focusSpenders.map(ability => this.totalFocusSaved += this.focusSpenderCasts[ability].focusSaved);
+    focusSpenders.map(ability => this.focusCostCasts += this.focusSpenderCasts[ability].casts);
+    const averageFocusCostReduction = this.totalFocusSaved / this.focusCostCasts;
 
     let tooltipText = `Overall Roar of the Seven Lions saved you an average of ${averageFocusCostReduction.toFixed(2)} focus per affected cast <br/>This shows a more accurate breakdown of which abilities were cast during Bestial Wrath, and where the various focus reduction occured:<ul>`;
     focusSpenders.forEach(focusSpender => {
@@ -128,10 +130,21 @@ class RoarOfTheSevenLions extends Analyzer {
       item: ITEMS.ROAR_OF_THE_SEVEN_LIONS,
       result: (
         <dfn data-tip={tooltipText}>
-          saved you a total of {formatNumber(totalFocusSaved)} focus
+          saved you a total of {formatNumber(this.totalFocusSaved)} focus
         </dfn>
       ),
     };
+  }
+
+  on_finished() {
+    console.log(this.focusSavedSuggestionThresholds);
+  }
+  get focusSavedSuggestionThresholds() {
+    return this.totalFocusSaved / (this.owner.fightDuration / 1000 * this.focusTracker.focusGen);
+  }
+
+  suggestions(when) {
+
   }
 }
 

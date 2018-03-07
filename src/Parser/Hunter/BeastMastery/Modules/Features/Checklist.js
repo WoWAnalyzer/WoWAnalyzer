@@ -1,5 +1,6 @@
 import React from 'react';
 
+//Core
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
@@ -10,23 +11,36 @@ import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-import AlwaysBeCasting from 'Parser/Hunter/BeastMastery/Modules/Features/AlwaysBeCasting';
-import AMurderOfCrows from 'Parser/Hunter/BeastMastery/Modules/Talents/AMurderOfCrows';
 import SpellLink from 'common/SpellLink';
 import Icon from "common/Icon";
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
-import DireBeast from 'Parser/Hunter/BeastMastery/Modules/Spells/DireBeast/DireBeast';
-import BestialWrathAverageFocus from 'Parser/Hunter/BeastMastery/Modules/Spells/BestialWrath/BestialWrathAverageFocus';
+import ITEMS from 'common/ITEMS/HUNTER';
+import ItemLink from 'common/ItemLink';
+
+//Features
+import AlwaysBeCasting from 'Parser/Hunter/BeastMastery/Modules/Features/AlwaysBeCasting';
+
+//Talents
+import AMurderOfCrows from 'Parser/Hunter/BeastMastery/Modules/Talents/AMurderOfCrows';
 import KillerCobra from 'Parser/Hunter/BeastMastery/Modules/Talents/KillerCobra';
-import AspectOfTheBeast from 'Parser/Hunter/Shared/Modules/Talents/AspectOfTheBeast';
-import AspectOfTheWild from 'Parser/Hunter/BeastMastery/Modules/Spells/AspectOfTheWild';
 import DireFrenzy from 'Parser/Hunter/BeastMastery/Modules/Talents/DireFrenzy';
+import AspectOfTheBeast from 'Parser/Hunter/Shared/Modules/Talents/AspectOfTheBeast';
+
+//Spells
+import DireBeast from 'Parser/Hunter/BeastMastery/Modules/Spells/DireBeast/DireBeast';
+import AspectOfTheWild from 'Parser/Hunter/BeastMastery/Modules/Spells/AspectOfTheWild';
+import BestialWrathAverageFocus from 'Parser/Hunter/BeastMastery/Modules/Spells/BestialWrath/BestialWrathAverageFocus';
+
+//Traits
 import TitansThunder from 'Parser/Hunter/BeastMastery/Modules/Traits/TitansThunder';
+
+//Items
 import ParselsTongue from 'Parser/Hunter/BeastMastery/Modules/Items/ParselsTongue';
 import QaplaEredunWarOrder from 'Parser/Hunter/BeastMastery/Modules/Items/QaplaEredunWarOrder';
 import TheMantleOfCommand from 'Parser/Hunter/BeastMastery/Modules/Items/TheMantleOfCommand';
-import ITEMS from 'common/ITEMS/HUNTER';
-import ItemLink from 'common/ItemLink';
+import SoulOfTheHuntmaster from 'Parser/Hunter/Shared/Modules/Items/SoulOfTheHuntmaster';
+import RoarOfTheSevenLions from 'Parser/Hunter/BeastMastery/Modules/Items/RoarOfTheSevenLions';
+import CallOfTheWild from 'Parser/Hunter/Shared/Modules/Items/CallOfTheWild';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -60,6 +74,9 @@ class Checklist extends CoreChecklist {
     parselsTongue: ParselsTongue,
     qaplaEredunWarOrder: QaplaEredunWarOrder,
     theMantleOfCommand: TheMantleOfCommand,
+    soulOfTheHuntmaster: SoulOfTheHuntmaster,
+    roarOfTheSevenLions: RoarOfTheSevenLions,
+    callOfTheWild: CallOfTheWild,
   };
 
   rules = [
@@ -181,6 +198,16 @@ class Checklist extends CoreChecklist {
             name: <Wrapper><ItemLink id={ITEMS.THE_MANTLE_OF_COMMAND.id} icon /> uptime</Wrapper>,
             when: combatant.hasShoulder(ITEMS.THE_MANTLE_OF_COMMAND.id),
             check: () => this.theMantleOfCommand.buffUptimeThreshold,
+          }),
+          new Requirement({
+            name: <Wrapper>Other talent active with <ItemLink id={ITEMS.SOUL_OF_THE_HUNTMASTER.id} icon /></Wrapper>,
+            when: combatant.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id),
+            check: () => this.soulOfTheHuntmaster.suggestionThreshold,
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} icon /> gained from <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} icon /></Wrapper>,
+            when: combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id),
+            check: () => this.callOfTheWild.suggestionsThresholds,
           }),
         ];
       },
