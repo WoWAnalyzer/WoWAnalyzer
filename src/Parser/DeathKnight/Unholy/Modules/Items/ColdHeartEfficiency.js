@@ -102,8 +102,6 @@ class ColdHeartEfficiency extends Analyzer {
 		  this.totalColdHeartCasts++;
 	  
 		  const timeAtMaxStacks = event.timestamp - this.timeAtMaxStacksStart;
-		  console.log(timeAtMaxStacks);
-		  console.log(this.buffColdHeart);
 
 		  const unholyStrengthRemaining = unholyStrengthDuration - (event.timestamp - this.unholyStrengthStart);
 		  const concordanceRemaining = concordanceDuration - (event.timestamp - this.concordanceStart);
@@ -120,7 +118,6 @@ class ColdHeartEfficiency extends Analyzer {
 		  }
 		  else if (this.buffColdHeart === coldHeartMaxStack && timeAtMaxStacks <= maxDurationAtMaxStacksAllowed) {
 		  	this.correctColdHeartCasts++;
-			console.log(this.correctColdHeartCasts);
 		  }
 		  else if(this.buffColdHeart === coldHeartMaxStack){
 		  	this.castsTooLate++;

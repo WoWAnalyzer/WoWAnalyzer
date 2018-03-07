@@ -20,6 +20,22 @@ export default {
     name: 'Wind Shear',
     icon: 'spell_nature_cyclone',
   },
+  //Eye of the Twisting Nether Buffs
+  SHOCK_OF_THE_TWISTING_NETHER: {
+    id: 207999,
+    name: 'Shock of the Twisting Nether',
+    icon: 'spell_nature_rune',
+  },
+  FIRE_OF_THE_TWISTING_NETHER: {
+    id: 207995,
+    name: 'Fire of the Twisting Nether',
+    icon: 'spell_fire_rune',
+  },
+  CHILL_OF_THE_TWISTING_NETHER: {
+    id: 207998,
+    name: 'Chill of the Twisting Nether',
+    icon: 'spell_ice_rune',
+  },
   // Elemental Shaman
   ELEMENTAL_MASTERY: {
     id: 168534,

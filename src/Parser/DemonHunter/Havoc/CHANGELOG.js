@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
 	{
+		date: new Date('2018-03-01'),
+		changes: <Wrapper>Added <SpellLink id ={SPELLS.BLIND_FURY_TALENT.id} icon/> to the fury tracker.</Wrapper>,
+		contributors: [Hewhosmites],
+	},
+	{
 		date: new Date('2018-02-27'),
 		changes: <Wrapper>Added <ItemLink id={ITEMS.CHAOS_THEORY.id} icon/></Wrapper>,
 		contributors: [Hewhosmites],

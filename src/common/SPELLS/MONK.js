@@ -559,6 +559,21 @@ export default {
     name: 'Mastery: Elusive Brawler',
     icon: 'ability_monk_shuffle',
   },
+  WANDERERS_HARDINESS_TRAIT: {
+    id: 214920,
+    name: "Wanderer's Hardiness",
+    icon: "inv_staff_2h_artifactmonkeyking_d_02",
+  },
+  ENDURANCE_OF_THE_BROKEN_TEMPLE_TRAIT: {
+    id: 241131,
+    name: "Endurance of the Broken Temple",
+    icon: "misc_legionfall_monk",
+  },
+  BREW_STACHE: {
+    id: 214373,
+    name: "Brew-Stache",
+    icon: "inv_misc_archaeology_vrykuldrinkinghorn",
+  },
 
   // Windwalker Spells
   COMBO_STRIKES: {

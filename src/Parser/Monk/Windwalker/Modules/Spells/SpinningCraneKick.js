@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -100,9 +101,9 @@ class SpinningCraneKick extends Analyzer {
     when(this.badCasts).isGreaterThan(0).addSuggestion(
       (suggest, actual, recommended) => {
         return suggest(
-          <wrapper>
+          <Wrapper>
             You have ineffecient casts of <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} />
-          </wrapper>
+          </Wrapper>
         )
         .icon(SPELLS.SPINNING_CRANE_KICK.icon)
         .actual(`${this.badCasts} Bad Casts`)

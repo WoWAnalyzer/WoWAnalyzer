@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-03-04'),
+    changes: 'Added Tier 21 bonuses.',
+    contributors: [Gebuz],
+  },
+  {
     date: new Date('2018-02-17'),
     changes: <Wrapper>Added cooldown reduction from <SpellLink id={SPELLS.RED_THIRST_TALENT.id} icon />.</Wrapper>,
     contributors: [Gebuz],
@@ -20,7 +25,7 @@ export default [
   },
   {
     date: new Date('2018-01-27'),
-    changes: 'Added overcapped Runes',
+    changes: 'Added overcapped Runes.',
     contributors: [Gebuz],
   },
   {

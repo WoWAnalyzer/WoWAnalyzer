@@ -11,7 +11,7 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 
 const TRICK_SHOT_MODIFIER = 0.15;
 
-/*
+/**
  * Aimed Shot will now also ricochet and hit all Vulnerable targets for 30% of normal damage.
  * If there are no other Vulnerable targets, the damage of your next Aimed Shot is increased by 15%.
  */

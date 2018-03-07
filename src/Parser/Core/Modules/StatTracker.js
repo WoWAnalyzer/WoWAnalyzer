@@ -6,6 +6,7 @@ import { formatMilliseconds } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import { STAT_TRACKER_BUFFS as DARKMOON_DECK_IMMORTALITY_BUFFS } from 'Parser/Core/Modules/Items/Legion/DarkmoonDeckImmortality';
 
 const debug = false;
 
@@ -13,6 +14,23 @@ const debug = false;
 class StatTracker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+  };
+
+  // These are multipliers to the stats applied *on pull* that are not
+  // included in the stats reported by WCL. These are *baked in* and do
+  // not multiply temporary buffs.
+  //
+  // In general, it looks like armor is the only one that isn't applied
+  // by WCL.
+  static SPEC_MULTIPLIERS = {
+    [SPECS.BREWMASTER_MONK.id]: { armor: 1.25 },
+  };
+
+  // These are multipliers from *binary* (have it or don't) artifact
+  // traits. These are *baked in* and do not multiply temporary buffs.
+  static ARTIFACT_MULTIPLIERS = {
+    [SPELLS.ENDURANCE_OF_THE_BROKEN_TEMPLE_TRAIT.id]: { armor: 0.35 },
+    [SPELLS.WANDERERS_HARDINESS_TRAIT.id]: { armor: 0.17 },
   };
 
   static STAT_BUFFS = {
@@ -150,7 +168,11 @@ class StatTracker extends Analyzer {
     //  itemId: ITEMS.KHAZGOROTHS_COURAGE.id,
     //  haste: (_, item) => calculateSecondaryStatDefault(940, 4219, item.itemLevel),
     //},
-    // endregion 
+    // endregion
+
+    // region Crafted Trinkets
+    ...DARKMOON_DECK_IMMORTALITY_BUFFS,
+    // endregion
 
     // region Misc
     [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH.id]: { // check numbers
@@ -203,12 +225,29 @@ class StatTracker extends Analyzer {
       avoidance: this.combatants.selected._combatantInfo.avoidance,
       leech: this.combatants.selected._combatantInfo.leech,
       speed: this.combatants.selected._combatantInfo.speed,
+      armor: this.combatants.selected._combatantInfo.armor,
     };
+
+    this.applySpecModifiers();
+    this.applyArtifactModifiers();
+
     this._currentStats = {
       ...this._pullStats,
     };
 
     debug && this._debugPrintStats(this._currentStats);
+  }
+
+  applySpecModifiers() {
+    const modifiers = this.constructor.SPEC_MULTIPLIERS[this.combatants.selected.spec.id] || {};
+    Object.entries(modifiers).forEach(([stat, multiplier]) => this._pullStats[stat] *= multiplier);
+  }
+
+  applyArtifactModifiers() {
+    Object.entries(this.constructor.ARTIFACT_MULTIPLIERS).forEach(([spellId, modifiers]) => {
+      const rank = this.combatants.selected.traitsBySpellId[spellId] || 0;
+      Object.entries(modifiers).forEach(([stat, multiplier]) => this._pullStats[stat] *= 1 + multiplier * rank);
+    });
   }
 
   /*
@@ -248,6 +287,9 @@ class StatTracker extends Analyzer {
   get startingSpeedRating() {
     return this._pullStats.speed;
   }
+  get startingArmorRating() {
+    return this._pullStats.armor;
+  }
 
   /*
    * Current stat rating, as tracked by this module.
@@ -284,6 +326,9 @@ class StatTracker extends Analyzer {
   }
   get currentSpeedRating() {
     return this._currentStats.speed;
+  }
+  get currentArmorRating() {
+    return this._currentStats.armor;
   }
 
   // TODO: I think these should be ratings. They behave like ratings and I think the only reason they're percentages here is because that's how they're **displayed** in-game, but not because it's more correct.
@@ -447,6 +492,10 @@ class StatTracker extends Analyzer {
   speedPercentage(rating, withBase = false) {
     return (withBase ? this.baseSpeedPercentage : 0) + rating / this.speedRatingPerPercent;
   }
+  armorPercentage(rating) {
+    // tfw you get a formula from a rando on the wow forums
+    return rating / (rating + 7390);
+  }
 
   /*
    * For percentage stats, the current stat percentage as tracked by this module.
@@ -454,6 +503,8 @@ class StatTracker extends Analyzer {
   get currentCritPercentage() {
     return this.critPercentage(this.currentCritRating, true);
   }
+  // This is only the percentage from BASE + RATING.
+  // If you're looking for current haste percentage including buffs like Bloodlust, check the Haste module.
   get currentHastePercentage() {
     return this.hastePercentage(this.currentHasteRating, true);
   }
@@ -471,6 +522,9 @@ class StatTracker extends Analyzer {
   }
   get currentSpeedPercentage() {
     return this.speedPercentage(this.currentSpeedRating, true);
+  }
+  get currentArmorPercentage() {
+    return this.armorPercentage(this.currentArmorRating);
   }
 
   on_toPlayer_changebuffstack(event) {
@@ -533,6 +587,7 @@ class StatTracker extends Analyzer {
       avoidance: this._getBuffValue(change, change.avoidance) * factor,
       leech: this._getBuffValue(change, change.leech) * factor,
       speed: this._getBuffValue(change, change.speed) * factor,
+      armor: this._getBuffValue(change, change.armor) * factor,
     };
 
     Object.keys(this._currentStats).forEach(key => {
@@ -589,7 +644,7 @@ class StatTracker extends Analyzer {
   }
 
   _statPrint(stats) {
-    return `STR=${stats.strength} AGI=${stats.agility} INT=${stats.intellect} STM=${stats.stamina} CRT=${stats.crit} HST=${stats.haste} MST=${stats.mastery} VRS=${stats.versatility} AVD=${this._currentStats.avoidance} LCH=${stats.leech} SPD=${stats.speed}`;
+    return `STR=${stats.strength} AGI=${stats.agility} INT=${stats.intellect} STM=${stats.stamina} CRT=${stats.crit} HST=${stats.haste} MST=${stats.mastery} VRS=${stats.versatility} AVD=${this._currentStats.avoidance} LCH=${stats.leech} SPD=${stats.speed} ARMOR=${this._currentStats.armor}`;
   }
 }
 

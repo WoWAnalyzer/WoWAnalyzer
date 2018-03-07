@@ -1,4 +1,5 @@
 export default `
+03-05-2018 - Added Eye of the Twisting Nether
 03-02-2018 - Fixed Fire Elemental Precast not counting towards Casting Efficiency
 20-01-2018 - Added Smoldering Heart, first Pass at Echoes of the Great Sundering and fixed Elemental Blast
 10-01-2018 - Fixed Ankh not counting as a rezz and implemented Maelstrom Chart

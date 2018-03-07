@@ -154,6 +154,19 @@ export default {
     name: 'T20 4 Set Bonus',
     icon: 'spell_deathknight_bloodpresence',
   },
+  // T21 2 Piece
+  BLOOD_DEATH_KNIGHT_T21_2SET_BONUS_BUFF: {
+    id: 251876,
+    name: 'T21 2 Set Bonus',
+    icon: 'ability_paladin_conviction',
+  },
+  // T21 4 Piece
+  BLOOD_DEATH_KNIGHT_T21_4SET_BONUS_BUFF: {
+    id: 251877,
+    name: 'T21 4 Set Bonus',
+    icon: 'ability_paladin_conviction',
+  },
+
   // Blood T21 4 Piece buff
   RUNE_MASTER: {
     id: 253381,
@@ -436,7 +449,7 @@ export default {
 	  name: 'Unholy Strength',
 	  icon: 'spell_holy_blessingofstrength',
   },
-
+  
   // Unholy Tier Sets
   // T20 2 Piece and buff
   UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS: {
@@ -467,6 +480,12 @@ export default {
     id: 253367,
     name: 'Coils of Devastation (T21 2 Set Bonus)',
     icon: 'ability_malkorok_blightofyshaarj_green',
+  },
+  //Legendary Item Buffs
+  TAKTHERITRIXS_COMMAND: {
+    id: 215069,
+    name: 'Tak\'theritrix\'s Command',
+    icon: 'achievement_boss_festergutrotface',
   },
 
   // Artifact traits:
