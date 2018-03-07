@@ -168,8 +168,8 @@ class StatTracker extends Analyzer {
     //  itemId: ITEMS.KHAZGOROTHS_COURAGE.id,
     //  haste: (_, item) => calculateSecondaryStatDefault(940, 4219, item.itemLevel),
     //},
-    // endregion 
-    
+    // endregion
+
     // region Crafted Trinkets
     ...DARKMOON_DECK_IMMORTALITY_BUFFS,
     // endregion
@@ -503,6 +503,8 @@ class StatTracker extends Analyzer {
   get currentCritPercentage() {
     return this.critPercentage(this.currentCritRating, true);
   }
+  // This is only the percentage from BASE + RATING.
+  // If you're looking for current haste percentage including buffs like Bloodlust, check the Haste module.
   get currentHastePercentage() {
     return this.hastePercentage(this.currentHasteRating, true);
   }
