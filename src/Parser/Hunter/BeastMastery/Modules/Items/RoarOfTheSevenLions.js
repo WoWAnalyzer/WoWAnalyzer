@@ -6,7 +6,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
-import FocusTracker from 'Parser/Hunter/Shared/Modules/Features/FocusChart/FocusTracker';
+import TimeFocusCapped from 'Parser/Hunter/Shared/Modules/Features/TimeFocusCapped';
 
 /*
  * Roar of the Seven Lions
@@ -28,16 +28,19 @@ const VOLLEY_COST = 3;
 
 const FOCUS_COST_REDUCTION = 0.15;
 
+const SLITHERING_SERPENTS_REDUCTION = 2;
+
+const STARTING_FOCUS = 120;
+
 class RoarOfTheSevenLions extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    focusTracker: FocusTracker,
+    timeFocusCapped: TimeFocusCapped,
   };
 
-  focusCostCasts = 0;
-  totalFocusSaved = 0;
   lastFocusCost = 0;
   lastVolleyHit = 0;
+
   focusSpenderCasts = {
     [SPELLS.COBRA_SHOT.id]: {
       casts: 0,
@@ -90,6 +93,9 @@ class RoarOfTheSevenLions extends Analyzer {
       return;
     }
     this.lastFocusCost = event.classResources[0]['cost'] || 0;
+    if (spellId === SPELLS.COBRA_SHOT.id && this.combatants.selected.traitsBySpellId[SPELLS.SLITHERING_SERPENTS_TRAIT.id]) {
+      this.lastFocusCost -= this.combatants.selected.traitsBySpellId[SPELLS.SLITHERING_SERPENTS_TRAIT.id] * SLITHERING_SERPENTS_REDUCTION;
+    }
     this.focusSpenderCasts[spellId].casts += 1;
     this.focusSpenderCasts[spellId].focusSaved += this.lastFocusCost * FOCUS_COST_REDUCTION;
   }
@@ -97,10 +103,7 @@ class RoarOfTheSevenLions extends Analyzer {
   //since Volley has no cast event, I'm going to use it's damage event as they are simultaneous
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.VOLLEY_ACTIVATED.id) {
-      return;
-    }
-    if (!this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
+    if (spellId !== SPELLS.VOLLEY_ACTIVATED.id || !this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
       return;
     }
     //since it can hit several mobs, this ensures we only subtract the focus once
@@ -112,14 +115,24 @@ class RoarOfTheSevenLions extends Analyzer {
 
   }
 
-  item() {
-    const focusSpenders = [[SPELLS.COBRA_SHOT.id], [SPELLS.MULTISHOT.id], [SPELLS.KILL_COMMAND.id], [SPELLS.REVIVE_PET_AND_MEND_PET.id], [SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id], [SPELLS.BARRAGE_TALENT.id], [SPELLS.VOLLEY_ACTIVATED.id]];
-    focusSpenders.map(ability => this.totalFocusSaved += this.focusSpenderCasts[ability].focusSaved);
-    focusSpenders.map(ability => this.focusCostCasts += this.focusSpenderCasts[ability].casts);
-    const averageFocusCostReduction = this.totalFocusSaved / this.focusCostCasts;
+  get totalFocusSaved() {
+    let totalFocusSaved = 0;
+    LIST_OF_FOCUS_SPENDERS.map(ability => totalFocusSaved += this.focusSpenderCasts[ability].focusSaved);
+    return totalFocusSaved;
+  }
 
-    let tooltipText = `Overall Roar of the Seven Lions saved you an average of ${averageFocusCostReduction.toFixed(2)} focus per affected cast <br/>This shows a more accurate breakdown of which abilities were cast during Bestial Wrath, and where the various focus reduction occured:<ul>`;
-    focusSpenders.forEach(focusSpender => {
+  get focusCostCasts() {
+    let focusCostCasts = 0;
+    LIST_OF_FOCUS_SPENDERS.map(ability => focusCostCasts += this.focusSpenderCasts[ability].casts);
+    return focusCostCasts;
+  }
+  get averageFocusCostReduction() {
+    return this.totalFocusSaved / this.focusCostCasts;
+  }
+
+  item() {
+    let tooltipText = `Overall Roar of the Seven Lions saved you an average of ${this.averageFocusCostReduction.toFixed(2)} focus per affected cast <br/>This shows a more accurate breakdown of which abilities were cast during Bestial Wrath, and where the various focus reduction occured:<ul>`;
+    LIST_OF_FOCUS_SPENDERS.forEach(focusSpender => {
       if (this.focusSpenderCasts[focusSpender].casts > 0) {
         tooltipText += `<li>${this.focusSpenderCasts[focusSpender].name}<ul><li>Casts: ${this.focusSpenderCasts[focusSpender].casts}</li><li>Focus saved: ${formatNumber(this.focusSpenderCasts[focusSpender].focusSaved)}</li></ul></li>`;
       }
@@ -140,7 +153,8 @@ class RoarOfTheSevenLions extends Analyzer {
     console.log(this.focusSavedSuggestionThresholds);
   }
   get focusSavedSuggestionThresholds() {
-    return this.totalFocusSaved / (this.owner.fightDuration / 1000 * this.focusTracker.focusGen);
+
+    return this.totalFocusSaved / (this.timeFocusCapped.totalGenerated + STARTING_FOCUS);
   }
 
   suggestions(when) {

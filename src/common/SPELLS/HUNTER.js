@@ -162,6 +162,11 @@ export default {
     name: 'Titan\'s Thunder',
     icon: 'ability_hunter_longevity',
   },
+  SLITHERING_SERPENTS_TRAIT: {
+    id: 238051,
+    name: 'Slithering Serpents',
+    icon: 'ability_hunter_cobrashot',
+  },
   COBRA_COMMANDER_TRAIT: {
     id: 238123,
     name: 'Cobra Commander',

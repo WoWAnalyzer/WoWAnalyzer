@@ -1,12 +1,12 @@
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import StatTracker from 'Parser/Core/Modules/StatTracker';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import Haste from 'Parser/Core/Modules/Haste';
 
 class FocusTracker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    statTracker: StatTracker,
+    haste: Haste,
   };
 
   lastEventTimestamp = 0;
@@ -17,6 +17,8 @@ class FocusTracker extends Analyzer {
   activeFocusGenerated = {};
   tracker = 0; //to tell if any prop has updated, since we can't compare arrays
   _maxFocus = 0;
+  totalFocusGenModifier = 0;
+  totalFocusGenModifiedTimes = 0;
 
   on_initialized() {
     this.lastEventTimestamp = this.owner.fight.start_time;
@@ -56,7 +58,7 @@ class FocusTracker extends Analyzer {
   }
 
   checkPassiveWaste(event) {
-    if ((event.sourceID === this.owner.player.id || event.targetID === this.owner.player.id) && event.classResources && event.classResources[0].type === RESOURCE_TYPES.FOCUS.id) {
+    if (event.classResources && event.classResources[0].type === RESOURCE_TYPES.FOCUS.id) {
       this.checkForMaxFocus(event);
       this.tracker++;
       const secIntoFight = (event.timestamp - this.owner.fight.start_time);
@@ -110,8 +112,9 @@ class FocusTracker extends Analyzer {
   }
 
   extrapolateFocus(eventTimestamp) {
-    // TODO: Account for Haste buffs
-    this.focusGen = Math.round((10 + .1 * this.statTracker.startingHasteRating / 375) * 100) / 100;
+    this.focusGen = 10 + .1 * (this.haste.current * 100);
+    this.totalFocusGenModifier += this.focusGen;
+    this.totalFocusGenModifiedTimes++;
     const maxFocus = this._maxFocus;
     this.focusBySecond[0] = maxFocus;
     for (let i = this.lastEventTimestamp - this.owner.fight.start_time; i < (eventTimestamp - this.owner.fight.start_time); i++) {  //extrapolates focus given passive focus gain (TODO: Update for pulls with Volley)
@@ -132,6 +135,10 @@ class FocusTracker extends Analyzer {
 
     }
     this.lastEventTimestamp = eventTimestamp;
+  }
+
+  get averageFocusGen() {
+    return this.totalFocusGenModifier / this.totalFocusGenModifiedTimes;
   }
 
 }
