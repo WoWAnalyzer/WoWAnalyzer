@@ -18,6 +18,8 @@ import Tier20_2set from './Modules/Items/Tier20_2set';
 import Tier21_2set from './Modules/Items/Tier21_2set';
 import Tier21_4set from './Modules/Items/Tier21_4set';
 
+import EyeOfTheTwistingNether from '../Shared/Items/EyeOfTheTwistingNether';
+
 
 // import SmolderingHeart from './Modules/Legendaries/SmolderingHeart';
 
@@ -37,6 +39,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
     // Legendaries:
+    eyeOfTheTwistingNether: EyeOfTheTwistingNether,
     // Tier
     tier20_2set: Tier20_2set,
     tier21_2set: Tier21_2set,
