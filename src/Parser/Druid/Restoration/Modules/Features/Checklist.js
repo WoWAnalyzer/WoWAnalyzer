@@ -213,7 +213,7 @@ class Checklist extends CoreChecklist {
             name: <Wrapper><SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} icon /> throughput</Wrapper>,
             check: () => this.treeOfLife.suggestionThresholds,
             tooltip: `This is the percent of your total healing that Tree of Life contributed. Below around ${formatPercentage(this.treeOfLife.suggestionThresholds.isLessThan.average, 0)}%, you either didn't pick good times to use ToL or you would have been better off picking Cultivation`,
-            when: this.treeOfLife.active,
+            when: this.treeOfLife.hasTol,
           }),
         ];
       },
