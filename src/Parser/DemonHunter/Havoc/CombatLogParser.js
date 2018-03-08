@@ -30,6 +30,7 @@ import Tier21_4set from './Modules/Items/Tier21_4set';
 import DemonReborn from './Modules/Talents/DemonReborn';
 
 //Traits
+import RelicTraits from './Modules/Traits/RelicTraits';
 import UnleashedDemons from './Modules/Traits/UnleashedDemons';
 import FeastOnTheSouls from './Modules/Traits/FeastOnTheSouls';
 
@@ -70,6 +71,7 @@ class CombatLogParser extends CoreCombatLogParser {
     demonReborn: DemonReborn,
 
     //Traits
+    relicTraits: RelicTraits,
     unleashedDemons: UnleashedDemons,
     feastOnTheSouls: FeastOnTheSouls,
   };
