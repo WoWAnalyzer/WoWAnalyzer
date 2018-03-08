@@ -18,7 +18,7 @@ const DEMON_RAGE_SPELLS = [
 
 /*
 * Demon Rage (Artifact Trait)
-* Increases damage dealt by Demon Rage by 6%
+* Increases damage dealt by Demons Bite/Demon Blades by 6%
 */
 
 class DemonRage extends Analyzer {
