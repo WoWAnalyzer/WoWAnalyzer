@@ -24,7 +24,7 @@ class ChiDetails extends Analyzer {
           average: 1,
           major: 2,
         },
-        style: 'number',
+        style: 'decimal',
       };
     }
     

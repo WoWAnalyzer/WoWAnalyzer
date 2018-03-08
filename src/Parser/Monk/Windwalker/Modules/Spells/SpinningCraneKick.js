@@ -97,18 +97,29 @@ class SpinningCraneKick extends Analyzer {
     }
   }
 
+  get suggestionThresholds() {
+    return {
+      actual: this.badCasts,
+      isGreaterThan: {
+        minor: 0,
+        regular: 2,
+        major: 4,
+      },
+      style: 'number',
+    };
+  }
+
   suggestions(when) {
-    when(this.badCasts).isGreaterThan(0).addSuggestion(
+    when(this.suggestionThresholds).addSuggestion(
       (suggest, actual, recommended) => {
         return suggest(
           <Wrapper>
             You have ineffecient casts of <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} />
           </Wrapper>
         )
-        .icon(SPELLS.SPINNING_CRANE_KICK.icon)
-        .actual(`${this.badCasts} Bad Casts`)
-        .recommended("0 Bad Casts are recommended")
-        .regular(3).major(5);
+          .icon(SPELLS.SPINNING_CRANE_KICK.icon)
+          .actual(`${this.badCasts} Bad Casts`)
+          .recommended("0 Bad Casts are recommended");
       });
   }
 

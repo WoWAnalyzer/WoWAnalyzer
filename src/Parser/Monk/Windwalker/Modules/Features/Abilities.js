@@ -141,6 +141,26 @@ class Abilities extends CoreAbilities {
         cooldown: haste => 6 / (1 + haste),
         enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT.id),
       },
+      // Defensives
+      {
+        spell: SPELLS.DIFFUSE_MAGIC_TALENT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: haste => 90,
+        enabled: combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT.id),
+      },
+      {
+        spell: SPELLS.DAMPEN_HARM_TALENT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: haste => 90,
+        enabled: combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id),
+      },
+      {
+        spell: SPELLS.HEALING_ELIXIR_TALENT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: haste => 30,
+        charges: 2,
+        enabled: combatant.hasTalent(SPELLS.HEALING_ELIXIR_TALENT.id),
+      },
     ];
   }
 }

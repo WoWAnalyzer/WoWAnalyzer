@@ -85,20 +85,42 @@ class TheEmperorsCapacitor extends Analyzer {
     };
   }
 
+  get wastedStacksSuggestionThresholds() {
+    return {
+      actual: this.stacksWasted,
+      isGreaterThan: {
+        minor: 5,
+        average: 10,
+        major: 15,
+      },
+      style: 'number',
+    };
+  }
+
+  get averageStacksSuggestionThresholds() {
+    return {
+      actual: this.averageStacksUsed,
+      isLessThan: {
+        minor: 18,
+        average: 16,
+        major: 14,
+      },
+      style: 'decimal',
+    };
+  }
+
   suggestions(when) {
-    when(this.stacksWasted).isGreaterThan(5).addSuggestion((suggest, actual, recommended) => {
+    when(this.wastedStacksSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<span> You wasted your <SpellLink id={SPELLS.THE_EMPERORS_CAPACITOR_STACK.id} /> stacks by using chi spenders while at 20 stacks </span>)
         .icon(ITEMS.THE_EMPERORS_CAPACITOR.icon)
         .actual(`${this.stacksWasted} Wasted stacks`)
-        .recommended(`<${(recommended)} Wasted stacks is recommended`)
-        .regular(recommended + 5).major(recommended + 10);
+        .recommended(`<${(recommended)} Wasted stacks is recommended`);
     });
-    when(this.averageStacksUsed).isLessThan(18).addSuggestion((suggest, actual, recommended) => {
+    when(this.averageStacksSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<span> Your average number of <SpellLink id={SPELLS.THE_EMPERORS_CAPACITOR_STACK.id} /> stacks used when you cast <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} /> was low </span>)
         .icon(ITEMS.THE_EMPERORS_CAPACITOR.icon)
         .actual(`${this.averageStacksUsed.toFixed(2)} average stacks used`)
-        .recommended(`Try to cast Crackling Jade Lightning while as close to 20 stacks as possible`)
-        .regular(recommended - 2).major(recommended - 4);
+        .recommended(`Try to cast Crackling Jade Lightning while as close to 20 stacks as possible`);
     });
   }
 }
