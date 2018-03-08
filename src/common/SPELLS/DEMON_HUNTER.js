@@ -549,7 +549,7 @@ export default {
     name: 'Feast of the Souls',
     icon: 'spell_warlock_soulburn',
   },
-  SHARPENED_GLAIVE: {
+  SHARPENED_GLAIVES: {
     id: 201457,
     name: 'Sharpened_GLAIVE',
     icon: 'ability_demonhunter_throwglaive',

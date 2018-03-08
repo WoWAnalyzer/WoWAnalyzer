@@ -9,14 +9,14 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import calculateEffectiveDamageStacked from 'Parser/Core/calculateEffectiveDamageStacked';
 
-const CHAOS_VISION_INCREASE = 0.06;
+const SHARPENED_GLAIVES_INCREASE = 0.05;
 
 /*
-* Chaos Vision (Artifact Trait)
-* Increases damage dealt by Eye Beam by 6%
+* Sharpened Glaives (Artifact Trait)
+* Increases damage dealt by Throw Glaive by 5%
 */
 
-class ChaosVision extends Analyzer {
+class SharpenedGlaives extends Analyzer {
 	static dependencies = {
     combatants: Combatants,
   };
@@ -25,24 +25,24 @@ class ChaosVision extends Analyzer {
   damage = 0;
 
   on_initialized() {
-    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.CHAOS_VISION.id];
+    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.SHARPENED_GLAIVES.id];
     this.active = this.rank > 0;
   }
 
   on_byPlayer_damage(event) {
- 		if(event.ability.guid !== SPELLS.EYE_BEAM_DAMAGE.id){
+ 		if(event.ability.guid !== SPELLS.THROW_GLAIVE_HAVOC.id){
  			return;
  		}
 
- 		this.damage += calculateEffectiveDamageStacked(event, CHAOS_VISION_INCREASE, this.rank);
+ 		this.damage += calculateEffectiveDamageStacked(event, SHARPENED_GLAIVES_INCREASE, this.rank);
  	}
 
  	subStatistic() {
  		return (
  			<div className='flex'>
  				<div className='flex-main'>
- 					<SpellLink id={SPELLS.CHAOS_VISION.id}>
- 						<SpellIcon id={SPELLS.CHAOS_VISION.id} noLink /> Chaos Vision
+ 					<SpellLink id={SPELLS.SHARPENED_GLAIVES.id}> 
+            <SpellIcon id={SPELLS.SHARPENED_GLAIVES.id} noLink /> Sharpened Glaives
  					</SpellLink>
  				</div>
  				<div className='flex-sub text-right'>
@@ -53,4 +53,4 @@ class ChaosVision extends Analyzer {
  	}
 }
 
-export default ChaosVision;
+export default SharpenedGlaives;

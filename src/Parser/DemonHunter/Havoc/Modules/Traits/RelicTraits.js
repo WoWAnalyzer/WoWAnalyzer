@@ -5,10 +5,16 @@ import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import CriticalChaos from './CriticalChaos';
+import ChaosVision from './ChaosVision';
+import SharpenedGlaives from './SharpenedGlaives';
+import DemonRage from './DemonRage';
 
 class RelicTraits extends Analyzer {
 	static dependencies = {
 		criticalChaos: CriticalChaos,
+		chaosVision: ChaosVision,
+		sharpenedGlaives: SharpenedGlaives,
+		demonRage: DemonRage,
 	};
 
 	statistic() {
@@ -19,6 +25,10 @@ class RelicTraits extends Analyzer {
         style={{ minHeight: 186 }}
 			>
 				{this.criticalChaos.subStatistic()}
+				{this.chaosVision.subStatistic()}
+				{this.sharpenedGlaives.subStatistic()}
+				{this.demonRage.subStatistic()}
+
 			</StatisticsListBox>
 		);
 	}

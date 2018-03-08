@@ -9,14 +9,19 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import calculateEffectiveDamageStacked from 'Parser/Core/calculateEffectiveDamageStacked';
 
-const CHAOS_VISION_INCREASE = 0.06;
+const DEMON_RAGE_INCREASE = 0.06;
+
+const DEMON_RAGE_SPELLS = [
+  SPELLS.DEMONS_BITE.id,
+  SPELLS.DEMON_BLADES_FURY.id,
+];
 
 /*
-* Chaos Vision (Artifact Trait)
-* Increases damage dealt by Eye Beam by 6%
+* Demon Rage (Artifact Trait)
+* Increases damage dealt by Demon Rage by 6%
 */
 
-class ChaosVision extends Analyzer {
+class DemonRage extends Analyzer {
 	static dependencies = {
     combatants: Combatants,
   };
@@ -25,24 +30,24 @@ class ChaosVision extends Analyzer {
   damage = 0;
 
   on_initialized() {
-    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.CHAOS_VISION.id];
+    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.DEMON_RAGE.id];
     this.active = this.rank > 0;
   }
 
   on_byPlayer_damage(event) {
- 		if(event.ability.guid !== SPELLS.EYE_BEAM_DAMAGE.id){
+ 		if(!DEMON_RAGE_SPELLS.includes(event.ability.guid)){
  			return;
  		}
 
- 		this.damage += calculateEffectiveDamageStacked(event, CHAOS_VISION_INCREASE, this.rank);
+ 		this.damage += calculateEffectiveDamageStacked(event, DEMON_RAGE_INCREASE, this.rank);
  	}
 
  	subStatistic() {
  		return (
  			<div className='flex'>
  				<div className='flex-main'>
- 					<SpellLink id={SPELLS.CHAOS_VISION.id}>
- 						<SpellIcon id={SPELLS.CHAOS_VISION.id} noLink /> Chaos Vision
+ 					<SpellLink id={SPELLS.DEMON_RAGE.id}>
+ 						<SpellIcon id={SPELLS.DEMON_RAGE.id} noLink /> Demon Rage
  					</SpellLink>
  				</div>
  				<div className='flex-sub text-right'>
@@ -53,4 +58,4 @@ class ChaosVision extends Analyzer {
  	}
 }
 
-export default ChaosVision;
+export default DemonRage;
