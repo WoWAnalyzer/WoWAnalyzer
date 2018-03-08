@@ -31,6 +31,7 @@ import DemonReborn from './Modules/Talents/DemonReborn';
 
 //Traits
 import RelicTraits from './Modules/Traits/RelicTraits';
+import CriticalChaos from './Modules/Traits/CriticalChaos';
 import UnleashedDemons from './Modules/Traits/UnleashedDemons';
 import FeastOnTheSouls from './Modules/Traits/FeastOnTheSouls';
 
@@ -72,6 +73,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Traits
     relicTraits: RelicTraits,
+    criticalChaos: CriticalChaos,
     unleashedDemons: UnleashedDemons,
     feastOnTheSouls: FeastOnTheSouls,
   };
