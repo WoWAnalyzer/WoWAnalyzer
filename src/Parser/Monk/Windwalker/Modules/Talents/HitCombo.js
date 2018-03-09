@@ -25,17 +25,28 @@ class HitCombo extends Analyzer {
     this.active = this.combatants.selected.hasTalent(SPELLS.HIT_COMBO_TALENT.id);
   }
 
+  get suggestionThresholds() {
+    const hitComboUptime = this.combatants.selected.getBuffUptime(SPELLS.HIT_COMBO_BUFF.id) / this.owner.fightDuration;
+    return {
+      actual: hitComboUptime,
+      isLessThan: {
+        minor: 0.98,
+        average: 0.95,
+        major: 0.90,
+      },
+      style: 'percentage',
+    };
+  }
 
   suggestions(when) {
     const hitComboUptime = this.combatants.selected.getBuffUptime(SPELLS.HIT_COMBO_BUFF.id) / this.owner.fightDuration;
 
-    when(hitComboUptime).isLessThan(0.95)
+    when(this.suggestionThresholds).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You let your <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} /> buff drop by casting a spell twice in a row. Dropping this buff is a large DPS decrease so be mindful of the spells being cast.</span>)
           .icon(SPELLS.HIT_COMBO_TALENT.icon)
           .actual(`${formatPercentage(hitComboUptime)} % uptime`)
-          .recommended(`>${formatPercentage(recommended)} % is recommended`)
-          .regular(recommended - 0.1).major(recommended - 0.2);
+          .recommended(`>${formatPercentage(recommended)} % is recommended`);
       });
   }
 
