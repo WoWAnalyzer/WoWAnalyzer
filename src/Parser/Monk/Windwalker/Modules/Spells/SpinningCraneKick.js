@@ -102,7 +102,7 @@ class SpinningCraneKick extends Analyzer {
       actual: this.badCasts,
       isGreaterThan: {
         minor: 0,
-        regular: 2,
+        average: 2,
         major: 4,
       },
       style: 'number',

@@ -58,17 +58,27 @@ class ComboBreaker extends Analyzer {
       }
     }
   }
+  get suggestionThresholds() {
+    const unusedCBprocs = 1 - (this.consumedCBProc / this.CBProcsTotal);
+    const baseThreshold = this.combatants.selected.hasBuff(SPELLS.WW_TIER21_2PC.id) ? 0.05 : 0.1;
+    return {
+      actual: unusedCBprocs,
+      isGreaterThan: {
+        minor: baseThreshold,
+        average: baseThreshold * 2,
+        major: baseThreshold * 3,
+      },
+      style: 'percentage',
+    };
+  }
 
   suggestions(when) {
     const unusedCBprocs = 1 - (this.consumedCBProc / this.CBProcsTotal);
-    const unusedProcsRecommended = this.combatants.selected.hasBuff(SPELLS.WW_TIER21_2PC.id) ? 0.05 : 0.1;
-    when(unusedCBprocs).isGreaterThan(unusedProcsRecommended)
-      .addSuggestion((suggest, actual, recommended) => {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs should be used before you tiger palm again so they are not overwritten. While some will be overwritten due to higher priority of getting Chi for spenders, wasting <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs is not optimal.</span>)
           .icon(SPELLS.COMBO_BREAKER_BUFF.icon)
-         .actual(`${formatPercentage(unusedCBprocs)}% Unused Combo Breaker procs`)
-         .recommended(`<${formatPercentage(recommended)}% wasted Combo Breaker Procs is recommended`)
-          .regular(recommended * 2).major(recommended * 3);
+          .actual(`${formatPercentage(unusedCBprocs)}% Unused Combo Breaker procs`)
+          .recommended(`<${formatPercentage(recommended)}% wasted Combo Breaker Procs is recommended`);
     });
   }
   
