@@ -67,7 +67,10 @@ class Checklist extends CoreChecklist {
             spell: SPELLS.WHIRLING_DRAGON_PUNCH_TALENT,
             when: combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id),
           }),
-
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.CHI_WAVE_TALENT,
+            when: combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
+          }),
         ];
       },
     }),
