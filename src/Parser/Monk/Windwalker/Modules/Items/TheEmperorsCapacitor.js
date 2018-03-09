@@ -87,13 +87,13 @@ class TheEmperorsCapacitor extends Analyzer {
 
   get wastedStacksSuggestionThresholds() {
     return {
-      actual: this.stacksWasted,
+      actual: this.stacksWasted / this.totalStacks,
       isGreaterThan: {
         minor: 5,
         average: 10,
         major: 15,
       },
-      style: 'number',
+      style: 'percentage',
     };
   }
 
@@ -113,8 +113,8 @@ class TheEmperorsCapacitor extends Analyzer {
     when(this.wastedStacksSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<span> You wasted your <SpellLink id={SPELLS.THE_EMPERORS_CAPACITOR_STACK.id} /> stacks by using chi spenders while at 20 stacks </span>)
         .icon(ITEMS.THE_EMPERORS_CAPACITOR.icon)
-        .actual(`${this.stacksWasted} Wasted stacks`)
-        .recommended(`<${(recommended)} Wasted stacks is recommended`);
+        .actual(`You wasted ${this.stacksWasted}% of your stacks`)
+        .recommended(`<${(recommended)}% is recommended`);
     });
     when(this.averageStacksSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<span> Your average number of <SpellLink id={SPELLS.THE_EMPERORS_CAPACITOR_STACK.id} /> stacks used when you cast <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} /> was low </span>)

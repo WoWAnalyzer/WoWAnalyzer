@@ -84,7 +84,7 @@ class Checklist extends CoreChecklist {
             check: () => this.comboBreaker.suggestionThresholds,
           }),
           new Requirement({
-            name: <Wrapper>Hit with all 5 ticks from <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} icon /></Wrapper>,
+            name: <Wrapper>Average ticks hit with <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} icon /></Wrapper>,
             check: () => this.fistsofFury.suggestionThresholds,
           }),
         ];
@@ -143,7 +143,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: "Don't break mastery",
-      description: <Wrapper>Using a damaging ability twice in a row will lose mastery benefit on the second cast and drop the <SpellLink id={SPELLS.HIT_COMBO_TALENT.id}icon/> buff.</Wrapper>,
+      description: <Wrapper>Using the same damaging ability twice in a row will lose mastery benefit on the second cast and drop the <SpellLink id={SPELLS.HIT_COMBO_TALENT.id}icon/> buff if specced.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
@@ -153,6 +153,7 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: <Wrapper> <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} icon /> uptime </Wrapper>,
             check: () => this.hitCombo.suggestionThresholds,
+            when: this.hitCombo.active,
           }),
         ];
       },
