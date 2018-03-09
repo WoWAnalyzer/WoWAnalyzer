@@ -7,6 +7,9 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
 import TimeFocusCapped from 'Parser/Hunter/Shared/Modules/Features/TimeFocusCapped';
+import Wrapper from 'common/Wrapper';
+import ItemLink from 'common/ItemLink';
+import SpellLink from 'common/SpellLink';
 
 /*
  * Roar of the Seven Lions
@@ -23,13 +26,10 @@ const LIST_OF_FOCUS_SPENDERS = [
 ];
 
 const BUFFER_MS = 100;
-
 const VOLLEY_COST = 3;
-
 const FOCUS_COST_REDUCTION = 0.15;
-
 const SLITHERING_SERPENTS_REDUCTION = 2;
-
+const COBRA_SHOT_RANK_2_REDUCTION = 10;
 const STARTING_FOCUS = 120;
 
 class RoarOfTheSevenLions extends Analyzer {
@@ -93,11 +93,15 @@ class RoarOfTheSevenLions extends Analyzer {
       return;
     }
     this.lastFocusCost = event.classResources[0]['cost'] || 0;
-    if (spellId === SPELLS.COBRA_SHOT.id && this.combatants.selected.traitsBySpellId[SPELLS.SLITHERING_SERPENTS_TRAIT.id]) {
-      this.lastFocusCost -= this.combatants.selected.traitsBySpellId[SPELLS.SLITHERING_SERPENTS_TRAIT.id] * SLITHERING_SERPENTS_REDUCTION;
+    if (spellId === SPELLS.COBRA_SHOT.id) {
+      this.lastFocusCost -= COBRA_SHOT_RANK_2_REDUCTION;
+      if (this.combatants.selected.traitsBySpellId[SPELLS.SLITHERING_SERPENTS_TRAIT.id]) {
+        this.lastFocusCost -= this.combatants.selected.traitsBySpellId[SPELLS.SLITHERING_SERPENTS_TRAIT.id] * SLITHERING_SERPENTS_REDUCTION;
+      }
     }
     this.focusSpenderCasts[spellId].casts += 1;
     this.focusSpenderCasts[spellId].focusSaved += this.lastFocusCost * FOCUS_COST_REDUCTION;
+
   }
 
   //since Volley has no cast event, I'm going to use it's damage event as they are simultaneous
@@ -149,25 +153,12 @@ class RoarOfTheSevenLions extends Analyzer {
     };
   }
 
-  on_finished() {
-    console.log(this.focusSavedPercentOfAvailable);
-  }
   get focusSavedPercentOfAvailable() {
     return this.totalFocusSaved / (this.timeFocusCapped.totalGenerated + STARTING_FOCUS);
   }
 
   get focusSavedThreshold() {
-    if(this.combatants.selected.hasTalent(SPELLS.ONE_WITH_THE_PACK_TALENT.id)) {
-      return {
-      actual: this.focusSavedPercentOfAvailable,
-      isLessThan: {
-        minor: 0.12,
-        average: 0.1,
-        major: 0.08,
-      },
-      style: 'percentage',
-    };
-  } else {
+    if (this.combatants.selected.hasTalent(SPELLS.ONE_WITH_THE_PACK_TALENT.id)) {
       return {
         actual: this.focusSavedPercentOfAvailable,
         isLessThan: {
@@ -177,10 +168,25 @@ class RoarOfTheSevenLions extends Analyzer {
         },
         style: 'percentage',
       };
+    } else {
+      return {
+        actual: this.focusSavedPercentOfAvailable,
+        isLessThan: {
+          minor: 0.09,
+          average: 0.075,
+          major: 0.06,
+        },
+        style: 'percentage',
+      };
     }
   }
   suggestions(when) {
-
+    when(this.focusSavedThreshold).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<Wrapper>You didn't save as much focus through <ItemLink id={ITEMS.ROAR_OF_THE_SEVEN_LIONS.id} icon /> as recommended, try to make sure you enter <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> with a high amount of focus and dump as much focus as you can inside that window. </Wrapper>)
+        .icon(ITEMS.ROAR_OF_THE_SEVEN_LIONS.icon)
+        .actual(`${actual} of total available focus was saved through Roar of the Seven Lions`)
+        .recommended(`>${recommended}% is recommended`);
+    });
   }
 }
 
