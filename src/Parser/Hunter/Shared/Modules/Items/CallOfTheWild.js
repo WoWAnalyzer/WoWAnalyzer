@@ -109,16 +109,14 @@ class CallOfTheWild extends Analyzer {
       this.lastWildCastTime = event.timestamp;
       this.tier21WildCDR = 0;
     }
-    if (this.combatants.selected.hasBuff(SPELLS.HUNTER_BM_T21_4P_BONUS.id)) {
-      if (spellId === SPELLS.KILL_COMMAND.id) {
-        const aspectIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.ASPECT_OF_THE_WILD.id);
-        if (aspectIsOnCooldown) {
-          const remainingMs = this.spellUsable.cooldownRemaining(SPELLS.ASPECT_OF_THE_WILD.id);
-          if (remainingMs > TIER_COOLDOWN_REDUCTION_MS) {
-            this.tier21WildCDR += TIER_COOLDOWN_REDUCTION_MS;
-          } else {
-            this.tier21WildCDR += remainingMs;
-          }
+    if (this.combatants.selected.hasBuff(SPELLS.HUNTER_BM_T21_4P_BONUS.id) && spellId === SPELLS.KILL_COMMAND.id) {
+      const aspectIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.ASPECT_OF_THE_WILD.id);
+      if (aspectIsOnCooldown) {
+        const remainingMs = this.spellUsable.cooldownRemaining(SPELLS.ASPECT_OF_THE_WILD.id);
+        if (remainingMs > TIER_COOLDOWN_REDUCTION_MS) {
+          this.tier21WildCDR += TIER_COOLDOWN_REDUCTION_MS;
+        } else {
+          this.tier21WildCDR += remainingMs;
         }
       }
     }
