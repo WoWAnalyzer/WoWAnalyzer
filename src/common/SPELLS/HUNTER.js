@@ -48,27 +48,27 @@ export default {
   },
   DIRE_FRENZY_TALENT_BUFF_1: {
     id: 246152,
-    name: 'Dire Frenzy',
+    name: 'Dire Frenzy 1',
     icon: 'ability_druid_mangle',
   },
   DIRE_FRENZY_TALENT_BUFF_2: {
     id: 246851,
-    name: 'Dire Frenzy',
+    name: 'Dire Frenzy 2',
     icon: 'ability_druid_mangle',
   },
   DIRE_FRENZY_TALENT_BUFF_3: {
     id: 246852,
-    name: 'Dire Frenzy',
+    name: 'Dire Frenzy 3',
     icon: 'ability_druid_mangle',
   },
   DIRE_FRENZY_TALENT_BUFF_4: {
     id: 246853,
-    name: 'Dire Frenzy',
+    name: 'Dire Frenzy 4',
     icon: 'ability_druid_mangle',
   },
   DIRE_FRENZY_TALENT_BUFF_5: {
     id: 246854,
-    name: 'Dire Frenzy',
+    name: 'Dire Frenzy 5',
     icon: 'ability_druid_mangle',
   },
   DIRE_FRENZY_DAMAGE: {

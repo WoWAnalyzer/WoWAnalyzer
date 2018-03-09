@@ -5,7 +5,7 @@ import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import TimeFocusCapped from 'Parser/Hunter/Shared/Modules/Features/TimeFocusCapped';
 
 /*
@@ -131,7 +131,7 @@ class RoarOfTheSevenLions extends Analyzer {
   }
 
   item() {
-    let tooltipText = `Overall Roar of the Seven Lions saved you an average of ${this.averageFocusCostReduction.toFixed(2)} focus per affected cast <br/>This shows a more accurate breakdown of which abilities were cast during Bestial Wrath, and where the various focus reduction occured:<ul>`;
+    let tooltipText = `Overall Roar of the Seven Lions saved you an average of ${this.averageFocusCostReduction.toFixed(2)} focus per affected cast, and saved you an equivalent to ${formatPercentage(this.focusSavedPercentOfAvailable)}% of your total available focus over the course of the fight. <br/>This shows a more accurate breakdown of which abilities were cast during Bestial Wrath, and where the various focus reduction occured:<ul>`;
     LIST_OF_FOCUS_SPENDERS.forEach(focusSpender => {
       if (this.focusSpenderCasts[focusSpender].casts > 0) {
         tooltipText += `<li>${this.focusSpenderCasts[focusSpender].name}<ul><li>Casts: ${this.focusSpenderCasts[focusSpender].casts}</li><li>Focus saved: ${formatNumber(this.focusSpenderCasts[focusSpender].focusSaved)}</li></ul></li>`;
@@ -150,13 +150,35 @@ class RoarOfTheSevenLions extends Analyzer {
   }
 
   on_finished() {
-    console.log(this.focusSavedSuggestionThresholds);
+    console.log(this.focusSavedPercentOfAvailable);
   }
-  get focusSavedSuggestionThresholds() {
-
+  get focusSavedPercentOfAvailable() {
     return this.totalFocusSaved / (this.timeFocusCapped.totalGenerated + STARTING_FOCUS);
   }
 
+  get focusSavedThreshold() {
+    if(this.combatants.selected.hasTalent(SPELLS.ONE_WITH_THE_PACK_TALENT.id)) {
+      return {
+      actual: this.focusSavedPercentOfAvailable,
+      isLessThan: {
+        minor: 0.12,
+        average: 0.1,
+        major: 0.08,
+      },
+      style: 'percentage',
+    };
+  } else {
+      return {
+        actual: this.focusSavedPercentOfAvailable,
+        isLessThan: {
+          minor: 0.12,
+          average: 0.1,
+          major: 0.08,
+        },
+        style: 'percentage',
+      };
+    }
+  }
   suggestions(when) {
 
   }

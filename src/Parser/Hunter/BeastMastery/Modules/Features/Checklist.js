@@ -150,7 +150,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Pick the right tools for the fight',
-      description: 'The throughput gain of some talents or legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly.',
+      description: 'The throughput gain of some talents or legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly, even after trying to improve your usage of said talent or legendary.',
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -208,6 +208,11 @@ class Checklist extends CoreChecklist {
             name: <Wrapper><SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} icon /> gained from <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} icon /></Wrapper>,
             when: combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id),
             check: () => this.callOfTheWild.suggestionsThresholds,
+          }),
+          new Requirement({
+            name: <Wrapper>% of total focus saved with <ItemLink id={ITEMS.ROAR_OF_THE_SEVEN_LIONS.id} icon /></Wrapper>,
+            when: combatant.hasWaist(ITEMS.ROAR_OF_THE_SEVEN_LIONS.id),
+            check: () => this.roarOfTheSevenLions.focusSavedThreshold,
           }),
         ];
       },
