@@ -41,6 +41,8 @@ import TheMantleOfCommand from 'Parser/Hunter/BeastMastery/Modules/Items/TheMant
 import SoulOfTheHuntmaster from 'Parser/Hunter/Shared/Modules/Items/SoulOfTheHuntmaster';
 import RoarOfTheSevenLions from 'Parser/Hunter/BeastMastery/Modules/Items/RoarOfTheSevenLions';
 import CallOfTheWild from 'Parser/Hunter/Shared/Modules/Items/CallOfTheWild';
+import ResourceIcon from 'common/ResourceIcon';
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -210,7 +212,7 @@ class Checklist extends CoreChecklist {
             check: () => this.callOfTheWild.suggestionsThresholds,
           }),
           new Requirement({
-            name: <Wrapper>% of total focus saved with <ItemLink id={ITEMS.ROAR_OF_THE_SEVEN_LIONS.id} icon /></Wrapper>,
+            name: <Wrapper><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Focus saved with <ItemLink id={ITEMS.ROAR_OF_THE_SEVEN_LIONS.id} icon /></Wrapper>,
             when: combatant.hasWaist(ITEMS.ROAR_OF_THE_SEVEN_LIONS.id),
             check: () => this.roarOfTheSevenLions.focusSavedThreshold,
           }),
