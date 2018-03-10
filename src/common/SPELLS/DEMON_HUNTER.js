@@ -355,6 +355,11 @@ export default {
     name: 'Chaos Blades',
     icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
   },
+  CHAOS_CLEAVE_DAMAGE: {
+    id: 236237,
+    name: 'Chaos Cleave',
+    icon: 'inv_weapon_shortblade_62',
+  },
   NEMESIS_DEMON: {
     id: 208579,
     name: 'Nemesis',
