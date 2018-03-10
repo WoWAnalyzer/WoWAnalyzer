@@ -20,6 +20,7 @@ import BoneShieldUptime from './BoneShieldUptime';
 import Ossuary from '../Talents/Ossuary';
 import BloodPlagueUptime from './BloodPlagueUptime';
 import AlwaysBeCasting from './AlwaysBeCasting';
+import CrimsonScourge from './CrimsonScourge';
 
 import RunicPowerDetails from '../RunicPower/RunicPowerDetails';
 import RuneTracker from '../../../Shared/RuneTracker';
@@ -37,6 +38,7 @@ class Checklist extends CoreChecklist {
     runicPowerDetails: RunicPowerDetails,
     boneShieldUptime: BoneShieldUptime,
     ossuary: Ossuary,
+    crimsonScourge: CrimsonScourge,
     runeTracker: RuneTracker,
   };
 
@@ -51,6 +53,12 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.DEATH_AND_DECAY,
+            when: this.combatants.selected.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.CRIMSON_SCOURGE.id} icon /> procs spent</Wrapper>,
+            check: () => this.crimsonScourge.efficiencySuggestionThresholds,
+            when: !this.combatants.selected.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BLOOD_TAP_TALENT,

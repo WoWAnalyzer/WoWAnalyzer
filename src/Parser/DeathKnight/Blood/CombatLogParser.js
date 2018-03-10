@@ -16,6 +16,7 @@ import CrimsonScourge from './Modules/Features/CrimsonScourge';
 import BlooddrinkerTicks from './Modules/Features/BlooddrinkerTicks';
 import UnendingThirstTracker from './Modules/Features/UnendingThirstTracker';
 import Checklist from './Modules/Features/Checklist';
+import DeathStrikeTimingGraph from './Modules/Features/DeathStrikeTimingGraph';
 
 // Resources
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
@@ -57,6 +58,7 @@ class CombatLogParser extends CoreCombatLogParser {
     blooddrinkerTicks: BlooddrinkerTicks,
     unendingThirstTracker:UnendingThirstTracker,
     checklist: Checklist,
+    deathStrikeTimingGraph: DeathStrikeTimingGraph,
 
 
     // DOT

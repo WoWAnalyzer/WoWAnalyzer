@@ -15,21 +15,28 @@ class ChiDetails extends Analyzer {
     static dependencies = {
         chiTracker: ChiTracker,
     };
-
+    get suggestionThresholds() {
+      const chiWastedPerMinute = (this.chiTracker.chiWasted / this.owner.fightDuration) * 1000 * 60;
+      return {
+        actual: chiWastedPerMinute,
+        isGreaterThan: {
+          minor: 0,
+          average: 1,
+          major: 2,
+        },
+        style: 'decimal',
+      };
+    }
+    
     suggestions(when) {
-        const chiWasted = this.chiTracker.chiWasted;
-        const chiWastedPerMinute = (chiWasted / this.owner.fightDuration) * 1000 * 60;
-        const MINOR = 0;
-        const AVG = 1;
-        const MAJOR = 2;
-        when(chiWastedPerMinute).isGreaterThan(MINOR)
-            .addSuggestion((suggest, actual, recommended) => {
-                return suggest('You are wasting Chi. Try to use it and not let it cap and go to waste')
-                    .icon('creatureportrait_bubble')
-                    .actual(`${chiWasted} Chi wasted (${chiWastedPerMinute.toFixed(2)} per minute)`)
-                    .recommended(`${recommended.toFixed(2)} Chi wasted is recommended`)
-                    .regular(AVG).major(MAJOR);
-            });
+      const chiWasted = this.chiTracker.chiWasted;
+      const chiWastedPerMinute = (chiWasted / this.owner.fightDuration) * 1000 * 60;
+      when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+        return suggest('You are wasting Chi. Try to use it and not let it cap and go to waste')
+          .icon('creatureportrait_bubble')
+          .actual(`${chiWasted} Chi wasted (${chiWastedPerMinute.toFixed(2)} per minute)`)
+          .recommended(`${recommended.toFixed(2)} Chi wasted is recommended`);
+      });
     }
 
     statistic() {
