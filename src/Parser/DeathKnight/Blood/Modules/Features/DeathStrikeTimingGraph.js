@@ -111,7 +111,7 @@ class DeathStrikeTimingGraph extends Analyzer {
     const deathsBySeconds = Object.keys(hpBySeconds).map(sec => {
       const deathEvent = deaths.find(event => event.seconds === Number(sec));
       if(!!deathEvent) {
-        return { hp: hpBySeconds[sec].maxHitPoints, ...deathEvent };
+        return { hp: hpBySeconds[sec].percentage, ...deathEvent };
       } else {
         return undefined;
       }
@@ -173,7 +173,7 @@ class DeathStrikeTimingGraph extends Analyzer {
 
       switch(dataset.label) {
         case DEATH_LABEL:
-          return `Player died when hit by ${safeAbilityName(deathsBySeconds[index].ability)} at ${formatNumber(deathsBySeconds[index].hp)} HP.`;
+          return `Player died when hit by ${safeAbilityName(deathsBySeconds[index].ability)} at ${formatNumber(deathsBySeconds[index].hp)}% HP.`;
         case DS_LABEL:
           return dsTooltip(deathstrikesBySeconds[index]);
         default:

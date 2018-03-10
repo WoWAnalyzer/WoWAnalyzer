@@ -270,3 +270,7 @@ export const Cloake = {
   nickname: 'Cloake',
   github: 'adilasif',
 };
+export const joshinator = {
+  nickname: 'joshinator',
+  github: 'joshinat0r',
+};

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Yajinni, Gebuz} from 'MAINTAINERS';
+import {Yajinni, Gebuz, joshinator} from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
@@ -8,6 +8,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-03-10'),
+    changes: <Wrapper>Added <SpellLink id={SPELLS.DEATH_STRIKE.id}icon/> Timing plot</Wrapper>,
+    contributors: [joshinator],
+  },
   {
     date: new Date('2018-03-04'),
     changes: 'Added Tier 21 bonuses.',
