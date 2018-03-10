@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { blazyb, sref, Zerotorescue } from 'MAINTAINERS';
-
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';

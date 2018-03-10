@@ -11,6 +11,7 @@ import CHANGELOG from './CHANGELOG';
 export default {
   spec: SPECS.HOLY_PALADIN,
   maintainers: [Zerotorescue],
+  patchCompatibility: '7.3.5',
   description: (
     <div>
       Hey I've been hard at work making this analyzer for you. I hope the suggestions give you useful pointers to improve your performance. Remember: focus on improving only one or two important things at a time. Improving isn't easy and will need your full focus until it becomes second nature to you.<br /><br />
@@ -20,7 +21,7 @@ export default {
       If you want to learn more about Holy Paladins, join the Paladin community at the <a href="https://discordapp.com/invite/hammerofwrath" target="_blank" rel="noopener noreferrer">Hammer of Wrath discord</a>. The <kbd>#holy-faq</kbd> channel has a lot of useful information including links to good guides.
     </div>
   ),
-  patchCompatibility: '7.3.5',
+  exampleReport: '/report/hNqbFwd7Mx3G1KnZ/18-Mythic+Antoran+High+Command+-+Kill+(6:51)/Taffly',
 
   // Shouldn't have to change these:
   changelog: CHANGELOG,

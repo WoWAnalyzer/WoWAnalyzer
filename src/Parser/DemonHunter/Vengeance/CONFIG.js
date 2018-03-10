@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { Mamtooth } from 'MAINTAINERS';
-import Wrapper from 'common/Wrapper';
 import SPECS from 'common/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import Wrapper from 'common/Wrapper';
+import Warning from 'common/Alert/Warning';
 
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
@@ -23,7 +24,12 @@ export default {
 
 			If you have any more questions about Demon Hunters, feel free to pay a visit to <a href="https://discord.gg/zGGkNGC" target="_blank" rel="noopener noreferrer">The Fel Hammer Discord</a>, if it's about a general tanking issue, there's also the <a href="https://discord.gg/j9Q5cy7" target="_blank" rel="noopener noreferrer">Tank Chat Discord</a> but if you'd like to discuss anything related to this analyzer, leave a message on GitHub issue or message @Mamtooth on WoWAnalyzer Discord.<br/><br/>
 
-			<center>NOW YOU ARE PREPARED!</center>
+			<center>NOW YOU ARE PREPARED!</center><br /><br />
+
+      <Warning>
+        This spec's analysis isn't complete yet. What we do show should be good to use, but it does not show the complete picture.<br />
+        If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact us on <a href="https://discord.gg/AxphPxU">Discord</a>.
+      </Warning>
 		</Wrapper>
 	),
   changelog: CHANGELOG,
