@@ -3,10 +3,14 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
+import SpellLink from 'common/SpellLink';
+import Wrapper from 'common/Wrapper';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
+
+const DURATION_WORTH_CASTING_MS = 8000;
 
 class CrimsonScourge extends Analyzer {
   static dependencies = {
@@ -19,6 +23,7 @@ class CrimsonScourge extends Analyzer {
   freeDeathAndDecayCounter = 0;
   deathAndDecayCounter = 0;
   wastedDeathAndDecays = 0;
+  endOfCombatCast = false;
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -27,6 +32,9 @@ class CrimsonScourge extends Analyzer {
     }
     if (this.combatants.selected.hasBuff(SPELLS.CRIMSON_SCOURGE.id, event.timestamp)) {
       this.freeDeathAndDecayCounter += 1;
+      if(this.endOfCombatCast){
+        this.endOfCombatCast = false;
+      }
     } else {
       this.deathAndDecayCounter += 1;
     }
@@ -40,14 +48,33 @@ class CrimsonScourge extends Analyzer {
     if(this.spellUsable.isOnCooldown(SPELLS.DEATH_AND_DECAY.id)){
       this.spellUsable.endCooldown(SPELLS.DEATH_AND_DECAY.id);
     }
+    if(event.timestamp + DURATION_WORTH_CASTING_MS > this.owner.fight.end_time){
+      this.endOfCombatCast = true;
+    }
   }
 
   get wastedCrimsonScourgeProcs(){
-    return this.crimsonScourgeProcsCounter - this.freeDeathAndDecayCounter;
+    const wastedProcs = this.crimsonScourgeProcsCounter - this.freeDeathAndDecayCounter;
+    if(this.endOfCombatCast){
+      return wastedProcs - 1;
+    }
+    return wastedProcs;
   }
 
   get wastedCrimsonScourgeProcsPercent(){
     return this.wastedCrimsonScourgeProcs / this.crimsonScourgeProcsCounter;
+  }
+
+  get efficiencySuggestionThresholds() {
+    return {
+      actual: 1 - this.wastedCrimsonScourgeProcsPercent,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: 0.85,
+      },
+      style: 'percentage',
+    };
   }
 
   get suggestionThresholds() {
@@ -59,13 +86,15 @@ class CrimsonScourge extends Analyzer {
         major: 0.15,
       },
       style: 'percentage',
-      text: 'You had unspent Crimson Scourge procs. Make sure you always use them.',
     };
   }
 
   suggestions(when) {
+    if(this.combatants.selected.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id)){
+      return;
+    }
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(suggest.text)
+      return suggest(<Wrapper>You had unspent <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} icon /> procs. Make sure you always use them.</Wrapper>)
         .icon(SPELLS.CRIMSON_SCOURGE.icon)
         .actual(`${formatPercentage(actual)}% Crimson Scourge procs wasted`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`);
@@ -77,7 +106,7 @@ class CrimsonScourge extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CRIMSON_SCOURGE.id} />}
         value={`${formatPercentage(this.wastedCrimsonScourgeProcsPercent)} %`}
-        label='Crimson Scourge procs Wasted'
+        label='Crimson Scourge procs wasted'
         tooltip={`${this.wastedCrimsonScourgeProcs} out of ${this.crimsonScourgeProcsCounter} procs wasted.`}
       />
     );

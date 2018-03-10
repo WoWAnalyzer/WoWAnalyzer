@@ -30,6 +30,18 @@ class AstralPowerDetails extends Analyzer {
     return this.wasted / this.total || 0;
   }
 
+  get suggestionThresholdsWasted() {
+    return {
+      actual: this.wastedPercent,
+      isGreaterThan: {
+        minor: 0,
+        average: 0.02,
+        major: 0.05,
+      },
+      style: 'percentage',
+    };
+  }
+
   get suggestionThresholds() {
     return {
       actual: 1 - this.wastedPercent,
@@ -43,12 +55,12 @@ class AstralPowerDetails extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
+    when(this.suggestionThresholdsWasted)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest('You overcapped {this.wasted} Astral Power. Always prioritize spending it over avoiding the overcap of any other ability.')
+        return suggest(`You overcapped ${this.wasted} Astral Power. Always prioritize spending it over avoiding the overcap of any other ability.`)
           .icon('ability_druid_cresentburn')
-          .actual(`${formatPercentage(this.wastedPercentage)}% overcapped Astral Power`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`);
+          .actual(`${formatPercentage(actual)}% overcapped Astral Power`)
+          .recommended(`${formatPercentage(recommended)}% is recommended`);
       });
   }
 
@@ -58,7 +70,7 @@ class AstralPowerDetails extends Analyzer {
         icon={<Icon icon="ability_druid_cresentburn" />}
         value={`${this.wastedPerMinute.toFixed(2)}`}
         label="Overcapped Astral Power per minute"
-        tooltip={`${this.wasted} out of ${this.total} (${formatPercentage(this.wastedPercentage)}%) Astral Power wasted.`}
+        tooltip={`${this.wasted} out of ${this.total} (${formatPercentage(this.wastedPercent)}%) Astral Power wasted.`}
       />
     );
   }

@@ -22,9 +22,9 @@ class RunicPowerDetails extends Analyzer {
     return {
       actual: 1 - this.wastedPercent,
       isLessThan: {
-        minor: 0.90,
-        average: 0.85,
-        major: .80,
+        minor: 0.95,
+        average: 0.90,
+        major: .85,
       },
       style: 'percentage',
     };
@@ -33,10 +33,10 @@ class RunicPowerDetails extends Analyzer {
   get suggestionThresholds() {
     return {
       actual: this.wastedPercent,
-      isLessThan: {
-        minor: 0.1,
-        average: 0.15,
-        major: .2,
+      isGreaterThan: {
+        minor: 0.05,
+        average: 0.1,
+        major: .15,
       },
       style: 'percentage',
     };
@@ -46,8 +46,8 @@ class RunicPowerDetails extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Runic Power.`)
           .icon('inv_sword_62')
-          .actual(`${this.rpWasted}% wasted`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended. `);
+          .actual(`${formatPercentage(actual)}% wasted`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`);
       });
   }
 
