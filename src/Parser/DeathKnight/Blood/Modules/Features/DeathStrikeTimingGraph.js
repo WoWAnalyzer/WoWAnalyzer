@@ -67,26 +67,31 @@ class DeathStrikeTimingGraph extends Analyzer {
     this._hpEvents.forEach(({ timestamp, hitPoints, maxHitPoints }) => {
       const seconds = Math.floor((timestamp - this.owner.fight.start_time) / PRECISION);
       // we fill in the blanks later if hitPoints is not defined
+
+      let percent = Math.round((hitPoints / maxHitPoints) * 100, 2);
+      if (percent > 100) { //maxHitPoints is sometimes bigger than hitPoints?
+        percent = 100;
+      }
+
       if(!!hitPoints) {
-        hpBySeconds[seconds] = { hitPoints, maxHitPoints };
+        hpBySeconds[seconds] = { 
+          hitPoints: hitPoints, 
+          maxHitPoints: maxHitPoints,
+          percentage: percent,
+        };
       }
     });
 
     // fill in blanks. after deaths hp should be set to
     // zero. in periods of no activity, the same hp should be
     // preserved.
-    let maxHP = 0;
-    let lastHpContents = { hitPoints: 0, maxHitPoints: 0 };
+    let lastHpContents = { hitPoints: 0, maxHitPoints: 0 , percentage: 0 };
     for(const label in labels) {
 
       if(hpBySeconds[label] === undefined) {
         hpBySeconds[label] = lastHpContents;
       } else {
         lastHpContents = hpBySeconds[label];
-      }
-
-      if (lastHpContents.maxHitPoints > maxHP) {
-        maxHP = lastHpContents.maxHitPoints;
       }
 
       if(!!deaths.find(event => event.seconds === Number(label))) {
@@ -97,8 +102,7 @@ class DeathStrikeTimingGraph extends Analyzer {
     const deathstrikesBySeconds = Object.keys(hpBySeconds).map(sec => {
       const deathstrikeEvent = deathstrikes.find(event => event.seconds === Number(sec));
       if(!!deathstrikeEvent) {
-        //displaying the DS-dot in the plot at a fixed position, showing it at the casts' current HP made it hard to review the tooltip
-        return { hp: maxHP * 0.1, ...deathstrikeEvent };
+        return { hp: hpBySeconds[sec].percentage, ...deathstrikeEvent };
       } else {
         return undefined;
       }
@@ -129,16 +133,8 @@ class DeathStrikeTimingGraph extends Analyzer {
           verticalLine: true,
         },
         {
-          label: 'Max Health',
-          data: Object.values(hpBySeconds).map(({ maxHitPoints }) => maxHitPoints),
-          backgroundColor: 'rgba(255, 139, 45, 0.0)',
-          borderColor: 'rgba(183, 76, 75, 0.4)',
-          borderWidth: 2,
-          pointStyle: 'line',
-        },
-        {
           label: HP_LABEL,
-          data: Object.values(hpBySeconds).map(({ hitPoints }) => hitPoints),
+          data: Object.values(hpBySeconds).map(({ percentage }) => percentage),
           backgroundColor: 'rgba(255, 139, 45, 0.2)',
           borderColor: 'rgb(255, 139, 45)',
           borderWidth: 2,
@@ -162,21 +158,30 @@ class DeathStrikeTimingGraph extends Analyzer {
       }
     }
 
+    function dsTooltip(dsBySecond) {
+      if (dsBySecond.overheal > 0) {
+        return `Death Strike for ${ formatNumber(dsBySecond.amount) } (${ formatNumber(dsBySecond.overheal) } overhealing) at ${ formatNumber(dsBySecond.hitPoints) } HP`;
+      } else {
+        return `Death Strike for ${ formatNumber(dsBySecond.amount) } at ${ formatNumber(dsBySecond.hitPoints) } HP`;
+      }
+    }
+
     // labels an item in the tooltip
     function labelItem(tooltipItem, data) {
       const { index } = tooltipItem;
       const dataset = data.datasets[tooltipItem.datasetIndex];
+
       switch(dataset.label) {
         case DEATH_LABEL:
           return `Player died when hit by ${safeAbilityName(deathsBySeconds[index].ability)} at ${formatNumber(deathsBySeconds[index].hp)} HP.`;
         case DS_LABEL:
-          if (deathstrikesBySeconds[index].overheal > 0) {
-            return `Death Strike for ${ formatNumber(deathstrikesBySeconds[index].amount) } (${ formatNumber(deathstrikesBySeconds[index].overheal) } overhealing) at ${ formatNumber(deathstrikesBySeconds[index].hitPoints) } HP`;
-          } else {
-            return `Death Strike for ${ formatNumber(deathstrikesBySeconds[index].amount) } at ${ formatNumber(deathstrikesBySeconds[index].hitPoints) } HP`;
-          }
+          return dsTooltip(deathstrikesBySeconds[index]);
         default:
-          return `${dataset.label}: ${formatNumber(tooltipItem.yLabel)}`;
+          if (deathstrikesBySeconds[index] !== undefined) {
+            return `${dsTooltip(deathstrikesBySeconds[index])} (${formatNumber(tooltipItem.yLabel)}%)`;
+          } else {
+            return `${dataset.label}: ${formatNumber(tooltipItem.yLabel)}%`;
+          }
       }
     }
 
