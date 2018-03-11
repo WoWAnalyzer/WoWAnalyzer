@@ -1,4 +1,4 @@
-import { tsabo } from 'MAINTAINERS';
+import { tsabo } from 'CONTRIBUTORS';
 
 export default [
   {

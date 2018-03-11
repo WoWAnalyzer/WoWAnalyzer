@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { hassebewlen, Zerotorescue } from 'MAINTAINERS';
+import { hassebewlen, Zerotorescue } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';

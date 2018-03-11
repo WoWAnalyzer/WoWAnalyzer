@@ -29,6 +29,7 @@ import ResultsWarning from './ResultsWarning';
 import Header from './Header';
 
 import './Results.css';
+import * as CONTRIBUTORS from 'CONTRIBUTORS';
 
 const CURRENT_GAME_PATCH = '7.3.5';
 
@@ -173,7 +174,7 @@ class Results extends React.Component {
 
     const tabUrl = tab || results.tabs[0].url;
     const activeTab = results.tabs.find(tab => tab.url === tabUrl) || results.tabs[0];
-    const { spec, description, maintainers, patchCompatibility } = this.context.config;
+    const { spec, description, contributors, patchCompatibility } = this.context.config;
     const specPatchCompatibility = parseVersionString(patchCompatibility);
     const latestPatch = parseVersionString(CURRENT_GAME_PATCH);
     const isOutdated = specPatchCompatibility.major < latestPatch.major || specPatchCompatibility.minor < latestPatch.minor || specPatchCompatibility.patch < latestPatch.patch;
@@ -194,11 +195,11 @@ class Results extends React.Component {
 
                   <div className="row" style={{ marginTop: '1em' }}>
                     <div className="col-lg-4" style={{ fontWeight: 'bold', paddingRight: 0 }}>
-                      Contributor{maintainers.length > 1 && 's'}
+                      Contributor{contributors.length > 1 && 's'}
                     </div>
                     <div className="col-lg-8">
                       <ReadableList>
-                        {maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}
+                        {contributors.map(contributor => <Maintainer key={contributor.nickname} {...contributor} />)}
                       </ReadableList>
                     </div>
                   </div>

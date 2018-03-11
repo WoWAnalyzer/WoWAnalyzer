@@ -2,7 +2,7 @@ import React from 'react';
 import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { Hewhosmites, Zerotorescue } from 'MAINTAINERS';
+import { Hewhosmites, Zerotorescue } from 'CONTRIBUTORS';
 
 export default [
 	{

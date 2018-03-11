@@ -57,7 +57,7 @@ class SpecListing extends React.PureComponent {
                               </a>
                             </div>
                             <div className="maintainers">
-                              Maintained by {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}
+                              Contributors: {config.contributors.map(contributor => <Maintainer key={contributor.nickname} {...contributor} />)}
                             </div>
                           </Wrapper>
                         ) : (

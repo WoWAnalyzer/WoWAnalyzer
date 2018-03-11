@@ -1,4 +1,4 @@
-import { Salarissia } from 'MAINTAINERS';
+import { Salarissia } from 'CONTRIBUTORS';
 
 export default [
   {

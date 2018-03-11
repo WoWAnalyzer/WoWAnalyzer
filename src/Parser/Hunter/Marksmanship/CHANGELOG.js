@@ -5,7 +5,7 @@ import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import { Blazballs, JLassie82, Putro } from 'MAINTAINERS';
+import { Blazballs, JLassie82, Putro } from 'CONTRIBUTORS';
 
 export default [
   {

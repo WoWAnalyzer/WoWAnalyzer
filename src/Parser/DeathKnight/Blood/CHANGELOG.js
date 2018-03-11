@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Gebuz, Yajinni } from 'MAINTAINERS';
+import { Gebuz, Yajinni } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';

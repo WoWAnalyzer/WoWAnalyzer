@@ -1,4 +1,4 @@
-import { TheBadBossy } from 'MAINTAINERS';
+import { TheBadBossy } from 'CONTRIBUTORS';
 
 export default [
   {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Anomoly, Zerotorescue, Scaleable } from 'MAINTAINERS';
+import { Anomoly, Zerotorescue, Scaleable } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';

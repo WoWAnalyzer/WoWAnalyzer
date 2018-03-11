@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Sharrq, sref, Fyruna } from 'MAINTAINERS';
+import { Sharrq, sref, Fyruna } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';

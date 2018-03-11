@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Hewhosmites, Mamtooth } from 'MAINTAINERS';
+import { Hewhosmites, Mamtooth } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Putro } from 'MAINTAINERS';
+import { Putro } from 'CONTRIBUTORS';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';

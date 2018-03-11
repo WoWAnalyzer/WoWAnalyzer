@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Oratio, Gao, Reglitch, hassebewlen, Zerotorescue, milesoldenburg } from 'MAINTAINERS';
+import { Oratio, Gao, Reglitch, hassebewlen, Zerotorescue, milesoldenburg } from 'CONTRIBUTORS';
 
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';

@@ -1,4 +1,4 @@
-import { Juko8, Coryn, Talby, Anomoly, AttilioLH, Hewhosmites } from 'MAINTAINERS';
+import { Juko8, Coryn, Talby, Anomoly, AttilioLH, Hewhosmites } from 'CONTRIBUTORS';
 
 import React from 'react';
 import ITEMS from 'common/ITEMS';
