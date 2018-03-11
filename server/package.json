@@ -4,7 +4,7 @@
   "scripts": {
     "start": "sequelize db:migrate && nodemon index.js --exec babel-node",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel -d build .",
+    "build": "babel -d build --ignore node_modules,build .",
     "serve": "sequelize db:migrate && node --harmony build/index.js"
   },
   "dependencies": {
