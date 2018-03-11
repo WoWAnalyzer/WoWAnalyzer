@@ -19,8 +19,6 @@ const CRITICAL_CHAOS_SPELLS = [
 	SPELLS.ANNIHILATION_MH_DAMAGE.id,
 	SPELLS.ANNIHILATION_OH_DAMAGE.id,
 ];
-
-const MS_BUFFER = 50;
 /*
 * Critical Chaos (Artifact Trait)
 * Increases critical strike damage dealt by Chaos Strike by 6%.
