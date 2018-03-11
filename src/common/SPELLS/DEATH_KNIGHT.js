@@ -556,6 +556,12 @@ export default {
     icon: 'spell_shadow_deathanddecay',
   },
 
+  DEATH_AND_DECAY_BUFF: {
+    id: 188290,
+    name: 'Death and Decay',
+    icon: 'spell_shadow_deathanddecay',
+  },
+
   DEATH_STRIKE: {
     id: 49998,
     name: 'Death Strike',
