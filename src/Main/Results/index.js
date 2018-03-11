@@ -22,14 +22,13 @@ import SuggestionsTab from 'Main/SuggestionsTab';
 import ActivityIndicator from 'Main/ActivityIndicator';
 import WarcraftLogsLogo from 'Main/Images/WarcraftLogs-logo.png';
 import WipefestLogo from 'Main/Images/Wipefest-logo.png';
-import Maintainer from 'Main/Maintainer';
+import Contributor from 'Main/Contributor';
 
 import ItemsPanel from './ItemsPanel';
 import ResultsWarning from './ResultsWarning';
 import Header from './Header';
 
 import './Results.css';
-import * as CONTRIBUTORS from 'CONTRIBUTORS';
 
 const CURRENT_GAME_PATCH = '7.3.5';
 
@@ -199,7 +198,7 @@ class Results extends React.Component {
                     </div>
                     <div className="col-lg-8">
                       <ReadableList>
-                        {contributors.map(contributor => <Maintainer key={contributor.nickname} {...contributor} />)}
+                        {contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />)}
                       </ReadableList>
                     </div>
                   </div>

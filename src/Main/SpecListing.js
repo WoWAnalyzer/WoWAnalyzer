@@ -6,7 +6,8 @@ import GitHubMarkIcon from 'Icons/GitHubMark';
 import Wrapper from 'common/Wrapper';
 import SPECS from 'common/SPECS';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
-import Maintainer from 'Main/Maintainer';
+import Contributor from 'Main/Contributor';
+import ReadableList from 'common/ReadableList';
 
 import './SpecListing.css';
 
@@ -23,7 +24,7 @@ class SpecListing extends React.PureComponent {
             </div>
           </header>
 
-          <div className="row">
+          <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
             {Object.keys(SPECS)
               .filter(key => isNaN(key)) // since SPECS gets indexed by ids, all entries are doubled. With this we only use the non-numeric values
               .map(key => SPECS[key])
@@ -51,13 +52,33 @@ class SpecListing extends React.PureComponent {
                         <h1 className={className}>{spec.specName} {spec.className}</h1>
                         {config ? (
                           <Wrapper>
-                            <div className="pull-right">
-                              <a href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`} className="github" data-tip="View source code for this spec.">
-                                <GitHubMarkIcon />
-                              </a>
+                            <div className="row" style={{ marginTop: '1em' }}>
+                              <div className="col-md-6" style={{ fontWeight: 'bold', paddingRight: 0 }}>
+                                Contributor{config.contributors.length > 1 && 's'}
+                              </div>
+                              <div className="col-md-6">
+                                <ReadableList>
+                                  {config.contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />)}
+                                </ReadableList>
+                              </div>
                             </div>
-                            <div className="maintainers">
-                              Contributors: {config.contributors.map(contributor => <Maintainer key={contributor.nickname} {...contributor} />)}
+                            <div className="row" style={{ marginTop: '0.5em' }}>
+                              <div className="col-md-6" style={{ fontWeight: 'bold', paddingRight: 0 }}>
+                                Updated for patch
+                              </div>
+                              <div className="col-md-6">
+                                {config.patchCompatibility}
+                              </div>
+                            </div>
+                            <div className="row" style={{ marginTop: '0.5em' }}>
+                              <div className="col-md-6" style={{ fontWeight: 'bold', paddingRight: 0 }}>
+                                Source
+                              </div>
+                              <div className="col-md-6">
+                                <a href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`} className="github" data-tip="View source code for this spec.">
+                                  <GitHubMarkIcon /> GitHub
+                                </a>
+                              </div>
                             </div>
                           </Wrapper>
                         ) : (
