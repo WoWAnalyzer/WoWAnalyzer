@@ -179,6 +179,16 @@ export default {
     name: 'Chaos Strike',
     icon: 'ability_demonhunter_chaosstrike',
   },
+  CHAOS_STRIKE_MH_DAMAGE: {
+    id: 222031,
+    name: 'Chaos Strike',
+    icon: 'ability_demonhunter_chaosstrike',
+  },
+  CHAOS_STRIKE_OH_DAMAGE: {
+    id: 199547,
+    name: 'Chaos Strike',
+    icon: 'ability_demonhunter_chaosstrike',
+  },
   CHAOS_STRIKE_FURY: {
     id: 193840,
     name: 'Chaos Strike',
@@ -186,6 +196,16 @@ export default {
   },
   ANNIHILATION: {
     id: 201427,
+    name: 'Annihilation',
+    icon: 'inv_glaive_1h_npc_d_02',
+  },
+  ANNIHILATION_MH_DAMAGE: {
+    id: 227518,
+    name: 'Annihilation',
+    icon: 'inv_glaive_1h_npc_d_02',
+  },
+  ANNIHILATION_OH_DAMAGE: {
+    id: 201428,
     name: 'Annihilation',
     icon: 'inv_glaive_1h_npc_d_02',
   },
@@ -334,6 +354,11 @@ export default {
     id: 211797,
     name: 'Chaos Blades',
     icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
+  },
+  CHAOS_CLEAVE_DAMAGE: {
+    id: 236237,
+    name: 'Chaos Cleave',
+    icon: 'inv_weapon_shortblade_62',
   },
   NEMESIS_DEMON: {
     id: 208579,
@@ -528,5 +553,25 @@ export default {
     id: 201468,
     name: 'Feast of the Souls',
     icon: 'spell_warlock_soulburn',
+  },
+  SHARPENED_GLAIVES: {
+    id: 201457,
+    name: 'Sharpened_GLAIVE',
+    icon: 'ability_demonhunter_throwglaive',
+  },
+  CRITICAL_CHAOS: {
+    id: 201455,
+    name: 'Critical Chaos',
+    icon: 'ability_demonhunter_chaosstrike',
+  },
+  DEMON_RAGE: {
+    id: 201458,
+    name: 'Demon Rage',
+    icon: 'inv_weapon_glave_01',
+  },
+  CHAOS_VISION: {
+    id: 201456,
+    name: 'Chaos Vision',
+    icon: 'ability_demonhunter_eyebeam',
   },
 };
