@@ -34,7 +34,7 @@ class CrticalChaos extends Analyzer {
 
 	rank = 0;
 	damage = 0;
-  lastCritTimestamp = 0;
+  chaosStrikeCrit = false;
 
 	on_initialized() {
  		this.rank = this.combatants.selected.traitsBySpellId[SPELLS.CRITICAL_CHAOS.id];
@@ -64,16 +64,17 @@ class CrticalChaos extends Analyzer {
   	const spellId = event.ability.guid;
     //Chaos Cleave Attribution
     if(this.combatants.selected.hasTalent(SPELLS.CHAOS_CLEAVE_TALENT.id) && 
-      event.timestamp < this.lastCritTimestamp + MS_BUFFER && 
-      spellId === SPELLS.CHAOS_CLEAVE_DAMAGE.id) 
+      spellId === SPELLS.CHAOS_CLEAVE_DAMAGE.id && 
+      this.chaosStrikeCrit)
     {
       this.damage += this.getDamageContributon(event);
     }
 
   	if (!CRITICAL_CHAOS_SPELLS.includes(spellId) || event.hitType !== HIT_TYPES.CRIT) {
+      this.chaosStrikeCrit = false;
   		return;
   	}
-    this.lastCritTimestamp = event.timestamp;
+    this.chaosStrikeCrit = true;
   	this.damage += this.getDamageContributon(event);
   }
 
