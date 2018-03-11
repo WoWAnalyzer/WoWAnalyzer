@@ -90,14 +90,14 @@ class QaplaEredunWarOrder extends Analyzer {
       return suggest(<Wrapper>Your average cast of {spellName} reduced <SpellLink id={SPELLS.KILL_COMMAND.id} icon /> by less than {recommended} seconds. Try and optimise this legendary by making sure to utilise it's cooldown reduction utility better. </Wrapper>)
         .icon(ITEMS.QAPLA_EREDUN_WAR_ORDER.icon)
         .actual(`${(actual).toFixed(2)} average seconds of CDR per ${spellName} cast`)
-        .recommended(`>${recommended}s of CDR per ${spellName} is recommended`);
+        .recommended(`>${recommended}sec is recommended`);
     });
   }
   item() {
     return {
       item: ITEMS.QAPLA_EREDUN_WAR_ORDER,
       result: (
-        <dfn data-tip={`You wasted ${formatNumber(this.wastedKillCommandReductionMs / 1000)} (${formatPercentage(this.wastedKillCommandCDRPercent())}%) seconds of CDR by using Dire Beast when Kill Command wasn't on cooldown or had less than 3(+GCD) seconds remaning on CD.`}>
+        <dfn data-tip={`You wasted ${formatNumber(this.wastedKillCommandReductionMs / 1000)} (${formatPercentage(this.wastedKillCommandCDRPercent())}%) seconds of CDR by using Dire Beast when Kill Command wasn't on cooldown or had less than 3 seconds remaning on CD.`}>
           reduced <SpellLink id={SPELLS.KILL_COMMAND.id} icon /> CD by {formatNumber(this.effectiveKillCommandReductionMs / 1000)}s in total.
         </dfn>
       ),

@@ -76,7 +76,7 @@ class TheMantleOfCommand extends Analyzer {
       return suggest(<Wrapper>memes</Wrapper>)
         .icon(ITEMS.THE_MANTLE_OF_COMMAND.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
-        .recommended(`${formatPercentage(recommended)}% is recommended`);
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
   }
 

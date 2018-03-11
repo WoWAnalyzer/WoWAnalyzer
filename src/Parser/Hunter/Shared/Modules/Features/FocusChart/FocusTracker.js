@@ -18,7 +18,6 @@ class FocusTracker extends Analyzer {
   tracker = 0; //to tell if any prop has updated, since we can't compare arrays
   _maxFocus = 0;
   totalFocusGenModifier = 0;
-  totalFocusGenModifiedTimes = 0;
 
   on_initialized() {
     this.lastEventTimestamp = this.owner.fight.start_time;
@@ -113,8 +112,7 @@ class FocusTracker extends Analyzer {
 
   extrapolateFocus(eventTimestamp) {
     this.focusGen = 10 + .1 * (this.haste.current * 100);
-    this.totalFocusGenModifier += this.focusGen;
-    this.totalFocusGenModifiedTimes++;
+    this.totalFocusGenModifier += this.focusGen * (eventTimestamp - this.lastEventTimestamp);
     const maxFocus = this._maxFocus;
     this.focusBySecond[0] = maxFocus;
     for (let i = this.lastEventTimestamp - this.owner.fight.start_time; i < (eventTimestamp - this.owner.fight.start_time); i++) {  //extrapolates focus given passive focus gain (TODO: Update for pulls with Volley)
@@ -138,7 +136,7 @@ class FocusTracker extends Analyzer {
   }
 
   get averageFocusGen() {
-    return this.totalFocusGenModifier / this.totalFocusGenModifiedTimes;
+    return this.totalFocusGenModifier / this.owner.fightDuration;
   }
 
 }
