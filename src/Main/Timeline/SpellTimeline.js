@@ -76,7 +76,7 @@ class SpellTimeline extends React.PureComponent {
 
   gemini = null;
   render() {
-    const { start, end, historyBySpellId, globalCooldownHistory, channelHistory, showCooldowns, showGlobalCooldownDuration } = this.props;
+    const { start, end, historyBySpellId, globalCooldownHistory, channelHistory, showCooldowns, showGlobalCooldownDuration, ...others } = this.props;
     const duration = end - start;
     const seconds = Math.ceil(duration / 1000);
 
@@ -93,7 +93,7 @@ class SpellTimeline extends React.PureComponent {
     const totalWidth = seconds * secondWidth;
 
     return (
-      <div className="spell-timeline flex">
+      <div className="spell-timeline flex" {...others}>
         <div className="flex-sub legend">
           <div className="lane ruler-lane">
             <div className="btn-group">
