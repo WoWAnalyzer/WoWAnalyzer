@@ -11,9 +11,12 @@ import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
 
 export default {
-  spec: SPECS.VENGEANCE_DEMON_HUNTER,
+  // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list.
   maintainers: [Mamtooth],
+  // The WoW client patch this spec was last updated to be fully compatible with.
   patchCompatibility: '7.3',
+  // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
+  // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
 	description: (
 		<Wrapper>
 			Hi there fellow Illidari. I've put some time in developing this tool for all Vengeance Demon Hunters and I'll always try to keep this spec update. But as you might have thought, you opinion and suggestion is always great to make me improve it more and more for you. So, if you ever have anything to say, please leave a message in some channel that I'll be specifically showing to you later.<br/><br/>
@@ -32,7 +35,16 @@ export default {
       </Warning>
 		</Wrapper>
 	),
+  // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
+  // exampleReport: '/report/hNqbFwd7Mx3G1KnZ/18-Mythic+Antoran+High+Command+-+Kill+(6:51)/Taffly',
+
+  // Don't change anything below this line;
+  // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
+  spec: SPECS.VENGEANCE_DEMON_HUNTER,
+  // The contents of your changelog.
   changelog: CHANGELOG,
+  // The CombatLogParser class for your spec.
   parser: CombatLogParser,
-  path: __dirname, // used for generating a GitHub link directly to your spec
+  // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
+  path: __dirname,
 };
