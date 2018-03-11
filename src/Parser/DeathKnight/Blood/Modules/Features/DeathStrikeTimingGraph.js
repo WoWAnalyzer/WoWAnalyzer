@@ -38,12 +38,8 @@ class DeathStrikeTimingGraph extends Analyzer {
   }
 
   plot() {
-    //precision 500 = each seconds has 2 entrys to get more precision for HP/DS casts
-    //1 entry per second (precision 1000) made the graph to smooth and wouldn't show the direct impact on HP by a DS cast
-    const PRECISION = 500;
-
     // x indices
-    const labels = Array.from({length: Math.ceil(this.owner.fightDuration / PRECISION)}, (x, i) => i);
+    const labels = Array.from({length: Math.ceil(this.owner.fightDuration / 1000)}, (x, i) => i);
 
     // somethingBySeconds are all objects mapping from seconds ->
     // something, where if a value is unknown for that timestamp it is
@@ -54,18 +50,18 @@ class DeathStrikeTimingGraph extends Analyzer {
     }, {});
 
     const deathstrikes = this._deathstrikeTimestamps.map(event => { 
-      return { seconds: Math.floor((event.timestamp - this.owner.fight.start_time) / PRECISION) - 1, ...event };
+      return { seconds: Math.floor((event.timestamp - this.owner.fight.start_time) / 1000) - 1, ...event };
     });
 
     const deaths = this._deathEvents.map(({ timestamp, killingAbility }) => {
       return { 
-        seconds: Math.floor((timestamp - this.owner.fight.start_time) / PRECISION),
+        seconds: Math.floor((timestamp - this.owner.fight.start_time) / 1000),
         ability: killingAbility,
       };
     });
 
     this._hpEvents.forEach(({ timestamp, hitPoints, maxHitPoints }) => {
-      const seconds = Math.floor((timestamp - this.owner.fight.start_time) / PRECISION);
+      const seconds = Math.floor((timestamp - this.owner.fight.start_time) / 1000);
       // we fill in the blanks later if hitPoints is not defined
 
       let percent = Math.round((hitPoints / maxHitPoints) * 100, 2);
@@ -222,7 +218,7 @@ class DeathStrikeTimingGraph extends Analyzer {
                 ticks: {
                   fontColor: '#ccc',
                   callback: function(x) {
-                    const label = formatDuration(x, 1); // formatDuration got changed -- need precision=1 or it blows up, but that adds a .0 to it
+                    const label = formatDuration(x, 1); // formatDuration got changed -- need 1000=1 or it blows up, but that adds a .0 to it
                     return label.substring(0, label.length - 2);
                   },
                 },
