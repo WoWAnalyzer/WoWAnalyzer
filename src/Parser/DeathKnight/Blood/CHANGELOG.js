@@ -9,6 +9,16 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-03-11'),
+    changes: <Wrapper>Added <SpellLink id={SPELLS.MARROWREND.id}icon/>-Module to track bad casts</Wrapper>,
+    contributors: [joshinator],
+  },
+  {
+    date: new Date('2018-03-10'),
+    changes: <Wrapper>Made <SpellLink id={SPELLS.OSSUARY_TALENT.id}icon/>-Module more detailed by adding a RP counter</Wrapper>,
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-03-10'),
     changes: <Wrapper>Added <SpellLink id={SPELLS.DEATH_STRIKE.id}icon/> Timing plot</Wrapper>,
     contributors: [joshinator],

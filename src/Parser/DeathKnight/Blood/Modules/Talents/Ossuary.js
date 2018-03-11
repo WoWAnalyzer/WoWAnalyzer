@@ -11,12 +11,27 @@ class Ossuary extends Analyzer {
     combatants: Combatants,
   };
 
+  dsWithOS = 0;
+  dsWithoutOS = 0;
+  OSSUARY_RP_SAVE = 5;
+
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.OSSUARY_TALENT.id);
   }
 
   get uptime() {
     return this.combatants.getBuffUptime(SPELLS.OSSUARY.id) / this.owner.fightDuration;
+  }
+
+  on_byPlayer_cast(event) {
+
+    if (event.ability.guid === SPELLS.DEATH_STRIKE.id) {
+      if (this.combatants.selected.hasBuff(SPELLS.OSSUARY.id)) {
+        this.dsWithOS += 1;
+      } else {
+        this.dsWithoutOS += 1;
+      }
+    }
   }
 
   get uptimeSuggestionThresholds() {
@@ -35,9 +50,9 @@ class Ossuary extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.OSSUARY_TALENT.id} />}
-        value={`${formatPercentage(this.uptime)}%`}
-        label="Ossuary Uptime"
-        tooltip="Important to maintain. Reduces cost of Death Strike and increases runic power cap by 10."
+        value={`${ this.dsWithoutOS * this.OSSUARY_RP_SAVE } RP`}
+        label="lost by casting Death Strike without Ossuary"
+        tooltip={`${ this.dsWithoutOS } / ${ this.dsWithOS + this.dsWithoutOS } Death Strike casted without Ossuary. ${ this.dsWithOS * this.OSSUARY_RP_SAVE } RP saved by casting them with Ossuary up. ${formatPercentage(this.uptime)}% uptime.`}
       />
 
 
