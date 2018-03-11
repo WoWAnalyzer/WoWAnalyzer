@@ -177,7 +177,7 @@ class CallOfTheWild extends Analyzer {
         return suggest(<Wrapper>Try to use <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} icon /> more often to capitalize on the cooldown reduction provided by <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} icon />, whilst still making sure to overlap it with <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon />. </Wrapper>)
           .icon(ITEMS.CALL_OF_THE_WILD.icon)
           .actual(`${actual.toFixed(2)} possible Aspect of the Wild casts gained`)
-          .recommended(`${recommended.toFixed(2)} possible casts is recommended`);
+          .recommended(`${recommended.toFixed(2)} is recommended`);
       });
     }
   }
