@@ -19,6 +19,8 @@ const HOLY_SHOCK_COOLDOWN_WAIT_TIME = 200;
  * The question is how much of a fraction of a second? I am fairly confident feelycrafting that waiting 200ms is more efficient, and I think up to 300ms is also going to be more efficient, maybe a bit further but hard to say.
  *
  * So then the question is what is a reasonable amount to ask of a player? I think 200ms is an amount that is very hard to differentiate from a spell just coming off cooldown. It's a delay similar to latency during raid fights. Spamming HS while its icon is as good as off cooldown would be the best course of action here and not take any uber skills form the player. So I reckon it's reasonable to include casts as being inefficient casts at this interval.
+ *
+ * Example log with 16 inefficient casts: report/kzKnrR4qdhXGjB38/16-Heroic+Aggramar+-+Kill+(6:50)/13-Seedÿ
  */
 class FillerFlashOfLight extends Analyzer {
   static dependencies = {
