@@ -25,6 +25,12 @@ export default {
     icon: 'artifactability_blooddeathknight_umbilicuseternus',
   },
 
+  SOULDRINKER_TRAIT: {
+    id: 238114,
+    name: 'Souldrinker',
+    icon: 'spell_deathknight_butcher2',
+  },
+
   // Damage Dealing
   // Provides the 1 RP tick on DnD from Rapid Decomposition Talent
   RAPID_DECOMPOSITION_RP_TICK: {
@@ -102,6 +108,12 @@ export default {
     id: 61606,
     name: 'Mark of Blood',
     icon: 'ability_hunter_rapidkilling',
+  },
+
+  CONSUMPTION_HEAL: {
+    id: 205224,
+    name: 'Consumption',
+    icon: 'inv_axe_2h_artifactmaw_d_01',
   },
 
 // Buffs
