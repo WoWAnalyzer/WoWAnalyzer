@@ -23,21 +23,31 @@ class Ossuary extends Analyzer {
     return {
       actual: this.uptime,
       isLessThan: {
-        minor: 0.94,
-        average: 0.84,
-        major: .74,
+        minor: 0.95,
+        average: 0.9,
+        major: .8,
       },
       style: 'percentage',
     };
   }
+
+  suggestions(when) {
+    when(this.uptimeSuggestionThresholds)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest('Your Ossuary uptime can be improved. Try to always be above 5 stacks of Bone Shield when you have the talent selected.')
+            .icon(SPELLS.OSSUARY.icon)
+            .actual(`${formatPercentage(actual)}% Ossuary uptime`)
+            .recommended(`>${formatPercentage(recommended)}% is recommended`);
+        });
+  }
+
   statistic() {
 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.OSSUARY_TALENT.id} />}
-        value={`${formatPercentage(this.uptime)}%`}
+        value={`${formatPercentage(this.uptime)} %`}
         label="Ossuary Uptime"
-        tooltip="Important to maintain. Reduces cost of Death Strike and increases runic power cap by 10."
       />
 
 

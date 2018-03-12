@@ -52,7 +52,7 @@ class Home extends React.PureComponent {
             <header>
               <div className="row">
                 <div className="col-md-12">
-                  <h1><MegaphoneIcon /> Announcements</h1>
+                  <h1 id="Announcements"><MegaphoneIcon /> Announcements</h1>
                 </div>
               </div>
             </header>

@@ -34,6 +34,7 @@ class L90_talents extends Analyzer {
   totalHaste = 0;
   lastHasteChangedTimestamp = 0;
   blessingOfEluneGenerated = 0;
+  blessingOfElunePotential = 0;
 
   on_initialized() {
     if (this.combatants.selected.hasTalent(SPELLS.SHOOTING_STARS_TALENT.id)){
@@ -57,8 +58,12 @@ class L90_talents extends Analyzer {
     if(spellId !== SPELLS.LUNAR_STRIKE.id && spellId !== SPELLS.SOLAR_WRATH_MOONKIN.id){
       return;
     }
-    this.eluneActive = this.combatants.selected.hasBuff(SPELLS.BLESSING_OF_ELUNE.id);
-    this.blessingOfEluneGenerated += this.getBonus(event.resourceChange, BLESSING_OF_ELUNE_MULTIPLIER, this.eluneActive);
+    if(this.combatants.selected.hasBuff(SPELLS.BLESSING_OF_ELUNE.id)){
+      this.blessingOfEluneGenerated += this.getBonus(event.resourceChange, BLESSING_OF_ELUNE_MULTIPLIER, true);
+    }else {
+      this.blessingOfElunePotential += this.getBonus(event.resourceChange, BLESSING_OF_ELUNE_MULTIPLIER, false);
+    }
+
   }
   on_changehaste(event){
     if(this.lastHasteChangedTimestamp !== 0){
@@ -99,8 +104,7 @@ class L90_talents extends Analyzer {
   }
 
   get BlessingOfEluneValue(){
-    const generated = this.getGenerated(SPELLS.LUNAR_STRIKE.id) + this.getGenerated(SPELLS.SOLAR_WRATH_MOONKIN.id);
-    return this.getBonus(generated, BLESSING_OF_ELUNE_MULTIPLIER, this.activeTalent.id === SPELLS.BLESSING_OF_THE_ANCIENTS_TALENT.id) / this.owner.fightDuration * 1000 * 60;
+    return ( this.blessingOfElunePotential + this.blessingOfEluneGenerated ) / this.owner.fightDuration * 1000 * 60;
   }
 
   get actualValue(){

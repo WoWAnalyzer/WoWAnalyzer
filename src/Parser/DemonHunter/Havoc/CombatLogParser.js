@@ -30,6 +30,11 @@ import Tier21_4set from './Modules/Items/Tier21_4set';
 import DemonReborn from './Modules/Talents/DemonReborn';
 
 //Traits
+import RelicTraits from './Modules/Traits/RelicTraits';
+import CriticalChaos from './Modules/Traits/CriticalChaos';
+import ChaosVision from './Modules/Traits/ChaosVision';
+import SharpenedGlaives from './Modules/Traits/SharpenedGlaives';
+import DemonRage from './Modules/Traits/DemonRage';
 import UnleashedDemons from './Modules/Traits/UnleashedDemons';
 import FeastOnTheSouls from './Modules/Traits/FeastOnTheSouls';
 
@@ -70,6 +75,11 @@ class CombatLogParser extends CoreCombatLogParser {
     demonReborn: DemonReborn,
 
     //Traits
+    relicTraits: RelicTraits,
+    criticalChaos: CriticalChaos,
+    chaosVision: ChaosVision,
+    sharpenedGlaives: SharpenedGlaives,
+    demonRage: DemonRage,
     unleashedDemons: UnleashedDemons,
     feastOnTheSouls: FeastOnTheSouls,
   };
