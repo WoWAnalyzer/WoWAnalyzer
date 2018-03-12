@@ -28,16 +28,25 @@ class FillerFlashOfLight extends Analyzer {
   };
 
   inefficientCasts = [];
+  _isCurrentInefficientCast = false;
   on_byPlayer_begincast(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.FLASH_OF_LIGHT.id) {
       return;
     }
+    if (this._isInefficientCastEvent(event)) {
+      this.inefficientCasts.push(event);
+      this._isCurrentInefficientCast = true;
+    } else {
+      this._isCurrentInefficientCast = false;
+    }
+  }
+  _isInefficientCastEvent(event) {
     // If there is a lot of healing to be done in short window of time using your IoL proc before casting HS makes sense.
     // The `-1` buffer time is to properly handle chain-casting and IoL buffs; when chain casting the first FoL will consume the IoL buff on the `cast` event and that exact same frame will have the `begincast` event. Because `hasBuff` looks at the timestamp rather than event order, it would otherwise include the buff.
     const hasIol = this.combatants.selected.hasBuff(SPELLS.INFUSION_OF_LIGHT.id, event.timestamp, -1);
     if (hasIol) {
-      return;
+      return false;
     }
 
     const hasHolyShockAvailable = this.spellUsable.isAvailable(SPELLS.HOLY_SHOCK_CAST.id);
@@ -45,10 +54,25 @@ class FillerFlashOfLight extends Analyzer {
       // We can't cast it, but check how long until it comes off cooldown. We should wait instead of casting a filler if it becomes available really soon.
       const cooldownRemaining = this.spellUsable.cooldownRemaining(SPELLS.HOLY_SHOCK_CAST.id);
       if (cooldownRemaining > HOLY_SHOCK_COOLDOWN_WAIT_TIME) {
-        return;
+        return false;
       }
     }
-    this.inefficientCasts.push(event);
+    return true;
+  }
+  /**
+   * This marks spells as inefficient casts in the timeline.
+   * @param event
+   */
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.FLASH_OF_LIGHT.id) {
+      return;
+    }
+    if (this._isCurrentInefficientCast) {
+      event.meta = event.meta || {};
+      event.meta.isInefficientCast = true;
+      event.meta.inefficientCastReason = 'Holy Shock was off cooldown when you started channeling this unbuffed Flash of Light. You should cast Holy Shock instead.';
+    }
   }
 
   get inefficientCpm() {

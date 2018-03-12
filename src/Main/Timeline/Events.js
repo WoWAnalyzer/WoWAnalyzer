@@ -62,6 +62,7 @@ class Events extends React.PureComponent {
     return (
       <div className={`events ${className || ''}`} style={{ width: totalWidth }}>
         {fixedEvents.map((event, index) => {
+          const meta = event.meta || {};
           if (event.type === 'cast') {
             return (
               <div
@@ -72,7 +73,11 @@ class Events extends React.PureComponent {
                   zIndex: 10,
                 }}
               >
-                <SpellIcon id={event.ability.guid} />
+                <SpellIcon
+                  id={event.ability.guid}
+                  className={meta._isInefficientCast ? 'inefficient' : undefined}
+                  data-tip={meta.inefficientCastReason}
+                />
               </div>
             );
           }
