@@ -11,12 +11,26 @@ class Ossuary extends Analyzer {
     combatants: Combatants,
   };
 
+  dsWithOS = 0;
+  dsWithoutOS = 0;
+  OSSUARY_RP_SAVE = 5;
+
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.OSSUARY_TALENT.id);
   }
 
   get uptime() {
     return this.combatants.getBuffUptime(SPELLS.OSSUARY.id) / this.owner.fightDuration;
+  }
+
+  on_byPlayer_cast(event) {
+    if (event.ability.guid !== SPELLS.DEATH_STRIKE.id) return;
+
+    if (this.combatants.selected.hasBuff(SPELLS.OSSUARY.id)) {
+      this.dsWithOS += 1;
+    } else {
+      this.dsWithoutOS += 1;
+    }
   }
 
   get uptimeSuggestionThresholds() {
@@ -46,11 +60,13 @@ class Ossuary extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.OSSUARY_TALENT.id} />}
-        value={`${formatPercentage(this.uptime)} %`}
-        label="Ossuary Uptime"
+        value={`${ this.dsWithoutOS } / ${ this.dsWithOS + this.dsWithoutOS }`}
+        label="Death Strikes without Ossuary"
+        tooltip={`${ this.dsWithoutOS } / ${ this.dsWithOS + this.dsWithoutOS } Death Strike casted without Ossuary.<br>
+        ${ this.dsWithoutOS * this.OSSUARY_RP_SAVE } RP wasted by casting them without Ossuary up.<br>
+        ${ this.dsWithOS * this.OSSUARY_RP_SAVE } RP saved by casting them with Ossuary up.<br>
+        ${formatPercentage(this.uptime)}% uptime.`}
       />
-
-
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(3);
