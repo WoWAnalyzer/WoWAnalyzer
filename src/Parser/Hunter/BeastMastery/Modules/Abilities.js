@@ -14,13 +14,29 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,
         isOnGCD: false,
-        enabled: this.combatants.selected.traitsBySpellId[SPELLS.TITANS_THUNDER.id],
+        enabled: this.combatants.selected.traitsBySpellId[SPELLS.TITANS_THUNDER.id] && !this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
           extraSuggestion: (
             <Wrapper>
-              <SpellLink id={SPELLS.TITANS_THUNDER.id} /> should always be cast when you have <SpellLink id={SPELLS.DIRE_BEAST_BUFF.id} /> buff up, try to cast it right after using a <SpellLink id={SPELLS.DIRE_BEAST.id} /> for maximum efficiency. If you have <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> talented, you should cast <SpellLink id={SPELLS.TITANS_THUNDER.id} /> within <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> so long as you can get off a <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> cast with it while <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> is still up.
+              <SpellLink id={SPELLS.TITANS_THUNDER.id} icon /> should always be cast when you have <SpellLink id={SPELLS.DIRE_BEAST_BUFF.id} icon /> buff up, try to cast it right after using a <SpellLink id={SPELLS.DIRE_BEAST.id} icon /> for maximum efficiency.
+            </Wrapper>
+          ),
+        },
+      },
+      {
+        spell: SPELLS.TITANS_THUNDER,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 60,
+        isOnGCD: false,
+        enabled: this.combatants.selected.traitsBySpellId[SPELLS.TITANS_THUNDER.id] && this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          extraSuggestion: (
+            <Wrapper>
+              Since you have <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> talented, you should cast <SpellLink id={SPELLS.TITANS_THUNDER.id} /> within <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> so long as you can get off a <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> cast while <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> is still up.
             </Wrapper>
           ),
         },
@@ -35,7 +51,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 1,
           extraSuggestion: (
             <Wrapper>
-              <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> should be cast on cooldown as its cooldown is quickly reset again through <SpellLink id={SPELLS.DIRE_BEAST.id} />. You want to start each <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> window with as much focus as possible.
+              <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> should be cast on cooldown as its cooldown is quickly reset again through <SpellLink id={SPELLS.DIRE_BEAST.id} icon />. You want to start each <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> window with as much focus as possible.
             </Wrapper>
           ),
         },
@@ -58,30 +74,32 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DIRE_BEAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 12 / (1 + haste),
-        charges: 2,
         enabled: !this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
         isOnGCD: true,
+        /* -- Commenting out the cooldown of this spell since there is no current way of tracking the resets on it properly
+        cooldown: haste => 12 / (1 + haste),
+        charges: 2,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 1,
-        },
+        },*/
       },
       {
         spell: SPELLS.DIRE_FRENZY_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 12 / (1 + haste),
-        charges: 2,
         enabled: this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
         isOnGCD: true,
+        /* -- Commenting out the cooldown of this spell since there is no current way of tracking the resets on it properly
+        cooldown: haste => 12 / (1 + haste),
+        charges: 2,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 1,
-        },
+        },*/
       },
       {
         spell: SPELLS.MULTISHOT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         isOnGCD: true,
       },
       {
@@ -95,7 +113,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
           extraSuggestion: (
             <Wrapper>
-              You should be casting <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> on cooldown unless <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> has less than 30 seconds remaining on CD, in which case you can delay it slightly to line them up. It will dynamically update its damage to reflect damage increases such as <SpellLink id={SPELLS.BESTIAL_WRATH.id} />.
+              You should be casting <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} icon /> on cooldown unless <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> has less than 30 seconds remaining on CD, in which case you can delay it slightly to line them up. It will dynamically update its damage to reflect damage increases such as <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon />.
             </Wrapper>
           ),
         },
@@ -110,7 +128,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.8,
           extraSuggestion: (
             <Wrapper>
-              <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> should always be cast in conjunction with <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> to maximize the potency of these increased damage windows.
+              <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} icon /> should always be cast in conjunction with <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> to maximize the potency of these increased damage windows.
             </Wrapper>
           ),
         },

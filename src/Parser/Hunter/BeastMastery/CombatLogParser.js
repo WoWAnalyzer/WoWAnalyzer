@@ -1,5 +1,7 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
+import GlobalCooldown from './Modules/Core/GlobalCooldown';
+
 //Features
 import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
@@ -64,6 +66,7 @@ import FocusTab from '../Shared/Modules/Features/FocusChart/FocusTab';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     damageDone: [DamageDone, { showStatistic: true }],
+    globalCooldown: GlobalCooldown,
 
     //Features
     alwaysBeCasting: AlwaysBeCasting,

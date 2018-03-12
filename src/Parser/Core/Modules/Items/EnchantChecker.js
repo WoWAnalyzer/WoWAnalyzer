@@ -74,20 +74,31 @@ class EnchantChecker extends Analyzer {
     const gear = this.enchantableGear;
     // iterating with keys instead of value because the values don't store what slot is being looked at
     Object.keys(gear)
-      .forEach(item => {
-        const hasEnchant = this.hasEnchant(gear[item]);
+      .forEach(slot => {
+        const item = gear[slot];
+        const slotName = this.constructor.ENCHANTABLE_SLOTS[slot];
+        const hasEnchant = this.hasEnchant(item);
+
         when(hasEnchant).isFalse()
           .addSuggestion((suggest, actual, recommended) => {
-            return suggest(<Wrapper>Your <ItemLink id={gear[item].id} quality={gear[item].quality}>{this.constructor.ENCHANTABLE_SLOTS[item]}</ItemLink> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.</Wrapper>)
-              .icon(gear[item].icon)
+            return suggest(
+              <Wrapper>
+                Your <ItemLink id={item.id} quality={item.quality} details={item}>{slotName}</ItemLink> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+              </Wrapper>
+            )
+              .icon(item.icon)
               .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
           });
 
-        const hasMaxEnchant = hasEnchant && this.hasMaxEnchant(gear[item]);
+        const hasMaxEnchant = hasEnchant && this.hasMaxEnchant(item);
         when(hasMaxEnchant).isFalse()
           .addSuggestion((suggest, actual, recommended) => {
-            return suggest(<Wrapper>Your <ItemLink id={gear[item].id} quality={gear[item].quality}>{this.constructor.ENCHANTABLE_SLOTS[item]}</ItemLink> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.</Wrapper>)
-              .icon(gear[item].icon)
+            return suggest(
+              <Wrapper>
+                Your <ItemLink id={item.id} quality={item.quality} details={item}>{slotName}</ItemLink> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
+              </Wrapper>
+            )
+              .icon(item.icon)
               .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
           });
       });

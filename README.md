@@ -4,7 +4,7 @@ Use this tool to analyze your performance based on important metrics for your sp
 
 You will need a Warcraft Logs report with advanced combat logging enabled to start. Private logs can not be used, if your guild has private logs you will have to [upload your own logs](https://www.warcraftlogs.com/help/start/) or change the existing logs to the unlisted privacy option instead.
 
-Run it: [https://wowanalyzer.com](https://wowanalyzer.com)
+[https://wowanalyzer.com](https://wowanalyzer.com)
 
 Feature requests (and bug reports provided that you're not using one of Microsoft's browsers) are welcome! On our Discord: https://discord.gg/AxphPxU or create an issue [here](https://github.com/WoWAnalyzer/WoWAnalyzer/issues).
 
@@ -38,8 +38,10 @@ We also provide more advanced statistics such as item performance displays. Thes
 
 All contributions, big or small, are welcome. You are welcome to contribute to this project with whatever level of contribution you are comfortable with. We have no expectations for the amount or frequency of contributions from anyone.
 
-We want to share ownership and responsibility with the community where possible. To help with this we hand out *write access* when we deem pull requests consistently of sufficient quality.
+We want to share ownership and responsibility with the community where possible. To help with this we hand out *write access* when we deem pull requests consistently of sufficient quality. This isn't always on our mind though so if you think you qualify please contact an admin.
 
 ## License
 
-See the [LICENSE](LICENSE) file. Usage of any API keys found in the source is not allowed for other purposes than described in the source code and/or its documentation. You must at all times use your own API keys.
+See the [LICENSE](LICENSE) file.
+
+Usage of any API keys found in the source is not allowed for other purposes than described in the source code and/or its documentation. You must at all times use your own API keys.

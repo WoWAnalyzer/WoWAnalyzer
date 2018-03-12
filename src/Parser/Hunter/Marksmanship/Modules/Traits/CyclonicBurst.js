@@ -8,7 +8,7 @@ import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
 import ItemDamageDone from 'Main/ItemDamageDone';
 
-/*
+/**
  * The trail of wind left by Windburst deals (300% of Attack power) damage every 1 sec to enemies within, and reduces their movement speed by 50%.
  */
 class CyclonicBurst extends Analyzer {

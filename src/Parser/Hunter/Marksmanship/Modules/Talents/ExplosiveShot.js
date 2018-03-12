@@ -8,7 +8,7 @@ import SpellIcon from "common/SpellIcon";
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
-/*
+/**
  * Fires a slow-moving munition directly forward.
  * Activating this ability a second time detonates the Shot, dealing up to (1000% of Attack power) Fire damage to all enemies within 8 yds, damage based on proximity.
  */

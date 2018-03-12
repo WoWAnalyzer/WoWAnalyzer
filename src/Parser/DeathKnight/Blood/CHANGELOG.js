@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Yajinni} from 'MAINTAINERS';
+import {Yajinni, Gebuz} from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
@@ -8,6 +8,26 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-03-04'),
+    changes: 'Added Tier 21 bonuses.',
+    contributors: [Gebuz],
+  },
+  {
+    date: new Date('2018-02-17'),
+    changes: <Wrapper>Added cooldown reduction from <SpellLink id={SPELLS.RED_THIRST_TALENT.id} icon/>.</Wrapper>,
+    contributors: [Gebuz],
+  },
+  {
+    date: new Date('2018-02-14'),
+    changes: <Wrapper>Updated the checklist and added Rune efficiency, <SpellLink id={SPELLS.DEATH_AND_DECAY.id} icon/> and <SpellLink id={SPELLS.BLOOD_TAP_TALENT.id} icon/> to it.</Wrapper>,
+    contributors: [Gebuz],
+  },
+  {
+    date: new Date('2018-01-27'),
+    changes: 'Added overcapped Runes.',
+    contributors: [Gebuz],
+  },
   {
     date: new Date('2018-01-22'),
     changes: <Wrapper>Large rework of listing abilities. Updated thier GCD/CD status. Most abilities now show in the time line and cast efficiency tabs. Updated the checklist.</Wrapper>,

@@ -56,11 +56,11 @@ class SpecListing extends React.PureComponent {
                                 <GitHubMarkIcon />
                               </a>
                             </div>
-                            <div>
+                            <div className="maintainers">
                               Maintained by {config.maintainers.map(maintainer => <Maintainer key={maintainer.nickname} {...maintainer} />)}
                             </div>
                             <div>
-                              Status: <dfn data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn>
+                              Rating: <dfn className="completeness" data-tip={getCompletenessExplanation(config.completeness)} style={{ color: getCompletenessColor(config.completeness) }}>{getCompletenessLabel(config.completeness)}</dfn>
                             </div>
                           </Wrapper>
                         ) : (

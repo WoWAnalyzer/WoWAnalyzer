@@ -23,7 +23,7 @@ class MoonSpells extends Analyzer {
   get totalCasts() {
     return this.abilityTracker.getAbility(SPELLS.NEW_MOON.id).casts 
          + this.abilityTracker.getAbility(SPELLS.HALF_MOON.id).casts
-         + this.abilityTracker.getAbility(SPELLS.FULL_MOON.id).casts;
+         + this.abilityTracker.getAbility(SPELLS.FULL_MOON.id).casts || 0;
   }
 
   get percentageCasted(){

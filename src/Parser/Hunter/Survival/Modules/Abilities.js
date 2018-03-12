@@ -12,13 +12,14 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MONGOOSE_BITE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
+        /* -- Commenting out the cooldown of this spell since there is no current way of tracking the resets on it properly
         cooldown: haste => 12 / (1 + haste),
         charges: 3,
-        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-        },
+        },*/
       },
       {
         spell: SPELLS.THROWING_AXES_TALENT,
@@ -36,11 +37,12 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: .9,
+          extraSuggestion: <Wrapper> While <SpellLink id={SPELLS.FLANKING_STRIKE.id} icon /> is a very important spell to be casting as often as possible because of its damage, you want to be casting it at opportune moments because of its resetting <SpellLink id={SPELLS.MONGOOSE_BITE.id} icon /> functionality. This means you should cast it <strong>BEFORE</strong> you run out of charges on <SpellLink id={SPELLS.MONGOOSE_BITE.id} icon />, but also not while at 2 or 3 charges of <SpellLink id={SPELLS.MONGOOSE_BITE.id} icon />.</Wrapper>,
         },
       },
       {
         spell: SPELLS.CARVE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         isOnGCD: true,
         enabled: !this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id),
       },
@@ -54,7 +56,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EXPLOSIVE_TRAP_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
-        cooldown: 24,
+        cooldown: this.combatants.selected.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 30 * 0.8 : 30,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: .70,
@@ -86,18 +88,18 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CALTROPS_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 12,
+        cooldown: this.combatants.selected.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 15 * 0.8 : 15,
         isOnGCD: true,
         enabled: this.combatants.selected.hasTalent(SPELLS.CALTROPS_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.6,
+          recommendedEfficiency: 0.55,
         },
       },
       {
         spell: SPELLS.STEEL_TRAP_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 48,
+        cooldown: this.combatants.selected.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 60 * 0.8 : 60,
         isOnGCD: true,
         enabled: this.combatants.selected.hasTalent(SPELLS.STEEL_TRAP_TALENT.id),
         castEfficiency: {
@@ -121,7 +123,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BUTCHERY_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: haste => 12 / (1 + haste),
         charges: 3,
         isOnGCD: true,
@@ -228,14 +230,14 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FREEZING_TRAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 24,
+        cooldown: this.combatants.selected.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 30 * 0.8 : 30,
         enabled: !this.combatants.selected.hasTalent(SPELLS.STEEL_TRAP_TALENT.id),
         isOnGCD: true,
       },
       {
         spell: SPELLS.TAR_TRAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 24,
+        cooldown: this.combatants.selected.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 30 * 0.8 : 30,
         enabled: !this.combatants.selected.hasTalent(SPELLS.CALTROPS_TALENT.id),
         isOnGCD: true,
       },

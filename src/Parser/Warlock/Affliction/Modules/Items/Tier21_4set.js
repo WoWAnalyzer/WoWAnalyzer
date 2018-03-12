@@ -1,14 +1,17 @@
 import React from 'react';
+
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
+
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
-import ItemDamageDone from 'Main/ItemDamageDone';
 import { formatNumber, formatPercentage } from 'common/format';
-import getDamageBonus from 'Parser/Warlock/Affliction/Modules/WarlockCore/getDamageBonus';
+
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 const AFFECTED_ABILITIES = [
   SPELLS.AGONY.id,
@@ -39,7 +42,7 @@ class Tier21_4set extends Analyzer {
     if (!enemy || !enemy.hasBuff(SPELLS.WARLOCK_AFFLI_T21_4P_DEBUFF.id, event.timestamp)) {
       return;
     }
-    this._bonusDamage += getDamageBonus(event, DAMAGE_BONUS);
+    this._bonusDamage += calculateEffectiveDamage(event, DAMAGE_BONUS);
   }
 
   get uptime() {

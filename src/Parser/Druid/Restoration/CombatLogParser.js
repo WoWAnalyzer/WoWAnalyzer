@@ -11,6 +11,9 @@ import WildGrowthNormalizer from './Normalizers/WildGrowth';
 import ClearcastingNormalizer from './Normalizers/ClearcastingNormalizer';
 import HotApplicationNormalizer from './Normalizers/HotApplicationNormalizer';
 import PotaNormalizer from './Normalizers/PotaNormalizer';
+import TreeOfLifeNormalizer from './Normalizers/TreeOfLifeNormalizer';
+
+import Checklist from './Modules/Features/Checklist';
 
 import Mastery from './Modules/Core/Mastery';
 import Rejuvenation from './Modules/Core/Rejuvenation';
@@ -23,9 +26,11 @@ import DreamerAttributor from './Modules/Core/HotTracking/DreamerAttributor';
 import Ekowraith from './Modules/Items/Ekowraith';
 import XonisCaress from './Modules/Items/XonisCaress';
 import DarkTitanAdvice from './Modules/Items/DarkTitanAdvice';
+import EdraithBondsOfAglaya from './Modules/Items/EdraithBondsOfAglaya';
 import EssenceOfInfusion from './Modules/Items/EssenceOfInfusion';
 import SoulOfTheArchdruid from './Modules/Items/SoulOfTheArchdruid';
 import Tearstone from './Modules/Items/Tearstone';
+import AmanthulsWisdom from './Modules/Items/AmanthulsWisdom';
 import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
 import GarothiFeedbackConduit from './Modules/Items/GarothiFeedbackConduit';
 import CarafeOfSearingLight from './Modules/Items/CarafeOfSearingLight';
@@ -42,6 +47,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import AverageHots from './Modules/Features/AverageHots';
 import Abilities from './Modules/Features/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
+import DeepRooted from './Modules/Features/DeepRooted';
 import WildGrowth from './Modules/Features/WildGrowth';
 import Lifebloom from './Modules/Features/Lifebloom';
 import Efflorescence from './Modules/Features/Efflorescence';
@@ -91,11 +97,15 @@ class CombatLogParser extends CoreCombatLogParser {
     clearcastingNormalizer: ClearcastingNormalizer,
     potaNormalizer: PotaNormalizer,
     hotApplicationNormalizer: HotApplicationNormalizer, // this needs to be loaded after potaNormalizer, as potaNormalizer can sometimes unfix the events if loaded before...
+    treeOfLifeNormalizer: TreeOfLifeNormalizer,
 
     // Core
     healingDone: [HealingDone, { showStatistic: true }],
     rejuvenation: Rejuvenation,
     mastery: Mastery,
+
+    // Checklist
+    checklist: Checklist,
 
     // Hot Tracking
     hotTracker: HotTracker,
@@ -109,6 +119,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     averageHots: AverageHots,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    deepRooted: DeepRooted,
     abilities: Abilities,
     wildGrowth: WildGrowth,
     lifebloom: Lifebloom,
@@ -128,21 +139,20 @@ class CombatLogParser extends CoreCombatLogParser {
     ironbark: Ironbark,
 
     // Items:
+    edraithBondsOfAglaya: EdraithBondsOfAglaya,
     ekowraith: Ekowraith,
     xonisCaress: XonisCaress,
     darkTitanAdvice: DarkTitanAdvice,
     essenceOfInfusion: EssenceOfInfusion,
     soulOfTheArchdruid: SoulOfTheArchdruid,
     tearstone: Tearstone,
+    amanthulsWisdom: AmanthulsWisdom,
     t19_2set: T19_2Set,
     t19_4set: T19_4Set,
     t20_2set: T20_2Set,
     t20_4set: T20_4Set,
     t21_2set: T21_2Set,
     t21_4set: T21_4Set,
-    // TODO:
-    // Edraith
-    // Aman'Thul's Wisdom
 
     // NLC
     murderousIntent: MurderousIntent,

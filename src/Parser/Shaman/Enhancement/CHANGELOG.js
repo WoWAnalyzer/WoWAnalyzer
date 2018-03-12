@@ -1,4 +1,5 @@
 export default `
+03-05-2018 - Added Eye of the Twisting Nether
 28-09-2017 - Alpha Wolf issue tracking to verify Crash Lightning cast after Feral Spirits
 16-09-2017 - Add early Flametongue refresh detection
 04-09-2017 - Tweak Cast Efficiency for utility spells (hide when not used, don't suggest improvement)

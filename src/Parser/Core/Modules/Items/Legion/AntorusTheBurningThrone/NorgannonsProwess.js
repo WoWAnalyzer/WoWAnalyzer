@@ -3,7 +3,8 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatNumber } from 'common/format';
+import { calculatePrimaryStat } from 'common/stats';
 import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -32,11 +33,15 @@ class NorgannonsProwess extends Analyzer {
   };
 
   intProc = 0;
+  intBuff = 0;
   pantheonProc = 0;
   damage = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTrinket(ITEMS.NORGANNONS_PROWESS.id);
+    if(this.active) {
+      this.intBuff = calculatePrimaryStat(940, 11483, this.combatants.selected.getItem(ITEMS.NORGANNONS_PROWESS.id).itemLevel);
+    }
   }
 
   on_byPlayer_applybuff(event) {
@@ -67,18 +72,22 @@ class NorgannonsProwess extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
+  get intUptimePercent() {
+    return this.combatants.selected.getBuffUptime(SPELLS.RUSH_OF_KNOWLEDGE.id) / this.owner.fightDuration;
+  }
+
   item() {
-    const intUptimePercent = this.combatants.selected.getBuffUptime(SPELLS.RUSH_OF_KNOWLEDGE.id) / this.owner.fightDuration;
+    const averageInt = this.intUptimePercent * this.intBuff;
 
     return {
       item: ITEMS.NORGANNONS_PROWESS,
       result: (
         <Wrapper>
-          <dfn data-tip={`Procced the int buff <b>${this.intProc}</b> times`}>
-            {formatPercentage(intUptimePercent)} % uptime on <SpellLink id={SPELLS.RUSH_OF_KNOWLEDGE.id} />
+          <dfn data-tip={`Procced the int buff <b>${this.intProc}</b> times with <b>${formatPercentage(this.intUptimePercent)}%</b> uptime`}>
+            {formatNumber(averageInt)} average Intellect gained from <SpellLink id={SPELLS.RUSH_OF_KNOWLEDGE.id} icon/>
           </dfn><br />
           <dfn data-tip={`Procced the pantheon buff <b>${this.pantheonProc}</b> times`}>
-            <ItemDamageDone amount={this.damage} /> from <SpellLink id={SPELLS.NORGANNONS_COMMAND.id} />
+            <ItemDamageDone amount={this.damage} /> from <SpellLink id={SPELLS.NORGANNONS_COMMAND.id}/>
           </dfn>
         </Wrapper>
       ),

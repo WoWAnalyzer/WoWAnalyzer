@@ -6,6 +6,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import RakeUptime from './Modules/Bleeds/RakeUptime';
 import RipUptime from './Modules/Bleeds/RipUptime';
+import FerociousBiteEnergy from './Modules/Features/FerociousBiteEnergy';
 
 import ComboPointTracker from './Modules/ComboPoints/ComboPointTracker';
 import ComboPointDetails from './Modules/ComboPoints/ComboPointDetails';
@@ -25,6 +26,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    ferociousBiteEnergy: FerociousBiteEnergy,
 
     // bleeds
     rakeUptime: RakeUptime,

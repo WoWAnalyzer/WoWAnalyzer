@@ -49,6 +49,11 @@ export default {
     icon: 'ability_monk_cranekick_new',
     manaPerc: 0.01,
   },
+  SPINNING_CRANE_KICK_DAMAGE: {
+    id: 107270,
+    name: 'Spinning Crane Kick',
+    icon: 'ability_monk_cranekick_new',
+  },
   TIGER_PALM: {
     id: 100780,
     name: 'Tiger Palm',
@@ -484,6 +489,11 @@ export default {
     name: 'Monk T20 Brewmaster 4P Bonus',
     icon: 'spell_monk_brewmaster_spec',
   },
+  T19_2_PIECE_BUFF_BRM: {
+    id: 211415,
+    name: 'Monk T19 Brewmaster 2P Bonus',
+    icon: 'spell_monk_brewmaster_spec',
+  },
   GIFT_OF_THE_OX_1: {
     id: 124507,
     name: 'Gift of the Ox',
@@ -543,6 +553,26 @@ export default {
     id: 213055,
     name: 'Staggering Around',
     icon: 'ability_monk_fortifyingale_new',
+  },
+  MASTERY_ELUSIVE_BRAWLER: {
+    id: 117906,
+    name: 'Mastery: Elusive Brawler',
+    icon: 'ability_monk_shuffle',
+  },
+  WANDERERS_HARDINESS_TRAIT: {
+    id: 214920,
+    name: "Wanderer's Hardiness",
+    icon: "inv_staff_2h_artifactmonkeyking_d_02",
+  },
+  ENDURANCE_OF_THE_BROKEN_TEMPLE_TRAIT: {
+    id: 241131,
+    name: "Endurance of the Broken Temple",
+    icon: "misc_legionfall_monk",
+  },
+  BREW_STACHE: {
+    id: 214373,
+    name: "Brew-Stache",
+    icon: "inv_misc_archaeology_vrykuldrinkinghorn",
   },
 
   // Windwalker Spells
@@ -638,6 +668,11 @@ export default {
     name: 'Split Personality',
     icon: 'spell_nature_giftofthewild',
   },
+  STRENGTH_OF_XUEN: {
+    id: 195267,
+    name: 'Strength of Xuen',
+    icon: 'ability_monk_summontigerstatue',
+  },
   INNER_PEACE: {
     id: 195243,
     name: 'Inner Peace',
@@ -652,6 +687,11 @@ export default {
     id: 195403,
     name: 'Gale Burst',
     icon: 'ability_monk_palmstrike',
+  },
+  MARK_OF_THE_CRANE: {
+    id: 228287,
+    name: 'Mark of the Crane',
+    icon: 'ability_monk_cranekick_new',
   },
   // Windwalker Talents
   POWER_STRIKES: {

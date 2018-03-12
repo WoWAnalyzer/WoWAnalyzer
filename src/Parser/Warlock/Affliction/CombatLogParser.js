@@ -3,11 +3,12 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import LowMana from './Modules/Features/LowMana';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 
 import AgonyUptime from './Modules/Features/AgonyUptime';
 import CorruptionUptime from './Modules/Features/CorruptionUptime';
-import UABuffTracker from './Modules/Features/UABuffTracker';
+import ReapBuffTracker from './Modules/Features/ReapBuffTracker';
 
 import SoulShardTracker from './Modules/SoulShards/SoulShardTracker';
 import SoulShardDetails from './Modules/SoulShards/SoulShardDetails';
@@ -22,12 +23,13 @@ import MaleficGrasp from './Modules/Talents/MaleficGrasp';
 import Contagion from './Modules/Talents/Contagion';
 import AbsoluteCorruption from './Modules/Talents/AbsoluteCorruption';
 import EmpoweredLifeTap from './Modules/Talents/EmpoweredLifeTap';
-import SoulHarvest from './Modules/Talents/SoulHarvest';
-import SoulHarvestTalent from './Modules/Talents/SoulHarvestTalent';
+import SoulHarvest from '../Shared/Modules/Talents/SoulHarvest';
+import SoulHarvestTalent from '../Shared/Modules/Talents/SoulHarvestTalent';
 import DeathsEmbrace from './Modules/Talents/DeathsEmbrace';
 import SiphonLifeUptime from './Modules/Talents/SiphonLifeUptime';
+import SoulConduit from './Modules/Talents/SoulConduit';
 
-import TheMasterHarvester from './Modules/Items/Legendaries/TheMasterHarvester';
+import TheMasterHarvester from '../Shared/Modules/Items/TheMasterHarvester';
 import StretensSleeplessShackles from './Modules/Items/Legendaries/StretensSleeplessShackles';
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
 import PowerCordOfLethtendris from './Modules/Items/Legendaries/PowerCordOfLethtendris';
@@ -51,12 +53,13 @@ class CombatLogParser extends CoreCombatLogParser {
     fatalEchoes: FatalEchoes,
     sniping: Sniping,
     tormentedSouls: TormentedSouls,
+    lowMana: LowMana,
     checklist: Checklist,
 
     // DoTs
     agonyUptime: AgonyUptime,
     corruptionUptime: CorruptionUptime,
-    uaBuffTracker: UABuffTracker,
+    reapBuffTracker: ReapBuffTracker,
 
     // Core
     soulShardTracker: SoulShardTracker,
@@ -74,6 +77,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soulHarvestTalent: SoulHarvestTalent,
     deathsEmbrace: DeathsEmbrace,
     siphonLifeUptime: SiphonLifeUptime,
+    soulConduit: SoulConduit,
 
     // Legendaries
     masterHarvester: TheMasterHarvester,

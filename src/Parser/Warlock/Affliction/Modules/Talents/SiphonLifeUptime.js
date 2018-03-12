@@ -7,9 +7,10 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
+
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class SiphonLifeUptime extends Analyzer {
   static dependencies = {
@@ -29,9 +30,9 @@ class SiphonLifeUptime extends Analyzer {
     return {
       actual: this.uptime,
       isLessThan: {
-        minor: 0.85,
-        average: 0.8,
-        major: 0.7,
+        minor: 0.95,
+        average: 0.9,
+        major: 0.8,
       },
       style: 'percentage',
     };

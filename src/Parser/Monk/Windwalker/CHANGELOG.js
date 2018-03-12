@@ -1,22 +1,140 @@
-export default `
-20-01-2018 - Updated Cooldown Tracker to include extended SEF duration from Drinking Horn Cover (Juko)
-03-01-2018 - Updated AlwaysBeCasting with channeling and more accurate GCD and fixed Gol'ganneths ravaging storm being shown in Cooldown usage breakdown (Juko)
-05-12-2017 - Updated Cast Efficiency to better handle Serenity cooldown reduction on Fists of Fury and Strike of the Windlord (Juko)
-23-11-2017 - Added Chi breakdown tab, suggestions and chi wasted statistic (Juko)
-22-11-2017 - Added T21 4pc item breakdown (Juko)
-07-11-2017 - Added CJL damage from SEF clones in The Emperors Capacity item breakdown (Juko)
-06-11-2017 - Added Energizing Elixir Energy gained calculation and statistics box (Coryn)
-05-11-2017 - Added basic display for Invoke Xuen, The White Tiger to Cooldown Throughput with plans for refinement (Talby)
-05-11-2017 - Added WindwalkerCore for future feature at request of Bablyonius (Talby)
-05-11-2017 - Added basic display Energizing Elixir to Cast Efficiency (Talby)
-05-11-2017 - Fixed issue where Rushing Jade Wind was showing without the talent selected (Talby)
-25-10-2017 - Updated Cast Efficiency because of nerfs to T19 2pc - thanks blizz - also added some rarely used talents(by Juko)
-23-10-2017 - Added tracking of Fists of Fury ticks (by Juko)
-17-10-2017 - Updated Cast Efficiency - Will now reduce cooldowns on Strike of the Windlord and Rising Sun kick based on legendary head and T19 2p but Serenity implementation isn't working - also added Cenedril, Emperors Capacitor and Soul to legendary breakdown (by Juko)
-15-10-2017 - Added tracking of Chi saved by Katsuo's Eclipse (by Juko) - Also finished AlwaysBeCasting (by Juko)
-14-10-2017 - Updated Cast Efficiency - should now track all spells individually correct, but tierbonuses and Serenity CDR is not accounted for (by Juko)
-13-10-2017 - Added Combo Breaker tracking and suggestions (by Juko)
-03-10-2017 - Added in Mastery tracking and suggestions, along with updating the Maintainer and Configuration sections (by anomoly)
-24-09-2017 - Added additional Windwalker spells / cooldowns along with a simple Hit Combo track (by anomoly)
-22-07-2017 - Added basic Windwalker Monk support. (by AttilioLH)
-`;
+import React from 'react';
+import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS';
+import ItemLink from 'common/ItemLink';
+import SpellLink from 'common/SpellLink';
+import Wrapper from 'common/Wrapper';
+
+import { Juko8, Coryn, Talby, Anomoly, AttilioLH, Hewhosmites } from 'MAINTAINERS';
+export default [
+  {
+    date: new Date('2018-03-09'),
+    changes: `Added Checklist`,
+    contributors: [Juko8],
+  },
+  {
+    date: new Date('2018-03-06'),
+    changes: <Wrapper>Added Statistics and Suggestions on use of <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} icon/></Wrapper>,
+    contributors: [Juko8],
+  },
+  {
+    date: new Date('2018-03-03'),
+    changes: <Wrapper>Added <ItemLink id={ITEMS.THE_WIND_BLOWS.id} icon/></Wrapper>,
+    contributors: [Hewhosmites],
+  },
+  {
+    date: new Date('2018-02-16'),
+    changes: 'Added Spinning Crane Kick statistics and suggestion on bad use of Spinning Crane Kick',
+    contributors: [Juko8],
+  },
+  {
+    date: new Date('2018-01-27'),
+    changes: 'Added item breakdown for Drinking Horn Cover showing average time gained for each Storm, Earth and Fire or Serenity cast',
+    contributors: [Juko8],
+  },
+  {
+    date: new Date('2018-01-24'),
+    changes: 'Added Statistic showing actual casts vs expected casts of important spells during Storm, Earth and Fire or Serenity',
+    contributors: [Juko8],
+  },
+  {
+    date: new Date('2018-01-20'),
+    changes: 'Updated Cooldown Tracker to include extended SEF duration from Drinking Horn Cover',
+    contributors: [Juko8],
+  },
+  {
+    date: new Date('2018-01-03'),
+    changes: "Updated AlwaysBeCasting with channeling and more accurate GCD and fixed Gol'ganneths ravaging storm being shown in Cooldown usage breakdown",
+    contributors: [Juko8],
+  },
+  {
+    date: new Date('2017-12-05'),
+    changes: 'Updated Cast Efficiency to better handle Serenity cooldown reduction on Fists of Fury and Strike of the Windlord',
+    contributors: [Juko8],
+  },
+  {
+    date: new Date('2017-11-23'),
+    changes: 'Added Chi breakdown tab, suggestions and chi wasted statistic',
+    contributors: [Juko8],
+  },
+  {
+    date: new Date('2017-11-22'),
+    changes: 'Added T21 4pc item breakdown',
+    contributors: [Juko8],
+  },
+  {
+    date: new Date('2017-11-07'),
+    changes: 'Added CJL damage from SEF clones in The Emperors Capacity item breakdown',
+    contributors: [Juko8],
+  },
+  {
+    date: new Date('2017-11-06'),
+    changes: 'Added Energizing Elixir energy gained calculation and statistic',
+    contributors: [Coryn],
+  },
+  {
+    date: new Date('2017-11-05'),
+    changes: 'Added basic display for Invoke Xuen, The White Tiger to Cooldown Throughput with plans for refinement',
+    contributors: [Talby],
+  },
+  {
+    date: new Date('2017-11-05'),
+    changes: 'Updated Cast Efficiency - Added Energizing Elixir and fixed Rushing Jade Wind showing when not talented',
+    contributors: [Talby],
+  },
+  {
+    date: new Date('2017-10-25'),
+    changes: 'Updated Cast Efficiency - Changed reduction values from T19 2pc and added a few talents',
+    contributors: [Juko8],
+  },
+  {
+    date: new Date('2017-10-23'),
+    changes: 'Added tracking of Fists of Fury ticks',
+    contributors: [Juko8],
+  },
+  {
+    date: new Date('2017-10-17'),
+    changes: 'Updated Cast Efficiency - Added reductions from legendary head and T19 2pc',
+    contributors: [Juko8],
+  },
+  {
+    date: new Date('2017-10-17'),
+    changes: 'Added Cenedril, Emperors Capacitor and Soul to legendary item breakdown',
+    contributors: [Juko8],
+  },
+  {
+    date: new Date('2017-10-15'),
+    changes: "Added Katsuo's Eclipse chi reduction item breakdown",
+    contributors: [Juko8],
+  },
+  {
+    date: new Date('2017-10-15'),
+    changes: 'Finished AlwaysBeCasting',
+    contributors: [Juko8],
+  },
+  {
+    date: new Date('2017-10-14'),
+    changes: 'Updated Cast Efficiency - All primary Windwalker spells are now shown',
+    contributors: [Juko8],
+  },
+  {
+    date: new Date('2017-10-13'),
+    changes: 'Added Combo Breaker tracking with suggestions and statistic',
+    contributors: [Juko8],
+  },
+  {
+    date: new Date('2017-10-03'),
+    changes: 'Added in mastery tracking and suggestions, along with updating the Maintainer and Configuration sections',
+    contributors: [Anomoly],
+  },
+  {
+    date: new Date('2017-09-24'),
+    changes: 'Added additional Windwalker spells / cooldowns along with a simple Hit Combo tracker',
+    contributors: [Anomoly],
+  },
+  {
+    date: new Date('2017-07-22'),
+    changes: 'Added basic Windwalker Monk support',
+    contributors: [AttilioLH],
+  },
+];

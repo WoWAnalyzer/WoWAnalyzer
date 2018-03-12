@@ -154,6 +154,26 @@ export default {
     name: 'T20 4 Set Bonus',
     icon: 'spell_deathknight_bloodpresence',
   },
+  // T21 2 Piece
+  BLOOD_DEATH_KNIGHT_T21_2SET_BONUS_BUFF: {
+    id: 251876,
+    name: 'T21 2 Set Bonus',
+    icon: 'ability_paladin_conviction',
+  },
+  // T21 4 Piece
+  BLOOD_DEATH_KNIGHT_T21_4SET_BONUS_BUFF: {
+    id: 251877,
+    name: 'T21 4 Set Bonus',
+    icon: 'ability_paladin_conviction',
+  },
+
+  // Blood T21 4 Piece buff
+  RUNE_MASTER: {
+    id: 253381,
+    name: 'Rune Master',
+    icon: '70_inscription_vantus_rune_nightmare',
+  },
+
   // T20 Buff
   GRAVEWARDEN: {
     id: 242010,
@@ -179,8 +199,18 @@ export default {
     name: 'Frost Strike',
     icon: 'spell_deathknight_empowerruneblade2',
   },
-  OBLITERATE: {
+  OBLITERATE_CAST: {
     id: 49020,
+    name: 'Obliterate',
+    icon: 'spell_deathknight_classicon',
+  },
+  OBLITERATE_MAIN_HAND_DAMAGE: {
+    id: 222024,
+    name: 'Obliterate',
+    icon: 'spell_deathknight_classicon',
+  },
+  OBLITERATE_OFF_HAND_DAMAGE: {
+    id: 66198,
     name: 'Obliterate',
     icon: 'spell_deathknight_classicon',
   },
@@ -189,20 +219,30 @@ export default {
     name: 'Howling Blast',
     icon: 'spell_frost_arcticwinds',
   },
-  REMORSELESS_WINTER_ENV_CAST: {
+  REMORSELESS_WINTER_ENV_CAST: { // not actually sure what this does
     id: 211793,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
   },
-  REMORSELESS_WINTER_BUFF: {
+  REMORSELESS_WINTER_DAMAGE: { // every tick puts a cast event on the environment and also the id of the damage event
     id: 196771,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
   },
-  REMORSELESS_WINTER: { // This the spell the player see
+  REMORSELESS_WINTER: { // This the spell the player casts, triggers energize event, also exists as buff on player
     id: 196770,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
+  },
+  GATHERING_STORM_TALENT_BUFF:{
+    id: 211805,
+    name: 'Gathering Storm',
+    icon: 'spell_frost_ice-shards',
+  },
+  BREATH_OF_SINDRAGOSA_TALENT_DAMAGE_TICK: {
+    id: 155166,
+    name: 'Breath of Sindragosa',
+    icon: 'spell_deathknight_breathofsindragosa',
   },
   // Buffs
   EMPOWER_RUNE_WEAPON: {
@@ -222,7 +262,7 @@ export default {
     icon: 'spell_frost_arcticwinds',
   },
   KILLING_MACHINE: {
-    id: 51128,
+    id: 51124,
     name: 'Killing Machine',
     icon: 'inv_sword_122',
   },
@@ -231,6 +271,43 @@ export default {
     name: 'Razorice',
     icon: 'spell_deathknight_frozenruneweapon',
   },
+  RUNIC_EMPOWERMENT: {
+    id: 193486,
+    name: 'Runic Empowerment',
+    icon: 'inv_misc_rune_10',
+  },
+  MURDEROUS_EFFICIENCY: {
+    id: 207062,
+    name: 'Murderous Efficiency',
+    icon: 'spell_frost_frostarmor',
+  },
+  KOLTIRAS_NEWFOUND_WILL: {
+    id: 208783,
+    name: 'Koltira\'s Newfound Will',
+    icon: 'ability_warrior_unrelentingassault',
+  },
+  DRAUGR_GIRDLE_OF_THE_EVERLASTING_KING: {
+    id: 224166,
+    name: 'Draugr, Girdle of the Everlasting King',
+    icon: 'ability_warrior_unrelentingassault',
+  },
+  UVARNIMOR_THE_UNBEATIFUL: {
+    id: 208800,
+    name: 'Uvanimor, the Unbeautiful',
+    icon: 'ability_warrior_unrelentingassault',
+  },
+  SCOURGE_THE_UNBELIEVER: {
+    id: 191492,
+    name: 'Scourge the Unbeliever',
+    icon: 'spell_deathknight_plaguestrike',
+  },
+  PESTILENT_PUSTULES: {
+    id: 220211,
+    name: 'Pestilent Pustules',
+    icon: 'spell_yorsahj_bloodboil_purpleoil',
+  },
+
+  // Frost tier 
   // T20 2P
   FROST_DEATH_KNIGHT_T20_2SET_BONUS_BUFF: {
     id: 242058,
@@ -243,112 +320,29 @@ export default {
     name: 'T20 4 Set Bonus',
     icon: 'spell_deathknight_frostpresence',
   },
-  // Talents
-  RUNIC_ATTENUATION_TALENT: {
-    id: 207104,
-    name: 'Runic Attenuation',
-    icon: 'Boss_odunrunes_blue',
+  // T21 2P
+  FROST_DEATH_KNIGHT_T21_2SET_BONUS: {
+    id: 251873,
+    name: 'T21 2 Set Bonus',
+    icon: 'spell_deathknight_frostpresence',
   },
-  ABOMINATIONS_MIGHT_TALENT: {
-    id: 207161,
-    name: 'Abomination\'s Might',
-    icon: 'spell_deathknight_icetouch',
+  // T21 4P
+  FROST_DEATH_KNIGHT_T21_4SET_BONUS: {
+    id: 251875,
+    name: 'T21 4 Set Bonus',
+    icon: 'spell_deathknight_frostpresence',
   },
-  AVALANCHE_TALENT: {
-    id: 207142,
-    name: 'Avalanche',
-    icon: 'spell-frost-icestorm',
+  FREEZING_DEATH: { // damage event from 4 set
+    id: 253590,
+    name: 'Freezing Death',
+    icon: 'ability_deathknight_chillstreak',
   },
-  BLINDING_SLEET_TALENT: {
-    id: 207167,
-    name: 'Blinding Sleet',
-    icon: 'spell-frost-chillingblast',
+  TORAVONS_WHITEOUT_BINDINGS: {
+    id: 205659,
+    name: 'Toravon\'s Whiteout Bindings',
+    icon: 'ability_warrior_unrelentingassault',
   },
-  BREATH_OF_SINDRAGOSA_TALENT: {
-    id: 152279,
-    name: 'Breath of Sindragosa',
-    icon: 'spell_deathknight_breathofsindragosa',
-  },
-  FREEZING_FOG_TALENT: {
-    id: 207060,
-    name: 'Freezing Fog',
-    icon: 'spell_frost_arcticwinds',
-  },
-  FROSTSCYTHE_TALENT: {
-    id: 207230,
-    name: 'Frostscythe',
-    icon: 'inv_misc_2h_farmscythe_a_01',
-  },
-  FROZEN_PULSE_TALENT: {
-    id: 194909,
-    name: 'Frozen Pulse',
-    icon: 'inv_misc_permafrostshard',
-  },
-  GATHERING_STORM_TALENT: {
-    id: 194912,
-    name: 'Gathering Storm',
-    icon: 'spell_frost_ice-shards',
-  },
-  GLACIAL_ADVANCE_TALENT: {
-    id: 194913,
-    name: 'Glacial Advance',
-    icon: 'ability_hunter_glacialtrap',
-  },
-  HORN_OF_WINTER_TALENT: {
-    id: 57330,
-    name: 'Horn of Winter',
-    icon: 'inv_misc_horn_02',
-  },
-  HUNGERING_RUNE_WEAPON_TALENT: {
-    id: 207127,
-    name: 'Hungering Rune Weapon',
-    icon: 'ability_deathknight_hungeringruneblade',
-  },
-  ICECAP_TALENT: {
-    id: 207126,
-    name: 'Icecap',
-    icon: 'inv_misc_herb_icecap',
-  },
-  ICY_TALONS_TALENT: {
-    id: 194878,
-    name: 'Icy Talons',
-    icon: 'spell_deathknight_icytalon',
-  },
-  INEXORABLE_ASSAULT_TALENT: {
-    id: 253593,
-    name: 'Inexorable Assault',
-    icon: 'achievement_dungeon_icecrown_frostmourne',
-  },
-  MURDEROUS_EFFICIENCY_TALENT: {
-    id: 207061,
-    name: 'Murderous Efficiency',
-    icon: 'spell_frost_frostarmor',
-  },
-  OBLITERATION_TALENT: {
-    id: 207256,
-    name: 'Obliteration',
-    icon: 'inv_axe_114',
-  },
-  PERMAFROST_TALENT: {
-    id: 207200,
-    name: 'Permafrost',
-    icon: 'achievement_zone_frostfire',
-  },
-  SHATTERING_STRIKES_TALENT: {
-    id: 207057,
-    name: 'Shattering Strikes',
-    icon: 'ability_warrior_shatteringthrow',
-  },
-  VOLATILE_SHIELDING_TALENT: {
-    id: 207188,
-    name: 'Volatile Shielding',
-    icon: 'ability_mage_shattershield',
-  },
-  WINTER_IS_COMING_TALENT: {
-    id: 207170,
-    name: 'Winter is Coming',
-    icon: 'inv_wolfdraenormountfrost',
-  },
+  
   // Unholy:
   // Aritfact ability
   APOCALYPSE: {
@@ -413,7 +407,7 @@ export default {
   },
 
   RUNIC_CORRUPTION: {
-    id: 51462,
+    id: 51460,
     name: 'Runic Corruption',
     icon: 'spell_shadow_rune',
   },
@@ -455,7 +449,7 @@ export default {
 	  name: 'Unholy Strength',
 	  icon: 'spell_holy_blessingofstrength',
   },
-
+  
   // Unholy Tier Sets
   // T20 2 Piece and buff
   UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS: {
@@ -486,6 +480,12 @@ export default {
     id: 253367,
     name: 'Coils of Devastation (T21 2 Set Bonus)',
     icon: 'ability_malkorok_blightofyshaarj_green',
+  },
+  //Legendary Item Buffs
+  TAKTHERITRIXS_COMMAND: {
+    id: 215069,
+    name: 'Tak\'theritrix\'s Command',
+    icon: 'achievement_boss_festergutrotface',
   },
 
   // Artifact traits:
@@ -628,5 +628,21 @@ export default {
     id: 209232,
     name: 'Shackles of Bryndaor',
     icon: 'ability_deathknight_runicimpowerment',
+  },
+
+  RUNE_1: {
+    id: -101,
+    name: 'Rune 1',
+    icon: 'spell_deathknight_frozenruneweapon',
+  },
+  RUNE_2: {
+    id: -102,
+    name: 'Rune 2',
+    icon: 'spell_deathknight_frozenruneweapon',
+  },
+  RUNE_3: {
+    id: -103,
+    name: 'Rune 3',
+    icon: 'spell_deathknight_frozenruneweapon',
   },
 };

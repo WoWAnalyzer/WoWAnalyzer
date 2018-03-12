@@ -41,7 +41,7 @@ export default {
   FERAL_AFFINITY_TALENT_BALANCE: { id: 202157, name: "Feral Affinity", icon: "talentspec_druid_feral_cat" },
   // Restoration
   PROSPERITY_TALENT: { id: 200383, name: "Prosperity", icon: "spell_druid_rampantgrowth" },
-  CENARION_WARD_TALENT: { id: 102351, name: "Cenarion Ward", icon: "ability_druid_naturalperfection", manaCost: 20218 },
+  CENARION_WARD_TALENT: { id: 102351, name: "Cenarion Ward", icon: "ability_druid_naturalperfection"/*, manaCost: 20218*/ },
   ABUNDANCE_TALENT: { id: 207383, name: "Abundance", icon: "ability_druid_empoweredrejuvination" },
   INCARNATION_TREE_OF_LIFE_TALENT: { id: 33891, name: "Incarnation: Tree of Life", icon: "ability_druid_improvedtreeform" },
   CULTIVATION_TALENT: { id: 200390, name: "Cultivation", icon: "ability_druid_nourish" },

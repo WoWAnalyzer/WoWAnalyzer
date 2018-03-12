@@ -27,17 +27,25 @@ class TimeFocusCapped extends Analyzer {
     return Math.round(waste);
   }
 
+  get totalGenerated() {
+    const passiveGenerated = (this.owner.fightDuration / 1000 * this.focusTracker.averageFocusGen);
+    let activeGenerated = 0;
+    if (this.focusTracker.generatorCasts) {
+      activeGenerated += Object.values(this.focusTracker.activeFocusGenerated).reduce((sum, generated) => sum + generated, 0);
+    }
+    return Math.round(passiveGenerated + activeGenerated);
+  }
+
   statistic() {
-    const totalFocusWaste = this.getTotalWaste;
     const percentCapped = formatPercentage(this.focusTracker.secondsCapped / (this.owner.fightDuration / 1000));
     return (
       <StatisticBox
         icon={<Icon icon="ability_hunter_focusfire" alt="Focus Wasted" />}
         label="Time Focus Capped"
-        tooltip={`You wasted <b> ${totalFocusWaste}  </b> focus. <br />
-        That's <b>  ${formatPercentage(totalFocusWaste / (this.owner.fightDuration / 1000 * this.focusTracker.focusGen))}% </b> of your total focus generated.
+        tooltip={`You wasted <b> ${this.getTotalWaste}  </b> focus. <br />
+        That's <b>  ${formatPercentage(this.getTotalWaste / this.totalGenerated)}% </b> of your total focus generated.
         <br /> For more details, see the Focus Chart tab.`}
-        value={`${percentCapped} %`}
+        value={`${percentCapped}%`}
         //Time not Focus-Capped: {Math.round((this.owner.fightDuration / 1000 - this.focusTracker.secondsCapped) * 100) / 100}s / {Math.floor(this.owner.fightDuration / 1000)}
         footer={(
           <div className="statistic-bar">
@@ -64,9 +72,9 @@ class TimeFocusCapped extends Analyzer {
     let average;
     let major;
     if (this.combatants.selected.spec === SPECS.SURVIVAL_HUNTER) {
-      minor = 0.04;
-      average = 0.06;
-      major = 0.08;
+      minor = 0.05;
+      average = 0.075;
+      major = 0.1;
     } else {
       minor = 0.025;
       average = 0.035;
@@ -102,7 +110,7 @@ class TimeFocusCapped extends Analyzer {
     } else if (this.combatants.selected.spec === SPECS.SURVIVAL_HUNTER) {
       when(this.suggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<Wrapper>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. Remember to cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} icon /> to stay off the focus cap, if no other focus spender is ready to use. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</Wrapper>)
+          return suggest(<Wrapper>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. Remember to cast focus spenders such as <SpellLink id={SPELLS.FLANKING_STRIKE.id} icon /> to stay off the focus cap. If no other focus spender is ready to use, you can cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} icon />. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</Wrapper>)
             .icon('ability_hunter_focusfire')
             .actual(`${formatPercentage(actual)}%`)
             .recommended(`<${formatPercentage(recommended)}% is recommended`);

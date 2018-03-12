@@ -57,6 +57,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CONSUMPTION,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 45,
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
@@ -79,6 +80,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLOODDRINKER_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 30,
+        isOnGCD: true,
         enabled: combatant.hasTalent(SPELLS.BLOODDRINKER_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -112,6 +114,21 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DEATH_AND_DECAY,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
+        cooldown: 15,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.80, //reduced because of proc resets
+        },
+      },
+
+      //do not use cast efficiency for DnD without Rapid Decomposition.
+      {
+        spell: SPELLS.DEATH_AND_DECAY,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
+        enabled: !combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
+        cooldown: 15,
       },
 
       {
@@ -129,7 +146,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ANTI_MAGIC_SHELL,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        isOnGCD: true,
         cooldown: 60,
         castEfficiency: {
           suggestion: true,
@@ -155,7 +171,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DEATH_GRIP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         //isOnGCD: true, special GCD have to look into it
-        cooldown: 25,
+        cooldown: 15,
       },
 
       {
@@ -175,7 +191,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RAISE_ALLY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 600,
         isOnGCD: true,
       },
 
@@ -193,23 +208,14 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell: SPELLS.DEATH_GATE,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        cooldown: 60,
-        isOnGCD: true,
-      },
-
-      {
         spell: SPELLS.BLOOD_TAP_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.BLOOD_TAP_TALENT.id),
         cooldown: 60,
         charges: 2,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.50,
-          extraSuggestion: 'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
-          importance: ISSUE_IMPORTANCE.MINOR,
+          recommendedEfficiency: 0.90,
         },
       },
 
@@ -244,7 +250,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         enabled: combatant.hasTalent(SPELLS.RUNE_TAP_TALENT.id),
         cooldown: 25,
-        isOnGCD: true,
         charges: 2,
         castEfficiency: {
           suggestion: true,
@@ -261,7 +266,36 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
         isOnGCD: true,
       },
+      
+      {
+        spell: SPELLS.RUNE_1,
+        category: Abilities.SPELL_CATEGORIES.HIDDEN,
+        cooldown: (haste, combatantCurrent) => {
+          const multiplier = combatantCurrent.hasBuff(SPELLS.RUNE_MASTER.id) ? 0.4 : 0;
+          return 10 / (1 + haste) / (1 + multiplier);
+        },
+        charges: 2,
+      },
 
+      {
+        spell: SPELLS.RUNE_2,
+        category: Abilities.SPELL_CATEGORIES.HIDDEN,
+        cooldown: (haste, combatantCurrent) => {
+          const multiplier = combatantCurrent.hasBuff(SPELLS.RUNE_MASTER.id) ? 0.4 : 0;
+          return 10 / (1 + haste) / (1 + multiplier);
+        },
+        charges: 2,
+      },
+
+      {
+        spell: SPELLS.RUNE_3,
+        category: Abilities.SPELL_CATEGORIES.HIDDEN,
+        cooldown: (haste, combatantCurrent) => {
+          const multiplier = combatantCurrent.hasBuff(SPELLS.RUNE_MASTER.id) ? 0.4 : 0;
+          return 10 / (1 + haste) / (1 + multiplier);
+        },
+        charges: 2,
+      },
     ];
   }
 }

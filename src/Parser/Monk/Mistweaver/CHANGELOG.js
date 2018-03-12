@@ -1,9 +1,16 @@
 import React from 'react';
 
-import { Anomoly, Zerotorescue } from 'MAINTAINERS';
+import { Anomoly, Zerotorescue, Scaleable } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-02-05'),
+    changes: 'Implemented Stat Values for Mistweaver Monk',
+    contributors: [Scaleable, Anomoly],
+  },
   {
     date: new Date('2018-01-18'),
     changes: <Wrapper>Updated Essence Font HoT usage thresholds to lower values based on current healing methods. Also, fixed a rare 'NaN' error.</Wrapper>,
@@ -11,7 +18,7 @@ export default [
   },
   {
     date: new Date('2017-12-29'),
-    changes: <Wrapper>Fixed display in the timeline and the inclusion in active time of channeled abilities.</Wrapper>,
+    changes: 'Fixed display in the timeline and the inclusion in active time of channeled abilities.',
     contributors: [Zerotorescue],
   },
   {
@@ -26,17 +33,17 @@ export default [
   },
   {
     date: new Date('2017-11-28'),
-    changes: 'Fixed bug with TFT -> Renewing Mist cast efficiency. Updated Player Log Data tab for additional items for T21 Speadsheet version',
+    changes: <Wrapper>Fixed bug with <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> -> <SpellLink id={SPELLS.RENEWING_MIST.id} /> cast efficiency. Updated Player Log Data tab for additional items for T21 Speadsheet version</Wrapper>,
     contributors: [Anomoly],
   },
   {
     date: new Date('2017-11-06'),
-    changes: 'Updated Always Be Casting calculation to take into consideration Essence Font not having a begincast event',
+    changes: <Wrapper>Updated Always Be Casting calculation to take into consideration <SpellLink id={SPELLS.ESSENCE_FONT.id} /> not having a begincast event</Wrapper>,
     contributors: [Anomoly],
   },
   {
     date: new Date('2017-10-24'),
-    changes: 'Updated Thunder Focus Tea, Dancing Mist, and Uplifting Trance statistics formating',
+    changes: <Wrapper>Updated <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} />, <SpellLink id={SPELLS.DANCING_MISTS.id} />, and <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> statistics formatting</Wrapper>,
     contributors: [Anomoly],
   },
   {

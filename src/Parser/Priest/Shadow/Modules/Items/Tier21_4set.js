@@ -7,15 +7,18 @@ import SpellLink from 'common/SpellLink';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import StatTracker from 'Parser/Core/Modules/StatTracker';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 const SET_INCREASE_CRIT_CHANCE_PER_VOIDFORM_STACK = 0.5;
 const CRIT_TO_HIT_MODIFIER = 2.5; // +50% from tier 21 2p set
+const CRIT_TO_HIT_MODIFIER_VOIDBOLT = 2.0; // voidbolt does not profit from t21 2pc
 
 class Tier21_4set extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    statTracker: StatTracker,
   };
 
   bonusDamage = 0;
@@ -28,17 +31,26 @@ class Tier21_4set extends Analyzer {
     const spellId = event.ability.guid;
     const combatant = this.combatants.selected;
 
-    if (spellId !== SPELLS.MIND_BLAST.id && spellId !== SPELLS.MIND_FLAY.id) return;
-    if (!combatant.hasBuff(SPELLS.VOIDFORM_BUFF.id)) return;
+    if (spellId !== SPELLS.MIND_BLAST.id && spellId !== SPELLS.MIND_FLAY.id && spellId !== SPELLS.VOID_BOLT.id) {
+      return;
+    }
+    if (!combatant.hasBuff(SPELLS.VOIDFORM_BUFF.id)) {
+      return;
+    }
 
     const { stacks: currentVoidformStacks } = combatant.getBuff(SPELLS.VOIDFORM_BUFF.id);
     const increasedCritChance = currentVoidformStacks * SET_INCREASE_CRIT_CHANCE_PER_VOIDFORM_STACK / 100;
 
-    const critChanceWithoutSet = 1 + combatant.critPercentage;
+    const critChanceWithoutSet = 1 + this.statTracker.currentCritPercentage;
     const critChanceWithSet = increasedCritChance + critChanceWithoutSet;
+    let hitDamage = 0.0;
 
-    const hitDamage = event.hitType === HIT_TYPES.CRIT ? (calculateEffectiveDamage(event, 1) / CRIT_TO_HIT_MODIFIER) : (calculateEffectiveDamage(event, 1));
-
+    if (spellId !== SPELLS.VOID_BOLT.id) {
+      hitDamage = event.hitType === HIT_TYPES.CRIT ? (calculateEffectiveDamage(event, 1) / CRIT_TO_HIT_MODIFIER) : (calculateEffectiveDamage(event, 1));
+    }
+    else {
+      hitDamage = event.hitType === HIT_TYPES.CRIT ? (calculateEffectiveDamage(event, 1) / CRIT_TO_HIT_MODIFIER_VOIDBOLT) : (calculateEffectiveDamage(event, 1));
+    }
     const averageDamageWithoutSet = hitDamage * critChanceWithoutSet;
     // ignore added critdamage from Tier21_2set, to estimate the power of 4 piece bonus only:
     const averageDamageWithSet = hitDamage * critChanceWithSet;

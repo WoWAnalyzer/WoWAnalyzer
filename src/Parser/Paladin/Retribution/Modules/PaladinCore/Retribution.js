@@ -30,6 +30,10 @@ class Retribution extends Analyzer {
     this.bonusDmg += GetDamageBonus(event, RETRIBUTION_DAMAGE_BONUS);
   }
 
+  on_finished() {
+    this.active = this.bonusDmg > 0;
+  }
+
   statistic() {
     return (
       <StatisticBox
@@ -40,7 +44,7 @@ class Retribution extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
+  statisticOrder = STATISTIC_ORDER.UNIMPORTANT();
 }
 
 export default Retribution;

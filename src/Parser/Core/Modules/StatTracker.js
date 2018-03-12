@@ -1,11 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SPECS from 'common/SPECS';
-import { calculateSecondaryStatDefault } from 'common/stats';
+import { calculateSecondaryStatDefault, calculatePrimaryStat } from 'common/stats';
 import { formatMilliseconds } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import { STAT_TRACKER_BUFFS as DARKMOON_DECK_IMMORTALITY_BUFFS } from 'Parser/Core/Modules/Items/Legion/DarkmoonDeckImmortality';
 
 const debug = false;
 
@@ -13,6 +14,23 @@ const debug = false;
 class StatTracker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+  };
+
+  // These are multipliers to the stats applied *on pull* that are not
+  // included in the stats reported by WCL. These are *baked in* and do
+  // not multiply temporary buffs.
+  //
+  // In general, it looks like armor is the only one that isn't applied
+  // by WCL.
+  static SPEC_MULTIPLIERS = {
+    [SPECS.BREWMASTER_MONK.id]: { armor: 1.25 },
+  };
+
+  // These are multipliers from *binary* (have it or don't) artifact
+  // traits. These are *baked in* and do not multiply temporary buffs.
+  static ARTIFACT_MULTIPLIERS = {
+    [SPELLS.ENDURANCE_OF_THE_BROKEN_TEMPLE_TRAIT.id]: { armor: 0.35 },
+    [SPELLS.WANDERERS_HARDINESS_TRAIT.id]: { armor: 0.17 },
   };
 
   static STAT_BUFFS = {
@@ -42,7 +60,7 @@ class StatTracker extends Analyzer {
     [SPELLS.INT_FEAST.id]: { intellect: 500 },
     //endregion
 
-    // region Trinkets
+    // region Dungeon Trinkets
     [SPELLS.SHADOWS_STRIKE.id]: {
       itemId: ITEMS.DREADSTONE_OF_ENDLESS_SHADOWS.id,
       crit: (_, item) => calculateSecondaryStatDefault(845, 3480, item.itemLevel),
@@ -55,6 +73,49 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.DREADSTONE_OF_ENDLESS_SHADOWS.id,
       haste: (_, item) => calculateSecondaryStatDefault(845, 3480, item.itemLevel),
     },
+    [SPELLS.QUITE_SATISFIED_VERSATILITY.id]: {
+      itemId: ITEMS.MAJORDOMOS_DINNER_BELL.id,
+      versatility: (_, item) => calculateSecondaryStatDefault(845, 5252, item.itemLevel),
+    },
+    [SPELLS.QUITE_SATISFIED_CRIT.id]: {
+      itemId: ITEMS.MAJORDOMOS_DINNER_BELL.id,
+      crit: (_, item) => calculateSecondaryStatDefault(845, 5252, item.itemLevel),
+    },
+    [SPELLS.QUITE_SATISFIED_HASTE.id]: {
+      itemId: ITEMS.MAJORDOMOS_DINNER_BELL.id,
+      haste: (_, item) => calculateSecondaryStatDefault(845, 5252, item.itemLevel),
+    },
+    [SPELLS.QUITE_SATISFIED_MASTERY.id]: {
+      itemId: ITEMS.MAJORDOMOS_DINNER_BELL.id,
+      mastery: (_, item) => calculateSecondaryStatDefault(845, 5252, item.itemLevel),
+    },
+    [SPELLS.HOWL_OF_INGVAR.id]: {
+      itemId: ITEMS.MEMENTO_OF_ANGERBODA.id,
+      crit: (_, item) => calculateSecondaryStatDefault(845, 4207, item.itemLevel),
+    },
+    [SPELLS.DIRGE_OF_ANGERBODA.id]: {
+      itemId: ITEMS.MEMENTO_OF_ANGERBODA.id,
+      mastery: (_, item) => calculateSecondaryStatDefault(845, 4207, item.itemLevel),
+    },
+    [SPELLS.WAIL_OF_SVALA.id]: {
+      itemId: ITEMS.MEMENTO_OF_ANGERBODA.id,
+      haste: (_, item) => calculateSecondaryStatDefault(845, 4207, item.itemLevel),
+    },
+    [SPELLS.DOWN_DRAFT.id]: {
+      itemId: ITEMS.NIGHTMARE_EGG_SHELL.id,
+      haste: (_, item) => calculateSecondaryStatDefault(845, 361, item.itemLevel),
+    },
+    [SPELLS.ACCELERATION.id]: {
+      itemId: ITEMS.CHRONO_SHARD.id,
+      haste: (_, item) => calculateSecondaryStatDefault(845, 5269, item.itemLevel),
+    },
+    [SPELLS.GREASE_THE_GEARS.id]: {
+      itemId: ITEMS.FELOILED_INFERNAL_MACHINE.id,
+      haste: (_, item) => calculateSecondaryStatDefault(845, 3074, item.itemLevel),
+    },
+    //endregion
+
+    // region Raid Trinkets
     // Event weirdness makes it impossible to handle CotRT normally, it's handled instead by the CharmOfTheRisingTide module
     //[SPELLS.RISING_TIDES.id]: {
     //  itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
@@ -63,6 +124,14 @@ class StatTracker extends Analyzer {
     [SPELLS.ACCELERANDO.id]: {
       itemId: ITEMS.ERRATIC_METRONOME.id,
       haste: (_, item) => calculateSecondaryStatDefault(870, 657, item.itemLevel),
+    },
+    [SPELLS.SOLAR_INFUSION.id]: {
+      itemId: ITEMS.CHALICE_OF_MOONLIGHT.id,
+      crit: (_, item) => calculateSecondaryStatDefault(900, 3619, item.itemLevel),
+    },
+    [SPELLS.LUNAR_INFUSION.id]: {
+      itemId: ITEMS.CHALICE_OF_MOONLIGHT.id,
+      haste: (_, item) => calculateSecondaryStatDefault(900, 3619, item.itemLevel),
     },
     [SPELLS.TOME_OF_UNRAVELING_SANITY_BUFF.id]: {
       itemId: ITEMS.TOME_OF_UNRAVELING_SANITY.id,
@@ -90,6 +159,19 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.GAROTHI_FEEDBACK_CONDUIT.id,
       haste: (_, item) => calculateSecondaryStatDefault(930, 856, item.itemLevel),
     },
+    [SPELLS.RUSH_OF_KNOWLEDGE.id]: {
+      itemId: ITEMS.NORGANNONS_PROWESS.id,
+      intellect: (_, item) => calculatePrimaryStat(940, 11483, item.itemLevel),
+    },
+    // Khaz'goroth's Courage is handled in it's own module since all 4 stat buffs use the same ID.
+    //[SPELLS.KHAZGOROTHS_SHAPING.id]: {
+    //  itemId: ITEMS.KHAZGOROTHS_COURAGE.id,
+    //  haste: (_, item) => calculateSecondaryStatDefault(940, 4219, item.itemLevel),
+    //},
+    // endregion
+
+    // region Crafted Trinkets
+    ...DARKMOON_DECK_IMMORTALITY_BUFFS,
     // endregion
 
     // region Misc
@@ -102,8 +184,8 @@ class StatTracker extends Analyzer {
     [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_INTELLECT.id]: { // check numbers
       intellect: combatant => 4000 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
     },
-    [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_VERSATILITY.id]: { // check numbers
-      versatility: combatant => 1500 + 100 * (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
+    [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_VERSATILITY.id]: {
+      versatility: combatant => 1500 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
     },
     [SPELLS.JACINS_RUSE.id]: { mastery: 3000 },
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 1000, haste: 1000 },
@@ -132,23 +214,40 @@ class StatTracker extends Analyzer {
   on_initialized() {
     // TODO: Use combatantinfo event directly
     this._pullStats = {
-      strength: this.combatants.selected.strength,
-      agility: this.combatants.selected.agility,
-      intellect: this.combatants.selected.intellect,
-      stamina: this.combatants.selected.stamina,
-      crit: this.combatants.selected.critRating,
-      haste: this.combatants.selected.hasteRating,
-      mastery: this.combatants.selected.masteryRating,
-      versatility: this.combatants.selected.versatilityRating,
-      avoidance: this.combatants.selected.avoidanceRating,
-      leech: this.combatants.selected.leechRating,
-      speed: this.combatants.selected.speedRating,
+      strength: this.combatants.selected._combatantInfo.strength,
+      agility: this.combatants.selected._combatantInfo.agility,
+      intellect: this.combatants.selected._combatantInfo.intellect,
+      stamina: this.combatants.selected._combatantInfo.stamina,
+      crit: this.combatants.selected._combatantInfo.critSpell,
+      haste: this.combatants.selected._combatantInfo.hasteSpell,
+      mastery: this.combatants.selected._combatantInfo.mastery,
+      versatility: this.combatants.selected._combatantInfo.versatilityHealingDone,
+      avoidance: this.combatants.selected._combatantInfo.avoidance,
+      leech: this.combatants.selected._combatantInfo.leech,
+      speed: this.combatants.selected._combatantInfo.speed,
+      armor: this.combatants.selected._combatantInfo.armor,
     };
+
+    this.applySpecModifiers();
+    this.applyArtifactModifiers();
+
     this._currentStats = {
       ...this._pullStats,
     };
 
     debug && this._debugPrintStats(this._currentStats);
+  }
+
+  applySpecModifiers() {
+    const modifiers = this.constructor.SPEC_MULTIPLIERS[this.combatants.selected.spec.id] || {};
+    Object.entries(modifiers).forEach(([stat, multiplier]) => this._pullStats[stat] *= multiplier);
+  }
+
+  applyArtifactModifiers() {
+    Object.entries(this.constructor.ARTIFACT_MULTIPLIERS).forEach(([spellId, modifiers]) => {
+      const rank = this.combatants.selected.traitsBySpellId[spellId] || 0;
+      Object.entries(modifiers).forEach(([stat, multiplier]) => this._pullStats[stat] *= 1 + multiplier * rank);
+    });
   }
 
   /*
@@ -188,6 +287,9 @@ class StatTracker extends Analyzer {
   get startingSpeedRating() {
     return this._pullStats.speed;
   }
+  get startingArmorRating() {
+    return this._pullStats.armor;
+  }
 
   /*
    * Current stat rating, as tracked by this module.
@@ -225,6 +327,9 @@ class StatTracker extends Analyzer {
   get currentSpeedRating() {
     return this._currentStats.speed;
   }
+  get currentArmorRating() {
+    return this._currentStats.armor;
+  }
 
   // TODO: I think these should be ratings. They behave like ratings and I think the only reason they're percentages here is because that's how they're **displayed** in-game, but not because it's more correct.
   /*
@@ -248,6 +353,12 @@ class StatTracker extends Analyzer {
         return standard + 0.05; //baseline +5%
       case SPECS.HAVOC_DEMON_HUNTER:
         return standard + 0.06; //baseline +6%
+      case SPECS.SUBTLETY_ROGUE:
+        return standard + 0.05; //baseline +5%
+      case SPECS.ASSASSINATION_ROGUE:
+        return standard + 0.05; //baseline +5%
+      case SPECS.OUTLAW_ROGUE:
+        return standard + 0.05; //baseline +5%
       default:
         return standard;
     }
@@ -293,10 +404,14 @@ class StatTracker extends Analyzer {
         return 0.18;
       case SPECS.FIRE_MAGE:
         return 0.06;
+      case SPECS.ARCANE_MAGE:
+        return 0.0960;
       case SPECS.SUBTLETY_ROGUE:
         return 0.2208;
       case SPECS.ASSASSINATION_ROGUE:
         return 0.32;
+      case SPECS.OUTLAW_ROGUE:
+        return 0.1760;
       case SPECS.UNHOLY_DEATH_KNIGHT:
         return 0.18;
       case SPECS.MISTWEAVER_MONK:
@@ -308,6 +423,8 @@ class StatTracker extends Analyzer {
       case SPECS.AFFLICTION_WARLOCK:
         return 0.25;
       case SPECS.FROST_DEATH_KNIGHT:
+        return 0.12;
+      case SPECS.BLOOD_DEATH_KNIGHT:
         return 0.12;
       case SPECS.HAVOC_DEMON_HUNTER:
         return 0.12;
@@ -375,6 +492,10 @@ class StatTracker extends Analyzer {
   speedPercentage(rating, withBase = false) {
     return (withBase ? this.baseSpeedPercentage : 0) + rating / this.speedRatingPerPercent;
   }
+  armorPercentage(rating) {
+    // tfw you get a formula from a rando on the wow forums
+    return rating / (rating + 7390);
+  }
 
   /*
    * For percentage stats, the current stat percentage as tracked by this module.
@@ -382,6 +503,8 @@ class StatTracker extends Analyzer {
   get currentCritPercentage() {
     return this.critPercentage(this.currentCritRating, true);
   }
+  // This is only the percentage from BASE + RATING.
+  // If you're looking for current haste percentage including buffs like Bloodlust, check the Haste module.
   get currentHastePercentage() {
     return this.hastePercentage(this.currentHasteRating, true);
   }
@@ -399,6 +522,9 @@ class StatTracker extends Analyzer {
   }
   get currentSpeedPercentage() {
     return this.speedPercentage(this.currentSpeedRating, true);
+  }
+  get currentArmorPercentage() {
+    return this.armorPercentage(this.currentArmorRating);
   }
 
   on_toPlayer_changebuffstack(event) {
@@ -461,6 +587,7 @@ class StatTracker extends Analyzer {
       avoidance: this._getBuffValue(change, change.avoidance) * factor,
       leech: this._getBuffValue(change, change.leech) * factor,
       speed: this._getBuffValue(change, change.speed) * factor,
+      armor: this._getBuffValue(change, change.armor) * factor,
     };
 
     Object.keys(this._currentStats).forEach(key => {
@@ -517,7 +644,7 @@ class StatTracker extends Analyzer {
   }
 
   _statPrint(stats) {
-    return `STR=${stats.strength} AGI=${stats.agility} INT=${stats.intellect} STM=${stats.stamina} CRT=${stats.crit} HST=${stats.haste} MST=${stats.mastery} VRS=${stats.versatility} AVD=${this._currentStats.avoidance} LCH=${stats.leech} SPD=${stats.speed}`;
+    return `STR=${stats.strength} AGI=${stats.agility} INT=${stats.intellect} STM=${stats.stamina} CRT=${stats.crit} HST=${stats.haste} MST=${stats.mastery} VRS=${stats.versatility} AVD=${this._currentStats.avoidance} LCH=${stats.leech} SPD=${stats.speed} ARMOR=${this._currentStats.armor}`;
   }
 }
 

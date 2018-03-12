@@ -48,27 +48,27 @@ export default {
   },
   DIRE_FRENZY_TALENT_BUFF_1: {
     id: 246152,
-    name: 'Dire Frenzy',
+    name: 'Dire Frenzy 1',
     icon: 'ability_druid_mangle',
   },
   DIRE_FRENZY_TALENT_BUFF_2: {
     id: 246851,
-    name: 'Dire Frenzy',
+    name: 'Dire Frenzy 2',
     icon: 'ability_druid_mangle',
   },
   DIRE_FRENZY_TALENT_BUFF_3: {
     id: 246852,
-    name: 'Dire Frenzy',
+    name: 'Dire Frenzy 3',
     icon: 'ability_druid_mangle',
   },
   DIRE_FRENZY_TALENT_BUFF_4: {
     id: 246853,
-    name: 'Dire Frenzy',
+    name: 'Dire Frenzy 4',
     icon: 'ability_druid_mangle',
   },
   DIRE_FRENZY_TALENT_BUFF_5: {
     id: 246854,
-    name: 'Dire Frenzy',
+    name: 'Dire Frenzy 5',
     icon: 'ability_druid_mangle',
   },
   DIRE_FRENZY_DAMAGE: {
@@ -161,6 +161,11 @@ export default {
     id: 218638,
     name: 'Titan\'s Thunder',
     icon: 'ability_hunter_longevity',
+  },
+  SLITHERING_SERPENTS_TRAIT: {
+    id: 238051,
+    name: 'Slithering Serpents',
+    icon: 'ability_hunter_cobrashot',
   },
   COBRA_COMMANDER_TRAIT: {
     id: 238123,
@@ -323,11 +328,6 @@ export default {
     name: 'Vulnerable',
     icon: 'ability_hunter_mastermarksman',
   },
-  ARCANE_TORRENT_FOCUS: {
-    id: 80483,
-    name: 'Arcane Torrent',
-    icon: 'spell_shadow_teleport',
-  },
   MARKING_TARGETS: {
     id: 223138,
     name: 'Marking Targets',
@@ -413,7 +413,7 @@ export default {
   HUNTER_MM_T21_4P_BONUS: {
     id: 251753,
     name: 'T21 4 set bonus',
-    icon: 'ability_hunter_focusedaim',
+    icon: 'ability_hunter_markedshot',
   },
 
   // Marksmanship artifact traits
@@ -595,6 +595,11 @@ export default {
     name: 'Harpoon',
     icon: 'ability_hunter_harpoon',
   },
+  HARPOON_DAMAGE: { //doesn't actually do damage, but it's categorized as that
+    id: 190927,
+    name: 'Harpoon',
+    icon: 'ability_hunter_harpoon',
+  },
   MUZZLE: {
     id: 187707,
     name: 'Muzzle',
@@ -616,6 +621,36 @@ export default {
     name: 'Serpent Sting',
     icon: 'ability_hunter_serpentswiftness',
   },
+  SPITTING_COBRA_DAMAGE: {
+    id: 206685,
+    name: 'Cobra Spit',
+    icon: 'ability_creature_poison_02',
+  },
+  STEEL_TRAP_DAMAGE: { //the event is a damage event, but it merely applies the debuff
+    id: 162480,
+    name: 'Steel Trap',
+    icon: 'inv_pet_pettrap02',
+  },
+  STEEL_TRAP_DEBUFF: {
+    id: 162487,
+    name: 'Steel Trap',
+    icon: 'inv_pet_pettrap02',
+  },
+  DRAGONSFIRE_GRENADE_DEBUFF: {
+    id: 194858,
+    name: 'Dragonsfire Grenade',
+    icon: 'spell_fire_incinerate',
+  },
+  DRAGONSFIRE_GRENADE_CONFLAGARATION: {
+    id: 194859,
+    name: 'Dragonsfire Grenade',
+    icon: 'spell_fire_incinerate',
+  },
+  THROWING_AXES_DAMAGE: {
+    id: 200167,
+    name: 'Throwing Axes',
+    icon: 'inv_throwingaxepvp320_07',
+  },
   //Survival traits:
   ECHOES_OF_OHNARA_TRAIT: {
     id: 238125,
@@ -626,6 +661,11 @@ export default {
     id: 242798,
     name: 'Echoes of Ohn\'ara',
     icon: 'ability_hunter_eagleeye',
+  },
+  EAGLES_BITE_TRAIT: {
+    id: 203757,
+    name: 'Eagle\'s Bite',
+    icon: 'artifactability_survivalhunter_eaglesbite',
   },
   ON_THE_TRAIL_DAMAGE: {
     id: 204081,
@@ -651,6 +691,31 @@ export default {
     id: 203525,
     name: 'Talon Strike',
     icon: 'inv_misc_bone_06',
+  },
+  TALON_BOND_TRAIT: {
+    id: 238089,
+    name: 'Talon Bond',
+    icon: 'inv_misc_bone_06',
+  },
+  TALON_BOND_DAMAGE: {
+    id: 242735,
+    name: 'Talon Slash',
+    icon: 'inv_misc_bone_06',
+  },
+  HUNTERS_GUILE_TRAIT: {
+    id: 203752,
+    name: 'Hunter\'s Guile',
+    icon: 'ability_mage_potentspirit',
+  },
+  HELLCARVER_TRAIT: {
+    id: 203673,
+    name: 'Hellcarver',
+    icon: 'ability_hunter_carve',
+  },
+  ASPECT_OF_THE_SKYLORD_TRAIT: {
+    id: 203755,
+    name: 'Aspect of the Skylord',
+    icon: 'inv_pet_undeadeagle',
   },
   ASPECT_OF_THE_SKYLORD_BUFF: {
     id: 203927,
@@ -709,6 +774,21 @@ export default {
     name: 'Nesingwary\'s Trapping Treads',
     icon: 'inv_boots_mail_panda_b_02',
   },
+  UNSEEN_PREDATORS_CLOAK_BUFF: {
+    id: 248212,
+    name: 'Unseen Predator\'s Cloak',
+    icon: 'ability_vehicle_demolisherflamecatapult',
+  },
+  MARK_OF_HELBRINE: {
+    id: 213156,
+    name: 'Mark of Helbrine',
+    icon: 'inv_spear_04',
+  },
+  BUTCHERS_BONE_APRON_BUFF: {
+    id: 236446,
+    name: 'Butcher\'s Bone Apron',
+    icon: 'ability_hunter_carve',
+  },
 
   //------------------------------------------------------------
 
@@ -731,7 +811,7 @@ export default {
   //The buff given by volley when it's activated (and also what does the damage)
   VOLLEY_ACTIVATED: {
     id: 194392,
-    name: 'Volley buff',
+    name: 'Volley',
     icon: 'ability_marksmanship',
   },
   FLARE: {

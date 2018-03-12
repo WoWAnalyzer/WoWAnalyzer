@@ -16,6 +16,7 @@ import SurvivalHunter from './Hunter/Survival/CONFIG';
 
 import FrostMage from './Mage/Frost/CONFIG';
 import FireMage from './Mage/Fire/CONFIG';
+import ArcaneMage from './Mage/Arcane/CONFIG';
 
 import BrewmasterMonk from './Monk/Brewmaster/CONFIG';
 import WindwalkerMonk from './Monk/Windwalker/CONFIG';
@@ -31,6 +32,7 @@ import ShadowPriest from './Priest/Shadow/CONFIG';
 
 import SubtletyRogue from './Rogue/Subtlety/CONFIG';
 import AssassinationRogue from './Rogue/Assassination/CONFIG';
+import OutlawRogue from './Rogue/Outlaw/CONFIG';
 
 import ElementalShaman from './Shaman/Elemental/CONFIG';
 import EnhancementShaman from './Shaman/Enhancement/CONFIG';
@@ -63,6 +65,7 @@ export default [
 
   FrostMage,
   FireMage,
+  ArcaneMage,
 
   BrewmasterMonk,
   WindwalkerMonk,
@@ -78,6 +81,7 @@ export default [
 
   SubtletyRogue,
   AssassinationRogue,
+  OutlawRogue,
 
   ElementalShaman,
   EnhancementShaman,

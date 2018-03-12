@@ -1,13 +1,16 @@
 import React from 'react';
+
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
+
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
-import ItemDamageDone from 'Main/ItemDamageDone';
 import { formatNumber } from 'common/format';
-import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
+
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../Constants';
 
@@ -44,9 +47,7 @@ class Tier21_2set extends Analyzer {
       return;
     }
     const enemy = encodeTargetString(event.targetID, event.targetInstance);
-    if (!this._debuffs[enemy]) {
-      this._debuffs[enemy] = {};
-    }
+    this._ensureEnemyExists(enemy);
     this._debuffs[enemy][id] = 0;
     debug && console.log(`${enemy} - apply ${id}`);
   }
@@ -57,6 +58,7 @@ class Tier21_2set extends Analyzer {
       return;
     }
     const enemy = encodeTargetString(event.targetID, event.targetInstance);
+    this._ensureEnemyExists(enemy);
     this._debuffs[enemy][id] = null;
     debug && console.log(`${enemy} - remove  ${id}`);
   }
@@ -67,6 +69,7 @@ class Tier21_2set extends Analyzer {
       return;
     }
     const enemy = encodeTargetString(event.targetID, event.targetInstance);
+    this._ensureEnemyExists(enemy);
     this._debuffs[enemy][id] = 0;
   }
 
@@ -76,12 +79,20 @@ class Tier21_2set extends Analyzer {
       return;
     }
     const enemy = encodeTargetString(event.targetID, event.targetInstance);
+    this._ensureEnemyExists(enemy);
     this._debuffs[enemy][id] += 1;
     debug && console.log(`${enemy} - damage - ${id}, now at ${this._debuffs[enemy][id]} ticks`);
     if (this._debuffs[enemy][id] > TICKS_PER_UA) {
       this._bonusDamage += event.amount + (event.absorbed || 0);
       this._bonusTicks += 1;
       debug && console.log(`EXTRA - currently ${this._bonusTicks} bonus ticks`);
+    }
+  }
+
+  _ensureEnemyExists(enemy) {
+    if (!this._debuffs[enemy]) {
+      this._debuffs[enemy] = {};
+      UNSTABLE_AFFLICTION_DEBUFF_IDS.forEach(id => this._debuffs[enemy][id] = 0);
     }
   }
 

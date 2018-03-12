@@ -2,8 +2,6 @@ import React from 'react';
 
 import ChangelogTab from 'Main/ChangelogTab';
 import ChangelogTabTitle from 'Main/ChangelogTabTitle';
-import Gear from 'Main/Gear';
-import Tab from 'Main/Tab';
 import TimelineTab from 'Main/Timeline/TimelineTab';
 
 import { formatNumber, formatPercentage, formatThousands, formatDuration } from 'common/format';
@@ -38,8 +36,8 @@ import SpellManaCost from './Modules/SpellManaCost';
 import Channeling from './Modules/Channeling';
 
 import DistanceMoved from './Modules/Others/DistanceMoved';
-import WarningDisplay from './Modules/Features/WarningDisplay';
 
+import CharacterPanel from './Modules/Features/CharacterPanel';
 import StatsDisplay from './Modules/Features/StatsDisplay';
 import TalentsDisplay from './Modules/Features/TalentsDisplay';
 import Checklist from './Modules/Features/Checklist';
@@ -63,6 +61,7 @@ import AmanthulsVision from './Modules/Items/Legion/Legendaries/AmanthulsVision'
 // Dungeons/crafted
 import DrapeOfShame from './Modules/Items/Legion/DrapeOfShame';
 import DarkmoonDeckPromises from './Modules/Items/Legion/DarkmoonDeckPromises';
+import DarkmoonDeckImmortality from './Modules/Items/Legion/DarkmoonDeckImmortality';
 import AmalgamsSeventhSpine from './Modules/Items/Legion/AmalgamsSeventhSpine';
 import GnawedThumbRing from './Modules/Items/Legion/GnawedThumbRing';
 import EyeOfCommand from './Modules/Items/Legion/EyeOfCommand';
@@ -169,10 +168,10 @@ class CombatLogParser {
     manaValues: ManaValues,
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
-    warningDisplay: WarningDisplay,
 
     critEffectBonus: CritEffectBonus,
 
+    characterPanel: CharacterPanel,
     statsDisplay: StatsDisplay,
     talentsDisplay: TalentsDisplay,
     checklist: Checklist,
@@ -191,6 +190,7 @@ class CombatLogParser {
     drapeOfShame: DrapeOfShame,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
     darkmoonDeckPromises: DarkmoonDeckPromises,
+    darkmoonDeckImmortality: DarkmoonDeckImmortality,
     prePotion: PrePotion,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
@@ -493,8 +493,8 @@ class CombatLogParser {
   formatManaRestored(manaRestored) {
     return `${formatThousands(manaRestored)} mana / ${formatThousands(manaRestored / this.fightDuration * 1000 * 5)} MP5`;
   }
-  formatTimestamp(timestamp) {
-    return formatDuration((timestamp - this.fight.start_time) / 1000);
+  formatTimestamp(timestamp, precision = 0) {
+    return formatDuration((timestamp - this.fight.start_time) / 1000, precision);
   }
 
   generateResults() {
@@ -514,16 +514,6 @@ class CombatLogParser {
             channelHistory={this.modules.channeling.history}
             abilities={this.modules.abilities}
           />
-        ),
-      },
-      {
-        title: 'Gear',
-        url: 'gear',
-        order: 3,
-        render: () => (
-          <Tab title="Gear">
-            <Gear selectedCombatant={this._modules.combatants.selected} />
-          </Tab>
         ),
       },
       {

@@ -13,7 +13,7 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 const MAX_STACKS = 10;
 const TRUE_AIM_MODIFIER = 0.02;
 
-/*
+/**
  * Each successive Arcane Shot or Aimed Shot fired at the same target increases the damage those Shots deal to the target by 2%, stacking up to 10 times.
  * Limit 1 target.
  */
@@ -116,20 +116,17 @@ class TrueAim extends Analyzer {
 
   statistic() {
     const percentTimeAtMaxTAStacks = formatPercentage(this.timeAtMaxStacks / this.owner.fightDuration);
+    let tooltipText = this.combatants.selected.hasTalent(SPELLS.TRICK_SHOT_TALENT.id) ? `You reset True Aim when you had 3 or more stacks (to exclude trickshot cleaving resets): ${this.timesDropped} times over the course of the encounter.<br /> Your total amount of resets (including with trickshot cleaving) was: ${this.totalTimesDropped}.<br/>` : ``;
+    tooltipText += this.combatants.selected.hasTalent(SPELLS.SIDEWINDERS_TALENT.id) ? `You reset True Aim ${this.totalTimesDropped} times over the course of the encounter.` : ``;
+    tooltipText += `True Aim contributed with ${formatNumber(this.bonusDmg)} - ${this.owner.formatItemDamageDone(this.bonusDmg)}. <ul><li> Aimed Shot contributed ${formatPercentage(this.aimedBonusDmg / this.bonusDmg)}%.</li>`;
+    tooltipText += this.combatants.selected.hasTalent(SPELLS.SIDEWINDERS_TALENT.id) ? `` : `<li>Arcane Shot contributed ${formatPercentage(this.arcaneBonusDmg / this.bonusDmg)}%.</li>`;
+    tooltipText += `</ul>`;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.TRUE_AIM_DEBUFF.id} />}
-        value={`${percentTimeAtMaxTAStacks} %`}
+        value={`${percentTimeAtMaxTAStacks}%`}
         label="10 stack uptime"
-        tooltip={`
-          You reset True Aim when you had 3 or more stacks (to exclude trickshot cleaving resets): ${this.timesDropped} times over the course of the encounter.<br />
-          Your total amount of resets (including with trickshot cleaving) was: ${this.totalTimesDropped}.<br/>
-          True Aim contributed with ${formatNumber(this.bonusDmg)} - ${this.owner.formatItemDamageDone(this.bonusDmg)}.
-          <ul>
-            <li> Aimed Shot contributed ${formatPercentage(this.aimedBonusDmg / this.bonusDmg)}%.</li>
-            <li>Arcane Shot contributed ${formatPercentage(this.arcaneBonusDmg / this.bonusDmg)}%.</li>
-          </ul>
-        `}
+        tooltip={tooltipText}
       />
     );
   }

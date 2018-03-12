@@ -17,6 +17,7 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import EssenceFontMastery from './Modules/Features/EssenceFontMastery';
 import Checklist from './Modules/Features/Checklist';
+import StatValues from './Modules/Features/StatValues';
 
 // Traits
 import MistsOfSheilun from './Modules/Traits/MistsOfSheilun';
@@ -49,6 +50,7 @@ import Lifecycles from './Modules/Talents/Lifecycles';
 import SpiritOfTheCrane from './Modules/Talents/SpiritOfTheCrane';
 
 // Items
+import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Eithas from './Modules/Items/Eithas';
 import T20_4set from './Modules/Items/T20_4set';
 import T20_2set from './Modules/Items/T20_2set';
@@ -77,6 +79,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     essenceFontMastery: EssenceFontMastery,
     checklist: Checklist,
+    statValues: StatValues,
 
     // Traits
     mistsOfSheilun: MistsOfSheilun,
@@ -109,6 +112,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spiritOfTheCrane: SpiritOfTheCrane,
 
     // Legendaries / Items:
+    drapeOfShame: DrapeOfShame,
     eithas: Eithas,
     t20_4set: T20_4set,
     t20_2set: T20_2set,

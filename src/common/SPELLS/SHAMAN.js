@@ -20,6 +20,22 @@ export default {
     name: 'Wind Shear',
     icon: 'spell_nature_cyclone',
   },
+  //Eye of the Twisting Nether Buffs
+  SHOCK_OF_THE_TWISTING_NETHER: {
+    id: 207999,
+    name: 'Shock of the Twisting Nether',
+    icon: 'spell_nature_rune',
+  },
+  FIRE_OF_THE_TWISTING_NETHER: {
+    id: 207995,
+    name: 'Fire of the Twisting Nether',
+    icon: 'spell_fire_rune',
+  },
+  CHILL_OF_THE_TWISTING_NETHER: {
+    id: 207998,
+    name: 'Chill of the Twisting Nether',
+    icon: 'spell_ice_rune',
+  },
   // Elemental Shaman
   ELEMENTAL_MASTERY: {
     id: 168534,
@@ -168,6 +184,11 @@ export default {
     name: 'Fire Elemental',
     icon: 'spell_fire_elemental_totem',
   },
+  SUMMON_FIRE_ELEMENTAL: {
+    id:188592,
+    name: 'Fire Elemental',
+    icon: 'spell_fire_elemental_totem',
+  },
   FLAME_SHOCK: {
     id: 188389,
     name: 'Flame Shock',
@@ -242,6 +263,11 @@ export default {
     name: 'The Deceiver\'s Blood Pact',
     icon: 'ability_creature_cursed_04',
   },
+  ECHOES_OF_THE_GREAT_SUNDERING_BUFF: {
+    id: 208723,
+    name: 'Echoes of the Great Sundering',
+    icon: 'inv_shoulder_plate_raidwarrior_j_01',
+  },
   //Elemental Sets
   ELEMENTAL_SHAMAN_T21_2SET_BUFF: {
     id: 251757,
@@ -267,6 +293,12 @@ export default {
     id: 252143,
     name: 'Earth Shock Overload',
     icon: 'spell_nature_earthshock',
+  },
+  //PETS
+  FIRE_ELEMENTAL_FIRE_BLAST: {
+    id:57984,
+    name: 'Fire Elemental Fire Blast',
+    icon: 'spell_fire_fireball',
   },
   // Enhancement Shaman
   ROCKBITER: {
@@ -678,6 +710,11 @@ export default {
     name: 'Spiritwalker\'s Grace',
     icon: 'spell_shaman_spiritwalkersgrace',
     manaCost: 31020,
+  },
+  WELLSPRING_HEAL: {
+    id: 198117,
+    name: 'Wellspring',
+    icon: 'ability_shawaterelemental_split', 
   },
 
   // Traits:

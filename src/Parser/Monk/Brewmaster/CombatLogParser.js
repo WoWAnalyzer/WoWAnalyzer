@@ -10,6 +10,7 @@ import SharedBrews from './Modules/Core/SharedBrews';
 import StaggerFabricator from './Modules/Core/StaggerFabricator';
 import GlobalCooldown from './Modules/Core/GlobalCooldown';
 import Channeling from './Modules/Core/Channeling';
+import MasteryValue from './Modules/Core/MasteryValue';
 // Spells
 import IronSkinBrew from './Modules/Spells/IronSkinBrew';
 import PurifyingBrew from './Modules/Spells/PurifyingBrew';
@@ -24,6 +25,8 @@ import HighTolerance from './Modules/Spells/HighTolerance';
 import Checklist from './Modules/Features/Checklist';
 import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
+import DamageTakenTable from './Modules/Features/DamageTakenTable';
+import StaggerPoolGraph from './Modules/Features/StaggerPoolGraph';
 // Items
 import T20_2pc from './Modules/Items/T20_2pc';
 import T20_4pc from './Modules/Items/T20_4pc';
@@ -32,6 +35,7 @@ import StormstoutsLastGasp from './Modules/Items/StormstoutsLastGasp';
 import SalsalabimsLostTunic from './Modules/Items/SalsalabimsLostTunic';
 // normalizers
 import IronskinBrewNormalizer from './Modules/Normalizers/IronskinBrew';
+import GarothiWorldbreakerMeleeNormalizer from './Modules/Normalizers/GarothiWorldbreakerMelee';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -46,11 +50,14 @@ class CombatLogParser extends CoreCombatLogParser {
     brews: SharedBrews,
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
+    masteryValue: MasteryValue,
 
     // Features
     checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
+    damageTakenTable: DamageTakenTable,
+    staggerPoolGraph: StaggerPoolGraph,
 
     // Spells
     ironSkinBrew: IronSkinBrew,
@@ -72,6 +79,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // normalizers
     isbNormalizer: IronskinBrewNormalizer,
+    garothi: GarothiWorldbreakerMeleeNormalizer,
   };
 }
 

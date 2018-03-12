@@ -9,6 +9,7 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import LightOfDawnNormalizer from './Normalizers/LightOfDawn';
 import DivinePurposeNormalizer from './Normalizers/DivinePurpose';
+import BeaconOfVirtueNormalizer from './Normalizers/BeaconOfVirtue';
 
 import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
 import BeaconHealOriginMatcher from './Modules/PaladinCore/BeaconHealOriginMatcher';
@@ -17,7 +18,9 @@ import BeaconHealing from './Modules/PaladinCore/BeaconHealing';
 import CastBehavior from './Modules/PaladinCore/CastBehavior';
 import Overhealing from './Modules/PaladinCore/Overhealing';
 import FillerLightOfTheMartyrs from './Modules/PaladinCore/FillerLightOfTheMartyrs';
+import FillerFlashOfLight from './Modules/PaladinCore/FillerFlashOfLight';
 import LightOfDawn from './Modules/PaladinCore/LightOfDawn';
+import LightOfDawnIndexer from './Modules/PaladinCore/LightOfDawnIndexer';
 
 import Abilities from './Modules/Abilities';
 import Checklist from './Modules/Features/Checklist';
@@ -65,6 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Normalizers
     lightOfDawnNormalizer: LightOfDawnNormalizer,
     divinePurposeNormalizer: DivinePurposeNormalizer,
+    beaconOfVirtueNormalizer: BeaconOfVirtueNormalizer,
 
     // Override the ability tracker so we also get stats for IoL and beacon healing
     abilityTracker: PaladinAbilityTracker,
@@ -78,7 +82,9 @@ class CombatLogParser extends CoreCombatLogParser {
     castBehavior: CastBehavior,
     overhealing: Overhealing,
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
+    fillerFlashOfLight: FillerFlashOfLight,
     lightOfDawn: LightOfDawn,
+    lightOfDawnIndexer: LightOfDawnIndexer,
 
     // Features
     checklist: Checklist,

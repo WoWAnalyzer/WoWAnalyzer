@@ -1,5 +1,6 @@
 import React from 'react';
 
+//Core
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
@@ -10,18 +11,38 @@ import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
-import AlwaysBeCasting from 'Parser/Hunter/BeastMastery/Modules/Features/AlwaysBeCasting';
-import AMurderOfCrows from 'Parser/Hunter/BeastMastery/Modules/Talents/AMurderOfCrows';
 import SpellLink from 'common/SpellLink';
 import Icon from "common/Icon";
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
-import DireBeast from 'Parser/Hunter/BeastMastery/Modules/Spells/DireBeast/DireBeast';
-import BestialWrathAverageFocus from 'Parser/Hunter/BeastMastery/Modules/Spells/BestialWrath/BestialWrathAverageFocus';
+import ITEMS from 'common/ITEMS/HUNTER';
+import ItemLink from 'common/ItemLink';
+
+//Features
+import AlwaysBeCasting from 'Parser/Hunter/BeastMastery/Modules/Features/AlwaysBeCasting';
+
+//Talents
+import AMurderOfCrows from 'Parser/Hunter/BeastMastery/Modules/Talents/AMurderOfCrows';
 import KillerCobra from 'Parser/Hunter/BeastMastery/Modules/Talents/KillerCobra';
-import AspectOfTheBeast from 'Parser/Hunter/Shared/Modules/Talents/AspectOfTheBeast';
-import AspectOfTheWild from 'Parser/Hunter/BeastMastery/Modules/Spells/AspectOfTheWild';
 import DireFrenzy from 'Parser/Hunter/BeastMastery/Modules/Talents/DireFrenzy';
+import AspectOfTheBeast from 'Parser/Hunter/Shared/Modules/Talents/AspectOfTheBeast';
+
+//Spells
+import DireBeast from 'Parser/Hunter/BeastMastery/Modules/Spells/DireBeast/DireBeast';
+import AspectOfTheWild from 'Parser/Hunter/BeastMastery/Modules/Spells/AspectOfTheWild';
+import BestialWrathAverageFocus from 'Parser/Hunter/BeastMastery/Modules/Spells/BestialWrath/BestialWrathAverageFocus';
+
+//Traits
 import TitansThunder from 'Parser/Hunter/BeastMastery/Modules/Traits/TitansThunder';
+
+//Items
+import ParselsTongue from 'Parser/Hunter/BeastMastery/Modules/Items/ParselsTongue';
+import QaplaEredunWarOrder from 'Parser/Hunter/BeastMastery/Modules/Items/QaplaEredunWarOrder';
+import TheMantleOfCommand from 'Parser/Hunter/BeastMastery/Modules/Items/TheMantleOfCommand';
+import SoulOfTheHuntmaster from 'Parser/Hunter/Shared/Modules/Items/SoulOfTheHuntmaster';
+import RoarOfTheSevenLions from 'Parser/Hunter/BeastMastery/Modules/Items/RoarOfTheSevenLions';
+import CallOfTheWild from 'Parser/Hunter/Shared/Modules/Items/CallOfTheWild';
+import ResourceIcon from 'common/ResourceIcon';
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -50,6 +71,14 @@ class Checklist extends CoreChecklist {
 
     //Traits
     titansThunder: TitansThunder,
+
+    //Legendaries
+    parselsTongue: ParselsTongue,
+    qaplaEredunWarOrder: QaplaEredunWarOrder,
+    theMantleOfCommand: TheMantleOfCommand,
+    soulOfTheHuntmaster: SoulOfTheHuntmaster,
+    roarOfTheSevenLions: RoarOfTheSevenLions,
+    callOfTheWild: CallOfTheWild,
   };
 
   rules = [
@@ -59,14 +88,6 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.DIRE_BEAST,
-            when: !combatant.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.DIRE_FRENZY_TALENT,
-            when: combatant.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
-          }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.KILL_COMMAND,
           }),
@@ -91,7 +112,7 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <Wrapper> Use your Dire ability properly </Wrapper>,
+      name: <Wrapper> Use your Dire ability properly</Wrapper>,
       description: <Wrapper>Using either <SpellLink id={SPELLS.DIRE_BEAST.id} icon /> or <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> properly is a key to achieving high dps. This means maintaining the buff from <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> as long as possible, and utilising the cooldown reduction from <SpellLink id={SPELLS.DIRE_BEAST.id} icon />/<SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> as much as possible, to ensure high uptime on <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /></Wrapper>,
       requirements: () => {
         return [
@@ -130,8 +151,8 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <Wrapper>Talent Efficiency</Wrapper>,
-      description: <Wrapper>Utilising your talents to their maximum is important when trying to do as much damage as possible, if these aren't utilised properly, you may be better off using a different talent. </Wrapper>,
+      name: 'Pick the right tools for the fight',
+      description: 'The throughput gain of some talents or legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly, even after trying to improve your usage of said talent or legendary.',
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -154,6 +175,46 @@ class Checklist extends CoreChecklist {
             name: <Wrapper><SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} icon /> casts without <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> ready to cast after</Wrapper>,
             when: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id),
             check: () => this.aMurderOfCrows.badCastThreshold,
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} icon /> and <ItemLink id={ITEMS.QAPLA_EREDUN_WAR_ORDER.id} icon /></Wrapper>,
+            when: combatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id) && combatant.hasFeet(ITEMS.QAPLA_EREDUN_WAR_ORDER.id),
+            check: () => this.qaplaEredunWarOrder.killerCobraThreshold,
+          }),
+          new Requirement({
+            name: <Wrapper><ItemLink id={ITEMS.QAPLA_EREDUN_WAR_ORDER.id} icon /> average reduction</Wrapper>,
+            when: combatant.hasFeet(ITEMS.QAPLA_EREDUN_WAR_ORDER.id),
+            check: () => this.qaplaEredunWarOrder.wastedSuggestionThreshold,
+          }),
+          new Requirement({
+            name: <Wrapper><ItemLink id={ITEMS.PARSELS_TONGUE.id} icon /> buffs dropped</Wrapper>,
+            when: combatant.hasChest(ITEMS.PARSELS_TONGUE.id),
+            check: () => this.parselsTongue.timesDroppedThreshold,
+          }),
+          new Requirement({
+            name: <Wrapper><ItemLink id={ITEMS.PARSELS_TONGUE.id} icon /> uptime</Wrapper>,
+            when: combatant.hasChest(ITEMS.PARSELS_TONGUE.id),
+            check: () => this.parselsTongue.buffUptimeThreshold,
+          }),
+          new Requirement({
+            name: <Wrapper><ItemLink id={ITEMS.THE_MANTLE_OF_COMMAND.id} icon /> uptime</Wrapper>,
+            when: combatant.hasShoulder(ITEMS.THE_MANTLE_OF_COMMAND.id),
+            check: () => this.theMantleOfCommand.buffUptimeThreshold,
+          }),
+          new Requirement({
+            name: <Wrapper>Other talent active with <ItemLink id={ITEMS.SOUL_OF_THE_HUNTMASTER.id} icon /></Wrapper>,
+            when: combatant.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id),
+            check: () => this.soulOfTheHuntmaster.suggestionThreshold,
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} icon /> gained from <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} icon /></Wrapper>,
+            when: combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id),
+            check: () => this.callOfTheWild.suggestionsThresholds,
+          }),
+          new Requirement({
+            name: <Wrapper><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Focus saved with <ItemLink id={ITEMS.ROAR_OF_THE_SEVEN_LIONS.id} icon /></Wrapper>,
+            when: combatant.hasWaist(ITEMS.ROAR_OF_THE_SEVEN_LIONS.id),
+            check: () => this.roarOfTheSevenLions.focusSavedThreshold,
           }),
         ];
       },

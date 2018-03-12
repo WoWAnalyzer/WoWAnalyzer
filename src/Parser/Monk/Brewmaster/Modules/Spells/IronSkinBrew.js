@@ -16,7 +16,7 @@ class IronSkinBrew extends Analyzer {
     combatants: Combatants,
     spellUsable: SpellUsable,
     brews: SharedBrews,
-  }
+  };
 
   lastIronSkinBrewBuffApplied = 0;
 
@@ -143,9 +143,9 @@ class IronSkinBrew extends Analyzer {
     return {
       actual: this.durationLost / this.totalDuration,
       isGreaterThan: {
-        minor: 0.02,
-        average: 0.05,
-        major: 0.1,
+        minor: 0.05,
+        average: 0.1,
+        major: 0.15,
       },
       style: 'percentage',
     };

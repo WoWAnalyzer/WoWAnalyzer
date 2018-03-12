@@ -19,9 +19,9 @@ class BloodPlagueUptime extends Analyzer {
     return {
       actual: this.uptime,
       isLessThan: {
-        minor: 0.94,
-        average: 0.84,
-        major: .74,
+        minor: 0.95,
+        average: 0.9,
+        major: .8,
       },
       style: 'percentage',
     };
@@ -30,7 +30,7 @@ class BloodPlagueUptime extends Analyzer {
   suggestions(when) {
     when(this.uptimeSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest('Your Blood Plague uptime can be improved. Perhaps use some debuff tracker.')
+          return suggest('Your Blood Plague uptime can be improved. Keeping Blood Boil on cooldown should keep it up at all times.')
             .icon(SPELLS.BLOOD_PLAGUE.icon)
             .actual(`${formatPercentage(actual)}% Blood Plague uptime`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`);
@@ -43,7 +43,6 @@ class BloodPlagueUptime extends Analyzer {
         icon={<SpellIcon id={SPELLS.BLOOD_PLAGUE.id} />}
         value={`${formatPercentage(this.uptime)} %`}
         label="Blood Plague uptime"
-        tooltip="Provides small amount of damage and healing. Auto attacks against an infected target can trigger Crimson Scourge."
       />
     );
   }

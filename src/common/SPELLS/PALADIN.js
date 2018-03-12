@@ -339,6 +339,11 @@ export default {
     name: 'Greater Blessing of Wisdom',
     icon: 'spell_holy_greaterblessingofwisdom',
   },
+  THE_FIRES_OF_JUSTICE_BUFF: {
+    id: 209785,
+    name: 'The Fires of Justice',
+    icon: 'spell_holy_crusaderstrike',
+  },
   // Ret Item Effects
   WHISPER_OF_THE_NATHREZIM_BUFF: {
     id: 207635,
@@ -482,6 +487,11 @@ export default {
     id: 238098,
     name: 'Blessing of the Ashbringer',
     icon: 'inv_sword_2h_artifactashbringer_d_01',
+  },
+  PROTECTOR_OF_THE_ASHEN_BLADE: {
+    id: 186944,
+    name: 'Protector of the Ashen Blade',
+    icon: 'spell_holy_sealofprotection',
   },
 
 	// Protection

@@ -140,6 +140,12 @@ export default {
     icon: '70_inscription_deck_promises',
     quality: ITEM_QUALITIES.EPIC,
   },
+  DARKMOON_DECK_IMMORTALITY: {
+    id: 128711,
+    name: 'Darkmoon Deck: Immortality',
+    icon: '70_inscription_deck_immortality',
+    quality: ITEM_QUALITIES.EPIC,
+  },
   AMALGAMS_SEVENTH_SPINE: {
     id: 136714,
     name: 'Amalgam\'s Seventh Spine',
@@ -168,6 +174,36 @@ export default {
     id: 142167,
     name: 'Eye of Command',
     icon: 'inv_7_0raid_trinket_010d',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  MAJORDOMOS_DINNER_BELL: {
+    id: 142168,
+    name: 'Majordomo\'s Dinner Bell',
+    icon: 'inv_misc_bell_01',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  MEMENTO_OF_ANGERBODA: {
+    id: 133644,
+    name: 'Memento of Angerboda',
+    icon: 'inv_jewelry_trinket_05',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  NIGHTMARE_EGG_SHELL: {
+    id: 137312,
+    name: 'Nightmare Egg Shell',
+    icon: 'inv_misc_cat_trinket09',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  CHRONO_SHARD: {
+    id: 137419,
+    name: 'Chrono Shard',
+    icon: 'inv_7_0raid_trinket_05a',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  FELOILED_INFERNAL_MACHINE: {
+    id: 144482,
+    name: 'Fel-Oiled Infernal Machine',
+    icon: 'inv_misc_enggizmos_14',
     quality: ITEM_QUALITIES.EPIC,
   },
 
@@ -376,5 +412,11 @@ export default {
     id: 154173,
     name: 'Aggramar\'s Conviction',
     icon: 'inv_antorus_orange',
+  },
+  // T19 Trinkets
+  CONVERGENCE_OF_FATES: {
+    id: 140806,
+    name: 'Convergence of Fates',
+    icon: 'ability_bossmagistrix_timewarp1',
   },
 };

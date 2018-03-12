@@ -1,11 +1,12 @@
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import Haste from 'Parser/Core/Modules/Haste';
 
 class FocusTracker extends Analyzer {
-
   static dependencies = {
     combatants: Combatants,
+    haste: Haste,
   };
 
   lastEventTimestamp = 0;
@@ -16,6 +17,7 @@ class FocusTracker extends Analyzer {
   activeFocusGenerated = {};
   tracker = 0; //to tell if any prop has updated, since we can't compare arrays
   _maxFocus = 0;
+  totalFocusGenModifier = 0;
 
   on_initialized() {
     this.lastEventTimestamp = this.owner.fight.start_time;
@@ -55,7 +57,7 @@ class FocusTracker extends Analyzer {
   }
 
   checkPassiveWaste(event) {
-    if ((event.sourceID === this.owner.player.id || event.targetID === this.owner.player.id) && event.classResources && event.classResources[0].type === RESOURCE_TYPES.FOCUS.id) {
+    if (event.classResources && event.classResources[0].type === RESOURCE_TYPES.FOCUS.id) {
       this.checkForMaxFocus(event);
       this.tracker++;
       const secIntoFight = (event.timestamp - this.owner.fight.start_time);
@@ -109,7 +111,8 @@ class FocusTracker extends Analyzer {
   }
 
   extrapolateFocus(eventTimestamp) {
-    this.focusGen = Math.round((10 + .1 * this.combatants.selected.hasteRating / 375) * 100) / 100;
+    this.focusGen = 10 + .1 * (this.haste.current * 100);
+    this.totalFocusGenModifier += this.focusGen * (eventTimestamp - this.lastEventTimestamp);
     const maxFocus = this._maxFocus;
     this.focusBySecond[0] = maxFocus;
     for (let i = this.lastEventTimestamp - this.owner.fight.start_time; i < (eventTimestamp - this.owner.fight.start_time); i++) {  //extrapolates focus given passive focus gain (TODO: Update for pulls with Volley)
@@ -130,6 +133,10 @@ class FocusTracker extends Analyzer {
 
     }
     this.lastEventTimestamp = eventTimestamp;
+  }
+
+  get averageFocusGen() {
+    return this.totalFocusGenModifier / this.owner.fightDuration;
   }
 
 }

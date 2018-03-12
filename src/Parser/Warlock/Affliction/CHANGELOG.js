@@ -1,16 +1,37 @@
 import React from 'react';
 
-import { Chizu, Zerotorescue } from 'MAINTAINERS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
+import { Chizu, Zerotorescue } from 'MAINTAINERS';
+
 export default [
+  {
+    date: new Date('2018-01-28'),
+    changes: <Wrapper>Upgrade the spec completeness to Great!</Wrapper>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-01-28'),
+    changes: <Wrapper>Updated the thresholds for DOTs to be more strict.</Wrapper>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-01-27'),
+    changes: <Wrapper>Updated the Checklist to show a Rule about buffing <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} icon/>, low mana Rule and also refined some texts.</Wrapper>,
+    contributors: [Chizu],
+  },
   {
     date: new Date('2018-01-25'),
     changes: <Wrapper>Added a statistic box with information about <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id} icon /> generation and merged the time spent on max stacks into it.</Wrapper>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-01-24'),
+    changes: <Wrapper>Updated some thresholds, added <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} icon/> statistic box and reworked the module that showed how much you buffed your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} icon/>.</Wrapper>,
     contributors: [Chizu],
   },
   {
@@ -20,7 +41,7 @@ export default [
   },
   {
     date: new Date('2017-12-29'),
-    changes: <Wrapper>Fixed display in the timeline and the inclusion in active time of channeled abilities.</Wrapper>,
+    changes: 'Fixed display in the timeline and the inclusion in active time of channeled abilities.',
     contributors: [Zerotorescue],
   },
   {

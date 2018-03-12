@@ -1,108 +1,64 @@
-import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import ResourceTracker from 'Parser/Core/Modules/ResourceTracker/ResourceTracker';
 import SPELLS from 'common/SPELLS';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
-const DEATH_STRIKE_BASE_COST = 45;
-
-class RunicPowerTracker extends Analyzer {
+class RunicPowerTracker extends ResourceTracker {
   static dependencies = {
     combatants: Combatants,
+    spellUsable: SpellUsable,
   };
 
-  rpWasted = 0;
-  rpSpent = 0;
-  totalRPGained = 0;
+  totalCooldownReduction = 0;
+  totalCooldownReductionWasted = 0;
 
-  // stores amount of rp generated/spent/wasted per ability ID
-  generatedAndWasted = {
-    [SPELLS.MARROWREND.id]: {
-      generated: 0,
-      wasted: 0,
-    },
-    [SPELLS.HEART_STRIKE.id]: {
-      generated: 0,
-      wasted: 0,
-    },
-    [SPELLS.DEATH_AND_DECAY.id]: {
-      generated: 0,
-      wasted: 0,
-    },
-    [SPELLS.RAPID_DECOMPOSITION_RP_TICK.id]: {
-      generated: 0,
-      wasted: 0,
-      alternateId: SPELLS.RAPID_DECOMPOSITION_TALENT.id,
-    },
-    [SPELLS.BLOODDRINKER_TALENT.id]: {
-      generated: 0,
-      wasted: 0,
-    },
-    [SPELLS.BLOOD_STRIKE.id]: {
-      generated: 0,
-      wasted: 0,
-      alternateId: SPELLS.DANCING_RUNE_WEAPON.id,
-    },
-    [SPELLS.ANTI_MAGIC_SHELL_RP_GAINED.id]: {
-      generated: 0,
-      wasted: 0,
-      alternateId: SPELLS.ANTI_MAGIC_SHELL.id,
-    },
-    [SPELLS.DEATHS_CARESS.id]: {
-      generated: 0,
-      wasted: 0,
-    },
-    [SPELLS.ARCANE_TORRENT_RUNIC_POWER.id]: {
-      generated: 0,
-      wasted: 0,
-    },
-    [SPELLS.SHACKLES_OF_BRYNDAOR_BUFF.id]: {
-      generated: 0,
-      wasted: 0,
-    },
-  };
-
-  spent = {
-    [SPELLS.DEATH_STRIKE.id]: 0,
-    [SPELLS.MARK_OF_BLOOD.id]: 0,
-    [SPELLS.BONESTORM_TALENT.id]: 0,
-  };
-
-  on_toPlayer_energize(event) {
-    const spellId = event.ability.guid;
-    if (!this.generatedAndWasted[spellId]) {
-      return;
-    }
-
-    this.generatedAndWasted[spellId].generated += (event.resourceChange || 0);
-    this.generatedAndWasted[spellId].wasted += (event.waste || 0);
-    this.rpWasted += (event.waste || 0);
-    this.totalRPGained += (event.resourceChange || 0);
+  on_initialized() {
+    this.resource = RESOURCE_TYPES.RUNIC_POWER;
   }
 
-
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (this.spent[spellId] === undefined) {
-      return;
+  getReducedCost(event) {
+    if (!this.getResource(event).cost) {
+      return 0;
     }
-
-    let rpCost;
-    if (spellId === SPELLS.DEATH_STRIKE.id) {
-      rpCost = DEATH_STRIKE_BASE_COST;
-      if (this.combatants.selected.hasBuff(SPELLS.OSSUARY.id, event.timestamp)) {
-        rpCost -= 5;
-      }
+    let cost = this.getResource(event).cost / 10;
+    const abilityId = event.ability.guid;
+    if (abilityId === SPELLS.DEATH_STRIKE.id) {
+      this.reduceCooldown(cost); //Red Thirst does not care about cost reduction
       if (this.combatants.selected.hasBuff(SPELLS.BLOOD_DEATH_KNIGHT_T20_4SET_BONUS_BUFF.id) &&
         this.combatants.selected.hasBuff(SPELLS.GRAVEWARDEN.id, event.timestamp)) {
-        rpCost -= 5;
+        cost -= 5;
       }
-    } else {
-      rpCost = event.classResources[0].cost / 10;
+      if (this.combatants.selected.hasBuff(SPELLS.OSSUARY.id, event.timestamp)) {
+        cost -= 5;
+      }
     }
-    this.spent[spellId] += rpCost;
-    this.rpSpent += rpCost;
-    this.currentRP -= rpCost;
+    return cost;
   }
+
+  reduceCooldown(cost) {
+    if (!this.combatants.selected.hasTalent(SPELLS.RED_THIRST_TALENT.id)){
+      return;
+    }
+    const COOLDOWN_REDUCTION_MS = 1000/6;
+    const reduction = cost * COOLDOWN_REDUCTION_MS;
+    if (!this.spellUsable.isOnCooldown(SPELLS.VAMPIRIC_BLOOD.id)){
+      this.totalCooldownReductionWasted += reduction;
+    } else {
+      const effectiveReduction = this.spellUsable.reduceCooldown(SPELLS.VAMPIRIC_BLOOD.id, reduction);
+      this.totalCooldownReduction += effectiveReduction;
+      this.totalCooldownReductionWasted += reduction - effectiveReduction;
+    }
+  }
+
+  get cooldownReduction(){
+    return this.totalCooldownReduction;
+  }
+
+  get cooldownReductionWasted(){
+    return this.totalCooldownReductionWasted;
+  }
+
 }
 
 export default RunicPowerTracker;

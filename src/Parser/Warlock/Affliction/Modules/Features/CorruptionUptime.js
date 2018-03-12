@@ -7,9 +7,10 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
+
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class CorruptionUptime extends Analyzer {
   static dependencies = {
@@ -21,19 +22,7 @@ class CorruptionUptime extends Analyzer {
     return this.enemies.getBuffUptime(SPELLS.CORRUPTION_DEBUFF.id) / this.owner.fightDuration;
   }
 
-  get defaultSuggestionThresholds() {
-    return {
-      actual: this.uptime,
-      isLessThan: {
-        minor: 0.85,
-        average: 0.8,
-        major: 0.7,
-      },
-      style: 'percentage',
-    };
-  }
-
-  get t20SuggestionThresholds() {
+  get suggestionThresholds() {
     return {
       actual: this.uptime,
       isLessThan: {
@@ -46,23 +35,20 @@ class CorruptionUptime extends Analyzer {
   }
 
   suggestions(when) {
+    let text;
     if (this.combatants.selected.hasBuff(SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id)) {
-      when(this.t20SuggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<Wrapper>Your <SpellLink id={SPELLS.CORRUPTION_CAST.id} /> uptime can be improved. Try to pay more attention to your Corruption on the boss, which is especially important with the <SpellLink id={SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id}>T20 2-piece set bonus</SpellLink>.</Wrapper>)
-            .icon(SPELLS.CORRUPTION_CAST.icon)
-            .actual(`${formatPercentage(actual)}% Corruption uptime`)
-            .recommended(`>${formatPercentage(recommended)}% is recommended`);
-        });
-    } else {
-      when(this.defaultSuggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<Wrapper>Your <SpellLink id={SPELLS.CORRUPTION_CAST.id} /> uptime can be improved. Try to pay more attention to your Corruption on the boss, perhaps use some debuff tracker.</Wrapper>)
-            .icon(SPELLS.CORRUPTION_CAST.icon)
-            .actual(`${formatPercentage(actual)}% Corruption uptime`)
-            .recommended(`>${formatPercentage(recommended)}% is recommended`);
-        });
+      text = <Wrapper>Your <SpellLink id={SPELLS.CORRUPTION_CAST.id} /> uptime can be improved. Try to pay more attention to your Corruption on the boss, which is especially important with the <SpellLink id={SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id}>T20 2-piece set bonus</SpellLink>.</Wrapper>;
     }
+    else {
+      text = <Wrapper>Your <SpellLink id={SPELLS.CORRUPTION_CAST.id} /> uptime can be improved. Try to pay more attention to your Corruption on the boss, perhaps use some debuff tracker.</Wrapper>;
+    }
+    when(this.suggestionThresholds)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(text)
+          .icon(SPELLS.CORRUPTION_CAST.icon)
+          .actual(`${formatPercentage(actual)}% Corruption uptime`)
+          .recommended(`>${formatPercentage(recommended)}% is recommended`);
+      });
   }
 
   statistic() {
