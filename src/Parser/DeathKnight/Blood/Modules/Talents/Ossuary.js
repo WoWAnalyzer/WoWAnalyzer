@@ -24,13 +24,12 @@ class Ossuary extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
+    if (event.ability.guid !== SPELLS.DEATH_STRIKE.id) return;
 
-    if (event.ability.guid === SPELLS.DEATH_STRIKE.id) {
-      if (this.combatants.selected.hasBuff(SPELLS.OSSUARY.id)) {
-        this.dsWithOS += 1;
-      } else {
-        this.dsWithoutOS += 1;
-      }
+    if (this.combatants.selected.hasBuff(SPELLS.OSSUARY.id)) {
+      this.dsWithOS += 1;
+    } else {
+      this.dsWithoutOS += 1;
     }
   }
 
@@ -50,12 +49,13 @@ class Ossuary extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.OSSUARY_TALENT.id} />}
-        value={`${ this.dsWithoutOS * this.OSSUARY_RP_SAVE } RP`}
-        label="lost by casting Death Strike without Ossuary"
-        tooltip={`${ this.dsWithoutOS } / ${ this.dsWithOS + this.dsWithoutOS } Death Strike casted without Ossuary. ${ this.dsWithOS * this.OSSUARY_RP_SAVE } RP saved by casting them with Ossuary up. ${formatPercentage(this.uptime)}% uptime.`}
+        value={`${ this.dsWithoutOS } / ${ this.dsWithOS + this.dsWithoutOS }`}
+        label="Death Strikes without Ossuary"
+        tooltip={`${ this.dsWithoutOS } / ${ this.dsWithOS + this.dsWithoutOS } Death Strike casted without Ossuary.<br>
+        ${ this.dsWithoutOS * this.OSSUARY_RP_SAVE } RP wasted by casting them without Ossuary up.<br>
+        ${ this.dsWithOS * this.OSSUARY_RP_SAVE } RP saved by casting them with Ossuary up.<br>
+        ${formatPercentage(this.uptime)}% uptime.`}
       />
-
-
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(3);

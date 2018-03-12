@@ -62,24 +62,24 @@ class MarrowrendUsage extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    if (event.ability.guid === SPELLS.MARROWREND.id) {
-      //don't add to wasted casts if MR casts was at ~6sec left on BS duration
-      if (this.BS_DURATION - (event.timestamp - this.lastMarrowrendCast) / 1000 <= this.REFRESH_AT_SECONDS) {
-        this.refreshMRCasts += 1;
-      } else {
-        if (this.currentBoneShieldStacks - this.currentBoneShieldBuffer > this.REFRESH_AT_STACKS) {
-          this.badMRCasts += 1;
-          const wasted = this.MR_GAIN - this.currentBoneShieldBuffer;
-          if (wasted > 0) {
-            this.bsStacksWasted += wasted;
-          }
+    if (event.ability.guid !== SPELLS.MARROWREND.id) return;
+
+    //don't add to wasted casts if MR casts was at ~6sec left on BS duration
+    if (this.BS_DURATION - (event.timestamp - this.lastMarrowrendCast) / 1000 <= this.REFRESH_AT_SECONDS) {
+      this.refreshMRCasts += 1;
+    } else {
+      if (this.currentBoneShieldStacks - this.currentBoneShieldBuffer > this.REFRESH_AT_STACKS) {
+        this.badMRCasts += 1;
+        const wasted = this.MR_GAIN - this.currentBoneShieldBuffer;
+        if (wasted > 0) {
+          this.bsStacksWasted += wasted;
         }
       }
-
-      this.currentBoneShieldBuffer = 0;
-      this.lastMarrowrendCast = event.timestamp;
-      this.totalMRCasts += 1;
     }
+
+    this.currentBoneShieldBuffer = 0;
+    this.lastMarrowrendCast = event.timestamp;
+    this.totalMRCasts += 1;
   }
 
 
