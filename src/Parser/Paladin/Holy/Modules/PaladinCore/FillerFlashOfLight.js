@@ -28,7 +28,7 @@ class FillerFlashOfLight extends Analyzer {
   };
 
   inefficientCasts = [];
-  _isCurrentInefficientCast = false;
+  _isCurrentCastInefficient = false;
   on_byPlayer_begincast(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.FLASH_OF_LIGHT.id) {
@@ -36,9 +36,9 @@ class FillerFlashOfLight extends Analyzer {
     }
     if (this._isInefficientCastEvent(event)) {
       this.inefficientCasts.push(event);
-      this._isCurrentInefficientCast = true;
+      this._isCurrentCastInefficient = true;
     } else {
-      this._isCurrentInefficientCast = false;
+      this._isCurrentCastInefficient = false;
     }
   }
   _isInefficientCastEvent(event) {
@@ -68,7 +68,7 @@ class FillerFlashOfLight extends Analyzer {
     if (spellId !== SPELLS.FLASH_OF_LIGHT.id) {
       return;
     }
-    if (this._isCurrentInefficientCast) {
+    if (this._isCurrentCastInefficient) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = 'Holy Shock was off cooldown when you started channeling this unbuffed Flash of Light. You should cast Holy Shock instead.';

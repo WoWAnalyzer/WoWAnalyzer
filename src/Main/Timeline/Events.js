@@ -75,7 +75,7 @@ class Events extends React.PureComponent {
               >
                 <SpellIcon
                   id={event.ability.guid}
-                  className={meta._isInefficientCast ? 'inefficient' : undefined}
+                  className={meta.isInefficientCast ? 'inefficient' : undefined}
                   data-tip={meta.inefficientCastReason}
                 />
               </div>
