@@ -39,7 +39,7 @@ export function getCompletenessExplanation(completeness) {
     case SPEC_ANALYSIS_COMPLETENESS.GREAT:
       return 'This spec\'s analysis is complete and actively being maintained. It supports all the latest features and has no noteworthy inaccuracies.';
     case SPEC_ANALYSIS_COMPLETENESS.GOOD:
-      return 'This spec\'s analysis is complete and ready for usage but there are still some more things we\'d like to add.';
+      return 'This spec\'s analysis is mostly complete and is ready for usage but there are still some things we\'d like to add.';
     case SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK:
       return 'This spec\'s analysis needs some more work to be optimally usable.';
     case SPEC_ANALYSIS_COMPLETENESS.NOT_ACTIVELY_MAINTAINED:

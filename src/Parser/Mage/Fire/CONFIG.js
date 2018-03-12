@@ -12,6 +12,7 @@ export default {
   maintainers: [Sharrq],
   completeness: SPEC_ANALYSIS_COMPLETENESS.NEEDS_MORE_WORK, // good = it matches most common manual reviews in class discords, great = it support all important class features
   changelog: CHANGELOG,
+  compatibility: '7.3.5',
   description: (
     <div>
       Hello Everyone! We are always looking to improve the Fire Mage Analyzers and Modules; so if you find any issues or if there is something missing that you would like to see added, please open an Issue on GitHub or send a message to Sharrq on Discord (Sharrq#7530) <br /> <br />
