@@ -44,7 +44,6 @@ import { title as UnlistedLogsTitle } from './News/Articles/2017-01-31-UnlistedL
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 import ServiceStatus from './ServiceStatus';
 import ActivityIndicator from './ActivityIndicator';
-import ReportHistory from './ReportHistory';
 
 const timeAvailable = console.time && console.timeEnd;
 
@@ -364,7 +363,7 @@ class App extends Component {
   appendHistory(report, fight, player) {
     this.props.appendReportHistory({
       code: report.code,
-      fight: fight.id,
+      fightId: fight.id,
       fightName: getFightName(report, fight),
       playerName: player.name,
       playerClass: player.type,
@@ -535,7 +534,6 @@ class App extends Component {
                 </div>
               </div>
             </div>
-            <ReportHistory />
           </header>
           <main>
             {this.renderContent()}

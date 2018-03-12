@@ -3,7 +3,7 @@ import Cookies from 'universal-cookie';
 
 import { APPEND_REPORT_HISTORY } from 'actions/reportHistory';
 
-const MAX_ITEMS = 3;
+const MAX_ITEMS = 5;
 const cookies = new Cookies();
 const COOKIE_NAME = 'REPORT_HISTORY';
 const cookieOptions = {

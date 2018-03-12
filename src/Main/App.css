@@ -121,6 +121,7 @@ ul {
   right: 0;
   height: 134px;
   z-index: 200;
+  pointer-events: none;
 }
 .app.has-report > header {
   margin-top: -410px;
@@ -156,20 +157,6 @@ ul {
   .app > header .image-overlay {
     padding-top: 40px;
   }
-}
-.app > header .report-history {
-  position: absolute;
-  bottom: -50px;
-  left: 0;
-  width: 100%;
-  background: #000;
-  z-index: 100;
-  display: flex;
-  flex-direction: row;
-}
-.app > header .report-history > div {
-  border-right: 1px solid #fff;
-  flex: 0 0 auto;
 }
 
 .panel.image-overlay {
@@ -433,10 +420,6 @@ nav .selectorHeader a {
 .list.selection > li.selectable a {
   display: block;
   padding: 10px 0;
-}
-.list.selection > li.selectable a > div {
-  display: flex;
-  align-items: center;
 }
 .list.selection .ProgressBar {
   margin-left: 10px;

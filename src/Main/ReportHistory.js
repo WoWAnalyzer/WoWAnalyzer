@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { getReportHistory } from 'selectors/reportHistory';
+import { makePlainUrl } from 'Main/makeAnalyzerUrl';
 
 class ReportHistory extends React.PureComponent {
   static propTypes = {
@@ -18,14 +20,18 @@ class ReportHistory extends React.PureComponent {
     const { reportHistory } = this.props;
 
     return (
-      <div className="report-history">
+      <ul className="list selection">
         {reportHistory.reverse().map(report => (
-          <div>
-            <div className={`playerName ${report.playerClass}`}>{report.playerName}</div>
-            <div className="fightName">{report.fightName}</div>
-          </div>
+          <li className="selectable">
+            <Link to={makePlainUrl(report.code, report.fightId, report.fightName, report.playerId, report.playerName)} style={{ color: '#fff', textDecoration: 'none' }}>
+              <div>
+                <div className={`playerName ${report.playerClass}`}>{report.playerName}</div>
+                <div className="fightName">{report.fightName}</div>
+              </div>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
     );
   }
 }
