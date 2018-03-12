@@ -26,14 +26,21 @@ class SkullflowersHaemostasis extends Analyzer {
   wastedBuff = 0;
   damage=0;
   heal=0;
-  deathStrikeDamageIsDone = false;
-  deathStrikeHealingIsDone = false;
 
-
+  on_byPlayer_cast(event){
+    if (event.ability.guid === SPELLS.BLOOD_BOIL.id) {
+      return;
+    }
+    if(this.combatants.selected.hasBuff(SPELLS.DANCING_RUNE_WEAPON.id) && this.buffStack + 3 > MAX_BUFF_STACKS){
+      this.wastedBuff += MAX_BUFF_STACKS - (3 + this.buffStack);
+    } else if(this.buffStack === MAX_BUFF_STACKS) {
+      this.wastedBuff += 1;
+    }
+  }
 
   on_byPlayer_applybuff(event) {
     if (event.ability.guid === SPELLS.HAEMOSTASIS_BUFF.id) {
-      this.buffStack += 1;
+      this.buffStack = 1;
     }
   }
 
@@ -41,25 +48,15 @@ class SkullflowersHaemostasis extends Analyzer {
     if (event.ability.guid !== SPELLS.HAEMOSTASIS_BUFF.id) {
       return;
     }
-    if (this.buffstack >= MAX_BUFF_STACKS) {
-      this.wastedBuff += 1;
-      this.buffStack = MAX_BUFF_STACKS;
-    }
-    else {
-      this.buffStack += 1;
-    }
+    this.buffStack = event.stack;
   }
 
   on_byPlayer_heal(event) {
     if (event.ability.guid !== SPELLS.DEATH_STRIKE_HEAL.id) {
       return;
     }
-    this.heal += calculateEffectiveHealing(event,PERCENT_BUFF * this.buffStack);
-    this.deathStrikeHealingIsDone = true;
-    if (this.deathStrikeHealingIsDone && this.deathStrikeDamageIsDone) {
-      this.buffStack = 0;
-      this.deathStrikeDamageIsDone = false;
-      this.deathStrikeHealingIsDone = false;
+    if(this.buffStack > 0){
+      this.heal += calculateEffectiveHealing(event,PERCENT_BUFF * this.buffStack);
     }
   }
 
@@ -67,16 +64,11 @@ class SkullflowersHaemostasis extends Analyzer {
     if (event.ability.guid !== SPELLS.DEATH_STRIKE.id) {
       return;
     }
-    this.damage += calculateEffectiveDamage(event,PERCENT_BUFF * this.buffStack);
-    this.deathStrikeDamageIsDone = true;
-    if (this.deathStrikeHealingIsDone && this.deathStrikeDamageIsDone) {
+    if(this.buffStack > 0){
+      this.damage += calculateEffectiveDamage(event,PERCENT_BUFF * this.buffStack);
       this.buffStack = 0;
-      this.deathStrikeDamageIsDone = false;
-      this.deathStrikeHealingIsDone = false;
     }
   }
-
-
 
   item() {
     return {
@@ -85,7 +77,7 @@ class SkullflowersHaemostasis extends Analyzer {
         <Wrapper>
           <ItemDamageDone amount={this.damage} /><br />
           <ItemHealingDone amount={this.heal} /><br />
-          Overcapped {this.wastedBuff} Times
+          Overcapped {this.wastedBuff} times
         </Wrapper>
       ),
     };

@@ -1,7 +1,11 @@
 import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import Wrapper from 'common/Wrapper';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
+
 import Combatants from '../Combatants';
 
 /**
@@ -29,16 +33,26 @@ class TalentsDisplay extends Analyzer {
             {talents.map((spellId, index) => (
               <div key={index} className="flex-main" style={{ height: '3.5em' }}>
                 <div className="row" style={{ fontSize: 18 }}>
-                  <div className="col-md-1"/>
+                  <div className="col-md-1" />
                   <div className="col-md-1">
                     {rows[index]}
                   </div>
-                  <div className ="col-md-2">
-                    <SpellIcon id={spellId} style={{ width: '2em', height: '2em' }} />
-                  </div>
-                  <div className="col-md-8">
-                    {SPELLS[spellId].name}
-                  </div>
+                  {spellId ? (
+                    <Wrapper>
+                      <div className="col-md-2">
+                        <SpellIcon id={spellId} style={{ width: '2em', height: '2em' }} />
+                      </div>
+                      <div className="col-md-8">
+                        <SpellLink id={spellId}>
+                          {SPELLS[spellId].name}
+                        </SpellLink>
+                      </div>
+                    </Wrapper>
+                  ) : (
+                    <div className="col-md-offset-2 col-md-8">
+                      <i>No talent active</i>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

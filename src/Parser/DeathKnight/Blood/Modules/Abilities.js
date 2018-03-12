@@ -114,11 +114,21 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DEATH_AND_DECAY,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
         cooldown: 15,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.80, //reduced because of proc resets
         },
+      },
+
+      //do not use cast efficiency for DnD without Rapid Decomposition.
+      {
+        spell: SPELLS.DEATH_AND_DECAY,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
+        enabled: !combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
+        cooldown: 15,
       },
 
       {

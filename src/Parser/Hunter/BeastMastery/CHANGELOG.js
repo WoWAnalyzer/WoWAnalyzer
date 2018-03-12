@@ -9,6 +9,11 @@ import ITEMS from 'common/ITEMS';
 
 export default [
   {
+    date: new Date('2018-03-09'),
+    changes: <Wrapper>Implemented the GCD reduction from <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} icon />, added legendaries to the checklist, fixed various bugs around the modules in general. Finally updated status to great to properly reflect the state of the analyzer.</Wrapper>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-02-20'),
     changes: 'Spring cleaning in many modules. Added icons to Focus Usage modules and elsewhere around the analyzer',
     contributors: [Putro],
