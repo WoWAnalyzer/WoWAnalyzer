@@ -85,7 +85,7 @@ class BaseHealerStatValues extends Analyzer {
 
   playerHealthMissing = 0;
 
-  scaleWeightsWithHealth = true;
+  scaleWeightsWithHealth = false;
 
   on_heal(event) {
     if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
