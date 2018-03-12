@@ -41,13 +41,9 @@ class Souldrinker extends Analyzer {
 
     //only add DS heals that did overheal
     const temp = this._dsOverheals.map(({ timestamp, maxHitPoints, overheal }) => {
-      const effOverheal = overheal * this.SOULDRINKER_EFFECTIVENESS;
       return {
         second: Math.floor((timestamp - this.owner.fight.start_time) / 1000) - 1,
-        overheal: overheal,
-        effectiveOverheal: effOverheal,
-        maxHitPoints: maxHitPoints,
-        overhealPercent: (effOverheal / maxHitPoints) * 100,
+        overhealPercent: (overheal * this.SOULDRINKER_EFFECTIVENESS / maxHitPoints) * 100,
       };
     });
 
@@ -78,8 +74,8 @@ class Souldrinker extends Analyzer {
         icon={<SpellIcon id={SPELLS.SOULDRINKER_TRAIT.id} />}
         value={`${ this.avgSoulDrinker.toFixed(2) }%`}
         label="average Soul Drinker buff"
-        tooltip={`The goal of this statistic is just to deliver information about your average Souldrinker bonus HP.<br>
-        Don't aim for 30% as Death Strike healing is more valuable.`}
+        tooltip={`The goal of this statistic is to deliver information about your average Souldrinker bonus.<br>
+        Don't aim for 30% as raw Death Strike healing is more valuable.`}
       />
     );
   }
