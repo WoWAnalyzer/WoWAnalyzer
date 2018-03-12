@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
-import { push as pushAction } from 'react-router-redux';
+import { push } from 'react-router-redux';
 import { Link } from 'react-router-dom';
 
 import { ApiDownError, LogNotFoundError, CorruptResponseError, JsonParseError } from 'common/fetchWcl';
@@ -10,9 +10,10 @@ import fetchEvents from 'common/fetchEvents';
 import { captureException } from 'common/errorLogger';
 import Wrapper from 'common/Wrapper';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
-
-import { fetchReport as fetchReportAction } from 'actions/report';
-import { fetchCombatants as fetchCombatantsAction } from 'actions/combatants';
+import getFightName from 'common/getFightName';
+import { fetchReport } from 'actions/report';
+import { appendReportHistory } from 'actions/reportHistory';
+import { fetchCombatants } from 'actions/combatants';
 import { getReportCode, getFightId, getPlayerId, getPlayerName } from 'selectors/url/report';
 import { getArticleId } from 'selectors/url/news';
 import { getReport } from 'selectors/report';
@@ -43,6 +44,7 @@ import { title as UnlistedLogsTitle } from './News/Articles/2017-01-31-UnlistedL
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 import ServiceStatus from './ServiceStatus';
 import ActivityIndicator from './ActivityIndicator';
+import ReportHistory from './ReportHistory';
 
 const timeAvailable = console.time && console.timeEnd;
 
@@ -90,6 +92,7 @@ class App extends Component {
     unknownNetworkIssueError: PropTypes.func.isRequired,
     unknownError: PropTypes.func.isRequired,
     internetExplorerError: PropTypes.func.isRequired,
+    appendReportHistory: PropTypes.func.isRequired,
   };
   static childContextTypes = {
     config: PropTypes.object,
@@ -354,8 +357,18 @@ class App extends Component {
           return;
         }
         this.fetchEventsAndParse(report, fight, combatants, combatant, player);
+        this.appendHistory(report, fight, player);
       }
     }
+  }
+  appendHistory(report, fight, player) {
+    this.props.appendReportHistory({
+      code: report.code,
+      fight: fight.id,
+      fightName: getFightName(report, fight),
+      playerName: player.name,
+      playerClass: player.type,
+    });
   }
 
   renderError(error) {
@@ -522,6 +535,7 @@ class App extends Component {
                 </div>
               </div>
             </div>
+            <ReportHistory />
           </header>
           <main>
             {this.renderContent()}
@@ -558,14 +572,15 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   {
-    fetchReport: fetchReportAction,
-    fetchCombatants: fetchCombatantsAction,
-    push: pushAction,
+    fetchReport,
+    fetchCombatants,
+    push,
     clearError,
     reportNotFoundError,
     apiDownError,
     unknownNetworkIssueError,
     unknownError,
     internetExplorerError,
+    appendReportHistory,
   }
 )(App);

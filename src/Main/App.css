@@ -157,6 +157,20 @@ ul {
     padding-top: 40px;
   }
 }
+.app > header .report-history {
+  position: absolute;
+  bottom: -50px;
+  left: 0;
+  width: 100%;
+  background: #000;
+  z-index: 100;
+  display: flex;
+  flex-direction: row;
+}
+.app > header .report-history > div {
+  border-right: 1px solid #fff;
+  flex: 0 0 auto;
+}
 
 .panel.image-overlay {
   padding-top: 70px;
