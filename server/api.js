@@ -51,11 +51,11 @@ class ApiRequestHandler {
   async handle() {
     const cachedWclApiResponse = await WclApiResponse.findById(this.requestUrl);
     const jsonString = !this.cacheBust && cachedWclApiResponse ? cachedWclApiResponse.content : null;
-    if (!this.cacheBust && jsonString) {
+    if (jsonString) {
       console.log('cache HIT', this.requestUrl);
       cachedWclApiResponse.update({
         numAccesses: cachedWclApiResponse.numAccesses + 1,
-        lastAccessedAt: new Date(),
+        lastAccessedAt: Sequelize.fn('NOW'),
       });
       this.sendJson(jsonString);
     } else {
