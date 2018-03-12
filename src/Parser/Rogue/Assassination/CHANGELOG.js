@@ -6,7 +6,7 @@ import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import Wrapper from 'common/Wrapper';
 
-import { tsabo, Cloake, Hewhosmites } from 'MAINTAINERS';
+import { tsabo, Cloake, Hewhosmites } from 'CONTRIBUTORS';
 
 export default  [
   {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { sref, Zerotorescue, blazyb } from 'MAINTAINERS';
+import { sref, Zerotorescue, blazyb } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Thieseract, Anatta336, sref } from 'MAINTAINERS';
+import { Thieseract, Anatta336, sref } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';

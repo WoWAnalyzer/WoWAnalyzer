@@ -1,11 +1,11 @@
 import React from 'react';
+
+import { Hewhosmites, Mamtooth } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import SpellLink from 'common/SpellLink';
-import { Hewhosmites, Mamtooth } from 'MAINTAINERS';
-
 
 export default [
 	{

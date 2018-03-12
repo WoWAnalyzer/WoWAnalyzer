@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Mamtooth } from 'MAINTAINERS';
+import { Mamtooth } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
