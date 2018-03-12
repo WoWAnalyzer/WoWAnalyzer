@@ -363,8 +363,12 @@ class App extends Component {
   appendHistory(report, fight, player) {
     this.props.appendReportHistory({
       code: report.code,
+      title: report.title,
+      start: Math.floor(report.start / 1000),
+      end: Math.floor(report.end / 1000),
       fightId: fight.id,
       fightName: getFightName(report, fight),
+      playerId: player.id,
       playerName: player.name,
       playerClass: player.type,
     });

@@ -10,8 +10,11 @@ class ReportHistory extends React.PureComponent {
   static propTypes = {
     reportHistory: PropTypes.arrayOf(PropTypes.shape({
       code: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      start: PropTypes.number.isRequired,
+      fightId: PropTypes.number.isRequired,
+      fightName: PropTypes.string.isRequired,
+      playerId: PropTypes.number.isRequired,
+      playerName: PropTypes.string.isRequired,
+      playerClass: PropTypes.string.isRequired,
       end: PropTypes.number.isRequired,
     })).isRequired,
   };
@@ -19,14 +22,19 @@ class ReportHistory extends React.PureComponent {
   render() {
     const { reportHistory } = this.props;
 
+    const now = (+new Date()) / 1000;
+
     return (
       <ul className="list selection">
-        {reportHistory.reverse().map(report => (
-          <li className="selectable">
+        {[...reportHistory].reverse().map(report => (
+          <li key={report.code} className="selectable">
             <Link to={makePlainUrl(report.code, report.fightId, report.fightName, report.playerId, report.playerName)} style={{ color: '#fff', textDecoration: 'none' }}>
               <div>
                 <div className={`playerName ${report.playerClass}`}>{report.playerName}</div>
-                <div className="fightName">{report.fightName}</div>
+                <div className="flex wrapable">
+                  <div>{report.fightName}</div>
+                  <div className="flex-sub">{Math.floor(Math.max(0, now - report.end) / 86400)}d old report</div>
+                </div>
               </div>
             </Link>
           </li>

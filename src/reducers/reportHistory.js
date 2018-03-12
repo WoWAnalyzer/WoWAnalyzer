@@ -27,11 +27,6 @@ export default function reportHistory(state = defaultState, action) {
       cookies.set(COOKIE_NAME, newState, cookieOptions);
       return newState;
     }
-    case LOCATION_CHANGE: {
-      // state.find(item => item.code === )
-      console.log(action);
-      return state;
-    }
     default:
       return state;
   }
