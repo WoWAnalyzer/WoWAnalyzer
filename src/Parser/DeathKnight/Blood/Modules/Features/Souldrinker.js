@@ -41,13 +41,9 @@ class Souldrinker extends Analyzer {
 
     //only add DS heals that did overheal
     const temp = this._dsOverheals.map(({ timestamp, maxHitPoints, overheal }) => {
-      const effOverheal = overheal * this.SOULDRINKER_EFFECTIVENESS;
       return {
         second: Math.floor((timestamp - this.owner.fight.start_time) / 1000) - 1,
-        overheal: overheal,
-        effectiveOverheal: effOverheal,
-        maxHitPoints: maxHitPoints,
-        overhealPercent: (effOverheal / maxHitPoints) * 100,
+        overhealPercent: (overheal * this.SOULDRINKER_EFFECTIVENESS / maxHitPoints) * 100,
       };
     });
 
