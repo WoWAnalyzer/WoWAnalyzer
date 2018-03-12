@@ -17,6 +17,7 @@ import ScourgeStrikeEfficiency from './Modules/Features/ScourgeStrikeEfficiency'
 import ClawingShadowsEfficiency from './Modules/Features/ClawingShadowsEfficiency';
 import RpPoolingDA from './Modules/Features/RpPoolingDA';
 import Apocalypse from './Modules/Features/Apocalypse';
+import DarkTransformationAndWounds from './Modules/Features/DarkTransformationAndWounds';
 
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
 import RunicPowerTracker from './Modules/RunicPower/RunicPowerTracker';
@@ -38,8 +39,9 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     scourgeStrikeEfficiency: ScourgeStrikeEfficiency,
     clawingShadowsEfficiency: ClawingShadowsEfficiency,
-	  rpPoolingDa: RpPoolingDA,
+	rpPoolingDa: RpPoolingDA,
   	apocalypse: Apocalypse,
+	darkTransformationAndWounds: DarkTransformationAndWounds,
 
     // RunicPower
     runicPowerTracker: RunicPowerTracker,
