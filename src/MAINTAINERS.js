@@ -98,6 +98,7 @@ export const Anomoly = {
 export const Juko8 = {
   nickname: 'Juko8',
   github: 'Juko8',
+  avatar: require('./Images/juko8-avatar.jpg'),
 };
 export const Noichxd = {
   nickname: 'Noichxd',
