@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-03-12'),
+    changes: <Wrapper>Added <SpellLink id={SPELLS.SOULDRINKER_TRAIT.id} icon />-Module to track the average maxHP buff</Wrapper>,
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-03-11'),
     changes: <Wrapper>Added <SpellLink id={SPELLS.MARROWREND.id} icon />-Module to track bad casts</Wrapper>,
     contributors: [joshinator],
