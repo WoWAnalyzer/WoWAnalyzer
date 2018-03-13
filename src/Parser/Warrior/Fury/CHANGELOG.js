@@ -1,4 +1,4 @@
-import { Maldark } from 'MAINTAINERS';
+import { Maldark } from 'CONTRIBUTORS';
 
 export default [
   {

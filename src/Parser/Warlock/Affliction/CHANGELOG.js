@@ -6,7 +6,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import { Chizu, Zerotorescue } from 'MAINTAINERS';
+import { Chizu, Zerotorescue } from 'CONTRIBUTORS';
 
 export default [
   {

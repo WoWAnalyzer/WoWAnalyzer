@@ -10,7 +10,6 @@ import fetchEvents from 'common/fetchEvents';
 import { captureException } from 'common/errorLogger';
 import Wrapper from 'common/Wrapper';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
-import UnsupportedSpec from 'Parser/UnsupportedSpec/CONFIG';
 
 import { fetchReport as fetchReportAction } from 'actions/report';
 import { fetchCombatants as fetchCombatantsAction } from 'actions/combatants';
@@ -135,11 +134,7 @@ class App extends Component {
   }
 
   getConfig(specId) {
-    let config = AVAILABLE_CONFIGS.find(config => config.spec.id === specId);
-    if (!config) {
-      config = UnsupportedSpec;
-    }
-    return config;
+    return AVAILABLE_CONFIGS.find(config => config.spec.id === specId);
   }
   createParser(ParserClass, report, fight, player) {
     const playerPets = this.getPlayerPetsFromReport(report, player.id);

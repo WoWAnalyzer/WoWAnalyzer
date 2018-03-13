@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Bonebasher , Gebuz, Khazak } from 'MAINTAINERS';
+import { Bonebasher , Gebuz, Khazak } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';

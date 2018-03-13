@@ -182,7 +182,9 @@ class Checklist extends Analyzer {
       <Wrapper>
         {this.rules.length === 0 && (
           <div className="item-divider" style={{ padding: '10px 22px' }}>
-            Sorry, the checklist for this spec has not been implemented yet.
+            <div className="alert alert-danger">
+              The checklist for this spec is not yet available as it hasn't been implemented yet. See <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> or join us on <a href="https://discord.gg/AxphPxU">Discord</a> if you're interested in contributing this.
+            </div>
           </div>
         )}
         {this.rules

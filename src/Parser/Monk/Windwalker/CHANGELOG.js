@@ -1,3 +1,5 @@
+import { Juko8, Coryn, Talby, Anomoly, AttilioLH, Hewhosmites } from 'CONTRIBUTORS';
+
 import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -5,7 +7,6 @@ import ItemLink from 'common/ItemLink';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
 
-import { Juko8, Coryn, Talby, Anomoly, AttilioLH, Hewhosmites } from 'MAINTAINERS';
 export default [
   {
     date: new Date('2018-03-09'),

@@ -1,4 +1,5 @@
 import EventsNormalizer from 'Parser/Core/EventsNormalizer';
+import CASTS_THAT_ARENT_CASTS from 'Parser/Core/CASTS_THAT_ARENT_CASTS';
 
 /**
  * During analysis there's no way to know at a `begincast` event if it will end up being canceled. This marks all `begincast` events by the player with an `isCancelled` property whether it was cancelled.
@@ -28,7 +29,7 @@ class CancelledCasts extends EventsNormalizer {
         lastBeginCast = event;
       }
       if (event.type === 'cast') {
-        if (isCasting) {
+        if (isCasting && !CASTS_THAT_ARENT_CASTS.includes(event.ability.guid)) {
           if (lastBeginCast.ability.guid !== event.ability.guid) {
             markLastBeginCastCancelled();
           } else {

@@ -1,5 +1,6 @@
 /**
- * This contains a listing of all maintainers, entries are used in configs and changelogs. Feel free to add yourself if you're not yet in the list.
+ * This contains a listing of all contributors. Entries are used in configs and changelogs.
+ * Feel free to add yourself if you're not yet in the list.
  *
  * Using `require` for avatars so we don't have to keep a seperate list of imports disconnected from the maintainer definition.
  *
@@ -270,4 +271,8 @@ export const Scaleable = {
 export const Cloake = {
   nickname: 'Cloake',
   github: 'adilasif',
+};
+export const joshinator = {
+  nickname: 'joshinator',
+  github: 'joshinat0r',
 };

@@ -1,8 +1,12 @@
+import { formatMilliseconds } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
+
 // import AlwaysBeCasting from './AlwaysBeCasting';
 import Abilities from './Abilities';
 import Haste from './Haste';
 import Channeling from './Channeling';
+
+const INVALID_GCD_CONFIG_LAG_MARGIN = 150; // not sure what this is based around, but <150 seems to catch most false positives
 
 /**
  * This triggers a fabricated `globalcooldown` event when appropriate.
@@ -19,6 +23,14 @@ class GlobalCooldown extends Analyzer {
 
   /** Set by `on_initialized`: contains a list of all abilities on the GCD from the Abilities config and the ABILITIES_ON_GCD static prop of this class. */
   abilitiesOnGlobalCooldown = null;
+  _errors = 0;
+  get errorsPerMinute() {
+    const minutesElapsed = (this.owner.fightDuration / 1000) / 60;
+    return this._errors / minutesElapsed;
+  }
+  get isAccurate() {
+    return this.errorsPerMinute < 2;
+  }
 
   on_initialized() {
     const abilities = [
@@ -123,6 +135,25 @@ class GlobalCooldown extends Analyzer {
   history = []; // TODO: Move this to SpellTimeline, it's only used for that so it should track it itself
   on_toPlayer_globalcooldown(event) {
     this.history.push(event);
+    this._verifyAccuracy(event);
+  }
+  _verifyAccuracy(event) {
+    if (this.lastGlobalCooldown) {
+      const timeSince = event.timestamp - this.lastGlobalCooldown.timestamp;
+      const remainingDuration = event.duration - timeSince;
+      if (remainingDuration > INVALID_GCD_CONFIG_LAG_MARGIN) {
+        this._errors += 1;
+        console.error(
+          formatMilliseconds(this.owner.fightDuration),
+          'GlobalCooldown',
+          event.reason.ability.name, event.reason.ability.guid, `was cast while a Global Cooldown was already running. There's probably a Haste buff missing from StatTracker or the Haste module, this spell has a GCD different from the default, or the base GCD for this spec is different from default.`,
+          'time passed:', timeSince,
+          'cooldown remaining:', event.duration - timeSince,
+          'expectedDuration:', event.duration,
+          'errors:', this._errors
+        );
+      }
+    }
     this.lastGlobalCooldown = event;
   }
 

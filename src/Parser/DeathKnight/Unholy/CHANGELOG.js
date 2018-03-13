@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Bicepspump, Khazak, Gebuz, Hewhosmites } from 'MAINTAINERS';
+import { Bicepspump, Khazak, Gebuz, Hewhosmites } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
