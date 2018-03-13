@@ -50,7 +50,7 @@ class ArcaneMissiles extends Analyzer {
 				return suggest(<Wrapper>You cast <SpellLink id={SPELLS.ARCANE_BARRAGE.id}/> {this.barrageWithMissilesProc} times while you had <SpellLink id={SPELLS.ARCANE_MISSILES.id}/> procs available. Make sure you are using all of your missiles procs before casting Arcane Barrage.</Wrapper>)
 					.icon(SPELLS.ARCANE_MISSILES.icon)
 					.actual(`${formatPercentage(this.utilization)}% Utilization`)
-					.recommended(`Letting none expire is recommended`);
+					.recommended(`${formatPercentage(recommended)}% is recommended`);
 			});
 	}
 }
