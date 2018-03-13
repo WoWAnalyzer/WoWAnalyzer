@@ -38,7 +38,7 @@ import NavigationBar from './Layout/NavigationBar';
 import DocumentTitleUpdater from './Layout/DocumentTitleUpdater';
 import Footer from './Layout/Footer';
 import NewsView from './News/View';
-import { default as makeNewsUrl } from './News/makeUrl';
+import makeNewsUrl from './News/makeUrl';
 import { title as AboutArticleTitle } from './News/Articles/2017-01-31-About';
 import { title as UnlistedLogsTitle } from './News/Articles/2017-01-31-UnlistedLogs';
 import makeAnalyzerUrl from './makeAnalyzerUrl';

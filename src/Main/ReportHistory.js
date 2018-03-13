@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 
 import { getReportHistory } from 'selectors/reportHistory';
 import { makePlainUrl } from 'Main/makeAnalyzerUrl';
+import { title as AboutArticleTitle } from 'Main/News/Articles/2017-01-31-About';
+import makeNewsUrl from 'Main/News/makeUrl';
 
 class ReportHistory extends React.PureComponent {
   static propTypes = {
@@ -39,6 +41,11 @@ class ReportHistory extends React.PureComponent {
             </Link>
           </li>
         ))}
+        {reportHistory.length === 0 && (
+          <li style={{ padding: '10px 22px' }}>
+            You haven't viewed a report yet. Not sure where to start? <Link to={makeNewsUrl(AboutArticleTitle)}>About WoWAnalyzer.</Link>
+          </li>
+        )}
       </ul>
     );
   }
