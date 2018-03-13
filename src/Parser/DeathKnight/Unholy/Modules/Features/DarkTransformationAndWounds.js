@@ -17,9 +17,9 @@ class DarkTransformationAndWounds extends Analyzer {
   // used to track how many stacks a target has
   targets = {};
 
-  darkTransformationActive = 0;
+  darkTransformationActive = false;
   darkTransformationCasts = 0;
-  stopWatchActive = 0;
+  stopWatchActive = false;
   stopWatch = 0;
   totalTime = 0;
   
@@ -27,7 +27,7 @@ class DarkTransformationAndWounds extends Analyzer {
   on_byPlayer_applybuff(event){
 	  const spellId = event.ability.guid;
 	  if(spellId === SPELLS.DARK_TRANSFORMATION.id){
-		  this.darkTransformationActive = 1;
+		  this.darkTransformationActive = true;
 		  this.darkTransformationCasts += 1;
 	  }
   }
@@ -35,7 +35,7 @@ class DarkTransformationAndWounds extends Analyzer {
   on_byPlayer_removebuff(event){
 	  const spellId = event.ability.guid;
 	  if(spellId === SPELLS.DARK_TRANSFORMATION.id){
-		  this.darkTransformationActive = 0;
+		  this.darkTransformationActive = false;
 	  }
   }
   
@@ -61,25 +61,23 @@ class DarkTransformationAndWounds extends Analyzer {
   }
 
   on_byPlayer_cast(event){
-    if(this.targets.hasOwnProperty(encodeTargetString(event.targetID, event.targetInstance))) {
-	    if (this.targets[encodeTargetString(event.targetID, event.targetInstance)] === 0) {
-		    if (this.darkTransformationActive === 1) {
-			    if (this.stopWatchActive === 0) {
-				    this.stopWatch = event.timestamp;
-				    this.stopWatchActive = 1;
-			    }
-		    } 
-		    else if (this.stopWatchActive === 1) {
-			    this.totalTime += (event.timestamp - this.stopWatch) / 1000;
-			    this.stopWatchActive = 0;
-		    }
-	    } 
-	    else if (this.stopWatchActive === 1) {
+    if(this.targets.hasOwnProperty(encodeTargetString(event.targetID, event.targetInstance)) && this.targets[encodeTargetString(event.targetID, event.targetInstance)] === 0) {
+		  if (this.darkTransformationActive === true) {
+			  if (this.stopWatchActive === false) {
+				  this.stopWatch = event.timestamp;
+				  this.stopWatchActive = true;
+			  }
+		  } 
+		  else if (this.stopWatchActive === true) {
 		    this.totalTime += (event.timestamp - this.stopWatch) / 1000;
-		    this.stopWatchActive = 0;
-		}
+			  this.stopWatchActive = false;
+		  }
+	  } 
+    else if (this.stopWatchActive === true) {
+		  this.totalTime += (event.timestamp - this.stopWatch) / 1000;
+		  this.stopWatchActive = false;
+	  }
   }
-}
   
   get averageTimePerCast() {
 	  return (this.totalTime/this.darkTransformationCasts);
