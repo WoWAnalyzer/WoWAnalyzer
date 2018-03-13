@@ -1,4 +1,3 @@
-import { LOCATION_CHANGE } from 'react-router-redux';
 import Cookies from 'universal-cookie';
 
 import { APPEND_REPORT_HISTORY } from 'actions/reportHistory';
