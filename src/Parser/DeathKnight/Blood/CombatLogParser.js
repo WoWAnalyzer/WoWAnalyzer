@@ -18,6 +18,7 @@ import UnendingThirstTracker from './Modules/Features/UnendingThirstTracker';
 import Checklist from './Modules/Features/Checklist';
 import DeathStrikeTimingGraph from './Modules/Features/DeathStrikeTimingGraph';
 import MarrowrendUsage from './Modules/Features/MarrowrendUsage';
+import Souldrinker from './Modules/Features/Souldrinker';
 
 // Resources
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
@@ -61,6 +62,7 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     deathStrikeTimingGraph: DeathStrikeTimingGraph,
     marrowrendUsage: MarrowrendUsage,
+    souldrinker: Souldrinker,
 
 
     // DOT

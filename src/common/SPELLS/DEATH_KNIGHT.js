@@ -13,7 +13,8 @@ export default {
     icon: 'inv_axe_2h_artifactmaw_d_01',
   },
 
-  UMBILICUS_ETERNUS: { //Artifact Trait
+  //Artifact Trait
+  UMBILICUS_ETERNUS: {
     id: 193213,
     name: 'Umbilicus Eternus',
     icon: 'artifactability_blooddeathknight_umbilicuseternus',
@@ -23,6 +24,12 @@ export default {
     id: 193320,
     name: 'Umbilicus Eternus Buff',
     icon: 'artifactability_blooddeathknight_umbilicuseternus',
+  },
+
+  SOULDRINKER_TRAIT: {
+    id: 238114,
+    name: 'Souldrinker',
+    icon: 'spell_deathknight_butcher2',
   },
 
   // Damage Dealing
@@ -572,6 +579,12 @@ export default {
     id: 45470,
     name: 'Death Strike Heal',
     icon: 'spell_deathknight_butcher2',
+  },
+
+  CONSUMPTION_HEAL: {
+    id: 205224,
+    name: 'Consumption Heal',
+    icon: 'inv_axe_2h_artifactmaw_d_01',
   },
 
   ICEBOUND_FORTITUDE: {
