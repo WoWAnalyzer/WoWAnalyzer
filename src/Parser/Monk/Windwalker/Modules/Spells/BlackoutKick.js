@@ -43,9 +43,8 @@ class BlackoutKick extends Analyzer {
     
     const hasImportantCastsAvailable = this.IMPORTANT_SPELLS.some(spellId => this.spellUsable.isAvailable(spellId));
 
-    if (!hasImportantCastsAvailable) {
+    if (hasImportantCastsAvailable) {
       this.inefficientCasts += 1;
-      console.log("bad BoK", event.timestamp)
     }
   }
 
@@ -61,7 +60,7 @@ class BlackoutKick extends Analyzer {
         average: 1,
         major: 2,
       },
-      style: 'number',
+      style: 'decimal',
     };
   }
 
