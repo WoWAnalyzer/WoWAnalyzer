@@ -74,8 +74,6 @@ class Souldrinker extends Analyzer {
         icon={<SpellIcon id={SPELLS.SOULDRINKER_TRAIT.id} />}
         value={`${ this.avgSoulDrinker.toFixed(2) }%`}
         label="average Soul Drinker buff"
-        tooltip={`The goal of this statistic is to deliver information about your average Souldrinker bonus.<br>
-        Don't aim for 30% as raw Death Strike healing is more valuable.`}
       />
     );
   }
