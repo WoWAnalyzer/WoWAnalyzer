@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import Tab from 'Main/Tab';
 import Danger from 'common/Alert/Danger';
+import Info from 'common/Alert/Info';
 
 import SpellTimeline from './SpellTimeline';
-import Info from 'common/Alert/Info';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
