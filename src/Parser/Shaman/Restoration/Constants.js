@@ -12,7 +12,18 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.GIFT_OF_THE_QUEEN.id,
   SPELLS.GIFT_OF_THE_QUEEN_DUPLICATE.id,
   SPELLS.HEALING_RAIN_HEAL.id,
-  SPELLS.WELLSPRING_TALENT.id,
+  SPELLS.WELLSPRING_HEAL.id,
+  SPELLS.UNLEASH_LIFE_TALENT.id,
+  SPELLS.RAINFALL.id,   
+
+  // These trinkets are confirmed to also be increased:
+  SPELLS.EONARS_COMPASSION_HEAL.id,
+  SPELLS.HIGHFATHERS_TIMEKEEPING_HEAL.id,
+  SPELLS.TARRATUS_KEYSTONE.id,
+  SPELLS.GUIDING_HAND.id, // Deceivers Grand Design
+  SPELLS.OCEANS_EMBRACE.id, // Sea Star
+  SPELLS.CLEANSING_MATRIX.id, // Archive
+
   // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
   SPELLS.ANCESTRAL_GUIDANCE_HEAL.id,
   SPELLS.CLOUDBURST_TOTEM_HEAL.id,
@@ -22,7 +33,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
 ];
 
 export const ABILITIES_AFFECTED_BY_MASTERY = [
-  SPELLS.WELLSPRING_TALENT.id,
+  SPELLS.WELLSPRING_HEAL.id,
   SPELLS.CHAIN_HEAL.id,
   SPELLS.HEALING_WAVE.id,
   SPELLS.RIPTIDE.id,
@@ -34,6 +45,7 @@ export const ABILITIES_AFFECTED_BY_MASTERY = [
   SPELLS.TIDAL_TOTEM.id,
   SPELLS.HEALING_STREAM_TOTEM_HEAL.id,
   SPELLS.HEALING_RAIN_HEAL.id,
+  SPELLS.UNLEASH_LIFE_TALENT.id,
   // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
   SPELLS.ANCESTRAL_GUIDANCE_HEAL.id,
   SPELLS.CLOUDBURST_TOTEM_HEAL.id,
