@@ -716,6 +716,11 @@ export default {
     name: 'Wellspring',
     icon: 'ability_shawaterelemental_split', 
   },
+  EARTHBIND_TOTEM: {
+    id: 2484,
+    name: 'Earthbind Totem',
+    icon: 'spell_nature_strengthofearthtotem02', 
+  },
 
   // Traits:
   // Restoration Shaman:
