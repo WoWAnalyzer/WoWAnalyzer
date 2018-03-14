@@ -5,6 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatThousands } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import Enemies from 'Parser/Core/Modules/Enemies';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SharedBrews from '../Core/SharedBrews';
@@ -13,6 +14,7 @@ const debug = false;
 
 class IronSkinBrew extends Analyzer {
   static dependencies = {
+    enemies: Enemies,
     combatants: Combatants,
     spellUsable: SpellUsable,
     brews: SharedBrews,
@@ -83,14 +85,16 @@ class IronSkinBrew extends Analyzer {
   }
 
   on_toPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.STAGGER_TAKEN.id) {
-      if (this.lastIronSkinBrewBuffApplied > 0) {
-        this.hitsWithIronSkinBrew += 1;
-        this.damageWithIronSkinBrew += event.amount + (event.absorbed || 0) + (event.overkill || 0);
-      } else {
-        this.hitsWithoutIronSkinBrew += 1;
-        this.damageWithoutIronSkinBrew += event.amount + (event.absorbed || 0) + (event.overkill || 0);
-      }
+    if(event.ability.guid === SPELLS.STAGGER_TAKEN.id || !(event.sourceID in this.enemies.getEntities())) {
+      return; // either stagger or not a notable entity (e.g. imonar traps, environment damage)
+    }
+
+    if (this.lastIronSkinBrewBuffApplied > 0) {
+      this.hitsWithIronSkinBrew += 1;
+      this.damageWithIronSkinBrew += event.amount + (event.absorbed || 0) + (event.overkill || 0);
+    } else {
+      this.hitsWithoutIronSkinBrew += 1;
+      this.damageWithoutIronSkinBrew += event.amount + (event.absorbed || 0) + (event.overkill || 0);
     }
   }
 
