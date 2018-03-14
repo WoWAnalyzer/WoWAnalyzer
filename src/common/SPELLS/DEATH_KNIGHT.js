@@ -32,6 +32,30 @@ export default {
     icon: 'spell_deathknight_butcher2',
   },
 
+  BONEBREAKER_TRAIT: {
+    id: 192538,
+    name: 'Bonebreaker',
+    icon: 'trade_archaeology_fossil_dinosaurbone',
+  },
+
+  COAGULOPHATHY_TRAIT: {
+    id: 192460,
+    name: 'Coagulopathy',
+    icon: 'spell_deathknight_bloodplague',
+  },
+
+  VEINRENDER_TRAIT: {
+    id: 192457,
+    name: 'Veinrender',
+    icon: 'ability_skeer_bloodletting',
+  },
+
+  ALL_CONSUMING_ROT_TRAIT: {
+    id: 192464,
+    name: 'All-Consuming Rot',
+    icon: 'spell_shadow_deathanddecay',
+  },
+
   // Damage Dealing
   // Provides the 1 RP tick on DnD from Rapid Decomposition Talent
   RAPID_DECOMPOSITION_RP_TICK: {
@@ -565,6 +589,12 @@ export default {
 
   DEATH_AND_DECAY_BUFF: {
     id: 188290,
+    name: 'Death and Decay',
+    icon: 'spell_shadow_deathanddecay',
+  },
+
+  DEATH_AND_DECAY_DAMAGE_TICK: {
+    id: 52212,
     name: 'Death and Decay',
     icon: 'spell_shadow_deathanddecay',
   },
