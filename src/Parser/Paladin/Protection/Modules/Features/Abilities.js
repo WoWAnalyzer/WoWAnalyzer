@@ -134,7 +134,7 @@ class Abilities extends CoreAbilities {
         cooldown: 300,
         castEfficiency: {
           suggestion: true,
-        }
+        },
       },
       {
         spell: SPELLS.AEGIS_OF_LIGHT_TALENT,
@@ -144,7 +144,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.AEGIS_OF_LIGHT_TALENT.id),
         castEfficiency: {
           suggestion: true,
-        }
+        },
       },
       {
         spell: SPELLS.SERAPHIM_TALENT,
@@ -153,7 +153,7 @@ class Abilities extends CoreAbilities {
         enabled:combatant.hasTalent(SPELLS.SERAPHIM_TALENT.id),
         castEfficiency: {
           suggestion: true,
-        }
+        },
       },
       {
         spell: SPELLS.DIVINE_SHIELD,
