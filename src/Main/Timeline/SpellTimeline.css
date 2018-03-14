@@ -77,6 +77,14 @@
   background: rgba(120, 102, 255, 0.4);
   border-right: 2px solid rgba(250, 250, 250, 0.6);
 }
+.spell-timeline .events .inefficient {
+  border: 2px solid red;
+  box-sizing: content-box;
+  margin-left: -1px;
+  margin-top: -1px;
+  box-shadow: 0 0 11px red;
+  border-radius: 2px;
+}
 
 /* vertical scrollbar track */
 .gm-scrollbar.-vertical {
