@@ -716,6 +716,17 @@ export default {
     name: 'Wellspring',
     icon: 'ability_shawaterelemental_split', 
   },
+  FLAME_SHOCK_RESTORATION: {
+    id: 188838,
+    name: 'Flame Shock',
+    icon: 'spell_fire_flameshock',
+    max_maelstrom: 20,
+  },
+  LIGHTNING_BOLT_RESTORATION: {
+    id: 402,
+    name: 'Lightning Bolt',
+    icon: 'spell_nature_lightning',
+  },
 
   // Traits:
   // Restoration Shaman:
