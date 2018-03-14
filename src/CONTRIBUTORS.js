@@ -279,5 +279,6 @@ export const joshinator = {
 export const niseko = {
   nickname: 'niseko',
   github: 'niseko',
+  avatar: require('./Images/niseko-avatar.jpg'),
 };
 
