@@ -717,7 +717,7 @@ export default {
     manaCost: 31020,
   },
   WELLSPRING_HEAL: {
-    id: 198117,
+    id: 197997,
     name: 'Wellspring',
     icon: 'ability_shawaterelemental_split', 
   },
@@ -728,7 +728,7 @@ export default {
     max_maelstrom: 20,
   },
   LIGHTNING_BOLT_RESTORATION: {
-    id: 402,
+    id: 403,
     name: 'Lightning Bolt',
     icon: 'spell_nature_lightning',
   },
