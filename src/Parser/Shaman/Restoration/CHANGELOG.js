@@ -1,11 +1,18 @@
 import React from 'react';
 
-import { Anomoly, Versaya, aryu, Zerotorescue, hatra344 } from 'CONTRIBUTORS';
+import { Anomoly, Versaya, aryu, Zerotorescue, hatra344, niseko } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS';
 import ItemLink from 'common/ItemLink';
+import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-03-15'),
+    changes: <Wrapper>Added support for DPS spells, <SpellLink id={SPELLS.CHAIN_HEAL.id} icon /> and <SpellLink id={SPELLS.WELLSPRING_TALENT.id} icon /> to the timeline. Added talents to the Checklist.</Wrapper>,
+    contributors: [niseko],
+  },
   {
     date: new Date('2018-01-16'),
     changes: 'Added support for purify spirit to timeline.',
