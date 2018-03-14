@@ -27,6 +27,7 @@ import TidalWaves from './Modules/Features/TidalWaves';
 import CastBehavior from './Modules/Features/CastBehavior'; 
 
 import EarthenShieldTotem from './Modules/Talents/EarthenShieldTotem';
+import EchoReset from './Modules/Talents/EchoReset';
 import HighTide from './Modules/Talents/HighTide';
 
 import Nazjatar from './Modules/Items/Nazjatar';
@@ -45,6 +46,7 @@ import HealingSurge from './Modules/Spells/HealingSurge';
 import GiftOfTheQueen from './Modules/Spells/GiftOfTheQueen';
 import HealingRain from './Modules/Spells/HealingRain';
 import HealingWave from './Modules/Spells/HealingWave';
+import LavaSurge from './Modules/Spells/LavaSurge';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -61,7 +63,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     masteryEffectiveness: MasteryEffectiveness,
-    highTide: HighTide,
     cooldownThroughputTracker: CooldownThroughputTracker,
     ancestralVigor: AncestralVigor,
     tidalWaves: TidalWaves,
@@ -70,6 +71,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents:
     earthenShieldTotem: EarthenShieldTotem,
+    echoReset: EchoReset,
+    highTide: HighTide,
 
     // Items:
     nobundo: Nobundo,
@@ -89,6 +92,7 @@ class CombatLogParser extends CoreCombatLogParser {
     healingSurge: HealingSurge,
     healingRain: HealingRain,
     healingWave: HealingWave,
+    lavaSurge: LavaSurge,
   };
 
   generateResults() {
