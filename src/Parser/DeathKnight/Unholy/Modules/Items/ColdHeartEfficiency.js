@@ -112,11 +112,14 @@ class ColdHeartEfficiency extends Analyzer {
 			if ((unholyStrengthRemaining > 0 && unholyStrengthRemaining < remainingDurationAllowed) || (concordanceRemaining > 0 && concordanceRemaining < remainingDurationAllowed) || (khazgorothRemaining > 0 && khazgorothRemaining < remainingDurationAllowed)){
 				  this.correctColdHeartCasts++;
 			  }
+        else if (this.buffColdHeart < coldHeartMaxStack) {
+		  	this.castsTooEarly++;
+        }
 		  }
 		  else if (this.buffColdHeart < coldHeartMaxStack) {
 		  	this.castsTooEarly++;
 		  }
-		  else if (this.buffColdHeart === coldHeartMaxStack && timeAtMaxStacks <= maxDurationAtMaxStacksAllowed) {
+		  else if (this.buffColdHeart === coldHeartMaxStack && ((timeAtMaxStacks <= maxDurationAtMaxStacksAllowed) || ((event.timestamp - this.owner.fight.start_time) < 7000))) {
 		  	this.correctColdHeartCasts++;
 		  }
 		  else if(this.buffColdHeart === coldHeartMaxStack){
