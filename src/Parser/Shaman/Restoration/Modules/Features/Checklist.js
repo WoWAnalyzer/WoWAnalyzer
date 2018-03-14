@@ -75,6 +75,14 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.GIFT_OF_THE_QUEEN,
           }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.EARTHEN_SHIELD_TOTEM_TALENT,
+            when: combatant.hasTalent(SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id),
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.WELLSPRING_TALENT,
+            when: combatant.hasTalent(SPELLS.WELLSPRING_TALENT.id),
+          }),
         ];
       },
     }),
@@ -97,6 +105,14 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.VELENS_FUTURE_SIGHT_BUFF,
             when: combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.ASCENDANCE_TALENT_RESTORATION,
+            when: combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_RESTORATION.id),
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.ANCESTRAL_GUIDANCE_TALENT,
+            when: combatant.hasTalent(SPELLS.ANCESTRAL_GUIDANCE_TALENT.id),
           }),
         ];
       },

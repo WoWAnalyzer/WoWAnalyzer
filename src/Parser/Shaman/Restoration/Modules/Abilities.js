@@ -115,9 +115,9 @@ class Abilities extends CoreAbilities {
         cooldown: 45,
         castEfficiency: {
           suggestion: true,
-          majorIssueEfficiency: 0.6,
-          averageIssueEfficiency: 0.8,
-          recommendedEfficiency: 0.90,
+          majorIssueEfficiency: 0.3,
+          averageIssueEfficiency: 0.5,
+          recommendedEfficiency: 0.7,
         },
       },
       {
@@ -151,6 +151,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.lv60Talent === SPELLS.ANCESTRAL_GUIDANCE_TALENT.id,
         castEfficiency: {
           suggestion: true,
+          majorIssueEfficiency: 0.4,
+          averageIssueEfficiency: 0.6,
+          recommendedEfficiency: 0.8,
         },
       },
       {
@@ -160,6 +163,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.lv100Talent === SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
         castEfficiency: {
           suggestion: true,
+          majorIssueEfficiency: 0.2,
+          averageIssueEfficiency: 0.5,
+          recommendedEfficiency: 0.8,
         },
       },
       {
@@ -168,7 +174,7 @@ class Abilities extends CoreAbilities {
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
-          majorIssueEfficiency: 0.20,
+          majorIssueEfficiency: 0.2,
           averageIssueEfficiency: 0.5,
           recommendedEfficiency: 0.8,
         },
@@ -180,8 +186,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.2,
-          averageIssueEfficiency: 0.5,
-          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.4,
+          recommendedEfficiency: 0.6,
         },
       },
       {
