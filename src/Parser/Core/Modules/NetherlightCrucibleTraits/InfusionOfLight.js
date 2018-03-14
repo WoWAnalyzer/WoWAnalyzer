@@ -22,13 +22,14 @@ class InfusionOfLight extends Analyzer {
   damage = 0;
 
   on_initialized() {
-    this.active = this.combatants.selected.traitsBySpellId[SPELLS.INFUSION_OF_LIGHT_TRAIT.id] > 0;
+    this.traitLevel = this.combatants.selected.traitsBySpellId[SPELLS.INFUSION_OF_LIGHT_TRAIT.id];
+    this.active = this.traitLevel > 0;
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
 
-    if (spellId !== SPELLS.INFUSION_OF_LIGHT_DAMAGE.id){
+    if (spellId !== SPELLS.INFUSION_OF_LIGHT_DAMAGE.id) {
       return;
     }
 
@@ -45,8 +46,10 @@ class InfusionOfLight extends Analyzer {
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
-        {formatPercentage(this.owner.getPercentageOfTotalHealingDone(healing))} % healing<br />
-        {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % damage
+          <dfn data-tip={`${this.traitLevel} ${this.traitLevel > 1 ? `traits` : `trait`}`}>
+            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(healing))} % healing<br />
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % damage
+          </dfn>
         </div>
       </div>
     );

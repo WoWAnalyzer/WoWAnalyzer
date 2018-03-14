@@ -177,13 +177,13 @@ class TitansThunder extends Analyzer {
 
   suggestions(when) {
     when(this.badCastThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Don't cast <SpellLink id={SPELLS.TITANS_THUNDER.id} /> without <SpellLink id={SPELLS.DIRE_BEAST.id} /> up, or if using <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up.</Wrapper>)
+      return suggest(<Wrapper>Don't cast <SpellLink id={SPELLS.TITANS_THUNDER.id} icon /> without <SpellLink id={SPELLS.DIRE_BEAST.id} icon /> up, or if using <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> up.</Wrapper>)
         .icon(SPELLS.TITANS_THUNDER.icon)
         .actual(`You cast Titan's Thunder ${actual} times without Dire Beasts up, or if using Dire Frenzy without Bestial Wrath up.`)
         .recommended(`${recommended} is recommended`);
     });
     when(this.shouldHaveSavedThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Don't cast <SpellLink id={SPELLS.TITANS_THUNDER.id} /> when there is less than 30 seconds cooldown remaining on <SpellLink id={SPELLS.BESTIAL_WRATH.id} />.</Wrapper>)
+      return suggest(<Wrapper>Don't cast <SpellLink id={SPELLS.TITANS_THUNDER.id} icon /> when there is less than 30 seconds cooldown remaining on <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon />.</Wrapper>)
         .icon(SPELLS.TITANS_THUNDER.icon)
         .actual(`You cast Titan's Thunder ${actual} times when there was less than 30 seconds cooldown on Bestial Wrath`)
         .recommended(`${recommended} is recommended`);

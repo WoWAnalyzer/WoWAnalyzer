@@ -9,7 +9,7 @@ import Wrapper from 'common/Wrapper';
 
 /**
  * Frizzo's Fingertrap
- * Equip: When you Butchery or Carve an enemy affected by Lacerate, Lacerate spreads to 1 other targets hit by Butchery.
+ * Equip: When you Butchery or Carve an enemy affected by Lacerate, Lacerate spreads to 1 other targets hit by Butchery or Carve
  */
 
 const MS_BUFFER = 50;

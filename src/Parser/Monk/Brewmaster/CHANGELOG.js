@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { WOPR, emallson } from 'MAINTAINERS';
+import { WOPR, emallson } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';

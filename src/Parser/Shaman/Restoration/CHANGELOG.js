@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Anomoly, Versaya, aryu, Zerotorescue, hatra344 } from 'MAINTAINERS';
+import { Anomoly, Versaya, aryu, Zerotorescue, hatra344 } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';

@@ -22,7 +22,7 @@ const ALL_MULT = 1.15;
 const REJUV_BOOST = 0.50;
 const REJUV_MANA_SAVED = 0.30;
 const REJUV_MANA_COST = 220000 * 0.1;
-const WG_INCREASE = (8 / 6) - 1; // TODO get more accuracy by implementing with attributor
+const WG_INCREASE = (8 / 6) - 1;
 const TOL_DURATION = 30000;
 const CS_DURATION = 12000;
 
@@ -138,7 +138,7 @@ class TreeOfLife extends Analyzer {
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) {
+    if (spellId === SPELLS.INCARNATION_TOL_ALLOWED.id) {
       this.lastTolApply = event.timestamp;
       if (event.prepull && this.hasTol) {
         this.lastTolCast = event.timestamp; // if player has ToL talent and buff was present on pull, assume it was from a precast
@@ -148,7 +148,7 @@ class TreeOfLife extends Analyzer {
 
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) {
+    if (spellId === SPELLS.INCARNATION_TOL_ALLOWED.id) {
       const buffUptime = event.timestamp - this.lastTolApply;
       // find out how much of this buff uptime was due to ToL and how much due to CS
       if (this.lastTolCast) {
@@ -184,13 +184,12 @@ class TreeOfLife extends Analyzer {
   get csUptimePercent() {
     return this.csUptime / this.owner.fightDuration;
   }
-  // CS always adds its duration without clipping, but could be clipped by fight end.
-  // Hopefully rounding will get me the right whole number! This is why I called it "estimated"
-  get estimatedCsProcs() {
-    return Math.round(this.csUptime / CS_DURATION);
+  get csProcs() {
+    const csUptimeRoundedToSeconds = Math.round(this.csUptime / 1000) * 1000; // rounding so that a few errant ms doesn't cause the following ceil to inproperly add a proc
+    return Math.ceil(csUptimeRoundedToSeconds / CS_DURATION); // ceil so that a proc cut off due to fight end or player death still counts as a proc
   }
   get estimatedCsProcRate() {
-    return (this.estimatedCsProcs / this.wgCasts) || 0;
+    return (this.csProcs / this.wgCasts) || 0;
   }
 
   _getManaSavedHealing(accumulator) {
@@ -260,7 +259,7 @@ class TreeOfLife extends Analyzer {
     return {
       item: ITEMS.CHAMELEON_SONG,
       result: (
-        <dfn data-tip={`The Tree of Life buff ${this.hasTol ? '(from procs only, not including Tree of Life casts) ' : ''}was active for <b>${(this.csUptime/1000).toFixed(0)}s</b>, or <b>${formatPercentage(this.csUptimePercent)}%</b> of the encounter. You got an estimated <b>${this.estimatedCsProcs} procs</b>, for a proc rate of <b>${formatPercentage(this.estimatedCsProcRate, 1)}%</b>. The displayed healing number ${this.hasTol ? 'includes healing from procs only, and ' : ''} is the sum of several benefits, listed below:
+        <dfn data-tip={`The Tree of Life buff ${this.hasTol ? '(from procs only, not including Tree of Life casts) ' : ''}was active for <b>${(this.csUptime/1000).toFixed(0)}s</b>, or <b>${formatPercentage(this.csUptimePercent)}%</b> of the encounter. You got <b>${this.csProcs} procs</b>, for a proc rate of <b>${formatPercentage(this.estimatedCsProcRate, 1)}%</b>. The displayed healing number ${this.hasTol ? 'includes healing from procs only, and ' : ''} is the sum of several benefits, listed below:
           <ul>
             <li>Overall Increased Healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.chameleonSong.allBoostHealing))}%</b></li>
             <li>Rejuv Increased Healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.chameleonSong.rejuvBoostHealing))}%</b></li>

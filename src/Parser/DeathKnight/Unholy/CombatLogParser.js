@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import ColdHeart from 'Parser/DeathKnight/Shared/Items/ColdHeart';
+import TaktheritrixsShoulderpads from './Modules/Items/TaktheritrixsShoulderpads';
 import Tier20_2p from './Modules/Items/Tier20_2p';
 import ColdHeartEfficiency from './Modules/Items/ColdHeartEfficiency';
 import Tier21_2p from './Modules/Items/Tier21_2p';
@@ -17,6 +18,7 @@ import ScourgeStrikeEfficiency from './Modules/Features/ScourgeStrikeEfficiency'
 import ClawingShadowsEfficiency from './Modules/Features/ClawingShadowsEfficiency';
 import RpPoolingDA from './Modules/Features/RpPoolingDA';
 import Apocalypse from './Modules/Features/Apocalypse';
+import VirulentPlagueEfficiency from './Modules/Features/VirulentPlagueEfficiency';
 
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
 import RunicPowerTracker from './Modules/RunicPower/RunicPowerTracker';
@@ -41,8 +43,9 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     scourgeStrikeEfficiency: ScourgeStrikeEfficiency,
     clawingShadowsEfficiency: ClawingShadowsEfficiency,
-	  rpPoolingDa: RpPoolingDA,
+	rpPoolingDa: RpPoolingDA,
   	apocalypse: Apocalypse,
+	virulentPlagueEfficiency: VirulentPlagueEfficiency,
 
     // RunicPower
     runicPowerTracker: RunicPowerTracker,
@@ -54,6 +57,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // items
     coldHeart: ColdHeart,
+    taktheritrixsShoulderpads: TaktheritrixsShoulderpads,
     tier20_2p: Tier20_2p,
     coldHeartEfficiency: ColdHeartEfficiency,
     tier21_2p: Tier21_2p,

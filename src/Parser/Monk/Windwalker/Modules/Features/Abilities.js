@@ -47,7 +47,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9,
+          recommendedEfficiency: 0.85,
           extraSuggestion: 'Delaying the cast somewhat to line up with add spawns is acceptable, however.',
         },
       },
@@ -58,6 +58,8 @@ class Abilities extends CoreAbilities {
         cooldown: 90,
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.6,
+          extraSuggestion: "Touch of Karma is typically used offensively as often as possible, but use changes a lot varying on the encounter",
         },
       },
       {
@@ -83,7 +85,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.STORM_EARTH_AND_FIRE_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: (_, combatant) => combatant.owner.modules.stormEarthAndFire.reducedCooldownWithTraits,
-        enabled: combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id),
+        enabled: !combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
         charges: 2,
         castEfficiency: {
           suggestion: true,
@@ -122,7 +124,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.7,
+          recommendedEfficiency: 0.65,
         },
       },
       {
@@ -138,6 +140,26 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: haste => 6 / (1 + haste),
         enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT.id),
+      },
+      // Defensives
+      {
+        spell: SPELLS.DIFFUSE_MAGIC_TALENT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: haste => 90,
+        enabled: combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT.id),
+      },
+      {
+        spell: SPELLS.DAMPEN_HARM_TALENT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: haste => 90,
+        enabled: combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id),
+      },
+      {
+        spell: SPELLS.HEALING_ELIXIR_TALENT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: haste => 30,
+        charges: 2,
+        enabled: combatant.hasTalent(SPELLS.HEALING_ELIXIR_TALENT.id),
       },
     ];
   }

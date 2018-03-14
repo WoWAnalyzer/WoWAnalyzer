@@ -17,7 +17,7 @@ const CROWS_SAVE_PERCENT = 0.25;
 //when we enter execute and Bullseye starts racking up
 const EXECUTE_PERCENT = 0.2;
 
-/*
+/**
  * Summons a flock of crows to attack your target, dealing [(162% of Attack power) * 16] Physical damage over 15 sec. When a target dies while affected by this ability, its cooldown will reset.
  */
 class AMurderOfCrows extends Analyzer {
@@ -130,7 +130,7 @@ class AMurderOfCrows extends Analyzer {
   }
   suggestions(when) {
     when(this.shouldHaveSavedThreshold).addSuggestion((suggest) => {
-      return suggest(<Wrapper>You should <b>generally</b> save <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> when the boss has under 25% hp so that it is ready to use when the boss hits 20% and you can start getting <SpellLink id={SPELLS.BULLSEYE_BUFF.id} /> quicker.</Wrapper>)
+      return suggest(<Wrapper>You should <b>generally</b> save <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} icon /> when the boss has under 25% hp so that it is ready to use when the boss hits 20% and you can start getting <SpellLink id={SPELLS.BULLSEYE_BUFF.id} icon /> quicker.</Wrapper>)
         .icon(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.icon)
         .actual(`You cast crows while boss ${formatPercentage(this.bossHP)}% HP.`)
         .recommended(`0 casts when boss has between 20 and 25% hp is recommended`);

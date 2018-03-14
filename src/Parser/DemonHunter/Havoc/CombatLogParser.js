@@ -19,6 +19,10 @@ import FuryTracker from './Modules/ResourceTracker/FuryTracker';
 //Items
 import DelusionsOfGrandeur from './Modules/Items/DelusionsOfGrandeur';
 import RaddonsCascadingEyes from './Modules/Items/RaddonsCascadingEyes';
+import MoargBionicStabilizers from './Modules/Items/MoargBionicStabilizers';
+import SoulOfTheSlayer from '../Shared/Modules/Items/SoulOfTheSlayer';
+import AngerOfTheHalfGiants from './Modules/Items/AngerOfTheHalfGiants';
+import ChaosTheory from './Modules/Items/ChaosTheory';
 import Tier21_2set from './Modules/Items/Tier21_2set';
 import Tier21_4set from './Modules/Items/Tier21_4set';
 
@@ -26,6 +30,11 @@ import Tier21_4set from './Modules/Items/Tier21_4set';
 import DemonReborn from './Modules/Talents/DemonReborn';
 
 //Traits
+import RelicTraits from './Modules/Traits/RelicTraits';
+import CriticalChaos from './Modules/Traits/CriticalChaos';
+import ChaosVision from './Modules/Traits/ChaosVision';
+import SharpenedGlaives from './Modules/Traits/SharpenedGlaives';
+import DemonRage from './Modules/Traits/DemonRage';
 import UnleashedDemons from './Modules/Traits/UnleashedDemons';
 import FeastOnTheSouls from './Modules/Traits/FeastOnTheSouls';
 
@@ -55,6 +64,10 @@ class CombatLogParser extends CoreCombatLogParser {
     //Items
     delusionsOfGrandeur: DelusionsOfGrandeur,
     raddonsCascadingEyes: RaddonsCascadingEyes,
+    moargBionicStabilizers: MoargBionicStabilizers,
+    soulOfTheSlayer: SoulOfTheSlayer,
+    angerOfTheHalfGiants: AngerOfTheHalfGiants,
+    chaosTheory: ChaosTheory,
     tier21_2set: Tier21_2set,
     tier21_4set: Tier21_4set,
 
@@ -62,6 +75,11 @@ class CombatLogParser extends CoreCombatLogParser {
     demonReborn: DemonReborn,
 
     //Traits
+    relicTraits: RelicTraits,
+    criticalChaos: CriticalChaos,
+    chaosVision: ChaosVision,
+    sharpenedGlaives: SharpenedGlaives,
+    demonRage: DemonRage,
     unleashedDemons: UnleashedDemons,
     feastOnTheSouls: FeastOnTheSouls,
   };

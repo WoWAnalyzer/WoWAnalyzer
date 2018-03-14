@@ -9,8 +9,7 @@ class ComboPointTracker extends ResourceTracker {
   };
 
   on_initialized() {
-    this.resourceType = RESOURCE_TYPES.COMBO_POINTS.id;
-    this.resourceName = 'Combo Points';
+    this.resource = RESOURCE_TYPES.COMBO_POINTS;
   }
 }
 

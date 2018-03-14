@@ -42,8 +42,7 @@ class RuneTracker extends ResourceTracker {
   _lastTimestamp; //used to find time since last rune change for the _runesReadySum
 
   on_initialized(){
-    this.resourceName = 'Runes';
-    this.resourceType = RESOURCE_TYPES.RUNES.id;
+    this.resource = RESOURCE_TYPES.RUNES;
     this._lastTimestamp = this.owner.fight.start_time;
     this._runesReadySum = [MAX_RUNES + 1];
     for(let i = 0; i <= MAX_RUNES; i++){
@@ -62,7 +61,7 @@ class RuneTracker extends ResourceTracker {
       return;
     }
   	event.classResources
-      .filter(resource => resource.type === this.resourceType)
+      .filter(resource => resource.type === this.resource.id)
       .forEach(({ amount, cost }) => {
         let runeCost = cost || 0;
         //adjust for resource cost reduction
@@ -79,7 +78,7 @@ class RuneTracker extends ResourceTracker {
   }
   on_toPlayer_energize(event){ //add a charge to the rune with the longest remaining cooldown when a rune is refunded.
     super.on_toPlayer_energize(event);
-    if(event.resourceChangeType !== this.resourceType){
+    if(event.resourceChangeType !== this.resource.id){
       return;
     }
     const amount = event.resourceChange;
@@ -141,16 +140,13 @@ class RuneTracker extends ResourceTracker {
     for(const builder in this.buildersObj){ //subtract gained from energize events
       passiveRunesGained -= this.buildersObj[builder].generated;
     }
-    //add to total generated & wasted (used to ensure proper bar sizes)
-    this.generated += Math.round(passiveRunesGained);
-    this.wasted += Math.round(passiveRunesWasted);
     //add runic corruption gained (and subtract it from passive regn)
     const runicCorruptionContribution = this.addPassiveAccelerator(SPELLS.RUNIC_CORRUPTION.id, passiveRunesGained, passiveRunesWasted, RUNIC_CORRUPTION_INCREASE);
-    passiveRunesGained *= 1 - runicCorruptionContribution; 
+    passiveRunesGained *= 1 - runicCorruptionContribution;
     passiveRunesWasted *= 1 - runicCorruptionContribution;
     //add Blood 4p21 gained (and subtract it from passive regn)
     const runeMasterContribution = this.addPassiveAccelerator(SPELLS.RUNE_MASTER.id, passiveRunesGained, passiveRunesWasted, RUNE_MASTER_INCREASE);
-    passiveRunesGained *= 1 - runeMasterContribution; 
+    passiveRunesGained *= 1 - runeMasterContribution;
     passiveRunesWasted *= 1 - runeMasterContribution;
     //add passive rune regn
     this.initBuilderAbility(SPELLS.RUNE_1.id);
@@ -275,7 +271,7 @@ class RuneTracker extends ResourceTracker {
   timeFromStart(timestamp){
     return (timestamp - this.owner.fight.start_time) / 1000;
   }
-  
+
 
   get suggestionThresholds() {
     return {
@@ -357,7 +353,7 @@ class RuneTracker extends ResourceTracker {
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(1);
-  
+
 }
 
 export default RuneTracker;

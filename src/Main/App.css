@@ -7,7 +7,6 @@ body {
   font-family: 'Open Sans', 'Century Gothic', sans-serif;
   font-weight: 200;
   text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
   background: url(./Images/legion-bg.jpg); /* Created by and property of Blizzard Entertainment. source: http://eu.battle.net/wow/en/legion/ */
   color: #fff;
 }
@@ -58,6 +57,16 @@ a {
 }
 a:hover {
   color: #ad4b4b;
+}
+.btn:hover,
+.btn:focus,
+.btn.focus {
+  color: #964747;
+}
+.btn:hover img,
+.btn:focus img,
+.btn.focus img {
+  opacity: 0.5;
 }
 h1 {
   margin-top: 0;
@@ -363,19 +372,15 @@ nav .container {
   max-width: calc(100vw - 45px);
   max-height: calc(100vh - 80px);
   overflow-y: auto;
+  white-space: normal; /* menu-items have this set to nowrap */
 }
 .selectorHeader .panel {
-  background: rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.95);
 }
 nav .selectorHeader a {
   color: #e45a5a;
   display: inline;
   padding: 0;
-}
-@media (min-width: 1200px) {
-  nav .selectorHeader {
-    font-size: 0.8em;
-  }
 }
 
 /* Mobile nav bar */
@@ -548,17 +553,30 @@ dfn[data-tip] {
 }
 
 .alert {
-  padding: 20px 30px;
+  padding: 15px 22px;
   border-radius: 0;
   border: 0;
+  margin: 0;
+}
+.panel-body > .alert {
+  margin-left: -22px;
+  margin-right: -22px;
 }
 .alert-info {
   background-color: rgba(52, 152, 219, 0.6);
   color: white;
 }
 .alert-warning {
-  background-color: rgba(255, 188, 0, 0.6);
-  color: white;
+  background-color: #cc790b;
+  color: #fff;
+  font-weight: 400;
+}
+.alert-warning a {/* default URLs are unreadable on the orange background, this makes it look like a button. */
+  color: #fff;
+  background: #cd594a;
+  padding: 2px 4px;
+  margin: 0 -1px;
+  border-radius: 2px;
 }
 .alert-danger {
   background-color: rgba(119, 47, 46, 0.6);
@@ -889,31 +907,21 @@ code.inactive {
   margin-bottom: 2rem;
 }
 
-.maintainer-name {
-  background: rgba(0, 0, 0, 0.4);
+.contributor {
+  background: rgba(0, 0, 0, 0.8);
   color: #f1c40f;
   padding: .2em .2em;
-  margin: -.2em 0;
+  margin: -.2em -.2em;
   border-radius: .2em;
   font-weight: bold;
   white-space: nowrap;
   display: inline-block;
-  line-height: 1; /* this keeps the height of the maintainer box acceptable */
+  line-height: 1; /* this keeps the height of the contributor box acceptable */
 }
-.maintainer-name[data-tip] {
+.contributor[data-tip] {
   cursor: help;
 }
-.maintainers .maintainer-name + .maintainer-name {
-  position: relative;
-  margin-left: 1.2em;
-}
-.maintainers .maintainer-name + .maintainer-name:before {
-  content: ' & ';
-  position: absolute;
-  left: -1em;
-  color: #fff;
-}
-.maintainer-name img {
+.contributor img {
   width: 1.4em;
   height: 1.4em;
   border-radius: 50%;

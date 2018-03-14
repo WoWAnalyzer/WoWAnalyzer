@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, aryu, Zerotorescue, Hartra344, Putro, Sharrq, Hewhosmites } from 'MAINTAINERS';
+import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, aryu, Zerotorescue, Hartra344, Putro, Sharrq, Hewhosmites } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
@@ -8,6 +8,21 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-02-22'),
+    changes: `Moved the Stats on Pull, Talents, and Gear to a new Character Tab in the Main Panel.`,
+    contributors: [Sharrq],
+  },
+  {
+    date: new Date('2018-02-21'),
+    changes: <Wrapper>Moved <SpellLink id={SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_AGILITY.id} icon /> statistic into the Netherlight Crucible list and renamed it.</Wrapper>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-02-21'),
+    changes: 'Minimized images and delayed the status page API query to improve initial load speeds.',
+    contributors: [Zerotorescue],
+  },
   {
     date: new Date('2018-01-28'),
     changes: <Wrapper>Added <i>How It's Made</i>, <i>How To Change</i>, <i>Spec Maintainer</i> and <i>State Of The Spec</i> boxes to the results page.</Wrapper>,

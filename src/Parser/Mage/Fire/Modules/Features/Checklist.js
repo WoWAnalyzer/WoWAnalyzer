@@ -164,7 +164,7 @@ class Checklist extends CoreChecklist {
         return [
           new Requirement({
             name: "Cinderstorm Average Hits Per Cast",
-            check: () => this.cinderstorm.SuggestionThresholds,
+            check: () => this.cinderstorm.suggestionThreshold,
             tooltip: `When using Cinderstorm, it is important that every cinder hits every available mob. If this is not possible or you are having trouble aiming the spell properly, you might want to pick another talent.`,
             when: combatant.hasTalent(SPELLS.CINDERSTORM_TALENT.id),
           }),

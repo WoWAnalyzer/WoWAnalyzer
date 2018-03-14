@@ -5,7 +5,11 @@ import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
+import TimeFocusCapped from 'Parser/Hunter/Shared/Modules/Features/TimeFocusCapped';
+import Wrapper from 'common/Wrapper';
+import ItemLink from 'common/ItemLink';
+import SpellLink from 'common/SpellLink';
 
 /*
  * Roar of the Seven Lions
@@ -22,18 +26,21 @@ const LIST_OF_FOCUS_SPENDERS = [
 ];
 
 const BUFFER_MS = 100;
-
 const VOLLEY_COST = 3;
-
 const FOCUS_COST_REDUCTION = 0.15;
+const SLITHERING_SERPENTS_REDUCTION = 2;
+const COBRA_SHOT_RANK_2_REDUCTION = 10;
+const STARTING_FOCUS = 120;
 
 class RoarOfTheSevenLions extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    timeFocusCapped: TimeFocusCapped,
   };
 
   lastFocusCost = 0;
   lastVolleyHit = 0;
+
   focusSpenderCasts = {
     [SPELLS.COBRA_SHOT.id]: {
       casts: 0,
@@ -86,17 +93,21 @@ class RoarOfTheSevenLions extends Analyzer {
       return;
     }
     this.lastFocusCost = event.classResources[0]['cost'] || 0;
+    if (spellId === SPELLS.COBRA_SHOT.id) {
+      this.lastFocusCost -= COBRA_SHOT_RANK_2_REDUCTION;
+      if (this.combatants.selected.traitsBySpellId[SPELLS.SLITHERING_SERPENTS_TRAIT.id]) {
+        this.lastFocusCost -= this.combatants.selected.traitsBySpellId[SPELLS.SLITHERING_SERPENTS_TRAIT.id] * SLITHERING_SERPENTS_REDUCTION;
+      }
+    }
     this.focusSpenderCasts[spellId].casts += 1;
     this.focusSpenderCasts[spellId].focusSaved += this.lastFocusCost * FOCUS_COST_REDUCTION;
+
   }
 
   //since Volley has no cast event, I'm going to use it's damage event as they are simultaneous
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.VOLLEY_ACTIVATED.id) {
-      return;
-    }
-    if (!this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
+    if (spellId !== SPELLS.VOLLEY_ACTIVATED.id || !this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
       return;
     }
     //since it can hit several mobs, this ensures we only subtract the focus once
@@ -108,16 +119,24 @@ class RoarOfTheSevenLions extends Analyzer {
 
   }
 
-  item() {
+  get totalFocusSaved() {
     let totalFocusSaved = 0;
-    let focusCostCasts = 0;
-    const focusSpenders = [[SPELLS.COBRA_SHOT.id], [SPELLS.MULTISHOT.id], [SPELLS.KILL_COMMAND.id], [SPELLS.REVIVE_PET_AND_MEND_PET.id], [SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id], [SPELLS.BARRAGE_TALENT.id], [SPELLS.VOLLEY_ACTIVATED.id]];
-    focusSpenders.map(ability => totalFocusSaved += this.focusSpenderCasts[ability].focusSaved);
-    focusSpenders.map(ability => focusCostCasts += this.focusSpenderCasts[ability].casts);
-    const averageFocusCostReduction = totalFocusSaved / focusCostCasts;
+    LIST_OF_FOCUS_SPENDERS.map(ability => totalFocusSaved += this.focusSpenderCasts[ability].focusSaved);
+    return totalFocusSaved;
+  }
 
-    let tooltipText = `Overall this legendary saved you an average of ${averageFocusCostReduction.toFixed(2)} focus per affected cast <br/>This shows a more accurate breakdown of which abilities were cast during Bestial Wrath, and where the various focus reduction occured:<ul>`;
-    focusSpenders.forEach(focusSpender => {
+  get focusCostCasts() {
+    let focusCostCasts = 0;
+    LIST_OF_FOCUS_SPENDERS.map(ability => focusCostCasts += this.focusSpenderCasts[ability].casts);
+    return focusCostCasts;
+  }
+  get averageFocusCostReduction() {
+    return this.totalFocusSaved / this.focusCostCasts;
+  }
+
+  item() {
+    let tooltipText = `Overall Roar of the Seven Lions saved you an average of ${this.averageFocusCostReduction.toFixed(2)} focus per affected cast, and saved you an equivalent to ${formatPercentage(this.focusSavedPercentOfAvailable)}% of your total available focus over the course of the fight. <br/>This shows a more accurate breakdown of which abilities were cast during Bestial Wrath, and where the various focus reduction occured:<ul>`;
+    LIST_OF_FOCUS_SPENDERS.forEach(focusSpender => {
       if (this.focusSpenderCasts[focusSpender].casts > 0) {
         tooltipText += `<li>${this.focusSpenderCasts[focusSpender].name}<ul><li>Casts: ${this.focusSpenderCasts[focusSpender].casts}</li><li>Focus saved: ${formatNumber(this.focusSpenderCasts[focusSpender].focusSaved)}</li></ul></li>`;
       }
@@ -128,10 +147,46 @@ class RoarOfTheSevenLions extends Analyzer {
       item: ITEMS.ROAR_OF_THE_SEVEN_LIONS,
       result: (
         <dfn data-tip={tooltipText}>
-          saved you a total of {formatNumber(totalFocusSaved)} focus
+          saved you a total of {formatNumber(this.totalFocusSaved)} focus
         </dfn>
       ),
     };
+  }
+
+  get focusSavedPercentOfAvailable() {
+    return this.totalFocusSaved / (this.timeFocusCapped.totalGenerated + STARTING_FOCUS);
+  }
+
+  get focusSavedThreshold() {
+    if (this.combatants.selected.hasTalent(SPELLS.ONE_WITH_THE_PACK_TALENT.id)) {
+      return {
+        actual: this.focusSavedPercentOfAvailable,
+        isLessThan: {
+          minor: 0.12,
+          average: 0.1,
+          major: 0.08,
+        },
+        style: 'percentage',
+      };
+    } else {
+      return {
+        actual: this.focusSavedPercentOfAvailable,
+        isLessThan: {
+          minor: 0.09,
+          average: 0.075,
+          major: 0.06,
+        },
+        style: 'percentage',
+      };
+    }
+  }
+  suggestions(when) {
+    when(this.focusSavedThreshold).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<Wrapper>You didn't save as much focus through <ItemLink id={ITEMS.ROAR_OF_THE_SEVEN_LIONS.id} icon /> as recommended, try to make sure you enter <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> with a high amount of focus and dump as much focus as you can inside that window. </Wrapper>)
+        .icon(ITEMS.ROAR_OF_THE_SEVEN_LIONS.icon)
+        .actual(`${actual} of total available focus was saved through Roar of the Seven Lions`)
+        .recommended(`>${recommended}% is recommended`);
+    });
   }
 }
 

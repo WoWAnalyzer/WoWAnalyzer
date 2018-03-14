@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Sharrq, sref, Fyruna } from 'MAINTAINERS';
+import { Sharrq, sref, Fyruna } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
@@ -8,6 +8,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-2-25'),
+    changes: <Wrapper>Added Support for <ItemLink id={ITEMS.KORALONS_BURNING_TOUCH.id}/>.</Wrapper>,
+    contributors: [Sharrq],
+  },
   {
     date: new Date('2018-1-25'),
     changes: 'Added Checklist.',

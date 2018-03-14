@@ -70,6 +70,10 @@ app.get('/report/:reportCode([A-Za-z0-9]+)/:fightId([0-9]+)?:fightName(-[^/]+)?/
 });
 app.get('/api/v1/*', api);
 app.get('/api/status', status);
+app.get('/discord', function (req, res) {
+  // Since this path will usually only be used once per visitor there's no need to use a permanent redirect, and this allows us to fix the url should it ever break.
+  res.status(307).redirect('https://discord.gg/AxphPxU');
+});
 
 app.listen(3000);
 console.log('Listening to port 3000');

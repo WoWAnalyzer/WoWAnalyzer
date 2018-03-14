@@ -2,8 +2,6 @@ import React from 'react';
 
 import ChangelogTab from 'Main/ChangelogTab';
 import ChangelogTabTitle from 'Main/ChangelogTabTitle';
-import Gear from 'Main/Gear';
-import Tab from 'Main/Tab';
 import TimelineTab from 'Main/Timeline/TimelineTab';
 
 import { formatNumber, formatPercentage, formatThousands, formatDuration } from 'common/format';
@@ -39,6 +37,7 @@ import Channeling from './Modules/Channeling';
 
 import DistanceMoved from './Modules/Others/DistanceMoved';
 
+import CharacterPanel from './Modules/Features/CharacterPanel';
 import StatsDisplay from './Modules/Features/StatsDisplay';
 import TalentsDisplay from './Modules/Features/TalentsDisplay';
 import Checklist from './Modules/Features/Checklist';
@@ -172,6 +171,7 @@ class CombatLogParser {
 
     critEffectBonus: CritEffectBonus,
 
+    characterPanel: CharacterPanel,
     statsDisplay: StatsDisplay,
     talentsDisplay: TalentsDisplay,
     checklist: Checklist,
@@ -500,39 +500,30 @@ class CombatLogParser {
   generateResults() {
     const results = new ParseResults();
 
-    results.tabs = [
-      {
-        title: 'Timeline',
-        url: 'timeline',
-        order: 2,
-        render: () => (
-          <TimelineTab
-            start={this.fight.start_time}
-            end={this.currentTimestamp >= 0 ? this.currentTimestamp : this.fight.end_time}
-            historyBySpellId={this.modules.spellHistory.historyBySpellId}
-            globalCooldownHistory={this.modules.globalCooldown.history}
-            channelHistory={this.modules.channeling.history}
-            abilities={this.modules.abilities}
-          />
-        ),
-      },
-      {
-        title: 'Gear',
-        url: 'gear',
-        order: 3,
-        render: () => (
-          <Tab title="Gear">
-            <Gear selectedCombatant={this._modules.combatants.selected} />
-          </Tab>
-        ),
-      },
-      {
-        title: <ChangelogTabTitle />,
-        url: 'changelog',
-        order: 1000,
-        render: () => <ChangelogTab />,
-      },
-    ];
+    results.tabs = [];
+    results.tabs.push({
+      title: 'Timeline',
+      url: 'timeline',
+      order: 2,
+      render: () => (
+        <TimelineTab
+          start={this.fight.start_time}
+          end={this.currentTimestamp >= 0 ? this.currentTimestamp : this.fight.end_time}
+          historyBySpellId={this.modules.spellHistory.historyBySpellId}
+          globalCooldownHistory={this.modules.globalCooldown.history}
+          channelHistory={this.modules.channeling.history}
+          abilities={this.modules.abilities}
+          showCooldowns={this.modules.spellUsable.isAccurate}
+          showGlobalCooldownDuration={this.modules.globalCooldown.isAccurate}
+        />
+      ),
+    });
+    results.tabs.push({
+      title: <ChangelogTabTitle />,
+      url: 'changelog',
+      order: 1000,
+      render: () => <ChangelogTab />,
+    });
 
     Object.keys(this._modules)
       .filter(key => this._modules[key].active)

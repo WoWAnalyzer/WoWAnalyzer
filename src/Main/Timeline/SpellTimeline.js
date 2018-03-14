@@ -21,6 +21,12 @@ class SpellTimeline extends React.PureComponent {
     spellId: PropTypes.number,
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
+    showCooldowns: PropTypes.bool,
+    showGlobalCooldownDuration: PropTypes.bool,
+  };
+  static defaultProps = {
+    showCooldowns: false,
+    showGlobalCooldownDuration: false,
   };
 
   constructor() {
@@ -70,7 +76,7 @@ class SpellTimeline extends React.PureComponent {
 
   gemini = null;
   render() {
-    const { start, end, historyBySpellId, globalCooldownHistory, channelHistory } = this.props;
+    const { start, end, historyBySpellId, globalCooldownHistory, channelHistory, showCooldowns, showGlobalCooldownDuration, ...others } = this.props;
     const duration = end - start;
     const seconds = Math.ceil(duration / 1000);
 
@@ -81,13 +87,13 @@ class SpellTimeline extends React.PureComponent {
     // 4 for margin
     // 36 for the ruler
     // 28 for each timeline row
-    const rows = this.spells.length + (globalCooldownHistory ? 1 : 0) + (channelHistory ? 1 : 0);
+    const rows = this.spells.length + (showGlobalCooldownDuration && globalCooldownHistory ? 1 : 0) + (channelHistory ? 1 : 0);
     const totalHeight = 9 + 4 + 36 + 28 * rows;
 
     const totalWidth = seconds * secondWidth;
 
     return (
-      <div className="spell-timeline flex">
+      <div className="spell-timeline flex" {...others}>
         <div className="flex-sub legend">
           <div className="lane ruler-lane">
             <div className="btn-group">
@@ -96,16 +102,16 @@ class SpellTimeline extends React.PureComponent {
               ))}
             </div>
           </div>
-          {globalCooldownHistory &&
+          {showGlobalCooldownDuration && globalCooldownHistory && (
             <div className="lane">
               GCD
             </div>
-          }
-          {channelHistory &&
+          )}
+          {channelHistory && (
             <div className="lane">
               Channeling
             </div>
-          }
+          )}
           {this.spells.map(spellId => (
             <div className="lane" key={spellId}>
               <SpellIcon id={spellId} noLink />{' '}
@@ -134,8 +140,8 @@ class SpellTimeline extends React.PureComponent {
               );
             })}
           </div>
-          {globalCooldownHistory &&
-            <div className={`events lane`} style={{ width: totalWidth }}>
+          {showGlobalCooldownDuration && globalCooldownHistory && (
+            <div className="events lane" style={{ width: totalWidth }}>
               {globalCooldownHistory.map(event => {
                 const eventStart = event.start || event.timestamp;
                 const left = (eventStart - start) / 1000 * secondWidth;
@@ -153,9 +159,9 @@ class SpellTimeline extends React.PureComponent {
                 );
               })}
             </div>
-          }
-          {channelHistory &&
-            <div className={`events lane`} style={{ width: totalWidth }}>
+          )}
+          {channelHistory && (
+            <div className="events lane" style={{ width: totalWidth }}>
               {channelHistory.map(event => {
                 const eventStart = event.start || event.timestamp;
                 const left = (eventStart - start) / 1000 * secondWidth;
@@ -173,7 +179,7 @@ class SpellTimeline extends React.PureComponent {
                 );
               })}
             </div>
-          }
+          )}
           {this.spells.map(spellId => (
             <Events
               key={spellId}
@@ -182,6 +188,7 @@ class SpellTimeline extends React.PureComponent {
               start={start}
               totalWidth={totalWidth}
               secondWidth={secondWidth}
+              showCooldowns={showCooldowns}
             />
           ))}
         </GeminiScrollbar>

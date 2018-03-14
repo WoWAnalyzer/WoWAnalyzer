@@ -17,10 +17,13 @@ import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 
 import BoneShieldUptime from './BoneShieldUptime';
-import OssuaryUptime from './OssuaryUptime';
+import Ossuary from '../Talents/Ossuary';
 import BloodPlagueUptime from './BloodPlagueUptime';
 import AlwaysBeCasting from './AlwaysBeCasting';
+import CrimsonScourge from './CrimsonScourge';
+
 import RunicPowerDetails from '../RunicPower/RunicPowerDetails';
+import RuneTracker from '../../../Shared/RuneTracker';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -34,37 +37,69 @@ class Checklist extends CoreChecklist {
     enchantChecker: EnchantChecker,
     runicPowerDetails: RunicPowerDetails,
     boneShieldUptime: BoneShieldUptime,
-    ossuaryUptime: OssuaryUptime,
+    ossuary: Ossuary,
+    crimsonScourge: CrimsonScourge,
+    runeTracker: RuneTracker,
   };
 
   rules = [
     new Rule({
-      name: 'Fillers',
-      description: '',
+      name: 'Use your short cooldowns',
+      description: 'These should generally always be recharging to maximize efficiency.',
       requirements: () => {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BLOOD_BOIL,
           }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.DEATH_AND_DECAY,
+            when: this.combatants.selected.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.CRIMSON_SCOURGE.id} icon /> procs spent</Wrapper>,
+            check: () => this.crimsonScourge.efficiencySuggestionThresholds,
+            when: !this.combatants.selected.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.BLOOD_TAP_TALENT,
+            when: this.combatants.selected.hasTalent(SPELLS.BLOOD_TAP_TALENT.id),
+          }),
         ];
       },
     }),
-    new Rule({
-      name: 'Use these cooldowns as often as possible',
-      description: 'You should aim to use your cooldowns as often as you can to maximize your damage output unless your saving them for thier defensive value.',
+
+        new Rule({
+      name: 'Do not overcap your resources',
+      description: 'Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities. Try to spend Runic Power before reaching the maximum amount and always keep atleast 3 Runes on cooldown to avoid wasting resources.',
       requirements: () => {
-        const combatant = this.combatants.selected;
+        return [
+          new Requirement({
+            name: 'Runic Power Efficiency',
+            check: () => this.runicPowerDetails.efficiencySuggestionThresholds,
+          }),
+          new Requirement({
+            name: 'Rune Efficiency',
+            check: () => this.runeTracker.suggestionThresholdsEfficiency,
+          }),
+        ];
+      },
+    }),
+
+    new Rule({
+      name: 'Use your offensive cooldowns',
+      description: 'You should aim to use these cooldowns as often as you can to maximize your damage output unless you are saving them for their defensive value.',
+      requirements: () => {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.DANCING_RUNE_WEAPON,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BLOOD_MIRROR_TALENT,
-            when: combatant.hasTalent(SPELLS.BLOOD_MIRROR_TALENT.id),
+            when: this.combatants.selected.hasTalent(SPELLS.BLOOD_MIRROR_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BLOODDRINKER_TALENT,
-            when: combatant.hasTalent(SPELLS.BLOODDRINKER_TALENT.id),
+            when: this.combatants.selected.hasTalent(SPELLS.BLOODDRINKER_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.CONSUMPTION,
@@ -73,8 +108,8 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: 'Maintain Buffs/DeBuffs',
-      description: 'Keep these up for their benifits.',
+      name: 'Maintain your buffs and debuffs',
+      description: 'It is important to maintain these as they contribute a large amount to your DPS and HPS.',
       requirements: () => {
         return [
           new Requirement({
@@ -87,17 +122,17 @@ class Checklist extends CoreChecklist {
           }),
           new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.OSSUARY.id}/> Uptime</Wrapper>,
-            check: () => this.ossuaryUptime.uptimeSuggestionThresholds,
+            when: this.combatants.selected.hasTalent(SPELLS.OSSUARY_TALENT.id),
+            check: () => this.ossuary.uptimeSuggestionThresholds,
           }),
         ];
       },
     }),
 
     new Rule({
-      name: 'Defensive Cooldowns',
-      description: 'Use these to block damage spikes and keep damage smooth to reduce healing need.',
+      name: 'Use your defensive cooldowns',
+      description: 'Use these to block damage spikes and keep damage smooth to reduce external healing required.',
       requirements: () => {
-        const combatant = this.combatants.selected;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.VAMPIRIC_BLOOD,
@@ -110,41 +145,15 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.RUNE_TAP_TALENT,
-            when: combatant.hasTalent(SPELLS.RUNE_TAP_TALENT.id),
+            when: this.combatants.selected.hasTalent(SPELLS.RUNE_TAP_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.MARK_OF_BLOOD_TALENT,
-            when: combatant.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT.id),
+            when: this.combatants.selected.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TOMBSTONE_TALENT,
-            when: combatant.hasTalent(SPELLS.TOMBSTONE_TALENT.id),
-          }),
-        ];
-      },
-    }),
-
-    new Rule({
-      name: 'Avoid capping Runic Power',
-      description: 'Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  Try to spend Runic Power before reaching the maximum amount to avoid wasting resources',
-      requirements: () => {
-        return [
-          new Requirement({
-            name: 'Runic Power Efficiency',
-            check: () => this.runicPowerDetails.efficiencySuggestionThresholds,
-          }),
-        ];
-      },
-    }),
-
-    new Rule({
-      name: 'Try to avoid being inactive for a large portion of the fight',
-      description: <Wrapper>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  You can reduce downtime by casting ranged/filler abilities like <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id}/> or <SpellLink id={SPELLS.BLOOD_BOIL.id}/></Wrapper>,
-      requirements: () => {
-        return [
-          new Requirement({
-            name: 'Downtime',
-            check: () => this.alwaysBeCasting.downtimeSuggestionThresholds,
+            when: this.combatants.selected.hasTalent(SPELLS.TOMBSTONE_TALENT.id),
           }),
         ];
       },

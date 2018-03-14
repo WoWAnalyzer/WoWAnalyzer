@@ -26,7 +26,7 @@ class VulnerableApplications extends Analyzer {
         <dfn data-tip={tooltip}>{label}</dfn>
       ) : label;
       label = spellId ? (
-        <SpellLink id={spellId}>{label}</SpellLink>
+        <SpellLink id={spellId} icon >{label}</SpellLink>
       ) : label;
       return (
         <div

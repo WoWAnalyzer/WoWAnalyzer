@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { sref, Zerotorescue, blazyb } from 'MAINTAINERS';
+import { sref, Zerotorescue, blazyb } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
@@ -8,6 +8,16 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-03-12'),
+    changes: <Wrapper>Fixed a bug where chained <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} icon /> casts might incorrectly mark the second <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} icon /> as being affected by <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} icon /> instead of being marked as inefficient.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-02-23'),
+    changes: <Wrapper>Fixed beacon healing tracking for precasted <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} icon /> into <SpellLink id={SPELLS.BEACON_OF_VIRTUE_TALENT.id} icon />.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
   {
     date: new Date('2018-02-09'),
     changes: <Wrapper>Fixed an issue where sometimes <SpellLink id={SPELLS.SECOND_SUNRISE.id} icon /> would not be detected properly, throwing off the average players hit per <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} icon /> and some other things. This likely only might have occured if the logger had a poor internet connection.</Wrapper>,

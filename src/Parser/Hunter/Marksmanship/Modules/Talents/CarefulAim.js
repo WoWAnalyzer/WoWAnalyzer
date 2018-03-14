@@ -8,7 +8,7 @@ import SpellIcon from "common/SpellIcon";
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
-/*
+/**
  * Aimed Shot, Arcane Shot, Marked Shot, and Multi-Shot have 20% increased critical strike chance against targets above 80% Health, and those critical strikes deal an additional 30% damage over 8 sec.
  */
 class CarefulAim extends Analyzer {

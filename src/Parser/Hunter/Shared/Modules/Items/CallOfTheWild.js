@@ -5,6 +5,10 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS/HUNTER';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
+import SPECS from 'common/SPECS';
+import Wrapper from 'common/Wrapper';
+import SpellLink from 'common/SpellLink';
+import ItemLink from 'common/ItemLink';
 
 /**
  * Call of the Wild
@@ -105,7 +109,7 @@ class CallOfTheWild extends Analyzer {
       this.lastWildCastTime = event.timestamp;
       this.tier21WildCDR = 0;
     }
-    if (spellId === SPELLS.KILL_COMMAND.id) {
+    if (this.combatants.selected.hasBuff(SPELLS.HUNTER_BM_T21_4P_BONUS.id) && spellId === SPELLS.KILL_COMMAND.id) {
       const aspectIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.ASPECT_OF_THE_WILD.id);
       if (aspectIsOnCooldown) {
         const remainingMs = this.spellUsable.cooldownRemaining(SPELLS.ASPECT_OF_THE_WILD.id);
@@ -118,14 +122,18 @@ class CallOfTheWild extends Analyzer {
     }
   }
 
+  get aspectOfTheWildCastsGained() {
+    return this.wildCDR / this.baseWildCooldown;
+  }
+
   item() {
-    let tooltipText = `This shows a breakdown of the cooldown reduction provided by Call of the Wild: <br/> We only count CDR that was effective, meaning we are only showing the time between your casts that happened too soon after your last cast than would have been possible without Call of the Wild equipped.<ul>`;
+    let tooltipText = `This shows a breakdown of the cooldown reduction provided by Call of the Wild: <br/> We only count CDR that was effective. This means this only sums the time between casts, that were too close together to have been possible without having Call of the Wild equipped.<ul>`;
     tooltipText += (this.eagleCDR > 0) ? `<li>Aspect of the Eagle</li><ul><li>Total CDR: ${(this.eagleCDR / 1000).toFixed(1)} seconds</li><li>Gained casts: ${(this.eagleCDR / this.baseEagleCooldown).toFixed(1)}</li></ul>` : ``;
     tooltipText += (this.cheetahCDR > 0) ? `<li>Aspect of the Cheetah</li><ul><li>Total CDR: ${(this.cheetahCDR / 1000).toFixed(1)} seconds</li><li>Gained casts: ${(this.cheetahCDR / this.baseCheetahCooldown).toFixed(1)}</li></ul>` : ``;
     tooltipText += (this.turtleCDR > 0) ? `<li>Aspect of the Turtle</li><ul><li>Total CDR: ${(this.turtleCDR / 1000).toFixed(1)} seconds</li><li>Gained casts: ${(this.turtleCDR / this.baseTurtleCooldown).toFixed(1)}</li></ul>` : ``;
     tooltipText += (this.wildCDR > 0) ? `<li>Aspect of the Wild</li><ul>` : ``;
     tooltipText += ((this.wildCDR > 0) && this.combatants.selected.hasTrinket(ITEMS.CONVERGENCE_OF_FATES.id)) ? `<li>Due to the nature of Convergence of Fates these figures may not be accurate, but they are calculated exempt of any possible Convergence procs.</li>` : ``;
-    tooltipText += (this.wildCDR > 0) ? `<li>Total approximate CDR: ${(this.wildCDR / 1000).toFixed(1)} seconds</li><li>Approximate gained casts: ${(this.wildCDR / this.baseWildCooldown).toFixed(1)}</li></>` : ``;
+    tooltipText += (this.wildCDR > 0) ? `<li>Total approximate CDR: ${(this.wildCDR / 1000).toFixed(1)} seconds</li><li>Approximate gained casts: ${this.aspectOfTheWildCastsGained.toFixed(2)}</li></ul>` : ``;
     tooltipText += `</ul>`;
     return {
       item: ITEMS.CALL_OF_THE_WILD,
@@ -135,6 +143,43 @@ class CallOfTheWild extends Analyzer {
         </dfn>
       ),
     };
+  }
+
+  get suggestionsThresholds() {
+    if (this.combatants.selected.spec === SPECS.BEAST_MASTERY_HUNTER) {
+      if (this.combatants.selected.hasTrinket(ITEMS.CONVERGENCE_OF_FATES.id)) {
+        return {
+          actual: this.aspectOfTheWildCastsGained,
+          isLessThan: {
+            minor: Math.floor(this.owner.fightDuration / 60000 * 0.75),
+            average: Math.floor(this.owner.fightDuration / 60000 * 0.6),
+            major: Math.floor(this.owner.fightDuration / 60000 * 0.3),
+          },
+          style: 'number',
+        };
+      } else {
+        return {
+          actual: this.aspectOfTheWildCastsGained,
+          isLessThan: {
+            minor: Math.floor(this.owner.fightDuration / 60000 * 0.5),
+            average: Math.floor(this.owner.fightDuration / 60000 * 0.35),
+            major: Math.floor(this.owner.fightDuration / 60000 * 0.2),
+          },
+          style: 'number',
+        };
+      }
+    }
+  }
+
+  suggestions(when) {
+    if (this.combatants.selected.spec === SPECS.BEAST_MASTERY_HUNTER) {
+      when(this.suggestionsThresholds).addSuggestion((suggest, actual, recommended) => {
+        return suggest(<Wrapper>Try to use <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} icon /> more often to capitalize on the cooldown reduction provided by <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} icon />, whilst still making sure to overlap it with <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon />. </Wrapper>)
+          .icon(ITEMS.CALL_OF_THE_WILD.icon)
+          .actual(`${actual.toFixed(2)} possible Aspect of the Wild casts gained`)
+          .recommended(`${recommended.toFixed(2)} is recommended`);
+      });
+    }
   }
 }
 

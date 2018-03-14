@@ -19,6 +19,14 @@ const BASE_ARMOR_PER_CARD = {
   191631: 2414, // 8 -- 2911
 };
 
+export const STAT_TRACKER_BUFFS = Object.entries(BASE_ARMOR_PER_CARD).reduce((result, [id, baseArmor]) => {
+  result[id] = {
+    itemId: ITEMS.DARKMOON_DECK_IMMORTALITY.id,
+    armor: (_, item) => calculateSecondaryStatDefault(BASE_IMMORTALITY_ILVL, baseArmor, item.itemLevel),
+  };
+  return result;
+}, {});
+
 const NUM_CARDS = 8;
 const MIN_CARD = 191624;
 const MAX_CARD = 191631;

@@ -289,6 +289,11 @@ export default {
     name: 'Grease the Gears',
     icon: 'inv_misc_enggizmos_14',
   },
+  COLLAPSE: { //Ring of Collapsing Futures
+    id: 234142,
+    name: 'Collapse',
+    icon: 'spell_priest_void-blast',
+  },
 
   // Nighthold Trinkets
   RECURSIVE_STRIKES: {

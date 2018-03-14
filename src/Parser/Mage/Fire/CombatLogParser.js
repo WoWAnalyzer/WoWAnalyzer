@@ -32,10 +32,9 @@ import DarcklisDragonfireDiadem from './Modules/Items/DarcklisDragonfireDiadem';
 import ContainedInfernalCore from './Modules/Items/ContainedInfernalCore';
 import PyrotexIgnitionCloth from './Modules/Items/PyrotexIgnitionCloth';
 import MarqueeBindingsOfTheSunKing from './Modules/Items/MarqueeBindingsOfTheSunKing';
+import KoralonsBurningTouch from './Modules/Items/KoralonsBurningTouch';
 
 class CombatLogParser extends CoreCombatLogParser {
-  feedbackWarning = true;
-
   static specModules = {
     //Normalizers
     FlameStrikeNormalizer: FlamestrikeNormalizer,
@@ -74,6 +73,7 @@ class CombatLogParser extends CoreCombatLogParser {
     containedInfernalCore: ContainedInfernalCore,
     pyrotexIgnitionCloth: PyrotexIgnitionCloth,
     marqueeBindingsOfTheSunKing: MarqueeBindingsOfTheSunKing,
+    koralonsBurningTouch: KoralonsBurningTouch,
 
   };
 }

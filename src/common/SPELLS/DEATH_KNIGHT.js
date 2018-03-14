@@ -154,6 +154,19 @@ export default {
     name: 'T20 4 Set Bonus',
     icon: 'spell_deathknight_bloodpresence',
   },
+  // T21 2 Piece
+  BLOOD_DEATH_KNIGHT_T21_2SET_BONUS_BUFF: {
+    id: 251876,
+    name: 'T21 2 Set Bonus',
+    icon: 'ability_paladin_conviction',
+  },
+  // T21 4 Piece
+  BLOOD_DEATH_KNIGHT_T21_4SET_BONUS_BUFF: {
+    id: 251877,
+    name: 'T21 4 Set Bonus',
+    icon: 'ability_paladin_conviction',
+  },
+
   // Blood T21 4 Piece buff
   RUNE_MASTER: {
     id: 253381,
@@ -206,20 +219,25 @@ export default {
     name: 'Howling Blast',
     icon: 'spell_frost_arcticwinds',
   },
-  REMORSELESS_WINTER_ENV_CAST: {
+  REMORSELESS_WINTER_ENV_CAST: { // not actually sure what this does
     id: 211793,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
   },
-  REMORSELESS_WINTER_BUFF: {
+  REMORSELESS_WINTER_DAMAGE: { // every tick puts a cast event on the environment and also the id of the damage event
     id: 196771,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
   },
-  REMORSELESS_WINTER: { // This the spell the player see
+  REMORSELESS_WINTER: { // This the spell the player casts, triggers energize event, also exists as buff on player
     id: 196770,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
+  },
+  GATHERING_STORM_TALENT_BUFF:{
+    id: 211805,
+    name: 'Gathering Storm',
+    icon: 'spell_frost_ice-shards',
   },
   BREATH_OF_SINDRAGOSA_TALENT_DAMAGE_TICK: {
     id: 155166,
@@ -244,7 +262,7 @@ export default {
     icon: 'spell_frost_arcticwinds',
   },
   KILLING_MACHINE: {
-    id: 51128,
+    id: 51124,
     name: 'Killing Machine',
     icon: 'inv_sword_122',
   },
@@ -318,6 +336,11 @@ export default {
     id: 253590,
     name: 'Freezing Death',
     icon: 'ability_deathknight_chillstreak',
+  },
+  TORAVONS_WHITEOUT_BINDINGS: {
+    id: 205659,
+    name: 'Toravon\'s Whiteout Bindings',
+    icon: 'ability_warrior_unrelentingassault',
   },
   
   // Unholy:
@@ -426,7 +449,7 @@ export default {
 	  name: 'Unholy Strength',
 	  icon: 'spell_holy_blessingofstrength',
   },
-
+  
   // Unholy Tier Sets
   // T20 2 Piece and buff
   UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS: {
@@ -457,6 +480,12 @@ export default {
     id: 253367,
     name: 'Coils of Devastation (T21 2 Set Bonus)',
     icon: 'ability_malkorok_blightofyshaarj_green',
+  },
+  //Legendary Item Buffs
+  TAKTHERITRIXS_COMMAND: {
+    id: 215069,
+    name: 'Tak\'theritrix\'s Command',
+    icon: 'achievement_boss_festergutrotface',
   },
 
   // Artifact traits:
@@ -523,6 +552,12 @@ export default {
 
   DEATH_AND_DECAY: {
     id: 43265,
+    name: 'Death and Decay',
+    icon: 'spell_shadow_deathanddecay',
+  },
+
+  DEATH_AND_DECAY_BUFF: {
+    id: 188290,
     name: 'Death and Decay',
     icon: 'spell_shadow_deathanddecay',
   },

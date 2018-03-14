@@ -138,6 +138,7 @@ class Checklist extends CoreChecklist {
               <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} icon /> fed to <SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} icon />
             </Wrapper>,
             check: () => this.giftOfTheQueen.CBTTotemFeedingSuggestionThreshold,
+            when: this.combatants.selected.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id),
           }),
         ];
       },

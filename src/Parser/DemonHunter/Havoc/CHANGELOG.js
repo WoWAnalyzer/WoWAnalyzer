@@ -1,13 +1,38 @@
 import React from 'react';
+
+import { Hewhosmites, Mamtooth } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import SpellLink from 'common/SpellLink';
-import { Hewhosmites, Mamtooth } from 'MAINTAINERS';
-
 
 export default [
+	{
+		date: new Date('2018-03-01'),
+		changes: <Wrapper>Added <SpellLink id ={SPELLS.BLIND_FURY_TALENT.id} icon/> to the fury tracker.</Wrapper>,
+		contributors: [Hewhosmites],
+	},
+	{
+		date: new Date('2018-02-27'),
+		changes: <Wrapper>Added <ItemLink id={ITEMS.CHAOS_THEORY.id} icon/></Wrapper>,
+		contributors: [Hewhosmites],
+	},
+	{
+		date: new Date('2018-02-20'),
+		changes: <Wrapper>Added <ItemLink id={ITEMS.MOARG_BIONIC_STABILIZERS.id} icon/></Wrapper>,
+    contributors: [Hewhosmites],
+  },
+  {
+  	date: new Date('2018-02-20'),
+		changes: <Wrapper>Added <ItemLink id={ITEMS.SOUL_OF_THE_SLAYER.id} icon/></Wrapper>,
+		contributors: [Hewhosmites],
+	},
+	{
+		date: new Date('2018-02-19'),
+		changes: <Wrapper>Added <ItemLink id={ITEMS.ANGER_OF_THE_HALF_GIANTS.id} icon/></Wrapper>,
+		contributors: [Hewhosmites],
+	},
 	{
 		date: new Date('2018-01-27'),
 		changes: <Wrapper>Added in <SpellLink id={SPELLS.HAVOC_T21_4PC_BONUS.id} icon/></Wrapper>,
@@ -15,7 +40,7 @@ export default [
 	},
 	{
 		date: new Date('2018-01-27'),
-		changes: <Wrapper>Added cooldown reduction for <SpellLink id={SPELLS.EYE_BEAM.id} icon/>></Wrapper>,
+		changes: <Wrapper>Added cooldown reduction for <SpellLink id={SPELLS.EYE_BEAM.id} icon/></Wrapper>,
 		contributors: [Hewhosmites],
 	},
 	{

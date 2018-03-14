@@ -17,6 +17,14 @@ class SpellUsable extends Analyzer {
     abilities: Abilities,
   };
   _currentCooldowns = {};
+  _errors = 0;
+  get errorsPerMinute() {
+    const minutesElapsed = (this.owner.fightDuration / 1000) / 60;
+    return this._errors / minutesElapsed;
+  }
+  get isAccurate() {
+    return this.errorsPerMinute < 1;
+  }
 
   /**
    * Find the canonical spell id of an ability. For most abilities, this
@@ -114,6 +122,7 @@ class SpellUsable extends Analyzer {
         const remainingCooldown = this.cooldownRemaining(canSpellId, timestamp);
         if (remainingCooldown > INVALID_COOLDOWN_CONFIG_LAG_MARGIN) {
           // No need to report if it was expected to reset within the set margin, as latency can cause this fluctuation.
+          this._errors += 1;
           console.error(
             formatMilliseconds(this.owner.fightDuration),
             'SpellUsable',

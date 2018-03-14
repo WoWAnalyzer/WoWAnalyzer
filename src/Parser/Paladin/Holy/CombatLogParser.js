@@ -9,6 +9,7 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import LightOfDawnNormalizer from './Normalizers/LightOfDawn';
 import DivinePurposeNormalizer from './Normalizers/DivinePurpose';
+import BeaconOfVirtueNormalizer from './Normalizers/BeaconOfVirtue';
 
 import PaladinAbilityTracker from './Modules/PaladinCore/PaladinAbilityTracker';
 import BeaconHealOriginMatcher from './Modules/PaladinCore/BeaconHealOriginMatcher';
@@ -67,6 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Normalizers
     lightOfDawnNormalizer: LightOfDawnNormalizer,
     divinePurposeNormalizer: DivinePurposeNormalizer,
+    beaconOfVirtueNormalizer: BeaconOfVirtueNormalizer,
 
     // Override the ability tracker so we also get stats for IoL and beacon healing
     abilityTracker: PaladinAbilityTracker,

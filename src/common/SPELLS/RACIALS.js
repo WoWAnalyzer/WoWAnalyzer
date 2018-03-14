@@ -160,6 +160,11 @@ export default {
     name: 'Entropic Embrace',
     icon: 'ability_racial_entropicembrace',
   },
+  ENTROPIC_EMBRACE_DAMAGE: {
+    id: 259756,
+    name: 'Entropic Embrace',
+    icon: 'ability_racial_entropicembrace',
+  },
   // Lightforged Draenei
   LIGHTS_RECKONING: {
     id: 255652,

@@ -40,8 +40,22 @@ import WayOfTheMokNathal from './Modules/Talents/WayOfTheMokNathal';
 import SpittingCobra from './Modules/Talents/SpittingCobra';
 import Caltrops from './Modules/Talents/Caltrops';
 import SteelTrap from './Modules/Talents/SteelTrap';
+import AspectOfTheBeast from '../Shared/Modules/Talents/AspectOfTheBeast';
+import SerpentSting from './Modules/Talents/SerpentSting';
+import AMurderOfCrows from './Modules/Talents/AMurderOfCrows';
+import DragonsfireGrenade from './Modules/Talents/DragonsfireGrenade';
+import ThrowingAxes from './Modules/Talents/ThrowingAxes';
+import ButcheryCarve from './Modules/Talents/ButcheryCarve';
+import MortalWounds from './Modules/Talents/MortalWounds';
 
 //Traits
+import FuryOfTheEagle from './Modules/Traits/FuryOfTheEagle'; //artifact ability
+import EaglesBite from './Modules/Traits/EaglesBite';
+import TalonStrike from './Modules/Traits/TalonStrike';
+import TalonBond from './Modules/Traits/TalonBond';
+import EchoesOfOhnara from './Modules/Traits/EchoesOfOhnara';
+import AspectOfTheSkylord from './Modules/Traits/AspectOfTheSkylord';
+import Hellcarver from './Modules/Traits/Hellcarver';
 
 //Traits and Talents list
 import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
@@ -91,7 +105,22 @@ class CombatLogParser extends CoreCombatLogParser {
     spittingCobra: SpittingCobra,
     caltrops: Caltrops,
     steelTrap: SteelTrap,
+    aspectOfTheBeast: AspectOfTheBeast,
+    serpentSting: SerpentSting,
+    aMurderOfCrows: AMurderOfCrows,
+    dragonsfireGrenade: DragonsfireGrenade,
+    throwingAxes: ThrowingAxes,
+    butcheryCarve: ButcheryCarve,
+    mortalWounds: MortalWounds,
+
     //Traits
+    furyOfTheEagle: FuryOfTheEagle,
+    eaglesBite: EaglesBite,
+    talonStrike: TalonStrike,
+    talonBond: TalonBond,
+    echoesOfOhnara: EchoesOfOhnara,
+    aspectOfTheSkylord: AspectOfTheSkylord,
+    hellcarver: Hellcarver,
 
     //Traits and Talents list
     traitsAndTalents: TraitsAndTalents,

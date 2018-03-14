@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { blazyb, sref, Zerotorescue } from 'MAINTAINERS';
-
+import { blazyb, sref, Zerotorescue } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
@@ -9,6 +8,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-02-11'),
+    changes: <Wrapper>Fixed a bug that could cause incorrect proc counts and uptimes for players using <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} icon /> and <ItemLink id={ITEMS.CHAMELEON_SONG.id} icon /> together.</Wrapper>,
+    contributors: [sref],
+  },
   {
     date: new Date('2018-02-03'),
     changes: 'Added a Checklist to the top of the page, which is a more organized and better explained version of the Suggestion system.',

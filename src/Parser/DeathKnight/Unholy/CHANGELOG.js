@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Bicepspump, Khazak, Gebuz } from 'MAINTAINERS';
+import { Bicepspump, Khazak, Gebuz, Hewhosmites } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
@@ -8,6 +8,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default  [
+  {
+    date: new Date('2018-03-03'),
+    changes: <Wrapper>Added <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id} icon/></Wrapper>,
+    contributors: [Hewhosmites],
+  },
   {
     date: new Date('2018-01-30'),
     changes: 'Added overcapped Runes',
