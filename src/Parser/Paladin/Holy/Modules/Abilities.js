@@ -15,7 +15,6 @@ class Abilities extends CoreAbilities {
     return [
       {
         spell: SPELLS.HOLY_SHOCK_CAST,
-        name: 'BOOM', // TODO: Remvoe this when done with testing
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: (haste, combatantCurrent) => {
           const hasSanctifiedWrath = combatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id);
@@ -30,7 +29,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.LIGHT_OF_DAWN_CAST,
-        name: 'FWOOSH', // TODO: Remvoe this when done with testing
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         // Item - Paladin T20 Holy 2P Bonus: Reduces the cooldown of Light of Dawn by 2.0 sec.
         cooldown: haste => (12 - (combatant.hasBuff(SPELLS.HOLY_PALADIN_T20_2SET_BONUS_BUFF.id) ? 2 : 0)) / (1 + haste),
