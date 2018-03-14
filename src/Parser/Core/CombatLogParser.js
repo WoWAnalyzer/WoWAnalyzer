@@ -128,7 +128,8 @@ import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
 
-const debug = false;
+// This prints to console anything that the DI has to do
+const debugDependencyInjection = false;
 // This sends every event that occurs to the console, including fabricated events (unlike the Events tab)
 const debugEvents = false;
 
@@ -350,7 +351,7 @@ class CombatLogParser {
       }
 
       if (missingDependencies.length === 0) {
-        if (debug) {
+        if (debugDependencyInjection) {
           if (Object.keys(availableDependencies).length === 0) {
             console.log('Loading', moduleClass.name);
           } else {
@@ -366,13 +367,13 @@ class CombatLogParser {
         }
         this._modules[desiredModuleName] = module;
       } else {
-        debug && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
+        debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
         failedModules.push(desiredModuleName);
       }
     });
 
     if (failedModules.length !== 0) {
-      debug && console.warn(`${failedModules.length} modules failed to load, trying again:`, failedModules.map(key => modules[key].name));
+      debugDependencyInjection && console.warn(`${failedModules.length} modules failed to load, trying again:`, failedModules.map(key => modules[key].name));
       const newBatch = {};
       failedModules.forEach((key) => {
         newBatch[key] = modules[key];
@@ -513,8 +514,8 @@ class CombatLogParser {
           globalCooldownHistory={this.modules.globalCooldown.history}
           channelHistory={this.modules.channeling.history}
           abilities={this.modules.abilities}
-          showCooldowns={this.modules.spellUsable.isAccurate}
-          showGlobalCooldownDuration={this.modules.globalCooldown.isAccurate}
+          isAbilityCooldownsAccurate={this.modules.spellUsable.isAccurate}
+          isGlobalCooldownAccurate={this.modules.globalCooldown.isAccurate}
         />
       ),
     });
