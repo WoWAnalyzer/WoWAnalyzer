@@ -276,3 +276,8 @@ export const joshinator = {
   nickname: 'joshinator',
   github: 'joshinat0r',
 };
+export const niseko = {
+  nickname: 'niseko',
+  github: 'niseko',
+};
+
