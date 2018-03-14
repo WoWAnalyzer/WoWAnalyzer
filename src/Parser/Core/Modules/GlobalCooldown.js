@@ -140,16 +140,19 @@ class GlobalCooldown extends Analyzer {
   _verifyAccuracy(event) {
     if (this.lastGlobalCooldown) {
       const timeSince = event.timestamp - this.lastGlobalCooldown.timestamp;
-      const remainingDuration = event.duration - timeSince;
+      const remainingDuration = this.lastGlobalCooldown.duration - timeSince;
       if (remainingDuration > INVALID_GCD_CONFIG_LAG_MARGIN) {
         this._errors += 1;
         console.error(
           formatMilliseconds(this.owner.fightDuration),
           'GlobalCooldown',
-          event.reason.ability.name, event.reason.ability.guid, `was cast while a Global Cooldown was already running. There's probably a Haste buff missing from StatTracker or the Haste module, this spell has a GCD different from the default, or the base GCD for this spec is different from default.`,
+          event.reason.ability.name, event.reason.ability.guid, 
+          `was cast while the Global Cooldown from`,
+          this.lastGlobalCooldown.ability.name, this.lastGlobalCooldown.ability.guid,
+          `was already running. There's probably a Haste buff missing from StatTracker or the Haste module, this spell has a GCD different from the default, or the base GCD for this spec is different from default.`,
           'time passed:', timeSince,
-          'cooldown remaining:', event.duration - timeSince,
-          'expectedDuration:', event.duration,
+          'cooldown remaining:', remainingDuration,
+          'expectedDuration:', this.lastGlobalCooldown.duration,
           'errors:', this._errors
         );
       }

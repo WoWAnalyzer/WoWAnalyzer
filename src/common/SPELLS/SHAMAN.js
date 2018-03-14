@@ -20,6 +20,11 @@ export default {
     name: 'Wind Shear',
     icon: 'spell_nature_cyclone',
   },
+  EARTHBIND_TOTEM: {
+    id: 2484,
+    name: 'Earthbind Totem',
+    icon: 'spell_nature_strengthofearthtotem02', 
+  },
   //Eye of the Twisting Nether Buffs
   SHOCK_OF_THE_TWISTING_NETHER: {
     id: 207999,
