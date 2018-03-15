@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Toggle from 'react-toggle';
 import 'react-toggle/style.css';
 
-import Wrapper from 'common/Wrapper';
 import ReadableList from 'common/ReadableList';
 import Contributor from 'Main/Contributor';
 
