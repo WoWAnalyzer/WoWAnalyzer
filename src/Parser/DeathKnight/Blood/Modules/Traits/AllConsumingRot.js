@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import getDamageBonusStacked from 'Parser/DeathKnight/Shared/getDamageBonusStacked';
+import calculateEffectiveDamageStacked from 'Parser/Core/calculateEffectiveDamageStacked';
 
 const ALL_CONSUMING_ROT_INCREASE = 0.04;
 
@@ -33,7 +33,7 @@ class AllConsumingRot extends Analyzer {
       return;
     }
 
-    this.damage += getDamageBonusStacked(event, ALL_CONSUMING_ROT_INCREASE, this.rank);
+    this.damage += calculateEffectiveDamageStacked(event, ALL_CONSUMING_ROT_INCREASE, this.rank);
   }
 
   subStatistic() {

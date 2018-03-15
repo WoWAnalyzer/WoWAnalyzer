@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import getDamageBonusStacked from 'Parser/DeathKnight/Shared/getDamageBonusStacked';
+import calculateEffectiveDamageStacked from 'Parser/Core/calculateEffectiveDamageStacked';
 
 const BONEBREAKER_INCREASE = 0.08;
 
@@ -32,7 +32,7 @@ class Bonebreaker extends Analyzer {
     if(event.ability.guid !== SPELLS.MARROWREND.id){
       return;
     }
-    this.damage += getDamageBonusStacked(event, BONEBREAKER_INCREASE, this.rank);
+    this.damage += calculateEffectiveDamageStacked(event, BONEBREAKER_INCREASE, this.rank);
   }
 
   subStatistic() {

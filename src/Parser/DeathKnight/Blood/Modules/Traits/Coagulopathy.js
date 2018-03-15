@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import getDamageBonusStacked from 'Parser/DeathKnight/Shared/getDamageBonusStacked';
+import calculateEffectiveDamageStacked from 'Parser/Core/calculateEffectiveDamageStacked';
 
 const COAGULOPHATHY_INCREASE = 0.04;
 
@@ -32,7 +32,7 @@ class Coagulopathy extends Analyzer {
     if(event.ability.guid !== SPELLS.BLOOD_PLAGUE.id){
       return;
     }
-    this.damage += getDamageBonusStacked(event, COAGULOPHATHY_INCREASE, this.rank);
+    this.damage += calculateEffectiveDamageStacked(event, COAGULOPHATHY_INCREASE, this.rank);
   }
 
   subStatistic() {
