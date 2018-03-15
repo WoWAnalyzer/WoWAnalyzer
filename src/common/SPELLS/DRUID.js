@@ -799,4 +799,31 @@ export default {
     name: 'Ashamane\'s Rip',
     icon: 'artifactability_feraldruid_ashamanesbite',
   },
+
+  //shared talent spells
+  TYPHOON: {
+    id: 61391,
+    name: 'Typhoon',
+    icon: 'ability_druid_typhoon',
+  },
+  WILD_CHARGE_MOONKIN: {
+    id: 102383,
+    name: 'Wild Charge',
+    icon: 'ability_druid_owlkinfrenzy',
+  },
+  WILD_CHARGE_CAT: {
+    id: 49376,
+    name: 'Wild Charge',
+    icon: 'spell_druid_feralchargecat',
+  },
+  WILD_CHARGE_BEAR: {
+    id: 16979,
+    name: 'Wild Charge',
+    icon: 'ability_hunter_pet_bear',
+  },
+  WILD_CHARGE_TRAVEL: {
+    id: 102417,
+    name: 'Wild Charge',
+    icon: 'trade_archaeology_antleredcloakclasp',
+  },
 };
