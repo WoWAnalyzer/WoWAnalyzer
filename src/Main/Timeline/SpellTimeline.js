@@ -63,15 +63,27 @@ class SpellTimeline extends React.PureComponent {
 
   get spells() {
     const { spellId, historyBySpellId, abilities } = this.props;
-    const spellIds = spellId ? [spellId] : Object.keys(historyBySpellId).map(Number);
+    const spellIds = (spellId ? [spellId] : Object.keys(historyBySpellId).map(Number))
+      .filter(key => key > 0); //filter out fake spells (spell id <= 0)
+    const sorting = abilities.abilities;
+    console.log(sorting);
+    console.log(spellIds);
 
-    return spellIds
-      .filter(key => key > 0) //filter out fake spells (spell id <= 0)
-      .sort((a, b) => {
-      const aCooldown = abilities.getExpectedCooldownDuration(Number(a));
-      const bCooldown = abilities.getExpectedCooldownDuration(Number(b));
-      return aCooldown - bCooldown;
+    const result = [];
+    sorting.forEach((ability) => {
+      if(ability.spell.id){
+        if(spellIds.includes(ability.spell.id) && !result.includes(ability.spell.id)){
+          result.push(ability.spell.id);
+        }
+      } else {
+        if(spellIds.includes(ability.spell[0].id) && !result.includes(ability.spell.id)){
+          result.push(ability.spell[0].id);
+        }
+      }
     });
+    console.log(result);
+
+    return result;
   }
 
   gemini = null;
