@@ -11,7 +11,7 @@ export default [
   {
     date: new Date('2018-03-14'),
     changes: <Wrapper>Added missing abilities, fixed some cooldowns and implemented <SpellLink id={SPELLS.RIGHTEOUS_PROTECTOR_TALENT.id} icon />.</Wrapper>,
-    contributors: [Zerotorescue],
+    contributors: [Zerotorescue, Hewhosmites],
   },
   {
     date: new Date('2018-03-03'),
