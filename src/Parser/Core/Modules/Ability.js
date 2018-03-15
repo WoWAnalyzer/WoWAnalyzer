@@ -87,6 +87,10 @@ class Ability {
      * A boolean to indicate it can not be detected whether the player his this spells. This makes it so the spell is hidden when there are 0 casts in the fight. This should only be used for spells that can't be detected if a player has access to them, like racials.
      */
     isUndetectable: PropTypes.bool,
+    /**
+     * The ability's priority on the timeline. The lower the number the higher on the timeline it will be displayed.
+     */
+    timelineSortIndex: PropTypes.number,
   };
 
   _owner = null;
