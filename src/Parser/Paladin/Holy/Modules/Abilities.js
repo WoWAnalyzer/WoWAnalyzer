@@ -279,22 +279,21 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLINDING_LIGHT_TALENT,
-        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 90,
         enabled: combatant.hasTalent(SPELLS.BLINDING_LIGHT_TALENT.id),
         isOnGCD: true,
       },
       {
         spell: SPELLS.HAMMER_OF_JUSTICE,
-        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
         isOnGCD: true,
       },
       {
         spell: SPELLS.HAND_OF_RECKONING,
-        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 8,
-        isOnGCD: true,
       },
     ];
   }
