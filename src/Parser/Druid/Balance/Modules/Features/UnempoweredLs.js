@@ -2,6 +2,7 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import { formatNumber } from 'common/format';
 import Wrapper from 'common/Wrapper';
 
 class UnempoweredLS extends Analyzer {
@@ -96,7 +97,7 @@ class UnempoweredLS extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<Wrapper>You casted {this.suboptUmempLS} unempowered and non instant cast <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> that hit less than 4 targets. Always prioritize Solar Wrath as a filler if there are less than 4 targets.</Wrapper>)
         .icon(SPELLS.LUNAR_STRIKE.icon)
-        .actual(`${actual.toFixed(1)} Unempowered LS per minute`)
+        .actual(`${formatNumber(actual)} Unempowered LS per minute`)
         .recommended(`${recommended} Unempowered LS are recommended`);
     });
   }
