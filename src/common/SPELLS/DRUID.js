@@ -799,6 +799,11 @@ export default {
     name: 'Ashamane\'s Rip',
     icon: 'artifactability_feraldruid_ashamanesbite',
   },
+  FURY_OF_ASHAMANE: {
+    id: 240670,
+    name: 'Fury of Ashamane',
+    icon: 'ability_mount_jungletiger',
+  },
 
   //shared talent spells
   TYPHOON: {

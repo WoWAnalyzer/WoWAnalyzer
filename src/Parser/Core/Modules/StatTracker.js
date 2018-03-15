@@ -190,6 +190,7 @@ class StatTracker extends Analyzer {
     [SPELLS.JACINS_RUSE.id]: { mastery: 3000 },
     [SPELLS.MASTER_OF_COMBINATIONS.id]: { mastery: 600 },
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 1000, haste: 1000 },
+    [SPELLS.FURY_OF_ASHAMANE.id]: { versatility: 600 },
     // endregion
 
     // region Death Knight
