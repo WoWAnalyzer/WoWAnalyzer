@@ -553,6 +553,11 @@ export default {
     name: 'Faith\'s Armor',
     icon: 'inv_misc_armorkit_23',
   },
+  BULWARK_OF_ORDER_SHIELD: {
+    id: 209388,
+    name: 'Bulwark of Order',
+    icon: 'spell_holy_pureofheart',
+  },
 	// Bonus set tiers
   PROTECTION_PALADIN_T19_2SET_BONUS_BUFF: {
     id: 211553,
