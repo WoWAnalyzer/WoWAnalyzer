@@ -188,6 +188,7 @@ class StatTracker extends Analyzer {
       versatility: combatant => 1500 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
     },
     [SPELLS.JACINS_RUSE.id]: { mastery: 3000 },
+    [SPELLS.MASTER_OF_COMBINATIONS.id]: { mastery: 600 },
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 1000, haste: 1000 },
     // endregion
 
