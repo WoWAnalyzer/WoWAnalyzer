@@ -66,8 +66,6 @@ class SpellTimeline extends React.PureComponent {
     const spellIds = (spellId ? [spellId] : Object.keys(historyBySpellId).map(Number))
       .filter(key => key > 0); //filter out fake spells (spell id <= 0)
     const sorting = abilities.abilities;
-    console.log(sorting);
-    console.log(spellIds);
 
     const result = [];
     sorting.forEach((ability) => {
@@ -81,7 +79,6 @@ class SpellTimeline extends React.PureComponent {
         }
       }
     });
-    console.log(result);
 
     return result;
   }
