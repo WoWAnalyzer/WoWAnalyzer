@@ -227,38 +227,43 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.INCAPACITATING_ROAR,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        enabled: !combatant.hasTalent(SPELLS.INTIMIDATING_ROAR_TALENT.id),
         cooldown: 30,
         isOnGCD: true,
       },
       {
         spell: SPELLS.INTIMIDATING_ROAR_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        enabled: combatant.hasTalent(SPELLS.INTIMIDATING_ROAR_TALENT.id),
         cooldown: 30,
         isOnGCD: true,
       },
       {
-        spell: SPELLS.TYPHOON_TALENT,
+        spell: SPELLS.TYPHOON,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        enabled: combatant.hasTalent(SPELLS.TYPHOON_TALENT.id),
         cooldown: 30,
         isOnGCD: true,
       },
       {
         spell: SPELLS.MASS_ENTANGLEMENT_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        enabled: combatant.hasTalent(SPELLS.MASS_ENTANGLEMENT_TALENT.id),
         cooldown: 30,
         isOnGCD: true,
       },
       {
         spell: SPELLS.MIGHTY_BASH_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        enabled: combatant.hasTalent(SPELLS.MIGHTY_BASH_TALENT.id),
         cooldown: 30,
         isOnGCD: true,
       },
       {
-        spell: SPELLS.WILD_CHARGE_TALENT,
+        spell: [SPELLS.WILD_CHARGE_TALENT, SPELLS.WILD_CHARGE_MOONKIN, SPELLS.WILD_CHARGE_CAT, SPELLS.WILD_CHARGE_BEAR, SPELLS.WILD_CHARGE_TRAVEL],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
-        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
       },
     ];
   }

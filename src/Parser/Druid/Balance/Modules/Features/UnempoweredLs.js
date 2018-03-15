@@ -2,7 +2,6 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatNumber } from 'common/format';
 import Wrapper from 'common/Wrapper';
 
 class UnempoweredLS extends Analyzer {
