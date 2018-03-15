@@ -25,7 +25,6 @@ class BlackoutKick extends Analyzer {
     SPELLS.STRIKE_OF_THE_WINDLORD.id,
     SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id,
   ];
-  casts = 0;
   inefficientCasts = 0;
 
   on_byPlayer_cast(event) {
@@ -45,6 +44,9 @@ class BlackoutKick extends Analyzer {
 
     if (hasImportantCastsAvailable) {
       this.inefficientCasts += 1;
+      event.meta = event.meta || {};
+      event.meta.isInefficientCast = true;
+      event.meta.inefficientCastReason = 'You cast this Blackout Kick while more important spells were available';
     }
   }
 
