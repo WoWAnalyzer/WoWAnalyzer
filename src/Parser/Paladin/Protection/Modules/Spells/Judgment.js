@@ -10,6 +10,7 @@ const REDUCTION_TIME_REGULAR = 2000; // ms
 const REDUCTION_TIME_CRIT = 4000; // ms
 
 /**
+ * Judgment
  * Judges the target dealing (250% of Spell power) Holy damage, and reducing the remaining cooldown on Shield of the Righteous by 2 sec, or 4 sec on a critical strike.
  */
 class Judgment extends Analyzer {
