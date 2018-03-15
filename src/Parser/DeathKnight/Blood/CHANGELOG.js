@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-03-15'),
+    changes: <Wrapper>Added Relic-Module.</Wrapper>,
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-03-14'),
     changes: <Wrapper>Added <SpellLink id={SPELLS.SOULDRINKER_TRAIT.id} icon />-Module to track the average HP-bonus.</Wrapper>,
     contributors: [joshinator],
