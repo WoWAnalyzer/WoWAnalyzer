@@ -191,6 +191,8 @@ class StatTracker extends Analyzer {
     [SPELLS.MASTER_OF_COMBINATIONS.id]: { mastery: 600 },
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 1000, haste: 1000 },
     [SPELLS.FURY_OF_ASHAMANE.id]: { versatility: 600 },
+    [SPELLS.STRENGTH_OF_THE_SKY.id]: { crit: 2000, mastery: 2000 },
+    [SPELLS.STRENGTH_OF_THE_SEA.id]: { haste: 2000, versatility: 2000 },
     // endregion
 
     // region Death Knight
