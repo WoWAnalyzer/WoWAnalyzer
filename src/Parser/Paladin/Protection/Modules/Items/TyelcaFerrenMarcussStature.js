@@ -41,14 +41,14 @@ class TyelcaFerrenMarcussStature extends Analyzer {
 	on_byPlayer_damage(event) {
 		const spellId = event.ability.guid;
 		if (spellId !== SPELLS.AVENGERS_SHIELD.id) {
-			return
+			return;
 		}
 		if(this.targetsHit > 5) {
 			debug && console.log('this is a bug');
 		}
 		//If you hit a 4th or 5th target because of the pants all that damage should be attributed to them
 		if(this.targetsHit > 3) {
-			this.damageDone = (event.amount || 0) + (event.absorbed || 0)
+			this.damageDone = (event.amount || 0) + (event.absorbed || 0);
 			this.targetsHit++;
 		}
 		else {
