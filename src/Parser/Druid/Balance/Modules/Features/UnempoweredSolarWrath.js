@@ -16,7 +16,7 @@ class UnempoweredSolarWrath extends Analyzer {
     this.badCasts += 1;
     event.meta = event.meta || {};
     event.meta.isInefficientCast = true;
-    event.meta.inefficientCastReason = 'Solar Wrath was cast without Solar Empowerment while Lunar Empowerment was active.';
+    event.meta.inefficientCastReason = 'Solar Wrath was cast without Solar Empowerment while Lunar Empowerment was active. You should spend all your empowerments before casting unempowered spells.';
   }
 
   on_byPlayer_cast(event) {
