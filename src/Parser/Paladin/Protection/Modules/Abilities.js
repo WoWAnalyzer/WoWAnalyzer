@@ -98,7 +98,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LIGHT_OF_THE_PROTECTOR,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 15 * (combatant.hasHead(ITEMS.SARUANS_RESOLVE.id) ? 0.9 : 1),
+        cooldown: haste => 15 / (1 + haste) * (combatant.hasHead(ITEMS.SARUANS_RESOLVE.id) ? 0.9 : 1),
         charges: 1 + (combatant.hasHead(ITEMS.SARUANS_RESOLVE.id) ? 1 : 0),
         enabled: !combatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id),
         castEfficiency: {
@@ -110,7 +110,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HAND_OF_THE_PROTECTOR_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 10 * (combatant.hasHead(ITEMS.SARUANS_RESOLVE.id) ? 0.9 : 1),
+        cooldown: haste => 10 / (1 + haste) * (combatant.hasHead(ITEMS.SARUANS_RESOLVE.id) ? 0.9 : 1),
         charges: 1 + (combatant.hasHead(ITEMS.SARUANS_RESOLVE.id) ? 1 : 0),
         enabled: combatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id),
         castEfficiency: {
