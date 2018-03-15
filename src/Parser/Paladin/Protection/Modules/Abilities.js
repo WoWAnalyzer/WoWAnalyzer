@@ -22,7 +22,6 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
         },
       },
-      // work on CD
       {
         spell: SPELLS.BLESSED_HAMMER_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -45,17 +44,6 @@ class Abilities extends CoreAbilities {
         },
       },
       // Probably useless to try to count the number of casts
-      {
-        spell: SPELLS.HAND_OF_THE_PROTECTOR_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.6,
-          importance: ISSUE_IMPORTANCE.MINOR,
-        },
-      },
-      // Probably useless to try to count the number of casts
       //Note by yajinni: Since this is thier main source of damage mitigation, without it they get hit like by a truck.
       //And a main source of damage, it should be tracked somewhat. Keeping it at 80% for now.
       {
@@ -68,42 +56,68 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.8,
         },
       },
-      {
+      { // T15: Holy Shield
         spell: SPELLS.HAMMER_OF_THE_RIGHTEOUS,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 4.5 / (1 + haste),
         charges: 2,
         isOnGCD: true,
-        enabled: !combatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id) && !combatant.hasTalent(SPELLS.CONSECRATED_HAMMER_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.HOLY_SHIELD_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
       },
-      {
-        spell: SPELLS.HAMMER_OF_THE_RIGHTEOUS,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
-        enabled: combatant.hasTalent(SPELLS.CONSECRATED_HAMMER_TALENT.id),
-      },
-      {
+      { // T15: Blessed Hammer (replaces Hammer of the Righteous)
         spell: SPELLS.BLESSED_HAMMER_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 4.5 / (1 + haste),
         charges: 3,
         isOnGCD: true,
         enabled: combatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      { // T15: Consecrated Hammer talent (Hammer of the Righteous has no cooldown)
+        spell: SPELLS.HAMMER_OF_THE_RIGHTEOUS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.CONSECRATED_HAMMER_TALENT.id),
       },
       {
         spell: SPELLS.JUDGMENT_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 12 / (1 + haste),
+        charges: combatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id) ? 2 : 1,
         isOnGCD: true,
-        enabled: !combatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
-        spell: SPELLS.JUDGMENT_CAST,
+        spell: SPELLS.LIGHT_OF_THE_PROTECTOR,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 12 / (1 + haste),
-        charges: 2,
-        isOnGCD: true,
-        enabled: combatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id),
+        cooldown: 15 * (combatant.hasHead(ITEMS.SARUANS_RESOLVE.id) ? 0.9 : 1),
+        charges: 1 + (combatant.hasHead(ITEMS.SARUANS_RESOLVE.id) ? 1 : 0),
+        enabled: !combatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.6,
+          importance: ISSUE_IMPORTANCE.MINOR,
+        },
+      },
+      {
+        spell: SPELLS.HAND_OF_THE_PROTECTOR_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 10 * (combatant.hasHead(ITEMS.SARUANS_RESOLVE.id) ? 0.9 : 1),
+        charges: 1 + (combatant.hasHead(ITEMS.SARUANS_RESOLVE.id) ? 1 : 0),
+        enabled: combatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.6,
+          importance: ISSUE_IMPORTANCE.MINOR,
+        },
       },
       //COOLDOWNS
       {
@@ -120,15 +134,31 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ARDENT_DEFENDER,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120 - (combatant.traitsBySpellId[SPELLS.UNFLINCHING_DEFENSE.id] || 0) * 10,
-        // castEfficiency: {
-        //   suggestion: true,
-        //   recommendedEfficiency: 0.85,
-        // },
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.GUARDIAN_OF_ANCIENT_KINGS,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 300,
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      {
+        spell: SPELLS.SERAPHIM_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 45,
+        enabled: combatant.hasTalent(SPELLS.SERAPHIM_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      {
+        spell: SPELLS.AVENGING_WRATH_RET,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 120,
         // castEfficiency: {
         //   suggestion: true,
         //   recommendedEfficiency: 0.85,
@@ -144,21 +174,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.AVENGING_WRATH,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
-        // castEfficiency: {
-        //   suggestion: true,
-        //   recommendedEfficiency: 0.85,
-        // },
-      },
-      {
-        spell: SPELLS.DIVINE_SHIELD,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 5 * 60,
-        isOnGCD: true,
-      },
-      {
         spell: SPELLS.FLASH_OF_LIGHT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         isOnGCD: true,
@@ -167,16 +182,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DIVINE_STEED,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45 * (combatant.hasTalent(SPELLS.KNIGHT_TEMPLAR_TALENT.id) ? 0.5 : 1),
+        charges: combatant.hasTalent(SPELLS.CAVALIER_TALENT.id) ? 2 : 1,
         isOnGCD: true,
-        enabled: !combatant.hasTalent(SPELLS.CAVALIER_TALENT.id),
-      },
-      {
-        spell: SPELLS.DIVINE_STEED,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 45 * (combatant.hasTalent(SPELLS.KNIGHT_TEMPLAR_TALENT.id) ? 0.5 : 1),
-        charges: 2,
-        isOnGCD: true,
-        enabled: combatant.hasTalent(SPELLS.CAVALIER_TALENT.id),
       },
       {
         spell: SPELLS.BLESSING_OF_FREEDOM,
@@ -189,6 +196,14 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 5 * 60,
         isOnGCD: true,
+        enabled: !combatant.hasTalent(SPELLS.BLESSING_OF_SPELLWARDING_TALENT.id),
+      },
+      {
+        spell: SPELLS.BLESSING_OF_SPELLWARDING_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 180,
+        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.BLESSING_OF_SPELLWARDING_TALENT.id),
       },
       {
         spell: SPELLS.BLESSING_OF_SACRIFICE,
@@ -198,6 +213,13 @@ class Abilities extends CoreAbilities {
         //   suggestion: true,
         //   recommendedEfficiency: 0.85,
         // },
+      },
+      {
+        spell: SPELLS.AEGIS_OF_LIGHT_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 180,
+        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.AEGIS_OF_LIGHT_TALENT.id),
       },
       {
         spell: SPELLS.CLEANSE_TOXINS,
@@ -236,42 +258,10 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.REPENTANCE_TALENT.id),
       },
       {
-        spell: SPELLS.AEGIS_OF_LIGHT_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 180,
-        isOnGCD: true,
-        enabled: combatant.hasTalent(SPELLS.AEGIS_OF_LIGHT_TALENT.id),
-      },
-      {
         spell: SPELLS.BASTION_OF_LIGHT_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.BASTION_OF_LIGHT_TALENT.id),
-      },
-      {
-        spell: SPELLS.BLESSING_OF_SPELLWARDING_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
-        isOnGCD: true,
-        enabled: combatant.hasTalent(SPELLS.BLESSING_OF_SPELLWARDING_TALENT.id),
-      },
-      {
-        spell: SPELLS.SERAPHIM_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 45,
-        enabled: combatant.hasTalent(SPELLS.SERAPHIM_TALENT.id),
-      },
-      {
-        spell: SPELLS.LIGHT_OF_THE_PROTECTOR,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 15,
-        enabled: !combatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id),
-      },
-      {
-        spell: SPELLS.HAND_OF_THE_PROTECTOR_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 10,
-        enabled: combatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id),
       },
     ];
   }
