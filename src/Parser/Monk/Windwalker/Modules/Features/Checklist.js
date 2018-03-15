@@ -135,7 +135,7 @@ class Checklist extends CoreChecklist {
             check: () => this.chiDetails.suggestionThresholds,
           }),
           new Requirement({
-            name: 'Bad Blackout Kick casts per minute',
+            name: <Wrapper>Bad <SpellLink id={SPELLS.BLACKOUT_KICK.id} icon /> casts per minute</Wrapper>,
             check: () => this.blackoutKick.suggestionThresholds,
           }),
           new Requirement({
