@@ -535,6 +535,11 @@ export default {
     name: 'Rebuke',
     icon: 'spell_holy_rebuke',
   },
+  GRAND_CRUSADER: {
+    id: 85043,
+    name: 'Grand Crusader',
+    icon: 'inv_helmet_74',
+  },
   //artifact
   EYE_OF_TYR: {
     id: 209202,
