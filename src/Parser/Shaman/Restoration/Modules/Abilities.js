@@ -145,6 +145,18 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.UNLEASH_LIFE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 15,
+        enabled: combatant.lv15Talent === SPELLS.UNLEASH_LIFE_TALENT.id,
+        castEfficiency: {
+          suggestion: true,
+          majorIssueEfficiency: 0.50,
+          averageIssueEfficiency: 0.70,
+          recommendedEfficiency: 0.90,
+        },
+      },
+      {
         spell: SPELLS.ANCESTRAL_GUIDANCE_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,

@@ -83,6 +83,10 @@ class Checklist extends CoreChecklist {
             spell: SPELLS.WELLSPRING_TALENT,
             when: combatant.hasTalent(SPELLS.WELLSPRING_TALENT.id),
           }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.UNLEASH_LIFE_TALENT,
+            when: combatant.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id),
+          }),
         ];
       },
     }),
