@@ -64,22 +64,6 @@ class SpellTimeline extends React.PureComponent {
   get spells() {
     const { spellId, historyBySpellId, abilities } = this.props;
     const spellIds = spellId ? [spellId] : Object.keys(historyBySpellId).map(Number);
-    /*const sorting = abilities.abilities;
-
-    const result = [];
-    sorting.forEach((ability) => {
-      if(ability.spell.id){
-        if(spellIds.includes(ability.spell.id) && !result.includes(ability.spell.id)){
-          result.push(ability.spell.id);
-        }
-      } else {
-        if(spellIds.includes(ability.spell[0].id) && !result.includes(ability.spell.id)){
-          result.push(ability.spell[0].id);
-        }
-      }
-    });
-
-    return result;*/
 
     return spellIds
       .filter(key => key > 0) //filter out fake spells (spell id <= 0)
