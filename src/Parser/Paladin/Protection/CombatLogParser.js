@@ -12,6 +12,7 @@ import BuffedHOTP from './Modules/Features/BuffedHOTP';
 //import T20_4pc from './Modules/Items/T20_4pc';
 import PillarsOfInmostLight from './Modules/Items/PillarsOfInmostLight';
 import RighteousProtector from './Modules/Talents/RighteousProtector';
+import Judgment from './Modules/Spells/Judgment';
 
 //import CooldownTracker from './Modules/Features/CooldownTracker';
 
@@ -33,6 +34,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     righteousProtector: RighteousProtector,
+    judgment: Judgment,
 
     // Traits
 

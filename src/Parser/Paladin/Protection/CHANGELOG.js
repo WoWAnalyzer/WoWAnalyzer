@@ -9,6 +9,16 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-03-15'),
+    changes: <Wrapper>Implemented <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon />'s cooldown reduction of <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} icon />, making its cooldown indicator in the timeline accurate.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-03-15'),
+    changes: <Wrapper>Fixed <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon />'s cooldown to the proper 6 seconds before Haste.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-03-14'),
     changes: <Wrapper>Added missing abilities, fixed some cooldowns and implemented <SpellLink id={SPELLS.RIGHTEOUS_PROTECTOR_TALENT.id} icon />.</Wrapper>,
     contributors: [Zerotorescue, Hewhosmites],

@@ -88,7 +88,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.JUDGMENT_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 12 / (1 + haste),
+        cooldown: haste => 6 / (1 + haste),
         charges: combatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id) ? 2 : 1,
         isOnGCD: true,
         castEfficiency: {
