@@ -22,6 +22,8 @@ import FistsofFury from '../Spells/FistsofFury';
 import SpinningCraneKick from '../Spells/SpinningCraneKick';
 import TouchOfKarma from '../Spells/TouchOfKarma';
 import ComboStrikes from '../Spells/ComboStrikes';
+import BlackoutKick from '../Spells/BlackoutKick';
+
 import HitCombo from '../Talents/HitCombo';
 import EnergizingElixir from '../Talents/EnergizingElixir';
 import ChiDetails from '../Chi/ChiDetails';
@@ -42,6 +44,8 @@ class Checklist extends CoreChecklist {
     spinningCraneKick: SpinningCraneKick,
     touchOfKarma: TouchOfKarma,
     comboStrikes: ComboStrikes,
+    blackoutKick: BlackoutKick,
+
     hitCombo: HitCombo,
     energizingElixir: EnergizingElixir,
     chiDetails: ChiDetails,
@@ -80,7 +84,7 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: <Wrapper>Wasted <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} icon /> procs </Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} icon /> procs used </Wrapper>,
             check: () => this.comboBreaker.suggestionThresholds,
           }),
           new Requirement({
@@ -129,6 +133,10 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: 'Chi Wasted per minute',
             check: () => this.chiDetails.suggestionThresholds,
+          }),
+          new Requirement({
+            name: <Wrapper>Bad <SpellLink id={SPELLS.BLACKOUT_KICK.id} icon /> casts per minute</Wrapper>,
+            check: () => this.blackoutKick.suggestionThresholds,
           }),
           new Requirement({
             name: <Wrapper>Bad <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} icon /> casts</Wrapper>,

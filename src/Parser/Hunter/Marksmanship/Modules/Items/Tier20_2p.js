@@ -28,7 +28,7 @@ class Tier20_2p extends Analyzer {
   }
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    const isCrit = event.hitType === HIT_TYPES.CRIT;
+    const isCrit = event.hitType === HIT_TYPES.CRIT || event.hitType === HIT_TYPES.BLOCKED_CRIT;
     if (this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T20_2P_BONUS_BUFF.id, event.timestamp)) {
       if (isCrit) {
         this.bonusDmg += getDamageBonus(event, T20_2P_CRIT_DMG_BONUS);

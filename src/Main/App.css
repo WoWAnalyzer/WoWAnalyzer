@@ -121,6 +121,7 @@ ul {
   right: 0;
   height: 134px;
   z-index: 200;
+  pointer-events: none;
 }
 .app.has-report > header {
   margin-top: -410px;
@@ -419,10 +420,6 @@ nav .selectorHeader a {
 .list.selection > li.selectable a {
   display: block;
   padding: 10px 0;
-}
-.list.selection > li.selectable a > div {
-  display: flex;
-  align-items: center;
 }
 .list.selection .ProgressBar {
   margin-left: 10px;

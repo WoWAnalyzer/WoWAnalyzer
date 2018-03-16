@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
-import { push as pushAction } from 'react-router-redux';
+import { push } from 'react-router-redux';
 import { Link } from 'react-router-dom';
 
 import { ApiDownError, LogNotFoundError, CorruptResponseError, JsonParseError } from 'common/fetchWcl';
@@ -10,9 +10,10 @@ import fetchEvents from 'common/fetchEvents';
 import { captureException } from 'common/errorLogger';
 import Wrapper from 'common/Wrapper';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
-
-import { fetchReport as fetchReportAction } from 'actions/report';
-import { fetchCombatants as fetchCombatantsAction } from 'actions/combatants';
+import getFightName from 'common/getFightName';
+import { fetchReport } from 'actions/report';
+import { appendReportHistory } from 'actions/reportHistory';
+import { fetchCombatants } from 'actions/combatants';
 import { getReportCode, getFightId, getPlayerId, getPlayerName } from 'selectors/url/report';
 import { getArticleId } from 'selectors/url/news';
 import { getReport } from 'selectors/report';
@@ -37,7 +38,7 @@ import NavigationBar from './Layout/NavigationBar';
 import DocumentTitleUpdater from './Layout/DocumentTitleUpdater';
 import Footer from './Layout/Footer';
 import NewsView from './News/View';
-import { default as makeNewsUrl } from './News/makeUrl';
+import makeNewsUrl from './News/makeUrl';
 import { title as AboutArticleTitle } from './News/Articles/2017-01-31-About';
 import { title as UnlistedLogsTitle } from './News/Articles/2017-01-31-UnlistedLogs';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
@@ -90,6 +91,7 @@ class App extends Component {
     unknownNetworkIssueError: PropTypes.func.isRequired,
     unknownError: PropTypes.func.isRequired,
     internetExplorerError: PropTypes.func.isRequired,
+    appendReportHistory: PropTypes.func.isRequired,
   };
   static childContextTypes = {
     config: PropTypes.object,
@@ -354,8 +356,22 @@ class App extends Component {
           return;
         }
         this.fetchEventsAndParse(report, fight, combatants, combatant, player);
+        this.appendHistory(report, fight, player);
       }
     }
+  }
+  appendHistory(report, fight, player) {
+    this.props.appendReportHistory({
+      code: report.code,
+      title: report.title,
+      start: Math.floor(report.start / 1000),
+      end: Math.floor(report.end / 1000),
+      fightId: fight.id,
+      fightName: getFightName(report, fight),
+      playerId: player.id,
+      playerName: player.name,
+      playerClass: player.type,
+    });
   }
 
   renderError(error) {
@@ -558,14 +574,15 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   {
-    fetchReport: fetchReportAction,
-    fetchCombatants: fetchCombatantsAction,
-    push: pushAction,
+    fetchReport,
+    fetchCombatants,
+    push,
     clearError,
     reportNotFoundError,
     apiDownError,
     unknownNetworkIssueError,
     unknownError,
     internetExplorerError,
+    appendReportHistory,
   }
 )(App);

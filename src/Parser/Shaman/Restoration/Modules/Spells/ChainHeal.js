@@ -64,6 +64,10 @@ class ChainHeal extends Analyzer {
 
     const maxTargets = this.combatants.selected.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
 
+    if(isNaN(avgHits)) {
+      return;
+    }
+
     return (
         <StatisticBox
             icon={<SpellIcon id={SPELLS.CHAIN_HEAL.id} />}

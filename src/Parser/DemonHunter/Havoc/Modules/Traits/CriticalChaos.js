@@ -68,7 +68,7 @@ class CrticalChaos extends Analyzer {
       this.damage += this.getDamageContributon(event);
     }
 
-  	if (!CRITICAL_CHAOS_SPELLS.includes(spellId) || event.hitType !== HIT_TYPES.CRIT) {
+  	if (!CRITICAL_CHAOS_SPELLS.includes(spellId) || (event.hitType !== HIT_TYPES.CRIT && event.hitType !== HIT_TYPES.BLOCKED_CRIT)) {
       this.chaosStrikeCrit = false;
   		return;
   	}

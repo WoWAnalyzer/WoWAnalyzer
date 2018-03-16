@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
-class ReportSelecter extends Component {
+class ReportSelecter extends React.PureComponent {
   static propTypes = {
     push: PropTypes.func.isRequired,
   };

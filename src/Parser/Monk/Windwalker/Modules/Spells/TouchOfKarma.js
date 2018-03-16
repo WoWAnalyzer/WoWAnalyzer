@@ -56,7 +56,7 @@ class TouchOfKarma extends Analyzer {
         />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(10);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(2);
 }
 
 export default TouchOfKarma;

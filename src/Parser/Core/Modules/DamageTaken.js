@@ -23,7 +23,7 @@ class DamageTaken extends Analyzer {
   _byAbility = {};
   byAbility(spellId) {
     if (!this._byAbility[spellId]) {
-      return new DamageValue(0, 0, 0);
+      return new DamageValue();
     }
     return this._byAbility[spellId];
   }
@@ -31,38 +31,38 @@ class DamageTaken extends Analyzer {
   _byMagicSchool = {};
   byMagicSchool(magicSchool) {
     if (!this._byMagicSchool[magicSchool]) {
-      return new DamageValue(0, 0, 0);
+      return new DamageValue();
     }
     return this._byMagicSchool[magicSchool];
   }
 
   on_toPlayer_damage(event) {
-    this._addDamage(event.ability, event.amount, event.absorbed, event.overkill);
+    this._addDamage(event.ability, event.amount, event.absorbed, event.blocked, event.overkill);
   }
 
-  _addDamage(ability, amount = 0, absorbed = 0, overkill = 0) {
+  _addDamage(ability, amount = 0, absorbed = 0, blocked = 0, overkill = 0) {
     const spellId = ability.guid;
     if (this.constructor.IGNORED_ABILITIES.indexOf(spellId) !== -1) {
       // Some player abilities (mostly of healers) cause damage as a side-effect, these shouldn't be included in the damage taken.
       return;
     }
-    this._total = this._total.add(amount, absorbed, overkill);
+    this._total = this._total.add(amount, absorbed, blocked, overkill);
 
     if (this._byAbility[spellId]) {
-      this._byAbility[spellId] = this._byAbility[spellId].add(amount, absorbed, overkill);
+      this._byAbility[spellId] = this._byAbility[spellId].add(amount, absorbed, blocked, overkill);
     } else {
-      this._byAbility[spellId] = new DamageValue(amount, absorbed, overkill);
+      this._byAbility[spellId] = new DamageValue(amount, absorbed, blocked, overkill);
     }
 
     const magicSchool = ability.type;
     if (this._byMagicSchool[magicSchool]) {
-      this._byMagicSchool[magicSchool] = this._byMagicSchool[magicSchool].add(amount, absorbed, overkill);
+      this._byMagicSchool[magicSchool] = this._byMagicSchool[magicSchool].add(amount, absorbed, blocked, overkill);
     } else {
-      this._byMagicSchool[magicSchool] = new DamageValue(amount, absorbed, overkill);
+      this._byMagicSchool[magicSchool] = new DamageValue(amount, absorbed, blocked, overkill);
     }
   }
-  _subtractDamage(ability, amount = 0, absorbed = 0, overkill = 0) {
-    return this._addDamage(ability, -amount, -absorbed, -overkill);
+  _subtractDamage(ability, amount = 0, absorbed = 0, blocked = 0, overkill = 0) {
+    return this._addDamage(ability, -amount, -absorbed, -blocked, -overkill);
   }
 
   get tooltip(){

@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   { 
+    date: new Date('2018-3-15'),
+    changes: <Wrapper>Highlight inefficient <SpellLink id={SPELLS.LUNAR_STRIKE.id} icon /> and <SpellLink id={SPELLS.SOLAR_WRATH.id} icon /> casts on the timeline.</Wrapper>,
+    contributors: [Gebuz],
+  },
+  { 
     date: new Date('2018-1-13'),
     changes: 'Added L90 talents Astral Power gains.',
     contributors: [Gebuz],
