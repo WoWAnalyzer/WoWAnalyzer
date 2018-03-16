@@ -98,14 +98,26 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.WELLSPRING_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 20,
+        enabled: combatant.lv100Talent === SPELLS.WELLSPRING_TALENT.id,
+        castEfficiency: {
+          suggestion: true,
+          majorIssueEfficiency: 0.30,
+          averageIssueEfficiency: 0.50,
+          recommendedEfficiency: 0.70,
+        },
+      },
+      {
         spell: SPELLS.GIFT_OF_THE_QUEEN,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 45,
         castEfficiency: {
           suggestion: true,
-          majorIssueEfficiency: 0.6,
-          averageIssueEfficiency: 0.8,
-          recommendedEfficiency: 0.90,
+          majorIssueEfficiency: 0.3,
+          averageIssueEfficiency: 0.5,
+          recommendedEfficiency: 0.7,
         },
       },
       {
@@ -127,6 +139,21 @@ class Abilities extends CoreAbilities {
         enabled: combatant.lv75Talent === SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id,
         castEfficiency: {
           suggestion: true,
+          majorIssueEfficiency: 0.50,
+          averageIssueEfficiency: 0.70,
+          recommendedEfficiency: 0.90,
+        },
+      },
+      {
+        spell: SPELLS.UNLEASH_LIFE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 15,
+        enabled: combatant.lv15Talent === SPELLS.UNLEASH_LIFE_TALENT.id,
+        castEfficiency: {
+          suggestion: true,
+          majorIssueEfficiency: 0.50,
+          averageIssueEfficiency: 0.70,
+          recommendedEfficiency: 0.90,
         },
       },
       {
@@ -136,6 +163,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.lv60Talent === SPELLS.ANCESTRAL_GUIDANCE_TALENT.id,
         castEfficiency: {
           suggestion: true,
+          majorIssueEfficiency: 0.4,
+          averageIssueEfficiency: 0.6,
+          recommendedEfficiency: 0.8,
         },
       },
       {
@@ -145,6 +175,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.lv100Talent === SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
         castEfficiency: {
           suggestion: true,
+          majorIssueEfficiency: 0.2,
+          averageIssueEfficiency: 0.5,
+          recommendedEfficiency: 0.8,
         },
       },
       {
@@ -153,9 +186,9 @@ class Abilities extends CoreAbilities {
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
-          majorIssueEfficiency: 0.20,
+          majorIssueEfficiency: 0.2,
           averageIssueEfficiency: 0.5,
-          recommendedEfficiency: 1.0,
+          recommendedEfficiency: 0.8,
         },
       },
       {
@@ -165,8 +198,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.2,
-          averageIssueEfficiency: 0.5,
-          recommendedEfficiency: 1.0,
+          averageIssueEfficiency: 0.4,
+          recommendedEfficiency: 0.6,
         },
       },
       {
@@ -202,9 +235,33 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.CHAIN_HEAL,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        isOnGCD: true,
+      },
+      {
         spell: SPELLS.PURIFY_SPIRIT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        // Need to check if it actually dispelled something before we can give it a cooldown
+        // cooldown: 8,
+        isOnGCD: true,
+      },
+      {
+        spell: SPELLS.FLAME_SHOCK_RESTORATION,
+        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        cooldown: 6,
+        isOnGCD: true,
+      },
+      {
+        spell: SPELLS.LAVA_BURST,
+        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id) ? 2 : 1,
         cooldown: 8,
+        isOnGCD: true,
+      },
+      {
+        spell: SPELLS.LIGHTNING_BOLT_RESTORATION,
+        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
         isOnGCD: true,
       },
     ];

@@ -58,31 +58,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     [SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id]: TOTEM_GCD,
     [SPELLS.EARTHBIND_TOTEM.id]: TOTEM_GCD, // Not a static GCD but 1 second - haste
   }
-
-  get nonHealingTimeSuggestionThresholds() {
-    const nonHealingTimePercentage = this.totalHealingTimeWasted / this.owner.fightDuration;
-    return {
-      actual: nonHealingTimePercentage,
-      isGreaterThan: {
-        minor: 0.3,
-        average: 0.4,
-        major: 0.45,
-      },
-      style: 'percentage',
-    };
-  }
-  get downtimeSuggestionThresholds() {
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
-    return {
-      actual: deadTimePercentage,
-      isGreaterThan: {
-        minor: 0.2,
-        average: 0.35,
-        major: 1,
-      },
-      style: 'percentage',
-    };
-  }
   
   suggestions(when) {
     const nonHealingTimeSuggestionThresholds = this.nonHealingTimeSuggestionThresholds;

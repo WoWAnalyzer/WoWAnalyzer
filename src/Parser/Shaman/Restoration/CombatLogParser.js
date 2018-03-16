@@ -21,6 +21,7 @@ import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import Checklist from './Modules/Features/Checklist';
+import SpellUsable from './Modules/Features/SpellUsable';
 
 import AncestralVigor from './Modules/Features/AncestralVigor';
 import TidalWaves from './Modules/Features/TidalWaves';
@@ -45,6 +46,7 @@ import HealingSurge from './Modules/Spells/HealingSurge';
 import GiftOfTheQueen from './Modules/Spells/GiftOfTheQueen';
 import HealingRain from './Modules/Spells/HealingRain';
 import HealingWave from './Modules/Spells/HealingWave';
+import LavaSurge from './Modules/Spells/LavaSurge';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -61,15 +63,17 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     masteryEffectiveness: MasteryEffectiveness,
-    highTide: HighTide,
     cooldownThroughputTracker: CooldownThroughputTracker,
     ancestralVigor: AncestralVigor,
     tidalWaves: TidalWaves,
     castBehavior: CastBehavior,
     checklist: Checklist,
+    spellUsable: SpellUsable,
+
 
     // Talents:
     earthenShieldTotem: EarthenShieldTotem,
+    highTide: HighTide,
 
     // Items:
     nobundo: Nobundo,
@@ -89,6 +93,7 @@ class CombatLogParser extends CoreCombatLogParser {
     healingSurge: HealingSurge,
     healingRain: HealingRain,
     healingWave: HealingWave,
+    lavaSurge: LavaSurge,
   };
 
   generateResults() {
