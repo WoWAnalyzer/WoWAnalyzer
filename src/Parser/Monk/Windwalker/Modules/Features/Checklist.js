@@ -84,7 +84,7 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: <Wrapper>Wasted <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} icon /> procs </Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} icon /> procs used </Wrapper>,
             check: () => this.comboBreaker.suggestionThresholds,
           }),
           new Requirement({

@@ -70,7 +70,7 @@ class BlackoutKick extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest('You are casting Blackout Kick while having important casts available')
         .icon(SPELLS.BLACKOUT_KICK.icon)
-        .actual(`${this.inefficientCastsPerMinute.toFixed(2)} Bad Blackout Kick casts`)
+        .actual(`${this.inefficientCastsPerMinute.toFixed(2)} Bad Blackout Kick casts per minute`)
         .recommended(`${recommended} is recommended`);
     });
   }
@@ -85,7 +85,7 @@ class BlackoutKick extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(10);
+  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default BlackoutKick;
