@@ -88,7 +88,6 @@ class SpinningCraneKick extends Analyzer {
     }
     this.spinningCraneKickDuration = 1500 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
     this.spinningCraneKickHits++;
-    console.log("mark of the crane stacks", this.markoftheCraneStacks, event.timestamp);
     // Spinning Crane Kick deals damage 4 times over 1.5 seconds (reduced by haste)
     // This makes sure it only counts once per cast and only on casts that hit something
     if (event.timestamp - this.lastSpinningCraneKickTick > this.spinningCraneKickDuration) {

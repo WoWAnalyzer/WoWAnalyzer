@@ -13,7 +13,8 @@ export default {
     icon: 'inv_axe_2h_artifactmaw_d_01',
   },
 
-  UMBILICUS_ETERNUS: { //Artifact Trait
+  //Artifact Trait
+  UMBILICUS_ETERNUS: {
     id: 193213,
     name: 'Umbilicus Eternus',
     icon: 'artifactability_blooddeathknight_umbilicuseternus',
@@ -23,6 +24,36 @@ export default {
     id: 193320,
     name: 'Umbilicus Eternus Buff',
     icon: 'artifactability_blooddeathknight_umbilicuseternus',
+  },
+
+  SOULDRINKER_TRAIT: {
+    id: 238114,
+    name: 'Souldrinker',
+    icon: 'spell_deathknight_butcher2',
+  },
+
+  BONEBREAKER_TRAIT: {
+    id: 192538,
+    name: 'Bonebreaker',
+    icon: 'trade_archaeology_fossil_dinosaurbone',
+  },
+
+  COAGULOPHATHY_TRAIT: {
+    id: 192460,
+    name: 'Coagulopathy',
+    icon: 'spell_deathknight_bloodplague',
+  },
+
+  VEINRENDER_TRAIT: {
+    id: 192457,
+    name: 'Veinrender',
+    icon: 'ability_skeer_bloodletting',
+  },
+
+  ALL_CONSUMING_ROT_TRAIT: {
+    id: 192464,
+    name: 'All-Consuming Rot',
+    icon: 'spell_shadow_deathanddecay',
   },
 
   // Damage Dealing
@@ -562,6 +593,12 @@ export default {
     icon: 'spell_shadow_deathanddecay',
   },
 
+  DEATH_AND_DECAY_DAMAGE_TICK: {
+    id: 52212,
+    name: 'Death and Decay',
+    icon: 'spell_shadow_deathanddecay',
+  },
+
   DEATH_STRIKE: {
     id: 49998,
     name: 'Death Strike',
@@ -572,6 +609,12 @@ export default {
     id: 45470,
     name: 'Death Strike Heal',
     icon: 'spell_deathknight_butcher2',
+  },
+
+  CONSUMPTION_HEAL: {
+    id: 205224,
+    name: 'Consumption Heal',
+    icon: 'inv_axe_2h_artifactmaw_d_01',
   },
 
   ICEBOUND_FORTITUDE: {

@@ -164,7 +164,7 @@ class StormEarthAndFire extends Analyzer{
       </StatisticsListBox>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(14);
+  statisticOrder = STATISTIC_ORDER.CORE(11);
 }
 
 export default StormEarthAndFire;

@@ -68,10 +68,13 @@ class SpellTimeline extends React.PureComponent {
     return spellIds
       .filter(key => key > 0) //filter out fake spells (spell id <= 0)
       .sort((a, b) => {
-      const aCooldown = abilities.getExpectedCooldownDuration(Number(a));
-      const bCooldown = abilities.getExpectedCooldownDuration(Number(b));
-      return aCooldown - bCooldown;
-    });
+        const aIndex = abilities.getTimelineSortIndex(Number(a)) || Number.MAX_VALUE;
+        const bIndex = abilities.getTimelineSortIndex(Number(b)) || Number.MAX_VALUE;
+        const aCooldown = abilities.getExpectedCooldownDuration(Number(a));
+        const bCooldown = abilities.getExpectedCooldownDuration(Number(b));
+        return aIndex - bIndex || aCooldown - bCooldown;
+      });
+
   }
 
   gemini = null;
@@ -144,7 +147,8 @@ class SpellTimeline extends React.PureComponent {
             <div className="events lane" style={{ width: totalWidth }}>
               {globalCooldownHistory.map(event => {
                 const eventStart = event.start || event.timestamp;
-                const left = (eventStart - start) / 1000 * secondWidth;
+                const fightDuration = (eventStart - start) / 1000;
+                const left = fightDuration * secondWidth;
                 const maxWidth = totalWidth - left; // don't expand beyond the container width
                 return (
                   <div
@@ -154,7 +158,7 @@ class SpellTimeline extends React.PureComponent {
                       left,
                       width: Math.min(maxWidth, event.duration / 1000 * secondWidth),
                     }}
-                    data-tip={`GCD: ${(event.duration / 1000).toFixed(1)}s (${event.ability.name})`}
+                    data-tip={`${formatDuration(fightDuration, 3)}: ${(event.duration / 1000).toFixed(1)}s Global Cooldown by ${event.ability.name}`}
                   />
                 );
               })}

@@ -19,6 +19,8 @@ const HOLY_SHOCK_COOLDOWN_WAIT_TIME = 200;
  * The question is how much of a fraction of a second? I am fairly confident feelycrafting that waiting 200ms is more efficient, and I think up to 300ms is also going to be more efficient, maybe a bit further but hard to say.
  *
  * So then the question is what is a reasonable amount to ask of a player? I think 200ms is an amount that is very hard to differentiate from a spell just coming off cooldown. It's a delay similar to latency during raid fights. Spamming HS while its icon is as good as off cooldown would be the best course of action here and not take any uber skills form the player. So I reckon it's reasonable to include casts as being inefficient casts at this interval.
+ *
+ * Example log with 16 inefficient casts: report/kzKnrR4qdhXGjB38/16-Heroic+Aggramar+-+Kill+(6:50)/13-Seedÿ
  */
 class FillerFlashOfLight extends Analyzer {
   static dependencies = {
@@ -28,16 +30,25 @@ class FillerFlashOfLight extends Analyzer {
   };
 
   inefficientCasts = [];
+  _isCurrentCastInefficient = false;
   on_byPlayer_begincast(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.FLASH_OF_LIGHT.id) {
       return;
     }
+    if (this._isInefficientCastEvent(event)) {
+      this.inefficientCasts.push(event);
+      this._isCurrentCastInefficient = true;
+    } else {
+      this._isCurrentCastInefficient = false;
+    }
+  }
+  _isInefficientCastEvent(event) {
     // If there is a lot of healing to be done in short window of time using your IoL proc before casting HS makes sense.
     // The `-1` buffer time is to properly handle chain-casting and IoL buffs; when chain casting the first FoL will consume the IoL buff on the `cast` event and that exact same frame will have the `begincast` event. Because `hasBuff` looks at the timestamp rather than event order, it would otherwise include the buff.
     const hasIol = this.combatants.selected.hasBuff(SPELLS.INFUSION_OF_LIGHT.id, event.timestamp, -1);
     if (hasIol) {
-      return;
+      return false;
     }
 
     const hasHolyShockAvailable = this.spellUsable.isAvailable(SPELLS.HOLY_SHOCK_CAST.id);
@@ -45,10 +56,25 @@ class FillerFlashOfLight extends Analyzer {
       // We can't cast it, but check how long until it comes off cooldown. We should wait instead of casting a filler if it becomes available really soon.
       const cooldownRemaining = this.spellUsable.cooldownRemaining(SPELLS.HOLY_SHOCK_CAST.id);
       if (cooldownRemaining > HOLY_SHOCK_COOLDOWN_WAIT_TIME) {
-        return;
+        return false;
       }
     }
-    this.inefficientCasts.push(event);
+    return true;
+  }
+  /**
+   * This marks spells as inefficient casts in the timeline.
+   * @param event
+   */
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.FLASH_OF_LIGHT.id) {
+      return;
+    }
+    if (this._isCurrentCastInefficient) {
+      event.meta = event.meta || {};
+      event.meta.isInefficientCast = true;
+      event.meta.inefficientCastReason = 'Holy Shock was off cooldown when you started casting this unbuffed Flash of Light. You should cast Holy Shock instead.';
+    }
   }
 
   get inefficientCpm() {

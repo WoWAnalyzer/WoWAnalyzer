@@ -18,6 +18,7 @@ import UnendingThirstTracker from './Modules/Features/UnendingThirstTracker';
 import Checklist from './Modules/Features/Checklist';
 import DeathStrikeTimingGraph from './Modules/Features/DeathStrikeTimingGraph';
 import MarrowrendUsage from './Modules/Features/MarrowrendUsage';
+import Souldrinker from './Modules/Features/Souldrinker';
 
 // Resources
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
@@ -37,6 +38,13 @@ import T21_4pc from './Modules/Items/T21_4pc';
 import SkullflowersHaemostasis from './Modules/Items/SkullflowersHaemostasis';
 import ShacklesofBryndaor from './Modules/Items/ShacklesofBryndaor';
 import SoulflayersCorruption from './Modules/Items/SoulflayersCorruption';
+
+//Traits
+import RelicTraits from './Modules/Traits/RelicTraits';
+import Bonebreaker from './Modules/Traits/Bonebreaker';
+import AllConsumingRot from './Modules/Traits/AllConsumingRot';
+import Veinrender from './Modules/Traits/Veinrender';
+import Coagulopathy from './Modules/Traits/Coagulopathy';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -61,6 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     deathStrikeTimingGraph: DeathStrikeTimingGraph,
     marrowrendUsage: MarrowrendUsage,
+    souldrinker: Souldrinker,
 
 
     // DOT
@@ -77,7 +86,11 @@ class CombatLogParser extends CoreCombatLogParser {
     redThirst: RedThirst,
 
     // Traits
-
+    RelicTraits: RelicTraits,
+    bonebreaker: Bonebreaker,
+    allConsumingRot: AllConsumingRot,
+    veinrender: Veinrender,
+    coagulopathy: Coagulopathy,
 
     // Items:
     t20_2pc: T20_2pc,

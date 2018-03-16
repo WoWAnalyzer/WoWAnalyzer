@@ -188,7 +188,12 @@ class StatTracker extends Analyzer {
       versatility: combatant => 1500 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
     },
     [SPELLS.JACINS_RUSE.id]: { mastery: 3000 },
+    [SPELLS.MASTER_OF_COMBINATIONS.id]: { mastery: 600 },
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 1000, haste: 1000 },
+    [SPELLS.FURY_OF_ASHAMANE.id]: { versatility: 600 },
+    // Antorus: Argus the Unmaker debuffs
+    [SPELLS.STRENGTH_OF_THE_SKY.id]: { crit: 2000, mastery: 2000 },
+    [SPELLS.STRENGTH_OF_THE_SEA.id]: { haste: 2000, versatility: 2000 },
     // endregion
 
     // region Death Knight
@@ -205,6 +210,10 @@ class StatTracker extends Analyzer {
 
     // region Priest
     [SPELLS.MIND_QUICKENING.id]: { haste: 800 },
+    // endregion
+
+    // region Paladin
+    [SPELLS.SERAPHIM_TALENT.id]: { crit: 5500, haste: 5500, mastery: 5500, versatility: 5500 },
     // endregion
   };
 

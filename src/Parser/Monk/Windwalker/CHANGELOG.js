@@ -9,6 +9,11 @@ import Wrapper from 'common/Wrapper';
 
 export default [
   {
+    date: new Date('2018-03-15'),
+    changes: <Wrapper>Added module tracking bad casts of <SpellLink id={SPELLS.BLACKOUT_KICK.id} icon /> </Wrapper>,
+    contributors: [Juko8],
+  },
+  {
     date: new Date('2018-03-09'),
     changes: `Added Checklist`,
     contributors: [Juko8],

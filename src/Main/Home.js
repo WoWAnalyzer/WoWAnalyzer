@@ -9,6 +9,7 @@ import ChangelogPanel from './ChangelogPanel';
 import DiscordBanner from './Images/discord-banner.jpg';
 import SpecListing from './SpecListing';
 import News from './News';
+import ReportHistory from './ReportHistory';
 
 class Home extends React.PureComponent {
   constructor() {
@@ -62,6 +63,15 @@ class Home extends React.PureComponent {
                 <News />
               </div>
               <div className="col-lg-4 col-md-5">
+                <div className="panel">
+                  <div className="panel-heading">
+                    <h2>Recently viewed reports</h2>
+                  </div>
+                  <div className="panel-body" style={{ padding: 0 }}>
+                    <ReportHistory />
+                  </div>
+                </div>
+
                 <div className="panel">
                   <div className="panel-heading" style={{ padding: 0 }}>
                     <img src={DiscordBanner} alt="Discord" style={{ width: '100%' }} />

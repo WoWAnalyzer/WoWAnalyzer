@@ -20,6 +20,11 @@ export default {
     name: 'Wind Shear',
     icon: 'spell_nature_cyclone',
   },
+  EARTHBIND_TOTEM: {
+    id: 2484,
+    name: 'Earthbind Totem',
+    icon: 'spell_nature_strengthofearthtotem02', 
+  },
   //Eye of the Twisting Nether Buffs
   SHOCK_OF_THE_TWISTING_NETHER: {
     id: 207999,
@@ -712,9 +717,20 @@ export default {
     manaCost: 31020,
   },
   WELLSPRING_HEAL: {
-    id: 198117,
+    id: 197997,
     name: 'Wellspring',
     icon: 'ability_shawaterelemental_split', 
+  },
+  FLAME_SHOCK_RESTORATION: {
+    id: 188838,
+    name: 'Flame Shock',
+    icon: 'spell_fire_flameshock',
+    max_maelstrom: 20,
+  },
+  LIGHTNING_BOLT_RESTORATION: {
+    id: 403,
+    name: 'Lightning Bolt',
+    icon: 'spell_nature_lightning',
   },
 
   // Traits:

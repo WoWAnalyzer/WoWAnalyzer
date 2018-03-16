@@ -30,9 +30,12 @@ export function fetchReport(code, refresh = false) {
       throw new CorruptResponseError();
     }
 
-    dispatch(setReport({
+    const report = {
       ...json,
       code,
-    }));
+    };
+
+    dispatch(setReport(report));
+    return report;
   };
 }
