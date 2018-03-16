@@ -9,7 +9,7 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-03-15'),
+    date: new Date('2018-03-16'),
     changes: <Wrapper>Added a <SpellLink id={SPELLS.RESURGENCE.id} icon /> module, detailing how much each spell contributed to your mana pool.</Wrapper>,
     contributors: [niseko],
   },

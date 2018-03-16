@@ -31,9 +31,10 @@ class Resurgence extends Analyzer {
 
   on_initialized() {
     const refreshingCurrentTrait = this.combatants.selected.traitsBySpellId[SPELLS.REFRESHING_CURRENTS.id] || 0;
-    const hasEnergyPendant = this.combatants.selected.hasNeck(ITEMS.STABILIZED_ENERGY_PENDANT.id)
+    const hasEnergyPendant = this.combatants.selected.hasNeck(ITEMS.STABILIZED_ENERGY_PENDANT.id);
     this.hasbottomlessDepths = this.combatants.selected.hasTalent(SPELLS.BOTTOMLESS_DEPTHS_TALENT.id);
 
+    // The arcway neck does increase resurgence gained as well
     if(hasEnergyPendant){
       this.maxMana *= 1.05;
     }
@@ -70,11 +71,9 @@ class Resurgence extends Analyzer {
     } else if (event.hitType === HIT_TYPES.NORMAL && masteryEffectiveness >= 0.4) {
       if(this.hasbottomlessDepths) {
         this.resurgence[spellId].resurgenceTotal += this.SPELLS_PROCCING_RESURGENCE[spellId] * this.maxMana;
-        this.resurgence[spellId].castAmount += 1;
-        this.bottomlessDepths += this.SPELLS_PROCCING_RESURGENCE[spellId] * this.maxMana; 
-      } else {
-        this.bottomlessDepths += this.SPELLS_PROCCING_RESURGENCE[spellId] * this.maxMana; 
+        this.resurgence[spellId].castAmount += 1; 
       }
+      this.bottomlessDepths += this.SPELLS_PROCCING_RESURGENCE[spellId] * this.maxMana; 
     }
   }
 
@@ -95,11 +94,11 @@ class Resurgence extends Analyzer {
   }
 
   statistic() {
-    let expandText = ``;
+    let expandText = ` `;
     if(this.hasbottomlessDepths) {
-      expandText += ` was responsible for ${formatPercentage(this.bottomlessDepths / this.totalMana, 0)}% (${formatNumber(this.bottomlessDepths)} mana).`;
+      expandText += `added ${formatPercentage(this.bottomlessDepths / this.totalMana, 0)}% (${formatNumber(this.bottomlessDepths)}) mana on top of that.`;
     } else {
-      expandText += ` would have added ${formatNumber(this.bottomlessDepths)} mana.`;
+      expandText += `would have added ${formatPercentage(this.bottomlessDepths / (this.totalMana+this.bottomlessDepths), 0)}% (${formatNumber(this.bottomlessDepths)}) mana.`;
     }
 
     return (
@@ -109,7 +108,7 @@ class Resurgence extends Analyzer {
         label={`Mana gained from Resurgence`}
       >
         <div>
-          <SpellLink id={SPELLS.RESURGENCE.id} icon /> accounted for {formatPercentage(this.totalResurgenceGain / this.totalMana, 0)}% of your mana pool. <br />
+          <SpellLink id={SPELLS.RESURGENCE.id} icon /> accounted for {formatPercentage((this.totalResurgenceGain - (this.hasbottomlessDepths ? this.bottomlessDepths : 0)) / this.totalMana, 0)}% of your mana pool ({formatNumber(this.totalMana)} mana). <br />
           <SpellLink id={SPELLS.BOTTOMLESS_DEPTHS_TALENT.id} icon /> {expandText}
         </div>
         <table className="table table-condensed">
@@ -124,12 +123,12 @@ class Resurgence extends Analyzer {
           <tbody>
             {
               this.resurgence
-                .map((x) => (
-                  <tr key={x.spellId}>
-                    <th scope="row"><SpellIcon id={x.spellId} style={{ height: '2.5em' }} /></th>
-                    <td>{formatNumber(x.resurgenceTotal)}</td>
-                    <td>{formatNumber(x.castAmount)}</td>
-                    <td>{formatPercentage(x.resurgenceTotal / this.totalMana)}%</td>
+                .map((spell) => (
+                  <tr key={spell.spellId}>
+                    <th scope="row"><SpellIcon id={spell.spellId} style={{ height: '2.5em' }} /></th>
+                    <td>{formatNumber(spell.resurgenceTotal)}</td>
+                    <td>{formatNumber(spell.castAmount)}</td>
+                    <td>{formatPercentage(spell.resurgenceTotal / this.totalMana)}%</td>
                   </tr>
                 ))
             }
