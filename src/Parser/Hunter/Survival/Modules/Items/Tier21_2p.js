@@ -64,7 +64,7 @@ class Tier21_2p extends Analyzer {
     if (!this.combatants.selected.hasBuff(SPELLS.HUNTER_SV_T21_2P_BONUS_BUFF.id, event.timestamp)) {
       return false;
     }
-    if (event.hitType !== HIT_TYPES.CRIT) {
+    if (event.hitType !== HIT_TYPES.CRIT && event.hitType !== HIT_TYPES.BLOCKED_CRIT) {
       return false;
     }
     return true;
