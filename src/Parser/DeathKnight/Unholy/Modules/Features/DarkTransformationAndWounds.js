@@ -61,19 +61,19 @@ class DarkTransformationAndWounds extends Analyzer {
   }
 
   on_byPlayer_cast(event){
-    if(this.targets.hasOwnProperty(encodeTargetString(event.targetID, event.targetInstance)) && this.targets[encodeTargetString(event.targetID, event.targetInstance)] === 0) {
+    if(!this.targets.hasOwnProperty(encodeTargetString(event.targetID, event.targetInstance)) || this.targets[encodeTargetString(event.targetID, event.targetInstance)] === 0) {
 		  if (this.darkTransformationActive === true) {
-			  if (this.stopWatchActive === false) {
+			  if (!this.stopWatchActive) {
 				  this.stopWatch = event.timestamp;
 				  this.stopWatchActive = true;
 			  }
 		  } 
-		  else if (this.stopWatchActive === true) {
+		  else if (this.stopWatchActive) {
 		    this.totalTime += (event.timestamp - this.stopWatch) / 1000;
 			  this.stopWatchActive = false;
 		  }
 	  } 
-    else if (this.stopWatchActive === true) {
+    else if (this.stopWatchActive) {
 		  this.totalTime += (event.timestamp - this.stopWatch) / 1000;
 		  this.stopWatchActive = false;
 	  }
