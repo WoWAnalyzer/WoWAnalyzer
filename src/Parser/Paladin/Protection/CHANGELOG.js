@@ -10,6 +10,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-03-15'),
+    changes: <Wrapper>Implemented handling of <SpellLink id={SPELLS.GRAND_CRUSADER.id} icon /> that guesses where the cooldown reset. Because the combatlog doesn't reveal any cooldown information we have to do manual cooldown tracking. Unfortunately there's not a single event that shows random cooldown resets, so implementing effects like <SpellLink id={SPELLS.GRAND_CRUSADER.id} icon /> is nearly impossible. To work around this, the <SpellLink id={SPELLS.GRAND_CRUSADER.id} icon /> module will <i>guess</i> where it procced; whenever <SpellLink id={SPELLS.AVENGERS_SHIELD.id} icon /> is cast, it will check if it was supposed to still be on cooldown. If so, then it will mark the cooldown as ended on the last possible trigger. This should make the cooldown of this spell reasonable given you're using procs quickly.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-03-15'),
     changes: <Wrapper>Implemented <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon />'s cooldown reduction of <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} icon />, making its cooldown indicator in the timeline accurate.</Wrapper>,
     contributors: [Zerotorescue],
   },

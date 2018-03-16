@@ -7,6 +7,7 @@ import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import BuffedSOTR from './Modules/Features/BuffedSOTR';
 import BuffedHOTP from './Modules/Features/BuffedHOTP';
+import SpellUsable from './Modules/Features/SpellUsable';
 //Items
 //import T20_2pc from './Modules/Items/T20_2pc';
 //import T20_4pc from './Modules/Items/T20_4pc';
@@ -30,6 +31,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     buffedSOTR: BuffedSOTR,
     buffedHOTP: BuffedHOTP,
+    spellUsable: SpellUsable,
     //cooldownTracker: CooldownTracker,
 
     // Talents

@@ -10,6 +10,7 @@ const REDUCTION_TIME_REGULAR = 2000; // ms
 const REDUCTION_TIME_CRIT = 4000; // ms
 
 /**
+ * Judgment
  * Judges the target dealing (250% of Spell power) Holy damage, and reducing the remaining cooldown on Shield of the Righteous by 2 sec, or 4 sec on a critical strike.
  */
 class Judgment extends Analyzer {
@@ -26,7 +27,8 @@ class Judgment extends Analyzer {
     }
 
     if (this.spellUsable.isOnCooldown(SPELLS.SHIELD_OF_THE_RIGHTEOUS.id)) {
-      const isCrit = event.hitType === HIT_TYPES.CRIT;
+      // Nope, I did not verify if blocked crits count as crits for this trait, I just assumed it. Please do test if you can and report back or fix this comment.
+      const isCrit = event.hitType === HIT_TYPES.CRIT || event.hitType === HIT_TYPES.BLOCKED_CRIT;
       const reduction = isCrit ? REDUCTION_TIME_CRIT : REDUCTION_TIME_REGULAR;
       this.spellUsable.reduceCooldown(SPELLS.SHIELD_OF_THE_RIGHTEOUS.id, reduction);
     }
