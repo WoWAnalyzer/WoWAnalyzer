@@ -21,10 +21,26 @@ class Roots extends Analyzer {
   }
 
   item() {
-    const healing = this.abilityTracker.getAbility(SPELLS.ROOTS_OF_SHALADRASSIL_HEAL.id).healingEffective + this.cooldownThroughputTracker.getIndirectHealing(SPELLS.ROOTS_OF_SHALADRASSIL_HEAL.id);
+    const healing = this.abilityTracker.getAbility(SPELLS.ROOTS_OF_SHALADRASSIL_HEAL.id).healingEffective;
+    const feeding = this.cooldownThroughputTracker.getIndirectHealing(SPELLS.ROOTS_OF_SHALADRASSIL_HEAL.id);
     return {
       item: ITEMS.ROOTS_OF_SHALADRASSIL,
-      result: <ItemHealingDone amount={healing} />,
+      result: (
+        <dfn
+          data-tip={`
+            Healing
+            <ul>
+              <li>${this.owner.formatItemHealingDone(healing)}</li>
+            </ul>
+            Feeding (Fully overhealed ticks are not included)
+            <ul>
+              <li>${this.owner.formatItemHealingDone(feeding)}</li>
+            </ul>
+          `}
+        >
+          <ItemHealingDone amount={healing+feeding} />
+        </dfn>
+      ),
     };
   }
 }
