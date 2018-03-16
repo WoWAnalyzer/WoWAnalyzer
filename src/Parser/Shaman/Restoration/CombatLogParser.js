@@ -39,6 +39,12 @@ import Restoration_Shaman_T20_4Set from './Modules/Items/T20_4Set';
 import Roots from './Modules/Items/Roots';
 import Restoration_Shaman_T21_2Set from './Modules/Items/T21_2Set';
 import Restoration_Shaman_T21_4Set from './Modules/Items/T21_4Set';
+import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
+import SeaStarOfTheDepthmother from './Modules/Items/SeaStarOfTheDepthmother';
+import ArchiveOfFaith from './Modules/Items/ArchiveOfFaith';
+import HighfathersMachination from './Modules/Items/HighfathersMachination';
+import EonarsCompassion from './Modules/Items/EonarsCompassion';
+import TarratusKeystone from './Modules/Items/TarratusKeystone';
 
 import ChainHeal from './Modules/Spells/ChainHeal';
 import HealingSurge from './Modules/Spells/HealingSurge';
@@ -82,6 +88,12 @@ class CombatLogParser extends CoreCombatLogParser {
     roots: Roots,
     t21_2Set: Restoration_Shaman_T21_2Set,
     t21_4Set: Restoration_Shaman_T21_4Set,
+    deceiversGrandDesign: DeceiversGrandDesign,
+    seaStarOfTheDepthmother: SeaStarOfTheDepthmother,
+    archiveOfFaith: ArchiveOfFaith,
+    highfathersMachinations: HighfathersMachination,
+    eonarsCompassion: EonarsCompassion,
+    tarratusKeystone: TarratusKeystone,
 
     // Spells:
     chainHeal: ChainHeal,
