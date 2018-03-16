@@ -21,9 +21,11 @@ class Resurgence extends Analyzer {
   resurgence = [];
   SPELLS_PROCCING_RESURGENCE = {};
   totalResurgenceGain = 0;
+  hasbottomlessDepths = false;
 
   on_initialized() {
     const refreshingCurrentTrait = this.combatants.selected.traitsBySpellId[SPELLS.REFRESHING_CURRENTS.id] || 0;
+    this.hasbottomlessDepths = this.combatants.selected.hasTalent(SPELLS.BOTTOMLESS_DEPTHS_TALENT.id);
 
     this.SPELLS_PROCCING_RESURGENCE = {
       [SPELLS.HEALING_SURGE_RESTORATION.id]: 0.006,
@@ -34,6 +36,9 @@ class Resurgence extends Analyzer {
     };
   }
 
+
+  // ADD BOTTOMLESS DEPTHS
+  // 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     const isAbilityProccingResurgence = this.SPELLS_PROCCING_RESURGENCE.hasOwnProperty(spellId);

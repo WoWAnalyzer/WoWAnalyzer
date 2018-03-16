@@ -10,6 +10,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-03-15'),
+    changes: <Wrapper>Added a <SpellLink id={SPELLS.RESURGENCE.id} icon /> module, detailing how much each spell contributed to your mana pool.</Wrapper>,
+    contributors: [niseko],
+  },
+  {
+    date: new Date('2018-03-15'),
     changes: <Wrapper>Added support for DPS spells, <SpellLink id={SPELLS.CHAIN_HEAL.id} icon />, <SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} icon /> and <SpellLink id={SPELLS.WELLSPRING_TALENT.id} icon /> to the timeline. Added talents to the Checklist.</Wrapper>,
     contributors: [niseko],
   },
