@@ -7,14 +7,15 @@ import connectParser from 'common/connectParser';
 class ItemHealingDone extends React.PureComponent {
   static propTypes = {
     amount: PropTypes.number.isRequired,
-    approximate: PropTypes.bool,
+    approximate: PropTypes.bool,  
+    greaterThan: PropTypes.bool,
   };
   static contextTypes = {
     parser: PropTypes.object.isRequired,
   };
 
   render() {
-    const { amount, approximate } = this.props;
+    const { amount, approximate, greaterThan } = this.props;
     const { parser } = this.context;
 
     return (
@@ -24,7 +25,8 @@ class ItemHealingDone extends React.PureComponent {
           alt="Healing"
           className="icon"
         />{' '}
-        {approximate && '≈'}{parser.formatItemHealingDone(amount)}
+        {approximate && '≈'}
+        {greaterThan && '>'}{parser.formatItemHealingDone(amount)}
       </Wrapper>
     );
   }
