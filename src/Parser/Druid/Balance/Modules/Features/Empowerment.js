@@ -82,13 +82,25 @@ class Empowerment extends Analyzer {
       style: 'percentage',
     };
   }
+
+  get suggestionThresholdsInverted() {
+    return {
+      actual: this.wastedPercentage,
+      isGreaterThan: {
+        minor: 0.02,
+        average: 0.05,
+        major: 0.1,
+      },
+      style: 'percentage',
+    };
+  }
   
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You overcapped {this.wastedPerMinute.toFixed(2)} {this.empowermentPrefix} Empowerments per minute when you could have spent it without overcapping Astral Power. Try to prioritize casting {this.empoweredSpell.name} over Starsurge when not near max Astral Power and at 3 stacks of {this.empowermentPrefix} Empowerment.</Wrapper>)
+    when(this.suggestionThresholdsInverted).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<Wrapper>You overcapped {this.wasted} {this.empowermentPrefix} Empowerments when you could have spent them without overcapping Astral Power. Try to prioritize casting {this.empoweredSpell.name} over Starsurge when not near max Astral Power and at 3 stacks of {this.empowermentPrefix} Empowerment.</Wrapper>)
         .icon(this.icon)
-        .actual(`${formatPercentage(this.wastedPercentage)}% overcapped ${this.empowermentPrefix} Empowerments`)
-        .recommended(`<${formatPercentage(1 - recommended)}% is recommended`);
+        .actual(`${formatPercentage(actual)}% overcapped ${this.empowermentPrefix} Empowerments`)
+        .recommended(`<${formatPercentage(recommended)}% is recommended`);
     });
   }
 
