@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import Toggle from 'react-toggle';
 import 'react-toggle/style.css';
 
-import Wrapper from 'common/Wrapper';
+import ReadableList from 'common/ReadableList';
+import Contributor from 'Main/Contributor';
 
 import CORE_CHANGELOG from '../CHANGELOG';
 
@@ -85,27 +86,9 @@ class Changelog extends React.PureComponent {
                       {changes}
                     </div>
                     <div className="flex-sub" style={{ minWidth: 150, paddingLeft: 15, textAlign: 'right' }}>
-                      {contributors.map(contributor => {
-                        if (typeof contributor === 'string') {
-                          return contributor;
-                        }
-                        if (contributor instanceof Array) {
-                          return (
-                            <Wrapper key={contributor[0]}>
-                              <img src={contributor[1]} alt="Avatar" style={{ height: '1.6em', borderRadius: '50%' }} /> {contributor[0]}
-                            </Wrapper>
-                          );
-                        }
-                        if (typeof contributor === 'object') {
-                          return (
-                            <Wrapper key={contributor.nickname}>
-                              {contributor.avatar && <img src={contributor.avatar} alt="Avatar" style={{ height: '1.6em', borderRadius: '50%' }} />}{' '}
-                              {contributor.nickname}
-                            </Wrapper>
-                          );
-                        }
-                        return null;
-                      })}
+                      <ReadableList>
+                        {contributors.map(contributor => <Contributor {...contributor} />)}
+                      </ReadableList>
                     </div>
                   </li>
                 );

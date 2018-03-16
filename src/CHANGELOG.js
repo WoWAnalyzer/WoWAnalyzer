@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-03-15'),
+    changes: <Wrapper>Added <SpellLink id={SPELLS.MASTER_OF_COMBINATIONS.id} icon />, <SpellLink id={SPELLS.FURY_OF_ASHAMANE.id} icon />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SKY.id} icon />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SEA.id} icon /> and <SpellLink id={SPELLS.SERAPHIM_TALENT.id} icon /> to the stat tracker, slightly improving stat weights and any Haste based modules.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-02-22'),
     changes: `Moved the Stats on Pull, Talents, and Gear to a new Character Tab in the Main Panel.`,
     contributors: [Sharrq],

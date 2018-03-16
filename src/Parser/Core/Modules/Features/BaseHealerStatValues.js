@@ -264,7 +264,7 @@ class BaseHealerStatValues extends Analyzer {
   on_toPlayer_damage(event) {
     this._updateMissingHealth(event);
 
-    const damageVal = new DamageValue(event.amount, event.absorbed, event.overkill);
+    const damageVal = new DamageValue(event.amount, event.absorbed, event.blocked, event.overkill);
     // const targetHealthPercentage = event.hitPoints / event.maxHitPoints; // hitPoints contains HP *after* the damage taken, which in this case is desirable
     // this.totalOneVersDr += this._adjustGain(this._versatilityDamageReduction(event, damageVal), targetHealthPercentage);
     // TODO: Figure out how to make this account for target health since damage event don't appear to have hitPoints info

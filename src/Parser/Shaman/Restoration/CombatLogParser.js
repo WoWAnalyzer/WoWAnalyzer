@@ -21,13 +21,13 @@ import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import Checklist from './Modules/Features/Checklist';
+import SpellUsable from './Modules/Features/SpellUsable';
 
 import AncestralVigor from './Modules/Features/AncestralVigor';
 import TidalWaves from './Modules/Features/TidalWaves';
 import CastBehavior from './Modules/Features/CastBehavior'; 
 
 import EarthenShieldTotem from './Modules/Talents/EarthenShieldTotem';
-import EchoReset from './Modules/Talents/EchoReset';
 import HighTide from './Modules/Talents/HighTide';
 
 import Nazjatar from './Modules/Items/Nazjatar';
@@ -69,10 +69,11 @@ class CombatLogParser extends CoreCombatLogParser {
     tidalWaves: TidalWaves,
     castBehavior: CastBehavior,
     checklist: Checklist,
+    spellUsable: SpellUsable,
+
 
     // Talents:
     earthenShieldTotem: EarthenShieldTotem,
-    echoReset: EchoReset,
     highTide: HighTide,
 
     // Items:

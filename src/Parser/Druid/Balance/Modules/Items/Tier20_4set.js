@@ -69,7 +69,7 @@ class Tier20_4set extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<Wrapper>Your <SpellLink id={SPELLS.BALANCE_DRUID_T20_4SET_BONUS_BUFF.id} /> gave you an average of {formatPercentage(actual)}% haste. Try to get more out of this set bonus by pooling Astral Power when at max stacks or when the buff is about to expire and spending it as soon as possible when the buff drops off.</Wrapper>)
         .icon(SPELLS.BALANCE_DRUID_T20_4SET_BONUS_BUFF.icon)
-        .actual(`${formatPercentage(actual)}% uptime`)
+        .actual(`${formatPercentage(actual)}% average haste gained`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
   }

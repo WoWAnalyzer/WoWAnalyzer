@@ -915,4 +915,15 @@ export default {
     name: 'Celestial Bulwark',
     icon: 'inv_antorus_orange',
   },
+  // Antorus: Argus the Unmaker boss fight
+  STRENGTH_OF_THE_SEA: { // 2000 Haste/versa buff
+    id: 253901,
+    name: 'Strength of the Sea',
+    icon: 'inv_elemental_primal_water',
+  },
+  STRENGTH_OF_THE_SKY: { // 2000 Crit/mastery buff
+    id: 253903,
+    name: 'Strength of the Sky',
+    icon: 'spell_nature_unrelentingstorm',
+  },
 };

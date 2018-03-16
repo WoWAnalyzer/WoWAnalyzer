@@ -72,7 +72,7 @@ class Event extends React.Component {
         <td>
           {event.type === 'damage' && (
             <span className={event.type}>
-              {formatThousands(event.amount)} {event.absorbed ? <span className="absorbed">(A: {formatThousands(event.absorbed)})</span> : null}
+              {formatThousands(event.amount)} {event.absorbed ? <span className="absorbed">(A: {formatThousands(event.absorbed)})</span> : null} {event.blocked ? <span className="absorbed">(B: {formatThousands(event.blocked)})</span> : null}
             </span>
           )}
           {event.type === 'heal' && (
