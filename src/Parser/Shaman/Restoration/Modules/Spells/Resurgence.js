@@ -6,13 +6,18 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import Analyzer from 'Parser/Core/Analyzer';
 
+import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
+
+import MasteryEffectiveness from '../Features/MasteryEffectiveness';
 
 class Resurgence extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    masteryEffectiveness: MasteryEffectiveness,
   }
 
   maxMana = 1100000;
@@ -22,10 +27,16 @@ class Resurgence extends Analyzer {
   SPELLS_PROCCING_RESURGENCE = {};
   totalResurgenceGain = 0;
   hasbottomlessDepths = false;
+  bottomlessDepths = 0;
 
   on_initialized() {
     const refreshingCurrentTrait = this.combatants.selected.traitsBySpellId[SPELLS.REFRESHING_CURRENTS.id] || 0;
+    const hasEnergyPendant = this.combatants.selected.hasNeck(ITEMS.STABILIZED_ENERGY_PENDANT.id)
     this.hasbottomlessDepths = this.combatants.selected.hasTalent(SPELLS.BOTTOMLESS_DEPTHS_TALENT.id);
+
+    if(hasEnergyPendant){
+      this.maxMana *= 1.05;
+    }
 
     this.SPELLS_PROCCING_RESURGENCE = {
       [SPELLS.HEALING_SURGE_RESTORATION.id]: 0.006,
@@ -36,25 +47,33 @@ class Resurgence extends Analyzer {
     };
   }
 
-
-  // ADD BOTTOMLESS DEPTHS
-  // 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     const isAbilityProccingResurgence = this.SPELLS_PROCCING_RESURGENCE.hasOwnProperty(spellId);
+    const masteryEffectiveness = event.masteryEffectiveness;
 
-    if (event.hitType === HIT_TYPES.CRIT && !event.tick) {
-      if(isAbilityProccingResurgence){
-        if (!this.resurgence[spellId]) {
-          this.resurgence[spellId] = {
-            spellId: spellId,
-            resurgenceTotal: 0,
-            castAmount: 0,
-          };
-        }
-        
+    if(!isAbilityProccingResurgence || event.tick){
+      return;
+    }
+
+    if (!this.resurgence[spellId]) {
+      this.resurgence[spellId] = {
+        spellId: spellId,
+        resurgenceTotal: 0,
+        castAmount: 0,
+      };
+    }
+
+    if (event.hitType === HIT_TYPES.CRIT) {
         this.resurgence[spellId].resurgenceTotal += this.SPELLS_PROCCING_RESURGENCE[spellId] * this.maxMana;
         this.resurgence[spellId].castAmount += 1;
+    } else if (event.hitType === HIT_TYPES.NORMAL && masteryEffectiveness >= 0.4) {
+      if(this.hasbottomlessDepths) {
+        this.resurgence[spellId].resurgenceTotal += this.SPELLS_PROCCING_RESURGENCE[spellId] * this.maxMana;
+        this.resurgence[spellId].castAmount += 1;
+        this.bottomlessDepths += this.SPELLS_PROCCING_RESURGENCE[spellId] * this.maxMana; 
+      } else {
+        this.bottomlessDepths += this.SPELLS_PROCCING_RESURGENCE[spellId] * this.maxMana; 
       }
     }
   }
@@ -76,14 +95,22 @@ class Resurgence extends Analyzer {
   }
 
   statistic() {
+    let expandText = ``;
+    if(this.hasbottomlessDepths) {
+      expandText += ` was responsible for ${formatPercentage(this.bottomlessDepths / this.totalMana, 0)}% (${formatNumber(this.bottomlessDepths)} mana).`;
+    } else {
+      expandText += ` would have added ${formatNumber(this.bottomlessDepths)} mana.`;
+    }
+
     return (
       <ExpandableStatisticBox
         icon={<SpellIcon id={SPELLS.RESURGENCE.id} />}
         value={`${formatNumber(this.totalResurgenceGain)}`}
-        label={(`Resurgence Mana Gain`)}
+        label={`Mana gained from Resurgence`}
       >
         <div>
-          Resurgence accounted for {formatPercentage(this.totalResurgenceGain / this.totalMana, 0)}% of your mana pool.
+          <SpellLink id={SPELLS.RESURGENCE.id} icon /> accounted for {formatPercentage(this.totalResurgenceGain / this.totalMana, 0)}% of your mana pool. <br />
+          <SpellLink id={SPELLS.BOTTOMLESS_DEPTHS_TALENT.id} icon /> {expandText}
         </div>
         <table className="table table-condensed">
           <thead>
