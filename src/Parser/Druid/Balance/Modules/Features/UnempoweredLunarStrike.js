@@ -68,7 +68,7 @@ class UnempoweredLunarStrike extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You casted {this.badCasts} unempowered and non instant cast <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> that hit less than 4 targets. Always prioritize <SpellLink id={SPELLS.SOLAR_WRATH.id} /> as a filler when none of those conditions are met.</Wrapper>)
+      return suggest(<Wrapper>You cast {this.badCasts} unempowered and non instant cast <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> that hit less than 4 targets. Always prioritize <SpellLink id={SPELLS.SOLAR_WRATH.id} /> as a filler when none of those conditions are met.</Wrapper>)
         .icon(SPELLS.LUNAR_STRIKE.icon)
         .actual(`${actual.toFixed(1)} Unempowered Lunar Strikes per minute`)
         .recommended(`${recommended} is recommended`);
