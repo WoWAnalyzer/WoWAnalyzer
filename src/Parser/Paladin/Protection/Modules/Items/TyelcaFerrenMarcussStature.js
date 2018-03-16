@@ -17,6 +17,8 @@ import ItemHealingDone from 'Main/ItemHealingDone';
 const debug = false;
 
 const TYELCA_MODIFIER = 0.2;
+const TYELCA_EXTRA_JUMPS = 2;
+const AVENGERS_SHIELD_JUMPS = 3;
 
 class TyelcaFerrenMarcussStature extends Analyzer {
 	static dependencies = {
@@ -43,17 +45,18 @@ class TyelcaFerrenMarcussStature extends Analyzer {
 		if (spellId !== SPELLS.AVENGERS_SHIELD.id) {
 			return;
 		}
-		if(this.targetsHit > 5) {
+		if(this.targetsHit > AVENGERS_SHIELD_JUMPS + TYELCA_EXTRA_JUMPS) {
 			debug && console.log('this is a bug');
 		}
 		//If you hit a 4th or 5th target because of the pants all that damage should be attributed to them
-		if(this.targetsHit > 3) {
-			this.damageDone = (event.amount || 0) + (event.absorbed || 0);
-			this.targetsHit++;
+		if(this.targetsHit > AVENGERS_SHIELD_JUMPS) {
+			this.damageDone += (event.amount || 0) + (event.absorbed || 0);
+			this.targetsHit += 1;
+			this.extraJumps = true;
 		}
 		else {
 			this.damageDone += calculateEffectiveDamage(event, TYELCA_MODIFIER);
-			this.targetsHit++;
+			this.targetsHit += 1;
 		}
 	}
 
@@ -66,14 +69,15 @@ class TyelcaFerrenMarcussStature extends Analyzer {
   }
 
 	item() {
+		const healingText = this.extraJumps ? 'The full bonus sheild from hitting 3+ targets is not taken into account' : '';
 		return {
 			item: ITEMS.TYELCA_FERREN_MARCUSS_STATURE,
 			result: (
 				<Wrapper>
 					<ItemDamageDone amount={this.damageDone} />
 					<br/>
-					<dfn data-tip={`The healing is attributed from the extra sheild from the Bulwark of Order trait`}>
-						<ItemHealingDone amount={this.healingDone} />
+					<dfn data-tip={`The healing is attributed from the extra sheild from the Bulwark of Order trait <br/> ${healingText}`}>
+						<ItemHealingDone amount={this.healingDone} approximate/>
 					</dfn>
 				</Wrapper>
 			),
