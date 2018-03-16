@@ -68,10 +68,13 @@ class SpellTimeline extends React.PureComponent {
     return spellIds
       .filter(key => key > 0) //filter out fake spells (spell id <= 0)
       .sort((a, b) => {
-      const aCooldown = abilities.getExpectedCooldownDuration(Number(a));
-      const bCooldown = abilities.getExpectedCooldownDuration(Number(b));
-      return aCooldown - bCooldown;
-    });
+        const aIndex = abilities.getTimelineSortIndex(Number(a)) || Number.MAX_VALUE;
+        const bIndex = abilities.getTimelineSortIndex(Number(b)) || Number.MAX_VALUE;
+        const aCooldown = abilities.getExpectedCooldownDuration(Number(a));
+        const bCooldown = abilities.getExpectedCooldownDuration(Number(b));
+        return aIndex - bIndex || aCooldown - bCooldown;
+      });
+
   }
 
   gemini = null;
