@@ -67,18 +67,6 @@ class Abilities extends CoreAbilities {
           suggestion: true,
         },
       },
-      { // T15: Blessed Hammer (replaces Hammer of the Righteous)
-        spell: SPELLS.BLESSED_HAMMER_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 4.5 / (1 + haste),
-        charges: 3,
-        isOnGCD: true,
-        enabled: combatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      },
       { // T15: Consecrated Hammer talent (Hammer of the Righteous has no cooldown)
         spell: SPELLS.HAMMER_OF_THE_RIGHTEOUS,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
