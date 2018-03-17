@@ -16,10 +16,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.85,
           maxCasts: (cooldown, fightDuration, getAbility, parser) => {
-            const { averageVoidformHaste } = parser.modules.voidform;
-            const cooldownVoidBolt = 4.5 / averageVoidformHaste;
-
-            return calculateMaxCasts(cooldownVoidBolt, parser.modules.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id));
+            return calculateMaxCasts(cooldown, parser.modules.combatants.selected.getBuffUptime(SPELLS.VOIDFORM_BUFF.id));
           },
         },
       },
