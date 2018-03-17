@@ -16,6 +16,7 @@ class BoneShield extends Analyzer {
 
   SS_DR = 0.08;
   BONE_SHIELD_DR = 0.16;
+
   EXCLUDES_ABSORBS = [
     SPELLS.BLOOD_SHIELD.id,
     SPELLS.BLOOD_MIRROR_TALENT.id,
@@ -37,7 +38,9 @@ class BoneShield extends Analyzer {
   on_initialized() {
     //ToDo: create Spell
     this.hasSS = this.combatants.selected.traitsBySpellId[192558];
-    this.hasSD = this.combatants.selected.hasTalent(SPELLS.SPECTRAL_DEFLECTION_TALENT);
+    this.hasSD = this.combatants.selected.hasTalent(SPELLS.SPECTRAL_DEFLECTION_TALENT.id);
+
+    console.info(this.hasSD);
   }
 
   getBoneShieldAbsorbTooltip() {
@@ -112,16 +115,13 @@ class BoneShield extends Analyzer {
 
   statistic() {
 
-    if (!this.hasSD) {
+    if (this.hasSD === true) {
 
       return (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.BONE_SHIELD.id} />}
           value={`${formatPercentage(this.uptime)} %`}
           label="Bone Shield Uptime"
-          tooltip={`~${ this.getBoneShieldAbsorbTooltip() }
-          ~${ this.getSkeletalShatteringTooltip() }
-          <b>Those numbers are estimates as it's not possible to track the actual Bone Shield absorb.</b>`}
         />
   
       );
@@ -133,6 +133,9 @@ class BoneShield extends Analyzer {
           icon={<SpellIcon id={SPELLS.BONE_SHIELD.id} />}
           value={`${formatPercentage(this.uptime)} %`}
           label="Bone Shield Uptime"
+          tooltip={`~${ this.getBoneShieldAbsorbTooltip() }
+          ~${ this.getSkeletalShatteringTooltip() }
+          <b>Those numbers are estimates as it's not possible to track the actual Bone Shield absorb.</b>`}
         />
   
       );
