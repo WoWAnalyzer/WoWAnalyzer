@@ -137,6 +137,16 @@ class Results extends React.Component {
 
     const results = parser.generateResults();
 
+    results.tabs.push({
+      title: 'Events',
+      url: 'events',
+      order: 99999,
+      render: () => (
+        <EventsTab
+          parser={parser}
+        />
+      ),
+    });
     if (process.env.NODE_ENV === 'development') {
       results.tabs.push({
         title: 'Development',
@@ -146,16 +156,6 @@ class Results extends React.Component {
           <DevelopmentTab
             parser={parser}
             results={results}
-          />
-        ),
-      });
-      results.tabs.push({
-        title: 'Events',
-        url: 'events',
-        order: 100001,
-        render: () => (
-          <EventsTab
-            parser={parser}
           />
         ),
       });

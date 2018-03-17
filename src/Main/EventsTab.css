@@ -9,7 +9,7 @@
 .events-tab .ReactVirtualized__Table__row:hover {
   background: rgba(255, 255, 255, 0.15);
 }
-.events-tab .ReactVirtualized__Table__row.modified {
+.events-tab .ReactVirtualized__Table__row.modified, .modified-legend {
   background: rgba(255, 118, 0, 0.3);
 }
 .events-tab .ReactVirtualized__Table__row.modified:hover {

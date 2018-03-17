@@ -92,7 +92,6 @@ const FILTERABLE_TYPES = {
 class EventsTab extends React.Component {
   static propTypes = {
     parser: PropTypes.object.isRequired,
-    // results: PropTypes.object.isRequired,
   };
 
   constructor() {
@@ -204,6 +203,10 @@ class EventsTab extends React.Component {
               id="rawNames-toggle"
               className="flex-sub"
             />
+          </div>
+          <br />
+          <div className="modified-legend" style={{ width: 240, padding: 10 }}>
+            Events with an orange background were <dfn data-tip="This generally means their order was changed from the original combatlog to fix inconsistencies or bugs, but it may include other modifications.">modified</dfn>.
           </div>
         </div>
         <div className="flex-main" style={{ background: 'rgba(200, 200, 200, 0.05)', paddingTop: 10 }}>

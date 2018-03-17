@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-03-17'),
+    changes: 'Reworked the events tab so it can be used publicly, and made it publicly available.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-03-16'),
     changes: 'Added a recently viewed reports panel to the front page.',
     contributors: [Zerotorescue],
