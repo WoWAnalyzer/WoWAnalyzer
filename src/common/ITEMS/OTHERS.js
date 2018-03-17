@@ -206,6 +206,12 @@ export default {
     icon: 'inv_misc_enggizmos_14',
     quality: ITEM_QUALITIES.EPIC,
   },
+  STABILIZED_ENERGY_PENDANT: {
+    id: 134488,
+    name: 'Stabilized Energy Pendant',
+    icon: 'inv_7_0raid_necklace_14d',
+    quality: ITEM_QUALITIES.EPIC,
+  },
 
   // T20 Trinkets
   // Heal Trinkets

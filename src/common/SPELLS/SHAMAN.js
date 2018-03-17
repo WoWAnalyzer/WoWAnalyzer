@@ -732,6 +732,11 @@ export default {
     name: 'Lightning Bolt',
     icon: 'spell_nature_lightning',
   },
+  RESURGENCE: {
+    id: 101033,
+    name: 'Resurgence',
+    icon: 'ability_shaman_watershield',
+  },
 
   // Traits:
   // Restoration Shaman:
@@ -749,6 +754,11 @@ export default {
     id: 238143,
     name: 'Deep Waters',
     icon: 'inv_mace_1h_artifactazshara_d_02',
+  },
+  REFRESHING_CURRENTS: {
+    id: 207356,
+    name: 'Refreshing Currents',
+    icon: 'ability_monk_cracklingjadelightning',
   },
   // Restoration Shaman Set Bonus:
   RAINFALL: { // T21 2pc
