@@ -18,6 +18,7 @@ import Checklist from './Modules/Features/Checklist';
 import DeathStrikeTimingGraph from './Modules/Features/DeathStrikeTimingGraph';
 import MarrowrendUsage from './Modules/Features/MarrowrendUsage';
 import Souldrinker from './Modules/Features/Souldrinker';
+import BoneShield from './Modules/Features/BoneShield';
 
 // Resources
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
@@ -68,6 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
     deathStrikeTimingGraph: DeathStrikeTimingGraph,
     marrowrendUsage: MarrowrendUsage,
     souldrinker: Souldrinker,
+    boneShield: BoneShield,
 
 
     // DOT
