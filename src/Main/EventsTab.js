@@ -4,6 +4,8 @@ import { AutoSizer, Column, defaultTableRowRenderer, Table } from 'react-virtual
 import Toggle from 'react-toggle';
 import 'react-toggle/style.css';
 
+import InformationIcon from 'Icons/Information';
+
 import Wrapper from 'common/Wrapper';
 import { formatDuration, formatThousands } from 'common/format';
 import Icon from 'common/Icon';
@@ -15,28 +17,76 @@ import 'react-virtualized/styles.css';
 import './EventsTab.css';
 
 const FILTERABLE_TYPES = {
-  damage: 'Damage',
-  heal: 'Heal',
-  healabsorbed: 'Heal Absorbed',
-  absorbed: 'Absorb',
-  begincast: 'Begin Cast',
-  cast: 'Cast Success',
-  applybuff: 'Buff Apply',
-  removebuff: 'Buff Remove',
-  applybuffstack: 'Buff Stack Gained',
-  removebuffstack: 'Buff Stack Lost',
-  refreshbuff: 'Buff Refresh',
-  applydebuff: 'Debuff Apply',
-  removedebuff: 'Debuff Remove',
-  applydebuffstack: 'Debuff Stack Gained',
-  removedebuffstack: 'Debuff Stack Lost',
-  refreshdebuff: 'Debuff Refresh',
-  summon: 'Summon',
-  combatantinfo: 'Player Info',
-  energize: 'Energize',
-  interrupt: 'Interrupt',
-  death: 'Death',
-  resurrect: 'Resurrect',
+  damage: {
+    name: 'Damage',
+  },
+  heal: {
+    name: 'Heal',
+  },
+  healabsorbed: {
+    name: 'Heal Absorbed',
+    explanation: 'Triggered in addition to the regular heal event whenever a heal is absorbed. Can be used to determine what buff or debuff was absorbing the healing. This should only be used if you need to know which ability soaked the healing.',
+  },
+  absorbed: {
+    name: 'Absorb',
+    explanation: 'Triggered whenever an absorb effect absorbs damage. These are friendly shields to avoid damage and NOT healing absorption shields.',
+  },
+  begincast: {
+    name: 'Begin Cast',
+  },
+  cast: {
+    name: 'Cast Success',
+    explanation: 'Triggered whenever a cast was successful. Blizzard also sometimes uses this event type for mechanics and spell ticks or bolts.',
+  },
+  applybuff: {
+    name: 'Buff Apply',
+  },
+  removebuff: {
+    name: 'Buff Remove',
+  },
+  applybuffstack: {
+    name: 'Buff Stack Gained',
+  },
+  removebuffstack: {
+    name: 'Buff Stack Lost',
+  },
+  refreshbuff: {
+    name: 'Buff Refresh',
+  },
+  applydebuff: {
+    name: 'Debuff Apply',
+  },
+  removedebuff: {
+    name: 'Debuff Remove',
+  },
+  applydebuffstack: {
+    name: 'Debuff Stack Gained',
+  },
+  removedebuffstack: {
+    name: 'Debuff Stack Lost',
+  },
+  refreshdebuff: {
+    name: 'Debuff Refresh',
+  },
+  summon: {
+    name: 'Summon',
+  },
+  combatantinfo: {
+    name: 'Player Info',
+    explanation: 'Triggered at the start of the fight with advanced combat logging on. This includes gear, talents, etc.',
+  },
+  energize: {
+    name: 'Energize',
+  },
+  interrupt: {
+    name: 'Interrupt',
+  },
+  death: {
+    name: 'Death',
+  },
+  resurrect: {
+    name: 'Resurrect',
+  },
 };
 
 class EventsTab extends React.Component {
@@ -88,22 +138,32 @@ class EventsTab extends React.Component {
     );
   }
   eventTypeName(type) {
-    return this.state.rawNames ? type : FILTERABLE_TYPES[type] || type;
+    return this.state.rawNames ? type : (FILTERABLE_TYPES[type] ? FILTERABLE_TYPES[type].name : type);
   }
 
-  renderToggle(id, name) {
+  renderToggle(type) {
+    const name = this.eventTypeName(type);
+    const explanation = FILTERABLE_TYPES[type] ? FILTERABLE_TYPES[type].explanation : undefined;
     return (
-      <div className="flex">
-        <label className="flex-main" htmlFor={`${id}-toggle`}>
+      <div className="flex toggle-control">
+        <label className="flex-main" htmlFor={`${type}-toggle`}>
           {name}
         </label>
-        <Toggle
-          defaultChecked={this.state[id]}
-          icons={false}
-          onChange={event => this.setState({ [id]: event.target.checked })}
-          id={`${id}-toggle`}
-          className="flex-sub"
-        />
+        {explanation && (
+          <div className="flex-sub" style={{ padding: '0 10px' }}>
+            <div data-tip={explanation}>
+              <InformationIcon style={{ fontSize: '1.4em' }} />
+            </div>
+          </div>
+        )}
+        <div className="flex-sub">
+          <Toggle
+            defaultChecked={this.state[type]}
+            icons={false}
+            onChange={event => this.setState({ [type]: event.target.checked })}
+            id={`${type}-toggle`}
+          />
+        </div>
       </div>
     );
   }
@@ -131,9 +191,9 @@ class EventsTab extends React.Component {
     return (
       <div className="events-tab flex">
         <div className="flex-sub config" style={{ padding: '10px 15px' }}>
-          {Object.keys(FILTERABLE_TYPES).map(type => this.renderToggle(type, this.eventTypeName(type)))}
+          {Object.keys(FILTERABLE_TYPES).map(type => this.renderToggle(type))}
           <br />
-          <div className="flex">
+          <div className="flex toggle-control">
             <label className="flex-main" htmlFor="rawNames-toggle">
               Raw names
             </label>
