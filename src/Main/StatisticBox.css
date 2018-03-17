@@ -70,9 +70,6 @@
 }
 
 /* small */
-.panel.statistic-box.small {
-  font-size: 1em;
-}
 .panel.statistic-box.small img {
   height: 1.6em;
   margin-top: -0.2em;

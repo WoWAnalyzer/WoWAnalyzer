@@ -549,11 +549,26 @@ dfn[data-tip] {
   cursor: help;
 }
 
+.small {
+  font-size: 1em;
+}
+
 .alert {
   padding: 15px 22px;
   border-radius: 0;
   border: 0;
   margin: 0;
+}
+.alert .icon-container {
+  font-size: 2em;
+  line-height: 1;
+  margin-right: 20px;
+}
+.alert.small {
+  padding: 10px;
+}
+.alert.small .icon-container {
+  margin-right: 10px;
 }
 .panel-body > .alert {
   margin-left: -22px;

@@ -11,6 +11,7 @@ import { formatDuration, formatThousands } from 'common/format';
 import Icon from 'common/Icon';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import Info from 'common/Alert/Info';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 
 import 'react-virtualized/styles.css';
@@ -190,6 +191,10 @@ class EventsTab extends React.Component {
     return (
       <div className="events-tab flex">
         <div className="flex-sub config" style={{ padding: '10px 15px' }}>
+          <Info className="small" style={{ width: 240 }}>
+            This only includes events involving the selected player.
+          </Info>
+          <br />
           {Object.keys(FILTERABLE_TYPES).map(type => this.renderToggle(type))}
           <br />
           <div className="flex toggle-control">
