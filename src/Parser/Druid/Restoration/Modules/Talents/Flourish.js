@@ -75,7 +75,7 @@ class Flourish extends Analyzer {
         if (spellId === SPELLS.WILD_GROWTH.id) {
           foundWg = true;
           this.wgCount += 1;
-        } else if (spellId === SPELLS.CENARION_WARD_TALENT.id) {
+        } else if (spellId === SPELLS.CENARION_WARD.id) {
           foundCw = true;
         } else if (spellId === SPELLS.REJUVENATION.id || spellId === SPELLS.REJUVENATION_GERMINATION.id) {
           this.rejuvCount += 1;
