@@ -55,6 +55,8 @@ import HealingWave from './Modules/Spells/HealingWave';
 import LavaSurge from './Modules/Spells/LavaSurge';
 import Resurgence from './Modules/Spells/Resurgence';
 
+import CloudburstNormalizer from './Normalizers/CloudburstNormalizer';
+
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -108,6 +110,9 @@ class CombatLogParser extends CoreCombatLogParser {
     healingWave: HealingWave,
     lavaSurge: LavaSurge,
     resurgence: Resurgence,
+
+    // Normalizers:
+    cloudburstNormalizer: CloudburstNormalizer,
   };
 
   generateResults() {
