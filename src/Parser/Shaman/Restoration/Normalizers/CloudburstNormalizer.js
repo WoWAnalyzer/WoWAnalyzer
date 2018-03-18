@@ -56,8 +56,9 @@ class CloudburstNormalizer extends EventsNormalizer {
               timestamp: newTimestamp, 
               type: "heal", 
               sourceID: event.sourceID, 
-              sourceIsFriendly: true, 
               targetID: event.sourceID,
+              sourceIsFriendly: true, 
+              targetIsFriendly: true,
               ability: {
                 abilityIcon: SPELLS.CLOUDBURST_TOTEM_HEAL.icon,
                 guid: SPELLS.CLOUDBURST_TOTEM_HEAL.id,
@@ -65,13 +66,11 @@ class CloudburstNormalizer extends EventsNormalizer {
                 type: 8,
               },
               amount: 0,
-              hitType: 1,
-              itemLevel: event.itemLevel,
               overheal: 1,
-              resourceActor: 2,
-              targetIsFriendly: true,
-              truetimestamp: newTimestamp,
-              modified: true,
+              hitType: 1,
+              hitPoints: event.maxHitPoints,
+              maxHitPoints: event.maxHitPoints,
+              __fabricated: true,
             };
             this.fabricatedTimestamp = newTimestamp;
             break;
