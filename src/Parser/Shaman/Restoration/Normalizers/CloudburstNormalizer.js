@@ -23,17 +23,15 @@ class CloudburstNormalizer extends EventsNormalizer {
     this.active = this.combatants.selected.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id);
   }
 
-  fabricatedTimestamp = null;
   fabricatedEvent = null;
 
   normalize(events) {
     const fixedEvents = [];
     events.forEach((event, eventIndex) => {
 
-      if(this.fabricatedTimestamp) {
-        if(event.timestamp >= this.fabricatedTimestamp) {
+      if(this.fabricatedEvent) {
+        if(event.timestamp >= this.fabricatedEvent.timestamp) {
           fixedEvents.push(this.fabricatedEvent);
-          this.fabricatedTimestamp = null;
           this.fabricatedEvent = null;
         }
       }
@@ -72,7 +70,6 @@ class CloudburstNormalizer extends EventsNormalizer {
               maxHitPoints: event.maxHitPoints,
               __fabricated: true,
             };
-            this.fabricatedTimestamp = newTimestamp;
             break;
           } else if (nextEvent.type === 'heal' && nextEvent.ability.guid === SPELLS.CLOUDBURST_TOTEM_HEAL.id) {
             // CLOUDBURST_TOTEM_HEAL found, this was fine
