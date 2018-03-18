@@ -181,7 +181,7 @@ class EventsTab extends React.Component {
   render() {
     const { parser } = this.props;
 
-    const events = parser._debugEventHistory
+    const events = parser.eventHistory
       .filter(event => this.state[event.type] !== false);
 
     // TODO: Show active buffs like WCL

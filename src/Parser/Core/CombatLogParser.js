@@ -387,7 +387,7 @@ class CombatLogParser {
       .find(module => module instanceof type);
   }
 
-  _debugEventHistory = [];
+  eventHistory = [];
   initialize(combatants) {
     this.initializeNormalizers(combatants);
     this.initializeAnalyzers(combatants);
@@ -397,12 +397,10 @@ class CombatLogParser {
     this.triggerEvent('initialized');
   }
   parseEvents(events) {
-    if (process.env.NODE_ENV === 'development') {
-      this._debugEventHistory = [
-        ...this._debugEventHistory,
-        ...events,
-      ];
-    }
+    this.eventHistory = [
+      ...this.eventHistory,
+      ...events,
+    ];
     events.forEach((event) => {
       if (this.error) {
         throw new Error(this.error);
