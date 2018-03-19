@@ -656,6 +656,11 @@ export default {
     name: 'Hit Combo',
     icon: 'ability_monk_palmstrike',
   },
+  CHI_SPHERE: {
+    id: 163272,
+    name: 'Chi Sphere',
+    icon: 'ability_monk_forcesphere',
+  },
   // Windwalker Artifact
   STRIKE_OF_THE_WINDLORD: {
     id: 205320,
