@@ -9,7 +9,6 @@ import InformationIcon from 'Icons/Information';
 import Wrapper from 'common/Wrapper';
 import { formatDuration, formatThousands } from 'common/format';
 import Icon from 'common/Icon';
-import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import Info from 'common/Alert/Info';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
