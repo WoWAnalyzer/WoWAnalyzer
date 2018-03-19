@@ -23,7 +23,7 @@ class ChiTracker extends ResourceTracker {
     if (!this.getResource(event).cost) {
       return 0;
     }
-    let cost = this.getResource.cost;
+    let cost = this.getResource(event).cost;
     const spellId = event.ability.guid;
 
     // Blackout Kick costs 3 chi when learned, but is reduced in cost during levelling
