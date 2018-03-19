@@ -9,7 +9,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { formatPercentage } from 'common/format';
 
 import isAtonement from '../Core/isAtonement';
-import AtonementSource from '../Features/AtonementSource';
+import AtonementApplicationSource from '../Features/AtonementApplicationSource';
 
 const debug = false;
 
@@ -19,7 +19,7 @@ const IMPROPER_REFRESH_TIME = 3000;
 class Atonement extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    atonementSource: AtonementSource,
+    atonementApplicationSource: AtonementApplicationSource,
   };
 
   healing = 0;
@@ -29,12 +29,12 @@ class Atonement extends Analyzer {
   improperAtonementRefreshes = [];
 
   get atonementDuration() {
-    const applicatorEvent = this.atonementSource.atonementApplicationSourceEvent;
+    const applicatorEvent = this.atonementApplicationSource.event;
     if (!applicatorEvent) {
       return 15;
     }
     const applicatorSpellId = applicatorEvent.ability.guid;
-    let duration = this.atonementSource.atonementDuration.get(applicatorSpellId);
+    let duration = this.atonementApplicationSource.duration.get(applicatorSpellId);
 
     if (applicatorSpellId === SPELLS.POWER_WORD_SHIELD.id && this.owner.modules.combatants.selected.hasBuff(SPELLS.DISC_PRIEST_T19_4SET_BONUS_BUFF.id, applicatorEvent.timestamp) && this.owner.modules.combatants.selected.hasBuff(SPELLS.RAPTURE.id, applicatorEvent.timestamp)) {
       duration += 6;
