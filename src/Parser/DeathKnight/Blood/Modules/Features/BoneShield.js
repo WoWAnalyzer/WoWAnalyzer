@@ -46,7 +46,9 @@ class BoneShield extends Analyzer {
 
   get skeletalShatteringTooltip() {
     if (this.hasSS) {
-      return "On average, Skeletal Shattering would have contributed ~" + formatNumber(this.totalDamageTaken * this.ssDR) + " to this.<br>";
+      return "On average, Skeletal Shattering would have contributed " + 
+        formatPercentage((this.totalDamageTaken * this.ssDR) / (this.totalDamageTaken * this.boneShieldDR)) +
+        "% (" + formatNumber(this.totalDamageTaken * this.ssDR) + ") to this.<br>";
     } else {
       return "";
     }
