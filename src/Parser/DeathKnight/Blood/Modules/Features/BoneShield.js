@@ -36,15 +36,12 @@ class BoneShield extends Analyzer {
 
 
   on_initialized() {
-    //ToDo: create Spell
-    this.hasSS = this.combatants.selected.traitsBySpellId[192558];
+    this.hasSS = this.combatants.selected.traitsBySpellId[SPELLS.SKELETAL_SHATTERING_TRAIT.id];
     this.hasSD = this.combatants.selected.hasTalent(SPELLS.SPECTRAL_DEFLECTION_TALENT.id);
-
-    console.info(this.hasSD);
   }
 
-  getBoneShieldAbsorbTooltip() {
-    if (this.hasSS === 1) {
+  get BoneShieldAbsorbTooltip() {
+    if (this.hasSS) {
       const avgCrit = this.totalCrit / this.totalCritChecks;
       this.ssDR = avgCrit * this.SS_DR;
       this.boneShieldDR = this.BONE_SHIELD_DR + this.ssDR;
@@ -53,11 +50,11 @@ class BoneShield extends Analyzer {
     return formatNumber((this.totalDamageTaken - this.excludedAbsorbs) * this.boneShieldDR) + " Bone Shield Absorb<br>";
   }
 
-  getSkeletalShatteringTooltip() {
-    if (this.hasSS === 1) {
-      return formatNumber((this.totalDamageTaken - this.excludedAbsorbs) * this.ssDR) + " of which was done by the Skeletal Shattering Trait.<br>";
+  get SkeletalShatteringTooltip() {
+    if (this.hasSS) {
+      return "~" + formatNumber((this.totalDamageTaken - this.excludedAbsorbs) * this.ssDR) + " of which was done by the Skeletal Shattering Trait.<br>";
     } else {
-      return;
+      return "";
     }
   }
 
@@ -115,7 +112,7 @@ class BoneShield extends Analyzer {
 
   statistic() {
 
-    if (this.hasSD === true) {
+    if (this.hasSD) {
 
       return (
         <StatisticBox
@@ -133,8 +130,8 @@ class BoneShield extends Analyzer {
           icon={<SpellIcon id={SPELLS.BONE_SHIELD.id} />}
           value={`${formatPercentage(this.uptime)} %`}
           label="Bone Shield Uptime"
-          tooltip={`~${ this.getBoneShieldAbsorbTooltip() }
-          ~${ this.getSkeletalShatteringTooltip() }
+          tooltip={`~${ this.BoneShieldAbsorbTooltip }
+          ${ this.SkeletalShatteringTooltip }
           <b>Those numbers are estimates as it's not possible to track the actual Bone Shield absorb.</b>`}
         />
   

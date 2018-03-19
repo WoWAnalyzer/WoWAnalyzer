@@ -56,6 +56,12 @@ export default {
     icon: 'spell_shadow_deathanddecay',
   },
 
+  SKELETAL_SHATTERING_TRAIT: {
+    id: 192558,
+    name: 'Skeletal Shattering',
+    icon: 'trade_archaeology_bones-of-transformation',
+  },
+
   // Damage Dealing
   // Provides the 1 RP tick on DnD from Rapid Decomposition Talent
   RAPID_DECOMPOSITION_RP_TICK: {
