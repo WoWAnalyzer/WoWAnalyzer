@@ -4,20 +4,21 @@ import Module from './Module';
 class Analyzer extends Module {
   static __dangerousInvalidUsage = false;
 
-  triggerEvent(eventType, event, ...args) {
-    this._callMethod(this._eventHandlerName('event'), eventType, event, ...args);
-    this._callMethod(this._eventHandlerName(eventType), event, ...args);
-    if (event && this.owner.byPlayer(event)) {
-      this._callMethod(this._eventHandlerName(`byPlayer_${eventType}`), event, ...args);
+  triggerEvent(event, ...args) {
+    // Triggering a lot of events here for development pleasure; does this have a significant performance impact?
+    this._callMethod(this._eventHandlerName('event'), event.type, event, ...args);
+    this._callMethod(this._eventHandlerName(event.type), event, ...args);
+    if (this.owner && this.owner.byPlayer(event)) {
+      this._callMethod(this._eventHandlerName(`byPlayer_${event.type}`), event, ...args);
     }
-    if (event && this.owner.toPlayer(event)) {
-      this._callMethod(this._eventHandlerName(`toPlayer_${eventType}`), event, ...args);
+    if (this.owner && this.owner.toPlayer(event)) {
+      this._callMethod(this._eventHandlerName(`toPlayer_${event.type}`), event, ...args);
     }
-    if (event && this.owner.byPlayerPet(event)) {
-      this._callMethod(this._eventHandlerName(`byPlayerPet_${eventType}`), event, ...args);
+    if (this.owner && this.owner.byPlayerPet(event)) {
+      this._callMethod(this._eventHandlerName(`byPlayerPet_${event.type}`), event, ...args);
     }
-    if (event && this.owner.toPlayerPet(event)) {
-      this._callMethod(this._eventHandlerName(`toPlayerPet_${eventType}`), event, ...args);
+    if (this.owner && this.owner.toPlayerPet(event)) {
+      this._callMethod(this._eventHandlerName(`toPlayerPet_${event.type}`), event, ...args);
     }
   }
   _eventHandlerName(eventType) {

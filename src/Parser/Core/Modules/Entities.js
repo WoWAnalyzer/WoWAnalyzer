@@ -146,7 +146,7 @@ class Entities extends Analyzer {
   _triggerChangeBuffStack(buff, timestamp, oldStacks, newStacks) {
     const type = buff.isDebuff ? 'changedebuffstack' : 'changebuffstack';
 
-    this.owner.triggerEvent(type, {
+    this.owner.triggerEvent({
       ...buff,
       timestamp,
       type,
@@ -154,6 +154,7 @@ class Entities extends Analyzer {
       newStacks,
       stacksGained: newStacks - oldStacks,
       stack: undefined,
+      __fabricated: true,
     });
   }
 

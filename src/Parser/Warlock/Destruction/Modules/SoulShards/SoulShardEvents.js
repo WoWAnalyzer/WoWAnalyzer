@@ -141,7 +141,7 @@ class SoulShardEvents extends Analyzer {
     shardEvent.currentFragments = this._currentFragments;
 
     debug && console.log(`++ ${shardEvent.amount}(w: ${shardEvent.waste}) = ${shardEvent.currentFragments}, ${shardEvent.ability.name}, orig: `, event);
-    this.owner.triggerEvent('soulshardfragment_gained', shardEvent);
+    this.owner.triggerEvent(shardEvent);
   }
   processSpenders(event) {
     const spellId = event.ability.guid;
@@ -174,7 +174,7 @@ class SoulShardEvents extends Analyzer {
       balanceEvent.currentFragments = this._currentFragments;
 
       debug && console.log(`++ ${balanceEvent.amount}(w: ${balanceEvent.waste}) = ${balanceEvent.currentFragments}, ${balanceEvent.ability.name}`);
-      this.owner.triggerEvent('soulshardfragment_gained', balanceEvent);
+      this.owner.triggerEvent(balanceEvent);
     }
     this._currentFragments -= amount;
 
@@ -182,7 +182,7 @@ class SoulShardEvents extends Analyzer {
     shardEvent.currentFragments = this._currentFragments;
 
     debug && console.log(`-- ${shardEvent.amount} = ${shardEvent.currentFragments}, ${shardEvent.ability.name}, orig:`, event);
-    this.owner.triggerEvent('soulshardfragment_spent', shardEvent);
+    this.owner.triggerEvent(shardEvent);
   }
 }
 

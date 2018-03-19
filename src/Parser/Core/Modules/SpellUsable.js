@@ -112,12 +112,12 @@ class SpellUsable extends Analyzer {
         totalReductionTime: 0,
         chargesOnCooldown: 1,
       };
-      this._triggerEvent('updatespellusable', this._makeEvent(canSpellId, timestamp, 'begincooldown'));
+      this._triggerEvent(this._makeEvent(canSpellId, timestamp, 'begincooldown'));
     } else {
       if (this.isAvailable(canSpellId)) {
         // Another charge is available
         this._currentCooldowns[canSpellId].chargesOnCooldown += 1;
-        this._triggerEvent('updatespellusable', this._makeEvent(canSpellId, timestamp, 'addcooldowncharge'));
+        this._triggerEvent(this._makeEvent(canSpellId, timestamp, 'addcooldowncharge'));
       } else {
         const remainingCooldown = this.cooldownRemaining(canSpellId, timestamp);
         if (remainingCooldown > INVALID_COOLDOWN_CONFIG_LAG_MARGIN) {
@@ -156,7 +156,7 @@ class SpellUsable extends Analyzer {
     const cooldown = this._currentCooldowns[canSpellId];
     if (cooldown.chargesOnCooldown === 1 || resetAllCharges) {
       delete this._currentCooldowns[canSpellId];
-      this._triggerEvent('updatespellusable', this._makeEvent(canSpellId, timestamp, 'endcooldown', {
+      this._triggerEvent(this._makeEvent(canSpellId, timestamp, 'endcooldown', {
         ...cooldown,
         end: timestamp,
       }));
@@ -164,7 +164,7 @@ class SpellUsable extends Analyzer {
     } else {
       // We have another charge ready to go on cooldown, this simply adds a charge and then refreshes the cooldown (spells with charges don't cooldown simultaneously)
       cooldown.chargesOnCooldown -= 1;
-      this._triggerEvent('updatespellusable', this._makeEvent(canSpellId, timestamp, 'restorecharge', cooldown));
+      this._triggerEvent(this._makeEvent(canSpellId, timestamp, 'restorecharge', cooldown));
       this.refreshCooldown(canSpellId, timestamp);
       if (remainingCDR !== 0) {
         return this.reduceCooldown(canSpellId,remainingCDR,timestamp);
@@ -191,7 +191,7 @@ class SpellUsable extends Analyzer {
     this._currentCooldowns[canSpellId].start = timestamp;
     this._currentCooldowns[canSpellId].expectedDuration = expectedCooldownDuration;
     this._currentCooldowns[canSpellId].totalReductionTime = 0;
-    this._triggerEvent('updatespellusable', this._makeEvent(canSpellId, timestamp, 'refreshcooldown'));
+    this._triggerEvent(this._makeEvent(canSpellId, timestamp, 'refreshcooldown'));
   }
   /**
    * Reduces the cooldown for the provided spell by the provided duration.
@@ -237,7 +237,7 @@ class SpellUsable extends Analyzer {
       ...others,
     };
   }
-  _triggerEvent(eventType, event) {
+  _triggerEvent(event) {
     if (debug) {
       const spellId = event.spellId;
       const fightDuration = formatMilliseconds(event.timestamp - this.owner.fight.start_time);
@@ -261,7 +261,7 @@ class SpellUsable extends Analyzer {
       }
     }
 
-    this.owner.triggerEvent(eventType, event);
+    this.owner.triggerEvent(event);
   }
 
   on_byPlayer_cast(event) {

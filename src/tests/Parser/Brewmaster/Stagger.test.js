@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import StaggerFabricator from 'Parser/Monk/Brewmaster/Modules/Core/StaggerFabricator';
 import Stagger from 'Parser/Monk/Brewmaster/Modules/Core/Stagger';
 import processEvents from './Fixtures/processEvents';
-import { SimpleFight, EarlyFinish, incomingDamage } from './Fixtures/SimpleFight';
+import { EarlyFinish, incomingDamage, SimpleFight } from './Fixtures/SimpleFight';
 
 describe('Brewmaster.Stagger', () => {
   let stagger;
@@ -17,8 +17,8 @@ describe('Brewmaster.Stagger', () => {
     fab.combatants = {
       selected: {
         hasTalent: () => false,
-        traitsBySpellId: {[SPELLS.STAGGERING_AROUND.id]: 0},
-      }
+        traitsBySpellId: { [SPELLS.STAGGERING_AROUND.id]: 0 },
+      },
     };
     stagger = new Stagger({
       toPlayer: () => true,
@@ -58,10 +58,16 @@ describe('Brewmaster.Stagger', () => {
   });
   it('Tracks the amount of stagger missing from the fight', () => {
     const earlyFightEnd = 6000;
-    const myOwner = { fight: { end_time: earlyFightEnd } };
+    const myOwner = {
+      fight: {
+        end_time: earlyFightEnd,
+      },
+    };
     processEvents(EarlyFinish, fab, stagger);
-    stagger.owner = myOwner;
-    stagger.triggerEvent('finished');
+    // this doesn't actually do anything for the test.... stagger.owner = myOwner;
+    stagger.triggerEvent({
+      type: 'finished',
+    });
     expect(stagger.staggerMissingFromFight).toBe(484);
   });
 });

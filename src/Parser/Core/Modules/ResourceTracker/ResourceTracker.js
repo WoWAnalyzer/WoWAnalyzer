@@ -134,7 +134,7 @@ class ResourceTracker extends Analyzer {
   }
 
   triggerSpendEvent(spent, event) {
-    this.owner.triggerEvent('spendresource', {
+    this.owner.triggerEvent({
       timestamp: event.timestamp,
       type: 'spendresource',
       sourceID: event.sourceID,

@@ -394,21 +394,19 @@ class CombatLogParser {
   }
   initializeAnalyzers(combatants) {
     this.parseEvents(combatants);
-    this.triggerEvent('initialized');
+    this.triggerInitialized();
+  }
+  triggerInitialized() {
+    this.triggerEvent({
+      type: 'initialized',
+      timestamp: this.currentTimestamp,
+      __fabricated: true,
+    });
   }
   parseEvents(events) {
-    this.eventHistory = [
-      ...this.eventHistory,
-      ...events,
-    ];
-    events.forEach((event) => {
-      if (this.error) {
-        throw new Error(this.error);
-      }
+    events.forEach(event => {
       this._timestamp = event.timestamp;
-
-      // Triggering a lot of events here for development pleasure; does this have a significant performance impact?
-      this.triggerEvent(event.type, event);
+      this.triggerEvent(event);
     });
   }
 
@@ -437,8 +435,10 @@ class CombatLogParser {
   /** @type {number} The amount of events parsed. This can reliably be used to determine if something should re-render. */
   eventCount = 0;
   _moduleTime = {};
-  triggerEvent(eventType, event, ...args) {
-    debugEvents && console.log(eventType, event, ...args);
+  triggerEvent(event, ...args) {
+    debugEvents && console.log(event.type, event, ...args);
+    // Creating arrays is expensive so we cheat and just push here
+    this.eventHistory.push(event);
 
     Object.keys(this._modules)
       .filter(key => this._modules[key].active)
@@ -448,15 +448,26 @@ class CombatLogParser {
         const module = this._modules[key];
         if (process.env.NODE_ENV === 'development') {
           const start = +new Date();
-          module.triggerEvent(eventType, event, ...args);
+          module.triggerEvent(event, ...args);
           const duration = +new Date() - start;
           this._moduleTime[key] = this._moduleTime[key] || 0;
           this._moduleTime[key] += duration;
         } else {
-          module.triggerEvent(eventType, event, ...args);
+          module.triggerEvent(event, ...args);
         }
       });
     this.eventCount += 1;
+  }
+  fabricateEvent(eventName, event = null, triggeredBy = null, ...args) {
+    this.triggerEvent({
+      type: eventName,
+      __fabricated: true,
+      timestamp: triggeredBy ? triggeredBy.timestamp : this.currentTimestamp,
+      sourceID: triggeredBy ? triggeredBy.sourceID : undefined,
+      targetID: triggeredBy ? triggeredBy.targetID : undefined,
+      trigger: triggeredBy ? triggeredBy : undefined,
+      ...event,
+    }, ...args);
   }
 
   byPlayer(event, playerId = this.player.id) {

@@ -22,7 +22,8 @@ describe('Core/Modules/SpellUsable', () => {
       abilities: abilitiesMock,
     });
     triggerCast = (spellId, extra) => {
-      instance.triggerEvent('cast', {
+      instance.triggerEvent({
+        type: 'cast',
         ability: {
           guid: spellId,
         },
@@ -31,7 +32,8 @@ describe('Core/Modules/SpellUsable', () => {
       });
     };
     triggerHasteChange = () => {
-      instance.triggerEvent('changehaste', {
+      instance.triggerEvent({
+        type: 'changehaste',
         // We don't need more; the new Haste is pulled straight from the Haste module
         timestamp: parserMock.currentTimestamp,
       });
@@ -39,7 +41,7 @@ describe('Core/Modules/SpellUsable', () => {
   });
 
   // This might be considered implementation detail, but it's also kinda the only way. Code doesn't magically run, so the only way to trigger our cooldown handling is with an event.
-  const triggerCooldownExpiryCheck = () => instance.triggerEvent();
+  const triggerCooldownExpiryCheck = () => instance.triggerEvent({});
 
   describe('regular spell status tracking', () => {
     it('a spell starts off cooldown', () => {
@@ -192,8 +194,7 @@ describe('Core/Modules/SpellUsable', () => {
 
       expect(parserMock.triggerEvent).toHaveBeenCalledTimes(1);
       const call = parserMock.triggerEvent.mock.calls[0];
-      expect(call[0]).toBe('updatespellusable');
-      expect(call[1]).toEqual({
+      expect(call[0]).toEqual({
         type: 'updatespellusable',
         spellId: SPELLS.FAKE_SPELL.id,
         timestamp: 0,
@@ -219,8 +220,7 @@ describe('Core/Modules/SpellUsable', () => {
       expect(parserMock.triggerEvent).toHaveBeenCalledTimes(2);
       {
         const call = parserMock.triggerEvent.mock.calls[0];
-        expect(call[0]).toBe('updatespellusable');
-        expect(call[1]).toEqual({
+        expect(call[0]).toEqual({
           type: 'updatespellusable',
           spellId: SPELLS.FAKE_SPELL.id,
           timestamp: 0,
@@ -240,8 +240,7 @@ describe('Core/Modules/SpellUsable', () => {
       }
       {
         const call = parserMock.triggerEvent.mock.calls[1];
-        expect(call[0]).toBe('updatespellusable');
-        expect(call[1]).toEqual({
+        expect(call[0]).toEqual({
           type: 'updatespellusable',
           spellId: SPELLS.FAKE_SPELL.id,
           timestamp: 0,
@@ -268,8 +267,7 @@ describe('Core/Modules/SpellUsable', () => {
 
       expect(parserMock.triggerEvent).toHaveBeenCalledTimes(1);
       const call = parserMock.triggerEvent.mock.calls[0];
-      expect(call[0]).toBe('updatespellusable');
-      expect(call[1]).toEqual({
+      expect(call[0]).toEqual({
         type: 'updatespellusable',
         spellId: SPELLS.FAKE_SPELL.id,
         timestamp: 0,
@@ -296,8 +294,7 @@ describe('Core/Modules/SpellUsable', () => {
 
       expect(parserMock.triggerEvent).toHaveBeenCalledTimes(1);
       const call = parserMock.triggerEvent.mock.calls[0];
-      expect(call[0]).toBe('updatespellusable');
-      expect(call[1]).toEqual({
+      expect(call[0]).toEqual({
         type: 'updatespellusable',
         spellId: SPELLS.FAKE_SPELL.id,
         timestamp: 7500, // it should be simulated at the time of expiry
@@ -327,8 +324,7 @@ describe('Core/Modules/SpellUsable', () => {
       expect(parserMock.triggerEvent).toHaveBeenCalledTimes(2);
       {
         const call = parserMock.triggerEvent.mock.calls[0];
-        expect(call[0]).toBe('updatespellusable');
-        expect(call[1]).toEqual({
+        expect(call[0]).toEqual({
           type: 'updatespellusable',
           spellId: SPELLS.FAKE_SPELL.id,
           timestamp: 7500, // it should be simulated at the time of expiry
@@ -348,8 +344,7 @@ describe('Core/Modules/SpellUsable', () => {
       }
       {
         const call = parserMock.triggerEvent.mock.calls[1];
-        expect(call[0]).toBe('updatespellusable');
-        expect(call[1]).toEqual({
+        expect(call[0]).toEqual({
           type: 'updatespellusable',
           spellId: SPELLS.FAKE_SPELL.id,
           timestamp: 7500, // it should be simulated at the time of expiry

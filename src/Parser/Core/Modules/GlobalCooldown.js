@@ -110,7 +110,7 @@ class GlobalCooldown extends Analyzer {
    * @param trigger Either 'begincast' or 'cast', `begincast` are ignored in AlwaysBeCasting so that the channel time can be used instead (if it's higher than the GCD).
    */
   triggerGlobalCooldown(event, trigger) {
-    this.owner.triggerEvent('globalcooldown', {
+    this.owner.triggerEvent({
       type: 'globalcooldown',
       ability: event.ability,
       sourceID: event.sourceID,

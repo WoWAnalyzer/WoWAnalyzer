@@ -21,7 +21,7 @@ class Channeling extends Analyzer {
       reason: event,
     };
     this._currentChannel = channelingEvent;
-    this.owner.triggerEvent('beginchannel', channelingEvent);
+    this.owner.triggerEvent(channelingEvent);
     debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Channeling', 'Beginning channel of', ability.name);
   }
   endChannel(event) {
@@ -36,7 +36,7 @@ class Channeling extends Analyzer {
     this._currentChannel = null;
     // Since `event` may not always be the spell being ended we default to the start of the casting since that must be the right spell
     const ability = currentChannel ? currentChannel.ability : event.ability;
-    this.owner.triggerEvent('endchannel', {
+    this.owner.triggerEvent({
       type: 'endchannel',
       timestamp: event.timestamp,
       ability,
@@ -49,7 +49,7 @@ class Channeling extends Analyzer {
     debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Channeling', 'Ending channel of', ability.name);
   }
   cancelChannel(event, ability) {
-    this.owner.triggerEvent('cancelchannel', {
+    this.owner.triggerEvent({
       type: 'cancelchannel',
       ability,
       sourceID: event.sourceID,

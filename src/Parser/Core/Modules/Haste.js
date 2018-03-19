@@ -210,7 +210,7 @@ class Haste extends Analyzer {
       newHaste,
     };
     debug && console.log('changehaste', fabricatedEvent);
-    this.owner.triggerEvent('changehaste', fabricatedEvent);
+    this.owner.triggerEvent(fabricatedEvent);
   }
 
   static addHaste(baseHaste, hasteGain) {

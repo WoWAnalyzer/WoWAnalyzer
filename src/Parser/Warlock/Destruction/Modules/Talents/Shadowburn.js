@@ -63,7 +63,7 @@ class Shadowburn extends Analyzer {
         // Shadowburn debuff expired sooner than it should = target died = generate another 5 fragments
         debug && console.log('Shadowburn kill');
         event.isFromShadowburnKill = true;
-        this.owner.triggerEvent('shadowburn_kill', event);
+        this.owner.triggerEvent(event);
       }
       this._expectedShadowburnDebuffEnds.splice(debuffTargetIndex, 1); // remove the debuff from array
       debug && console.log('Shadowburn removedebuff (end), debuffEnds:', JSON.stringify(this._expectedShadowburnDebuffEnds));

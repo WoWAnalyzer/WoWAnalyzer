@@ -71,7 +71,7 @@ class KiljaedensBurningWish extends Analyzer {
       ability: event.ability,
     };
     // TODO are these all the fields I need?
-    this.owner.triggerEvent('cast', castEvent);
+    this.owner.triggerEvent(castEvent);
   }
 
   item() {
