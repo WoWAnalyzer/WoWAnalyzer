@@ -24,7 +24,6 @@ class CloudburstNormalizer extends EventsNormalizer {
   }
 
   fabricatedEvent = null;
-  recallTimestamp = null;
 
   normalize(events) {
     const fixedEvents = [];
@@ -42,7 +41,7 @@ class CloudburstNormalizer extends EventsNormalizer {
 
       if (event.type === 'cast' && event.ability.guid === SPELLS.CLOUDBURST_TOTEM_TALENT.id) {
         const castTimestamp = event.timestamp;
-        this.recallTimestamp = null;
+        let recallTimestamp = null;
 
         // Look ahead through the events to see if there is an CLOUDBURST_TOTEM_HEAL within a 20 second period
         for (let nextEventIndex = eventIndex; nextEventIndex < events.length-1; nextEventIndex += 1) {
@@ -50,7 +49,7 @@ class CloudburstNormalizer extends EventsNormalizer {
           
           if ((nextEvent.timestamp - castTimestamp) > MAX_DELAY) {
             // No CLOUDBURST_TOTEM_HEAL found within the period, meaning this cast wasn't able to find targets and did not have any healing events -> create a 100% overheal event
-            const newTimestamp = (this.recallTimestamp) ? this.recallTimestamp : event.timestamp+CBT_DELAY;
+            const newTimestamp = (recallTimestamp) ? recallTimestamp : event.timestamp+CBT_DELAY;
             
             this.fabricatedEvent = {
               timestamp: newTimestamp, 
@@ -74,7 +73,7 @@ class CloudburstNormalizer extends EventsNormalizer {
             };
             break;
           } else if (nextEvent.type === 'cast' && nextEvent.ability.guid === SPELLS.CLOUDBURST_TOTEM_RECALL.id) {
-            this.recallTimestamp = nextEvent.timestamp;
+            recallTimestamp = nextEvent.timestamp;
             continue;
           } else if (nextEvent.type === 'heal' && nextEvent.ability.guid === SPELLS.CLOUDBURST_TOTEM_HEAL.id) {
             // CLOUDBURST_TOTEM_HEAL found, this was fine
