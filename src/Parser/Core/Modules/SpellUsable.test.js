@@ -194,7 +194,7 @@ describe('Core/Modules/SpellUsable', () => {
 
       expect(parserMock.fabricateEvent).toHaveBeenCalledTimes(1);
       const call = parserMock.fabricateEvent.mock.calls[0];
-      expect(call[0]).toEqual('updatespellusable');
+      expect(call[0]).toBe('updatespellusable');
       expect(call[1]).toEqual({
         type: 'updatespellusable',
         ability: {
@@ -223,7 +223,7 @@ describe('Core/Modules/SpellUsable', () => {
       expect(parserMock.fabricateEvent).toHaveBeenCalledTimes(2);
       {
         const call = parserMock.fabricateEvent.mock.calls[0];
-        expect(call[0]).toEqual('updatespellusable');
+        expect(call[0]).toBe('updatespellusable');
         expect(call[1]).toEqual({
           type: 'updatespellusable',
           ability: {
@@ -246,7 +246,7 @@ describe('Core/Modules/SpellUsable', () => {
       }
       {
         const call = parserMock.fabricateEvent.mock.calls[1];
-        expect(call[0]).toEqual('updatespellusable');
+        expect(call[0]).toBe('updatespellusable');
         expect(call[1]).toEqual({
           type: 'updatespellusable',
           ability: {
@@ -276,7 +276,7 @@ describe('Core/Modules/SpellUsable', () => {
 
       expect(parserMock.fabricateEvent).toHaveBeenCalledTimes(1);
       const call = parserMock.fabricateEvent.mock.calls[0];
-      expect(call[0]).toEqual('updatespellusable');
+      expect(call[0]).toBe('updatespellusable');
       expect(call[1]).toEqual({
         type: 'updatespellusable',
         ability: {
@@ -306,7 +306,7 @@ describe('Core/Modules/SpellUsable', () => {
 
       expect(parserMock.fabricateEvent).toHaveBeenCalledTimes(1);
       const call = parserMock.fabricateEvent.mock.calls[0];
-      expect(call[0]).toEqual('updatespellusable');
+      expect(call[0]).toBe('updatespellusable');
       expect(call[1]).toEqual({
         type: 'updatespellusable',
         ability: {
@@ -339,7 +339,7 @@ describe('Core/Modules/SpellUsable', () => {
       expect(parserMock.fabricateEvent).toHaveBeenCalledTimes(2);
       {
         const call = parserMock.fabricateEvent.mock.calls[0];
-        expect(call[0]).toEqual('updatespellusable');
+        expect(call[0]).toBe('updatespellusable');
         expect(call[1]).toEqual({
           type: 'updatespellusable',
           ability: {
@@ -362,7 +362,7 @@ describe('Core/Modules/SpellUsable', () => {
       }
       {
         const call = parserMock.fabricateEvent.mock.calls[1];
-        expect(call[0]).toEqual('updatespellusable');
+        expect(call[0]).toBe('updatespellusable');
         expect(call[1]).toEqual({
           type: 'updatespellusable',
           ability: {
