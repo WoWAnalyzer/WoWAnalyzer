@@ -15,6 +15,15 @@
 .events-tab .ReactVirtualized__Table__row.modified:hover {
   background: rgba(255, 118, 0, 0.4);
 }
+.events-tab .ReactVirtualized__Table__row.fabricated, .fabricated-legend {
+  background: rgba(0, 255, 67, 0.15);
+}
+.events-tab .ReactVirtualized__Table__row:nth-child(2n).fabricated {
+  background: rgba(0, 255, 67, 0.06);
+}
+.events-tab .ReactVirtualized__Table__row.fabricated:hover {
+  background: rgba(0, 255, 67, 0.25);
+}
 .events-tab .exists {
   color: green;
 }

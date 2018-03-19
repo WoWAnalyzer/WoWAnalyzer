@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-03-19'),
+    changes: 'Fabricated events in the events tab are now highlighted with a different color, and optional (hidden by default).',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-03-17'),
     changes: 'Reworked the events tab so it can be used publicly, and made it publicly available.',
     contributors: [Zerotorescue],

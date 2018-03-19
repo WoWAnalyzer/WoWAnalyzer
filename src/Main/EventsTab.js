@@ -103,6 +103,7 @@ class EventsTab extends React.Component {
         return obj;
       }, {}),
       rawNames: false,
+      showFabricated: false,
     };
     this.handleRowClick = this.handleRowClick.bind(this);
   }
@@ -141,13 +142,16 @@ class EventsTab extends React.Component {
     return this.state.rawNames ? type : (FILTERABLE_TYPES[type] ? FILTERABLE_TYPES[type].name : type);
   }
 
-  renderToggle(type) {
+  renderEventTypeToggle(type) {
     const name = this.eventTypeName(type);
     const explanation = FILTERABLE_TYPES[type] ? FILTERABLE_TYPES[type].explanation : undefined;
+    return this.renderToggle(type, name, explanation);
+  }
+  renderToggle(prop, label, explanation = null) {
     return (
       <div className="flex toggle-control">
-        <label className="flex-main" htmlFor={`${type}-toggle`}>
-          {name}
+        <label className="flex-main" htmlFor={`${prop}-toggle`}>
+          {label}
         </label>
         {explanation && (
           <div className="flex-sub" style={{ padding: '0 10px' }}>
@@ -156,14 +160,13 @@ class EventsTab extends React.Component {
             </div>
           </div>
         )}
-        <div className="flex-sub">
-          <Toggle
-            defaultChecked={this.state[type]}
-            icons={false}
-            onChange={event => this.setState({ [type]: event.target.checked })}
-            id={`${type}-toggle`}
-          />
-        </div>
+        <Toggle
+          defaultChecked={this.state[prop]}
+          icons={false}
+          onChange={event => this.setState({ [prop]: event.target.checked })}
+          id={`${prop}-toggle`}
+          className="flex-sub"
+        />
       </div>
     );
   }
@@ -171,7 +174,7 @@ class EventsTab extends React.Component {
     const event = props.rowData;
     return defaultTableRowRenderer({
       ...props,
-      className: `${props.className} ${(event.__fabricated || event.__modified) ? 'modified' : ''}`,
+      className: `${props.className} ${event.__modified ? 'modified' : ''} ${event.__fabricated ? 'fabricated' : ''}`,
     });
   }
   handleRowClick({ rowData }) {
@@ -182,7 +185,15 @@ class EventsTab extends React.Component {
     const { parser } = this.props;
 
     const events = parser.eventHistory
-      .filter(event => this.state[event.type] !== false);
+      .filter(event => {
+        if (this.state[event.type] === false) {
+          return false;
+        }
+        if (!this.state.showFabricated && event.__fabricated === true) {
+          return false;
+        }
+        return true;
+      });
 
     // TODO: Show active buffs like WCL
     // TODO: Allow searching for players by name
@@ -195,20 +206,10 @@ class EventsTab extends React.Component {
             This only includes events involving the selected player.
           </Info>
           <br />
-          {Object.keys(FILTERABLE_TYPES).map(type => this.renderToggle(type))}
+          {Object.keys(FILTERABLE_TYPES).map(type => this.renderEventTypeToggle(type))}
           <br />
-          <div className="flex toggle-control">
-            <label className="flex-main" htmlFor="rawNames-toggle">
-              Raw names
-            </label>
-            <Toggle
-              defaultChecked={this.state.rawNames}
-              icons={false}
-              onChange={event => this.setState({ rawNames: event.target.checked })}
-              id="rawNames-toggle"
-              className="flex-sub"
-            />
-          </div>
+          {this.renderToggle('showFabricated', 'Fabricated events', 'These events were not originally found in the combatlog. They were created by us to fix bugs, inconsistencies, or to provide new functionality. You can recognize these events by their green background.')}
+          {this.renderToggle('rawNames', 'Raw names')}
           <br />
           <div className="modified-legend" style={{ width: 240, padding: 10 }}>
             Events with an orange background were <dfn data-tip="This generally means their order was changed from the original combatlog to fix inconsistencies or bugs, but it may include other modifications.">modified</dfn>.
