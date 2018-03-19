@@ -40,7 +40,7 @@ class BoneShield extends Analyzer {
     this.hasSD = this.combatants.selected.hasTalent(SPELLS.SPECTRAL_DEFLECTION_TALENT.id);
   }
 
-  get BoneShieldAbsorbTooltip() {
+  get boneShieldAbsorbTooltip() {
     if (this.hasSS) {
       const avgCrit = this.totalCrit / this.totalCritChecks;
       this.ssDR = avgCrit * this.SS_DR;
@@ -50,7 +50,7 @@ class BoneShield extends Analyzer {
     return formatNumber((this.totalDamageTaken - this.excludedAbsorbs) * this.boneShieldDR) + " Bone Shield Absorb<br>";
   }
 
-  get SkeletalShatteringTooltip() {
+  get skeletalShatteringTooltip() {
     if (this.hasSS) {
       return "~" + formatNumber((this.totalDamageTaken - this.excludedAbsorbs) * this.ssDR) + " of which was done by the Skeletal Shattering Trait.<br>";
     } else {
@@ -130,8 +130,8 @@ class BoneShield extends Analyzer {
           icon={<SpellIcon id={SPELLS.BONE_SHIELD.id} />}
           value={`${formatPercentage(this.uptime)} %`}
           label="Bone Shield Uptime"
-          tooltip={`~${ this.BoneShieldAbsorbTooltip }
-          ${ this.SkeletalShatteringTooltip }
+          tooltip={`~${ this.boneShieldAbsorbTooltip }
+          ${ this.skeletalShatteringTooltip }
           <b>Those numbers are estimates as it's not possible to track the actual Bone Shield absorb.</b>`}
         />
   
