@@ -17,13 +17,7 @@ class BoneShield extends Analyzer {
   SS_DR = 0.08;
   BONE_SHIELD_DR = 0.16;
 
-  EXCLUDES_ABSORBS = [
-    SPELLS.BLOOD_SHIELD.id,
-    SPELLS.BLOOD_MIRROR_TALENT.id,
-  ];
-
   totalDamageTaken = 0;
-  excludedAbsorbs = 0;
 
   hasSS = false;
   hasSD = false;
@@ -47,12 +41,12 @@ class BoneShield extends Analyzer {
       this.boneShieldDR = this.BONE_SHIELD_DR + this.ssDR;
     }
 
-    return formatNumber((this.totalDamageTaken - this.excludedAbsorbs) * this.boneShieldDR) + " Bone Shield Absorb<br>";
+    return formatNumber(this.totalDamageTaken * this.boneShieldDR) + " Bone Shield Absorb<br>";
   }
 
   get skeletalShatteringTooltip() {
     if (this.hasSS) {
-      return "~" + formatNumber((this.totalDamageTaken - this.excludedAbsorbs) * this.ssDR) + " of which was done by the Skeletal Shattering Trait.<br>";
+      return "On average, Skeletal Shattering would have contributed ~" + formatNumber(this.totalDamageTaken * this.ssDR) + " to this.<br>";
     } else {
       return "";
     }
@@ -76,12 +70,6 @@ class BoneShield extends Analyzer {
     if(!this.combatants.selected.hasBuff(SPELLS.BONE_SHIELD.id)) {
       return;
     }
-
-    this.EXCLUDES_ABSORBS.forEach(elem => {
-      if (event.ability.guid === elem) {
-        this.excludedAbsorbs += event.amount;
-      }
-    });
   }
 
   get uptime() {
