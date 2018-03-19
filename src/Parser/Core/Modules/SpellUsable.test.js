@@ -15,7 +15,7 @@ describe('Core/Modules/SpellUsable', () => {
     abilitiesMock = {
       getExpectedCooldownDuration: jest.fn(() => 7500),
       getMaxCharges: jest.fn(),
-      getAbility: jest.fn((id) => {spell: {id: id}}),
+      getAbility: jest.fn((id) => ({spell: {id: id}})),
     };
 
     instance = new SpellUsable(parserMock, {
@@ -120,7 +120,7 @@ describe('Core/Modules/SpellUsable', () => {
       abilitiesMock.getMaxCharges = jest.fn(() => 2);
       triggerCast(SPELLS.FAKE_SPELL.id);
       parserMock.currentTimestamp = 5000;
-      parserMock.triggerEvent = jest.fn();
+      parserMock.fabricateEvent = jest.fn();
       triggerCast(SPELLS.FAKE_SPELL.id);
 
       // It does NOT report when this happens, as it's normal behavior.
@@ -192,11 +192,14 @@ describe('Core/Modules/SpellUsable', () => {
     it('a new spell going on cooldown triggers an `updatespellusable` event indicating the spell going on cooldown', () => {
       triggerCast(SPELLS.FAKE_SPELL.id);
 
-      expect(parserMock.triggerEvent).toHaveBeenCalledTimes(1);
-      const call = parserMock.triggerEvent.mock.calls[0];
-      expect(call[0]).toEqual({
+      expect(parserMock.fabricateEvent).toHaveBeenCalledTimes(1);
+      const call = parserMock.fabricateEvent.mock.calls[0];
+      expect(call[0]).toEqual('updatespellusable');
+      expect(call[1]).toEqual({
         type: 'updatespellusable',
-        spellId: SPELLS.FAKE_SPELL.id,
+        ability: {
+          guid: SPELLS.FAKE_SPELL.id,
+        },
         timestamp: 0,
         start: 0,
         expectedDuration: 7500,
@@ -214,15 +217,18 @@ describe('Core/Modules/SpellUsable', () => {
     });
     it('casting a spell already on cooldown before the cooldown runs out restarts the cooldown and fires both endcooldown and begincooldown events', () => {
       triggerCast(SPELLS.FAKE_SPELL.id);
-      parserMock.triggerEvent = jest.fn();
+      parserMock.fabricateEvent = jest.fn();
       triggerCast(SPELLS.FAKE_SPELL.id);
 
-      expect(parserMock.triggerEvent).toHaveBeenCalledTimes(2);
+      expect(parserMock.fabricateEvent).toHaveBeenCalledTimes(2);
       {
-        const call = parserMock.triggerEvent.mock.calls[0];
-        expect(call[0]).toEqual({
+        const call = parserMock.fabricateEvent.mock.calls[0];
+        expect(call[0]).toEqual('updatespellusable');
+        expect(call[1]).toEqual({
           type: 'updatespellusable',
-          spellId: SPELLS.FAKE_SPELL.id,
+          ability: {
+            guid: SPELLS.FAKE_SPELL.id,
+          },
           timestamp: 0,
           start: 0,
           end: 0,
@@ -239,10 +245,13 @@ describe('Core/Modules/SpellUsable', () => {
         });
       }
       {
-        const call = parserMock.triggerEvent.mock.calls[1];
-        expect(call[0]).toEqual({
+        const call = parserMock.fabricateEvent.mock.calls[1];
+        expect(call[0]).toEqual('updatespellusable');
+        expect(call[1]).toEqual({
           type: 'updatespellusable',
-          spellId: SPELLS.FAKE_SPELL.id,
+          ability: {
+            guid: SPELLS.FAKE_SPELL.id,
+          },
           timestamp: 0,
           start: 0,
           expectedDuration: 7500,
@@ -262,14 +271,17 @@ describe('Core/Modules/SpellUsable', () => {
     it('using another charge of a spell already on cooldown triggers an `updatespellusable` event indicating the charge going on cooldown', () => {
       abilitiesMock.getMaxCharges = jest.fn(() => 2);
       triggerCast(SPELLS.FAKE_SPELL.id);
-      parserMock.triggerEvent = jest.fn();
+      parserMock.fabricateEvent = jest.fn();
       triggerCast(SPELLS.FAKE_SPELL.id);
 
-      expect(parserMock.triggerEvent).toHaveBeenCalledTimes(1);
-      const call = parserMock.triggerEvent.mock.calls[0];
-      expect(call[0]).toEqual({
+      expect(parserMock.fabricateEvent).toHaveBeenCalledTimes(1);
+      const call = parserMock.fabricateEvent.mock.calls[0];
+      expect(call[0]).toEqual('updatespellusable');
+      expect(call[1]).toEqual({
         type: 'updatespellusable',
-        spellId: SPELLS.FAKE_SPELL.id,
+        ability: {
+          guid: SPELLS.FAKE_SPELL.id,
+        },
         timestamp: 0,
         start: 0,
         expectedDuration: 7500,
@@ -289,14 +301,17 @@ describe('Core/Modules/SpellUsable', () => {
       parserMock.currentTimestamp = 0;
       triggerCast(SPELLS.FAKE_SPELL.id);
       parserMock.currentTimestamp = 10000;
-      parserMock.triggerEvent = jest.fn();
+      parserMock.fabricateEvent = jest.fn();
       triggerCooldownExpiryCheck();
 
-      expect(parserMock.triggerEvent).toHaveBeenCalledTimes(1);
-      const call = parserMock.triggerEvent.mock.calls[0];
-      expect(call[0]).toEqual({
+      expect(parserMock.fabricateEvent).toHaveBeenCalledTimes(1);
+      const call = parserMock.fabricateEvent.mock.calls[0];
+      expect(call[0]).toEqual('updatespellusable');
+      expect(call[1]).toEqual({
         type: 'updatespellusable',
-        spellId: SPELLS.FAKE_SPELL.id,
+        ability: {
+          guid: SPELLS.FAKE_SPELL.id,
+        },
         timestamp: 7500, // it should be simulated at the time of expiry
         start: 0,
         end: 7500,
@@ -318,15 +333,18 @@ describe('Core/Modules/SpellUsable', () => {
       triggerCast(SPELLS.FAKE_SPELL.id);
       triggerCast(SPELLS.FAKE_SPELL.id);
       parserMock.currentTimestamp = 10000;
-      parserMock.triggerEvent = jest.fn();
+      parserMock.fabricateEvent = jest.fn();
       triggerCooldownExpiryCheck();
 
-      expect(parserMock.triggerEvent).toHaveBeenCalledTimes(2);
+      expect(parserMock.fabricateEvent).toHaveBeenCalledTimes(2);
       {
-        const call = parserMock.triggerEvent.mock.calls[0];
-        expect(call[0]).toEqual({
+        const call = parserMock.fabricateEvent.mock.calls[0];
+        expect(call[0]).toEqual('updatespellusable');
+        expect(call[1]).toEqual({
           type: 'updatespellusable',
-          spellId: SPELLS.FAKE_SPELL.id,
+          ability: {
+            guid: SPELLS.FAKE_SPELL.id,
+          },
           timestamp: 7500, // it should be simulated at the time of expiry
           start: 0,
           expectedDuration: 7500,
@@ -343,10 +361,13 @@ describe('Core/Modules/SpellUsable', () => {
         });
       }
       {
-        const call = parserMock.triggerEvent.mock.calls[1];
-        expect(call[0]).toEqual({
+        const call = parserMock.fabricateEvent.mock.calls[1];
+        expect(call[0]).toEqual('updatespellusable');
+        expect(call[1]).toEqual({
           type: 'updatespellusable',
-          spellId: SPELLS.FAKE_SPELL.id,
+          ability: {
+            guid: SPELLS.FAKE_SPELL.id,
+          },
           timestamp: 7500, // it should be simulated at the time of expiry
           start: 7500,
           expectedDuration: 7500,

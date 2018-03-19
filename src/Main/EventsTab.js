@@ -130,11 +130,10 @@ class EventsTab extends React.Component {
       return null;
     }
     const spellId = ability.guid;
-    const exists = !!SPELLS[spellId];
 
     return (
-      <a href={`http://www.wowhead.com/spell=${spellId}`} target="_blank" rel="noopener noreferrer" className={exists ? 'exists' : 'missing'}>
-        <Icon icon={ability.abilityIcon} /> {ability.name}
+      <a href={`http://www.wowhead.com/spell=${spellId}`} target="_blank" rel="noopener noreferrer">
+        {ability.abilityIcon && <Icon icon={ability.abilityIcon} />} {ability.name}
       </a>
     );
   }
@@ -149,7 +148,7 @@ class EventsTab extends React.Component {
   }
   renderToggle(prop, label, explanation = null) {
     return (
-      <div className="flex toggle-control">
+      <div key={prop} className="flex toggle-control">
         <label className="flex-main" htmlFor={`${prop}-toggle`}>
           {label}
         </label>

@@ -146,16 +146,14 @@ class Entities extends Analyzer {
   _triggerChangeBuffStack(buff, timestamp, oldStacks, newStacks) {
     const type = buff.isDebuff ? 'changedebuffstack' : 'changebuffstack';
 
-    this.owner.triggerEvent({
+    this.owner.fabricateEvent(type, {
       ...buff,
       timestamp,
-      type,
       oldStacks,
       newStacks,
       stacksGained: newStacks - oldStacks,
       stack: undefined,
-      __fabricated: true,
-    });
+    }, buff);
   }
 
   // Surely this can be done with a couple less loops???

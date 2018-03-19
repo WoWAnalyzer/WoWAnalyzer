@@ -201,8 +201,6 @@ class Haste extends Analyzer {
   }
   _triggerChangeHaste(event, oldHaste, newHaste) {
     const fabricatedEvent = {
-      timestamp: event ? event.timestamp : this.owner.currentTimestamp,
-      type: 'changehaste',
       sourceID: event ? event.sourceID : this.owner.playerId,
       targetID: this.owner.playerId,
       reason: event,
@@ -210,7 +208,7 @@ class Haste extends Analyzer {
       newHaste,
     };
     debug && console.log('changehaste', fabricatedEvent);
-    this.owner.triggerEvent(fabricatedEvent);
+    this.owner.fabricateEvent('changehaste', fabricatedEvent, event);
   }
 
   static addHaste(baseHaste, hasteGain) {

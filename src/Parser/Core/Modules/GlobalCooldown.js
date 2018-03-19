@@ -75,7 +75,7 @@ class GlobalCooldown extends Analyzer {
     // Cancelled casts reset the GCD (only for cast-time spells, "channels" always have a GCD but they also can't be *cancelled*, just ended early)
     const isCancelled = event.reason.isCancelled;
     if (isOnGcd && !isCancelled) {
-      this.triggerGlobalCooldown(event, 'begincast');
+      this.triggerGlobalCooldown(event);
     }
   }
   /**
@@ -101,25 +101,22 @@ class GlobalCooldown extends Analyzer {
       // The GCD occured already at the start of this channel
       return;
     }
-    this.triggerGlobalCooldown(event, 'cast');
+    this.triggerGlobalCooldown(event);
   }
 
   /**
    * Trigger a `globalcooldown`-event at this timestamp for the `ability` in the provided event.
    * @param event
-   * @param trigger Either 'begincast' or 'cast', `begincast` are ignored in AlwaysBeCasting so that the channel time can be used instead (if it's higher than the GCD).
    */
-  triggerGlobalCooldown(event, trigger) {
-    this.owner.triggerEvent({
-      type: 'globalcooldown',
+  triggerGlobalCooldown(event) {
+    this.owner.fabricateEvent('globalcooldown', {
       ability: event.ability,
       sourceID: event.sourceID,
       targetID: event.sourceID, // no guarantees the original targetID is the player
       timestamp: event.timestamp,
       duration: this.getCurrentGlobalCooldown(event.ability.guid),
       reason: event,
-      trigger,
-    });
+    }, event);
   }
   /**
    * Returns the current Global Cooldown duration in milliseconds for the specified spell (some spells have custom GCDs).

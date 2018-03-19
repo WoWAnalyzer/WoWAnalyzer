@@ -2,7 +2,7 @@ import React from 'react';
 
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS';
-import { formatNumber, formatPercentage, formatDuration } from 'common/format';
+import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import Wrapper from 'common/Wrapper';
 import SpellIcon from 'common/SpellIcon';
 
@@ -41,87 +41,88 @@ class RuneTracker extends ResourceTracker {
   _runesReadySum; //time spent at each rune. _runesReadySum[1] is time spent at one rune available.
   _lastTimestamp; //used to find time since last rune change for the _runesReadySum
 
-  on_initialized(){
+  on_initialized() {
     this.resource = RESOURCE_TYPES.RUNES;
     this._lastTimestamp = this.owner.fight.start_time;
     this._runesReadySum = [MAX_RUNES + 1];
-    for(let i = 0; i <= MAX_RUNES; i++){
+    for (let i = 0; i <= MAX_RUNES; i++) {
       this._runesReadySum[i] = 0;
     }
   }
-  on_finished(){ //add a last event for calculating uptimes and make the chart not end early.
+  on_finished() { //add a last event for calculating uptimes and make the chart not end early.
     const runesAvailable = this.runesAvailable;
-    this.runesReady.push({ x: this.owner.fightDuration, y: runesAvailable});
+    this.runesReady.push({ x: this.owner.fightDuration, y: runesAvailable });
     this._runesReadySum[runesAvailable] += this.owner.fight.end_time - this._lastTimestamp;
     this.addPassiveRuneRegeneration();
   }
-  on_byPlayer_cast(event){
+  on_byPlayer_cast(event) {
     super.on_byPlayer_cast(event);
-    if(!event.classResources){
+    if (!event.classResources) {
       return;
     }
-  	event.classResources
+    event.classResources
       .filter(resource => resource.type === this.resource.id)
       .forEach(({ amount, cost }) => {
         let runeCost = cost || 0;
         //adjust for resource cost reduction
-        if(event.ability.guid === SPELLS.OBLITERATE_CAST.id && this.combatants.selected.hasBuff(SPELLS.OBLITERATION_TALENT.id)){
+        if (event.ability.guid === SPELLS.OBLITERATE_CAST.id && this.combatants.selected.hasBuff(SPELLS.OBLITERATION_TALENT.id)) {
           runeCost -= 1;
         }
-        if(runeCost <= 0){
+        if (runeCost <= 0) {
           return;
         }
-      	for(let i = 0; i < runeCost; i++){ //start rune cooldown
-      		this.startCooldown();
-      	}
+        for (let i = 0; i < runeCost; i++) { //start rune cooldown
+          this.startCooldown();
+        }
       });
   }
-  on_toPlayer_energize(event){ //add a charge to the rune with the longest remaining cooldown when a rune is refunded.
+  on_toPlayer_energize(event) { //add a charge to the rune with the longest remaining cooldown when a rune is refunded.
     super.on_toPlayer_energize(event);
-    if(event.resourceChangeType !== this.resource.id){
+    if (event.resourceChangeType !== this.resource.id) {
       return;
     }
     const amount = event.resourceChange;
-    for(let i = 0; i < amount; i++){
+    for (let i = 0; i < amount; i++) {
       this.addCharge();
     }
   }
-  on_toPlayer_applybuff(event){ //decrease cooldown when a buff that increases rune regeneration rate is applied.
-    if(event.ability.guid === SPELLS.RUNIC_CORRUPTION.id){
+  on_toPlayer_applybuff(event) { //decrease cooldown when a buff that increases rune regeneration rate is applied.
+    if (event.ability.guid === SPELLS.RUNIC_CORRUPTION.id) {
       const multiplier = 1 / (1 + RUNIC_CORRUPTION_INCREASE);
-      RUNE_IDS.forEach((spellId) => {
+      RUNE_IDS.forEach(spellId => {
         this.changeCooldown(spellId, multiplier);
       });
     }
-    if(event.ability.guid === SPELLS.RUNE_MASTER.id){
+    if (event.ability.guid === SPELLS.RUNE_MASTER.id) {
       const multiplier = 1 / (1 + RUNE_MASTER_INCREASE);
-      RUNE_IDS.forEach((spellId) => {
+      RUNE_IDS.forEach(spellId => {
         this.changeCooldown(spellId, multiplier);
       });
     }
   }
-  on_toPlayer_removebuff(event){ //increase cooldown when a buff that increases rune regeneration rate fades.
-    if(event.ability.guid === SPELLS.RUNIC_CORRUPTION.id){
+  on_toPlayer_removebuff(event) { //increase cooldown when a buff that increases rune regeneration rate fades.
+    if (event.ability.guid === SPELLS.RUNIC_CORRUPTION.id) {
       const multiplier = 1 + RUNIC_CORRUPTION_INCREASE;
-      RUNE_IDS.forEach((spellId) => {
+      RUNE_IDS.forEach(spellId => {
         this.changeCooldown(spellId, multiplier);
       });
     }
-    if(event.ability.guid === SPELLS.RUNE_MASTER.id){
+    if (event.ability.guid === SPELLS.RUNE_MASTER.id) {
       const multiplier = 1 + RUNE_MASTER_INCREASE;
-      RUNE_IDS.forEach((spellId) => {
+      RUNE_IDS.forEach(spellId => {
         this.changeCooldown(spellId, multiplier);
       });
     }
   }
-  on_updatespellusable(event){ //track when a rune comes off cooldown
-    if(!RUNE_IDS.includes(event.spellId)){
+  on_updatespellusable(event) { //track when a rune comes off cooldown
+    const spellId = event.ability.guid;
+    if (!RUNE_IDS.includes(spellId)) {
       return;
     }
     let change = 0;
-    if(event.trigger === 'endcooldown' || event.trigger === 'restorecharge'){ //gained a rune
+    if (event.trigger === 'endcooldown' || event.trigger === 'restorecharge') { //gained a rune
       change += 1;
-    } else if(event.trigger === 'begincooldown' || event.trigger === 'addcooldowncharge'){ //spent a rune
+    } else if (event.trigger === 'begincooldown' || event.trigger === 'addcooldowncharge') { //spent a rune
       change -= 1;
     } else { //no change
       return;
@@ -130,14 +131,14 @@ class RuneTracker extends ResourceTracker {
     this._runesReadySum[this.runesAvailable - change] += event.timestamp - this._lastTimestamp;
     this._lastTimestamp = event.timestamp;
     //Adding two points to the rune chart, one at {time, lastRuneCount} and one at {time, newRuneCount} so the chart does not have diagonal lines.
-    this.runesReady.push({ x: this.timeFromStart(event.timestamp), y: this.runesAvailable - change});
-    this.runesReady.push({ x: this.timeFromStart(event.timestamp), y: this.runesAvailable});
+    this.runesReady.push({ x: this.timeFromStart(event.timestamp), y: this.runesAvailable - change });
+    this.runesReady.push({ x: this.timeFromStart(event.timestamp), y: this.runesAvailable });
   }
 
-  addPassiveRuneRegeneration(){ //add passive rune regeneration and RC/4p21blood
+  addPassiveRuneRegeneration() { //add passive rune regeneration and RC/4p21blood
     let passiveRunesGained = this.runesMaxCasts - this.runesWasted - MAX_RUNES; //subtracts wasted and starting runes
     let passiveRunesWasted = this.runesWasted; //wasted from passive regeneration
-    for(const builder in this.buildersObj){ //subtract gained from energize events
+    for (const builder in this.buildersObj) { //subtract gained from energize events
       passiveRunesGained -= this.buildersObj[builder].generated;
     }
     //add runic corruption gained (and subtract it from passive regn)
@@ -154,10 +155,10 @@ class RuneTracker extends ResourceTracker {
     this.buildersObj[SPELLS.RUNE_1.id].wasted += Math.round(passiveRunesWasted);
   }
 
-  addPassiveAccelerator(spellId, gained, wasted, increase){ //used to add passive rune gain accelerators like Runic Corruption
+  addPassiveAccelerator(spellId, gained, wasted, increase) { //used to add passive rune gain accelerators like Runic Corruption
     //use uptime to get approximate contribution to passive regeneration
     const uptime = this.combatants.selected.getBuffUptime(spellId) / this.owner.fightDuration;
-    if(!uptime > 0){
+    if (!uptime > 0) {
       return 0;
     }
     this.initBuilderAbility(spellId);
@@ -169,8 +170,8 @@ class RuneTracker extends ResourceTracker {
     return contribution;
   }
 
-  changeCooldown(spellId, multiplier){ //increases or decreases rune cooldown
-    if(!this.spellUsable.isOnCooldown(spellId)){
+  changeCooldown(spellId, multiplier) { //increases or decreases rune cooldown
+    if (!this.spellUsable.isOnCooldown(spellId)) {
       return;
     }
     const remainingCooldown = this.spellUsable.cooldownRemaining(spellId);
@@ -179,99 +180,98 @@ class RuneTracker extends ResourceTracker {
     this.spellUsable.reduceCooldown(spellId, reduction);
   }
 
-  addCharge(){
+  addCharge() {
     const runeId = this.longestCooldown;
-    if(!this.spellUsable.isOnCooldown(runeId)){
+    if (!this.spellUsable.isOnCooldown(runeId)) {
       return;
     }
     const expectedCooldown = this.abilities.getExpectedCooldownDuration(runeId);
     this.spellUsable.reduceCooldown(runeId, expectedCooldown);
   }
 
-  startCooldown(){
-  	const runeId = this.shortestCooldown;
-  	this.spellUsable.beginCooldown(runeId);
+  startCooldown() {
+    const runeId = this.shortestCooldown;
+    this.spellUsable.beginCooldown(runeId);
   }
 
-  get shortestCooldown(){
-  	const runeOneCooldown = this.getCooldown(SPELLS.RUNE_1.id) || 0;
-  	const runeTwoCooldown = this.getCooldown(SPELLS.RUNE_2.id) || 0;
-  	const runeThreeCooldown = this.getCooldown(SPELLS.RUNE_3.id) || 0;
-  	if(runeOneCooldown <= runeTwoCooldown && runeOneCooldown <= runeThreeCooldown){
-  		return SPELLS.RUNE_1.id;
-  	}
-  	else if(runeTwoCooldown <= runeThreeCooldown){
-  		return SPELLS.RUNE_2.id;
-  	} else {
-      return SPELLS.RUNE_3.id;
-    }
-  }
-
-  get longestCooldown(){
+  get shortestCooldown() {
     const runeOneCooldown = this.getCooldown(SPELLS.RUNE_1.id) || 0;
     const runeTwoCooldown = this.getCooldown(SPELLS.RUNE_2.id) || 0;
     const runeThreeCooldown = this.getCooldown(SPELLS.RUNE_3.id) || 0;
-    if(runeOneCooldown >= runeTwoCooldown && runeOneCooldown >= runeThreeCooldown){
+    if (runeOneCooldown <= runeTwoCooldown && runeOneCooldown <= runeThreeCooldown) {
       return SPELLS.RUNE_1.id;
     }
-    else if(runeTwoCooldown >= runeThreeCooldown){
+    else if (runeTwoCooldown <= runeThreeCooldown) {
       return SPELLS.RUNE_2.id;
     } else {
       return SPELLS.RUNE_3.id;
     }
   }
 
-  get runesAvailable(){
+  get longestCooldown() {
+    const runeOneCooldown = this.getCooldown(SPELLS.RUNE_1.id) || 0;
+    const runeTwoCooldown = this.getCooldown(SPELLS.RUNE_2.id) || 0;
+    const runeThreeCooldown = this.getCooldown(SPELLS.RUNE_3.id) || 0;
+    if (runeOneCooldown >= runeTwoCooldown && runeOneCooldown >= runeThreeCooldown) {
+      return SPELLS.RUNE_1.id;
+    }
+    else if (runeTwoCooldown >= runeThreeCooldown) {
+      return SPELLS.RUNE_2.id;
+    } else {
+      return SPELLS.RUNE_3.id;
+    }
+  }
+
+  get runesAvailable() {
     let chargesAvailable = 0;
-    RUNE_IDS.forEach((spellId) => {
+    RUNE_IDS.forEach(spellId => {
       chargesAvailable += this.spellUsable.chargesAvailable(spellId);
     });
     return chargesAvailable;
   }
 
-  getCooldown(spellId){
-  	if(!this.spellUsable.isOnCooldown(spellId)){
-  		return null;
-  	}
-  	const chargesOnCooldown = 2 - this.spellUsable.chargesAvailable(spellId);
-  	const cooldownRemaining = this.spellUsable.cooldownRemaining(spellId);
-  	const fullChargeCooldown = this.abilities.getExpectedCooldownDuration(spellId);
+  getCooldown(spellId) {
+    if (!this.spellUsable.isOnCooldown(spellId)) {
+      return null;
+    }
+    const chargesOnCooldown = 2 - this.spellUsable.chargesAvailable(spellId);
+    const cooldownRemaining = this.spellUsable.cooldownRemaining(spellId);
+    const fullChargeCooldown = this.abilities.getExpectedCooldownDuration(spellId);
     return (chargesOnCooldown - 1) * fullChargeCooldown + cooldownRemaining;
   }
 
-  get runeEfficiency(){
+  get runeEfficiency() {
     const runeCastEfficiencies = [];
-    RUNE_IDS.forEach((spellId) => {
-        runeCastEfficiencies.push(this.castEfficiency.getCastEfficiencyForSpellId(spellId).efficiency);
-      });
+    RUNE_IDS.forEach(spellId => {
+      runeCastEfficiencies.push(this.castEfficiency.getCastEfficiencyForSpellId(spellId).efficiency);
+    });
     return runeCastEfficiencies.reduce((accumulator, currentValue) => accumulator + currentValue) / runeCastEfficiencies.length;
   }
 
-  get runesMaxCasts(){
+  get runesMaxCasts() {
     const runeMaxCasts = [];
-    RUNE_IDS.forEach((spellId) => {
-        runeMaxCasts.push(this.castEfficiency.getCastEfficiencyForSpellId(spellId).maxCasts);
-      });
+    RUNE_IDS.forEach(spellId => {
+      runeMaxCasts.push(this.castEfficiency.getCastEfficiencyForSpellId(spellId).maxCasts);
+    });
     const totalCasts = runeMaxCasts.reduce((accumulator, currentValue) => accumulator + currentValue);
     return totalCasts;
   }
 
-  get runesWasted(){
+  get runesWasted() {
     return this.runesMaxCasts * (1 - this.runeEfficiency);
   }
 
-  get timeSpentAtRuneCount(){
+  get timeSpentAtRuneCount() {
     const timeSpentAtRune = [];
-    this._runesReadySum.forEach((time) =>{
+    this._runesReadySum.forEach((time) => {
       timeSpentAtRune.push(time / this.owner.fightDuration);
     });
     return timeSpentAtRune;
   }
 
-  timeFromStart(timestamp){
+  timeFromStart(timestamp) {
     return (timestamp - this.owner.fight.start_time) / 1000;
   }
-
 
   get suggestionThresholds() {
     return {
@@ -320,7 +320,7 @@ class RuneTracker extends ResourceTracker {
           The table below shows the time spent at any given number of runes available.
         `}
       >
-      <table className="table table-condensed">
+        <table className="table table-condensed">
           <thead>
             <tr>
               <th>Runes</th>
@@ -332,18 +332,18 @@ class RuneTracker extends ResourceTracker {
             { //split into good and bad number of runes available
               this._runesReadySum.filter((value, index) => index < badThreshold).map((value, index) => (
                 <tr>
-                  <th>{ index }</th>
-                  <td>{ formatDuration(this._runesReadySum[index]/1000) }</td>
-                  <td>{ formatPercentage(timeSpentAtRuneCount[index]) }%</td>
+                  <th>{index}</th>
+                  <td>{formatDuration(this._runesReadySum[index] / 1000)}</td>
+                  <td>{formatPercentage(timeSpentAtRuneCount[index])}%</td>
                 </tr>
               ))
             }
             {
               this._runesReadySum.filter((value, index) => index >= badThreshold).map((value, index) => (
                 <tr>
-                  <th style={{color:'red'}}>{ index + badThreshold }</th>
-                  <td>{ formatDuration(this._runesReadySum[index + badThreshold]/1000) }</td>
-                  <td>{ formatPercentage(timeSpentAtRuneCount[index + badThreshold]) }%</td>
+                  <th style={{ color: 'red' }}>{index + badThreshold}</th>
+                  <td>{formatDuration(this._runesReadySum[index + badThreshold] / 1000)}</td>
+                  <td>{formatPercentage(timeSpentAtRuneCount[index + badThreshold])}%</td>
                 </tr>
               ))
             }

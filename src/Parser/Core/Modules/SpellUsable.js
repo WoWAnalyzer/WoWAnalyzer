@@ -223,7 +223,9 @@ class SpellUsable extends Analyzer {
     const maxCharges = this.abilities.getMaxCharges(spellId) || 1;
     return {
       type: 'updatespellusable',
-      spellId,
+      ability: {
+        guid: spellId,
+      },
       trigger,
       timestamp,
       isOnCooldown: this.isOnCooldown(spellId),
@@ -239,7 +241,7 @@ class SpellUsable extends Analyzer {
   }
   _triggerEvent(event) {
     if (debug) {
-      const spellId = event.spellId;
+      const spellId = event.ability.guid;
       const fightDuration = formatMilliseconds(event.timestamp - this.owner.fight.start_time);
       switch (event.trigger) {
         case 'begincooldown':
@@ -261,7 +263,7 @@ class SpellUsable extends Analyzer {
       }
     }
 
-    this.owner.triggerEvent(event);
+    this.owner.fabricateEvent(event.type, event);
   }
 
   on_byPlayer_cast(event) {

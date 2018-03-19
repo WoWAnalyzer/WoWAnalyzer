@@ -397,11 +397,7 @@ class CombatLogParser {
     this.triggerInitialized();
   }
   triggerInitialized() {
-    this.triggerEvent({
-      type: 'initialized',
-      timestamp: this.currentTimestamp,
-      __fabricated: true,
-    });
+    this.fabricateEvent('initialized');
   }
   parseEvents(events) {
     events.forEach(event => {
@@ -460,13 +456,13 @@ class CombatLogParser {
   }
   fabricateEvent(eventName, event = null, triggeredBy = null, ...args) {
     this.triggerEvent({
-      type: eventName,
-      __fabricated: true,
       timestamp: triggeredBy ? triggeredBy.timestamp : this.currentTimestamp,
       sourceID: triggeredBy ? triggeredBy.sourceID : undefined,
       targetID: triggeredBy ? triggeredBy.targetID : undefined,
       trigger: triggeredBy ? triggeredBy : undefined,
       ...event,
+      type: eventName,
+      __fabricated: true,
     }, ...args);
   }
 
