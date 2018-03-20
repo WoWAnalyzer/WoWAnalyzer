@@ -109,7 +109,8 @@ class GlobalCooldown extends Analyzer {
    * @param event
    */
   triggerGlobalCooldown(event) {
-    this.owner.fabricateEvent('globalcooldown', {
+    this.owner.fabricateEvent({
+      type: 'globalcooldown',
       ability: event.ability,
       sourceID: event.sourceID,
       targetID: event.sourceID, // no guarantees the original targetID is the player

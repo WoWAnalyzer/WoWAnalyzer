@@ -30,7 +30,12 @@ class BeaconTargets extends Analyzer {
     if (!this.currentBeaconTargets.includes(targetId)) {
       this.currentBeaconTargets.push(targetId);
       debug && console.log(`%c${this.combatants.players[targetId].name} gained a beacon`, 'color:green', this.currentBeaconTargets);
-      this.owner.fabricateEvent('beacon_changed', null, event);
+      this.owner.fabricateEvent({
+        type: 'beacon_applied',
+        timestamp: event.timestamp,
+        sourceID: event.sourceID,
+        targetID: event.targetID,
+      }, event);
     } else {
       debug && console.error(`Trying to assign a beacon to ${this.combatants.players[event.sourceID].name}, but he already has one.`, this.currentBeaconTargets);
     }
@@ -43,7 +48,12 @@ class BeaconTargets extends Analyzer {
     const targetId = event.targetID;
     this.currentBeaconTargets = this.currentBeaconTargets.filter(id => id !== targetId);
     debug && console.log(`%c${this.combatants.players[targetId].name} lost a beacon`, 'color:red', this.currentBeaconTargets);
-    this.owner.fabricateEvent('beacon_changed', null, event);
+    this.owner.fabricateEvent({
+      type: 'beacon_removed',
+      timestamp: event.timestamp,
+      sourceID: event.sourceID,
+      targetID: event.targetID,
+    }, event);
   }
 }
 

@@ -397,7 +397,9 @@ class CombatLogParser {
     this.triggerInitialized();
   }
   triggerInitialized() {
-    this.fabricateEvent('initialized');
+    this.fabricateEvent({
+      type: 'initialized',
+    });
   }
   parseEvents(events) {
     events.forEach(event => {
@@ -454,14 +456,13 @@ class CombatLogParser {
       });
     this.eventCount += 1;
   }
-  fabricateEvent(eventName, event = null, triggeredBy = null, ...args) {
+  fabricateEvent(event = null, trigger = null, ...args) {
     this.triggerEvent({
-      timestamp: triggeredBy ? triggeredBy.timestamp : this.currentTimestamp,
-      sourceID: triggeredBy ? triggeredBy.sourceID : undefined,
-      targetID: triggeredBy ? triggeredBy.targetID : undefined,
-      trigger: triggeredBy ? triggeredBy : undefined,
+      // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
+      timestamp: this.currentTimestamp,
+      // If this event was triggered you should pass it along
+      trigger: trigger ? trigger : undefined,
       ...event,
-      type: eventName,
       __fabricated: true,
     }, ...args);
   }

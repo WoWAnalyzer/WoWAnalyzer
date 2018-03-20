@@ -610,7 +610,8 @@ class StatTracker extends Analyzer {
    * Fabricates an event indicating when stats change
    */
   _triggerChangeStats(event, before, delta, after) {
-    this.owner.fabricateEvent('changestats', {
+    this.owner.fabricateEvent({
+      type: 'changestats',
       sourceID: event ? event.sourceID : this.owner.playerId,
       targetID: this.owner.playerId,
       reason: event,

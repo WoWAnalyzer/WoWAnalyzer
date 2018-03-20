@@ -144,10 +144,9 @@ class Entities extends Analyzer {
    * This event is also fired for `removebuff` where `oldStacks` will be either the old stacks (if there were multiple) or 1 and `newStacks` will be 0. NOTE: This event is usually fired before the `removebuff` event!
    */
   _triggerChangeBuffStack(buff, timestamp, oldStacks, newStacks) {
-    const type = buff.isDebuff ? 'changedebuffstack' : 'changebuffstack';
-
-    this.owner.fabricateEvent(type, {
+    this.owner.fabricateEvent({
       ...buff,
+      type: buff.isDebuff ? 'changedebuffstack' : 'changebuffstack',
       timestamp,
       oldStacks,
       newStacks,

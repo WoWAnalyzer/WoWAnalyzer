@@ -263,7 +263,7 @@ class SpellUsable extends Analyzer {
       }
     }
 
-    this.owner.fabricateEvent(event.type, event);
+    this.owner.fabricateEvent(event);
   }
 
   on_byPlayer_cast(event) {

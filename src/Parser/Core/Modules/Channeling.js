@@ -49,7 +49,8 @@ class Channeling extends Analyzer {
     debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Channeling', 'Ending channel of', ability.name);
   }
   cancelChannel(event, ability) {
-    this.owner.fabricateEvent('cancelchannel', {
+    this.owner.fabricateEvent({
+      type: 'cancelchannel',
       ability,
       sourceID: event.sourceID,
       targetID: event.sourceID,
