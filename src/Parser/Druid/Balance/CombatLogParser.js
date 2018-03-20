@@ -17,7 +17,7 @@ import StellarFlareUptime from './Modules/Features/StellarFlareUptime';
 import MoonSpells from './Modules/Features/MoonSpells';
 import UnempoweredLunarStrike from './Modules/Features/UnempoweredLunarStrike';
 import UnempoweredSolarWrath from './Modules/Features/UnempoweredSolarWrath';
-import L90_talents from './Modules/Features/L90_talents';
+import L90Talents from './Modules/Features/L90Talents';
 
 
 //Resources
@@ -57,7 +57,7 @@ class CombatLogParser extends MainCombatLogParser {
     moonSpells: MoonSpells,
     unempoweredLunarStrike: UnempoweredLunarStrike,
     unempoweredSolarWrath: UnempoweredSolarWrath,
-    l90_talents: L90_talents,
+    l90Talents: L90Talents,
 
     //Resources
     astralPowerTracker: AstralPowerTracker,
