@@ -33,10 +33,10 @@ class SpellUsable extends Analyzer {
    */
   _getCanonicalId(spellId) {
     const ability = this.abilities.getAbility(spellId);
-    if(!ability) {
+    if (!ability) {
       return spellId; // not a class ability
     }
-    if(ability.spell instanceof Array) {
+    if (ability.spell instanceof Array) {
       return ability.spell[0].id;
     } else {
       return ability.spell.id;
@@ -167,7 +167,7 @@ class SpellUsable extends Analyzer {
       this._triggerEvent(this._makeEvent(canSpellId, timestamp, 'restorecharge', cooldown));
       this.refreshCooldown(canSpellId, timestamp);
       if (remainingCDR !== 0) {
-        return this.reduceCooldown(canSpellId,remainingCDR,timestamp);
+        return this.reduceCooldown(canSpellId, remainingCDR, timestamp);
       }
     }
   }
@@ -175,7 +175,7 @@ class SpellUsable extends Analyzer {
    * Refresh (restart) the cooldown for the provided spell.
    * @param {number} spellId The ID of the spell.
    * @param {number} timestamp Override the timestamp if it may be different from the current timestamp.
-    calculated like normal.
+   calculated like normal.
    */
   refreshCooldown(spellId, timestamp = this.owner.currentTimestamp) {
     const canSpellId = this._getCanonicalId(spellId);
@@ -259,7 +259,8 @@ class SpellUsable extends Analyzer {
         case 'endcooldown':
           console.log(fightDuration, 'SpellUsable', 'Cooldown finished:', spellName(spellId), spellId);
           break;
-        default: break;
+        default:
+          break;
       }
     }
 

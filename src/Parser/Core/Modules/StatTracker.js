@@ -614,7 +614,6 @@ class StatTracker extends Analyzer {
       type: 'changestats',
       sourceID: event ? event.sourceID : this.owner.playerId,
       targetID: this.owner.playerId,
-      reason: event,
       before,
       delta,
       after,

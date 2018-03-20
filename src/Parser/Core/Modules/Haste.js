@@ -93,7 +93,7 @@ class Haste extends Analyzer {
     this._setHaste(event, newHastePercentage);
 
     if (debug) {
-      const spellName = event.reason.ability ? event.reason.ability.name : 'unknown';
+      const spellName = event.trigger.ability ? event.trigger.ability.name : 'unknown';
       console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (haste RATING changed by ${event.delta.haste} from ${spellName})`);
     }
   }
@@ -204,7 +204,6 @@ class Haste extends Analyzer {
       type: 'changehaste',
       sourceID: event ? event.sourceID : this.owner.playerId,
       targetID: this.owner.playerId,
-      reason: event,
       oldHaste,
       newHaste,
     };
