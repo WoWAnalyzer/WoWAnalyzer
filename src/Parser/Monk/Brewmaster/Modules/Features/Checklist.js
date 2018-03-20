@@ -23,7 +23,7 @@ class Checklist extends CoreChecklist {
     new Rule({
       name: (
         <Wrapper>
-          Maintain 100% uptime on <SpellLink id={SPELLS.IRONSKIN_BREW.id} icon />.
+          Mitigate damage with <SpellLink id={SPELLS.IRONSKIN_BREW.id} icon />.
         </Wrapper>
       ),
       description: (
@@ -43,7 +43,7 @@ class Checklist extends CoreChecklist {
     new Rule({
       name: (
         <Wrapper>
-          Maintain 100% uptime on <SpellLink id={SPELLS.BREATH_OF_FIRE.id} icon />.
+          Mitigate damage with <SpellLink id={SPELLS.BREATH_OF_FIRE.id} icon />.
         </Wrapper>
       ),
       description: (
@@ -54,7 +54,7 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: 'Breath of Fire uptime',
+            name: 'Hits mitigated by Breath of Fire',
             check: () => this.bof.suggestionThreshold,
           }),
         ];

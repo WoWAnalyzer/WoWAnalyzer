@@ -7,6 +7,9 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
+import ABILITY_BLACKLIST from '../Constants/AbilityBlacklist';
+
+const DEBUG_ABILITIES = true;
 
 class BreathOfFire extends Analyzer {
   static dependencies = {
@@ -14,13 +17,20 @@ class BreathOfFire extends Analyzer {
     enemies: Enemies,
   };
 
+  hitsWithBoF = 0;
+  hitsWithoutBoF = 0;
+
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.BREATH_OF_FIRE_DEBUFF.id) / this.owner.fightDuration;
   }
 
+  get mitigatedHits() {
+    return this.hitsWithBoF / (this.hitsWithBoF + this.hitsWithoutBoF);
+  }
+
   get suggestionThreshold() {
     return {
-      actual: this.uptime,
+      actual: this.mitigatedHits,
       isLessThan: {
         minor: 0.95,
         average: 0.90,
@@ -28,6 +38,19 @@ class BreathOfFire extends Analyzer {
       },
       style: 'percentage',
     };
+  }
+
+  on_toPlayer_damage(event) {
+    if(event.ability.guid === SPELLS.STAGGER_TAKEN.id || ABILITY_BLACKLIST.includes(event.ability.guid) || !(event.sourceID in this.enemies.getEntities())) {
+      return; // either stagger or not a notable entity (e.g. imonar traps, environment damage) or an ability we want to ignore
+    }
+
+    if(this.enemies.enemies[event.sourceID].hasBuff(SPELLS.BREATH_OF_FIRE_DEBUFF.id)) {
+      this.hitsWithBoF += 1;
+    } else {
+      if(DEBUG_ABILITIES) { console.log('hit w/o bof', event); }
+      this.hitsWithoutBoF += 1;
+    }
   }
 
   suggestions(when) {

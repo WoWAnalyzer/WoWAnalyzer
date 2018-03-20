@@ -9,6 +9,7 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SharedBrews from '../Core/SharedBrews';
+import ABILITY_BLACKLIST from '../Constants/AbilityBlacklist';
 
 const debug = false;
 
@@ -85,7 +86,7 @@ class IronSkinBrew extends Analyzer {
   }
 
   on_toPlayer_damage(event) {
-    if(event.ability.guid === SPELLS.STAGGER_TAKEN.id || !(event.sourceID in this.enemies.getEntities())) {
+    if(event.ability.guid === SPELLS.STAGGER_TAKEN.id || !(event.sourceID in this.enemies.getEntities()) || ABILITY_BLACKLIST.includes(event.ability.guid)) {
       return; // either stagger or not a notable entity (e.g. imonar traps, environment damage)
     }
 
@@ -135,9 +136,9 @@ class IronSkinBrew extends Analyzer {
     return {
       actual: this.hitsWithIronSkinBrew / (this.hitsWithIronSkinBrew + this.hitsWithoutIronSkinBrew),
       isLessThan: {
-        minor: 0.99,
-        average: 0.98,
-        major: 0.95,
+        minor: 0.98,
+        average: 0.96,
+        major: 0.94,
       },
       style: 'percentage',
     };
