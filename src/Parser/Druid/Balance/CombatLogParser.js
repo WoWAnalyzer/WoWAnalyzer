@@ -27,7 +27,7 @@ import AstralPowerTracker from './Modules/ResourceTracker/AstralPowerTracker';
 //Items
 import TheEmeraldDreamcatcher from './Modules/Items/TheEmeraldDreamcatcher';
 import ImpeccableFelEssence from './Modules/Items/ImpeccableFelEssence';
-import SoulOfTheArchdruid from './Modules/Items/SoulOfTheArchdruid';
+import SoulOfTheArchdruid from '../Shared/Modules/Items/SoulOfTheArchdruid';
 import LadyAndTheChild from './Modules/Items/LadyAndTheChild';
 import OnethsIntuition from './Modules/Items/OnethsIntuition';
 import PromiseOfElune from './Modules/Items/PromiseOfElune';
