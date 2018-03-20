@@ -9,7 +9,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import ABILITY_BLACKLIST from '../Constants/AbilityBlacklist';
 
-const DEBUG_ABILITIES = true;
+const DEBUG_ABILITIES = false;
 
 class BreathOfFire extends Analyzer {
   static dependencies = {
