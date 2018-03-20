@@ -70,7 +70,7 @@ class ResourceBreakdown extends React.Component {
                     <SpellLink id={ability.abilityId} />
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                    <dfn data-tip={`${formatPercentage(ability.generated / totalGenerated)} %`}>{ability.generated}</dfn>
+                    <dfn data-tip={`${formatPercentage(ability.generated / totalGenerated)} %`}>{ability.generated.toFixed(0)}</dfn>
                   </td>
                   <td style={{ width: '40%' }}>
                     <div
@@ -79,7 +79,7 @@ class ResourceBreakdown extends React.Component {
                     />
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                    <dfn data-tip={`${formatPercentage(ability.wasted / totalWasted)} %`}>{ability.wasted}</dfn>
+                    <dfn data-tip={`${formatPercentage(ability.wasted / totalWasted)} %`}>{ability.wasted.toFixed(0)}</dfn>
                   </td>
                   <td style={{ width: '30%' }}>
                     <div
