@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
+import ItemLink from 'common/ItemLink';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
@@ -22,6 +23,9 @@ import StellarFlareUptime from './StellarFlareUptime';
 import MoonSpells from './MoonSpells';
 import LunarEmpowerment from './LunarEmpowerment';
 import SolarEmpowerment from './SolarEmpowerment';
+import L90Talents from './L90Talents';
+
+import SoulOfTheArchdruid from '../../../Shared/Modules/Items/SoulOfTheArchdruid';
 
 import AstralPowerDetails from '../ResourceTracker/AstralPowerDetails';
 
@@ -37,6 +41,9 @@ class Checklist extends CoreChecklist {
     lunarEmpowerment: LunarEmpowerment,
     solarEmpowerment: SolarEmpowerment,
     moonSpells: MoonSpells,
+    l90Talents: L90Talents,
+
+    soulOfTheArchdruid: SoulOfTheArchdruid,
 
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
@@ -144,6 +151,29 @@ class Checklist extends CoreChecklist {
             spell: SPELLS.RENEWAL_TALENT,
             when: combatant.hasTalent(SPELLS.RENEWAL_TALENT.id),
           }),
+        ];
+      },
+    }),
+    new Rule({
+      name: 'Pick the right tools for the fight',
+      description: 'The throughput gain of some talents or legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly.',
+      requirements: () => {
+        return [
+          new Requirement({
+            name: <Wrapper><SpellLink id={this.l90Talents.activeTalent.id} icon /> talent efficiency</Wrapper>,
+            check: () => this.l90Talents.suggestionThresholds,
+          }),
+          new Requirement({
+            name: <Wrapper>Picked the right talent with <ItemLink id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} icon/></Wrapper>,
+            check: () => this.soulOfTheArchdruid.suggestionThresholds,
+            when: this.soulOfTheArchdruid.active,
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={this.l90Talents.activeTalent.id} icon /> buff efficiency</Wrapper>,
+            check: () => this.l90Talents.suggestionThresholdsBotA,
+            when: (this.l90Talents.activeTalent.id === SPELLS.BLESSING_OF_THE_ANCIENTS_TALENT.id),
+          }),
+          
         ];
       },
     }),

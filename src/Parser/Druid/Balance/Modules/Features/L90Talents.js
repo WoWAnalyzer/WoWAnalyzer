@@ -154,14 +154,13 @@ class L90Talents extends Analyzer {
     return {
       actual: this.percentOfPotentialBotA,
       isLessThan: {
-        minor: 0.9,
-        average: 0.8,
-        major: 0.7,
+        minor: 0.95,
+        average: 0.9,
+        major: 0.8,
       },
       style: 'percentage',
     };
   }
-
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
