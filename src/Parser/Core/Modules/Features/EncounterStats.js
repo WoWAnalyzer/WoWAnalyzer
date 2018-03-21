@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import SPECS from 'common/SPECS';
 import ROLES from 'common/ROLES';
 import fetchWcl from 'common/fetchWcl';
+import ActivityIndicator from 'Main/ActivityIndicator';
 
 import ItemLink from 'common/ItemLink';
 import SpellLink from 'common/SpellLink';
@@ -33,10 +34,15 @@ class EncounterStats extends React.PureComponent {
       mostUsedLegendaries: [],
       mostUsedTalents: [],
       loaded: false,
+      message: 'Loading statistics...',
     };
+    this.load = this.load.bind(this);
   }
 
   addItem(array, item) {
+    if (item.id === null || item.id === 0) {
+      return array;
+    }
     const index = array.findIndex(elem => elem.id === item.id);
     if (index === -1) {
       array.push({
@@ -109,11 +115,15 @@ class EncounterStats extends React.PureComponent {
         mostUsedTalents: talents,
         loaded: true,
       });
+    }).catch((err) => {
+      this.setState({
+        message: 'Something went wrong.',
+      });
     });
   }
 
   render() {
-
+    this.load();
     const rows = [15, 30, 45, 60, 75, 90, 100];
 
     if (this.state.loaded) {
@@ -174,10 +184,8 @@ class EncounterStats extends React.PureComponent {
       );
     } else {
       return (
-        <div className="panel" style={{ border: 0, marginTop: 40 }}>
-          <button onClick={this.load.bind(this)} className="btn btn-primary analyze" style={{ marginLeft: 'auto', marginRight: 'auto', width: '90%', display: 'block' }}>
-            Show me what the Top {this.LIMIT} parses for this fight used
-          </button>
+        <div className="panel-heading" style={{ marginTop: 40, padding: 20, boxShadow: 'none', borderBottom: 0 }}>
+          <ActivityIndicator text={ this.state.message } />
         </div>
       );
     }

@@ -65,7 +65,7 @@ const SPECS = {
     masterySpellId: 76671,
     masteryCoefficient: 1,
     ranking: {
-      class: 1,
+      class: 6,
       spec: 2,
     },
   },
@@ -78,7 +78,7 @@ const SPECS = {
     masterySpellId: 76672,
     masteryCoefficient: 1.75,
     ranking: {
-      class: 1,
+      class: 6,
       spec: 3,
     },
   },
