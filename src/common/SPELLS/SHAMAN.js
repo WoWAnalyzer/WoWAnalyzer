@@ -651,7 +651,7 @@ export default {
   },
   CLOUDBURST_TOTEM_HEAL: {
     id: 157503,
-    name: 'Cloudburst Totem',
+    name: 'Cloudburst',
     icon: 'ability_shaman_condensationtotem',
     manaCost: 18920,
   },
