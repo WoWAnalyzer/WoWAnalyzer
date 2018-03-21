@@ -65,7 +65,6 @@ import DarkmoonDeckImmortality from './Modules/Items/Legion/DarkmoonDeckImmortal
 import AmalgamsSeventhSpine from './Modules/Items/Legion/AmalgamsSeventhSpine';
 import GnawedThumbRing from './Modules/Items/Legion/GnawedThumbRing';
 import EyeOfCommand from './Modules/Items/Legion/EyeOfCommand';
-import MementoOfAngerboda from './Modules/Items/Legion/MementoOfAngerboda';
 
 // The Nighthold (T19)
 import ErraticMetronome from './Modules/Items/Legion/TheNighthold/ErraticMetronome';
@@ -201,7 +200,6 @@ class CombatLogParser {
     ishkarsFelshieldEmitter: IshkarsFelshieldEmitter,
     erraticMetronome: ErraticMetronome,
     eyeOfCommand: EyeOfCommand,
-    mementoOfAngerboda: MementoOfAngerboda,
     // Tomb trinkets:
     archiveOfFaith: ArchiveOfFaith,
     barbaricMindslaver: BarbaricMindslaver,
