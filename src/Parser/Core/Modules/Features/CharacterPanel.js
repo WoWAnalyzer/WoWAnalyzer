@@ -4,12 +4,14 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import Gear from 'Main/Gear';
 import StatsDisplay from './StatsDisplay';
 import TalentsDisplay from './TalentsDisplay';
+import EncounterStats from './EncounterStats';
 
 class CharacterPanel extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     statsDisplay: StatsDisplay,
     talentsDisplay: TalentsDisplay,
+    encounterStats: EncounterStats,
   };
 
   render() {
@@ -30,6 +32,9 @@ class CharacterPanel extends Analyzer {
         </div>
         <div>
           <Gear selectedCombatant={this.combatants.selected} />
+        </div>
+        <div>
+          <EncounterStats currentBoss={this.owner.fight.boss} difficulty={this.owner.fight.difficulty} specID={this.combatants.selected._combatantInfo.specID} />
         </div>
       </div>
     );

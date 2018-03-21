@@ -40,6 +40,7 @@ import DistanceMoved from './Modules/Others/DistanceMoved';
 import CharacterPanel from './Modules/Features/CharacterPanel';
 import StatsDisplay from './Modules/Features/StatsDisplay';
 import TalentsDisplay from './Modules/Features/TalentsDisplay';
+import EncounterStats from './Modules/Features/EncounterStats';
 import Checklist from './Modules/Features/Checklist';
 
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
@@ -176,6 +177,7 @@ class CombatLogParser {
     characterPanel: CharacterPanel,
     statsDisplay: StatsDisplay,
     talentsDisplay: TalentsDisplay,
+    encounterStats: EncounterStats,
     checklist: Checklist,
 
     // Items:
