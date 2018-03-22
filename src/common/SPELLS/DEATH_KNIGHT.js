@@ -312,6 +312,16 @@ export default {
     name: 'Murderous Efficiency',
     icon: 'spell_frost_frostarmor',
   },
+  FROST_FEVER_RP_GAIN:{
+    id: 195617,
+    name: 'Frost Fever',
+    icon: 'spell_deathknight_frostfever',
+  },
+  RUNIC_ATTENUATION_RP_GAIN:{
+    id: 221322,
+    name: 'Runic Attenuation',
+    icon: 'boss_odunrunes_blue',
+  },
   KOLTIRAS_NEWFOUND_WILL: {
     id: 208783,
     name: 'Koltira\'s Newfound Will',
@@ -693,5 +703,11 @@ export default {
     id: -103,
     name: 'Rune 3',
     icon: 'spell_deathknight_frozenruneweapon',
+  },
+
+  RUNIC_POWER:{
+    id: 189096,
+    name: 'Runic Power',
+    icon: 'inv_sword_62',
   },
 };
