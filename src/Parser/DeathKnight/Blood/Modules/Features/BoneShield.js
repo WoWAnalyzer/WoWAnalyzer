@@ -30,13 +30,13 @@ class BoneShield extends Analyzer {
   }
 
   get boneShieldAbsorbTooltip() {
-    return formatNumber(this.boneShieldMitigated) + " Bone Shield Absorb<br>";
+    return formatNumber(this.boneShieldMitigated + this.skeletalShatteringMitigated) + " Bone Shield Absorb<br>";
   }
 
   get skeletalShatteringTooltip() {
     if (this.hasSS) {
       return "On average, Skeletal Shattering would have contributed " + 
-        formatPercentage(this.skeletalShatteringMitigated / this.boneShieldMitigated) +
+        formatPercentage(this.skeletalShatteringMitigated / (this.boneShieldMitigated + this.skeletalShatteringMitigated)) +
         "% (" + formatNumber(this.skeletalShatteringMitigated) + ") to this.<br>";
     } else {
       return "";
