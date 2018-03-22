@@ -14,7 +14,6 @@ class Bonestorm extends Analyzer {
   };
 
   bsCasts = [];
-  currentBonestorm = {};
   cast = 0;
   totalBonestormDamage = 0;
   totalHits = 0;
@@ -29,15 +28,13 @@ class Bonestorm extends Analyzer {
       return;
     }
 
-    this.currentBonestorm = {
+    this.bsCasts.push({
       timestamp: event.timestamp,
       expire: event.timestamp + (event.classResources[0].cost * 10),
       cost: event.classResources[0].cost,
       hits: [],
       cast: this.cast,
-    };
-
-    this.bsCasts.push(this.currentBonestorm);
+    });
     this.cast += 1;
     this.totalCost += event.classResources[0].cost;
   }
