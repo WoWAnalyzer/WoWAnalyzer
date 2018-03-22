@@ -67,7 +67,6 @@ class Sentinel extends Analyzer {
         this.applyDebuffTimestamp = event.timestamp;
         this.timesTicked++;
         this.sentinelTicks++;
-        console.log("Sentinel tick at ", event.timestamp);
       }
     }
   }
@@ -87,7 +86,6 @@ class Sentinel extends Analyzer {
         this.wastedTicks++;
         this.lastBadTickTimestamp = event.timestamp;
         this.timesTicked++;
-        console.log("Sentinel tick (wasted) at ", event.timestamp);
       }
     }
   }
@@ -126,8 +124,8 @@ class Sentinel extends Analyzer {
           <div className="statistic-bar">
             <div
               className="stat-health-bg"
-              style={{ width: `${100 - formatPercentage((this.goodTicks / this.totalPossibleTicks))}%` }}
-              data-tip={`<b>${100 - formatPercentage(this.goodTicks / this.totalPossibleTicks)}%</b> of your Sentinel ticks happened while none of the targets had a hunter's mark on them, good job!`}
+              style={{ width: `${formatPercentage((this.goodTicks / this.totalPossibleTicks))}%` }}
+              data-tip={`<b>${formatPercentage(this.goodTicks / this.totalPossibleTicks)}%</b> of your Sentinel ticks happened while none of the targets had a hunter's mark on them, good job!`}
             >
             </div>
             <div
@@ -139,7 +137,7 @@ class Sentinel extends Analyzer {
             <div
               className="Druid-bg"
               style={{ width: `${formatPercentage(this.missedTicks / this.totalPossibleTicks)}%` }}
-              data-tip={`<b>${formatPercentage(this.missedTicks / this.totalPossibleTicks)}%</b> of your possible Sentinel ticks completely missed a target`}
+              data-tip={`<b>${formatPercentage(this.missedTicks / this.totalPossibleTicks)}%</b> of your possible Sentinel ticks completely missed a target.`}
             >
             </div>
           </div>
