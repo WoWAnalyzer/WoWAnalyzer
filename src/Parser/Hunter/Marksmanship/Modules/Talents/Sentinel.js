@@ -86,8 +86,12 @@ class Sentinel extends Analyzer {
       this.timesTicked = 0;
       return;
     }
+    if (this.lastApplicationFromSentinel && event.timestamp < this.lastApplicationFromSentinel + MS_BUFFER) {
+      this.wastedApplications++;
+    }
     if (event.timestamp < (this.lastSentinelCastTimestamp + TIME_BETWEEN_TICKS * this.timesTicked + MS_BUFFER) && event.timestamp > (this.lastSentinelCastTimestamp + TIME_BETWEEN_TICKS * this.timesTicked - MS_BUFFER)) {
       this.wastedApplications++;
+      this.lastApplicationFromSentinel = event.timestamp;
       if (this.lastBadTickTimestamp < event.timestamp + MS_BUFFER) {
         this.wastedTicks++;
         this.lastBadTickTimestamp = event.timestamp;
