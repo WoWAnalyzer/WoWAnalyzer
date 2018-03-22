@@ -50,9 +50,6 @@ class Bonestorm extends Analyzer {
       return val.hits.length / (val.cost / 100) >= 2;
     });
 
-    console.info(passed);
-    console.info(formatPercentage(passed.length / this.bsCasts.length));
-
     return {
       actual: passed.length / this.bsCasts.length,
       isLessThan: {
