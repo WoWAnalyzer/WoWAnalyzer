@@ -14,7 +14,6 @@ class Bonestorm extends Analyzer {
   };
 
   bsCasts = [];
-  cast = 0;
   totalBonestormDamage = 0;
   totalHits = 0;
   totalCost = 0;
@@ -29,13 +28,9 @@ class Bonestorm extends Analyzer {
     }
 
     this.bsCasts.push({
-      timestamp: event.timestamp,
-      expire: event.timestamp + (event.classResources[0].cost * 10),
       cost: event.classResources[0].cost,
       hits: [],
-      cast: this.cast,
     });
-    this.cast += 1;
     this.totalCost += event.classResources[0].cost;
   }
 
@@ -44,33 +39,38 @@ class Bonestorm extends Analyzer {
       return;
     }
 
-    this.bsCasts.forEach((bsCast, index) => {
-      if ((bsCast.cast + 1) === this.cast) {
-        this.totalHits += 1;
-        this.bsCasts[index].hits.push(event.amount + event.absorbed);
-        this.totalBonestormDamage += event.amount + event.absorbed;
-      }
-    });
+    this.bsCasts[this.bsCasts.length - 1].hits.push(event.amount + event.absorbed);
+    this.totalHits += 1;
+    this.totalBonestormDamage += event.amount + event.absorbed;
   }
 
-  get uptimeSuggestionThresholds() {
+  get suggestionThresholds() {
+
+    const passed = this.bsCasts.filter((val, index) => {
+      return val.hits.length / (val.cost / 100) >= 2;
+    });
+
+    console.info(passed);
+    console.info(formatPercentage(passed.length / this.bsCasts.length));
+
     return {
-      actual: formatNumber(this.totalHits / (this.totalCost / 100)),
+      actual: passed.length / this.bsCasts.length,
       isLessThan: {
-        minor: 2,
-        major: 1.9,
+        minor: 0.8,
+        average: 0.7,
+        major: 0.5,
       },
-      style: 'number',
+      style: 'percentage',
     };
   }
 
   suggestions(when) {
-    when(this.uptimeSuggestionThresholds)
+    when(this.suggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<Wrapper>Try to cast <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> only if you can reliable hit 2 or more targets to maximize the damage and healing. Casting <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> with only one target in range is a DPS and HPS loss, use <SpellLink id={SPELLS.DEATH_STRIKE.id} /> instead.</Wrapper>)
             .icon(SPELLS.BONESTORM_TALENT.icon)
-            .actual(`${ actual } average targets`)
-            .recommended(`${ recommended } or more is recommended`);
+            .actual(`${ formatPercentage(actual) }% casts hit 2 or more targets`)
+            .recommended(`${ formatPercentage(recommended) }% or more is recommended`);
         });
   }
 
@@ -82,7 +82,7 @@ class Bonestorm extends Analyzer {
       const avgHits = formatNumber(cast.hits.length / cast.cost * 100, 1);
       const rpCost = formatNumber(cast.cost / 10);
 
-      tooltip += `Cast #${cast.cast + 1} (for ${ rpCost } RP) hit an average of ${ avgHits } target${ avgHits <= 1 ? '' : 's' } for ${ avgDamage } per hit. (${ totalDamage } total)<br>`;
+      tooltip += `Cast #${ index + 1 } (for ${ rpCost } RP) hit an average of ${ avgHits } target${ avgHits <= 1 ? '' : 's' } for ${ avgDamage } per hit. (${ totalDamage } total)<br>`;
     });
     return tooltip;
   }
