@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-03-22'),
+    changes: <Wrapper>Added <SpellLink id={SPELLS.BONESTORM_TALENT.id} icon />-Module to track bad casts</Wrapper>,
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-03-15'),
     changes: <Wrapper>Added Relic-Module.</Wrapper>,
     contributors: [joshinator],
