@@ -131,8 +131,6 @@ import EventsNormalizer from './EventsNormalizer';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
-// This sends every event that occurs to the console, including fabricated events (unlike the Events tab)
-const debugEvents = false;
 
 let _modulesDeprecatedWarningSent = false;
 
@@ -436,7 +434,15 @@ class CombatLogParser {
   eventCount = 0;
   _moduleTime = {};
   triggerEvent(event, ...args) {
-    debugEvents && console.log(event.type, event, ...args);
+    if (process.env.NODE_ENV === 'development') {
+      if (!event.type) {
+        console.log(event);
+        throw new Error('Events should have a type. No type received. See the console for the event.');
+      }
+      if (args.length > 0) {
+        console.warn(`Triggering an event with additional arguments is deprecated as it isn't visible in the events tab and harder to discover. Provide additional arguments as event properties instead. Event type: ${event.type}`, event);
+      }
+    }
     // Creating arrays is expensive so we cheat and just push here
     this.eventHistory.push(event);
 
