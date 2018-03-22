@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 
 import SPECS from 'common/SPECS';
 import ROLES from 'common/ROLES';
+import ITEMS from 'common/ITEMS';
 import fetchWcl from 'common/fetchWcl';
 import ActivityIndicator from 'Main/ActivityIndicator';
 
 import ItemLink from 'common/ItemLink';
+import ItemIcon from 'common/ItemIcon';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
@@ -122,6 +124,14 @@ class EncounterStats extends React.PureComponent {
     });
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    nextState.mostUsedTrinkets.forEach((trinket, index) => {
+      if (ITEMS[trinket.id] === undefined) {
+        console.error(`ITEM ${trinket.name} '${trinket.id}' UNKNOWN`);
+      }
+    });
+  }
+
   render() {
     const rows = [15, 30, 45, 60, 75, 90, 100];
 
@@ -133,33 +143,49 @@ class EncounterStats extends React.PureComponent {
           </div>
           <div className="flex-main">
             <div className="row">
-              <div className="col-md-5">
-                <div>
+              <div className="col-md-6">
+                <div className="flex-main">
                   <div className="panel-heading" style={{ boxShadow: 'none', borderBottom: 0 }}>
                     <h2>Most used Legendaries</h2>
                   </div>
-                  {this.state.mostUsedLegendaries.map((legendary) =>
-                    <div key={legendary.id} style={{ paddingLeft: 20 }}>
-                    <ItemLink id={legendary.id} className={ legendary.quality }>
-                      {legendary.name} ({formatPercentage(legendary.amount / this.LIMIT, 0)}%)
-                    </ItemLink>
+                  <div className="row" style={{ paddingLeft: 20 }}>
+                    {this.state.mostUsedLegendaries.map((legendary) =>
+                      <div className="col-md-3" key={legendary.id} style={{ textAlign: 'center', margin: '10px auto' }}>
+                        <ItemLink id={legendary.id} className={ legendary.quality }>
+                          <ItemIcon 
+                            id={ITEMS[legendary.id] !== undefined ? ITEMS[legendary.id].id : ITEMS[0].id} 
+                            className={legendary.quality}
+                            style={{ width: '4em', height: '4em', border: '3px solid' }}
+                            noLink
+                          />
+                          <div>{formatPercentage(legendary.amount / this.LIMIT, 0)}%</div>
+                        </ItemLink>
+                    </div>
+                    )}
                   </div>
-                  )}
                 </div>
-                <div>
+                <div className="flex-main">
                   <div className="panel-heading" style={{ boxShadow: 'none', borderBottom: 0, marginTop: 40 }}>
                     <h2>Most used Trinkets</h2>
                   </div>
-                  {this.state.mostUsedTrinkets.map((trinket) =>
-                    <div key={trinket.id} style={{ paddingLeft: 20 }}>
-                      <ItemLink id={trinket.id} className={ trinket.quality }>
-                        {trinket.name} ({formatPercentage(trinket.amount / this.LIMIT, 0)}%)
-                      </ItemLink>
-                    </div>
-                  )}
+                  <div className="row" style={{ paddingLeft: 20 }}>
+                    {this.state.mostUsedTrinkets.map((trinket) =>
+                      <div className="col-md-3" key={trinket.id} style={{ textAlign: 'center', margin: '10px auto' }}>
+                        <ItemLink id={trinket.id} className={ trinket.quality }>
+                          <ItemIcon 
+                            id={ITEMS[trinket.id] !== undefined ? ITEMS[trinket.id].id : ITEMS[0].id} 
+                            className={trinket.quality}
+                            style={{ width: '4em', height: '4em', border: '3px solid' }}
+                            noLink
+                          />
+                          <div>{formatPercentage(trinket.amount / this.LIMIT, 0)}%</div>
+                        </ItemLink>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-              <div className="col-md-7">
+              <div className="col-md-6">
                 <div className="panel-heading" style={{ boxShadow: 'none', borderBottom: 0 }}>
                   <h2>Most used Talents</h2>
                 </div>
@@ -168,8 +194,8 @@ class EncounterStats extends React.PureComponent {
                     <div className="col-md-1" style={{ lineHeight: '3em', textAlign: 'right'}}>{rows[index]}</div>
                     {Object.keys(row).sort((a,b) => {return row[b]-row[a];}).map((talent, talentIndex) => 
                       <div key={talentIndex} className="col-md-2" style={{ textAlign: 'center' }}>
-                        <SpellLink id={talent}>
-                          <SpellIcon style={{ width: '3em', height: '3em' }} id={talent} noLink />
+                        <SpellLink id={parseInt(talent, 10)}>
+                          <SpellIcon style={{ width: '3em', height: '3em' }} id={parseInt(talent, 10)} noLink />
                         </SpellLink>
                         <span style={{ textAlign: 'center', display: 'block' }}>{formatPercentage(row[talent] / this.LIMIT, 0)}%</span>
                       </div>

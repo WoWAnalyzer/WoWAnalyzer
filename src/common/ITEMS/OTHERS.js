@@ -1,6 +1,11 @@
 import ITEM_QUALITIES from '../ITEM_QUALITIES';
 
 export default {
+  UNKNOWN_TRINKET: {
+    //fallback icon for encounter stats
+    id: 0,
+    icon: 'inv_misc_trinket6oih_orb1',
+  },
   // Potions
   POTION_OF_PROLONGED_POWER: {
     id: 142117,
