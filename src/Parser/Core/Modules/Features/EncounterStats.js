@@ -123,7 +123,6 @@ class EncounterStats extends React.PureComponent {
   }
 
   render() {
-    this.load();
     const rows = [15, 30, 45, 60, 75, 90, 100];
 
     if (this.state.loaded) {
@@ -170,7 +169,7 @@ class EncounterStats extends React.PureComponent {
                     {Object.keys(row).sort((a,b) => {return row[b]-row[a];}).map((talent, talentIndex) => 
                       <div key={talentIndex} className="col-md-2" style={{ textAlign: 'center' }}>
                         <SpellLink id={talent}>
-                          <SpellIcon style={{ width: '3em', height: '3em', opacity: (row[talent] / this.LIMIT + 0.3) }} id={talent} noLink />
+                          <SpellIcon style={{ width: '3em', height: '3em' }} id={talent} noLink />
                         </SpellLink>
                         <span style={{ textAlign: 'center', display: 'block' }}>{formatPercentage(row[talent] / this.LIMIT, 0)}%</span>
                       </div>
@@ -183,6 +182,7 @@ class EncounterStats extends React.PureComponent {
         </div>
       );
     } else {
+      this.load();
       return (
         <div className="panel-heading" style={{ marginTop: 40, padding: 20, boxShadow: 'none', borderBottom: 0 }}>
           <ActivityIndicator text={ this.state.message } />
