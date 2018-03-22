@@ -9,7 +9,6 @@ import InformationIcon from 'Icons/Information';
 import Wrapper from 'common/Wrapper';
 import { formatDuration, formatThousands } from 'common/format';
 import Icon from 'common/Icon';
-import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import Info from 'common/Alert/Info';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
@@ -130,11 +129,10 @@ class EventsTab extends React.Component {
       return null;
     }
     const spellId = ability.guid;
-    const exists = !!SPELLS[spellId];
 
     return (
-      <a href={`http://www.wowhead.com/spell=${spellId}`} target="_blank" rel="noopener noreferrer" className={exists ? 'exists' : 'missing'}>
-        <Icon icon={ability.abilityIcon} /> {ability.name}
+      <a href={`http://www.wowhead.com/spell=${spellId}`} target="_blank" rel="noopener noreferrer">
+        {ability.abilityIcon && <Icon icon={ability.abilityIcon} />} {ability.name}
       </a>
     );
   }
@@ -149,7 +147,7 @@ class EventsTab extends React.Component {
   }
   renderToggle(prop, label, explanation = null) {
     return (
-      <div className="flex toggle-control">
+      <div key={prop} className="flex toggle-control">
         <label className="flex-main" htmlFor={`${prop}-toggle`}>
           {label}
         </label>

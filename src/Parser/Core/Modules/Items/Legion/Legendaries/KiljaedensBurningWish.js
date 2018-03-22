@@ -70,8 +70,7 @@ class KiljaedensBurningWish extends Analyzer {
       targetIsFriendly: event.targetIsFriendly,
       ability: event.ability,
     };
-    // TODO are these all the fields I need?
-    this.owner.triggerEvent('cast', castEvent);
+    this.owner.fabricateEvent(castEvent, event);
   }
 
   item() {

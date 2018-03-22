@@ -18,7 +18,7 @@ class Resurgence extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     masteryEffectiveness: MasteryEffectiveness,
-  }
+  };
 
   maxMana = 1100000;
   regenedMana = 0;
@@ -35,7 +35,7 @@ class Resurgence extends Analyzer {
     this.hasbottomlessDepths = this.combatants.selected.hasTalent(SPELLS.BOTTOMLESS_DEPTHS_TALENT.id);
 
     // The arcway neck does increase resurgence gained as well
-    if(hasEnergyPendant){
+    if (hasEnergyPendant) {
       this.maxMana *= 1.05;
     }
 
@@ -53,7 +53,7 @@ class Resurgence extends Analyzer {
     const isAbilityProccingResurgence = this.SPELLS_PROCCING_RESURGENCE.hasOwnProperty(spellId);
     const masteryEffectiveness = event.masteryEffectiveness;
 
-    if(!isAbilityProccingResurgence || event.tick){
+    if (!isAbilityProccingResurgence || event.tick) {
       return;
     }
 
@@ -66,21 +66,21 @@ class Resurgence extends Analyzer {
     }
 
     if (event.hitType === HIT_TYPES.CRIT) {
+      this.resurgence[spellId].resurgenceTotal += this.SPELLS_PROCCING_RESURGENCE[spellId] * this.maxMana;
+      this.resurgence[spellId].castAmount += 1;
+    } else if (event.hitType === HIT_TYPES.NORMAL && masteryEffectiveness >= 0.4) {
+      if (this.hasbottomlessDepths) {
         this.resurgence[spellId].resurgenceTotal += this.SPELLS_PROCCING_RESURGENCE[spellId] * this.maxMana;
         this.resurgence[spellId].castAmount += 1;
-    } else if (event.hitType === HIT_TYPES.NORMAL && masteryEffectiveness >= 0.4) {
-      if(this.hasbottomlessDepths) {
-        this.resurgence[spellId].resurgenceTotal += this.SPELLS_PROCCING_RESURGENCE[spellId] * this.maxMana;
-        this.resurgence[spellId].castAmount += 1; 
       }
-      this.bottomlessDepths += this.SPELLS_PROCCING_RESURGENCE[spellId] * this.maxMana; 
+      this.bottomlessDepths += this.SPELLS_PROCCING_RESURGENCE[spellId] * this.maxMana;
     }
   }
 
   on_toPlayer_energize(event) {
     const spellId = event.ability.guid;
 
-    if (spellId !== SPELLS.RESURGENCE.id) {     
+    if (spellId !== SPELLS.RESURGENCE.id) {
       return this.extraMana += event.resourceChange;
     }
 
@@ -88,17 +88,17 @@ class Resurgence extends Analyzer {
   }
 
   get totalMana() {
-    this.regenedMana = ((this.owner.fightDuration/1000)/5) * 44000;
+    this.regenedMana = ((this.owner.fightDuration / 1000) / 5) * 44000;
 
     return this.regenedMana + this.totalResurgenceGain + this.maxMana + this.extraMana;
   }
 
   statistic() {
     let expandText = ` `;
-    if(this.hasbottomlessDepths) {
+    if (this.hasbottomlessDepths) {
       expandText += `added ${formatPercentage(this.bottomlessDepths / this.totalMana, 0)}% (${formatNumber(this.bottomlessDepths)}) mana on top of that.`;
     } else {
-      expandText += `would have added ${formatPercentage(this.bottomlessDepths / (this.totalMana+this.bottomlessDepths), 0)}% (${formatNumber(this.bottomlessDepths)}) mana.`;
+      expandText += `would have added ${formatPercentage(this.bottomlessDepths / (this.totalMana + this.bottomlessDepths), 0)}% (${formatNumber(this.bottomlessDepths)}) mana.`;
     }
 
     return (
@@ -123,7 +123,7 @@ class Resurgence extends Analyzer {
           <tbody>
             {
               this.resurgence
-                .map((spell) => (
+                .map(spell => (
                   <tr key={spell.spellId}>
                     <th scope="row"><SpellIcon id={spell.spellId} style={{ height: '2.5em' }} /></th>
                     <td>{formatNumber(spell.resurgenceTotal)}</td>
@@ -132,14 +132,11 @@ class Resurgence extends Analyzer {
                   </tr>
                 ))
             }
-
           </tbody>
         </table>
       </ExpandableStatisticBox>
     );
   }
 }
-
-
 
 export default Resurgence;

@@ -212,7 +212,9 @@ class App extends Component {
         offset += batchSize;
       }
 
-      parser.triggerEvent('finished');
+      parser.fabricateEvent({
+        type: 'finished',
+      });
       timeAvailable && console.timeEnd('full parse');
       this.setState({
         progress: 1.0,

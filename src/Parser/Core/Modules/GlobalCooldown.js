@@ -73,9 +73,9 @@ class GlobalCooldown extends Analyzer {
     const spellId = event.ability.guid;
     const isOnGcd = this.isOnGlobalCooldown(spellId);
     // Cancelled casts reset the GCD (only for cast-time spells, "channels" always have a GCD but they also can't be *cancelled*, just ended early)
-    const isCancelled = event.reason.isCancelled;
+    const isCancelled = event.trigger.isCancelled;
     if (isOnGcd && !isCancelled) {
-      this.triggerGlobalCooldown(event, 'begincast');
+      this.triggerGlobalCooldown(event);
     }
   }
   /**
@@ -101,25 +101,22 @@ class GlobalCooldown extends Analyzer {
       // The GCD occured already at the start of this channel
       return;
     }
-    this.triggerGlobalCooldown(event, 'cast');
+    this.triggerGlobalCooldown(event);
   }
 
   /**
    * Trigger a `globalcooldown`-event at this timestamp for the `ability` in the provided event.
    * @param event
-   * @param trigger Either 'begincast' or 'cast', `begincast` are ignored in AlwaysBeCasting so that the channel time can be used instead (if it's higher than the GCD).
    */
-  triggerGlobalCooldown(event, trigger) {
-    this.owner.triggerEvent('globalcooldown', {
+  triggerGlobalCooldown(event) {
+    this.owner.fabricateEvent({
       type: 'globalcooldown',
       ability: event.ability,
       sourceID: event.sourceID,
       targetID: event.sourceID, // no guarantees the original targetID is the player
       timestamp: event.timestamp,
       duration: this.getCurrentGlobalCooldown(event.ability.guid),
-      reason: event,
-      trigger,
-    });
+    }, event);
   }
   /**
    * Returns the current Global Cooldown duration in milliseconds for the specified spell (some spells have custom GCDs).
@@ -146,7 +143,7 @@ class GlobalCooldown extends Analyzer {
         console.error(
           formatMilliseconds(this.owner.fightDuration),
           'GlobalCooldown',
-          event.reason.ability.name, event.reason.ability.guid, 
+          event.trigger.ability.name, event.trigger.ability.guid,
           `was cast while the Global Cooldown from`,
           this.lastGlobalCooldown.ability.name, this.lastGlobalCooldown.ability.guid,
           `was already running. There's probably a Haste buff missing from StatTracker or the Haste module, this spell has a GCD different from the default, or the base GCD for this spec is different from default.`,

@@ -1,10 +1,12 @@
 import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+
 import StaggerFabricator from './StaggerFabricator';
 
 const debug = false;
@@ -14,7 +16,7 @@ class Stagger extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     fab: StaggerFabricator,
-  }
+  };
 
   totalPhysicalStaggered = 0;
   totalMagicalStaggered = 0;
@@ -22,7 +24,7 @@ class Stagger extends Analyzer {
   staggerMissingFromFight = 0;
 
   on_addstagger(event) {
-    if(event.reason.extraAbility.type === PHYSICAL_DAMAGE) {
+    if (event.trigger.extraAbility.type === PHYSICAL_DAMAGE) {
       this.totalPhysicalStaggered += event.amount;
     } else {
       this.totalMagicalStaggered += event.amount;
@@ -30,7 +32,7 @@ class Stagger extends Analyzer {
   }
 
   on_removestagger(event) {
-    if (event.reason.ability && event.reason.ability.guid === SPELLS.STAGGER_TAKEN.id){
+    if (event.trigger.ability && event.trigger.ability.guid === SPELLS.STAGGER_TAKEN.id) {
       this.totalStaggerTaken += event.amount;
     }
   }

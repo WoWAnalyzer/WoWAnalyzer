@@ -10,8 +10,8 @@ const ISB_QUICK_SIP_PURIFY = 0.05;
 const T20_4PC_PURIFY = 0.05;
 const debug = false;
 
-export const EVENT_STAGGER_POOL_ADDED = "addstagger";
-export const EVENT_STAGGER_POOL_REMOVED = "removestagger";
+export const EVENT_STAGGER_POOL_ADDED = 'addstagger';
+export const EVENT_STAGGER_POOL_REMOVED = 'removestagger';
 
 /**
  * Fabricate events corresponding to stagger pool updates. Each stagger
@@ -32,7 +32,7 @@ class StaggerFabricator extends Analyzer {
   get purifyPercentage() {
     const player = this.combatants.selected;
     let pct = PURIFY_BASE;
-    if(player.hasTalent(SPELLS.ELUSIVE_DANCE_TALENT.id)) {
+    if (player.hasTalent(SPELLS.ELUSIVE_DANCE_TALENT.id)) {
       // elusive dance clears an extra 20% of staggered damage
       pct += ELUSIVE_DANCE_PURIFY;
     }
@@ -61,7 +61,7 @@ class StaggerFabricator extends Analyzer {
     const amount = event.amount + (event.absorbed || 0);
     this._staggerPool += amount;
     debug && console.log("triggering stagger pool update due to absorb");
-    this.owner.triggerEvent(EVENT_STAGGER_POOL_ADDED, this._fab(EVENT_STAGGER_POOL_ADDED, event, amount));
+    this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_ADDED, event, amount), event);
   }
 
   on_toPlayer_damage(event) {
@@ -70,9 +70,9 @@ class StaggerFabricator extends Analyzer {
       this._staggerPool -= amount;
       // sometimes a stagger tick is recorded immediately after death.
       // this ensures we don't go into negative stagger
-      this._staggerPool = Math.max(this._staggerPool, 0); 
+      this._staggerPool = Math.max(this._staggerPool, 0);
       debug && console.log("triggering stagger pool update due to stagger tick");
-      this.owner.triggerEvent(EVENT_STAGGER_POOL_REMOVED, this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount));
+      this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount), event);
     }
   }
 
@@ -81,12 +81,12 @@ class StaggerFabricator extends Analyzer {
       const amount = this._staggerPool * this.purifyPercentage;
       this._staggerPool -= amount;
       debug && console.log("triggering stagger pool update due to purify");
-      this.owner.triggerEvent(EVENT_STAGGER_POOL_REMOVED, this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount));
+      this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount), event);
     } else if (this._hasQuickSipTrait && event.ability.guid === SPELLS.IRONSKIN_BREW.id) {
       const amount = this._staggerPool * ISB_QUICK_SIP_PURIFY;
       this._staggerPool -= amount;
       debug && console.log("triggering stagger pool update due to ISB + Quick Sip trait");
-      this.owner.triggerEvent(EVENT_STAGGER_POOL_REMOVED, this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount));
+      this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount), event);
     }
   }
 
@@ -97,13 +97,13 @@ class StaggerFabricator extends Analyzer {
     const amount = this._staggerPool * T20_4PC_PURIFY;
     this._staggerPool -= amount;
     debug && console.log("triggering stagger pool update due to T20 4pc");
-    this.owner.triggerEvent(EVENT_STAGGER_POOL_REMOVED, this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount));
+    this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount), event);
   }
-  
+
   on_toPlayer_death(event) {
     const amount = this._staggerPool;
     this._staggerPool = 0;
-    this.owner.triggerEvent(EVENT_STAGGER_POOL_REMOVED, this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount));
+    this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount), event);
   }
 
   _fab(type, reason, amount) {
@@ -112,7 +112,6 @@ class StaggerFabricator extends Analyzer {
       type: type,
       amount: amount,
       newPooledDamage: this._staggerPool,
-      reason: reason,
     };
   }
 }
