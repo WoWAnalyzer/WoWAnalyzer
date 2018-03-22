@@ -11,6 +11,7 @@ import { formatPercentage } from 'common/format';
 /**
  * Your Sentinel watches over the target area for 18 sec, applying Hunter's Mark to all enemies every 6 sec.
  */
+
 const MS_BUFFER = 100;
 
 const SENTINEL_DURATION = 18000;
@@ -24,7 +25,7 @@ class Sentinel extends Analyzer {
     combatants: Combatants,
 
   };
-  damage = 0;
+
   applyDebuffTimestamp = null;
   sentinelCasts = 0;
   sentinelTicks = 0;
@@ -32,8 +33,9 @@ class Sentinel extends Analyzer {
   wastedApplications = 0;
   wastedTicks = 0;
   lastBadTickTimestamp = 0;
-  lastSentinelCastTimestamp = 0;
+  lastSentinelCastTimestamp = null;
   lostTicksFromCombatEnd = 0;
+  timesTicked = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.SENTINEL_TALENT.id);
@@ -44,31 +46,48 @@ class Sentinel extends Analyzer {
     if (spellId === SPELLS.SENTINEL_TALENT.id) {
       this.lastSentinelCastTimestamp = event.timestamp;
       this.sentinelCasts++;
-    }
-    if (spellId === SPELLS.SENTINEL_TICK.id) {
-      this.applyDebuffTimestamp = event.timestamp;
-      this.sentinelTicks++;
+      this.timesTicked = 0; //in case anything is missed
+      console.log("Sentinel cast at ", event.timestamp);
     }
   }
+
   on_byPlayer_applydebuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.HUNTERS_MARK_DEBUFF.id) {
       return;
     }
-    if (event.timestamp < this.applyDebuffTimestamp + MS_BUFFER && event.timestamp >= this.applyDebuffTimestamp) {
+    if (!this.lastSentinelCastTimestamp || event.timestamp > this.lastSentinelCastTimestamp + SENTINEL_DURATION + MS_BUFFER) {
+      this.timesTicked = 0;
+      return;
+    }
+    if (event.timestamp < (TIME_BETWEEN_TICKS * this.timesTicked + this.lastSentinelCastTimestamp + MS_BUFFER) && event.timestamp > (TIME_BETWEEN_TICKS * this.timesTicked + this.lastSentinelCastTimestamp - MS_BUFFER)) {
       this.appliedDebuffsFromSentinel++;
+      //to count singular ticks and not all debuffs appliedfor AoE purposed we filter once more:
+      if (this.applyDebuffTimestamp < event.timestamp + MS_BUFFER) {
+        this.applyDebuffTimestamp = event.timestamp;
+        this.timesTicked++;
+        this.sentinelTicks++;
+        console.log("Sentinel tick at ", event.timestamp);
+      }
     }
   }
+
   on_byPlayer_refreshdebuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.HUNTERS_MARK_DEBUFF.id) {
       return;
     }
-    if (event.timestamp < this.applyDebuffTimestamp + MS_BUFFER && event.timestamp >= this.applyDebuffTimestamp) {
+    if (!this.lastSentinelCastTimestamp || event.timestamp > this.lastSentinelCastTimestamp + SENTINEL_DURATION + MS_BUFFER) {
+      this.timesTicked = 0;
+      return;
+    }
+    if (event.timestamp < (this.lastSentinelCastTimestamp + TIME_BETWEEN_TICKS * this.timesTicked + MS_BUFFER) && event.timestamp > (this.lastSentinelCastTimestamp + TIME_BETWEEN_TICKS * this.timesTicked - MS_BUFFER)) {
       this.wastedApplications++;
-      if (this.lastBadTickTimestamp !== event.timestamp) {
+      if (this.lastBadTickTimestamp < event.timestamp + MS_BUFFER) {
         this.wastedTicks++;
         this.lastBadTickTimestamp = event.timestamp;
+        this.timesTicked++;
+        console.log("Sentinel tick (wasted) at ", event.timestamp);
       }
     }
   }
@@ -76,14 +95,17 @@ class Sentinel extends Analyzer {
   get debuffsPerCast() {
     return (this.appliedDebuffsFromSentinel / this.sentinelCasts).toFixed(1);
   }
+
   get totalPossibleTicks() {
     return (this.sentinelCasts * TICKS_PER_CAST) - this.lostTicksFromCombatEnd;
   }
-  get buggedTicks() {
-    return this.totalPossibleTicks - this.sentinelTicks;
+
+  get missedTicks() {
+    return this.totalPossibleTicks - this.sentinelTicks - this.wastedTicks;
   }
+
   get goodTicks() {
-    return this.totalPossibleTicks - this.buggedTicks - this.wastedTicks;
+    return this.totalPossibleTicks - this.wastedTicks - this.missedTicks;
   }
 
   on_finished() {
@@ -98,26 +120,26 @@ class Sentinel extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SENTINEL_TALENT.id} />}
         value={`${this.goodTicks}/${this.totalPossibleTicks}`}
-        label={`flawless ticks + ${this.buggedTicks} bugged`}
-        tooltip={`You applied Hunter's Mark with Sentinel ${this.appliedDebuffsFromSentinel} times spread over ${this.sentinelCasts} casts of Sentinel. This gives an average of ${this.debuffsPerCast} debuffs per cast. <br/> You wasted ${this.wastedApplications} possible applications with Sentinel ticking on targets who already had Hunter's Mark debuff. </br> Out of ${this.totalPossibleTicks} possible ticks: <ul><li>${this.goodTicks} ticks were good ticks where no target already had Hunter's Mark when it ticked.</li><li>${this.wastedTicks} ticks had one or more targets already with Hunter's Mark on them.</li><li>${this.buggedTicks} ticks bugged and didn't happen. It's a bug on Blizzard's end, and we can only hope it gets fixed soon. This bug can somewhat be circumvented by not casting any spells right before you're meant to get a proc (every 6 seconds after cast).</li></ul>`}
+        label={`flawless ticks`}
+        tooltip={`You applied Hunter's Mark with Sentinel ${this.appliedDebuffsFromSentinel} times spread over ${this.sentinelCasts} casts of Sentinel. This gives an average of ${this.debuffsPerCast} debuffs per cast. <br/> You wasted ${this.wastedApplications} possible applications with Sentinel ticking on targets who already had Hunter's Mark debuff. </br> Out of ${this.totalPossibleTicks} possible ticks: <ul><li>${this.goodTicks} ${this.goodTicks > 1 ? 'ticks' : 'tick'} were good ticks where no target already had Hunter's Mark when it ticked.</li><li>${this.wastedTicks} ${this.wastedTicks > 1 ? 'ticks' : 'tick'} had one or more targets already with Hunter's Mark on them.</li><li>${this.missedTicks} ${this.missedTicks > 1 ? 'ticks' : 'tick'} completely missed any targets.</li></ul>`}
         footer={(
           <div className="statistic-bar">
             <div
               className="stat-health-bg"
-              style={{ width: `${(100 - formatPercentage((this.wastedTicks + this.buggedTicks) / this.totalPossibleTicks))}%` }}
-              data-tip={`<b>${100 - formatPercentage((this.wastedTicks + this.buggedTicks) / this.totalPossibleTicks)}%</b> of your Sentinel ticks happened while none of the targets had a hunter's mark on them, good job!`}
+              style={{ width: `${100 - formatPercentage((this.goodTicks / this.totalPossibleTicks))}%` }}
+              data-tip={`<b>${100 - formatPercentage(this.goodTicks / this.totalPossibleTicks)}%</b> of your Sentinel ticks happened while none of the targets had a hunter's mark on them, good job!`}
             >
             </div>
             <div
               className="DeathKnight-bg"
-              style={{ width: `${formatPercentage(this.wastedApplications / this.totalPossibleTicks)}%` }}
-              data-tip={`<b>${formatPercentage(this.wastedApplications / this.totalPossibleTicks)}%</b> of your Sentinel ticks happened while one of the targets already a hunter's mark on them.`}
+              style={{ width: `${formatPercentage(this.wastedTicks / this.totalPossibleTicks)}%` }}
+              data-tip={`<b>${formatPercentage(this.wastedTicks / this.totalPossibleTicks)}%</b> of your Sentinel ticks happened while one of the targets already a hunter's mark on them.`}
             >
             </div>
             <div
               className="Druid-bg"
-              style={{ width: `${formatPercentage(this.buggedTicks / this.totalPossibleTicks)}%` }}
-              data-tip={`<b>${formatPercentage(this.buggedTicks / this.totalPossibleTicks)}%</b> of your expected Sentinel ticks bugged and didn't happen. It's a bug on Blizzard's end, and we can only hope it gets fixed soon. This bug can somewhat be circumvented by not casting any spells right before you're meant to get a proc (every 6 seconds after cast).`}
+              style={{ width: `${formatPercentage(this.missedTicks / this.totalPossibleTicks)}%` }}
+              data-tip={`<b>${formatPercentage(this.missedTicks / this.totalPossibleTicks)}%</b> of your possible Sentinel ticks completely missed a target`}
             >
             </div>
           </div>
