@@ -46,7 +46,7 @@ class Trueshot extends Analyzer {
     this.trueshotCasts += 1;
     this.prepullTrueshots += 1;
     //starts the cooldown to ensure proper cast efficiency statistics
-    this.spellUsable.beginCooldown(SPELLS.TRUESHOT.id);
+    this.spellUsable.beginCooldown(SPELLS.TRUESHOT.id, this.owner.fight.start_time);
   }
 
   on_byPlayer_cast(event) {

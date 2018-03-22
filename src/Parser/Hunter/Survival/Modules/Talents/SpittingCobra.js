@@ -31,7 +31,7 @@ class SpittingCobra extends Analyzer {
       return;
     }
     //starts the cooldown to ensure proper cast efficiency statistics
-    this.spellUsable.beginCooldown(SPELLS.SPITTING_COBRA_TALENT.id);
+    this.spellUsable.beginCooldown(SPELLS.SPITTING_COBRA_TALENT.id, this.owner.fight.start_time);
     //adds one to cobraCasts so we can calculate the average casts properly
     this.cobraCasts++;
   }

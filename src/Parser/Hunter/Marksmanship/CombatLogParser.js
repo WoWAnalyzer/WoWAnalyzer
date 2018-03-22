@@ -60,6 +60,8 @@ import Bullseye from './Modules/Traits/Bullseye';
 import CyclonicBurst from './Modules/Traits/CyclonicBurst';
 import CallOfTheHunter from './Modules/Traits/CallOfTheHunter';
 import LegacyOfTheWindrunners from './Modules/Traits/LegacyOfTheWindrunners';
+import Windburst from './Modules/Traits/Windburst';
+
 //Traits and Talents list
 import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 
@@ -133,6 +135,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cyclonicBurst: CyclonicBurst,
     callOfTheHunter: CallOfTheHunter,
     legacyOfTheWindrunners: LegacyOfTheWindrunners,
+    windburst: Windburst,
 
     //Traits and Talents list
     traitsAndTalents: TraitsAndTalents,
