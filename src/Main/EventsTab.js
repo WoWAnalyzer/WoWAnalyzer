@@ -323,7 +323,7 @@ class EventsTab extends React.Component {
                             <span className={resource.url}>
                               {formatThousands(rowData.resourceChange)} {resource.name}
                             </span>{' '}
-                            <Icon icon={resource.icon} alt={resource.name} />
+                            {resource.icon && <Icon icon={resource.icon} alt={resource.name} />}
                           </Wrapper>
                         );
                       }
