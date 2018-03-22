@@ -82,6 +82,12 @@ export default {
     icon: 'inv_weapon_shortblade_40',
   },
 
+  BONESTORM_HIT: {
+    id: 196528,
+    name: "Bonestorm",
+    icon: "achievement_boss_lordmarrowgar",
+  },
+
   // Only used during Dancing Rune Weapon. Its the Heart Strike of the copied weapons. Generates 5 RP.
   BLOOD_STRIKE: {
     id: 220890,
