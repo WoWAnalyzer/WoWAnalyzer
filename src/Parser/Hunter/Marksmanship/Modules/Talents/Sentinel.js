@@ -12,7 +12,7 @@ import { formatPercentage } from 'common/format';
  * Your Sentinel watches over the target area for 18 sec, applying Hunter's Mark to all enemies every 6 sec.
  */
 
-const MS_BUFFER = 100;
+const MS_BUFFER = 200;
 
 const SENTINEL_DURATION = 18000;
 
@@ -36,6 +36,7 @@ class Sentinel extends Analyzer {
   lastSentinelCastTimestamp = null;
   lostTicksFromCombatEnd = 0;
   timesTicked = 0;
+  lastApplicationFromSentinel = null;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.SENTINEL_TALENT.id);
@@ -60,8 +61,13 @@ class Sentinel extends Analyzer {
       this.timesTicked = 0;
       return;
     }
+    //Since all debuffs are applied at the same (adding a buffer for safety) we can check for AoE scenarios like this
+    if (this.lastApplicationFromSentinel && event.timestamp < this.lastApplicationFromSentinel + MS_BUFFER) {
+      this.appliedDebuffsFromSentinel++;
+    }
     if (event.timestamp < (TIME_BETWEEN_TICKS * this.timesTicked + this.lastSentinelCastTimestamp + MS_BUFFER) && event.timestamp > (TIME_BETWEEN_TICKS * this.timesTicked + this.lastSentinelCastTimestamp - MS_BUFFER)) {
       this.appliedDebuffsFromSentinel++;
+      this.lastApplicationFromSentinel = event.timestamp;
       //to count singular ticks and not all debuffs appliedfor AoE purposed we filter once more:
       if (this.applyDebuffTimestamp < event.timestamp + MS_BUFFER) {
         this.applyDebuffTimestamp = event.timestamp;
