@@ -26,6 +26,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLESSED_HAMMER_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 4.5 / (1 + haste),
+        isOnGCD: true,
         charges: 3,
         enabled: combatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id),
         castEfficiency: {
