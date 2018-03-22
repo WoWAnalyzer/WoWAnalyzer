@@ -14,6 +14,11 @@ export default [
     contributors: [joshinator],
   },
   {
+    date: new Date('2018-03-17'),
+    changes: <Wrapper>Updated the <SpellLink id={SPELLS.BONE_SHIELD.id} icon />-Module.</Wrapper>,
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-03-15'),
     changes: <Wrapper>Added Relic-Module.</Wrapper>,
     contributors: [joshinator],
