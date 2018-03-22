@@ -16,7 +16,7 @@ import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountCheck
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 
-import BoneShieldUptime from './BoneShieldUptime';
+import BoneShield from './BoneShield';
 import Ossuary from '../Talents/Ossuary';
 import BloodPlagueUptime from './BloodPlagueUptime';
 import AlwaysBeCasting from './AlwaysBeCasting';
@@ -36,7 +36,7 @@ class Checklist extends CoreChecklist {
     alwaysBeCasting: AlwaysBeCasting,
     enchantChecker: EnchantChecker,
     runicPowerDetails: RunicPowerDetails,
-    boneShieldUptime: BoneShieldUptime,
+    boneShield: BoneShield,
     ossuary: Ossuary,
     crimsonScourge: CrimsonScourge,
     runeTracker: RuneTracker,
@@ -118,7 +118,7 @@ class Checklist extends CoreChecklist {
           }),
           new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.BONE_SHIELD.id}/> Uptime</Wrapper>,
-            check: () => this.boneShieldUptime.uptimeSuggestionThresholds,
+            check: () => this.boneShield.uptimeSuggestionThresholds,
           }),
           new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.OSSUARY.id}/> Uptime</Wrapper>,
