@@ -90,8 +90,8 @@ class EnchantChecker extends Analyzer {
               .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
           });
 
-        const hasMaxEnchant = hasEnchant && this.hasMaxEnchant(item);
-        when(hasMaxEnchant).isFalse()
+        const noMaxEnchant = hasEnchant && !this.hasMaxEnchant(item);
+        when(noMaxEnchant).isTrue()
           .addSuggestion((suggest, actual, recommended) => {
             return suggest(
               <Wrapper>
