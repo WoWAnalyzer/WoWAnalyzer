@@ -7,6 +7,9 @@ import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
+const SKELETAL_SHATTERING_DR = 0.08;
+const BONE_SHIELD_DR = 0.16;
+
 class BoneShield extends Analyzer {
 
   static dependencies = {
@@ -14,19 +17,11 @@ class BoneShield extends Analyzer {
     statTracker: StatTracker,
   };
 
-  SS_DR = 0.08;
-  BONE_SHIELD_DR = 0.16;
-
-  totalDamageTaken = 0;
-
   hasSS = false;
   hasSD = false;
 
-  totalCrit = 0;
-  totalCritChecks = 0;
-
-  boneShieldDR = 0.16;
-  ssDR = 0;
+  boneShieldMitigated = 0;
+  skeletalShatteringMitigated = 0;
 
 
   on_initialized() {
@@ -35,20 +30,14 @@ class BoneShield extends Analyzer {
   }
 
   get boneShieldAbsorbTooltip() {
-    if (this.hasSS) {
-      const avgCrit = this.totalCrit / this.totalCritChecks;
-      this.ssDR = avgCrit * this.SS_DR;
-      this.boneShieldDR = this.BONE_SHIELD_DR + this.ssDR;
-    }
-
-    return formatNumber(this.totalDamageTaken * this.boneShieldDR) + " Bone Shield Absorb<br>";
+    return formatNumber(this.boneShieldMitigated) + " Bone Shield Absorb<br>";
   }
 
   get skeletalShatteringTooltip() {
     if (this.hasSS) {
       return "On average, Skeletal Shattering would have contributed " + 
-        formatPercentage((this.totalDamageTaken * this.ssDR) / (this.totalDamageTaken * this.boneShieldDR)) +
-        "% (" + formatNumber(this.totalDamageTaken * this.ssDR) + ") to this.<br>";
+        formatPercentage(this.skeletalShatteringMitigated / this.boneShieldMitigated) +
+        "% (" + formatNumber(this.skeletalShatteringMitigated) + ") to this.<br>";
     } else {
       return "";
     }
@@ -62,15 +51,12 @@ class BoneShield extends Analyzer {
       return;
     }
 
-    this.totalDamageTaken += event.amount + event.absorbed;
+    const preMitigatedBoneShield = (event.amount + event.absorbed) / (1 - BONE_SHIELD_DR);
+    this.boneShieldMitigated += preMitigatedBoneShield * BONE_SHIELD_DR;
 
-    this.totalCrit += this.statTracker.currentCritPercentage;
-    this.totalCritChecks += 1;
-  }
-
-  on_byPlayer_absorbed(event) {
-    if(!this.combatants.selected.hasBuff(SPELLS.BONE_SHIELD.id)) {
-      return;
+    if (this.hasSS) {
+      const preMitigatedSkeletalShattering = (event.amount + event.absorbed) / (1 - BONE_SHIELD_DR - SKELETAL_SHATTERING_DR);
+      this.skeletalShatteringMitigated += preMitigatedSkeletalShattering * SKELETAL_SHATTERING_DR * this.statTracker.currentCritPercentage;
     }
   }
 
