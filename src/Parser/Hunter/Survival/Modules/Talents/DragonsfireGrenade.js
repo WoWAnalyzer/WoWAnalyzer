@@ -37,7 +37,7 @@ class DragonsfireGrenade extends Analyzer {
     }
     if (this.casts === 0) {
       this.casts++;
-      this.spellUsable.beginCooldown(SPELLS.DRAGONSFIRE_GRENADE_TALENT.id);
+      this.spellUsable.beginCooldown(SPELLS.DRAGONSFIRE_GRENADE_TALENT.id, this.owner.fight.start_time);
     }
     this.bonusDamage += event.amount + (event.absorbed || 0);
   }
