@@ -4,6 +4,7 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
+import SpellUsable from './Modules/Features/SpellUsable';
 
 import EnrageUptime from './Modules/BuffDebuff/EnrageUptime';
 import FrothingBerserkerUptime from './Modules/BuffDebuff/FrothingBerserkerUptime';
@@ -24,6 +25,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    spellUsable: SpellUsable,
 
     enrageUptime: EnrageUptime,
     frothingBerserkerUptime: FrothingBerserkerUptime,
