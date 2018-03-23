@@ -8,25 +8,6 @@ import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-  static ABILITIES_ON_GCD = [
-    // Rotational
-    SPELLS.BLOODTHIRST.id,
-    SPELLS.FURIOUS_SLASH.id,
-    SPELLS.EXECUTE_FURY.id,
-    SPELLS.RAGING_BLOW.id,
-    SPELLS.RAMPAGE.id,
-    SPELLS.WHIRLWIND_FURY.id,
-    SPELLS.ODYNS_FURY.id,
-    // Utility
-    SPELLS.CHARGE.id,
-    SPELLS.HEROIC_THROW.id,
-    SPELLS.HEROIC_LEAP.id,
-    // Talents
-    SPELLS.SHOCKWAVE_TALENT.id,
-    SPELLS.STORM_BOLT_TALENT.id,
-    SPELLS.DRAGON_ROAR_TALENT.id,
-  ];
-
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
