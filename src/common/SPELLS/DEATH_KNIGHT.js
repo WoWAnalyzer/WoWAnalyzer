@@ -66,7 +66,7 @@ export default {
   // Provides the 1 RP tick on DnD from Rapid Decomposition Talent
   RAPID_DECOMPOSITION_RP_TICK: {
     id: 255203,
-    name: 'Rapid Decomposition RP Tick',
+    name: 'Rapid Decomposition',
     icon: 'ability_deathknight_deathsiphon2',
   },
 
@@ -575,7 +575,7 @@ export default {
 
   ANTI_MAGIC_SHELL_RP_GAINED: {
     id: 49088,
-    name: 'Anti-Magic Shell RP Gained',
+    name: 'Anti-Magic Shell',
     icon: 'spell_holy_righteousnessaura',
   },
 
