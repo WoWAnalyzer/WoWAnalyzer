@@ -56,6 +56,12 @@ export default {
     icon: 'spell_shadow_deathanddecay',
   },
 
+  SKELETAL_SHATTERING_TRAIT: {
+    id: 192558,
+    name: 'Skeletal Shattering',
+    icon: 'trade_archaeology_bones-of-transformation',
+  },
+
   // Damage Dealing
   // Provides the 1 RP tick on DnD from Rapid Decomposition Talent
   RAPID_DECOMPOSITION_RP_TICK: {
@@ -74,6 +80,12 @@ export default {
     id: 206930,
     name: 'Heart Strike',
     icon: 'inv_weapon_shortblade_40',
+  },
+
+  BONESTORM_HIT: {
+    id: 196528,
+    name: "Bonestorm",
+    icon: "achievement_boss_lordmarrowgar",
   },
 
   // Only used during Dancing Rune Weapon. Its the Heart Strike of the copied weapons. Generates 5 RP.
@@ -311,6 +323,16 @@ export default {
     id: 207062,
     name: 'Murderous Efficiency',
     icon: 'spell_frost_frostarmor',
+  },
+  FROST_FEVER_RP_GAIN:{
+    id: 195617,
+    name: 'Frost Fever',
+    icon: 'spell_deathknight_frostfever',
+  },
+  RUNIC_ATTENUATION_RP_GAIN:{
+    id: 221322,
+    name: 'Runic Attenuation',
+    icon: 'boss_odunrunes_blue',
   },
   KOLTIRAS_NEWFOUND_WILL: {
     id: 208783,
@@ -693,5 +715,11 @@ export default {
     id: -103,
     name: 'Rune 3',
     icon: 'spell_deathknight_frozenruneweapon',
+  },
+
+  RUNIC_POWER:{
+    id: 189096,
+    name: 'Runic Power',
+    icon: 'inv_sword_62',
   },
 };

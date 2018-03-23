@@ -65,6 +65,7 @@ import DarkmoonDeckImmortality from './Modules/Items/Legion/DarkmoonDeckImmortal
 import AmalgamsSeventhSpine from './Modules/Items/Legion/AmalgamsSeventhSpine';
 import GnawedThumbRing from './Modules/Items/Legion/GnawedThumbRing';
 import EyeOfCommand from './Modules/Items/Legion/EyeOfCommand';
+import MementoOfAngerboda from './Modules/Items/Legion/MementoOfAngerboda';
 
 // The Nighthold (T19)
 import ErraticMetronome from './Modules/Items/Legion/TheNighthold/ErraticMetronome';
@@ -130,8 +131,6 @@ import EventsNormalizer from './EventsNormalizer';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
-// This sends every event that occurs to the console, including fabricated events (unlike the Events tab)
-const debugEvents = false;
 
 let _modulesDeprecatedWarningSent = false;
 
@@ -200,6 +199,7 @@ class CombatLogParser {
     ishkarsFelshieldEmitter: IshkarsFelshieldEmitter,
     erraticMetronome: ErraticMetronome,
     eyeOfCommand: EyeOfCommand,
+    mementoOfAngerboda: MementoOfAngerboda,
     // Tomb trinkets:
     archiveOfFaith: ArchiveOfFaith,
     barbaricMindslaver: BarbaricMindslaver,
@@ -394,21 +394,17 @@ class CombatLogParser {
   }
   initializeAnalyzers(combatants) {
     this.parseEvents(combatants);
-    this.triggerEvent('initialized');
+    this.triggerInitialized();
+  }
+  triggerInitialized() {
+    this.fabricateEvent({
+      type: 'initialized',
+    });
   }
   parseEvents(events) {
-    this.eventHistory = [
-      ...this.eventHistory,
-      ...events,
-    ];
-    events.forEach((event) => {
-      if (this.error) {
-        throw new Error(this.error);
-      }
+    events.forEach(event => {
       this._timestamp = event.timestamp;
-
-      // Triggering a lot of events here for development pleasure; does this have a significant performance impact?
-      this.triggerEvent(event.type, event);
+      this.triggerEvent(event);
     });
   }
 
@@ -437,8 +433,18 @@ class CombatLogParser {
   /** @type {number} The amount of events parsed. This can reliably be used to determine if something should re-render. */
   eventCount = 0;
   _moduleTime = {};
-  triggerEvent(eventType, event, ...args) {
-    debugEvents && console.log(eventType, event, ...args);
+  triggerEvent(event, ...args) {
+    if (process.env.NODE_ENV === 'development') {
+      if (!event.type) {
+        console.log(event);
+        throw new Error('Events should have a type. No type received. See the console for the event.');
+      }
+      if (args.length > 0) {
+        console.warn(`Triggering an event with additional arguments is deprecated as it isn't visible in the events tab and harder to discover. Provide additional arguments as event properties instead. Event type: ${event.type}`, event);
+      }
+    }
+    // Creating arrays is expensive so we cheat and just push here
+    this.eventHistory.push(event);
 
     Object.keys(this._modules)
       .filter(key => this._modules[key].active)
@@ -448,15 +454,25 @@ class CombatLogParser {
         const module = this._modules[key];
         if (process.env.NODE_ENV === 'development') {
           const start = +new Date();
-          module.triggerEvent(eventType, event, ...args);
+          module.triggerEvent(event, ...args);
           const duration = +new Date() - start;
           this._moduleTime[key] = this._moduleTime[key] || 0;
           this._moduleTime[key] += duration;
         } else {
-          module.triggerEvent(eventType, event, ...args);
+          module.triggerEvent(event, ...args);
         }
       });
     this.eventCount += 1;
+  }
+  fabricateEvent(event = null, trigger = null, ...args) {
+    this.triggerEvent({
+      // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
+      timestamp: this.currentTimestamp,
+      // If this event was triggered you should pass it along
+      trigger: trigger ? trigger : undefined,
+      ...event,
+      __fabricated: true,
+    }, ...args);
   }
 
   byPlayer(event, playerId = this.player.id) {

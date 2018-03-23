@@ -48,3 +48,6 @@ after_success:
 after_failure:
   - chmod +x travis-discord-hook/fail.sh
   - ./travis-discord-hook/fail.sh
+notifications:
+  webhooks: https://www.travisbuddy.com/
+  on_success: never

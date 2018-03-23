@@ -16,9 +16,9 @@ class Ability {
         name: PropTypes.string.isRequired,
         icon: PropTypes.string.isRequired,
       })),
-    ]),
+    ]).isRequired,
     /**
-     * The name to use if it is different from the name provided by the `spell` object.
+     * The name to use if it is different from the name provided by the `spell` object. This should only be used in rare situations.
      */
     name: PropTypes.string,
     /**
@@ -40,7 +40,7 @@ class Ability {
       PropTypes.number,
     ]),
     /**
-     * The amount of charges the spell has by default. Reminder: only the first used charge will recharge, so a spell having
+     * The amount of charges the spell has by default. Reminder: only 1 charge will recharge at a time, so a spell having multiple charges will only have the amount of charges as extra possible casts during a fight.
      */
     charges: PropTypes.number,
     /**
