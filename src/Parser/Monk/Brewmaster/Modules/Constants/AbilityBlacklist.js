@@ -3,7 +3,8 @@
  * counting*. These abilities produce many hits but generally aren't
  * worth mitigating, skewing the results of tracking.
  */
-export default [
+
+const SHARED = [
   // ANTORUS
   // Garothi Worldbreaker
   247159, // Luring Destruction, intermission pulse
@@ -15,7 +16,6 @@ export default [
   248424, // Gathering Power (Imonar bridge phase)
   // Kin'Garoth
   246646, // Flames of the Forge (Kin'garoth intermission pulsing aoe)
-  246779, // Empowered bombs (Kin'garoth)
   // Varimathras
   // Coven of Shivarra
   258018, // Sense of Dread, pulsing aoe from inactive shivarra
@@ -26,3 +26,12 @@ export default [
   // Argus
   256396, // Reorigination pulse, aoe hit from orbs. generally don't get bof on these
 ];
+
+export const BOF = SHARED.concat([
+  // ANTORUS
+  // Kin'Garoth
+  246779, // Empowered bombs (Kin'garoth)
+]);
+
+export const ISB = SHARED.concat([
+]);

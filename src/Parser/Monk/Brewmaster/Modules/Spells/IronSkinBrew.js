@@ -9,7 +9,7 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SharedBrews from '../Core/SharedBrews';
-import ABILITY_BLACKLIST from '../Constants/AbilityBlacklist';
+import { ISB as ABILITY_BLACKLIST } from '../Constants/AbilityBlacklist';
 
 const debug = false;
 
