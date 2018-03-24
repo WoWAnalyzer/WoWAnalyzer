@@ -358,6 +358,7 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.HEX, SPELLS.HEX_RAPTOR, SPELLS.HEX_SNAKE, SPELLS.HEX_SPIDER, SPELLS.HEX_COCKROACH, SPELLS.HEX_SKELETAL],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: true,
         timelineSortIndex: 80,
         cooldown: 30,
       },
