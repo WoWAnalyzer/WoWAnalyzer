@@ -2,6 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
+import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Wrapper from 'common/Wrapper';
 import { calculateSecondaryStatDefault } from 'common/stats';
@@ -21,7 +22,6 @@ class KhazgorothsCourage extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     statTracker: StatTracker,
-
   };
 
   damageProcs = 0;
@@ -29,7 +29,7 @@ class KhazgorothsCourage extends Analyzer {
   damage = 0;
   uptime = 0;
   secondaryRating = 0;
-  activeBuffStatName = 'none'
+  activeBuffStatName = 'none';
 
   on_initialized() {
     this.active = this.combatants.selected.hasTrinket(ITEMS.KHAZGOROTHS_COURAGE.id);
@@ -47,8 +47,8 @@ class KhazgorothsCourage extends Analyzer {
     if (spellId === SPELLS.KHAZGOROTHS_SHAPING.id) {
       this.pantheonProcs++;
       const highestSecondaryStat = this.highestSecondaryStat;
-      this.activeBuffStatName = highestSecondaryStat;
       this._makeStatChange(this.secondaryRating, highestSecondaryStat, event);
+      this.activeBuffStatName = highestSecondaryStat;
     }
   }
 
@@ -60,10 +60,10 @@ class KhazgorothsCourage extends Analyzer {
     if (spellId === SPELLS.KHAZGOROTHS_SHAPING.id) {
       this.pantheonProcs++;
       const highestSecondaryStat = this.highestSecondaryStat;
-      if(this.activeBuffStatName !== highestSecondaryStat){
+      if (this.activeBuffStatName !== highestSecondaryStat) {
         this._makeStatChange(0 - this.secondaryRating, this.activeBuffStatName, event);
-        this.activeBuffStatName = highestSecondaryStat;
         this._makeStatChange(this.secondaryRating, highestSecondaryStat, event);
+        this.activeBuffStatName = highestSecondaryStat;
       }
     }
   }
@@ -82,18 +82,18 @@ class KhazgorothsCourage extends Analyzer {
     }
   }
 
-  get highestSecondaryStat(){
+  get highestSecondaryStat() {
     const haste = this.statTracker.currentHasteRating;
     const crit = this.statTracker.currentCritRating;
     const mastery = this.statTracker.currentMasteryRating;
     const versatility = this.statTracker.currentVersatilityRating;
-    if(haste >= crit && haste >= mastery && haste >= versatility){
+    if (haste >= crit && haste >= mastery && haste >= versatility) {
       return 'haste';
-    } else if(crit >= mastery && crit >= versatility){
+    } else if (crit >= mastery && crit >= versatility) {
       return 'crit';
-    } else if(mastery >= versatility){
+    } else if (mastery >= versatility) {
       return 'mastery';
-    } else{
+    } else {
       return 'versatility';
     }
   }
@@ -109,12 +109,12 @@ class KhazgorothsCourage extends Analyzer {
       item: ITEMS.KHAZGOROTHS_COURAGE,
       result: (
         <Wrapper>
-          <dfn data-tip={`Procced the damage buff <b>${this.damageProcs}</b> times.`}>
+          <dfn data-tip={`The damage buff procced <b>${this.damageProcs}</b> times.`}>
             <ItemDamageDone amount={this.damage} />
           </dfn><br />
-          <dfn data-tip={`Procced the pantheon buff <b>${this.pantheonProcs}</b> times.`}>
-            {formatPercentage(uptimePercent)} % uptime on Khaz'goroths Shaping
-          </dfn>
+          <dfn data-tip={`The Pantheon buff procced <b>${this.pantheonProcs}</b> times.`}>
+            {formatPercentage(uptimePercent)} % uptime
+          </dfn> on <SpellLink id={SPELLS.KHAZGOROTHS_SHAPING.id} icon />
         </Wrapper>
       ),
     };
