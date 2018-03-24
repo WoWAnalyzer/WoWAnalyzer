@@ -1,7 +1,7 @@
 import React from 'react';
 
-// https://thenounproject.com/search/?q=idea&i=252366
-// Idea by Gregor Cresnar from the Noun Project
+// https://thenounproject.com/term/stats/1348932/
+// Stats by Barracuda from the Noun Project
 const Icon = ({ ...other }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" {...other}>
     <g transform="translate(0,-952.36218)">
