@@ -43,6 +43,7 @@ class TimelineTab extends React.PureComponent {
           showGlobalCooldownDuration={isGlobalCooldownAccurate || isDevelopment}
           {...others}
           style={{
+            marginTop: 10,
             marginLeft: -22,
             marginRight: -22,
           }}

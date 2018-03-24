@@ -78,12 +78,12 @@ class BoneShield extends Analyzer {
 
   suggestions(when) {
     when(this.uptimeSuggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest('Your Bone Shield uptime can be improved. Try to keep it up at all times.')
-            .icon(SPELLS.BONE_SHIELD.icon)
-            .actual(`${formatPercentage(actual)}% Bone Shield uptime`)
-            .recommended(`>${formatPercentage(recommended)}% is recommended`);
-        });
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest('Your Bone Shield uptime can be improved. Try to keep it up at all times.')
+          .icon(SPELLS.BONE_SHIELD.icon)
+          .actual(`${formatPercentage(actual)}% Bone Shield uptime`)
+          .recommended(`>${formatPercentage(recommended)}% is recommended`);
+      });
   }
 
   statistic() {

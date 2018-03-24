@@ -8,6 +8,7 @@ import Masonry from 'react-masonry-component';
 import ChecklistIcon from 'Icons/Checklist';
 import SuggestionIcon from 'Icons/Suggestion';
 import ArmorIcon from 'Icons/Armor';
+import StatisticsIcon from 'Icons/Statistics';
 
 import Wrapper from 'common/Wrapper';
 import ReadableList from 'common/ReadableList';
@@ -36,6 +37,7 @@ const MAIN_TAB = {
   CHECKLIST: 'Checklist',
   SUGGESTIONS: 'Suggestions',
   CHARACTER: 'Character',
+  STATS: 'Stats',
 };
 function mainTabLabel(tab) {
   switch (tab) {
@@ -55,8 +57,14 @@ function mainTabLabel(tab) {
       return (
         <Wrapper>
           <ArmorIcon /> CHARACTER
-          </Wrapper>
-        );
+        </Wrapper>
+      );
+    case MAIN_TAB.STATS:
+      return (
+        <Wrapper>
+          <StatisticsIcon /> Statistics
+        </Wrapper>
+      );
     default: return tab;
   }
 }
@@ -274,6 +282,9 @@ class Results extends React.Component {
                     )}
                     {this.state.mainTab === MAIN_TAB.CHARACTER && (
                       modules.characterPanel.render()
+                    )}
+                    {this.state.mainTab === MAIN_TAB.STATS && (
+                      modules.encounterPanel.render()
                     )}
                   </div>
                 </div>

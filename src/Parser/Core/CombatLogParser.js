@@ -42,6 +42,8 @@ import StatsDisplay from './Modules/Features/StatsDisplay';
 import TalentsDisplay from './Modules/Features/TalentsDisplay';
 import Checklist from './Modules/Features/Checklist';
 
+import EncounterPanel from './Modules/Features/EncounterPanel';
+
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
 
 import PrePotion from './Modules/Items/PrePotion';
@@ -175,6 +177,8 @@ class CombatLogParser {
     statsDisplay: StatsDisplay,
     talentsDisplay: TalentsDisplay,
     checklist: Checklist,
+
+    encounterPanel: EncounterPanel,
 
     // Items:
     // Legendaries:
@@ -528,6 +532,8 @@ class CombatLogParser {
           globalCooldownHistory={this.modules.globalCooldown.history}
           channelHistory={this.modules.channeling.history}
           abilities={this.modules.abilities}
+          deaths={this.modules.deathTracker.deaths}
+          resurrections={this.modules.deathTracker.resurrections}
           isAbilityCooldownsAccurate={this.modules.spellUsable.isAccurate}
           isGlobalCooldownAccurate={this.modules.globalCooldown.isAccurate}
         />
