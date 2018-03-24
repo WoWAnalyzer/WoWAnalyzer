@@ -5,7 +5,6 @@ import Abilities from 'Parser/Core/Modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
 
 const ALLOWED_CASTS_DURING_DRW = [
   SPELLS.DEATH_STRIKE.id,
@@ -25,11 +24,11 @@ class DancingRuneWeapon extends Analyzer {
   castsDuringDRW = [];
 
   on_byPlayer_cast(event) {
-    //push all casts during DRW that were on the GCD in array
     if (!this.combatants.selected.hasBuff(SPELLS.DANCING_RUNE_WEAPON_BUFF.id)) {
       return;
     }
 
+    //push all casts during DRW that were on the GCD in array
     if (event.ability.guid !== SPELLS.RAISE_ALLY.id && //probably usefull to rezz someone even if it's a personal DPS-loss
       this.abilities.getAbility(event.ability.guid) !== undefined && 
       this.abilities.getAbility(event.ability.guid).isOnGCD === true) { 
@@ -41,10 +40,6 @@ class DancingRuneWeapon extends Analyzer {
     return this.castsDuringDRW.filter((val, index) => {
       return ALLOWED_CASTS_DURING_DRW.includes(val);
     });
-  }
-
-  get goodDRWCastslength() {
-    return ALLOWED_CASTS_DURING_DRW.length;
   }
   
   get SuggestionThresholds() {
