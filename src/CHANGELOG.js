@@ -9,7 +9,7 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-03-21'),
+    date: new Date('2018-03-24'),
     changes: 'Added statistics for talents, legendaries and trinkets based on the current encounter.',
     contributors: [joshinator],
   },
