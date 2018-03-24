@@ -152,8 +152,8 @@ class UncertainReminder extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You didn't benefit from <ItemLink id={ITEMS.UNCERTAIN_REMINDER.id} /> a lot consider using a different legendary on long fights or on fights where there is not much to heal during the additional heroism uptime.</span>)
           .icon(ITEMS.UNCERTAIN_REMINDER.icon)
-          .actual(`${uncertainReminderHealingPercentage} %`)
-          .recommended(`${recommended} %`)
+          .actual(`${uncertainReminderHealingPercentage}%`)
+          .recommended(`${recommended}%`)
           .regular(recommended - .01).major(recommended - .02);
       });
   }

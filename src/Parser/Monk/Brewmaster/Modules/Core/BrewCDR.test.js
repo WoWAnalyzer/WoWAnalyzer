@@ -7,6 +7,9 @@ import CombatLogParser from '../../CombatLogParser';
 import BrewCDR from './BrewCDR';
 import report from '../../test-logs/report_nxzcqJKmYwHbdWMp';
 
+// Disable spammy warnings
+console.error = jest.fn();
+console.warn = jest.fn();
 
 describe('BrewCDR', () => {
   let events;

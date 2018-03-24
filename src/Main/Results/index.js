@@ -8,6 +8,7 @@ import Masonry from 'react-masonry-component';
 import ChecklistIcon from 'Icons/Checklist';
 import SuggestionIcon from 'Icons/Suggestion';
 import ArmorIcon from 'Icons/Armor';
+import StatisticsIcon from 'Icons/Statistics';
 
 import Wrapper from 'common/Wrapper';
 import ReadableList from 'common/ReadableList';
@@ -27,6 +28,7 @@ import Contributor from 'Main/Contributor';
 import ItemsPanel from './ItemsPanel';
 import ResultsWarning from './ResultsWarning';
 import Header from './Header';
+import DetailsTab from './DetailsTab';
 
 import './Results.css';
 
@@ -36,6 +38,7 @@ const MAIN_TAB = {
   CHECKLIST: 'Checklist',
   SUGGESTIONS: 'Suggestions',
   CHARACTER: 'Character',
+  STATS: 'Stats',
 };
 function mainTabLabel(tab) {
   switch (tab) {
@@ -55,13 +58,24 @@ function mainTabLabel(tab) {
       return (
         <Wrapper>
           <ArmorIcon /> CHARACTER
-          </Wrapper>
-        );
+        </Wrapper>
+      );
+    case MAIN_TAB.STATS:
+      return (
+        <Wrapper>
+          <StatisticsIcon /> Statistics
+        </Wrapper>
+      );
     default: return tab;
   }
 }
 
 class Results extends React.Component {
+  static propTypes = {
+    parser: PropTypes.object.isRequired,
+    selectedDetailsTab: PropTypes.string,
+    makeTabUrl: PropTypes.func.isRequired,
+  };
   static childContextTypes = {
     updateResults: PropTypes.func.isRequired,
     parser: PropTypes.object.isRequired,
@@ -74,11 +88,6 @@ class Results extends React.Component {
   }
   static contextTypes = {
     config: PropTypes.object.isRequired,
-  };
-  static propTypes = {
-    parser: PropTypes.object.isRequired,
-    tab: PropTypes.string,
-    onChangeTab: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -116,7 +125,7 @@ class Results extends React.Component {
   }
 
   render() {
-    const { parser, tab, onChangeTab } = this.props;
+    const { parser, selectedDetailsTab, makeTabUrl } = this.props;
     const report = parser.report;
     const fight = parser.fight;
     const config = this.context.config;
@@ -171,8 +180,6 @@ class Results extends React.Component {
       });
     }
 
-    const tabUrl = tab || results.tabs[0].url;
-    const activeTab = results.tabs.find(tab => tab.url === tabUrl) || results.tabs[0];
     const { spec, description, contributors, patchCompatibility } = this.context.config;
     const specPatchCompatibility = parseVersionString(patchCompatibility);
     const latestPatch = parseVersionString(CURRENT_GAME_PATCH);
@@ -275,6 +282,9 @@ class Results extends React.Component {
                     {this.state.mainTab === MAIN_TAB.CHARACTER && (
                       modules.characterPanel.render()
                     )}
+                    {this.state.mainTab === MAIN_TAB.STATS && (
+                      modules.encounterPanel.render()
+                    )}
                   </div>
                 </div>
               </div>
@@ -291,33 +301,7 @@ class Results extends React.Component {
 
           <div className="divider" />
 
-          <div className="panel tabbed" style={{ marginTop: 15, marginBottom: 100 }}>
-            <div className="panel-body flex" style={{ flexDirection: 'column', padding: '0' }}>
-              <div className="navigation item-divider">
-                <div className="flex" style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                  {results.tabs
-                    .sort((a, b) => {
-                      const aOrder = a.order !== undefined ? a.order : 100;
-                      const bOrder = b.order !== undefined ? b.order : 100;
-
-                      return aOrder - bOrder;
-                    })
-                    .map(tab => (
-                      <button
-                        key={tab.title}
-                        className={activeTab.url === tab.url ? 'btn-link selected' : 'btn-link'}
-                        onClick={() => onChangeTab(tab.url)}
-                      >
-                        {tab.title}
-                      </button>
-                    ))}
-                </div>
-              </div>
-              <div>
-                {activeTab.render()}
-              </div>
-            </div>
-          </div>
+          <DetailsTab tabs={results.tabs} selected={selectedDetailsTab} makeTabUrl={makeTabUrl} />
         </div>
       </div>
     );
@@ -325,7 +309,7 @@ class Results extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  tab: getResultTab(state),
+  selectedDetailsTab: getResultTab(state),
 });
 
 export default connect(

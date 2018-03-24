@@ -37,7 +37,7 @@ class AMurderOfCrows extends Analyzer {
     }
     if (this.casts === 0) {
       this.casts++;
-      this.spellUsable.beginCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT_SURVIVAL.id);
+      this.spellUsable.beginCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT_SURVIVAL.id, this.owner.fight.start_time);
     }
     this.bonusDamage += event.amount + (event.absorbed || 0);
   }

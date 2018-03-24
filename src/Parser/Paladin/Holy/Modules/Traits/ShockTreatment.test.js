@@ -26,7 +26,9 @@ describe('Paladin/Holy/Modules/Traits/ShockTreatment', () => {
       combatants: combatantsMock,
       critEffectBonus: critEffectBonusMock,
     });
-    instance.triggerEvent('initialized');
+    instance.triggerEvent({
+      type: 'initialized',
+    });
   });
 
   it('adds a hook that increases the crit effect bonus of Holy Shock', () => {

@@ -25,7 +25,7 @@ class TimelineTab extends React.PureComponent {
         </div>
         {!isAbilityCooldownsAccurate && (
           <Danger style={{ marginTop: 10, marginBottom: 10 }}>
-            Spell cooldown durations could not be shown because this spec's spell cooldown durations have not been properly configured yet. See <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> or join us on <a href="https://discord.gg/AxphPxU">Discord</a> if you're interested in contributing this.
+            Spell cooldown durations could not be shown because this spec's spell cooldown durations have not been properly configured yet. See <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/wiki/Abilities#how-to-configure-the-spell-cooldown-durations-properly">this page</a> if you're interested in contributing improvements.
           </Danger>
         )}
         {!isGlobalCooldownAccurate && (
@@ -43,6 +43,7 @@ class TimelineTab extends React.PureComponent {
           showGlobalCooldownDuration={isGlobalCooldownAccurate || isDevelopment}
           {...others}
           style={{
+            marginTop: 10,
             marginLeft: -22,
             marginRight: -22,
           }}

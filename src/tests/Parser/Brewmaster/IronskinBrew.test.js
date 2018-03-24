@@ -2,6 +2,10 @@ import IronSkinBrew from 'Parser/Monk/Brewmaster/Modules/Spells/IronSkinBrew';
 import processEvents from './Fixtures/processEvents';
 import { SimpleFight, incomingDamage } from './Fixtures/SimpleFight';
 
+const ENEMIES = {
+  getEntities: () => { return {2: true}; },
+};
+
 describe('Brewmaster.IronskinBrew', () => {
   let isb;
   beforeEach(() => {
@@ -11,6 +15,7 @@ describe('Brewmaster.IronskinBrew', () => {
       toPlayerPet: () => false,
       byPlayerPet: () => false,
     });
+    isb.enemies = ENEMIES;
     isb.brews = {
       consumeCharge: () => {},
     };

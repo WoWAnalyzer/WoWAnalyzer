@@ -17,7 +17,7 @@ import StellarFlareUptime from './Modules/Features/StellarFlareUptime';
 import MoonSpells from './Modules/Features/MoonSpells';
 import UnempoweredLunarStrike from './Modules/Features/UnempoweredLunarStrike';
 import UnempoweredSolarWrath from './Modules/Features/UnempoweredSolarWrath';
-import L90_talents from './Modules/Features/L90_talents';
+import L90Talents from './Modules/Features/L90Talents';
 
 
 //Resources
@@ -27,7 +27,7 @@ import AstralPowerTracker from './Modules/ResourceTracker/AstralPowerTracker';
 //Items
 import TheEmeraldDreamcatcher from './Modules/Items/TheEmeraldDreamcatcher';
 import ImpeccableFelEssence from './Modules/Items/ImpeccableFelEssence';
-import SoulOfTheArchdruid from './Modules/Items/SoulOfTheArchdruid';
+import SoulOfTheArchdruid from '../Shared/Modules/Items/SoulOfTheArchdruid';
 import LadyAndTheChild from './Modules/Items/LadyAndTheChild';
 import OnethsIntuition from './Modules/Items/OnethsIntuition';
 import PromiseOfElune from './Modules/Items/PromiseOfElune';
@@ -57,7 +57,7 @@ class CombatLogParser extends MainCombatLogParser {
     moonSpells: MoonSpells,
     unempoweredLunarStrike: UnempoweredLunarStrike,
     unempoweredSolarWrath: UnempoweredSolarWrath,
-    l90_talents: L90_talents,
+    l90Talents: L90Talents,
 
     //Resources
     astralPowerTracker: AstralPowerTracker,

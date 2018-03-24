@@ -5,7 +5,7 @@ import ReactTooltip from 'react-tooltip';
 import { push } from 'react-router-redux';
 import { Link } from 'react-router-dom';
 
-import { ApiDownError, LogNotFoundError, CorruptResponseError, JsonParseError } from 'common/fetchWcl';
+import { ApiDownError, CorruptResponseError, JsonParseError, LogNotFoundError } from 'common/fetchWcl';
 import fetchEvents from 'common/fetchEvents';
 import { captureException } from 'common/errorLogger';
 import Wrapper from 'common/Wrapper';
@@ -14,12 +14,12 @@ import getFightName from 'common/getFightName';
 import { fetchReport } from 'actions/report';
 import { appendReportHistory } from 'actions/reportHistory';
 import { fetchCombatants } from 'actions/combatants';
-import { getReportCode, getFightId, getPlayerId, getPlayerName } from 'selectors/url/report';
+import { getFightId, getPlayerId, getPlayerName, getReportCode } from 'selectors/url/report';
 import { getArticleId } from 'selectors/url/news';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import { getCombatants } from 'selectors/combatants';
-import { clearError, reportNotFoundError, apiDownError, unknownNetworkIssueError, unknownError, internetExplorerError, API_DOWN, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE, INTERNET_EXPLORER } from 'actions/error';
+import { API_DOWN, apiDownError, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_NOT_FOUND, reportNotFoundError, UNKNOWN_NETWORK_ISSUE, unknownError, unknownNetworkIssueError } from 'actions/error';
 import { getError } from 'selectors/error';
 
 import 'react-toggle/style.css';
@@ -104,7 +104,7 @@ class App extends Component {
   }
 
   getPlayerFromReport(report, playerId, playerName) {
-    if(playerId){
+    if (playerId) {
       return report.friendlies.find(friendly => friendly.id === playerId);
     }
     const fetchByNameAttempt = report.friendlies.find(friendly => friendly.name === playerName);
@@ -212,7 +212,9 @@ class App extends Component {
         offset += batchSize;
       }
 
-      parser.triggerEvent('finished');
+      parser.fabricateEvent({
+        type: 'finished',
+      });
       timeAvailable && console.timeEnd('full parse');
       this.setState({
         progress: 1.0,
@@ -489,7 +491,7 @@ class App extends Component {
       <Results
         parser={parser}
         dataVersion={this.state.dataVersion}
-        onChangeTab={newTab => this.props.push(makeAnalyzerUrl(report, this.props.fightId, this.props.playerId, newTab))}
+        makeTabUrl={tab => makeAnalyzerUrl(report, parser.fightId, parser.playerId, tab)}
       />
     );
   }

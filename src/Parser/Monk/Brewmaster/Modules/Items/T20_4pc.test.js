@@ -1,8 +1,9 @@
 import SPELLS from 'common/SPELLS';
-import StaggerFabricator from 'Parser/Monk/Brewmaster/Modules/Core/StaggerFabricator';
-import T20_4pc from 'Parser/Monk/Brewmaster/Modules/Items/T20_4pc';
-import processEvents from './Fixtures/processEvents';
-import { SimpleFight } from './Fixtures/SimpleFight';
+import processEvents from 'tests/Parser/Brewmaster/Fixtures/processEvents';
+import { SimpleFight } from 'tests/Parser/Brewmaster/Fixtures/SimpleFight';
+
+import StaggerFabricator from '../Core/StaggerFabricator';
+import T20_4pc from './T20_4pc';
 
 describe('Brewmaster.T20_4pc', () => {
   let item;
@@ -17,8 +18,8 @@ describe('Brewmaster.T20_4pc', () => {
     fab.combatants = {
       selected: {
         hasTalent: () => false,
-        traitsBySpellId: {[SPELLS.STAGGERING_AROUND.id]: 0},
-      }
+        traitsBySpellId: { [SPELLS.STAGGERING_AROUND.id]: 0 },
+      },
     };
     item = new T20_4pc({
       toPlayer: () => true,
@@ -27,7 +28,7 @@ describe('Brewmaster.T20_4pc', () => {
       byPlayerPet: () => false,
     });
     item.fab = fab;
-    fab.owner.triggerEvent = (event, obj) => item.triggerEvent(event, obj);
+    fab.owner.fabricateEvent = (event, obj) => item.triggerEvent({ ...event, trigger: obj });
     fab._hasTier20_4pc = true;
   });
   it('how many gift of the ox orbs were absorbed as a heal', () => {
@@ -39,4 +40,3 @@ describe('Brewmaster.T20_4pc', () => {
     expect(item.staggerSaved).toBe(23.450000000000003);
   });
 });
-

@@ -1,10 +1,16 @@
 import React from 'react';
+
+import SPELLS from 'common/SPELLS';
+import Wrapper from 'common/Wrapper';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
+import { formatPercentage } from 'common/format';
+
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import SPELLS from 'common/SPELLS';
-import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import SpellIcon from 'common/SpellIcon';
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+
 
 class MarrowrendUsage extends Analyzer {
 
@@ -82,6 +88,43 @@ class MarrowrendUsage extends Analyzer {
     this.totalMRCasts += 1;
   }
 
+  get badCastsPercent() {
+    return this.badMRCasts / this.totalMRCasts;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.badCastsPercent,
+      isGreaterThan: {
+        minor: 0.05,
+        average: 0.1,
+        major: .2,
+      },
+      style: 'percentage',
+    };
+  }
+
+  get suggestionThresholdsEfficiency() {
+    return {
+      actual: 1 - this.badCastsPercent,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: .8,
+      },
+      style: 'percentage',
+    };
+  }
+
+  suggestions(when) {
+    when(this.suggestionThresholds)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<Wrapper>You casted {this.badMRCasts} Marrowrends with more than 6 stacks of <SpellLink id={SPELLS.BONE_SHIELD.id} /> that were not about to expire. Try to cast <SpellLink id={SPELLS.HEART_STRIKE.id} /> instead under those conditions.</Wrapper>)
+          .icon(SPELLS.MARROWREND.icon)
+          .actual(`${formatPercentage(actual)}% bad Marrowrend casts`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`);
+      });
+  }
 
   statistic() {
 

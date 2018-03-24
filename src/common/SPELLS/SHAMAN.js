@@ -25,6 +25,57 @@ export default {
     name: 'Earthbind Totem',
     icon: 'spell_nature_strengthofearthtotem02', 
   },
+  PURGE: {
+    id: 370,
+    name: 'Purge',
+    icon: 'spell_nature_purge', 
+  },
+  FAR_SIGHT: {
+    id: 6196,
+    name: 'Far Sight',
+    icon: 'spell_nature_farsight', 
+  },
+  WATER_WALKING: {
+    id: 546,
+    name: 'Water Walking',
+    icon: 'spell_frost_windwalkon', 
+  },
+  ASTRAL_RECALL: {
+    id: 556,
+    name: 'Astral Recall',
+    icon: 'spell_nature_astralrecal', 
+  },
+  // Hex and its variations
+  HEX: {
+    id: 51514,
+    name: 'Hex',
+    icon: 'spell_shaman_hex', 
+  },
+  HEX_RAPTOR: {
+    id: 210873,
+    name: 'Hex',
+    icon: 'ability_hunter_pet_raptor', 
+  },
+  HEX_SPIDER: {
+    id: 211004,
+    name: 'Hex',
+    icon: 'ability_hunter_pet_spider', 
+  },
+  HEX_SNAKE: {
+    id: 211010,
+    name: 'Hex',
+    icon: 'inv_pet_pythonblack', 
+  },
+  HEX_COCKROACH: {
+    id: 211015,
+    name: 'Hex',
+    icon: 'inv_pet_cockroach', 
+  },
+  HEX_SKELETAL: {
+    id: 269352,
+    name: 'Hex',
+    icon: 'ability_mount_fossilizedraptor', 
+  },
   //Eye of the Twisting Nether Buffs
   SHOCK_OF_THE_TWISTING_NETHER: {
     id: 207999,
@@ -570,7 +621,7 @@ export default {
   },
   HEALING_WAVE: {
     id: 77472,
-    name: 'Healing Waves',
+    name: 'Healing Wave',
     icon: 'spell_nature_healingwavelesser',
     manaCost: 19800,
   },
@@ -759,6 +810,11 @@ export default {
     id: 207356,
     name: 'Refreshing Currents',
     icon: 'ability_monk_cracklingjadelightning',
+  },
+  SERVANT_OF_THE_QUEEN: {
+    id: 207357,
+    name: 'Servant of the Queen',
+    icon: 'inv_crown_02',
   },
   // Restoration Shaman Set Bonus:
   RAINFALL: { // T21 2pc

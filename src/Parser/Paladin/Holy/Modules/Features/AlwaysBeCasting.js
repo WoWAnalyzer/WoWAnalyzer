@@ -37,7 +37,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
 
   countsAsHealingAbility(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.HOLY_SHOCK_CAST.id && !event.reason.targetIsFriendly) {
+    if (spellId === SPELLS.HOLY_SHOCK_CAST.id && !event.trigger.targetIsFriendly) {
       debug && console.log(`%cABC: ${event.ability.name} (${spellId}) skipped for healing time; target is not friendly`, 'color: orange');
       return false;
     }

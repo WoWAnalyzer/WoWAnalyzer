@@ -1,7 +1,7 @@
 export default function processEvents(events, ...modules) {
-  events.forEach((event) => {
+  events.forEach(event => {
     modules.forEach(module => {
-      module.triggerEvent(event.type, event);
+      module.triggerEvent(event);
     });
   });
 }

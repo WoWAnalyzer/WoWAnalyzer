@@ -11,7 +11,6 @@ import GlobalCooldown from './Modules/Core/GlobalCooldown';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import BloodPlagueUptime from './Modules/Features/BloodPlagueUptime';
-import BoneShieldUptime from './Modules/Features/BoneShieldUptime';
 import CrimsonScourge from './Modules/Features/CrimsonScourge';
 import BlooddrinkerTicks from './Modules/Features/BlooddrinkerTicks';
 import UnendingThirstTracker from './Modules/Features/UnendingThirstTracker';
@@ -19,6 +18,9 @@ import Checklist from './Modules/Features/Checklist';
 import DeathStrikeTimingGraph from './Modules/Features/DeathStrikeTimingGraph';
 import MarrowrendUsage from './Modules/Features/MarrowrendUsage';
 import Souldrinker from './Modules/Features/Souldrinker';
+import BoneShield from './Modules/Features/BoneShield';
+import DancingRuneWeapon from './Modules/Features/DancingRuneWeapon';
+import InitialMarrowrendCast from './Modules/Features/InitialMarrowrendCast';
 
 // Resources
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
@@ -29,6 +31,7 @@ import RuneDetails from '../Shared/RuneDetails';
 // Talents
 import Ossuary from './Modules/Talents/Ossuary';
 import RedThirst from './Modules/Talents/RedThirst';
+import BoneStorm from './Modules/Talents/Bonestorm';
 
 // Items
 import T20_2pc from './Modules/Items/T20_2pc';
@@ -62,15 +65,16 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    boneShieldUptime: BoneShieldUptime,
     crimsonScourge: CrimsonScourge,
+    dancingRuneWeapon: DancingRuneWeapon,
+    initialMarrowrendCast: InitialMarrowrendCast,
     blooddrinkerTicks: BlooddrinkerTicks,
     unendingThirstTracker:UnendingThirstTracker,
     checklist: Checklist,
     deathStrikeTimingGraph: DeathStrikeTimingGraph,
     marrowrendUsage: MarrowrendUsage,
     souldrinker: Souldrinker,
-
+    boneShield: BoneShield,
 
     // DOT
     bloodplagueUptime: BloodPlagueUptime,
@@ -84,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     ossuary: Ossuary,
     redThirst: RedThirst,
+    boneStorm: BoneStorm,
 
     // Traits
     RelicTraits: RelicTraits,
