@@ -19,6 +19,7 @@ import DeathStrikeTimingGraph from './Modules/Features/DeathStrikeTimingGraph';
 import MarrowrendUsage from './Modules/Features/MarrowrendUsage';
 import Souldrinker from './Modules/Features/Souldrinker';
 import BoneShield from './Modules/Features/BoneShield';
+import DancingRuneWeapon from './Modules/Features/DancingRuneWeapon';
 
 // Resources
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
@@ -71,6 +72,8 @@ class CombatLogParser extends CoreCombatLogParser {
     marrowrendUsage: MarrowrendUsage,
     souldrinker: Souldrinker,
     boneShield: BoneShield,
+    dancingRuneWeapon: DancingRuneWeapon,
+
 
 
     // DOT
