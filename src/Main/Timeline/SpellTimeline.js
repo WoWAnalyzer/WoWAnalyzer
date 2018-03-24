@@ -9,6 +9,7 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 
 import Events from './Events';
+import DeathEvents from './DeathEvents';
 
 import './SpellTimeline.css';
 
@@ -21,6 +22,8 @@ class SpellTimeline extends React.PureComponent {
     spellId: PropTypes.number,
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
+    deaths: PropTypes.array.isRequired,
+    resurrections: PropTypes.array.isRequired,
     showCooldowns: PropTypes.bool,
     showGlobalCooldownDuration: PropTypes.bool,
   };
@@ -79,7 +82,7 @@ class SpellTimeline extends React.PureComponent {
 
   gemini = null;
   render() {
-    const { start, end, historyBySpellId, globalCooldownHistory, channelHistory, showCooldowns, showGlobalCooldownDuration, ...others } = this.props;
+    const { start, end, historyBySpellId, globalCooldownHistory, channelHistory, deaths, resurrections, showCooldowns, showGlobalCooldownDuration, ...others } = this.props;
     const duration = end - start;
     const seconds = Math.ceil(duration / 1000);
 
@@ -195,6 +198,13 @@ class SpellTimeline extends React.PureComponent {
               showCooldowns={showCooldowns}
             />
           ))}
+          <DeathEvents
+            start={start}
+            secondWidth={secondWidth}
+            deaths={deaths}
+            resurrections={resurrections}
+            invalidated={deaths.length + resurrections.length}
+          />
         </GeminiScrollbar>
       </div>
     );

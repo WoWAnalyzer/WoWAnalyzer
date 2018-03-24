@@ -528,6 +528,8 @@ class CombatLogParser {
           globalCooldownHistory={this.modules.globalCooldown.history}
           channelHistory={this.modules.channeling.history}
           abilities={this.modules.abilities}
+          deaths={this.modules.deathTracker.deaths}
+          resurrections={this.modules.deathTracker.resurrections}
           isAbilityCooldownsAccurate={this.modules.spellUsable.isAccurate}
           isGlobalCooldownAccurate={this.modules.globalCooldown.isAccurate}
         />

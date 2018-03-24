@@ -85,6 +85,18 @@
   box-shadow: 0 0 11px red;
   border-radius: 2px;
 }
+.spell-timeline .death, .spell-timeline .resurrection {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  background: red;
+  box-shadow: 0 0 11px red;
+}
+.spell-timeline .resurrection {
+  background: lime;
+  box-shadow: 0 0 11px lime;
+}
 
 /* vertical scrollbar track */
 .gm-scrollbar.-vertical {
