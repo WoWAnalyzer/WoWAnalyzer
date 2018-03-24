@@ -11,8 +11,6 @@ cache:
     - server/node_modules
 env:
   - NODE_ENV=production
-before_install:
-  - npm i -g npm@5.6
 install:
   - npm install
   - cd server && npm install --dev && cd ..
