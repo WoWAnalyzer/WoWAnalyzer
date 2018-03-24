@@ -42,8 +42,6 @@ class EncounterStats extends React.PureComponent {
       message: 'Loading statistics...',
     };
 
-    console.info(this.props.player);
-
     this.load = this.load.bind(this);
     this.load();
   }
