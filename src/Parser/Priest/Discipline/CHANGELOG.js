@@ -1,7 +1,6 @@
-
 import React from 'react';
 
-import { Oratio, Gao, Reglitch, hassebewlen, Zerotorescue, milesoldenburg } from 'MAINTAINERS';
+import { Oratio, Gao, Reglitch, hassebewlen, Zerotorescue, milesoldenburg } from 'CONTRIBUTORS';
 
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
@@ -10,6 +9,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-03-19'),
+    changes: <Wrapper>Updated the Atonement sources tab to show related information for some spells. Changed <ItemLink id={ITEMS.CARAFE_OF_SEARING_LIGHT.id} icon /> to use the more accurate Atonement source tracking.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
   {
     date: new Date('2018-01-18'),
     changes: <Wrapper>Added HPS, total healing and overheal to the <b>atonement sources</b> tab.</Wrapper>,

@@ -4,7 +4,7 @@ import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import { Chizu } from 'MAINTAINERS';
+import { Chizu } from 'CONTRIBUTORS';
 
 export default [
   {

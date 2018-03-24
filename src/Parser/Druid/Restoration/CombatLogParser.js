@@ -28,7 +28,7 @@ import XonisCaress from './Modules/Items/XonisCaress';
 import DarkTitanAdvice from './Modules/Items/DarkTitanAdvice';
 import EdraithBondsOfAglaya from './Modules/Items/EdraithBondsOfAglaya';
 import EssenceOfInfusion from './Modules/Items/EssenceOfInfusion';
-import SoulOfTheArchdruid from './Modules/Items/SoulOfTheArchdruid';
+import SoulOfTheArchdruid from '../Shared/Modules/Items/SoulOfTheArchdruid';
 import Tearstone from './Modules/Items/Tearstone';
 import AmanthulsWisdom from './Modules/Items/AmanthulsWisdom';
 import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';

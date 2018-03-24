@@ -19,6 +19,8 @@ import ColdHeart from '../Shared/Items/ColdHeart';
 
 import RuneTracker from './Modules/Features/RuneTracker';
 import RuneDetails from '../Shared/RuneDetails';
+import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
+import RunicPowerTracker from './Modules/RunicPower/RunicPowerTracker';
 
 import GatheringStorm from './Modules/Talents/GatheringStorm';
 import Frostscythe from './Modules/Talents/Frostscythe';
@@ -50,9 +52,11 @@ class CombatLogParser extends CoreCombatLogParser {
 
     toravonsWhiteoutBindings: ToravonsWhiteoutBindings,
 
-    //rune tracker
+    //resource tracker
     runeTracker: RuneTracker,
     runeDetails: RuneDetails,
+    runicPowerDetails: RunicPowerDetails,
+    runicPowerTracker: RunicPowerTracker,
 
     //talents
     gatheringStorm: GatheringStorm,

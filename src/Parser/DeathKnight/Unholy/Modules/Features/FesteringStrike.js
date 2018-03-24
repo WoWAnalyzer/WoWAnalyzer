@@ -79,7 +79,7 @@ class FesteringStrike extends Analyzer {
         icon={<SpellIcon id={SPELLS.FESTERING_STRIKE.id} />}
         value={`${formatPercentage(strikeEfficiency)} %`}
         label="Festering Strike Efficiency"
-        tooltip={`${formatPercentage(percentCastsOverFourStacks)}% of Festering Strike casts were on a target with more than four stacks of Festering Wounds.`}
+        tooltip={`${this.festeringStrikeCastsOverFourStacks} Festering Strikes were cast on a target with more than four stacks of Festering Wounds.`}
       />
     );
   }

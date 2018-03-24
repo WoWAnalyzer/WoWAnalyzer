@@ -1,6 +1,11 @@
 import ITEM_QUALITIES from '../ITEM_QUALITIES';
 
 export default {
+  UNKNOWN_TRINKET: {
+    //fallback icon for encounter stats
+    id: 0,
+    icon: 'inv_misc_trinket6oih_orb1',
+  },
   // Potions
   POTION_OF_PROLONGED_POWER: {
     id: 142117,
@@ -204,6 +209,12 @@ export default {
     id: 144482,
     name: 'Fel-Oiled Infernal Machine',
     icon: 'inv_misc_enggizmos_14',
+    quality: ITEM_QUALITIES.EPIC,
+  },
+  STABILIZED_ENERGY_PENDANT: {
+    id: 134488,
+    name: 'Stabilized Energy Pendant',
+    icon: 'inv_7_0raid_necklace_14d',
     quality: ITEM_QUALITIES.EPIC,
   },
 

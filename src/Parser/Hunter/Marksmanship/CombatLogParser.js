@@ -1,6 +1,8 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import Abilities from './Modules/Abilities';
+import SpellUsable from '../Shared/Modules/Core/SpellUsable';
+
 //Features
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -60,6 +62,8 @@ import Bullseye from './Modules/Traits/Bullseye';
 import CyclonicBurst from './Modules/Traits/CyclonicBurst';
 import CallOfTheHunter from './Modules/Traits/CallOfTheHunter';
 import LegacyOfTheWindrunners from './Modules/Traits/LegacyOfTheWindrunners';
+import Windburst from './Modules/Traits/Windburst';
+
 //Traits and Talents list
 import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 
@@ -71,6 +75,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core statistics
     damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
+    spellUsable: SpellUsable,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -133,6 +138,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cyclonicBurst: CyclonicBurst,
     callOfTheHunter: CallOfTheHunter,
     legacyOfTheWindrunners: LegacyOfTheWindrunners,
+    windburst: Windburst,
 
     //Traits and Talents list
     traitsAndTalents: TraitsAndTalents,

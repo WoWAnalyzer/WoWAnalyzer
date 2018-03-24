@@ -22,7 +22,11 @@ class Tidecallers extends Analyzer {
     this.active = this.owner.modules.combatants.selected.hasHands(ITEMS.PRAETORIANS_TIDECALLERS.id);
   }
 
-  on_byPlayer_heal(event) {
+  on_heal(event) {
+    if (!this.owner.byPlayer(event) && !this.owner.byPlayerPet(event)) {
+      return;
+    }
+
     const spellId = event.ability.guid;
     const healingDone = event.amount + (event.absorbed || 0);
 

@@ -6,6 +6,11 @@ import Raven from 'raven';
 
 import api from './api';
 import status from './status';
+import loadDotEnv from './config/env';
+
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+loadDotEnv(fs.realpathSync(process.cwd()));
 
 if (process.env.NODE_ENV === 'production') {
   Raven.config('https://f9b55775efbe4c0ab9a0d23236123364:99a7618f90104600b67e64e05106c535@sentry.io/242066', {
@@ -70,6 +75,10 @@ app.get('/report/:reportCode([A-Za-z0-9]+)/:fightId([0-9]+)?:fightName(-[^/]+)?/
 });
 app.get('/api/v1/*', api);
 app.get('/api/status', status);
+app.get('/discord', function (req, res) {
+  // Since this path will usually only be used once per visitor there's no need to use a permanent redirect, and this allows us to fix the url should it ever break.
+  res.status(307).redirect('https://discord.gg/AxphPxU');
+});
 
-app.listen(3000);
-console.log('Listening to port 3000');
+app.listen(process.env.PORT);
+console.log(`Listening to port ${process.env.PORT}`);

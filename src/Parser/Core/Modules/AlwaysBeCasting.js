@@ -54,7 +54,7 @@ class AlwaysBeCasting extends Analyzer {
   _lastGlobalCooldownDuration = 0;
   on_globalcooldown(event) {
     this._lastGlobalCooldownDuration = event.duration;
-    if (event.trigger === 'begincast') {
+    if (event.trigger.type === 'beginchannel') {
       // Only add active time for this channel, we do this when the channel is finished and use the highest of the GCD and channel time
       return false;
     }
@@ -108,8 +108,11 @@ class AlwaysBeCasting extends Analyzer {
     if (!this.showStatistic || (boss && boss.fight.disableDowntimeStatistic)) {
       return null;
     }
+    if (!this.globalCooldown.isAccurate) {
+      return null;
+    }
 
-      return (
+    return (
       <StatisticBox
         icon={<Icon icon="spell_mage_altertime" alt="Downtime" />}
         value={`${formatPercentage(this.downtimePercentage)} %`}
@@ -137,7 +140,7 @@ class AlwaysBeCasting extends Analyzer {
         )}
         footerStyle={{ overflow: 'hidden' }}
       />
-      );
+    );
   }
 
   statisticOrder = STATISTIC_ORDER.CORE(10);

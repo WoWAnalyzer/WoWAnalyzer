@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Bonebasher , Gebuz, Khazak } from 'MAINTAINERS';
+import { Bonebasher , Gebuz, Khazak } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
@@ -8,6 +8,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+    {
+      date: new Date('2018-03-21'),
+      changes: 'Added Runic Power tracking',
+      contributors: [Khazak],
+    },
     {
       date: new Date('2018-02-18'),
       changes: <Wrapper>Added efficiency reporting for <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} icon/></Wrapper>,

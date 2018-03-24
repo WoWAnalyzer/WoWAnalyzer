@@ -63,5 +63,4 @@ const mapStateToProps = state => ({
   report: getReport(state),
   combatants: getCombatants(state),
 });
-
 export default connect(mapStateToProps)(PlayerSelecter);

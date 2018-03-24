@@ -525,11 +525,36 @@ export default {
     name: 'Shield of the Righteous',
     icon: 'ability_paladin_shieldofvengeance',
   },
+  CLEANSE_TOXINS: {
+    id: 213644,
+    name: 'Cleanse Toxins',
+    icon: 'spell_holy_renew',
+  },
+  REBUKE: {
+    id: 96231,
+    name: 'Rebuke',
+    icon: 'spell_holy_rebuke',
+  },
+  GRAND_CRUSADER: {
+    id: 85043,
+    name: 'Grand Crusader',
+    icon: 'inv_helmet_74',
+  },
   //artifact
   EYE_OF_TYR: {
     id: 209202,
     name: 'Eye of Tyr',
     icon: 'inv_shield_1h_artifactnorgannon_d_01',
+  },
+  UNFLINCHING_DEFENSE: {
+    id: 209220,
+    name: 'Unflinching Defense',
+    icon: 'spell_holy_ardentdefender',
+  },
+  SACRIFICE_OF_THE_JUST: {
+    id: 209285,
+    name: 'Sacrifice of the Just',
+    icon: 'spell_holy_divineshield',
   },
 
 	// Buffs
@@ -552,6 +577,11 @@ export default {
     id: 211903,
     name: 'Faith\'s Armor',
     icon: 'inv_misc_armorkit_23',
+  },
+  BULWARK_OF_ORDER_SHIELD: {
+    id: 209388,
+    name: 'Bulwark of Order',
+    icon: 'spell_holy_pureofheart',
   },
 	// Bonus set tiers
   PROTECTION_PALADIN_T19_2SET_BONUS_BUFF: {

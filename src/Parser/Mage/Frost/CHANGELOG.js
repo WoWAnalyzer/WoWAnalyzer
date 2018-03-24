@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Sharrq, sref } from 'MAINTAINERS';
+import { Sharrq, sref } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';

@@ -9,11 +9,11 @@ import { STATISTIC_ORDER } from 'Main/StatisticBox';
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
     // Windwalker GCD is 1 second by default and static in almost all cases, 750 is lowest recorded GCD
   static BASE_GCD = 1000;
-  static MINIMUM_GCD = 1000;
+  static MINIMUM_GCD = 750;
   static ABILITIES_ON_GCD = [
     // Channeled spells
-    SPELLS.FISTS_OF_FURY_CAST.id,
-    SPELLS.CRACKLING_JADE_LIGHTNING.id,
+    //SPELLS.FISTS_OF_FURY_CAST.id,
+    //SPELLS.CRACKLING_JADE_LIGHTNING.id,
 
     // rotational:
     SPELLS.BLACKOUT_KICK.id,
@@ -38,7 +38,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.TRANSCENDENCE_TRANSFER.id,
     SPELLS.FLYING_SERPENT_KICK.id,
   ];
-  STATIC_GCD_ABILITIES = {
+  static STATIC_GCD_ABILITIES = {
     // Channeled spells
     [SPELLS.FISTS_OF_FURY_CAST.id]: 1000,
     [SPELLS.CRACKLING_JADE_LIGHTNING.id]: 1000,

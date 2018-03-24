@@ -23,19 +23,19 @@ class DamageDone extends Analyzer {
   get totalByPets() {
     return Object.keys(this._byPet)
       .map(petId => this._byPet[petId])
-      .reduce((total, damageValue) => total.add(damageValue.regular, damageValue.absorbed, damageValue.overkill), new DamageValue());
+      .reduce((total, damageValue) => total.add(damageValue.regular, damageValue.absorbed, damageValue.blocked, damageValue.overkill), new DamageValue());
   }
 
   on_byPlayer_damage(event) {
     if (!event.targetIsFriendly) {
-      this._total = this._total.add(event.amount || 0, event.absorbed || 0, event.overheal || 0);
+      this._total = this._total.add(event.amount, event.absorbed, event.blocked, event.overkill);
     }
   }
   on_byPlayerPet_damage(event) {
     if (!event.targetIsFriendly) {
-      this._total = this._total.add(event.amount || 0, event.absorbed || 0, event.overheal || 0);
+      this._total = this._total.add(event.amount, event.absorbed, event.blocked, event.overkill);
       const petId = event.sourceID;
-      this._byPet[petId] = this.byPet(petId).add(event.amount || 0, event.absorbed || 0, event.overheal || 0);
+      this._byPet[petId] = this.byPet(petId).add(event.amount, event.absorbed, event.blocked, event.overkill);
     }
   }
 

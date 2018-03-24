@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { WOPR, emallson } from 'MAINTAINERS';
+import { WOPR, emallson } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
@@ -8,6 +8,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-03-19'),
+    changes: <Wrapper>Converted <SpellLink id={SPELLS.BREATH_OF_FIRE.id} icon /> from uptime to hit tracking and updated hit tracking for <SpellLink id={SPELLS.IRONSKIN_BREW.id} icon />.</Wrapper>,
+    contributors: [emallson],
+  },
   {
     date: new Date('2018-01-29'),
     changes: 'Added plot of damage in Stagger pool over time.',

@@ -8,6 +8,10 @@ import { STATISTIC_ORDER } from 'Main/StatisticBox';
 // import SpellLink from 'common/SpellLink';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
+
+  static BASE_GCD = 1000;
+  static MINIMUM_GCD = 1000;
+
   static ABILITIES_ON_GCD = [
     SPELLS.RAKE.id,
     SPELLS.RIP.id,

@@ -33,7 +33,7 @@ class ExplosiveTrap extends Analyzer {
     }
     if (this.casts === 0) {
       this.casts++;
-      this.spellUsable.beginCooldown(SPELLS.EXPLOSIVE_TRAP_CAST.id);
+      this.spellUsable.beginCooldown(SPELLS.EXPLOSIVE_TRAP_CAST.id, this.owner.fight.start_time);
     }
     this.bonusDamage += event.amount + (event.absorbed || 0);
   }

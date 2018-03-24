@@ -20,6 +20,11 @@ export default {
     name: 'Wind Shear',
     icon: 'spell_nature_cyclone',
   },
+  EARTHBIND_TOTEM: {
+    id: 2484,
+    name: 'Earthbind Totem',
+    icon: 'spell_nature_strengthofearthtotem02', 
+  },
   //Eye of the Twisting Nether Buffs
   SHOCK_OF_THE_TWISTING_NETHER: {
     id: 207999,
@@ -646,7 +651,7 @@ export default {
   },
   CLOUDBURST_TOTEM_HEAL: {
     id: 157503,
-    name: 'Cloudburst Totem',
+    name: 'Cloudburst',
     icon: 'ability_shaman_condensationtotem',
     manaCost: 18920,
   },
@@ -712,9 +717,25 @@ export default {
     manaCost: 31020,
   },
   WELLSPRING_HEAL: {
-    id: 198117,
+    id: 197997,
     name: 'Wellspring',
     icon: 'ability_shawaterelemental_split', 
+  },
+  FLAME_SHOCK_RESTORATION: {
+    id: 188838,
+    name: 'Flame Shock',
+    icon: 'spell_fire_flameshock',
+    max_maelstrom: 20,
+  },
+  LIGHTNING_BOLT_RESTORATION: {
+    id: 403,
+    name: 'Lightning Bolt',
+    icon: 'spell_nature_lightning',
+  },
+  RESURGENCE: {
+    id: 101033,
+    name: 'Resurgence',
+    icon: 'ability_shaman_watershield',
   },
 
   // Traits:
@@ -733,6 +754,11 @@ export default {
     id: 238143,
     name: 'Deep Waters',
     icon: 'inv_mace_1h_artifactazshara_d_02',
+  },
+  REFRESHING_CURRENTS: {
+    id: 207356,
+    name: 'Refreshing Currents',
+    icon: 'ability_monk_cracklingjadelightning',
   },
   // Restoration Shaman Set Bonus:
   RAINFALL: { // T21 2pc

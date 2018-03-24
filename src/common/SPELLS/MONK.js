@@ -581,6 +581,11 @@ export default {
     name: 'Mastery: Combo Strikes',
     icon: 'trade_alchemy_potionb3',
   },
+  MASTER_OF_COMBINATIONS: {
+    id: 240672,
+    name: 'Master of Combinations',
+    icon: 'trade_alchemy_potionb3',
+  },
   STORM_EARTH_AND_FIRE: {
     id: 231627,
     name: 'Storm, Earth, and Fire',
@@ -650,6 +655,11 @@ export default {
     id: 196741,
     name: 'Hit Combo',
     icon: 'ability_monk_palmstrike',
+  },
+  CHI_SPHERE: {
+    id: 163272,
+    name: 'Chi Sphere',
+    icon: 'ability_monk_forcesphere',
   },
   // Windwalker Artifact
   STRIKE_OF_THE_WINDLORD: {

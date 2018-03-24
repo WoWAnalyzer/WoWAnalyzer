@@ -27,15 +27,23 @@ class TimeFocusCapped extends Analyzer {
     return Math.round(waste);
   }
 
+  get totalGenerated() {
+    const passiveGenerated = (this.owner.fightDuration / 1000 * this.focusTracker.averageFocusGen);
+    let activeGenerated = 0;
+    if (this.focusTracker.generatorCasts) {
+      activeGenerated += Object.values(this.focusTracker.activeFocusGenerated).reduce((sum, generated) => sum + generated, 0);
+    }
+    return Math.round(passiveGenerated + activeGenerated);
+  }
+
   statistic() {
-    const totalFocusWaste = this.getTotalWaste;
     const percentCapped = formatPercentage(this.focusTracker.secondsCapped / (this.owner.fightDuration / 1000));
     return (
       <StatisticBox
         icon={<Icon icon="ability_hunter_focusfire" alt="Focus Wasted" />}
         label="Time Focus Capped"
-        tooltip={`You wasted <b> ${totalFocusWaste}  </b> focus. <br />
-        That's <b>  ${formatPercentage(totalFocusWaste / (this.owner.fightDuration / 1000 * this.focusTracker.focusGen))}% </b> of your total focus generated.
+        tooltip={`You wasted <b> ${this.getTotalWaste}  </b> focus. <br />
+        That's <b>  ${formatPercentage(this.getTotalWaste / this.totalGenerated)}% </b> of your total focus generated.
         <br /> For more details, see the Focus Chart tab.`}
         value={`${percentCapped}%`}
         //Time not Focus-Capped: {Math.round((this.owner.fightDuration / 1000 - this.focusTracker.secondsCapped) * 100) / 100}s / {Math.floor(this.owner.fightDuration / 1000)}

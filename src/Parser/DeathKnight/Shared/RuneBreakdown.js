@@ -54,7 +54,7 @@ class RuneBreakdown extends ResourceBreakdown {
                     <SpellIcon id={ability.abilityId} noLink={true} />{' '}
                     Passive Rune regeneration
                   </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
+                  <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
                     <dfn data-tip={`${formatPercentage(ability.generated / totalGenerated)} %`}>{ability.generated}</dfn>
                   </td>
                   <td style={{ width: '40%' }}>
@@ -63,7 +63,7 @@ class RuneBreakdown extends ResourceBreakdown {
                       style={{ width: `${(ability.generated / totalGenerated) * 100}%` }}
                     />
                   </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
+                  <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
                     <dfn data-tip={`${formatPercentage(ability.wasted / totalWasted)} %`}>{ability.wasted}</dfn>
                   </td>
                   <td style={{ width: '30%' }}>
@@ -82,7 +82,7 @@ class RuneBreakdown extends ResourceBreakdown {
                     <SpellIcon id={ability.abilityId} />{' '}
                     <SpellLink id={ability.abilityId} />
                   </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
+                  <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
                     <dfn data-tip={`${formatPercentage(ability.generated / totalGenerated)} %`}>{ability.generated}</dfn>
                   </td>
                   <td style={{ width: '40%' }}>
@@ -91,7 +91,7 @@ class RuneBreakdown extends ResourceBreakdown {
                       style={{ width: `${(ability.generated / totalGenerated) * 100}%` }}
                     />
                   </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
+                  <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
                     <dfn data-tip={`${formatPercentage(ability.wasted / totalWasted)} %`}>{ability.wasted}</dfn>
                   </td>
                   <td style={{ width: '30%' }}>
@@ -121,7 +121,7 @@ class RuneBreakdown extends ResourceBreakdown {
                     <SpellIcon id={ability.abilityId} />{' '}
                     <SpellLink id={ability.abilityId} />
                   </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
+                  <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
                     <dfn data-tip={`${formatPercentage(ability.spent / totalSpent)} %`}>{ability.spent}</dfn>
                   </td>
                   <td style={{ width: '40%' }}>
@@ -130,7 +130,7 @@ class RuneBreakdown extends ResourceBreakdown {
                       style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
                     />
                   </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
+                  <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
                     <dfn data-tip={`${formatPercentage(ability.casts / totalCasts)} %`}>{ability.casts}</dfn>
                   </td>
                   <td style={{ width: '30%' }}>

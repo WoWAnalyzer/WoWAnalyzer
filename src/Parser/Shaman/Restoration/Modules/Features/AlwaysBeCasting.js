@@ -19,6 +19,8 @@ const HEALING_ABILITIES_ON_GCD = [
   SPELLS.UNLEASH_LIFE_TALENT.id,
 ];
 
+const TOTEM_GCD = 1000; // Totems have a set GCD of 1 second
+
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD = HEALING_ABILITIES_ON_GCD;
   static ABILITIES_ON_GCD = [
@@ -43,29 +45,18 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     370, // purge
   ];
 
-  get nonHealingTimeSuggestionThresholds() {
-    const nonHealingTimePercentage = this.totalHealingTimeWasted / this.owner.fightDuration;
-    return {
-      actual: nonHealingTimePercentage,
-      isGreaterThan: {
-        minor: 0.3,
-        average: 0.4,
-        major: 0.45,
-      },
-      style: 'percentage',
-    };
-  }
-  get downtimeSuggestionThresholds() {
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
-    return {
-      actual: deadTimePercentage,
-      isGreaterThan: {
-        minor: 0.2,
-        average: 0.35,
-        major: 1,
-      },
-      style: 'percentage',
-    };
+  static STATIC_GCD_ABILITIES = {
+    [SPELLS.HEALING_TIDE_TOTEM_CAST.id]: TOTEM_GCD,
+    [SPELLS.SPIRIT_LINK_TOTEM.id]: TOTEM_GCD,
+    [SPELLS.HEALING_STREAM_TOTEM_CAST.id]: TOTEM_GCD,
+    [SPELLS.CLOUDBURST_TOTEM_TALENT.id]: TOTEM_GCD,
+    [SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id]: TOTEM_GCD,
+    [SPELLS.WIND_RUSH_TOTEM_TALENT.id]: TOTEM_GCD,
+    [SPELLS.LIGHTNING_SURGE_TOTEM_TALENT.id]: TOTEM_GCD,
+    [SPELLS.EARTHGRAB_TOTEM_TALENT.id]: TOTEM_GCD,
+    [SPELLS.VOODOO_TOTEM_TALENT.id]: TOTEM_GCD,
+    [SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id]: TOTEM_GCD,
+    [SPELLS.EARTHBIND_TOTEM.id]: TOTEM_GCD, // Not a static GCD but 1 second - haste
   }
   
   suggestions(when) {

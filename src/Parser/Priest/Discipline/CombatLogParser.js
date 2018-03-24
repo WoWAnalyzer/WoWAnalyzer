@@ -22,7 +22,8 @@ import GlobalCooldown from './Modules/Core/GlobalCooldown';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import PowerWordShieldWasted from './Modules/Features/PowerWordShieldWasted';
-import AtonementSource from './Modules/Features/AtonementSource';
+import AtonementApplicationSource from './Modules/Features/AtonementApplicationSource';
+import AtonementDamageSource from './Modules/Features/AtonementDamageSource';
 import AtonementHealingDone from './Modules/Features/AtonementHealingDone';
 import PowerWordBarrier from './Modules/Features/PowerWordBarrier';
 import LeniencesReward from './Modules/Features/LeniencesReward';
@@ -79,7 +80,8 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     powerWordShieldWasted: PowerWordShieldWasted,
-    atonementSource: AtonementSource,
+    atonementApplicationSource: AtonementApplicationSource,
+    atonementDamageSource: AtonementDamageSource,
     atonementHealingDone: AtonementHealingDone,
     powerWordBarrier: PowerWordBarrier,
     leniencesReward: LeniencesReward,

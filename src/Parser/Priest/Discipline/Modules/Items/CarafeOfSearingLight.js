@@ -9,22 +9,21 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 import ItemManaGained from 'Main/ItemManaGained';
 
 import isAtonement from '../Core/isAtonement';
+import AtonementDamageSource from '../Features/AtonementDamageSource';
 
 class CarafeOfSearingLight extends CoreCarafeOfSearingLight {
-  healing = 0;
-  lastDamageEventIsTrinketDot = false;
+  static dependencies = {
+    ...CoreCarafeOfSearingLight.dependencies,
+    atonementDamageSource: AtonementDamageSource,
+  };
 
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.REFRESHING_AGONY_DOT.id) {
-      this.lastDamageEventIsTrinketDot = false;
-    } else {
-      this.lastDamageEventIsTrinketDot = true;
-    }
-    super.on_byPlayer_damage(event);
-  }
+  healing = 0;
+
   on_byPlayer_heal(event) {
-    if (!isAtonement(event) || !this.lastDamageEventIsTrinketDot) {
+    if (!isAtonement(event)) {
+      return;
+    }
+    if (!this.atonementDamageSource.event || this.atonementDamageSource.event.ability.guid !== SPELLS.REFRESHING_AGONY_DOT.id) {
       return;
     }
 

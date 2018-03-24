@@ -79,6 +79,14 @@ class Abilities extends Analyzer {
     const ability = this.getAbility(spellId);
     return ability ? (ability.charges || 1) : undefined;
   }
+
+  /*
+   * Returns the timeline sort index, or null if none is set. (or undefined if there is no such spellInfo)
+   */
+  getTimelineSortIndex(spellId) {
+    const ability = this.getAbility(spellId);
+    return ability ? (ability.timelineSortIndex || null) : undefined;
+  }
 }
 
 export default Abilities;
