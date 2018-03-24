@@ -32,6 +32,7 @@ class HighTide extends Analyzer {
       return;
     }
 
+    // resets the bounces to 0 if its a new chain heal, can't use the cast event for this as its often somewhere in the middle of the healing events
     if(!this.chainHealTimestamp || event.timestamp - this.chainHealTimestamp > HEAL_WINDOW_MS) {
       this.chainHealTimestamp = event.timestamp;
       this.chainHealBounce = 0;
