@@ -1,9 +1,3 @@
-/*
-  TODO:
-  Remove Spirit Link Damage from Overall Healing
-
-*/
-
 import React from 'react';
 
 import Tab from 'Main/Tab';
@@ -12,9 +6,9 @@ import Feeding from 'Main/Feeding';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
-import HealingDone from 'Parser/Core/Modules/HealingDone';
 import Abilities from './Modules/Abilities';
 
+import HealingDone from './Modules/ShamanCore/HealingDone';
 import ShamanAbilityTracker from './Modules/ShamanCore/ShamanAbilityTracker';
 
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
