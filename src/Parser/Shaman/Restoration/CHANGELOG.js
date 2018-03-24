@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-03-24'),
+    changes: <Wrapper>Reworked the <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon /> statistics, making them easier to read.</Wrapper>,
+    contributors: [niseko],
+  },
+  {
     date: new Date('2018-03-16'),
     changes: <Wrapper>Added a <SpellLink id={SPELLS.RESURGENCE.id} icon /> module, detailing how much each spell contributed to your mana pool.</Wrapper>,
     contributors: [niseko],
