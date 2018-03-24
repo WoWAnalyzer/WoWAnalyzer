@@ -21,7 +21,7 @@ import { formatPercentage } from 'common/format';
 class EncounterStats extends React.PureComponent {
   static propTypes = {
     currentBoss: PropTypes.number.isRequired,
-    specID: PropTypes.number.isRequired,
+    spec: PropTypes.number.isRequired,
     difficulty: PropTypes.number.isRequired,
   };
 
@@ -29,8 +29,8 @@ class EncounterStats extends React.PureComponent {
   SHOW_TOP_ENTRYS = 6;
   metric = 'dps';
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       mostUsedTrinkets: [],
       mostUsedLegendaries: [],
@@ -41,6 +41,7 @@ class EncounterStats extends React.PureComponent {
     };
 
     this.load = this.load.bind(this);
+    this.load();
   }
 
   addItem(array, item) {
@@ -64,7 +65,8 @@ class EncounterStats extends React.PureComponent {
   }
 
   load() {
-    switch (SPECS[this.props.specID].role) {
+    console.info(this.props);
+    switch (SPECS[this.props.spec].role) {
       case ROLES.HEALER:
         this.metric = 'hps';
         break;
@@ -75,8 +77,8 @@ class EncounterStats extends React.PureComponent {
     }
 
     return fetchWcl(`rankings/encounter/${ this.props.currentBoss }`, {
-      class: SPECS[this.props.specID].ranking.class,
-      spec: SPECS[this.props.specID].ranking.spec,
+      class: SPECS[this.props.spec].ranking.class,
+      spec: SPECS[this.props.spec].ranking.spec,
       difficulty: this.props.difficulty,
       limit: this.LIMIT,
       metric: this.metric,
@@ -179,9 +181,9 @@ class EncounterStats extends React.PureComponent {
 
     if (this.state.loaded) {
       return (
-        <div style={{ border: 0, marginTop: 40 }}>
-          <div className="panel-heading results btn-link selected" style={{ padding: 20, marginTop: 60 }}>
-            <h2>This shows statistics of this fight from the top { this.LIMIT } logs, ranked by { this.metric.toLocaleUpperCase() }</h2>
+        <div style={{ border: 0 }}>
+          <div className="panel-heading" style={{ padding: 20, marginBottom: 20 }}>
+            <h2>Statistics of this fight of the top { this.LIMIT } logs, ranked by { this.metric.toLocaleUpperCase() }</h2>
           </div>
           <div className="flex-main">
             <div className="row">
@@ -230,7 +232,6 @@ class EncounterStats extends React.PureComponent {
         </div>
       );
     } else {
-      this.load();
       return (
         <div className="panel-heading" style={{ marginTop: 40, padding: 20, boxShadow: 'none', borderBottom: 0 }}>
           <ActivityIndicator text={ this.state.message } />
