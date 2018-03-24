@@ -111,19 +111,19 @@ class CastBehavior extends Analyzer {
 
     const items = [
       {
-        color: '#009688',
+        color: '#2055CC',
         label: 'Healing Wave',
         spellId: SPELLS.HEALING_WAVE.id,
         value: twHealingWaves,
       },
       {
-        color: '#ecd1b6',
+        color: '#42E0FF',
         label: 'Healing Surge',
         spellId: SPELLS.HEALING_SURGE_RESTORATION.id,
         value: twHealingSurges,
       },
       {
-        color: '#f44336',
+        color: '#CC3D20',
         label: 'Wasted Tidal Waves',
         tooltip: `The amount of Tidal Waves you did not use out of the total available. You cast ${riptideCasts} Riptides and ${chainHealCasts} Chain Heals which gave you ${totalTwGenerated} Tidal Waves charges, of which you used ${totalTwUsed}.`,
         value: unusedTw,
@@ -156,13 +156,13 @@ class CastBehavior extends Analyzer {
 
     const items = [
       {
-        color: '#009688',
+        color: '#2055CC',
         label: 'Healing Wave',
         spellId: SPELLS.HEALING_WAVE.id,
         value: fillerHealingWaves,
       },
       {
-        color: '#ecd1b6',
+        color: '#42E0FF',
         label: 'Healing Surge',
         spellId: SPELLS.HEALING_SURGE_RESTORATION.id,
         value: fillerHealingSurges,
