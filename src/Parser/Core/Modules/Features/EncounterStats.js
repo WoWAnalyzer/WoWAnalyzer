@@ -7,8 +7,8 @@ import ITEMS from 'common/ITEMS';
 import fetchWcl from 'common/fetchWcl';
 import ActivityIndicator from 'Main/ActivityIndicator';
 
+import Icon from 'common/Icon';
 import ItemLink from 'common/ItemLink';
-import ItemIcon from 'common/ItemIcon';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
@@ -26,7 +26,7 @@ class EncounterStats extends React.PureComponent {
   };
 
   LIMIT = 100;
-  SHOW_TOP_ENTRYS = 8;
+  SHOW_TOP_ENTRYS = 6;
   metric = 'dps';
 
   constructor() {
@@ -35,13 +35,16 @@ class EncounterStats extends React.PureComponent {
       mostUsedTrinkets: [],
       mostUsedLegendaries: [],
       mostUsedTalents: [],
+      items: ITEMS,
       loaded: false,
       message: 'Loading statistics...',
     };
+
     this.load = this.load.bind(this);
   }
 
   addItem(array, item) {
+    //add item to arry or increase amount by one if it exists
     if (item.id === null || item.id === 0) {
       return array;
     }
@@ -117,6 +120,10 @@ class EncounterStats extends React.PureComponent {
         mostUsedTalents: talents,
         loaded: true,
       });
+
+      //fetch all missing icons from bnet-api and display them
+      this.fillMissingIcons();
+
     }).catch((err) => {
       this.setState({
         message: 'Something went wrong.',
@@ -124,12 +131,47 @@ class EncounterStats extends React.PureComponent {
     });
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    nextState.mostUsedTrinkets.forEach((trinket, index) => {
+  fillMissingIcons() {
+    this.state.mostUsedTrinkets.forEach((trinket, index) => {
       if (ITEMS[trinket.id] === undefined) {
-        console.error(`ITEM ${trinket.name} '${trinket.id}' UNKNOWN`);
+        return fetch(`https://eu.api.battle.net/wow/item/${trinket.id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
+          .then(response => response.json())
+          .then((data) => {
+            const updatedItems = this.state.items;
+            updatedItems[trinket.id] = {
+              icon: data.icon,
+              id: trinket.id,
+              name: trinket.name,
+            };
+
+            this.setState({
+              items: updatedItems,
+            });
+
+            this.forceUpdate();
+          });
       }
     });
+  }
+
+  singleItem(item, index) {
+    return <div className="col-md-12 flex-main" key={item.id} style={{ textAlign: 'left', margin: '5px auto' }}>
+      <div className="row">
+        <div className="col-md-2" style={{ opacity: '.8', fontSize: '.9em', lineHeight: '2em', textAlign: 'right'}}>
+          {formatPercentage(item.amount / this.LIMIT, 0)}%
+        </div>
+        <div className="col-md-10">
+          <ItemLink id={item.id} className={ item.quality }>
+            <Icon
+              icon={this.state.items[item.id] === undefined ? this.state.items[0].icon : this.state.items[item.id].icon}
+              className={item.quality}
+              style={{ width: '2em', height: '2em', border: '1px solid', marginRight: 10 }}
+            />
+            { item.name }
+          </ItemLink>
+        </div>
+      </div>
+    </div>;
   }
 
   render() {
@@ -139,7 +181,7 @@ class EncounterStats extends React.PureComponent {
       return (
         <div style={{ border: 0, marginTop: 40 }}>
           <div className="panel-heading results btn-link selected" style={{ padding: 20, marginTop: 60 }}>
-            <h2>This shows statistics of the top { this.LIMIT } logs, ranked by { this.metric.toLocaleUpperCase() }</h2>
+            <h2>This shows statistics of this fight from the top { this.LIMIT } logs, ranked by { this.metric.toLocaleUpperCase() }</h2>
           </div>
           <div className="flex-main">
             <div className="row">
@@ -149,38 +191,18 @@ class EncounterStats extends React.PureComponent {
                     <h2>Most used Legendaries</h2>
                   </div>
                   <div className="row" style={{ paddingLeft: 20 }}>
-                    {this.state.mostUsedLegendaries.map((legendary) =>
-                      <div className="col-md-3" key={legendary.id} style={{ textAlign: 'center', margin: '10px auto' }}>
-                        <ItemLink id={legendary.id} className={ legendary.quality }>
-                          <ItemIcon 
-                            id={ITEMS[legendary.id] !== undefined ? ITEMS[legendary.id].id : ITEMS[0].id} 
-                            className={legendary.quality}
-                            style={{ width: '4em', height: '4em', border: '3px solid' }}
-                            noLink
-                          />
-                          <div>{formatPercentage(legendary.amount / this.LIMIT, 0)}%</div>
-                        </ItemLink>
-                    </div>
+                    {this.state.mostUsedLegendaries.map((legendary, index) =>
+                      this.singleItem(legendary, index)
                     )}
                   </div>
                 </div>
                 <div className="flex-main">
-                  <div className="panel-heading" style={{ boxShadow: 'none', borderBottom: 0, marginTop: 40 }}>
+                  <div className="panel-heading" style={{ boxShadow: 'none', borderBottom: 0, marginTop: 20 }}>
                     <h2>Most used Trinkets</h2>
                   </div>
                   <div className="row" style={{ paddingLeft: 20 }}>
-                    {this.state.mostUsedTrinkets.map((trinket) =>
-                      <div className="col-md-3" key={trinket.id} style={{ textAlign: 'center', margin: '10px auto' }}>
-                        <ItemLink id={trinket.id} className={ trinket.quality }>
-                          <ItemIcon 
-                            id={ITEMS[trinket.id] !== undefined ? ITEMS[trinket.id].id : ITEMS[0].id} 
-                            className={trinket.quality}
-                            style={{ width: '4em', height: '4em', border: '3px solid' }}
-                            noLink
-                          />
-                          <div>{formatPercentage(trinket.amount / this.LIMIT, 0)}%</div>
-                        </ItemLink>
-                      </div>
+                    {this.state.mostUsedTrinkets.map((trinket, index) =>
+                      this.singleItem(trinket, index)
                     )}
                   </div>
                 </div>
