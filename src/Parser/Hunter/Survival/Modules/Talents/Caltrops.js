@@ -43,7 +43,7 @@ class Caltrops extends Analyzer {
     }
     if (this.caltropsCasts === 0) {
       this.caltropsCasts++;
-      this.spellUsable.beginCooldown(SPELLS.CALTROPS_TALENT.id);
+      this.spellUsable.beginCooldown(SPELLS.CALTROPS_TALENT.id, this.owner.fight.start_time);
     }
     this.bonusDamage += event.amount + (event.absorbed || 0);
   }

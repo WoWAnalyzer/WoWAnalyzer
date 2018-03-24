@@ -38,7 +38,7 @@ class ApiRequestHandler {
       ],
       where: {
         createdAt: {
-          $gt: Sequelize.fn('DATE_SUB', Sequelize.fn('NOW'), Sequelize.literal('INTERVAL 7 DAY')),
+          [Sequelize.Op.gt]: Sequelize.fn('DATE_SUB', Sequelize.fn('NOW'), Sequelize.literal('INTERVAL 7 DAY')),
         },
       },
     });

@@ -610,16 +610,14 @@ class StatTracker extends Analyzer {
    * Fabricates an event indicating when stats change
    */
   _triggerChangeStats(event, before, delta, after) {
-    this.owner.triggerEvent('changestats', {
-      timestamp: event ? event.timestamp : this.owner.currentTimestamp,
+    this.owner.fabricateEvent({
       type: 'changestats',
       sourceID: event ? event.sourceID : this.owner.playerId,
       targetID: this.owner.playerId,
-      reason: event,
       before,
       delta,
       after,
-    });
+    }, event);
   }
 
   /**

@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
 	{
+		date: new Date('2018-03-22'),
+		changes: <Wrapper>Marked <SpellLink id={SPELLS.BLESSED_HAMMER_TALENT.id} icon/> as being on the GCD.</Wrapper>,
+		contributors: [Zerotorescue],
+	},
+	{
 		date: new Date('2018-03-14'),
 		changes: <Wrapper>Added <ItemLink id={ITEMS.TYELCA_FERREN_MARCUSS_STATURE.id} icon/></Wrapper>,
 		contributors: [Hewhosmites],

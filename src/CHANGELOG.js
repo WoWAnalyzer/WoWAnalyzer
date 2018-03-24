@@ -14,6 +14,11 @@ export default [
     contributors: [joshinator],
   },
   {
+    date: new Date('2018-03-24'),
+    changes: 'Show player deaths and resurrections in the timeline.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-03-19'),
     changes: 'Fabricated events in the events tab are now highlighted with a different color, and optional (hidden by default).',
     contributors: [Zerotorescue],

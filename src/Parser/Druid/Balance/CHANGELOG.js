@@ -9,6 +9,16 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   { 
+    date: new Date('2018-3-23'),
+    changes: 'Updated the L90 Talents module to also show total generated and added suggestion when using the wrong or no blessing.',
+    contributors: [Gebuz],
+  },
+  { 
+    date: new Date('2018-3-23'),
+    changes: 'Split Blessing of Elune into it\'s own entry in the Astral Power usage and fixed a bug where Astral Power from Lunar Strike with both Blessing of Elune and Incarnation or Celestial Alignment was not counted correctly.',
+    contributors: [Gebuz],
+  },
+  { 
     date: new Date('2018-3-15'),
     changes: <Wrapper>Highlight inefficient <SpellLink id={SPELLS.LUNAR_STRIKE.id} icon /> and <SpellLink id={SPELLS.SOLAR_WRATH.id} icon /> casts on the timeline.</Wrapper>,
     contributors: [Gebuz],

@@ -16,6 +16,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLOODTHIRST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 4.5 / (1 + haste),
+        isOnGCD: true,
         enabled: combatant.hasTalent(SPELLS.INNER_RAGE_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -26,6 +27,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLOODTHIRST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 4.5 / (1 + haste),
+        isOnGCD: true,
         enabled: !combatant.hasTalent(SPELLS.INNER_RAGE_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -34,16 +36,19 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FURIOUS_SLASH,
+        isOnGCD: true,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
       {
         spell: SPELLS.EXECUTE_FURY,
+        isOnGCD: true,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
       {
         spell: SPELLS.RAGING_BLOW,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 4.5 / (1 + haste),
+        isOnGCD: true,
         enabled: combatant.hasTalent(SPELLS.INNER_RAGE_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -53,6 +58,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RAGING_BLOW,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
         enabled: !combatant.hasTalent(SPELLS.INNER_RAGE_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -61,6 +67,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RAMPAGE,
+        isOnGCD: true,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // Needs 85 rage, if using Frothing Berserker one should only Rampage whilst at 100 rage.
       },
       {
@@ -76,6 +83,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ODYNS_FURY,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 45,
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -95,6 +103,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.STORM_BOLT_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 30,
+        isOnGCD: true,
         enabled: combatant.hasTalent(SPELLS.STORM_BOLT_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -105,6 +114,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHOCKWAVE_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 40,
+        isOnGCD: true,
         enabled: combatant.hasTalent(SPELLS.SHOCKWAVE_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -133,6 +143,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DRAGON_ROAR_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 25,
+        isOnGCD: true,
         enabled: combatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -141,6 +152,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.WHIRLWIND_FURY,
+        isOnGCD: true,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
       },
       {
@@ -197,23 +209,17 @@ class Abilities extends CoreAbilities {
         cooldown: 17,
       },
       {
-        spell: SPELLS.HEROIC_LEAP_FURY,
+        spell: SPELLS.HEROIC_THROW,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: (haste, combatant) => 45 - (combatant.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 15 : 0),
-        enabled: !combatant.hasShoulder(ITEMS.TIMELESS_STRATAGEM.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.1,
-          importance: ISSUE_IMPORTANCE.MINOR,
-          extraSuggestion: <Wrapper>Consider using <SpellLink id={SPELLS.WARPAINT_TALENT.id} /> if the fight requires little mobility.</Wrapper>,
-        },
+        cooldown: 6,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.HEROIC_LEAP_FURY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: (haste, combatant) => 45 - (combatant.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 15 : 0),
-        charges: 3,
-        enabled: combatant.hasShoulder(ITEMS.TIMELESS_STRATAGEM.id),
+        charges: 1 + (combatant.hasShoulder(ITEMS.TIMELESS_STRATAGEM.id) ? 2 : 0),
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.1,

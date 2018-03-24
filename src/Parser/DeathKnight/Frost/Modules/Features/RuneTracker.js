@@ -6,9 +6,9 @@ class RuneTracker extends CoreRuneTracker{
     return {
       actual: 1 - this.runeEfficiency,
       isGreaterThan: {
-        minor: 0.15,
-        average: 0.25,
-        major: 0.35,
+        minor: 0.10,
+        average: 0.20,
+        major: 0.30,
       },
       style: 'percentage',
     };
@@ -18,9 +18,9 @@ class RuneTracker extends CoreRuneTracker{
     return {
       actual: this.runeEfficiency,
       isLessThan: {
-        minor: 0.85,
-        average: 0.75,
-        major: 0.65,
+        minor: 0.90,
+        average: 0.80,
+        major: 0.70,
       },
       style: 'percentage',
     };

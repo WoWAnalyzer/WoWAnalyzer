@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Icon = ({ icon, alt, ...other }) => {
+  if (!icon) {
+    return null;
+  }
   icon = icon.replace('.jpg', '').replace('-', '');
   if (icon === 'petbattle_healthdown') {
     // Blizzard seems to have forgotten to remove the dash for this one... or something

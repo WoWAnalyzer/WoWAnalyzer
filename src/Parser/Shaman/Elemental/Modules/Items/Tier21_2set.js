@@ -18,9 +18,17 @@ class Tier21_2set extends Analyzer {
     this.active = this.combatants.selected.hasBuff(SPELLS.ELEMENTAL_SHAMAN_T21_2SET_BUFF.id);
   }
 
+  on_byPlayer_cast(event) {
+    if (this.combatants.selected.hasBuff(SPELLS.EARTHEN_STRENGTH.id)) {
+      if (event.ability.guid === SPELLS.EARTHQUAKE.id) {
+        this.active = false;
+      }
+    }
+  }
+
   on_byPlayer_damage(event) {
     if (this.combatants.selected.hasBuff(SPELLS.EARTHEN_STRENGTH.id)) {
-      if (event.ability.guid === SPELLS.EARTH_SHOCK.id || event.ability.guid === SPELLS.EARTHQUAKE.id) {
+      if (event.ability.guid === SPELLS.EARTH_SHOCK.id) {
         this.extraDmg += (event.amount + event.absorbed || 0) * 20 / 120;
       }
     }
