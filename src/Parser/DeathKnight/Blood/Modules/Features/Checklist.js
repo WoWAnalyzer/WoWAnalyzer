@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-//import ITEMS from 'common/ITEMS';
 
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
@@ -17,10 +16,13 @@ import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 
 import BoneShield from './BoneShield';
-import Ossuary from '../Talents/Ossuary';
 import BloodPlagueUptime from './BloodPlagueUptime';
 import AlwaysBeCasting from './AlwaysBeCasting';
 import CrimsonScourge from './CrimsonScourge';
+import MarrowrendUsage from './MarrowrendUsage';
+
+import Ossuary from '../Talents/Ossuary';
+import BoneStorm from '../Talents/Bonestorm';
 
 import RunicPowerDetails from '../RunicPower/RunicPowerDetails';
 import RuneTracker from '../../../Shared/RuneTracker';
@@ -35,10 +37,15 @@ class Checklist extends CoreChecklist {
     bloodplagueUptime: BloodPlagueUptime,
     alwaysBeCasting: AlwaysBeCasting,
     enchantChecker: EnchantChecker,
-    runicPowerDetails: RunicPowerDetails,
     boneShield: BoneShield,
+
     ossuary: Ossuary,
+    bonestorm: BoneStorm,
+
     crimsonScourge: CrimsonScourge,
+    marrowrendUsage: MarrowrendUsage,
+
+    runicPowerDetails: RunicPowerDetails,
     runeTracker: RuneTracker,
   };
 
@@ -61,6 +68,10 @@ class Checklist extends CoreChecklist {
             when: !this.combatants.selected.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
+            spell: SPELLS.BLOODDRINKER_TALENT,
+            when: this.combatants.selected.hasTalent(SPELLS.BLOODDRINKER_TALENT.id),
+          }),
+          new GenericCastEfficiencyRequirement({
             spell: SPELLS.BLOOD_TAP_TALENT,
             when: this.combatants.selected.hasTalent(SPELLS.BLOOD_TAP_TALENT.id),
           }),
@@ -81,6 +92,10 @@ class Checklist extends CoreChecklist {
             name: 'Rune Efficiency',
             check: () => this.runeTracker.suggestionThresholdsEfficiency,
           }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.MARROWREND.id} icon /> efficiency</Wrapper>,
+            check: () => this.marrowrendUsage.suggestionThresholdsEfficiency,
+          }),
         ];
       },
     }),
@@ -94,15 +109,16 @@ class Checklist extends CoreChecklist {
             spell: SPELLS.DANCING_RUNE_WEAPON,
           }),
           new GenericCastEfficiencyRequirement({
+            spell: SPELLS.CONSUMPTION,
+          }),
+          new GenericCastEfficiencyRequirement({
             spell: SPELLS.BLOOD_MIRROR_TALENT,
             when: this.combatants.selected.hasTalent(SPELLS.BLOOD_MIRROR_TALENT.id),
           }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.BLOODDRINKER_TALENT,
-            when: this.combatants.selected.hasTalent(SPELLS.BLOODDRINKER_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.CONSUMPTION,
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.BONESTORM_TALENT.id} icon /> efficiency</Wrapper>,
+            check: () => this.bonestorm.suggestionThresholds,
+            when: this.combatants.selected.hasTalent(SPELLS.BONESTORM_TALENT.id),
           }),
         ];
       },
