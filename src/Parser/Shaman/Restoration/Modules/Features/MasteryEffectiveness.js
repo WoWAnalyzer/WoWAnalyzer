@@ -56,7 +56,7 @@ class MasteryEffectiveness extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DEEP_HEALING.id} />}
-        value={`${formatPercentage(masteryEffectivenessPercent)}%`}
+        value={`${formatPercentage(masteryEffectivenessPercent)} %`}
         label={(
           <dfn data-tip={`The percent of your mastery that you benefited from on average (so always between 0% and 100%). Since you have ${formatPercentage(masteryPercent)}% mastery, this means that on average your heals were increased by ${formatPercentage(avgEffectiveMasteryPercent)}% by your mastery.`}>
             Mastery benefit

@@ -25,8 +25,8 @@ class TidalWaves extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> buffed <SpellLink id={SPELLS.HEALING_WAVE.id} /> can make for some very efficient healing, consider casting more of them ({formatPercentage(suggestedThresholds.actual)}% unused Tidal Waves).</span>)
           .icon(SPELLS.TIDAL_WAVES_BUFF.icon)
-          .actual(`${formatPercentage(suggestedThresholds.actual)} % unused Tidal waves`)
-          .recommended(`Less than ${formatPercentage(suggestedThresholds.isGreaterThan.minor, 0)} % unused Tidal Waves`)
+          .actual(`${formatPercentage(suggestedThresholds.actual)}% unused Tidal waves`)
+          .recommended(`Less than ${formatPercentage(suggestedThresholds.isGreaterThan.minor, 0)}% unused Tidal Waves`)
           .regular(suggestedThresholds.isGreaterThan.average).major(suggestedThresholds.isGreaterThan.major);
       });
   }
@@ -85,7 +85,7 @@ class TidalWaves extends Analyzer {
             />
           </SpellLink>
         )}
-        value={`${formatPercentage(unusedTwRate)} %`}
+        value={`${formatPercentage(unusedTwRate)}%`}
         label={(
           <dfn data-tip={`The amount of Tidal Waves charges you did not use out of the total available. You cast ${riptideCasts} Riptides and ${chainHealCasts} Chain Heals which gave you ${totalTwGenerated} Tidal Waves charges, of which you used ${totalTwUsed}.<br /><br />The ratio may be below zero if you started the fight with Tidal Waves charges.`}>
             Unused Tidal Waves
