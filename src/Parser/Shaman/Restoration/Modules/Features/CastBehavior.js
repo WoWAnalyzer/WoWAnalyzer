@@ -20,8 +20,6 @@ class CastBehavior extends Analyzer {
     abilityTracker: AbilityTracker,
   };
 
-
-
   legend(items, total) {
     const numItems = items.length;
     return items.map(({ color, label, tooltip, value, spellId }, index) => {
@@ -124,7 +122,7 @@ class CastBehavior extends Analyzer {
       },
       {
         color: '#CC3D20',
-        label: 'Wasted Tidal Waves',
+        label: 'Unused Tidal Waves',
         tooltip: `The amount of Tidal Waves you did not use out of the total available. You cast ${riptideCasts} Riptides and ${chainHealCasts} Chain Heals which gave you ${totalTwGenerated} Tidal Waves charges, of which you used ${totalTwUsed}.`,
         value: unusedTw,
       },
