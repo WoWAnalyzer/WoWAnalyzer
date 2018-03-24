@@ -85,7 +85,7 @@ class TidalWaves extends Analyzer {
             />
           </SpellLink>
         )}
-        value={`${formatPercentage(unusedTwRate)}%`}
+        value={`${formatPercentage(unusedTwRate)} %`}
         label={(
           <dfn data-tip={`The amount of Tidal Waves charges you did not use out of the total available. You cast ${riptideCasts} Riptides and ${chainHealCasts} Chain Heals which gave you ${totalTwGenerated} Tidal Waves charges, of which you used ${totalTwUsed}.<br /><br />The ratio may be below zero if you started the fight with Tidal Waves charges.`}>
             Unused Tidal Waves
