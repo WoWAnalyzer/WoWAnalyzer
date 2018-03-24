@@ -20,6 +20,7 @@ import MarrowrendUsage from './Modules/Features/MarrowrendUsage';
 import Souldrinker from './Modules/Features/Souldrinker';
 import BoneShield from './Modules/Features/BoneShield';
 import DancingRuneWeapon from './Modules/Features/DancingRuneWeapon';
+import InitialMarrowrendCast from './Modules/Features/InitialMarrowrendCast';
 
 // Resources
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
@@ -65,6 +66,8 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     crimsonScourge: CrimsonScourge,
+    dancingRuneWeapon: DancingRuneWeapon,
+    initialMarrowrendCast: InitialMarrowrendCast,
     blooddrinkerTicks: BlooddrinkerTicks,
     unendingThirstTracker:UnendingThirstTracker,
     checklist: Checklist,
@@ -72,9 +75,6 @@ class CombatLogParser extends CoreCombatLogParser {
     marrowrendUsage: MarrowrendUsage,
     souldrinker: Souldrinker,
     boneShield: BoneShield,
-    dancingRuneWeapon: DancingRuneWeapon,
-
-
 
     // DOT
     bloodplagueUptime: BloodPlagueUptime,
