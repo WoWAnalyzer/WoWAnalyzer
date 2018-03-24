@@ -61,8 +61,8 @@ class GiftOfTheQueen extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Try to always cast <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} /> at a position where both the initial hit and the echo from <SpellLink id={SPELLS.DEEP_WATERS.id} /> will hit all 6 potential targets.</span>)
           .icon(SPELLS.GIFT_OF_THE_QUEEN.icon)
-          .actual(`${formatPercentage(gotqTargetEffiencyThresholds.actual)} % of targets hit`)
-          .recommended(`> ${formatPercentage(gotqTargetEffiencyThresholds.isLessThan.minor)} % of targets hit`)
+          .actual(`${formatPercentage(gotqTargetEffiencyThresholds.actual)}% of targets hit`)
+          .recommended(`> ${formatPercentage(gotqTargetEffiencyThresholds.isLessThan.minor)}% of targets hit`)
           .regular(gotqTargetEffiencyThresholds.isLessThan.average).major(gotqTargetEffiencyThresholds.isLessThan.major);
       });
     
@@ -73,8 +73,8 @@ class GiftOfTheQueen extends Analyzer {
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<span>Try to cast <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} /> while <SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} /> is up as much as possible.</span>)
             .icon(SPELLS.GIFT_OF_THE_QUEEN.icon)
-            .actual(`${formatPercentage(gotqFeedingEfficiency.actual)} % of GotQ healing fed into CBT`)
-            .recommended(`> ${formatPercentage(gotqFeedingEfficiency.isLessThan.minor)} % of GotQ healing fed into CBT`)
+            .actual(`${formatPercentage(gotqFeedingEfficiency.actual)}% of GotQ healing fed into CBT`)
+            .recommended(`> ${formatPercentage(gotqFeedingEfficiency.isLessThan.minor)}% of GotQ healing fed into CBT`)
             .regular(gotqFeedingEfficiency.isLessThan.average).major(gotqFeedingEfficiency.isLessThan.major);
         }); 
       }   

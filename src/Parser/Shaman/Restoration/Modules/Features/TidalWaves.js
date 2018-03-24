@@ -25,8 +25,8 @@ class TidalWaves extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> buffed <SpellLink id={SPELLS.HEALING_WAVE.id} /> can make for some very efficient healing, consider casting more of them ({formatPercentage(suggestedThresholds.actual)}% unused Tidal Waves).</span>)
           .icon(SPELLS.TIDAL_WAVES_BUFF.icon)
-          .actual(`${formatPercentage(suggestedThresholds.actual)} % unused Tidal waves`)
-          .recommended(`Less than ${formatPercentage(suggestedThresholds.isGreaterThan.minor, 0)} % unused Tidal Waves`)
+          .actual(`${formatPercentage(suggestedThresholds.actual)}% unused Tidal waves`)
+          .recommended(`Less than ${formatPercentage(suggestedThresholds.isGreaterThan.minor, 0)}% unused Tidal Waves`)
           .regular(suggestedThresholds.isGreaterThan.average).major(suggestedThresholds.isGreaterThan.major);
       });
   }

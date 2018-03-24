@@ -15,8 +15,6 @@ class Bonestorm extends Analyzer {
 
   bsCasts = [];
   totalBonestormDamage = 0;
-  totalHits = 0;
-  totalCost = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.BONESTORM_TALENT.id);
@@ -31,7 +29,6 @@ class Bonestorm extends Analyzer {
       cost: event.classResources[0].cost,
       hits: [],
     });
-    this.totalCost += event.classResources[0].cost;
   }
 
   on_byPlayer_damage(event) {
@@ -40,22 +37,27 @@ class Bonestorm extends Analyzer {
     }
 
     this.bsCasts[this.bsCasts.length - 1].hits.push(event.amount + event.absorbed);
-    this.totalHits += 1;
     this.totalBonestormDamage += event.amount + event.absorbed;
   }
 
-  get suggestionThresholds() {
-
-    const passed = this.bsCasts.filter((val, index) => {
+  get goodBonestormCasts() {
+    const goodCasts = this.bsCasts.filter((val, index) => {
       return val.hits.length / (val.cost / 100) >= 2;
     });
+    return goodCasts.length;
+  }
 
+  get totalBonestormCasts() {
+    return this.bsCasts.length;
+  }
+
+  get suggestionThresholds() {
     return {
-      actual: passed.length / this.bsCasts.length,
+      actual: this.goodBonestormCasts / this.totalBonestormCasts,
       isLessThan: {
-        minor: 0.8,
-        average: 0.7,
-        major: 0.5,
+        minor: 1,
+        average: 0.8,
+        major: 0.6,
       },
       style: 'percentage',
     };
@@ -67,7 +69,7 @@ class Bonestorm extends Analyzer {
           return suggest(<Wrapper>Try to cast <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> only if you can reliable hit 2 or more targets to maximize the damage and healing. Casting <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> with only one target in range is a DPS and HPS loss, use <SpellLink id={SPELLS.DEATH_STRIKE.id} /> instead.</Wrapper>)
             .icon(SPELLS.BONESTORM_TALENT.icon)
             .actual(`${ formatPercentage(actual) }% casts hit 2 or more targets`)
-            .recommended(`${ formatPercentage(recommended) }% or more is recommended`);
+            .recommended(`${ formatPercentage(recommended) }%is recommended`);
         });
   }
 

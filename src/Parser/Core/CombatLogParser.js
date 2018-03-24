@@ -42,6 +42,8 @@ import StatsDisplay from './Modules/Features/StatsDisplay';
 import TalentsDisplay from './Modules/Features/TalentsDisplay';
 import Checklist from './Modules/Features/Checklist';
 
+import EncounterPanel from './Modules/Features/EncounterPanel';
+
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
 
 import PrePotion from './Modules/Items/PrePotion';
@@ -175,6 +177,8 @@ class CombatLogParser {
     statsDisplay: StatsDisplay,
     talentsDisplay: TalentsDisplay,
     checklist: Checklist,
+
+    encounterPanel: EncounterPanel,
 
     // Items:
     // Legendaries:
