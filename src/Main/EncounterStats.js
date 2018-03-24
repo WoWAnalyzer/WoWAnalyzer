@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import TickIcon from 'Icons/Tick';
+
 import SPECS from 'common/SPECS';
 import ROLES from 'common/ROLES';
 import ITEMS from 'common/ITEMS';
@@ -21,7 +23,7 @@ import { formatPercentage } from 'common/format';
 class EncounterStats extends React.PureComponent {
   static propTypes = {
     currentBoss: PropTypes.number.isRequired,
-    spec: PropTypes.number.isRequired,
+    player: PropTypes.object.isRequired,
     difficulty: PropTypes.number.isRequired,
   };
 
@@ -65,7 +67,7 @@ class EncounterStats extends React.PureComponent {
   }
 
   load() {
-    switch (SPECS[this.props.spec].role) {
+    switch (SPECS[this.props.player._combatantInfo.specID].role) {
       case ROLES.HEALER:
         this.metric = 'hps';
         break;
@@ -76,8 +78,8 @@ class EncounterStats extends React.PureComponent {
     }
 
     return fetchWcl(`rankings/encounter/${ this.props.currentBoss }`, {
-      class: SPECS[this.props.spec].ranking.class,
-      spec: SPECS[this.props.spec].ranking.spec,
+      class: SPECS[this.props.player._combatantInfo.specID].ranking.class,
+      spec: SPECS[this.props.player._combatantInfo.specID].ranking.spec,
       difficulty: this.props.difficulty,
       limit: this.LIMIT,
       metric: this.metric,
@@ -104,11 +106,15 @@ class EncounterStats extends React.PureComponent {
         });
       });
 
-      talentCounter.forEach(row => {
+      talentCounter.forEach((row, index) => {
         const talentRow = row.reduce((prev, cur) => {
           prev[cur] = (prev[cur] || 0) + 1;
           return prev;
         }, {});
+        
+        if (talentRow[this.props.player._talentsByRow[index]] === undefined ) {
+          talentRow[this.props.player._talentsByRow[index]] = 0;
+        }
         talents.push(talentRow);
       });
 
@@ -155,10 +161,28 @@ class EncounterStats extends React.PureComponent {
     });
   }
 
+  isItemEquiped(item) {
+    if (Object.values(this.props.player._gearItemsBySlotId).filter((val, index) => { return val.id === item; }).length === 1) {
+      return '#4CAF50';
+    }
+  }
+
+  checkIcon(item) {
+    if (Object.values(this.props.player._gearItemsBySlotId).filter((val, index) => { return val.id === item; }).length === 1) {
+      return <TickIcon style={{ color: '#4CAF50' }} />;
+    }
+  }
+
+  talentUsed(talent) {
+    if (Object.values(this.props.player._talentsByRow).includes(parseInt(talent, 10))) {
+      return '2px solid #4CAF50';
+    }
+  }
+
   singleItem(item, index) {
     return <div className="col-md-12 flex-main" key={item.id} style={{ textAlign: 'left', margin: '5px auto' }}>
       <div className="row">
-        <div className="col-md-2" style={{ opacity: '.8', fontSize: '.9em', lineHeight: '2em', textAlign: 'right'}}>
+        <div className="col-md-2" style={{ opacity: '.8', fontSize: '.9em', lineHeight: '2em', textAlign: 'right', color: this.isItemEquiped(item.id) }}>
           {formatPercentage(item.amount / this.LIMIT, 0)}%
         </div>
         <div className="col-md-10">
@@ -166,9 +190,9 @@ class EncounterStats extends React.PureComponent {
             <Icon
               icon={this.state.items[item.id] === undefined ? this.state.items[0].icon : this.state.items[item.id].icon}
               className={item.quality}
-              style={{ width: '2em', height: '2em', border: '1px solid', marginRight: 10 }}
+              style={{ width: '2em', height: '2em', border: '1px solid', borderColor: this.isItemEquiped(item.id), marginRight: 10 }}
             />
-            { item.name }
+            <span style={{ color: this.isItemEquiped(item.id) }}>{ item.name }</span> { this.checkIcon(item.id) }
           </ItemLink>
         </div>
       </div>
@@ -218,7 +242,7 @@ class EncounterStats extends React.PureComponent {
                     {Object.keys(row).sort((a,b) => {return row[b]-row[a];}).map((talent, talentIndex) => 
                       <div key={talentIndex} className="col-md-2" style={{ textAlign: 'center' }}>
                         <SpellLink id={parseInt(talent, 10)}>
-                          <SpellIcon style={{ width: '3em', height: '3em' }} id={parseInt(talent, 10)} noLink />
+                          <SpellIcon style={{ width: '3em', height: '3em', border: this.talentUsed(talent) }} id={parseInt(talent, 10)} noLink />
                         </SpellLink>
                         <span style={{ textAlign: 'center', display: 'block' }}>{formatPercentage(row[talent] / this.LIMIT, 0)}%</span>
                       </div>
