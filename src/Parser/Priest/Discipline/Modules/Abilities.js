@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
-import calculateMaxCasts from 'Parser/Core/calculateMaxCasts';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Haste from 'Parser/Core/Modules/Haste';
 
@@ -22,7 +21,13 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.POWER_WORD_RADIANCE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 18,
+        cooldown: (haste, selectedCombatant) => {
+          if(selectedCombatant.hasBuff(SPELLS.DISC_PRIEST_T21_2SET_BONUS_PASSIVE.id)) {
+            return 15;
+          } else {
+            return 18;
+          }
+        },
         charges: 2,
         castEfficiency: {
           suggestion: true,
@@ -40,51 +45,15 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.POWER_WORD_SHIELD,
-        name: `${SPELLS.POWER_WORD_SHIELD.name} outside Rapture`,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 9 / (1 + haste),
-        castEfficiency: {
-          suggestion: true,
-          casts: castCount => castCount.casts - (castCount.raptureCasts || 0),
-          maxCasts: (cooldown, fightDuration, getAbility, parser) => {
-            const timeSpentInRapture = parser.modules.combatants.selected.getBuffUptime(SPELLS.RAPTURE.id);
-            const maxRegularCasts = calculateMaxCasts(cooldown, fightDuration - timeSpentInRapture);
-
-            return maxRegularCasts;
-          },
+        cooldown: (haste, selectedCombatant) => {
+          if(selectedCombatant.hasBuff(SPELLS.RAPTURE.id)) {
+            return 1.5 / (1 + haste);
+          } else {
+            return 7.5 / (1 + haste);
+          }
         },
       },
-      {
-        spell: SPELLS.POWER_WORD_SHIELD,
-        name: `${SPELLS.POWER_WORD_SHIELD.name} during Rapture`,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 9 / (1 + haste),
-        castEfficiency: {
-          suggestion: true,
-          extraSuggestion: `${SPELLS.POWER_WORD_SHIELD.name} may be cast without cooldown during Rapture.`,
-          casts: castCount => castCount.raptureCasts || 0,
-          maxCasts: (cooldown, fightDuration, getAbility, parser) => {
-            const gcd = 1.5 / (1 + parser.modules.haste.current);
-            const timeSpentInRapture = parser.modules.combatants.selected.getBuffUptime(SPELLS.RAPTURE.id);
-
-            const maxRaptureCasts = calculateMaxCasts(gcd, timeSpentInRapture);
-
-            return maxRaptureCasts;
-          },
-        },
-      },
-      // TODO this should work, but is being quite harsh due to max casts calc ...
-      // {
-      //   spell: SPELLS.POWER_WORD_SHIELD,
-      //   category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      //   cooldown: (haste, combatant) => {
-      //     if(combatant.hasBuff(SPELLS.RAPTURE.id)) {
-      //       return 1.5 / (1 + haste); // TODO should there be an external 'GCD getter' ?
-      //     } else {
-      //       return 9 / (1 + haste);
-      //     }
-      //   },
-      // },
       {
         spell: SPELLS.SCHISM_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -174,11 +143,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.POWER_WORD_BARRIER_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 3 * 60,
-      },
-
-      {
-        spell: SPELLS.POWER_WORD_RADIANCE,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
       },
       {
         spell: SPELLS.SHADOW_WORD_PAIN,
