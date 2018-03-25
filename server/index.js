@@ -44,17 +44,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // region Authentication
 app.use(Passport.initialize());
 app.use(Passport.session());
-Passport.use(new PatreonStrategy({
-    clientID: process.env.PATREON_CLIENT_ID,
-    clientSecret: process.env.PATREON_CLIENT_SECRET,
-    callbackURL: process.env.PATREON_CALLBACK_URL,
-    scope: 'users',
-  },
-  function(accessToken, refreshToken, profile, done) {
-    console.log(accessToken, refreshToken, profile);
-    done(null, profile);
-  }
-));
 Passport.serializeUser(function(user, done) {
   done(null, user);
 });
