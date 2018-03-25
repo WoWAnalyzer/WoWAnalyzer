@@ -5,6 +5,8 @@ import fs from 'fs';
 import Raven from 'raven';
 import session from 'express-session';
 import bodyParser from 'body-parser';
+import Passport from 'passport';
+import { Strategy as PatreonStrategy } from 'passport-patreon';
 
 import loadDotEnv from './config/env';
 
@@ -38,6 +40,29 @@ app.use(session({
   saveUninitialized: false,
 }));
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// region Authentication
+app.use(Passport.initialize());
+app.use(Passport.session());
+Passport.use(new PatreonStrategy({
+    clientID: process.env.PATREON_CLIENT_ID,
+    clientSecret: process.env.PATREON_CLIENT_SECRET,
+    callbackURL: process.env.PATREON_CALLBACK_URL,
+    scope: 'users',
+  },
+  function(accessToken, refreshToken, profile, done) {
+    console.log(accessToken, refreshToken, profile);
+    done(null, profile);
+  }
+));
+Passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+Passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+// endregion
+
 app.use(require('./controllers').default);
 
 app.listen(process.env.PORT, () => {

@@ -6,7 +6,8 @@ const router = Express.Router();
 
 router.use('/api', require('./api').default);
 router.use('/discord', require('./discord').default);
-// TODO: router.use('/login', require('./login').default);
+router.use('/login', require('./login').default);
+router.use('/user', require('./user').default);
 
 // Handling for the SPA:
 
