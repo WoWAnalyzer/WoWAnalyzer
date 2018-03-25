@@ -9,7 +9,6 @@ import SpellHistory from 'Parser/Core/Modules/SpellHistory';
 
 import Tab from 'Main/Tab';
 import CastEfficiencyComponent from 'Main/CastEfficiency';
-import SpellTimeline from 'Main/Timeline/SpellTimeline';
 
 import Abilities from './Abilities';
 import AbilityTracker from './AbilityTracker';
@@ -191,23 +190,12 @@ class CastEfficiency extends Analyzer {
       when(suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(
           <Wrapper>
-            Try to cast <SpellLink id={mainSpell.id} /> more often. {ability.castEfficiency.extraSuggestion || ''} <a href="#spell-timeline">View timeline</a>.
+            Try to cast <SpellLink id={mainSpell.id} /> more often. {ability.castEfficiency.extraSuggestion || ''}
           </Wrapper>
         )
           .icon(mainSpell.icon)
           .actual(`${abilityInfo.casts} out of ${abilityInfo.maxCasts} possible casts. You kept it on cooldown ${formatPercentage(actual, 1)}% of the time.`)
           .recommended(`>${formatPercentage(recommended, 1)}% is recommended`)
-          .details(() => (
-            <div style={{ margin: '0 -22px' }}>
-              <SpellTimeline
-                historyBySpellId={this.spellHistory.historyBySpellId}
-                abilities={this.abilities}
-                spellId={mainSpell.id}
-                start={this.owner.fight.start_time}
-                end={this.owner.currentTimestamp}
-              />
-            </div>
-          ))
           .staticImportance(ability.castEfficiency.importance);
       });
     });
