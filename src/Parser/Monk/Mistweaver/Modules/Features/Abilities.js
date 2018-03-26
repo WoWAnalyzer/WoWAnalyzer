@@ -96,10 +96,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.OTHERS,
       },
       {
-        spell: SPELLS.SHEILUNS_GIFT,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-      },
-      {
         spell: SPELLS.ESSENCE_FONT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         cooldown: 12,
