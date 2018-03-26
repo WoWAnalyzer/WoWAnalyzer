@@ -150,7 +150,9 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.6,
+          recommendedEfficiency: 0.50,
+          averageIssueEfficiency: 0.35,
+          majorIssueEfficiency: 0.25,
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         timelineSortIndex: 13,
