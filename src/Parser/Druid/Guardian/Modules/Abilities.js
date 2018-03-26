@@ -42,14 +42,25 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.6,
           majorIssueEfficiency: 0.5,
         },
+        timelineSortIndex: 1,
       },
       {
-        spell: SPELLS.SWIPE_BEAR,
+        spell: SPELLS.THRASH_BEAR,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: (haste, selectedCombatant) => {
+          if (selectedCombatant.hasBuff(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)) {
+            return null;
+          }
+          return hastedCooldown(6, haste);
+        },
         isOnGCD: true,
         antiFillerSpam: {
-          isFiller: (event, selectedCombatant, targets) => targets.length < 4,
+          isHighPriority: true,
         },
+        castEfficiency: {
+          suggestion: true,
+        },
+        timelineSortIndex: 2,
       },
       {
         spell: SPELLS.MOONFIRE,
@@ -75,28 +86,22 @@ class Abilities extends CoreAbilities {
             return selectedCombatant.hasBuff(SPELLS.GALACTIC_GUARDIAN.id, timestamp - REACTION_TIME_THRESHOLD);
           },
         },
+        timelineSortIndex: 3,
       },
       {
-        spell: SPELLS.THRASH_BEAR,
+        spell: SPELLS.SWIPE_BEAR,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, selectedCombatant) => {
-          if (selectedCombatant.hasBuff(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)) {
-            return null;
-          }
-          return hastedCooldown(6, haste);
-        },
         isOnGCD: true,
         antiFillerSpam: {
-          isHighPriority: true,
+          isFiller: (event, selectedCombatant, targets) => targets.length < 4,
         },
-        castEfficiency: {
-          suggestion: true,
-        },
+        timelineSortIndex: 4,
       },
       {
         spell: SPELLS.MAUL,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
+        timelineSortIndex: 5,
       },
       // Cooldowns
       {
@@ -107,6 +112,7 @@ class Abilities extends CoreAbilities {
           const cdTrait = combatant.traitsBySpellId[SPELLS.PERPETUAL_SPRING_TRAIT.id] || 0;
           return baseCd * (1 - (cdTrait * 3 / 100));
         },
+        timelineSortIndex: 9,
       },
       {
         spell: SPELLS.SURVIVAL_INSTINCTS,
@@ -118,6 +124,7 @@ class Abilities extends CoreAbilities {
         },
         charges: 3,
         enabled: combatant.hasFinger(ITEMS.DUAL_DETERMINATION.id),
+        timelineSortIndex: 9,
       },
       {
         spell: SPELLS.SURVIVAL_INSTINCTS,
@@ -129,39 +136,46 @@ class Abilities extends CoreAbilities {
         },
         charges: 2,
         enabled: !combatant.hasFinger(ITEMS.DUAL_DETERMINATION.id),
+        timelineSortIndex: 9,
       },
       {
         spell: SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         enabled: combatant.hasTalent(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id),
+        timelineSortIndex: 9,
       },
       {
         spell: SPELLS.BRISTLING_FUR_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 40,
         enabled: combatant.hasTalent(SPELLS.BRISTLING_FUR_TALENT.id),
+        timelineSortIndex: 9,
       },
       {
         spell: SPELLS.IRONFUR,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        timelineSortIndex: 7,
       },
       {
         spell: SPELLS.RAGE_OF_THE_SLEEPER,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
+        timelineSortIndex: 9,
       },
       {
         spell: SPELLS.FRENZIED_REGENERATION,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         charges: 2,
         enabled: !combatant.traitsBySpellId[SPELLS.FLESHKNITTING_TRAIT],
+        timelineSortIndex: 8,
       },
       {
         spell: SPELLS.FRENZIED_REGENERATION,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         charges: 3,
         enabled: combatant.traitsBySpellId[SPELLS.FLESHKNITTING_TRAIT],
+        timelineSortIndex: 8,
       },
       {
         spell: SPELLS.PULVERIZE_TALENT,
@@ -180,6 +194,7 @@ class Abilities extends CoreAbilities {
             return pulverizeTalented && targetHasThrashStacks;
           },
         },
+        timelineSortIndex: 6,
       },
       // Raid utility
       {
