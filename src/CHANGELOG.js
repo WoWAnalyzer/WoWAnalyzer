@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-03-26'),
+    changes: <Wrapper>Added <ItemLink id={ITEMS.SMOLDERING_TITANGUARD.id} icon />, <ItemLink id={ITEMS.DIIMAS_GLACIAL_AEGIS.id} icon /> and  <ItemLink id={ITEMS.RIFTWORLD_CODEX.id} icon />.</Wrapper>,
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-03-24'),
     changes: 'Added statistics for talents, legendaries and trinkets based on the current encounter.',
     contributors: [joshinator],
