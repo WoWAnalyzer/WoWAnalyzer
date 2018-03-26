@@ -168,12 +168,14 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         enabled: combatant.hasTalent(SPELLS.DISPLACER_BEAST_TALENT.id),
         isOnGCD: true,
+        timelineSortIndex: 14,
       },
       {
         spell: [SPELLS.WILD_CHARGE_TALENT, SPELLS.WILD_CHARGE_MOONKIN, SPELLS.WILD_CHARGE_CAT, SPELLS.WILD_CHARGE_BEAR, SPELLS.WILD_CHARGE_TRAVEL],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
         enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
+        timelineSortIndex: 14,
       },
       {
         spell: SPELLS.MIGHTY_BASH_TALENT,
