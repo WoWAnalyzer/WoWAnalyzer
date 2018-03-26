@@ -6,7 +6,6 @@ import Raven from 'raven';
 import session from 'express-session';
 import bodyParser from 'body-parser';
 import Passport from 'passport';
-import { Strategy as PatreonStrategy } from 'passport-patreon';
 
 import loadDotEnv from './config/env';
 
