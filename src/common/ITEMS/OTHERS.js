@@ -1,8 +1,8 @@
 import ITEM_QUALITIES from '../ITEM_QUALITIES';
 
 export default {
+  //fallback icon for encounter stats
   UNKNOWN_TRINKET: {
-    //fallback icon for encounter stats
     id: 0,
     icon: 'inv_misc_trinket6oih_orb1',
   },
@@ -425,10 +425,26 @@ export default {
     name: 'Shadow-Singed Fang',
     icon: 'inv_misc_blacksaberonfang',
   },
+  //T21 Tank trinkets
   AGGRAMARS_CONVICTION: {
     id: 154173,
     name: 'Aggramar\'s Conviction',
     icon: 'inv_antorus_orange',
+  },
+  SMOLDERING_TITANGUARD: {
+    id: 151978,
+    name: 'Smoldering Titanguard',
+    icon: 'ability_warrior_shieldmastery',
+  },
+  DIIMAS_GLACIAL_AEGIS: {
+    id: 151977,
+    name: 'Diima\'s Glacial Aegis',
+    icon: 'ability_hunter_glacialtrap',
+  },
+  RIFTWORLD_CODEX: {
+    id: 151976,
+    name: 'Riftworld Codex',
+    icon: 'inv_offhand_pvp330_d_02',
   },
   // T19 Trinkets
   CONVERGENCE_OF_FATES: {
