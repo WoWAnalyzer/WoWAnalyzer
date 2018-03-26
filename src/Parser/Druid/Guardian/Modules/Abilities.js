@@ -37,6 +37,7 @@ class Abilities extends CoreAbilities {
           isHighPriority: true,
         },
         castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.7,
           averageIssueEfficiency: 0.6,
           majorIssueEfficiency: 0.5,
