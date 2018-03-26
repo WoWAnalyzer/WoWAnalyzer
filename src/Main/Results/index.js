@@ -28,6 +28,7 @@ import Contributor from 'Main/Contributor';
 import ItemsPanel from './ItemsPanel';
 import ResultsWarning from './ResultsWarning';
 import Header from './Header';
+import DetailsTab from './DetailsTab';
 
 import './Results.css';
 
@@ -70,6 +71,11 @@ function mainTabLabel(tab) {
 }
 
 class Results extends React.Component {
+  static propTypes = {
+    parser: PropTypes.object.isRequired,
+    selectedDetailsTab: PropTypes.string,
+    makeTabUrl: PropTypes.func.isRequired,
+  };
   static childContextTypes = {
     updateResults: PropTypes.func.isRequired,
     parser: PropTypes.object.isRequired,
@@ -82,11 +88,6 @@ class Results extends React.Component {
   }
   static contextTypes = {
     config: PropTypes.object.isRequired,
-  };
-  static propTypes = {
-    parser: PropTypes.object.isRequired,
-    tab: PropTypes.string,
-    onChangeTab: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -124,7 +125,7 @@ class Results extends React.Component {
   }
 
   render() {
-    const { parser, tab, onChangeTab } = this.props;
+    const { parser, selectedDetailsTab, makeTabUrl } = this.props;
     const report = parser.report;
     const fight = parser.fight;
     const config = this.context.config;
@@ -179,8 +180,6 @@ class Results extends React.Component {
       });
     }
 
-    const tabUrl = tab || results.tabs[0].url;
-    const activeTab = results.tabs.find(tab => tab.url === tabUrl) || results.tabs[0];
     const { spec, description, contributors, patchCompatibility } = this.context.config;
     const specPatchCompatibility = parseVersionString(patchCompatibility);
     const latestPatch = parseVersionString(CURRENT_GAME_PATCH);
@@ -302,33 +301,7 @@ class Results extends React.Component {
 
           <div className="divider" />
 
-          <div className="panel tabbed" style={{ marginTop: 15, marginBottom: 100 }}>
-            <div className="panel-body flex" style={{ flexDirection: 'column', padding: '0' }}>
-              <div className="navigation item-divider">
-                <div className="flex" style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                  {results.tabs
-                    .sort((a, b) => {
-                      const aOrder = a.order !== undefined ? a.order : 100;
-                      const bOrder = b.order !== undefined ? b.order : 100;
-
-                      return aOrder - bOrder;
-                    })
-                    .map(tab => (
-                      <button
-                        key={tab.title}
-                        className={activeTab.url === tab.url ? 'btn-link selected' : 'btn-link'}
-                        onClick={() => onChangeTab(tab.url)}
-                      >
-                        {tab.title}
-                      </button>
-                    ))}
-                </div>
-              </div>
-              <div>
-                {activeTab.render()}
-              </div>
-            </div>
-          </div>
+          <DetailsTab tabs={results.tabs} selected={selectedDetailsTab} makeTabUrl={makeTabUrl} />
         </div>
       </div>
     );
@@ -336,7 +309,7 @@ class Results extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  tab: getResultTab(state),
+  selectedDetailsTab: getResultTab(state),
 });
 
 export default connect(

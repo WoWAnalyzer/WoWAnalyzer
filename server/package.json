@@ -4,16 +4,21 @@
   "scripts": {
     "start": "sequelize db:migrate && nodemon index.js --exec babel-node",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel -d build --ignore node_modules,build .",
+    "build": "babel -d build --ignore node_modules,build . && node ./config/postbuild.js",
     "serve": "sequelize db:migrate && node --harmony build/index.js"
   },
   "dependencies": {
     "agentkeepalive": "^3.4.1",
+    "babel-plugin-inline-dotenv": "^1.1.2",
     "babel-runtime": "^6.26.0",
+    "body-parser": "^1.18.2",
     "compression": "^1.7.2",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
+    "express-session": "^1.15.6",
     "mysql2": "^1.5.3",
+    "passport": "^0.4.0",
+    "passport-patreon": "^1.0.1",
     "raven": "^2.4.2",
     "request": "^2.85.0",
     "request-promise-native": "^1.0.5",

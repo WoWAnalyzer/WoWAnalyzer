@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 // The source pre-modifications: https://github.com/facebook/create-react-app/blob/33f1294f07a884ca2628fb6d8dc648bd18b25fbe/packages/react-scripts/config/env.js#L25-L49
-export default function loadDotEnv(rootPath) {
+module.exports = function loadDotEnv(rootPath) {
   const dotEnvPath = path.resolve(rootPath, '.env');
   const NODE_ENV = process.env.NODE_ENV;
   if (!NODE_ENV) {
@@ -33,4 +33,4 @@ export default function loadDotEnv(rootPath) {
       });
     }
   });
-}
+};

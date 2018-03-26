@@ -489,12 +489,13 @@ export default {
     name: 'Golganneth\'s Thunderous Wrath',
     icon: 'ability_thunderking_thunderstruck',
   },
+  //Khaz'goroths Courage procs:
   WORLDFORGERS_FLAME_BUFF: {
     id: 256826,
     name: 'Worldforger\'s Flame',
     icon: 'inv_antorus_red',
   },
-  WORLDFORGERS_FLAME_DAMAGE: { //Khaz'goroths Courage damage proc
+  WORLDFORGERS_FLAME_DAMAGE: {
     id: 257244,
     name: 'Worldforger\'s Flame',
     icon: 'inv_antorus_red',
@@ -870,6 +871,11 @@ export default {
     id: 253269,
     name: 'Feedback Loop',
     icon: 'spell_holy_dispelmagic',
+  },
+  VALARJARS_PATH: {
+    id: 215956,
+    name: 'Valarjar\'s Path',
+    icon: 'inv_misc_horn_03',
   },
   // Dot spell for Carafe of Searing Light
   REFRESHING_AGONY_DOT: {

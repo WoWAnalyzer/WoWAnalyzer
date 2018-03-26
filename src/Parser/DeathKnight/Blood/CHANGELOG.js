@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-03-24'),
+    changes: <Wrapper>Check for bad casts during <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} icon /> and intital <SpellLink id={SPELLS.MARROWREND.id} icon /> cast without <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} icon />.</Wrapper>,
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-03-22'),
     changes: <Wrapper>Added <SpellLink id={SPELLS.BONESTORM_TALENT.id} icon />-Module to track bad casts</Wrapper>,
     contributors: [joshinator],

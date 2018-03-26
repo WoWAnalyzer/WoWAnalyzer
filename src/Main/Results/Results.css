@@ -17,6 +17,10 @@
   color: #fff;
   font-weight: 600;
   letter-spacing: 0.2em;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .results .btn-link, .results .btn-link:hover, .results .btn-link:active {
   text-decoration: none;

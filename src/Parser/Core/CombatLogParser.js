@@ -285,6 +285,9 @@ class CombatLogParser {
   get playerId() {
     return this.player.id;
   }
+  get fightId() {
+    return this.fight.id;
+  }
 
   _timestamp = null;
   get currentTimestamp() {

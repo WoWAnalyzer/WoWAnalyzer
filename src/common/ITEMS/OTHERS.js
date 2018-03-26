@@ -217,6 +217,12 @@ export default {
     icon: 'inv_7_0raid_necklace_14d',
     quality: ITEM_QUALITIES.EPIC,
   },
+  HORN_OF_VALOR: {
+    id: 133642,
+    name: 'Horn of Valor',
+    icon: 'inv_misc_horn_03',
+    quality: ITEM_QUALITIES.EPIC,
+  },
 
   // T20 Trinkets
   // Heal Trinkets
