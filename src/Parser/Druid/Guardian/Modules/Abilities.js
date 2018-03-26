@@ -1,6 +1,7 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
+import Enemies from 'Parser/Core/Modules/Enemies';
 
 import Ability from './Ability';
 
@@ -13,6 +14,10 @@ const hastedCooldown = (baseCD, haste) => (baseCD / (1 + haste));
 
 class Abilities extends CoreAbilities {
   static ABILITY_CLASS = Ability;
+  static dependencies = {
+    ...CoreAbilities.dependencies,
+    enemies: Enemies,
+  };
 
   spellbook() {
     const combatant = this.combatants.selected;
@@ -21,65 +26,67 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MANGLE_BEAR,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, combatant) => {
-          if (combatant.hasBuff(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)) {
+        cooldown: (haste, selectedCombatant) => {
+          if (selectedCombatant.hasBuff(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)) {
             return null;
           }
-
           return hastedCooldown(6, haste);
         },
-
         isOnGCD: true,
         antiFillerSpam: {
-          isFiller: false,
+          isHighPriority: true,
         },
         castEfficiency: {
-          suggestion: true,
+          recommendedEfficiency: 0.7,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.5,
         },
       },
       {
         spell: SPELLS.SWIPE_BEAR,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-
         isOnGCD: true,
         antiFillerSpam: {
-          isFiller: (event, combatant, targets) => targets.length < 4,
+          isFiller: (event, selectedCombatant, targets) => targets.length < 4,
         },
       },
       {
         spell: SPELLS.MOONFIRE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-
         isOnGCD: true,
         antiFillerSpam: {
-          isFiller: ({ timestamp, targetID }, combatant, targets, lastCast) => {
-            if (combatant.hasTalent(SPELLS.GALACTIC_GUARDIAN_TALENT.id)) {
-              return (
-                // Account for reaction time; the player must have had the proc for at least this long
-                !combatant.hasBuff(SPELLS.GALACTIC_GUARDIAN.id, timestamp - REACTION_TIME_THRESHOLD)
-              );
+          isFiller: (event, selectedCombatant, targets) => {
+            if (combatant.hasTalent(SPELLS.GALACTIC_GUARDIAN_TALENT.id) && selectedCombatant.hasBuff(SPELLS.GALACTIC_GUARDIAN.id)) {
+              return false;
             }
-
-            return (
-              targets.every(target => target.hasBuff(SPELLS.MOONFIRE_BEAR.id, timestamp - 1)) // Moonfire was already ticking
-            );
+            // Check if moonfire is present on the current target
+            if (!this.enemies.getEntity(event).hasBuff(SPELLS.MOONFIRE_BEAR.id, event.timestamp)) {
+              return false;
+            }
+            // Check if moonfire was missing on a secondary target (if using LatC)
+            if (combatant.hasShoulder(ITEMS.LADY_AND_THE_CHILD.id)) {
+              return targets.every(target => target.hasBuff(SPELLS.MOONFIRE_BEAR.id, event.timestamp - 1));
+            }
+            return true;
+          },
+          isHighPriority: ({ timestamp }, selectedCombatant) => {
+            // Account for reaction time; the player must have had the proc for at least this long
+            return selectedCombatant.hasBuff(SPELLS.GALACTIC_GUARDIAN.id, timestamp - REACTION_TIME_THRESHOLD);
           },
         },
       },
       {
         spell: SPELLS.THRASH_BEAR,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, combatant) => {
-          if (combatant.hasBuff(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)) {
+        cooldown: (haste, selectedCombatant) => {
+          if (selectedCombatant.hasBuff(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)) {
             return null;
           }
-
           return hastedCooldown(6, haste);
         },
-
         isOnGCD: true,
         antiFillerSpam: {
-          isFiller: false,
+          isHighPriority: true,
         },
         castEfficiency: {
           suggestion: true,
@@ -88,19 +95,13 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MAUL,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-
         isOnGCD: true,
-        antiFillerSpam: {
-          isFiller: false,
-          // Maul should never be considered a replacement for filler, but it should be tracked
-          condition: false,
-        },
       },
       // Cooldowns
       {
         spell: SPELLS.BARKSKIN,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (haste, combatant) => {
+        cooldown: (haste, selectedCombatant) => {
           const baseCd = combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 90 - (90 / 3) : 90;
           const cdTrait = combatant.traitsBySpellId[SPELLS.PERPETUAL_SPRING_TRAIT.id] || 0;
           return baseCd * (1 - (cdTrait * 3 / 100));
@@ -109,7 +110,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SURVIVAL_INSTINCTS,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (haste, combatant) => {
+        cooldown: (haste, selectedCombatant) => {
           const baseCd = combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 240 - (240 / 3) : 240;
           debug && console.log(`Survival CD ${baseCd}`);
           return baseCd;
@@ -120,7 +121,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SURVIVAL_INSTINCTS,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (haste, combatant) => {
+        cooldown: (haste, selectedCombatant) => {
           const baseCd = combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 240 - (240 / 3) : 240;
           debug && console.log(`Survival CD ${baseCd}`);
           return baseCd;
@@ -165,19 +166,15 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.PULVERIZE_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         enabled: combatant.hasTalent(SPELLS.PULVERIZE_TALENT.id),
-
         isOnGCD: true,
         antiFillerSpam: {
-          isFiller: false,
           // A spell must meet these conditions to be castable
-          condition: ({ timestamp, targetID }, combatant, targets) => {
+          isHighPriority: ({ timestamp, targetID }, selectedCombatant, targets) => {
             const pulverizeTalented = combatant.hasTalent(SPELLS.PULVERIZE_TALENT.id);
-
             const target = targets.find(t => t.id === targetID);
             if (!target) {
               return false;
             }
-
             const targetHasThrashStacks = target.hasBuff(SPELLS.THRASH_BEAR_DOT.id, timestamp).stacks >= 2;
             return pulverizeTalented && targetHasThrashStacks;
           },
@@ -187,8 +184,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.STAMPEDING_ROAR_BEAR,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: (haste, combatant) => (combatant.hasTalent(SPELLS.GUTTURAL_ROARS_TALENT.id) ? 60 : 120),
-
+        cooldown: (haste, selectedCombatant) => (combatant.hasTalent(SPELLS.GUTTURAL_ROARS_TALENT.id) ? 60 : 120),
         isOnGCD: true,
       },
       {
