@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import Wrapper from 'common/Wrapper';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatNumber } from 'common/format';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import ItemHealingDone from 'Main/ItemHealingDone';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -95,25 +95,25 @@ class RiftworldCodex extends Analyzer {
     }
   }
 
+  get totalhealing() {
+    return this.hothealing + this.absorbhealing + this.immolationhealing;
+  }
+
   item() {
     return {
       item: ITEMS.RIFTWORLD_CODEX,
       result: (
         <Wrapper>
-          <dfn data-tip={`Procced the HoT <b>${this.hotprocs}</b> times and did ${formatPercentage(this.hotoverhealing / (this.hothealing + this.hotoverhealing))}% overhealing`}>
-            <ItemHealingDone amount={this.hothealing} /> from <SpellLink id={SPELLS.WINDS_OF_KARETH.id} />
-          </dfn>
-          <br/>
-          <dfn data-tip={`Procced the absorb buff <b>${this.absorbprocs}</b> times and did ${formatPercentage(this.absorboverhealing / (this.absorbhealing + this.absorboverhealing))}% overhealing`}>
-            <ItemHealingDone amount={this.absorbhealing} /> from <SpellLink id={SPELLS.LIGHT_OF_ABSOLARN.id} />
-          </dfn>
-          <br/>
-          <dfn data-tip={`Procced the aura buff <b>${this.immolationprocs}</b> times`}>
-            <ItemDamageDone amount={this.immolationdamage} /> from <SpellLink id={SPELLS.FLAMES_OF_RUVARAAD.id} />
-          </dfn>
-          <br/>
-          <dfn data-tip={`Procced the aura buff <b>${this.immolationprocs}</b> times and did ${formatPercentage(this.immolationoverhealing / (this.immolationhealing + this.immolationoverhealing))}% overhealing`}>
-            <ItemHealingDone amount={this.immolationhealing} /> from <SpellLink id={SPELLS.FLAMES_OF_RUVARAAD.id} />
+          <ItemDamageDone amount={this.immolationdamage} /><br/>
+          <dfn data-tip={`
+            All 3 buffs did a total of ${formatNumber(this.totalhealing)} healing
+            <ul>
+              <li>HoT (${this.hotprocs} procs): ${formatNumber(this.hothealing)} healing (${formatPercentage(this.hotoverhealing / (this.hothealing + this.hotoverhealing))}% overhealing)</li>
+              <li>Absorb buff (${this.absorbprocs} procs): ${formatNumber(this.absorbhealing)} healing (${formatPercentage(this.absorboverhealing / (this.absorbhealing + this.absorboverhealing))}% overhealing)</li>
+              <li>Immolation-aura (${this.immolationprocs} procs): ${formatNumber(this.immolationhealing)} healing (${formatPercentage(this.immolationoverhealing / (this.immolationhealing + this.immolationoverhealing))}% overhealing)</li>
+            </ul>
+          `}>
+            <ItemHealingDone amount={this.totalhealing} />
           </dfn>
         </Wrapper>
       ),

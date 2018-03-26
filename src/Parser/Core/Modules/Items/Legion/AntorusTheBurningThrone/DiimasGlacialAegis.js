@@ -7,6 +7,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Wrapper from 'common/Wrapper';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatPercentage } from 'common/format';
+import { calculateSecondaryStatDefault } from 'common/stats';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
@@ -22,11 +23,14 @@ class DiimasGlacialAegis extends Analyzer {
 
   damage = 0;
   casts = 0;
+  armorbuff = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTrinket(ITEMS.DIIMAS_GLACIAL_AEGIS.id);
 
     if (this.active) {
+      this.armorbuff = calculateSecondaryStatDefault(930, 4045, this.combatants.selected.getItem(ITEMS.DIIMAS_GLACIAL_AEGIS.id).itemLevel);
+
       this.abilities.add({
         spell: SPELLS.CHILLING_NOVA,
         name: ITEMS.DIIMAS_GLACIAL_AEGIS.name,
@@ -64,8 +68,8 @@ class DiimasGlacialAegis extends Analyzer {
       item: ITEMS.DIIMAS_GLACIAL_AEGIS,
       result: (
         <Wrapper>
-          <dfn data-tip={`You casted "${SPELLS.CHILLING_NOVA.name}" ${this.casts} times`}>
-            {formatPercentage(this.uptime)}% uptime on <SpellLink id={SPELLS.FROZEN_ARMOR.id} />
+          <dfn data-tip={`You casted "${SPELLS.CHILLING_NOVA.name}" ${this.casts} times for a uptime of ${formatPercentage(this.uptime)}%`}>
+            {(this.uptime * this.armorbuff).toFixed(0)} average Armor from <SpellLink id={SPELLS.FROZEN_ARMOR.id} />
           </dfn><br/>
           <ItemDamageDone amount={this.damage} />
         </Wrapper>
