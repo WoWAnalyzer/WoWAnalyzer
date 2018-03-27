@@ -7,6 +7,8 @@
  * @type {{nickname: string, github: string, avatar: *}}
  */
 
+import SPECS from 'common/SPECS';
+
 export const Zerotorescue = {
   nickname: 'Zerotorescue',
   github: 'MartijnHols',
@@ -275,6 +277,18 @@ export const Cloake = {
 export const joshinator = {
   nickname: 'joshinator',
   github: 'joshinat0r',
+  avatar: require('./Images/joshinator_avatar.jpg'),
+  maintainer: [SPECS.BLOOD_DEATH_KNIGHT, SPECS.BLOOD_DEATH_KNIGHT, SPECS.BLOOD_DEATH_KNIGHT],
+  mains: [{
+    name: "Êxtêndêd",
+    spec: SPECS.BLOOD_DEATH_KNIGHT,
+    link: "https://worldofwarcraft.com/en-gb/character/eredar/%C3%8Axt%C3%AAnd%C3%AAd",
+  }],
+  alts: [{
+    name: "Ârviûs",
+    spec: SPECS.BREWMASTER_MONK,
+    link: "https://worldofwarcraft.com/en-gb/character/frostwolf/%C3%82rvi%C3%BBs",
+  }],
 };
 export const niseko = {
   nickname: 'niseko',

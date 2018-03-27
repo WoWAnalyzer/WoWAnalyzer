@@ -16,6 +16,7 @@ import { appendReportHistory } from 'actions/reportHistory';
 import { fetchCombatants } from 'actions/combatants';
 import { getFightId, getPlayerId, getPlayerName, getReportCode } from 'selectors/url/report';
 import { getArticleId } from 'selectors/url/news';
+import { getContributorId } from 'selectors/url/contributors';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import { getCombatants } from 'selectors/combatants';
@@ -39,6 +40,8 @@ import DocumentTitleUpdater from './Layout/DocumentTitleUpdater';
 import Footer from './Layout/Footer';
 import NewsView from './News/View';
 import makeNewsUrl from './News/makeUrl';
+import ContributorDetails from './Contributors/ContributorDetails';
+import makeContributorUrl from './Contributors/makeUrl';
 import { title as AboutArticleTitle } from './News/Articles/2017-01-31-About';
 import { title as UnlistedLogsTitle } from './News/Articles/2017-01-31-UnlistedLogs';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
@@ -62,6 +65,7 @@ class App extends Component {
   static propTypes = {
     reportCode: PropTypes.string,
     articleId: PropTypes.string,
+    contributorId: PropTypes.string,
     playerName: PropTypes.string,
     playerId: PropTypes.number,
     fightId: PropTypes.number,
@@ -468,6 +472,10 @@ class App extends Component {
       return this.renderError(error);
     }
 
+    if (this.props.contributorId) {
+      return <ContributorDetails contributorId={this.props.contributorId} />;
+    }
+
     if (this.props.articleId) {
       return <NewsView articleId={this.props.articleId} />;
     }
@@ -503,7 +511,7 @@ class App extends Component {
   }
 
   get hasContent() {
-    return this.props.reportCode || this.props.error || this.props.articleId;
+    return this.props.reportCode || this.props.error || this.props.articleId  || this.props.contributorId;
   }
 
   render() {
@@ -536,6 +544,7 @@ class App extends Component {
                     {' '}| <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">View source</a>
                     {' '}| <a href="https://www.patreon.com/wowanalyzer">Become a Patron</a>
                     {' '}| <a href="https://status.wowanalyzer.com/">Status</a>
+                    {' '}| <Link to={makeContributorUrl("joshinator")}>Joshi</Link>
                   </div>
                 </div>
               </div>
@@ -568,6 +577,7 @@ const mapStateToProps = state => {
     combatants: getCombatants(state),
 
     articleId: getArticleId(state),
+    contributorId: getContributorId(state),
 
     error: getError(state),
   });
