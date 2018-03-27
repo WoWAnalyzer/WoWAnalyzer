@@ -93,6 +93,9 @@ class PlayerBreakdown extends React.Component {
                       />
                     </div>
                   </td>
+                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
+                    {(formatNumber(player.healingFromMastery))}
+                  </td>
                 </tr>
               );
             })}
