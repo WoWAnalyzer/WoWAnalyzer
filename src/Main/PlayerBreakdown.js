@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import SPECS from 'common/SPECS';
 
+import { formatNumber } from 'common/format';
+
 class PlayerBreakdown extends React.Component {
   static propTypes = {
     report: PropTypes.object.isRequired,
@@ -35,6 +37,7 @@ class PlayerBreakdown extends React.Component {
 
     const friendlyStats = this.calculatePlayerBreakdown(report, playersById);
     const highestHealingFromMastery = friendlyStats.reduce((highest, player) => Math.max(highest, player.healingFromMastery), 1);
+    const highestMasteryEffectiveness = friendlyStats.reduce((highest, player) => Math.max(highest, player.masteryEffectiveness), 0);
 
     return (
       <table className="data-table">
@@ -42,7 +45,7 @@ class PlayerBreakdown extends React.Component {
           <tr>
             <th>Name</th>
             <th colSpan="2">Mastery effectiveness</th>
-            <th colSpan="2"><dfn data-tip="This is the amount of healing done with abilities that are affected by mastery. Things like beacons are NOT included.">Healing done</dfn></th>
+            <th colSpan="3"><dfn data-tip="This is the amount of healing done with abilities that are affected by mastery. Things like Holy Paladin beacons or Restoration Shaman feeding are NOT included.">Healing done</dfn></th>
           </tr>
         </thead>
         <tbody>
@@ -60,6 +63,7 @@ class PlayerBreakdown extends React.Component {
               // it easier to see relative amounts.
               const performanceBarHealingReceivedPercentage = player.healingFromMastery / highestHealingFromMastery;
               const actualHealingReceivedPercentage = player.healingFromMastery / (report.totalHealingFromMastery || 1);
+              const performanceBarMasteryEffectiveness = player.masteryEffectiveness / highestMasteryEffectiveness;
 
               return (
                 <tr key={player.combatant.name}>
@@ -74,7 +78,7 @@ class PlayerBreakdown extends React.Component {
                     <div className="flex performance-bar-container">
                       <div
                         className={`flex-sub performance-bar ${specClassName}-bg`}
-                        style={{ width: `${player.masteryEffectiveness * 100}%` }}
+                        style={{ width: `${performanceBarMasteryEffectiveness * 100}%` }}
                       />
                     </div>
                   </td>
