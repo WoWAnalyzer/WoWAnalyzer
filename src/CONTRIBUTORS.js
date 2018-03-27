@@ -277,8 +277,8 @@ export const Cloake = {
 export const joshinator = {
   nickname: 'joshinator',
   github: 'joshinat0r',
-  avatar: require('./Images/joshinator_avatar.jpg'),
-  maintainer: [SPECS.BLOOD_DEATH_KNIGHT, SPECS.BLOOD_DEATH_KNIGHT, SPECS.BLOOD_DEATH_KNIGHT],
+  desc: 'Bad at WoW',
+  maintainer: [SPECS.BLOOD_DEATH_KNIGHT, SPECS.VENGEANCE_DEMON_HUNTER, SPECS.WINDWALKER_MONK],
   mains: [{
     name: "Êxtêndêd",
     spec: SPECS.BLOOD_DEATH_KNIGHT,
@@ -289,6 +289,10 @@ export const joshinator = {
     spec: SPECS.BREWMASTER_MONK,
     link: "https://worldofwarcraft.com/en-gb/character/frostwolf/%C3%82rvi%C3%BBs",
   }],
+  others: {
+    "Custom 1": "normal text",
+    "Custom 2": ["This", "is" , "an", "array"],
+  },
 };
 export const niseko = {
   nickname: 'niseko',
