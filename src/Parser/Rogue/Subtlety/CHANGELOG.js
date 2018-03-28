@@ -1,3 +1,5 @@
-export default `
+import React from 'react';
 
-`;
+export default [
+    
+];

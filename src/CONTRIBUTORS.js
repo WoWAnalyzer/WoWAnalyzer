@@ -293,6 +293,10 @@ export const joshinator = {
     "Custom 1": "normal text",
     "Custom 2": ["This", "is" , "an", "array"],
   },
+  links: {
+    "Discord": "https://www.discordapp.com",
+    "another Link": "https://www.google.com",
+  },
 };
 export const niseko = {
   nickname: 'niseko',

@@ -544,7 +544,6 @@ class App extends Component {
                     {' '}| <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">View source</a>
                     {' '}| <a href="https://www.patreon.com/wowanalyzer">Become a Patron</a>
                     {' '}| <a href="https://status.wowanalyzer.com/">Status</a>
-                    {' '}| <Link to={makeContributorUrl("joshinator")}>Joshi</Link>
                   </div>
                 </div>
               </div>
