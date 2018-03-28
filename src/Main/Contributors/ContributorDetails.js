@@ -70,6 +70,8 @@ class ContributorDetails extends React.PureComponent {
     this.filterChangelog = this.filterChangelog.bind(this);
   }
 
+  //#region Layout-Helpers
+
   removeWhiteSpaces(string) {
     return string.replace(" ", "");
   }
@@ -212,6 +214,8 @@ class ContributorDetails extends React.PureComponent {
     }
   }
 
+  //#endregion
+
   render() {
     const { contributorId } = this.props;
     const contributor = contributors[contributorId];
@@ -281,8 +285,7 @@ class ContributorDetails extends React.PureComponent {
       <div className="container">
         <Link to="/">
           Home
-        </Link> &gt;{' '}
-        {contributor.nickname} <br/><br/>
+        </Link><br/><br/>
 
         <div className="flex-main">
           <div className="row">
