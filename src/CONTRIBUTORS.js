@@ -3,8 +3,38 @@
  * Feel free to add yourself if you're not yet in the list.
  *
  * Using `require` for avatars so we don't have to keep a seperate list of imports disconnected from the maintainer definition.
- *
- * @type {{nickname: string, github: string, avatar: *}}
+ * 
+    EXAMPLE
+
+    export const NICKNAME = {
+      nickname: 'NICKNAME',
+      github: 'GITHUB_NAME',
+      avatar: require('./Images/IMAGE'),
+      desc: 'DESC',
+      maintainer: [
+        SPECS.BLOOD_DEATH_KNIGHT,
+      ],
+      mains: [{
+        name: "CHARNAME",
+        spec: SPECS.BLOOD_DEATH_KNIGHT,
+        link: "ARMOR/WCL-LINK",
+      }],
+      alts: [{
+        name: "CHARNAME",
+        spec: SPECS.BLOOD_DEATH_KNIGHT,
+        link: "ARMOR/WCL-LINK",
+      }],
+      others: {
+        "Custom Item": "normal text",
+        "Custom Item": [
+          "Item 1", 
+          "Item 2", 
+        ],
+      },
+      links: {
+        "Link No1": "https://www.google.com",
+      },
+    };
  */
 
 import SPECS from 'common/SPECS';
@@ -277,26 +307,11 @@ export const Cloake = {
 export const joshinator = {
   nickname: 'joshinator',
   github: 'joshinat0r',
-  desc: 'Bad at WoW',
-  maintainer: [SPECS.BLOOD_DEATH_KNIGHT, SPECS.VENGEANCE_DEMON_HUNTER, SPECS.WINDWALKER_MONK],
   mains: [{
     name: "Êxtêndêd",
     spec: SPECS.BLOOD_DEATH_KNIGHT,
     link: "https://worldofwarcraft.com/en-gb/character/eredar/%C3%8Axt%C3%AAnd%C3%AAd",
   }],
-  alts: [{
-    name: "Ârviûs",
-    spec: SPECS.BREWMASTER_MONK,
-    link: "https://worldofwarcraft.com/en-gb/character/frostwolf/%C3%82rvi%C3%BBs",
-  }],
-  others: {
-    "Custom 1": "normal text",
-    "Custom 2": ["This", "is" , "an", "array"],
-  },
-  links: {
-    "Discord": "https://www.discordapp.com",
-    "another Link": "https://www.google.com",
-  },
 };
 export const niseko = {
   nickname: 'niseko',

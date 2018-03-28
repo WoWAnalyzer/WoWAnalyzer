@@ -173,15 +173,15 @@ class ContributorDetails extends React.PureComponent {
     } else {
       return <div class="row">
         <div class="col-md-3"><b>Maintainer:</b></div>
-          <div class="col-md-9">
-            {contributor.maintainer.map((char, index) =>
-              <div className={this.removeWhiteSpaces(char.className)}>
-                <img style={{ height: '1.5em', width: '1.5em', marginRight: 10 }} src={this.iconPath(char)} alt={"Spec Icon"} />
-                {char.specName} {char.className}
-              </div>
-            )}
-          </div>
-        </div>;
+        <div class="col-md-9">
+          {contributor.maintainer.map((char, index) =>
+            <div className={this.removeWhiteSpaces(char.className)}>
+              <img style={{ height: '1.5em', width: '1.5em', marginRight: 10 }} src={this.iconPath(char)} alt={"Spec Icon"} />
+              {char.specName} {char.className}
+            </div>
+          )}
+        </div>
+      </div>;
     }
   }
 
@@ -189,9 +189,9 @@ class ContributorDetails extends React.PureComponent {
     if (contributor[typ] === undefined) {
       return;
     } else {
-      const stlye = typ === 'main' ? { marginTop: 30 } : { marginBottom: 30 };
+      const stlye = typ === 'mains' ? { marginTop: 30 } : { marginBottom: 30 };
       return <div class="row" style={stlye}>
-        <div class="col-md-3"><b>{typ}:</b></div>
+        <div class="col-md-3"><b>{typ[0].toUpperCase() + typ.slice(1)}:</b></div>
         <div class="col-md-9">
           {contributor[typ].map((char, index) => this.char(char) )}
         </div>
@@ -216,69 +216,71 @@ class ContributorDetails extends React.PureComponent {
     const { contributorId } = this.props;
     const contributor = contributors[contributorId];
     const contributions = {
-      'Core': CoreChangelog.filter(this.filterChangelog),
-      BLOOD_DEATH_KNIGHT: BloodDKChangelog.filter(this.filterChangelog),
-      UNHOLY_DEATH_KNIGHT: UnholyDKChangelog.filter(this.filterChangelog),
-      FROST_DEATH_KNIGHT: FrostDKChangelog.filter(this.filterChangelog),
+      'Core': CoreChangelog,
+      BLOOD_DEATH_KNIGHT: BloodDKChangelog,
+      UNHOLY_DEATH_KNIGHT: UnholyDKChangelog,
+      FROST_DEATH_KNIGHT: FrostDKChangelog,
 
-      HAVOC_DEMON_HUNTER: HavocDHChangelog.filter(this.filterChangelog),
-      VENGEANCE_DEMON_HUNTER: VengeanceDHChangelog.filter(this.filterChangelog),
+      HAVOC_DEMON_HUNTER: HavocDHChangelog,
+      VENGEANCE_DEMON_HUNTER: VengeanceDHChangelog,
 
-      BALANCE_DRUID: BlanceDChangelog.filter(this.filterChangelog),
-      FERAL_DRUID: FeralDChangelog.filter(this.filterChangelog),
-      GUARDIAN_DRUID: GuardianDChangelog.filter(this.filterChangelog),
-      RESTORATION_DRUID: RestorationDChangelog.filter(this.filterChangelog),
+      BALANCE_DRUID: BlanceDChangelog,
+      FERAL_DRUID: FeralDChangelog,
+      GUARDIAN_DRUID: GuardianDChangelog,
+      RESTORATION_DRUID: RestorationDChangelog,
 
-      BEAST_MASTERY_HUNTER: BeastmasteryHChangelog.filter(this.filterChangelog),
-      MARKSMANSHIP_HUNTER: MarksmanshipHChangelog.filter(this.filterChangelog),
-      SURVIVAL_HUNTER: SurvivalHChangelog.filter(this.filterChangelog),
+      BEAST_MASTERY_HUNTER: BeastmasteryHChangelog,
+      MARKSMANSHIP_HUNTER: MarksmanshipHChangelog,
+      SURVIVAL_HUNTER: SurvivalHChangelog,
 
-      ARCANE_MAGE: ArcaneMChangelog.filter(this.filterChangelog),
-      FIRE_MAGE: FireMChangelog.filter(this.filterChangelog),
-      FROST_MAGE: FrostChangelog.filter(this.filterChangelog),
+      ARCANE_MAGE: ArcaneMChangelog,
+      FIRE_MAGE: FireMChangelog,
+      FROST_MAGE: FrostChangelog,
       
-      BREWMASTER_MONK: BrewmasterMChangelog.filter(this.filterChangelog),
-      MISTWEAVER_MONK: MistweaverMChangelog.filter(this.filterChangelog),
-      WINDWALKER_MONK: WindwalkerMChangelog.filter(this.filterChangelog),
+      BREWMASTER_MONK: BrewmasterMChangelog,
+      MISTWEAVER_MONK: MistweaverMChangelog,
+      WINDWALKER_MONK: WindwalkerMChangelog,
 
-      HOLY_PALADIN: HolyPalChangelog.filter(this.filterChangelog),
-      PROTECTION_PALADIN: ProtectionPalChangelog.filter(this.filterChangelog),
-      RETRIBUTION_PALADIN: RetributionPalChangelog.filter(this.filterChangelog),
+      HOLY_PALADIN: HolyPalChangelog,
+      PROTECTION_PALADIN: ProtectionPalChangelog,
+      RETRIBUTION_PALADIN: RetributionPalChangelog,
 
-      DISCIPLINE_PRIEST: DisciplinePChangelog.filter(this.filterChangelog),
-      HOLY_PRIEST: HolyPChangelog.filter(this.filterChangelog),
-      SHADOW_PRIEST: ShadowPChangelog.filter(this.filterChangelog),
+      DISCIPLINE_PRIEST: DisciplinePChangelog,
+      HOLY_PRIEST: HolyPChangelog,
+      SHADOW_PRIEST: ShadowPChangelog,
       
-      ASSASSINATION_ROGUE: AssassinationRChangelog.filter(this.filterChangelog),
-      OUTLAW_ROGUE: OutlawRChangelog.filter(this.filterChangelog),
-      SUBTLETY_ROGUE: SubtletyRChangelog.filter(this.filterChangelog),
+      ASSASSINATION_ROGUE: AssassinationRChangelog,
+      OUTLAW_ROGUE: OutlawRChangelog,
+      SUBTLETY_ROGUE: SubtletyRChangelog,
       
-      ELEMENTAL_SHAMAN: ElementalSChangelog.filter(this.filterChangelog),
-      ENHANCEMENT_SHAMAN: EnhancementSChangelog.filter(this.filterChangelog),
-      RESTORATION_SHAMAN: RestorationSChangelog.filter(this.filterChangelog),
+      ELEMENTAL_SHAMAN: ElementalSChangelog,
+      ENHANCEMENT_SHAMAN: EnhancementSChangelog,
+      RESTORATION_SHAMAN: RestorationSChangelog,
       
-      AFFLICTION_WARLOCK: AfflictionWChangelog.filter(this.filterChangelog),
-      DEMONOLOGY_WARLOCK: DemonologyWChangelog.filter(this.filterChangelog),
-      DESTRUCTION_WARLOCK: DestructionWChangelog.filter(this.filterChangelog),
+      AFFLICTION_WARLOCK: AfflictionWChangelog,
+      DEMONOLOGY_WARLOCK: DemonologyWChangelog,
+      DESTRUCTION_WARLOCK: DestructionWChangelog,
       
-      ARMS_WARRIOR: ArmsWChangelog.filter(this.filterChangelog),
-      FURY_WARRIOR: FuryWChangelog.filter(this.filterChangelog),
-      PROTECTION_WARRIOR: ProtectionWChangelog.filter(this.filterChangelog),
+      ARMS_WARRIOR: ArmsWChangelog,
+      FURY_WARRIOR: FuryWChangelog,
+      PROTECTION_WARRIOR: ProtectionWChangelog,
     };
 
     if (contributor.avatar === undefined) {
       contributor.avatar = "/favicon.png";
     }
 
-    Object.keys(contributions).forEach((key) => (contributions[key].length === 0) && delete contributions[key]);
+    Object.keys(contributions).forEach((key) => {
+      contributions[key] = contributions[key].filter(this.filterChangelog);
+      if (contributions[key].length === 0) {
+        delete contributions[key];
+      }
+    });
 
     return(
       <div className="container">
         <Link to="/">
           Home
-        </Link> &gt;{' '}
-        <Link to="/">
-          Contributors
         </Link> &gt;{' '}
         {contributor.nickname} <br/><br/>
 
@@ -299,10 +301,10 @@ class ContributorDetails extends React.PureComponent {
                     </div>
                   </div>
                   {this.maintainer(contributor)}
-                  {this.chars(contributor, "mains")}
-                  {this.chars(contributor, "alts")}
                   {this.links(contributor.links)}
                   {this.additionalInfo(contributor.others)}
+                  {this.chars(contributor, "mains")}
+                  {this.chars(contributor, "alts")}
                 </div>
               </div>
             </div>
