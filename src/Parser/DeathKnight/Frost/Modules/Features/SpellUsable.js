@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import CoreSpellUsable from 'Parser/Core/Modules/SpellUsable';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
@@ -51,16 +50,6 @@ class SpellUsable extends CoreSpellUsable {
         this.lastCritTime = event.timestamp;
       }
     }    
-  }
-
-  beginCooldown(spellId, timestamp) {
-    if (this.hasIcecap && spellId === SPELLS.PILLAR_OF_FROST.id) {
-      if (!this.isAvailable(spellId)) {
-        this.endCooldown(spellId);
-      }
-    }
-
-    super.beginCooldown(spellId, timestamp);
   }
 }
 
