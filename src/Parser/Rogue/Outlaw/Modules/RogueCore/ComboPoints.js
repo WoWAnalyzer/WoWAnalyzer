@@ -17,7 +17,7 @@ class ComboPoints extends Analyzer {
   
 
   makeExtraSuggestion(spell) {
-    return <Wrapper>Avoid wasting combo points when casting <SpellLink id={spell.id}  />. Note that some combo-point wastage is unavoidable due to second saber slash procs during the duration of <SpellLink id={193356}  />.  </Wrapper>;
+    return <Wrapper>Avoid wasting combo points when casting <SpellLink id={spell.id}  />. Note that some combo point wastage is unavoidable due to second saber slash procs during the duration of <SpellLink id={193356}  />.  </Wrapper>;
   }
 
   suggestions(when) {    
