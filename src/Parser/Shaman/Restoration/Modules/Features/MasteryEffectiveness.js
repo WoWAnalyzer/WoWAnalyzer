@@ -8,7 +8,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import PlayerBreakdown from 'Main/PlayerBreakdown';
+import PlayerBreakdownTab from 'Main/PlayerBreakdownTab';
 
 
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../Constants';
@@ -121,23 +121,13 @@ class MasteryEffectiveness extends Analyzer {
       title: 'Mastery',
       url: 'mastery',
       render: () => (
-        <div>
-          <div className="panel-heading">
-            <h2>Mastery effectiveness player breakdown</h2>
-          </div>
-          <div style={{ padding: '10px 0 15px' }}>
-            <PlayerBreakdown
-              report={this.report}
-              playersById={this.owner.playersById}
-            />
-          </div>
-        </div>
+        <PlayerBreakdownTab
+          report={this.report}
+          playersById={this.owner.playersById}
+        />
       ),
     };
   }
-
-
-
 }
 
 export default MasteryEffectiveness;

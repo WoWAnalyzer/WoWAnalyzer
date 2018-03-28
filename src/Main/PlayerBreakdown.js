@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SPECS from 'common/SPECS';
-
 import { formatNumber } from 'common/format';
 
 class PlayerBreakdown extends React.Component {
