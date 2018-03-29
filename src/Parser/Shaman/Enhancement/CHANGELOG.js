@@ -5,7 +5,7 @@ import Wrapper from 'common/Wrapper';
 
 export default [
   {
-    date: new Date('05-03-2018'),
+    date: new Date('03-05-2018'),
     changes: 'Added Eye of the Twisting Nether',
     contributors: [fasib],
   },
