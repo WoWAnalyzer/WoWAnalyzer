@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-03-29'),
+    changes: <Wrapper>Fix for icons that get wrong images from the CDN.</Wrapper>,
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-03-26'),
     changes: <Wrapper>Added <ItemLink id={ITEMS.SMOLDERING_TITANGUARD.id} icon />, <ItemLink id={ITEMS.DIIMAS_GLACIAL_AEGIS.id} icon /> and  <ItemLink id={ITEMS.RIFTWORLD_CODEX.id} icon />.</Wrapper>,
     contributors: [joshinator],
