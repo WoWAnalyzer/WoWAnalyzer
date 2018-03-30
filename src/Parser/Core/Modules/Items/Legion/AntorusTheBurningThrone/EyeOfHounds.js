@@ -16,8 +16,7 @@ import Abilities from 'Parser/Core/Modules/Abilities';
  * initial state is in the trinkets bonusID (3618 for the stamina one, 3619 for the armor one)
 */
 
-const VERS_EYE = 3618;  // state = 0
-const ARMOR_EYE = 3619; // state = 1
+const ARMOR_EYE = 3619;
 
 class DiimasGlacialAegis extends Analyzer {
   static dependencies = {
@@ -81,7 +80,6 @@ class DiimasGlacialAegis extends Analyzer {
   }
 
   get averageStats() {
-    
     const stam_uptime = this.stam_uptime / this.owner.fightDuration;
     const str_uptime = this.str_uptime / this.owner.fightDuration;
     const itemBreakdown = [];
