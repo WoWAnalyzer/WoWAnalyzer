@@ -6,7 +6,7 @@ import ReactTooltip from 'react-tooltip';
 import getWipeCount from 'common/getWipeCount';
 
 import Fight from './Fight';
-import makeAnalyzerUrl from './makeAnalyzerUrl';
+import makeAnalyzerUrl from '../makeAnalyzerUrl';
 
 class FightSelectionList extends Component {
   static propTypes = {

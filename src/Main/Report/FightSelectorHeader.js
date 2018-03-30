@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Toggle from 'react-toggle';
 
-import { getFightId } from 'selectors/url/report';
+import { getFightId, getPlayerId, getPlayerName } from 'selectors/url/report';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import getFightName from 'common/getFightName';
@@ -13,7 +13,6 @@ import FightSelectionList from './FightSelectionList';
 
 class FightSelectorHeader extends SelectorBase {
   static propTypes = {
-    parser: PropTypes.shape(),
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
@@ -28,29 +27,30 @@ class FightSelectorHeader extends SelectorBase {
       })),
     }),
     fight: PropTypes.object,
+    playerId: PropTypes.number,
+    playerName: PropTypes.string,
+  };
+  state = {
+    killsOnly: false,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      killsOnly: false,
-    };
-  }
-
   render() {
-    const { report, fight, parser, ...others } = this.props;
+    const { report, fight, playerId, playerName, ...others } = this.props;
     delete others.dispatch;
     const { killsOnly, show } = this.state;
+
+    const player = playerId ? report.friendlies.find(friendly => friendly.id === playerId) : report.friendlies.find(friendly => friendly.name === playerName);
+
     return (
       <div ref={this.setRef} {...others}>
         <a onClick={this.handleClick}>{getFightName(report, fight)}</a>
-        {show && parser && parser.player && (
+        {show && player && (
           <span className="selectorHeader">
             <div className="panel">
               <div className="panel-heading">
                 <div className="flex wrapable">
                   <div className="flex-main" style={{ minWidth: 200 }}>
-                    <h2>Select the fight to parse {parser && parser.player ? ` for ${parser.player.name}` : ''}</h2>
+                    <h2>Select the fight to parse for {player.name}</h2>
                   </div>
                   <div className="flex-sub text-right toggle-control action-buttons">
                     <Toggle
@@ -60,19 +60,19 @@ class FightSelectorHeader extends SelectorBase {
                       id="kills-only-toggle"
                     />
                     <label htmlFor="kills-only-toggle">
-                      Kills only
+                      {' '}Kills only
                     </label>
                   </div>
                 </div>
               </div>
               <div className="panel-body" style={{ padding: 0 }} onClick={this.handleClick}>
-                {parser && parser.player && (
+                {player && (
                   <FightSelectionList
                     report={report}
                     fights={
-                      parser.player.fights.map(f => report.fights[f.id - 1]) // TODO: We should check if the id's match!
+                      player.fights.map(f => report.fights[f.id - 1]) // TODO: We should check if the id's match!
                     }
-                    playerId={parser.player.id}
+                    playerId={player.id}
                     killsOnly={this.state.killsOnly}
                   />
                 )}
@@ -88,6 +88,8 @@ class FightSelectorHeader extends SelectorBase {
 const mapStateToProps = state => ({
   report: getReport(state),
   fight: getFightById(state, getFightId(state)),
+  playerId: getPlayerId(state),
+  playerName: getPlayerName(state),
 });
 
 export default connect(mapStateToProps)(FightSelectorHeader);

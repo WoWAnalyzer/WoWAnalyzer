@@ -9,7 +9,7 @@ import { fetchReport } from 'actions/report';
 import { getReport } from 'selectors/report';
 
 import FightSelectionList from './FightSelectionList';
-import makeAnalyzerUrl from './makeAnalyzerUrl';
+import makeAnalyzerUrl from '../makeAnalyzerUrl';
 
 class FightSelecter extends React.PureComponent {
   static propTypes = {
@@ -28,12 +28,12 @@ class FightSelecter extends React.PureComponent {
     }),
     fetchReport: PropTypes.func.isRequired,
   };
+  state = {
+    killsOnly: false,
+  };
 
   constructor(props) {
     super(props);
-    this.state = {
-      killsOnly: false,
-    };
     this.handleRefresh = this.handleRefresh.bind(this);
   }
 
@@ -89,7 +89,7 @@ class FightSelecter extends React.PureComponent {
                   id="kills-only-toggle"
                 />
                 <label htmlFor="kills-only-toggle">
-                  Kills only
+                  {' '}Kills only
                 </label>
                 <Link
                   to={makeAnalyzerUrl(report)}

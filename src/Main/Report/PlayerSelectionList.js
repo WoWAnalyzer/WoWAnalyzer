@@ -12,7 +12,7 @@ import { getFightById } from 'selectors/fight';
 import { getCombatants } from 'selectors/combatants';
 import ActivityIndicator from 'Main/ActivityIndicator';
 
-import makeAnalyzerUrl from './makeAnalyzerUrl';
+import makeAnalyzerUrl from '../makeAnalyzerUrl';
 
 const UNKNOWN_ROLE = 'UNKNOWN_ROLE';
 

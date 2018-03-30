@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 class DetailsTab extends React.Component {
   static propTypes = {
     tabs: PropTypes.arrayOf(PropTypes.shape({
-      title: PropTypes.string.isRequired,
+      title: PropTypes.node.isRequired,
       url: PropTypes.string.isRequired,
       order: PropTypes.number,
     })).isRequired,

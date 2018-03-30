@@ -39,7 +39,7 @@ Passport.use(new PatreonStrategy({
 ));
 
 router.get('/', Passport.authenticate('patreon'));
-router.get('/callback', Passport.authenticate('patreon', { failureRedirect: '/patreon' }), function (req, res) {
+router.get('/callback', Passport.authenticate('patreon', { successRedirect: '/', failureRedirect: '/patreon' }), function (req, res) {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
   res.send(JSON.stringify(req.user));
 });

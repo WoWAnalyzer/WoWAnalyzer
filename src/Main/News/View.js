@@ -14,7 +14,7 @@ const View = ({ articleId }) => {
       <Link to="/#Announcements">
         Announcements
       </Link> &gt;{' '}
-      {article.props.title}<br /><br />
+      {article && article.props.title}<br /><br />
 
       {article}
     </div>
