@@ -247,8 +247,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.PURIFY_SPIRIT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         timelineSortIndex: 80,
-        // Need to check if it actually dispelled something before we can give it a cooldown
-        // cooldown: 8,
+        cooldown: 8,
         isOnGCD: true,
       },
       {
