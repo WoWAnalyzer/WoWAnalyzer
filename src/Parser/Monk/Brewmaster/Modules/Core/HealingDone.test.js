@@ -1,6 +1,7 @@
-import HealingDone from 'Parser/Monk/Brewmaster/Modules/Core/HealingDone';
-import processEvents from './Fixtures/processEvents';
-import { SimpleFight, heal, absorbed, incomingDamage, staggerAbsorbed, staggerTicks } from './Fixtures/SimpleFight';
+import processEvents from 'tests/Parser/Brewmaster/Fixtures/processEvents';
+import { SimpleFight, heal, absorbed, incomingDamage, staggerAbsorbed, staggerTicks } from 'tests/Parser/Brewmaster/Fixtures/SimpleFight';
+
+import HealingDone from './HealingDone';
 
 // Uses the same test structure as damage taken with the healing object.
 // All stagger absorbs should be excluded

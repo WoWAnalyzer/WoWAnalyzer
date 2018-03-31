@@ -1,6 +1,7 @@
-import DamageTaken from 'Parser/Monk/Brewmaster/Modules/Core/DamageTaken';
-import processEvents from './Fixtures/processEvents';
-import { SimpleFight, heal, absorbed, incomingDamage, staggerAbsorbed, staggerTicks } from './Fixtures/SimpleFight';
+import processEvents from 'tests/Parser/Brewmaster/Fixtures/processEvents';
+import { SimpleFight, heal, absorbed, incomingDamage, staggerAbsorbed, staggerTicks } from 'tests/Parser/Brewmaster/Fixtures/SimpleFight';
+
+import DamageTaken from './DamageTaken';
 
 describe('Brewmaster.DamageTaken', () => {
   let damageTaken;

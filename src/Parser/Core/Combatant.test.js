@@ -1,5 +1,6 @@
-import Combatant from 'Parser/Core/Combatant';
-import COMBATANTINFO from './COMBATANTINFO.json';
+import COMBATANTINFO from 'tests/Parser/Core/COMBATANTINFO.json';
+
+import Combatant from './Combatant';
 
 function getCombatant(parser = null, combatantInfo = null) {
   const parserStub = {

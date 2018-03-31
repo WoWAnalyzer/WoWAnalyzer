@@ -1,7 +1,7 @@
-import Tier21_2set from 'Parser/Priest/Discipline/Modules/Items/Tier21_2set';
+import processEvents from 'tests/Parser/Priest/Discipline/Fixtures/processEvents';
+import { RadianceCast1, RadianceCast2 } from 'tests/Parser/Priest/Discipline/Fixtures/TestingEvents';
 
-import processEvents from '../../Fixtures/processEvents';
-import { RadianceCast1, RadianceCast2 } from '../../Fixtures/TestingEvents';
+import Tier21_2set from './Tier21_2set';
 
 describe('DisciplinePriest.Reordering', () => {
   let tier21_2set;

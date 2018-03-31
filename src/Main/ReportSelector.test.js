@@ -1,4 +1,4 @@
-import ReportSelecter from 'Main/ReportSelecter';
+import ReportSelecter from './ReportSelecter';
 
 describe('ReportSelector', () => {
   test('getCode accepts just the report code', () => {

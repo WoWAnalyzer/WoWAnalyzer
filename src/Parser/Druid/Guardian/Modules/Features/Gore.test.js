@@ -1,6 +1,7 @@
-import Gore from 'Parser/Druid/Guardian/Modules/Features/Gore';
-import { SimpleFight, damageTaken, buffsRefreshed, casts } from './Fixtures/SimpleFight';
-import processEvents from './Fixtures/processEvents';
+import { SimpleFight, damageTaken, buffsRefreshed, casts } from 'tests/Parser/Guardian/Fixtures/SimpleFight';
+import processEvents from 'tests/Parser/Guardian/Fixtures/processEvents';
+
+import Gore from './Gore';
 
 const mockSpellUsable = {
   isOnCooldown: () => false,

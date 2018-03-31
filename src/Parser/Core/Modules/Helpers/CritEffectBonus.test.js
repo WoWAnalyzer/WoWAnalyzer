@@ -1,4 +1,4 @@
-import CritEffectBonus from 'Parser/Core/Modules/Helpers/CritEffectBonus';
+import CritEffectBonus from './CritEffectBonus';
 
 describe('Core/Modules/Helpers/CritEffectBonus', () => {
   describe('module defining', () => {

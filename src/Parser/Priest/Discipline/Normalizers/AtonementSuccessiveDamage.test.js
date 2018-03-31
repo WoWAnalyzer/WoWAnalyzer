@@ -1,6 +1,4 @@
-import AtonementSuccessiveDamage from 'Parser/Priest/Discipline/Normalizers/AtonementSuccessiveDamage';
 import SPELLS from 'common/SPELLS';
-
 import {
   thisPlayer,
   DamagingEvent1,
@@ -11,7 +9,9 @@ import {
   AtonementOnPlayer1,
   AtonementOnPlayer2,
   AtonementOnPlayer3,
-} from '../Fixtures/TestingEvents';
+} from 'tests/Parser/Priest/Discipline/Fixtures/TestingEvents';
+
+import AtonementSuccessiveDamage from './AtonementSuccessiveDamage';
 
 describe('DisciplinePriest.Reordering', () => {
 

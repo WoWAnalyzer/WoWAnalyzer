@@ -1,6 +1,7 @@
-import T20_2pc from 'Parser/Monk/Brewmaster/Modules/Items/T20_2pc';
-import processEvents from './Fixtures/processEvents';
-import { SimpleFight } from './Fixtures/SimpleFight';
+import processEvents from 'tests/Parser/Brewmaster/Fixtures/processEvents';
+import { SimpleFight } from 'tests/Parser/Brewmaster/Fixtures/SimpleFight';
+
+import T20_2pc from './T20_2pc';
 
 describe('Brewmaster.T20_2pc', () => {
   let item;

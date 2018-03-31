@@ -1,7 +1,8 @@
-import BlackoutCombo from 'Parser/Monk/Brewmaster/Modules/Spells/BlackoutCombo';
 import SPELLS from 'common/SPELLS';
-import processEvents from './Fixtures/processEvents';
-import { SimpleFight, applybuff, refreshBuff, dpsCasts } from './Fixtures/SimpleFight';
+import processEvents from 'tests/Parser/Brewmaster/Fixtures/processEvents';
+import { SimpleFight, applybuff, refreshBuff, dpsCasts } from 'tests/Parser/Brewmaster/Fixtures/SimpleFight';
+
+import BlackoutCombo from './BlackoutCombo';
 
 describe('Brewmaster.BlackoutCombo', () => {
   let blackoutCombo;

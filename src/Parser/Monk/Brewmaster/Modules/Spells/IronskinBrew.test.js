@@ -1,6 +1,7 @@
-import IronSkinBrew from 'Parser/Monk/Brewmaster/Modules/Spells/IronSkinBrew';
-import processEvents from './Fixtures/processEvents';
-import { SimpleFight, incomingDamage } from './Fixtures/SimpleFight';
+import processEvents from 'tests/Parser/Brewmaster/Fixtures/processEvents';
+import { SimpleFight, incomingDamage } from 'tests/Parser/Brewmaster/Fixtures/SimpleFight';
+
+import IronSkinBrew from './IronSkinBrew';
 
 const ENEMIES = {
   getEntities: () => { return {2: true}; },
