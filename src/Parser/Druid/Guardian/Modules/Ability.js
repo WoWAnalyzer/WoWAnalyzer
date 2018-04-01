@@ -10,7 +10,7 @@ class Ability extends CoreAbility {
         PropTypes.func,
         PropTypes.number,
       ]),
-      condition: PropTypes.oneOfType([
+      isHighPriority: PropTypes.oneOfType([
         PropTypes.func,
         PropTypes.number,
       ]),
