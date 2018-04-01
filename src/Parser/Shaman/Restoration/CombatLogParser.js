@@ -40,6 +40,7 @@ import ArchiveOfFaith from './Modules/Items/ArchiveOfFaith';
 import HighfathersMachination from './Modules/Items/HighfathersMachination';
 import EonarsCompassion from './Modules/Items/EonarsCompassion';
 import TarratusKeystone from './Modules/Items/TarratusKeystone';
+import VelensFutureSight from './Modules/Items/VelensFutureSight';
 
 import ChainHeal from './Modules/Spells/ChainHeal';
 import HealingSurge from './Modules/Spells/HealingSurge';
@@ -95,6 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
     highfathersMachinations: HighfathersMachination,
     eonarsCompassion: EonarsCompassion,
     tarratusKeystone: TarratusKeystone,
+    velensFutureSight: VelensFutureSight,
 
     // Spells:
     chainHeal: ChainHeal,
