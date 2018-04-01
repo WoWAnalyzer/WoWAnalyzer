@@ -7,16 +7,20 @@ import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
-// import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
+import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
+import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import IronSkinBrew from '../Spells/IronSkinBrew';
 import BrewCDR from '../Core/BrewCDR';
 import BreathOfFire from '../Spells/BreathOfFire';
+import TigerPalm from '../Spells/TigerPalm';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
     bof: BreathOfFire,
     isb: IronSkinBrew,
     brewcdr: BrewCDR,
+    castEfficiency: CastEfficiency,
+    tp: TigerPalm,
   };
 
   rules = [
@@ -94,6 +98,29 @@ class Checklist extends CoreChecklist {
             check: () => this.brewcdr.suggestionThreshold,
           }),
         ];
+      },
+    }),
+    new Rule({
+      name: <Wrapper>Not Dead Yet? Time to <em>Pad Your Ass Off!</em></Wrapper>,
+      description: (
+        <Wrapper>
+          While the <em>primary</em> role of a tank is to get hit in the face a bunch and not die in the process, once that is under control we get to spend some energy dealing damage! Maintaining a <a href="http://www.peakofserenity.com/brewmaster/improving-brewmaster-dps/">correct DPS rotation</a> also provides optimal brew generation. <strong>However, if you are dying, ignore this checklist item!</strong> As much as we may enjoy padding for those sweet orange parses, not-wiping takes precedence.
+        </Wrapper>
+      ),
+      requirements: () => {
+        const reqs = [
+          new GenericCastEfficiencyRequirement({ spell: SPELLS.KEG_SMASH }),
+          new GenericCastEfficiencyRequirement({ spell: SPELLS.BLACKOUT_STRIKE }),
+        ];
+
+        const boc = this.tp.bocEmpoweredThreshold;
+        reqs.push(new Requirement({
+          name: <Wrapper><SpellLink id={SPELLS.BLACKOUT_COMBO_TALENT.id} icon />-empowered <SpellLink id={SPELLS.TIGER_PALM.id} icon>Tiger Palms</SpellLink></Wrapper>,
+          check: () => boc,
+          when: () => !!boc,
+        }));
+
+        return reqs;
       },
     }),
   ];
