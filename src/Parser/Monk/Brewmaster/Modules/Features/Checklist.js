@@ -8,19 +8,23 @@ import ItemLink from 'common/ItemLink';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import IronSkinBrew from '../Spells/IronSkinBrew';
 import BrewCDR from '../Core/BrewCDR';
 import BreathOfFire from '../Spells/BreathOfFire';
 import TigerPalm from '../Spells/TigerPalm';
+import RushingJadeWind from '../Spells/RushingJadeWind';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
     bof: BreathOfFire,
     isb: IronSkinBrew,
     brewcdr: BrewCDR,
+    combatants: Combatants,
     castEfficiency: CastEfficiency,
     tp: TigerPalm,
+    rjw: RushingJadeWind,
   };
 
   rules = [
@@ -118,6 +122,17 @@ class Checklist extends CoreChecklist {
           name: <Wrapper><SpellLink id={SPELLS.BLACKOUT_COMBO_TALENT.id} icon />-empowered <SpellLink id={SPELLS.TIGER_PALM.id} icon>Tiger Palms</SpellLink></Wrapper>,
           check: () => boc,
           when: () => !!boc,
+        }));
+
+        reqs.push(new Requirement({
+          name: <Wrapper><SpellLink id={SPELLS.RUSHING_JADE_WIND.id} icon /> uptime</Wrapper>,
+          check: () => this.rjw.uptimeThreshold,
+          when: () => !!this.rjw.uptimeThreshold,
+        }));
+
+        reqs.push(new GenericCastEfficiencyRequirement({ 
+          spell: SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT,
+          when: () => this.combatants.selected.hasTalent(SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id),
         }));
 
         return reqs;
