@@ -9,8 +9,13 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-03-28'),
+    date: new Date('2018-04-02'),
     changes: <Wrapper>Added Contributor pages.</Wrapper>,
+    contributors: [joshinator],
+  },
+  {
+    date: new Date('2018-03-29'),
+    changes: <Wrapper>Fix for icons that get wrong images from the CDN.</Wrapper>,
     contributors: [joshinator],
   },
   {

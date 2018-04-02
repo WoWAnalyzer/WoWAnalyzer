@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-03-28'),
+    changes: <Wrapper>Added a Tab detailing the <SpellLink id={SPELLS.DEEP_HEALING.id} icon /> effectiveness per player.</Wrapper>,
+    contributors: [niseko],
+  },
+  {
     date: new Date('2018-03-24'),
     changes: <Wrapper>Reworked the <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon /> statistics, making them easier to read.</Wrapper>,
     contributors: [niseko],

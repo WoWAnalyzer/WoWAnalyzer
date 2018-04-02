@@ -65,12 +65,12 @@ class Bonestorm extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<Wrapper>Try to cast <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> only if you can reliable hit 2 or more targets to maximize the damage and healing. Casting <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> with only one target in range is a DPS and HPS loss, use <SpellLink id={SPELLS.DEATH_STRIKE.id} /> instead.</Wrapper>)
-            .icon(SPELLS.BONESTORM_TALENT.icon)
-            .actual(`${ formatPercentage(actual) }% casts hit 2 or more targets`)
-            .recommended(`${ formatPercentage(recommended) }%is recommended`);
-        });
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<Wrapper>Try to cast <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> only if you can reliable hit 2 or more targets to maximize the damage and healing. Casting <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> with only one target in range is a DPS and HPS loss, use <SpellLink id={SPELLS.DEATH_STRIKE.id} /> instead.</Wrapper>)
+          .icon(SPELLS.BONESTORM_TALENT.icon)
+          .actual(`${ formatPercentage(actual) }% casts hit 2 or more targets`)
+          .recommended(`${ formatPercentage(recommended) }%is recommended`);
+      });
   }
 
   get BonestormTooltip() {
