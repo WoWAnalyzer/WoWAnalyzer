@@ -33,8 +33,16 @@ if (Raven.installed) {
 }
 app.use(compression());
 app.use(Express.static(buildFolder));
+let sessionSecret = process.env.SESSION_SECRET;
+if (!sessionSecret) {
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('Missing environment variable: SESSION_SECRET. You should set this in the `.env.production.local` file.');
+  } else {
+    sessionSecret = 'somesecrettoken';
+  }
+}
 app.use(session({
-  secret:'somesecrettokenhere',
+  secret: sessionSecret,
   resave: false,
   saveUninitialized: false,
 }));
