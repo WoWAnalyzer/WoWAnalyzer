@@ -16,25 +16,26 @@ import Abilities from 'Parser/Core/Modules/Abilities';
  * initial state is in the trinkets bonusID (3618 for the stamina one, 3619 for the armor one)
 */
 
-const ARMOR_EYE = 3619;
+const ARMOR_EYE_BONUS_ID = 3619;
 
-class DiimasGlacialAegis extends Analyzer {
+class EyeOfHounds extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     abilities: Abilities,
   };
 
   isCurrentlyVers = true;
-  lastSwap = 0;
+  lastCheck = 0;
   
-  stam_stat = 0;
-  vers_stat = 0;
+  stamStat = 0;
+  versStat = 0;
 
-  str_stat = 0;
-  armor_stat = 0;
+  strStat = 0;
+  armorStat = 0;
 
-  stam_uptime = 0;
-  str_uptime = 0;
+
+  stamUptime = 0;
+  strUptime = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTrinket(ITEMS.EYE_OF_HOUNDS.id);
@@ -42,17 +43,17 @@ class DiimasGlacialAegis extends Analyzer {
       const iLvl = this.combatants.selected.getItem(ITEMS.EYE_OF_HOUNDS.id).itemLevel;
       const bonusIDs = Object.values(this.combatants.selected.gear).filter(item => item.id === ITEMS.EYE_OF_HOUNDS.id)[0].bonusIDs;
       
-      if (bonusIDs.includes(ARMOR_EYE)) {
+      if (bonusIDs.includes(ARMOR_EYE_BONUS_ID)) {
         this.isCurrentlyVers = false;
       }
 
-      this.stam_stat = calculatePrimaryStat(930, 4093, iLvl);
-      this.vers_stat = calculateSecondaryStatDefault(930, 1320, iLvl);
+      this.stamStat = calculatePrimaryStat(930, 4093, iLvl);
+      this.versStat = calculateSecondaryStatDefault(930, 1320, iLvl);
 
-      this.str_stat = calculatePrimaryStat(930, 2728, iLvl);
-      this.armor_stat = calculateSecondaryStatDefault(930, 1011, iLvl);
+      this.strStat = calculatePrimaryStat(930, 2728, iLvl);
+      this.armorStat = calculateSecondaryStatDefault(930, 1011, iLvl);
 
-      this.lastSwap = this.owner.fight.start_time;
+      this.lastCheck = this.owner.fight.start_time;
     }  
   }
 
@@ -62,47 +63,59 @@ class DiimasGlacialAegis extends Analyzer {
     }
 
     if (this.isCurrentlyVers) {
-      this.stam_uptime += (event.timestamp - this.lastSwap);
+      this.stamUptime += event.timestamp - this.lastCheck;
     } else {
-      this.str_uptime += (event.timestamp - this.lastSwap);
+      this.strUptime += event.timestamp - this.lastCheck;
     }
 
-    this.lastSwap = event.timestamp;
+    this.lastCheck = event.timestamp;
     this.isCurrentlyVers = !this.isCurrentlyVers;
   }
 
-  on_finished(event) {
-    if (this.isCurrentlyVers) {
-      this.stam_uptime += (this.owner.fight.end_time - this.lastSwap);
-    } else {
-      this.str_uptime += (this.owner.fight.end_time - this.lastSwap);
+  get staminaUptime() {
+    //add uptime if stamina-version is active
+    if (this.isCurrentlyVers === true) {
+      this.stamUptime += this.owner.currentTimestamp - this.lastCheck;
+      this.lastCheck = this.owner.currentTimestamp;
     }
+
+    return this.stamUptime / (this.owner.currentTimestamp - this.owner.fight.start_time);
+  }
+
+  get strengthUptime() {
+    //add uptime if strength-version is active
+    if (this.isCurrentlyVers === false) {
+      this.strUptime += this.owner.currentTimestamp- this.lastCheck;
+      this.lastCheck = this.owner.currentTimestamp;
+    }
+
+    return this.strUptime / (this.owner.currentTimestamp - this.owner.fight.start_time);
   }
 
   get averageStats() {
-    const stam_uptime = this.stam_uptime / this.owner.fightDuration;
-    const str_uptime = this.str_uptime / this.owner.fightDuration;
     const itemBreakdown = [];
+    const stam = this.staminaUptime;
+    const str = this.strengthUptime;
 
-    if (stam_uptime !== 0) {
+    if (stam !== 0) {
       itemBreakdown.push(
         <div>
           <ItemLink id={ITEMS.EYE_OF_SHATUG.id} /><br/>
-          <dfn data-tip={`${formatPercentage(stam_uptime)}% uptime, resulting in those shown average stats.`}>
-            {(stam_uptime * this.stam_stat).toFixed(0)} Stamina<br/>
-            {(stam_uptime * this.vers_stat).toFixed(0)} Versatility
+          <dfn data-tip={`${formatPercentage(stam)}% uptime, resulting in those shown average stats.`}>
+            {(stam * this.stamStat).toFixed(0)} Stamina<br/>
+            {(stam * this.versStat).toFixed(0)} Versatility
           </dfn>
         </div>
       );
     }
 
-    if (str_uptime !== 0) {
+    if (str !== 0) {
       itemBreakdown.push(
         <div>
           <ItemLink id={ITEMS.EYE_OF_FHARG.id} /><br/>
-          <dfn data-tip={`${formatPercentage(str_uptime)}% uptime, resulting in those shown average stats.`}>
-            {(str_uptime * this.str_stat).toFixed(0)} {this.combatants.selected.spec.primaryStat}<br/>
-            {(str_uptime * this.armor_stat).toFixed(0)} Armor
+          <dfn data-tip={`${formatPercentage(str)}% uptime, resulting in those shown average stats.`}>
+            {(str * this.strStat).toFixed(0)} {this.combatants.selected.spec.primaryStat}<br/>
+            {(str * this.armorStat).toFixed(0)} Armor
           </dfn>
         </div>
       );
@@ -123,4 +136,4 @@ class DiimasGlacialAegis extends Analyzer {
   }
 }
 
-export default DiimasGlacialAegis;
+export default EyeOfHounds;
