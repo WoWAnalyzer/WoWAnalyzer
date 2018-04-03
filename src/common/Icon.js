@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import BAD_ICONS from 'common/BAD_ICONS';
+
 const Icon = ({ icon, alt, ...other }) => {
   if (!icon) {
     return null;
@@ -15,9 +17,14 @@ const Icon = ({ icon, alt, ...other }) => {
     icon = 'class_demon-hunter';
   }
 
+  let baseURL = `//render-us.worldofwarcraft.com/icons/56`;
+  if (BAD_ICONS.includes(icon)) {
+    baseURL = `/img/Icons`;
+  }
+
   return (
     <img
-      src={`//render-us.worldofwarcraft.com/icons/56/${icon}.jpg`}
+      src={`${baseURL}/${icon}.jpg`}
       alt={alt || icon}
       className="icon"
       {...other}

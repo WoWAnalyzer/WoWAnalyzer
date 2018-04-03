@@ -15,6 +15,7 @@ class Abilities extends CoreAbilities {
         cooldown: 6,
         enabled: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id),
         timelineSortIndex: 15,
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.50,
@@ -29,6 +30,7 @@ class Abilities extends CoreAbilities {
         cooldown: 6,
         enabled: !(combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id)),
         timelineSortIndex: 15,
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.30,
@@ -41,6 +43,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         charges: 2,
         timelineSortIndex: 18,
+        isOnGCD: true,
         cooldown: (haste, combatant) => {
           const has4PT19 = combatant.hasBuff(SPELLS.RESTORATION_SHAMAN_T19_4SET_BONUS_BUFF.id);
 
@@ -86,6 +89,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 10,
         timelineSortIndex: 20,
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.30,
@@ -98,6 +102,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 20,
         timelineSortIndex: 20,
+        isOnGCD: true,
         enabled: combatant.lv100Talent === SPELLS.WELLSPRING_TALENT.id,
         castEfficiency: {
           suggestion: true,
@@ -111,6 +116,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 45,
         timelineSortIndex: 20,
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.3,
@@ -123,6 +129,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 30,
         timelineSortIndex: 20,
+        isOnGCD: true,
         enabled: combatant.lv90Talent === SPELLS.CLOUDBURST_TOTEM_TALENT.id,
         castEfficiency: {
           suggestion: true,
@@ -136,6 +143,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         timelineSortIndex: 20,
+        isOnGCD: true,
         enabled: combatant.lv75Talent === SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id,
         castEfficiency: {
           suggestion: true,
@@ -149,6 +157,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 15,
         timelineSortIndex: 20,
+        isOnGCD: true,
         enabled: combatant.lv15Talent === SPELLS.UNLEASH_LIFE_TALENT.id,
         castEfficiency: {
           suggestion: true,
@@ -185,6 +194,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HEALING_TIDE_TOTEM_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.2,
@@ -196,6 +206,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SPIRIT_LINK_TOTEM,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.2,
@@ -206,6 +217,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HEALING_WAVE,
         timelineSortIndex: 41,
+        isOnGCD: true,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
           casts: castCount => (castCount.casts || 0) - (castCount.healingTwHits || 0),
@@ -215,6 +227,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HEALING_WAVE,
         name: `Tidal Waved ${SPELLS.HEALING_WAVE.name}`,
         timelineSortIndex: 42,
+        isOnGCD: true,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
           casts: castCount => castCount.healingTwHits || 0,
@@ -223,6 +236,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HEALING_SURGE_RESTORATION,
         timelineSortIndex: 43,
+        isOnGCD: true,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
           casts: castCount => (castCount.casts || 0) - (castCount.healingTwHits || 0),
@@ -232,6 +246,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HEALING_SURGE_RESTORATION,
         name: `Tidal Waved ${SPELLS.HEALING_SURGE_RESTORATION.name}`,
         timelineSortIndex: 44,
+        isOnGCD: true,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
           casts: castCount => castCount.healingTwHits || 0,
@@ -247,8 +262,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.PURIFY_SPIRIT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         timelineSortIndex: 80,
-        // Need to check if it actually dispelled something before we can give it a cooldown
-        // cooldown: 8,
+        cooldown: 8,
         isOnGCD: true,
       },
       {
