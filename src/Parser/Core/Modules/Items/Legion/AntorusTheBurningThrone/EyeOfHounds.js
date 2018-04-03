@@ -16,7 +16,7 @@ import Abilities from 'Parser/Core/Modules/Abilities';
  * initial state is in the trinkets bonusID (3618 for the stamina one, 3619 for the armor one)
 */
 
-const ARMOR_EYE_BONUS_ID = 3619;
+const STAMINA_EYE_BONUS_ID = 3618;
 
 class EyeOfHounds extends Analyzer {
   static dependencies = {
@@ -24,7 +24,7 @@ class EyeOfHounds extends Analyzer {
     abilities: Abilities,
   };
 
-  isCurrentlyVers = true;
+  isCurrentlyStamina = true;
   lastCheck = 0;
   
   stamStat = 0;
@@ -43,9 +43,7 @@ class EyeOfHounds extends Analyzer {
       const iLvl = this.combatants.selected.getItem(ITEMS.EYE_OF_HOUNDS.id).itemLevel;
       const bonusIDs = Object.values(this.combatants.selected.gear).filter(item => item.id === ITEMS.EYE_OF_HOUNDS.id)[0].bonusIDs;
       
-      if (bonusIDs.includes(ARMOR_EYE_BONUS_ID)) {
-        this.isCurrentlyVers = false;
-      }
+      this.isCurrentlyStamina = bonusIDs.includes(STAMINA_EYE_BONUS_ID);
 
       this.stamStat = calculatePrimaryStat(930, 4093, iLvl);
       this.versStat = calculateSecondaryStatDefault(930, 1320, iLvl);
@@ -62,19 +60,19 @@ class EyeOfHounds extends Analyzer {
       return;
     }
 
-    if (this.isCurrentlyVers) {
+    if (this.isCurrentlyStamina) {
       this.stamUptime += event.timestamp - this.lastCheck;
     } else {
       this.strUptime += event.timestamp - this.lastCheck;
     }
 
     this.lastCheck = event.timestamp;
-    this.isCurrentlyVers = !this.isCurrentlyVers;
+    this.isCurrentlyStamina = !this.isCurrentlyStamina;
   }
 
   get staminaUptime() {
     //add uptime if stamina-version is active
-    if (this.isCurrentlyVers === true) {
+    if (this.isCurrentlyStamina) {
       this.stamUptime += this.owner.currentTimestamp - this.lastCheck;
       this.lastCheck = this.owner.currentTimestamp;
     }
@@ -84,7 +82,7 @@ class EyeOfHounds extends Analyzer {
 
   get strengthUptime() {
     //add uptime if strength-version is active
-    if (this.isCurrentlyVers === false) {
+    if (!this.isCurrentlyStamina) {
       this.strUptime += this.owner.currentTimestamp- this.lastCheck;
       this.lastCheck = this.owner.currentTimestamp;
     }
@@ -97,7 +95,7 @@ class EyeOfHounds extends Analyzer {
     const stam = this.staminaUptime;
     const str = this.strengthUptime;
 
-    if (stam !== 0) {
+    if (stam) {
       itemBreakdown.push(
         <div>
           <ItemLink id={ITEMS.EYE_OF_SHATUG.id} /><br/>
@@ -109,7 +107,7 @@ class EyeOfHounds extends Analyzer {
       );
     }
 
-    if (str !== 0) {
+    if (str) {
       itemBreakdown.push(
         <div>
           <ItemLink id={ITEMS.EYE_OF_FHARG.id} /><br/>
