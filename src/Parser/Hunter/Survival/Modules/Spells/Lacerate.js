@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox from 'Main/StatisticBox';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import Wrapper from 'common/Wrapper';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -178,7 +178,7 @@ class Lacerate extends Analyzer {
         icon={<SpellIcon id={SPELLS.LACERATE.id} />}
         value={`${formatPercentage(this.uptimePercentage)}%`}
         label="Lacerate information"
-        tooltip={`<ul><li>You had a Lacerate uptime of ${formatPercentage(this.uptimePercentage)}%. </li><li>You cast Lacerate a total of ${this.casts} times. </li> <li>You refreshed the debuff ${this.timesRefreshed} times. </li> <ul><li> When you did refresh, it happened on average with ${((this.lacerateDuration / 1000) - this.averageTimeBetweenRefresh).toFixed(2)} seconds remaining on the debuff.</li></ul>`}
+        tooltip={`<ul><li>You had a Lacerate uptime of ${formatPercentage(this.uptimePercentage)}%. </li><li>You cast Lacerate a total of ${this.casts} times. </li> <li>You refreshed the debuff ${this.timesRefreshed} times. </li> <ul><li> When you did refresh, it happened on average with ${((this.lacerateDuration / 1000) - this.averageTimeBetweenRefresh).toFixed(2)} seconds remaining on the debuff.</li> </ul><li>Lacerate dealt a total of ${formatNumber(this.bonusDamage / this.owner.fightDuration * 1000)} DPS or ${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))}% of your total damage.</li></ul>`}
       />
     );
   }
