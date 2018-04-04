@@ -11,6 +11,7 @@ import SpellLink from "common/SpellLink";
 import SPECS from 'common/SPECS';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import Wrapper from 'common/Wrapper';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 //generally accepted rule is to save crows if boss is below 25% health.
 const CROWS_SAVE_PERCENT = 0.25;
@@ -24,6 +25,7 @@ class AMurderOfCrows extends Analyzer {
 
   static dependencies = {
     combatants: Combatants,
+    spellUsable: SpellUsable,
   };
 
   bossIDs = [];
@@ -46,6 +48,11 @@ class AMurderOfCrows extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.A_MURDER_OF_CROWS_SPELL.id) {
       return;
+    }
+    if (this.totalCrowsCasts === 0) {
+      this.totalCrowsCasts++;
+      this.goodCrowsCasts++;
+      this.spellUsable.beginCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id, this.owner.fight.start_time);
     }
     this.damage += event.amount;
   }

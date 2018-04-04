@@ -17,6 +17,7 @@ import FistsofFury from './Modules/Spells/FistsofFury';
 import SpinningCraneKick from './Modules/Spells/SpinningCraneKick';
 import ComboStrikes from './Modules/Spells/ComboStrikes';
 import TouchOfKarma from './Modules/Spells/TouchOfKarma';
+import BlackoutKick from './Modules/Spells/BlackoutKick';
 // Talents
 import HitCombo from './Modules/Talents/HitCombo';
 import EnergizingElixir from './Modules/Talents/EnergizingElixir';
@@ -56,6 +57,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spinningCraneKick: SpinningCraneKick,
     touchOfKarma: TouchOfKarma,
     comboStrikes: ComboStrikes,
+    blackoutKick: BlackoutKick,
 
     // Legendaries / Items:
     katsuosEclipse: KatsuosEclipse,

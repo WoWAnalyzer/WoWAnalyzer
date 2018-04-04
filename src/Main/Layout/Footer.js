@@ -23,6 +23,7 @@ class Footer extends React.PureComponent {
                 <li>Checklist by David</li>
                 <li>Idea by Anne</li>
                 <li>About Document by Deepz</li>
+                <li>Stats by Barracuda</li>
               </ul>
             `}
           >Icons from the <a href="https://thenounproject.com">Noun Project</a>.</dfn><br />

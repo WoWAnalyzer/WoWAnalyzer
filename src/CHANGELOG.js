@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, aryu, Zerotorescue, Hartra344, Putro, Sharrq, Hewhosmites } from 'CONTRIBUTORS';
+import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, aryu, Zerotorescue, Hartra344, Putro, Sharrq, Hewhosmites, joshinator } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
@@ -8,6 +8,41 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-03-26'),
+    changes: <Wrapper>Added <ItemLink id={ITEMS.SMOLDERING_TITANGUARD.id} icon />, <ItemLink id={ITEMS.DIIMAS_GLACIAL_AEGIS.id} icon /> and  <ItemLink id={ITEMS.RIFTWORLD_CODEX.id} icon />.</Wrapper>,
+    contributors: [joshinator],
+  },
+  {
+    date: new Date('2018-03-24'),
+    changes: 'Added statistics for talents, legendaries and trinkets based on the current encounter.',
+    contributors: [joshinator],
+  },
+  {
+    date: new Date('2018-03-24'),
+    changes: 'Show player deaths and resurrections in the timeline.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-03-19'),
+    changes: 'Fabricated events in the events tab are now highlighted with a different color, and optional (hidden by default).',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-03-17'),
+    changes: 'Reworked the events tab so it can be used publicly, and made it publicly available.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-03-16'),
+    changes: 'Added a recently viewed reports panel to the front page.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-03-15'),
+    changes: <Wrapper>Added <SpellLink id={SPELLS.MASTER_OF_COMBINATIONS.id} icon />, <SpellLink id={SPELLS.FURY_OF_ASHAMANE.id} icon />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SKY.id} icon />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SEA.id} icon /> and <SpellLink id={SPELLS.SERAPHIM_TALENT.id} icon /> to the stat tracker, slightly improving stat weights and any Haste based modules.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
   {
     date: new Date('2018-02-22'),
     changes: `Moved the Stats on Pull, Talents, and Gear to a new Character Tab in the Main Panel.`,

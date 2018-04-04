@@ -1,13 +1,11 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-
-import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
-
-import CoreAbilities from 'Parser/Core/Modules/Abilities';
-import ITEMS from 'common/ITEMS';
 import Wrapper from 'common/Wrapper';
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
+import SpellLink from 'common/SpellLink';
+import CoreAbilities from 'Parser/Core/Modules/Abilities';
+import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -279,22 +277,21 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLINDING_LIGHT_TALENT,
-        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 90,
         enabled: combatant.hasTalent(SPELLS.BLINDING_LIGHT_TALENT.id),
         isOnGCD: true,
       },
       {
         spell: SPELLS.HAMMER_OF_JUSTICE,
-        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
         isOnGCD: true,
       },
       {
         spell: SPELLS.HAND_OF_RECKONING,
-        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 8,
-        isOnGCD: true,
       },
     ];
   }

@@ -25,6 +25,7 @@ import FrenziedRegeneration from './Modules/Spells/FrenziedRegeneration';
 import SkysecsHold from './Modules/Items/Skysecs';
 import LuffaWrappings from './Modules/Items/LuffaWrappings';
 import FuryOfNature from './Modules/Items/FuryOfNature';
+import SoulOfTheArchdruid from '../Shared/Modules/Items/SoulOfTheArchdruid';
 
 import Tier21_2P from './Modules/Sets/Tier21_2P';
 import Tier21_4P from './Modules/Sets/Tier21_4P';
@@ -62,6 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     skysecs: SkysecsHold,
     luffaWrappings: LuffaWrappings,
     furyOfNature: FuryOfNature,
+    soulOfTheArchdruid : SoulOfTheArchdruid,
 
     // Sets
     tier21_2p: Tier21_2P,

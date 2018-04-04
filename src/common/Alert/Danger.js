@@ -8,7 +8,7 @@ import Alert from './index';
 const Danger = ({ children, ...others }) => (
   <Alert kind="danger" {...others}>
     <div className="content-middle">
-      <div style={{ fontSize: '2em', lineHeight: 1, marginRight: 20 }}>
+      <div className="icon-container">
         <Icon />
       </div>
       <div>

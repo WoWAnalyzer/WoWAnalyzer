@@ -14,6 +14,7 @@ class Abilities extends CoreAbilities {
         charges: 2,
         cooldown: 6,
         enabled: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id),
+        timelineSortIndex: 15,
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.50,
@@ -27,6 +28,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 6,
         enabled: !(combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id)),
+        timelineSortIndex: 15,
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.30,
@@ -38,6 +40,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HEALING_STREAM_TOTEM_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         charges: 2,
+        timelineSortIndex: 18,
         cooldown: (haste, combatant) => {
           const has4PT19 = combatant.hasBuff(SPELLS.RESTORATION_SHAMAN_T19_4SET_BONUS_BUFF.id);
 
@@ -69,7 +72,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ASTRAL_SHIFT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        timelineSortIndex: 82,
         cooldown: 90,
         castEfficiency: {
           suggestion: true,
@@ -78,18 +82,23 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ARCANE_TORRENT_MANA,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 90,
-        isUndetectable: true,
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
         spell: SPELLS.HEALING_RAIN_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 10,
+        timelineSortIndex: 20,
+        castEfficiency: {
+          suggestion: true,
+          majorIssueEfficiency: 0.30,
+          averageIssueEfficiency: 0.50,
+          recommendedEfficiency: 0.70,
+        },
+      },
+      {
+        spell: SPELLS.WELLSPRING_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 20,
+        timelineSortIndex: 20,
+        enabled: combatant.lv100Talent === SPELLS.WELLSPRING_TALENT.id,
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.30,
@@ -101,17 +110,19 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.GIFT_OF_THE_QUEEN,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 45,
+        timelineSortIndex: 20,
         castEfficiency: {
           suggestion: true,
-          majorIssueEfficiency: 0.6,
-          averageIssueEfficiency: 0.8,
-          recommendedEfficiency: 0.90,
+          majorIssueEfficiency: 0.3,
+          averageIssueEfficiency: 0.5,
+          recommendedEfficiency: 0.7,
         },
       },
       {
         spell: SPELLS.CLOUDBURST_TOTEM_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 30,
+        timelineSortIndex: 20,
         enabled: combatant.lv90Talent === SPELLS.CLOUDBURST_TOTEM_TALENT.id,
         castEfficiency: {
           suggestion: true,
@@ -124,9 +135,26 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EARTHEN_SHIELD_TOTEM_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
+        timelineSortIndex: 20,
         enabled: combatant.lv75Talent === SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id,
         castEfficiency: {
           suggestion: true,
+          majorIssueEfficiency: 0.50,
+          averageIssueEfficiency: 0.70,
+          recommendedEfficiency: 0.90,
+        },
+      },
+      {
+        spell: SPELLS.UNLEASH_LIFE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 15,
+        timelineSortIndex: 20,
+        enabled: combatant.lv15Talent === SPELLS.UNLEASH_LIFE_TALENT.id,
+        castEfficiency: {
+          suggestion: true,
+          majorIssueEfficiency: 0.50,
+          averageIssueEfficiency: 0.70,
+          recommendedEfficiency: 0.90,
         },
       },
       {
@@ -136,6 +164,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.lv60Talent === SPELLS.ANCESTRAL_GUIDANCE_TALENT.id,
         castEfficiency: {
           suggestion: true,
+          majorIssueEfficiency: 0.4,
+          averageIssueEfficiency: 0.6,
+          recommendedEfficiency: 0.8,
         },
       },
       {
@@ -145,6 +176,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.lv100Talent === SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
         castEfficiency: {
           suggestion: true,
+          majorIssueEfficiency: 0.2,
+          averageIssueEfficiency: 0.5,
+          recommendedEfficiency: 0.8,
         },
       },
       {
@@ -153,9 +187,9 @@ class Abilities extends CoreAbilities {
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
-          majorIssueEfficiency: 0.20,
+          majorIssueEfficiency: 0.2,
           averageIssueEfficiency: 0.5,
-          recommendedEfficiency: 1.0,
+          recommendedEfficiency: 0.8,
         },
       },
       {
@@ -165,13 +199,13 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.2,
-          averageIssueEfficiency: 0.5,
-          recommendedEfficiency: 1.0,
+          averageIssueEfficiency: 0.4,
+          recommendedEfficiency: 0.6,
         },
       },
       {
         spell: SPELLS.HEALING_WAVE,
-        name: `Filler ${SPELLS.HEALING_WAVE.name}`,
+        timelineSortIndex: 41,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
           casts: castCount => (castCount.casts || 0) - (castCount.healingTwHits || 0),
@@ -179,7 +213,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HEALING_WAVE,
-        name: `Tidal Waves ${SPELLS.HEALING_WAVE.name}`,
+        name: `Tidal Waved ${SPELLS.HEALING_WAVE.name}`,
+        timelineSortIndex: 42,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
           casts: castCount => castCount.healingTwHits || 0,
@@ -187,7 +222,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HEALING_SURGE_RESTORATION,
-        name: `Filler ${SPELLS.HEALING_SURGE_RESTORATION.name}`,
+        timelineSortIndex: 43,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
           casts: castCount => (castCount.casts || 0) - (castCount.healingTwHits || 0),
@@ -195,17 +230,137 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HEALING_SURGE_RESTORATION,
-        name: `Tidal Waves ${SPELLS.HEALING_SURGE_RESTORATION.name}`,
+        name: `Tidal Waved ${SPELLS.HEALING_SURGE_RESTORATION.name}`,
+        timelineSortIndex: 44,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
           casts: castCount => castCount.healingTwHits || 0,
         },
+      },
+      {
+        spell: SPELLS.CHAIN_HEAL,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        timelineSortIndex: 40,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.PURIFY_SPIRIT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        timelineSortIndex: 80,
+        // Need to check if it actually dispelled something before we can give it a cooldown
+        // cooldown: 8,
+        isOnGCD: true,
+      },
+      {
+        spell: SPELLS.FLAME_SHOCK_RESTORATION,
+        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        timelineSortIndex: 60,
+        cooldown: 6,
+        isOnGCD: true,
+      },
+      {
+        spell: SPELLS.LAVA_BURST,
+        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id) ? 2 : 1,
+        timelineSortIndex: 60,
         cooldown: 8,
         isOnGCD: true,
+      },
+      {
+        spell: SPELLS.LIGHTNING_BOLT_RESTORATION,
+        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        isOnGCD: true,
+        timelineSortIndex: 60,
+      },
+      {
+        spell: SPELLS.GHOST_WOLF,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        timelineSortIndex: 80,
+        isOnGCD: true,
+      },
+      {
+        spell: SPELLS.SPIRITWALKERS_GRACE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: combatant.hasTalent(SPELLS.GRACEFUL_SPIRIT_TALENT.id) ? 60 : 120,
+        timelineSortIndex: 81,
+      },
+      {
+        spell: SPELLS.EARTHBIND_TOTEM,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        timelineSortIndex: 80,
+        isOnGCD: true,
+        cooldown: 30,
+      },
+      {
+        spell: SPELLS.PURGE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        timelineSortIndex: 80,
+        isOnGCD: true,
+      },
+      {
+        spell: SPELLS.GUST_OF_WIND_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        timelineSortIndex: 81,
+        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.GUST_OF_WIND_TALENT.id),
+        cooldown: 15,
+      },
+      {
+        spell: SPELLS.LIGHTNING_SURGE_TOTEM_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        timelineSortIndex: 80,
+        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.LIGHTNING_SURGE_TOTEM_TALENT.id),
+        cooldown: 45,
+      },
+      {
+        spell: SPELLS.VOODOO_TOTEM_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        timelineSortIndex: 80,
+        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.VOODOO_TOTEM_TALENT.id),
+        cooldown: 30,
+      },
+      {
+        spell: SPELLS.WIND_RUSH_TOTEM_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        timelineSortIndex: 80,
+        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.WIND_RUSH_TOTEM_TALENT.id),
+        cooldown: 120,
+      }, 
+      {
+        spell: SPELLS.EARTHGRAB_TOTEM_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        timelineSortIndex: 80,
+        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.EARTHGRAB_TOTEM_TALENT.id),
+        cooldown: 30,
+      }, 
+      {
+        spell: SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id),
+        cooldown: 300,
+      },
+      {
+        spell: SPELLS.REINCARNATION,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: combatant.traitsBySpellId[SPELLS.SERVANT_OF_THE_QUEEN.id] ? 1200 : 1800,
+      },
+      {
+        spell: SPELLS.WIND_SHEAR, 
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        timelineSortIndex: 80,
+        cooldown: 12,
+      },
+      {
+        spell: [SPELLS.HEX, SPELLS.HEX_RAPTOR, SPELLS.HEX_SNAKE, SPELLS.HEX_SPIDER, SPELLS.HEX_COCKROACH, SPELLS.HEX_SKELETAL],
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: true,
+        timelineSortIndex: 80,
+        cooldown: 30,
       },
     ];
   }

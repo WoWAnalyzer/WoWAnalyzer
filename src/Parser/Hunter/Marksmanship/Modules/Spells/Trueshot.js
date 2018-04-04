@@ -46,7 +46,7 @@ class Trueshot extends Analyzer {
     this.trueshotCasts += 1;
     this.prepullTrueshots += 1;
     //starts the cooldown to ensure proper cast efficiency statistics
-    this.spellUsable.beginCooldown(SPELLS.TRUESHOT.id);
+    this.spellUsable.beginCooldown(SPELLS.TRUESHOT.id, this.owner.fight.start_time);
   }
 
   on_byPlayer_cast(event) {
@@ -81,7 +81,7 @@ class Trueshot extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    const isCrit = event.hitType === HIT_TYPES.CRIT;
+    const isCrit = event.hitType === HIT_TYPES.CRIT || event.hitType === HIT_TYPES.BLOCKED_CRIT;
     if (!this.combatants.selected.hasBuff(SPELLS.TRUESHOT.id, event.timestamp)) {
       return;
     }

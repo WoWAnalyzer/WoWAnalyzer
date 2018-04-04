@@ -27,42 +27,50 @@ class Abilities extends CoreAbilities {
             </Wrapper>
           ),
         },
+        timelineSortIndex: 1,
       },
       {
         spell: SPELLS.STARSURGE_MOONKIN,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
+        timelineSortIndex: 2,
       },
       {
         spell: SPELLS.STARFALL_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
+        timelineSortIndex: 3,
       },
       {
         spell: SPELLS.SOLAR_WRATH_MOONKIN,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
+        timelineSortIndex: 4,
       },
       {
         spell: SPELLS.LUNAR_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
+        timelineSortIndex: 5,
       },
       {
         spell: SPELLS.MOONFIRE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
+        timelineSortIndex: 6,
       },
       {
         spell: SPELLS.SUNFIRE_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
+        timelineSortIndex: 7,
       },
       {
         spell: SPELLS.STELLAR_FLARE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id),
         isOnGCD: true,
+        timelineSortIndex: 8,
       },
 
       // Cooldowns
@@ -75,6 +83,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
+        timelineSortIndex: 9,
       },
       {
         spell: SPELLS.CELESTIAL_ALIGNMENT,
@@ -85,6 +94,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
+        timelineSortIndex: 9,
       },
       {
         spell: SPELLS.WARRIOR_OF_ELUNE_TALENT,
@@ -95,6 +105,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
+        timelineSortIndex: 10,
       },
       {
         spell: SPELLS.FORCE_OF_NATURE_TALENT,
@@ -106,6 +117,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
+        timelineSortIndex: 10,
       },
       {
         spell: SPELLS.ASTRAL_COMMUNION_TALENT,
@@ -116,6 +128,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
+        timelineSortIndex: 11,
       },
 
       //Utility
@@ -129,6 +142,7 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.50,
           majorIssueEfficiency: 0.30,
         },
+        timelineSortIndex: 12,
       },
       {
         spell: SPELLS.BARKSKIN,
@@ -139,12 +153,14 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.6,
           importance: ISSUE_IMPORTANCE.MINOR,
         },
+        timelineSortIndex: 13,
       },
       {
         spell: SPELLS.RENEWAL_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 90,
         enabled: combatant.hasTalent(SPELLS.RENEWAL_TALENT.id),
+        timelineSortIndex: 14,
       },
       {
         spell: SPELLS.DISPLACER_BEAST_TALENT,
@@ -154,7 +170,7 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
       },
       {
-        spell: SPELLS.WILD_CHARGE_TALENT,
+        spell: [SPELLS.WILD_CHARGE_TALENT, SPELLS.WILD_CHARGE_MOONKIN, SPELLS.WILD_CHARGE_CAT, SPELLS.WILD_CHARGE_BEAR, SPELLS.WILD_CHARGE_TRAVEL],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
         enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
@@ -174,7 +190,7 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
       },
       {
-        spell: SPELLS.TYPHOON_TALENT,
+        spell: SPELLS.TYPHOON,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         enabled: combatant.hasTalent(SPELLS.TYPHOON_TALENT.id),

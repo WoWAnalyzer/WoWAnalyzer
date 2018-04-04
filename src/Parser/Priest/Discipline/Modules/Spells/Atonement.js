@@ -9,7 +9,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { formatPercentage } from 'common/format';
 
 import isAtonement from '../Core/isAtonement';
-import AtonementSource from '../Features/AtonementSource';
+import AtonementApplicationSource from '../Features/AtonementApplicationSource';
 
 const debug = false;
 
@@ -19,7 +19,7 @@ const IMPROPER_REFRESH_TIME = 3000;
 class Atonement extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    atonementSource: AtonementSource,
+    atonementApplicationSource: AtonementApplicationSource,
   };
 
   healing = 0;
@@ -29,12 +29,12 @@ class Atonement extends Analyzer {
   improperAtonementRefreshes = [];
 
   get atonementDuration() {
-    const applicatorEvent = this.atonementSource.atonementApplicationSourceEvent;
+    const applicatorEvent = this.atonementApplicationSource.event;
     if (!applicatorEvent) {
       return 15;
     }
     const applicatorSpellId = applicatorEvent.ability.guid;
-    let duration = this.atonementSource.atonementDuration.get(applicatorSpellId);
+    let duration = this.atonementApplicationSource.duration.get(applicatorSpellId);
 
     if (applicatorSpellId === SPELLS.POWER_WORD_SHIELD.id && this.owner.modules.combatants.selected.hasBuff(SPELLS.DISC_PRIEST_T19_4SET_BONUS_BUFF.id, applicatorEvent.timestamp) && this.owner.modules.combatants.selected.hasBuff(SPELLS.RAPTURE.id, applicatorEvent.timestamp)) {
       duration += 6;
@@ -67,7 +67,12 @@ class Atonement extends Analyzer {
     this.currentAtonementTargets.push(atonement);
     this.totalAtones += 1;
     debug && console.log(`%c${this.combatants.players[atonement.target].name} gained an atonement`, 'color:green', this.currentAtonementTargets);
-    this.owner.triggerEvent('atonement_applied', event);
+    this.owner.fabricateEvent({
+      type: 'atonement_applied',
+      timestamp: event.timestamp,
+      sourceID: event.sourceID,
+      targetID: event.targetID,
+    }, event);
   }
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
@@ -88,7 +93,12 @@ class Atonement extends Analyzer {
     if (timeSinceApplication < ((this.atonementDuration * 1000) - IMPROPER_REFRESH_TIME)) {
       this.improperAtonementRefreshes.push(refreshedTarget);
       debug && console.log(`%c${this.combatants.players[event.targetID].name} refreshed an atonement too early %c${timeSinceApplication}`, 'color:red', this.currentAtonementTargets);
-      this.owner.triggerEvent('atonement_refresh_improper', event);
+      this.owner.fabricateEvent({
+        type: 'atonement_refresh_improper',
+        timestamp: event.timestamp,
+        sourceID: event.sourceID,
+        targetID: event.targetID,
+      }, event);
     }
 
     const atonement = {
@@ -103,7 +113,12 @@ class Atonement extends Analyzer {
     this.totalAtones += 1;
     this.totalAtonementRefreshes += 1;
     debug && console.log(`%c${this.combatants.players[atonement.target].name} refreshed an atonement`, 'color:orange', this.currentAtonementTargets);
-    this.owner.triggerEvent('atonement_refresh', event);
+    this.owner.fabricateEvent({
+      type: 'atonement_refresh',
+      timestamp: event.timestamp,
+      sourceID: event.sourceID,
+      targetID: event.targetID,
+    }, event);
   }
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
@@ -116,7 +131,12 @@ class Atonement extends Analyzer {
     };
     this.currentAtonementTargets = this.currentAtonementTargets.filter(id => id.target !== atonement.target);
     debug && console.log(`%c${this.combatants.players[atonement.target].name} lost an atonement`, 'color:red', this.currentAtonementTargets);
-    this.owner.triggerEvent('atonement_faded', event);
+    this.owner.fabricateEvent({
+      type: 'atonement_faded',
+      timestamp: event.timestamp,
+      sourceID: event.sourceID,
+      targetID: event.targetID,
+    }, event);
   }
 
   on_byPlayer_heal(event) {

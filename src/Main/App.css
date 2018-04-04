@@ -121,6 +121,7 @@ ul {
   right: 0;
   height: 134px;
   z-index: 200;
+  pointer-events: none;
 }
 .app.has-report > header {
   margin-top: -410px;
@@ -420,10 +421,6 @@ nav .selectorHeader a {
   display: block;
   padding: 10px 0;
 }
-.list.selection > li.selectable a > div {
-  display: flex;
-  align-items: center;
-}
 .list.selection .ProgressBar {
   margin-left: 10px;
 }
@@ -552,11 +549,26 @@ dfn[data-tip] {
   cursor: help;
 }
 
+.small {
+  font-size: 1em;
+}
+
 .alert {
   padding: 15px 22px;
   border-radius: 0;
   border: 0;
   margin: 0;
+}
+.alert .icon-container {
+  font-size: 2em;
+  line-height: 1;
+  margin-right: 20px;
+}
+.alert.small {
+  padding: 10px;
+}
+.alert.small .icon-container {
+  margin-right: 10px;
 }
 .panel-body > .alert {
   margin-left: -22px;
@@ -795,6 +807,26 @@ table.data-table img {
 /* Chaos: Arcane + Shadow + Frost + Nature + Fire + Holy + Physical */
 .spell-school-127-bg { background-color: #b4b1a5 !important; }
 
+.react-toggle--checked .react-toggle-track {
+  background-color: #d84141;
+}
+.react-toggle--checked .react-toggle-thumb {
+  border-color: #8b2b2b;
+}
+.react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {
+  background-color: #212121;
+}
+.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
+  background-color: #852929;
+}
+
+.react-toggle--focus .react-toggle-thumb {
+  box-shadow: 0 0 2px 3px #d84141;
+}
+.react-toggle:active:not(.react-toggle--disabled) .react-toggle-thumb {
+  box-shadow: 0 0 5px 5px #d84141;
+}
+
 .toggle-control {
   margin: -2px 0;
 }
@@ -803,7 +835,6 @@ table.data-table img {
 }
 .toggle-control label {
   font-weight: normal;
-  padding-left: 0.5em;
   margin: 0;
   cursor: pointer;
 }
@@ -817,9 +848,6 @@ table.data-table img {
 }
 .toggle-control .react-toggle--checked .react-toggle-thumb {
   left: 24px;
-}
-.toggle-control .react-toggle--checked .react-toggle-track {
-  background-color: #5b9cff;
 }
 
 .action-buttons .react-toggle ~ label {

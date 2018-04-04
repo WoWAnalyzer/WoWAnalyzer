@@ -113,6 +113,10 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.FELOILED_INFERNAL_MACHINE.id,
       haste: (_, item) => calculateSecondaryStatDefault(845, 3074, item.itemLevel),
     },
+    [SPELLS.VALARJARS_PATH.id]: {
+      itemId: ITEMS.HORN_OF_VALOR.id,
+      haste: (_, item) => calculatePrimaryStat(820, 2332, item.itemLevel),
+    },
     //endregion
 
     // region Raid Trinkets
@@ -188,11 +192,17 @@ class StatTracker extends Analyzer {
       versatility: combatant => 1500 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
     },
     [SPELLS.JACINS_RUSE.id]: { mastery: 3000 },
+    [SPELLS.MASTER_OF_COMBINATIONS.id]: { mastery: 600 },
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 1000, haste: 1000 },
+    [SPELLS.FURY_OF_ASHAMANE.id]: { versatility: 600 },
+    [SPELLS.MURDEROUS_INTENT_BUFF.id]: { versatility: 2500 },
+    // Antorus: Argus the Unmaker debuffs
+    [SPELLS.STRENGTH_OF_THE_SKY.id]: { crit: 2000, mastery: 2000 },
+    [SPELLS.STRENGTH_OF_THE_SEA.id]: { haste: 2000, versatility: 2000 },
     // endregion
 
     // region Death Knight
-    [SPELLS.VAMPIRIC_AURA.id]: { leech: (23000 * 0.20) }, // TODO make non static so can use this.leechRatingPerPercent ??
+    [SPELLS.VAMPIRIC_AURA.id]: { leech: (230 * 0.20 * 100) }, // Gives 20% Leech // TODO make non static so can use this.leechRatingPerPercent ??
     // endregion
 
     // region Druid
@@ -205,6 +215,10 @@ class StatTracker extends Analyzer {
 
     // region Priest
     [SPELLS.MIND_QUICKENING.id]: { haste: 800 },
+    // endregion
+
+    // region Paladin
+    [SPELLS.SERAPHIM_TALENT.id]: { crit: 5500, haste: 5500, mastery: 5500, versatility: 5500 },
     // endregion
   };
 
@@ -601,16 +615,14 @@ class StatTracker extends Analyzer {
    * Fabricates an event indicating when stats change
    */
   _triggerChangeStats(event, before, delta, after) {
-    this.owner.triggerEvent('changestats', {
-      timestamp: event ? event.timestamp : this.owner.currentTimestamp,
+    this.owner.fabricateEvent({
       type: 'changestats',
       sourceID: event ? event.sourceID : this.owner.playerId,
       targetID: this.owner.playerId,
-      reason: event,
       before,
       delta,
       after,
-    });
+    }, event);
   }
 
   /**

@@ -25,24 +25,29 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD = HEALING_ABILITIES_ON_GCD;
   static ABILITIES_ON_GCD = [
     ...HEALING_ABILITIES_ON_GCD,
-    192063, // Gust of Wind
-    192077, // Wind Rush Totem
-    192058, // Lightning Surge Totem
-    51485, // Earthgrab totem
-    196932, // Voodoo totem
-    207399, // APT
-    403, // Lightning Bolt
-    188838, // Flame shock
-    2484, // Earthbind totem
-    51505, // Lava Burst
-    6196, // Far sight
-    2645, // Ghost wolf
-    77130, // Purify spirit
-    421, // Chain lightning
-    546, // water walking
-    211004, 51514, 211010, 210873, 211015, // Variants of hex
-    556, // Astral recall
-    370, // purge
+    SPELLS.GUST_OF_WIND_TALENT.id,
+    SPELLS.WIND_RUSH_TOTEM_TALENT.id,
+    SPELLS.LIGHTNING_SURGE_TOTEM_TALENT.id,
+    SPELLS.EARTHGRAB_TOTEM_TALENT.id,
+    SPELLS.VOODOO_TOTEM_TALENT.id,
+    SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id,
+    SPELLS.LIGHTNING_BOLT_RESTORATION.id,
+    SPELLS.FLAME_SHOCK_RESTORATION.id,
+    SPELLS.EARTHBIND_TOTEM.id,
+    SPELLS.LAVA_BURST.id,
+    SPELLS.FAR_SIGHT.id,
+    SPELLS.GHOST_WOLF.id,
+    SPELLS.PURIFY_SPIRIT.id,
+    SPELLS.CHAIN_LIGHTNING.id,
+    SPELLS.WATER_WALKING.id,
+    SPELLS.HEX.id,
+    SPELLS.HEX_RAPTOR.id,
+    SPELLS.HEX_SPIDER.id,
+    SPELLS.HEX_COCKROACH.id,
+    SPELLS.HEX_SNAKE.id,
+    SPELLS.HEX_SKELETAL.id,
+    SPELLS.ASTRAL_RECALL.id,
+    SPELLS.PURGE.id,
   ];
 
   static STATIC_GCD_ABILITIES = {
@@ -57,31 +62,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     [SPELLS.VOODOO_TOTEM_TALENT.id]: TOTEM_GCD,
     [SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id]: TOTEM_GCD,
     [SPELLS.EARTHBIND_TOTEM.id]: TOTEM_GCD, // Not a static GCD but 1 second - haste
-  }
-
-  get nonHealingTimeSuggestionThresholds() {
-    const nonHealingTimePercentage = this.totalHealingTimeWasted / this.owner.fightDuration;
-    return {
-      actual: nonHealingTimePercentage,
-      isGreaterThan: {
-        minor: 0.3,
-        average: 0.4,
-        major: 0.45,
-      },
-      style: 'percentage',
-    };
-  }
-  get downtimeSuggestionThresholds() {
-    const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
-    return {
-      actual: deadTimePercentage,
-      isGreaterThan: {
-        minor: 0.2,
-        average: 0.35,
-        major: 1,
-      },
-      style: 'percentage',
-    };
   }
   
   suggestions(when) {

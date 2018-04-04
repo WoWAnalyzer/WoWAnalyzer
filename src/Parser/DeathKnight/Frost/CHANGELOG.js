@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
     {
+      date: new Date('2018-03-21'),
+      changes: 'Added Runic Power tracking',
+      contributors: [Khazak],
+    },
+    {
       date: new Date('2018-02-18'),
       changes: <Wrapper>Added efficiency reporting for <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} icon/></Wrapper>,
       contributors: [Khazak],

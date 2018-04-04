@@ -1,9 +1,3 @@
-/*
-  TODO:
-  Remove Spirit Link Damage from Overall Healing
-
-*/
-
 import React from 'react';
 
 import Tab from 'Main/Tab';
@@ -12,15 +6,16 @@ import Feeding from 'Main/Feeding';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
-import HealingDone from 'Parser/Core/Modules/HealingDone';
 import Abilities from './Modules/Abilities';
 
+import HealingDone from './Modules/ShamanCore/HealingDone';
 import ShamanAbilityTracker from './Modules/ShamanCore/ShamanAbilityTracker';
 
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import Checklist from './Modules/Features/Checklist';
+import SpellUsable from './Modules/Features/SpellUsable';
 
 import AncestralVigor from './Modules/Features/AncestralVigor';
 import TidalWaves from './Modules/Features/TidalWaves';
@@ -39,12 +34,22 @@ import Restoration_Shaman_T20_4Set from './Modules/Items/T20_4Set';
 import Roots from './Modules/Items/Roots';
 import Restoration_Shaman_T21_2Set from './Modules/Items/T21_2Set';
 import Restoration_Shaman_T21_4Set from './Modules/Items/T21_4Set';
+import DeceiversGrandDesign from './Modules/Items/DeceiversGrandDesign';
+import SeaStarOfTheDepthmother from './Modules/Items/SeaStarOfTheDepthmother';
+import ArchiveOfFaith from './Modules/Items/ArchiveOfFaith';
+import HighfathersMachination from './Modules/Items/HighfathersMachination';
+import EonarsCompassion from './Modules/Items/EonarsCompassion';
+import TarratusKeystone from './Modules/Items/TarratusKeystone';
 
 import ChainHeal from './Modules/Spells/ChainHeal';
 import HealingSurge from './Modules/Spells/HealingSurge';
 import GiftOfTheQueen from './Modules/Spells/GiftOfTheQueen';
 import HealingRain from './Modules/Spells/HealingRain';
 import HealingWave from './Modules/Spells/HealingWave';
+import LavaSurge from './Modules/Spells/LavaSurge';
+import Resurgence from './Modules/Spells/Resurgence';
+
+import CloudburstNormalizer from './Normalizers/CloudburstNormalizer';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -61,15 +66,17 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     masteryEffectiveness: MasteryEffectiveness,
-    highTide: HighTide,
     cooldownThroughputTracker: CooldownThroughputTracker,
     ancestralVigor: AncestralVigor,
     tidalWaves: TidalWaves,
     castBehavior: CastBehavior,
     checklist: Checklist,
+    spellUsable: SpellUsable,
+
 
     // Talents:
     earthenShieldTotem: EarthenShieldTotem,
+    highTide: HighTide,
 
     // Items:
     nobundo: Nobundo,
@@ -82,6 +89,12 @@ class CombatLogParser extends CoreCombatLogParser {
     roots: Roots,
     t21_2Set: Restoration_Shaman_T21_2Set,
     t21_4Set: Restoration_Shaman_T21_4Set,
+    deceiversGrandDesign: DeceiversGrandDesign,
+    seaStarOfTheDepthmother: SeaStarOfTheDepthmother,
+    archiveOfFaith: ArchiveOfFaith,
+    highfathersMachinations: HighfathersMachination,
+    eonarsCompassion: EonarsCompassion,
+    tarratusKeystone: TarratusKeystone,
 
     // Spells:
     chainHeal: ChainHeal,
@@ -89,6 +102,11 @@ class CombatLogParser extends CoreCombatLogParser {
     healingSurge: HealingSurge,
     healingRain: HealingRain,
     healingWave: HealingWave,
+    lavaSurge: LavaSurge,
+    resurgence: Resurgence,
+
+    // Normalizers:
+    cloudburstNormalizer: CloudburstNormalizer,
   };
 
   generateResults() {

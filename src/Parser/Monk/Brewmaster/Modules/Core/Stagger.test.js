@@ -1,8 +1,9 @@
 import SPELLS from 'common/SPELLS';
-import StaggerFabricator from 'Parser/Monk/Brewmaster/Modules/Core/StaggerFabricator';
-import Stagger from 'Parser/Monk/Brewmaster/Modules/Core/Stagger';
-import processEvents from './Fixtures/processEvents';
-import { SimpleFight, EarlyFinish, incomingDamage } from './Fixtures/SimpleFight';
+import processEvents from 'tests/Parser/Brewmaster/Fixtures/processEvents';
+import { EarlyFinish, incomingDamage, SimpleFight } from 'tests/Parser/Brewmaster/Fixtures/SimpleFight';
+
+import StaggerFabricator from './StaggerFabricator';
+import Stagger from './Stagger';
 
 describe('Brewmaster.Stagger', () => {
   let stagger;
@@ -17,8 +18,8 @@ describe('Brewmaster.Stagger', () => {
     fab.combatants = {
       selected: {
         hasTalent: () => false,
-        traitsBySpellId: {[SPELLS.STAGGERING_AROUND.id]: 0},
-      }
+        traitsBySpellId: { [SPELLS.STAGGERING_AROUND.id]: 0 },
+      },
     };
     stagger = new Stagger({
       toPlayer: () => true,
@@ -27,7 +28,7 @@ describe('Brewmaster.Stagger', () => {
       byPlayerPet: () => false,
     });
     stagger.fab = fab;
-    fab.owner.triggerEvent = (event, obj) => stagger.triggerEvent(event, obj);
+    fab.owner.fabricateEvent = (event, obj) => stagger.triggerEvent({ ...event, trigger: obj });
   });
   it('total amount of stagger taken with no events', () => {
     expect(stagger.totalStaggerTaken).toBe(0);
@@ -57,11 +58,11 @@ describe('Brewmaster.Stagger', () => {
     expect(stagger.totalMagicalStaggered).toBe(299);
   });
   it('Tracks the amount of stagger missing from the fight', () => {
-    const earlyFightEnd = 6000;
-    const myOwner = { fight: { end_time: earlyFightEnd } };
     processEvents(EarlyFinish, fab, stagger);
-    stagger.owner = myOwner;
-    stagger.triggerEvent('finished');
+    // this doesn't actually do anything for the test.... stagger.owner = myOwner;
+    stagger.triggerEvent({
+      type: 'finished',
+    });
     expect(stagger.staggerMissingFromFight).toBe(484);
   });
 });
