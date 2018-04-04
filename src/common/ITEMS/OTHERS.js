@@ -446,6 +446,21 @@ export default {
     name: 'Riftworld Codex',
     icon: 'inv_offhand_pvp330_d_02',
   },
+  //Eye trinkets from Hounds
+  EYE_OF_HOUNDS: { //combatants ID, actual trinket is in bonusID
+    id: 151974,
+    icon: 'inv_misc_enchantedpearlc',
+  },
+  EYE_OF_SHATUG: {
+    id: 152645,
+    name: 'Eye of Shatug',
+    icon: 'inv_misc_enchantedpearle',
+  },
+  EYE_OF_FHARG: {
+    id: 153544,
+    name: 'Eye of F\'harg',
+    icon: 'inv_misc_enchantedpearlc',
+  },
   // T19 Trinkets
   CONVERGENCE_OF_FATES: {
     id: 140806,

@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-03'),
+    changes: <Wrapper>Added <ItemLink id={ITEMS.EYE_OF_SHATUG.id} icon /> and <ItemLink id={ITEMS.EYE_OF_FHARG.id} icon />.</Wrapper>,
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-04-02'),
     changes: <Wrapper>Added Contributor pages.</Wrapper>,
     contributors: [joshinator],
