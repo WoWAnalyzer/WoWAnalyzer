@@ -243,7 +243,7 @@ class DeathStrikeTimingGraph extends Analyzer {
       title: 'Death Strike Timing',
       url: 'deathstrike-timings',
       render: () => (
-        <Tab title="Death Strike Timing">
+        <Tab>
           {this.plot()}
           <div style={{paddingLeft: "1em"}}>
             This plot shows you your <SpellLink id={SPELLS.DEATH_STRIKE.id} icon /> Casts relative to your Health Points to help you improve your <SpellLink id={SPELLS.DEATH_STRIKE.id} icon /> timings.

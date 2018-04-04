@@ -91,7 +91,7 @@ class DamageTakenTable extends Analyzer {
       title: 'Damage Taken by Ability',
       url: 'damage-taken-by-ability',
       render: () => (
-        <Tab title="Damage Taken by Ability">
+        <Tab>
           <DamageTakenTableComponent 
             data={this.tableData} 
             spec={SPECS[this.combatants.selected.specId]} 

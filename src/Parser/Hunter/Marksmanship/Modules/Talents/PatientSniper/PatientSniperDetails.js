@@ -95,7 +95,7 @@ class PatientSniperDetails extends Analyzer {
       title: 'Patient Sniper Usage',
       url: 'patient-sniper',
       render: () => (
-        <Tab title="Patient Sniper Usage Breakdown">
+        <Tab>
           <PatientSniperBreakdown
             vulnerableModifier={this.vulnerableModifier}
             patientSniper={this.patientSniperTracker.patientSniper}
