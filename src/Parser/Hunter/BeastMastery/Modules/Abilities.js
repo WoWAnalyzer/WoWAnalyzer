@@ -48,7 +48,7 @@ class Abilities extends CoreAbilities {
         isOnGCD: false,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 1,
+          recommendedEfficiency: 0.95,
           extraSuggestion: (
             <Wrapper>
               <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> should be cast on cooldown as its cooldown is quickly reset again through <SpellLink id={SPELLS.DIRE_BEAST.id} icon />. You want to start each <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> window with as much focus as possible.
@@ -128,7 +128,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.8,
           extraSuggestion: (
             <Wrapper>
-              <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} icon /> should always be cast in conjunction with <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> to maximize the potency of these increased damage windows.
+              <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} icon /> should generally always be cast in conjunction with <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> to maximize the potency of these increased damage windows.
             </Wrapper>
           ),
         },
