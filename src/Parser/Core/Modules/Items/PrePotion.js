@@ -110,7 +110,7 @@ class PrePotion extends Analyzer {
         // spell but mana is not their primary resource and should not use a mana potion.
         const healerSpec = HEALER_SPECS.indexOf(this.combatants.selected.specId) !== -1;
         if (!healerSpec) {
-          suggestionText = <Wrapper>You forgot to use a potion during combat. By using a potion during combat such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> you the increasing dps and also suvivability against a boss.</Wrapper>;
+          suggestionText = <Wrapper>You forgot to use a potion during combat. By using a potion during combat such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> you can increase your DPS (especially if lined up with damage cooldowns) and/or suvivability during a fight.</Wrapper>;
           importance = SUGGESTION_IMPORTANCE.MINOR;
         } else if (!this.neededManaSecondPotion) {
           suggestionText = <Wrapper>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of either increasing output through <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> or allowing you to gain mana using <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id} />, for example.</Wrapper>;

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import { formatPercentage } from 'common/format';
+import { formatPercentage , formatDuration } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
@@ -9,7 +9,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import EnemyInstances from 'Parser/Core/Modules/EnemyInstances';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
 import StatisticBox from 'Main/StatisticBox';
 
 import Abilities from '../Abilities';
@@ -32,11 +31,9 @@ class AntiFillerSpam extends Analyzer {
     enemyInstances: EnemyInstances,
     activeTargets: ActiveTargets,
     spellUsable: SpellUsable,
-    globalCooldown: GlobalCooldown,
     abilities: Abilities,
   };
 
-  abilityLastCasts = {};
   _totalGCDSpells = 0;
   _totalFillerSpells = 0;
   _unnecessaryFillerSpells = 0;
@@ -49,16 +46,13 @@ class AntiFillerSpam extends Analyzer {
     }
 
     this._totalGCDSpells += 1;
-    const timestamp = event.timestamp;
-    const spellLastCast = this.abilityLastCasts[spellId] || -Infinity;
     const targets = this.activeTargets.getActiveTargets(event.timestamp).map(enemyID => this.enemyInstances.enemies[enemyID]).filter(enemy => !!enemy);
     const combatant = this.combatants.selected;
-    this.abilityLastCasts[spellId] = timestamp;
 
     let isFiller = false;
     if (ability.antiFillerSpam) {
       if (typeof ability.antiFillerSpam.isFiller === 'function') {
-        isFiller = ability.antiFillerSpam.isFiller(event, combatant, targets, spellLastCast);
+        isFiller = ability.antiFillerSpam.isFiller(event, combatant, targets);
       } else {
         isFiller = ability.antiFillerSpam.isFiller;
       }
@@ -68,37 +62,24 @@ class AntiFillerSpam extends Analyzer {
       return;
     }
 
-    debug && console.group(`[FILLER SPELL] - ${spellId} ${SPELLS[spellId].name}`);
+    debug && console.group(`[FILLER SPELL] - ${spellId} ${SPELLS[spellId].name} - ${formatDuration((event.timestamp - this.owner.fight.start_time) / 1000)}`);
 
     this._totalFillerSpells += 1;
-
     const availableSpells = [];
-    // Only abilities on the GCD matter since the goal is to make sure every GCD is used as efficiently as possible
-    this.globalCooldown.abilitiesOnGlobalCooldown
-      .map(spellId => this.abilities.getAbility(spellId))
-      .filter(ability => ability !== null)
+
+    this.abilities.abilities
+      .filter(ability => ability.antiFillerSpam)
       .forEach(gcdSpell => {
         const gcdSpellId = gcdSpell.primarySpell.id;
         if (ability.primarySpell.id === gcdSpellId) {
           return;
         }
 
-        const lastCast = this.abilityLastCasts[gcdSpellId] || -Infinity;
-        const isFillerEval = gcdSpell.antiFillerSpam && (typeof gcdSpell.antiFillerSpam.isFiller === 'function' ? gcdSpell.antiFillerSpam.isFiller(event, combatant, targets, lastCast) : gcdSpell.antiFillerSpam.isFiller);
-        if (isFillerEval || gcdSpell.category === Abilities.SPELL_CATEGORIES.UTILITY) {
-          return;
-        }
-
         const isOffCooldown = this.spellUsable.isAvailable(gcdSpellId);
+        const args = [event, combatant, targets];
+        const isHighPriority = (gcdSpell.antiFillerSpam.isHighPriority !== undefined) ? resolveValue(gcdSpell.antiFillerSpam.isHighPriority, ...args) : false;
 
-        const args = [event, combatant, targets, lastCast];
-        const meetsCondition = (gcdSpell.antiFillerSpam.condition !== undefined) ? resolveValue(gcdSpell.antiFillerSpam.condition, ...args) : true;
-
-        if (!meetsCondition) {
-          return;
-        }
-
-        if (!isOffCooldown) {
+        if (!isOffCooldown || !isHighPriority) {
           return;
         }
 
@@ -106,13 +87,29 @@ class AntiFillerSpam extends Analyzer {
           [Available non-filler]
           - ${gcdSpellId} ${SPELLS[gcdSpellId].name}
           - offCD: ${isOffCooldown}
-          - canBeCast: ${meetsCondition}
+          - isHighPriority: ${isHighPriority}
         `);
-        availableSpells.push(gcdSpellId);
+        availableSpells.push(gcdSpell);
       });
 
     if (availableSpells.length > 0) {
       this._unnecessaryFillerSpells += 1;
+      let text = '';
+      for (let i = 0; i < availableSpells.length; i++){
+        if (availableSpells[i].primarySpell.id === SPELLS.MOONFIRE.id) {
+          text += 'a Galactic Guardian proc';
+        } else {
+          text += availableSpells[i].name;
+        }
+        if (i + 2 < availableSpells.length){
+          text += ', ';
+        } else if (i + 1 < availableSpells.length){
+          text += ' and ';
+        }
+      }
+      event.meta = event.meta || {};
+      event.meta.isInefficientCast = true;
+      event.meta.inefficientCastReason = `This spell was cast while ${text} was available.`;
     }
     debug && console.groupEnd();
   }

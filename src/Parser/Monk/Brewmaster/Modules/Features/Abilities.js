@@ -138,6 +138,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id),
+        cooldown: 180,
       },
       {
         spell: SPELLS.SUMMON_BLACK_OX_STATUE_TALENT,

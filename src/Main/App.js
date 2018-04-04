@@ -28,6 +28,7 @@ import { title as UnlistedLogsTitle } from './News/Articles/2017-01-31-UnlistedL
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 import ServiceStatus from './ServiceStatus';
 import Report from './Report';
+import ContributorDetails from './Contributors/ContributorDetails';
 
 function isIE() {
   const myNav = navigator.userAgent.toLowerCase();
@@ -147,6 +148,9 @@ class App extends React.Component {
 
     return (
       <Switch>
+        <Route path="/contributor/:id" render={({ match }) => (
+          <ContributorDetails contributorId={decodeURI(match.params.id.replace(/\+/g, ' '))} />
+        )} />
         <Route path="/news/:articleId" render={({ match }) => (
           <NewsView articleId={decodeURI(match.params.articleId.replace(/\+/g, ' '))} />
         )} />

@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 import BlackoutCombo from './BlackoutCombo';
 import SharedBrews from '../Core/SharedBrews';
@@ -13,6 +14,7 @@ const FACE_PALM_REDUCTION = 1000;
 
 class TigerPalm extends Analyzer {
   static dependencies = {
+    combatants: Combatants,
     boc: BlackoutCombo,
     brews: SharedBrews,
     statTracker: StatTracker,
@@ -35,6 +37,25 @@ class TigerPalm extends Analyzer {
 
   get facePalmHits() {
     return this.fpHits + this.bocFpHits;
+  }
+
+  get totalBocHits() {
+    return this.bocHits + this.bocFpHits;
+  }
+
+  get bocEmpoweredThreshold() {
+    if(!this.combatants.selected.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id)) {
+      return null;
+    } 
+    return {
+      actual: this.totalBocHits / this.totalCasts,
+      isLessThan: {
+        minor: 0.095,
+        average: 0.9,
+        major: 0.85,
+      },
+      style: 'percentage',
+    };
   }
 
   on_byPlayer_applybuff(event) {
