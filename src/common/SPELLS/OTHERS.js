@@ -963,6 +963,9 @@ export default {
     id: 252550,
     icon: 'spell_fire_ragnaros_supernova',
   },
+  SWAP_HOUNDS: { //swaps the Eye trinket from Hounds
+    id: 252075,
+  },
   // Antorus: Argus the Unmaker boss fight
   STRENGTH_OF_THE_SEA: { // 2000 Haste/versa buff
     id: 253901,

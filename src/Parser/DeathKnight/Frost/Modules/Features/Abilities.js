@@ -87,7 +87,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FROST_STRIKE,
+        spell: SPELLS.FROST_STRIKE_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
       {

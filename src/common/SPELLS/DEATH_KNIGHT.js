@@ -231,14 +231,39 @@ export default {
     name: 'Sindragosa\'s Fury',
     icon: 'achievement_boss_sindragosa',
   },
+  CRYSTALLINE_SWORDS_1: {
+    id: 205164,
+    name: 'Crystalline Swords',
+    icon: 'spell_frost_iceshard',
+  },
+  CRYSTALLINE_SWORDS_2: {
+    id: 205165,
+    name: 'Crystalline Swords',
+    icon: 'spell_frost_iceshard',
+  },
+  CRYSTALLINE_SWORDS_THRONEBREAKER: {
+    id: 243122,
+    name: 'Crystalline Swords (Thronebreaker)',
+    icon: 'spell_frost_iceshard',
+  },
   // Damage Dealing
   FROST_FEVER: {
     id: 55095,
     name: 'Frost Fever',
     icon: 'spell_deathknight_frostfever',
   },
-  FROST_STRIKE: {
+  FROST_STRIKE_CAST: {
     id: 49143,
+    name: 'Frost Strike',
+    icon: 'spell_deathknight_empowerruneblade2',
+  },
+  FROST_STRIKE_MAIN_HAND_DAMAGE: {
+    id: 222026,
+    name: 'Frost Strike',
+    icon: 'spell_deathknight_empowerruneblade2',
+  },
+  FROST_STRIKE_OFF_HAND_DAMAGE: {
+    id: 66196,
     name: 'Frost Strike',
     icon: 'spell_deathknight_empowerruneblade2',
   },

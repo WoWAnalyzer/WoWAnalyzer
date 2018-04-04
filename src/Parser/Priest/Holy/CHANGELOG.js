@@ -1,10 +1,47 @@
-export default `
-12-01-2018 - Added Divine Hymn buff contribution (by enragednuke)
-06-11-2017 - Added support for T21 (by Dyspho)
-03-09-2017 - Added Echo of Light (Mastery) breakdown (by enragednuke)
-22-07-2017 - Added Holy Word: Sanctify efficiency metric and fixed an issue with Prayer of Mending cast efficiency (by enragednuke)
-05-07-2017 - Added Enduring Renewal, Light of Tuure (incl. buff) and fixed a bug that greatly overvalued Divinity (by enragednuke)
-04-07-2017 - Added Divinity talent. (by Skamer)
-02-07-2017 - Apotheosis now correctly reduces the mana cost of Holy Word spells. Added Symbol of Hope talent. (by Skamer)
-01-07-2016 - Added <span class="Priest">Holy Priest</span> support by <b>@enragednuke</b>.
-`;
+import React from 'react';
+
+import { enragednuke, Dyspho, Skamer } from 'CONTRIBUTORS';
+import Wrapper from 'common/Wrapper';
+
+export default [
+  {
+    date: new Date('01-12-2018'),
+    changes: 'Added Divine Hymn buff contribution',
+    contributors: [enragednuke],
+  },
+  {
+    date: new Date('11-06-2017'),
+    changes: 'Added support for T21',
+    contributors: [Dyspho],
+  },
+  {
+    date: new Date('09-03-2017'),
+    changes: 'Added Echo of Light (Mastery) breakdown',
+    contributors: [enragednuke],
+  },
+  {
+    date: new Date('07-22-2017'),
+    changes: 'Added Holy Word: Sanctify efficiency metric and fixed an issue with Prayer of Mending cast efficiency',
+    contributors: [enragednuke],
+  },
+  {
+    date: new Date('07-05-2017'),
+    changes: 'Added Enduring Renewal, Light of Tuure (incl. buff) and fixed a bug that greatly overvalued Divinity',
+    contributors: [enragednuke],
+  },
+  {
+    date: new Date('07-04-2017'),
+    changes: 'Added Divinity talent.',
+    contributors: [Skamer],
+  },
+  {
+    date: new Date('07-02-2017'),
+    changes: 'Apotheosis now correctly reduces the mana cost of Holy Word spells. Added Symbol of Hope talent.',
+    contributors: [Skamer],
+  },
+  {
+    date: new Date('07-01-2016'),
+    changes: <Wrapper>Added <span class="Priest">Holy Priest</span> support</Wrapper>,
+    contributors: [enragednuke],
+  },
+];
