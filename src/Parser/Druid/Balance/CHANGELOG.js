@@ -20,7 +20,7 @@ export default [
   },
   { 
     date: new Date('2018-3-15'),
-    changes: <Wrapper>Highlight inefficient <SpellLink id={SPELLS.LUNAR_STRIKE.id} icon /> and <SpellLink id={SPELLS.SOLAR_WRATH.id} icon /> casts on the timeline.</Wrapper>,
+    changes: <Wrapper>Highlight inefficient <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> and <SpellLink id={SPELLS.SOLAR_WRATH.id} /> casts on the timeline.</Wrapper>,
     contributors: [Gebuz],
   },
   { 
@@ -75,12 +75,12 @@ export default [
   },
   {
     date: new Date('2017-9-20'),
-    changes: <Wrapper>Minor fixes to Unempowered <SpellLink id={SPELLS.LUNAR_STRIKE.id} icon /> module.</Wrapper>,
+    changes: <Wrapper>Minor fixes to Unempowered <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> module.</Wrapper>,
     contributors: [Iskalla],
   },
   {
     date: new Date('2017-9-12'),
-    changes: <Wrapper>Added a module to track Unempowered <SpellLink id={SPELLS.LUNAR_STRIKE.id} icon /> casts.</Wrapper>,
+    changes: <Wrapper>Added a module to track Unempowered <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> casts.</Wrapper>,
     contributors: [Iskalla],
   },
   {
@@ -110,7 +110,7 @@ export default [
   },
   {
     date: new Date('2017-9-02'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.MOONFIRE_BEAR.id} icon /> and <SpellLink id={SPELLS.SUNFIRE.id} icon /> uptime modules.</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> and <SpellLink id={SPELLS.SUNFIRE.id} /> uptime modules.</Wrapper>,
     contributors: [Iskalla],
   },
   {

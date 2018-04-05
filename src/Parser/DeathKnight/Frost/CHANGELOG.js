@@ -25,7 +25,7 @@ export default [
     },
     {
       date: new Date('2018-02-11'),
-      changes: <Wrapper>Added stat box for <SpellLink id={SPELLS.GATHERING_STORM_TALENT.id} icon /></Wrapper>,
+      changes: <Wrapper>Added stat box for <SpellLink id={SPELLS.GATHERING_STORM_TALENT.id} /></Wrapper>,
       contributors: [Khazak],
     },
     {
@@ -35,7 +35,7 @@ export default [
     },
     {
       date: new Date('2018-01-30'),
-      changes: <Wrapper>Added stats for <SpellLink id={SPELLS.FROST_DEATH_KNIGHT_T21_2SET_BONUS.id} icon /> and <SpellLink id={SPELLS.FROST_DEATH_KNIGHT_T21_4SET_BONUS.id} icon /> </Wrapper>,
+      changes: <Wrapper>Added stats for <SpellLink id={SPELLS.FROST_DEATH_KNIGHT_T21_2SET_BONUS.id} /> and <SpellLink id={SPELLS.FROST_DEATH_KNIGHT_T21_4SET_BONUS.id} /> </Wrapper>,
       contributors: [Khazak],
     },
     {
@@ -45,7 +45,7 @@ export default [
     },
     {
       date: new Date('2017-11-07'),
-      changes: <Wrapper>Added <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} icon /> and <SpellLink id={SPELLS.INEXORABLE_ASSAULT_TALENT.id} icon /> talent support; changed extra info.</Wrapper>,
+      changes: <Wrapper>Added <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> and <SpellLink id={SPELLS.INEXORABLE_ASSAULT_TALENT.id} /> talent support; changed extra info.</Wrapper>,
       contributors: [Bonebasher],
     },
     {

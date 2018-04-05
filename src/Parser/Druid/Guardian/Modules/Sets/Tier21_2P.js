@@ -43,7 +43,7 @@ class Tier21_2P extends Analyzer {
     return {
       id: `spell-${SPELLS.GUARDIAN_TIER_21_2P_SET_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.BARKSKIN.id} />,
-      title: <SpellLink id={SPELLS.GUARDIAN_TIER_21_2P_SET_BONUS.id} />,
+      title: <SpellLink id={SPELLS.GUARDIAN_TIER_21_2P_SET_BONUS.id} icon={false} />,
       result: `Total reduction: ${formatTimer(this.totalReductionMs)} seconds`,
     };
   }

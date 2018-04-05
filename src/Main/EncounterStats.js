@@ -5,19 +5,16 @@ import SPECS from 'common/SPECS';
 import ROLES from 'common/ROLES';
 import ITEMS from 'common/ITEMS';
 import fetchWcl from 'common/fetchWcl';
-import ActivityIndicator from 'Main/ActivityIndicator';
-
 import Icon from 'common/Icon';
 import ItemLink from 'common/ItemLink';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
+import ActivityIndicator from 'Main/ActivityIndicator';
 
-
-/*
-  Show statistics (talents, trinkets, legendaries) for the current boss, specID and difficulty
-*/
-
+/**
+ Show statistics (talents, trinkets, legendaries) for the current boss, specID and difficulty
+ */
 class EncounterStats extends React.PureComponent {
   static propTypes = {
     currentBoss: PropTypes.number.isRequired,
@@ -69,7 +66,7 @@ class EncounterStats extends React.PureComponent {
       case ROLES.HEALER:
         this.metric = 'hps';
         break;
-    
+
       default:
         this.metric = 'dps';
         break;
@@ -112,8 +109,12 @@ class EncounterStats extends React.PureComponent {
         talents.push(talentRow);
       });
 
-      trinkets.sort((a,b) => {return (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0);} );
-      legendaries.sort((a,b) => {return (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0);} );
+      trinkets.sort((a, b) => {
+        return (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0);
+      });
+      legendaries.sort((a, b) => {
+        return (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0);
+      });
 
       this.setState({
         mostUsedTrinkets: trinkets.slice(0, this.SHOW_TOP_ENTRYS),
@@ -158,17 +159,17 @@ class EncounterStats extends React.PureComponent {
   singleItem(item, index) {
     return <div className="col-md-12 flex-main" key={item.id} style={{ textAlign: 'left', margin: '5px auto' }}>
       <div className="row">
-        <div className="col-md-2" style={{ opacity: '.8', fontSize: '.9em', lineHeight: '2em', textAlign: 'right'}}>
+        <div className="col-md-2" style={{ opacity: '.8', fontSize: '.9em', lineHeight: '2em', textAlign: 'right' }}>
           {formatPercentage(item.amount / this.LIMIT, 0)}%
         </div>
         <div className="col-md-10">
-          <ItemLink id={item.id} className={ item.quality }>
+          <ItemLink id={item.id} className={item.quality} icon={false}>
             <Icon
               icon={this.state.items[item.id] === undefined ? this.state.items[0].icon : this.state.items[item.id].icon}
               className={item.quality}
               style={{ width: '2em', height: '2em', border: '1px solid', marginRight: 10 }}
             />
-            { item.name }
+            {item.name}
           </ItemLink>
         </div>
       </div>
@@ -182,7 +183,7 @@ class EncounterStats extends React.PureComponent {
       return (
         <div style={{ border: 0 }}>
           <div className="panel-heading" style={{ padding: 20, marginBottom: 20 }}>
-            <h2>Statistics of this fight of the top { this.LIMIT } logs, ranked by { this.metric.toLocaleUpperCase() }</h2>
+            <h2>Statistics of this fight of the top {this.LIMIT} logs, ranked by {this.metric.toLocaleUpperCase()}</h2>
           </div>
           <div className="flex-main">
             <div className="row">
@@ -212,12 +213,14 @@ class EncounterStats extends React.PureComponent {
                 <div className="panel-heading" style={{ boxShadow: 'none', borderBottom: 0 }}>
                   <h2>Most used Talents</h2>
                 </div>
-                {this.state.mostUsedTalents.map((row, index) => 
+                {this.state.mostUsedTalents.map((row, index) =>
                   <div className="row" key={index} style={{ marginBottom: 15, paddingLeft: 20 }}>
-                    <div className="col-md-1" style={{ lineHeight: '3em', textAlign: 'right'}}>{rows[index]}</div>
-                    {Object.keys(row).sort((a,b) => {return row[b]-row[a];}).map((talent, talentIndex) => 
+                    <div className="col-md-1" style={{ lineHeight: '3em', textAlign: 'right' }}>{rows[index]}</div>
+                    {Object.keys(row).sort((a, b) => {
+                      return row[b] - row[a];
+                    }).map((talent, talentIndex) =>
                       <div key={talentIndex} className="col-md-2" style={{ textAlign: 'center' }}>
-                        <SpellLink id={parseInt(talent, 10)}>
+                        <SpellLink id={parseInt(talent, 10)} icon={false}>
                           <SpellIcon style={{ width: '3em', height: '3em' }} id={parseInt(talent, 10)} noLink />
                         </SpellLink>
                         <span style={{ textAlign: 'center', display: 'block' }}>{formatPercentage(row[talent] / this.LIMIT, 0)}%</span>
@@ -233,7 +236,7 @@ class EncounterStats extends React.PureComponent {
     } else {
       return (
         <div className="panel-heading" style={{ marginTop: 40, padding: 20, boxShadow: 'none', borderBottom: 0 }}>
-          <ActivityIndicator text={ this.state.message } />
+          <ActivityIndicator text={this.state.message} />
         </div>
       );
     }

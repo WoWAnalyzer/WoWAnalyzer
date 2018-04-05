@@ -2,7 +2,7 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
@@ -27,9 +27,7 @@ class BeastCleave extends Analyzer {
       return (
         <div className="flex">
           <div className="flex-main">
-            <SpellLink id={SPELLS.BEAST_CLEAVE.id}>
-              <SpellIcon id={SPELLS.BEAST_CLEAVE.id} noLink /> Beast Cleave
-            </SpellLink>
+            <SpellLink id={SPELLS.BEAST_CLEAVE.id} />
           </div>
           <div className="flex-sub text-right">
             <ItemDamageDone amount={this.damage} />

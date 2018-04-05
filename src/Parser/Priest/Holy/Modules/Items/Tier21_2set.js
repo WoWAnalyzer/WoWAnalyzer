@@ -50,7 +50,7 @@ class Tier21_2set extends Analyzer {
     return {
       id: `spell-${SPELLS.HOLY_PRIEST_T21_2SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.HOLY_PRIEST_T21_2SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.HOLY_PRIEST_T21_2SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.HOLY_PRIEST_T21_2SET_BONUS_BUFF.id} icon={false} />,
       result: (
         <dfn data-tip={`A total ${totalProc} procs were used:
         <ul>

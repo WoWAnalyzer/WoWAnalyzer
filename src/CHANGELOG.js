@@ -60,7 +60,7 @@ export default [
   },
   {
     date: new Date('2018-03-15'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.MASTER_OF_COMBINATIONS.id} icon />, <SpellLink id={SPELLS.FURY_OF_ASHAMANE.id} icon />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SKY.id} icon />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SEA.id} icon /> and <SpellLink id={SPELLS.SERAPHIM_TALENT.id} icon /> to the stat tracker, slightly improving stat weights and any Haste based modules.</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.MASTER_OF_COMBINATIONS.id} />, <SpellLink id={SPELLS.FURY_OF_ASHAMANE.id} />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SKY.id} />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SEA.id} /> and <SpellLink id={SPELLS.SERAPHIM_TALENT.id} /> to the stat tracker, slightly improving stat weights and any Haste based modules.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {
@@ -70,7 +70,7 @@ export default [
   },
   {
     date: new Date('2018-02-21'),
-    changes: <Wrapper>Moved <SpellLink id={SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_AGILITY.id} icon /> statistic into the Netherlight Crucible list and renamed it.</Wrapper>,
+    changes: <Wrapper>Moved <SpellLink id={SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_AGILITY.id} /> statistic into the Netherlight Crucible list and renamed it.</Wrapper>,
     contributors: [Putro],
   },
   {
@@ -110,7 +110,7 @@ export default [
   },
   {
     date: new Date('2018-01-15'),
-    changes: <Wrapper>Fixed a bug where friendly fire damage (from for example the passive of <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} icon />) would be included in the damage gain from <ItemLink id={ITEMS.GNAWED_THUMB_RING.id} />.</Wrapper>,
+    changes: <Wrapper>Fixed a bug where friendly fire damage (from for example the passive of <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} />) would be included in the damage gain from <ItemLink id={ITEMS.GNAWED_THUMB_RING.id} />.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {

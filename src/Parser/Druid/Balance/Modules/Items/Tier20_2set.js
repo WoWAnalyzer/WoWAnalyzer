@@ -37,7 +37,7 @@ class Tier20_2set extends Analyzer {
     return {
       id: SPELLS.BALANCE_DRUID_T20_2SET_BONUS_BUFF.id,
       icon: <SpellIcon id={SPELLS.BALANCE_DRUID_T20_2SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.BALANCE_DRUID_T20_2SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.BALANCE_DRUID_T20_2SET_BONUS_BUFF.id} icon={false} />,
       result: (
         <dfn data-tip={`
           This does not take into account any potential damage gained from having 30 more maximum Astral Power.

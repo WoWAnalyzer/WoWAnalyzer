@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
@@ -17,7 +17,7 @@ class SoulHarvestTalent extends SharedSoulHarvestTalent {
       <div className="flex">
         <div className="flex-main">
           <SpellLink id={SPELLS.SOUL_HARVEST_TALENT.id}>
-            <SpellIcon id={SPELLS.SOUL_HARVEST_TALENT.id} noLink /> Soul Harvest Gain
+            Soul Harvest Gain
           </SpellLink>
         </div>
         <div className="flex-sub text-right">

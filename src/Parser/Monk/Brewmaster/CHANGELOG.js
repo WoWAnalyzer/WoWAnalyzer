@@ -10,7 +10,7 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-03-19'),
-    changes: <Wrapper>Converted <SpellLink id={SPELLS.BREATH_OF_FIRE.id} icon /> from uptime to hit tracking and updated hit tracking for <SpellLink id={SPELLS.IRONSKIN_BREW.id} icon />.</Wrapper>,
+    changes: <Wrapper>Converted <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> from uptime to hit tracking and updated hit tracking for <SpellLink id={SPELLS.IRONSKIN_BREW.id} />.</Wrapper>,
     contributors: [emallson],
   },
   {
@@ -20,7 +20,7 @@ export default [
   },
   {
     date: new Date('2018-01-27'),
-    changes: <Wrapper>Added statistic for <SpellLink id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} icon /> effectiveness</Wrapper>,
+    changes: <Wrapper>Added statistic for <SpellLink id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} /> effectiveness</Wrapper>,
     contributors: [emallson],
   },
   {

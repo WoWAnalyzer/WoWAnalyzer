@@ -27,7 +27,7 @@ const SpellIcon = ({ id, noLink, ...others }) => {
   }
 
   return (
-    <SpellLink id={id}>
+    <SpellLink id={id} icon={false}>
       {icon}
     </SpellLink>
   );

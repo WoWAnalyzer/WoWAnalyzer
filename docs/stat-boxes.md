@@ -343,9 +343,7 @@ subStatistic() {
   return (
     <div className="flex">
       <div className="flex-main">
-        <SpellLink id={}>
-          <SpellIcon id={} noLink /> Artifact Trait Name
-        </SpellLink>
+        <SpellLink id={} />
       </div>
       <div className="flex-sub text-right">
         {formatPercentage(this.valueToDisplay)} %

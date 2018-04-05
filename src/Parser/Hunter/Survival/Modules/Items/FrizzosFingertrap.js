@@ -42,7 +42,7 @@ class FrizzosFingertrap extends Analyzer {
   item() {
     return {
       item: ITEMS.FRIZZOS_FINGERTRAP,
-      result: <Wrapper>Spread <SpellLink id={SPELLS.LACERATE.id} icon /> to {this.spreadLacerates} additional targets. </Wrapper>,
+      result: <Wrapper>Spread <SpellLink id={SPELLS.LACERATE.id} /> to {this.spreadLacerates} additional targets. </Wrapper>,
     };
   }
 }

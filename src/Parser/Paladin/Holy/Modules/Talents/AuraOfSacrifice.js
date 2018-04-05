@@ -49,7 +49,7 @@ class AuraOfSacrifice extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <Wrapper>
-          The healing done by your <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} icon /> is low. Try to find a better moment to cast it, improve your usage or consider changing to <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} icon /> or <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} icon /> which can be more reliable and often do as much healing with less effort.
+          The healing done by your <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> is low. Try to find a better moment to cast it, improve your usage or consider changing to <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} /> or <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> which can be more reliable and often do as much healing with less effort.
         </Wrapper>
       )
         .icon(SPELLS.AURA_OF_SACRIFICE_TALENT.icon)

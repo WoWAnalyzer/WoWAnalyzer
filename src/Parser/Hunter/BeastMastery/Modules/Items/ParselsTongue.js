@@ -123,7 +123,7 @@ class ParselsTongue extends Analyzer {
   }
   suggestions(when) {
     when(this.timesDroppedThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You lost <SpellLink id={SPELLS.PARSELS_TONGUE_BUFF.id} icon /> buff {this.timesDropped} times, try and avoid this if possible.</Wrapper>)
+      return suggest(<Wrapper>You lost <SpellLink id={SPELLS.PARSELS_TONGUE_BUFF.id} /> buff {this.timesDropped} times, try and avoid this if possible.</Wrapper>)
         .icon(ITEMS.PARSELS_TONGUE.icon)
         .actual(`${actual} times dropped`)
         .recommended(`${recommended} times dropped is recommended`);

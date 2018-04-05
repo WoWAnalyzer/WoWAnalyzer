@@ -10,17 +10,17 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-03-24'),
-    changes: <Wrapper>Check for bad casts during <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} icon /> and intital <SpellLink id={SPELLS.MARROWREND.id} icon /> cast without <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} icon />.</Wrapper>,
+    changes: <Wrapper>Check for bad casts during <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> and intital <SpellLink id={SPELLS.MARROWREND.id} /> cast without <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} />.</Wrapper>,
     contributors: [joshinator],
   },
   {
     date: new Date('2018-03-22'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.BONESTORM_TALENT.id} icon />-Module to track bad casts</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.BONESTORM_TALENT.id} />-Module to track bad casts</Wrapper>,
     contributors: [joshinator],
   },
   {
     date: new Date('2018-03-17'),
-    changes: <Wrapper>Updated the <SpellLink id={SPELLS.BONE_SHIELD.id} icon />-Module.</Wrapper>,
+    changes: <Wrapper>Updated the <SpellLink id={SPELLS.BONE_SHIELD.id} />-Module.</Wrapper>,
     contributors: [joshinator],
   },
   {
@@ -30,22 +30,22 @@ export default [
   },
   {
     date: new Date('2018-03-14'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.SOULDRINKER_TRAIT.id} icon />-Module to track the average HP-bonus.</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.SOULDRINKER_TRAIT.id} />-Module to track the average HP-bonus.</Wrapper>,
     contributors: [joshinator],
   },
   {
     date: new Date('2018-03-11'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.MARROWREND.id} icon />-Module to track bad casts</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.MARROWREND.id} />-Module to track bad casts</Wrapper>,
     contributors: [joshinator],
   },
   {
     date: new Date('2018-03-10'),
-    changes: <Wrapper>Made <SpellLink id={SPELLS.OSSUARY_TALENT.id} icon />-Module more detailed by adding a RP counter</Wrapper>,
+    changes: <Wrapper>Made <SpellLink id={SPELLS.OSSUARY_TALENT.id} />-Module more detailed by adding a RP counter</Wrapper>,
     contributors: [joshinator],
   },
   {
     date: new Date('2018-03-10'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.DEATH_STRIKE.id} icon /> Timing plot</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.DEATH_STRIKE.id} /> Timing plot</Wrapper>,
     contributors: [joshinator],
   },
   {
@@ -55,12 +55,12 @@ export default [
   },
   {
     date: new Date('2018-02-17'),
-    changes: <Wrapper>Added cooldown reduction from <SpellLink id={SPELLS.RED_THIRST_TALENT.id} icon />.</Wrapper>,
+    changes: <Wrapper>Added cooldown reduction from <SpellLink id={SPELLS.RED_THIRST_TALENT.id} />.</Wrapper>,
     contributors: [Gebuz],
   },
   {
     date: new Date('2018-02-14'),
-    changes: <Wrapper>Updated the checklist and added Rune efficiency, <SpellLink id={SPELLS.DEATH_AND_DECAY.id} icon /> and <SpellLink id={SPELLS.BLOOD_TAP_TALENT.id} icon /> to it.</Wrapper>,
+    changes: <Wrapper>Updated the checklist and added Rune efficiency, <SpellLink id={SPELLS.DEATH_AND_DECAY.id} /> and <SpellLink id={SPELLS.BLOOD_TAP_TALENT.id} /> to it.</Wrapper>,
     contributors: [Gebuz],
   },
   {
@@ -90,7 +90,7 @@ export default [
   },
   {
     date: new Date('2018-01-21'),
-    changes: <Wrapper>Reworked the <SpellLink id={SPELLS.UNENDING_THIRST.id} icon /> Module.</Wrapper>,
+    changes: <Wrapper>Reworked the <SpellLink id={SPELLS.UNENDING_THIRST.id} /> Module.</Wrapper>,
     contributors: [Yajinni],
   },
   {
@@ -105,7 +105,7 @@ export default [
   },
   {
     date: new Date('2017-11-19'),
-    changes: <Wrapper>Added tracking for <SpellLink id={SPELLS.UNENDING_THIRST.id} icon /> / Empowered Death Strikes.</Wrapper>,
+    changes: <Wrapper>Added tracking for <SpellLink id={SPELLS.UNENDING_THIRST.id} /> / Empowered Death Strikes.</Wrapper>,
     contributors: [Yajinni],
   },
   {
@@ -115,7 +115,7 @@ export default [
   },
   {
     date: new Date('2017-10-03'),
-    changes: <Wrapper>Updated cast efficency ratios and text. Added <SpellLink id={SPELLS.VAMPIRIC_BLOOD.id} icon /> and <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} icon /> to the Cooldown Tab for further analysis.</Wrapper>,
+    changes: <Wrapper>Updated cast efficency ratios and text. Added <SpellLink id={SPELLS.VAMPIRIC_BLOOD.id} /> and <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> to the Cooldown Tab for further analysis.</Wrapper>,
     contributors: [Yajinni],
   },
   {
@@ -130,12 +130,12 @@ export default [
   },
   {
     date: new Date('2017-09-09'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} icon />r tracking.</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} />r tracking.</Wrapper>,
     contributors: [Yajinni],
   },
   {
     date: new Date('2017-09-07'),
-    changes: <Wrapper>Updated haste calculates for spells. Added <SpellLink id={SPELLS.BONE_SHIELD.id} icon /> haste buff.</Wrapper>,
+    changes: <Wrapper>Updated haste calculates for spells. Added <SpellLink id={SPELLS.BONE_SHIELD.id} /> haste buff.</Wrapper>,
     contributors: [Yajinni],
   },
   {

@@ -48,7 +48,7 @@ describe('performanceForThresholds', () => {
 
     it('should report 0 for 0', () => {
       expect(performanceForThresholds(lessThanThreshold(-0.7, 'major'))).toBe(0);
-    })
+    });
   });
 
   describe('isGreaterThan', () => {
@@ -78,7 +78,7 @@ describe('performanceForThresholds', () => {
 
     it('should report 0 for ∞', () => {
       expect(performanceForThresholds(greaterThanThreshold(Infinity, 'major'))).toBe(0);
-    })
+    });
   });
 
   describe('the yajinni test-case', () => {
@@ -86,12 +86,12 @@ describe('performanceForThresholds', () => {
       const pallyThresh = greaterThanThreshold(0.3109, 'absolute', {
         minor: 0.15,
         average: 0.25,
-        major: 0.35
+        major: 0.35,
       });
       const dkThresh = greaterThanThreshold(0.3106, 'absolute', {
         minor: 0.2,
         average: 0.3,
-        major: 0.4
+        major: 0.4,
       });
 
       expect(performanceForThresholds(dkThresh)).toBeGreaterThan(performanceForThresholds(pallyThresh));

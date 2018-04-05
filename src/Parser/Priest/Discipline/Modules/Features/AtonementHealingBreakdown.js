@@ -34,7 +34,7 @@ class AtonementHealingBreakdown extends React.Component {
       case SPELLS.REFRESHING_AGONY_DOT.id:
         return <ItemLink id={ITEMS.CARAFE_OF_SEARING_LIGHT.id} />;
       case -2: // Melee
-        return <SpellLink id={SPELLS.LIGHTSPAWN.id} icon />;
+        return <SpellLink id={SPELLS.LIGHTSPAWN.id} />;
       default: return null;
     }
   }

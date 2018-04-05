@@ -274,7 +274,7 @@ class StaggerPoolGraph extends Analyzer {
         <Tab>
           {this.plot()}
           <div style={{ paddingLeft: '1em' }}>
-            Damage you take is placed into a <em>pool</em> by <SpellLink id={SPELLS.STAGGER.id} icon />. This damage is then removed by the damage-over-time component of <SpellLink id={SPELLS.STAGGER.id} icon /> or by <SpellLink id={SPELLS.PURIFYING_BREW.id} icon /> (or other sources of purification). This plot shows the amount of damage pooled over the course of the fight.
+            Damage you take is placed into a <em>pool</em> by <SpellLink id={SPELLS.STAGGER.id} />. This damage is then removed by the damage-over-time component of <SpellLink id={SPELLS.STAGGER.id} /> or by <SpellLink id={SPELLS.PURIFYING_BREW.id} /> (or other sources of purification). This plot shows the amount of damage pooled over the course of the fight.
           </div>
         </Tab>
       ),

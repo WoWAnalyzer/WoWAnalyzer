@@ -10,7 +10,7 @@ import Wrapper from 'common/Wrapper';
 export default [
   {
     date: new Date('2018-03-15'),
-    changes: <Wrapper>Added module tracking bad casts of <SpellLink id={SPELLS.BLACKOUT_KICK.id} icon /> </Wrapper>,
+    changes: <Wrapper>Added module tracking bad casts of <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> </Wrapper>,
     contributors: [Juko8],
   },
   {
@@ -30,22 +30,22 @@ export default [
   },
   {
     date: new Date('2018-02-16'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} icon /> statistics and suggestion</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> statistics and suggestion</Wrapper>,
     contributors: [Juko8],
   },
   {
     date: new Date('2018-01-27'),
-    changes: <Wrapper>Added item breakdown for <ItemLink id={ITEMS.DRINKING_HORN_COVER.id} icon /> showing average time gained for each <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} icon /> or <SpellLink id={SPELLS.SERENITY_TALENT.id} /> cast</Wrapper>,
+    changes: <Wrapper>Added item breakdown for <ItemLink id={ITEMS.DRINKING_HORN_COVER.id} icon /> showing average time gained for each <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} /> or <SpellLink id={SPELLS.SERENITY_TALENT.id} /> cast</Wrapper>,
     contributors: [Juko8],
   },
   {
     date: new Date('2018-01-24'),
-    changes: <Wrapper>Added Statistic showing actual casts vs expected casts of important spells during <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} icon /> or <SpellLink id={SPELLS.SERENITY_TALENT.id} icon /></Wrapper>,
+    changes: <Wrapper>Added Statistic showing actual casts vs expected casts of important spells during <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} /> or <SpellLink id={SPELLS.SERENITY_TALENT.id} /></Wrapper>,
     contributors: [Juko8],
   },
   {
     date: new Date('2018-01-20'),
-    changes: <Wrapper>Updated Cooldown Tracker to include extended <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} icon /> duration from <ItemLink id={ITEMS.DRINKING_HORN_COVER.id} /></Wrapper>,
+    changes: <Wrapper>Updated Cooldown Tracker to include extended <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} /> duration from <ItemLink id={ITEMS.DRINKING_HORN_COVER.id} /></Wrapper>,
     contributors: [Juko8],
   },
   {
@@ -55,7 +55,7 @@ export default [
   },
   {
     date: new Date('2017-12-05'),
-    changes: <Wrapper>Updated Cast Efficiency to better handle <SpellLink id={SPELLS.SERENITY_TALENT.id} icon /> cooldown reduction on <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} icon /> and <SpellLink id={SPELLS.STRIKE_OF_THE_WINDLORD.id} icon /></Wrapper>,
+    changes: <Wrapper>Updated Cast Efficiency to better handle <SpellLink id={SPELLS.SERENITY_TALENT.id} /> cooldown reduction on <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> and <SpellLink id={SPELLS.STRIKE_OF_THE_WINDLORD.id} /></Wrapper>,
     contributors: [Juko8],
   },
   {
@@ -70,22 +70,22 @@ export default [
   },
   {
     date: new Date('2017-11-07'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} icon /> damage from <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} icon /> clones in <ItemLink id={ITEMS.THE_EMPERORS_CAPACITOR.id} /> item breakdown</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} /> damage from <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} /> clones in <ItemLink id={ITEMS.THE_EMPERORS_CAPACITOR.id} /> item breakdown</Wrapper>,
     contributors: [Juko8],
   },
   {
     date: new Date('2017-11-06'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.ENERGIZING_ELIXIR_TALENT.id} icon /> energy gained calculation and statistic</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.ENERGIZING_ELIXIR_TALENT.id} /> energy gained calculation and statistic</Wrapper>,
     contributors: [Coryn],
   },
   {
     date: new Date('2017-11-05'),
-    changes: <Wrapper>Added basic display for <SpellLink id={SPELLS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT.id} icon /> to Cooldown Throughput with plans for refinement</Wrapper>,
+    changes: <Wrapper>Added basic display for <SpellLink id={SPELLS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT.id} /> to Cooldown Throughput with plans for refinement</Wrapper>,
     contributors: [Talby],
   },
   {
     date: new Date('2017-11-05'),
-    changes: <Wrapper>Updated Cast Efficiency - Added <SpellLink id={SPELLS.ENERGIZING_ELIXIR_TALENT.id} icon /> and fixed <SpellLink id={SPELLS.RUSHING_JADE_WIND_TALENT.id} icon /> showing when not talented</Wrapper>,
+    changes: <Wrapper>Updated Cast Efficiency - Added <SpellLink id={SPELLS.ENERGIZING_ELIXIR_TALENT.id} /> and fixed <SpellLink id={SPELLS.RUSHING_JADE_WIND_TALENT.id} /> showing when not talented</Wrapper>,
     contributors: [Talby],
   },
   {
@@ -95,7 +95,7 @@ export default [
   },
   {
     date: new Date('2017-10-23'),
-    changes: <Wrapper>Added tracking of <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} icon /> ticks</Wrapper>,
+    changes: <Wrapper>Added tracking of <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> ticks</Wrapper>,
     contributors: [Juko8],
   },
   {
@@ -125,7 +125,7 @@ export default [
   },
   {
     date: new Date('2017-10-13'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} icon /> tracking with suggestions and statistic</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> tracking with suggestions and statistic</Wrapper>,
     contributors: [Juko8],
   },
   {
@@ -135,7 +135,7 @@ export default [
   },
   {
     date: new Date('2017-09-24'),
-    changes: <Wrapper>Added additional Windwalker spells / cooldowns along with a simple <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} icon /> tracker</Wrapper>,
+    changes: <Wrapper>Added additional Windwalker spells / cooldowns along with a simple <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} /> tracker</Wrapper>,
     contributors: [Anomoly],
   },
   {

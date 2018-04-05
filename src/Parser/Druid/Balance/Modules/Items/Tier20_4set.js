@@ -78,7 +78,7 @@ class Tier20_4set extends Analyzer {
     return {
       id: SPELLS.BALANCE_DRUID_T20_4SET_BONUS_BUFF.id,
       icon: <SpellIcon id={SPELLS.BALANCE_DRUID_T20_4SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.BALANCE_DRUID_T20_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.BALANCE_DRUID_T20_4SET_BONUS_BUFF.id} icon={false} />,
       result: <Wrapper>{formatPercentage(this.averageHaste)} % average haste gained.</Wrapper>,
     };
   }

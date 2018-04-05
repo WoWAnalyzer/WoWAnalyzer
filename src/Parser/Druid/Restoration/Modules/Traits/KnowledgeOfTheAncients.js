@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
@@ -51,9 +51,7 @@ class KnowledgeOfTheAncients extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.KNOWLEDGE_OF_THE_ANCIENTS.id}>
-            <SpellIcon id={SPELLS.KNOWLEDGE_OF_THE_ANCIENTS.id} noLink /> Knowledge of the Ancients
-          </SpellLink>
+          <SpellLink id={SPELLS.KNOWLEDGE_OF_THE_ANCIENTS.id} />
         </div>
         <div className="flex-sub text-right">
           <dfn data-tip={`Knowledge of the Ancient saved you ${Math.floor(this.manaGained)} mana. The extra mana gained is translated to throughput by assuming you'd cast more rejuvenations.`}>

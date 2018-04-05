@@ -102,7 +102,6 @@ class SoulShardBreakdown extends React.Component {
             .map(ability => (
               <tr>
                 <td style={{ width: '30%' }}>
-                  <SpellIcon id={ability.abilityId} />{' '}
                   <SpellLink id={ability.abilityId} />
                 </td>
                 <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>

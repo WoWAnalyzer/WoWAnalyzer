@@ -55,7 +55,7 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Use core efficient spells on cooldown',
-      description: <Wrapper>Spells such as <SpellLink id={SPELLS.RIPTIDE.id} icon />, <SpellLink id={SPELLS.HEALING_RAIN_CAST.id} icon /> and <SpellLink id={SPELLS.HEALING_STREAM_TOTEM_CAST.id} icon /> are your most efficient spells available. Try to cast them as much as possible without overhealing. <dfn data-tip="When you're not bringing too many healers.">On Mythic*</dfn> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection. <a href="http://www.wowhead.com/restoration-shaman-rotation-guide#raid-healing-priority-list" target="_blank" rel="noopener noreferrer">More info.</a></Wrapper>,
+      description: <Wrapper>Spells such as <SpellLink id={SPELLS.RIPTIDE.id} />, <SpellLink id={SPELLS.HEALING_RAIN_CAST.id} /> and <SpellLink id={SPELLS.HEALING_STREAM_TOTEM_CAST.id} /> are your most efficient spells available. Try to cast them as much as possible without overhealing. <dfn data-tip="When you're not bringing too many healers.">On Mythic*</dfn> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection. <a href="http://www.wowhead.com/restoration-shaman-rotation-guide#raid-healing-priority-list" target="_blank" rel="noopener noreferrer">More info.</a></Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -122,25 +122,25 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <Wrapper>Maximize <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon /> usage</Wrapper>,
+      name: <Wrapper>Maximize <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> usage</Wrapper>,
       description: <Wrapper><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> buffed <SpellLink id={SPELLS.HEALING_WAVE.id} /> can make for some very efficient healing. You should try to use as many of the generated tidal waves as you can. You should also avoid using <SpellLink id={SPELLS.HEALING_WAVE.id} /> or <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} /> without a tidal wave.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
             name: <Wrapper>
-              Unused <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon />
+              Unused <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} />
             </Wrapper>,
             check: () => this.tidalWaves.suggestionThresholds,
           }),
           new Requirement({
             name: <Wrapper>
-              Unbuffed <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} icon />
+              Unbuffed <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} />
             </Wrapper>,
             check: () => this.healingSurge.suggestedThreshold,
           }),
           new Requirement({
             name: <Wrapper>
-              Unbuffed <SpellLink id={SPELLS.HEALING_WAVE.id} icon />
+              Unbuffed <SpellLink id={SPELLS.HEALING_WAVE.id} />
             </Wrapper>,
             check: () => this.healingWave.suggestedThreshold,
           }),
@@ -155,7 +155,7 @@ class Checklist extends CoreChecklist {
         return [
           new Requirement({
             name: <Wrapper>
-              <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} icon /> fed to <SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} icon />
+              <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} /> fed to <SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} />
             </Wrapper>,
             check: () => this.giftOfTheQueen.CBTTotemFeedingSuggestionThreshold,
             when: this.combatants.selected.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id),
@@ -170,19 +170,19 @@ class Checklist extends CoreChecklist {
         return [
           new Requirement({
             name: <Wrapper>
-              <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} icon /> target efficiency
+              <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} /> target efficiency
             </Wrapper>,
             check: () => this.giftOfTheQueen.giftOfQueenTargetEfficiencySuggestionThreshold,
           }),
           new Requirement({
             name: <Wrapper>
-              Average <SpellLink id={SPELLS.CHAIN_HEAL.id} icon /> targets
+              Average <SpellLink id={SPELLS.CHAIN_HEAL.id} /> targets
             </Wrapper>,
             check: () => this.chainHeal.suggestionThreshold,
           }),
           new Requirement({
             name: <Wrapper>
-              Average <SpellLink id={SPELLS.HEALING_RAIN_HEAL.id} icon /> targets
+              Average <SpellLink id={SPELLS.HEALING_RAIN_HEAL.id} /> targets
             </Wrapper>,
             check: () => this.healingRain.suggestionThreshold,
           }),

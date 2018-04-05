@@ -100,7 +100,7 @@ class Tier21_2set extends Analyzer {
     return {
       id: `spell-${SPELLS.WARLOCK_AFFLI_T21_2P_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.WARLOCK_AFFLI_T21_2P_BONUS.id} />,
-      title: <SpellLink id={SPELLS.WARLOCK_AFFLI_T21_2P_BONUS.id} />,
+      title: <SpellLink id={SPELLS.WARLOCK_AFFLI_T21_2P_BONUS.id} icon={false} />,
       result: (<Wrapper>
         {this._bonusTicks} bonus <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> ticks <br />
         <dfn data-tip={`${formatNumber(this._bonusDamage)} bonus damage`}>

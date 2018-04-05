@@ -40,12 +40,12 @@ export default [
   },
   {
     date: new Date('2018-01-02'),
-    changes: <Wrapper>Added Suggestion for <SpellLink id={SPELLS.PHOENIXS_FLAMES.id} icon /> Charge Count before <SpellLink id={SPELLS.COMBUSTION.id} icon /></Wrapper>,
+    changes: <Wrapper>Added Suggestion for <SpellLink id={SPELLS.PHOENIXS_FLAMES.id} /> Charge Count before <SpellLink id={SPELLS.COMBUSTION.id} /></Wrapper>,
     contributors: [Sharrq],
   },
   {
     date: new Date('2018-01-02'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.HEATING_UP.id} icon /> Module</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.HEATING_UP.id} /> Module</Wrapper>,
     contributors: [Sharrq],
   },
   {
@@ -60,12 +60,12 @@ export default [
   },
   {
     date: new Date('2017-12-02'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.HOT_STREAK.id} icon /> module</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.HOT_STREAK.id} /> module</Wrapper>,
     contributors: [Sharrq],
   },
   {
     date: new Date('2017-11-23'),
-    changes: <Wrapper>Added Cooldown Reduction for <SpellLink id={SPELLS.PHOENIXS_FLAMES.id} icon /></Wrapper>,
+    changes: <Wrapper>Added Cooldown Reduction for <SpellLink id={SPELLS.PHOENIXS_FLAMES.id} /></Wrapper>,
     contributors: [Sharrq],
   },
   {
@@ -75,17 +75,17 @@ export default [
   },
   {
     date: new Date('2017-11-22'),
-    changes: <Wrapper>Added Cooldown Reduction for <SpellLink id={SPELLS.COMBUSTION.id} icon /></Wrapper>,
+    changes: <Wrapper>Added Cooldown Reduction for <SpellLink id={SPELLS.COMBUSTION.id} /></Wrapper>,
     contributors: [Sharrq],
   },
   {
     date: new Date('2017-10-17'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.UNSTABLE_MAGIC_DAMAGE_FIRE.id} icon /> module</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.UNSTABLE_MAGIC_DAMAGE_FIRE.id} /> module</Wrapper>,
     contributors: [sref],
   },
   {
     date: new Date('2017-10-17'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.MIRROR_IMAGE_SUMMON.id} icon /> module</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.MIRROR_IMAGE_SUMMON.id} /> module</Wrapper>,
     contributors: [sref],
   },
   {
