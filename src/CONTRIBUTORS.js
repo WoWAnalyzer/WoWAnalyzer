@@ -11,9 +11,6 @@
       github: 'GITHUB_NAME',
       avatar: require('./Images/IMAGE'),
       desc: 'DESC',
-      maintainer: [
-        SPECS.BLOOD_DEATH_KNIGHT,
-      ],
       mains: [{
         name: "CHARNAME",
         spec: SPECS.BLOOD_DEATH_KNIGHT,
