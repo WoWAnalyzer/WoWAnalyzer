@@ -17,9 +17,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.WHIRLWIND.id,
     SPELLS.WARBREAKER.id,
     // Utility
-    SPELLS.CHARGE.id,
     SPELLS.HEROIC_THROW.id,
-    SPELLS.HEROIC_LEAP.id,
     // Talents
     SPELLS.SHOCKWAVE_TALENT.id,
     SPELLS.STORM_BOLT_TALENT.id,
