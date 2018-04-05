@@ -101,7 +101,7 @@ class ContributorDetails extends React.PureComponent {
 
     const value = [];
     Object.keys(object).forEach((key) => {
-      if (Array.isArray(object[key]) === true) {
+      if (Array.isArray(object[key])) {
         const subvalue = [];
         object[key].forEach((elem) => {
           subvalue.push(<div>{elem}</div>);
@@ -270,7 +270,7 @@ class ContributorDetails extends React.PureComponent {
                       <div className="panel-heading" style={{ cursor: 'pointer', userSelect: 'none' }} onClick={() => this.toggleClass(index)}>
                         <h2>{this.contributionHeader(type)} ({contributions[type].length} commits)</h2>
                       </div>
-                      <ul className="list text" style={{ marginBottom: 20, display: this.state.list[index] === true ? 'block' : 'none' }}>
+                      <ul className="list text" style={{ marginBottom: 20, display: this.state.list[index] ? 'block' : 'none' }}>
                         {contributions[type].map((contribution, index) => 
                           <li key={index} className="row">
                             <div className="col-md-2">
