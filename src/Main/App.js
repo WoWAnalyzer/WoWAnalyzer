@@ -17,6 +17,7 @@ import { fetchCombatants } from 'actions/combatants';
 import { getFightId, getPlayerId, getPlayerName, getReportCode } from 'selectors/url/report';
 import { getArticleId } from 'selectors/url/news';
 import { getContributorId } from 'selectors/url/contributors';
+import { getCharRegion, getCharRealm, getCharName } from 'selectors/url/character';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import { getCombatants } from 'selectors/combatants';
@@ -41,6 +42,7 @@ import Footer from './Layout/Footer';
 import NewsView from './News/View';
 import makeNewsUrl from './News/makeUrl';
 import ContributorDetails from './Contributors/ContributorDetails';
+import CharacterParses from './Character/CharacterParses';
 import { title as AboutArticleTitle } from './News/Articles/2017-01-31-About';
 import { title as UnlistedLogsTitle } from './News/Articles/2017-01-31-UnlistedLogs';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
@@ -65,6 +67,9 @@ class App extends Component {
     reportCode: PropTypes.string,
     articleId: PropTypes.string,
     contributorId: PropTypes.string,
+    charRegion: PropTypes.string,
+    charRealm: PropTypes.string,
+    charName: PropTypes.string,
     playerName: PropTypes.string,
     playerId: PropTypes.number,
     fightId: PropTypes.number,
@@ -471,6 +476,10 @@ class App extends Component {
       return this.renderError(error);
     }
 
+    if (this.props.charRegion && this.props.charRealm && this.props.charName) {
+      return <CharacterParses region={this.props.charRegion} realm={this.props.charRealm} name={this.props.charName} />;
+    }
+
     if (this.props.contributorId) {
       return <ContributorDetails contributorId={this.props.contributorId} />;
     }
@@ -510,7 +519,7 @@ class App extends Component {
   }
 
   get hasContent() {
-    return this.props.reportCode || this.props.error || this.props.articleId  || this.props.contributorId;
+    return this.props.reportCode || this.props.error || this.props.articleId  || this.props.contributorId || this.props.charRegion;
   }
 
   render() {
@@ -576,6 +585,10 @@ const mapStateToProps = state => {
 
     articleId: getArticleId(state),
     contributorId: getContributorId(state),
+
+    charRegion: getCharRegion(state),
+    charRealm: getCharRealm(state),
+    charName: getCharName(state),
 
     error: getError(state),
   });
