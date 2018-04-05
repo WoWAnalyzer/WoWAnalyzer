@@ -4,21 +4,20 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
+    const combatant = this.combatants.selected;
     return [
       {
         spell: SPELLS.MORTAL_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 6,
-        castEfficiency: {
-          suggestion: true,
-        },
+        cooldown: haste => 6 / (1 + haste),
       },
       {
         spell: SPELLS.COLOSSUS_SMASH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 20,
-        castEfficiency: {
-          suggestion: true,
+        cooldown: (haste, combatant) => {
+          const cooldown = 20;
+          const cooldownReduction = combatant.hasTalent(SPELLS.TITANIC_MIGHT_TALENT.id) ? 8 : 0;
+          return cooldown - cooldownReduction;
         },
       },
       {
