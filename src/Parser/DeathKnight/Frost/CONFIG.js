@@ -17,7 +17,7 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <Wrapper>
-      Welcome to the Frost Death Knight analyzer! This analyzer is still under construction but I hope you will find something useful.  If you have any comments or suggestions feel free to contact Khazak(Khazak#3360) on Discord.<br /><br />
+      Welcome to the Frost Death Knight analyzer! This analyzer is still under construction but I hope you will find something useful.  The current plan is to have a finished analyzer by the release of Battle for Azeroth.  If you have any comments or suggestions feel free to contact Khazak(Khazak#3360) on Discord.<br /><br />
 
       <Warning>
         This spec's analysis isn't complete yet. What we do show should be good to use, but it does not show the complete picture.<br />
