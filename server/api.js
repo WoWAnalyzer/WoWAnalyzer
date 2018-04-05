@@ -90,7 +90,7 @@ class ApiRequestHandler {
       // WCL has a tendency to throw non-JSON errors with a 200 HTTP exception, this ensures they're not accepted and cached.
       // Decoding JSON takes a long time, grabbing the first character is near instant and has high accuracy.
       const firstCharacter = jsonString.substr(0, 1);
-      if (firstCharacter !== '{') {
+      if (firstCharacter !== '{' && firstCharacter !== '[') {
         throw new WclApiError('Corrupt Warcraft Logs API response received', 500);
       }
 
