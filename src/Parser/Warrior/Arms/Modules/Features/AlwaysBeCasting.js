@@ -2,28 +2,10 @@ import React from 'react';
 
 import CoreAlwaysBeCasting from 'Parser/Core/Modules/AlwaysBeCasting';
 
-import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-  static ABILITIES_ON_GCD = [
-    // Rotational
-    SPELLS.COLOSSUS_SMASH.id,
-    SPELLS.MORTAL_STRIKE.id,
-    SPELLS.EXECUTE.id,
-    SPELLS.SLAM.id,
-    SPELLS.CLEAVE.id,
-    SPELLS.WHIRLWIND.id,
-    SPELLS.WARBREAKER.id,
-    // Utility
-    SPELLS.HEROIC_THROW.id,
-    // Talents
-    SPELLS.SHOCKWAVE_TALENT.id,
-    SPELLS.STORM_BOLT_TALENT.id,
-    SPELLS.AVATAR_TALENT.id,
-  ];
-
   suggestions(when) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 

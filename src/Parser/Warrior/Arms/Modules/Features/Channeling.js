@@ -1,8 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import CoreChanneling from 'Parser/Core/Modules/Channeling';
 
-const BLADESTORM_ID = SPELLS.BLADESTORM.id;
-
 class Channeling extends CoreChanneling {
   static dependencies = {
     ...CoreChanneling.dependencies,
@@ -14,7 +12,7 @@ class Channeling extends CoreChanneling {
     }
 
     // Begin channeling when the bladestorm buff is applied.
-    if (BLADESTORM_ID === event.ability.guid) {
+    if (SPELLS.BLADESTORM.id === event.ability.guid) {
       this.beginChannel(event);
     }
   }
@@ -25,14 +23,14 @@ class Channeling extends CoreChanneling {
     }
 
     // End channeling when the bladestorm buff is removed.
-    if (BLADESTORM_ID === event.ability.guid) {
+    if (SPELLS.BLADESTORM.id === event.ability.guid) {
       this.endChannel(event);
     }
   }
 
   on_byPlayer_cast(event) {
     // Bladestorm triggers multiple cast successes after the buff is applied which would cancel the channel, so we manually ignore those here.
-    if (BLADESTORM_ID !== event.ability.guid) {
+    if (SPELLS.BLADESTORM.id !== event.ability.guid) {
       super.on_byPlayer_cast(event);
     }
   }

@@ -1,57 +1,60 @@
 import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
-import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 class Abilities extends CoreAbilities {
   spellbook() {
+    const combatant = this.combatants.selected;
     return [
       {
         spell: SPELLS.MORTAL_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 6 / (1 + haste),
+        isOnGCD: true,
       },
       {
         spell: SPELLS.COLOSSUS_SMASH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, combatant) => {
-          const cooldown = 20;
-          const cooldownReduction = combatant.hasTalent(SPELLS.TITANIC_MIGHT_TALENT.id) ? 8 : 0;
-          return cooldown - cooldownReduction;
-        },
+        cooldown: combatant.hasTalent(SPELLS.TITANIC_MIGHT_TALENT.id) ? 20 - 8 : 20,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.EXECUTE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.SLAM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.CLEAVE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 6,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.WHIRLWIND,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.BLADESTORM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 90,
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.50,
           extraSuggestion: 'Use it as a filler when you\'re out of rage.',
-          importance: ISSUE_IMPORTANCE.REGULAR,
         },
       },
       {
         spell: SPELLS.WARBREAKER,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 60,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.BATTLE_CRY,
@@ -60,7 +63,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-          importance: ISSUE_IMPORTANCE.MAJOR,
         },
       },
       {
@@ -71,14 +73,12 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.01,
           extraSuggestion: 'Use it preemptively as a buffer against large AOE, or reactively if you notice your raid is getting dangerously low on health.',
-          importance: ISSUE_IMPORTANCE.REGULAR,
         },
       },
       {
         spell: SPELLS.CHARGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 17,
-        isOnGCD: false,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.01,
@@ -89,7 +89,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HEROIC_LEAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
-        isOnGCD: false,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.01,

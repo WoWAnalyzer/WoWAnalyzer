@@ -8,7 +8,22 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-04-05'),
-    changes: <Wrapper>Implemented <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> and <SpellLink id={SPELLS.COLOSSUS_SMASH.id} icon /> haste cooldown reductions, <SpellLink id={SPELLS.TITANIC_MIGHT_TALENT.id} icon /> cooldown reduction, <SpellLink id={SPELLS.TACTICIAN.id} icon /> cooldown resets, <SpellLink id={SPELLS.IN_FOR_THE_KILL_TALENT.id} icon /> haste buff, <SpellLink id={SPELLS.BLADESTORM.id} icon /> channeling, removed <SpellLink id={SPELLS.CHARGE.id} icon /> and <SpellLink id={SPELLS.HEROIC_LEAP.id} icon /> from the global cooldown, and a bunch of other things.</Wrapper>,
+    changes: <Wrapper>Added improved suggestions for <SpellLink id={SPELLS.CHARGE.id} icon />, <SpellLink id={SPELLS.HEROIC_LEAP.id} icon /> and <SpellLink id={SPELLS.COMMANDING_SHOUT.id} icon />.</Wrapper>,
+    contributors: [Aelexe],
+  },
+  {
+    date: new Date('2018-04-05'),
+    changes: <Wrapper>Added <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> haste cooldown reduction and <SpellLink id={SPELLS.TACTICIAN.id} icon /> cooldown resets.</Wrapper>,
+    contributors: [Aelexe],
+  },
+  {
+    date: new Date('2018-04-05'),
+    changes: <Wrapper>Added <SpellLink id={SPELLS.BLADESTORM.id} icon /> channeling.</Wrapper>,
+    contributors: [Aelexe],
+  },
+  {
+    date: new Date('2018-04-05'),
+    changes: <Wrapper>Added <SpellLink id={SPELLS.IN_FOR_THE_KILL_TALENT.id} icon /> haste buff.</Wrapper>,
     contributors: [Aelexe],
   },
   {
