@@ -66,32 +66,35 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.COMMANDING_SHOUT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.01,
-          extraSuggestion: 'Use it to support your raid party.',
+          extraSuggestion: 'Use it preemptively as a buffer against large AOE, or reactively if you notice your raid is getting dangerously low on health.',
+          importance: ISSUE_IMPORTANCE.REGULAR,
         },
       },
       {
         spell: SPELLS.CHARGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 17,
+        isOnGCD: false,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.01,
-          extraSuggestion: 'Use CHARGE to close the gap',
+          extraSuggestion: 'Use it to get back into range after moving out to avoid mechanics. Not only does this allow you to get back to DPSing faster, it also generates rage for you to DPS with.',
         },
       },
       {
         spell: SPELLS.HEROIC_LEAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
+        isOnGCD: false,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.01,
-          extraSuggestion: 'Use HEROIC LEAP to close the gap',
+          extraSuggestion: 'Use it to escape mechanics at the last moment, allowing you more time to DPS.',
         },
       },
       {
