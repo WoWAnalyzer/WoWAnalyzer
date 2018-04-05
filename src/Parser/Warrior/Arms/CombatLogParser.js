@@ -6,6 +6,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import ColossusSmashUptime from './Modules/BuffDebuff/ColossusSmashUptime';
 import TacticianProc from './Modules/BuffDebuff/TacticianProc';
+import SpellUsable from './Modules/Features/SpellUsable';
 
 
 //import RelicTraits from './Modules/Traits/RelicTraits';
@@ -21,6 +22,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     colossusSmashUptime: ColossusSmashUptime,
     tacticianProc: TacticianProc,
+    spellUsable: SpellUsable,
 
     // Talents
 
