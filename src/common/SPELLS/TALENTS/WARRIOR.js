@@ -22,6 +22,7 @@ export default {
   TITANIC_MIGHT_TALENT: { id: 202612, name: "Titanic Might", icon: "ability_warrior_colossussmash" },
   DEADLY_CALM_TALENT: { id: 227266, name: "Deadly Calm", icon: "achievement_boss_kingymiron" },
   IN_FOR_THE_KILL_TALENT: { id: 248621, name: "In For The Kill", icon: "ability_blackhand_marked4death" },
+  IN_FOR_THE_KILL_TALENT_BUFF: { id: 248622, name: "In For The Kill", icon: "ability_blackhand_marked4death" },
   FOCUSED_RAGE_TALENT: { id: 207982, name: "Focused Rage", icon: "ability_warrior_focusedrage", rageCost: 20 },
   OPPORTUNITY_STRIKES_TALENT: { id: 203179, name: "Opportunity Strikes", icon: "ability_backstab" },
   RAVAGER_TALENT_ARMS: { id: 152277, name: "Ravager", icon: "warrior_talent_icon_ravager" },
