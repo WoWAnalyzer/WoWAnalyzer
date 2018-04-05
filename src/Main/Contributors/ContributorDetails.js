@@ -171,16 +171,16 @@ class ContributorDetails extends React.PureComponent {
     ); 
   }
 
-  about(contributor) {
-    if (!contributor.desc) {
+  text(contributor, text) {
+    if (!contributor) {
       return;
     }
 
     return (
       <div className="row">
-        <div className="col-md-3"><b>About me:</b></div>
+        <div className="col-md-3"><b>{text}:</b></div>
         <div className="col-md-9">
-          {contributor.desc}
+          {contributor}
         </div>
       </div>
     );
@@ -246,13 +246,14 @@ class ContributorDetails extends React.PureComponent {
                     <img src={contributor.avatar} alt={'Avatar'} style={{ marginTop: 20, maxHeight: 200, borderRadius: '50%' }}/>
                   </div>
                   <div className="flex-main contributorlist" style={{ padding: '0 5px 20px 5px' }}>
-                    {this.about(contributor)}
+                    {this.text(contributor.about, "About")}
                     <div className="row">
                       <div className="col-md-3"><b>GitHub:</b></div>
                       <div className="col-md-9">
                         <a href={"https://github.com/" + contributor.github} target="_blank">{contributor.github}</a>
                       </div>
                     </div>
+                    {this.text(contributor.discord, "Discord")}
                     {this.maintainer}
                     {this.links(contributor.links)}
                     {this.additionalInfo(contributor.others)}

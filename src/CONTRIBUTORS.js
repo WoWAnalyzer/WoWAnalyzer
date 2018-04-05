@@ -9,6 +9,7 @@
     export const NICKNAME = {
       nickname: 'NICKNAME',
       github: 'GITHUB_NAME',
+      discord: 'DISCORD_NAME INCL #xxxx',
       avatar: require('./Images/IMAGE'),
       desc: 'DESC',
       mains: [{
@@ -304,6 +305,7 @@ export const Cloake = {
 export const joshinator = {
   nickname: 'joshinator',
   github: 'joshinat0r',
+  discord: 'joshinator#7267',
   mains: [{
     name: "Êxtêndêd",
     spec: SPECS.BLOOD_DEATH_KNIGHT,
