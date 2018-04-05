@@ -79,7 +79,7 @@ export default {
   IN_FOR_THE_KILL_TALENT_BUFF: {
     id: 248622,
     name: "In For The Kill",
-    icon: "ability_blackhand_marked4death"
+    icon: "ability_blackhand_marked4death",
   },
 
   // Fury:
