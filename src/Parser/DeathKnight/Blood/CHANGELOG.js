@@ -75,7 +75,7 @@ export default [
   },
   {
     date: new Date('2018-01-22'),
-    changes: <Wrapper>Implemented <ItemLink id={ITEMS.SHACKLES_OF_BRYNDAOR.id} icon /> Blood wrist legendary.</Wrapper>,
+    changes: <Wrapper>Implemented <ItemLink id={ITEMS.SHACKLES_OF_BRYNDAOR.id} /> Blood wrist legendary.</Wrapper>,
     contributors: [Yajinni],
   },
   {
@@ -85,7 +85,7 @@ export default [
   },
   {
     date: new Date('2018-01-21'),
-    changes: <Wrapper>Implemented <ItemLink id={ITEMS.SKULLFLOWERS_HAEMOSTASIS.id} icon /> Blood shoulder legendary.</Wrapper>,
+    changes: <Wrapper>Implemented <ItemLink id={ITEMS.SKULLFLOWERS_HAEMOSTASIS.id} /> Blood shoulder legendary.</Wrapper>,
     contributors: [Yajinni],
   },
   {
@@ -95,7 +95,7 @@ export default [
   },
   {
     date: new Date('2018-01-20'),
-    changes: <Wrapper>Implemented <ItemLink id={ITEMS.AGGRAMARS_CONVICTION.id} icon /> Pantheon Tank trinket.</Wrapper>,
+    changes: <Wrapper>Implemented <ItemLink id={ITEMS.AGGRAMARS_CONVICTION.id} /> Pantheon Tank trinket.</Wrapper>,
     contributors: [Yajinni],
   },
   {

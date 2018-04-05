@@ -35,7 +35,7 @@ export default [
   },
   {
     date: new Date('2018-01-27'),
-    changes: <Wrapper>Added item breakdown for <ItemLink id={ITEMS.DRINKING_HORN_COVER.id} icon /> showing average time gained for each <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} icon /> or <SpellLink id={SPELLS.SERENITY_TALENT.id} icon /> cast</Wrapper>,
+    changes: <Wrapper>Added item breakdown for <ItemLink id={ITEMS.DRINKING_HORN_COVER.id} icon /> showing average time gained for each <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} icon /> or <SpellLink id={SPELLS.SERENITY_TALENT.id} /> cast</Wrapper>,
     contributors: [Juko8],
   },
   {
@@ -45,7 +45,7 @@ export default [
   },
   {
     date: new Date('2018-01-20'),
-    changes: <Wrapper>Updated Cooldown Tracker to include extended <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} icon /> duration from <ItemLink id={ITEMS.DRINKING_HORN_COVER.id} icon /></Wrapper>,
+    changes: <Wrapper>Updated Cooldown Tracker to include extended <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} icon /> duration from <ItemLink id={ITEMS.DRINKING_HORN_COVER.id} /></Wrapper>,
     contributors: [Juko8],
   },
   {
@@ -70,7 +70,7 @@ export default [
   },
   {
     date: new Date('2017-11-07'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} icon /> damage from <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} icon /> clones in <ItemLink id={ITEMS.THE_EMPERORS_CAPACITOR.id} icon /> item breakdown</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} icon /> damage from <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} icon /> clones in <ItemLink id={ITEMS.THE_EMPERORS_CAPACITOR.id} /> item breakdown</Wrapper>,
     contributors: [Juko8],
   },
   {
@@ -100,17 +100,17 @@ export default [
   },
   {
     date: new Date('2017-10-17'),
-    changes: <Wrapper>Updated Cast Efficiency - Added reductions from <ItemLink id={ITEMS.THE_WIND_BLOWS.id} icon /> and T19 2pc</Wrapper>,
+    changes: <Wrapper>Updated Cast Efficiency - Added reductions from <ItemLink id={ITEMS.THE_WIND_BLOWS.id} /> and T19 2pc</Wrapper>,
     contributors: [Juko8],
   },
   {
     date: new Date('2017-10-17'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.CENEDRIL_REFLECTOR_OF_HATRED.id} icon />, <ItemLink id={ITEMS.THE_EMPERORS_CAPACITOR.id} icon /> and <ItemLink id={ITEMS.SOUL_OF_THE_GRANDMASTER.id} icon /> to legendary item breakdown</Wrapper>,
+    changes: <Wrapper>Added <ItemLink id={ITEMS.CENEDRIL_REFLECTOR_OF_HATRED.id} icon />, <ItemLink id={ITEMS.THE_EMPERORS_CAPACITOR.id} icon /> and <ItemLink id={ITEMS.SOUL_OF_THE_GRANDMASTER.id} /> to legendary item breakdown</Wrapper>,
     contributors: [Juko8],
   },
   {
     date: new Date('2017-10-15'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.KATSUOS_ECLIPSE.id} icon /> chi reduction item breakdown</Wrapper>,
+    changes: <Wrapper>Added <ItemLink id={ITEMS.KATSUOS_ECLIPSE.id} /> chi reduction item breakdown</Wrapper>,
     contributors: [Juko8],
   },
   {

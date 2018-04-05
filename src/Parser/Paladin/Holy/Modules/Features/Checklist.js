@@ -236,12 +236,12 @@ class Checklist extends CoreChecklist {
             when: this.auraOfSacrifice.active,
           }),
           new Requirement({
-            name: <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} icon />,
+            name: <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />,
             check: () => this.ilterendi.suggestionThresholds,
             when: this.ilterendi.active,
           }),
           new Requirement({
-            name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} icon />,
+            name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
             check: () => this.velensFutureSight.suggestionThresholds,
             when: this.velensFutureSight.active,
           }),

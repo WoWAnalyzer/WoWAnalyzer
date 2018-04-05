@@ -15,7 +15,7 @@ export default [
   },
   {
     date: new Date('2018-04-03'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.EYE_OF_SHATUG.id} icon /> and <ItemLink id={ITEMS.EYE_OF_FHARG.id} icon />.</Wrapper>,
+    changes: <Wrapper>Added <ItemLink id={ITEMS.EYE_OF_SHATUG.id} icon /> and <ItemLink id={ITEMS.EYE_OF_FHARG.id} />.</Wrapper>,
     contributors: [joshinator],
   },
   {
@@ -30,7 +30,7 @@ export default [
   },
   {
     date: new Date('2018-03-26'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.SMOLDERING_TITANGUARD.id} icon />, <ItemLink id={ITEMS.DIIMAS_GLACIAL_AEGIS.id} icon /> and  <ItemLink id={ITEMS.RIFTWORLD_CODEX.id} icon />.</Wrapper>,
+    changes: <Wrapper>Added <ItemLink id={ITEMS.SMOLDERING_TITANGUARD.id} icon />, <ItemLink id={ITEMS.DIIMAS_GLACIAL_AEGIS.id} icon /> and  <ItemLink id={ITEMS.RIFTWORLD_CODEX.id} />.</Wrapper>,
     contributors: [joshinator],
   },
   {
@@ -85,17 +85,17 @@ export default [
   },
   {
     date: new Date('2018-01-18'),
-    changes: <Wrapper>Added support for <ItemLink id={ITEMS.EYE_OF_COMMAND.id} icon />.</Wrapper>,
+    changes: <Wrapper>Added support for <ItemLink id={ITEMS.EYE_OF_COMMAND.id} />.</Wrapper>,
     contributors: [Putro],
   },
   {
     date: new Date('2018-01-18'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.ISHKARS_FELSHIELD_EMITTER.id} icon /> to cast efficiency.</Wrapper>,
+    changes: <Wrapper>Added <ItemLink id={ITEMS.ISHKARS_FELSHIELD_EMITTER.id} /> to cast efficiency.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-01-18'),
-    changes: <Wrapper>Fixed an issue where <ItemLink id={ITEMS.GAROTHI_FEEDBACK_CONDUIT.id} icon /> did not always add the Haste from the last buff.</Wrapper>,
+    changes: <Wrapper>Fixed an issue where <ItemLink id={ITEMS.GAROTHI_FEEDBACK_CONDUIT.id} /> did not always add the Haste from the last buff.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {
@@ -105,12 +105,12 @@ export default [
   },
   {
     date: new Date('2018-01-15'),
-    changes: <Wrapper>Added in <ItemLink id={ITEMS.AMANTHULS_VISION.id} icon /></Wrapper>,
+    changes: <Wrapper>Added in <ItemLink id={ITEMS.AMANTHULS_VISION.id} /></Wrapper>,
     contributors: [Hewhosmites],
   },
   {
     date: new Date('2018-01-15'),
-    changes: <Wrapper>Fixed a bug where friendly fire damage (from for example the passive of <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} icon />) would be included in the damage gain from <ItemLink id={ITEMS.GNAWED_THUMB_RING.id} icon />.</Wrapper>,
+    changes: <Wrapper>Fixed a bug where friendly fire damage (from for example the passive of <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} icon />) would be included in the damage gain from <ItemLink id={ITEMS.GNAWED_THUMB_RING.id} />.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {
@@ -125,7 +125,7 @@ export default [
   },
   {
     date: new Date('2018-01-09'),
-    changes: <Wrapper>Updated the tooltip for <ItemLink id={ITEMS.GOLGANNETHS_VITALITY.id} icon /> to show uptime aswell as damage contribution of the two procs</Wrapper>,
+    changes: <Wrapper>Updated the tooltip for <ItemLink id={ITEMS.GOLGANNETHS_VITALITY.id} /> to show uptime aswell as damage contribution of the two procs</Wrapper>,
     contributors: [Putro],
   },
   {

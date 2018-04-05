@@ -50,7 +50,7 @@ export default [
     },
     {
       date: new Date('2017-11-02'),
-      changes: <Wrapper>Artifact ability cooldown changed, <ItemLink id={ITEMS.COLD_HEART.id} icon /> added, Added folder for shared coding between specs.</Wrapper>,
+      changes: <Wrapper>Artifact ability cooldown changed, <ItemLink id={ITEMS.COLD_HEART.id} /> added, Added folder for shared coding between specs.</Wrapper>,
       contributors: [Bonebasher],
     },
     {

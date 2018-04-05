@@ -205,7 +205,7 @@ class Checklist extends CoreChecklist {
             when: this.theEmperorsCapacitor.active,
           }),
           new Requirement({
-            name: <Wrapper>Average <ItemLink id={ITEMS.THE_EMPERORS_CAPACITOR.id} icon /> stacks used on your <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} icon /></Wrapper>,
+            name: <Wrapper>Average <ItemLink id={ITEMS.THE_EMPERORS_CAPACITOR.id} icon /> stacks used on your <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} /></Wrapper>,
             check: () => this.theEmperorsCapacitor.averageStacksSuggestionThresholds,
             when: this.theEmperorsCapacitor.active,
           }),

@@ -145,7 +145,7 @@ class Checklist extends CoreChecklist {
         const combatant = this.combatants.selected;
         return [
           new Requirement({
-            name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} icon />,
+            name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
             check: () => this.velensFutureSight.suggestionThresholds,
             when: this.velensFutureSight.active,
           }),

@@ -32,7 +32,7 @@ class AtonementHealingBreakdown extends React.Component {
   reason(spellId) {
     switch (Number(spellId)) {
       case SPELLS.REFRESHING_AGONY_DOT.id:
-        return <ItemLink id={ITEMS.CARAFE_OF_SEARING_LIGHT.id} icon />;
+        return <ItemLink id={ITEMS.CARAFE_OF_SEARING_LIGHT.id} />;
       case -2: // Melee
         return <SpellLink id={SPELLS.LIGHTSPAWN.id} icon />;
       default: return null;

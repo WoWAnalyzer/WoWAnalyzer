@@ -211,17 +211,17 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} icon />,
+            name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
             check: () => this.velensFutureSight.suggestionThresholds,
             when: this.velensFutureSight.active,
           }),
           new Requirement({
-            name: <ItemLink id={ITEMS.EONARS_COMPASSION.id} icon />,
+            name: <ItemLink id={ITEMS.EONARS_COMPASSION.id} />,
             check: () => this.eonarsCompassion.suggestionThresholds,
             when: this.eonarsCompassion.active,
           }),
           new Requirement({
-            name: <ItemLink id={ITEMS.ISHKARS_FELSHIELD_EMITTER.id} icon />,
+            name: <ItemLink id={ITEMS.ISHKARS_FELSHIELD_EMITTER.id} />,
             check: () => this.ishkarsFelshieldEmitter.suggestionThresholds,
             when: this.ishkarsFelshieldEmitter.active,
           }),

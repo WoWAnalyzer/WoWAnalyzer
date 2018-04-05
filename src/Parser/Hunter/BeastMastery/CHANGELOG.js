@@ -20,7 +20,7 @@ export default [
   },
   {
     date: new Date('2018-02-05'),
-    changes: <Wrapper>Added additional information to the <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} icon /> module, to show cooldown reduction on the various affected spells. </Wrapper>,
+    changes: <Wrapper>Added additional information to the <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} /> module, to show cooldown reduction on the various affected spells. </Wrapper>,
     contributors: [Putro],
   },
   {
@@ -50,7 +50,7 @@ export default [
   },
   {
     date: new Date('2017-12-26'),
-    changes: <Wrapper>Added support for <SpellLink id={SPELLS.DIRE_STABLE_TALENT.id} icon />, <ItemLink id={ITEMS.ROAR_OF_THE_SEVEN_LIONS.id} icon />, <ItemLink id={ITEMS.PARSELS_TONGUE.id} icon />, <ItemLink id={ITEMS.THE_MANTLE_OF_COMMAND.id} icon />, <ItemLink id={ITEMS.ROOTS_OF_SHALADRASSIL.id} icon />, <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} icon />, <ItemLink id={ITEMS.THE_APEX_PREDATORS_CLAW.id} icon /> and <ItemLink id={ITEMS.THE_SHADOW_HUNTERS_VOODOO_MASK.id} icon />.</Wrapper>,
+    changes: <Wrapper>Added support for <SpellLink id={SPELLS.DIRE_STABLE_TALENT.id} icon />, <ItemLink id={ITEMS.ROAR_OF_THE_SEVEN_LIONS.id} icon />, <ItemLink id={ITEMS.PARSELS_TONGUE.id} icon />, <ItemLink id={ITEMS.THE_MANTLE_OF_COMMAND.id} icon />, <ItemLink id={ITEMS.ROOTS_OF_SHALADRASSIL.id} icon />, <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} icon />, <ItemLink id={ITEMS.THE_APEX_PREDATORS_CLAW.id} icon /> and <ItemLink id={ITEMS.THE_SHADOW_HUNTERS_VOODOO_MASK.id} />.</Wrapper>,
     contributors: [Putro],
   },
   {
@@ -75,7 +75,7 @@ export default [
   },
   {
     date: new Date('2017-11-01'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> modules, <SpellLink id={SPELLS.DIRE_BEAST.id} icon /> modules, <ItemLink id={ITEMS.QAPLA_EREDUN_WAR_ORDER.id} icon /> module, <SpellLink id={SPELLS.TITANS_THUNDER.id} icon /> module, <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} icon /> module.</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> modules, <SpellLink id={SPELLS.DIRE_BEAST.id} icon /> modules, <ItemLink id={ITEMS.QAPLA_EREDUN_WAR_ORDER.id} icon /> module, <SpellLink id={SPELLS.TITANS_THUNDER.id} icon /> module, <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> module.</Wrapper>,
     contributors: [Putro],
   },
   {

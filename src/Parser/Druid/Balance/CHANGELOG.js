@@ -40,7 +40,7 @@ export default [
   },
   { 
     date: new Date('2018-1-5'),
-    changes: <Wrapper>Added the following legendaries: <ItemLink id={ITEMS.IMPECCABLE_FEL_ESSENCE.id} icon />, <ItemLink id={ITEMS.ONETHS_INTUITION.id} icon />, <ItemLink id={ITEMS.LADY_AND_THE_CHILD.id} icon />, <ItemLink id={ITEMS.PROMISE_OF_ELUNE.id} icon />, and <ItemLink id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} icon /> and updated <ItemLink id={ITEMS.THE_EMERALD_DREAMCATCHER.id} icon />.</Wrapper>,
+    changes: <Wrapper>Added the following legendaries: <ItemLink id={ITEMS.IMPECCABLE_FEL_ESSENCE.id} icon />, <ItemLink id={ITEMS.ONETHS_INTUITION.id} icon />, <ItemLink id={ITEMS.LADY_AND_THE_CHILD.id} icon />, <ItemLink id={ITEMS.PROMISE_OF_ELUNE.id} icon />, and <ItemLink id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} icon /> and updated <ItemLink id={ITEMS.THE_EMERALD_DREAMCATCHER.id} />.</Wrapper>,
     contributors: [Gebuz],
   },
   { 
@@ -65,7 +65,7 @@ export default [
   },
   {
     date: new Date('2017-9-28'),
-    changes: <Wrapper>Added a tracker module for <ItemLink id={ITEMS.THE_EMERALD_DREAMCATCHER.id} icon />.</Wrapper>,
+    changes: <Wrapper>Added a tracker module for <ItemLink id={ITEMS.THE_EMERALD_DREAMCATCHER.id} />.</Wrapper>,
     contributors: [Iskalla],
   },
   {

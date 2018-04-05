@@ -40,7 +40,7 @@ export default [
   },
   {
     date: new Date('2018-03-03'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.PILLARS_OF_INMOST_LIGHT.id} icon /></Wrapper>,
+    changes: <Wrapper>Added <ItemLink id={ITEMS.PILLARS_OF_INMOST_LIGHT.id} /></Wrapper>,
     contributors: [Hewhosmites],
   },
 ];

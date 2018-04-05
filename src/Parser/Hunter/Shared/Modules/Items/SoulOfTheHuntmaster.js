@@ -76,7 +76,7 @@ class SoulOfTheHuntmaster extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThreshold).addSuggestion((suggest) => {
-      return suggest(<Wrapper>When using <ItemLink id={ITEMS.SOUL_OF_THE_HUNTMASTER.id} icon /> please make sure to pick another talent in the talent row. Your choices are <SpellLink id={this.option1} icon /> or <SpellLink id={this.option2} icon />.</Wrapper>)
+      return suggest(<Wrapper>When using <ItemLink id={ITEMS.SOUL_OF_THE_HUNTMASTER.id} icon /> please make sure to pick another talent in the talent row. Your choices are <SpellLink id={this.option1} icon /> or <SpellLink id={this.option2} />.</Wrapper>)
         .icon(ITEMS.SOUL_OF_THE_HUNTMASTER.icon)
         .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
     });

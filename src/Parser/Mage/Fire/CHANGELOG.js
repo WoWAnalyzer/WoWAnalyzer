@@ -35,7 +35,7 @@ export default [
   },
   {
     date: new Date('2018-01-03'),
-    changes: <Wrapper>Added support for <ItemLink id={ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id} icon /></Wrapper>,
+    changes: <Wrapper>Added support for <ItemLink id={ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id} /></Wrapper>,
     contributors: [Sharrq],
   },
   {
@@ -70,7 +70,7 @@ export default [
   },
   {
     date: new Date('2017-11-23'),
-    changes: <Wrapper>Added support for <ItemLink id={ITEMS.DARCKLIS_DRAGONFIRE_DIADEM.id} icon />, <ItemLink id={ITEMS.CONTAINED_INFERNAL_CORE.id} icon />, and <ItemLink id={ITEMS.PYROTEX_IGNITION_CLOTH.id} icon /></Wrapper>,
+    changes: <Wrapper>Added support for <ItemLink id={ITEMS.DARCKLIS_DRAGONFIRE_DIADEM.id} icon />, <ItemLink id={ITEMS.CONTAINED_INFERNAL_CORE.id} icon />, and <ItemLink id={ITEMS.PYROTEX_IGNITION_CLOTH.id} /></Wrapper>,
     contributors: [Sharrq],
   },
   {

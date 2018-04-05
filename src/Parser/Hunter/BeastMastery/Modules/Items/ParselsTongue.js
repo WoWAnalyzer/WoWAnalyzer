@@ -129,7 +129,7 @@ class ParselsTongue extends Analyzer {
         .recommended(`${recommended} times dropped is recommended`);
     });
     when(this.buffUptimeThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You had a low uptime of the buff from <ItemLink id={ITEMS.PARSELS_TONGUE.id} icon />, make sure to cast <SpellLink id={SPELLS.COBRA_SHOT.id} icon /> more often to ensure a better uptime of this buff. </Wrapper>)
+      return suggest(<Wrapper>You had a low uptime of the buff from <ItemLink id={ITEMS.PARSELS_TONGUE.id} icon />, make sure to cast <SpellLink id={SPELLS.COBRA_SHOT.id} /> more often to ensure a better uptime of this buff. </Wrapper>)
         .icon(ITEMS.PARSELS_TONGUE.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
         .recommended(`>${formatPercentage(recommended)} is recommended`);

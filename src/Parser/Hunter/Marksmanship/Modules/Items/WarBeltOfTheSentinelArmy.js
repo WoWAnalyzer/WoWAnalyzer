@@ -87,7 +87,7 @@ class WarBeltOfTheSentinelArmy extends Analyzer {
       });
     when(percentUnusedStacks).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>You finished the encounter with {this.totalBeltStacks - this.usedBeltStacks - this.cappedBeltStacks} stacks unused, try and utilise all of your stacks to get the most out of your hardest hitting ability, <SpellLink id={SPELLS.AIMED_SHOT.id} icon /> and to maximise the potency of <ItemLink id={ITEMS.WAR_BELT_OF_THE_SENTINEL_ARMY.id} icon />.</Wrapper>)
+        return suggest(<Wrapper>You finished the encounter with {this.totalBeltStacks - this.usedBeltStacks - this.cappedBeltStacks} stacks unused, try and utilise all of your stacks to get the most out of your hardest hitting ability, <SpellLink id={SPELLS.AIMED_SHOT.id} icon /> and to maximise the potency of <ItemLink id={ITEMS.WAR_BELT_OF_THE_SENTINEL_ARMY.id} />.</Wrapper>)
           .icon(ITEMS.WAR_BELT_OF_THE_SENTINEL_ARMY.icon)
           .actual(`${formatPercentage(percentUnusedStacks)}% of total stacks were unused`)
           .recommended(`${formatPercentage(recommended, 0)}% unused stacks is recommended`)
