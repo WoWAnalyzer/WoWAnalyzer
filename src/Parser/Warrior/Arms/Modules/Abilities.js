@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
+import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -38,6 +39,17 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
       },
       {
+        spell: SPELLS.BLADESTORM,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        cooldown: 90,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.50,
+          extraSuggestion: 'Use it as a filler when you\'re out of rage.',
+          importance: ISSUE_IMPORTANCE.REGULAR,
+        },
+      },
+      {
         spell: SPELLS.WARBREAKER,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 60,
@@ -48,6 +60,8 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.95,
+          importance: ISSUE_IMPORTANCE.MAJOR,
         },
       },
       {
