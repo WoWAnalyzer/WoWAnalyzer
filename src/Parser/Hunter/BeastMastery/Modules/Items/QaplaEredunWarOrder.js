@@ -79,7 +79,7 @@ class QaplaEredunWarOrder extends Analyzer {
   suggestions(when) {
     const spellName = this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT) ? SPELLS.DIRE_FRENZY_TALENT.name : SPELLS.DIRE_BEAST.name;
     when(this.killerCobraThreshold).addSuggestion((suggest) => {
-      return suggest(<Wrapper>Due to the <SpellLink id={SPELLS.KILL_COMMAND.id} /> reduction capabilities of both <ItemLink id={ITEMS.QAPLA_EREDUN_WAR_ORDER.id} icon /> and <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} />, using them together is generally not recommended. </Wrapper>)
+      return suggest(<Wrapper>Due to the <SpellLink id={SPELLS.KILL_COMMAND.id} /> reduction capabilities of both <ItemLink id={ITEMS.QAPLA_EREDUN_WAR_ORDER.id} /> and <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} />, using them together is generally not recommended. </Wrapper>)
         .icon(ITEMS.QAPLA_EREDUN_WAR_ORDER.icon)
         .actual(`You had both Qa'pla, Eredun War Order equipped and talented Killer Cobra`)
         .recommended(`Only one or the other is recommended`)

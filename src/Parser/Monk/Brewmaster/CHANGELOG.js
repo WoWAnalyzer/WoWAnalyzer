@@ -45,7 +45,7 @@ export default [
   },
   {
     date: new Date('2017-12-30'),
-    changes: <Wrapper>Added stats for <ItemLink id={ITEMS.STORMSTOUTS_LAST_GASP.id} icon /> and <ItemLink id={ITEMS.SALSALABIMS_LOST_TUNIC.id} />; updated the <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> suggestion and checklist item.</Wrapper>,
+    changes: <Wrapper>Added stats for <ItemLink id={ITEMS.STORMSTOUTS_LAST_GASP.id} /> and <ItemLink id={ITEMS.SALSALABIMS_LOST_TUNIC.id} />; updated the <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> suggestion and checklist item.</Wrapper>,
     contributors: [emallson],
   },
   {

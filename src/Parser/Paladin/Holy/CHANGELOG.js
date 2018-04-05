@@ -60,7 +60,7 @@ export default [
   },
   {
     date: new Date('2017-12-24'),
-    changes: <Wrapper>Fixed a crash when using <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} icon /> without <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} />.</Wrapper>,
+    changes: <Wrapper>Fixed a crash when using <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> without <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} />.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {

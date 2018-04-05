@@ -55,7 +55,7 @@ export default [
   },
   {
     date: new Date('2017-12-26'),
-    changes: <Wrapper>Added support for <ItemLink id={ITEMS.CELERITY_OF_THE_WINDRUNNERS.id} icon />, <ItemLink id={ITEMS.MAGNETIZED_BLASTING_CAP_LAUNCHER.id} icon />, <ItemLink id={ITEMS.ZEVRIMS_HUNGER.id} icon />, <ItemLink id={ITEMS.ROOTS_OF_SHALADRASSIL.id} icon />, <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} icon />, <ItemLink id={ITEMS.THE_APEX_PREDATORS_CLAW.id} icon /> and <ItemLink id={ITEMS.THE_SHADOW_HUNTERS_VOODOO_MASK.id} />.</Wrapper>,
+    changes: <Wrapper>Added support for <ItemLink id={ITEMS.CELERITY_OF_THE_WINDRUNNERS.id} />, <ItemLink id={ITEMS.MAGNETIZED_BLASTING_CAP_LAUNCHER.id} />, <ItemLink id={ITEMS.ZEVRIMS_HUNGER.id} />, <ItemLink id={ITEMS.ROOTS_OF_SHALADRASSIL.id} />, <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} />, <ItemLink id={ITEMS.THE_APEX_PREDATORS_CLAW.id} /> and <ItemLink id={ITEMS.THE_SHADOW_HUNTERS_VOODOO_MASK.id} />.</Wrapper>,
     contributors: [Putro],
   },
   {
@@ -155,12 +155,12 @@ export default [
   },
   {
     date: new Date('2017-10-22'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.SOUL_OF_THE_HUNTMASTER.id} icon />, <ItemLink id={ITEMS.MKII_GYROSCOPIC_STABILIZER.id} icon /> and <ItemLink id={ITEMS.WAR_BELT_OF_THE_SENTINEL_ARMY.id} />support.</Wrapper>,
+    changes: <Wrapper>Added <ItemLink id={ITEMS.SOUL_OF_THE_HUNTMASTER.id} />, <ItemLink id={ITEMS.MKII_GYROSCOPIC_STABILIZER.id} /> and <ItemLink id={ITEMS.WAR_BELT_OF_THE_SENTINEL_ARMY.id} />support.</Wrapper>,
     contributors: [Putro],
   },
   {
     date: new Date('2017-10-20'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.TARNISHED_SENTINEL_MEDALLION.id} icon /> and <SpellLink id={SPELLS.TRUESHOT.id} /> pairing tooltip.</Wrapper>,
+    changes: <Wrapper>Added <ItemLink id={ITEMS.TARNISHED_SENTINEL_MEDALLION.id} /> and <SpellLink id={SPELLS.TRUESHOT.id} /> pairing tooltip.</Wrapper>,
     contributors: [Blazballs],
   },
   {
@@ -170,7 +170,7 @@ export default [
   },
   {
     date: new Date('2017-10-16'),
-    changes: <Wrapper> Added <ItemLink id={ITEMS.ULLRS_FEATHER_SNOWSHOES.id} icon /> to account for the <SpellLink id={SPELLS.TRUESHOT.id} />CDR it provides.</Wrapper>,
+    changes: <Wrapper> Added <ItemLink id={ITEMS.ULLRS_FEATHER_SNOWSHOES.id} /> to account for the <SpellLink id={SPELLS.TRUESHOT.id} />CDR it provides.</Wrapper>,
     contributors: [Putro],
   },
   {

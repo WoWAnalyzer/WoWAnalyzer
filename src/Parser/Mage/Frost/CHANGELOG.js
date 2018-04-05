@@ -50,7 +50,7 @@ export default [
   },
   {
     date: new Date('2017-11-04'),
-    changes: <Wrapper>Added support for <ItemLink id={ITEMS.ICE_TIME.id} icon /> and <ItemLink id={ITEMS.LADY_VASHJS_GRASP.id} /> Legendaries</Wrapper>,
+    changes: <Wrapper>Added support for <ItemLink id={ITEMS.ICE_TIME.id} /> and <ItemLink id={ITEMS.LADY_VASHJS_GRASP.id} /> Legendaries</Wrapper>,
     contributors: [sref],
   },
   {
@@ -90,7 +90,7 @@ export default [
   },
   {
     date: new Date('2017-10-15'),
-    changes: <Wrapper>Added Support for <ItemLink id={ITEMS.ZANNESU_JOURNEY.id} icon />, <ItemLink id={ITEMS.MAGTHERIDONS_BANISHED_BRACERS.id} icon />, and <ItemLink id={ITEMS.SHATTERED_FRAGMENTS_OF_SINDRAGOSA.id} /></Wrapper>,
+    changes: <Wrapper>Added Support for <ItemLink id={ITEMS.ZANNESU_JOURNEY.id} />, <ItemLink id={ITEMS.MAGTHERIDONS_BANISHED_BRACERS.id} />, and <ItemLink id={ITEMS.SHATTERED_FRAGMENTS_OF_SINDRAGOSA.id} /></Wrapper>,
     contributors: [Sharrq],
   },
   {

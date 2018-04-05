@@ -25,12 +25,12 @@ export default [
   },
   {
     date: new Date('2018-01-26'),
-    changes: <Wrapper>Updated HoT tracking framework to allow attribution of HoT extensions, allowing updates to <SpellLink id={SPELLS.FLOURISH_TALENT.id} />. Also added modules for <ItemLink id={ITEMS.EDRAITH_BONDS_OF_AGLAYA.id} icon />, <ItemLink id={ITEMS.AMANTHULS_WISDOM.id} icon />, and <SpellLink id={SPELLS.DEEP_ROOTED_TRAIT.id} />.</Wrapper>,
+    changes: <Wrapper>Updated HoT tracking framework to allow attribution of HoT extensions, allowing updates to <SpellLink id={SPELLS.FLOURISH_TALENT.id} />. Also added modules for <ItemLink id={ITEMS.EDRAITH_BONDS_OF_AGLAYA.id} />, <ItemLink id={ITEMS.AMANTHULS_WISDOM.id} />, and <SpellLink id={SPELLS.DEEP_ROOTED_TRAIT.id} />.</Wrapper>,
     contributors: [sref],
   },
   {
     date: new Date('2018-01-10'),
-    changes: <Wrapper>Added framework for tracking HoT attribution, allowing updates to several modules: <ItemLink id={ITEMS.TEARSTONE_OF_ELUNE.id} icon />, <SpellLink id={SPELLS.POWER_OF_THE_ARCHDRUID.id} />, <SpellLink id={SPELLS.RESTO_DRUID_T21_2SET_BONUS_BUFF.id} />, and <SpellLink id={SPELLS.RESTO_DRUID_T21_4SET_BONUS_BUFF.id} />. Also added <SpellLink id={SPELLS.RESTO_DRUID_T19_4SET_BONUS_BUFF.id} />.</Wrapper>,
+    changes: <Wrapper>Added framework for tracking HoT attribution, allowing updates to several modules: <ItemLink id={ITEMS.TEARSTONE_OF_ELUNE.id} />, <SpellLink id={SPELLS.POWER_OF_THE_ARCHDRUID.id} />, <SpellLink id={SPELLS.RESTO_DRUID_T21_2SET_BONUS_BUFF.id} />, and <SpellLink id={SPELLS.RESTO_DRUID_T21_4SET_BONUS_BUFF.id} />. Also added <SpellLink id={SPELLS.RESTO_DRUID_T19_4SET_BONUS_BUFF.id} />.</Wrapper>,
     contributors: [sref],
   },
   {

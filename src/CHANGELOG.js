@@ -15,7 +15,7 @@ export default [
   },
   {
     date: new Date('2018-04-03'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.EYE_OF_SHATUG.id} icon /> and <ItemLink id={ITEMS.EYE_OF_FHARG.id} />.</Wrapper>,
+    changes: <Wrapper>Added <ItemLink id={ITEMS.EYE_OF_SHATUG.id} /> and <ItemLink id={ITEMS.EYE_OF_FHARG.id} />.</Wrapper>,
     contributors: [joshinator],
   },
   {
@@ -30,7 +30,7 @@ export default [
   },
   {
     date: new Date('2018-03-26'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.SMOLDERING_TITANGUARD.id} icon />, <ItemLink id={ITEMS.DIIMAS_GLACIAL_AEGIS.id} icon /> and  <ItemLink id={ITEMS.RIFTWORLD_CODEX.id} />.</Wrapper>,
+    changes: <Wrapper>Added <ItemLink id={ITEMS.SMOLDERING_TITANGUARD.id} />, <ItemLink id={ITEMS.DIIMAS_GLACIAL_AEGIS.id} /> and  <ItemLink id={ITEMS.RIFTWORLD_CODEX.id} />.</Wrapper>,
     contributors: [joshinator],
   },
   {

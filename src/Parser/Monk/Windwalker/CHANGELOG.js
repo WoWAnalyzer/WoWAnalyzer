@@ -35,7 +35,7 @@ export default [
   },
   {
     date: new Date('2018-01-27'),
-    changes: <Wrapper>Added item breakdown for <ItemLink id={ITEMS.DRINKING_HORN_COVER.id} icon /> showing average time gained for each <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} /> or <SpellLink id={SPELLS.SERENITY_TALENT.id} /> cast</Wrapper>,
+    changes: <Wrapper>Added item breakdown for <ItemLink id={ITEMS.DRINKING_HORN_COVER.id} /> showing average time gained for each <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} /> or <SpellLink id={SPELLS.SERENITY_TALENT.id} /> cast</Wrapper>,
     contributors: [Juko8],
   },
   {
@@ -105,7 +105,7 @@ export default [
   },
   {
     date: new Date('2017-10-17'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.CENEDRIL_REFLECTOR_OF_HATRED.id} icon />, <ItemLink id={ITEMS.THE_EMPERORS_CAPACITOR.id} icon /> and <ItemLink id={ITEMS.SOUL_OF_THE_GRANDMASTER.id} /> to legendary item breakdown</Wrapper>,
+    changes: <Wrapper>Added <ItemLink id={ITEMS.CENEDRIL_REFLECTOR_OF_HATRED.id} />, <ItemLink id={ITEMS.THE_EMPERORS_CAPACITOR.id} /> and <ItemLink id={ITEMS.SOUL_OF_THE_GRANDMASTER.id} /> to legendary item breakdown</Wrapper>,
     contributors: [Juko8],
   },
   {

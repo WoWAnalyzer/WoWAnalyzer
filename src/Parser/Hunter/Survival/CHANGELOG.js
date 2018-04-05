@@ -50,7 +50,7 @@ export default [
   },
   {
     date: new Date('2018-02-02'),
-    changes: <Wrapper>Added support for <ItemLink id={ITEMS.BUTCHERS_BONE_APRON.id} icon />, <ItemLink id={ITEMS.FRIZZOS_FINGERTRAP.id} icon />, <ItemLink id={ITEMS.HELBRINE_ROPE_OF_THE_MIST_MARAUDER.id} icon />, <ItemLink id={ITEMS.NESINGWARYS_TRAPPING_TREADS.id} icon />, <ItemLink id={ITEMS.UNSEEN_PREDATORS_CLOAK.id} />.</Wrapper>,
+    changes: <Wrapper>Added support for <ItemLink id={ITEMS.BUTCHERS_BONE_APRON.id} />, <ItemLink id={ITEMS.FRIZZOS_FINGERTRAP.id} />, <ItemLink id={ITEMS.HELBRINE_ROPE_OF_THE_MIST_MARAUDER.id} />, <ItemLink id={ITEMS.NESINGWARYS_TRAPPING_TREADS.id} />, <ItemLink id={ITEMS.UNSEEN_PREDATORS_CLOAK.id} />.</Wrapper>,
     contributors: [Putro],
   },
   {
