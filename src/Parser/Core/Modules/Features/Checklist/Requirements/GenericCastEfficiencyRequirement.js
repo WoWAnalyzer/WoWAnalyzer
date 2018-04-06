@@ -9,12 +9,9 @@ class GenericCastEfficiencyRequirement extends Requirement {
     super({
       name: <SpellLink id={spell.id} />,
       check: function () { // don't use arrow function or `this` won't be set properly
+        // The `this` of this function refers to the Checklist instance, not the requirement.
         if (!this.castEfficiency) {
           throw new Error('The CastEfficiency module needs to be a dependency of the checklist to use the GenericCastEfficiencyRequirement.');
-        }
-        const castEfficiency = this.castEfficiency.getCastEfficiencyForSpellId(spell.id);
-        if (!castEfficiency) {
-          throw new Error(`Spell not active: ${spell.id} ${spell.name}`);
         }
         const {
           efficiency,
@@ -22,7 +19,7 @@ class GenericCastEfficiencyRequirement extends Requirement {
           recommendedEfficiency: minor,
           averageIssueEfficiency: average,
           majorIssueEfficiency: major,
-        } = castEfficiency;
+        } = this.castEfficiency.getCastEfficiencyForSpellId(spell.id);
 
         return {
           actual: gotMaxCasts ? 1 : efficiency,
@@ -33,6 +30,13 @@ class GenericCastEfficiencyRequirement extends Requirement {
           },
           style: 'percentage',
         };
+      },
+      when: function () { // don't use arrow function or `this` won't be set properly
+        // The `this` of this function refers to the Checklist instance, not the requirement.
+        if (!this.abilities) {
+          throw new Error('The Abilities module needs to be a dependency of the checklist to use the GenericCastEfficiencyRequirement.');
+        }
+        return !!this.abilities.getAbility(spell.id);
       },
       ...others,
     });
