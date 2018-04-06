@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-02'),
+    changes: 'Added "Top the DPS Charts" checklist item.',
+    contributors: [emallson],
+  },
+  {
     date: new Date('2018-03-19'),
     changes: <Wrapper>Converted <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> from uptime to hit tracking and updated hit tracking for <SpellLink id={SPELLS.IRONSKIN_BREW.id} />.</Wrapper>,
     contributors: [emallson],
