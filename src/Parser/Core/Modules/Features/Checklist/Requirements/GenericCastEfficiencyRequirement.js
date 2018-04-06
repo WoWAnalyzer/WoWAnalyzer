@@ -36,6 +36,7 @@ class GenericCastEfficiencyRequirement extends Requirement {
         if (!this.abilities) {
           throw new Error('The Abilities module needs to be a dependency of the checklist to use the GenericCastEfficiencyRequirement.');
         }
+        // So that implementers don't have to duplicate logic, this requirement is only active (by default, this can be overriden by providing this property yourself) when the cast efficiency suggestion is active.
         return !!this.abilities.getAbility(spell.id);
       },
       ...others,
