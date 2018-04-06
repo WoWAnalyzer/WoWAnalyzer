@@ -132,7 +132,7 @@ class SelfHealTimingGraph extends Analyzer {
     });
 
     const DEATH_LABEL = 'Player Death';
-    const SELFHEAL_LABEL = 'Death Strike Cast';
+    const SELFHEAL_LABEL = selfHealSpell.name + ' Cast';
     const HP_LABEL = 'Health';
     const chartData = {
       labels,
