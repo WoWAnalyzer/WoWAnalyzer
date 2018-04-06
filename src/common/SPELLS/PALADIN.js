@@ -583,6 +583,11 @@ export default {
     name: 'Bulwark of Order',
     icon: 'spell_holy_pureofheart',
   },
+  IMMORTAL_OBJECT: {
+    id: 207603,
+    name: 'Immortal Object',
+    icon: 'spell_holy_avengersshield',
+  },
 	// Bonus set tiers
   PROTECTION_PALADIN_T19_2SET_BONUS_BUFF: {
     id: 211553,
