@@ -87,6 +87,7 @@ class BadDotCasts extends Analyzer {
   on_byPlayer_cast(event) {
     if (this.checkIfLastCastWasBad(event)) {
       this.lastGCD = null;
+      this.lastCast = null;
     }
     const dot = this.dots.find(element => {
       return element.castId === event.ability.guid;
@@ -100,7 +101,7 @@ class BadDotCasts extends Analyzer {
 
   // Returns true if cast was successfully checked, false otherwise.
   checkIfLastCastWasBad(event) {
-    if (!this.lastGCD) {
+    if (!this.lastGCD || !this.lastCast) {
       return false;
     }
     // Since we don't have events for end of GCDs, we check on the first event after roughly a gcd has pasted.
