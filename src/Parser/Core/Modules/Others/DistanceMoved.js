@@ -13,6 +13,7 @@ const debug = false;
 
 class DistanceMoved extends Analyzer {
   lastPositionUpdate = null;
+  lastPositionChange = null;
   totalDistanceMoved = 0;
   timeSpentMoving = 0;
 
@@ -48,6 +49,10 @@ class DistanceMoved extends Analyzer {
     }
   }
 
+  timeSinceLastMovement(event){
+    return this.owner.timestamp - this.lastPositionChange.timestamp;
+  }
+
   // Data parsing
   calculateDistance(x1, y1, x2, y2) {
     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)) / 100;
@@ -69,6 +74,9 @@ class DistanceMoved extends Analyzer {
       return;
     }
     this.updateTotalDistance(event);
+    if (!this.lastPositionChange || event.x !== this.lastPositionChange.x || event.y !== this.lastPositionChange.y) {
+      this.lastPositionChange = event;
+    }
     this.lastPositionUpdate = event;
   }
 
