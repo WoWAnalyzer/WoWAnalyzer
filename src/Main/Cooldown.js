@@ -153,7 +153,7 @@ class Cooldown extends React.Component {
                           +{((event.timestamp - cooldown.start) / 1000).toFixed(3)}
                         </div>
                         <div className="col-xs-10">
-                          <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid}>
+                          <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid} icon={false}>
                             <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} /> {event.ability.name}
                           </SpellLink>
                         </div>
@@ -176,7 +176,7 @@ class Cooldown extends React.Component {
                       +{((event.timestamp - cooldown.start) / 1000).toFixed(3)}
                     </div>
                     <div className={`col-xs-4 ${event.type === 'heal' ? 'col-xs-offset-1' : ''}`}>
-                      <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid}>
+                      <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid} icon={false}>
                         <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} /> {event.ability.name}
                       </SpellLink>
                       {event.type === 'heal' && (

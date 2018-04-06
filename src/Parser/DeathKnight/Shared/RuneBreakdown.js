@@ -79,7 +79,6 @@ class RuneBreakdown extends ResourceBreakdown {
               .map(ability => (
                 <tr>
                   <td style={{ width: '30%' }}>
-                    <SpellIcon id={ability.abilityId} />{' '}
                     <SpellLink id={ability.abilityId} />
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
@@ -118,7 +117,6 @@ class RuneBreakdown extends ResourceBreakdown {
               .map(ability => (
                 <tr>
                   <td style={{ width: '30%' }}>
-                    <SpellIcon id={ability.abilityId} />{' '}
                     <SpellLink id={ability.abilityId} />
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>

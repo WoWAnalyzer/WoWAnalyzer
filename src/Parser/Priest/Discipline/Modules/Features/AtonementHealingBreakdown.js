@@ -60,7 +60,7 @@ class AtonementHealingBreakdown extends React.Component {
               <Wrapper>
                 <tr key={ability.guid}>
                   <td style={{ width: '30%' }}>
-                    <SpellLink id={ability.guid}>
+                    <SpellLink id={ability.guid} icon={false}>
                       <Icon icon={ability.abilityIcon} />{' '}
                       {ability.name}
                     </SpellLink>
@@ -98,7 +98,7 @@ class AtonementHealingBreakdown extends React.Component {
                   return (
                     <tr>
                       <td style={{ width: '30%', paddingLeft: 50 }}>
-                        <SpellLink id={ability.guid}>
+                        <SpellLink id={ability.guid} icon={false}>
                           <Icon icon={ability.abilityIcon} />{' '}
                           {ability.name} bolt {index + 1}
                         </SpellLink>
