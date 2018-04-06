@@ -31,7 +31,7 @@ class EnergyDetails extends Analyzer {
       title: 'Energy usage',
       url: 'energy-usage',
       render: () => (
-        <Tab title="Energy usage breakdown">
+        <Tab>
           <ResourceBreakdown
             tracker={this.energyTracker}
           />

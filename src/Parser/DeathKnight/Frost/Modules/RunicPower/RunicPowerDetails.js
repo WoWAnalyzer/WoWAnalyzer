@@ -69,7 +69,7 @@ class RunicPowerDetails extends Analyzer {
       title: 'Runic Power usage',
       url: 'runic-power-usage',
       render: () => (
-        <Tab title="Runic Power usage breakdown">
+        <Tab>
           <ResourceBreakdown
             tracker={this.runicPowerTracker}
             showSpenders={true}

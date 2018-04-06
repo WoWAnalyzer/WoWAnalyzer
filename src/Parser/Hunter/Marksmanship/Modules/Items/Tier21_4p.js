@@ -58,7 +58,7 @@ class Tier21_4p extends Analyzer {
     return {
       id: `spell-${SPELLS.HUNTER_MM_T21_4P_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.HUNTER_MM_T21_4P_BONUS.id} />,
-      title: <SpellLink id={SPELLS.HUNTER_MM_T21_4P_BONUS.id} />,
+      title: <SpellLink id={SPELLS.HUNTER_MM_T21_4P_BONUS.id} icon={false} />,
       result: (
         <dfn data-tip={`${this.tierProcs} procs from ${this.casts} casts (${(this.tierProcs / this.casts).toFixed(2)} procs per cast) <br/>
 ${formatPercentage(this.tierProcs / this.hits)}% of Marked Shot hits came from the set bonus. `}>

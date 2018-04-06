@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatThousands } from 'common/format';
 
@@ -81,9 +81,7 @@ class SecondSunrise extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.SECOND_SUNRISE.id}>
-            <SpellIcon id={SPELLS.SECOND_SUNRISE.id} noLink /> Second Sunrise
-          </SpellLink>
+          <SpellLink id={SPELLS.SECOND_SUNRISE.id} />
         </div>
         <div className="flex-sub text-right">
           <dfn data-tip={`For each Light of Dawn cast you had a ${formatPercentage(this.rank * SECOND_SUNRISE_PROC_CHANCE, 0)}% chance to proc Second Sunrise. One point giving 5% proc chance is ${formatPercentage(this.healingFactorOfOnePoint, 0)}% of this ${formatPercentage(this.rank * SECOND_SUNRISE_PROC_CHANCE, 0)}% chance, so the assumption is made that ${formatPercentage(this.healingFactorOfOnePoint, 0)}% of the total healing by Second Sunrise (which was ${formatThousands(this.healing)} healing) was due to one point. This gets us a simplified average but this may be completely off since Second Sunrise is a completely random proc with a low proc rate and there's no telling whether the 5% increased chance helped this fight or not.`}>

@@ -38,7 +38,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: .9,
-          extraSuggestion: <Wrapper> While <SpellLink id={SPELLS.FLANKING_STRIKE.id} icon /> is a very important spell to be casting as often as possible because of its damage, you want to be casting it at opportune moments because of its resetting <SpellLink id={SPELLS.MONGOOSE_BITE.id} icon /> functionality. This means you should cast it <strong>BEFORE</strong> you run out of charges on <SpellLink id={SPELLS.MONGOOSE_BITE.id} icon />, but also not while at 2 or 3 charges of <SpellLink id={SPELLS.MONGOOSE_BITE.id} icon />.</Wrapper>,
+          extraSuggestion: <Wrapper> While <SpellLink id={SPELLS.FLANKING_STRIKE.id} /> is a very important spell to be casting as often as possible because of its damage, you want to be casting it at opportune moments because of its resetting <SpellLink id={SPELLS.MONGOOSE_BITE.id} /> functionality. This means you should cast it <strong>BEFORE</strong> you run out of charges on <SpellLink id={SPELLS.MONGOOSE_BITE.id} />, but also not while at 2 or 3 charges of <SpellLink id={SPELLS.MONGOOSE_BITE.id} />.</Wrapper>,
         },
       },
       {
@@ -61,7 +61,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: .70,
-          extraSuggestion: <Wrapper> Please do note, that because <SpellLink id={SPELLS.EXPLOSIVE_TRAP_CAST.id} icon /> is meant to be used as a filler spell, you might have bad cast efficiency on it, despite playing correctly because you had a lot of <SpellLink id={SPELLS.MONGOOSE_BITE.id} icon /> resets, in which case you'd ignore this suggestion. </Wrapper>,
+          extraSuggestion: <Wrapper> Please do note, that because <SpellLink id={SPELLS.EXPLOSIVE_TRAP_CAST.id} /> is meant to be used as a filler spell, you might have bad cast efficiency on it, despite playing correctly because you had a lot of <SpellLink id={SPELLS.MONGOOSE_BITE.id} /> resets, in which case you'd ignore this suggestion. </Wrapper>,
         },
       },
       {

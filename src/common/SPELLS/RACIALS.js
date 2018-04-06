@@ -116,8 +116,13 @@ export default {
     icon: 'ability_racial_packhobgoblin',
   },
   // Orc
-  BLOOD_FURY: {
+  BLOOD_FURY_SPELL: {
     id: 33697,
+    name: 'Blood Fury',
+    icon: 'racial_orc_berserkerstrength',
+  },
+  BLOOD_FURY_PHYSICAL: {
+    id: 20572,
     name: 'Blood Fury',
     icon: 'racial_orc_berserkerstrength',
   },

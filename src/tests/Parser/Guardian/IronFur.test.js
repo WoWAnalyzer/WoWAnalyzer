@@ -16,7 +16,7 @@ describe('Core.IronFur', () => {
         selected: {
           traitsBySpellId: { [SPELLS.URSOCS_ENDURANCE.id]: 0 },
           hasBuff: () => true,
-        }
+        },
       },
     });
   });

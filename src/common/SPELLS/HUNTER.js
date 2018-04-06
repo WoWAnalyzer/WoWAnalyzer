@@ -664,7 +664,7 @@ export default {
   },
   EAGLES_BITE_TRAIT: {
     id: 203757,
-    name: 'Eagle\'s Bite',
+    name: 'On The Trail',
     icon: 'artifactability_survivalhunter_eaglesbite',
   },
   ON_THE_TRAIL_DAMAGE: {

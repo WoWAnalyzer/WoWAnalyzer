@@ -62,7 +62,7 @@ class SoulShardDetails extends Analyzer {
       title: 'Soul Shard usage',
       url: 'soul-shards',
       render: () => (
-        <Tab title="Soul Shard usage breakdown">
+        <Tab>
           <SoulShardBreakdown
             shardsGeneratedAndWasted={this.soulShardTracker.generatedAndWasted}
             shardsSpent={this.soulShardTracker.spent}

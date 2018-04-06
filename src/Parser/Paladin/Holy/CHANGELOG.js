@@ -10,27 +10,27 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-03-12'),
-    changes: <Wrapper>Inefficient <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} icon /> casts will now be highlighted in the timeline with a red border.</Wrapper>,
+    changes: <Wrapper>Inefficient <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> casts will now be highlighted in the timeline with a red border.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-03-12'),
-    changes: <Wrapper>Fixed a bug where chained <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} icon /> casts might incorrectly mark the second <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} icon /> as being affected by <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} icon /> instead of being marked as inefficient.</Wrapper>,
+    changes: <Wrapper>Fixed a bug where chained <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> casts might incorrectly mark the second <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> as being affected by <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> instead of being marked as inefficient.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-02-23'),
-    changes: <Wrapper>Fixed beacon healing tracking for precasted <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} icon /> into <SpellLink id={SPELLS.BEACON_OF_VIRTUE_TALENT.id} icon />.</Wrapper>,
+    changes: <Wrapper>Fixed beacon healing tracking for precasted <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> into <SpellLink id={SPELLS.BEACON_OF_VIRTUE_TALENT.id} />.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-02-09'),
-    changes: <Wrapper>Fixed an issue where sometimes <SpellLink id={SPELLS.SECOND_SUNRISE.id} icon /> would not be detected properly, throwing off the average players hit per <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} icon /> and some other things. This likely only might have occured if the logger had a poor internet connection.</Wrapper>,
+    changes: <Wrapper>Fixed an issue where sometimes <SpellLink id={SPELLS.SECOND_SUNRISE.id} /> would not be detected properly, throwing off the average players hit per <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and some other things. This likely only might have occured if the logger had a poor internet connection.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-02-01'),
-    changes: <Wrapper>Added <i>total filler <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} icon /> casts while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} icon /> was available</i> suggestion, and changed the filler <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} icon /> check to also include a 200ms buffer time.</Wrapper>,
+    changes: <Wrapper>Added <i>total filler <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> casts while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was available</i> suggestion, and changed the filler <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> check to also include a 200ms buffer time.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {
@@ -45,22 +45,22 @@ export default [
   },
   {
     date: new Date('2018-01-11'),
-    changes: <Wrapper>Changed the <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} icon /> suggestion thresholds to 80k minor/60k average/40k major importance (up from 60k minor/50k average/40k major) to more closely match the <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} icon /> average.</Wrapper>,
+    changes: <Wrapper>Changed the <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> suggestion thresholds to 80k minor/60k average/40k major importance (up from 60k minor/50k average/40k major) to more closely match the <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} /> average.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-12-31'),
-    changes: <Wrapper><ItemLink id={ITEMS.DRAPE_OF_SHAME.id} icon /> now shows an estimated item level.</Wrapper>,
+    changes: <Wrapper><ItemLink id={ITEMS.DRAPE_OF_SHAME.id} /> now shows an estimated item level.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-12-30'),
-    changes: <Wrapper>Added a suggestion to consider using <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} icon /> when not using it.</Wrapper>,
+    changes: <Wrapper>Added a suggestion to consider using <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} /> when not using it.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-12-24'),
-    changes: <Wrapper>Fixed a crash when using <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} icon /> without <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} icon />.</Wrapper>,
+    changes: <Wrapper>Fixed a crash when using <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> without <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} />.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {
@@ -75,7 +75,7 @@ export default [
   },
   {
     date: new Date('2017-12-23'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.LAY_ON_HANDS.id} icon /> to cast efficiency with a 20% recommended cooldown time (to suggest casting it at least once).</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.LAY_ON_HANDS.id} /> to cast efficiency with a 20% recommended cooldown time (to suggest casting it at least once).</Wrapper>,
     contributors: [Zerotorescue],
   },
   {

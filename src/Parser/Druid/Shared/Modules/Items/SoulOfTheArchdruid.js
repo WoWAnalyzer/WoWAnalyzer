@@ -52,7 +52,7 @@ class SoulOfTheArchdruid extends Analyzer {
   item() {
     return {
       item: ITEMS.SOUL_OF_THE_ARCHDRUID,
-      result: <Wrapper>This gave you <SpellLink id={this.talentGained} icon />.</Wrapper>,
+      result: <Wrapper>This gave you <SpellLink id={this.talentGained} />.</Wrapper>,
     };
   }
 

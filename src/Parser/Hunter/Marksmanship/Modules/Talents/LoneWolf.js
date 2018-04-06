@@ -4,7 +4,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -36,9 +35,7 @@ class LoneWolf extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.LONE_WOLF_TALENT.id}>
-            <SpellIcon id={SPELLS.LONE_WOLF_TALENT.id} noLink /> Lone Wolf
-          </SpellLink>
+          <SpellLink id={SPELLS.LONE_WOLF_TALENT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.damage} />

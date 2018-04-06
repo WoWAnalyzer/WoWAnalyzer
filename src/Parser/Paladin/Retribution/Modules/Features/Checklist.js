@@ -91,7 +91,7 @@ class Checklist extends CoreChecklist {
   	}),
   	new Rule({
   		name: 'Use your cooldowns',
-  		description: <Wrapper>Retribution Paladin is a very cooldown dependant spec. Make sure you are keeping <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon/> and <SpellLink id={SPELLS.WAKE_OF_ASHES.id} icon /> on cooldown.</Wrapper>,
+  		description: <Wrapper>Retribution Paladin is a very cooldown dependant spec. Make sure you are keeping <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon/> and <SpellLink id={SPELLS.WAKE_OF_ASHES.id} /> on cooldown.</Wrapper>,
   		requirements: () => {
   			const combatant = this.combatants.selected;
   			return [

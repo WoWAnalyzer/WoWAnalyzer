@@ -58,7 +58,7 @@ class Tier20_4set extends Analyzer {
     return {
       id: SPELLS.FROST_MAGE_T20_4SET_BONUS_BUFF.id,
       icon: <SpellIcon id={SPELLS.FROST_MAGE_T20_4SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.FROST_MAGE_T20_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.FROST_MAGE_T20_4SET_BONUS_BUFF.id} icon={false} />,
       result: `Reduced ${(this.averageCooldownReduction / 1000).toFixed(1)}s per cast / ${(this.totalCdr / 1000).toFixed(1)}s total`,
     };
   }

@@ -113,7 +113,7 @@ class AMurderOfCrows extends Analyzer {
   }
   suggestions(when) {
     when(this.badCastThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Don't cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} icon /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> up (or ready to cast straight after the <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} icon /> cast), and atleast 7 seconds remaining on the buff.</Wrapper>)
+      return suggest(<Wrapper>Don't cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up (or ready to cast straight after the <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> cast), and atleast 7 seconds remaining on the buff.</Wrapper>)
         .icon(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.icon)
         .actual(`You cast A Murder of Crows ${actual} times without Bestial Wrath up or Bestial Wrath ready to cast after`)
         .recommended(`${recommended} is recommended`);
@@ -170,9 +170,7 @@ class AMurderOfCrows extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id}>
-            <SpellIcon id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} noLink /> A Murder of Crows
-          </SpellLink>
+          <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.damage} />

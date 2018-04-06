@@ -63,7 +63,7 @@ class Checklist extends CoreChecklist {
             when: this.combatants.selected.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.CRIMSON_SCOURGE.id} icon /> procs spent</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs spent</Wrapper>,
             check: () => this.crimsonScourge.efficiencySuggestionThresholds,
             when: !this.combatants.selected.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
           }),
@@ -93,7 +93,7 @@ class Checklist extends CoreChecklist {
             check: () => this.runeTracker.suggestionThresholdsEfficiency,
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.MARROWREND.id} icon /> efficiency</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.MARROWREND.id} /> efficiency</Wrapper>,
             check: () => this.marrowrendUsage.suggestionThresholdsEfficiency,
           }),
         ];
@@ -116,7 +116,7 @@ class Checklist extends CoreChecklist {
             when: this.combatants.selected.hasTalent(SPELLS.BLOOD_MIRROR_TALENT.id),
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.BONESTORM_TALENT.id} icon /> efficiency</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.BONESTORM_TALENT.id} /> efficiency</Wrapper>,
             check: () => this.bonestorm.suggestionThresholds,
             when: this.combatants.selected.hasTalent(SPELLS.BONESTORM_TALENT.id),
           }),

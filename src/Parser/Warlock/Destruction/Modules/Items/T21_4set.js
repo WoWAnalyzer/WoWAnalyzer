@@ -1,14 +1,12 @@
 import React from 'react';
 
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
-
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
-
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 // Chaos Bolt will deal an additional 12% of its direct damage caused to the target over 4 sec.
@@ -34,13 +32,14 @@ class T21_4set extends Analyzer {
     return {
       id: `spell-${SPELLS.WARLOCK_DESTRO_T21_4P_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.WARLOCK_DESTRO_T21_4P_BONUS.id} />,
-      title: <SpellLink id={SPELLS.WARLOCK_DESTRO_T21_4P_BONUS.id} />,
-      result:
-        (<Wrapper>
+      title: <SpellLink id={SPELLS.WARLOCK_DESTRO_T21_4P_BONUS.id} icon={false} />,
+      result: (
+        <Wrapper>
           <dfn data-tip={`Total bonus damage - ${formatNumber(this.damage)}`}>
             <ItemDamageDone amount={this.damage} />
           </dfn>
-        </Wrapper>),
+        </Wrapper>
+      ),
     };
   }
 }

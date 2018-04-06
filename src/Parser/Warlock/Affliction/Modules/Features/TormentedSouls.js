@@ -78,7 +78,7 @@ class TormentedSouls extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id} icon /> gained <i>per minute</i>
+          <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id} /> gained <i>per minute</i>
         </div>
         <div className="flex-sub text-right">
           <dfn data-tip={`${this.totalSouls} souls in total`}>
@@ -93,7 +93,7 @@ class TormentedSouls extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.REND_SOUL.id} icon /> procs
+          <SpellLink id={SPELLS.REND_SOUL.id} /> procs
         </div>
         <div className="flex-sub text-right">
           {this.soulsFromRend}
@@ -106,7 +106,7 @@ class TormentedSouls extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.REND_SOUL.id} icon /> procs with <SpellLink id={SPELLS.REAP_SOULS.id} icon/> active
+          <SpellLink id={SPELLS.REND_SOUL.id} /> procs with <SpellLink id={SPELLS.REAP_SOULS.id} icon/> active
         </div>
         <div className="flex-sub text-right">
           {this.soulsFromRendWhileReap}

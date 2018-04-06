@@ -37,7 +37,7 @@ class T21_2Set extends Analyzer {
     return {
       id: `spell-${SPELLS.RESTO_DRUID_T21_2SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.RESTO_DRUID_T21_2SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.RESTO_DRUID_T21_2SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.RESTO_DRUID_T21_2SET_BONUS_BUFF.id} icon={false} />,
       result: (
         <dfn data-tip={`This set bonus causes your Ysera's Gift passive to apply the Dreamer HoT, which gives a mastery stack in addition to healing directly. The displayed healing amount is the sum of the direct healing from Dreamer and the healing enabled by Dreamer's extra mastery stack. ${this.has4pc ? `<i>These numbers count only HoTs procced from 'natural' Ysera's Gift ticks. HoTs procced from extra Ysera's Gifts caused by the 4pc are attributed to the 4pc</i>` : ''}
             <ul>

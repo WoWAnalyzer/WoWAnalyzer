@@ -38,7 +38,7 @@ class Tier21_2set extends Analyzer {
     return {
       id: SPELLS.BALANCE_DRUID_T21_2SET_BONUS_BUFF.id,
       icon: <SpellIcon id={SPELLS.BALANCE_DRUID_T21_2SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.BALANCE_DRUID_T21_2SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.BALANCE_DRUID_T21_2SET_BONUS_BUFF.id} icon={false} />,
       result: (
         <dfn data-tip={`Damage Breakdown:
           <ul>

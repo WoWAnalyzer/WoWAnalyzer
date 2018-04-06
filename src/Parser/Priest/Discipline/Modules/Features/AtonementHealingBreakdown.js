@@ -32,9 +32,9 @@ class AtonementHealingBreakdown extends React.Component {
   reason(spellId) {
     switch (Number(spellId)) {
       case SPELLS.REFRESHING_AGONY_DOT.id:
-        return <ItemLink id={ITEMS.CARAFE_OF_SEARING_LIGHT.id} icon />;
+        return <ItemLink id={ITEMS.CARAFE_OF_SEARING_LIGHT.id} />;
       case -2: // Melee
-        return <SpellLink id={SPELLS.LIGHTSPAWN.id} icon />;
+        return <SpellLink id={SPELLS.LIGHTSPAWN.id} />;
       default: return null;
     }
   }
@@ -60,7 +60,7 @@ class AtonementHealingBreakdown extends React.Component {
               <Wrapper>
                 <tr key={ability.guid}>
                   <td style={{ width: '30%' }}>
-                    <SpellLink id={ability.guid}>
+                    <SpellLink id={ability.guid} icon={false}>
                       <Icon icon={ability.abilityIcon} />{' '}
                       {ability.name}
                     </SpellLink>
@@ -98,7 +98,7 @@ class AtonementHealingBreakdown extends React.Component {
                   return (
                     <tr>
                       <td style={{ width: '30%', paddingLeft: 50 }}>
-                        <SpellLink id={ability.guid}>
+                        <SpellLink id={ability.guid} icon={false}>
                           <Icon icon={ability.abilityIcon} />{' '}
                           {ability.name} bolt {index + 1}
                         </SpellLink>

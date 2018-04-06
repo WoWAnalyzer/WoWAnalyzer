@@ -16,7 +16,7 @@ export default [
   },
   {
     date: new Date('2018-03-19'),
-    changes: <Wrapper>Updated the Atonement sources tab to show related information for some spells. Changed <ItemLink id={ITEMS.CARAFE_OF_SEARING_LIGHT.id} icon /> to use the more accurate Atonement source tracking.</Wrapper>,
+    changes: <Wrapper>Updated the Atonement sources tab to show related information for some spells. Changed <ItemLink id={ITEMS.CARAFE_OF_SEARING_LIGHT.id} /> to use the more accurate Atonement source tracking.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {

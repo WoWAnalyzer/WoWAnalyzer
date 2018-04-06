@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
 import { formatThousands, formatNumber, formatPercentage, formatDuration } from 'common/format';
 
@@ -111,12 +110,17 @@ class Cooldown extends React.Component {
     return (
       <article>
         <figure>
-          <SpellIcon id={cooldown.spell.id} />
+          <SpellLink id={cooldown.spell.id} icon={false}>
+            <Icon
+              icon={cooldown.spell.icon}
+              alt={cooldown.spell.name}
+            />
+          </SpellLink>
         </figure>
         <div className="row" style={{ width: '100%' }}>
           <div className={this.state.showAllEvents ? 'col-md-12' : 'col-md-6'}>
             <header style={{ marginTop: 5, fontSize: '1.25em', marginBottom: '.1em' }}>
-              <SpellLink id={cooldown.spell.id} /> ({formatDuration((start - fightStart) / 1000)} -&gt; {formatDuration((end - fightStart) / 1000)})
+              <SpellLink id={cooldown.spell.id} icon={false} /> ({formatDuration((start - fightStart) / 1000)} -&gt; {formatDuration((end - fightStart) / 1000)})
             </header>
 
             {!this.state.showCastEvents && (
@@ -125,7 +129,7 @@ class Cooldown extends React.Component {
                   cooldown.events
                     .filter(event => event.type === 'cast' && event.ability.guid !== 1)
                     .map((event, i) => (
-                      <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid}>
+                      <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid} icon={false}>
                         <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} />
                       </SpellLink>
                     ))
@@ -149,7 +153,7 @@ class Cooldown extends React.Component {
                           +{((event.timestamp - cooldown.start) / 1000).toFixed(3)}
                         </div>
                         <div className="col-xs-10">
-                          <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid}>
+                          <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid} icon={false}>
                             <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} /> {event.ability.name}
                           </SpellLink>
                         </div>
@@ -172,7 +176,7 @@ class Cooldown extends React.Component {
                       +{((event.timestamp - cooldown.start) / 1000).toFixed(3)}
                     </div>
                     <div className={`col-xs-4 ${event.type === 'heal' ? 'col-xs-offset-1' : ''}`}>
-                      <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid}>
+                      <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid} icon={false}>
                         <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} /> {event.ability.name}
                       </SpellLink>
                       {event.type === 'heal' && (

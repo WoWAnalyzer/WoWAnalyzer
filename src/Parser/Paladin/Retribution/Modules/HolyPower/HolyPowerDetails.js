@@ -62,7 +62,7 @@ class HolyPowerDetails extends Analyzer {
 			title: 'Holy Power Usage',
 			url: 'holy-power-usage',
 			render: () => (
-				<Tab title="Holy Power usage breakdown">
+				<Tab>
 					<ResourceBreakdown
 						tracker={this.holyPowerTracker}
 						resourceName="Holy Power"

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
@@ -31,9 +30,7 @@ class RefractiveShell extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.REFRACTIVE_SHELL_TRAIT.id}>
-            <SpellIcon id={SPELLS.REFRACTIVE_SHELL_TRAIT.id} noLink /> Refractive Shell
-          </SpellLink>
+          <SpellLink id={SPELLS.REFRACTIVE_SHELL_TRAIT.id} />
         </div>
         <div className="flex-sub text-right">
           <dfn data-tip={`${this.traitLevel} ${this.traitLevel > 1 ? `traits` : `trait`}`}>

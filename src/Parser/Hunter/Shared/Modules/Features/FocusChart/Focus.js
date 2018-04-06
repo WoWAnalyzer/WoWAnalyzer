@@ -111,7 +111,6 @@ class Focus extends React.PureComponent {
           created: this.props.activeFocusGenerated[generator],
           wasted: this.props.activeFocusWasted[generator],
         };
-
       });
     }
 

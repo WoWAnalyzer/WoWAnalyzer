@@ -30,13 +30,9 @@ class SephuzsSecret extends Analyzer {
     return {
       item: ITEMS.SEPHUZS_SECRET,
       result: (
-        <span>
-          <dfn
-            data-tip={`This is the average haste percentage gained, factoring in both the passive and active bonuses. The active's uptime was <b>${formatPercentage(uptimePercent)}%</b>`}
-          >
-            {formatPercentage(avgHaste)} % average haste
-          </dfn>
-        </span>
+        <dfn data-tip={`This is the average haste percentage gained, factoring in both the passive and active bonuses. The active's uptime was <b>${formatPercentage(uptimePercent)}%</b>`}>
+          {formatPercentage(avgHaste)}% average haste
+        </dfn>
       ),
     };
   }

@@ -6,7 +6,7 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
@@ -70,7 +70,7 @@ class RoaringBlaze extends Analyzer {
       <div className="flex">
         <div className="flex-main">
           <SpellLink id={SPELLS.ROARING_BLAZE_TALENT.id}>
-            <SpellIcon id={SPELLS.ROARING_BLAZE_TALENT.id} noLink /> Roaring Blaze Gain
+            Roaring Blaze Gain
           </SpellLink>
         </div>
         <div className="flex-sub text-right">

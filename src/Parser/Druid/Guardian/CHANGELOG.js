@@ -15,7 +15,7 @@ export default [
   },
   { 
     date: new Date('2017-08-29'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.FURY_OF_NATURE.id} icon /> and <ItemLink id={ITEMS.LUFFA_WRAPPINGS.id} icon /> statistics.</Wrapper>,
+    changes: <Wrapper>Added <ItemLink id={ITEMS.FURY_OF_NATURE.id} /> and <ItemLink id={ITEMS.LUFFA_WRAPPINGS.id} /> statistics.</Wrapper>,
     contributors: [faide],
   },
   { 
@@ -45,7 +45,7 @@ export default [
   },
   { 
     date: new Date('2017-08-19'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.SKYSECS_HOLD.id} icon /> statistic and suggestion.</Wrapper>,
+    changes: <Wrapper>Added <ItemLink id={ITEMS.SKYSECS_HOLD.id} /> statistic and suggestion.</Wrapper>,
     contributors: [faide],
   },
   { 
