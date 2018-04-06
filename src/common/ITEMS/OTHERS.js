@@ -1,8 +1,8 @@
 import ITEM_QUALITIES from '../ITEM_QUALITIES';
 
 export default {
+  //fallback icon for encounter stats
   UNKNOWN_TRINKET: {
-    //fallback icon for encounter stats
     id: 0,
     icon: 'inv_misc_trinket6oih_orb1',
   },
@@ -425,10 +425,41 @@ export default {
     name: 'Shadow-Singed Fang',
     icon: 'inv_misc_blacksaberonfang',
   },
+  //T21 Tank trinkets
   AGGRAMARS_CONVICTION: {
     id: 154173,
     name: 'Aggramar\'s Conviction',
     icon: 'inv_antorus_orange',
+  },
+  SMOLDERING_TITANGUARD: {
+    id: 151978,
+    name: 'Smoldering Titanguard',
+    icon: 'ability_warrior_shieldmastery',
+  },
+  DIIMAS_GLACIAL_AEGIS: {
+    id: 151977,
+    name: 'Diima\'s Glacial Aegis',
+    icon: 'ability_hunter_glacialtrap',
+  },
+  RIFTWORLD_CODEX: {
+    id: 151976,
+    name: 'Riftworld Codex',
+    icon: 'inv_offhand_pvp330_d_02',
+  },
+  //Eye trinkets from Hounds
+  EYE_OF_HOUNDS: { //combatants ID, actual trinket is in bonusID
+    id: 151974,
+    icon: 'inv_misc_enchantedpearlc',
+  },
+  EYE_OF_SHATUG: {
+    id: 152645,
+    name: 'Eye of Shatug',
+    icon: 'inv_misc_enchantedpearle',
+  },
+  EYE_OF_FHARG: {
+    id: 153544,
+    name: 'Eye of F\'harg',
+    icon: 'inv_misc_enchantedpearlc',
   },
   // T19 Trinkets
   CONVERGENCE_OF_FATES: {

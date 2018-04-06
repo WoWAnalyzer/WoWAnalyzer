@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
+import { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
@@ -108,10 +109,10 @@ class Resurgence extends Analyzer {
         label={`Mana gained from Resurgence`}
       >
         <div>
-          <SpellLink id={SPELLS.RESURGENCE.id} icon /> accounted for {formatPercentage((this.totalResurgenceGain - (this.hasbottomlessDepths ? this.bottomlessDepths : 0)) / this.totalMana, 0)}% of your mana pool ({formatNumber(this.totalMana)} mana). <br />
-          <SpellLink id={SPELLS.BOTTOMLESS_DEPTHS_TALENT.id} icon /> {expandText}
+          <SpellLink id={SPELLS.RESURGENCE.id} /> accounted for {formatPercentage((this.totalResurgenceGain - (this.hasbottomlessDepths ? this.bottomlessDepths : 0)) / this.totalMana, 0)}% of your mana pool ({formatNumber(this.totalMana)} mana). <br />
+          <SpellLink id={SPELLS.BOTTOMLESS_DEPTHS_TALENT.id} /> {expandText}
         </div>
-        <table className="table table-condensed">
+        <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
           <thead>
             <tr>
               <th>Spell</th>
@@ -137,6 +138,7 @@ class Resurgence extends Analyzer {
       </ExpandableStatisticBox>
     );
   }
+  statisticOrder = STATISTIC_ORDER.UNIMPORTANT(90);
 }
 
 export default Resurgence;

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
@@ -56,9 +56,7 @@ class InfusionOfNature extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.INFUSION_OF_NATURE.id}>
-            <SpellIcon id={SPELLS.INFUSION_OF_NATURE.id} noLink /> Infusion of Nature
-          </SpellLink>
+          <SpellLink id={SPELLS.INFUSION_OF_NATURE.id} />
         </div>
         <div className="flex-sub text-right">
           <dfn data-tip={`Infusion of nature saved you ${Math.floor(this.manaGained)} mana. The extra mana gained is translated to throughput by assuming you'd cast more rejuvenations.`}>

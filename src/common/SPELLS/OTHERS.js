@@ -921,6 +921,51 @@ export default {
     name: 'Celestial Bulwark',
     icon: 'inv_antorus_orange',
   },
+  //Smoldering Titanguard
+  BULLWARK_OF_FLAME: { //absorb
+    id: 251946,
+    name: 'Bullwark of Flame',
+    icon: 'ability_warrior_shieldmastery',
+  },
+  WAVE_OF_FLAME: { //damage waves
+    id: 251948,
+    name: 'Wave of Flame',
+    icon: 'ability_warlock_coil2',
+  },
+  // Diima's
+  CHILLING_NOVA: { //AoE damage
+    id: 251940,
+    name: 'Chilling Nova',
+    icon: 'spell_frost_frostward',
+  },
+  FROZEN_ARMOR: {
+    id: 251941,
+    name: 'Frozen Armor',
+    icon : 'ability_hunter_glacialtrap',
+  },
+  // Riftworld Codex
+  WINDS_OF_KARETH: { //6sec HoT
+    id: 251938,
+    name: 'Winds of Kareth',
+    icon: 'spell_nature_regeneration_02',
+  },
+  LIGHT_OF_ABSOLARN: { //Absorb Shield
+    id: 252545,
+    name: 'Light of Absolarn',
+    icon: 'spell_frost_frostarmor02',
+  },
+  FLAMES_OF_RUVARAAD: { //8sec Immolation - Buff
+    id: 256415,
+    name: 'Flames of Ruvaraad',
+    icon: 'spell_fire_ragnaros_supernova',
+  },
+  FLAMES_OF_RUVARAAD_HEALING: {
+    id: 252550,
+    icon: 'spell_fire_ragnaros_supernova',
+  },
+  SWAP_HOUNDS: { //swaps the Eye trinket from Hounds
+    id: 252075,
+  },
   // Antorus: Argus the Unmaker boss fight
   STRENGTH_OF_THE_SEA: { // 2000 Haste/versa buff
     id: 253901,

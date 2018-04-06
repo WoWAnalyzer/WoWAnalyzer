@@ -62,7 +62,7 @@ class Tier20_2set extends Analyzer {
     return {
       id: `spell-${SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id}`,
       icon: <SpellIcon id={SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id} />,
-      title: <SpellLink id={SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id} />,
+      title: <SpellLink id={SPELLS.DISC_PRIEST_T20_2SET_BONUS_PASSIVE.id} icon={false} />,
       result: (
         <Wrapper>
           <ItemDamageDone amount={damage} /><br />

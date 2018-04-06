@@ -139,7 +139,7 @@ class CombatLogParser extends CoreCombatLogParser {
         title: 'Mana',
         url: 'mana',
         render: () => (
-          <Tab title="Mana" style={{ padding: '15px 22px' }}>
+          <Tab style={{ padding: '15px 22px' }}>
             <Mana parser={this} />
           </Tab>
         ),

@@ -31,7 +31,7 @@ class Tier21_4set extends Analyzer {
     return {
       id: `spell-${SPELLS.RET_PALADIN_T21_4SET_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.RET_PALADIN_T21_4SET_BONUS.id} />,
-      title: <SpellLink id={SPELLS.RET_PALADIN_T21_4SET_BONUS.id} />,
+      title: <SpellLink id={SPELLS.RET_PALADIN_T21_4SET_BONUS.id} icon={false} />,
       result: (
         <dfn data-tip={`Total Holy Power Gained: ${formatNumber(this.holyPowerGained)}`}>
           {formatNumber(this.holyPowerGained / this.owner.fightDuration * 60000)} Holy Power gained per minute.

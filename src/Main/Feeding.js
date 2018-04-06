@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
 
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
 // import Toggle from 'react-toggle';
 
@@ -72,7 +71,7 @@ class Feeding extends React.Component {
                 <tr>
                   <th style={{ fontSize: '1.25em' }}>
                     <SpellLink id={category.spell.id} style={{ color: '#fff' }}>
-                      <SpellIcon id={category.spell.id} noLink /> {category.name}
+                      {category.name}
                     </SpellLink>
                   </th>
                   <th className="text-center" colSpan="3"><dfn data-tip={`The amount of healing done by spells that feed into ${category.name} while it was up.`}>Feeding done per spell</dfn></th>

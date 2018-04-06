@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { faide, WOPR } from 'CONTRIBUTORS';
+import { faide, WOPR, Gebuz } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
@@ -9,8 +9,13 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   { 
+    date: new Date('2018-03-26'),
+    changes: 'Highlight bad filler casts on the timeline.',
+    contributors: [Gebuz],
+  },
+  { 
     date: new Date('2017-08-29'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.FURY_OF_NATURE.id} icon /> and <ItemLink id={ITEMS.LUFFA_WRAPPINGS.id} icon /> statistics.</Wrapper>,
+    changes: <Wrapper>Added <ItemLink id={ITEMS.FURY_OF_NATURE.id} /> and <ItemLink id={ITEMS.LUFFA_WRAPPINGS.id} /> statistics.</Wrapper>,
     contributors: [faide],
   },
   { 
@@ -40,7 +45,7 @@ export default [
   },
   { 
     date: new Date('2017-08-19'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.SKYSECS_HOLD.id} icon /> statistic and suggestion.</Wrapper>,
+    changes: <Wrapper>Added <ItemLink id={ITEMS.SKYSECS_HOLD.id} /> statistic and suggestion.</Wrapper>,
     contributors: [faide],
   },
   { 

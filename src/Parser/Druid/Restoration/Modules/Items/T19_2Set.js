@@ -25,7 +25,7 @@ class T19_2Set extends Analyzer {
     return {
       id: `spell-${SPELLS.RESTO_DRUID_T19_2SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.RESTO_DRUID_T19_2SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.RESTO_DRUID_T19_2SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.RESTO_DRUID_T19_2SET_BONUS_BUFF.id} icon={false} />,
       result: <ItemHealingDone amount={healing} />,
     };
   }

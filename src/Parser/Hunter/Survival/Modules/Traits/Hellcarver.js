@@ -65,7 +65,6 @@ class Hellcarver extends Analyzer {
   get damageContribution() {
     return this.bonusDamage;
   }
-
 }
 
 export default Hellcarver;

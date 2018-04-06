@@ -5,7 +5,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import SPELLS from 'common/SPELLS';
 
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
@@ -39,9 +39,7 @@ class EssenceOfNordrassil extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.ESSENCE_OF_NORDRASSIL.id}>
-            <SpellIcon id={SPELLS.ESSENCE_OF_NORDRASSIL.id} noLink /> Essence of Nordrassil
-          </SpellLink>
+          <SpellLink id={SPELLS.ESSENCE_OF_NORDRASSIL.id} />
         </div>
         <div className="flex-sub text-right">
           {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %

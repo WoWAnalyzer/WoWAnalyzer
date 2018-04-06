@@ -3,9 +3,41 @@
  * Feel free to add yourself if you're not yet in the list.
  *
  * Using `require` for avatars so we don't have to keep a seperate list of imports disconnected from the maintainer definition.
- *
- * @type {{nickname: string, github: string, avatar: *}}
+ * 
+    EXAMPLE
+
+    export const NICKNAME = {
+      nickname: 'NICKNAME',
+      github: 'GITHUB_NAME',
+      avatar: require('./Images/IMAGE'),
+      desc: 'DESC',
+      maintainer: [
+        SPECS.BLOOD_DEATH_KNIGHT,
+      ],
+      mains: [{
+        name: "CHARNAME",
+        spec: SPECS.BLOOD_DEATH_KNIGHT,
+        link: "ARMOR/WCL-LINK",
+      }],
+      alts: [{
+        name: "CHARNAME",
+        spec: SPECS.BLOOD_DEATH_KNIGHT,
+        link: "ARMOR/WCL-LINK",
+      }],
+      others: {
+        "Custom Item": "normal text",
+        "Custom Item": [
+          "Item 1", 
+          "Item 2", 
+        ],
+      },
+      links: {
+        "Link No1": "https://www.google.com",
+      },
+    };
  */
+
+import SPECS from 'common/SPECS';
 
 export const Zerotorescue = {
   nickname: 'Zerotorescue',
@@ -275,10 +307,27 @@ export const Cloake = {
 export const joshinator = {
   nickname: 'joshinator',
   github: 'joshinat0r',
+  mains: [{
+    name: "Êxtêndêd",
+    spec: SPECS.BLOOD_DEATH_KNIGHT,
+    link: "https://worldofwarcraft.com/en-gb/character/eredar/%C3%8Axt%C3%AAnd%C3%AAd",
+  }],
 };
 export const niseko = {
   nickname: 'niseko',
   github: 'niseko',
   avatar: require('./Images/niseko-avatar.jpg'),
 };
-
+export const Aelexe = {
+  nickname: 'Aelexe',
+  github: 'Aelexe',
+  avatar: require('./Images/Aelexe-avatar.jpg'),
+  maintainer: [
+    SPECS.ARMS_WARRIOR,
+  ],
+  mains: [{
+    name: 'Aelexe',
+    spec: SPECS.HOLY_PALADIN,
+    link: 'https://worldofwarcraft.com/en-us/character/frostmourne/aelexe',
+  }],
+};

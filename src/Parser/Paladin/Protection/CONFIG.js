@@ -24,7 +24,7 @@ export default {
       </Warning>
 
       <Warning>
-        Because <SpellLink id={SPELLS.GRAND_CRUSADER.id} icon /> <dfn data-tip="The combatlog does not contain any events for random cooldown resets.">can't be tracked</dfn> properly, any cooldown information of <SpellLink id={SPELLS.AVENGERS_SHIELD.id} icon /> should be treated as <dfn data-tip="Whenever Avenger's Shield would be cast before its cooldown would have expired normally, the cooldown expiry will be set back to the last possible trigger of Grand Crusade. This may lead to higher times on cooldown than you actually experienced in-game.">educated guesses</dfn>.
+        Because <SpellLink id={SPELLS.GRAND_CRUSADER.id} /> <dfn data-tip="The combatlog does not contain any events for random cooldown resets.">can't be tracked</dfn> properly, any cooldown information of <SpellLink id={SPELLS.AVENGERS_SHIELD.id} /> should be treated as <dfn data-tip="Whenever Avenger's Shield would be cast before its cooldown would have expired normally, the cooldown expiry will be set back to the last possible trigger of Grand Crusade. This may lead to higher times on cooldown than you actually experienced in-game.">educated guesses</dfn>.
       </Warning>
     </Wrapper>
   ),

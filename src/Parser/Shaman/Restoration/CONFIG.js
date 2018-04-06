@@ -19,7 +19,7 @@ export default {
     <Wrapper>
       Welcome to the Resto Shaman analyzer! We hope you find these suggestions and statistics useful.<br /><br />
 
-      If you want to learn more about Resto Shaman, join the Resto Shaman community at the <a href="https://discord.gg/AcTek6e" target="_blank" rel="noopener noreferrer">Ancestral Guidance channel</a>.<br /><br />
+      If you want to learn more about Resto Shaman, join the Resto Shaman community at the <a href="https://discord.gg/AcTek6e" target="_blank" rel="noopener noreferrer">Ancestral Guidance</a> discord server and make sure to visit the <a href="https://ancestralguidance.com/">website</a>.<br /><br />
 
       <Warning>
         The Restoration Shaman analysis isn't complete yet. What we do show should be good to use, but it does not show the complete picture.<br />

@@ -57,7 +57,7 @@ class T21_2P extends Analyzer {
     return {
       id: SPELLS.SUB_ROGUE_T21_2SET_BONUS.id,
       icon: <SpellIcon id={SPELLS.SUB_ROGUE_T21_2SET_BONUS.id} />,
-      title: <SpellLink id={SPELLS.SUB_ROGUE_T21_2SET_BONUS.id} />,
+      title: <SpellLink id={SPELLS.SUB_ROGUE_T21_2SET_BONUS.id} icon={false} />,
       result: <Wrapper>Cooldown of <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> reduced by {reductionPerCast.toFixed(1)} seconds on average.</Wrapper>,
     };
   }

@@ -4,44 +4,57 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
+    const combatant = this.combatants.selected;
     return [
       {
         spell: SPELLS.MORTAL_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 6,
-        castEfficiency: {
-          suggestion: true,
-        },
+        cooldown: haste => 6 / (1 + haste),
+        isOnGCD: true,
       },
       {
         spell: SPELLS.COLOSSUS_SMASH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 20,
-        castEfficiency: {
-          suggestion: true,
-        },
+        cooldown: combatant.hasTalent(SPELLS.TITANIC_MIGHT_TALENT.id) ? 20 - 8 : 20,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.EXECUTE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.SLAM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.CLEAVE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 6,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.WHIRLWIND,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        isOnGCD: true,
+      },
+      {
+        spell: SPELLS.BLADESTORM,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        cooldown: 90,
+        isOnGCD: true,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.50,
+          extraSuggestion: 'Use it as a filler when you\'re out of rage.',
+        },
       },
       {
         spell: SPELLS.WARBREAKER,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 60,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.BATTLE_CRY,
@@ -49,16 +62,17 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.95,
         },
       },
       {
         spell: SPELLS.COMMANDING_SHOUT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.01,
-          extraSuggestion: 'Use it to support your raid party.',
+          extraSuggestion: 'Use it preemptively as a buffer against large AOE, or reactively if you notice your raid is getting dangerously low on health.',
         },
       },
       {
@@ -68,7 +82,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.01,
-          extraSuggestion: 'Use CHARGE to close the gap',
+          extraSuggestion: 'Use it to get back into range after moving out to avoid mechanics. Not only does this allow you to get back to DPSing faster, it also generates rage for you to DPS with.',
         },
       },
       {
@@ -78,7 +92,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.01,
-          extraSuggestion: 'Use HEROIC LEAP to close the gap',
+          extraSuggestion: 'Use it to escape mechanics at the last moment, allowing you more time to DPS.',
         },
       },
       {

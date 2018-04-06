@@ -43,7 +43,7 @@ class TalentsDisplay extends Analyzer {
                         <SpellIcon id={spellId} style={{ width: '2em', height: '2em' }} />
                       </div>
                       <div className="col-md-8">
-                        <SpellLink id={spellId}>
+                        <SpellLink id={spellId} icon={false}>
                           {SPELLS[spellId].name}
                         </SpellLink>
                       </div>

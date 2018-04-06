@@ -108,6 +108,10 @@ import AcridCatalystInjector from './Modules/Items/Legion/AntorusTheBurningThron
 import ShadowSingedFang from './Modules/Items/Legion/AntorusTheBurningThrone/ShadowSingedFang';
 // Tanking
 import AggramarsConviction from './Modules/Items/Legion/AntorusTheBurningThrone/AggramarsConviction';
+import SmolderingTitanguard from './Modules/Items/Legion/AntorusTheBurningThrone/SmolderingTitanguard';
+import DiimasGlacialAegis from './Modules/Items/Legion/AntorusTheBurningThrone/DiimasGlacialAegis';
+import RiftworldCodex from './Modules/Items/Legion/AntorusTheBurningThrone/RiftworldCodex';
+import EyeOfHounds from './Modules/Items/Legion/AntorusTheBurningThrone/EyeOfHounds';
 
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
@@ -239,6 +243,10 @@ class CombatLogParser {
 
     // T21 Tanking Trinkets
     aggramarsConviction: AggramarsConviction,
+    smolderingTitanguard: SmolderingTitanguard,
+    diimasGlacialAegis: DiimasGlacialAegis,
+    riftworldCodex: RiftworldCodex,
+    eyeOfHounds: EyeOfHounds,
 
     // Concordance of the Legionfall
     concordance: Concordance,

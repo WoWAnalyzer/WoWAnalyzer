@@ -53,7 +53,7 @@ class T21_4Set extends Analyzer {
     return {
       id: `spell-${SPELLS.RESTO_DRUID_T21_4SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.RESTO_DRUID_T21_4SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.RESTO_DRUID_T21_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.RESTO_DRUID_T21_4SET_BONUS_BUFF.id} icon={false} />,
       result: (
         <dfn data-tip={`This is the amount of healing done by the <i>extra</i> Ysera's Gift ticks AND by the <i>extra</i> Dreamer HoTs procced by those ticks. Dreamer gives a mastery stack, so the extra healing enabled by that stack is also counted.
         <ul>

@@ -9,18 +9,23 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-03-28'),
+    changes: <Wrapper>Added a Tab detailing the <SpellLink id={SPELLS.DEEP_HEALING.id} /> effectiveness per player.</Wrapper>,
+    contributors: [niseko],
+  },
+  {
     date: new Date('2018-03-24'),
-    changes: <Wrapper>Reworked the <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon /> statistics, making them easier to read.</Wrapper>,
+    changes: <Wrapper>Reworked the <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> statistics, making them easier to read.</Wrapper>,
     contributors: [niseko],
   },
   {
     date: new Date('2018-03-16'),
-    changes: <Wrapper>Added a <SpellLink id={SPELLS.RESURGENCE.id} icon /> module, detailing how much each spell contributed to your mana pool.</Wrapper>,
+    changes: <Wrapper>Added a <SpellLink id={SPELLS.RESURGENCE.id} /> module, detailing how much each spell contributed to your mana pool.</Wrapper>,
     contributors: [niseko],
   },
   {
     date: new Date('2018-03-15'),
-    changes: <Wrapper>Added support for DPS spells, <SpellLink id={SPELLS.CHAIN_HEAL.id} icon />, <SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} icon /> and <SpellLink id={SPELLS.WELLSPRING_TALENT.id} icon /> to the timeline. Added talents to the Checklist.</Wrapper>,
+    changes: <Wrapper>Added support for DPS spells, <SpellLink id={SPELLS.CHAIN_HEAL.id} />, <SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} /> and <SpellLink id={SPELLS.WELLSPRING_TALENT.id} /> to the timeline. Added talents to the Checklist.</Wrapper>,
     contributors: [niseko],
   },
   {

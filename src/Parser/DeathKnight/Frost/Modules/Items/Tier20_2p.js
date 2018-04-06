@@ -81,7 +81,7 @@ class Tier20_2p extends Analyzer {
     return {
       id: `spell-${SPELLS.FROST_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.FROST_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.FROST_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.FROST_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id} icon={false} />,
       result: <dfn data-tip={`Added ${this.totalAddedDuration/1000} seconds over ${this.totalPillarCasts} Pillar of Frost casts during the fight.`}>
         Added an average of {((this.totalAddedDuration/1000)/this.totalPillarCasts).toFixed(1)} seconds to the duration of Pillar of Frost
       </dfn>,

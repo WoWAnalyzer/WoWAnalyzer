@@ -53,7 +53,7 @@ class Tier21_4set extends Analyzer {
     return {
       id: `spell-${SPELLS.WARLOCK_AFFLI_T21_4P_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.WARLOCK_AFFLI_T21_4P_BONUS.id} />,
-      title: <SpellLink id={SPELLS.WARLOCK_AFFLI_T21_4P_BONUS.id} />,
+      title: <SpellLink id={SPELLS.WARLOCK_AFFLI_T21_4P_BONUS.id} icon={false} />,
       result: (<Wrapper>
         {formatPercentage(this.uptime)} % uptime on <SpellLink id={SPELLS.WARLOCK_AFFLI_T21_4P_DEBUFF.id} icon/> <br />
         <dfn data-tip={`${formatNumber(this._bonusDamage)} bonus damage`}>

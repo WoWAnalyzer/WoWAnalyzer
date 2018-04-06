@@ -68,7 +68,7 @@ class T21_2pc extends Analyzer {
     return {
       id: `spell-${SPELLS.BLOOD_DEATH_KNIGHT_T21_2SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.BLOOD_DEATH_KNIGHT_T21_2SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.BLOOD_DEATH_KNIGHT_T21_2SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.BLOOD_DEATH_KNIGHT_T21_2SET_BONUS_BUFF.id} icon={false} />,
       result: (
         <dfn data-tip={`${formatNumber(this.effectiveReduction / 1000)} sec total effective reduction and ${formatNumber(this.wastedReduction / 1000)} sec (${formatPercentage(this.wastedPercent)}%) wasted reduction.`}>
           <Wrapper>Reduced the cooldown of <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> by an average of {formatNumber(this.averageReduction)} seconds.</Wrapper>

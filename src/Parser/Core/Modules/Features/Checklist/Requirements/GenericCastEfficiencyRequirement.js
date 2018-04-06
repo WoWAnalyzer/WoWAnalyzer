@@ -7,7 +7,7 @@ import Requirement from '../Requirement';
 class GenericCastEfficiencyRequirement extends Requirement {
   constructor({ spell, ...others }) {
     super({
-      name: <SpellLink id={spell.id} icon />,
+      name: <SpellLink id={spell.id} />,
       check: function () { // don't use arrow function or `this` won't be set properly
         if (!this.castEfficiency) {
           throw new Error('The CastEfficiency module needs to be a dependency of the checklist to use the GenericCastEfficiencyRequirement.');

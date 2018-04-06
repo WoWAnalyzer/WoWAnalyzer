@@ -40,6 +40,7 @@ import ArchiveOfFaith from './Modules/Items/ArchiveOfFaith';
 import HighfathersMachination from './Modules/Items/HighfathersMachination';
 import EonarsCompassion from './Modules/Items/EonarsCompassion';
 import TarratusKeystone from './Modules/Items/TarratusKeystone';
+import VelensFutureSight from './Modules/Items/VelensFutureSight';
 
 import ChainHeal from './Modules/Spells/ChainHeal';
 import HealingSurge from './Modules/Spells/HealingSurge';
@@ -95,6 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
     highfathersMachinations: HighfathersMachination,
     eonarsCompassion: EonarsCompassion,
     tarratusKeystone: TarratusKeystone,
+    velensFutureSight: VelensFutureSight,
 
     // Spells:
     chainHeal: ChainHeal,
@@ -118,7 +120,7 @@ class CombatLogParser extends CoreCombatLogParser {
         title: 'Mana',
         url: 'mana',
         render: () => (
-          <Tab title="Mana" style={{ padding: '15px 22px' }}>
+          <Tab style={{ padding: '15px 22px' }}>
             <Mana parser={this} />
           </Tab>
         ),
@@ -127,7 +129,7 @@ class CombatLogParser extends CoreCombatLogParser {
         title: 'Feeding',
         url: 'feeding',
         render: () => (
-          <Tab title="Feeding" style={{ padding: 0 }}>
+          <Tab style={{ padding: 0 }}>
             <Feeding
               cooldownThroughputTracker={this.modules.cooldownThroughputTracker}
             />

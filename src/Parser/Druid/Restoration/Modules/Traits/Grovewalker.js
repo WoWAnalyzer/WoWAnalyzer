@@ -5,7 +5,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import SPELLS from 'common/SPELLS';
 
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import { getSpellInfo } from '../../SpellInfo';
@@ -43,9 +43,7 @@ class Grovewalker extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.GROVEWALKER.id}>
-            <SpellIcon id={SPELLS.GROVEWALKER.id} noLink /> Grovewalker
-          </SpellLink>
+          <SpellLink id={SPELLS.GROVEWALKER.id} />
         </div>
         <div className="flex-sub text-right">
           {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %

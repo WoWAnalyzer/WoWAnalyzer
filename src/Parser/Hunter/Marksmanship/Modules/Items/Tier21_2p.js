@@ -127,7 +127,7 @@ class Tier21_2p extends Analyzer {
     return {
       id: `spell-${SPELLS.HUNTER_MM_T21_2P_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.HUNTER_MM_T21_2P_BONUS.id} />,
-      title: <SpellLink id={SPELLS.HUNTER_MM_T21_2P_BONUS.id} />,
+      title: <SpellLink id={SPELLS.HUNTER_MM_T21_2P_BONUS.id} icon={false} />,
       result: (
         <dfn data-tip={tooltipText}>
           Focus gain: {formatNumber(totalExtraFocusGenerated)} / {formatNumber(totalPotentialFocusGain)} possible<br />

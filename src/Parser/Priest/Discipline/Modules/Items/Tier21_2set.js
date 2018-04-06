@@ -38,10 +38,10 @@ class Tier21_2set extends Analyzer {
     return {
       id: `spell-${SPELLS.DISC_PRIEST_T21_2SET_BONUS_PASSIVE.id}`,
       icon: <SpellIcon id={SPELLS.DISC_PRIEST_T21_2SET_BONUS_PASSIVE.id} />,
-      title: <SpellLink id={SPELLS.DISC_PRIEST_T21_2SET_BONUS_PASSIVE.id} />,
+      title: <SpellLink id={SPELLS.DISC_PRIEST_T21_2SET_BONUS_PASSIVE.id} icon={false} />,
       result: (
         <Wrapper>
-          Gross time saved: {formatDuration(this.grossTimeSaved / 1000)}
+          {formatDuration(this.grossTimeSaved / 1000)} total Cooldown Reduction.
         </Wrapper>
       ),
     };

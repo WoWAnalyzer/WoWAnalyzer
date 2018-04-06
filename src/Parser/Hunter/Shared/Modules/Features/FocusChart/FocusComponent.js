@@ -48,7 +48,7 @@ const FocusComponent = ({ categories, abilities, passive, focusBySecondCoord, ov
                   <tr key={name}>
                     <td style={{ width: '35%' }}>
                       <SpellLink id={ability.spellId} style={{ color: '#fff' }}>
-                        <SpellIcon id={ability.spellId} noLink /> {name}
+                        {name}
                       </SpellLink>
                     </td>
                     <td className="text-center" style={{ minWidth: 80 }}>

@@ -46,7 +46,7 @@ class Tier21_4p extends Analyzer {
     return {
       id: `spell-${SPELLS.UNHOLY_DEATH_KNIGHT_T21_4SET_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.UNHOLY_DEATH_KNIGHT_T21_4SET_BONUS.id} />,
-      title: <SpellLink id={SPELLS.UNHOLY_DEATH_KNIGHT_T21_4SET_BONUS.id} />,
+      title: <SpellLink id={SPELLS.UNHOLY_DEATH_KNIGHT_T21_4SET_BONUS.id} icon={false} />,
       result: (
         <dfn data-tip={tooltipText}>
           {formatPercentage(freeDeathcoils)} % of Death Coil casts dealt damage a second time

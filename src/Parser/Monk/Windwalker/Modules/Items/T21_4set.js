@@ -39,7 +39,7 @@ class T21_4set extends Analyzer {
     return {
       id: `spell-${SPELLS.WW_TIER21_4PC.id}`,
       icon: <SpellIcon id={SPELLS.WW_TIER21_4PC.id} />,
-      title: <SpellLink id={SPELLS.WW_TIER21_4PC.id} />,
+      title: <SpellLink id={SPELLS.WW_TIER21_4PC.id} icon={false} />,
       result: <ItemDamageDone amount={this.damage} />,
     };
   }

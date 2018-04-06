@@ -4,7 +4,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import getDamageBonusStacked from 'Parser/Paladin/Shared/Modules/getDamageBonusStacked';
@@ -41,9 +41,7 @@ class MightOfTheTemplar extends Analyzer {
  		return (
  			<div className='flex'>
  				<div className='flex-main'>
- 					<SpellLink id={SPELLS.MIGHT_OF_THE_TEMPLAR.id}>
- 						<SpellIcon id={SPELLS.MIGHT_OF_THE_TEMPLAR.id} noLink /> Might of the Templar
- 					</SpellLink>
+ 					<SpellLink id={SPELLS.MIGHT_OF_THE_TEMPLAR.id} />
  				</div>
  				<div className='flex-sub text-right'>
  					{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} %

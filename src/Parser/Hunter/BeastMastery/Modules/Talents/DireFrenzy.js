@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
@@ -154,13 +155,13 @@ class DireFrenzy extends Analyzer {
   suggestions(when) {
     when(this.direFrenzyUptimeThreshold)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your pet has a general low uptime of the buff from <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon />, you should never be sitting on 2 stacks of this spells, if you've chosen this talent, it's your most important spell to continously be casting. </Wrapper>)
+        return suggest(<Wrapper>Your pet has a general low uptime of the buff from <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} />, you should never be sitting on 2 stacks of this spells, if you've chosen this talent, it's your most important spell to continously be casting. </Wrapper>)
           .icon(SPELLS.DIRE_FRENZY_TALENT.icon)
           .actual(`Your pet had the buff from Dire Frenzy for ${formatPercentage(actual)}% of the fight`)
           .recommended(`${formatPercentage(recommended)}% is recommended`);
       });
     when(this.direFrenzy3StackThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </Wrapper>)
+      return suggest(<Wrapper>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </Wrapper>)
         .icon(SPELLS.DIRE_FRENZY_TALENT.icon)
         .actual(`Your pet had 3 stacks of the buff from Dire Frenzy for ${formatPercentage(actual)}% of the fight`)
         .recommended(`${formatPercentage(recommended)}% is recommended`);
@@ -182,9 +183,7 @@ class DireFrenzy extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id}>
-            <SpellIcon id={SPELLS.DIRE_FRENZY_TALENT.id} noLink /> Dire Frenzy
-          </SpellLink>
+          <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.damage} />

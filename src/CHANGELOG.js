@@ -9,6 +9,31 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-04'),
+    changes: 'Rename "Cast Efficiency" tab to "Abilities".',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-04-03'),
+    changes: <Wrapper>Added <ItemLink id={ITEMS.EYE_OF_SHATUG.id} /> and <ItemLink id={ITEMS.EYE_OF_FHARG.id} />.</Wrapper>,
+    contributors: [joshinator],
+  },
+  {
+    date: new Date('2018-04-02'),
+    changes: <Wrapper>Added Contributor pages.</Wrapper>,
+    contributors: [joshinator],
+  },
+  {
+    date: new Date('2018-03-29'),
+    changes: <Wrapper>Fix for icons that get wrong images from the CDN.</Wrapper>,
+    contributors: [joshinator],
+  },
+  {
+    date: new Date('2018-03-26'),
+    changes: <Wrapper>Added <ItemLink id={ITEMS.SMOLDERING_TITANGUARD.id} />, <ItemLink id={ITEMS.DIIMAS_GLACIAL_AEGIS.id} /> and  <ItemLink id={ITEMS.RIFTWORLD_CODEX.id} />.</Wrapper>,
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-03-24'),
     changes: 'Added statistics for talents, legendaries and trinkets based on the current encounter.',
     contributors: [joshinator],
@@ -35,7 +60,7 @@ export default [
   },
   {
     date: new Date('2018-03-15'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.MASTER_OF_COMBINATIONS.id} icon />, <SpellLink id={SPELLS.FURY_OF_ASHAMANE.id} icon />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SKY.id} icon />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SEA.id} icon /> and <SpellLink id={SPELLS.SERAPHIM_TALENT.id} icon /> to the stat tracker, slightly improving stat weights and any Haste based modules.</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.MASTER_OF_COMBINATIONS.id} />, <SpellLink id={SPELLS.FURY_OF_ASHAMANE.id} />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SKY.id} />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SEA.id} /> and <SpellLink id={SPELLS.SERAPHIM_TALENT.id} /> to the stat tracker, slightly improving stat weights and any Haste based modules.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {
@@ -45,7 +70,7 @@ export default [
   },
   {
     date: new Date('2018-02-21'),
-    changes: <Wrapper>Moved <SpellLink id={SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_AGILITY.id} icon /> statistic into the Netherlight Crucible list and renamed it.</Wrapper>,
+    changes: <Wrapper>Moved <SpellLink id={SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_AGILITY.id} /> statistic into the Netherlight Crucible list and renamed it.</Wrapper>,
     contributors: [Putro],
   },
   {
@@ -60,17 +85,17 @@ export default [
   },
   {
     date: new Date('2018-01-18'),
-    changes: <Wrapper>Added support for <ItemLink id={ITEMS.EYE_OF_COMMAND.id} icon />.</Wrapper>,
+    changes: <Wrapper>Added support for <ItemLink id={ITEMS.EYE_OF_COMMAND.id} />.</Wrapper>,
     contributors: [Putro],
   },
   {
     date: new Date('2018-01-18'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.ISHKARS_FELSHIELD_EMITTER.id} icon /> to cast efficiency.</Wrapper>,
+    changes: <Wrapper>Added <ItemLink id={ITEMS.ISHKARS_FELSHIELD_EMITTER.id} /> to cast efficiency.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-01-18'),
-    changes: <Wrapper>Fixed an issue where <ItemLink id={ITEMS.GAROTHI_FEEDBACK_CONDUIT.id} icon /> did not always add the Haste from the last buff.</Wrapper>,
+    changes: <Wrapper>Fixed an issue where <ItemLink id={ITEMS.GAROTHI_FEEDBACK_CONDUIT.id} /> did not always add the Haste from the last buff.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {
@@ -80,12 +105,12 @@ export default [
   },
   {
     date: new Date('2018-01-15'),
-    changes: <Wrapper>Added in <ItemLink id={ITEMS.AMANTHULS_VISION.id} icon /></Wrapper>,
+    changes: <Wrapper>Added in <ItemLink id={ITEMS.AMANTHULS_VISION.id} /></Wrapper>,
     contributors: [Hewhosmites],
   },
   {
     date: new Date('2018-01-15'),
-    changes: <Wrapper>Fixed a bug where friendly fire damage (from for example the passive of <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} icon />) would be included in the damage gain from <ItemLink id={ITEMS.GNAWED_THUMB_RING.id} icon />.</Wrapper>,
+    changes: <Wrapper>Fixed a bug where friendly fire damage (from for example the passive of <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} />) would be included in the damage gain from <ItemLink id={ITEMS.GNAWED_THUMB_RING.id} />.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {
@@ -100,7 +125,7 @@ export default [
   },
   {
     date: new Date('2018-01-09'),
-    changes: <Wrapper>Updated the tooltip for <ItemLink id={ITEMS.GOLGANNETHS_VITALITY.id} icon /> to show uptime aswell as damage contribution of the two procs</Wrapper>,
+    changes: <Wrapper>Updated the tooltip for <ItemLink id={ITEMS.GOLGANNETHS_VITALITY.id} /> to show uptime aswell as damage contribution of the two procs</Wrapper>,
     contributors: [Putro],
   },
   {
