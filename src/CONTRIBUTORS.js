@@ -318,4 +318,16 @@ export const niseko = {
   github: 'niseko',
   avatar: require('./Images/niseko-avatar.jpg'),
 };
-
+export const Aelexe = {
+  nickname: 'Aelexe',
+  github: 'Aelexe',
+  avatar: require('./Images/Aelexe-avatar.jpg'),
+  maintainer: [
+    SPECS.ARMS_WARRIOR,
+  ],
+  mains: [{
+    name: 'Aelexe',
+    spec: SPECS.HOLY_PALADIN,
+    link: 'https://worldofwarcraft.com/en-us/character/frostmourne/aelexe',
+  }],
+};
