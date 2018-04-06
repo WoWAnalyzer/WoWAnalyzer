@@ -55,8 +55,8 @@ class BadDotCasts extends Analyzer {
     if (!dot) {
       return;
     }
-    const targetString = encodeTargetString(event.targetID, event.targetInstance);
-    const goodExtension = this.extendDot(dot.debuffId, targetString, dot.duration, event.timestamp);
+    const targetID = encodeTargetString(event.targetID, event.targetInstance);
+    const goodExtension = this.extendDot(dot.debuffId, targetID, dot.duration, event.timestamp);
     if(this.lastCastGoodExtension){
       return;
     }
@@ -176,21 +176,21 @@ class BadDotCasts extends Analyzer {
   }
 
   // Extends the dot and returns true if it was a good extension (no duration wasted) or false if it was a bad extension.
-  extendDot(spellId, targetString, extension, timestamp) {
+  extendDot(spellId, targetID, extension, timestamp) {
     const dot = this.dots.find(element => {
       return element.debuffId === spellId;
     });
     if (!dot) {
       return;
     }
-    const remainingDuration = this.targets[dot.debuffId][targetString] - timestamp || 0;
+    const remainingDuration = this.targets[dot.debuffId][targetID] - timestamp || 0;
     const newDuration = remainingDuration + extension;
     const maxDuration = (1 + PANDEMIC_WINDOW) * dot.duration;
     if (newDuration < maxDuration) { //full extension
-      this.targets[dot.debuffId][targetString] = timestamp + newDuration;
+      this.targets[dot.debuffId][targetID] = timestamp + newDuration;
       return true;
     } // Else not full extension
-    this.targets[dot.debuffId][targetString] = timestamp + maxDuration;
+    this.targets[dot.debuffId][targetID] = timestamp + maxDuration;
     return false;   
   }
 
