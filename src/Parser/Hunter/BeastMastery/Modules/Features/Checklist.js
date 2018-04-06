@@ -2,6 +2,7 @@ import React from 'react';
 
 //Core
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import Abilities from 'Parser/Core/Modules/Abilities';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -46,6 +47,7 @@ import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
+    abilities: Abilities,
     combatants: Combatants,
 
     //general

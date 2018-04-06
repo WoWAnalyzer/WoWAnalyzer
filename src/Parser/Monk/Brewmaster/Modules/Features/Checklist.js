@@ -7,6 +7,7 @@ import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import Abilities from 'Parser/Core/Modules/Abilities';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
@@ -18,11 +19,12 @@ import RushingJadeWind from '../Spells/RushingJadeWind';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
+    abilities: Abilities,
+    castEfficiency: CastEfficiency,
     bof: BreathOfFire,
     isb: IronSkinBrew,
     brewcdr: BrewCDR,
     combatants: Combatants,
-    castEfficiency: CastEfficiency,
     tp: TigerPalm,
     rjw: RushingJadeWind,
   };
