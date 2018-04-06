@@ -631,6 +631,11 @@ export default {
     name: 'Starfall',
     icon: 'ability_druid_starfall',
   },
+  STELLAR_DRIFT: {
+    id: 202461,
+    name: 'Stellar Drift',
+    icon: 'spell_nature_starfall',
+  },
   FULL_MOON: {
     id: 202771,
     name: 'Full Moon',
