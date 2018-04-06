@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-06'),
+    changes: 'Updated checklist for brew generation to clarify some common points of confusion.',
+    contributors: [emallson],
+  },
+  {
     date: new Date('2018-03-19'),
     changes: <Wrapper>Converted <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> from uptime to hit tracking and updated hit tracking for <SpellLink id={SPELLS.IRONSKIN_BREW.id} />.</Wrapper>,
     contributors: [emallson],
