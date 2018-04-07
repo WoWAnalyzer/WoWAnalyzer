@@ -45,7 +45,7 @@ class BreatplateOfTheGoldenValkyr extends Analyzer {
   item() {
     return {
       item: ITEMS.BREASTPLATE_OF_THE_GOLDEN_VALKYR,
-      resutl: (
+      result: (
         <dfn data-tip={`Wasted ${ this.ancientKingsWasted / 1000 } possible seconds worth of cooldown reduction.`}>
           <SpellLink id={SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id} /> reduced by { this.ancientKingsReduced / 1000 }s
         </dfn>
