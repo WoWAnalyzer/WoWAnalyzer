@@ -74,10 +74,6 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.JUDGMENT_CAST,
-            when: () => {
-              const ability = this.abilities.getAbility(SPELLS.JUDGMENT_CAST.id);
-              return ability && ability.castEfficiency && ability.castEfficiency.suggestion;
-            },
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BESTOW_FAITH_TALENT,
@@ -105,18 +101,22 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.AVENGING_WRATH,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.HOLY_AVENGER_TALENT,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TYRS_DELIVERANCE_CAST,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.VELENS_FUTURE_SIGHT_BUFF,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.AURA_MASTERY,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ARCANE_TORRENT_MANA,
@@ -132,15 +132,18 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.RULE_OF_LAW_TALENT,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.DIVINE_STEED,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.DIVINE_PROTECTION,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BLESSING_OF_SACRIFICE,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.LAY_ON_HANDS,
