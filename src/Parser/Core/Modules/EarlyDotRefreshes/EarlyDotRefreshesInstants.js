@@ -15,7 +15,7 @@ const PANDEMIC_WINDOW = 0.3;
 // },
 
 // Abstract class for tracking bad dot casts. 
-// See /Parser/Druid/Balance/Modules/Features/BadDotCasts.js for an example implementation.
+// See /Parser/Druid/Balance/Modules/Features/EarlyDotRefreshesInstants.js for an example implementation.
 class EarlyDotRefreshesInstants extends EarlyDotRefreshes {
   static dependencies = {
     ...EarlyDotRefreshes.dependencies,
