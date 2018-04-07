@@ -14,6 +14,7 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import MoonfireUptime from './Modules/Features/MoonfireUptime';
 import SunfireUptime from './Modules/Features/SunfireUptime';
 import StellarFlareUptime from './Modules/Features/StellarFlareUptime';
+import StellarEmpowermentUptime from './Modules/Features/StellarEmpowermentUptime';
 import MoonSpells from './Modules/Features/MoonSpells';
 import UnempoweredLunarStrike from './Modules/Features/UnempoweredLunarStrike';
 import UnempoweredSolarWrath from './Modules/Features/UnempoweredSolarWrath';
@@ -59,6 +60,7 @@ class CombatLogParser extends MainCombatLogParser {
     moonfireUptime: MoonfireUptime,
     sunfireUptime: SunfireUptime,
     stellarFlareUptime: StellarFlareUptime,
+    stellarEmpowermentUptime: StellarEmpowermentUptime,
     moonSpells: MoonSpells,
     unempoweredLunarStrike: UnempoweredLunarStrike,
     unempoweredSolarWrath: UnempoweredSolarWrath,

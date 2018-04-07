@@ -20,6 +20,7 @@ import AlwaysBeCasting from './AlwaysBeCasting';
 import MoonfireUptime from './MoonfireUptime';
 import SunfireUptime from './SunfireUptime';
 import StellarFlareUptime from './StellarFlareUptime';
+import StellarEmpowermentUptime from './StellarEmpowermentUptime';
 import MoonSpells from './MoonSpells';
 import LunarEmpowerment from './LunarEmpowerment';
 import SolarEmpowerment from './SolarEmpowerment';
@@ -38,6 +39,7 @@ class Checklist extends CoreChecklist {
     moonfireUptime: MoonfireUptime,
     sunfireUptime: SunfireUptime,
     stellarFlareUptime: StellarFlareUptime,
+    stellarEmpowermentUptime: StellarEmpowermentUptime,
     lunarEmpowerment: LunarEmpowerment,
     solarEmpowerment: SolarEmpowerment,
     moonSpells: MoonSpells,
@@ -88,6 +90,12 @@ class Checklist extends CoreChecklist {
             name: <Wrapper><SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id}  /> uptime</Wrapper>,
             check: () => this.stellarFlareUptime.suggestionThresholds,
             when: combatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id),
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.STELLAR_EMPOWERMENT.id}  /> uptime</Wrapper>,
+            check: () => this.stellarEmpowermentUptime.suggestionThresholds,
+            when: this.combatants.selected.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_BALANCE.id) ||
+                    this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_ARCHDRUID.id),
           }),
         ];
       },
