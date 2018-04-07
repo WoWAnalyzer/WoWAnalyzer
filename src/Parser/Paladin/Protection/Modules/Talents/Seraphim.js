@@ -11,8 +11,6 @@ import { formatPercentage } from 'common/format';
  * Consumes up to 2 SotR charges to provice 5500 Haste+Vers+Mastery+Crit for 8sec per consumed charge
 */
 
-//ToDo: remove possible SotR casts from Ability-Tab that were used by Seraphim
-
 const SERAPHIM_STAT_BUFF = 5500;
 const SERAPHIM_MAX_SOTR_CHARGES = 2;
 const SERAPHIM_DURATION_PER_SOTR = 8000; //ms
