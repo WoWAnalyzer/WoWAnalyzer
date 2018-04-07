@@ -11,6 +11,7 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 const REDUCTION_TIME_PER_HIT = 3000; // ms
 
 /**
+ * Legendary Chest
  * Avengers Shield reduces the cooldown of Guardian of ancient Kings by 3s per target hit
 */
 class BreatplateOfTheGoldenValkyr extends Analyzer {
@@ -42,15 +43,15 @@ class BreatplateOfTheGoldenValkyr extends Analyzer {
   }
 
   item() {
-		return {
-			item: ITEMS.BREASTPLATE_OF_THE_GOLDEN_VALKYR,
-			result: (
-				<dfn data-tip={`Wasted ${ this.ancientKingsWasted / 1000 } possible seconds worth of cooldown reduction.`}>
-					<SpellLink id={SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id} /> reduced by { this.ancientKingsReduced / 1000 }s
-				</dfn>
-			),
-		};
-	}
+    return {
+      item: ITEMS.BREASTPLATE_OF_THE_GOLDEN_VALKYR,
+      resutl: (
+        <dfn data-tip={`Wasted ${ this.ancientKingsWasted / 1000 } possible seconds worth of cooldown reduction.`}>
+          <SpellLink id={SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id} /> reduced by { this.ancientKingsReduced / 1000 }s
+        </dfn>
+      ),
+    };
+  }
 }
 
 export default BreatplateOfTheGoldenValkyr;

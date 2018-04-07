@@ -6,12 +6,12 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatNumber, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SPECS from 'common/SPECS';
 import 'common/chartjs-plugin-vertical';
 
 /**
  * Goal is to remove pressure from healers by selfhealing more when really needed (eg. at low health) / improving tanks reactive selfhealing timings
 */
+
 class SelfHealTimingGraph extends Analyzer {
 
   static dependencies = {
@@ -23,30 +23,9 @@ class SelfHealTimingGraph extends Analyzer {
   _selfhealTimestamps = [];
 
 
-  selfHealSpell = 0;
+  selfHealSpell = SPELLS.HEALTHSTONE;
   tabTitle = "Selheal Timing";
   tabURL = 'selfheal-timings';
-
-  on_initialized() {
-
-    if (this.combatants.selected.specId === SPECS.PROTECTION_PALADIN.id) {
-      this.selfHealSpell = this.combatants.selected.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id) ?
-        SPELLS.HAND_OF_THE_PROTECTOR_TALENT:
-        SPELLS.LIGHT_OF_THE_PROTECTOR;
-
-      return;
-    }
-
-    if (this.combatants.selected.specId === SPECS.BLOOD_DEATH_KNIGHT.id) {
-      this.selfHealSpell = SPELLS.DEATH_STRIKE_HEAL;
-      this.tabTitle = "Death Strike Timing";
-      this.tabURL = "death-strike-timing";
-
-      return;
-    }
-
-    //Replace the selfHealSpell with your specs primary selfheal-ability
-  }
 
   on_toPlayer_death(event) {
     this._deathEvents.push(event);

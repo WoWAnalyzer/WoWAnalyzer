@@ -4,6 +4,7 @@ import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import { formatPercentage } from 'common/format';
 
 /**
@@ -18,6 +19,7 @@ const SERAPHIM_DURATION_PER_SOTR = 8000; //ms
 
 class Seraphim extends Analyzer {
   static dependencies = {
+    spellUsable: SpellUsable,
     combatants: Combatants,
   };
 
@@ -43,8 +45,11 @@ class Seraphim extends Analyzer {
 
     if (event.timestamp - SERAPHIM_DURATION_PER_SOTR + 100 > this.lastSeraphimCast) { //100ms buffer for timestamp
       this.seraphimCasts.push(2);
+      this.spellUsable.beginCooldown(SPELLS.SHIELD_OF_THE_RIGHTEOUS.id, event.timestamp);
+      this.spellUsable.beginCooldown(SPELLS.SHIELD_OF_THE_RIGHTEOUS.id, event.timestamp);
     } else {
       this.seraphimCasts.push(1);
+      this.spellUsable.beginCooldown(SPELLS.SHIELD_OF_THE_RIGHTEOUS.id, event.timestamp);
     }
   }
 

@@ -9,6 +9,7 @@ import { formatPercentage } from 'common/format';
 const DR_IN_CONSEC = 4;
 
 /**
+ * Legendary Ring
  * Gain 4% DR while standing in Consecration
 */
 class HeadcliffsImmortality extends Analyzer {
@@ -25,15 +26,15 @@ class HeadcliffsImmortality extends Analyzer {
   }
 
   item() {
-		return {
-			item: ITEMS.HEATHCLIFFS_IMMORTALITY,
-			result: (
-				<dfn data-tip={`${ formatPercentage(this.uptime)}% uptime`}>
-					average { (this.uptime * DR_IN_CONSEC).toFixed(2) }% DR
-				</dfn>
-			),
-		};
-	}
+    return {
+      item: ITEMS.HEATHCLIFFS_IMMORTALITY,
+      result: (
+        <dfn data-tip={`${ formatPercentage(this.uptime)}% uptime`}>
+          average { (this.uptime * DR_IN_CONSEC).toFixed(2) }% DR
+        </dfn>
+      ),
+    };
+  }
 }
 
 export default HeadcliffsImmortality;

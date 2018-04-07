@@ -13,6 +13,7 @@ import Checklist from './Modules/Features/Checklist';
 
 //Spells
 import Judgment from './Modules/Spells/Judgment';
+import LightOfTheProtectorTiming from './Modules/Features/LightOfTheProtectorTiming';
 
 //Items
 //import T20_2pc from './Modules/Items/T20_2pc';
@@ -44,7 +45,7 @@ class CombatLogParser extends CoreCombatLogParser {
     buffedHOTP: BuffedHOTP,
     spellUsable: SpellUsable,
     checklist: Checklist,
-    selfHealTimingGraph: SelfHealTimingGraph,
+    lightOfTheProtectorTiming: LightOfTheProtectorTiming,
     //cooldownTracker: CooldownTracker,
 
     // Talents

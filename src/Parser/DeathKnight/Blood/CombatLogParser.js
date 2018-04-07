@@ -2,7 +2,6 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
-import SelfHealTimingGraph from 'Parser/Core/Modules/Features/SelfHealTimingGraph';
 
 import Abilities from './Modules/Abilities';
 import Channeling from './Modules/Core/Channeling';
@@ -21,6 +20,7 @@ import Souldrinker from './Modules/Features/Souldrinker';
 import BoneShield from './Modules/Features/BoneShield';
 import DancingRuneWeapon from './Modules/Features/DancingRuneWeapon';
 import InitialMarrowrendCast from './Modules/Features/InitialMarrowrendCast';
+import DeathStrikeTiming from './Modules/Features/DeathStrikeTiming';
 
 // Resources
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
@@ -71,7 +71,7 @@ class CombatLogParser extends CoreCombatLogParser {
     blooddrinkerTicks: BlooddrinkerTicks,
     unendingThirstTracker:UnendingThirstTracker,
     checklist: Checklist,
-    selfHealTimingGraph: SelfHealTimingGraph,
+    deathStrikeTiming: DeathStrikeTiming,
     marrowrendUsage: MarrowrendUsage,
     souldrinker: Souldrinker,
     boneShield: BoneShield,

@@ -35,7 +35,7 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.HAMMER_OF_THE_RIGHTEOUS,
-            when: this.combatants.selected.hasTalent(SPELLS.CONSECRATED_HAMMER_TALENT.id),
+            when: this.combatants.selected.hasTalent(SPELLS.HOLY_SHIELD_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.AVENGERS_SHIELD,
