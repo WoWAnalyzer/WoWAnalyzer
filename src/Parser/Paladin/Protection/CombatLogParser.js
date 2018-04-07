@@ -2,7 +2,6 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
-import SelfHealTimingGraph from 'Parser/Core/Modules/Features/SelfHealTimingGraph';
 
 import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';

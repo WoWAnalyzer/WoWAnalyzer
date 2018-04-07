@@ -2,7 +2,6 @@ import React from 'react';
 import { Line as LineChart } from 'react-chartjs-2';
 import Analyzer from 'Parser/Core/Analyzer';
 import Tab from 'Main/Tab';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatNumber, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -13,10 +12,6 @@ import 'common/chartjs-plugin-vertical';
 */
 
 class SelfHealTimingGraph extends Analyzer {
-
-  static dependencies = {
-    combatants: Combatants,
-  };
   
   _hpEvents = [];
   _deathEvents = [];
