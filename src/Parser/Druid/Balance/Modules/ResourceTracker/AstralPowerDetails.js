@@ -81,7 +81,7 @@ class AstralPowerDetails extends Analyzer {
       title: 'Astral Power usage',
       url: 'astral-power-usage',
       render: () => (
-        <Tab title="Astral Power usage breakdown">
+        <Tab>
           <ResourceBreakdown
             tracker={this.astralPowerTracker}
             showSpenders={true}

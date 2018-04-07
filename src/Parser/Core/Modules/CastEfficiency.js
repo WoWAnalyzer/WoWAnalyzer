@@ -203,10 +203,10 @@ class CastEfficiency extends Analyzer {
 
   tab() {
     return {
-      title: 'Cast efficiency',
-      url: 'cast-efficiency',
+      title: 'Abilities',
+      url: 'abilities',
       render: () => (
-        <Tab title="Cast efficiency">
+        <Tab>
           <CastEfficiencyComponent
             categories={this.abilities.constructor.SPELL_CATEGORIES}
             abilities={this.getCastEfficiency()}

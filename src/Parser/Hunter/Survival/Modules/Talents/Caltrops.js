@@ -66,7 +66,7 @@ class Caltrops extends Analyzer {
 
   suggestions(when) {
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>If you have chosen <SpellLink id={SPELLS.CALTROPS_TALENT.id} icon /> as a talent, you want to ensure that you have a high uptime of the DOT ticking on enemies.</Wrapper>)
+      return suggest(<Wrapper>If you have chosen <SpellLink id={SPELLS.CALTROPS_TALENT.id} /> as a talent, you want to ensure that you have a high uptime of the DOT ticking on enemies.</Wrapper>)
         .icon(SPELLS.CALTROPS_TALENT.icon)
         .actual(`${formatPercentage(this.uptimePercentage)}%`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
@@ -87,9 +87,7 @@ class Caltrops extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.CALTROPS_TALENT.id}>
-            <SpellIcon id={SPELLS.CALTROPS_TALENT.id} noLink /> Caltrops
-          </SpellLink>
+          <SpellLink id={SPELLS.CALTROPS_TALENT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.bonusDamage} />

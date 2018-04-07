@@ -23,7 +23,7 @@ class Tier21_4set extends Analyzer {
     return {
       id: `spell-${SPELLS.EXPOSED_ELEMENTS.id}`,
       icon: <SpellIcon id={SPELLS.EXPOSED_ELEMENTS.id} />,
-      title: <SpellLink id={SPELLS.EXPOSED_ELEMENTS.id} />,
+      title: <SpellLink id={SPELLS.EXPOSED_ELEMENTS.id} icon={false} />,
       result: `${formatPercentage(T214setUptime)}% uptime`,
     };
   }

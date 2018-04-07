@@ -58,7 +58,7 @@ class Checklist extends CoreChecklist {
       // Avoid making too many things a URL. Including a link to a guide that goes into further detail is recommended.
       description: (
         <Wrapper>
-          Spells such as <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} icon />, <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} icon /> and <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> (with <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} icon />) are your most efficient spells available. Try to cast them as much as possible without overhealing. <dfn data-tip="When you're not bringing too many healers.">On Mythic*</dfn> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection. <a href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
+          Spells such as <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />, <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> (with <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} />) are your most efficient spells available. Try to cast them as much as possible without overhealing. <dfn data-tip="When you're not bringing too many healers.">On Mythic*</dfn> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection. <a href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
         </Wrapper>
       ),
       // The list of requirements for the Rule. Since it's a method you can run any code in here you want, but please try to keep is as simple as possible.
@@ -92,7 +92,7 @@ class Checklist extends CoreChecklist {
             when: combatant.hasTalent(SPELLS.HOLY_PRISM_TALENT.id),
           }),
           new Requirement({
-            name: <Wrapper>Total filler <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} icon />s cast while<br /><SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} icon /> was available</Wrapper>,
+            name: <Wrapper>Total filler <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />s cast while<br /><SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was available</Wrapper>,
             check: () => this.fillerFlashOfLight.suggestionThresholds,
           }),
         ];
@@ -154,8 +154,8 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <Wrapper>Position yourself well to maximize <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} icon /></Wrapper>,
-      description: <Wrapper><SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} icon /> has a big impact on the strength of your heals. Try to stay close to the people you are healing to benefit the most from your Mastery. Use <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> when healing people further away.</Wrapper>,
+      name: <Wrapper>Position yourself well to maximize <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} /></Wrapper>,
+      description: <Wrapper><SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} /> has a big impact on the strength of your heals. Try to stay close to the people you are healing to benefit the most from your Mastery. Use <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> when healing people further away.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
@@ -198,8 +198,8 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <Wrapper>Only use <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} icon /> when absolutely necessary</Wrapper>,
-      description: <Wrapper><SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} icon /> is an inefficient spell to cast compared to the alternatives. Try to only cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} icon /> when it will save someone's life or when you have to move and all other instant cast spells are on cooldown.</Wrapper>,
+      name: <Wrapper>Only use <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when absolutely necessary</Wrapper>,
+      description: <Wrapper><SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> is an inefficient spell to cast compared to the alternatives. Try to only cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when it will save someone's life or when you have to move and all other instant cast spells are on cooldown.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
@@ -207,7 +207,7 @@ class Checklist extends CoreChecklist {
             check: () => this.fillerLightOfTheMartyrs.cpmSuggestionThresholds,
           }),
           new Requirement({
-            name: <Wrapper>Total filler casts while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} icon /> was available</Wrapper>,
+            name: <Wrapper>Total filler casts while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was available</Wrapper>,
             check: () => this.fillerLightOfTheMartyrs.inefficientCpmSuggestionThresholds,
           }),
         ];
@@ -231,22 +231,22 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} icon />,
+            name: <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} />,
             check: () => this.auraOfSacrifice.suggestionThresholds,
             when: this.auraOfSacrifice.active,
           }),
           new Requirement({
-            name: <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} icon />,
+            name: <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />,
             check: () => this.ilterendi.suggestionThresholds,
             when: this.ilterendi.active,
           }),
           new Requirement({
-            name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} icon />,
+            name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
             check: () => this.velensFutureSight.suggestionThresholds,
             when: this.velensFutureSight.active,
           }),
           new Requirement({
-            name: <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} icon />,
+            name: <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} />,
             check: () => this.judgmentOfLight.suggestionThresholds,
             when: this.judgmentOfLight.active,
           }),
@@ -261,19 +261,19 @@ class Checklist extends CoreChecklist {
         const combatant = this.combatants.selected;
         return [
           new Requirement({
-            name: <SpellLink id={SPELLS.HOLY_SHOCK_HEAL.id} icon />,
+            name: <SpellLink id={SPELLS.HOLY_SHOCK_HEAL.id} />,
             check: () => this.overhealing.holyShockSuggestionThresholds,
           }),
           new Requirement({
-            name: <SpellLink id={SPELLS.LIGHT_OF_DAWN_HEAL.id} icon />,
+            name: <SpellLink id={SPELLS.LIGHT_OF_DAWN_HEAL.id} />,
             check: () => this.overhealing.lightOfDawnSuggestionThresholds,
           }),
           new Requirement({
-            name: <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} icon />,
+            name: <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />,
             check: () => this.overhealing.flashOfLightSuggestionThresholds,
           }),
           new Requirement({
-            name: <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} icon />,
+            name: <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} />,
             check: () => this.overhealing.bestowFaithSuggestionThresholds,
             when: combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT.id),
           }),

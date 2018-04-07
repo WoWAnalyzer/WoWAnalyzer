@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
@@ -85,9 +85,7 @@ class TyrsMunificence extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.TYRS_MUNIFICENCE.id}>
-            <SpellIcon id={SPELLS.TYRS_MUNIFICENCE.id} noLink /> Tyr's Munificence
-          </SpellLink>
+          <SpellLink id={SPELLS.TYRS_MUNIFICENCE.id} />
         </div>
         <div className="flex-sub text-right">
           {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %

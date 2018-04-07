@@ -5,7 +5,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import SPELLS from 'common/SPELLS';
 
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
@@ -39,9 +39,7 @@ class NaturalMending extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.NATURAL_MENDING.id}>
-            <SpellIcon id={SPELLS.NATURAL_MENDING.id} noLink /> Natural Mending
-          </SpellLink>
+          <SpellLink id={SPELLS.NATURAL_MENDING.id} />
         </div>
         <div className="flex-sub text-right">
           {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %

@@ -4,7 +4,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
@@ -52,9 +51,7 @@ class Concordance extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={this.appliedBuff.id}>
-            <SpellIcon id={this.appliedBuff.id} noLink /> Concordance
-          </SpellLink>
+          <SpellLink id={this.appliedBuff.id} />
         </div>
         <div className="flex-sub text-right">
           <dfn data-tip={`Rank ${this.rank}`}>

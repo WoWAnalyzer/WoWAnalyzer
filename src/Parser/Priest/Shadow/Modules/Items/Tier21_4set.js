@@ -62,7 +62,7 @@ class Tier21_4set extends Analyzer {
     return {
       id: `spell-${SPELLS.SHADOW_PRIEST_T21_4SET_BONUS_PASSIVE.id}`,
       icon: <SpellIcon id={SPELLS.SHADOW_PRIEST_T21_4SET_BONUS_PASSIVE.id} />,
-      title: <SpellLink id={SPELLS.SHADOW_PRIEST_T21_4SET_BONUS_PASSIVE.id} />,
+      title: <SpellLink id={SPELLS.SHADOW_PRIEST_T21_4SET_BONUS_PASSIVE.id} icon={false} />,
       result: (
         <dfn data-tip="This is an estimate and only reflects the damage gained from the crit chance gained. Having this bonus also increases the power of Tier 21 2P Bonus.">
           <ItemDamageDone amount={this.bonusDamage} approximate />

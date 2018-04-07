@@ -173,7 +173,7 @@ class Results extends React.Component {
         url: 'status',
         order: 100002,
         render: () => (
-          <Tab title="Status" style={{ padding: '15px 22px' }}>
+          <Tab style={{ padding: '15px 22px' }}>
             <Status />
           </Tab>
         ),

@@ -4,12 +4,11 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import ItemIcon from 'common/ItemIcon';
-import ItemLink from 'common/ItemLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
-import {formatPercentage} from 'common/format';
-import { ECHOES, CRIT_MULTIPLIER } from '../../Constants.js';
+import { formatPercentage } from 'common/format';
+
+import { CRIT_MULTIPLIER, ECHOES } from '../../Constants.js';
 
 class EchoesOfTheGreatSundering extends Analyzer {
   static dependencies = {
@@ -19,15 +18,14 @@ class EchoesOfTheGreatSundering extends Analyzer {
   echoesProcsCounter = 0;
   unbuffedBaseDamageSum = 0;
   buffedBaseDamageSum = 0;
-  buffedEarthquakeDamage=0;
+  buffedEarthquakeDamage = 0;
 
   unbuffedTickCounter = 0;
   buffedTickCounter = 0;
-  buffedCastCounter=0;
+  buffedCastCounter = 0;
 
   state = 0;  //0=guaranteed not buffed; 1=guaranteed buffed; 2=not too sure(use heuristic)
   endtime = 0;
-
 
   on_initialized() {
     this.active = this.combatants.selected.hasShoulder(ITEMS.ECHOES_OF_THE_GREAT_SUNDERING.id);
@@ -93,7 +91,7 @@ class EchoesOfTheGreatSundering extends Analyzer {
           const averageUnbuffedBaseDamage = this.unbuffedBaseDamageSum / this.unbuffedTickCounter;
           if (Math.abs(baseDamage / averageUnbuffedBaseDamage) < ECHOES.TRESHOLD_PERCENTAGE) {
             this.unbuffedEarthquakeDamage += event.amount;
-            this.unbuffedBaseDamageSum+=baseDamage;
+            this.unbuffedBaseDamageSum += baseDamage;
             this.unbuffedTickCounter++;
             console.log(this.unbuffedBaseDamageSum);
             return;
@@ -107,9 +105,7 @@ class EchoesOfTheGreatSundering extends Analyzer {
 
   item() {
     return {
-      id: `item=${ITEMS.ECHOES_OF_THE_GREAT_SUNDERING.id}`,
-      icon: <ItemIcon id={ITEMS.ECHOES_OF_THE_GREAT_SUNDERING.id} />,
-      title: <ItemLink id={ITEMS.ECHOES_OF_THE_GREAT_SUNDERING.id} />,
+      item: ITEMS.ECHOES_OF_THE_GREAT_SUNDERING,
       result: (
         <dfn data-tip={`Your utiliziation of Echoes of the Great Sundering :<ul><li> Buffed Earthquakes: ${this.buffedCastCounter}.</li><li>Total procs: ${this.echoesProcsCounter} procs</li></ul>`}>
           Earthquake procs used: {formatPercentage(this.buffedCastCounter / this.echoesProcsCounter)}%<br />

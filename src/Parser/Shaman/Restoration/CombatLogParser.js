@@ -120,7 +120,7 @@ class CombatLogParser extends CoreCombatLogParser {
         title: 'Mana',
         url: 'mana',
         render: () => (
-          <Tab title="Mana" style={{ padding: '15px 22px' }}>
+          <Tab style={{ padding: '15px 22px' }}>
             <Mana parser={this} />
           </Tab>
         ),
@@ -129,7 +129,7 @@ class CombatLogParser extends CoreCombatLogParser {
         title: 'Feeding',
         url: 'feeding',
         render: () => (
-          <Tab title="Feeding" style={{ padding: 0 }}>
+          <Tab style={{ padding: 0 }}>
             <Feeding
               cooldownThroughputTracker={this.modules.cooldownThroughputTracker}
             />

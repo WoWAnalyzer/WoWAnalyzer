@@ -160,7 +160,7 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: <Wrapper><SpellLink id={this.l90Talents.activeTalent.id} icon /> talent efficiency</Wrapper>,
+            name: <Wrapper><SpellLink id={this.l90Talents.activeTalent.id} /> talent efficiency</Wrapper>,
             check: () => this.l90Talents.suggestionThresholds,
           }),
           new Requirement({
@@ -169,7 +169,7 @@ class Checklist extends CoreChecklist {
             when: this.soulOfTheArchdruid.active,
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={this.l90Talents.activeTalent.id} icon /> buff efficiency</Wrapper>,
+            name: <Wrapper><SpellLink id={this.l90Talents.activeTalent.id} /> buff efficiency</Wrapper>,
             check: () => this.l90Talents.suggestionThresholdsBotA,
             when: (this.l90Talents.activeTalent.id === SPELLS.BLESSING_OF_THE_ANCIENTS_TALENT.id),
           }),

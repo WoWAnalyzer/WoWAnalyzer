@@ -83,7 +83,7 @@ class EnchantChecker extends Analyzer {
           .addSuggestion((suggest, actual, recommended) => {
             return suggest(
               <Wrapper>
-                Your <ItemLink id={item.id} quality={item.quality} details={item}>{slotName}</ItemLink> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
+                Your <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>{slotName}</ItemLink> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
               </Wrapper>
             )
               .icon(item.icon)
@@ -95,7 +95,7 @@ class EnchantChecker extends Analyzer {
           .addSuggestion((suggest, actual, recommended) => {
             return suggest(
               <Wrapper>
-                Your <ItemLink id={item.id} quality={item.quality} details={item}>{slotName}</ItemLink> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
+                Your <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>{slotName}</ItemLink> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
               </Wrapper>
             )
               .icon(item.icon)

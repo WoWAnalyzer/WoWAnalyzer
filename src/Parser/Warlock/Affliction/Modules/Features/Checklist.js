@@ -74,8 +74,8 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: <Wrapper>Buff your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> as much as possible</Wrapper>,
-      description: <Wrapper><SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} icon /> is your biggest source of damage and you should try to buff its damage as much as possible with <SpellLink id={SPELLS.REAP_SOULS.id} icon /> and <SpellLink id={SPELLS.MALEFIC_GRASP_TALENT.id} icon /> or <SpellLink id={SPELLS.HAUNT_TALENT.id} icon /> (if talented). <br />
-        If you don't have <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id} icon />, it's ok to wait a bit (as long as you're not wasting Soul Shards while waiting) and cast Unstable Affliction when you can buff it with Reap Souls.
+      description: <Wrapper><SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> is your biggest source of damage and you should try to buff its damage as much as possible with <SpellLink id={SPELLS.REAP_SOULS.id} /> and <SpellLink id={SPELLS.MALEFIC_GRASP_TALENT.id} /> or <SpellLink id={SPELLS.HAUNT_TALENT.id} /> (if talented). <br />
+        If you don't have <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id} />, it's ok to wait a bit (as long as you're not wasting Soul Shards while waiting) and cast Unstable Affliction when you can buff it with Reap Souls.
       </Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;

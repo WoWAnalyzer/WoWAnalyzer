@@ -103,9 +103,7 @@ class TrueAim extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.TRUE_AIM_TALENT.id}>
-            <SpellIcon id={SPELLS.TRUE_AIM_TALENT.id} noLink /> True Aim
-          </SpellLink>
+          <SpellLink id={SPELLS.TRUE_AIM_TALENT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.bonusDmg} />

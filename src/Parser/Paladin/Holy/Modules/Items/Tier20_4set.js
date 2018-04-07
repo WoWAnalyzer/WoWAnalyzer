@@ -76,7 +76,7 @@ class Tier20_4set extends Analyzer {
     return {
       id: `spell-${SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id} icon={false} />,
       result: (
         <dfn data-tip={`The actual effective healing contributed by the tier 20 4 set bonus. A total of ${formatNumber(this.totalBeaconHealingDuringLightsEmbrace)} <span style="color:orange">raw</span> healing was done on beacons during the Light's Embrace buff.`}>
           <ItemHealingDone amount={this.healing} />

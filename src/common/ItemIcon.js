@@ -18,7 +18,7 @@ const ItemIcon = ({ id, noLink, details, ...others }) => {
   }
 
   return (
-    <ItemLink id={id} details={details}>
+    <ItemLink id={id} details={details} icon={false}>
       {icon}
     </ItemLink>
   );

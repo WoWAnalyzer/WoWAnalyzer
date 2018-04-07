@@ -54,7 +54,7 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Use core abilities as often as possible',
-      description: <Wrapper>Spells with short cooldowns like <SpellLink id={SPELLS.RISING_SUN_KICK.id} icon /> and <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} icon /> should be used as often as possible.</Wrapper>,
+      description: <Wrapper>Spells with short cooldowns like <SpellLink id={SPELLS.RISING_SUN_KICK.id} /> and <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> should be used as often as possible.</Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -80,15 +80,15 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use your procs and short CDs',
-      description: <Wrapper>Make sure to use your procs and spells at the correct time. Wasting <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} icon /> procs and not hitting all your <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} icon /> ticks is a loss of potential damage.</Wrapper>,
+      description: <Wrapper>Make sure to use your procs and spells at the correct time. Wasting <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs and not hitting all your <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> ticks is a loss of potential damage.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} icon /> procs used </Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs used </Wrapper>,
             check: () => this.comboBreaker.suggestionThresholds,
           }),
           new Requirement({
-            name: <Wrapper>Average ticks hit with <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} icon /></Wrapper>,
+            name: <Wrapper>Average ticks hit with <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /></Wrapper>,
             check: () => this.fistsofFury.suggestionThresholds,
           }),
         ];
@@ -115,7 +115,7 @@ class Checklist extends CoreChecklist {
             spell: SPELLS.TOUCH_OF_KARMA_CAST,
           }),
           new Requirement({
-            name: <Wrapper> Absorb from <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} icon /> used</Wrapper>,
+            name: <Wrapper> Absorb from <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> used</Wrapper>,
             check: () => this.touchOfKarma.suggestionThresholds,  
           }),
           new GenericCastEfficiencyRequirement({
@@ -135,11 +135,11 @@ class Checklist extends CoreChecklist {
             check: () => this.chiDetails.suggestionThresholds,
           }),
           new Requirement({
-            name: <Wrapper>Bad <SpellLink id={SPELLS.BLACKOUT_KICK.id} icon /> casts per minute</Wrapper>,
+            name: <Wrapper>Bad <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> casts per minute</Wrapper>,
             check: () => this.blackoutKick.suggestionThresholds,
           }),
           new Requirement({
-            name: <Wrapper>Bad <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} icon /> casts</Wrapper>,
+            name: <Wrapper>Bad <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> casts</Wrapper>,
             check: () => this.spinningCraneKick.suggestionThresholds,
           }),
           new GenericCastEfficiencyRequirement({
@@ -155,11 +155,11 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: <Wrapper>Times <SpellLink id={SPELLS.COMBO_STRIKES.id} icon /> was broken </Wrapper>,
+            name: <Wrapper>Times <SpellLink id={SPELLS.COMBO_STRIKES.id} /> was broken </Wrapper>,
             check: () => this.comboStrikes.suggestionThresholds,
           }),
           new Requirement({
-            name: <Wrapper> <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} icon /> uptime </Wrapper>,
+            name: <Wrapper> <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} /> uptime </Wrapper>,
             check: () => this.hitCombo.suggestionThresholds,
             when: this.hitCombo.active,
           }),
@@ -168,7 +168,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: "Use your defensive cooldowns effectively",
-      description: <Wrapper>Make sure you use your defensive cooldowns at appropriate times throughout the fight. Make sure to use <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} icon /> as much as possible to maximize its offensive benefit and use <SpellLink id={SPELLS.DIFFUSE_MAGIC_TALENT.id} icon />/<SpellLink id={SPELLS.DAMPEN_HARM_TALENT.id}icon/> for dangerous periods of damage intake.</Wrapper>,
+      description: <Wrapper>Make sure you use your defensive cooldowns at appropriate times throughout the fight. Make sure to use <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> as much as possible to maximize its offensive benefit and use <SpellLink id={SPELLS.DIFFUSE_MAGIC_TALENT.id} />/<SpellLink id={SPELLS.DAMPEN_HARM_TALENT.id}icon/> for dangerous periods of damage intake.</Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -188,7 +188,7 @@ class Checklist extends CoreChecklist {
             spell: SPELLS.TOUCH_OF_KARMA_CAST,
           }),
           new Requirement({
-            name: <Wrapper> Absorb from <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} icon /> used</Wrapper>,
+            name: <Wrapper> Absorb from <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> used</Wrapper>,
             check: () => this.touchOfKarma.suggestionThresholds,
           }),
         ];
@@ -205,7 +205,7 @@ class Checklist extends CoreChecklist {
             when: this.theEmperorsCapacitor.active,
           }),
           new Requirement({
-            name: <Wrapper>Average <ItemLink id={ITEMS.THE_EMPERORS_CAPACITOR.id} icon /> stacks used on your <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} icon /></Wrapper>,
+            name: <Wrapper>Average <ItemLink id={ITEMS.THE_EMPERORS_CAPACITOR.id} /> stacks used on your <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} /></Wrapper>,
             check: () => this.theEmperorsCapacitor.averageStacksSuggestionThresholds,
             when: this.theEmperorsCapacitor.active,
           }),

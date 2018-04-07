@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 
 const MaelstromComponent = ({ categories, abilities}) => {
 
@@ -27,9 +26,7 @@ const MaelstromComponent = ({ categories, abilities}) => {
                 return (
                   <tr key={name}>
                     <td style={{ width: '35%' }}>
-                      <SpellLink id={ability.spellId} style={{ color: '#fff' }}>
-                        <SpellIcon id={ability.spellId} noLink /> {name}
-                      </SpellLink>
+                      <SpellLink id={ability.spellId} style={{ color: '#fff' }} />
                     </td>
                     <td className="text-center" style={{ minWidth: 80 }}>
                       {casts}

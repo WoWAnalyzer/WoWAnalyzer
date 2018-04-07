@@ -39,7 +39,7 @@ class T20_4pc extends Analyzer {
     return {
       id: `spell-${SPELLS.BLOOD_DEATH_KNIGHT_T20_4SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.BLOOD_DEATH_KNIGHT_T20_4SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.BLOOD_DEATH_KNIGHT_T20_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.BLOOD_DEATH_KNIGHT_T20_4SET_BONUS_BUFF.id} icon={false} />,
       result: <span><strong>{this.deathStrikeBuffless}/{this.deathStrikeTotal} </strong> <SpellLink id={SPELLS.DEATH_STRIKE.id} /> casted without the <SpellLink id={SPELLS.GRAVEWARDEN.id} /> buff. <strong>{runicPowerLost}</strong> Runic Power Lost </span>,
     };
   }

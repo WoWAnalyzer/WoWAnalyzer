@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import SpellIcon from 'common/SpellIcon';
+
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
@@ -46,9 +46,7 @@ class AMurderOfCrows extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SURVIVAL.id}>
-            <SpellIcon id={SPELLS.A_MURDER_OF_CROWS_TALENT_SURVIVAL.id} noLink /> A Murder of Crows
-          </SpellLink>
+          <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SURVIVAL.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.bonusDamage} />

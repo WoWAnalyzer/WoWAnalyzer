@@ -44,7 +44,7 @@ class Tier21_4set extends Analyzer {
     return {
       id: `spell-${SPELLS.HOLY_PRIEST_T21_4SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.HOLY_PRIEST_T21_4SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.HOLY_PRIEST_T21_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.HOLY_PRIEST_T21_4SET_BONUS_BUFF.id} icon={false} />,
       result: (
         <dfn data-tip={`A total of ${this.procUsed} procs were used.`}>
           <ItemHealingDone amount={this.healing} />

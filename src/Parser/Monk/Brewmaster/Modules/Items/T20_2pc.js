@@ -59,7 +59,7 @@ class T20_2pc extends Analyzer {
     return {
       id: `spell-${SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF_BRM.id}`,
       icon: <SpellIcon id={SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF_BRM.id} />,
-      title: <SpellLink id={SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF_BRM.id} />,
+      title: <SpellLink id={SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF_BRM.id} icon={false} />,
       result: (
         <dfn data-tip={`The 2pc set bonus causes <b>${this.orbTriggeredBy2Pc}</b> additional Gift of the Ox orbs to spawn.</br>
         This was from a total of <b>${this.brewCount}</b> brew casts, a <b>${Math.round(procRate)}%</b> chance.`}

@@ -123,7 +123,7 @@ class LowHealthHealing extends React.Component {
                         {formatDuration((event.timestamp - fightStart) / 1000)}
                       </td>
                       <td style={{ width: '25%' }}>
-                        <SpellLink id={event.ability.guid}>
+                        <SpellLink id={event.ability.guid} icon={false}>
                           <Icon icon={event.ability.abilityIcon} alt={event.ability.abilityIcon} /> {event.ability.name}
                         </SpellLink>
                       </td>
