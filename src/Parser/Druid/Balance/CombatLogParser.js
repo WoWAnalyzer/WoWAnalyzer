@@ -20,6 +20,7 @@ import UnempoweredSolarWrath from './Modules/Features/UnempoweredSolarWrath';
 
 //Talents
 import L90Talents from './Modules/Talents/L90Talents';
+import StellarDrift from './Modules/Talents/StellarDrift';
 
 //Resources
 import AstralPowerDetails from './Modules/ResourceTracker/AstralPowerDetails';
@@ -58,9 +59,10 @@ class CombatLogParser extends MainCombatLogParser {
     moonSpells: MoonSpells,
     unempoweredLunarStrike: UnempoweredLunarStrike,
     unempoweredSolarWrath: UnempoweredSolarWrath,
-    l90Talents: L90Talents,
 
     //Talents
+    l90Talents: L90Talents,
+    stellarDrift: StellarDrift,
 
     //Resources
     astralPowerTracker: AstralPowerTracker,

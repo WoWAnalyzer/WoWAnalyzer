@@ -173,7 +173,6 @@ class Checklist extends CoreChecklist {
             check: () => this.l90Talents.suggestionThresholdsBotA,
             when: (this.l90Talents.activeTalent.id === SPELLS.BLESSING_OF_THE_ANCIENTS_TALENT.id),
           }),
-          
         ];
       },
     }),
