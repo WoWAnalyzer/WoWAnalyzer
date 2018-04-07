@@ -39,9 +39,9 @@ class Evocation extends Analyzer {
     return {
       actual: this.utilization,
       isLessThan: {
-        minor: 0.95,
-        average: 0.90,
-        major: 0.80,
+        minor: 1,
+        average: 0.70,
+        major: 0.40,
       },
       style: 'percentage',
     };
