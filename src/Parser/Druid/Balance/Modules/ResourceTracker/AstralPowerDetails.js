@@ -23,7 +23,7 @@ class AstralPowerDetails extends Analyzer {
   }
 
   get wastedPerMinute() {
-    return (this.wasted / this.owner.fightDuration) * 1000 * 60;
+    return (this.wasted / this.owner.fightDuration) * 1000 * 60 || 0;
   }
 
   get wastedPercent() {
