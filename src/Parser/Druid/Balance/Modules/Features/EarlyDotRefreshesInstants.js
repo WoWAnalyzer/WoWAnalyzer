@@ -2,8 +2,8 @@ import SPELLS from 'common/SPELLS';
 
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
-import CoreBadDotCasts from 'Parser/Core/Modules/BadDotCasts/BadDotCasts';
-import suggest from 'Parser/Core/Modules/BadDotCasts/BadDotCastsSuggestion';
+import CoreEarlyDotRefreshesInstants from 'Parser/Core/Modules/EarlyDotRefreshes/EarlyDotRefreshesInstants';
+import suggest from 'Parser/Core/Modules/EarlyDotRefreshes/EarlyDotRefreshesInstantsSuggestion';
 
 const NATURES_BALANCE_MOONFIRE_EXTENSION_MS = 6000;
 const NATURES_BALANCE_SUNFIRE_EXTENSION_MS = 4000;
@@ -22,18 +22,11 @@ const DOTS = [
     duration: 18000,
     movementFiller: true,
   },
-  {
-    name: "Stellar Flare",
-    debuffId: SPELLS.STELLAR_FLARE_TALENT.id,
-    castId: SPELLS.STELLAR_FLARE_TALENT.id,
-    duration: 24000,
-    movementFiller: false,
-  },
 ];
 
-class BadDotCasts extends CoreBadDotCasts {
+class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
   static dependencies = {
-    ...CoreBadDotCasts.dependencies,
+    ...EarlyDotRefreshesInstants.dependencies,
     statTracker: StatTracker,
   };
 
@@ -107,25 +100,10 @@ class BadDotCasts extends CoreBadDotCasts {
     };
   }
 
-  get suggestionThresholdsStellarFlare() {
-    return {
-      spell: SPELLS.STELLAR_FLARE_TALENT.id,
-      count: this.badCasts[DOTS[2].castId],
-      actual: this.badCastsPercent(DOTS[2].castId),
-      isGreaterThan: {
-        minor: 0.05,
-        average: 0.1,
-        major: 0.2,
-      },
-      style: 'percent',
-    };
-  }
-
   suggestions(when) {
     suggest(when, this.suggestionThresholdsMoonfire);
     suggest(when, this.suggestionThresholdsSunfire);
-    suggest(when, this.suggestionThresholdsStellarFlare);
   }
 }
 
-export default BadDotCasts;
+export default EarlyDotRefreshesInstants;

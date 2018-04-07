@@ -18,7 +18,8 @@ import MoonSpells from './Modules/Features/MoonSpells';
 import UnempoweredLunarStrike from './Modules/Features/UnempoweredLunarStrike';
 import UnempoweredSolarWrath from './Modules/Features/UnempoweredSolarWrath';
 import L90Talents from './Modules/Features/L90Talents';
-import BadDotCasts from './Modules/Features/BadDotCasts';
+import EarlyDotRefreshes from './Modules/Features/EarlyDotRefreshes';
+import EarlyDotRefreshesInstants from './Modules/Features/EarlyDotRefreshesInstants';
 
 //Resources
 import AstralPowerDetails from './Modules/ResourceTracker/AstralPowerDetails';
@@ -58,7 +59,8 @@ class CombatLogParser extends MainCombatLogParser {
     unempoweredLunarStrike: UnempoweredLunarStrike,
     unempoweredSolarWrath: UnempoweredSolarWrath,
     l90Talents: L90Talents,
-    badDotCasts: BadDotCasts,
+    earlyDotRefreshes: EarlyDotRefreshes,
+    earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
 
     //Resources
     astralPowerTracker: AstralPowerTracker,
