@@ -10,7 +10,7 @@ import SpellLink from 'common/SpellLink';
 export default [
   { 
     date: new Date('2018-4-07'),
-    changes: <Wrapper>Track early dot refreshes for <SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} icon />, and early dot refreshes for <SpellLink id={SPELLS.MOONFIRE_BEAR.id} icon /> and <SpellLink id={SPELLS.SUNFIRE.id} icon /> while standing still, the player had <SpellLink id={SPELLS.STELLAR_DRIFT.id} icon />, or the player had better movement fillers available.</Wrapper>,
+    changes: <Wrapper>Track early dot refreshes for <SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} />, and early dot refreshes for <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> and <SpellLink id={SPELLS.SUNFIRE.id} /> while standing still, the player had <SpellLink id={SPELLS.STELLAR_DRIFT.id} />, or the player had better movement fillers available.</Wrapper>,
     contributors: [Gebuz],
   },
   { 
