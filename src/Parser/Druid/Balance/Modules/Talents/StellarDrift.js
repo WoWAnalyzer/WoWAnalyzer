@@ -5,20 +5,17 @@ import SPELLS from 'common/SPELLS';
 import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
-import SPECS from 'common/SPECS';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
-
-const debug = false;
 
 class StellarDrift extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
 
-  this.hasStellarDrift = false;
+  hasStellarDrift = false;
 
   on_initialized() {
     this.active = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_ARCHDRUID.id) ||
