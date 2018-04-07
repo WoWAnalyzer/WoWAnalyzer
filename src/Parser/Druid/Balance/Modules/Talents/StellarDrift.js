@@ -19,7 +19,7 @@ class StellarDrift extends Analyzer {
 
   on_initialized() {
     this.active = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_ARCHDRUID.id) ||
-      this.combatants.selected.hasTalent(SPELLS.STELLAR_DRIFT_TALENT.id) ||
+      this.combatants.selected.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id) ||
       this.combatants.selected.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_BALANCE.id);
     this.hasStellarDrift = this.combatants.selected.hasTalent(SPELLS.STELLAR_DRIFT_TALENT.id);
   }
@@ -35,7 +35,7 @@ class StellarDrift extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).isFalse().addSuggestion((suggest) => {
       return suggest(<Wrapper>When using <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_BALANCE.id} />, <SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} /> or <ItemLink id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} /> it is recommended to always also use <SpellLink id={SPELLS.STELLAR_DRIFT_TALENT.id} />.</Wrapper>)
-        .icon(ITEMS.STELLAR_DRIFT_TALENT.icon)
+        .icon(SPELLS.STELLAR_DRIFT_TALENT.icon)
         .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
     });
   }
