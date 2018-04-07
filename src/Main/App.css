@@ -995,3 +995,30 @@ code.inactive {
 .contributorlist > .row {
   margin: 10px 0;
 }
+
+.charparse .filter {
+  margin: 0;
+}
+
+.charparse .filter>div {
+  padding: 10px;
+}
+
+.charparse div.form-control {
+  padding: 10px 12px 11px 12px;
+  cursor: pointer;
+}
+.charparse .form-control {
+  margin-bottom: 6px;
+}
+
+.charparse .form-control.selected {
+  background-color: #d84141;
+}
+
+.row.character-parse {
+  margin: 0;
+  padding: 12px 0;
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
+}
