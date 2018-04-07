@@ -20,6 +20,7 @@ import UnempoweredSolarWrath from './Modules/Features/UnempoweredSolarWrath';
 
 //Talents
 import L90Talents from './Modules/Talents/L90Talents';
+import StellarDriftMissing from './Modules/Talents/StellarDriftMissing';
 import StellarDrift from './Modules/Talents/StellarDrift';
 import StellarFlare from './Modules/Talents/StellarFlare';
 
@@ -63,6 +64,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     //Talents
     l90Talents: L90Talents,
+    stellarDriftMissing: StellarDriftMissing,
     stellarDrift: StellarDrift,
     stellarFlare: StellarFlare,
 
