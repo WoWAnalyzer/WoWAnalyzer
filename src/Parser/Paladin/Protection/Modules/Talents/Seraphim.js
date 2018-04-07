@@ -28,20 +28,12 @@ class Seraphim extends Analyzer {
     this.active = this.combatants.selected.hasTalent(SPELLS.SERAPHIM_TALENT.id);
   }
 
-  on_byPlayer_applybuff(event) {
+  on_byPlayer_cast(event) {
     if (event.ability.guid !== SPELLS.SERAPHIM_TALENT.id) {
       return;
     }
-
-    this.lastSeraphimCast = event.timestamp;
-  }
-
-  on_byPlayer_removebuff(event) {
-    if (event.ability.guid !== SPELLS.SERAPHIM_TALENT.id) {
-      return;
-    }
-
-    if (event.timestamp - SERAPHIM_DURATION_PER_SOTR + 100 > this.lastSeraphimCast) { //100ms buffer for timestamp
+    
+    if (this.spellUsable.chargesAvailable(SPELLS.SHIELD_OF_THE_RIGHTEOUS.id) >= 2) {
       this.seraphimCasts.push(2);
       this.spellUsable.beginCooldown(SPELLS.SHIELD_OF_THE_RIGHTEOUS.id, event.timestamp);
       this.spellUsable.beginCooldown(SPELLS.SHIELD_OF_THE_RIGHTEOUS.id, event.timestamp);
