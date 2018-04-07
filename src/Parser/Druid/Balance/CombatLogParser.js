@@ -23,6 +23,7 @@ import L90Talents from './Modules/Talents/L90Talents';
 import StellarDriftMissing from './Modules/Talents/StellarDriftMissing';
 import StellarDrift from './Modules/Talents/StellarDrift';
 import StellarFlare from './Modules/Talents/StellarFlare';
+import Starlord from './Modules/Talents/Starlord';
 
 //Resources
 import AstralPowerDetails from './Modules/ResourceTracker/AstralPowerDetails';
@@ -67,6 +68,7 @@ class CombatLogParser extends MainCombatLogParser {
     stellarDriftMissing: StellarDriftMissing,
     stellarDrift: StellarDrift,
     stellarFlare: StellarFlare,
+    starlord: Starlord,
 
     //Resources
     astralPowerTracker: AstralPowerTracker,
