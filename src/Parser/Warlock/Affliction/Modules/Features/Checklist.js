@@ -171,6 +171,7 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.UNENDING_RESOLVE,
+            onlyWithSuggestion: false,
           }),
         ];
       },

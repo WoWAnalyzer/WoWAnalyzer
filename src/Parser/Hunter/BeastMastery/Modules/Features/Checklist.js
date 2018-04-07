@@ -92,9 +92,11 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.KILL_COMMAND,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BESTIAL_WRATH,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED,
@@ -102,9 +104,11 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TITANS_THUNDER,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ASPECT_OF_THE_WILD,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BARRAGE_TALENT,

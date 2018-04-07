@@ -66,6 +66,7 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.RENEWING_MIST,
+            onlyWithSuggestion: false,
           }),
           new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> stacks</Wrapper>,
@@ -82,6 +83,7 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.THUNDER_FOCUS_TEA,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.MANA_TEA_TALENT,
@@ -109,6 +111,7 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.REVIVAL,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ARCANE_TORRENT_MANA,
@@ -217,6 +220,7 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.LIFE_COCOON,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.DIFFUSE_MAGIC_TALENT,

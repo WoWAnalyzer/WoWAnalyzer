@@ -96,9 +96,11 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.VOID_BOLT,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.MIND_BLAST,
+            onlyWithSuggestion: false,
           }),
         ];
       },
@@ -163,6 +165,7 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             name: 'Time on cooldown',
             spell: SPELLS.VOID_TORRENT,
+            onlyWithSuggestion: false,
           }),
         ];
       },

@@ -79,6 +79,7 @@ class Checklist extends CoreChecklist {
   				}),
   				new GenericCastEfficiencyRequirement({
   					spell: SPELLS.JUDGMENT_CAST,
+            onlyWithSuggestion: false,
   				}),
   				new GenericCastEfficiencyRequirement({
   					spell: SPELLS.BLADE_OF_JUSTICE,
@@ -116,6 +117,7 @@ class Checklist extends CoreChecklist {
   				}),
   				new GenericCastEfficiencyRequirement({
   					spell: SPELLS.WAKE_OF_ASHES,
+            onlyWithSuggestion: false,
   				}),
   			];
   		},
@@ -170,9 +172,11 @@ class Checklist extends CoreChecklist {
         return [
 	        new GenericCastEfficiencyRequirement({
 	          spell: SPELLS.SHIELD_OF_VENGEANCE,
+            onlyWithSuggestion: false,
 	        }),
 	        new GenericCastEfficiencyRequirement({
             spell: SPELLS.LAY_ON_HANDS,
+            onlyWithSuggestion: false,
 					}),
           new Requirement({
             name: <Wrapper> <SpellLink id={SPELLS.BLESSING_OF_THE_ASHBRINGER_BUFF.id} icon/> uptime</Wrapper>,

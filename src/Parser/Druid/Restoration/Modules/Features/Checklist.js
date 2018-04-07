@@ -111,6 +111,7 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ESSENCE_OF_GHANIR,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.INCARNATION_TREE_OF_LIFE_TALENT,
@@ -118,9 +119,11 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TRANQUILITY_CAST,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.INNERVATE,
+            onlyWithSuggestion: false,
           }),
         ];
       },
@@ -184,12 +187,15 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.SWIFTMEND,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.IRONBARK,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BARKSKIN,
+            onlyWithSuggestion: false,
           }),
         ];
       },

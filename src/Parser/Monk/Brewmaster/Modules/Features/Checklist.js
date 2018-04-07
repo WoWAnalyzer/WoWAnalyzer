@@ -115,8 +115,14 @@ class Checklist extends CoreChecklist {
       ),
       requirements: () => {
         const reqs = [
-          new GenericCastEfficiencyRequirement({ spell: SPELLS.KEG_SMASH }),
-          new GenericCastEfficiencyRequirement({ spell: SPELLS.BLACKOUT_STRIKE }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.KEG_SMASH,
+            onlyWithSuggestion: false,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.BLACKOUT_STRIKE,
+            onlyWithSuggestion: false,
+          }),
         ];
 
         const boc = this.tp.bocEmpoweredThreshold;

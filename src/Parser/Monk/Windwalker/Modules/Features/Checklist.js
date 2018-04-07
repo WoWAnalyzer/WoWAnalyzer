@@ -62,12 +62,15 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.STRIKE_OF_THE_WINDLORD,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.RISING_SUN_KICK,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.FISTS_OF_FURY_CAST,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.WHIRLING_DRAGON_PUNCH_TALENT,
@@ -112,9 +115,11 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TOUCH_OF_DEATH,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TOUCH_OF_KARMA_CAST,
+            onlyWithSuggestion: false,
           }),
           new Requirement({
             name: <Wrapper> Absorb from <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> used</Wrapper>,
@@ -188,6 +193,7 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TOUCH_OF_KARMA_CAST,
+            onlyWithSuggestion: false,
           }),
           new Requirement({
             name: <Wrapper> Absorb from <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> used</Wrapper>,
