@@ -28,7 +28,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: (haste, selectedCombatant) => {
           if (selectedCombatant.hasBuff(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)) {
-            return null;
+            return hastedCooldown(1.5, haste);
           }
           return hastedCooldown(6, haste);
         },
@@ -49,7 +49,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: (haste, selectedCombatant) => {
           if (selectedCombatant.hasBuff(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)) {
-            return null;
+            return hastedCooldown(1.5, haste);
           }
           return hastedCooldown(6, haste);
         },

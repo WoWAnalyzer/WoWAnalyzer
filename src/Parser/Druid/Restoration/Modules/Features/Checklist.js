@@ -8,6 +8,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
@@ -32,6 +33,7 @@ import TreeOfLife from '../Talents/TreeOfLife';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
+    abilities: Abilities,
     castEfficiency: CastEfficiency,
     combatants: Combatants,
 
@@ -109,6 +111,7 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ESSENCE_OF_GHANIR,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.INCARNATION_TREE_OF_LIFE_TALENT,
@@ -116,9 +119,11 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TRANQUILITY_CAST,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.INNERVATE,
+            onlyWithSuggestion: false,
           }),
         ];
       },
@@ -182,12 +187,15 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.SWIFTMEND,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.IRONBARK,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BARKSKIN,
+            onlyWithSuggestion: false,
           }),
         ];
       },

@@ -7,6 +7,7 @@ import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
@@ -30,6 +31,7 @@ import JudgmentOfLight from '../Talents/JudgmentOfLight';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
+    abilities: Abilities,
     castEfficiency: CastEfficiency,
     combatants: Combatants,
     masteryEffectiveness: MasteryEffectiveness,
@@ -63,7 +65,6 @@ class Checklist extends CoreChecklist {
       ),
       // The list of requirements for the Rule. Since it's a method you can run any code in here you want, but please try to keep is as simple as possible.
       requirements: () => {
-        const combatant = this.combatants.selected;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.HOLY_SHOCK_CAST,
@@ -73,23 +74,18 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.JUDGMENT_CAST,
-            when: combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id) || combatant.hasFinger(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BESTOW_FAITH_TALENT,
-            when: combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.LIGHTS_HAMMER_TALENT,
-            when: combatant.hasTalent(SPELLS.LIGHTS_HAMMER_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.CRUSADER_STRIKE,
-            when: combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.HOLY_PRISM_TALENT,
-            when: combatant.hasTalent(SPELLS.HOLY_PRISM_TALENT.id),
           }),
           new Requirement({
             name: <Wrapper>Total filler <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />s cast while<br /><SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was available</Wrapper>,
@@ -102,24 +98,25 @@ class Checklist extends CoreChecklist {
       name: 'Use cooldowns effectively',
       description: <Wrapper>Your cooldowns are an important contributor to your healing throughput. Try to get in as many efficient casts as the fight allows. <a href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list" target="_blank" rel="noopener noreferrer">More info.</a></Wrapper>,
       requirements: () => {
-        const combatant = this.combatants.selected;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.AVENGING_WRATH,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.HOLY_AVENGER_TALENT,
-            when: combatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id),
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TYRS_DELIVERANCE_CAST,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.VELENS_FUTURE_SIGHT_BUFF,
-            when: combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.AURA_MASTERY,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ARCANE_TORRENT_MANA,
@@ -132,20 +129,21 @@ class Checklist extends CoreChecklist {
       name: 'Use your supportive abilities',
       description: 'While you shouldn\'t aim to cast defensives and externals on cooldown, be aware of them and try to use them whenever effective. Not using them at all indicates you might not be aware of them enough or not utilizing them optimally.',
       requirements: () => {
-        const combatant = this.combatants.selected;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.RULE_OF_LAW_TALENT,
-            when: combatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id),
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.DIVINE_STEED,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.DIVINE_PROTECTION,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BLESSING_OF_SACRIFICE,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.LAY_ON_HANDS,
