@@ -6,9 +6,14 @@
 
 export default {
   // Arms:
-  //Rotational Spells
+  // Rotational Spells
   COLOSSUS_SMASH: {
     id: 167105,
+    name: 'Colossus Smash',
+    icon: 'ability_warrior_colossussmash',
+  },
+  COLOSSUS_SMASH_DEBUFF: {
+    id: 208086,
     name: 'Colossus Smash',
     icon: 'ability_warrior_colossussmash',
   },
@@ -33,7 +38,17 @@ export default {
     icon: 'ability_warrior_cleave',
   },
   WHIRLWIND: {
+    id: 1680,
+    name: 'Whirlwind',
+    icon: 'ability_whirlwind',
+  },
+  WHIRLWIND_DAMAGE_1: {
     id: 199658,
+    name: 'Whirlwind',
+    icon: 'ability_whirlwind',
+  },
+  WHIRLWIND_DAMAGE_2_3: {
+    id: 199850,
     name: 'Whirlwind',
     icon: 'ability_whirlwind',
   },
@@ -47,22 +62,41 @@ export default {
     name: 'Bladestorm',
     icon: 'ability_warrior_bladestorm',
   },
-  RAVAGER_CAST: {
+  BLADESTORM_DAMAGE: {
+    id: 50622,
+    name: 'Bladestorm',
+    icon: 'ability_warrior_bladestorm',
+  },
+  RAVAGER_DAMAGE: {
     id: 156287,
     name: 'Ravager',
     icon: 'warrior_talent_icon_ravager',
   },
-  // Debuffs
-  COLOSSUS_SMASH_DEBUFF: {
-    id: 208086,
-    name: 'Colossus Smash',
-    icon: 'ability_warrior_colossussmash',
-  },
   // Utility
   CHARGE: {
+    id: 100,
+    name: 'Charge',
+    icon: 'ability_warrior_charge',
+  },
+  CHARGE_DAMAGE: {
     id: 126664,
     name: 'Charge',
     icon: 'ability_warrior_charge',
+  },
+  CHARGE_SLOW: {
+    id: 236027,
+    name: 'Charge',
+    icon: 'ability_rogue_trip',
+  },
+  CHARGE_ROOT: {
+    id: 105771,
+    name: 'Charge',
+    icon: 'ability_warrior_charge',
+  },
+  HAMSTRING: {
+    id: 1715,
+    name: 'Hamstring',
+    icon: 'ability_shockwave',
   },
   DIE_BY_THE_SWORD: {
     id: 118038,
@@ -70,10 +104,40 @@ export default {
     icon: 'ability_warrior_challange',
   },
   // Passives
+  CORRUPTED_BLOOD_OF_ZAKAJZ: {
+    id: 209569,
+    name: 'Corrupted Blood of Zakajz',
+    icon: 'inv_artifact_corruptedbloodofzakajz',
+  },
+  OPPORTUNITY_STRIKES: {
+    id: 203178,
+    name: 'Opportunity Strikes',
+    icon: 'ability_backstab',
+  },
+  SOUL_OF_THE_SLAUGHTER: {
+    id: 240432,
+    name: 'Soul of the Slaughter',
+    icon: 'ability_rogue_slaughterfromtheshadows',
+  },
+  SWEEPING_STRIKES_EXECUTE: {
+    id: 224253,
+    name: 'Execute',
+    icon: 'inv_sword_48',
+  },
   TACTICIAN: {
     id: 199854,
     name: 'Tactician',
     icon: 'ability_warrior_unrelentingassault',
+  },
+  TRAUMA: {
+    id: 215537,
+    name: 'Trauma',
+    icon: 'ability_warrior_trauma',
+  },
+  TOUCH_OF_ZAKAJZ: {
+    id: 209933,
+    name: 'Touch of Zakajz',
+    icon: 'ability_warrior_colossussmash',
   },
   // Talents
   IN_FOR_THE_KILL_TALENT_BUFF: {
