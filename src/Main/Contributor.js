@@ -1,19 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import Wrapper from 'common/Wrapper';
 
 import ContributorDetails from './Contributors/ContributorDetails';
+import makeContributorUrl from './Contributors/makeUrl';
 import Portal from './Portal';
 
-//to={makeContributorUrl(nickname)}
-
 class Contributor extends React.PureComponent {
-
   static propTypes = {
     nickname: PropTypes.string.isRequired,
     avatar: PropTypes.string,
-    github: PropTypes.string,
   };
 
   constructor(props) {
@@ -22,26 +20,37 @@ class Contributor extends React.PureComponent {
       open: false,
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handleOnClose = this.handleOnClose.bind(this);
   }
 
-  handleClick() {
+  handleClick(e) {
+    e.preventDefault();
     this.setState({
       open: true,
     });
   }
+  handleOnClose() {
+    this.setState({
+      open: false,
+    });
+  }
 
   render() {
+    const { nickname, avatar } = this.props;
+
     if (this.state.open) {
       return (
-        <Portal onClose={() => this.setState({ open: false })}><ContributorDetails contributorId={this.props.nickname} /></Portal>
+        <Portal onClose={this.handleOnClose}>
+          <ContributorDetails contributorId={nickname} />
+        </Portal>
       );
     }
 
     return(
-      <span key={this.props.nickname} onClick={() => this.handleClick()} className="contributor" data-tip={this.props.github ? this.props.github : undefined}>
-        {this.props.avatar && <Wrapper><img src={this.props.avatar} alt="Avatar" />{' '}</Wrapper>}
-        {this.props.nickname}
-      </span>
+      <Link to={makeContributorUrl(nickname)} onClick={this.handleClick} className="contributor">
+        {avatar && <Wrapper><img src={avatar} alt="Avatar" />{' '}</Wrapper>}
+        {nickname}
+      </Link>
     );
   }
 

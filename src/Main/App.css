@@ -946,9 +946,6 @@ code.inactive {
   display: inline-block;
   line-height: 1; /* this keeps the height of the contributor box acceptable */
 }
-.contributor[data-tip] {
-  cursor: help;
-}
 .contributor img {
   width: 1.4em;
   height: 1.4em;
