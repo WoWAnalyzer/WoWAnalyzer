@@ -9,9 +9,11 @@ import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeC
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
+import Abilities from 'Parser/Core/Modules/Abilities';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
+    abilities: Abilities,
     castEfficiency: CastEfficiency,
     combatants: Combatants,
     legendaryCountChecker: LegendaryCountChecker,
