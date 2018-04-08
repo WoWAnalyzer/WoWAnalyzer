@@ -27,11 +27,11 @@ class BlackoutCombo extends Analyzer {
       return null;
     }
     return {
-      actual: 1.0 - this.spellsBOCWasUsedOn[SPELLS.TIGER_PALM.id] / this.blackoutComboBuffs,
-      isGreaterThan: {
-        minor: 0.05,
-        average: 0.1,
-        major: 0.15,
+      actual: this.spellsBOCWasUsedOn[SPELLS.TIGER_PALM.id] / this.blackoutComboBuffs,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: 0.85,
       },
       style: 'percentage',
     };
