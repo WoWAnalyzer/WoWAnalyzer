@@ -10,13 +10,13 @@ import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.combatants.selected;
+    const hasSanctifiedWrath = combatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id);
     return [
       {
         spell: SPELLS.HOLY_SHOCK_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, combatantCurrent) => {
-          const hasSanctifiedWrath = combatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id);
-          const cdr = hasSanctifiedWrath && combatantCurrent.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.5 : 0;
+        cooldown: haste => {
+          const cdr = hasSanctifiedWrath && combatant.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.5 : 0;
           return 9 / (1 + haste) * (1 - cdr);
         },
         isOnGCD: true,
@@ -42,7 +42,7 @@ class Abilities extends CoreAbilities {
         cooldown: haste => 12 / (1 + haste),
         isOnGCD: true,
         castEfficiency: {
-          suggestion: true,
+          suggestion: combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id) || combatant.hasFinger(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id),
           extraSuggestion: (
             <Wrapper>
               You should cast it whenever <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} /> has dropped, which is usually on cooldown without delay. Alternatively you can ignore the debuff and just cast it whenever Judgment is available; there's nothing wrong with ignoring unimportant things to focus on important things.
@@ -50,7 +50,6 @@ class Abilities extends CoreAbilities {
           ),
           recommendedEfficiency: 0.85, // this rarely overheals, so keeping this on cooldown is pretty much always best
         },
-        enabled: combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id) || combatant.hasFinger(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id),
       },
       {
         spell: SPELLS.BESTOW_FAITH_TALENT,
@@ -217,16 +216,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DIVINE_STEED,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        charges: combatant.hasTalent(SPELLS.CAVALIER_TALENT.id) ? 2 : 1,
         cooldown: 45,
-        enabled: !combatant.hasTalent(SPELLS.CAVALIER_TALENT.id),
-        isOnGCD: true,
-      },
-      {
-        spell: SPELLS.DIVINE_STEED,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 45,
-        charges: 2,
-        enabled: combatant.hasTalent(SPELLS.CAVALIER_TALENT.id),
         isOnGCD: true,
       },
       {

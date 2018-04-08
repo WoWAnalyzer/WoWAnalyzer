@@ -2,6 +2,7 @@ import React from 'react';
 
 //Core
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import Abilities from 'Parser/Core/Modules/Abilities';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -46,6 +47,7 @@ import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
+    abilities: Abilities,
     combatants: Combatants,
 
     //general
@@ -90,9 +92,11 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.KILL_COMMAND,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BESTIAL_WRATH,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED,
@@ -100,9 +104,11 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TITANS_THUNDER,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ASPECT_OF_THE_WILD,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BARRAGE_TALENT,

@@ -7,6 +7,7 @@ import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
@@ -31,6 +32,7 @@ import TheEmperorsCapacitor from '../Items/TheEmperorsCapacitor';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
+    abilities: Abilities,
     castEfficiency: CastEfficiency,
     combatants: Combatants,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
@@ -60,12 +62,15 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.STRIKE_OF_THE_WINDLORD,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.RISING_SUN_KICK,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.FISTS_OF_FURY_CAST,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.WHIRLING_DRAGON_PUNCH_TALENT,
@@ -110,9 +115,11 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TOUCH_OF_DEATH,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TOUCH_OF_KARMA_CAST,
+            onlyWithSuggestion: false,
           }),
           new Requirement({
             name: <Wrapper> Absorb from <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> used</Wrapper>,
@@ -186,6 +193,7 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TOUCH_OF_KARMA_CAST,
+            onlyWithSuggestion: false,
           }),
           new Requirement({
             name: <Wrapper> Absorb from <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> used</Wrapper>,

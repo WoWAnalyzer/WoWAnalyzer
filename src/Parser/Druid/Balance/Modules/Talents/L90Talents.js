@@ -91,7 +91,7 @@ class L90Talents extends Analyzer {
   }
 
   perMinute(value) {
-    return value / this.owner.fightDuration * 1000 * 60;
+    return value / this.owner.fightDuration * 1000 * 60 || 0;
   }
 
   get shootingStarsValue() { 

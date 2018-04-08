@@ -50,6 +50,8 @@ class Checklist extends Analyzer {
         return values.reduce((c, p) => c + p, 0) / values.length;
       case 'lowest':
         return Math.min(...values);
+      case 'first':
+        return values[0];
       default:
         throw new Error(`Unknown style: ${style}`);
     }

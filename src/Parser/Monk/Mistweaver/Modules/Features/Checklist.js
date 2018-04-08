@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
@@ -31,6 +32,7 @@ import SoothingMist from '../Spells/SoothingMist';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
+    abilities: Abilities,
     castEfficiency: CastEfficiency,
     combatants: Combatants,
     alwaysBeCasting: AlwaysBeCasting,
@@ -60,6 +62,7 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.RENEWING_MIST,
+            onlyWithSuggestion: false,
           }),
         ];
       },
@@ -72,6 +75,7 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.THUNDER_FOCUS_TEA,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.MANA_TEA_TALENT,
@@ -95,6 +99,7 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.REVIVAL,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ARCANE_TORRENT_MANA,
@@ -198,6 +203,7 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.LIFE_COCOON,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.DIFFUSE_MAGIC_TALENT,
