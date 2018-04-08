@@ -18,7 +18,7 @@ export default {
     icon: 'ability_warrior_colossussmash',
   },
   SHATTERED_DEFENSES: {
-    id: 248580,
+    id: 248625,
     name: 'Shattered Defenses',
     icon: 'warrior_talent_icon_igniteweapon',
   },
@@ -33,7 +33,7 @@ export default {
     icon: 'inv_sword_48',
   },
   EXECUTIONERS_PRECISION: {
-    id: 238147,
+    id: 242188,
     name: 'Executioner\'s Precision',
     icon: 'inv_sword_48',
   },
