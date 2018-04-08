@@ -21,10 +21,11 @@ import AlwaysBeCasting from './AlwaysBeCasting';
 import MoonfireUptime from './MoonfireUptime';
 import SunfireUptime from './SunfireUptime';
 import StellarFlareUptime from './StellarFlareUptime';
+import StellarEmpowermentUptime from './StellarEmpowermentUptime';
 import MoonSpells from './MoonSpells';
 import LunarEmpowerment from './LunarEmpowerment';
 import SolarEmpowerment from './SolarEmpowerment';
-import L90Talents from './L90Talents';
+import L90Talents from '../Talents/L90Talents';
 
 import SoulOfTheArchdruid from '../../../Shared/Modules/Items/SoulOfTheArchdruid';
 
@@ -40,6 +41,7 @@ class Checklist extends CoreChecklist {
     moonfireUptime: MoonfireUptime,
     sunfireUptime: SunfireUptime,
     stellarFlareUptime: StellarFlareUptime,
+    stellarEmpowermentUptime: StellarEmpowermentUptime,
     lunarEmpowerment: LunarEmpowerment,
     solarEmpowerment: SolarEmpowerment,
     moonSpells: MoonSpells,
@@ -79,17 +81,23 @@ class Checklist extends CoreChecklist {
         const combatant = this.combatants.selected;
         return [
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.MOONFIRE_BEAR.id} icon/> uptime</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime</Wrapper>,
             check: () => this.moonfireUptime.suggestionThresholds,
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.SUNFIRE.id} icon/> uptime</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.SUNFIRE.id} /> uptime</Wrapper>,
             check: () => this.sunfireUptime.suggestionThresholds,
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} icon/> uptime</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id}  /> uptime</Wrapper>,
             check: () => this.stellarFlareUptime.suggestionThresholds,
             when: combatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id),
+          }),
+          new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.STELLAR_EMPOWERMENT.id}  /> uptime</Wrapper>,
+            check: () => this.stellarEmpowermentUptime.suggestionThresholds,
+            when: this.combatants.selected.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_BALANCE.id) ||
+                    this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_ARCHDRUID.id),
           }),
         ];
       },
@@ -168,7 +176,7 @@ class Checklist extends CoreChecklist {
             check: () => this.l90Talents.suggestionThresholds,
           }),
           new Requirement({
-            name: <Wrapper>Picked the right talent with <ItemLink id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} icon/></Wrapper>,
+            name: <Wrapper>Picked the right talent with <ItemLink id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} /></Wrapper>,
             check: () => this.soulOfTheArchdruid.suggestionThresholds,
             when: this.soulOfTheArchdruid.active,
           }),
@@ -177,7 +185,6 @@ class Checklist extends CoreChecklist {
             check: () => this.l90Talents.suggestionThresholdsBotA,
             when: (this.l90Talents.activeTalent.id === SPELLS.BLESSING_OF_THE_ANCIENTS_TALENT.id),
           }),
-          
         ];
       },
     }),
