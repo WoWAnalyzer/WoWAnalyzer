@@ -25,10 +25,7 @@ function escapeHtml(unsafe) {
 }
 // Load the index file into memory so we don't have to access it all the time
 const index = fs.readFileSync(path.join(buildFolder, 'index.html'), 'utf8');
-router.get(['/', '/news/:article', '/login'], (req, res) => {
-  res.send(index);
-});
-router.get('/contributor/:contributor', (req, res) => {
+router.get(['/', '/news/:article', '/login', '/contributor/:contributor'], (req, res) => {
   res.send(index);
 });
 router.get('/report/:reportCode([A-Za-z0-9]+)/:fightId([0-9]+)?:fightName(-[^/]+)?/:playerId([0-9]+-)?:playerName([^/]{2,})?/:tab([A-Za-z0-9-]+)?', (req, res) => {
