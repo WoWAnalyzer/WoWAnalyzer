@@ -150,7 +150,7 @@ class Checklist extends CoreChecklist {
           when: () => !!boc,
         }));
         reqs.push(new Requirement({
-          name: <dfn data-tip={"For the purposes of DPS, any Blackout Combo buff that goes unused or is used on a non-Tiger Palm ability is considered Wasted. Specific fight mechanics may call for using Blackout Combo on other abilities."}>Wasted <SpellLink id={SPELLS.BLACKOUT_COMBO_TALENT.id} /> empowerments</dfn>,
+          name: <Wrapper><SpellLink id={SPELLS.BLACKOUT_COMBO_TALENT.id}>Blackout Combos</SpellLink> spent on <SpellLink id={SPELLS.TIGER_PALM.id}/></Wrapper>,
           check: () => this.boc.dpsWasteThreshold,
           when: () => !!boc,
         }));
