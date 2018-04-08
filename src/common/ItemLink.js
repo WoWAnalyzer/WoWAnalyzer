@@ -46,7 +46,7 @@ ItemLink.propTypes = {
   icon: PropTypes.bool,
 };
 ItemLink.defaultProps = {
-  icon: false,
+  icon: true,
 };
 
 export default ItemLink;

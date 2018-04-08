@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
@@ -13,7 +13,7 @@ class EmpoweredLifeTap extends SharedEmpoweredLifeTap {
       <div className="flex">
         <div className="flex-main">
           <SpellLink id={SPELLS.EMPOWERED_LIFE_TAP_TALENT.id}>
-            <SpellIcon id={SPELLS.EMPOWERED_LIFE_TAP_TALENT.id} noLink /> Empowered Life Tap Uptime
+            Empowered Life Tap Uptime
           </SpellLink>
         </div>
         <div className="flex-sub text-right">

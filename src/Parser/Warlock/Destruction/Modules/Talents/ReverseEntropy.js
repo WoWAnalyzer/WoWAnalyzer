@@ -5,7 +5,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
@@ -34,7 +34,7 @@ class ReverseEntropy extends Analyzer {
       <div className="flex">
         <div className="flex-main">
           <SpellLink id={SPELLS.REVERSE_ENTROPY_TALENT.id}>
-            <SpellIcon id={SPELLS.REVERSE_ENTROPY_TALENT.id} noLink /> Reverse Entropy Gain
+            Reverse Entropy Gain
           </SpellLink>
         </div>
         <div className="flex-sub text-right">

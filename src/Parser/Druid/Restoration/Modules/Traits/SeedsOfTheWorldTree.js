@@ -5,7 +5,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import SPELLS from 'common/SPELLS';
 
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
@@ -39,9 +39,7 @@ class SeedsOfTheWorldTree extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.SEEDS_OF_THE_WORLD_TREE.id}>
-            <SpellIcon id={SPELLS.SEEDS_OF_THE_WORLD_TREE.id} noLink /> Seeds of the World Tree
-          </SpellLink>
+          <SpellLink id={SPELLS.SEEDS_OF_THE_WORLD_TREE.id} />
         </div>
         <div className="flex-sub text-right">
           {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %

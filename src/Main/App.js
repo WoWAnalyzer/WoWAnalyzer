@@ -203,6 +203,7 @@ class App extends React.Component {
           <DocumentTitleUpdater />
         </div>
         {!error && <Footer />}
+        <div id="portal"></div>
       </Wrapper>
     );
   }

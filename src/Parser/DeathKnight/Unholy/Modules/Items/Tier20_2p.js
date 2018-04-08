@@ -23,7 +23,7 @@ class Tier20_2pc extends Analyzer {
     return {
       id: `spell-${SPELLS.UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS.id} />,
-      title: <SpellLink id={SPELLS.UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS.id} />,
+      title: <SpellLink id={SPELLS.UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS.id} icon={false} />,
       result: <Wrapper>{formatPercentage(uptime)} % uptime.</Wrapper>,
     };
   }

@@ -76,7 +76,7 @@ class Tier20_4set extends Analyzer {
     return {
       id: `spell-${SPELLS.DISC_PRIEST_T20_4SET_BONUS_PASSIVE.id}`,
       icon: <SpellIcon id={SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id} icon={false} />,
       result: (
         <Wrapper>
           {penanceCooldownSaved} seconds off the cooldown, {consumptions} Penances cast earlier

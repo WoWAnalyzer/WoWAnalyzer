@@ -14,11 +14,20 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import MoonfireUptime from './Modules/Features/MoonfireUptime';
 import SunfireUptime from './Modules/Features/SunfireUptime';
 import StellarFlareUptime from './Modules/Features/StellarFlareUptime';
+import StellarEmpowermentUptime from './Modules/Features/StellarEmpowermentUptime';
 import MoonSpells from './Modules/Features/MoonSpells';
 import UnempoweredLunarStrike from './Modules/Features/UnempoweredLunarStrike';
 import UnempoweredSolarWrath from './Modules/Features/UnempoweredSolarWrath';
-import L90Talents from './Modules/Features/L90Talents';
 
+//Talents
+import L90Talents from './Modules/Talents/L90Talents';
+import StellarDriftMissing from './Modules/Talents/StellarDriftMissing';
+import StellarDrift from './Modules/Talents/StellarDrift';
+import StellarFlare from './Modules/Talents/StellarFlare';
+import Starlord from './Modules/Talents/Starlord';
+
+import EarlyDotRefreshes from './Modules/Features/EarlyDotRefreshes';
+import EarlyDotRefreshesInstants from './Modules/Features/EarlyDotRefreshesInstants';
 
 //Resources
 import AstralPowerDetails from './Modules/ResourceTracker/AstralPowerDetails';
@@ -54,10 +63,20 @@ class CombatLogParser extends MainCombatLogParser {
     moonfireUptime: MoonfireUptime,
     sunfireUptime: SunfireUptime,
     stellarFlareUptime: StellarFlareUptime,
+    stellarEmpowermentUptime: StellarEmpowermentUptime,
     moonSpells: MoonSpells,
     unempoweredLunarStrike: UnempoweredLunarStrike,
     unempoweredSolarWrath: UnempoweredSolarWrath,
+
+    //Talents
     l90Talents: L90Talents,
+    stellarDriftMissing: StellarDriftMissing,
+    stellarDrift: StellarDrift,
+    stellarFlare: StellarFlare,
+    starlord: Starlord,
+
+    earlyDotRefreshes: EarlyDotRefreshes,
+    earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
 
     //Resources
     astralPowerTracker: AstralPowerTracker,

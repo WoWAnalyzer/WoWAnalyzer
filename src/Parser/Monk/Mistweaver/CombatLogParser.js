@@ -133,7 +133,7 @@ class CombatLogParser extends CoreCombatLogParser {
         title: 'Mana',
         url: 'mana',
         render: () => (
-          <Tab title="Mana" style={{ padding: '15px 22px' }}>
+          <Tab style={{ padding: '15px 22px' }}>
             <Mana parser={this} />
           </Tab>
         ),
@@ -142,7 +142,7 @@ class CombatLogParser extends CoreCombatLogParser {
         title: 'Player Log Data',
         url: 'player-log-data',
         render: () => (
-          <Tab title="Player Log Data" style={{ padding: '15px 22px 15px 15px' }}>
+          <Tab style={{ padding: '15px 22px 15px 15px' }}>
             <MonkSpreadsheet parser={this} />
           </Tab>
         ),

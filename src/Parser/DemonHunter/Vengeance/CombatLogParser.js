@@ -64,7 +64,7 @@ class CombatLogParser extends CoreCombatLogParser {
         title: 'Pain Chart',
         url: 'pain',
         render: () => (
-          <Tab title="Pain" style={{ padding: '15px 22px' }}>
+          <Tab style={{ padding: '15px 22px' }}>
             <PainChart
               reportCode={this.report.code}
               actorId={this.playerId}

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -27,6 +28,7 @@ import VulnerableUpTime from 'Parser/Hunter/Marksmanship/Modules/Features/Vulner
 
 class Checklist extends CoreChecklist {
   static dependencies = {
+    abilities: Abilities,
     combatants: Combatants,
 
     //general
@@ -57,12 +59,13 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Use core spells as often as possible',
-      description: <Wrapper>Spells such as <SpellLink id={SPELLS.TRUESHOT.id} icon />, <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} icon /> should be used as often as possible (unless nearing execute) and <SpellLink id={SPELLS.WINDBURST.id} icon />, should be used as often as possible in situations where you need to open <SpellLink id={SPELLS.VULNERABLE.id} icon /> windows. Any added talents that need activation are generally used on cooldown. <a href="https://www.icy-veins.com/wow/marksmanship-hunter-pve-dps-rotation-cooldowns-abilities" target="_blank" rel="noopener noreferrer">More info.</a></Wrapper>,
+      description: <Wrapper>Spells such as <SpellLink id={SPELLS.TRUESHOT.id} />, <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> should be used as often as possible (unless nearing execute) and <SpellLink id={SPELLS.WINDBURST.id} />, should be used as often as possible in situations where you need to open <SpellLink id={SPELLS.VULNERABLE.id} /> windows. Any added talents that need activation are generally used on cooldown. <a href="https://www.icy-veins.com/wow/marksmanship-hunter-pve-dps-rotation-cooldowns-abilities" target="_blank" rel="noopener noreferrer">More info.</a></Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.WINDBURST,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED,
@@ -70,6 +73,7 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TRUESHOT,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.SIDEWINDERS_TALENT,
@@ -100,12 +104,12 @@ class Checklist extends CoreChecklist {
     }),
 
     new Rule({
-      name: <Wrapper>Use <SpellLink id={SPELLS.TRUESHOT.id} icon /> effectively</Wrapper>,
-      description: <Wrapper>Since <SpellLink id={SPELLS.TRUESHOT.id} icon /> is a marksmanship hunters only cooldown, it's important to maximize the potential of it.</Wrapper>,
+      name: <Wrapper>Use <SpellLink id={SPELLS.TRUESHOT.id} /> effectively</Wrapper>,
+      description: <Wrapper>Since <SpellLink id={SPELLS.TRUESHOT.id} /> is a marksmanship hunters only cooldown, it's important to maximize the potential of it.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
-            name: <Wrapper>Average <SpellLink id={SPELLS.AIMED_SHOT.id} icon /> casts per <SpellLink id={SPELLS.TRUESHOT.id} icon /></Wrapper>,
+            name: <Wrapper>Average <SpellLink id={SPELLS.AIMED_SHOT.id} /> casts per <SpellLink id={SPELLS.TRUESHOT.id} /></Wrapper>,
             check: () => this.trueshot.aimedShotThreshold,
           }),
           new Requirement({
@@ -116,31 +120,31 @@ class Checklist extends CoreChecklist {
                 height: '1.3em',
                 marginTop: '-.1em',
               }}
-            /> <a href="http://www.wowhead.com/focus">Focus</a> when casting <SpellLink id={SPELLS.TRUESHOT.id} icon /></Wrapper>,
+            /> <a href="http://www.wowhead.com/focus">Focus</a> when casting <SpellLink id={SPELLS.TRUESHOT.id} /></Wrapper>,
             check: () => this.trueshot.focusThreshold,
           }),
           new Requirement({
-            name: <Wrapper>Average<SpellLink id={SPELLS.TRUESHOT.id} icon /> uptime per cast</Wrapper>,
+            name: <Wrapper>Average<SpellLink id={SPELLS.TRUESHOT.id} /> uptime per cast</Wrapper>,
             check: () => this.trueshot.uptimeThreshold,
           }),
         ];
       },
     }),
     new Rule({
-      name: <Wrapper>Execute and <SpellLink id={SPELLS.BULLSEYE_TRAIT.id} icon /></Wrapper>,
-      description: <Wrapper>It's important for a marksmanship hunter to combine <SpellLink id={SPELLS.BULLSEYE_TRAIT.id} icon /> with a <SpellLink id={SPELLS.TRUESHOT.id} icon />, because of the increased crit damage added into <SpellLink id={SPELLS.TRUESHOT.id} icon /> from <SpellLink id={SPELLS.RAPID_KILLING.id} icon />.</Wrapper>,
+      name: <Wrapper>Execute and <SpellLink id={SPELLS.BULLSEYE_TRAIT.id} /></Wrapper>,
+      description: <Wrapper>It's important for a marksmanship hunter to combine <SpellLink id={SPELLS.BULLSEYE_TRAIT.id} /> with a <SpellLink id={SPELLS.TRUESHOT.id} />, because of the increased crit damage added into <SpellLink id={SPELLS.TRUESHOT.id} /> from <SpellLink id={SPELLS.RAPID_KILLING.id} />.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} icon /> casts right before execute</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> casts right before execute</Wrapper>,
             check: () => this.aMurderOfCrows.shouldHaveSavedThreshold,
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.TRUESHOT.id} icon /> casts with <SpellLink id={SPELLS.BULLSEYE_BUFF.id} icon /> up</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.TRUESHOT.id} /> casts with <SpellLink id={SPELLS.BULLSEYE_BUFF.id} /> up</Wrapper>,
             check: () => this.trueshot.executeTrueshotThreshold,
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.BULLSEYE_BUFF.id} icon /> lost while boss was under 20% </Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.BULLSEYE_BUFF.id} /> lost while boss was under 20% </Wrapper>,
             check: () => this.bullseye.bullseyeResetThreshold,
           }),
         ];
@@ -149,7 +153,7 @@ class Checklist extends CoreChecklist {
     new Rule({
       name: 'Downtime, cancelled casts and focus capping',
       description: <Wrapper>
-        Try to minimize your time spent not casting. Use your instant casts (<SpellLink id={SPELLS.ARCANE_SHOT.id} icon /> or <SpellLink id={SPELLS.MULTISHOT.id} icon />) while moving to avoid spending time doing nothing. Even while using <SpellLink id={SPELLS.SIDEWINDERS_TALENT.id} icon />, you can have too much downtime so try and spend the natural downtime moving, and utilise the rest of the time to cast your damaging spells.
+        Try to minimize your time spent not casting. Use your instant casts (<SpellLink id={SPELLS.ARCANE_SHOT.id} /> or <SpellLink id={SPELLS.MULTISHOT.id} />) while moving to avoid spending time doing nothing. Even while using <SpellLink id={SPELLS.SIDEWINDERS_TALENT.id} />, you can have too much downtime so try and spend the natural downtime moving, and utilise the rest of the time to cast your damaging spells.
       </Wrapper>,
       requirements: () => {
         return [
@@ -190,24 +194,24 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <Wrapper><SpellLink id={SPELLS.VULNERABLE.id} icon /> & <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> Usage </Wrapper>,
-      description: <Wrapper>Try to limit the amount of casts outside of <SpellLink id={SPELLS.VULNERABLE.id} icon /> to a minimum. Try to optimise the damage from <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> by after opening <SpellLink id={SPELLS.VULNERABLE.id} icon />, then casting one or two <SpellLink id={SPELLS.ARCANE_SHOT.id} icon /> or <SpellLink id={SPELLS.MULTISHOT.id} icon /> to delay your <SpellLink id={SPELLS.AIMED_SHOT.id} icon /> until later in the <SpellLink id={SPELLS.VULNERABLE.id} icon /> window. However, remember to not stand around waiting, doing nothing and to not focus cap. These are more important to DPS, than optimising <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> is.</Wrapper>,
+      name: <Wrapper><SpellLink id={SPELLS.VULNERABLE.id} /> & <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} /> Usage </Wrapper>,
+      description: <Wrapper>Try to limit the amount of casts outside of <SpellLink id={SPELLS.VULNERABLE.id} /> to a minimum. Try to optimise the damage from <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} /> by after opening <SpellLink id={SPELLS.VULNERABLE.id} />, then casting one or two <SpellLink id={SPELLS.ARCANE_SHOT.id} /> or <SpellLink id={SPELLS.MULTISHOT.id} /> to delay your <SpellLink id={SPELLS.AIMED_SHOT.id} /> until later in the <SpellLink id={SPELLS.VULNERABLE.id} /> window. However, remember to not stand around waiting, doing nothing and to not focus cap. These are more important to DPS, than optimising <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} /> is.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.AIMED_SHOT.id} icon />s outside <SpellLink id={SPELLS.VULNERABLE.id} icon /></Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.AIMED_SHOT.id} />s outside <SpellLink id={SPELLS.VULNERABLE.id} /></Wrapper>,
             check: () => this.aimedInVulnerableTracker.nonVulnerableAimedShotThreshold,
           }),
           new Requirement({
-            name: <Wrapper><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Focus dump <SpellLink id={SPELLS.AIMED_SHOT.id} icon />s</Wrapper>,
+            name: <Wrapper><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Focus dump <SpellLink id={SPELLS.AIMED_SHOT.id} />s</Wrapper>,
             check: () => this.aimedInVulnerableTracker.focusDumpThreshold,
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> damage contribution</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} /> damage contribution</Wrapper>,
             check: () => this.patientSniperDetails.patientSniperDamageThresholds,
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.VULNERABLE.id} icon /> uptime</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.VULNERABLE.id} /> uptime</Wrapper>,
             check: () => this.vulnerableUptime.uptimeThreshold,
           }),
         ];

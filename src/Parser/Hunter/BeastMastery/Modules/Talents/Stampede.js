@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -30,9 +29,7 @@ class Stampede extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.STAMPEDE_TALENT.id}>
-            <SpellIcon id={SPELLS.STAMPEDE_TALENT.id} noLink /> Stampede
-          </SpellLink>
+          <SpellLink id={SPELLS.STAMPEDE_TALENT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.damage} />

@@ -4,7 +4,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 
 import SoulShardTracker from '../SoulShards/SoulShardTracker';
@@ -77,9 +77,7 @@ class Shadowburn extends Analyzer {
       return (
         <div className="flex">
           <div className="flex-main">
-            <SpellLink id={SPELLS.SHADOWBURN_TALENT.id}>
-              <SpellIcon id={SPELLS.SHADOWBURN_TALENT.id} noLink /> Shadowburn Gain
-            </SpellLink>
+            <SpellLink id={SPELLS.SHADOWBURN_TALENT.id} />
           </div>
           <div className="flex-sub text-right">
             {this.soulShardTracker.generatedAndWasted[SHADOWBURN_KILL].generated} Bonus Fragments

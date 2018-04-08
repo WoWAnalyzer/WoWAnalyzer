@@ -36,7 +36,7 @@ class ComboPointDetails extends Analyzer {
       title: 'Combo Point usage',
       url: 'combo-points',
       render: () => (
-        <Tab title="Combo Point usage breakdown">
+        <Tab>
           <ResourceBreakdown
             tracker={this.comboPointTracker}
             showSpenders={true}

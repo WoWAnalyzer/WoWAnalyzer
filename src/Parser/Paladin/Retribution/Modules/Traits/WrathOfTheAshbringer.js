@@ -4,7 +4,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
@@ -48,9 +48,7 @@ class WrathOfTheAshbringer extends Analyzer {
  		return (
  			<div className='flex'>
  				<div className='flex-main'>
- 					<SpellLink id={SPELLS.WRATH_OF_THE_ASHBRINGER.id}>
- 						<SpellIcon id={SPELLS.WRATH_OF_THE_ASHBRINGER.id} noLink /> Wrath of the Ashbringer
- 					</SpellLink>
+ 					<SpellLink id={SPELLS.WRATH_OF_THE_ASHBRINGER.id} />
  				</div>
  				<div className='flex-sub text-right'>
  					{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.wingsDPS))} %

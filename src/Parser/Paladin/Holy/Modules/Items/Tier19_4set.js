@@ -98,7 +98,7 @@ class Tier19_4set extends Analyzer {
     return {
       id: `spell-${SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id} icon={false} />,
       result: (
         <dfn data-tip={`The actual effective healing contributed by the tier 19 4 set bonus. <b>This does not include any healing "gained" from the Holy Light cast time reduction.</b> You used a total of ${this.totalIolProcsUsed} Infusion of Light procs, ${this.bonusIolProcsUsed} of those were from procs from the 4 set bonus and ${this.bonusIolProcsUsedOnFol} of those bonus procs were used on Flash of Light.`}>
           <ItemHealingDone amount={this.healing} />

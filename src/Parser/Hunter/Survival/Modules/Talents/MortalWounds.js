@@ -9,7 +9,6 @@ import SpellIcon from 'common/SpellIcon';
 const RESET_CHANCE_PER_TICK = 0.02;
 
 class MortalWounds extends Analyzer {
-
   static dependencies = {
     combatants: Combatants,
   };

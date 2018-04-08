@@ -44,14 +44,14 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     //When playing with sidewinders your downtime is significantly different than when you play without, this is due to losing all instant casts
     if (this.combatants.selected.hasTalent(SPELLS.SIDEWINDERS_TALENT.id)) {
       when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your downtime can be improved. Try and minimise the time spent standing around doing nothing, even though you are playing with <SpellLink id={SPELLS.SIDEWINDERS_TALENT.id} icon />.</Wrapper>)
+        return suggest(<Wrapper>Your downtime can be improved. Try and minimise the time spent standing around doing nothing, even though you are playing with <SpellLink id={SPELLS.SIDEWINDERS_TALENT.id} />.</Wrapper>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);
       });
     } else {
       when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your downtime can be improved. Try to Always Be Casting (ABC), this means you should try to reduce the delay between casting spells. Even if you have to move, try casting something instant like <SpellLink id={SPELLS.ARCANE_SHOT.id} icon /> for single target or <SpellLink id={SPELLS.MULTISHOT.id} icon /> for multiple targets.</Wrapper>)
+        return suggest(<Wrapper>Your downtime can be improved. Try to Always Be Casting (ABC), this means you should try to reduce the delay between casting spells. Even if you have to move, try casting something instant like <SpellLink id={SPELLS.ARCANE_SHOT.id} /> for single target or <SpellLink id={SPELLS.MULTISHOT.id} /> for multiple targets.</Wrapper>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);

@@ -24,7 +24,7 @@ SpellLink.propTypes = {
   iconStyle: PropTypes.object,
 };
 SpellLink.defaultProps = {
-  icon: false,
+  icon: true,
 };
 
 export default SpellLink;

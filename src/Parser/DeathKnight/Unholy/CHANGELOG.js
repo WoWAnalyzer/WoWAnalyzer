@@ -40,22 +40,22 @@ export default  [
   },
   {
     date: new Date('2017-12-15'),
-    changes: <Wrapper>Removed <SpellLink id={SPELLS.SCOURGE_OF_WORLDS.id} icon /> tracker after feedback</Wrapper>,
+    changes: <Wrapper>Removed <SpellLink id={SPELLS.SCOURGE_OF_WORLDS.id} /> tracker after feedback</Wrapper>,
     contributors: [Khazak],
   },
   {
     date: new Date('2017-12-14'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.UNHOLY_DEATH_KNIGHT_T21_2SET_BONUS.id} icon /> and <SpellLink id={SPELLS.UNHOLY_DEATH_KNIGHT_T21_4SET_BONUS.id} icon /></Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.UNHOLY_DEATH_KNIGHT_T21_2SET_BONUS.id} /> and <SpellLink id={SPELLS.UNHOLY_DEATH_KNIGHT_T21_4SET_BONUS.id} /></Wrapper>,
     contributors: [Khazak],
   },
   {
     date: new Date('2017-11-14'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS.id} icon /> tracking</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS.id} /> tracking</Wrapper>,
     contributors: [Khazak],
   },
   {
     date: new Date('2017-11-04'),
-    changes: <Wrapper><SpellLink id={SPELLS.SCOURGE_OF_WORLDS.id} icon />, <ItemLink id={ITEMS.COLD_HEART.id} icon />, and <SpellLink id={SPELLS.UNHOLY_FRENZY_BUFF.id} icon /> trackers added</Wrapper>,
+    changes: <Wrapper><SpellLink id={SPELLS.SCOURGE_OF_WORLDS.id} />, <ItemLink id={ITEMS.COLD_HEART.id} />, and <SpellLink id={SPELLS.UNHOLY_FRENZY_BUFF.id} /> trackers added</Wrapper>,
     contributors: [Khazak],
   },
   {
@@ -65,7 +65,7 @@ export default  [
   },
   {
     date: new Date('2017-11-01'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id} icon /> Module</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id} /> Module</Wrapper>,
     contributors: [Khazak],
   },
   {

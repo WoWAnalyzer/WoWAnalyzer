@@ -83,7 +83,7 @@ class FuryOfTheEagle extends Analyzer {
 
   suggestions(when) {
     when(this.averageMFStacksThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You cast <SpellLink id={SPELLS.FURY_OF_THE_EAGLE_TRAIT.id} icon /> when you had a low amount of <SpellLink id={SPELLS.MONGOOSE_FURY.id} icon /> stacks. Aim to cast it while you have 6 stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} icon /> to maximize the damage of it, whilst fishing for additional resets of <SpellLink id={SPELLS.MONGOOSE_BITE.id} icon />. </Wrapper>)
+      return suggest(<Wrapper>You cast <SpellLink id={SPELLS.FURY_OF_THE_EAGLE_TRAIT.id} /> when you had a low amount of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> stacks. Aim to cast it while you have 6 stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> to maximize the damage of it, whilst fishing for additional resets of <SpellLink id={SPELLS.MONGOOSE_BITE.id} />. </Wrapper>)
         .icon(SPELLS.FURY_OF_THE_EAGLE_TRAIT.icon)
         .actual(`${this.averageMongooseStacksOnCast} average stacks of mongoose Fury on cast`)
         .recommended(`${recommended} stacks is recommended`);
@@ -108,9 +108,7 @@ class FuryOfTheEagle extends Analyzer {
       return (
         <div className="flex">
           <div className="flex-main">
-            <SpellLink id={SPELLS.FURY_OF_THE_EAGLE_TRAIT.id}>
-              <SpellIcon id={SPELLS.FURY_OF_THE_EAGLE_TRAIT.id} noLink /> Fury of the Eagle
-            </SpellLink>
+            <SpellLink id={SPELLS.FURY_OF_THE_EAGLE_TRAIT.id} />
           </div>
           <div className="flex-sub text-right">
             <ItemDamageDone amount={this.bonusDamage} />

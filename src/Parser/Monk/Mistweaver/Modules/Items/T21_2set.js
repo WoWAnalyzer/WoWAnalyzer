@@ -42,7 +42,7 @@ class T21_2set extends Analyzer {
     return {
       id: `spell-${SPELLS.CHIJIS_BATTLEGEAR_2_PIECE_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.CHIJIS_BATTLEGEAR_2_PIECE_BUFF.id} />,
-      title: <SpellLink id={SPELLS.CHIJIS_BATTLEGEAR_2_PIECE_BUFF.id} />,
+      title: <SpellLink id={SPELLS.CHIJIS_BATTLEGEAR_2_PIECE_BUFF.id} icon={false} />,
       result: <ItemHealingDone amount={healing} />,
     };
   }

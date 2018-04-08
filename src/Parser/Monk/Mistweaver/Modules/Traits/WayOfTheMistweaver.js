@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
@@ -40,9 +40,7 @@ class WayOfTheMistweaver extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.WAY_OF_THE_MISTWEAVER.id}>
-            <SpellIcon id={SPELLS.WAY_OF_THE_MISTWEAVER.id} noLink /> Way of the Mistweaver
-          </SpellLink>
+          <SpellLink id={SPELLS.WAY_OF_THE_MISTWEAVER.id} />
         </div>
         <div className="flex-sub text-right">
           {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %

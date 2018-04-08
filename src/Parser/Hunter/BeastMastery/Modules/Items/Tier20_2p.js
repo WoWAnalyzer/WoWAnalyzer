@@ -64,7 +64,7 @@ class Tier20_2p extends Analyzer {
     return {
       id: `spell-${SPELLS.HUNTER_BM_T20_2P_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.HUNTER_BM_T20_2P_BONUS.id} />,
-      title: <SpellLink id={SPELLS.HUNTER_BM_T20_2P_BONUS.id} />,
+      title: <SpellLink id={SPELLS.HUNTER_BM_T20_2P_BONUS.id} icon={false} />,
       result: <ItemDamageDone amount={this.bonusDmg} />,
     };
   }

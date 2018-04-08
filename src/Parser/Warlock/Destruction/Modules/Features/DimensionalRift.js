@@ -63,9 +63,7 @@ class DimensionalRift extends Analyzer {
         {rifts.map(rift => (
           <div className="flex">
             <div className="flex-main">
-              <SpellLink id={rift.id}>
-                <SpellIcon id={rift.id} noLink /> {rift.name}
-              </SpellLink>
+              <SpellLink id={rift.id} />
             </div>
             <div className="flex-sub text-right">
               {formatNumber(rift.damage)} ({formatPercentage(rift.damage / totalDmg)} %)
