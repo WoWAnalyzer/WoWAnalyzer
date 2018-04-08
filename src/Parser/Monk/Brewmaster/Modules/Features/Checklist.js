@@ -73,7 +73,7 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: 'Generate enough brews through your rotation.',
+      name: 'Generate enough brews through your rotation',
       description: (
         <Wrapper>
           <p>The cooldown of all brews is reduced by your key rotational abilities: <SpellLink id={SPELLS.KEG_SMASH.id} /> and <SpellLink id={SPELLS.TIGER_PALM.id} />. Maintaining a proper rotation will help ensure you have enough brews available to maintain <SpellLink id={SPELLS.IRONSKIN_BREW.id} />.</p>
