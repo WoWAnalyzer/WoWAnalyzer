@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Hewhosmites, Zerotorescue } from 'CONTRIBUTORS';
+import { Hewhosmites, Zerotorescue, joshinator } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -8,6 +8,21 @@ import ItemLink from 'common/ItemLink';
 import SpellLink from 'common/SpellLink';
 
 export default [
+	{
+		date: new Date('2018-04-07'),
+		changes: <Wrapper>Added a basic checklist for spell usage.</Wrapper>,
+		contributors: [joshinator],
+	},
+	{
+		date: new Date('2018-04-07'),
+		changes: <Wrapper>Added <ItemLink id={ITEMS.BREASTPLATE_OF_THE_GOLDEN_VALKYR.id} icon/> and <ItemLink id={ITEMS.HEATHCLIFFS_IMMORTALITY.id} icon/>.</Wrapper>,
+		contributors: [joshinator],
+	},
+	{
+		date: new Date('2018-04-07'),
+		changes: <Wrapper>Added <SpellLink id={SPELLS.SERAPHIM_TALENT.id} icon/> module to track uptime and consumed <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} icon/> charges.</Wrapper>,
+		contributors: [joshinator],
+	},
 	{
 		date: new Date('2018-03-22'),
 		changes: <Wrapper>Marked <SpellLink id={SPELLS.BLESSED_HAMMER_TALENT.id} icon/> as being on the GCD.</Wrapper>,

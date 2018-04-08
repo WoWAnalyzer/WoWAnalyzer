@@ -654,7 +654,7 @@ export default {
 
   DEATH_STRIKE_HEAL: {
     id: 45470,
-    name: 'Death Strike Heal',
+    name: 'Death Strike',
     icon: 'spell_deathknight_butcher2',
   },
 
