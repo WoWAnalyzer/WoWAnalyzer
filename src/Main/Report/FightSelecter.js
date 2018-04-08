@@ -25,7 +25,7 @@ class FightSelecter extends React.PureComponent {
         name: PropTypes.string.isRequired,
         kill: PropTypes.bool,
       })),
-    }),
+    }).isRequired,
     fetchReport: PropTypes.func.isRequired,
   };
   state = {
@@ -48,6 +48,11 @@ class FightSelecter extends React.PureComponent {
 
   render() {
     const { report } = this.props;
+    if (!report) {
+      // While this component shouldn't be called when report isn't available, Redux might re-render it prior to the container which would otherwise cause a crash
+      return null;
+    }
+
     const { killsOnly } = this.state;
 
     return (
