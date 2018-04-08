@@ -472,7 +472,7 @@ class App extends Component {
     }
 
     if (this.props.contributorId) {
-      return <ContributorDetails contributorId={this.props.contributorId} />;
+      return <ContributorDetails ownPage contributorId={this.props.contributorId} />;
     }
 
     if (this.props.articleId) {
@@ -556,6 +556,7 @@ class App extends Component {
           <DocumentTitleUpdater />
         </div>
         {!error && <Footer />}
+        <div id="portal"></div>
       </Wrapper>
     );
   }

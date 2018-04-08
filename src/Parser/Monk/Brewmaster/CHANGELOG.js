@@ -9,8 +9,13 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-04-06'),
+    date: new Date('2018-04-08'),
     changes: 'Updated checklist for brew generation to clarify some common points of confusion.',
+    contributors: [emallson],
+  },
+  {
+    date: new Date('2018-04-02'),
+    changes: 'Added "Top the DPS Charts" checklist item.',
     contributors: [emallson],
   },
   {

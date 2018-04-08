@@ -22,6 +22,21 @@ class BlackoutCombo extends Analyzer {
   lastBlackoutComboCast = 0;
   spellsBOCWasUsedOn = {};
 
+  get dpsWasteThreshold() {
+    if(!this.active) {
+      return null;
+    }
+    return {
+      actual: 1.0 - this.spellsBOCWasUsedOn[SPELLS.TIGER_PALM.id] / this.blackoutComboBuffs,
+      isGreaterThan: {
+        minor: 0.05,
+        average: 0.1,
+        major: 0.15,
+      },
+      style: 'percentage',
+    };
+  }
+
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id);
   }

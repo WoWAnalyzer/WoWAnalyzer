@@ -7,6 +7,7 @@ import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
@@ -29,6 +30,7 @@ import Crusade from '../PaladinCore/Crusade';
 
 class Checklist extends CoreChecklist {
 	static dependencies = {
+    abilities: Abilities,
 		castEfficiency: CastEfficiency,
     combatants: Combatants,
     alwaysBeCasting: AlwaysBeCasting,
@@ -77,6 +79,7 @@ class Checklist extends CoreChecklist {
   				}),
   				new GenericCastEfficiencyRequirement({
   					spell: SPELLS.JUDGMENT_CAST,
+            onlyWithSuggestion: false,
   				}),
   				new GenericCastEfficiencyRequirement({
   					spell: SPELLS.BLADE_OF_JUSTICE,
@@ -114,6 +117,7 @@ class Checklist extends CoreChecklist {
   				}),
   				new GenericCastEfficiencyRequirement({
   					spell: SPELLS.WAKE_OF_ASHES,
+            onlyWithSuggestion: false,
   				}),
   			];
   		},
@@ -168,9 +172,11 @@ class Checklist extends CoreChecklist {
         return [
 	        new GenericCastEfficiencyRequirement({
 	          spell: SPELLS.SHIELD_OF_VENGEANCE,
+            onlyWithSuggestion: false,
 	        }),
 	        new GenericCastEfficiencyRequirement({
             spell: SPELLS.LAY_ON_HANDS,
+            onlyWithSuggestion: false,
 					}),
           new Requirement({
             name: <Wrapper> <SpellLink id={SPELLS.BLESSING_OF_THE_ASHBRINGER_BUFF.id} icon/> uptime</Wrapper>,
