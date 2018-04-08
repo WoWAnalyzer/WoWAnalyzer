@@ -48,11 +48,6 @@ class NavigationBar extends React.PureComponent {
             <PlayerSelectorHeader className="menu-item" />
           )}
           <div className="spacer" />
-          <div className="menu-item main left-line">
-            <Link to="/login">
-              Login
-            </Link>
-          </div>
           <div className="menu-item main">
             <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
               <img src={GithubLogo} alt="GitHub logo" /><span className="optional" style={{ paddingLeft: 6 }}> View on GitHub</span>
