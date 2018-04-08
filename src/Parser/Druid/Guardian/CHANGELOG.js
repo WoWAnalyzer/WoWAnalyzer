@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   { 
+    date: new Date('2018-04-07'),
+    changes: <Wrapper>Fixed an issue where <SpellLink id={SPELLS.MANGLE_BEAR.id} /> and <SpellLink id={SPELLS.THRASH_BEAR.id} /> max casts were not calculated correctly when using <SpellLink id={SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id} />.</Wrapper>,
+    contributors: [Gebuz],
+  },
+  { 
     date: new Date('2018-03-26'),
     changes: 'Highlight bad filler casts on the timeline.',
     contributors: [Gebuz],

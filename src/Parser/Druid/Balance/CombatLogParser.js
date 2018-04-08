@@ -26,6 +26,9 @@ import StellarDrift from './Modules/Talents/StellarDrift';
 import StellarFlare from './Modules/Talents/StellarFlare';
 import Starlord from './Modules/Talents/Starlord';
 
+import EarlyDotRefreshes from './Modules/Features/EarlyDotRefreshes';
+import EarlyDotRefreshesInstants from './Modules/Features/EarlyDotRefreshesInstants';
+
 //Resources
 import AstralPowerDetails from './Modules/ResourceTracker/AstralPowerDetails';
 import AstralPowerTracker from './Modules/ResourceTracker/AstralPowerTracker';
@@ -71,6 +74,9 @@ class CombatLogParser extends MainCombatLogParser {
     stellarDrift: StellarDrift,
     stellarFlare: StellarFlare,
     starlord: Starlord,
+
+    earlyDotRefreshes: EarlyDotRefreshes,
+    earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
 
     //Resources
     astralPowerTracker: AstralPowerTracker,

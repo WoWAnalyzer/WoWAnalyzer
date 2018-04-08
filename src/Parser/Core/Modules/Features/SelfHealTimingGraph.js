@@ -2,28 +2,25 @@ import React from 'react';
 import { Line as LineChart } from 'react-chartjs-2';
 import Analyzer from 'Parser/Core/Analyzer';
 import Tab from 'Main/Tab';
-
 import { formatNumber, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import 'common/chartjs-plugin-vertical';
 
 /**
- * A Copy of Brewmasters Stagger Graph to show Death Strike casts relative to HP
- *
- * Goal is to remove pressure from healers by Death Striking more when really needed (eg. at low health) / improving Death Strike timings
- */
-class DeathStrikeTimingGraph extends Analyzer {
+ * Goal is to remove pressure from healers by selfhealing more when really needed (eg. at low health) / improving tanks reactive selfhealing timings
+*/
+
+class SelfHealTimingGraph extends Analyzer {
   
   _hpEvents = [];
   _deathEvents = [];
-  _deathstrikeTimestamps = [];
+  _selfhealTimestamps = [];
 
-  on_byPlayer_heal(event) {
-    if (event.ability.guid === SPELLS.DEATH_STRIKE_HEAL.id) {
-      this._deathstrikeTimestamps.push(event);
-    }
-  }
+
+  selfHealSpell = SPELLS.HEALTHSTONE;
+  tabTitle = "Selheal Timing";
+  tabURL = 'selfheal-timings';
 
   on_toPlayer_death(event) {
     this._deathEvents.push(event);
@@ -35,21 +32,20 @@ class DeathStrikeTimingGraph extends Analyzer {
 
   on_toPlayer_heal(event) {
     this._hpEvents.push(event);
+
+    if (event.ability.guid === this.selfHealSpell.id && event.sourceID === event.targetID) {
+      this._selfhealTimestamps.push(event);
+    }
   }
 
-  plot() {
-    // x indices
+  plot(selfHealSpell) {
     const labels = Array.from({length: Math.ceil(this.owner.fightDuration / 1000)}, (x, i) => i);
-
-    // somethingBySeconds are all objects mapping from seconds ->
-    // something, where if a value is unknown for that timestamp it is
-    // undefined (the key is still present)
     const hpBySeconds = labels.reduce((obj, sec) => {
       obj[sec] = undefined;
       return obj;
     }, {});
 
-    const deathstrikes = this._deathstrikeTimestamps.map(event => { 
+    const selfheals = this._selfhealTimestamps.map(event => { 
       return { seconds: Math.floor((event.timestamp - this.owner.fight.start_time) / 1000) - 1, ...event };
     });
 
@@ -62,10 +58,9 @@ class DeathStrikeTimingGraph extends Analyzer {
 
     this._hpEvents.forEach(({ timestamp, hitPoints, maxHitPoints }) => {
       const seconds = Math.floor((timestamp - this.owner.fight.start_time) / 1000);
-      // we fill in the blanks later if hitPoints is not defined
 
       let percent = Math.round((hitPoints / maxHitPoints) * 100, 2);
-      if (percent > 100) { //maxHitPoints is sometimes bigger than hitPoints?
+      if (percent > 100) { //maxHitPoints cam sometimes be bigger than hitPoints (esp BDKs with often changing maxHP)
         percent = 100;
       }
 
@@ -78,9 +73,6 @@ class DeathStrikeTimingGraph extends Analyzer {
       }
     });
 
-    // fill in blanks. after deaths hp should be set to
-    // zero. in periods of no activity, the same hp should be
-    // preserved.
     let lastHpContents = { hitPoints: 0, maxHitPoints: 0 , percentage: 0 };
     for(const label in labels) {
 
@@ -95,8 +87,8 @@ class DeathStrikeTimingGraph extends Analyzer {
       }
     }
 
-    const deathstrikesBySeconds = Object.keys(hpBySeconds).map(sec => {
-      const deathstrikeEvent = deathstrikes.find(event => event.seconds === Number(sec));
+    const selfHealCastsBySeconds = Object.keys(hpBySeconds).map(sec => {
+      const deathstrikeEvent = selfheals.find(event => event.seconds === Number(sec));
       if(!!deathstrikeEvent) {
         return { hp: hpBySeconds[sec].percentage, ...deathstrikeEvent };
       } else {
@@ -113,9 +105,8 @@ class DeathStrikeTimingGraph extends Analyzer {
       }
     });
 
-    // some labels are referred to later for drawing tooltips
     const DEATH_LABEL = 'Player Death';
-    const DS_LABEL = 'Death Strike Cast';
+    const SELFHEAL_LABEL = selfHealSpell.name + ' Cast';
     const HP_LABEL = 'Health';
     const chartData = {
       labels,
@@ -137,8 +128,8 @@ class DeathStrikeTimingGraph extends Analyzer {
           pointStyle: 'rect',
         },
         {
-          label: DS_LABEL,
-          data: deathstrikesBySeconds.map(obj => !!obj ? obj.hp : undefined),
+          label: SELFHEAL_LABEL,
+          data: selfHealCastsBySeconds.map(obj => !!obj ? obj.hp : undefined),
           backgroundColor: 'rgba(255, 255, 255, 0)',
           pointBackgroundColor: 'rgba(255, 255, 255, 0.9)',
           pointRadius: 4,
@@ -154,11 +145,12 @@ class DeathStrikeTimingGraph extends Analyzer {
       }
     }
 
-    function dsTooltip(dsBySecond) {
-      if (dsBySecond.overheal > 0) {
-        return `Death Strike for ${ formatNumber(dsBySecond.amount) } (${ formatNumber(dsBySecond.overheal) } overhealing) at ${ formatNumber(dsBySecond.hitPoints) } HP`;
+    function tooltip(selfhealBySecond) {
+      if (selfhealBySecond.overheal > 0) {
+        console.log( selfHealSpell.name );
+        return `${ selfHealSpell.name } for ${ formatNumber(selfhealBySecond.amount) } (${ formatNumber(selfhealBySecond.overheal) } overhealing) at ${ formatNumber(selfhealBySecond.hitPoints) } HP`;
       } else {
-        return `Death Strike for ${ formatNumber(dsBySecond.amount) } at ${ formatNumber(dsBySecond.hitPoints) } HP`;
+        return `${ selfHealSpell.name } for ${ formatNumber(selfhealBySecond.amount) } at ${ formatNumber(selfhealBySecond.hitPoints) } HP`;
       }
     }
 
@@ -170,11 +162,11 @@ class DeathStrikeTimingGraph extends Analyzer {
       switch(dataset.label) {
         case DEATH_LABEL:
           return `Player died when hit by ${safeAbilityName(deathsBySeconds[index].ability)} at ${formatNumber(deathsBySeconds[index].hp)}% HP.`;
-        case DS_LABEL:
-          return dsTooltip(deathstrikesBySeconds[index]);
+        case SELFHEAL_LABEL:
+          return tooltip(selfHealCastsBySeconds[index]);
         default:
-          if (deathstrikesBySeconds[index] !== undefined) {
-            return `${dsTooltip(deathstrikesBySeconds[index])} (${formatNumber(tooltipItem.yLabel)}%)`;
+          if (selfHealCastsBySeconds[index] !== undefined) {
+            return `${tooltip(selfHealCastsBySeconds[index])} (${formatNumber(tooltipItem.yLabel)}%)`;
           } else {
             return `${dataset.label}: ${formatNumber(tooltipItem.yLabel)}%`;
           }
@@ -240,14 +232,14 @@ class DeathStrikeTimingGraph extends Analyzer {
 
   tab() {
     return {
-      title: 'Death Strike Timing',
-      url: 'deathstrike-timings',
+      title: this.tabTitle,
+      url: this.tabURL,
       render: () => (
         <Tab>
-          {this.plot()}
+          {this.plot(this.selfHealSpell)}
           <div style={{paddingLeft: "1em"}}>
-            This plot shows you your <SpellLink id={SPELLS.DEATH_STRIKE.id} /> Casts relative to your Health Points to help you improve your <SpellLink id={SPELLS.DEATH_STRIKE.id} /> timings.
-            Improving those timings by selfhealing at low health will remove pressure from your healers.
+            This plot shows you your <SpellLink id={this.selfHealSpell.id} /> casts relative to your Health Points to help you improve your <SpellLink id={this.selfHealSpell.id} /> timings.<br/>
+            Improving those timings by selfhealing at low health and the correct time will remove a lot of pressure from your healers.
           </div>
         </Tab>
       ),
@@ -255,4 +247,4 @@ class DeathStrikeTimingGraph extends Analyzer {
   }
 }
 
-export default DeathStrikeTimingGraph;
+export default SelfHealTimingGraph;
