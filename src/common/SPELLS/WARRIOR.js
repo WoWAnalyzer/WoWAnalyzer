@@ -17,6 +17,11 @@ export default {
     name: 'Colossus Smash',
     icon: 'ability_warrior_colossussmash',
   },
+  SHATTERED_DEFENSES: {
+    id: 248580,
+    name: 'Shattered Defenses',
+    icon: 'warrior_talent_icon_igniteweapon',
+  },
   MORTAL_STRIKE: {
     id: 12294,
     name: 'Mortal Strike',
@@ -25,6 +30,11 @@ export default {
   EXECUTE: {
     id: 163201,
     name: 'Execute',
+    icon: 'inv_sword_48',
+  },
+  EXECUTIONERS_PRECISION: {
+    id: 238147,
+    name: 'Executioner\'s Precision',
     icon: 'inv_sword_48',
   },
   SLAM: {
