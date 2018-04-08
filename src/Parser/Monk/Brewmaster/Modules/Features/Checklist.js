@@ -88,18 +88,6 @@ class Checklist extends CoreChecklist {
             name: 'Effective CDR from your rotation', 
             check: () => this.brewcdr.suggestionThreshold,
           }),
-        ];
-      },
-    }),
-    new Rule({
-      name: 'Generate enough brews through your rotation.',
-      description: (
-        <Wrapper>
-          The cooldown of all brews is reduced by your key rotational abilities: <SpellLink id={SPELLS.KEG_SMASH.id} /> and <SpellLink id={SPELLS.TIGER_PALM.id} />. Maintaining a proper rotation will help ensure you have enough brews available to maintain <SpellLink id={SPELLS.IRONSKIN_BREW.id} />.
-        </Wrapper>
-      ),
-      requirements: () => {
-        return [
           new Requirement({
             name: <Wrapper>Take the <SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /> Talent</Wrapper>,
             check: () => {
@@ -111,11 +99,13 @@ class Checklist extends CoreChecklist {
             },
           }),
           new GenericCastEfficiencyRequirement({
+            name: <Wrapper><SpellLink id={SPELLS.KEG_SMASH.id} /> Cast Efficiency</Wrapper>,
             spell: SPELLS.KEG_SMASH,
           }),
           new GenericCastEfficiencyRequirement({
+            name: <Wrapper><SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /> Cast Efficiency</Wrapper>,
             spell: SPELLS.BLACK_OX_BREW_TALENT,
-            when: () => this.combatants.selected.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id),
+            onlyWithSuggestion: false,
           }),
           new Requirement({
             name: <dfn data-tip="Ironskin Brew has a <em>cap</em> on total buff duration of three times the base duration. Casting Ironskin Brew with more time remaining than twice the base duration (normally 16 seconds) wastes part of the brew."><SpellLink id={SPELLS.IRONSKIN_BREW.id} /> duration lost due to clipping</dfn>,
@@ -163,7 +153,6 @@ class Checklist extends CoreChecklist {
 
         reqs.push(new GenericCastEfficiencyRequirement({ 
           spell: SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT,
-          when: () => this.combatants.selected.hasTalent(SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id),
         }));
 
         return reqs;
