@@ -140,20 +140,20 @@ class Trueshot extends Analyzer {
           <li> You hit an average of ${this.averageAimedShots} Aimed Shots inside each Trueshot window. </li>
           <li> Your Trueshot Aimed Shots had a crit rate of ${this.percentAimedCrits}%. </li>
           <li>Your overall crit rate during Trueshot was ${this.percentCastCrits}%. </li>
-          <li>You spent an average of ${this.uptimePerCast} seconds in trueshot per cast of Trueshot.</li>
+          <li>You spent an average of ${this.uptimePerCast} seconds in Trueshot per cast of Trueshot.</li>
         </ul>`} />
     );
   }
 
   get averageAimedShots() {
-    return (this.aimedShotsPrTS / this.trueshotCasts).toFixed(1);
+    return this.aimedShotsPrTS / this.trueshotCasts;
   }
   get averageFocus() {
     return formatNumber(this.accumulatedFocusAtTSCast / this.trueshotCasts);
   }
 
   get uptimePerCast() {
-    return ((this.combatants.getBuffUptime(SPELLS.TRUESHOT.id) / this.trueshotCasts) / 1000).toFixed(2);
+    return (this.combatants.getBuffUptime(SPELLS.TRUESHOT.id) / this.trueshotCasts) / 1000;
   }
   get aimedShotThreshold() {
     return {
@@ -216,8 +216,8 @@ class Trueshot extends Analyzer {
     when(this.executeTrueshotThreshold).addSuggestion((suggest, actual) => {
       return suggest(<Wrapper>You should make sure to have atleast 1 <SpellLink id={SPELLS.TRUESHOT.id} /> cast during execute (where you are buffed by <SpellLink id={SPELLS.BULLSEYE_TRAIT.id} />) to get as much out of <SpellLink id={SPELLS.TRUESHOT.id} /> as possible.</Wrapper>)
         .icon(SPELLS.TRUESHOT.icon)
-        .actual(`You had ${actual} trueshot casts during Bullseye`)
-        .recommended(`casting atleast 1 trueshot in execute is recommended`);
+        .actual(`You had ${actual} Trueshot casts during Bullseye`)
+        .recommended(`casting atleast 1 Trueshot in execute is recommended`);
     });
     when(this.uptimeThreshold).addSuggestion((suggest, actual) => {
       return suggest(<Wrapper>You should make sure to utilise every possible second of <SpellLink id={SPELLS.TRUESHOT.id} /> uptime as you can. Remember to cast it atleast 15 seconds before the boss dies, so you don't lose out on valuable time, aswell as remember to not cast it until the boss has been engaged.</Wrapper>)
