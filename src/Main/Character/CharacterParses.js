@@ -213,10 +213,19 @@ class CharacterParses extends React.Component {
   }
 
   fetchImage() {
+    //save the chars image URL to localstore
+    if (localStorage.getItem(`${this.props.region}/${this.props.realm}/${this.props.name}`)) {
+      this.setState({
+        image: localStorage.getItem(`${this.props.region}/${this.props.realm}/${this.props.name}`),
+      });
+      return;
+    }
+
     return fetch(`https://${this.props.region}.api.battle.net/wow/character/${ encodeURIComponent(this.props.realm)}/${encodeURIComponent(this.props.name)}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
       .then(response => response.json())
       .then((data) => {
         const image = data.thumbnail.replace("avatar", "main");
+        localStorage.setItem(`${this.props.region}/${this.props.realm}/${this.props.name}`, image);
         this.setState({
           image: image,
         });
@@ -292,7 +301,7 @@ class CharacterParses extends React.Component {
                       You don't know how to log your fights? Check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get startet.
                     </div>
                   )}
-                  {this.filterParses.map((elem, index) =>
+                  {!this.state.isLoading && this.filterParses.map((elem, index) =>
                     <div className="row character-parse">
                       <div className="col-md-5">
                         <img src={this.iconPath(elem.spec)} style={{ height: 30, marginRight: 10 }} alt="Icon" />
@@ -350,7 +359,16 @@ class CharacterParses extends React.Component {
                         </div>
                       )}
                       <h2 style={{ fontSize: '1.8em' }}>{this.props.region} - {this.props.realm}</h2>
-                      <h2 style={{ fontSize: '2.4em', marginLeft: 20 }}>{this.props.name}</h2>
+                      <h2 style={{ fontSize: '2.4em', marginLeft: 20 }}>
+                        {this.state.class && (
+                          <img
+                            src={`/specs/${this.state.class}-New.png`}
+                            alt="Pic"
+                            style={{ opacity: .8, height: 50, marginRight: 20 }}
+                          />
+                        )}
+                        {this.props.name}
+                      </h2>
                     </div>
                     <div className="col-md-4">
                       Raid:

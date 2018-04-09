@@ -1,9 +1,14 @@
 import React  from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
+
 import makeUrl from './makeUrl';
 
 import REALMS from './REALMS';
+
 
 class CharacterSelecter extends React.PureComponent {
 
@@ -18,14 +23,19 @@ class CharacterSelecter extends React.PureComponent {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       currentRegion: 'EU',
+      selectedRealm: '',
     };
+  }
+
+  handleChange = (selectedRealm) => {
+    this.setState({ selectedRealm });
   }
 
   handleSubmit(e) {
     e.preventDefault();
 
     const region = this.regionInput.value;
-    const realm = this.realmInput.value;
+    const realm = this.state.selectedRealm.value;
     const char = this.charInput.value;
 
     if (!region || !realm || !char) {
@@ -38,6 +48,15 @@ class CharacterSelecter extends React.PureComponent {
   }
 
   render() {
+    const { selectedRealm } = this.state;
+    const value = selectedRealm && selectedRealm.value;
+    const options = REALMS[this.state.currentRegion].realms.map(elem => {
+      return {
+        value: elem.name,
+        label: elem.name,
+      };
+    });
+
     return (
       <form onSubmit={this.handleSubmit} className="form-inline">
         <div className="report-selector">
@@ -51,15 +70,13 @@ class CharacterSelecter extends React.PureComponent {
             <option value="EU">EU</option>
             <option value="US">US</option>
           </select>
-          <select 
+          <Select
             style={{ width: 113, margin: '0 10px' }}
-            className="form-control"
-            ref={elem => this.realmInput = elem}  
-          >
-            {REALMS[this.state.currentRegion].realms.map(elem => 
-              <option>{elem.name}</option>
-            )}
-          </select>
+            name="form-field-name"
+            value={value}
+            onChange={this.handleChange}
+            options={options}
+          />
           <input
             type="text"
             name="code"
