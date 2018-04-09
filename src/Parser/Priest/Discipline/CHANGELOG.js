@@ -10,6 +10,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-08'),
+    changes: <Wrapper>Fixed a crash when using <ItemLink id={ITEMS.NERO_BAND_OF_PROMISES.id} />.</Wrapper>,
+    contributors: [Gebuz],
+  },
+  {
     date: new Date('2018-03-25'),
     changes: <Wrapper>Fixed <SpellLink id={SPELLS.POWER_WORD_SHIELD.id} /> and <SpellLink id={SPELLS.POWER_WORD_RADIANCE.id} /> cooldowns.</Wrapper>,
     contributors: [Gebuz],

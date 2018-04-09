@@ -35,6 +35,7 @@ class Haste extends Analyzer {
     [SPELLS.WARLOCK_DEMO_T20_4P_BUFF.id]: 0.1,
     [SPELLS.TRUESHOT.id]: 0.4, // MM Hunter main CD
     [SPELLS.ICY_VEINS.id]: 0.3,
+    [SPELLS.IN_FOR_THE_KILL_TALENT_BUFF.id]: 0.1,
     [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
     ...HIGH_TOLERANCE_HASTE_FNS,
     [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,

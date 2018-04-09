@@ -1,6 +1,7 @@
 import React from 'react';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -27,6 +28,7 @@ import VulnerableUpTime from 'Parser/Hunter/Marksmanship/Modules/Features/Vulner
 
 class Checklist extends CoreChecklist {
   static dependencies = {
+    abilities: Abilities,
     combatants: Combatants,
 
     //general
@@ -63,6 +65,7 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.WINDBURST,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED,
@@ -70,6 +73,7 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TRUESHOT,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.SIDEWINDERS_TALENT,
