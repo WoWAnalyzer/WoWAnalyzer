@@ -46,7 +46,7 @@ class SoulOfTheSlayer extends Analyzer {
   item() {
     return {
       item: ITEMS.SOUL_OF_THE_SLAYER,
-      result: <Wrapper>This gave you <SpellLink id={this.talentGained} icon />.</Wrapper>,
+      result: <Wrapper>This gave you <SpellLink id={this.talentGained} />.</Wrapper>,
     };
   }
 

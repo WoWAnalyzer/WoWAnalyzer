@@ -31,7 +31,7 @@ class Tier21_2p extends Analyzer {
     return {
       id: `spell-${SPELLS.UNHOLY_DEATH_KNIGHT_T21_2SET_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.UNHOLY_DEATH_KNIGHT_T21_2SET_BONUS.id} />,
-      title: <SpellLink id={SPELLS.UNHOLY_DEATH_KNIGHT_T21_2SET_BONUS.id} />,
+      title: <SpellLink id={SPELLS.UNHOLY_DEATH_KNIGHT_T21_2SET_BONUS.id} icon={false} />,
       result: <ItemDamageDone amount={this.damage} />,
     };
   }

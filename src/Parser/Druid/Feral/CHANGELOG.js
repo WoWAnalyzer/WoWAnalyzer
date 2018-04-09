@@ -33,7 +33,7 @@ export default [
   },
   {
     date: new Date('2017-09-11'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} icon /> damage contribution</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} /> damage contribution</Wrapper>,
     contributors: [Thieseract],
   },
   {

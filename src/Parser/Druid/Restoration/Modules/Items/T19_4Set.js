@@ -41,7 +41,7 @@ class T19_4Set extends Analyzer {
     return {
       id: `spell-${SPELLS.RESTO_DRUID_T19_4SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.RESTO_DRUID_T19_4SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.RESTO_DRUID_T19_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.RESTO_DRUID_T19_4SET_BONUS_BUFF.id} icon={false} />,
       result: (
         <dfn data-tip={`You procced <b>${this.procs}</b> Rejuvenations. This is the sum of the direct healing from those Rejuvernations, the healing enabled by their extra mastery stacks, and the healing enabled by extra Dreamwalker procs.
             <ul>

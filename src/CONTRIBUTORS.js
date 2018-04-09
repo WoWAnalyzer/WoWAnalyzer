@@ -9,11 +9,9 @@
     export const NICKNAME = {
       nickname: 'NICKNAME',
       github: 'GITHUB_NAME',
+      discord: 'DISCORD_NAME INCL #xxxx',
       avatar: require('./Images/IMAGE'),
       desc: 'DESC',
-      maintainer: [
-        SPECS.BLOOD_DEATH_KNIGHT,
-      ],
       mains: [{
         name: "CHARNAME",
         spec: SPECS.BLOOD_DEATH_KNIGHT,
@@ -307,6 +305,7 @@ export const Cloake = {
 export const joshinator = {
   nickname: 'joshinator',
   github: 'joshinat0r',
+  discord: 'joshinator#7267',
   mains: [{
     name: "Êxtêndêd",
     spec: SPECS.BLOOD_DEATH_KNIGHT,
@@ -318,4 +317,16 @@ export const niseko = {
   github: 'niseko',
   avatar: require('./Images/niseko-avatar.jpg'),
 };
-
+export const Aelexe = {
+  nickname: 'Aelexe',
+  github: 'Aelexe',
+  avatar: require('./Images/Aelexe-avatar.jpg'),
+  maintainer: [
+    SPECS.ARMS_WARRIOR,
+  ],
+  mains: [{
+    name: 'Aelexe',
+    spec: SPECS.HOLY_PALADIN,
+    link: 'https://worldofwarcraft.com/en-us/character/frostmourne/aelexe',
+  }],
+};

@@ -102,7 +102,7 @@ class Tier21_4set extends Analyzer {
     return {
       id: `spell-${SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id} icon={false} />,
       result: <ItemHealingDone amount={this.healing} />,
     };
   }

@@ -20,7 +20,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
           extraSuggestion: (
             <Wrapper>
-              <SpellLink id={SPELLS.TITANS_THUNDER.id} icon /> should always be cast when you have <SpellLink id={SPELLS.DIRE_BEAST_BUFF.id} icon /> buff up, try to cast it right after using a <SpellLink id={SPELLS.DIRE_BEAST.id} icon /> for maximum efficiency.
+              <SpellLink id={SPELLS.TITANS_THUNDER.id} /> should always be cast when you have <SpellLink id={SPELLS.DIRE_BEAST_BUFF.id} /> buff up, try to cast it right after using a <SpellLink id={SPELLS.DIRE_BEAST.id} /> for maximum efficiency.
             </Wrapper>
           ),
         },
@@ -36,7 +36,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
           extraSuggestion: (
             <Wrapper>
-              Since you have <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> talented, you should cast <SpellLink id={SPELLS.TITANS_THUNDER.id} /> within <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> so long as you can get off a <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> cast while <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> is still up.
+              Since you have <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> talented, you should cast <SpellLink id={SPELLS.TITANS_THUNDER.id} /> within <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> so long as you can get off a <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> cast while <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> is still up.
             </Wrapper>
           ),
         },
@@ -48,10 +48,10 @@ class Abilities extends CoreAbilities {
         isOnGCD: false,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 1,
+          recommendedEfficiency: 0.95,
           extraSuggestion: (
             <Wrapper>
-              <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> should be cast on cooldown as its cooldown is quickly reset again through <SpellLink id={SPELLS.DIRE_BEAST.id} icon />. You want to start each <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> window with as much focus as possible.
+              <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> should be cast on cooldown as its cooldown is quickly reset again through <SpellLink id={SPELLS.DIRE_BEAST.id} />. You want to start each <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> window with as much focus as possible.
             </Wrapper>
           ),
         },
@@ -113,7 +113,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
           extraSuggestion: (
             <Wrapper>
-              You should be casting <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} icon /> on cooldown unless <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> has less than 30 seconds remaining on CD, in which case you can delay it slightly to line them up. It will dynamically update its damage to reflect damage increases such as <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon />.
+              You should be casting <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> on cooldown unless <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> has less than 30 seconds remaining on CD, in which case you can delay it slightly to line them up. It will dynamically update its damage to reflect damage increases such as <SpellLink id={SPELLS.BESTIAL_WRATH.id} />.
             </Wrapper>
           ),
         },
@@ -128,7 +128,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.8,
           extraSuggestion: (
             <Wrapper>
-              <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} icon /> should always be cast in conjunction with <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> to maximize the potency of these increased damage windows.
+              <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> should always be cast in conjunction with <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> to maximize the potency of these increased damage windows.
             </Wrapper>
           ),
         },

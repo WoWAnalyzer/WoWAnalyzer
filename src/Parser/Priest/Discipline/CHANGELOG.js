@@ -10,13 +10,18 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-08'),
+    changes: <Wrapper>Fixed a crash when using <ItemLink id={ITEMS.NERO_BAND_OF_PROMISES.id} />.</Wrapper>,
+    contributors: [Gebuz],
+  },
+  {
     date: new Date('2018-03-25'),
     changes: <Wrapper>Fixed <SpellLink id={SPELLS.POWER_WORD_SHIELD.id} /> and <SpellLink id={SPELLS.POWER_WORD_RADIANCE.id} /> cooldowns.</Wrapper>,
     contributors: [Gebuz],
   },
   {
     date: new Date('2018-03-19'),
-    changes: <Wrapper>Updated the Atonement sources tab to show related information for some spells. Changed <ItemLink id={ITEMS.CARAFE_OF_SEARING_LIGHT.id} icon /> to use the more accurate Atonement source tracking.</Wrapper>,
+    changes: <Wrapper>Updated the Atonement sources tab to show related information for some spells. Changed <ItemLink id={ITEMS.CARAFE_OF_SEARING_LIGHT.id} /> to use the more accurate Atonement source tracking.</Wrapper>,
     contributors: [Zerotorescue],
   },
   {

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -31,9 +30,7 @@ class LightSpeed extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.LIGHT_SPEED_TRAIT.id}>
-            <SpellIcon id={SPELLS.LIGHT_SPEED_TRAIT.id} noLink /> Light Speed
-          </SpellLink>
+          <SpellLink id={SPELLS.LIGHT_SPEED_TRAIT.id} />
         </div>
         <div className="flex-sub text-right">
           <dfn data-tip={`${this.traitLevel} ${this.traitLevel > 1 ? `traits` : `trait`}`}>

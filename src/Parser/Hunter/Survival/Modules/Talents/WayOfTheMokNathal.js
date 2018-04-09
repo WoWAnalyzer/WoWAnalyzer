@@ -13,7 +13,6 @@ import Wrapper from 'common/Wrapper';
 const MAX_STACKS = 4;
 
 class WayOfTheMokNathal extends Analyzer {
-
   static dependencies = {
     combatants: Combatants,
   };
@@ -22,6 +21,9 @@ class WayOfTheMokNathal extends Analyzer {
   _fourStackUptime = 0;
   _fourStackStart = 0;
   _timesDropped = 0;
+  lastApplicationTimestamp = 0;
+  timesRefreshed = 0;
+  accumulatedTimeBetweenRefresh = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.id);
@@ -37,6 +39,8 @@ class WayOfTheMokNathal extends Analyzer {
       return;
     }
     this._currentStacks = 1;
+    this.lastApplicationTimestamp = event.timestamp;
+
   }
 
   on_byPlayer_applybuffstack(event) {
@@ -48,6 +52,9 @@ class WayOfTheMokNathal extends Analyzer {
     if (this._currentStacks === MAX_STACKS) {
       this._fourStackStart = event.timestamp;
     }
+    this.timesRefreshed++;
+    this.accumulatedTimeBetweenRefresh += event.timestamp - this.lastApplicationTimestamp;
+    this.lastApplicationTimestamp = event.timestamp;
   }
 
   on_byPlayer_removebuff(event) {
@@ -68,6 +75,10 @@ class WayOfTheMokNathal extends Analyzer {
     }
   }
 
+  get averageTimeBetweenRefresh() {
+    return (this.accumulatedTimeBetweenRefresh / this.timesRefreshed / 1000).toFixed(2);
+  }
+
   get timesDroppedThreshold() {
     return {
       actual: this._timesDropped,
@@ -82,7 +93,7 @@ class WayOfTheMokNathal extends Analyzer {
 
   suggestions(when) {
     when(this.timesDroppedThreshold).addSuggestion((suggest, actual) => {
-      return suggest(<Wrapper>Try your best to maintain 4 stacks on <SpellLink id={SPELLS.MOKNATHAL_TACTICS.id} icon />. This can be achieved by casting <SpellLink id={SPELLS.RAPTOR_STRIKE.id} icon /> right before having to halt attacking for an extended period of time. </Wrapper>)
+      return suggest(<Wrapper>Try your best to maintain 4 stacks on <SpellLink id={SPELLS.MOKNATHAL_TACTICS.id} />. This can be achieved by casting <SpellLink id={SPELLS.RAPTOR_STRIKE.id} /> right before having to halt attacking for an extended period of time. </Wrapper>)
         .icon(SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.icon)
         .actual(`You dropped Mok'Nathals Tactic ${actual} times`)
         .recommended(`0 is recommended`);
@@ -95,10 +106,11 @@ class WayOfTheMokNathal extends Analyzer {
         icon={<SpellIcon id={SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.id} />}
         value={`${formatPercentage(this._fourStackUptime / this.owner.fightDuration)}%`}
         label="4 stack uptime"
-        tooltip={`Way of the MokNathal breakdown:
+        tooltip={`Way of the Mok'Nathal breakdown:
           <ul>
             <li> Overall uptime: ${formatPercentage(this.overallUptime)}%</li>
             <li> Times dropped: ${this._timesDropped}</li>
+            <li> Average time between refreshes: ${this.averageTimeBetweenRefresh} seconds</li>
           </ul> `} />
     );
   }

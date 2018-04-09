@@ -28,6 +28,7 @@ class Gear extends React.PureComponent {
                   quality={item.quality || ITEM_QUALITIES.EPIC}// relics don't have a quality, but they're always epic
                   details={item}
                   style={{ margin: '5px', display: 'block', fontSize: '46px', lineHeight: 1 }}
+                  icon={false}
                 >
                   <Icon icon={item.icon} style={{ border: '3px solid currentColor' }} />
                 </ItemLink>

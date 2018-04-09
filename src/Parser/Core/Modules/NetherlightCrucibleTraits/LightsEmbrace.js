@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
@@ -32,9 +31,7 @@ class LightsEmbrace extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.LIGHTS_EMBRACE_TRAIT.id}>
-            <SpellIcon id={SPELLS.LIGHTS_EMBRACE_TRAIT.id} noLink /> Light's Embrace
-          </SpellLink>
+          <SpellLink id={SPELLS.LIGHTS_EMBRACE_TRAIT.id} />
         </div>
         <div className="flex-sub text-right">
           <dfn data-tip={`${this.traitLevel} ${this.traitLevel > 1 ? `traits` : `trait`}`}>

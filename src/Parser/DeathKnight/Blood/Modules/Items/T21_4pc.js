@@ -44,7 +44,7 @@ class T21_4pc extends Analyzer {
     return {
       id: `spell-${SPELLS.BLOOD_DEATH_KNIGHT_T21_4SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.BLOOD_DEATH_KNIGHT_T21_4SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.BLOOD_DEATH_KNIGHT_T21_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.BLOOD_DEATH_KNIGHT_T21_4SET_BONUS_BUFF.id} icon={false} />,
       result: (
           <Wrapper>Gave an average of {this.averageRunesGained.toFixed(1)} Runes per <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> cast.</Wrapper>
       ),

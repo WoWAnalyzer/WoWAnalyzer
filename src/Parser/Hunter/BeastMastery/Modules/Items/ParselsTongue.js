@@ -32,6 +32,9 @@ class ParselsTongue extends Analyzer {
   bonusDmg = 0;
   bonusHealing = 0;
   timesDropped = 0;
+  lastApplicationTimestamp = 0;
+  timesRefreshed = 0;
+  accumulatedTimeBetweenRefresh = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasChest(ITEMS.PARSELS_TONGUE.id);
@@ -43,6 +46,7 @@ class ParselsTongue extends Analyzer {
       return;
     }
     this._currentStacks += 1;
+    this.lastApplicationTimestamp = event.timestamp;
   }
 
   on_byPlayer_applybuffstack(event) {
@@ -51,6 +55,10 @@ class ParselsTongue extends Analyzer {
       return;
     }
     this._currentStacks += 1;
+    this.timesRefreshed++;
+    this.accumulatedTimeBetweenRefresh += event.timestamp - this.lastApplicationTimestamp;
+    this.lastApplicationTimestamp = event.timestamp;
+
   }
 
   on_byPlayer_removebuff(event) {
@@ -95,7 +103,10 @@ class ParselsTongue extends Analyzer {
   }
   get buffUptime() {
     return this.combatants.selected.getBuffUptime(SPELLS.PARSELS_TONGUE_BUFF.id) / this.owner.fightDuration;
+  }
 
+  get averageTimeBetweenRefresh() {
+    return (this.accumulatedTimeBetweenRefresh / this.timesRefreshed / 1000).toFixed(2);
   }
 
   get timesDroppedThreshold() {
@@ -123,13 +134,13 @@ class ParselsTongue extends Analyzer {
   }
   suggestions(when) {
     when(this.timesDroppedThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You lost <SpellLink id={SPELLS.PARSELS_TONGUE_BUFF.id} icon /> buff {this.timesDropped} times, try and avoid this if possible.</Wrapper>)
+      return suggest(<Wrapper>You lost <SpellLink id={SPELLS.PARSELS_TONGUE_BUFF.id} /> buff {this.timesDropped} times, try and avoid this if possible.</Wrapper>)
         .icon(ITEMS.PARSELS_TONGUE.icon)
         .actual(`${actual} times dropped`)
         .recommended(`${recommended} times dropped is recommended`);
     });
     when(this.buffUptimeThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You had a low uptime of the buff from <ItemLink id={ITEMS.PARSELS_TONGUE.id} icon />, make sure to cast <SpellLink id={SPELLS.COBRA_SHOT.id} icon /> more often to ensure a better uptime of this buff. </Wrapper>)
+      return suggest(<Wrapper>You had a low uptime of the buff from <ItemLink id={ITEMS.PARSELS_TONGUE.id} />, make sure to cast <SpellLink id={SPELLS.COBRA_SHOT.id} /> more often to ensure a better uptime of this buff. </Wrapper>)
         .icon(ITEMS.PARSELS_TONGUE.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
         .recommended(`>${formatPercentage(recommended)} is recommended`);
@@ -139,7 +150,7 @@ class ParselsTongue extends Analyzer {
     return {
       item: ITEMS.PARSELS_TONGUE,
       result: (
-        <dfn data-tip={`You had a ${formatPercentage(this.buffUptime)}% uptime on the Parsel's Tongue buff.`}>
+        <dfn data-tip={`You had a ${formatPercentage(this.buffUptime)}% uptime on the Parsel's Tongue buff. </br> Average time between refreshing buff was ${this.averageTimeBetweenRefresh} seconds.`}>
           <ItemDamageDone amount={this.bonusDmg} /><br />
           <ItemHealingDone amount={this.bonusHealing} />
         </dfn>

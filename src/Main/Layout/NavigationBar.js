@@ -6,12 +6,12 @@ import { Link } from 'react-router-dom';
 import { getFightId, getPlayerName } from 'selectors/url/report';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
+import { getReportProgress } from 'selectors/reportProgress';
 
 import GithubLogo from '../Images/GitHub-Mark-Light-32px.png';
 
-import FightSelectorHeader from '../FightSelectorHeader';
-import PlayerSelectorHeader from '../PlayerSelectorHeader';
-
+import FightSelectorHeader from '../Report/FightSelectorHeader';
+import PlayerSelectorHeader from '../Report/PlayerSelectorHeader';
 import makeAnalyzerUrl from '../makeAnalyzerUrl';
 
 class NavigationBar extends React.PureComponent {
@@ -22,12 +22,11 @@ class NavigationBar extends React.PureComponent {
       title: PropTypes.string.isRequired,
     }),
     fight: PropTypes.object,
-    parser: PropTypes.object,
     progress: PropTypes.number,
   };
 
   render() {
-    const { playerName, report, fight, parser, progress } = this.props;
+    const { playerName, report, fight, progress } = this.props;
 
     return (
       <nav>
@@ -43,15 +42,10 @@ class NavigationBar extends React.PureComponent {
             </div>
           )}
           {report && fight && (
-            <FightSelectorHeader
-              className="menu-item"
-              parser={parser}
-            />
+            <FightSelectorHeader className="menu-item" />
           )}
           {report && playerName && (
-            <PlayerSelectorHeader
-              className="menu-item"
-            />
+            <PlayerSelectorHeader className="menu-item" />
           )}
           <div className="spacer" />
           <div className="menu-item main">
@@ -71,6 +65,7 @@ const mapStateToProps = state => ({
 
   report: getReport(state),
   fight: getFightById(state, getFightId(state)),
+  progress: getReportProgress(state),
 });
 
 export default connect(

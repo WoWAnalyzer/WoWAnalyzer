@@ -1,14 +1,12 @@
 import React from 'react';
 
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-
-import SPELLS from 'common/SPELLS';
-import SpellIcon from "common/SpellIcon";
-import SpellLink from "common/SpellLink";
 import ItemDamageDone from 'Main/ItemDamageDone';
 
-/*
+/**
  * When Talon Strike triggers, your pet immediately attacks 2 times.
  */
 class TalonBond extends Analyzer {
@@ -32,9 +30,7 @@ class TalonBond extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.TALON_BOND_TRAIT.id}>
-            <SpellIcon id={SPELLS.TALON_BOND_TRAIT.id} noLink /> Talon Bond
-          </SpellLink>
+          <SpellLink id={SPELLS.TALON_BOND_TRAIT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.damage} />

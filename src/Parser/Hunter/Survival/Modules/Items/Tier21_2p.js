@@ -74,7 +74,7 @@ class Tier21_2p extends Analyzer {
     return {
       id: `spell-${SPELLS.HUNTER_SV_T21_2P_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.HUNTER_SV_T21_2P_BONUS.id} />,
-      title: <SpellLink id={SPELLS.HUNTER_SV_T21_2P_BONUS.id} />,
+      title: <SpellLink id={SPELLS.HUNTER_SV_T21_2P_BONUS.id} icon={false} />,
       result: (
         <dfn data-tip={`The damage shown here only accounts for the added crit damage, and not what the increased crit chance theoretically contributed with. </br>
           Your utilization of tier 21 2 piece:

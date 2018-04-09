@@ -9,13 +9,18 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   { 
+    date: new Date('2018-04-07'),
+    changes: <Wrapper>Fixed an issue where <SpellLink id={SPELLS.MANGLE_BEAR.id} /> and <SpellLink id={SPELLS.THRASH_BEAR.id} /> max casts were not calculated correctly when using <SpellLink id={SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id} />.</Wrapper>,
+    contributors: [Gebuz],
+  },
+  { 
     date: new Date('2018-03-26'),
     changes: 'Highlight bad filler casts on the timeline.',
     contributors: [Gebuz],
   },
   { 
     date: new Date('2017-08-29'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.FURY_OF_NATURE.id} icon /> and <ItemLink id={ITEMS.LUFFA_WRAPPINGS.id} icon /> statistics.</Wrapper>,
+    changes: <Wrapper>Added <ItemLink id={ITEMS.FURY_OF_NATURE.id} /> and <ItemLink id={ITEMS.LUFFA_WRAPPINGS.id} /> statistics.</Wrapper>,
     contributors: [faide],
   },
   { 
@@ -45,7 +50,7 @@ export default [
   },
   { 
     date: new Date('2017-08-19'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.SKYSECS_HOLD.id} icon /> statistic and suggestion.</Wrapper>,
+    changes: <Wrapper>Added <ItemLink id={ITEMS.SKYSECS_HOLD.id} /> statistic and suggestion.</Wrapper>,
     contributors: [faide],
   },
   { 

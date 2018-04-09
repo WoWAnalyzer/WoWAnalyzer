@@ -42,7 +42,7 @@ class Tier20_2set extends Analyzer {
     return {
       id: `spell-${SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id} />,
-      title: <SpellLink id={SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id} />,
+      title: <SpellLink id={SPELLS.WARLOCK_AFFLI_T20_2P_BONUS.id} icon={false} />,
       result: (
         <dfn data-tip={`${formatNumber(estimatedUAdamage)} damage - ${this.owner.formatItemDamageDone(estimatedUAdamage)} <br />This result is estimated by multiplying number of Soul Shards gained from this item by the average Unstable Affliction damage for the whole fight.`}>
           {shardsGained} Soul Shards gained

@@ -123,7 +123,7 @@ ul {
   z-index: 200;
   pointer-events: none;
 }
-.app.has-report > header {
+.app:not(.show-report-selecter) > header {
   margin-top: -410px;
   margin-bottom: 90px;
   opacity: 0;
@@ -297,7 +297,7 @@ nav {
   border: 0;
   margin-bottom: 24px;
 }
-.has-report nav {
+.show-report-selecter nav {
   /* Reduce opacity by 20% */
   background: rgba(12, 12, 12, 0.8);
   background: linear-gradient(to bottom, rgba(18, 18, 18, 0.8) 0%, rgba(8, 8, 8, 0.8) 100%);
@@ -946,9 +946,6 @@ code.inactive {
   display: inline-block;
   line-height: 1; /* this keeps the height of the contributor box acceptable */
 }
-.contributor[data-tip] {
-  cursor: help;
-}
 .contributor img {
   width: 1.4em;
   height: 1.4em;
@@ -970,7 +967,7 @@ code.inactive {
   transition: transform 400ms;
 }
 .expandable:not(.expanded) > .meta .chevron {
-  transform: rotate(-180deg);
+  transform: rotate(-90deg);
 }
 .expandable > .details {
   background: rgba(40, 40, 40, 0.4);
@@ -994,4 +991,43 @@ code.inactive {
 
 .contributorlist > .row {
   margin: 10px 0;
+}
+
+.modal {
+  position: fixed;
+  top: 40px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .8);
+  z-index: 200;
+  padding-top: 20px;
+}
+
+.btn-close {
+  display: block;
+  margin: 20px auto;
+  width: 200px;
+}
+
+.contributor-detail {
+  height: calc(100% - 80px);
+}
+
+.no-scroll .contributor-detail .panel {
+  background-color: rgba(20, 20, 20, 1);
+}
+
+.contributor-detail>.container, .contributor-detail>.container>.flex-main, .contributor-detail>.container>.flex-main>.row, .contributor-detail>.container>.flex-main>.row>.col-md-7 {
+  height: 100%;
+}
+
+.panel.scrollable {
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+.no-scroll {
+  overflow: hidden;
 }

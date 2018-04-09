@@ -48,7 +48,7 @@ class T20_2set extends Analyzer {
     return {
       id: `spell-${SPELLS.WARLOCK_DESTRO_T20_2P_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.WARLOCK_DESTRO_T20_2P_BONUS.id} />,
-      title: <SpellLink id={SPELLS.WARLOCK_DESTRO_T20_2P_BONUS.id} />,
+      title: <SpellLink id={SPELLS.WARLOCK_DESTRO_T20_2P_BONUS.id} icon={false} />,
       result: (
         <dfn data-tip={`Estimated bonus damage - ${formatNumber(estimatedChaosBoltDamage)} damage - ${this.owner.formatItemDamageDone(estimatedChaosBoltDamage)} <br />This result is estimated by multiplying number of Soul Shard Fragments gained from this bonus, divided by 20 and floored down (because Chaos Bolt consumes 20 Soul Shard Fragments) by the average Chaos Bolt damage for the whole fight.`}>
           {this._bonusFragments} Soul Shard Fragments gained

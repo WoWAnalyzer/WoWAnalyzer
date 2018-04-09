@@ -8,6 +8,8 @@ import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 
 const MAX_STACKS = 6;
 
+const MONGOOSE_FURY_DURATION = 14000;
+
 class SixStackBites extends Analyzer {
 
   _currentStacks = 0;
@@ -15,9 +17,14 @@ class SixStackBites extends Analyzer {
   sixBiteWindows = 0;
   sixBiteWindowBites = 0;
   totalBites = 0;
+  windowStartedTimestamp = 0;
 
   get currentMFStacks() {
     return this._currentStacks;
+  }
+
+  get mongooseFuryEndTimestamp() {
+    return this.windowStartedTimestamp + MONGOOSE_FURY_DURATION;
   }
 
   on_byPlayer_applybuff(event) {
@@ -27,6 +34,7 @@ class SixStackBites extends Analyzer {
     }
     this._currentStacks = 1;
     this.totalWindowsStarted++;
+    this.windowStartedTimestamp = event.timestamp;
   }
 
   on_byPlayer_applybuffstack(event) {

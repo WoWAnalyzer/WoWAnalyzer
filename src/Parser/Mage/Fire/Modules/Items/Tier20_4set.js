@@ -79,7 +79,7 @@ class Tier20_4set extends Analyzer {
     return {
       id: SPELLS.FIRE_MAGE_T20_4SET_BONUS_BUFF.id,
       icon: <SpellIcon id={SPELLS.FIRE_MAGE_T20_4SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.FIRE_MAGE_T20_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.FIRE_MAGE_T20_4SET_BONUS_BUFF.id} icon={false} />,
       result: (
         <dfn data-tip={`You got <b>${this.totalProcs}</b> total procs (<b>${ppm.toFixed(1)} PPM</b>), consuming <b>${this.pyroblastProcs}</b> with Pyroblast, <b>${this.flamestrikeProcs}</b> with Flamestrike, and letting <b>${this.expiredProcs}</b> procs expire. The damage numbers do <b>not</b> account for the additional Ignite damage from the boosted Pyroblasts.`}>
           <ItemDamageDone amount={this.damage} />

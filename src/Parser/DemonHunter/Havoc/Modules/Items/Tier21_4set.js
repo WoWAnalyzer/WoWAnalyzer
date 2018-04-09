@@ -68,7 +68,7 @@ class Tier21_4set extends Analyzer {
     return {
       id: `spell-${SPELLS.HAVOC_T21_4PC_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.HAVOC_T21_4PC_BONUS.id} />,
-      title: <SpellLink id={SPELLS.HAVOC_T21_4PC_BONUS.id} />,
+      title: <SpellLink id={SPELLS.HAVOC_T21_4PC_BONUS.id} icon={false} />,
       result: <Wrapper>{formatPercentage(uptime)} % uptime on <SpellLink id={SPELLS.HAVOC_T21_4PC_BUFF.id} icon/></Wrapper>,
     };
   }

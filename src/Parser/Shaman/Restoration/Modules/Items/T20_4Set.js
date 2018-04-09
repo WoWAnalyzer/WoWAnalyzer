@@ -74,7 +74,7 @@ class Restoration_Shaman_T20_4Set extends Analyzer {
     return {
       id: `spell-${SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id} icon={false} />,
       result: <ItemHealingDone amount={this.healing} />,
     };
   }

@@ -3,7 +3,6 @@ import Express from 'express';
 import path from 'path';
 import fs from 'fs';
 import Raven from 'raven';
-import session from 'express-session';
 import bodyParser from 'body-parser';
 
 import loadDotEnv from './config/env';
@@ -32,12 +31,8 @@ if (Raven.installed) {
 }
 app.use(compression());
 app.use(Express.static(buildFolder));
-app.use(session({
-  secret:'somesecrettokenhere',
-  resave: false,
-  saveUninitialized: false,
-}));
 app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(require('./controllers').default);
 
 app.listen(process.env.PORT, () => {

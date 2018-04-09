@@ -50,7 +50,7 @@ class TigerPalm extends Analyzer {
     return {
       actual: this.totalBocHits / this.totalCasts,
       isLessThan: {
-        minor: 0.095,
+        minor: 0.95,
         average: 0.9,
         major: 0.85,
       },

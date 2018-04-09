@@ -15,12 +15,12 @@ import CrimsonScourge from './Modules/Features/CrimsonScourge';
 import BlooddrinkerTicks from './Modules/Features/BlooddrinkerTicks';
 import UnendingThirstTracker from './Modules/Features/UnendingThirstTracker';
 import Checklist from './Modules/Features/Checklist';
-import DeathStrikeTimingGraph from './Modules/Features/DeathStrikeTimingGraph';
 import MarrowrendUsage from './Modules/Features/MarrowrendUsage';
 import Souldrinker from './Modules/Features/Souldrinker';
 import BoneShield from './Modules/Features/BoneShield';
 import DancingRuneWeapon from './Modules/Features/DancingRuneWeapon';
 import InitialMarrowrendCast from './Modules/Features/InitialMarrowrendCast';
+import DeathStrikeTiming from './Modules/Features/DeathStrikeTiming';
 
 // Resources
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
@@ -71,7 +71,7 @@ class CombatLogParser extends CoreCombatLogParser {
     blooddrinkerTicks: BlooddrinkerTicks,
     unendingThirstTracker:UnendingThirstTracker,
     checklist: Checklist,
-    deathStrikeTimingGraph: DeathStrikeTimingGraph,
+    deathStrikeTiming: DeathStrikeTiming,
     marrowrendUsage: MarrowrendUsage,
     souldrinker: Souldrinker,
     boneShield: BoneShield,

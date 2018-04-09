@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 
@@ -32,9 +31,7 @@ class MurderousIntent extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.MURDEROUS_INTENT_BUFF.id}>
-            <SpellIcon id={SPELLS.MURDEROUS_INTENT_BUFF.id} noLink /> Murderous Intent
-          </SpellLink>
+          <SpellLink id={SPELLS.MURDEROUS_INTENT_BUFF.id} />
         </div>
         <div className="flex-sub text-right">
           <dfn data-tip={`${this.traitLevel} ${this.traitLevel > 1 ? `traits` : `trait`}`}>

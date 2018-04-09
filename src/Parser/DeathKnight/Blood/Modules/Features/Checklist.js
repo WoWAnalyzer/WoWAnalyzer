@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
@@ -29,6 +30,7 @@ import RuneTracker from '../../../Shared/RuneTracker';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
+    abilities: Abilities,
     castEfficiency: CastEfficiency,
     combatants: Combatants,
     legendaryCountChecker: LegendaryCountChecker,
@@ -63,7 +65,7 @@ class Checklist extends CoreChecklist {
             when: this.combatants.selected.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.CRIMSON_SCOURGE.id} icon /> procs spent</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs spent</Wrapper>,
             check: () => this.crimsonScourge.efficiencySuggestionThresholds,
             when: !this.combatants.selected.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
           }),
@@ -93,7 +95,7 @@ class Checklist extends CoreChecklist {
             check: () => this.runeTracker.suggestionThresholdsEfficiency,
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.MARROWREND.id} icon /> efficiency</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.MARROWREND.id} /> efficiency</Wrapper>,
             check: () => this.marrowrendUsage.suggestionThresholdsEfficiency,
           }),
         ];
@@ -107,16 +109,18 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.DANCING_RUNE_WEAPON,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.CONSUMPTION,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BLOOD_MIRROR_TALENT,
             when: this.combatants.selected.hasTalent(SPELLS.BLOOD_MIRROR_TALENT.id),
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.BONESTORM_TALENT.id} icon /> efficiency</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.BONESTORM_TALENT.id} /> efficiency</Wrapper>,
             check: () => this.bonestorm.suggestionThresholds,
             when: this.combatants.selected.hasTalent(SPELLS.BONESTORM_TALENT.id),
           }),
@@ -152,12 +156,15 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.VAMPIRIC_BLOOD,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ICEBOUND_FORTITUDE,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ANTI_MAGIC_SHELL,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.RUNE_TAP_TALENT,

@@ -197,7 +197,7 @@ class FocusUsage extends Analyzer {
         <dfn data-tip={tooltip}>{label}</dfn>
       ) : label;
       label = spellId ? (
-        <SpellLink id={spellId} icon >{label}</SpellLink>
+        <SpellLink id={spellId}>{label}</SpellLink>
       ) : label;
       return (
         <div

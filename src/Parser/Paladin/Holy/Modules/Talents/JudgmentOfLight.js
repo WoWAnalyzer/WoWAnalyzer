@@ -24,7 +24,7 @@ class JudgmentOfLight extends Analyzer {
       when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(
           <Wrapper>
-            <SpellLink id={SPELLS.SANCTIFIED_WRATH_TALENT.id} icon /> is rarely the best talent to pick in the row. Unless you specifically need the buff to <SpellLink id={SPELLS.AVENGING_WRATH.id} icon /> for this fight you should use <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} icon /> instead.
+            <SpellLink id={SPELLS.SANCTIFIED_WRATH_TALENT.id} /> is rarely the best talent to pick in the row. Unless you specifically need the buff to <SpellLink id={SPELLS.AVENGING_WRATH.id} /> for this fight you should use <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} /> instead.
           </Wrapper>
         )
           .icon(SPELLS.JUDGMENT_OF_LIGHT_HEAL.icon)
