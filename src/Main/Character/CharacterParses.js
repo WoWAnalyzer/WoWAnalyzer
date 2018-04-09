@@ -13,6 +13,18 @@ import { makePlainUrl } from 'Main/makeAnalyzerUrl';
 import SpellIcon from 'common/SpellIcon';
 import ItemLink from 'common/ItemLink';
 import Icon from 'common/Icon';
+import ZONES from 'common/ZONES';
+
+import ActivityIndicator from 'Main/ActivityIndicator';
+
+import { withRouter } from 'react-router-dom'
+
+/*
+  ToDo: 
+    fix the issue with Special-Chars (Ê and stuff)
+    caching of bnet-api for images
+    submit a proper playerID for the analyze-link
+*/
 
 class CharacterParses extends React.Component {
 
@@ -20,6 +32,9 @@ class CharacterParses extends React.Component {
     region: PropTypes.string.isRequired,
     realm: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired,
+    }),
   };
 
   constructor(props) {
@@ -30,17 +45,22 @@ class CharacterParses extends React.Component {
       class: "",
       activeSpec: [],
       activeDifficulty: [],
-      filteredParses: [],
+      activeZoneID: 17,
+      activeEncounter: 0,
+      sortBy: 0,
+      metric: 'dps',
+      image: '',
       parses: [],
-      trinkets: ITEMS,
+      isLoading: true,
     };
 
     this.updateDifficulty = this.updateDifficulty.bind(this);
     this.updateSpec = this.updateSpec.bind(this);
 
     this.load = this.load.bind(this);
-    this.filterParses = this.filterParses.bind(this);
+    this.changeParseStructure = this.changeParseStructure.bind(this);
     this.iconPath = this.iconPath.bind(this);
+    this.fetchImage = this.fetchImage.bind(this);
     this.fillMissingTrinkets = this.fillMissingTrinkets.bind(this);
     this.load();
   }
@@ -62,8 +82,6 @@ class CharacterParses extends React.Component {
     this.setState({
       activeDifficulty: newDiff,
     });
-
-    this.filterParses();
   }
 
   updateSpec(spec) {
@@ -79,57 +97,157 @@ class CharacterParses extends React.Component {
     this.setState({
       activeSpec: newSpec,
     });
-
-    this.filterParses();
   }
 
   fillMissingTrinkets() {
-    Object.values(this.state.trinkets).forEach(trinket => {
-      console.info(trinket);
-      return fetch(`https://eu.api.battle.net/wow/item/${trinket.id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
-        .then(response => response.json())
-        .then((data) => {
-          console.info(data);
-          const updatedTrinkets = this.state.trinkets;
-          updatedTrinkets[trinket.id] = {
-            icon: data.icon,
-            id: trinket.id,
-            name: trinket.name,
-            quality: trinket.quality,
-          };
-
-          this.setState({
-            trinkets: updatedTrinkets,
+    Object.values(ITEMS).forEach(trinket => {
+      if (trinket.icon === ITEMS[0].icon && trinket.id !== 0) {
+        return fetch(`https://eu.api.battle.net/wow/item/${trinket.id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
+          .then(response => response.json())
+          .then((data) => {
+            ITEMS[trinket.id].icon = data.icon;
+            this.forceUpdate();
           });
-
-          this.forceUpdate();
-        });
+      }
     });
   }
 
-  filterParses() {
+  get filterParses() {
     let filteredParses = this.state.parses;
-
     filteredParses = filteredParses.filter((elem, index) => {
       return this.state.activeDifficulty.includes(elem.difficulty);
     }).filter((elem, index) => {
       return this.state.activeSpec.includes(elem.spec);
     }).sort((a, b) => { 
-      return b.start_time - a.start_time; 
-    }).slice(0, 15);
-
-    this.setState({
-      filteredParses: filteredParses,
+      if (this.state.sortBy === 0) {
+        return b.start_time - a.start_time; 
+      }
+      return b.persecondamount - a.persecondamount;
     });
 
-    console.info(this.state);
-    console.info(filteredParses);
+    if (Number(this.state.activeEncounter) === 0) {
+      return filteredParses;
+    }
+
+    filteredParses = filteredParses.filter((elem, index) => {
+      return elem.name === this.state.activeEncounter;
+    });
+
+    return filteredParses;
   }
 
-  load() {
-    return fetchWcl(`parses/character/${ this.props.name }/${ this.props.realm }/${ this.props.region }`, {
-      
+  rankingColor(rank) {
+    rank = Math.floor(rank);
+    switch (true) {
+      case (rank < 25):
+        return 'grey';
+      case (rank < 50):
+        return 'green';
+      case (rank < 70):
+        return 'blue';
+      case (rank < 90):
+        return 'purple';
+      case (rank <= 99):
+        return 'orange';
+      case (rank === 100):
+        return 'artifact';
+      default:
+        return 'none';
+    }
+  }
+
+  //resolve the boss+difficulty->spec->parse structure to make sorting & filtering easiery
+  changeParseStructure(rawParses) {
+    const parses = [];
+    rawParses.forEach((elem, index) => {
+      const name = elem.name;
+      const difficulty = DIFFICULTIES[elem.difficulty];
+
+      elem.specs.filter((item) => { return item.spec !== "Melee" && item.spec !== "Ranged"; }).forEach(element => {
+        const spec = element.spec;
+        element.data.forEach(singleParse => {
+          const finalParse = Object.assign({
+            name: name,
+            spec: spec,
+            difficulty: difficulty,
+          }, singleParse);
+
+          //filter all logs that have missing talents (logs that were logged without advanced logging)
+          if (Object.values(singleParse.talents).filter((talent) => { return talent.id === 0; }).length === 0) {
+            parses.push(finalParse);
+          }
+
+          //get missing trinket-icons later
+          if (!ITEMS[singleParse.gear[12].id]) {
+            ITEMS[singleParse.gear[12].id] = {
+              name: singleParse.gear[12].name,
+              id: singleParse.gear[12].id,
+              icon: ITEMS[0].icon,
+              quality: singleParse.gear[13].quality,
+            };
+          }
+
+          if (!ITEMS[singleParse.gear[13].id]) {
+            ITEMS[singleParse.gear[13].id] = {
+              name: singleParse.gear[13].name,
+              id: singleParse.gear[13].id,
+              icon: ITEMS[0].icon,
+              quality: singleParse.gear[13].quality,
+            };
+          }
+        });
+      });
+    });
+
+    this.fillMissingTrinkets();
+
+    return parses;
+
+  }
+
+  get zoneBosses() {
+    const zones = ZONES.filter(zone => zone.id === this.state.activeZoneID ).map(e => {
+      return e.encounters;
+    })[0];
+    return zones;
+  }
+
+  fetchImage() {
+    return fetch(`https://${this.props.region}.api.battle.net/wow/character/${ encodeURIComponent(this.props.realm)}/${encodeURIComponent(this.props.name)}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
+      .then(response => response.json())
+      .then((data) => {
+        const image = data.thumbnail.replace("avatar", "main");
+        this.setState({
+          image: image,
+        });
+      });
+  }
+
+  load(refresh = false) {
+    this.setState({ 
+      isLoading: true, 
+      activeEncounter: 0,
+    });
+    return fetchWcl(`parses/character/${ encodeURIComponent(this.props.name) }/${ encodeURIComponent(this.props.realm) }/${ this.props.region }`, {
+      metric: this.state.metric,
+      zone: this.state.activeZoneID,
+      _: refresh ? +new Date() : undefined,
     }).then((rawParses) => {
+      if (rawParses.status === 400) {
+        alert('This player does not exist! Please make sure that you\'ve logged fights on Warcraft Logs.');
+        this.props.history.push('/');
+        return;
+      }
+      if (this.state.class !== "") { //only update parses when class was already parsed (since its only a metric change)
+        const parses = this.changeParseStructure(rawParses);
+        this.setState({
+          parses: parses,
+          isLoading: false,
+        });
+
+        return;
+      }
+
       const charClass = rawParses[0].specs[0].class;
       const specs = Object.values(SPECS).map((elem, index) => { 
         if (elem.className.replace(" ", "") !== charClass) {
@@ -140,62 +258,17 @@ class CharacterParses extends React.Component {
         return elem;
       });
 
-      console.log(rawParses);
+      this.fetchImage();
 
-      const parses = [];
-      const trinkets = { };
-      //resolve the boss+difficulty->spec->parse structure to make sorting & filtering easiery
-      rawParses.forEach((elem, index) => {
-        const name = elem.name;
-        const difficulty = DIFFICULTIES[elem.difficulty];
-
-        elem.specs.filter((item) => { return item.spec !== "Melee" && item.spec !== "Ranged"; }).forEach(element => {
-          const spec = element.spec;
-          element.data.forEach(singleParse => {
-            const finalParse = Object.assign({
-              name: name,
-              spec: spec,
-              difficulty: difficulty,
-            }, singleParse);
-
-            if (Object.values(singleParse.talents).filter((talent) => { return talent.id === 0; }).length === 0) {
-              parses.push(finalParse);
-            }
-
-            if (!ITEMS[singleParse.gear[12].id]) {
-              trinkets[singleParse.gear[12].id] = {
-                name: singleParse.gear[12].name,
-                id: singleParse.gear[12].id,
-                icon: ITEMS[0].icon,
-                quality: singleParse.gear[13].quality,
-              };
-            }
-
-            if (!ITEMS[singleParse.gear[13].id]) {
-              trinkets[singleParse.gear[13].id] = {
-                name: singleParse.gear[13].name,
-                id: singleParse.gear[13].id,
-                icon: ITEMS[0].icon,
-                quality: singleParse.gear[13].quality,
-              };
-            }
-          });
-        });
-      });
-
+      const parses = this.changeParseStructure(rawParses);
       this.setState({
         specs: [...new Set(specs)],
         activeSpec: [...new Set(specs.map(elem => { return elem.replace(" ", ""); }))],
         activeDifficulty: DIFFICULTIES.filter(elem => { return elem; }),
         class: charClass,
         parses: parses,
-        trinkets: trinkets,
+        isLoading: false,
       });
-
-      console.log(this.state);
-
-      this.fillMissingTrinkets();
-      this.filterParses();
     });
   }
 
@@ -207,69 +280,104 @@ class CharacterParses extends React.Component {
             <div className="col-md-7">
               <div className="panel" stlye={{ overflow: 'auto' }}>
                 <div className="flex-main">
-                  {this.state.filteredParses.map((elem, index) =>
+                  {this.state.isLoading && (
+                    <div style={{ textAlign: 'center', fontSize: '2em', margin: '20px 0' }}>
+                      <ActivityIndicator text="Pulling character info..." />
+                    </div>
+                  )}
+                  {this.filterParses.length === 0 && !this.state.isLoading && (
+                    <div style={{ padding: 20 }}>
+                      We couldn't find any logs.<br/>
+                      Please check your filters and make sure that you logged those fights on Warcraft Logs.<br/><br/>
+                      You don't know how to log your fights? Check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get startet.
+                    </div>
+                  )}
+                  {this.filterParses.map((elem, index) =>
                     <div className="row character-parse">
-                      <div className="col-md-8">
+                      <div className="col-md-5">
                         <img src={this.iconPath(elem.spec)} style={{ height: 30, marginRight: 10 }} alt="Icon" />
                         {elem.difficulty} - {elem.name}
                       </div>
-                      <div className="col-md-2">
-                        {formatPercentage(elem.historical_percent / 100)}%
+                      <div className="col-md-5">
+                        {elem.talents.map(talent => 
+                          <SpellIcon 
+                            id={talent.id}
+                            style={{ width: '1.8em', height: '1.8em', marginRight: 2, marginBottom: 10 }}
+                          />
+                        )}
                       </div>
                       <div className="col-md-2" style={{ textAlign: 'right' }}>
                         {new Date(elem.start_time).toLocaleDateString()}
                       </div>
                       
-                      <div className="col-md-8" style={{ paddingLeft: 55 }}>
-                        {elem.talents.map(talent => 
-                          <SpellIcon 
-                            id={talent.id}
-                            style={{ width: '1.8em', height: '1.8em', marginRight: 2 }}
-                          />
-                        )}
-                        <span style={{ marginRight: 10 }}></span>
+                      <div className="col-md-5" style={{ paddingLeft: 55 }}>
+                        <span className={'parse-' + this.rankingColor(elem.historical_percent)}>
+                          {formatNumber(elem.persecondamount)} {this.state.metric.toLocaleUpperCase()} ({formatPercentage(elem.historical_percent / 100)}%)
+                        </span>
+                      </div>
+                      <div className="col-md-5">
                         {elem.gear.filter((item, index) => { return index === 12 || index === 13 || item.quality === "legendary"; }).map(item =>
-                          <ItemLink id={item.id} class={item.quality}>
+                          <ItemLink id={item.id} className={item.quality}>
                             <Icon 
-                              icon={ITEMS[item.id] ? ITEMS[item.id].icon : this.state.trinkets[item.id].icon} 
+                              icon={ITEMS[item.id] ? ITEMS[item.id].icon : ITEMS[0].icon} 
                               style={{ width: '1.8em', height: '1.8em', border: '1px solid', marginRight: 2 }}
                             />
                           </ItemLink>
                         )}
                       </div>
-                      <div className="col-md-2">
-                        {formatNumber(elem.persecondamount)} DPS 
-                      </div>
                       <div className="col-md-2" style={{ textAlign: 'right' }}>
-                        <a href={makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + " " + elem.name, " ", elem.character_name)} target="_blank">analyze</a>
+                        <a href={makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + " " + elem.name, " ", elem.character_name)} target="_blank">
+                          analyze
+                        </a>
                       </div>
                     </div>
                   )}
                 </div>
               </div>
             </div>
-            
+
             <div className="col-md-5">
               <div className="panel">
                 <div className="flex-main">
                   <div className="row filter">
-                    <div className="col-md-5">
-                      <select className="form-control">
-                        <option selected>Antorus the Burning Throne</option>
+                    <div className="col-md-12" style={{ marginBottom: 20, position: 'relative', height: 280 }}>
+                      {this.state.image && (
+                        <img 
+                          src={`https://render-${this.props.region}.worldofwarcraft.com/character/${this.state.image}`}
+                          alt={"Pic"} 
+                          style={{ position: 'absolute', right: 0, width: '100%' }} />
+                      )}
+                      <h2 style={{ fontSize: '1.8em' }}>{this.props.region} - {this.props.realm}</h2>
+                      <h2 style={{ fontSize: '2.4em', marginLeft: 20 }}>{this.props.name}</h2>
+                    </div>
+                    <div className="col-md-4">
+                      Raid:
+                      <select className="form-control" onChange={e => this.setState({ activeZoneID: Number(e.target.value)}, () => { this.load().catch(e => { console.log('Error'); });})}>
+                        {Object.values(ZONES).reverse().map(elem =>
+                          <option value={elem.id}>{elem.name}</option>
+                        )}
                       </select>
-                      <select className="form-control">
-                        <option selected>All bosses</option>
-                        <option>Aggramar</option>
+                      Boss:
+                      <select className="form-control" value={this.state.activeEncounter} onChange={e => this.setState({ activeEncounter: e.target.value })}>
+                        <option value={0} defaultValue>All bosses</option>
+                        {this.zoneBosses.map(e => 
+                          <option value={e.name}>{e.name}</option>
+                        )}
                       </select>
-                      <select className="form-control">
-                        <option selected>DPS</option>
+                      Metric:
+                      <select className="form-control" onChange={e => this.setState({ metric: e.target.value }, () => { this.load().catch(e => { console.log('Error'); });})}>
+                        <option defaultValue value="dps">DPS</option>
+                        <option value="hps">HPS</option>
                       </select>
-                      <select className="form-control">
-                        <option selected>Date</option>
+                      Sort by:
+                      <select className="form-control" onChange={e => this.setState({ sortBy: Number(e.target.value) })}>
+                        <option defaultValue value={0}>Date</option>
+                        <option value={1}>DPS / HPS</option>
                       </select>
                     </div>
                     
-                    <div className="col-md-3">
+                    <div className="col-md-4">
+                      Difficulties:
                       {DIFFICULTIES.filter((elem) => { return elem; }).map((elem, index) => 
                       <div onClick={() => this.updateDifficulty(elem)} className={ this.state.activeDifficulty.includes(elem) ? 'selected form-control' : 'form-control'}>
                         {elem}
@@ -277,9 +385,10 @@ class CharacterParses extends React.Component {
                       )}
                     </div>
                     <div className="col-md-4">
+                      Specs:
                       {this.state.specs.map((elem, index) => 
                         <div onClick={() => this.updateSpec(elem.replace(" ", ""))} className={this.state.activeSpec.includes(elem.replace(" ", "")) ? 'selected form-control' : 'form-control'}>
-                          <img src={this.iconPath(elem)} style={{ height: 20, marginRight: 10 }} alt="Icon" />
+                          <img src={this.iconPath(elem)} style={{ height: 18, marginRight: 10 }} alt="Icon" />
                           {elem}
                         </div>
                       )}
@@ -289,6 +398,12 @@ class CharacterParses extends React.Component {
                 <span className="text-muted" style={{ padding: 10, display: 'block' }}>
                   Some logs are missing? We hide logs that were logged without 'advanced combatlog' since those are not detailed enough to be analyzed.
                 </span>
+                <div style={{ textAlign: 'right', padding: 10 }}>
+                  <span className="pseudolink" onClick={() => this.load(true)}>
+                    <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh
+                  </span>
+                </div>
+                
               </div>
             </div>
           </div>
@@ -298,4 +413,4 @@ class CharacterParses extends React.Component {
   }
 }
 
-export default CharacterParses;
+export default withRouter(CharacterParses);

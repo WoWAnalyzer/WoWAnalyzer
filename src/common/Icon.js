@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import BAD_ICONS from 'common/BAD_ICONS';
+import ITEMS from 'common/ITEMS';
 
 const Icon = ({ icon, alt, ...other }) => {
   if (!icon) {
-    return null;
+    icon = ITEMS[0].icon;
   }
   icon = icon.replace('.jpg', '').replace('-', '');
   if (icon === 'petbattle_healthdown') {

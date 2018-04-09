@@ -1000,16 +1000,13 @@ code.inactive {
   margin: 0;
 }
 
-.charparse .filter>div {
-  padding: 10px;
-}
-
 .charparse div.form-control {
   padding: 10px 12px 11px 12px;
   cursor: pointer;
 }
 .charparse .form-control {
   margin-bottom: 6px;
+  transition: background-color 0.1s ease-in-out;
 }
 
 .charparse .form-control.selected {
@@ -1021,4 +1018,44 @@ code.inactive {
   padding: 12px 0;
   border-bottom: 1px solid #000;
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
+}
+
+.charparse h2 {
+  opacity: .9;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.parse-grey {
+  color: #666 !important;
+}
+
+.parse-green {
+  color: rgb(30, 255, 0) !important;
+}
+
+.parse-blue {
+  color: rgb(0, 112, 255) !important;
+}
+
+.parse-purple {
+  color: rgb(163, 53, 238) !important;
+}
+
+.parse-orange {
+  color: rgb(255, 128, 0) !important;
+}
+
+.parse-artifact {
+  color: rgb(229, 204, 128) !important;
+}
+
+.pseudolink {
+  color: #e45a5a;
+  cursor: pointer;
+}
+
+.pseudolink:hover {
+  color: #ad4b4b;
 }
