@@ -40,7 +40,6 @@ class WayOfTheMokNathal extends Analyzer {
     }
     this._currentStacks = 1;
     this.lastApplicationTimestamp = event.timestamp;
-
   }
 
   on_byPlayer_applybuffstack(event) {
@@ -69,10 +68,28 @@ class WayOfTheMokNathal extends Analyzer {
     this._timesDropped += 1;
   }
 
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.RAPTOR_STRIKE.id) {
+      return;
+    }
+    if (this._currentStacks !== MAX_STACKS) {
+      return;
+    }
+    this.timesRefreshed++;
+    this.accumulatedTimeBetweenRefresh += event.timestamp - this.lastApplicationTimestamp;
+    this.lastApplicationTimestamp = event.timestamp;
+  }
+
   on_finished() {
     if (this._currentStacks === MAX_STACKS) {
       this._fourStackUptime += this.owner.fight.end_time - this._fourStackStart;
     }
+    console.log("4 stack uptime: ", this.fourStackUptimeInPercentage, "%");
+  }
+
+  get fourStackUptimeInPercentage() {
+    return formatPercentage(this._fourStackUptime / this.owner.fightDuration);
   }
 
   get averageTimeBetweenRefresh() {
@@ -104,7 +121,7 @@ class WayOfTheMokNathal extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.id} />}
-        value={`${formatPercentage(this._fourStackUptime / this.owner.fightDuration)}%`}
+        value={`${this.fourStackUptimeInPercentage}%`}
         label="4 stack uptime"
         tooltip={`Way of the Mok'Nathal breakdown:
           <ul>

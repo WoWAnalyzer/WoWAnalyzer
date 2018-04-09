@@ -11,7 +11,7 @@ import StatisticBox from 'Main/StatisticBox';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import Wrapper from 'common/Wrapper';
 
-/*
+/**
  * Dire Frenzy
  * Causes your pet to enter a frenzy, performing a flurry of 5 attacks on the target,
  * and gaining 30% increased attack speed for 8 sec, stacking up to 3 times.
@@ -51,6 +51,12 @@ class DireFrenzy extends Analyzer {
       return;
     }
     this.lastDireFrenzyCast = event.timestamp;
+
+    if (this.currentStacks === MAX_DIRE_FRENZY_STACKS) {
+      this.timesRefreshed++;
+      this.accumulatedTimeBetweenRefresh += event.timestamp - this.lastApplicationTimestamp;
+      this.lastApplicationTimestamp = event.timestamp;
+    }
   }
 
   on_byPlayerPet_damage(event) {

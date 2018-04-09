@@ -16,8 +16,9 @@ import ItemLink from 'common/ItemLink';
 
 const DAMAGE_INCREASE_PER_STACK = 0.01;
 const LEECH_PER_STACK = 0.02;
+const MAX_STACKS = 4;
 
-/*
+/**
  * Parsel's Tongue
  * Equip: Cobra Shot increases the damage done by you and your pets by 1% and your leech by 2% for 8 sec, stacking up to 4 times.
  */
@@ -38,6 +39,19 @@ class ParselsTongue extends Analyzer {
 
   on_initialized() {
     this.active = this.combatants.selected.hasChest(ITEMS.PARSELS_TONGUE.id);
+  }
+
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.COBRA_SHOT.id) {
+      return;
+    }
+    if (this._currentStacks !== MAX_STACKS) {
+      return;
+    }
+    this.timesRefreshed++;
+    this.accumulatedTimeBetweenRefresh += event.timestamp - this.lastApplicationTimestamp;
+    this.lastApplicationTimestamp = event.timestamp;
   }
 
   on_byPlayer_applybuff(event) {
