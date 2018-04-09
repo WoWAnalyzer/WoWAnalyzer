@@ -16,7 +16,6 @@ import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountCheck
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 
-import VirulentPlagueUptime from './VirulentPlagueUptime';
 import AlwaysBeCasting from './AlwaysBeCasting';
 import RunicPowerDetails from '../RunicPower/RunicPowerDetails';
 import RuneTracker from './RuneTracker';
@@ -28,7 +27,6 @@ class Checklist extends CoreChecklist {
     legendaryCountChecker: LegendaryCountChecker,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     prePotion: PrePotion,
-    virulentPlagueUptime: VirulentPlagueUptime,
     alwaysBeCasting: AlwaysBeCasting,
     enchantChecker: EnchantChecker,
     runicPowerDetails: RunicPowerDetails,
@@ -38,28 +36,20 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Use core spells as often as possible',
-      description: <Wrapper>Spells with short, static cooldowns like <SpellLink id={SPELLS.DARK_TRANSFORMATION.id}/> and <SpellLink id={SPELLS.CHAINS_OF_ICE.id}/>(when using Cold Heart) should be used as often as possible</Wrapper>,
+      description: <Wrapper>Spells with short, static cooldowns like <SpellLink id={SPELLS.REMORSELESS_WINTER.id}/> and <SpellLink id={SPELLS.CHAINS_OF_ICE.id}/>(when using Cold Heart) should be used as often as possible</Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.DARK_TRANSFORMATION,
+            spell: SPELLS.REMORSELESS_WINTER,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.CHAINS_OF_ICE,
             when: combatant.hasChest(ITEMS.COLD_HEART.id),
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.DEFILE_TALENT,
-            when: combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.EPIDEMIC_TALENT,
-            when: combatant.hasTalent(SPELLS.EPIDEMIC_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.SOUL_REAPER_TALENT,
-            when: combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id),
+              spell: SPELLS.HORN_OF_WINTER_TALENT,
+              when: combatant.hasTalent(SPELLS.HORN_OF_WINTER_TALENT.id),
           }),
         ];
       },
@@ -70,40 +60,29 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.DARK_ARBITER_TALENT,
-            when: combatant.hasTalent(SPELLS.DARK_ARBITER_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.APOCALYPSE,
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.SUMMON_GARGOYLE,
-            when: combatant.hasTalent(SPELLS.DEFILE_TALENT.id) || combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.BLIGHTED_RUNE_WEAPON_TALENT,
-            when: combatant.hasTalent(SPELLS.BLIGHTED_RUNE_WEAPON_TALENT.id),
-          }),
-          // TODO: AOTD
-        ];
-      },
-    }),
-    new Rule({
-      name: 'Maintain Disease',
-      description: <Wrapper><SpellLink id={SPELLS.VIRULENT_PLAGUE.id}/> is a significant source of damage.  Remember to keep it active on all targets at all times.</Wrapper>,
-      requirements: () => {
-        return [
-          new Requirement({
-            name: 'Virulent Plague Uptime',
-            check: () => this.virulentPlagueUptime.UptimeSuggestionThresholds,
-          }),
-        ];
+            new GenericCastEfficiencyRequirement({
+              spell: SPELLS.PILLAR_OF_FROST,
+            }),
+            new GenericCastEfficiencyRequirement({
+              spell: SPELLS.OBLITERATION_TALENT,
+              when: combatant.hasTalent(SPELLS.OBLITERATION_TALENT.id),
+            }),
+            new GenericCastEfficiencyRequirement({
+              spell: SPELLS.BREATH_OF_SINDRAGOSA_TALENT,
+              when: combatant.hasTalent(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id),
+            }),
+            new GenericCastEfficiencyRequirement({
+              spell: SPELLS.EMPOWER_RUNE_WEAPON,
+            }),
+            new GenericCastEfficiencyRequirement({
+                spell: SPELLS.SINDRAGOSAS_FURY_ARTIFACT,
+            }),
+          ];
       },
     }),
     new Rule({
       name: 'Try to avoid being inactive for a large portion of the fight',
-      description: <Wrapper>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  You can reduce downtime by casting ranged abilities like <SpellLink id={SPELLS.OUTBREAK.id}/> or <SpellLink id={SPELLS.DEATH_COIL.id}/></Wrapper>,
+      description: <Wrapper>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  You can reduce downtime by casting ranged abilities like <SpellLink id={SPELLS.FROST_STRIKE_CAST.id}/></Wrapper>,
       requirements: () => {
         return [
           new Requirement({
@@ -115,7 +94,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Avoid capping Runic Power',
-      description: 'Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  Try to spend Runic Power before reaching the maximum amount to avoid wasting resources',
+      description: <Wrapper>Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  Cast <SpellLink id={SPELLS.FROST_STRIKE_CAST.id} /> when you have 80 or more Runic Power to avoid overcapping.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({

@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
     {
+      date: new Date('2018-04-09'),
+      changes: 'Added Checklist feature',
+      contributors: [Khazak],
+    },
+    {
       date: new Date('2018-03-21'),
       changes: 'Added Runic Power tracking',
       contributors: [Khazak],

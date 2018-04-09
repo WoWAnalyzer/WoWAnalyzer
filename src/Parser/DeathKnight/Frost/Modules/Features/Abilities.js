@@ -17,8 +17,8 @@ class Abilities extends CoreAbilities {
         cooldown: 300,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.95,
-          extraSuggestion: <Wrapper>Making sure to use <SpellLink id={SPELLS.SINDRAGOSAS_FURY_ARTIFACT.id} /> immediately after it's cooldown is up is important and if you have 5 stacks of <SpellLink id={SPELLS.RAZORICE.id} /> use as it is coming off cooldown.</Wrapper>,
+          recommendedEfficiency: 0.90,
+          extraSuggestion: <Wrapper>Although you normally want to use this off CD, you can save it to line it up with <SpellLink id={SPELLS.PILLAR_OF_FROST.id} icon/>.  You can also hold it if you know there will be an opportunity to hit more than one enemy in the next 30 seconds.</Wrapper>,
         },
       },
       {
@@ -44,7 +44,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.PILLAR_OF_FROST, // TO DO: Add support for Gravewarden extension bonus, Ice Cap reduction
+        spell: SPELLS.PILLAR_OF_FROST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         castEfficiency: {
@@ -54,7 +54,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.EMPOWER_RUNE_WEAPON, // TO DO Convergence of Fates cd reduction
+        spell: SPELLS.EMPOWER_RUNE_WEAPON, 
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         castEfficiency: {
@@ -64,7 +64,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.HUNGERING_RUNE_WEAPON_TALENT, // TO DO Convergence of Fates cd reduction
+        spell: SPELLS.HUNGERING_RUNE_WEAPON_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         enabled: combatant.hasTalent(SPELLS.HUNGERING_RUNE_WEAPON_TALENT.id),
@@ -98,6 +98,16 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FROSTSCYTHE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.FROSTSCYTHE_TALENT.id),
+      },
+      {
+        spell: SPELLS.HORN_OF_WINTER_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 45,
+        enabled: combatant.hasTalent(SPELLS.HORN_OF_WINTER_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
       },
       {
         spell: SPELLS.RUNE_1,

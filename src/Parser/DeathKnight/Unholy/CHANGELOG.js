@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default  [
   {
+    date: new Date('2018-04-09'),
+    changes: 'Added Rune efficiency to checklist',
+    contributors: [Khazak],
+  },
+  {
     date: new Date('2018-03-26'),
     changes: 'Updated Runic Power tracker for better accuracy',
     contributors: [Khazak],
