@@ -1027,6 +1027,24 @@ code.inactive {
   font-weight: 600;
 }
 
+.charparse .char-image {
+  position: absolute;
+  right: 0;
+  left: 0;
+}
+
+.charparse .char-image:before {
+  content: "";
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background: linear-gradient(
+    to bottom, 
+    rgba(0, 0, 0, 0) 0%, 
+    rgba(0, 0, 0, 0) 50%, 
+    rgba(15, 15, 15, 1) 100%
+  ); 
+}
+
 .parse-grey {
   color: #666 !important;
 }

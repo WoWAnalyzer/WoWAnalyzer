@@ -48,6 +48,7 @@ import { title as UnlistedLogsTitle } from './News/Articles/2017-01-31-UnlistedL
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 import ServiceStatus from './ServiceStatus';
 import ActivityIndicator from './ActivityIndicator';
+import CharacterSelecter from './Character/CharacterSelecter';
 
 const timeAvailable = console.time && console.timeEnd;
 
@@ -543,6 +544,9 @@ class App extends Component {
                   </div>
                   {!this.hasContent && (
                     <ReportSelecter />
+                  )}
+                  {!this.hasContent && (
+                    <CharacterSelecter />
                   )}
                   {process.env.NODE_ENV !== 'test' && <ServiceStatus style={{ marginBottom: 5 }} />}
                   <div className="about">

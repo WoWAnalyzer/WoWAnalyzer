@@ -17,7 +17,7 @@ import ZONES from 'common/ZONES';
 
 import ActivityIndicator from 'Main/ActivityIndicator';
 
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 
 /*
   ToDo: 
@@ -342,10 +342,12 @@ class CharacterParses extends React.Component {
                   <div className="row filter">
                     <div className="col-md-12" style={{ marginBottom: 20, position: 'relative', height: 280 }}>
                       {this.state.image && (
-                        <img 
-                          src={`https://render-${this.props.region}.worldofwarcraft.com/character/${this.state.image}`}
-                          alt={"Pic"} 
-                          style={{ position: 'absolute', right: 0, width: '100%' }} />
+                        <div class="char-image">
+                          <img 
+                            src={`https://render-${this.props.region}.worldofwarcraft.com/character/${this.state.image}`}
+                            alt={"Pic"} 
+                            style={{ width: '100%' }} />
+                        </div>
                       )}
                       <h2 style={{ fontSize: '1.8em' }}>{this.props.region} - {this.props.realm}</h2>
                       <h2 style={{ fontSize: '2.4em', marginLeft: 20 }}>{this.props.name}</h2>
