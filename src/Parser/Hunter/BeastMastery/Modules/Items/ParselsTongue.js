@@ -32,6 +32,9 @@ class ParselsTongue extends Analyzer {
   bonusDmg = 0;
   bonusHealing = 0;
   timesDropped = 0;
+  lastApplicationTimestamp = 0;
+  timesRefreshed = 0;
+  accumulatedTimeBetweenRefresh = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasChest(ITEMS.PARSELS_TONGUE.id);
@@ -43,6 +46,7 @@ class ParselsTongue extends Analyzer {
       return;
     }
     this._currentStacks += 1;
+    this.lastApplicationTimestamp = event.timestamp;
   }
 
   on_byPlayer_applybuffstack(event) {
@@ -51,6 +55,10 @@ class ParselsTongue extends Analyzer {
       return;
     }
     this._currentStacks += 1;
+    this.timesRefreshed++;
+    this.accumulatedTimeBetweenRefresh += event.timestamp - this.lastApplicationTimestamp;
+    this.lastApplicationTimestamp = event.timestamp;
+
   }
 
   on_byPlayer_removebuff(event) {
@@ -95,7 +103,10 @@ class ParselsTongue extends Analyzer {
   }
   get buffUptime() {
     return this.combatants.selected.getBuffUptime(SPELLS.PARSELS_TONGUE_BUFF.id) / this.owner.fightDuration;
+  }
 
+  get averageTimeBetweenRefresh() {
+    return (this.accumulatedTimeBetweenRefresh / this.timesRefreshed / 1000).toFixed(2);
   }
 
   get timesDroppedThreshold() {
@@ -139,7 +150,7 @@ class ParselsTongue extends Analyzer {
     return {
       item: ITEMS.PARSELS_TONGUE,
       result: (
-        <dfn data-tip={`You had a ${formatPercentage(this.buffUptime)}% uptime on the Parsel's Tongue buff.`}>
+        <dfn data-tip={`You had a ${formatPercentage(this.buffUptime)}% uptime on the Parsel's Tongue buff. </br> Average time between refreshing buff was ${this.averageTimeBetweenRefresh} seconds.`}>
           <ItemDamageDone amount={this.bonusDmg} /><br />
           <ItemHealingDone amount={this.bonusHealing} />
         </dfn>

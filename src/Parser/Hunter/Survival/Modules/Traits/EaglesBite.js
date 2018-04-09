@@ -6,15 +6,21 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellLink from "common/SpellLink";
 import ItemDamageDone from 'Main/ItemDamageDone';
+import Enemies from 'Parser/Core/Modules/Enemies';
+import { formatPercentage } from 'common/format';
+import StatisticBox from 'Main/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
 
 /*
  * Harpoon applies On the Trail, a unique damage over time effect that deals [ 360% of Attack Power ] damage over until cancelled.
  * Your melee autoattacks extend its duration by 6 sec.
  */
+
 //TODO: Dig through logs and find average uptimes and make suggestions for this
 class EaglesBite extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    enemies: Enemies,
   };
 
   damage = 0;
@@ -31,6 +37,10 @@ class EaglesBite extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
+  get uptimePercentage() {
+    return this.enemies.getBuffUptime(SPELLS.ON_THE_TRAIL_DAMAGE.id) / this.owner.fightDuration;
+  }
+
   subStatistic() {
     return (
       <div className="flex">
@@ -41,6 +51,16 @@ class EaglesBite extends Analyzer {
           <ItemDamageDone amount={this.damage} />
         </div>
       </div>
+    );
+  }
+
+  statistic() {
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.EAGLES_BITE_TRAIT.id} />}
+        value={`${formatPercentage(this.uptimePercentage)}%`}
+        label="On The Trail uptime"
+      />
     );
   }
 

@@ -37,6 +37,9 @@ class DireFrenzy extends Analyzer {
   timeBuffed = 0;
   lastDireFrenzyCast = null;
   timeCalculated = null;
+  lastApplicationTimestamp = 0;
+  timesRefreshed = 0;
+  accumulatedTimeBetweenRefresh = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id);
@@ -84,6 +87,8 @@ class DireFrenzy extends Analyzer {
     this.buffStart = event.timestamp;
     this.currentStacks = 1;
     this.timeCalculated = false;
+    this.lastApplicationTimestamp = event.timestamp;
+
   }
   on_byPlayer_applybuffstack(event) {
     const spellId = event.ability.guid;
@@ -94,7 +99,9 @@ class DireFrenzy extends Analyzer {
     if (this.currentStacks === MAX_DIRE_FRENZY_STACKS) {
       this.startOfMaxStacks = event.timestamp;
     }
-
+    this.timesRefreshed++;
+    this.accumulatedTimeBetweenRefresh += event.timestamp - this.lastApplicationTimestamp;
+    this.lastApplicationTimestamp = event.timestamp;
   }
 
   on_finished() {
@@ -122,6 +129,10 @@ class DireFrenzy extends Analyzer {
   }
   get percentUptimePet() {
     return this.timeBuffed / this.owner.fightDuration;
+  }
+
+  get averageTimeBetweenRefresh() {
+    return (this.accumulatedTimeBetweenRefresh / this.timesRefreshed / 1000).toFixed(2);
   }
 
   get percentPlayerUptime() {
@@ -173,7 +184,15 @@ class DireFrenzy extends Analyzer {
         icon={<SpellIcon id={SPELLS.DIRE_FRENZY_TALENT.id} />}
         value={`${formatPercentage(this.percentUptimeMaxStacks)}%`}
         label={`3 Stack Uptime`}
-        tooltip={`Your pet had an overall uptime of ${formatPercentage(this.percentUptimePet)}% on the increased attack speed buff <br/> You had an uptime of ${formatPercentage(this.percentPlayerUptime)}% on the focus regen buff, this number indicates you had an average of ${(this.percentPlayerUptime).toFixed(2)} stacks of the buff up over the course of the encounter`}
+        tooltip={`
+        <ul>
+          <li>Your pet had an overall uptime of ${formatPercentage(this.percentUptimePet)}% on the increased attack speed buff</li>
+          <li>Average time between refreshing the buff was ${this.averageTimeBetweenRefresh} seconds </li>
+          <li>You had an uptime of ${formatPercentage(this.percentPlayerUptime)}% on the focus regen buff</li>
+            <ul>
+            <li>This number indicates you had an average of ${(this.percentPlayerUptime).toFixed(2)} stacks of the buff up over the course of the encounter.</li>
+            </ul>
+        </ul>`}
       />
     );
   }

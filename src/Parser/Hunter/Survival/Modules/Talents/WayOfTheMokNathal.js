@@ -21,6 +21,9 @@ class WayOfTheMokNathal extends Analyzer {
   _fourStackUptime = 0;
   _fourStackStart = 0;
   _timesDropped = 0;
+  lastApplicationTimestamp = 0;
+  timesRefreshed = 0;
+  accumulatedTimeBetweenRefresh = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.id);
@@ -36,6 +39,8 @@ class WayOfTheMokNathal extends Analyzer {
       return;
     }
     this._currentStacks = 1;
+    this.lastApplicationTimestamp = event.timestamp;
+
   }
 
   on_byPlayer_applybuffstack(event) {
@@ -47,6 +52,9 @@ class WayOfTheMokNathal extends Analyzer {
     if (this._currentStacks === MAX_STACKS) {
       this._fourStackStart = event.timestamp;
     }
+    this.timesRefreshed++;
+    this.accumulatedTimeBetweenRefresh += event.timestamp - this.lastApplicationTimestamp;
+    this.lastApplicationTimestamp = event.timestamp;
   }
 
   on_byPlayer_removebuff(event) {
@@ -65,6 +73,10 @@ class WayOfTheMokNathal extends Analyzer {
     if (this._currentStacks === MAX_STACKS) {
       this._fourStackUptime += this.owner.fight.end_time - this._fourStackStart;
     }
+  }
+
+  get averageTimeBetweenRefresh() {
+    return (this.accumulatedTimeBetweenRefresh / this.timesRefreshed / 1000).toFixed(2);
   }
 
   get timesDroppedThreshold() {
@@ -94,10 +106,11 @@ class WayOfTheMokNathal extends Analyzer {
         icon={<SpellIcon id={SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.id} />}
         value={`${formatPercentage(this._fourStackUptime / this.owner.fightDuration)}%`}
         label="4 stack uptime"
-        tooltip={`Way of the MokNathal breakdown:
+        tooltip={`Way of the Mok'Nathal breakdown:
           <ul>
             <li> Overall uptime: ${formatPercentage(this.overallUptime)}%</li>
             <li> Times dropped: ${this._timesDropped}</li>
+            <li> Average time between refreshes: ${this.averageTimeBetweenRefresh} seconds</li>
           </ul> `} />
     );
   }

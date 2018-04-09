@@ -24,6 +24,7 @@ class FuryOfTheEagle extends Analyzer {
   mongooseStacks = 0;
   uniqueTargets = [];
   targetsHit = 0;
+  mongooseFuryTimeRemainingOnCast = 0;
 
   get averageTargetsHit() {
     return (this.targetsHit / this.casts).toFixed(2);
@@ -45,6 +46,10 @@ class FuryOfTheEagle extends Analyzer {
     return (this.mongooseStacks / this.casts).toFixed(1);
   }
 
+  get averageMongooseFuryRemainingOnCast() {
+    return (this.mongooseFuryTimeRemainingOnCast / this.casts / 1000).toFixed(2);
+  }
+
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.FURY_OF_THE_EAGLE_TRAIT.id) {
@@ -53,6 +58,7 @@ class FuryOfTheEagle extends Analyzer {
     this.casts++;
     this.uniqueTargets = [];
     this.mongooseStacks += this.sixStackBites.currentMFStacks;
+    this.mongooseFuryTimeRemainingOnCast += this.sixStackBites.mongooseFuryEndTimestamp - event.timestamp;
   }
 
   on_byPlayer_damage(event) {
@@ -73,9 +79,9 @@ class FuryOfTheEagle extends Analyzer {
     return {
       actual: this.averageMongooseStacksOnCast,
       isLessThan: {
-        minor: 6,
-        average: 5,
-        major: 4,
+        minor: 5.5,
+        average: 4.5,
+        major: 3.5,
       },
       style: 'number',
     };
@@ -86,7 +92,7 @@ class FuryOfTheEagle extends Analyzer {
       return suggest(<Wrapper>You cast <SpellLink id={SPELLS.FURY_OF_THE_EAGLE_TRAIT.id} /> when you had a low amount of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> stacks. Aim to cast it while you have 6 stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> to maximize the damage of it, whilst fishing for additional resets of <SpellLink id={SPELLS.MONGOOSE_BITE.id} />. </Wrapper>)
         .icon(SPELLS.FURY_OF_THE_EAGLE_TRAIT.icon)
         .actual(`${this.averageMongooseStacksOnCast} average stacks of mongoose Fury on cast`)
-        .recommended(`${recommended} stacks is recommended`);
+        .recommended(`>${recommended} stacks is recommended`);
     });
   }
 
@@ -97,7 +103,7 @@ class FuryOfTheEagle extends Analyzer {
           icon={<SpellIcon id={SPELLS.FURY_OF_THE_EAGLE_TRAIT.id} />}
           value={this.averageTargetsHit}
           label="Average targets hit"
-          tooltip={`You had an average of ${this.averageMongooseStacksOnCast} Mongoose Fury stacks when casting Fury of the Eagle. <br/> You had an average of ${this.averageHitsPerCast} hits per cast of Fury of the Eagle. This means you hit each unique target approximately ${(this.averageHitsPerCast / this.averageTargetsHit).toFixed(2)} times per cast. <br/> Your average channeling time was ${this.averageChannelingTime.toFixed(2)} seconds.`}
+          tooltip={`<ul><li>You had an average of ${this.averageMongooseStacksOnCast} Mongoose Fury stacks when casting Fury of the Eagle.</li> <li>Mongoose Fury had an average of ${this.averageMongooseFuryRemainingOnCast} seconds remaining upon casting Fury of the Eagle.</li> <li> You had an average of ${this.averageHitsPerCast} hits per cast of Fury of the Eagle. </li><ul><li>This means you hit each unique target approximately ${(this.averageHitsPerCast / this.averageTargetsHit).toFixed(2)} times per cast. </li></ul> <li>Your average channeling time was ${this.averageChannelingTime.toFixed(2)} seconds.</li></ul>`}
         />
       );
     }

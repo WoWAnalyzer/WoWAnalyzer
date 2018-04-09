@@ -35,6 +35,7 @@ import FrizzosFingertrap from './Modules/Items/FrizzosFingertrap';
 
 //Spells
 import ExplosiveTrap from './Modules/Spells/ExplosiveTrap';
+import Lacerate from './Modules/Spells/Lacerate';
 
 //Talents
 import WayOfTheMokNathal from './Modules/Talents/WayOfTheMokNathal';
@@ -101,6 +102,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Spells
     explosiveTrap: ExplosiveTrap,
+    lacerate: Lacerate,
 
     //Talents
     wayOfTheMokNathal: WayOfTheMokNathal,

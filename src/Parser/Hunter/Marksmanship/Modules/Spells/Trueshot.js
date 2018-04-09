@@ -163,7 +163,7 @@ class Trueshot extends Analyzer {
         average: 6,
         major: 5,
       },
-      style: 'number',
+      style: 'decimal',
     };
   }
   get focusThreshold() {
@@ -196,7 +196,7 @@ class Trueshot extends Analyzer {
         average: 14.7,
         major: 14.5,
       },
-      style: 'number',
+      style: 'decimal',
     };
   }
 

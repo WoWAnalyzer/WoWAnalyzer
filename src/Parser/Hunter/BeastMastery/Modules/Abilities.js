@@ -48,7 +48,7 @@ class Abilities extends CoreAbilities {
         isOnGCD: false,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 1,
+          recommendedEfficiency: 0.95,
           extraSuggestion: (
             <Wrapper>
               <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> should be cast on cooldown as its cooldown is quickly reset again through <SpellLink id={SPELLS.DIRE_BEAST.id} />. You want to start each <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> window with as much focus as possible.
