@@ -15,6 +15,8 @@ const T20_2P_INCREASE = 6000;
 
 const EARLIEST_REFRESH = 3600;
 
+const debug = false;
+
 class Lacerate extends Analyzer {
 
   static dependencies = {
@@ -88,7 +90,7 @@ class Lacerate extends Analyzer {
     const lacerateTarget = { targetID: event.targetID, targetInstance: targetInstance, timestamp: event.timestamp };
     for (let i = 0; i <= this.lacerateTargets.length - 1; i++) {
       if (this.lacerateTargets[i].targetID === lacerateTarget.targetID && this.lacerateTargets[i].targetInstance === lacerateTarget.targetInstance) {
-        console.log(event.timestamp - this.lacerateTargets[i].timestamp);
+        debug && console.log(event.timestamp - this.lacerateTargets[i].timestamp);
         if (event.timestamp - this.lacerateTargets[i].timestamp > EARLIEST_REFRESH) {
           this.badRefresh++;
         }
