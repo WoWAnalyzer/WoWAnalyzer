@@ -78,7 +78,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHARGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 17,
+        cooldown: combatant.hasTalent(SPELLS.DOUBLE_TIME_TALENT.id) ? 20 - 3 : 20,
+        charges: combatant.hasTalent(SPELLS.DOUBLE_TIME_TALENT.id) ? 2 : 1,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.01,
