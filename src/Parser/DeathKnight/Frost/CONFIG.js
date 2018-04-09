@@ -3,7 +3,6 @@ import React from 'react';
 import { Khazak } from 'CONTRIBUTORS';
 import SPECS from 'common/SPECS';
 import Wrapper from 'common/Wrapper';
-import Warning from 'common/Alert/Warning';
 
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
