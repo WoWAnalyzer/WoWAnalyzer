@@ -35,7 +35,7 @@ const PROGRESS_COMPLETE = 1.0;
 
 /* eslint-disable no-alert */
 
-class Report extends React.PureComponent {
+class Report extends React.Component {
   static propTypes = {
     reportCode: PropTypes.string,
     playerName: PropTypes.string,
@@ -164,6 +164,9 @@ class Report extends React.PureComponent {
       });
       timeAvailable && console.timeEnd('full parse');
       this.props.setReportProgress(PROGRESS_COMPLETE);
+      this.setState({
+        dataVersion: this.state.dataVersion + 1, // Also update when finished to trigger a rerender
+      });
     } catch (err) {
       captureException(err);
       if (process.env.NODE_ENV === 'development') {
