@@ -35,7 +35,7 @@ const PROGRESS_COMPLETE = 1.0;
 
 /* eslint-disable no-alert */
 
-class Report extends React.PureComponent {
+class Report extends React.Component {
   static propTypes = {
     reportCode: PropTypes.string,
     playerName: PropTypes.string,
