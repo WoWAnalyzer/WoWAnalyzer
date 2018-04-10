@@ -20,11 +20,14 @@ import ActivityIndicator from 'Main/ActivityIndicator';
 
 /*
   ToDo: 
-    fix the issue with Special-Chars (Ê and stuff)
+    fix the issue with Special-Chars (ÃŠ and stuff)
     caching of bnet-api for images
     submit a proper playerID for the analyze-link
     get a fix for renamed/transed chars (char-name does not match in this case, impossible to jump directly to the correct player)
 */
+
+//rendering 400+ parses takes quite some time
+const RENDER_LIMIT = 100;
 
 class CharacterParses extends React.Component {
 
@@ -61,6 +64,10 @@ class CharacterParses extends React.Component {
     this.fetchImage = this.fetchImage.bind(this);
     this.fillMissingTrinkets = this.fillMissingTrinkets.bind(this);
     this.load();
+  }
+
+  componentDidMount() {
+    this.fetchImage();
   }
 
   iconPath(specName) {
@@ -125,17 +132,15 @@ class CharacterParses extends React.Component {
       return b.historical_percent - a.historical_percent;
     });
 
-    console.info(filteredParses);
-
     if (Number(this.state.activeEncounter) === 0) {
-      return filteredParses;
+      return filteredParses.slice(0, RENDER_LIMIT);
     }
 
     filteredParses = filteredParses.filter((elem, index) => {
       return elem.name === this.state.activeEncounter;
     });
 
-    return filteredParses;
+    return filteredParses.slice(0, RENDER_LIMIT);
   }
 
   rankingColor(rank) {
@@ -216,16 +221,18 @@ class CharacterParses extends React.Component {
 
   fetchImage() {
     //save the chars image URL to localstore
-    if (localStorage.getItem(`${this.props.region}/${this.props.realm}/${this.props.name}`)) {
+    const image = localStorage.getItem(`${this.props.region}/${this.props.realm}/${this.props.name}`);
+    if (image) {
       this.setState({
-        image: localStorage.getItem(`${this.props.region}/${this.props.realm}/${this.props.name}`),
+        image: image,
       });
       return;
     }
-
+    console.info('Fetch image');
     return fetch(`https://${this.props.region}.api.battle.net/wow/character/${ encodeURIComponent(this.props.realm)}/${encodeURIComponent(this.props.name)}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
       .then(response => response.json())
       .then((data) => {
+        console.info('Fetch image');
         const image = data.thumbnail.replace("avatar", "main");
         localStorage.setItem(`${this.props.region}/${this.props.realm}/${this.props.name}`, image);
         this.setState({
@@ -235,10 +242,6 @@ class CharacterParses extends React.Component {
   }
 
   load(refresh = false) {
-    this.setState({ 
-      isLoading: true, 
-      activeEncounter: 0,
-    });
     return fetchWcl(`parses/character/${ encodeURIComponent(this.props.name) }/${ encodeURIComponent(this.props.realm) }/${ this.props.region }`, {
       metric: this.state.metric,
       zone: this.state.activeZoneID,
@@ -269,8 +272,6 @@ class CharacterParses extends React.Component {
       }).filter((elem, index) => {
         return elem;
       });
-
-      this.fetchImage();
 
       const parses = this.changeParseStructure(rawParses);
       this.setState({
