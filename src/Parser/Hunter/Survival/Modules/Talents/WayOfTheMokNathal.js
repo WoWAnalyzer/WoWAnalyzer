@@ -12,8 +12,6 @@ import Wrapper from 'common/Wrapper';
 
 const MAX_STACKS = 4;
 
-const debug = true;
-
 class WayOfTheMokNathal extends Analyzer {
   static dependencies = {
     combatants: Combatants,

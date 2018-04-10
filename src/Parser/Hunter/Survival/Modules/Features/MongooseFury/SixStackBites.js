@@ -10,6 +10,11 @@ const MAX_STACKS = 6;
 
 const MONGOOSE_FURY_DURATION = 14000;
 
+/**
+ * Mongoose Fury increases Mongoose Bite damage by 50% for 14 sec, stacking up to 6 times. Successive
+ * attacks do not increase duration.
+ */
+
 class SixStackBites extends Analyzer {
 
   _currentStacks = 0;

@@ -6,6 +6,10 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
+/**
+ * When you use Multi-Shot, Titanstrike has a chance to discharge an electric current at your pets' locations, causing an explosion of
+ * electricity that deals (Ranged attack power * 2) Nature damage to all nearby enemies.
+ */
 class SurgeOfTheStormgod extends Analyzer {
   static dependencies = {
     combatants: Combatants,

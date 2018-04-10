@@ -14,7 +14,6 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import StatisticBox from 'Main/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
 import ItemIcon from 'common/ItemIcon';
 
 const DAMAGE_INCREASE_PER_STACK = 0.01;

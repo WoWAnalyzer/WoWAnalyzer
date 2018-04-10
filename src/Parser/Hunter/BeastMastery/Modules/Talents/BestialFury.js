@@ -14,6 +14,10 @@ const BESTIAL_FURY_MODIFIER = (1.4 / 1.25) - 1;
 
 const debug = false;
 
+/**
+ * Increase the damage bonus of Bestial Wrath by 15%.
+ */
+
 class BestialFury extends Analyzer {
   static dependencies = {
     combatants: Combatants,

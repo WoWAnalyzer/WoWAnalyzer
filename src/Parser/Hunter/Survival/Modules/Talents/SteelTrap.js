@@ -8,6 +8,14 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
+/**
+ * Replaces Freezing Trap
+ * Hurls a Steel Trap to the target location that immobilizes the first enemy that approaches for 30 sec and deals (1500% of Attack power)
+ * bleed damage over 30 sec. Other damage may break the immobilization effect. Limit 1. Trap will exist for 1 min.
+ *
+ * Waylay: Fully arms after 2 sec, dealing 500% increased damage if triggered by an enemy that is not in combat.
+ */
+
 class SteelTrap extends Analyzer {
 
   static dependencies = {

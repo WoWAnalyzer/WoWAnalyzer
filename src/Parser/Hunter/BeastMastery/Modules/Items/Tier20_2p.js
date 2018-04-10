@@ -13,6 +13,10 @@ const T20_2P_MODIFIER_PR_STACK = 0.015;
 
 const debug = false;
 
+/**
+ * Cobra Shot, Multi-shot, and Kill Command increase the damage bonus of Bestial Wrath by 1.5% for its remaining duration.
+ */
+
 class Tier20_2p extends Analyzer {
   static dependencies = {
     combatants: Combatants,
