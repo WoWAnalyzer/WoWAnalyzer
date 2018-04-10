@@ -816,6 +816,31 @@ export default {
     name: 'Servant of the Queen',
     icon: 'inv_crown_02',
   },
+  EMPOWERED_DROPLETS: {
+    id: 207255,
+    name: 'Empowered Droplets',
+    icon: 'spell_nature_giftofthewaterspirit',
+  },
+  FLOODWATERS: {
+    id: 207348,
+    name: 'Floodwaters',
+    icon: 'spell_nature_healingwavegreater',
+  },
+  TIDAL_CHAINS: {
+    id: 207088,
+    name: 'Tidal Chains',
+    icon: 'spell_frost_chainsofice',
+  },
+  QUEEN_ASCENDANT_TRAIT: {
+    id: 207285,
+    name: 'Queen Ascendant',
+    icon: 'ability_shaman_watershield',
+  },
+  QUEEN_ASCENDANT_BUFF: {
+    id: 207288,
+    name: 'Queen Ascendant',
+    icon: 'ability_shaman_watershield',
+  },
   // Restoration Shaman Set Bonus:
   RAINFALL: { // T21 2pc
     id: 252154,

@@ -16,6 +16,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import Checklist from './Modules/Features/Checklist';
 import SpellUsable from './Modules/Features/SpellUsable';
+import StatValues from './Modules/Features/StatValues';
 
 import AncestralVigor from './Modules/Features/AncestralVigor';
 import TidalWaves from './Modules/Features/TidalWaves';
@@ -73,7 +74,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castBehavior: CastBehavior,
     checklist: Checklist,
     spellUsable: SpellUsable,
-
+    statValues: StatValues,
 
     // Talents:
     earthenShieldTotem: EarthenShieldTotem,
