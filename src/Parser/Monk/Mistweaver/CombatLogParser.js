@@ -20,23 +20,10 @@ import Checklist from './Modules/Features/Checklist';
 import StatValues from './Modules/Features/StatValues';
 
 // Traits
-import MistsOfSheilun from './Modules/Traits/MistsOfSheilun';
-import CelestialBreath from './Modules/Traits/CelestialBreath';
-import WhispersOfShaohao from './Modules/Traits/WhispersOfShaohao';
-import CoalescingMists from './Modules/Traits/CoalescingMists';
-import SoothingRemedies from './Modules/Traits/SoothingRemedies';
-import EssenceOfTheMist from './Modules/Traits/EssenceOfTheMist';
-import WayOfTheMistweaver from './Modules/Traits/WayOfTheMistweaver';
-import InfusionOfLife from './Modules/Traits/InfusionOfLife';
-import ProtectionOfShaohao from './Modules/Traits/ProtectionOfShaohao';
-import ExtendedHealing from './Modules/Traits/ExtendedHealing';
-import RelicTraits from './Modules/Traits/RelicTraits';
 
 // Spells
 import UpliftingTrance from './Modules/Spells/UpliftingTrance';
 import ThunderFocusTea from './Modules/Spells/ThunderFocusTea';
-import SheilunsGift from './Modules/Spells/SheilunsGift';
-import RenewingMist from './Modules/Spells/RenewingMist';
 import EssenceFont from './Modules/Spells/EssenceFont';
 import EnvelopingMists from './Modules/Spells/EnvelopingMists';
 import SoothingMist from './Modules/Spells/SoothingMist';
@@ -50,16 +37,6 @@ import Lifecycles from './Modules/Talents/Lifecycles';
 import SpiritOfTheCrane from './Modules/Talents/SpiritOfTheCrane';
 
 // Items
-import DrapeOfShame from './Modules/Items/DrapeOfShame';
-import Eithas from './Modules/Items/Eithas';
-import T20_4set from './Modules/Items/T20_4set';
-import T20_2set from './Modules/Items/T20_2set';
-import ShelterOfRin from './Modules/Items/ShelterOfRin';
-import DoorwayToNowhere from './Modules/Items/DoorwayToNowhere';
-import PetrichorLagniappe from './Modules/Items/PetrichorLagniappe';
-import OvydsWinterWrap from './Modules/Items/OvydsWinterWrap';
-import T21_2set from './Modules/Items/T21_2set';
-import T21_4set from './Modules/Items/T21_4set';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -82,22 +59,9 @@ class CombatLogParser extends CoreCombatLogParser {
     statValues: StatValues,
 
     // Traits
-    mistsOfSheilun: MistsOfSheilun,
-    celestialBreath: CelestialBreath,
-    whispersOfShaohao: WhispersOfShaohao,
-    coalescingMists: CoalescingMists,
-    soothingRemedies: SoothingRemedies,
-    essenceOfTheMist: EssenceOfTheMist,
-    wayOfTheMistweaver: WayOfTheMistweaver,
-    infusionOfLife: InfusionOfLife,
-    protectionOfShaohao: ProtectionOfShaohao,
-    extendedHealing: ExtendedHealing,
-    relicTraits: RelicTraits,
 
     // Spells
     essenceFont: EssenceFont,
-    renewingMist: RenewingMist,
-    sheilunsGift: SheilunsGift,
     thunderFocusTea: ThunderFocusTea,
     upliftingTrance: UpliftingTrance,
     envelopingMists: EnvelopingMists,
@@ -112,16 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spiritOfTheCrane: SpiritOfTheCrane,
 
     // Legendaries / Items:
-    drapeOfShame: DrapeOfShame,
-    eithas: Eithas,
-    t20_4set: T20_4set,
-    t20_2set: T20_2set,
-    shelterOfRin: ShelterOfRin,
-    doorwayToNowhere: DoorwayToNowhere,
-    petrichorLagniappe: PetrichorLagniappe,
-    ovydsWinterWrap: OvydsWinterWrap,
-    t21_2set: T21_2set,
-    t21_4set: T21_4set,
+
   };
 
   generateResults() {

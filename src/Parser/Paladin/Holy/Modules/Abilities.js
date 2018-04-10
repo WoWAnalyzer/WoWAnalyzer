@@ -84,7 +84,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CRUSADER_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 4.5 / (1 + haste),
+        cooldown: haste => 6.0 / (1 + haste),
         charges: 2,
         isOnGCD: true,
         castEfficiency: {

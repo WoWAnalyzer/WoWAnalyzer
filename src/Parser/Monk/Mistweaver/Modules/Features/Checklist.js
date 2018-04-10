@@ -1,11 +1,9 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
-import ItemLink from 'common/ItemLink';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
 import Abilities from 'Parser/Core/Modules/Abilities';
@@ -31,7 +29,6 @@ import UpliftingTrance from '../Spells/UpliftingTrance';
 import ThunderFocusTea from '../Spells/ThunderFocusTea';
 import EssenceFontMastery from '../Features/EssenceFontMastery';
 import SoothingMist from '../Spells/SoothingMist';
-import SheilunsGift from '../Spells/SheilunsGift';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -55,22 +52,17 @@ class Checklist extends CoreChecklist {
     thunderFocusTea: ThunderFocusTea,
     essenceFontMastery: EssenceFontMastery,
     soothingMist: SoothingMist,
-    sheilunsGift: SheilunsGift,
   };
 
   rules = [
     new Rule({
       name: 'Use core spell as often as possible',
-      description: <Wrapper>As a Mistweaver you only have a single rotational spell that should be cast on CD <SpellLink id={SPELLS.RENEWING_MIST.id} />. However, you should also make use of your artifact ability, <SpellLink id={SPELLS.SHEILUNS_GIFT.id} />. Use this ability at or under 6 stacks to ensure you are regularly using it and to mimimize overheal.</Wrapper>,
+      description: <Wrapper>As a Mistweaver you only have a single rotational spell that should be cast on CD <SpellLink id={SPELLS.RENEWING_MIST.id} icon />. However, you should also make use of your artifact ability, <SpellLink id={SPELLS.SHEILUNS_GIFT.id} icon />. Use this ability at or under 6 stacks to ensure you are regularly using it and to mimimize overheal.</Wrapper>,
       requirements: () => {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.RENEWING_MIST,
             onlyWithSuggestion: false,
-          }),
-          new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> stacks</Wrapper>,
-            check: () => this.sheilunsGift.suggestionThresholds,
           }),
         ];
       },
@@ -92,10 +84,6 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.CHI_BURST_TALENT,
             when: combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.VELENS_FUTURE_SIGHT_BUFF,
-            when: combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.CHI_WAVE_TALENT,
@@ -149,11 +137,6 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
-          new Requirement({
-            name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-            check: () => this.velensFutureSight.suggestionThresholds,
-            when: this.velensFutureSight.active,
-          }),
           new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} /> mana returned</Wrapper>,
             check: () => this.spiritOfTheCrane.suggestionThresholds,
