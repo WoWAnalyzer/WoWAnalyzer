@@ -3,10 +3,10 @@
  * Feel free to add yourself if you're not yet in the list.
  *
  * Using `require` for avatars so we don't have to keep a seperate list of imports disconnected from the maintainer definition.
- * 
-    EXAMPLE
+ *
+ EXAMPLE
 
-    export const NICKNAME = {
+ export const NICKNAME = {
       nickname: 'NICKNAME',
       github: 'GITHUB_NAME',
       discord: 'DISCORD_NAME INCL #xxxx',
@@ -25,8 +25,8 @@
       others: {
         "Custom Item": "normal text",
         "Custom Item": [
-          "Item 1", 
-          "Item 2", 
+          "Item 1",
+          "Item 2",
         ],
       },
       links: {
@@ -105,7 +105,20 @@ export const Thieseract = {
 export const Putro = {
   nickname: 'Putro',
   github: 'Pewtro',
+  discord: 'Putro#6093',
   avatar: require('./Images/putro-avatar.png'),
+  maintainer: [
+    SPECS.MARKSMANSHIP_HUNTER,
+    SPECS.BEAST_MASTERY_HUNTER,
+    SPECS.SURVIVAL_HUNTER,
+  ],
+  mains: [
+    {
+      name: "Putro",
+      spec: SPECS.MARKSMANSHIP_HUNTER,
+      link: "https://worldofwarcraft.com/en-gb/character/ragnaros/putro",
+    },
+  ],
 };
 export const Blazballs = {
   nickname: 'Blazballs',
