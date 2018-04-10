@@ -10,6 +10,7 @@ class ChiTracker extends ResourceTracker {
   };
 
   maxChi = 5;
+  chiWasted = 0;
 
   on_initialized() {
     this.resource = RESOURCE_TYPES.CHI;
@@ -49,6 +50,7 @@ class ChiTracker extends ResourceTracker {
       waste = waste - (10 - this.maxChi);
     }
     this._applyBuilder(spellId, this.getResource(event), gain, waste);
+    this.chiWasted += waste;
   }
 }
 
