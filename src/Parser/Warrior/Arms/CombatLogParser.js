@@ -8,6 +8,7 @@ import ColossusSmash from './Modules/Core/ColossusSmash';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import ColossusSmashUptime from './Modules/BuffDebuff/ColossusSmashUptime';
 import Execute from './Modules/Core/Execute';
+import Rend from './Modules/Talents/Rend';
 import TacticianProc from './Modules/BuffDebuff/TacticianProc';
 import SpellUsable from './Modules/Features/SpellUsable';
 import Channeling from './Modules/Features/Channeling';
@@ -28,6 +29,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     colossusSmashUptime: ColossusSmashUptime,
     execute: Execute,
+    rend: Rend,
     tacticianProc: TacticianProc,
     spellUsable: SpellUsable,
     channeling: Channeling,
