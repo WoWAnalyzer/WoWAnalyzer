@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Textfit from 'react-textfit';
 
 import getBossName from 'common/getBossName';
+import SpecIcon from 'common/SpecIcon';
 
 import SkullRaidMarker from './Images/skull-raidmarker.png';
-import SpecIcon from 'common/SpecIcon';
 
 class Headers extends React.PureComponent {
   static propTypes = {

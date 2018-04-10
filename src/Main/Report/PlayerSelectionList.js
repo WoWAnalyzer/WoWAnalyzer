@@ -6,6 +6,7 @@ import ReactTooltip from 'react-tooltip';
 
 import SPECS from 'common/SPECS';
 import ROLES from 'common/ROLES';
+import SpecIcon from 'common/SpecIcon';
 import { getFightId } from 'selectors/url/report';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
@@ -13,7 +14,6 @@ import { getCombatants } from 'selectors/combatants';
 import ActivityIndicator from 'Main/ActivityIndicator';
 
 import makeAnalyzerUrl from '../makeAnalyzerUrl';
-import SpecIcon from 'common/SpecIcon';
 
 const UNKNOWN_ROLE = 'UNKNOWN_ROLE';
 
