@@ -10,6 +10,7 @@ import Wrapper from 'common/Wrapper';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from 'common/ITEMS/HUNTER';
 import SpellLink from 'common/SpellLink';
+import ItemLink from 'common/ItemLink';
 
 const T20_2P_INCREASE = 6000;
 
@@ -173,7 +174,7 @@ class Lacerate extends Analyzer {
   suggestions(when) {
     if (this.combatants.selected.hasBuff(SPELLS.HUNTER_SV_T20_2P_BONUS.id)) {
       when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>memes</Wrapper>)
+        return suggest(<Wrapper>When you're using <ItemLink id={ITEMS.HUNTER_SV_T20_2P_BONUS.id} />, it's worth maintaining a higher uptime of <SpellLink id={SPELLS.LACERATE.id} /> than you otherwise would.</Wrapper>)
           .icon(SPELLS.LACERATE.icon)
           .actual(`${formatPercentage(actual)}% Lacerate uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);
