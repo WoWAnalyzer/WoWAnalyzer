@@ -10,7 +10,7 @@ import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 
 class ContributorDetails extends React.PureComponent {
   static propTypes = {
-    contributorId: PropTypes.string,
+    contributorId: PropTypes.string.isRequired,
     ownPage: PropTypes.bool,
   };
   state = {
@@ -210,7 +210,6 @@ class ContributorDetails extends React.PureComponent {
       contributions[elem.spec.id] = elem.changelog;
     });
 
-    console.log(contributions);
     Object.keys(contributions).forEach(key => {
       contributions[key] = contributions[key].filter(this.filterChangelog);
       if (contributions[key].length === 0) {
