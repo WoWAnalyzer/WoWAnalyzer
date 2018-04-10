@@ -11,7 +11,7 @@ export default [
   {
     date: new Date('2018-04-10'),
     changes: <Wrapper>Fixes <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> to properly calculate the boss health.</Wrapper>,
-    contributros: [Putro],
+    contributors: [Putro],
   },
   {
     date: new Date('2018-03-22'),
