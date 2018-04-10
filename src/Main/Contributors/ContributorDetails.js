@@ -210,6 +210,7 @@ class ContributorDetails extends React.PureComponent {
       contributions[elem.spec.id] = elem.changelog;
     });
 
+    console.log(contributions);
     Object.keys(contributions).forEach(key => {
       contributions[key] = contributions[key].filter(this.filterChangelog);
       if (contributions[key].length === 0) {
