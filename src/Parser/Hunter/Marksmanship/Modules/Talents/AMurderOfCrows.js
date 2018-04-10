@@ -61,8 +61,6 @@ class AMurderOfCrows extends Analyzer {
     if (!this.crowsNotYetChecked || !event.maxHitPoints || !this.bossIDs.includes(event.targetID)) {
       return;
     }
-    console.log(event.hitPoints);
-    console.log(event.hitPoints / event.maxHitPoints);
     if ((event.hitPoints / event.maxHitPoints) <= CROWS_SAVE_PERCENT && (event.hitPoints / event.maxHitPoints) > EXECUTE_PERCENT) {
       this.shouldHaveSaved += 1;
       this.bossHP = (event.hitPoints / event.maxHitPoints);
