@@ -13,6 +13,7 @@ import { getCombatants } from 'selectors/combatants';
 import ActivityIndicator from 'Main/ActivityIndicator';
 
 import makeAnalyzerUrl from '../makeAnalyzerUrl';
+import SpecIcon from 'common/SpecIcon';
 
 const UNKNOWN_ROLE = 'UNKNOWN_ROLE';
 
@@ -107,16 +108,10 @@ export class PlayerSelectionList extends React.PureComponent {
     } else {
       return (
         <Link to={makeAnalyzerUrl(report, fightId, friendly.id)} className={spec.className.replace(' ', '')} style={{ marginLeft: 47 }}>
-          {this.renderSpecIcon(spec)} {friendly.name} ({spec.specName})
+          <SpecIcon id={spec.id} /> {friendly.name} ({spec.specName})
         </Link>
       );
     }
-  }
-
-  renderSpecIcon(spec) {
-    return (
-      <img src={`/specs/${spec.className.replace(' ', '')}-${spec.specName.replace(' ', '')}.jpg`} alt="Spec logo" />
-    );
   }
 
   render() {

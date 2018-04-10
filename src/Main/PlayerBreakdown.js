@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SPECS from 'common/SPECS';
+import SpecIcon from 'common/SpecIcon';
 import { formatNumber } from 'common/format';
 
 class PlayerBreakdown extends React.Component {
@@ -51,12 +52,12 @@ class PlayerBreakdown extends React.Component {
           {friendlyStats && friendlyStats
             .sort((a, b) => b.masteryEffectiveness - a.masteryEffectiveness)
             .map((player) => {
-              const combatants = player.combatant;
-              if (!combatants) {
+              const combatant = player.combatant;
+              if (!combatant) {
                 console.error('Missing combatant:', player);
                 return null; // pet or something
               }
-              const spec = SPECS[combatants.specId];
+              const spec = SPECS[combatant.specId];
               const specClassName = spec.className.replace(' ', '');
               // We want the performance bar to show a full bar for whatever healing done percentage is highest to make
               // it easier to see relative amounts.
@@ -65,10 +66,10 @@ class PlayerBreakdown extends React.Component {
               const performanceBarMasteryEffectiveness = player.masteryEffectiveness / highestMasteryEffectiveness;
 
               return (
-                <tr key={player.combatant.name}>
+                <tr key={combatant.id}>
                   <td style={{ width: '20%' }}>
-                    <img src={`/specs/${specClassName}-${spec.specName.replace(' ', '')}.jpg`} alt="Spec logo" />{' '}
-                    {player.combatant.name}
+                    <SpecIcon id={spec.id} />{' '}
+                    {combatant.name}
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
                     {(Math.round(player.masteryEffectiveness * 10000) / 100).toFixed(2)}%
