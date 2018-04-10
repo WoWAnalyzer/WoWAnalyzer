@@ -26,7 +26,6 @@ class AspectOfTheWild extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     spellUsable: SpellUsable,
-
   };
 
   totalAspectCasts = 0;
@@ -65,7 +64,7 @@ class AspectOfTheWild extends Analyzer {
 
   get badCastThreshold() {
     return {
-      actual: this.badCrowsCasts,
+      actual: this.badAspectCasts,
       isGreaterThan: {
         minor: 0,
         average: 0.9,

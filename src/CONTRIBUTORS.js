@@ -107,11 +107,6 @@ export const Putro = {
   github: 'Pewtro',
   discord: 'Putro#6093',
   avatar: require('./Images/putro-avatar.png'),
-  maintainer: [
-    SPECS.MARKSMANSHIP_HUNTER,
-    SPECS.BEAST_MASTERY_HUNTER,
-    SPECS.SURVIVAL_HUNTER,
-  ],
   mains: [
     {
       name: "Putro",

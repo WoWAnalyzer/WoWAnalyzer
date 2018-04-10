@@ -13,6 +13,9 @@ import ItemHealingDone from 'Main/ItemHealingDone';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
+import StatisticBox from 'Main/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
+import ItemIcon from 'common/ItemIcon';
 
 const DAMAGE_INCREASE_PER_STACK = 0.01;
 const LEECH_PER_STACK = 0.02;
@@ -36,6 +39,8 @@ class ParselsTongue extends Analyzer {
   lastApplicationTimestamp = 0;
   timesRefreshed = 0;
   accumulatedTimeBetweenRefresh = 0;
+  _fourStackStart = 0;
+  _fourStackUptime = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasChest(ITEMS.PARSELS_TONGUE.id);
@@ -59,7 +64,7 @@ class ParselsTongue extends Analyzer {
     if (buffId !== SPELLS.PARSELS_TONGUE_BUFF.id) {
       return;
     }
-    this._currentStacks += 1;
+    this._currentStacks = 1;
     this.lastApplicationTimestamp = event.timestamp;
   }
 
@@ -72,13 +77,18 @@ class ParselsTongue extends Analyzer {
     this.timesRefreshed++;
     this.accumulatedTimeBetweenRefresh += event.timestamp - this.lastApplicationTimestamp;
     this.lastApplicationTimestamp = event.timestamp;
-
+    if (this._currentStacks === MAX_STACKS) {
+      this._fourStackStart = event.timestamp;
+    }
   }
 
   on_byPlayer_removebuff(event) {
     const buffId = event.ability.guid;
     if (buffId !== SPELLS.PARSELS_TONGUE_BUFF.id) {
       return;
+    }
+    if (this._currentStacks === MAX_STACKS) {
+      this._fourStackUptime += event.timestamp - this._fourStackStart;
     }
     this._currentStacks = 0;
     this.timesDropped += 1;
@@ -91,6 +101,7 @@ class ParselsTongue extends Analyzer {
     }
     this.bonusDmg += getDamageBonus(event, parselsModifier);
   }
+
   on_byPlayerPet_damage(event) {
     const parselsModifier = DAMAGE_INCREASE_PER_STACK * this._currentStacks;
     if (!this.combatants.selected.hasBuff(SPELLS.PARSELS_TONGUE_BUFF.id, event.timestamp)) {
@@ -107,20 +118,29 @@ class ParselsTongue extends Analyzer {
     const currentLeech = this.statTracker.currentLeechPercentage;
     if (currentLeech === 0) {
       this.bonusHealing += event.amount;
-    }
-    else {
+    } else {
       const leechFromParsel = LEECH_PER_STACK * this._currentStacks;
       const leechModifier = leechFromParsel / (currentLeech + leechFromParsel);
       this.bonusHealing += getDamageBonus(event, leechModifier);
     }
-
   }
+
+  on_finished() {
+    if (this._currentStacks === MAX_STACKS) {
+      this._fourStackUptime += this.owner.fight.end_time - this._fourStackStart;
+    }
+  }
+
   get buffUptime() {
     return this.combatants.selected.getBuffUptime(SPELLS.PARSELS_TONGUE_BUFF.id) / this.owner.fightDuration;
   }
 
   get averageTimeBetweenRefresh() {
     return (this.accumulatedTimeBetweenRefresh / this.timesRefreshed / 1000).toFixed(2);
+  }
+
+  get fourStackUptimeInPercentage() {
+    return this._fourStackUptime / this.owner.fightDuration;
   }
 
   get timesDroppedThreshold() {
@@ -160,11 +180,26 @@ class ParselsTongue extends Analyzer {
         .recommended(`>${formatPercentage(recommended)} is recommended`);
     });
   }
+
+  statistic() {
+    return (
+      <StatisticBox
+        icon={<ItemIcon id={ITEMS.PARSELS_TONGUE.id} />}
+        value={`${formatPercentage(this.fourStackUptimeInPercentage)}%`}
+        label="4 stack uptime"
+        tooltip={`Parsel's Tongue breakdown:
+          <ul>
+            <li> Overall uptime: ${formatPercentage(this.buffUptime)}%</li>
+            <li> Times dropped: ${this.timesDropped}</li>
+            <li> Average time between refreshes: ${this.averageTimeBetweenRefresh} seconds</li>
+          </ul> `} />
+    );
+  }
   item() {
     return {
       item: ITEMS.PARSELS_TONGUE,
       result: (
-        <dfn data-tip={`You had a ${formatPercentage(this.buffUptime)}% uptime on the Parsel's Tongue buff. </br> Average time between refreshing buff was ${this.averageTimeBetweenRefresh} seconds.`}>
+        <dfn>
           <ItemDamageDone amount={this.bonusDmg} /><br />
           <ItemHealingDone amount={this.bonusHealing} />
         </dfn>

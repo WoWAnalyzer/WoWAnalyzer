@@ -12,6 +12,8 @@ import Wrapper from 'common/Wrapper';
 
 const MAX_STACKS = 4;
 
+const debug = true;
+
 class WayOfTheMokNathal extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -27,10 +29,6 @@ class WayOfTheMokNathal extends Analyzer {
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.id);
-  }
-
-  get overallUptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.MOKNATHAL_TACTICS.id) / this.owner.fightDuration;
   }
 
   on_byPlayer_applybuff(event) {
@@ -85,15 +83,18 @@ class WayOfTheMokNathal extends Analyzer {
     if (this._currentStacks === MAX_STACKS) {
       this._fourStackUptime += this.owner.fight.end_time - this._fourStackStart;
     }
-    console.log("4 stack uptime: ", this.fourStackUptimeInPercentage, "%");
   }
 
   get fourStackUptimeInPercentage() {
-    return formatPercentage(this._fourStackUptime / this.owner.fightDuration);
+    return this._fourStackUptime / this.owner.fightDuration;
   }
 
   get averageTimeBetweenRefresh() {
     return (this.accumulatedTimeBetweenRefresh / this.timesRefreshed / 1000).toFixed(2);
+  }
+
+  get overallUptime() {
+    return this.combatants.selected.getBuffUptime(SPELLS.MOKNATHAL_TACTICS.id) / this.owner.fightDuration;
   }
 
   get timesDroppedThreshold() {
@@ -121,7 +122,7 @@ class WayOfTheMokNathal extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.id} />}
-        value={`${this.fourStackUptimeInPercentage}%`}
+        value={`${formatPercentage(this.fourStackUptimeInPercentage)}%`}
         label="4 stack uptime"
         tooltip={`Way of the Mok'Nathal breakdown:
           <ul>
