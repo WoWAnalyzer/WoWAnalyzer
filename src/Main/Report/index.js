@@ -164,6 +164,9 @@ class Report extends React.Component {
       });
       timeAvailable && console.timeEnd('full parse');
       this.props.setReportProgress(PROGRESS_COMPLETE);
+      this.setState({
+        dataVersion: this.state.dataVersion + 1, // Also update when finished to trigger a rerender
+      });
     } catch (err) {
       captureException(err);
       if (process.env.NODE_ENV === 'development') {
