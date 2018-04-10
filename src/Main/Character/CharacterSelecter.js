@@ -2,13 +2,11 @@ import React  from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import Select from 'react-select';
-import 'react-select/dist/react-select.css';
+import SelectSearch from 'react-select-search';
 
 import makeUrl from './makeUrl';
 
 import REALMS from './REALMS';
-
 
 class CharacterSelecter extends React.PureComponent {
 
@@ -23,20 +21,20 @@ class CharacterSelecter extends React.PureComponent {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       currentRegion: 'EU',
-      selectedRealm: '',
+      currentRealm: '',
     };
-  }
-
-  handleChange = (selectedRealm) => {
-    this.setState({ selectedRealm });
   }
 
   handleSubmit(e) {
     e.preventDefault();
 
     const region = this.regionInput.value;
-    const realm = this.state.selectedRealm.value;
+    const realm = this.state.currentRealm;
     const char = this.charInput.value;
+
+    if (!realm) {  //allows enter-key on realm-input
+      return;
+    }
 
     if (!region || !realm || !char) {
       // eslint-disable-next-line no-alert
@@ -48,47 +46,46 @@ class CharacterSelecter extends React.PureComponent {
   }
 
   render() {
-    const { selectedRealm } = this.state;
-    const value = selectedRealm && selectedRealm.value;
     const options = REALMS[this.state.currentRegion].realms.map(elem => {
       return {
         value: elem.name,
-        label: elem.name,
+        name: elem.name,
       };
     });
 
     return (
       <form onSubmit={this.handleSubmit} className="form-inline">
-        <div className="report-selector">
-          <select 
-            style={{ width: 113 }}
+        <div className="character-selector">
+          <select
             className="form-control"
+            style={{ left: 0, width: 100 }}
             ref={elem => this.regionInput = elem}
             value={this.state.currentRegion}
             onChange={e => this.setState({ currentRegion: e.target.value })}
           >
-            <option value="EU">EU</option>
-            <option value="US">US</option>
+            {Object.keys(REALMS).map(elem => 
+              <option value={elem}>{elem}</option>
+            )}
           </select>
-          <Select
-            style={{ width: 113, margin: '0 10px' }}
-            name="form-field-name"
-            value={value}
-            onChange={this.handleChange}
+          <SelectSearch 
             options={options}
+            className="realm-search"
+            onChange={(value, state, props) => { this.setState({ currentRealm: value.name });}}
+            placeholder='Realm'
           />
           <input
             type="text"
             name="code"
-            style={{ width: 113 }}
+            style={{ left: 300, width: 180 }}
             ref={elem => this.charInput = elem}
             className="form-control"
             autoCorrect="off"
             autoCapitalize="off"
             spellCheck="false"
+            placeholder="Character"
           />
-          <button type="submit" className="btn btn-primary analyze">
-            Analyze <span className="glyphicon glyphicon-chevron-right" aria-hidden />
+          <button type="submit" style={{ left: 490 }} className="btn btn-primary analyze">
+            Search <span className="glyphicon glyphicon-chevron-right" aria-hidden />
           </button>
         </div>
       </form>

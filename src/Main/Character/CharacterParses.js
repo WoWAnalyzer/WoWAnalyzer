@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import fetchWcl from 'common/fetchWcl';
 
@@ -17,13 +18,12 @@ import ZONES from 'common/ZONES';
 
 import ActivityIndicator from 'Main/ActivityIndicator';
 
-import { withRouter } from 'react-router-dom';
-
 /*
   ToDo: 
     fix the issue with Special-Chars (Ê and stuff)
     caching of bnet-api for images
     submit a proper playerID for the analyze-link
+    get a fix for renamed/transed chars (char-name does not match in this case, impossible to jump directly to the correct player)
 */
 
 class CharacterParses extends React.Component {
@@ -32,9 +32,6 @@ class CharacterParses extends React.Component {
     region: PropTypes.string.isRequired,
     realm: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    history: PropTypes.shape({
-      push: PropTypes.func.isRequired,
-    }),
   };
 
   constructor(props) {
@@ -52,6 +49,7 @@ class CharacterParses extends React.Component {
       image: '',
       parses: [],
       isLoading: true,
+      error: false,
     };
 
     this.updateDifficulty = this.updateDifficulty.bind(this);
@@ -121,9 +119,13 @@ class CharacterParses extends React.Component {
     }).sort((a, b) => { 
       if (this.state.sortBy === 0) {
         return b.start_time - a.start_time; 
+      } else if (this.state.sortBy === 1) {
+        return b.persecondamount - a.persecondamount;
       }
-      return b.persecondamount - a.persecondamount;
+      return b.historical_percent - a.historical_percent;
     });
+
+    console.info(filteredParses);
 
     if (Number(this.state.activeEncounter) === 0) {
       return filteredParses;
@@ -243,8 +245,9 @@ class CharacterParses extends React.Component {
       _: refresh ? +new Date() : undefined,
     }).then((rawParses) => {
       if (rawParses.status === 400) {
-        alert('This player does not exist! Please make sure that you\'ve logged fights on Warcraft Logs.');
-        this.props.history.push('/');
+        this.setState({
+          error: true,
+        });
         return;
       }
       if (this.state.class !== "") { //only update parses when class was already parsed (since its only a metric change)
@@ -287,14 +290,37 @@ class CharacterParses extends React.Component {
         <div className="flex-main">
           <div className="row">
             <div className="col-md-7">
+              {this.state.error && (
+                <span>
+                  <Link to="/">
+                    Home
+                  </Link> &gt;{' '}
+                  <span>
+                    {this.props.region} - {this.props.realm} - {this.props.name}
+                  </span>
+                  <br /><br />
+                </span>
+              )}
               <div className="panel" stlye={{ overflow: 'auto' }}>
                 <div className="flex-main">
-                  {this.state.isLoading && (
+                  {this.state.isLoading && !this.state.error && (
                     <div style={{ textAlign: 'center', fontSize: '2em', margin: '20px 0' }}>
-                      <ActivityIndicator text="Pulling character info..." />
+                      <ActivityIndicator text="Fetching logs..." />
                     </div>
                   )}
-                  {this.filterParses.length === 0 && !this.state.isLoading && (
+                  {this.state.error && (
+                    <div>
+                      <div class="panel-heading">
+                        <h2>We couldn't find your character on Warcraft Logs.</h2>
+                      </div>
+                      <div style={{ padding: 20 }}>
+                        Please check your input and make sure that you've selected the correct region and realm.<br/>
+                        If your input was correct, then make sure that someone in your raid logged the fight for you or check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get started with logging on your own.<br/><br/>
+                        When you know for sure that you have logs on Warcraft Logs and you still get this error, please message us on <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">Discord</a> or create an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">Github</a>.
+                      </div>
+                    </div>
+                  )}
+                  {this.filterParses.length === 0 && !this.state.isLoading && !this.state.error && (
                     <div style={{ padding: 20 }}>
                       We couldn't find any logs.<br/>
                       Please check your filters and make sure that you logged those fights on Warcraft Logs.<br/><br/>
@@ -351,7 +377,7 @@ class CharacterParses extends React.Component {
                   <div className="row filter">
                     <div className="col-md-12" style={{ marginBottom: 20, position: 'relative', height: 280 }}>
                       {this.state.image && (
-                        <div class="char-image">
+                        <div className="char-image">
                           <img 
                             src={`https://render-${this.props.region}.worldofwarcraft.com/character/${this.state.image}`}
                             alt={"Pic"} 
@@ -393,6 +419,7 @@ class CharacterParses extends React.Component {
                       <select className="form-control" onChange={e => this.setState({ sortBy: Number(e.target.value) })}>
                         <option defaultValue value={0}>Date</option>
                         <option value={1}>DPS / HPS</option>
+                        <option value={2}>Percentile</option>
                       </select>
                     </div>
                     
@@ -423,7 +450,6 @@ class CharacterParses extends React.Component {
                     <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh
                   </span>
                 </div>
-                
               </div>
             </div>
           </div>
@@ -433,4 +459,4 @@ class CharacterParses extends React.Component {
   }
 }
 
-export default withRouter(CharacterParses);
+export default CharacterParses;

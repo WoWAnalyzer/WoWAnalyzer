@@ -545,6 +545,9 @@ class App extends Component {
                   {!this.hasContent && (
                     <ReportSelecter />
                   )}
+                  <div className="description" style={{marginTop: 20 }}>
+                    Or browse your character's parses:
+                  </div>
                   {!this.hasContent && (
                     <CharacterSelecter />
                   )}

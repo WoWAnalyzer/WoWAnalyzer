@@ -1077,3 +1077,84 @@ code.inactive {
 .pseudolink:hover {
   color: #ad4b4b;
 }
+
+.character-selector {
+  position: relative;
+  height: 55px;
+}
+
+.character-selector>input, .character-selector>select, .character-selector>button, .character-selector>.realm-search {
+  display: inline-block;
+  position: absolute;
+}
+
+.character-selector .realm-search {
+  left: 110px;
+  width: 180px;
+}
+
+
+/** The option list should not be visible by default */
+.realm-search__select {
+  display: none;
+}
+
+/** If it's a multiple select, you can style it with this selector */
+.realm-search--multiple .realm-search__select {
+    display: block;
+}
+
+/** The list receives the modifier class "display" when the select has focus */
+.realm-search__select--display {
+    display: block;
+    width: 183px;
+    z-index: 999;
+    position: absolute;
+}
+
+.realm-search__search {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 12px;
+  height: auto;
+  background: rgba(0, 0, 0, 0.3);
+  font-size: 1em;
+  box-shadow: none;
+  color: #fdf7ea;
+  border-radius: 0;
+  outline: none;
+  width: 100%;
+}
+
+.realm-search__search:focus {
+  box-shadow: none;
+  border: 1px solid #d84141;
+}
+
+/** UL with the options */
+.realm-search__options {
+  max-height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  list-style: none;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: none;
+}
+
+/** The option (LI), look at the state classes below */
+.realm-search__option {
+  padding: 4px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+/** When the option has been selected */
+.realm-search__option--selected {
+  color: #d84141;
+}
+
+/** When the option is selected (when navigation with the arrow keys, up/down) */
+.realm-search__option--hover, .realm-search__option:hover {
+
+}
