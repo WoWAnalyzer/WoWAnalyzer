@@ -55,22 +55,22 @@ class TyrsDeliverance extends Analyzer {
         break;
     }
   }
-  on_beacon_heal(beaconTransferEvent, healEvent) {
-    const spellId = healEvent.ability.guid;
+  on_beacon_heal(event) {
+    const spellId = event.originalHeal.ability.guid;
     if (spellId !== SPELLS.FLASH_OF_LIGHT.id && spellId !== SPELLS.HOLY_LIGHT.id) {
       return;
     }
-    const combatant = this.combatants.players[healEvent.targetID];
+    const combatant = this.combatants.players[event.originalHeal.targetID];
     if (!combatant) {
       // If combatant doesn't exist it's probably a pet.
-      debug && console.log('Skipping beacon heal event since combatant couldn\'t be found:', beaconTransferEvent, 'for heal:', healEvent);
+      debug && console.log('Skipping beacon heal event since combatant couldn\'t be found:', event, 'for heal:', event.originalHeal);
       return;
     }
-    if (!combatant.hasBuff(SPELLS.TYRS_DELIVERANCE_HEAL.id, healEvent.timestamp)) {
+    if (!combatant.hasBuff(SPELLS.TYRS_DELIVERANCE_HEAL.id, event.originalHeal.timestamp)) {
       return;
     }
 
-    this.buffFoLHLHealing += calculateEffectiveHealing(beaconTransferEvent, this.tyrsHealingIncrease);
+    this.buffFoLHLHealing += calculateEffectiveHealing(event, this.tyrsHealingIncrease);
   }
 
   statistic() {
