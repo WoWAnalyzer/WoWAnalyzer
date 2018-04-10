@@ -9,6 +9,11 @@ import { Blazballs, JLassie82, Putro } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-04-10'),
+    changes: <Wrapper>Fixes <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> to properly calculate the boss health.</Wrapper>,
+    contributros: [Putro],
+  },
+  {
     date: new Date('2018-03-22'),
     changes: <Wrapper>Fixed <SpellLink id={SPELLS.SENTINEL_TALENT.id} /> module after Blizzard fixed the bugs with the spell. </Wrapper>,
     contributors: [Putro],
