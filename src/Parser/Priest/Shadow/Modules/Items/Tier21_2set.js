@@ -36,7 +36,7 @@ class Tier21_2set extends Analyzer {
     return {
       id: `spell-${SPELLS.SHADOW_PRIEST_T21_2SET_BONUS_PASSIVE.id}`,
       icon: <SpellIcon id={SPELLS.SHADOW_PRIEST_T21_2SET_BONUS_PASSIVE.id} />,
-      title: <SpellLink id={SPELLS.SHADOW_PRIEST_T21_2SET_BONUS_PASSIVE.id} />,
+      title: <SpellLink id={SPELLS.SHADOW_PRIEST_T21_2SET_BONUS_PASSIVE.id} icon={false} />,
       result: <ItemDamageDone amount={this.bonusDamage} />,
     };
   }

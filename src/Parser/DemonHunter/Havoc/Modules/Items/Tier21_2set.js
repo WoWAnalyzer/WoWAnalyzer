@@ -35,7 +35,7 @@ class Tier21_2set extends Analyzer {
 		return {
 			id: `spell-${SPELLS.HAVOC_T21_2PC_BONUS.id}`,
 			icon: <SpellIcon id={SPELLS.HAVOC_T21_2PC_BONUS.id} />,
-			title: <SpellLink id={SPELLS.HAVOC_T21_2PC_BONUS.id} />,
+			title: <SpellLink id={SPELLS.HAVOC_T21_2PC_BONUS.id} icon={false} />,
 			result: (
 				<dfn data-tip={`Total Damage: ${formatNumber(this.damageDone)}`}>
 					<ItemDamageDone amount={this.damageDone} />

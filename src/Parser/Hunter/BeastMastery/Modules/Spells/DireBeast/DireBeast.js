@@ -90,7 +90,7 @@ class DireBeast extends Analyzer {
   }
   suggestions(when) {
     when(this.badDireBeastThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Delay casting <SpellLink id={SPELLS.DIRE_BEAST.id} icon /> if there is less than 3 seconds cooldown remaining on <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon />. It is generally better to cast something else while the remaining cooldown ticks down, so as to optimise the cooldown reduction aspect of <SpellLink id={SPELLS.DIRE_BEAST.id} icon />.</Wrapper>)
+      return suggest(<Wrapper>Delay casting <SpellLink id={SPELLS.DIRE_BEAST.id} /> if there is less than 3 seconds cooldown remaining on <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. It is generally better to cast something else while the remaining cooldown ticks down, so as to optimise the cooldown reduction aspect of <SpellLink id={SPELLS.DIRE_BEAST.id} />.</Wrapper>)
         .icon(SPELLS.DIRE_BEAST_SUMMON.icon)
         .actual(`You cast Dire Beast ${this.badDBCasts} times when Bestial Wrath had less than 3 seconds CD remaining.`)
         .recommended(`${recommended} is recommended`);

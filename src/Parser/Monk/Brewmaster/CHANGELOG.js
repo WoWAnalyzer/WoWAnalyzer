@@ -9,8 +9,18 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-08'),
+    changes: 'Updated checklist for brew generation to clarify some common points of confusion.',
+    contributors: [emallson],
+  },
+  {
+    date: new Date('2018-04-02'),
+    changes: 'Added "Top the DPS Charts" checklist item.',
+    contributors: [emallson],
+  },
+  {
     date: new Date('2018-03-19'),
-    changes: <Wrapper>Converted <SpellLink id={SPELLS.BREATH_OF_FIRE.id} icon /> from uptime to hit tracking and updated hit tracking for <SpellLink id={SPELLS.IRONSKIN_BREW.id} icon />.</Wrapper>,
+    changes: <Wrapper>Converted <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> from uptime to hit tracking and updated hit tracking for <SpellLink id={SPELLS.IRONSKIN_BREW.id} />.</Wrapper>,
     contributors: [emallson],
   },
   {
@@ -20,7 +30,7 @@ export default [
   },
   {
     date: new Date('2018-01-27'),
-    changes: <Wrapper>Added statistic for <SpellLink id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} icon /> effectiveness</Wrapper>,
+    changes: <Wrapper>Added statistic for <SpellLink id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} /> effectiveness</Wrapper>,
     contributors: [emallson],
   },
   {
@@ -45,7 +55,7 @@ export default [
   },
   {
     date: new Date('2017-12-30'),
-    changes: <Wrapper>Added stats for <ItemLink id={ITEMS.STORMSTOUTS_LAST_GASP.id} icon /> and <ItemLink id={ITEMS.SALSALABIMS_LOST_TUNIC.id} icon />; updated the <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> suggestion and checklist item.</Wrapper>,
+    changes: <Wrapper>Added stats for <ItemLink id={ITEMS.STORMSTOUTS_LAST_GASP.id} /> and <ItemLink id={ITEMS.SALSALABIMS_LOST_TUNIC.id} />; updated the <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> suggestion and checklist item.</Wrapper>,
     contributors: [emallson],
   },
   {

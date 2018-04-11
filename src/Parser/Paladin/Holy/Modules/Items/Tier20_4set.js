@@ -31,22 +31,22 @@ class Tier20_4set extends Analyzer {
     this.active = this.combatants.selected.hasBuff(SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id);
   }
 
-  on_beacon_heal(beaconTransferEvent, healEvent) {
-    const baseBeaconTransferFactor = this.getBaseBeaconTransferFactor(healEvent);
-    const lightsEmbraceBeaconTransferFactor = this.getLightsEmbraceBeaconTransferFactor(healEvent);
+  on_beacon_heal(event) {
+    const baseBeaconTransferFactor = this.getBaseBeaconTransferFactor(event.originalHeal);
+    const lightsEmbraceBeaconTransferFactor = this.getLightsEmbraceBeaconTransferFactor(event.originalHeal);
     if (lightsEmbraceBeaconTransferFactor === 0) {
       return;
     }
     const totalBeaconTransferFactor = baseBeaconTransferFactor + lightsEmbraceBeaconTransferFactor;
     const lightsEmbraceBeaconTransferHealingIncrease = lightsEmbraceBeaconTransferFactor / totalBeaconTransferFactor;
 
-    const effectiveHealing = calculateEffectiveHealing(beaconTransferEvent, lightsEmbraceBeaconTransferHealingIncrease);
+    const effectiveHealing = calculateEffectiveHealing(event, lightsEmbraceBeaconTransferHealingIncrease);
 
     this.healing += effectiveHealing;
-    this.totalBeaconHealingDuringLightsEmbrace += beaconTransferEvent.amount + (beaconTransferEvent.absorbed || 0) + (beaconTransferEvent.overheal || 0);
+    this.totalBeaconHealingDuringLightsEmbrace += event.amount + (event.absorbed || 0) + (event.overheal || 0);
   }
 
-  getBaseBeaconTransferFactor(healEvent) {
+  getBaseBeaconTransferFactor(originalHeal) {
     let beaconFactor = BASE_BEACON_TRANSFER;
 
     if (this.beaconType === BEACON_TYPES.BEACON_OF_FATH) {
@@ -76,7 +76,7 @@ class Tier20_4set extends Analyzer {
     return {
       id: `spell-${SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.HOLY_PALADIN_T20_4SET_BONUS_BUFF.id} icon={false} />,
       result: (
         <dfn data-tip={`The actual effective healing contributed by the tier 20 4 set bonus. A total of ${formatNumber(this.totalBeaconHealingDuringLightsEmbrace)} <span style="color:orange">raw</span> healing was done on beacons during the Light's Embrace buff.`}>
           <ItemHealingDone amount={this.healing} />

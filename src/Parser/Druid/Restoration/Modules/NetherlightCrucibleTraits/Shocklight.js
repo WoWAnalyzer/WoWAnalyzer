@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import STAT from 'Parser/Core/Modules/Features/STAT';
 import CoreShocklight from 'Parser/Core/Modules/NetherlightCrucibleTraits/Shocklight';
@@ -27,9 +27,7 @@ class MurderousIntent extends CoreShocklight {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.SHOCKLIGHT_TRAIT.id}>
-            <SpellIcon id={SPELLS.SHOCKLIGHT_TRAIT.id} noLink /> Shocklight
-          </SpellLink>
+          <SpellLink id={SPELLS.SHOCKLIGHT_TRAIT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemHealingDone amount={healing} />

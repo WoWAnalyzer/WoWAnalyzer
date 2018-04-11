@@ -87,7 +87,7 @@ class Changelog extends React.PureComponent {
                     </div>
                     <div className="flex-sub" style={{ minWidth: 150, paddingLeft: 15, textAlign: 'right' }}>
                       <ReadableList>
-                        {contributors.map(contributor => <Contributor {...contributor} />)}
+                        {contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />)}
                       </ReadableList>
                     </div>
                   </li>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
@@ -58,16 +58,16 @@ class ShockTreatment extends Analyzer {
 
     this.healing += effectiveHealing;
   }
-  on_beacon_heal(beaconTransferEvent, healEvent) {
-    if (healEvent.ability.guid !== SPELLS.HOLY_SHOCK_HEAL.id || healEvent.hitType !== HIT_TYPES.CRIT) {
+  on_beacon_heal(event) {
+    if (event.originalHeal.ability.guid !== SPELLS.HOLY_SHOCK_HEAL.id || event.originalHeal.hitType !== HIT_TYPES.CRIT) {
       return;
     }
 
-    const amount = beaconTransferEvent.amount;
-    const absorbed = beaconTransferEvent.absorbed || 0;
-    const overheal = beaconTransferEvent.overheal || 0;
+    const amount = event.amount;
+    const absorbed = event.absorbed || 0;
+    const overheal = event.overheal || 0;
     const raw = amount + absorbed + overheal;
-    const rawNormalPart = raw / this.critEffectBonus.getBonus(healEvent);
+    const rawNormalPart = raw / this.critEffectBonus.getBonus(event.originalHeal);
     const rawDrapeHealing = rawNormalPart * SHOCK_TREATMENT_CRIT_EFFECT;
 
     const effectiveHealing = Math.max(0, rawDrapeHealing - overheal);
@@ -79,9 +79,7 @@ class ShockTreatment extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.SHOCK_TREATMENT.id}>
-            <SpellIcon id={SPELLS.SHOCK_TREATMENT.id} noLink /> Shock Treatment
-          </SpellLink>
+          <SpellLink id={SPELLS.SHOCK_TREATMENT.id} />
         </div>
         <div className="flex-sub text-right">
           {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %

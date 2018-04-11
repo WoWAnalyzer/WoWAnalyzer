@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
@@ -35,21 +35,19 @@ class DeliverTheLight extends Analyzer {
 
     this.healing += calculateEffectiveHealingStacked(event, DELIVER_THE_LIGHT_HEALING_INCREASE, this.rank);
   }
-  on_beacon_heal(beaconTransferEvent, healEvent) {
-    if (healEvent.ability.guid !== SPELLS.HOLY_LIGHT.id && healEvent.ability.guid !== SPELLS.FLASH_OF_LIGHT.id) {
+  on_beacon_heal(event) {
+    if (event.originalHeal.ability.guid !== SPELLS.HOLY_LIGHT.id && event.originalHeal.ability.guid !== SPELLS.FLASH_OF_LIGHT.id) {
       return;
     }
 
-    this.healing += calculateEffectiveHealingStacked(beaconTransferEvent, DELIVER_THE_LIGHT_HEALING_INCREASE, this.rank);
+    this.healing += calculateEffectiveHealingStacked(event, DELIVER_THE_LIGHT_HEALING_INCREASE, this.rank);
   }
 
   subStatistic() {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.DELIVER_THE_LIGHT.id}>
-            <SpellIcon id={SPELLS.DELIVER_THE_LIGHT.id} noLink /> Deliver the Light
-          </SpellLink>
+          <SpellLink id={SPELLS.DELIVER_THE_LIGHT.id} />
         </div>
         <div className="flex-sub text-right">
           {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %

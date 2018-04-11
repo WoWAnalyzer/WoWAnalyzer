@@ -1,14 +1,12 @@
 import React from 'react';
 
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-
-import SPELLS from 'common/SPELLS';
-import SpellIcon from "common/SpellIcon";
-import SpellLink from "common/SpellLink";
 import ItemDamageDone from 'Main/ItemDamageDone';
 
-/*
+/**
  * Your basic attacks have a chance to trigger two rapid additional blows.
  */
 class TalonStrike extends Analyzer {
@@ -32,9 +30,7 @@ class TalonStrike extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.TALON_STRIKE_TRAIT.id}>
-            <SpellIcon id={SPELLS.TALON_STRIKE_TRAIT.id} noLink /> Talon Strike
-          </SpellLink>
+          <SpellLink id={SPELLS.TALON_STRIKE_TRAIT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.damage} />
@@ -42,7 +38,6 @@ class TalonStrike extends Analyzer {
       </div>
     );
   }
-
 }
 
 export default TalonStrike;

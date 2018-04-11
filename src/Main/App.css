@@ -123,7 +123,7 @@ ul {
   z-index: 200;
   pointer-events: none;
 }
-.app.has-report > header {
+.app:not(.show-report-selecter) > header {
   margin-top: -410px;
   margin-bottom: 90px;
   opacity: 0;
@@ -297,7 +297,7 @@ nav {
   border: 0;
   margin-bottom: 24px;
 }
-.has-report nav {
+.show-report-selecter nav {
   /* Reduce opacity by 20% */
   background: rgba(12, 12, 12, 0.8);
   background: linear-gradient(to bottom, rgba(18, 18, 18, 0.8) 0%, rgba(8, 8, 8, 0.8) 100%);
@@ -438,7 +438,7 @@ svg {
 }
 img.icon {
   height: 1.2em;
-  margin-top: -0.2em;
+  margin-top: -0.15em;
 }
 h1 {
   position: relative;
@@ -946,9 +946,6 @@ code.inactive {
   display: inline-block;
   line-height: 1; /* this keeps the height of the contributor box acceptable */
 }
-.contributor[data-tip] {
-  cursor: help;
-}
 .contributor img {
   width: 1.4em;
   height: 1.4em;
@@ -970,7 +967,7 @@ code.inactive {
   transition: transform 400ms;
 }
 .expandable:not(.expanded) > .meta .chevron {
-  transform: rotate(-180deg);
+  transform: rotate(-90deg);
 }
 .expandable > .details {
   background: rgba(40, 40, 40, 0.4);
@@ -996,6 +993,7 @@ code.inactive {
   margin: 10px 0;
 }
 
+<<<<<<< HEAD
 .charparse .filter {
   margin: 0;
 }
@@ -1093,18 +1091,14 @@ code.inactive {
   width: 180px;
 }
 
-
-/** The option list should not be visible by default */
 .realm-search__select {
   display: none;
 }
 
-/** If it's a multiple select, you can style it with this selector */
 .realm-search--multiple .realm-search__select {
     display: block;
 }
 
-/** The list receives the modifier class "display" when the select has focus */
 .realm-search__select--display {
     display: block;
     width: 183px;
@@ -1130,7 +1124,6 @@ code.inactive {
   border: 1px solid #d84141;
 }
 
-/** UL with the options */
 .realm-search__options {
   max-height: 200px;
   overflow-y: auto;
@@ -1142,19 +1135,51 @@ code.inactive {
   border-top: none;
 }
 
-/** The option (LI), look at the state classes below */
 .realm-search__option {
   padding: 4px 8px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   cursor: pointer;
 }
 
-/** When the option has been selected */
 .realm-search__option--selected {
   color: #d84141;
 }
 
-/** When the option is selected (when navigation with the arrow keys, up/down) */
-.realm-search__option--hover, .realm-search__option:hover {
+.modal {
+  position: fixed;
+  top: 40px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .8);
+  z-index: 200;
+  padding-top: 20px;
+}
 
+.btn-close {
+  display: block;
+  margin: 20px auto;
+  width: 200px;
+}
+
+.contributor-detail {
+  height: calc(100% - 80px);
+}
+
+.no-scroll .contributor-detail .panel {
+  background-color: rgba(20, 20, 20, 1);
+}
+
+.contributor-detail>.container, .contributor-detail>.container>.flex-main, .contributor-detail>.container>.flex-main>.row, .contributor-detail>.container>.flex-main>.row>.col-md-7 {
+  height: 100%;
+}
+
+.panel.scrollable {
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+.no-scroll {
+  overflow: hidden;
 }

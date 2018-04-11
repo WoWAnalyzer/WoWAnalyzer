@@ -98,7 +98,7 @@ class Eradication extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-            Uptime
+          Uptime
         </div>
         <div className="flex-sub text-right">
           <dfn data-tip={`Your Eradication contributed ${this.owner.formatItemDamageDone(this.bonusDmg)} (${formatNumber(this.bonusDmg)} damage).`}>

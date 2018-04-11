@@ -3,17 +3,15 @@
  * Feel free to add yourself if you're not yet in the list.
  *
  * Using `require` for avatars so we don't have to keep a seperate list of imports disconnected from the maintainer definition.
- * 
-    EXAMPLE
+ *
+ EXAMPLE
 
-    export const NICKNAME = {
+ export const NICKNAME = {
       nickname: 'NICKNAME',
       github: 'GITHUB_NAME',
+      discord: 'DISCORD_NAME INCL #xxxx',
       avatar: require('./Images/IMAGE'),
       desc: 'DESC',
-      maintainer: [
-        SPECS.BLOOD_DEATH_KNIGHT,
-      ],
       mains: [{
         name: "CHARNAME",
         spec: SPECS.BLOOD_DEATH_KNIGHT,
@@ -27,8 +25,8 @@
       others: {
         "Custom Item": "normal text",
         "Custom Item": [
-          "Item 1", 
-          "Item 2", 
+          "Item 1",
+          "Item 2",
         ],
       },
       links: {
@@ -39,6 +37,13 @@
 
 import SPECS from 'common/SPECS';
 
+// For testing purposes because I am too lazy to work out a solution for testing that does not involve adding regular code
+export const Dummy = {
+  nickname: 'Dummy',
+  github: 'DummyHub',
+  twitter: '@Dummy',
+  avatar: require('./Images/zerotorescue-avatar.png'),
+};
 export const Zerotorescue = {
   nickname: 'Zerotorescue',
   github: 'MartijnHols',
@@ -107,7 +112,20 @@ export const Thieseract = {
 export const Putro = {
   nickname: 'Putro',
   github: 'Pewtro',
+  discord: 'Putro#6093',
   avatar: require('./Images/putro-avatar.png'),
+  maintainer: [
+    SPECS.MARKSMANSHIP_HUNTER,
+    SPECS.BEAST_MASTERY_HUNTER,
+    SPECS.SURVIVAL_HUNTER,
+  ],
+  mains: [
+    {
+      name: "Putro",
+      spec: SPECS.MARKSMANSHIP_HUNTER,
+      link: "https://worldofwarcraft.com/en-gb/character/ragnaros/putro",
+    },
+  ],
 };
 export const Blazballs = {
   nickname: 'Blazballs',
@@ -307,6 +325,7 @@ export const Cloake = {
 export const joshinator = {
   nickname: 'joshinator',
   github: 'joshinat0r',
+  discord: 'joshinator#7267',
   mains: [{
     name: "Êxtêndêd",
     spec: SPECS.BLOOD_DEATH_KNIGHT,
@@ -318,4 +337,16 @@ export const niseko = {
   github: 'niseko',
   avatar: require('./Images/niseko-avatar.jpg'),
 };
-
+export const Aelexe = {
+  nickname: 'Aelexe',
+  github: 'Aelexe',
+  avatar: require('./Images/Aelexe-avatar.jpg'),
+  maintainer: [
+    SPECS.ARMS_WARRIOR,
+  ],
+  mains: [{
+    name: 'Aelexe',
+    spec: SPECS.HOLY_PALADIN,
+    link: 'https://worldofwarcraft.com/en-us/character/frostmourne/aelexe',
+  }],
+};

@@ -114,7 +114,7 @@ class KhazgorothsCourage extends Analyzer {
           </dfn><br />
           <dfn data-tip={`The Pantheon buff procced <b>${this.pantheonProcs}</b> times.`}>
             {formatPercentage(uptimePercent)} % uptime
-          </dfn> on <SpellLink id={SPELLS.KHAZGOROTHS_SHAPING.id} icon />
+          </dfn> on <SpellLink id={SPELLS.KHAZGOROTHS_SHAPING.id} />
         </Wrapper>
       ),
     };

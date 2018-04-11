@@ -76,6 +76,7 @@ class Abilities extends CoreAbilities {
         cooldown: 90,
         castEfficiency: {
           suggestion: false,
+          recommendedEfficiency: 0.7,
         },
         enabled: combatant.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id),
       },

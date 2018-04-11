@@ -4,7 +4,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import {HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR} from '../../Constants';
@@ -57,9 +57,7 @@ class EternalRestoration extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.ETERNAL_RESTORATION.id}>
-            <SpellIcon id={SPELLS.ETERNAL_RESTORATION.id} noLink /> Eternal Restoration
-          </SpellLink>
+          <SpellLink id={SPELLS.ETERNAL_RESTORATION.id} />
         </div>
         <div className="flex-sub text-right">
           {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %

@@ -4,7 +4,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
@@ -51,7 +51,7 @@ class TrickShotCleave extends Analyzer {
         <div className="flex">
           <div className="flex-main">
             <SpellLink id={SPELLS.TRICK_SHOT_TALENT.id}>
-              <SpellIcon id={SPELLS.TRICK_SHOT_TALENT.id} noLink /> Trick Shot Cleave
+              Trick Shot Cleave
             </SpellLink>
           </div>
           <div className="flex-sub text-right">

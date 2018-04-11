@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import CoreMasterOfShadows from 'Parser/Core/Modules/NetherlightCrucibleTraits/MasterOfShadows';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
@@ -31,9 +31,7 @@ class MasterOfShadows extends CoreMasterOfShadows {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.MASTER_OF_SHADOWS_TRAIT.id}>
-            <SpellIcon id={SPELLS.MASTER_OF_SHADOWS_TRAIT.id} noLink /> Master of Shadows
-          </SpellLink>
+          <SpellLink id={SPELLS.MASTER_OF_SHADOWS_TRAIT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemHealingDone amount={healing} />

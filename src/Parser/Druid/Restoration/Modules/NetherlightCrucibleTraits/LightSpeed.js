@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import CoreLightSpeed from 'Parser/Core/Modules/NetherlightCrucibleTraits/LightSpeed';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
@@ -31,9 +31,7 @@ class LightSpeed extends CoreLightSpeed {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.LIGHT_SPEED_TRAIT.id}>
-            <SpellIcon id={SPELLS.LIGHT_SPEED_TRAIT.id} noLink /> Light Speed
-          </SpellLink>
+          <SpellLink id={SPELLS.LIGHT_SPEED_TRAIT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemHealingDone amount={healing} />

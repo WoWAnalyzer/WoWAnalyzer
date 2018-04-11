@@ -28,7 +28,7 @@ import ActivityIndicator from 'Main/ActivityIndicator';
     
     - get a fix for renamed/transed chars 
         (char-name does not match in this case, impossible to jump directly to the correct player of the log, redirect to player-overview instead)
-        Asked on discord for fix
+        Asked on discord for fix:
         `yeah probably should
         right now it puts the current character's name
         should get fixed as i optimize character ranks on beta anyway`
@@ -356,7 +356,7 @@ class CharacterParses extends React.Component {
                       </div>
                       <div className="col-md-5">
                         {elem.gear.filter((item, index) => { return index === 12 || index === 13 || item.quality === "legendary"; }).map(item =>
-                          <ItemLink id={item.id} className={item.quality}>
+                          <ItemLink id={item.id} className={item.quality} icon={false} >
                             <Icon 
                               icon={ITEMS[item.id] ? ITEMS[item.id].icon : ITEMS[0].icon} 
                               style={{ width: '1.8em', height: '1.8em', border: '1px solid', marginRight: 2 }}

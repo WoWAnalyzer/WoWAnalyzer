@@ -33,7 +33,7 @@ class MasteryEffectiveness extends Analyzer {
 
       if (isAbilityAffectedByMastery) {
         const healthBeforeHeal = event.hitPoints - event.amount;
-        const masteryEffectiveness = 1 - healthBeforeHeal / event.maxHitPoints;
+        const masteryEffectiveness = Math.max(0, 1 - healthBeforeHeal / event.maxHitPoints);
 
         // The base healing of the spell (excluding any healing added by mastery)
         const masteryPercent = this.statTracker.currentMasteryPercentage;

@@ -4,7 +4,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
 import ItemDamageDone from 'Main/ItemDamageDone';
 
@@ -32,9 +31,7 @@ class CallOfTheHunter extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.CALL_OF_THE_HUNTER_TRAIT.id}>
-            <SpellIcon id={SPELLS.CALL_OF_THE_HUNTER_TRAIT.id} noLink /> Call of the Hunter
-          </SpellLink>
+          <SpellLink id={SPELLS.CALL_OF_THE_HUNTER_TRAIT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.damage} />

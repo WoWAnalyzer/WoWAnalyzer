@@ -28,7 +28,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: (haste, selectedCombatant) => {
           if (selectedCombatant.hasBuff(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)) {
-            return null;
+            return hastedCooldown(1.5, haste);
           }
           return hastedCooldown(6, haste);
         },
@@ -49,7 +49,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: (haste, selectedCombatant) => {
           if (selectedCombatant.hasBuff(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)) {
-            return null;
+            return hastedCooldown(1.5, haste);
           }
           return hastedCooldown(6, haste);
         },
@@ -72,7 +72,9 @@ class Abilities extends CoreAbilities {
               return false;
             }
             // Check if moonfire is present on the current target
-            if (!this.enemies.getEntity(event).hasBuff(SPELLS.MOONFIRE_BEAR.id, event.timestamp)) {
+            // Note that if the current target has no enemy data we can't track whether the dot
+            // is ticking or not, in that case we consider it non-filler as a concession.
+            if (!this.enemies.getEntity(event) || !this.enemies.getEntity(event).hasBuff(SPELLS.MOONFIRE_BEAR.id, event.timestamp)) {
               return false;
             }
             // Check if moonfire was missing on a secondary target (if using LatC)

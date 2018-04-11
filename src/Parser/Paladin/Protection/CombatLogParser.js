@@ -8,13 +8,23 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import BuffedSOTR from './Modules/Features/BuffedSOTR';
 import BuffedHOTP from './Modules/Features/BuffedHOTP';
 import SpellUsable from './Modules/Features/SpellUsable';
+import Checklist from './Modules/Features/Checklist';
+
+//Spells
+import Judgment from './Modules/Spells/Judgment';
+import LightOfTheProtectorTiming from './Modules/Features/LightOfTheProtectorTiming';
+
 //Items
 //import T20_2pc from './Modules/Items/T20_2pc';
 //import T20_4pc from './Modules/Items/T20_4pc';
 import PillarsOfInmostLight from './Modules/Items/PillarsOfInmostLight';
 import TyelcaFerrenMarcussStature from './Modules/Items/TyelcaFerrenMarcussStature';
+import BreastplateOfTheGoldenValkyr from './Modules/Items/BreastplateOfTheGoldenValkyr';
+import HeadcliffsImmortality from './Modules/Items/HeadcliffsImmortality';
+
+//Talents
+import Seraphim from './Modules/Talents/Seraphim';
 import RighteousProtector from './Modules/Talents/RighteousProtector';
-import Judgment from './Modules/Spells/Judgment';
 
 //import CooldownTracker from './Modules/Features/CooldownTracker';
 
@@ -33,19 +43,22 @@ class CombatLogParser extends CoreCombatLogParser {
     buffedSOTR: BuffedSOTR,
     buffedHOTP: BuffedHOTP,
     spellUsable: SpellUsable,
+    checklist: Checklist,
+    lightOfTheProtectorTiming: LightOfTheProtectorTiming,
     //cooldownTracker: CooldownTracker,
 
     // Talents
     righteousProtector: RighteousProtector,
     judgment: Judgment,
-
-    // Traits
+    seraphim: Seraphim,
 
     // Items:
     //t20_2pc: T20_2pc,
     //t20_4pc: T20_4pc,
     pillarsOfInmostLight: PillarsOfInmostLight,
     tyelcaFerrenMarcussStature: TyelcaFerrenMarcussStature,
+    breastplateOfTheGoldenValkyr: BreastplateOfTheGoldenValkyr,
+    headcliffsImmortality: HeadcliffsImmortality,
   };
 }
 

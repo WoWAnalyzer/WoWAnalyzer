@@ -8,6 +8,7 @@ import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
@@ -34,6 +35,7 @@ import SheilunsGift from '../Spells/SheilunsGift';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
+    abilities: Abilities,
     castEfficiency: CastEfficiency,
     combatants: Combatants,
     alwaysBeCasting: AlwaysBeCasting,
@@ -59,14 +61,15 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Use core spell as often as possible',
-      description: <Wrapper>As a Mistweaver you only have a single rotational spell that should be cast on CD <SpellLink id={SPELLS.RENEWING_MIST.id} icon />. However, you should also make use of your artifact ability, <SpellLink id={SPELLS.SHEILUNS_GIFT.id} icon />. Use this ability at or under 6 stacks to ensure you are regularly using it and to mimimize overheal.</Wrapper>,
+      description: <Wrapper>As a Mistweaver you only have a single rotational spell that should be cast on CD <SpellLink id={SPELLS.RENEWING_MIST.id} />. However, you should also make use of your artifact ability, <SpellLink id={SPELLS.SHEILUNS_GIFT.id} />. Use this ability at or under 6 stacks to ensure you are regularly using it and to mimimize overheal.</Wrapper>,
       requirements: () => {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.RENEWING_MIST,
+            onlyWithSuggestion: false,
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.SHEILUNS_GIFT.id} icon /> stacks</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.SHEILUNS_GIFT.id} /> stacks</Wrapper>,
             check: () => this.sheilunsGift.suggestionThresholds,
           }),
         ];
@@ -80,6 +83,7 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.THUNDER_FOCUS_TEA,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.MANA_TEA_TALENT,
@@ -107,6 +111,7 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.REVIVAL,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ARCANE_TORRENT_MANA,
@@ -117,21 +122,21 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: <Wrapper>Position yourself well to maximize your most effective spells</Wrapper>,
-      description: <Wrapper>Effective use of <SpellLink id={SPELLS.ESSENCE_FONT.id} icon /> has a big impact on your healing. Ensure you stay in melee to maximize the number of targets that can be in range of both <SpellLink id={SPELLS.ESSENCE_FONT.id} icon /> and other spells such as <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} icon />.</Wrapper>,
+      description: <Wrapper>Effective use of <SpellLink id={SPELLS.ESSENCE_FONT.id} /> has a big impact on your healing. Ensure you stay in melee to maximize the number of targets that can be in range of both <SpellLink id={SPELLS.ESSENCE_FONT.id} /> and other spells such as <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} />.</Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.ESSENCE_FONT.id} icon /> targets hit</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.ESSENCE_FONT.id} /> targets hit</Wrapper>,
             check: () => this.essenceFont.suggestionThresholds,
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} icon /> % targets hit</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> % targets hit</Wrapper>,
             check: () => this.refreshingJadeWind.suggestionThresholds,
             when: combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id),
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.CHI_BURST_TALENT.id} icon /> targets hit</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> targets hit</Wrapper>,
             check: () => this.chiBurst.suggestionThresholds,
             when: combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
           }),
@@ -145,22 +150,22 @@ class Checklist extends CoreChecklist {
         const combatant = this.combatants.selected;
         return [
           new Requirement({
-            name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} icon />,
+            name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
             check: () => this.velensFutureSight.suggestionThresholds,
             when: this.velensFutureSight.active,
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} icon /> mana returned</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} /> mana returned</Wrapper>,
             check: () => this.spiritOfTheCrane.suggestionThresholds,
             when: combatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id),
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.MANA_TEA_TALENT.id} icon /> mana saved</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> mana saved</Wrapper>,
             check: () => this.manaTea.suggestionThresholds,
             when: combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id),
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.LIFECYCLES_TALENT.id} icon /> mana saved</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.LIFECYCLES_TALENT.id} /> mana saved</Wrapper>,
             check: () => this.lifecycles.suggestionThresholds,
             when: combatant.hasTalent(SPELLS.LIFECYCLES_TALENT.id),
           }),
@@ -169,19 +174,19 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use your procs and short CDs',
-      description: <Wrapper>Make sure to use your procs and spells at the correct time. Wasting <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} icon /> procs will lower you overall healing, along with using the incorrect spells with <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} icon />.</Wrapper>,
+      description: <Wrapper>Make sure to use your procs and spells at the correct time. Wasting <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs will lower you overall healing, along with using the incorrect spells with <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} />.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} icon /> procs wasted</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs wasted</Wrapper>,
             check: () => this.upliftingTrance.suggestionThresholds,
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} icon /> incorrect casts</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> incorrect casts</Wrapper>,
             check: () => this.thunderFocusTea.suggestionThresholds,
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.ESSENCE_FONT.id} icon /> HOTS Used</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.ESSENCE_FONT.id} /> HOTS Used</Wrapper>,
             check: () => this.essenceFontMastery.suggestionThresholds,
           }),
         ];
@@ -189,7 +194,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Try to avoid being inactive for a large portion of the fight',
-      description: <Wrapper>While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and when you're not healing try to contribute some damage. Also, there is no reason to channel <SpellLink id={SPELLS.SOOTHING_MIST.id} icon /> for extended periods of time.</Wrapper>,
+      description: <Wrapper>While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and when you're not healing try to contribute some damage. Also, there is no reason to channel <SpellLink id={SPELLS.SOOTHING_MIST.id} /> for extended periods of time.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
@@ -201,7 +206,7 @@ class Checklist extends CoreChecklist {
             check: () => this.alwaysBeCasting.downtimeSuggestionThresholds,
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.SOOTHING_MIST.id} icon /> usage</Wrapper>,
+            name: <Wrapper><SpellLink id={SPELLS.SOOTHING_MIST.id} /> usage</Wrapper>,
             check: () => this.soothingMist.suggestionThresholds,
           }),
         ];
@@ -209,12 +214,13 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use your defensive cooldowns effectively',
-      description: <Wrapper>Make sure you use your personal and defensive cooldowns at appropriate times throughout the fight. While it may not make sense to use these abilities on cooldown, saving them for large damage events is ideal. A good example is using <SpellLink id={SPELLS.DIFFUSE_MAGIC_TALENT.id} icon /> on Charged Blasts during the Imonar the Soulhunter encounter.</Wrapper>,
+      description: <Wrapper>Make sure you use your personal and defensive cooldowns at appropriate times throughout the fight. While it may not make sense to use these abilities on cooldown, saving them for large damage events is ideal. A good example is using <SpellLink id={SPELLS.DIFFUSE_MAGIC_TALENT.id} /> on Charged Blasts during the Imonar the Soulhunter encounter.</Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.LIFE_COCOON,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.DIFFUSE_MAGIC_TALENT,

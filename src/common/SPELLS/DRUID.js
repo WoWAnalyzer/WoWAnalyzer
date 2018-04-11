@@ -619,6 +619,11 @@ export default {
     name: 'Sunfire',
     icon: 'ability_mage_firestarter',
   },
+  STELLAR_EMPOWERMENT: {
+    id: 197637,
+    name: 'Stellar Empowerment',
+    icon: 'ability_druid_starfall',
+  },
   // MOONFIRE = MOONFIRE_BEAR
   // MOONFIRE_CAST = MOONFIRE
   STARFALL: {
@@ -630,6 +635,11 @@ export default {
     id: 191034,
     name: 'Starfall',
     icon: 'ability_druid_starfall',
+  },
+  STELLAR_DRIFT: {
+    id: 202461,
+    name: 'Stellar Drift',
+    icon: 'spell_nature_starfall',
   },
   FULL_MOON: {
     id: 202771,

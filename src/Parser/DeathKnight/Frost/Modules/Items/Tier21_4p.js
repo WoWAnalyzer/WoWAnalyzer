@@ -35,7 +35,7 @@ class Tier21_4p extends Analyzer {
     return {
       id: `spell-${SPELLS.FROST_DEATH_KNIGHT_T21_4SET_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.FREEZING_DEATH.id} />,
-      title: <SpellLink id={SPELLS.FROST_DEATH_KNIGHT_T21_4SET_BONUS.id} />,
+      title: <SpellLink id={SPELLS.FROST_DEATH_KNIGHT_T21_4SET_BONUS.id} icon={false} />,
       result: <ItemDamageDone amount={this.damage} />,
     };
   }

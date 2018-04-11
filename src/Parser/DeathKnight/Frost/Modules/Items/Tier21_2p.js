@@ -50,7 +50,7 @@ class Tier21_2p extends Analyzer {
     return {
       id: `spell-${SPELLS.FROST_DEATH_KNIGHT_T21_2SET_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.FROST_DEATH_KNIGHT_T21_2SET_BONUS.id} />,
-      title: <SpellLink id={SPELLS.FROST_DEATH_KNIGHT_T21_2SET_BONUS.id} />,
+      title: <SpellLink id={SPELLS.FROST_DEATH_KNIGHT_T21_2SET_BONUS.id} icon={false} />,
       result: <dfn data-tip={`<ul>
         <li> Obliterate bonus damage: ${formatNumber(this.obliterateDamage)} </li>
         <li> Howling Blast bonus damage: ${formatNumber(this.howlingblastDamage)} </li>

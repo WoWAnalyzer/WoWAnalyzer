@@ -40,7 +40,7 @@ class Tier20_4p extends Analyzer {
     return {
       id: `spell-${SPELLS.HUNTER_MM_T20_4P_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.HUNTER_MM_T20_4P_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.HUNTER_MM_T20_4P_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.HUNTER_MM_T20_4P_BONUS_BUFF.id} icon={false} />,
       result: (
         <dfn data-tip={`Your utilization of tier 20 4 piece: <ul><li> Buffed Aimed Shots: ${this.buffedCastAndFocusAimed}.</li><li> Total Aimed Shot casts:  ${this.totalAimed}.</li><li> Overall uptime: ${formatPercentage(this.percentUptime)}% </li></ul>`}>
           Buffed Aimed Shot casts: {formatPercentage(this.buffedCastAndFocusAimed / this.totalAimed)}%

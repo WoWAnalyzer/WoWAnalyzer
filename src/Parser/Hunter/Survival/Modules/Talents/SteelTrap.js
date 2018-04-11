@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import SpellIcon from 'common/SpellIcon';
+
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
@@ -46,9 +46,7 @@ class SteelTrap extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.STEEL_TRAP_TALENT.id}>
-            <SpellIcon id={SPELLS.STEEL_TRAP_TALENT.id} noLink /> Steel Trap
-          </SpellLink>
+          <SpellLink id={SPELLS.STEEL_TRAP_TALENT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.bonusDamage} />

@@ -27,7 +27,7 @@ class Tier21_4set extends Analyzer {
     return {
       id: `spell-${SPELLS.ELEMENTAL_SHAMAN_T21_4SET_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.ELEMENTAL_SHAMAN_T21_4SET_BUFF.id} />,
-      title: <SpellLink id={SPELLS.ELEMENTAL_SHAMAN_T21_4SET_BUFF.id} />,
+      title: <SpellLink id={SPELLS.ELEMENTAL_SHAMAN_T21_4SET_BUFF.id} icon={false} />,
       result: <ItemDamageDone amount={this.extraDmg} />,
     };
   }

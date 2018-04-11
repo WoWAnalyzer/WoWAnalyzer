@@ -43,7 +43,7 @@ class DamageTakenTable extends React.Component {
             </div>
           </td>
           <td>
-            <SpellLink id={ability.guid}>
+            <SpellLink id={ability.guid} icon={false}>
               <Icon icon={ability.abilityIcon} alt={ability.name} /> {ability.name}
             </SpellLink>
           </td>

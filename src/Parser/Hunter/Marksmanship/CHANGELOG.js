@@ -9,18 +9,23 @@ import { Blazballs, JLassie82, Putro } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-04-10'),
+    changes: <Wrapper>Fixes <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> to properly calculate the boss health.</Wrapper>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-03-22'),
-    changes: <Wrapper>Fixed <SpellLink id={SPELLS.SENTINEL_TALENT.id} icon /> module after Blizzard fixed the bugs with the spell. </Wrapper>,
+    changes: <Wrapper>Fixed <SpellLink id={SPELLS.SENTINEL_TALENT.id} /> module after Blizzard fixed the bugs with the spell. </Wrapper>,
     contributors: [Putro],
   },
   {
     date: new Date('2018-03-01'),
-    changes: <Wrapper>Added a <SpellLink id={SPELLS.MARKING_TARGETS.id} icon /> and <SpellLink id={SPELLS.HUNTERS_MARK.id} icon /> module. Also updated handling for <ItemLink id={ITEMS.ZEVRIMS_HUNGER.id} icon />.</Wrapper>,
+    changes: <Wrapper>Added a <SpellLink id={SPELLS.MARKING_TARGETS.id} /> and <SpellLink id={SPELLS.HUNTERS_MARK.id} /> module. Also updated handling for <ItemLink id={ITEMS.ZEVRIMS_HUNGER.id} />.</Wrapper>,
     contributors: [Putro],
   },
   {
     date: new Date('2018-02-27'),
-    changes: <Wrapper>Updated the <SpellLink id={SPELLS.LOCK_AND_LOAD_TALENT.id} icon /> module to include some probability calculations on your chance of getting that amount or lower procs.</Wrapper>,
+    changes: <Wrapper>Updated the <SpellLink id={SPELLS.LOCK_AND_LOAD_TALENT.id} /> module to include some probability calculations on your chance of getting that amount or lower procs.</Wrapper>,
     contributors: [Putro],
   },
   {
@@ -30,7 +35,7 @@ export default [
   },
   {
     date: new Date('2018-02-05'),
-    changes: <Wrapper>Added additional information to the <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} icon /> module, to show cooldown reduction on the various affected spells. </Wrapper>,
+    changes: <Wrapper>Added additional information to the <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} /> module, to show cooldown reduction on the various affected spells. </Wrapper>,
     contributors: [Putro],
   },
   {
@@ -40,7 +45,7 @@ export default [
   },
   {
     date: new Date('2018-01-05'),
-    changes: <Wrapper>Added support for <SpellLink id={SPELLS.SENTINEL_TALENT.id} icon />, and included the current bugged ticks of <SpellLink id={SPELLS.SENTINEL_TALENT.id} icon />.</Wrapper>,
+    changes: <Wrapper>Added support for <SpellLink id={SPELLS.SENTINEL_TALENT.id} />, and included the current bugged ticks of <SpellLink id={SPELLS.SENTINEL_TALENT.id} />.</Wrapper>,
     contributors: [Putro],
   },
   {
@@ -55,7 +60,7 @@ export default [
   },
   {
     date: new Date('2017-12-26'),
-    changes: <Wrapper>Added support for <ItemLink id={ITEMS.CELERITY_OF_THE_WINDRUNNERS.id} icon />, <ItemLink id={ITEMS.MAGNETIZED_BLASTING_CAP_LAUNCHER.id} icon />, <ItemLink id={ITEMS.ZEVRIMS_HUNGER.id} icon />, <ItemLink id={ITEMS.ROOTS_OF_SHALADRASSIL.id} icon />, <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} icon />, <ItemLink id={ITEMS.THE_APEX_PREDATORS_CLAW.id} icon /> and <ItemLink id={ITEMS.THE_SHADOW_HUNTERS_VOODOO_MASK.id} icon />.</Wrapper>,
+    changes: <Wrapper>Added support for <ItemLink id={ITEMS.CELERITY_OF_THE_WINDRUNNERS.id} />, <ItemLink id={ITEMS.MAGNETIZED_BLASTING_CAP_LAUNCHER.id} />, <ItemLink id={ITEMS.ZEVRIMS_HUNGER.id} />, <ItemLink id={ITEMS.ROOTS_OF_SHALADRASSIL.id} />, <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} />, <ItemLink id={ITEMS.THE_APEX_PREDATORS_CLAW.id} /> and <ItemLink id={ITEMS.THE_SHADOW_HUNTERS_VOODOO_MASK.id} />.</Wrapper>,
     contributors: [Putro],
   },
   {
@@ -85,7 +90,7 @@ export default [
   },
   {
     date: new Date('2017-11-29'),
-    changes: <Wrapper>Updated <SpellLink id={SPELLS.TRICK_SHOT_TALENT.id} icon /> to properly account for both single-target and cleave damage, added support for tier 21, and fixed a bug in the <SpellLink id={SPELLS.TRUESHOT.id} icon /> module where it counted too many <SpellLink id={SPELLS.AIMED_SHOT.id} icon /> than it should.</Wrapper>,
+    changes: <Wrapper>Updated <SpellLink id={SPELLS.TRICK_SHOT_TALENT.id} /> to properly account for both single-target and cleave damage, added support for tier 21, and fixed a bug in the <SpellLink id={SPELLS.TRUESHOT.id} /> module where it counted too many <SpellLink id={SPELLS.AIMED_SHOT.id} /> than it should.</Wrapper>,
     contributors: [Putro],
   },
   {
@@ -105,7 +110,7 @@ export default [
   },
   {
     date: new Date('2017-11-12'),
-    changes: <Wrapper>Added a suggestion for execute trueshots and a <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} icon /> suggestion when boss has between 25 and 20% hp, so the player can better utilise <SpellLink id={SPELLS.BULLSEYE_BUFF.id} icon />.</Wrapper>,
+    changes: <Wrapper>Added a suggestion for execute trueshots and a <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> suggestion when boss has between 25 and 20% hp, so the player can better utilise <SpellLink id={SPELLS.BULLSEYE_BUFF.id} />.</Wrapper>,
     contributors: [Putro],
   },
   {
@@ -120,67 +125,67 @@ export default [
   },
   {
     date: new Date('2017-11-03'),
-    changes: <Wrapper>Minor update to the <SpellLink id={SPELLS.LOCK_AND_LOAD_TALENT.id} icon /> module and its calculation of expected procs.</Wrapper>,
+    changes: <Wrapper>Minor update to the <SpellLink id={SPELLS.LOCK_AND_LOAD_TALENT.id} /> module and its calculation of expected procs.</Wrapper>,
     contributors: [Putro],
   },
   {
     date: new Date('2017-10-25'),
-    changes: <Wrapper> Added 5 new talent modules (<SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id} icon />, <SpellLink id={SPELLS.PIERCING_SHOT_TALENT.id} icon />, <SpellLink id={SPELLS.VOLLEY_ACTIVATED.id} icon />, <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} icon />, <SpellLink id={SPELLS.TRICK_SHOT_TALENT.id} icon />), fixed <SpellLink id={SPELLS.TRUESHOT.id} icon /> CD, added Focus Dump Checker.</Wrapper>,
+    changes: <Wrapper> Added 5 new talent modules (<SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id} />, <SpellLink id={SPELLS.PIERCING_SHOT_TALENT.id} />, <SpellLink id={SPELLS.VOLLEY_ACTIVATED.id} />, <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} />, <SpellLink id={SPELLS.TRICK_SHOT_TALENT.id} />), fixed <SpellLink id={SPELLS.TRUESHOT.id} /> CD, added Focus Dump Checker.</Wrapper>,
     contributors: [Putro],
   },
   {
     date: new Date('2017-10-25'),
-    changes: <Wrapper>Updated <SpellLink id={SPELLS.TRUE_AIM_TALENT.id} icon /> to include damage contributed information.</Wrapper>,
+    changes: <Wrapper>Updated <SpellLink id={SPELLS.TRUE_AIM_TALENT.id} /> to include damage contributed information.</Wrapper>,
     contributors: [Putro],
   },
   {
     date: new Date('2017-10-25'),
-    changes: <Wrapper> Adjust <SpellLink id={SPELLS.HUNTER_MM_T20_2P_BONUS.id} icon /> to account for nerfs.</Wrapper>,
+    changes: <Wrapper> Adjust <SpellLink id={SPELLS.HUNTER_MM_T20_2P_BONUS.id} /> to account for nerfs.</Wrapper>,
     contributors: [Putro],
   },
   {
     date: new Date('2017-10-22'),
-    changes: <Wrapper>Updated suggestions overall, added avatar, removed <SpellLink id={SPELLS.CYCLONIC_BURST_IMPACT_TRAIT.id} icon /> from cooldown tracker, added suggestion to TimeFocusCapped, updated AlwaysBeCasting and CastEfficiency.</Wrapper>,
+    changes: <Wrapper>Updated suggestions overall, added avatar, removed <SpellLink id={SPELLS.CYCLONIC_BURST_IMPACT_TRAIT.id} /> from cooldown tracker, added suggestion to TimeFocusCapped, updated AlwaysBeCasting and CastEfficiency.</Wrapper>,
     contributors: [Putro],
   },
   {
     date: new Date('2017-10-22'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.TRUESHOT.id} icon /> statistic with average <SpellLink id={SPELLS.AIMED_SHOT.id} icon /> per <SpellLink id={SPELLS.TRUESHOT.id} icon />, and average starting focus per <SpellLink id={SPELLS.TRUESHOT.id} icon />.</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.TRUESHOT.id} /> statistic with average <SpellLink id={SPELLS.AIMED_SHOT.id} /> per <SpellLink id={SPELLS.TRUESHOT.id} />, and average starting focus per <SpellLink id={SPELLS.TRUESHOT.id} />.</Wrapper>,
     contributors: [Putro],
   },
   {
     date: new Date('2017-10-22'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.HUNTER_MM_T20_2P_BONUS.id} icon /> dmg increase breakdown.</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.HUNTER_MM_T20_2P_BONUS.id} /> dmg increase breakdown.</Wrapper>,
     contributors: [Putro],
   },
   {
     date: new Date('2017-10-22'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.SOUL_OF_THE_HUNTMASTER.id} icon />, <ItemLink id={ITEMS.MKII_GYROSCOPIC_STABILIZER.id} icon /> and <ItemLink id={ITEMS.WAR_BELT_OF_THE_SENTINEL_ARMY.id} icon />support.</Wrapper>,
+    changes: <Wrapper>Added <ItemLink id={ITEMS.SOUL_OF_THE_HUNTMASTER.id} />, <ItemLink id={ITEMS.MKII_GYROSCOPIC_STABILIZER.id} /> and <ItemLink id={ITEMS.WAR_BELT_OF_THE_SENTINEL_ARMY.id} />support.</Wrapper>,
     contributors: [Putro],
   },
   {
     date: new Date('2017-10-20'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.TARNISHED_SENTINEL_MEDALLION.id} icon /> and <SpellLink id={SPELLS.TRUESHOT.id} icon /> pairing tooltip.</Wrapper>,
+    changes: <Wrapper>Added <ItemLink id={ITEMS.TARNISHED_SENTINEL_MEDALLION.id} /> and <SpellLink id={SPELLS.TRUESHOT.id} /> pairing tooltip.</Wrapper>,
     contributors: [Blazballs],
   },
   {
     date: new Date('2017-10-20'),
-    changes: <Wrapper> Added <SpellLink id={SPELLS.TRUE_AIM_TALENT.id} icon /> and <SpellLink id={SPELLS.LOCK_AND_LOAD_TALENT.id} icon /> support.</Wrapper>,
+    changes: <Wrapper> Added <SpellLink id={SPELLS.TRUE_AIM_TALENT.id} /> and <SpellLink id={SPELLS.LOCK_AND_LOAD_TALENT.id} /> support.</Wrapper>,
     contributors: [Putro],
   },
   {
     date: new Date('2017-10-16'),
-    changes: <Wrapper> Added <ItemLink id={ITEMS.ULLRS_FEATHER_SNOWSHOES.id} icon /> to account for the <SpellLink id={SPELLS.TRUESHOT.id} icon />CDR it provides.</Wrapper>,
+    changes: <Wrapper> Added <ItemLink id={ITEMS.ULLRS_FEATHER_SNOWSHOES.id} /> to account for the <SpellLink id={SPELLS.TRUESHOT.id} />CDR it provides.</Wrapper>,
     contributors: [Putro],
   },
   {
     date: new Date('2017-10-16'),
-    changes: <Wrapper> Added <SpellLink id={SPELLS.HUNTER_MM_T19_2P_BONUS.id} icon /> support.</Wrapper>,
+    changes: <Wrapper> Added <SpellLink id={SPELLS.HUNTER_MM_T19_2P_BONUS.id} /> support.</Wrapper>,
     contributors: [Putro],
   },
   {
     date: new Date('2017-10-14'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} icon /> tracking.</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} /> tracking.</Wrapper>,
     contributors: [Putro],
   },
   {
@@ -195,27 +200,27 @@ export default [
   },
   {
     date: new Date('2017-10-05'),
-    changes: <Wrapper> remove <SpellLink id={SPELLS.CYCLONIC_BURST_TRAIT.id} icon /> from Cooldown view.</Wrapper>,
+    changes: <Wrapper> remove <SpellLink id={SPELLS.CYCLONIC_BURST_TRAIT.id} /> from Cooldown view.</Wrapper>,
     contributors: [Putro],
   },
   {
     date: new Date('2017-10-05'),
-    changes: <Wrapper> Added <SpellLink id={SPELLS.QUICK_SHOT_TRAIT.id} icon /> reduction for <SpellLink id={SPELLS.TRUESHOT.id} icon />.</Wrapper>,
+    changes: <Wrapper> Added <SpellLink id={SPELLS.QUICK_SHOT_TRAIT.id} /> reduction for <SpellLink id={SPELLS.TRUESHOT.id} />.</Wrapper>,
     contributors: [Putro],
   },
   {
     date: new Date('2017-10-04'),
-    changes: <Wrapper> Added <SpellLink id={SPELLS.AIMED_SHOT.id} icon /> and <SpellLink id={SPELLS.VULNERABLE.id} icon /> tracker.</Wrapper>,
+    changes: <Wrapper> Added <SpellLink id={SPELLS.AIMED_SHOT.id} /> and <SpellLink id={SPELLS.VULNERABLE.id} /> tracker.</Wrapper>,
     contributors: [Putro],
   },
   {
     date: new Date('2017-10-03'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.HUNTER_MM_T20_2P_BONUS.id} icon /> and <SpellLink id={SPELLS.HUNTER_MM_T20_4P_BONUS.id} icon /> support.</Wrapper>,
+    changes: <Wrapper>Added <SpellLink id={SPELLS.HUNTER_MM_T20_2P_BONUS.id} /> and <SpellLink id={SPELLS.HUNTER_MM_T20_4P_BONUS.id} /> support.</Wrapper>,
     contributors: [Putro],
   },
   {
     date: new Date('02-10-2017'),
-    changes: <Wrapper> Added <SpellLink id={SPELLS.BULLSEYE_BUFF.id} icon /> buff to hunter_spells for future usage.</Wrapper>,
+    changes: <Wrapper> Added <SpellLink id={SPELLS.BULLSEYE_BUFF.id} /> buff to hunter_spells for future usage.</Wrapper>,
     contributors: [Putro],
   },
   {
@@ -225,7 +230,7 @@ export default [
   },
   {
     date: new Date('2017-10-02'),
-    changes: <Wrapper>Added suggestions to <SpellLink id={SPELLS.WINDBURST.id} icon /> and <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} icon /> under CastEfficiency.</Wrapper>,
+    changes: <Wrapper>Added suggestions to <SpellLink id={SPELLS.WINDBURST.id} /> and <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> under CastEfficiency.</Wrapper>,
     contributors: [Putro],
   },
   {
@@ -240,7 +245,7 @@ export default [
   },
   {
     date: new Date('2017-09-26'),
-    changes: <Wrapper>Fixed Cooldown to not include <SpellLink id={SPELLS.WINDBURST_MOVEMENT_SPEED.id} icon /> buff.</Wrapper>,
+    changes: <Wrapper>Fixed Cooldown to not include <SpellLink id={SPELLS.WINDBURST_MOVEMENT_SPEED.id} /> buff.</Wrapper>,
     contributors: [Putro],
   },
   {

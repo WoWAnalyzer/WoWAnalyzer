@@ -36,7 +36,7 @@ class T21_4set extends Analyzer {
     return {
       id: `spell-${SPELLS.WARRIOR_FURY_T21_4P_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.WARRIOR_FURY_T21_4P_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.WARRIOR_FURY_T21_4P_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.WARRIOR_FURY_T21_4P_BONUS_BUFF.id} icon={false} />,
       result: <ItemDamageDone amount={this.damage} />,
     };
   }

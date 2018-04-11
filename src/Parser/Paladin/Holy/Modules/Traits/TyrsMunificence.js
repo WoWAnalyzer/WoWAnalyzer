@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
@@ -60,34 +60,33 @@ class TyrsMunificence extends Analyzer {
         this.healing += Math.max(0, rawContribution - heal.overheal);
         break;
       }
-      default: break;
+      default:
+        break;
     }
   }
-  on_beacon_heal(beaconTransferEvent, healEvent) {
-    const spellId = healEvent.ability.guid;
+  on_beacon_heal(event) {
+    const spellId = event.originalHeal.ability.guid;
     if (spellId !== SPELLS.FLASH_OF_LIGHT.id && spellId !== SPELLS.HOLY_LIGHT.id) {
       return;
     }
-    const combatant = this.combatants.players[healEvent.targetID];
+    const combatant = this.combatants.players[event.originalHeal.targetID];
     if (!combatant) {
       // If combatant doesn't exist it's probably a pet.
-      debug && console.log('Skipping beacon heal event since combatant couldn\'t be found:', beaconTransferEvent, 'for heal:', healEvent);
+      debug && console.log('Skipping beacon heal event since combatant couldn\'t be found:', event, 'for heal:', event.originalHeal);
       return;
     }
-    if (!combatant.hasBuff(SPELLS.TYRS_DELIVERANCE_HEAL.id, healEvent.timestamp)) {
+    if (!combatant.hasBuff(SPELLS.TYRS_DELIVERANCE_HEAL.id, event.originalHeal.timestamp)) {
       return;
     }
 
-    this.buffFoLHLHealing += calculateEffectiveHealing(beaconTransferEvent, this.tyrsHealingIncrease);
+    this.buffFoLHLHealing += calculateEffectiveHealing(event, this.tyrsHealingIncrease);
   }
 
   subStatistic() {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.TYRS_MUNIFICENCE.id}>
-            <SpellIcon id={SPELLS.TYRS_MUNIFICENCE.id} noLink /> Tyr's Munificence
-          </SpellLink>
+          <SpellLink id={SPELLS.TYRS_MUNIFICENCE.id} />
         </div>
         <div className="flex-sub text-right">
           {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %

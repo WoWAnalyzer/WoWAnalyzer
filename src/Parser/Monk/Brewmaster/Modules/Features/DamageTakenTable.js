@@ -97,7 +97,7 @@ class DamageTakenTable extends Analyzer {
             spec={SPECS[this.combatants.selected.specId]} 
             total={this.dmg.total.effective} />
           <div style={{padding: "10px"}}>
-            <strong>Note:</strong> Damage taken includes all damage put into the <SpellLink id={SPELLS.STAGGER_TAKEN.id} icon /> pool.
+            <strong>Note:</strong> Damage taken includes all damage put into the <SpellLink id={SPELLS.STAGGER_TAKEN.id} /> pool.
           </div>
         </Tab>
       ),
