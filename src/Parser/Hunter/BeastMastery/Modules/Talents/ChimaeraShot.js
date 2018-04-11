@@ -5,6 +5,10 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
+/**
+ * A two-headed shot that hits your primary target and another nearby target, dealing 720% Nature damage to one and 720% Frost damage to
+ * the other.
+ */
 class ChimaeraShot extends Analyzer {
   static dependencies = {
     combatants: Combatants,

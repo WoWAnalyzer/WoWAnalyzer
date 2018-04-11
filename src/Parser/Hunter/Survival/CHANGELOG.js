@@ -9,6 +9,11 @@ import ItemLink from 'common/ItemLink';
 
 export default [
   {
+    date: new Date('2018-04-10'),
+    changes: <Wrapper>Adds a <SpellLink id={SPELLS.ASPECT_OF_THE_EAGLE.id} /> module to provide suggestions with poor usage, and also updates <SpellLink id={SPELLS.MOKNATHAL_TACTICS.id} /> module to be more accurate when displaying refreshes.</Wrapper>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-04-05'),
     changes: <Wrapper>Added tracking for <SpellLink id={SPELLS.ON_THE_TRAIL_DAMAGE.id} icon /> and <SpellLink id={SPELLS.LACERATE.id} icon /> to help identify when you're casting this too much. Added additional refreshing information into <SpellLink id={SPELLS.MOKNATHAL_TACTICS.id} icon /> module, aswell as average time remaining on <SpellLink id={SPELLS.MONGOOSE_FURY.id} icon /> upon using <SpellLink id={SPELLS.FURY_OF_THE_EAGLE_TRAIT.id} icon /> and other minor behind the scenes updates. </Wrapper>,
     contributors: [Putro],

@@ -9,6 +9,9 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import { formatNumber } from 'common/format';
 
+/**
+ * Summons a Spitting Cobra for 30 sec that attacks your target for (100% of Attack power) Nature damage every 2 sec. While the Cobra is active you gain an extra 3 Focus every 1 sec.
+ */
 class SpittingCobra extends Analyzer {
 
   static dependencies = {

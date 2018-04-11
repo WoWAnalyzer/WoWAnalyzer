@@ -29,10 +29,6 @@ class WayOfTheMokNathal extends Analyzer {
     this.active = this.combatants.selected.hasTalent(SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.id);
   }
 
-  get overallUptime() {
-    return this.combatants.selected.getBuffUptime(SPELLS.MOKNATHAL_TACTICS.id) / this.owner.fightDuration;
-  }
-
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.MOKNATHAL_TACTICS.id) {
@@ -40,7 +36,6 @@ class WayOfTheMokNathal extends Analyzer {
     }
     this._currentStacks = 1;
     this.lastApplicationTimestamp = event.timestamp;
-
   }
 
   on_byPlayer_applybuffstack(event) {
@@ -69,14 +64,35 @@ class WayOfTheMokNathal extends Analyzer {
     this._timesDropped += 1;
   }
 
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.RAPTOR_STRIKE.id) {
+      return;
+    }
+    if (this._currentStacks !== MAX_STACKS) {
+      return;
+    }
+    this.timesRefreshed++;
+    this.accumulatedTimeBetweenRefresh += event.timestamp - this.lastApplicationTimestamp;
+    this.lastApplicationTimestamp = event.timestamp;
+  }
+
   on_finished() {
     if (this._currentStacks === MAX_STACKS) {
       this._fourStackUptime += this.owner.fight.end_time - this._fourStackStart;
     }
   }
 
+  get fourStackUptimeInPercentage() {
+    return this._fourStackUptime / this.owner.fightDuration;
+  }
+
   get averageTimeBetweenRefresh() {
     return (this.accumulatedTimeBetweenRefresh / this.timesRefreshed / 1000).toFixed(2);
+  }
+
+  get overallUptime() {
+    return this.combatants.selected.getBuffUptime(SPELLS.MOKNATHAL_TACTICS.id) / this.owner.fightDuration;
   }
 
   get timesDroppedThreshold() {
@@ -104,7 +120,7 @@ class WayOfTheMokNathal extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.id} />}
-        value={`${formatPercentage(this._fourStackUptime / this.owner.fightDuration)}%`}
+        value={`${formatPercentage(this.fourStackUptimeInPercentage)}%`}
         label="4 stack uptime"
         tooltip={`Way of the Mok'Nathal breakdown:
           <ul>

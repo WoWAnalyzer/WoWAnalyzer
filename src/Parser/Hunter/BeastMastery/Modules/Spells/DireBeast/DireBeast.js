@@ -12,6 +12,11 @@ import Wrapper from 'common/Wrapper';
 //Threshhold for when there is less than 3s remaining on Bestial Wrath to not cast Dire Beast
 const CD_ON_BESTIAL_WRATH_BAD_DB_THRESHHOLD = 3000;
 
+/**
+ * Summons a powerful wild beast to attack your target for 8 sec.
+ * Generates 12 Focus over 8 sec.
+ */
+
 class DireBeast extends Analyzer {
   static dependencies = {
     combatants: Combatants,

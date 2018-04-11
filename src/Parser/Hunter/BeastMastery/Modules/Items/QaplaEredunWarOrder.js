@@ -14,6 +14,10 @@ import ItemLink from 'common/ItemLink';
 
 const COOLDOWN_REDUCTION_MS = 3000;
 
+/**
+ * Qa'pla, Eredun War Order
+ * Dire Beast or Dire Frenzy reduces the remaining cooldown on Kill Command by 3 sec.
+ */
 class QaplaEredunWarOrder extends Analyzer {
   static dependencies = {
     combatants: Combatants,

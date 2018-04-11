@@ -11,6 +11,11 @@ import SpellLink from "common/SpellLink";
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 import Wrapper from 'common/Wrapper';
 
+/**
+ * Sends you and your pet into a rage, increasing all damage you both deal by 25% for 15 sec.
+ * Bestial Wrath's remaining cooldown is reduced by 12 sec each time you use Dire Frenzy or Dire Beast
+ */
+
 class BestialWrathAverageFocus extends Analyzer {
   static dependencies = {
     combatants: Combatants,

@@ -21,6 +21,11 @@ const BESTIAL_WRATH_REMAINING_USE_CROWS = 7000;
 //Duration of Bestial Wrath
 const BESTIAL_WRATH_DURATION = 15000;
 
+/**
+ * Summons a flock of crows to attack your target, dealing [(162% of Attack power) * 16] Physical damage over 15 sec. When a target dies
+ * while affected by this ability, its cooldown will reset.
+ */
+
 class AMurderOfCrows extends Analyzer {
 
   static dependencies = {

@@ -8,6 +8,10 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
+/**
+ * Hurls a dragonsfire grenade at the target that explodes into flames, inflicting [(1304% of Attack power) + (400% of Attack power)] Fire
+ * damage over 8 sec and reducing movement speed by 20%. The volatile flames on the target also scorch nearby enemies.
+ */
 class DragonsfireGrenade extends Analyzer {
 
   static dependencies = {
