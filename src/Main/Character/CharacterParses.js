@@ -20,10 +20,18 @@ import ActivityIndicator from 'Main/ActivityIndicator';
 
 /*
   ToDo: 
-    fix the issue with Special-Chars (ÃŠ and stuff)
-    caching of bnet-api for images
-    submit a proper playerID for the analyze-link
-    get a fix for renamed/transed chars (char-name does not match in this case, impossible to jump directly to the correct player)
+    - fix the issue with Special-Chars (Ê and stuff)
+
+    - caching of bnet-api for images
+
+    - submit a proper playerID for the analyze-link
+    
+    - get a fix for renamed/transed chars 
+        (char-name does not match in this case, impossible to jump directly to the correct player of the log, redirect to player-overview instead)
+        Asked on discord for fix
+        `yeah probably should
+        right now it puts the current character's name
+        should get fixed as i optimize character ranks on beta anyway`
 */
 
 //rendering 400+ parses takes quite some time
@@ -63,11 +71,11 @@ class CharacterParses extends React.Component {
     this.iconPath = this.iconPath.bind(this);
     this.fetchImage = this.fetchImage.bind(this);
     this.fillMissingTrinkets = this.fillMissingTrinkets.bind(this);
-    this.load();
   }
 
   componentDidMount() {
     this.fetchImage();
+    this.load();
   }
 
   iconPath(specName) {
@@ -119,18 +127,17 @@ class CharacterParses extends React.Component {
 
   get filterParses() {
     let filteredParses = this.state.parses;
-    filteredParses = filteredParses.filter((elem, index) => {
-      return this.state.activeDifficulty.includes(elem.difficulty);
-    }).filter((elem, index) => {
-      return this.state.activeSpec.includes(elem.spec);
-    }).sort((a, b) => { 
-      if (this.state.sortBy === 0) {
-        return b.start_time - a.start_time; 
-      } else if (this.state.sortBy === 1) {
-        return b.persecondamount - a.persecondamount;
-      }
-      return b.historical_percent - a.historical_percent;
-    });
+    filteredParses = filteredParses
+      .filter((elem, index) => { return this.state.activeDifficulty.includes(elem.difficulty); })
+      .filter((elem, index) => { return this.state.activeSpec.includes(elem.spec); })
+      .sort((a, b) => { 
+        if (this.state.sortBy === 0) {
+          return b.start_time - a.start_time; 
+        } else if (this.state.sortBy === 1) {
+          return b.persecondamount - a.persecondamount;
+        }
+        return b.historical_percent - a.historical_percent;
+      });
 
     if (Number(this.state.activeEncounter) === 0) {
       return filteredParses.slice(0, RENDER_LIMIT);
@@ -170,39 +177,41 @@ class CharacterParses extends React.Component {
       const name = elem.name;
       const difficulty = DIFFICULTIES[elem.difficulty];
 
-      elem.specs.filter((item) => { return item.spec !== "Melee" && item.spec !== "Ranged"; }).forEach(element => {
-        const spec = element.spec;
-        element.data.forEach(singleParse => {
-          const finalParse = Object.assign({
-            name: name,
-            spec: spec,
-            difficulty: difficulty,
-          }, singleParse);
+      elem.specs
+        .filter((item) => { return item.spec !== "Melee" && item.spec !== "Ranged"; })
+        .forEach(element => {
+          const spec = element.spec;
+          element.data.forEach(singleParse => {
+            const finalParse = Object.assign({
+              name: name,
+              spec: spec,
+              difficulty: difficulty,
+            }, singleParse);
 
-          //filter all logs that have missing talents (logs that were logged without advanced logging)
-          if (Object.values(singleParse.talents).filter((talent) => { return talent.id === 0; }).length === 0) {
-            parses.push(finalParse);
-          }
+            //filter all logs that have missing talents (logs that were logged without advanced logging)
+            if (Object.values(singleParse.talents).filter((talent) => { return talent.id === 0; }).length === 0) {
+              parses.push(finalParse);
+            }
 
-          //get missing trinket-icons later
-          if (!ITEMS[singleParse.gear[12].id]) {
-            ITEMS[singleParse.gear[12].id] = {
-              name: singleParse.gear[12].name,
-              id: singleParse.gear[12].id,
-              icon: ITEMS[0].icon,
-              quality: singleParse.gear[13].quality,
-            };
-          }
+            //get missing trinket-icons later
+            if (!ITEMS[singleParse.gear[12].id]) {
+              ITEMS[singleParse.gear[12].id] = {
+                name: singleParse.gear[12].name,
+                id: singleParse.gear[12].id,
+                icon: ITEMS[0].icon,
+                quality: singleParse.gear[13].quality,
+              };
+            }
 
-          if (!ITEMS[singleParse.gear[13].id]) {
-            ITEMS[singleParse.gear[13].id] = {
-              name: singleParse.gear[13].name,
-              id: singleParse.gear[13].id,
-              icon: ITEMS[0].icon,
-              quality: singleParse.gear[13].quality,
-            };
-          }
-        });
+            if (!ITEMS[singleParse.gear[13].id]) {
+              ITEMS[singleParse.gear[13].id] = {
+                name: singleParse.gear[13].name,
+                id: singleParse.gear[13].id,
+                icon: ITEMS[0].icon,
+                quality: singleParse.gear[13].quality,
+              };
+            }
+          });
       });
     });
 
@@ -228,12 +237,10 @@ class CharacterParses extends React.Component {
       });
       return;
     }
-    console.info('Fetch image');
-    return fetch(`https://${this.props.region}.api.battle.net/wow/character/${ encodeURIComponent(this.props.realm)}/${encodeURIComponent(this.props.name)}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
+    return fetch(`https://${this.props.region}.api.battle.net/wow/character/${encodeURIComponent(this.props.realm)}/${encodeURIComponent(this.props.name)}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
       .then(response => response.json())
       .then((data) => {
-        console.info('Fetch image');
-        const image = data.thumbnail.replace("avatar", "main");
+        const image = data.thumbnail.replace('-avatar.jpg', '');
         localStorage.setItem(`${this.props.region}/${this.props.realm}/${this.props.name}`, image);
         this.setState({
           image: image,
@@ -248,12 +255,13 @@ class CharacterParses extends React.Component {
       _: refresh ? +new Date() : undefined,
     }).then((rawParses) => {
       if (rawParses.status === 400) {
+        // means char was not found on WCL
         this.setState({
           error: true,
         });
         return;
       }
-      if (this.state.class !== "") { //only update parses when class was already parsed (since its only a metric change)
+      if (this.state.class !== "") { //only update parses when class was already parsed (since its only a metric/raid change)
         const parses = this.changeParseStructure(rawParses);
         this.setState({
           parses: parses,
@@ -264,14 +272,9 @@ class CharacterParses extends React.Component {
       }
 
       const charClass = rawParses[0].specs[0].class;
-      const specs = Object.values(SPECS).map((elem, index) => { 
-        if (elem.className.replace(" ", "") !== charClass) {
-          return undefined;
-        }
-        return elem.specName;
-      }).filter((elem, index) => {
-        return elem;
-      });
+      const specs = Object.values(SPECS)
+        .map((elem, index) => { if (elem.className.replace(" ", "") !== charClass) { return undefined; } return elem.specName; })
+        .filter((elem, index) => { return elem; });
 
       const parses = this.changeParseStructure(rawParses);
       this.setState({
@@ -362,7 +365,7 @@ class CharacterParses extends React.Component {
                         )}
                       </div>
                       <div className="col-md-2" style={{ textAlign: 'right' }}>
-                        <a href={makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + " " + elem.name, " ", elem.character_name)} target="_blank">
+                        <a href={makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + " " + elem.name, "+", elem.character_name)} target="_blank">
                           analyze
                         </a>
                       </div>
@@ -380,8 +383,9 @@ class CharacterParses extends React.Component {
                       {this.state.image && (
                         <div className="char-image">
                           <img 
-                            src={`https://render-${this.props.region}.worldofwarcraft.com/character/${this.state.image}`}
+                            src={`https://render-${this.props.region}.worldofwarcraft.com/character/${this.state.image}-inset.jpg`}
                             alt={"Pic"} 
+                            onError={e => this.setState({ image: false })}
                             style={{ width: '100%' }} />
                         </div>
                       )}
@@ -427,9 +431,9 @@ class CharacterParses extends React.Component {
                     <div className="col-md-4">
                       Difficulties:
                       {DIFFICULTIES.filter((elem) => { return elem; }).map((elem, index) => 
-                      <div onClick={() => this.updateDifficulty(elem)} className={ this.state.activeDifficulty.includes(elem) ? 'selected form-control' : 'form-control'}>
-                        {elem}
-                      </div>
+                        <div onClick={() => this.updateDifficulty(elem)} className={ this.state.activeDifficulty.includes(elem) ? 'selected form-control' : 'form-control'}>
+                          {elem}
+                        </div>
                       )}
                     </div>
                     <div className="col-md-4">
@@ -444,6 +448,8 @@ class CharacterParses extends React.Component {
                   </div>
                 </div>
                 <span className="text-muted" style={{ padding: 10, display: 'block' }}>
+                  A few logs might take you to a log where we can't find the correct player and show the player-selection instead.
+                  This only happens in the case of a realm transfer or character rename until the WCL-API is returning the correct name.<br/><br/>
                   Some logs are missing? We hide logs that were logged without 'advanced combatlog' since those are not detailed enough to be analyzed.
                 </span>
                 <div style={{ textAlign: 'right', padding: 10 }}>

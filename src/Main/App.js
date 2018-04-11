@@ -359,6 +359,7 @@ class App extends Component {
         const player = this.getPlayerFromReport(report, playerId, playerName);
         if (!player) {
           alert(`Unknown player: ${playerName}`);
+          this.props.push(makeAnalyzerUrl(report, fight.id));
           return;
         }
         const combatant = combatants.find(combatant => combatant.sourceID === player.id);
