@@ -419,7 +419,7 @@ class BaseHealerStatValues extends Analyzer {
               <thead>
                 <tr>
                   <th style={{ minWidth: 30 }}><b>Stat</b></th>
-                  <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Normalized so Intellect is always 1.00. Hover to see the amount of healing 1 rating resulted in."><b>Value</b></dfn></th>
+                  <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Normalized so Intellect is always 1.00."><b>Value</b></dfn></th>
                   <th className="text-right" style={{ minWidth: 30 }}>HPS per rating</th>
                   <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Amount of stat rating required to increase your total healing by 1%"><b>Rating per 1%</b></dfn></th>
                 </tr>

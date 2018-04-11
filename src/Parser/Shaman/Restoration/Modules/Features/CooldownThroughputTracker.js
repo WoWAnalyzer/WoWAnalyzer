@@ -4,11 +4,12 @@ import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'Parser/Co
 
 import { ABILITIES_NOT_FEEDING_INTO_AG, ABILITIES_NOT_FEEDING_INTO_ASCENDANCE, ABILITIES_NOT_FEEDING_INTO_CBT } from '../../Constants';
 
-// The purpose of this class is twofold:
+// The purpose of this class is threefold:
 // 1) provide cooldown data for the cooldowns tab. I had to rewrite some of the functions because
 // cloudburst totem does not appear as a buff in the combat log.
 // 2) Track the spells feeding into AG/Asc/CBT so we can provide a breakdownn of the feeding
 // for the Feeding tab.
+// 3) Generate feed_heal events to be used for statweights.
 //
 // For each active AG/CBT/Asc we track for each spell how much raw- and effective healing it
 // contributed. Whenever new results are generated in CombatLogParser.js processAll will
@@ -98,8 +99,62 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
           totals.totalEffective += effectiveHealing;
         });
 
+        // if this cooldown is CBT, check if it ended while AG was active
+        // if so, 60% of CBT got redistributed again so we multiply the feeding factor by 1.6
+        let ancestralGuidanceSynergy = 1;
+        if (cooldown.spell.id === SPELLS.CLOUDBURST_TOTEM_TALENT.id) {
+          this.pastCooldowns
+            .filter(_cooldown => _cooldown.end && _cooldown.spell.id === SPELLS.ANCESTRAL_GUIDANCE_TALENT.id)
+            .forEach((_cooldown) => {
+              if (cooldown.end >= _cooldown.start && cooldown.end <= _cooldown.end) {
+                const ancestralGuidanceOverheal = _cooldown.overheal / (_cooldown.healing + _cooldown.overheal);
+                ancestralGuidanceSynergy += (0.6 * (1 - ancestralGuidanceOverheal));
+              }
+            });
+        }
+
+        this.generateFeedEvents(cooldown, feedingFactor * ancestralGuidanceSynergy, percentOverheal);
+
         cooldown.processed = true;
       });
+  }
+
+  // Fabricate new events to make it easy to listen to just feed heal events while being away of the original heals. 
+  // While we could also modify the original heal event and add a reference to the feed amount, this would be less clean as mutating objects makes things harder and more confusing to use, and may lead to conflicts.
+  // Due to how the Shaman CooldonwThroughputTracker works, these events will be bunched together at the very end of the events list.
+  generateFeedEvents(cooldown, feedingFactor, percentOverheal){
+    cooldown.events.forEach((event) => {
+      if (event.type !== 'heal' || !cooldown.feed[event.ability.guid]) {
+        return;
+      }
+
+      // skipping all the events that do not get treated anyway, helping calculation time and removing a lot of fabricated event spam
+      if (event.ability.guid === SPELLS.ASCENDANCE_HEAL.id || event.ability.guid === SPELLS.ANCESTRAL_GUIDANCE_HEAL.id || event.ability.guid === SPELLS.CLOUDBURST_TOTEM_HEAL.id) {
+        return;
+      }
+
+      // if this cooldown is Ascendance, check if the same heal event is in any AG cooldown, and if so, adjust the feeding factor to account for double dipping
+      let ancestralGuidanceSynergy = 1;
+      if (cooldown.spell.id === SPELLS.ASCENDANCE_TALENT_RESTORATION.id) {
+        this.pastCooldowns
+          .filter(_cooldown => _cooldown.end && _cooldown.spell.id === SPELLS.ANCESTRAL_GUIDANCE_TALENT.id)
+          .forEach((_cooldown) => {
+            if (event.timestamp >= _cooldown.start && event.timestamp <= _cooldown.end) {
+              const ancestralGuidanceOverheal = _cooldown.overheal / (_cooldown.healing + _cooldown.overheal);
+              ancestralGuidanceSynergy += (0.6 * (1 - ancestralGuidanceOverheal));
+            }
+          });
+      }
+
+      const eventFeed = ((event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0)) * feedingFactor * ancestralGuidanceSynergy * (1-percentOverheal);
+
+      this.owner.fabricateEvent({
+        ...event,
+        type: 'feed_heal',
+        feed: eventFeed,
+        __fabricated: true,
+      }, cooldown.spell);
+    });
   }
 
   getIndirectHealing(spellId) {
