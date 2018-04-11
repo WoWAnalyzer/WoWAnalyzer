@@ -108,7 +108,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
             .forEach((_cooldown) => {
               if (cooldown.end >= _cooldown.start && cooldown.end <= _cooldown.end) {
                 const ancestralGuidanceOverheal = _cooldown.overheal / (_cooldown.healing + _cooldown.overheal);
-                ancestralGuidanceSynergy = 1 + (0.6 * ancestralGuidanceOverheal);
+                ancestralGuidanceSynergy += (0.6 * (1 - ancestralGuidanceOverheal));
               }
             });
         }
@@ -141,7 +141,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
           .forEach((_cooldown) => {
             if (event.timestamp >= _cooldown.start && event.timestamp <= _cooldown.end) {
               const ancestralGuidanceOverheal = _cooldown.overheal / (_cooldown.healing + _cooldown.overheal);
-              ancestralGuidanceSynergy = 1 + (0.6 * ancestralGuidanceOverheal);
+              ancestralGuidanceSynergy += (0.6 * (1 - ancestralGuidanceOverheal));
             }
           });
       }
