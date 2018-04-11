@@ -29,17 +29,30 @@ class CharacterSelecter extends React.PureComponent {
     const realm = this.state.currentRealm;
     const char = this.charInput.value;
 
-    if (!realm) {  //allows enter-key on realm-input
-      return;
-    }
-
     if (!region || !realm || !char) {
-      // eslint-disable-next-line no-alert
-      alert('Please enter stuff.');
+      alert('Please select a region, realm and player.');
       return;
     }
 
-    this.props.history.push(makeUrl(region, realm, char));
+    //check if character has an key in localStorage, if so directly redirect to /character otherwise ask bnet-api
+    //checking here makes it more userfriendly and saves WCL-requests when char doesn't even exist for the bnet-api
+    const image = localStorage.getItem(`${region}/${realm}/${char}`);
+    if (image) {
+      this.props.history.push(makeUrl(region, realm, char));
+      return;
+    }
+
+    return fetch(`https://${region}.api.battle.net/wow/character/${encodeURIComponent(realm)}/${encodeURIComponent(char)}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
+      .then(response => response.json())
+      .then((data) => {
+        if (data.status === 'nok') {
+          alert('Character doesn\'t exist');
+          return;
+        }
+        const image = data.thumbnail.replace('-avatar.jpg', '');
+        localStorage.setItem(`${region}/${realm}/${char}`, image);
+        this.props.history.push(makeUrl(region, realm, char));
+      });
   }
 
   render() {
@@ -67,7 +80,7 @@ class CharacterSelecter extends React.PureComponent {
           <SelectSearch 
             options={options}
             className="realm-search"
-            onChange={(value, state, props) => { this.setState({ currentRealm: value.name });}}
+            onChange={value => { this.setState({ currentRealm: value.name });}}
             placeholder='Realm'
           />
           <input

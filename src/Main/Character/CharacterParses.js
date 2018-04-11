@@ -240,6 +240,10 @@ class CharacterParses extends React.Component {
     return fetch(`https://${this.props.region}.api.battle.net/wow/character/${encodeURIComponent(this.props.realm)}/${encodeURIComponent(this.props.name)}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
       .then(response => response.json())
       .then((data) => {
+        if (data.status === 'nok') {
+          alert('Character doesn\'t exist');
+          return;
+        }
         const image = data.thumbnail.replace('-avatar.jpg', '');
         localStorage.setItem(`${this.props.region}/${this.props.realm}/${this.props.name}`, image);
         this.setState({
@@ -300,7 +304,7 @@ class CharacterParses extends React.Component {
                     Home
                   </Link> &gt;{' '}
                   <span>
-                    {this.props.region} - {this.props.realm} - {this.props.name}
+                    {this.props.region}  &gt; {this.props.realm}  &gt; {this.props.name}
                   </span>
                   <br /><br />
                 </span>
