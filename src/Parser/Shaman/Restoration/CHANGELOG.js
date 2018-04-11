@@ -9,7 +9,7 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-04-10'),
+    date: new Date('2018-04-11'),
     changes: 'Implemented Stat Values for Restoration Shaman.',
     contributors: [niseko],
   },

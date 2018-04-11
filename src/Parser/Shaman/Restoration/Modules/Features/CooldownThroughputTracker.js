@@ -99,15 +99,16 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
           totals.totalEffective += effectiveHealing;
         });
 
-        // if this is CBT, check if the cooldown ended while AG was active
-        // if it was, 60% of CBT got redistributed again so we multiply the feeding factor by 1.6
+        // if this cooldown is CBT, check if it ended while AG was active
+        // if so, 60% of CBT got redistributed again so we multiply the feeding factor by 1.6
         let ancestralGuidanceSynergy = 1;
         if (cooldown.spell.id === SPELLS.CLOUDBURST_TOTEM_TALENT.id) {
           this.pastCooldowns
             .filter(_cooldown => _cooldown.end && _cooldown.spell.id === SPELLS.ANCESTRAL_GUIDANCE_TALENT.id)
             .forEach((_cooldown) => {
               if (cooldown.end >= _cooldown.start && cooldown.end <= _cooldown.end) {
-                ancestralGuidanceSynergy = 1.6;
+                const ancestralGuidanceOverheal = _cooldown.overheal / (_cooldown.healing + _cooldown.overheal);
+                ancestralGuidanceSynergy = 1 + (0.6 * ancestralGuidanceOverheal);
               }
             });
         }
@@ -129,14 +130,15 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         return;
       }
 
-      // if this is Ascendance, check if the same event is in any AG timeframe, and if so, adjust the feeding factor
+      // if this cooldown is Ascendance, check if the same heal event is in any AG cooldown, and if so, adjust the feeding factor to account for double dipping
       let ancestralGuidanceSynergy = 1;
       if (cooldown.spell.id === SPELLS.ASCENDANCE_TALENT_RESTORATION.id) {
         this.pastCooldowns
           .filter(_cooldown => _cooldown.end && _cooldown.spell.id === SPELLS.ANCESTRAL_GUIDANCE_TALENT.id)
           .forEach((_cooldown) => {
             if (event.timestamp >= _cooldown.start && event.timestamp <= _cooldown.end) {
-              ancestralGuidanceSynergy = 1.6;
+              const ancestralGuidanceOverheal = _cooldown.overheal / (_cooldown.healing + _cooldown.overheal);
+              ancestralGuidanceSynergy = 1 + (0.6 * ancestralGuidanceOverheal);
             }
           });
       }

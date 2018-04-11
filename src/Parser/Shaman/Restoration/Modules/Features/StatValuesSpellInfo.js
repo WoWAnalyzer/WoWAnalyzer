@@ -3,9 +3,9 @@ import SPELLS from 'common/SPELLS';
 /*
  * Fields:
  * int: spell scales with Intellect
- * crit: spell scales with (is able to or procced from) Critical Strike
- * hasteHpm: spell does more healing due to Haste, e.g. HoTs that gain more ticks
- * hasteHpct: spell can be cast more frequently due to Haste, basically any spell except for non haste scaling CDs
+ * crit: spell scales with Critical Strike
+ * hasteHpm: spell does more healing due to Haste, e.g. Spells and Totems that gain more ticks
+ * hasteHpct: spell can be cast more frequently due to Haste
  * mastery: spell is boosted by Mastery
  * vers: spell scales with Versatility
  * multiplier: spell scales with whatever procs it, should be ignored for purpose of weights and for 'total healing' number
@@ -77,19 +77,19 @@ export default {
     vers: true,
   },
   [SPELLS.ANCESTRAL_GUIDANCE_HEAL.id]: {
-    // This gets special treatment with the `on_feed_heal` event
-    ignored: true,   
+    // This gets special treatment with the `feed_heal` event
+    ignored: true,
   },
   [SPELLS.ASCENDANCE_HEAL.id]: {
-    // This gets special treatment with the `on_feed_heal` event
+    // This gets special treatment with the `feed_heal` event
     ignored: true,
   },
-  [SPELLS.CLOUDBURST_TOTEM_HEAL.id]: { 
-    // This gets special treatment with the `on_feed_heal` event
+  [SPELLS.CLOUDBURST_TOTEM_HEAL.id]: {
+    // This gets special treatment with the `feed_heal` event
     ignored: true,
   },
-  [SPELLS.EARTHEN_SHIELD_TOTEM_ABSORB.id]: { 
-    //it scales with INT per hit but the total absorb is limited by the players max HP
+  [SPELLS.EARTHEN_SHIELD_TOTEM_ABSORB.id]: {
+    // EST scales with INT per hit but the total absorb is limited by the players max HP
     ignored: true,
   },
   [SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE.id]: {
@@ -98,52 +98,54 @@ export default {
   [SPELLS.SPIRIT_LINK_TOTEM.id]: {
     ignored: true,
   },
-  [SPELLS.UNLEASH_LIFE_TALENT.id]: { 
+  [SPELLS.UNLEASH_LIFE_TALENT.id]: {
     int: true,
     crit: true,
     hasteHpct: false, // static CD
     mastery: true,
     vers: true,
   },
-  [SPELLS.WELLSPRING_HEAL.id]: { 
+  [SPELLS.WELLSPRING_HEAL.id]: {
     int: true,
     crit: true,
     hasteHpct: false, // static CD
     mastery: true,
     vers: true,
   },
-  [SPELLS.GIFT_OF_THE_QUEEN.id]: { 
+  [SPELLS.GIFT_OF_THE_QUEEN.id]: {
     int: true,
     crit: true,
     hasteHpct: false, // static CD
     mastery: true,
     vers: true,
   },
-  [SPELLS.GIFT_OF_THE_QUEEN_DUPLICATE.id]: { 
+  [SPELLS.GIFT_OF_THE_QUEEN_DUPLICATE.id]: {
     int: true,
     crit: true,
     hasteHpct: false, // static CD
     mastery: true,
     vers: true,
   },
-  [SPELLS.TIDAL_TOTEM.id]: { 
+  [SPELLS.TIDAL_TOTEM.id]: {
     int: true,
     crit: true,
     hasteHpm: true,
     mastery: true,
     vers: true,
   },
-  [SPELLS.RAINFALL.id]: { // T21 2pc
+  [SPELLS.RAINFALL.id]: {
+    // T21 2pc
     int: true,
     crit: true,
     mastery: false,
     vers: true,
   },
-  [SPELLS.DOWNPOUR.id]: { // T21 4pc double dipping
+  [SPELLS.DOWNPOUR.id]: {
+    // T21 4pc double dipping
     crit: true,
     vers: true,
   },
-  [SPELLS.ROOTS_OF_SHALADRASSIL_HEAL.id]: { // Roots
+  [SPELLS.ROOTS_OF_SHALADRASSIL_HEAL.id]: {
     ignored: true,
   },
 };

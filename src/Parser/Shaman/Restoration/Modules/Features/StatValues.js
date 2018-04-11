@@ -12,7 +12,6 @@ import MasteryEffectiveness from './MasteryEffectiveness';
 
 /**
  * Restoration Shaman Stat Values
- *
  */
 
  const BUFFER_MS = 100;
@@ -43,7 +42,7 @@ class StatValues extends BaseHealerStatValues {
     const hasQueensAscendant = this.combatants.selected.hasBuff(SPELLS.QUEEN_ASCENDANT_BUFF.id, event.timestamp, MINIMUM_GCD, BUFFER_MS);
     const hasTidalWaves = this.combatants.selected.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, MINIMUM_GCD, BUFFER_MS);
     
-    // disregard wave casts with tidal waves as its always below GCD regardless of QA
+    // disregard wave casts with tidal waves as its always below GCD regardless of QA (and neither change the GCD itself)
     if(spellId === SPELLS.HEALING_WAVE.id && hasTidalWaves){
       return 0;
     }
@@ -66,19 +65,20 @@ class StatValues extends BaseHealerStatValues {
     const critChanceBreakdown = super._getCritChance(event);
 
     // Traits that increase the base crit chance of spells
-    const traitLevelED = this.combatants.selected.traitsBySpellId[SPELLS.EMPOWERED_DROPLETS.id];
-    const traitLevelFW = this.combatants.selected.traitsBySpellId[SPELLS.FLOODWATERS.id];
-    const traitLevelTC = this.combatants.selected.traitsBySpellId[SPELLS.TIDAL_CHAINS.id];
-    const hasTidalWaves = this.combatants.selected.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id,  event.timestamp, BUFFER_MS, BUFFER_MS);
+    const traitLevelEmpoweredDroplets = this.combatants.selected.traitsBySpellId[SPELLS.EMPOWERED_DROPLETS.id];
+    const traitLevelFloodwaters = this.combatants.selected.traitsBySpellId[SPELLS.FLOODWATERS.id];
+    const traitLevelTidalChains = this.combatants.selected.traitsBySpellId[SPELLS.TIDAL_CHAINS.id];
+    // Tidal Waves add 40% crit + 4% for every tidal chains trait to Healing Surge
+    const hasTidalWaves = this.combatants.selected.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, BUFFER_MS, BUFFER_MS);
 
     if (spellId === SPELLS.HEALING_RAIN_HEAL.id) {
-      critChanceBreakdown.baseCritChance += traitLevelED * 0.02;
+      critChanceBreakdown.baseCritChance += traitLevelEmpoweredDroplets * 0.02;
     }
     if (spellId === SPELLS.CHAIN_HEAL.id) {
-      critChanceBreakdown.baseCritChance += traitLevelFW * 0.0333;
+      critChanceBreakdown.baseCritChance += traitLevelFloodwaters * (0.1 / 3); // 0.0333...
     }
     if (spellId === SPELLS.HEALING_SURGE_RESTORATION.id && hasTidalWaves) {
-      critChanceBreakdown.baseCritChance += 0.4 + 0.04 * traitLevelTC;
+      critChanceBreakdown.baseCritChance += 0.4 + 0.04 * traitLevelTidalChains;
     }
 
     return critChanceBreakdown;
@@ -111,8 +111,8 @@ class StatValues extends BaseHealerStatValues {
       {
         stat: STAT.CRITICAL_STRIKE,
         tooltip: `
-          The Critical Strike value does not include mana gained by Resurgence.
-          `,
+          Weight does not include Resurgence mana gain.
+        `,
       },
       {
         stat: STAT.HASTE_HPCT,
