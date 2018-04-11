@@ -26,9 +26,9 @@ class HealingSurge extends Analyzer {
     return {
       actual: unbuffedHealingSurgesPerc ,
       isGreaterThan: {
-        minor: 0,
-        average: 0.15,
-        major: 0.30,
+        minor: 0.20,
+        average: 0.40,
+        major: 0.60,
       },
       style: 'percentage',
     };

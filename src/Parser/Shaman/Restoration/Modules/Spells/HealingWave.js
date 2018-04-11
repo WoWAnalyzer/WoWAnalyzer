@@ -24,9 +24,9 @@ class HealingWave extends Analyzer {
     return {
       actual: unbuffedHealingWavesPerc ,
       isGreaterThan: {
-        minor: 0.0,
-        average: 0.20,
-        major: 0.40,
+        minor: 0.20,
+        average: 0.40,
+        major: 0.60,
       },
       style: 'percentage',
     };
@@ -38,12 +38,11 @@ class HealingWave extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Casting <SpellLink id={SPELLS.HEALING_WAVE.id} /> without <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon/> is slow and generally inefficient. Consider casting a riptide first to generate <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon/></span>)
           .icon(SPELLS.HEALING_WAVE.icon)
-          .actual(`${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Surges`)
-          .recommended(`${suggestedThreshold.isGreaterThan.minor}% of unbuffed Healing Surges`)
+          .actual(`${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Waves`)
+          .recommended(`${suggestedThreshold.isGreaterThan.minor}% of unbuffed Healing Waves`)
           .regular(suggestedThreshold.isGreaterThan.average).major(suggestedThreshold.isGreaterThan.major);
       });
   }
 }
 
 export default HealingWave;
-
