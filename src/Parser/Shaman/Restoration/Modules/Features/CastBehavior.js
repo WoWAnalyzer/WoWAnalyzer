@@ -27,7 +27,7 @@ class CastBehavior extends Analyzer {
         <dfn data-tip={tooltip}>{label}</dfn>
       ) : label;
       label = spellId ? (
-        <SpellLink id={spellId}>{label}</SpellLink>
+        <SpellLink id={spellId} icon={false}>{label}</SpellLink>
       ) : label;
       return (
         <div
