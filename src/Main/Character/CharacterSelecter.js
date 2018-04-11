@@ -1,12 +1,9 @@
 import React  from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
 import SelectSearch from 'react-select-search';
-
+import REALMS from 'common/REALMS';
 import makeUrl from './makeUrl';
-
-import REALMS from './REALMS';
 
 class CharacterSelecter extends React.PureComponent {
 

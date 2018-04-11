@@ -447,7 +447,7 @@ class CharacterParses extends React.Component {
                     </div>
                   </div>
                 </div>
-                <span className="text-muted" style={{ padding: 10, display: 'block' }}>
+                <span className="text-muted" style={{ padding: 15, display: 'block' }}>
                   A few logs might take you to a log where we can't find the correct player and show the player-selection instead.
                   This only happens in the case of a realm transfer or character rename until the WCL-API is returning the correct name.<br/><br/>
                   Some logs are missing? We hide logs that were logged without 'advanced combatlog' since those are not detailed enough to be analyzed.

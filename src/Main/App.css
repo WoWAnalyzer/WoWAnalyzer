@@ -993,7 +993,6 @@ code.inactive {
   margin: 10px 0;
 }
 
-<<<<<<< HEAD
 .charparse .filter {
   margin: 0;
 }
@@ -1009,6 +1008,10 @@ code.inactive {
 
 .charparse .form-control.selected {
   background-color: #d84141;
+}
+
+.charparse .row.filter {
+  margin: 0;
 }
 
 .row.character-parse {
