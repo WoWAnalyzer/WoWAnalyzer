@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Textfit from 'react-textfit';
 
 import getBossName from 'common/getBossName';
+import SpecIcon from 'common/SpecIcon';
 
 import SkullRaidMarker from './Images/skull-raidmarker.png';
 
@@ -27,7 +28,7 @@ class Headers extends React.PureComponent {
     return (
       <header>
         <div className={`player ${spec.className.replace(' ', '')}`}>
-          <img src={`/specs/${spec.className.replace(' ', '')}-${spec.specName.replace(' ', '')}.jpg`} alt="Player avatar" />{' '}
+          <SpecIcon id={spec.id} style={{ marginTop: 0 }} />{' '}
           <Textfit mode="single" max={80}>
             {playerName}
           </Textfit>

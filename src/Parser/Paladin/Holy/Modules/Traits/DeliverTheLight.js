@@ -35,12 +35,12 @@ class DeliverTheLight extends Analyzer {
 
     this.healing += calculateEffectiveHealingStacked(event, DELIVER_THE_LIGHT_HEALING_INCREASE, this.rank);
   }
-  on_beacon_heal(beaconTransferEvent, healEvent) {
-    if (healEvent.ability.guid !== SPELLS.HOLY_LIGHT.id && healEvent.ability.guid !== SPELLS.FLASH_OF_LIGHT.id) {
+  on_beacon_heal(event) {
+    if (event.originalHeal.ability.guid !== SPELLS.HOLY_LIGHT.id && event.originalHeal.ability.guid !== SPELLS.FLASH_OF_LIGHT.id) {
       return;
     }
 
-    this.healing += calculateEffectiveHealingStacked(beaconTransferEvent, DELIVER_THE_LIGHT_HEALING_INCREASE, this.rank);
+    this.healing += calculateEffectiveHealingStacked(event, DELIVER_THE_LIGHT_HEALING_INCREASE, this.rank);
   }
 
   subStatistic() {

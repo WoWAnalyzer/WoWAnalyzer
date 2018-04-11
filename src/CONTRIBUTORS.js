@@ -37,6 +37,13 @@
 
 import SPECS from 'common/SPECS';
 
+// For testing purposes because I am too lazy to work out a solution for testing that does not involve adding regular code
+export const Dummy = {
+  nickname: 'Dummy',
+  github: 'DummyHub',
+  twitter: '@Dummy',
+  avatar: require('./Images/zerotorescue-avatar.png'),
+};
 export const Zerotorescue = {
   nickname: 'Zerotorescue',
   github: 'MartijnHols',

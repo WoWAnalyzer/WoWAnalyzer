@@ -149,7 +149,7 @@ class App extends React.Component {
     return (
       <Switch>
         <Route path="/contributor/:id" render={({ match }) => (
-          <ContributorDetails contributorId={decodeURI(match.params.id.replace(/\+/g, ' '))} />
+          <ContributorDetails contributorId={decodeURI(match.params.id.replace(/\+/g, ' '))} ownPage />
         )} />
         <Route path="/news/:articleId" render={({ match }) => (
           <NewsView articleId={decodeURI(match.params.articleId.replace(/\+/g, ' '))} />

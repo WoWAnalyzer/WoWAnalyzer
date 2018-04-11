@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import BAD_ICONS from 'common/BAD_ICONS';
 
-const Icon = ({ icon, alt, ...other }) => {
+const Icon = ({ icon, alt, ...others }) => {
   if (!icon) {
     return null;
   }
@@ -27,7 +27,7 @@ const Icon = ({ icon, alt, ...other }) => {
       src={`${baseURL}/${icon}.jpg`}
       alt={alt || icon}
       className="icon"
-      {...other}
+      {...others}
     />
   );
 };

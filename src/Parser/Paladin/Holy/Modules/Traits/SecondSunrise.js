@@ -67,13 +67,13 @@ class SecondSunrise extends Analyzer {
       this.healing += event.amount + (event.absorbed || 0);
     }
   }
-  on_beacon_heal(beaconTransferEvent, healEvent) {
-    if (healEvent.ability.guid !== SPELLS.LIGHT_OF_DAWN_HEAL.id) {
+  on_beacon_heal(event) {
+    if (event.originalHeal.ability.guid !== SPELLS.LIGHT_OF_DAWN_HEAL.id) {
       return;
     }
-    const timeSinceLastCast = healEvent.timestamp - this._lastCastTimestamp;
-    if (timeSinceLastCast > SECOND_SUNRISE_MINIMAL_DELAY || healEvent.lightOfDawnHealIndex >= LIGHT_OF_DAWN_MAX_PEOPLE_HEALED) {
-      this.healing += beaconTransferEvent.amount + (beaconTransferEvent.absorbed || 0);
+    const timeSinceLastCast = event.originalHeal.timestamp - this._lastCastTimestamp;
+    if (timeSinceLastCast > SECOND_SUNRISE_MINIMAL_DELAY || event.originalHeal.lightOfDawnHealIndex >= LIGHT_OF_DAWN_MAX_PEOPLE_HEALED) {
+      this.healing += event.amount + (event.absorbed || 0);
     }
   }
 
