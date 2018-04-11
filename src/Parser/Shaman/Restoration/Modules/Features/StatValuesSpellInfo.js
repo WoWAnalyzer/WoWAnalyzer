@@ -143,6 +143,7 @@ export default {
   [SPELLS.DOWNPOUR.id]: {
     // T21 4pc double dipping
     crit: true,
+    hasteHpct: true,
     vers: true,
   },
   [SPELLS.ROOTS_OF_SHALADRASSIL_HEAL.id]: {
