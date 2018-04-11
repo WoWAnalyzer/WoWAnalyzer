@@ -139,7 +139,7 @@ class Report extends React.Component {
       events = parser.normalize(events);
       this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS);
 
-      const batchSize = 400;
+      const batchSize = 300;
       const numEvents = events.length;
       let offset = 0;
 
@@ -149,10 +149,10 @@ class Report extends React.Component {
         }
         const eventsBatch = events.slice(offset, offset + batchSize);
         parser.parseEvents(eventsBatch);
-        // await-ing setState does not ensure we wait until a render completed, so instead we wait 1 frame
         const progress = Math.min(1, (offset + batchSize) / numEvents);
         this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS + (PROGRESS_STEP3_PARSE_EVENTS - PROGRESS_STEP2_FETCH_EVENTS) * progress);
-        await this.timeout(1000 / 60);
+        // await-ing setState does not ensure we wait until a render completed, so instead we wait 1 frame
+        await this.timeout(0);
 
         offset += batchSize;
       }
