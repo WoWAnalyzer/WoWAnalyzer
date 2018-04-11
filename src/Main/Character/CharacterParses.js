@@ -383,7 +383,7 @@ class CharacterParses extends React.Component {
                       {this.state.image && (
                         <div className="char-image">
                           <img 
-                            src={`https://render-${this.props.region}.worldofwarcraft.com/character/${this.state.image}-inset.jpg`}
+                            src={`https://render-${this.props.region}.worldofwarcraft.com/character/${this.state.image}-main.jpg`}
                             alt={"Pic"} 
                             onError={e => this.setState({ image: false })}
                             style={{ width: '100%' }} />
