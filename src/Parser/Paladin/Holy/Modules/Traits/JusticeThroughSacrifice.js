@@ -35,12 +35,12 @@ class JusticeThroughSacrifice extends Analyzer {
 
     this.healing += calculateEffectiveHealingStacked(event, JUSTICE_THROUGH_SACRIFICE_HEALING_INCREASE, this.rank);
   }
-  on_beacon_heal(beaconTransferEvent, healEvent) {
-    if (healEvent.ability.guid !== SPELLS.LIGHT_OF_THE_MARTYR.id) {
+  on_beacon_heal(event) {
+    if (event.originalHeal.ability.guid !== SPELLS.LIGHT_OF_THE_MARTYR.id) {
       return;
     }
 
-    this.healing += calculateEffectiveHealingStacked(beaconTransferEvent, JUSTICE_THROUGH_SACRIFICE_HEALING_INCREASE, this.rank);
+    this.healing += calculateEffectiveHealingStacked(event, JUSTICE_THROUGH_SACRIFICE_HEALING_INCREASE, this.rank);
   }
 
   subStatistic() {

@@ -1,13 +1,16 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
-import SPELLS from 'common/SPELLS';
+import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import Analyzer from 'Parser/Core/Analyzer';
+import SpellIcon from 'common/SpellIcon';
+import SPELLS from 'common/SPELLS';
+import Wrapper from 'common/Wrapper';
 
-const SHATTERED_DEFENSES_ICON = 'warrior_talent_icon_igniteweapon';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 /**
  * Handles the analysis of a player's Battle Cry usage.
@@ -16,6 +19,7 @@ const SHATTERED_DEFENSES_ICON = 'warrior_talent_icon_igniteweapon';
 class BattleCryAnalyzer extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    damageDone: DamageDone,
   };
 
   battleCrying = false;
@@ -40,10 +44,15 @@ class BattleCryAnalyzer extends Analyzer {
     }
   }
 
-  /** Returns a suggestion threshold for Shattered Defenses being setup for Battle Cry */
-  get shatteredSetupThresholds() {
+  on_byPlayer_damage(event) {
+    // If damage is dealt during Battle Cry, or if damage is dealt by Corrupted Blood of Zakajz, add it to the current Battle Cry.
+    if (!event.targetIsFriendly && (this.battleCrying || SPELLS.CORRUPTED_BLOOD_OF_ZAKAJZ.id === event.ability.guid)) {
+      this.currentBattleCry.addDamage(event.amount + event.absorbed);
+    }
+  }
 
-    // Get the number of Battle Cries setup with Shattered Defenses.
+  /** Returns the percentage of Battle Cries that had Shattered Defenses setup. */
+  get shatteredSetupPercent() {
     let shatteredSetups = 0;
     this.battleCries.forEach(battleCry => {
       if(battleCry.shatteredSetup) {
@@ -51,26 +60,63 @@ class BattleCryAnalyzer extends Analyzer {
       }
     });
 
+    return shatteredSetups / this.battleCries.length;
+  }
+
+  /** Returns a suggestion threshold for Shattered Defenses being setup for Battle Cry. */
+  get shatteredSetupThresholds() {
     return {
-			actual: shatteredSetups / this.battleCries.length,
-			isLessThan: {minor: 0.95, average: 0.9, major: 0.85},
+			actual: this.shatteredSetupPercent,
+			isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: 0.85},
 			style: 'percentage',
 		};
+  }
+
+  /** Returns the damage dealt during or as a result of Battle Cry. */
+  get battleCryDamage() {
+    let battleCryDamage = 0;
+    this.battleCries.forEach(battleCry => {
+      battleCryDamage += battleCry.getDamage();
+    });
+
+    return battleCryDamage;
   }
 
   suggestions(when) {
     when(this.shatteredSetupThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(<Wrapper>You should ensure <SpellLink id={SPELLS.SHATTERED_DEFENSES.id} icon/> is up before you use <SpellLink id={SPELLS.BATTLE_CRY.id} icon/> to maximize your burst potential.</Wrapper>)
-          .icon(SHATTERED_DEFENSES_ICON)
+          .icon(SPELLS.SHATTERED_DEFENSES.ICON)
           .actual(`Shattered Defenses was up for ${formatPercentage(actual)}% of Battle Cries.`)
           .recommended(`${formatPercentage(recommended)}% is recommended`);
       });
   }
+
+  statistic() {
+    const battleCryDamage = this.battleCryDamage;
+    const totalDamage = this.damageDone.total.effective;
+
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.BATTLE_CRY.id} />}
+        value={`${formatNumber(battleCryDamage / this.battleCries.length)}`}
+        label="Average damage during Battle Cry"
+        tooltip={`Damage dealt during Battle Cry contributed ${formatPercentage(battleCryDamage / totalDamage)}% of your total damage done.`}
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 /** Class containing information regarding a single use of Battle Cry */
 class BattleCry {
+  /** @type {boolean} Whether Shattered Defenses was up before Battle Cry was used. */
   _shatteredSetup = false;
+
+  /** @type {number} The amount of damage dealt during or as a result of Battle Cry. */
+  damage = 0;
 
   get shatteredSetup() {
     return this._shatteredSetup;
@@ -78,6 +124,14 @@ class BattleCry {
 
   set shatteredSetup(shatteredSetup) {
     this._shatteredSetup = shatteredSetup;
+  }
+
+  getDamage() {
+    return this.damage;
+  }
+
+  addDamage(damage) {
+    this.damage += damage;
   }
 }
 

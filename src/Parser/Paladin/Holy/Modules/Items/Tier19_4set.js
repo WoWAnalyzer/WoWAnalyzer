@@ -72,25 +72,25 @@ class Tier19_4set extends Analyzer {
     }
   }
 
-  on_beacon_heal(beaconTransferEvent, healEvent) {
-    const spellId = healEvent.ability.guid;
+  on_beacon_heal(event) {
+    const spellId = event.originalHeal.ability.guid;
     if (spellId !== SPELLS.FLASH_OF_LIGHT.id) {
       return;
     }
-    const combatant = this.combatants.players[healEvent.targetID];
+    const combatant = this.combatants.players[event.originalHeal.targetID];
     if (!combatant) {
       // If combatant doesn't exist it's probably a pet.
-      debug && console.log('Skipping beacon heal event since combatant couldn\'t be found:', beaconTransferEvent, 'for heal:', healEvent);
+      debug && console.log('Skipping beacon heal event since combatant couldn\'t be found:', event, 'for heal:', event.originalHeal);
       return;
     }
-    const hasIol = this.combatants.selected.hasBuff(SPELLS.INFUSION_OF_LIGHT.id, healEvent.timestamp, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER, INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME);
+    const hasIol = this.combatants.selected.hasBuff(SPELLS.INFUSION_OF_LIGHT.id, event.originalHeal.timestamp, INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER, INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME);
     if (!hasIol) {
       return;
     }
 
     if (this.iolProcsUsedSinceLastHolyShock === 2) {
-      debug && console.log((beaconTransferEvent.timestamp - this.owner.fight.start_time) / 1000, 'Beacon transfer', beaconTransferEvent);
-      this.healing += calculateEffectiveHealing(beaconTransferEvent, INFUSION_OF_LIGHT_FOL_HEALING_INCREASE);
+      debug && console.log((event.timestamp - this.owner.fight.start_time) / 1000, 'Beacon transfer', event);
+      this.healing += calculateEffectiveHealing(event, INFUSION_OF_LIGHT_FOL_HEALING_INCREASE);
     }
   }
 

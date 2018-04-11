@@ -35,12 +35,12 @@ class ExpelTheDarkness extends Analyzer {
 
     this.healing += calculateEffectiveHealingStacked(event, EXPEL_THE_DARKNESS_HEALING_INCREASE, this.rank);
   }
-  on_beacon_heal(beaconTransferEvent, healEvent) {
-    if (healEvent.ability.guid !== SPELLS.LIGHT_OF_DAWN_HEAL.id) {
+  on_beacon_heal(event) {
+    if (event.originalHeal.ability.guid !== SPELLS.LIGHT_OF_DAWN_HEAL.id) {
       return;
     }
 
-    this.healing += calculateEffectiveHealingStacked(beaconTransferEvent, EXPEL_THE_DARKNESS_HEALING_INCREASE, this.rank);
+    this.healing += calculateEffectiveHealingStacked(event, EXPEL_THE_DARKNESS_HEALING_INCREASE, this.rank);
   }
 
   subStatistic() {

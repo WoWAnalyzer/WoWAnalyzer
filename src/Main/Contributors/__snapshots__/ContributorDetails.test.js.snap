@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContributorDetails matches snapshot 1`] = `
+<div
+  className="contributor-detail"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="flex-main"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-5"
+        >
+          <div
+            className="panel"
+          >
+            <div
+              style={
+                Object {
+                  "textAlign": "center",
+                }
+              }
+            >
+              <h2>
+                Dummy
+              </h2>
+              <img
+                alt="Avatar"
+                src="zerotorescue-avatar.png"
+                style={
+                  Object {
+                    "borderRadius": "50%",
+                    "marginTop": 20,
+                    "maxHeight": 200,
+                  }
+                }
+              />
+            </div>
+            <div
+              className="flex-main contributorlist"
+              style={
+                Object {
+                  "padding": "0 5px 20px 5px",
+                }
+              }
+            >
+              <div
+                className="row"
+              >
+                <div
+                  className="col-md-3"
+                >
+                  <b>
+                    GitHub:
+                  </b>
+                </div>
+                <div
+                  className="col-md-9"
+                >
+                  <a
+                    href="https://github.com/DummyHub"
+                    target="_blank"
+                  >
+                    DummyHub
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-7"
+        >
+          <div
+            className="panel scrollable"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
