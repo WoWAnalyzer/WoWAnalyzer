@@ -78,7 +78,7 @@ class Checklist extends CoreChecklist {
             }),
             new GenericCastEfficiencyRequirement({
                 spell: SPELLS.HUNGERING_RUNE_WEAPON_TALENT,
-                when: combatant.hasTalent(SPELLS.HUNGERING_RUNE_WEAPON_TALENT.id)
+                when: combatant.hasTalent(SPELLS.HUNGERING_RUNE_WEAPON_TALENT.id),
               }),
             new GenericCastEfficiencyRequirement({
                 spell: SPELLS.SINDRAGOSAS_FURY_ARTIFACT,
