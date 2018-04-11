@@ -1,12 +1,14 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import Wrapper from 'common/Wrapper';
+
+import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
-import Analyzer from 'Parser/Core/Analyzer';
 
 const EXECUTE_RANGE = 0.2;
 
@@ -16,6 +18,7 @@ class RendAnalyzer extends Analyzer {
     enemies: Enemies,
   };
 
+  rends = 0;
   rendsInExecuteRange = 0;
   targets = [];
   failedTargets = [];
@@ -28,6 +31,8 @@ class RendAnalyzer extends Analyzer {
     if(SPELLS.REND_TALENT.id === event.ability.guid) {
       // If Rend is used flag the target to check their health on the next damage event.
       this.targets.push(encodeTargetString(event.targetID, event.targetInstance));
+
+      this.rends += 1;
     }
   }
 
@@ -56,9 +61,13 @@ class RendAnalyzer extends Analyzer {
 
   get executeRendsThresholds() {
     return {
-			actual: this.rendsInExecuteRange,
-			isGreaterThan: {minor: 0, average:1, major: 2},
-			style: 'number',
+			actual: this.rendsInExecuteRange / this.rends,
+			isGreaterThan: {
+        minor: 0,
+        average:0.05,
+        major: 0.1,
+      },
+			style: 'percent',
 		};
   }
 
@@ -66,8 +75,8 @@ class RendAnalyzer extends Analyzer {
     when(this.executeRendsThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(<Wrapper>You should avoid using <SpellLink id={SPELLS.REND_TALENT.id} icon/> on a target in <SpellLink id={SPELLS.EXECUTE.id} icon/> range.</Wrapper>)
           .icon(SPELLS.REND_TALENT.icon)
-          .actual(`Rend was used ${actual} times on a target in execute range`)
-          .recommended(`${recommended} is recommended.`);
+          .actual(`Rend was used ${formatPercentage(actual)}% of the time on a target in execute range.`)
+          .recommended(`${formatPercentage(recommended)}% is recommended`);
       });
   }
 }
