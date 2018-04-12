@@ -147,6 +147,8 @@ class CharacterParses extends React.Component {
       return elem.name === this.state.activeEncounter;
     });
 
+    console.info(filteredParses);
+
     return filteredParses.slice(0, RENDER_LIMIT);
   }
 
@@ -157,9 +159,9 @@ class CharacterParses extends React.Component {
         return 'grey';
       case (rank < 50):
         return 'green';
-      case (rank < 70):
+      case (rank < 75):
         return 'blue';
-      case (rank < 90):
+      case (rank < 95):
         return 'purple';
       case (rank <= 99):
         return 'orange';
@@ -182,6 +184,7 @@ class CharacterParses extends React.Component {
         .forEach(element => {
           const spec = element.spec;
           element.data.forEach(singleParse => {
+            console.info(singleParse);
             const finalParse = Object.assign({
               name: name,
               spec: spec,
