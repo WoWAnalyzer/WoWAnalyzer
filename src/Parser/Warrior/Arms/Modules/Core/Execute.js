@@ -26,9 +26,13 @@ class ExecutionAnalyzer extends Analyzer {
 
     this.executes += 1;
     const enemy = this.enemies.getEntity(event);
-    const executionersPrecision = enemy.getBuff(SPELLS.EXECUTIONERS_PRECISION.id, null, 0, 0, event.sourceID);
+    const executionersPrecision = enemy.getBuff(SPELLS.EXECUTIONERS_PRECISION.id);
     if(executionersPrecision !== undefined && executionersPrecision.stacks === 2 && this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id)) {
       this.wastedExecutionersPrecisions += 1;
+
+      event.meta = event.meta || {};
+      event.meta.isInefficientCast = true;
+      event.meta.inefficientCastReason = 'This Execute was used on a target with 2 stacks of Executioner\'s Precision while Mortal Strike was available.';
     }
   }
 
