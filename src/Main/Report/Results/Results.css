@@ -62,14 +62,9 @@
   line-height: 130px;
   height: 130px;
   white-space: nowrap;
-}
-.results > header .player {
-  padding-left: 150px;
-  margin: 0 150px 0 0;
+  padding: 0 150px;
 }
 .results > header .boss {
-  padding-right: 150px;
-  margin: 0 0 0 150px;
   text-align: right;
 }
 .results > header .player:before, .results > header .boss:before {
@@ -81,7 +76,7 @@
   right: 0;
   z-index: -1;
   background: url(./Images/vs-background.png) no-repeat top left;
-  background-size: contain;
+  background-size: 100% 100%;
 }
 .results > header .boss:before {
   transform: scaleX(-1);
@@ -117,7 +112,22 @@
   font-weight: 400;
   color: #ddd;
 }
-
+@media (max-width: 600px) {
+  .results > header .player, .results > header .boss {
+    font-size: 30px;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 70px;
+  }
+  .results > header .player img, .results > header .boss img {
+    width: 50px;
+    height: 50px;
+  }
+  .results > header .versus {
+    font-size: 22px;
+    margin: -11px 0;
+  }
+}
 
 @keyframes player-anim {
   from {
