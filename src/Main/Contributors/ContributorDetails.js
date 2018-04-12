@@ -2,44 +2,38 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import * as contributors from 'CONTRIBUTORS';
-
-import SPECS from 'common/SPECS';
-
-import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import CoreChangelog from 'CHANGELOG';
+import SPECS from 'common/SPECS';
+import Wrapper from 'common/Wrapper';
+import SpecIcon from 'common/SpecIcon';
+import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 
 class ContributorDetails extends React.PureComponent {
-
   static propTypes = {
-    contributorId: PropTypes.string,
-    ownPage: PropTypes.bool, 
+    contributorId: PropTypes.string.isRequired,
+    ownPage: PropTypes.bool,
+  };
+  state = {
+    openChangelogs: [],
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      list: [],
-    };
+  constructor() {
+    super();
     this.filterChangelog = this.filterChangelog.bind(this);
   }
 
-  //#region Layout-Helpers
+  //region Layout-Helpers
 
   removeWhiteSpaces(string) {
-    return string.replace(" ", "");
+    return string.replace(' ', '');
   }
 
-  iconPath(spec) {
-    return `/specs/${this.removeWhiteSpaces(spec.className)}-${this.removeWhiteSpaces(spec.specName)}.jpg`;
-  }
-
-  char(char) {
+  renderCharacter({ link, spec, name }) {
     return (
       <div>
-        <a href={char.link} target="_blank" className={this.removeWhiteSpaces(char.spec.className)}>
-          <img style={{ height: '1.5em', width: '1.5em', marginRight: 10 }} src={this.iconPath(char.spec)} alt="spec icon" />
-          {char.name}
-        </a><br/>
+        <a href={link} className={this.removeWhiteSpaces(spec.className)}>
+          <SpecIcon id={spec.id} /> {name}
+        </a>
       </div>
     );
   }
@@ -49,27 +43,29 @@ class ContributorDetails extends React.PureComponent {
   }
 
   toggleClass(index) {
-    const stateList = this.state.list;
+    const stateList = this.state.openChangelogs;
     stateList[index] = !stateList[index];
-    this.setState({ list: stateList });
+    this.setState({
+      openChangelogs: stateList,
+    });
     this.forceUpdate();
   }
 
   contributionHeader(spec) {
-    if (spec === "0") {
+    if (spec === '0') {
       return (
-        <span>
-          <img src="/favicon.png" style={{ height: '2em', width: '2em', marginRight: 10 }} alt="Icon" />
+        <Wrapper>
+          <img src="/favicon.png" style={{ height: '2em', width: '2em', marginRight: 10 }} alt="Core" />
           Core
-        </span>
+        </Wrapper>
       );
     }
 
     return (
-      <span>
-        <img src={this.iconPath(SPECS[spec])} style={{ height: '2em', width: '2em', marginRight: 10 }} alt="Icon" />
+      <Wrapper>
+        <SpecIcon id={Number(spec)} style={{ height: '2em', width: '2em', marginRight: 10 }} />
         {SPECS[spec].specName} {SPECS[spec].className}
-      </span>
+      </Wrapper>
     );
   }
 
@@ -87,9 +83,9 @@ class ContributorDetails extends React.PureComponent {
     return (
       <div className="row" style={{ marginBottom: 20 }}>
         <div className="col-md-3"><b>Links:</b></div>
-          <div className="col-md-9">
-            {value}
-          </div>
+        <div className="col-md-9">
+          {value}
+        </div>
       </div>
     );
   }
@@ -109,17 +105,17 @@ class ContributorDetails extends React.PureComponent {
 
         value.push(<div className="row">
           <div className="col-md-3"><b>{key}:</b></div>
-            <div className="col-md-9">
-              {subvalue}
-            </div>
+          <div className="col-md-9">
+            {subvalue}
+          </div>
         </div>);
 
-      } else if (typeof object[key] === "string") {
+      } else if (typeof object[key] === 'string') {
         value.push(<div className="row">
           <div className="col-md-3"><b>{key}:</b></div>
-            <div className="col-md-9">
-              {object[key]}
-            </div>
+          <div className="col-md-9">
+            {object[key]}
+          </div>
         </div>);
       }
     });
@@ -127,27 +123,20 @@ class ContributorDetails extends React.PureComponent {
   }
 
   get maintainer() {
-
-    const maintainedSpecs = AVAILABLE_CONFIGS.filter((elem, index) => {
-      const includes = elem.contributors.filter((cont, key) => {
-        return cont.nickname === this.props.contributorId;
-      });
-
-      return includes.length > 0;
-    });
-
+    const maintainedSpecs = AVAILABLE_CONFIGS
+      .filter(elem => elem.contributors.filter(contributor => contributor.nickname === this.props.contributorId).length > 0)
+      .map(config => config.spec);
     if (maintainedSpecs.length === 0) {
-      return;
+      return null;
     }
 
     return (
       <div className="row">
         <div className="col-md-3"><b>Maintainer:</b></div>
         <div className="col-md-9">
-          {maintainedSpecs.map((char, index) => 
-            <div className={this.removeWhiteSpaces(char.spec.className)}>
-              <img style={{ height: '1.5em', width: '1.5em', marginRight: 10 }} src={this.iconPath(char.spec)} alt={"Spec Icon"} />
-              {char.spec.specName} {char.spec.className}
+          {maintainedSpecs.map(spec =>
+            <div key={spec.id} className={this.removeWhiteSpaces(spec.className)}>
+              <SpecIcon id={spec.id} /> {spec.specName} {spec.className}
             </div>
           )}
         </div>
@@ -165,10 +154,10 @@ class ContributorDetails extends React.PureComponent {
       <div className="row" style={style}>
         <div className="col-md-3"><b>{typ[0].toUpperCase() + typ.slice(1)}:</b></div>
         <div className="col-md-9">
-          {contributor[typ].map((char, index) => this.char(char) )}
+          {contributor[typ].map(char => this.renderCharacter(char))}
         </div>
       </div>
-    ); 
+    );
   }
 
   text(contributor, text) {
@@ -208,7 +197,7 @@ class ContributorDetails extends React.PureComponent {
     document.body.classList.remove('no-scroll');
   }
 
-  //#endregion
+  //endregion
 
   render() {
     const { contributorId } = this.props;
@@ -217,11 +206,11 @@ class ContributorDetails extends React.PureComponent {
       0: CoreChangelog,
     };
 
-    AVAILABLE_CONFIGS.forEach((elem, index) => {
+    AVAILABLE_CONFIGS.forEach(elem => {
       contributions[elem.spec.id] = elem.changelog;
     });
-    
-    Object.keys(contributions).forEach((key) => {
+
+    Object.keys(contributions).forEach(key => {
       contributions[key] = contributions[key].filter(this.filterChangelog);
       if (contributions[key].length === 0) {
         delete contributions[key];
@@ -229,10 +218,8 @@ class ContributorDetails extends React.PureComponent {
     });
 
     if (contributor.avatar === undefined) {
-      contributor.avatar = "/favicon.png";
+      contributor.avatar = '/favicon.png';
     }
-
-    
 
     return (
       <div className="contributor-detail">
@@ -243,22 +230,22 @@ class ContributorDetails extends React.PureComponent {
                 <div className="panel">
                   <div style={{ textAlign: 'center' }}>
                     <h2>{contributor.nickname}</h2>
-                    <img src={contributor.avatar} alt={'Avatar'} style={{ marginTop: 20, maxHeight: 200, borderRadius: '50%' }}/>
+                    <img src={contributor.avatar} alt={'Avatar'} style={{ marginTop: 20, maxHeight: 200, borderRadius: '50%' }} />
                   </div>
                   <div className="flex-main contributorlist" style={{ padding: '0 5px 20px 5px' }}>
-                    {this.text(contributor.about, "About")}
+                    {this.text(contributor.about, 'About')}
                     <div className="row">
                       <div className="col-md-3"><b>GitHub:</b></div>
                       <div className="col-md-9">
-                        <a href={"https://github.com/" + contributor.github} target="_blank">{contributor.github}</a>
+                        <a href={'https://github.com/' + contributor.github} target="_blank">{contributor.github}</a>
                       </div>
                     </div>
-                    {this.text(contributor.discord, "Discord")}
+                    {this.text(contributor.discord, 'Discord')}
                     {this.maintainer}
                     {this.links(contributor.links)}
                     {this.additionalInfo(contributor.others)}
-                    {this.chars(contributor, "mains")}
-                    {this.chars(contributor, "alts")}
+                    {this.chars(contributor, 'mains')}
+                    {this.chars(contributor, 'alts')}
                   </div>
                 </div>
               </div>
@@ -266,13 +253,13 @@ class ContributorDetails extends React.PureComponent {
 
               <div className="col-md-7">
                 <div className="panel scrollable">
-                  {Object.keys(contributions).map((type, index) => 
+                  {Object.keys(contributions).map((type, index) =>
                     <div key={index}>
                       <div className="panel-heading" style={{ cursor: 'pointer', userSelect: 'none' }} onClick={() => this.toggleClass(index)}>
                         <h2>{this.contributionHeader(type)} ({contributions[type].length} commits)</h2>
                       </div>
-                      <ul className="list text" style={{ marginBottom: 20, display: this.state.list[index] ? 'block' : 'none' }}>
-                        {contributions[type].map((contribution, index) => 
+                      <ul className="list text" style={{ marginBottom: 20, display: this.state.openChangelogs[index] ? 'block' : 'none' }}>
+                        {contributions[type].map((contribution, index) =>
                           <li key={index} className="row">
                             <div className="col-md-2">
                               {contribution.date.toLocaleDateString()}

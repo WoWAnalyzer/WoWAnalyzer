@@ -46,14 +46,13 @@ class Contributor extends React.PureComponent {
       );
     }
 
-    return(
+    return (
       <Link to={makeContributorUrl(nickname)} onClick={this.handleClick} className="contributor">
         {avatar && <Wrapper><img src={avatar} alt="Avatar" />{' '}</Wrapper>}
         {nickname}
       </Link>
     );
   }
-
 }
 
 export default Contributor;

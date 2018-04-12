@@ -21,12 +21,15 @@ const FIGHT_ENDING_USE_ASPECT = 15000;
 //allows early usage of AotW
 const USE_BEFORE_BW = 3000;
 
+/**
+ * Grants you and your pet 10 Focus per 1 sec and 10% increased critical strike chance on all attacks for 10 sec.
+ * Reduces GCD for the duration by 0.2seconds baseline.
+ */
 class AspectOfTheWild extends Analyzer {
 
   static dependencies = {
     combatants: Combatants,
     spellUsable: SpellUsable,
-
   };
 
   totalAspectCasts = 0;
@@ -65,7 +68,7 @@ class AspectOfTheWild extends Analyzer {
 
   get badCastThreshold() {
     return {
-      actual: this.badCrowsCasts,
+      actual: this.badAspectCasts,
       isGreaterThan: {
         minor: 0,
         average: 0.9,

@@ -38,11 +38,11 @@ class StatValues extends BaseHealerStatValues {
     }
     super.on_heal(event);
   }
-  on_beacon_heal(event, originalHeal) {
-    const spellInfo = this._getSpellInfo(originalHeal);
+  on_beacon_heal(event) {
+    const spellInfo = this._getSpellInfo(event.originalHeal);
     const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
     const targetHealthPercentage = (event.hitPoints - healVal.effective) / event.maxHitPoints; // hitPoints contains HP *after* the heal
-    this._handleHeal(spellInfo, originalHeal, healVal, targetHealthPercentage);
+    this._handleHeal(spellInfo, event.originalHeal, healVal, targetHealthPercentage);
   }
   _getCritChance(event) {
     const spellId = event.ability.guid;

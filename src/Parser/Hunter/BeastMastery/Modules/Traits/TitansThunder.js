@@ -15,6 +15,13 @@ const debug = false;
 
 const TITANS_THUNDER_USE_REGARDLESS_THRESHHOLD = 30000;
 
+/**
+ * Dire Beast: Discharge a massive jolt of electricity from Titanstrike into all your pets and Dire Beasts, causing them to deal up to (Ranged attack power * 1.15 * 0.5 * 1) Nature damage to their target every 1 sec. for 8 sec.
+ *
+ * Dire Frenzy: also causes your next Dire Frenzy to deal (200% of Attack power) additional Nature damage on each of the 5 Dire Frenzy
+ * attacks
+ */
+
 class TitansThunder extends Analyzer {
   static dependencies = {
     combatants: Combatants,

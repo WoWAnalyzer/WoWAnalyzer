@@ -123,7 +123,7 @@ ul {
   z-index: 200;
   pointer-events: none;
 }
-.app.has-report > header {
+.app:not(.show-report-selecter) > header {
   margin-top: -410px;
   margin-bottom: 90px;
   opacity: 0;
@@ -297,7 +297,7 @@ nav {
   border: 0;
   margin-bottom: 24px;
 }
-.has-report nav {
+.show-report-selecter nav {
   /* Reduce opacity by 20% */
   background: rgba(12, 12, 12, 0.8);
   background: linear-gradient(to bottom, rgba(18, 18, 18, 0.8) 0%, rgba(8, 8, 8, 0.8) 100%);
@@ -438,7 +438,7 @@ svg {
 }
 img.icon {
   height: 1.2em;
-  margin-top: -0.2em;
+  margin-top: -0.15em;
 }
 h1 {
   position: relative;
@@ -967,7 +967,7 @@ code.inactive {
   transition: transform 400ms;
 }
 .expandable:not(.expanded) > .meta .chevron {
-  transform: rotate(-180deg);
+  transform: rotate(-90deg);
 }
 .expandable > .details {
   background: rgba(40, 40, 40, 0.4);

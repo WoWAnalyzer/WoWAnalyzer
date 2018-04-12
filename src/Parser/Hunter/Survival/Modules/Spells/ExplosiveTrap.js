@@ -8,6 +8,11 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
+/**
+ * Hurls a fire trap to the target location  that explodes when an enemy approaches, causing (420% of
+ * Attack power) Fire damage and burning all enemies within 8 yards for (420% of Attack power)
+ * additional Fire damage over 10 sec. Trap will exist for 1 min.
+ */
 class ExplosiveTrap extends Analyzer {
 
   static dependencies = {

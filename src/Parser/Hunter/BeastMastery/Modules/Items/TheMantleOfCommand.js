@@ -11,7 +11,7 @@ import Wrapper from 'common/Wrapper';
 
 const DAMAGE_INCREASE = 0.05;
 
-/*
+/**
  * The Mantle of Command
  * Dire Beast (or Dire Frenzy) increases the damage done by your pets by 5% for 8 sec.
  */

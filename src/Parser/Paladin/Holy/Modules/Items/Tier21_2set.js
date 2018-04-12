@@ -30,17 +30,17 @@ class Tier21_2set extends Analyzer {
     this.active = this.combatants.selected.hasBuff(SPELLS.HOLY_PALADIN_T21_2SET_BONUS_BUFF.id);
   }
 
-  on_beacon_heal(beaconTransferEvent, healEvent) {
-    if (!this.isApplicable(healEvent)) {
+  on_beacon_heal(event) {
+    if (!this.isApplicable(event.originalHeal)) {
       return;
     }
-    const baseBeaconTransferFactor = this.getBaseBeaconTransferFactor(healEvent);
-    const setBonusBeaconTransferFactor = this.getSetBonusBeaconTransferFactor(healEvent);
+    const baseBeaconTransferFactor = this.getBaseBeaconTransferFactor(event.originalHeal);
+    const setBonusBeaconTransferFactor = this.getSetBonusBeaconTransferFactor(event.originalHeal);
 
     const totalBeaconTransferFactor = baseBeaconTransferFactor + setBonusBeaconTransferFactor;
     const lightsEmbraceBeaconTransferHealingIncrease = setBonusBeaconTransferFactor / totalBeaconTransferFactor;
 
-    const effectiveHealing = calculateEffectiveHealing(beaconTransferEvent, lightsEmbraceBeaconTransferHealingIncrease);
+    const effectiveHealing = calculateEffectiveHealing(event, lightsEmbraceBeaconTransferHealingIncrease);
 
     this.healing += effectiveHealing;
   }
@@ -53,7 +53,7 @@ class Tier21_2set extends Analyzer {
     return true;
   }
 
-  getBaseBeaconTransferFactor(healEvent) {
+  getBaseBeaconTransferFactor(originalHeal) {
     let beaconFactor = BASE_BEACON_TRANSFER;
 
     if (this.beaconType === BEACON_TYPES.BEACON_OF_FATH) {

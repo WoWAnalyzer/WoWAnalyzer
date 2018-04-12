@@ -13,6 +13,10 @@ import { formatPercentage } from 'common/format';
 import StatisticBox from 'Main/StatisticBox';
 import Wrapper from 'common/Wrapper';
 
+/**
+ * Scatters Caltrops in an area for 15 sec. Enemies who step on Caltrops will take (45% of Attack power) Bleed damage every 1 sec, and
+ * have 70% reduced movement speed for 6 sec.
+ */
 class Caltrops extends Analyzer {
 
   static dependencies = {

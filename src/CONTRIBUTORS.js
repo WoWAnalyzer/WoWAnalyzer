@@ -3,10 +3,10 @@
  * Feel free to add yourself if you're not yet in the list.
  *
  * Using `require` for avatars so we don't have to keep a seperate list of imports disconnected from the maintainer definition.
- * 
-    EXAMPLE
+ *
+ EXAMPLE
 
-    export const NICKNAME = {
+ export const NICKNAME = {
       nickname: 'NICKNAME',
       github: 'GITHUB_NAME',
       discord: 'DISCORD_NAME INCL #xxxx',
@@ -25,8 +25,8 @@
       others: {
         "Custom Item": "normal text",
         "Custom Item": [
-          "Item 1", 
-          "Item 2", 
+          "Item 1",
+          "Item 2",
         ],
       },
       links: {
@@ -37,6 +37,13 @@
 
 import SPECS from 'common/SPECS';
 
+// For testing purposes because I am too lazy to work out a solution for testing that does not involve adding regular code
+export const Dummy = {
+  nickname: 'Dummy',
+  github: 'DummyHub',
+  twitter: '@Dummy',
+  avatar: require('./Images/zerotorescue-avatar.png'),
+};
 export const Zerotorescue = {
   nickname: 'Zerotorescue',
   github: 'MartijnHols',
@@ -105,7 +112,15 @@ export const Thieseract = {
 export const Putro = {
   nickname: 'Putro',
   github: 'Pewtro',
+  discord: 'Putro#6093',
   avatar: require('./Images/putro-avatar.png'),
+  mains: [
+    {
+      name: "Putro",
+      spec: SPECS.MARKSMANSHIP_HUNTER,
+      link: "https://worldofwarcraft.com/en-gb/character/ragnaros/putro",
+    },
+  ],
 };
 export const Blazballs = {
   nickname: 'Blazballs',
@@ -315,7 +330,21 @@ export const joshinator = {
 export const niseko = {
   nickname: 'niseko',
   github: 'niseko',
+  discord: 'nisekoi#4130',
   avatar: require('./Images/niseko-avatar.jpg'),
+  mains: [{
+    name: "Niseko",
+    spec: SPECS.RESTORATION_SHAMAN,
+    link: "https://worldofwarcraft.com/en-gb/character/stormscale/niseko",
+  },
+  {
+    name: "Nisefy",
+    spec: SPECS.MISTWEAVER_MONK,
+    link: "https://worldofwarcraft.com/en-gb/character/stormscale/nisefy",
+  }],
+  links: {
+    "Ancestral Guidance": "https://ancestralguidance.com/",
+  },
 };
 export const Aelexe = {
   nickname: 'Aelexe',

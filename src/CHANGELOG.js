@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, aryu, Zerotorescue, Hartra344, Putro, Sharrq, Hewhosmites, joshinator } from 'CONTRIBUTORS';
+import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, aryu, Zerotorescue, Hartra344, Putro, Sharrq, Hewhosmites, joshinator, kyleglick } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
@@ -9,8 +9,13 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-11'),
+    changes: 'Loading a report no longer shows any results until parsing is complete to speed up the analysis.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-04-04'),
-    changes: 'Rename "Cast Efficiency" tab to "Abilities".',
+    changes: 'Renamed "Cast Efficiency" tab to "Abilities".',
     contributors: [Zerotorescue],
   },
   {
@@ -186,7 +191,7 @@ export default [
   {
     date: new Date('2017-12-03'),
     changes: <Wrapper>Improve Player Selection user interface.</Wrapper>,
-    contributors: ['kyle-glick'],
+    contributors: [kyleglick],
   },
   {
     date: new Date('2017-12-01'),

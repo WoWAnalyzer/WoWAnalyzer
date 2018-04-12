@@ -13,6 +13,10 @@ import ITEMS from 'common/ITEMS/HUNTER';
 import Hellcarver from 'Parser/Hunter/Survival/Modules/Traits/Hellcarver';
 import { formatNumber, formatPercentage } from 'common/format';
 
+/**
+ * Carve: A sweeping attack that strikes all enemies in front of you for 324% Physical damage.
+ * Butchery: Strike all nearby enemies in a flurry of strikes, inflicting 694% Physical damage to each.
+ */
 class ButcheryCarve extends Analyzer {
 
   static dependencies = {

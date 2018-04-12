@@ -124,7 +124,7 @@ class Checklist extends CoreChecklist {
             check: () => this.trueshot.focusThreshold,
           }),
           new Requirement({
-            name: <Wrapper>Average<SpellLink id={SPELLS.TRUESHOT.id} /> uptime per cast</Wrapper>,
+            name: <Wrapper>Average <SpellLink id={SPELLS.TRUESHOT.id} /> uptime per cast</Wrapper>,
             check: () => this.trueshot.uptimeThreshold,
           }),
         ];

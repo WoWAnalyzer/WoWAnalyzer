@@ -29,6 +29,12 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
       },
       {
+        spell: SPELLS.REND_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.REND_TALENT.id),
+      },
+      {
         spell: SPELLS.CLEAVE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 6,
@@ -78,7 +84,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHARGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 17,
+        cooldown: combatant.hasTalent(SPELLS.DOUBLE_TIME_TALENT.id) ? 20 - 3 : 20,
+        charges: combatant.hasTalent(SPELLS.DOUBLE_TIME_TALENT.id) ? 2 : 1,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.01,

@@ -11,6 +11,9 @@ const ADDITIONAL_FOCUS_PER_SUMMON = 12;
 
 const DIREBEAST_DURATION = 8000;
 
+/**
+ * Dire Beast or Dire Frenzy generates 12 additional Focus over its duration.
+ */
 class DireStable extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -28,13 +31,16 @@ class DireStable extends Analyzer {
     return ADDITIONAL_FOCUS_PER_SUMMON / (DIREBEAST_DURATION / 1000);
   }
 
+  get gainedFocus() {
+    return this.focusPerSecondFromDireStable * this.buffUptimeInSeconds;
+  }
+
   statistic() {
-    const gainedFocus = this.focusPerSecondFromDireStable * this.buffUptimeInSeconds;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DIRE_STABLE_TALENT.id} />}
-        value={formatNumber(gainedFocus)}
-        label="Additional focus gained"
+        value={formatNumber(this.gainedFocus / this.owner.fightDuration * 60000)}
+        label="Focus gain/minute"
       />
     );
   }

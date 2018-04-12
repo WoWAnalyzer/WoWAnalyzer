@@ -5,6 +5,7 @@ import ITEMS from 'common/ITEMS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
+import ItemLink from 'common/ItemLink';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -152,7 +153,8 @@ class Abilities extends CoreAbilities {
         enabled: this.combatants.selected.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: .95,
+          recommendedEfficiency: 0.9,
+          extraSuggestion: <Wrapper>Although you want to be casting Spitting Cobra as much as possible, you also want to be gaining as much as possible from each cast, and since <SpellLink id={SPELLS.SPITTING_COBRA_TALENT.id} icon /> scales extremely well with haste, it can be worth delaying usage to line it up with a haste buff such as <SpellLink id={SPELLS.HEROISM.id} icon /> or a <ItemLink id={ITEMS.SEPHUZS_SECRET.id} icon /> proc.</Wrapper>,
         },
       },
       {

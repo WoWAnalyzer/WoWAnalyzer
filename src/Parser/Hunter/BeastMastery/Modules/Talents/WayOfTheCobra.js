@@ -12,6 +12,9 @@ const WAY_OF_THE_COBRA_MODIFIER = 0.1;
 // We'll always have main pet and hati out
 const MINIMUM_PETS = 2;
 
+/**
+ * Cobra Shot deals 10% increased damage for every pet or guardian you have active.
+ */
 class WayOfTheCobra extends Analyzer {
   static dependencies = {
     combatants: Combatants,

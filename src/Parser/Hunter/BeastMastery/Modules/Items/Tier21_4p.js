@@ -10,6 +10,10 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const COOLDOWN_REDUCTION_MS = 3000;
 
+/**
+ * When you use Kill Command, the cooldown of Aspect of the Wild is reduced by 3 sec.
+ */
+
 class Tier21_4p extends Analyzer {
   static dependencies = {
     combatants: Combatants,

@@ -7,6 +7,16 @@ import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import Wrapper from 'common/Wrapper';
 
+/**
+ *
+ * Beast Mastery: Kill Command causes an additional effect, based on your pet's Specialization.
+ * Survival: Flanking Strike causes an additional effect, based on your pet's Specialization.
+ *
+ * Ferocity: The target also bleeds for (270% of Attack power) Physical damage over 6 sec.
+ * Tenacity: Your pet also takes 30% reduced damage for 6 sec.
+ * Cunning: The target's movement speed is also reduced by 50% for 4 sec.
+ */
+
 class AspectOfTheBeast extends Analyzer {
 
   static dependencies = {
