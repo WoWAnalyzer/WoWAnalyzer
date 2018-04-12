@@ -8,27 +8,26 @@ import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import SpellUsable from '../Features/SpellUsable';
-
 class ColossusSmashAnalyzer extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    spellUsable: SpellUsable,
   };
 
   colossusSmashes = 0;
   shatteredColossusOverlaps = 0;
 
   on_byPlayer_cast(event) {
-    if(SPELLS.COLOSSUS_SMASH.id === event.ability.guid) {
-      this.colossusSmashes += 1;
-      // Ignore the cast if the player didn't have shattered defenses.
-      if(!this.combatants.selected.hasBuff(SPELLS.SHATTERED_DEFENSES.id)) {
-        return;
-      }
-      // If the player used colossus smash when shattered defenses was active increment the counter.
-      this.shatteredColossusOverlaps += 1;
+    if(SPELLS.COLOSSUS_SMASH.id !== event.ability.guid) {
+      return;
     }
+    
+    this.colossusSmashes += 1;
+    // Ignore the cast if the player didn't have shattered defenses.
+    if(!this.combatants.selected.hasBuff(SPELLS.SHATTERED_DEFENSES.id)) {
+      return;
+    }
+    // If the player used colossus smash when shattered defenses was active increment the counter.
+    this.shatteredColossusOverlaps += 1;
   }
 
   get shatteredColossusOverlapThresholds() {
