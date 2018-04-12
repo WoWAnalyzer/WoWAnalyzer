@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-04-12'),
+    changes: <Wrapper>Added a suggestion for avoiding wasted <SpellLink id={SPELLS.EXECUTIONERS_PRECISION.id} icon /> stacks.</Wrapper>,
+    contributors: [Aelexe],
+  },
+  {
+    date: new Date('2018-04-12'),
     changes: <Wrapper>Added a suggestion for avoiding wasted <SpellLink id={SPELLS.SHATTERED_DEFENSES.id} icon /> with <SpellLink id={SPELLS.COLOSSUS_SMASH.id} icon />.</Wrapper>,
     contributors: [Aelexe],
   },
