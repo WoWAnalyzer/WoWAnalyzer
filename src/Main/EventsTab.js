@@ -179,6 +179,21 @@ class EventsTab extends React.Component {
     console.log(rowData);
   }
 
+  renderSearchBox() {
+    return (
+      <input
+        type="text"
+        name="search"
+        className="form-control"
+        onChange={event => this.setState({ search: event.target.value.trim().toLowerCase() })}
+        placeholder="Search events (comma separated)"
+        autoCorrect="off"
+        autoCapitalize="off"
+        spellCheck="false"
+      />
+    );
+  }
+
   render() {
     const { parser } = this.props;
 
@@ -190,7 +205,31 @@ class EventsTab extends React.Component {
         if (!this.state.showFabricated && event.__fabricated === true) {
           return false;
         }
-        return true;
+
+        // Search Logic
+        if(this.state.search === undefined || this.state.search === '') {
+          return true;
+        }
+
+        const source = this.findEntity(event.sourceID);
+        const target = this.findEntity(event.targetID);
+
+        const searchTerms = this.state.search.split(',');
+        for(let i = 0; i < searchTerms.length; i++) {
+          const searchTerm = searchTerms[i].trim();
+          if(searchTerm === '') {
+            return false;
+          }
+          if(event.ability !== undefined && event.ability.name.toLowerCase().includes(searchTerm)) {
+            return true;
+          } else if(source !== null && source.name.toLowerCase().includes(searchTerm)) {
+            return true;
+          } else if(target !== null && target.name.toLowerCase().includes(searchTerm)) {
+            return true;
+          }
+        }
+
+        return false;
       });
 
     // TODO: Show active buffs like WCL
@@ -203,6 +242,8 @@ class EventsTab extends React.Component {
           <Info className="small" style={{ width: 240 }}>
             This only includes events involving the selected player.
           </Info>
+          <br />
+          {this.renderSearchBox()}
           <br />
           {Object.keys(FILTERABLE_TYPES).map(type => this.renderEventTypeToggle(type))}
           <br />

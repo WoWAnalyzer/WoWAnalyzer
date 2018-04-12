@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-12'),
+    changes: 'Added search function to events tab.',
+    contributors: [Aelexe],
+  },
+  {
     date: new Date('2018-04-18'),
     changes: 'Added error page when attempting to view an invalid contributor page.',
     contributors: [CubeLuke],
