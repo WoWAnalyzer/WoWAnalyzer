@@ -297,7 +297,9 @@ class Results extends React.PureComponent {
   renderLoading() {
     return (
       <div className="loading-text">
-        Loading...
+        Loading...<br /><br />
+
+        <img src="/img/odyn.jpg" style={{ maxWidth: 300 }} />
       </div>
     );
   }
