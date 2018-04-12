@@ -293,6 +293,12 @@ class Report extends React.Component {
       const playerName = this.props.playerName;
       const valid = report && fight && combatants && (playerName || playerId);
       if (valid) {
+        //check log if no combatantID is set and the name appears more than once
+        if (!playerId && playerName && report.friendlies.filter(friendly => friendly.name === playerName).length > 1) {
+          alert(`It appears like another '${playerName}' is in this log, please select the correct one`);
+          this.props.history.push(makeAnalyzerUrl(report, fight.id));
+          return;
+        }
         const player = this.getPlayerFromReport(report, playerId, playerName);
         if (!player) {
           alert(`Unknown player: ${playerName}`);

@@ -147,8 +147,6 @@ class CharacterParses extends React.Component {
       return elem.name === this.state.activeEncounter;
     });
 
-    console.info(filteredParses);
-
     return filteredParses.slice(0, RENDER_LIMIT);
   }
 
@@ -184,7 +182,6 @@ class CharacterParses extends React.Component {
         .forEach(element => {
           const spec = element.spec;
           element.data.forEach(singleParse => {
-            console.info(singleParse);
             const finalParse = Object.assign({
               name: name,
               spec: spec,
@@ -372,7 +369,7 @@ class CharacterParses extends React.Component {
                         )}
                       </div>
                       <div className="col-md-2" style={{ textAlign: 'right' }}>
-                        <a href={makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + " " + elem.name, "+", elem.character_name)} target="_blank">
+                        <a href={makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + " " + elem.name, elem.character_name)} target="_blank">
                           analyze
                         </a>
                       </div>
