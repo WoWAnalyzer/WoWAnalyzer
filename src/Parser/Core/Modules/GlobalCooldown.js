@@ -33,6 +33,9 @@ class GlobalCooldown extends Analyzer {
   }
 
   on_initialized() {
+    if (this.owner.modules.alwaysBeCasting.constructor.ABILITIES_ON_GCD.length > 0) {
+      console.warn('Using AlwaysBeCasting\'s ABILITIES_ON_GCD property to specify which abilities are on the Global Cooldown is deprecated. You should configure the isOnGCD property of spells in the Abilities config instead.');
+    }
     const abilities = [
       ...this.owner.modules.alwaysBeCasting.constructor.ABILITIES_ON_GCD,
     ];
