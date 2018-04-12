@@ -15,6 +15,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SINDRAGOSAS_FURY_ARTIFACT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        isOnGCD: true,
         cooldown: 300,
         castEfficiency: {
           suggestion: true,
@@ -25,6 +26,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.OBLITERATION_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        isOnGCD: false,
         cooldown: 90,
         enabled: combatant.hasTalent(SPELLS.OBLITERATION_TALENT.id),
         castEfficiency: {
@@ -36,6 +38,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BREATH_OF_SINDRAGOSA_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        isOnGCD: false,
         cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id),
         castEfficiency: {
@@ -47,6 +50,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PILLAR_OF_FROST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        isOnGCD: false,
         cooldown: 60,
         castEfficiency: {
           suggestion: true,
@@ -55,7 +59,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.EMPOWER_RUNE_WEAPON, 
+        spell: SPELLS.EMPOWER_RUNE_WEAPON,
+        isOnGCD: false,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         castEfficiency: {
@@ -67,6 +72,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HUNGERING_RUNE_WEAPON_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        isOnGCD: false,
         cooldown: 180,
         enabled: combatant.hasTalent(SPELLS.HUNGERING_RUNE_WEAPON_TALENT.id),
         castEfficiency: {
@@ -77,10 +83,12 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.OBLITERATE_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.REMORSELESS_WINTER,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
         cooldown: 20,
         castEfficiency: {
           suggestion: true,
@@ -90,19 +98,23 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FROST_STRIKE_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.HOWLING_BLAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.FROSTSCYTHE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
         enabled: combatant.hasTalent(SPELLS.FROSTSCYTHE_TALENT.id),
       },
       {
         spell: SPELLS.HORN_OF_WINTER_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.HORN_OF_WINTER_TALENT.id),
         castEfficiency: {
@@ -113,6 +125,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHAINS_OF_ICE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
         cooldown: 40,
         enabled: combatant.hasChest(ITEMS.COLD_HEART.id),
         castEfficiency: {
