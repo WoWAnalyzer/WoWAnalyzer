@@ -253,6 +253,9 @@ class CharacterParses extends React.Component {
   }
 
   load(refresh = false) {
+    this.setState({
+      isLoading: true,
+    });
     return fetchWcl(`parses/character/${ encodeURIComponent(this.props.name) }/${ encodeURIComponent(this.props.realm) }/${ this.props.region }`, {
       metric: this.state.metric,
       zone: this.state.activeZoneID,
