@@ -11,7 +11,7 @@ import { formatPercentage } from 'common/format';
 import StatisticBox from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 
-/*
+/**
  * Harpoon applies On the Trail, a unique damage over time effect that deals [ 360% of Attack Power ] damage over until cancelled.
  * Your melee autoattacks extend its duration by 6 sec.
  */

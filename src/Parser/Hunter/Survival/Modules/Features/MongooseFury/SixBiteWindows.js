@@ -8,6 +8,11 @@ import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 
 const MAX_STACKS = 6;
 
+/**
+ * Mongoose Fury increases Mongoose Bite damage by 50% for 14 sec, stacking up to 6 times. Successive
+ * attacks do not increase duration.
+ */
+
 class SixBiteWindows extends Analyzer {
 
   _currentStacks = 0;

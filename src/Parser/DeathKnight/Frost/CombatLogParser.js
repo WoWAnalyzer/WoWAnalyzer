@@ -4,6 +4,7 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import SpellUsable from './Modules/Features/SpellUsable';
+import Checklist from './Modules/Features/Checklist';
 
 import FrostFeverUptime from './Modules/Features/FrostFeverUptime';
 import WastedRimeProcs from './Modules/Features/WastedRimeProcs';
@@ -32,6 +33,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     spellUsable: SpellUsable,
+    checklist: Checklist,
 
     // Features
     HardHowlingBlastCasts: HardHowlingBlastCasts,

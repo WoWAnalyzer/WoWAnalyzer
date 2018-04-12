@@ -8,7 +8,7 @@ import SpellLink from "common/SpellLink";
 import ItemDamageDone from 'Main/ItemDamageDone';
 import Wrapper from 'common/Wrapper';
 
-/*
+/**
  * While active, your auto attacks spend 3 Focus to also launch a volley of shots that hit the target and all other nearby enemies, dealing (100% of Attack power) additional Physical damage.
  */
 class Volley extends Analyzer {

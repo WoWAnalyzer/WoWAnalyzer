@@ -143,7 +143,7 @@
   animation: boss-anim 400ms 1800ms ease-out forwards;
   left: -100%;
 }
-@keyframes versus-anim {
+@keyframes fade-in {
   0% {
     opacity: 0;
   }
@@ -152,6 +152,14 @@
   }
 }
 .results > header .versus {
-  animation: versus-anim 1000ms 800ms ease-in forwards;
+  animation: fade-in 1000ms 800ms ease-in forwards;
   opacity: 0;
+}
+.results .loading-text {
+  animation: fade-in 1000ms 2600ms ease-in forwards;
+  opacity: 0;
+  font-size: 2em;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
 }

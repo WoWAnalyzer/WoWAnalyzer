@@ -114,11 +114,6 @@ export const Putro = {
   github: 'Pewtro',
   discord: 'Putro#6093',
   avatar: require('./Images/putro-avatar.png'),
-  maintainer: [
-    SPECS.MARKSMANSHIP_HUNTER,
-    SPECS.BEAST_MASTERY_HUNTER,
-    SPECS.SURVIVAL_HUNTER,
-  ],
   mains: [
     {
       name: "Putro",
@@ -335,7 +330,21 @@ export const joshinator = {
 export const niseko = {
   nickname: 'niseko',
   github: 'niseko',
+  discord: 'nisekoi#4130',
   avatar: require('./Images/niseko-avatar.jpg'),
+  mains: [{
+    name: "Niseko",
+    spec: SPECS.RESTORATION_SHAMAN,
+    link: "https://worldofwarcraft.com/en-gb/character/stormscale/niseko",
+  },
+  {
+    name: "Nisefy",
+    spec: SPECS.MISTWEAVER_MONK,
+    link: "https://worldofwarcraft.com/en-gb/character/stormscale/nisefy",
+  }],
+  links: {
+    "Ancestral Guidance": "https://ancestralguidance.com/",
+  },
 };
 export const Aelexe = {
   nickname: 'Aelexe',

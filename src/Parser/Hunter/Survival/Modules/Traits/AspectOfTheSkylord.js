@@ -10,7 +10,7 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 
 const ASPECT_MODIFIER = 0.3;
 
-/*
+/**
  * Aspect of the Eagle increases all damage you deal by 30% for its duration.
  */
 class AspectOfTheSkylord extends Analyzer {

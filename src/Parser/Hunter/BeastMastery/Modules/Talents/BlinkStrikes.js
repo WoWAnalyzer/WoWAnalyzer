@@ -21,6 +21,11 @@ const BLINK_STRIKES_NOT_AFFECTED_PETS = [
   PETS.HATI_7.id,
 ];
 
+/**
+ * Your pet's Basic Attack deals 100% increased damage, can now be used from 30 yards away, and will instantly teleport your pet behind its
+ * target. Your pet can teleport only once per 20 sec.
+ */
+
 class BlinkStrikes extends Analyzer {
 
   static dependencies = {

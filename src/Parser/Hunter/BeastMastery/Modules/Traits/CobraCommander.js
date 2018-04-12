@@ -6,6 +6,9 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
+/**
+ * Cobra Shot has a 10% chance to create 2-4 Sneaky Snakes that attack the target for 6 sec.
+ */
 class CobraCommander extends Analyzer {
   static dependencies = {
     combatants: Combatants,

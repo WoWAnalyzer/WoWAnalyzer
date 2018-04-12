@@ -70,7 +70,7 @@ class Report extends React.Component {
     config: PropTypes.object,
   };
   state = {
-    dataVersion: 0,
+    finished: false,
     config: null,
   };
 
@@ -101,6 +101,7 @@ class Report extends React.Component {
   async fetchEventsAndParse(report, fight, combatants, combatant, player) {
     // We use the setState callback for triggering UI updates to allow our CSS animations to work
 
+    this.reset();
     this.props.setReportProgress(0);
     const config = this.getConfig(combatant.specID);
     timeAvailable && console.time('full parse');
@@ -142,7 +143,7 @@ class Report extends React.Component {
       events = parser.normalize(events);
       this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS);
 
-      const batchSize = 400;
+      const batchSize = 300;
       const numEvents = events.length;
       let offset = 0;
 
@@ -152,13 +153,10 @@ class Report extends React.Component {
         }
         const eventsBatch = events.slice(offset, offset + batchSize);
         parser.parseEvents(eventsBatch);
-        // await-ing setState does not ensure we wait until a render completed, so instead we wait 1 frame
         const progress = Math.min(1, (offset + batchSize) / numEvents);
-        this.setState({
-          dataVersion: this.state.dataVersion + 1, // each time we parsed events we want to refresh the report, progress might not have updated
-        });
         this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS + (PROGRESS_STEP3_PARSE_EVENTS - PROGRESS_STEP2_FETCH_EVENTS) * progress);
-        await this.timeout(1000 / 60);
+        // await-ing setState does not ensure we wait until a render completed, so instead we wait 1 frame
+        await this.timeout(0);
 
         offset += batchSize;
       }
@@ -169,7 +167,7 @@ class Report extends React.Component {
       timeAvailable && console.timeEnd('full parse');
       this.props.setReportProgress(PROGRESS_COMPLETE);
       this.setState({
-        dataVersion: this.state.dataVersion + 1, // Also update when finished to trigger a rerender
+        finished: true,
       });
     } catch (err) {
       captureException(err);
@@ -234,6 +232,7 @@ class Report extends React.Component {
     this.setState({
       config: null,
       parser: null,
+      finished: false,
     });
     this.props.setReportProgress(null);
     this.stopFakeNetworkProgress();
@@ -358,7 +357,7 @@ class Report extends React.Component {
     return (
       <Results
         parser={parser}
-        dataVersion={this.state.dataVersion}
+        finished={this.state.finished}
         makeTabUrl={tab => makeAnalyzerUrl(report, parser.fightId, parser.playerId, tab)}
       />
     );

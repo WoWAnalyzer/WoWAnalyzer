@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-11'),
+    changes: 'Implemented Stat Values for Restoration Shaman.',
+    contributors: [niseko],
+  },
+  {
     date: new Date('2018-03-28'),
     changes: <Wrapper>Added a Tab detailing the <SpellLink id={SPELLS.DEEP_HEALING.id} /> effectiveness per player.</Wrapper>,
     contributors: [niseko],

@@ -114,7 +114,7 @@ class Trueshot extends Analyzer {
       <StatisticBox icon={<SpellIcon id={SPELLS.TRUESHOT.id} />}
         value={(
           <Wrapper>
-            {this.averageAimedShots}{' '}
+            {this.averageAimedShots.toFixed(2)}{' '}
             <SpellIcon
               id={SPELLS.AIMED_SHOT.id}
               style={{

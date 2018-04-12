@@ -11,7 +11,7 @@ import StatisticBox from 'Main/StatisticBox';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import Wrapper from 'common/Wrapper';
 
-/*
+/**
  * Dire Frenzy
  * Causes your pet to enter a frenzy, performing a flurry of 5 attacks on the target,
  * and gaining 30% increased attack speed for 8 sec, stacking up to 3 times.
@@ -51,6 +51,11 @@ class DireFrenzy extends Analyzer {
       return;
     }
     this.lastDireFrenzyCast = event.timestamp;
+    if (this.currentStacks === MAX_DIRE_FRENZY_STACKS) {
+      this.timesRefreshed++;
+      this.accumulatedTimeBetweenRefresh += event.timestamp - this.lastApplicationTimestamp;
+      this.lastApplicationTimestamp = event.timestamp;
+    }
   }
 
   on_byPlayerPet_damage(event) {
@@ -73,6 +78,7 @@ class DireFrenzy extends Analyzer {
     this.currentStacks = 0;
     this.timeCalculated = true;
   }
+
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.DIRE_FRENZY_TALENT.id) {
@@ -88,8 +94,8 @@ class DireFrenzy extends Analyzer {
     this.currentStacks = 1;
     this.timeCalculated = false;
     this.lastApplicationTimestamp = event.timestamp;
-
   }
+
   on_byPlayer_applybuffstack(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.DIRE_FRENZY_TALENT.id) {
@@ -127,6 +133,7 @@ class DireFrenzy extends Analyzer {
   get percentUptimeMaxStacks() {
     return this.timeAtMaxStacks / this.owner.fightDuration;
   }
+
   get percentUptimePet() {
     return this.timeBuffed / this.owner.fightDuration;
   }
@@ -151,6 +158,7 @@ class DireFrenzy extends Analyzer {
       style: 'percentage',
     };
   }
+
   get direFrenzy3StackThreshold() {
     return {
       actual: this.percentUptimeMaxStacks,
@@ -178,6 +186,7 @@ class DireFrenzy extends Analyzer {
         .recommended(`${formatPercentage(recommended)}% is recommended`);
     });
   }
+
   statistic() {
     return (
       <StatisticBox
