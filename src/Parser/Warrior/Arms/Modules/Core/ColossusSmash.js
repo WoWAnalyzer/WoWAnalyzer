@@ -23,7 +23,7 @@ class ColossusSmashAnalyzer extends Analyzer {
     if(SPELLS.COLOSSUS_SMASH.id === event.ability.guid) {
       this.colossusSmashes += 1;
       // Ignore the cast if the player didn't have shattered defenses.
-      if(!this.combatants.selected.hasBuff(SPELLS.SHATTERED_DEFENSES.id, event.timestamp - 1)) {
+      if(!this.combatants.selected.hasBuff(SPELLS.SHATTERED_DEFENSES.id)) {
         return;
       }
       // If the player used colossus smash when shattered defenses was active increment the counter.
