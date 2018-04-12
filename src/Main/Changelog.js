@@ -37,7 +37,7 @@ class Changelog extends React.PureComponent {
               icons={false}
               onChange={event => this.setState({ includeCore: event.target.checked })}
               id="core-entries-toggle"
-            />
+            />{' '}
             <label htmlFor="core-entries-toggle">
               <dfn data-tip="Turn this off to only see changes to this spec's implementation.">Shared changes</dfn>
             </label>
