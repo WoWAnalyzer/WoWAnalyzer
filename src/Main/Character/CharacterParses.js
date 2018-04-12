@@ -411,7 +411,7 @@ class CharacterParses extends React.Component {
                     </div>
                     <div className="col-md-4">
                       Raid:
-                      <select className="form-control" onChange={e => this.setState({ activeZoneID: Number(e.target.value)}, () => { this.load().catch(e => { console.log('Error'); });})}>
+                      <select className="form-control" onChange={e => this.setState({ activeZoneID: Number(e.target.value), activeEncounter: 0 }, () => { this.load().catch(e => { console.log('Error'); });})}>
                         {Object.values(ZONES).reverse().map(elem =>
                           <option key={elem.id} value={elem.id}>{elem.name}</option>
                         )}
