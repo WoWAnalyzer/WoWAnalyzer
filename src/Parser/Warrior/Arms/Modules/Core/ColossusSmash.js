@@ -28,6 +28,10 @@ class ColossusSmashAnalyzer extends Analyzer {
     }
     // If the player used colossus smash when shattered defenses was active increment the counter.
     this.shatteredColossusOverlaps += 1;
+
+    event.meta = event.meta || {};
+    event.meta.isInefficientCast = true;
+    event.meta.inefficientCastReason = 'This Colossus Smash was used while Shattered Defenses was active.';
   }
 
   get shatteredColossusOverlapThresholds() {
