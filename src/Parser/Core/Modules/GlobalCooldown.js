@@ -13,7 +13,7 @@ const INVALID_GCD_CONFIG_LAG_MARGIN = 150; // not sure what this is based around
  */
 class GlobalCooldown extends Analyzer {
   static dependencies = {
-    // `alwaysBeCasting` is a dependency, but it also has a dependency on this class. We can't have circular dependencies so I cheat in this class by using the deprecated `this.owner.modules`. This class only needs the dependency on ABC for legacy reasons (it has the config we need), once that's fixed we can remove it completely.
+    // `alwaysBeCasting` is a dependency for the config in there, but it also has a dependency on this class. We can't have circular dependencies so I cheat in this class by using the deprecated `this.owner.modules`. This class only needs the dependency on ABC for legacy reasons (it has the config we need), once that's fixed we can remove it completely.
     // alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     haste: Haste,
@@ -128,7 +128,8 @@ class GlobalCooldown extends Analyzer {
    * @returns {number} The duration in milliseconds.
    */
   getCurrentGlobalCooldown(spellId = null) {
-    return (spellId && this.owner.modules.alwaysBeCasting.constructor.STATIC_GCD_ABILITIES[spellId]) || this.constructor.calculateGlobalCooldown(this.haste.current, this.owner.modules.alwaysBeCasting.constructor.BASE_GCD, this.owner.modules.alwaysBeCasting.constructor.MINIMUM_GCD);
+    // Using `_modules` here so this doesn't trigger the deprecation warning. We should move the STATIC_GCD_ABILITIES to the Abilities config which would fix this.
+    return (spellId && this.owner._modules.alwaysBeCasting.constructor.STATIC_GCD_ABILITIES[spellId]) || this.constructor.calculateGlobalCooldown(this.haste.current, this.owner._modules.alwaysBeCasting.constructor.BASE_GCD, this.owner._modules.alwaysBeCasting.constructor.MINIMUM_GCD);
   }
 
   /** @type {object} The last GCD event that occured, can be used to check if the player is affected by the GCD. */

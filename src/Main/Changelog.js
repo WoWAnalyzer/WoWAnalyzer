@@ -17,17 +17,15 @@ class Changelog extends React.PureComponent {
   static defaultProps = {
     includeCore: true,
   };
-  constructor() {
-    super();
-    this.state = {
-      includeCore: true,
-    };
-  }
+  state = {
+    includeCore: true,
+  };
 
   render() {
     const { changelog, limit, includeCore } = this.props;
 
-    const mergedChangelog = includeCore && this.state.includeCore ? [ ...CORE_CHANGELOG, ...changelog ].sort((a, b) => b.date - a.date) : changelog;
+    const mergedChangelog = includeCore && this.state.includeCore ? [...CORE_CHANGELOG, ...changelog].sort((a, b) => b.date - a.date) : changelog;
+
     return (
       <div style={{ padding: 0 }}>
         {includeCore && (
@@ -46,7 +44,7 @@ class Changelog extends React.PureComponent {
         <ul className="list text">
           {mergedChangelog
             .filter((_, i) => !limit || i < limit)
-            .map((entry, i) => {
+            .map(entry => {
               const { date, changes, contributors } = entry;
               const isFromCoreChangelog = CORE_CHANGELOG.includes(entry);
               // The index of the entry provides us with a unique never changing key, which speeds up the Shared Changes toggle
