@@ -29,6 +29,12 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
       },
       {
+        spell: SPELLS.REND_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.REND_TALENT.id),
+      },
+      {
         spell: SPELLS.CLEAVE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 6,
