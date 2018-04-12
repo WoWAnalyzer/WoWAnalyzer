@@ -336,7 +336,7 @@ class CharacterParses extends React.Component {
                     </div>
                   )}
                   {!this.state.isLoading && this.filterParses.map((elem, index) =>
-                    <div className="row character-parse">
+                    <div className="row character-parse" key={elem.report_code + elem.report_fight}>
                       <div className="col-md-5">
                         <img src={this.iconPath(elem.spec)} style={{ height: 30, marginRight: 10 }} alt="Icon" />
                         {elem.difficulty} - {elem.name}
@@ -344,6 +344,7 @@ class CharacterParses extends React.Component {
                       <div className="col-md-5">
                         {elem.talents.map(talent => 
                           <SpellIcon 
+                            key={talent.id}
                             id={talent.id}
                             style={{ width: '1.8em', height: '1.8em', marginRight: 2, marginBottom: 10 }}
                           />
@@ -360,7 +361,7 @@ class CharacterParses extends React.Component {
                       </div>
                       <div className="col-md-5">
                         {elem.gear.filter((item, index) => { return index === 12 || index === 13 || item.quality === "legendary"; }).map(item =>
-                          <ItemLink id={item.id} className={item.quality} icon={false} >
+                          <ItemLink id={item.id} key={item.id} className={item.quality} icon={false} >
                             <Icon 
                               icon={ITEMS[item.id] ? ITEMS[item.id].icon : ITEMS[0].icon} 
                               style={{ width: '1.8em', height: '1.8em', border: '1px solid', marginRight: 2 }}
@@ -409,14 +410,14 @@ class CharacterParses extends React.Component {
                       Raid:
                       <select className="form-control" onChange={e => this.setState({ activeZoneID: Number(e.target.value)}, () => { this.load().catch(e => { console.log('Error'); });})}>
                         {Object.values(ZONES).reverse().map(elem =>
-                          <option value={elem.id}>{elem.name}</option>
+                          <option key={elem.id} value={elem.id}>{elem.name}</option>
                         )}
                       </select>
                       Boss:
                       <select className="form-control" value={this.state.activeEncounter} onChange={e => this.setState({ activeEncounter: e.target.value })}>
                         <option value={0} defaultValue>All bosses</option>
                         {this.zoneBosses.map(e => 
-                          <option value={e.name}>{e.name}</option>
+                          <option key={e.id} value={e.name}>{e.name}</option>
                         )}
                       </select>
                       Metric:
@@ -435,7 +436,7 @@ class CharacterParses extends React.Component {
                     <div className="col-md-4">
                       Difficulties:
                       {DIFFICULTIES.filter((elem) => { return elem; }).map((elem, index) => 
-                        <div onClick={() => this.updateDifficulty(elem)} className={ this.state.activeDifficulty.includes(elem) ? 'selected form-control' : 'form-control'}>
+                        <div key={index} onClick={() => this.updateDifficulty(elem)} className={ this.state.activeDifficulty.includes(elem) ? 'selected form-control' : 'form-control'}>
                           {elem}
                         </div>
                       )}
@@ -443,7 +444,7 @@ class CharacterParses extends React.Component {
                     <div className="col-md-4">
                       Specs:
                       {this.state.specs.map((elem, index) => 
-                        <div onClick={() => this.updateSpec(elem.replace(" ", ""))} className={this.state.activeSpec.includes(elem.replace(" ", "")) ? 'selected form-control' : 'form-control'}>
+                        <div key={index} onClick={() => this.updateSpec(elem.replace(" ", ""))} className={this.state.activeSpec.includes(elem.replace(" ", "")) ? 'selected form-control' : 'form-control'}>
                           <img src={this.iconPath(elem)} style={{ height: 18, marginRight: 10 }} alt="Icon" />
                           {elem}
                         </div>
