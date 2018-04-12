@@ -7,18 +7,15 @@ import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Enemies from 'Parser/Core/Modules/Enemies';
 
 import SpellUsable from '../Features/SpellUsable';
 
 class ColossusSmashAnalyzer extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    enemies: Enemies,
     spellUsable: SpellUsable,
   };
 
-  // Statistics
   colossusSmashes = 0;
   shatteredColossusOverlaps = 0;
 
