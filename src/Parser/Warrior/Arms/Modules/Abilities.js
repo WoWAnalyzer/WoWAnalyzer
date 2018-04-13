@@ -50,11 +50,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 90,
         isOnGCD: true,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.50,
-          extraSuggestion: 'Use it as a filler when you\'re out of rage.',
-        },
       },
       {
         spell: SPELLS.WARBREAKER,
