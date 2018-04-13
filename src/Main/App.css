@@ -222,12 +222,19 @@ ul {
   background: transparent;
 }
 .panel-heading h2 {
-  opacity: .9;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-weight: 600;
   margin: 0;
-  font-size: 1em;
+  font-size: 1.3em;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: -webkit-linear-gradient(top,#fff 0,#c6c6c6 7%,#fff 20%,#cfcfcf 38%,#fef9ef 68%,#c7beac 83%,#dccdbc 100%);
+  background-size: 1em 1em;
+  background-position: center;
+  color: #c6c6c6;
+  line-height: 1.3em;
+  text-shadow: none;
+  position: relative;
+  font-weight: 700;
 }
 .panel > .panel-body {
   padding: 15px 22px;
