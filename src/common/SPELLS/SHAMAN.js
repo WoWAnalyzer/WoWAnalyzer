@@ -612,7 +612,7 @@ export default {
     name: 'Chain Heal',
     icon: 'spell_nature_healingwavegreater',
     manaCost: 55000,
-    color: '#023373',
+    color: '#203755',
   },
   HEALING_WAVE: {
     id: 77472,
@@ -626,7 +626,7 @@ export default {
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
     manaCost: 44000,
-    color: '#3cb6c3',
+    color: '#40b3bf',
   },
   RIPTIDE: {
     id: 61295,

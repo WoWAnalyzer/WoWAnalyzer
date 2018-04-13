@@ -210,7 +210,7 @@ class UnleashLife extends Analyzer {
             data: items.map(item => item.value),
             backgroundColor: items.map(item => item.color),
             borderColor: '#000000',
-            borderWidth: 1.5,
+            borderWidth: 0,
           }],
           labels: items.map(item => item.label),
         }}
@@ -285,7 +285,7 @@ class UnleashLife extends Analyzer {
       <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <div className="row">
           <StatisticsListBox
-            title={<span><SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} icon={false}/> usage</span>}
+            title={<span><SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id}/> usage</span>}
             containerProps={{ className: 'col-xs-12' }}
           >
             {this.unleashLifeCastRatioChart()}

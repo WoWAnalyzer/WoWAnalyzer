@@ -70,7 +70,7 @@ class CastBehavior extends Analyzer {
             data: items.map(item => item.value),
             backgroundColor: items.map(item => item.color),
             borderColor: '#000000',
-            borderWidth: 1.5,
+            borderWidth: 0,
           }],
           labels: items.map(item => item.label),
         }}
