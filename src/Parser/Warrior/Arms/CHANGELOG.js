@@ -7,6 +7,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-13'),
+    changes: <Wrapper>Added suggestions for <SpellLink id={SPELLS.SLAM.id} icon /> and <SpellLink id={SPELLS.WHIRLWIND.id} icon /> usage.</Wrapper>,
+    contributors: [Aelexe],
+  },
+  {
     date: new Date('2018-04-12'),
     changes: <Wrapper>Added a suggestion for avoiding using <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> without <SpellLink id={SPELLS.SHATTERED_DEFENSES.id} icon /> where possible.</Wrapper>,
     contributors: [Aelexe],

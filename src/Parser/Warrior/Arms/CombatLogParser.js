@@ -10,8 +10,10 @@ import ColossusSmashUptime from './Modules/BuffDebuff/ColossusSmashUptime';
 import Execute from './Modules/Core/Execute';
 import Rend from './Modules/Talents/Rend';
 import MortalStrike from './Modules/Core/MortalStrike';
+import Slam from './Modules/Core/Slam';
 import TacticianProc from './Modules/BuffDebuff/TacticianProc';
 import ExecuteRange from './Modules/Features/ExecuteRange';
+import Whirlwind from './Modules/Core/Whirlwind';
 import SpellUsable from './Modules/Features/SpellUsable';
 import Channeling from './Modules/Features/Channeling';
 
@@ -34,7 +36,9 @@ class CombatLogParser extends CoreCombatLogParser {
     executeRange: ExecuteRange,
     rend: Rend,
     mortalStrike: MortalStrike,
+    slam: Slam,
     tacticianProc: TacticianProc,
+    whirlwind: Whirlwind,
     spellUsable: SpellUsable,
     channeling: Channeling,
 
