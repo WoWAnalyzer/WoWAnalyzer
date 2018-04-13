@@ -841,6 +841,11 @@ export default {
     name: 'Queen Ascendant',
     icon: 'ability_shaman_watershield',
   },
+  UNDULATION_BUFF: {
+    id: 216251,
+    name: 'Undulation',
+    icon: 'spell_nature_healingwavelesser',
+  },
   // Restoration Shaman Set Bonus:
   RAINFALL: { // T21 2pc
     id: 252154,
