@@ -29,3 +29,8 @@ footer:before {
   width: 150px;
   margin: 4em 0;
 }
+footer h1 {
+  text-transform: uppercase;
+  margin-bottom: 0.4em;
+  color: #b7b7b7;
+}

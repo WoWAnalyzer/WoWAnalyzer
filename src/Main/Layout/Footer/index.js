@@ -11,9 +11,11 @@ class Footer extends React.PureComponent {
     return (
       <footer>
         <div className="container text-center">
-          <img src="/favicon.png" alt="Logo" className="wowanalyzer-logo" />
+          <a href="/">
+            <img src="/favicon.png" alt="Logo" className="wowanalyzer-logo" />
+          </a>
 
-          <h1 style={{ textTransform: 'uppercase', marginBottom: '0.4em', color: '#b7b7b7' }}>
+          <h1>
             Be a part of us
           </h1>
           <div className="social-links">
