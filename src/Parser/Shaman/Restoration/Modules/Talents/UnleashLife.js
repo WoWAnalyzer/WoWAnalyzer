@@ -209,7 +209,7 @@ class UnleashLife extends Analyzer {
           datasets: [{
             data: items.map(item => item.value),
             backgroundColor: items.map(item => item.color),
-            borderColor: '#666',
+            borderColor: '#000000',
             borderWidth: 1.5,
           }],
           labels: items.map(item => item.label),
@@ -237,25 +237,25 @@ class UnleashLife extends Analyzer {
 
     const items = [
       {
-        color: '#023373',
+        color: SPELLS.CHAIN_HEAL.color,
         label: 'Chain Heal',
         spellId: SPELLS.CHAIN_HEAL.id,
         value: this.buffedChainHeals,
       },
       {
-        color: '#2055CC',
+        color: SPELLS.HEALING_WAVE.color,
         label: 'Healing Wave',
         spellId: SPELLS.HEALING_WAVE.id,
         value: this.buffedHealingWaves,
       },
       {
-        color: '#42E0FF',
+        color: SPELLS.HEALING_SURGE_RESTORATION.color,
         label: 'Healing Surge',
         spellId: SPELLS.HEALING_SURGE_RESTORATION.id,
         value: this.buffedHealingSurges,
       },
       {
-        color: '#e9effc',
+        color: SPELLS.RIPTIDE.color,
         label: 'Riptide',
         spellId: SPELLS.RIPTIDE.id,
         value: this.buffedRiptides,
@@ -285,7 +285,7 @@ class UnleashLife extends Analyzer {
       <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <div className="row">
           <StatisticsListBox
-            title={<span><SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id}/> usage</span>}
+            title={<span><SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} icon={false}/> usage</span>}
             containerProps={{ className: 'col-xs-12' }}
           >
             {this.unleashLifeCastRatioChart()}

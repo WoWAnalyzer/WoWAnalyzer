@@ -69,7 +69,7 @@ class CastBehavior extends Analyzer {
           datasets: [{
             data: items.map(item => item.value),
             backgroundColor: items.map(item => item.color),
-            borderColor: '#666',
+            borderColor: '#000000',
             borderWidth: 1.5,
           }],
           labels: items.map(item => item.label),
@@ -109,13 +109,13 @@ class CastBehavior extends Analyzer {
 
     const items = [
       {
-        color: '#2055CC',
+        color: SPELLS.HEALING_WAVE.color,
         label: 'Healing Wave',
         spellId: SPELLS.HEALING_WAVE.id,
         value: twHealingWaves,
       },
       {
-        color: '#42E0FF',
+        color: SPELLS.HEALING_SURGE_RESTORATION.color,
         label: 'Healing Surge',
         spellId: SPELLS.HEALING_SURGE_RESTORATION.id,
         value: twHealingSurges,
@@ -154,13 +154,13 @@ class CastBehavior extends Analyzer {
 
     const items = [
       {
-        color: '#2055CC',
+        color: SPELLS.HEALING_WAVE.color,
         label: 'Healing Wave',
         spellId: SPELLS.HEALING_WAVE.id,
         value: fillerHealingWaves,
       },
       {
-        color: '#42E0FF',
+        color: SPELLS.HEALING_SURGE_RESTORATION.color,
         label: 'Healing Surge',
         spellId: SPELLS.HEALING_SURGE_RESTORATION.id,
         value: fillerHealingSurges,

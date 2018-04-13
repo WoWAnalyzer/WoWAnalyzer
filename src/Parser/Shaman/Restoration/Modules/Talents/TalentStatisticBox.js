@@ -36,7 +36,7 @@ class TalentStatisticBox extends Analyzer {
       <StatisticsListBox
         title="Talents"
         tooltip=
-        {`This includes feeding and any interaction they have. Since some of those talents can feed into each other, their combined value will be higher than the actual total healing.<br /><br />
+        {`This includes feeding and any interaction they have. Since some of those talents can feed into each other, their combined value will be higher than the actual combined healing.<br /><br />
         <b>Not Supported:</b><br />
         Crashing Waves<br />
         Deluge<br />

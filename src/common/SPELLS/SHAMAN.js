@@ -612,29 +612,33 @@ export default {
     name: 'Chain Heal',
     icon: 'spell_nature_healingwavegreater',
     manaCost: 55000,
-  },
-  HEALING_SURGE_RESTORATION: {
-    id: 8004,
-    name: 'Healing Surge',
-    icon: 'spell_nature_healingway',
-    manaCost: 44000,
+    color: '#023373',
   },
   HEALING_WAVE: {
     id: 77472,
     name: 'Healing Wave',
     icon: 'spell_nature_healingwavelesser',
     manaCost: 19800,
+    color: '#146585',
   },
-  TIDAL_WAVES_BUFF: {
-    id: 53390,
-    name: 'Tidal Waves',
-    icon: 'spell_shaman_tidalwaves',
+  HEALING_SURGE_RESTORATION: {
+    id: 8004,
+    name: 'Healing Surge',
+    icon: 'spell_nature_healingway',
+    manaCost: 44000,
+    color: '#3cb6c3',
   },
   RIPTIDE: {
     id: 61295,
     name: 'Riptide',
     icon: 'spell_nature_riptide',
     manaCost: 17600,
+    color: '#a3dbce',
+  },
+  TIDAL_WAVES_BUFF: {
+    id: 53390,
+    name: 'Tidal Waves',
+    icon: 'spell_shaman_tidalwaves',
   },
   HEALING_RAIN_CAST: {
     id: 73920,
