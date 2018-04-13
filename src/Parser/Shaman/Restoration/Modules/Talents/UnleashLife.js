@@ -3,7 +3,7 @@ import { Doughnut as DoughnutChart } from 'react-chartjs-2';
 
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 
 import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 
@@ -14,10 +14,14 @@ import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
 
 const UNLEASH_LIFE_HEALING_INCREASE = 0.45;
-const BUFFER_MS = 300;
+const BUFFER_MS = 200;
 const riptideDuration = 18000;
 
 const CHART_SIZE = 75;
+
+/**
+ * This is slightly inaccurate, since if you use UL on 2 Riptides in a row it will lose a few seconds of the first one.
+ */
 
 class UnleashLife extends Analyzer {
   static dependencies = {
@@ -28,6 +32,8 @@ class UnleashLife extends Analyzer {
 
   unleashLifeCasts = 0;
   unleashLifeRemaining = 0;
+  unleashLifeHealRemaining = 0;
+  unleashLifeFeedRemaining = 0;
 
   buffedChainHeals = 0;
   buffedHealingWaves = 0;
@@ -36,6 +42,7 @@ class UnleashLife extends Analyzer {
 
   buffedRiptideTimestamp = null;
   buffedRiptideTarget = null;
+  buffedChainHealTimestamp = null;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id);
@@ -49,17 +56,21 @@ class UnleashLife extends Analyzer {
       this.buffedRiptideTarget = null;
     }
 
+    if(spellId === SPELLS.UNLEASH_LIFE_TALENT.id) {
+      this.unleashLifeHealRemaining += 1;
+    }
+
     if (
-      spellId === SPELLS.HEALING_WAVE.id || 
-      spellId === SPELLS.HEALING_SURGE_RESTORATION.id ||
-      spellId === SPELLS.CHAIN_HEAL.id ||
-      (spellId === SPELLS.RIPTIDE.id && !event.tick)
+      (spellId === SPELLS.HEALING_WAVE.id && this.unleashLifeHealRemaining > 0) || 
+      (spellId === SPELLS.HEALING_SURGE_RESTORATION.id && this.unleashLifeHealRemaining> 0) ||
+      (spellId === SPELLS.CHAIN_HEAL.id) ||
+      (spellId === SPELLS.RIPTIDE.id && !event.tick && this.unleashLifeHealRemaining> 0)
     ) {
-      const hasUnleashLife = this.combatants.selected.hasBuff(SPELLS.UNLEASH_LIFE_TALENT.id, event.timestamp, BUFFER_MS);
+      const hasUnleashLife = this.combatants.selected.hasBuff(SPELLS.UNLEASH_LIFE_TALENT.id, event.timestamp, BUFFER_MS, BUFFER_MS);
 
       if (hasUnleashLife) {
         this.healing += calculateEffectiveHealing(event, UNLEASH_LIFE_HEALING_INCREASE);
-        console.log(event);
+        this.unleashLifeHealRemaining - 1 < 0 ? this.unleashLifeHealRemaining = 0 : this.unleashLifeHealRemaining -= 1;
       }
     } else if (SPELLS.RIPTIDE.id === spellId && event.tick && this.buffedRiptideTarget === event.targetID) {
       this.healing += calculateEffectiveHealing(event, UNLEASH_LIFE_HEALING_INCREASE);
@@ -76,7 +87,7 @@ class UnleashLife extends Analyzer {
       this.unleashLifeRemaining += 1;
     }
 
-    const hasUnleashLife = this.combatants.selected.hasBuff(SPELLS.UNLEASH_LIFE_TALENT.id, event.timestamp, BUFFER_MS);
+    const hasUnleashLife = this.combatants.selected.hasBuff(SPELLS.UNLEASH_LIFE_TALENT.id, event.timestamp, BUFFER_MS, BUFFER_MS);
 
     if(!hasUnleashLife) {
       return;
@@ -128,22 +139,26 @@ class UnleashLife extends Analyzer {
   on_feed_heal(event) {
     const spellId = event.ability.guid;
 
+    if(spellId === SPELLS.UNLEASH_LIFE_TALENT.id) {
+      this.unleashLifeFeedRemaining += 1;
+    }
+
     if (
-      spellId === SPELLS.HEALING_WAVE.id || 
-      spellId === SPELLS.HEALING_SURGE_RESTORATION.id ||
-      spellId === SPELLS.CHAIN_HEAL.id ||
-      (spellId === SPELLS.RIPTIDE.id && !event.tick)
+      (spellId === SPELLS.HEALING_WAVE.id && this.unleashLifeFeedRemaining > 0) || 
+      (spellId === SPELLS.HEALING_SURGE_RESTORATION.id && this.unleashLifeFeedRemaining> 0) ||
+      (spellId === SPELLS.CHAIN_HEAL.id) ||
+      (spellId === SPELLS.RIPTIDE.id && !event.tick && this.unleashLifeFeedRemaining> 0)
     ) {
-      const hasUnleashLife = this.combatants.selected.hasBuff(SPELLS.UNLEASH_LIFE_TALENT.id, event.timestamp, BUFFER_MS);
+      const hasUnleashLife = this.combatants.selected.hasBuff(SPELLS.UNLEASH_LIFE_TALENT.id, event.timestamp, BUFFER_MS, BUFFER_MS);
 
       if (hasUnleashLife) {
         this.healing += event.feed * UNLEASH_LIFE_HEALING_INCREASE;
+        this.unleashLifeFeedRemaining - 1 < 0 ? this.unleashLifeFeedRemaining = 0 : this.unleashLifeFeedRemaining -= 1;
       }
     } else if (SPELLS.RIPTIDE.id === spellId && event.tick && this.buffedRiptideTarget === event.targetID) {
       this.healing += event.feed * UNLEASH_LIFE_HEALING_INCREASE;
     }
   }
-
 
   legend(items, total) {
     const numItems = items.length;
@@ -179,8 +194,8 @@ class UnleashLife extends Analyzer {
             {label}
           </div>
           <div className="flex-sub">
-            <dfn data-tip={`${formatPercentage(value / total, 0)}%`}>
-              {value}
+          <dfn data-tip={value}>
+              {formatPercentage(value / total, 0)}%
             </dfn>
           </div>
         </div>
@@ -222,7 +237,7 @@ class UnleashLife extends Analyzer {
 
     const items = [
       {
-        color: '#00B159',
+        color: '#023373',
         label: 'Chain Heal',
         spellId: SPELLS.CHAIN_HEAL.id,
         value: this.buffedChainHeals,
@@ -240,7 +255,7 @@ class UnleashLife extends Analyzer {
         value: this.buffedHealingSurges,
       },
       {
-        color: '#D26CD1',
+        color: '#e9effc',
         label: 'Riptide',
         spellId: SPELLS.RIPTIDE.id,
         value: this.buffedRiptides,
@@ -279,7 +294,7 @@ class UnleashLife extends Analyzer {
       </div>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(40);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(10);
 
   subStatistic() {
     const feeding = this.cooldownThroughputTracker.getIndirectHealing(SPELLS.UNLEASH_LIFE_TALENT.id);
