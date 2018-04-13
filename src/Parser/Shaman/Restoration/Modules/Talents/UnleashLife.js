@@ -45,7 +45,6 @@ class UnleashLife extends Analyzer {
   buffedRiptideTarget = null;
   buffedChainHealTimestamp = null;
   lastUnleashLifeTimestamp = null;
-  lastUnleashLifeHealTimestamp = null;
   lastUnleashLifeFeedTimestamp = null;
 
   on_initialized() {
@@ -62,10 +61,9 @@ class UnleashLife extends Analyzer {
 
     if(spellId === SPELLS.UNLEASH_LIFE_TALENT.id) {
       this.unleashLifeHealRemaining += 1;
-      this.lastUnleashLifeHealTimestamp = event.timestamp;
     }
 
-    if((this.lastUnleashLifeHealTimestamp + unleashLifeBuffDuration) <= event.timestamp) {
+    if((this.lastUnleashLifeTimestamp + unleashLifeBuffDuration) <= event.timestamp) {
       this.unleashLifeHealRemaining = 0;
     }
 

@@ -36,7 +36,7 @@ class TalentStatisticBox extends Analyzer {
       <StatisticsListBox
         title="Talents"
         tooltip=
-        {`This includes feeding and any interaction they have. Since some of those talents can feed into each other, their combined value will be higher than the actual combined healing.<br /><br />
+        {`The purpose of this is to show the overall HPS impact of each talent. So not only what the talent itself did, but also feeding and synergy or interactions with other spells or talents. The percentage shown is what you'd lose without the talent, ignoring what you'd gain from the other options.<br /><br />
         <b>Not Supported:</b><br />
         Crashing Waves<br />
         Deluge<br />
