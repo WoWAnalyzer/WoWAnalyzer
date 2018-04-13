@@ -35,9 +35,6 @@ class UnleashLife extends Analyzer {
   unleashLifeRemaining = 0;
   unleashLifeHealRemaining = 0;
   unleashLifeFeedRemaining = 0;
-  lastUnleashLifeTimestamp = null;
-  lastUnleashLifeHealTimestamp = null;
-  lastUnleashLifeFeedTimestamp = null;
 
   buffedChainHeals = 0;
   buffedHealingWaves = 0;
@@ -47,6 +44,9 @@ class UnleashLife extends Analyzer {
   buffedRiptideTimestamp = null;
   buffedRiptideTarget = null;
   buffedChainHealTimestamp = null;
+  lastUnleashLifeTimestamp = null;
+  lastUnleashLifeHealTimestamp = null;
+  lastUnleashLifeFeedTimestamp = null;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id);
@@ -67,7 +67,6 @@ class UnleashLife extends Analyzer {
 
     if((this.lastUnleashLifeHealTimestamp + unleashLifeBuffDuration) <= event.timestamp) {
       this.unleashLifeHealRemaining = 0;
-      return;
     }
 
     if (
@@ -162,7 +161,6 @@ class UnleashLife extends Analyzer {
 
     if((this.lastUnleashLifeFeedTimestamp + unleashLifeBuffDuration) <= event.timestamp) {
       this.unleashLifeFeedRemaining = 0;
-      return;
     }
 
     if (
