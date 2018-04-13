@@ -413,6 +413,10 @@ nav .selectorHeader a {
   margin-right: 5px;
   border-radius: 2px;
 }
+/* Fix for double bottom border for second last children */
+.list.players>li:nth-child(odd):nth-last-child(2) {
+  box-shadow: none;
+}
 .list > li {
   margin: 0;
   padding: 0 22px;
