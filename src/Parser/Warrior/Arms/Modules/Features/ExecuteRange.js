@@ -38,7 +38,7 @@ class ExecuteRangeTracker extends Analyzer {
         timestamp: event.timestamp,
         inExecuteRange: inExecuteRange,
       });
-    } else if(!newEvent) {
+    } else {
       // If this event is the same as timestamp as the last event, modify the last record.
       timeline[timeline.length - 1].inExecuteRange = inExecuteRange;
     }
