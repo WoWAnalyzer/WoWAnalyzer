@@ -16,6 +16,7 @@ import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
 const UNLEASH_LIFE_HEALING_INCREASE = 0.45;
 const BUFFER_MS = 200;
 const riptideDuration = 18000;
+const unleashLifeBuffDuration = 10000;
 
 const CHART_SIZE = 75;
 
@@ -34,6 +35,9 @@ class UnleashLife extends Analyzer {
   unleashLifeRemaining = 0;
   unleashLifeHealRemaining = 0;
   unleashLifeFeedRemaining = 0;
+  lastUnleashLifeTimestamp = null;
+  lastUnleashLifeHealTimestamp = null;
+  lastUnleashLifeFeedTimestamp = null;
 
   buffedChainHeals = 0;
   buffedHealingWaves = 0;
@@ -58,6 +62,12 @@ class UnleashLife extends Analyzer {
 
     if(spellId === SPELLS.UNLEASH_LIFE_TALENT.id) {
       this.unleashLifeHealRemaining += 1;
+      this.lastUnleashLifeHealTimestamp = event.timestamp;
+    }
+
+    if((this.lastUnleashLifeHealTimestamp + unleashLifeBuffDuration) <= event.timestamp) {
+      this.unleashLifeHealRemaining = 0;
+      return;
     }
 
     if (
@@ -85,6 +95,7 @@ class UnleashLife extends Analyzer {
     if(spellId === SPELLS.UNLEASH_LIFE_TALENT.id) {
       this.unleashLifeCasts += 1;
       this.unleashLifeRemaining += 1;
+      this.lastUnleashLifeTimestamp = event.timestamp;
     }
 
     const hasUnleashLife = this.combatants.selected.hasBuff(SPELLS.UNLEASH_LIFE_TALENT.id, event.timestamp, BUFFER_MS, BUFFER_MS);
@@ -94,6 +105,11 @@ class UnleashLife extends Analyzer {
     }
 
     if (this.unleashLifeRemaining) {
+      if((this.lastUnleashLifeTimestamp + unleashLifeBuffDuration) <= event.timestamp) {
+        this.unleashLifeRemaining = 0;
+        return;
+      }
+
       switch(spellId) {
         case SPELLS.CHAIN_HEAL.id:
             this.buffedChainHeals += 1;
@@ -141,6 +157,12 @@ class UnleashLife extends Analyzer {
 
     if(spellId === SPELLS.UNLEASH_LIFE_TALENT.id) {
       this.unleashLifeFeedRemaining += 1;
+      this.lastUnleashLifeFeedTimestamp = event.timestamp;
+    }
+
+    if((this.lastUnleashLifeFeedTimestamp + unleashLifeBuffDuration) <= event.timestamp) {
+      this.unleashLifeFeedRemaining = 0;
+      return;
     }
 
     if (
