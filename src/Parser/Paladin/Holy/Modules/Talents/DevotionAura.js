@@ -69,17 +69,22 @@ class DevotionAura extends Analyzer {
   }
 
   load() {
-    const amDamageTakenPromise = fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
+    const buffHistory = this.combatants.selected.getBuffHistory(SPELLS.AURA_MASTERY.id, this.owner.playerId);
+    if (buffHistory.length === 0) {
+      return Promise.resolve();
+    }
+    // WCL's filter requires the timestamp to be relative to fight start
+    const filter = buffHistory.map(buff => `(timestamp>=${buff.start - this.owner.fight.start_time} AND timestamp<=${buff.end - this.owner.fight.start_time})`).join(' OR ');
+
+    return fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
-      filter: `(IN RANGE FROM type='applybuff' AND ability.id=${PROTECTION_OF_TYR_ID} AND source.name='${this.combatants.selected.name}' TO type='removebuff' AND ability.id=${PROTECTION_OF_TYR_ID} AND source.name='${this.combatants.selected.name}' GROUP BY target ON target END)`,
+      filter: filter,
     })
       .then(json => {
         console.log('Received AM damage taken', json);
         this.totalDamageTakenDuringAuraMastery = json.entries.reduce((damageTaken, entry) => damageTaken + entry.total, 0);
       });
-
-    return amDamageTakenPromise;
   }
 
   statistic() {
