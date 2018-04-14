@@ -214,24 +214,6 @@ class Checklist extends CoreChecklist {
         ];
       },
     }),
-    new Rule({
-      name: 'Pick the right tools for the fight',
-      description: 'The throughput gain of some talents or legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly.',
-      requirements: () => {
-        return [
-          new Requirement({
-            name: <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} />,
-            check: () => this.auraOfSacrifice.suggestionThresholds,
-            when: this.auraOfSacrifice.active,
-          }),
-          new Requirement({
-            name: <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} />,
-            check: () => this.judgmentOfLight.suggestionThresholds,
-            when: this.judgmentOfLight.active,
-          }),
-        ];
-      },
-    }),
     new PreparationRule(),
     new Rule({
       name: 'Avoid overhealing',
