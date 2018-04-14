@@ -17,52 +17,15 @@ class ExecuteRangeTracker extends Analyzer {
 
     const targetString = encodeTargetString(event.targetID, event.targetInstance);
 
-    if(this.enemyMap[targetString] === undefined) {
-      this.enemyMap[targetString] = [];
-    }
-
-    const inExecuteRange = event.hitPoints / event.maxHitPoints <= EXECUTE_RANGE;
-
-    const timeline = this.enemyMap[targetString];
-    const newEvent = timeline.length === 0 || timeline[timeline.length - 1].timestamp !== event.timestamp;
-    const differentState = timeline.length === 0 || timeline[timeline.length - 1].inExecuteRange !== inExecuteRange;
-
-    if(!differentState) {
-      // Stop if the state is the same as the last event.
-      return;
-    }
-
-    if(newEvent) {
-      // If this event is more recent than the last event, record it.
-      timeline.push({
-        timestamp: event.timestamp,
-        inExecuteRange: inExecuteRange,
-      });
-    } else {
-      // If this event is the same as timestamp as the last event, modify the last record.
-      timeline[timeline.length - 1].inExecuteRange = inExecuteRange;
-    }
+    this.enemyMap[targetString] = event.hitPoints / event.maxHitPoints <= EXECUTE_RANGE;
   }
 
   /**
-   * Returns whether the target was in Execute range at the current timestamp.
+   * Returns whether the target is in Execute range.
    */
-  isTargetInExecuteRange({ targetID, targetInstance, timestamp }) {
+  isTargetInExecuteRange({ targetID, targetInstance }) {
     const targetString = encodeTargetString(targetID, targetInstance);
-    const timeline = this.enemyMap[targetString];
-
-    for(let i = 0; i < timeline.length; i++) {
-      const record1 = timeline[i];
-      const record2 = i + 1 < timeline.length ? timeline[i + 1] : null;
-
-      if(record1.timestamp > timestamp) {
-        return null;
-      }
-
-      if(record1.timestamp < timestamp && (record2 === null || record2.timestamp > timestamp)) {
-        return record1.inExecuteRange;
-      }
-    }
+    return this.enemyMap[targetString];
   }
 }
 
