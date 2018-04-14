@@ -701,12 +701,12 @@ export default {
   },
   EARTHEN_SHIELD_TOTEM_ABSORB: {
     id: 201633,
-    name: 'Earthen Shield Totem',
+    name: 'Earthen Wall Totem',
     icon: 'spell_nature_stoneskintotem',
   },
   EARTHEN_SHIELD_TOTEM_SELF_DAMAGE: {
     id: 201657,
-    name: 'Earthen Shield Totem',
+    name: 'Earthen Wall Totem',
     icon: 'spell_nature_stoneskintotem',
   },
   RESTORATION_SHAMAN_T19_2SET_BONUS_BUFF: {

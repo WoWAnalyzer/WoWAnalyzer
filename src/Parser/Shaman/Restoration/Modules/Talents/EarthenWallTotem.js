@@ -14,7 +14,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
 
-class EarthenShieldTotem extends Analyzer {
+class EarthenWallTotem extends Analyzer {
   static dependencies = {
     cooldownThroughputTracker: CooldownThroughputTracker,
     abilityTracker: AbilityTracker,
@@ -108,5 +108,5 @@ class EarthenShieldTotem extends Analyzer {
   }
 }
 
-export default EarthenShieldTotem;
+export default EarthenWallTotem;
 
