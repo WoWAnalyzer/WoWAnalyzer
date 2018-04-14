@@ -99,8 +99,7 @@ class CastBehavior extends Analyzer {
 
     const chainHealCasts = chainHeal.casts || 0;
     const riptideCasts = riptide.casts || 0;
-    const twPerRiptide = this.combatants.selected.hasTalent(SPELLS.CRASHING_WAVES_TALENT.id) ? 2 : 1;
-    const totalTwGenerated = twPerRiptide * riptideCasts + chainHealCasts;
+    const totalTwGenerated = riptideCasts + chainHealCasts;
     const twHealingWaves = healingWave.healingTwHits || 0;
     const twHealingSurges = healingSurge.healingTwHits || 0;
 
