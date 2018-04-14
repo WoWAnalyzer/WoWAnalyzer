@@ -5,7 +5,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import Abilities from './Abilities';
 
-const debug = true;
+const debug = false;
 const INVALID_COOLDOWN_CONFIG_LAG_MARGIN = 150; // not sure what this is based around, but <150 seems to catch most false positives
 
 function spellName(spellId) {
