@@ -51,11 +51,6 @@ export default {
     manaCost: 39600,
     baseMana: 0.18,
   },
-  AVENGING_WRATH: {
-    id: 31842,
-    name: 'Avenging Wrath',
-    icon: 'spell_holy_avenginewrath',
-  },
   HAMMER_OF_JUSTICE: {
     id: 853,
     name: 'Hammer of Justice',
@@ -304,7 +299,7 @@ export default {
     name: 'Divine Purpose',
     icon: 'spell_holy_mindvision',
   },
-  AVENGING_WRATH_RET: {
+  AVENGING_WRATH: {
     id: 31884,
     name: 'Avenging Wrath',
     icon: 'spell_holy_avenginewrath',
