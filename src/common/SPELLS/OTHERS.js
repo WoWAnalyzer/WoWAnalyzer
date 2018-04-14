@@ -18,7 +18,7 @@ export default {
   // },
   MELEE: {
     id: 1,
-    name: 'Melee or Word of Recall, who knows?',
+    name: 'Auto attack',
     icon: 'inv_axe_02',
   },
   LEECH: {

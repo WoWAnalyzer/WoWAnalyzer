@@ -5,7 +5,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import Abilities from './Abilities';
 
-const debug = false;
+const debug = true;
 const INVALID_COOLDOWN_CONFIG_LAG_MARGIN = 150; // not sure what this is based around, but <150 seems to catch most false positives
 
 function spellName(spellId) {
@@ -130,7 +130,9 @@ class SpellUsable extends Analyzer {
             'fight time:', timestamp - this.owner.fight.start_time,
             'time passed:', (timestamp - this._currentCooldowns[canSpellId].start),
             'cooldown remaining:', remainingCooldown,
-            'expectedDuration:', this._currentCooldowns[canSpellId].expectedDuration
+            'expectedDuration:', this._currentCooldowns[canSpellId].expectedDuration,
+            'totalReductionTime:', this._currentCooldowns[canSpellId].totalReductionTime,
+            'adjusted expected duration:', this._currentCooldowns[canSpellId].expectedDuration - this._currentCooldowns[canSpellId].totalReductionTime
           );
         }
         this.endCooldown(canSpellId, false, timestamp);
