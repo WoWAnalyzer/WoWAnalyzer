@@ -103,6 +103,7 @@ class EventsTab extends React.Component {
       }, {}),
       rawNames: false,
       showFabricated: false,
+      search: '',
     };
     this.handleRowClick = this.handleRowClick.bind(this);
   }
@@ -197,6 +198,10 @@ class EventsTab extends React.Component {
   render() {
     const { parser } = this.props;
 
+    const searchTerms = this.state.search
+      .split(' ')
+      .filter(searchTerm => searchTerm !== '');
+
     const events = parser.eventHistory
       .filter(event => {
         if (this.state[event.type] === false) {
@@ -207,19 +212,14 @@ class EventsTab extends React.Component {
         }
 
         // Search Logic
-        if(this.state.search === undefined || this.state.search === '') {
+        if(searchTerms.length === 0) {
           return true;
         }
 
         const source = this.findEntity(event.sourceID);
         const target = this.findEntity(event.targetID);
 
-        const searchTerms = this.state.search.split(',');
-        for(let i = 0; i < searchTerms.length; i++) {
-          const searchTerm = searchTerms[i].trim();
-          if(searchTerm === '') {
-            return false;
-          }
+        return searchTerms.some(searchTerm => {
           if(event.ability !== undefined && event.ability.name.toLowerCase().includes(searchTerm)) {
             return true;
           } else if(source !== null && source.name.toLowerCase().includes(searchTerm)) {
@@ -227,9 +227,8 @@ class EventsTab extends React.Component {
           } else if(target !== null && target.name.toLowerCase().includes(searchTerm)) {
             return true;
           }
-        }
-
-        return false;
+          return false;
+        });
       });
 
     // TODO: Show active buffs like WCL
