@@ -2,9 +2,7 @@ import React from 'react';
 
 import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
 import Abilities from 'Parser/Core/Modules/Abilities';
@@ -13,7 +11,6 @@ import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/C
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
-import VelensFutureSight from 'Parser/Core/Modules/Items/Legion/Legendaries/VelensFutureSight';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
@@ -25,7 +22,6 @@ import BeaconHealing from '../PaladinCore/BeaconHealing';
 import FillerLightOfTheMartyrs from '../PaladinCore/FillerLightOfTheMartyrs';
 import FillerFlashOfLight from '../PaladinCore/FillerFlashOfLight';
 import AuraOfSacrifice from '../Talents/AuraOfSacrifice';
-import Ilterendi from '../Items/Ilterendi';
 import Overhealing from '../PaladinCore/Overhealing';
 import JudgmentOfLight from '../Talents/JudgmentOfLight';
 
@@ -41,8 +37,6 @@ class Checklist extends CoreChecklist {
     fillerFlashOfLight: FillerFlashOfLight,
     manaValues: ManaValues,
     auraOfSacrifice: AuraOfSacrifice,
-    ilterendi: Ilterendi,
-    velensFutureSight: VelensFutureSight,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
@@ -104,15 +98,12 @@ class Checklist extends CoreChecklist {
             onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
+            spell: SPELLS.AVENGING_CRUSADER_TALENT,
+            onlyWithSuggestion: false,
+          }),
+          new GenericCastEfficiencyRequirement({
             spell: SPELLS.HOLY_AVENGER_TALENT,
             onlyWithSuggestion: false,
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.TYRS_DELIVERANCE_CAST,
-            onlyWithSuggestion: false,
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.VELENS_FUTURE_SIGHT_BUFF,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.AURA_MASTERY,
@@ -232,16 +223,6 @@ class Checklist extends CoreChecklist {
             name: <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} />,
             check: () => this.auraOfSacrifice.suggestionThresholds,
             when: this.auraOfSacrifice.active,
-          }),
-          new Requirement({
-            name: <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} />,
-            check: () => this.ilterendi.suggestionThresholds,
-            when: this.ilterendi.active,
-          }),
-          new Requirement({
-            name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-            check: () => this.velensFutureSight.suggestionThresholds,
-            when: this.velensFutureSight.active,
           }),
           new Requirement({
             name: <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} />,
