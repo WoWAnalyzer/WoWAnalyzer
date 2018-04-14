@@ -167,7 +167,7 @@ describe('Core.CombatLogParser', () => {
         parser.initializeModules({
           myChildModule: MyChildModule,
         });
-      }).toThrow('Maximum call stack size exceeded'); // Relying on this exception might not be the cleaenst solution, but the module loading keeps trying until the parent module is loaded, and aborting after some time could be implemented but isn't easy to write and not useful enough.
+      }).toThrow('Failed to load modules: myChildModule');
     });
     it('recognizes classes that extend our dependency as valid dependencies', () => {
       class MyChildModule {
