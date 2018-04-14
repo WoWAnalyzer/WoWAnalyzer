@@ -304,6 +304,11 @@ export default {
     name: 'Avenging Wrath',
     icon: 'spell_holy_avenginewrath',
   },
+  AVENGING_CRUSADER_TALENT: {
+    id: 216331,
+    name: 'Avenging Crusader',
+    icon: 'ability_paladin_veneration',
+  },
   BLADE_OF_WRATH_PROC: {
     id: 231843,
     name: 'Blade of Wrath',

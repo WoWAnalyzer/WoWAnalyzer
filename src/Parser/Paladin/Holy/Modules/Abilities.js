@@ -150,6 +150,13 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.AVENGING_WRATH,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
+        enabled: !combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id),
+      },
+      {
+        spell: SPELLS.AVENGING_CRUSADER_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 120,
+        enabled: combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id),
       },
       {
         spell: SPELLS.BLESSING_OF_SACRIFICE,
