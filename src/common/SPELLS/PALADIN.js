@@ -64,13 +64,12 @@ export default {
     icon: 'inv_hammer_04',
   },
   BEACON_OF_FAITH_TALENT: { ...TALENTS.BEACON_OF_FAITH_TALENT, manaCost: 6875 },
-  BEACON_OF_LIGHT_CAST_AND_HEAL: {
+  BEACON_OF_LIGHT_HEAL: {
     id: 53652,
     name: 'Beacon of Light',
     icon: 'ability_paladin_beaconoflight',
   },
-  // TODO: Figure out which beacon of light spell id is the actual cast in BFA, since the BEACON_OF_LIGHT_BUFF one showed up as cast
-  BEACON_OF_LIGHT_BUFF: {
+  BEACON_OF_LIGHT_CAST_AND_BUFF: {
     id: 53563,
     name: 'Beacon of Light',
     icon: 'ability_paladin_beaconoflight',

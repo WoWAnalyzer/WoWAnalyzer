@@ -99,7 +99,7 @@ export default {
   [SPELLS.OBSIDIAN_STONE_SPAULDERS_HEAL.id]: {
     ignored: true,
   },
-  [SPELLS.BEACON_OF_LIGHT_CAST_AND_HEAL.id]: {
+  [SPELLS.BEACON_OF_LIGHT_HEAL.id]: {
     // This gets special treatment with the `on_beacon_heal` event
     ignored: true,
   },

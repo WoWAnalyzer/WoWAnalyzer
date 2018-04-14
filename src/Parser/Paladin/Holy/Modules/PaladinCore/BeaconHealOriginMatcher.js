@@ -20,7 +20,7 @@ class BeaconHealOriginMatcher extends Analyzer {
   healBacklog = [];
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.BEACON_OF_LIGHT_CAST_AND_HEAL.id) {
+    if (spellId === SPELLS.BEACON_OF_LIGHT_HEAL.id) {
       this.processBeaconHealing(event);
       return;
     }
