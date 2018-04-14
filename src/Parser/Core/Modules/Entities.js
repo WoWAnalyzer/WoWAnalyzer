@@ -162,9 +162,7 @@ class Entities extends Analyzer {
     const entities = this.getEntities();
     Object.values(entities)
       .forEach(enemy => {
-        enemy.buffs
-          .filter(buff => buff.ability.guid === spellId)
-          .filter(buff => sourceID === null || buff.sourceID === sourceID)
+        enemy.getBuffHistory(spellId, sourceID)
           .forEach(buff => {
             events.push({
               timestamp: buff.start,
