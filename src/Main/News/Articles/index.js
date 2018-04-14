@@ -1,4 +1,5 @@
 export default [
+  require('./2018-04-14-Battle-For-Azeroth').default,
   require('./2018-01-31-1st-Anniversary').default,
   require('./2017-12-24-Version-2-0').default,
   require('./2017-11-26-Updated-for-Antorus').default,
