@@ -12,7 +12,7 @@ const SpellLink = ({ id, children, category = undefined, icon, iconStyle, ...oth
   return (
     <a href={`http://www.wowhead.com/spell=${id}`} target="_blank" rel="noopener noreferrer" className={category} {...other}>
       {icon && <SpellIcon id={id} noLink style={iconStyle} />}{' '}
-      {children || SPELLS[id].name}
+      {children || (SPELLS[id] ? SPELLS[id].name : `Unknown spell: ${id}`)}
     </a>
   );
 };
