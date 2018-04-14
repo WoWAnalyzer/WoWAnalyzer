@@ -71,7 +71,7 @@ class EarthenShieldTotem extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Try to cast <SpellLink id={SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id} /> at times - and positions where there will be as many people taking damage possible inside of it to maximize the amount it absorbs.</span>)
           .icon(SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.icon)
-          .actual(`${this.earthenShieldEfficiency}%`)
+          .actual(`${this.earthenShieldEfficiency.toFixed(2)}%`)
           .recommended(`${recommended}%`)
           .regular(recommended - .15).major(recommended - .3);
       });
@@ -93,6 +93,19 @@ class EarthenShieldTotem extends Analyzer {
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL(70);
+
+  subStatistic() {
+    return (
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id} />
+        </div>
+        <div className="flex-sub text-right">
+          {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %
+        </div>
+      </div>
+    );
+  }
 }
 
 export default EarthenShieldTotem;

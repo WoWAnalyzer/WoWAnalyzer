@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-14'),
+    changes: <Wrapper>Changed the analysis of <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> to use a method that will continue to work in Battle for Azeroth.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-03-12'),
     changes: <Wrapper>Inefficient <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> casts will now be highlighted in the timeline with a red border.</Wrapper>,
     contributors: [Zerotorescue],

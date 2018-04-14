@@ -26,6 +26,11 @@ export default {
     name: 'Arcane Torrent',
     icon: 'spell_shadow_teleport',
   },
+  ARCANE_TORRENT_MONK: {
+    id: 129597,
+    name: 'Arcane Torrent',
+    icon: 'spell_shadow_teleport',
+  },
   ARCANE_TORRENT_DEMON_HUNTER: {
     id: 202719,
     name: 'Arcane Torrent',
