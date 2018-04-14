@@ -41,7 +41,7 @@ class HealingSurge extends Analyzer {
         return suggest(<span>Casting <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} /> without <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> is very inefficient, try not to cast more than is necessary.</span>)
           .icon(SPELLS.HEALING_SURGE_RESTORATION.icon)
           .actual(`${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Surges`)
-          .recommended(`${suggestedThreshold.isGreaterThan.minor}% of unbuffed Healing Surges`)
+          .recommended(`${formatPercentage(suggestedThreshold.isGreaterThan.minor)}% of unbuffed Healing Surges`)
           .regular(suggestedThreshold.isGreaterThan.average).major(suggestedThreshold.isGreaterThan.major);
       });
   }
