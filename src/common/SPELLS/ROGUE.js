@@ -288,6 +288,12 @@ export default {
     name: 'Kingsbane',
     icon: 'inv_knife_1h_artifactgarona_d_01',
   },
+  // Energy effect from Kingsbane
+  THE_EMPTY_CROWN: {
+    id: 248201,
+    name: 'The Empty Crown',
+    icon: 'inv_knife_1h_artifactgarona_d_01',
+  },
   VENDETTA: {
     id: 79140,
     name: 'Vendetta',
