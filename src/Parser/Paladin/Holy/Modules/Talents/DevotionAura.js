@@ -12,7 +12,8 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 // Protection of Tyr is applied to everyone that benefits from the AM effect. This is simply the easiest way to see if someone is affected by AM, other more robust solutions take a lot more effort/complexity.
 const PROTECTION_OF_TYR_ID = 211210;
-const DEVOTION_AURA_DAMAGE_REDUCTION = 0.2;
+const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = 0.1;
+const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.2;
 
 /**
  * Falling damage is considered "pure" or w/e damage meaning it doesn't get reduced by damage reductions. The ability description of such an event can look like this: {
@@ -32,13 +33,13 @@ class DevotionAura extends Analyzer {
   };
 
   get auraMasteryDamageReduced() {
-    return this.totalDamageTakenDuringAuraMastery / (1 - DEVOTION_AURA_DAMAGE_REDUCTION) * DEVOTION_AURA_DAMAGE_REDUCTION;
+    return this.totalDamageTakenDuringAuraMastery / (1 - DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION) * DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION;
   }
   get auraMasteryDrps() {
     return this.auraMasteryDamageReduced / this.owner.fightDuration * 1000;
   }
   get passiveDamageReduced() {
-    return this.totalDamageTakenOutsideAuraMastery / (1 - DEVOTION_AURA_DAMAGE_REDUCTION) * DEVOTION_AURA_DAMAGE_REDUCTION;
+    return this.totalDamageTakenOutsideAuraMastery / (1 - DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION) * DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION;
   }
   get passiveDrps() {
     return this.passiveDamageReduced / this.owner.fightDuration * 1000;
