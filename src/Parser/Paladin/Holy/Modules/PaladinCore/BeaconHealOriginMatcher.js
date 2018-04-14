@@ -56,7 +56,7 @@ class BeaconHealOriginMatcher extends Analyzer {
 
     const matchedHeal = this.healBacklog[0];
     if (!matchedHeal) {
-      console.error('No heal found for beacon transfer:', beaconTransferEvent);
+      console.error('BeaconHealOriginMatcher: No heal found for beacon transfer:', beaconTransferEvent);
       return;
     }
 

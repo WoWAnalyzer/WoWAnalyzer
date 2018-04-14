@@ -309,6 +309,11 @@ export default {
     name: 'Avenging Crusader',
     icon: 'ability_paladin_veneration',
   },
+  AVENGING_CRUSADER_HEAL: {
+    id: 216371,
+    name: 'Avenging Crusader',
+    icon: 'spell_holy_restoration',
+  },
   BLADE_OF_WRATH_PROC: {
     id: 231843,
     name: 'Blade of Wrath',
