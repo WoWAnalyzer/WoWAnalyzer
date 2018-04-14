@@ -240,10 +240,10 @@ class Abilities extends CoreAbilities {
       },
       {
         // The actual casts are registered as BEACON_OF_LIGHT_CAST_AND_HEAL, but the user only sees the talent so we add that as spell for display purposes only
-        spell: [SPELLS.BEACON_OF_THE_LIGHTBRINGER_TALENT, SPELLS.BEACON_OF_LIGHT_CAST_AND_HEAL],
+        spell: [SPELLS.BEACON_OF_LIGHT_BUFF, SPELLS.BEACON_OF_LIGHT_CAST_AND_HEAL],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
-        enabled: combatant.hasTalent(SPELLS.BEACON_OF_THE_LIGHTBRINGER_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id),
       },
       {
         // The primary beacon cast is registered as BEACON_OF_LIGHT_CAST_AND_HEAL

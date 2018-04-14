@@ -69,6 +69,7 @@ export default {
     name: 'Beacon of Light',
     icon: 'ability_paladin_beaconoflight',
   },
+  // TODO: Figure out which beacon of light spell id is the actual cast in BFA, since the BEACON_OF_LIGHT_BUFF one showed up as cast
   BEACON_OF_LIGHT_BUFF: {
     id: 53563,
     name: 'Beacon of Light',
