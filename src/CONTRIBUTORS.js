@@ -359,3 +359,14 @@ export const Aelexe = {
     link: 'https://worldofwarcraft.com/en-us/character/frostmourne/aelexe',
   }],
 };
+export const CubeLuke = {
+  nickname: 'CubeLuke',
+  github: 'CubeLuke',
+  discord: 'CubeLuke#8595',
+  avatar: require('./Images/CubeLuke-avatar.jpg'),
+  mains: [{
+    name: "Monachi",
+    spec: SPECS.MISTWEAVER_MONK,
+    link: "https://worldofwarcraft.com/en-us/character/bleeding-hollow/monachi",
+  }],
+};
