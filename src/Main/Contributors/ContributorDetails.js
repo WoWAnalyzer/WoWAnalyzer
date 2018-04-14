@@ -175,6 +175,20 @@ class ContributorDetails extends React.PureComponent {
     );
   }
 
+  invalidContributor() {
+    return (
+      <section>
+        <header>
+          <div className="row">
+            <div className="col-md-12">
+              <h1>Invalid Contributor</h1>
+            </div>
+          </div>
+        </header>
+      </section>
+    );
+  }
+
   componentDidMount() {
     if (this.props.ownPage) {
       return;
@@ -206,6 +220,10 @@ class ContributorDetails extends React.PureComponent {
       0: CoreChangelog,
     };
 
+    if(!contributor){
+      return this.invalidContributor();
+    }
+
     AVAILABLE_CONFIGS.forEach(elem => {
       contributions[elem.spec.id] = elem.changelog;
     });
@@ -217,7 +235,7 @@ class ContributorDetails extends React.PureComponent {
       }
     });
 
-    if (contributor.avatar === undefined) {
+    if (!contributor.avatar) {
       contributor.avatar = '/favicon.png';
     }
 
