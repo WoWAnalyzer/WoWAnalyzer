@@ -83,7 +83,8 @@ class SpellTimeline extends React.PureComponent {
 
   gemini = null;
   render() {
-    const { start, end, historyBySpellId, globalCooldownHistory, channelHistory, deaths, resurrections, showCooldowns, showGlobalCooldownDuration, ...others } = this.props;
+    const { start, end, historyBySpellId, globalCooldownHistory, channelHistory, deaths, resurrections, showCooldowns, showGlobalCooldownDuration, abilities, ...others } = this.props;
+    delete others.abilityTracker;
     const duration = end - start;
     const seconds = Math.ceil(duration / 1000);
 
@@ -122,7 +123,7 @@ class SpellTimeline extends React.PureComponent {
           {this.spells.map(spellId => (
             <div className="lane" key={spellId}>
               <SpellLink id={spellId}>
-                {this.props.abilities.getAbility(spellId).name}
+                {abilities.getAbility(spellId).name}
               </SpellLink>
             </div>
           ))}
