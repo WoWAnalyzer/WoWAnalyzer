@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, aryu, Zerotorescue, Hartra344, Putro, Sharrq, Hewhosmites, joshinator, kyleglick, CubeLuke } from 'CONTRIBUTORS';
+import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, aryu, Zerotorescue, Hartra344, Putro, Sharrq, Hewhosmites, joshinator, kyleglick } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
@@ -8,11 +8,6 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
-  {
-    date: new Date('2018-04-18'),
-    changes: 'Added error page when attempting to view an invalid contributor page.',
-    contributors: [CubeLuke],
-  },
   {
     date: new Date('2018-04-14'),
     changes: 'Abilities in the timeline are now sorted by times cast by default instead of cooldown duration.',
