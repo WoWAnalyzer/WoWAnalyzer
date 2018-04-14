@@ -333,7 +333,7 @@ class CombatLogParser {
     });
   }
 
-  initializeModules(modules) {
+  initializeModules(modules, iteration = 0) {
     const failedModules = [];
     Object.keys(modules).forEach(desiredModuleName => {
       const moduleConfig = modules[desiredModuleName];
@@ -390,10 +390,13 @@ class CombatLogParser {
     if (failedModules.length !== 0) {
       debugDependencyInjection && console.warn(`${failedModules.length} modules failed to load, trying again:`, failedModules.map(key => modules[key].name));
       const newBatch = {};
-      failedModules.forEach((key) => {
+      failedModules.forEach(key => {
         newBatch[key] = modules[key];
       });
-      this.initializeModules(newBatch);
+      if (iteration > 100) {
+        throw new Error(`Failed to load modules: ${Object.keys(newBatch).join(', ')}`);
+      }
+      this.initializeModules(newBatch, iteration + 1);
     }
   }
   findModule(type) {
@@ -540,6 +543,7 @@ class CombatLogParser {
           globalCooldownHistory={this.modules.globalCooldown.history}
           channelHistory={this.modules.channeling.history}
           abilities={this.modules.abilities}
+          abilityTracker={this.modules.abilityTracker}
           deaths={this.modules.deathTracker.deaths}
           resurrections={this.modules.deathTracker.resurrections}
           isAbilityCooldownsAccurate={this.modules.spellUsable.isAccurate}
