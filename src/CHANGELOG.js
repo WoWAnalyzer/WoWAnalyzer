@@ -14,6 +14,11 @@ export default [
     contributors: [CubeLuke],
   },
   {
+    date: new Date('2018-04-14'),
+    changes: 'Abilities in the timeline are now sorted by times cast by default instead of cooldown duration.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-04-11'),
     changes: 'Loading a report no longer shows any results until parsing is complete to speed up the analysis.',
     contributors: [Zerotorescue],
