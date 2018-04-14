@@ -784,4 +784,14 @@ export default {
 
 
   // Alpha Stuff
+  EARTH_SHIELD_TALENT: {
+    id: 974,
+    name: 'Earth Shield',
+    icon: 'spell_nature_skinofearth',
+  },
+  EARTH_SHIELD_HEAL: {
+    id: 379,
+    name: 'Earth Shield',
+    icon: 'spell_nature_skinofearth',
+  },
 };

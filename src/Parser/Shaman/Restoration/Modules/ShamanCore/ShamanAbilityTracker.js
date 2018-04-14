@@ -11,23 +11,6 @@ class ShamanAbilityTracker extends AbilityTracker {
   static dependencies = {
     combatants: Combatants,
   };
-  on_byPlayer_cast(event) {
-    if (super.on_byPlayer_cast) {
-      super.on_byPlayer_cast(event);
-    }
-
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.HEALING_RAIN_CAST.id) {
-      return;
-    }
-
-    if (!this.combatants.selected.hasBuff(SPELLS.RESTORATION_SHAMAN_T20_4SET_BONUS_BUFF.id, event.timestamp)) {
-      return;
-    }
-
-    const cast = this.getAbility(spellId, event.ability);
-    cast.withT20Buff = (cast.withT20Buff || 0) + 1;
-  }
 
   on_byPlayer_heal(event) {
     if (super.on_byPlayer_heal) {

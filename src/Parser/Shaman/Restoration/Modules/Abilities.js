@@ -314,6 +314,11 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 80,
         cooldown: 30,
       },
+      {
+        spell: SPELLS.EARTH_SHIELD_TALENT, 
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        timelineSortIndex: 80,
+      },
     ];
   }
 }

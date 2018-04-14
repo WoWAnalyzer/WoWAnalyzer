@@ -85,8 +85,8 @@ class EarthenWallTotem extends Analyzer {
         icon={<SpellIcon id={SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id} />}
         value={`${formatPercentage(this.earthenShieldEfficiency)} %`}
         label={(
-          <dfn data-tip={`The percentage of the potential absorb of Earthen Shield Totem that was actually used. You cast a total of ${casts} Earthen Shield Totems with a combined health of ${formatNumber(this.potentialHealing)}, which absorbed a total of ${formatNumber(this.healing)} damage.`}>
-            Earthen Shield Totem efficiency
+          <dfn data-tip={`The percentage of the potential absorb of Earthen Wall Totem that was actually used. You cast a total of ${casts} Earthen Wall Totems with a combined health of ${formatNumber(this.potentialHealing)}, which absorbed a total of ${formatNumber(this.healing)} damage.`}>
+            Earthen Wall Totem efficiency
           </dfn>
         )}
       />

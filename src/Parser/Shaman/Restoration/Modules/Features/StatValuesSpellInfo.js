@@ -100,4 +100,11 @@ export default {
     mastery: true,
     vers: true,
   },
+  [SPELLS.EARTH_SHIELD_HEAL.id]: {
+    int: true,
+    crit: true,
+    hasteHpct: false,
+    mastery: true,
+    vers: true,
+  },
 };
