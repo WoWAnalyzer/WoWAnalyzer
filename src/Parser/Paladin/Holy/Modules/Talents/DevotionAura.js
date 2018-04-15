@@ -10,8 +10,6 @@ import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'Main/LazyLoadStatisticBox
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-// Protection of Tyr is applied to everyone that benefits from the AM effect. This is simply the easiest way to see if someone is affected by AM, other more robust solutions take a lot more effort/complexity.
-const PROTECTION_OF_TYR_ID = 211210;
 const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = 0.1;
 const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.2;
 
@@ -63,7 +61,7 @@ class DevotionAura extends Analyzer {
       return;
     }
 
-    const isAuraMasteryActive = this.combatants.selected.hasBuff(PROTECTION_OF_TYR_ID, event.timestamp, 0, 0, this.owner.playerId);
+    const isAuraMasteryActive = this.combatants.selected.hasBuff(SPELLS.AURA_MASTERY.id, event.timestamp, 0, 0, this.owner.playerId);
     if (!isAuraMasteryActive) {
       this.totalDamageTakenOutsideAuraMastery = this.totalDamageTakenOutsideAuraMastery + event.amount + (event.absorbed || 0);
     }

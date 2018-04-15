@@ -156,6 +156,14 @@ export default {
     icon: "ability_blackhand_marked4death",
   },
 
+  // Arms Tier Sets
+  // T21 4P Set Bonus
+  WEIGHTED_BLADES: {
+    id: 253383,
+    name: 'Weighted Blades',
+    icon: 'ability_warrior_stalwartprotector',
+  },
+
   // Fury:
   //Rotational Spells
   BLOODTHIRST: {
