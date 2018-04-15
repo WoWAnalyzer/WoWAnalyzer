@@ -29,18 +29,6 @@ import DeathsEmbrace from './Modules/Talents/DeathsEmbrace';
 import SiphonLifeUptime from './Modules/Talents/SiphonLifeUptime';
 import SoulConduit from './Modules/Talents/SoulConduit';
 
-import TheMasterHarvester from '../Shared/Modules/Items/TheMasterHarvester';
-import StretensSleeplessShackles from './Modules/Items/Legendaries/StretensSleeplessShackles';
-import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
-import PowerCordOfLethtendris from './Modules/Items/Legendaries/PowerCordOfLethtendris';
-import SacrolashsDarkStrike from './Modules/Items/Legendaries/SacrolashsDarkStrike';
-import ReapAndSow from './Modules/Items/Legendaries/ReapAndSow';
-
-import Tier20_2set from './Modules/Items/Tier20_2set';
-import Tier20_4set from './Modules/Items/Tier20_4set';
-import Tier21_2set from './Modules/Items/Tier21_2set';
-import Tier21_4set from './Modules/Items/Tier21_4set';
-
 import Checklist from './Modules/Features/Checklist';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -78,20 +66,6 @@ class CombatLogParser extends CoreCombatLogParser {
     deathsEmbrace: DeathsEmbrace,
     siphonLifeUptime: SiphonLifeUptime,
     soulConduit: SoulConduit,
-
-    // Legendaries
-    masterHarvester: TheMasterHarvester,
-    stretensSleeplessShackles: StretensSleeplessShackles,
-    soulOfTheNetherlord: SoulOfTheNetherlord,
-    powerCordOfLethtendris: PowerCordOfLethtendris,
-    sacrolashsDarkStrike: SacrolashsDarkStrike,
-    reapAndSow: ReapAndSow,
-
-    // Items
-    tier20_2set: Tier20_2set,
-    tier20_4set: Tier20_4set,
-    tier21_2set: Tier21_2set,
-    tier21_4set: Tier21_4set,
   };
 }
 

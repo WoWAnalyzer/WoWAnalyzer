@@ -9,14 +9,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
 
-import WilfredRing from '../Items/Legendaries/WilfredRing';
-
 const SUMMON_COOLDOWN = 180;
 
 class DoomguardInfernal extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    wilfredRing: WilfredRing,
     combatants: Combatants,
   };
 
@@ -25,8 +22,7 @@ class DoomguardInfernal extends Analyzer {
   }
 
   get suggestionThresholds() {
-    const wilfredExtraSummons = (this.wilfredRing.active) ? this.wilfredRing.extraSummons : 0;
-    const maxCasts = Math.ceil(calculateMaxCasts(SUMMON_COOLDOWN, this.owner.fightDuration)) + wilfredExtraSummons;
+    const maxCasts = Math.ceil(calculateMaxCasts(SUMMON_COOLDOWN, this.owner.fightDuration));
     const doomguardCasts = this.abilityTracker.getAbility(SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id).casts || 0;
     const infernalCasts = this.abilityTracker.getAbility(SPELLS.SUMMON_INFERNAL_UNTALENTED.id).casts || 0;
     const actualCasts = doomguardCasts + infernalCasts;
