@@ -317,6 +317,14 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.EARTH_SHIELD_TALENT, 
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: true,
+        timelineSortIndex: 80,
+      },
+      {
+        spell: SPELLS.TREMOR_TOTEM, 
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 60,
+        isOnGCD: true,
         timelineSortIndex: 80,
       },
     ];

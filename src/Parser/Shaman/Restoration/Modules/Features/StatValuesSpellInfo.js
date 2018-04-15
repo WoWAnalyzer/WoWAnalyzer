@@ -107,4 +107,7 @@ export default {
     mastery: true,
     vers: true,
   },
+  [SPELLS.NATURES_GUARDIAN_HEAL.id]: {
+    ignored: true, //probably only scales with HP
+  },
 };
