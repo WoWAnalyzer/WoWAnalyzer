@@ -81,6 +81,12 @@ import EternalRestoration from './Modules/Traits/EternalRestoration';
 import StatWeights from './Modules/Features/StatWeights';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
+import MurderousIntent from "./Modules/NetherlightCrucibleTraits/MurderousIntent";
+import Shocklight from "./Modules/NetherlightCrucibleTraits/Shocklight";
+import LightSpeed from "./Modules/NetherlightCrucibleTraits/LightSpeed";
+import NLCTraits from "./Modules/NetherlightCrucibleTraits/NLCTraits";
+import MasterOfShadows from "./Modules/NetherlightCrucibleTraits/MasterOfShadows";
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -108,7 +114,7 @@ class CombatLogParser extends CoreCombatLogParser {
     dreamerAttributor: DreamerAttributor,
 
     // Features
-    healingTouch: HealingTouch,
+    healingTouch : HealingTouch,
     lowHealthHealing: LowHealthHealing,
     alwaysBeCasting: AlwaysBeCasting,
     averageHots: AverageHots,
@@ -147,6 +153,13 @@ class CombatLogParser extends CoreCombatLogParser {
     t20_4set: T20_4Set,
     t21_2set: T21_2Set,
     t21_4set: T21_4Set,
+
+    // NLC
+    murderousIntent: MurderousIntent,
+    shocklight: Shocklight,
+    lightSpeed: LightSpeed,
+    masterOfShadows: MasterOfShadows,
+    nlcTraits: NLCTraits,
 
     // Shared:
     darkmoonDeckPromises: DarkmoonDeckPromises,

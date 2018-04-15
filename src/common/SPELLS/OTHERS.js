@@ -715,6 +715,157 @@ export default {
     name: 'Annihilation',
     icon: 'spell_arcane_arcanetorrent',
   },
+  // Netherlight Cruicible Traits
+  MURDEROUS_INTENT_TRAIT: {
+    id: 252191,
+    name: 'Murderous Intent',
+    icon: 'spell_shadow_charm',
+  },
+  MURDEROUS_INTENT_BUFF: {
+    id: 252202,
+    name: 'Murderous Intent',
+    icon: 'spell_shadow_charm',
+  },
+  REFRACTIVE_SHELL_TRAIT: {
+    id: 252207,
+    name: 'Refractive Shell',
+    icon: 'ability_priest_reflectiveshield',
+  },
+  REFRACTIVE_SHELL_BUFF: {
+    id: 252208,
+    name: 'Refractive Shell',
+    icon: 'ability_priest_reflectiveshield',
+  },
+  SHOCKLIGHT_TRAIT: {
+    id: 252799,
+    name: 'Shocklight',
+    icon: 'paladin_icon_speedoflight',
+  },
+  SHOCKLIGHT_BUFF: {
+    id: 252801,
+    name: 'Shocklight',
+    icon: 'paladin_icon_speedoflight',
+  },
+  SECURE_IN_THE_LIGHT_TRAIT: {
+    id: 253070,
+    name: 'Secure in the Light',
+    icon: 'ability_paladin_toweroflight',
+  },
+  SECURE_IN_THE_LIGHT_DAMAGE: {
+    id: 253073,
+    name: 'Secure in the Light',
+    icon: 'ability_paladin_toweroflight',
+  },
+  HOLY_BULWARK: {
+    id: 253072,
+    name: 'Holy Bulwark',
+    icon: 'ability_paladin_toweroflight',
+  },
+  INFUSION_OF_LIGHT_TRAIT: {
+    id: 253093,
+    name: 'Infusion of Light',
+    icon: 'ability_malkorok_blightofyshaarj_yellow',
+  },
+  INFUSION_OF_LIGHT_DAMAGE: {
+    id: 253098,
+    name: 'Infusion of Light',
+    icon: 'ability_malkorok_blightofyshaarj_yellow',
+  },
+  INFUSION_OF_LIGHT_HEALING: {
+    id: 253099,
+    name: 'Infusion of Light',
+    icon: 'ability_malkorok_blightofyshaarj_yellow',
+  },
+  LIGHTS_EMBRACE_TRAIT: {
+    id: 253111,
+    name: 'Light\'s Embrace',
+    icon: 'achievement_reputation_07',
+  },
+  LIGHTS_EMBRACE_HEALING: {
+    id: 253216,
+    name: 'Light\'s Embrace',
+    icon: 'achievement_reputation_07',
+  },
+  SHADOWBIND_TRAIT: {
+    id: 252875,
+    name: 'Shadowbind',
+    icon: 'spell_shadow_deathpact',
+  },
+  SHADOWBIND_DAMAGE_HEALING: {
+    id: 252879,
+    name: 'Shadowbind',
+    icon: 'spell_shadow_deathpact',
+  },
+  CHAOTIC_DARKNESS_TRAIT: {
+    id: 252888,
+    name: 'Chaotic Darkness',
+    icon: 'inv_artifact_powerofthedarkside',
+  },
+  CHAOTIC_DARKNESS_DAMAGE: {
+    id: 252896,
+    name: 'Chaotic Darkness',
+    icon: 'inv_artifact_powerofthedarkside',
+  },
+  CHAOTIC_DARKNESS_HEALING: {
+    id: 252897,
+    name: 'Chaotic Darkness',
+    icon: 'inv_artifact_powerofthedarkside',
+  },
+  TORMENT_THE_WEAK_TRAIT: {
+    id: 252906,
+    name: 'Torment the Weak',
+    icon: 'warlock_curse_weakness',
+  },
+  TORMENT_THE_WEAK_DAMAGE: {
+    id: 252907,
+    name: 'Torment the Weak',
+    icon: 'warlock_curse_weakness',
+  },
+  DARK_SORROWS_TRAIT: {
+    id: 252922,
+    name: 'Dark Sorrows',
+    icon: 'inv_heart_of_the_thunder-king_icon',
+  },
+  DARK_SORROWS_DAMAGE: {
+    id: 253022,
+    name: 'Dark Sorrows',
+    icon: 'inv_heart_of_the_thunder-king_icon',
+  },
+  MASTER_OF_SHADOWS_TRAIT: {
+    id: 252091,
+    name: 'Master of Shadows',
+    icon: 'spell_shadow_shadesofdarkness',
+  },
+  LIGHT_SPEED_TRAIT: {
+    id: 252088,
+    name: 'Light Speed',
+    icon: 'ability_rogue_sprint',
+  },
+  CONCORDANCE_OF_THE_LEGIONFALL_TRAIT: {
+    id: 239042,
+    name: 'Concordance of the Legionfall',
+    icon: 'trade_archaeology_shark-jaws',
+  },
+  CONCORDANCE_OF_THE_LEGIONFALL_INTELLECT: {
+    id: 242586,
+    name: 'Concordance of the Legionfall',
+    icon: 'achievement_faction_legionfall',
+  },
+  CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH: {
+    id: 242583,
+    name: 'Concordance of the Legionfall',
+    icon: 'achievement_faction_legionfall',
+  },
+  CONCORDANCE_OF_THE_LEGIONFALL_AGILITY: {
+    id: 242584,
+    name: 'Concordance of the Legionfall',
+    icon: 'achievement_faction_legionfall',
+  },
+  CONCORDANCE_OF_THE_LEGIONFALL_VERSATILITY: {
+    id: 243096,
+    name: 'Concordance of the Legionfall',
+    icon: 'achievement_faction_legionfall',
+  },
 
   FEEDBACK_LOOP: {
     id: 253269,

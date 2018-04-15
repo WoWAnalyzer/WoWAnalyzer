@@ -44,6 +44,27 @@ export default {
   [SPELLS.VELENS_FUTURE_SIGHT_HEAL.id]: { // while active procs from any healing, so we ignore for weights and total healing
     multiplier: true,
   },
+  [SPELLS.LIGHTS_EMBRACE_HEALING.id]: {
+    int: false,
+    crit: true,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
+  [SPELLS.INFUSION_OF_LIGHT_HEALING.id]: {
+    int: false,
+    crit: true,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
+  [SPELLS.CHAOTIC_DARKNESS_HEALING.id]: {
+    int: false,
+    crit: true,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
   [SPELLS.EONARS_COMPASSION_HEAL.id]: {
     int: false,
     crit: true,
@@ -72,4 +93,6 @@ export default {
     mastery: false,
     vers: true,
   },
+  //TODO: Add Shadowbind, it scales from the crit on the damage part
+
 };

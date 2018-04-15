@@ -1,6 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
@@ -39,6 +40,10 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.REMORSELESS_WINTER,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.CHAINS_OF_ICE,
+            when: combatant.hasChest(ITEMS.COLD_HEART.id),
           }),
           new GenericCastEfficiencyRequirement({
               spell: SPELLS.HORN_OF_WINTER_TALENT,
