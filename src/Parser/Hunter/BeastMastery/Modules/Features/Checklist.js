@@ -6,8 +6,6 @@ import Abilities from 'Parser/Core/Modules/Abilities';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
-import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
@@ -15,35 +13,19 @@ import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import SpellLink from 'common/SpellLink';
 import Icon from "common/Icon";
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
-import ITEMS from 'common/ITEMS/HUNTER';
-import ItemLink from 'common/ItemLink';
-
 //Features
 import AlwaysBeCasting from 'Parser/Hunter/BeastMastery/Modules/Features/AlwaysBeCasting';
-
 //Talents
 import AMurderOfCrows from 'Parser/Hunter/BeastMastery/Modules/Talents/AMurderOfCrows';
 import KillerCobra from 'Parser/Hunter/BeastMastery/Modules/Talents/KillerCobra';
 import DireFrenzy from 'Parser/Hunter/BeastMastery/Modules/Talents/DireFrenzy';
 import AspectOfTheBeast from 'Parser/Hunter/Shared/Modules/Talents/AspectOfTheBeast';
-
 //Spells
 import DireBeast from 'Parser/Hunter/BeastMastery/Modules/Spells/DireBeast/DireBeast';
 import AspectOfTheWild from 'Parser/Hunter/BeastMastery/Modules/Spells/AspectOfTheWild';
 import BestialWrathAverageFocus from 'Parser/Hunter/BeastMastery/Modules/Spells/BestialWrath/BestialWrathAverageFocus';
-
 //Traits
 import TitansThunder from 'Parser/Hunter/BeastMastery/Modules/Traits/TitansThunder';
-
-//Items
-import ParselsTongue from 'Parser/Hunter/BeastMastery/Modules/Items/ParselsTongue';
-import QaplaEredunWarOrder from 'Parser/Hunter/BeastMastery/Modules/Items/QaplaEredunWarOrder';
-import TheMantleOfCommand from 'Parser/Hunter/BeastMastery/Modules/Items/TheMantleOfCommand';
-import SoulOfTheHuntmaster from 'Parser/Hunter/Shared/Modules/Items/SoulOfTheHuntmaster';
-import RoarOfTheSevenLions from 'Parser/Hunter/BeastMastery/Modules/Items/RoarOfTheSevenLions';
-import CallOfTheWild from 'Parser/Hunter/Shared/Modules/Items/CallOfTheWild';
-import ResourceIcon from 'common/ResourceIcon';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -51,8 +33,6 @@ class Checklist extends CoreChecklist {
     combatants: Combatants,
 
     //general
-    legendaryUpgradeChecker: LegendaryUpgradeChecker,
-    legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
 
     //features:
@@ -73,14 +53,6 @@ class Checklist extends CoreChecklist {
 
     //Traits
     titansThunder: TitansThunder,
-
-    //Legendaries
-    parselsTongue: ParselsTongue,
-    qaplaEredunWarOrder: QaplaEredunWarOrder,
-    theMantleOfCommand: TheMantleOfCommand,
-    soulOfTheHuntmaster: SoulOfTheHuntmaster,
-    roarOfTheSevenLions: RoarOfTheSevenLions,
-    callOfTheWild: CallOfTheWild,
   };
 
   rules = [
@@ -181,46 +153,6 @@ class Checklist extends CoreChecklist {
             name: <Wrapper><SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> casts without <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> ready to cast after</Wrapper>,
             when: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id),
             check: () => this.aMurderOfCrows.badCastThreshold,
-          }),
-          new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> and <ItemLink id={ITEMS.QAPLA_EREDUN_WAR_ORDER.id} /></Wrapper>,
-            when: combatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id) && combatant.hasFeet(ITEMS.QAPLA_EREDUN_WAR_ORDER.id),
-            check: () => this.qaplaEredunWarOrder.killerCobraThreshold,
-          }),
-          new Requirement({
-            name: <Wrapper><ItemLink id={ITEMS.QAPLA_EREDUN_WAR_ORDER.id} /> average reduction</Wrapper>,
-            when: combatant.hasFeet(ITEMS.QAPLA_EREDUN_WAR_ORDER.id),
-            check: () => this.qaplaEredunWarOrder.wastedSuggestionThreshold,
-          }),
-          new Requirement({
-            name: <Wrapper><ItemLink id={ITEMS.PARSELS_TONGUE.id} /> buffs dropped</Wrapper>,
-            when: combatant.hasChest(ITEMS.PARSELS_TONGUE.id),
-            check: () => this.parselsTongue.timesDroppedThreshold,
-          }),
-          new Requirement({
-            name: <Wrapper><ItemLink id={ITEMS.PARSELS_TONGUE.id} /> uptime</Wrapper>,
-            when: combatant.hasChest(ITEMS.PARSELS_TONGUE.id),
-            check: () => this.parselsTongue.buffUptimeThreshold,
-          }),
-          new Requirement({
-            name: <Wrapper><ItemLink id={ITEMS.THE_MANTLE_OF_COMMAND.id} /> uptime</Wrapper>,
-            when: combatant.hasShoulder(ITEMS.THE_MANTLE_OF_COMMAND.id),
-            check: () => this.theMantleOfCommand.buffUptimeThreshold,
-          }),
-          new Requirement({
-            name: <Wrapper>Other talent active with <ItemLink id={ITEMS.SOUL_OF_THE_HUNTMASTER.id} /></Wrapper>,
-            when: combatant.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id),
-            check: () => this.soulOfTheHuntmaster.suggestionThreshold,
-          }),
-          new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> gained from <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} /></Wrapper>,
-            when: combatant.hasWrists(ITEMS.CALL_OF_THE_WILD.id),
-            check: () => this.callOfTheWild.suggestionsThresholds,
-          }),
-          new Requirement({
-            name: <Wrapper><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Focus saved with <ItemLink id={ITEMS.ROAR_OF_THE_SEVEN_LIONS.id} /></Wrapper>,
-            when: combatant.hasWaist(ITEMS.ROAR_OF_THE_SEVEN_LIONS.id),
-            check: () => this.roarOfTheSevenLions.focusSavedThreshold,
           }),
         ];
       },

@@ -9,6 +9,21 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-13'),
+    changes: <Wrapper>Added statistics showing the healing impact of each talent, with support for all talents that directly impact HPS apart from <SpellLink id={SPELLS.CRASHING_WAVES_TALENT.id} />, <SpellLink id={SPELLS.DELUGE_TALENT.id} /> and <SpellLink id={SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id} />.</Wrapper>,
+    contributors: [niseko],
+  },
+  {
+    date: new Date('2018-04-13'),
+    changes: <Wrapper>Added a module breaking down your <SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} /> usage by spell.</Wrapper>,
+    contributors: [niseko],
+  },
+  {
+    date: new Date('2018-04-11'),
+    changes: 'Implemented Stat Values for Restoration Shaman.',
+    contributors: [niseko],
+  },
+  {
     date: new Date('2018-03-28'),
     changes: <Wrapper>Added a Tab detailing the <SpellLink id={SPELLS.DEEP_HEALING.id} /> effectiveness per player.</Wrapper>,
     contributors: [niseko],

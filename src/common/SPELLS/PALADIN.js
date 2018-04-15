@@ -17,7 +17,7 @@ export default {
     id: 20271,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
-    manaCost: 6600,
+    manaCost: 600,
   },
   DIVINE_STEED: {
     id: 190784,
@@ -48,13 +48,8 @@ export default {
     id: 19750,
     name: 'Flash of Light',
     icon: 'spell_holy_flashheal',
-    manaCost: 39600,
+    manaCost: 3600,
     baseMana: 0.18,
-  },
-  AVENGING_WRATH: {
-    id: 31842,
-    name: 'Avenging Wrath',
-    icon: 'spell_holy_avenginewrath',
   },
   HAMMER_OF_JUSTICE: {
     id: 853,
@@ -69,12 +64,12 @@ export default {
     icon: 'inv_hammer_04',
   },
   BEACON_OF_FAITH_TALENT: { ...TALENTS.BEACON_OF_FAITH_TALENT, manaCost: 6875 },
-  BEACON_OF_LIGHT_CAST_AND_HEAL: {
+  BEACON_OF_LIGHT_HEAL: {
     id: 53652,
     name: 'Beacon of Light',
     icon: 'ability_paladin_beaconoflight',
   },
-  BEACON_OF_LIGHT_BUFF: {
+  BEACON_OF_LIGHT_CAST_AND_BUFF: {
     id: 53563,
     name: 'Beacon of Light',
     icon: 'ability_paladin_beaconoflight',
@@ -83,7 +78,7 @@ export default {
     id: 20473,
     name: 'Holy Shock',
     icon: 'spell_holy_searinglight',
-    manaCost: 22000,
+    manaCost: 2000,
   },
   HOLY_SHOCK_HEAL: {
     id: 25914,
@@ -104,19 +99,19 @@ export default {
     id: 85222,
     name: 'Light of Dawn',
     icon: 'spell_paladin_lightofdawn',
-    manaCost: 30800,
+    manaCost: 2800,
   },
   HOLY_LIGHT: {
     id: 82326,
     name: 'Holy Light',
     icon: 'spell_holy_surgeoflight',
-    manaCost: 26400,
+    manaCost: 2400,
   },
   LIGHT_OF_THE_MARTYR: {
     id: 183998,
     name: 'Light of the Martyr',
     icon: 'ability_paladin_lightofthemartyr',
-    manaCost: 16500,
+    manaCost: 1500,
   },
   MARAADS_DYING_BREATH_BUFF: {
     id: 234862,
@@ -304,10 +299,20 @@ export default {
     name: 'Divine Purpose',
     icon: 'spell_holy_mindvision',
   },
-  AVENGING_WRATH_RET: {
+  AVENGING_WRATH: {
     id: 31884,
     name: 'Avenging Wrath',
     icon: 'spell_holy_avenginewrath',
+  },
+  AVENGING_CRUSADER_TALENT: {
+    id: 216331,
+    name: 'Avenging Crusader',
+    icon: 'ability_paladin_veneration',
+  },
+  AVENGING_CRUSADER_HEAL: {
+    id: 216371,
+    name: 'Avenging Crusader',
+    icon: 'spell_holy_restoration',
   },
   BLADE_OF_WRATH_PROC: {
     id: 231843,

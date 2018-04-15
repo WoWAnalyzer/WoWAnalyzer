@@ -37,14 +37,6 @@ class CooldownThroughputTracker extends Analyzer {
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
     },
-    {
-      spell: SPELLS.VELENS_FUTURE_SIGHT_BUFF,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.HEALING,
-        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
-        BUILT_IN_SUMMARY_TYPES.MANA,
-      ],
-    },
   ];
 
   static ignoredSpells = [

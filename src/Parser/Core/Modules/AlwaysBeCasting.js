@@ -5,6 +5,7 @@ import { formatMilliseconds, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+
 import Abilities from './Abilities';
 import GlobalCooldown from './GlobalCooldown';
 import Channeling from './Channeling';
@@ -22,17 +23,17 @@ class AlwaysBeCasting extends Analyzer {
     channeling: Channeling, // triggers the channeling-related events
   };
 
-  // TODO: Should all this props be lower case?
+  /** @deprecated */
   static ABILITIES_ON_GCD = [
     // Extend this class and override this property in your spec class to implement this module.
   ];
+  // TODO: Move static GCD array to Abilities config
   static STATIC_GCD_ABILITIES = {
     // Abilities which GCD is not affected by haste.
     // [spellId]: gcd value in seconds
   };
 
-  // TODO: Add channels array to fix issues where is channel started pre-combat it doesn't register the `begincast` and considers the finish a GCD adding downtime. This can also be used to automatically add the channelVerifiers.
-
+  // TODO: Move base GCD config to Abilities config since this can differ per spell
   static BASE_GCD = 1500;
   static MINIMUM_GCD = 750;
 

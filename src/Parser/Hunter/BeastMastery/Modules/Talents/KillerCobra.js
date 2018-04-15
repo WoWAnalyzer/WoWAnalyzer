@@ -11,6 +11,10 @@ import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
 import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
 
+/**
+ * While Bestial Wrath is active, Cobra Shot resets the cooldown on Kill Command.
+ */
+
 class KillerCobra extends Analyzer {
   static dependencies = {
     combatants: Combatants,

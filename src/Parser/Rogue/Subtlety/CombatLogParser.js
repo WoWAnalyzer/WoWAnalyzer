@@ -20,19 +20,7 @@ import DarkShadowEvis from "./Modules/Talents/DarkShadow/DarkShadowEvis";
 import DeathFromAbove from "./Modules/Talents/DFA/DeathFromAbove";
 import NightbladeDuringSymbols from './Modules/BaseRotation/NightbladeDuringSymbols';
 import CastsInShadowDance from './Modules/BaseRotation/CastsInShadowDance';
-import MantleDamageTracker from '../Common/Legendaries/MantleDamageTracker';
-import DeathFromAboveMantle from './Modules/Talents/DFA/DeathFromAboveMantle';
-import T21_2P from './Modules/Items/T21_2P';
 import DanceCooldownReduction from './Modules/RogueCore/DanceCooldownReduction';
-import DenialOfHalfGiants from './Modules/Legendaries/DenialOfHalfGiants';
-import FirstOfTheDead from './Modules/Legendaries/FirstOfTheDead';
-import MantleOfTheMasterAssassin from '../Common/Legendaries/MantleOfTheMasterAssassin';
-import ShadowSatyrsWalk from './Modules/Legendaries/ShadowSatyrsWalk';
-import SoulOfTheShadowblade from '../Common/Legendaries/SoulOfTheShadowblade';
-import InsigniaOfRavenholdt from '../Common/Legendaries/InsigniaOfRavenholdt';
-import DreadlordsDeceit from '../Common/Legendaries/DreadlordsDeceit';
-
-import DarkShadowSpecterOfBetrayal from './Modules/Talents/DarkShadow/DarkShadowSpecterOfBetrayal';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -54,30 +42,15 @@ class CombatLogParser extends CoreCombatLogParser {
     //Trackers
     symbolsDamageTracker: SymbolsDamageTracker,
     danceDamageTracker: DanceDamageTracker,
-    mantleDamageTracker: MantleDamageTracker,
 
     //Core
     danceCooldownReduction: DanceCooldownReduction,
-
-    //Items
-    t21_2P: T21_2P,
-    darkShadowSpecterOfBetrayal: DarkShadowSpecterOfBetrayal,
-
-    //Legendaries
-    denialOfHalfGiants: DenialOfHalfGiants,
-    firstOfTheDead: FirstOfTheDead,
-    mantleOfTheMasterAssassin: MantleOfTheMasterAssassin,
-    shadowSatyrsWalk: ShadowSatyrsWalk,
-    soulOfTheShadowblade: SoulOfTheShadowblade,
-    insigniaOfRavenholdt: InsigniaOfRavenholdt,
-    dreadlordsDeceit: DreadlordsDeceit,
 
     //Casts
     nightbladeDuringSymbols: NightbladeDuringSymbols,
     castsInShadowDance: CastsInShadowDance,
     DeathFromAbove: DeathFromAbove,
-    DeathFromAboveMantle: DeathFromAboveMantle,
-    
+
     //Talents
     darkShadowContribution: DarkShadowContribution,
     darkShadowEvis: DarkShadowEvis,

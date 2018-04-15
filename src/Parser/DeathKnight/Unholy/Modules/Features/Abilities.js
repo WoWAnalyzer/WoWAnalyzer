@@ -38,12 +38,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CHAINS_OF_ICE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 40,
-        enabled: combatant.hasChest(ITEMS.COLD_HEART.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
-          extraSuggestion: <span>You should be casting Chains of Ice whenever you have 20 stacks of <SpellLink id={SPELLS.COLD_HEART_BUFF.id} />.</span>,
-        },
       },
 
       {

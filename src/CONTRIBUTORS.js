@@ -37,6 +37,13 @@
 
 import SPECS from 'common/SPECS';
 
+// For testing purposes because I am too lazy to work out a solution for testing that does not involve adding regular code
+export const Dummy = {
+  nickname: 'Dummy',
+  github: 'DummyHub',
+  twitter: '@Dummy',
+  avatar: require('./Images/zerotorescue-avatar.png'),
+};
 export const Zerotorescue = {
   nickname: 'Zerotorescue',
   github: 'MartijnHols',
@@ -107,11 +114,6 @@ export const Putro = {
   github: 'Pewtro',
   discord: 'Putro#6093',
   avatar: require('./Images/putro-avatar.png'),
-  maintainer: [
-    SPECS.MARKSMANSHIP_HUNTER,
-    SPECS.BEAST_MASTERY_HUNTER,
-    SPECS.SURVIVAL_HUNTER,
-  ],
   mains: [
     {
       name: "Putro",
@@ -328,7 +330,21 @@ export const joshinator = {
 export const niseko = {
   nickname: 'niseko',
   github: 'niseko',
+  discord: 'nisekoi#4130',
   avatar: require('./Images/niseko-avatar.jpg'),
+  mains: [{
+    name: "Niseko",
+    spec: SPECS.RESTORATION_SHAMAN,
+    link: "https://worldofwarcraft.com/en-gb/character/stormscale/niseko",
+  },
+  {
+    name: "Nisefy",
+    spec: SPECS.MISTWEAVER_MONK,
+    link: "https://worldofwarcraft.com/en-gb/character/stormscale/nisefy",
+  }],
+  links: {
+    "Ancestral Guidance": "https://ancestralguidance.com/",
+  },
 };
 export const Aelexe = {
   nickname: 'Aelexe',
@@ -341,5 +357,16 @@ export const Aelexe = {
     name: 'Aelexe',
     spec: SPECS.HOLY_PALADIN,
     link: 'https://worldofwarcraft.com/en-us/character/frostmourne/aelexe',
+  }],
+};
+export const CubeLuke = {
+  nickname: 'CubeLuke',
+  github: 'CubeLuke',
+  discord: 'CubeLuke#8595',
+  avatar: require('./Images/CubeLuke-avatar.jpg'),
+  mains: [{
+    name: "Monachi",
+    spec: SPECS.MISTWEAVER_MONK,
+    link: "https://worldofwarcraft.com/en-us/character/bleeding-hollow/monachi",
   }],
 };

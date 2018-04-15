@@ -6,6 +6,11 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
+/**
+ * When your Dire Beasts charge in, they will stomp the ground, dealing [(1.18) * ((300% of Attack power)) * 1.4] Physical damage to all
+ * nearby enemies.
+ */
+
 class Stomp extends Analyzer {
   static dependencies = {
     combatants: Combatants,

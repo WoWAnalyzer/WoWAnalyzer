@@ -145,7 +145,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.AVENGING_WRATH_RET,
+        spell: SPELLS.AVENGING_WRATH,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         // castEfficiency: {

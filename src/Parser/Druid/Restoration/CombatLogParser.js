@@ -23,25 +23,6 @@ import RejuvenationAttributor from './Modules/Core/HotTracking/RejuvenationAttri
 import RegrowthAttributor from './Modules/Core/HotTracking/RegrowthAttributor';
 import DreamerAttributor from './Modules/Core/HotTracking/DreamerAttributor';
 
-import Ekowraith from './Modules/Items/Ekowraith';
-import XonisCaress from './Modules/Items/XonisCaress';
-import DarkTitanAdvice from './Modules/Items/DarkTitanAdvice';
-import EdraithBondsOfAglaya from './Modules/Items/EdraithBondsOfAglaya';
-import EssenceOfInfusion from './Modules/Items/EssenceOfInfusion';
-import SoulOfTheArchdruid from '../Shared/Modules/Items/SoulOfTheArchdruid';
-import Tearstone from './Modules/Items/Tearstone';
-import AmanthulsWisdom from './Modules/Items/AmanthulsWisdom';
-import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
-import GarothiFeedbackConduit from './Modules/Items/GarothiFeedbackConduit';
-import CarafeOfSearingLight from './Modules/Items/CarafeOfSearingLight';
-
-import T19_2Set from './Modules/Items/T19_2Set';
-import T19_4Set from './Modules/Items/T19_4Set';
-import T20_2Set from './Modules/Items/T20_2Set';
-import T20_4Set from './Modules/Items/T20_4Set';
-import T21_2Set from './Modules/Items/T21_2Set';
-import T21_4Set from './Modules/Items/T21_4Set';
-
 import HealingTouch from './Modules/Features/HealingTouch';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import AverageHots from './Modules/Features/AverageHots';
@@ -81,12 +62,6 @@ import EternalRestoration from './Modules/Traits/EternalRestoration';
 import StatWeights from './Modules/Features/StatWeights';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
-import MurderousIntent from "./Modules/NetherlightCrucibleTraits/MurderousIntent";
-import Shocklight from "./Modules/NetherlightCrucibleTraits/Shocklight";
-import LightSpeed from "./Modules/NetherlightCrucibleTraits/LightSpeed";
-import NLCTraits from "./Modules/NetherlightCrucibleTraits/NLCTraits";
-import MasterOfShadows from "./Modules/NetherlightCrucibleTraits/MasterOfShadows";
-
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -114,7 +89,7 @@ class CombatLogParser extends CoreCombatLogParser {
     dreamerAttributor: DreamerAttributor,
 
     // Features
-    healingTouch : HealingTouch,
+    healingTouch: HealingTouch,
     lowHealthHealing: LowHealthHealing,
     alwaysBeCasting: AlwaysBeCasting,
     averageHots: AverageHots,
@@ -139,32 +114,6 @@ class CombatLogParser extends CoreCombatLogParser {
     ironbark: Ironbark,
 
     // Items:
-    edraithBondsOfAglaya: EdraithBondsOfAglaya,
-    ekowraith: Ekowraith,
-    xonisCaress: XonisCaress,
-    darkTitanAdvice: DarkTitanAdvice,
-    essenceOfInfusion: EssenceOfInfusion,
-    soulOfTheArchdruid: SoulOfTheArchdruid,
-    tearstone: Tearstone,
-    amanthulsWisdom: AmanthulsWisdom,
-    t19_2set: T19_2Set,
-    t19_4set: T19_4Set,
-    t20_2set: T20_2Set,
-    t20_4set: T20_4Set,
-    t21_2set: T21_2Set,
-    t21_4set: T21_4Set,
-
-    // NLC
-    murderousIntent: MurderousIntent,
-    shocklight: Shocklight,
-    lightSpeed: LightSpeed,
-    masterOfShadows: MasterOfShadows,
-    nlcTraits: NLCTraits,
-
-    // Shared:
-    darkmoonDeckPromises: DarkmoonDeckPromises,
-    garothiFeedbackConduit: GarothiFeedbackConduit,
-    carafeOfSearingLight: CarafeOfSearingLight,
 
     // Traits
     RelicTraits: RelicTraits,

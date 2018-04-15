@@ -45,8 +45,8 @@ class RighteousProtector extends Analyzer {
     } else {
       this.lightOfTheProtectorReductionWasted += REDUCTION_TIME;
     }
-    if (this.spellUsable.isOnCooldown(SPELLS.AVENGING_WRATH_RET.id)) {
-      const reduction = this.spellUsable.reduceCooldown(SPELLS.AVENGING_WRATH_RET.id, REDUCTION_TIME);
+    if (this.spellUsable.isOnCooldown(SPELLS.AVENGING_WRATH.id)) {
+      const reduction = this.spellUsable.reduceCooldown(SPELLS.AVENGING_WRATH.id, REDUCTION_TIME);
       this.avengingWrathReduced += reduction;
       this.avengingWrathReductionWasted += REDUCTION_TIME - reduction;
     } else {

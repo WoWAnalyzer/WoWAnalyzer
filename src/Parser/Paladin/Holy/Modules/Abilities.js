@@ -16,8 +16,10 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HOLY_SHOCK_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => {
-          const cdr = hasSanctifiedWrath && combatant.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.5 : 0;
-          return 9 / (1 + haste) * (1 - cdr);
+          const swCdr = hasSanctifiedWrath && combatant.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.5 : 0;
+          // At the current alpha patch (April 14th), AC also looks to affect the Holy Shock cooldown recovery rate even though the tooltip does not mention it is intended to do so. This is considered an in-game bug.
+          const acCdr = combatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id) ? 0.3 : 0;
+          return 9 / (1 + haste) * (1 - swCdr) * (1 - acCdr);
         },
         isOnGCD: true,
         castEfficiency: {
@@ -39,7 +41,10 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.JUDGMENT_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 12 / (1 + haste),
+        cooldown: haste => {
+          const cdr = combatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id) ? 0.3 : 0;
+          return 12 / (1 + haste) * (1 - cdr);
+        },
         isOnGCD: true,
         castEfficiency: {
           suggestion: combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id) || combatant.hasFinger(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id),
@@ -84,7 +89,10 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CRUSADER_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 6.0 / (1 + haste),
+        cooldown: haste => {
+          const cdr = combatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id) ? 0.3 : 0;
+          return 6 / (1 + haste) * (1 - cdr);
+        },
         charges: 2,
         isOnGCD: true,
         castEfficiency: {
@@ -150,6 +158,13 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.AVENGING_WRATH,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
+        enabled: !combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id),
+      },
+      {
+        spell: SPELLS.AVENGING_CRUSADER_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 120,
+        enabled: combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id),
       },
       {
         spell: SPELLS.BLESSING_OF_SACRIFICE,
@@ -239,15 +254,14 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
       },
       {
-        // The actual casts are registered as BEACON_OF_LIGHT_CAST_AND_HEAL, but the user only sees the talent so we add that as spell for display purposes only
-        spell: [SPELLS.BEACON_OF_THE_LIGHTBRINGER_TALENT, SPELLS.BEACON_OF_LIGHT_CAST_AND_HEAL],
+        spell: SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
-        enabled: combatant.hasTalent(SPELLS.BEACON_OF_THE_LIGHTBRINGER_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id),
       },
       {
-        // The primary beacon cast is registered as BEACON_OF_LIGHT_CAST_AND_HEAL
-        spell: [SPELLS.BEACON_OF_FAITH_TALENT, SPELLS.BEACON_OF_LIGHT_CAST_AND_HEAL],
+        // The primary beacon cast is registered as BEACON_OF_LIGHT_CAST_AND_BUFF
+        spell: [SPELLS.BEACON_OF_FAITH_TALENT, SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
         enabled: combatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id),
@@ -255,7 +269,10 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CRUSADER_STRIKE,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
-        cooldown: haste => 4.5 / (1 + haste),
+        cooldown: haste => {
+          const cdr = combatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id) ? 0.3 : 0;
+          return 6 / (1 + haste) * (1 - cdr);
+        },
         charges: 2,
         enabled: !combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id),
         isOnGCD: true,

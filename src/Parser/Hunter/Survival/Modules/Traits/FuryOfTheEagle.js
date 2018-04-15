@@ -11,6 +11,10 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
 
+/**
+ * Furiously strikes all enemies in front of you, dealing ((125% of Attack power) * 9) Physical damage over 4 sec. Damage increased by
+ * Mongoose Fury. Extends the duration of Mongoose Fury for the duration of the channel.
+ */
 class FuryOfTheEagle extends Analyzer {
 
   static dependencies = {

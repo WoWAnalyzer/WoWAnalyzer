@@ -6,6 +6,10 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
+/**
+ * While Aspect of the Wild is active, Hati and your primary pet also trigger a Thunderslash with each auto attack, dealing ((50% of Attack
+ * power) * (1 * 0.96 * 1.06)) Nature damage.
+ */
 class Thunderslash extends Analyzer {
   static dependencies = {
     combatants: Combatants,

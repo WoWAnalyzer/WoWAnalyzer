@@ -9,6 +9,11 @@ import ITEMS from 'common/ITEMS';
 
 export default [
   {
+    date: new Date('2018-04-10'),
+    changes: <Wrapper>Adds an additional statistic module for <ItemLink id={ITEMS.PARSELS_TONGUE.id} /> to better showcase the uptime of 4 stacks, and also updates the average refresh of <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> to be more accurate.</Wrapper>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-04-05'),
     changes: <Wrapper>Updated <ItemLink id={ITEMS.PARSELS_TONGUE.id} icon /> and <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} icon /> to include average time between refreshing, and some other minor wording changes. </Wrapper>,
     contributors: [Putro],

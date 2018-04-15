@@ -7,6 +7,10 @@ import SpellIcon from "common/SpellIcon";
 import { formatPercentage } from "common/format";
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 
+/**
+ * Summons a powerful wild beast to attack your target for 8 sec.
+ * Generates 12 Focus over 8 sec.
+ */
 class DireBeastUptime extends Analyzer {
   static dependencies = {
     combatants: Combatants,

@@ -29,6 +29,12 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
       },
       {
+        spell: SPELLS.REND_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.REND_TALENT.id),
+      },
+      {
         spell: SPELLS.CLEAVE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 6,
@@ -44,11 +50,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 90,
         isOnGCD: true,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.50,
-          extraSuggestion: 'Use it as a filler when you\'re out of rage.',
-        },
       },
       {
         spell: SPELLS.WARBREAKER,

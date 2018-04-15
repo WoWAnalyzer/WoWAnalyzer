@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, aryu, Zerotorescue, Hartra344, Putro, Sharrq, Hewhosmites, joshinator } from 'CONTRIBUTORS';
+import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, aryu, Zerotorescue, Hartra344, Putro, Sharrq, Hewhosmites, joshinator, kyleglick, CubeLuke, Aelexe } from 'CONTRIBUTORS';
 import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
@@ -9,8 +9,28 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-18'),
+    changes: 'Added error page when attempting to view an invalid contributor page.',
+    contributors: [CubeLuke],
+  },
+  {
+    date: new Date('2018-04-14'),
+    changes: 'Abilities in the timeline are now sorted by times cast by default instead of cooldown duration.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-04-12'),
+    changes: 'Added search function to events tab.',
+    contributors: [Aelexe],
+  },
+  {
+    date: new Date('2018-04-11'),
+    changes: 'Loading a report no longer shows any results until parsing is complete to speed up the analysis.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-04-04'),
-    changes: 'Rename "Cast Efficiency" tab to "Abilities".',
+    changes: 'Renamed "Cast Efficiency" tab to "Abilities".',
     contributors: [Zerotorescue],
   },
   {
@@ -65,12 +85,12 @@ export default [
   },
   {
     date: new Date('2018-02-22'),
-    changes: `Moved the Stats on Pull, Talents, and Gear to a new Character Tab in the Main Panel.`,
+    changes: 'Moved the Stats on Pull, Talents, and Gear to a new Character Tab in the Main Panel.',
     contributors: [Sharrq],
   },
   {
     date: new Date('2018-02-21'),
-    changes: <Wrapper>Moved <SpellLink id={SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_AGILITY.id} /> statistic into the Netherlight Crucible list and renamed it.</Wrapper>,
+    changes: 'Moved Concordance of the Legionfall statistic into the Netherlight Crucible list and renamed it.',
     contributors: [Putro],
   },
   {
@@ -186,7 +206,7 @@ export default [
   {
     date: new Date('2017-12-03'),
     changes: <Wrapper>Improve Player Selection user interface.</Wrapper>,
-    contributors: ['kyle-glick'],
+    contributors: [kyleglick],
   },
   {
     date: new Date('2017-12-01'),

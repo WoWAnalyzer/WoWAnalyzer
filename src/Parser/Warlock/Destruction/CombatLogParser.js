@@ -28,19 +28,6 @@ import ChannelDemonfire from './Modules/Talents/ChannelDemonfire';
 import SoulConduit from './Modules/Talents/SoulConduit';
 import TalentHub from './Modules/Talents/TalentHub';
 
-import AlythesssPyrogenics from './Modules/Items/Legendaries/AlythesssPyrogenics';
-import FeretoryOfSouls from './Modules/Items/Legendaries/FeretoryOfSouls';
-import LessonsOfSpaceTime from './Modules/Items/Legendaries/LessonsOfSpaceTime';
-import SindoreiSpite from '../Shared/Modules/Items/SindoreiSpite';
-import MagistrikeRestraints from './Modules/Items/Legendaries/MagistrikeRestraints';
-import OdrShawlOfTheYmirjar from './Modules/Items/Legendaries/OdrShawlOfTheYmirjar';
-import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
-import TheMasterHarvester from '../Shared/Modules/Items/TheMasterHarvester';
-
-import T20_2set from './Modules/Items/T20_2set';
-import T21_2set from './Modules/Items/T21_2set';
-import T21_4set from './Modules/Items/T21_4set';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
@@ -74,21 +61,6 @@ class CombatLogParser extends CoreCombatLogParser {
     channelDemonfire: ChannelDemonfire,
     soulConduit: SoulConduit,
     talentHub: TalentHub,
-
-    // Legendaries
-    alythesssPyrogenics: AlythesssPyrogenics,
-    feretoryOfSouls: FeretoryOfSouls,
-    lessonsOfSpaceTime: LessonsOfSpaceTime,
-    sindoreiSpite: SindoreiSpite,
-    magistrikeRestraints: MagistrikeRestraints,
-    odrShawlOfTheYmirjar: OdrShawlOfTheYmirjar,
-    soulOfTheNetherlord: SoulOfTheNetherlord,
-    masterHarvester: TheMasterHarvester,
-
-    // Items
-    t20_2set: T20_2set,
-    t21_2set: T21_2set,
-    t21_4set: T21_4set,
   };
 }
 

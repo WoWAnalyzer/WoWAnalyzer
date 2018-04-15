@@ -16,16 +16,6 @@ import Nemesis from './Modules/Spells/Nemesis';
 import FuryDetails from './Modules/ResourceTracker/FuryDetails';
 import FuryTracker from './Modules/ResourceTracker/FuryTracker';
 
-//Items
-import DelusionsOfGrandeur from './Modules/Items/DelusionsOfGrandeur';
-import RaddonsCascadingEyes from './Modules/Items/RaddonsCascadingEyes';
-import MoargBionicStabilizers from './Modules/Items/MoargBionicStabilizers';
-import SoulOfTheSlayer from '../Shared/Modules/Items/SoulOfTheSlayer';
-import AngerOfTheHalfGiants from './Modules/Items/AngerOfTheHalfGiants';
-import ChaosTheory from './Modules/Items/ChaosTheory';
-import Tier21_2set from './Modules/Items/Tier21_2set';
-import Tier21_4set from './Modules/Items/Tier21_4set';
-
 //Talents
 import DemonReborn from './Modules/Talents/DemonReborn';
 
@@ -60,16 +50,6 @@ class CombatLogParser extends CoreCombatLogParser {
     //Resources
     furyTracker: FuryTracker,
     furyDetails: FuryDetails,
-
-    //Items
-    delusionsOfGrandeur: DelusionsOfGrandeur,
-    raddonsCascadingEyes: RaddonsCascadingEyes,
-    moargBionicStabilizers: MoargBionicStabilizers,
-    soulOfTheSlayer: SoulOfTheSlayer,
-    angerOfTheHalfGiants: AngerOfTheHalfGiants,
-    chaosTheory: ChaosTheory,
-    tier21_2set: Tier21_2set,
-    tier21_4set: Tier21_4set,
 
     //Talents
     demonReborn: DemonReborn,

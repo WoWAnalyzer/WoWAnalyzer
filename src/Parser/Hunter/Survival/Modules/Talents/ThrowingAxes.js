@@ -6,6 +6,9 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
+/**
+ * Tosses 3 axes at an enemy, each dealing (312.5% of Attack power) Physical damage. 2 Charges. 15 seconds recharge.
+ */
 class ThrowingAxes extends Analyzer {
   static dependencies = {
     combatants: Combatants,

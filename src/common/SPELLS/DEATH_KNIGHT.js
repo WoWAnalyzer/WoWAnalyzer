@@ -146,6 +146,11 @@ export default {
     name: 'Mark of Blood',
     icon: 'ability_hunter_rapidkilling',
   },
+  HEARTBREAKER: {
+    id: 210738,
+    name: 'Heartbreaker',
+    icon: 'spell_deathknight_deathstrike',
+  },
 
 // Buffs
   OSSUARY: {
@@ -698,18 +703,6 @@ export default {
     id: 212552,
     name: 'Wraith Walk',
     icon: 'inv_helm_plate_raiddeathknight_p_01',
-  },
-
-  COLD_HEART_BUFF: {
-    id: 235599,
-    name: 'Cold Heart',
-    icon: 'spell_frost_chainsofice',
-  },
-
-  COLD_HEART_DEBUFF: {
-    id: 248397,
-    name: 'Cold Heart',
-    icon: 'spell_frost_chainsofice',
   },
 
   //Skullflower's Haemostasis blood dk legendary buff

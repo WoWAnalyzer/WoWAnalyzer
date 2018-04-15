@@ -14,10 +14,6 @@ import Energy from './Modules/RogueCore/Energy';
 import RestlessBlades from './Modules/RogueCore/RestlessBlades';
 import SliceAndDiceUptime from './Modules/Spells/SliceAndDiceUptime';
 
-import MantleOfTheMasterAssassin from '../Common/Legendaries/MantleOfTheMasterAssassin';
-import SoulOfTheShadowblade from '../Common/Legendaries/SoulOfTheShadowblade';
-import InsigniaOfRavenholdt from '../Common/Legendaries/InsigniaOfRavenholdt';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Feature
@@ -36,12 +32,6 @@ class CombatLogParser extends CoreCombatLogParser {
     //Core
     sliceAndDiceUptime: SliceAndDiceUptime,
     restlessBlades: RestlessBlades,
-    //Items
-
-    //Legendaries
-    mantleOfTheMasterAssassin: MantleOfTheMasterAssassin,
-    soulOfTheShadowblade: SoulOfTheShadowblade,
-    insigniaOfRavenholdt: InsigniaOfRavenholdt,
 
     //Casts
     

@@ -27,17 +27,6 @@ import GrimoireOfSynergy from './Modules/Talents/GrimoireOfSynergy';
 import SummonDarkglare from './Modules/Talents/SummonDarkglare';
 import Demonbolt from './Modules/Talents/Demonbolt';
 
-import WakenersLoyalty from './Modules/Items/Legendaries/WakenersLoyalty';
-import RecurrentRitual from './Modules/Items/Legendaries/RecurrentRitual';
-import SindoreiSpite from '../Shared/Modules/Items/SindoreiSpite';
-import KazzaksFinalCurse from './Modules/Items/Legendaries/KazzaksFinalCurse';
-import WilfredRing from './Modules/Items/Legendaries/WilfredRing';
-import TheMasterHarvester from '../Shared/Modules/Items/TheMasterHarvester';
-import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
-
-import T20_2set from './Modules/Items/T20_2set';
-import T20_4set from './Modules/Items/T20_4set';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
@@ -70,19 +59,6 @@ class CombatLogParser extends CoreCombatLogParser {
     grimoireOfSynergy: GrimoireOfSynergy,
     summonDarkglare: SummonDarkglare,
     demonbolt: Demonbolt,
-
-    // Legendaries
-    wakenersLoyalty: WakenersLoyalty,
-    recurrentRitual: RecurrentRitual,
-    sindoreiSpite: SindoreiSpite,
-    kazzaksFinalCurse: KazzaksFinalCurse,
-    wilfredRing: WilfredRing,
-    masterHarvester: TheMasterHarvester,
-    soulOfTheNetherlord: SoulOfTheNetherlord,
-
-    // Items
-    t20_2set: T20_2set,
-    t20_4set: T20_4set,
   };
 }
 

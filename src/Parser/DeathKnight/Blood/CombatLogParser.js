@@ -33,15 +33,6 @@ import Ossuary from './Modules/Talents/Ossuary';
 import RedThirst from './Modules/Talents/RedThirst';
 import BoneStorm from './Modules/Talents/Bonestorm';
 
-// Items
-import T20_2pc from './Modules/Items/T20_2pc';
-import T20_4pc from './Modules/Items/T20_4pc';
-import T21_2pc from './Modules/Items/T21_2pc';
-import T21_4pc from './Modules/Items/T21_4pc';
-import SkullflowersHaemostasis from './Modules/Items/SkullflowersHaemostasis';
-import ShacklesofBryndaor from './Modules/Items/ShacklesofBryndaor';
-import SoulflayersCorruption from './Modules/Items/SoulflayersCorruption';
-
 //Traits
 import RelicTraits from './Modules/Traits/RelicTraits';
 import Bonebreaker from './Modules/Traits/Bonebreaker';
@@ -96,15 +87,6 @@ class CombatLogParser extends CoreCombatLogParser {
     allConsumingRot: AllConsumingRot,
     veinrender: Veinrender,
     coagulopathy: Coagulopathy,
-
-    // Items:
-    t20_2pc: T20_2pc,
-    t20_4pc: T20_4pc,
-    t21_2pc: T21_2pc,
-    t21_4pc: T21_4pc,
-    skullflowersHaemostasis: SkullflowersHaemostasis,
-    shacklesofBryndaor:ShacklesofBryndaor,
-    soulflayersCorruption:SoulflayersCorruption,    
   };
 }
 

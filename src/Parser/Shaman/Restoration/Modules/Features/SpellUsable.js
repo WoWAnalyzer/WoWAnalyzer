@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import CoreSpellUsable from 'Parser/Core/Modules/SpellUsable';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Abilities from '../Abilities';
@@ -12,7 +11,7 @@ class SpellUsable extends CoreSpellUsable {
   };
 
   on_initialized() {
-    this.hasEcho = this.combatants.selected.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id);
+    this.hasEcho = this.combatants.selected.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id);
   }
 
   on_dispel(event) {

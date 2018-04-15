@@ -1,10 +1,8 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 
 import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
 import Wrapper from 'common/Wrapper';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
@@ -14,18 +12,12 @@ import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/C
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
-import IshkarsFelshieldEmitter from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/IshkarsFelshieldEmitter';
-import EonarsCompassion from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/EonarsCompassion';
-import VelensFutureSight from 'Parser/Core/Modules/Items/Legion/Legendaries/VelensFutureSight';
-import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
-import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 
 import MasteryEffectiveness from './MasteryEffectiveness';
 import AlwaysBeCasting from './AlwaysBeCasting';
 import TidalWaves from './TidalWaves';
-import GiftOfTheQueen from '../Spells/GiftOfTheQueen';
 import ChainHeal from '../Spells/ChainHeal';
 import HealingRain from '../Spells/HealingRain';
 import HealingSurge from '../Spells/HealingSurge';
@@ -39,14 +31,8 @@ class Checklist extends CoreChecklist {
     masteryEffectiveness: MasteryEffectiveness,
     alwaysBeCasting: AlwaysBeCasting,
     manaValues: ManaValues,
-    velensFutureSight: VelensFutureSight,
-    ishkarsFelshieldEmitter: IshkarsFelshieldEmitter,
-    eonarsCompassion: EonarsCompassion,
-    legendaryUpgradeChecker: LegendaryUpgradeChecker,
-    legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
     tidalWaves: TidalWaves,
-    giftOfTheQueen: GiftOfTheQueen,
     chainHeal: ChainHeal,
     healingRain: HealingRain,
     enchantChecker: EnchantChecker,
@@ -72,14 +58,11 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.HEALING_STREAM_TOTEM_CAST,
             onlyWithSuggestion: false,
+            when: !combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.CLOUDBURST_TOTEM_TALENT,
             when: combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.GIFT_OF_THE_QUEEN,
-            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.EARTHEN_SHIELD_TOTEM_TALENT,
@@ -115,16 +98,8 @@ class Checklist extends CoreChecklist {
             when: !!this.castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA.id),
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.VELENS_FUTURE_SIGHT_BUFF,
-            when: combatant.hasTrinket(ITEMS.VELENS_FUTURE_SIGHT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
             spell: SPELLS.ASCENDANCE_TALENT_RESTORATION,
             when: combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_RESTORATION.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.ANCESTRAL_GUIDANCE_TALENT,
-            when: combatant.hasTalent(SPELLS.ANCESTRAL_GUIDANCE_TALENT.id),
           }),
         ];
       },
@@ -157,31 +132,10 @@ class Checklist extends CoreChecklist {
       //Healing Wave/Healing SUrge used without Tidal Wave
     }),
     new Rule({
-      name: 'Maximize ability synergy',
-      description: 'Resto Shaman have cooldowns which feed into each other for compounding effects. To maximize your effectiveness it\'s good to use these feeding effects as much as possible.',
-      requirements: () => {
-        return [
-          new Requirement({
-            name: <Wrapper>
-              <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} /> fed to <SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} />
-            </Wrapper>,
-            check: () => this.giftOfTheQueen.CBTTotemFeedingSuggestionThreshold,
-            when: this.combatants.selected.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id),
-          }),
-        ];
-      },
-    }),
-    new Rule({
       name: 'Target AOE spells effectively',
       description: 'As a resto shaman our core AOE spells rely on not just who we target but where they are on the ground to maximize healing potential. You should plan you AOE spells ahead of time in preparation for where you expect raid members to be for the spells duration.',
       requirements: () => {
         return [
-          new Requirement({
-            name: <Wrapper>
-              <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} /> target efficiency
-            </Wrapper>,
-            check: () => this.giftOfTheQueen.giftOfQueenTargetEfficiencySuggestionThreshold,
-          }),
           new Requirement({
             name: <Wrapper>
               Average <SpellLink id={SPELLS.CHAIN_HEAL.id} /> targets
@@ -213,29 +167,16 @@ class Checklist extends CoreChecklist {
         ];
       },
     }),
+    /*
     new Rule({
       name: 'Pick the right tools for the fight',
       description: 'The throughput gain of some talents or legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly.',
       requirements: () => {
         return [
-          new Requirement({
-            name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
-            check: () => this.velensFutureSight.suggestionThresholds,
-            when: this.velensFutureSight.active,
-          }),
-          new Requirement({
-            name: <ItemLink id={ITEMS.EONARS_COMPASSION.id} />,
-            check: () => this.eonarsCompassion.suggestionThresholds,
-            when: this.eonarsCompassion.active,
-          }),
-          new Requirement({
-            name: <ItemLink id={ITEMS.ISHKARS_FELSHIELD_EMITTER.id} />,
-            check: () => this.ishkarsFelshieldEmitter.suggestionThresholds,
-            when: this.ishkarsFelshieldEmitter.active,
-          }),
+          // EMPTY
         ];
       },
-    }),
+    }),*/
     new Rule({
       name: 'Use all of your mana effectively',
       description: 'If you have a large amount of mana left at the end of the fight that\'s mana you could have turned into healing. Try to use all your mana during a fight. A good rule of thumb is to try to match your mana level with the boss\'s health.',

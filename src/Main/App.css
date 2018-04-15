@@ -174,6 +174,7 @@ ul {
 .image-overlay .description {
   font-size: 1.2em;
   color: #ebdec2;
+  text-shadow: 0 0 2px #000;
 }
 
 .report-selector {
@@ -222,12 +223,19 @@ ul {
   background: transparent;
 }
 .panel-heading h2 {
-  opacity: .9;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-weight: 600;
   margin: 0;
-  font-size: 1em;
+  font-size: 1.3em;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: -webkit-linear-gradient(top,#fff 0,#c6c6c6 7%,#fff 20%,#cfcfcf 38%,#fef9ef 68%,#c7beac 83%,#dccdbc 100%);
+  background-size: 1em 1em;
+  background-position: center;
+  color: #c6c6c6;
+  line-height: 1.3em;
+  text-shadow: none;
+  position: relative;
+  font-weight: 700;
 }
 .panel > .panel-body {
   padding: 15px 22px;
@@ -406,6 +414,10 @@ nav .selectorHeader a {
   margin-right: 5px;
   border-radius: 2px;
 }
+/* Fix for double bottom border for second last children */
+.list.players>li:nth-child(odd):nth-last-child(2) {
+  box-shadow: none;
+}
 .list > li {
   margin: 0;
   padding: 0 22px;
@@ -438,7 +450,7 @@ svg {
 }
 img.icon {
   height: 1.2em;
-  margin-top: -0.2em;
+  margin-top: -0.15em;
 }
 h1 {
   position: relative;

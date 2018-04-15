@@ -18,7 +18,7 @@ export default {
   // },
   MELEE: {
     id: 1,
-    name: 'Melee or Word of Recall, who knows?',
+    name: 'Auto attack',
     icon: 'inv_axe_02',
   },
   LEECH: {
@@ -219,76 +219,6 @@ export default {
     icon: 'sha_spell_fire_fireball02_nightmare',
   },
   // Dungeon Trinkets
-  SHADOWS_STRIKE: { // Dreadstone of Endless Shadows crit proc
-    id: 238499,
-    name: "Shadow's Strike",
-    icon: 'ability_warlock_shadowfurytga',
-  },
-  SHADOW_MASTER: { // Dreadstone of Endless Shadows mastery proc
-    id: 238500,
-    name: "Shadow Master",
-    icon: 'ability_creature_disease_05',
-  },
-  SWARMING_SHADOWS: { // Dreadstone of Endless Shadows haste proc
-    id: 238501,
-    name: "Swarming Shadows",
-    icon: 'spell_shadow_shadesofdarkness',
-  },
-  LEGIONS_GAZE: { //Eye of Command buff
-    id: 230152,
-    name: 'Legion\'s Gaze',
-    icon: 'inv_pet_inquisitoreye',
-  },
-  QUITE_SATISFIED_VERSATILITY: { //Majordomo's Dinner Bell vers proc
-    id: 230105,
-    name: 'Quite Satisfied',
-    icon: 'inv_misc_food_03',
-  },
-  QUITE_SATISFIED_CRIT: { //Majordomo's Dinner Bell crit proc
-    id: 230102,
-    name: 'Quite Satisfied',
-    icon: 'inv_misc_food_03',
-  },
-  QUITE_SATISFIED_HASTE: { //Majordomo's Dinner Bell haste proc
-    id: 230103,
-    name: 'Quite Satisfied',
-    icon: 'inv_misc_food_03',
-  },
-  QUITE_SATISFIED_MASTERY: { //Majordomo's Dinner Bell mastery proc
-    id: 230104,
-    name: 'Quite Satisfied',
-    icon: 'inv_misc_food_03',
-  },
-  DIRGE_OF_ANGERBODA: { //Memento of Angerboda mastery proc
-    id: 214807,
-    name: 'Dirge of Angerboda',
-    icon: 'spell_deathknight_unholypresence',
-  },
-  HOWL_OF_INGVAR: { //Memento of Angerboda crit proc
-    id: 214802,
-    name: 'Howl of Ingvar',
-    icon: 'spell_deathknight_bloodpresence',
-  },
-  WAIL_OF_SVALA: { //Memento of Angerboda haste proc
-    id: 214803,
-    name: 'Wail of Svala',
-    icon: 'spell_deathknight_frostpresence',
-  },
-  DOWN_DRAFT: { //Nightmare Egg Shell buff
-    id: 214340,
-    name: 'Down Draft',
-    icon: 'ability_skyreach_wind',
-  },
-  ACCELERATION: { //Chrono Shard buff
-    id: 214128,
-    name: 'Acceleration',
-    icon: 'inv_enchant_shardbrilliantsmall',
-  },
-  GREASE_THE_GEARS: { //Fel-Oiled Infernal Machine buff
-    id: 238534,
-    name: 'Grease the Gears',
-    icon: 'inv_misc_enggizmos_14',
-  },
   COLLAPSE: { //Ring of Collapsing Futures
     id: 234142,
     name: 'Collapse',
@@ -300,11 +230,6 @@ export default {
     id: 225739,
     name: 'Recursive Strikes',
     icon: 'sha_ability_mage_firestarter_nightborne',
-  },
-  ACCELERANDO: {
-    id: 225719,
-    name: 'Accelerando',
-    icon: 'spell_holy_borrowedtime',
   },
   // Tomb trinkets
   CLEANSING_MATRIX: {
@@ -376,16 +301,6 @@ export default {
     id: 242642,
     name: 'Strength of Will',
     icon: 'inv_wand_36',
-  },
-  SOLAR_INFUSION: { //Chalice of Moonlight crit proc
-    id: 242544,
-    name: 'Solar Infusion',
-    icon: 'achievment_raid_houroftwilight',
-  },
-  LUNAR_INFUSION: { //Chalice of Moonlight haste proc
-    id: 242543,
-    name: 'Lunar Infusion',
-    icon: 'ability_druid_lunarguidance',
   },
   // T21 Healing trinkets
   TARRATUS_KEYSTONE: {
@@ -525,66 +440,6 @@ export default {
     name: 'Shadow Blades',
     icon: 'spell_shadow_shadowbolt',
   },
-  RUSH_OF_KNOWLEDGE: { //Norgannon's Prowess Int Buff
-    id: 256828,
-    name: 'Rush of Knowledge',
-    icon: 'inv_antorus_blue',
-  },
-  NORGANNONS_COMMAND: { //Norgannon's Prowess Pantheon Buff
-    id: 256836,
-    name: 'Norgannon\'s Command',
-    icon: 'ability_monk_forcesphere_arcane',
-  },
-  NORGANNONS_FIREBALL: {
-    id: 257241,
-    name: 'Norgannon\'s Fireball',
-    icon: 'spell_fire_fireball02',
-  },
-  NORGANNONS_FROSTBOLT: {
-    id: 257242,
-    name: 'Norgannon\'s Frostbolt',
-    icon: 'spell_frost_frostbolt02',
-  },
-  NORGANNONS_ARCANE_MISSLE: {
-    id: 257243,
-    name: 'Norgannon\'s Arcane Missle',
-    icon: 'spell_nature_starfall',
-  },
-  NORGANNONS_DIVINE_SMITE: {
-    id: 257532,
-    name: 'Norgannon\'s Divine Smite',
-    icon: 'spell_holy_holysmite',
-  },
-  NORGANNONS_WRATH: {
-    id: 257533,
-    name: 'Norgannon\'s Wrath',
-    icon: 'spell_nature_wrathv2',
-  },
-  NORGANNONS_SHADOW_BOLT: {
-    id: 257534,
-    name: 'Norgannon\'s Shadow Bolt',
-    icon: 'spell_shadow_shadowbolt',
-  },
-  CYCLE_OF_THE_LEGION: { //Acrid three stat buff
-    id: 253260,
-    name: 'Cycle of the Legion',
-    icon: 'inv_7_0raid_trinket_01c',
-  },
-  FERVOR_OF_THE_LEGION: { //Acrid Haste Buff
-    id: 253261,
-    name: 'Fervor of the Legion',
-    icon: 'inv_misc_volatilelife_green',
-  },
-  MALICE_OF_THE_LEGION: { //Acrid Mastery Buff
-    id: 255744,
-    name: 'Malice of the Legion',
-    icon: 'inv_misc_volatilewater',
-  },
-  BRUTALITY_OF_THE_LEGION: { //Acrid Crit buff
-    id: 255742,
-    name: 'Brutality of the Legion',
-    icon: 'inv_misc_volatilelife',
-  },
   FLAMES_OF_FHARG: {
     id: 253308,
     name: 'Flames of F\'harg',
@@ -625,16 +480,6 @@ export default {
     id: 243941,
     name: 'Insidious Corruption',
     icon: 'inv_archaeology_70_demon_flayedskinchronicle',
-  },
-  TOME_OF_UNRAVELING_SANITY_BUFF: {
-    id: 243942,
-    name: 'Extracted Sanity',
-    icon: 'inv_archaeology_70_demon_flayedskinchronicle',
-  },
-  RISING_TIDES: {
-    id: 242458,
-    name: 'Rising Tides',
-    icon: 'inv_7_0raid_trinket_04a',
   },
   // Engine of Eradication buff
   DEMONIC_VIGOR: {
@@ -715,163 +560,7 @@ export default {
     name: 'Annihilation',
     icon: 'spell_arcane_arcanetorrent',
   },
-  // Netherlight Cruicible Traits
-  MURDEROUS_INTENT_TRAIT: {
-    id: 252191,
-    name: 'Murderous Intent',
-    icon: 'spell_shadow_charm',
-  },
-  MURDEROUS_INTENT_BUFF: {
-    id: 252202,
-    name: 'Murderous Intent',
-    icon: 'spell_shadow_charm',
-  },
-  REFRACTIVE_SHELL_TRAIT: {
-    id: 252207,
-    name: 'Refractive Shell',
-    icon: 'ability_priest_reflectiveshield',
-  },
-  REFRACTIVE_SHELL_BUFF: {
-    id: 252208,
-    name: 'Refractive Shell',
-    icon: 'ability_priest_reflectiveshield',
-  },
-  SHOCKLIGHT_TRAIT: {
-    id: 252799,
-    name: 'Shocklight',
-    icon: 'paladin_icon_speedoflight',
-  },
-  SHOCKLIGHT_BUFF: {
-    id: 252801,
-    name: 'Shocklight',
-    icon: 'paladin_icon_speedoflight',
-  },
-  SECURE_IN_THE_LIGHT_TRAIT: {
-    id: 253070,
-    name: 'Secure in the Light',
-    icon: 'ability_paladin_toweroflight',
-  },
-  SECURE_IN_THE_LIGHT_DAMAGE: {
-    id: 253073,
-    name: 'Secure in the Light',
-    icon: 'ability_paladin_toweroflight',
-  },
-  HOLY_BULWARK: {
-    id: 253072,
-    name: 'Holy Bulwark',
-    icon: 'ability_paladin_toweroflight',
-  },
-  INFUSION_OF_LIGHT_TRAIT: {
-    id: 253093,
-    name: 'Infusion of Light',
-    icon: 'ability_malkorok_blightofyshaarj_yellow',
-  },
-  INFUSION_OF_LIGHT_DAMAGE: {
-    id: 253098,
-    name: 'Infusion of Light',
-    icon: 'ability_malkorok_blightofyshaarj_yellow',
-  },
-  INFUSION_OF_LIGHT_HEALING: {
-    id: 253099,
-    name: 'Infusion of Light',
-    icon: 'ability_malkorok_blightofyshaarj_yellow',
-  },
-  LIGHTS_EMBRACE_TRAIT: {
-    id: 253111,
-    name: 'Light\'s Embrace',
-    icon: 'achievement_reputation_07',
-  },
-  LIGHTS_EMBRACE_HEALING: {
-    id: 253216,
-    name: 'Light\'s Embrace',
-    icon: 'achievement_reputation_07',
-  },
-  SHADOWBIND_TRAIT: {
-    id: 252875,
-    name: 'Shadowbind',
-    icon: 'spell_shadow_deathpact',
-  },
-  SHADOWBIND_DAMAGE_HEALING: {
-    id: 252879,
-    name: 'Shadowbind',
-    icon: 'spell_shadow_deathpact',
-  },
-  CHAOTIC_DARKNESS_TRAIT: {
-    id: 252888,
-    name: 'Chaotic Darkness',
-    icon: 'inv_artifact_powerofthedarkside',
-  },
-  CHAOTIC_DARKNESS_DAMAGE: {
-    id: 252896,
-    name: 'Chaotic Darkness',
-    icon: 'inv_artifact_powerofthedarkside',
-  },
-  CHAOTIC_DARKNESS_HEALING: {
-    id: 252897,
-    name: 'Chaotic Darkness',
-    icon: 'inv_artifact_powerofthedarkside',
-  },
-  TORMENT_THE_WEAK_TRAIT: {
-    id: 252906,
-    name: 'Torment the Weak',
-    icon: 'warlock_curse_weakness',
-  },
-  TORMENT_THE_WEAK_DAMAGE: {
-    id: 252907,
-    name: 'Torment the Weak',
-    icon: 'warlock_curse_weakness',
-  },
-  DARK_SORROWS_TRAIT: {
-    id: 252922,
-    name: 'Dark Sorrows',
-    icon: 'inv_heart_of_the_thunder-king_icon',
-  },
-  DARK_SORROWS_DAMAGE: {
-    id: 253022,
-    name: 'Dark Sorrows',
-    icon: 'inv_heart_of_the_thunder-king_icon',
-  },
-  MASTER_OF_SHADOWS_TRAIT: {
-    id: 252091,
-    name: 'Master of Shadows',
-    icon: 'spell_shadow_shadesofdarkness',
-  },
-  LIGHT_SPEED_TRAIT: {
-    id: 252088,
-    name: 'Light Speed',
-    icon: 'ability_rogue_sprint',
-  },
-  CONCORDANCE_OF_THE_LEGIONFALL_TRAIT: {
-    id: 239042,
-    name: 'Concordance of the Legionfall',
-    icon: 'trade_archaeology_shark-jaws',
-  },
-  CONCORDANCE_OF_THE_LEGIONFALL_INTELLECT: {
-    id: 242586,
-    name: 'Concordance of the Legionfall',
-    icon: 'achievement_faction_legionfall',
-  },
-  CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH: {
-    id: 242583,
-    name: 'Concordance of the Legionfall',
-    icon: 'achievement_faction_legionfall',
-  },
-  CONCORDANCE_OF_THE_LEGIONFALL_AGILITY: {
-    id: 242584,
-    name: 'Concordance of the Legionfall',
-    icon: 'achievement_faction_legionfall',
-  },
-  CONCORDANCE_OF_THE_LEGIONFALL_VERSATILITY: {
-    id: 243096,
-    name: 'Concordance of the Legionfall',
-    icon: 'achievement_faction_legionfall',
-  },
 
-  FEEDBACK_LOOP: {
-    id: 253269,
-    name: 'Feedback Loop',
-    icon: 'spell_holy_dispelmagic',
-  },
   VALARJARS_PATH: {
     id: 215956,
     name: 'Valarjar\'s Path',

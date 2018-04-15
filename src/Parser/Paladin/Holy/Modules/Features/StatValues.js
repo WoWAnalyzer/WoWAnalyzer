@@ -32,17 +32,17 @@ class StatValues extends BaseHealerStatValues {
   spellInfo = SPELL_INFO;
 
   on_heal(event) {
-    if (event.ability.guid === SPELLS.BEACON_OF_LIGHT_CAST_AND_HEAL.id) {
+    if (event.ability.guid === SPELLS.BEACON_OF_LIGHT_HEAL.id) {
       // Handle this via the `on_beacon_heal` event
       return;
     }
     super.on_heal(event);
   }
-  on_beacon_heal(event, originalHeal) {
-    const spellInfo = this._getSpellInfo(originalHeal);
+  on_beacon_heal(event) {
+    const spellInfo = this._getSpellInfo(event.originalHeal);
     const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
     const targetHealthPercentage = (event.hitPoints - healVal.effective) / event.maxHitPoints; // hitPoints contains HP *after* the heal
-    this._handleHeal(spellInfo, originalHeal, healVal, targetHealthPercentage);
+    this._handleHeal(spellInfo, event.originalHeal, healVal, targetHealthPercentage);
   }
   _getCritChance(event) {
     const spellId = event.ability.guid;

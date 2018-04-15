@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default  [
   {
+    date: new Date('2018-04-09'),
+    changes: 'Added Rune efficiency to checklist',
+    contributors: [Khazak],
+  },
+  {
     date: new Date('2018-03-26'),
     changes: 'Updated Runic Power tracker for better accuracy',
     contributors: [Khazak],
@@ -55,7 +60,7 @@ export default  [
   },
   {
     date: new Date('2017-11-04'),
-    changes: <Wrapper><SpellLink id={SPELLS.SCOURGE_OF_WORLDS.id} />, <ItemLink id={ITEMS.COLD_HEART.id} />, and <SpellLink id={SPELLS.UNHOLY_FRENZY_BUFF.id} /> trackers added</Wrapper>,
+    changes: <Wrapper><SpellLink id={SPELLS.SCOURGE_OF_WORLDS.id} />, Cold Heart, and <SpellLink id={SPELLS.UNHOLY_FRENZY_BUFF.id} /> trackers added</Wrapper>,
     contributors: [Khazak],
   },
   {

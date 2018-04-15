@@ -6,6 +6,7 @@ import ReactTooltip from 'react-tooltip';
 
 import SPECS from 'common/SPECS';
 import ROLES from 'common/ROLES';
+import SpecIcon from 'common/SpecIcon';
 import { getFightId } from 'selectors/url/report';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
@@ -107,16 +108,10 @@ export class PlayerSelectionList extends React.PureComponent {
     } else {
       return (
         <Link to={makeAnalyzerUrl(report, fightId, friendly.id)} className={spec.className.replace(' ', '')} style={{ marginLeft: 47 }}>
-          {this.renderSpecIcon(spec)} {friendly.name} ({spec.specName})
+          <SpecIcon id={spec.id} /> {friendly.name} ({spec.specName})
         </Link>
       );
     }
-  }
-
-  renderSpecIcon(spec) {
-    return (
-      <img src={`/specs/${spec.className.replace(' ', '')}-${spec.specName.replace(' ', '')}.jpg`} alt="Spec logo" />
-    );
   }
 
   render() {

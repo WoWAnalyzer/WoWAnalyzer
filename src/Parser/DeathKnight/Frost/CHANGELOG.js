@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
     {
+      date: new Date('2018-04-09'),
+      changes: 'Added Checklist feature',
+      contributors: [Khazak],
+    },
+    {
       date: new Date('2018-03-21'),
       changes: 'Added Runic Power tracking',
       contributors: [Khazak],
@@ -50,7 +55,7 @@ export default [
     },
     {
       date: new Date('2017-11-02'),
-      changes: <Wrapper>Artifact ability cooldown changed, <ItemLink id={ITEMS.COLD_HEART.id} /> added, Added folder for shared coding between specs.</Wrapper>,
+      changes: 'Artifact ability cooldown changed, Cold Heart added, Added folder for shared coding between specs.',
       contributors: [Bonebasher],
     },
     {
