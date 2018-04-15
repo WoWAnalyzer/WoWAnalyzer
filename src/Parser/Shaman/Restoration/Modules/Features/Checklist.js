@@ -62,7 +62,8 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.HEALING_STREAM_TOTEM_CAST,
             onlyWithSuggestion: false,
-          }),/*
+            when: !combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id),
+          }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.CLOUDBURST_TOTEM_TALENT,
             when: combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id),
@@ -70,7 +71,7 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.EARTHEN_SHIELD_TOTEM_TALENT,
             when: combatant.hasTalent(SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id),
-          }),*/
+          }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.WELLSPRING_TALENT,
             when: combatant.hasTalent(SPELLS.WELLSPRING_TALENT.id),

@@ -42,7 +42,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
         timelineSortIndex: 18,
-        enabled: combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id),
+        enabled: !combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id),
         isOnGCD: true,
         cooldown: 30,
         castEfficiency: {
@@ -270,8 +270,8 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         timelineSortIndex: 80,
         isOnGCD: true,
-        enabled: combatant.hasTalent(SPELLS.LIGHTNING_SURGE_TOTEM_TALENT.id),
-        cooldown: 45,
+        //enabled: combatant.hasTalent(SPELLS.LIGHTNING_SURGE_TOTEM_TALENT.id), reduce CD depending on targets hit
+        cooldown: 60,
       },
       {
         spell: SPELLS.WIND_RUSH_TOTEM_TALENT,
@@ -316,8 +316,9 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.EARTH_SHIELD_TALENT, 
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
         isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.EARTH_SHIELD_TALENT.id),
         timelineSortIndex: 80,
       },
       {

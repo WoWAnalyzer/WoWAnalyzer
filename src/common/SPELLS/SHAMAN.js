@@ -45,6 +45,22 @@ export default {
     name: 'Astral Recall',
     icon: 'spell_nature_astralrecal', 
   },
+  NATURES_GUARDIAN_TALENT: { // Until talents get updated
+    id: 30884,
+    name: 'Nature\'s Guardian',
+    icon: 'spell_nature_natureguardian',
+  },
+  NATURES_GUARDIAN_HEAL: {
+    id: 31616,
+    name: 'Nature\'s Guardian',
+    icon: 'spell_nature_natureguardian',
+  },
+  TREMOR_TOTEM: {
+    id: 8143,
+    name: 'Tremor Totem',
+    icon: 'spell_nature_tremortotem',
+    manaCost: 460,
+  },
   // Hex and its variations
   HEX: {
     id: 51514,
@@ -793,21 +809,5 @@ export default {
     id: 379,
     name: 'Earth Shield',
     icon: 'spell_nature_skinofearth',
-  },
-  NATURES_GUARDIAN_TALENT: {
-    id: 30884,
-    name: 'Nature\'s Guardian',
-    icon: 'spell_nature_natureguardian',
-  },
-  NATURES_GUARDIAN_HEAL: {
-    id: 31616,
-    name: 'Nature\'s Guardian',
-    icon: 'spell_nature_natureguardian',
-  },
-  TREMOR_TOTEM: {
-    id: 8143,
-    name: 'Tremor Totem',
-    icon: 'spell_nature_tremortotem',
-    manaCost: 460,
   },
 };
