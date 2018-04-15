@@ -103,6 +103,7 @@ class EventsTab extends React.Component {
       }, {}),
       rawNames: false,
       showFabricated: false,
+      search: '',
     };
     this.handleRowClick = this.handleRowClick.bind(this);
   }
@@ -179,8 +180,27 @@ class EventsTab extends React.Component {
     console.log(rowData);
   }
 
+  renderSearchBox() {
+    return (
+      <input
+        type="text"
+        name="search"
+        className="form-control"
+        onChange={event => this.setState({ search: event.target.value.trim().toLowerCase() })}
+        placeholder="Search events (comma separated)"
+        autoCorrect="off"
+        autoCapitalize="off"
+        spellCheck="false"
+      />
+    );
+  }
+
   render() {
     const { parser } = this.props;
+
+    const searchTerms = this.state.search
+      .split(' ')
+      .filter(searchTerm => searchTerm !== '');
 
     const events = parser.eventHistory
       .filter(event => {
@@ -190,7 +210,25 @@ class EventsTab extends React.Component {
         if (!this.state.showFabricated && event.__fabricated === true) {
           return false;
         }
-        return true;
+
+        // Search Logic
+        if(searchTerms.length === 0) {
+          return true;
+        }
+
+        const source = this.findEntity(event.sourceID);
+        const target = this.findEntity(event.targetID);
+
+        return searchTerms.some(searchTerm => {
+          if(event.ability !== undefined && event.ability.name.toLowerCase().includes(searchTerm)) {
+            return true;
+          } else if(source !== null && source.name.toLowerCase().includes(searchTerm)) {
+            return true;
+          } else if(target !== null && target.name.toLowerCase().includes(searchTerm)) {
+            return true;
+          }
+          return false;
+        });
       });
 
     // TODO: Show active buffs like WCL
@@ -203,6 +241,8 @@ class EventsTab extends React.Component {
           <Info className="small" style={{ width: 240 }}>
             This only includes events involving the selected player.
           </Info>
+          <br />
+          {this.renderSearchBox()}
           <br />
           {Object.keys(FILTERABLE_TYPES).map(type => this.renderEventTypeToggle(type))}
           <br />
