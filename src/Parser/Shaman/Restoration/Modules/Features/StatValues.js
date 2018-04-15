@@ -14,7 +14,7 @@ import MasteryEffectiveness from './MasteryEffectiveness';
  * Restoration Shaman Stat Values
  */
 
- const BUFFER_MS = 100;
+const BUFFER_MS = 100;
 
 class StatValues extends BaseHealerStatValues {
   static dependencies = {
@@ -37,18 +37,14 @@ class StatValues extends BaseHealerStatValues {
     const spellId = event.ability.guid;
     const critChanceBreakdown = super._getCritChance(event);
 
-    // Need to add new crashing waves
     const hasTidalWaves = this.combatants.selected.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, BUFFER_MS, BUFFER_MS);
+    const hasCrashingWaves = this.combatants.selected.hasTalent(SPELLS.CRASHING_WAVES_TALENT.id);
 
     if (spellId === SPELLS.HEALING_SURGE_RESTORATION.id && hasTidalWaves) {
-      critChanceBreakdown.baseCritChance += 0.4; //0.5 with crashing waves
+      critChanceBreakdown.baseCritChance += hasCrashingWaves ? 0.5 : 0.4;
     }
 
     return critChanceBreakdown;
-  }
-
-  _criticalStrike(event, healVal) {
-      return super._criticalStrike(event, healVal);
   }
 
   _mastery(event, healVal) {
