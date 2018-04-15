@@ -65,7 +65,7 @@ async function rawFetchWcl(endpoint, queryParams) {
 }
 
 const defaultOptions = {
-  timeout: 15000,
+  timeout: 30000,
 };
 export default function fetchWclWithTimeout(endpoint, queryParams, options) {
   options = !options ? defaultOptions : { ...defaultOptions, ...options };

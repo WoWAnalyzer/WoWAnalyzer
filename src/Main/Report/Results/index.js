@@ -29,6 +29,7 @@ import ItemsPanel from './ItemsPanel';
 import ResultsWarning from './ResultsWarning';
 import Header from './Header';
 import DetailsTab from './DetailsTab';
+import Odyn from './Images/odyn.jpg';
 
 import './Results.css';
 
@@ -297,7 +298,9 @@ class Results extends React.PureComponent {
   renderLoading() {
     return (
       <div className="loading-text">
-        Loading...
+        Loading...<br /><br />
+
+        <img src={Odyn} alt="Odyn" style={{ maxWidth: 300 }} />
       </div>
     );
   }

@@ -140,6 +140,8 @@ class Report extends React.Component {
       return;
     }
     try {
+      // The events we fetched will be all events related to the selected player. This includes the `combatantinfo` for the selected player. However we have already parsed this event when we loaded the combatants in the `initializeAnalyzers` of the CombatLogParser. Loading the selected player again could lead to bugs since it would reinitialize and overwrite the existing entity (the selected player) in the Combatants module.
+      events = events.filter(event => event.type !== 'combatantinfo');
       events = parser.normalize(events);
       this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS);
 

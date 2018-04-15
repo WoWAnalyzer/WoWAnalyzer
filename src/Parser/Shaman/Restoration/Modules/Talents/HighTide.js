@@ -1,13 +1,12 @@
 import React from 'react';
 
-import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 const HEAL_WINDOW_MS = 100;
 const bounceReduction = 0.7;
@@ -20,6 +19,8 @@ class HighTide extends Analyzer {
   healing = 0;
   chainHealBounce = 0;
   chainHealTimestamp = 0;
+  chainHealFeedBounce = 0;
+  chainHealFeedTimestamp = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.HIGH_TIDE_TALENT.id);
@@ -43,28 +44,48 @@ class HighTide extends Analyzer {
     if(this.chainHealBounce === 4) {
       this.healing += event.amount;
     } else {
-      this.healing += event.amount * FACTOR_CONTRIBUTED_BY_HT_HIT;
+      this.healing += calculateEffectiveHealing(event, FACTOR_CONTRIBUTED_BY_HT_HIT);
     }
 
     this.chainHealBounce++;
   }
 
-  statistic() {
+  on_feed_heal(event) {
+    const spellId = event.ability.guid;
 
+    if (spellId !== SPELLS.CHAIN_HEAL.id) {
+      return;
+    }
+
+    if(!this.chainHealFeedTimestamp || event.timestamp - this.chainHealFeedTimestamp > HEAL_WINDOW_MS) {
+      this.chainHealFeedTimestamp = event.timestamp;
+      this.chainHealFeedBounce = 0;
+    }
+
+    const FACTOR_CONTRIBUTED_BY_HT_HIT = (1-(Math.pow(bounceReduction,this.chainHealFeedBounce) / Math.pow(bounceReductionHighTide,this.chainHealBounce)));
+
+    if(this.chainHealFeedBounce === 4) {
+      this.healing += event.feed;
+    } else {
+      this.healing += event.feed * FACTOR_CONTRIBUTED_BY_HT_HIT;
+    }
+
+    this.chainHealFeedBounce++;
+  }
+  
+
+  subStatistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.HIGH_TIDE_TALENT.id} />}
-        value={`${(formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing)))} %`}
-        label={(
-          <dfn data-tip="The percentage of your healing that is caused by High Tide.">
-
-            High Tide healing
-          </dfn>
-        )}
-      />
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.HIGH_TIDE_TALENT.id} />
+        </div>
+        <div className="flex-sub text-right">
+          {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %
+        </div>
+      </div>
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(70);
 
 }
 

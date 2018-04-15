@@ -22,7 +22,15 @@ import AncestralVigor from './Modules/Features/AncestralVigor';
 import TidalWaves from './Modules/Features/TidalWaves';
 import CastBehavior from './Modules/Features/CastBehavior'; 
 
+import TalentStatisticBox from './Modules/Talents/TalentStatisticBox';
+import Torrent from './Modules/Talents/Torrent';
+import UnleashLife from './Modules/Talents/UnleashLife';
+import Undulation from './Modules/Talents/Undulation';
+import AncestralGuidance from './Modules/Talents/AncestralGuidance';
 import EarthenShieldTotem from './Modules/Talents/EarthenShieldTotem';
+import CloudburstTotem from './Modules/Talents/CloudburstTotem';
+import Ascendance from './Modules/Talents/Ascendance';
+import Wellspring from './Modules/Talents/Wellspring';
 import HighTide from './Modules/Talents/HighTide';
 
 import Nazjatar from './Modules/Items/Nazjatar';
@@ -77,7 +85,15 @@ class CombatLogParser extends CoreCombatLogParser {
     statValues: StatValues,
 
     // Talents:
+    talentStatisticBox: TalentStatisticBox,
+    torrent: Torrent,
+    unleashLife: UnleashLife,
+    undulation: Undulation,
+    ancestralGuidance: AncestralGuidance,
     earthenShieldTotem: EarthenShieldTotem,
+    cloudburstTotem: CloudburstTotem,
+    ascendance: Ascendance,
+    wellspring: Wellspring,
     highTide: HighTide,
 
     // Items:

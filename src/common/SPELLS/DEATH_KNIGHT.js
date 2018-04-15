@@ -146,6 +146,11 @@ export default {
     name: 'Mark of Blood',
     icon: 'ability_hunter_rapidkilling',
   },
+  HEARTBREAKER: {
+    id: 210738,
+    name: 'Heartbreaker',
+    icon: 'spell_deathknight_deathstrike',
+  },
 
 // Buffs
   OSSUARY: {
