@@ -1,9 +1,12 @@
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import SPECS from 'common/SPECS';
+import { calculateSecondaryStatDefault, calculatePrimaryStat } from 'common/stats';
 import { formatMilliseconds } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import { STAT_TRACKER_BUFFS as DARKMOON_DECK_IMMORTALITY_BUFFS } from 'Parser/Core/Modules/Items/Legion/DarkmoonDeckImmortality';
 
 const debug = false;
 
@@ -58,12 +61,121 @@ class StatTracker extends Analyzer {
     //endregion
 
     // region Dungeon Trinkets
+    [SPELLS.SHADOWS_STRIKE.id]: {
+      itemId: ITEMS.DREADSTONE_OF_ENDLESS_SHADOWS.id,
+      crit: (_, item) => calculateSecondaryStatDefault(845, 3480, item.itemLevel),
+    },
+    [SPELLS.SHADOW_MASTER.id]: {
+      itemId: ITEMS.DREADSTONE_OF_ENDLESS_SHADOWS.id,
+      mastery: (_, item) => calculateSecondaryStatDefault(845, 3480, item.itemLevel),
+    },
+    [SPELLS.SWARMING_SHADOWS.id]: {
+      itemId: ITEMS.DREADSTONE_OF_ENDLESS_SHADOWS.id,
+      haste: (_, item) => calculateSecondaryStatDefault(845, 3480, item.itemLevel),
+    },
+    [SPELLS.QUITE_SATISFIED_VERSATILITY.id]: {
+      itemId: ITEMS.MAJORDOMOS_DINNER_BELL.id,
+      versatility: (_, item) => calculateSecondaryStatDefault(845, 5252, item.itemLevel),
+    },
+    [SPELLS.QUITE_SATISFIED_CRIT.id]: {
+      itemId: ITEMS.MAJORDOMOS_DINNER_BELL.id,
+      crit: (_, item) => calculateSecondaryStatDefault(845, 5252, item.itemLevel),
+    },
+    [SPELLS.QUITE_SATISFIED_HASTE.id]: {
+      itemId: ITEMS.MAJORDOMOS_DINNER_BELL.id,
+      haste: (_, item) => calculateSecondaryStatDefault(845, 5252, item.itemLevel),
+    },
+    [SPELLS.QUITE_SATISFIED_MASTERY.id]: {
+      itemId: ITEMS.MAJORDOMOS_DINNER_BELL.id,
+      mastery: (_, item) => calculateSecondaryStatDefault(845, 5252, item.itemLevel),
+    },
+    [SPELLS.HOWL_OF_INGVAR.id]: {
+      itemId: ITEMS.MEMENTO_OF_ANGERBODA.id,
+      crit: (_, item) => calculateSecondaryStatDefault(845, 4207, item.itemLevel),
+    },
+    [SPELLS.DIRGE_OF_ANGERBODA.id]: {
+      itemId: ITEMS.MEMENTO_OF_ANGERBODA.id,
+      mastery: (_, item) => calculateSecondaryStatDefault(845, 4207, item.itemLevel),
+    },
+    [SPELLS.WAIL_OF_SVALA.id]: {
+      itemId: ITEMS.MEMENTO_OF_ANGERBODA.id,
+      haste: (_, item) => calculateSecondaryStatDefault(845, 4207, item.itemLevel),
+    },
+    [SPELLS.DOWN_DRAFT.id]: {
+      itemId: ITEMS.NIGHTMARE_EGG_SHELL.id,
+      haste: (_, item) => calculateSecondaryStatDefault(845, 361, item.itemLevel),
+    },
+    [SPELLS.ACCELERATION.id]: {
+      itemId: ITEMS.CHRONO_SHARD.id,
+      haste: (_, item) => calculateSecondaryStatDefault(845, 5269, item.itemLevel),
+    },
+    [SPELLS.GREASE_THE_GEARS.id]: {
+      itemId: ITEMS.FELOILED_INFERNAL_MACHINE.id,
+      haste: (_, item) => calculateSecondaryStatDefault(845, 3074, item.itemLevel),
+    },
+    [SPELLS.VALARJARS_PATH.id]: {
+      itemId: ITEMS.HORN_OF_VALOR.id,
+      haste: (_, item) => calculatePrimaryStat(820, 2332, item.itemLevel),
+    },
     //endregion
 
     // region Raid Trinkets
+    // Event weirdness makes it impossible to handle CotRT normally, it's handled instead by the CharmOfTheRisingTide module
+    //[SPELLS.RISING_TIDES.id]: {
+    //  itemId: ITEMS.CHARM_OF_THE_RISING_TIDE.id,
+    //  haste: (_, item) => calculateSecondaryStatDefault(900, 576, item.itemLevel),
+    //},
+    [SPELLS.ACCELERANDO.id]: {
+      itemId: ITEMS.ERRATIC_METRONOME.id,
+      haste: (_, item) => calculateSecondaryStatDefault(870, 657, item.itemLevel),
+    },
+    [SPELLS.SOLAR_INFUSION.id]: {
+      itemId: ITEMS.CHALICE_OF_MOONLIGHT.id,
+      crit: (_, item) => calculateSecondaryStatDefault(900, 3619, item.itemLevel),
+    },
+    [SPELLS.LUNAR_INFUSION.id]: {
+      itemId: ITEMS.CHALICE_OF_MOONLIGHT.id,
+      haste: (_, item) => calculateSecondaryStatDefault(900, 3619, item.itemLevel),
+    },
+    [SPELLS.TOME_OF_UNRAVELING_SANITY_BUFF.id]: {
+      itemId: ITEMS.TOME_OF_UNRAVELING_SANITY.id,
+      crit: (_, item) => calculateSecondaryStatDefault(910, 2756, item.itemLevel),
+    },
+    [SPELLS.BRUTALITY_OF_THE_LEGION.id]: {
+      itemId: ITEMS.ACRID_CATALYST_INJECTOR.id,
+      crit: (_, item) => calculateSecondaryStatDefault(955, 210, item.itemLevel),
+    },
+    [SPELLS.FERVOR_OF_THE_LEGION.id]: {
+      itemId: ITEMS.ACRID_CATALYST_INJECTOR.id,
+      haste: (_, item) => calculateSecondaryStatDefault(955, 210, item.itemLevel),
+    },
+    [SPELLS.MALICE_OF_THE_LEGION.id]: {
+      itemId: ITEMS.ACRID_CATALYST_INJECTOR.id,
+      mastery: (_, item) => calculateSecondaryStatDefault(955, 210, item.itemLevel),
+    },
+    [SPELLS.CYCLE_OF_THE_LEGION.id]: {
+      itemId: ITEMS.ACRID_CATALYST_INJECTOR.id,
+      crit: (_, item) => calculateSecondaryStatDefault(955, 2397, item.itemLevel),
+      haste: (_, item) => calculateSecondaryStatDefault(955, 2397, item.itemLevel),
+      mastery: (_, item) => calculateSecondaryStatDefault(955, 2397, item.itemLevel),
+    },
+    [SPELLS.FEEDBACK_LOOP.id]: {
+      itemId: ITEMS.GAROTHI_FEEDBACK_CONDUIT.id,
+      haste: (_, item) => calculateSecondaryStatDefault(930, 856, item.itemLevel),
+    },
+    [SPELLS.RUSH_OF_KNOWLEDGE.id]: {
+      itemId: ITEMS.NORGANNONS_PROWESS.id,
+      intellect: (_, item) => calculatePrimaryStat(940, 11483, item.itemLevel),
+    },
+    // Khaz'goroth's Courage is handled in it's own module since all 4 stat buffs use the same ID.
+    //[SPELLS.KHAZGOROTHS_SHAPING.id]: {
+    //  itemId: ITEMS.KHAZGOROTHS_COURAGE.id,
+    //  haste: (_, item) => calculateSecondaryStatDefault(940, 4219, item.itemLevel),
+    //},
     // endregion
 
     // region Crafted Trinkets
+    ...DARKMOON_DECK_IMMORTALITY_BUFFS,
     // endregion
 
     // region Misc

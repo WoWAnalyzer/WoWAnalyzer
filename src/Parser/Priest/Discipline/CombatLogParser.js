@@ -29,6 +29,22 @@ import PowerWordBarrier from './Modules/Features/PowerWordBarrier';
 import LeniencesReward from './Modules/Features/LeniencesReward';
 import PurgeTheWicked from './Modules/Features/PurgeTheWicked';
 
+import Tier19_2set from './Modules/Items/Tier19_2set';
+import CordOfMaiev from './Modules/Items/CordOfMaiev';
+import InnerHallation from './Modules/Items/InnerHallation';
+import Skjoldr from './Modules/Items/Skjoldr';
+import Xalan from './Modules/Items/Xalan';
+import NeroBandOfPromises from './Modules/Items/NeroBandOfPromises';
+import TarnishedSentinelMedallion from './Modules/Items/TarnishedSentinelMedallion';
+import CarafeOfSearingLight from './Modules/Items/CarafeOfSearingLight';
+import MarchOfTheLegion from './Modules/Items/MarchOfTheLegion';
+import Tier20_2set from './Modules/Items/Tier20_2set';
+import Tier20_4set from './Modules/Items/Tier20_4set';
+import Tier21_2set from './Modules/Items/Tier21_2set';
+import Tier21_4set from './Modules/Items/Tier21_4set';
+import Estel from './Modules/Items/Estel';
+import SoulOfTheHighPriest from './Modules/Items/SoulOfTheHighPriest';
+
 import TwistOfFate from './Modules/Spells/TwistOfFate';
 import Castigation from './Modules/Spells/Castigation';
 import Atonement from './Modules/Spells/Atonement';
@@ -74,6 +90,21 @@ class CombatLogParser extends CoreCombatLogParser {
     rapture: Rapture,
 
     // Items:
+    tier19_2set: Tier19_2set,
+    cordOfMaiev: CordOfMaiev,
+    innerHallation: InnerHallation,
+    skjoldr: Skjoldr,
+    xalan: Xalan,
+    neroBandOfPromises: NeroBandOfPromises,
+    tarnishedSentinelMedallion: TarnishedSentinelMedallion,
+    carafeOfSearingLight: CarafeOfSearingLight,
+    marchOfTheLegion: MarchOfTheLegion,
+    tier20_2set: Tier20_2set,
+    tier20_4set: Tier20_4set,
+    tier21_2set: Tier21_2set,
+    tier21_4set: Tier21_4set,
+    estel: Estel,
+    soulOfTheHighPriest: SoulOfTheHighPriest,
 
     // Spells (talents and traits):
     twistOfFate: TwistOfFate,
