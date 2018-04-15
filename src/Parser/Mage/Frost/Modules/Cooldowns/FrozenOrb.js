@@ -2,24 +2,17 @@ import SPELLS from 'common/SPELLS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import Tier20_4set from '../Items/Tier20_4set';
 
 const BLIZZARD_REDUCTION_MS = 500;
 
 class FrozenOrb extends Analyzer {
-
 	static dependencies = {
 		combatants: Combatants,
-		tier20_4set: Tier20_4set,
 		spellUsable: SpellUsable,
-	}
+	};
 
 	baseCooldown = 60;
 	cooldownReduction = 0;
-
-	on_initialized() {
-		this.hasTierBonus = this.combatants.selected.hasBuff(SPELLS.FROST_MAGE_T20_4SET_BONUS_BUFF.id);
-	}
 
   on_byPlayer_damage(event) {
 		const spellId = event.ability.guid;

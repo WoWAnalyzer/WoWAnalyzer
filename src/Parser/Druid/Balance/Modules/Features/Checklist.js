@@ -25,8 +25,6 @@ import LunarEmpowerment from './LunarEmpowerment';
 import SolarEmpowerment from './SolarEmpowerment';
 import L90Talents from '../Talents/L90Talents';
 
-import SoulOfTheArchdruid from '../../../Shared/Modules/Items/SoulOfTheArchdruid';
-
 import AstralPowerDetails from '../ResourceTracker/AstralPowerDetails';
 
 class Checklist extends CoreChecklist {
@@ -44,8 +42,6 @@ class Checklist extends CoreChecklist {
     solarEmpowerment: SolarEmpowerment,
     moonSpells: MoonSpells,
     l90Talents: L90Talents,
-
-    soulOfTheArchdruid: SoulOfTheArchdruid,
 
     prePotion: PrePotion,
     enchantChecker: EnchantChecker,

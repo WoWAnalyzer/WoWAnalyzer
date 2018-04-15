@@ -49,67 +49,6 @@ import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
 import PrePotion from './Modules/Items/PrePotion';
 import EnchantChecker from './Modules/Items/EnchantChecker';
 
-// Legendaries
-import PrydazXavaricsMagnumOpus from './Modules/Items/Legion/Legendaries/PrydazXavaricsMagnumOpus';
-import VelensFutureSight from './Modules/Items/Legion/Legendaries/VelensFutureSight';
-import SephuzsSecret from './Modules/Items/Legion/Legendaries/SephuzsSecret';
-import KiljaedensBurningWish from './Modules/Items/Legion/Legendaries/KiljaedensBurningWish';
-import ArchimondesHatredReborn from './Modules/Items/Legion/Legendaries/ArchimondesHatredReborn';
-import CinidariaTheSymbiote from './Modules/Items/Legion/Legendaries/CinidariaTheSymbiote';
-import AmanthulsVision from './Modules/Items/Legion/Legendaries/AmanthulsVision';
-// Dungeons/crafted
-import DrapeOfShame from './Modules/Items/Legion/DrapeOfShame';
-import DarkmoonDeckPromises from './Modules/Items/Legion/DarkmoonDeckPromises';
-import DarkmoonDeckImmortality from './Modules/Items/Legion/DarkmoonDeckImmortality';
-import AmalgamsSeventhSpine from './Modules/Items/Legion/AmalgamsSeventhSpine';
-import GnawedThumbRing from './Modules/Items/Legion/GnawedThumbRing';
-import EyeOfCommand from './Modules/Items/Legion/EyeOfCommand';
-import MementoOfAngerboda from './Modules/Items/Legion/MementoOfAngerboda';
-
-// The Nighthold (T19)
-import ErraticMetronome from './Modules/Items/Legion/TheNighthold/ErraticMetronome';
-// Tomb of Sargeras (T20)
-import ArchiveOfFaith from './Modules/Items/Legion/TombOfSargeras/ArchiveOfFaith';
-import TarnishedSentinelMedallion from './Modules/Items/Legion/TombOfSargeras/TarnishedSentinelMedallion';
-import SeaStarOfTheDepthmother from './Modules/Items/Legion/TombOfSargeras/SeaStarOfTheDepthmother';
-import DeceiversGrandDesign from './Modules/Items/Legion/TombOfSargeras/DeceiversGrandDesign';
-import BarbaricMindslaver from './Modules/Items/Legion/TombOfSargeras/BarbaricMindslaver';
-import CharmOfTheRisingTide from './Modules/Items/Legion/TombOfSargeras/CharmOfTheRisingTide';
-import EngineOfEradication from './Modules/Items/Legion/TombOfSargeras/EngineOfEradication';
-import InfernalCinders from './Modules/Items/Legion/TombOfSargeras/InfernalCinders';
-import SpecterOfBetrayal from './Modules/Items/Legion/TombOfSargeras/SpecterOfBetrayal';
-import SpectralThurible from './Modules/Items/Legion/TombOfSargeras/SpectralThurible';
-import TerrorFromBelow from './Modules/Items/Legion/TombOfSargeras/TerrorFromBelow';
-import TomeOfUnravelingSanity from './Modules/Items/Legion/TombOfSargeras/TomeOfUnravelingSanity';
-import UmbralMoonglaives from './Modules/Items/Legion/TombOfSargeras/UmbralMoonglaives';
-import VialOfCeaselessToxins from './Modules/Items/Legion/TombOfSargeras/VialOfCeaselessToxins';
-// Antorus, the Burning Throne (T21)
-// Healing
-import TarratusKeystone from './Modules/Items/Legion/AntorusTheBurningThrone/TarratusKeystone';
-import HighFathersMachination from './Modules/Items/Legion/AntorusTheBurningThrone/HighfathersMachination';
-import EonarsCompassion from './Modules/Items/Legion/AntorusTheBurningThrone/EonarsCompassion';
-import GarothiFeedbackConduit from './Modules/Items/Legion/AntorusTheBurningThrone/GarothiFeedbackConduit';
-import CarafeOfSearingLight from './Modules/Items/Legion/AntorusTheBurningThrone/CarafeOfSearingLight';
-import IshkarsFelshieldEmitter from './Modules/Items/Legion/AntorusTheBurningThrone/IshkarsFelshieldEmitter';
-// DPS
-import SeepingScourgewing from './Modules/Items/Legion/AntorusTheBurningThrone/SeepingScourgewing';
-import GorshalachsLegacy from './Modules/Items/Legion/AntorusTheBurningThrone/GorshalachsLegacy';
-import GolgannethsVitality from './Modules/Items/Legion/AntorusTheBurningThrone/GolgannethsVitality';
-import ForgefiendsFabricator from './Modules/Items/Legion/AntorusTheBurningThrone/ForgefiendsFabricator';
-import KhazgorothsCourage from './Modules/Items/Legion/AntorusTheBurningThrone/KhazgorothsCourage';
-import TerminusSignalingBeacon from './Modules/Items/Legion/AntorusTheBurningThrone/TerminusSignalingBeacon';
-import PrototypePersonnelDecimator from './Modules/Items/Legion/AntorusTheBurningThrone/PrototypePersonnelDecimator';
-import SheathOfAsara from './Modules/Items/Legion/AntorusTheBurningThrone/SheathOfAsara';
-import NorgannonsProwess from './Modules/Items/Legion/AntorusTheBurningThrone/NorgannonsProwess';
-import AcridCatalystInjector from './Modules/Items/Legion/AntorusTheBurningThrone/AcridCatalystInjector';
-import ShadowSingedFang from './Modules/Items/Legion/AntorusTheBurningThrone/ShadowSingedFang';
-// Tanking
-import AggramarsConviction from './Modules/Items/Legion/AntorusTheBurningThrone/AggramarsConviction';
-import SmolderingTitanguard from './Modules/Items/Legion/AntorusTheBurningThrone/SmolderingTitanguard';
-import DiimasGlacialAegis from './Modules/Items/Legion/AntorusTheBurningThrone/DiimasGlacialAegis';
-import RiftworldCodex from './Modules/Items/Legion/AntorusTheBurningThrone/RiftworldCodex';
-import EyeOfHounds from './Modules/Items/Legion/AntorusTheBurningThrone/EyeOfHounds';
-
 // Shared Buffs
 import VantusRune from './Modules/Spells/VantusRune';
 
@@ -166,69 +105,9 @@ class CombatLogParser {
 
     encounterPanel: EncounterPanel,
 
-    // Items:
-    // Legendaries:
-    prydazXavaricsMagnumOpus: PrydazXavaricsMagnumOpus,
-    velensFutureSight: VelensFutureSight,
-    sephuzsSecret: SephuzsSecret,
-    kiljaedensBurningWish: KiljaedensBurningWish,
-    archimondesHatredReborn: ArchimondesHatredReborn,
-    cinidariaTheSymbiote: CinidariaTheSymbiote,
-    amanthulsVision: AmanthulsVision,
-    // Epics:
-    drapeOfShame: DrapeOfShame,
-    amalgamsSeventhSpine: AmalgamsSeventhSpine,
-    darkmoonDeckPromises: DarkmoonDeckPromises,
-    darkmoonDeckImmortality: DarkmoonDeckImmortality,
     prePotion: PrePotion,
     enchantChecker: EnchantChecker,
-    gnawedThumbRing: GnawedThumbRing,
-    ishkarsFelshieldEmitter: IshkarsFelshieldEmitter,
-    erraticMetronome: ErraticMetronome,
-    eyeOfCommand: EyeOfCommand,
-    mementoOfAngerboda: MementoOfAngerboda,
-    // Tomb trinkets:
-    archiveOfFaith: ArchiveOfFaith,
-    barbaricMindslaver: BarbaricMindslaver,
-    charmOfTheRisingTide: CharmOfTheRisingTide,
-    seaStarOfTheDepthmother: SeaStarOfTheDepthmother,
-    deceiversGrandDesign: DeceiversGrandDesign,
-    vialCeaslessToxins: VialOfCeaselessToxins,
-    specterOfBetrayal: SpecterOfBetrayal,
-    engineOfEradication: EngineOfEradication,
-    tarnishedSentinelMedallion: TarnishedSentinelMedallion,
-    spectralThurible: SpectralThurible,
-    terrorFromBelow: TerrorFromBelow,
-    tomeOfUnravelingSanity: TomeOfUnravelingSanity,
-    // T21 Healing Trinkets
-    tarratusKeystone: TarratusKeystone,
-    highfathersMachinations: HighFathersMachination,
-    eonarsCompassion: EonarsCompassion,
-    garothiFeedbackConduit: GarothiFeedbackConduit,
-    carafeOfSearingLight: CarafeOfSearingLight,
-
-    // T21 DPS Trinkets
-    seepingScourgewing: SeepingScourgewing,
-    gorshalachsLegacy: GorshalachsLegacy,
-    golgannethsVitality: GolgannethsVitality,
-    forgefiendsFabricator: ForgefiendsFabricator,
-    khazgorothsCourage: KhazgorothsCourage,
-    terminusSignalingBeacon: TerminusSignalingBeacon,
-    prototypePersonnelDecimator: PrototypePersonnelDecimator,
-    sheathOfAsara: SheathOfAsara,
-    norgannonsProwess: NorgannonsProwess,
-    acridCatalystInjector: AcridCatalystInjector,
-    shadowSingedFang: ShadowSingedFang,
-
-    // T21 Tanking Trinkets
-    aggramarsConviction: AggramarsConviction,
-    smolderingTitanguard: SmolderingTitanguard,
-    diimasGlacialAegis: DiimasGlacialAegis,
-    riftworldCodex: RiftworldCodex,
-    eyeOfHounds: EyeOfHounds,
-
-    infernalCinders: InfernalCinders,
-    umbralMoonglaives: UmbralMoonglaives,
+    // Items:
   };
   // Override this with spec specific modules when extending
   static specModules = {};
