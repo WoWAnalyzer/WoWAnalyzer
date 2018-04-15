@@ -11,8 +11,8 @@ const enemy = 99;
 const timestamp = 1000;
 
 export const DamagingEvent1 = { title: 'Damaging Event 1', type: 'damage', sourceID: thisPlayer, sourceIsFriendly: true, targetID: enemy, amount: amount, timestamp: timestamp, ability: { guid: SPELLS.PURGE_THE_WICKED_BUFF.id } };
-export const DamagingEvent2 = { title: 'Damaging Event 2',  type: 'damage', sourceID: thisPlayer, sourceIsFriendly: true, targetID: enemy, amount: amount, timestamp: timestamp, ability: { guid: SPELLS.SHADOWBIND_TRAIT.id } };
-export const DamagingEvent3 = { title: 'Damaging Event 3',  type: 'damage', sourceID: thisPlayer, sourceIsFriendly: true, targetID: enemy, amount: amount, timestamp: timestamp, ability: { guid: SPELLS.SHADOWBIND_TRAIT.id } };
+export const DamagingEvent2 = { title: 'Damaging Event 2',  type: 'damage', sourceID: thisPlayer, sourceIsFriendly: true, targetID: enemy, amount: amount, timestamp: timestamp, ability: { guid: SPELLS.MELEE.id } };
+export const DamagingEvent3 = { title: 'Damaging Event 3',  type: 'damage', sourceID: thisPlayer, sourceIsFriendly: true, targetID: enemy, amount: amount, timestamp: timestamp, ability: { guid: SPELLS.MELEE.id } };
 
 export const AtonementOnSelf1 =   { title: 'Atonement on self 1',  type: 'heal',   sourceID: thisPlayer, targetID: thisPlayer,   amount: amount, timestamp: timestamp, ability: { guid: SPELLS.ATONEMENT_HEAL_NON_CRIT.id } };
 export const AtonementOnSelf2 =   { title: 'Atonement on self 2', type: 'heal',   sourceID: thisPlayer, targetID: thisPlayer,   amount: amount, timestamp: timestamp, ability: { guid: SPELLS.ATONEMENT_HEAL_NON_CRIT.id } };
