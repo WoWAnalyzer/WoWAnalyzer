@@ -14,7 +14,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
 
-class EarthenShieldTotem extends Analyzer {
+class EarthenWallTotem extends Analyzer {
   static dependencies = {
     cooldownThroughputTracker: CooldownThroughputTracker,
     abilityTracker: AbilityTracker,
@@ -85,8 +85,8 @@ class EarthenShieldTotem extends Analyzer {
         icon={<SpellIcon id={SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id} />}
         value={`${formatPercentage(this.earthenShieldEfficiency)} %`}
         label={(
-          <dfn data-tip={`The percentage of the potential absorb of Earthen Shield Totem that was actually used. You cast a total of ${casts} Earthen Shield Totems with a combined health of ${formatNumber(this.potentialHealing)}, which absorbed a total of ${formatNumber(this.healing)} damage.`}>
-            Earthen Shield Totem efficiency
+          <dfn data-tip={`The percentage of the potential absorb of Earthen Wall Totem that was actually used. You cast a total of ${casts} Earthen Wall Totems with a combined health of ${formatNumber(this.potentialHealing)}, which absorbed a total of ${formatNumber(this.healing)} damage.`}>
+            Earthen Wall Totem efficiency
           </dfn>
         )}
       />
@@ -108,5 +108,5 @@ class EarthenShieldTotem extends Analyzer {
   }
 }
 
-export default EarthenShieldTotem;
+export default EarthenWallTotem;
 

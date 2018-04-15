@@ -45,12 +45,6 @@ class Feeding extends React.Component {
             totals: cooldownThroughputTracker.cbtTotals,
           },
           {
-            name: 'Ancestral Guidance',
-            feed: cooldownThroughputTracker.agFeed,
-            spell: SPELLS.ANCESTRAL_GUIDANCE_TALENT,
-            totals: cooldownThroughputTracker.agTotals,
-          },
-          {
             name: 'Ascendance',
             feed: cooldownThroughputTracker.ascFeed,
             spell: SPELLS.ASCENDANCE_TALENT_RESTORATION,

@@ -9,7 +9,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
 
-class AncestralGuidance extends Analyzer {
+class EarthShield extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     cooldownThroughputTracker: CooldownThroughputTracker,
@@ -17,13 +17,13 @@ class AncestralGuidance extends Analyzer {
   healing = 0;
 
   on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.ANCESTRAL_GUIDANCE_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.EARTH_SHIELD_TALENT.id);
   }
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if (spellId !== SPELLS.ANCESTRAL_GUIDANCE_HEAL.id) {
+    if (spellId !== SPELLS.EARTH_SHIELD_HEAL.id) {
       return;
     }
 
@@ -31,11 +31,11 @@ class AncestralGuidance extends Analyzer {
   }
 
   subStatistic() {
-    const feeding = this.cooldownThroughputTracker.getIndirectHealing(SPELLS.ANCESTRAL_GUIDANCE_HEAL.id);
+    const feeding = this.cooldownThroughputTracker.getIndirectHealing(SPELLS.EARTH_SHIELD_HEAL.id);
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.ANCESTRAL_GUIDANCE_TALENT.id} />
+          <SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} />
         </div>
         <div className="flex-sub text-right">
           {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + feeding))} %
@@ -46,5 +46,5 @@ class AncestralGuidance extends Analyzer {
 
 }
 
-export default AncestralGuidance;
+export default EarthShield;
 

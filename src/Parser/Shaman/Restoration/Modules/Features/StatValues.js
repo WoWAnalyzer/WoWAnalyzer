@@ -14,8 +14,7 @@ import MasteryEffectiveness from './MasteryEffectiveness';
  * Restoration Shaman Stat Values
  */
 
- const BUFFER_MS = 100;
- const MINIMUM_GCD = 750;
+const BUFFER_MS = 100;
 
 class StatValues extends BaseHealerStatValues {
   static dependencies = {
@@ -34,58 +33,18 @@ class StatValues extends BaseHealerStatValues {
     this._handleHeal(spellInfo, event, healVal, targetHealthPercentage);
   }
 
-  // calculating the value of QA (cast speed to your next direct heal after a crit) just like HPCT, but giving the cast speed value to crit instead
-  queenAscendantTrait(event, healVal) {
-    const spellId = event.ability.guid;
-    const spellInfo = this._getSpellInfo(event);
-    // checking for quite a big buffer as the buffs can run out mid cast but still apply
-    const hasQueensAscendant = this.combatants.selected.hasBuff(SPELLS.QUEEN_ASCENDANT_BUFF.id, event.timestamp, MINIMUM_GCD, BUFFER_MS);
-    const hasTidalWaves = this.combatants.selected.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, MINIMUM_GCD, BUFFER_MS);
-    
-    // disregard wave casts with tidal waves as its always below GCD regardless of QA (and neither change the GCD itself)
-    if(spellId === SPELLS.HEALING_WAVE.id && hasTidalWaves){
-      return 0;
-    }
-    
-    if (!spellInfo.hasteHpct || !hasQueensAscendant) {
-      return 0;
-    }
-
-    const currHastePerc = this.statTracker.currentHastePercentage;
-    const queenAscendantTraits = this.combatants.selected.traitsBySpellId[SPELLS.QUEEN_ASCENDANT_TRAIT.id];
-    const queenAscendantReduction = queenAscendantTraits * 0.05;
-    const healIncreaseFromOneHaste = 1 / this.statTracker.hasteRatingPerPercent;
-    const baseHeal = (healVal.effective / (1 - queenAscendantReduction) - healVal.effective) / (1 + currHastePerc);
-
-    return baseHeal * healIncreaseFromOneHaste;
-  }
-
   _getCritChance(event) {
     const spellId = event.ability.guid;
     const critChanceBreakdown = super._getCritChance(event);
 
-    // Traits that increase the base crit chance of spells
-    const traitLevelEmpoweredDroplets = this.combatants.selected.traitsBySpellId[SPELLS.EMPOWERED_DROPLETS.id];
-    const traitLevelFloodwaters = this.combatants.selected.traitsBySpellId[SPELLS.FLOODWATERS.id];
-    const traitLevelTidalChains = this.combatants.selected.traitsBySpellId[SPELLS.TIDAL_CHAINS.id];
-    // Tidal Waves add 40% crit + 4% for every tidal chains trait to Healing Surge
     const hasTidalWaves = this.combatants.selected.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, BUFFER_MS, BUFFER_MS);
+    const hasCrashingWaves = this.combatants.selected.hasTalent(SPELLS.CRASHING_WAVES_TALENT.id);
 
-    if (spellId === SPELLS.HEALING_RAIN_HEAL.id) {
-      critChanceBreakdown.baseCritChance += traitLevelEmpoweredDroplets * 0.02;
-    }
-    if (spellId === SPELLS.CHAIN_HEAL.id) {
-      critChanceBreakdown.baseCritChance += traitLevelFloodwaters * (0.1 / 3); // 0.0333...
-    }
     if (spellId === SPELLS.HEALING_SURGE_RESTORATION.id && hasTidalWaves) {
-      critChanceBreakdown.baseCritChance += 0.4 + 0.04 * traitLevelTidalChains;
+      critChanceBreakdown.baseCritChance += hasCrashingWaves ? 0.5 : 0.4;
     }
 
     return critChanceBreakdown;
-  }
-
-  _criticalStrike(event, healVal) {
-      return super._criticalStrike(event, healVal) + this.queenAscendantTrait(event,healVal);
   }
 
   _mastery(event, healVal) {
