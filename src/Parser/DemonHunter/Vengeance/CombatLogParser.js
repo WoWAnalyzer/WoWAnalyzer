@@ -21,6 +21,10 @@ import DemonSpikes from './Modules/Statistics/Spells/DemonSpikes';
 import EmpowerWards from './Modules/Statistics/Spells/EmpowerWards';
 import SigilOfFlame from './Modules/Statistics/Spells/SigilOfFlame';
 
+import Tier202PBonus from './Modules/Tier/Tier20/Tier20-2P.js';
+import Tier204PBonus from './Modules/Tier/Tier20/Tier20-4P.js';
+import SoulOfTheSlayer from '../Shared/Modules/Items/SoulOfTheSlayer';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
@@ -44,6 +48,11 @@ class CombatLogParser extends CoreCombatLogParser {
     demonSpikes: DemonSpikes,
     empowerWards: EmpowerWards,
     sigilOfFlame: SigilOfFlame,
+
+    // Tier 20
+    tier202PBonus: Tier202PBonus,
+    tier204PBonus: Tier204PBonus,
+    soulOfTheSlayer: SoulOfTheSlayer,
   };
 
   generateResults() {

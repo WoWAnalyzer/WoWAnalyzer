@@ -16,8 +16,20 @@ import EnvenomUptime from './Modules/Spells/EnvenomUptime';
 import GarroteUptime from './Modules/Spells/GarroteUptime';
 import RuptureUptime from './Modules/Spells/RuptureUptime';
 
+//Items
+import T21_2P from './Modules/Items/T21_2P';
+
+//Legendaries
+import MantleOfTheMasterAssassin from '../Common/Legendaries/MantleOfTheMasterAssassin';
+import SoulOfTheShadowblade from '../Common/Legendaries/SoulOfTheShadowblade';
+import InsigniaOfRavenholdt from '../Common/Legendaries/InsigniaOfRavenholdt';
+import DreadlordsDeceit from '../Common/Legendaries/DreadlordsDeceit';
+import DuskwalkersFootpads from './Modules/Legendaries/DuskwalkersFootpads';
+import ZoldyckFamilyTrainingShackles from './Modules/Legendaries/ZoldyckFamilyTrainingShackles';
+
 //Traits
 import MasterAssassin from './Modules/Traits/MasterAssassin';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -38,6 +50,17 @@ class CombatLogParser extends CoreCombatLogParser {
     envenomUptime: EnvenomUptime,
     garroteUptime: GarroteUptime,
     ruptureUptime: RuptureUptime,
+
+    //Items
+    t21Assassin2P: T21_2P,
+
+    //Legendaries
+    mantleOfTheMasterAssassin: MantleOfTheMasterAssassin,
+    soulOfTheShadowblade: SoulOfTheShadowblade,
+    insigniaOfRavenholdt: InsigniaOfRavenholdt,
+    dreadlordsDeceit: DreadlordsDeceit,
+    duskwalkersFootpads: DuskwalkersFootpads,
+    zoldyckFamilyTrainingShackles: ZoldyckFamilyTrainingShackles,
 
     //Casts
 

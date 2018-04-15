@@ -3,6 +3,8 @@ import React from 'react';
 import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import ITEMS from 'common/ITEMS';
+import ItemLink from 'common/ItemLink';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
 import Abilities from 'Parser/Core/Modules/Abilities';
@@ -24,6 +26,7 @@ import BlackoutKick from '../Spells/BlackoutKick';
 import HitCombo from '../Talents/HitCombo';
 import EnergizingElixir from '../Talents/EnergizingElixir';
 import ChiDetails from '../Chi/ChiDetails';
+import TheEmperorsCapacitor from '../Items/TheEmperorsCapacitor';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -44,6 +47,7 @@ class Checklist extends CoreChecklist {
     hitCombo: HitCombo,
     energizingElixir: EnergizingElixir,
     chiDetails: ChiDetails,
+    theEmperorsCapacitor: TheEmperorsCapacitor,
   };
   rules = [
     new Rule({
@@ -190,6 +194,24 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: <Wrapper> Absorb from <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> used</Wrapper>,
             check: () => this.touchOfKarma.suggestionThresholds,
+          }),
+        ];
+      },
+    }),
+    new Rule({
+      name: 'Pick the right tools for the fight',
+      description: 'Throughput gain of some legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly.',
+      requirements: () => {
+        return [
+          new Requirement({
+            name: <Wrapper><ItemLink id={ITEMS.THE_EMPERORS_CAPACITOR.id}icon/> stacks wasted </Wrapper>,
+            check: () => this.theEmperorsCapacitor.wastedStacksSuggestionThresholds,
+            when: this.theEmperorsCapacitor.active,
+          }),
+          new Requirement({
+            name: <Wrapper>Average <ItemLink id={ITEMS.THE_EMPERORS_CAPACITOR.id} /> stacks used on your <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} /></Wrapper>,
+            check: () => this.theEmperorsCapacitor.averageStacksSuggestionThresholds,
+            when: this.theEmperorsCapacitor.active,
           }),
         ];
       },
