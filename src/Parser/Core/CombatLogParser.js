@@ -47,6 +47,8 @@ import EncounterPanel from './Modules/Features/EncounterPanel';
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
 
 import PrePotion from './Modules/Items/PrePotion';
+import LegendaryUpgradeChecker from './Modules/Items/LegendaryUpgradeChecker';
+import LegendaryCountChecker from './Modules/Items/LegendaryCountChecker';
 import EnchantChecker from './Modules/Items/EnchantChecker';
 
 // Legendaries
@@ -198,6 +200,8 @@ class CombatLogParser {
     darkmoonDeckPromises: DarkmoonDeckPromises,
     darkmoonDeckImmortality: DarkmoonDeckImmortality,
     prePotion: PrePotion,
+    legendaryUpgradeChecker: LegendaryUpgradeChecker,
+    legendaryCountChecker: LegendaryCountChecker,
     enchantChecker: EnchantChecker,
     gnawedThumbRing: GnawedThumbRing,
     ishkarsFelshieldEmitter: IshkarsFelshieldEmitter,

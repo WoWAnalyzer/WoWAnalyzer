@@ -6,6 +6,8 @@ import Abilities from 'Parser/Core/Modules/Abilities';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
+import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
@@ -49,6 +51,8 @@ class Checklist extends CoreChecklist {
     combatants: Combatants,
 
     //general
+    legendaryUpgradeChecker: LegendaryUpgradeChecker,
+    legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
 
     //features:
