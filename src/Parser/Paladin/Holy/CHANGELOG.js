@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-15'),
+    changes: <Wrapper>Updated everything for Battle for Azeroth compatibility.</Wrapper>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-04-14'),
     changes: <Wrapper>Changed the analysis of <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> to use a method that will continue to work in Battle for Azeroth.</Wrapper>,
     contributors: [Zerotorescue],
