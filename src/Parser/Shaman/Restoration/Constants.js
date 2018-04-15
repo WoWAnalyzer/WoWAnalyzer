@@ -14,6 +14,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
   SPELLS.CLOUDBURST_TOTEM_HEAL.id,
   SPELLS.ASCENDANCE_HEAL.id,
+  SPELLS.LEECH.id,
 ];
 
 export const ABILITIES_AFFECTED_BY_MASTERY = [
@@ -30,6 +31,7 @@ export const ABILITIES_AFFECTED_BY_MASTERY = [
   // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
   SPELLS.CLOUDBURST_TOTEM_HEAL.id,
   SPELLS.ASCENDANCE_HEAL.id,
+  SPELLS.LEECH.id,
 ];
 
 export const ABILITIES_NOT_FEEDING_INTO_CBT = [
