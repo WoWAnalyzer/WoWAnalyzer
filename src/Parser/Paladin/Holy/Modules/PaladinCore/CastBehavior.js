@@ -23,7 +23,7 @@ class CastBehavior extends Analyzer {
   };
 
   get iolProcsPerHolyShockCrit() {
-    return 1;
+    return this.combatants.selected.hasBuff(SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id) ? 2 : 1;
   }
 
   legend(items, total) {
