@@ -800,7 +800,7 @@ export default {
 
 
   // Alpha Stuff
-  EARTH_SHIELD_TALENT: {
+  EARTH_SHIELD_TALENT: { // Until talents work
     id: 974,
     name: 'Earth Shield',
     icon: 'spell_nature_skinofearth',
@@ -809,5 +809,10 @@ export default {
     id: 379,
     name: 'Earth Shield',
     icon: 'spell_nature_skinofearth',
+  },
+  SPIRIT_WOLF_TALENT: { // Until talents work
+    id: 260878,
+    name: 'Spirit Wolf',
+    icon: 'spell_hunter_lonewolf',
   },
 };
