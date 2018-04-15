@@ -4,7 +4,7 @@ import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import CoreChecklist, { Requirement, Rule } from 'Parser/Core/Modules/Features/Checklist';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
@@ -93,7 +93,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use your cooldowns effectively',
-      description: <Wrapper>Your cooldowns have a big impact on your damage output. Make sure you use them as much as possible. <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id}icon/> is both a defensive and offensive cooldown, but is mostly used offensively.</Wrapper>,
+      description: <Wrapper>Your cooldowns have a big impact on your damage output. Make sure you use them as much as possible. <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> is both a defensive and offensive cooldown, but is mostly used offensively.</Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -115,7 +115,7 @@ class Checklist extends CoreChecklist {
           }),
           new Requirement({
             name: <Wrapper> Absorb from <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> used</Wrapper>,
-            check: () => this.touchOfKarma.suggestionThresholds,  
+            check: () => this.touchOfKarma.suggestionThresholds,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT,
@@ -126,7 +126,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Manage your resources',
-      description: <Wrapper>Windwalker is heavily dependent on having enough Chi to cast your core spells on cooldown. Wasting Chi either by generating while capped or using <SpellLink id={SPELLS.BLACKOUT_KICK.id}icon/> and <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id}icon/> too much will cause you to delay your hard hitting Chi spenders and lose damage.</Wrapper>,
+      description: <Wrapper>Windwalker is heavily dependent on having enough Chi to cast your core spells on cooldown. Wasting Chi either by generating while capped or using <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> and <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> too much will cause you to delay your hard hitting Chi spenders and lose damage.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
@@ -149,8 +149,8 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: "Don't break mastery",
-      description: <Wrapper>Using the same damaging ability twice in a row will lose mastery benefit on the second cast and drop the <SpellLink id={SPELLS.HIT_COMBO_TALENT.id}icon/> buff if specced.</Wrapper>,
+      name: 'Don\'t break mastery',
+      description: <Wrapper>Using the same damaging ability twice in a row will lose mastery benefit on the second cast and drop the <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} /> buff if specced.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
@@ -166,8 +166,8 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: "Use your defensive cooldowns effectively",
-      description: <Wrapper>Make sure you use your defensive cooldowns at appropriate times throughout the fight. Make sure to use <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> as much as possible to maximize its offensive benefit and use <SpellLink id={SPELLS.DIFFUSE_MAGIC_TALENT.id} />/<SpellLink id={SPELLS.DAMPEN_HARM_TALENT.id}icon/> for dangerous periods of damage intake.</Wrapper>,
+      name: 'Use your defensive cooldowns effectively',
+      description: <Wrapper>Make sure you use your defensive cooldowns at appropriate times throughout the fight. Make sure to use <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> as much as possible to maximize its offensive benefit and use <SpellLink id={SPELLS.DIFFUSE_MAGIC_TALENT.id} />/<SpellLink id={SPELLS.DAMPEN_HARM_TALENT.id} /> for dangerous periods of damage intake.</Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
