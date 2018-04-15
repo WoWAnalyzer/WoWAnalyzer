@@ -413,12 +413,14 @@ class CharacterParses extends React.Component {
                       You don't know how to log your fights? Check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get startet.
                     </div>
                   )}
-                  <div className="panel-heading">
-                    <h2 style={{ display: 'inline' }}>Parses</h2>
-                    <span className="pseudolink" style={{ float: 'right' }} onClick={() => this.load(true)}>
-                      <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh
-                    </span>
-                  </div>
+                  {this.filterParses.length > 0 && !this.state.error && !this.state.isLoading && (
+                    <div className="panel-heading">
+                      <h2 style={{ display: 'inline' }}>Parses</h2>
+                      <span className="pseudolink" style={{ float: 'right' }} onClick={() => this.load(true)}>
+                        <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh
+                      </span>
+                    </div>
+                  )}
 
                   {!this.state.isLoading && this.filterParses.map((elem, index) =>
                     <a href={makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + " " + elem.name, elem.character_name)} target="_blank">
