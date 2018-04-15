@@ -9,6 +9,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import Torrent from './Torrent';
 import UnleashLife from './UnleashLife';
 import Undulation from './Undulation';
+import EarthShield from './EarthShield';
 import EarthenWallTotem from './EarthenWallTotem';
 import CloudburstTotem from './CloudburstTotem';
 import Ascendance from './Ascendance';
@@ -22,6 +23,7 @@ class TalentStatisticBox extends Analyzer {
     torrent: Torrent,
     unleashLife: UnleashLife,
     undulation: Undulation,
+    earthShield: EarthShield,
     earthenWallTotem: EarthenWallTotem,
     cloudburstTotem: CloudburstTotem,
     ascendance: Ascendance,
@@ -44,6 +46,7 @@ class TalentStatisticBox extends Analyzer {
         {this.combatants.selected.hasTalent(SPELLS.TORRENT_TALENT.id) ? this.torrent.subStatistic() : ''}
         {this.combatants.selected.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id) ? this.unleashLife.subStatistic() : ''}
         {this.combatants.selected.hasTalent(SPELLS.UNDULATION_TALENT.id) ? this.undulation.subStatistic() : ''}
+        {this.combatants.selected.hasTalent(SPELLS.EARTH_SHIELD_TALENT.id) ? this.earthShield.subStatistic() : ''}
         {this.combatants.selected.hasTalent(SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id) ? this.earthenWallTotem.subStatistic() : ''}
         {this.combatants.selected.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id) ? this.cloudburstTotem.subStatistic() : ''}
         {this.combatants.selected.hasTalent(SPELLS.ASCENDANCE_TALENT_RESTORATION.id) ? this.ascendance.subStatistic() : ''}
