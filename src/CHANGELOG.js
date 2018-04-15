@@ -85,12 +85,12 @@ export default [
   },
   {
     date: new Date('2018-02-22'),
-    changes: `Moved the Stats on Pull, Talents, and Gear to a new Character Tab in the Main Panel.`,
+    changes: 'Moved the Stats on Pull, Talents, and Gear to a new Character Tab in the Main Panel.',
     contributors: [Sharrq],
   },
   {
     date: new Date('2018-02-21'),
-    changes: <Wrapper>Moved <SpellLink id={SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_AGILITY.id} /> statistic into the Netherlight Crucible list and renamed it.</Wrapper>,
+    changes: 'Moved Concordance of the Legionfall statistic into the Netherlight Crucible list and renamed it.',
     contributors: [Putro],
   },
   {

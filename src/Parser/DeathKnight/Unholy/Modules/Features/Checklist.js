@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
@@ -43,10 +42,6 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.DARK_TRANSFORMATION,
             onlyWithSuggestion: false,
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.CHAINS_OF_ICE,
-            when: combatant.hasChest(ITEMS.COLD_HEART.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.DEFILE_TALENT,

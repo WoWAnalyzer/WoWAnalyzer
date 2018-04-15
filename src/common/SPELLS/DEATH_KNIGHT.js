@@ -705,18 +705,6 @@ export default {
     icon: 'inv_helm_plate_raiddeathknight_p_01',
   },
 
-  COLD_HEART_BUFF: {
-    id: 235599,
-    name: 'Cold Heart',
-    icon: 'spell_frost_chainsofice',
-  },
-
-  COLD_HEART_DEBUFF: {
-    id: 248397,
-    name: 'Cold Heart',
-    icon: 'spell_frost_chainsofice',
-  },
-
   //Skullflower's Haemostasis blood dk legendary buff
   HAEMOSTASIS_BUFF: {
     id: 235559,

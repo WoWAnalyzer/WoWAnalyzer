@@ -1,10 +1,8 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
-import ColdHeart from 'Parser/DeathKnight/Shared/Items/ColdHeart';
 import TaktheritrixsShoulderpads from './Modules/Items/TaktheritrixsShoulderpads';
 import Tier20_2p from './Modules/Items/Tier20_2p';
-import ColdHeartEfficiency from './Modules/Items/ColdHeartEfficiency';
 import Tier21_2p from './Modules/Items/Tier21_2p';
 import Tier21_4p from './Modules/Items/Tier21_4p';
 
@@ -59,17 +57,14 @@ class CombatLogParser extends CoreCombatLogParser {
     unholyFrenzy: UnholyFrenzy,
 
     // items
-    coldHeart: ColdHeart,
     taktheritrixsShoulderpads: TaktheritrixsShoulderpads,
     tier20_2p: Tier20_2p,
-    coldHeartEfficiency: ColdHeartEfficiency,
     tier21_2p: Tier21_2p,
     tier21_4p: Tier21_4p,
 
     //RuneTracker
     runeTracker: RuneTracker,
     runeDetails: RuneDetails,
-
   };
 }
 
