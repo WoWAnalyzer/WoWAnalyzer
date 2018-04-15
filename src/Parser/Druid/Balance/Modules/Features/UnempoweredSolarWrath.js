@@ -12,6 +12,10 @@ class UnempoweredSolarWrath extends Analyzer {
 
   badCasts = 0;
 
+  on_initialized() {
+    this.active = !this.combatants.selected.hasTalent(SPELLS.WARRIOR_OF_ELUNE_TALENT.id);
+  }
+
   addBadCast(event){
     this.badCasts += 1;
     event.meta = event.meta || {};
