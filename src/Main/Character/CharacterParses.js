@@ -190,8 +190,9 @@ class CharacterParses extends React.Component {
 
             //filter all logs that have missing talents (logs that were logged without advanced logging)
             if (Object.values(singleParse.talents).filter((talent) => { return talent.id === 0; }).length === 0) {
-              parses.push(finalParse);
+              finalParse['advanced'] = true;
             }
+            parses.push(finalParse);
 
             //get missing trinket-icons later
             if (!ITEMS[singleParse.gear[12].id]) {
@@ -300,6 +301,80 @@ class CharacterParses extends React.Component {
       <div className="container charparse">
         <div className="flex-main">
           <div className="row">
+            <div className="col-md-5">
+              <div className="panel">
+                <div className="flex-main">
+                  <div className="row filter">
+                    <div className="col-md-12" style={{ marginBottom: 20, position: 'relative', height: 280 }}>
+                      {this.state.image && (
+                        <div className="char-image">
+                          <img 
+                            src={`https://render-${this.props.region}.worldofwarcraft.com/character/${this.state.image}-main.jpg`}
+                            alt={"Pic"} 
+                            onError={e => this.setState({ image: false })}
+                            style={{ width: '100%' }} />
+                        </div>
+                      )}
+                      <h2 style={{ fontSize: '1.8em' }}>{this.props.region} - {this.props.realm}</h2>
+                      <h2 style={{ fontSize: '2.4em', margin: '10px 10px' }}>
+                        {this.props.name}
+                      </h2>
+                      {this.state.class && (
+                          <img
+                            src={`/specs/${this.state.class}-New.png`}
+                            alt="Pic"
+                            style={{ height: 50, position: 'absolute', right: 12, top: 10 }}
+                          />
+                        )}
+                    </div>
+                    <div className="col-md-4">
+                      Specs:
+                      {this.state.specs.map((elem, index) => 
+                        <div key={index} onClick={() => this.updateSpec(elem.replace(" ", ""))} className={this.state.activeSpec.includes(elem.replace(" ", "")) ? 'selected form-control' : 'form-control'}>
+                          <img src={this.iconPath(elem)} style={{ height: 18, marginRight: 10 }} alt="Icon" />
+                          {elem}
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="col-md-4">
+                      Difficulties:
+                      {DIFFICULTIES.filter((elem) => { return elem; }).map((elem, index) => 
+                        <div key={index} onClick={() => this.updateDifficulty(elem)} className={ this.state.activeDifficulty.includes(elem) ? 'selected form-control' : 'form-control'}>
+                          {elem}
+                        </div>
+                      )}
+                    </div>
+                    <div className="col-md-4">
+                      Raid:
+                      <select className="form-control" onChange={e => this.setState({ activeZoneID: Number(e.target.value), activeEncounter: 0 }, () => { this.load().catch(e => { console.log('Error'); });})}>
+                        {Object.values(ZONES).reverse().map(elem =>
+                          <option key={elem.id} value={elem.id}>{elem.name}</option>
+                        )}
+                      </select>
+                      Boss:
+                      <select className="form-control" value={this.state.activeEncounter} onChange={e => this.setState({ activeEncounter: e.target.value })}>
+                        <option value={0} defaultValue>All bosses</option>
+                        {this.zoneBosses.map(e => 
+                          <option key={e.id} value={e.name}>{e.name}</option>
+                        )}
+                      </select>
+                      Metric:
+                      <select className="form-control" onChange={e => this.setState({ metric: e.target.value }, () => { this.load().catch(e => { console.log('Error'); });})}>
+                        <option defaultValue value="dps">DPS</option>
+                        <option value="hps">HPS</option>
+                      </select>
+                      Sort by:
+                      <select className="form-control" onChange={e => this.setState({ sortBy: Number(e.target.value) })}>
+                        <option defaultValue value={0}>Date</option>
+                        <option value={1}>DPS / HPS</option>
+                        <option value={2}>Percentile</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="col-md-7">
               {this.state.error && (
                 <span>
@@ -338,132 +413,56 @@ class CharacterParses extends React.Component {
                       You don't know how to log your fights? Check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get startet.
                     </div>
                   )}
-                  {!this.state.isLoading && this.filterParses.map((elem, index) =>
-                    <div className="row character-parse" key={elem.report_code + elem.report_fight}>
-                      <div className="col-md-5">
-                        <img src={this.iconPath(elem.spec)} style={{ height: 30, marginRight: 10 }} alt="Icon" />
-                        {elem.difficulty} - {elem.name}
-                      </div>
-                      <div className="col-md-5">
-                        {elem.talents.map(talent => 
-                          <SpellIcon 
-                            key={talent.id}
-                            id={talent.id}
-                            style={{ width: '1.8em', height: '1.8em', marginRight: 2, marginBottom: 10 }}
-                          />
-                        )}
-                      </div>
-                      <div className="col-md-2" style={{ textAlign: 'right' }}>
-                        {new Date(elem.start_time).toLocaleDateString()}
-                      </div>
-                      
-                      <div className="col-md-5" style={{ paddingLeft: 55 }}>
-                        <span className={'parse-' + this.rankingColor(elem.historical_percent)}>
-                          {formatNumber(elem.persecondamount)} {this.state.metric.toLocaleUpperCase()} ({formatPercentage(elem.historical_percent / 100)}%)
-                        </span>
-                      </div>
-                      <div className="col-md-5">
-                        {elem.gear.filter((item, index) => { return index === 12 || index === 13 || item.quality === "legendary"; }).map(item =>
-                          <ItemLink id={item.id} key={item.id} className={item.quality} icon={false} >
-                            <Icon 
-                              icon={ITEMS[item.id] ? ITEMS[item.id].icon : ITEMS[0].icon} 
-                              style={{ width: '1.8em', height: '1.8em', border: '1px solid', marginRight: 2 }}
-                            />
-                          </ItemLink>
-                        )}
-                      </div>
-                      <div className="col-md-2" style={{ textAlign: 'right' }}>
-                        <a href={makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + " " + elem.name, elem.character_name)} target="_blank">
-                          analyze
-                        </a>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div className="col-md-5">
-              <div className="panel">
-                <div className="flex-main">
-                  <div className="row filter">
-                    <div className="col-md-12" style={{ marginBottom: 20, position: 'relative', height: 280 }}>
-                      {this.state.image && (
-                        <div className="char-image">
-                          <img 
-                            src={`https://render-${this.props.region}.worldofwarcraft.com/character/${this.state.image}-main.jpg`}
-                            alt={"Pic"} 
-                            onError={e => this.setState({ image: false })}
-                            style={{ width: '100%' }} />
-                        </div>
-                      )}
-                      <h2 style={{ fontSize: '1.8em' }}>{this.props.region} - {this.props.realm}</h2>
-                      <h2 style={{ fontSize: '2.4em', marginLeft: 20 }}>
-                        {this.state.class && (
-                          <img
-                            src={`/specs/${this.state.class}-New.png`}
-                            alt="Pic"
-                            style={{ opacity: .8, height: 50, marginRight: 20 }}
-                          />
-                        )}
-                        {this.props.name}
-                      </h2>
-                    </div>
-                    <div className="col-md-4">
-                      Raid:
-                      <select className="form-control" onChange={e => this.setState({ activeZoneID: Number(e.target.value), activeEncounter: 0 }, () => { this.load().catch(e => { console.log('Error'); });})}>
-                        {Object.values(ZONES).reverse().map(elem =>
-                          <option key={elem.id} value={elem.id}>{elem.name}</option>
-                        )}
-                      </select>
-                      Boss:
-                      <select className="form-control" value={this.state.activeEncounter} onChange={e => this.setState({ activeEncounter: e.target.value })}>
-                        <option value={0} defaultValue>All bosses</option>
-                        {this.zoneBosses.map(e => 
-                          <option key={e.id} value={e.name}>{e.name}</option>
-                        )}
-                      </select>
-                      Metric:
-                      <select className="form-control" onChange={e => this.setState({ metric: e.target.value }, () => { this.load().catch(e => { console.log('Error'); });})}>
-                        <option defaultValue value="dps">DPS</option>
-                        <option value="hps">HPS</option>
-                      </select>
-                      Sort by:
-                      <select className="form-control" onChange={e => this.setState({ sortBy: Number(e.target.value) })}>
-                        <option defaultValue value={0}>Date</option>
-                        <option value={1}>DPS / HPS</option>
-                        <option value={2}>Percentile</option>
-                      </select>
-                    </div>
-                    
-                    <div className="col-md-4">
-                      Difficulties:
-                      {DIFFICULTIES.filter((elem) => { return elem; }).map((elem, index) => 
-                        <div key={index} onClick={() => this.updateDifficulty(elem)} className={ this.state.activeDifficulty.includes(elem) ? 'selected form-control' : 'form-control'}>
-                          {elem}
-                        </div>
-                      )}
-                    </div>
-                    <div className="col-md-4">
-                      Specs:
-                      {this.state.specs.map((elem, index) => 
-                        <div key={index} onClick={() => this.updateSpec(elem.replace(" ", ""))} className={this.state.activeSpec.includes(elem.replace(" ", "")) ? 'selected form-control' : 'form-control'}>
-                          <img src={this.iconPath(elem)} style={{ height: 18, marginRight: 10 }} alt="Icon" />
-                          {elem}
-                        </div>
-                      )}
-                    </div>
+                  <div className="panel-heading">
+                    <h2 style={{ display: 'inline' }}>Parses</h2>
+                    <span className="pseudolink" style={{ float: 'right' }} onClick={() => this.load(true)}>
+                      <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh
+                    </span>
                   </div>
-                </div>
-                <span className="text-muted" style={{ padding: 15, display: 'block' }}>
-                  A few logs might take you to a log where we can't find the correct player and show the player-selection instead.
-                  This only happens in the case of a realm transfer or character rename until the WCL-API is returning the correct name.<br/><br/>
-                  Some logs are missing? We hide logs that were logged without 'advanced combatlog' since those are not detailed enough to be analyzed.
-                </span>
-                <div style={{ textAlign: 'right', padding: 10 }}>
-                  <span className="pseudolink" onClick={() => this.load(true)}>
-                    <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh
-                  </span>
+
+                  {!this.state.isLoading && this.filterParses.map((elem, index) =>
+                    <a href={makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + " " + elem.name, elem.character_name)} target="_blank">
+                      <div className="row character-parse" key={elem.report_code + elem.report_fight}>
+                        <div className="col-md-5" style={{ color: 'white' }}>
+                          <img src={this.iconPath(elem.spec)} style={{ height: 30, marginRight: 10 }} alt="Icon" />
+                          {elem.difficulty} - {elem.name}
+                        </div>
+                        <div className="col-md-5" style={{ height: 32 }}>
+                          {elem.advanced && elem.talents.map(talent => 
+                            <SpellIcon 
+                              key={talent.id}
+                              id={talent.id}
+                              style={{ width: '1.8em', height: '1.8em', marginRight: 2 }}
+                            />
+                          )}
+                        </div>
+                        <div className="col-md-2" style={{ color: 'white', textAlign: 'right' }}>
+                          {new Date(elem.start_time).toLocaleDateString()}
+                        </div>
+                        
+                        <div className="col-md-5" style={{ paddingLeft: 55 }}>
+                          <span className={'parse-' + this.rankingColor(elem.historical_percent)}>
+                            {formatNumber(elem.persecondamount)} {this.state.metric.toLocaleUpperCase()} ({formatPercentage(elem.historical_percent / 100)}%)
+                          </span>
+                        </div>
+                        <div className="col-md-5">
+                          {elem.advanced && elem.gear.filter((item, index) => { return index === 12 || index === 13 || item.quality === "legendary"; }).map(item =>
+                            <ItemLink id={item.id} key={item.id} className={item.quality} icon={false} >
+                              <Icon 
+                                icon={ITEMS[item.id] ? ITEMS[item.id].icon : ITEMS[0].icon} 
+                                style={{ width: '1.8em', height: '1.8em', border: '1px solid', marginRight: 2 }}
+                              />
+                            </ItemLink>
+                          )}
+                        </div>
+                        <div className="col-md-2" style={{ textAlign: 'right' }}>
+                          {elem.advanced && (
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" />
+                          )}
+                        </div>
+                      </div>
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
