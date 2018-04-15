@@ -21,7 +21,6 @@ import AlwaysBeCasting from './AlwaysBeCasting';
 import BeaconHealing from '../PaladinCore/BeaconHealing';
 import FillerLightOfTheMartyrs from '../PaladinCore/FillerLightOfTheMartyrs';
 import FillerFlashOfLight from '../PaladinCore/FillerFlashOfLight';
-import AuraOfSacrifice from '../Talents/AuraOfSacrifice';
 import Overhealing from '../PaladinCore/Overhealing';
 import JudgmentOfLight from '../Talents/JudgmentOfLight';
 
@@ -36,7 +35,6 @@ class Checklist extends CoreChecklist {
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
     fillerFlashOfLight: FillerFlashOfLight,
     manaValues: ManaValues,
-    auraOfSacrifice: AuraOfSacrifice,
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
