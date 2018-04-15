@@ -33,7 +33,7 @@ import Odyn from './Images/odyn.jpg';
 
 import './Results.css';
 
-const CURRENT_GAME_PATCH = '7.3.5';
+const CURRENT_GAME_PATCH = '8.0.0';
 
 const MAIN_TAB = {
   CHECKLIST: 'Checklist',
