@@ -22,6 +22,11 @@ import { ABILITIES_NOT_FEEDING_INTO_ASCENDANCE, ABILITIES_NOT_FEEDING_INTO_CBT }
 // getIndirectHealing can be used to query for one spellId how much healing it provided
 // through CBT/Asc.
 
+// This seems inaccurate compared to live logs
+// checking BFA logs it appears that it redistributes more than the healing events sum up to, even checking for precasted spells
+// https://www.warcraftlogs.com/reports/NQZ63C1FmxhpBH8a/#fight=7&source=11&type=healing&options=8&start=1999815&end=2013727
+// 134k healing during and around Ascendance, but ascendance did 156k
+
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CooldownThroughputTracker.cooldownSpells,
@@ -83,8 +88,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
           totals.totalEffective += effectiveHealing;
         });
 
-
-
         this.generateFeedEvents(cooldown, feedingFactor, percentOverheal);
 
         cooldown.processed = true;
@@ -105,7 +108,11 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         return;
       }
 
-      const eventFeed = ((event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0)) * feedingFactor * (1-percentOverheal);
+      // only add overheal for Asc, not for CBT
+      let overheal = 0;
+      (cooldown.spell.id === SPELLS.ASCENDANCE_TALENT_RESTORATION.id) ? overheal = (event.overheal || 0) : overheal = 0;
+
+      const eventFeed = ((event.amount || 0) + (event.absorbed || 0) + overheal) * feedingFactor * (1-percentOverheal);
 
       this.owner.fabricateEvent({
         ...event,
@@ -267,7 +274,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     }
 
     const spellId = event.ability.guid;
-    const healingDone = (event.amount || 0) + (event.overheal || 0) + (event.absorb || 0);
+    const healingDone = (event.amount || 0) + (event.absorb || 0);
 
     this.activeCooldowns.forEach((cooldown) => {
       const cooldownId = cooldown.spell.id;
@@ -281,6 +288,9 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
           cooldown.feed[spellId].icon = event.ability.abilityIcon;
         }
         cooldown.feed[spellId].healing += healingDone;
+        if(cooldownId === SPELLS.ASCENDANCE_TALENT_RESTORATION.id) {
+          cooldown.feed[spellId].healing += (event.overheal || 0);
+        }
       }
       cooldown.events.push(event);
     });
