@@ -145,9 +145,9 @@ ul {
 }
 .app > header .image-overlay .description {
   font-size: 1.4em;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
-.app > header .image-overlay .report-selector {
+.app > header .image-overlay .report-selector, .app > header .image-overlay .character-selector {
   margin-bottom: 10px;
 }
 .app > header .image-overlay .about {
@@ -1089,7 +1089,7 @@ code.inactive {
 
 .character-selector {
   position: relative;
-  height: 55px;
+  height: 42px;
 }
 
 .character-selector>input, .character-selector>select, .character-selector>button, .character-selector>.realm-search {
@@ -1098,7 +1098,7 @@ code.inactive {
 }
 
 .character-selector .realm-search {
-  left: 110px;
+  left: 102px;
   width: 180px;
 }
 
@@ -1128,6 +1128,7 @@ code.inactive {
   border-radius: 0;
   outline: none;
   width: 100%;
+  height: 43px;
 }
 
 .realm-search__search:focus {
@@ -1193,4 +1194,32 @@ code.inactive {
 
 .no-scroll {
   overflow: hidden;
+}
+
+.image-overlay .tabs {
+  margin-bottom: 2px;
+}
+
+.image-overlay .tabs>span {
+  background-color: rgba(0, 0, 0, .4);
+  display: inline-block;
+  padding: 3px 8px;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-right: 2px;
+}
+
+.image-overlay .tabs>span.selected {
+  background-color: rgba(216, 65, 65, .8) ;
+  /* border: 1px solid #d84141; */
+  /* border-bottom: 1px solid rgba(0, 0, 0, .4); */
+}
+
+.progress {
+  box-shadow: inset 0 0 0 0 #ad4b4b;
+  transition: box-shadow 1.2s linear;
+}
+
+.progress.progressing {
+  box-shadow: inset 130px 0 0 0 #ad4b4b;
 }

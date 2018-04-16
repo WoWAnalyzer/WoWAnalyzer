@@ -55,6 +55,9 @@ class App extends React.Component {
     if (isIE()) {
       props.internetExplorerError();
     }
+    this.state = {
+      reportActive: false,
+    };
   }
 
   renderError(error) {
@@ -185,15 +188,16 @@ class App extends React.Component {
                 <div className="col-lg-6 col-md-10">
                   <h1>WoW&shy;Analyzer</h1>
                   <div className="description">
-                    Analyze your raid logs to get personal suggestions and metrics to improve your performance. Just enter a Warcraft Logs report:
+                    Analyze your raid logs to get personal suggestions and metrics to improve your performance.
                   </div>
-                  {this.showReportSelecter && (
+                  <div class="tabs">
+                    <span onClick={() => this.setState({ reportActive: true }) } class={ this.state.reportActive ? 'selected' : '' }>Report</span>
+                    <span onClick={() => this.setState({ reportActive: false }) } class={ this.state.reportActive ? '' : 'selected' }>Character</span>
+                  </div>
+                  {this.showReportSelecter && this.state.reportActive && (
                     <ReportSelecter />
                   )}
-                  <div className="description" style={{marginTop: 20 }}>
-                    Or browse your character's parses:
-                  </div>
-                  {this.showReportSelecter && (
+                  {this.showReportSelecter && !this.state.reportActive && (
                     <CharacterSelecter />
                   )}
                   {process.env.NODE_ENV !== 'test' && <ServiceStatus style={{ marginBottom: 5 }} />}

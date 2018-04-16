@@ -22,6 +22,12 @@ class CharacterSelecter extends React.PureComponent {
     };
   }
 
+  componentDidMount() {
+    if (this.regionInput) {
+      this.regionInput.focus();
+    }
+  }
+
   handleSubmit(e) {
     e.preventDefault();
 
@@ -42,16 +48,21 @@ class CharacterSelecter extends React.PureComponent {
       return;
     }
 
+    this.setState({ loading: true });
     return fetch(`https://${region}.api.battle.net/wow/character/${encodeURIComponent(realm)}/${encodeURIComponent(char)}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
       .then(response => response.json())
       .then((data) => {
         if (data.status === 'nok') {
           alert('Character doesn\'t exist');
+          this.setState({ loading: false });
           return;
         }
         const image = data.thumbnail.replace('-avatar.jpg', '');
         localStorage.setItem(`${region}/${realm}/${char}`, image);
         this.props.history.push(makeUrl(region, realm, char));
+      }).catch(e => {
+        this.setState({ loading: false });
+        alert('Something wen\'t wrong!');
       });
   }
 
@@ -86,7 +97,7 @@ class CharacterSelecter extends React.PureComponent {
           <input
             type="text"
             name="code"
-            style={{ left: 300, width: 180 }}
+            style={{ left: 284, width: 180, height: 43 }}
             ref={elem => this.charInput = elem}
             className="form-control"
             autoCorrect="off"
@@ -94,7 +105,7 @@ class CharacterSelecter extends React.PureComponent {
             spellCheck="false"
             placeholder="Character"
           />
-          <button type="submit" style={{ left: 490 }} className="btn btn-primary analyze">
+          <button type="submit" style={{ left: 467, width: 130, height: 43 }} className={`btn btn-primary analyze progress ${ this.state.loading ? 'progressing' : ''}`}>
             Search <span className="glyphicon glyphicon-chevron-right" aria-hidden />
           </button>
         </div>
