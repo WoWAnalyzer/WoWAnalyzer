@@ -14,6 +14,12 @@ export default {
     icon: 'inv_70_pvp_ring2b',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+  COLD_HEART: {
+    id: 151796,
+    name: 'Cold Heart',
+    icon: 'inv_chest_plate_raiddeathknight_p_01',
+    quality: ITEM_QUALITIES.LEGENDARY,
+  },
 
   // Blood legendaries
   SHACKLES_OF_BRYNDAOR: {

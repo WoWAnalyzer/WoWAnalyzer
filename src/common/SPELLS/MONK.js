@@ -745,6 +745,37 @@ export default {
     name: 'Cenedril, Reflector of Hatred',
     icon: 'ability_monk_touchofkarma',
   },
+  // Windwalker Tiersets
+  WW_TIER19_2PC: {
+    id: 211427,
+    name: 'Windwalker T19 2PC',
+    icon: 'ability_monk_risingsunkick',
+  },
+  WW_TIER20_2PC: {
+    id: 242260,
+    name: 'Windwalker T20 2PC',
+    icon: 'ability_monk_fistoffury',
+  },
+  WW_TIER20_4PC: {
+    id: 242259,
+    name: 'Windwalker T20 4PC',
+    icon: 'ability_monk_risingsunkick',
+  },
+  PRESSURE_POINT: {
+    id: 247255,
+    name: 'Pressure Point',
+    icon: 'spell_monk_windwalker_spec',
+  },
+  WW_TIER21_4PC: {
+    id: 251821,
+    name: 'Windwalker T21 4PC',
+    icon: 'ability_monk_roundhousekick',
+  },
+  WW_TIER21_2PC: {
+    id: 251823,
+    name: 'Windwalker T21 2PC',
+    icon: 'ability_monk_roundhousekick',
+  },
   // this is the chi gain from T21 2pc
   FOCUS_OF_XUEN: {
     id: 252768,

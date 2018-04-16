@@ -1,10 +1,12 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
 
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
+
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -125,6 +127,12 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
         cooldown: 40,
+        enabled: combatant.hasChest(ITEMS.COLD_HEART.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+          extraSuggestion: <span>You should be casting Chains of Ice whenever you have 20 stacks of <SpellLink id={SPELLS.COLD_HEART_BUFF.id} />.</span>,
+        },
       },
       {
         spell: SPELLS.RUNE_1,

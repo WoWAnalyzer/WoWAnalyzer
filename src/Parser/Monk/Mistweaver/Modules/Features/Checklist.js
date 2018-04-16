@@ -12,6 +12,9 @@ import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/C
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ManaValues from 'Parser/Core/Modules/ManaValues';
+import VelensFutureSight from 'Parser/Core/Modules/Items/Legion/Legendaries/VelensFutureSight';
+import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
+import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 
@@ -34,6 +37,9 @@ class Checklist extends CoreChecklist {
     combatants: Combatants,
     alwaysBeCasting: AlwaysBeCasting,
     manaValues: ManaValues,
+    velensFutureSight: VelensFutureSight,
+    legendaryUpgradeChecker: LegendaryUpgradeChecker,
+    legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
     essenceFont: EssenceFont,
     refreshingJadeWind: RefreshingJadeWind,

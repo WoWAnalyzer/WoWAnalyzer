@@ -13,6 +13,9 @@ import Juggernaut from './Modules/BuffDebuff/Juggernaut';
 import RampageFrothingBerserker from './Modules/Features/RampageFrothingBerserker';
 import RampageCancelled from './Modules/Features/RampageCancelled';
 
+import T21_2set from './Modules/Items/T21_2set';
+import T21_4set from './Modules/Items/T21_4set';
+
 import PrePotion from './Modules/Items/PrePotion';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -30,6 +33,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     rampageFrothingBerserker: RampageFrothingBerserker,
     rampageCancelled: RampageCancelled,
+
+    t21_2set: T21_2set,
+    t21_4set: T21_4set,
 
     // Overrides default PrePotion
     prePotion: PrePotion,

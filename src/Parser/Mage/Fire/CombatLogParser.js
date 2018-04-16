@@ -25,6 +25,15 @@ import CombustionMarqueeBindings from './Modules/Features/CombustionMarqueeBindi
 import HeatingUp from './Modules/Features/HeatingUp';
 import Cinderstorm from './Modules/Features/Cinderstorm';
 
+import Tier20_4set from './Modules/Items/Tier20_4set';
+import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
+import SoulOfTheArchmage from './Modules/Items/SoulOfTheArchmage';
+import DarcklisDragonfireDiadem from './Modules/Items/DarcklisDragonfireDiadem';
+import ContainedInfernalCore from './Modules/Items/ContainedInfernalCore';
+import PyrotexIgnitionCloth from './Modules/Items/PyrotexIgnitionCloth';
+import MarqueeBindingsOfTheSunKing from './Modules/Items/MarqueeBindingsOfTheSunKing';
+import KoralonsBurningTouch from './Modules/Items/KoralonsBurningTouch';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Normalizers
@@ -55,6 +64,17 @@ class CombatLogParser extends CoreCombatLogParser {
     unstableMagic: UnstableMagic,
     runeOfPower: [RuneOfPower, { showStatistic: false, showSuggestion: false }],
     kindling: Kindling,
+
+	  //Items
+	  tier20_4set: Tier20_4set,
+    shardOfTheExodar: ShardOfTheExodar,
+    soulOfTheArchmage: SoulOfTheArchmage,
+    darcklisDragonfireDiadem: DarcklisDragonfireDiadem,
+    containedInfernalCore: ContainedInfernalCore,
+    pyrotexIgnitionCloth: PyrotexIgnitionCloth,
+    marqueeBindingsOfTheSunKing: MarqueeBindingsOfTheSunKing,
+    koralonsBurningTouch: KoralonsBurningTouch,
+
   };
 }
 

@@ -27,6 +27,12 @@ import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import DamageTakenTable from './Modules/Features/DamageTakenTable';
 import StaggerPoolGraph from './Modules/Features/StaggerPoolGraph';
+// Items
+import T20_2pc from './Modules/Items/T20_2pc';
+import T20_4pc from './Modules/Items/T20_4pc';
+import AnvilHardenedWristwraps from './Modules/Items/AnvilHardenedWristwraps';
+import StormstoutsLastGasp from './Modules/Items/StormstoutsLastGasp';
+import SalsalabimsLostTunic from './Modules/Items/SalsalabimsLostTunic';
 // normalizers
 import IronskinBrewNormalizer from './Modules/Normalizers/IronskinBrew';
 import GarothiWorldbreakerMeleeNormalizer from './Modules/Normalizers/GarothiWorldbreakerMelee';
@@ -63,6 +69,13 @@ class CombatLogParser extends CoreCombatLogParser {
     bof: BreathOfFire,
     bob: BlackOxBrew,
     highTolerance: HighTolerance,
+
+    // Items
+    t20_2pc: T20_2pc,
+    t20_4pc: T20_4pc,
+    ahw: AnvilHardenedWristwraps,
+    stormstoutsLastGasp: StormstoutsLastGasp,
+    salsalabim: SalsalabimsLostTunic,
 
     // normalizers
     isbNormalizer: IronskinBrewNormalizer,

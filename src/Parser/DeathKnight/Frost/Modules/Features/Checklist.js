@@ -1,6 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 
 import SpellLink from 'common/SpellLink';
 import Wrapper from 'common/Wrapper';
@@ -11,6 +12,8 @@ import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
+import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 
@@ -23,6 +26,8 @@ class Checklist extends CoreChecklist {
     abilities: Abilities,
     castEfficiency: CastEfficiency,
     combatants: Combatants,
+    legendaryCountChecker: LegendaryCountChecker,
+    legendaryUpgradeChecker: LegendaryUpgradeChecker,
     prePotion: PrePotion,
     alwaysBeCasting: AlwaysBeCasting,
     enchantChecker: EnchantChecker,
@@ -39,6 +44,10 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.REMORSELESS_WINTER,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.CHAINS_OF_ICE,
+            when: combatant.hasChest(ITEMS.COLD_HEART.id),
           }),
           new GenericCastEfficiencyRequirement({
               spell: SPELLS.HORN_OF_WINTER_TALENT,
