@@ -66,7 +66,7 @@ class BlackoutKick extends Analyzer {
     if (this.spellUsable.isAvailable(SPELLS.FISTS_OF_FURY_CAST.id)) {
       this.wastedFistsOfFuryReductionMs += COOLDOWN_REDUCTION_MS;
     } else {
-      const reductionMs = this.spellUsable.reduceCooldown(SPELLS.FISTS_OF_FURY_CAST, COOLDOWN_REDUCTION_MS);
+      const reductionMs = this.spellUsable.reduceCooldown(SPELLS.FISTS_OF_FURY_CAST.id, COOLDOWN_REDUCTION_MS);
       this.effectiveFistsOfFuryReductionMs += reductionMs;
       this.wastedFistsOfFuryReductionMs += COOLDOWN_REDUCTION_MS - reductionMs;
     }
