@@ -404,7 +404,13 @@ export default {
     icon: 'ability_backstab',
   },
   //Relics
-  //Tier Set Bonuses
+  // Protection Tier Sets
+  // T20 2P Set Bonus
+  PROTECTION_WARRIOR_T20_2P_BONUS: {
+    id: 242302,
+    name: 'T20 2P Bonus',
+    icon: 'ability_warrior_defensivestance',
+  },
 
   // Shared:
   BATTLE_CRY: {
