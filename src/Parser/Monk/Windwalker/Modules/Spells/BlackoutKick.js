@@ -13,6 +13,8 @@ import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
  *  Inspired by filler modules in Holy Paladin Analyzer
  */
 
+const COOLDOWN_REDUCTION_MS = 1000;
+
 class BlackoutKick extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -26,6 +28,11 @@ class BlackoutKick extends Analyzer {
     SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id,
   ];
   inefficientCasts = 0;
+
+  effectiveRisingSunKickReductionMs = 0;
+  wastedRisingSunKickReductionMs = 0;
+  effectiveFistsOfFuryReductionMs = 0;
+  wastedFistsOfFuryReductionMs = 0;
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -47,6 +54,21 @@ class BlackoutKick extends Analyzer {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = 'You cast this Blackout Kick while more important spells were available';
+    }
+
+    if (this.spellUsable.isAvailable(SPELLS.RISING_SUN_KICK.id)) {
+      this.wastedRisingSunKickReductionMs += COOLDOWN_REDUCTION_MS;
+    } else {
+      const reductionMs = this.spellUsable.reduceCooldown(SPELLS.RISING_SUN_KICK.id, COOLDOWN_REDUCTION_MS);
+      this.effectiveRisingSunKickReductionMs += reductionMs;
+      this.wastedRisingSunKickReductionMs += COOLDOWN_REDUCTION_MS - reductionMs;
+    }
+    if (this.spellUsable.isAvailable(SPELLS.FISTS_OF_FURY_CAST.id)) {
+      this.wastedFistsOfFuryReductionMs += COOLDOWN_REDUCTION_MS;
+    } else {
+      const reductionMs = this.spellUsable.reduceCooldown(SPELLS.FISTS_OF_FURY_CAST.id, COOLDOWN_REDUCTION_MS);
+      this.effectiveFistsOfFuryReductionMs += reductionMs;
+      this.wastedFistsOfFuryReductionMs += COOLDOWN_REDUCTION_MS - reductionMs;
     }
   }
 

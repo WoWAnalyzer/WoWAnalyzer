@@ -35,21 +35,6 @@ class ChiTracker extends ResourceTracker {
     }
     return cost;
   }
-
-  // Energizing Elixir actually gives 10 chi rather than filling it up as the tooltip reads
-  on_toPlayer_energize(event) {
-    const spellId = event.ability.guid;
-
-    if (event.resourceChangeType !== RESOURCE_TYPES.CHI.id) {
-      return;
-    }
-    let waste = event.waste;
-    const gain = event.resourceChange - waste;
-    if (spellId === SPELLS.ENERGIZING_ELIXIR_TALENT.id) {
-      waste = waste - (10 - this.maxChi);
-    }
-    this._applyBuilder(spellId, this.getResource(event), gain, waste);
-  }
 }
 
 export default ChiTracker;
