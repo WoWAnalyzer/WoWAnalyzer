@@ -22,7 +22,6 @@ export default {
       If you want to learn more about Resto Shaman, join the Resto Shaman community at the <a href="https://discord.gg/AcTek6e" target="_blank" rel="noopener noreferrer">Ancestral Guidance</a> discord server and make sure to visit the <a href="https://ancestralguidance.com/">website</a>.<br /><br />
 
       <Warning>
-        The Restoration Shaman analysis isn't complete yet. What we do show should be good to use, but it does not show the complete picture.<br />
         If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact us on <a href="https://discord.gg/AxphPxU">Discord</a>.
       </Warning>
     </Wrapper>

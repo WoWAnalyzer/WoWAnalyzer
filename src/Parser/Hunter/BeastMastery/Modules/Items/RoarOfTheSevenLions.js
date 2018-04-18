@@ -11,7 +11,7 @@ import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import SpellLink from 'common/SpellLink';
 
-/*
+/**
  * Roar of the Seven Lions
  * Equip: Bestial Wrath reduces the Focus cost of all your abilities by 15%.
  */

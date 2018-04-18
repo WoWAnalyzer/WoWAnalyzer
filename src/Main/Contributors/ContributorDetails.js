@@ -10,7 +10,7 @@ import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 
 class ContributorDetails extends React.PureComponent {
   static propTypes = {
-    contributorId: PropTypes.string,
+    contributorId: PropTypes.string.isRequired,
     ownPage: PropTypes.bool,
   };
   state = {
@@ -175,6 +175,20 @@ class ContributorDetails extends React.PureComponent {
     );
   }
 
+  invalidContributor() {
+    return (
+      <section>
+        <header>
+          <div className="row">
+            <div className="col-md-12">
+              <h1>Invalid Contributor</h1>
+            </div>
+          </div>
+        </header>
+      </section>
+    );
+  }
+
   componentDidMount() {
     if (this.props.ownPage) {
       return;
@@ -206,11 +220,14 @@ class ContributorDetails extends React.PureComponent {
       0: CoreChangelog,
     };
 
+    if(!contributor){
+      return this.invalidContributor();
+    }
+
     AVAILABLE_CONFIGS.forEach(elem => {
       contributions[elem.spec.id] = elem.changelog;
     });
 
-    console.log(contributions);
     Object.keys(contributions).forEach(key => {
       contributions[key] = contributions[key].filter(this.filterChangelog);
       if (contributions[key].length === 0) {
@@ -218,7 +235,7 @@ class ContributorDetails extends React.PureComponent {
       }
     });
 
-    if (contributor.avatar === undefined) {
+    if (!contributor.avatar) {
       contributor.avatar = '/favicon.png';
     }
 

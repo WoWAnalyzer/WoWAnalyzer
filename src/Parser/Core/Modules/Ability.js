@@ -66,12 +66,12 @@ class Ability {
       extraSuggestion: PropTypes.node,
       /**
        * A function to get the amount of casts done of a spell. Parameters provided: `castCount`, `parser`
-       * DEPRECATED: Usage should be avoided. This may be removed in the future.
+       * @deprecated Usage should be avoided. This may be removed in the future.
        */
       casts: PropTypes.func,
       /**
        * A function to get the max amount of casts for a spell. Parameters provided: `cooldown`, `fightDuration`, `getAbility`, `parser`
-       * DEPRECATED: Usage should be avoided. This may be removed in the future.
+       * @deprecated Usage should be avoided. This may be removed in the future.
        */
       maxCasts: PropTypes.func,
       /**

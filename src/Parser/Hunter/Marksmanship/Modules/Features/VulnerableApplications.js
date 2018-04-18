@@ -14,6 +14,11 @@ const CHART_SIZE = 50;
 
 //code grabbed from Parser/Paladin/Holy/Modules/PaladinCore/CastBehavior.js
 
+/**
+ * Vulnerable
+ * Damage taken from Aimed Shot and Piercing Shot increased by 30% for 7 sec.
+ */
+
 class VulnerableApplications extends Analyzer {
 
   windburstCasts = 0;

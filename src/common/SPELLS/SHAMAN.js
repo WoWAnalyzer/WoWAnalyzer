@@ -612,29 +612,33 @@ export default {
     name: 'Chain Heal',
     icon: 'spell_nature_healingwavegreater',
     manaCost: 55000,
-  },
-  HEALING_SURGE_RESTORATION: {
-    id: 8004,
-    name: 'Healing Surge',
-    icon: 'spell_nature_healingway',
-    manaCost: 44000,
+    color: '#203755',
   },
   HEALING_WAVE: {
     id: 77472,
     name: 'Healing Wave',
     icon: 'spell_nature_healingwavelesser',
     manaCost: 19800,
+    color: '#146585',
   },
-  TIDAL_WAVES_BUFF: {
-    id: 53390,
-    name: 'Tidal Waves',
-    icon: 'spell_shaman_tidalwaves',
+  HEALING_SURGE_RESTORATION: {
+    id: 8004,
+    name: 'Healing Surge',
+    icon: 'spell_nature_healingway',
+    manaCost: 44000,
+    color: '#40b3bf',
   },
   RIPTIDE: {
     id: 61295,
     name: 'Riptide',
     icon: 'spell_nature_riptide',
     manaCost: 17600,
+    color: '#a3dbce',
+  },
+  TIDAL_WAVES_BUFF: {
+    id: 53390,
+    name: 'Tidal Waves',
+    icon: 'spell_shaman_tidalwaves',
   },
   HEALING_RAIN_CAST: {
     id: 73920,
@@ -815,6 +819,36 @@ export default {
     id: 207357,
     name: 'Servant of the Queen',
     icon: 'inv_crown_02',
+  },
+  EMPOWERED_DROPLETS: {
+    id: 207255,
+    name: 'Empowered Droplets',
+    icon: 'spell_nature_giftofthewaterspirit',
+  },
+  FLOODWATERS: {
+    id: 207348,
+    name: 'Floodwaters',
+    icon: 'spell_nature_healingwavegreater',
+  },
+  TIDAL_CHAINS: {
+    id: 207088,
+    name: 'Tidal Chains',
+    icon: 'spell_frost_chainsofice',
+  },
+  QUEEN_ASCENDANT_TRAIT: {
+    id: 207285,
+    name: 'Queen Ascendant',
+    icon: 'ability_shaman_watershield',
+  },
+  QUEEN_ASCENDANT_BUFF: {
+    id: 207288,
+    name: 'Queen Ascendant',
+    icon: 'ability_shaman_watershield',
+  },
+  UNDULATION_BUFF: {
+    id: 216251,
+    name: 'Undulation',
+    icon: 'spell_nature_healingwavelesser',
   },
   // Restoration Shaman Set Bonus:
   RAINFALL: { // T21 2pc

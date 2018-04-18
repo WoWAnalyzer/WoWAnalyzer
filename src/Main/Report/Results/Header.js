@@ -28,7 +28,7 @@ class Headers extends React.PureComponent {
     return (
       <header>
         <div className={`player ${spec.className.replace(' ', '')}`}>
-          <SpecIcon id={spec.id} />{' '}
+          <SpecIcon id={spec.id} style={{ marginTop: 0 }} />{' '}
           <Textfit mode="single" max={80}>
             {playerName}
           </Textfit>

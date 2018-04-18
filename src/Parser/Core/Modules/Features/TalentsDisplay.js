@@ -44,7 +44,7 @@ class TalentsDisplay extends Analyzer {
                       </div>
                       <div className="col-md-8">
                         <SpellLink id={spellId} icon={false}>
-                          {SPELLS[spellId].name}
+                          {SPELLS[spellId] ? SPELLS[spellId].name : `Unknown spell: ${spellId}`}
                         </SpellLink>
                       </div>
                     </Wrapper>

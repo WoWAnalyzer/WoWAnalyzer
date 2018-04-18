@@ -6,6 +6,10 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
+/**
+ * Summon a herd of stampeding animals from the wilds around you that deal damage to your enemies for 12 sec.
+ */
+
 class Stampede extends Analyzer {
   static dependencies = {
     combatants: Combatants,

@@ -10,6 +10,11 @@ import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Wrapper from 'common/Wrapper';
 
+/**
+ * Vulnerable
+ * Damage taken from Aimed Shot and Piercing Shot increased by 30% for 7 sec.
+ */
+
 class VulnerableUpTime extends Analyzer {
   static dependencies = {
     enemies: Enemies,

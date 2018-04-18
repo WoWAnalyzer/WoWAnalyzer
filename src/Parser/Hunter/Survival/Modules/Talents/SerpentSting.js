@@ -8,6 +8,9 @@ import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import ITEMS from 'common/ITEMS/HUNTER';
 
+/**
+ * Targets hit by your Raptor Strike and Carve are also affected by Serpent Sting, dealing (864% of Attack power) Nature damage over 15 sec.
+ */
 class SerpentSting extends Analyzer {
 
   static dependencies = {

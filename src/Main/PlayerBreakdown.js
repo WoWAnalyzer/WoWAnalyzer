@@ -45,7 +45,7 @@ class PlayerBreakdown extends React.Component {
           <tr>
             <th>Name</th>
             <th colSpan="2">Mastery effectiveness</th>
-            <th colSpan="3"><dfn data-tip="This is the amount of healing done with abilities that are affected by mastery. Things like Holy Paladin beacons or Restoration Shaman feeding are NOT included.">Healing done</dfn></th>
+            <th colSpan="3"><dfn data-tip="This is the amount of healing done by mastery. Things like Holy Paladin beacons or Restoration Shaman feeding are NOT included.">Healing done</dfn></th>
           </tr>
         </thead>
         <tbody>
