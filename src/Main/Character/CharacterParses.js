@@ -17,6 +17,7 @@ import Icon from 'common/Icon';
 import ZONES from 'common/ZONES';
 
 import ActivityIndicator from 'Main/ActivityIndicator';
+import REALMS from 'common/REALMS';
 
 /*
   ToDo: 
@@ -258,9 +259,10 @@ class CharacterParses extends React.Component {
     this.setState({
       isLoading: true,
     });
-    //ToDo: get slug for realm-name
+
     const charName = encodeURIComponent(this.props.name);
-    const charRealm = encodeURIComponent(this.props.realm);
+    //use the slug from REALMS when available, otherwise try realm-prop and fail
+    const charRealm = REALMS[this.props.region] ? REALMS[this.props.region].realms.filter(elem => { return elem.name === this.props.realm; })[0].slug : encodeURIComponent(this.props.realm);
     return fetchWcl(`parses/character/${charName}/${charRealm}/${this.props.region}`, {
       metric: this.state.metric,
       zone: this.state.activeZoneID,
@@ -401,7 +403,7 @@ class CharacterParses extends React.Component {
                   )}
                   {this.state.error && (
                     <div>
-                      <div class="panel-heading">
+                      <div className="panel-heading">
                         <h2>We couldn't find your character on Warcraft Logs.</h2>
                       </div>
                       <div style={{ padding: 20 }}>
@@ -464,7 +466,7 @@ class CharacterParses extends React.Component {
                         </div>
                         <div className="col-md-2" style={{ textAlign: 'right' }}>
                           {elem.advanced && (
-                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" />
+                            <span className="glyphicon glyphicon-chevron-right" aria-hidden="true" />
                           )}
                         </div>
                       </div>
