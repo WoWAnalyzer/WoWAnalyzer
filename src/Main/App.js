@@ -190,9 +190,9 @@ class App extends React.Component {
                   <div className="description">
                     Analyze your raid logs to get personal suggestions and metrics to improve your performance.
                   </div>
-                  <div class="tabs">
-                    <span onClick={() => this.setState({ reportActive: true }) } class={ this.state.reportActive ? 'selected' : '' }>Report</span>
-                    <span onClick={() => this.setState({ reportActive: false }) } class={ this.state.reportActive ? '' : 'selected' }>Character</span>
+                  <div className="tabs">
+                    <span onClick={() => this.setState({ reportActive: true }) } className={ this.state.reportActive ? 'selected' : '' }>Report</span>
+                    <span onClick={() => this.setState({ reportActive: false }) } className={ this.state.reportActive ? '' : 'selected' }>Character</span>
                   </div>
                   {this.showReportSelecter && this.state.reportActive && (
                     <ReportSelecter />

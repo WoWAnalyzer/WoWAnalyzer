@@ -84,8 +84,8 @@ class CharacterSelecter extends React.PureComponent {
             value={this.state.currentRegion}
             onChange={e => this.setState({ currentRegion: e.target.value })}
           >
-            {Object.keys(REALMS).map(elem => 
-              <option value={elem}>{elem}</option>
+            {Object.keys(REALMS).filter(elem => {return elem === 'EU' || elem === 'US'; }).map(elem => 
+              <option value={elem} key={elem}>{elem}</option>
             )}
           </select>
           <SelectSearch 

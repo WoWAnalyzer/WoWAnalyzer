@@ -238,6 +238,7 @@ class CharacterParses extends React.Component {
       });
       return;
     }
+    
     return fetch(`https://${this.props.region}.api.battle.net/wow/character/${encodeURIComponent(this.props.realm)}/${encodeURIComponent(this.props.name)}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
       .then(response => response.json())
       .then((data) => {
@@ -257,11 +258,15 @@ class CharacterParses extends React.Component {
     this.setState({
       isLoading: true,
     });
-    return fetchWcl(`parses/character/${ encodeURIComponent(this.props.name) }/${ encodeURIComponent(this.props.realm) }/${ this.props.region }`, {
+    //ToDo: get slug for realm-name
+    const charName = encodeURIComponent(this.props.name);
+    const charRealm = encodeURIComponent(this.props.realm);
+    return fetchWcl(`parses/character/${charName}/${charRealm}/${this.props.region}`, {
       metric: this.state.metric,
       zone: this.state.activeZoneID,
       _: refresh ? +new Date() : undefined,
     }).then((rawParses) => {
+      console.info(rawParses);
       if (rawParses.status === 400) {
         // means char was not found on WCL
         this.setState({
@@ -423,7 +428,7 @@ class CharacterParses extends React.Component {
                   )}
 
                   {!this.state.isLoading && this.filterParses.map((elem, index) =>
-                    <a href={makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + " " + elem.name, elem.character_name)} target="_blank">
+                    <a href={makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + " " + elem.name, elem.character_name)} target="_blank" key={`${elem.report_code} ${elem.report_fight}`}>
                       <div className="row character-parse" key={elem.report_code + elem.report_fight}>
                         <div className="col-md-5" style={{ color: 'white' }}>
                           <img src={this.iconPath(elem.spec)} style={{ height: 30, marginRight: 10 }} alt="Icon" />
