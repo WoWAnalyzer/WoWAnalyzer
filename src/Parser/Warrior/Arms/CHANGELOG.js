@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-19'),
+    changes: <Wrapper>Added suggestion for GCD use during <SpellLink id={SPELLS.BATTLE_CRY.id} icon />.</Wrapper>,
+    contributors: [Aelexe],
+  },
+  {
     date: new Date('2018-04-13'),
     changes: <React.Fragment>Added suggestions for <SpellLink id={SPELLS.SLAM.id} icon /> and <SpellLink id={SPELLS.WHIRLWIND.id} icon /> usage.</React.Fragment>,
     contributors: [Aelexe],
