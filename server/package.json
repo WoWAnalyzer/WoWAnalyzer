@@ -2,10 +2,10 @@
   "name": "wowanalyzer-server",
   "main": "index.js",
   "scripts": {
-    "start": "sequelize db:migrate && nodemon index.js --exec babel-node",
+    "start": "babel-node node_modules/sequelize-cli/lib/sequelize db:migrate && nodemon index.js --exec babel-node",
     "test": "jest --watchAll",
     "build": "babel -d build --ignore node_modules,build . && node ./config/postbuild.js",
-    "serve": "sequelize db:migrate && node --harmony build/index.js"
+    "serve": "babel-node node_modules/sequelize-cli/lib/sequelize db:migrate && node --harmony build/index.js"
   },
   "dependencies": {
     "agentkeepalive": "^3.4.1",
