@@ -1,6 +1,6 @@
-import fs from 'fs';
+const fs = require('fs');
 
-import loadDotEnv from './env';
+const loadDotEnv = require('./env');
 const appDirectory = fs.realpathSync(process.cwd());
 loadDotEnv(appDirectory);
 
