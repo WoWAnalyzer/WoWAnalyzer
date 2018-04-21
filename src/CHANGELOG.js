@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-21'),
+    changes: 'Removed any remaining charts based on the chartist library that has been deprecated for 6 months.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-04-18'),
     changes: 'Added error page when attempting to view an invalid contributor page.',
     contributors: [CubeLuke],

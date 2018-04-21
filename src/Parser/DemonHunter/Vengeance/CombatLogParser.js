@@ -1,13 +1,7 @@
-import React from 'react';
-
-import Tab from 'Main/Tab';
-
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
-
-import PainChart from './Modules/PainChart/Pain';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Features/Abilities';
@@ -60,20 +54,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     results.tabs = [
       ...results.tabs,
-      { // TODO: Move this to an Analyzer module
-        title: 'Pain Chart',
-        url: 'pain',
-        render: () => (
-          <Tab style={{ padding: '15px 22px' }}>
-            <PainChart
-              reportCode={this.report.code}
-              actorId={this.playerId}
-              start={this.fight.start_time}
-              end={this.fight.end_time}
-            />
-          </Tab>
-        ),
-      },
     ];
 
     return results;

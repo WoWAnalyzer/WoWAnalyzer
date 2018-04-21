@@ -8,10 +8,7 @@ import SPELLS from 'common/SPELLS';
 
 import { formatDuration } from 'common/format';
 
-import 'Main/Mana.css';
-
 import FocusComponent from './FocusComponent';
-import './Focus.css';
 
 const passiveWasteThresholdPercentage = .03; // (wasted passive focus generated) / (total passive focus generated), anything higher will trigger "CAN BE IMPROVED"
 //TODO: get a "real" number approved by a MMS expert
@@ -171,7 +168,7 @@ class Focus extends React.PureComponent {
           data: overCapBySecond,
           lineTension: 0.4,
           backgroundColor: [
-            'rgba(2255,20,147, 0.3)',
+            'rgba(255,20,147, 0.3)',
           ],
           borderColor: [
             'rgba(255,90,160,1)',

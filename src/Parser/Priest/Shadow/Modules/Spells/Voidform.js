@@ -8,10 +8,8 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Haste from 'Parser/Core/Modules/Haste';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Tab from 'Main/Tab';
 
 import Insanity from '../Core/Insanity';
-import VoidformsTab from './VoidformsTab';
 
 const debug = false;
 const logger = (message, color) => debug && console.log(`%c${message.join('  ')}`, `color: ${color}`);
@@ -252,26 +250,7 @@ class Voidform extends Analyzer {
       />
     );
   }
-
   statisticOrder = STATISTIC_ORDER.CORE(1);
-
-  tab() {
-    return {
-      title: 'Voidforms',
-      url: 'voidforms',
-      render: () => (
-        <Tab>
-          <VoidformsTab
-            voidforms={this.voidforms}
-            insanityEvents={this.insanity.events}
-            fightEnd={this.owner.fight.end_time}
-            surrenderToMadness={!!this.combatants.selected.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id)}
-            setT20P4={this.combatants.selected.hasBuff(SPELLS.SHADOW_PRIEST_T20_4SET_BONUS_PASSIVE.id)}
-          />
-        </Tab>
-      ),
-    };
-  }
 }
 
 export default Voidform;
