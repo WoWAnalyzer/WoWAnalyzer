@@ -22,8 +22,8 @@ class EarlyDotRefreshesInstants extends EarlyDotRefreshes {
     distanceMoved: DistanceMoved,
   };
 
-  // Returns true if cast was successfully checked, false otherwise.
-  checkIfLastCastWasBad(event) {
+  // Determines whether the last cast should be checked or not.
+  checkLastCast(event) {
     if (!this.lastGCD || !this.lastCast) {
       return false;
     }
@@ -32,8 +32,15 @@ class EarlyDotRefreshesInstants extends EarlyDotRefreshes {
     if (timeSinceCast < this.lastGCD.duration - BUFFER_MS){
       return false;
     }
+    this.isLastCastBad(event);
+    this.lastGCD = null;
+    this.lastCast = null;
+  }
+
+  // Checks the status of the last cast and marks it accordingly.
+  isLastCastBad(event) {
     if (this.lastCastGoodExtension) {
-      return true;
+      return; // Should not be marked as bad.
     }
     const dot = this.dots.find(element => {
       return element.castId === this.lastCast.ability.guid;
@@ -62,7 +69,6 @@ class EarlyDotRefreshesInstants extends EarlyDotRefreshes {
     if (text !== '') {
       this.addBadCast(this.lastCast, text);
     }
-    return true;
   }
 
   movedSinceCast(event) {

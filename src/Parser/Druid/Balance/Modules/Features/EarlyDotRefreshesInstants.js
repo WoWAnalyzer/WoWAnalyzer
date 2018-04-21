@@ -82,7 +82,7 @@ class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
         average: 0.1,
         major: 0.2,
       },
-      style: 'percent',
+      style: 'percentage',
     };
   }
 
@@ -96,7 +96,33 @@ class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
         average: 0.1,
         major: 0.2,
       },
-      style: 'percent',
+      style: 'percentage',
+    };
+  }
+
+  get suggestionThresholdsMoonfireEfficiency() {
+    return {
+      spell: SPELLS.MOONFIRE_BEAR,
+      actual: 1 - this.badCastsPercent(DOTS[0].castId),
+      isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: 0.8,
+      },
+      style: 'percentage',
+    };
+  }
+
+  get suggestionThresholdsSunfireEfficiency() {
+    return {
+      spell: SPELLS.SUNFIRE,
+      actual: 1 - this.badCastsPercent(DOTS[1].castId),
+      isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: 0.8,
+      },
+      style: 'percentage',
     };
   }
 

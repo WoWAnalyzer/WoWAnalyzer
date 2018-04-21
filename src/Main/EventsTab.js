@@ -187,7 +187,7 @@ class EventsTab extends React.Component {
         name="search"
         className="form-control"
         onChange={event => this.setState({ search: event.target.value.trim().toLowerCase() })}
-        placeholder="Search events (comma separated)"
+        placeholder="Search events"
         autoCorrect="off"
         autoCapitalize="off"
         spellCheck="false"
@@ -226,14 +226,14 @@ class EventsTab extends React.Component {
             return true;
           } else if(target !== null && target.name.toLowerCase().includes(searchTerm)) {
             return true;
+          } else if(event.type !== null && event.type.toLowerCase().includes(searchTerm)) {
+            return true;
           }
           return false;
         });
       });
 
     // TODO: Show active buffs like WCL
-    // TODO: Allow searching for players by name
-    // TODO: Pollish so this can be turned on for everyone
 
     return (
       <div className="events-tab flex">
@@ -258,7 +258,7 @@ class EventsTab extends React.Component {
             {({ height, width }) => (
               <Table
                 headerHeight={30}
-                height={700}
+                height={780}
                 rowCount={events.length}
                 rowGetter={({ index }) => events[index]}
                 rowHeight={25}

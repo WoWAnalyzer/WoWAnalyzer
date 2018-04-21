@@ -1,19 +1,11 @@
+import Express from 'express';
 import Sequelize from 'sequelize';
-import models from './models';
+
+import models from '../../models';
 
 const WclApiResponse = models.WclApiResponse;
 
-class ApiController {
-  static handle(req, res) {
-    const handler = new ApiRequestHandler(req, res);
-
-    // Set header already so that all request, good or bad, have it
-    res.setHeader('Access-Control-Allow-Origin', '*');
-
-    handler.handle();
-  }
-}
-
+// This class was a bad idea and needs to be refactored out
 class ApiRequestHandler {
   req = null;
   res = null;
@@ -51,4 +43,15 @@ class ApiRequestHandler {
   }
 }
 
-export default ApiController.handle;
+const router = Express.Router();
+router.get('/', (req, res) => {
+    const handler = new ApiRequestHandler(req, res);
+
+    // Set header already so that all request, good or bad, have it
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    handler.handle();
+  }
+);
+
+export default router;

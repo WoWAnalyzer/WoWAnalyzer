@@ -4,6 +4,7 @@ FROM node:9.9.0-alpine
 
 # Normally Docker sets this, now you need to. You can do this without changing this file with the -e argument.
 ENV WCL_API_KEY=INSERT_YOUR_OWN_API_KEY_HERE
+ENV NODE_ENV=development
 
 # App
 WORKDIR /usr/src/wowanalyzer

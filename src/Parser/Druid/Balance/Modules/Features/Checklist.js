@@ -25,6 +25,9 @@ import StellarEmpowermentUptime from './StellarEmpowermentUptime';
 import MoonSpells from './MoonSpells';
 import LunarEmpowerment from './LunarEmpowerment';
 import SolarEmpowerment from './SolarEmpowerment';
+import EarlyDotRefreshes from './EarlyDotRefreshes';
+import EarlyDotRefreshesInstants from './EarlyDotRefreshesInstants';
+
 import L90Talents from '../Talents/L90Talents';
 
 import SoulOfTheArchdruid from '../../../Shared/Modules/Items/SoulOfTheArchdruid';
@@ -45,6 +48,9 @@ class Checklist extends CoreChecklist {
     lunarEmpowerment: LunarEmpowerment,
     solarEmpowerment: SolarEmpowerment,
     moonSpells: MoonSpells,
+    earlyDotRefreshes: EarlyDotRefreshes,
+    earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
+
     l90Talents: L90Talents,
 
     soulOfTheArchdruid: SoulOfTheArchdruid,
@@ -78,7 +84,6 @@ class Checklist extends CoreChecklist {
       name: 'Maintain your DoTs on the boss',
       description: 'DoTs are a big part of your damage. You should try to keep as high uptime on them as possible.',
       requirements: () => {
-        const combatant = this.combatants.selected;
         return [
           new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime</Wrapper>,
@@ -91,17 +96,37 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id}  /> uptime</Wrapper>,
             check: () => this.stellarFlareUptime.suggestionThresholds,
-            when: combatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id),
+            when: this.stellarFlareUptime.active,
           }),
           new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.STELLAR_EMPOWERMENT.id}  /> uptime</Wrapper>,
             check: () => this.stellarEmpowermentUptime.suggestionThresholds,
-            when: this.combatants.selected.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_BALANCE.id) ||
-                    this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_ARCHDRUID.id),
+            when: this.stellarEmpowermentUptime.active,
           }),
         ];
       },
     }),
+    new Rule({
+          name: 'Avoid refreshing your DoTs too early',
+          description: 'DoTs do very little direct damage, and you should avoid ever refreshing them with more than 30% duration remaining unless you have nothing else to cast while moving.',
+          requirements: () => {
+            return [
+              new Requirement({
+                name: <Wrapper><SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> good refreshes</Wrapper>,
+                check: () => this.earlyDotRefreshesInstants.suggestionThresholdsMoonfireEfficiency,
+              }),
+              new Requirement({
+                name: <Wrapper><SpellLink id={SPELLS.SUNFIRE.id} /> good refreshes</Wrapper>,
+                check: () => this.earlyDotRefreshesInstants.suggestionThresholdsSunfireEfficiency,
+              }),
+              new Requirement({
+                name: <Wrapper><SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id}  /> good refreshes</Wrapper>,
+                check: () => this.earlyDotRefreshes.suggestionThresholdsStellarFlareEfficiency,
+                when: this.earlyDotRefreshes.active,
+              }),
+            ];
+          },
+        }),
     new Rule({
       name: 'Do not overcap your resources',
       description: <Wrapper>You should try to always avoid overcapping your Astral Power, Moon spell charges, and your solar and lunar empowerments. Sometimes you can not avoid overcapping all of them. In that case, you should prioritize them as they are listed.</Wrapper>,
@@ -132,15 +157,12 @@ class Checklist extends CoreChecklist {
       name: 'Use your cooldowns',
       description: <Wrapper>Your cooldowns are a major contributor to your DPS, and should be used as frequently as possible throughout a fight. A cooldown should be held on to only if a priority DPS phase is coming <em>soon</em>. Holding cooldowns too long will hurt your DPS.</Wrapper>,
       requirements: () => {
-        const combatant = this.combatants.selected;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.CELESTIAL_ALIGNMENT,
-            when: !combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT,
-            when: combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id),
           }),
         ];
       },
@@ -149,19 +171,15 @@ class Checklist extends CoreChecklist {
       name: 'Use your supportive abilities',
       description: <Wrapper>While you should not aim to cast defensives and externals on cooldown, be aware of them and try to use them whenever effective. Not using them at all indicates you might not be aware of them enough.</Wrapper>,
       requirements: () => {
-        const combatant = this.combatants.selected;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.INNERVATE,
-            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BARKSKIN,
-            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.RENEWAL_TALENT,
-            when: combatant.hasTalent(SPELLS.RENEWAL_TALENT.id),
           }),
         ];
       },
