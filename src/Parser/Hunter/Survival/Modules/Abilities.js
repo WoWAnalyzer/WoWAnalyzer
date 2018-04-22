@@ -184,7 +184,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
-          //TODO: extraSuggestion: <Wrapper>hehe</Wrapper>,
+          extraSuggestion: <Wrapper>You'll want to use <SpellLink id={SPELLS.ASPECT_OF_THE_EAGLE.id} /> as often as possible, as it's a very powerful cooldown partly due to the <SpellLink id={SPELLS.ASPECT_OF_THE_SKYLORD_TRAIT.id} /> trait. It should be used whenever you run out of <SpellLink id={SPELLS.MONGOOSE_BITE.id} /> stacks in your <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> windows, or there's 10s seconds remaining of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> to fully utilise the pairing.</Wrapper>,
         },
         isOnGCD: false,
       },

@@ -6,8 +6,15 @@ import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
+import ResourceIcon from 'common/ResourceIcon';
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 export default [
+  {
+    date: new Date('2018-04-22'),
+    changes: <Wrapper>Added a <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> focus capping module to the checklist.</Wrapper>,
+    contributors: [Putro],
+  },
   {
     date: new Date('2018-04-10'),
     changes: <Wrapper>Adds an additional statistic module for <ItemLink id={ITEMS.PARSELS_TONGUE.id} /> to better showcase the uptime of 4 stacks, and also updates the average refresh of <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> to be more accurate.</Wrapper>,
