@@ -17,6 +17,8 @@ import Icon from "common/Icon";
 import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 import ITEMS from 'common/ITEMS/HUNTER';
 import ItemLink from 'common/ItemLink';
+import ResourceIcon from 'common/ResourceIcon';
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 //Features
 import AlwaysBeCasting from 'Parser/Hunter/BeastMastery/Modules/Features/AlwaysBeCasting';
@@ -42,23 +44,23 @@ import TheMantleOfCommand from 'Parser/Hunter/BeastMastery/Modules/Items/TheMant
 import SoulOfTheHuntmaster from 'Parser/Hunter/Shared/Modules/Items/SoulOfTheHuntmaster';
 import RoarOfTheSevenLions from 'Parser/Hunter/BeastMastery/Modules/Items/RoarOfTheSevenLions';
 import CallOfTheWild from 'Parser/Hunter/Shared/Modules/Items/CallOfTheWild';
-import ResourceIcon from 'common/ResourceIcon';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
+import TimeFocusCapped from 'Parser/Hunter/Shared/Modules/Features/TimeFocusCapped';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
     abilities: Abilities,
     combatants: Combatants,
 
-    //general
+    //preparation rules
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
+    enchantChecker: EnchantChecker,
 
     //features:
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
-    enchantChecker: EnchantChecker,
+    timeFocusCapped: TimeFocusCapped,
 
     //talents
     aMurderOfCrows: AMurderOfCrows,
@@ -233,7 +235,7 @@ class Checklist extends CoreChecklist {
           height: '1.3em',
           marginTop: '-.1em',
         }}
-      /> Downtime</Wrapper>,
+      /> Downtime & <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> focus capping </Wrapper>,
       description: <Wrapper> Try to reduce the delay between casting spells. If everything is on cooldown, try and use <SpellLink id={SPELLS.COBRA_SHOT.id} /> to stay off the focus cap and do some damage.</Wrapper>,
       requirements: () => {
         return [
@@ -247,6 +249,10 @@ class Checklist extends CoreChecklist {
               }}
             /> Downtime</Wrapper>,
             check: () => this.alwaysBeCasting.suggestionThresholds,
+          }),
+          new Requirement({
+            name: <Wrapper><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Time focus capped</Wrapper>,
+            check: () => this.timeFocusCapped.suggestionThresholds,
           }),
         ];
       },

@@ -9,6 +9,11 @@ import ItemLink from 'common/ItemLink';
 
 export default [
   {
+    date: new Date('2018-04-22'),
+    changes: <Wrapper>Implements the checklist for Survival. Fixes a display bug with <SpellLink id={SPELLS.ASPECT_OF_THE_EAGLE.id} />.</Wrapper>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-04-10'),
     changes: <Wrapper>Adds a <SpellLink id={SPELLS.ASPECT_OF_THE_EAGLE.id} /> module to provide suggestions with poor usage, and also updates <SpellLink id={SPELLS.MOKNATHAL_TACTICS.id} /> module to be more accurate when displaying refreshes.</Wrapper>,
     contributors: [Putro],

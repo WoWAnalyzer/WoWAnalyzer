@@ -31,17 +31,17 @@ class Checklist extends CoreChecklist {
     abilities: Abilities,
     combatants: Combatants,
 
-    //general
+    //preparation rules
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
+    enchantChecker: EnchantChecker,
 
     //features:
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
     timeFocusCapped: TimeFocusCapped,
-    enchantChecker: EnchantChecker,
     aimedInVulnerableTracker: AimedInVulnerableTracker,
     vulnerableUptime: VulnerableUpTime,
 
@@ -59,7 +59,7 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Use core spells as often as possible',
-      description: <Wrapper>Spells such as <SpellLink id={SPELLS.TRUESHOT.id} />, <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> should be used as often as possible (unless nearing execute) and <SpellLink id={SPELLS.WINDBURST.id} />, should be used as often as possible in situations where you need to open <SpellLink id={SPELLS.VULNERABLE.id} /> windows. Any added talents that need activation are generally used on cooldown. <a href="https://www.icy-veins.com/wow/marksmanship-hunter-pve-dps-rotation-cooldowns-abilities" target="_blank" rel="noopener noreferrer">More info.</a></Wrapper>,
+      description: <Wrapper>Spells such as <SpellLink id={SPELLS.TRUESHOT.id} /> and <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> should be used as often as possible (unless nearing execute). <SpellLink id={SPELLS.WINDBURST.id} /> should be used as often as possible in situations where you need to open <SpellLink id={SPELLS.VULNERABLE.id} /> windows. Any added talents that need activation are generally used on cooldown. <a href="https://www.icy-veins.com/wow/marksmanship-hunter-pve-dps-rotation-cooldowns-abilities" target="_blank" rel="noopener noreferrer">More info.</a></Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -180,22 +180,15 @@ class Checklist extends CoreChecklist {
             check: () => this.cancelledCasts.suggestionThresholds,
           }),
           new Requirement({
-            name: <Wrapper><Icon
-              icon='ability_hunter_focusfire'
-              alt='Time focus capped'
-              style={{
-                height: '1.3em',
-                marginTop: '-.1em',
-              }}
-            /> Time focus capped</Wrapper>,
+            name: <Wrapper><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Time focus capped</Wrapper>,
             check: () => this.timeFocusCapped.suggestionThresholds,
           }),
         ];
       },
     }),
     new Rule({
-      name: <Wrapper><SpellLink id={SPELLS.VULNERABLE.id} /> & <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} /> Usage </Wrapper>,
-      description: <Wrapper>Try to limit the amount of casts outside of <SpellLink id={SPELLS.VULNERABLE.id} /> to a minimum. Try to optimise the damage from <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} /> by after opening <SpellLink id={SPELLS.VULNERABLE.id} />, then casting one or two <SpellLink id={SPELLS.ARCANE_SHOT.id} /> or <SpellLink id={SPELLS.MULTISHOT.id} /> to delay your <SpellLink id={SPELLS.AIMED_SHOT.id} /> until later in the <SpellLink id={SPELLS.VULNERABLE.id} /> window. However, remember to not stand around waiting, doing nothing and to not focus cap. These are more important to DPS, than optimising <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} /> is.</Wrapper>,
+      name: <Wrapper><SpellLink id={SPELLS.VULNERABLE.id} /> efficiency </Wrapper>,
+      description: <Wrapper>Try to limit the amount of casts outside of <SpellLink id={SPELLS.VULNERABLE.id} /> to a minimum. If <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} /> is selected, try to optimise the damage from it by casting one or two <SpellLink id={SPELLS.ARCANE_SHOT.id} /> or <SpellLink id={SPELLS.MULTISHOT.id} /> after opening <SpellLink id={SPELLS.VULNERABLE.id} />. This is to delay your <SpellLink id={SPELLS.AIMED_SHOT.id} /> until later in the <SpellLink id={SPELLS.VULNERABLE.id} /> window, increasing the benefit from <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} />. However, remember to not stand around waiting, doing nothing and to not focus cap, as they are more impactful in comparison to optimising <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} /> is.</Wrapper>,
       requirements: () => {
         return [
           new Requirement({
