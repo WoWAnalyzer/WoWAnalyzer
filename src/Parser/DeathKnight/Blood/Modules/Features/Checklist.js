@@ -24,6 +24,7 @@ import MarrowrendUsage from './MarrowrendUsage';
 
 import Ossuary from '../Talents/Ossuary';
 import BoneStorm from '../Talents/Bonestorm';
+import MarkOfBloodUptime from '../Talents/MarkOfBloodUptime';
 
 import RunicPowerDetails from '../RunicPower/RunicPowerDetails';
 import RuneTracker from '../../../Shared/RuneTracker';
@@ -43,6 +44,7 @@ class Checklist extends CoreChecklist {
 
     ossuary: Ossuary,
     bonestorm: BoneStorm,
+    markOfBloodUptime: MarkOfBloodUptime,
 
     crimsonScourge: CrimsonScourge,
     marrowrendUsage: MarrowrendUsage,
@@ -137,6 +139,10 @@ class Checklist extends CoreChecklist {
             check: () => this.bloodplagueUptime.uptimeSuggestionThresholds,
           }),
           new Requirement({
+            name: <Wrapper><SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id}/> Uptime</Wrapper>,
+            check: () => this.markOfBloodUptime.uptimeSuggestionThresholds,
+          }),
+          new Requirement({
             name: <Wrapper><SpellLink id={SPELLS.BONE_SHIELD.id}/> Uptime</Wrapper>,
             check: () => this.boneShield.uptimeSuggestionThresholds,
           }),
@@ -169,10 +175,6 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.RUNE_TAP_TALENT,
             when: this.combatants.selected.hasTalent(SPELLS.RUNE_TAP_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.MARK_OF_BLOOD_TALENT,
-            when: this.combatants.selected.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TOMBSTONE_TALENT,
