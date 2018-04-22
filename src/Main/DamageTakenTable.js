@@ -8,6 +8,7 @@ import { formatNumber } from 'common/format';
 export const MITIGATED_NONE = 0;
 export const MITIGATED_MAGICAL = 1;
 export const MITIGATED_PHYSICAL = 2;
+export const MITIGATED_UNKNOWN = 99;
 
 class DamageTakenTable extends React.Component {
   static propTypes = {
@@ -20,6 +21,7 @@ class DamageTakenTable extends React.Component {
     [MITIGATED_NONE]: "None",
     [MITIGATED_MAGICAL]: "Magical",
     [MITIGATED_PHYSICAL]: "Physical",
+    [MITIGATED_UNKNOWN]: "Unknown",
   };
 
 

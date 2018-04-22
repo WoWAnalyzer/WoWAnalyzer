@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-22'),
+    changes: 'Fixed how the "Damage Taken by Ability" table treats very small hits (notably: Aggramar\'s Sacrifice is now always classified as Physical).',
+    contributors: [emallson],
+  },
+  {
     date: new Date('2018-04-08'),
     changes: 'Updated checklist for brew generation to clarify some common points of confusion.',
     contributors: [emallson],
