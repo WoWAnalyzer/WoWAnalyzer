@@ -41,11 +41,11 @@ class AspectOfTheEagle extends Analyzer {
   }
   get badAspectCastsThreshold() {
     return {
-      actual: this.badAspectCasts,
+      actual: 1 - this.badAspectCastsPercentage,
       isLessThan: {
-        minor: 0.1,
-        average: 0.2,
-        major: 0.3,
+        minor: 0.9,
+        average: 0.8,
+        major: 0.7,
       },
       style: 'percentage',
     };
@@ -55,7 +55,7 @@ class AspectOfTheEagle extends Analyzer {
     when(this.badAspectCastsThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<Wrapper>You cast <SpellLink id={SPELLS.ASPECT_OF_THE_EAGLE.id} /> {this.badAspectCasts} {this.badAspectCasts > 1 ? 'times' : 'time'} without <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> up or with less than {MINIMUM_TIME_REMAINING / 1000} seconds remaining, and thus not utilising the full duration of <SpellLink id={SPELLS.ASPECT_OF_THE_EAGLE.id} /> (and by extension <SpellLink id={SPELLS.ASPECT_OF_THE_SKYLORD_BUFF.id} />) inside a <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> window. </Wrapper>)
         .icon(SPELLS.ASPECT_OF_THE_EAGLE.icon)
-        .actual(`${formatPercentage(actual)}% of casts were bad`)
+        .actual(`${formatPercentage(actual)}% of casts were good`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
   }
