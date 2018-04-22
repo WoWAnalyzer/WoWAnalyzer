@@ -3,16 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import PremiumIcon from 'Icons/Premium';
+import GitHubIcon from 'Icons/GitHubMarkSmall';
+
 import { getFightId, getPlayerName } from 'selectors/url/report';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import { getReportProgress } from 'selectors/reportProgress';
 
-import GithubLogo from '../Images/GitHub-Mark-Light-32px.png';
-
-import FightSelectorHeader from '../Report/FightSelectorHeader';
-import PlayerSelectorHeader from '../Report/PlayerSelectorHeader';
 import makeAnalyzerUrl from '../makeAnalyzerUrl';
+import FightSelectorHeader from './FightSelectorHeader';
+import PlayerSelectorHeader from './PlayerSelectorHeader';
+import './NavigationBar.css';
 
 class NavigationBar extends React.PureComponent {
   static propTypes = {
@@ -48,9 +50,14 @@ class NavigationBar extends React.PureComponent {
             <PlayerSelectorHeader className="menu-item" />
           )}
           <div className="spacer" />
+          <div className="menu-item main left-line">
+            <Link to="/login" className="premium">
+              <PremiumIcon /> <span className="optional" style={{ paddingLeft: 6 }}>Premium</span>
+            </Link>
+          </div>
           <div className="menu-item main">
             <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
-              <img src={GithubLogo} alt="GitHub logo" /><span className="optional" style={{ paddingLeft: 6 }}> View on GitHub</span>
+              <GitHubIcon /> <span className="optional" style={{ paddingLeft: 6 }}> View on GitHub</span>
             </a>
           </div>
         </div>
