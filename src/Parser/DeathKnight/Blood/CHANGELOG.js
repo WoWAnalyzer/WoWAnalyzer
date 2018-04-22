@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-22'),
+    changes: <Wrapper>Added proper tracking of <SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id} /> and fixed errors associated with it.</Wrapper>,
+    contributors: [Yajinni],
+  },
+  {
     date: new Date('2018-03-24'),
     changes: <Wrapper>Check for bad casts during <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> and intital <SpellLink id={SPELLS.MARROWREND.id} /> cast without <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} />.</Wrapper>,
     contributors: [joshinator],
