@@ -69,7 +69,7 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Use core spells as often as possible',
-      description: <Wrapper>Spells such as <SpellLink id={SPELLS.FLANKING_STRIKE.id} /> should be used as often as possible.</Wrapper>,
+      description: <Wrapper>Spells such as <SpellLink id={SPELLS.FLANKING_STRIKE.id} /> should be used as often as possible. You'll also want to be using cooldowns such as <SpellLink id={SPELLS.SPITTING_COBRA_TALENT.id} /> and <SpellLink id={SPELLS.ASPECT_OF_THE_EAGLE.id} /> as often as possible (whilst still hitting them at opportune moments). <a href="https://www.icy-veins.com/wow/survival-hunter-pve-dps-rotation-cooldowns-abilities" target="_blank" rel="noopener noreferrer">More info.</a></Wrapper>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -117,14 +117,6 @@ class Checklist extends CoreChecklist {
             spell: SPELLS.ASPECT_OF_THE_EAGLE,
             onlyWithSuggestion: false,
           }),
-        ];
-      },
-    }),
-    new Rule({
-      name: 'General spell efficiency',
-      description: 'big memes',
-      requirements: () => {
-        return [
           new Requirement({
             name: <Wrapper>Good <SpellLink id={SPELLS.ASPECT_OF_THE_EAGLE.id} /> casts</Wrapper>,
             check: () => this.aspectOfTheEagle.badAspectCastsThreshold,
