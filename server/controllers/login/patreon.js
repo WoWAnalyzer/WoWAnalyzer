@@ -39,9 +39,16 @@ Passport.use(new PatreonStrategy({
 ));
 
 router.get('/', Passport.authenticate('patreon'));
-router.get('/callback', Passport.authenticate('patreon', { successRedirect: '/', failureRedirect: '/patreon' }), function (req, res) {
-  res.setHeader('Content-Type', 'application/json; charset=utf-8');
-  res.send(JSON.stringify(req.user));
-});
+router.get(
+  '/callback',
+  Passport.authenticate('patreon', {
+    successRedirect: '/login',
+    failureRedirect: '/login',
+  }),
+  function (req, res) {
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.send(JSON.stringify(req.user));
+  }
+);
 
 export default router;
