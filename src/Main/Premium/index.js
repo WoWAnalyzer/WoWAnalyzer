@@ -91,7 +91,7 @@ class Premium extends React.PureComponent {
                   <li>our thanks.</li>
                 </ul><br />
 
-                Doesn't that sound awesome?! You too can get premium by helping out development, either by helping fund development on Patreon or by contributing code via a pull request on GitHub.<br /><br />
+                Doesn't that sound awesome?! You too can get premium by helping out development, either by helping fund development on Patreon or by contributing something via a pull request on GitHub.<br /><br />
 
                 <PatreonButton /> <GithubButton />
               </div>
