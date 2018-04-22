@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
+import './ReportSelecter.css';
+
 class ReportSelecter extends React.PureComponent {
   static propTypes = {
     push: PropTypes.func.isRequired,

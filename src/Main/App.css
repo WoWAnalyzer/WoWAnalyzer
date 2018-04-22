@@ -97,109 +97,7 @@ ul {
   font-weight: 600;
 }
 
-.app > header {
-  background-image: url(./Images/header.jpg);  /* Created and property of Blizzard Entertainment. source: https://worldofwarcraft.com/en-us/ */
-  background-size: cover;
-  background-position: center center;
-  margin-top: 0px;
-  min-height: 400px;
-  padding-bottom: 67px; /* so that the divider in `after` doesn't overlap content */
-  position: relative;
-  margin-bottom: 90px;
-  transition: all 600ms;
-  opacity: 1;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), 0 0 0 5px rgba(0, 0, 0, 0.5);
-}
-.app > header:after {
-  content: '';
-  background: url(./Images/section-divider-sprite.png) no-repeat; /* Created by and property of Blizzard Entertainment. source: http://eu.battle.net/wow/en/legion/ */
-  background-size: auto 200%;
-  background-position: 50% 0;
-  position: absolute;
-  bottom: -67px;
-  left: 0;
-  right: 0;
-  height: 134px;
-  z-index: 200;
-  pointer-events: none;
-}
-.app:not(.show-report-selecter) > header {
-  margin-top: -410px;
-  margin-bottom: 90px;
-  opacity: 0;
-  pointer-events: none;
-}
-.app > header .image-overlay {
-  padding-top: 100px;
-}
-@media (max-width: 600px) {
-  .app > header .image-overlay {
-    padding-top: 60px;
-  }
-  .app > header .image-overlay h1 {
-    font-size: 3em;
-  }
-}
-.app > header .image-overlay h1 {
-  font-size: 4em;
-}
-.app > header .image-overlay .description {
-  font-size: 1.4em;
-  margin-bottom: 20px;
-}
-.app > header .image-overlay .report-selector {
-  margin-bottom: 10px;
-}
-.app > header .image-overlay .about {
-  font-size: 0.8em;
-}
-@media (max-width: 400px) {
-  .app > header .image-overlay {
-    padding-top: 40px;
-  }
-}
-
-.panel.image-overlay {
-  padding-top: 70px;
-  background-size: cover;
-  background-position: center center;
-}
-.image-overlay h1 {
-  font-size: 3em;
-  font-weight: 700;
-  margin-bottom: 20px;
-  text-shadow: 0 0 1px transparent, 0 0 5px rgba(0,0,0,.8);
-  letter-spacing: 1px;
-}
-.image-overlay .description {
-  font-size: 1.2em;
-  color: #ebdec2;
-  text-shadow: 0 0 2px #000;
-}
-
-.report-selector {
-  display: flex;
-}
-.report-selector .form-control {
-  flex: 1;
-}
-.report-selector .btn {
-  flex: 0;
-  margin-left: 10px;
-}
-@media (min-width: 0px) {
-  .form-inline .form-control {
-    display: inline-block;
-    width: auto;
-    vertical-align: middle;
-  }
-}
-
 /* Components */
-.completeness {
-  font-weight: 600;
-}
-
 .panel {
   width: 100%;
   margin-bottom: 20px;
@@ -232,6 +130,26 @@ ul {
 }
 .panel > .panel-body {
   padding: 15px 22px;
+}
+
+.image-background {
+  background-size: cover;
+  background-position: center center;
+}
+.image-background h1, .app > header .image-overlay h1 {
+  font-size: 3em;
+  font-weight: 700;
+  margin-bottom: 0.35em;
+  text-shadow: 0 0 1px transparent, 0 0 5px rgba(0,0,0,.8);
+  letter-spacing: 1px;
+}
+.image-background .description, .app > header .image-overlay .description {
+  font-size: 1.2em;
+  color: #ebdec2;
+  text-shadow: 0 0 2px #000;
+}
+.panel.image-background {
+  padding-top: 70px;
 }
 
 .statistic-expansion {
