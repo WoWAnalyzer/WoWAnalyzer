@@ -2,7 +2,6 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS/OTHERS';
-import Wrapper from 'common/Wrapper';
 import CoreCarafeOfSearingLight from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/CarafeOfSearingLight';
 import ItemHealingDone from 'Main/ItemHealingDone';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -47,11 +46,11 @@ class CarafeOfSearingLight extends CoreCarafeOfSearingLight {
     return {
       item: ITEMS.CARAFE_OF_SEARING_LIGHT,
       result: (
-        <Wrapper>
+        <React.Fragment>
           <ItemDamageDone amount={damage} /><br/>
           <ItemHealingDone amount={healing} /><br />
           <ItemManaGained amount={manaGained} />
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

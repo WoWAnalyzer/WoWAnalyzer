@@ -1,5 +1,4 @@
 import React from 'react';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -76,7 +75,7 @@ class FeastOnTheSouls extends Analyzer {
 			<StatisticBox
 				icon={<SpellIcon id={SPELLS.FEAST_ON_THE_SOULS.id}/>}
 				value={`${formatNumber(this.totalCooldownReduction / 1000)} seconds`}
-				label={<Wrapper>Cooldown Reduction on <SpellLink id={SPELLS.EYE_BEAM.id} icon/></Wrapper>}
+				label={<React.Fragment>Cooldown Reduction on <SpellLink id={SPELLS.EYE_BEAM.id} icon/></React.Fragment>}
 				tooltip={`You wasted ${formatNumber(this.totalCooldownReductionWasted / 1000)} seconds of cooldown reduction`}
 			/>
 		);

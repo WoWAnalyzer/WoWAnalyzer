@@ -6,7 +6,6 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 const PERCENT_OVERCAP_ALLOWED = 0.1;
@@ -97,7 +96,7 @@ class Empowerment extends Analyzer {
   
   suggestions(when) {
     when(this.suggestionThresholdsInverted).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You overcapped {this.wasted} {this.empowermentPrefix} Empowerments when you could have spent them without overcapping Astral Power. Try to prioritize casting {this.empoweredSpell.name} over Starsurge when not near max Astral Power and at 3 stacks of {this.empowermentPrefix} Empowerment.</Wrapper>)
+      return suggest(<React.Fragment>You overcapped {this.wasted} {this.empowermentPrefix} Empowerments when you could have spent them without overcapping Astral Power. Try to prioritize casting {this.empoweredSpell.name} over Starsurge when not near max Astral Power and at 3 stacks of {this.empowermentPrefix} Empowerment.</React.Fragment>)
         .icon(this.icon)
         .actual(`${formatPercentage(actual)}% overcapped ${this.empowermentPrefix} Empowerments`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`);

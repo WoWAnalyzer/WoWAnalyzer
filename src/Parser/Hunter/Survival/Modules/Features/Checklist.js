@@ -9,7 +9,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import LegendaryUpgradeChecker from 'Parser/Core/Modules/Items/LegendaryUpgradeChecker';
 import PrePotion from 'Parser/Core/Modules/Items/PrePotion';
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Icon from "common/Icon";
@@ -69,7 +68,7 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Use core spells as often as possible',
-      description: <Wrapper>Spells such as <SpellLink id={SPELLS.FLANKING_STRIKE.id} /> should be used as often as possible. You'll also want to be using cooldowns such as <SpellLink id={SPELLS.SPITTING_COBRA_TALENT.id} /> and <SpellLink id={SPELLS.ASPECT_OF_THE_EAGLE.id} /> as often as possible (whilst still hitting them at opportune moments). <a href="https://www.icy-veins.com/wow/survival-hunter-pve-dps-rotation-cooldowns-abilities" target="_blank" rel="noopener noreferrer">More info.</a></Wrapper>,
+      description: <React.Fragment>Spells such as <SpellLink id={SPELLS.FLANKING_STRIKE.id} /> should be used as often as possible. You'll also want to be using cooldowns such as <SpellLink id={SPELLS.SPITTING_COBRA_TALENT.id} /> and <SpellLink id={SPELLS.ASPECT_OF_THE_EAGLE.id} /> as often as possible (whilst still hitting them at opportune moments). <a href="https://www.icy-veins.com/wow/survival-hunter-pve-dps-rotation-cooldowns-abilities" target="_blank" rel="noopener noreferrer">More info.</a></React.Fragment>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -118,15 +117,15 @@ class Checklist extends CoreChecklist {
             onlyWithSuggestion: false,
           }),
           new Requirement({
-            name: <Wrapper>Good <SpellLink id={SPELLS.ASPECT_OF_THE_EAGLE.id} /> casts</Wrapper>,
+            name: <React.Fragment>Good <SpellLink id={SPELLS.ASPECT_OF_THE_EAGLE.id} /> casts</React.Fragment>,
             check: () => this.aspectOfTheEagle.badAspectCastsThreshold,
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.LACERATE.id} /> uptime</Wrapper>,
+            name: <React.Fragment><SpellLink id={SPELLS.LACERATE.id} /> uptime</React.Fragment>,
             check: () => this.lacerate.uptimeThreshold,
           }),
           new Requirement({
-            name: <Wrapper>Bad refreshes of <SpellLink id={SPELLS.LACERATE.id} /></Wrapper>,
+            name: <React.Fragment>Bad refreshes of <SpellLink id={SPELLS.LACERATE.id} /></React.Fragment>,
             check: () => this.lacerate.refreshingThreshold,
           }),
         ];
@@ -139,27 +138,27 @@ class Checklist extends CoreChecklist {
         const combatant = this.combatants.selected;
         return [
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.CALTROPS_TALENT.id} /> uptime</Wrapper>,
+            name: <React.Fragment><SpellLink id={SPELLS.CALTROPS_TALENT.id} /> uptime</React.Fragment>,
             when: combatant.hasTalent(SPELLS.CALTROPS_TALENT.id),
             check: () => this.caltrops.uptimeThreshold,
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.BUTCHERY_TALENT.id} /> efficiency</Wrapper>,
+            name: <React.Fragment><SpellLink id={SPELLS.BUTCHERY_TALENT.id} /> efficiency</React.Fragment>,
             when: combatant.hasTalent(SPELLS.BUTCHERY_TALENT.id),
             check: () => this.butcheryCarve.averageTargetsThreshold,
           }),
           new Requirement({
-            name: <Wrapper>Times<SpellLink id={SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.id} /> dropped</Wrapper>,
+            name: <React.Fragment>Times<SpellLink id={SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.id} /> dropped</React.Fragment>,
             when: combatant.hasTalent(SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.id),
             check: () => this.wayOfTheMokNathal.timesDroppedThreshold,
           }),
           new Requirement({
-            name: <Wrapper>Unused <ItemLink id={ITEMS.BUTCHERS_BONE_APRON.id} /> stacks</Wrapper>,
+            name: <React.Fragment>Unused <ItemLink id={ITEMS.BUTCHERS_BONE_APRON.id} /> stacks</React.Fragment>,
             when: combatant.hasChest(ITEMS.BUTCHERS_BONE_APRON.id),
             check: () => this.butchersBoneApron.unusedStacksThreshold,
           }),
           new Requirement({
-            name: <Wrapper>Capped <ItemLink id={ITEMS.BUTCHERS_BONE_APRON.id} /> stacks</Wrapper>,
+            name: <React.Fragment>Capped <ItemLink id={ITEMS.BUTCHERS_BONE_APRON.id} /> stacks</React.Fragment>,
             when: combatant.hasChest(ITEMS.BUTCHERS_BONE_APRON.id),
             check: () => this.butchersBoneApron.cappedStacksThreshold,
           }),
@@ -167,30 +166,30 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <Wrapper><Icon
+      name: <React.Fragment><Icon
         icon='spell_mage_altertime'
         alt='Casting downtime'
         style={{
           height: '1.3em',
           marginTop: '-.1em',
         }}
-      /> Downtime & <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> focus capping </Wrapper>,
-      description: <Wrapper> Try to reduce the delay between casting spells. If everything is on cooldown, try and use <SpellLink id={SPELLS.RAPTOR_STRIKE.id} /> to stay off the focus cap and do some damage.</Wrapper>,
+      /> Downtime & <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> focus capping </React.Fragment>,
+      description: <React.Fragment> Try to reduce the delay between casting spells. If everything is on cooldown, try and use <SpellLink id={SPELLS.RAPTOR_STRIKE.id} /> to stay off the focus cap and do some damage.</React.Fragment>,
       requirements: () => {
         return [
           new Requirement({
-            name: <Wrapper><Icon
+            name: <React.Fragment><Icon
               icon='spell_mage_altertime'
               alt='Casting downtime'
               style={{
                 height: '1.3em',
                 marginTop: '-.1em',
               }}
-            /> Downtime</Wrapper>,
+            /> Downtime</React.Fragment>,
             check: () => this.alwaysBeCasting.suggestionThresholds,
           }),
           new Requirement({
-            name: <Wrapper><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Time focus capped</Wrapper>,
+            name: <React.Fragment><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Time focus capped</React.Fragment>,
             check: () => this.timeFocusCapped.suggestionThresholds,
           }),
         ];

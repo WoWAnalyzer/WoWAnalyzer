@@ -2,7 +2,6 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 
@@ -32,7 +31,7 @@ class StellarFlare extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).isFalse().addSuggestion((suggest) => {
-      return suggest(<Wrapper>It is recommended that you always use <ItemLink id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} /> when using <SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} />.</Wrapper>)
+      return suggest(<React.Fragment>It is recommended that you always use <ItemLink id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} /> when using <SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} />.</React.Fragment>)
         .icon(SPELLS.STELLAR_FLARE_TALENT.icon)
         .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
     });

@@ -3,7 +3,6 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Wrapper from 'common/Wrapper';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatNumber, formatPercentage } from 'common/format';
 import Abilities from 'Parser/Core/Modules/Abilities';
@@ -68,12 +67,12 @@ class SmolderingTitanguard extends Analyzer {
     return {
       item: ITEMS.SMOLDERING_TITANGUARD,
       result: (
-        <Wrapper>
+        <React.Fragment>
           <ItemDamageDone amount={this.damage} /><br/>
           <dfn data-tip={`You wasted ${formatPercentage(this.overhealing / (this.overhealing + this.healing))}% (${formatNumber(this.overhealing)}) of the total possible absorb.`}>
             <ItemHealingDone amount={this.healing} />
           </dfn>
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

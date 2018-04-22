@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { WOPR, emallson } from 'CONTRIBUTORS';
-import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import SPELLS from 'common/SPELLS';
@@ -25,7 +24,7 @@ export default [
   },
   {
     date: new Date('2018-03-19'),
-    changes: <Wrapper>Converted <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> from uptime to hit tracking and updated hit tracking for <SpellLink id={SPELLS.IRONSKIN_BREW.id} />.</Wrapper>,
+    changes: <React.Fragment>Converted <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> from uptime to hit tracking and updated hit tracking for <SpellLink id={SPELLS.IRONSKIN_BREW.id} />.</React.Fragment>,
     contributors: [emallson],
   },
   {
@@ -35,7 +34,7 @@ export default [
   },
   {
     date: new Date('2018-01-27'),
-    changes: <Wrapper>Added statistic for <SpellLink id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} /> effectiveness</Wrapper>,
+    changes: <React.Fragment>Added statistic for <SpellLink id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} /> effectiveness</React.Fragment>,
     contributors: [emallson],
   },
   {
@@ -50,7 +49,7 @@ export default [
   },
   {
     date: new Date('2018-01-12'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.PURIFYING_BREW.id} /> statistic.</Wrapper>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.PURIFYING_BREW.id} /> statistic.</React.Fragment>,
     contributors: [emallson],
   },
   {
@@ -60,22 +59,22 @@ export default [
   },
   {
     date: new Date('2017-12-30'),
-    changes: <Wrapper>Added stats for <ItemLink id={ITEMS.STORMSTOUTS_LAST_GASP.id} /> and <ItemLink id={ITEMS.SALSALABIMS_LOST_TUNIC.id} />; updated the <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> suggestion and checklist item.</Wrapper>,
+    changes: <React.Fragment>Added stats for <ItemLink id={ITEMS.STORMSTOUTS_LAST_GASP.id} /> and <ItemLink id={ITEMS.SALSALABIMS_LOST_TUNIC.id} />; updated the <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> suggestion and checklist item.</React.Fragment>,
     contributors: [emallson],
   },
   {
     date: new Date('2017-12-29'),
-    changes: <Wrapper>Changed <SpellLink id={SPELLS.RUSHING_JADE_WIND_TALENT.id} /> suggestion from cast efficiency to uptime.</Wrapper>,
+    changes: <React.Fragment>Changed <SpellLink id={SPELLS.RUSHING_JADE_WIND_TALENT.id} /> suggestion from cast efficiency to uptime.</React.Fragment>,
     contributors: [emallson],
   },
   {
     date: new Date('2017-12-24'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.IRONSKIN_BREW_BUFF.id} /> uptime and clipping checklist items.</Wrapper>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.IRONSKIN_BREW_BUFF.id} /> uptime and clipping checklist items.</React.Fragment>,
     contributors: [emallson],
   },
   {
     date: new Date('2017-08-24'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.BLACKOUT_COMBO_BUFF.id} /> statistic.</Wrapper>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.BLACKOUT_COMBO_BUFF.id} /> statistic.</React.Fragment>,
     contributors: [WOPR],
   },
   {
@@ -90,7 +89,7 @@ export default [
   },
   {
     date: new Date('2017-08-20'),
-    changes: <Wrapper>Added more information about what occured while <SpellLink id={SPELLS.IRONSKIN_BREW_BUFF.id} /> was up or not.</Wrapper>,
+    changes: <React.Fragment>Added more information about what occured while <SpellLink id={SPELLS.IRONSKIN_BREW_BUFF.id} /> was up or not.</React.Fragment>,
     contributors: [WOPR],
   },
   {

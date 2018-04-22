@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
@@ -74,13 +73,13 @@ class TyelcaFerrenMarcussStature extends Analyzer {
 		return {
 			item: ITEMS.TYELCA_FERREN_MARCUSS_STATURE,
 			result: (
-				<Wrapper>
+				<React.Fragment>
 					<ItemDamageDone amount={this.damageDone} />
 					<br/>
 					<dfn data-tip={`The healing is attributed from the extra sheild from the Bulwark of Order trait <br/> ${healingText}`}>
 						{tyelcaHealing}
 					</dfn>
-				</Wrapper>
+				</React.Fragment>
 			),
 		};
 	}

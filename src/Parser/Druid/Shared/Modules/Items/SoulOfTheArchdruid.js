@@ -2,7 +2,6 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import SPECS from 'common/SPECS';
@@ -52,7 +51,7 @@ class SoulOfTheArchdruid extends Analyzer {
   item() {
     return {
       item: ITEMS.SOUL_OF_THE_ARCHDRUID,
-      result: <Wrapper>This gave you <SpellLink id={this.talentGained} />.</Wrapper>,
+      result: <React.Fragment>This gave you <SpellLink id={this.talentGained} />.</React.Fragment>,
     };
   }
 
@@ -67,7 +66,7 @@ class SoulOfTheArchdruid extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).isFalse().addSuggestion((suggest) => {
-      return suggest(<Wrapper>When using <ItemLink id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} /> please make sure to pick another talent in the talent row. Your choices are <SpellLink id={this.option1} /> or <SpellLink id={this.option2} />.</Wrapper>)
+      return suggest(<React.Fragment>When using <ItemLink id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} /> please make sure to pick another talent in the talent row. Your choices are <SpellLink id={this.option1} /> or <SpellLink id={this.option2} />.</React.Fragment>)
         .icon(ITEMS.SOUL_OF_THE_ARCHDRUID.icon)
         .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
     });

@@ -2,7 +2,6 @@ import React  from 'react';
 
 import ScrollFilledIcon from 'Icons/ScrollFilled';
 import MegaphoneIcon from 'Icons/Megaphone';
-import Wrapper from 'common/Wrapper';
 
 import DiscordButton from './DiscordButton';
 import ChangelogPanel from './ChangelogPanel';
@@ -47,7 +46,7 @@ class Home extends React.PureComponent {
     }
 
     return (
-      <Wrapper>
+      <React.Fragment>
         <section>
           <div className="container">
             <header>
@@ -101,7 +100,7 @@ class Home extends React.PureComponent {
         </section>
 
         {this.state.thirdFrame && (
-          <Wrapper>
+          <React.Fragment>
             <SpecListing />
 
             <section>
@@ -121,9 +120,9 @@ class Home extends React.PureComponent {
                 </div>
               </div>
             </section>
-          </Wrapper>
+          </React.Fragment>
         )}
-      </Wrapper>
+      </React.Fragment>
     );
   }
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
@@ -54,14 +53,14 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       // The name of the Rule as you want it to appear in the Checklist.
-      // You can also make this a React node if you want to use `SpellLink` or other JSX (HTML), in that case wrap the contents with the <Wrapper> component.
+      // You can also make this a React node if you want to use `SpellLink` or other JSX (HTML), in that case wrap the contents with the <React.Fragment> component.
       name: 'Use core abilities as often as possible',
       // The description that is shown when the Rule is expanded.
       // Avoid making too many things a URL. Including a link to a guide that goes into further detail is recommended.
       description: (
-        <Wrapper>
+        <React.Fragment>
           Spells such as <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />, <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> (with <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} />) are your most efficient spells available. Try to cast them as much as possible without overhealing. <dfn data-tip="When you're not bringing too many healers.">On Mythic*</dfn> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection. <a href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
-        </Wrapper>
+        </React.Fragment>
       ),
       // The list of requirements for the Rule. Since it's a method you can run any code in here you want, but please try to keep is as simple as possible.
       requirements: () => {
@@ -88,7 +87,7 @@ class Checklist extends CoreChecklist {
             spell: SPELLS.HOLY_PRISM_TALENT,
           }),
           new Requirement({
-            name: <Wrapper>Total filler <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />s cast while<br /><SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was available</Wrapper>,
+            name: <React.Fragment>Total filler <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />s cast while<br /><SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was available</React.Fragment>,
             check: () => this.fillerFlashOfLight.suggestionThresholds,
           }),
         ];
@@ -96,7 +95,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use cooldowns effectively',
-      description: <Wrapper>Your cooldowns are an important contributor to your healing throughput. Try to get in as many efficient casts as the fight allows. <a href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list" target="_blank" rel="noopener noreferrer">More info.</a></Wrapper>,
+      description: <React.Fragment>Your cooldowns are an important contributor to your healing throughput. Try to get in as many efficient casts as the fight allows. <a href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list" target="_blank" rel="noopener noreferrer">More info.</a></React.Fragment>,
       requirements: () => {
         return [
           new GenericCastEfficiencyRequirement({
@@ -152,8 +151,8 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <Wrapper>Position yourself well to maximize <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} /></Wrapper>,
-      description: <Wrapper><SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} /> has a big impact on the strength of your heals. Try to stay close to the people you are healing to benefit the most from your Mastery. Use <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> when healing people further away.</Wrapper>,
+      name: <React.Fragment>Position yourself well to maximize <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} /></React.Fragment>,
+      description: <React.Fragment><SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} /> has a big impact on the strength of your heals. Try to stay close to the people you are healing to benefit the most from your Mastery. Use <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> when healing people further away.</React.Fragment>,
       requirements: () => {
         return [
           new Requirement({
@@ -166,9 +165,9 @@ class Checklist extends CoreChecklist {
     new Rule({
       name: 'Try to avoid being inactive for a large portion of the fight',
       description: (
-        <Wrapper>
+        <React.Fragment>
           While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and <dfn data-tip="While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else.">when you're not healing try to contribute some damage*</dfn>.
-        </Wrapper>
+        </React.Fragment>
       ),
       requirements: () => {
         return [
@@ -196,8 +195,8 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <Wrapper>Only use <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when absolutely necessary</Wrapper>,
-      description: <Wrapper><SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> is an inefficient spell to cast compared to the alternatives. Try to only cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when it will save someone's life or when you have to move and all other instant cast spells are on cooldown.</Wrapper>,
+      name: <React.Fragment>Only use <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when absolutely necessary</React.Fragment>,
+      description: <React.Fragment><SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> is an inefficient spell to cast compared to the alternatives. Try to only cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when it will save someone's life or when you have to move and all other instant cast spells are on cooldown.</React.Fragment>,
       requirements: () => {
         return [
           new Requirement({
@@ -205,7 +204,7 @@ class Checklist extends CoreChecklist {
             check: () => this.fillerLightOfTheMartyrs.cpmSuggestionThresholds,
           }),
           new Requirement({
-            name: <Wrapper>Total filler casts while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was available</Wrapper>,
+            name: <React.Fragment>Total filler casts while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was available</React.Fragment>,
             check: () => this.fillerLightOfTheMartyrs.inefficientCpmSuggestionThresholds,
           }),
         ];

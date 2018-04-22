@@ -1,7 +1,6 @@
 import React from 'react';
 
 import ItemLink from 'common/ItemLink';
-import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -82,9 +81,9 @@ class EnchantChecker extends Analyzer {
         when(hasEnchant).isFalse()
           .addSuggestion((suggest, actual, recommended) => {
             return suggest(
-              <Wrapper>
+              <React.Fragment>
                 Your <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>{slotName}</ItemLink> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-              </Wrapper>
+              </React.Fragment>
             )
               .icon(item.icon)
               .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
@@ -94,9 +93,9 @@ class EnchantChecker extends Analyzer {
         when(noMaxEnchant).isTrue()
           .addSuggestion((suggest, actual, recommended) => {
             return suggest(
-              <Wrapper>
+              <React.Fragment>
                 Your <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>{slotName}</ItemLink> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-              </Wrapper>
+              </React.Fragment>
             )
               .icon(item.icon)
               .staticImportance(SUGGESTION_IMPORTANCE.MINOR);

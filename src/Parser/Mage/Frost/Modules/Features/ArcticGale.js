@@ -1,5 +1,4 @@
 import React from 'react';
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -57,7 +56,7 @@ class ArcticGale extends Analyzer {
   // TODO suggest when Arctic Gale damage is very low but non-zero?
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion(suggest => {
-      return suggest(<Wrapper>You took <SpellLink id={SPELLS.ARCTIC_GALE_TALENT.id} /> but never used <SpellLink id={SPELLS.BLIZZARD.id} />. Consider taking a different talent.</Wrapper>)
+      return suggest(<React.Fragment>You took <SpellLink id={SPELLS.ARCTIC_GALE_TALENT.id} /> but never used <SpellLink id={SPELLS.BLIZZARD.id} />. Consider taking a different talent.</React.Fragment>)
         .icon(SPELLS.ARCTIC_GALE_TALENT.icon);
     });
   }

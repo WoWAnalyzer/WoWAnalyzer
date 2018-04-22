@@ -4,7 +4,6 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Wrapper from 'common/Wrapper';
 
 // the buff events all use this spell
 export const RUSHING_JADE_WIND_BUFF = SPELLS.RUSHING_JADE_WIND_TALENT; 
@@ -43,7 +42,7 @@ class RushingJadeWind extends Analyzer {
   suggestions(when) {
     when(this.uptimeThreshold)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>You had low uptime on <SpellLink id={SPELLS.RUSHING_JADE_WIND.id} />. Try to maintain 100% uptime by refreshing the buff before it drops.</Wrapper>)
+        return suggest(<React.Fragment>You had low uptime on <SpellLink id={SPELLS.RUSHING_JADE_WIND.id} />. Try to maintain 100% uptime by refreshing the buff before it drops.</React.Fragment>)
           .icon(SPELLS.RUSHING_JADE_WIND.icon)
           .actual(`${formatPercentage(actual)}% uptime`)
           .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`);

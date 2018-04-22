@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import * as contributors from 'CONTRIBUTORS';
 import CoreChangelog from 'CHANGELOG';
 import SPECS from 'common/SPECS';
-import Wrapper from 'common/Wrapper';
 import SpecIcon from 'common/SpecIcon';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 
@@ -54,18 +53,18 @@ class ContributorDetails extends React.PureComponent {
   contributionHeader(spec) {
     if (spec === '0') {
       return (
-        <Wrapper>
+        <React.Fragment>
           <img src="/favicon.png" style={{ height: '2em', width: '2em', marginRight: 10 }} alt="Core" />
           Core
-        </Wrapper>
+        </React.Fragment>
       );
     }
 
     return (
-      <Wrapper>
+      <React.Fragment>
         <SpecIcon id={Number(spec)} style={{ height: '2em', width: '2em', marginRight: 10 }} />
         {SPECS[spec].specName} {SPECS[spec].className}
-      </Wrapper>
+      </React.Fragment>
     );
   }
 

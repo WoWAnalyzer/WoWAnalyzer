@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -34,11 +33,11 @@ class T21_4set extends Analyzer {
       icon: <SpellIcon id={SPELLS.WARLOCK_DESTRO_T21_4P_BONUS.id} />,
       title: <SpellLink id={SPELLS.WARLOCK_DESTRO_T21_4P_BONUS.id} icon={false} />,
       result: (
-        <Wrapper>
+        <React.Fragment>
           <dfn data-tip={`Total bonus damage - ${formatNumber(this.damage)}`}>
             <ItemDamageDone amount={this.damage} />
           </dfn>
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

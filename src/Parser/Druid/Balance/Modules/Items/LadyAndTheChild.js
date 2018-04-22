@@ -5,7 +5,6 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Wrapper from 'common/Wrapper';
 
 class LadyAndTheChild extends Analyzer {
   static dependencies = {
@@ -41,7 +40,7 @@ class LadyAndTheChild extends Analyzer {
       item: ITEMS.LADY_AND_THE_CHILD,
       result: (
         <dfn data-tip={`You hit ${this.moonfireHits} times with ${this.moonfireCasts} casts.`}>
-          <Wrapper>{formatPercentage(this.percentTwoHits)}% of your <SpellLink id={SPELLS.MOONFIRE_BEAR.id}/> casts hit two targets.</Wrapper>
+          <React.Fragment>{formatPercentage(this.percentTwoHits)}% of your <SpellLink id={SPELLS.MOONFIRE_BEAR.id}/> casts hit two targets.</React.Fragment>
         </dfn>
       ),
     };

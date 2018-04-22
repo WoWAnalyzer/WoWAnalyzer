@@ -7,7 +7,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import StatisticBox from 'Main/StatisticBox';
-import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS/HUNTER';
 import Hellcarver from 'Parser/Hunter/Survival/Modules/Traits/Hellcarver';
@@ -65,7 +64,7 @@ class ButcheryCarve extends Analyzer {
   suggestions(when) {
     const spellLink = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
     when(this.averageTargetsThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Your <SpellLink id={spellLink.id} /> hit a low amount of targets on average throughout this encounter. Try and position yourself so that you'll hit as many targets as possible with <SpellLink id={spellLink.id} />. <strong>Note:</strong> that when using <ItemLink id={ITEMS.BUTCHERS_BONE_APRON.id} /> it can be worth using <SpellLink id={spellLink.id} /> on single-target when at 10 stacks, however it's generally recommended to use a different legendary if possible for largely single-target fights.</Wrapper>)
+      return suggest(<React.Fragment>Your <SpellLink id={spellLink.id} /> hit a low amount of targets on average throughout this encounter. Try and position yourself so that you'll hit as many targets as possible with <SpellLink id={spellLink.id} />. <strong>Note:</strong> that when using <ItemLink id={ITEMS.BUTCHERS_BONE_APRON.id} /> it can be worth using <SpellLink id={spellLink.id} /> on single-target when at 10 stacks, however it's generally recommended to use a different legendary if possible for largely single-target fights.</React.Fragment>)
         .icon(spellLink.icon)
         .actual(`${this.averageTargetsHit} targets hit on average`)
         .recommended(`>${recommended} targets hit on average is recommended`);

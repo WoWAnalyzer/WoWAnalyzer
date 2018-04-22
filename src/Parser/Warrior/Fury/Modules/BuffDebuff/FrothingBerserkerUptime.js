@@ -8,7 +8,6 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Wrapper from 'common/Wrapper';
 
 class FrothingBerserkerUptime extends Analyzer {
   static dependencies = {
@@ -45,7 +44,7 @@ class FrothingBerserkerUptime extends Analyzer {
 
     when(this.frothingBerserkerUptime).isLessThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your <SpellLink id={SPELLS.FROTHING_BERSERKER.id} /> uptime can be improved.</Wrapper>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.FROTHING_BERSERKER.id} /> uptime can be improved.</React.Fragment>)
           .icon(SPELLS.FROTHING_BERSERKER.icon)
           .actual(`${formatPercentage(actual)}% Frothing Berserker uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)

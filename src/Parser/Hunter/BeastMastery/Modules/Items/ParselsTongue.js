@@ -11,7 +11,6 @@ import SpellLink from 'common/SpellLink';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import ItemHealingDone from 'Main/ItemHealingDone';
 import ItemDamageDone from 'Main/ItemDamageDone';
-import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import StatisticBox from 'Main/StatisticBox';
 import ItemIcon from 'common/ItemIcon';
@@ -167,13 +166,13 @@ class ParselsTongue extends Analyzer {
   }
   suggestions(when) {
     when(this.timesDroppedThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You lost <SpellLink id={SPELLS.PARSELS_TONGUE_BUFF.id} /> buff {this.timesDropped} times, try and avoid this if possible.</Wrapper>)
+      return suggest(<React.Fragment>You lost <SpellLink id={SPELLS.PARSELS_TONGUE_BUFF.id} /> buff {this.timesDropped} times, try and avoid this if possible.</React.Fragment>)
         .icon(ITEMS.PARSELS_TONGUE.icon)
         .actual(`${actual} times dropped`)
         .recommended(`${recommended} times dropped is recommended`);
     });
     when(this.buffUptimeThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You had a low uptime of the buff from <ItemLink id={ITEMS.PARSELS_TONGUE.id} />, make sure to cast <SpellLink id={SPELLS.COBRA_SHOT.id} /> more often to ensure a better uptime of this buff. </Wrapper>)
+      return suggest(<React.Fragment>You had a low uptime of the buff from <ItemLink id={ITEMS.PARSELS_TONGUE.id} />, make sure to cast <SpellLink id={SPELLS.COBRA_SHOT.id} /> more often to ensure a better uptime of this buff. </React.Fragment>)
         .icon(ITEMS.PARSELS_TONGUE.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
         .recommended(`>${formatPercentage(recommended)} is recommended`);

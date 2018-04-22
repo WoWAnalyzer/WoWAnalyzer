@@ -2,7 +2,6 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
@@ -51,10 +50,10 @@ class TarnishedSentinelMedallion extends Analyzer {
     return {
       item: ITEMS.TARNISHED_SENTINEL_MEDALLION,
       result: (
-        <Wrapper>
+        <React.Fragment>
           <ItemHealingDone amount={healing} /><br />
           <ItemDamageDone amount={damage} />
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

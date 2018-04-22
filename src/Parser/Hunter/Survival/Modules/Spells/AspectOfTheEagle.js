@@ -2,7 +2,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
-import Wrapper from 'common/Wrapper';
 import SixStackBites from 'Parser/Hunter/Survival/Modules/Features/MongooseFury/SixStackBites';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
@@ -53,7 +52,7 @@ class AspectOfTheEagle extends Analyzer {
 
   suggestions(when) {
     when(this.badAspectCastsThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You cast <SpellLink id={SPELLS.ASPECT_OF_THE_EAGLE.id} /> {this.badAspectCasts} {this.badAspectCasts > 1 ? 'times' : 'time'} without <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> up or with less than {MINIMUM_TIME_REMAINING / 1000} seconds remaining, and thus not utilising the full duration of <SpellLink id={SPELLS.ASPECT_OF_THE_EAGLE.id} /> (and by extension <SpellLink id={SPELLS.ASPECT_OF_THE_SKYLORD_BUFF.id} />) inside a <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> window. </Wrapper>)
+      return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.ASPECT_OF_THE_EAGLE.id} /> {this.badAspectCasts} {this.badAspectCasts > 1 ? 'times' : 'time'} without <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> up or with less than {MINIMUM_TIME_REMAINING / 1000} seconds remaining, and thus not utilising the full duration of <SpellLink id={SPELLS.ASPECT_OF_THE_EAGLE.id} /> (and by extension <SpellLink id={SPELLS.ASPECT_OF_THE_SKYLORD_BUFF.id} />) inside a <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> window. </React.Fragment>)
         .icon(SPELLS.ASPECT_OF_THE_EAGLE.icon)
         .actual(`${formatPercentage(actual)}% of casts were good`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);

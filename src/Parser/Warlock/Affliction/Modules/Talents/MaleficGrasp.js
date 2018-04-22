@@ -8,7 +8,6 @@ import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -121,7 +120,7 @@ class MaleficGrasp extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id}/> aren't buffed enough by <SpellLink id={SPELLS.DRAIN_SOUL.id}/>. You should try to Drain your Unstable Afflictions as much as you can.</Wrapper>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id}/> aren't buffed enough by <SpellLink id={SPELLS.DRAIN_SOUL.id}/>. You should try to Drain your Unstable Afflictions as much as you can.</React.Fragment>)
           .icon(SPELLS.MALEFIC_GRASP_TALENT.icon)
           .actual(`${formatPercentage(actual)}% unbuffed Unstable Affliction ticks.`)
           .recommended(`< ${formatPercentage(recommended)}% is recommended`);

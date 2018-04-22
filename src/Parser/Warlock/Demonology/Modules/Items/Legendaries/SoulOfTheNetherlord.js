@@ -6,7 +6,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import Wrapper from 'common/Wrapper';
 
 class SoulOfTheNetherlord extends Analyzer {
   static dependencies = {
@@ -20,7 +19,7 @@ class SoulOfTheNetherlord extends Analyzer {
   item() {
     return {
       item: ITEMS.SOUL_OF_THE_NETHERLORD,
-      result: <Wrapper>This gave you the <SpellLink id={SPELLS.GRIMOIRE_OF_SYNERGY_TALENT.id} /> talent.</Wrapper>,
+      result: <React.Fragment>This gave you the <SpellLink id={SPELLS.GRIMOIRE_OF_SYNERGY_TALENT.id} /> talent.</React.Fragment>,
     };
   }
 }

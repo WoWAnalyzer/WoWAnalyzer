@@ -4,7 +4,6 @@ import ITEMS from 'common/ITEMS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Wrapper from 'common/Wrapper';
 
 class DreadlordsDeceit extends Analyzer {
   static dependencies = {
@@ -18,7 +17,7 @@ class DreadlordsDeceit extends Analyzer {
 	item() {
 		return {
 			item: ITEMS.THE_DREADLORDS_DECEIT,
-			result: <Wrapper>Equipped.</Wrapper>,
+			result: <React.Fragment>Equipped.</React.Fragment>,
 		};
 	}
 

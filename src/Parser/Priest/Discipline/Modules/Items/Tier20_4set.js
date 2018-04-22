@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 
 const BUFF_DURATION = 12000;
@@ -78,9 +77,9 @@ class Tier20_4set extends Analyzer {
       icon: <SpellIcon id={SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id} />,
       title: <SpellLink id={SPELLS.DISC_PRIEST_T20_4SET_BONUS_BUFF.id} icon={false} />,
       result: (
-        <Wrapper>
+        <React.Fragment>
           {penanceCooldownSaved} seconds off the cooldown, {consumptions} Penances cast earlier
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

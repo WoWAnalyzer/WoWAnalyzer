@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SCHOOLS from 'common/MAGIC_SCHOOLS';
-import Wrapper from 'common/Wrapper';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
@@ -44,10 +43,10 @@ class ZenkaramIridisAnadem extends Analyzer {
     return {
       item: ITEMS.ZENKARAM_IRIDIS_ANADEM,
       result: (
-        <Wrapper>
+        <React.Fragment>
           <ItemDamageDone amount={this.bonusDamage} /><br />
           <ItemHealingDone amount={this.bonusHealing} />
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

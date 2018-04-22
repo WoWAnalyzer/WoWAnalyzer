@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Wrapper from 'common/Wrapper';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
@@ -119,7 +118,7 @@ class MarrowrendUsage extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>You casted {this.badMRCasts} Marrowrends with more than 6 stacks of <SpellLink id={SPELLS.BONE_SHIELD.id} /> that were not about to expire. Try to cast <SpellLink id={SPELLS.HEART_STRIKE.id} /> instead under those conditions.</Wrapper>)
+        return suggest(<React.Fragment>You casted {this.badMRCasts} Marrowrends with more than 6 stacks of <SpellLink id={SPELLS.BONE_SHIELD.id} /> that were not about to expire. Try to cast <SpellLink id={SPELLS.HEART_STRIKE.id} /> instead under those conditions.</React.Fragment>)
           .icon(SPELLS.MARROWREND.icon)
           .actual(`${formatPercentage(actual)}% bad Marrowrend casts`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);
