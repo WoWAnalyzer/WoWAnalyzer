@@ -1,7 +1,7 @@
 import React from 'react';
 
 import FingerprintFilledIcon from 'Icons/FingerprintFilled';
-import GitHubMarkIcon from 'Icons/GitHubMark';
+import GitHubMarkIcon from 'Icons/GitHubMarkSmall';
 
 import Wrapper from 'common/Wrapper';
 import SPECS from 'common/SPECS';
