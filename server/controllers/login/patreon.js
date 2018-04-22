@@ -42,8 +42,8 @@ router.get('/', Passport.authenticate('patreon'));
 router.get(
   '/callback',
   Passport.authenticate('patreon', {
-    successRedirect: '/login',
-    failureRedirect: '/login',
+    successRedirect: '/premium',
+    failureRedirect: '/premium',
   }),
   function (req, res) {
     res.setHeader('Content-Type', 'application/json; charset=utf-8');

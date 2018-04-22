@@ -23,7 +23,7 @@ import NewsView from './News/View';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 import Report from './Report';
 import ContributorDetails from './Contributors/ContributorDetails';
-import Login from './Login';
+import Premium from './Premium';
 import Header from './Header';
 
 function isIE() {
@@ -151,7 +151,7 @@ class App extends React.Component {
           <NewsView articleId={decodeURI(match.params.articleId.replace(/\+/g, ' '))} />
         )} />
         <Route path="/report/:reportCode?/:fightId?/:player?/:resultTab?" component={Report} />
-        <Route path="/login" component={Login} />
+        <Route path="/premium" component={Premium} />
         <Route path="/" exact component={Home} />
       </Switch>
     );
