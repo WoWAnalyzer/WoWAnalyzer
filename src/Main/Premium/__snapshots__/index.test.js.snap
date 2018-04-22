@@ -1,0 +1,176 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Premium matches snapshot 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-lg-3 col-lg-offset-1 col-sm-4"
+    >
+      <div
+        className="panel"
+      >
+        <div
+          className="panel-body"
+          style={
+            Object {
+              "padding": "0 15px",
+            }
+          }
+        >
+          <div
+            className="row image-background"
+            style={
+              Object {
+                "paddingBottom": 15,
+                "paddingTop": 300,
+                "position": "relative",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "left": 0,
+                  "overflow": "hidden",
+                  "pointerEvents": "none",
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                }
+              }
+            >
+              <CyclingVideo
+                style={
+                  Object {
+                    "height": "100%",
+                    "objectFit": "cover",
+                    "width": "100%",
+                  }
+                }
+                videos={
+                  Array [
+                    "https://media.giphy.com/media/7TqE3VIAU2odkmneHU/giphy.mp4",
+                    "https://media.giphy.com/media/5kFzxK6ENfjrcoMgt1/giphy.mp4",
+                    "https://media.giphy.com/media/PoCoePEEB1EC6buvFU/giphy.mp4",
+                    "https://media.giphy.com/media/8cv2DoGyUClMuCKalT/giphy.mp4",
+                    "https://media.giphy.com/media/fUZW0LIJhtbDnBtqkX/giphy.mp4",
+                    "https://media.giphy.com/media/2erqKiXvYpXeGH9XJ5/giphy.mp4",
+                  ]
+                }
+              />
+            </div>
+            <div
+              className="col-md-12"
+            >
+              <h1>
+                Premium sign in
+              </h1>
+              <div
+                className="description"
+              >
+                Sign in with your Patreon or GitHub account.
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+          >
+            <div
+              className="col-lg-6"
+              style={
+                Object {
+                  "padding": 0,
+                }
+              }
+            >
+              <a
+                className="btn btn-block"
+                href="/login/patreon"
+                style={
+                  Object {
+                    "background": "#e6461a",
+                    "borderBottomLeftRadius": 3,
+                    "borderRadius": 0,
+                    "color": "#fff",
+                    "fontSize": "2em",
+                  }
+                }
+              >
+                <Icon />
+                 Patreon
+              </a>
+            </div>
+            <div
+              className="col-lg-6"
+              style={
+                Object {
+                  "padding": 0,
+                }
+              }
+            >
+              <a
+                className="btn btn-block"
+                href="/login/github"
+                style={
+                  Object {
+                    "background": "#fff",
+                    "borderBottomRightRadius": 3,
+                    "borderRadius": 0,
+                    "color": "#000",
+                    "fontSize": "2em",
+                  }
+                }
+              >
+                <Icon />
+                 GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col-lg-7 col-sm-8"
+    >
+      <div
+        className="panel"
+      >
+        <div
+          className="panel-heading"
+        >
+          <h2>
+            WoWAnalyzer premium
+          </h2>
+        </div>
+        <div
+          className="panel-body"
+        >
+          Help out development and get WoWAnalyzer premium in return! An early adopter gets the following rewards:
+          <br />
+          <ul>
+            <li>
+              our thanks.
+            </li>
+          </ul>
+          <br />
+          Doesn't that sound awesome?! You too can get premium by helping out development, either by helping fund development on Patreon or by contributing something via a pull request on GitHub.
+          <br />
+          <br />
+          <PatreonButton
+            text="Become a Patron"
+          />
+           
+          <GithubButton
+            text="View on GitHub"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

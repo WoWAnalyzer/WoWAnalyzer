@@ -71,7 +71,6 @@ class Premium extends React.PureComponent {
                       href="/login/github"
                       className="btn btn-block"
                       style={{ fontSize: '2em', background: '#fff', color: '#000', borderRadius: 0, borderBottomRightRadius: 3 }}
-                      data-tip="Not yet implemented"
                     >
                       <GitHubMarkIcon /> GitHub
                     </a>

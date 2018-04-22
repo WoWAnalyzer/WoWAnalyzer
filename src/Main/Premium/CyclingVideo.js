@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 class CyclingVideo extends React.PureComponent {
   static propTypes = {
     videos: PropTypes.arrayOf(PropTypes.string).isRequired,
+    randomValue: PropTypes.number,
   };
 
   constructor(props) {
     super(props);
+    const randomValue = props.randomValue !== undefined ? props.randomValue : Math.random();
     this.state = {
-      current: Math.floor(Math.random() * props.videos.length),
+      current: Math.floor(randomValue * props.videos.length),
     };
     this.handleEnded = this.handleEnded.bind(this);
   }
