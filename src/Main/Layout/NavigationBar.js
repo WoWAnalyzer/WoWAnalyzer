@@ -51,8 +51,8 @@ class NavigationBar extends React.PureComponent {
           )}
           <div className="spacer" />
           <div className="menu-item main left-line">
-            <Link to="/login">
-              Login
+            <Link to="/login" className="premium">
+              <PremiumIcon /> <span className="optional" style={{ paddingLeft: 6 }}>Premium</span>
             </Link>
           </div>
           <div className="menu-item main">
