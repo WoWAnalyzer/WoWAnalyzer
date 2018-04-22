@@ -171,10 +171,6 @@ class Checklist extends CoreChecklist {
             when: this.combatants.selected.hasTalent(SPELLS.RUNE_TAP_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.MARK_OF_BLOOD_TALENT,
-            when: this.combatants.selected.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
             spell: SPELLS.TOMBSTONE_TALENT,
             when: this.combatants.selected.hasTalent(SPELLS.TOMBSTONE_TALENT.id),
           }),
