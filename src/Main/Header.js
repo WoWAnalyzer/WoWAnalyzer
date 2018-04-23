@@ -19,7 +19,7 @@ class Header extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      reportActive: false,
+      reportActive: true,
     };
   }
 

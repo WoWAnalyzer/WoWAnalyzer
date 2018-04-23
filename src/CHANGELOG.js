@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-23'),
+    changes: 'Added character-based report selection',
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-04-18'),
     changes: 'Added error page when attempting to view an invalid contributor page.',
     contributors: [CubeLuke],

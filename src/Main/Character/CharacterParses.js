@@ -19,22 +19,6 @@ import ZONES from 'common/ZONES';
 import ActivityIndicator from 'Main/ActivityIndicator';
 import REALMS from 'common/REALMS';
 
-/*
-  ToDo: 
-    - fix the issue with Special-Chars (Ê and stuff)
-
-    - caching of bnet-api for images
-
-    - submit a proper playerID for the analyze-link
-    
-    - get a fix for renamed/transed chars 
-        (char-name does not match in this case, impossible to jump directly to the correct player of the log, redirect to player-overview instead)
-        Asked on discord for fix:
-        `yeah probably should
-        right now it puts the current character's name
-        should get fixed as i optimize character ranks on beta anyway`
-*/
-
 //rendering 400+ parses takes quite some time
 const RENDER_LIMIT = 100;
 
@@ -171,7 +155,7 @@ class CharacterParses extends React.Component {
     }
   }
 
-  //resolve the boss+difficulty->spec->parse structure to make sorting & filtering easiery
+  //resolve the boss+difficulty->spec->parse structure to make sorting & filtering easier
   changeParseStructure(rawParses) {
     const parses = [];
     rawParses.forEach((elem, index) => {
