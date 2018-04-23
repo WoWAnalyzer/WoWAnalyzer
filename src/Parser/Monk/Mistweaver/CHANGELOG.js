@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Anomoly, Zerotorescue, Scaleable } from 'CONTRIBUTORS';
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
@@ -13,7 +12,7 @@ export default [
   },
   {
     date: new Date('2018-01-18'),
-    changes: <Wrapper>Updated Essence Font HoT usage thresholds to lower values based on current healing methods. Also, fixed a rare 'NaN' error.</Wrapper>,
+    changes: <React.Fragment>Updated Essence Font HoT usage thresholds to lower values based on current healing methods. Also, fixed a rare 'NaN' error.</React.Fragment>,
     contributors: [Anomoly],
   },
   {
@@ -33,17 +32,17 @@ export default [
   },
   {
     date: new Date('2017-11-28'),
-    changes: <Wrapper>Fixed bug with <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> -> <SpellLink id={SPELLS.RENEWING_MIST.id} /> cast efficiency. Updated Player Log Data tab for additional items for T21 Speadsheet version</Wrapper>,
+    changes: <React.Fragment>Fixed bug with <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> -> <SpellLink id={SPELLS.RENEWING_MIST.id} /> cast efficiency. Updated Player Log Data tab for additional items for T21 Speadsheet version</React.Fragment>,
     contributors: [Anomoly],
   },
   {
     date: new Date('2017-11-06'),
-    changes: <Wrapper>Updated Always Be Casting calculation to take into consideration <SpellLink id={SPELLS.ESSENCE_FONT.id} /> not having a begincast event</Wrapper>,
+    changes: <React.Fragment>Updated Always Be Casting calculation to take into consideration <SpellLink id={SPELLS.ESSENCE_FONT.id} /> not having a begincast event</React.Fragment>,
     contributors: [Anomoly],
   },
   {
     date: new Date('2017-10-24'),
-    changes: <Wrapper>Updated <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} />, <SpellLink id={SPELLS.DANCING_MISTS.id} />, and <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> statistics formatting</Wrapper>,
+    changes: <React.Fragment>Updated <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} />, <SpellLink id={SPELLS.DANCING_MISTS.id} />, and <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> statistics formatting</React.Fragment>,
     contributors: [Anomoly],
   },
   {
@@ -208,12 +207,12 @@ export default [
   },
   {
     date: new Date('2017-05-26'),
-    changes: <Wrapper>Added the remaining MW spells / abilities known as of now. Removed UT Usage issue, as this is going away in 7.2.5. Updated CPM Module to give a better understanding of MW Monk Spells. Incorporated TFT -> Viv usage in UT Proc calculations. All of this was done by <b>@anomoly</b>.</Wrapper>,
+    changes: <React.Fragment>Added the remaining MW spells / abilities known as of now. Removed UT Usage issue, as this is going away in 7.2.5. Updated CPM Module to give a better understanding of MW Monk Spells. Incorporated TFT -> Viv usage in UT Proc calculations. All of this was done by <b>@anomoly</b>.</React.Fragment>,
     contributors: [Anomoly],
   },
   {
     date: new Date('2017-05-24'),
-    changes: <Wrapper>Added <span className="Monk">Mistweaver Monk</span> support by <b>@Anomoly</b>! Thanks a lot for your contribution!</Wrapper>,
+    changes: <React.Fragment>Added <span className="Monk">Mistweaver Monk</span> support by <b>@Anomoly</b>! Thanks a lot for your contribution!</React.Fragment>,
     contributors: [Anomoly],
   },
 ];
