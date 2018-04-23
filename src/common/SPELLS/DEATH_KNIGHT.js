@@ -141,10 +141,10 @@ export default {
     icon: 'spell_deathknight_deathstrike',
   },
 
-  MARK_OF_BLOOD: {
-    id: 61606,
-    name: 'Mark of Blood',
-    icon: 'ability_hunter_rapidkilling',
+  HEARTBREAKER: {
+    id: 210738,
+    name: 'Heartbreaker',
+    icon: 'spell_deathknight_deathstrike',
   },
 
 // Buffs
@@ -231,14 +231,39 @@ export default {
     name: 'Sindragosa\'s Fury',
     icon: 'achievement_boss_sindragosa',
   },
+  CRYSTALLINE_SWORDS_1: {
+    id: 205164,
+    name: 'Crystalline Swords',
+    icon: 'spell_frost_iceshard',
+  },
+  CRYSTALLINE_SWORDS_2: {
+    id: 205165,
+    name: 'Crystalline Swords',
+    icon: 'spell_frost_iceshard',
+  },
+  CRYSTALLINE_SWORDS_THRONEBREAKER: {
+    id: 243122,
+    name: 'Crystalline Swords (Thronebreaker)',
+    icon: 'spell_frost_iceshard',
+  },
   // Damage Dealing
   FROST_FEVER: {
     id: 55095,
     name: 'Frost Fever',
     icon: 'spell_deathknight_frostfever',
   },
-  FROST_STRIKE: {
+  FROST_STRIKE_CAST: {
     id: 49143,
+    name: 'Frost Strike',
+    icon: 'spell_deathknight_empowerruneblade2',
+  },
+  FROST_STRIKE_MAIN_HAND_DAMAGE: {
+    id: 222026,
+    name: 'Frost Strike',
+    icon: 'spell_deathknight_empowerruneblade2',
+  },
+  FROST_STRIKE_OFF_HAND_DAMAGE: {
+    id: 66196,
     name: 'Frost Strike',
     icon: 'spell_deathknight_empowerruneblade2',
   },
@@ -360,7 +385,7 @@ export default {
     icon: 'spell_yorsahj_bloodboil_purpleoil',
   },
 
-  // Frost tier 
+  // Frost tier
   // T20 2P
   FROST_DEATH_KNIGHT_T20_2SET_BONUS_BUFF: {
     id: 242058,
@@ -395,7 +420,7 @@ export default {
     name: 'Toravon\'s Whiteout Bindings',
     icon: 'ability_warrior_unrelentingassault',
   },
-  
+
   // Unholy:
   // Aritfact ability
   APOCALYPSE: {
@@ -502,7 +527,7 @@ export default {
 	  name: 'Unholy Strength',
 	  icon: 'spell_holy_blessingofstrength',
   },
-  
+
   // Unholy Tier Sets
   // T20 2 Piece and buff
   UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS: {
@@ -629,7 +654,7 @@ export default {
 
   DEATH_STRIKE_HEAL: {
     id: 45470,
-    name: 'Death Strike Heal',
+    name: 'Death Strike',
     icon: 'spell_deathknight_butcher2',
   },
 

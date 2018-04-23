@@ -1,9 +1,10 @@
-FROM node:9.3.0-alpine
+FROM node:9.9.0-alpine
 
 # We don't use this approach because it results in a docker image that's 150MB larger than required since every single line (command) below creates a new "layer" in the container where all data that is written in that line gets stored and this data can never be removed. The preferred way to make a production image is using the default prod file, but that requires preparation outside the dockerfile.
 
 # Normally Docker sets this, now you need to. You can do this without changing this file with the -e argument.
 ENV WCL_API_KEY=INSERT_YOUR_OWN_API_KEY_HERE
+ENV NODE_ENV=development
 
 # App
 WORKDIR /usr/src/wowanalyzer

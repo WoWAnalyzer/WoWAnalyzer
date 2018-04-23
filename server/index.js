@@ -1,24 +1,27 @@
 import compression from 'compression';
-import express from 'express';
+import Express from 'express';
 import path from 'path';
 import fs from 'fs';
 import Raven from 'raven';
+import bodyParser from 'body-parser';
 
-import api from './api';
-import status from './status';
 import loadDotEnv from './config/env';
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+const appDirectory = fs.realpathSync(process.cwd());
 
-loadDotEnv(fs.realpathSync(process.cwd()));
+loadDotEnv(appDirectory);
 
-if (process.env.NODE_ENV === 'production') {
-  Raven.config('https://f9b55775efbe4c0ab9a0d23236123364:99a7618f90104600b67e64e05106c535@sentry.io/242066', {
+if (process.env.RAVEN_DSN) {
+  Raven.config(process.env.RAVEN_DSN, {
     captureUnhandledRejections: true,
   }).install();
 }
+// Any files that exist can be accessed directly.
+// If the server has been compiled, the path will be different.
+const buildFolder = path.basename(appDirectory) === 'build' ? path.join(appDirectory, '..', '..', 'build') : path.join(appDirectory, '..', 'build');
 
-const app = express();
+const app = Express();
 
 if (Raven.installed) {
   // The Raven request handler must be the first middleware on the app
@@ -26,59 +29,12 @@ if (Raven.installed) {
   // The error handler must be before any other error middleware
   app.use(Raven.errorHandler());
 }
-
 app.use(compression());
+app.use(Express.static(buildFolder));
+app.use(bodyParser.urlencoded({ extended: false }));
 
-// Any files that exist can be accessed directly.
-// If the server has been compiled, the path will be different.
-const buildFolder = path.basename(__dirname) === 'build' ? path.join(__dirname, '..', '..', 'build') : path.join(__dirname, '..', 'build');
-app.use(express.static(buildFolder));
+app.use(require('./controllers').default);
 
-// Load the index file into memory so we don't have to access it all the time
-const index = fs.readFileSync(path.join(buildFolder, 'index.html'), 'utf8');
-
-function escapeHtml(unsafe) {
-  return unsafe
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(buildFolder, 'index.html'));
+app.listen(process.env.PORT, () => {
+  console.log(`Listening to port ${process.env.PORT}`);
 });
-app.get('/news/:article', (req, res) => {
-  res.send(index);
-});
-app.get('/report/:reportCode([A-Za-z0-9]+)/:fightId([0-9]+)?:fightName(-[^/]+)?/:playerId([0-9]+-)?:playerName([^/]{2,})?/:tab([A-Za-z0-9-]+)?', (req, res) => {
-  let response = index;
-  if (req.params.fightName) {
-    const fightName = decodeURI(req.params.fightName.substr(1).replace(/\+/g, ' '));
-    const playerName = req.params.playerName && decodeURI(req.params.playerName);
-
-    let title = '';
-    if (playerName) {
-      title = `${fightName} by ${playerName}`;
-    } else {
-      title = fightName;
-    }
-
-    // This is a bit hacky, better solution welcome
-    response = response
-      .replace('property="og:title" content="WoWAnalyzer"', `property="og:title" content="WoWAnalyzer: ${escapeHtml(title)}"`)
-      .replace('<title>WoWAnalyzer</title>', `<title>WoWAnalyzer: ${escapeHtml(title)}</title>`);
-  }
-
-  res.send(response);
-});
-app.get('/api/v1/*', api);
-app.get('/api/status', status);
-app.get('/discord', function (req, res) {
-  // Since this path will usually only be used once per visitor there's no need to use a permanent redirect, and this allows us to fix the url should it ever break.
-  res.status(307).redirect('https://discord.gg/AxphPxU');
-});
-
-app.listen(process.env.PORT);
-console.log(`Listening to port ${process.env.PORT}`);

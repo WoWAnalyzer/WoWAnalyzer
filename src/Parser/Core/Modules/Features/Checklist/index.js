@@ -8,7 +8,6 @@ import InformationIcon from 'Icons/Information';
 import Analyzer from 'Parser/Core/Analyzer';
 import Expandable from 'Main/Expandable';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
-import Wrapper from 'common/Wrapper';
 
 import performanceForThresholds from './performanceForThresholds';
 import calculateMedian from './calculateMedian';
@@ -50,6 +49,8 @@ class Checklist extends Analyzer {
         return values.reduce((c, p) => c + p, 0) / values.length;
       case 'lowest':
         return Math.min(...values);
+      case 'first':
+        return values[0];
       default:
         throw new Error(`Unknown style: ${style}`);
     }
@@ -150,7 +151,7 @@ class Checklist extends Analyzer {
         )}
         <div className="row">
           {requirements.map(({ requirement, thresholds, performance }, index) => {
-            const displayedValue = <Wrapper>{thresholds.prefix} {this.formatThresholdsActual(thresholds)} {thresholds.max !== undefined && `/ ${thresholds.max}`} {thresholds.suffix}</Wrapper>;
+            const displayedValue = <React.Fragment>{thresholds.prefix} {this.formatThresholdsActual(thresholds)} {thresholds.max !== undefined && `/ ${thresholds.max}`} {thresholds.suffix}</React.Fragment>;
             return (
               <div key={index} className="col-md-6">
                 <div className="flex">
@@ -179,7 +180,7 @@ class Checklist extends Analyzer {
 
   render() {
     return (
-      <Wrapper>
+      <React.Fragment>
         {this.rules.length === 0 && (
           <div className="item-divider" style={{ padding: '10px 22px' }}>
             <div className="alert alert-danger">
@@ -190,7 +191,7 @@ class Checklist extends Analyzer {
         {this.rules
           .filter(this.whenFilter)
           .map(this.renderRule)}
-      </Wrapper>
+      </React.Fragment>
     );
   }
 }

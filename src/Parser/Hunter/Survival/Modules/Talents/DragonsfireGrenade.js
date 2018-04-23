@@ -2,12 +2,16 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import SpellIcon from 'common/SpellIcon';
+
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
+/**
+ * Hurls a dragonsfire grenade at the target that explodes into flames, inflicting [(1304% of Attack power) + (400% of Attack power)] Fire
+ * damage over 8 sec and reducing movement speed by 20%. The volatile flames on the target also scorch nearby enemies.
+ */
 class DragonsfireGrenade extends Analyzer {
 
   static dependencies = {
@@ -46,9 +50,7 @@ class DragonsfireGrenade extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.DRAGONSFIRE_GRENADE_TALENT.id}>
-            <SpellIcon id={SPELLS.DRAGONSFIRE_GRENADE_TALENT.id} noLink /> Dragonsfire Grenade
-          </SpellLink>
+          <SpellLink id={SPELLS.DRAGONSFIRE_GRENADE_TALENT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.bonusDamage} />

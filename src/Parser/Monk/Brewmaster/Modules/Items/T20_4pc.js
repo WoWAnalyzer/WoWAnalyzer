@@ -42,7 +42,7 @@ class T20_4pc extends Analyzer {
     return {
       id: `spell-${SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id}`,
       icon: <SpellIcon id={SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id} />,
-      title: <SpellLink id={SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id} />,
+      title: <SpellLink id={SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id} icon={false} />,
       result: (
         <dfn data-tip={`Total stagger damage lowered through T20 4Pc: ${formatThousands(this.staggerSaved)}`}>
           Stagger lowered by {formatNumber(damageSavedPerSecond)} DPS

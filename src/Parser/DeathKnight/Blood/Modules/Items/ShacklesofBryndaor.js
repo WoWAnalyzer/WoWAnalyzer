@@ -4,7 +4,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 import RunicPowerTracker from 'Parser/DeathKnight/Blood/Modules/RunicPower/RunicPowerTracker';
 
@@ -44,12 +43,12 @@ class ShacklesofBryndaor extends Analyzer {
     return {
       item: ITEMS.SHACKLES_OF_BRYNDAOR,
       result:(
-        <Wrapper>
+        <React.Fragment>
           Refunded {Math.trunc(this.rpGainedPerMinute)} Runic Power per minute ({this.runicPowerGained} total).<br />
           {formatPercentage(rpPercent)} % of total Runic Power generated <br />
           This is a potential {Math.trunc(extraDS)} extra <SpellLink id={SPELLS.DEATH_STRIKE.id} /> casts.
 
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

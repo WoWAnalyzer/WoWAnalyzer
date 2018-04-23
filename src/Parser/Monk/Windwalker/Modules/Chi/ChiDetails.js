@@ -10,14 +10,13 @@ import ChiTracker from './ChiTracker';
 
 import WastedChiIcon from '../../images/ability_monk_forcesphere.jpg';
 
-
 class ChiDetails extends Analyzer {
   static dependencies = {
-      chiTracker: ChiTracker,
+    chiTracker: ChiTracker,
   };
 
   get suggestionThresholds() {
-    const chiWastedPerMinute = (this.chiTracker.chiWasted / this.owner.fightDuration) * 1000 * 60;
+    const chiWastedPerMinute = (this.chiTracker.wasted / this.owner.fightDuration) * 1000 * 60;
     return {
       actual: chiWastedPerMinute,
       isGreaterThan: {
@@ -26,11 +25,11 @@ class ChiDetails extends Analyzer {
         major: 2,
       },
       style: 'decimal',
-      };
-    }
-    
+    };
+  }
+
   suggestions(when) {
-    const chiWasted = this.chiTracker.chiWasted;
+    const chiWasted = this.chiTracker.wasted;
     const chiWastedPerMinute = (chiWasted / this.owner.fightDuration) * 1000 * 60;
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest('You are wasting Chi. Try to use it and not let it cap and go to waste')
@@ -42,17 +41,17 @@ class ChiDetails extends Analyzer {
 
   statistic() {
     const chiWasted = this.chiTracker.wasted;
-      return (
-        <StatisticBox
-          icon={(
-            <img
-              src={WastedChiIcon}
-              alt="Wasted Chi"
-            />
-          )}
-          value={`${chiWasted}`}
-          label="Wasted Chi"
-       />
+    return (
+      <StatisticBox
+        icon={(
+          <img
+            src={WastedChiIcon}
+            alt="Wasted Chi"
+          />
+        )}
+        value={`${chiWasted}`}
+        label="Wasted Chi"
+      />
     );
   }
 
@@ -61,17 +60,17 @@ class ChiDetails extends Analyzer {
       title: 'Chi',
       url: 'chi',
       render: () => (
-        <Tab title="Chi usage breakdown">
+        <Tab>
           <ResourceBreakdown
             tracker={this.chiTracker}
             resourceName="Chi"
-            showSpenders={true}
+            showSpenders
           />
         </Tab>
       ),
-   };
- }
- statisticOrder = STATISTIC_ORDER.CORE(1);
+    };
+  }
+  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 export default ChiDetails;

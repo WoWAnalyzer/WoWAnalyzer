@@ -13,6 +13,10 @@ const T204P_MODIFIER = 0.15;
 
 const debug = false;
 
+/**
+ * Cobra Shot, Multi-Shot, and Kill Command deal 15% increased damage while Bestial Wrath is active.
+ */
+
 class Tier20_4p extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -56,7 +60,7 @@ class Tier20_4p extends Analyzer {
     return {
       id: `spell-${SPELLS.HUNTER_BM_T20_4P_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.HUNTER_BM_T20_4P_BONUS.id} />,
-      title: <SpellLink id={SPELLS.HUNTER_BM_T20_4P_BONUS.id} />,
+      title: <SpellLink id={SPELLS.HUNTER_BM_T20_4P_BONUS.id} icon={false} />,
       result: <ItemDamageDone amount={this.bonusDmg} />,
     };
   }

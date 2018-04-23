@@ -79,7 +79,7 @@ class Tier21_4p extends Analyzer {
     return {
       id: `spell-${SPELLS.HUNTER_SV_T21_4P_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.HUNTER_SV_T21_4P_BONUS.id} />,
-      title: <SpellLink id={SPELLS.HUNTER_SV_T21_4P_BONUS.id} />,
+      title: <SpellLink id={SPELLS.HUNTER_SV_T21_4P_BONUS.id} icon={false} />,
       result: (
         <dfn data-tip={`
           Your average buffed raptor strike consumed ${(this.buffsUsed / this.timesRemoved).toFixed(1)} stacks. <br/>

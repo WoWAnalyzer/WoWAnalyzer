@@ -7,11 +7,10 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
 import TimeFocusCapped from 'Parser/Hunter/Shared/Modules/Features/TimeFocusCapped';
-import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import SpellLink from 'common/SpellLink';
 
-/*
+/**
  * Roar of the Seven Lions
  * Equip: Bestial Wrath reduces the Focus cost of all your abilities by 15%.
  */
@@ -182,10 +181,10 @@ class RoarOfTheSevenLions extends Analyzer {
   }
   suggestions(when) {
     when(this.focusSavedThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You didn't save as much focus through <ItemLink id={ITEMS.ROAR_OF_THE_SEVEN_LIONS.id} icon /> as recommended, try to make sure you enter <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> with a high amount of focus and dump as much focus as you can inside that window. </Wrapper>)
+      return suggest(<React.Fragment>You didn't save as much focus through <ItemLink id={ITEMS.ROAR_OF_THE_SEVEN_LIONS.id} /> as recommended, try to make sure you enter <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> with a high amount of focus and dump as much focus as you can inside that window. </React.Fragment>)
         .icon(ITEMS.ROAR_OF_THE_SEVEN_LIONS.icon)
-        .actual(`${actual} of total available focus was saved through Roar of the Seven Lions`)
-        .recommended(`>${recommended}% is recommended`);
+        .actual(`${formatPercentage(actual)}% of total available focus was saved through Roar of the Seven Lions`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
   }
 }

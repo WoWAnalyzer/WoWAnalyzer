@@ -1,8 +1,6 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
@@ -112,9 +110,9 @@ class SpinningCraneKick extends Analyzer {
     when(this.suggestionThresholds).addSuggestion(
       (suggest, actual, recommended) => {
         return suggest(
-          <Wrapper>
+          <React.Fragment>
             You have ineffecient casts of <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} />
-          </Wrapper>
+          </React.Fragment>
         )
           .icon(SPELLS.SPINNING_CRANE_KICK.icon)
           .actual(`${this.badCasts} Bad Casts`)
@@ -174,9 +172,7 @@ class SpinningCraneKick extends Analyzer {
       return (
         <StatisticsListBox
           title={
-            <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id}>
-              <SpellIcon id={SPELLS.SPINNING_CRANE_KICK.id} noLink /> Spinning Crane Kick
-          </SpellLink>
+            <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} />
           }
           style={{ minHeight: 150 }}
         >

@@ -51,6 +51,7 @@ import Atonement from './Modules/Spells/Atonement';
 import Evangelism from './Modules/Spells/Evangelism';
 import Penance from './Modules/Spells/Penance';
 import TouchOfTheGrave from './Modules/Spells/TouchOfTheGrave';
+import Rapture from './Modules/Spells/Rapture';
 
 import BorrowedTime from './Modules/Spells/Traits/BorrowedTime';
 
@@ -86,6 +87,7 @@ class CombatLogParser extends CoreCombatLogParser {
     powerWordBarrier: PowerWordBarrier,
     leniencesReward: LeniencesReward,
     purgeTheWicked: PurgeTheWicked,
+    rapture: Rapture,
 
     // Items:
     tier19_2set: Tier19_2set,
@@ -122,7 +124,7 @@ class CombatLogParser extends CoreCombatLogParser {
         title: 'Mana',
         url: 'mana',
         render: () => (
-          <Tab title="Mana" style={{ padding: '15px 22px' }}>
+          <Tab style={{ padding: '15px 22px' }}>
             <Mana parser={this} />
           </Tab>
         ),

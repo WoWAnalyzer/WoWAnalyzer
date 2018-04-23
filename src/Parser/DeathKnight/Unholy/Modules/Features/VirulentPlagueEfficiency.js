@@ -9,7 +9,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
-import Wrapper from 'common/Wrapper';
 
 class VirulentPlagueEfficiency extends Analyzer {
   static dependencies = {
@@ -81,7 +80,7 @@ class VirulentPlagueEfficiency extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
  		  .addSuggestion((suggest, actual, recommended) => {
-			return suggest(<Wrapper> You are casting <SpellLink id={SPELLS.VIRULENT_PLAGUE.id}/> too often. Try to cast <SpellLink id={SPELLS.VIRULENT_PLAGUE.id}/> as close to it falling off as possible.</Wrapper>)
+			return suggest(<React.Fragment> You are casting <SpellLink id={SPELLS.VIRULENT_PLAGUE.id}/> too often. Try to cast <SpellLink id={SPELLS.VIRULENT_PLAGUE.id}/> as close to it falling off as possible.</React.Fragment>)
 				.icon(SPELLS.VIRULENT_PLAGUE.icon)
 				.actual(`${(this.averageTimeWasted).toFixed(1)} seconds of Virulent Plague uptime was wasted on average for each cast of Outbreak`)
 				.recommended(`<${recommended} is recommended`);

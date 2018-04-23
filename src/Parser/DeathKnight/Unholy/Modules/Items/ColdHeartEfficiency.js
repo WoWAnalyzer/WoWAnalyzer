@@ -5,7 +5,6 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -133,7 +132,7 @@ class ColdHeartEfficiency extends Analyzer {
     const castEfficiency = this.correctColdHeartCasts / this.totalColdHeartCasts;
     when(castEfficiency).isLessThan(0.8)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper> You are casting <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> at non optimal times. {this.castsTooLate} cast(s) were made too late and {this.castsTooEarly} cast(s) were made too early. You either want to cast <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> when at 20 stacks of <SpellLink id={SPELLS.COLD_HEART_BUFF.id} /> ASAP, or when you are above 13 stacks and any of your buffs <SpellLink id={SPELLS.UNHOLY_STRENGTH_BUFF.id}/> or <SpellLink id={SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH.id} />  or <SpellLink id={SPELLS.KHAZGOROTHS_SHAPING.id} /> are about to run out. You also don't want to hold <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> at 20 stacks for too long.</Wrapper>)
+        return suggest(<React.Fragment> You are casting <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> at non optimal times. {this.castsTooLate} cast(s) were made too late and {this.castsTooEarly} cast(s) were made too early. You either want to cast <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> when at 20 stacks of <SpellLink id={SPELLS.COLD_HEART_BUFF.id} /> ASAP, or when you are above 13 stacks and any of your buffs <SpellLink id={SPELLS.UNHOLY_STRENGTH_BUFF.id}/> or <SpellLink id={SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH.id} />  or <SpellLink id={SPELLS.KHAZGOROTHS_SHAPING.id} /> are about to run out. You also don't want to hold <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> at 20 stacks for too long.</React.Fragment>)
           .icon(SPELLS.CHAINS_OF_ICE.icon)
           .actual(`${formatPercentage(actual)}% of Chains of Ice were cast correctly.`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)

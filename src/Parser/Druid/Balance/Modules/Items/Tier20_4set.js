@@ -5,7 +5,6 @@ import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 
 const HASTE_BONUS = 0.02;
 
@@ -67,7 +66,7 @@ class Tier20_4set extends Analyzer {
   
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Your <SpellLink id={SPELLS.BALANCE_DRUID_T20_4SET_BONUS_BUFF.id} /> gave you an average of {formatPercentage(actual)}% haste. Try to get more out of this set bonus by pooling Astral Power when at max stacks or when the buff is about to expire and spending it as soon as possible when the buff drops off.</Wrapper>)
+      return suggest(<React.Fragment>Your <SpellLink id={SPELLS.BALANCE_DRUID_T20_4SET_BONUS_BUFF.id} /> gave you an average of {formatPercentage(actual)}% haste. Try to get more out of this set bonus by pooling Astral Power when at max stacks or when the buff is about to expire and spending it as soon as possible when the buff drops off.</React.Fragment>)
         .icon(SPELLS.BALANCE_DRUID_T20_4SET_BONUS_BUFF.icon)
         .actual(`${formatPercentage(actual)}% average haste gained`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
@@ -78,8 +77,8 @@ class Tier20_4set extends Analyzer {
     return {
       id: SPELLS.BALANCE_DRUID_T20_4SET_BONUS_BUFF.id,
       icon: <SpellIcon id={SPELLS.BALANCE_DRUID_T20_4SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.BALANCE_DRUID_T20_4SET_BONUS_BUFF.id} />,
-      result: <Wrapper>{formatPercentage(this.averageHaste)} % average haste gained.</Wrapper>,
+      title: <SpellLink id={SPELLS.BALANCE_DRUID_T20_4SET_BONUS_BUFF.id} icon={false} />,
+      result: <React.Fragment>{formatPercentage(this.averageHaste)} % average haste gained.</React.Fragment>,
     };
   }
 }

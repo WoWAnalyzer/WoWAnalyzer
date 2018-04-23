@@ -4,6 +4,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
+import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
@@ -25,13 +26,12 @@ class MoonfireUptime extends Analyzer {
         major: 0.8,
       },
       style: 'percentage',
-      text: 'Your Moonfire uptime can be improved. Try to pay more attention to your Moonfire on the boss.',
     };
   }
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(suggest.text)
+      return suggest(<React.Fragment>Your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime can be improved. Try to pay more attention to your Moonfire on the boss.</React.Fragment>)
         .icon(SPELLS.MOONFIRE_BEAR.icon)
         .actual(`${formatPercentage(actual)}% Moonfire uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);

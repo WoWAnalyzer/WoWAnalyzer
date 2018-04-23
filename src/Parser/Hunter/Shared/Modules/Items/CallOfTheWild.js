@@ -6,7 +6,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS/HUNTER';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import SPECS from 'common/SPECS';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 
@@ -174,7 +173,7 @@ class CallOfTheWild extends Analyzer {
   suggestions(when) {
     if (this.combatants.selected.spec === SPECS.BEAST_MASTERY_HUNTER) {
       when(this.suggestionsThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Try to use <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} icon /> more often to capitalize on the cooldown reduction provided by <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} icon />, whilst still making sure to overlap it with <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon />. </Wrapper>)
+        return suggest(<React.Fragment>Try to use <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> more often to capitalize on the cooldown reduction provided by <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} />, whilst still making sure to overlap it with <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. </React.Fragment>)
           .icon(ITEMS.CALL_OF_THE_WILD.icon)
           .actual(`${actual.toFixed(2)} possible Aspect of the Wild casts gained`)
           .recommended(`${recommended.toFixed(2)} is recommended`);

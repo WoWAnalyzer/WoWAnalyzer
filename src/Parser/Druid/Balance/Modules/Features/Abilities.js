@@ -1,5 +1,4 @@
 import React from 'react';
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
@@ -22,9 +21,9 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.9,
           majorIssueEfficiency: 0.85,
           extraSuggestion: (
-            <Wrapper>
+            <React.Fragment>
               Your <SpellLink id={SPELLS.NEW_MOON.id} />, <SpellLink id={SPELLS.HALF_MOON.id} /> and <SpellLink id={SPELLS.FULL_MOON.id} /> cast efficiency can be improved, try keeping yourself at low Moon charges at all times; you should (almost) never be at max (3) charges.
-            </Wrapper>
+            </React.Fragment>
           ),
         },
         timelineSortIndex: 1,
@@ -150,7 +149,9 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.6,
+          recommendedEfficiency: 0.50,
+          averageIssueEfficiency: 0.35,
+          majorIssueEfficiency: 0.25,
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         timelineSortIndex: 13,
@@ -168,12 +169,14 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         enabled: combatant.hasTalent(SPELLS.DISPLACER_BEAST_TALENT.id),
         isOnGCD: true,
+        timelineSortIndex: 14,
       },
       {
         spell: [SPELLS.WILD_CHARGE_TALENT, SPELLS.WILD_CHARGE_MOONKIN, SPELLS.WILD_CHARGE_CAT, SPELLS.WILD_CHARGE_BEAR, SPELLS.WILD_CHARGE_TRAVEL],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
         enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
+        timelineSortIndex: 14,
       },
       {
         spell: SPELLS.MIGHTY_BASH_TALENT,

@@ -25,6 +25,11 @@ const DIRE_FRENZY_NOT_AFFECTED_PETS = [
   PETS.HATI_7.id,
 ];
 
+/**
+ * Dire Beast: When you use Bestial Wrath,  all of your currently summoned Dire Beasts gain 50% increased damage for 15 sec.
+ * Dire Frenzy: When you use Bestial Wrath, your pet gains 10% increased damage for 15 sec.
+ */
+
 class Tier19_2p extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -78,7 +83,7 @@ class Tier19_2p extends Analyzer {
     return {
       id: `spell-${SPELLS.HUNTER_BM_T19_2P_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.HUNTER_BM_T19_2P_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.HUNTER_BM_T19_2P_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.HUNTER_BM_T19_2P_BONUS_BUFF.id} icon={false} />,
       result: <ItemDamageDone amount={this.bonusDmg} />,
     };
   }

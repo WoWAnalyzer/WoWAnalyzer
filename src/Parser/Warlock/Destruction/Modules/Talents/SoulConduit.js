@@ -5,7 +5,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
+
 import { formatPercentage } from 'common/format';
 
 import SoulShardTracker from '../SoulShards/SoulShardTracker';
@@ -29,7 +29,7 @@ class SoulConduit extends Analyzer {
       <div className="flex">
         <div className="flex-main">
           <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id}>
-            <SpellIcon id={SPELLS.SOUL_CONDUIT_TALENT.id} noLink /> Soul Shards Gained
+            Soul Shards Gained
           </SpellLink>
         </div>
         <div className="flex-sub text-right">

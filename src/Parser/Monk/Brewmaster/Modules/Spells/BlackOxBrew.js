@@ -1,5 +1,4 @@
 import React from 'react';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
@@ -59,7 +58,7 @@ class BlackOxBrew extends Analyzer {
   suggestions(when) {
     when(this.suggestionThreshold)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your <SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} icon /> usage can be improved. Try to use it only when all 3 charges of <SpellLink id={SPELLS.IRONSKIN_BREW.id} icon /> / <SpellLink id={SPELLS.PURIFYING_BREW.id} icon /> are on cooldown.</Wrapper>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /> usage can be improved. Try to use it only when all 3 charges of <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> / <SpellLink id={SPELLS.PURIFYING_BREW.id} /> are on cooldown.</React.Fragment>)
           .icon(SPELLS.BLACK_OX_BREW_TALENT.icon)
           .actual(`${formatPercentage(actual)}% of Cooldown Reduction wasted`)
           .recommended(`< ${formatPercentage(recommended)}% is recommended`);

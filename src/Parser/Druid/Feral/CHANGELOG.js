@@ -1,24 +1,23 @@
 import React from 'react';
 
 import { Thieseract, Anatta336, sref } from 'CONTRIBUTORS';
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
   {
     date: new Date('2018-02-10'),
-    changes: <Wrapper><SpellLink id={SPELLS.PRIMAL_FURY.id} /> procs from an ability used at 4 CPs no longer count as 'wasted' CPs because it's not within the player's control. Also, <SpellLink id={SPELLS.PRIMAL_FURY.id} /> procs will no longer be shown in the Cooldowns tab.</Wrapper>,
+    changes: <React.Fragment><SpellLink id={SPELLS.PRIMAL_FURY.id} /> procs from an ability used at 4 CPs no longer count as 'wasted' CPs because it's not within the player's control. Also, <SpellLink id={SPELLS.PRIMAL_FURY.id} /> procs will no longer be shown in the Cooldowns tab.</React.Fragment>,
     contributors: [sref],
   },
   {
     date: new Date('2018-01-29'),
-    changes: <Wrapper>Added low energy <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> tracking</Wrapper>,
+    changes: <React.Fragment>Added low energy <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> tracking</React.Fragment>,
     contributors: [Anatta336],
   },
   {
     date: new Date('2018-01-24'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.ASHAMANES_RIP.id} /> uptime tracking</Wrapper>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.ASHAMANES_RIP.id} /> uptime tracking</React.Fragment>,
     contributors: [Anatta336],
   },
   {
@@ -33,7 +32,7 @@ export default [
   },
   {
     date: new Date('2017-09-11'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} icon /> damage contribution</Wrapper>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} /> damage contribution</React.Fragment>,
     contributors: [Thieseract],
   },
   {

@@ -10,7 +10,6 @@ import { formatPercentage } from "common/format";
 import SpellLink from "common/SpellLink";
 import SPECS from 'common/SPECS';
 import ItemDamageDone from 'Main/ItemDamageDone';
-import Wrapper from 'common/Wrapper';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 //generally accepted rule is to save crows if boss is below 25% health.
@@ -19,8 +18,10 @@ const CROWS_SAVE_PERCENT = 0.25;
 const EXECUTE_PERCENT = 0.2;
 
 /**
- * Summons a flock of crows to attack your target, dealing [(162% of Attack power) * 16] Physical damage over 15 sec. When a target dies while affected by this ability, its cooldown will reset.
+ * Summons a flock of crows to attack your target, dealing [(162% of Attack power) * 16] Physical damage over 15 sec. When a target dies
+ * while affected by this ability, its cooldown will reset.
  */
+
 class AMurderOfCrows extends Analyzer {
 
   static dependencies = {
@@ -34,6 +35,7 @@ class AMurderOfCrows extends Analyzer {
   bossHP = 0;
   goodCrowsCasts = 0;
   totalCrowsCasts = 0;
+  crowsNotYetChecked = false;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id) && SPECS.MARKSMANSHIP_HUNTER;
@@ -55,6 +57,16 @@ class AMurderOfCrows extends Analyzer {
       this.spellUsable.beginCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id, this.owner.fight.start_time);
     }
     this.damage += event.amount;
+    if (!this.crowsNotYetChecked || !event.maxHitPoints || !this.bossIDs.includes(event.targetID)) {
+      return;
+    }
+    if ((event.hitPoints / event.maxHitPoints) <= CROWS_SAVE_PERCENT && (event.hitPoints / event.maxHitPoints) > EXECUTE_PERCENT) {
+      this.shouldHaveSaved += 1;
+      this.bossHP = (event.hitPoints / event.maxHitPoints);
+    } else {
+      this.goodCrowsCasts += 1;
+    }
+    this.crowsNotYetChecked = false;
   }
 
   on_byPlayer_cast(event) {
@@ -63,14 +75,7 @@ class AMurderOfCrows extends Analyzer {
       return;
     }
     this.totalCrowsCasts += 1;
-    if (event.maxHitPoints && this.bossIDs.includes(event.targetID)) {
-      if ((event.hitPoints / event.maxHitPoints) <= CROWS_SAVE_PERCENT && (event.hitPoints / event.maxHitPoints) > EXECUTE_PERCENT) {
-        this.shouldHaveSaved += 1;
-        this.bossHP = (event.hitPoints / event.maxHitPoints);
-        return;
-      }
-    }
-    this.goodCrowsCasts += 1;
+    this.crowsNotYetChecked = true;
   }
 
   statistic() {
@@ -81,7 +86,7 @@ class AMurderOfCrows extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} />}
         value={(
-          <Wrapper>
+          <React.Fragment>
             {this.goodCrowsCasts}{'  '}
             <SpellIcon
               id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id}
@@ -100,7 +105,7 @@ class AMurderOfCrows extends Analyzer {
                 filter: 'grayscale(100%)',
               }}
             />
-          </Wrapper>
+          </React.Fragment>
 
         )}
         label={`A Murder of Crows`}
@@ -112,9 +117,7 @@ class AMurderOfCrows extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id}>
-            <SpellIcon id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} noLink /> A Murder of Crows
-          </SpellLink>
+          <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.damage} />
@@ -137,9 +140,9 @@ class AMurderOfCrows extends Analyzer {
   }
   suggestions(when) {
     when(this.shouldHaveSavedThreshold).addSuggestion((suggest) => {
-      return suggest(<Wrapper>You should <b>generally</b> save <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} icon /> when the boss has under 25% hp so that it is ready to use when the boss hits 20% and you can start getting <SpellLink id={SPELLS.BULLSEYE_BUFF.id} icon /> quicker.</Wrapper>)
+      return suggest(<React.Fragment>You should <b>generally</b> save <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> when the boss has under 25% hp so that it is ready to use when the boss hits 20% and you can start getting <SpellLink id={SPELLS.BULLSEYE_BUFF.id} /> quicker.</React.Fragment>)
         .icon(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.icon)
-        .actual(`You cast crows while boss ${formatPercentage(this.bossHP)}% HP.`)
+        .actual(`You cast crows while boss had ${formatPercentage(this.bossHP)}% HP.`)
         .recommended(`0 casts when boss has between 20 and 25% hp is recommended`);
     });
   }

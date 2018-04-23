@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -94,7 +93,7 @@ class CrimsonScourge extends Analyzer {
       return;
     }
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You had unspent <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} icon /> procs. Make sure you always use them.</Wrapper>)
+      return suggest(<React.Fragment>You had unspent <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs. Make sure you always use them.</React.Fragment>)
         .icon(SPELLS.CRIMSON_SCOURGE.icon)
         .actual(`${formatPercentage(actual)}% Crimson Scourge procs wasted`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`);

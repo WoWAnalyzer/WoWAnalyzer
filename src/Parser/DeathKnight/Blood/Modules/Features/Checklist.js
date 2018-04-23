@@ -3,9 +3,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
@@ -23,12 +23,14 @@ import MarrowrendUsage from './MarrowrendUsage';
 
 import Ossuary from '../Talents/Ossuary';
 import BoneStorm from '../Talents/Bonestorm';
+import MarkOfBloodUptime from '../Talents/MarkOfBloodUptime';
 
 import RunicPowerDetails from '../RunicPower/RunicPowerDetails';
 import RuneTracker from '../../../Shared/RuneTracker';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
+    abilities: Abilities,
     castEfficiency: CastEfficiency,
     combatants: Combatants,
     legendaryCountChecker: LegendaryCountChecker,
@@ -41,6 +43,7 @@ class Checklist extends CoreChecklist {
 
     ossuary: Ossuary,
     bonestorm: BoneStorm,
+    markOfBloodUptime: MarkOfBloodUptime,
 
     crimsonScourge: CrimsonScourge,
     marrowrendUsage: MarrowrendUsage,
@@ -63,7 +66,7 @@ class Checklist extends CoreChecklist {
             when: this.combatants.selected.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.CRIMSON_SCOURGE.id} icon /> procs spent</Wrapper>,
+            name: <React.Fragment><SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs spent</React.Fragment>,
             check: () => this.crimsonScourge.efficiencySuggestionThresholds,
             when: !this.combatants.selected.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
           }),
@@ -93,7 +96,7 @@ class Checklist extends CoreChecklist {
             check: () => this.runeTracker.suggestionThresholdsEfficiency,
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.MARROWREND.id} icon /> efficiency</Wrapper>,
+            name: <React.Fragment><SpellLink id={SPELLS.MARROWREND.id} /> efficiency</React.Fragment>,
             check: () => this.marrowrendUsage.suggestionThresholdsEfficiency,
           }),
         ];
@@ -107,16 +110,18 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.DANCING_RUNE_WEAPON,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.CONSUMPTION,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.BLOOD_MIRROR_TALENT,
             when: this.combatants.selected.hasTalent(SPELLS.BLOOD_MIRROR_TALENT.id),
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.BONESTORM_TALENT.id} icon /> efficiency</Wrapper>,
+            name: <React.Fragment><SpellLink id={SPELLS.BONESTORM_TALENT.id} /> efficiency</React.Fragment>,
             check: () => this.bonestorm.suggestionThresholds,
             when: this.combatants.selected.hasTalent(SPELLS.BONESTORM_TALENT.id),
           }),
@@ -129,15 +134,19 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.BLOOD_PLAGUE.id}/> Uptime</Wrapper>,
+            name: <React.Fragment><SpellLink id={SPELLS.BLOOD_PLAGUE.id}/> Uptime</React.Fragment>,
             check: () => this.bloodplagueUptime.uptimeSuggestionThresholds,
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.BONE_SHIELD.id}/> Uptime</Wrapper>,
+            name: <React.Fragment><SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id}/> Uptime</React.Fragment>,
+            check: () => this.markOfBloodUptime.uptimeSuggestionThresholds,
+          }),
+          new Requirement({
+            name: <React.Fragment><SpellLink id={SPELLS.BONE_SHIELD.id}/> Uptime</React.Fragment>,
             check: () => this.boneShield.uptimeSuggestionThresholds,
           }),
           new Requirement({
-            name: <Wrapper><SpellLink id={SPELLS.OSSUARY.id}/> Uptime</Wrapper>,
+            name: <React.Fragment><SpellLink id={SPELLS.OSSUARY.id}/> Uptime</React.Fragment>,
             when: this.combatants.selected.hasTalent(SPELLS.OSSUARY_TALENT.id),
             check: () => this.ossuary.uptimeSuggestionThresholds,
           }),
@@ -152,20 +161,19 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.VAMPIRIC_BLOOD,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ICEBOUND_FORTITUDE,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ANTI_MAGIC_SHELL,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.RUNE_TAP_TALENT,
             when: this.combatants.selected.hasTalent(SPELLS.RUNE_TAP_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.MARK_OF_BLOOD_TALENT,
-            when: this.combatants.selected.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TOMBSTONE_TALENT,

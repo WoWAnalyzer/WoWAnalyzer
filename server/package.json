@@ -2,29 +2,48 @@
   "name": "wowanalyzer-server",
   "main": "index.js",
   "scripts": {
-    "start": "sequelize db:migrate && nodemon index.js --exec babel-node",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel -d build --ignore node_modules,build .",
-    "serve": "sequelize db:migrate && node --harmony build/index.js"
+    "start": "node --harmony node_modules/sequelize-cli/lib/sequelize db:migrate && nodemon index.js --exec babel-node",
+    "test": "jest --watchAll",
+    "build": "babel -d build --ignore node_modules,build . && node ./config/postbuild.js",
+    "serve": "node --harmony node_modules/sequelize-cli/lib/sequelize db:migrate && node --harmony build/index.js"
   },
   "dependencies": {
     "agentkeepalive": "^3.4.1",
+    "babel-plugin-inline-dotenv": "^1.1.2",
     "babel-runtime": "^6.26.0",
+    "body-parser": "^1.18.2",
     "compression": "^1.7.2",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
+    "express-session": "^1.15.6",
     "mysql2": "^1.5.3",
-    "raven": "^2.4.2",
+    "passport": "^0.4.0",
+    "passport-patreon": "^1.0.1",
+    "raven": "^2.5.0",
     "request": "^2.85.0",
     "request-promise-native": "^1.0.5",
-    "sequelize": "^4.37.4",
+    "sequelize": "^4.37.6",
     "sequelize-cli": "^4.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^22.4.3",
+    "babel-plugin-module-resolver": "^3.1.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
-    "nodemon": "^1.17.2"
+    "jest": "^22.4.3",
+    "nodemon": "^1.17.2",
+    "regenerator-runtime": "^0.11.1"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/build/"
+    ],
+    "modulePaths": [
+      "."
+    ]
   }
 }

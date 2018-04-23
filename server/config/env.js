@@ -2,12 +2,12 @@ const fs = require('fs');
 const path = require('path');
 
 // The source pre-modifications: https://github.com/facebook/create-react-app/blob/33f1294f07a884ca2628fb6d8dc648bd18b25fbe/packages/react-scripts/config/env.js#L25-L49
-export default function loadDotEnv(rootPath) {
+module.exports = function loadDotEnv(rootPath) {
   const dotEnvPath = path.resolve(rootPath, '.env');
   const NODE_ENV = process.env.NODE_ENV;
   if (!NODE_ENV) {
     throw new Error(
-      'The NODE_ENV environment variable is required but was not specified.'
+      'The NODE_ENV environment variable is required but was not specified. In cmd.exe you can set it with `set NODE_ENV=development`, in PowerShell it\'s `$env:NODE_ENV="development"`, on UNIX it\'s `NODE_ENV=development`.'
     );
   }
 
@@ -33,4 +33,4 @@ export default function loadDotEnv(rootPath) {
       });
     }
   });
-}
+};

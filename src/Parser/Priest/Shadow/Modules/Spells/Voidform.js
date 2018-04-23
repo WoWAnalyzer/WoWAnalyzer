@@ -260,7 +260,7 @@ class Voidform extends Analyzer {
       title: 'Voidforms',
       url: 'voidforms',
       render: () => (
-        <Tab title="Voidforms">
+        <Tab>
           <VoidformsTab
             voidforms={this.voidforms}
             insanityEvents={this.insanity.events}

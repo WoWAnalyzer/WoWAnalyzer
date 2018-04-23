@@ -6,7 +6,6 @@ import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import { formatPercentage } from 'common/format';
 
 const ELT_DAMAGE_BONUS = 0.1;
@@ -47,7 +46,7 @@ class EmpoweredLifeTap extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your uptime on the <SpellLink id={SPELLS.EMPOWERED_LIFE_TAP_BUFF.id} /> buff could be improved. You should cast <SpellLink id={SPELLS.LIFE_TAP.id} /> more often to maintain the buff.</Wrapper>)
+        return suggest(<React.Fragment>Your uptime on the <SpellLink id={SPELLS.EMPOWERED_LIFE_TAP_BUFF.id} /> buff could be improved. You should cast <SpellLink id={SPELLS.LIFE_TAP.id} /> more often to maintain the buff.</React.Fragment>)
           .icon(SPELLS.EMPOWERED_LIFE_TAP_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Empowered Life Tap uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);

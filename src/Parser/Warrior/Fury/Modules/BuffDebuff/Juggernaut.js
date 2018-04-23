@@ -6,7 +6,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
-import Wrapper from 'common/Wrapper';
 
 class JuggernautReset extends Analyzer {
 
@@ -51,7 +50,7 @@ class JuggernautReset extends Analyzer {
     
     when(this.resets).isGreaterThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your <SpellLink id={SPELLS.JUGGERNAUT.id} /> stacks dropped during the fight.</Wrapper>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.JUGGERNAUT.id} /> stacks dropped during the fight.</React.Fragment>)
           .icon(SPELLS.JUGGERNAUT.icon)
           .actual(`${actual} resets resulting in ${this.stacksDropped} stacks lost.`)
           .recommended(`0 is recommended`)

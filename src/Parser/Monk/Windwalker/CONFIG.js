@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Juko8 } from 'CONTRIBUTORS';
 import SPECS from 'common/SPECS';
-import Wrapper from 'common/Wrapper';
 
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
@@ -15,11 +14,11 @@ export default {
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
-    <Wrapper>
+    <React.Fragment>
       Hello! We have been working hard to make the Windwalker analyzer good, but there is always stuff to add or improve. We hope that the suggestions and statistics will be helpful in improving your overall performance. It takes time to learn the Windwalker resource and cooldown management, so be patient with yourself while getting used to it. <br /> <br />
 
-      If you have any questions about the analyzer or Windwalker monks in general, join us in the <a href="https://discord.gg/0dkfBMAxzTkWj21F" target="_blank" rel="noopener noreferrer">Peak of Serenity discord server</a> and talk to us. You can reach me there as Juko8. Make sure to also check out our resources on the <a href="http://peakofserenity.com/windwalker/" target="_blank" rel="noopener noreferrer">Peak of Serenity website</a> as well, it has pretty much everything you need to know.
-    </Wrapper>
+      If you have any questions about the analyzer or Windwalker monks in general, join us in the <a href="https://discord.gg/0dkfBMAxzTkWj21F" target="_blank" rel="noopener noreferrer">Peak of Serenity discord server</a> and talk to us. You can reach me there as Juko8. Make sure to also check out our resources on the <a href="http://peakofserenity.com/windwalker/">Peak of Serenity website</a> as well, it has pretty much everything you need to know.
+    </React.Fragment>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   // exampleReport: '/report/hNqbFwd7Mx3G1KnZ/18-Mythic+Antoran+High+Command+-+Kill+(6:51)/Taffly',

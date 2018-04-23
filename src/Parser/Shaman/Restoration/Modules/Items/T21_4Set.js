@@ -28,7 +28,7 @@ class Restoration_Shaman_T21_4Set extends Analyzer {
     return {
       id: `spell-${SPELLS.RESTORATION_SHAMAN_T21_4SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.DOWNPOUR.id} />,
-      title: <SpellLink id={SPELLS.RESTORATION_SHAMAN_T21_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.RESTORATION_SHAMAN_T21_4SET_BONUS_BUFF.id} icon={false} />,
       result: (
         <dfn
           data-tip={`

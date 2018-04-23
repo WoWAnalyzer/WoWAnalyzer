@@ -13,7 +13,7 @@ class ImageArticle extends React.PureComponent {
     const { title, children, image, style } = this.props;
 
     return (
-      <div className="panel image-overlay" style={{ backgroundImage: `url(${image})`, ...style }}>
+      <div className="panel image-background" style={{ backgroundImage: `url(${image})`, ...style }}>
         <div className="panel-body">
           <div className="row">
             <div className="col-md-10">

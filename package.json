@@ -1,7 +1,7 @@
 {
   "name": "WoWAnalyzer",
   "version": "2.0.0",
-  "private": true,
+  "license": "AGPL",
   "dependencies": {
     "autoprefixer": "7.1.6",
     "babel-core": "6.26.0",
@@ -94,6 +94,12 @@
       "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}"
     ],
     "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/build/",
+      "<rootDir>/server/",
+      "<rootDir>/browser-extensions/"
+    ],
     "testURL": "http://localhost",
     "transform": {
       "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",

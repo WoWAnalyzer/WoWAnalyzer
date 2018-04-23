@@ -18,7 +18,7 @@ export default {
   // },
   MELEE: {
     id: 1,
-    name: 'Melee or Word of Recall, who knows?',
+    name: 'Auto attack',
     icon: 'inv_axe_02',
   },
   LEECH: {
@@ -489,12 +489,13 @@ export default {
     name: 'Golganneth\'s Thunderous Wrath',
     icon: 'ability_thunderking_thunderstruck',
   },
+  //Khaz'goroths Courage procs:
   WORLDFORGERS_FLAME_BUFF: {
     id: 256826,
     name: 'Worldforger\'s Flame',
     icon: 'inv_antorus_red',
   },
-  WORLDFORGERS_FLAME_DAMAGE: { //Khaz'goroths Courage damage proc
+  WORLDFORGERS_FLAME_DAMAGE: {
     id: 257244,
     name: 'Worldforger\'s Flame',
     icon: 'inv_antorus_red',
@@ -871,6 +872,11 @@ export default {
     name: 'Feedback Loop',
     icon: 'spell_holy_dispelmagic',
   },
+  VALARJARS_PATH: {
+    id: 215956,
+    name: 'Valarjar\'s Path',
+    icon: 'inv_misc_horn_03',
+  },
   // Dot spell for Carafe of Searing Light
   REFRESHING_AGONY_DOT: {
     id: 253284,
@@ -914,6 +920,51 @@ export default {
     id: 256816,
     name: 'Celestial Bulwark',
     icon: 'inv_antorus_orange',
+  },
+  //Smoldering Titanguard
+  BULLWARK_OF_FLAME: { //absorb
+    id: 251946,
+    name: 'Bullwark of Flame',
+    icon: 'ability_warrior_shieldmastery',
+  },
+  WAVE_OF_FLAME: { //damage waves
+    id: 251948,
+    name: 'Wave of Flame',
+    icon: 'ability_warlock_coil2',
+  },
+  // Diima's
+  CHILLING_NOVA: { //AoE damage
+    id: 251940,
+    name: 'Chilling Nova',
+    icon: 'spell_frost_frostward',
+  },
+  FROZEN_ARMOR: {
+    id: 251941,
+    name: 'Frozen Armor',
+    icon : 'ability_hunter_glacialtrap',
+  },
+  // Riftworld Codex
+  WINDS_OF_KARETH: { //6sec HoT
+    id: 251938,
+    name: 'Winds of Kareth',
+    icon: 'spell_nature_regeneration_02',
+  },
+  LIGHT_OF_ABSOLARN: { //Absorb Shield
+    id: 252545,
+    name: 'Light of Absolarn',
+    icon: 'spell_frost_frostarmor02',
+  },
+  FLAMES_OF_RUVARAAD: { //8sec Immolation - Buff
+    id: 256415,
+    name: 'Flames of Ruvaraad',
+    icon: 'spell_fire_ragnaros_supernova',
+  },
+  FLAMES_OF_RUVARAAD_HEALING: {
+    id: 252550,
+    icon: 'spell_fire_ragnaros_supernova',
+  },
+  SWAP_HOUNDS: { //swaps the Eye trinket from Hounds
+    id: 252075,
   },
   // Antorus: Argus the Unmaker boss fight
   STRENGTH_OF_THE_SEA: { // 2000 Haste/versa buff

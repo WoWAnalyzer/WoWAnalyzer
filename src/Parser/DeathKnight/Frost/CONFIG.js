@@ -2,8 +2,6 @@ import React from 'react';
 
 import { Khazak } from 'CONTRIBUTORS';
 import SPECS from 'common/SPECS';
-import Wrapper from 'common/Wrapper';
-import Warning from 'common/Alert/Warning';
 
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
@@ -16,17 +14,16 @@ export default {
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
-    <Wrapper>
-      Welcome to the Frost Death Knight analyzer! We hope you find these suggestions and statistics useful.<br /><br />
+    <React.Fragment>
+      Welcome to the Frost Death Knight analyzer! This analyzer is still under construction but I hope you will find what is here to be useful.  The current plan is to have a finished analyzer by the release of Battle for Azeroth.  If you have any comments or suggestions feel free to contact Khazak(Khazak#3360) on Discord.<br /><br />
 
-      <Warning>
-        This spec's analysis isn't complete yet. What we do show should be good to use, but it does not show the complete picture.<br />
-        If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact us on <a href="https://discord.gg/AxphPxU">Discord</a>.
-      </Warning>
-    </Wrapper>
+      <br />More resources for Frost:<br />
+      <a href="https://discord.gg/acherus" target="_blank" rel="noopener noreferrer">Death Knight Class Discord</a> <br />
+      <a href="http://www.wowhead.com/frost-death-knight-guide" target="_blank" rel="noopener noreferrer">Wowhead Guide</a> <br />
+    </React.Fragment>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  // exampleReport: '/report/72t9vbcAqdpVRfBQ/12-Mythic+Garothi+Worldbreaker+-+Kill+(6:15)/Maxweii',
+  exampleReport: '/report/CHgcAy9mV7MwRPxB/4-Mythic+Garothi+Worldbreaker+-+Kill+(3:42)/19-Khazakk',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

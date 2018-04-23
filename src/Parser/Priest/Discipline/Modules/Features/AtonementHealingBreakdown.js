@@ -6,7 +6,6 @@ import Icon from 'common/Icon';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import { formatNumber, formatPercentage } from 'common/format';
 import ItemLink from 'common/ItemLink';
 
@@ -32,9 +31,9 @@ class AtonementHealingBreakdown extends React.Component {
   reason(spellId) {
     switch (Number(spellId)) {
       case SPELLS.REFRESHING_AGONY_DOT.id:
-        return <ItemLink id={ITEMS.CARAFE_OF_SEARING_LIGHT.id} icon />;
+        return <ItemLink id={ITEMS.CARAFE_OF_SEARING_LIGHT.id} />;
       case -2: // Melee
-        return <SpellLink id={SPELLS.LIGHTSPAWN.id} icon />;
+        return <SpellLink id={SPELLS.LIGHTSPAWN.id} />;
       default: return null;
     }
   }
@@ -57,17 +56,17 @@ class AtonementHealingBreakdown extends React.Component {
             const reason = this.reason(spellId);
 
             return (
-              <Wrapper>
+              <React.Fragment>
                 <tr key={ability.guid}>
                   <td style={{ width: '30%' }}>
-                    <SpellLink id={ability.guid}>
+                    <SpellLink id={ability.guid} icon={false}>
                       <Icon icon={ability.abilityIcon} />{' '}
                       {ability.name}
                     </SpellLink>
                     {reason && (
-                      <Wrapper>
+                      <React.Fragment>
                         {' '}({reason})
-                      </Wrapper>
+                      </React.Fragment>
                     )}
                   </td>
                   <td style={{ paddingRight: 5, textAlign: 'right', whiteSpace: 'nowrap' }}>
@@ -98,7 +97,7 @@ class AtonementHealingBreakdown extends React.Component {
                   return (
                     <tr>
                       <td style={{ width: '30%', paddingLeft: 50 }}>
-                        <SpellLink id={ability.guid}>
+                        <SpellLink id={ability.guid} icon={false}>
                           <Icon icon={ability.abilityIcon} />{' '}
                           {ability.name} bolt {index + 1}
                         </SpellLink>
@@ -123,7 +122,7 @@ class AtonementHealingBreakdown extends React.Component {
                     </tr>
                   );
                 })}
-              </Wrapper>
+              </React.Fragment>
             );
           })}
 

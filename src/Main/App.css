@@ -97,108 +97,7 @@ ul {
   font-weight: 600;
 }
 
-.app > header {
-  background-image: url(./Images/header.jpg);  /* Created and property of Blizzard Entertainment. source: https://worldofwarcraft.com/en-us/ */
-  background-size: cover;
-  background-position: center center;
-  margin-top: 0px;
-  min-height: 400px;
-  padding-bottom: 67px; /* so that the divider in `after` doesn't overlap content */
-  position: relative;
-  margin-bottom: 90px;
-  transition: all 600ms;
-  opacity: 1;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), 0 0 0 5px rgba(0, 0, 0, 0.5);
-}
-.app > header:after {
-  content: '';
-  background: url(./Images/section-divider-sprite.png) no-repeat; /* Created by and property of Blizzard Entertainment. source: http://eu.battle.net/wow/en/legion/ */
-  background-size: auto 200%;
-  background-position: 50% 0;
-  position: absolute;
-  bottom: -67px;
-  left: 0;
-  right: 0;
-  height: 134px;
-  z-index: 200;
-  pointer-events: none;
-}
-.app.has-report > header {
-  margin-top: -410px;
-  margin-bottom: 90px;
-  opacity: 0;
-  pointer-events: none;
-}
-.app > header .image-overlay {
-  padding-top: 100px;
-}
-@media (max-width: 600px) {
-  .app > header .image-overlay {
-    padding-top: 60px;
-  }
-  .app > header .image-overlay h1 {
-    font-size: 3em;
-  }
-}
-.app > header .image-overlay h1 {
-  font-size: 4em;
-}
-.app > header .image-overlay .description {
-  font-size: 1.4em;
-  margin-bottom: 20px;
-}
-.app > header .image-overlay .report-selector {
-  margin-bottom: 10px;
-}
-.app > header .image-overlay .about {
-  font-size: 0.8em;
-}
-@media (max-width: 400px) {
-  .app > header .image-overlay {
-    padding-top: 40px;
-  }
-}
-
-.panel.image-overlay {
-  padding-top: 70px;
-  background-size: cover;
-  background-position: center center;
-}
-.image-overlay h1 {
-  font-size: 3em;
-  font-weight: 700;
-  margin-bottom: 20px;
-  text-shadow: 0 0 1px transparent, 0 0 5px rgba(0,0,0,.8);
-  letter-spacing: 1px;
-}
-.image-overlay .description {
-  font-size: 1.2em;
-  color: #ebdec2;
-}
-
-.report-selector {
-  display: flex;
-}
-.report-selector .form-control {
-  flex: 1;
-}
-.report-selector .btn {
-  flex: 0;
-  margin-left: 10px;
-}
-@media (min-width: 0px) {
-  .form-inline .form-control {
-    display: inline-block;
-    width: auto;
-    vertical-align: middle;
-  }
-}
-
 /* Components */
-.completeness {
-  font-weight: 600;
-}
-
 .panel {
   width: 100%;
   margin-bottom: 20px;
@@ -231,6 +130,26 @@ ul {
 }
 .panel > .panel-body {
   padding: 15px 22px;
+}
+
+.image-background {
+  background-size: cover;
+  background-position: center center;
+}
+.image-background h1, .app > header .image-overlay h1 {
+  font-size: 3em;
+  font-weight: 700;
+  margin-bottom: 0.35em;
+  text-shadow: 0 0 1px transparent, 0 0 5px rgba(0,0,0,.8);
+  letter-spacing: 1px;
+}
+.image-background .description, .app > header .image-overlay .description {
+  font-size: 1.2em;
+  color: #ebdec2;
+  text-shadow: 0 0 2px #000;
+}
+.panel.image-background {
+  padding-top: 70px;
 }
 
 .statistic-expansion {
@@ -297,7 +216,7 @@ nav {
   border: 0;
   margin-bottom: 24px;
 }
-.has-report nav {
+.show-report-selecter nav {
   /* Reduce opacity by 20% */
   background: rgba(12, 12, 12, 0.8);
   background: linear-gradient(to bottom, rgba(18, 18, 18, 0.8) 0%, rgba(8, 8, 8, 0.8) 100%);
@@ -438,7 +357,7 @@ svg {
 }
 img.icon {
   height: 1.2em;
-  margin-top: -0.2em;
+  margin-top: -0.15em;
 }
 h1 {
   position: relative;
@@ -946,9 +865,6 @@ code.inactive {
   display: inline-block;
   line-height: 1; /* this keeps the height of the contributor box acceptable */
 }
-.contributor[data-tip] {
-  cursor: help;
-}
 .contributor img {
   width: 1.4em;
   height: 1.4em;
@@ -970,7 +886,7 @@ code.inactive {
   transition: transform 400ms;
 }
 .expandable:not(.expanded) > .meta .chevron {
-  transform: rotate(-180deg);
+  transform: rotate(-90deg);
 }
 .expandable > .details {
   background: rgba(40, 40, 40, 0.4);
@@ -990,4 +906,47 @@ code.inactive {
 }
 .item-divider-top.item-divider {
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1), 1px -1px 0 0 rgba(255, 255, 255, 0.1);
+}
+
+.contributorlist > .row {
+  margin: 10px 0;
+}
+
+.modal {
+  position: fixed;
+  top: 40px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .8);
+  z-index: 200;
+  padding-top: 20px;
+}
+
+.btn-close {
+  display: block;
+  margin: 20px auto;
+  width: 200px;
+}
+
+.contributor-detail {
+  height: calc(100% - 80px);
+}
+
+.no-scroll .contributor-detail .panel {
+  background-color: rgba(20, 20, 20, 1);
+}
+
+.contributor-detail>.container, .contributor-detail>.container>.flex-main, .contributor-detail>.container>.flex-main>.row, .contributor-detail>.container>.flex-main>.row>.col-md-7 {
+  height: 100%;
+}
+
+.panel.scrollable {
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+.no-scroll {
+  overflow: hidden;
 }

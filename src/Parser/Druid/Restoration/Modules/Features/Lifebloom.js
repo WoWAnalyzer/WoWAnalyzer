@@ -4,7 +4,6 @@ import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
-import Wrapper from 'common/Wrapper';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
@@ -61,7 +60,7 @@ class Lifebloom extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> uptime can be improved. {this.hasDta ? <Wrapper>High uptime is particularly important for taking advantage of your equipped <ItemLink id={ITEMS.THE_DARK_TITANS_ADVICE.id} icon /></Wrapper> : ''}</Wrapper>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> uptime can be improved. {this.hasDta ? <React.Fragment>High uptime is particularly important for taking advantage of your equipped <ItemLink id={ITEMS.THE_DARK_TITANS_ADVICE.id} /></React.Fragment> : ''}</React.Fragment>)
           .icon(SPELLS.LIFEBLOOM_HOT_HEAL.icon)
           .actual(`${formatPercentage(this.uptimePercent)}% uptime`)
           .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`);

@@ -5,7 +5,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 
 /**
  * Frizzo's Fingertrap
@@ -42,7 +41,7 @@ class FrizzosFingertrap extends Analyzer {
   item() {
     return {
       item: ITEMS.FRIZZOS_FINGERTRAP,
-      result: <Wrapper>Spread <SpellLink id={SPELLS.LACERATE.id} icon /> to {this.spreadLacerates} additional targets. </Wrapper>,
+      result: <React.Fragment>Spread <SpellLink id={SPELLS.LACERATE.id} /> to {this.spreadLacerates} additional targets. </React.Fragment>,
     };
   }
 }

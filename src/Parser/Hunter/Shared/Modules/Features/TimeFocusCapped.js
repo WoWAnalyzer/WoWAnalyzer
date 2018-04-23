@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SPECS from 'common/SPECS';
 
@@ -94,7 +93,7 @@ class TimeFocusCapped extends Analyzer {
     if (this.combatants.selected.spec === SPECS.MARKSMANSHIP_HUNTER) {
       when(this.suggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<Wrapper>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. It's better to shoot a non-vulnerable <SpellLink id={SPELLS.AIMED_SHOT.id} icon />, than spend time at max focus. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</Wrapper>)
+          return suggest(<React.Fragment>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. It's better to shoot a non-vulnerable <SpellLink id={SPELLS.AIMED_SHOT.id} />, than spend time at max focus. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</React.Fragment>)
             .icon('ability_hunter_focusfire')
             .actual(`${formatPercentage(actual)}%`)
             .recommended(`<${formatPercentage(recommended)}% is recommended`);
@@ -102,7 +101,7 @@ class TimeFocusCapped extends Analyzer {
     } else if (this.combatants.selected.spec === SPECS.BEAST_MASTERY_HUNTER) {
       when(this.suggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<Wrapper>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. Remember to cast <SpellLink id={SPELLS.COBRA_SHOT.id} icon /> to stay off the focus cap, if no other focus spender is ready to use. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</Wrapper>)
+          return suggest(<React.Fragment>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. Remember to cast <SpellLink id={SPELLS.COBRA_SHOT.id} /> to stay off the focus cap, if no other focus spender is ready to use. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</React.Fragment>)
             .icon('ability_hunter_focusfire')
             .actual(`${formatPercentage(actual)}%`)
             .recommended(`<${formatPercentage(recommended)}% is recommended`);
@@ -110,7 +109,7 @@ class TimeFocusCapped extends Analyzer {
     } else if (this.combatants.selected.spec === SPECS.SURVIVAL_HUNTER) {
       when(this.suggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<Wrapper>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. Remember to cast focus spenders such as <SpellLink id={SPELLS.FLANKING_STRIKE.id} icon /> to stay off the focus cap. If no other focus spender is ready to use, you can cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} icon />. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</Wrapper>)
+          return suggest(<React.Fragment>You're spending a lot of time being focus capped. Try and avoid this as it is a significant DPS loss. Remember to cast focus spenders such as <SpellLink id={SPELLS.FLANKING_STRIKE.id} /> to stay off the focus cap. If no other focus spender is ready to use, you can cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} />. You wasted a total of {this.getTotalWaste} focus over the course of the fight.</React.Fragment>)
             .icon('ability_hunter_focusfire')
             .actual(`${formatPercentage(actual)}%`)
             .recommended(`<${formatPercentage(recommended)}% is recommended`);

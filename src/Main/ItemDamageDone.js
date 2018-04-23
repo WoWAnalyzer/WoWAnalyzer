@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Wrapper from 'common/Wrapper';
 import connectParser from 'common/connectParser';
 
 class ItemDamageDone extends React.PureComponent {
@@ -18,14 +17,14 @@ class ItemDamageDone extends React.PureComponent {
     const { parser } = this.context;
 
     return (
-      <Wrapper>
+      <React.Fragment>
         <img
           src="/img/sword.png"
           alt="Damage"
           className="icon"
         />{' '}
         {approximate && '≈'}{parser.formatItemDamageDone(amount)}
-      </Wrapper>
+      </React.Fragment>
     );
   }
 }

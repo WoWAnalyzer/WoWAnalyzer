@@ -76,24 +76,24 @@ class MaraadsDyingBreath extends Analyzer {
     // One heal per buff
     this._lastHeal = null;
   }
-  on_beacon_heal(beaconTransferEvent, matchedHeal) {
-    const spellId = matchedHeal.ability.guid;
+  on_beacon_heal(event) {
+    const spellId = event.originalHeal.ability.guid;
     if (spellId !== SPELLS.LIGHT_OF_THE_MARTYR.id) {
       return;
     }
     // Without Maraad's LotM doesn't beacon transfer, so the entire heal counts towards Maraad's bonus.
-    const healing = beaconTransferEvent.amount + (beaconTransferEvent.absorbed || 0);
+    const healing = event.amount + (event.absorbed || 0);
 
     this.totalHealing += healing;
     this.healingGainOverLotm += healing;
 
-    const buff = this.combatants.selected.getBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id, matchedHeal.timestamp);
+    const buff = this.combatants.selected.getBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id, event.originalHeal.timestamp);
     const stacks = buff && buff.stacks ? (buff.stacks + 1) : 1;
 
-    debug && console.log(formatMilliseconds(beaconTransferEvent.timestamp - this.owner.fight.start_time), 'Maraads: beacon transfer: Stacks at LotM heal:', stacks);
+    debug && console.log(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Maraads: beacon transfer: Stacks at LotM heal:', stacks);
 
     // Since FoL beacon transfers, the only gain from Maraad's over a FoL would be the increase from Maraad's to beacon transfer
-    this.healingGainOverFol += calculateEffectiveHealing(beaconTransferEvent, stacks * MARAADS_HEALING_INCREASE_PER_STACK);
+    this.healingGainOverFol += calculateEffectiveHealing(event, stacks * MARAADS_HEALING_INCREASE_PER_STACK);
   }
   // Maraad's doesn't increase damage taken, so we can ignore that part
   on_toPlayer_damage(event) {

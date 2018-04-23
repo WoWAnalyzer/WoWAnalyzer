@@ -76,6 +76,7 @@ class Abilities extends CoreAbilities {
         cooldown: 90,
         castEfficiency: {
           suggestion: false,
+          recommendedEfficiency: 0.7,
         },
         enabled: combatant.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id),
       },
@@ -138,6 +139,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id),
+        cooldown: 180,
       },
       {
         spell: SPELLS.SUMMON_BLACK_OX_STATUE_TALENT,

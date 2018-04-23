@@ -108,6 +108,10 @@ import AcridCatalystInjector from './Modules/Items/Legion/AntorusTheBurningThron
 import ShadowSingedFang from './Modules/Items/Legion/AntorusTheBurningThrone/ShadowSingedFang';
 // Tanking
 import AggramarsConviction from './Modules/Items/Legion/AntorusTheBurningThrone/AggramarsConviction';
+import SmolderingTitanguard from './Modules/Items/Legion/AntorusTheBurningThrone/SmolderingTitanguard';
+import DiimasGlacialAegis from './Modules/Items/Legion/AntorusTheBurningThrone/DiimasGlacialAegis';
+import RiftworldCodex from './Modules/Items/Legion/AntorusTheBurningThrone/RiftworldCodex';
+import EyeOfHounds from './Modules/Items/Legion/AntorusTheBurningThrone/EyeOfHounds';
 
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
@@ -239,6 +243,10 @@ class CombatLogParser {
 
     // T21 Tanking Trinkets
     aggramarsConviction: AggramarsConviction,
+    smolderingTitanguard: SmolderingTitanguard,
+    diimasGlacialAegis: DiimasGlacialAegis,
+    riftworldCodex: RiftworldCodex,
+    eyeOfHounds: EyeOfHounds,
 
     // Concordance of the Legionfall
     concordance: Concordance,
@@ -271,7 +279,7 @@ class CombatLogParser {
   _modules = {};
   get modules() {
     if (!_modulesDeprecatedWarningSent) {
-      console.error('Using `this.owner.modules` is deprecated. You should add the module you want to use as a dependency and use the property that\'s added to your module instead.');
+      console.warn('Using `this.owner.modules` is deprecated. You should add the module you want to use as a dependency and use the property that\'s added to your module instead.');
       _modulesDeprecatedWarningSent = true;
     }
     return this._modules;
@@ -284,6 +292,9 @@ class CombatLogParser {
 
   get playerId() {
     return this.player.id;
+  }
+  get fightId() {
+    return this.fight.id;
   }
 
   _timestamp = null;
@@ -322,7 +333,7 @@ class CombatLogParser {
     });
   }
 
-  initializeModules(modules) {
+  initializeModules(modules, iteration = 0) {
     const failedModules = [];
     Object.keys(modules).forEach(desiredModuleName => {
       const moduleConfig = modules[desiredModuleName];
@@ -379,10 +390,13 @@ class CombatLogParser {
     if (failedModules.length !== 0) {
       debugDependencyInjection && console.warn(`${failedModules.length} modules failed to load, trying again:`, failedModules.map(key => modules[key].name));
       const newBatch = {};
-      failedModules.forEach((key) => {
+      failedModules.forEach(key => {
         newBatch[key] = modules[key];
       });
-      this.initializeModules(newBatch);
+      if (iteration > 100) {
+        throw new Error(`Failed to load modules: ${Object.keys(newBatch).join(', ')}`);
+      }
+      this.initializeModules(newBatch, iteration + 1);
     }
   }
   findModule(type) {
@@ -437,14 +451,11 @@ class CombatLogParser {
   /** @type {number} The amount of events parsed. This can reliably be used to determine if something should re-render. */
   eventCount = 0;
   _moduleTime = {};
-  triggerEvent(event, ...args) {
+  triggerEvent(event) {
     if (process.env.NODE_ENV === 'development') {
       if (!event.type) {
         console.log(event);
         throw new Error('Events should have a type. No type received. See the console for the event.');
-      }
-      if (args.length > 0) {
-        console.warn(`Triggering an event with additional arguments is deprecated as it isn't visible in the events tab and harder to discover. Provide additional arguments as event properties instead. Event type: ${event.type}`, event);
       }
     }
     // Creating arrays is expensive so we cheat and just push here
@@ -458,17 +469,17 @@ class CombatLogParser {
         const module = this._modules[key];
         if (process.env.NODE_ENV === 'development') {
           const start = +new Date();
-          module.triggerEvent(event, ...args);
+          module.triggerEvent(event);
           const duration = +new Date() - start;
           this._moduleTime[key] = this._moduleTime[key] || 0;
           this._moduleTime[key] += duration;
         } else {
-          module.triggerEvent(event, ...args);
+          module.triggerEvent(event);
         }
       });
     this.eventCount += 1;
   }
-  fabricateEvent(event = null, trigger = null, ...args) {
+  fabricateEvent(event = null, trigger = null) {
     this.triggerEvent({
       // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
       timestamp: this.currentTimestamp,
@@ -476,7 +487,7 @@ class CombatLogParser {
       trigger: trigger ? trigger : undefined,
       ...event,
       __fabricated: true,
-    }, ...args);
+    });
   }
 
   byPlayer(event, playerId = this.player.id) {
@@ -532,6 +543,7 @@ class CombatLogParser {
           globalCooldownHistory={this.modules.globalCooldown.history}
           channelHistory={this.modules.channeling.history}
           abilities={this.modules.abilities}
+          abilityTracker={this.modules.abilityTracker}
           deaths={this.modules.deathTracker.deaths}
           resurrections={this.modules.deathTracker.resurrections}
           isAbilityCooldownsAccurate={this.modules.spellUsable.isAccurate}

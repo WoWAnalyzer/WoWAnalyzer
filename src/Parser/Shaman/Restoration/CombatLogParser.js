@@ -1,9 +1,3 @@
-/*
-  TODO:
-  Remove Spirit Link Damage from Overall Healing
-
-*/
-
 import React from 'react';
 
 import Tab from 'Main/Tab';
@@ -12,9 +6,9 @@ import Feeding from 'Main/Feeding';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
-import HealingDone from 'Parser/Core/Modules/HealingDone';
 import Abilities from './Modules/Abilities';
 
+import HealingDone from './Modules/ShamanCore/HealingDone';
 import ShamanAbilityTracker from './Modules/ShamanCore/ShamanAbilityTracker';
 
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
@@ -22,12 +16,21 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import Checklist from './Modules/Features/Checklist';
 import SpellUsable from './Modules/Features/SpellUsable';
+import StatValues from './Modules/Features/StatValues';
 
 import AncestralVigor from './Modules/Features/AncestralVigor';
 import TidalWaves from './Modules/Features/TidalWaves';
 import CastBehavior from './Modules/Features/CastBehavior'; 
 
+import TalentStatisticBox from './Modules/Talents/TalentStatisticBox';
+import Torrent from './Modules/Talents/Torrent';
+import UnleashLife from './Modules/Talents/UnleashLife';
+import Undulation from './Modules/Talents/Undulation';
+import AncestralGuidance from './Modules/Talents/AncestralGuidance';
 import EarthenShieldTotem from './Modules/Talents/EarthenShieldTotem';
+import CloudburstTotem from './Modules/Talents/CloudburstTotem';
+import Ascendance from './Modules/Talents/Ascendance';
+import Wellspring from './Modules/Talents/Wellspring';
 import HighTide from './Modules/Talents/HighTide';
 
 import Nazjatar from './Modules/Items/Nazjatar';
@@ -46,6 +49,7 @@ import ArchiveOfFaith from './Modules/Items/ArchiveOfFaith';
 import HighfathersMachination from './Modules/Items/HighfathersMachination';
 import EonarsCompassion from './Modules/Items/EonarsCompassion';
 import TarratusKeystone from './Modules/Items/TarratusKeystone';
+import VelensFutureSight from './Modules/Items/VelensFutureSight';
 
 import ChainHeal from './Modules/Spells/ChainHeal';
 import HealingSurge from './Modules/Spells/HealingSurge';
@@ -78,10 +82,18 @@ class CombatLogParser extends CoreCombatLogParser {
     castBehavior: CastBehavior,
     checklist: Checklist,
     spellUsable: SpellUsable,
-
+    statValues: StatValues,
 
     // Talents:
+    talentStatisticBox: TalentStatisticBox,
+    torrent: Torrent,
+    unleashLife: UnleashLife,
+    undulation: Undulation,
+    ancestralGuidance: AncestralGuidance,
     earthenShieldTotem: EarthenShieldTotem,
+    cloudburstTotem: CloudburstTotem,
+    ascendance: Ascendance,
+    wellspring: Wellspring,
     highTide: HighTide,
 
     // Items:
@@ -101,6 +113,7 @@ class CombatLogParser extends CoreCombatLogParser {
     highfathersMachinations: HighfathersMachination,
     eonarsCompassion: EonarsCompassion,
     tarratusKeystone: TarratusKeystone,
+    velensFutureSight: VelensFutureSight,
 
     // Spells:
     chainHeal: ChainHeal,
@@ -124,7 +137,7 @@ class CombatLogParser extends CoreCombatLogParser {
         title: 'Mana',
         url: 'mana',
         render: () => (
-          <Tab title="Mana" style={{ padding: '15px 22px' }}>
+          <Tab style={{ padding: '15px 22px' }}>
             <Mana parser={this} />
           </Tab>
         ),
@@ -133,7 +146,7 @@ class CombatLogParser extends CoreCombatLogParser {
         title: 'Feeding',
         url: 'feeding',
         render: () => (
-          <Tab title="Feeding" style={{ padding: 0 }}>
+          <Tab style={{ padding: 0 }}>
             <Feeding
               cooldownThroughputTracker={this.modules.cooldownThroughputTracker}
             />

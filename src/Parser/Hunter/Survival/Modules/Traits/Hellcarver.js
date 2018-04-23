@@ -7,7 +7,7 @@ const HELLCARVER_MODIFIER_PER_RANK = (1 / 30); //3.33% repeat ofcourse
 
 const MS_BUFFER = 100;
 
-/*
+/**
  * Carve or Butchery deals 3% increased damage for each additional target hit.
  */
 class Hellcarver extends Analyzer {
@@ -65,7 +65,6 @@ class Hellcarver extends Analyzer {
   get damageContribution() {
     return this.bonusDamage;
   }
-
 }
 
 export default Hellcarver;

@@ -6,7 +6,6 @@ import 'gemini-scrollbar/gemini-scrollbar.css';
 
 import { formatDuration } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 
 import Events from './Events';
 import DeathEvents from './DeathEvents';
@@ -19,6 +18,7 @@ class SpellTimeline extends React.PureComponent {
     globalCooldownHistory: PropTypes.array.isRequired,
     channelHistory: PropTypes.array.isRequired,
     abilities: PropTypes.object.isRequired,
+    abilityTracker: PropTypes.object.isRequired,
     spellId: PropTypes.number,
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
@@ -65,24 +65,26 @@ class SpellTimeline extends React.PureComponent {
   }
 
   get spells() {
-    const { spellId, historyBySpellId, abilities } = this.props;
+    const { spellId, historyBySpellId, abilities, abilityTracker } = this.props;
     const spellIds = spellId ? [spellId] : Object.keys(historyBySpellId).map(Number);
 
     return spellIds
+      .map(spellId => Number(spellId))
       .filter(key => key > 0) //filter out fake spells (spell id <= 0)
       .sort((a, b) => {
-        const aIndex = abilities.getTimelineSortIndex(Number(a)) || Number.MAX_VALUE;
-        const bIndex = abilities.getTimelineSortIndex(Number(b)) || Number.MAX_VALUE;
-        const aCooldown = abilities.getExpectedCooldownDuration(Number(a));
-        const bCooldown = abilities.getExpectedCooldownDuration(Number(b));
-        return aIndex - bIndex || aCooldown - bCooldown;
+        const aIndex = abilities.getTimelineSortIndex(a) || Number.MAX_VALUE;
+        const bIndex = abilities.getTimelineSortIndex(b) || Number.MAX_VALUE;
+        const aCasts = abilityTracker.getAbility(a).casts;
+        const bCasts = abilityTracker.getAbility(b).casts;
+        return aIndex - bIndex || bCasts - aCasts;
       });
 
   }
 
   gemini = null;
   render() {
-    const { start, end, historyBySpellId, globalCooldownHistory, channelHistory, deaths, resurrections, showCooldowns, showGlobalCooldownDuration, ...others } = this.props;
+    const { start, end, historyBySpellId, globalCooldownHistory, channelHistory, deaths, resurrections, showCooldowns, showGlobalCooldownDuration, abilities, ...others } = this.props;
+    delete others.abilityTracker;
     const duration = end - start;
     const seconds = Math.ceil(duration / 1000);
 
@@ -120,9 +122,8 @@ class SpellTimeline extends React.PureComponent {
           )}
           {this.spells.map(spellId => (
             <div className="lane" key={spellId}>
-              <SpellIcon id={spellId} noLink />{' '}
               <SpellLink id={spellId}>
-                {this.props.abilities.getAbility(spellId).name}
+                {abilities.getAbility(spellId).name}
               </SpellLink>
             </div>
           ))}

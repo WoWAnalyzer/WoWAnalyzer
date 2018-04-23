@@ -3,6 +3,7 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
+    const combatant = this.combatants.selected;
     return [
       {
         spell: SPELLS.DEVASTATE,
@@ -97,7 +98,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 45,
         castEfficiency: {
-          suggestion: true,
+          suggestion: combatant.hasTalent(SPELLS.PROTECTION_WARRIOR_T20_2P_BONUS.id),
         },
       },
       {

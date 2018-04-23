@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
-import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
@@ -48,9 +47,9 @@ class AuraOfSacrifice extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <Wrapper>
-          The healing done by your <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} icon /> is low. Try to find a better moment to cast it, improve your usage or consider changing to <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} icon /> or <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} icon /> which can be more reliable and often do as much healing with less effort.
-        </Wrapper>
+        <React.Fragment>
+          The healing done by your <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> is low. Try to find a better moment to cast it, improve your usage or consider changing to <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} /> or <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> which can be more reliable and often do as much healing with less effort.
+        </React.Fragment>
       )
         .icon(SPELLS.AURA_OF_SACRIFICE_TALENT.icon)
         .actual(`${formatNumber(actual)} HPS`)

@@ -6,7 +6,6 @@ import 'react-toggle/style.css';
 
 import InformationIcon from 'Icons/Information';
 
-import Wrapper from 'common/Wrapper';
 import { formatDuration, formatThousands } from 'common/format';
 import Icon from 'common/Icon';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
@@ -103,6 +102,7 @@ class EventsTab extends React.Component {
       }, {}),
       rawNames: false,
       showFabricated: false,
+      search: '',
     };
     this.handleRowClick = this.handleRowClick.bind(this);
   }
@@ -179,8 +179,27 @@ class EventsTab extends React.Component {
     console.log(rowData);
   }
 
+  renderSearchBox() {
+    return (
+      <input
+        type="text"
+        name="search"
+        className="form-control"
+        onChange={event => this.setState({ search: event.target.value.trim().toLowerCase() })}
+        placeholder="Search events"
+        autoCorrect="off"
+        autoCapitalize="off"
+        spellCheck="false"
+      />
+    );
+  }
+
   render() {
     const { parser } = this.props;
+
+    const searchTerms = this.state.search
+      .split(' ')
+      .filter(searchTerm => searchTerm !== '');
 
     const events = parser.eventHistory
       .filter(event => {
@@ -190,12 +209,30 @@ class EventsTab extends React.Component {
         if (!this.state.showFabricated && event.__fabricated === true) {
           return false;
         }
-        return true;
+
+        // Search Logic
+        if(searchTerms.length === 0) {
+          return true;
+        }
+
+        const source = this.findEntity(event.sourceID);
+        const target = this.findEntity(event.targetID);
+
+        return searchTerms.some(searchTerm => {
+          if(event.ability !== undefined && event.ability.name.toLowerCase().includes(searchTerm)) {
+            return true;
+          } else if(source !== null && source.name.toLowerCase().includes(searchTerm)) {
+            return true;
+          } else if(target !== null && target.name.toLowerCase().includes(searchTerm)) {
+            return true;
+          } else if(event.type !== null && event.type.toLowerCase().includes(searchTerm)) {
+            return true;
+          }
+          return false;
+        });
       });
 
     // TODO: Show active buffs like WCL
-    // TODO: Allow searching for players by name
-    // TODO: Pollish so this can be turned on for everyone
 
     return (
       <div className="events-tab flex">
@@ -203,6 +240,8 @@ class EventsTab extends React.Component {
           <Info className="small" style={{ width: 240 }}>
             This only includes events involving the selected player.
           </Info>
+          <br />
+          {this.renderSearchBox()}
           <br />
           {Object.keys(FILTERABLE_TYPES).map(type => this.renderEventTypeToggle(type))}
           <br />
@@ -218,7 +257,7 @@ class EventsTab extends React.Component {
             {({ height, width }) => (
               <Table
                 headerHeight={30}
-                height={700}
+                height={780}
                 rowCount={events.length}
                 rowGetter={({ index }) => events[index]}
                 rowHeight={25}
@@ -273,7 +312,7 @@ class EventsTab extends React.Component {
                   cellRenderer={({ rowData }) => {
                     if (rowData.type === 'damage') {
                       return (
-                        <Wrapper>
+                        <React.Fragment>
                           <span className={`${rowData.type} ${rowData.hitType === HIT_TYPES.CRIT || rowData.hitType === HIT_TYPES.BLOCKED_CRIT ? 'crit' : ''}`}>
                             {formatThousands(rowData.amount)}
                           </span>{' '}
@@ -283,12 +322,12 @@ class EventsTab extends React.Component {
                             alt="Damage"
                             className="icon"
                           />
-                        </Wrapper>
+                        </React.Fragment>
                       );
                     }
                     if (rowData.type === 'heal') {
                       return (
-                        <Wrapper>
+                        <React.Fragment>
                           <span className={`${rowData.type} ${rowData.hitType === HIT_TYPES.CRIT || rowData.hitType === HIT_TYPES.BLOCKED_CRIT ? 'crit' : ''}`}>
                             {formatThousands(rowData.amount)}
                           </span>{' '}
@@ -298,12 +337,12 @@ class EventsTab extends React.Component {
                             alt="Healing"
                             className="icon"
                           />
-                        </Wrapper>
+                        </React.Fragment>
                       );
                     }
                     if (rowData.type === 'absorbed') {
                       return (
-                        <Wrapper>
+                        <React.Fragment>
                           <span className={rowData.type}>
                             {formatThousands(rowData.amount)}
                           </span>{' '}
@@ -312,19 +351,19 @@ class EventsTab extends React.Component {
                             alt="Absorbed"
                             className="icon"
                           />
-                        </Wrapper>
+                        </React.Fragment>
                       );
                     }
                     if (rowData.type === 'energize') {
                       const resource = RESOURCE_TYPES[rowData.resourceChangeType];
                       if (resource) {
                         return (
-                          <Wrapper>
+                          <React.Fragment>
                             <span className={resource.url}>
                               {formatThousands(rowData.resourceChange)} {resource.name}
                             </span>{' '}
                             {resource.icon && <Icon icon={resource.icon} alt={resource.name} />}
-                          </Wrapper>
+                          </React.Fragment>
                         );
                       }
                     }

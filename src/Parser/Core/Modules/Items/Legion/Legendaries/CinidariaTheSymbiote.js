@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 
@@ -33,10 +32,10 @@ class CinidariaTheSymbiote extends Analyzer {
     return {
       item: ITEMS.CINIDARIA_THE_SYMBIOTE,
       result: (
-        <Wrapper>
+        <React.Fragment>
           <ItemDamageDone amount={damage} /><br />
           <ItemHealingDone amount={healing} />
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

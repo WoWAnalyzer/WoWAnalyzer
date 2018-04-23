@@ -2,10 +2,19 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
-import Wrapper from 'common/Wrapper';
+
+/**
+ *
+ * Beast Mastery: Kill Command causes an additional effect, based on your pet's Specialization.
+ * Survival: Flanking Strike causes an additional effect, based on your pet's Specialization.
+ *
+ * Ferocity: The target also bleeds for (270% of Attack power) Physical damage over 6 sec.
+ * Tenacity: Your pet also takes 30% reduced damage for 6 sec.
+ * Cunning: The target's movement speed is also reduced by 50% for 4 sec.
+ */
 
 class AspectOfTheBeast extends Analyzer {
 
@@ -40,7 +49,7 @@ class AspectOfTheBeast extends Analyzer {
 
   suggestions(when) {
     when(this.aspectOfTheBeastDamageThreshold).addSuggestion((suggest) => {
-      return suggest(<Wrapper><SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} icon /> had no damage contribution, which indiciates you did not have your pet specced into Ferocity, which it should always be.</Wrapper>)
+      return suggest(<React.Fragment><SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} /> had no damage contribution, which indiciates you did not have your pet specced into Ferocity, which it should always be.</React.Fragment>)
         .icon(SPELLS.ASPECT_OF_THE_BEAST_TALENT.icon)
         .actual(`Aspect of the Beast did no additional damage`)
         .recommended(`Speccing your pet into Ferocity is recommended`);
@@ -52,7 +61,7 @@ class AspectOfTheBeast extends Analyzer {
       <div className="flex">
         <div className="flex-main">
           <SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id}>
-            <SpellIcon id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} noLink /> Bestial Ferocity
+            Bestial Ferocity
           </SpellLink>
         </div>
         <div className="flex-sub text-right">

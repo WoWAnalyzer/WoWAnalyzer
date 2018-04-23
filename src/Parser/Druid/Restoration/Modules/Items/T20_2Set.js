@@ -68,7 +68,7 @@ class T20_2Set extends Analyzer {
     return {
       id: `spell-${SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.RESTO_DRUID_T20_2SET_BONUS_BUFF.id} icon={false} />,
       result: (
         <dfn data-tip={`This gained you <b>${Math.floor(freeSwiftmends)} to ${Math.ceil(freeSwiftmends)} extra Swiftmends</b> over the course of the fight.<br><br>If you kept Swiftmend on CD and used all the extra casts this bonus allowed you, we multiply by your average Swiftmend healing to get total throughput of <b>${formatPercentage(throughputPercent)}%</b>. This is an idealized number, your actual benefit was probably less.`}>
           Reduced {avgCooldownReduction.toFixed(1)}s per cast / {this.swiftmendReduced.toFixed(1)}s total

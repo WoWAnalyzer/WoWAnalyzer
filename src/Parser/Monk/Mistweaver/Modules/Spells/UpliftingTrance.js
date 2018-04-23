@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
@@ -84,9 +83,9 @@ class UpliftingTrance extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <Wrapper>
+          <React.Fragment>
             Your <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs should be used as soon as you get them so they are not overwritten. While some will be overwritten due to the nature of the spell interactions, holding <SpellLink id={SPELLS.UPLIFTING_TRANCE_BUFF.id} /> procs is not optimal.
-          </Wrapper>
+          </React.Fragment>
         )
           .icon(SPELLS.UPLIFTING_TRANCE_BUFF.icon)
           .actual(`${formatPercentage(this.unusedUTProcs)}% Unused Uplifting Trance procs`)

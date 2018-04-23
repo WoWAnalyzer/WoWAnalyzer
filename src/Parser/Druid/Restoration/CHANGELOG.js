@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { blazyb, sref, Zerotorescue } from 'CONTRIBUTORS';
-import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -10,7 +9,7 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-02-11'),
-    changes: <Wrapper>Fixed a bug that could cause incorrect proc counts and uptimes for players using <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} icon /> and <ItemLink id={ITEMS.CHAMELEON_SONG.id} icon /> together.</Wrapper>,
+    changes: <React.Fragment>Fixed a bug that could cause incorrect proc counts and uptimes for players using <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> and <ItemLink id={ITEMS.CHAMELEON_SONG.id} /> together.</React.Fragment>,
     contributors: [sref],
   },
   {
@@ -20,17 +19,17 @@ export default [
   },
   {
     date: new Date('2018-02-02'),
-    changes: <Wrapper>Fixed a bug in <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} icon /> Util module where overwritten procs weren't shown if player doesn't take <SpellLink id={SPELLS.MOMENT_OF_CLARITY_TALENT_RESTORATION.id} icon />.</Wrapper>,
+    changes: <React.Fragment>Fixed a bug in <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> Util module where overwritten procs weren't shown if player doesn't take <SpellLink id={SPELLS.MOMENT_OF_CLARITY_TALENT_RESTORATION.id} />.</React.Fragment>,
     contributors: [sref],
   },
   {
     date: new Date('2018-01-26'),
-    changes: <Wrapper>Updated HoT tracking framework to allow attribution of HoT extensions, allowing updates to <SpellLink id={SPELLS.FLOURISH_TALENT.id} icon />. Also added modules for <ItemLink id={ITEMS.EDRAITH_BONDS_OF_AGLAYA.id} icon />, <ItemLink id={ITEMS.AMANTHULS_WISDOM.id} icon />, and <SpellLink id={SPELLS.DEEP_ROOTED_TRAIT.id} icon />.</Wrapper>,
+    changes: <React.Fragment>Updated HoT tracking framework to allow attribution of HoT extensions, allowing updates to <SpellLink id={SPELLS.FLOURISH_TALENT.id} />. Also added modules for <ItemLink id={ITEMS.EDRAITH_BONDS_OF_AGLAYA.id} />, <ItemLink id={ITEMS.AMANTHULS_WISDOM.id} />, and <SpellLink id={SPELLS.DEEP_ROOTED_TRAIT.id} />.</React.Fragment>,
     contributors: [sref],
   },
   {
     date: new Date('2018-01-10'),
-    changes: <Wrapper>Added framework for tracking HoT attribution, allowing updates to several modules: <ItemLink id={ITEMS.TEARSTONE_OF_ELUNE.id} icon />, <SpellLink id={SPELLS.POWER_OF_THE_ARCHDRUID.id} icon />, <SpellLink id={SPELLS.RESTO_DRUID_T21_2SET_BONUS_BUFF.id} icon />, and <SpellLink id={SPELLS.RESTO_DRUID_T21_4SET_BONUS_BUFF.id} icon />. Also added <SpellLink id={SPELLS.RESTO_DRUID_T19_4SET_BONUS_BUFF.id} icon />.</Wrapper>,
+    changes: <React.Fragment>Added framework for tracking HoT attribution, allowing updates to several modules: <ItemLink id={ITEMS.TEARSTONE_OF_ELUNE.id} />, <SpellLink id={SPELLS.POWER_OF_THE_ARCHDRUID.id} />, <SpellLink id={SPELLS.RESTO_DRUID_T21_2SET_BONUS_BUFF.id} />, and <SpellLink id={SPELLS.RESTO_DRUID_T21_4SET_BONUS_BUFF.id} />. Also added <SpellLink id={SPELLS.RESTO_DRUID_T19_4SET_BONUS_BUFF.id} />.</React.Fragment>,
     contributors: [sref],
   },
   {

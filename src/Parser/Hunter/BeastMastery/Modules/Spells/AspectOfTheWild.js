@@ -7,7 +7,6 @@ import SpellLink from 'common/SpellLink';
 import StatisticBox from 'Main/StatisticBox';
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import Wrapper from 'common/Wrapper';
 
 //Duration of Bestial Wrath
 const BESTIAL_WRATH_DURATION = 15000;
@@ -21,12 +20,15 @@ const FIGHT_ENDING_USE_ASPECT = 15000;
 //allows early usage of AotW
 const USE_BEFORE_BW = 3000;
 
+/**
+ * Grants you and your pet 10 Focus per 1 sec and 10% increased critical strike chance on all attacks for 10 sec.
+ * Reduces GCD for the duration by 0.2seconds baseline.
+ */
 class AspectOfTheWild extends Analyzer {
 
   static dependencies = {
     combatants: Combatants,
     spellUsable: SpellUsable,
-
   };
 
   totalAspectCasts = 0;
@@ -65,7 +67,7 @@ class AspectOfTheWild extends Analyzer {
 
   get badCastThreshold() {
     return {
-      actual: this.badCrowsCasts,
+      actual: this.badAspectCasts,
       isGreaterThan: {
         minor: 0,
         average: 0.9,
@@ -77,7 +79,7 @@ class AspectOfTheWild extends Analyzer {
 
   suggestions(when) {
     when(this.badCastThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Don't cast <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} icon /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon /> up and atleast 7 seconds remaining on the buff (or with under than 15 seconds remaining of the encounter) </Wrapper>)
+      return suggest(<React.Fragment>Don't cast <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up and atleast 7 seconds remaining on the buff (or with under than 15 seconds remaining of the encounter) </React.Fragment>)
         .icon(SPELLS.ASPECT_OF_THE_WILD.icon)
         .actual(`You cast Aspect of the Wild ${this.badAspectCasts} times without Bestial Wrath up or with less than 7s remaining of Bestial Wrath duration`)
         .recommended(`${recommended} is recommended`);
@@ -91,7 +93,7 @@ class AspectOfTheWild extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ASPECT_OF_THE_WILD.id} />}
         value={(
-          <Wrapper>
+          <React.Fragment>
             {this.goodAspectCasts}{'  '}
             <SpellIcon
               id={SPELLS.ASPECT_OF_THE_WILD.id}
@@ -110,7 +112,7 @@ class AspectOfTheWild extends Analyzer {
                 filter: 'grayscale(100%)',
               }}
             />
-          </Wrapper>
+          </React.Fragment>
 
         )}
         label={`Aspect of the Wild`}

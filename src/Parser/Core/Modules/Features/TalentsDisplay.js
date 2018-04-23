@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Wrapper from 'common/Wrapper';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
@@ -38,16 +37,16 @@ class TalentsDisplay extends Analyzer {
                     {rows[index]}
                   </div>
                   {spellId ? (
-                    <Wrapper>
+                    <React.Fragment>
                       <div className="col-md-2">
                         <SpellIcon id={spellId} style={{ width: '2em', height: '2em' }} />
                       </div>
                       <div className="col-md-8">
-                        <SpellLink id={spellId}>
-                          {SPELLS[spellId].name}
+                        <SpellLink id={spellId} icon={false}>
+                          {SPELLS[spellId] ? SPELLS[spellId].name : `Unknown spell: ${spellId}`}
                         </SpellLink>
                       </div>
-                    </Wrapper>
+                    </React.Fragment>
                   ) : (
                     <div className="col-md-offset-2 col-md-8">
                       <i>No talent active</i>

@@ -39,7 +39,7 @@ class T21_4set extends Analyzer {
     return {
       id: `spell-${SPELLS.CHIJIS_BATTLEGEAR_4_PIECE_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.CHIJIS_BATTLEGEAR_4_PIECE_BUFF.id} />,
-      title: <SpellLink id={SPELLS.CHIJIS_BATTLEGEAR_4_PIECE_BUFF.id} />,
+      title: <SpellLink id={SPELLS.CHIJIS_BATTLEGEAR_4_PIECE_BUFF.id} icon={false} />,
       result: (
         <dfn data-tip={`Average bolts per trigger: ${this.averageBoltsPerCast.toFixed(2)}`}>
           <ItemHealingDone amount={healing} />

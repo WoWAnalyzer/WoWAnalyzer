@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
-import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -66,7 +65,7 @@ class RpPoolingDA extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
  		  .addSuggestion((suggest, actual, recommended) => {
-			return suggest(<Wrapper> You are casting <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id}/> without enough runic power. Make sure to pool some runic power before you cast <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id}/>.</Wrapper>)
+			return suggest(<React.Fragment> You are casting <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id}/> without enough runic power. Make sure to pool some runic power before you cast <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id}/>.</React.Fragment>)
 				.icon(SPELLS.DARK_ARBITER_TALENT.icon)
 				.actual(`${this.averageRpPooled.toFixed(0)} of runic power were pooled on average`)
 				.recommended(`>${(recommended)} is recommended`);

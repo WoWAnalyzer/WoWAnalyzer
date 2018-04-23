@@ -8,7 +8,6 @@ import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import StatisticsListBox from 'Main/StatisticsListBox';
@@ -86,7 +85,7 @@ class Eradication extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your uptime on the <SpellLink id={SPELLS.ERADICATION_DEBUFF.id} /> debuff could be improved. You should try to spread out your <SpellLink id={SPELLS.CHAOS_BOLT.id} /> casts more for higher uptime.<br /><small><em>NOTE:</em> Uptime may vary based on the encounter.</small></Wrapper>)
+        return suggest(<React.Fragment>Your uptime on the <SpellLink id={SPELLS.ERADICATION_DEBUFF.id} /> debuff could be improved. You should try to spread out your <SpellLink id={SPELLS.CHAOS_BOLT.id} /> casts more for higher uptime.<br /><small><em>NOTE:</em> Uptime may vary based on the encounter.</small></React.Fragment>)
           .icon(SPELLS.ERADICATION_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Eradication uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);
@@ -98,7 +97,7 @@ class Eradication extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-            Uptime
+          Uptime
         </div>
         <div className="flex-sub text-right">
           <dfn data-tip={`Your Eradication contributed ${this.owner.formatItemDamageDone(this.bonusDmg)} (${formatNumber(this.bonusDmg)} damage).`}>

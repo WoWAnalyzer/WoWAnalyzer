@@ -1,7 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import { formatPercentage, formatMilliseconds } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
@@ -47,7 +46,7 @@ class ArcaneMissiles extends Analyzer {
 	suggestions(when) {
 		when(this.suggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<Wrapper>You cast <SpellLink id={SPELLS.ARCANE_BARRAGE.id}/> {this.barrageWithMissilesProc} times while you had <SpellLink id={SPELLS.ARCANE_MISSILES.id}/> procs available. Make sure you are using all of your missiles procs before casting Arcane Barrage.</Wrapper>)
+				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.ARCANE_BARRAGE.id}/> {this.barrageWithMissilesProc} times while you had <SpellLink id={SPELLS.ARCANE_MISSILES.id}/> procs available. Make sure you are using all of your missiles procs before casting Arcane Barrage.</React.Fragment>)
 					.icon(SPELLS.ARCANE_MISSILES.icon)
 					.actual(`${formatPercentage(this.utilization)}% Utilization`)
 					.recommended(`${formatPercentage(recommended)}% is recommended`);

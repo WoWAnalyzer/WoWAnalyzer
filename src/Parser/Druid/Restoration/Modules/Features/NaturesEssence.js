@@ -3,7 +3,6 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -91,8 +90,8 @@ class NaturesEssence extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>You sometimes cast <SpellLink id={SPELLS.WILD_GROWTH.id} /> on too few targets. <SpellLink id={SPELLS.WILD_GROWTH.id} /> is not mana efficient when hitting few targets, you should only cast it when you can hit at least {RECOMMENDED_HIT_THRESHOLD} wounded targets. Make sure you are not casting on a primary target isolated from the raid. <SpellLink id={SPELLS.WILD_GROWTH.id} /> has a maximum hit radius, the injured raiders could have been out of range. Also, <SpellLink id={SPELLS.WILD_GROWTH.id} /> healing is frontloaded due to <SpellLink id={SPELLS.NATURES_ESSENCE_DRUID.id} />, you should never pre-hot with <SpellLink id={SPELLS.WILD_GROWTH.id} />.
-          </Wrapper>)
+        return suggest(<React.Fragment>You sometimes cast <SpellLink id={SPELLS.WILD_GROWTH.id} /> on too few targets. <SpellLink id={SPELLS.WILD_GROWTH.id} /> is not mana efficient when hitting few targets, you should only cast it when you can hit at least {RECOMMENDED_HIT_THRESHOLD} wounded targets. Make sure you are not casting on a primary target isolated from the raid. <SpellLink id={SPELLS.WILD_GROWTH.id} /> has a maximum hit radius, the injured raiders could have been out of range. Also, <SpellLink id={SPELLS.WILD_GROWTH.id} /> healing is frontloaded due to <SpellLink id={SPELLS.NATURES_ESSENCE_DRUID.id} />, you should never pre-hot with <SpellLink id={SPELLS.WILD_GROWTH.id} />.
+          </React.Fragment>)
           .icon(SPELLS.NATURES_ESSENCE_DRUID.icon)
           .actual(`${formatPercentage(this.percentBelowRecommendedCasts, 0)}% casts on fewer than ${RECOMMENDED_HIT_THRESHOLD} targets.`)
           .recommended(`never casting on fewer than ${RECOMMENDED_HIT_THRESHOLD} is recommended`);

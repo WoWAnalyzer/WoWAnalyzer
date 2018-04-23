@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import Wrapper from 'common/Wrapper';
 import { formatPercentage, formatNumber } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -68,10 +67,10 @@ class T21_2pc extends Analyzer {
     return {
       id: `spell-${SPELLS.BLOOD_DEATH_KNIGHT_T21_2SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.BLOOD_DEATH_KNIGHT_T21_2SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.BLOOD_DEATH_KNIGHT_T21_2SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.BLOOD_DEATH_KNIGHT_T21_2SET_BONUS_BUFF.id} icon={false} />,
       result: (
         <dfn data-tip={`${formatNumber(this.effectiveReduction / 1000)} sec total effective reduction and ${formatNumber(this.wastedReduction / 1000)} sec (${formatPercentage(this.wastedPercent)}%) wasted reduction.`}>
-          <Wrapper>Reduced the cooldown of <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> by an average of {formatNumber(this.averageReduction)} seconds.</Wrapper>
+          <React.Fragment>Reduced the cooldown of <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> by an average of {formatNumber(this.averageReduction)} seconds.</React.Fragment>
         </dfn>
       ),
     };

@@ -8,7 +8,6 @@ import ItemIcon from 'common/ItemIcon';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SPECS from 'common/SPECS';
-import Wrapper from 'common/Wrapper';
 import RegularArticle from 'Main/News/RegularArticle';
 import Contributor from 'Main/Contributor';
 import DiscordButton from 'Main/DiscordButton';
@@ -130,21 +129,21 @@ class Article extends React.PureComponent {
 
   renderExpansion() {
     return (
-      <Wrapper>
+      <React.Fragment>
         <Item title="A new layout" date="4 Feb">
           As the project was getting a lot of attention in the Holy Paladin community, the layout was cleaned up a bit and a player breakdown was added. This layout stayed largely the same for a couple of months.<br /><br />
 
           <Image source={v020} description="Holy Paladin mastery effectiveness calculator v0.2.0" /><br />
 
-          With the mantra <a href="https://en.wikipedia.org/wiki/Release_early,_release_often">release early, release often</a> in mind the project quickly went through a lot of minor versions during this month. Among other things the need for users to enter their own WCL API key was removed, URL routing was added (so you can directly link to a log) and a <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} icon /> uptime display (which improves a Holy Paladin's mastery effectiveness so was related) was added.
+          With the mantra <a href="https://en.wikipedia.org/wiki/Release_early,_release_often">release early, release often</a> in mind the project quickly went through a lot of minor versions during this month. Among other things the need for users to enter their own WCL API key was removed, URL routing was added (so you can directly link to a log) and a <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime display (which improves a Holy Paladin's mastery effectiveness so was related) was added.
         </Item>
 
-        <Item title={<Wrapper>Analyzing the first item: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} /> Drape of Shame</Wrapper>} date="18 Mar">
-          In March a statistic that broadened the scope of project was added as it wasn't just related to a Holy Paladin's mastery effectiveness; the <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} icon /> healing contribution statistic. For the first time this statistic gave insight into the exact value of <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} icon />.<br /><br />
+        <Item title={<React.Fragment>Analyzing the first item: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} /> Drape of Shame</React.Fragment>} date="18 Mar">
+          In March a statistic that broadened the scope of project was added as it wasn't just related to a Holy Paladin's mastery effectiveness; the <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} /> healing contribution statistic. For the first time this statistic gave insight into the exact value of <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />.<br /><br />
 
           <Image source={v031} description="Holy Paladin mastery effectiveness calculator v0.3.1 statistics at 18 Mar 2017" /><br />
 
-          The implementation of <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} icon /> included a large part of the work needed for adding items, so it was possible to quickly add statistics for the similar legendaries <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} icon /> and <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} icon /> in the next few days.
+          The implementation of <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} /> included a large part of the work needed for adding items, so it was possible to quickly add statistics for the similar legendaries <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> and <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> in the next few days.
         </Item>
 
         <Item title="Feeding other tools with new cast behavior statistics" date="25 Mar">
@@ -276,7 +275,7 @@ class Article extends React.PureComponent {
 
           <Image source={RestoShaman} description="Initial Restoration Shaman" /><br />
 
-          <Contributor {...CONTRIBUTORS.Versaya} /> also added the unique <b>feeding</b> tab. This shows the healing done by spells that feed into <SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} icon /> while it was up.<br /><br />
+          <Contributor {...CONTRIBUTORS.Versaya} /> also added the unique <b>feeding</b> tab. This shows the healing done by spells that feed into <SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} /> while it was up.<br /><br />
 
           <Image source={RestoShamanFeeding} description="The feeding tab" /><br />
 
@@ -339,7 +338,7 @@ class Article extends React.PureComponent {
 
         <Item title="Elemental Shaman" date="4 Jun">
           <SpecIcon spec={SPECS.ELEMENTAL_SHAMAN} />
-          The initial version of Elemental Shaman was added by <Contributor {...CONTRIBUTORS.fasib} />. This included cast efficiency, the cooldown tab only included <SpellLink id={SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id} icon /> (if specced) and <SpellLink id={SPELLS.STORMKEEPER.id} icon />, and introduced two new things: a procs tab and a Maelstrom tab.<br /><br />
+          The initial version of Elemental Shaman was added by <Contributor {...CONTRIBUTORS.fasib} />. This included cast efficiency, the cooldown tab only included <SpellLink id={SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id} /> (if specced) and <SpellLink id={SPELLS.STORMKEEPER.id} />, and introduced two new things: a procs tab and a Maelstrom tab.<br /><br />
 
           <Image source={ElementalShamanCastEfficiency} description="Elemental Shaman cast efficiency" /><br />
 
@@ -362,7 +361,7 @@ class Article extends React.PureComponent {
           </div>
           <br />
 
-          <Contributor {...CONTRIBUTORS.janvavra} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/469">contributed a couple of simple fixes</a> for Elemental Shamans using <SpellLink id={SPELLS.STORM_ELEMENTAL_TALENT.id} icon />. <Contributor {...CONTRIBUTORS.HawkCorrigan} /> migrated Elemental Shaman's code to a new version of WoWAnalyzer and implemented a bunch of things such as T21, <ItemLink id={ITEMS.THE_DECEIVERS_BLOOD_PACT.id} icon /> and others.
+          <Contributor {...CONTRIBUTORS.janvavra} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/469">contributed a couple of simple fixes</a> for Elemental Shamans using <SpellLink id={SPELLS.STORM_ELEMENTAL_TALENT.id} />. <Contributor {...CONTRIBUTORS.HawkCorrigan} /> migrated Elemental Shaman's code to a new version of WoWAnalyzer and implemented a bunch of things such as T21, <ItemLink id={ITEMS.THE_DECEIVERS_BLOOD_PACT.id} /> and others.
         </Item>
 
         <Item title="Warcraft Logs API proxy" date="15 Jun">
@@ -388,13 +387,13 @@ class Article extends React.PureComponent {
 
           <Image source={HolyPriest} description="The initial Holy Priest version" /><br />
 
-          <Contributor {...CONTRIBUTORS.Skamer} /> also contributed a couple of things to this spec, such as support for the <SpellLink id={SPELLS.DIVINITY_TALENT.id} icon />.
+          <Contributor {...CONTRIBUTORS.Skamer} /> also contributed a couple of things to this spec, such as support for the <SpellLink id={SPELLS.DIVINITY_TALENT.id} />.
         </Item>
 
         <Item title="Low health healing" date="5 Jul">
           Sparked by a discussion in the Holy Paladin Discord about what healers actually save most lives I decided I wanted to make this easier to see. So I create the <b>low health healing</b> tab so display any heals on players below a certain amount of health. The tab is fully configurable to find exactly the kind of data you need to win whatever argument you're having.<br /><br />
 
-          One thing that stands out is <SpellLink id={SPELLS.MARK_OF_THE_ANCIENT_PRIESTESS.id} icon /> shows up in the list a lot. It might be worth reconsidering your neck enchant.<br /><br />
+          One thing that stands out is <SpellLink id={SPELLS.MARK_OF_THE_ANCIENT_PRIESTESS.id} /> shows up in the list a lot. It might be worth reconsidering your neck enchant.<br /><br />
 
           <Image source={LowHealthHealing} description="Low health healing by a Paladin on Mythic Krosus" />
         </Item>
@@ -414,7 +413,7 @@ class Article extends React.PureComponent {
 
           <Image source={WindwalkerMonk} description="The initial version of the Windwalker Monk" /><br />
 
-          <Contributor {...CONTRIBUTORS.mwwscott0} /> made a PR to add a bit more but decided not to go through with it. <Contributor {...CONTRIBUTORS.Anomoly} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/381">added</a> a couple of things to provide better basic support before <Contributor {...CONTRIBUTORS.Juko8} /> took over contributorship at 10 October 2017 and contributed most of what we have today. Some other minor contributions were done by <Contributor {...CONTRIBUTORS.Coryn} /> who added an <SpellLink id={SPELLS.ENERGIZING_ELIXIR_TALENT.id} icon /> analyzer, and <Contributor {...CONTRIBUTORS.Talby} /> who contributed a few minor miscellaneous improvements.
+          <Contributor {...CONTRIBUTORS.mwwscott0} /> made a PR to add a bit more but decided not to go through with it. <Contributor {...CONTRIBUTORS.Anomoly} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/381">added</a> a couple of things to provide better basic support before <Contributor {...CONTRIBUTORS.Juko8} /> took over contributorship at 10 October 2017 and contributed most of what we have today. Some other minor contributions were done by <Contributor {...CONTRIBUTORS.Coryn} /> who added an <SpellLink id={SPELLS.ENERGIZING_ELIXIR_TALENT.id} /> analyzer, and <Contributor {...CONTRIBUTORS.Talby} /> who contributed a few minor miscellaneous improvements.
         </Item>
 
         <Item title="Guardian Druid 🐻" date="7 Aug">
@@ -489,13 +488,13 @@ class Article extends React.PureComponent {
 
         <Item title="Brewmaster Monk" date="20 Aug">
           <SpecIcon spec={SPECS.BREWMASTER_MONK} />
-          After adding support for Guardian Druid, <Contributor {...CONTRIBUTORS.WOPR} /> had gotten the hang of it and started work on Brewmaster Monk. Just like with the Guardian Druid analyzer the first version was pretty comprehensive, adding all sorts of interesting new statistics and even accounting well for all the weird combatlog interactions of <SpellLink id={SPELLS.STAGGER.id} icon />.<br /><br />
+          After adding support for Guardian Druid, <Contributor {...CONTRIBUTORS.WOPR} /> had gotten the hang of it and started work on Brewmaster Monk. Just like with the Guardian Druid analyzer the first version was pretty comprehensive, adding all sorts of interesting new statistics and even accounting well for all the weird combatlog interactions of <SpellLink id={SPELLS.STAGGER.id} />.<br /><br />
 
           <Image source={BrewmasterMonk} description="Brewmaster as it was on release" /><br />
 
           <Contributor {...CONTRIBUTORS.WOPR} /> made the analyzer pretty complete before resigning as contributor at the start of September because of not having enough time.<br /><br />
 
-          In December 2017 <Contributor {...CONTRIBUTORS.emallson} /> took over as the primary maintainer of this spec. Initially, he wanted to use WoWAnalyzer as a platform for understanding the difficult-to-manually-analyze effectiveness of the <SpellLink id={SPELLS.STAGGER.id} icon /> and <SpellLink id={SPELLS.IRONSKIN_BREW.id} icon>Ironskin</SpellLink> / <SpellLink id={SPELLS.PURIFYING_BREW.id} icon /> system. New Brewmasters often come to the <code>#brew_questions</code> channel with questions about Brew usage and Stagger, but actual performance on the spec can be very time-intensive both to explain and to analyze. To help address this, he's added statistics and suggestions that help explain why common issues (most often with <SpellLink id={SPELLS.IRONSKIN_BREW.id} icon /> uptime) are occurring.
+          In December 2017 <Contributor {...CONTRIBUTORS.emallson} /> took over as the primary maintainer of this spec. Initially, he wanted to use WoWAnalyzer as a platform for understanding the difficult-to-manually-analyze effectiveness of the <SpellLink id={SPELLS.STAGGER.id} /> and <SpellLink id={SPELLS.IRONSKIN_BREW.id} icon>Ironskin</SpellLink> / <SpellLink id={SPELLS.PURIFYING_BREW.id} /> system. New Brewmasters often come to the <code>#brew_questions</code> channel with questions about Brew usage and Stagger, but actual performance on the spec can be very time-intensive both to explain and to analyze. To help address this, he's added statistics and suggestions that help explain why common issues (most often with <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> uptime) are occurring.
         </Item>
 
         <Item title="Shadow Priest" date="27 Aug">
@@ -505,7 +504,7 @@ class Article extends React.PureComponent {
           </div>
 
           <blockquote>
-            I have healed for most of my time in WoW and played priest since WotLK. Legion is the first expansion which I started raiding on a higher level (previous ones were just PvP) and found Shadow to be pretty fun. But when they nerfed <SpellLink id={SPELLS.SURRENDER_TO_MADNESS_TALENT.id} icon />, I went back to healing my fellow teammates and just had Shadow as an offspec.<br /><br />
+            I have healed for most of my time in WoW and played priest since WotLK. Legion is the first expansion which I started raiding on a higher level (previous ones were just PvP) and found Shadow to be pretty fun. But when they nerfed <SpellLink id={SPELLS.SURRENDER_TO_MADNESS_TALENT.id} />, I went back to healing my fellow teammates and just had Shadow as an offspec.<br /><br />
 
             When I found out about this project and that it was coded in ES6, I thought it would be a nice side project, learning more about git, working in a project with others while combining an hobby.
           </blockquote>
@@ -652,7 +651,7 @@ class Article extends React.PureComponent {
         </Item>
 
         <Item title="Fixing combatlog bugs and inconsistencies: buff applications" date="10 Oct">
-          Combat logs have a lot of bugs, inconsistencies and other things that make them hard to read. <b>Buff</b> events have many issues, such as spells like <SpellLink id={SPELLS.BLOODLUST.id} icon /> never getting an apply-event, spells that have a 100% uptime never appear and buffs applied before combat appear differently from all other buffs.<br /><br />
+          Combat logs have a lot of bugs, inconsistencies and other things that make them hard to read. <b>Buff</b> events have many issues, such as spells like <SpellLink id={SPELLS.BLOODLUST.id} /> never getting an apply-event, spells that have a 100% uptime never appear and buffs applied before combat appear differently from all other buffs.<br /><br />
 
           Using information such as buff drop events, refreshes and stack change events we can fix these issues. To do this we <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/478">created</a> a normalizer that fabricates buff applications whenever necessary. This way we have one reliable event to listen to and we can avoid creating a fix for every bugged buff.<br /><br />
 
@@ -976,7 +975,7 @@ class Article extends React.PureComponent {
 
           We'll continue working on making WoWAnalyzer the best place for (automated) analysis. There are a lot of things planned for 2018, we're thinking Battle for Azeroth support for as many specs as possible, layout reworks and other interface improvements, <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues">fixing all issues/suggestions</a>, account system with personal customizations, Patreon integration that will support cool new <a href="https://www.patreon.com/wowanalyzer">Patreon-funded</a> features and much more!
         </Item>
-      </Wrapper>
+      </React.Fragment>
     );
   }
 

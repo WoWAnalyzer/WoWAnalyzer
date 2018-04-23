@@ -2,7 +2,6 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import { formatThousands } from 'common/format';
-import Wrapper from 'common/Wrapper';
 import CoreCarafeOfSearingLight from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/CarafeOfSearingLight';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import ItemManaGained from 'Main/ItemManaGained';
@@ -43,12 +42,12 @@ class CarafeOfSearingLight extends CoreCarafeOfSearingLight {
     return {
       item: ITEMS.CARAFE_OF_SEARING_LIGHT,
       result: (
-        <Wrapper>
+        <React.Fragment>
           <dfn data-tip={`The actual mana gained is ${formatThousands(this.savings + this.manaGained)}. The numbers shown may actually be lower if you did not utilize the effect fully, i.e. not needing the extra mana gained.`}>
             <ItemManaGained amount={this.savings} />
           </dfn><br />
           <ItemHealingDone amount={this.healingDone.total.effective * carafeThroughput} />
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

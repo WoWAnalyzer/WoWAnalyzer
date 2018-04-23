@@ -35,7 +35,7 @@ class T20_2set extends Analyzer {
     return {
       id: `spell-${SPELLS.WARLOCK_DEMO_T20_2P_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.WARLOCK_DEMO_T20_2P_BONUS.id} />,
-      title: <SpellLink id={SPELLS.WARLOCK_DEMO_T20_2P_BONUS.id} />,
+      title: <SpellLink id={SPELLS.WARLOCK_DEMO_T20_2P_BONUS.id} icon={false} />,
       result: <span>{this.procs} resets of <SpellLink id={SPELLS.CALL_DREADSTALKERS.id} /> cooldown.</span>,
     };
   }

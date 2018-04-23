@@ -25,7 +25,7 @@ class T20_2pc extends Analyzer {
     return {
       id: `spell-${SPELLS.BLOOD_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.BLOOD_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.BLOOD_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.BLOOD_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id} icon={false} />,
       result: <span><SpellLink id={SPELLS.BLOOD_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id}>Gravewarden</SpellLink> {formatPercentage((this.uptime) || 0)} % uptime</span>,
     };
   }

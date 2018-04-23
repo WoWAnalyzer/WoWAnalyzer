@@ -10,7 +10,6 @@ import SpellLink from "common/SpellLink";
 import SpellIcon from "common/SpellIcon";
 import { formatNumber, formatPercentage } from "common/format";
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
-import Wrapper from 'common/Wrapper';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import ResourceIcon from 'common/ResourceIcon';
 
@@ -113,8 +112,8 @@ class Trueshot extends Analyzer {
     return (
       <StatisticBox icon={<SpellIcon id={SPELLS.TRUESHOT.id} />}
         value={(
-          <Wrapper>
-            {this.averageAimedShots}{' '}
+          <React.Fragment>
+            {this.averageAimedShots.toFixed(2)}{' '}
             <SpellIcon
               id={SPELLS.AIMED_SHOT.id}
               style={{
@@ -131,7 +130,7 @@ class Trueshot extends Analyzer {
                 marginTop: '-.1em',
               }}
             />
-          </Wrapper>
+          </React.Fragment>
         )}
         label="Trueshot info"
         tooltip={`Information regarding your average Trueshot window:
@@ -140,20 +139,20 @@ class Trueshot extends Analyzer {
           <li> You hit an average of ${this.averageAimedShots} Aimed Shots inside each Trueshot window. </li>
           <li> Your Trueshot Aimed Shots had a crit rate of ${this.percentAimedCrits}%. </li>
           <li>Your overall crit rate during Trueshot was ${this.percentCastCrits}%. </li>
-          <li>You spent an average of ${this.uptimePerCast} seconds in trueshot per cast of Trueshot.</li>
+          <li>You spent an average of ${this.uptimePerCast} seconds in Trueshot per cast of Trueshot.</li>
         </ul>`} />
     );
   }
 
   get averageAimedShots() {
-    return (this.aimedShotsPrTS / this.trueshotCasts).toFixed(1);
+    return this.aimedShotsPrTS / this.trueshotCasts;
   }
   get averageFocus() {
     return formatNumber(this.accumulatedFocusAtTSCast / this.trueshotCasts);
   }
 
   get uptimePerCast() {
-    return ((this.combatants.getBuffUptime(SPELLS.TRUESHOT.id) / this.trueshotCasts) / 1000).toFixed(2);
+    return (this.combatants.getBuffUptime(SPELLS.TRUESHOT.id) / this.trueshotCasts) / 1000;
   }
   get aimedShotThreshold() {
     return {
@@ -163,7 +162,7 @@ class Trueshot extends Analyzer {
         average: 6,
         major: 5,
       },
-      style: 'number',
+      style: 'decimal',
     };
   }
   get focusThreshold() {
@@ -196,31 +195,31 @@ class Trueshot extends Analyzer {
         average: 14.7,
         major: 14.5,
       },
-      style: 'number',
+      style: 'decimal',
     };
   }
 
   suggestions(when) {
     when(this.aimedShotThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You only cast {actual} <SpellLink id={SPELLS.AIMED_SHOT.id} icon />s inside your average <SpellLink id={SPELLS.TRUESHOT.id} icon /> window. This is your only DPS cooldown, and it's important to maximize it to it's fullest potential by getting as many Aimed Shot squeezed in as possible, while still making sure that they are all within <SpellLink id={SPELLS.VULNERABLE.id} icon />. <br /> This can be done by making sure to use <SpellLink id={SPELLS.WINDBURST.id} icon /> to open <SpellLink id={SPELLS.VULNERABLE.id} icon /> windows, not using <SpellLink id={TALENTS.A_MURDER_OF_CROWS_TALENT_SHARED.id} icon /> while in <SpellLink id={SPELLS.TRUESHOT.id} icon /> or starting <SpellLink id={SPELLS.TRUESHOT.id} icon /> at higher focus. </Wrapper>)
+      return suggest(<React.Fragment>You only cast {actual} <SpellLink id={SPELLS.AIMED_SHOT.id} />s inside your average <SpellLink id={SPELLS.TRUESHOT.id} /> window. This is your only DPS cooldown, and it's important to maximize it to it's fullest potential by getting as many Aimed Shot squeezed in as possible, while still making sure that they are all within <SpellLink id={SPELLS.VULNERABLE.id} />. <br /> This can be done by making sure to use <SpellLink id={SPELLS.WINDBURST.id} /> to open <SpellLink id={SPELLS.VULNERABLE.id} /> windows, not using <SpellLink id={TALENTS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> while in <SpellLink id={SPELLS.TRUESHOT.id} /> or starting <SpellLink id={SPELLS.TRUESHOT.id} /> at higher focus. </React.Fragment>)
         .icon(SPELLS.TRUESHOT.icon)
         .actual(`Average of ${actual} Aimed Shots per Trueshot.`)
         .recommended(`>${recommended} is recommended`);
     });
     when(this.focusThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You started your average <SpellLink id={SPELLS.TRUESHOT.id} icon /> at {actual} focus, try and pool a bit more before casting <SpellLink id={SPELLS.TRUESHOT.id} icon />. This can be done through casting an additional <SpellLink id={SPELLS.ARCANE_SHOT.id} icon /> or by monitoring the cooldown of <SpellLink id={SPELLS.TRUESHOT.id} icon /> and adjusting play to ensure your focus won't be depleted when it comes off cooldown.</Wrapper>)
+      return suggest(<React.Fragment>You started your average <SpellLink id={SPELLS.TRUESHOT.id} /> at {actual} focus, try and pool a bit more before casting <SpellLink id={SPELLS.TRUESHOT.id} />. This can be done through casting an additional <SpellLink id={SPELLS.ARCANE_SHOT.id} /> or by monitoring the cooldown of <SpellLink id={SPELLS.TRUESHOT.id} /> and adjusting play to ensure your focus won't be depleted when it comes off cooldown.</React.Fragment>)
         .icon(SPELLS.TRUESHOT.icon)
         .actual(`Average of ${actual > 0 ? actual : this.startFocusForCombatant} focus when starting Trueshot`)
         .recommended(`>${recommended} is recommended`);
     });
     when(this.executeTrueshotThreshold).addSuggestion((suggest, actual) => {
-      return suggest(<Wrapper>You should make sure to have atleast 1 <SpellLink id={SPELLS.TRUESHOT.id} icon /> cast during execute (where you are buffed by <SpellLink id={SPELLS.BULLSEYE_TRAIT.id} icon />) to get as much out of <SpellLink id={SPELLS.TRUESHOT.id} icon /> as possible.</Wrapper>)
+      return suggest(<React.Fragment>You should make sure to have atleast 1 <SpellLink id={SPELLS.TRUESHOT.id} /> cast during execute (where you are buffed by <SpellLink id={SPELLS.BULLSEYE_TRAIT.id} />) to get as much out of <SpellLink id={SPELLS.TRUESHOT.id} /> as possible.</React.Fragment>)
         .icon(SPELLS.TRUESHOT.icon)
-        .actual(`You had ${actual} trueshot casts during Bullseye`)
-        .recommended(`casting atleast 1 trueshot in execute is recommended`);
+        .actual(`You had ${actual} Trueshot casts during Bullseye`)
+        .recommended(`casting atleast 1 Trueshot in execute is recommended`);
     });
     when(this.uptimeThreshold).addSuggestion((suggest, actual) => {
-      return suggest(<Wrapper>You should make sure to utilise every possible second of <SpellLink id={SPELLS.TRUESHOT.id} icon /> uptime as you can. Remember to cast it atleast 15 seconds before the boss dies, so you don't lose out on valuable time, aswell as remember to not cast it until the boss has been engaged.</Wrapper>)
+      return suggest(<React.Fragment>You should make sure to utilise every possible second of <SpellLink id={SPELLS.TRUESHOT.id} /> uptime as you can. Remember to cast it atleast 15 seconds before the boss dies, so you don't lose out on valuable time, aswell as remember to not cast it until the boss has been engaged.</React.Fragment>)
         .icon(SPELLS.TRUESHOT.icon)
         .actual(`You had an average of ${actual} seconds of Trueshot uptime per cast`)
         .recommended(`15 seconds uptime per cast is recommended`);

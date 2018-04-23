@@ -7,7 +7,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import getDamageBonus from 'Parser/Mage/Shared/Modules/GetDamageBonus';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 
 const DAMAGE_BONUS = 0.2;
 
@@ -57,7 +56,7 @@ class Tier21_4set extends Analyzer {
   
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Your <SpellLink id={SPELLS.BALANCE_DRUID_T21_4SET_BONUS_BUFF.id} /> uptime was {formatPercentage(actual)}%. Try to cast your spenders 4-6 seconds apart to maintain higher uptime.</Wrapper>)
+      return suggest(<React.Fragment>Your <SpellLink id={SPELLS.BALANCE_DRUID_T21_4SET_BONUS_BUFF.id} /> uptime was {formatPercentage(actual)}%. Try to cast your spenders 4-6 seconds apart to maintain higher uptime.</React.Fragment>)
         .icon(SPELLS.BALANCE_DRUID_T21_4SET_BONUS_BUFF.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
@@ -68,7 +67,7 @@ class Tier21_4set extends Analyzer {
     return {
       id: SPELLS.BALANCE_DRUID_T21_4SET_BONUS_BUFF.id,
       icon: <SpellIcon id={SPELLS.BALANCE_DRUID_T21_4SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.BALANCE_DRUID_T21_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.BALANCE_DRUID_T21_4SET_BONUS_BUFF.id} icon={false} />,
       result: (
         <dfn data-tip={`Damage Breakdown:
           <ul>
@@ -76,8 +75,8 @@ class Tier21_4set extends Analyzer {
             <li>Sunfire: <b>${this.owner.formatItemDamageDone(this.sunfireDamage)}</b></li>
           </ul>
         `}>
-          <Wrapper><ItemDamageDone amount={this.moonfireDamage + this.sunfireDamage} /> <br />
-          Uptime: {formatPercentage(this.uptime)}%</Wrapper>
+          <React.Fragment><ItemDamageDone amount={this.moonfireDamage + this.sunfireDamage} /> <br />
+          Uptime: {formatPercentage(this.uptime)}%</React.Fragment>
         </dfn>
       ),
     };

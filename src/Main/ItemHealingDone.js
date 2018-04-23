@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Wrapper from 'common/Wrapper';
 import connectParser from 'common/connectParser';
 
 class ItemHealingDone extends React.PureComponent {
@@ -19,7 +18,7 @@ class ItemHealingDone extends React.PureComponent {
     const { parser } = this.context;
 
     return (
-      <Wrapper>
+      <React.Fragment>
         <img
           src="/img/healing.png"
           alt="Healing"
@@ -27,7 +26,7 @@ class ItemHealingDone extends React.PureComponent {
         />{' '}
         {approximate && '≈'}
         {greaterThan && '>'}{parser.formatItemHealingDone(amount)}
-      </Wrapper>
+      </React.Fragment>
     );
   }
 }

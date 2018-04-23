@@ -5,7 +5,6 @@ import SpellLink from 'common/SpellLink';
 import ITEMS from 'common/ITEMS';
 
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
-import Wrapper from 'common/Wrapper';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 class Abilities extends CoreAbilities {
@@ -119,7 +118,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.25,
-          extraSuggestion: <Wrapper>Consider using <SpellLink id={SPELLS.DOUBLE_TIME_TALENT.id} /> or <SpellLink id={SPELLS.STORM_BOLT_TALENT.id} /> unless the CC is strictly needed.</Wrapper>,
+          extraSuggestion: <React.Fragment>Consider using <SpellLink id={SPELLS.DOUBLE_TIME_TALENT.id} /> or <SpellLink id={SPELLS.STORM_BOLT_TALENT.id} /> unless the CC is strictly needed.</React.Fragment>,
         },
       },
       {
@@ -163,7 +162,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
-          extraSuggestion: <Wrapper>Use to cause <SpellLink id={SPELLS.ENRAGE.id} /> as often as possible or consider using another talent such as <SpellLink id={SPELLS.AVATAR_TALENT.id} />.</Wrapper>,
+          extraSuggestion: <React.Fragment>Use to cause <SpellLink id={SPELLS.ENRAGE.id} /> as often as possible or consider using another talent such as <SpellLink id={SPELLS.AVATAR_TALENT.id} />.</React.Fragment>,
         },
       },
       {
@@ -174,7 +173,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-          extraSuggestion: <Wrapper>Use to cause <SpellLink id={SPELLS.ENRAGE.id} /> as often as possible.</Wrapper>,
+          extraSuggestion: <React.Fragment>Use to cause <SpellLink id={SPELLS.ENRAGE.id} /> as often as possible.</React.Fragment>,
         },
       },
       {
@@ -206,7 +205,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHARGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 17,
+        cooldown: combatant.hasTalent(SPELLS.DOUBLE_TIME_TALENT.id) ? 20 - 3 : 20,
+        charges: combatant.hasTalent(SPELLS.DOUBLE_TIME_TALENT.id) ? 2 : 1,
       },
       {
         spell: SPELLS.HEROIC_THROW,
@@ -224,7 +224,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.1,
           importance: ISSUE_IMPORTANCE.MINOR,
-          extraSuggestion: <Wrapper>Consider using <SpellLink id={SPELLS.WARPAINT_TALENT.id} /> if the fight requires little mobility.</Wrapper>,
+          extraSuggestion: <React.Fragment>Consider using <SpellLink id={SPELLS.WARPAINT_TALENT.id} /> if the fight requires little mobility.</React.Fragment>,
         },
       },
       {

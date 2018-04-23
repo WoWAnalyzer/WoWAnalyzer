@@ -130,7 +130,9 @@ class SpellUsable extends Analyzer {
             'fight time:', timestamp - this.owner.fight.start_time,
             'time passed:', (timestamp - this._currentCooldowns[canSpellId].start),
             'cooldown remaining:', remainingCooldown,
-            'expectedDuration:', this._currentCooldowns[canSpellId].expectedDuration
+            'expectedDuration:', this._currentCooldowns[canSpellId].expectedDuration,
+            'totalReductionTime:', this._currentCooldowns[canSpellId].totalReductionTime,
+            'adjusted expected duration:', this._currentCooldowns[canSpellId].expectedDuration - this._currentCooldowns[canSpellId].totalReductionTime
           );
         }
         this.endCooldown(canSpellId, false, timestamp);

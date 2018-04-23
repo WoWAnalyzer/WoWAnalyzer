@@ -26,9 +26,9 @@ class HealingSurge extends Analyzer {
     return {
       actual: unbuffedHealingSurgesPerc ,
       isGreaterThan: {
-        minor: 0,
-        average: 0.15,
-        major: 0.30,
+        minor: 0.20,
+        average: 0.40,
+        major: 0.60,
       },
       style: 'percentage',
     };
@@ -40,8 +40,8 @@ class HealingSurge extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Casting <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} /> without <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> is very inefficient, try not to cast more than is necessary.</span>)
           .icon(SPELLS.HEALING_SURGE_RESTORATION.icon)
-          .actual(`${formatPercentage(suggestedThreshold.actual)} % of unbuffed Healing Surges`)
-          .recommended(`${suggestedThreshold.isGreaterThan.minor} % of unbuffed Healing Surges`)
+          .actual(`${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Surges`)
+          .recommended(`${formatPercentage(suggestedThreshold.isGreaterThan.minor)}% of unbuffed Healing Surges`)
           .regular(suggestedThreshold.isGreaterThan.average).major(suggestedThreshold.isGreaterThan.major);
       });
   }

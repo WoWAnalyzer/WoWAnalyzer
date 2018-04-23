@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Iskalla, Gebuz } from 'CONTRIBUTORS';
 import SPECS from 'common/SPECS';
-import Wrapper from 'common/Wrapper';
 
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
@@ -15,13 +14,13 @@ export default {
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
-    <Wrapper>
+    <React.Fragment>
       Hello Moonkins! This tool is intended to show major statistics and potential issues in your rotation. Please mind that it can always be improved upon, so if you see anything that you disagree with or think is missing please let us know!<br/><br/>
 
       As a rule of thumb: Never overcap Astral Power, keep your moon spells on cooldown, don't overcap empowerments and keep your dots up on the target(s) at all times. Remember to pool Astral Power prior to movement.<br/><br/>
 
       If you want to learn more about how to play Moonkin, visit <a href="https://goo.gl/xNHVnK" target="_blank" rel="noopener noreferrer">DreamGrove, the Druid's Discord</a>. Don't forget to check the <kbd>#resources</kbd> channel while you are there!
-    </Wrapper>
+    </React.Fragment>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   // exampleReport: '/report/72t9vbcAqdpVRfBQ/12-Mythic+Garothi+Worldbreaker+-+Kill+(6:15)/Maxweii',

@@ -4,7 +4,6 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
@@ -65,14 +64,14 @@ class AggramarsConviction extends Analyzer {
     return {
       item: ITEMS.AGGRAMARS_CONVICTION,
       result: (
-        <Wrapper>
+        <React.Fragment>
           <dfn data-tip={`Procced the vers buff <b>${this.versProc}</b> times`}>
             {formatPercentage(versUptimePercent)} % uptime on <SpellLink id={SPELLS.CELESTIAL_BULWARK.id} />
           </dfn><br />
           <dfn data-tip={`Procced the pantheon buff <b>${this.pantheonProc}</b> times`}>
             <ItemHealingDone amount={this.heal} /> from <SpellLink id={SPELLS.AGGRAMARS_FORTITUDE.id} />
           </dfn>
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

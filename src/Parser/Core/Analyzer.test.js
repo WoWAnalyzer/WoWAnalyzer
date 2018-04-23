@@ -144,24 +144,6 @@ describe('Core.CombatLogParser', () => {
       });
       expect(on_toPlayerPet_test).not.toBeCalled();
     });
-    it('passes all arguments to event handler', () => {
-      const on_success = jest.fn();
-      class MyModule extends Analyzer {
-        on_success = on_success;
-      }
-      const myModule = new MyModule({
-        toPlayer: () => true,
-        byPlayer: () => true,
-        toPlayerPet: () => true,
-        byPlayerPet: () => true,
-      });
-      const firstArg = {
-        type: 'success',
-      };
-      const secondArg = 'my_second_arg';
-      myModule.triggerEvent(firstArg, secondArg);
-      expect(on_success).toBeCalledWith(firstArg, secondArg);
-    });
     it('sets `this` to the module', () => {
       const on_success = jest.fn();
       class MyModule extends Analyzer {

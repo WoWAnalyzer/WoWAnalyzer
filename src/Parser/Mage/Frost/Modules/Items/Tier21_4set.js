@@ -41,7 +41,7 @@ class Tier21_4set extends Analyzer {
     return {
       id: SPELLS.FROST_MAGE_T21_4SET_BONUS_BUFF.id,
       icon: <SpellIcon id={SPELLS.FROST_MAGE_T21_4SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.FROST_MAGE_T21_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.FROST_MAGE_T21_4SET_BONUS_BUFF.id} icon={false} />,
       result: <ItemDamageDone amount={this.damage} />,
     };
   }

@@ -3,7 +3,6 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 
@@ -39,7 +38,7 @@ class WildGrowth extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your <SpellLink id={SPELLS.WILD_GROWTH.id} /> to rejuv ratio can be improved, try to cast more wild growths if possible as it is usually more efficient.</Wrapper>,)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.WILD_GROWTH.id} /> to rejuv ratio can be improved, try to cast more wild growths if possible as it is usually more efficient.</React.Fragment>,)
           .icon(SPELLS.WILD_GROWTH.icon)
           .actual(`${this.wgs} WGs / ${this.rejuvs} rejuvs`)
           .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`);

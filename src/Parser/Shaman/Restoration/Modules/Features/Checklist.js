@@ -5,9 +5,9 @@ import ITEMS from 'common/ITEMS';
 
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
-import Wrapper from 'common/Wrapper';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
@@ -32,6 +32,7 @@ import HealingWave from '../Spells/HealingWave';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
+    abilities: Abilities,
     castEfficiency: CastEfficiency,
     combatants: Combatants,
     masteryEffectiveness: MasteryEffectiveness,
@@ -55,18 +56,21 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Use core efficient spells on cooldown',
-      description: <Wrapper>Spells such as <SpellLink id={SPELLS.RIPTIDE.id} icon />, <SpellLink id={SPELLS.HEALING_RAIN_CAST.id} icon /> and <SpellLink id={SPELLS.HEALING_STREAM_TOTEM_CAST.id} icon /> are your most efficient spells available. Try to cast them as much as possible without overhealing. <dfn data-tip="When you're not bringing too many healers.">On Mythic*</dfn> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection. <a href="http://www.wowhead.com/restoration-shaman-rotation-guide#raid-healing-priority-list" target="_blank" rel="noopener noreferrer">More info.</a></Wrapper>,
+      description: <React.Fragment>Spells such as <SpellLink id={SPELLS.RIPTIDE.id} />, <SpellLink id={SPELLS.HEALING_RAIN_CAST.id} /> and <SpellLink id={SPELLS.HEALING_STREAM_TOTEM_CAST.id} /> are your most efficient spells available. Try to cast them as much as possible without overhealing. <dfn data-tip="When you're not bringing too many healers.">On Mythic*</dfn> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection. <a href="http://www.wowhead.com/restoration-shaman-rotation-guide#raid-healing-priority-list" target="_blank" rel="noopener noreferrer">More info.</a></React.Fragment>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.RIPTIDE,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.HEALING_RAIN_CAST,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.HEALING_STREAM_TOTEM_CAST,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.CLOUDBURST_TOTEM_TALENT,
@@ -74,6 +78,7 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.GIFT_OF_THE_QUEEN,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.EARTHEN_SHIELD_TOTEM_TALENT,
@@ -92,15 +97,17 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use cooldowns effectively',
-      description: <Wrapper>Your cooldowns are an important contributor to your healing throughput. Try to get in as many efficient casts as the fight allows. <a href="http://www.wowhead.com/restoration-shaman-rotation-guide#Throughput-Cooldowns" target="_blank" rel="noopener noreferrer">More info.</a></Wrapper>,
+      description: <React.Fragment>Your cooldowns are an important contributor to your healing throughput. Try to get in as many efficient casts as the fight allows. <a href="http://www.wowhead.com/restoration-shaman-rotation-guide#Throughput-Cooldowns" target="_blank" rel="noopener noreferrer">More info.</a></React.Fragment>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.HEALING_TIDE_TOTEM_CAST,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.SPIRIT_LINK_TOTEM,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ARCANE_TORRENT_MANA,
@@ -122,26 +129,26 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <Wrapper>Maximize <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon /> usage</Wrapper>,
-      description: <Wrapper><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> buffed <SpellLink id={SPELLS.HEALING_WAVE.id} /> can make for some very efficient healing. You should try to use as many of the generated tidal waves as you can. You should also avoid using <SpellLink id={SPELLS.HEALING_WAVE.id} /> or <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} /> without a tidal wave.</Wrapper>,
+      name: <React.Fragment>Maximize <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> usage</React.Fragment>,
+      description: <React.Fragment><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> buffed <SpellLink id={SPELLS.HEALING_WAVE.id} /> can make for some very efficient healing. You should try to use as many of the generated tidal waves as you can. You should also avoid using <SpellLink id={SPELLS.HEALING_WAVE.id} /> or <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} /> without a tidal wave.</React.Fragment>,
       requirements: () => {
         return [
           new Requirement({
-            name: <Wrapper>
-              Unused <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon />
-            </Wrapper>,
+            name: <React.Fragment>
+              Unused <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} />
+            </React.Fragment>,
             check: () => this.tidalWaves.suggestionThresholds,
           }),
           new Requirement({
-            name: <Wrapper>
-              Unbuffed <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} icon />
-            </Wrapper>,
+            name: <React.Fragment>
+              Unbuffed <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} />
+            </React.Fragment>,
             check: () => this.healingSurge.suggestedThreshold,
           }),
           new Requirement({
-            name: <Wrapper>
-              Unbuffed <SpellLink id={SPELLS.HEALING_WAVE.id} icon />
-            </Wrapper>,
+            name: <React.Fragment>
+              Unbuffed <SpellLink id={SPELLS.HEALING_WAVE.id} />
+            </React.Fragment>,
             check: () => this.healingWave.suggestedThreshold,
           }),
         ];
@@ -154,9 +161,9 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: <Wrapper>
-              <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} icon /> fed to <SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} icon />
-            </Wrapper>,
+            name: <React.Fragment>
+              <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} /> fed to <SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} />
+            </React.Fragment>,
             check: () => this.giftOfTheQueen.CBTTotemFeedingSuggestionThreshold,
             when: this.combatants.selected.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id),
           }),
@@ -169,21 +176,21 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: <Wrapper>
-              <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} icon /> target efficiency
-            </Wrapper>,
+            name: <React.Fragment>
+              <SpellLink id={SPELLS.GIFT_OF_THE_QUEEN.id} /> target efficiency
+            </React.Fragment>,
             check: () => this.giftOfTheQueen.giftOfQueenTargetEfficiencySuggestionThreshold,
           }),
           new Requirement({
-            name: <Wrapper>
-              Average <SpellLink id={SPELLS.CHAIN_HEAL.id} icon /> targets
-            </Wrapper>,
+            name: <React.Fragment>
+              Average <SpellLink id={SPELLS.CHAIN_HEAL.id} /> targets
+            </React.Fragment>,
             check: () => this.chainHeal.suggestionThreshold,
           }),
           new Requirement({
-            name: <Wrapper>
-              Average <SpellLink id={SPELLS.HEALING_RAIN_HEAL.id} icon /> targets
-            </Wrapper>,
+            name: <React.Fragment>
+              Average <SpellLink id={SPELLS.HEALING_RAIN_HEAL.id} /> targets
+            </React.Fragment>,
             check: () => this.healingRain.suggestionThreshold,
           }),
         ];
@@ -211,17 +218,17 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} icon />,
+            name: <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} />,
             check: () => this.velensFutureSight.suggestionThresholds,
             when: this.velensFutureSight.active,
           }),
           new Requirement({
-            name: <ItemLink id={ITEMS.EONARS_COMPASSION.id} icon />,
+            name: <ItemLink id={ITEMS.EONARS_COMPASSION.id} />,
             check: () => this.eonarsCompassion.suggestionThresholds,
             when: this.eonarsCompassion.active,
           }),
           new Requirement({
-            name: <ItemLink id={ITEMS.ISHKARS_FELSHIELD_EMITTER.id} icon />,
+            name: <ItemLink id={ITEMS.ISHKARS_FELSHIELD_EMITTER.id} />,
             check: () => this.ishkarsFelshieldEmitter.suggestionThresholds,
             when: this.ishkarsFelshieldEmitter.active,
           }),

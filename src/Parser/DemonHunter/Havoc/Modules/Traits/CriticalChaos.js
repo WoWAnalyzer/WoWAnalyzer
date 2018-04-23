@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
@@ -80,9 +80,7 @@ class CrticalChaos extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.CRITICAL_CHAOS.id}>
-            <SpellIcon id={SPELLS.CRITICAL_CHAOS.id} noLink /> Critical Chaos
-          </SpellLink>
+          <SpellLink id={SPELLS.CRITICAL_CHAOS.id} />
         </div>
         <div className="flex-sub text-right">
  					{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} %

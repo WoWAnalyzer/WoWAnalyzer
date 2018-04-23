@@ -8,6 +8,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import PlayerBreakdownTab from 'Main/PlayerBreakdownTab';
 
 
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../Constants';
@@ -22,6 +23,8 @@ class MasteryEffectiveness extends Analyzer {
   totalMasteryHealing = 0;
   totalMaxPotentialMasteryHealing = 0;
 
+  masteryHealEvents = [];
+
   on_heal(event) {
     if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
       const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.indexOf(event.ability.guid) !== -1;
@@ -30,7 +33,7 @@ class MasteryEffectiveness extends Analyzer {
 
       if (isAbilityAffectedByMastery) {
         const healthBeforeHeal = event.hitPoints - event.amount;
-        const masteryEffectiveness = 1 - healthBeforeHeal / event.maxHitPoints;
+        const masteryEffectiveness = Math.max(0, 1 - healthBeforeHeal / event.maxHitPoints);
 
         // The base healing of the spell (excluding any healing added by mastery)
         const masteryPercent = this.statTracker.currentMasteryPercentage;
@@ -42,6 +45,15 @@ class MasteryEffectiveness extends Analyzer {
 
         this.totalMasteryHealing += Math.max(0, masteryHealingDone - (event.overheal || 0));
         this.totalMaxPotentialMasteryHealing += Math.max(0, maxPotentialMasteryHealing - (event.overheal || 0));
+
+        this.masteryHealEvents.push({
+          ...event,
+          healthBeforeHeal,
+          masteryEffectiveness,
+          baseHealingDone,
+          masteryHealingDone,
+          maxPotentialMasteryHealing,
+        });
 
         event.masteryEffectiveness = masteryEffectiveness;
       }
@@ -56,7 +68,7 @@ class MasteryEffectiveness extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DEEP_HEALING.id} />}
-        value={`${formatPercentage(masteryEffectivenessPercent)}%`}
+        value={`${formatPercentage(masteryEffectivenessPercent)} %`}
         label={(
           <dfn data-tip={`The percent of your mastery that you benefited from on average (so always between 0% and 100%). Since you have ${formatPercentage(masteryPercent)}% mastery, this means that on average your heals were increased by ${formatPercentage(avgEffectiveMasteryPercent)}% by your mastery.`}>
             Mastery benefit
@@ -65,7 +77,57 @@ class MasteryEffectiveness extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(70);
+  statisticOrder = STATISTIC_ORDER.CORE(30);
+
+  get report() {
+    let totalHealingWithMasteryAffectedAbilities = 0;
+    let totalHealingFromMastery = 0;
+    let totalMaxPotentialMasteryHealing = 0;
+
+    const statsByTargetId = this.masteryHealEvents.reduce((obj, event) => {
+      // Update the fight-totals
+      totalHealingWithMasteryAffectedAbilities += event.amount;
+      totalHealingFromMastery += event.masteryHealingDone;
+      totalMaxPotentialMasteryHealing += event.maxPotentialMasteryHealing;
+
+      // Update the player-totals
+      if (!obj[event.targetID]) {
+        const combatant = this.combatants.players[event.targetID];
+        obj[event.targetID] = {
+          combatant,
+          healingReceived: 0,
+          healingFromMastery: 0,
+          maxPotentialHealingFromMastery: 0,
+        };
+      }
+      const playerStats = obj[event.targetID];
+      playerStats.healingReceived += event.amount;
+      playerStats.healingFromMastery += event.masteryHealingDone;
+      playerStats.maxPotentialHealingFromMastery += event.maxPotentialMasteryHealing;
+
+      return obj;
+    }, {});
+
+    return {
+      statsByTargetId,
+      totalHealingWithMasteryAffectedAbilities,
+      totalHealingFromMastery,
+      totalMaxPotentialMasteryHealing,
+    };
+  }
+
+  tab() {
+    return {
+      title: 'Mastery',
+      url: 'mastery',
+      render: () => (
+        <PlayerBreakdownTab
+          report={this.report}
+          playersById={this.owner.playersById}
+        />
+      ),
+    };
+  }
 }
 
 export default MasteryEffectiveness;

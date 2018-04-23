@@ -15,10 +15,12 @@ import CrimsonScourge from './Modules/Features/CrimsonScourge';
 import BlooddrinkerTicks from './Modules/Features/BlooddrinkerTicks';
 import UnendingThirstTracker from './Modules/Features/UnendingThirstTracker';
 import Checklist from './Modules/Features/Checklist';
-import DeathStrikeTimingGraph from './Modules/Features/DeathStrikeTimingGraph';
 import MarrowrendUsage from './Modules/Features/MarrowrendUsage';
 import Souldrinker from './Modules/Features/Souldrinker';
 import BoneShield from './Modules/Features/BoneShield';
+import DancingRuneWeapon from './Modules/Features/DancingRuneWeapon';
+import InitialMarrowrendCast from './Modules/Features/InitialMarrowrendCast';
+import DeathStrikeTiming from './Modules/Features/DeathStrikeTiming';
 
 // Resources
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
@@ -30,6 +32,7 @@ import RuneDetails from '../Shared/RuneDetails';
 import Ossuary from './Modules/Talents/Ossuary';
 import RedThirst from './Modules/Talents/RedThirst';
 import BoneStorm from './Modules/Talents/Bonestorm';
+import MarkOfBloodUptime from './Modules/Talents/MarkOfBloodUptime';
 
 // Items
 import T20_2pc from './Modules/Items/T20_2pc';
@@ -64,14 +67,15 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     crimsonScourge: CrimsonScourge,
+    dancingRuneWeapon: DancingRuneWeapon,
+    initialMarrowrendCast: InitialMarrowrendCast,
     blooddrinkerTicks: BlooddrinkerTicks,
     unendingThirstTracker:UnendingThirstTracker,
     checklist: Checklist,
-    deathStrikeTimingGraph: DeathStrikeTimingGraph,
+    deathStrikeTiming: DeathStrikeTiming,
     marrowrendUsage: MarrowrendUsage,
     souldrinker: Souldrinker,
     boneShield: BoneShield,
-
 
     // DOT
     bloodplagueUptime: BloodPlagueUptime,
@@ -86,6 +90,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ossuary: Ossuary,
     redThirst: RedThirst,
     boneStorm: BoneStorm,
+    markOfBloodUptime: MarkOfBloodUptime,
 
     // Traits
     RelicTraits: RelicTraits,
@@ -101,7 +106,7 @@ class CombatLogParser extends CoreCombatLogParser {
     t21_4pc: T21_4pc,
     skullflowersHaemostasis: SkullflowersHaemostasis,
     shacklesofBryndaor:ShacklesofBryndaor,
-    soulflayersCorruption:SoulflayersCorruption,    
+    soulflayersCorruption:SoulflayersCorruption,
   };
 }
 

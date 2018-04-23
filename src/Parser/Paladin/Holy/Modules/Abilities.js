@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
@@ -10,13 +9,13 @@ import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.combatants.selected;
+    const hasSanctifiedWrath = combatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id);
     return [
       {
         spell: SPELLS.HOLY_SHOCK_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, combatantCurrent) => {
-          const hasSanctifiedWrath = combatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id);
-          const cdr = hasSanctifiedWrath && combatantCurrent.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.5 : 0;
+        cooldown: haste => {
+          const cdr = hasSanctifiedWrath && combatant.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.5 : 0;
           return 9 / (1 + haste) * (1 - cdr);
         },
         isOnGCD: true,
@@ -42,15 +41,14 @@ class Abilities extends CoreAbilities {
         cooldown: haste => 12 / (1 + haste),
         isOnGCD: true,
         castEfficiency: {
-          suggestion: true,
+          suggestion: combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id) || combatant.hasFinger(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id),
           extraSuggestion: (
-            <Wrapper>
+            <React.Fragment>
               You should cast it whenever <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} /> has dropped, which is usually on cooldown without delay. Alternatively you can ignore the debuff and just cast it whenever Judgment is available; there's nothing wrong with ignoring unimportant things to focus on important things.
-            </Wrapper>
+            </React.Fragment>
           ),
           recommendedEfficiency: 0.85, // this rarely overheals, so keeping this on cooldown is pretty much always best
         },
-        enabled: combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id) || combatant.hasFinger(ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id),
       },
       {
         spell: SPELLS.BESTOW_FAITH_TALENT,
@@ -61,9 +59,9 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.7,
           extraSuggestion: (
-            <Wrapper>
+            <React.Fragment>
               If you can't or don't want to cast it more consider using <SpellLink id={SPELLS.LIGHTS_HAMMER_TALENT.id} /> or <SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> instead.
-            </Wrapper>
+            </React.Fragment>
           ),
         },
         enabled: combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT.id),
@@ -91,9 +89,9 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           extraSuggestion: (
-            <Wrapper>
+            <React.Fragment>
               When you are using <SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> it is important to use <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> often enough to benefit from the talent. Use a different talent if you are unable to.
-            </Wrapper>
+            </React.Fragment>
           ),
           recommendedEfficiency: 0.35,
         },
@@ -217,16 +215,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DIVINE_STEED,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        charges: combatant.hasTalent(SPELLS.CAVALIER_TALENT.id) ? 2 : 1,
         cooldown: 45,
-        enabled: !combatant.hasTalent(SPELLS.CAVALIER_TALENT.id),
-        isOnGCD: true,
-      },
-      {
-        spell: SPELLS.DIVINE_STEED,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 45,
-        charges: 2,
-        enabled: combatant.hasTalent(SPELLS.CAVALIER_TALENT.id),
         isOnGCD: true,
       },
       {

@@ -1,9 +1,8 @@
 import React from 'react';
 
 import FingerprintFilledIcon from 'Icons/FingerprintFilled';
-import GitHubMarkIcon from 'Icons/GitHubMark';
+import GitHubMarkIcon from 'Icons/GitHubMarkSmall';
 
-import Wrapper from 'common/Wrapper';
 import SPECS from 'common/SPECS';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
 import Contributor from 'Main/Contributor';
@@ -51,7 +50,7 @@ class SpecListing extends React.PureComponent {
                       <div className="flex-main description">
                         <h1 className={className}>{spec.specName} {spec.className}</h1>
                         {config ? (
-                          <Wrapper>
+                          <React.Fragment>
                             <div className="row" style={{ marginTop: '1em' }}>
                               <div className="col-md-6" style={{ fontWeight: 'bold', paddingRight: 0 }}>
                                 Contributor{config.contributors.length > 1 && 's'}
@@ -80,9 +79,9 @@ class SpecListing extends React.PureComponent {
                                 </a>
                               </div>
                             </div>
-                          </Wrapper>
+                          </React.Fragment>
                         ) : (
-                          <Wrapper>Not yet available. <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md">Add it!</a></Wrapper>
+                          <React.Fragment>Not yet available. <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md">Add it!</a></React.Fragment>
                         )}
                       </div>
                     </div>

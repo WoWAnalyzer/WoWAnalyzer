@@ -22,7 +22,7 @@ class Tier20_4set extends Analyzer {
     return {
       id: `spell-${SPELLS.WARLOCK_AFFLI_T20_4P_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.WARLOCK_AFFLI_T20_4P_BONUS.id} />,
-      title: <SpellLink id={SPELLS.WARLOCK_AFFLI_T20_4P_BONUS.id} />,
+      title: <SpellLink id={SPELLS.WARLOCK_AFFLI_T20_4P_BONUS.id} icon={false} />,
       result: <span>{formatPercentage(uptime)} % uptime on <SpellLink id={SPELLS.WARLOCK_AFFLI_T20_4P_BUFF.id}/>.</span>,
     };
   }

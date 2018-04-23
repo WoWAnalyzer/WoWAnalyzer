@@ -7,11 +7,10 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import ItemDamageDone from 'Main/ItemDamageDone';
-import Wrapper from 'common/Wrapper';
 
 const DAMAGE_INCREASE = 0.05;
 
-/*
+/**
  * The Mantle of Command
  * Dire Beast (or Dire Frenzy) increases the damage done by your pets by 5% for 8 sec.
  */
@@ -73,7 +72,7 @@ class TheMantleOfCommand extends Analyzer {
 
   suggestions(when) {
     when(this.buffUptimeThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>memes</Wrapper>)
+      return suggest(<React.Fragment>memes</React.Fragment>)
         .icon(ITEMS.THE_MANTLE_OF_COMMAND.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);

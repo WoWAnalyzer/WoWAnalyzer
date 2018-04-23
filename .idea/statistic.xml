@@ -10,6 +10,7 @@
         <option value="$PROJECT_DIR$/build" />
         <option value="$PROJECT_DIR$/src/static" />
         <option value="$PROJECT_DIR$/browser-extensions/src/_locales" />
+        <option value="$PROJECT_DIR$/server/build" />
       </list>
     </option>
   </component>

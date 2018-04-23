@@ -4,7 +4,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
 import ItemDamageDone from 'Main/ItemDamageDone';
 
@@ -34,9 +33,7 @@ class Sidewinders extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.SIDEWINDERS_TALENT.id}>
-            <SpellIcon id={SPELLS.SIDEWINDERS_TALENT.id} noLink /> Sidewinders
-          </SpellLink>
+          <SpellLink id={SPELLS.SIDEWINDERS_TALENT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.damage} />

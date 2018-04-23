@@ -4,12 +4,10 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
 import ItemDamageDone from 'Main/ItemDamageDone';
-import Wrapper from 'common/Wrapper';
 
-/*
+/**
  * While active, your auto attacks spend 3 Focus to also launch a volley of shots that hit the target and all other nearby enemies, dealing (100% of Attack power) additional Physical damage.
  */
 class Volley extends Analyzer {
@@ -57,7 +55,7 @@ class Volley extends Analyzer {
   suggestions(when) {
     when(this.volleyRemoved).isGreaterThan(0)
       .addSuggestion((suggest) => {
-        return suggest(<Wrapper>It looks like you turned <SpellLink id={SPELLS.VOLLEY_TALENT.id} icon /> off during the encounter, this should never be done. <SpellLink id={SPELLS.VOLLEY_TALENT.id} icon /> should always be active, no matter what. </Wrapper>)
+        return suggest(<React.Fragment>It looks like you turned <SpellLink id={SPELLS.VOLLEY_TALENT.id} /> off during the encounter, this should never be done. <SpellLink id={SPELLS.VOLLEY_TALENT.id} /> should always be active, no matter what. </React.Fragment>)
           .icon(SPELLS.VOLLEY_TALENT.icon)
           .actual(`Volley was toggled off ${this.volleyRemoved} times`)
           .recommended(`Volley should never be turned off`)
@@ -65,7 +63,7 @@ class Volley extends Analyzer {
       });
     when(this.volleyApplied).isLessThan(this.deaths)
       .addSuggestion((suggest) => {
-        return suggest(<Wrapper>It looks like you forgot to turn <SpellLink id={SPELLS.VOLLEY_TALENT.id} icon /> on again after dying. <SpellLink id={SPELLS.VOLLEY_TALENT.id} icon /> should always be active, no matter what. </Wrapper>)
+        return suggest(<React.Fragment>It looks like you forgot to turn <SpellLink id={SPELLS.VOLLEY_TALENT.id} /> on again after dying. <SpellLink id={SPELLS.VOLLEY_TALENT.id} /> should always be active, no matter what. </React.Fragment>)
           .icon(SPELLS.VOLLEY_TALENT.icon)
           .actual(`You died ${this.deaths} time(s), and toggled Volley on ${this.volleyApplied} times.`)
           .recommended(`Remember to toggle Volley back on after dying`)
@@ -77,9 +75,7 @@ class Volley extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.VOLLEY_TALENT.id}>
-            <SpellIcon id={SPELLS.VOLLEY_TALENT.id} noLink /> Volley
-          </SpellLink>
+          <SpellLink id={SPELLS.VOLLEY_TALENT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.damage} />

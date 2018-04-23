@@ -25,6 +25,57 @@ export default {
     name: 'Earthbind Totem',
     icon: 'spell_nature_strengthofearthtotem02', 
   },
+  PURGE: {
+    id: 370,
+    name: 'Purge',
+    icon: 'spell_nature_purge', 
+  },
+  FAR_SIGHT: {
+    id: 6196,
+    name: 'Far Sight',
+    icon: 'spell_nature_farsight', 
+  },
+  WATER_WALKING: {
+    id: 546,
+    name: 'Water Walking',
+    icon: 'spell_frost_windwalkon', 
+  },
+  ASTRAL_RECALL: {
+    id: 556,
+    name: 'Astral Recall',
+    icon: 'spell_nature_astralrecal', 
+  },
+  // Hex and its variations
+  HEX: {
+    id: 51514,
+    name: 'Hex',
+    icon: 'spell_shaman_hex', 
+  },
+  HEX_RAPTOR: {
+    id: 210873,
+    name: 'Hex',
+    icon: 'ability_hunter_pet_raptor', 
+  },
+  HEX_SPIDER: {
+    id: 211004,
+    name: 'Hex',
+    icon: 'ability_hunter_pet_spider', 
+  },
+  HEX_SNAKE: {
+    id: 211010,
+    name: 'Hex',
+    icon: 'inv_pet_pythonblack', 
+  },
+  HEX_COCKROACH: {
+    id: 211015,
+    name: 'Hex',
+    icon: 'inv_pet_cockroach', 
+  },
+  HEX_SKELETAL: {
+    id: 269352,
+    name: 'Hex',
+    icon: 'ability_mount_fossilizedraptor', 
+  },
   //Eye of the Twisting Nether Buffs
   SHOCK_OF_THE_TWISTING_NETHER: {
     id: 207999,
@@ -561,29 +612,33 @@ export default {
     name: 'Chain Heal',
     icon: 'spell_nature_healingwavegreater',
     manaCost: 55000,
+    color: '#203755',
+  },
+  HEALING_WAVE: {
+    id: 77472,
+    name: 'Healing Wave',
+    icon: 'spell_nature_healingwavelesser',
+    manaCost: 19800,
+    color: '#146585',
   },
   HEALING_SURGE_RESTORATION: {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
     manaCost: 44000,
-  },
-  HEALING_WAVE: {
-    id: 77472,
-    name: 'Healing Waves',
-    icon: 'spell_nature_healingwavelesser',
-    manaCost: 19800,
-  },
-  TIDAL_WAVES_BUFF: {
-    id: 53390,
-    name: 'Tidal Waves',
-    icon: 'spell_shaman_tidalwaves',
+    color: '#40b3bf',
   },
   RIPTIDE: {
     id: 61295,
     name: 'Riptide',
     icon: 'spell_nature_riptide',
     manaCost: 17600,
+    color: '#a3dbce',
+  },
+  TIDAL_WAVES_BUFF: {
+    id: 53390,
+    name: 'Tidal Waves',
+    icon: 'spell_shaman_tidalwaves',
   },
   HEALING_RAIN_CAST: {
     id: 73920,
@@ -759,6 +814,41 @@ export default {
     id: 207356,
     name: 'Refreshing Currents',
     icon: 'ability_monk_cracklingjadelightning',
+  },
+  SERVANT_OF_THE_QUEEN: {
+    id: 207357,
+    name: 'Servant of the Queen',
+    icon: 'inv_crown_02',
+  },
+  EMPOWERED_DROPLETS: {
+    id: 207255,
+    name: 'Empowered Droplets',
+    icon: 'spell_nature_giftofthewaterspirit',
+  },
+  FLOODWATERS: {
+    id: 207348,
+    name: 'Floodwaters',
+    icon: 'spell_nature_healingwavegreater',
+  },
+  TIDAL_CHAINS: {
+    id: 207088,
+    name: 'Tidal Chains',
+    icon: 'spell_frost_chainsofice',
+  },
+  QUEEN_ASCENDANT_TRAIT: {
+    id: 207285,
+    name: 'Queen Ascendant',
+    icon: 'ability_shaman_watershield',
+  },
+  QUEEN_ASCENDANT_BUFF: {
+    id: 207288,
+    name: 'Queen Ascendant',
+    icon: 'ability_shaman_watershield',
+  },
+  UNDULATION_BUFF: {
+    id: 216251,
+    name: 'Undulation',
+    icon: 'spell_nature_healingwavelesser',
   },
   // Restoration Shaman Set Bonus:
   RAINFALL: { // T21 2pc

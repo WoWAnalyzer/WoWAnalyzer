@@ -78,7 +78,7 @@ class AtonementHealingDone extends Analyzer {
       title: 'Atonement sources',
       url: 'atonement-sources',
       render: () => (
-        <Tab title="Atonement sources">
+        <Tab>
           <AtonementHealingBreakdown analyzer={this} />
         </Tab>
       ),

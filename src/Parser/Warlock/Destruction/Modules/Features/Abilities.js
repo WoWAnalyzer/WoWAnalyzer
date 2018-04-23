@@ -4,7 +4,6 @@ import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -152,7 +151,7 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
-          extraSuggestion: <Wrapper><SpellLink id={SPELLS.GRIMOIRE_IMP.id} /> is the preferred version to use. </Wrapper>,
+          extraSuggestion: <React.Fragment><SpellLink id={SPELLS.GRIMOIRE_IMP.id} /> is the preferred version to use. </React.Fragment>,
           recommendedEfficiency: 0.90,
           averageIssueEfficiency: 0.80,
           majorIssueEfficiency: 0.70,

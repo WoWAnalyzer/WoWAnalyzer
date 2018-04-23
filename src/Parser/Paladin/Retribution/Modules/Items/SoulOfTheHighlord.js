@@ -4,7 +4,6 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
-import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
@@ -25,7 +24,7 @@ class SoulOfTheHighlord extends Analyzer {
   item() {
     return {
       item: ITEMS.SOUL_OF_THE_HIGHLORD,
-      result: <Wrapper>This gave you <SpellLink id={this.talentGained} icon/>.</Wrapper>,
+      result: <React.Fragment>This gave you <SpellLink id={this.talentGained} icon/>.</React.Fragment>,
     };
   }
 
@@ -39,7 +38,7 @@ class SoulOfTheHighlord extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).isFalse().addSuggestion((suggest) => {
-      return suggest(<Wrapper>When using <ItemLink id={ITEMS.SOUL_OF_THE_HIGHLORD.id} /> please make sure to pick another talent in the talent row. Your choices are <SpellLink id={this.option1} icon/> or <SpellLink id={this.option2} icon/>.</Wrapper>)
+      return suggest(<React.Fragment>When using <ItemLink id={ITEMS.SOUL_OF_THE_HIGHLORD.id} /> please make sure to pick another talent in the talent row. Your choices are <SpellLink id={this.option1} icon/> or <SpellLink id={this.option2} icon/>.</React.Fragment>)
         .icon(ITEMS.SOUL_OF_THE_HIGHLORD.icon)
         .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
     });
