@@ -40,21 +40,14 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.POWER_WORD_SHIELD,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, selectedCombatant) => {
-          if(selectedCombatant.hasBuff(SPELLS.RAPTURE.id)) {
-            return 1.5 / (1 + haste);
-          } else {
-            return 7.5 / (1 + haste);
-          }
-        },
       },
       {
         spell: SPELLS.SCHISM_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 6,
+        cooldown: 24,
         enabled: combatant.hasTalent(SPELLS.SCHISM_TALENT.id),
         castEfficiency: {
-          suggestion: true,
+          suggestion: false, // Schism won't be an on cooldown ability
         },
       },
       {
@@ -114,7 +107,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RAPTURE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
+        cooldown: 90,
         castEfficiency: {
           suggestion: true,
         },
@@ -131,7 +124,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PAIN_SUPPRESSION,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (haste, combatant) => 4 * 60 - (combatant.traitsBySpellId[SPELLS.PAIN_IS_IN_YOUR_MIND.id] || 0) * 10,
+        cooldown: 180,
       },
       {
         spell: SPELLS.POWER_WORD_BARRIER_CAST,
@@ -147,20 +140,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.PURGE_THE_WICKED_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         enabled: combatant.hasTalent(SPELLS.PURGE_THE_WICKED_TALENT.id),
-      },
-      {
-        spell: SPELLS.SHADOW_COVENANT_TALENT,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        enabled: combatant.hasTalent(SPELLS.SHADOW_COVENANT_TALENT.id),
-      },
-      {
-        spell: SPELLS.CLARITY_OF_WILL_TALENT,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        enabled: combatant.hasTalent(SPELLS.CLARITY_OF_WILL_TALENT.id),
-      },
-      {
-        spell: SPELLS.PLEA,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
       },
       {
         spell: SPELLS.SMITE,
