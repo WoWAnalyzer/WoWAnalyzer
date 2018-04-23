@@ -2,7 +2,6 @@ import React from 'react';
 
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import Wrapper from 'common/Wrapper';
 
 import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
 
@@ -80,7 +79,7 @@ class BattleCryGCDAnalyzer extends BattleCryAnalyzer {
 
   suggestions(when) {
     when(this.gcdThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Try to use every GCD available during <SpellLink id={SPELLS.BATTLE_CRY.id} icon/>. Damage dealt during <SpellLink id={SPELLS.BATTLE_CRY.id} icon/> comprises a large portion of total damage done, so maximizing ability use during the buff window is critical.</Wrapper>)
+      return suggest(<React.Fragment>Try to use every GCD available during <SpellLink id={SPELLS.BATTLE_CRY.id} icon/>. Damage dealt during <SpellLink id={SPELLS.BATTLE_CRY.id} icon/> comprises a large portion of total damage done, so maximizing ability use during the buff window is critical.</React.Fragment>)
         .icon(SPELLS.BATTLE_CRY.icon)
         .actual(`You missed ${actual} GCDs across ${this.battleCries.length} Battle Cries.`)
         .recommended(`${recommended} is recommended`);

@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-04-19'),
-    changes: <Wrapper>Added suggestion for GCD use during <SpellLink id={SPELLS.BATTLE_CRY.id} icon />.</Wrapper>,
+    changes: <React.Fragment>Added suggestion for GCD use during <SpellLink id={SPELLS.BATTLE_CRY.id} icon />.</React.Fragment>,
     contributors: [Aelexe],
   },
   {
