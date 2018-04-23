@@ -1,6 +1,7 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
@@ -10,7 +11,12 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 class MarkOfBloodUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
+    combatants: Combatants,
   };
+
+  on_initialized() {
+    this.active = this.combatants.selected.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT.id);
+  }
 
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.MARK_OF_BLOOD_TALENT.id) / this.owner.fightDuration;
