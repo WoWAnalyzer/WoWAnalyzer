@@ -69,7 +69,10 @@ class ApiRequestHandler {
   }
   async fetchFromWcl(cachedWclApiResponse) {
     const query = Object.assign({}, this.req.query, { api_key: this.apiKey });
-    const path = `v1/${this.req.params[0]}?${querystring.stringify(query)}`;
+    let path = `v1/${this.req.params[0]}?${querystring.stringify(query)}`;
+    if (path.substring(3, 19) === 'parses/character') { //re-encode URL for parses endpoint 
+      path = `v1/${encodeURI(this.req.params[0])}?${querystring.stringify(query)}`;
+    }
     console.log('GET', path);
     try {
       const wclStart = Date.now();
