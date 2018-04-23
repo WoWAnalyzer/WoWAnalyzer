@@ -158,6 +158,12 @@ export const Hewhosmites = {
 export const Reglitch = {
   nickname: 'Reglitch',
   github: 'rp4rk',
+  mains: [
+    {
+      name: "Putro",
+      spec: SPECS.DISCIPLINE_PRIEST,
+      link: "https://worldofwarcraft.com/en-gb/character/turalyon/reglithc",
+    },
 };
 export const Gao = {
   nickname: 'Gao',
