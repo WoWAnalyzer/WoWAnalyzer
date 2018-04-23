@@ -1,0 +1,20 @@
+.patreon-login, .github-login {
+  font-size: 2em;
+  border-radius: 0;
+}
+.patreon-login {
+  background: #e6461a;
+  color: #fff !important;
+  border-bottom-left-radius: 3px;
+}
+.patreon-login:hover {
+  background: #b43e1b;
+}
+.github-login {
+  background: #fff;
+  color: #000 !important;
+  border-bottom-right-radius: 3px;
+}
+.github-login:hover {
+  background: #cdcdcd;
+}

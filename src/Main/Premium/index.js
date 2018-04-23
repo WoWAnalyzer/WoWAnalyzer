@@ -8,6 +8,7 @@ import PatreonButton from 'Main/PatreonButton';
 import GithubButton from 'Main/GithubButton';
 
 import CyclingVideo from './CyclingVideo';
+import './index.css';
 
 const INITIAL_BACKGROUNDS = [
   '7TqE3VIAU2odkmneHU', // human salute https://giphy.com/gifs/warcraft-video-games-7TqE3VIAU2odkmneHU
@@ -61,8 +62,7 @@ class Premium extends React.PureComponent {
                   <div className="col-lg-6" style={{ padding: 0 }}>
                     <a
                       href="/login/patreon"
-                      className="btn btn-block"
-                      style={{ fontSize: '2em', background: '#e6461a', color: '#fff', borderRadius: 0, borderBottomLeftRadius: 3 }}
+                      className="btn btn-block patreon-login"
                     >
                       <PatreonIcon /> Patreon
                     </a>
@@ -70,8 +70,7 @@ class Premium extends React.PureComponent {
                   <div className="col-lg-6" style={{ padding: 0 }}>
                     <a
                       href="/login/github"
-                      className="btn btn-block"
-                      style={{ fontSize: '2em', background: '#fff', color: '#000', borderRadius: 0, borderBottomRightRadius: 3 }}
+                      className="btn btn-block github-login"
                     >
                       <GitHubMarkIcon /> GitHub
                     </a>
