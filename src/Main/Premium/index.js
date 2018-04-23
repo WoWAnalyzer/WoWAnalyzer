@@ -2,6 +2,7 @@ import React from 'react';
 
 import PatreonIcon from 'Icons/PatreonTiny';
 import GitHubMarkIcon from 'Icons/GitHubMarkLarge';
+import PremiumIcon from 'Icons/Premium';
 
 import PatreonButton from 'Main/PatreonButton';
 import GithubButton from 'Main/GithubButton';
@@ -36,7 +37,7 @@ class Premium extends React.PureComponent {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-lg-3 col-lg-offset-1 col-sm-4">
+          <div className="col-lg-3 col-lg-offset-1 col-md-4 col-sm-5">
             <div className="panel">
               <div className="panel-body" style={{ padding: '0 15px' }}>
                 <div
@@ -79,12 +80,13 @@ class Premium extends React.PureComponent {
               </div>
             </div>
           </div>
-          <div className="col-lg-7 col-sm-8">
+          <div className="col-lg-7 col-md-8 col-sm-7">
             <div className="panel">
               <div className="panel-heading">
                 <h2>WoWAnalyzer premium</h2>
               </div>
               <div className="panel-body">
+                <PremiumIcon style={{ fontSize: '6em', float: 'right', color: '#e45a5a', marginTop: 0 }} />
                 Help out development and get WoWAnalyzer premium in return! An early adopter gets the following rewards:<br />
                 <ul>
                   <li>our thanks.</li>
