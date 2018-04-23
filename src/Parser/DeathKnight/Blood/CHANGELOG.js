@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-04-22'),
+    changes: <React.Fragment>Updated relic stat calculations.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2018-04-22'),
     changes: <React.Fragment>Added proper tracking of <SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id} /> and fixed errors associated with it.</React.Fragment>,
     contributors: [Yajinni],
   },
