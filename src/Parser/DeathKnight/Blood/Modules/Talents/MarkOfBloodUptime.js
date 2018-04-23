@@ -12,6 +12,10 @@ class MarkOfBloodUptime extends Analyzer {
     enemies: Enemies,
   };
 
+  on_initialized() {
+    this.active = this.combatants.selected.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT.id);
+  }
+
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.MARK_OF_BLOOD_TALENT.id) / this.owner.fightDuration;
   }
