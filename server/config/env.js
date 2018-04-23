@@ -7,7 +7,7 @@ module.exports = function loadDotEnv(rootPath) {
   const NODE_ENV = process.env.NODE_ENV;
   if (!NODE_ENV) {
     throw new Error(
-      'The NODE_ENV environment variable is required but was not specified.'
+      'The NODE_ENV environment variable is required but was not specified. In cmd.exe you can set it with `set NODE_ENV=development`, in PowerShell it\'s `$env:NODE_ENV="development"`, on UNIX it\'s `NODE_ENV=development`.'
     );
   }
 

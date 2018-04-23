@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
@@ -51,7 +50,7 @@ class BlessingOfTheAshbringer extends Analyzer {
 
 	suggestions(when) {
 		when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-			return suggest(<Wrapper>Your <SpellLink id={SPELLS.BLESSING_OF_THE_ASHBRINGER.id} icon/> uptime is low. Make sure to apply <SpellLink id={SPELLS.GREATER_BLESSING_OF_WISDOM.id} icon/> and <SpellLink id={SPELLS.GREATER_BLESSING_OF_KINGS.id} icon/> before the fight starts.</Wrapper>)
+			return suggest(<React.Fragment>Your <SpellLink id={SPELLS.BLESSING_OF_THE_ASHBRINGER.id} icon/> uptime is low. Make sure to apply <SpellLink id={SPELLS.GREATER_BLESSING_OF_WISDOM.id} icon/> and <SpellLink id={SPELLS.GREATER_BLESSING_OF_KINGS.id} icon/> before the fight starts.</React.Fragment>)
 				.icon(SPELLS.BLESSING_OF_THE_ASHBRINGER.icon)
 				.actual(`${formatPercentage(this.uptime)}%`)
 				.recommended(`${formatPercentage(recommended)}% is recommended`);

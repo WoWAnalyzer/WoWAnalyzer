@@ -8,7 +8,6 @@ import ItemIcon from 'common/ItemIcon';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SPECS from 'common/SPECS';
-import Wrapper from 'common/Wrapper';
 import RegularArticle from 'Main/News/RegularArticle';
 import Contributor from 'Main/Contributor';
 import DiscordButton from 'Main/DiscordButton';
@@ -130,7 +129,7 @@ class Article extends React.PureComponent {
 
   renderExpansion() {
     return (
-      <Wrapper>
+      <React.Fragment>
         <Item title="A new layout" date="4 Feb">
           As the project was getting a lot of attention in the Holy Paladin community, the layout was cleaned up a bit and a player breakdown was added. This layout stayed largely the same for a couple of months.<br /><br />
 
@@ -139,7 +138,7 @@ class Article extends React.PureComponent {
           With the mantra <a href="https://en.wikipedia.org/wiki/Release_early,_release_often">release early, release often</a> in mind the project quickly went through a lot of minor versions during this month. Among other things the need for users to enter their own WCL API key was removed, URL routing was added (so you can directly link to a log) and a <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime display (which improves a Holy Paladin's mastery effectiveness so was related) was added.
         </Item>
 
-        <Item title={<Wrapper>Analyzing the first item: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} /> Drape of Shame</Wrapper>} date="18 Mar">
+        <Item title={<React.Fragment>Analyzing the first item: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} /> Drape of Shame</React.Fragment>} date="18 Mar">
           In March a statistic that broadened the scope of project was added as it wasn't just related to a Holy Paladin's mastery effectiveness; the <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} /> healing contribution statistic. For the first time this statistic gave insight into the exact value of <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />.<br /><br />
 
           <Image source={v031} description="Holy Paladin mastery effectiveness calculator v0.3.1 statistics at 18 Mar 2017" /><br />
@@ -976,7 +975,7 @@ class Article extends React.PureComponent {
 
           We'll continue working on making WoWAnalyzer the best place for (automated) analysis. There are a lot of things planned for 2018, we're thinking Battle for Azeroth support for as many specs as possible, layout reworks and other interface improvements, <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues">fixing all issues/suggestions</a>, account system with personal customizations, Patreon integration that will support cool new <a href="https://www.patreon.com/wowanalyzer">Patreon-funded</a> features and much more!
         </Item>
-      </Wrapper>
+      </React.Fragment>
     );
   }
 

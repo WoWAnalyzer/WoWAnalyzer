@@ -6,7 +6,6 @@ import 'react-toggle/style.css';
 
 import InformationIcon from 'Icons/Information';
 
-import Wrapper from 'common/Wrapper';
 import { formatDuration, formatThousands } from 'common/format';
 import Icon from 'common/Icon';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
@@ -313,7 +312,7 @@ class EventsTab extends React.Component {
                   cellRenderer={({ rowData }) => {
                     if (rowData.type === 'damage') {
                       return (
-                        <Wrapper>
+                        <React.Fragment>
                           <span className={`${rowData.type} ${rowData.hitType === HIT_TYPES.CRIT || rowData.hitType === HIT_TYPES.BLOCKED_CRIT ? 'crit' : ''}`}>
                             {formatThousands(rowData.amount)}
                           </span>{' '}
@@ -323,12 +322,12 @@ class EventsTab extends React.Component {
                             alt="Damage"
                             className="icon"
                           />
-                        </Wrapper>
+                        </React.Fragment>
                       );
                     }
                     if (rowData.type === 'heal') {
                       return (
-                        <Wrapper>
+                        <React.Fragment>
                           <span className={`${rowData.type} ${rowData.hitType === HIT_TYPES.CRIT || rowData.hitType === HIT_TYPES.BLOCKED_CRIT ? 'crit' : ''}`}>
                             {formatThousands(rowData.amount)}
                           </span>{' '}
@@ -338,12 +337,12 @@ class EventsTab extends React.Component {
                             alt="Healing"
                             className="icon"
                           />
-                        </Wrapper>
+                        </React.Fragment>
                       );
                     }
                     if (rowData.type === 'absorbed') {
                       return (
-                        <Wrapper>
+                        <React.Fragment>
                           <span className={rowData.type}>
                             {formatThousands(rowData.amount)}
                           </span>{' '}
@@ -352,19 +351,19 @@ class EventsTab extends React.Component {
                             alt="Absorbed"
                             className="icon"
                           />
-                        </Wrapper>
+                        </React.Fragment>
                       );
                     }
                     if (rowData.type === 'energize') {
                       const resource = RESOURCE_TYPES[rowData.resourceChangeType];
                       if (resource) {
                         return (
-                          <Wrapper>
+                          <React.Fragment>
                             <span className={resource.url}>
                               {formatThousands(rowData.resourceChange)} {resource.name}
                             </span>{' '}
                             {resource.icon && <Icon icon={resource.icon} alt={resource.name} />}
-                          </Wrapper>
+                          </React.Fragment>
                         );
                       }
                     }

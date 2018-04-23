@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ITEMS from 'common/ITEMS';
@@ -53,7 +52,7 @@ class Checklist extends CoreChecklist {
 	rules = [
     new Rule({
     	name: 'Always be casting',
-   		description: <Wrapper>You should try to avoid doing nothing during the fight. If you have to move, use your <SpellLink id={SPELLS.DIVINE_STEED.id} icon/> to minimize downtime. Also use ranged abilities like <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/>, <SpellLink id={SPELLS.BLADE_OF_JUSTICE.id} icon/>, or <SpellLink id={SPELLS.DIVINE_STORM.id} icon/> if out of melee range for extended periods.</Wrapper>,
+   		description: <React.Fragment>You should try to avoid doing nothing during the fight. If you have to move, use your <SpellLink id={SPELLS.DIVINE_STEED.id} icon/> to minimize downtime. Also use ranged abilities like <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/>, <SpellLink id={SPELLS.BLADE_OF_JUSTICE.id} icon/>, or <SpellLink id={SPELLS.DIVINE_STORM.id} icon/> if out of melee range for extended periods.</React.Fragment>,
     		requirements: () => {
       		return [
         			new Requirement({
@@ -65,7 +64,7 @@ class Checklist extends CoreChecklist {
   	}),
   	new Rule({
   		name: 'Use core abilities as often as possible',
-  		description:<Wrapper>Spells with short cooldowns like <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/>, <SpellLink id={SPELLS.BLADE_OF_JUSTICE.id} icon/>, and <SpellLink id={SPELLS.CRUSADER_STRIKE.id} icon/> should be used as often as possible.</Wrapper>,
+  		description:<React.Fragment>Spells with short cooldowns like <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/>, <SpellLink id={SPELLS.BLADE_OF_JUSTICE.id} icon/>, and <SpellLink id={SPELLS.CRUSADER_STRIKE.id} icon/> should be used as often as possible.</React.Fragment>,
   		requirements: () => {
   			const combatant = this.combatants.selected;
   			return [
@@ -94,7 +93,7 @@ class Checklist extends CoreChecklist {
   	}),
   	new Rule({
   		name: 'Use your cooldowns',
-  		description: <Wrapper>Retribution Paladin is a very cooldown dependant spec. Make sure you are keeping <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon/> and <SpellLink id={SPELLS.WAKE_OF_ASHES.id} /> on cooldown.</Wrapper>,
+  		description: <React.Fragment>Retribution Paladin is a very cooldown dependant spec. Make sure you are keeping <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon/> and <SpellLink id={SPELLS.WAKE_OF_ASHES.id} /> on cooldown.</React.Fragment>,
   		requirements: () => {
   			const combatant = this.combatants.selected;
   			return [
@@ -103,7 +102,7 @@ class Checklist extends CoreChecklist {
   					when: combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
   				}),
           new Requirement({
-            name: <Wrapper>Good first global with <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon/> buff</Wrapper>,
+            name: <React.Fragment>Good first global with <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon/> buff</React.Fragment>,
             check: () => this.crusade.suggestionThresholds,
             when: this.crusade.active,
           }),
@@ -124,7 +123,7 @@ class Checklist extends CoreChecklist {
   	}),
   	new Rule({
   		name: 'Use your resources efficently',
-  		description: <Wrapper>Holy Power is your main resource and it's very important not to let it cap. You should also only be spending Holy Power inside of the <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/> debuff window.</Wrapper>,
+  		description: <React.Fragment>Holy Power is your main resource and it's very important not to let it cap. You should also only be spending Holy Power inside of the <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/> debuff window.</React.Fragment>,
   		requirements: () => {
   			return [
   				new Requirement({
@@ -132,11 +131,11 @@ class Checklist extends CoreChecklist {
   					check: () => this.holyPowerDetails.suggestionThresholds,
   				}),
   				new Requirement({
-  					name: <Wrapper>Holy power spent with <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/></Wrapper>,
+  					name: <React.Fragment>Holy power spent with <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/></React.Fragment>,
   					check: () => this.judgment.suggestionThresholds,
   				}),
   				new Requirement({
-  					name: <Wrapper><SpellLink id={SPELLS.BLADE_OF_WRATH_TALENT.id} icon/> procs consumed</Wrapper>,
+  					name: <React.Fragment><SpellLink id={SPELLS.BLADE_OF_WRATH_TALENT.id} icon/> procs consumed</React.Fragment>,
   					check: () => this.boWProcTracker.suggestionThresholds,
   				}),
   			];
@@ -148,17 +147,17 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: <Wrapper><ItemLink id={ITEMS.LIADRINS_FURY_UNLEASHED.id} icon/> Holy Power efficiency</Wrapper>,
+            name: <React.Fragment><ItemLink id={ITEMS.LIADRINS_FURY_UNLEASHED.id} icon/> Holy Power efficiency</React.Fragment>,
             check: () => this.liadrins.suggestionThresholds,
             when: this.liadrins.active,
           }),
           new Requirement({
-            name: <Wrapper>Spenders buffed by <ItemLink id={ITEMS.WHISPER_OF_THE_NATHREZIM.id} icon/></Wrapper>,
+            name: <React.Fragment>Spenders buffed by <ItemLink id={ITEMS.WHISPER_OF_THE_NATHREZIM.id} icon/></React.Fragment>,
             check: () => this.whisper.suggestionThresholds,
             when: this.whisper.active,
           }),
           new Requirement({
-            name: <Wrapper>Picked the right talent with <ItemLink id={ITEMS.SOUL_OF_THE_HIGHLORD.id} icon/></Wrapper>,
+            name: <React.Fragment>Picked the right talent with <ItemLink id={ITEMS.SOUL_OF_THE_HIGHLORD.id} icon/></React.Fragment>,
             check: () => this.soulOfTheHighlord.suggestionThresholds,
             when: this.soulOfTheHighlord.active,
           }),
@@ -167,7 +166,7 @@ class Checklist extends CoreChecklist {
     }),
   	new Rule({
       name: 'Use your utility and defensive spells',
-      description: <Wrapper>Use other spells in your toolkit to your advantage. For example, you can use <SpellLink id={SPELLS.SHIELD_OF_VENGEANCE.id} icon/> to mitigate some damage and <SpellLink id={SPELLS.LAY_ON_HANDS.id} icon/> to save your own or someone elses life.</Wrapper>,
+      description: <React.Fragment>Use other spells in your toolkit to your advantage. For example, you can use <SpellLink id={SPELLS.SHIELD_OF_VENGEANCE.id} icon/> to mitigate some damage and <SpellLink id={SPELLS.LAY_ON_HANDS.id} icon/> to save your own or someone elses life.</React.Fragment>,
       requirements: () => {
         return [
 	        new GenericCastEfficiencyRequirement({
@@ -179,7 +178,7 @@ class Checklist extends CoreChecklist {
             onlyWithSuggestion: false,
 					}),
           new Requirement({
-            name: <Wrapper> <SpellLink id={SPELLS.BLESSING_OF_THE_ASHBRINGER_BUFF.id} icon/> uptime</Wrapper>,
+            name: <React.Fragment> <SpellLink id={SPELLS.BLESSING_OF_THE_ASHBRINGER_BUFF.id} icon/> uptime</React.Fragment>,
             check: () => this.bota.suggestionThresholds,
           }),
         ];

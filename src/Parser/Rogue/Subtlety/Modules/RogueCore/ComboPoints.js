@@ -3,7 +3,6 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import resourceSuggest from 'Parser/Core/Modules/ResourceTracker/ResourceSuggest';
 
 import ComboPointTracker from '../../../Common/Resources/ComboPointTracker';
@@ -16,7 +15,7 @@ class ComboPoints extends Analyzer {
   
 
   makeExtraSuggestion(spell) {
-    return <Wrapper>Avoid wasting combo points when casting <SpellLink id={spell.id}  /> </Wrapper>;
+    return <React.Fragment>Avoid wasting combo points when casting <SpellLink id={spell.id}  /> </React.Fragment>;
   }
 
 

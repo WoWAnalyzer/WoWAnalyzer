@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import { push, getLocation } from 'react-router-redux';
-import { Link, Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
-import Wrapper from 'common/Wrapper';
 import { API_DOWN, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'actions/error';
 import { getError } from 'selectors/error';
 
@@ -16,21 +15,16 @@ import ApiDownBackground from './Images/api-down-background.gif';
 import ThunderSoundEffect from './Audio/Thunder Sound effect.mp3';
 
 import Home from './Home';
-import ReportSelecter from './ReportSelecter';
 import FullscreenError from './FullscreenError';
 import NavigationBar from './Layout/NavigationBar';
 import DocumentTitleUpdater from './Layout/DocumentTitleUpdater';
 import Footer from './Layout/Footer';
 import NewsView from './News/View';
-import makeNewsUrl from './News/makeUrl';
-import { title as AboutArticleTitle } from './News/Articles/2017-01-31-About';
-import { title as UnlistedLogsTitle } from './News/Articles/2017-01-31-UnlistedLogs';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
-import ServiceStatus from './ServiceStatus';
 import Report from './Report';
 import ContributorDetails from './Contributors/ContributorDetails';
 import CharacterParses from './Character/CharacterParses';
-import CharacterSelecter from './Character/CharacterSelecter';
+import Header from './Header';
 
 function isIE() {
   const myNav = navigator.userAgent.toLowerCase();
@@ -55,9 +49,6 @@ class App extends React.Component {
     if (isIE()) {
       props.internetExplorerError();
     }
-    this.state = {
-      reportActive: false,
-    };
   }
 
   renderError(error) {
@@ -179,40 +170,10 @@ class App extends React.Component {
     const { error } = this.props;
 
     return (
-      <Wrapper>
+      <React.Fragment>
         <div className={`app ${this.showReportSelecter ? 'show-report-selecter' : ''}`}>
           <NavigationBar />
-          <header>
-            <div className="container image-overlay">
-              <div className="row">
-                <div className="col-lg-6 col-md-10">
-                  <h1>WoW&shy;Analyzer</h1>
-                  <div className="description">
-                    Analyze your raid logs to get personal suggestions and metrics to improve your performance.
-                  </div>
-                  <div className="tabs">
-                    <span onClick={() => this.setState({ reportActive: true }) } className={ this.state.reportActive ? 'selected' : '' }>Report</span>
-                    <span onClick={() => this.setState({ reportActive: false }) } className={ this.state.reportActive ? '' : 'selected' }>Character</span>
-                  </div>
-                  {this.showReportSelecter && this.state.reportActive && (
-                    <ReportSelecter />
-                  )}
-                  {this.showReportSelecter && !this.state.reportActive && (
-                    <CharacterSelecter />
-                  )}
-                  {process.env.NODE_ENV !== 'test' && <ServiceStatus style={{ marginBottom: 5 }} />}
-                  <div className="about">
-                    <Link to={makeNewsUrl(AboutArticleTitle)}>About WoWAnalyzer</Link>
-                    {' '}| <Link to={makeNewsUrl(UnlistedLogsTitle)}>About unlisted logs</Link>
-                    {' '}| <a href="https://discord.gg/AxphPxU">Join Discord</a>
-                    {' '}| <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">View source</a>
-                    {' '}| <a href="https://www.patreon.com/wowanalyzer">Become a Patron</a>
-                    {' '}| <a href="https://status.wowanalyzer.com/">Status</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </header>
+          <Header showReportSelecter={this.showReportSelecter} />
           <main>
             {this.renderContent()}
           </main>
@@ -221,8 +182,8 @@ class App extends React.Component {
           <DocumentTitleUpdater />
         </div>
         {!error && <Footer />}
-        <div id="portal"></div>
-      </Wrapper>
+        <div id="portal" />
+      </React.Fragment>
     );
   }
 }

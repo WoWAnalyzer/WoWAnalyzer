@@ -1,5 +1,4 @@
 import React from 'react';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
@@ -56,7 +55,7 @@ class BreathOfFire extends Analyzer {
   suggestions(when) {
     when(this.suggestionThreshold)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> uptime can be improved. The associated debuff is a key part of our damage mitigation.</Wrapper>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> uptime can be improved. The associated debuff is a key part of our damage mitigation.</React.Fragment>)
           .icon(SPELLS.BREATH_OF_FIRE.icon)
           .actual(`${formatPercentage(actual)}% Breath of Fire uptime`)
           .recommended(`> ${formatPercentage(recommended)}% is recommended`);

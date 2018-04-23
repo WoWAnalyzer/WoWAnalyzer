@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
@@ -73,7 +72,7 @@ class AngerOfTheHalfGiants extends Analyzer {
 			item: ITEMS.ANGER_OF_THE_HALF_GIANTS,
 			result: (
 				<dfn data-tip={`Total Fury Gained: <b>${formatNumber(this.furyGenerated)}</b>.`}>
-					<Wrapper>{formatNumber(this.furyGenerated / this.dBCasts)} Fury gained per <SpellLink id={builderId} icon/>.</Wrapper>
+					<React.Fragment>{formatNumber(this.furyGenerated / this.dBCasts)} Fury gained per <SpellLink id={builderId} icon/>.</React.Fragment>
 				</dfn>
 			),
 		};
@@ -93,7 +92,7 @@ class AngerOfTheHalfGiants extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You wasted {formatNumber(this.furyWasted)} of the Fury from <ItemLink id={ITEMS.ANGER_OF_THE_HALF_GIANTS.id} icon/>.</Wrapper>)
+      return suggest(<React.Fragment>You wasted {formatNumber(this.furyWasted)} of the Fury from <ItemLink id={ITEMS.ANGER_OF_THE_HALF_GIANTS.id} icon/>.</React.Fragment>)
         .icon(ITEMS.ANGER_OF_THE_HALF_GIANTS.icon)
         .actual(`${formatPercentage(actual)}% fury wasted`)
         .recommended(`Wasting less than ${formatPercentage(recommended)}% is recommended.`);

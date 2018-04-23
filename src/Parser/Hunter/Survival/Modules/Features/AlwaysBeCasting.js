@@ -7,7 +7,6 @@ import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static dependencies = {
@@ -31,8 +30,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <Wrapper>Your downtime can be improved. Try to reduce the delay between casting spells. If everything is on cooldown, try and use <SpellLink id={SPELLS.RAPTOR_STRIKE.id} /> or <SpellLink id={SPELLS.LACERATE.id} /> to stay off the focus cap and do some damage.
-        </Wrapper>)
+        <React.Fragment>Your downtime can be improved. Try to reduce the delay between casting spells. If everything is on cooldown, try and use <SpellLink id={SPELLS.RAPTOR_STRIKE.id} /> or <SpellLink id={SPELLS.LACERATE.id} /> to stay off the focus cap and do some damage.
+        </React.Fragment>)
         .icon('spell_mage_altertime')
         .actual(`${formatPercentage(actual)}% downtime`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`);

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
@@ -42,7 +41,7 @@ class Rapture extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>You cast <SpellLink id={SPELLS.RAPTURE.id} /> while <SpellLink id={SPELLS.POWER_WORD_SHIELD.id} /> was not on cooldown {this.casts - this.goodCasts} times. Try to always have <SpellLink id={SPELLS.POWER_WORD_SHIELD.id} /> on cooldown since <SpellLink id={SPELLS.RAPTURE.id} /> resets its cooldown.</Wrapper>)
+        return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.RAPTURE.id} /> while <SpellLink id={SPELLS.POWER_WORD_SHIELD.id} /> was not on cooldown {this.casts - this.goodCasts} times. Try to always have <SpellLink id={SPELLS.POWER_WORD_SHIELD.id} /> on cooldown since <SpellLink id={SPELLS.RAPTURE.id} /> resets its cooldown.</React.Fragment>)
           .icon(SPELLS.RAPTURE.icon)
           .actual(`${ formatPercentage(actual) }% Rapture casts while Power Word: Shield was on cooldown`)
           .recommended(`${ formatPercentage(recommended) }%is recommended`);

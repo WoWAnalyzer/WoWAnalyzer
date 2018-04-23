@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Wrapper from 'common/Wrapper';
 
 
 import EnergyTracker from '../../../Common/Resources/EnergyTracker';
@@ -35,13 +34,13 @@ class ShadowSatyrsWalk extends Analyzer {
 
 		return {
 			item: ITEMS.SHADOW_SATYRS_WALK,
-			result: <Wrapper>
+			result: <React.Fragment>
         <dfn data-tip={`Positioning at maximum range from your target could increase energy generation.`}>
          {totalPerMinute.toFixed(2)} energy generated per minute.
 				 <br/>
 				 {avgExtra.toFixed(2)} average bonus energy per cast.
         </dfn>
-      </Wrapper>,
+      </React.Fragment>,
 		};
 	}
 

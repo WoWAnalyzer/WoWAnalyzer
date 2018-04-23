@@ -7,7 +7,6 @@ import calculateMaxCasts from 'Parser/Core/calculateMaxCasts';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 
 const SUMMON_COOLDOWN = 180;
 
@@ -37,7 +36,7 @@ class DoomguardInfernal extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>You should cast <SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id}/> or <SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id}/> more often. Infernal has higher priority if you don't have the Lord of Flames debuff but it is otherwise weaker. Try to pair up the cooldowns with haste buffs like <SpellLink id={SPELLS.BLOODLUST.id}/>, <SpellLink id={SPELLS.TIME_WARP.id}/> etc..</Wrapper>)
+        return suggest(<React.Fragment>You should cast <SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id}/> or <SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id}/> more often. Infernal has higher priority if you don't have the Lord of Flames debuff but it is otherwise weaker. Try to pair up the cooldowns with haste buffs like <SpellLink id={SPELLS.BLOODLUST.id}/>, <SpellLink id={SPELLS.TIME_WARP.id}/> etc..</React.Fragment>)
           .icon(SPELLS.SUMMON_DOOMGUARD_UNTALENTED.icon)
           .actual(`${actual} out of ${recommended} summoned Infernals or Doomguards.`)
           .recommended(`${recommended} is recommended`);

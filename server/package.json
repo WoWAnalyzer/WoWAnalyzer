@@ -2,10 +2,10 @@
   "name": "wowanalyzer-server",
   "main": "index.js",
   "scripts": {
-    "start": "sequelize db:migrate && nodemon index.js --exec babel-node",
+    "start": "node --harmony node_modules/sequelize-cli/lib/sequelize db:migrate && nodemon index.js --exec babel-node",
     "test": "jest --watchAll",
     "build": "babel -d build --ignore node_modules,build . && node ./config/postbuild.js",
-    "serve": "sequelize db:migrate && node --harmony build/index.js"
+    "serve": "node --harmony node_modules/sequelize-cli/lib/sequelize db:migrate && node --harmony build/index.js"
   },
   "dependencies": {
     "agentkeepalive": "^3.4.1",
@@ -19,10 +19,10 @@
     "mysql2": "^1.5.3",
     "passport": "^0.4.0",
     "passport-patreon": "^1.0.1",
-    "raven": "^2.4.2",
+    "raven": "^2.5.0",
     "request": "^2.85.0",
     "request-promise-native": "^1.0.5",
-    "sequelize": "^4.37.4",
+    "sequelize": "^4.37.6",
     "sequelize-cli": "^4.0.0"
   },
   "devDependencies": {

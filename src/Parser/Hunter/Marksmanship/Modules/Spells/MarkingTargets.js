@@ -2,7 +2,6 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
-import Wrapper from 'common/Wrapper';
 import StatisticBox from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 
@@ -144,7 +143,7 @@ class MarkingTargets extends Analyzer {
     return (
       <StatisticBox icon={<SpellIcon id={SPELLS.MARKING_TARGETS.id} />}
         value={(
-          <Wrapper>
+          <React.Fragment>
             {this.usedProcs + '/' + this._totalPossible}{' '}
             <SpellIcon
               id={SPELLS.MARKING_TARGETS.id}
@@ -162,7 +161,7 @@ class MarkingTargets extends Analyzer {
                 filter: 'grayscale(50%)',
               }}
             />
-          </Wrapper>
+          </React.Fragment>
         )}
         label="Marking Targets info"
         tooltip={`This module ignores Trueshot, but if you have any Hunter's Mark wasted during Trueshot, it'll show in the bottom of this tooltip.</br>

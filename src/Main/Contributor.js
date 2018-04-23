@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import Wrapper from 'common/Wrapper';
 
 import ContributorDetails from './Contributors/ContributorDetails';
 import makeContributorUrl from './Contributors/makeUrl';
@@ -48,7 +47,7 @@ class Contributor extends React.PureComponent {
 
     return (
       <Link to={makeContributorUrl(nickname)} onClick={this.handleClick} className="contributor">
-        {avatar && <Wrapper><img src={avatar} alt="Avatar" />{' '}</Wrapper>}
+        {avatar && <React.Fragment><img src={avatar} alt="Avatar" />{' '}</React.Fragment>}
         {nickname}
       </Link>
     );

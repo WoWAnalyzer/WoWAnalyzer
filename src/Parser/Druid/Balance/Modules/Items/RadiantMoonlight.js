@@ -1,7 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
@@ -67,7 +66,7 @@ class RadiantMoonlight extends Analyzer {
   item() {
     return {
       item: ITEMS.RADIANT_MOONLIGHT,
-      result: <Wrapper>Gave you {formatNumber(this.freeFullMoons)} free <SpellLink id={SPELLS.FULL_MOON.id} /> casts and reduced the cooldown of your Moon spells by an average of ~{this.averageCooldownReduction.toFixed(1)} seconds.</Wrapper>,
+      result: <React.Fragment>Gave you {formatNumber(this.freeFullMoons)} free <SpellLink id={SPELLS.FULL_MOON.id} /> casts and reduced the cooldown of your Moon spells by an average of ~{this.averageCooldownReduction.toFixed(1)} seconds.</React.Fragment>,
     };
   }
 }

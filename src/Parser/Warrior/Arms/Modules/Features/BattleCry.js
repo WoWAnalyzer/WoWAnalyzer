@@ -4,7 +4,6 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
-import Wrapper from 'common/Wrapper';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -26,13 +25,19 @@ class BattleCryAnalyzer extends Analyzer {
   battleCries = [];
   currentBattleCry;
 
-  on_byPlayer_applybuff(event) {
+  on_byPlayer_cast(event) {
     if(SPELLS.BATTLE_CRY.id === event.ability.guid) {
-      // If Battle Cry was applied create a new Battle Cry recording.
+      // If Battle Cry was cast create a new Battle Cry recording.
       this.battleCrying = true;
       this.currentBattleCry = new BattleCry();
 
       this.currentBattleCry.shatteredSetup = this.combatants.selected.hasBuff(SPELLS.SHATTERED_DEFENSES.id);
+
+      if(!this.currentBattleCry.shatteredSetup) {
+        event.meta = event.meta || {};
+        event.meta.isInefficientCast = true;
+        event.meta.inefficientCastReason = 'This Battle Cry was used without Shattered Defenses active.';
+      }
     }
   }
 
@@ -70,7 +75,8 @@ class BattleCryAnalyzer extends Analyzer {
 			isLessThan: {
         minor: 0.95,
         average: 0.9,
-        major: 0.85},
+        major: 0.85,
+      },
 			style: 'percentage',
 		};
   }
@@ -87,7 +93,7 @@ class BattleCryAnalyzer extends Analyzer {
 
   suggestions(when) {
     when(this.shatteredSetupThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>You should ensure <SpellLink id={SPELLS.SHATTERED_DEFENSES.id} icon/> is active before you use <SpellLink id={SPELLS.BATTLE_CRY.id} icon/> to maximize your burst potential.</Wrapper>)
+        return suggest(<React.Fragment>Try to have <SpellLink id={SPELLS.SHATTERED_DEFENSES.id} icon/> active before you use <SpellLink id={SPELLS.BATTLE_CRY.id} icon/> to maximize your burst potential.</React.Fragment>)
           .icon(SPELLS.SHATTERED_DEFENSES.icon)
           .actual(`Shattered Defenses was up for ${formatPercentage(actual)}% of Battle Cries.`)
           .recommended(`${formatPercentage(recommended)}% is recommended`);

@@ -1,41 +1,16 @@
+import Express from 'express';
 import querystring from 'querystring';
 import request from 'request-promise-native';
 import Sequelize from 'sequelize';
 import Raven from 'raven';
 
-import models from './models';
-import WclApiError from './WclApiError';
+import models from '../../models';
+import WclApiError from '../../WclApiError';
 
 const WclApiResponse = models.WclApiResponse;
-
 const WCL_MAINTENANCE_STRING = 'Warcraft Logs is down for maintenance';
 
-/* eslint-disable no-use-before-define */
-
-class ApiController {
-  static handle(req, res) {
-    const handler = new ApiRequestHandler(req, res);
-
-    // This allows users to cache bust, this is useful when live logging. It stores the result in the regular (uncachebusted) spot so that future requests for the regular request are also updated.
-    if (req.query._) {
-      console.log('Cache busting...');
-      handler.cacheBust = true;
-      delete req.query._;
-    }
-
-    // Allow users to provide their own API key. This is required during development so that other developers don't lock out the production in case they mess something up.
-    if (req.query.api_key) {
-      handler.apiKey = req.query.api_key;
-      delete req.query.api_key; // don't use a separate cache for different API keys
-    }
-
-    // Set header already so that all request, good or bad, have it
-    res.setHeader('Access-Control-Allow-Origin', '*');
-
-    handler.handle();
-  }
-}
-
+// This class was a bad idea and needs to be refactored out
 class ApiRequestHandler {
   req = null;
   res = null;
@@ -145,4 +120,27 @@ class ApiRequestHandler {
   }
 }
 
-export default ApiController.handle;
+const router = Express.Router();
+router.get('/*', (req, res) => {
+  const handler = new ApiRequestHandler(req, res);
+
+  // This allows users to cache bust, this is useful when live logging. It stores the result in the regular (uncachebusted) spot so that future requests for the regular request are also updated.
+  if (req.query._) {
+    console.log('Cache busting...');
+    handler.cacheBust = true;
+    delete req.query._;
+  }
+
+  // Allow users to provide their own API key. This is required during development so that other developers don't lock out the production in case they mess something up.
+  if (req.query.api_key) {
+    handler.apiKey = req.query.api_key;
+    delete req.query.api_key; // don't use a separate cache for different API keys
+  }
+
+  // Set header already so that all request, good or bad, have it
+  res.setHeader('Access-Control-Allow-Origin', '*');
+
+  handler.handle();
+});
+
+export default router;

@@ -1,7 +1,7 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import DamageTakenTableComponent, { MITIGATED_PHYSICAL, MITIGATED_MAGICAL } from 'Main/DamageTakenTable';
+import DamageTakenTableComponent, { MITIGATED_UNKNOWN, MITIGATED_PHYSICAL, MITIGATED_MAGICAL } from 'Main/DamageTakenTable';
 import Tab from 'Main/Tab';
 import SPELLS from 'common/SPELLS';
 import SPECS from 'common/SPECS';
@@ -9,6 +9,8 @@ import SpellLink from 'common/SpellLink';
 
 import HighTolerance from '../Spells/HighTolerance';
 import DamageTaken from '../Core/DamageTaken';
+
+const MIN_CLASSIFICATION_AMOUNT = 100;
 
 class DamageTakenTable extends Analyzer {
   static dependencies = {
@@ -67,6 +69,9 @@ class DamageTakenTable extends Analyzer {
   }
 
   _classifyMitigation(event) {
+    if(event.absorbed + event.amount <= MIN_CLASSIFICATION_AMOUNT) {
+      return MITIGATED_UNKNOWN;
+    }
     // additive increase of 35%
     const isbActive = this.combatants.selected.hasBuff(SPELLS.IRONSKIN_BREW_BUFF.id);
     // additive increase of 10%

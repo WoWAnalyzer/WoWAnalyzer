@@ -6,7 +6,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import { formatDuration, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 
 import StatisticsListBox from 'Main/StatisticsListBox';
 
@@ -142,7 +141,7 @@ class TormentedSouls extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>You're wasting your <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id}/>. Don't let them cap, even if it means pushing your <SpellLink id={SPELLS.DEADWIND_HARVESTER.id}/> buff past its maximum duration.</Wrapper>)
+        return suggest(<React.Fragment>You're wasting your <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id}/>. Don't let them cap, even if it means pushing your <SpellLink id={SPELLS.DEADWIND_HARVESTER.id}/> buff past its maximum duration.</React.Fragment>)
           .icon(SPELLS.WARLOCK_TORMENTED_SOULS.icon)
           .actual(`${formatPercentage(actual)}% of the fight (${formatDuration(this.maxStacksSeconds)} s) spent at 12 stacks.`)
           .recommended(`< ${formatPercentage(recommended)}% is recommended`);

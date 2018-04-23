@@ -7,7 +7,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 
 class DenialOfHalfGiants extends Analyzer {
   static dependencies = {
@@ -33,7 +32,7 @@ class DenialOfHalfGiants extends Analyzer {
   item() {
     return {
       item: ITEMS.DENIAL_OF_THE_HALF_GIANTS,
-      result: <Wrapper>{this.totalValue.toFixed(1)} seconds added to <SpellLink id={SPELLS.SHADOW_BLADES.id} />.</Wrapper>,
+      result: <React.Fragment>{this.totalValue.toFixed(1)} seconds added to <SpellLink id={SPELLS.SHADOW_BLADES.id} />.</React.Fragment>,
     };
   }
 }

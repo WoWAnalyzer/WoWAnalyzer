@@ -3,7 +3,6 @@ import React from 'react';
 import { Hartra344, Versaya, niseko } from 'CONTRIBUTORS';
 import SPECS from 'common/SPECS';
 import Warning from 'common/Alert/Warning';
-import Wrapper from 'common/Wrapper';
 
 import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
@@ -16,7 +15,7 @@ export default {
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
-    <Wrapper>
+    <React.Fragment>
       Welcome to the Resto Shaman analyzer! We hope you find these suggestions and statistics useful.<br /><br />
 
       If you want to learn more about Resto Shaman, join the Resto Shaman community at the <a href="https://discord.gg/AcTek6e" target="_blank" rel="noopener noreferrer">Ancestral Guidance</a> discord server and make sure to visit the <a href="https://ancestralguidance.com/">website</a>.<br /><br />
@@ -24,7 +23,7 @@ export default {
       <Warning>
         If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact us on <a href="https://discord.gg/AxphPxU">Discord</a>.
       </Warning>
-    </Wrapper>
+    </React.Fragment>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   // exampleReport: '/report/hNqbFwd7Mx3G1KnZ/18-Mythic+Antoran+High+Command+-+Kill+(6:51)/Taffly',

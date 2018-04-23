@@ -6,7 +6,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 
 const debug = false;
 
@@ -78,7 +77,7 @@ class Backdraft extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>You should use your <SpellLink id={SPELLS.BACKDRAFT_TALENT.id} /> stacks more. You have wasted {this.wastedStacks} stacks this fight.</Wrapper>)
+        return suggest(<React.Fragment>You should use your <SpellLink id={SPELLS.BACKDRAFT_TALENT.id} /> stacks more. You have wasted {this.wastedStacks} stacks this fight.</React.Fragment>)
           .icon(SPELLS.BACKDRAFT_TALENT.icon)
           .actual(`${actual.toFixed(2)} wasted Backdraft stacks per minute`)
           .recommended(`< ${recommended} is recommended`);

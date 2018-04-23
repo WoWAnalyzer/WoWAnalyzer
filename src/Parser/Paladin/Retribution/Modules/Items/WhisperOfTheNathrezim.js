@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
@@ -76,7 +75,7 @@ class WhisperOfTheNathrezim extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Your usage of <ItemLink id={ITEMS.WHISPER_OF_THE_NATHREZIM.id} icon/> can be improved. Make sure to save up five holy power before your next <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/> window to get more time on the buff.</Wrapper>)
+      return suggest(<React.Fragment>Your usage of <ItemLink id={ITEMS.WHISPER_OF_THE_NATHREZIM.id} icon/> can be improved. Make sure to save up five holy power before your next <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/> window to get more time on the buff.</React.Fragment>)
         .icon(ITEMS.WHISPER_OF_THE_NATHREZIM.icon)
         .actual(`${formatPercentage(actual)}% of spenders with the buff`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);

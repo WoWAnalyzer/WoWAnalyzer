@@ -4,7 +4,6 @@ import { Doughnut as DoughnutChart } from 'react-chartjs-2';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -234,9 +233,9 @@ class ThunderFocusTea extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
           return suggest(
-            <Wrapper>
+            <React.Fragment>
               You are currently using <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> to buff spells other than <SpellLink id={SPELLS.VIVIFY.id} /> or <SpellLink id={SPELLS.RENEWING_MIST.id} />. It is advised to limit the number of spells buffed to only these two.
-            </Wrapper>
+            </React.Fragment>
           )
             .icon(SPELLS.THUNDER_FOCUS_TEA.icon)
             .actual(`${this.incorrectTftCasts} incorrect casts with Thunder Focus Tea`)
@@ -247,7 +246,7 @@ class ThunderFocusTea extends Analyzer {
   statistic() {
     return (
       <StatisticsListBox
-        title={<Wrapper><SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id}>Thunder Focus Tea</SpellLink> usage</Wrapper>}
+        title={<React.Fragment><SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id}>Thunder Focus Tea</SpellLink> usage</React.Fragment>}
       >
         {this.tftCastRatioChart()}
       </StatisticsListBox>

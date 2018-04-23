@@ -5,7 +5,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 /**
@@ -29,7 +28,7 @@ class UnseenPredatorsCloak extends Analyzer {
   item() {
     return {
       item: ITEMS.UNSEEN_PREDATORS_CLOAK,
-      result: <Wrapper>{formatPercentage(this.uptimePercentage)}% uptime</Wrapper>,
+      result: <React.Fragment>{formatPercentage(this.uptimePercentage)}% uptime</React.Fragment>,
     };
   }
 }

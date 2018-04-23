@@ -3,7 +3,6 @@ import React from 'react';
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -73,7 +72,7 @@ class SlamAnalyzer extends Analyzer {
 
   suggestions(when) {
     when(this.wastedSlamThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Try to avoid using <SpellLink id={SPELLS.SLAM.id} icon/> if <SpellLink id={SPELLS.COLOSSUS_SMASH.id} icon/> or <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon/> are available.</Wrapper>)
+      return suggest(<React.Fragment>Try to avoid using <SpellLink id={SPELLS.SLAM.id} icon/> if <SpellLink id={SPELLS.COLOSSUS_SMASH.id} icon/> or <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon/> are available.</React.Fragment>)
         .icon(SPELLS.SLAM.icon)
         .actual(`${formatPercentage(actual)}% of Slams were used when Colossus Smash or Mortal Strike were available.`)
         .recommended(`${formatPercentage(recommended)}% is recommended`);
@@ -81,7 +80,7 @@ class SlamAnalyzer extends Analyzer {
 
     if(this.combatants.selected.hasTalent(SPELLS.FERVOR_OF_BATTLE_TALENT.id)) {
       when(this.fervoredSlamThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>You should never use <SpellLink id={SPELLS.SLAM.id} icon/> when <SpellLink id={SPELLS.FERVOR_OF_BATTLE_TALENT.id} icon/> is talented.</Wrapper>)
+        return suggest(<React.Fragment>You should never use <SpellLink id={SPELLS.SLAM.id} icon/> when <SpellLink id={SPELLS.FERVOR_OF_BATTLE_TALENT.id} icon/> is talented.</React.Fragment>)
           .icon(SPELLS.SLAM.icon)
           .actual(`Slam was used ${formatNumber(actual)} times.`)
           .recommended(`${formatNumber(recommended)}% is recommended`);

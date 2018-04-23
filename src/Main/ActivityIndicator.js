@@ -65,6 +65,11 @@ class ActivityIndicator extends React.PureComponent {
               1
             </div>
           )}
+          {this.state.time > 21000 && (
+            <div>
+              Shit I forgot to update this when I increased the timeout to 30 seconds for the folks from Australia. Sorry if you're from Australia and you have internet for snails.
+            </div>
+          )}
         </div>
       </div>
     );

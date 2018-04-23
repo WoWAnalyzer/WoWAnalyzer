@@ -292,6 +292,13 @@ class CharacterParses extends React.Component {
         return;
       }
 
+      if (rawParses.length === 0) { //happens when the character has no logs for the selected raid
+        this.setState({
+          parses: [],
+          isLoading: false,
+        });
+        return;
+      }
       const charClass = rawParses[0].specs[0].class;
       const specs = Object.values(SPECS)
         .map((elem, index) => { if (elem.className.replace(" ", "") !== charClass) { return undefined; } return elem.specName; })

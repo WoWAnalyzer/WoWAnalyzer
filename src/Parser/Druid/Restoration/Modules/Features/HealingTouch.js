@@ -1,7 +1,6 @@
 import React from 'react';
 import SpellLink from 'common/SpellLink';
 
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -32,7 +31,7 @@ class HealingTouch extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper><SpellLink id={SPELLS.HEALING_TOUCH.id} /> is inefficient and weak, you should trust your HoTs or your co-healer to top people off. If you have nothing else to do, DPS the boss.</Wrapper>)
+        return suggest(<React.Fragment><SpellLink id={SPELLS.HEALING_TOUCH.id} /> is inefficient and weak, you should trust your HoTs or your co-healer to top people off. If you have nothing else to do, DPS the boss.</React.Fragment>)
           .icon(SPELLS.HEALING_TOUCH.icon)
           .actual(`${(this.castsPerMinute).toFixed(1)} CPM`)
           .recommended(`${(recommended).toFixed(1)} CPM is recommended`);

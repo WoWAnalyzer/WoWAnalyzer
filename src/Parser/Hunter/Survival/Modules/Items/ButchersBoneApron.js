@@ -7,7 +7,6 @@ import SPELLS from 'common/SPELLS';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 
 /**
@@ -125,13 +124,13 @@ class ButchersBoneApron extends Analyzer {
     const spellLinkId = this.combatants.selected.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT.id : SPELLS.CARVE.id;
 
     when(this.cappedStacksThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You lost out on {this.wastedStacks} (or {formatPercentage(this.percentCappedStacks)}% of total stacks) chest stacks because you were capped. You should try and avoid this by casting a <SpellLink id={spellLinkId} /> when you're at {MAX_STACKS} stacks. </Wrapper>)
+      return suggest(<React.Fragment>You lost out on {this.wastedStacks} (or {formatPercentage(this.percentCappedStacks)}% of total stacks) chest stacks because you were capped. You should try and avoid this by casting a <SpellLink id={spellLinkId} /> when you're at {MAX_STACKS} stacks. </React.Fragment>)
         .icon(ITEMS.BUTCHERS_BONE_APRON.icon)
         .actual(`${this.wastedStacks} or ${formatPercentage(actual)}% of total stacks were wasted due to overcapping`)
         .recommended(`${recommended}% is recommended`);
     });
     when(this.unusedStacksThreshold).addSuggestion((suggest, actual) => {
-      return suggest(<Wrapper>You finished the encounter with {this.unusedStacks} stacks unused, try and utilise all of your stacks to get the most out of your equipped legendary and <SpellLink id={spellLinkId} />.</Wrapper>)
+      return suggest(<React.Fragment>You finished the encounter with {this.unusedStacks} stacks unused, try and utilise all of your stacks to get the most out of your equipped legendary and <SpellLink id={spellLinkId} />.</React.Fragment>)
         .icon(ITEMS.BUTCHERS_BONE_APRON.icon)
         .actual(`${(actual)} stacks were unused`)
         .recommended(`0 unused stacks is recommended`);

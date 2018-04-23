@@ -2,7 +2,6 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 
@@ -34,7 +33,7 @@ class StellarDriftMissing extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).isFalse().addSuggestion((suggest) => {
-      return suggest(<Wrapper>When using <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_BALANCE.id} />, <SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} /> or <ItemLink id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} /> it is recommended to always also use <SpellLink id={SPELLS.STELLAR_DRIFT_TALENT.id} />.</Wrapper>)
+      return suggest(<React.Fragment>When using <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_BALANCE.id} />, <SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} /> or <ItemLink id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} /> it is recommended to always also use <SpellLink id={SPELLS.STELLAR_DRIFT_TALENT.id} />.</React.Fragment>)
         .icon(SPELLS.STELLAR_DRIFT_TALENT.icon)
         .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
     });
