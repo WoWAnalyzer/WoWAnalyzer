@@ -10,7 +10,7 @@ export default [
   {
     date: new Date('2018-04-24'),
     changes: 'Implemented code splitting to reduce the initial time to render.',
-    contributors: [CubeLuke],
+    contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-04-18'),
