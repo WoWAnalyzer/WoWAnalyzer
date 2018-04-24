@@ -10,7 +10,6 @@ import SuggestionIcon from 'Icons/Suggestion';
 import ArmorIcon from 'Icons/Armor';
 import StatisticsIcon from 'Icons/Statistics';
 
-import Wrapper from 'common/Wrapper';
 import ReadableList from 'common/ReadableList';
 import parseVersionString from 'common/parseVersionString';
 import Warning from 'common/Alert/Warning';
@@ -45,27 +44,27 @@ function mainTabLabel(tab) {
   switch (tab) {
     case MAIN_TAB.CHECKLIST:
       return (
-        <Wrapper>
+        <React.Fragment>
           <ChecklistIcon /> Checklist
-        </Wrapper>
+        </React.Fragment>
       );
     case MAIN_TAB.SUGGESTIONS:
       return (
-        <Wrapper>
+        <React.Fragment>
           <SuggestionIcon /> Suggestions
-        </Wrapper>
+        </React.Fragment>
       );
     case MAIN_TAB.CHARACTER:
       return (
-        <Wrapper>
+        <React.Fragment>
           <ArmorIcon /> CHARACTER
-        </Wrapper>
+        </React.Fragment>
       );
     case MAIN_TAB.STATS:
       return (
-        <Wrapper>
+        <React.Fragment>
           <StatisticsIcon /> Statistics
-        </Wrapper>
+        </React.Fragment>
       );
     default: return tab;
   }
@@ -210,7 +209,7 @@ class Results extends React.PureComponent {
     }
 
     return (
-      <Wrapper>
+      <React.Fragment>
         <div className="row">
           <div className="col-md-4">
             {this.renderAbout()}
@@ -292,7 +291,7 @@ class Results extends React.PureComponent {
         <div className="divider" />
 
         <DetailsTab tabs={results.tabs} selected={selectedDetailsTab} makeTabUrl={makeTabUrl} />
-      </Wrapper>
+      </React.Fragment>
     );
   }
   renderLoading() {

@@ -6,7 +6,6 @@ import Icon from 'common/Icon';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import { formatNumber, formatPercentage } from 'common/format';
 import ItemLink from 'common/ItemLink';
 
@@ -57,7 +56,7 @@ class AtonementHealingBreakdown extends React.Component {
             const reason = this.reason(spellId);
 
             return (
-              <Wrapper>
+              <React.Fragment>
                 <tr key={ability.guid}>
                   <td style={{ width: '30%' }}>
                     <SpellLink id={ability.guid} icon={false}>
@@ -65,9 +64,9 @@ class AtonementHealingBreakdown extends React.Component {
                       {ability.name}
                     </SpellLink>
                     {reason && (
-                      <Wrapper>
+                      <React.Fragment>
                         {' '}({reason})
-                      </Wrapper>
+                      </React.Fragment>
                     )}
                   </td>
                   <td style={{ paddingRight: 5, textAlign: 'right', whiteSpace: 'nowrap' }}>
@@ -123,7 +122,7 @@ class AtonementHealingBreakdown extends React.Component {
                     </tr>
                   );
                 })}
-              </Wrapper>
+              </React.Fragment>
             );
           })}
 

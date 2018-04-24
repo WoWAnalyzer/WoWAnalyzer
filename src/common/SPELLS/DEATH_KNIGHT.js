@@ -141,11 +141,6 @@ export default {
     icon: 'spell_deathknight_deathstrike',
   },
 
-  MARK_OF_BLOOD: {
-    id: 61606,
-    name: 'Mark of Blood',
-    icon: 'ability_hunter_rapidkilling',
-  },
   HEARTBREAKER: {
     id: 210738,
     name: 'Heartbreaker',
@@ -390,7 +385,7 @@ export default {
     icon: 'spell_yorsahj_bloodboil_purpleoil',
   },
 
-  // Frost tier 
+  // Frost tier
   // T20 2P
   FROST_DEATH_KNIGHT_T20_2SET_BONUS_BUFF: {
     id: 242058,
@@ -425,7 +420,7 @@ export default {
     name: 'Toravon\'s Whiteout Bindings',
     icon: 'ability_warrior_unrelentingassault',
   },
-  
+
   // Unholy:
   // Aritfact ability
   APOCALYPSE: {
@@ -532,7 +527,7 @@ export default {
 	  name: 'Unholy Strength',
 	  icon: 'spell_holy_blessingofstrength',
   },
-  
+
   // Unholy Tier Sets
   // T20 2 Piece and buff
   UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS: {

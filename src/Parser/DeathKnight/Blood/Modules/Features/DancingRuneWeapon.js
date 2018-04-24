@@ -3,7 +3,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import SPELLS from 'common/SPELLS';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 
 const ALLOWED_CASTS_DURING_DRW = [
@@ -75,7 +74,7 @@ class DancingRuneWeapon extends Analyzer {
   suggestions(when) {
     when(this.SuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<Wrapper>Avoid casting spells during <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> that don't benefit from the coppies such as <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> and <SpellLink id={SPELLS.DEATH_AND_DECAY.id} />. Check the cooldown-tab below for more detailed breakdown.{this.goodDRWSpells}</Wrapper>)
+          return suggest(<React.Fragment>Avoid casting spells during <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> that don't benefit from the coppies such as <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> and <SpellLink id={SPELLS.DEATH_AND_DECAY.id} />. Check the cooldown-tab below for more detailed breakdown.{this.goodDRWSpells}</React.Fragment>)
             .icon(SPELLS.DANCING_RUNE_WEAPON.icon)
             .actual(`${ this.goodDRWCasts.length } out of ${ this.castsDuringDRW.length} casts during DRW were good`)
             .recommended(`${this.castsDuringDRW.length} recommended`);

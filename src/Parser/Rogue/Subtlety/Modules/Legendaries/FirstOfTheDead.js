@@ -6,7 +6,6 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
-import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import DamageTracker from 'Parser/Core/Modules/AbilityTracker';
@@ -60,9 +59,9 @@ class FirstOfTheDead extends Analyzer {
     when(noValueShare).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <Wrapper>
+          <React.Fragment>
             Make sure to gain extra combo points after each <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> when you are using <ItemLink id={ITEMS.THE_FIRST_OF_THE_DEAD.id} />.
-          </Wrapper>
+          </React.Fragment>
         )
           .icon(ITEMS.THE_FIRST_OF_THE_DEAD.icon)
           .actual(`You failed to gain extra combo points on ${formatPercentage(actual)} % of Symbols of Death casts`)
@@ -77,7 +76,7 @@ class FirstOfTheDead extends Analyzer {
 
     return {
       item: ITEMS.THE_FIRST_OF_THE_DEAD,
-      result: <Wrapper>{totalPerMinute.toFixed(2)} combo points generated per minute.</Wrapper>,
+      result: <React.Fragment>{totalPerMinute.toFixed(2)} combo points generated per minute.</React.Fragment>,
     };
   }
 }

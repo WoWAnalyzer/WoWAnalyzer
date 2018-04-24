@@ -11,7 +11,6 @@ import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import { formatPercentage } from 'common/format';
 import StatisticBox from 'Main/StatisticBox';
-import Wrapper from 'common/Wrapper';
 
 /**
  * Scatters Caltrops in an area for 15 sec. Enemies who step on Caltrops will take (45% of Attack power) Bleed damage every 1 sec, and
@@ -70,7 +69,7 @@ class Caltrops extends Analyzer {
 
   suggestions(when) {
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>If you have chosen <SpellLink id={SPELLS.CALTROPS_TALENT.id} /> as a talent, you want to ensure that you have a high uptime of the DOT ticking on enemies.</Wrapper>)
+      return suggest(<React.Fragment>If you have chosen <SpellLink id={SPELLS.CALTROPS_TALENT.id} /> as a talent, you want to ensure that you have a high uptime of the DOT ticking on enemies.</React.Fragment>)
         .icon(SPELLS.CALTROPS_TALENT.icon)
         .actual(`${formatPercentage(this.uptimePercentage)}%`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);

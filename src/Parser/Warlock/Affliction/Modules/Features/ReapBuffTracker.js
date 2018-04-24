@@ -6,7 +6,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -64,7 +63,7 @@ class ReapBuffTracker extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id}/> aren't buffed enough by <SpellLink id={SPELLS.REAP_SOULS.id}/>. You should delay your Unstable Affliction casts until you have enough <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id}/> to buff them (but <strong>don't overcap</strong> your Soul Shards while doing so).</Wrapper>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id}/> aren't buffed enough by <SpellLink id={SPELLS.REAP_SOULS.id}/>. You should delay your Unstable Affliction casts until you have enough <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id}/> to buff them (but <strong>don't overcap</strong> your Soul Shards while doing so).</React.Fragment>)
           .icon(SPELLS.DEADWIND_HARVESTER.icon)
           .actual(`${formatPercentage(actual)}% unbuffed Unstable Affliction ticks.`)
           .recommended(`< ${formatPercentage(recommended)}% is recommended`);

@@ -8,7 +8,6 @@ import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 
 const MAX_STACKS = 4;
 
@@ -109,7 +108,7 @@ class WayOfTheMokNathal extends Analyzer {
 
   suggestions(when) {
     when(this.timesDroppedThreshold).addSuggestion((suggest, actual) => {
-      return suggest(<Wrapper>Try your best to maintain 4 stacks on <SpellLink id={SPELLS.MOKNATHAL_TACTICS.id} />. This can be achieved by casting <SpellLink id={SPELLS.RAPTOR_STRIKE.id} /> right before having to halt attacking for an extended period of time. </Wrapper>)
+      return suggest(<React.Fragment>Try your best to maintain 4 stacks on <SpellLink id={SPELLS.MOKNATHAL_TACTICS.id} />. This can be achieved by casting <SpellLink id={SPELLS.RAPTOR_STRIKE.id} /> right before having to halt attacking for an extended period of time. </React.Fragment>)
         .icon(SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.icon)
         .actual(`You dropped Mok'Nathals Tactic ${actual} times`)
         .recommended(`0 is recommended`);

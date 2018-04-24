@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
@@ -172,7 +171,7 @@ class DecieversGrandDesign extends Analyzer {
     when(averagePercent).isLessThan(MINOR)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <Wrapper>
+          <React.Fragment>
             Your <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} /> was proccing early. Try to cast it on players without spiky health pools. The following events procced the shield:<br />
             {this.casts.map((cast, index) => {
               if (!cast.shieldProc) {
@@ -187,7 +186,7 @@ class DecieversGrandDesign extends Analyzer {
                 </div>
               );
             })}
-          </Wrapper>
+          </React.Fragment>
         )
         .icon(ITEMS.DECEIVERS_GRAND_DESIGN.icon)
         .actual(`HoT averaged ${formatPercentage(averagePercent, 0)}% of max duration.`)

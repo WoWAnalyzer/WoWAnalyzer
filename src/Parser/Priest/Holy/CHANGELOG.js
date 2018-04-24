@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { enragednuke, Dyspho, Skamer } from 'CONTRIBUTORS';
-import Wrapper from 'common/Wrapper';
 
 export default [
   {
@@ -41,7 +40,7 @@ export default [
   },
   {
     date: new Date('07-01-2016'),
-    changes: <Wrapper>Added <span class="Priest">Holy Priest</span> support</Wrapper>,
+    changes: <React.Fragment>Added <span class="Priest">Holy Priest</span> support</React.Fragment>,
     contributors: [enragednuke],
   },
 ];

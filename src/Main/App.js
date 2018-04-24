@@ -5,7 +5,6 @@ import ReactTooltip from 'react-tooltip';
 import { push, getLocation } from 'react-router-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
-import Wrapper from 'common/Wrapper';
 import { API_DOWN, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'actions/error';
 import { getError } from 'selectors/error';
 
@@ -164,7 +163,7 @@ class App extends React.Component {
     const { error } = this.props;
 
     return (
-      <Wrapper>
+      <React.Fragment>
         <div className={`app ${this.showReportSelecter ? 'show-report-selecter' : ''}`}>
           <NavigationBar />
           <Header showReportSelecter={this.showReportSelecter} />
@@ -177,7 +176,7 @@ class App extends React.Component {
         </div>
         {!error && <Footer />}
         <div id="portal" />
-      </Wrapper>
+      </React.Fragment>
     );
   }
 }

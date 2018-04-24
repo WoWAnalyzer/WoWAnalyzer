@@ -4,7 +4,6 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Wrapper from 'common/Wrapper';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatPercentage } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
@@ -67,12 +66,12 @@ class DiimasGlacialAegis extends Analyzer {
     return {
       item: ITEMS.DIIMAS_GLACIAL_AEGIS,
       result: (
-        <Wrapper>
+        <React.Fragment>
           <dfn data-tip={`You casted "${SPELLS.CHILLING_NOVA.name}" ${this.casts} times for a uptime of ${formatPercentage(this.uptime)}%`}>
             {(this.uptime * this.armorbuff).toFixed(0)} average Armor from <SpellLink id={SPELLS.FROZEN_ARMOR.id} />
           </dfn><br/>
           <ItemDamageDone amount={this.damage} />
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

@@ -7,7 +7,6 @@ import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import { formatNumber } from 'common/format';
 
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -101,12 +100,12 @@ class Tier21_2set extends Analyzer {
       id: `spell-${SPELLS.WARLOCK_AFFLI_T21_2P_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.WARLOCK_AFFLI_T21_2P_BONUS.id} />,
       title: <SpellLink id={SPELLS.WARLOCK_AFFLI_T21_2P_BONUS.id} icon={false} />,
-      result: (<Wrapper>
+      result: (<React.Fragment>
         {this._bonusTicks} bonus <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> ticks <br />
         <dfn data-tip={`${formatNumber(this._bonusDamage)} bonus damage`}>
           <ItemDamageDone amount={this._bonusDamage}/>
         </dfn>
-      </Wrapper>),
+      </React.Fragment>),
     };
   }
 }

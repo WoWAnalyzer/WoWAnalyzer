@@ -1,7 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import { formatPercentage, formatMilliseconds } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
@@ -50,7 +49,7 @@ class Evocation extends Analyzer {
 	suggestions(when) {
 		when(this.suggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<Wrapper>You cast <SpellLink id={SPELLS.ARCANE_POWER.id}/> {this.badUses} times while <SpellLink id={SPELLS.EVOCATION.id}/> was unavailable. In order to ensure that Evocate is available at the end of your burn phase, dont case Arcane Power until the cooldown on Evocate is under 20 seconds.</Wrapper>)
+				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.ARCANE_POWER.id}/> {this.badUses} times while <SpellLink id={SPELLS.EVOCATION.id}/> was unavailable. In order to ensure that Evocate is available at the end of your burn phase, dont case Arcane Power until the cooldown on Evocate is under 20 seconds.</React.Fragment>)
 					.icon(SPELLS.EVOCATION.icon)
 					.actual(`${formatPercentage(this.utilization)}% Utilization`)
 					.recommended(`${formatPercentage(recommended)}% is recommended`);

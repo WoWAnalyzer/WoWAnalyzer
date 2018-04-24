@@ -2,7 +2,6 @@ import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Wrapper from 'common/Wrapper';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
@@ -31,7 +30,7 @@ class DeathFromAboveMantle extends Analyzer {
 		const buffedShare = buffedDfa / totalDfa;
 		when(buffedShare).isLessThan(0.25)
 			.addSuggestion((suggest,actual,recommended) => {
-				return suggest(<Wrapper>When using <ItemLink id={ITEMS.MANTLE_OF_THE_MASTER_ASSASSIN.id} />, use <SpellLink id={SPELLS.VANISH.id} /> before <SpellLink id={SPELLS.DEATH_FROM_ABOVE_TALENT.id} /> combo.</Wrapper>)
+				return suggest(<React.Fragment>When using <ItemLink id={ITEMS.MANTLE_OF_THE_MASTER_ASSASSIN.id} />, use <SpellLink id={SPELLS.VANISH.id} /> before <SpellLink id={SPELLS.DEATH_FROM_ABOVE_TALENT.id} /> combo.</React.Fragment>)
 					.icon(ITEMS.MANTLE_OF_THE_MASTER_ASSASSIN.icon)
 					.actual(`${formatPercentage(actual)}% of Death from Above was cast with mantle buff.`)
 					.recommended(`>${formatPercentage(recommended)} % is recommended`)

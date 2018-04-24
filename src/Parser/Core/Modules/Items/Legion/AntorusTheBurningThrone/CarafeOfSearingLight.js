@@ -2,7 +2,6 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemManaGained from 'Main/ItemManaGained';
@@ -58,10 +57,10 @@ class CarafeOfSearingLight extends Analyzer {
     return {
       item: ITEMS.CARAFE_OF_SEARING_LIGHT,
       result: (
-        <Wrapper>
+        <React.Fragment>
           <ItemDamageDone amount={damage} /><br/>
           <ItemManaGained amount={manaGained} />
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

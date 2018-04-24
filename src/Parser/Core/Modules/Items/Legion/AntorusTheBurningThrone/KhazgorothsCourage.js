@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 import { calculateSecondaryStatDefault } from 'common/stats';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -108,14 +107,14 @@ class KhazgorothsCourage extends Analyzer {
     return {
       item: ITEMS.KHAZGOROTHS_COURAGE,
       result: (
-        <Wrapper>
+        <React.Fragment>
           <dfn data-tip={`The damage buff procced <b>${this.damageProcs}</b> times.`}>
             <ItemDamageDone amount={this.damage} />
           </dfn><br />
           <dfn data-tip={`The Pantheon buff procced <b>${this.pantheonProcs}</b> times.`}>
             {formatPercentage(uptimePercent)} % uptime
           </dfn> on <SpellLink id={SPELLS.KHAZGOROTHS_SHAPING.id} />
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

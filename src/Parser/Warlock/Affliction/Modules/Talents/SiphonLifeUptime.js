@@ -7,7 +7,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -41,7 +40,7 @@ class SiphonLifeUptime extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your <SpellLink id={SPELLS.SIPHON_LIFE_TALENT.id} /> uptime can be improved. Try to pay more attention to your Siphon Life on the boss, perhaps use some debuff tracker.</Wrapper>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.SIPHON_LIFE_TALENT.id} /> uptime can be improved. Try to pay more attention to your Siphon Life on the boss, perhaps use some debuff tracker.</React.Fragment>)
           .icon(SPELLS.SIPHON_LIFE_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Siphon Life uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);

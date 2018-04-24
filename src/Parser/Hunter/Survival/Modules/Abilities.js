@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 
@@ -37,8 +36,8 @@ class Abilities extends CoreAbilities {
         cooldown: haste => 6 / (1 + haste),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: .9,
-          extraSuggestion: <Wrapper> While <SpellLink id={SPELLS.FLANKING_STRIKE.id} /> is a very important spell to be casting as often as possible because of its damage, you want to be casting it at opportune moments because of its resetting <SpellLink id={SPELLS.MONGOOSE_BITE.id} /> functionality. This means you should cast it <strong>BEFORE</strong> you run out of charges on <SpellLink id={SPELLS.MONGOOSE_BITE.id} />, but also not while at 2 or 3 charges of <SpellLink id={SPELLS.MONGOOSE_BITE.id} />.</Wrapper>,
+          recommendedEfficiency: .85,
+          extraSuggestion: <React.Fragment> While <SpellLink id={SPELLS.FLANKING_STRIKE.id} /> is a very important spell to be casting as often as possible because of its damage, you want to be casting it at opportune moments because of its resetting <SpellLink id={SPELLS.MONGOOSE_BITE.id} /> functionality. This means you should cast it <strong>BEFORE</strong> you run out of charges on <SpellLink id={SPELLS.MONGOOSE_BITE.id} />, but also not while at 2 or 3 charges of <SpellLink id={SPELLS.MONGOOSE_BITE.id} />.</React.Fragment>,
         },
       },
       {
@@ -61,7 +60,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: .70,
-          extraSuggestion: <Wrapper> Please do note, that because <SpellLink id={SPELLS.EXPLOSIVE_TRAP_CAST.id} /> is meant to be used as a filler spell, you might have bad cast efficiency on it, despite playing correctly because you had a lot of <SpellLink id={SPELLS.MONGOOSE_BITE.id} /> resets, in which case you'd ignore this suggestion. </Wrapper>,
+          extraSuggestion: <React.Fragment> Please do note, that because <SpellLink id={SPELLS.EXPLOSIVE_TRAP_CAST.id} /> is meant to be used as a filler spell, you might have bad cast efficiency on it, despite playing correctly because you had a lot of <SpellLink id={SPELLS.MONGOOSE_BITE.id} /> resets, in which case you'd ignore this suggestion. </React.Fragment>,
         },
       },
       {
@@ -154,7 +153,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-          extraSuggestion: <Wrapper>Although you want to be casting Spitting Cobra as much as possible, you also want to be gaining as much as possible from each cast, and since <SpellLink id={SPELLS.SPITTING_COBRA_TALENT.id} icon /> scales extremely well with haste, it can be worth delaying usage to line it up with a haste buff such as <SpellLink id={SPELLS.HEROISM.id} icon /> or a <ItemLink id={ITEMS.SEPHUZS_SECRET.id} icon /> proc.</Wrapper>,
+          extraSuggestion: <React.Fragment>Although you want to be casting Spitting Cobra as much as possible, you also want to be gaining as much as possible from each cast, and since <SpellLink id={SPELLS.SPITTING_COBRA_TALENT.id} icon /> scales extremely well with haste, it can be worth delaying usage to line it up with a haste buff such as <SpellLink id={SPELLS.HEROISM.id} icon /> or a <ItemLink id={ITEMS.SEPHUZS_SECRET.id} icon /> proc.</React.Fragment>,
         },
       },
       {
@@ -180,6 +179,11 @@ class Abilities extends CoreAbilities {
           const cooldownAfterEmbrace = hasEmbrace ? 120 - (120 * 0.2) : 120;
           const hasCallOfTheWild = this.combatants.selected.hasWrists(ITEMS.CALL_OF_THE_WILD.id);
           return cooldownAfterEmbrace * (1 - (hasCallOfTheWild ? 0.35 : 0));
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.85,
+          extraSuggestion: <React.Fragment>You'll want to use <SpellLink id={SPELLS.ASPECT_OF_THE_EAGLE.id} /> as often as possible, as it's a very powerful cooldown partly due to the <SpellLink id={SPELLS.ASPECT_OF_THE_SKYLORD_TRAIT.id} /> trait. It should be used whenever you run out of <SpellLink id={SPELLS.MONGOOSE_BITE.id} /> stacks in your <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> windows, or there's 10s seconds remaining of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> to fully utilise the pairing.</React.Fragment>,
         },
         isOnGCD: false,
       },

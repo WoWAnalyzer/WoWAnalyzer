@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
@@ -71,7 +70,7 @@ class LiadrinsFuryUnleashed extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You wasted {this.holyPowerWasted} of the Holy Power from <ItemLink id={ITEMS.LIADRINS_FURY_UNLEASHED.id} icon/>. Consider using an easier legendary.</Wrapper>)
+      return suggest(<React.Fragment>You wasted {this.holyPowerWasted} of the Holy Power from <ItemLink id={ITEMS.LIADRINS_FURY_UNLEASHED.id} icon/>. Consider using an easier legendary.</React.Fragment>)
         .icon(ITEMS.LIADRINS_FURY_UNLEASHED.icon)
         .actual(`${formatPercentage(this.holyPowerWastedPercent)}% Holy Power wasted`)
         .recommended(`Wasting <${formatPercentage(recommended)}% is recommended.`);

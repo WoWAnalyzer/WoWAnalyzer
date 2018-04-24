@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -78,7 +77,7 @@ class Judgment extends Analyzer {
 
 	suggestions(when) {
 		when(this.suggestionThresholds).addSuggestion((suggest,actual,recommended) => {
-			return suggest(<Wrapper>You're spending Holy Power outisde of the <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/> debuff. It is optimal to only spend Holy Power while the enemy is debuffed with <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/>.</Wrapper>)
+			return suggest(<React.Fragment>You're spending Holy Power outisde of the <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/> debuff. It is optimal to only spend Holy Power while the enemy is debuffed with <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon/>.</React.Fragment>)
 				.icon(SPELLS.JUDGMENT_DEBUFF.icon)
 				.actual(`${formatNumber(this.spenderOutsideJudgment)} Holy Power spenders (${formatPercentage(1 - actual)}%) used outside of Judgment`)
 				.recommended(`<${formatPercentage(1 - recommended)}% is recommended`);

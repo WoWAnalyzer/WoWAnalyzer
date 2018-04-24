@@ -2,7 +2,6 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -40,7 +39,7 @@ class StellarDrift extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).isFalse().addSuggestion((suggest) => {
-      return suggest(<Wrapper>You did not gain any benefit from <SpellLink id={SPELLS.STELLAR_DRIFT_TALENT.id} />. If you are not casting <SpellLink id={SPELLS.STARFALL_CAST.id} />, it is recommended to use <SpellLink id={SPELLS.NATURES_BALANCE_TALENT.id} />.</Wrapper>)
+      return suggest(<React.Fragment>You did not gain any benefit from <SpellLink id={SPELLS.STELLAR_DRIFT_TALENT.id} />. If you are not casting <SpellLink id={SPELLS.STARFALL_CAST.id} />, it is recommended to use <SpellLink id={SPELLS.NATURES_BALANCE_TALENT.id} />.</React.Fragment>)
         .icon(SPELLS.STELLAR_DRIFT_TALENT.icon)
         .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
     });

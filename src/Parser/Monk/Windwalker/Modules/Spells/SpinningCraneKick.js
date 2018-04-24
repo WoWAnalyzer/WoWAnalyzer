@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -111,9 +110,9 @@ class SpinningCraneKick extends Analyzer {
     when(this.suggestionThresholds).addSuggestion(
       (suggest, actual, recommended) => {
         return suggest(
-          <Wrapper>
+          <React.Fragment>
             You have ineffecient casts of <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} />
-          </Wrapper>
+          </React.Fragment>
         )
           .icon(SPELLS.SPINNING_CRANE_KICK.icon)
           .actual(`${this.badCasts} Bad Casts`)

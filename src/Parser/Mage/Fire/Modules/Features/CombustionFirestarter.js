@@ -1,7 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import { formatMilliseconds } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
@@ -62,7 +61,7 @@ class CombustionFirestarter extends Analyzer {
   suggestions(when) {
     when(this.SuggestionThresholds)
       .addSuggestion((suggest) => {
-        return suggest(<Wrapper>You used <SpellLink id={SPELLS.COMBUSTION.id}/> while <SpellLink id={SPELLS.FIRESTARTER_TALENT.id}/> was active (While the boss was at 90% health or higher). Since Firestarter makes your spells a guaranteed crit anyway, you should wait until the boss is at 89% to use your Combustion.</Wrapper>)
+        return suggest(<React.Fragment>You used <SpellLink id={SPELLS.COMBUSTION.id}/> while <SpellLink id={SPELLS.FIRESTARTER_TALENT.id}/> was active (While the boss was at 90% health or higher). Since Firestarter makes your spells a guaranteed crit anyway, you should wait until the boss is at 89% to use your Combustion.</React.Fragment>)
           .icon(SPELLS.COMBUSTION.icon)
           .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
       });

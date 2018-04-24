@@ -2,7 +2,6 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 class UnempoweredSolarWrath extends Analyzer {
@@ -50,7 +49,7 @@ class UnempoweredSolarWrath extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You cast {this.badCasts} unempowered <SpellLink id={SPELLS.SOLAR_WRATH.id} /> while you had <SpellLink id={SPELLS.LUNAR_EMP_BUFF.id} />. Try to always spend your empowerments before casting unempowered spells.</Wrapper>)
+      return suggest(<React.Fragment>You cast {this.badCasts} unempowered <SpellLink id={SPELLS.SOLAR_WRATH.id} /> while you had <SpellLink id={SPELLS.LUNAR_EMP_BUFF.id} />. Try to always spend your empowerments before casting unempowered spells.</React.Fragment>)
         .icon(SPELLS.SOLAR_WRATH.icon)
         .actual(`${actual.toFixed(1)} Unempowered Solar Wraths with Lunar Empowerment per minute`)
         .recommended(`${recommended} is recommended`);

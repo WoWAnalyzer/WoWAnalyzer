@@ -6,7 +6,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellIcon from 'common/SpellIcon';
@@ -39,7 +38,7 @@ class StellarEmpowermentUptime extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Your <SpellLink id={SPELLS.STELLAR_EMPOWERMENT.id} /> uptime can be improved. It is recommended to keep it up even on a single target when using <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_BALANCE.id} /> or <ItemLink id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} />.</Wrapper>)
+      return suggest(<React.Fragment>Your <SpellLink id={SPELLS.STELLAR_EMPOWERMENT.id} /> uptime can be improved. It is recommended to keep it up even on a single target when using <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_BALANCE.id} /> or <ItemLink id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} />.</React.Fragment>)
         .icon(SPELLS.STELLAR_EMPOWERMENT.icon)
         .actual(`${formatPercentage(actual)}% Stellar Empowerment uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);

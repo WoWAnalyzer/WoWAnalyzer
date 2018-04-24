@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { sref, Zerotorescue, blazyb } from 'CONTRIBUTORS';
-import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -15,32 +14,32 @@ export default [
   },
   {
     date: new Date('2018-04-14'),
-    changes: <Wrapper>Changed the analysis of <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> to use a method that will continue to work in Battle for Azeroth.</Wrapper>,
+    changes: <React.Fragment>Changed the analysis of <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> to use a method that will continue to work in Battle for Azeroth.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-03-12'),
-    changes: <Wrapper>Inefficient <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> casts will now be highlighted in the timeline with a red border.</Wrapper>,
+    changes: <React.Fragment>Inefficient <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> casts will now be highlighted in the timeline with a red border.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-03-12'),
-    changes: <Wrapper>Fixed a bug where chained <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> casts might incorrectly mark the second <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> as being affected by <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> instead of being marked as inefficient.</Wrapper>,
+    changes: <React.Fragment>Fixed a bug where chained <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> casts might incorrectly mark the second <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> as being affected by <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> instead of being marked as inefficient.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-02-23'),
-    changes: <Wrapper>Fixed beacon healing tracking for precasted <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> into <SpellLink id={SPELLS.BEACON_OF_VIRTUE_TALENT.id} />.</Wrapper>,
+    changes: <React.Fragment>Fixed beacon healing tracking for precasted <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> into <SpellLink id={SPELLS.BEACON_OF_VIRTUE_TALENT.id} />.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-02-09'),
-    changes: <Wrapper>Fixed an issue where sometimes <SpellLink id={SPELLS.SECOND_SUNRISE.id} /> would not be detected properly, throwing off the average players hit per <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and some other things. This likely only might have occured if the logger had a poor internet connection.</Wrapper>,
+    changes: <React.Fragment>Fixed an issue where sometimes <SpellLink id={SPELLS.SECOND_SUNRISE.id} /> would not be detected properly, throwing off the average players hit per <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and some other things. This likely only might have occured if the logger had a poor internet connection.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-02-01'),
-    changes: <Wrapper>Added <i>total filler <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> casts while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was available</i> suggestion, and changed the filler <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> check to also include a 200ms buffer time.</Wrapper>,
+    changes: <React.Fragment>Added <i>total filler <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> casts while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was available</i> suggestion, and changed the filler <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> check to also include a 200ms buffer time.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -55,47 +54,47 @@ export default [
   },
   {
     date: new Date('2018-01-11'),
-    changes: <Wrapper>Changed the <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> suggestion thresholds to 80k minor/60k average/40k major importance (up from 60k minor/50k average/40k major) to more closely match the <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} /> average.</Wrapper>,
+    changes: <React.Fragment>Changed the <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> suggestion thresholds to 80k minor/60k average/40k major importance (up from 60k minor/50k average/40k major) to more closely match the <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} /> average.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-12-31'),
-    changes: <Wrapper><ItemLink id={ITEMS.DRAPE_OF_SHAME.id} /> now shows an estimated item level.</Wrapper>,
+    changes: <React.Fragment><ItemLink id={ITEMS.DRAPE_OF_SHAME.id} /> now shows an estimated item level.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-12-30'),
-    changes: <Wrapper>Added a suggestion to consider using <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} /> when not using it.</Wrapper>,
+    changes: <React.Fragment>Added a suggestion to consider using <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} /> when not using it.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-12-24'),
-    changes: <Wrapper>Fixed a crash when using <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> without <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} />.</Wrapper>,
+    changes: <React.Fragment>Fixed a crash when using <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> without <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} />.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-12-24'),
-    changes: <Wrapper>Implemented the checklist.</Wrapper>,
+    changes: <React.Fragment>Implemented the checklist.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-12-23'),
-    changes: <Wrapper>Update cast efficiency to include all available spells for a full overview.</Wrapper>,
+    changes: <React.Fragment>Update cast efficiency to include all available spells for a full overview.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-12-23'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.LAY_ON_HANDS.id} /> to cast efficiency with a 20% recommended cooldown time (to suggest casting it at least once).</Wrapper>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.LAY_ON_HANDS.id} /> to cast efficiency with a 20% recommended cooldown time (to suggest casting it at least once).</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-12-11'),
-    changes: <Wrapper>Fixed an issue where healing increases (such as Ilterendi and Velen's) didn't include healing buffed for <ItemLink id={ITEMS.HIGHFATHERS_MACHINATION.id} />, <ItemLink id={ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id} /> and <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} />.</Wrapper>,
+    changes: <React.Fragment>Fixed an issue where healing increases (such as Ilterendi and Velen's) didn't include healing buffed for <ItemLink id={ITEMS.HIGHFATHERS_MACHINATION.id} />, <ItemLink id={ITEMS.SEA_STAR_OF_THE_DEPTHMOTHER.id} /> and <ItemLink id={ITEMS.DECEIVERS_GRAND_DESIGN.id} />.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-12-08'),
-    changes: <Wrapper>Increased <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} />\'s suggestion healing requirement to 60k HPS for minor, 50k HPS for average and 40k HPS for major (up from 30k/25k/20k).</Wrapper>,
+    changes: <React.Fragment>Increased <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} />\'s suggestion healing requirement to 60k HPS for minor, 50k HPS for average and 40k HPS for major (up from 30k/25k/20k).</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -110,7 +109,7 @@ export default [
   },
   {
     date: new Date('2017-11-02'),
-    changes: <Wrapper>Changed the recommended <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> healing contribution to be at least 4% (down from 4.5%).</Wrapper>,
+    changes: <React.Fragment>Changed the recommended <ItemLink id={ITEMS.ILTERENDI_CROWN_JEWEL_OF_SILVERMOON.id} /> healing contribution to be at least 4% (down from 4.5%).</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -120,7 +119,7 @@ export default [
   },
   {
     date: new Date('2017-10-31'),
-    changes: <Wrapper>Fixed the <i>Haste HPCT</i> stat value not taking current Haste into account leading to a slightly overvaluation.</Wrapper>,
+    changes: <React.Fragment>Fixed the <i>Haste HPCT</i> stat value not taking current Haste into account leading to a slightly overvaluation.</React.Fragment>,
     contributors: [sref],
   },
   {
@@ -140,7 +139,7 @@ export default [
   },
   {
     date: new Date('2017-10-22'),
-    changes: <Wrapper>Reworded downtime suggestions to avoid suggesting to "always be casting" and instead (as intended) suggest not having <b>high</b> downtime.</Wrapper>,
+    changes: <React.Fragment>Reworded downtime suggestions to avoid suggesting to "always be casting" and instead (as intended) suggest not having <b>high</b> downtime.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -180,7 +179,7 @@ export default [
   },
   {
     date: new Date('2017-08-31'),
-    changes: <Wrapper>When going (near) OOM during a fight and the <i>IoL FoL to HL cast ratio</i> is low, emphasize that FoL is the more mana efficient spell during IoL.</Wrapper>,
+    changes: <React.Fragment>When going (near) OOM during a fight and the <i>IoL FoL to HL cast ratio</i> is low, emphasize that FoL is the more mana efficient spell during IoL.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -250,7 +249,7 @@ export default [
   },
   {
     date: new Date('2017-08-09'),
-    changes: <Wrapper>Fully migrated to the new suggestions layout. Changed wording on several suggestions to make them clearer, and increased the <i>LotM is inefficient</i> suggestion breakpoints to 1.5/2/3 CPM (up from 1.0/1.5/2.0)</Wrapper>,
+    changes: <React.Fragment>Fully migrated to the new suggestions layout. Changed wording on several suggestions to make them clearer, and increased the <i>LotM is inefficient</i> suggestion breakpoints to 1.5/2/3 CPM (up from 1.0/1.5/2.0)</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -340,7 +339,7 @@ export default [
   },
   {
     date: new Date('2017-05-01'),
-    changes: <Wrapper>Added overhealing suggestions and relaxed the non healing time / dead GCD time suggestions (they should be marked as <i>minor</i> issues more often).</Wrapper>,
+    changes: <React.Fragment>Added overhealing suggestions and relaxed the non healing time / dead GCD time suggestions (they should be marked as <i>minor</i> issues more often).</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -365,7 +364,7 @@ export default [
   },
   {
     date: new Date('2017-04-20'),
-    changes: <Wrapper>Since Easter is over bosses will no longer resurrect in the mana graph<dfn data-tip="This may cause issues with bosses that do actually resurrect, but I will fix that once I encounter such a boss.">*</dfn>. All bosses in a fight get shown instead of just the first<dfn data-tip="If boss adds are classified as bosses they will be shown as well. So far this doesn\'t appear to happen, but I will fix it if I encounter this.">*</dfn>. This should make the boss health for Mythic Botanist work properly.</Wrapper>,
+    changes: <React.Fragment>Since Easter is over bosses will no longer resurrect in the mana graph<dfn data-tip="This may cause issues with bosses that do actually resurrect, but I will fix that once I encounter such a boss.">*</dfn>. All bosses in a fight get shown instead of just the first<dfn data-tip="If boss adds are classified as bosses they will be shown as well. So far this doesn\'t appear to happen, but I will fix it if I encounter this.">*</dfn>. This should make the boss health for Mythic Botanist work properly.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -400,12 +399,12 @@ export default [
   },
   {
     date: new Date('2017-04-15'),
-    changes: <Wrapper>Added a <b>Talents</b> tab.</Wrapper>,
+    changes: <React.Fragment>Added a <b>Talents</b> tab.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-04-14'),
-    changes: <Wrapper>Added <b>Suggestions</b> which will give you (way too many) suggestions to improve. This may need to be tuned a bit; any feedback in that regard is welcome. Moved <i>Cast efficiency</i> and <i>Mastery effectiveness player breakdown</i> to separate tabs.</Wrapper>,
+    changes: <React.Fragment>Added <b>Suggestions</b> which will give you (way too many) suggestions to improve. This may need to be tuned a bit; any feedback in that regard is welcome. Moved <i>Cast efficiency</i> and <i>Mastery effectiveness player breakdown</i> to separate tabs.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -420,12 +419,12 @@ export default [
   },
   {
     date: new Date('2017-04-09'),
-    changes: <Wrapper>Added <i>Casts Per Minute</i> table with very basic recommendations.</Wrapper>,
+    changes: <React.Fragment>Added <i>Casts Per Minute</i> table with very basic recommendations.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-04-08'),
-    changes: <Wrapper>Added <i>Heals on beacon</i> statistic.</Wrapper>,
+    changes: <React.Fragment>Added <i>Heals on beacon</i> statistic.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -455,7 +454,7 @@ export default [
   },
   {
     date: new Date('2017-04-04'),
-    changes: <Wrapper>Add an Always Be Casting (ABC) module that checks your <i>Non healing time</i> and dead GCD time (this is shown in the tooltip).</Wrapper>,
+    changes: <React.Fragment>Add an Always Be Casting (ABC) module that checks your <i>Non healing time</i> and dead GCD time (this is shown in the tooltip).</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {

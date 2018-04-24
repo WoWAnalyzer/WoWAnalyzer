@@ -1,7 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink'; 
-import Wrapper from 'common/Wrapper';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -43,7 +42,7 @@ class CastsInShadowDance extends Analyzer {
     const filtered = this.danceDamageTracker.getAbility(SPELLS.BACKSTAB.id).casts;
     when(filtered).isGreaterThan(0)
     .addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Use <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> instead of <SpellLink id={SPELLS.BACKSTAB.id} /> during <SpellLink id={SPELLS.SHADOW_DANCE.id} />. </Wrapper>)
+      return suggest(<React.Fragment>Use <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> instead of <SpellLink id={SPELLS.BACKSTAB.id} /> during <SpellLink id={SPELLS.SHADOW_DANCE.id} />. </React.Fragment>)
         .icon(SPELLS.BACKSTAB.icon)
         .actual(`You cast Backstab ${filtered} times during Shadow Dance.`)
         .recommended(`${recommended} is recommended`)
@@ -54,7 +53,7 @@ class CastsInShadowDance extends Analyzer {
     const filtered = this.danceDamageTracker.getAbility(SPELLS.GLOOMBLADE_TALENT.id).casts;
     when(filtered).isGreaterThan(0)
     .addSuggestion((suggest, actual, recommended) => {
-    return suggest(<Wrapper>Use <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> instead of <SpellLink id={SPELLS.GLOOMBLADE_TALENT.id} /> during <SpellLink id={SPELLS.SHADOW_DANCE.id} />. </Wrapper>)
+    return suggest(<React.Fragment>Use <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> instead of <SpellLink id={SPELLS.GLOOMBLADE_TALENT.id} /> during <SpellLink id={SPELLS.SHADOW_DANCE.id} />. </React.Fragment>)
         .icon(SPELLS.GLOOMBLADE_TALENT.icon)
         .actual(`You cast Gloomblade ${filtered} times during Shadow Dance.`)
         .recommended(`${recommended} is recommended`)
@@ -73,7 +72,7 @@ class CastsInShadowDance extends Analyzer {
     const missedCastsInDanceShare = castsInDance/(danceCount * 4);
     when(missedCastsInDanceShare).isLessThan(1)
     .addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Try to cast 4 spells during each <SpellLink id={SPELLS.SHADOW_DANCE_BUFF.id} /> </Wrapper>)
+      return suggest(<React.Fragment>Try to cast 4 spells during each <SpellLink id={SPELLS.SHADOW_DANCE_BUFF.id} /> </React.Fragment>)
         .icon(SPELLS.SHADOW_DANCE_BUFF.icon)
         .actual(`You cast ${castsInDance} spells during Shadow Dance out of ${danceCount * 4} possible.`)
         .recommended(`4 spells cast per Shadow Dance is recommended`)
