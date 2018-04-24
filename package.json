@@ -7,7 +7,6 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "es6-error": "^4.1.1",
-    "eslint-config-airbnb": "^15.1.0",
     "history": "^4.7.2",
     "jest-enzyme": "^6.0.0",
     "prop-types": "^15.6.1",
@@ -30,15 +29,12 @@
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.2.0",
     "universal-cookie": "^2.1.2",
-    "wowanalyzer-react-scripts": "1.1.5"
+    "wowanalyzer-react-scripts": "1.1.6"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "lint": "eslint .",
-    "lint:strict": "eslint . -c .eslintrc-strict.js",
-    "lint:strict:fix": "eslint . -c .eslintrc-strict.js --fix"
+    "eject": "react-scripts eject"
   }
 }
