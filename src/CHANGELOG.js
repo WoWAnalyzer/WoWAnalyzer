@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-24'),
+    changes: 'Implemented code splitting to reduce the initial time to render.',
+    contributors: [CubeLuke],
+  },
+  {
     date: new Date('2018-04-18'),
     changes: 'Added error page when attempting to view an invalid contributor page.',
     contributors: [CubeLuke],
