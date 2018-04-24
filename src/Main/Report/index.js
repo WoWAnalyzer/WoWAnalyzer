@@ -101,7 +101,9 @@ class Report extends React.Component {
     this.props.setReportProgress(0);
     const config = this.getConfig(combatant.specID);
     timeAvailable && console.time('full parse');
-    const parser = this.createParser(config.parser, report, fight, player);
+    const parserImport = await config.parser();
+    const parserClass = parserImport.default;
+    const parser = this.createParser(parserClass, report, fight, player);
     // We send combatants already to the analyzer so it can show the results page with the correct items and talents while waiting for the API request
     parser.initialize(combatants);
     await this.setStatePromise({
