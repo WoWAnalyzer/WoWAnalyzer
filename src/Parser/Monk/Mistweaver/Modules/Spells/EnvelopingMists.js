@@ -15,6 +15,7 @@ const EVM_HEALING_INCREASE = 0.3;
 
 const UNAFFECTED_SPELLS = [
   SPELLS.CRANE_HEAL.id,
+  SPELLS.ENVELOPING_MISTS.id,
 ];
 
 class EnvelopingMists extends Analyzer {
@@ -36,6 +37,7 @@ class EnvelopingMists extends Analyzer {
     if (this.combatants.players[targetId]) {
       if (this.combatants.players[targetId].hasBuff(SPELLS.ENVELOPING_MISTS.id, event.timestamp, 0, 0) === true) {
         this.healing += calculateEffectiveHealing(event, EVM_HEALING_INCREASE);
+        debug && console.log('Event Details for Healing Increase: ' + event.ability.name);
       }
     }
   }
