@@ -9,7 +9,7 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-04-15'),
-    changes: <Wrapper>Updated everything for Battle for Azeroth compatibility.</Wrapper>,
+    changes: <React.Fragment>Updated everything for Battle for Azeroth compatibility.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
