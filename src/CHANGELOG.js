@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-04-25'),
+    changes: 'Reduced the size of stat values panel and moved the extra information to a tooltip.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-04-25'),
     changes: 'Fixed statistics tab rendering on small (smartphone) screens.',
     contributors: [Zerotorescue],
   },
