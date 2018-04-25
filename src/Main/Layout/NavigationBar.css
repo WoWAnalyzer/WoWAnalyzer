@@ -62,18 +62,6 @@ nav .spacer {
   flex: 1 1 auto;
 }
 
-/*noinspection CssRedundantUnit*/
-nav .progress {
-  position: absolute;
-  left: 0;
-  bottom: -5px;
-  width: 0%;
-  height: 5px;
-  background: rgba(183, 76, 75, 0.8);
-  box-shadow: 0 0 5px 1px #000;
-  transition: opacity 400ms;
-  pointer-events: none;
-}
 nav .container {
   position: relative; /* make selectorHeaders float within the container box */
 }

@@ -15,6 +15,7 @@ import makeAnalyzerUrl from '../makeAnalyzerUrl';
 import FightSelectorHeader from './FightSelectorHeader';
 import PlayerSelectorHeader from './PlayerSelectorHeader';
 import './NavigationBar.css';
+import LoadingBar from './LoadingBar';
 
 class NavigationBar extends React.PureComponent {
   static propTypes = {
@@ -60,8 +61,8 @@ class NavigationBar extends React.PureComponent {
               <GitHubIcon /> <span className="optional" style={{ paddingLeft: 6 }}> View on GitHub</span>
             </a>
           </div>
+          <LoadingBar progress={progress} />
         </div>
-        <div className="progress" style={{ width: `${progress * 100}%`, opacity: progress === 0 || progress >= 1 ? 0 : 1 }} />
       </nav>
     );
   }
