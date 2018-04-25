@@ -86,7 +86,7 @@ class Premium extends React.PureComponent {
               </div>
               <div className="panel-body">
                 <PremiumIcon style={{ fontSize: '6em', float: 'right', color: '#e45a5a', marginTop: 0 }} />
-                Help out development and get WoWAnalyzer premium in return! An early adopter gets the following rewards:<br />
+                Help out development and get WoWAnalyzer premium in return! Apart from funding development and thus getting the tool as it is today and future improvements, an early adopter gets the following rewards:<br />
                 <ul>
                   <li>our thanks.</li>
                 </ul><br />
