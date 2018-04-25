@@ -14,6 +14,11 @@ export default [
   },
   {
     date: new Date('2018-04-25'),
+    changes: 'Improved parsing speed by about 500ms.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-04-25'),
     changes: 'Fixed character tab rendering on small (smartphone) screens.',
     contributors: [Zerotorescue],
   },

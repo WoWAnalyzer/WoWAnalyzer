@@ -308,25 +308,6 @@ class DevelopmentTab extends React.Component {
               Access them in the console with: <code>parser.modules.*moduleName*</code> or by clicking on the names.
             </div>
             <div className="col-md-6">
-              Parsing time spenders:
-              <p className="text-muted">This is the amount of time each module took running event listeners. Render time (e.g. of statistics) is not included.</p>
-              <ul className="list">
-                {Object.keys(parser._moduleTime)
-                  .sort((a, b) => parser._moduleTime[b] - parser._moduleTime[a])
-                  .filter((_, index) => index < 10)
-                  .map(moduleName => (
-                    <li key={moduleName} className="flex">
-                      <div className="flex-main">
-                        <Code dump={parser.modules[moduleName]}>{moduleName}</Code>
-                      </div>
-                      <div className="flex-main">
-                        {parser._moduleTime[moduleName]}ms
-                      </div>
-                    </li>
-                  ))}
-              </ul>
-            </div>
-            <div className="col-md-6">
               Pre-combat buffs:
               <ul className="list">
                 {combatant._combatantInfo.auras.map((aura, i) => {
