@@ -18,6 +18,10 @@ body {
   .container {
     padding: 0 60px;
   }
+  .hpadding-lg-30 {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 }
 #app-mount {
   display: flex;

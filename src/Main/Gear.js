@@ -25,7 +25,7 @@ class Gear extends React.PureComponent {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-12" style={{ padding: '0 30px' }}>{/* some bonus padding so it looks to be aligned with the icon for stats */}
+          <div className="col-md-12 hpadding-lg-30">{/* some bonus padding so it looks to be aligned with the icon for stats */}
             {[...gear, ...relics]
               .filter(item => item.id !== 0)
               .map(item => (
