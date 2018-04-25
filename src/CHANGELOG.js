@@ -8,6 +8,26 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-25'),
+    changes: 'Reduced the size of stat values panel and moved the extra information to a tooltip.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-04-25'),
+    changes: 'Fixed statistics tab rendering on small (smartphone) screens.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-04-25'),
+    changes: 'Improved parsing speed by about 500ms.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-04-25'),
+    changes: 'Fixed character tab rendering on small (smartphone) screens.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-04-24'),
     changes: 'Implemented code splitting to reduce the initial time to render.',
     contributors: [Zerotorescue],

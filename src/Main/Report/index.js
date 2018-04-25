@@ -146,6 +146,7 @@ class Report extends React.Component {
       const numEvents = events.length;
       let offset = 0;
 
+      timeAvailable && console.time('player event parsing');
       while (offset < numEvents) {
         if (this._jobId !== jobId) {
           return;
@@ -159,6 +160,7 @@ class Report extends React.Component {
 
         offset += batchSize;
       }
+      timeAvailable && console.timeEnd('player event parsing');
 
       parser.fabricateEvent({
         type: 'finished',
