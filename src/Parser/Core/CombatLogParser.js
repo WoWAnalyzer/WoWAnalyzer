@@ -420,20 +420,14 @@ class CombatLogParser {
   initialize(combatants) {
     this.initializeNormalizers(combatants);
     this.initializeAnalyzers(combatants);
+    this.triggerInitialized();
   }
   initializeAnalyzers(combatants) {
     this.parseEvents(combatants);
-    this.triggerInitialized();
   }
   triggerInitialized() {
     this.fabricateEvent({
       type: 'initialized',
-    });
-  }
-  parseEvents(events) {
-    events.forEach(event => {
-      this._timestamp = event.timestamp;
-      this.triggerEvent(event);
     });
   }
 
@@ -459,6 +453,14 @@ class CombatLogParser {
     return events;
   }
 
+  parseEvents(events) {
+    const numEvents = events.length;
+    for (let i = 0; i < numEvents; i += 1) {
+      const event = events[i];
+      this._timestamp = event.timestamp;
+      this.triggerEvent(event);
+    }
+  }
   /** @type {number} The amount of events parsed. This can reliably be used to determine if something should re-render. */
   eventCount = 0;
   triggerEvent(event) {
