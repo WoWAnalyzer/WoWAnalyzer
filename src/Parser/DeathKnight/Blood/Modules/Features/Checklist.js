@@ -138,7 +138,6 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id}/> Uptime</React.Fragment>,
             check: () => this.markOfBloodUptime.uptimeSuggestionThresholds,
-            when: this.combatants.selected.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT.id),
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.BONE_SHIELD.id}/> Uptime</React.Fragment>,
