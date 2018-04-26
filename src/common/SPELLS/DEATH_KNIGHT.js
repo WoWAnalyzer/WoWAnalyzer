@@ -141,12 +141,6 @@ export default {
   },
 
 // Buffs
-  OSSUARY: {
-    id: 219788,
-    name: 'Ossuary',
-    icon: 'ability_deathknight_brittlebones',
-  },
-
   CRIMSON_SCOURGE: {
     id: 81141,
     name: 'Crimson Scourge',
@@ -709,6 +703,12 @@ export default {
   HAEMOSTASIS_BUFF: {
     id: 235559,
     name: 'Haemostasis',
+    icon: 'ability_deathwing_bloodcorruption_earth',
+  },
+
+  HEMOSTASIS_BUFF: {
+    id: 273947,
+    name: 'Hemostasis',
     icon: 'ability_deathwing_bloodcorruption_earth',
   },
 
