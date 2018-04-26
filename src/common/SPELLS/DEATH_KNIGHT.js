@@ -13,7 +13,8 @@ export default {
     icon: 'inv_axe_2h_artifactmaw_d_01',
   },
 
-  UMBILICUS_ETERNUS: { //Artifact Trait
+  //Artifact Trait
+  UMBILICUS_ETERNUS: {
     id: 193213,
     name: 'Umbilicus Eternus',
     icon: 'artifactability_blooddeathknight_umbilicuseternus',
@@ -23,6 +24,42 @@ export default {
     id: 193320,
     name: 'Umbilicus Eternus Buff',
     icon: 'artifactability_blooddeathknight_umbilicuseternus',
+  },
+
+  SOULDRINKER_TRAIT: {
+    id: 238114,
+    name: 'Souldrinker',
+    icon: 'spell_deathknight_butcher2',
+  },
+
+  BONEBREAKER_TRAIT: {
+    id: 192538,
+    name: 'Bonebreaker',
+    icon: 'trade_archaeology_fossil_dinosaurbone',
+  },
+
+  COAGULOPHATHY_TRAIT: {
+    id: 192460,
+    name: 'Coagulopathy',
+    icon: 'spell_deathknight_bloodplague',
+  },
+
+  VEINRENDER_TRAIT: {
+    id: 192457,
+    name: 'Veinrender',
+    icon: 'ability_skeer_bloodletting',
+  },
+
+  ALL_CONSUMING_ROT_TRAIT: {
+    id: 192464,
+    name: 'All-Consuming Rot',
+    icon: 'spell_shadow_deathanddecay',
+  },
+
+  SKELETAL_SHATTERING_TRAIT: {
+    id: 192558,
+    name: 'Skeletal Shattering',
+    icon: 'trade_archaeology_bones-of-transformation',
   },
 
   // Damage Dealing
@@ -37,6 +74,12 @@ export default {
     name: 'Heart Strike',
     icon: 'inv_weapon_shortblade_40',
   },  
+
+  BONESTORM_HIT: {
+    id: 196528,
+    name: "Bonestorm",
+    icon: "achievement_boss_lordmarrowgar",
+  },
 
   // Only used during Dancing Rune Weapon. Its the Heart Strike of the copied weapons. Generates 5 RP.
   BLOOD_STRIKE: {
@@ -91,10 +134,10 @@ export default {
     icon: 'spell_deathknight_deathstrike',
   },
 
-  MARK_OF_BLOOD: {
-    id: 61606,
-    name: 'Mark of Blood',
-    icon: 'ability_hunter_rapidkilling',
+  HEARTBREAKER: {
+    id: 210738,
+    name: 'Heartbreaker',
+    icon: 'spell_deathknight_deathstrike',
   },
 
 // Buffs
@@ -181,14 +224,39 @@ export default {
     name: 'Sindragosa\'s Fury',
     icon: 'achievement_boss_sindragosa',
   },
+  CRYSTALLINE_SWORDS_1: {
+    id: 205164,
+    name: 'Crystalline Swords',
+    icon: 'spell_frost_iceshard',
+  },
+  CRYSTALLINE_SWORDS_2: {
+    id: 205165,
+    name: 'Crystalline Swords',
+    icon: 'spell_frost_iceshard',
+  },
+  CRYSTALLINE_SWORDS_THRONEBREAKER: {
+    id: 243122,
+    name: 'Crystalline Swords (Thronebreaker)',
+    icon: 'spell_frost_iceshard',
+  },
   // Damage Dealing
   FROST_FEVER: {
     id: 55095,
     name: 'Frost Fever',
     icon: 'spell_deathknight_frostfever',
   },
-  FROST_STRIKE: {
+  FROST_STRIKE_CAST: {
     id: 49143,
+    name: 'Frost Strike',
+    icon: 'spell_deathknight_empowerruneblade2',
+  },
+  FROST_STRIKE_MAIN_HAND_DAMAGE: {
+    id: 222026,
+    name: 'Frost Strike',
+    icon: 'spell_deathknight_empowerruneblade2',
+  },
+  FROST_STRIKE_OFF_HAND_DAMAGE: {
+    id: 66196,
     name: 'Frost Strike',
     icon: 'spell_deathknight_empowerruneblade2',
   },
@@ -274,6 +342,16 @@ export default {
     name: 'Murderous Efficiency',
     icon: 'spell_frost_frostarmor',
   },
+  FROST_FEVER_RP_GAIN:{
+    id: 195617,
+    name: 'Frost Fever',
+    icon: 'spell_deathknight_frostfever',
+  },
+  RUNIC_ATTENUATION_RP_GAIN:{
+    id: 221322,
+    name: 'Runic Attenuation',
+    icon: 'boss_odunrunes_blue',
+  },
   KOLTIRAS_NEWFOUND_WILL: {
     id: 208783,
     name: 'Koltira\'s Newfound Will',
@@ -300,7 +378,7 @@ export default {
     icon: 'spell_yorsahj_bloodboil_purpleoil',
   },
 
-  // Frost tier 
+  // Frost tier
   // T20 2P
   FROST_DEATH_KNIGHT_T20_2SET_BONUS_BUFF: {
     id: 242058,
@@ -335,7 +413,7 @@ export default {
     name: 'Toravon\'s Whiteout Bindings',
     icon: 'ability_warrior_unrelentingassault',
   },
-  
+
   // Unholy:
   // Aritfact ability
   APOCALYPSE: {
@@ -442,7 +520,7 @@ export default {
 	  name: 'Unholy Strength',
 	  icon: 'spell_holy_blessingofstrength',
   },
-  
+
   // Unholy Tier Sets
   // T20 2 Piece and buff
   UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS: {
@@ -515,7 +593,7 @@ export default {
 
   ANTI_MAGIC_SHELL_RP_GAINED: {
     id: 49088,
-    name: 'Anti-Magic Shell RP Gained',
+    name: 'Anti-Magic Shell',
     icon: 'spell_holy_righteousnessaura',
   },
 
@@ -549,6 +627,18 @@ export default {
     icon: 'spell_shadow_deathanddecay',
   },
 
+  DEATH_AND_DECAY_BUFF: {
+    id: 188290,
+    name: 'Death and Decay',
+    icon: 'spell_shadow_deathanddecay',
+  },
+
+  DEATH_AND_DECAY_DAMAGE_TICK: {
+    id: 52212,
+    name: 'Death and Decay',
+    icon: 'spell_shadow_deathanddecay',
+  },
+
   DEATH_STRIKE: {
     id: 49998,
     name: 'Death Strike',
@@ -557,8 +647,14 @@ export default {
 
   DEATH_STRIKE_HEAL: {
     id: 45470,
-    name: 'Death Strike Heal',
+    name: 'Death Strike',
     icon: 'spell_deathknight_butcher2',
+  },
+
+  CONSUMPTION_HEAL: {
+    id: 205224,
+    name: 'Consumption Heal',
+    icon: 'inv_axe_2h_artifactmaw_d_01',
   },
 
   ICEBOUND_FORTITUDE: {
@@ -637,5 +733,11 @@ export default {
     id: -103,
     name: 'Rune 3',
     icon: 'spell_deathknight_frozenruneweapon',
+  },
+
+  RUNIC_POWER:{
+    id: 189096,
+    name: 'Runic Power',
+    icon: 'inv_sword_62',
   },
 };

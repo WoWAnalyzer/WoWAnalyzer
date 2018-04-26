@@ -11,6 +11,11 @@ import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 let COOLDOWN_REDUCTION_MS = 12000;
 const BESTIAL_WRATH_BASE_CD = 90000;
 
+/**
+ * Sends you and your pet into a rage, increasing all damage you both deal by 25% for 15 sec.
+ * Bestial Wrath's remaining cooldown is reduced by 12 sec each time you use Dire Frenzy or Dire Beast
+ */
+
 class GainedBestialWraths extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -25,6 +30,7 @@ class GainedBestialWraths extends Analyzer {
       COOLDOWN_REDUCTION_MS = 16000;
     }
   }
+
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.DIRE_BEAST.id && spellId !== SPELLS.DIRE_FRENZY_TALENT.id) {

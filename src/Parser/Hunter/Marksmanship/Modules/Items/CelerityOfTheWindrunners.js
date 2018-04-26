@@ -3,7 +3,6 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -28,7 +27,7 @@ class CelerityOfTheWindrunners extends Analyzer {
   item() {
     return {
       item: ITEMS.CELERITY_OF_THE_WINDRUNNERS,
-      result: <Wrapper>You had {formatPercentage(this.buffUptime)}% uptime on <SpellLink id={SPELLS.CELERITY_OF_THE_WINDRUNNERS_BUFF.id} icon />.</Wrapper>,
+      result: <React.Fragment>You had {formatPercentage(this.buffUptime)}% uptime on <SpellLink id={SPELLS.CELERITY_OF_THE_WINDRUNNERS_BUFF.id} />.</React.Fragment>,
     };
   }
 }

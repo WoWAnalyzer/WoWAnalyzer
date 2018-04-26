@@ -9,6 +9,7 @@ import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
+import SpecIcon from 'common/SpecIcon';
 
 class LowHealthHealing extends React.Component {
   static propTypes = {
@@ -123,12 +124,12 @@ class LowHealthHealing extends React.Component {
                         {formatDuration((event.timestamp - fightStart) / 1000)}
                       </td>
                       <td style={{ width: '25%' }}>
-                        <SpellLink id={event.ability.guid}>
+                        <SpellLink id={event.ability.guid} icon={false}>
                           <Icon icon={event.ability.abilityIcon} alt={event.ability.abilityIcon} /> {event.ability.name}
                         </SpellLink>
                       </td>
                       <td style={{ width: '20%' }} className={specClassName}>
-                        <img src={`/specs/${specClassName}-${spec.specName.replace(' ', '')}.jpg`} alt="Spec logo" />{' '}
+                        <SpecIcon id={spec.id} />{' '}
                         {combatant.name}
                       </td>
                       <td style={{ width: 170, paddingRight: 5, textAlign: 'right' }}>

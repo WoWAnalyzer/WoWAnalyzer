@@ -59,14 +59,14 @@ class ComboBreaker extends Analyzer {
     }
   }
   get suggestionThresholds() {
-    const unusedCBprocs = 1 - (this.consumedCBProc / this.CBProcsTotal);
+    const usedCBprocs =  this.consumedCBProc / this.CBProcsTotal;
     const baseThreshold = this.combatants.selected.hasBuff(SPELLS.WW_TIER21_2PC.id) ? 0.05 : 0.1;
     return {
-      actual: unusedCBprocs,
-      isGreaterThan: {
-        minor: baseThreshold,
-        average: baseThreshold * 2,
-        major: baseThreshold * 3,
+      actual: usedCBprocs,
+      isLessThan: {
+        minor: 1 - baseThreshold,
+        average: 1 - baseThreshold * 2,
+        major: 1 - baseThreshold * 3,
       },
       style: 'percentage',
     };
@@ -77,13 +77,13 @@ class ComboBreaker extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>Your <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs should be used before you tiger palm again so they are not overwritten. While some will be overwritten due to higher priority of getting Chi for spenders, wasting <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs is not optimal.</span>)
           .icon(SPELLS.COMBO_BREAKER_BUFF.icon)
-          .actual(`${formatPercentage(unusedCBprocs)}% Unused Combo Breaker procs`)
-          .recommended(`<${formatPercentage(recommended)}% wasted Combo Breaker Procs is recommended`);
+          .actual(`${formatPercentage(unusedCBprocs)}% used Combo Breaker procs`)
+          .recommended(`>${formatPercentage(recommended)}% used Combo Breaker Procs is recommended`);
     });
   }
   
   statistic() {
-    const unusedCBProcs = 1 - (this.consumedCBProc / this.CBProcsTotal);
+    const usedCBProcs = this.consumedCBProc / this.CBProcsTotal;
     let procsFromTigerPalm = this.CBProcsTotal;
     // Strike of the Windlord procs Combo Breaker if legendary head "The Wind Blows" is equipped
     if (this.combatants.selected.hasHead(ITEMS.THE_WIND_BLOWS.id)) {
@@ -93,13 +93,13 @@ class ComboBreaker extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.COMBO_BREAKER_BUFF.id} />}
-        value={`${formatPercentage(unusedCBProcs)}%`}
-        label={`Unused Procs`}
+        value={`${formatPercentage(usedCBProcs)}%`}
+        label={`Combo Breaker Procs Used`}
         tooltip={`You got a total of <b>${this.CBProcsTotal} Combo Breaker procs</b> and <b>used ${this.consumedCBProc}</b> of them. Average number of procs from your Tiger Palms this fight is <b>${averageCBProcs.toFixed(2)}</b>, and you got <b>${procsFromTigerPalm}</b>.`}
       />
    );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(20);
+  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default ComboBreaker;

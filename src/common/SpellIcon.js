@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import SPELLS from './SPELLS';
 import SpellLink from './SpellLink';
 import Icon from './Icon';
@@ -27,7 +28,7 @@ const SpellIcon = ({ id, noLink, ...others }) => {
   }
 
   return (
-    <SpellLink id={id}>
+    <SpellLink id={id} icon={false}>
       {icon}
     </SpellLink>
   );

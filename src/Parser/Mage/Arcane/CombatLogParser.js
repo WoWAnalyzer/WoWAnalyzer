@@ -5,6 +5,10 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Features/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import Channeling from './Modules/Features/Channeling';
+
+import ArcaneMissiles from './Modules/Features/ArcaneMissiles';
+import Evocation from './Modules/Features/Evocation';
+
 import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 import UnstableMagic from '../Shared/Modules/Features/UnstableMagic';
@@ -19,6 +23,8 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     channeling: Channeling,
     cancelledCasts: CancelledCasts,
+    arcaneMissiles: ArcaneMissiles,
+    evocation: Evocation,
 
     // Talents
     mirrorImage: MirrorImage,

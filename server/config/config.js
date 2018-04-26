@@ -1,3 +1,9 @@
+const fs = require('fs');
+
+const loadDotEnv = require('./env');
+const appDirectory = fs.realpathSync(process.cwd());
+loadDotEnv(appDirectory);
+
 function config() {
   const env = process.env.NODE_ENV || 'development';
 
@@ -15,6 +21,7 @@ function config() {
       freezeTableName: true, // naming pattern: table name should reflect 1 entry (so it matches 1 instance of a model)
     },
     logging: false, // I prefer to do my own logging
+    operatorsAliases: false, // this disables a deprecated feature that we're not using anymore
   };
 }
 

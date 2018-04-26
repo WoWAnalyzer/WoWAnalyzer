@@ -1,11 +1,14 @@
 import React from 'react';
+
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from "common/SpellIcon";
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
+/**
+ * Cobra Shot has a 10% chance to create 2-4 Sneaky Snakes that attack the target for 6 sec.
+ */
 class CobraCommander extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -45,7 +48,7 @@ class CobraCommander extends Analyzer {
       <div className="flex">
         <div className="flex-main">
           <SpellLink id={SPELLS.COBRA_COMMANDER.id}>
-            <SpellIcon id={SPELLS.COBRA_COMMANDER.id} noLink /> Sneaky Snakes
+            Sneaky Snakes
           </SpellLink>
         </div>
         <div className="flex-sub text-right">
@@ -54,7 +57,6 @@ class CobraCommander extends Analyzer {
       </div>
     );
   }
-
 }
 
 export default CobraCommander;

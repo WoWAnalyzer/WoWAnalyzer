@@ -18,10 +18,3 @@
 .spec-card .description h1 {
   margin-bottom: 10px;
 }
-.spec-card .github {
-  font-size: 2em;
-  color: rgba(255, 255, 255, 0.2);
-}
-.spec-card .github:hover {
-  color: #e45a5a;
-}

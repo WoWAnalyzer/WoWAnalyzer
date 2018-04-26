@@ -4,14 +4,13 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 const ASPECT_MODIFIER = 0.3;
 
-/*
+/**
  * Aspect of the Eagle increases all damage you deal by 30% for its duration.
  */
 class AspectOfTheSkylord extends Analyzer {
@@ -50,9 +49,7 @@ class AspectOfTheSkylord extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.ASPECT_OF_THE_SKYLORD_TRAIT.id}>
-            <SpellIcon id={SPELLS.ASPECT_OF_THE_SKYLORD_TRAIT.id} noLink /> Aspect of the Skylord
-          </SpellLink>
+          <SpellLink id={SPELLS.ASPECT_OF_THE_SKYLORD_TRAIT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.damage} />

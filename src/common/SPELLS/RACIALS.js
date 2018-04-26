@@ -26,6 +26,11 @@ export default {
     name: 'Arcane Torrent',
     icon: 'spell_shadow_teleport',
   },
+  ARCANE_TORRENT_MONK: {
+    id: 129597,
+    name: 'Arcane Torrent',
+    icon: 'spell_shadow_teleport',
+  },
   ARCANE_TORRENT_DEMON_HUNTER: {
     id: 202719,
     name: 'Arcane Torrent',
@@ -116,8 +121,13 @@ export default {
     icon: 'ability_racial_packhobgoblin',
   },
   // Orc
-  BLOOD_FURY: {
+  BLOOD_FURY_SPELL: {
     id: 33697,
+    name: 'Blood Fury',
+    icon: 'racial_orc_berserkerstrength',
+  },
+  BLOOD_FURY_PHYSICAL: {
+    id: 20572,
     name: 'Blood Fury',
     icon: 'racial_orc_berserkerstrength',
   },

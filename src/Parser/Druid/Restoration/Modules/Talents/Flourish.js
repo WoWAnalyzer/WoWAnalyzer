@@ -5,7 +5,6 @@ import { formatPercentage, formatNumber } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -75,7 +74,7 @@ class Flourish extends Analyzer {
         if (spellId === SPELLS.WILD_GROWTH.id) {
           foundWg = true;
           this.wgCount += 1;
-        } else if (spellId === SPELLS.CENARION_WARD_TALENT.id) {
+        } else if (spellId === SPELLS.CENARION_WARD.id) {
           foundCw = true;
         } else if (spellId === SPELLS.REJUVENATION.id || spellId === SPELLS.REJUVENATION_GERMINATION.id) {
           this.rejuvCount += 1;
@@ -148,7 +147,7 @@ class Flourish extends Analyzer {
 
     when(this.wildGrowthSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.WILD_GROWTH.id} /></Wrapper>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.WILD_GROWTH.id} /></React.Fragment>)
           .icon(SPELLS.FLOURISH_TALENT.icon)
           .actual(`${formatPercentage(this.wildGrowthCasts / this.flourishCount, 0)}% WGs extended.`)
           .recommended(`${formatPercentage(recommended)}% is recommended`);
@@ -157,7 +156,7 @@ class Flourish extends Analyzer {
     if(this.hasCenarionWard) {
       when(this.cenarionWardSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<Wrapper>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.CENARION_WARD.id} /></Wrapper>)
+          return suggest(<React.Fragment>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.CENARION_WARD.id} /></React.Fragment>)
             .icon(SPELLS.FLOURISH_TALENT.icon)
             .actual(`${this.cenarionWard}/${this.flourishCount} CWs extended.`)
             .recommended(`${formatPercentage(recommended)}% is recommended`);

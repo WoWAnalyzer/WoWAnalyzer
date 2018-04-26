@@ -78,7 +78,7 @@ describe('Core.CombatLogParser', () => {
   });
   describe('findModule', () => {
     it('finds a module by type', () => {
-      class MyCombatLogParser extends CombatLogParser {
+      class MyCombatLogParser extends EmptyCombatLogParser {
         _modules = {
           alternative: {},
           test: myModule,
@@ -92,7 +92,7 @@ describe('Core.CombatLogParser', () => {
       expect(parser.findModule(MyModule)).toBe(myModule);
     });
     it('finds a submodule even when looking for the parent module', () => {
-      class MyCombatLogParser extends CombatLogParser {
+      class MyCombatLogParser extends EmptyCombatLogParser {
         _modules = {
           alternative: {},
           test: mySubModule,
@@ -108,7 +108,7 @@ describe('Core.CombatLogParser', () => {
       expect(parser.findModule(MySubModule)).toBe(mySubModule);
     });
     it('returns undefined is module doesn\'t exist', () => {
-      class MyCombatLogParser extends CombatLogParser {
+      class MyCombatLogParser extends EmptyCombatLogParser {
         _modules = {
           onemore: {},
         };
@@ -167,7 +167,7 @@ describe('Core.CombatLogParser', () => {
         parser.initializeModules({
           myChildModule: MyChildModule,
         });
-      }).toThrow('Maximum call stack size exceeded'); // Relying on this exception might not be the cleaenst solution, but the module loading keeps trying until the parent module is loaded, and aborting after some time could be implemented but isn't easy to write and not useful enough.
+      }).toThrow('Failed to load modules: myChildModule');
     });
     it('recognizes classes that extend our dependency as valid dependencies', () => {
       class MyChildModule {

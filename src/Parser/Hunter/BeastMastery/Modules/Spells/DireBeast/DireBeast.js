@@ -7,10 +7,14 @@ import StatisticBox from "Main/StatisticBox";
 import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
-import Wrapper from 'common/Wrapper';
 
 //Threshhold for when there is less than 3s remaining on Bestial Wrath to not cast Dire Beast
 const CD_ON_BESTIAL_WRATH_BAD_DB_THRESHHOLD = 3000;
+
+/**
+ * Summons a powerful wild beast to attack your target for 8 sec.
+ * Generates 12 Focus over 8 sec.
+ */
 
 class DireBeast extends Analyzer {
   static dependencies = {
@@ -49,7 +53,7 @@ class DireBeast extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DIRE_BEAST.id} />}
         value={(
-          <Wrapper>
+          <React.Fragment>
             {this.casts}{'  '}
             <SpellIcon
               id={SPELLS.DIRE_BEAST.id}
@@ -68,7 +72,7 @@ class DireBeast extends Analyzer {
                 filter: 'grayscale(100%)',
               }}
             />
-          </Wrapper>
+          </React.Fragment>
         )}
         label={`Direbeast casts`}
         tooltip={`You cast Dire Beast ${this.casts} times. <br/> <ul> <li> You cast ${this.badDBCasts} Dire Beasts while there was less than 3 seconds remaining of Bestial Wrath cooldown.</li></ul>`}
@@ -90,7 +94,7 @@ class DireBeast extends Analyzer {
   }
   suggestions(when) {
     when(this.badDireBeastThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Delay casting <SpellLink id={SPELLS.DIRE_BEAST.id} icon /> if there is less than 3 seconds cooldown remaining on <SpellLink id={SPELLS.BESTIAL_WRATH.id} icon />. It is generally better to cast something else while the remaining cooldown ticks down, so as to optimise the cooldown reduction aspect of <SpellLink id={SPELLS.DIRE_BEAST.id} icon />.</Wrapper>)
+      return suggest(<React.Fragment>Delay casting <SpellLink id={SPELLS.DIRE_BEAST.id} /> if there is less than 3 seconds cooldown remaining on <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. It is generally better to cast something else while the remaining cooldown ticks down, so as to optimise the cooldown reduction aspect of <SpellLink id={SPELLS.DIRE_BEAST.id} />.</React.Fragment>)
         .icon(SPELLS.DIRE_BEAST_SUMMON.icon)
         .actual(`You cast Dire Beast ${this.badDBCasts} times when Bestial Wrath had less than 3 seconds CD remaining.`)
         .recommended(`${recommended} is recommended`);

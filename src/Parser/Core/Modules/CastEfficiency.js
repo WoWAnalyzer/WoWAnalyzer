@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -9,7 +8,6 @@ import SpellHistory from 'Parser/Core/Modules/SpellHistory';
 
 import Tab from 'Main/Tab';
 import CastEfficiencyComponent from 'Main/CastEfficiency';
-import SpellTimeline from 'Main/Timeline/SpellTimeline';
 
 import Abilities from './Abilities';
 import AbilityTracker from './AbilityTracker';
@@ -190,24 +188,13 @@ class CastEfficiency extends Analyzer {
 
       when(suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <Wrapper>
-            Try to cast <SpellLink id={mainSpell.id} /> more often. {ability.castEfficiency.extraSuggestion || ''} <a href="#spell-timeline">View timeline</a>.
-          </Wrapper>
+          <React.Fragment>
+            Try to cast <SpellLink id={mainSpell.id} /> more often. {ability.castEfficiency.extraSuggestion || ''}
+          </React.Fragment>
         )
           .icon(mainSpell.icon)
           .actual(`${abilityInfo.casts} out of ${abilityInfo.maxCasts} possible casts. You kept it on cooldown ${formatPercentage(actual, 1)}% of the time.`)
           .recommended(`>${formatPercentage(recommended, 1)}% is recommended`)
-          .details(() => (
-            <div style={{ margin: '0 -22px' }}>
-              <SpellTimeline
-                historyBySpellId={this.spellHistory.historyBySpellId}
-                abilities={this.abilities}
-                spellId={mainSpell.id}
-                start={this.owner.fight.start_time}
-                end={this.owner.currentTimestamp}
-              />
-            </div>
-          ))
           .staticImportance(ability.castEfficiency.importance);
       });
     });
@@ -215,10 +202,10 @@ class CastEfficiency extends Analyzer {
 
   tab() {
     return {
-      title: 'Cast efficiency',
-      url: 'cast-efficiency',
+      title: 'Abilities',
+      url: 'abilities',
       render: () => (
-        <Tab title="Cast efficiency">
+        <Tab>
           <CastEfficiencyComponent
             categories={this.abilities.constructor.SPELL_CATEGORIES}
             abilities={this.getCastEfficiency()}

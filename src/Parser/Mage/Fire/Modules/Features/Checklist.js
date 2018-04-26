@@ -2,10 +2,10 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
+import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
 import { GenericCastEfficiencyRequirement } from 'Parser/Core/Modules/Features/Checklist/Requirements';
 import CastEfficiency from 'Parser/Core/Modules/CastEfficiency';
@@ -28,6 +28,7 @@ import RuneOfPower from '../../../Shared/Modules/Features/RuneOfPower';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
+    abilities: Abilities,
     castEfficiency: CastEfficiency,
     combatants: Combatants,
     alwaysBeCasting: AlwaysBeCasting,
@@ -51,7 +52,7 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Always Be Casting',
-      description: <Wrapper><em><b>Continuously chaining casts throughout an encounter is the single most important thing for achieving good DPS as a caster</b></em>. There shoule be no delay at all between your spell casts, it's better to start casting the wrong spell than to think for a few seconds and then cast the right spell. You should be able to handle a fight's mechanics with the minimum possible interruption to your casting. Some fights (like Argus) have unavoidable downtime due to phase transitions and the like, so in these cases 0% downtime will not be possible.</Wrapper>,
+      description: <React.Fragment><em><b>Continuously chaining casts throughout an encounter is the single most important thing for achieving good DPS as a caster</b></em>. There shoule be no delay at all between your spell casts, it's better to start casting the wrong spell than to think for a few seconds and then cast the right spell. You should be able to handle a fight's mechanics with the minimum possible interruption to your casting. Some fights (like Argus) have unavoidable downtime due to phase transitions and the like, so in these cases 0% downtime will not be possible.</React.Fragment>,
       requirements: () => {
         return [
           new Requirement({
@@ -69,7 +70,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Manage Your Procs',
-      description: <Wrapper>Fire Mage is heavily dependent on correctly using your <SpellLink id={SPELLS.FIRE_BLAST.id}/> and <SpellLink id={SPELLS.PHOENIXS_FLAMES.id}/> guaranteed crit abilities to properly convert <SpellLink id={SPELLS.HEATING_UP.id}/> to <SpellLink id={SPELLS.HOT_STREAK.id}/>. These procs, and the amount of them you get, play a big role in your overall performance so it is important that you are utilizing them correctly.</Wrapper>,
+      description: <React.Fragment>Fire Mage is heavily dependent on correctly using your <SpellLink id={SPELLS.FIRE_BLAST.id}/> and <SpellLink id={SPELLS.PHOENIXS_FLAMES.id}/> guaranteed crit abilities to properly convert <SpellLink id={SPELLS.HEATING_UP.id}/> to <SpellLink id={SPELLS.HOT_STREAK.id}/>. These procs, and the amount of them you get, play a big role in your overall performance so it is important that you are utilizing them correctly.</React.Fragment>,
       requirements: () => {
         return [
           new Requirement({
@@ -102,7 +103,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Maximize Combustion Effectiveness',
-      description: <Wrapper><SpellLink id={SPELLS.COMBUSTION.id}/> is the only major cooldown that Fire Mage has and it plays a massive role in your performance. Therefore it is important that you are utilizing Combustion properly to avoid missing out on a large amount of damage.</Wrapper>,
+      description: <React.Fragment><SpellLink id={SPELLS.COMBUSTION.id}/> is the only major cooldown that Fire Mage has and it plays a massive role in your performance. Therefore it is important that you are utilizing Combustion properly to avoid missing out on a large amount of damage.</React.Fragment>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -126,12 +127,13 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use Your Cooldowns',
-      description: <Wrapper>Your cooldowns are a major contributor to your DPS, and should be used as frequently as possible throughout a fight. A cooldown should be held on to only if a priority DPS phase is coming <em>soon</em>. Holding cooldowns too long will hurt your DPS.</Wrapper>,
+      description: <React.Fragment>Your cooldowns are a major contributor to your DPS, and should be used as frequently as possible throughout a fight. A cooldown should be held on to only if a priority DPS phase is coming <em>soon</em>. Holding cooldowns too long will hurt your DPS.</React.Fragment>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.COMBUSTION,
+            onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.CINDERSTORM_TALENT,
@@ -158,7 +160,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Utilize your talents',
-      description: <Wrapper>Talent choice can effect playstyle, it is important to use your talents to their fullest.</Wrapper>,
+      description: <React.Fragment>Talent choice can effect playstyle, it is important to use your talents to their fullest.</React.Fragment>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [

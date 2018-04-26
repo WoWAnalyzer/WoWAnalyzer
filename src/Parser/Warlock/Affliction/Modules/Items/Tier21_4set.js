@@ -8,7 +8,6 @@ import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -53,13 +52,13 @@ class Tier21_4set extends Analyzer {
     return {
       id: `spell-${SPELLS.WARLOCK_AFFLI_T21_4P_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.WARLOCK_AFFLI_T21_4P_BONUS.id} />,
-      title: <SpellLink id={SPELLS.WARLOCK_AFFLI_T21_4P_BONUS.id} />,
-      result: (<Wrapper>
+      title: <SpellLink id={SPELLS.WARLOCK_AFFLI_T21_4P_BONUS.id} icon={false} />,
+      result: (<React.Fragment>
         {formatPercentage(this.uptime)} % uptime on <SpellLink id={SPELLS.WARLOCK_AFFLI_T21_4P_DEBUFF.id} icon/> <br />
         <dfn data-tip={`${formatNumber(this._bonusDamage)} bonus damage`}>
           <ItemDamageDone amount={this._bonusDamage} />
         </dfn>
-      </Wrapper>),
+      </React.Fragment>),
     };
   }
 }

@@ -16,25 +16,35 @@ class Gear extends React.PureComponent {
     const relics = artifact && artifact.gems ? artifact.gems : [];
 
     return (
-      <div>
-        <div style={{ marginLeft: 'auto', marginRight: 'auto', display: 'block', width: '90%' }}>
-          {[...gear, ...relics]
-            .filter(item => item.id !== 0)
-            .map(item => (
-              <div key={item.id} style={{ display: 'inline-block', textAlign: 'center' }}>
-                {item.itemLevel}
-                <ItemLink
-                  id={item.id}
-                  quality={item.quality || ITEM_QUALITIES.EPIC}// relics don't have a quality, but they're always epic
-                  details={item}
-                  style={{ margin: '5px', display: 'block', fontSize: '46px', lineHeight: 1 }}
-                >
-                  <Icon icon={item.icon} style={{ border: '3px solid currentColor' }} />
-                </ItemLink>
-              </div>
-            ))}
+      <React.Fragment>
+        <div className="row" style={{ marginBottom: '2em' }}>
+          <div className="col-md-12">
+            <h2>
+              Equipped Gear
+            </h2>
+          </div>
         </div>
-      </div>
+        <div className="row">
+          <div className="col-md-12 hpadding-lg-30">{/* some bonus padding so it looks to be aligned with the icon for stats */}
+            {[...gear, ...relics]
+              .filter(item => item.id !== 0)
+              .map(item => (
+                <div key={item.id} style={{ display: 'inline-block', textAlign: 'center' }}>
+                  {item.itemLevel}
+                  <ItemLink
+                    id={item.id}
+                    quality={item.quality || ITEM_QUALITIES.EPIC}// relics don't have a quality, but they're always epic
+                    details={item}
+                    style={{ margin: '5px', display: 'block', fontSize: '46px', lineHeight: 1 }}
+                    icon={false}
+                  >
+                    <Icon icon={item.icon} style={{ border: '3px solid currentColor' }} />
+                  </ItemLink>
+                </div>
+              ))}
+          </div>
+        </div>
+      </React.Fragment>
     );
   }
 }

@@ -87,7 +87,7 @@ class VantusRune extends Analyzer {
     return (
       <SmallStatisticBox
         icon={(
-          <SpellLink id={this.activeRune.ability.guid}>
+          <SpellLink id={this.activeRune.ability.guid} icon={false}>
             <Icon icon={this.activeRune.ability.abilityIcon} />
           </SpellLink>
         )}

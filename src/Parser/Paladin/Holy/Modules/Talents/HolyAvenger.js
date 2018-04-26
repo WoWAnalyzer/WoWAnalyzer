@@ -45,14 +45,14 @@ class HolyAvenger extends Analyzer {
       }
     }
   }
-  on_beacon_heal(beaconTransferEvent, healEvent) {
-    if (this.combatants.selected.hasBuff(SPELLS.HOLY_AVENGER_TALENT.id, healEvent.timestamp)) {
-      const effectiveHealing = (beaconTransferEvent.amount + (beaconTransferEvent.absorbed || 0));
+  on_beacon_heal(event) {
+    if (this.combatants.selected.hasBuff(SPELLS.HOLY_AVENGER_TALENT.id, event.originalHeal.timestamp)) {
+      const effectiveHealing = (event.amount + (event.absorbed || 0));
       this.regularHealing += effectiveHealing - effectiveHealing / (1 + HOLY_AVENGER_HASTE_INCREASE);
 
-      const spellId = healEvent.ability.guid;
+      const spellId = event.originalHeal.ability.guid;
       if (spellId === SPELLS.HOLY_SHOCK_HEAL.id) {
-        this.holyShockHealing += calculateEffectiveHealing(beaconTransferEvent, HOLY_AVENGER_HOLY_SHOCK_HEALING_INCREASE);
+        this.holyShockHealing += calculateEffectiveHealing(event, HOLY_AVENGER_HOLY_SHOCK_HEALING_INCREASE);
       }
     }
   }

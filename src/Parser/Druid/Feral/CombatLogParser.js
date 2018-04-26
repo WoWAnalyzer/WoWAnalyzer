@@ -17,6 +17,8 @@ import SavageRoarDmg from './Modules/Talents/SavageRoarDmg';
 
 import AshamanesRip from './Modules/Traits/AshamanesRip';
 
+import SoulOfTheArchdruid from '../Shared/Modules/Items/SoulOfTheArchdruid';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // FeralCore
@@ -43,6 +45,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // traits
     ashamanesRip: AshamanesRip,
+
+    // items
+    soulOfTheArchdruid : SoulOfTheArchdruid,
   };
 }
 

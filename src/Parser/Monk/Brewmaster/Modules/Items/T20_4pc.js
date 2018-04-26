@@ -3,9 +3,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import { formatThousands, formatNumber } from 'common/format';
+import { formatNumber, formatThousands } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+
 import { GIFT_OF_THE_OX_SPELLS } from '../../Constants';
 
 const debug = false;
@@ -13,7 +14,7 @@ const debug = false;
 class T20_4pc extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-  }
+  };
 
   staggerSaved = 0;
   orbsEaten = 0;
@@ -24,7 +25,7 @@ class T20_4pc extends Analyzer {
   }
 
   on_removestagger(event) {
-    if(!event.reason.ability || !GIFT_OF_THE_OX_SPELLS.includes(event.reason.ability.guid)) {
+    if (!event.trigger.ability || !GIFT_OF_THE_OX_SPELLS.includes(event.trigger.ability.guid)) {
       return;
     }
     this.orbsEaten += 1;
@@ -41,7 +42,7 @@ class T20_4pc extends Analyzer {
     return {
       id: `spell-${SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id}`,
       icon: <SpellIcon id={SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id} />,
-      title: <SpellLink id={SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id} />,
+      title: <SpellLink id={SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id} icon={false} />,
       result: (
         <dfn data-tip={`Total stagger damage lowered through T20 4Pc: ${formatThousands(this.staggerSaved)}`}>
           Stagger lowered by {formatNumber(damageSavedPerSecond)} DPS

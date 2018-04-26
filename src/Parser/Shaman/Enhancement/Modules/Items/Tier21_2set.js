@@ -30,7 +30,7 @@ class Tier21_2set extends Analyzer {
     return {
       id: `spell-${SPELLS.FORCE_OF_THE_MOUNTAIN.id}`,
       icon: <SpellIcon id={SPELLS.FORCE_OF_THE_MOUNTAIN.id} />,
-      title: <SpellLink id={SPELLS.FORCE_OF_THE_MOUNTAIN.id} />,
+      title: <SpellLink id={SPELLS.FORCE_OF_THE_MOUNTAIN.id} icon={false} />,
       result: <ItemDamageDone amount={this.extraDmg} />,
     };
   }

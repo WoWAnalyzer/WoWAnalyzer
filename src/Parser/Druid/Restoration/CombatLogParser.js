@@ -1,8 +1,3 @@
-import React from 'react';
-
-import Tab from 'Main/Tab';
-import Mana from 'Main/Mana';
-
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
@@ -28,7 +23,7 @@ import XonisCaress from './Modules/Items/XonisCaress';
 import DarkTitanAdvice from './Modules/Items/DarkTitanAdvice';
 import EdraithBondsOfAglaya from './Modules/Items/EdraithBondsOfAglaya';
 import EssenceOfInfusion from './Modules/Items/EssenceOfInfusion';
-import SoulOfTheArchdruid from './Modules/Items/SoulOfTheArchdruid';
+import SoulOfTheArchdruid from '../Shared/Modules/Items/SoulOfTheArchdruid';
 import Tearstone from './Modules/Items/Tearstone';
 import AmanthulsWisdom from './Modules/Items/AmanthulsWisdom';
 import DarkmoonDeckPromises from './Modules/Items/DarkmoonDeckPromises';
@@ -187,15 +182,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     results.tabs = [
       ...results.tabs,
-      {
-        title: 'Mana',
-        url: 'mana',
-        render: () => (
-          <Tab title="Mana" style={{ padding: '15px 22px' }}>
-            <Mana parser={this} />
-          </Tab>
-        ),
-      },
     ];
 
     return results;

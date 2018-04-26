@@ -7,13 +7,13 @@ import Analyzer from 'Parser/Core/Analyzer';
 import HealingValue from 'Parser/Core/Modules/HealingValue';
 
 import isAtonement from '../Core/isAtonement';
-import AtonementSource from './AtonementSource';
+import AtonementDamageSource from './AtonementDamageSource';
 import AtonementHealingBreakdown from './AtonementHealingBreakdown';
 import Penance from '../Spells/Penance';
 
 class AtonementHealingDone extends Analyzer {
   static dependencies = {
-    atonementSource: AtonementSource,
+    atonementDamageSource: AtonementDamageSource,
     penance: Penance,
   };
 
@@ -45,9 +45,9 @@ class AtonementHealingDone extends Analyzer {
       return;
     }
 
-    const source = this.atonementSource.atonementDamageSource;
-    if (source) {
-      this._addHealing(source, event.amount, event.absorbed, event.overheal);
+    const sourceEvent = this.atonementDamageSource.event;
+    if (sourceEvent) {
+      this._addHealing(sourceEvent, event.amount, event.absorbed, event.overheal);
     }
   }
 
@@ -78,7 +78,7 @@ class AtonementHealingDone extends Analyzer {
       title: 'Atonement sources',
       url: 'atonement-sources',
       render: () => (
-        <Tab title="Atonement sources">
+        <Tab>
           <AtonementHealingBreakdown analyzer={this} />
         </Tab>
       ),

@@ -59,7 +59,8 @@ class SpellHistory extends Analyzer {
     this._append(spellId, event);
   }
   on_toPlayer_updatespellusable(event) {
-    this._append(event.spellId, event);
+    const spellId = event.ability.guid;
+    this._append(spellId, event);
   }
 }
 

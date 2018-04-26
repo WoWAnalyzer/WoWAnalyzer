@@ -2,21 +2,18 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
 import isAtonement from '../Core/isAtonement';
-import AtonementSource from '../Features/AtonementSource';
-
-const debug = false;
+import AtonementDamageSource from '../Features/AtonementDamageSource';
 
 class TarnishedSentinelMedallion extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    atonementSource: AtonementSource,
+    atonementDamageSource: AtonementDamageSource,
   };
 
   healing = 0;
@@ -31,18 +28,10 @@ class TarnishedSentinelMedallion extends Analyzer {
     if (!isAtonement(event)) {
       return;
     }
-    const combatant = this.combatants.players[event.targetID];
-    if (!combatant) {
-      // If combatant oesn't exist it's probably a pet, this shouldn't be noteworthy.
-      debug && console.log('Skipping Atonement heal event since combatant couldn\'t be found:', event);
+    if (!this.atonementDamageSource.event || !this.damageAbilities.has(this.atonementDamageSource.event.ability.guid)) {
       return;
     }
-    if (this.atonementSource.atonementDamageSource) {
-      if (!this.damageAbilities.has(this.atonementSource.atonementDamageSource.ability.guid)) {
-        return;
-      }
-      this.healing += event.amount + (event.absorbed || 0);
-    }
+    this.healing += event.amount + (event.absorbed || 0);
   }
 
   on_byPlayer_damage(event) {
@@ -61,10 +50,10 @@ class TarnishedSentinelMedallion extends Analyzer {
     return {
       item: ITEMS.TARNISHED_SENTINEL_MEDALLION,
       result: (
-        <Wrapper>
+        <React.Fragment>
           <ItemHealingDone amount={healing} /><br />
           <ItemDamageDone amount={damage} />
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

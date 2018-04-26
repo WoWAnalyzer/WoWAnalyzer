@@ -2,13 +2,13 @@ import React  from 'react';
 
 import ScrollFilledIcon from 'Icons/ScrollFilled';
 import MegaphoneIcon from 'Icons/Megaphone';
-import Wrapper from 'common/Wrapper';
 
 import DiscordButton from './DiscordButton';
 import ChangelogPanel from './ChangelogPanel';
 import DiscordBanner from './Images/discord-banner.jpg';
 import SpecListing from './SpecListing';
 import News from './News';
+import ReportHistory from './ReportHistory';
 
 class Home extends React.PureComponent {
   constructor() {
@@ -46,13 +46,13 @@ class Home extends React.PureComponent {
     }
 
     return (
-      <Wrapper>
+      <React.Fragment>
         <section>
           <div className="container">
             <header>
               <div className="row">
                 <div className="col-md-12">
-                  <h1><MegaphoneIcon /> Announcements</h1>
+                  <h1 id="Announcements"><MegaphoneIcon /> Announcements</h1>
                 </div>
               </div>
             </header>
@@ -62,6 +62,15 @@ class Home extends React.PureComponent {
                 <News />
               </div>
               <div className="col-lg-4 col-md-5">
+                <div className="panel">
+                  <div className="panel-heading">
+                    <h2>Recently viewed reports</h2>
+                  </div>
+                  <div className="panel-body" style={{ padding: 0 }}>
+                    <ReportHistory />
+                  </div>
+                </div>
+
                 <div className="panel">
                   <div className="panel-heading" style={{ padding: 0 }}>
                     <img src={DiscordBanner} alt="Discord" style={{ width: '100%' }} />
@@ -82,7 +91,7 @@ class Home extends React.PureComponent {
                     </div>
 
                     {/* old: https://media.giphy.com/media/l1J3vV5lCmv8qx16M/giphy.gif */}
-                    <img src="https://media.giphy.com/media/N56zWre4o5UlO/giphy.gif" style={{ width: '100%' }} alt="Sharing is caring" />
+                    {/*<img src="https://media.giphy.com/media/N56zWre4o5UlO/giphy.gif" style={{ width: '100%' }} alt="Sharing is caring" />*/}
                   </div>
                 </div>
               </div>
@@ -91,7 +100,7 @@ class Home extends React.PureComponent {
         </section>
 
         {this.state.thirdFrame && (
-          <Wrapper>
+          <React.Fragment>
             <SpecListing />
 
             <section>
@@ -111,9 +120,9 @@ class Home extends React.PureComponent {
                 </div>
               </div>
             </section>
-          </Wrapper>
+          </React.Fragment>
         )}
-      </Wrapper>
+      </React.Fragment>
     );
   }
 }

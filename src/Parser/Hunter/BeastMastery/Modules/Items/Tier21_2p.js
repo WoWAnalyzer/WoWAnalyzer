@@ -10,6 +10,10 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 
 const T21_2P_MODIFIER = 0.1;
 
+/**
+ * Kill Command damage increased by 10%.
+ */
+
 class Tier21_2p extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -32,7 +36,7 @@ class Tier21_2p extends Analyzer {
     return {
       id: `spell-${SPELLS.HUNTER_BM_T21_2P_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.HUNTER_BM_T21_2P_BONUS.id} />,
-      title: <SpellLink id={SPELLS.HUNTER_BM_T21_2P_BONUS.id} />,
+      title: <SpellLink id={SPELLS.HUNTER_BM_T21_2P_BONUS.id} icon={false} />,
       result: <ItemDamageDone amount={this.bonusDmg} />,
     };
   }

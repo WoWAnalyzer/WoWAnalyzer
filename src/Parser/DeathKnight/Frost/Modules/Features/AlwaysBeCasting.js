@@ -6,14 +6,13 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   static ABILITIES_ON_GCD = [
     // artifact
     SPELLS.SINDRAGOSAS_FURY_ARTIFACT.id,
     // core frost abilities
-    SPELLS.FROST_STRIKE.id,
+    SPELLS.FROST_STRIKE_CAST.id,
     SPELLS.OBLITERATE_CAST.id,
     SPELLS.HOWLING_BLAST.id,
     SPELLS.REMORSELESS_WINTER.id,
@@ -58,7 +57,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   suggestions(when) {
     when(this.downtimeSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics.  If you do have to move, try casting filler spells, such as <SpellLink id={SPELLS.HOWLING_BLAST.id}/> or <SpellLink id={SPELLS.FROST_STRIKE.id}/>.</Wrapper>)
+        return suggest(<React.Fragment>Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics.  If you do have to move, try casting filler spells, such as <SpellLink id={SPELLS.HOWLING_BLAST.id}/> or <SpellLink id={SPELLS.FROST_STRIKE_CAST.id}/>.</React.Fragment>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);

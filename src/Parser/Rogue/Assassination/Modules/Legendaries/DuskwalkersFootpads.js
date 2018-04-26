@@ -52,7 +52,7 @@ class DuskwalkersFootpads extends Analyzer {
       item: ITEMS.DUSKWALKERS_FOOTPADS,
       result: (
       <dfn data-tip={`You wasted ${this.wastedReduction.toFixed(1)} seconds of cooldown reduction.`}>
-        Reduced <SpellLink id={SPELLS.VENDETTA.id} icon /> cooldown by {this.totalReduction.toFixed(1)} seconds.
+        Reduced <SpellLink id={SPELLS.VENDETTA.id} /> cooldown by {this.totalReduction.toFixed(1)} seconds.
       </dfn>
       ),
     };

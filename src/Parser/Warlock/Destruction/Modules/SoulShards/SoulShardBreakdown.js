@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
@@ -63,7 +62,6 @@ class SoulShardBreakdown extends React.Component {
               .map(ability => (
                 <tr>
                   <td style={{ width: '30%' }}>
-                    <SpellIcon id={ability.abilityId} />{' '}
                     <SpellLink id={ability.abilityId}>{ability.name}</SpellLink>
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
@@ -102,7 +100,6 @@ class SoulShardBreakdown extends React.Component {
             .map(ability => (
               <tr>
                 <td style={{ width: '30%' }}>
-                  <SpellIcon id={ability.abilityId} />{' '}
                   <SpellLink id={ability.abilityId} />
                 </td>
                 <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>

@@ -9,7 +9,6 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 
 // Chaos Bolt increases the critical strike chance of Incinerate on the target by 40% for 8 sec.
 class T21_2set extends Analyzer {
@@ -43,14 +42,14 @@ class T21_2set extends Analyzer {
     return {
       id: `spell-${SPELLS.WARLOCK_DESTRO_T21_2P_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.WARLOCK_DESTRO_T21_2P_BONUS.id} />,
-      title: <SpellLink id={SPELLS.WARLOCK_DESTRO_T21_2P_BONUS.id} />,
+      title: <SpellLink id={SPELLS.WARLOCK_DESTRO_T21_2P_BONUS.id} icon={false} />,
       result:
-        (<Wrapper>
-          {formatPercentage(this.uptime)} % uptime on <SpellLink id={SPELLS.WARLOCK_DESTRO_T21_2P_DEBUFF.id} icon /> <br />
+        (<React.Fragment>
+          {formatPercentage(this.uptime)} % uptime on <SpellLink id={SPELLS.WARLOCK_DESTRO_T21_2P_DEBUFF.id} /> <br />
           <dfn data-tip="Precise number of Soul Shard Fragments is impossible to determine but can be estimated from the Incinerate crits during the debuff.">
-            {this.incinerateCrits} <SpellLink id={SPELLS.INCINERATE.id} icon /> crits during <SpellLink id={SPELLS.WARLOCK_DESTRO_T21_2P_DEBUFF.id} icon />
+            {this.incinerateCrits} <SpellLink id={SPELLS.INCINERATE.id} /> crits during <SpellLink id={SPELLS.WARLOCK_DESTRO_T21_2P_DEBUFF.id} />
           </dfn>
-        </Wrapper>),
+        </React.Fragment>),
     };
   }
 }

@@ -4,17 +4,17 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import isAtonement from '../Core/isAtonement';
-import AtonementSource from '../Features/AtonementSource';
+import AtonementDamageSource from '../Features/AtonementDamageSource';
 
 class TouchOfTheGrave extends Analyzer {
   static dependencies = {
-    atonementSource: AtonementSource,
+    atonementDamageSource: AtonementDamageSource,
     combatants: Combatants,
   };
 
@@ -34,16 +34,13 @@ class TouchOfTheGrave extends Analyzer {
       this.directHealing += event.amount + (event.absorbed || 0);
       return;
     }
-
     if (!isAtonement(event)) {
       return;
     }
-    if (this.atonementSource.atonementDamageSource) {
-      if (this.atonementSource.atonementDamageSource.ability.guid !== SPELLS.TOUCH_OF_THE_GRAVE.id) {
-        return;
-      }
-      this.atonementHealing += event.amount + (event.absorbed || 0);
+    if (!this.atonementDamageSource.event || this.atonementDamageSource.event.ability.guid !== SPELLS.TOUCH_OF_THE_GRAVE.id) {
+      return;
     }
+    this.atonementHealing += event.amount + (event.absorbed || 0);
   }
 
   statistic() {
@@ -57,9 +54,11 @@ class TouchOfTheGrave extends Analyzer {
 
     // since we can't directly get undead racial status, if we found 0 damage,
     // assume they aren't undead and do not load the module
-    if(damage === 0) { return null; }
+    if (damage === 0) {
+      return null;
+    }
 
-    return(
+    return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.TOUCH_OF_THE_GRAVE.id} />}
         value={this.owner.formatItemHealingDone(atonementHealing + directHealing)}

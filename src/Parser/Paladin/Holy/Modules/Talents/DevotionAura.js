@@ -10,9 +10,8 @@ import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'Main/LazyLoadStatisticBox
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-// Protection of Tyr is applied to everyone that benefits from the AM effect. This is simply the easiest way to see if someone is affected by AM, other more robust solutions take a lot more effort/complexity.
-const PROTECTION_OF_TYR_ID = 211210;
-const DEVOTION_AURA_DAMAGE_REDUCTION = 0.2;
+const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = 0.1;
+const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.2;
 
 /**
  * Falling damage is considered "pure" or w/e damage meaning it doesn't get reduced by damage reductions. The ability description of such an event can look like this: {
@@ -32,13 +31,13 @@ class DevotionAura extends Analyzer {
   };
 
   get auraMasteryDamageReduced() {
-    return this.totalDamageTakenDuringAuraMastery / (1 - DEVOTION_AURA_DAMAGE_REDUCTION) * DEVOTION_AURA_DAMAGE_REDUCTION;
+    return this.totalDamageTakenDuringAuraMastery / (1 - DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION) * DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION;
   }
   get auraMasteryDrps() {
     return this.auraMasteryDamageReduced / this.owner.fightDuration * 1000;
   }
   get passiveDamageReduced() {
-    return this.totalDamageTakenOutsideAuraMastery / (1 - DEVOTION_AURA_DAMAGE_REDUCTION) * DEVOTION_AURA_DAMAGE_REDUCTION;
+    return this.totalDamageTakenOutsideAuraMastery / (1 - DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION) * DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION;
   }
   get passiveDrps() {
     return this.passiveDamageReduced / this.owner.fightDuration * 1000;
@@ -62,24 +61,29 @@ class DevotionAura extends Analyzer {
       return;
     }
 
-    const isAuraMasteryActive = this.combatants.selected.hasBuff(PROTECTION_OF_TYR_ID, event.timestamp, 0, 0, this.owner.playerId);
+    const isAuraMasteryActive = this.combatants.selected.hasBuff(SPELLS.AURA_MASTERY.id, event.timestamp, 0, 0, this.owner.playerId);
     if (!isAuraMasteryActive) {
       this.totalDamageTakenOutsideAuraMastery = this.totalDamageTakenOutsideAuraMastery + event.amount + (event.absorbed || 0);
     }
   }
 
   load() {
-    const amDamageTakenPromise = fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
+    const buffHistory = this.combatants.selected.getBuffHistory(SPELLS.AURA_MASTERY.id, this.owner.playerId);
+    if (buffHistory.length === 0) {
+      return Promise.resolve();
+    }
+    // WCL's filter requires the timestamp to be relative to fight start
+    const filter = buffHistory.map(buff => `(timestamp>=${buff.start - this.owner.fight.start_time} AND timestamp<=${buff.end - this.owner.fight.start_time})`).join(' OR ');
+
+    return fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
-      filter: `(IN RANGE FROM type='applybuff' AND ability.id=${PROTECTION_OF_TYR_ID} AND source.name='${this.combatants.selected.name}' TO type='removebuff' AND ability.id=${PROTECTION_OF_TYR_ID} AND source.name='${this.combatants.selected.name}' GROUP BY target ON target END)`,
+      filter: filter,
     })
       .then(json => {
         console.log('Received AM damage taken', json);
         this.totalDamageTakenDuringAuraMastery = json.entries.reduce((damageTaken, entry) => damageTaken + entry.total, 0);
       });
-
-    return amDamageTakenPromise;
   }
 
   statistic() {

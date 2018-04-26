@@ -5,7 +5,6 @@ import SPECS from 'common/SPECS';
 import ITEMS from 'common/ITEMS';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import ItemLink from 'common/ItemLink';
-import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -97,7 +96,7 @@ class PrePotion extends Analyzer {
   suggestions(when) {
     when(this.prePotionSuggestionThresholds)
       .addSuggestion((suggest) => {
-        return suggest(<Wrapper>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> can be very effective (even for healers), especially during shorter encounters.</Wrapper>)
+        return suggest(<React.Fragment>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> can be very effective (even for healers), especially during shorter encounters.</React.Fragment>)
           .icon(ITEMS.POTION_OF_PROLONGED_POWER.icon)
           .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
       });
@@ -110,13 +109,13 @@ class PrePotion extends Analyzer {
         // spell but mana is not their primary resource and should not use a mana potion.
         const healerSpec = HEALER_SPECS.indexOf(this.combatants.selected.specId) !== -1;
         if (!healerSpec) {
-          suggestionText = <Wrapper>You forgot to use a potion during combat. By using a potion during combat such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> you the increasing dps and also suvivability against a boss.</Wrapper>;
+          suggestionText = <React.Fragment>You forgot to use a potion during combat. By using a potion during combat such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> you can increase your DPS (especially if lined up with damage cooldowns) and/or suvivability during a fight.</React.Fragment>;
           importance = SUGGESTION_IMPORTANCE.MINOR;
         } else if (!this.neededManaSecondPotion) {
-          suggestionText = <Wrapper>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of either increasing output through <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> or allowing you to gain mana using <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id} />, for example.</Wrapper>;
+          suggestionText = <React.Fragment>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of either increasing output through <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> or allowing you to gain mana using <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id} />, for example.</React.Fragment>;
           importance = SUGGESTION_IMPORTANCE.MINOR;
         } else {
-          suggestionText = <Wrapper>You ran out of mana (OOM) during the encounter without using a second potion. Use a second potion such as <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id} /> or if the fight allows <ItemLink id={ITEMS.LEYTORRENT_POTION.id} /> to regenerate some mana.</Wrapper>;
+          suggestionText = <React.Fragment>You ran out of mana (OOM) during the encounter without using a second potion. Use a second potion such as <ItemLink id={ITEMS.ANCIENT_MANA_POTION.id} /> or if the fight allows <ItemLink id={ITEMS.LEYTORRENT_POTION.id} /> to regenerate some mana.</React.Fragment>;
           importance = SUGGESTION_IMPORTANCE.REGULAR;
         }
         return suggest(suggestionText)

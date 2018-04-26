@@ -127,7 +127,7 @@ class CooldownThroughputTracker extends Analyzer {
       title: 'Cooldowns',
       url: 'cooldowns',
       render: () => (
-        <Tab title="Cooldowns">
+        <Tab>
           <CooldownOverview
             fightStart={this.owner.fight.start_time}
             fightEnd={this.owner.fight.end_time}

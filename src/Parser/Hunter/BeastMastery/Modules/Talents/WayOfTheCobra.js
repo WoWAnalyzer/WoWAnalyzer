@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -13,6 +12,9 @@ const WAY_OF_THE_COBRA_MODIFIER = 0.1;
 // We'll always have main pet and hati out
 const MINIMUM_PETS = 2;
 
+/**
+ * Cobra Shot deals 10% increased damage for every pet or guardian you have active.
+ */
 class WayOfTheCobra extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -53,9 +55,7 @@ class WayOfTheCobra extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.WAY_OF_THE_COBRA_TALENT.id}>
-            <SpellIcon id={SPELLS.WAY_OF_THE_COBRA_TALENT.id} noLink /> Way of the Cobra
-          </SpellLink>
+          <SpellLink id={SPELLS.WAY_OF_THE_COBRA_TALENT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.damage} />

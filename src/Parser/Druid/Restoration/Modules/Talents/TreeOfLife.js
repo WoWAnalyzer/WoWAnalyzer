@@ -3,7 +3,6 @@ import React from 'react';
 import { formatPercentage, formatNumber } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
@@ -221,7 +220,7 @@ class TreeOfLife extends Analyzer {
 
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> is not providing you much throughput. You may want to plan your CD usage better or pick another talent.</Wrapper>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> is not providing you much throughput. You may want to plan your CD usage better or pick another talent.</React.Fragment>)
           .icon(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.icon)
           .actual(`${formatPercentage(actual)}% healing`)
           .recommended(`>${formatPercentage(recommended, 0)}% is recommended`);

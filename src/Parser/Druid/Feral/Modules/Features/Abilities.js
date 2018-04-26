@@ -146,7 +146,7 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
       },
       {
-        spell: SPELLS.TYPHOON_TALENT,
+        spell: SPELLS.TYPHOON,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.TYPHOON_TALENT.id),
         cooldown: 30,
@@ -164,10 +164,10 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
       },
       {
-        spell: SPELLS.WILD_CHARGE_TALENT,
+        spell: [SPELLS.WILD_CHARGE_TALENT, SPELLS.WILD_CHARGE_MOONKIN, SPELLS.WILD_CHARGE_CAT, SPELLS.WILD_CHARGE_BEAR, SPELLS.WILD_CHARGE_TRAVEL],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
         cooldown: 15,
+        enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
       },
     ];
   }

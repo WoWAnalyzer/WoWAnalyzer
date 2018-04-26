@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import Abilities from './Modules/Abilities';
 import Channeling from './Modules/Helper/Channeling';
+import SpellUsable from '../Shared/Modules/Core/SpellUsable';
 
 //Features
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
@@ -16,6 +17,7 @@ import Tier21_2p from './Modules/Items/Tier21_2p';
 import Tier21_4p from './Modules/Items/Tier21_4p';
 import Tier20_2p from './Modules/Items/Tier20_2p';
 import Tier20_4p from './Modules/Items/Tier20_4p';
+
 //Focus
 import FocusTracker from '../Shared/Modules/Features/FocusChart/FocusTracker';
 import FocusTab from '../Shared/Modules/Features/FocusChart/FocusTab';
@@ -34,6 +36,8 @@ import FrizzosFingertrap from './Modules/Items/FrizzosFingertrap';
 
 //Spells
 import ExplosiveTrap from './Modules/Spells/ExplosiveTrap';
+import Lacerate from './Modules/Spells/Lacerate';
+import AspectOfTheEagle from './Modules/Spells/AspectOfTheEagle';
 
 //Talents
 import WayOfTheMokNathal from './Modules/Talents/WayOfTheMokNathal';
@@ -61,6 +65,7 @@ import Hellcarver from './Modules/Traits/Hellcarver';
 import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 
 //Checklist
+import Checklist from './Modules/Features/Checklist';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -68,6 +73,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
     channeling: Channeling,
+    spellUsable: SpellUsable,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -99,6 +105,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Spells
     explosiveTrap: ExplosiveTrap,
+    lacerate: Lacerate,
+    aspectOfTheEagle: AspectOfTheEagle,
 
     //Talents
     wayOfTheMokNathal: WayOfTheMokNathal,
@@ -126,6 +134,7 @@ class CombatLogParser extends CoreCombatLogParser {
     traitsAndTalents: TraitsAndTalents,
 
     //Checklist
+    checklist: Checklist,
   };
 }
 

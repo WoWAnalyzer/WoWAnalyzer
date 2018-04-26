@@ -1,8 +1,3 @@
-import React from 'react';
-
-import Tab from 'Main/Tab';
-import Mana from 'Main/Mana';
-
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
@@ -22,7 +17,8 @@ import GlobalCooldown from './Modules/Core/GlobalCooldown';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import PowerWordShieldWasted from './Modules/Features/PowerWordShieldWasted';
-import AtonementSource from './Modules/Features/AtonementSource';
+import AtonementApplicationSource from './Modules/Features/AtonementApplicationSource';
+import AtonementDamageSource from './Modules/Features/AtonementDamageSource';
 import AtonementHealingDone from './Modules/Features/AtonementHealingDone';
 import PowerWordBarrier from './Modules/Features/PowerWordBarrier';
 import LeniencesReward from './Modules/Features/LeniencesReward';
@@ -50,6 +46,7 @@ import Atonement from './Modules/Spells/Atonement';
 import Evangelism from './Modules/Spells/Evangelism';
 import Penance from './Modules/Spells/Penance';
 import TouchOfTheGrave from './Modules/Spells/TouchOfTheGrave';
+import Rapture from './Modules/Spells/Rapture';
 
 import BorrowedTime from './Modules/Spells/Traits/BorrowedTime';
 
@@ -79,11 +76,13 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     powerWordShieldWasted: PowerWordShieldWasted,
-    atonementSource: AtonementSource,
+    atonementApplicationSource: AtonementApplicationSource,
+    atonementDamageSource: AtonementDamageSource,
     atonementHealingDone: AtonementHealingDone,
     powerWordBarrier: PowerWordBarrier,
     leniencesReward: LeniencesReward,
     purgeTheWicked: PurgeTheWicked,
+    rapture: Rapture,
 
     // Items:
     tier19_2set: Tier19_2set,
@@ -116,15 +115,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     results.tabs = [
       ...results.tabs,
-      {
-        title: 'Mana',
-        url: 'mana',
-        render: () => (
-          <Tab title="Mana" style={{ padding: '15px 22px' }}>
-            <Mana parser={this} />
-          </Tab>
-        ),
-      },
     ];
 
     return results;

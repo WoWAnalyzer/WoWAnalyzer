@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'Parser/Core/Analyzer';
@@ -69,10 +68,10 @@ class IshkarsFelshieldEmitter extends Analyzer {
     return {
       item: ITEMS.ISHKARS_FELSHIELD_EMITTER,
       result: (
-        <Wrapper>
+        <React.Fragment>
           <ItemDamageDone amount={this.damageDealt} /><br />
           <ItemHealingDone amount={this.damageAbsorbed} />
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

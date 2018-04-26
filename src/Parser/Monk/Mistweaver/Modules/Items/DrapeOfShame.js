@@ -2,7 +2,6 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import Wrapper from 'common/Wrapper';
 import CoreDrapeOfShame from 'Parser/Core/Modules/Items/Legion/DrapeOfShame';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
@@ -49,14 +48,14 @@ class DrapeOfShame extends CoreDrapeOfShame {
     return {
       item: ITEMS.DRAPE_OF_SHAME,
       result: (
-        <Wrapper>
+        <React.Fragment>
           <ItemHealingDone amount={this.healing} /><br />
           <img
             src="/img/ilvl.png"
             alt="Item level"
             className="icon"
           />{' '}{estimatedItemLevel !== null ? `≈${estimatedItemLevel} cloak with similar stats` : 'Calculating...'}
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

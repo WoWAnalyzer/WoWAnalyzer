@@ -18,6 +18,10 @@ body {
   .container {
     padding: 0 60px;
   }
+  .hpadding-lg-30 {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 }
 #app-mount {
   display: flex;
@@ -48,6 +52,14 @@ section header h1 {
   font-size: 3em;
   margin: 0 0 0.7em;
   text-align: center;
+}
+h2 {
+  opacity: .9;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  margin: 0;
+  font-size: 1em;
 }
 
 
@@ -97,112 +109,12 @@ ul {
   font-weight: 600;
 }
 
-.app > header {
-  background-image: url(./Images/header.jpg);  /* Created and property of Blizzard Entertainment. source: https://worldofwarcraft.com/en-us/ */
-  background-size: cover;
-  background-position: center center;
-  margin-top: 0px;
-  min-height: 400px;
-  padding-bottom: 67px; /* so that the divider in `after` doesn't overlap content */
-  position: relative;
-  margin-bottom: 90px;
-  transition: all 600ms;
-  opacity: 1;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), 0 0 0 5px rgba(0, 0, 0, 0.5);
-}
-.app > header:after {
-  content: '';
-  background: url(./Images/section-divider-sprite.png) no-repeat; /* Created by and property of Blizzard Entertainment. source: http://eu.battle.net/wow/en/legion/ */
-  background-size: auto 200%;
-  background-position: 50% 0;
-  position: absolute;
-  bottom: -67px;
-  left: 0;
-  right: 0;
-  height: 134px;
-  z-index: 200;
-}
-.app.has-report > header {
-  margin-top: -410px;
-  margin-bottom: 90px;
-  opacity: 0;
-  pointer-events: none;
-}
-.app > header .image-overlay {
-  padding-top: 100px;
-}
-@media (max-width: 600px) {
-  .app > header .image-overlay {
-    padding-top: 60px;
-  }
-  .app > header .image-overlay h1 {
-    font-size: 3em;
-  }
-}
-.app > header .image-overlay h1 {
-  font-size: 4em;
-}
-.app > header .image-overlay .description {
-  font-size: 1.4em;
-  margin-bottom: 20px;
-}
-.app > header .image-overlay .report-selector {
-  margin-bottom: 10px;
-}
-.app > header .image-overlay .about {
-  font-size: 0.8em;
-}
-@media (max-width: 400px) {
-  .app > header .image-overlay {
-    padding-top: 40px;
-  }
-}
-
-.panel.image-overlay {
-  padding-top: 70px;
-  background-size: cover;
-  background-position: center center;
-}
-.image-overlay h1 {
-  font-size: 3em;
-  font-weight: 700;
-  margin-bottom: 20px;
-  text-shadow: 0 0 1px transparent, 0 0 5px rgba(0,0,0,.8);
-  letter-spacing: 1px;
-}
-.image-overlay .description {
-  font-size: 1.2em;
-  color: #ebdec2;
-}
-
-.report-selector {
-  display: flex;
-}
-.report-selector .form-control {
-  flex: 1;
-}
-.report-selector .btn {
-  flex: 0;
-  margin-left: 10px;
-}
-@media (min-width: 0px) {
-  .form-inline .form-control {
-    display: inline-block;
-    width: auto;
-    vertical-align: middle;
-  }
-}
-
 /* Components */
-.completeness {
-  font-weight: 600;
-}
-
 .panel {
   width: 100%;
   margin-bottom: 20px;
   position: relative;
-  background: rgba(10, 10, 10, 0.7);
+  background: rgba(10, 10, 10, 0.9);
   border: 1px solid #000;
   border-radius: 5px;
   box-shadow: 0 6px 13px 0 rgba(0,0,0,.2), 0 0 2px rgba(0,0,0,.5);
@@ -220,16 +132,28 @@ ul {
   box-shadow: 0 -1px 0 0 rgba(255, 255, 255, .1);
   background: transparent;
 }
-.panel-heading h2 {
-  opacity: .9;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-weight: 600;
-  margin: 0;
-  font-size: 1em;
-}
 .panel > .panel-body {
   padding: 15px 22px;
+}
+
+.image-background {
+  background-size: cover;
+  background-position: center center;
+}
+.image-background h1, .app > header .image-overlay h1 {
+  font-size: 3em;
+  font-weight: 700;
+  margin-bottom: 0.35em;
+  text-shadow: 0 0 1px transparent, 0 0 5px rgba(0,0,0,.8);
+  letter-spacing: 1px;
+}
+.image-background .description, .app > header .image-overlay .description {
+  font-size: 1.2em;
+  color: #ebdec2;
+  text-shadow: 0 0 2px #000;
+}
+.panel.image-background {
+  padding-top: 70px;
 }
 
 .statistic-expansion {
@@ -296,7 +220,7 @@ nav {
   border: 0;
   margin-bottom: 24px;
 }
-.has-report nav {
+.show-report-selecter nav {
   /* Reduce opacity by 20% */
   background: rgba(12, 12, 12, 0.8);
   background: linear-gradient(to bottom, rgba(18, 18, 18, 0.8) 0%, rgba(8, 8, 8, 0.8) 100%);
@@ -405,6 +329,10 @@ nav .selectorHeader a {
   margin-right: 5px;
   border-radius: 2px;
 }
+/* Fix for double bottom border for second last children */
+.list.players>li:nth-child(odd):nth-last-child(2) {
+  box-shadow: none;
+}
 .list > li {
   margin: 0;
   padding: 0 22px;
@@ -419,10 +347,6 @@ nav .selectorHeader a {
 .list.selection > li.selectable a {
   display: block;
   padding: 10px 0;
-}
-.list.selection > li.selectable a > div {
-  display: flex;
-  align-items: center;
 }
 .list.selection .ProgressBar {
   margin-left: 10px;
@@ -441,7 +365,7 @@ svg {
 }
 img.icon {
   height: 1.2em;
-  margin-top: -0.2em;
+  margin-top: -0.15em;
 }
 h1 {
   position: relative;
@@ -552,18 +476,46 @@ dfn[data-tip] {
   cursor: help;
 }
 
+.small {
+  font-size: 1em;
+}
+
 .alert {
-  padding: 20px 30px;
+  padding: 15px 22px;
   border-radius: 0;
   border: 0;
+  margin: 0;
+}
+.alert .icon-container {
+  font-size: 2em;
+  line-height: 1;
+  margin-right: 20px;
+}
+.alert.small {
+  padding: 10px;
+}
+.alert.small .icon-container {
+  margin-right: 10px;
+}
+.panel-body > .alert {
+  margin-left: -22px;
+  margin-right: -22px;
 }
 .alert-info {
   background-color: rgba(52, 152, 219, 0.6);
   color: white;
 }
 .alert-warning {
-  background-color: rgba(255, 188, 0, 0.6);
-  color: white;
+  background-color: #cc790b;
+  color: #fff;
+  font-weight: 400;
+}
+.alert-warning a {/* default URLs are unreadable on the orange background, this makes it look like a button. */
+  color: #fff;
+  background: #cd594a;
+  padding: 2px 4px;
+  margin: 0 -1px;
+  border-radius: 2px;
 }
 .alert-danger {
   background-color: rgba(119, 47, 46, 0.6);
@@ -782,6 +734,26 @@ table.data-table img {
 /* Chaos: Arcane + Shadow + Frost + Nature + Fire + Holy + Physical */
 .spell-school-127-bg { background-color: #b4b1a5 !important; }
 
+.react-toggle--checked .react-toggle-track {
+  background-color: #d84141;
+}
+.react-toggle--checked .react-toggle-thumb {
+  border-color: #8b2b2b;
+}
+.react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {
+  background-color: #212121;
+}
+.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
+  background-color: #852929;
+}
+
+.react-toggle--focus .react-toggle-thumb {
+  box-shadow: 0 0 2px 3px #d84141;
+}
+.react-toggle:active:not(.react-toggle--disabled) .react-toggle-thumb {
+  box-shadow: 0 0 5px 5px #d84141;
+}
+
 .toggle-control {
   margin: -2px 0;
 }
@@ -790,7 +762,6 @@ table.data-table img {
 }
 .toggle-control label {
   font-weight: normal;
-  padding-left: 0.5em;
   margin: 0;
   cursor: pointer;
 }
@@ -804,9 +775,6 @@ table.data-table img {
 }
 .toggle-control .react-toggle--checked .react-toggle-thumb {
   left: 24px;
-}
-.toggle-control .react-toggle--checked .react-toggle-track {
-  background-color: #5b9cff;
 }
 
 .action-buttons .react-toggle ~ label {
@@ -894,31 +862,18 @@ code.inactive {
   margin-bottom: 2rem;
 }
 
-.maintainer-name {
-  background: rgba(0, 0, 0, 0.4);
+.contributor {
+  background: rgba(0, 0, 0, 0.8);
   color: #f1c40f;
   padding: .2em .2em;
-  margin: -.2em 0;
+  margin: -.2em -.2em;
   border-radius: .2em;
   font-weight: bold;
   white-space: nowrap;
   display: inline-block;
-  line-height: 1; /* this keeps the height of the maintainer box acceptable */
+  line-height: 1; /* this keeps the height of the contributor box acceptable */
 }
-.maintainer-name[data-tip] {
-  cursor: help;
-}
-.maintainers .maintainer-name + .maintainer-name {
-  position: relative;
-  margin-left: 1.2em;
-}
-.maintainers .maintainer-name + .maintainer-name:before {
-  content: ' & ';
-  position: absolute;
-  left: -1em;
-  color: #fff;
-}
-.maintainer-name img {
+.contributor img {
   width: 1.4em;
   height: 1.4em;
   border-radius: 50%;
@@ -939,7 +894,7 @@ code.inactive {
   transition: transform 400ms;
 }
 .expandable:not(.expanded) > .meta .chevron {
-  transform: rotate(-180deg);
+  transform: rotate(-90deg);
 }
 .expandable > .details {
   background: rgba(40, 40, 40, 0.4);
@@ -959,4 +914,47 @@ code.inactive {
 }
 .item-divider-top.item-divider {
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1), 1px -1px 0 0 rgba(255, 255, 255, 0.1);
+}
+
+.contributorlist > .row {
+  margin: 10px 0;
+}
+
+.modal {
+  position: fixed;
+  top: 40px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .8);
+  z-index: 200;
+  padding-top: 20px;
+}
+
+.btn-close {
+  display: block;
+  margin: 20px auto;
+  width: 200px;
+}
+
+.contributor-detail {
+  height: calc(100% - 80px);
+}
+
+.no-scroll .contributor-detail .panel {
+  background-color: rgba(20, 20, 20, 1);
+}
+
+.contributor-detail>.container, .contributor-detail>.container>.flex-main, .contributor-detail>.container>.flex-main>.row, .contributor-detail>.container>.flex-main>.row>.col-md-7 {
+  height: 100%;
+}
+
+.panel.scrollable {
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+.no-scroll {
+  overflow: hidden;
 }

@@ -35,29 +35,29 @@ class StatTracker extends Analyzer {
 
   static STAT_BUFFS = {
     // region Potions
-    [SPELLS.POTION_OF_PROLONGED_POWER.id]: { stamina: 2500, strength: 2500, agility: 2500, intellect: 2500 },
+    [SPELLS.POTION_OF_PROLONGED_POWER.id]: { stamina: 113, strength: 113, agility: 113, intellect: 113 },
     // endregion
 
     // region Runes
-    [SPELLS.DEFILED_AUGMENT_RUNE.id]: { strength: 325, agility: 325, intellect: 325 },
+    [SPELLS.DEFILED_AUGMENT_RUNE.id]: { strength: 15, agility: 15, intellect: 15 },
     // endregion
 
     //region Flasks
-    [SPELLS.FLASK_OF_THE_WHISPERED_PACT.id]: { intellect: 1300 },
-    [SPELLS.FLASK_OF_THE_SEVENTH_DEMON.id]: { agility: 1300 },
-    [SPELLS.FLASK_OF_THE_COUNTLESS_ARMIES.id]: { strength: 1300 },
-    [SPELLS.FLASK_OF_TEN_THOUSAND_SCARS.id]: { stamina: 1950 },
+    [SPELLS.FLASK_OF_THE_WHISPERED_PACT.id]: { intellect: 59 },
+    [SPELLS.FLASK_OF_THE_SEVENTH_DEMON.id]: { agility: 59 },
+    [SPELLS.FLASK_OF_THE_COUNTLESS_ARMIES.id]: { strength: 59 },
+    [SPELLS.FLASK_OF_TEN_THOUSAND_SCARS.id]: { stamina: 88 },
     // endregion
 
     //region Food
-    [SPELLS.THE_HUNGRY_MAGISTER.id]: { crit: 375 },
-    [SPELLS.AZSHARI_SALAD.id]: { haste: 375 },
-    [SPELLS.NIGHTBORNE_DELICACY_PLATTER.id]: { mastery: 375 },
-    [SPELLS.SEED_BATTERED_FISH_PLATE.id]: { versatility: 375 },
-    [SPELLS.STAM_FEAST.id]: { stamina: 600 },
-    [SPELLS.STR_FEAST.id]: { strength: 500 },
-    [SPELLS.AGI_FEAST.id]: { agility: 500 },
-    [SPELLS.INT_FEAST.id]: { intellect: 500 },
+    [SPELLS.THE_HUNGRY_MAGISTER.id]: { crit: 17 },
+    [SPELLS.AZSHARI_SALAD.id]: { haste: 17 },
+    [SPELLS.NIGHTBORNE_DELICACY_PLATTER.id]: { mastery: 17 },
+    [SPELLS.SEED_BATTERED_FISH_PLATE.id]: { versatility: 17 },
+    [SPELLS.STAM_FEAST.id]: { stamina: 27 },
+    [SPELLS.STR_FEAST.id]: { strength: 23 },
+    [SPELLS.AGI_FEAST.id]: { agility: 23 },
+    [SPELLS.INT_FEAST.id]: { intellect: 23 },
     //endregion
 
     // region Dungeon Trinkets
@@ -112,6 +112,10 @@ class StatTracker extends Analyzer {
     [SPELLS.GREASE_THE_GEARS.id]: {
       itemId: ITEMS.FELOILED_INFERNAL_MACHINE.id,
       haste: (_, item) => calculateSecondaryStatDefault(845, 3074, item.itemLevel),
+    },
+    [SPELLS.VALARJARS_PATH.id]: {
+      itemId: ITEMS.HORN_OF_VALOR.id,
+      haste: (_, item) => calculatePrimaryStat(820, 2332, item.itemLevel),
     },
     //endregion
 
@@ -187,24 +191,34 @@ class StatTracker extends Analyzer {
     [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_VERSATILITY.id]: {
       versatility: combatant => 1500 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
     },
-    [SPELLS.JACINS_RUSE.id]: { mastery: 3000 },
-    [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 1000, haste: 1000 },
+    [SPELLS.JACINS_RUSE.id]: { mastery: 136 },
+    [SPELLS.MASTER_OF_COMBINATIONS.id]: { mastery: 27 },
+    [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 45, haste: 45 },
+    [SPELLS.FURY_OF_ASHAMANE.id]: { versatility: 27 },
+    [SPELLS.MURDEROUS_INTENT_BUFF.id]: { versatility: 2500 },
+    // Antorus: Argus the Unmaker debuffs
+    [SPELLS.STRENGTH_OF_THE_SKY.id]: { crit: 2000, mastery: 2000 },
+    [SPELLS.STRENGTH_OF_THE_SEA.id]: { haste: 2000, versatility: 2000 },
     // endregion
 
     // region Death Knight
-    [SPELLS.VAMPIRIC_AURA.id]: { leech: (23000 * 0.20) }, // TODO make non static so can use this.leechRatingPerPercent ??
+    [SPELLS.VAMPIRIC_AURA.id]: { leech: (230 * 0.20 * 100) }, // Gives 20% Leech // TODO make non static so can use this.leechRatingPerPercent ??
     // endregion
 
     // region Druid
-    [SPELLS.ASTRAL_HARMONY.id]: { mastery: 4000 },
+    [SPELLS.ASTRAL_HARMONY.id]: { mastery: 181 },
     // endregion
 
     // region Mage
-    [SPELLS.WARMTH_OF_THE_PHOENIX.id]: { crit: 800 },
+    [SPELLS.WARMTH_OF_THE_PHOENIX.id]: { crit: 36 },
     // endregion
 
     // region Priest
-    [SPELLS.MIND_QUICKENING.id]: { haste: 800 },
+    [SPELLS.MIND_QUICKENING.id]: { haste: 36 },
+    // endregion
+
+    // region Paladin
+    [SPELLS.SERAPHIM_TALENT.id]: { crit: 249, haste: 249, mastery: 249, versatility: 249 },
     // endregion
   };
 
@@ -451,43 +465,43 @@ class StatTracker extends Analyzer {
    * These values don't change.
    */
   get critRatingPerPercent() {
-    return 40000;
+    return 60 * 100;
   }
   critPercentage(rating, withBase = false) {
     return (withBase ? this.baseCritPercentage : 0) + rating / this.critRatingPerPercent;
   }
   get hasteRatingPerPercent() {
-    return 37500;
+    return 56 * 100;
   }
   hastePercentage(rating, withBase = false) {
     return (withBase ? this.baseHastePercentage : 0) + rating / this.hasteRatingPerPercent;
   }
   get masteryRatingPerPercent() {
-    return 40000 / this.combatants.selected.spec.masteryCoefficient;
+    return 60 * 100 / this.combatants.selected.spec.masteryCoefficient;
   }
   masteryPercentage(rating, withBase = false) {
     return (withBase ? this.baseMasteryPercentage : 0) + rating / this.masteryRatingPerPercent;
   }
   get versatilityRatingPerPercent() {
-    return 47500;
+    return 72 * 100;
   }
   versatilityPercentage(rating, withBase = false) {
     return (withBase ? this.baseVersatilityPercentage : 0) + rating / this.versatilityRatingPerPercent;
   }
   get avoidanceRatingPerPercent() {
-    return 11000;
+    return 16.5 * 100;
   }
   avoidancePercentage(rating, withBase = false) {
     return (withBase ? this.baseAvoidancePercentage : 0) + rating / this.avoidanceRatingPerPercent;
   }
   get leechRatingPerPercent() {
-    return 23000;
+    return 34.5 * 100;
   }
   leechPercentage(rating, withBase = false) {
     return (withBase ? this.baseLeechPercentage : 0) + rating / this.leechRatingPerPercent;
   }
   get speedRatingPerPercent() {
-    return 8000;
+    return 12 * 100;
   }
   speedPercentage(rating, withBase = false) {
     return (withBase ? this.baseSpeedPercentage : 0) + rating / this.speedRatingPerPercent;
@@ -601,16 +615,14 @@ class StatTracker extends Analyzer {
    * Fabricates an event indicating when stats change
    */
   _triggerChangeStats(event, before, delta, after) {
-    this.owner.triggerEvent('changestats', {
-      timestamp: event ? event.timestamp : this.owner.currentTimestamp,
+    this.owner.fabricateEvent({
       type: 'changestats',
       sourceID: event ? event.sourceID : this.owner.playerId,
       targetID: this.owner.playerId,
-      reason: event,
       before,
       delta,
       after,
-    });
+    }, event);
   }
 
   /**

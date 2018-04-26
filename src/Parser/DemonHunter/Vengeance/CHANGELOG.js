@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { Mamtooth } from 'MAINTAINERS';
-import Wrapper from 'common/Wrapper';
+import { Mamtooth } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
@@ -23,7 +22,7 @@ export default [
   },
   { 
     date: new Date('2017-10-12'),
-    changes: <Wrapper>Cooldown tab for <SpellLink id={SPELLS.METAMORPHOSIS_TANK.id} /> is now implemented.</Wrapper>,
+    changes: <React.Fragment>Cooldown tab for <SpellLink id={SPELLS.METAMORPHOSIS_TANK.id} /> is now implemented.</React.Fragment>,
     contributors: [Mamtooth],
   },
   { 
@@ -43,7 +42,7 @@ export default [
   },
   { 
     date: new Date('2017-09-16'),
-    changes: <Wrapper><SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> is now on statistics boxes too.</Wrapper>,
+    changes: <React.Fragment><SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> is now on statistics boxes too.</React.Fragment>,
     contributors: [Mamtooth],
   },
   { 
@@ -63,22 +62,22 @@ export default [
   },
   { 
     date: new Date('2017-09-06'),
-    changes: <Wrapper>Added more suggestions to <SpellLink id={SPELLS.IMMOLATION_AURA_BUFF.id} /> buff uptime.</Wrapper>,
+    changes: <React.Fragment>Added more suggestions to <SpellLink id={SPELLS.IMMOLATION_AURA_BUFF.id} /> buff uptime.</React.Fragment>,
     contributors: [Mamtooth],
   },
   { 
     date: new Date('2017-09-06'),
-    changes: <Wrapper>Fixed <SpellLink id={SPELLS.SIGIL_OF_FLAME_DEBUFF.id} /> debuff uptime to best fit in more cases.</Wrapper>,
+    changes: <React.Fragment>Fixed <SpellLink id={SPELLS.SIGIL_OF_FLAME_DEBUFF.id} /> debuff uptime to best fit in more cases.</React.Fragment>,
     contributors: [Mamtooth],
   },
   { 
     date: new Date('2017-08-27'),
-    changes: <Wrapper>Fixed a bug with <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> uptime suggestions and modified the Dead GCD recommended time (ABC).</Wrapper>,
+    changes: <React.Fragment>Fixed a bug with <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> uptime suggestions and modified the Dead GCD recommended time (ABC).</React.Fragment>,
     contributors: [Mamtooth],
   },
   { 
     date: new Date('2017-08-20'),
-    changes: <Wrapper>Added Pain tracker chart and changed <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> uptime buff to <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> debuff uptime.</Wrapper>,
+    changes: <React.Fragment>Added Pain tracker chart and changed <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> uptime buff to <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> debuff uptime.</React.Fragment>,
     contributors: [Mamtooth],
   },
   { 

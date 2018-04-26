@@ -20,7 +20,7 @@ class BeaconHealOriginMatcher extends Analyzer {
   healBacklog = [];
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.BEACON_OF_LIGHT_CAST_AND_HEAL.id) {
+    if (spellId === SPELLS.BEACON_OF_LIGHT_HEAL.id) {
       this.processBeaconHealing(event);
       return;
     }
@@ -56,11 +56,16 @@ class BeaconHealOriginMatcher extends Analyzer {
 
     const matchedHeal = this.healBacklog[0];
     if (!matchedHeal) {
-      console.error('No heal found for beacon transfer:', beaconTransferEvent);
+      console.error('BeaconHealOriginMatcher: No heal found for beacon transfer:', beaconTransferEvent);
       return;
     }
-    // console.log('Matched beacon transfer', beaconTransferEvent, 'to heal', matchedHeal);
-    this.owner.triggerEvent('beacon_heal', beaconTransferEvent, matchedHeal);
+
+    // Fabricate a new event to make it easy to listen to just beacon heal events while being away of the original heals. While we could also modify the original heal event and add a reference to the original heal, this would be less clean as mutating objects makes things harder and more confusing to use, and may lead to conflicts.
+    this.owner.fabricateEvent({
+      ...beaconTransferEvent,
+      type: 'beacon_heal',
+      originalHeal: matchedHeal,
+    }, beaconTransferEvent);
 
     matchedHeal.remainingBeaconTransfers -= 1;
     if (matchedHeal.remainingBeaconTransfers < 1) {

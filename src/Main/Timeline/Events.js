@@ -12,6 +12,7 @@ class Events extends React.PureComponent {
     totalWidth: PropTypes.number.isRequired,
     secondWidth: PropTypes.number.isRequired,
     className: PropTypes.string,
+    showCooldowns: PropTypes.bool,
   };
 
   /**
@@ -56,12 +57,13 @@ class Events extends React.PureComponent {
   }
 
   render() {
-    const { events, start, totalWidth, secondWidth, className } = this.props;
+    const { events, start, totalWidth, secondWidth, className, showCooldowns } = this.props;
     const fixedEvents = this.fabricateEndCooldown(events);
 
     return (
       <div className={`events ${className || ''}`} style={{ width: totalWidth }}>
         {fixedEvents.map((event, index) => {
+          const meta = event.meta || {};
           if (event.type === 'cast') {
             return (
               <div
@@ -72,11 +74,15 @@ class Events extends React.PureComponent {
                   zIndex: 10,
                 }}
               >
-                <SpellIcon id={event.ability.guid} />
+                <SpellIcon
+                  id={event.ability.guid}
+                  className={meta.isInefficientCast ? 'inefficient' : undefined}
+                  data-tip={meta.inefficientCastReason}
+                />
               </div>
             );
           }
-          if (event.type === 'updatespellusable' && (event.trigger === 'endcooldown' || event.trigger === 'restorecharge')) {
+          if (showCooldowns && event.type === 'updatespellusable' && (event.trigger === 'endcooldown' || event.trigger === 'restorecharge')) {
             const left = (event.start - start) / 1000 * secondWidth;
             const maxWidth = totalWidth - left; // don't expand beyond the container width
             const width = Math.min(maxWidth, (event.timestamp - event.start) / 1000 * secondWidth);
@@ -94,7 +100,7 @@ class Events extends React.PureComponent {
           }
           return null;
         })}
-        {fixedEvents.map((event, index) => {
+        {showCooldowns && fixedEvents.map((event, index) => {
           if (event.type === 'updatespellusable' && (event.trigger === 'restorecharge')) {
             const left = (event.timestamp - start) / 1000 * secondWidth;
             const maxWidth = totalWidth - left; // don't expand beyond the container width

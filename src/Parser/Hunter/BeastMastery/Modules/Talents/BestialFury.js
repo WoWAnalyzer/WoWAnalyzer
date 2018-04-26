@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import getDamageBonus from "Parser/Hunter/Shared/Modules/getDamageBonus";
-import SpellIcon from "common/SpellIcon";
 import ITEMS from "common/ITEMS/HUNTER";
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -14,6 +13,10 @@ import ItemDamageDone from 'Main/ItemDamageDone';
 const BESTIAL_FURY_MODIFIER = (1.4 / 1.25) - 1;
 
 const debug = false;
+
+/**
+ * Increase the damage bonus of Bestial Wrath by 15%.
+ */
 
 class BestialFury extends Analyzer {
   static dependencies = {
@@ -48,9 +51,7 @@ class BestialFury extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.BESTIAL_FURY_TALENT.id}>
-            <SpellIcon id={SPELLS.BESTIAL_FURY_TALENT.id} noLink /> Bestial Fury
-          </SpellLink>
+          <SpellLink id={SPELLS.BESTIAL_FURY_TALENT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.bonusDmg} />

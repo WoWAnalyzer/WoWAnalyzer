@@ -5,7 +5,6 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 
@@ -197,8 +196,8 @@ class Innervate extends Analyzer {
 
     when(this.averageManaSavedSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your mana spent during an <SpellLink id={SPELLS.INNERVATE.id} /> can be improved.
-              Always aim to cast 1 wild growth, 1 efflorescence, and fill the rest with rejuvations for optimal usage.</Wrapper>)
+        return suggest(<React.Fragment>Your mana spent during an <SpellLink id={SPELLS.INNERVATE.id} /> can be improved.
+              Always aim to cast 1 wild growth, 1 efflorescence, and fill the rest with rejuvations for optimal usage.</React.Fragment>)
           .icon(SPELLS.INNERVATE.icon)
           .actual(`${formatNumber(this.averageManaSaved.toFixed(0))} avg mana spent.`)
           .recommended(`>${formatNumber(recommended)} is recommended`);
@@ -206,7 +205,7 @@ class Innervate extends Analyzer {
 
     when(this.secondsCappedSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>You were capped on mana during <SpellLink id={SPELLS.INNERVATE.id} />. Try to not use Innervate if you are above 90% mana.</Wrapper>)
+        return suggest(<React.Fragment>You were capped on mana during <SpellLink id={SPELLS.INNERVATE.id} />. Try to not use Innervate if you are above 90% mana.</React.Fragment>)
           .icon(SPELLS.INNERVATE.icon)
           .actual(`~${this.wholeSecondsCapped} seconds capped`)
           .recommended(`${recommended} is recommended`);

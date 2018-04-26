@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Wrapper from 'common/Wrapper';
 
 import CORE_CHANGELOG from '../CHANGELOG';
 
@@ -35,9 +34,9 @@ class ChangelogTabTitle extends React.PureComponent {
     }
 
     return (
-      <Wrapper>
+      <React.Fragment>
         Changelog {recentChanges > 0 && <span className="badge">{recentChanges}</span>}
-      </Wrapper>
+      </React.Fragment>
     );
   }
 }

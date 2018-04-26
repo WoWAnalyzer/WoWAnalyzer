@@ -96,10 +96,14 @@ export default {
     ignored: true, // I'd like this to be temporary but it's a hard problem to solve so this is probably going to stay for many code-years
     multiplier: true, // This multiplies heals and is inconsistent. Don't include in the value for rating per 1%
   },
-  [SPELLS.OBSIDIAN_STONE_SPAULDERS_HEAL.id]: {
-    ignored: true,
+  [SPELLS.AVENGING_CRUSADER_HEAL.id]: {
+    int: true,
+    crit: false, // https://cdn.discordapp.com/attachments/406441490533974017/434730955924832257/unknown.png based on only half the damage done
+    hasteHpct: true,
+    mastery: false, // it just raw scales off of the damage done
+    vers: true,
   },
-  [SPELLS.BEACON_OF_LIGHT_CAST_AND_HEAL.id]: {
+  [SPELLS.BEACON_OF_LIGHT_HEAL.id]: {
     // This gets special treatment with the `on_beacon_heal` event
     ignored: true,
   },

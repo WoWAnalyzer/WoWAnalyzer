@@ -1,13 +1,12 @@
 import React from 'react';
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { Hewhosmites, Zerotorescue } from 'MAINTAINERS';
+import { Hewhosmites, Zerotorescue } from 'CONTRIBUTORS';
 
 export default [
 	{
 		date: new Date('2018-02-21'),
-		changes: <Wrapper>Added a <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon/> module.</Wrapper>,
+		changes: <React.Fragment>Added a <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon/> module.</React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{

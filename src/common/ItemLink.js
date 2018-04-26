@@ -33,7 +33,7 @@ const ItemLink = ({ id, children, details, quality, icon, ...others }) => {
       className={getItemQualityLabel(quality)}
       {...others}
     >
-      {icon && <ItemIcon id={id} noLink style={{ height: '1.2em', marginTop: '-0.1em' }} />}{' '}
+      {icon && <ItemIcon id={id} noLink />}{' '}
       {children || ITEMS[id].name}
     </a>
   );
@@ -46,7 +46,7 @@ ItemLink.propTypes = {
   icon: PropTypes.bool,
 };
 ItemLink.defaultProps = {
-  icon: false,
+  icon: true,
 };
 
 export default ItemLink;

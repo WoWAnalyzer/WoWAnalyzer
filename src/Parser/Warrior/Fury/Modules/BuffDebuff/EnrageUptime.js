@@ -8,7 +8,6 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Wrapper from 'common/Wrapper';
 
 class EnrageUptime extends Analyzer {
   static dependencies = {
@@ -41,7 +40,7 @@ class EnrageUptime extends Analyzer {
 
     when(this.enrageUptime).isLessThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your <SpellLink id={SPELLS.ENRAGE.id} /> uptime can be improved.</Wrapper>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.ENRAGE.id} /> uptime can be improved.</React.Fragment>)
           .icon(SPELLS.ENRAGE.icon)
           .actual(`${formatPercentage(actual)}% Enrage uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)

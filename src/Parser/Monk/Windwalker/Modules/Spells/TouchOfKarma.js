@@ -6,7 +6,6 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Wrapper from 'common/Wrapper';
 
 class TouchOfKarma extends Analyzer {
 	static dependencies = {
@@ -38,7 +37,7 @@ class TouchOfKarma extends Analyzer {
   suggestions(when) {
     const absorbUsed = this.healingDone.byAbility(SPELLS.TOUCH_OF_KARMA_CAST.id).effective / this.totalPossibleAbsorb;
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper> You consumed a low amount of your total <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> absorb. It's best used when you can take enough damage to consume most of the absorb. Getting full absorb usage shouldn't be expected on lower difficulty encounters </Wrapper>)
+      return suggest(<React.Fragment> You consumed a low amount of your total <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> absorb. It's best used when you can take enough damage to consume most of the absorb. Getting full absorb usage shouldn't be expected on lower difficulty encounters </React.Fragment>)
         .icon(SPELLS.TOUCH_OF_KARMA_CAST.icon)
         .actual(`${formatPercentage(absorbUsed)}% Touch of Karma absorb used`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
@@ -56,7 +55,7 @@ class TouchOfKarma extends Analyzer {
         />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(10);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(2);
 }
 
 export default TouchOfKarma;

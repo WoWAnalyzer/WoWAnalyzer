@@ -8,8 +8,10 @@ import SpellIcon from 'common/SpellIcon';
 
 const RESET_CHANCE_PER_TICK = 0.02;
 
+/**
+ * Each time Lacerate deals damage, you have a 2% chance to gain a charge of Mongoose Bite.
+ */
 class MortalWounds extends Analyzer {
-
   static dependencies = {
     combatants: Combatants,
   };

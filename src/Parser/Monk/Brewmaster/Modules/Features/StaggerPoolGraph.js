@@ -1,12 +1,12 @@
 import React from 'react';
 import { Line as LineChart } from 'react-chartjs-2';
-import Analyzer from 'Parser/Core/Analyzer';
-import Tab from 'Main/Tab';
+import 'common/chartjs-plugin-vertical';
 
-import { formatNumber, formatDuration } from 'common/format';
+import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import 'common/chartjs-plugin-vertical';
+import Analyzer from 'Parser/Core/Analyzer';
+import Tab from 'Main/Tab';
 
 import StaggerFabricator from '../Core/StaggerFabricator';
 
@@ -24,7 +24,7 @@ class StaggerPoolGraph extends Analyzer {
   static dependencies = {
     fab: StaggerFabricator,
   };
-  
+
   _hpEvents = [];
   _staggerEvents = [];
   _deathEvents = [];
@@ -37,7 +37,7 @@ class StaggerPoolGraph extends Analyzer {
   on_removestagger(event) {
     this._staggerEvents.push(event);
 
-    if(event.reason.ability && event.reason.ability.guid === SPELLS.PURIFYING_BREW.id) {
+    if (event.trigger.ability && event.trigger.ability.guid === SPELLS.PURIFYING_BREW.id) {
       this._purifyTimestamps.push(event.timestamp);
     }
   }
@@ -56,7 +56,7 @@ class StaggerPoolGraph extends Analyzer {
 
   plot() {
     // x indices
-    const labels = Array.from({length: Math.ceil(this.owner.fightDuration / 1000)}, (x, i) => i);
+    const labels = Array.from({ length: Math.ceil(this.owner.fightDuration / 1000) }, (x, i) => i);
 
     // somethingBySeconds are all objects mapping from seconds ->
     // something, where if a value is unknown for that timestamp it is
@@ -69,7 +69,7 @@ class StaggerPoolGraph extends Analyzer {
 
     const purifies = this._purifyTimestamps.map(timestamp => Math.floor((timestamp - this.owner.fight.start_time) / 1000) - 1);
     const deaths = this._deathEvents.map(({ timestamp, killingAbility }) => {
-      return { 
+      return {
         seconds: Math.floor((timestamp - this.owner.fight.start_time) / 1000),
         ability: killingAbility,
       };
@@ -85,7 +85,7 @@ class StaggerPoolGraph extends Analyzer {
     this._hpEvents.forEach(({ timestamp, hitPoints, maxHitPoints }) => {
       const seconds = Math.floor((timestamp - this.owner.fight.start_time) / 1000);
       // we fill in the blanks later if hitPoints is not defined
-      if(!!hitPoints) {
+      if (!!hitPoints) {
         hpBySeconds[seconds] = { hitPoints, maxHitPoints };
       }
     });
@@ -101,27 +101,27 @@ class StaggerPoolGraph extends Analyzer {
     // also not taking damage
     let lastPoolContents = 0;
     let lastHpContents = { hitPoints: 0, maxHitPoints: 0 };
-    for(const label in labels) {
-      if(poolBySeconds[label] === undefined) {
+    for (const label in labels) {
+      if (poolBySeconds[label] === undefined) {
         poolBySeconds[label] = lastPoolContents;
       } else {
         lastPoolContents = poolBySeconds[label];
       }
 
-      if(hpBySeconds[label] === undefined) {
+      if (hpBySeconds[label] === undefined) {
         hpBySeconds[label] = lastHpContents;
       } else {
         lastHpContents = hpBySeconds[label];
       }
 
-      if(!!deaths.find(event => event.seconds === Number(label))) {
+      if (!!deaths.find(event => event.seconds === Number(label))) {
         lastPoolContents = 0;
         lastHpContents = { hitPoints: 0, maxHitPoints: lastHpContents.maxHitPoints };
       }
     }
 
     const purifiesBySeconds = Object.keys(poolBySeconds).map(sec => {
-      if(purifies.includes(Number(sec))) {
+      if (purifies.includes(Number(sec))) {
         return poolBySeconds[sec];
       } else {
         return undefined;
@@ -130,7 +130,7 @@ class StaggerPoolGraph extends Analyzer {
 
     const deathsBySeconds = Object.keys(hpBySeconds).map(sec => {
       const deathEvent = deaths.find(event => event.seconds === Number(sec));
-      if(!!deathEvent) {
+      if (!!deathEvent) {
         return { hp: hpBySeconds[sec].maxHitPoints, ...deathEvent };
       } else {
         return undefined;
@@ -144,7 +144,7 @@ class StaggerPoolGraph extends Analyzer {
     const STAGGER_LABEL = 'Stagger Pool Size';
     const chartData = {
       labels,
-      datasets: [ 
+      datasets: [
         {
           label: DEATH_LABEL,
           borderColor: '#ff2222',
@@ -189,7 +189,7 @@ class StaggerPoolGraph extends Analyzer {
     };
 
     function safeAbilityName(ability) {
-      if(ability === undefined || ability.name === undefined) {
+      if (ability === undefined || ability.name === undefined) {
         return 'an Unknown Ability';
       } else {
         return ability.name;
@@ -200,7 +200,7 @@ class StaggerPoolGraph extends Analyzer {
     function labelItem(tooltipItem, data) {
       const { index } = tooltipItem;
       const dataset = data.datasets[tooltipItem.datasetIndex];
-      switch(dataset.label) {
+      switch (dataset.label) {
         case DEATH_LABEL:
           return `Player died when hit by ${safeAbilityName(deathsBySeconds[index].ability)} at ${formatNumber(deathsBySeconds[index].hp)} HP.`;
         case PURIFY_LABEL:
@@ -246,7 +246,7 @@ class StaggerPoolGraph extends Analyzer {
                 labelString: 'Time',
                 ticks: {
                   fontColor: '#ccc',
-                  callback: function(x) {
+                  callback: function (x) {
                     const label = formatDuration(x, 1); // formatDuration got changed -- need precision=1 or it blows up, but that adds a .0 to it
                     return label.substring(0, label.length - 2);
                   },
@@ -271,10 +271,10 @@ class StaggerPoolGraph extends Analyzer {
       title: 'Stagger Pool',
       url: 'stagger-pool',
       render: () => (
-        <Tab title="Stagger Pool">
+        <Tab>
           {this.plot()}
-          <div style={{paddingLeft: "1em"}}>
-            Damage you take is placed into a <em>pool</em> by <SpellLink id={SPELLS.STAGGER.id} icon />. This damage is then removed by the damage-over-time component of <SpellLink id={SPELLS.STAGGER.id} icon /> or by <SpellLink id={SPELLS.PURIFYING_BREW.id} icon /> (or other sources of purification). This plot shows the amount of damage pooled over the course of the fight.
+          <div style={{ paddingLeft: '1em' }}>
+            Damage you take is placed into a <em>pool</em> by <SpellLink id={SPELLS.STAGGER.id} />. This damage is then removed by the damage-over-time component of <SpellLink id={SPELLS.STAGGER.id} /> or by <SpellLink id={SPELLS.PURIFYING_BREW.id} /> (or other sources of purification). This plot shows the amount of damage pooled over the course of the fight.
           </div>
         </Tab>
       ),

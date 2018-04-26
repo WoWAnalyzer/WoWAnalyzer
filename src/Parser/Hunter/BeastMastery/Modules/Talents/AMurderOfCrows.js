@@ -10,7 +10,6 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 import ItemDamageDone from 'Main/ItemDamageDone';
-import Wrapper from 'common/Wrapper';
 
 //The point at which you can use crows without Bestial Wrath because they'd overlap enough for it to still be considered a good cast - this is what the APL does.
 const ALLOW_EARLY_USE = 3000;
@@ -20,6 +19,11 @@ const BESTIAL_WRATH_REMAINING_USE_CROWS = 7000;
 
 //Duration of Bestial Wrath
 const BESTIAL_WRATH_DURATION = 15000;
+
+/**
+ * Summons a flock of crows to attack your target, dealing [(162% of Attack power) * 16] Physical damage over 15 sec. When a target dies
+ * while affected by this ability, its cooldown will reset.
+ */
 
 class AMurderOfCrows extends Analyzer {
 
@@ -113,13 +117,13 @@ class AMurderOfCrows extends Analyzer {
   }
   suggestions(when) {
     when(this.badCastThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Don't cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id}icon /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id}icon /> up (or ready to cast straight after the <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id}icon /> cast), and atleast 7 seconds remaining on the buff.</Wrapper>)
+      return suggest(<React.Fragment>Don't cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up (or ready to cast straight after the <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> cast), and atleast 7 seconds remaining on the buff.</React.Fragment>)
         .icon(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.icon)
         .actual(`You cast A Murder of Crows ${actual} times without Bestial Wrath up or Bestial Wrath ready to cast after`)
         .recommended(`${recommended} is recommended`);
     });
     when(this.shouldHaveSavedThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Don't cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> without atleast 7 seconds remaining on <SpellLink id={SPELLS.BESTIAL_WRATH.id} />.</Wrapper>)
+      return suggest(<React.Fragment>Don't cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> without atleast 7 seconds remaining on <SpellLink id={SPELLS.BESTIAL_WRATH.id} />.</React.Fragment>)
         .icon(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.icon)
         .actual(`You cast A Murder of Crows ${actual} times with less than 7 seconds remaining on Bestial Wrath`)
         .recommended(`${recommended} is recommended`);
@@ -137,7 +141,7 @@ class AMurderOfCrows extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} />}
         value={(
-          <Wrapper>
+          <React.Fragment>
             {this.goodCrowsCasts}{'  '}
             <SpellIcon
               id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id}
@@ -156,7 +160,7 @@ class AMurderOfCrows extends Analyzer {
                 filter: 'grayscale(100%)',
               }}
             />
-          </Wrapper>
+          </React.Fragment>
 
         )}
         label={`A Murder of Crows`}
@@ -170,9 +174,7 @@ class AMurderOfCrows extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id}>
-            <SpellIcon id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} noLink /> A Murder of Crows
-          </SpellLink>
+          <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.damage} />

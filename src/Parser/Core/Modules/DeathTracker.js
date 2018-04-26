@@ -12,71 +12,61 @@ class DeathTracker extends Analyzer {
     combatants: Combatants,
   };
 
+  deaths = [];
+  resurrections = [];
+
   lastDeathTimestamp = 0;
   lastResurrectionTimestamp = 0;
-  timeDead = 0;
-  castCount = 0;
+  _timeDead = 0;
+  _didCast = false;
   isAlive = true;
 
-  on_toPlayer_death(event) {
+  die(event) {
     this.lastDeathTimestamp = this.owner.currentTimestamp;
     debug && console.log("Player Died @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     this.isAlive = false;
+    this.deaths.push(event);
   }
-
-  on_toPlayer_resurrect(event) {
+  resurrect(event) {
     this.lastResurrectionTimestamp = this.owner.currentTimestamp;
-    this.timeDead += this.lastResurrectionTimestamp - this.lastDeathTimestamp;
+    this._timeDead += this.lastResurrectionTimestamp - this.lastDeathTimestamp;
     debug && console.log("Player was Resurrected @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     this.isAlive = true;
+    this.resurrections.push(event);
   }
 
+  on_toPlayer_death(event) {
+    this.die(event);
+  }
+  on_toPlayer_resurrect(event) {
+    this.resurrect(event);
+  }
   on_byPlayer_cast(event) {
-    this.castCount += 1;
+    this._didCast = true;
 
     if (!this.isAlive) {
-      this.lastResurrectionTimestamp = this.owner.currentTimestamp;
-      this.timeDead += this.lastResurrectionTimestamp - this.lastDeathTimestamp;
-      debug && console.log("Player was Resurrected @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-      this.isAlive = true;
+      this.resurrect(event);
     }
   }
-
   on_byPlayer_begincast(event) {
     if (!this.isAlive) {
-      this.lastResurrectionTimestamp = this.owner.currentTimestamp;
-      this.timeDead += this.lastResurrectionTimestamp - this.lastDeathTimestamp;
-      debug && console.log("Player was Resurrected @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-      this.isAlive = true;
+      this.resurrect(event);
     }
   }
-
   on_toPlayer_heal(event) {
     if (!this.isAlive) {
-      this.lastResurrectionTimestamp = this.owner.currentTimestamp;
-      this.timeDead += this.lastResurrectionTimestamp - this.lastDeathTimestamp;
-      debug && console.log("Player was Resurrected @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-      this.isAlive = true;
+      this.resurrect(event);
     }
   }
-
   on_toPlayer_damage(event) {
     if (!this.isAlive) {
-      this.lastResurrectionTimestamp = this.owner.currentTimestamp;
-      this.timeDead += this.lastResurrectionTimestamp - this.lastDeathTimestamp;
-      debug && console.log("Player was Resurrected @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-      this.isAlive = true;
+      this.resurrect(event);
     }
   }
 
   get totalTimeDead() {
-    return this.timeDead + (this.isAlive ? 0 : this.owner.currentTimestamp - this.lastDeathTimestamp);
+    return this._timeDead + (this.isAlive ? 0 : this.owner.currentTimestamp - this.lastDeathTimestamp);
   }
-
-  get timeDeadSeconds() {
-    return (this.totalTimeDead / 1000);
-  }
-
   get timeDeadPercent() {
     return this.totalTimeDead / this.owner.fightDuration;
   }
@@ -94,18 +84,22 @@ class DeathTracker extends Analyzer {
   suggestions(when) {
     const boss = this.owner.boss;
     if (!boss || !boss.fight.disableDeathSuggestion) {
-      when(this.totalTimeDead).isGreaterThan(0)
+      when(this.timeDeadPercent).isGreaterThan(0)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>You died during this fight and you were dead for {formatNumber(this.timeDeadSeconds)} seconds ({formatPercentage(this.timeDeadPercent)}% of the fight). Make sure you are paying attention to mechanics and dodging avoidable damage. Additionally, make sure you are using your defensive abilities to avoid damage and Health Potions, Healthstones, or self healing abilities to heal yourself when you are very low.</span>)
+          return suggest(
+            <React.Fragment>
+              You died during this fight and were dead for {formatPercentage(actual)}% of the fight duration ({formatNumber(this.totalTimeDead / 1000)} seconds). Make sure you are paying attention to mechanics and dodging avoidable damage. Additionally, make sure you are using your defensive abilities to avoid damage and Health Potions, Healthstones, or self healing abilities to heal yourself when you are very low.
+            </React.Fragment>
+          )
             .icon('ability_fiegndead')
-            .actual(`${formatNumber(this.timeDeadSeconds)} seconds dead`)
-            .recommended(`${formatNumber(recommended)} is recommended`)
+            .actual(`You were dead for ${formatPercentage(actual)}% of the fight`)
+            .recommended('0% is recommended')
             .major(this.deathSuggestionThresholds.isGreaterThan.major);
         });
     }
-    when(this.castCount).isLessThan(1)
+    when(this._didCast).isFalse()
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You did not cast a single spell this fight. You were either dead for the entire fight, or were AFK.</span>)
+        return suggest('You did not cast a single spell this fight. You were either dead for the entire fight, or were AFK.')
           .icon('ability_fiegndead')
           .major(this.deathSuggestionThresholds.isGreaterThan.major);
       });

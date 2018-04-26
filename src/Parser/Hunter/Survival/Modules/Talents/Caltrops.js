@@ -11,8 +11,11 @@ import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import { formatPercentage } from 'common/format';
 import StatisticBox from 'Main/StatisticBox';
-import Wrapper from 'common/Wrapper';
 
+/**
+ * Scatters Caltrops in an area for 15 sec. Enemies who step on Caltrops will take (45% of Attack power) Bleed damage every 1 sec, and
+ * have 70% reduced movement speed for 6 sec.
+ */
 class Caltrops extends Analyzer {
 
   static dependencies = {
@@ -43,7 +46,7 @@ class Caltrops extends Analyzer {
     }
     if (this.caltropsCasts === 0) {
       this.caltropsCasts++;
-      this.spellUsable.beginCooldown(SPELLS.CALTROPS_TALENT.id);
+      this.spellUsable.beginCooldown(SPELLS.CALTROPS_TALENT.id, this.owner.fight.start_time);
     }
     this.bonusDamage += event.amount + (event.absorbed || 0);
   }
@@ -66,7 +69,7 @@ class Caltrops extends Analyzer {
 
   suggestions(when) {
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>If you have chosen <SpellLink id={SPELLS.CALTROPS_TALENT.id} icon /> as a talent, you want to ensure that you have a high uptime of the DOT ticking on enemies.</Wrapper>)
+      return suggest(<React.Fragment>If you have chosen <SpellLink id={SPELLS.CALTROPS_TALENT.id} /> as a talent, you want to ensure that you have a high uptime of the DOT ticking on enemies.</React.Fragment>)
         .icon(SPELLS.CALTROPS_TALENT.icon)
         .actual(`${formatPercentage(this.uptimePercentage)}%`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
@@ -87,9 +90,7 @@ class Caltrops extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.CALTROPS_TALENT.id}>
-            <SpellIcon id={SPELLS.CALTROPS_TALENT.id} noLink /> Caltrops
-          </SpellLink>
+          <SpellLink id={SPELLS.CALTROPS_TALENT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.bonusDamage} />

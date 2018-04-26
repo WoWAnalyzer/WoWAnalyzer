@@ -11,7 +11,7 @@ class LowHealthHealing extends Analyzer {
       title: 'Low health healing',
       url: 'low-health-healing',
       render: () => (
-        <Tab title="Low health healing">
+        <Tab>
           <LowHealthHealingComponent parser={this.owner} />
         </Tab>
       ),

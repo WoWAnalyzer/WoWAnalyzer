@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -85,9 +84,9 @@ class Estel extends Analyzer {
     return {
       item: ITEMS.ESTEL_DEJAHNAS_INSPIRATION,
       result: (
-        <Wrapper>
+        <React.Fragment>
           {formatPercentage(avgHaste)} % average haste / {formatPercentage(uptimePercent)} % uptime
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

@@ -2,10 +2,13 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'Main/ItemDamageDone';
 
+/**
+ * A two-headed shot that hits your primary target and another nearby target, dealing 720% Nature damage to one and 720% Frost damage to
+ * the other.
+ */
 class ChimaeraShot extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -29,9 +32,7 @@ class ChimaeraShot extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.CHIMAERA_SHOT_TALENT.id}>
-            <SpellIcon id={SPELLS.CHIMAERA_SHOT_TALENT.id} noLink /> Chimaera Shot
-          </SpellLink>
+          <SpellLink id={SPELLS.CHIMAERA_SHOT_TALENT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.damage} />

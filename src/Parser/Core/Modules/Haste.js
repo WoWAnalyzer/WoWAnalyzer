@@ -35,6 +35,7 @@ class Haste extends Analyzer {
     [SPELLS.WARLOCK_DEMO_T20_4P_BUFF.id]: 0.1,
     [SPELLS.TRUESHOT.id]: 0.4, // MM Hunter main CD
     [SPELLS.ICY_VEINS.id]: 0.3,
+    [SPELLS.IN_FOR_THE_KILL_TALENT_BUFF.id]: 0.1,
     [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
     ...HIGH_TOLERANCE_HASTE_FNS,
     [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
@@ -93,7 +94,7 @@ class Haste extends Analyzer {
     this._setHaste(event, newHastePercentage);
 
     if (debug) {
-      const spellName = event.reason.ability ? event.reason.ability.name : 'unknown';
+      const spellName = event.trigger.ability ? event.trigger.ability.name : 'unknown';
       console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (haste RATING changed by ${event.delta.haste} from ${spellName})`);
     }
   }
@@ -201,16 +202,14 @@ class Haste extends Analyzer {
   }
   _triggerChangeHaste(event, oldHaste, newHaste) {
     const fabricatedEvent = {
-      timestamp: event ? event.timestamp : this.owner.currentTimestamp,
       type: 'changehaste',
       sourceID: event ? event.sourceID : this.owner.playerId,
       targetID: this.owner.playerId,
-      reason: event,
       oldHaste,
       newHaste,
     };
     debug && console.log('changehaste', fabricatedEvent);
-    this.owner.triggerEvent('changehaste', fabricatedEvent);
+    this.owner.fabricateEvent(fabricatedEvent, event);
   }
 
   static addHaste(baseHaste, hasteGain) {

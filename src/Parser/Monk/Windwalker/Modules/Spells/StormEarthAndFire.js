@@ -7,7 +7,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import Wrapper from 'common/Wrapper';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 
@@ -88,9 +87,7 @@ class StormEarthAndFire extends Analyzer{
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.RISING_SUN_KICK.id}>
-            <SpellIcon id={SPELLS.RISING_SUN_KICK.id} noLink /> Rising Sun Kick
-          </SpellLink>
+          <SpellLink id={SPELLS.RISING_SUN_KICK.id} />
         </div>
         <div className="flex-sub text-right">
           {this.risingSunKicks}/{this.castCount * (2 + this.drinkingHornCover) + 1}
@@ -103,9 +100,7 @@ class StormEarthAndFire extends Analyzer{
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id}>
-            <SpellIcon id={SPELLS.FISTS_OF_FURY_CAST.id} noLink /> Fist of Fury
-          </SpellLink>
+          <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} />
         </div>
         <div className="flex-sub text-right">
           {this.fistsOfFuries}/{this.castCount + this.drinkingHornCover}
@@ -119,9 +114,7 @@ class StormEarthAndFire extends Analyzer{
       return(
       <div className= "flex" >
           <div className="flex-main">
-            <SpellLink id={SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id}>
-              <SpellIcon id={SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id} noLink /> Whirling Dragon Punch
-          </SpellLink>
+            <SpellLink id={SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id} />
           </div>
           <div className="flex-sub text-right">
             {this.whirlingDragonPunches}/{this.castCount}
@@ -134,9 +127,7 @@ class StormEarthAndFire extends Analyzer{
       return (
         <div className="flex">
           <div className="flex-main">
-            <SpellLink id={SPELLS.STRIKE_OF_THE_WINDLORD.id}>
-              <SpellIcon id={SPELLS.STRIKE_OF_THE_WINDLORD.id} noLink /> Strike of the Windlord
-          </SpellLink>
+            <SpellLink id={SPELLS.STRIKE_OF_THE_WINDLORD.id} />
           </div>
           <div className="flex-sub text-right">
             {this.strikeOfTheWindlords}/{this.castCount}
@@ -150,9 +141,9 @@ class StormEarthAndFire extends Analyzer{
     return (
       <StatisticsListBox
         title={
-          <Wrapper>
+          <React.Fragment>
             <SpellIcon id={this.ability.id} noLink /> {this.ability.name}
-          </Wrapper>
+          </React.Fragment>
         }
         tooltip={`This shows the possible amount of casts during ${this.ability.name}`}
         style={{ minHeight: 186 }}
@@ -164,7 +155,7 @@ class StormEarthAndFire extends Analyzer{
       </StatisticsListBox>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(14);
+  statisticOrder = STATISTIC_ORDER.CORE(11);
 }
 
 export default StormEarthAndFire;

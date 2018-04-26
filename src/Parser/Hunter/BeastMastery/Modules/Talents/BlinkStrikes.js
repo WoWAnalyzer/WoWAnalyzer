@@ -2,7 +2,6 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import CorePets from 'Parser/Core/Modules/Pets';
@@ -21,6 +20,11 @@ const BLINK_STRIKES_NOT_AFFECTED_PETS = [
   PETS.HATI_6.id,
   PETS.HATI_7.id,
 ];
+
+/**
+ * Your pet's Basic Attack deals 100% increased damage, can now be used from 30 yards away, and will instantly teleport your pet behind its
+ * target. Your pet can teleport only once per 20 sec.
+ */
 
 class BlinkStrikes extends Analyzer {
 
@@ -70,9 +74,7 @@ class BlinkStrikes extends Analyzer {
       return (
         <div className="flex">
           <div className="flex-main">
-            <SpellLink id={SPELLS.BLINK_STRIKES_TALENT.id}>
-              <SpellIcon id={SPELLS.BLINK_STRIKES_TALENT.id} noLink /> Blink Strikes
-            </SpellLink>
+            <SpellLink id={SPELLS.BLINK_STRIKES_TALENT.id} />
           </div>
           <div className="flex-sub text-right">
             <ItemDamageDone amount={this.damage} />

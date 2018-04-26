@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import CoreMurderousIntent from 'Parser/Core/Modules//NetherlightCrucibleTraits/MurderousIntent';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
@@ -27,9 +26,7 @@ class MurderousIntent extends CoreMurderousIntent {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.MURDEROUS_INTENT_BUFF.id}>
-            <SpellIcon id={SPELLS.MURDEROUS_INTENT_BUFF.id} noLink /> Murderous Intent
-          </SpellLink>
+          <SpellLink id={SPELLS.MURDEROUS_INTENT_BUFF.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemHealingDone amount={healing} />

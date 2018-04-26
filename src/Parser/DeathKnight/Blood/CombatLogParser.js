@@ -11,12 +11,16 @@ import GlobalCooldown from './Modules/Core/GlobalCooldown';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import BloodPlagueUptime from './Modules/Features/BloodPlagueUptime';
-import BoneShieldUptime from './Modules/Features/BoneShieldUptime';
 import CrimsonScourge from './Modules/Features/CrimsonScourge';
 import BlooddrinkerTicks from './Modules/Features/BlooddrinkerTicks';
 import UnendingThirstTracker from './Modules/Features/UnendingThirstTracker';
 import Checklist from './Modules/Features/Checklist';
-import DeathStrikeTimingGraph from './Modules/Features/DeathStrikeTimingGraph';
+import MarrowrendUsage from './Modules/Features/MarrowrendUsage';
+import Souldrinker from './Modules/Features/Souldrinker';
+import BoneShield from './Modules/Features/BoneShield';
+import DancingRuneWeapon from './Modules/Features/DancingRuneWeapon';
+import InitialMarrowrendCast from './Modules/Features/InitialMarrowrendCast';
+import DeathStrikeTiming from './Modules/Features/DeathStrikeTiming';
 
 // Resources
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
@@ -27,6 +31,8 @@ import RuneDetails from '../Shared/RuneDetails';
 // Talents
 import Ossuary from './Modules/Talents/Ossuary';
 import RedThirst from './Modules/Talents/RedThirst';
+import BoneStorm from './Modules/Talents/Bonestorm';
+import MarkOfBloodUptime from './Modules/Talents/MarkOfBloodUptime';
 
 // Items
 import T20_2pc from './Modules/Items/T20_2pc';
@@ -36,6 +42,13 @@ import T21_4pc from './Modules/Items/T21_4pc';
 import SkullflowersHaemostasis from './Modules/Items/SkullflowersHaemostasis';
 import ShacklesofBryndaor from './Modules/Items/ShacklesofBryndaor';
 import SoulflayersCorruption from './Modules/Items/SoulflayersCorruption';
+
+//Traits
+import RelicTraits from './Modules/Traits/RelicTraits';
+import Bonebreaker from './Modules/Traits/Bonebreaker';
+import AllConsumingRot from './Modules/Traits/AllConsumingRot';
+import Veinrender from './Modules/Traits/Veinrender';
+import Coagulopathy from './Modules/Traits/Coagulopathy';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -53,13 +66,16 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    boneShieldUptime: BoneShieldUptime,
     crimsonScourge: CrimsonScourge,
+    dancingRuneWeapon: DancingRuneWeapon,
+    initialMarrowrendCast: InitialMarrowrendCast,
     blooddrinkerTicks: BlooddrinkerTicks,
     unendingThirstTracker:UnendingThirstTracker,
     checklist: Checklist,
-    deathStrikeTimingGraph: DeathStrikeTimingGraph,
-
+    deathStrikeTiming: DeathStrikeTiming,
+    marrowrendUsage: MarrowrendUsage,
+    souldrinker: Souldrinker,
+    boneShield: BoneShield,
 
     // DOT
     bloodplagueUptime: BloodPlagueUptime,
@@ -73,9 +89,15 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     ossuary: Ossuary,
     redThirst: RedThirst,
+    boneStorm: BoneStorm,
+    markOfBloodUptime: MarkOfBloodUptime,
 
     // Traits
-
+    RelicTraits: RelicTraits,
+    bonebreaker: Bonebreaker,
+    allConsumingRot: AllConsumingRot,
+    veinrender: Veinrender,
+    coagulopathy: Coagulopathy,
 
     // Items:
     t20_2pc: T20_2pc,
@@ -84,7 +106,7 @@ class CombatLogParser extends CoreCombatLogParser {
     t21_4pc: T21_4pc,
     skullflowersHaemostasis: SkullflowersHaemostasis,
     shacklesofBryndaor:ShacklesofBryndaor,
-    soulflayersCorruption:SoulflayersCorruption,    
+    soulflayersCorruption:SoulflayersCorruption,
   };
 }
 

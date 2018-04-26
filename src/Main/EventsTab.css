@@ -1,27 +1,31 @@
 .events-tab {
   width: 100%;
+  font-size: 13px;
+  font-weight: 400;
 }
-.events-tab tr:nth-child(2n) {
-  background: rgba(255, 255, 255, 0.1);
+.events-tab .ReactVirtualized__Table__row:nth-child(2n) {
+  background: rgba(255, 255, 255, 0.03);
 }
-.events-tab tr:hover {
-  background: rgba(255, 255, 255, 0.2);
+.events-tab .ReactVirtualized__Table__row:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
-.events-tab tr.modified {
+.events-tab .ReactVirtualized__Table__row.modified, .modified-legend {
   background: rgba(255, 118, 0, 0.3);
 }
-.events-tab tr.modified:hover {
+.events-tab .ReactVirtualized__Table__row.modified:hover {
   background: rgba(255, 118, 0, 0.4);
 }
-.events-tab tr td {
-  border: 1px solid #000;
-  padding: 3px 5px;
+.events-tab .ReactVirtualized__Table__row.fabricated, .fabricated-legend {
+  background: rgba(0, 255, 67, 0.15);
+}
+.events-tab .ReactVirtualized__Table__row:nth-child(2n).fabricated {
+  background: rgba(0, 255, 67, 0.06);
+}
+.events-tab .ReactVirtualized__Table__row.fabricated:hover {
+  background: rgba(0, 255, 67, 0.25);
 }
 .events-tab .exists {
   color: green;
-}
-.events-tab .cast {
-  color: brown;
 }
 .events-tab .damage {
   color: red;
@@ -32,12 +36,33 @@
 .events-tab .absorbed {
   color: orange;
 }
+.events-tab .applybuff, .events-tab .removebuff, .events-tab .refreshbuff, .events-tab .applybuffstack, .events-tab .removebuffstack {
+  color: lightskyblue;
+}
+.events-tab .applydebuff, .events-tab .removedebuff, .events-tab .refreshdebuff, .events-tab .applydebuffstack, .events-tab .removedebuffstack {
+  color: #ffe200;
+}
 .events-tab .overheal, .events-tab .NPC, .events-tab .combatantinfo {
   color: gray;
 }
-
+.events-tab .effect {
+  text-align: right;
+}
+.events-tab .crit {
+  font-weight: bold;
+  font-style: italic;
+  font-size: 1.1em;
+}
+.events-tab .crit:before, .events-tab .crit:after {
+  content: '*';
+}
 .events-tab a img {
   height: 1.6em;
   border-radius: 3px;
   border: 1px solid #000;
 }
+.events-tab .config label {
+  font-weight: 400;
+  min-width: 150px;
+}
+

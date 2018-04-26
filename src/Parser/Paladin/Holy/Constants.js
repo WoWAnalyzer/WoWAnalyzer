@@ -11,7 +11,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.HOLY_PRISM_HEAL.id,
   SPELLS.AURA_OF_MERCY_HEAL.id,
   // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
-  SPELLS.BEACON_OF_LIGHT_CAST_AND_HEAL.id,
+  SPELLS.BEACON_OF_LIGHT_HEAL.id,
   SPELLS.LEECH.id,
   // SPELLS.AURA_OF_SACRIFICE_HEAL.id, // while AoS sorta is included, it's based on effective healing and any overhealing from the original spell would have to be reduced to get an accurate result. Not including it doesn't have a big impact.
 
@@ -46,11 +46,12 @@ export const BEACON_TRANSFERING_ABILITIES = {
   [SPELLS.BESTOW_FAITH_TALENT.id]: 1,
   // While this only beacon transfers with Maraad's, adding it by default shouldn't interfere with anything
   [SPELLS.LIGHT_OF_THE_MARTYR.id]: 1,
+  [SPELLS.AVENGING_CRUSADER_HEAL.id]: 1,
 };
 
 export const BEACON_TYPES = {
   BEACON_OF_FATH: SPELLS.BEACON_OF_FAITH_TALENT.id,
-  BEACON_OF_THE_LIGHTBRINGER: SPELLS.BEACON_OF_LIGHT_BUFF.id,
+  DIVINE_PURPOSE_TALENT_HOLY: SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id,
   BEACON_OF_VIRTUE: SPELLS.BEACON_OF_VIRTUE_TALENT.id,
 };
 

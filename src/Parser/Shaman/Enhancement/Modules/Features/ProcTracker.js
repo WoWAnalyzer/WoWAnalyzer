@@ -22,7 +22,7 @@ class ProcTracker extends CoreCooldownThroughputTracker {
       title: 'Procs',
       url: 'procs',
       render: () => (
-        <Tab title="Cooldowns">
+        <Tab>
           <CooldownOverview
             fightStart={this.owner.fight.start_time}
             fightEnd={this.owner.fight.end_time}

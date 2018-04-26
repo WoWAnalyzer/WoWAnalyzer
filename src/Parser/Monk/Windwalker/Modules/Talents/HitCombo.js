@@ -66,7 +66,7 @@ class HitCombo extends Analyzer {
       />
       );
     }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(61);
+  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default HitCombo;

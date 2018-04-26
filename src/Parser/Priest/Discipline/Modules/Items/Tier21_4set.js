@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import Analyzer from 'Parser/Core/Analyzer';
@@ -86,12 +85,12 @@ class Tier21_4set extends Analyzer {
     return {
       id: `spell-${SPELLS.DISC_PRIEST_T21_4SET_BONUS_PASSIVE.id}`,
       icon: <SpellIcon id={SPELLS.DISC_PRIEST_T21_4SET_BONUS_PASSIVE.id} />,
-      title: <SpellLink id={SPELLS.DISC_PRIEST_T21_4SET_BONUS_PASSIVE.id} />,
+      title: <SpellLink id={SPELLS.DISC_PRIEST_T21_4SET_BONUS_PASSIVE.id} icon={false} />,
       result: (
-        <Wrapper>
+        <React.Fragment>
           <ItemDamageDone amount={damage} /><br />
           <ItemHealingDone amount={healing} />
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

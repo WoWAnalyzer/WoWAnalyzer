@@ -5,7 +5,6 @@ import ITEMS from 'common/ITEMS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
-import Wrapper from 'common/Wrapper';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
@@ -41,10 +40,10 @@ class HeartOfTheVoid extends Analyzer {
     return {
       item: ITEMS.HEART_OF_THE_VOID,
       result: (
-        <Wrapper>
+        <React.Fragment>
           <ItemDamageDone amount={this.bonusDamage} /><br />
           <ItemHealingDone amount={this.bonusHealing} />
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

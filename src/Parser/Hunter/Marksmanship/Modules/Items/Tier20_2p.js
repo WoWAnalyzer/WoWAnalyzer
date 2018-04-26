@@ -28,7 +28,7 @@ class Tier20_2p extends Analyzer {
   }
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    const isCrit = event.hitType === HIT_TYPES.CRIT;
+    const isCrit = event.hitType === HIT_TYPES.CRIT || event.hitType === HIT_TYPES.BLOCKED_CRIT;
     if (this.combatants.selected.hasBuff(SPELLS.HUNTER_MM_T20_2P_BONUS_BUFF.id, event.timestamp)) {
       if (isCrit) {
         this.bonusDmg += getDamageBonus(event, T20_2P_CRIT_DMG_BONUS);
@@ -45,10 +45,10 @@ class Tier20_2p extends Analyzer {
     return {
       id: `spell-${SPELLS.HUNTER_MM_T20_2P_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.HUNTER_MM_T20_2P_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.HUNTER_MM_T20_2P_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.HUNTER_MM_T20_2P_BONUS_BUFF.id} icon={false} />,
       result: (
         <dfn data-tip={`Your utilization of tier 20 2 piece: <ul> <li> Buffed aimed shots: ${this.buffedAimed}.</li> <li> Total aimed shots:  ${this.totalAimed}.</li></ul> `}>
-          Buffed {<SpellLink id={SPELLS.AIMED_SHOT.id} icon />}s: {formatPercentage(this.buffedAimed / this.totalAimed)}%<br />
+          Buffed {<SpellLink id={SPELLS.AIMED_SHOT.id} />}s: {formatPercentage(this.buffedAimed / this.totalAimed)}%<br />
           <ItemDamageDone amount={this.bonusDmg} />
         </dfn>
       ),

@@ -1,66 +1,65 @@
 import React from 'react';
-import Wrapper from 'common/Wrapper';
+
+import { Hewhosmites, Mamtooth } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import SpellLink from 'common/SpellLink';
-import { Hewhosmites, Mamtooth } from 'MAINTAINERS';
-
 
 export default [
 	{
 		date: new Date('2018-03-01'),
-		changes: <Wrapper>Added <SpellLink id ={SPELLS.BLIND_FURY_TALENT.id} icon/> to the fury tracker.</Wrapper>,
+		changes: <React.Fragment>Added <SpellLink id ={SPELLS.BLIND_FURY_TALENT.id} icon/> to the fury tracker.</React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{
 		date: new Date('2018-02-27'),
-		changes: <Wrapper>Added <ItemLink id={ITEMS.CHAOS_THEORY.id} icon/></Wrapper>,
+		changes: <React.Fragment>Added <ItemLink id={ITEMS.CHAOS_THEORY.id} icon/></React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{
 		date: new Date('2018-02-20'),
-		changes: <Wrapper>Added <ItemLink id={ITEMS.MOARG_BIONIC_STABILIZERS.id} icon/></Wrapper>,
+		changes: <React.Fragment>Added <ItemLink id={ITEMS.MOARG_BIONIC_STABILIZERS.id} icon/></React.Fragment>,
     contributors: [Hewhosmites],
   },
   {
   	date: new Date('2018-02-20'),
-		changes: <Wrapper>Added <ItemLink id={ITEMS.SOUL_OF_THE_SLAYER.id} icon/></Wrapper>,
+		changes: <React.Fragment>Added <ItemLink id={ITEMS.SOUL_OF_THE_SLAYER.id} icon/></React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{
 		date: new Date('2018-02-19'),
-		changes: <Wrapper>Added <ItemLink id={ITEMS.ANGER_OF_THE_HALF_GIANTS.id} icon/></Wrapper>,
+		changes: <React.Fragment>Added <ItemLink id={ITEMS.ANGER_OF_THE_HALF_GIANTS.id} icon/></React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{
 		date: new Date('2018-01-27'),
-		changes: <Wrapper>Added in <SpellLink id={SPELLS.HAVOC_T21_4PC_BONUS.id} icon/></Wrapper>,
+		changes: <React.Fragment>Added in <SpellLink id={SPELLS.HAVOC_T21_4PC_BONUS.id} icon/></React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{
 		date: new Date('2018-01-27'),
-		changes: <Wrapper>Added cooldown reduction for <SpellLink id={SPELLS.EYE_BEAM.id} icon/></Wrapper>,
+		changes: <React.Fragment>Added cooldown reduction for <SpellLink id={SPELLS.EYE_BEAM.id} icon/></React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{
 		date: new Date('2018-01-27'),
-		changes: <Wrapper>Added a channeled bar to <SpellLink id={SPELLS.EYE_BEAM.id} icon/> in the timeline</Wrapper>,
+		changes: <React.Fragment>Added a channeled bar to <SpellLink id={SPELLS.EYE_BEAM.id} icon/> in the timeline</React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{
 		date: new Date('2018-01-25'),
-		changes: <Wrapper>Added in <SpellLink id={SPELLS.HAVOC_T21_2PC_BONUS.id} icon/></Wrapper>,
+		changes: <React.Fragment>Added in <SpellLink id={SPELLS.HAVOC_T21_2PC_BONUS.id} icon/></React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{
 		date: new Date('2018-01-24'),
-		changes: <Wrapper>Added in <ItemLink id={ITEMS.RADDONS_CASCADING_EYES.id} icon/></Wrapper>,
+		changes: <React.Fragment>Added in <ItemLink id={ITEMS.RADDONS_CASCADING_EYES.id} icon/></React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{	
 		date: new Date('2018-01-22'),
-		changes: <Wrapper>Added in <ItemLink id={ITEMS.DELUSIONS_OF_GRANDEUR.id} icon/></Wrapper>,
+		changes: <React.Fragment>Added in <ItemLink id={ITEMS.DELUSIONS_OF_GRANDEUR.id} icon/></React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{
@@ -105,7 +104,7 @@ export default [
 	},
 	{
 		date: new Date('2017-09-06'),
-		changes: <Wrapper>Added <span class="DemonHunter">Havoc Demon Hunter</span> support</Wrapper>,
+		changes: <React.Fragment>Added <span class="DemonHunter">Havoc Demon Hunter</span> support</React.Fragment>,
 		contributors: [Mamtooth],
 	},
 ];

@@ -11,7 +11,11 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from "common/format";
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Wrapper from 'common/Wrapper';
+
+/**
+ * Vulnerable
+ * Damage taken from Aimed Shot and Piercing Shot increased by 30% for 7 sec.
+ */
 
 class AimedInVulnerableTracker extends Analyzer {
   static dependencies = {
@@ -78,13 +82,13 @@ class AimedInVulnerableTracker extends Analyzer {
   }
   suggestions(when) {
     when(this.focusDumpThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper> You cast {this.focusDumpAimed} <SpellLink id={SPELLS.AIMED_SHOT.id} icon />s to dump focus. This is more than what one would normally attribute to bad luck, and can indicate that you aren't utilizing <SpellLink id={SPELLS.MARKED_SHOT.id} icon /> or <SpellLink id={SPELLS.WINDBURST.id} icon /> properly to generate <SpellLink id={SPELLS.VULNERABLE.id} icon /> on your target. </Wrapper>)
+      return suggest(<React.Fragment> You cast {this.focusDumpAimed} <SpellLink id={SPELLS.AIMED_SHOT.id} />s to dump focus. This is more than what one would normally attribute to bad luck, and can indicate that you aren't utilizing <SpellLink id={SPELLS.MARKED_SHOT.id} /> or <SpellLink id={SPELLS.WINDBURST.id} /> properly to generate <SpellLink id={SPELLS.VULNERABLE.id} /> on your target. </React.Fragment>)
         .icon(SPELLS.AIMED_SHOT.icon)
         .actual(`${formatPercentage(actual)}% of total Aimed Shots were outside Vulnerable to dump focus`)
-        .recommended(`<${formatPercentage(recommended)}% focus dump no Aimed Shots is recommended, with 0% being the ideal`);
+        .recommended(`<${formatPercentage(recommended)}% focus dump Aimed Shots is recommended, with 0% being the ideal`);
     });
     when(this.nonVulnerableAimedShotThreshold).addSuggestion((suggest, actual) => {
-      return suggest(<Wrapper> You cast {this.outsideVulnerabilityAimed} <SpellLink id={SPELLS.AIMED_SHOT.id} icon />s outside <SpellLink id={SPELLS.VULNERABLE.id} icon /> and without high enough focus to warrant focus dumping.<br /> <b>Only cast <SpellLink id={SPELLS.AIMED_SHOT.id} icon /> outside of <SpellLink id={SPELLS.VULNERABLE.id} icon /> when you're at 95 focus or more, and you don't have <SpellLink id={SPELLS.MARKED_SHOT.id} icon /> or <SpellLink id={SPELLS.WINDBURST.id} icon /> ready. </b> <br /> <b>Note:</b> <SpellLink id={SPELLS.VULNERABLE.id} icon /> damage is calculated <u><b>when the cast finishes</b></u>, so <SpellLink id={SPELLS.AIMED_SHOT.id} icon /> does not have to hit inside the window for it to register properly - use this knowledge to your advantage to squeeze more <SpellLink id={SPELLS.AIMED_SHOT.id} icon />s inside the <SpellLink id={SPELLS.VULNERABLE.id} icon /> window. </Wrapper>)
+      return suggest(<React.Fragment> You cast {this.outsideVulnerabilityAimed} <SpellLink id={SPELLS.AIMED_SHOT.id} />s outside <SpellLink id={SPELLS.VULNERABLE.id} /> and without high enough focus to warrant focus dumping.<br /> <b>Only cast <SpellLink id={SPELLS.AIMED_SHOT.id} /> outside of <SpellLink id={SPELLS.VULNERABLE.id} /> when you're at 95 focus or more, and you don't have <SpellLink id={SPELLS.MARKED_SHOT.id} /> or <SpellLink id={SPELLS.WINDBURST.id} /> ready. </b> <br /> <b>Note:</b> <SpellLink id={SPELLS.VULNERABLE.id} /> damage is calculated <u><b>when the cast finishes</b></u>, so <SpellLink id={SPELLS.AIMED_SHOT.id} /> does not have to hit inside the window for it to register properly - use this knowledge to your advantage to squeeze more <SpellLink id={SPELLS.AIMED_SHOT.id} />s inside the <SpellLink id={SPELLS.VULNERABLE.id} /> window. </React.Fragment>)
         .icon(SPELLS.AIMED_SHOT.icon)
         .actual(`${formatPercentage(actual)}% of total Aimed Shots were outside Vulnerable without a need to dump focus`)
         .recommended(`No Aimed Shots should be cast outside Vulnerable, unless you're close to focus capping`);

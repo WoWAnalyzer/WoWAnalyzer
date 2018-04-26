@@ -50,7 +50,7 @@ class T20_4Set extends Analyzer {
     return {
       id: `spell-${SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.RESTO_DRUID_T20_4SET_BONUS_BUFF.id} icon={false} />,
       result: (
         <dfn data-tip={`Blossoming Efflorescence uptime: <b>${formatPercentage(uptime)}%</b>`}>
           <ItemHealingDone amount={this.healing} />

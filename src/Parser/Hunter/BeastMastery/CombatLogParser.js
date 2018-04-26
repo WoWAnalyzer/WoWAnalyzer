@@ -1,5 +1,8 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
+import GlobalCooldown from './Modules/Core/GlobalCooldown';
+import SpellUsable from '../Shared/Modules/Core/SpellUsable';
+
 //Features
 import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
@@ -31,6 +34,7 @@ import GainedBestialWraths from "./Modules/Spells/BestialWrath/GainedBestialWrat
 import DireBeastUptime from "./Modules/Spells/DireBeast/DireBeastUptime";
 import BeastCleave from './Modules/Spells/BeastCleave';
 import AspectOfTheWild from './Modules/Spells/AspectOfTheWild';
+
 //Talents
 import KillerCobra from "./Modules/Talents/KillerCobra";
 import AMurderOfCrows from "./Modules/Talents/AMurderOfCrows";
@@ -51,6 +55,7 @@ import TitansThunder from "./Modules/Traits/TitansThunder";
 import CobraCommander from './Modules/Traits/CobraCommander';
 import SurgeOfTheStormgod from './Modules/Traits/SurgeOfTheStormgod';
 import Thunderslash from './Modules/Traits/Thunderslash';
+
 //Traits and Talents list
 import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 
@@ -64,6 +69,8 @@ import FocusTab from '../Shared/Modules/Features/FocusChart/FocusTab';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     damageDone: [DamageDone, { showStatistic: true }],
+    globalCooldown: GlobalCooldown,
+    spellUsable: SpellUsable,
 
     //Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -127,7 +134,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Checklist
     checklist: Checklist,
-
   };
 }
 

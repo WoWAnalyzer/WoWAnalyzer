@@ -144,17 +144,15 @@ class Entities extends Analyzer {
    * This event is also fired for `removebuff` where `oldStacks` will be either the old stacks (if there were multiple) or 1 and `newStacks` will be 0. NOTE: This event is usually fired before the `removebuff` event!
    */
   _triggerChangeBuffStack(buff, timestamp, oldStacks, newStacks) {
-    const type = buff.isDebuff ? 'changedebuffstack' : 'changebuffstack';
-
-    this.owner.triggerEvent(type, {
+    this.owner.fabricateEvent({
       ...buff,
+      type: buff.isDebuff ? 'changedebuffstack' : 'changebuffstack',
       timestamp,
-      type,
       oldStacks,
       newStacks,
       stacksGained: newStacks - oldStacks,
       stack: undefined,
-    });
+    }, buff);
   }
 
   // Surely this can be done with a couple less loops???
@@ -164,9 +162,7 @@ class Entities extends Analyzer {
     const entities = this.getEntities();
     Object.values(entities)
       .forEach(enemy => {
-        enemy.buffs
-          .filter(buff => buff.ability.guid === spellId)
-          .filter(buff => sourceID === null || buff.sourceID === sourceID)
+        enemy.getBuffHistory(spellId, sourceID)
           .forEach(buff => {
             events.push({
               timestamp: buff.start,

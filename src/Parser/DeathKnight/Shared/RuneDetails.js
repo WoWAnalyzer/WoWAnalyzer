@@ -85,7 +85,7 @@ class RuneDetails extends Analyzer {
       title: 'Rune usage',
       url: 'rune-usage',
       render: () => (
-        <Tab title="Rune usage breakdown">
+        <Tab>
           {this.render()}
         </Tab>
       ),

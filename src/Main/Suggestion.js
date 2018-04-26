@@ -6,16 +6,15 @@ import UpArrow from 'Icons/UpArrow';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import Icon from 'common/Icon';
-import Wrapper from 'common/Wrapper';
 
 function getIssueImportance(importance) {
   switch (importance) {
     case ISSUE_IMPORTANCE.MAJOR:
-      return <Wrapper>Major <UpArrow /></Wrapper>;
+      return <React.Fragment>Major <UpArrow /></React.Fragment>;
     case ISSUE_IMPORTANCE.REGULAR:
       return 'Average';
     case ISSUE_IMPORTANCE.MINOR:
-      return <Wrapper>Minor <UpArrow style={{ transform: 'rotate(180deg) translateZ(0)' }} /></Wrapper>;
+      return <React.Fragment>Minor <UpArrow style={{ transform: 'rotate(180deg) translateZ(0)' }} /></React.Fragment>;
     default:
       return '';
   }
@@ -48,7 +47,7 @@ class Suggestion extends React.PureComponent {
     const { icon, issue, stat, importance, details } = this.props;
 
     return (
-      <Wrapper>
+      <React.Fragment>
         <li className={`item ${importance || ''} ${details ? 'clickable' : ''}`} onClick={details && this.handleClick}>
           <div className="icon">
             <Icon icon={icon} alt="Icon" />
@@ -71,7 +70,7 @@ class Suggestion extends React.PureComponent {
             {details()}
           </li>
         )}
-      </Wrapper>
+      </React.Fragment>
     );
   }
 }

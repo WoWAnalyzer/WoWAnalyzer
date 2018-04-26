@@ -3,7 +3,6 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Tab from 'Main/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Wrapper from 'common/Wrapper';
 import { formatPercentage } from 'common/format';
 import ResourceBreakdown from './ComboPointBreakdown';
 
@@ -70,7 +69,7 @@ class ComboPointDetails extends Analyzer {
 
     when(maxComboPointPercent).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>You are casting too many finishers with less that 5 combo points. Try to make sure that you are generating 5 combo points before casting a finisher unless it is an emergency.</Wrapper>)
+        return suggest(<React.Fragment>You are casting too many finishers with less that 5 combo points. Try to make sure that you are generating 5 combo points before casting a finisher unless it is an emergency.</React.Fragment>)
           .icon('creatureportrait_bubble')
           .actual(`${formatPercentage(actual)}% of finishers were cast with 5 combo points`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
@@ -83,7 +82,7 @@ class ComboPointDetails extends Analyzer {
       title: 'Combo Point usage',
       url: 'combo-points',
       render: () => (
-        <Tab title="Combo Point usage breakdown">
+        <Tab>
           <ResourceBreakdown
             tracker={this.comboPointTracker}
             showSpenders={true}

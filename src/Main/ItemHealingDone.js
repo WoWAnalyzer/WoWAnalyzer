@@ -1,31 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Wrapper from 'common/Wrapper';
 import connectParser from 'common/connectParser';
 
 class ItemHealingDone extends React.PureComponent {
   static propTypes = {
     amount: PropTypes.number.isRequired,
-    approximate: PropTypes.bool,
+    approximate: PropTypes.bool,  
+    greaterThan: PropTypes.bool,
   };
   static contextTypes = {
     parser: PropTypes.object.isRequired,
   };
 
   render() {
-    const { amount, approximate } = this.props;
+    const { amount, approximate, greaterThan } = this.props;
     const { parser } = this.context;
 
     return (
-      <Wrapper>
+      <React.Fragment>
         <img
           src="/img/healing.png"
           alt="Healing"
           className="icon"
         />{' '}
-        {approximate && '≈'}{parser.formatItemHealingDone(amount)}
-      </Wrapper>
+        {approximate && '≈'}
+        {greaterThan && '>'}{parser.formatItemHealingDone(amount)}
+      </React.Fragment>
     );
   }
 }

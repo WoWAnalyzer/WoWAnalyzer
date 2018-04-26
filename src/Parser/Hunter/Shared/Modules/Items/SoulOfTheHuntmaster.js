@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import SPECS from 'common/SPECS';
-import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
@@ -22,6 +21,11 @@ class SoulOfTheHuntmaster extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
+
+  hasPickedOtherTalent = false;
+  talentGained = 0;
+  option1 = 0;
+  option2 = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasFinger(ITEMS.SOUL_OF_THE_HUNTMASTER.id);
@@ -46,22 +50,32 @@ class SoulOfTheHuntmaster extends Analyzer {
         this.option2 = SPELLS.DRAGONSFIRE_GRENADE_TALENT.id;
         break;
       default:
-        debug && console.log(' NO SPEC DETECTED');
+        debug && console.log('NO SPEC DETECTED');
         break;
     }
-    this.hasPickedOtherTalent = this.combatants.selected.hasTalent(this.option1) || this.combatants.selected.hasTalent(this.option2);
+    if (this.combatants.selected.hasTalent(this.option1) || this.combatants.selected.hasTalent(this.option2)) {
+      this.hasPickedOtherTalent = true;
+    }
   }
 
   item() {
     return {
       item: ITEMS.SOUL_OF_THE_HUNTMASTER,
-      result: <Wrapper>This gave you <SpellLink id={this.talentGained} icon />.</Wrapper>,
+      result: <React.Fragment>This gave you <SpellLink id={this.talentGained} />.</React.Fragment>,
+    };
+  }
+
+  get suggestionThreshold() {
+    return {
+      actual: this.hasPickedOtherTalent,
+      isEqual: false,
+      style: 'boolean',
     };
   }
 
   suggestions(when) {
-    when(this.hasPickedOtherTalent).isFalse().addSuggestion((suggest) => {
-      return suggest(<Wrapper>When using <ItemLink id={ITEMS.SOUL_OF_THE_HUNTMASTER.id} icon /> please make sure to pick another talent in the talent row. Your choices are <SpellLink id={this.option1} icon /> or <SpellLink id={this.option2} icon />.</Wrapper>)
+    when(this.suggestionThreshold).addSuggestion((suggest) => {
+      return suggest(<React.Fragment>When using <ItemLink id={ITEMS.SOUL_OF_THE_HUNTMASTER.id} /> please make sure to pick another talent in the talent row. Your choices are <SpellLink id={this.option1} /> or <SpellLink id={this.option2} />.</React.Fragment>)
         .icon(ITEMS.SOUL_OF_THE_HUNTMASTER.icon)
         .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
     });

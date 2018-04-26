@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, aryu, Zerotorescue, Hartra344, Putro, Sharrq, Hewhosmites } from 'MAINTAINERS';
-import Wrapper from 'common/Wrapper';
+import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, aryu, Zerotorescue, Hartra344, Putro, Sharrq, Hewhosmites, joshinator, kyleglick, CubeLuke, Aelexe } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -9,13 +8,118 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-25'),
+    changes: 'Reduced the size of stat values panel and moved the extra information to a tooltip.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-04-25'),
+    changes: 'Fixed statistics tab rendering on small (smartphone) screens.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-04-25'),
+    changes: 'Improved parsing speed by about 500ms.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-04-25'),
+    changes: 'Fixed character tab rendering on small (smartphone) screens.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-04-24'),
+    changes: 'Implemented code splitting to reduce the initial time to render.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-04-21'),
+    changes: 'Removed any remaining charts based on the chartist library that has been deprecated for 6 months.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-04-18'),
+    changes: 'Added error page when attempting to view an invalid contributor page.',
+    contributors: [CubeLuke],
+  },
+  {
+    date: new Date('2018-04-14'),
+    changes: 'Abilities in the timeline are now sorted by times cast by default instead of cooldown duration.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-04-12'),
+    changes: 'Added search function to events tab.',
+    contributors: [Aelexe],
+  },
+  {
+    date: new Date('2018-04-11'),
+    changes: 'Loading a report no longer shows any results until parsing is complete to speed up the analysis.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-04-04'),
+    changes: 'Renamed "Cast Efficiency" tab to "Abilities".',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-04-03'),
+    changes: <React.Fragment>Added <ItemLink id={ITEMS.EYE_OF_SHATUG.id} /> and <ItemLink id={ITEMS.EYE_OF_FHARG.id} />.</React.Fragment>,
+    contributors: [joshinator],
+  },
+  {
+    date: new Date('2018-04-02'),
+    changes: <React.Fragment>Added Contributor pages.</React.Fragment>,
+    contributors: [joshinator],
+  },
+  {
+    date: new Date('2018-03-29'),
+    changes: <React.Fragment>Fix for icons that get wrong images from the CDN.</React.Fragment>,
+    contributors: [joshinator],
+  },
+  {
+    date: new Date('2018-03-26'),
+    changes: <React.Fragment>Added <ItemLink id={ITEMS.SMOLDERING_TITANGUARD.id} />, <ItemLink id={ITEMS.DIIMAS_GLACIAL_AEGIS.id} /> and  <ItemLink id={ITEMS.RIFTWORLD_CODEX.id} />.</React.Fragment>,
+    contributors: [joshinator],
+  },
+  {
+    date: new Date('2018-03-24'),
+    changes: 'Added statistics for talents, legendaries and trinkets based on the current encounter.',
+    contributors: [joshinator],
+  },
+  {
+    date: new Date('2018-03-24'),
+    changes: 'Show player deaths and resurrections in the timeline.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-03-19'),
+    changes: 'Fabricated events in the events tab are now highlighted with a different color, and optional (hidden by default).',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-03-17'),
+    changes: 'Reworked the events tab so it can be used publicly, and made it publicly available.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-03-16'),
+    changes: 'Added a recently viewed reports panel to the front page.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-03-15'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.MASTER_OF_COMBINATIONS.id} />, <SpellLink id={SPELLS.FURY_OF_ASHAMANE.id} />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SKY.id} />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SEA.id} /> and <SpellLink id={SPELLS.SERAPHIM_TALENT.id} /> to the stat tracker, slightly improving stat weights and any Haste based modules.</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-02-22'),
     changes: `Moved the Stats on Pull, Talents, and Gear to a new Character Tab in the Main Panel.`,
     contributors: [Sharrq],
   },
   {
     date: new Date('2018-02-21'),
-    changes: <Wrapper>Moved <SpellLink id={SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_AGILITY.id} icon /> statistic into the Netherlight Crucible list and renamed it.</Wrapper>,
+    changes: <React.Fragment>Moved <SpellLink id={SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_AGILITY.id} /> statistic into the Netherlight Crucible list and renamed it.</React.Fragment>,
     contributors: [Putro],
   },
   {
@@ -25,22 +129,22 @@ export default [
   },
   {
     date: new Date('2018-01-28'),
-    changes: <Wrapper>Added <i>How It's Made</i>, <i>How To Change</i>, <i>Spec Maintainer</i> and <i>State Of The Spec</i> boxes to the results page.</Wrapper>,
+    changes: <React.Fragment>Added <i>How It's Made</i>, <i>How To Change</i>, <i>Spec Maintainer</i> and <i>State Of The Spec</i> boxes to the results page.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-01-18'),
-    changes: <Wrapper>Added support for <ItemLink id={ITEMS.EYE_OF_COMMAND.id} icon />.</Wrapper>,
+    changes: <React.Fragment>Added support for <ItemLink id={ITEMS.EYE_OF_COMMAND.id} />.</React.Fragment>,
     contributors: [Putro],
   },
   {
     date: new Date('2018-01-18'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.ISHKARS_FELSHIELD_EMITTER.id} icon /> to cast efficiency.</Wrapper>,
+    changes: <React.Fragment>Added <ItemLink id={ITEMS.ISHKARS_FELSHIELD_EMITTER.id} /> to cast efficiency.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-01-18'),
-    changes: <Wrapper>Fixed an issue where <ItemLink id={ITEMS.GAROTHI_FEEDBACK_CONDUIT.id} icon /> did not always add the Haste from the last buff.</Wrapper>,
+    changes: <React.Fragment>Fixed an issue where <ItemLink id={ITEMS.GAROTHI_FEEDBACK_CONDUIT.id} /> did not always add the Haste from the last buff.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -50,12 +154,12 @@ export default [
   },
   {
     date: new Date('2018-01-15'),
-    changes: <Wrapper>Added in <ItemLink id={ITEMS.AMANTHULS_VISION.id} icon /></Wrapper>,
+    changes: <React.Fragment>Added in <ItemLink id={ITEMS.AMANTHULS_VISION.id} /></React.Fragment>,
     contributors: [Hewhosmites],
   },
   {
     date: new Date('2018-01-15'),
-    changes: <Wrapper>Fixed a bug where friendly fire damage (from for example the passive of <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} icon />) would be included in the damage gain from <ItemLink id={ITEMS.GNAWED_THUMB_RING.id} icon />.</Wrapper>,
+    changes: <React.Fragment>Fixed a bug where friendly fire damage (from for example the passive of <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} />) would be included in the damage gain from <ItemLink id={ITEMS.GNAWED_THUMB_RING.id} />.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -70,7 +174,7 @@ export default [
   },
   {
     date: new Date('2018-01-09'),
-    changes: <Wrapper>Updated the tooltip for <ItemLink id={ITEMS.GOLGANNETHS_VITALITY.id} icon /> to show uptime aswell as damage contribution of the two procs</Wrapper>,
+    changes: <React.Fragment>Updated the tooltip for <ItemLink id={ITEMS.GOLGANNETHS_VITALITY.id} /> to show uptime aswell as damage contribution of the two procs</React.Fragment>,
     contributors: [Putro],
   },
   {
@@ -105,22 +209,22 @@ export default [
   },
   {
     date: new Date('2017-12-25'),
-    changes: <Wrapper>Added a <i>casting time</i> bar to the spell timeline that shows you the amount of time spent channeling or waiting for the GCD.</Wrapper>,
+    changes: <React.Fragment>Added a <i>casting time</i> bar to the spell timeline that shows you the amount of time spent channeling or waiting for the GCD.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-12-18'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.INSIGNIA_OF_THE_GRAND_ARMY.id} /> to the parser.</Wrapper>,
+    changes: <React.Fragment>Added <ItemLink id={ITEMS.INSIGNIA_OF_THE_GRAND_ARMY.id} /> to the parser.</React.Fragment>,
     contributors: [Putro],
   },
   {
     date: new Date('2017-12-06'),
-    changes: <Wrapper><SpellLink id={SPELLS.EONARS_COMPASSION_HEAL.id} /> is now ignored in the cooldowns tab.</Wrapper>,
+    changes: <React.Fragment><SpellLink id={SPELLS.EONARS_COMPASSION_HEAL.id} /> is now ignored in the cooldowns tab.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-12-06'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.ISHKARS_FELSHIELD_EMITTER.id} /> to items </Wrapper>,
+    changes: <React.Fragment>Added <ItemLink id={ITEMS.ISHKARS_FELSHIELD_EMITTER.id} /> to items </React.Fragment>,
     contributors: [Hartra344],
   },
   {
@@ -130,22 +234,22 @@ export default [
   },
   {
     date: new Date('2017-12-03'),
-    changes: <Wrapper>Improve Player Selection user interface.</Wrapper>,
-    contributors: ['kyle-glick'],
+    changes: <React.Fragment>Improve Player Selection user interface.</React.Fragment>,
+    contributors: [kyleglick],
   },
   {
     date: new Date('2017-12-01'),
-    changes: <Wrapper>Improved WCL API error handling to avoid caching corrupt responses (and show more informative errors).</Wrapper>,
+    changes: <React.Fragment>Improved WCL API error handling to avoid caching corrupt responses (and show more informative errors).</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-11-29'),
-    changes: <Wrapper>Added a <i>talents</i> panel, replacing the tab.</Wrapper>,
+    changes: <React.Fragment>Added a <i>talents</i> panel, replacing the tab.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-11-29'),
-    changes: <Wrapper>Added a <i>stats on pull</i> panel.</Wrapper>,
+    changes: <React.Fragment>Added a <i>stats on pull</i> panel.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -155,7 +259,7 @@ export default [
   },
   {
     date: new Date('2017-11-11'),
-    changes: <Wrapper>Changed the Changelog tab to mark <i>shared changes</i> as grey and provided a toggle to hide them.</Wrapper>,
+    changes: <React.Fragment>Changed the Changelog tab to mark <i>shared changes</i> as grey and provided a toggle to hide them.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -200,7 +304,7 @@ export default [
   },
   {
     date: new Date('2017-11-02'),
-    changes: <Wrapper>Changed the <i>default</i> recommended <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> healing contribution to be at least 4% (down from 4.5%).</Wrapper>,
+    changes: <React.Fragment>Changed the <i>default</i> recommended <ItemLink id={ITEMS.VELENS_FUTURE_SIGHT.id} /> healing contribution to be at least 4% (down from 4.5%).</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -210,7 +314,7 @@ export default [
   },
   {
     date: new Date('2017-10-29'),
-    changes: <Wrapper>Update layout a bit: <a href="https://imgur.com/a/edymi">comparison</a>.</Wrapper>,
+    changes: <React.Fragment>Update layout a bit: <a href="https://imgur.com/a/edymi">comparison</a>.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -270,7 +374,7 @@ export default [
   },
   {
     date: new Date('2017-10-17'),
-    changes: <Wrapper>Fix issue with <i>distance moved</i> that caused it to include the movement from <b>all</b> players.</Wrapper>,
+    changes: <React.Fragment>Fix issue with <i>distance moved</i> that caused it to include the movement from <b>all</b> players.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -300,7 +404,7 @@ export default [
   },
   {
     date: new Date('2017-10-02'),
-    changes: <Wrapper>Added a <i>help wanted</i> panel to the frontpage.</Wrapper>,
+    changes: <React.Fragment>Added a <i>help wanted</i> panel to the frontpage.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -351,14 +455,14 @@ export default [
   {
     date: new Date('2017-09-12'),
     changes: (
-      <Wrapper>The Always Be Casting module has the following changes:<br />
+      <React.Fragment>The Always Be Casting module has the following changes:<br />
         <ul>
           <li>It now properly supports the passive Haste gain from Sephuz.</li>
           <li>Fixed an issue where the downtime between the last cast and the fight end time wasn't included (this also makes it so dying before the boss dies will affect your downtime).</li>
           <li>Haste buffs from items now scale with item level.</li>
           <li>Changed how Haste from stacking (de)buffs are applied.</li>
         </ul>
-      </Wrapper>
+      </React.Fragment>
     ),
     contributors: [Zerotorescue],
   },
@@ -424,7 +528,7 @@ export default [
   },
   {
     date: new Date('2017-08-09'),
-    changes: <Wrapper>Healers with a <i>non-healing time</i> statistic will no longer have their <i>dead GCD time</i> suggestion marked as major importance.</Wrapper>,
+    changes: <React.Fragment>Healers with a <i>non-healing time</i> statistic will no longer have their <i>dead GCD time</i> suggestion marked as major importance.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -479,7 +583,7 @@ export default [
   },
   {
     date: new Date('2017-07-06'),
-    changes: <Wrapper>The <i>report code</i> input field now accepts WCL urls and entering what looks to be valid input will now automatically start loading the report.</Wrapper>,
+    changes: <React.Fragment>The <i>report code</i> input field now accepts WCL urls and entering what looks to be valid input will now automatically start loading the report.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -489,7 +593,7 @@ export default [
   },
   {
     date: new Date('2017-07-01'),
-    changes: <Wrapper>Added a few new tools for developers to use; <code>ModuleComponent</code> to more cleanly add statistic modules (see <code>DevotionAura</code> for an example), and <code>LazyLoadStatisticBox</code> for statistics that require additional API calls.</Wrapper>,
+    changes: <React.Fragment>Added a few new tools for developers to use; <code>ModuleComponent</code> to more cleanly add statistic modules (see <code>DevotionAura</code> for an example), and <code>LazyLoadStatisticBox</code> for statistics that require additional API calls.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -584,7 +688,7 @@ export default [
   },
   {
     date: new Date('2017-05-11'),
-    changes: <Wrapper><b>A lot</b> more changes under the hood in order to make the analyzer multi-spec compatible. Almost everything was changed, so anything might have gotten broken. Please let me know.</Wrapper>,
+    changes: <React.Fragment><b>A lot</b> more changes under the hood in order to make the analyzer multi-spec compatible. Almost everything was changed, so anything might have gotten broken. Please let me know.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {

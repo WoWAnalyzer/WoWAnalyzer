@@ -85,7 +85,7 @@ ${item.name.toUpperCase().replace(/[^A-Z ]/g, '').replace(/ /g, '_')}: {
             {slotNo} {slot}
           </div>
           <div className="col-md-6">
-            <ItemLink id={item.id} quality={item.quality} details={item}>
+            <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
               <Icon icon={item.icon} alt={item.icon} style={{ height: '1.6em' }} /> {ITEMS[item.id] ? ITEMS[item.id].name : `itemID: ${item.id}`}
             </ItemLink>
           </div>
@@ -169,7 +169,7 @@ ${properties.map(prop => `  ${prop},`).join('\n')}
           {SPELLS[cast.ability.guid] ? 'Known' : 'Unknown'}
         </div>
 
-        <SpellLink id={cast.ability.guid}>
+        <SpellLink id={cast.ability.guid} icon={false}>
           <Icon icon={cast.ability.abilityIcon} alt={cast.ability.abilityIcon} style={{ height: '1.6em' }} /> {cast.ability.name}
         </SpellLink>{' '}
         casts: {cast.casts || 'N/A'}{' '}
@@ -308,25 +308,6 @@ class DevelopmentTab extends React.Component {
               Access them in the console with: <code>parser.modules.*moduleName*</code> or by clicking on the names.
             </div>
             <div className="col-md-6">
-              Parsing time spenders:
-              <p className="text-muted">This is the amount of time each module took running event listeners. Render time (e.g. of statistics) is not included.</p>
-              <ul className="list">
-                {Object.keys(parser._moduleTime)
-                  .sort((a, b) => parser._moduleTime[b] - parser._moduleTime[a])
-                  .filter((_, index) => index < 10)
-                  .map(moduleName => (
-                    <li key={moduleName} className="flex">
-                      <div className="flex-main">
-                        <Code dump={parser.modules[moduleName]}>{moduleName}</Code>
-                      </div>
-                      <div className="flex-main">
-                        {parser._moduleTime[moduleName]}ms
-                      </div>
-                    </li>
-                  ))}
-              </ul>
-            </div>
-            <div className="col-md-6">
               Pre-combat buffs:
               <ul className="list">
                 {combatant._combatantInfo.auras.map((aura, i) => {
@@ -336,7 +317,7 @@ class DevelopmentTab extends React.Component {
 
                   return (
                     <li key={`${i}-${aura.ability}`}>
-                      <SpellLink id={aura.ability}>
+                      <SpellLink id={aura.ability} icon={false}>
                         <Icon icon={aura.icon} alt={aura.icon} style={{ height: '1.6em' }} /> {SPELLS[aura.ability] ? SPELLS[aura.ability].name : `spellID: ${aura.ability}`}
                       </SpellLink>{' '}
                       source: <span className={specClassName}>{source ? source.name : aura.source}</span>{' '}
@@ -374,7 +355,7 @@ class DevelopmentTab extends React.Component {
                     <div style={{ float: 'right', color: SPELLS[trait.spellID] ? 'green' : 'red', fontWeight: 600 }}>
                       {SPELLS[trait.spellID] ? 'Known' : 'Unknown'}
                     </div>
-                    <SpellLink id={trait.spellID}>
+                    <SpellLink id={trait.spellID} icon={false}>
                       <Icon icon={trait.icon} alt={trait.icon} style={{ height: '1.6em' }} /> {SPELLS[trait.spellID] ? SPELLS[trait.spellID].name : `spellID: ${trait.spellID}`}
                     </SpellLink>{' '}
                     traitID: {trait.traitID}{' '}

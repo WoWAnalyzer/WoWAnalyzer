@@ -77,7 +77,7 @@ class FuryDetails extends Analyzer {
       title: 'Fury Usage',
       url: 'fury-usage',
       render: () => (
-        <Tab title="Fury usage breakdown">
+        <Tab>
           <ResourceBreakdown
             tracker={this.furyTracker}
             showSpenders={true}

@@ -3,46 +3,51 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Tab from 'Main/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
+import Icon from 'common/Icon';
+import ResourceBreakdown from 'Parser/Core/Modules/ResourceTracker/ResourceBreakdown';
 
-import RunicPowerBreakdown from './RunicPowerBreakdown';
 import RunicPowerTracker from './RunicPowerTracker';
 
 class RunicPowerDetails extends Analyzer {
-  static
-  dependencies = {
+  static dependencies = {
     runicPowerTracker: RunicPowerTracker,
   };
 
-  get rpWasted() {
-    return this.runicPowerTracker.rpWasted;
-  }
-
-  get rpWastedPercent() {
-    return this.rpWasted / this.runicPowerTracker.totalRPGained;
+  get wastedPercent(){
+    return this.runicPowerTracker.wasted / (this.runicPowerTracker.wasted + this.runicPowerTracker.generated) || 0;
   }
 
   get efficiencySuggestionThresholds() {
     return {
-      actual: 1 - this.rpWastedPercent,
+      actual: 1 - this.wastedPercent,
       isLessThan: {
-        minor: 0.90,
-        average: 0.85,
-        major: .80,
+        minor: 0.95,
+        average: 0.90,
+        major: .85,
+      },
+      style: 'percentage',
+    };
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.wastedPercent,
+      isGreaterThan: {
+        minor: 0.05,
+        average: 0.1,
+        major: .15,
       },
       style: 'percentage',
     };
   }
 
   suggestions(when) {
-    when(this.rpWastedPercent).isGreaterThan(this.efficiencySuggestionThresholds.minor)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(`You wasted ${formatPercentage(this.rpWastedPercent)}% of your Runic Power.`)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+        return suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Runic Power.`)
           .icon('inv_sword_62')
-          .actual(`${this.rpWasted} Runic Power Wasted`)
-          .recommended(` Wasting less than ${formatPercentage(recommended)}% is recommended. `)
-          .regular(this.efficiencySuggestionThresholds.average).major(this.efficiencySuggestionThresholds.major);
+          .actual(`${formatPercentage(actual)}% wasted`)
+          .recommended(`<${formatPercentage(recommended)}% is recommended`);
       });
   }
 
@@ -50,28 +55,30 @@ class RunicPowerDetails extends Analyzer {
     return (
       <StatisticBox
         icon={<Icon icon="inv_sword_62" />}
-        value={`${formatPercentage(this.rpWastedPercent)} %`}
-        label="Runic Power Wasted"
-        tooltip={`${this.rpWasted} Runic Power Wasted`}
+        value={`${formatPercentage(this.wastedPercent)} %`}
+        label="Runic Power wasted"
+        tooltip={`${this.runicPowerTracker.wasted} out of ${this.runicPowerTracker.wasted + this.runicPowerTracker.generated} runic power wasted.`}
       />
 
     );
   }
+  statisticOrder = STATISTIC_ORDER.CORE(2);
 
   tab() {
     return {
-      title: 'Runic Power Usage',
-      url: 'runic-power',
+      title: 'Runic Power usage',
+      url: 'runic-power-usage',
       render: () => (
-        <Tab title="Runic Power Usage Breakdown">
-          <RunicPowerBreakdown
-            rpGeneratedAndWasted={this.runicPowerTracker.generatedAndWasted}
+        <Tab>
+          <ResourceBreakdown
+            tracker={this.runicPowerTracker}
+            showSpenders={true}
           />
         </Tab>
       ),
     };
-  }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
+ }
+
 }
 
 export default RunicPowerDetails;

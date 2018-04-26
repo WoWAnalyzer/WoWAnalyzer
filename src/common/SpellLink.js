@@ -11,8 +11,8 @@ const SpellLink = ({ id, children, category = undefined, icon, iconStyle, ...oth
 
   return (
     <a href={`http://www.wowhead.com/spell=${id}`} target="_blank" rel="noopener noreferrer" className={category} {...other}>
-      {icon && <SpellIcon id={id} noLink style={{ height: '1.2em', marginTop: '-0.1em', ...iconStyle }} />}{' '}
-      {children || SPELLS[id].name}
+      {icon && <SpellIcon id={id} noLink style={iconStyle} />}{' '}
+      {children || (SPELLS[id] ? SPELLS[id].name : `Unknown spell: ${id}`)}
     </a>
   );
 };
@@ -24,7 +24,7 @@ SpellLink.propTypes = {
   iconStyle: PropTypes.object,
 };
 SpellLink.defaultProps = {
-  icon: false,
+  icon: true,
 };
 
 export default SpellLink;

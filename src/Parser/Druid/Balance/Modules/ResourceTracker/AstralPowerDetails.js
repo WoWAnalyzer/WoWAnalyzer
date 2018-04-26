@@ -23,7 +23,7 @@ class AstralPowerDetails extends Analyzer {
   }
 
   get wastedPerMinute() {
-    return (this.wasted / this.owner.fightDuration) * 1000 * 60;
+    return (this.wasted / this.owner.fightDuration) * 1000 * 60 || 0;
   }
 
   get wastedPercent() {
@@ -81,7 +81,7 @@ class AstralPowerDetails extends Analyzer {
       title: 'Astral Power usage',
       url: 'astral-power-usage',
       render: () => (
-        <Tab title="Astral Power usage breakdown">
+        <Tab>
           <ResourceBreakdown
             tracker={this.astralPowerTracker}
             showSpenders={true}

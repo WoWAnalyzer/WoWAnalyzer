@@ -42,6 +42,8 @@ import StatsDisplay from './Modules/Features/StatsDisplay';
 import TalentsDisplay from './Modules/Features/TalentsDisplay';
 import Checklist from './Modules/Features/Checklist';
 
+import EncounterPanel from './Modules/Features/EncounterPanel';
+
 import CritEffectBonus from './Modules/Helpers/CritEffectBonus';
 
 import PrePotion from './Modules/Items/PrePotion';
@@ -65,6 +67,7 @@ import DarkmoonDeckImmortality from './Modules/Items/Legion/DarkmoonDeckImmortal
 import AmalgamsSeventhSpine from './Modules/Items/Legion/AmalgamsSeventhSpine';
 import GnawedThumbRing from './Modules/Items/Legion/GnawedThumbRing';
 import EyeOfCommand from './Modules/Items/Legion/EyeOfCommand';
+import MementoOfAngerboda from './Modules/Items/Legion/MementoOfAngerboda';
 
 // The Nighthold (T19)
 import ErraticMetronome from './Modules/Items/Legion/TheNighthold/ErraticMetronome';
@@ -105,6 +108,10 @@ import AcridCatalystInjector from './Modules/Items/Legion/AntorusTheBurningThron
 import ShadowSingedFang from './Modules/Items/Legion/AntorusTheBurningThrone/ShadowSingedFang';
 // Tanking
 import AggramarsConviction from './Modules/Items/Legion/AntorusTheBurningThrone/AggramarsConviction';
+import SmolderingTitanguard from './Modules/Items/Legion/AntorusTheBurningThrone/SmolderingTitanguard';
+import DiimasGlacialAegis from './Modules/Items/Legion/AntorusTheBurningThrone/DiimasGlacialAegis';
+import RiftworldCodex from './Modules/Items/Legion/AntorusTheBurningThrone/RiftworldCodex';
+import EyeOfHounds from './Modules/Items/Legion/AntorusTheBurningThrone/EyeOfHounds';
 
 // Shared Buffs
 import Concordance from './Modules/Spells/Concordance';
@@ -128,9 +135,8 @@ import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
 
-const debug = false;
-// This sends every event that occurs to the console, including fabricated events (unlike the Events tab)
-const debugEvents = false;
+// This prints to console anything that the DI has to do
+const debugDependencyInjection = false;
 
 let _modulesDeprecatedWarningSent = false;
 
@@ -176,6 +182,8 @@ class CombatLogParser {
     talentsDisplay: TalentsDisplay,
     checklist: Checklist,
 
+    encounterPanel: EncounterPanel,
+
     // Items:
     // Legendaries:
     prydazXavaricsMagnumOpus: PrydazXavaricsMagnumOpus,
@@ -199,6 +207,7 @@ class CombatLogParser {
     ishkarsFelshieldEmitter: IshkarsFelshieldEmitter,
     erraticMetronome: ErraticMetronome,
     eyeOfCommand: EyeOfCommand,
+    mementoOfAngerboda: MementoOfAngerboda,
     // Tomb trinkets:
     archiveOfFaith: ArchiveOfFaith,
     barbaricMindslaver: BarbaricMindslaver,
@@ -234,6 +243,10 @@ class CombatLogParser {
 
     // T21 Tanking Trinkets
     aggramarsConviction: AggramarsConviction,
+    smolderingTitanguard: SmolderingTitanguard,
+    diimasGlacialAegis: DiimasGlacialAegis,
+    riftworldCodex: RiftworldCodex,
+    eyeOfHounds: EyeOfHounds,
 
     // Concordance of the Legionfall
     concordance: Concordance,
@@ -264,9 +277,10 @@ class CombatLogParser {
   fight = null;
 
   _modules = {};
+  _activeAnalyzers = {};
   get modules() {
     if (!_modulesDeprecatedWarningSent) {
-      console.error('Using `this.owner.modules` is deprecated. You should add the module you want to use as a dependency and use the property that\'s added to your module instead.');
+      console.warn('Using `this.owner.modules` is deprecated. You should add the module you want to use as a dependency and use the property that\'s added to your module instead.');
       _modulesDeprecatedWarningSent = true;
     }
     return this._modules;
@@ -279,6 +293,9 @@ class CombatLogParser {
 
   get playerId() {
     return this.player.id;
+  }
+  get fightId() {
+    return this.fight.id;
   }
 
   _timestamp = null;
@@ -317,7 +334,8 @@ class CombatLogParser {
     });
   }
 
-  initializeModules(modules) {
+  // TODO: Refactor and test, this dependency injection thing works really well but it's hard to understand or change.
+  initializeModules(modules, iteration = 0) {
     const failedModules = [];
     Object.keys(modules).forEach(desiredModuleName => {
       const moduleConfig = modules[desiredModuleName];
@@ -350,15 +368,16 @@ class CombatLogParser {
       }
 
       if (missingDependencies.length === 0) {
-        if (debug) {
+        if (debugDependencyInjection) {
           if (Object.keys(availableDependencies).length === 0) {
             console.log('Loading', moduleClass.name);
           } else {
             console.log('Loading', moduleClass.name, 'with dependencies:', Object.keys(availableDependencies));
           }
         }
+        const priority = Object.keys(this._modules).length;
         // eslint-disable-next-line new-cap
-        const module = new moduleClass(this, availableDependencies, Object.keys(this._modules).length);
+        const module = new moduleClass(this, availableDependencies, priority);
         // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
         // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
         if (options) {
@@ -366,19 +385,30 @@ class CombatLogParser {
         }
         this._modules[desiredModuleName] = module;
       } else {
-        debug && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
+        debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
         failedModules.push(desiredModuleName);
       }
     });
 
     if (failedModules.length !== 0) {
-      debug && console.warn(`${failedModules.length} modules failed to load, trying again:`, failedModules.map(key => modules[key].name));
+      debugDependencyInjection && console.warn(`${failedModules.length} modules failed to load, trying again:`, failedModules.map(key => modules[key].name));
       const newBatch = {};
-      failedModules.forEach((key) => {
+      failedModules.forEach(key => {
         newBatch[key] = modules[key];
       });
-      this.initializeModules(newBatch);
+      if (iteration > 100) {
+        // Sometimes modules can't be imported at all because they depend on modules not enabled or have a circular dependency. Stop trying after a while.
+        throw new Error(`Failed to load modules: ${Object.keys(newBatch).join(', ')}`);
+      }
+      this.initializeModules(newBatch, iteration + 1);
+    } else {
+      this.allModulesInitialized();
     }
+  }
+  allModulesInitialized() {
+    this._activeAnalyzers = Object.values(this._modules)
+      .filter(module => module instanceof Analyzer)
+      .sort((a, b) => a.priority - b.priority); // lowest should go first, as `priority = 0` will have highest prio
   }
   findModule(type) {
     return Object.keys(this._modules)
@@ -386,30 +416,18 @@ class CombatLogParser {
       .find(module => module instanceof type);
   }
 
-  _debugEventHistory = [];
+  eventHistory = [];
   initialize(combatants) {
     this.initializeNormalizers(combatants);
     this.initializeAnalyzers(combatants);
+    this.triggerInitialized();
   }
   initializeAnalyzers(combatants) {
     this.parseEvents(combatants);
-    this.triggerEvent('initialized');
   }
-  parseEvents(events) {
-    if (process.env.NODE_ENV === 'development') {
-      this._debugEventHistory = [
-        ...this._debugEventHistory,
-        ...events,
-      ];
-    }
-    events.forEach((event) => {
-      if (this.error) {
-        throw new Error(this.error);
-      }
-      this._timestamp = event.timestamp;
-
-      // Triggering a lot of events here for development pleasure; does this have a significant performance impact?
-      this.triggerEvent(event.type, event);
+  triggerInitialized() {
+    this.fabricateEvent({
+      type: 'initialized',
     });
   }
 
@@ -435,29 +453,55 @@ class CombatLogParser {
     return events;
   }
 
+  parseEvents(events) {
+    const numEvents = events.length;
+    for (let i = 0; i < numEvents; i += 1) {
+      const event = events[i];
+      this._timestamp = event.timestamp;
+      this.triggerEvent(event);
+    }
+  }
   /** @type {number} The amount of events parsed. This can reliably be used to determine if something should re-render. */
   eventCount = 0;
-  _moduleTime = {};
-  triggerEvent(eventType, event, ...args) {
-    debugEvents && console.log(eventType, event, ...args);
+  triggerEvent(event) {
+    if (process.env.NODE_ENV === 'development') {
+      if (!event.type) {
+        console.log(event);
+        throw new Error('Events should have a type. No type received. See the console for the event.');
+      }
+    }
 
-    Object.keys(this._modules)
-      .filter(key => this._modules[key].active)
-      .filter(key => this._modules[key] instanceof Analyzer)
-      .sort((a, b) => this._modules[a].priority - this._modules[b].priority) // lowest should go first, as `priority = 0` will have highest prio
-      .forEach(key => {
-        const module = this._modules[key];
-        if (process.env.NODE_ENV === 'development') {
-          const start = +new Date();
-          module.triggerEvent(eventType, event, ...args);
-          const duration = +new Date() - start;
-          this._moduleTime[key] = this._moduleTime[key] || 0;
-          this._moduleTime[key] += duration;
-        } else {
-          module.triggerEvent(eventType, event, ...args);
-        }
-      });
+    // This loop has a big impact on parsing performance
+    let garbageCollect = false;
+    const analyzers = this._activeAnalyzers;
+    const numAnalyzers = analyzers.length;
+    for (let i = 0; i < numAnalyzers; i++) {
+      const analyzer = analyzers[i];
+      if (analyzer.active) {
+        analyzer.triggerEvent(event);
+      } else {
+        garbageCollect = true;
+      }
+    }
+    // Not mutating during the loop for simplicity. This part isn't executed much, so no need to optimize for performance.
+    if (garbageCollect) {
+      this._activeAnalyzers = this._activeAnalyzers.filter(analyzer => analyzer.active);
+    }
+
+    // Creating arrays is expensive so we cheat and just push instead of using it immutably
+    this.eventHistory.push(event);
+    // Some modules need to have a primitive value to cause re-renders
     this.eventCount += 1;
+  }
+  fabricateEvent(event = null, trigger = null) {
+    this.triggerEvent({
+      // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
+      timestamp: this.currentTimestamp,
+      // If this event was triggered you should pass it along
+      trigger: trigger ? trigger : undefined,
+      ...event,
+      __fabricated: true,
+    });
   }
 
   byPlayer(event, playerId = this.player.id) {
@@ -500,29 +544,33 @@ class CombatLogParser {
   generateResults() {
     const results = new ParseResults();
 
-    results.tabs = [
-      {
-        title: 'Timeline',
-        url: 'timeline',
-        order: 2,
-        render: () => (
-          <TimelineTab
-            start={this.fight.start_time}
-            end={this.currentTimestamp >= 0 ? this.currentTimestamp : this.fight.end_time}
-            historyBySpellId={this.modules.spellHistory.historyBySpellId}
-            globalCooldownHistory={this.modules.globalCooldown.history}
-            channelHistory={this.modules.channeling.history}
-            abilities={this.modules.abilities}
-          />
-        ),
-      },
-      {
-        title: <ChangelogTabTitle />,
-        url: 'changelog',
-        order: 1000,
-        render: () => <ChangelogTab />,
-      },
-    ];
+    results.tabs = [];
+    results.tabs.push({
+      title: 'Timeline',
+      url: 'timeline',
+      order: 2,
+      render: () => (
+        <TimelineTab
+          start={this.fight.start_time}
+          end={this.currentTimestamp >= 0 ? this.currentTimestamp : this.fight.end_time}
+          historyBySpellId={this.modules.spellHistory.historyBySpellId}
+          globalCooldownHistory={this.modules.globalCooldown.history}
+          channelHistory={this.modules.channeling.history}
+          abilities={this.modules.abilities}
+          abilityTracker={this.modules.abilityTracker}
+          deaths={this.modules.deathTracker.deaths}
+          resurrections={this.modules.deathTracker.resurrections}
+          isAbilityCooldownsAccurate={this.modules.spellUsable.isAccurate}
+          isGlobalCooldownAccurate={this.modules.globalCooldown.isAccurate}
+        />
+      ),
+    });
+    results.tabs.push({
+      title: <ChangelogTabTitle />,
+      url: 'changelog',
+      order: 1000,
+      render: () => <ChangelogTab />,
+    });
 
     Object.keys(this._modules)
       .filter(key => this._modules[key].active)

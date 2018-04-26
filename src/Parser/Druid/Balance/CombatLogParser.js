@@ -14,10 +14,20 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import MoonfireUptime from './Modules/Features/MoonfireUptime';
 import SunfireUptime from './Modules/Features/SunfireUptime';
 import StellarFlareUptime from './Modules/Features/StellarFlareUptime';
+import StellarEmpowermentUptime from './Modules/Features/StellarEmpowermentUptime';
 import MoonSpells from './Modules/Features/MoonSpells';
-import UnempoweredLs from './Modules/Features/UnempoweredLs';
-import L90_talents from './Modules/Features/L90_talents';
+import UnempoweredLunarStrike from './Modules/Features/UnempoweredLunarStrike';
+import UnempoweredSolarWrath from './Modules/Features/UnempoweredSolarWrath';
 
+//Talents
+import L90Talents from './Modules/Talents/L90Talents';
+import StellarDriftMissing from './Modules/Talents/StellarDriftMissing';
+import StellarDrift from './Modules/Talents/StellarDrift';
+import StellarFlare from './Modules/Talents/StellarFlare';
+import Starlord from './Modules/Talents/Starlord';
+
+import EarlyDotRefreshes from './Modules/Features/EarlyDotRefreshes';
+import EarlyDotRefreshesInstants from './Modules/Features/EarlyDotRefreshesInstants';
 
 //Resources
 import AstralPowerDetails from './Modules/ResourceTracker/AstralPowerDetails';
@@ -26,7 +36,7 @@ import AstralPowerTracker from './Modules/ResourceTracker/AstralPowerTracker';
 //Items
 import TheEmeraldDreamcatcher from './Modules/Items/TheEmeraldDreamcatcher';
 import ImpeccableFelEssence from './Modules/Items/ImpeccableFelEssence';
-import SoulOfTheArchdruid from './Modules/Items/SoulOfTheArchdruid';
+import SoulOfTheArchdruid from '../Shared/Modules/Items/SoulOfTheArchdruid';
 import LadyAndTheChild from './Modules/Items/LadyAndTheChild';
 import OnethsIntuition from './Modules/Items/OnethsIntuition';
 import PromiseOfElune from './Modules/Items/PromiseOfElune';
@@ -53,9 +63,20 @@ class CombatLogParser extends MainCombatLogParser {
     moonfireUptime: MoonfireUptime,
     sunfireUptime: SunfireUptime,
     stellarFlareUptime: StellarFlareUptime,
+    stellarEmpowermentUptime: StellarEmpowermentUptime,
     moonSpells: MoonSpells,
-    unempoweredLS: UnempoweredLs,
-    l90_talents: L90_talents,
+    unempoweredLunarStrike: UnempoweredLunarStrike,
+    unempoweredSolarWrath: UnempoweredSolarWrath,
+
+    //Talents
+    l90Talents: L90Talents,
+    stellarDriftMissing: StellarDriftMissing,
+    stellarDrift: StellarDrift,
+    stellarFlare: StellarFlare,
+    starlord: Starlord,
+
+    earlyDotRefreshes: EarlyDotRefreshes,
+    earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
 
     //Resources
     astralPowerTracker: AstralPowerTracker,

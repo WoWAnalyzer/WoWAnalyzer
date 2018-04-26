@@ -4,7 +4,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
 import PETS from 'common/PETS';
 import CorePets from 'Parser/Core/Modules/Pets';
@@ -52,7 +51,7 @@ class BlackArrow extends Analyzer {
       <div className="flex">
         <div className="flex-main">
           <SpellLink id={SPELLS.BLACK_ARROW_TALENT.id}>
-            <SpellIcon id={SPELLS.BLACK_ARROW_TALENT.id} noLink /> Black Arrow (+Pet)
+            Black Arrow (+Pet)
           </SpellLink>
         </div>
         <div className="flex-sub text-right">

@@ -67,16 +67,16 @@ class Tier21_4set extends Analyzer {
 
     this.healing += effectiveHealing;
   }
-  on_beacon_heal(beaconTransferEvent, healEvent) {
-    if (!this.isApplicable(healEvent)) {
+  on_beacon_heal(event) {
+    if (!this.isApplicable(event.originalHeal)) {
       return;
     }
 
-    const amount = beaconTransferEvent.amount;
-    const absorbed = beaconTransferEvent.absorbed || 0;
-    const overheal = beaconTransferEvent.overheal || 0;
+    const amount = event.amount;
+    const absorbed = event.absorbed || 0;
+    const overheal = event.overheal || 0;
     const raw = amount + absorbed + overheal;
-    const rawNormalPart = raw / this.critEffectBonus.getBonus(healEvent);
+    const rawNormalPart = raw / this.critEffectBonus.getBonus(event.originalHeal);
     const rawDrapeHealing = rawNormalPart * PURITY_OF_LIGHT_CRITICAL_HEALING_INCREASE;
 
     const effectiveHealing = Math.max(0, rawDrapeHealing - overheal);
@@ -102,7 +102,7 @@ class Tier21_4set extends Analyzer {
     return {
       id: `spell-${SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id}`,
       icon: <SpellIcon id={SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id} />,
-      title: <SpellLink id={SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id} />,
+      title: <SpellLink id={SPELLS.HOLY_PALADIN_T21_4SET_BONUS_BUFF.id} icon={false} />,
       result: <ItemHealingDone amount={this.healing} />,
     };
   }

@@ -17,6 +17,7 @@ import safeMerge from '../safeMerge';
 
 import OTHERS from './OTHERS';
 import RACIALS from './RACIALS';
+import BFA from './BFA';
 
 import TALENTS_DEATH_KNIGHT from './TALENTS/DEATH_KNIGHT';
 import TALENTS_DEMON_HUNTER from './TALENTS/DEMON_HUNTER';
@@ -75,7 +76,8 @@ const ABILITIES = {
     ROGUE,
     SHAMAN,
     WARLOCK,
-    WARRIOR
+    WARRIOR,
+    BFA
   ),
 };
 

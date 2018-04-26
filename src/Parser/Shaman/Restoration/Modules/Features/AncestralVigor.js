@@ -7,15 +7,20 @@ import SpellIcon from 'common/SpellIcon';
 import LazyLoadStatisticBox from 'Main/LazyLoadStatisticBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
 const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH = 0.1;
 const HP_THRESHOLD = 1 - 1 / (1 + ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH);
 
 class AncestralVigor extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
   loaded = false;
   totalLifeSaved = 0;
   on_initialized() {
-    this.active = !!this.owner.modules.combatants.selected.hasTalent(SPELLS.ANCESTRAL_VIGOR_TALENT.id);
+    this.active = !!this.combatants.selected.hasTalent(SPELLS.ANCESTRAL_VIGOR_TALENT.id);
   }
 
   // recursively fetch events until no nextPageTimestamp is returned
@@ -47,10 +52,10 @@ class AncestralVigor extends Analyzer {
           AND 10000*(resources.hitPoints+effectiveDamage)/resources.maxHitPoints>=${Math.floor(10000 * HP_THRESHOLD)}
         FROM type='applybuff'
           AND ability.id=${SPELLS.ANCESTRAL_VIGOR.id}
-          AND source.name='${this.owner.modules.combatants.selected.name}'
+          AND source.name='${this.combatants.selected.name}'
         TO type='removebuff'
           AND ability.id=${SPELLS.ANCESTRAL_VIGOR.id}
-          AND source.name='${this.owner.modules.combatants.selected.name}'
+          AND source.name='${this.combatants.selected.name}'
         END
       )`,
     };

@@ -619,6 +619,11 @@ export default {
     name: 'Sunfire',
     icon: 'ability_mage_firestarter',
   },
+  STELLAR_EMPOWERMENT: {
+    id: 197637,
+    name: 'Stellar Empowerment',
+    icon: 'ability_druid_starfall',
+  },
   // MOONFIRE = MOONFIRE_BEAR
   // MOONFIRE_CAST = MOONFIRE
   STARFALL: {
@@ -630,6 +635,11 @@ export default {
     id: 191034,
     name: 'Starfall',
     icon: 'ability_druid_starfall',
+  },
+  STELLAR_DRIFT: {
+    id: 202461,
+    name: 'Stellar Drift',
+    icon: 'spell_nature_starfall',
   },
   FULL_MOON: {
     id: 202771,
@@ -798,5 +808,37 @@ export default {
     id: 210705,
     name: 'Ashamane\'s Rip',
     icon: 'artifactability_feraldruid_ashamanesbite',
+  },
+  FURY_OF_ASHAMANE: {
+    id: 240670,
+    name: 'Fury of Ashamane',
+    icon: 'ability_mount_jungletiger',
+  },
+
+  //shared talent spells
+  TYPHOON: {
+    id: 61391,
+    name: 'Typhoon',
+    icon: 'ability_druid_typhoon',
+  },
+  WILD_CHARGE_MOONKIN: {
+    id: 102383,
+    name: 'Wild Charge',
+    icon: 'ability_druid_owlkinfrenzy',
+  },
+  WILD_CHARGE_CAT: {
+    id: 49376,
+    name: 'Wild Charge',
+    icon: 'spell_druid_feralchargecat',
+  },
+  WILD_CHARGE_BEAR: {
+    id: 16979,
+    name: 'Wild Charge',
+    icon: 'ability_hunter_pet_bear',
+  },
+  WILD_CHARGE_TRAVEL: {
+    id: 102417,
+    name: 'Wild Charge',
+    icon: 'trade_archaeology_antleredcloakclasp',
   },
 };

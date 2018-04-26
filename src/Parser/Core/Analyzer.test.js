@@ -31,13 +31,17 @@ describe('Core.CombatLogParser', () => {
         on_success = on_success;
       }
       const myModule = new MyModule();
-      myModule.triggerEvent('success');
+      myModule.triggerEvent({
+        type: 'success',
+      });
       expect(on_success).toBeCalled();
     });
     it('does nothing if the event handler on the class does not exist', () => {
       class MyModule extends Analyzer {}
       const myModule = new MyModule();
-      myModule.triggerEvent('success');
+      myModule.triggerEvent({
+        type: 'success',
+      });
       // Ummm how do we test for it doing nothing? I guess it just shouldn't crash...
     });
     it('calls on_event on every event if it exists', () => {
@@ -46,7 +50,9 @@ describe('Core.CombatLogParser', () => {
         on_event = on_event;
       }
       const myModule = new MyModule();
-      myModule.triggerEvent('test');
+      myModule.triggerEvent({
+        type: 'test',
+      });
       expect(on_event).toBeCalled();
     });
     it('calls convenience handlers byPlayer and toPlayer', () => {
@@ -66,7 +72,9 @@ describe('Core.CombatLogParser', () => {
         byPlayerPet: () => true,
         toPlayerPet: () => true,
       });
-      myModule.triggerEvent('test', {});
+      myModule.triggerEvent({
+        type: 'test',
+      });
       expect(on_byPlayer_test).toBeCalled();
       expect(on_toPlayer_test).toBeCalled();
       expect(on_byPlayerPet_test).toBeCalled();
@@ -83,7 +91,9 @@ describe('Core.CombatLogParser', () => {
         byPlayerPet: () => true,
         toPlayerPet: () => true,
       });
-      myModule.triggerEvent('test', {});
+      myModule.triggerEvent({
+        type: 'test',
+      });
       expect(on_byPlayer_test).not.toBeCalled();
     });
     it('doesn\'t call convenience handlers toPlayer when event is to someone else', () => {
@@ -97,7 +107,9 @@ describe('Core.CombatLogParser', () => {
         byPlayerPet: () => true,
         toPlayerPet: () => true,
       });
-      myModule.triggerEvent('test', {});
+      myModule.triggerEvent({
+        type: 'test',
+      });
       expect(on_toPlayer_test).not.toBeCalled();
     });
     it('doesn\'t call convenience handlers byPlayerPet when event is by someone else', () => {
@@ -111,7 +123,9 @@ describe('Core.CombatLogParser', () => {
         byPlayerPet: () => false,
         toPlayerPet: () => true,
       });
-      myModule.triggerEvent('test', {});
+      myModule.triggerEvent({
+        type: 'test',
+      });
       expect(on_byPlayerPet_test).not.toBeCalled();
     });
     it('doesn\'t call convenience handlers toPlayerPet when event is to someone else', () => {
@@ -125,24 +139,10 @@ describe('Core.CombatLogParser', () => {
         byPlayerPet: () => true,
         toPlayerPet: () => false,
       });
-      myModule.triggerEvent('test', {});
-      expect(on_toPlayerPet_test).not.toBeCalled();
-    });
-    it('passes all arguments to event handler', () => {
-      const on_success = jest.fn();
-      class MyModule extends Analyzer {
-        on_success = on_success;
-      }
-      const myModule = new MyModule({
-        toPlayer: () => true,
-        byPlayer: () => true,
-        toPlayerPet: () => true,
-        byPlayerPet: () => true,
+      myModule.triggerEvent({
+        type: 'test',
       });
-      const firstArg = {};
-      const secondArg = 'my_second_arg';
-      myModule.triggerEvent('success', firstArg, secondArg);
-      expect(on_success).toBeCalledWith(firstArg, secondArg);
+      expect(on_toPlayerPet_test).not.toBeCalled();
     });
     it('sets `this` to the module', () => {
       const on_success = jest.fn();
@@ -150,7 +150,9 @@ describe('Core.CombatLogParser', () => {
         on_success = on_success;
       }
       const myModule = new MyModule();
-      myModule.triggerEvent('success');
+      myModule.triggerEvent({
+        type: 'success',
+      });
       expect(on_success.mock.instances[0]).toBe(myModule);
     });
   });

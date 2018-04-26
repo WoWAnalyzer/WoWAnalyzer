@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Wrapper from 'common/Wrapper';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
@@ -55,10 +54,10 @@ class ArchimondesHatredReborn extends Analyzer {
     return {
       item: ITEMS.ARCHIMONDES_HATRED_REBORN,
       result: (
-        <Wrapper>
+        <React.Fragment>
           <ItemHealingDone amount={this.healing} /><br />
           <ItemDamageDone amount={this.damage} />
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

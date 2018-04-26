@@ -20,6 +20,78 @@ export default {
     name: 'Wind Shear',
     icon: 'spell_nature_cyclone',
   },
+  EARTHBIND_TOTEM: {
+    id: 2484,
+    name: 'Earthbind Totem',
+    icon: 'spell_nature_strengthofearthtotem02', 
+  },
+  PURGE: {
+    id: 370,
+    name: 'Purge',
+    icon: 'spell_nature_purge', 
+  },
+  FAR_SIGHT: {
+    id: 6196,
+    name: 'Far Sight',
+    icon: 'spell_nature_farsight', 
+  },
+  WATER_WALKING: {
+    id: 546,
+    name: 'Water Walking',
+    icon: 'spell_frost_windwalkon', 
+  },
+  ASTRAL_RECALL: {
+    id: 556,
+    name: 'Astral Recall',
+    icon: 'spell_nature_astralrecal', 
+  },
+  NATURES_GUARDIAN_TALENT: { // Until talents get updated
+    id: 30884,
+    name: 'Nature\'s Guardian',
+    icon: 'spell_nature_natureguardian',
+  },
+  NATURES_GUARDIAN_HEAL: {
+    id: 31616,
+    name: 'Nature\'s Guardian',
+    icon: 'spell_nature_natureguardian',
+  },
+  TREMOR_TOTEM: {
+    id: 8143,
+    name: 'Tremor Totem',
+    icon: 'spell_nature_tremortotem',
+    manaCost: 460,
+  },
+  // Hex and its variations
+  HEX: {
+    id: 51514,
+    name: 'Hex',
+    icon: 'spell_shaman_hex', 
+  },
+  HEX_RAPTOR: {
+    id: 210873,
+    name: 'Hex',
+    icon: 'ability_hunter_pet_raptor', 
+  },
+  HEX_SPIDER: {
+    id: 211004,
+    name: 'Hex',
+    icon: 'ability_hunter_pet_spider', 
+  },
+  HEX_SNAKE: {
+    id: 211010,
+    name: 'Hex',
+    icon: 'inv_pet_pythonblack', 
+  },
+  HEX_COCKROACH: {
+    id: 211015,
+    name: 'Hex',
+    icon: 'inv_pet_cockroach', 
+  },
+  HEX_SKELETAL: {
+    id: 269352,
+    name: 'Hex',
+    icon: 'ability_mount_fossilizedraptor', 
+  },
   //Eye of the Twisting Nether Buffs
   SHOCK_OF_THE_TWISTING_NETHER: {
     id: 207999,
@@ -555,36 +627,40 @@ export default {
     id: 1064,
     name: 'Chain Heal',
     icon: 'spell_nature_healingwavegreater',
-    manaCost: 55000,
+    manaCost: 5000,
+    color: '#203755',
+  },
+  HEALING_WAVE: {
+    id: 77472,
+    name: 'Healing Wave',
+    icon: 'spell_nature_healingwavelesser',
+    manaCost: 1800,
+    color: '#146585',
   },
   HEALING_SURGE_RESTORATION: {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 44000,
+    manaCost: 4000,
+    color: '#40b3bf',
   },
-  HEALING_WAVE: {
-    id: 77472,
-    name: 'Healing Waves',
-    icon: 'spell_nature_healingwavelesser',
-    manaCost: 19800,
+  RIPTIDE: {
+    id: 61295,
+    name: 'Riptide',
+    icon: 'spell_nature_riptide',
+    manaCost: 1600,
+    color: '#a3dbce',
   },
   TIDAL_WAVES_BUFF: {
     id: 53390,
     name: 'Tidal Waves',
     icon: 'spell_shaman_tidalwaves',
   },
-  RIPTIDE: {
-    id: 61295,
-    name: 'Riptide',
-    icon: 'spell_nature_riptide',
-    manaCost: 17600,
-  },
   HEALING_RAIN_CAST: {
     id: 73920,
     name: 'Healing Rain',
     icon: 'spell_nature_giftofthewaterspirit',
-    manaCost: 47520,
+    manaCost: 4320,
   },
   HEALING_RAIN_HEAL: {
     id: 73921,
@@ -595,7 +671,7 @@ export default {
     id: 5394,
     name: 'Healing Stream Totem',
     icon: 'inv_spear_04',
-    manaCost: 24200,
+    manaCost: 2200,
   },
   HEALING_STREAM_TOTEM_HEAL: {
     id: 52042,
@@ -606,17 +682,12 @@ export default {
     id: 108280,
     name: 'Healing Tide Totem',
     icon: 'ability_shaman_healingtide',
-    manaCost: 12320,
+    manaCost: 1120,
   },
   HEALING_TIDE_TOTEM_HEAL: {
     id: 114942,
     name: 'Healing Tide Totem',
     icon: 'ability_shaman_healingtide',
-  },
-  ANCESTRAL_GUIDANCE_HEAL: {
-    id: 114911,
-    name: 'Ancestral Guidance',
-    icon: 'ability_shaman_ancestralguidance',
   },
   ASCENDANCE_HEAL: {
     id: 114083,
@@ -627,28 +698,17 @@ export default {
     id: 98008,
     name: 'Spirit Link Totem',
     icon: 'spell_shaman_spiritlink',
-    manaCost: 24200,
+    manaCost: 2200,
   },
   SPIRIT_LINK_TOTEM_REDISTRIBUTE: {
     id: 98021,
     name: 'Spirit Link Totem',
     icon: 'spell_shaman_spiritlink',
   },
-  GIFT_OF_THE_QUEEN: {
-    id: 207778,
-    name: 'Gift of the Queen',
-    icon: 'inv_mace_1h_artifactazshara_d_02',
-  },
-  GIFT_OF_THE_QUEEN_DUPLICATE: {
-    id:255227,
-    name: 'Gift of the Queen Duplicate',
-    icon: 'inv_mace_1h_artifactazshara_d_02',
-  },
   CLOUDBURST_TOTEM_HEAL: {
     id: 157503,
-    name: 'Cloudburst Totem',
+    name: 'Cloudburst',
     icon: 'ability_shaman_condensationtotem',
-    manaCost: 18920,
   },
   CLOUDBURST_TOTEM_RECALL: {
     id: 201764,
@@ -657,12 +717,12 @@ export default {
   },
   EARTHEN_SHIELD_TOTEM_ABSORB: {
     id: 201633,
-    name: 'Earthen Shield Totem',
+    name: 'Earthen Wall Totem',
     icon: 'spell_nature_stoneskintotem',
   },
   EARTHEN_SHIELD_TOTEM_SELF_DAMAGE: {
     id: 201657,
-    name: 'Earthen Shield Totem',
+    name: 'Earthen Wall Totem',
     icon: 'spell_nature_stoneskintotem',
   },
   RESTORATION_SHAMAN_T19_2SET_BONUS_BUFF: {
@@ -709,40 +769,50 @@ export default {
     id: 79206,
     name: 'Spiritwalker\'s Grace',
     icon: 'spell_shaman_spiritwalkersgrace',
-    manaCost: 31020,
+    manaCost: 2820,
   },
   WELLSPRING_HEAL: {
-    id: 198117,
+    id: 197997,
     name: 'Wellspring',
     icon: 'ability_shawaterelemental_split', 
   },
+  FLAME_SHOCK_RESTORATION: {
+    id: 188838,
+    name: 'Flame Shock',
+    icon: 'spell_fire_flameshock',
+    max_maelstrom: 20,
+  },
+  LIGHTNING_BOLT_RESTORATION: {
+    id: 403,
+    name: 'Lightning Bolt',
+    icon: 'spell_nature_lightning',
+  },
+  RESURGENCE: {
+    id: 101033,
+    name: 'Resurgence',
+    icon: 'ability_shaman_watershield',
+  },
+  UNDULATION_BUFF: {
+    id: 216251,
+    name: 'Undulation',
+    icon: 'spell_nature_healingwavelesser',
+  },
 
-  // Traits:
-  // Restoration Shaman:
-  QUEENS_DECREE: {
-    id: 208899,
-    name: 'Queen\'s Decree',
-    icon: 'inv_misc_volatilewater',
+
+  // Alpha Stuff
+  EARTH_SHIELD_TALENT: { // Until talents work
+    id: 974,
+    name: 'Earth Shield',
+    icon: 'spell_nature_skinofearth',
   },
-  TIDAL_TOTEM: {
-    id: 209069,
-    name: 'Tidal Totem',
-    icon: 'inv_mace_1h_artifactazshara_d_02',
+  EARTH_SHIELD_HEAL: {
+    id: 379,
+    name: 'Earth Shield',
+    icon: 'spell_nature_skinofearth',
   },
-  DEEP_WATERS: {
-    id: 238143,
-    name: 'Deep Waters',
-    icon: 'inv_mace_1h_artifactazshara_d_02',
-  },
-  // Restoration Shaman Set Bonus:
-  RAINFALL: { // T21 2pc
-    id: 252154,
-    name: 'Rainfall',
-    icon: 'spell_nature_giftofthewaterspirit',
-  },
-  DOWNPOUR: { // T21 4pc
-    id: 252159,
-    name: 'Downpour',
-    icon: 'spell_shaman_blessingoftheeternals',
+  SPIRIT_WOLF_TALENT: { // Until talents work
+    id: 260878,
+    name: 'Spirit Wolf',
+    icon: 'spell_hunter_lonewolf',
   },
 };

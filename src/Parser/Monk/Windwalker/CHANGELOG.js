@@ -1,12 +1,17 @@
+import { Juko8, Coryn, Talby, Anomoly, AttilioLH, Hewhosmites } from 'CONTRIBUTORS';
+
 import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import ItemLink from 'common/ItemLink';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 
-import { Juko8, Coryn, Talby, Anomoly, AttilioLH, Hewhosmites } from 'MAINTAINERS';
 export default [
+  {
+    date: new Date('2018-03-15'),
+    changes: <React.Fragment>Added module tracking bad casts of <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> </React.Fragment>,
+    contributors: [Juko8],
+  },
   {
     date: new Date('2018-03-09'),
     changes: `Added Checklist`,
@@ -14,42 +19,42 @@ export default [
   },
   {
     date: new Date('2018-03-06'),
-    changes: <Wrapper>Added Statistics and Suggestions on use of <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} icon/></Wrapper>,
+    changes: <React.Fragment>Added Statistics and Suggestions on use of <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} icon/></React.Fragment>,
     contributors: [Juko8],
   },
   {
     date: new Date('2018-03-03'),
-    changes: <Wrapper>Added <ItemLink id={ITEMS.THE_WIND_BLOWS.id} icon/></Wrapper>,
+    changes: <React.Fragment>Added <ItemLink id={ITEMS.THE_WIND_BLOWS.id} icon/></React.Fragment>,
     contributors: [Hewhosmites],
   },
   {
     date: new Date('2018-02-16'),
-    changes: 'Added Spinning Crane Kick statistics and suggestion on bad use of Spinning Crane Kick',
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> statistics and suggestion</React.Fragment>,
     contributors: [Juko8],
   },
   {
     date: new Date('2018-01-27'),
-    changes: 'Added item breakdown for Drinking Horn Cover showing average time gained for each Storm, Earth and Fire or Serenity cast',
+    changes: <React.Fragment>Added item breakdown for <ItemLink id={ITEMS.DRINKING_HORN_COVER.id} /> showing average time gained for each <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} /> or <SpellLink id={SPELLS.SERENITY_TALENT.id} /> cast</React.Fragment>,
     contributors: [Juko8],
   },
   {
     date: new Date('2018-01-24'),
-    changes: 'Added Statistic showing actual casts vs expected casts of important spells during Storm, Earth and Fire or Serenity',
+    changes: <React.Fragment>Added Statistic showing actual casts vs expected casts of important spells during <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} /> or <SpellLink id={SPELLS.SERENITY_TALENT.id} /></React.Fragment>,
     contributors: [Juko8],
   },
   {
     date: new Date('2018-01-20'),
-    changes: 'Updated Cooldown Tracker to include extended SEF duration from Drinking Horn Cover',
+    changes: <React.Fragment>Updated Cooldown Tracker to include extended <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} /> duration from <ItemLink id={ITEMS.DRINKING_HORN_COVER.id} /></React.Fragment>,
     contributors: [Juko8],
   },
   {
     date: new Date('2018-01-03'),
-    changes: "Updated AlwaysBeCasting with channeling and more accurate GCD and fixed Gol'ganneths ravaging storm being shown in Cooldown usage breakdown",
+    changes: "Updated AlwaysBeCasting with channeling and more accurate GCD and fixed Gol'ganneths ravaging storm being shown in Cooldowns tab",
     contributors: [Juko8],
   },
   {
     date: new Date('2017-12-05'),
-    changes: 'Updated Cast Efficiency to better handle Serenity cooldown reduction on Fists of Fury and Strike of the Windlord',
+    changes: <React.Fragment>Updated Cast Efficiency to better handle <SpellLink id={SPELLS.SERENITY_TALENT.id} /> cooldown reduction on <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> and <SpellLink id={SPELLS.STRIKE_OF_THE_WINDLORD.id} /></React.Fragment>,
     contributors: [Juko8],
   },
   {
@@ -64,22 +69,22 @@ export default [
   },
   {
     date: new Date('2017-11-07'),
-    changes: 'Added CJL damage from SEF clones in The Emperors Capacity item breakdown',
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} /> damage from <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} /> clones in <ItemLink id={ITEMS.THE_EMPERORS_CAPACITOR.id} /> item breakdown</React.Fragment>,
     contributors: [Juko8],
   },
   {
     date: new Date('2017-11-06'),
-    changes: 'Added Energizing Elixir energy gained calculation and statistic',
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.ENERGIZING_ELIXIR_TALENT.id} /> energy gained calculation and statistic</React.Fragment>,
     contributors: [Coryn],
   },
   {
     date: new Date('2017-11-05'),
-    changes: 'Added basic display for Invoke Xuen, The White Tiger to Cooldown Throughput with plans for refinement',
+    changes: <React.Fragment>Added basic display for <SpellLink id={SPELLS.INVOKE_XUEN_THE_WHITE_TIGER_TALENT.id} /> to Cooldown Throughput with plans for refinement</React.Fragment>,
     contributors: [Talby],
   },
   {
     date: new Date('2017-11-05'),
-    changes: 'Updated Cast Efficiency - Added Energizing Elixir and fixed Rushing Jade Wind showing when not talented',
+    changes: <React.Fragment>Updated Cast Efficiency - Added <SpellLink id={SPELLS.ENERGIZING_ELIXIR_TALENT.id} /> and fixed <SpellLink id={SPELLS.RUSHING_JADE_WIND_TALENT.id} /> showing when not talented</React.Fragment>,
     contributors: [Talby],
   },
   {
@@ -89,22 +94,22 @@ export default [
   },
   {
     date: new Date('2017-10-23'),
-    changes: 'Added tracking of Fists of Fury ticks',
+    changes: <React.Fragment>Added tracking of <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> ticks</React.Fragment>,
     contributors: [Juko8],
   },
   {
     date: new Date('2017-10-17'),
-    changes: 'Updated Cast Efficiency - Added reductions from legendary head and T19 2pc',
+    changes: <React.Fragment>Updated Cast Efficiency - Added reductions from <ItemLink id={ITEMS.THE_WIND_BLOWS.id} /> and T19 2pc</React.Fragment>,
     contributors: [Juko8],
   },
   {
     date: new Date('2017-10-17'),
-    changes: 'Added Cenedril, Emperors Capacitor and Soul to legendary item breakdown',
+    changes: <React.Fragment>Added <ItemLink id={ITEMS.CENEDRIL_REFLECTOR_OF_HATRED.id} />, <ItemLink id={ITEMS.THE_EMPERORS_CAPACITOR.id} /> and <ItemLink id={ITEMS.SOUL_OF_THE_GRANDMASTER.id} /> to legendary item breakdown</React.Fragment>,
     contributors: [Juko8],
   },
   {
     date: new Date('2017-10-15'),
-    changes: "Added Katsuo's Eclipse chi reduction item breakdown",
+    changes: <React.Fragment>Added <ItemLink id={ITEMS.KATSUOS_ECLIPSE.id} /> chi reduction item breakdown</React.Fragment>,
     contributors: [Juko8],
   },
   {
@@ -119,7 +124,7 @@ export default [
   },
   {
     date: new Date('2017-10-13'),
-    changes: 'Added Combo Breaker tracking with suggestions and statistic',
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> tracking with suggestions and statistic</React.Fragment>,
     contributors: [Juko8],
   },
   {
@@ -129,7 +134,7 @@ export default [
   },
   {
     date: new Date('2017-09-24'),
-    changes: 'Added additional Windwalker spells / cooldowns along with a simple Hit Combo tracker',
+    changes: <React.Fragment>Added additional Windwalker spells / cooldowns along with a simple <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} /> tracker</React.Fragment>,
     contributors: [Anomoly],
   },
   {

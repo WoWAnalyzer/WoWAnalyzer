@@ -4,7 +4,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from "common/SpellIcon";
 import SpellLink from "common/SpellLink";
 import ItemDamageDone from 'Main/ItemDamageDone';
 
@@ -32,9 +31,7 @@ class LegacyOfTheWindrunners extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.LEGACY_OF_THE_WINDRUNNERS_TRAIT.id}>
-            <SpellIcon id={SPELLS.LEGACY_OF_THE_WINDRUNNERS_TRAIT.id} noLink /> Legacy
-          </SpellLink>
+          <SpellLink id={SPELLS.LEGACY_OF_THE_WINDRUNNERS_TRAIT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.damage} />

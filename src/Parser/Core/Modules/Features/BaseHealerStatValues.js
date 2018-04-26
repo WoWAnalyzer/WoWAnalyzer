@@ -1,5 +1,7 @@
 import React from 'react';
 
+import InformationIcon from 'Icons/Information';
+
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
@@ -159,6 +161,9 @@ class BaseHealerStatValues extends Analyzer {
     }
   }
   _adjustGain(gain, targetHealthPercentage) {
+    if (gain === 0) {
+      return 0;
+    }
     // We want 0-20% health to get value gain, and then linearly decay to 100% health
     const maxValueHealthPercentage = 0.3;
     const mult = 1 - Math.max(0, (targetHealthPercentage - maxValueHealthPercentage) / (1 - maxValueHealthPercentage));
@@ -261,9 +266,11 @@ class BaseHealerStatValues extends Analyzer {
   on_toPlayer_damage(event) {
     this._updateMissingHealth(event);
 
-    const damageVal = new DamageValue(event.amount, event.absorbed, event.overkill);
-    const targetHealthPercentage = event.hitPoints / event.maxHitPoints; // hitPoints contains HP *after* the damage taken, which in this case is desirable
-    this.totalOneVersDr += this._adjustGain(this._versatilityDamageReduction(event, damageVal), targetHealthPercentage);
+    const damageVal = new DamageValue(event.amount, event.absorbed, event.blocked, event.overkill);
+    // const targetHealthPercentage = event.hitPoints / event.maxHitPoints; // hitPoints contains HP *after* the damage taken, which in this case is desirable
+    // this.totalOneVersDr += this._adjustGain(this._versatilityDamageReduction(event, damageVal), targetHealthPercentage);
+    // TODO: Figure out how to make this account for target health since damage event don't appear to have hitPoints info
+    this.totalOneVersDr += this._versatilityDamageReduction(event, damageVal);
   }
   _versatilityDamageReduction(event, damageVal) {
     const amount = damageVal.effective;
@@ -396,7 +403,7 @@ class BaseHealerStatValues extends Analyzer {
   statistic() {
     const results = this._prepareResults();
     return (
-      <div className="col-lg-6 col-md-8 col-sm-12 col-xs-12">
+      <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
         <div className="panel items">
           <div className="panel-heading">
             <h2>
@@ -414,9 +421,9 @@ class BaseHealerStatValues extends Analyzer {
               <thead>
                 <tr>
                   <th style={{ minWidth: 30 }}><b>Stat</b></th>
-                  <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Normalized so Intellect is always 1.00. Hover to see the amount of healing 1 rating resulted in."><b>Value</b></dfn></th>
-                  <th className="text-right" style={{ minWidth: 30 }}>HPS per rating</th>
-                  <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Amount of stat rating required to increase your total healing by 1%"><b>Rating per 1%</b></dfn></th>
+                  <th className="text-right" style={{ minWidth: 30 }} colSpan={2}>
+                    <dfn data-tip="Normalized so Intellect is always 1.00."><b>Value</b></dfn>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -444,13 +451,10 @@ class BaseHealerStatValues extends Analyzer {
                       <td className="text-right">
                         {stat === STAT.HASTE_HPCT && '0.00 - '}{gain !== null ? weight.toFixed(2) : 'NYI'}
                       </td>
-                      <td className="text-right">
-                        {(gain / this.owner.fightDuration * 1000).toFixed(2)}
-                      </td>
-                      <td className="text-right">
-                        {gain !== null ? (
+                      <td style={{ padding: 6 }}>
+                        <InformationIcon data-tip={`${(gain / this.owner.fightDuration * 1000).toFixed(2)} HPS per 1 rating / ${gain !== null ? (
                           ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)
-                        ) : 'NYI'}
+                        ) : 'NYI'} rating per 1% throughput`} />
                       </td>
                     </tr>
                   );

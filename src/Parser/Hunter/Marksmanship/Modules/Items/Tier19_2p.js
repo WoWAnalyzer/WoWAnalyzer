@@ -60,10 +60,10 @@ class Tier19_2p extends Analyzer {
     return {
       id: `spell-${SPELLS.HUNTER_MM_T19_2P_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.TRUESHOT.id} />,
-      title: <SpellLink id={SPELLS.HUNTER_MM_T19_2P_BONUS.id} />,
+      title: <SpellLink id={SPELLS.HUNTER_MM_T19_2P_BONUS.id} icon={false} />,
       result: (
         <dfn data-tip={`You wasted ${formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR.<br/> `}>
-          reduced <SpellLink id={SPELLS.TRUESHOT.id} icon /> CD by {formatNumber(this.effectiveTrueshotReductionMs / 1000)}s in total.
+          reduced <SpellLink id={SPELLS.TRUESHOT.id} /> CD by {formatNumber(this.effectiveTrueshotReductionMs / 1000)}s in total.
         </dfn>
       ),
     };

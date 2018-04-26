@@ -1,4 +1,4 @@
-import { Sharrq } from 'MAINTAINERS';
+import { Sharrq } from 'CONTRIBUTORS';
 
 export default [
   {

@@ -48,27 +48,27 @@ export default {
   },
   DIRE_FRENZY_TALENT_BUFF_1: {
     id: 246152,
-    name: 'Dire Frenzy',
+    name: 'Dire Frenzy 1',
     icon: 'ability_druid_mangle',
   },
   DIRE_FRENZY_TALENT_BUFF_2: {
     id: 246851,
-    name: 'Dire Frenzy',
+    name: 'Dire Frenzy 2',
     icon: 'ability_druid_mangle',
   },
   DIRE_FRENZY_TALENT_BUFF_3: {
     id: 246852,
-    name: 'Dire Frenzy',
+    name: 'Dire Frenzy 3',
     icon: 'ability_druid_mangle',
   },
   DIRE_FRENZY_TALENT_BUFF_4: {
     id: 246853,
-    name: 'Dire Frenzy',
+    name: 'Dire Frenzy 4',
     icon: 'ability_druid_mangle',
   },
   DIRE_FRENZY_TALENT_BUFF_5: {
     id: 246854,
-    name: 'Dire Frenzy',
+    name: 'Dire Frenzy 5',
     icon: 'ability_druid_mangle',
   },
   DIRE_FRENZY_DAMAGE: {
@@ -161,6 +161,11 @@ export default {
     id: 218638,
     name: 'Titan\'s Thunder',
     icon: 'ability_hunter_longevity',
+  },
+  SLITHERING_SERPENTS_TRAIT: {
+    id: 238051,
+    name: 'Slithering Serpents',
+    icon: 'ability_hunter_cobrashot',
   },
   COBRA_COMMANDER_TRAIT: {
     id: 238123,
@@ -659,7 +664,7 @@ export default {
   },
   EAGLES_BITE_TRAIT: {
     id: 203757,
-    name: 'Eagle\'s Bite',
+    name: 'On The Trail',
     icon: 'artifactability_survivalhunter_eaglesbite',
   },
   ON_THE_TRAIL_DAMAGE: {

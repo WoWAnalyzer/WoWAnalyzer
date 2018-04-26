@@ -14,7 +14,7 @@ class MaelstromTab extends Analyzer {
       title: 'Maelstrom Chart',
       url: 'maelstrom',
       render: () => (
-        <Tab title='Maelstrom' style={{ padding: '15px 22px' }}>
+        <Tab style={{ padding: '15px 22px' }}>
           <MaelstromChart
             start={this.owner.fight.start_time}
             end={this.owner.fight.end_time}
