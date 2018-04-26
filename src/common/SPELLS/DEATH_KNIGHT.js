@@ -7,7 +7,7 @@
 export default {
   // Blood:
   // Artifact
-  CONSUMPTION: {
+  CONSUMPTION: { //when are we going to lose the artifact-ID and get the talent one?
     id: 205223,
     name: 'Consumption',
     icon: 'inv_axe_2h_artifactmaw_d_01',
@@ -26,13 +26,6 @@ export default {
   },
 
   // Damage Dealing
-  // Provides the 1 RP tick on DnD from Rapid Decomposition Talent
-  RAPID_DECOMPOSITION_RP_TICK: {
-    id: 255203,
-    name: 'Rapid Decomposition RP Tick',
-    icon: 'ability_deathknight_deathsiphon2',
-  },
-
   BLOOD_BOIL: {
     id: 50842,
     name: 'Blood Boil',
@@ -43,7 +36,7 @@ export default {
     id: 206930,
     name: 'Heart Strike',
     icon: 'inv_weapon_shortblade_40',
-  },
+  },  
 
   // Only used during Dancing Rune Weapon. Its the Heart Strike of the copied weapons. Generates 5 RP.
   BLOOD_STRIKE: {

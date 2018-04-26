@@ -29,9 +29,6 @@ class RunicPowerTracker extends ResourceTracker {
         this.combatants.selected.hasBuff(SPELLS.GRAVEWARDEN.id, event.timestamp)) {
         cost -= 5;
       }
-      if (this.combatants.selected.hasBuff(SPELLS.OSSUARY.id, event.timestamp)) {
-        cost -= 5;
-      }
     }
     return cost;
   }
@@ -40,7 +37,7 @@ class RunicPowerTracker extends ResourceTracker {
     if (!this.combatants.selected.hasTalent(SPELLS.RED_THIRST_TALENT.id)){
       return;
     }
-    const COOLDOWN_REDUCTION_MS = 1000/6;
+    const COOLDOWN_REDUCTION_MS = 1000 / 10;
     const reduction = cost * COOLDOWN_REDUCTION_MS;
     if (!this.spellUsable.isOnCooldown(SPELLS.VAMPIRIC_BLOOD.id)){
       this.totalCooldownReductionWasted += reduction;
