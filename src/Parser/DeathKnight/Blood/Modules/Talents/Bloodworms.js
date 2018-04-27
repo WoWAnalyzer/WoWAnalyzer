@@ -17,18 +17,31 @@ class Bloodworms extends Analyzer {
   totalHealing=0;
   totalDamage=0;
   sourceInstance=0;
+  poppedEarly=0;
+
+  bloodworm = [];
 
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.BLOODWORMS_TALENT.id);
   }
 
+  poppedWorms(bloodworm) {
+    console.log(bloodworm);
+    const popped = bloodworm.filter(e => {
+      console.log(e.killedTime - e.summonedTime);
+      return e.killedTime - e.summonedTime <= 15000
+    });
+    return popped.length;
+  }
+
   on_byPlayer_summon(event) {
     if (event.ability.guid === SPELLS.BLOODWORM.id) {
-      console.log("Worm Summoned ", this.wormID);
+      this.bloodworm.push({
+        uniqueID: event.targetInstance,
+        summonedTime: event.timestamp,
+      });
       this.totalSummons+= 1;
-      this.wormID = event.targetID;
-      this.sourceInstance = event.targetInstance;
     }
   }
 
@@ -39,11 +52,22 @@ class Bloodworms extends Analyzer {
     }
   }
 
-  on_byPlayer_instakill(event) {
-    if (event.ability.guid !== SPELLS.BLOODWORM_DEATH.id) {
-      return;
+  on_byPlayerPet_instakill(event) {
+    if (event.ability.guid === SPELLS.BLOODWORM_DEATH.id) {
+      let index = -1;
+      this.bloodworm.forEach((e, i) => {
+        if (e.uniqueID === event.targetInstance) {
+          index = i;
+        }
+      });
+
+      if (index === -1) {
+        console.log("Death of unknown Bloodworm");
+        return;
+      }
+      console.log("index    ", index);
+      this.bloodworm[index].killedTime = event.timestamp;
     }
-    this.impsKilled += 1;
   }
 
   on_toPlayer_heal(event) {
@@ -53,6 +77,7 @@ class Bloodworms extends Analyzer {
     }
   }
 
+  poppedEarly = this.poppedWorms(this.bloodworms);
 
   statistic() {
     return (
@@ -63,6 +88,7 @@ class Bloodworms extends Analyzer {
         label="Bloodworm Stats"
         tooltip={`<strong>Damage:</strong> ${formatThousands(this.totalDamage)} / ${this.owner.formatItemDamageDone(this.totalDamage)}<br>
         <strong>Number of worms summoned:</strong> ${this.totalSummons}<br>
+        <strong># of worms popped early:</strong> ${this.poppedEarly}
         `}
       />
 
