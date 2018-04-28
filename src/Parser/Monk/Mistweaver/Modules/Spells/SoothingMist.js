@@ -2,6 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -33,31 +34,27 @@ class SoothingMist extends Analyzer {
   }
 
   get soomTicksPerDuration() {
-    return (this.soomTicks * 2 / this.owner.fightDuration * 1000) || 0;
+    const soomTicks = (this.soomTicks * 2 / this.owner.fightDuration * 1000) || 0;
+    return soomTicks >= 1.5;
   }
 
   get suggestionThresholds() {
     return {
       actual: this.soomTicksPerDuration,
-      isGreaterThan: {
-        minor: .75,
-        average: 1,
-        major: 1.5,
-      },
-      style: 'number',
+      isEqual: true,
+      style: 'boolean',
     };
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+    when(this.suggestionThresholds).addSuggestion((suggest) => {
         return suggest(
           <React.Fragment>
             You are allowing <SpellLink id={SPELLS.SOOTHING_MIST.id} /> to channel for an extended period of time. <SpellLink id={SPELLS.SOOTHING_MIST.id} /> does little healing, so your time is better spent DPS'ing throug the use of <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} />.
           </React.Fragment>
         )
           .icon(SPELLS.SOOTHING_MIST.icon)
-          .actual(`${this.soomTicksPerDuration.toFixed(2)} ticks per second`)
-          .recommended(`<${recommended} ticks per second is recommended`);
+          .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
       });
   }
 }
