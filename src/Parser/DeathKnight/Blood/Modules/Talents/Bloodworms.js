@@ -77,8 +77,6 @@ class Bloodworms extends Analyzer {
     }
   }
 
-  poppedEarly = this.poppedWorms(this.bloodworms);
-
   statistic() {
     return (
 
@@ -88,7 +86,7 @@ class Bloodworms extends Analyzer {
         label="Bloodworm Stats"
         tooltip={`<strong>Damage:</strong> ${formatThousands(this.totalDamage)} / ${this.owner.formatItemDamageDone(this.totalDamage)}<br>
         <strong>Number of worms summoned:</strong> ${this.totalSummons}<br>
-        <strong># of worms popped early:</strong> ${this.poppedEarly}
+        <strong># of worms popped early:</strong> ${this.poppedWorms(this.bloodworms)}
         `}
       />
 
