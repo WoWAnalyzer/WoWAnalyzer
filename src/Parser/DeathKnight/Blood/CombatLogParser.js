@@ -29,10 +29,10 @@ import RuneTracker from '../Shared/RuneTracker';
 import RuneDetails from '../Shared/RuneDetails';
 
 // Talents
-import Ossuary from './Modules/Talents/Ossuary';
 import RedThirst from './Modules/Talents/RedThirst';
 import BoneStorm from './Modules/Talents/Bonestorm';
 import MarkOfBloodUptime from './Modules/Talents/MarkOfBloodUptime';
+import Hemostasis from './Modules/Talents/Hemostasis';
 
 // Items
 import T20_2pc from './Modules/Items/T20_2pc';
@@ -87,10 +87,10 @@ class CombatLogParser extends CoreCombatLogParser {
     runeDetails: RuneDetails,
 
     // Talents
-    ossuary: Ossuary,
     redThirst: RedThirst,
     boneStorm: BoneStorm,
     markOfBloodUptime: MarkOfBloodUptime,
+    hemostasis: Hemostasis,
 
     // Traits
     RelicTraits: RelicTraits,
