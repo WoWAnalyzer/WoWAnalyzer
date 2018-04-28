@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-28'),
+    changes: 'Updated checklist wording for Essence Font and Soothing Mist, along with adding additional decimal places to Essence Font Checklist item',
+    contributors: [Anomoly],
+  },
+  {
     date: new Date('2018-02-05'),
     changes: 'Implemented Stat Values for Mistweaver Monk',
     contributors: [Scaleable, Anomoly],

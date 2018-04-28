@@ -33,18 +33,17 @@ class SoothingMist extends Analyzer {
   }
 
   get soomTicksPerDuration() {
-    return (this.soomTicks * 2 / this.owner.fightDuration * 1000) || 0;
+    const soomTicks = (this.soomTicks * 2 / this.owner.fightDuration * 1000) || 0;
+    if (soomTicks >= 1.5) {
+      return true;
+    }
   }
 
   get suggestionThresholds() {
     return {
       actual: this.soomTicksPerDuration,
-      isGreaterThan: {
-        minor: .75,
-        average: 1,
-        major: 1.5,
-      },
-      style: 'number',
+      isEqual: true,
+      style: 'boolean',
     };
   }
 
