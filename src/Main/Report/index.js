@@ -101,7 +101,8 @@ class Report extends React.Component {
     this.props.setReportProgress(0);
     const config = this.getConfig(combatant.specID);
     timeAvailable && console.time('full parse');
-    const parser = this.createParser(config.parser, report, fight, player);
+    const parserClass = await config.parser();
+    const parser = this.createParser(parserClass, report, fight, player);
     // We send combatants already to the analyzer so it can show the results page with the correct items and talents while waiting for the API request
     parser.initialize(combatants);
     await this.setStatePromise({
@@ -145,6 +146,7 @@ class Report extends React.Component {
       const numEvents = events.length;
       let offset = 0;
 
+      timeAvailable && console.time('player event parsing');
       while (offset < numEvents) {
         if (this._jobId !== jobId) {
           return;
@@ -158,6 +160,7 @@ class Report extends React.Component {
 
         offset += batchSize;
       }
+      timeAvailable && console.timeEnd('player event parsing');
 
       parser.fabricateEvent({
         type: 'finished',

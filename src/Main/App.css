@@ -18,6 +18,10 @@ body {
   .container {
     padding: 0 60px;
   }
+  .hpadding-lg-30 {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 }
 #app-mount {
   display: flex;
@@ -48,6 +52,14 @@ section header h1 {
   font-size: 3em;
   margin: 0 0 0.7em;
   text-align: center;
+}
+h2 {
+  opacity: .9;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  margin: 0;
+  font-size: 1em;
 }
 
 
@@ -102,7 +114,7 @@ ul {
   width: 100%;
   margin-bottom: 20px;
   position: relative;
-  background: rgba(10, 10, 10, 0.7);
+  background: rgba(10, 10, 10, 0.9);
   border: 1px solid #000;
   border-radius: 5px;
   box-shadow: 0 6px 13px 0 rgba(0,0,0,.2), 0 0 2px rgba(0,0,0,.5);
@@ -119,14 +131,6 @@ ul {
   border-bottom-left-radius: 5px;
   box-shadow: 0 -1px 0 0 rgba(255, 255, 255, .1);
   background: transparent;
-}
-.panel-heading h2 {
-  opacity: .9;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-weight: 600;
-  margin: 0;
-  font-size: 1em;
 }
 .panel > .panel-body {
   padding: 15px 22px;

@@ -9,11 +9,8 @@ class EncounterPanel extends Analyzer {
   };
 
   render() {
-    console.info(this.combatants.selected._combatantInfo.specID);
     return (
-      <div className="panel" style={{ border: 0, alignContent: 'center' }}>
-        <EncounterStats currentBoss={this.owner.fight.boss} difficulty={this.owner.fight.difficulty} spec={this.combatants.selected._combatantInfo.specID} />
-      </div>
+      <EncounterStats currentBoss={this.owner.fight.boss} difficulty={this.owner.fight.difficulty} spec={this.combatants.selected._combatantInfo.specID} />
     );
   }
 }

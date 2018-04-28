@@ -91,7 +91,7 @@ class Home extends React.PureComponent {
                     </div>
 
                     {/* old: https://media.giphy.com/media/l1J3vV5lCmv8qx16M/giphy.gif */}
-                    <img src="https://media.giphy.com/media/N56zWre4o5UlO/giphy.gif" style={{ width: '100%' }} alt="Sharing is caring" />
+                    {/*<img src="https://media.giphy.com/media/N56zWre4o5UlO/giphy.gif" style={{ width: '100%' }} alt="Sharing is caring" />*/}
                   </div>
                 </div>
               </div>
