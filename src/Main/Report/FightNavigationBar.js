@@ -13,6 +13,7 @@ import getWipeCount from 'common/getWipeCount';
 import makeAnalyzerUrl from 'Main/makeAnalyzerUrl';
 
 import './FightNavigationBar.css';
+import SkullRaidMarker from './Results/Images/skull-raidmarker.png';
 
 class FightNavigationBar extends React.PureComponent {
   static propTypes = {
@@ -62,8 +63,8 @@ class FightNavigationBar extends React.PureComponent {
                   <Link to={makeAnalyzerUrl(report, fight.id, playerId)}>
                     <figure>
                       <img
-                        src={boss && boss.headshot}
-                        alt={boss.name}
+                        src={boss ? boss.headshot : SkullRaidMarker}
+                        alt={boss ? boss.name : fight.name}
                       />
                       <div className="over-image">
                         {fight.kill ? <SkullIcon /> : `${Math.floor(fight.fightPercentage / 100)}%`}
