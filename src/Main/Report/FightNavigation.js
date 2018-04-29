@@ -36,6 +36,9 @@ class FightNavigation extends React.PureComponent {
 
   render() {
     const { report, playerId, playerName, fightId } = this.props;
+    if (!report) {
+      return null;
+    }
 
     const player = playerId ? report.friendlies.find(friendly => friendly.id === playerId) : report.friendlies.find(friendly => friendly.name === playerName);
 

@@ -20,7 +20,6 @@ nav.fight > ul > li a {
   padding: 11px;
   display: block;
   font-weight: 400;
-  font-size: 16px;
   line-height: 1;
   text-align: center;
 }
@@ -60,6 +59,7 @@ nav.fight > ul > li .over-image {
   right: 3px;
   text-align: right;
   text-shadow: -1px -1px 2px #000, 1px 1px 2px #000;
+  font-size: 14px;
 }
 nav.fight > ul > li.wipe .over-image {
   font-size: 12px;
