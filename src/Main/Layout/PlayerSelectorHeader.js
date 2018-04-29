@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { getPlayerName } from 'selectors/url/report';
 
-import SelectorBase from '../Report/SelectorBase';
+import SelectorBase from './SelectorBase';
 import PlayerSelectionList from '../Report/PlayerSelectionList';
 
 class PlayerSelectorHeader extends SelectorBase {
