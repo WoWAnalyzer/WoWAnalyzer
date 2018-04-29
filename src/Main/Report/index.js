@@ -25,7 +25,7 @@ import FightSelecter from './FightSelecter';
 import PlayerSelecter from './PlayerSelecter';
 import Results from './Results';
 import ActivityIndicator from '../ActivityIndicator';
-import FightNavigation from './FightNavigation';
+import FightNavigationBar from './FightNavigationBar';
 
 const timeAvailable = console.time && console.timeEnd;
 
@@ -353,7 +353,7 @@ class Report extends React.Component {
     const { parser } = this.state;
     return (
       <React.Fragment>
-        <FightNavigation />
+        <FightNavigationBar />
         <div style={{ marginLeft: 60 }}>
           {!parser && <ActivityIndicator text="Initializing analyzer..." />}
           {parser && (
