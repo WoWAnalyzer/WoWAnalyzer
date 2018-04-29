@@ -17,7 +17,7 @@
   margin-top: -0.3em;
   color: #bbb;
 }
-.panel.statistic-box img {
+.panel.statistic-box > .panel-body > div:first-child img {
   height: 4.3em;
   margin-top: 0;
   border-radius: 3px;
@@ -30,7 +30,7 @@
 .panel.statistic-box.statistic-list .panel-body {
   padding: 10px 12px;
 }
-.panel.statistic-box.statistic-list img {
+.panel.statistic-box.statistic-list > .panel-body > div:first-child img {
   height: 1.6em;
   margin-top: -0.2em;
 }
@@ -69,8 +69,11 @@
   vertical-align: top;
 }
 
+.panel.statistic-box.item .value {
+  font-size: 1.2em;
+}
 /* small */
-.panel.statistic-box.small img {
+.panel.statistic-box.small > .panel-body > div:first-child img {
   height: 1.6em;
   margin-top: -0.2em;
 }

@@ -87,7 +87,7 @@ class CastBehavior extends Analyzer {
           tooltips: {
             bodyFontSize: 8,
           },
-          cutoutPercentage: 45,
+          cutoutPercentage: 25,
           animation: false,
           responsive: false,
         }}

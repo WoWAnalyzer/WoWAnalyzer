@@ -9,7 +9,7 @@ import { getFightById } from 'selectors/fight';
 import getFightName from 'common/getFightName';
 
 import SelectorBase from './SelectorBase';
-import FightSelectionList from './FightSelectionList';
+import FightSelectionList from '../Report/FightSelectionList';
 
 class FightSelectorHeader extends SelectorBase {
   static propTypes = {
