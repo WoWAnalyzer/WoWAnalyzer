@@ -32,31 +32,29 @@ class NavigationBar extends React.PureComponent {
 
     return (
       <nav className="global">
-        <div className="container">
-          <div className="menu-item logo main">
-            <Link to={makeAnalyzerUrl()}>
-              <img src="/favicon.png" alt="WoWAnalyzer logo" />
-            </Link>
-          </div>
-          {report && (
-            <div className="menu-item">
-              <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
-            </div>
-          )}
-          {report && fight && (
-            <FightSelectorHeader className="menu-item" />
-          )}
-          {report && playerName && (
-            <PlayerSelectorHeader className="menu-item" />
-          )}
-          <div className="spacer" />
-          <div className="menu-item main">
-            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
-              <GitHubIcon /> <span className="optional" style={{ paddingLeft: 6 }}> View on GitHub</span>
-            </a>
-          </div>
-          <LoadingBar progress={progress} />
+        <div className="menu-item logo main">
+          <Link to={makeAnalyzerUrl()}>
+            <img src="/favicon.png" alt="WoWAnalyzer logo" />
+          </Link>
         </div>
+        {report && (
+          <div className="menu-item">
+            <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
+          </div>
+        )}
+        {report && fight && (
+          <FightSelectorHeader className="menu-item" />
+        )}
+        {report && playerName && (
+          <PlayerSelectorHeader className="menu-item" />
+        )}
+        <div className="spacer" />
+        <div className="menu-item main">
+          <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
+            <GitHubIcon /> <span className="optional" style={{ paddingLeft: 6 }}> View on GitHub</span>
+          </a>
+        </div>
+        <LoadingBar progress={progress} />
       </nav>
     );
   }

@@ -27,12 +27,11 @@ import WipefestLogo from 'Main/Images/Wipefest-logo.png';
 import Contributor from 'Main/Contributor';
 import ItemStatisticBox from 'Main/ItemStatisticBox';
 
+import './Results.css';
 import ResultsWarning from './ResultsWarning';
 import Header from './Header';
 import DetailsTab from './DetailsTab';
 import Odyn from './Images/odyn.jpg';
-
-import './Results.css';
 
 const CURRENT_GAME_PATCH = '8.0.0';
 
@@ -255,7 +254,7 @@ class Results extends React.PureComponent {
     }
 
     return (
-      <React.Fragment>
+      <div className="break-out">
         <div className="row">
           <div className="col-md-4">
             {this.renderAbout()}
@@ -335,7 +334,7 @@ class Results extends React.PureComponent {
         <div className="divider" />
 
         <DetailsTab tabs={results.tabs} selected={selectedDetailsTab} makeTabUrl={makeTabUrl} />
-      </React.Fragment>
+      </div>
     );
   }
   renderLoading() {
@@ -369,7 +368,7 @@ class Results extends React.PureComponent {
     }
 
     return (
-      <div className="container">
+      <div style={{ paddingLeft: 100, paddingRight: 100 }}>
         <div className="results">
           <Header config={config} playerName={selectedCombatant.name} boss={parser.boss} fight={fight} />
 
