@@ -53,7 +53,7 @@ async function rawFetchWcl(endpoint, queryParams) {
     if (message === 'This report does not exist or is private.') {
       throw new LogNotFoundError();
     }
-    if (json.message === '{ "status": 400, "error": "Invalid character name/server/region specified." }') {
+    if (message === 'Invalid character name/server/region specified.') {
       return JSON.parse(json.message);
     }
     throw new Error(message || json.error);

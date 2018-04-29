@@ -912,66 +912,6 @@ code.inactive {
   margin: 10px 0;
 }
 
-.charparse .filter {
-  margin: 0;
-}
-
-.charparse div.form-control {
-  padding: 10px 12px 11px 12px;
-  cursor: pointer;
-}
-.charparse .form-control {
-  margin-bottom: 6px;
-  transition: background-color 0.1s ease-in-out;
-}
-
-.charparse .form-control.selected {
-  background-color: #d84141;
-}
-
-.charparse .row.filter {
-  margin: 0;
-  padding-bottom: 15px;
-}
-
-.row.character-parse {
-  margin: 0;
-  padding: 12px 0;
-  border-bottom: 1px solid #000;
-  box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
-}
-
-.row.character-parse:hover {
-  background-color: rgba(99, 31, 31, 0.1);
-  border-top-color: rgba(0, 0, 0, 0.4);
-  border-bottom-color: rgba(0, 0, 0, 0.4);
-}
-
-.charparse h2 {
-  opacity: .9;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-weight: 600;
-}
-
-.charparse .char-image {
-  position: absolute;
-  right: 0;
-  left: 0;
-}
-
-.charparse .char-image:before {
-  content: "";
-  position: absolute;
-  top: 0; right: 0; bottom: 0; left: 0;
-  background: linear-gradient(
-    to bottom, 
-    rgba(0, 0, 0, 0) 0%, 
-    rgba(0, 0, 0, 0) 50%, 
-    rgba(15, 15, 15, 1) 100%
-  ); 
-}
-
 .parse-grey {
   color: #666 !important;
 }

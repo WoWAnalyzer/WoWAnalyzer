@@ -67,12 +67,6 @@ class CharacterSelecter extends React.PureComponent {
   }
 
   render() {
-    const options = REALMS[this.state.currentRegion].realms.map(elem => {
-      return {
-        value: elem.name,
-        name: elem.name,
-      };
-    });
 
     return (
       <form onSubmit={this.handleSubmit} className="form-inline">
@@ -89,7 +83,10 @@ class CharacterSelecter extends React.PureComponent {
             )}
           </select>
           <SelectSearch 
-            options={options}
+            options={REALMS[this.state.currentRegion].realms.map(elem => ({
+              value: elem.name,
+              name: elem.name,
+            }))}
             className="realm-search"
             onChange={value => { this.setState({ currentRealm: value.name });}}
             placeholder='Realm'
@@ -105,7 +102,7 @@ class CharacterSelecter extends React.PureComponent {
             spellCheck="false"
             placeholder="Character"
           />
-          <button type="submit" style={{ left: 467, width: 130, height: 43 }} className={`btn btn-primary analyze progress ${ this.state.loading ? 'progressing' : ''}`}>
+          <button type="submit" style={{ left: 467, width: 130, height: 43 }} className={`btn btn-primary analyze animated-button ${ this.state.loading ? 'fill-button' : ''}`}>
             Search <span className="glyphicon glyphicon-chevron-right" aria-hidden />
           </button>
         </div>

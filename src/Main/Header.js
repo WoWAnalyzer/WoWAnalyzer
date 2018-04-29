@@ -35,16 +35,20 @@ class Header extends React.PureComponent {
               <div className="description">
                 Analyze your raid logs to get personal suggestions and metrics to improve your performance. Just enter a Warcraft Logs report:
               </div>
-              <div className="tabs">
-                <span onClick={() => this.setState({ reportActive: true }) } className={ this.state.reportActive ? 'selected' : '' }>Report</span>
-                <span onClick={() => this.setState({ reportActive: false }) } className={ this.state.reportActive ? '' : 'selected' }>Character</span>
-              </div>
-              {showReportSelecter && this.state.reportActive && (
-                <ReportSelecter />
+              {showReportSelecter && (
+                <div>
+                  <div className="parse-tabs">
+                    <span onClick={() => this.setState({ reportActive: true }) } className={ this.state.reportActive ? 'selected' : '' }>Report</span>
+                    <span onClick={() => this.setState({ reportActive: false }) } className={ this.state.reportActive ? '' : 'selected' }>Character</span>
+                  </div>
+                  {this.state.reportActive ? (
+                    <ReportSelecter />
+                  ) : (
+                    <CharacterSelecter />
+                  )}
+                </div>
               )}
-              {showReportSelecter && !this.state.reportActive && (
-                <CharacterSelecter />
-              )}
+                
               {process.env.NODE_ENV !== 'test' && <ServiceStatus style={{ marginBottom: 5 }} />}
               <div className="about">
                 <Link to={makeNewsUrl(AboutArticleTitle)}>About WoWAnalyzer</Link>
