@@ -31,7 +31,7 @@ class NavigationBar extends React.PureComponent {
     const { playerName, report, fight, progress } = this.props;
 
     return (
-      <nav>
+      <nav className="global">
         <div className="container">
           <div className="menu-item logo main">
             <Link to={makeAnalyzerUrl()}>

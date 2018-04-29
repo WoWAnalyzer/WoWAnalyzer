@@ -1,5 +1,4 @@
-/* NAVBAR */
-nav {
+nav.global {
   position: fixed;
   top: 0;
   width: 100%;
@@ -10,22 +9,22 @@ nav {
   border: 0;
   margin-bottom: 24px;
 }
-.show-report-selecter nav {
+.show-report-selecter nav.global {
   /* Reduce opacity by 20% */
   background: rgba(12, 12, 12, 0.8);
   background: linear-gradient(to bottom, rgba(18, 18, 18, 0.8) 0%, rgba(8, 8, 8, 0.8) 100%);
 }
-nav > div {
+nav.global > div {
   display: flex;
   flex-flow: row;
 }
 @media (min-width: 1200px) {
-  nav > div .logo {
+  nav.global > div .logo {
     margin-left: -58px; /* This move the logo just left of the content, together with the back arrow that looks quite nice. */
     font-size: 1.1em;
   }
 }
-nav .menu-item {
+nav.global .menu-item {
   flex: 0 1 auto;
   text-overflow: ellipsis;
   border-right: 1px solid rgba(0, 0, 0, .8);
@@ -33,37 +32,37 @@ nav .menu-item {
   white-space: nowrap;
   overflow: hidden;
 }
-nav .menu-item.main {
+nav.global .menu-item.main {
   flex: 0 0 auto;
 }
-nav .left-line {
+nav.global .left-line {
   border-left: 1px solid rgba(0, 0, 0, .8);
   box-shadow: 1px 0 0 0 rgba(255, 255, 255, .1), inset 1px 0 0 0 rgba(255, 255, 255, .1);
 }
-nav .menu-item a {
+nav.global .menu-item a {
   display: inline-block;
   padding: 4px 12px;
   color: #fff;
 }
-nav .menu-item a.premium {
+nav.global .menu-item a.premium {
   color: #e45a5a;
 }
 
-nav .menu-item a:hover {
+nav.global .menu-item a:hover {
   color: #e45a5a;
   text-decoration: none;
 }
-nav .menu-item img, nav .menu-item svg {
+nav.global .menu-item img, nav.global .menu-item svg {
   height: 2.2em;
   margin: -0.4em 0 -0.4em 0;
   vertical-align: middle;
 }
-nav .spacer {
+nav.global .spacer {
   flex: 1 1 auto;
 }
 
 /*noinspection CssRedundantUnit*/
-nav .progress {
+nav.global .progress {
   position: absolute;
   left: 0;
   bottom: -5px;
@@ -74,10 +73,10 @@ nav .progress {
   transition: opacity 400ms;
   pointer-events: none;
 }
-nav .container {
+nav.global .container {
   position: relative; /* make selectorHeaders float within the container box */
 }
-nav .selectorHeader {
+nav.global .selectorHeader {
   position: absolute;
   line-height: 1.4;
   left: 15px;
@@ -89,21 +88,21 @@ nav .selectorHeader {
   overflow-y: auto;
   white-space: normal; /* menu-items have this set to nowrap */
 }
-nav .selectorHeader a {
+nav.global .selectorHeader a {
   color: #e45a5a;
   display: inline;
   padding: 0;
 }
-nav .selectorHeader .panel {
+nav.global .selectorHeader .panel {
   background: rgba(0,0,0,0.95);
 }
 
 /* Mobile nav bar */
 @media (max-width: 600px) {
-  nav > div.container {
+  nav.global > div.container {
     padding: 0;
   }
-  nav .optional {
+  nav.global .optional {
     display: none;
   }
 }
