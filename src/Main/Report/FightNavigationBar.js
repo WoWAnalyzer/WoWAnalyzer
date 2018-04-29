@@ -12,9 +12,9 @@ import DIFFICULTIES from 'common/DIFFICULTIES';
 import getWipeCount from 'common/getWipeCount';
 import makeAnalyzerUrl from 'Main/makeAnalyzerUrl';
 
-import './FightNavigation.css';
+import './FightNavigationBar.css';
 
-class FightNavigation extends React.PureComponent {
+class FightNavigationBar extends React.PureComponent {
   static propTypes = {
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
@@ -55,7 +55,7 @@ class FightNavigation extends React.PureComponent {
                 <li
                   key={fight.id}
                   className={`${fight.id === fightId ? 'selected' : ''} ${fight.kill ? 'kill' : 'wipe'}`}
-                  data-tip={`${DIFFICULTIES[fight.difficulty]} ${fight.name} ${!fight.kill ? `(Wipe ${getWipeCount(report.fights, fight)})` : ''}`}
+                  data-tip={`${DIFFICULTIES[fight.difficulty]} ${fight.name} ${!fight.kill ? `(Wipe ${getWipeCount(report.fights, fight)})` : 'Kill'}`}
                   data-place="right"
                   data-effect="solid"
                 >
@@ -86,4 +86,4 @@ const mapStateToProps = state => ({
   playerName: getPlayerName(state),
 });
 
-export default connect(mapStateToProps)(FightNavigation);
+export default connect(mapStateToProps)(FightNavigationBar);
