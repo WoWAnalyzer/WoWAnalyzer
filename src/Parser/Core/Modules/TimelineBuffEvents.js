@@ -1,7 +1,7 @@
 import Analyzer from 'Parser/Core/Analyzer';
 import Abilities from './Abilities';
 
-class BuffTimelineEvents extends Analyzer {
+class TimelineBuffEvents extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };
@@ -33,8 +33,14 @@ class BuffTimelineEvents extends Analyzer {
     this._append(spellId, event);
   }
 
+  on_byPlayer_changedebuffstack(event) {
+    const spellId = event.ability.guid;
+    this._append(spellId, event);
+  }
+
   on_finished() {
-    // go through every array and check if the last entry has an end, if not add an entry with the end set as fight end
+    console.log(this.buffHistoryBySpellId);
+    // check if there are buffs which are still active on fight end, and add an end event
     Object.keys(this.buffHistoryBySpellId)
     .forEach((spellId) => {
       const event = this.buffHistoryBySpellId[spellId][this.buffHistoryBySpellId[spellId].length -1];
@@ -49,4 +55,4 @@ class BuffTimelineEvents extends Analyzer {
   }
 }
 
-export default BuffTimelineEvents;
+export default TimelineBuffEvents;

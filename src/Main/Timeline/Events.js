@@ -87,7 +87,7 @@ class Events extends React.PureComponent {
               </div>
             );
           }
-          if (event.type === 'changebuffstack' && event.start && event.end) {
+          if ((event.type === 'changebuffstack' || event.type === 'changedebuffstack') && event.start && event.end) {
             const left = (event.start - start) / 1000 * secondWidth;
             const maxWidth = totalWidth - left; // don't expand beyond the container width
             const width = Math.min(maxWidth, (event.timestamp - event.start) / 1000 * secondWidth);
@@ -97,8 +97,8 @@ class Events extends React.PureComponent {
                 style={{
                   left,
                   width,
-                  height: 8,
-                  background: 'rgba(1, 150, 150, 0.5)',
+                  height: 5,
+                  background: 'rgba(1, 150, 150, 1)',
                   zIndex: 9,
                 }}
                 data-tip={`${event.ability.name} - Buff Duration: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`} 

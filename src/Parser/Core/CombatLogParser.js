@@ -34,7 +34,7 @@ import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
 import Channeling from './Modules/Channeling';
-import BuffTimelineEvents from './Modules/BuffTimelineEvents';
+import TimelineBuffEvents from './Modules/TimelineBuffEvents';
 
 import DistanceMoved from './Modules/Others/DistanceMoved';
 
@@ -175,7 +175,7 @@ class CombatLogParser {
     manaValues: ManaValues,
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
-    buffTimelineEvents: BuffTimelineEvents,
+    timelineBuffEvents: TimelineBuffEvents,
 
     critEffectBonus: CritEffectBonus,
 
@@ -564,7 +564,7 @@ class CombatLogParser {
           resurrections={this.modules.deathTracker.resurrections}
           isAbilityCooldownsAccurate={this.modules.spellUsable.isAccurate}
           isGlobalCooldownAccurate={this.modules.globalCooldown.isAccurate}
-          buffEvents={this.modules.buffTimelineEvents.buffHistoryBySpellId}
+          buffEvents={this.modules.timelineBuffEvents.buffHistoryBySpellId}
         />
       ),
     });
