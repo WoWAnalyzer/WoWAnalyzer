@@ -270,7 +270,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         timelineSortIndex: 80,
         isOnGCD: true,
-        //enabled: combatant.hasTalent(SPELLS.LIGHTNING_SURGE_TOTEM_TALENT.id), reduce CD depending on targets hit
+        //enabled: combatant.hasTalent(SPELLS.LIGHTNING_SURGE_TOTEM_TALENT.id) TODO: reduce CD depending on amount of targets hit
         cooldown: 60,
       },
       {
@@ -331,7 +331,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DOWNPOUR_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 5, // need to add the variable Cooldown
+        cooldown: 35, // TODO: reduce CD depending on amount of effective targets hit (0 = 5s, 6 = 35s)
         isOnGCD: true,
         timelineSortIndex: 20,
         enabled: combatant.hasTalent(SPELLS.DOWNPOUR_TALENT.id),
