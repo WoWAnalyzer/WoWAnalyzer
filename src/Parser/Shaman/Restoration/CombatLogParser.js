@@ -34,6 +34,10 @@ import Ascendance from './Modules/Talents/Ascendance';
 import Wellspring from './Modules/Talents/Wellspring';
 import HighTide from './Modules/Talents/HighTide';
 
+// Items
+import Restoration_Shaman_T21_2Set from './Modules/Items/T21_2Set';
+import Restoration_Shaman_T21_4Set from './Modules/Items/T21_4Set';
+
 // Spells
 import ChainHeal from './Modules/Spells/ChainHeal';
 import HealingSurge from './Modules/Spells/HealingSurge';
@@ -81,7 +85,9 @@ class CombatLogParser extends CoreCombatLogParser {
     highTide: HighTide,
 
     // Items:
-
+    t21_2Set: Restoration_Shaman_T21_2Set,	
+    t21_4Set: Restoration_Shaman_T21_4Set,
+    
     // Spells:
     chainHeal: ChainHeal,
     healingSurge: HealingSurge,

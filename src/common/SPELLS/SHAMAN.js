@@ -798,6 +798,17 @@ export default {
     icon: 'spell_nature_healingwavelesser',
   },
 
+  // Restoration Shaman Set Bonus:
+  RAINFALL: { // T21 2pc
+    id: 252154,
+    name: 'Rainfall',
+    icon: 'spell_nature_giftofthewaterspirit',
+  },
+  DOWNPOUR: { // T21 4pc
+    id: 252159,
+    name: 'Downpour',
+    icon: 'spell_shaman_blessingoftheeternals',
+  },
 
   // Alpha Stuff
   EARTH_SHIELD_TALENT: { // Until talents work
