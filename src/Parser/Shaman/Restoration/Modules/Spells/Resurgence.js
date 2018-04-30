@@ -12,8 +12,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import MasteryEffectiveness from '../Features/MasteryEffectiveness';
-
 const SPELLS_PROCCING_RESURGENCE = {
   [SPELLS.HEALING_SURGE_RESTORATION.id]: 0.006,
   [SPELLS.HEALING_WAVE.id]: 0.01,
@@ -25,7 +23,6 @@ const SPELLS_PROCCING_RESURGENCE = {
 class Resurgence extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    masteryEffectiveness: MasteryEffectiveness,
   };
 
   maxMana = 100000;
@@ -37,8 +34,7 @@ class Resurgence extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     const isAbilityProccingResurgence = SPELLS_PROCCING_RESURGENCE.hasOwnProperty(spellId);
-    const masteryEffectiveness = event.masteryEffectiveness;
-
+    
     if (!isAbilityProccingResurgence || event.tick) {
       return;
     }

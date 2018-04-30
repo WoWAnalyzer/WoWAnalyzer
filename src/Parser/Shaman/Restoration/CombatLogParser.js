@@ -37,6 +37,13 @@ import HighTide from './Modules/Talents/HighTide';
 // Items
 import Restoration_Shaman_T21_2Set from './Modules/Items/T21_2Set';
 import Restoration_Shaman_T21_4Set from './Modules/Items/T21_4Set';
+import Nazjatar from './Modules/Items/Nazjatar';
+import UncertainReminder from './Modules/Items/UncertainReminder';
+import Jonat from './Modules/Items/Jonat';
+import Nobundo from './Modules/Items/Nobundo';
+import Tidecallers from './Modules/Items/Tidecallers';
+import Roots from './Modules/Items/Roots';
+import VelensFutureSight from './Modules/Items/VelensFutureSight';
 
 // Spells
 import ChainHeal from './Modules/Spells/ChainHeal';
@@ -87,7 +94,14 @@ class CombatLogParser extends CoreCombatLogParser {
     // Items:
     t21_2Set: Restoration_Shaman_T21_2Set,	
     t21_4Set: Restoration_Shaman_T21_4Set,
-    
+    nobundo: Nobundo,
+    nazjatar: Nazjatar,
+    uncertainReminder: UncertainReminder,
+    jonat: Jonat,
+    tidecallers: Tidecallers,
+    roots: Roots,
+    velensFutureSight: VelensFutureSight,
+
     // Spells:
     chainHeal: ChainHeal,
     healingSurge: HealingSurge,
