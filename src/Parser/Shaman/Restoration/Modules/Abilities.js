@@ -328,6 +328,20 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
         timelineSortIndex: 80,
       },
+      {
+        spell: SPELLS.DOWNPOUR_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 5, // need to add the variable Cooldown
+        isOnGCD: true,
+        timelineSortIndex: 20,
+        enabled: combatant.hasTalent(SPELLS.DOWNPOUR_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          majorIssueEfficiency: 0.50,
+          averageIssueEfficiency: 0.70,
+          recommendedEfficiency: 0.90,
+        },
+      },
     ];
   }
 }

@@ -815,4 +815,10 @@ export default {
     name: 'Spirit Wolf',
     icon: 'spell_hunter_lonewolf',
   },
+  DOWNPOUR_TALENT: { // Until talents work
+    id: 207778,
+    name: 'Downpour',
+    icon: 'ability_mage_waterjet',
+    manaCost: 3000,
+  },
 };

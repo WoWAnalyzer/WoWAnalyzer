@@ -28,6 +28,7 @@ import UnleashLife from './Modules/Talents/UnleashLife';
 import Undulation from './Modules/Talents/Undulation';
 import EarthShield from './Modules/Talents/EarthShield';
 import EarthenWallTotem from './Modules/Talents/EarthenWallTotem';
+import Downpour from './Modules/Talents/Downpour';
 import CloudburstTotem from './Modules/Talents/CloudburstTotem';
 import Ascendance from './Modules/Talents/Ascendance';
 import Wellspring from './Modules/Talents/Wellspring';
@@ -73,6 +74,7 @@ class CombatLogParser extends CoreCombatLogParser {
     undulation: Undulation,
     earthShield: EarthShield,
     earthenWallTotem: EarthenWallTotem,
+    downpour: Downpour,
     cloudburstTotem: CloudburstTotem,
     ascendance: Ascendance,
     wellspring: Wellspring,
