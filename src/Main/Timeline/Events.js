@@ -8,6 +8,7 @@ const RESTORE_CHARGE_TICK_WIDTH = 3;
 class Events extends React.PureComponent {
   static propTypes = {
     events: PropTypes.array,
+    buffEvents: PropTypes.array,
     start: PropTypes.number.isRequired,
     totalWidth: PropTypes.number.isRequired,
     secondWidth: PropTypes.number.isRequired,
@@ -57,8 +58,12 @@ class Events extends React.PureComponent {
   }
 
   render() {
-    const { events, start, totalWidth, secondWidth, className, showCooldowns } = this.props;
+    const { events, buffEvents, start, totalWidth, secondWidth, className, showCooldowns } = this.props;
     const fixedEvents = this.fabricateEndCooldown(events);
+    
+    if (buffEvents) {
+      Array.prototype.push.apply(fixedEvents,buffEvents);
+    }
 
     return (
       <div className={`events ${className || ''}`} style={{ width: totalWidth }}>
@@ -82,6 +87,24 @@ class Events extends React.PureComponent {
               </div>
             );
           }
+          if (event.type === 'changebuffstack' && event.start && event.end) {
+            const left = (event.start - start) / 1000 * secondWidth;
+            const maxWidth = totalWidth - left; // don't expand beyond the container width
+            const width = Math.min(maxWidth, (event.timestamp - event.start) / 1000 * secondWidth);
+            return (
+              <div
+                key={index}
+                style={{
+                  left,
+                  width,
+                  height: 8,
+                  background: 'rgba(1, 150, 150, 0.5)',
+                  zIndex: 9,
+                }}
+                data-tip={`${event.ability.name} - Buff Duration: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`} 
+              />
+            );
+          } 
           if (showCooldowns && event.type === 'updatespellusable' && (event.trigger === 'endcooldown' || event.trigger === 'restorecharge')) {
             const left = (event.start - start) / 1000 * secondWidth;
             const maxWidth = totalWidth - left; // don't expand beyond the container width

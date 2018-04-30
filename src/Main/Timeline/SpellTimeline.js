@@ -26,6 +26,7 @@ class SpellTimeline extends React.PureComponent {
     resurrections: PropTypes.array.isRequired,
     showCooldowns: PropTypes.bool,
     showGlobalCooldownDuration: PropTypes.bool,
+    buffEvents: PropTypes.object,
   };
   static defaultProps = {
     showCooldowns: false,
@@ -83,7 +84,7 @@ class SpellTimeline extends React.PureComponent {
 
   gemini = null;
   render() {
-    const { start, end, historyBySpellId, globalCooldownHistory, channelHistory, deaths, resurrections, showCooldowns, showGlobalCooldownDuration, abilities, ...others } = this.props;
+    const { start, end, historyBySpellId, globalCooldownHistory, channelHistory, deaths, resurrections, showCooldowns, showGlobalCooldownDuration, abilities, buffEvents, ...others } = this.props;
     delete others.abilityTracker;
     const duration = end - start;
     const seconds = Math.ceil(duration / 1000);
@@ -193,6 +194,7 @@ class SpellTimeline extends React.PureComponent {
               key={spellId}
               className="lane"
               events={historyBySpellId[spellId] || []}
+              buffEvents={spellId !== buffEvents[abilities.getBuffSpellId(spellId)] ? buffEvents[abilities.getBuffSpellId(spellId)] : []}
               start={start}
               totalWidth={totalWidth}
               secondWidth={secondWidth}

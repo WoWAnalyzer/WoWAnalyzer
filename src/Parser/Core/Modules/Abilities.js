@@ -87,6 +87,23 @@ class Abilities extends Analyzer {
     const ability = this.getAbility(spellId);
     return ability ? (ability.timelineSortIndex || null) : undefined;
   }
+
+  /*
+   * Returns the buff spell Id to a given spell, or null if none is set. (or undefined if there is no such spellInfo)
+   */
+  getBuffSpellId(spellId) {
+    const ability = this.getAbility(spellId);
+    return ability ? (ability.buffSpellId || null) : undefined;
+  }
+
+  /*
+  * Return the first ability that has the given SpellId set as the buff.
+  */
+  getSpellBuffId(spellId) {
+    return this.activeAbilities.find(ability => {
+        return ability.buffSpellId === spellId;
+    });
+  }
 }
 
 export default Abilities;

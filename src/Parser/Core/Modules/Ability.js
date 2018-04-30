@@ -91,6 +91,10 @@ class Ability {
      * The ability's priority on the timeline. The lower the number the higher on the timeline it will be displayed.
      */
     timelineSortIndex: PropTypes.number,
+    /**
+     * The buff belonging to the ability. Setting this will display the buff on the timeline.
+     */
+    buffSpellId: PropTypes.number,
   };
 
   _owner = null;
