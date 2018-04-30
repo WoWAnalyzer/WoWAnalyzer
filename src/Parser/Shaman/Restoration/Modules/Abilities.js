@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
@@ -93,10 +94,11 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CLOUDBURST_TOTEM_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1, // Possible with the Soul ring in prepatch unless they fix it
         cooldown: 30,
         timelineSortIndex: 20,
         isOnGCD: true,
-        enabled: combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id),
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.50,
