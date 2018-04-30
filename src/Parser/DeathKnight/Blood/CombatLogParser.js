@@ -21,6 +21,7 @@ import BoneShield from './Modules/Features/BoneShield';
 import DancingRuneWeapon from './Modules/Features/DancingRuneWeapon';
 import InitialMarrowrendCast from './Modules/Features/InitialMarrowrendCast';
 import DeathStrikeTiming from './Modules/Features/DeathStrikeTiming';
+import BoneShieldStacksBySeconds from './Modules/Features/BoneShieldStacksBySeconds';
 
 // Resources
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
@@ -33,6 +34,7 @@ import Ossuary from './Modules/Talents/Ossuary';
 import RedThirst from './Modules/Talents/RedThirst';
 import BoneStorm from './Modules/Talents/Bonestorm';
 import MarkOfBloodUptime from './Modules/Talents/MarkOfBloodUptime';
+import FoulBulwark from './Modules/Talents/FoulBulwark';
 
 // Items
 import T20_2pc from './Modules/Items/T20_2pc';
@@ -76,6 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
     marrowrendUsage: MarrowrendUsage,
     souldrinker: Souldrinker,
     boneShield: BoneShield,
+    boneShieldStacksBySecond: BoneShieldStacksBySeconds,
 
     // DOT
     bloodplagueUptime: BloodPlagueUptime,
@@ -91,6 +94,7 @@ class CombatLogParser extends CoreCombatLogParser {
     redThirst: RedThirst,
     boneStorm: BoneStorm,
     markOfBloodUptime: MarkOfBloodUptime,
+    foulBulwark: FoulBulwark,
 
     // Traits
     RelicTraits: RelicTraits,
