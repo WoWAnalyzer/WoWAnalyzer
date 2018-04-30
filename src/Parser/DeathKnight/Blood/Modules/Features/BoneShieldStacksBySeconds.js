@@ -1,4 +1,3 @@
-import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 
@@ -45,7 +44,7 @@ class BoneShieldStacksBySeconds extends Analyzer {
   }
 
   get boneShieldStacksBySeconds() {
-    return this.boneShield
+    return this.boneShield;
   }
 
   
