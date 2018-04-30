@@ -5,7 +5,7 @@ import {Line} from 'react-chartjs-2';
 
 import fetchWcl from 'common/fetchWcl';
 
-import {ManaStyles} from './ManaStyles.js';
+import ManaStyles from 'Main/ManaStyles.js';
 
 const formatDuration = (duration) => {
   const seconds = Math.floor(duration % 60);
@@ -160,8 +160,9 @@ class Mana extends React.PureComponent {
           gridLines: gridLines,
           ticks: {
             callback: (value, index, values) => {
-              if(value%30 === 0)
+              if(value%30 === 0) {
                 return formatDuration(value);
+              }
               return null;
             },
             fontSize: 14,
@@ -192,8 +193,9 @@ class Mana extends React.PureComponent {
             meta.data.forEach(function(element, index) {
               const position = element.tooltipPosition();
               if(!isNaN(position.y)) {
+                  ctx.strokeStyle=element._view.borderColor;
                   ctx.beginPath();
-                  ctx.lineWidth = 3;
+                  ctx.lineWidth = ManaStyles.Deaths.borderWidth;
                   ctx.moveTo(position.x, chart.chartArea.top);
                   ctx.lineTo(position.x, chart.chartArea.bottom);
                   ctx.stroke();
