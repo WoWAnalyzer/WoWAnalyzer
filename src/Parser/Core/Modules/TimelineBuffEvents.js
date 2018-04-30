@@ -39,7 +39,6 @@ class TimelineBuffEvents extends Analyzer {
   }
 
   on_finished() {
-    console.log(this.buffHistoryBySpellId);
     // check if there are buffs which are still active on fight end, and add an end event
     Object.keys(this.buffHistoryBySpellId)
     .forEach((spellId) => {
