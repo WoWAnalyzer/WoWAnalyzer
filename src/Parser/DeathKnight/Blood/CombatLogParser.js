@@ -49,6 +49,8 @@ import Bonebreaker from './Modules/Traits/Bonebreaker';
 import AllConsumingRot from './Modules/Traits/AllConsumingRot';
 import Veinrender from './Modules/Traits/Veinrender';
 import Coagulopathy from './Modules/Traits/Coagulopathy';
+import FoulBulwark from './Modules/Talents/FoulBulwark';
+import BoneShieldStacksBySeconds from './Modules/Features/BoneShieldStacksBySeconds';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -76,6 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
     marrowrendUsage: MarrowrendUsage,
     souldrinker: Souldrinker,
     boneShield: BoneShield,
+    boneShieldStacksBySecond: BoneShieldStacksBySeconds,
 
     // DOT
     bloodplagueUptime: BloodPlagueUptime,
@@ -91,6 +94,7 @@ class CombatLogParser extends CoreCombatLogParser {
     boneStorm: BoneStorm,
     markOfBloodUptime: MarkOfBloodUptime,
     hemostasis: Hemostasis,
+    foulBulwark: FoulBulwark,
 
     // Traits
     RelicTraits: RelicTraits,
