@@ -34,6 +34,7 @@ import RedThirst from './Modules/Talents/RedThirst';
 import BoneStorm from './Modules/Talents/Bonestorm';
 import MarkOfBloodUptime from './Modules/Talents/MarkOfBloodUptime';
 import Bloodworms from './Modules/Talents/Bloodworms';
+import Hemostasis from './Modules/Talents/Hemostasis';
 
 // Items
 import T20_2pc from './Modules/Items/T20_2pc';
@@ -93,6 +94,7 @@ class CombatLogParser extends CoreCombatLogParser {
     boneStorm: BoneStorm,
     markOfBloodUptime: MarkOfBloodUptime,
     bloodworms: Bloodworms,
+    hemostasis: Hemostasis,
 
     // Traits
     RelicTraits: RelicTraits,
