@@ -5,8 +5,7 @@ import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-
-const RP_RESOURCE_ID = 6;
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES'
 
 class Heartbreaker extends Analyzer {
   static dependencies = {
@@ -32,7 +31,7 @@ class Heartbreaker extends Analyzer {
   }
 
   on_energize(event) {
-    if (event.ability.guid !== SPELLS.HEARTBREAKER.id || event.resourceChangeType !== RP_RESOURCE_ID) {
+    if (event.ability.guid !== SPELLS.HEARTBREAKER.id || event.resourceChangeType !== RESOURCE_TYPES.RUNIC_POWER.id) {
       return;
     }
     this.rpGains.push(event.resourceChange);
@@ -63,7 +62,7 @@ class Heartbreaker extends Analyzer {
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<React.Fragment><SpellLink id={SPELLS.HEARTBREAKER_TALENT.id} /> relies heavily on the amount of targets you can hit with <SpellLink id={SPELLS.HEART_STRIKE.id} /> to perform on par with <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} />. Consider picking <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> if you can't hit reliable multiple (4+) targets.</React.Fragment>)
             .icon(SPELLS.HEARTBREAKER_TALENT.icon)
-            .actual(`on average ${actual} targets hit with Heart Strike`)
+            .actual(`on average ${actual} targets hit with Heart Stnprike`)
             .recommended(`>${recommended} is recommended`);
         });
   }
@@ -72,8 +71,8 @@ class Heartbreaker extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HEARTBREAKER_TALENT.id} />}
-        value={`${this.totalRPGained} PR`}
-        label="gained"
+        value={`${this.totalRPGained}`}
+        label="Runic Power gained"
         tooltip={`
           Resulting in about ${Math.floor(this.totalRPGained / this.deathStrikeCost)} extra Death Strikes.<br/>
           Your Heart Strike hit on average ${this.averageHearStrikeHits} targets.
