@@ -13,6 +13,11 @@ export default [
     contributors: [joshinator],
   },
   {
+    date: new Date('2018-04-28'),
+    changes: <React.Fragment>Updated <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> with DPS/HPS values.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
     date: new Date('2018-04-22'),
     changes: <React.Fragment>Updated relic stat calculations.</React.Fragment>,
     contributors: [Yajinni],
