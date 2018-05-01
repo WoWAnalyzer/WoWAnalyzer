@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import RESOURCE_TYPES from 'common/RESOURCE_TYPES'
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 
 class Heartbreaker extends Analyzer {
   static dependencies = {
