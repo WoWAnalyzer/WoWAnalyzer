@@ -62,7 +62,7 @@ class Heartbreaker extends Analyzer {
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<React.Fragment><SpellLink id={SPELLS.HEARTBREAKER_TALENT.id} /> relies heavily on the amount of targets you can hit with <SpellLink id={SPELLS.HEART_STRIKE.id} /> to perform on par with <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} />. Consider picking <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> if you can't hit reliable multiple (4+) targets.</React.Fragment>)
             .icon(SPELLS.HEARTBREAKER_TALENT.icon)
-            .actual(`on average ${actual} targets hit with Heart Stnprike`)
+            .actual(`on average ${actual} targets hit with Heart Strike`)
             .recommended(`>${recommended} is recommended`);
         });
   }
@@ -81,7 +81,7 @@ class Heartbreaker extends Analyzer {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(1);
+  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default Heartbreaker;
