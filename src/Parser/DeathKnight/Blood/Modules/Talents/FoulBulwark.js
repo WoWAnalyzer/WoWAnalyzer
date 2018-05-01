@@ -6,28 +6,30 @@ import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatPercentage, formatDuration } from 'common/format';
-import BoneShieldStacksBySeconds from '../Features/BoneShieldStacksBySeconds';
+import BoneShieldTimesByStacks from '../Features/BoneShieldTimesByStacks';
 
 const HP_PER_BONE_SHIELD_STACK = 0.02;
-const MAX_BONE_SHIELD_STACKS = 10;
 
 class FoulBulwark extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    boneShieldStacksBySeconds: BoneShieldStacksBySeconds,
+    boneShieldTimesByStacks: BoneShieldTimesByStacks,
   };
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.FOUL_BULWARK_TALENT.id);
   }
 
-  get boneShieldStacks() {
-    return this.boneShieldStacksBySeconds.boneShieldStacksBySeconds;
+  get boneShieldTimesByStack() {
+    return this.boneShieldTimesByStacks.boneShieldTimesByStacks;
   }
 
   get averageFoulBullwark() {
-    const sum = this.boneShieldStacks.reduce((a, b) => a + b, 0);
-    return formatPercentage(sum * HP_PER_BONE_SHIELD_STACK / this.boneShieldStacks.length);
+    let avgStacks = 0;
+    this.boneShieldTimesByStack.forEach((elem, index) => {
+      avgStacks += elem.reduce((a, b) => a + b) / this.owner.fightDuration * index;
+    });
+    return formatPercentage(avgStacks * HP_PER_BONE_SHIELD_STACK);
   }
 
   statistic() {
@@ -46,11 +48,11 @@ class FoulBulwark extends Analyzer {
             </tr>
           </thead>
           <tbody>
-            {Array.from({length: MAX_BONE_SHIELD_STACKS + 1}, (x, i) => i).map((e, i) =>
+            {this.boneShieldTimesByStack.map((e, i) => 
               <tr key={i}>
-                <th>{formatPercentage(i * HP_PER_BONE_SHIELD_STACK)}%</th>
-                <td>{formatDuration(this.boneShieldStacks.filter(e => e === i).length)}</td>
-                <td>{formatPercentage(this.boneShieldStacks.filter(e => e === i).length / Math.ceil(this.owner.fightDuration / 1000))}%</td>
+                <th>{(i * HP_PER_BONE_SHIELD_STACK * 100).toFixed(0)}%</th>
+                <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
+                <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
               </tr>
             )}
           </tbody>
@@ -58,7 +60,7 @@ class FoulBulwark extends Analyzer {
       </ExpandableStatisticBox>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(3);
+  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default FoulBulwark;

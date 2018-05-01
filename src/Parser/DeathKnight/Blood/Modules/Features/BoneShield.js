@@ -7,18 +7,17 @@ import { formatPercentage, formatDuration, formatNumber } from 'common/format';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
-import BoneShieldStacksBySeconds from './BoneShieldStacksBySeconds';
+import BoneShieldTimesByStacks from '../Features/BoneShieldTimesByStacks';
 
 const SKELETAL_SHATTERING_DR = 0.08;
 const BONE_SHIELD_DR = 0.16;
-const MAX_BONE_SHIELD_STACKS = 10;
 
 class BoneShield extends Analyzer {
 
   static dependencies = {
     combatants: Combatants,
     statTracker: StatTracker,
-    boneShieldStacksBySeconds: BoneShieldStacksBySeconds,
+    boneShieldTimesByStacks: BoneShieldTimesByStacks,
   };
 
   hasSS = false;
@@ -26,7 +25,6 @@ class BoneShield extends Analyzer {
 
   boneShieldMitigated = 0;
   skeletalShatteringMitigated = 0;
-  maxStacks = MAX_BONE_SHIELD_STACKS;
 
 
   on_initialized() {
@@ -38,8 +36,8 @@ class BoneShield extends Analyzer {
     return formatNumber(this.boneShieldMitigated + this.skeletalShatteringMitigated) + " Bone Shield Absorb<br>";
   }
 
-  get boneShieldStacks() {
-    return this.boneShieldStacksBySeconds.boneShieldStacksBySeconds;
+  get boneShieldTimesByStack() {
+    return this.boneShieldTimesByStacks.boneShieldTimesByStacks;
   }
 
   get skeletalShatteringTooltip() {
@@ -114,11 +112,11 @@ class BoneShield extends Analyzer {
               </tr>
             </thead>
             <tbody>
-              {Array.from({length: this.maxStacks + 1}, (x, i) => i).map((e, i) =>
+              {Object.values(this.boneShieldTimesByStack).map((e, i) => 
                 <tr key={i}>
                   <th>{i}</th>
-                  <td>{formatDuration(this.boneShieldStacks.filter(e => e === i).length)}</td>
-                  <td>{formatPercentage(this.boneShieldStacks.filter(e => e === i).length / Math.ceil(this.owner.fightDuration / 1000))}%</td>
+                  <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
+                  <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
                 </tr>
               )}
             </tbody>
@@ -147,11 +145,11 @@ class BoneShield extends Analyzer {
               </tr>
             </thead>
             <tbody>
-              {Array.from({length: this.maxStacks + 1}, (x, i) => i).map((e, i) =>
+              {this.boneShieldTimesByStack.map((e, i) => 
                 <tr key={i}>
                   <th>{i}</th>
-                  <td>{formatDuration(this.boneShieldStacks.filter(e => e === i).length)}</td>
-                  <td>{formatPercentage(this.boneShieldStacks.filter(e => e === i).length / Math.ceil(this.owner.fightDuration / 1000))}%</td>
+                  <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
+                  <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
                 </tr>
               )}
             </tbody>
@@ -161,7 +159,7 @@ class BoneShield extends Analyzer {
 
     }
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
+  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 export default BoneShield;
