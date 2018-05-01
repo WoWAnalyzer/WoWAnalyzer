@@ -8,6 +8,21 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-30'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.FOUL_BULWARK_TALENT.id} />-Module and a more detailed breakdown for <SpellLink id={SPELLS.BONE_SHIELD.id} />.</React.Fragment>,
+    contributors: [joshinator],
+  },
+  {
+    date: new Date('2018-04-30'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.HEARTBREAKER_TALENT.id} />-Module + suggestion.</React.Fragment>,
+    contributors: [joshinator],
+  },
+  {
+    date: new Date('2018-04-28'),
+    changes: <React.Fragment>Updated <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> with DPS/HPS values.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
     date: new Date('2018-04-22'),
     changes: <React.Fragment>Updated relic stat calculations.</React.Fragment>,
     contributors: [Yajinni],
