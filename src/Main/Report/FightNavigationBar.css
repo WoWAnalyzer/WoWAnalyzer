@@ -1,0 +1,69 @@
+nav.fight {
+  position: fixed;
+  left: 0;
+  top: 48px;
+  bottom: 0;
+  background: #0d0e10;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+nav.fight::-webkit-scrollbar {
+  display: none;
+}
+nav.fight > ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+nav.fight > ul > li a {
+  padding: 11px;
+  display: block;
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+}
+nav.fight > ul > li a:hover {
+  background: rgba(70, 70, 70, 0.3);
+  color: #fb3535;
+}
+nav.fight > ul > li.kill a, nav.fight > ul > li.kill a:hover {
+  color: #1d9c07;
+}
+nav.fight > ul > li.wipe a, nav.fight > ul > li.wipe a:hover {
+  color: #fb3535;
+}
+nav.fight > ul > li:not(.selected) a, nav.fight > ul > li:not(.selected) a:hover {
+  color: #b7b7b7;
+}
+nav.fight > ul > li figure {
+  position: relative;
+  display: inline-block;
+}
+nav.fight > ul > li img {
+  width: 38px;
+  border-radius: 3px;
+  vertical-align: top;
+}
+nav.fight > ul > li:not(.selected) img {
+  filter: grayscale(100%) contrast(85%);
+  opacity: .8;
+}
+nav.fight > ul > li.selected a {
+  background: #373737;
+}
+nav.fight > ul > li .over-image {
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  right: 3px;
+  text-align: right;
+  text-shadow: -1px -1px 2px #000, 1px 1px 2px #000;
+  font-size: 14px;
+}
+nav.fight > ul > li.wipe .over-image {
+  font-size: 12px;
+}
+nav.fight > ul > li .over-image svg {
+  vertical-align: top;
+}

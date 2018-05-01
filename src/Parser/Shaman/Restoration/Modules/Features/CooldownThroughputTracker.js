@@ -108,11 +108,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         return;
       }
 
-      // only add overheal for Asc, not for CBT
-      let overheal = 0;
-      (cooldown.spell.id === SPELLS.ASCENDANCE_TALENT_RESTORATION.id) ? overheal = (event.overheal || 0) : overheal = 0;
-
-      const eventFeed = ((event.amount || 0) + (event.absorbed || 0) + overheal) * feedingFactor * (1-percentOverheal);
+      const eventFeed = ((event.amount || 0) + (event.absorbed || 0)  + (event.overheal || 0)) * feedingFactor * (1-percentOverheal);
 
       this.owner.fabricateEvent({
         ...event,
@@ -274,7 +270,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     }
 
     const spellId = event.ability.guid;
-    const healingDone = (event.amount || 0) + (event.absorb || 0);
+    const healingDone = (event.amount || 0) + (event.absorb || 0) + (event.overheal || 0);
 
     this.activeCooldowns.forEach((cooldown) => {
       const cooldownId = cooldown.spell.id;
@@ -288,9 +284,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
           cooldown.feed[spellId].icon = event.ability.abilityIcon;
         }
         cooldown.feed[spellId].healing += healingDone;
-        if(cooldownId === SPELLS.ASCENDANCE_TALENT_RESTORATION.id) {
-          cooldown.feed[spellId].healing += (event.overheal || 0);
-        }
       }
       cooldown.events.push(event);
     });

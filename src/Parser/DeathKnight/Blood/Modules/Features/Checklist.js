@@ -21,7 +21,6 @@ import AlwaysBeCasting from './AlwaysBeCasting';
 import CrimsonScourge from './CrimsonScourge';
 import MarrowrendUsage from './MarrowrendUsage';
 
-import Ossuary from '../Talents/Ossuary';
 import BoneStorm from '../Talents/Bonestorm';
 import MarkOfBloodUptime from '../Talents/MarkOfBloodUptime';
 
@@ -41,7 +40,6 @@ class Checklist extends CoreChecklist {
     enchantChecker: EnchantChecker,
     boneShield: BoneShield,
 
-    ossuary: Ossuary,
     bonestorm: BoneStorm,
     markOfBloodUptime: MarkOfBloodUptime,
 
@@ -139,16 +137,12 @@ class Checklist extends CoreChecklist {
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id}/> Uptime</React.Fragment>,
+            when: this.combatants.selected.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT.id),
             check: () => this.markOfBloodUptime.uptimeSuggestionThresholds,
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.BONE_SHIELD.id}/> Uptime</React.Fragment>,
             check: () => this.boneShield.uptimeSuggestionThresholds,
-          }),
-          new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.OSSUARY.id}/> Uptime</React.Fragment>,
-            when: this.combatants.selected.hasTalent(SPELLS.OSSUARY_TALENT.id),
-            check: () => this.ossuary.uptimeSuggestionThresholds,
           }),
         ];
       },

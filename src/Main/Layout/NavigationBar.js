@@ -3,16 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import GitHubIcon from 'Icons/GitHubMarkSmall';
+
 import { getFightId, getPlayerName } from 'selectors/url/report';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import { getReportProgress } from 'selectors/reportProgress';
 
-import GithubLogo from '../Images/GitHub-Mark-Light-32px.png';
-
-import FightSelectorHeader from '../Report/FightSelectorHeader';
-import PlayerSelectorHeader from '../Report/PlayerSelectorHeader';
 import makeAnalyzerUrl from '../makeAnalyzerUrl';
+import FightSelectorHeader from './FightSelectorHeader';
+import PlayerSelectorHeader from './PlayerSelectorHeader';
+import './NavigationBar.css';
+import LoadingBar from './LoadingBar';
 
 class NavigationBar extends React.PureComponent {
   static propTypes = {
@@ -29,32 +31,30 @@ class NavigationBar extends React.PureComponent {
     const { playerName, report, fight, progress } = this.props;
 
     return (
-      <nav>
-        <div className="container">
-          <div className="menu-item logo main">
-            <Link to={makeAnalyzerUrl()}>
-              <img src="/favicon.png" alt="WoWAnalyzer logo" />
-            </Link>
-          </div>
-          {report && (
-            <div className="menu-item">
-              <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
-            </div>
-          )}
-          {report && fight && (
-            <FightSelectorHeader className="menu-item" />
-          )}
-          {report && playerName && (
-            <PlayerSelectorHeader className="menu-item" />
-          )}
-          <div className="spacer" />
-          <div className="menu-item main">
-            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
-              <img src={GithubLogo} alt="GitHub logo" /><span className="optional" style={{ paddingLeft: 6 }}> View on GitHub</span>
-            </a>
-          </div>
+      <nav className="global">
+        <div className="menu-item logo main">
+          <Link to={makeAnalyzerUrl()}>
+            <img src="/favicon.png" alt="WoWAnalyzer logo" />
+          </Link>
         </div>
-        <div className="progress" style={{ width: `${progress * 100}%`, opacity: progress === 0 || progress >= 1 ? 0 : 1 }} />
+        {report && (
+          <div className="menu-item">
+            <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
+          </div>
+        )}
+        {report && fight && (
+          <FightSelectorHeader className="menu-item" />
+        )}
+        {report && playerName && (
+          <PlayerSelectorHeader className="menu-item" />
+        )}
+        <div className="spacer" />
+        <div className="menu-item main">
+          <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
+            <GitHubIcon /> <span className="optional" style={{ paddingLeft: 6 }}> View on GitHub</span>
+          </a>
+        </div>
+        <LoadingBar progress={progress} />
       </nav>
     );
   }

@@ -7,7 +7,7 @@
 export default {
   // Blood:
   // Artifact
-  CONSUMPTION: {
+  CONSUMPTION: { //when are we going to lose the artifact-ID and get the talent one?
     id: 205223,
     name: 'Consumption',
     icon: 'inv_axe_2h_artifactmaw_d_01',
@@ -75,13 +75,6 @@ export default {
   },
 
   // Damage Dealing
-  // Provides the 1 RP tick on DnD from Rapid Decomposition Talent
-  RAPID_DECOMPOSITION_RP_TICK: {
-    id: 255203,
-    name: 'Rapid Decomposition',
-    icon: 'ability_deathknight_deathsiphon2',
-  },
-
   BLOOD_BOIL: {
     id: 50842,
     name: 'Blood Boil',
@@ -92,7 +85,7 @@ export default {
     id: 206930,
     name: 'Heart Strike',
     icon: 'inv_weapon_shortblade_40',
-  },
+  },  
 
   BONESTORM_HIT: {
     id: 196528,
@@ -160,12 +153,6 @@ export default {
   },
 
 // Buffs
-  OSSUARY: {
-    id: 219788,
-    name: 'Ossuary',
-    icon: 'ability_deathknight_brittlebones',
-  },
-
   CRIMSON_SCOURGE: {
     id: 81141,
     name: 'Crimson Scourge',
@@ -728,6 +715,12 @@ export default {
   HAEMOSTASIS_BUFF: {
     id: 235559,
     name: 'Haemostasis',
+    icon: 'ability_deathwing_bloodcorruption_earth',
+  },
+
+  HEMOSTASIS_BUFF: {
+    id: 273947,
+    name: 'Hemostasis',
     icon: 'ability_deathwing_bloodcorruption_earth',
   },
 

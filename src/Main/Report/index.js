@@ -25,6 +25,7 @@ import FightSelecter from './FightSelecter';
 import PlayerSelecter from './PlayerSelecter';
 import Results from './Results';
 import ActivityIndicator from '../ActivityIndicator';
+import FightNavigationBar from './FightNavigationBar';
 
 const timeAvailable = console.time && console.timeEnd;
 
@@ -350,16 +351,20 @@ class Report extends React.Component {
     }
 
     const { parser } = this.state;
-    if (!parser) {
-      return <ActivityIndicator text="Initializing analyzer..." />;
-    }
-
     return (
-      <Results
-        parser={parser}
-        finished={this.state.finished}
-        makeTabUrl={tab => makeAnalyzerUrl(report, parser.fightId, parser.playerId, tab)}
-      />
+      <React.Fragment>
+        <FightNavigationBar />
+        <div style={{ marginLeft: 60 }}>
+          {!parser && <ActivityIndicator text="Initializing analyzer..." />}
+          {parser && (
+            <Results
+              parser={parser}
+              finished={this.state.finished}
+              makeTabUrl={tab => makeAnalyzerUrl(report, parser.fightId, parser.playerId, tab)}
+            />
+          )}
+        </div>
+      </React.Fragment>
     );
   }
 }
