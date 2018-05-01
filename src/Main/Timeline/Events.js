@@ -60,7 +60,7 @@ class Events extends React.PureComponent {
   render() {
     const { events, buffEvents, start, totalWidth, secondWidth, className, showCooldowns } = this.props;
     const fixedEvents = this.fabricateEndCooldown(events);
-    
+
     if (buffEvents) {
       Array.prototype.push.apply(fixedEvents,buffEvents);
     }

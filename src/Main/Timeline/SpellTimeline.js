@@ -194,7 +194,7 @@ class SpellTimeline extends React.PureComponent {
               key={spellId}
               className="lane"
               events={historyBySpellId[spellId] || []}
-              buffEvents={spellId !== buffEvents[abilities.getBuffSpellId(spellId)] ? buffEvents[abilities.getBuffSpellId(spellId)] : []}
+              buffEvents={buffEvents[abilities.getBuffSpellId(spellId)]}
               start={start}
               totalWidth={totalWidth}
               secondWidth={secondWidth}

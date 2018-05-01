@@ -1,6 +1,9 @@
 import Analyzer from 'Parser/Core/Analyzer';
 import Abilities from './Abilities';
 
+// add 500ms so buffs don't have a gap at the end of the timeline
+const FILLER = 500;
+
 class TimelineBuffEvents extends Analyzer {
   static dependencies = {
     abilities: Abilities,
@@ -47,7 +50,7 @@ class TimelineBuffEvents extends Analyzer {
         this.buffHistoryBySpellId[spellId].push({
           ...event,
           end: this.owner.fight.end_time,
-          timestamp: this.owner.fight.end_time + 500, // add 500ms so it doesn't have a gap at the end of the timeline
+          timestamp: this.owner.fight.end_time + FILLER,
         });
       }
     });

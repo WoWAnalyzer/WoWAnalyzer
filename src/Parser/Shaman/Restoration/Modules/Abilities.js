@@ -272,6 +272,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FLAME_SHOCK_RESTORATION,
+        buffSpellId: SPELLS.FLAME_SHOCK_RESTORATION.id,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
         timelineSortIndex: 60,
         cooldown: 6,
