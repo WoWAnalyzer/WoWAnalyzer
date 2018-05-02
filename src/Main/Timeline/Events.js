@@ -98,10 +98,10 @@ class Events extends React.PureComponent {
                   left,
                   width,
                   height: 5,
-                  background: 'rgba(1, 150, 150, 1)',
+                  background: `rgba${event.type === 'changebuffstack' ? '(1, 150, 150, 1)' : '(150, 150, 1, 1)' }`,
                   zIndex: 9,
                 }}
-                data-tip={`${event.ability.name} - Buff Duration: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`} 
+                data-tip={`${event.ability.name} - ${event.type === 'changebuffstack' ? 'Buff' : 'Debuff' } Duration: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`} 
               />
             );
           } 
