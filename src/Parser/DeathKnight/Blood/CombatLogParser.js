@@ -32,7 +32,7 @@ import RuneDetails from '../Shared/RuneDetails';
 // Talents
 import RedThirst from './Modules/Talents/RedThirst';
 import BoneStorm from './Modules/Talents/Bonestorm';
-import MarkOfBloodUptime from './Modules/Talents/MarkOfBloodUptime';
+import MarkOfBloodUptime from './Modules/Talents/MarkOfBlood';
 import Hemostasis from './Modules/Talents/Hemostasis';
 import FoulBulwark from './Modules/Talents/FoulBulwark';
 import Heartbreaker from './Modules/Talents/Heartbreaker';
