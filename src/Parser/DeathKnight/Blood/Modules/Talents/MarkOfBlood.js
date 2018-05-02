@@ -8,7 +8,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-class MarkOfBloodUptime extends Analyzer {
+class MarkOfBlood extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     combatants: Combatants,
@@ -57,4 +57,4 @@ class MarkOfBloodUptime extends Analyzer {
   statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
-export default MarkOfBloodUptime;
+export default MarkOfBlood;

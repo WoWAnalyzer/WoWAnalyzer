@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-04-30'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.TOMBSTONE_TALENT.id} />-Module in anticipation for BFA.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2018-04-30'),
     changes: <React.Fragment>Added <SpellLink id={SPELLS.FOUL_BULWARK_TALENT.id} />-Module and a more detailed breakdown for <SpellLink id={SPELLS.BONE_SHIELD.id} />.</React.Fragment>,
     contributors: [joshinator],
   },
@@ -20,6 +25,11 @@ export default [
   {
     date: new Date('2018-04-28'),
     changes: <React.Fragment>Updated <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> with DPS/HPS values.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2018-04-27'),
+    changes: <React.Fragment>Added support for <SpellLink id={SPELLS.BLOODWORMS_TALENT.id} />.</React.Fragment>,
     contributors: [Yajinni],
   },
   {

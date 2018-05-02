@@ -32,11 +32,12 @@ import RuneDetails from '../Shared/RuneDetails';
 // Talents
 import RedThirst from './Modules/Talents/RedThirst';
 import BoneStorm from './Modules/Talents/Bonestorm';
-import MarkOfBloodUptime from './Modules/Talents/MarkOfBloodUptime';
+import MarkOfBloodUptime from './Modules/Talents/MarkOfBlood';
 import Hemostasis from './Modules/Talents/Hemostasis';
 import FoulBulwark from './Modules/Talents/FoulBulwark';
 import Heartbreaker from './Modules/Talents/Heartbreaker';
 import Bloodworms from './Modules/Talents/Bloodworms';
+import Tombstone from './Modules/Talents/Tombstone';
 
 // Items
 import T20_2pc from './Modules/Items/T20_2pc';
@@ -99,6 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
     foulBulwark: FoulBulwark,
     heartbreaker: Heartbreaker,
     bloodworms: Bloodworms,
+    tombstone: Tombstone,
 
     // Traits
     RelicTraits: RelicTraits,
