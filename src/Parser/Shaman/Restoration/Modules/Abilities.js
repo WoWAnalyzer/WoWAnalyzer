@@ -344,6 +344,13 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.90,
         },
       },
+      {
+        spell: SPELLS.BERSERKING,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 180,
+        isOnGCD: true,
+        isUndetectable: true,
+      },
     ];
   }
 }
