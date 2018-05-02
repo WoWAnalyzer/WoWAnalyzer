@@ -37,6 +37,7 @@ import Hemostasis from './Modules/Talents/Hemostasis';
 import FoulBulwark from './Modules/Talents/FoulBulwark';
 import Heartbreaker from './Modules/Talents/Heartbreaker';
 import Bloodworms from './Modules/Talents/Bloodworms';
+import Tombstone from './Modules/Talents/Tombstone';
 import Voracious from './Modules/Talents/Voracious';
 
 // Items
@@ -100,6 +101,7 @@ class CombatLogParser extends CoreCombatLogParser {
     foulBulwark: FoulBulwark,
     heartbreaker: Heartbreaker,
     bloodworms: Bloodworms,
+    tombstone: Tombstone,
     voracious: Voracious,
 
     // Traits

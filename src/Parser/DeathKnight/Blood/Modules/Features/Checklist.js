@@ -22,7 +22,7 @@ import CrimsonScourge from './CrimsonScourge';
 import MarrowrendUsage from './MarrowrendUsage';
 
 import BoneStorm from '../Talents/Bonestorm';
-import MarkOfBloodUptime from '../Talents/MarkOfBloodUptime';
+import MarkOfBloodUptime from '../Talents/MarkOfBlood';
 
 import RunicPowerDetails from '../RunicPower/RunicPowerDetails';
 import RuneTracker from '../../../Shared/RuneTracker';

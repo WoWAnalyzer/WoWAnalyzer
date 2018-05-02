@@ -40,7 +40,6 @@ class Voracious extends Analyzer {
       />
     );
   }
-
   statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
