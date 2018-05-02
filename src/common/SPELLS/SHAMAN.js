@@ -50,6 +50,16 @@ export default {
     name: 'Nature\'s Guardian',
     icon: 'spell_nature_natureguardian',
   },
+  STATIC_CHARGE_TALENT: { // Until talents get updated
+    id: 265046,
+    name: 'Static Charge',
+    icon: 'spell_nature_brilliance',
+  },
+  STATIC_CHARGE_DEBUFF: {
+    id: 118905,
+    name: 'Static Charge',
+    icon: 'spell_nature_brilliance',
+  },
   NATURES_GUARDIAN_HEAL: {
     id: 31616,
     name: 'Nature\'s Guardian',

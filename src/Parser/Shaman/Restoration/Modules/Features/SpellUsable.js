@@ -1,17 +1,16 @@
 import SPELLS from 'common/SPELLS';
-import CoreSpellUsable from 'Parser/Core/Modules/SpellUsable';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Abilities from '../Abilities';
+import CoreSpellUsable from 'Parser/Shaman/Shared/Features/SpellUsable';
 
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {
     ...CoreSpellUsable.dependencies,
     combatants: Combatants,
-    abilities: Abilities,
   };
 
   on_initialized() {
     this.hasEcho = this.combatants.selected.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id);
+    this.hasStaticCharge = this.combatants.selected.hasTalent(SPELLS.STATIC_CHARGE_TALENT.id);
   }
 
   on_dispel(event) {
