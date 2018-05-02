@@ -13,6 +13,20 @@ export default {
     icon: 'inv_axe_2h_artifactmaw_d_01',
   },
 
+  //Summons
+  //Bloodworm summon spell by the Bloodworms talent
+  BLOODWORM: {
+    id: 196361,
+    name: 'Bloodworm',
+    icon: 'spell_shadow_soulleech',
+  },
+  //Bloodworm death/heal spell
+  BLOODWORM_DEATH: {
+    id: 197509,
+    name: 'Bloodworm Death/Heal',
+    icon: 'spell_shadow_soulleech',
+  },
+
   //Artifact Trait
   UMBILICUS_ETERNUS: {
     id: 193213,

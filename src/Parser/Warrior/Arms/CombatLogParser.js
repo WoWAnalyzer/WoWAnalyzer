@@ -3,7 +3,9 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 
 import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import BattleCry from './Modules/Features/BattleCry';
+import BattleCryDamage from './Modules/Core/BattleCryDamage';
+import BattleCryGCD from './Modules/Core/BattleCryGCD';
+import BattleCrySetup from './Modules/Core/BattleCrySetup';
 import ColossusSmash from './Modules/Core/ColossusSmash';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import ColossusSmashUptime from './Modules/BuffDebuff/ColossusSmashUptime';
@@ -15,6 +17,7 @@ import TacticianProc from './Modules/BuffDebuff/TacticianProc';
 import ExecuteRange from './Modules/Features/ExecuteRange';
 import SpellUsable from './Modules/Features/SpellUsable';
 import Channeling from './Modules/Features/Channeling';
+import WarVeteran from './Modules/Items/Tier21_2Set';
 
 
 //import RelicTraits from './Modules/Traits/RelicTraits';
@@ -27,7 +30,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
-    battleCry: BattleCry,
+    battleCryDamage: BattleCryDamage,
+    battleCryGcd: BattleCryGCD,
+    battleCrySetup: BattleCrySetup,
     colossusSmash: ColossusSmash,
     cooldownThroughputTracker: CooldownThroughputTracker,
     colossusSmashUptime: ColossusSmashUptime,
@@ -39,6 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tacticianProc: TacticianProc,
     spellUsable: SpellUsable,
     channeling: Channeling,
+    WarVeteran: WarVeteran,
 
     // Talents
 

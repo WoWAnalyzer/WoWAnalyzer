@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-
 import ContributorDetails from './Contributors/ContributorDetails';
 import makeContributorUrl from './Contributors/makeUrl';
 import Portal from './Portal';
@@ -12,12 +11,12 @@ class Contributor extends React.PureComponent {
     nickname: PropTypes.string.isRequired,
     avatar: PropTypes.string,
   };
+  state = {
+    open: false,
+  };
 
   constructor(props) {
     super(props);
-    this.state = {
-      open: false,
-    };
     this.handleClick = this.handleClick.bind(this);
     this.handleOnClose = this.handleOnClose.bind(this);
   }

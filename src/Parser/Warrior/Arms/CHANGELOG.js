@@ -6,6 +6,16 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-05-02'),
+    changes: <React.Fragment>Added tier 21 2 piece damage statistic.</React.Fragment>,
+    contributors: [Aelexe],
+  },
+  {
+    date: new Date('2018-04-19'),
+    changes: <React.Fragment>Added suggestion for GCD use during <SpellLink id={SPELLS.BATTLE_CRY.id} icon />.</React.Fragment>,
+    contributors: [Aelexe],
+  },
+  {
     date: new Date('2018-04-13'),
     changes: <React.Fragment>Added suggestions for <SpellLink id={SPELLS.SLAM.id} icon /> and <SpellLink id={SPELLS.WHIRLWIND.id} icon /> usage.</React.Fragment>,
     contributors: [Aelexe],

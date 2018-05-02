@@ -185,7 +185,7 @@ class Checklist extends CoreChecklist {
             check: () => this.thunderFocusTea.suggestionThresholds,
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.ESSENCE_FONT.id} /> HOTS Used</React.Fragment>,
+            name: <React.Fragment><SpellLink id={SPELLS.ESSENCE_FONT.id} /> HOTS Used per Cast</React.Fragment>,
             check: () => this.essenceFontMastery.suggestionThresholds,
           }),
         ];
@@ -205,7 +205,7 @@ class Checklist extends CoreChecklist {
             check: () => this.alwaysBeCasting.downtimeSuggestionThresholds,
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.SOOTHING_MIST.id} /> usage</React.Fragment>,
+            name: <React.Fragment>Overusage of <SpellLink id={SPELLS.SOOTHING_MIST.id} /></React.Fragment>,
             check: () => this.soothingMist.suggestionThresholds,
           }),
         ];

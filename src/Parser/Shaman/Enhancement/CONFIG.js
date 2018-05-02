@@ -4,7 +4,6 @@ import { Nighteyez07 } from 'CONTRIBUTORS';
 import SPECS from 'common/SPECS';
 import Warning from 'common/Alert/Warning';
 
-import CombatLogParser from './CombatLogParser';
 import CHANGELOG from './CHANGELOG';
 
 export default {
@@ -30,7 +29,7 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: CombatLogParser,
+  parser: () => import('./CombatLogParser' /* webpackChunkName: "Shaman" */).then(exports => exports.default),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
   // footer: (

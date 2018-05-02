@@ -78,7 +78,7 @@ describe('Core.CombatLogParser', () => {
   });
   describe('findModule', () => {
     it('finds a module by type', () => {
-      class MyCombatLogParser extends CombatLogParser {
+      class MyCombatLogParser extends EmptyCombatLogParser {
         _modules = {
           alternative: {},
           test: myModule,
@@ -92,7 +92,7 @@ describe('Core.CombatLogParser', () => {
       expect(parser.findModule(MyModule)).toBe(myModule);
     });
     it('finds a submodule even when looking for the parent module', () => {
-      class MyCombatLogParser extends CombatLogParser {
+      class MyCombatLogParser extends EmptyCombatLogParser {
         _modules = {
           alternative: {},
           test: mySubModule,
@@ -108,7 +108,7 @@ describe('Core.CombatLogParser', () => {
       expect(parser.findModule(MySubModule)).toBe(mySubModule);
     });
     it('returns undefined is module doesn\'t exist', () => {
-      class MyCombatLogParser extends CombatLogParser {
+      class MyCombatLogParser extends EmptyCombatLogParser {
         _modules = {
           onemore: {},
         };
