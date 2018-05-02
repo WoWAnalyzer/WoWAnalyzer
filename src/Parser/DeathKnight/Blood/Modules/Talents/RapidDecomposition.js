@@ -2,9 +2,7 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS/index';
-import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import { formatNumber } from 'common/format';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -27,14 +25,11 @@ class RapidDecomposition extends Analyzer {
     if (spellId !== SPELLS.BLOOD_PLAGUE.id && spellId !== SPELLS.DEATH_AND_DECAY_DAMAGE_TICK.id) {
       return;
     }
-    console.log("spellId #", spellId);
     if (spellId === SPELLS.BLOOD_PLAGUE.id) {
       this.bpDamage += calculateEffectiveDamage(event, 0.15);
     }else {
       this.dndDamage += calculateEffectiveDamage(event, 0.15);
     }
-    console.log("BP #", this.bpDamage);
-    console.log("DnD #", this.dndDamage);
     this.totalDamage = this.bpDamage + this.dndDamage;
   }
 

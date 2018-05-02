@@ -87,7 +87,7 @@ export default {
     id: 206930,
     name: 'Heart Strike',
     icon: 'inv_weapon_shortblade_40',
-  },  
+  },
 
   BONESTORM_HIT: {
     id: 196528,
@@ -169,6 +169,11 @@ export default {
     id: 238698,
     name: 'Vampiric Aura',
     icon: 'ability_ironmaidens_maraksbloodcalling',
+  },
+  VORACIOUS: {
+    id: 274009,
+    name: 'Voracious',
+    icon: 'ability_ironmaidens_whirlofblood',
   },
 
   // CC
