@@ -27,16 +27,6 @@ class Voracious extends Analyzer {
     };
   }
 
-  suggestions(when) {
-    when(this.uptimeSuggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest('Your Voraciouse uptime can be improved.')
-            .icon(SPELLS.VORACIOUS_TALENT.icon)
-            .actual(`${formatPercentage(actual)}% Voracious uptime`)
-            .recommended(`>${formatPercentage(recommended)}% is recommended`);
-        });
-  }
-
   statistic() {
     return (
       <StatisticBox
