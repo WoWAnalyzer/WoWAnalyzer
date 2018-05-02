@@ -99,7 +99,7 @@ class Tombstone extends Analyzer {
       <ExpandableStatisticBox
         icon={<SpellIcon id={SPELLS.TOMBSTONE_TALENT.id} />}
         value={`${this.wastedCasts}`}
-        label="Wasted Casts"
+        label="Bad Casts"
         tooltip={`Any cast without 5 charges is considered a wasted cast.`}
       >
         <table className="table table-condensed">
@@ -117,7 +117,9 @@ class Tombstone extends Analyzer {
                 <td><dfn data-tip={`<strong>RP Generated:</strong> ${this.tombstone[i].rpGained-this.tombstone[i].rpWasted}`}>{this.tombstone[i].rpWasted}</dfn>
                   <ReactTooltip html place="bottom" /></td>
                 <td><dfn data-tip={`<strong>Damage Absorbed:</strong> ${formatNumber(this.tombstone[i].totalAbsorbed)}</br>
-                                   <strong>Absorb Shield: </strong>${formatNumber(this.tombstone[i].absorbSize)}`}>{formatPercentage(this.tombstone[i].totalAbsorbed / this.tombstone[i].absorbSize)}%</dfn>
+                                   <strong>Absorb Shield: </strong>${formatNumber(this.tombstone[i].absorbSize)} </br>
+                                   <strong>Healing: </strong>${this.owner.formatItemHealingDone(this.tombstone[i].totalAbsorbed)}
+                                  `}>{formatPercentage(this.tombstone[i].totalAbsorbed / this.tombstone[i].absorbSize)}%</dfn>
                   <ReactTooltip html place="bottom" /></td>
               </tr>
             )}
