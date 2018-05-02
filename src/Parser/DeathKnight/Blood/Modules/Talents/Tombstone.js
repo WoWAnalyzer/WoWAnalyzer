@@ -10,7 +10,7 @@ import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 import ReactTooltip from 'react-tooltip';
 
 const RPPERCHARGE = 6;
-const MaxCharges = 5;
+const MAXCHARGES = 5;
 
 class Tombstone extends Analyzer {
   static dependencies = {
@@ -22,10 +22,8 @@ class Tombstone extends Analyzer {
   casts = 0;
   rpGained = 0;
   rpWasted = 0;
-  slot = -1;
   absorbSize = 0;
   totalAbsorbed = 0;
-  hitAbsorbed = 0;
 
 
   on_initialized() {
@@ -33,7 +31,7 @@ class Tombstone extends Analyzer {
   }
 
   get wastedCasts() {
-    return this.tombstone.filter(e =>  e.charges < MaxCharges).length;
+    return this.tombstone.filter(e =>  e.charges < MAXCHARGES).length;
   }
 
   on_toPlayer_applybuff(event) {
@@ -41,7 +39,6 @@ class Tombstone extends Analyzer {
       return;
     }
     this.casts+= 1;
-    this.slot+= 1;
     this.absorbSize= event.absorb;
   }
 
@@ -57,8 +54,7 @@ class Tombstone extends Analyzer {
     if (event.ability.guid !== SPELLS.TOMBSTONE_TALENT.id) {
       return;
     }
-    this.hitAbsorbed = event.amount;
-    this.totalAbsorbed+= this.hitAbsorbed;
+    this.totalAbsorbed+= event.amount;
   }
 
   on_toPlayer_removebuff(event) {
