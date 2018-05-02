@@ -1,0 +1,56 @@
+import React from 'react';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import SPELLS from 'common/SPELLS/index';
+import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
+import { formatNumber } from 'common/format';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+
+class RapidDecomposition extends Analyzer {
+
+  static dependencies = {
+    combatants: Combatants,
+  };
+
+  bpDamage = 0;
+  dndDamage = 0;
+  totalDamage = 0;
+
+  on_initialized() {
+    this.active = this.combatants.selected.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id);
+  }
+
+  on_byPlayer_damage(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.BLOOD_PLAGUE.id && spellId !== SPELLS.DEATH_AND_DECAY_DAMAGE_TICK.id) {
+      return;
+    }
+    console.log("spellId #", spellId);
+    if (spellId === SPELLS.BLOOD_PLAGUE.id) {
+      this.bpDamage += calculateEffectiveDamage(event, 0.15);
+    }else {
+      this.dndDamage += calculateEffectiveDamage(event, 0.15);
+    }
+    console.log("BP #", this.bpDamage);
+    console.log("DnD #", this.dndDamage);
+    this.totalDamage = this.bpDamage + this.dndDamage;
+  }
+
+  statistic() {
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.RAPID_DECOMPOSITION_TALENT.id} />}
+        value={`${this.owner.formatItemDamageDone(this.totalDamage)}`}
+        label='Damage Increase'
+        tooltip={`<strong>Blood Plague Damage Increase:</strong> ${this.owner.formatItemDamageDone(this.bpDamage)}</br>
+                  <strong>Death And Decay Damage Increase:</strong> ${this.owner.formatItemDamageDone(this.dndDamage)}`}
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.CORE(5);
+
+}
+
+export default RapidDecomposition;
