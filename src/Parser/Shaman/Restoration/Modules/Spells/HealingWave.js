@@ -41,6 +41,10 @@ class HealingWave extends Analyzer {
     return true;
   }
 
+  /**
+   * This marks spells as inefficient casts in the timeline.
+   * @param event
+   */
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.HEALING_WAVE.id) {
