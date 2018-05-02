@@ -17,6 +17,7 @@ import TacticianProc from './Modules/BuffDebuff/TacticianProc';
 import ExecuteRange from './Modules/Features/ExecuteRange';
 import SpellUsable from './Modules/Features/SpellUsable';
 import Channeling from './Modules/Features/Channeling';
+import WarVeteran from './Modules/Items/Tier21_2Set';
 
 
 //import RelicTraits from './Modules/Traits/RelicTraits';
@@ -43,6 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tacticianProc: TacticianProc,
     spellUsable: SpellUsable,
     channeling: Channeling,
+    WarVeteran: WarVeteran,
 
     // Talents
 
