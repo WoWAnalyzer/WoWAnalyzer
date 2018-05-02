@@ -299,7 +299,7 @@ class CharacterParses extends React.Component {
                       />
                     </div>
                   )}
-                  <h2 style={{ fontSize: '1.8em' }}>{this.props.region} - {this.props.realm}</h2>
+                  <h2 style={{ fontSize: '1.8em', marginTop: 10 }}>{this.props.region} - {this.props.realm}</h2>
                   <h2 style={{ fontSize: '2.4em', margin: '10px 10px' }}>
                     {this.props.name}
                   </h2>

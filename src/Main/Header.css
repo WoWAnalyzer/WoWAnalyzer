@@ -135,9 +135,9 @@
   background-color: rgba(216, 65, 65, .8) ;
 }
 .animated-button {
-  box-shadow: inset 0% 0 0 0 #ad4b4b;
+  box-shadow: inset 0 0 0 0 #ad4b4b;
   transition: box-shadow 1.2s linear;
 }
 .animated-button.fill-button {
-  box-shadow: inset 100% 0 0 0 #ad4b4b;
+  box-shadow: inset 200px 0 0 0 #ad4b4b;
 }
