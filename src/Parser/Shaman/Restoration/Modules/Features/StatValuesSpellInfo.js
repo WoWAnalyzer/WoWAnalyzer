@@ -126,7 +126,7 @@ export default {
     int: true,
     crit: true, 
     hasteHpct: false, // static CD
-    mastery: false, // hopefully an error
+    mastery: true,
     vers: true,
   },
 };
