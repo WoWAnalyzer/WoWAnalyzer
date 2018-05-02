@@ -64,18 +64,14 @@
     padding-top: 40px;
   }
 }
+
 .character-selector {
-  position: relative;
-  height: 42px;
+  display: flex;
   margin-bottom: 10px;
+  height: 42px;
 }
-.character-selector>input, .character-selector>select, .character-selector>button, .character-selector>.realm-search {
-  display: inline-block;
-  position: absolute;
-}
-.character-selector .realm-search {
-  left: 102px;
-  width: 180px;
+.character-selector>.realm-search--select, .character-selector>input[name=code], .character-selector>button {
+  margin-left: 2px;
 }
 .realm-search__select {
   display: none;
@@ -100,7 +96,7 @@
   border-radius: 0;
   outline: none;
   width: 100%;
-  height: 43px;
+  height: 42px;
 }
 .realm-search__search:focus {
   box-shadow: none;
@@ -139,9 +135,9 @@
   background-color: rgba(216, 65, 65, .8) ;
 }
 .animated-button {
-  box-shadow: inset 0 0 0 0 #ad4b4b;
+  box-shadow: inset 0% 0 0 0 #ad4b4b;
   transition: box-shadow 1.2s linear;
 }
 .animated-button.fill-button {
-  box-shadow: inset 130px 0 0 0 #ad4b4b;
+  box-shadow: inset 100% 0 0 0 #ad4b4b;
 }

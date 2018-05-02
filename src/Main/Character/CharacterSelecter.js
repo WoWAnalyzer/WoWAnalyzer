@@ -73,7 +73,6 @@ class CharacterSelecter extends React.PureComponent {
         <div className="character-selector">
           <select
             className="form-control"
-            style={{ left: 0, width: 100 }}
             ref={elem => this.regionInput = elem}
             value={this.state.currentRegion}
             onChange={e => this.setState({ currentRegion: e.target.value })}
@@ -94,7 +93,6 @@ class CharacterSelecter extends React.PureComponent {
           <input
             type="text"
             name="code"
-            style={{ left: 284, width: 180, height: 43 }}
             ref={elem => this.charInput = elem}
             className="form-control"
             autoCorrect="off"
@@ -102,7 +100,7 @@ class CharacterSelecter extends React.PureComponent {
             spellCheck="false"
             placeholder="Character"
           />
-          <button type="submit" style={{ left: 467, width: 130, height: 43 }} className={`btn btn-primary analyze animated-button ${ this.state.loading ? 'fill-button' : ''}`}>
+          <button type="submit" className={`btn btn-primary analyze animated-button ${ this.state.loading ? 'fill-button' : ''}`}>
             Search <span className="glyphicon glyphicon-chevron-right" aria-hidden />
           </button>
         </div>
