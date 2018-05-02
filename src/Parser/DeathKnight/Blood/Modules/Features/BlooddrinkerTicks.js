@@ -76,7 +76,7 @@ class Blooddrinker extends Analyzer {
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
+  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default Blooddrinker;
