@@ -73,7 +73,7 @@ class Tombstone extends Analyzer {
       absorbedWasted: (this.absorbSize- this.totalAbsorbed),
       charges: (this.rpGained / RPPERCHARGE),
     });
-    console.log("Array", this.tombstone);
+    this.totalAbsorbed = 0;
   }
 
   get suggestionThresholdsEfficiency() {
