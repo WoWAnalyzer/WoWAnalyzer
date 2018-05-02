@@ -11,6 +11,10 @@ class Voracious extends Analyzer {
     combatants: Combatants,
   };
 
+  on_initialized() {
+    this.active = this.combatants.selected.hasTalent(SPELLS.VORACIOUS_TALENT.id);
+  }
+
   get uptime() {
     return this.combatants.selected.getBuffUptime(SPELLS.VORACIOUS.id) / this.owner.fightDuration;
   }
