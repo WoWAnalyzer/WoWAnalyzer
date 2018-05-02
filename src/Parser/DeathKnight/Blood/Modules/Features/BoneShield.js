@@ -42,7 +42,7 @@ class BoneShield extends Analyzer {
 
   get skeletalShatteringTooltip() {
     if (this.hasSS) {
-      return "On average, Skeletal Shattering would have contributed " + 
+      return "On average, Skeletal Shattering would have contributed " +
         formatPercentage(this.skeletalShatteringMitigated / (this.boneShieldMitigated + this.skeletalShatteringMitigated)) +
         "% (" + formatNumber(this.skeletalShatteringMitigated) + ") to this.<br>";
     } else {
@@ -112,7 +112,7 @@ class BoneShield extends Analyzer {
               </tr>
             </thead>
             <tbody>
-              {Object.values(this.boneShieldTimesByStack).map((e, i) => 
+              {Object.values(this.boneShieldTimesByStack).map((e, i) =>
                 <tr key={i}>
                   <th>{i}</th>
                   <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
@@ -122,7 +122,7 @@ class BoneShield extends Analyzer {
             </tbody>
           </table>
         </ExpandableStatisticBox>
-  
+
       );
 
     } else {
@@ -145,7 +145,7 @@ class BoneShield extends Analyzer {
               </tr>
             </thead>
             <tbody>
-              {this.boneShieldTimesByStack.map((e, i) => 
+              {this.boneShieldTimesByStack.map((e, i) =>
                 <tr key={i}>
                   <th>{i}</th>
                   <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
@@ -159,7 +159,7 @@ class BoneShield extends Analyzer {
 
     }
   }
-  statisticOrder = STATISTIC_ORDER.CORE(1);
+  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default BoneShield;
