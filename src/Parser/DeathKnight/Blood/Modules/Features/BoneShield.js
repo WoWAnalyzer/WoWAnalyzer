@@ -145,6 +145,7 @@ class BoneShield extends Analyzer {
               </tr>
             </thead>
             <tbody>
+              {this.boneShieldTimesByStack.map((e, i) =>
                 <tr key={i}>
                   <th>{i}</th>
                   <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
