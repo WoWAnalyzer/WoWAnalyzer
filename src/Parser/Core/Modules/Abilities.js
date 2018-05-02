@@ -99,7 +99,7 @@ class Abilities extends Analyzer {
   /*
   * Return the first ability that has the given SpellId set as the buff.
   */
-  getSpellBuffId(spellId) {
+  getSpellBuffAbility(spellId) {
     return this.activeAbilities.find(ability => {
         return ability.buffSpellId === spellId;
     });

@@ -13,7 +13,7 @@ class TimelineBuffEvents extends Analyzer {
 
   _getAbility(spellId) {
     // checking if there is any ability that cares about this buff
-    const ability = this.abilities.getSpellBuffId(spellId);
+    const ability = this.abilities.getSpellBuffAbility(spellId);
     if (!ability) {
       return null;
     }
