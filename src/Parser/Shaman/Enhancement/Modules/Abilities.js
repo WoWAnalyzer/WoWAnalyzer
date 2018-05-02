@@ -93,6 +93,12 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
       },
+      {
+        spell: SPELLS.LIGHTNING_SURGE_TOTEM_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: true,
+        cooldown: 60,
+      },
     ];
   }
 }

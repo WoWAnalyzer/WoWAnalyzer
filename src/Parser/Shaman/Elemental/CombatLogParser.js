@@ -29,6 +29,7 @@ import EyeOfTheTwistingNether from '../Shared/Items/EyeOfTheTwistingNether';
 
 import './Modules/Main/main.css';
 
+import SpellUsable from '../Shared/Features/SpellUsable';
 import MaelstromTab from '../Shared/MaelstromChart/MaelstromTab';
 import MaelstromTracker from '../Shared/MaelstromChart/MaelstromTracker';
 
@@ -65,7 +66,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tier21_2p: Tier21_2Set,
     tier21_4p: Tier21_4Set,
 
-
+    spellUsable: SpellUsable,
     maelstromTracker: MaelstromTracker,
     maelstromTab: MaelstromTab,
   };

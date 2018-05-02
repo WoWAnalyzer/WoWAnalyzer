@@ -19,6 +19,7 @@ import Tier21_2set from './Modules/Items/Tier21_2set';
 import Tier21_4set from './Modules/Items/Tier21_4set';
 
 import EyeOfTheTwistingNether from '../Shared/Items/EyeOfTheTwistingNether';
+import SpellUsable from '../Shared/Features/SpellUsable';
 
 
 // import SmolderingHeart from './Modules/Legendaries/SmolderingHeart';
@@ -45,6 +46,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tier21_2set: Tier21_2set,
     tier21_4set: Tier21_4set,
 
+    spellUsable: SpellUsable,
     maelstromTracker:MaelstromTracker,
     maelstromTab:MaelstromTab,
   };
