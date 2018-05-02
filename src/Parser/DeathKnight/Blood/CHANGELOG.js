@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-05-01'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.VORACIOUS_TALENT.id} />-Module in anticipation for BFA.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
     date: new Date('2018-04-30'),
     changes: <React.Fragment>Added <SpellLink id={SPELLS.TOMBSTONE_TALENT.id} />-Module in anticipation for BFA.</React.Fragment>,
     contributors: [Yajinni],
