@@ -28,6 +28,11 @@ export default [
     contributors: [Yajinni],
   },
   {
+    date: new Date('2018-04-27'),
+    changes: <React.Fragment>Added support for <SpellLink id={SPELLS.BLOODWORMS_TALENT.id} />.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
     date: new Date('2018-04-22'),
     changes: <React.Fragment>Updated relic stat calculations.</React.Fragment>,
     contributors: [Yajinni],
