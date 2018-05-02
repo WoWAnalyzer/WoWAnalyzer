@@ -34,6 +34,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     [SPELLS.LIGHTNING_SURGE_TOTEM_TALENT.id]: TOTEM_GCD,
     [SPELLS.EARTHGRAB_TOTEM_TALENT.id]: TOTEM_GCD,
     [SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id]: TOTEM_GCD,
+    [SPELLS.TREMOR_TOTEM.id]: TOTEM_GCD,
     [SPELLS.EARTHBIND_TOTEM.id]: TOTEM_GCD, // Not a static GCD but 1 second - haste
   }
   
