@@ -17,6 +17,7 @@ class Abilities extends Analyzer {
     ITEMS: 'Item',
     COOLDOWNS: 'Cooldown',
     DEFENSIVE: 'Defensive Cooldown',
+    SEMI_DEFENSIVE: 'Offensive & Defensive Cooldown',
     OTHERS: 'Spell',
     UTILITY: 'Utility',
     HEALER_DAMAGING_SPELL: 'Damaging Spell',

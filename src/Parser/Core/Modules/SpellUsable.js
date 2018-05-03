@@ -86,7 +86,8 @@ class SpellUsable extends Analyzer {
   cooldownRemaining(spellId, timestamp = this.owner.currentTimestamp) {
     const canSpellId = this._getCanonicalId(spellId);
     if (!this.isOnCooldown(canSpellId)) {
-      throw new Error(`Tried to retrieve the remaining cooldown of ${canSpellId}, but it's not on cooldown.`);
+      return -1;
+      // throw new Error(`Tried to retrieve the remaining cooldown of ${canSpellId}, but it's not on cooldown.`);
     }
     const cooldown = this._currentCooldowns[canSpellId];
     const expectedEnd = cooldown.start + cooldown.expectedDuration - cooldown.totalReductionTime;

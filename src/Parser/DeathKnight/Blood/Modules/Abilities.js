@@ -32,7 +32,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLOOD_MIRROR_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
         cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.BLOOD_MIRROR_TALENT.id),
         castEfficiency: {
