@@ -59,11 +59,11 @@ class SoulBarrier extends Analyzer {
 
   get suggestionThresholdsEfficiency() {
     return {
-      actual: 1 - this.wastedCasts / this.casts,
+      actual: this.uptime,
       isLessThan: {
-        minor: 0.95,
-        average: 0.9,
-        major: .8,
+        minor: 0.40,
+        average: 0.35,
+        major: .30,
       },
       style: 'percentage',
     };
@@ -72,7 +72,7 @@ class SoulBarrier extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You casted {this.wastedCasts} <SpellLink id={SPELLS.SOUL_BARRIER_TALENT.id} /> with less than 5 charges causing a reduced absorb shield.</React.Fragment>)
+        return suggest(<React.Fragment>Your uptime with <SpellLink id={SPELLS.SOUL_BARRIER_TALENT.id} /> can be improved.</React.Fragment>)
           .icon(SPELLS.SOUL_BARRIER_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Soull Barrier`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);
