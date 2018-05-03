@@ -6,7 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from "common/format";
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
-const MINIMUMABSORTBTHRESHOLD = 0.05;
+const MINIMUM_ABSORB_THRESHOLD = 0.05;
 
 class WillOfTheNecropolis extends Analyzer {
 
@@ -18,8 +18,6 @@ class WillOfTheNecropolis extends Analyzer {
   currentWotnAbsorbed = 0;
   activated = 0;
   spellDamageId = 0;
-  playerHealth = 0;
-  absorbToHeathPercent = 0;
   goodAbsorbCount = 0;
   nextEvent = false;
 
@@ -41,14 +39,15 @@ class WillOfTheNecropolis extends Analyzer {
   }
 
   on_toPlayer_damage(event) {
+    const playerHealth = event.maxHitPoints;
+    const absorbToHealthPercent = this.currentWotnAbsorbed / playerHealth;
     const spellId = event.ability.guid;
     if (spellId !== this.spellDamageId || this.nextEvent === false) {
       return;
     }
     this.nextEvent = false;
     this.playerHealth = event.maxHitPoints;
-    this.absorbToHeathPercent = this.currentWotnAbsorbed / this.playerHealth;
-    if(this.absorbToHeathPercent > MINIMUMABSORTBTHRESHOLD){
+    if(absorbToHealthPercent > MINIMUM_ABSORB_THRESHOLD){
       this.goodAbsorbCount += 1;
     }
   }
