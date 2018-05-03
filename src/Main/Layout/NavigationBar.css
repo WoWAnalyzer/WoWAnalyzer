@@ -4,7 +4,7 @@ nav.global {
   width: 100%;
   z-index: 999; /* 1000 is where modals start*/
   line-height: 40px;
-  background: #222429;
+  background: #100c0c;
   border: 0;
   margin-bottom: 24px;
   display: flex;
