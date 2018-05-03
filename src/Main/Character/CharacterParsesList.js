@@ -26,7 +26,7 @@ class CharacterParsesList extends React.PureComponent {
     return (
       this.props.parses.map((elem, index) => 
         <a href={makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + " " + elem.name, elem.character_name)} target="_blank" key={`${elem.report_code} ${elem.report_fight}`}>
-          <div className="row character-parse" key={elem.report_code + elem.report_fight}>
+          <div className="row character-parse" key={makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + " " + elem.name, elem.character_name)}>
             <div className="col-md-5" style={{ color: 'white' }}>
               <img src={this.iconPath(elem.spec)} style={{ height: 30, marginRight: 10 }} alt="Icon" />
               {elem.difficulty} - {elem.name}

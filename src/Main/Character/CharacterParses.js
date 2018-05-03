@@ -29,7 +29,7 @@ const TRINKET_SLOTS = [12, 13];
 //Hunter or rogues have the same log multiple times with 'Ranged' or 'Melee' as spec
 //probably only there to allow filtering by multiple specs on WCLs character-page
 //we don't want those logs tho
-const EXLCUDE_FROM_PARSES = ['Ranged', 'Melee']; 
+const EXCLUDED_GENERIC_SPECS_FROM_PARSES = ['Ranged', 'Melee']; 
 
 class CharacterParses extends React.Component {
 
@@ -144,7 +144,7 @@ class CharacterParses extends React.Component {
       const difficulty = DIFFICULTIES[elem.difficulty];
 
       elem.specs
-        .filter(item => !EXLCUDE_FROM_PARSES.includes(item))
+        .filter(item => !EXCLUDED_GENERIC_SPECS_FROM_PARSES.includes(item.spec))
         .forEach(element => {
           const spec = element.spec;
           element.data.forEach(singleParse => {
@@ -401,6 +401,21 @@ class CharacterParses extends React.Component {
                     <ActivityIndicator text="Fetching logs..." />
                   </div>
                 )}
+                {!this.state.isLoading && (
+                  <div className="panel-heading">
+                    <h2 style={{ display: 'inline' }}>Parses</h2>
+                    <Link 
+                      to={''} 
+                      className="pull-right"
+                      onClick={e => {
+                        e.preventDefault();
+                        this.load(true);
+                      }}
+                    >
+                      <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh
+                    </Link>
+                  </div>
+                )}
                 {this.state.error && (
                   <div>
                     <div className="panel-heading">
@@ -420,18 +435,6 @@ class CharacterParses extends React.Component {
                     You don't know how to log your fights? Check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get startet.
                   </div>
                 )}
-                {this.filterParses.length > 0 && !this.state.error && !this.state.isLoading && (
-                  <div className="panel-heading">
-                    <h2 style={{ display: 'inline' }}>Parses</h2>
-                    <Link to={''} className="pull-right" onClick={(e) => {
-                      e.preventDefault();
-                      this.load(true);
-                    }}>
-                      <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh
-                    </Link>
-                  </div>
-                )}
-
                 {!this.state.isLoading && (
                   <CharacterParsesList parses={this.filterParses} class={this.state.class} metric={this.state.metric} />
                 )}
