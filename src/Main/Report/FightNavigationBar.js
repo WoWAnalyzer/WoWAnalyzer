@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import SkullIcon from 'Icons/Skull';
 
+import Icon from 'common/Icon';
 import { getReport } from 'selectors/report';
 import { getFightId, getPlayerId, getPlayerName } from 'selectors/url/report';
 import { findByBossId } from 'Raids';
@@ -62,10 +63,12 @@ class FightNavigationBar extends React.PureComponent {
                 >
                   <Link to={makeAnalyzerUrl(report, fight.id, playerId)}>
                     <figure>
-                      <img
-                        src={boss ? boss.headshot : SkullRaidMarker}
-                        alt={boss ? boss.name : fight.name}
-                      />
+                      {boss.icon ? <Icon icon={boss.icon} alt={boss ? boss.name : fight.name} /> : (
+                        <img
+                          src={boss ? boss.headshot : SkullRaidMarker}
+                          alt={boss ? boss.name : fight.name}
+                        />
+                      )}
                       <div className="over-image">
                         {fight.kill ? <SkullIcon /> : `${Math.floor(fight.fightPercentage / 100)}%`}
                       </div>

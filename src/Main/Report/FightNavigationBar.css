@@ -42,6 +42,8 @@ nav.fight > ul > li figure {
 }
 nav.fight > ul > li img {
   width: 38px;
+  height: 38px;
+  margin: 0;
   border-radius: 3px;
   vertical-align: top;
 }

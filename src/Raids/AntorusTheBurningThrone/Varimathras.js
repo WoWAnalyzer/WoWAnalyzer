@@ -6,6 +6,7 @@ export default {
   name: 'Varimathras',
   background: Background,
   headshot: Headshot,
+  icon: 'achievement_boss_argus_varimathras',
   fight: {
     vantusRuneBuffId: 250165,
     // TODO: Add fight specific props
