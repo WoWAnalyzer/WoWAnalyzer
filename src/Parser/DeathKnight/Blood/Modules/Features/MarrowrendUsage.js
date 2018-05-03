@@ -131,7 +131,7 @@ class MarrowrendUsage extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.MARROWREND.id} />}
         value={`${ this.badMRCasts } / ${ this.totalMRCasts }`}
-        label="bad Marrowrend casts"
+        label="Bad Marrowrend casts"
         tooltip={`${ this.refreshMRCasts } casts to refresh Bone Shield<br>
         ${ this.badMRCasts } casts with more than 6 stacks of Bone Shield wasting at least ${ this.bsStacksWasted } stacks<br>
         <br>
@@ -140,7 +140,7 @@ class MarrowrendUsage extends Analyzer {
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
+  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default MarrowrendUsage;

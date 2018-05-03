@@ -52,7 +52,7 @@ class RedThirst extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(7);
+  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default RedThirst;

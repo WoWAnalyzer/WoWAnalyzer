@@ -48,7 +48,7 @@ class FoulBulwark extends Analyzer {
             </tr>
           </thead>
           <tbody>
-            {this.boneShieldTimesByStack.map((e, i) => 
+            {this.boneShieldTimesByStack.map((e, i) =>
               <tr key={i}>
                 <th>{(i * HP_PER_BONE_SHIELD_STACK * 100).toFixed(0)}%</th>
                 <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
@@ -60,7 +60,7 @@ class FoulBulwark extends Analyzer {
       </ExpandableStatisticBox>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(4);
+  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default FoulBulwark;

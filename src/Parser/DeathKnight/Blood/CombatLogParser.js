@@ -40,6 +40,7 @@ import Bloodworms from './Modules/Talents/Bloodworms';
 import Tombstone from './Modules/Talents/Tombstone';
 import Voracious from './Modules/Talents/Voracious';
 import RapidDecomposition from './Modules/Talents/RapidDecomposition';
+import WillOfTheNecropolis from './Modules/Talents/WillOfTheNecropolis';
 
 // Items
 import T20_2pc from './Modules/Items/T20_2pc';
@@ -105,6 +106,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tombstone: Tombstone,
     voracious: Voracious,
     rapidDecomposition: RapidDecomposition,
+    willOfTheNecropolis: WillOfTheNecropolis,
 
     // Traits
     RelicTraits: RelicTraits,
