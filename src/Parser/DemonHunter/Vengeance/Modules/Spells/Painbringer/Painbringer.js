@@ -3,11 +3,12 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage, formatDuration } from 'common/format';
+import { formatPercentage, formatDuration, formatNumber } from 'common/format';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import PainbringerTimesByStacks from './PainbringerTimesByStacks';
+import PainbringerStacksBySeconds from './PainbringerTimesByStacks';
 
 
 class Painbringer extends Analyzer {
@@ -16,11 +17,16 @@ class Painbringer extends Analyzer {
     combatants: Combatants,
     statTracker: StatTracker,
     painbringerTimesByStacks: PainbringerTimesByStacks,
+    painbringerStacksBySeconds: PainbringerStacksBySeconds,
   };
 
 
   get painbringerTimesByStack() {
     return this.painbringerTimesByStacks.painbringerTimesByStacks;
+  }
+
+  get painbringerAvgStack() {
+    return this.painbringerStacksBySeconds.totalPainbringerStacks / this.painbringerStacksBySeconds.stackChanges;
   }
 
   get uptime() {
@@ -50,12 +56,13 @@ class Painbringer extends Analyzer {
   }
 
   statistic() {
+    console.log("stack avg #", this.painbringerTimesByStack.painbringerTimesByStacks);
       return (
         <ExpandableStatisticBox
           icon={<SpellIcon id={SPELLS.PAINBRINGER.id} />}
-          value={`${formatPercentage(this.uptime)} %`}
-          label="Painbringer Uptime"
-          tooltip={`<b>Replace.</b>`}
+          value={`${formatPercentage(this.painbringerTimesByStack[5].reduce((a, b) => a + b, 0) / this.owner.fightDuration)} %`}
+          label="Painbringer Uptime At 5 Stacks"
+          tooltip={`Average Painbringer Stacks: <b>${formatNumber(this.painbringerAvgStack)}</b>`}
         >
           <table className="table table-condensed">
             <thead>
