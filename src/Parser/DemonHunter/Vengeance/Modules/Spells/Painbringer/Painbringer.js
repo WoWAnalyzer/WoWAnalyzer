@@ -37,9 +37,9 @@ class Painbringer extends Analyzer {
     return {
       actual: this.uptime,
       isLessThan: {
-        minor: 0.95,
-        average: 0.9,
-        major: .8,
+        minor: 0.70,
+        average: 0.65,
+        major: .6,
       },
       style: 'percentage',
     };
@@ -62,7 +62,8 @@ class Painbringer extends Analyzer {
           icon={<SpellIcon id={SPELLS.PAINBRINGER.id} />}
           value={`${formatPercentage(this.painbringerTimesByStack[5].reduce((a, b) => a + b, 0) / this.owner.fightDuration)} %`}
           label="Painbringer Uptime At 5 Stacks"
-          tooltip={`Average Painbringer Stacks: <b>${formatNumber(this.painbringerAvgStack)}</b>`}
+          tooltip={`Average Painbringer Stacks: <b>${formatNumber(this.painbringerAvgStack)}</b></br>
+                    Total Buff Uptime: <b>${formatPercentage(this.uptime)}</b> %`}
         >
           <table className="table table-condensed">
             <thead>
