@@ -8,6 +8,8 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
 import PainChart from './Modules/PainChart/Pain';
+import PainTracker from './Modules/Pain/PainTracker';
+import PainDetails from './Modules/Pain/PainDetails';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Features/Abilities';
@@ -36,6 +38,9 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    //Resource Tracker
+    painTracker :PainTracker,
+    painDetails: PainDetails,
 
     // Spirit Bomb Tracker Module (Frailty uptime tracker)
     spiritBomb: SpiritBomb,
