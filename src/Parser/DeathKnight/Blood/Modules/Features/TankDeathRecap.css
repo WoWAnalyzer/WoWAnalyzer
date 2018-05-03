@@ -2,20 +2,8 @@ span.event-damage {
   color: red;
 }
 
-span.event-damage:before {
-  content: '-';
-}
-
 span.event-heal {
   color: green;
-}
-
-span.event-heal:before {
-  content: '+';
-}
-
-.hit-type-8:after {
-  content: ' (Parry)';
 }
 
 .flex-sub.performance-bar.event-damage {
