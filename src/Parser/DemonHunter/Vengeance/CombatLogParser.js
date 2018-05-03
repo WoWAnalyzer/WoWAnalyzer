@@ -23,6 +23,7 @@ import SigilOfFlame from './Modules/Statistics/Spells/SigilOfFlame';
 
 import Painbringer from './Modules/Spells/Painbringer/Painbringer';
 import PainbringerTimesByStacks from './Modules/Spells/Painbringer/PainbringerTimesByStacks';
+import SoulBarrier from './Modules/Spells/SoulBarrier';
 
 import Tier202PBonus from './Modules/Tier/Tier20/Tier20-2P.js';
 import Tier204PBonus from './Modules/Tier/Tier20/Tier20-4P.js';
@@ -53,6 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sigilOfFlame: SigilOfFlame,
     painbringer: Painbringer,
     painbringerTimesByStacks: PainbringerTimesByStacks,
+    soulBarrier: SoulBarrier,
 
     // Tier 20
     tier202PBonus: Tier202PBonus,
