@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import GitHubIcon from 'Icons/GitHubMarkSmall';
 
-import { getFightId, getPlayerName } from 'selectors/url/report';
+import { getFightId, getPlayerName, getReportCode } from 'selectors/url/report';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import { getReportProgress } from 'selectors/reportProgress';
@@ -20,6 +20,7 @@ class NavigationBar extends React.PureComponent {
   static propTypes = {
     playerName: PropTypes.string,
 
+    reportCode: PropTypes.string,
     report: PropTypes.shape({
       title: PropTypes.string.isRequired,
     }),
@@ -28,7 +29,7 @@ class NavigationBar extends React.PureComponent {
   };
 
   render() {
-    const { playerName, report, fight, progress } = this.props;
+    const { reportCode, report, fight, playerName, progress } = this.props;
 
     return (
       <nav className="global">
@@ -37,15 +38,15 @@ class NavigationBar extends React.PureComponent {
             <img src="/favicon.png" alt="WoWAnalyzer logo" />
           </Link>
         </div>
-        {report && (
+        {reportCode && report && (
           <div className="menu-item">
             <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
           </div>
         )}
-        {report && fight && (
+        {reportCode && report && fight && (
           <FightSelectorHeader className="menu-item" />
         )}
-        {report && playerName && (
+        {reportCode && report && playerName && (
           <PlayerSelectorHeader className="menu-item" />
         )}
         <div className="spacer" />
@@ -63,6 +64,7 @@ class NavigationBar extends React.PureComponent {
 const mapStateToProps = state => ({
   playerName: getPlayerName(state),
 
+  reportCode: getReportCode(state),
   report: getReport(state),
   fight: getFightById(state, getFightId(state)),
   progress: getReportProgress(state),

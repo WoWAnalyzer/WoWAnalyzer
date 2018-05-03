@@ -7,6 +7,12 @@ export function setReport(report) {
     payload: report,
   };
 }
+export function resetReport() {
+  return {
+    type: SET_REPORT,
+    payload: null,
+  };
+}
 
 function fetchFights(code, refresh = false) {
   return fetchWcl(`report/fights/${code}`, {
@@ -17,7 +23,7 @@ function fetchFights(code, refresh = false) {
 
 export function fetchReport(code, refresh = false) {
   return async dispatch => {
-    dispatch(setReport(null));
+    dispatch(resetReport());
     // await timeout(15000);
     let json = await fetchFights(code, refresh);
     if (!json.fights) {
