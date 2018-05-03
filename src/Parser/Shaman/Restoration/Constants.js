@@ -31,7 +31,7 @@ export const ABILITIES_AFFECTED_BY_MASTERY = [
   SPELLS.HEALING_RAIN_HEAL.id,
   SPELLS.UNLEASH_LIFE_TALENT.id,
   SPELLS.EARTH_SHIELD_HEAL.id,
-  //SPELLS.DOWNPOUR_TALENT.id, Not yet, but expected to get fixed
+  SPELLS.DOWNPOUR_TALENT.id,
   SPELLS.DOWNPOUR.id,
   // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
   SPELLS.CLOUDBURST_TOTEM_HEAL.id,

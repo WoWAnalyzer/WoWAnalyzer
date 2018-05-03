@@ -1,13 +1,11 @@
 import SPELLS from 'common/SPELLS';
-import CoreSpellUsable from 'Parser/Core/Modules/SpellUsable';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import Abilities from '../Abilities';
+import CoreSpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {
     ...CoreSpellUsable.dependencies,
     combatants: Combatants,
-    abilities: Abilities,
   };
 
   on_initialized() {
