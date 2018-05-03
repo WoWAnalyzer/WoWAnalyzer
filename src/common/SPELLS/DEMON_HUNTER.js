@@ -149,6 +149,11 @@ export default {
     name: 'Imprison',
     icon: 'ability_demonhunter_imprison',
   },
+  PAINBRINGER_Buff: {
+    id: 212988,
+    name: 'Painbringer Buff',
+    icon: 'artifactability_vengeancedemonhunter_painbringer',
+  },
 
   // Havoc
   //T21 Bonus
