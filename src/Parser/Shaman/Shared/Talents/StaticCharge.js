@@ -1,13 +1,15 @@
 import SPELLS from 'common/SPELLS';
-import CoreSpellUsable from 'Parser/Core/Modules/SpellUsable';
+import Analyzer from 'Parser/Core/Analyzer';
+import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 // Static Charge can only reduce the cooldown down to 40 seconds
 const minimumCooldown = 40000;
+const stunReduction = 5000;
 
-class SpellUsable extends CoreSpellUsable {
+class StaticCharge extends Analyzer {
   static dependencies = {
-    ...CoreSpellUsable.dependencies,
+    spellUsable: SpellUsable,
     combatants: Combatants,
   };
 
@@ -21,14 +23,13 @@ class SpellUsable extends CoreSpellUsable {
       return;
     }
 
-    const cooldownRemaining = this.cooldownRemaining(SPELLS.LIGHTNING_SURGE_TOTEM_TALENT.id);
+    const cooldownRemaining = this.spellUsable.cooldownRemaining(SPELLS.LIGHTNING_SURGE_TOTEM_TALENT.id);
     if (cooldownRemaining <= minimumCooldown) {
       return;
     }
 
-    const stunReduction = 5000;
-    this.reduceCooldown(SPELLS.LIGHTNING_SURGE_TOTEM_TALENT.id, stunReduction);
+    this.spellUsable.reduceCooldown(SPELLS.LIGHTNING_SURGE_TOTEM_TALENT.id, stunReduction);
   }
 }
 
-export default SpellUsable;
+export default StaticCharge;
