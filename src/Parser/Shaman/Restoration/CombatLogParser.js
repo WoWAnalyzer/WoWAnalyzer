@@ -28,10 +28,22 @@ import UnleashLife from './Modules/Talents/UnleashLife';
 import Undulation from './Modules/Talents/Undulation';
 import EarthShield from './Modules/Talents/EarthShield';
 import EarthenWallTotem from './Modules/Talents/EarthenWallTotem';
+import Downpour from './Modules/Talents/Downpour';
 import CloudburstTotem from './Modules/Talents/CloudburstTotem';
 import Ascendance from './Modules/Talents/Ascendance';
 import Wellspring from './Modules/Talents/Wellspring';
 import HighTide from './Modules/Talents/HighTide';
+
+// Items
+import Restoration_Shaman_T21_2Set from './Modules/Items/T21_2Set';
+import Restoration_Shaman_T21_4Set from './Modules/Items/T21_4Set';
+import Nazjatar from './Modules/Items/Nazjatar';
+import UncertainReminder from './Modules/Items/UncertainReminder';
+import Jonat from './Modules/Items/Jonat';
+import Nobundo from './Modules/Items/Nobundo';
+import Tidecallers from './Modules/Items/Tidecallers';
+import Roots from './Modules/Items/Roots';
+import VelensFutureSight from './Modules/Items/VelensFutureSight';
 
 // Spells
 import ChainHeal from './Modules/Spells/ChainHeal';
@@ -40,6 +52,9 @@ import HealingRain from './Modules/Spells/HealingRain';
 import HealingWave from './Modules/Spells/HealingWave';
 import LavaSurge from './Modules/Spells/LavaSurge';
 import Resurgence from './Modules/Spells/Resurgence';
+
+// Shared
+import StaticCharge from '../Shared/Talents/StaticCharge';
 
 import CloudburstNormalizer from './Normalizers/CloudburstNormalizer';
 
@@ -73,12 +88,22 @@ class CombatLogParser extends CoreCombatLogParser {
     undulation: Undulation,
     earthShield: EarthShield,
     earthenWallTotem: EarthenWallTotem,
+    downpour: Downpour,
     cloudburstTotem: CloudburstTotem,
     ascendance: Ascendance,
     wellspring: Wellspring,
     highTide: HighTide,
 
     // Items:
+    t21_2Set: Restoration_Shaman_T21_2Set,	
+    t21_4Set: Restoration_Shaman_T21_4Set,
+    nobundo: Nobundo,
+    nazjatar: Nazjatar,
+    uncertainReminder: UncertainReminder,
+    jonat: Jonat,
+    tidecallers: Tidecallers,
+    roots: Roots,
+    velensFutureSight: VelensFutureSight,
 
     // Spells:
     chainHeal: ChainHeal,
@@ -87,6 +112,9 @@ class CombatLogParser extends CoreCombatLogParser {
     healingWave: HealingWave,
     lavaSurge: LavaSurge,
     resurgence: Resurgence,
+
+    // Shared:
+    staticCharge: StaticCharge,
 
     // Normalizers:
     cloudburstNormalizer: CloudburstNormalizer,

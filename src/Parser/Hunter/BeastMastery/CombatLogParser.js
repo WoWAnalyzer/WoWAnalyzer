@@ -34,6 +34,7 @@ import GainedBestialWraths from "./Modules/Spells/BestialWrath/GainedBestialWrat
 import DireBeastUptime from "./Modules/Spells/DireBeast/DireBeastUptime";
 import BeastCleave from './Modules/Spells/BeastCleave';
 import AspectOfTheWild from './Modules/Spells/AspectOfTheWild';
+
 //Talents
 import KillerCobra from "./Modules/Talents/KillerCobra";
 import AMurderOfCrows from "./Modules/Talents/AMurderOfCrows";
@@ -54,6 +55,7 @@ import TitansThunder from "./Modules/Traits/TitansThunder";
 import CobraCommander from './Modules/Traits/CobraCommander';
 import SurgeOfTheStormgod from './Modules/Traits/SurgeOfTheStormgod';
 import Thunderslash from './Modules/Traits/Thunderslash';
+
 //Traits and Talents list
 import TraitsAndTalents from './Modules/Features/TraitsAndTalents';
 
@@ -132,7 +134,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Checklist
     checklist: Checklist,
-
   };
 }
 

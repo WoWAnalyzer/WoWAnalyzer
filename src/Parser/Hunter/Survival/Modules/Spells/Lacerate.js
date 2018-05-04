@@ -6,7 +6,6 @@ import SpellIcon from 'common/SpellIcon';
 import StatisticBox from 'Main/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 import Enemies from 'Parser/Core/Modules/Enemies';
-import Wrapper from 'common/Wrapper';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from 'common/ITEMS/HUNTER';
 import SpellLink from 'common/SpellLink';
@@ -174,21 +173,21 @@ class Lacerate extends Analyzer {
   suggestions(when) {
     if (this.combatants.selected.hasBuff(SPELLS.HUNTER_SV_T20_2P_BONUS.id)) {
       when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>When you're using <ItemLink id={ITEMS.HUNTER_SV_T20_2P_BONUS.id} />, it's worth maintaining a higher uptime of <SpellLink id={SPELLS.LACERATE.id} /> than you otherwise would.</Wrapper>)
+        return suggest(<React.Fragment>When you're using <ItemLink id={ITEMS.HUNTER_SV_T20_2P_BONUS.id} />, it's worth maintaining a higher uptime of <SpellLink id={SPELLS.LACERATE.id} /> than you otherwise would.</React.Fragment>)
           .icon(SPELLS.LACERATE.icon)
           .actual(`${formatPercentage(actual)}% Lacerate uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);
       });
     } else {
       when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Having a high <SpellLink id={SPELLS.LACERATE.id} icon /> uptime isn't necessarily optimal, it's generally used purely as a filler to dump focus when you have nothing else to do apart from casting non-buffed <SpellLink id={SPELLS.RAPTOR_STRIKE.id} icon />.</Wrapper>)
+        return suggest(<React.Fragment>Having a high <SpellLink id={SPELLS.LACERATE.id} icon /> uptime isn't necessarily optimal, it's generally used purely as a filler to dump focus when you have nothing else to do apart from casting non-buffed <SpellLink id={SPELLS.RAPTOR_STRIKE.id} icon />.</React.Fragment>)
           .icon(SPELLS.LACERATE.icon)
           .actual(`${formatPercentage(actual)}% Lacerate uptime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);
       });
     }
     when(this.refreshingThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Due to the overall low dmg output of <SpellLink id={SPELLS.LACERATE.id} /> and the fact that it pandemics, it is generally not recommended to refresh <SpellLink id={SPELLS.LACERATE.id} /> earlier than when there is less than {(this._earliestRefresh / 1000).toFixed(1)} seconds remaining on the debuff.</Wrapper>)
+      return suggest(<React.Fragment>Due to the overall low dmg output of <SpellLink id={SPELLS.LACERATE.id} /> and the fact that it pandemics, it is generally not recommended to refresh <SpellLink id={SPELLS.LACERATE.id} /> earlier than when there is less than {(this._earliestRefresh / 1000).toFixed(1)} seconds remaining on the debuff.</React.Fragment>)
         .icon(SPELLS.LACERATE.icon)
         .actual(`${actual} Lacerate cast(s) were cast too early`)
         .recommended(`>${recommended} is recommended`);

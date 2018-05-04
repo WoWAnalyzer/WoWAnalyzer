@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import ItemHealingDone from 'Main/ItemHealingDone';
-import Wrapper from 'common/Wrapper';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
@@ -74,11 +73,11 @@ class SkullflowersHaemostasis extends Analyzer {
     return {
       item: ITEMS.SKULLFLOWERS_HAEMOSTASIS,
       result:(
-        <Wrapper>
+        <React.Fragment>
           <ItemDamageDone amount={this.damage} /><br />
           <ItemHealingDone amount={this.heal} /><br />
           Overcapped {this.wastedBuff} times
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

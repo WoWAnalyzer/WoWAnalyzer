@@ -3,7 +3,6 @@ import React from 'react';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -50,7 +49,7 @@ class MortalStrikeAnalyzer extends Analyzer {
 
   suggestions(when) {
     when(this.unshatteredMortalStrikeThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Try to avoid using <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon/> if <SpellLink id={SPELLS.SHATTERED_DEFENSES.id} icon/> is inactive and <SpellLink id={SPELLS.COLOSSUS_SMASH.id} icon/> is available.</Wrapper>)
+      return suggest(<React.Fragment>Try to avoid using <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon/> if <SpellLink id={SPELLS.SHATTERED_DEFENSES.id} icon/> is inactive and <SpellLink id={SPELLS.COLOSSUS_SMASH.id} icon/> is available.</React.Fragment>)
         .icon(SPELLS.MORTAL_STRIKE.icon)
         .actual(`${formatPercentage(actual)}% of Mortal Strikes were used without Shattered Defenses unnecessarily.`)
         .recommended(`${formatPercentage(recommended)}% is recommended`);

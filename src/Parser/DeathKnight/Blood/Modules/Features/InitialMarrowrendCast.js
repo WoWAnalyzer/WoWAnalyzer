@@ -3,7 +3,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import SPELLS from 'common/SPELLS';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 
 class InitialMarrowrendCast extends Analyzer {
@@ -38,7 +37,7 @@ class InitialMarrowrendCast extends Analyzer {
 
   suggestions(when) {
     when(this.initialMRThresholds).isTrue().addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>Use your first <SpellLink id={SPELLS.MARROWREND.id} /> together with <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> to gain 10 stacks of <SpellLink id={SPELLS.BONE_SHIELD.id} /> instantly without wasting all 6 runes. This will also increase your initial threat-genration as your burst DPS will increase significantly. Don't treat <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> as a defensive CD unless you really need the parry and increased Runic Power generation defensively.</Wrapper>)
+      return suggest(<React.Fragment>Use your first <SpellLink id={SPELLS.MARROWREND.id} /> together with <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> to build up stacks of <SpellLink id={SPELLS.BONE_SHIELD.id} /> faster without wasting as much runes. This will also increase your initial threat-genration as your burst DPS will increase significantly. Don't treat <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> as a defensive CD unless you really need the parry and increased Runic Power generation defensively.</React.Fragment>)
         .icon(SPELLS.DANCING_RUNE_WEAPON.icon);
     });
   }

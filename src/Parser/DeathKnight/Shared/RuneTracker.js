@@ -3,7 +3,6 @@ import React from 'react';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 import SpellIcon from 'common/SpellIcon';
 
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -299,7 +298,7 @@ class RuneTracker extends ResourceTracker {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You overcapped {formatPercentage(actual)}% of your runes. Try to always have atleast 3 runes on cooldown.</Wrapper>)
+      return suggest(<React.Fragment>You overcapped {formatPercentage(actual)}% of your runes. Try to always have atleast 3 runes on cooldown.</React.Fragment>)
         .icon(SPELLS.RUNE_1.icon)
         .actual(`${formatPercentage(actual)}% runes overcapped`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`);

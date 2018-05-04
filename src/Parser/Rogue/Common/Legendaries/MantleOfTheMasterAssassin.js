@@ -4,7 +4,6 @@ import ITEMS from 'common/ITEMS';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import Analyzer from 'Parser/Core/Analyzer';
-import Wrapper from 'common/Wrapper';
 
 class MantleOfTheMasterAssassin extends Analyzer {
   static dependencies = {
@@ -18,7 +17,7 @@ class MantleOfTheMasterAssassin extends Analyzer {
 	item() {
 		return {
 			item: ITEMS.MANTLE_OF_THE_MASTER_ASSASSIN,
-			result: <Wrapper>Equipped.</Wrapper>,
+			result: <React.Fragment>Equipped.</React.Fragment>,
 		};
 	}
 

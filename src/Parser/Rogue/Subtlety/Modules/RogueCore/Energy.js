@@ -3,7 +3,6 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import resourceSuggest from 'Parser/Core/Modules/ResourceTracker/ResourceSuggest';
 
 import EnergyTracker from '../../../Common/Resources/EnergyTracker';
@@ -19,7 +18,7 @@ class Energy extends Analyzer {
       minor: 0.10,
       avg: 0.20, 
       major: 0.50,
-      extraSuggestion: <Wrapper>Try to spend energy before using <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} />, but do not delay it to avoid waste! </Wrapper>,
+      extraSuggestion: <React.Fragment>Try to spend energy before using <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} />, but do not delay it to avoid waste! </React.Fragment>,
     });
       
     resourceSuggest(when,  this.energyTracker, {
@@ -27,7 +26,7 @@ class Energy extends Analyzer {
       minor: 0.15,
       avg: 0.25, 
       major: 0.40,
-      extraSuggestion: <Wrapper> You are wasting more energy then normal. You may be pooling too much energy or not casting enough spenders. </Wrapper>,
+      extraSuggestion: <React.Fragment> You are wasting more energy then normal. You may be pooling too much energy or not casting enough spenders. </React.Fragment>,
     });
   }
 }

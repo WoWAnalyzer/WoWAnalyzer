@@ -5,7 +5,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import { formatPercentage } from 'common/format';
 
 /*
@@ -81,7 +80,7 @@ class RampageFrothingBerserker extends Analyzer {
       if(this.combatants.selected.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id)) {
         when(prematureCastRatio).isGreaterThan(minor)
           .addSuggestion((suggest, actual, recommended) => {
-            return suggest(<Wrapper>Try to cast <SpellLink id={SPELLS.RAMPAGE.id} /> at 100 rage to proc <SpellLink id={SPELLS.FROTHING_BERSERKER_TALENT.id} />.</Wrapper>)
+            return suggest(<React.Fragment>Try to cast <SpellLink id={SPELLS.RAMPAGE.id} /> at 100 rage to proc <SpellLink id={SPELLS.FROTHING_BERSERKER_TALENT.id} />.</React.Fragment>)
               .icon(SPELLS.RAMPAGE.icon)
               .actual(`${formatPercentage(actual)}% (${this.premature_counter} out of ${this.casts_counter}) of your Rampage casts were cast below 100 rage.`)
               .recommended(`0% is recommended`)

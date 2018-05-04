@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber , formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -164,14 +163,14 @@ class L90Talents extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper><SpellLink id={this.activeTalent.id} /> only generated {formatPercentage(actual)}% of the Astral Power that another talent in the row would have generated. Consider using one of the other available choices. See the statistic box below for more information.</Wrapper>)
+      return suggest(<React.Fragment><SpellLink id={this.activeTalent.id} /> only generated {formatPercentage(actual)}% of the Astral Power that another talent in the row would have generated. Consider using one of the other available choices. See the statistic box below for more information.</React.Fragment>)
         .icon(this.activeTalent.icon)
         .actual(`${formatPercentage(actual)}% of another talent's generation.`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
     if (this.activeTalent.id === SPELLS.BLESSING_OF_THE_ANCIENTS_TALENT.id){
       when(this.suggestionThresholdsBotA).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper><SpellLink id={this.activeTalent.id} /> only generated {formatPercentage(actual)}% of the Astral Power that it could have. Make sure you are using the correct blessing. See the statistic box below for more information.</Wrapper>)
+        return suggest(<React.Fragment><SpellLink id={this.activeTalent.id} /> only generated {formatPercentage(actual)}% of the Astral Power that it could have. Make sure you are using the correct blessing. See the statistic box below for more information.</React.Fragment>)
           .icon(this.activeTalent.icon)
           .actual(`${formatPercentage(actual)}% of the potantial generation.`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);

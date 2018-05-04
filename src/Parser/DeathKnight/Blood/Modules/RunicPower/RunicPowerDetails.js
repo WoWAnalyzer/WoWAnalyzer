@@ -62,7 +62,7 @@ class RunicPowerDetails extends Analyzer {
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
+  statisticOrder = STATISTIC_ORDER.CORE(3);
 
   tab() {
     return {

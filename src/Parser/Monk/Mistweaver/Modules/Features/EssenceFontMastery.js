@@ -79,7 +79,7 @@ class EssenceFontMastery extends Analyzer {
         average: 1,
         major: .5,
       },
-      style: 'number',
+      style: 'decimal',
     };
   }
 

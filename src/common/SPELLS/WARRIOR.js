@@ -157,6 +157,17 @@ export default {
   },
 
   // Arms Tier Sets
+  // T21 2P Set Bonus
+  WARRIOR_ARMS_T21_2P_BONUS: {
+    id: 251878,
+    name: 'Tier 21 2P Bonus',
+    icon: 'ability_warrior_colossussmash',
+  },
+  WAR_VETERAN: {
+    id: 253382,
+    name: 'War Veteran',
+    icon: 'ability_warrior_colossussmash',
+  },
   // T21 4P Set Bonus
   WEIGHTED_BLADES: {
     id: 253383,

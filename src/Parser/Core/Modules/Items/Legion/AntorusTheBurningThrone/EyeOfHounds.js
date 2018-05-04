@@ -4,7 +4,6 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import ItemLink from 'common/ItemLink';
 import Analyzer from 'Parser/Core/Analyzer';
-import Wrapper from 'common/Wrapper';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatPercentage } from 'common/format';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
@@ -126,9 +125,9 @@ class EyeOfHounds extends Analyzer {
     return {
       item: ITEMS.EYE_OF_HOUNDS,
       result: (
-        <Wrapper>
+        <React.Fragment>
           {this.averageStats}
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

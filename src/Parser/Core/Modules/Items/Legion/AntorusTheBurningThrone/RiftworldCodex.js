@@ -3,7 +3,6 @@ import React from 'react';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
-import Wrapper from 'common/Wrapper';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatPercentage, formatNumber } from 'common/format';
 import Abilities from 'Parser/Core/Modules/Abilities';
@@ -102,7 +101,7 @@ class RiftworldCodex extends Analyzer {
     return {
       item: ITEMS.RIFTWORLD_CODEX,
       result: (
-        <Wrapper>
+        <React.Fragment>
           <ItemDamageDone amount={this.immolationdamage} /><br/>
           <dfn data-tip={`
             All 3 buffs did a total of ${formatNumber(this.totalhealing)} healing
@@ -114,7 +113,7 @@ class RiftworldCodex extends Analyzer {
           `}>
             <ItemHealingDone amount={this.totalhealing} />
           </dfn>
-        </Wrapper>
+        </React.Fragment>
       ),
     };
   }

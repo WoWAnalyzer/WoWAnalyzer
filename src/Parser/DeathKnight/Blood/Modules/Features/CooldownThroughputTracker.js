@@ -20,14 +20,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     },
 
     {
-      spell: SPELLS.BLOOD_MIRROR_TALENT,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-        BUILT_IN_SUMMARY_TYPES.ABSORBED,
-      ],
-    },
-
-    {
       spell: SPELLS.ANTI_MAGIC_SHELL,
       summary: [
         BUILT_IN_SUMMARY_TYPES.ABSORBED,
@@ -38,7 +30,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
 
   static ignoredSpells = [
     ...CooldownThroughputTracker.ignoredSpells,
-    SPELLS.RAPID_DECOMPOSITION_RP_TICK.id,
     242556, //Filtering procs from the Umbral Glaive Storm trinket
     242557, //Filtering procs from the Umbral Glaive Storm trinket
     242553, //Filtering procs from the Umbral Glaive Storm trinket

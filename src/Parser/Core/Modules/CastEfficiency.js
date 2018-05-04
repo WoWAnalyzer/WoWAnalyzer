@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -189,9 +188,9 @@ class CastEfficiency extends Analyzer {
 
       when(suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(
-          <Wrapper>
+          <React.Fragment>
             Try to cast <SpellLink id={mainSpell.id} /> more often. {ability.castEfficiency.extraSuggestion || ''}
-          </Wrapper>
+          </React.Fragment>
         )
           .icon(mainSpell.icon)
           .actual(`${abilityInfo.casts} out of ${abilityInfo.maxCasts} possible casts. You kept it on cooldown ${formatPercentage(actual, 1)}% of the time.`)

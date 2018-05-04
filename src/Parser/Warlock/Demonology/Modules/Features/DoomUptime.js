@@ -7,7 +7,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
@@ -35,7 +34,7 @@ class DoomUptime extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>Your <SpellLink id={SPELLS.DOOM.id}/> uptime can be improved. Try to pay more attention to your Doom on the boss, as it is one of your Soul Shard generators.</Wrapper>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.DOOM.id}/> uptime can be improved. Try to pay more attention to your Doom on the boss, as it is one of your Soul Shard generators.</React.Fragment>)
           .icon(SPELLS.DOOM.icon)
           .actual(`${formatPercentage(actual)}% Doom uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);

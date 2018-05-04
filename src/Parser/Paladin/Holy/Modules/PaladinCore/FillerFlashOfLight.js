@@ -2,7 +2,6 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -96,9 +95,9 @@ class FillerFlashOfLight extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual) => {
       return suggest(
-        <Wrapper>
+        <React.Fragment>
           You started casting {this.inefficientCasts.length} filler <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />s while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was <dfn data-tip={`It was either already available or going to be available within ${HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms.`}>available</dfn> (at {this.inefficientCasts.map(event => this.owner.formatTimestamp(event.timestamp)).join(', ')}). <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> is a much more efficient spell and should be prioritized<dfn data-tip="There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself.">*</dfn>.
-        </Wrapper>
+        </React.Fragment>
       )
         .icon(SPELLS.FLASH_OF_LIGHT.icon)
         .actual(`${this.inefficientCasts.length} casts while Holy Shock was available`)

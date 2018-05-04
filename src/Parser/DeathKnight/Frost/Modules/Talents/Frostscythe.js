@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -75,9 +74,9 @@ class Frostscythe extends Analyzer{
   suggestions(when) {
     when(this.efficencyThresholds).addSuggestion((suggest, actual, recommended) => {
           return suggest(
-            <Wrapper>
+            <React.Fragment>
             Your <SpellLink id ={SPELLS.FROSTSCYTHE_TALENT.id}/> efficiency can be improved.  Only cast Frostscythe if you have a <SpellLink id ={SPELLS.KILLING_MACHINE.id} icon/> proc or you can hit 3+ targets.
-            </Wrapper>)
+            </React.Fragment>)
             .icon(SPELLS.FROSTSCYTHE_TALENT.icon)
             .actual(`${formatPercentage(actual)}% Frostscythe efficiency`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`);

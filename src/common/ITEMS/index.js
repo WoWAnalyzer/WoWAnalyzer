@@ -2,6 +2,7 @@ import indexById from '../indexById';
 import safeMerge from '../safeMerge';
 
 import OTHERS from './OTHERS';
+import BFA from './BFA';
 
 import DEATH_KNIGHT from './DEATH_KNIGHT';
 import DEMON_HUNTER from './DEMON_HUNTER';
@@ -19,6 +20,7 @@ import WARRIOR from './WARRIOR';
 export default indexById(
   safeMerge(
     OTHERS,
+    BFA,
     DEATH_KNIGHT,
     DEMON_HUNTER,
     DRUID,

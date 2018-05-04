@@ -3,7 +3,6 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Combatants from "Parser/Core/Modules/Combatants";
-import Wrapper from 'common/Wrapper';
 import SpellLink from 'common/SpellLink'; 
 
 //DfA needs to be used with both Symbols of Death and Shadow Dance (Dark Shadow).
@@ -52,13 +51,13 @@ class DeathFromAbove extends Analyzer {
   suggestions(when) {
     when(this.failedCombos).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<Wrapper>          
+        return suggest(<React.Fragment>
           Always use <SpellLink id={SPELLS.DEATH_FROM_ABOVE_TALENT.id} /> together with <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> and <SpellLink id={SPELLS.SHADOW_DANCE.id} />. 
           <br /> 
           <SpellLink id={SPELLS.SHADOW_DANCE.id} /> is used when you are in the air, so that you do not loose uptime to the Death from Above animation (achieved by spamming the Shadow Dance button in the air).
           <br /> 
           <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> is used before <SpellLink id={SPELLS.DEATH_FROM_ABOVE_TALENT.id} />. 
-          </Wrapper>)
+          </React.Fragment>)
           .icon(SPELLS.DEATH_FROM_ABOVE_TALENT.icon)
           .actual(`${actual} Death from Above combos failed.`)
           .recommended(`${recommended} is recommended`)

@@ -5,8 +5,8 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
 import calculateEffectiveDamageStacked from 'Parser/Core/calculateEffectiveDamageStacked';
+import ItemDamageDone from 'Main/ItemDamageDone';
 
 const VEINRENDER_INCREASE = 0.03;
 
@@ -41,7 +41,7 @@ class Veinrender extends Analyzer {
           <SpellLink id={SPELLS.VEINRENDER_TRAIT.id} />
         </div>
         <div className="flex-sub text-right">
-          {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} %
+          <ItemDamageDone amount={this.damage} />
         </div>
       </div>
     );

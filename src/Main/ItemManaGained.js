@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Wrapper from 'common/Wrapper';
 import ResourceIcon from 'common/ResourceIcon';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import connectParser from 'common/connectParser';
@@ -20,10 +19,10 @@ class ItemManaGained extends React.PureComponent {
     const { parser } = this.context;
 
     return (
-      <Wrapper>
+      <React.Fragment>
         <ResourceIcon id={RESOURCE_TYPES.MANA.id} />{' '}
         {approximate && '≈'}{parser.formatManaRestored(amount)}
-      </Wrapper>
+      </React.Fragment>
     );
   }
 }

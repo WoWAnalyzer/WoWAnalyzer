@@ -6,6 +6,7 @@ export default {
   name: 'The Coven of Shivarra',
   background: Background,
   headshot: Headshot,
+  icon: 'achievement_boss_argus_shivan',
   fight: {
     vantusRuneBuffId: 250163,
     // TODO: Add fight specific props

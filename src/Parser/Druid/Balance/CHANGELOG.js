@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Iskalla, Gebuz } from 'CONTRIBUTORS';
-import Wrapper from 'common/Wrapper';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -10,7 +9,7 @@ import SpellLink from 'common/SpellLink';
 export default [
   { 
     date: new Date('2018-4-07'),
-    changes: <Wrapper>Track early dot refreshes for <SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} />, and early dot refreshes for <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> and <SpellLink id={SPELLS.SUNFIRE.id} /> while standing still, the player had <SpellLink id={SPELLS.STELLAR_DRIFT.id} />, or the player had better movement fillers available.</Wrapper>,
+    changes: <React.Fragment>Track early dot refreshes for <SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} />, and early dot refreshes for <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> and <SpellLink id={SPELLS.SUNFIRE.id} /> while standing still, the player had <SpellLink id={SPELLS.STELLAR_DRIFT.id} />, or the player had better movement fillers available.</React.Fragment>,
     contributors: [Gebuz],
   },
   { 
@@ -25,7 +24,7 @@ export default [
   },
   { 
     date: new Date('2018-3-15'),
-    changes: <Wrapper>Highlight inefficient <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> and <SpellLink id={SPELLS.SOLAR_WRATH.id} /> casts on the timeline.</Wrapper>,
+    changes: <React.Fragment>Highlight inefficient <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> and <SpellLink id={SPELLS.SOLAR_WRATH.id} /> casts on the timeline.</React.Fragment>,
     contributors: [Gebuz],
   },
   { 
@@ -45,7 +44,7 @@ export default [
   },
   { 
     date: new Date('2018-1-5'),
-    changes: <Wrapper>Added the following legendaries: <ItemLink id={ITEMS.IMPECCABLE_FEL_ESSENCE.id} />, <ItemLink id={ITEMS.ONETHS_INTUITION.id} />, <ItemLink id={ITEMS.LADY_AND_THE_CHILD.id} />, <ItemLink id={ITEMS.PROMISE_OF_ELUNE.id} />, and <ItemLink id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} /> and updated <ItemLink id={ITEMS.THE_EMERALD_DREAMCATCHER.id} />.</Wrapper>,
+    changes: <React.Fragment>Added the following legendaries: <ItemLink id={ITEMS.IMPECCABLE_FEL_ESSENCE.id} />, <ItemLink id={ITEMS.ONETHS_INTUITION.id} />, <ItemLink id={ITEMS.LADY_AND_THE_CHILD.id} />, <ItemLink id={ITEMS.PROMISE_OF_ELUNE.id} />, and <ItemLink id={ITEMS.SOUL_OF_THE_ARCHDRUID.id} /> and updated <ItemLink id={ITEMS.THE_EMERALD_DREAMCATCHER.id} />.</React.Fragment>,
     contributors: [Gebuz],
   },
   { 
@@ -70,7 +69,7 @@ export default [
   },
   {
     date: new Date('2017-9-28'),
-    changes: <Wrapper>Added a tracker module for <ItemLink id={ITEMS.THE_EMERALD_DREAMCATCHER.id} />.</Wrapper>,
+    changes: <React.Fragment>Added a tracker module for <ItemLink id={ITEMS.THE_EMERALD_DREAMCATCHER.id} />.</React.Fragment>,
     contributors: [Iskalla],
   },
   {
@@ -80,12 +79,12 @@ export default [
   },
   {
     date: new Date('2017-9-20'),
-    changes: <Wrapper>Minor fixes to Unempowered <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> module.</Wrapper>,
+    changes: <React.Fragment>Minor fixes to Unempowered <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> module.</React.Fragment>,
     contributors: [Iskalla],
   },
   {
     date: new Date('2017-9-12'),
-    changes: <Wrapper>Added a module to track Unempowered <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> casts.</Wrapper>,
+    changes: <React.Fragment>Added a module to track Unempowered <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> casts.</React.Fragment>,
     contributors: [Iskalla],
   },
   {
@@ -115,7 +114,7 @@ export default [
   },
   {
     date: new Date('2017-9-02'),
-    changes: <Wrapper>Added <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> and <SpellLink id={SPELLS.SUNFIRE.id} /> uptime modules.</Wrapper>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> and <SpellLink id={SPELLS.SUNFIRE.id} /> uptime modules.</React.Fragment>,
     contributors: [Iskalla],
   },
   {

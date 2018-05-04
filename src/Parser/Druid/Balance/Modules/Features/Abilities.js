@@ -1,5 +1,4 @@
 import React from 'react';
-import Wrapper from 'common/Wrapper';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
@@ -22,9 +21,9 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.9,
           majorIssueEfficiency: 0.85,
           extraSuggestion: (
-            <Wrapper>
+            <React.Fragment>
               Your <SpellLink id={SPELLS.NEW_MOON.id} />, <SpellLink id={SPELLS.HALF_MOON.id} /> and <SpellLink id={SPELLS.FULL_MOON.id} /> cast efficiency can be improved, try keeping yourself at low Moon charges at all times; you should (almost) never be at max (3) charges.
-            </Wrapper>
+            </React.Fragment>
           ),
         },
         timelineSortIndex: 1,

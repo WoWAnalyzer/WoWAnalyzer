@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
-import Wrapper from 'common/Wrapper';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatMilliseconds, formatPercentage } from 'common/format';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
@@ -112,7 +111,7 @@ class CombustionMarqueeBindings extends Analyzer {
     if (this.expectedPyroblastCasts > 0) {
       when(this.bracerUtilThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<Wrapper>During <SpellLink id={SPELLS.COMBUSTION.id}/> you had enough time to use {this.expectedPyroblastCasts} procs from your <ItemLink id={ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id}/>, but you only used {this.actualPyroblastCasts} of them. If there is more than 5 seconds of Combustion left, you should use your proc so that your hard casted <SpellLink id={SPELLS.PYROBLAST.id}/> will do 300% damage and be guaranteed to crit.</Wrapper>)
+          return suggest(<React.Fragment>During <SpellLink id={SPELLS.COMBUSTION.id}/> you had enough time to use {this.expectedPyroblastCasts} procs from your <ItemLink id={ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id}/>, but you only used {this.actualPyroblastCasts} of them. If there is more than 5 seconds of Combustion left, you should use your proc so that your hard casted <SpellLink id={SPELLS.PYROBLAST.id}/> will do 300% damage and be guaranteed to crit.</React.Fragment>)
             .icon(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.icon)
             .actual(`${formatPercentage(this.bracerBuffUtil)}% Utilization`)
             .recommended(`${formatPercentage(recommended)} is recommended`);

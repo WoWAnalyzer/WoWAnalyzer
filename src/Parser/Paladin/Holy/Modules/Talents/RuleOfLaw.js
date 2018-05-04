@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -38,9 +37,9 @@ class RuleOfLaw extends Analyzer {
   suggestions(when) {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <Wrapper>
+        <React.Fragment>
           Your <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges.
-        </Wrapper>
+        </React.Fragment>
       )
         .icon(SPELLS.RULE_OF_LAW_TALENT.icon)
         .actual(`${formatPercentage(actual)}% uptime`)

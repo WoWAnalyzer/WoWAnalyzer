@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { formatMilliseconds, formatNumber, formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -88,9 +87,9 @@ class DeathTracker extends Analyzer {
       when(this.timeDeadPercent).isGreaterThan(0)
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(
-            <Wrapper>
+            <React.Fragment>
               You died during this fight and were dead for {formatPercentage(actual)}% of the fight duration ({formatNumber(this.totalTimeDead / 1000)} seconds). Make sure you are paying attention to mechanics and dodging avoidable damage. Additionally, make sure you are using your defensive abilities to avoid damage and Health Potions, Healthstones, or self healing abilities to heal yourself when you are very low.
-            </Wrapper>
+            </React.Fragment>
           )
             .icon('ability_fiegndead')
             .actual(`You were dead for ${formatPercentage(actual)}% of the fight`)

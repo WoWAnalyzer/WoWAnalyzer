@@ -73,11 +73,11 @@ class Souldrinker extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SOULDRINKER_TRAIT.id} />}
         value={`${ this.avgSoulDrinker.toFixed(2) }%`}
-        label="average Soul Drinker buff"
+        label="Average Soul Drinker buff"
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(3);
+  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default Souldrinker;

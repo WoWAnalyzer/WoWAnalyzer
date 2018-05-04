@@ -1,5 +1,7 @@
 import React from 'react';
 
+import InformationIcon from 'Icons/Information';
+
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
@@ -401,7 +403,7 @@ class BaseHealerStatValues extends Analyzer {
   statistic() {
     const results = this._prepareResults();
     return (
-      <div className="col-lg-6 col-md-8 col-sm-12 col-xs-12">
+      <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
         <div className="panel items">
           <div className="panel-heading">
             <h2>
@@ -419,9 +421,9 @@ class BaseHealerStatValues extends Analyzer {
               <thead>
                 <tr>
                   <th style={{ minWidth: 30 }}><b>Stat</b></th>
-                  <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Normalized so Intellect is always 1.00."><b>Value</b></dfn></th>
-                  <th className="text-right" style={{ minWidth: 30 }}>HPS per rating</th>
-                  <th className="text-right" style={{ minWidth: 30 }}><dfn data-tip="Amount of stat rating required to increase your total healing by 1%"><b>Rating per 1%</b></dfn></th>
+                  <th className="text-right" style={{ minWidth: 30 }} colSpan={2}>
+                    <dfn data-tip="Normalized so Intellect is always 1.00."><b>Value</b></dfn>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -449,13 +451,10 @@ class BaseHealerStatValues extends Analyzer {
                       <td className="text-right">
                         {stat === STAT.HASTE_HPCT && '0.00 - '}{gain !== null ? weight.toFixed(2) : 'NYI'}
                       </td>
-                      <td className="text-right">
-                        {(gain / this.owner.fightDuration * 1000).toFixed(2)}
-                      </td>
-                      <td className="text-right">
-                        {gain !== null ? (
+                      <td style={{ padding: 6 }}>
+                        <InformationIcon data-tip={`${(gain / this.owner.fightDuration * 1000).toFixed(2)} HPS per 1 rating / ${gain !== null ? (
                           ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)
-                        ) : 'NYI'}
+                        ) : 'NYI'} rating per 1% throughput`} />
                       </td>
                     </tr>
                   );

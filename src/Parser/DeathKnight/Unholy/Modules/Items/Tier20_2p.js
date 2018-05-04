@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
@@ -24,7 +23,7 @@ class Tier20_2pc extends Analyzer {
       id: `spell-${SPELLS.UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS.id} />,
       title: <SpellLink id={SPELLS.UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS.id} icon={false} />,
-      result: <Wrapper>{formatPercentage(uptime)} % uptime.</Wrapper>,
+      result: <React.Fragment>{formatPercentage(uptime)} % uptime.</React.Fragment>,
     };
   }
 }

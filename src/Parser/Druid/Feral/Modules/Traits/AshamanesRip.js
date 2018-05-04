@@ -8,7 +8,6 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
-import Wrapper from 'common/Wrapper';
 import SmallStatisticBox, { STATISTIC_ORDER } from 'Main/SmallStatisticBox';
 
 /**
@@ -59,9 +58,9 @@ class AshamanesRip extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <Wrapper>
+        <React.Fragment>
           Your <SpellLink id={SPELLS.ASHAMANES_RIP.id} /> uptime can be improved. Pooling energy before refreshing Rip lets you maximise the chance of triggering a long duration Ashamane's Rip.
-        </Wrapper>
+        </React.Fragment>
       )
         .icon(SPELLS.ASHAMANES_RIP.icon)
         .actual(`${formatPercentage(actual)}% Ashamane's Rip uptime`)

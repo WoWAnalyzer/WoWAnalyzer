@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { fasib } from 'CONTRIBUTORS';
-import Wrapper from 'common/Wrapper';
 
 export default [
   {
@@ -66,7 +65,7 @@ export default [
   },
   {
     date: new Date('06-04-2017'),
-    changes: <Wrapper>Added basic <span class="Shaman">Elemental Shaman</span> support</Wrapper>,
+    changes: <React.Fragment>Added basic <span class="Shaman">Elemental Shaman</span> support</React.Fragment>,
     contributors: [fasib],
   },
 ];

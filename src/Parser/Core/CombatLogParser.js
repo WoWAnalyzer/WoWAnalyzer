@@ -277,6 +277,7 @@ class CombatLogParser {
   fight = null;
 
   _modules = {};
+  _activeAnalyzers = {};
   get modules() {
     if (!_modulesDeprecatedWarningSent) {
       console.warn('Using `this.owner.modules` is deprecated. You should add the module you want to use as a dependency and use the property that\'s added to your module instead.');
@@ -333,6 +334,7 @@ class CombatLogParser {
     });
   }
 
+  // TODO: Refactor and test, this dependency injection thing works really well but it's hard to understand or change.
   initializeModules(modules, iteration = 0) {
     const failedModules = [];
     Object.keys(modules).forEach(desiredModuleName => {
@@ -373,8 +375,9 @@ class CombatLogParser {
             console.log('Loading', moduleClass.name, 'with dependencies:', Object.keys(availableDependencies));
           }
         }
+        const priority = Object.keys(this._modules).length;
         // eslint-disable-next-line new-cap
-        const module = new moduleClass(this, availableDependencies, Object.keys(this._modules).length);
+        const module = new moduleClass(this, availableDependencies, priority);
         // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
         // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
         if (options) {
@@ -394,10 +397,18 @@ class CombatLogParser {
         newBatch[key] = modules[key];
       });
       if (iteration > 100) {
+        // Sometimes modules can't be imported at all because they depend on modules not enabled or have a circular dependency. Stop trying after a while.
         throw new Error(`Failed to load modules: ${Object.keys(newBatch).join(', ')}`);
       }
       this.initializeModules(newBatch, iteration + 1);
+    } else {
+      this.allModulesInitialized();
     }
+  }
+  allModulesInitialized() {
+    this._activeAnalyzers = Object.values(this._modules)
+      .filter(module => module instanceof Analyzer)
+      .sort((a, b) => a.priority - b.priority); // lowest should go first, as `priority = 0` will have highest prio
   }
   findModule(type) {
     return Object.keys(this._modules)
@@ -409,20 +420,14 @@ class CombatLogParser {
   initialize(combatants) {
     this.initializeNormalizers(combatants);
     this.initializeAnalyzers(combatants);
+    this.triggerInitialized();
   }
   initializeAnalyzers(combatants) {
     this.parseEvents(combatants);
-    this.triggerInitialized();
   }
   triggerInitialized() {
     this.fabricateEvent({
       type: 'initialized',
-    });
-  }
-  parseEvents(events) {
-    events.forEach(event => {
-      this._timestamp = event.timestamp;
-      this.triggerEvent(event);
     });
   }
 
@@ -448,9 +453,16 @@ class CombatLogParser {
     return events;
   }
 
+  parseEvents(events) {
+    const numEvents = events.length;
+    for (let i = 0; i < numEvents; i += 1) {
+      const event = events[i];
+      this._timestamp = event.timestamp;
+      this.triggerEvent(event);
+    }
+  }
   /** @type {number} The amount of events parsed. This can reliably be used to determine if something should re-render. */
   eventCount = 0;
-  _moduleTime = {};
   triggerEvent(event) {
     if (process.env.NODE_ENV === 'development') {
       if (!event.type) {
@@ -458,25 +470,27 @@ class CombatLogParser {
         throw new Error('Events should have a type. No type received. See the console for the event.');
       }
     }
-    // Creating arrays is expensive so we cheat and just push here
-    this.eventHistory.push(event);
 
-    Object.keys(this._modules)
-      .filter(key => this._modules[key].active)
-      .filter(key => this._modules[key] instanceof Analyzer)
-      .sort((a, b) => this._modules[a].priority - this._modules[b].priority) // lowest should go first, as `priority = 0` will have highest prio
-      .forEach(key => {
-        const module = this._modules[key];
-        if (process.env.NODE_ENV === 'development') {
-          const start = +new Date();
-          module.triggerEvent(event);
-          const duration = +new Date() - start;
-          this._moduleTime[key] = this._moduleTime[key] || 0;
-          this._moduleTime[key] += duration;
-        } else {
-          module.triggerEvent(event);
-        }
-      });
+    // This loop has a big impact on parsing performance
+    let garbageCollect = false;
+    const analyzers = this._activeAnalyzers;
+    const numAnalyzers = analyzers.length;
+    for (let i = 0; i < numAnalyzers; i++) {
+      const analyzer = analyzers[i];
+      if (analyzer.active) {
+        analyzer.triggerEvent(event);
+      } else {
+        garbageCollect = true;
+      }
+    }
+    // Not mutating during the loop for simplicity. This part isn't executed much, so no need to optimize for performance.
+    if (garbageCollect) {
+      this._activeAnalyzers = this._activeAnalyzers.filter(analyzer => analyzer.active);
+    }
+
+    // Creating arrays is expensive so we cheat and just push instead of using it immutably
+    this.eventHistory.push(event);
+    // Some modules need to have a primitive value to cause re-renders
     this.eventCount += 1;
   }
   fabricateEvent(event = null, trigger = null) {

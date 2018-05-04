@@ -50,6 +50,16 @@ export default {
     name: 'Nature\'s Guardian',
     icon: 'spell_nature_natureguardian',
   },
+  STATIC_CHARGE_TALENT: { // Until talents get updated
+    id: 265046,
+    name: 'Static Charge',
+    icon: 'spell_nature_brilliance',
+  },
+  STATIC_CHARGE_DEBUFF: {
+    id: 118905,
+    name: 'Static Charge',
+    icon: 'spell_nature_brilliance',
+  },
   NATURES_GUARDIAN_HEAL: {
     id: 31616,
     name: 'Nature\'s Guardian',
@@ -798,6 +808,17 @@ export default {
     icon: 'spell_nature_healingwavelesser',
   },
 
+  // Restoration Shaman Set Bonus:
+  RAINFALL: { // T21 2pc
+    id: 252154,
+    name: 'Rainfall',
+    icon: 'spell_nature_giftofthewaterspirit',
+  },
+  DOWNPOUR: { // T21 4pc
+    id: 252159,
+    name: 'Downpour',
+    icon: 'spell_shaman_blessingoftheeternals',
+  },
 
   // Alpha Stuff
   EARTH_SHIELD_TALENT: { // Until talents work
@@ -814,5 +835,11 @@ export default {
     id: 260878,
     name: 'Spirit Wolf',
     icon: 'spell_hunter_lonewolf',
+  },
+  DOWNPOUR_TALENT: { // Until talents work
+    id: 207778,
+    name: 'Downpour',
+    icon: 'ability_mage_waterjet',
+    manaCost: 3000,
   },
 };

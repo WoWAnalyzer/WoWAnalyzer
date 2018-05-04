@@ -21,6 +21,7 @@ import BoneShield from './Modules/Features/BoneShield';
 import DancingRuneWeapon from './Modules/Features/DancingRuneWeapon';
 import InitialMarrowrendCast from './Modules/Features/InitialMarrowrendCast';
 import DeathStrikeTiming from './Modules/Features/DeathStrikeTiming';
+import BoneShieldTimesByStacks from './Modules/Features/BoneShieldTimesByStacks';
 
 // Resources
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
@@ -29,9 +30,17 @@ import RuneTracker from '../Shared/RuneTracker';
 import RuneDetails from '../Shared/RuneDetails';
 
 // Talents
-import Ossuary from './Modules/Talents/Ossuary';
 import RedThirst from './Modules/Talents/RedThirst';
 import BoneStorm from './Modules/Talents/Bonestorm';
+import MarkOfBlood from './Modules/Talents/MarkOfBlood';
+import Hemostasis from './Modules/Talents/Hemostasis';
+import FoulBulwark from './Modules/Talents/FoulBulwark';
+import Heartbreaker from './Modules/Talents/Heartbreaker';
+import Bloodworms from './Modules/Talents/Bloodworms';
+import Tombstone from './Modules/Talents/Tombstone';
+import Voracious from './Modules/Talents/Voracious';
+import RapidDecomposition from './Modules/Talents/RapidDecomposition';
+import WillOfTheNecropolis from './Modules/Talents/WillOfTheNecropolis';
 
 // Items
 import T20_2pc from './Modules/Items/T20_2pc';
@@ -75,6 +84,7 @@ class CombatLogParser extends CoreCombatLogParser {
     marrowrendUsage: MarrowrendUsage,
     souldrinker: Souldrinker,
     boneShield: BoneShield,
+    boneShieldTimesByStacks: BoneShieldTimesByStacks,
 
     // DOT
     bloodplagueUptime: BloodPlagueUptime,
@@ -86,9 +96,17 @@ class CombatLogParser extends CoreCombatLogParser {
     runeDetails: RuneDetails,
 
     // Talents
-    ossuary: Ossuary,
     redThirst: RedThirst,
     boneStorm: BoneStorm,
+    markOfBlood: MarkOfBlood,
+    hemostasis: Hemostasis,
+    foulBulwark: FoulBulwark,
+    heartbreaker: Heartbreaker,
+    bloodworms: Bloodworms,
+    tombstone: Tombstone,
+    voracious: Voracious,
+    rapidDecomposition: RapidDecomposition,
+    willOfTheNecropolis: WillOfTheNecropolis,
 
     // Traits
     RelicTraits: RelicTraits,
@@ -104,7 +122,7 @@ class CombatLogParser extends CoreCombatLogParser {
     t21_4pc: T21_4pc,
     skullflowersHaemostasis: SkullflowersHaemostasis,
     shacklesofBryndaor:ShacklesofBryndaor,
-    soulflayersCorruption:SoulflayersCorruption,    
+    soulflayersCorruption:SoulflayersCorruption,
   };
 }
 

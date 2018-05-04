@@ -51,7 +51,8 @@ class Combatants extends Entities {
   }
   on_applybuff(event) {
     if (event.__fromCombatantinfo) {
-      // We already scan the `combatantinfo` auras, so adding it here would be duplicating which causes a lot of issues. We need to use `combatantinfo` so that our buffs are already available when just the `combatantinfo` events are available (for display purposes).
+      // We already scan the `combatantinfo` auras, so adding it here would be duplicating which causes a lot of issues.
+      // We need to use `combatantinfo` so that our buffs are already available when just the `combatantinfo` events are available (for display purposes).
       return;
     }
     super.on_applybuff(event);

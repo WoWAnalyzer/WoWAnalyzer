@@ -6,7 +6,6 @@ import { formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-import Wrapper from 'common/Wrapper';
 import AstralPowerTracker from '../ResourceTracker/AstralPowerTracker';
 
 /*
@@ -35,7 +34,7 @@ class ImpeccableFelEssence extends Analyzer {
       item: ITEMS.IMPECCABLE_FEL_ESSENCE,
       result:(
         <dfn data-tip={`You wasted ${formatNumber(this.astralPowerTracker.cooldownReductionWasted / 1000)} seconds of cooldown reduction.`}>
-          <Wrapper>Reduced the cooldown of <SpellLink id={this.cooldownID} /> by a total of {formatNumber( this.astralPowerTracker.cooldownReduction / 1000)} seconds.</Wrapper>
+          <React.Fragment>Reduced the cooldown of <SpellLink id={this.cooldownID} /> by a total of {formatNumber( this.astralPowerTracker.cooldownReduction / 1000)} seconds.</React.Fragment>
         </dfn>
       ),
     };

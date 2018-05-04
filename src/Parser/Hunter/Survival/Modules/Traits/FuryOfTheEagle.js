@@ -9,7 +9,6 @@ import SixStackBites from 'Parser/Hunter/Survival/Modules/Features/MongooseFury/
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import SpellLink from 'common/SpellLink';
-import Wrapper from 'common/Wrapper';
 
 /**
  * Furiously strikes all enemies in front of you, dealing ((125% of Attack power) * 9) Physical damage over 4 sec. Damage increased by
@@ -93,7 +92,7 @@ class FuryOfTheEagle extends Analyzer {
 
   suggestions(when) {
     when(this.averageMFStacksThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<Wrapper>You cast <SpellLink id={SPELLS.FURY_OF_THE_EAGLE_TRAIT.id} /> when you had a low amount of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> stacks. Aim to cast it while you have 6 stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> to maximize the damage of it, whilst fishing for additional resets of <SpellLink id={SPELLS.MONGOOSE_BITE.id} />. </Wrapper>)
+      return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.FURY_OF_THE_EAGLE_TRAIT.id} /> when you had a low amount of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> stacks. Aim to cast it while you have 6 stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> to maximize the damage of it, whilst fishing for additional resets of <SpellLink id={SPELLS.MONGOOSE_BITE.id} />. </React.Fragment>)
         .icon(SPELLS.FURY_OF_THE_EAGLE_TRAIT.icon)
         .actual(`${this.averageMongooseStacksOnCast} average stacks of mongoose Fury on cast`)
         .recommended(`>${recommended} stacks is recommended`);

@@ -216,16 +216,10 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 8,
       },
       {
-        spell: SPELLS.MARK_OF_BLOOD,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        enabled: combatant.hasTalent(SPELLS.MARK_OF_BLOOD.id),
+        spell: SPELLS.MARK_OF_BLOOD_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT),
         isOnGCD: true,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.50,
-          extraSuggestion: 'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
-          importance: ISSUE_IMPORTANCE.MINOR,
-        },
         timelineSortIndex: 10,
       },
       {

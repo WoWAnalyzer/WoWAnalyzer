@@ -7,13 +7,13 @@ const FULL_FILL_COLOR = '#1d9c07';
 
 const ProgressBar = ({ width, height, percentage, style, ...others }) => {
   // We use round stroke so there is additional width created by the border radius.
-  // Add the height(radius of the bar) to the wrapper's width to make sure the bars presented correctly.
-  const wrapperWidth = width + 2 * height;
+  // Remove the height(radius of the bar) from the width to make sure the bars presented at the correct width.
+  const adjustedWidth = width - 2 * height;
   const fillColor = percentage === 100 ? FULL_FILL_COLOR : FILL_COLOR;
   return (
     <svg
       className="ProgressBar"
-      style={{ width: wrapperWidth, height, ...style }}
+      style={{ width, height, ...style }}
       {...others}
     >
       <path
@@ -22,18 +22,18 @@ const ProgressBar = ({ width, height, percentage, style, ...others }) => {
         strokeLinejoin="round"
         strokeLinecap="round"
         fill="none"
-        d={`M${height} ${height / 2} h 0 ${width}`}
+        d={`M${height} ${height / 2} h 0 ${adjustedWidth}`}
       />
-      {!!percentage &&
+      {!!percentage && (
         <path
           strokeWidth={height}
           stroke={fillColor}
           strokeLinejoin="round"
           strokeLinecap="round"
           fill="none"
-          d={`M${height} ${height / 2} h 0 ${width * percentage / 100}`}
+          d={`M${height} ${height / 2} h 0 ${adjustedWidth * percentage / 100}`}
         />
-      }
+      )}
     </svg>
   );
 };
