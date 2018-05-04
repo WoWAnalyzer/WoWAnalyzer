@@ -10,7 +10,7 @@ import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 import PainChart from './Modules/PainChart/Pain';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import Abilities from './Modules/Features/Abilities';
+import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 
 import SoulFragments from './Modules/Statistics/SoulFragments/SoulFragments';
