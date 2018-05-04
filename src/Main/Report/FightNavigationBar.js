@@ -63,7 +63,7 @@ class FightNavigationBar extends React.PureComponent {
                 >
                   <Link to={makeAnalyzerUrl(report, fight.id, playerId)}>
                     <figure>
-                      {boss.icon ? <Icon icon={boss.icon} alt={boss ? boss.name : fight.name} /> : (
+                      {boss && boss.icon ? <Icon icon={boss.icon} alt={boss ? boss.name : fight.name} /> : (
                         <img
                           src={boss ? boss.headshot : SkullRaidMarker}
                           alt={boss ? boss.name : fight.name}
