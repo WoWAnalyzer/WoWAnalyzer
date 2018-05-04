@@ -17,7 +17,7 @@ import SoulFragments from './Modules/Statistics/SoulFragments/SoulFragments';
 import SpiritBomb from './Modules/Statistics/SpiritBomb/SpiritBomb';
 
 import ImmolationAura from './Modules/Statistics/Spells/ImmolationAura';
-import DemonSpikes from './Modules/Statistics/Spells/DemonSpikes';
+import DemonSpikes from './Modules/Spells/DemonSpikes';
 import EmpowerWards from './Modules/Statistics/Spells/EmpowerWards';
 import SigilOfFlame from './Modules/Statistics/Spells/SigilOfFlame';
 
