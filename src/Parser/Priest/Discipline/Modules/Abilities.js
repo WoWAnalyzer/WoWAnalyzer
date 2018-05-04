@@ -78,15 +78,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.LIGHTS_WRATH,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 90,
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-
-      {
         spell: SPELLS.MINDBENDER_TALENT_SHARED,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,

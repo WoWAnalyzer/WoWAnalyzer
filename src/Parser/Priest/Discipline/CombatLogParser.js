@@ -53,8 +53,6 @@ import Penance from './Modules/Spells/Penance';
 import TouchOfTheGrave from './Modules/Spells/TouchOfTheGrave';
 import Rapture from './Modules/Spells/Rapture';
 
-import BorrowedTime from './Modules/Spells/Traits/BorrowedTime';
-
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -112,7 +110,6 @@ class CombatLogParser extends CoreCombatLogParser {
     atonement: Atonement,
     evangelism: Evangelism,
     touchOfTheGrave: TouchOfTheGrave,
-    borrowedTime: BorrowedTime,
   };
 
   generateResults() {
