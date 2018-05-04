@@ -162,7 +162,7 @@ export const Reglitch = {
     {
       name: "Reglithc",
       spec: SPECS.DISCIPLINE_PRIEST,
-      link: "https://worldofwarcraft.com/en-gb/character/turalyon/reglithc"
+      link: "https://worldofwarcraft.com/en-gb/character/turalyon/reglithc",
     },
   ],
 };

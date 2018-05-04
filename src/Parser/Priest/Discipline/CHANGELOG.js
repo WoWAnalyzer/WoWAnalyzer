@@ -140,7 +140,7 @@ export default [
   },
   {
     date: new Date('2017-06-05'),
-    changes: <React.Fragment>Fix Atonement duration in cast efficiency not accounting for the <SpellLink id={SPELLS.DOOMSAYER.id} /> trait.</React.Fragment>,
+    changes: <React.Fragment>Fix Atonement duration in cast efficiency not accounting for the Doomsayer trait.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
@@ -170,7 +170,7 @@ export default [
   },
   {
     date: new Date('2017-05-16'),
-    changes: <React.Fragment>Added <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} /> statistic. Added <SpellLink id={SPELLS.LIGHTS_WRATH.id} />  to cast efficiency. Changed Pain Suppression cooldown to take into account the Pain is in your Mind trait.</React.Fragment>,
+    changes: <React.Fragment>Added <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} /> statistic. Added Light's Wrath to cast efficiency. Changed Pain Suppression cooldown to take into account the Pain is in your Mind trait.</React.Fragment>,
     contributors: [],
   },
   {
@@ -185,12 +185,12 @@ export default [
   },
   {
     date: new Date('2017-05-15'),
-    changes: <React.Fragment><ItemLink id={ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id} /> statistic now includes the healing gained via <SpellLink id={SPELLS.SHARE_IN_THE_LIGHT.id} />.</React.Fragment>,
+    changes: <React.Fragment><ItemLink id={ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id} /> statistic now includes the healing gained via Share in the Light.</React.Fragment>,
     contributors: [],
   },
   {
     date: new Date('2017-05-14'),
-    changes: <React.Fragment>Added <ItemLink id={ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id} /> statistic. This does not yet include the healing gained via <SpellLink id={SPELLS.SHARE_IN_THE_LIGHT.id} />.</React.Fragment>,
+    changes: <React.Fragment>Added <ItemLink id={ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id} /> statistic. This does not yet include the healing gained via Share in the Light.</React.Fragment>,
     contributors: [],
   },
   {
