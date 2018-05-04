@@ -160,7 +160,7 @@ export const Reglitch = {
   github: 'rp4rk',
   mains: [
     {
-      name: "Putro",
+      name: "Reglithc",
       spec: SPECS.DISCIPLINE_PRIEST,
       link: "https://worldofwarcraft.com/en-gb/character/turalyon/reglithc",
     },
