@@ -25,27 +25,6 @@ class SpellUsable extends CoreSpellUsable {
     }
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.DOWNPOUR_TALENT.id) {
-      this.extendCooldown(spellId, this.abilities.getExpectedCooldownDuration(SPELLS.DOWNPOUR_TALENT.id));
-      return;
-    }
-
-    super.on_byPlayer_cast(event);
-  }
-
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DOWNPOUR_TALENT.id || !event.amount) {
-      return;
-    }
-
-    // begin cooldown if not on cd
-    // extend by 5 seconds if it is on cd
-    this.extendCooldown(spellId, this.abilities.getExpectedCooldownDuration(SPELLS.DOWNPOUR_TALENT.id));
-  }
-
   beginCooldown(spellId, timestamp) {
     if (this.hasEcho && spellId === SPELLS.RIPTIDE.id) {
       if (!this.isAvailable(spellId)) {
@@ -59,31 +38,6 @@ class SpellUsable extends CoreSpellUsable {
     }
 
     super.beginCooldown(spellId, timestamp);
-  }
-
-  /**
-   * Extends the cooldown for the provided spell by the provided duration.
-   * @param {number} spellId The ID of the spell.
-   * @param {number} extensionMs The duration to extend the cooldown with, in milliseconds.
-   * @param {number} timestamp Override the timestamp if it may be different from the current timestamp.
-   * @returns {*}
-   */
-  extendCooldown(spellId, extensionMs, timestamp = this.owner.currentTimestamp) {
-    //const canSpellId = this._getCanonicalId(spellId);
-    if (!this.isOnCooldown(spellId)) {
-      //throw new Error(`Tried to extend the cooldown of ${canSpellId}, but it's not on cooldown.`);
-      super.beginCooldown(spellId, timestamp);
-      console.log('test');
-      return;
-    }
-    //const cooldownRemaining = this.cooldownRemaining(canSpellId, timestamp);
-    const cooldown = this._currentCooldowns[spellId];
-    console.log(cooldown);
-
-    const newExpectedDuration = cooldown.expectedDuration + extensionMs;
-
-    cooldown.expectedDuration = newExpectedDuration;
-    console.log(cooldown);
   }
 }
 
