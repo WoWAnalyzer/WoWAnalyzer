@@ -9,7 +9,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
-import Abilities from '../Abilities';
 
 const BUFFER = 100;
 const cooldownIncrease = 5000;
@@ -24,7 +23,6 @@ class Downpour extends Analyzer {
     combatants: Combatants,
     cooldownThroughputTracker: CooldownThroughputTracker,
     spellUsable: SpellUsable,
-    abilities: Abilities,
   };
   healing = 0;
   downpourHits = 0;
@@ -52,7 +50,7 @@ class Downpour extends Analyzer {
     if(event.amount) {
       this.downpourHits += 1;
     }
-    
+
     this.downpourTimestamp = event.timestamp;
     this.healing += event.amount;
   }
