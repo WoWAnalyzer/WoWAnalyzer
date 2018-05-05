@@ -64,7 +64,7 @@ class Resurgence extends Analyzer {
   }
 
   get totalMana() {
-    this.regenedMana = ((this.owner.fightDuration / 1000) / 5) * 800;
+    this.regenedMana = ((this.owner.fightDuration / 1000) / 5) * 4000;
 
     return this.regenedMana + this.totalResurgenceGain + this.maxMana + this.extraMana;
   }
