@@ -44,11 +44,6 @@ export default {
     icon: 'spell_shadow_shadowmend',
     atonementDuration: 15,
   },
-  LIGHTS_WRATH: {
-    id: 207946,
-    name: 'Light\'s Wrath',
-    icon: 'inv_staff_2h_artifacttome_d_01',
-  },
   RAPTURE: {
     id: 47536,
     name: 'Rapture',
@@ -59,13 +54,6 @@ export default {
     name: 'Pain Suppression',
     icon: 'spell_holy_painsupression',
     manaCost: 17600,
-  },
-  PLEA: {
-    id: 200829,
-    name: 'Plea',
-    icon: 'spell_priest_plea_blue',
-    atonementDuration: 15,
-    manaCost: 19800,
   },
   MASS_DISPEL: {
     id: 32375,
@@ -238,38 +226,6 @@ export default {
     manaCost: 39600,
   },
 
-  // Traits:
-  // Disc Priest:
-  SHARE_IN_THE_LIGHT: {
-    id: 210027,
-    name: 'Share in the Light',
-    icon: 'spell_holy_powerwordshield',
-  },
-  PAIN_IS_IN_YOUR_MIND: {
-    id: 197713,
-    name: 'Pain is in Your Mind',
-    icon: 'spell_holy_painsupression',
-  },
-  DOOMSAYER: {
-    id: 197727,
-    name: 'Doomsayer',
-    icon: 'spell_holy_rapture',
-  },
-  SPEED_OF_THE_PIOUS: {
-    id: 197767,
-    name: 'Speed of the Pious',
-    icon: 'ability_paladin_speedoflight',
-  },
-  BORROWED_TIME: {
-    id: 197763,
-    name: 'Borrowed Time',
-    icon: 'ability_priest_angelicbulwark',
-  },
-  SINS_OF_THE_MANY:{
-    id: 198076,
-    name: 'Sins of the Many',
-    icon: 'spell_holy_holyguidance',
-  },
 
   // Holy Priest Spells
   GREATER_HEAL: {
@@ -419,7 +375,7 @@ export default {
     valuePerTrait: 3333,
   },
 
-  LENIENCES_REWARD_TRAIT: {
+  LENIENCE: {
     id: 238063,
     name: 'Lenience\'s Reward',
     icon: 'ability_priest_atonement',
