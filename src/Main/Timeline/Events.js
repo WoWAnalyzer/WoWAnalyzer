@@ -61,10 +61,6 @@ class Events extends React.PureComponent {
     const { events, buffEvents, start, totalWidth, secondWidth, className, showCooldowns } = this.props;
     const fixedEvents = this.fabricateEndCooldown(events);
 
-    if (buffEvents) {
-      Array.prototype.push.apply(fixedEvents,buffEvents);
-    }
-
     return (
       <div className={`events ${className || ''}`} style={{ width: totalWidth }}>
         {fixedEvents.map((event, index) => {
@@ -87,24 +83,6 @@ class Events extends React.PureComponent {
               </div>
             );
           }
-          if ((event.type === 'changebuffstack' || event.type === 'changedebuffstack') && event.start && event.end) {
-            const left = (event.start - start) / 1000 * secondWidth;
-            const maxWidth = totalWidth - left; // don't expand beyond the container width
-            const width = Math.min(maxWidth, (event.timestamp - event.start) / 1000 * secondWidth);
-            return (
-              <div
-                key={index}
-                style={{
-                  left,
-                  width,
-                  height: 5,
-                  background: `rgba${event.type === 'changebuffstack' ? '(1, 150, 150, 1)' : '(150, 150, 1, 1)' }`,
-                  zIndex: 9,
-                }}
-                data-tip={`${event.ability.name} - ${event.type === 'changebuffstack' ? 'Buff' : 'Debuff' } Duration: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`} 
-              />
-            );
-          } 
           if (showCooldowns && event.type === 'updatespellusable' && (event.trigger === 'endcooldown' || event.trigger === 'restorecharge')) {
             const left = (event.start - start) / 1000 * secondWidth;
             const maxWidth = totalWidth - left; // don't expand beyond the container width
@@ -138,6 +116,27 @@ class Events extends React.PureComponent {
                   zIndex: 2,
                 }}
                 data-tip="Charge Restored"
+              />
+            );
+          }
+          return null;
+        })}
+        {buffEvents && buffEvents.map((event, index) => {
+          if (event.end) {
+            const left = (event.start - start) / 1000 * secondWidth;
+            const maxWidth = totalWidth - left; // don't expand beyond the container width
+            const width = Math.min(maxWidth, (event.timestamp - event.start) / 1000 * secondWidth);
+            return (
+              <div
+                key={index}
+                style={{
+                  left,
+                  width,
+                  height: 5,
+                  background: `rgba${event.type === 'changebuffstack' ? '(1, 150, 150, 1)' : '(150, 150, 1, 1)' }`,
+                  zIndex: 9,
+                }}
+                data-tip={`${event.ability.name} - ${event.type === 'changebuffstack' ? 'Buff' : 'Debuff' } Duration: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`} 
               />
             );
           }
