@@ -23,7 +23,7 @@ function escapeHtml(unsafe) {
 }
 // Load the index file into memory so we don't have to access it all the time
 const index = fs.readFileSync(path.join(buildFolder, 'index.html'), 'utf8');
-router.get(['/', '/news/:article', '/contributor/:contributor'], (req, res) => {
+router.get(['/', '/news/:article', '/contributor/:contributor', '/character/:region/:realm/:player'], (req, res) => {
   res.send(index);
 });
 router.get([

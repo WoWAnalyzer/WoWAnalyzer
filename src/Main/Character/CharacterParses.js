@@ -223,16 +223,11 @@ class CharacterParses extends React.Component {
       isLoading: true,
     });
 
-    let charName = encodeURIComponent(this.props.name);
+    const charName = encodeURIComponent(this.props.name);
     //use the slug from REALMS when available, otherwise try realm-prop and fail
     let charRealm = REALMS[this.props.region] ? REALMS[this.props.region].realms.find(elem => elem.name === this.props.realm).slug : this.props.realm;
     charRealm = encodeURIComponent(charRealm);
 
-    if (process.env.NODE_ENV === 'development') {
-      //temp necessary until WoWA encodes the character-endpoint on its own
-      charName = encodeURIComponent(charName);
-      charRealm = encodeURIComponent(charRealm);
-    }
     return fetchWcl(`parses/character/${charName}/${charRealm}/${this.props.region}`, {
       metric: this.state.metric,
       zone: this.state.activeZoneID,
