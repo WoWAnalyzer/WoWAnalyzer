@@ -44,7 +44,8 @@ class ApiRequestHandler {
   }
   async fetchFromWcl(cachedWclApiResponse) {
     const query = Object.assign({}, this.req.query, { api_key: this.apiKey });
-    const path = `v1/${this.req.params[0]}?${querystring.stringify(query)}`;
+    // Don't use `this.req.params[0]` here as this automatically (url)decodes parts, breaking special characters in name!
+    const path = `v1${this.req.path}?${querystring.stringify(query)}`;
     console.log('GET', path);
     try {
       const wclStart = Date.now();
