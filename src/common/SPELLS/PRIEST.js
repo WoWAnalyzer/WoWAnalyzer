@@ -11,6 +11,7 @@ export default {
     name: 'Penance',
     icon: 'spell_holy_penance',
     manaCost: 30800,
+    coefficient: 0.4,
   },
   PENANCE_HEAL: { // Penance on a friendly player
     id: 47750,
@@ -154,6 +155,11 @@ export default {
     id: 120692,
     name: 'Halo',
     icon: 'ability_priest_halo',
+  },
+  CONTRITION_HEAL: {
+    id: 270501,
+    name: 'Contrition',
+    icon: 'ability_priest_savinggrace',
   },
   DISC_PRIEST_T19_2SET_BONUS_BUFF: {
     id: 211556,
