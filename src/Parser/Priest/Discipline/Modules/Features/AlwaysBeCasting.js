@@ -38,6 +38,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.SHADOWFIEND.id,
     SPELLS.PURGE_THE_WICKED_TALENT.id,
     SPELLS.MINDBENDER_TALENT_SHARED.id,
+    SPELLS.LIGHTS_WRATH.id,
     // cc
     SPELLS.LEVITATE.id,
     SPELLS.SHACKLE_UNDEAD.id,

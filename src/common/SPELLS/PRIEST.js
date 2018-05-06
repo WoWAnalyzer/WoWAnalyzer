@@ -75,6 +75,11 @@ export default {
     name: 'Levitate',
     icon: 'spell_holy_layonhands',
   },
+  LIGHTS_WRATH: {
+    id: 207946,
+    name: 'Light\'s Wrath',
+    icon: 'inv_staff_2h_artifacttome_d_01',
+  },
   MIND_CONTROL: {
     id: 605,
     name: 'Mind Control',
