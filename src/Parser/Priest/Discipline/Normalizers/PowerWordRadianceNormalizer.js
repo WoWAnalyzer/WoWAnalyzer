@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS';
 const BUFFS_TO_MOVE = [
   SPELLS.ATONEMENT_BUFF.id,
   SPELLS.BORROWED_TIME.id,
-  SPELLS.SINS_OF_THE_MANY.id,
 ];
 const MAX_TIME_SINCE_CAST = 250; // ms
 

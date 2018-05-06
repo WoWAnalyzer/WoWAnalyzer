@@ -84,14 +84,6 @@ class Abilities extends CoreAbilities {
           suggestion: true,
         },
       },
-      {
-        spell: SPELLS.LIGHTS_WRATH,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 90,
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
 
       {
         spell: SPELLS.MINDBENDER_TALENT_SHARED,
@@ -131,7 +123,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PAIN_SUPPRESSION,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (haste, combatant) => 4 * 60 - (combatant.traitsBySpellId[SPELLS.PAIN_IS_IN_YOUR_MIND.id] || 0) * 10,
+        cooldown: 3 * 60,
       },
       {
         spell: SPELLS.POWER_WORD_BARRIER_CAST,
@@ -157,10 +149,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CLARITY_OF_WILL_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         enabled: combatant.hasTalent(SPELLS.CLARITY_OF_WILL_TALENT.id),
-      },
-      {
-        spell: SPELLS.PLEA,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
       },
       {
         spell: SPELLS.SMITE,
