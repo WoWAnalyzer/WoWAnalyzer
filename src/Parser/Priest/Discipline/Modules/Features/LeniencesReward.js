@@ -48,7 +48,7 @@ class LeniencesReward extends Analyzer {
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
-        icon={<SpellIcon id={SPELLS.LENIENCES_REWARD_TRAIT.id} />}
+        icon={<SpellIcon id={SPELLS.LENIENCE.id} />}
         value={`>=${formatNumber(this.damageReducedDuringLeniencesReward / fightDuration * 1000)} DRPS`}
         label="Damage reduced"
         tooltip={

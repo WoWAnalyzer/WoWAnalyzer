@@ -37,7 +37,7 @@ class Penance extends Analyzer {
       this._previousPenanceTimestamp = event.timestamp;
       this._penanceBoltCastNumber = 1;
       this.casts += 1;
-      this._penanceBoltHitNumber = 1;
+      this._penanceBoltHitNumber = 0;
     }
 
     event.penanceBoltNumber = this._penanceBoltCastNumber;
