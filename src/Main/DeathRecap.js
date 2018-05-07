@@ -11,7 +11,7 @@ import './DeathRecap.css';
 const SHOW_SECONDS_BEFORE_DEATH = 8;
 const AMOUNT_THRESHOLD =  0;
 
-class TankDeathRecap extends React.PureComponent {
+class DeathRecap extends React.PureComponent {
 
   static propTypes = {
     events: PropTypes.object.isRequired,
@@ -20,7 +20,7 @@ class TankDeathRecap extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      detailedView: -1,
+      detailedView: 0,
       amountThreshold: AMOUNT_THRESHOLD,
     };
     this.handleClick = this.handleClick.bind(this);
@@ -32,7 +32,6 @@ class TankDeathRecap extends React.PureComponent {
   }
 
   render() {
-
     let lastHitPoints = 0;
     let lastMaxHitPoints = 0;
 
@@ -53,24 +52,30 @@ class TankDeathRecap extends React.PureComponent {
         0.9: '90%',
         1: '100%',
       },
-      style: { marginBottom: '2em' },
+      style: { 
+        margin: '0px 2em 4em 2em',
+        width: 'calc(100% - 4em)',
+      },
     };
 
     const events = this.props.events;
 
     return (
       <div>
+        <div style={{ margin: '2em 2em 0 2em' }}>
+          Filter events based on min amount (percentage of players health):
+        </div>
         <Slider
-            {...sliderProps}
-            defaultValue={this.state.amountThreshold}
-            onChange={(value) => {
-              this.setState({
-                amountThreshold: value,
-              });
-            }}
-          />
+          {...sliderProps}
+          defaultValue={this.state.amountThreshold}
+          onChange={(value) => {
+            this.setState({
+              amountThreshold: value,
+            });
+          }}
+        />
         {events.map((death, i) => 
-          <div>
+          <div className="item-divider-top">
             <h2 onClick={() => this.handleClick(i)} style={{ padding: '10px 20px', cursor: 'pointer' }}>Death #{i + 1}</h2>
             <table style={{ display: this.state.detailedView === i ? 'block' : 'none' }} className="data-table">
               <thead>
@@ -86,7 +91,7 @@ class TankDeathRecap extends React.PureComponent {
               <tbody>
                 {death.events
                   .filter(e => e.timestamp <= death.deathtime && e.timestamp >= death.deathtime - (SHOW_SECONDS_BEFORE_DEATH * 1000))
-                  .filter(e => e.amount + (e.absorbed || 0) > AMOUNT_THRESHOLD)
+                  .filter(e => (e.amount + (e.absorbed || 0)) / e.maxHitPoints > this.state.amountThreshold)
                   .map((event, index) => {
                   if (event.hitPoints && event.maxHitPoints) {
                     lastHitPoints = event.hitPoints;
@@ -160,4 +165,4 @@ class TankDeathRecap extends React.PureComponent {
   }
 }
 
-export default TankDeathRecap;
+export default DeathRecap;

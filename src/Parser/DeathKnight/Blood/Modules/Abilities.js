@@ -69,7 +69,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DANCING_RUNE_WEAPON,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
         cooldown: 180,
         castEfficiency: {
           suggestion: true,

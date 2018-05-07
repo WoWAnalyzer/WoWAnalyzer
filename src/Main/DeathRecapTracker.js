@@ -2,26 +2,10 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Abilities from 'Parser/Core/Modules/Abilities';
-import SPELLS from 'common/SPELLS';
+import DEFENSIVE_BUFFS from 'common/DEFENSIVE_BUFFS';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
-
 import Tab from 'Main/Tab';
 import DeathRecap from './DeathRecap';
-
-const EXTERNAL_COOLDOWNS = [
-  SPELLS.IRONBARK.id,
-  SPELLS.LIFE_COCOON.id,
-  SPELLS.BLESSING_OF_PROTECTION.id,
-  SPELLS.BLESSING_OF_SACRIFICE.id,
-  SPELLS.GUARDIAN_SPIRIT.id,
-  SPELLS.PAIN_SUPPRESSION.id,
-  SPELLS.POWER_WORD_BARRIER_BUFF.id,
-];
-
-const DEFENSIVE_BUFFS = [
-  SPELLS.BONE_SHIELD.id,
-  SPELLS.DANCING_RUNE_WEAPON.id,
-];
 
 class DeathRecapTracker extends Analyzer {
 
@@ -43,7 +27,7 @@ class DeathRecapTracker extends Analyzer {
       (e.category === Abilities.SPELL_CATEGORIES.DEFENSIVE || e.category === Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE) &&
       e.enabled === true
     );
-    this.buffs = EXTERNAL_COOLDOWNS.concat(this.cooldowns).concat(DEFENSIVE_BUFFS);
+    this.buffs = DEFENSIVE_BUFFS.concat(this.cooldowns);
   }
 
   addEvent(event) {
@@ -80,15 +64,18 @@ class DeathRecapTracker extends Analyzer {
   }
 
   tab() {
-    return {
-      title: 'Death Recap',
-      url: 'death-recap',
-      render: () => (
-        <Tab>
-          <DeathRecap events={this.secondsBeforeDeath} />
-        </Tab>
-      ),
-    };
+    if (this.deaths.length > 0) {
+      return {
+        title: 'Death Recap',
+        url: 'death-recap',
+        render: () => (
+          <Tab>
+            <DeathRecap events={this.secondsBeforeDeath} />
+          </Tab>
+        ),
+      };
+    }
+    return;
   }
 }
 
