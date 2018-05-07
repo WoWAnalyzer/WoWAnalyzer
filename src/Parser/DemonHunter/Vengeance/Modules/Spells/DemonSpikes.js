@@ -31,8 +31,8 @@ class DemonSpikes extends Analyzer {
     }else{
       this.hitsWithoutDS += 1;
 
-      const onCooldown = this.spellUsable.isOnCooldown(SPELLS.DEMON_SPIKES.id);
-      if(onCooldown) {
+      const isAvailable = this.spellUsable.isAvailable(SPELLS.DEMON_SPIKES.id);
+      if(isAvailable) {
         this.hitsWithDSOffCD += 1;
       }
     }
