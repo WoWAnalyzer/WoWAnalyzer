@@ -1,0 +1,163 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import SpellIcon from 'common/SpellIcon';
+import Icon from 'common/Icon';
+import { formatDuration, formatNumber, formatPercentage } from 'common/format';
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
+
+import './DeathRecap.css';
+
+const SHOW_SECONDS_BEFORE_DEATH = 8;
+const AMOUNT_THRESHOLD =  0;
+
+class TankDeathRecap extends React.PureComponent {
+
+  static propTypes = {
+    events: PropTypes.object.isRequired,
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      detailedView: -1,
+      amountThreshold: AMOUNT_THRESHOLD,
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(event) {
+    const clicked = event === this.state.detailedView ? -1 : event;
+    this.setState({ detailedView: clicked });
+  }
+
+  render() {
+
+    let lastHitPoints = 0;
+    let lastMaxHitPoints = 0;
+
+    const sliderProps = {
+      min: 0,
+      max: 1,
+      step: 0.05,
+      marks: {
+        0: '0%',
+        0.1: '10%',
+        0.2: '20%',
+        0.3: '30%',
+        0.4: '40%',
+        0.5: '50%',
+        0.6: '60%',
+        0.7: '70%',
+        0.8: '80%',
+        0.9: '90%',
+        1: '100%',
+      },
+      style: { marginBottom: '2em' },
+    };
+
+    const events = this.props.events;
+
+    return (
+      <div>
+        <Slider
+            {...sliderProps}
+            defaultValue={this.state.amountThreshold}
+            onChange={(value) => {
+              this.setState({
+                amountThreshold: value,
+              });
+            }}
+          />
+        {events.map((death, i) => 
+          <div>
+            <h2 onClick={() => this.handleClick(i)} style={{ padding: '10px 20px', cursor: 'pointer' }}>Death #{i + 1}</h2>
+            <table style={{ display: this.state.detailedView === i ? 'block' : 'none' }} className="data-table">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Ability</th>
+                  <th>HP</th>
+                  <th>Amount</th>
+                  <th>Defensive Buffs up</th>
+                  <th>Personals available</th>
+                </tr>
+              </thead>
+              <tbody>
+                {death.events
+                  .filter(e => e.timestamp <= death.deathtime && e.timestamp >= death.deathtime - (SHOW_SECONDS_BEFORE_DEATH * 1000))
+                  .filter(e => e.amount + (e.absorbed || 0) > AMOUNT_THRESHOLD)
+                  .map((event, index) => {
+                  if (event.hitPoints && event.maxHitPoints) {
+                    lastHitPoints = event.hitPoints;
+                    lastMaxHitPoints = event.maxHitPoints;
+                  }
+                  
+                  const hitPercent = event.amount / lastMaxHitPoints;
+                  let percent = lastHitPoints / lastMaxHitPoints;
+                  if (event.type === 'heal') {
+                    percent = (lastHitPoints - event.amount) / lastMaxHitPoints;
+                  }
+
+                  if (event.overkill) {
+                    percent = 0;
+                  }
+
+                  return (
+                    <tr>
+                      <td style={{ width: '5%'}}>
+                        {formatDuration(event.time / 1000, 2)}
+                      </td>
+                      <td style={{ width: '20%'}}>
+                        <Icon icon={event.ability.abilityIcon} /> {event.ability.name}
+                      </td>
+                      <td style={{ width: '20%'}}>
+                        <div className="flex performance-bar-container">
+                          <div className="flex-sub performance-bar" style={{ color: 'white', width: formatPercentage(percent) + "%" }}></div>
+                          <div className={`flex-sub performance-bar event-${event.type}`} style={{ width: formatPercentage(hitPercent) + "%", opacity: event.type === 'heal' ? .8 : .4 }}></div>
+                        </div>
+                      </td>
+                      <td style={{ width: '15%'}}>
+                        <span className={`event-${event.type}`}>
+                          {(event.type === 'damage' ? '-' : '') + formatNumber(event.amount)}
+                          {event.absorbed > 0 && (
+                            <span> (A: {formatNumber(event.absorbed)}) </span>
+                          )}
+                          {event.overheal > 0 && (
+                            <span> (O: {formatNumber(event.overheal)}) </span>
+                          )}
+                          {' '}@ {formatPercentage(percent)}%
+                        </span>
+                      </td>
+                      <td style={{ width: '20%' }}>
+                        {event.buffsUp.map(e =>
+                          <SpellIcon id={e.spell ? e.spell.id : e} />
+                        )}
+                      </td>
+                      <td style={{ width: '15%' }}>
+                        {event.cooldownsAvailable.map(e =>
+                          <SpellIcon id={e.spell.id} />
+                        )}
+                        {event.cooldownsUsed.map(e =>
+                          <SpellIcon id={e.spell.id} style={{ opacity: .2 }} />
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+                <tr>
+                  <td></td>
+                  <td colSpan="5">
+                    Killing blow
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    );
+  }
+}
+
+export default TankDeathRecap;
