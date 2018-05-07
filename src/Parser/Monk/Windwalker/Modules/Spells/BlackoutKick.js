@@ -131,7 +131,7 @@ class BlackoutKick extends Analyzer {
         />
       );
   }
-  STATISTIC_ORDER = STATISTIC_ORDER.CORE(5);
+  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default BlackoutKick;
