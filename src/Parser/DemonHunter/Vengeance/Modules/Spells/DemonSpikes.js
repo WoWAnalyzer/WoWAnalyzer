@@ -19,7 +19,7 @@ class DemonSpikes extends Analyzer {
 
   hitsWithDS = 0;
   hitsWithoutDS = 0;
-  hitsWithDSOnCD = 0;
+  hitsWithDSOffCD = 0;
 
   on_toPlayer_damage(event) {
     // Physical
@@ -33,7 +33,7 @@ class DemonSpikes extends Analyzer {
 
       const onCooldown = this.spellUsable.isOnCooldown(SPELLS.DEMON_SPIKES.id);
       if(onCooldown) {
-        this.hitsWithDSOnCD += 1;
+        this.hitsWithDSOffCD += 1;
       }
     }
   }
@@ -56,9 +56,9 @@ class DemonSpikes extends Analyzer {
           <ul>
           <li>You were hit <b>${this.hitsWithDS}</b> times with your Demon Spikes buff.</li>
           <li>You were hit <b>${this.hitsWithoutDS}</b> times <b><i>without</i></b> your Demon Spikes buff.</li>
-          <li>You were hit <b>${this.hitsWithDSOnCD}</b> times <b><i>with</i></b> Demon Spikes avalible for use but not used.</li>
+          <li>You were hit <b>${this.hitsWithDSOffCD}</b> times <b><i>with</i></b> Demon Spikes avalible for use but not used.</li>
           </ul>
-          <b>${this.mitigatedUptime}%</b> of physical attacks were mitigated with Demon Spikes, and your overall uptime was <b>${formatPercentage(demonSpikesUptimePercentage)}%</b>.`}
+          <b>Your overall uptime was <b>${formatPercentage(demonSpikesUptimePercentage)}%</b>.`}
       />
     );
   }
