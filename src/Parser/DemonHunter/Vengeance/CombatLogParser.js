@@ -7,7 +7,7 @@ import PainTracker from './Modules/Pain/PainTracker';
 import PainDetails from './Modules/Pain/PainDetails';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
-import Abilities from './Modules/Features/Abilities';
+import Abilities from './Modules/Abilities';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 
 import SoulFragments from './Modules/Statistics/SoulFragments/SoulFragments';
