@@ -29,7 +29,7 @@ const TRINKET_SLOTS = [12, 13];
 //Hunter or rogues have the same log multiple times with 'Ranged' or 'Melee' as spec
 //probably only there to allow filtering by multiple specs on WCLs character-page
 //we don't want those logs tho
-const EXCLUDED_GENERIC_SPECS_FROM_PARSES = ['Ranged', 'Melee'];
+const EXCLUDED_GENERIC_SPECS_FROM_PARSES = ['Ranged', 'Melee', 'Healing'];
 
 class CharacterParses extends React.Component {
 
@@ -126,12 +126,16 @@ class CharacterParses extends React.Component {
       });
 
     if (Number(this.state.activeEncounter) === BOSS_DEFAULT_ALL_BOSSES) {
+      console.info(this.state.activeDifficulty, this.state.activeSpec);
       return filteredParses.slice(0, RENDER_LIMIT);
     }
 
     filteredParses = filteredParses.filter((elem, index) => {
+      console.info(filteredParses, "encounter");
       return elem.name === this.state.activeEncounter;
     });
+
+    console.info(filteredParses);
 
     return filteredParses.slice(0, RENDER_LIMIT);
   }
@@ -169,6 +173,7 @@ class CharacterParses extends React.Component {
                   icon: ITEMS[0].icon,
                   quality: singleParse.gear[slotID].quality,
                 };
+                this.forceUpdate();
               }
             });
           });
@@ -233,6 +238,7 @@ class CharacterParses extends React.Component {
       zone: this.state.activeZoneID,
       _: refresh ? +new Date() : undefined,
     }).then((rawParses) => {
+      console.info(rawParses);
       if (rawParses.status === 400) {
         // means char was not found on WCL
         this.setState({
