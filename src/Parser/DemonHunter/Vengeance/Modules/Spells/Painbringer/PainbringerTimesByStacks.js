@@ -11,6 +11,8 @@ class PainbringerStacksBySeconds extends Analyzer {
   painbringerStacks = [];
   lastPainbringerStack = 0;
   lastPainbringerUpdate = this.owner.fight.start_time;
+  stackChanges = 0;
+  totalPainbringerStacks = 0;
 
   on_initialized() {
     this.painbringerStacks = Array.from({length: MAX_PAINBRINGER_STACKS + 1}, x => []);
@@ -31,6 +33,9 @@ class PainbringerStacksBySeconds extends Analyzer {
     this.painbringerStacks[this.lastPainbringerStack].push(event.timestamp - this.lastPainbringerUpdate);
     this.lastPainbringerUpdate = event.timestamp;
     this.lastPainbringerStack = event.stack;
+    this.stackChanges += 1;
+    this.totalPainbringerStacks += this.lastPainbringerStack;
+    //console.log("stack changes# ", this.stackChanges, " | total: ", this.totalPainbringerStacks);
   }
 
   get painbringerTimesByStacks() {

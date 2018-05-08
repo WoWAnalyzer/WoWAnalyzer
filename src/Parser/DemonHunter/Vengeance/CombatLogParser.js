@@ -8,6 +8,8 @@ import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
 import PainChart from './Modules/PainChart/Pain';
+import PainTracker from './Modules/Pain/PainTracker';
+import PainDetails from './Modules/Pain/PainDetails';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Abilities';
@@ -23,6 +25,8 @@ import SigilOfFlame from './Modules/Statistics/Spells/SigilOfFlame';
 
 import Painbringer from './Modules/Spells/Painbringer/Painbringer';
 import PainbringerTimesByStacks from './Modules/Spells/Painbringer/PainbringerTimesByStacks';
+import PainbringerStacksBySeconds from './Modules/Spells/Painbringer/PainbringerTimesByStacks';
+
 import SoulBarrier from './Modules/Spells/SoulBarrier';
 
 import Tier202PBonus from './Modules/Tier/Tier20/Tier20-2P.js';
@@ -40,6 +44,9 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    //Resource Tracker
+    painTracker :PainTracker,
+    painDetails: PainDetails,
 
     // Spirit Bomb Tracker Module (Frailty uptime tracker)
     spiritBomb: SpiritBomb,
@@ -54,6 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sigilOfFlame: SigilOfFlame,
     painbringer: Painbringer,
     painbringerTimesByStacks: PainbringerTimesByStacks,
+    painbringerStacksBySeconds: PainbringerStacksBySeconds,
     soulBarrier: SoulBarrier,
 
     // Tier 20
