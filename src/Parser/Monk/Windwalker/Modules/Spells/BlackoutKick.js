@@ -116,6 +116,7 @@ class BlackoutKick extends Analyzer {
               }}
             />
             {' '}
+            <br></br>
             {(this.effectiveFistsOfFuryReductionMs / 1000).toFixed(1)}s{' '}
             <SpellIcon
               id={SPELLS.FISTS_OF_FURY_CAST.id}
