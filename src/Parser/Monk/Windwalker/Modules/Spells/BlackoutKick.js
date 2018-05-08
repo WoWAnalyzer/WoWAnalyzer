@@ -29,7 +29,6 @@ class BlackoutKick extends Analyzer {
   ];
 
   on_initialized() {
-    console.log("Ranks in artifact ability: " + this.combatants.selected.traitsBySpellId[SPELLS.STRIKE_OF_THE_WINDLORD.id]);
     if (this.combatants.selected.traitsBySpellId[SPELLS.STRIKE_OF_THE_WINDLORD.id] === 1) {
       this.IMPORTANT_SPELLS.push(SPELLS.STRIKE_OF_THE_WINDLORD.id);
     }
