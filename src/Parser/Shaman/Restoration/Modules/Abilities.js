@@ -333,15 +333,15 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DOWNPOUR_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 5, // TODO: change CD depending on amount of effective targets hit (0 = 5s, 6 = 35s)
+        cooldown: 35, // CD changes depending on amount of effective targets hit (0 = 5s, 6 = 35s)
         isOnGCD: true,
         timelineSortIndex: 20,
         enabled: combatant.hasTalent(SPELLS.DOWNPOUR_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          majorIssueEfficiency: 0.50,
-          averageIssueEfficiency: 0.70,
-          recommendedEfficiency: 0.90,
+          majorIssueEfficiency: 0.20,
+          averageIssueEfficiency: 0.40,
+          recommendedEfficiency: 0.60,
         },
       },
       {

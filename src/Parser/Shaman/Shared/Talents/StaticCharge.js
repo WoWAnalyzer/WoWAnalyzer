@@ -14,12 +14,12 @@ class StaticCharge extends Analyzer {
   };
 
   on_initialized() {
-    this.hasStaticCharge = this.combatants.selected.hasTalent(SPELLS.STATIC_CHARGE_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.STATIC_CHARGE_TALENT.id);
   }
 
   on_byPlayerPet_applydebuff(event) {
     const spellId = event.ability.guid;
-    if (!this.hasStaticCharge || spellId !== SPELLS.STATIC_CHARGE_DEBUFF.id) {
+    if (spellId !== SPELLS.STATIC_CHARGE_DEBUFF.id) {
       return;
     }
 
