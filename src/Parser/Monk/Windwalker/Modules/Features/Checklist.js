@@ -141,7 +141,7 @@ class Checklist extends CoreChecklist {
             check: () => this.chiDetails.suggestionThresholds,
           }),
           new Requirement({
-            name: <React.Fragment>Bad <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> casts per minute</React.Fragment>,
+            name: <React.Fragment>Wasted cooldown reduction from <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> per minute</React.Fragment>,
             check: () => this.blackoutKick.suggestionThresholds,
           }),
           new Requirement({
