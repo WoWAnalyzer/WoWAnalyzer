@@ -1,13 +1,10 @@
-import React from 'react';
-
-import Tab from 'Main/Tab';
-
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
-import PainChart from './Modules/PainChart/Pain';
+import PainTracker from './Modules/Pain/PainTracker';
+import PainDetails from './Modules/Pain/PainDetails';
 
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import Abilities from './Modules/Abilities';
@@ -23,6 +20,8 @@ import SigilOfFlame from './Modules/Statistics/Spells/SigilOfFlame';
 
 import Painbringer from './Modules/Spells/Painbringer/Painbringer';
 import PainbringerTimesByStacks from './Modules/Spells/Painbringer/PainbringerTimesByStacks';
+import PainbringerStacksBySeconds from './Modules/Spells/Painbringer/PainbringerTimesByStacks';
+
 import SoulBarrier from './Modules/Spells/SoulBarrier';
 
 import Tier202PBonus from './Modules/Tier/Tier20/Tier20-2P.js';
@@ -40,6 +39,9 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    //Resource Tracker
+    painTracker :PainTracker,
+    painDetails: PainDetails,
 
     // Spirit Bomb Tracker Module (Frailty uptime tracker)
     spiritBomb: SpiritBomb,
@@ -54,6 +56,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sigilOfFlame: SigilOfFlame,
     painbringer: Painbringer,
     painbringerTimesByStacks: PainbringerTimesByStacks,
+    painbringerStacksBySeconds: PainbringerStacksBySeconds,
     soulBarrier: SoulBarrier,
 
     // Tier 20
@@ -62,29 +65,6 @@ class CombatLogParser extends CoreCombatLogParser {
     soulOfTheSlayer: SoulOfTheSlayer,
   };
 
-  generateResults() {
-    const results = super.generateResults();
-
-    results.tabs = [
-      ...results.tabs,
-      { // TODO: Move this to an Analyzer module
-        title: 'Pain Chart',
-        url: 'pain',
-        render: () => (
-          <Tab style={{ padding: '15px 22px' }}>
-            <PainChart
-              reportCode={this.report.code}
-              actorId={this.playerId}
-              start={this.fight.start_time}
-              end={this.fight.end_time}
-            />
-          </Tab>
-        ),
-      },
-    ];
-
-    return results;
-  }
 }
 
 export default CombatLogParser;
