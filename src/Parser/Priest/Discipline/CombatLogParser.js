@@ -26,7 +26,7 @@ import AtonementApplicationSource from './Modules/Features/AtonementApplicationS
 import AtonementDamageSource from './Modules/Features/AtonementDamageSource';
 import AtonementHealingDone from './Modules/Features/AtonementHealingDone';
 import PowerWordBarrier from './Modules/Features/PowerWordBarrier';
-import LeniencesReward from './Modules/Features/LeniencesReward';
+// import LeniencesReward from './Modules/Features/LeniencesReward';
 import PurgeTheWicked from './Modules/Features/PurgeTheWicked';
 
 import Tier19_2set from './Modules/Items/Tier19_2set';
@@ -53,7 +53,6 @@ import Penance from './Modules/Spells/Penance';
 import TouchOfTheGrave from './Modules/Spells/TouchOfTheGrave';
 import Rapture from './Modules/Spells/Rapture';
 
-import BorrowedTime from './Modules/Spells/Traits/BorrowedTime';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -85,7 +84,7 @@ class CombatLogParser extends CoreCombatLogParser {
     atonementDamageSource: AtonementDamageSource,
     atonementHealingDone: AtonementHealingDone,
     powerWordBarrier: PowerWordBarrier,
-    leniencesReward: LeniencesReward,
+    // leniencesReward: LeniencesReward,
     purgeTheWicked: PurgeTheWicked,
     rapture: Rapture,
 
@@ -112,7 +111,6 @@ class CombatLogParser extends CoreCombatLogParser {
     atonement: Atonement,
     evangelism: Evangelism,
     touchOfTheGrave: TouchOfTheGrave,
-    borrowedTime: BorrowedTime,
   };
 
   generateResults() {
