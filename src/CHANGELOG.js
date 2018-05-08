@@ -13,6 +13,11 @@ export default [
     contributors: [Zerotorescue],
   },
   {
+    date: new Date('2018-05-02'),
+    changes: 'Added character-based report selection',
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-04-28'),
     changes: 'Moved item bonuses down to the statistics.',
     contributors: [Zerotorescue],
