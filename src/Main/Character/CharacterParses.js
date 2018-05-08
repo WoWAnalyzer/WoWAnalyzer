@@ -126,16 +126,12 @@ class CharacterParses extends React.Component {
       });
 
     if (Number(this.state.activeEncounter) === BOSS_DEFAULT_ALL_BOSSES) {
-      console.info(this.state.activeDifficulty, this.state.activeSpec);
       return filteredParses.slice(0, RENDER_LIMIT);
     }
 
     filteredParses = filteredParses.filter((elem, index) => {
-      console.info(filteredParses, "encounter");
       return elem.name === this.state.activeEncounter;
     });
-
-    console.info(filteredParses);
 
     return filteredParses.slice(0, RENDER_LIMIT);
   }
@@ -238,7 +234,6 @@ class CharacterParses extends React.Component {
       zone: this.state.activeZoneID,
       _: refresh ? +new Date() : undefined,
     }).then((rawParses) => {
-      console.info(rawParses);
       if (rawParses.status === 400) {
         // means char was not found on WCL
         this.setState({
