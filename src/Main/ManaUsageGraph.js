@@ -2,14 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Line} from 'react-chartjs-2';
 
-import { formatThousands } from 'common/format';
+import {formatThousands } from 'common/format';
+import {formatDuration} from 'common/format';
+
 import ManaStyles from 'Main/ManaStyles.js';
-
-
-const formatDuration = (duration) => {
-  const seconds = Math.floor(duration % 60);
-  return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
-};
 
 const baseConfig = {
   responsive: true,

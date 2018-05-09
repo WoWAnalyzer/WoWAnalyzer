@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Tab from 'Main/Tab';
+import Mana from 'Main/Mana';
 import Feeding from 'Main/Feeding';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
@@ -127,6 +128,15 @@ class CombatLogParser extends CoreCombatLogParser {
 
     results.tabs = [
       ...results.tabs,
+      {
+        title: 'Mana',
+        url: 'mana',
+        render: () => (
+          <Tab style={{ padding: '15px 22px' }}>
+            <Mana parser={this} />
+          </Tab>
+        ),
+      },
       {
         title: 'Feeding',
         url: 'feeding',
