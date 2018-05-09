@@ -14,6 +14,8 @@ const POWER_WORD_BARRIER_REDUCTION = 0.25;
 class PowerWordBarrier extends Analyzer {
   get damageReducedDuringPowerWordBarrier() {
     return this.totalDamageTakenDuringPWB / (1 - POWER_WORD_BARRIER_REDUCTION) * POWER_WORD_BARRIER_REDUCTION;
+
+
   }
 
   get damageReduced() {
