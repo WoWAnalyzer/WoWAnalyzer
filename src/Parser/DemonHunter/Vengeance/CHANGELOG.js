@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-05-04'),
+    date: new Date('2018-05-05'),
     changes: <React.Fragment>Added more spell suggestions.</React.Fragment>,
     contributors: [Yajinni],
   },
