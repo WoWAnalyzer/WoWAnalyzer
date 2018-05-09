@@ -6,6 +6,16 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-05-05'),
+    changes: <React.Fragment>Added more spell suggestions.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2018-05-05'),
+    changes: <React.Fragment>Updated <SpellLink id={SPELLS.DEMON_SPIKES.id}/> module to track hits taken while debuff is up and missed uses.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
     date: new Date('2018-05-04'),
     changes: <React.Fragment>Added tracking of Pain management/waste and a new Pain Usage Tab.</React.Fragment>,
     contributors: [Yajinni],
