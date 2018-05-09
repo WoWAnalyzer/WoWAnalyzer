@@ -13,6 +13,8 @@ import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 const BUFFER_WAVE = 750;
 const BUFFER_SURGE = 100;
 const crashingWavesIncrease = 0.1;
+const baseTidalWavesHaste = 0.3;
+const baseTidalWavesCrit = 0.4;
 
 class CrashingWaves extends Analyzer {
   static dependencies = {
@@ -35,7 +37,7 @@ class CrashingWaves extends Analyzer {
       if(!hasTidalWaves || !isCrit) {
         return;
       }
-      const currentCritPercent = this.statTracker.currentCritPercentage;
+      const currentCritPercent = this.statTracker.currentCritPercentage + baseTidalWavesCrit;
       const crashingWavesContribution = crashingWavesIncrease / (crashingWavesIncrease + currentCritPercent);
       this.healing += calculateEffectiveHealing(event, crashingWavesContribution);
 
@@ -45,7 +47,10 @@ class CrashingWaves extends Analyzer {
       if(!hasTidalWaves) {
         return;
       }
-      this.healing += calculateEffectiveHealing(event, crashingWavesIncrease);
+      const currentHastePercent = this.statTracker.currentHastePercentage + baseTidalWavesHaste;
+      const crashingWavesContribution = crashingWavesIncrease / (crashingWavesIncrease + currentHastePercent);
+      this.healing += calculateEffectiveHealing(event, crashingWavesContribution);
+      
     }
   }
 
