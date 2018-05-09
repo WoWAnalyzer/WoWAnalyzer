@@ -52,7 +52,7 @@ import Evangelism from './Modules/Spells/Evangelism';
 import Penance from './Modules/Spells/Penance';
 import TouchOfTheGrave from './Modules/Spells/TouchOfTheGrave';
 import Rapture from './Modules/Spells/Rapture';
-
+import LuminousBarrier from './Modules/Spells/LuminousBarrier';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -111,6 +111,7 @@ class CombatLogParser extends CoreCombatLogParser {
     atonement: Atonement,
     evangelism: Evangelism,
     touchOfTheGrave: TouchOfTheGrave,
+    luminousBarrier: LuminousBarrier,
   };
 
   generateResults() {
