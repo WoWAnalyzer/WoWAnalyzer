@@ -155,7 +155,7 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
       },
       {
-        spell: SPELLS.SIGIL_OF_FLAME,
+        spell: SPELLS.SIGIL_OF_FLAME_DEBUFF,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 30,
         isOnGCD: true,
