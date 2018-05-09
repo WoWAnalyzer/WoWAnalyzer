@@ -47,7 +47,7 @@ class BloodPlagueUptime extends Analyzer {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(1);
+  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default BloodPlagueUptime;

@@ -64,3 +64,80 @@
     padding-top: 40px;
   }
 }
+
+.character-selector {
+  display: flex;
+  margin-bottom: 10px;
+  height: 42px;
+}
+.character-selector>.realm-search--select, .character-selector>input[name=code], .character-selector>button {
+  margin-left: 2px;
+}
+.realm-search__select {
+  display: none;
+}
+.realm-search--multiple .realm-search__select {
+    display: block;
+}
+.realm-search__select--display {
+    display: block;
+    width: 183px;
+    z-index: 999;
+    position: absolute;
+}
+.realm-search__search {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 12px;
+  height: auto;
+  background: rgba(0, 0, 0, 0.3);
+  font-size: 1em;
+  box-shadow: none;
+  color: #fdf7ea;
+  border-radius: 0;
+  outline: none;
+  width: 100%;
+  height: 42px;
+}
+.realm-search__search:focus {
+  box-shadow: none;
+  border: 1px solid #d84141;
+}
+.realm-search__options {
+  max-height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  list-style: none;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: none;
+}
+.realm-search__option {
+  padding: 4px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+.realm-search__option--selected {
+  color: #d84141;
+}
+.image-overlay .parse-tabs {
+  margin-bottom: 2px;
+}
+.image-overlay .parse-tabs>span {
+  background-color: rgba(0, 0, 0, .4);
+  display: inline-block;
+  padding: 3px 8px;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-right: 2px;
+}
+.image-overlay .parse-tabs>span.selected {
+  background-color: rgba(216, 65, 65, .8) ;
+}
+.animated-button {
+  box-shadow: inset 0 0 0 0 #ad4b4b;
+  transition: box-shadow 1.2s linear;
+}
+.animated-button.fill-button {
+  box-shadow: inset 200px 0 0 0 #ad4b4b;
+}

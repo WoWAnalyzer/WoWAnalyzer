@@ -7,6 +7,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import getDamageBonus from 'Parser/Hunter/Shared/Modules/getDamageBonus';
 import ItemDamageDone from 'Main/ItemDamageDone';
+import SpellLink from 'common/SpellLink';
 
 const DAMAGE_INCREASE = 0.05;
 
@@ -72,7 +73,7 @@ class TheMantleOfCommand extends Analyzer {
 
   suggestions(when) {
     when(this.buffUptimeThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>memes</React.Fragment>)
+      return suggest(<React.Fragment>Your overall uptime of <SpellLink id={SPELLS.THE_MANTLE_OF_COMMAND_BUFF.id} /> can be improved. Slightly spacing out your Dire spells and weaving in alternate casts such as <SpellLink id={SPELLS.COBRA_SHOT.id} /> or <SpellLink id={SPELLS.KILL_COMMAND.id} /> can help achieve this. </React.Fragment>)
         .icon(ITEMS.THE_MANTLE_OF_COMMAND.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);

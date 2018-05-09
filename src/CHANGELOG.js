@@ -8,9 +8,14 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-05-02'),
+    date: new Date('2018-05-09'),
     changes: 'Implemented the possibility to show buffs and debuffs in the timeline.',
     contributors: [niseko],
+  },
+  {
+    date: new Date('2018-05-02'),
+    changes: 'Added character-based report selection',
+    contributors: [joshinator],
   },
   {
     date: new Date('2018-04-28'),

@@ -69,7 +69,7 @@ class Ossuary extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(3);
+  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default Ossuary;

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import ReportSelecter from './ReportSelecter';
+import CharacterSelecter from './Character/CharacterSelecter';
 import makeNewsUrl from './News/makeUrl';
 import { title as AboutArticleTitle } from './News/Articles/2017-01-31-About';
 import { title as UnlistedLogsTitle } from './News/Articles/2017-01-31-UnlistedLogs';
@@ -14,6 +15,13 @@ class Header extends React.PureComponent {
   static propTypes = {
     showReportSelecter: PropTypes.bool.isRequired,
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      reportActive: true,
+    };
+  }
 
   render() {
     const { showReportSelecter } = this.props;
@@ -28,8 +36,19 @@ class Header extends React.PureComponent {
                 Analyze your raid logs to get personal suggestions and metrics to improve your performance. Just enter a Warcraft Logs report:
               </div>
               {showReportSelecter && (
-                <ReportSelecter />
+                <div>
+                  <div className="parse-tabs">
+                    <span onClick={() => this.setState({ reportActive: true }) } className={ this.state.reportActive ? 'selected' : '' }>Report</span>
+                    <span onClick={() => this.setState({ reportActive: false }) } className={ this.state.reportActive ? '' : 'selected' }>Character</span>
+                  </div>
+                  {this.state.reportActive ? (
+                    <ReportSelecter />
+                  ) : (
+                    <CharacterSelecter />
+                  )}
+                </div>
               )}
+                
               {process.env.NODE_ENV !== 'test' && <ServiceStatus style={{ marginBottom: 5 }} />}
               <div className="about">
                 <Link to={makeNewsUrl(AboutArticleTitle)}>About WoWAnalyzer</Link>
