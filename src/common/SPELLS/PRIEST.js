@@ -215,6 +215,11 @@ export default {
     name: 'Dejahna\'s Inspiration',
     icon: 'spell_holy_heal',
   },
+  LUMINOUS_BARRIER: {
+    id: 271466,
+    name: 'Luminous Barrier',
+    icon: 'spell_priest_burningwill',
+  },
 
   // Talents:
   // lv90
