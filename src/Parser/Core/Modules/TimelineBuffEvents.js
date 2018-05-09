@@ -31,7 +31,7 @@ class TimelineBuffEvents extends Analyzer {
     }
   }
   
-  on_toPlayer_changebuffstack(event) {
+  on_byPlayer_changebuffstack(event) {
     const spellId = event.ability.guid;
     this._append(spellId, event);
   }
