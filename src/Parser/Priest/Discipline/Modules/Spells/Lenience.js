@@ -9,25 +9,18 @@ import LazyLoadStatisticBox from 'Main/LazyLoadStatisticBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-const LENIENCES_REWARD_DR_PER_RANK = 0.005;
+const LENIENCE_DR = 0.03;
 
-class LeniencesReward extends Analyzer {
-  _leniencesRewardRank = 0;
-  _leniencesRewardDR = 0;
-
-  get damageReducedDuringLeniencesReward() {
-    return this.totalDamageTakenDuringAtonement / (1 - this._leniencesRewardDR) * this._leniencesRewardDR;
-  }
-
-  get damageReduced() {
-    return this.damageReducedDuringLeniencesReward;
-  }
+class Lenience extends Analyzer {
 
   totalDamageTakenDuringAtonement = 0;
+
+  get damageReducedDuringLenience() {
+    return this.totalDamageTakenDuringAtonement / (1 - LENIENCE_DR) * LENIENCE_DR;
+  }
+
   on_initialized() {
-    this._leniencesRewardRank = this.owner.modules.combatants.selected.traitsBySpellId[SPELLS.LENIENCES_REWARD_TRAIT.id];
-    this._leniencesRewardDR = this._leniencesRewardRank * LENIENCES_REWARD_DR_PER_RANK;
-    this.active = this._leniencesRewardRank > 0;
+    this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.LENIENCE.id);
   }
 
   load() {
@@ -49,14 +42,14 @@ class LeniencesReward extends Analyzer {
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.LENIENCE.id} />}
-        value={`>=${formatNumber(this.damageReducedDuringLeniencesReward / fightDuration * 1000)} DRPS`}
+        value={`>=${formatNumber(this.damageReducedDuringLenience / fightDuration * 1000)} DRPS`}
         label="Damage reduced"
         tooltip={
-          `The estimated damage reduced by Lenience's damage reduction was ${formatThousands(this.damageReducedDuringLeniencesReward)} (${formatNumber(this.damageReducedDuringLeniencesReward / fightDuration * 1000)} per second average). This is the lowest possible value. This value is 100% accurate for this log if you are looking at the actual gain over not having the Lenience bonus at all, but the gain may end up higher when taking interactions with other damage reductions into account.`
+          `The estimated damage reduced by Lenience's damage reduction was ${formatThousands(this.damageReducedDuringLenience)} (${formatNumber(this.damageReducedDuringLenience / fightDuration * 1000)} per second average). This is the lowest possible value. This value is 100% accurate for this log if you are looking at the actual gain over not having the Lenience bonus at all, but the gain may end up higher when taking interactions with other damage reductions into account.`
         }
       />
     );
   }
 }
 
-export default LeniencesReward;
+export default Lenience;
