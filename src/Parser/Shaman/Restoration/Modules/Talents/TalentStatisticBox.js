@@ -9,6 +9,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import Torrent from './Torrent';
 import UnleashLife from './UnleashLife';
 import Undulation from './Undulation';
+import CrashingWaves from './CrashingWaves';
 import EarthShield from './EarthShield';
 import EarthenWallTotem from './EarthenWallTotem';
 import Downpour from './Downpour';
@@ -24,6 +25,7 @@ class TalentStatisticBox extends Analyzer {
     torrent: Torrent,
     unleashLife: UnleashLife,
     undulation: Undulation,
+    crashingWaves: CrashingWaves,
     earthShield: EarthShield,
     earthenWallTotem: EarthenWallTotem,
     downpour: Downpour,
@@ -48,6 +50,7 @@ class TalentStatisticBox extends Analyzer {
         {this.combatants.selected.hasTalent(SPELLS.TORRENT_TALENT.id) ? this.torrent.subStatistic() : ''}
         {this.combatants.selected.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id) ? this.unleashLife.subStatistic() : ''}
         {this.combatants.selected.hasTalent(SPELLS.UNDULATION_TALENT.id) ? this.undulation.subStatistic() : ''}
+        {this.combatants.selected.hasTalent(SPELLS.CRASHING_WAVES_TALENT.id) ? this.crashingWaves.subStatistic() : ''}
         {this.combatants.selected.hasTalent(SPELLS.EARTH_SHIELD_TALENT.id) ? this.earthShield.subStatistic() : ''}
         {this.combatants.selected.hasTalent(SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id) ? this.earthenWallTotem.subStatistic() : ''}
         {this.combatants.selected.hasTalent(SPELLS.DOWNPOUR_TALENT.id) ? this.downpour.subStatistic() : ''}
