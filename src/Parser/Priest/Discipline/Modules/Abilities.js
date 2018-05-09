@@ -32,6 +32,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EVANGELISM_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 75,
+        enabled: combatant.hasTalent(SPELLS.EVANGELISM_TALENT.id),
         castEfficiency: {
           suggestion: true,
           casts: castCount => castCount.casts,
@@ -39,14 +40,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.POWER_WORD_SHIELD,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, selectedCombatant) => {
-          if(selectedCombatant.hasBuff(SPELLS.RAPTURE.id)) {
-            return 1.5 / (1 + haste);
-          } else {
-            return 7.5 / (1 + haste);
-          }
-        },
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
       },
       {
         spell: SPELLS.SCHISM_TALENT,
@@ -106,16 +100,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RAPTURE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
-        spell: SPELLS.POWER_INFUSION_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
-        enabled: combatant.hasTalent(SPELLS.POWER_INFUSION_TALENT.id),
+        cooldown: 90,
         castEfficiency: {
           suggestion: true,
         },
@@ -129,6 +114,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.POWER_WORD_BARRIER_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 3 * 60,
+        enabled: !combatant.hasTalent(SPELLS.LUMINOUS_BARRIER.id),
       },
       {
         spell: SPELLS.SHADOW_WORD_PAIN,
@@ -139,16 +125,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.PURGE_THE_WICKED_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         enabled: combatant.hasTalent(SPELLS.PURGE_THE_WICKED_TALENT.id),
-      },
-      {
-        spell: SPELLS.SHADOW_COVENANT_TALENT,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        enabled: combatant.hasTalent(SPELLS.SHADOW_COVENANT_TALENT.id),
-      },
-      {
-        spell: SPELLS.CLARITY_OF_WILL_TALENT,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        enabled: combatant.hasTalent(SPELLS.CLARITY_OF_WILL_TALENT.id),
       },
       {
         spell: SPELLS.SMITE,
