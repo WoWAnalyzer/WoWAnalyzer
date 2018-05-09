@@ -8,7 +8,7 @@ import 'rc-slider/assets/index.css';
 
 import './DeathRecap.css';
 
-const SHOW_SECONDS_BEFORE_DEATH = 8;
+const SHOW_SECONDS_BEFORE_DEATH = 10;
 const AMOUNT_THRESHOLD =  0;
 
 class DeathRecap extends React.PureComponent {

@@ -1,15 +1,47 @@
 import SPELLS from 'common/SPELLS';
 
 const DEFENSIVE_BUFFS = [
-  SPELLS.IRONBARK.id,
-  SPELLS.LIFE_COCOON.id,
-  SPELLS.BLESSING_OF_PROTECTION.id,
-  SPELLS.BLESSING_OF_SACRIFICE.id,
-  SPELLS.GUARDIAN_SPIRIT.id,
-  SPELLS.PAIN_SUPPRESSION.id,
-  SPELLS.POWER_WORD_BARRIER_BUFF.id,
+  {
+    spell: SPELLS.IRONBARK,
+  },
+  {
+    spell: SPELLS.LIFE_COCOON,
+  },
+  {
+    spell: SPELLS.BLESSING_OF_PROTECTION,
+  },
+  {
+    spell: SPELLS.BLESSING_OF_SACRIFICE,
+  },
+  {
+    spell: SPELLS.GUARDIAN_SPIRIT,
+  },
+  {
+    spell: SPELLS.GUARDIAN_SPIRIT,
+  },
+  {
+    spell: SPELLS.PAIN_SUPPRESSION,
+  },
+  {
+    spell: SPELLS.POWER_WORD_BARRIER_BUFF,
+  },
+  {
+    spell: SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_VERSATILITY,
+  },
+  {
+    spell: SPELLS.CELESTIAL_BULWARK,
+  },
   //Blood Death-Knight
-  SPELLS.BONE_SHIELD.id,
+  {
+    spell: SPELLS.BONE_SHIELD,
+  },
+  //Protection Warrior
+  {
+    spell: SPELLS.SHIELD_BLOCK_BUFF,
+  },
+  {
+    spell: SPELLS.IGNORE_PAIN,
+  },
 ];
 
 export default DEFENSIVE_BUFFS;

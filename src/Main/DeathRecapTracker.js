@@ -28,6 +28,7 @@ class DeathRecapTracker extends Analyzer {
       e.enabled === true
     );
     this.buffs = DEFENSIVE_BUFFS.concat(this.cooldowns);
+    console.info(this.buffs);
   }
 
   addEvent(event) {
@@ -35,7 +36,9 @@ class DeathRecapTracker extends Analyzer {
     extendedEvent.time = event.timestamp - this.owner.fight.start_time;
     extendedEvent.cooldownsAvailable = this.cooldowns.filter(e => this.spellUsable.isAvailable(e.spell.id));
     extendedEvent.cooldownsUsed = this.cooldowns.filter(e => !this.spellUsable.isAvailable(e.spell.id));
-    extendedEvent.buffsUp = this.buffs.filter(e => this.combatants.selected.hasBuff(e.spell ? e.spell.id : e));
+    extendedEvent.buffsUp = this.buffs.filter(e => {
+      return this.combatants.selected.hasBuff(e.spell.id);
+    });
     this.events.push(extendedEvent);
   }
 
