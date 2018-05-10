@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-04-03'),
+    changes: <React.Fragment>Added Death Recap to track available cooldowns.</React.Fragment>,
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-04-28'),
     changes: 'Moved item bonuses down to the statistics.',
     contributors: [Zerotorescue],

@@ -1,5 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
+//saving it as spell-prop as this might be a good place to add further information about the externals (for issue #1083)
+
 const DEFENSIVE_BUFFS = [
   {
     spell: SPELLS.IRONBARK,
@@ -31,10 +33,15 @@ const DEFENSIVE_BUFFS = [
   {
     spell: SPELLS.CELESTIAL_BULWARK,
   },
+
   //Blood Death-Knight
   {
     spell: SPELLS.BONE_SHIELD,
   },
+  {
+    spell: SPELLS.SHROUD_OF_PURGATORY,
+  },
+  
   //Protection Warrior
   {
     spell: SPELLS.SHIELD_BLOCK_BUFF,

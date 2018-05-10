@@ -2,20 +2,20 @@ import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage, formatNumber, formatDuration } from 'common/format';
+import { formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT = [
+  SPELLS.DEMORALIZING_SHOUT.id,
   SPELLS.BATTLE_CRY.id,
   SPELLS.LAST_STAND.id,
   SPELLS.SHIELD_WALL.id,
-  SPELLS.DEMORALIZING_SHOUT.id,
 ];
 
-class RedThirst extends Analyzer {
+class AngerManagement extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     spellUsable: SpellUsable,
@@ -33,7 +33,6 @@ class RedThirst extends Analyzer {
     });
   }
 
-  //ToDo: add Legendary belt for the additional CDR by TCing
   on_byPlayer_cast(event) {
     if (event.classResources[0].type === RESOURCE_TYPES.RAGE.id && event.classResources[0].cost) {
       const rageSpend = event.classResources[0].cost / 10;
@@ -65,8 +64,8 @@ class RedThirst extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ANGER_MANAGEMENT_TALENT.id} />}
-        value={`${formatDuration(this.effectiveReduction[SPELLS.DEMORALIZING_SHOUT.id] / 1000)} sec`}
-        label={`${ SPELLS.DEMORALIZING_SHOUT.name } reduction`}
+        value={`${formatDuration((this.effectiveReduction[SPELLS.DEMORALIZING_SHOUT.id] + this.wastedReduction[SPELLS.DEMORALIZING_SHOUT.id]) / 1000)} sec`}
+        label={`possible cooldown reduction`}
         tooltip={`${this.tooltip}`}
       />
     );
@@ -74,4 +73,4 @@ class RedThirst extends Analyzer {
   statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
-export default RedThirst;
+export default AngerManagement;

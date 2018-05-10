@@ -91,7 +91,7 @@ class DeathRecap extends React.PureComponent {
               <tbody>
                 {death.events
                   .filter(e => e.timestamp <= death.deathtime && e.timestamp >= death.deathtime - (SHOW_SECONDS_BEFORE_DEATH * 1000))
-                  .filter(e => (e.amount + (e.absorbed || 0)) / e.maxHitPoints > this.state.amountThreshold)
+                  .filter(e => ((e.amount + (e.absorbed || 0)) / e.maxHitPoints > this.state.amountThreshold) || e.type === 'instakill')
                   .map((event, index) => {
                   if (event.hitPoints && event.maxHitPoints) {
                     lastHitPoints = event.hitPoints;
@@ -99,12 +99,28 @@ class DeathRecap extends React.PureComponent {
                   }
                   
                   const hitPercent = event.amount / lastMaxHitPoints;
-                  let percent = lastHitPoints / lastMaxHitPoints;
+                  let percent = 0;
+                  let output = null;
                   if (event.type === 'heal') {
                     percent = (lastHitPoints - event.amount) / lastMaxHitPoints;
+                    output = <React.Fragment>
+                      <span className="event-heal">
+                        +{formatNumber(event.amount)} {event.overheal > 0 ? `(O: ${formatNumber(event.overheal)} )` : ''}
+                      </span>
+                    </React.Fragment>;
+                  } else if (event.type === 'damage') {
+                    percent = lastHitPoints / lastMaxHitPoints;
+                    output = <React.Fragment>
+                      <span className="event-damage">
+                        -{formatNumber(event.amount)} {event.absorbed > 0 ? `(A: ${formatNumber(event.absorbed)} )` : ''}
+                      </span>
+                    </React.Fragment>;
+                  } else if (event.type === 'instakill') {
+                    percent = 0;
+                    output = '1-Shot';
                   }
 
-                  if (event.overkill) {
+                  if (event.overkill || event.hitPoints === 0) {
                     percent = 0;
                   }
 
@@ -118,21 +134,14 @@ class DeathRecap extends React.PureComponent {
                       </td>
                       <td style={{ width: '20%'}}>
                         <div className="flex performance-bar-container">
-                          <div className="flex-sub performance-bar" style={{ color: 'white', width: formatPercentage(percent) + "%" }}></div>
+                          {percent !== 0 && (
+                            <div className="flex-sub performance-bar" style={{ color: 'white', width: formatPercentage(percent) + "%" }}></div>
+                          )}
                           <div className={`flex-sub performance-bar event-${event.type}`} style={{ width: formatPercentage(hitPercent) + "%", opacity: event.type === 'heal' ? .8 : .4 }}></div>
                         </div>
                       </td>
                       <td style={{ width: '15%'}}>
-                        <span className={`event-${event.type}`}>
-                          {(event.type === 'damage' ? '-' : '') + formatNumber(event.amount)}
-                          {event.absorbed > 0 && (
-                            <span> (A: {formatNumber(event.absorbed)}) </span>
-                          )}
-                          {event.overheal > 0 && (
-                            <span> (O: {formatNumber(event.overheal)}) </span>
-                          )}
-                          {' '}@ {formatPercentage(percent)}%
-                        </span>
+                        {output}
                       </td>
                       <td style={{ width: '20%' }}>
                         {event.buffsUp.map(e =>
@@ -153,7 +162,7 @@ class DeathRecap extends React.PureComponent {
                 <tr>
                   <td></td>
                   <td colSpan="5">
-                    Killing blow
+                    You died
                   </td>
                 </tr>
               </tbody>

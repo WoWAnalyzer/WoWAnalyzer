@@ -416,6 +416,18 @@ export default {
   },
   //Relics
   // Protection Tier Sets
+  // T21 2P Set Bonus
+  PROTECTION_WARRIOR_T21_2P_BONUS: {
+    id: 251882,
+    name: 'T21 2P Bonus',
+    icon: 'spell_nature_reincarnation',
+  },
+  PROTECTION_WARRIOR_T21_2P_WALL_OF_IRON: {
+    id: 253428,
+    name: 'Wall of Iron',
+    icon: 'ability_warrior_defensivestance',
+  },
+
   // T20 2P Set Bonus
   PROTECTION_WARRIOR_T20_2P_BONUS: {
     id: 242302,

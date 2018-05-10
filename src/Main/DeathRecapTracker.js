@@ -15,6 +15,7 @@ class DeathRecapTracker extends Analyzer {
   damaged = [];
   cooldowns = [];
   buffs = [];
+  lastBuffs = [];
 
   static dependencies = {
     combatants: Combatants,
@@ -28,7 +29,6 @@ class DeathRecapTracker extends Analyzer {
       e.enabled === true
     );
     this.buffs = DEFENSIVE_BUFFS.concat(this.cooldowns);
-    console.info(this.buffs);
   }
 
   addEvent(event) {
@@ -36,9 +36,12 @@ class DeathRecapTracker extends Analyzer {
     extendedEvent.time = event.timestamp - this.owner.fight.start_time;
     extendedEvent.cooldownsAvailable = this.cooldowns.filter(e => this.spellUsable.isAvailable(e.spell.id));
     extendedEvent.cooldownsUsed = this.cooldowns.filter(e => !this.spellUsable.isAvailable(e.spell.id));
-    extendedEvent.buffsUp = this.buffs.filter(e => {
-      return this.combatants.selected.hasBuff(e.spell.id);
-    });
+    if (event.hitPoints === 0) {
+      extendedEvent.buffsUp = this.lastBuffs;
+    } else {
+      extendedEvent.buffsUp = this.buffs.filter(e => this.combatants.selected.hasBuff(e.spell.id));
+    }
+    this.lastBuffs = extendedEvent.buffsUp; //save old buffs and reuse them when all buffs got already removed
     this.events.push(extendedEvent);
   }
 
@@ -50,7 +53,12 @@ class DeathRecapTracker extends Analyzer {
     this.addEvent(event);
   }
 
+  on_toPlayer_instakill(event) {
+    this.addEvent(event);
+  }
+
   on_toPlayer_death(event) {
+    this.addEvent(event);
     this.deaths.push(event.timestamp);
   }
 

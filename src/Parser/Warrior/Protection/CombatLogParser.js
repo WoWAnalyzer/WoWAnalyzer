@@ -11,6 +11,9 @@ import Shield_Block from './Modules/Spells/ShieldBlock';
 
 import AngerManagement from './Modules/Talents/AngerManagement';
 
+import T21_2pc from './Modules/Items/T21_2pc';
+import ThundergodsVigor from './Modules/Items/ThundergodsVigor';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
@@ -24,6 +27,9 @@ class CombatLogParser extends CoreCombatLogParser {
     deathRecapTracker: DeathRecapTracker,
     //Talents
     angerManagement: AngerManagement,
+    //Items
+    t21: T21_2pc,
+    thunderlordsVigor: ThundergodsVigor,
   };
 }
 
