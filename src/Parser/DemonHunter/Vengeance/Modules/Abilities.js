@@ -162,6 +162,19 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
+          extraSuggestion: combatant.hasTalent(SPELLS.FLAME_CRASH_TALENT.id)?<span>Line this up with <SpellLink id={SPELLS.INFERNAL_STRIKE.id} />to double stack <SpellLink id={SPELLS.SIGIL_OF_FLAME.id} /> because of the <SpellLink id={SPELLS.FLAME_CRASH_TALENT.id} /> talent.</span>:<span>Cast on cooldown for a dps increase.</span>,
+        },
+      },
+      {
+        spell: SPELLS.SIGIL_OF_FLAME,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        enabled: combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id),
+        cooldown: 24,
+        isOnGCD: true,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+          extraSuggestion: combatant.hasTalent(SPELLS.FLAME_CRASH_TALENT.id)?<span>Line this up with <SpellLink id={SPELLS.INFERNAL_STRIKE.id} /> to double stack <SpellLink id={SPELLS.SIGIL_OF_FLAME.id} /> because of the <SpellLink id={SPELLS.FLAME_CRASH_TALENT.id} /> talent.</span>:<span>Cast on cooldown for a dps increase.</span>,
         },
       },
       {
@@ -173,6 +186,13 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SIGIL_OF_SILENCE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        enabled: combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id),
+        cooldown: 48,
+        isOnGCD: true,
+      },
+      {
+        spell: SPELLS.SIGIL_OF_SILENCE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
         isOnGCD: true,
       },
@@ -180,6 +200,13 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SIGIL_OF_MISERY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
+        isOnGCD: true,
+      },
+      {
+        spell: SPELLS.SIGIL_OF_MISERY,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        enabled: combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id),
+        cooldown: 48,
         isOnGCD: true,
       },
       {

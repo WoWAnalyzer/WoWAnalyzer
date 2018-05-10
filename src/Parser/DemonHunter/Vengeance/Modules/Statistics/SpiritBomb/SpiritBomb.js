@@ -48,7 +48,7 @@ class SpiritBomb extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SPIRIT_BOMB_TALENT.id} />}
         value={`${formatPercentage(spiritBombUptimePercentage)}%`}
-        label="Spirit Bomb debuff Uptime"
+        label="Spirit Bomb Debuff Uptime"
         tooltip={`The Spirit Bomb total damage was ${formatThousands(spiritBombDamage)}.<br/>The Spirit Bomb total uptime was ${formatDuration(spiritBombUptime / 1000)}.`}
       />
     );
