@@ -13,6 +13,7 @@ class Abilities extends CoreAbilities {
     return [
       {
         spell: SPELLS.HOLY_SHOCK_CAST,
+        buffSpellId: SPELLS.INFUSION_OF_LIGHT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => {
           const cdr = hasSanctifiedWrath && combatant.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.5 : 0;
@@ -37,6 +38,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.JUDGMENT_CAST,
+        buffSpellId: SPELLS.ILTERENDI_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 12 / (1 + haste),
         isOnGCD: true,
@@ -52,6 +54,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BESTOW_FAITH_TALENT,
+        buffSpellId: SPELLS.BESTOW_FAITH_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 12,
         isOnGCD: true,
@@ -75,6 +78,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BEACON_OF_VIRTUE_TALENT,
+        buffSpellId: SPELLS.BEACON_OF_VIRTUE_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 15,
         isOnGCD: true,
@@ -106,6 +110,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RULE_OF_LAW_TALENT,
+        buffSpellId: SPELLS.RULE_OF_LAW_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 30,
         charges: 2,
@@ -113,6 +118,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DIVINE_PROTECTION,
+        buffSpellId: SPELLS.DIVINE_PROTECTION.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         castEfficiency: {
@@ -123,6 +129,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DIVINE_SHIELD,
+        buffSpellId: SPELLS.DIVINE_SHIELD.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 5 * 60,
         isOnGCD: true,
@@ -135,28 +142,33 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.TYRS_DELIVERANCE_CAST,
+        buffSpellId: SPELLS.TYRS_DELIVERANCE_CAST.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         isOnGCD: true,
       },
       {
         spell: SPELLS.HOLY_AVENGER_TALENT,
+        buffSpellId: SPELLS.HOLY_AVENGER_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         enabled: combatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id),
       },
       {
         spell: SPELLS.AVENGING_WRATH,
+        buffSpellId: SPELLS.AVENGING_WRATH.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
       },
       {
         spell: SPELLS.BLESSING_OF_SACRIFICE,
+        buffSpellId: SPELLS.BLESSING_OF_SACRIFICE.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 150,
       },
       {
         spell: SPELLS.AURA_MASTERY,
+        buffSpellId: SPELLS.AURA_MASTERY.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
       },
@@ -171,6 +183,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.LIGHT_OF_THE_MARTYR,
+        buffSpellId: SPELLS.MARAADS_DYING_BREATH_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         isOnGCD: true,
       },
@@ -214,6 +227,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DIVINE_STEED,
+        buffSpellId: SPELLS.DIVINE_STEED_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         charges: combatant.hasTalent(SPELLS.CAVALIER_TALENT.id) ? 2 : 1,
         cooldown: 45,
@@ -227,12 +241,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLESSING_OF_FREEDOM,
+        buffSpellId: SPELLS.BLESSING_OF_FREEDOM.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 25,
         isOnGCD: true,
       },
       {
         spell: SPELLS.BLESSING_OF_PROTECTION,
+        buffSpellId: SPELLS.BLESSING_OF_PROTECTION.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 5 * 60,
         isOnGCD: true,
@@ -274,6 +290,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HAMMER_OF_JUSTICE,
+        buffSpellId: SPELLS.HAMMER_OF_JUSTICE.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
         isOnGCD: true,

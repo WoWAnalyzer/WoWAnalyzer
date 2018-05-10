@@ -12,7 +12,6 @@ import ItemHealingDone from 'Main/ItemHealingDone';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
-const LEGENDARY_ILTERENDI_BUFF_SPELL_ID = 207589;
 const LEGENDARY_ILTERENDI_HEALING_INCREASE = 0.15;
 
 class Ilterendi extends Analyzer {
@@ -31,7 +30,7 @@ class Ilterendi extends Analyzer {
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
       return;
     }
-    if (!this.combatants.selected.hasBuff(LEGENDARY_ILTERENDI_BUFF_SPELL_ID, event.timestamp)) {
+    if (!this.combatants.selected.hasBuff(SPELLS.ILTERENDI_BUFF.id, event.timestamp)) {
       return;
     }
 
