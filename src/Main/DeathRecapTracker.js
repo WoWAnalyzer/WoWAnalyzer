@@ -28,6 +28,7 @@ class DeathRecapTracker extends Analyzer {
       (e.category === Abilities.SPELL_CATEGORIES.DEFENSIVE || e.category === Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE) &&
       e.enabled === true
     );
+    //add additional defensive buffs/debuffs to common/DEFENSIVE_BUFFS
     this.buffs = DEFENSIVE_BUFFS.concat(this.cooldowns);
   }
 

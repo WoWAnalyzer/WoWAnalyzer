@@ -39,6 +39,7 @@ import MarkOfBloodUptime from './Modules/Talents/MarkOfBloodUptime';
 import FoulBulwark from './Modules/Talents/FoulBulwark';
 import Heartbreaker from './Modules/Talents/Heartbreaker';
 import Bloodworms from './Modules/Talents/Bloodworms';
+import WillOfTheNecropolis from './Modules/Talents/WillOfTheNecropolis';
 
 // Items
 import T20_2pc from './Modules/Items/T20_2pc';
@@ -102,6 +103,7 @@ class CombatLogParser extends CoreCombatLogParser {
     foulBulwark: FoulBulwark,
     heartbreaker: Heartbreaker,
     bloodworms: Bloodworms,
+    willOfTheNecropolis: WillOfTheNecropolis,
 
     // Traits
     RelicTraits: RelicTraits,

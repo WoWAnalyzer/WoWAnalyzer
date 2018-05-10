@@ -24,6 +24,16 @@ export default {
     name: 'Divine Steed',
     icon: 'ability_paladin_divinesteed',
   },
+  DIVINE_STEED_BUFF: {
+    id: 221883,
+    name: 'Divine Steed',
+    icon: 'ability_paladin_divinesteed',
+  },
+  DIVINE_STEED_BUFF_ALT: { // probably class mount glyph
+    id: 254471,
+    name: 'Divine Steed',
+    icon: 'ability_paladin_divinesteed',
+  },
   HAND_OF_RECKONING: {
     id: 62124,
     name: 'Hand of Reckoning',
@@ -243,6 +253,16 @@ export default {
     id: 197277,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
+  },
+  JUDGMENT_DEBUFF_HOLY: {
+    id: 214222,
+    name: 'Judgment',
+    icon: 'spell_holy_righteousfury',
+  },
+  ILTERENDI_BUFF: {
+    id: 207589,
+    name: 'Ilterendi, Crown Jewel of Silvermoon',
+    icon: 'spell_holy_impholyconcentration',
   },
   TEMPLARS_VERDICT_DAMAGE: {
     id: 224266,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, aryu, Zerotorescue, Hartra344, Putro, Sharrq, Hewhosmites, joshinator, kyleglick, CubeLuke, Aelexe } from 'CONTRIBUTORS';
+import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, aryu, Zerotorescue, Hartra344, Putro, Sharrq, Hewhosmites, joshinator, kyleglick, CubeLuke, Aelexe, niseko } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -8,8 +8,18 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-04-03'),
+    date: new Date('2018-05-10'),
     changes: <React.Fragment>Added Death Recap to track available cooldowns.</React.Fragment>,
+    contributors: [joshinator],
+  },
+  {
+    date: new Date('2018-05-09'),
+    changes: 'Implemented the possibility to show buffs and debuffs in the timeline.',
+    contributors: [niseko],
+  },
+  {
+    date: new Date('2018-05-02'),
+    changes: 'Added character-based report selection',
     contributors: [joshinator],
   },
   {
