@@ -6,8 +6,6 @@ import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
-import './DeathRecap.css';
-
 const SHOW_SECONDS_BEFORE_DEATH = 10;
 const AMOUNT_THRESHOLD =  0;
 
@@ -104,14 +102,14 @@ class DeathRecap extends React.PureComponent {
                   if (event.type === 'heal') {
                     percent = (lastHitPoints - event.amount) / lastMaxHitPoints;
                     output = <React.Fragment>
-                      <span className="event-heal">
+                      <span style={{ color: 'green' }}>
                         +{formatNumber(event.amount)} {event.overheal > 0 ? `(O: ${formatNumber(event.overheal)} )` : ''}
                       </span>
                     </React.Fragment>;
                   } else if (event.type === 'damage') {
                     percent = lastHitPoints / lastMaxHitPoints;
                     output = <React.Fragment>
-                      <span className="event-damage">
+                      <span style={{ color: 'red' }}>
                         -{formatNumber(event.amount)} {event.absorbed > 0 ? `(A: ${formatNumber(event.absorbed)} )` : ''}
                       </span>
                     </React.Fragment>;
@@ -137,7 +135,14 @@ class DeathRecap extends React.PureComponent {
                           {percent !== 0 && (
                             <div className="flex-sub performance-bar" style={{ color: 'white', width: formatPercentage(percent) + "%" }}></div>
                           )}
-                          <div className={`flex-sub performance-bar event-${event.type}`} style={{ width: formatPercentage(hitPercent) + "%", opacity: event.type === 'heal' ? .8 : .4 }}></div>
+                          <div 
+                            className={`flex-sub performance-bar`} 
+                            style={{ 
+                              backgroundColor: event.type === 'heal' ? 'green' : 'red', 
+                              width: formatPercentage(hitPercent) + "%", 
+                              opacity: event.type === 'heal' ? .8 : .4 }}
+                          >
+                          </div>
                         </div>
                       </td>
                       <td style={{ width: '15%'}}>
