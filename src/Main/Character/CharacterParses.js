@@ -29,7 +29,7 @@ const TRINKET_SLOTS = [12, 13];
 //Hunter or rogues have the same log multiple times with 'Ranged' or 'Melee' as spec
 //probably only there to allow filtering by multiple specs on WCLs character-page
 //we don't want those logs tho
-const EXCLUDED_GENERIC_SPECS_FROM_PARSES = ['Ranged', 'Melee']; 
+const EXCLUDED_GENERIC_SPECS_FROM_PARSES = ['Ranged', 'Melee', 'Healing'];
 
 class CharacterParses extends React.Component {
 
@@ -76,8 +76,8 @@ class CharacterParses extends React.Component {
   }
 
   updateZoneMetricBoss(zone, metric, boss) {
-    this.setState({ 
-      activeZoneID: zone, 
+    this.setState({
+      activeZoneID: zone,
       metric: metric,
       activeEncounter: boss,
     }, () => {
@@ -116,9 +116,9 @@ class CharacterParses extends React.Component {
     filteredParses = filteredParses
       .filter(elem => this.state.activeDifficulty.includes(elem.difficulty))
       .filter(elem => this.state.activeSpec.includes(elem.spec))
-      .sort((a, b) => { 
+      .sort((a, b) => {
         if (this.state.sortBy === ORDER_BY.DATE) {
-          return b.start_time - a.start_time; 
+          return b.start_time - a.start_time;
         } else if (this.state.sortBy === ORDER_BY.DPS) {
           return b.persecondamount - a.persecondamount;
         }
@@ -169,10 +169,11 @@ class CharacterParses extends React.Component {
                   icon: ITEMS[0].icon,
                   quality: singleParse.gear[slotID].quality,
                 };
+                this.forceUpdate();
               }
             });
           });
-      });
+        });
     });
 
     Object.values(ITEMS).forEach(trinket => {
@@ -201,7 +202,7 @@ class CharacterParses extends React.Component {
       });
       return;
     }
-    
+
     return fetch(`https://${this.props.region}.api.battle.net/wow/character/${encodeURIComponent(this.props.realm)}/${encodeURIComponent(this.props.name)}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
       .then(response => response.json())
       .then((data) => {
@@ -286,11 +287,11 @@ class CharacterParses extends React.Component {
                 <div className="col-md-12" style={{ marginBottom: 20, position: 'relative', height: 280 }}>
                   {this.state.image && (
                     <div className="char-image">
-                      <img 
+                      <img
                         src={`https://render-${this.props.region}.worldofwarcraft.com/character/${this.state.image}-main.jpg`}
-                        alt={"Character render of " + this.props.name }
+                        alt={'Character render of ' + this.props.name}
                         onError={e => this.setState({ image: null })}
-                        style={{ width: '100%' }} 
+                        style={{ width: '100%' }}
                       />
                     </div>
                   )}
@@ -299,34 +300,34 @@ class CharacterParses extends React.Component {
                     {this.props.name}
                   </h2>
                   {this.state.class && (
-                      <img
-                        src={`/specs/${this.state.class}-New.png`}
-                        alt={`Class icon of ${this.state.class}s`}
-                        style={{ height: 50, position: 'absolute', right: 12, top: 10 }}
-                      />
-                    )}
+                    <img
+                      src={`/specs/${this.state.class}-New.png`}
+                      alt={`Class icon of ${this.state.class}s`}
+                      style={{ height: 50, position: 'absolute', right: 12, top: 10 }}
+                    />
+                  )}
                 </div>
                 <div className="col-md-4">
                   Specs:
-                  {this.state.specs.map((elem, index) => 
-                    <div 
-                      key={index} 
-                      onClick={() => this.updateSpec(elem.replace(" ", ""))}
-                      className={this.state.activeSpec.includes(elem.replace(" ", "")) ? 'selected form-control' : 'form-control'}
+                  {this.state.specs.map((elem, index) =>
+                    <div
+                      key={index}
+                      onClick={() => this.updateSpec(elem.replace(' ', ''))}
+                      className={this.state.activeSpec.includes(elem.replace(' ', '')) ? 'selected form-control' : 'form-control'}
                     >
                       <img src={this.iconPath(elem)} style={{ height: 18, marginRight: 10 }} alt="Icon" />
                       {elem}
                     </div>
                   )}
                 </div>
-                
+
                 <div className="col-md-4">
                   Difficulties:
-                  {DIFFICULTIES.filter(elem => elem).map((elem, index) => 
-                    <div 
-                      key={index} 
-                      onClick={() => this.updateDifficulty(elem)} 
-                      className={ this.state.activeDifficulty.includes(elem) ? 'selected form-control' : 'form-control'}
+                  {DIFFICULTIES.filter(elem => elem).map((elem, index) =>
+                    <div
+                      key={index}
+                      onClick={() => this.updateDifficulty(elem)}
+                      className={this.state.activeDifficulty.includes(elem) ? 'selected form-control' : 'form-control'}
                     >
                       {elem}
                     </div>
@@ -334,8 +335,8 @@ class CharacterParses extends React.Component {
                 </div>
                 <div className="col-md-4">
                   Raid:
-                  <select 
-                    className="form-control" 
+                  <select
+                    className="form-control"
                     value={this.state.activeZoneID}
                     onChange={e => this.updateZoneMetricBoss(Number(e.target.value), this.state.metric, BOSS_DEFAULT_ALL_BOSSES)}
                   >
@@ -344,19 +345,19 @@ class CharacterParses extends React.Component {
                     )}
                   </select>
                   Boss:
-                  <select 
-                    className="form-control" 
-                    value={this.state.activeEncounter} 
+                  <select
+                    className="form-control"
+                    value={this.state.activeEncounter}
                     onChange={e => this.setState({ activeEncounter: e.target.value })}
                   >
                     <option value={BOSS_DEFAULT_ALL_BOSSES} defaultValue>All bosses</option>
-                    {this.zoneBosses.map(e => 
+                    {this.zoneBosses.map(e =>
                       <option key={e.id} value={e.name}>{e.name}</option>
                     )}
                   </select>
                   Metric:
-                  <select 
-                    className="form-control" 
+                  <select
+                    className="form-control"
                     value={this.state.metric}
                     onChange={e => this.updateZoneMetricBoss(this.state.activeZoneID, e.target.value, this.state.activeEncounter)}
                   >
@@ -364,7 +365,7 @@ class CharacterParses extends React.Component {
                     <option value="hps">HPS</option>
                   </select>
                   Sort by:
-                  <select 
+                  <select
                     className="form-control"
                     value={this.state.sortBy}
                     onChange={e => this.setState({ sortBy: Number(e.target.value) })}
@@ -399,8 +400,8 @@ class CharacterParses extends React.Component {
                 {!this.state.isLoading && (
                   <div className="panel-heading">
                     <h2 style={{ display: 'inline' }}>Parses</h2>
-                    <Link 
-                      to={''} 
+                    <Link
+                      to={''}
                       className="pull-right"
                       onClick={e => {
                         e.preventDefault();
@@ -417,21 +418,25 @@ class CharacterParses extends React.Component {
                       <h2>We couldn't find your character on Warcraft Logs.</h2>
                     </div>
                     <div style={{ padding: 20 }}>
-                      Please check your input and make sure that you've selected the correct region and realm.<br/>
-                      If your input was correct, then make sure that someone in your raid logged the fight for you or check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get started with logging on your own.<br/><br/>
+                      Please check your input and make sure that you've selected the correct region and realm.<br />
+                      If your input was correct, then make sure that someone in your raid logged the fight for you or check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get started with logging on your own.<br /><br />
                       When you know for sure that you have logs on Warcraft Logs and you still get this error, please message us on <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">Discord</a> or create an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">Github</a>.
                     </div>
                   </div>
                 )}
                 {this.filterParses.length === 0 && !this.state.isLoading && !this.state.error && (
                   <div style={{ padding: 20 }}>
-                    We couldn't find any logs.<br/>
-                    Please check your filters and make sure that you logged those fights on Warcraft Logs.<br/><br/>
+                    We couldn't find any logs.<br />
+                    Please check your filters and make sure that you logged those fights on Warcraft Logs.<br /><br />
                     You don't know how to log your fights? Check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get startet.
                   </div>
                 )}
                 {!this.state.isLoading && (
-                  <CharacterParsesList parses={this.filterParses} class={this.state.class} metric={this.state.metric} />
+                  <CharacterParsesList
+                    parses={this.filterParses}
+                    class={this.state.class}
+                    metric={this.state.metric}
+                  />
                 )}
               </div>
             </div>

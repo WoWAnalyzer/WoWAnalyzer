@@ -13,6 +13,7 @@ class Abilities extends CoreAbilities {
     return [
       {
         spell: SPELLS.HOLY_SHOCK_CAST,
+        buffSpellId: SPELLS.INFUSION_OF_LIGHT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => {
           const swCdr = hasSanctifiedWrath && combatant.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.5 : 0;
@@ -25,6 +26,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           extraSuggestion: 'Casting Holy Shock regularly is very important for performing well.',
         },
+        timelineSortIndex: 0,
       },
       {
         spell: SPELLS.LIGHT_OF_DAWN_CAST,
@@ -36,9 +38,11 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           extraSuggestion: 'Casting Light of Dawn regularly is very important for performing well.',
         },
+        timelineSortIndex: 10,
       },
       {
         spell: SPELLS.JUDGMENT_CAST,
+        buffSpellId: SPELLS.ILTERENDI_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => {
           const cdr = combatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id) ? 0.3 : 0;
@@ -54,9 +58,11 @@ class Abilities extends CoreAbilities {
           ),
           recommendedEfficiency: 0.85, // this rarely overheals, so keeping this on cooldown is pretty much always best
         },
+        timelineSortIndex: 20,
       },
       {
         spell: SPELLS.BESTOW_FAITH_TALENT,
+        buffSpellId: SPELLS.BESTOW_FAITH_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 12,
         isOnGCD: true,
@@ -69,6 +75,7 @@ class Abilities extends CoreAbilities {
             </React.Fragment>
           ),
         },
+        timelineSortIndex: 15,
         enabled: combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT.id),
       },
       {
@@ -76,13 +83,16 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,
         isOnGCD: true,
+        timelineSortIndex: 15,
         enabled: combatant.hasTalent(SPELLS.LIGHTS_HAMMER_TALENT.id),
       },
       {
         spell: SPELLS.BEACON_OF_VIRTUE_TALENT,
+        buffSpellId: SPELLS.BEACON_OF_VIRTUE_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 15,
         isOnGCD: true,
+        timelineSortIndex: 25,
         enabled: combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id),
       },
       {
@@ -103,6 +113,7 @@ class Abilities extends CoreAbilities {
           ),
           recommendedEfficiency: 0.35,
         },
+        timelineSortIndex: 50,
         enabled: combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id),
       },
       {
@@ -110,17 +121,21 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 20,
         isOnGCD: true,
+        timelineSortIndex: 11,
         enabled: combatant.hasTalent(SPELLS.HOLY_PRISM_TALENT.id),
       },
       {
         spell: SPELLS.RULE_OF_LAW_TALENT,
+        buffSpellId: SPELLS.RULE_OF_LAW_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 30,
         charges: 2,
+        timelineSortIndex: 30,
         enabled: combatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id),
       },
       {
         spell: SPELLS.DIVINE_PROTECTION,
+        buffSpellId: SPELLS.DIVINE_PROTECTION.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         castEfficiency: {
@@ -128,52 +143,67 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.6,
           importance: ISSUE_IMPORTANCE.MINOR,
         },
+        timelineSortIndex: 45,
       },
       {
         spell: SPELLS.DIVINE_SHIELD,
+        buffSpellId: SPELLS.DIVINE_SHIELD.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 5 * 60,
         isOnGCD: true,
+        timelineSortIndex: 46,
       },
       {
         spell: SPELLS.ARCANE_TORRENT_MANA,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         isUndetectable: true,
+        timelineSortIndex: 35,
       },
       {
         spell: SPELLS.TYRS_DELIVERANCE_CAST,
+        buffSpellId: SPELLS.TYRS_DELIVERANCE_CAST.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         isOnGCD: true,
+        timelineSortIndex: 31,
       },
       {
         spell: SPELLS.HOLY_AVENGER_TALENT,
+        buffSpellId: SPELLS.HOLY_AVENGER_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         enabled: combatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id),
+        timelineSortIndex: 33,
       },
       {
         spell: SPELLS.AVENGING_WRATH,
+        buffSpellId: SPELLS.AVENGING_WRATH.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
+        timelineSortIndex: 32,
         enabled: !combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id),
       },
       {
         spell: SPELLS.AVENGING_CRUSADER_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
+        timelineSortIndex: 32,
         enabled: combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id),
       },
       {
-        spell: SPELLS.BLESSING_OF_SACRIFICE,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 150,
-      },
-      {
         spell: SPELLS.AURA_MASTERY,
+        buffSpellId: SPELLS.AURA_MASTERY.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
+        timelineSortIndex: 34,
+      },
+      {
+        spell: SPELLS.BLESSING_OF_SACRIFICE,
+        buffSpellId: SPELLS.BLESSING_OF_SACRIFICE.id,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 150,
+        timelineSortIndex: 101,
       },
       {
         spell: SPELLS.LAY_ON_HANDS,
@@ -183,11 +213,14 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.1,
         },
+        timelineSortIndex: 101,
       },
       {
         spell: SPELLS.LIGHT_OF_THE_MARTYR,
+        buffSpellId: SPELLS.MARAADS_DYING_BREATH_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         isOnGCD: true,
+        timelineSortIndex: 19,
       },
       {
         spell: SPELLS.FLASH_OF_LIGHT,
@@ -198,6 +231,7 @@ class Abilities extends CoreAbilities {
           name: `Filler ${SPELLS.FLASH_OF_LIGHT.name}`,
           casts: castCount => (castCount.casts || 0) - (castCount.healingIolHits || 0),
         },
+        timelineSortIndex: 1,
       },
       {
         spell: SPELLS.FLASH_OF_LIGHT,
@@ -208,6 +242,7 @@ class Abilities extends CoreAbilities {
           name: `${SPELLS.INFUSION_OF_LIGHT.name} ${SPELLS.FLASH_OF_LIGHT.name}`,
           casts: castCount => castCount.healingIolHits || 0,
         },
+        timelineSortIndex: 1,
       },
       {
         spell: SPELLS.HOLY_LIGHT,
@@ -217,6 +252,7 @@ class Abilities extends CoreAbilities {
           name: `Filler ${SPELLS.HOLY_LIGHT.name}`,
           casts: castCount => (castCount.casts || 0) - (castCount.healingIolHits || 0),
         },
+        timelineSortIndex: 2,
       },
       {
         spell: SPELLS.HOLY_LIGHT,
@@ -226,36 +262,45 @@ class Abilities extends CoreAbilities {
           name: `${SPELLS.INFUSION_OF_LIGHT.name} ${SPELLS.HOLY_LIGHT.name}`,
           casts: castCount => castCount.healingIolHits || 0,
         },
+        timelineSortIndex: 2,
       },
       {
         spell: SPELLS.DIVINE_STEED,
+        buffSpellId: SPELLS.DIVINE_STEED_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         charges: combatant.hasTalent(SPELLS.CAVALIER_TALENT.id) ? 2 : 1,
         cooldown: 45,
         isOnGCD: true,
+        timelineSortIndex: 44,
       },
       {
         spell: SPELLS.CLEANSE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 8,
         isOnGCD: true,
+        timelineSortIndex: 100,
       },
       {
         spell: SPELLS.BLESSING_OF_FREEDOM,
+        buffSpellId: SPELLS.BLESSING_OF_FREEDOM.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 25,
         isOnGCD: true,
+        timelineSortIndex: 102,
       },
       {
         spell: SPELLS.BLESSING_OF_PROTECTION,
+        buffSpellId: SPELLS.BLESSING_OF_PROTECTION.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 5 * 60,
         isOnGCD: true,
+        timelineSortIndex: 103,
       },
       {
         spell: SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
+        timelineSortIndex: 110,
         enabled: combatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id),
       },
       {
@@ -263,6 +308,7 @@ class Abilities extends CoreAbilities {
         spell: [SPELLS.BEACON_OF_FAITH_TALENT, SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
+        timelineSortIndex: 110,
         enabled: combatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id),
       },
       {
@@ -273,6 +319,7 @@ class Abilities extends CoreAbilities {
           return 6 / (1 + haste) * (1 - cdr);
         },
         charges: 2,
+        timelineSortIndex: 50,
         enabled: !combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id),
         isOnGCD: true,
       },
@@ -280,25 +327,30 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CONSECRATION_CAST,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
         cooldown: haste => 9 / (1 + haste),
+        timelineSortIndex: 51,
         isOnGCD: true,
       },
       {
         spell: SPELLS.BLINDING_LIGHT_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 90,
+        timelineSortIndex: 104,
         enabled: combatant.hasTalent(SPELLS.BLINDING_LIGHT_TALENT.id),
         isOnGCD: true,
       },
       {
         spell: SPELLS.HAMMER_OF_JUSTICE,
+        buffSpellId: SPELLS.HAMMER_OF_JUSTICE.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
+        timelineSortIndex: 105,
         isOnGCD: true,
       },
       {
         spell: SPELLS.HAND_OF_RECKONING,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 8,
+        timelineSortIndex: 106,
       },
     ];
   }
