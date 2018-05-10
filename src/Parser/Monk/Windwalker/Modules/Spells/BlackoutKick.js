@@ -39,7 +39,7 @@ class BlackoutKick extends Analyzer {
     if (combatant.hasBuff(SPELLS.COMBO_BREAKER_BUFF.id) && combatant.hasBuff(SPELLS.WW_TIER21_2PC.id)) {
       event.meta = event.meta || {};
       event.meta.isEnhancedCast = true;
-      event.meta.inefficientCastReason = 'You had Combo Breaker Buff up for this Blackout Kick';
+      event.meta.enhancedCastReason = 'You had Combo Breaker and T21-2pc for this Blackout Kick';
       return;
     }
     

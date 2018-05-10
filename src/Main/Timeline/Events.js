@@ -65,11 +65,15 @@ class Events extends React.PureComponent {
         {fixedEvents.map((event, index) => {
           const meta = event.meta || {};
           if (event.type === 'cast') {
-            let className;
+            
+            let castClassName;
+            let castReason;
             if (meta.isInefficientCast) {
-              className = 'inefficient';
+              castClassName = 'inefficient';
+              castReason = meta.inefficientCastReason;
             } else if (meta.isEnhancedCast) {
-              className = 'enhanced';
+              castClassName = 'enhanced';
+              castReason = meta.enhancedCastReason;
             }
             const top = buffEvents ? 1 : -1;
             const height = 22; // only used if buffEvents
@@ -84,8 +88,8 @@ class Events extends React.PureComponent {
               >
                 <SpellIcon
                   id={event.ability.guid}
-                  className={className}
-                  data-tip={meta.inefficientCastReason}
+                  className={castClassName}
+                  data-tip={castReason}
                   style={buffEvents ? { height } : {}}
                 />
               </div>
