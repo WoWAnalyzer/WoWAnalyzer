@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-05-10'),
+    changes: 'Changed the order of spells in the timeline.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-05-10'),
     changes: 'Configured buffs triggered by spells so they appear in the timeline.',
     contributors: [Zerotorescue],
   },

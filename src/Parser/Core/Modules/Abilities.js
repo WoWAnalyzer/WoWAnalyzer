@@ -85,7 +85,7 @@ class Abilities extends Analyzer {
    */
   getTimelineSortIndex(spellId) {
     const ability = this.getAbility(spellId);
-    return ability ? (ability.timelineSortIndex || null) : undefined;
+    return ability ? ability.timelineSortIndex : undefined;
   }
 
   /*
