@@ -7,7 +7,7 @@ import 'gemini-scrollbar/gemini-scrollbar.css';
 import { formatDuration } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
-import Events from './Events';
+import SpellRow from './SpellRow';
 import DeathEvents from './DeathEvents';
 
 import './SpellTimeline.css';
@@ -192,7 +192,7 @@ class SpellTimeline extends React.PureComponent {
             </div>
           )}
           {this.spells.map(spellId => (
-            <Events
+            <SpellRow
               key={spellId}
               className="lane"
               events={historyBySpellId[spellId] || []}

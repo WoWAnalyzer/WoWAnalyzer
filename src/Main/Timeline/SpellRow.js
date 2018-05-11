@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 
 const RESTORE_CHARGE_TICK_WIDTH = 3;
 
-class Events extends React.PureComponent {
+class SpellRow extends React.PureComponent {
   static propTypes = {
     events: PropTypes.array,
     buffEvents: PropTypes.array,
@@ -156,4 +156,4 @@ class Events extends React.PureComponent {
   }
 }
 
-export default Events;
+export default SpellRow;
