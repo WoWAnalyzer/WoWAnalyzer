@@ -117,4 +117,12 @@ export default {
   [SPELLS.LAY_ON_HANDS.id]: {
     ignored: true,
   },
+
+  [SPELLS.STALWART_PROTECTOR.id]: { // General Paladin Azerite Power
+    int: false,
+    crit: false,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
 };
