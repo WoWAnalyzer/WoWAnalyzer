@@ -58,8 +58,7 @@ export default {
     id: 19750,
     name: 'Flash of Light',
     icon: 'spell_holy_flashheal',
-    manaCost: 3600,
-    baseMana: 0.18,
+    manaCost: 4000,
   },
   HAMMER_OF_JUSTICE: {
     id: 853,
@@ -115,7 +114,7 @@ export default {
     id: 82326,
     name: 'Holy Light',
     icon: 'spell_holy_surgeoflight',
-    manaCost: 2400,
+    manaCost: 2600,
   },
   LIGHT_OF_THE_MARTYR: {
     id: 183998,
