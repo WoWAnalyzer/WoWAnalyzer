@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-05-11'),
+    changes: <React.Fragment>Implement support for <SpellLink id={SPELLS.UNBREAKABLE_SPIRIT_TALENT.id} /> (improves timeline accuracy with this talent).</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-05-10'),
     changes: 'Changed the order of spells in the timeline.',
     contributors: [Zerotorescue],
