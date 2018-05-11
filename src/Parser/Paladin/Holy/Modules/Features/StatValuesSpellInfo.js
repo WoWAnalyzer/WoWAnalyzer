@@ -50,6 +50,13 @@ export default {
     mastery: true,
     vers: true,
   },
+  [SPELLS.HOLY_PRISM_HEAL_DIRECT.id]: {
+    int: true,
+    crit: true,
+    hasteHpct: false, // static CD
+    mastery: true,
+    vers: true,
+  },
   [SPELLS.HOLY_PRISM_HEAL.id]: {
     int: true,
     crit: true,

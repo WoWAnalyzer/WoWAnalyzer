@@ -132,6 +132,11 @@ export default {
     name: 'Light of the Martyr',
     icon: 'ability_paladin_lightofthemartyr',
   },
+  HOLY_PRISM_HEAL_DIRECT: {
+    id: 114871,
+    name: 'Holy Prism',
+    icon: 'spell_paladin_holyprism',
+  },
   HOLY_PRISM_HEAL: {
     id: 114852,
     name: 'Holy Prism',
