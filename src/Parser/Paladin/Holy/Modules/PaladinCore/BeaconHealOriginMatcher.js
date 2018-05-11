@@ -47,16 +47,13 @@ class BeaconHealOriginMatcher extends Analyzer {
   }
 
   processBeaconHealing(beaconTransferEvent) {
-    // This should make it near impossible to match the wrong spells as we usually don't cast multiple heals within 500ms while the beacon transfer usually happens within 100ms
-    this.healBacklog = this.healBacklog.filter(healEvent => (this.owner.currentTimestamp - healEvent.timestamp) < 500);
-
     if (debug) {
       this.sanityChecker(beaconTransferEvent);
     }
 
     const matchedHeal = this.healBacklog[0];
     if (!matchedHeal) {
-      this.error('BeaconHealOriginMatcher: No heal found for beacon transfer:', beaconTransferEvent);
+      this.error('No heal found for beacon transfer:', beaconTransferEvent);
       return;
     }
 
