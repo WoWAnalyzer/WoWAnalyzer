@@ -8,7 +8,7 @@ export default {
   JUDGMENT_OF_LIGHT_TALENT: { id: 183778, name: "Judgment of Light", icon: "spell_holy_divineprovidence" },
   FIST_OF_JUSTICE_TALENT_SHARED: { id: 198054, name: "Fist of Justice", icon: "spell_holy_fistofjustice" },
   // Holy
-  BESTOW_FAITH_TALENT: { id: 223306, name: "Bestow Faith", icon: "ability_paladin_blessedmending", manaCost: 13200 },
+  BESTOW_FAITH_TALENT: { id: 223306, name: "Bestow Faith", icon: "ability_paladin_blessedmending", manaCost: 1200 },
   LIGHTS_HAMMER_TALENT: { id: 114158, name: "Light's Hammer", icon: "spell_paladin_lightshammer", manaCost: 5600 },
   CRUSADERS_MIGHT_TALENT: { id: 196926, name: "Crusader's Might", icon: "ability_paladin_swiftretribution" },
   UNBREAKABLE_SPIRIT_TALENT: { id: 114154, name: "Unbreakable Spirit", icon: "spell_holy_unyieldingfaith" },
@@ -20,6 +20,7 @@ export default {
   HOLY_PRISM_TALENT: { id: 114165, name: "Holy Prism", icon: "spell_paladin_holyprism", manaCost: 3400 },
   FERVENT_MARTYR_TALENT: { id: 196923, name: "Fervent Martyr", icon: "ability_paladin_selflesshealer" },
   SANCTIFIED_WRATH_TALENT: { id: 53376, name: "Sanctified Wrath", icon: "ability_paladin_sanctifiedwrath" },
+  AWAKENING_TALENT: { id: 248033, name: "Awakening", icon: "inv_helm_plate_raidpaladin_n_01" },
   BEACON_OF_FAITH_TALENT: { id: 156910, name: "Beacon of Faith", icon: "ability_paladin_beaconsoflight", manaCost: 6864 },
   BEACON_OF_THE_LIGHTBRINGER_TALENT: { id: 197446, name: "Beacon of the Lightbringer", icon: "spell_paladin_clarityofpurpose" },
   BEACON_OF_VIRTUE_TALENT: { id: 200025, name: "Beacon of Virtue", icon: "ability_paladin_beaconofinsight", manaCost: 22000 },
