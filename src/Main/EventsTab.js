@@ -211,7 +211,7 @@ class EventsTab extends React.Component {
         }
 
         // Search Logic
-        if(searchTerms.length === 0) {
+        if (searchTerms.length === 0) {
           return true;
         }
 
@@ -219,13 +219,21 @@ class EventsTab extends React.Component {
         const target = this.findEntity(event.targetID);
 
         return searchTerms.some(searchTerm => {
-          if(event.ability !== undefined && event.ability.name.toLowerCase().includes(searchTerm)) {
+          if (event.ability !== undefined) {
+            // noinspection EqualityComparisonWithCoercionJS
+            if (event.ability.guid == searchTerm) { // eslint-disable-line eqeqeq
+              return true;
+            } else if (event.ability.name.toLowerCase().includes(searchTerm)) {
+              return true;
+            }
+          }
+          if (source !== null && source.name.toLowerCase().includes(searchTerm)) {
             return true;
-          } else if(source !== null && source.name.toLowerCase().includes(searchTerm)) {
+          }
+          if (target !== null && target.name.toLowerCase().includes(searchTerm)) {
             return true;
-          } else if(target !== null && target.name.toLowerCase().includes(searchTerm)) {
-            return true;
-          } else if(event.type !== null && event.type.toLowerCase().includes(searchTerm)) {
+          }
+          if (event.type !== null && event.type.toLowerCase().includes(searchTerm)) {
             return true;
           }
           return false;
