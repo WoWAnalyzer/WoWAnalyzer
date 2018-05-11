@@ -362,6 +362,21 @@ class EventsTab extends React.Component {
                         </React.Fragment>
                       );
                     }
+                    if (rowData.type === 'applybuff' && rowData.absorb !== undefined) {
+                      return (
+                        <React.Fragment>
+                          Applied an absorb of{' '}
+                          <span className='absorbed'>
+                            {formatThousands(rowData.absorb)}
+                          </span>{' '}
+                          <img
+                            src="/img/absorbed.png"
+                            alt="Absorbed"
+                            className="icon"
+                          />
+                        </React.Fragment>
+                      );
+                    }
                     if (rowData.type === 'energize') {
                       const resource = RESOURCE_TYPES[rowData.resourceChangeType];
                       if (resource) {
