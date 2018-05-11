@@ -6,4 +6,11 @@ export default {
 
   // <Dungeon 2> (insert name here)
   // ...
+
+  // Quests.............. upscaled in beta
+  DIEMETRADON_FRENZY: {
+    id: 268619,
+    name: 'Diemetradon Frenzy',
+    icon: 'item_aquaticfin_04',
+  },
 };

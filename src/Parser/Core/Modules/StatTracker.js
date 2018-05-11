@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SPECS from 'common/SPECS';
-import { calculateSecondaryStatDefault, calculatePrimaryStat } from 'common/stats';
+import { calculateSecondaryStatDefault, calculatePrimaryStat, calculateSecondaryStatJewelry } from 'common/stats';
 import { formatMilliseconds } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -117,6 +117,13 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.HORN_OF_VALOR.id,
       haste: (_, item) => calculatePrimaryStat(820, 2332, item.itemLevel),
     },
+
+    // BFA quests
+    [SPELLS.DIEMETRADON_FRENZY.id]: {
+      itemId: ITEMS.ENGRANGED_DIEMETRADON_FIN.id,
+      haste: (_, item) => calculateSecondaryStatJewelry(172, 160, item.itemLevel),
+    },
+
     //endregion
 
     // region Raid Trinkets
