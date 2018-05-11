@@ -17,9 +17,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => {
           const swCdr = hasSanctifiedWrath && combatant.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.5 : 0;
-          // At the current alpha patch (April 14th), AC also looks to affect the Holy Shock cooldown recovery rate even though the tooltip does not mention it is intended to do so. This is considered an in-game bug.
-          const acCdr = combatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id) ? 0.3 : 0;
-          return 9 / (1 + haste) * (1 - swCdr) * (1 - acCdr);
+          return 9 / (1 + haste) * (1 - swCdr);
         },
         isOnGCD: true,
         castEfficiency: {
