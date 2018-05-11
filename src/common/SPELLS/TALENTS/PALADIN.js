@@ -21,7 +21,7 @@ export default {
   FERVENT_MARTYR_TALENT: { id: 196923, name: "Fervent Martyr", icon: "ability_paladin_selflesshealer" },
   SANCTIFIED_WRATH_TALENT: { id: 53376, name: "Sanctified Wrath", icon: "ability_paladin_sanctifiedwrath" },
   AWAKENING_TALENT: { id: 248033, name: "Awakening", icon: "inv_helm_plate_raidpaladin_n_01" },
-  BEACON_OF_FAITH_TALENT: { id: 156910, name: "Beacon of Faith", icon: "ability_paladin_beaconsoflight", manaCost: 6864 },
+  BEACON_OF_FAITH_TALENT: { id: 156910, name: "Beacon of Faith", icon: "ability_paladin_beaconsoflight", manaCost: 625 },
   BEACON_OF_THE_LIGHTBRINGER_TALENT: { id: 197446, name: "Beacon of the Lightbringer", icon: "spell_paladin_clarityofpurpose" },
   BEACON_OF_VIRTUE_TALENT: { id: 200025, name: "Beacon of Virtue", icon: "ability_paladin_beaconofinsight", manaCost: 22000 },
   DIVINE_PURPOSE_TALENT_HOLY: { id: 197646, name: "Divine Purpose", icon: "spell_holy_divinepurpose" },

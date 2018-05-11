@@ -4,8 +4,6 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import TALENTS from './TALENTS/PALADIN';
-
 export default {
   // Paladin:
   CRUSADER_STRIKE: {
@@ -72,7 +70,6 @@ export default {
     name: 'Mastery: Lightbringer',
     icon: 'inv_hammer_04',
   },
-  BEACON_OF_FAITH_TALENT: { ...TALENTS.BEACON_OF_FAITH_TALENT, manaCost: 6875 },
   BEACON_OF_LIGHT_HEAL: {
     id: 53652,
     name: 'Beacon of Light',
