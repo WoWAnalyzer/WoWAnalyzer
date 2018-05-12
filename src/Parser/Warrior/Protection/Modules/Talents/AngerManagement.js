@@ -64,7 +64,7 @@ class AngerManagement extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ANGER_MANAGEMENT_TALENT.id} />}
-        value={`${formatDuration((this.effectiveReduction[SPELLS.DEMORALIZING_SHOUT.id] + this.wastedReduction[SPELLS.DEMORALIZING_SHOUT.id]) / 1000)} sec`}
+        value={`${formatDuration((this.effectiveReduction[SPELLS.DEMORALIZING_SHOUT.id] + this.wastedReduction[SPELLS.DEMORALIZING_SHOUT.id]) / 1000)} min`}
         label={`possible cooldown reduction`}
         tooltip={`${this.tooltip}`}
       />

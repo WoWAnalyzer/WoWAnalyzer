@@ -33,7 +33,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.IGNORE_PAIN,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        buffSpellId: SPELLS.IGNORE_PAIN.id,
       },
       {
         spell: SPELLS.NELTHARIONS_FURY,
@@ -42,21 +43,25 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SHIELD_BLOCK,
+        buffSpellId: SPELLS.SHIELD_BLOCK_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: haste => 13 / (1 + haste),
       },
       {
         spell: SPELLS.DEMORALIZING_SHOUT,
+        buffSpellId: SPELLS.DEMORALIZING_SHOUT.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 90,
       },
       {
         spell: SPELLS.LAST_STAND,
+        buffSpellId: SPELLS.LAST_STAND.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
       },
       {
         spell: SPELLS.SHIELD_WALL,
+        buffSpellId: SPELLS.SHIELD_WALL.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 240,
       },
@@ -87,6 +92,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BATTLE_CRY,
+        buffSpellId: SPELLS.BATTLE_CRY.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         castEfficiency: {

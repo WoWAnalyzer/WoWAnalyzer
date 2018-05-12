@@ -41,14 +41,6 @@ const DEFENSIVE_BUFFS = [
   {
     spell: SPELLS.SHROUD_OF_PURGATORY,
   },
-  
-  //Protection Warrior
-  {
-    spell: SPELLS.SHIELD_BLOCK_BUFF,
-  },
-  {
-    spell: SPELLS.IGNORE_PAIN,
-  },
 ];
 
 export default DEFENSIVE_BUFFS;

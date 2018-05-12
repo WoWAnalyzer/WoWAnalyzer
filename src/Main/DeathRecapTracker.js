@@ -40,7 +40,7 @@ class DeathRecapTracker extends Analyzer {
     if (event.hitPoints === 0) {
       extendedEvent.buffsUp = this.lastBuffs;
     } else {
-      extendedEvent.buffsUp = this.buffs.filter(e => this.combatants.selected.hasBuff(e.spell.id));
+      extendedEvent.buffsUp = this.buffs.filter(e => this.combatants.selected.hasBuff(e.spell.buffSpellId) || this.combatants.selected.hasBuff(e.spell.id));
     }
     this.lastBuffs = extendedEvent.buffsUp; //save old buffs and reuse them when all buffs got already removed
     this.events.push(extendedEvent);
