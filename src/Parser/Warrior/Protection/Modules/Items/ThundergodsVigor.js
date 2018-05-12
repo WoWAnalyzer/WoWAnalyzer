@@ -34,9 +34,10 @@ class ThundergodsVigor extends Analyzer {
       const reductionEffective = this.spellUsable.reduceCooldown(SPELLS.DEMORALIZING_SHOUT.id, COOLDOWN_REDUCTION_MS);
       this.effectiveReduction += reductionEffective;
       this.wastedReduction += COOLDOWN_REDUCTION_MS - reductionEffective;
-    }else{
-      this.wastedReduction += COOLDOWN_REDUCTION_MS;
+      return;
     }
+      
+    this.wastedReduction += COOLDOWN_REDUCTION_MS;
   }
 
 

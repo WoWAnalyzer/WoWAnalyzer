@@ -24,16 +24,14 @@ class DeathRecapTracker extends Analyzer {
   };
 
   on_initialized() {
-    this.cooldowns = this.abilities.abilities.filter(e => 
-      (e.category === Abilities.SPELL_CATEGORIES.DEFENSIVE || e.category === Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE) &&
-      e.enabled === true
-    );
+    const hasCooldown = ability =>  (ability.category === Abilities.SPELL_CATEGORIES.DEFENSIVE || ability.category === Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE) && ability.enabled === true;
+    this.cooldowns = this.abilities.abilities.filter(hasCooldown);
     //add additional defensive buffs/debuffs to common/DEFENSIVE_BUFFS
-    this.buffs = DEFENSIVE_BUFFS.concat(this.cooldowns);
+    this.buffs = [...DEFENSIVE_BUFFS, ...this.cooldowns];
   }
 
   addEvent(event) {
-    const extendedEvent = event;
+    const extendedEvent = { ...event };
     extendedEvent.time = event.timestamp - this.owner.fight.start_time;
     extendedEvent.cooldownsAvailable = this.cooldowns.filter(e => this.spellUsable.isAvailable(e.spell.id));
     extendedEvent.cooldownsUsed = this.cooldowns.filter(e => !this.spellUsable.isAvailable(e.spell.id));
@@ -65,29 +63,29 @@ class DeathRecapTracker extends Analyzer {
 
   get secondsBeforeDeath() {
     const deaths = new Array(this.deaths.length);
-    this.deaths.forEach((deathtime, index) => {
-      deaths[index] = {
+    return this.deaths.map((deathtime, index) => {
+      return deaths[index] = {
         deathtime: deathtime,
         events: this.events,
         open: false,
       };
     });
-    return deaths;
   }
 
   tab() {
-    if (this.deaths.length > 0) {
-      return {
-        title: 'Death Recap',
-        url: 'death-recap',
-        render: () => (
-          <Tab>
-            <DeathRecap events={this.secondsBeforeDeath} />
-          </Tab>
-        ),
-      };
+    if (this.deaths.length === 0) {
+      return;
     }
-    return;
+
+    return {
+      title: 'Death Recap',
+      url: 'death-recap',
+      render: () => (
+        <Tab>
+          <DeathRecap events={this.secondsBeforeDeath} />
+        </Tab>
+      ),
+    };
   }
 }
 

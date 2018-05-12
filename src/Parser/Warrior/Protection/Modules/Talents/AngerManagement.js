@@ -34,30 +34,28 @@ class AngerManagement extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    if (event.classResources[0].type === RESOURCE_TYPES.RAGE.id && event.classResources[0].cost) {
-      const rageSpend = event.classResources[0].cost / 10;
-      const reduction = rageSpend / 10 * 1000;
-      COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach(e => {
-        if (!this.spellUsable.isOnCooldown(e)) {
-          this.wastedReduction[e] += reduction;
-        } else {
-          const effectiveReduction = this.spellUsable.reduceCooldown(e, reduction);
-          this.effectiveReduction[e] += effectiveReduction;
-          this.wastedReduction[e] += reduction - effectiveReduction;
-        }
-      });
-      this.totalRageSpend += rageSpend;
+    if (event.classResources[0].type !== RESOURCE_TYPES.RAGE.id || !event.classResources[0].cost) {
+      return;
     }
+
+    const rageSpend = event.classResources[0].cost / 10;
+    const reduction = rageSpend / 10 * 1000;
+    COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach(e => {
+      if (!this.spellUsable.isOnCooldown(e)) {
+        this.wastedReduction[e] += reduction;
+      } else {
+        const effectiveReduction = this.spellUsable.reduceCooldown(e, reduction);
+        this.effectiveReduction[e] += effectiveReduction;
+        this.wastedReduction[e] += reduction - effectiveReduction;
+      }
+    });
+    this.totalRageSpend += rageSpend;
   }
 
   get tooltip() {
-    let returnString = "";
-
-    COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach(e => {
-      returnString += `${ SPELLS[e].name }: ${ formatDuration(this.effectiveReduction[e] / 1000) } reduction (${ formatDuration(this.wastedReduction[e] / 1000) } wasted)<br>`;
-    });
-
-    return returnString;
+    return COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.reduce((a, e) => {
+      return a + `${ SPELLS[e].name }: ${ formatDuration(this.effectiveReduction[e] / 1000) } reduction (${ formatDuration(this.wastedReduction[e] / 1000) } wasted)<br>`;
+    }, "");
   }
 
   statistic() {
