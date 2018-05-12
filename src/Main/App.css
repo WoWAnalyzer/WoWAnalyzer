@@ -26,8 +26,6 @@ body {
   }
 }
 #app-mount {
-  display: flex;
-  flex-flow: column;
   min-height: 100vh;
   position: absolute;
   top: 0;
@@ -36,10 +34,7 @@ body {
   bottom: 0;
 }
 #app-mount > .app {
-  flex: 1 1 auto;
-}
-#app-mount > footer {
-  flex: 0 0 auto;
+  min-height: calc(100% + 410px);
 }
 .app > main > section:first-of-type {
   margin-top: 0;
