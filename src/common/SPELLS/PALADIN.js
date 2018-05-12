@@ -17,6 +17,12 @@ export default {
     icon: 'spell_holy_righteousfury',
     manaCost: 600,
   },
+  JUDGMENT_CAST_ALT: {
+    id: 275773,
+    name: 'Judgment',
+    icon: 'spell_holy_righteousfury',
+    manaCost: 600,
+  },
   DIVINE_STEED: {
     id: 190784,
     name: 'Divine Steed',
