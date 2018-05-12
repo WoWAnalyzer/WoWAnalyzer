@@ -105,7 +105,7 @@ export default {
   },
   [SPELLS.AVENGING_CRUSADER_HEAL.id]: {
     int: true,
-    crit: false, // https://cdn.discordapp.com/attachments/406441490533974017/434730955924832257/unknown.png based on only half the damage done
+    crit: true,
     hasteHpct: true,
     mastery: false, // it just raw scales off of the damage done
     vers: true,
