@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import GitHubIcon from 'Icons/GitHubMarkSmall';
+import PremiumIcon from 'Icons/Premium';
 
 import { getFightId, getPlayerName } from 'selectors/url/report';
 import { getReport } from 'selectors/report';
@@ -13,8 +14,8 @@ import { getReportProgress } from 'selectors/reportProgress';
 import makeAnalyzerUrl from '../makeAnalyzerUrl';
 import FightSelectorHeader from './FightSelectorHeader';
 import PlayerSelectorHeader from './PlayerSelectorHeader';
-import './NavigationBar.css';
 import LoadingBar from './LoadingBar';
+import './NavigationBar.css';
 
 class NavigationBar extends React.PureComponent {
   static propTypes = {
