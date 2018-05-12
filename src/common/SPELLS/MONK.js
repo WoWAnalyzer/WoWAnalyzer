@@ -5,7 +5,7 @@
  */
 
 export default {
-  // Shared 
+  // Shared
   BLACKOUT_KICK: {
     id: 100784,
     name: 'Blackout Kick',
@@ -780,6 +780,14 @@ export default {
   FOCUS_OF_XUEN: {
     id: 252768,
     name: 'Focus of Xuen',
+    icon: 'ability_monk_roundhousekick',
+  },
+
+
+  // BfA Talents For Now - Remove on Prepatch
+  RISING_MIST: {
+    id: 274909,
+    name: 'Rising Mist',
     icon: 'ability_monk_roundhousekick',
   },
 };

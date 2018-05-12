@@ -3,15 +3,9 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Haste from 'Parser/Core/Modules/Haste';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
-import Mastery from '../Mastery';
 
 const PANDEMIC_FACTOR = 1.3;
 const PANDEMIC_EXTRA = 0.3;
-
-const REJUV_IDS = [
-  SPELLS.REJUVENATION.id,
-  SPELLS.REJUVENATION_GERMINATION.id,
-];
 
 // tolerated difference between expected and actual HoT fall before a 'mismatch' is logged
 const EXPECTED_REMOVAL_THRESHOLD = 200;
@@ -28,7 +22,6 @@ const healDebug = false; // logs tracking HoT heals
 class HotTracker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    mastery: Mastery,
     haste: Haste,
   };
 
@@ -51,53 +44,6 @@ class HotTracker extends Analyzer {
     }
     const targetId = event.targetID;
     const healing = event.amount + (event.absorbed || 0);
-
-    // handle Mastery attribution
-    if (this.hots[targetId]) {
-      const oneStack = this.mastery.decomposeHeal(event).oneStack;
-      Object.values(this.hots[targetId]).forEach(otherHot => {
-        if (otherHot.spellId !== spellId) {
-          otherHot.attributions.forEach(att => att.masteryHealing += oneStack);
-
-          // boosts don't get mastery benefit because the hot was there with or without the boost
-
-          // to avoid making a crazy number of array elements but still be able to include mastery info for extensions,
-          // mastery healing stored with the tick that immediately preceded it, can be read from there while calc extension benefit
-          const numTicks = otherHot.ticks.length;
-          if(numTicks > 0) {
-            otherHot.ticks[numTicks-1].masteryHealing += oneStack;
-          }
-        }
-      });
-    }
-
-    // handle Dreamwalker attribution (can be attributed to rejuvenation that procced it)
-    if (spellId === SPELLS.DREAMWALKER.id) {
-      if (!this.hots[targetId]) {
-        console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp, 1)} but there is no Rejuvenation on that target???`);
-        return;
-      }
-      const rejuvsOnTarget = Object.values(this.hots[targetId]).filter(otherHot => REJUV_IDS.includes(otherHot.spellId));
-      if (rejuvsOnTarget.length === 0) {
-        console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp, 1)} but there is no Rejuvenation on that target???`);
-      } else if (rejuvsOnTarget.length === 1) { // for now only attribute if one rejuv on target .... TODO more complex logic for handling rejuv + germ
-        const rejuv = rejuvsOnTarget[0];
-        rejuv.attributions.forEach(att => att.dreamwalkerHealing += healing);
-
-        // boosts don't get dreamwalker benefit because the hot was there with or without the boost
-
-        // to avoid making a crazy number of array elements but still be able to include dreamwalker info for extensions,
-        // dreamwalker healing stored with the tick that immediately preceded it, can be read from there while calc extension benefit
-        const numTicks = rejuv.ticks.length;
-        if(numTicks > 0) {
-          const mostRecentTick = rejuv.ticks[numTicks-1];
-          if (!mostRecentTick.dreamwalkerHealing) {
-            mostRecentTick.dreamwalkerHealing = 0;
-          }
-          mostRecentTick.dreamwalkerHealing += healing;
-        }
-      }
-    }
 
     if(!this._validateHot(event)) {
       return;
@@ -417,39 +363,15 @@ class HotTracker extends Analyzer {
 
   _generateHotInfo() { // must be generated dynamically because it reads from traits
     return {
-      [SPELLS.REJUVENATION.id]: {
-        duration: 15000 + (1000 * this.combatants.selected.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id]),
-        tickPeriod: 3000,
-      },
-      [SPELLS.REJUVENATION_GERMINATION.id]: {
-        duration: 15000 + (1000 * this.combatants.selected.traitsBySpellId[SPELLS.PERSISTENCE_TRAIT.id]),
-        tickPeriod: 3000,
-      },
-      [SPELLS.REGROWTH.id]: {
-        duration: 12000,
+      [SPELLS.RENEWING_MIST_HEAL.id]: {
+        duration: 20000,
         tickPeriod: 2000,
       },
-      [SPELLS.WILD_GROWTH.id]: {
-        duration: 7000,
+      [SPELLS.ENVELOPING_MISTS.id]: {
+        duration: 6000,
         tickPeriod: 1000,
       },
-      [SPELLS.LIFEBLOOM_HOT_HEAL.id]: {
-        duration: 15000,
-        tickPeriod: 1000,
-      },
-      [SPELLS.CENARION_WARD.id]: {
-        duration: 8000,
-        tickPeriod: 2000,
-      },
-      [SPELLS.CULTIVATION.id]: {
-        duration: 6000,
-        tickPeriod: 2000,
-      },
-      [SPELLS.SPRING_BLOSSOMS.id]: {
-        duration: 6000,
-        tickPeriod: 2000,
-      },
-      [SPELLS.DREAMER.id]: {
+      [SPELLS.ESSENCE_FONT_BUFF.id]: {
         duration: 8000,
         tickPeriod: 2000,
       },
