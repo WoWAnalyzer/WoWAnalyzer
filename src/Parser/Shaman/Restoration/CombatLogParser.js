@@ -27,6 +27,7 @@ import Torrent from './Modules/Talents/Torrent';
 import UnleashLife from './Modules/Talents/UnleashLife';
 import Undulation from './Modules/Talents/Undulation';
 import AncestralGuidance from './Modules/Talents/AncestralGuidance';
+import Deluge from './Modules/Talents/Deluge';
 import EarthenShieldTotem from './Modules/Talents/EarthenShieldTotem';
 import CloudburstTotem from './Modules/Talents/CloudburstTotem';
 import Ascendance from './Modules/Talents/Ascendance';
@@ -50,6 +51,7 @@ import HighfathersMachination from './Modules/Items/HighfathersMachination';
 import EonarsCompassion from './Modules/Items/EonarsCompassion';
 import TarratusKeystone from './Modules/Items/TarratusKeystone';
 import VelensFutureSight from './Modules/Items/VelensFutureSight';
+import ElementalRebalancers from './Modules/Items/ElementalRebalancers';
 
 import ChainHeal from './Modules/Spells/ChainHeal';
 import HealingSurge from './Modules/Spells/HealingSurge';
@@ -60,6 +62,7 @@ import LavaSurge from './Modules/Spells/LavaSurge';
 import Resurgence from './Modules/Spells/Resurgence';
 
 import CloudburstNormalizer from './Normalizers/CloudburstNormalizer';
+import DelugeNormalizer from './Normalizers/DelugeNormalizer';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -90,6 +93,7 @@ class CombatLogParser extends CoreCombatLogParser {
     unleashLife: UnleashLife,
     undulation: Undulation,
     ancestralGuidance: AncestralGuidance,
+    deluge: Deluge,
     earthenShieldTotem: EarthenShieldTotem,
     cloudburstTotem: CloudburstTotem,
     ascendance: Ascendance,
@@ -114,6 +118,7 @@ class CombatLogParser extends CoreCombatLogParser {
     eonarsCompassion: EonarsCompassion,
     tarratusKeystone: TarratusKeystone,
     velensFutureSight: VelensFutureSight,
+    elementalRebalancers: ElementalRebalancers,
 
     // Spells:
     chainHeal: ChainHeal,
@@ -126,6 +131,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Normalizers:
     cloudburstNormalizer: CloudburstNormalizer,
+    delugeNormalizer: DelugeNormalizer,
   };
 
   generateResults() {
