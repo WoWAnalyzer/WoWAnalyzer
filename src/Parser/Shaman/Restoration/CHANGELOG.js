@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-05-12'),
+    changes: <React.Fragment>Added support for <SpellLink id={SPELLS.DELUGE_TALENT.id} /> and <ItemLink id={ITEMS.ELEMENTAL_REBALANCERS.id}/>.</React.Fragment>,
+    contributors: [niseko],
+  },
+  {
     date: new Date('2018-05-02'),
     changes: <React.Fragment>Inneficient <SpellLink id={SPELLS.HEALING_WAVE.id} /> casts will now be highlighted in the timeline with a red border.</React.Fragment>,
     contributors: [niseko],
