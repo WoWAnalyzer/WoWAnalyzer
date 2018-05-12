@@ -9,7 +9,6 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from 'common/ITEMS/HUNTER';
 import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
 
 const T20_2P_INCREASE = 6000;
 
@@ -173,7 +172,7 @@ class Lacerate extends Analyzer {
   suggestions(when) {
     if (this.combatants.selected.hasBuff(SPELLS.HUNTER_SV_T20_2P_BONUS.id)) {
       when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>When you're using <ItemLink id={ITEMS.HUNTER_SV_T20_2P_BONUS.id} />, it's worth maintaining a higher uptime of <SpellLink id={SPELLS.LACERATE.id} /> than you otherwise would.</React.Fragment>)
+        return suggest(<React.Fragment>When you're using <SpellLink id={SPELLS.HUNTER_SV_T20_2P_BONUS.id} />, it's worth maintaining a higher uptime of <SpellLink id={SPELLS.LACERATE.id} /> than you otherwise would.</React.Fragment>)
           .icon(SPELLS.LACERATE.icon)
           .actual(`${formatPercentage(actual)}% Lacerate uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);

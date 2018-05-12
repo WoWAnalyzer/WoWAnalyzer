@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import PremiumIcon from 'Icons/Premium';
 import GitHubIcon from 'Icons/GitHubMarkSmall';
 
 import { getFightId, getPlayerName } from 'selectors/url/report';
@@ -32,7 +31,7 @@ class NavigationBar extends React.PureComponent {
     const { playerName, report, fight, progress } = this.props;
 
     return (
-      <nav>
+      <nav className="global">
         <div className="container">
           <div className="menu-item logo main">
             <Link to={makeAnalyzerUrl()}>

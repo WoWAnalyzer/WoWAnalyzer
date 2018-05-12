@@ -804,6 +804,39 @@ code.inactive {
   margin: 10px 0;
 }
 
+.parse-grey {
+  color: #666 !important;
+}
+
+.parse-green {
+  color: rgb(30, 255, 0) !important;
+}
+
+.parse-blue {
+  color: rgb(0, 112, 255) !important;
+}
+
+.parse-purple {
+  color: rgb(163, 53, 238) !important;
+}
+
+.parse-orange {
+  color: rgb(255, 128, 0) !important;
+}
+
+.parse-artifact {
+  color: rgb(229, 204, 128) !important;
+}
+
+.pseudolink {
+  color: #e45a5a;
+  cursor: pointer;
+}
+
+.pseudolink:hover {
+  color: #ad4b4b;
+}
+
 .modal {
   position: fixed;
   top: 40px;

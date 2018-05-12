@@ -25,10 +25,14 @@ function escapeHtml(unsafe) {
 }
 // Load the index file into memory so we don't have to access it all the time
 const index = fs.readFileSync(path.join(buildFolder, 'index.html'), 'utf8');
-router.get(['/', '/news/:article', '/premium', '/contributor/:contributor'], (req, res) => {
+router.get(['/', '/premium', '/news/:article', '/contributor/:contributor', '/character/:region/:realm/:player'], (req, res) => {
   res.send(index);
 });
-router.get('/report/:reportCode([A-Za-z0-9]+)/:fightId([0-9]+)?:fightName(-[^/]+)?/:playerId([0-9]+-)?:playerName([^/]{2,})?/:tab([A-Za-z0-9-]+)?', (req, res) => {
+router.get([
+  '/report/:reportCode([A-Za-z0-9]+)/:fightId([0-9]+)?:fightName(-[^/]+)?/:playerId([0-9]+-)?:playerName([^/]{2,})?/:tab([A-Za-z0-9-]+)?',
+  // This is the same route as above but without `playerId` since this breaks links without player id and with special characters such as: https://wowanalyzer.com/report/Y8GbgcB6d9ptX3K7/7-Mythic+Demonic+Inquisition+-+Wipe+1+(5:15)/Rootzô
+  '/report/:reportCode([A-Za-z0-9]+)/:fightId([0-9]+)?:fightName(-[^/]+)?/:playerName([^/]{2,})?/:tab([A-Za-z0-9-]+)?',
+], (req, res) => {
   let response = index;
   if (req.params.fightName) {
     const fightName = decodeURI(req.params.fightName.substr(1).replace(/\+/g, ' '));

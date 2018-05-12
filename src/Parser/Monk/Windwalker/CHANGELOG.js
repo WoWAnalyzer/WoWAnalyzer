@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-05-10'),
+    changes: <React.Fragment>Added highlighting Combo Breaker casts of <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> in Spellcast Timeline</React.Fragment>,
+    contributors: [Coryn],
+  },
+  {
     date: new Date('2018-03-15'),
     changes: <React.Fragment>Added module tracking bad casts of <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> </React.Fragment>,
     contributors: [Juko8],

@@ -24,6 +24,7 @@ import makeAnalyzerUrl from './makeAnalyzerUrl';
 import Report from './Report';
 import ContributorDetails from './Contributors/ContributorDetails';
 import Premium from './Premium';
+import CharacterParses from './Character/CharacterParses';
 import Header from './Header';
 
 function isIE() {
@@ -146,6 +147,12 @@ class App extends React.Component {
       <Switch>
         <Route path="/contributor/:id" render={({ match }) => (
           <ContributorDetails contributorId={decodeURI(match.params.id.replace(/\+/g, ' '))} ownPage />
+        )} />
+        <Route path="/character/:region/:realm/:name" render={({ match }) => (
+          <CharacterParses 
+            region={decodeURI(match.params.region.replace(/\+/g, ' '))} 
+            realm={decodeURI(match.params.realm.replace(/\+/g, ' '))} 
+            name={decodeURI(match.params.name.replace(/\+/g, ' '))} />
         )} />
         <Route path="/news/:articleId" render={({ match }) => (
           <NewsView articleId={decodeURI(match.params.articleId.replace(/\+/g, ' '))} />
