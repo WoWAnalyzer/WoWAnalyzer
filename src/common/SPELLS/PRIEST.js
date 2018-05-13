@@ -6,6 +6,11 @@
 
 export default {
   // Discipline Priest:
+  REVERENCE: {
+    id: 271534,
+    name: 'Mastery: Reverence',
+    icon: 'spell_priest_chakra',
+  },
   PENANCE: {
     id: 47666,
     name: 'Penance',
@@ -13,7 +18,8 @@ export default {
     manaCost: 30800,
     coefficient: 0.4,
   },
-  PENANCE_HEAL: { // Penance on a friendly player
+  PENANCE_HEAL: {
+    // Penance on a friendly player
     id: 47750,
     name: 'Penance',
     icon: 'spell_holy_penance',
@@ -78,7 +84,7 @@ export default {
   },
   LIGHTS_WRATH: {
     id: 207946,
-    name: 'Light\'s Wrath',
+    name: "Light's Wrath",
     icon: 'inv_staff_2h_artifacttome_d_01',
   },
   MIND_CONTROL: {
@@ -203,7 +209,7 @@ export default {
   },
   KAM_XIRAFF_BUFF: {
     id: 233997,
-    name: 'Kam Xi\'raff',
+    name: "Kam Xi'raff",
     icon: 'ability_priest_savinggrace',
   },
   TWIST_OF_FATE_BUFF: {
@@ -218,7 +224,7 @@ export default {
   },
   ESTEL_DEJAHNAS_INSPIRATION_BUFF: {
     id: 214637,
-    name: 'Dejahna\'s Inspiration',
+    name: "Dejahna's Inspiration",
     icon: 'spell_holy_heal',
   },
   LUMINOUS_BARRIER: {
@@ -347,7 +353,7 @@ export default {
   // Trait related spells
   LIGHT_OF_TUURE_TRAIT: {
     id: 208065,
-    name: 'Light of T\'uure',
+    name: "Light of T'uure",
     icon: 'inv_staff_2h_artifactheartofkure_d_01',
     duration: 10,
   },
@@ -399,7 +405,7 @@ export default {
   // Buffs
   BLESSING_OF_TUURE_BUFF: {
     id: 196644,
-    name: 'Blessing of T\'uure',
+    name: "Blessing of T'uure",
     icon: 'inv_pet_naaru',
   },
 
@@ -418,7 +424,7 @@ export default {
   // Holy Legendaries
   XANSHI_CLOAK_BUFF: {
     id: 211336,
-    name: 'Xan\'shi, Shroud of Archbishop Benedictus',
+    name: "Xan'shi, Shroud of Archbishop Benedictus",
     icon: 'inv_enchant_essencemagiclarge',
   },
 
@@ -608,14 +614,14 @@ export default {
 
   HEART_OF_THE_VOID_HEAL: {
     id: 248219,
-    name: "Heart of the Void",
+    name: 'Heart of the Void',
     icon: 'spell_priest_void-blast',
   },
 
   THE_TWINS_PAINFUL_TOUCH: {
     id: 207724,
     name: "The Twins' Painful Touch",
-    icon: "spell_shadow_mindflay",
+    icon: 'spell_shadow_mindflay',
   },
 
   SHADOW_PRIEST_T21_2SET_BONUS_PASSIVE: {

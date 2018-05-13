@@ -53,7 +53,7 @@ import Penance from './Modules/Spells/Penance';
 import TouchOfTheGrave from './Modules/Spells/TouchOfTheGrave';
 import LuminousBarrier from './Modules/Spells/LuminousBarrier';
 import Contrition from './Modules/Spells/Contrition';
-
+import Reverence from './Modules/Spells/Reverence';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -113,6 +113,7 @@ class CombatLogParser extends CoreCombatLogParser {
     touchOfTheGrave: TouchOfTheGrave,
     luminousBarrier: LuminousBarrier,
     contrition: Contrition,
+    reverence: Reverence,
   };
 
   generateResults() {
