@@ -32,7 +32,7 @@ class Deluge extends Analyzer {
       return;
     }
 
-    const healingRainDuration = this.abilities.getExpectedCooldownDuration(SPELLS.HEALING_RAIN_CAST.id);
+    const healingRainDuration = this.abilities.getExpectedCooldownDuration(SPELLS.HEALING_RAIN_CAST.id); // healing rain lasts longer than the duration, check for it
     if ((event.timestamp <= this.healingRainTimestamp + healingRainDuration) || (!this.healingRainTimestamp && event.timestamp <= this.owner.fight.start_time + healingRainDuration)) {
       if(_isPlayerInsideHealingRain(event, this.healingRainIndex)){
         this.healing += calculateEffectiveHealing(event, DELUGE_HEALING_INCREASE);
@@ -44,7 +44,7 @@ class Deluge extends Analyzer {
     if (!combatant) {
       return;
     }
-    
+
     const hasBuff = combatant.hasBuff(SPELLS.RIPTIDE.id, event.timestamp);
     if (!hasBuff) {
       return;
@@ -71,7 +71,6 @@ class Deluge extends Analyzer {
       return;
     }
 
-    
     this.healingRainTimestamp = event.timestamp;
   }
 
