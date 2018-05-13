@@ -22,7 +22,6 @@ class Contrition extends Analyzer {
 
   healing = 0;
   damagePenalty = 0;
-  player = null;
   penanceBoltEstimation;
 
   on_initialized() {
@@ -48,11 +47,11 @@ class Contrition extends Analyzer {
     this.healing += event.amount;
 
     // Get an estimated amount of damage and healing for a bolt
-    const { damage, healing } = this.penanceBoltEstimation();
+    const { boltDamage, boltHealing } = this.penanceBoltEstimation();
 
     // Calculate the difference between contrition and an offensive penance
     if (event.ability.guid === SPELLS.CONTRITION_HEAL.id) {
-      const overhealing = healing - event.overheal;
+      const overhealing = boltHealing - event.overheal;
       const estimatedDifference = event.amount - (overhealing > 0 ? overhealing : 0);
 
       this.healing -= estimatedDifference;
@@ -60,7 +59,7 @@ class Contrition extends Analyzer {
 
     // Calculate (if applicable), the damage penalty per bolt of friendly penance
     if (event.ability.guid === SPELLS.PENANCE_HEAL.id) {
-      this.damagePenalty += damage;
+      this.damagePenalty += boltDamage;
     }
   }
 

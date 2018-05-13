@@ -27,8 +27,8 @@ export const OffensivePenanceBoltEstimation = statWrapper(
     );
 
     return {
-      damage: penanceBoltDamage,
-      healing: penanceBoltHealing,
+      boltDamage: penanceBoltDamage,
+      boltHealing: penanceBoltHealing,
     };
   }
 );
