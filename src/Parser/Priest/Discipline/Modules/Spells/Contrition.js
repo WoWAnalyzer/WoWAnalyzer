@@ -24,6 +24,14 @@ class Contrition extends Analyzer {
   damagePenalty = 0;
   penanceBoltEstimation;
 
+  static calculateOverhealing(estimateHealing, healing, overhealing = 0) {
+    if (estimateHealing - healing < 0) {
+      return 0;
+    }
+
+    return estimateHealing - healing;
+  }
+
   on_initialized() {
     this.active = this.owner.modules.combatants.selected.hasTalent(
       SPELLS.CONTRITION_TALENT.id
@@ -31,14 +39,6 @@ class Contrition extends Analyzer {
     this.penanceBoltEstimation = OffensivePenanceBoltEstimation(
       this.statTracker
     );
-  }
-
-  calculateOverhealing(estimateHealing, healing, overhealing = 0) {
-    if (estimateHealing - healing < 0) {
-      return 0;
-    }
-
-    return estimateHealing - healing;
   }
 
   /**
@@ -67,7 +67,7 @@ class Contrition extends Analyzer {
     // Calculate the difference between contrition and an offensive penance
     if (event.ability.guid === SPELLS.CONTRITION_HEAL.id) {
       const estimatedBoltHealing = boltHealing * event.hitType;
-      const estimatedOverhealing = this.calculateOverhealing(
+      const estimatedOverhealing = Contrition.calculateOverhealing(
         estimatedBoltHealing,
         event.amount,
         event.overheal

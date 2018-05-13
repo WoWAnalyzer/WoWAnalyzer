@@ -11,8 +11,8 @@ describe('Spell Calculations', () => {
     const boltEstimator = OffensivePenanceBoltEstimation(mockStatTracker());
 
     expect(boltEstimator()).toEqual({
-      damage: 40,
-      healing: 16,
+      boltDamage: 40,
+      boltHealing: 16,
     });
   });
 
@@ -20,8 +20,8 @@ describe('Spell Calculations', () => {
     const boltEstimator = OffensivePenanceBoltEstimation(mockStatTracker(100, .25));
 
     expect(boltEstimator()).toEqual({
-      damage: 50,
-      healing: 20,
+      boltDamage: 50,
+      boltHealing: 20,
     });
   });
 
@@ -29,8 +29,8 @@ describe('Spell Calculations', () => {
     const boltEstimator = OffensivePenanceBoltEstimation(mockStatTracker(100, 0, .25));
 
     expect(boltEstimator()).toEqual({
-      damage: 50,
-      healing: 20,
+      boltDamage: 50,
+      boltHealing: 20,
     });
   });
 
@@ -38,8 +38,8 @@ describe('Spell Calculations', () => {
     const boltEstimator = OffensivePenanceBoltEstimation(mockStatTracker(100, .25, .25));
 
     expect(boltEstimator()).toEqual({
-      damage: 63,
-      healing: 25,
+      boltDamage: 63,
+      boltHealing: 25,
     });
   });
 
