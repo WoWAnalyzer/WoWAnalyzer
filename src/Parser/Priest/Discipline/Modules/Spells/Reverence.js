@@ -41,15 +41,17 @@ class Reverence extends Analyzer {
   on_byPlayer_heal(event) {
     // Check if the heal is whitelisted
     if (!PRIEST_WHITELIST.includes(event.ability.guid)) {
-      return 0;
+      return;
     }
 
     // Get the target
     const target = this.combatants.getEntity(event);
 
+    if (!target) return;
+
     // Mastery only buffs players benefitting from Atonement
     if (!target.hasBuff(SPELLS.ATONEMENT_BUFF.id)) {
-      return 0;
+      return;
     }
 
     // Calculate healing
@@ -75,6 +77,7 @@ class Reverence extends Analyzer {
             Reverence contributed towards ${formatPercentage(
               this.owner.getPercentageOfTotalHealingDone(this.reverenceHealing)
             )}% of your healing.
+
 
             ${formatPercentage(
               this.owner.getPercentageOfTotalHealingDone(this.baseHealing)
