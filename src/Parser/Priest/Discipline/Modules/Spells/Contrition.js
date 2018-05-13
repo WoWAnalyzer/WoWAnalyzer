@@ -25,8 +25,20 @@ class Contrition extends Analyzer {
   penanceBoltEstimation;
 
   on_initialized() {
-    this.active = this.owner.modules.combatants.selected.hasTalent(SPELLS.CONTRITION_TALENT.id);
-    this.penanceBoltEstimation = OffensivePenanceBoltEstimation(this.statTracker);
+    this.active = this.owner.modules.combatants.selected.hasTalent(
+      SPELLS.CONTRITION_TALENT.id
+    );
+    this.penanceBoltEstimation = OffensivePenanceBoltEstimation(
+      this.statTracker
+    );
+  }
+
+  calculateOverhealing(estimateHealing, healing, overhealing = 0) {
+    if (estimateHealing - healing < 0) {
+      return 0;
+    }
+
+    return estimateHealing - healing;
   }
 
   /**
@@ -39,7 +51,10 @@ class Contrition extends Analyzer {
    * penance over a regular offensive one.
    */
   on_byPlayer_heal(event) {
-    if (event.ability.guid !== SPELLS.CONTRITION_HEAL.id && event.ability.guid !== SPELLS.PENANCE_HEAL.id) {
+    if (
+      event.ability.guid !== SPELLS.CONTRITION_HEAL.id &&
+      event.ability.guid !== SPELLS.PENANCE_HEAL.id
+    ) {
       return;
     }
 
@@ -51,10 +66,14 @@ class Contrition extends Analyzer {
 
     // Calculate the difference between contrition and an offensive penance
     if (event.ability.guid === SPELLS.CONTRITION_HEAL.id) {
-      const overhealing = boltHealing - event.overheal;
-      const estimatedDifference = event.amount - (overhealing > 0 ? overhealing : 0);
+      const estimatedBoltHealing = boltHealing * event.hitType;
+      const estimatedOverhealing = this.calculateOverhealing(
+        estimatedBoltHealing,
+        event.amount,
+        event.overheal
+      );
 
-      this.healing -= estimatedDifference;
+      this.healing -= estimatedBoltHealing - estimatedOverhealing;
     }
 
     // Calculate (if applicable), the damage penalty per bolt of friendly penance
@@ -66,17 +85,23 @@ class Contrition extends Analyzer {
   statistic() {
     const healing = this.healing || 0;
 
-    return(
+    return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CONTRITION_TALENT.id} />}
         value={`${formatNumber(healing / this.owner.fightDuration * 1000)} HPS`}
-        label={(
-          <dfn data-tip={
-            `The effective healing contributed by Contrition (${formatPercentage(this.owner.getPercentageOfTotalHealingDone(healing))}% of total healing done). You lost roughly ${formatNumber(this.damagePenalty / this.owner.fightDuration * 1000)} DPS, or ${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damagePenalty))}% more damage.`
-          }>
+        label={
+          <dfn
+            data-tip={`The effective healing contributed by Contrition (${formatPercentage(
+              this.owner.getPercentageOfTotalHealingDone(healing)
+            )}% of total healing done). You lost roughly ${formatNumber(
+              this.damagePenalty / this.owner.fightDuration * 1000
+            )} DPS, or ${formatPercentage(
+              this.owner.getPercentageOfTotalDamageDone(this.damagePenalty)
+            )}% more damage.`}
+          >
             Contrition healing
           </dfn>
-        )}
+        }
       />
     );
   }
