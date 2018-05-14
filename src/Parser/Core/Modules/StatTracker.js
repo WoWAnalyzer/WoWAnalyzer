@@ -396,7 +396,7 @@ class StatTracker extends Analyzer {
       case SPECS.SHADOW_PRIEST:
         return 0.2;
       case SPECS.DISCIPLINE_PRIEST:
-        return 0.128;
+        return 0.096;
       case SPECS.RESTORATION_SHAMAN:
         return 0.24;
       case SPECS.ENHANCEMENT_SHAMAN:

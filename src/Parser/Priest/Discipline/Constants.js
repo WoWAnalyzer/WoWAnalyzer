@@ -10,3 +10,5 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
   SPELLS.LEECH.id,
 ];
+
+export const ATONEMENT_COEFFICIENT = 0.4;
