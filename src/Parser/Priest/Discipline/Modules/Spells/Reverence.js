@@ -92,7 +92,7 @@ class Reverence extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE();
+  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default Reverence;
