@@ -39,22 +39,21 @@ class EmpowerWards extends Analyzer {
 
 
   statistic() {
-    const EMPOWER_WARDS_UPTIME = this.combatants.selected.getBuffUptime(SPELLS.EMPOWER_WARDS.id);
-    const EMPOWER_WARDS_UPTIME_PERCENTAGE = EMPOWER_WARDS_UPTIME / this.owner.fightDuration;
-    const HITS_WITH_WARDS_PERCENTAGE = this.hitsWithWards / (this.hitsWithWards + this.hitsWithNoWards);
+    const empoweWardsUptime = this.combatants.selected.getBuffUptime(SPELLS.EMPOWER_WARDS.id);
+    const empowerWardsUptimePercentage = empoweWardsUptime / this.owner.fightDuration;
+    const hitsWithWardsPercentage = this.hitsWithWards / (this.hitsWithWards + this.hitsWithNoWards);
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.EMPOWER_WARDS.id} />}
-        value={`${formatPercentage(HITS_WITH_WARDS_PERCENTAGE)}%`}
-        label="Hits Mitigated By Empower Wards"
+        value={`${formatPercentage(hitsWithWardsPercentage)}%`}
+        label="Hits mitigated by Empower Wards"
         tooltip={`Empower Wards usage breakdown:
           <ul>
           <li>You were hit <b>${this.hitsWithWards}</b> times with your Empower Wards buff.</li>
           <li>You were hit <b>${this.hitsWithNoWards}</b> times <b><i>without</i></b> your Empower Wards buff.</li>
           <li>You were hit <b>${this.hitsWithWardsOffCD}</b> times <b><i>with</i></b> Empower Wards  avalible for use but not used.</li>
           </ul></b>
-              Empower Wards uptime: ${formatPercentage(EMPOWER_WARDS_UPTIME_PERCENTAGE)}% </br>
-              Empower Wards duration: ${formatDuration(EMPOWER_WARDS_UPTIME / 1000)}.`}
+              Empower Wards total uptime: ${formatPercentage(empowerWardsUptimePercentage)}% / (${formatDuration(empoweWardsUptime / 1000)})`}
       />
     );
   }
