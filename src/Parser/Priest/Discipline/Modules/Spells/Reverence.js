@@ -65,32 +65,34 @@ class Reverence extends Analyzer {
   }
 
   statistic() {
+    const reverenceHealingPerc = this.owner.getPercentageOfTotalHealingDone(
+      this.reverenceHealing
+    );
+    const baseHealingPerc = this.owner.getPercentageOfTotalHealingDone(
+      this.baseHealing
+    );
+    const healingWithoutMastery = baseHealingPerc / (1 - reverenceHealingPerc);
+
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.REVERENCE.id} />}
         value={`${formatNumber(
           this.reverenceHealing / this.owner.fightDuration * 1000
         )} HPS`}
-        label={
-          <dfn
-            data-tip={`
+        label="Mastery Healing"
+        tooltip={`
             Reverence contributed towards ${formatPercentage(
-              this.owner.getPercentageOfTotalHealingDone(this.reverenceHealing)
-            )}% of your healing.
-
+              reverenceHealingPerc
+            )}% of your healing. \n
 
             ${formatPercentage(
-              this.owner.getPercentageOfTotalHealingDone(this.baseHealing)
+              healingWithoutMastery
             )}% of your healing benefitted from Reverence.
             `}
-          >
-            Mastery Healing
-          </dfn>
-        }
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  statisticOrder = STATISTIC_ORDER.CORE();
 }
 
 export default Reverence;
