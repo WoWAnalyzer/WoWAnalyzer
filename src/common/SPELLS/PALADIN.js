@@ -38,6 +38,11 @@ export default {
     name: 'Divine Steed',
     icon: 'ability_paladin_divinesteed',
   },
+  DIVINE_STEED_BUFF_ALT_2: { // probably class mount glyph - https://www.warcraftlogs.com/reports/4DWRHk73Vvt1wmz2/#fight=22&type=auras&source=20
+    id: 276112,
+    name: 'Divine Steed',
+    icon: 'ability_paladin_divinesteed',
+  },
   HAND_OF_RECKONING: {
     id: 62124,
     name: 'Hand of Reckoning',
