@@ -23,7 +23,7 @@ export default {
   AWAKENING_TALENT: { id: 248033, name: "Awakening", icon: "inv_helm_plate_raidpaladin_n_01" },
   BEACON_OF_FAITH_TALENT: { id: 156910, name: "Beacon of Faith", icon: "ability_paladin_beaconsoflight", manaCost: 625 },
   BEACON_OF_THE_LIGHTBRINGER_TALENT: { id: 197446, name: "Beacon of the Lightbringer", icon: "spell_paladin_clarityofpurpose" },
-  BEACON_OF_VIRTUE_TALENT: { id: 200025, name: "Beacon of Virtue", icon: "ability_paladin_beaconofinsight", manaCost: 22000 },
+  BEACON_OF_VIRTUE_TALENT: { id: 200025, name: "Beacon of Virtue", icon: "ability_paladin_beaconofinsight", manaCost: 2000 },
   DIVINE_PURPOSE_TALENT_HOLY: { id: 197646, name: "Divine Purpose", icon: "spell_holy_divinepurpose" },
   // Protection
   HOLY_SHIELD_TALENT: { id: 152261, name: "Holy Shield", icon: "inv_shield_1h_hyrja_d_01" },
