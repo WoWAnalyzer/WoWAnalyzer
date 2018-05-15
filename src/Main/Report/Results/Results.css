@@ -4,6 +4,12 @@
 .statistics > div {
   padding: 0 10px;
 }
+.results {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-left: 5vw;
+  padding-right: 5vw;
+}
 .results .navigation {
   border-bottom: 4px solid #d84141;
 }
