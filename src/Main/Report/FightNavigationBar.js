@@ -43,6 +43,9 @@ class FightNavigationBar extends React.PureComponent {
     }
 
     const player = playerId ? report.friendlies.find(friendly => friendly.id === playerId) : report.friendlies.find(friendly => friendly.name === playerName);
+    if (!player) {
+      return null;
+    }
 
     return (
       <nav className="fight">
