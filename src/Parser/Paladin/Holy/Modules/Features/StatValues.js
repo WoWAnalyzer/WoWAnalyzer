@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
+import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import BaseHealerStatValues from 'Parser/Core/Modules/Features/BaseHealerStatValues';
 import STAT from 'Parser/Core/Modules/Features/STAT';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -31,6 +32,13 @@ class StatValues extends BaseHealerStatValues {
 
   spellInfo = SPELL_INFO;
 
+  _lastAvengingCrusaderEligibleEvent = null;
+  on_byPlayer_damage(event) {
+    if (event.ability.guid !== SPELLS.CRUSADER_STRIKE.id && event.ability.guid !== SPELLS.JUDGMENT_CAST_ALT.id) {
+      return;
+    }
+    this._lastAvengingCrusaderEligibleEvent = event;
+  }
   on_heal(event) {
     if (event.ability.guid === SPELLS.BEACON_OF_LIGHT_HEAL.id) {
       // Handle this via the `on_beacon_heal` event
@@ -60,6 +68,13 @@ class StatValues extends BaseHealerStatValues {
     }
 
     return { baseCritChance, ratingCritChance };
+  }
+  _isCrit(event) {
+    if (event.ability.guid === SPELLS.AVENGING_CRUSADER_HEAL.id) {
+      // Avenging Crusader's events don't indicate if it replicated a crit so we need to check if the damage event was a crit manually
+      return this._lastAvengingCrusaderEligibleEvent && this._lastAvengingCrusaderEligibleEvent.hitType === HIT_TYPES.CRIT;
+    }
+    return event.hitType === HIT_TYPES.CRIT;
   }
   _criticalStrike(event, healVal) {
     return super._criticalStrike(event, healVal) + this._criticalStrikeInfusionOfLightProcs(event, healVal);
