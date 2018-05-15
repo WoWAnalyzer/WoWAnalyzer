@@ -377,8 +377,6 @@ class StatTracker extends Analyzer {
   get baseCritPercentage() {
     const standard = 0.05;
     switch (this.combatants.selected.spec) {
-      case SPECS.HOLY_PALADIN:
-        return standard + 0.03; // 3% from a trait everyone has. TODO: Make traits conditional
       case SPECS.FIRE_MAGE:
         return standard + 0.15; // an additional 15% is gained from the passive Critical Mass
       case SPECS.BEAST_MASTERY_HUNTER :
