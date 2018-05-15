@@ -106,7 +106,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.INTERCEPT,
-        isOnGCD: true,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
         charges: 2,

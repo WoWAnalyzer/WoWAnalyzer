@@ -23,19 +23,34 @@ class BoomingVoice extends Analyzer {
   rageWasted = 0;
   bonusDmg = 0;
   maxRage = 100;
+  nextCastWasted = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id);
     this.maxRage += this.combatants.selected.traitsBySpellId[SPELLS.INTOLERANCE_TRAIT.id] * 10;
   }
 
+  on_byPlayer_cast(event) {
+    if (event.ability.guid !== SPELLS.DEMORALIZING_SHOUT.id || this.nextCastWasted === 0) {
+      return;
+    }
+
+    event.meta = event.meta || {};
+    event.meta.isInefficientCast = true;
+    event.meta.inefficientCastReason = `This cast wasted ${this.nextCastWasted} Rage.`;
+    this.nextCastWasted = 0;
+  }
+
   on_energize(event) {
     if (event.ability.guid !== SPELLS.DEMORALIZING_SHOUT.id) {
       return;
     }
-    
+
     this.rageGenerated += event.resourceChange;
-    this.rageWasted += event.waste;
+    const waste = event.waste || 0;
+    this.rageWasted += waste;
+    //on_energize event happens before the cast-event
+    this.nextCastWasted = waste;
   }
 
   on_byPlayer_damage(event) {
