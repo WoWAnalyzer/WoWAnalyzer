@@ -7,8 +7,10 @@ class Abilities extends CoreAbilities {
     return [
       {
         spell: SPELLS.DEVASTATE,
+        enabled: !combatant.hasTalent(SPELLS.DEVASTATOR_TALENT.id),
         isOnGCD: true,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        timelineSortIndex: 3,
       },
       {
         spell: SPELLS.REVENGE,

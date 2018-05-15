@@ -19,7 +19,7 @@ class SpellUsable extends CoreSpellUsable {
     }
 
     const spellId = event.ability.guid;
-    if ((spellId === SPELLS.MELEE.id && this.hasDevastator) || spellId === SPELLS.THUNDER_CLAP.id || spellId === SPELLS.REVENGE.id) {
+    if ((spellId === SPELLS.MELEE.id && this.hasDevastator) || spellId === SPELLS.DEVASTATE.id || spellId === SPELLS.THUNDER_CLAP.id || spellId === SPELLS.REVENGE.id) {
       this.lastPotentialTriggerForShieldSlam = event;
     } else if (spellId === SPELLS.SHIELD_SLAM.id) {
       this.lastPotentialTriggerForShieldSlam = null;
