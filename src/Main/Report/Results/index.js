@@ -254,7 +254,7 @@ class Results extends React.PureComponent {
     }
 
     return (
-      <div className="break-out">
+      <div>
         <div className="row">
           <div className="col-md-4">
             {this.renderAbout()}
