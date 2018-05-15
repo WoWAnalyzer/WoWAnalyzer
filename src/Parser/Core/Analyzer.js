@@ -1,3 +1,4 @@
+import { formatMilliseconds } from 'common/format';
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
 import Module from './Module';
 
@@ -29,6 +30,17 @@ class Analyzer extends Module {
     if (method) {
       method.call(this, ...args);
     }
+  }
+
+  get consoleMeta() {
+    const fightDuration = formatMilliseconds(this.owner.currentTimestamp - this.owner.fight.start_time);
+    return [fightDuration, this.constructor.name];
+  }
+  debug(...args) {
+    console.log(...this.consoleMeta, ...args);
+  }
+  error(...args) {
+    console.error(...this.consoleMeta, ...args);
   }
 
   // Common event handler shells so that implementors can always properly call `super`

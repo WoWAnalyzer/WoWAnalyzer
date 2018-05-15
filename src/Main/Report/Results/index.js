@@ -254,7 +254,7 @@ class Results extends React.PureComponent {
     }
 
     return (
-      <div className="break-out">
+      <div>
         <div className="row">
           <div className="col-md-4">
             {this.renderAbout()}
@@ -368,12 +368,10 @@ class Results extends React.PureComponent {
     }
 
     return (
-      <div style={{ paddingLeft: 100, paddingRight: 100 }}>
-        <div className="results">
-          <Header config={config} playerName={selectedCombatant.name} boss={parser.boss} fight={fight} />
+      <div className="results">
+        <Header config={config} playerName={selectedCombatant.name} boss={parser.boss} fight={fight} />
 
-          {!parser.finished ? this.renderLoading() : this.renderContent()}
-        </div>
+        {!parser.finished ? this.renderLoading() : this.renderContent()}
       </div>
     );
   }

@@ -4,8 +4,6 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import TALENTS from './TALENTS/PALADIN';
-
 export default {
   // Paladin:
   CRUSADER_STRIKE: {
@@ -15,6 +13,12 @@ export default {
   },
   JUDGMENT_CAST: {
     id: 20271,
+    name: 'Judgment',
+    icon: 'spell_holy_righteousfury',
+    manaCost: 600,
+  },
+  JUDGMENT_CAST_ALT: {
+    id: 275773,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
     manaCost: 600,
@@ -31,6 +35,11 @@ export default {
   },
   DIVINE_STEED_BUFF_ALT: { // probably class mount glyph
     id: 254471,
+    name: 'Divine Steed',
+    icon: 'ability_paladin_divinesteed',
+  },
+  DIVINE_STEED_BUFF_ALT_2: { // probably class mount glyph - https://www.warcraftlogs.com/reports/4DWRHk73Vvt1wmz2/#fight=22&type=auras&source=20
+    id: 276112,
     name: 'Divine Steed',
     icon: 'ability_paladin_divinesteed',
   },
@@ -58,8 +67,7 @@ export default {
     id: 19750,
     name: 'Flash of Light',
     icon: 'spell_holy_flashheal',
-    manaCost: 3600,
-    baseMana: 0.18,
+    manaCost: 4000,
   },
   HAMMER_OF_JUSTICE: {
     id: 853,
@@ -73,7 +81,6 @@ export default {
     name: 'Mastery: Lightbringer',
     icon: 'inv_hammer_04',
   },
-  BEACON_OF_FAITH_TALENT: { ...TALENTS.BEACON_OF_FAITH_TALENT, manaCost: 6875 },
   BEACON_OF_LIGHT_HEAL: {
     id: 53652,
     name: 'Beacon of Light',
@@ -115,7 +122,7 @@ export default {
     id: 82326,
     name: 'Holy Light',
     icon: 'spell_holy_surgeoflight',
-    manaCost: 2400,
+    manaCost: 2600,
   },
   LIGHT_OF_THE_MARTYR: {
     id: 183998,
@@ -132,6 +139,11 @@ export default {
     id: 196917,
     name: 'Light of the Martyr',
     icon: 'ability_paladin_lightofthemartyr',
+  },
+  HOLY_PRISM_HEAL_DIRECT: {
+    id: 114871,
+    name: 'Holy Prism',
+    icon: 'spell_paladin_holyprism',
   },
   HOLY_PRISM_HEAL: {
     id: 114852,

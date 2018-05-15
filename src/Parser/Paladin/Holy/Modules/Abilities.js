@@ -17,9 +17,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => {
           const swCdr = hasSanctifiedWrath && combatant.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.5 : 0;
-          // At the current alpha patch (April 14th), AC also looks to affect the Holy Shock cooldown recovery rate even though the tooltip does not mention it is intended to do so. This is considered an in-game bug.
-          const acCdr = combatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id) ? 0.3 : 0;
-          return 9 / (1 + haste) * (1 - swCdr) * (1 - acCdr);
+          return 9 / (1 + haste) * (1 - swCdr);
         },
         isOnGCD: true,
         castEfficiency: {
@@ -41,7 +39,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: SPELLS.JUDGMENT_CAST,
+        spell: [SPELLS.JUDGMENT_CAST, SPELLS.JUDGMENT_CAST_ALT],
         buffSpellId: SPELLS.ILTERENDI_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => {
@@ -137,7 +135,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DIVINE_PROTECTION,
         buffSpellId: SPELLS.DIVINE_PROTECTION.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 60,
+        cooldown: 60 * (1 - combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.3 : 0),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.6,
@@ -149,7 +147,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DIVINE_SHIELD,
         buffSpellId: SPELLS.DIVINE_SHIELD.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 5 * 60,
+        cooldown: (5 * 60) * (1 - combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.3 : 0),
         isOnGCD: true,
         timelineSortIndex: 46,
       },
@@ -208,7 +206,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LAY_ON_HANDS,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 600 * (1 - (combatant.traitsBySpellId[SPELLS.FOCUSED_HEALING.id] || 0) * 0.1),
+        cooldown: 600 * (1 - (combatant.traitsBySpellId[SPELLS.FOCUSED_HEALING.id] || 0) * 0.1) * (1 - combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.3 : 0),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.1,

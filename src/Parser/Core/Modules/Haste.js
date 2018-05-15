@@ -24,6 +24,7 @@ class Haste extends Analyzer {
     [SPELLS.TIME_WARP.id]: 0.3,
     [SPELLS.ANCIENT_HYSTERIA.id]: 0.3, // Hunter pet BL
     [SPELLS.NETHERWINDS.id]: 0.3, // Hunter pet BL
+    [SPELLS.PRIMAL_RAGE.id]: 0.3, // Hunter pet BL
     [SPELLS.DRUMS_OF_FURY.id]: 0.25,
     [SPELLS.DRUMS_OF_THE_MOUNTAIN.id]: 0.25,
     [SPELLS.DRUMS_OF_RAGE.id]: 0.25,

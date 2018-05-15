@@ -36,11 +36,6 @@ export default {
     name: 'Speed',
     icon: 'petbattle_speed',
   },
-  ANCIENT_HEALING_POTION: {
-    id: 188016,
-    name: 'Ancient Healing Potion',
-    icon: 'inv_alchemy_70_red',
-  },
   POTION_OF_PROLONGED_POWER: {
     id: 229206,
     name: 'Potion of Prolonged Power',

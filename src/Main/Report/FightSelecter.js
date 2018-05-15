@@ -25,7 +25,7 @@ class FightSelecter extends React.PureComponent {
         name: PropTypes.string.isRequired,
         kill: PropTypes.bool,
       })),
-    }).isRequired,
+    }),
     fetchReport: PropTypes.func.isRequired,
   };
   state = {

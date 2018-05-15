@@ -39,12 +39,16 @@ class DrapeOfShame extends Analyzer {
   }
 
   getCritEffectBonus(critEffectModifier, event) {
+    if (!this.owner.constructor.abilitiesAffectedByHealingIncreases.includes(event.ability.guid)) {
+      return critEffectModifier;
+    }
+
     return critEffectModifier + DRAPE_OF_SHAME_CRIT_EFFECT;
   }
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (this.owner.constructor.abilitiesAffectedByHealingIncreases.indexOf(spellId) === -1) {
+    if (!this.owner.constructor.abilitiesAffectedByHealingIncreases.includes(spellId)) {
       return;
     }
     if (event.hitType !== HIT_TYPES.CRIT) {
