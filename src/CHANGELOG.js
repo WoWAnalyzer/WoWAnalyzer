@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-05-10'),
+    changes: <React.Fragment>Added Death Recap to track available cooldowns.</React.Fragment>,
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-05-09'),
     changes: 'Implemented the possibility to show buffs and debuffs in the timeline.',
     contributors: [niseko],
