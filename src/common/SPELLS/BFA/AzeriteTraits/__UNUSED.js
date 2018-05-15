@@ -1,4 +1,7 @@
-// EVERYTHING
+// These traits are not implemented yet.
+// When implementing a trait beware the ids below can be any of: trait id, buff id, heal event id, damage event id, other
+// This file isn't included in the SPELLS object, you need to move spells out of this file to implement them.
+// I hope debugging the fact these aren't implemented will be quicker than debugging that the spell id listed here doesn't match the spell id in logs.
 
 export default {
   ABLATIVE_SHIELDING: {

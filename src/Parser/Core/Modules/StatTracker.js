@@ -239,6 +239,11 @@ class StatTracker extends Analyzer {
     [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 },
     // endregion
     // endregion
+
+    // region Enchants
+    [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 60 },
+    [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 480 },
+    //endregion
   };
 
   _pullStats = {};

@@ -1,5 +1,5 @@
 import safeMerge from 'common/safeMerge';
-import GENERAL from './GENERAL';
-import PALADIN from './PALADIN';
+import General from './General';
+import Paladin from './Paladin';
 
-export default safeMerge(GENERAL, PALADIN);
+export default safeMerge(General, Paladin);
