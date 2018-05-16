@@ -20,8 +20,7 @@ class HeavyRepercussions extends Analyzer {
   };
 
   sbExtended = 0;
-  ssBuffRefreshed = 0;
-  nextShieldSlamBuffed = false;
+  sbCasts = 0;
   bonusDmg = 0;
 
   on_initialized() {
@@ -33,26 +32,21 @@ class HeavyRepercussions extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.SHIELD_SLAM.id || !this.nextShieldSlamBuffed ) {
+    if (event.ability.guid !== SPELLS.SHIELD_SLAM.id || !this.combatants.selected.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)) {
       return;
     }
 
     this.bonusDmg += calculateEffectiveDamage(event, HEAVY_REPERCUSSIONS_SHIELD_SLAM_DAMAGE_BUFF);
-    this.nextShieldSlamBuffed = false;
   }
 
   on_byPlayer_cast(event) {
-    if (event.ability.guid === SPELLS.SHIELD_BLOCK.id && this.nextShieldSlamBuffed) {
-      this.ssBuffRefreshed += 1;
+    if (event.ability.guid !== SPELLS.SHIELD_SLAM.id) {
       return;
     }
 
-    if (event.ability.guid === SPELLS.SHIELD_BLOCK.id) {
-      this.nextShieldSlamBuffed = true;
-      return;
-    }
+    this.sbCasts += 1;
 
-    if (event.ability.guid !== SPELLS.SHIELD_SLAM.id || !this.combatants.selected.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)) {
+    if (!this.combatants.selected.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)) {
       return;
     }
 
@@ -61,23 +55,23 @@ class HeavyRepercussions extends Analyzer {
 
   get uptimeSuggestionThresholds() {
     return {
-      actual: this.ssBuffRefreshed,
-      isGreaterThan: {
-        minor: 0,
-        average: 4,
-        major: 8,
+      actual: this.sbExtended / this.sbCasts,
+      isLessThan: {
+        minor: 1,
+        average: .95,
+        major: .85,
       },
-      style: 'number',
+      style: 'percent',
     };
   }
 
   suggestions(when) {
     when(this.uptimeSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>You refreshed <SpellLink id={SPELLS.HEAVY_REPERCUSSIONS_TALENT.id} />'s damage buff for <SpellLink id={SPELLS.SHIELD_SLAM.id} /> {actual} times. Make sure to weave <SpellLink id={SPELLS.SHIELD_SLAM.id} />'s between your <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> casts to maximize your damage.</React.Fragment>)
+          return suggest(<React.Fragment>Try and cast <SpellLink id={SPELLS.SHIELD_SLAM.id} />'s during <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> to increase the uptime of <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> and the damage of <SpellLink id={SPELLS.SHIELD_SLAM.id} />.</React.Fragment>)
             .icon(SPELLS.HEAVY_REPERCUSSIONS_TALENT.icon)
-            .actual(`${actual} times refreshed`)
-            .recommended(`${recommended} recommended`);
+            .actual(`${formatPercentage(actual)}% cast during Shield Block`)
+            .recommended(`${formatPercentage(recommended)}% is recommended`);
         });
   }
 
@@ -90,8 +84,7 @@ class HeavyRepercussions extends Analyzer {
         label={`more Shield Block uptime`}
         tooltip={`
           You casted Shield Slam ${this.sbExtended} times during Shield Block, resulting in additional ${sbExtendedMS / 1000}sec uptime.<br/>
-          ${formatNumber(this.bonusDmg)} damage contributed by casting buffed Shield Slams<br/>
-          ${this.ssBuffRefreshed > 0 ? `You casted Shield Block ${this.ssBuffRefreshed} times while having the damage bonus for Shield Block already up.` : ``}
+          ${formatNumber(this.bonusDmg)} damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%) contributed by casting Shield Slams during Shield Block.
         `}
       />
     );

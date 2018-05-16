@@ -28,7 +28,7 @@ class Avatar extends Analyzer {
   on_byPlayer_damage(event) {
     if (!this.combatants.selected.hasBuff(SPELLS.AVATAR_TALENT.id)) {
       return;
-    }
+    } 
     
     this.bonusDmg += calculateEffectiveDamage(event, AVATAR_DAMAGE_INCREASE);
   }
@@ -37,9 +37,11 @@ class Avatar extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.AVATAR_TALENT.id} />}
-        value={`${formatPercentage(this.uptime)}%`}
-        label={`Uptime`}
-        tooltip={`${formatNumber(this.bonusDmg)} damage contributed
+        value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
+        label={`Damage contributed`}
+        tooltip={`
+          Avatar contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%). </br>
+          Uptime was ${formatPercentage(this.uptime)}%
         `}
       />
     );
