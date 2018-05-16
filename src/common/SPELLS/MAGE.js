@@ -56,11 +56,6 @@ export default {
     name: 'Mirror Image',
     icon: 'spell_magic_managain',
   },
-  UNSTABLE_MAGIC_DAMAGE_FROST: {
-    id: 157978,
-    name: 'Unstable Magic',
-    icon: 'spell_mage_unstablemagic',
-  },
   UNSTABLE_MAGIC_DAMAGE_ARCANE: {
     id: 157979,
     name: 'Unstable Magic',
@@ -497,6 +492,11 @@ export default {
   },
   UNSTABLE_MAGIC_DAMAGE_FIRE: {
     id: 157977,
+    name: 'Unstable Magic',
+    icon: 'spell_mage_unstablemagic',
+  },
+  UNSTABLE_MAGIC_DAMAGE_FROST: {
+    id: 157978,
     name: 'Unstable Magic',
     icon: 'spell_mage_unstablemagic',
   },
