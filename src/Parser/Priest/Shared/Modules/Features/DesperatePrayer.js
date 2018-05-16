@@ -64,7 +64,7 @@ class DesperatePrayer extends Analyzer {
     return (
       <ExpandableStatisticBox
         value={`${this.desperatePrayerUsages.length}`}
-        label={`Desperate Prayer Usages`}
+        label={`Desperate Prayer Usage(s)`}
         icon={<SpellIcon id={SPELLS.DESPERATE_PRAYER.id} />}>
         <table className="table table-condensed">
           <thead>
