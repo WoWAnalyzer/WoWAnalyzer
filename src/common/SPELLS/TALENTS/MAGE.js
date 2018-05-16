@@ -8,7 +8,6 @@ export default {
   INCANTERS_FLOW_TALENT: { id: 1463, name: "Incanter's Flow", icon: "ability_mage_incantersabsorbtion" },
   RING_OF_FROST_TALENT: { id: 113724, name: "Ring of Frost", icon: "spell_frost_ringoffrost", manaCost: 22000 },
   ICE_WARD_TALENT: { id: 205036, name: "Ice Ward", icon: "spell_frost_frostward" },
-  UNSTABLE_MAGIC_TALENT: { id: 157976, name: "Unstable Magic", icon: "spell_mage_unstablemagic" },
   
   // Fire
   FIRESTARTER_TALENT: { id: 205026, name: "Firestarter", icon: "spell_fire_fire" },
@@ -38,6 +37,7 @@ export default {
   SUPERNOVA_TALENT: { id: 157980, name: "Supernova", icon: "spell_mage_supernova" },
   CHRONO_SHIFT_TALENT: { id: 235711, name: "Chrono Shift", icon: "ability_monk_deadlyreach" },
   EROSION_TALENT: { id: 205039, name: "Erosion", icon: "ability_mage_missilebarrage" },
+  UNSTABLE_MAGIC_TALENT: { id: 157976, name: "Unstable Magic", icon: "spell_mage_unstablemagic" },
   NETHER_TEMPEST_TALENT: { id: 114923, name: "Nether Tempest", icon: "spell_mage_nethertempest", manaCost: 16500 },
   OVERPOWERED_TALENT: { id: 155147, name: "Overpowered", icon: "spell_mage_overpowered" },
   TEMPORAL_FLUX_TALENT: { id: 234302, name: "Temporal Flux", icon: "spell_arcane_arcanetorrent" },
