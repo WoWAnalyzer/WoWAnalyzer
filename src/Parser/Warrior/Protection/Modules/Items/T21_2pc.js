@@ -5,6 +5,7 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 
 import Analyzer from 'Parser/Core/Analyzer';
+import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
@@ -12,6 +13,7 @@ class T21_2pc extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     spellUsable: SpellUsable,
+    globalCooldown: GlobalCooldown,
   };
 
   resets = 0;
@@ -25,7 +27,8 @@ class T21_2pc extends Analyzer {
       return;
     }
 
-    this.spellUsable.endCooldown(SPELLS.SHIELD_SLAM.id);
+    const globalCooldown = this.globalCooldown.getCurrentGlobalCooldown(SPELLS.SHIELD_SLAM.id);
+    this.spellUsable.reduceCooldown(SPELLS.SHIELD_SLAM.id, (this.spellUsable.cooldownRemaining(SPELLS.SHIELD_SLAM.id) - globalCooldown));
     this.resets += 1;
   }
 

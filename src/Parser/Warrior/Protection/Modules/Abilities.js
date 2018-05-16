@@ -163,7 +163,10 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.AVATAR_TALENT,
         enabled: combatant.hasTalent(SPELLS.AVATAR_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        isOnGCD: true,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: .9,
+        },
         cooldown: 90,
         timelineSortIndex: 9,
       },
@@ -179,6 +182,10 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         isOnGCD: true,
         cooldown: 60,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: .9,
+        },
         timelineSortIndex: 9,
       },
     ];

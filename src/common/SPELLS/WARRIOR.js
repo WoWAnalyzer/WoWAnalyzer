@@ -361,6 +361,11 @@ export default {
     name: 'Renewed Fury',
     icon: 'ability_warrior_intensifyrage',
   },
+  INTO_THE_FRAY_BUFF: {
+    id: 202602,
+    name: "Into the Fray",
+    icon: "ability_warrior_bloodfrenzy",
+  },
   NELTHARIONS_FURY: {
     id: 203526,
     name: 'Neltharion\'s Fury',
