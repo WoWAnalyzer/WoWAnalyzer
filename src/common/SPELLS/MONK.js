@@ -792,12 +792,4 @@ export default {
     name: 'Focus of Xuen',
     icon: 'ability_monk_roundhousekick',
   },
-
-
-  // BfA Talents For Now - Remove on Prepatch
-  RISING_MIST: {
-    id: 274909,
-    name: 'Rising Mist',
-    icon: 'ability_monk_roundhousekick',
-  },
 };

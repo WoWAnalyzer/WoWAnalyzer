@@ -14,7 +14,7 @@ const REJUV_IDS = [
 ];
 
 // tolerated difference between expected and actual HoT fall before a 'mismatch' is logged
-const EXPECTED_REMOVAL_THRESHOLD = 200;
+const EXPECTED_REMOVAL_THRESHOLD = 100;
 
 // this class does a lot, a few different debug areas to cut down on the spam while debugging
 const debug = false;

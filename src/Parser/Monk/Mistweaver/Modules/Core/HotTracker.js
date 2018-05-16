@@ -50,8 +50,7 @@ class HotTracker extends Analyzer {
     }
     const hot = this.hots[targetId][spellId];
     if (event.tick) { // direct healing (say from a PotA procced regrowth) still should be counted for attribution, but not part of tick tracking
-      // mastery healing populated with all healing due to mastery after this tick but before the next... done this way to avoid array size getting out of control
-      hot.ticks.push({ healing, masteryHealing: 0, timestamp: event.timestamp });
+      hot.ticks.push({ healing, timestamp: event.timestamp });
     }
 
     hot.attributions.forEach(att => att.healing += healing);
@@ -145,8 +144,6 @@ class HotTracker extends Analyzer {
    * Attribution object passed in will be modified as the HoT heals, and must have the following fields:
    *    name: String (used only for logging)
    *    healing: Number (tallies the direct healing attributable)
-   *    masteryHealing: Number (tallies the mastery healing attributable)
-   *    (for Rejuv/Germ only) dreamwalkerHealing: Number (tallies the dreamwalker healing attributable)
    *    procs: Number (tallies the number of times this attribution was made)
    */
   addAttribution(attribution, targetId, spellId) {
@@ -164,8 +161,6 @@ class HotTracker extends Analyzer {
    * Attribution object passed in will be modified when the HoT expires, and must have the following fields:
    *    name: String (used only for logging)
    *    healing: Number (tallies the direct healing attributable)
-   *    masteryHealing: Number (tallies the mastery healing attributable)
-   *    (for Rejuv/Germ only) dreamwalkerHealing: Number (tallies the dreamwalker healing attributable)
    *    procs: Number (tallies the number of times this attribution was made)
    *    duration: Number (tallies the actual amount of extension applied, after clamping)
    * tickClamps and pandemicClamps specify if / how the extension should be clamped
@@ -216,8 +211,6 @@ class HotTracker extends Analyzer {
     let foundEarlier = false;
     let latestOutside = now;
     let healing = 0;
-    let masteryHealing = 0;
-    let dreamwalkerHealing = 0;
     // sums healing of every tick within 'amount',
     // also gets the latest tick outside the range, used to scale the healing amount
     for (let i = ticks.length-1; i >= 0; i--) {
@@ -229,21 +222,12 @@ class HotTracker extends Analyzer {
       }
 
       healing += tick.healing;
-      masteryHealing += tick.masteryHealing;
-      if (tick.dreamwalkerHealing !== undefined) {
-        dreamwalkerHealing += tick.dreamwalkerHealing;
-      }
     }
 
     if (foundEarlier) {
       // TODO better explanation of why I need to scale direct healing
       const scale = amount / (now - latestOutside);
       attribution.healing += (healing * scale);
-      // mastery and dreamwalker heals are either inside the extension range or they aren't, as such they shouldn't be scaled
-      attribution.masteryHealing += masteryHealing;
-      if (attribution.dreamwalkerHealing !== undefined) {
-        attribution.dreamwalkerHealing += dreamwalkerHealing;
-      }
       attribution.duration += amount;
     } else {
       // TODO error log, because this means the extension was almost all the HoT's duration? Check for an early removal of HoT.
@@ -368,11 +352,11 @@ class HotTracker extends Analyzer {
         tickPeriod: 2000,
       },
       [SPELLS.ENVELOPING_MISTS.id]: {
-        duration: 6000,
+        duration: 6000 + (this.combatants.selected.hasTalent(SPELLS.MIST_WRAP_TALENT.id) ? 1 : 0),
         tickPeriod: 1000,
       },
       [SPELLS.ESSENCE_FONT_BUFF.id]: {
-        duration: 8000,
+        duration: 8000 + (this.combatants.selected.hasTalent(SPELLS.UPWELLING_TALENT.id) ? 4 : 0),
         tickPeriod: 2000,
       },
     };

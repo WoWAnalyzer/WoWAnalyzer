@@ -1,11 +1,10 @@
 /* TODO: BfA Edition!
- * Rising Mist - HOT Extension, Healing contributed, poor use suggestions
+ * Rising Mist - Poor use suggestions
  * Upwelling - Additional healing added from channel, missed healing from channel?
  * Mana Tea vs SotC - Potentially compare common output of each talent.
  *    Suggest using one over the other?
  * Vivify or REM - Missed Vivify healing from less than 2 REMs out
  * Azerite Bonus Placeholders
- * Renewing Mist Munching in Logs - Do I care?
  */
 
 import React from 'react';
