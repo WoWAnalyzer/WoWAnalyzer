@@ -5,9 +5,10 @@ import SpellIcon from 'common/SpellIcon';
 
 const RESTORE_CHARGE_TICK_WIDTH = 3;
 
-class Events extends React.PureComponent {
+class SpellRow extends React.PureComponent {
   static propTypes = {
     events: PropTypes.array,
+    buffEvents: PropTypes.array,
     start: PropTypes.number.isRequired,
     totalWidth: PropTypes.number.isRequired,
     secondWidth: PropTypes.number.isRequired,
@@ -57,7 +58,7 @@ class Events extends React.PureComponent {
   }
 
   render() {
-    const { events, start, totalWidth, secondWidth, className, showCooldowns } = this.props;
+    const { events, buffEvents, start, totalWidth, secondWidth, className, showCooldowns } = this.props;
     const fixedEvents = this.fabricateEndCooldown(events);
 
     return (
@@ -65,12 +66,14 @@ class Events extends React.PureComponent {
         {fixedEvents.map((event, index) => {
           const meta = event.meta || {};
           if (event.type === 'cast') {
+            const top = buffEvents ? 1 : -1;
+            const height = 22; // only used if buffEvents
             return (
               <div
                 key={index}
                 style={{
                   left: (event.timestamp - start) / 1000 * secondWidth,
-                  top: -1, // without this, icon vertical positioning slightly off...
+                  top, // without this, icon vertical positioning slightly off...
                   zIndex: 10,
                 }}
               >
@@ -78,6 +81,7 @@ class Events extends React.PureComponent {
                   id={event.ability.guid}
                   className={meta.isInefficientCast ? 'inefficient' : undefined}
                   data-tip={meta.inefficientCastReason}
+                  style={buffEvents ? {height} : {}}
                 />
               </div>
             );
@@ -86,12 +90,16 @@ class Events extends React.PureComponent {
             const left = (event.start - start) / 1000 * secondWidth;
             const maxWidth = totalWidth - left; // don't expand beyond the container width
             const width = Math.min(maxWidth, (event.timestamp - event.start) / 1000 * secondWidth);
+            const height = buffEvents ? 22 : '';
+            const top = buffEvents ? 4 : '';
             return (
               <div
                 key={index}
                 style={{
                   left,
                   width,
+                  height,
+                  top,
                   background: 'rgba(150, 150, 150, 0.4)',
                 }}
                 data-tip={`Cooldown: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`}
@@ -120,9 +128,32 @@ class Events extends React.PureComponent {
           }
           return null;
         })}
+        {buffEvents && buffEvents.map((event, index) => {
+          if (event.end) {
+            const left = (event.start - start) / 1000 * secondWidth;
+            const maxWidth = totalWidth - left; // don't expand beyond the container width
+            const width = Math.min(maxWidth, (event.timestamp - event.start) / 1000 * secondWidth);
+            const buffColor = 'rgb(1, 150, 150)';
+            const debuffColor = 'rgb(150, 150, 1)';
+            return (
+              <div
+                key={index}
+                style={{
+                  left,
+                  width,
+                  height: 3,
+                  background: `${event.type === 'changebuffstack' ? buffColor : debuffColor }`,
+                  zIndex: 9,
+                }}
+                data-tip={`${event.ability.name} - ${event.type === 'changebuffstack' ? 'Buff' : 'Debuff' } Duration: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`} 
+              />
+            );
+          }
+          return null;
+        })}
       </div>
     );
   }
 }
 
-export default Events;
+export default SpellRow;

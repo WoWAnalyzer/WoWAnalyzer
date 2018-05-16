@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Tab from 'Main/Tab';
+import Mana from 'Main/Mana';
 import Feeding from 'Main/Feeding';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
@@ -26,6 +27,7 @@ import TalentStatisticBox from './Modules/Talents/TalentStatisticBox';
 import Torrent from './Modules/Talents/Torrent';
 import UnleashLife from './Modules/Talents/UnleashLife';
 import Undulation from './Modules/Talents/Undulation';
+import CrashingWaves from './Modules/Talents/CrashingWaves';
 import EarthShield from './Modules/Talents/EarthShield';
 import EarthenWallTotem from './Modules/Talents/EarthenWallTotem';
 import Downpour from './Modules/Talents/Downpour';
@@ -86,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     torrent: Torrent,
     unleashLife: UnleashLife,
     undulation: Undulation,
+    crashingWaves: CrashingWaves,
     earthShield: EarthShield,
     earthenWallTotem: EarthenWallTotem,
     downpour: Downpour,
@@ -125,6 +128,15 @@ class CombatLogParser extends CoreCombatLogParser {
 
     results.tabs = [
       ...results.tabs,
+      {
+        title: 'Mana',
+        url: 'mana',
+        render: () => (
+          <Tab style={{ padding: '15px 22px' }}>
+            <Mana parser={this} />
+          </Tab>
+        ),
+      },
       {
         title: 'Feeding',
         url: 'feeding',

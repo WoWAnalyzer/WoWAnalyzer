@@ -7,7 +7,7 @@ import 'gemini-scrollbar/gemini-scrollbar.css';
 import { formatDuration } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
-import Events from './Events';
+import SpellRow from './SpellRow';
 import DeathEvents from './DeathEvents';
 
 import './SpellTimeline.css';
@@ -26,6 +26,7 @@ class SpellTimeline extends React.PureComponent {
     resurrections: PropTypes.array.isRequired,
     showCooldowns: PropTypes.bool,
     showGlobalCooldownDuration: PropTypes.bool,
+    buffEvents: PropTypes.object,
   };
   static defaultProps = {
     showCooldowns: false,
@@ -72,8 +73,10 @@ class SpellTimeline extends React.PureComponent {
       .map(spellId => Number(spellId))
       .filter(key => key > 0) //filter out fake spells (spell id <= 0)
       .sort((a, b) => {
-        const aIndex = abilities.getTimelineSortIndex(a) || Number.MAX_VALUE;
-        const bIndex = abilities.getTimelineSortIndex(b) || Number.MAX_VALUE;
+        const aSortIndex = abilities.getTimelineSortIndex(a);
+        const bSortIndex = abilities.getTimelineSortIndex(b);
+        const aIndex = aSortIndex !== undefined ? aSortIndex : Number.MAX_VALUE;
+        const bIndex = bSortIndex !== undefined ? bSortIndex : Number.MAX_VALUE;
         const aCasts = abilityTracker.getAbility(a).casts;
         const bCasts = abilityTracker.getAbility(b).casts;
         return aIndex - bIndex || bCasts - aCasts;
@@ -83,7 +86,7 @@ class SpellTimeline extends React.PureComponent {
 
   gemini = null;
   render() {
-    const { start, end, historyBySpellId, globalCooldownHistory, channelHistory, deaths, resurrections, showCooldowns, showGlobalCooldownDuration, abilities, ...others } = this.props;
+    const { start, end, historyBySpellId, globalCooldownHistory, channelHistory, deaths, resurrections, showCooldowns, showGlobalCooldownDuration, abilities, buffEvents, ...others } = this.props;
     delete others.abilityTracker;
     const duration = end - start;
     const seconds = Math.ceil(duration / 1000);
@@ -189,10 +192,11 @@ class SpellTimeline extends React.PureComponent {
             </div>
           )}
           {this.spells.map(spellId => (
-            <Events
+            <SpellRow
               key={spellId}
               className="lane"
               events={historyBySpellId[spellId] || []}
+              buffEvents={buffEvents[abilities.getBuffSpellId(spellId)]}
               start={start}
               totalWidth={totalWidth}
               secondWidth={secondWidth}

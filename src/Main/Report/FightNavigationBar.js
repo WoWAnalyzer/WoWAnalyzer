@@ -43,6 +43,9 @@ class FightNavigationBar extends React.PureComponent {
     }
 
     const player = playerId ? report.friendlies.find(friendly => friendly.id === playerId) : report.friendlies.find(friendly => friendly.name === playerName);
+    if (!player) {
+      return null;
+    }
 
     return (
       <nav className="fight">
@@ -63,7 +66,7 @@ class FightNavigationBar extends React.PureComponent {
                 >
                   <Link to={makeAnalyzerUrl(report, fight.id, playerId)}>
                     <figure>
-                      {boss.icon ? <Icon icon={boss.icon} alt={boss ? boss.name : fight.name} /> : (
+                      {boss && boss.icon ? <Icon icon={boss.icon} alt={boss ? boss.name : fight.name} /> : (
                         <img
                           src={boss ? boss.headshot : SkullRaidMarker}
                           alt={boss ? boss.name : fight.name}

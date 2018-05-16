@@ -6,9 +6,9 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.POWER_WORD_SHIELD.id,
   SPELLS.POWER_WORD_RADIANCE.id,
   SPELLS.HALO_TALENT.id,
-  SPELLS.PLEA.id,
   SPELLS.SHADOW_MEND.id,
-  SPELLS.SHARE_IN_THE_LIGHT.id,
   // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
   SPELLS.LEECH.id,
 ];
+
+export const ATONEMENT_COEFFICIENT = 0.4;

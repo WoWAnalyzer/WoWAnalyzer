@@ -36,6 +36,7 @@ class VelensFutureSight extends Analyzer {
     if (this.active) {
       this.abilities.add({
         spell: SPELLS.VELENS_FUTURE_SIGHT_BUFF,
+        buffSpellId: SPELLS.VELENS_FUTURE_SIGHT_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.ITEMS,
         cooldown: 75,
         castEfficiency: {

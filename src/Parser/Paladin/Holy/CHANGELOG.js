@@ -8,6 +8,26 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-05-11'),
+    changes: <React.Fragment>Update stat values to consider the crit changes for <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> (lowers the stat value of crit).</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-05-11'),
+    changes: <React.Fragment>Implement support for <SpellLink id={SPELLS.UNBREAKABLE_SPIRIT_TALENT.id} /> (improves timeline accuracy with this talent).</React.Fragment>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-05-10'),
+    changes: 'Changed the order of spells in the timeline.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-05-10'),
+    changes: 'Configured buffs triggered by spells so they appear in the timeline.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-04-15'),
     changes: <React.Fragment>Updated everything for Battle for Azeroth compatibility.</React.Fragment>,
     contributors: [Zerotorescue],

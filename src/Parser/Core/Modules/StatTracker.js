@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SPECS from 'common/SPECS';
-import { calculateSecondaryStatDefault, calculatePrimaryStat } from 'common/stats';
+import { calculateSecondaryStatDefault, calculatePrimaryStat, calculateSecondaryStatJewelry } from 'common/stats';
 import { formatMilliseconds } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -117,6 +117,13 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.HORN_OF_VALOR.id,
       haste: (_, item) => calculatePrimaryStat(820, 2332, item.itemLevel),
     },
+
+    // BFA quests
+    [SPELLS.DIEMETRADON_FRENZY.id]: {
+      itemId: ITEMS.ENGRANGED_DIEMETRADON_FIN.id,
+      haste: (_, item) => calculateSecondaryStatJewelry(172, 160, item.itemLevel),
+    },
+
     //endregion
 
     // region Raid Trinkets
@@ -220,6 +227,23 @@ class StatTracker extends Analyzer {
     // region Paladin
     [SPELLS.SERAPHIM_TALENT.id]: { crit: 249, haste: 249, mastery: 249, versatility: 249 },
     // endregion
+
+    /****************************************\
+    *                    BFA:                *
+    \****************************************/
+
+    // region Azerite Traits
+    // region General
+    [SPELLS.BLIGHTBORNE_INFUSION.id]: { crit: 622 },
+    [SPELLS.SECRETS_OF_THE_DEEP_SURGING_DROPLET.id]: { strength: 442, agility: 442, intellect: 442 },
+    [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 },
+    // endregion
+    // endregion
+
+    // region Enchants
+    [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 60 },
+    [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 480 },
+    //endregion
   };
 
   _pullStats = {};
@@ -353,8 +377,6 @@ class StatTracker extends Analyzer {
   get baseCritPercentage() {
     const standard = 0.05;
     switch (this.combatants.selected.spec) {
-      case SPECS.HOLY_PALADIN:
-        return standard + 0.03; // 3% from a trait everyone has. TODO: Make traits conditional
       case SPECS.FIRE_MAGE:
         return standard + 0.15; // an additional 15% is gained from the passive Critical Mass
       case SPECS.BEAST_MASTERY_HUNTER :
@@ -389,7 +411,7 @@ class StatTracker extends Analyzer {
       case SPECS.SHADOW_PRIEST:
         return 0.2;
       case SPECS.DISCIPLINE_PRIEST:
-        return 0.128;
+        return 0.096;
       case SPECS.RESTORATION_SHAMAN:
         return 0.24;
       case SPECS.ENHANCEMENT_SHAMAN:

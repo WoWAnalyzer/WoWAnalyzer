@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
+import HIT_TYPES from 'Parser/Core/HIT_TYPES';
 import BaseHealerStatValues from 'Parser/Core/Modules/Features/BaseHealerStatValues';
 import STAT from 'Parser/Core/Modules/Features/STAT';
 import Combatants from 'Parser/Core/Modules/Combatants';
@@ -12,7 +13,7 @@ import MasteryEffectiveness from './MasteryEffectiveness';
 
 const INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER = 150; // the buff expiration can occur several MS before the heal event is logged, this is the buffer time that an IoL charge may have dropped during which it will still be considered active.
 const INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME = 200; // if someone heals with FoL and then immediately casts a HS race conditions may occur. This prevents that (although the buff is probably not applied before the FoL).
-const INFUSION_OF_LIGHT_FOL_HEALING_INCREASE = 0.5;
+const INFUSION_OF_LIGHT_FOL_HEALING_INCREASE = 0.4;
 
 /**
  * Holy Paladin Stat Values Methodology
@@ -31,6 +32,13 @@ class StatValues extends BaseHealerStatValues {
 
   spellInfo = SPELL_INFO;
 
+  _lastAvengingCrusaderEligibleEvent = null;
+  on_byPlayer_damage(event) {
+    if (event.ability.guid !== SPELLS.CRUSADER_STRIKE.id && event.ability.guid !== SPELLS.JUDGMENT_CAST_ALT.id) {
+      return;
+    }
+    this._lastAvengingCrusaderEligibleEvent = event;
+  }
   on_heal(event) {
     if (event.ability.guid === SPELLS.BEACON_OF_LIGHT_HEAL.id) {
       // Handle this via the `on_beacon_heal` event
@@ -47,19 +55,26 @@ class StatValues extends BaseHealerStatValues {
   _getCritChance(event) {
     const spellId = event.ability.guid;
 
+    // eslint-disable-next-line prefer-const
     let { baseCritChance, ratingCritChance } = super._getCritChance(event);
 
     if (this.combatants.selected.hasBuff(SPELLS.AVENGING_WRATH.id)) {
-      // Avenging Wrath increases the crit chance by 20%, this 20% does not add to the rating contribution since it's unaffected by stats.
-      baseCritChance += 0.2;
+      // Avenging Wrath increases the crit chance by 30%, this 30% does not add to the rating contribution since it's unaffected by stats.
+      baseCritChance += 0.3;
     }
     if (spellId === SPELLS.HOLY_SHOCK_HEAL.id) {
-      // Holy Shock *doubles* the crit chance, this includes doubling the base.
-      baseCritChance *= 2;
-      ratingCritChance *= 2;
+      // Holy Shock has a base 25% crit chance
+      baseCritChance += 0.25;
     }
 
     return { baseCritChance, ratingCritChance };
+  }
+  _isCrit(event) {
+    if (event.ability.guid === SPELLS.AVENGING_CRUSADER_HEAL.id) {
+      // Avenging Crusader's events don't indicate if it replicated a crit so we need to check if the damage event was a crit manually
+      return this._lastAvengingCrusaderEligibleEvent && this._lastAvengingCrusaderEligibleEvent.hitType === HIT_TYPES.CRIT;
+    }
+    return event.hitType === HIT_TYPES.CRIT;
   }
   _criticalStrike(event, healVal) {
     return super._criticalStrike(event, healVal) + this._criticalStrikeInfusionOfLightProcs(event, healVal);

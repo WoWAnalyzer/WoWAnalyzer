@@ -120,6 +120,7 @@ export default {
   [SPELLS.DOWNPOUR.id]: {
     // T21 4pc
     crit: true,
+    hasteHpct: true,
     vers: true,
   },
   [SPELLS.DOWNPOUR_TALENT.id]: {

@@ -714,6 +714,16 @@ export default {
     name: 'Chi Orbit',
     icon: 'ability_monk_forcesphere',
   },
+  FIST_OF_THE_WHITE_TIGER_ENERGIZE: {
+    id: 261978,
+    name: 'Fist of the White Tiger',
+    icon: 'ability_monk_jab',
+  },
+  CHI_BURST_ENERGIZE: {
+    id: 261682,
+    name: 'Chi Burst',
+    icon: 'spell_arcane_arcanetorrent',
+  },
   // Windwalker legendaries
   KATSUOS_ECLIPSE: {
     id: 208045,

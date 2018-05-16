@@ -50,6 +50,13 @@ export default {
     mastery: true,
     vers: true,
   },
+  [SPELLS.HOLY_PRISM_HEAL_DIRECT.id]: {
+    int: true,
+    crit: true,
+    hasteHpct: false, // static CD
+    mastery: true,
+    vers: true,
+  },
   [SPELLS.HOLY_PRISM_HEAL.id]: {
     int: true,
     crit: true,
@@ -98,7 +105,7 @@ export default {
   },
   [SPELLS.AVENGING_CRUSADER_HEAL.id]: {
     int: true,
-    crit: false, // https://cdn.discordapp.com/attachments/406441490533974017/434730955924832257/unknown.png based on only half the damage done
+    crit: true,
     hasteHpct: true,
     mastery: false, // it just raw scales off of the damage done
     vers: true,
@@ -109,5 +116,13 @@ export default {
   },
   [SPELLS.LAY_ON_HANDS.id]: {
     ignored: true,
+  },
+
+  [SPELLS.STALWART_PROTECTOR.id]: { // General Paladin Azerite Power
+    int: false,
+    crit: false,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
   },
 };

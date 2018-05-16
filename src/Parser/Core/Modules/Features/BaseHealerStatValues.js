@@ -215,8 +215,11 @@ class BaseHealerStatValues extends Analyzer {
 
     return { baseCritChance, ratingCritChance };
   }
+  _isCrit(event) {
+    return event.hitType === HIT_TYPES.CRIT;
+  }
   _criticalStrike(event, healVal) {
-    if (event.hitType === HIT_TYPES.CRIT) {
+    if (this._isCrit(event)) {
       // This collects the total effective healing contributed by the last 1 point of critical strike rating.
       // We don't make any predictions on normal hits based on crit chance since this would be guess work and we are a log analysis system so we prefer to only work with facts. Actual crit heals are undeniable facts, unlike speculating the chance a normal hit might have crit (and accounting for the potential overhealing of that).
 
