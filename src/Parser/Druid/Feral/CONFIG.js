@@ -15,7 +15,7 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <React.Fragment>
-      Questions about Feral? Visit <a href="http://www.discord.me/Dreamgrove">Dreamgrove</a> Discord.<br /><br />
+      Questions about Feral? Visit <a href="https://www.discord.gg/dreamgrove">Dreamgrove</a> Discord.<br /><br />
 
       <Warning>
         This spec's analysis isn't complete yet. What we do show should be good to use, but it does not show the complete picture.<br />
