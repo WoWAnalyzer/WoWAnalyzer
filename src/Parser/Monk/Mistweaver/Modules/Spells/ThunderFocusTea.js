@@ -11,7 +11,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 
 import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 
-const debug = true;
+const debug = false;
 
 const CHART_SIZE = 75;
 
