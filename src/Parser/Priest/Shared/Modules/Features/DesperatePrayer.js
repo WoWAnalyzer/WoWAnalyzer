@@ -96,7 +96,7 @@ class DesperatePrayer extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You died with <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> on cooldown.</span>)
           .icon(SPELLS.DESPERATE_PRAYER.icon)
-          .actual(`You died ${this.deathsWithDPReady} times with Desperate Prayer on cooldown.`)
+          .actual(`You died ${this.deathsWithDPReady} time(s) with Desperate Prayer on cooldown.`)
           .recommended(`0 is recommended`);
       });
   }
