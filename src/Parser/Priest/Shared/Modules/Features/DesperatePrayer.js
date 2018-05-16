@@ -89,13 +89,16 @@ class DesperatePrayer extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.deathsWithDPReady).isGreaterThan(0)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You died with <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> on cooldown.</span>)
-          .icon(SPELLS.DESPERATE_PRAYER.icon)
-          .actual(`You died ${this.deathsWithDPReady} time(s) with Desperate Prayer on cooldown.`)
-          .recommended(`0 is recommended`);
-      });
+    const boss = this.owner.boss;
+    if (!boss || !boss.fight.disableDeathSuggestion) {
+      when(this.deathsWithDPReady).isGreaterThan(0)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest(<React.Fragment>You died with <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> available.</React.Fragment>)
+            .icon(SPELLS.DESPERATE_PRAYER.icon)
+            .actual(`You died ${this.deathsWithDPReady} time(s) with Desperate Prayer on cooldown.`)
+            .recommended(`0 is recommended`);
+        });
+    }
   }
 }
 
