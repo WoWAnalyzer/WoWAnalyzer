@@ -18,46 +18,43 @@ class DesperatePrayer extends Analyzer {
   };
 
   desperatePrayerUsages = [];
-  currentDesperatePrayerUsage;
   deathsWithDPReady = 0;
 
   on_byPlayer_applybuff(event) {
     if (event.ability.guid !== SPELLS.DESPERATE_PRAYER.id) {
       return;
     }
-    this.currentDesperatePrayerUsage = {
-      DamageTaken: 0,
-      HPWhenUsed: 0,
-      MaxHPWhenUsed: 0,
-    };
+    this.desperatePrayerUsages.push({
+      damageTaken: 0,
+      originalHealth: 0,
+      originalMaxHealth: 0,
+    });
   }
 
   on_toPlayer_heal(event) {
     if (event.ability.guid !== SPELLS.DESPERATE_PRAYER.id) {
       return;
     }
-    this.currentDesperatePrayerUsage.HPWhenUsed = event.hitPoints - event.amount;
-    this.currentDesperatePrayerUsage.MaxHPWhenUsed = event.maxHitPoints;
+    this.lastDesperatePrayerUsage.originalHealth = event.hitPoints - event.amount;
+    this.lastDesperatePrayerUsage.originalMaxHealth = event.maxHitPoints;
   }
 
   on_toPlayer_damage(event) {
     if(!this.combatants.selected.hasBuff(SPELLS.DESPERATE_PRAYER.id)) {
       return;
     }
-    this.currentDesperatePrayerUsage.DamageTaken += event.amount;
-  }
 
-  on_byPlayer_removebuff(event) {
-    if (event.ability.guid !== SPELLS.DESPERATE_PRAYER.id) {
-      return;
-    }
-    this.desperatePrayerUsages.push(this.currentDesperatePrayerUsage);
+    this.lastDesperatePrayerUsage.damageTaken += event.amount + event.absorbed;
   }
 
   on_toPlayer_death(event) {
     if(!this.spellUsable.isOnCooldown(SPELLS.DESPERATE_PRAYER.id)){
       this.deathsWithDPReady++;
     }
+  }
+
+  get lastDesperatePrayerUsage() {
+    return this.desperatePrayerUsages[this.desperatePrayerUsages.length - 1];
   }
 
   statistic() {
@@ -80,8 +77,8 @@ class DesperatePrayer extends Analyzer {
                 .map((dp, index) => (
                   <tr key={index}>
                     <th scope="row">{ index + 1 }</th>
-                    <td>{ formatPercentage(dp.DamageTaken / dp.MaxHPWhenUsed) } %</td>
-                    <td>{ formatPercentage(dp.HPWhenUsed / dp.MaxHPWhenUsed) } %</td>
+                    <td>{ formatPercentage(dp.damageTaken / dp.originalMaxHealth) } %</td>
+                    <td>{ formatPercentage(dp.originalHealth / dp.originalMaxHealth) } %</td>
                   </tr>
                 ))
             }
