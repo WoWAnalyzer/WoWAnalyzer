@@ -44,7 +44,7 @@ class DesperatePrayer extends Analyzer {
     if(!this.combatants.selected.hasBuff(SPELLS.DESPERATE_PRAYER.id)) {
       return;
     }
-    this.currentDesperatePrayerUsage.DamageTaken += event.amount || 0;
+    this.currentDesperatePrayerUsage.DamageTaken += event.amount;
   }
 
   on_byPlayer_removebuff(event) {
@@ -63,6 +63,8 @@ class DesperatePrayer extends Analyzer {
   statistic() {
     return (
       <ExpandableStatisticBox
+        value={`${this.desperatePrayerUsages.length}`}
+        label={`Desperate Prayer Usages`}
         icon={<SpellIcon id={SPELLS.DESPERATE_PRAYER.id} />}>
         <table className="table table-condensed">
           <thead>
