@@ -111,7 +111,6 @@ class StatWeights extends BaseHealerStatValues {
   }
 
   _criticalStrike(event, healVal) {
-    const spellId = event.ability.guid;
     const bonusFromOneCrit = 1 / this.statTracker.critRatingPerPercent;
 
     if (healVal.overheal) {
