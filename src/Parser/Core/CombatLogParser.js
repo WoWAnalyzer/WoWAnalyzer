@@ -30,7 +30,6 @@ import GlobalCooldown from './Modules/GlobalCooldown';
 import Enemies from './Modules/Enemies';
 import EnemyInstances from './Modules/EnemyInstances';
 import Pets from './Modules/Pets';
-import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
 import Channeling from './Modules/Channeling';
@@ -163,7 +162,6 @@ class CombatLogParser {
     spellManaCost: SpellManaCost,
     channeling: Channeling,
     abilityTracker: AbilityTracker,
-    healEventTracker: HealEventTracker,
     haste: Haste,
     statTracker: StatTracker,
     alwaysBeCasting: AlwaysBeCasting,
