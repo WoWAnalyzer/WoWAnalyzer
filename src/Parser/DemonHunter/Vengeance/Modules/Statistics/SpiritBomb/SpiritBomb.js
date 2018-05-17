@@ -28,7 +28,7 @@ class SpiritBomb extends Analyzer {
 
     when(spiritBombUptimePercentage).isLessThan(0.90)
     .addSuggestion((suggest, actual, recommended) => {
-      return suggest(<span>Try to cast <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> more often. This is your core healing ability by applying <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> debuff. Try to refresh it even if you have just one <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> available.</span>)
+      return suggest(<React.Fragment>Try to cast <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> more often. This is your core healing ability by applying <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> debuff. Try to refresh it even if you have just one <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> available.</React.Fragment>)
         .icon('inv_icon_shadowcouncilorb_purple')
         .actual(`${formatPercentage(spiritBombUptimePercentage)}% debuff total uptime.`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`)
