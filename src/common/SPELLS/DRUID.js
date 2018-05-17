@@ -65,12 +65,6 @@ export default {
     icon: 'spell_nature_rejuvenation',
     manaCost: 22000,
   },
-  HEALING_TOUCH: {
-    id: 5185,
-    name: 'Healing Touch',
-    icon: 'spell_nature_healingtouch',
-    manaCost: 19800,
-  },
   REGROWTH: {
     id: 8936,
     name: 'Regrowth',

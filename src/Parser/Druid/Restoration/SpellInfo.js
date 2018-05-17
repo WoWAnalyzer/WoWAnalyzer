@@ -114,15 +114,6 @@ export const DRUID_HEAL_INFO = {
     masteryStack: false,
     vers: true,
   },
-  [SPELLS.HEALING_TOUCH.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: true,
-    mastery: true,
-    masteryStack: false,
-    vers: true,
-  },
   [SPELLS.SWIFTMEND.id]: {
     int: true,
     crit: true,

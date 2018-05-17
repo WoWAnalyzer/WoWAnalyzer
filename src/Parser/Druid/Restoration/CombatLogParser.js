@@ -41,7 +41,6 @@ import T20_4Set from './Modules/Items/T20_4Set';
 import T21_2Set from './Modules/Items/T21_2Set';
 import T21_4Set from './Modules/Items/T21_4Set';
 
-import HealingTouch from './Modules/Features/HealingTouch';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import AverageHots from './Modules/Features/AverageHots';
 import Abilities from './Modules/Features/Abilities';
@@ -91,7 +90,6 @@ class CombatLogParser extends CoreCombatLogParser {
     dreamerAttributor: DreamerAttributor,
 
     // Features
-    healingTouch : HealingTouch,
     lowHealthHealing: LowHealthHealing,
     alwaysBeCasting: AlwaysBeCasting,
     averageHots: AverageHots,
