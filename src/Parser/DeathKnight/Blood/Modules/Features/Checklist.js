@@ -102,7 +102,7 @@ class Checklist extends CoreChecklist {
             check: () => this.marrowrendUsage.suggestionThresholdsEfficiency,
           }),
           new Requirement({
-            name: <React.Fragment>Avoid <SpellLink id={SPELLS.DEATHS_CARESS.id} /></React.Fragment>,
+            name: <React.Fragment>Avoid casting <SpellLink id={SPELLS.DEATHS_CARESS.id} /></React.Fragment>,
             check: () => this.deathsCaress.averageCastSuggestionThresholds,
           }),
         ];
