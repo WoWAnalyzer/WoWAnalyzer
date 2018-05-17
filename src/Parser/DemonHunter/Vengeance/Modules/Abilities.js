@@ -157,19 +157,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SIGIL_OF_FLAME,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        cooldown: 30,
-        isOnGCD: true,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
-          extraSuggestion: combatant.hasTalent(SPELLS.FLAME_CRASH_TALENT.id)?<React.Fragment>Line this up with <SpellLink id={SPELLS.INFERNAL_STRIKE.id} /> to double stack <SpellLink id={SPELLS.SIGIL_OF_FLAME.id} /> because of the <SpellLink id={SPELLS.FLAME_CRASH_TALENT.id} /> talent.</React.Fragment>:`Cast on cooldown for a dps increase.`,
-        },
-      },
-      {
-        spell: SPELLS.SIGIL_OF_FLAME,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        enabled: combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id),
-        cooldown: 24,
+        cooldown: 30 * (1 - combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0),
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
@@ -186,27 +174,13 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SIGIL_OF_SILENCE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id),
-        cooldown: 48,
-        isOnGCD: true,
-      },
-      {
-        spell: SPELLS.SIGIL_OF_SILENCE,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 60,
+        cooldown: 60 * (1 - combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0),
         isOnGCD: true,
       },
       {
         spell: SPELLS.SIGIL_OF_MISERY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 60,
-        isOnGCD: true,
-      },
-      {
-        spell: SPELLS.SIGIL_OF_MISERY,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id),
-        cooldown: 48,
+        cooldown: 60 * (1 - combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0),
         isOnGCD: true,
       },
       {
