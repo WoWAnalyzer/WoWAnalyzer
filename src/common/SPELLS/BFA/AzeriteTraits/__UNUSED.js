@@ -164,11 +164,6 @@ export default {
     name: 'Cascading Calamity',
     icon: 'spell_shadow_unstableaffliction_3',
   },
-  CHAMPION_OF_AZEROTH: {
-    id: 270586,
-    name: 'Champion of Azeroth',
-    icon: 'spell_holy_championsgrace',
-  },
   CONCENTRATED_MENDING: {
     id: 272258,
     name: 'Concentrated Mending',
@@ -1088,11 +1083,6 @@ export default {
     id: 271557,
     name: 'Upwelling',
     icon: 'boss_odunrunes_blue',
-  },
-  VAMPIRIC_SPEED: {
-    id: 269238,
-    name: 'Vampiric Speed',
-    icon: 'inv_misc_monsterfang_02',
   },
   VENOMOUS_FANGS: {
     id: 274590,
