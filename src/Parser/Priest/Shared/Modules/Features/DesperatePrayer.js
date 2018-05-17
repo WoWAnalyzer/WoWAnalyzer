@@ -95,7 +95,7 @@ class DesperatePrayer extends Analyzer {
         .addSuggestion((suggest, actual, recommended) => {
           return suggest(<React.Fragment>You died with <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> available.</React.Fragment>)
             .icon(SPELLS.DESPERATE_PRAYER.icon)
-            .actual(`You died ${this.deathsWithDPReady} time(s) with Desperate Prayer on cooldown.`)
+            .actual(`You died ${this.deathsWithDPReady} time(s) with Desperate Prayer available.`)
             .recommended(`0 is recommended`);
         });
     }
