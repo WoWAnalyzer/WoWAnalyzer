@@ -217,11 +217,6 @@ export default {
     name: 'Ysera\'s gift',
     icon: 'spell_nature_healingtouch',
   },
-  LIVING_SEED: {
-    id: 48503,
-    name: 'Living Seed',
-    icon: 'ability_druid_giftoftheearthmother',
-  },
   MARK_OF_SHIFTING: {
     id: 224392,
     name: 'Mark of Shifting',

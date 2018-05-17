@@ -113,18 +113,14 @@ class StatWeights extends BaseHealerStatValues {
   _criticalStrike(event, healVal) {
     const spellId = event.ability.guid;
     const bonusFromOneCrit = 1 / this.statTracker.critRatingPerPercent;
-    if (spellId === SPELLS.LIVING_SEED.id) { // TODO get better Living Seed calcs from a standalone module
-      // Living Seed doesn't crit, but it procs from crits only. This calculation approximates increased LS frequency due to more crits.
-      const additionalLivingSeedChance = bonusFromOneCrit / this.statTracker.currentCritRating;
-      return additionalLivingSeedChance * healVal.effective;
-    } else {
-      if (healVal.overheal) {
-        return 0;
-      }
-      const critMult = this.critEffectBonus.getBonus(event);
-      const noCritHealing = event.hitType === HIT_TYPES.CRIT ? healVal.effective / critMult : healVal.effective;
-      return noCritHealing * bonusFromOneCrit * (critMult - 1);
+
+    if (healVal.overheal) {
+      return 0;
     }
+    const critMult = this.critEffectBonus.getBonus(event);
+    const noCritHealing = event.hitType === HIT_TYPES.CRIT ? healVal.effective / critMult : healVal.effective;
+    return noCritHealing * bonusFromOneCrit * (critMult - 1);
+
   }
 
   _hasteHpm(event, healVal) {

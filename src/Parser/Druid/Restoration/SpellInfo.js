@@ -132,15 +132,6 @@ export const DRUID_HEAL_INFO = {
     masteryStack: false,
     vers: true,
   },
-  [SPELLS.LIVING_SEED.id]: { // an approximation based on what likely procced it. There is special case handling for crit.
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: true,
-    mastery: true,
-    masteryStack: false,
-    vers: true,
-  },
   [SPELLS.TRANQUILITY_HEAL.id]: {
     ignored: true, // Dreamgrove theorycrafters say should be ignored because it always overheals, could unfairly skew weights against Haste if included. I'd like a better solution, but this will do for now.
     int: true,
