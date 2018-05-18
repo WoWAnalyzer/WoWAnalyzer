@@ -47,7 +47,7 @@ class Photosynthesis extends Analyzer {
     const amount = event.amount + (event.absorbed || 0);
 
     if(spellId === SPELLS.REJUVENATION.id && this.combatants.selected.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id)) {
-      this.rejuvenationIncrease += amount * (1 - (100 / (100 + (100 * PHOTOSYNTHESIS_REJUV_INCREASE))));
+      this.rejuvenationIncrease += amount * (1 - (1 / (1 + PHOTOSYNTHESIS_REJUV_INCREASE)));
     }
 
     if(spellId === SPELLS.LIFEBLOOM_BLOOM_HEAL.id && (this.lastRealBloomTimestamp === null || (event.timestamp - this.lastRealBloomTimestamp) > 32)){
@@ -64,8 +64,8 @@ class Photosynthesis extends Analyzer {
         label={'Photosynthesis'}
         tooltip={`
             <ul>
-              <li>Rejuvenation Bonus: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.rejuvenationIncrease))}</b></li>
-              <li>Lifebloom Bonus: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.lifebloomIncrease))}</b></li>
+              <li>Rejuvenation Bonus: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.rejuvenationIncrease))} %</b></li>
+              <li>Lifebloom Bonus: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.lifebloomIncrease))} %</b></li>
             </ul>`}
       />
     );
