@@ -1,4 +1,5 @@
 // Values are from simc, found at https://github.com/simulationcraft/simc/blob/bfa-dev/engine/dbc/generated/sc_scale_data.inc#L1498
+// Multipliers are 0-indexed. So the value at index #0 is for item level 1, #1 is 2, etc.
 
 export default {
   // General
