@@ -13,6 +13,7 @@ import IronFurGoEProcs from './Modules/Features/IronFurGoEProcs';
 import FrenziedRegenGoEProcs from './Modules/Features/FrenziedRegenGoEProcs';
 import RageWasted from './Modules/Features/RageWasted';
 import AntiFillerSpam from './Modules/Features/AntiFillerSpam';
+import DeathRecapTracker from 'Main/DeathRecapTracker';
 
 import IronFur from './Modules/Spells/IronFur';
 import Thrash from './Modules/Spells/Thrash';
@@ -48,6 +49,7 @@ class CombatLogParser extends CoreCombatLogParser {
     frenziedRegenGoEProcs: FrenziedRegenGoEProcs,
     rageWasted: RageWasted,
     antiFillerSpam: AntiFillerSpam,
+    deathRecapTracker: DeathRecapTracker,
 
     ironFur: IronFur,
     thrash: Thrash,
