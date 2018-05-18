@@ -23,7 +23,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEMON_SPIKES,
         enabled: combatant.hasTalent(SPELLS.RAZOR_SPIKES_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        buffSpellId: SPELLS.DEMON_SPIKES_BUFF.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: haste => 15 / (1 + haste),
         charges: 3,
         castEfficiency: {
@@ -35,6 +36,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEMON_SPIKES,
         enabled: !(combatant.hasTalent(SPELLS.RAZOR_SPIKES_TALENT.id)),
+        buffSpellId: SPELLS.DEMON_SPIKES_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: haste => 15 / (1 + haste),
         charges: 2,
@@ -145,13 +147,17 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
       {
+        spell: SPELLS.PAINBRINGER_Buff,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+      },
+      {
         spell: SPELLS.SOUL_CLEAVE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         isOnGCD: true,
       },
       {
         spell: SPELLS.SPIRIT_BOMB_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
       },
       {

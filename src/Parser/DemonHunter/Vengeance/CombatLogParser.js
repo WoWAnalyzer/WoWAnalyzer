@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
+import DeathRecapTracker from 'Main/DeathRecapTracker';
 
 import PainTracker from './Modules/Pain/PainTracker';
 import PainDetails from './Modules/Pain/PainDetails';
@@ -39,6 +40,8 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    deathRecapTracker: DeathRecapTracker,
+
     //Resource Tracker
     painTracker :PainTracker,
     painDetails: PainDetails,
