@@ -71,7 +71,7 @@ class Photosynthesis extends Analyzer {
         value={`${formatPercentage(totalPercent)} %`}
         label={'Photosynthesis'}
         tooltip={`
-            Photosynthesis healing contribution
+            Healing contribution
             <ul>
               <li>Rejuvenation: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.rejuvenationIncrease))} %</b></li>
               <li>Lifebloom: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.lifebloomIncrease))} %</b></li>
