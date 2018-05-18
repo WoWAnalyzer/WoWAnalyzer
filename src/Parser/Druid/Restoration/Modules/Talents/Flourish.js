@@ -233,8 +233,24 @@ class Flourish extends Analyzer {
         tooltip={`
           The HoT extension contributed: <b>${formatPercentage(extendPercent)} %</b><br>
           The HoT increased tick rate contributed: <b>${formatPercentage(increasedRatePercent)} %</b><br>
+          <ul>
+              ${this.wildGrowth === 0 ? '' :
+              `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateWildGrowthHealing))}% from Wild Growth</li>`}
+              ${this.rejuvenation === 0 ? '' :
+              `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateRejuvenationHealing))}% from Rejuvenation</li>`}
+              ${this.cenarionWard === 0 ? '' :
+              `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateCenarionWardHealing))}% from Cenarion Ward</li>`}
+              ${this.lifebloom === 0 ? '' :
+              `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateLifebloomHealing))}% from Lifebloom</li>`}
+              ${this.regrowth === 0 ? '' :
+              `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateRegrowthHealing))}% from Regrowth</li>`}
+              ${this.cultivation === 0 ? '' :
+              `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateCultivationHealing))}% from Cultivation</li>`}
+              ${this.dreamer === 0 ? '' :
+              `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateDreamerHealing))}% from Dreamer (T21 2pc)</li>`}
+          </ul>
 
-          The average and per Flourish amounts do <i>not</i> include Cultivation due to its refresh mechanic.<br>
+          The per Flourish amounts do <i>not</i> include Cultivation due to its refresh mechanic.<br>
           Your ${this.flourishCount} Flourish casts extended:
           <ul>
             <li>${this.wgsExtended}/${this.flourishCount} Wild Growth casts (${this.wgCount} HoTs)</li>
