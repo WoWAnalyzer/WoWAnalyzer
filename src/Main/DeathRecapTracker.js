@@ -4,6 +4,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import DEFENSIVE_BUFFS from 'common/DEFENSIVE_BUFFS';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
+import Enemies from 'Parser/Core/Modules/Enemies';
 import Tab from 'Main/Tab';
 import DeathRecap from './DeathRecap';
 
@@ -16,11 +17,14 @@ class DeathRecapTracker extends Analyzer {
   cooldowns = [];
   buffs = [];
   lastBuffs = [];
+  debuffs = [];
+  enemyDebuffs = [];
 
   static dependencies = {
     combatants: Combatants,
     abilities: Abilities,
     spellUsable: SpellUsable,
+    enemies: Enemies,
   };
 
   on_initialized() {
@@ -35,12 +39,18 @@ class DeathRecapTracker extends Analyzer {
     extendedEvent.time = event.timestamp - this.owner.fight.start_time;
     extendedEvent.cooldownsAvailable = this.cooldowns.filter(e => this.spellUsable.isAvailable(e.spell.id));
     extendedEvent.cooldownsUsed = this.cooldowns.filter(e => !this.spellUsable.isAvailable(e.spell.id));
-    if (event.hitPoints === 0) {
-      extendedEvent.buffsUp = this.lastBuffs;
-    } else {
-      extendedEvent.buffsUp = this.buffs.filter(e => this.combatants.selected.hasBuff(e.spell.buffSpellId) || this.combatants.selected.hasBuff(e.spell.id));
+    if (event.hitPoints > 0) {
+      this.lastBuffs = this.buffs.filter(e => this.combatants.selected.hasBuff(e.spell.buffSpellId) || this.combatants.selected.hasBuff(e.spell.id));
     }
-    this.lastBuffs = extendedEvent.buffsUp; //save old buffs and reuse them when all buffs got already removed
+
+    // if (!event.sourceIsFriendly) {
+    //   console.info(event);
+    //   console.info(this.enemies.enemies[event.sourceID]);
+    //   console.info(this.buffs);
+    //   console.info(this.enemies.enemies[event.sourceID].buffs.filter(buff => buff));
+    // }
+    
+    extendedEvent.buffsUp = this.lastBuffs;
     this.events.push(extendedEvent);
   }
 
