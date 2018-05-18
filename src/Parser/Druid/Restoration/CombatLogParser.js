@@ -65,7 +65,7 @@ import Flourish from './Modules/Talents/Flourish';
 import SpringBlossoms from './Modules/Talents/SpringBlossoms';
 import SoulOfTheForest from './Modules/Talents/SoulOfTheForest';
 import TreeOfLife from './Modules/Talents/TreeOfLife';
-import Photosynthesis from './Modules/Talents/Photosynthesis'
+import Photosynthesis from './Modules/Talents/Photosynthesis';
 
 import RelicTraits from './Modules/Traits/RelicTraits';
 import ArmorOfTheAncients from './Modules/Traits/ArmorOfTheAncients';
