@@ -47,12 +47,7 @@ class Photosynthesis extends Analyzer {
     const spellId = event.ability.guid;
     const amount = event.amount + (event.absorbed || 0);
 
-    if(spellId === SPELLS.REJUVENATION.id && this.combatants.selected.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id)) {
-
-      // We make sure it's the druid's lifebloom
-      if(!this.combatants.selected.getBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id).sourceID === this.combatants.selected.sourceID) {
-        return;
-      }
+    if(spellId === SPELLS.REJUVENATION.id && this.combatants.selected.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id, null, 0, 0, this.combatants.selected.sourceID)) {
 
       this.rejuvenationIncrease += calculateEffectiveHealing(event, PHOTOSYNTHESIS_REJUV_INCREASE);
     }
