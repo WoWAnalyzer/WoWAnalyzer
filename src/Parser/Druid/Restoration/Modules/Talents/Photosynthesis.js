@@ -48,7 +48,6 @@ class Photosynthesis extends Analyzer {
     const amount = event.amount + (event.absorbed || 0);
 
     if(spellId === SPELLS.REJUVENATION.id && this.combatants.selected.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id, null, 0, 0, this.combatants.selected.sourceID)) {
-
       this.rejuvenationIncrease += calculateEffectiveHealing(event, PHOTOSYNTHESIS_REJUV_INCREASE);
     }
 
