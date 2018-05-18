@@ -58,16 +58,30 @@ class Photosynthesis extends Analyzer {
 
   statistic() {
     const totalPercent = this.owner.getPercentageOfTotalHealingDone(this.rejuvenationIncrease + this.lifebloomIncrease);
+    const sourceID = this.combatants.selected._combatantInfo.sourceID;
+    const selfUptime = this.combatants.selected.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id, sourceID);
+    const totalUptime =
+      Object.keys(this.combatants.players)
+          .map(key => this.combatants.players[key])
+          .reduce((uptime, player) => uptime + player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id),  sourceID);
+
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.PHOTOSYNTHESIS_TALENT.id} />}
         value={`${formatPercentage(totalPercent)} %`}
         label={'Photosynthesis'}
         tooltip={`
+            Photosynthesis healing contribution
             <ul>
-              <li>Rejuvenation Bonus: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.rejuvenationIncrease))} %</b></li>
-              <li>Lifebloom Bonus: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.lifebloomIncrease))} %</b></li>
-            </ul>`}
+              <li>Rejuvenation: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.rejuvenationIncrease))} %</b></li>
+              <li>Lifebloom: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.lifebloomIncrease))} %</b></li>
+            </ul>
+            Lifebloom uptime
+            <ul>
+              <li>On Self: <b>${formatPercentage(selfUptime/ this.owner.fightDuration)} %</b>
+              <li>On Others: <b>${formatPercentage((totalUptime - selfUptime) / this.owner.fightDuration)} %</b>
+            </ul>
+        `}
       />
     );
   }
