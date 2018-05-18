@@ -9,6 +9,7 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 const PHOTOSYNTHESIS_REJUV_INCREASE = 0.3;
 
@@ -47,7 +48,13 @@ class Photosynthesis extends Analyzer {
     const amount = event.amount + (event.absorbed || 0);
 
     if(spellId === SPELLS.REJUVENATION.id && this.combatants.selected.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id)) {
-      this.rejuvenationIncrease += amount * (1 - (1 / (1 + PHOTOSYNTHESIS_REJUV_INCREASE)));
+
+      // We make sure it's the druid's lifebloom
+      if(!this.combatants.selected.getBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id).sourceID === this.combatants.selected.sourceID) {
+        return;
+      }
+
+      this.rejuvenationIncrease += calculateEffectiveHealing(event, PHOTOSYNTHESIS_REJUV_INCREASE);
     }
 
     if(spellId === SPELLS.LIFEBLOOM_BLOOM_HEAL.id && (this.lastRealBloomTimestamp === null || (event.timestamp - this.lastRealBloomTimestamp) > 32)){
