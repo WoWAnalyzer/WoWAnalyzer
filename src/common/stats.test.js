@@ -54,6 +54,15 @@ describe('stats', () => {
     expect(fetidHorrorsTanglecloak(355)).toBeWithin(68, 1); // Normal
     expect(fetidHorrorsTanglecloak(370)).toBeWithin(73, 1); // Heroic
     expect(fetidHorrorsTanglecloak(385)).toBeWithin(78, 1); // Mythic
+
+    // Azurethos' Ruffling Plumage (Trinket Haste active)
+    // https://bfa.wowhead.com/item=161377/azurethos-ruffling-plumage&bonus=4800:1507
+    const azurethosRufflingPlumageHaste = itemLevel => calculateSecondaryStatDefault(355, 925, itemLevel);
+
+    expect(azurethosRufflingPlumageHaste(340)).toBeWithin(860, 1); // LFG
+    expect(azurethosRufflingPlumageHaste(355)).toBeWithin(925, 1); // Normal
+    expect(azurethosRufflingPlumageHaste(370)).toBeWithin(990, 1); // Heroic
+    expect(azurethosRufflingPlumageHaste(385)).toBeWithin(1055, 1); // Mythic
   });
   it('scales secondary stat for Jewelry correctly', () => {
     // Rot-Scour Ring (Crit)
@@ -63,6 +72,7 @@ describe('stats', () => {
     expect(rotScourRingCrit(355)).toBeWithin(108, 1); // Normal
     expect(rotScourRingCrit(370)).toBeWithin(116, 1); // Heroic
     expect(rotScourRingCrit(385)).toBeWithin(123, 1); // Mythic
+
     // Rot-Scour Ring (Haste)
     const rotScourRingHaste = itemLevel => calculateSecondaryStatJewelry(355, 260, itemLevel);
 
@@ -70,14 +80,5 @@ describe('stats', () => {
     expect(rotScourRingHaste(355)).toBeWithin(260, 1); // Normal
     expect(rotScourRingHaste(370)).toBeWithin(278, 1); // Heroic
     expect(rotScourRingHaste(385)).toBeWithin(296, 1); // Mythic
-
-    // Azurethos' Ruffling Plumage (Trinket Haste active)
-    // https://bfa.wowhead.com/item=161377/azurethos-ruffling-plumage&bonus=4800:1507
-    const azurethosRufflingPlumageHaste = itemLevel => calculateSecondaryStatJewelry(355, 925, itemLevel);
-
-    expect(azurethosRufflingPlumageHaste(340)).toBeWithin(860, 1); // LFG
-    expect(azurethosRufflingPlumageHaste(355)).toBeWithin(925, 1); // Normal
-    expect(azurethosRufflingPlumageHaste(370)).toBeWithin(990, 1); // Heroic
-    expect(azurethosRufflingPlumageHaste(385)).toBeWithin(1055, 1); // Mythic
   });
 });
