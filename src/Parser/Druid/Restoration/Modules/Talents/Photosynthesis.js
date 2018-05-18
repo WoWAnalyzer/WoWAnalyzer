@@ -12,6 +12,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 const PHOTOSYNTHESIS_REJUV_INCREASE = 0.3;
+const BLOOM_BUFFER_MS = 32;
 
 class Photosynthesis extends Analyzer {
   static dependencies = {
@@ -51,7 +52,7 @@ class Photosynthesis extends Analyzer {
       this.rejuvenationIncrease += calculateEffectiveHealing(event, PHOTOSYNTHESIS_REJUV_INCREASE);
     }
 
-    if(spellId === SPELLS.LIFEBLOOM_BLOOM_HEAL.id && (this.lastRealBloomTimestamp === null || (event.timestamp - this.lastRealBloomTimestamp) > 32)){
+    if(spellId === SPELLS.LIFEBLOOM_BLOOM_HEAL.id && (this.lastRealBloomTimestamp === null || (event.timestamp - this.lastRealBloomTimestamp) > BLOOM_BUFFER_MS)){
       this.lifebloomIncrease += amount;
     }
   }
