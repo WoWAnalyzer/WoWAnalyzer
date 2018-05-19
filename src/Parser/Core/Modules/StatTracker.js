@@ -278,10 +278,6 @@ class StatTracker extends Analyzer {
       itemId: 158153, // Zandalari Loa Figurine
       crit: (_, item) => calculatePrimaryStat(280, 676, item.itemLevel),
     },
-    271071: { // Conch of Dark Whispers
-      itemId: 159620, // Conch of Dark Whispers
-      crit: (_, item) => calculateSecondaryStatDefault(300, 455, item.itemLevel),
-    },
     268602: { // Master's Sight
       itemId: 159074, // Jarkadiax's Other Eye
       mastery: (_, item) => calculateSecondaryStatDefault(172, 114, item.itemLevel),
@@ -303,6 +299,16 @@ class StatTracker extends Analyzer {
     273992: { // Speed of the Spirits
       itemId: 158154, // Zandalari Bijou
       haste: (_, item) => calculateSecondaryStatDefault(280, 414, item.itemLevel),
+    },
+    // endregion
+    // region Dungeons
+    271071: { // Conch of Dark Whispers
+      itemId: 159620, // Conch of Dark Whispers
+      crit: (_, item) => calculateSecondaryStatDefault(310, 485, item.itemLevel),
+    },
+    271115: { // Ignition Mage's Fuse
+      itemId: 159615, // Ignition Mage's Fuse
+      haste: (_, item) => calculateSecondaryStatDefault(310, 233, item.itemLevel),
     },
     // endregion
     // endregion
