@@ -275,6 +275,10 @@ class StatTracker extends Analyzer {
       itemId: 159620, // Conch of Dark Whispers
       crit: (_, item) => calculateSecondaryStatDefault(300, 455, item.itemLevel),
     },
+    268602: { // Master's Sight
+      itemId: 159074, // Jarkadiax's Other Eye
+      mastery: (_, item) => calculateSecondaryStatDefault(172, 114, item.itemLevel),
+    },
     // endregion
     // endregion
 
