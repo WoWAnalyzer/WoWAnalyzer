@@ -271,6 +271,10 @@ class StatTracker extends Analyzer {
       itemId: 158153, // Zandalari Loa Figurine
       crit: (_, item) => calculatePrimaryStat(280, 676, item.itemLevel),
     },
+    271071: { // Conch of Dark Whispers
+      itemId: 159620, // Conch of Dark Whispers
+      crit: (_, item) => calculateSecondaryStatDefault(300, 455, item.itemLevel),
+    },
     // endregion
     // endregion
 
