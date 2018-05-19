@@ -260,6 +260,15 @@ class StatTracker extends Analyzer {
     },
     // endregion
     // endregion
+
+    // region Consumables
+    //region Flasks
+    251836: { agility: 238 }, // Flask of the Currents
+    251839: { strength: 238 }, // Flask of the Undertow
+    152639: { intellect: 238 }, // Flask of Endless Fathoms
+    251838: { stamina: 357 }, // Flask of Vast Horizon
+    // endregion
+    // endregion
   };
 
   _pullStats = {};
