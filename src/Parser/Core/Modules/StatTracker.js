@@ -258,6 +258,10 @@ class StatTracker extends Analyzer {
       itemId: 159978, // Junji's Egg Timer
       haste: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
     },
+    268623: { // Shark's Bite
+      itemId: 159765, // Empowered Shark's Tooth
+      crit: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
+    },
     // endregion
     // endregion
 
