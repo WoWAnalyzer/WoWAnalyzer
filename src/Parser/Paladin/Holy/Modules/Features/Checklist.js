@@ -101,6 +101,10 @@ class Checklist extends CoreChecklist {
             onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
+            spell: SPELLS.AVENGING_CRUSADER_TALENT,
+            onlyWithSuggestion: false,
+          }),
+          new GenericCastEfficiencyRequirement({
             spell: SPELLS.HOLY_AVENGER_TALENT,
             onlyWithSuggestion: false,
           }),
