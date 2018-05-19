@@ -28,7 +28,7 @@ class DeathRecapTracker extends Analyzer {
   };
 
   on_initialized() {
-    const hasCooldown = ability =>  (ability.category === Abilities.SPELL_CATEGORIES.DEFENSIVE || ability.category === Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE) && ability.enabled === true;
+    const hasCooldown = ability => (ability.category === Abilities.SPELL_CATEGORIES.DEFENSIVE || ability.category === Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE) && ability.enabled === true;
     this.cooldowns = this.abilities.abilities.filter(hasCooldown);
     //add additional defensive buffs/debuffs to common/DEFENSIVE_BUFFS
     this.buffs = [...DEFENSIVE_BUFFS, ...this.cooldowns];
@@ -43,12 +43,10 @@ class DeathRecapTracker extends Analyzer {
       this.lastBuffs = this.buffs.filter(e => this.combatants.selected.hasBuff(e.spell.buffSpellId) || this.combatants.selected.hasBuff(e.spell.id));
     }
 
-    // if (!event.sourceIsFriendly) {
-    //   console.info(event);
-    //   console.info(this.enemies.enemies[event.sourceID]);
-    //   console.info(this.buffs);
-    //   console.info(this.enemies.enemies[event.sourceID].buffs.filter(buff => buff));
-    // }
+    if (!event.sourceIsFriendly && this.enemies.enemies[event.sourceID]) {
+      const sourceHasDebuff = debuff => (!debuff.end || event.timestamp <= debuff.end) && event.timestamp >= debuff.start && debuff.isDebuff && this.buffs.some(e => e.spell.id === debuff.ability.guid);
+      extendedEvent.debuffsUp = this.enemies.enemies[event.sourceID].buffs.filter(sourceHasDebuff);
+    }
     
     extendedEvent.buffsUp = this.lastBuffs;
     this.events.push(extendedEvent);
@@ -92,7 +90,9 @@ class DeathRecapTracker extends Analyzer {
       url: 'death-recap',
       render: () => (
         <Tab>
-          <DeathRecap events={this.secondsBeforeDeath} />
+          <DeathRecap 
+            events={this.secondsBeforeDeath} 
+          />
         </Tab>
       ),
     };
