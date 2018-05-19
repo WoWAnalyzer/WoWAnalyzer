@@ -44,7 +44,7 @@ class DeathRecapTracker extends Analyzer {
     }
 
     if (!event.sourceIsFriendly && this.enemies.enemies[event.sourceID]) {
-      const sourceHasDebuff = debuff => (!debuff.end || event.timestamp <= debuff.end) && event.timestamp >= debuff.start && debuff.isDebuff && this.buffs.some(e => e.spell.id === debuff.ability.guid);
+      const sourceHasDebuff = debuff => (!debuff.end || event.timestamp <= debuff.end) && event.timestamp >= debuff.start && debuff.isDebuff && this.buffs.some(e => e.spell.id === debuff.ability.guid || e.spell.buffSpellId === debuff.ability.guid);
       extendedEvent.debuffsUp = this.enemies.enemies[event.sourceID].buffs.filter(sourceHasDebuff);
     }
     
