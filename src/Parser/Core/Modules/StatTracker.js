@@ -279,6 +279,10 @@ class StatTracker extends Analyzer {
       itemId: 159074, // Jarkadiax's Other Eye
       mastery: (_, item) => calculateSecondaryStatDefault(172, 114, item.itemLevel),
     },
+    268616: { // Swell of Voodoo
+      itemId: 159763, // Idol of Vol'jamba
+      mastery: (_, item) => calculateSecondaryStatDefault(172, 114, item.itemLevel),
+    },
     // endregion
     // endregion
 
