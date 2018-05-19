@@ -1,6 +1,7 @@
 import safeMerge from 'common/safeMerge';
 import General from './General';
-import Paladin from './Paladin';
 import Hunter from './Hunter';
+import Paladin from './Paladin';
+import Warlock from './Warlock';
 
-export default safeMerge(General, Paladin, Hunter);
+export default safeMerge(General, Hunter, Paladin, Warlock);

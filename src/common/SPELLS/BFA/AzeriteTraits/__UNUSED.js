@@ -334,11 +334,6 @@ export default {
     name: 'Executioner\'s Precision',
     icon: 'ability_warrior_savageblow',
   },
-  EXPLOSIVE_POTENTIAL: {
-    id: 275395,
-    name: 'Explosive Potential',
-    icon: 'inv__implosion',
-  },
   EXPURGATION: {
     id: 273481,
     name: 'Expurgation',

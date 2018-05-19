@@ -244,6 +244,9 @@ class StatTracker extends Analyzer {
     // region Hunter
     [SPELLS.HAZE_OF_RAGE.id]: { agility: 316 },
     // endregion
+    // region Warlock
+    [SPELLS.EXPLOSIVE_POTENTIAL.id]: { haste: 841 },
+    // endregion
     // endregion
 
     // region Enchants
