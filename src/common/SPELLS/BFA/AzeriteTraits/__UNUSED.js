@@ -449,11 +449,6 @@ export default {
     name: 'Haste',
     icon: 'trade_engineering',
   },
-  HAZE_OF_RAGE: {
-    id: 273263,
-    name: 'Haze of Rage',
-    icon: 'ability_druid_ferociousbite',
-  },
   HEALING_HAMMER: {
     id: 273142,
     name: 'Healing Hammer',

@@ -235,11 +235,14 @@ class StatTracker extends Analyzer {
     // region Azerite Traits
     // region General
     [SPELLS.BLIGHTBORNE_INFUSION.id]: { crit: 622 },
-    [SPELLS.SECRETS_OF_THE_DEEP_SURGING_DROPLET.id]: { strength: 442, agility: 442, intellect: 442 },
-    [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 },
+    [SPELLS.SECRETS_OF_THE_DEEP_SURGING_DROPLET.id]: { strength: 442, agility: 442, intellect: 442 }, // TODO: Implement primaryStat
+    [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 }, // TODO: Implement primaryStat
     [SPELLS.CHAMPION_OF_AZEROTH.id]: { versatility: 87 },
     [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
     [SPELLS.GEMHIDE.id]: { avoidance: 0, dodge: 0 }, // TODO: Implement based on in-game data
+    // endregion
+    // region Hunter
+    [SPELLS.HAZE_OF_RAGE.id]: { agility: 316 },
     // endregion
     // endregion
 
