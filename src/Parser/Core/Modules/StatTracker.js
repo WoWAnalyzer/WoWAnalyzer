@@ -266,6 +266,10 @@ class StatTracker extends Analyzer {
       itemId: 159765, // Empowered Shark's Tooth
       crit: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
     },
+    273974: { // Will of the Loa
+      itemId: 158153, // Zandalari Loa Figurine
+      crit: (_, item) => calculatePrimaryStat(280, 676, item.itemLevel),
+    },
     // endregion
     // endregion
 
