@@ -300,6 +300,10 @@ class StatTracker extends Analyzer {
       itemId: 158154, // Zandalari Bijou
       haste: (_, item) => calculateSecondaryStatDefault(280, 414, item.itemLevel),
     },
+    268604: { // Blood Crazed
+      itemId: 159075, // Bloodhex Talisman
+      crit: (_, item) => calculateSecondaryStatDefault(172, 207, item.itemLevel),
+    },
     // endregion
     // region Dungeons
     271071: { // Conch of Dark Whispers
