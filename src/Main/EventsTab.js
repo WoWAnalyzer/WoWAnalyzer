@@ -223,7 +223,7 @@ class EventsTab extends React.Component {
             // noinspection EqualityComparisonWithCoercionJS
             if (event.ability.guid == searchTerm) { // eslint-disable-line eqeqeq
               return true;
-            } else if (event.ability.name.toLowerCase().includes(searchTerm)) {
+            } else if (event.ability.name && event.ability.name.toLowerCase().includes(searchTerm)) {
               return true;
             }
           }
