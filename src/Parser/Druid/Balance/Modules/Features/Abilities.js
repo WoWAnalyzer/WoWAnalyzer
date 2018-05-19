@@ -256,7 +256,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BEAR_FORM,
         buffSpellId: SPELLS.BEAR_FORM.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isOnGCD: true,
       },
       {
@@ -286,6 +286,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FRENZIED_REGENERATION,
         buffSpellId: SPELLS.FRENZIED_REGENERATION.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 24,
+        charges: 2,
         enabled: combatant.hasTalent(SPELLS.GUARDIAN_AFFINITY_TALENT_SHARED.id),
       },
       {

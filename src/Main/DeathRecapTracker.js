@@ -33,8 +33,9 @@ class DeathRecapTracker extends Analyzer {
   addEvent(event) {
     const extendedEvent = { ...event };
     extendedEvent.time = event.timestamp - this.owner.fight.start_time;
-    extendedEvent.cooldownsAvailable = this.cooldowns.filter(e => this.spellUsable.isAvailable(e.spell.id));
-    extendedEvent.cooldownsUsed = this.cooldowns.filter(e => !this.spellUsable.isAvailable(e.spell.id));
+    const cooldownsOnly = this.cooldowns.filter(e => e.cooldown);
+    extendedEvent.cooldownsAvailable = cooldownsOnly.filter(e => this.spellUsable.isAvailable(e.spell.id));
+    extendedEvent.cooldownsUsed = cooldownsOnly.filter(e => !this.spellUsable.isAvailable(e.spell.id));
     if (event.hitPoints === 0) {
       extendedEvent.buffsUp = this.lastBuffs;
     } else {
