@@ -66,6 +66,7 @@ describe('stats', () => {
   });
   it('scales secondary stat for Jewelry correctly', () => {
     // Rot-Scour Ring (Crit)
+    // https://bfa.wowhead.com/item=160645
     const rotScourRingCrit = itemLevel => calculateSecondaryStatJewelry(355, 108, itemLevel);
 
     expect(rotScourRingCrit(340)).toBeWithin(101, 1); // LFG
