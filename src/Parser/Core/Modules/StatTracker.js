@@ -296,6 +296,10 @@ class StatTracker extends Analyzer {
       itemId: 159977, // Vindictive Golem Core
       crit: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
     },
+    273992: { // Speed of the Spirits
+      itemId: 158154, // Zandalari Bijou
+      haste: (_, item) => calculateSecondaryStatDefault(280, 414, item.itemLevel),
+    },
     // endregion
     // endregion
 
