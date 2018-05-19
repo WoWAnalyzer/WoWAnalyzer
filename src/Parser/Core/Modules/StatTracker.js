@@ -289,6 +289,10 @@ class StatTracker extends Analyzer {
       agility: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
       intellect: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
     },
+    269885: { // Residual Viciousness
+      itemId: 159977, // Vindictive Golem Core
+      crit: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
+    },
     // endregion
     // endregion
 
