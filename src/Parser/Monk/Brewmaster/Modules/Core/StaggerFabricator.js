@@ -1,10 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import { GIFT_OF_THE_OX_SPELLS } from '../../Constants';
 
 const PURIFY_BASE = 0.4;
 const ELUSIVE_DANCE_PURIFY = 0.2;
 const STAGGER_TICKS = 20;
+const T20_4PC_PURIFY = 0.05;
 const debug = false;
 
 export const EVENT_STAGGER_POOL_ADDED = 'addstagger';
@@ -19,8 +21,16 @@ class StaggerFabricator extends Analyzer {
     combatants: Combatants,
   };
 
+  // causes an orb consumption to clear 5% of stagger
+  _hasTier20_4pc = false;
   _staggerPool = 0;
   _lastMelee = null;
+
+  on_initialized() {
+    const player = this.combatants.selected;
+    this._hasQuickSipTrait = player.traitsBySpellId[SPELLS.QUICK_SIP.id] > 0;
+    this._hasTier20_4pc = player.hasBuff(SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id);
+  }
 
   get purifyPercentage() {
     const player = this.combatants.selected;
@@ -90,6 +100,16 @@ class StaggerFabricator extends Analyzer {
   on_toPlayer_death(event) {
     const amount = this._staggerPool;
     this._staggerPool = 0;
+    this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount), event);
+  }
+
+  on_toPlayer_heal(event) {
+    if (!this._hasTier20_4pc || !GIFT_OF_THE_OX_SPELLS.includes(event.ability.guid)) {
+      return;
+    }
+    const amount = this._staggerPool * T20_4PC_PURIFY;
+    this._staggerPool -= amount;
+    debug && console.log("triggering stagger pool update due to T20 4pc");
     this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount), event);
   }
 
