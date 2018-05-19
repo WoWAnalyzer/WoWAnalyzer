@@ -55,7 +55,6 @@ import Clearcasting from './Modules/Features/Clearcasting';
 import Innervate from './Modules/Features/Innervate';
 import PowerOfTheArchdruid from './Modules/Features/PowerOfTheArchdruid';
 import Dreamwalker from './Modules/Features/Dreamwalker';
-import EssenceOfGhanir from './Modules/Features/EssenceOfGhanir';
 import NaturesEssence from './Modules/Features/NaturesEssence';
 import Ironbark from './Modules/Features/Ironbark';
 
@@ -133,7 +132,6 @@ class CombatLogParser extends CoreCombatLogParser {
     powerOfTheArchdruid: PowerOfTheArchdruid,
     dreamwalker: Dreamwalker,
     soulOfTheForest: SoulOfTheForest,
-    essenceOfGhanir: EssenceOfGhanir,
     springBlossoms: SpringBlossoms,
     cultivation: Cultivation,
     cenarionWard: CenarionWard,
