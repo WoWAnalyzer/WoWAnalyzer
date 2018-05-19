@@ -249,6 +249,7 @@ class StatTracker extends Analyzer {
     // region Enchants
     [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 60 },
     [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 480 },
+    264878: { crit: 445 }, // Crow's Nest Scope
     //endregion
 
     // region Trinkets
