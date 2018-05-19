@@ -254,6 +254,10 @@ class StatTracker extends Analyzer {
       itemId: 159764, // Engranged Diemetradon Fin
       haste: (_, item) => calculateSecondaryStatDefault(172, 160, item.itemLevel),
     },
+    269887: { // Boiling Time
+      itemId: 159978, // Junji's Egg Timer
+      haste: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
+    },
     // endregion
     // endregion
   };
