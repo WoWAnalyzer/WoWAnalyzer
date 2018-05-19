@@ -286,6 +286,14 @@ class StatTracker extends Analyzer {
     251838: { stamina: 357 }, // Flask of Vast Horizon
     // endregion
     // endregion
+
+    // region Racials
+    // Mag'har Orc
+    274739: { crit: 102 }, // Rictus of the Laughing Skull
+    274740: { haste: 102 }, // Zeal of the Burning Blade
+    274741: { mastery: 102 }, // Ferocity of the Frostwolf
+    274742: { versatility: 102 }, // Might of the Blackrock
+    // endregion
   };
 
   _pullStats = {};
