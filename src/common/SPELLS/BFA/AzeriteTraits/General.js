@@ -24,4 +24,9 @@ export default {
     name: 'Vampiric Speed',
     icon: 'inv_misc_monsterfang_02',
   },
+  GEMHIDE: { // buff (avoidance + dodge)
+    id: 270576,
+    name: 'Gemhide',
+    icon: 'inv_jewelcrafting_argusgemcut_yellow_miscicons',
+  },
 };

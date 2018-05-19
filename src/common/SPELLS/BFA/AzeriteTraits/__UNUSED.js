@@ -424,11 +424,6 @@ export default {
     name: 'Gathering Storm',
     icon: 'ability_warrior_bladestorm',
   },
-  GEMHIDE: {
-    id: 270579,
-    name: 'Gemhide',
-    icon: 'inv_jewelcrafting_argusgemcut_yellow_miscicons',
-  },
   GLACIAL_CONTAGION: {
     id: 274074,
     name: 'Glacial Contagion',
