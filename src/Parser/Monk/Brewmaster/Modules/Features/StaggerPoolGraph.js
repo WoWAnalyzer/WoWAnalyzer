@@ -34,10 +34,6 @@ class StaggerPoolGraph extends Analyzer {
     this._staggerEvents.push(event);
   }
 
-  on_initialized() {
-    this.active = false;
-  }
-
   on_removestagger(event) {
     this._staggerEvents.push(event);
 

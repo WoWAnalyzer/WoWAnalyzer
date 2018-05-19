@@ -97,7 +97,7 @@ class BrewCDR extends Analyzer {
         value={`${formatPercentage(this.cooldownReductionRatio)}%`}
         label="Effective Brew CDR"
         tooltip={`Your cooldowns were reduced by: <ul>
-              <li>${this.ks.totalHits} Keg Smash hits — <b>${(this.ks.cdr / 1000).toFixed(2)}s</b> (<b>${(this.ks.wastedCDR / 1000).toFixed(2)}s</b> wasted)</li>
+              <li>${this.ks.totalCasts} Keg Smash casts— <b>${(this.ks.cdr / 1000).toFixed(2)}s</b> (<b>${(this.ks.wastedCDR / 1000).toFixed(2)}s</b> wasted)</li>
               ${bocKsDesc}
               <li>${this.tp.totalCasts} Tiger Palm hits — <b>${(this.tp.cdr / 1000).toFixed(2)}s</b> (<b>${(this.tp.wastedCDR / 1000).toFixed(2)}s</b> wasted)</li>
               ${bobDesc}
