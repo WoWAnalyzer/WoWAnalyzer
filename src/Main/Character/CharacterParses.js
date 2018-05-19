@@ -317,6 +317,13 @@ class CharacterParses extends React.Component {
           You don't know how to make your character visible again? Check <a href="https://www.warcraftlogs.com/help/hidingcharacters/" target="_blank" rel="noopener noreferrer">Warcraft Logs </a> and hit the 'Refresh' button above once you're done.
         </div>
       );
+    } else if (this.state.error === ERRORS.UNEXPECTED) {
+      errorMessage = (
+        <div style={{ padding: 20 }}>
+          Something unexpected happened.<br /><br />
+          Please message us on <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">Discord</a> or create an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">Github</a> and we will fix it, eventually.
+        </div>
+      );
     } else if (this.state.error === ERRORS.NO_PARSES_FOR_TIER || this.filterParses.length === 0) {
       errorMessage = (
         <div style={{ padding: 20 }}>
