@@ -283,6 +283,12 @@ class StatTracker extends Analyzer {
       itemId: 159763, // Idol of Vol'jamba
       mastery: (_, item) => calculateSecondaryStatDefault(172, 114, item.itemLevel),
     },
+    273988: { // Primal Instinct
+      itemId: 158155, // Zandalari Dinobone Charm
+      strength: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
+      agility: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
+      intellect: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
+    },
     // endregion
     // endregion
 
