@@ -294,11 +294,6 @@ export default {
     name: 'Electropotence',
     icon: 'ability_shaman_stormstrike',
   },
-  ELEMENTAL_WHIRL: {
-    id: 270667,
-    name: 'Elemental Whirl',
-    icon: 'ability_skyreach_four_wind',
-  },
   EMBRACE_OF_THE_DARKFALLEN: {
     id: 275924,
     name: 'Embrace of the Darkfallen',
