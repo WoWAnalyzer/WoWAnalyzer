@@ -246,6 +246,16 @@ class StatTracker extends Analyzer {
     [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 60 },
     [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 480 },
     //endregion
+
+    // region Trinkets
+    // region Quests
+    // Mostly implemented for beta/PTR, don't expect to ever need those spells/trinkets elsewhere, so hard-coding the ids here
+    268619: { // Diemetradon Frenzy
+      itemId: 159764, // Engranged Diemetradon Fin
+      haste: (_, item) => calculateSecondaryStatDefault(172, 160, item.itemLevel),
+    },
+    // endregion
+    // endregion
   };
 
   _pullStats = {};
