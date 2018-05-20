@@ -11,7 +11,7 @@ import { formatPercentage, formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import Penance from '../Spells/Penance';
-import { OffensivePenanceBoltEstimation } from '../../SpellCalculations';
+import { calculateOverhealing ,OffensivePenanceBoltEstimation } from '../../SpellCalculations';
 
 class Contrition extends Analyzer {
   static dependencies = {
@@ -23,14 +23,6 @@ class Contrition extends Analyzer {
   healing = 0;
   damagePenalty = 0;
   penanceBoltEstimation;
-
-  static calculateOverhealing(estimateHealing, healing, overhealing = 0) {
-    if (estimateHealing - healing < 0) {
-      return 0;
-    }
-
-    return estimateHealing - healing;
-  }
 
   on_initialized() {
     this.active = this.owner.modules.combatants.selected.hasTalent(
@@ -67,7 +59,7 @@ class Contrition extends Analyzer {
     // Calculate the difference between contrition and an offensive penance
     if (event.ability.guid === SPELLS.CONTRITION_HEAL.id) {
       const estimatedBoltHealing = boltHealing * event.hitType;
-      const estimatedOverhealing = Contrition.calculateOverhealing(
+      const estimatedOverhealing = calculateOverhealing(
         estimatedBoltHealing,
         event.amount,
         event.overheal

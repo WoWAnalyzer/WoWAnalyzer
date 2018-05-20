@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
+import StatTracker from 'Parser/Core/Modules/StatTracker';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
@@ -15,10 +16,13 @@ import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import isAtonement from '../Core/isAtonement';
 import AtonementDamageSource from '../Features/AtonementDamageSource';
 
+import { calculateOverhealing, SmiteEstimation } from '../../SpellCalculations';
+
 class Schism extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     enemies: Enemies,
+    statTracker: StatTracker,
     atonementDamageSource: AtonementDamageSource,
   };
 
@@ -28,11 +32,14 @@ class Schism extends Analyzer {
   damageFromBuff = 0;
   healing = 0;
   target = null;
+  smiteEstimation;
 
   on_initialized() {
     this.active = this.owner.modules.combatants.selected.hasTalent(
       SPELLS.SCHISM_TALENT.id
     );
+
+    this.smiteEstimation = SmiteEstimation(this.statTracker);
   }
 
   get buffActive() {
@@ -52,11 +59,23 @@ class Schism extends Analyzer {
     this.target = this.enemies.getEntity(event);
 
     // Add direct schism damage
-    this.directDamage += event.amount;
+    const { smiteDamage } = this.smiteEstimation();
+
+    this.directDamage += (event.amount - smiteDamage);
   }
 
   on_byPlayer_heal(event) {
-    if (!isAtonement(event) || !this.buffActive) {
+    if (!isAtonement(event)) return;
+    const atonenementDamageEvent = this.atonementDamageSource.event;
+
+    // Schism doesn't buff itself, but we need to handle this for better estimations
+    if (atonenementDamageEvent.ability.guid === SPELLS.SCHISM_TALENT.id) {
+      this.processSchismAtonement(event);
+      return;
+    }
+
+    // If the Schism debuff isn't active, or the damage isn't our target we don't process it
+    if (!this.buffActive || atonenementDamageEvent.targetID !== this.target.id) {
       return;
     }
 
@@ -66,6 +85,22 @@ class Schism extends Analyzer {
     }
 
     this.healing += calculateEffectiveHealing(event, Schism.bonus);
+  }
+
+  // The Atonement from Schism's direct damage component
+  processSchismAtonement(event) {
+    const { smiteHealing } = this.smiteEstimation();
+    const estimatedSmiteRawHealing = smiteHealing * event.hitType;
+
+    const estimatedOverhealing = calculateOverhealing(
+      estimatedSmiteRawHealing,
+      event.amount,
+      event.overheal
+    );
+
+    const estimatedSmiteHealing = estimatedSmiteRawHealing - estimatedOverhealing;
+
+    this.healing += (event.amount - estimatedSmiteHealing);
   }
 
   processSchismBuffDamage(event) {
@@ -86,7 +121,7 @@ class Schism extends Analyzer {
         label={
           <dfn
             data-tip={`
-              The effective healing contributed by the Schism bonus was ${formatPercentage(
+              The effective healing contributed by Schism was ${formatPercentage(
                 this.owner.getPercentageOfTotalHealingDone(this.healing)
               )}% of total healing done.
 
@@ -94,7 +129,7 @@ class Schism extends Analyzer {
                 this.owner.getPercentageOfTotalDamageDone(this.directDamage)
               )}% of total damage done.
 
-              The effective damage contributed by the Schism bonus ${formatPercentage(
+              The effective damage contributed by the Schism bonus was ${formatPercentage(
                 this.owner.getPercentageOfTotalDamageDone(this.damageFromBuff)
               )}% of total damage done.
             `}
