@@ -8,7 +8,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
-import {processLastRain} from '../ShamanCore/HealingRainLocation';
+import HealingRainLocation from '../ShamanCore/HealingRainLocation';
 
 const REBALANCERS_HEALING_INCREASE = 0.10;
 
@@ -18,6 +18,7 @@ const REBALANCERS_HEALING_INCREASE = 0.10;
 class ElementalRebalancers extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    healingRainLocation: HealingRainLocation,
   };
   healing = 0;
   eventsDuringRain = [];
@@ -47,7 +48,7 @@ class ElementalRebalancers extends Analyzer {
       return;
     }
 
-    this.healing += processLastRain(this.eventsDuringRain, REBALANCERS_HEALING_INCREASE);
+    this.healing += this.healingRainLocation.processLastRain(this.eventsDuringRain, REBALANCERS_HEALING_INCREASE);
     this.eventsDuringRain.length = 0;
   }
 
@@ -55,7 +56,7 @@ class ElementalRebalancers extends Analyzer {
     if(!this.eventsDuringRain.length) {
       return;
     }
-    this.healing += processLastRain(this.eventsDuringRain, REBALANCERS_HEALING_INCREASE);
+    this.healing += this.healingRainLocation.processLastRain(this.eventsDuringRain, REBALANCERS_HEALING_INCREASE);
   }
 
   item() {

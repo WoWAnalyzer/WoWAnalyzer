@@ -8,7 +8,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
-import {processLastRain} from '../ShamanCore/HealingRainLocation';
+import HealingRainLocation from '../ShamanCore/HealingRainLocation';
 
 const DELUGE_HEALING_INCREASE = 0.20;
 
@@ -18,6 +18,7 @@ const DELUGE_HEALING_INCREASE = 0.20;
 class Deluge extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    healingRainLocation: HealingRainLocation,
   };
   healing = 0;
   eventsDuringRain = [];
@@ -56,7 +57,7 @@ class Deluge extends Analyzer {
       return;
     }
 
-    this.healing += processLastRain(this.eventsDuringRain, DELUGE_HEALING_INCREASE);
+    this.healing += this.healingRainLocation.processLastRain(this.eventsDuringRain, DELUGE_HEALING_INCREASE);
     this.eventsDuringRain.length = 0;
   }
 
@@ -64,7 +65,7 @@ class Deluge extends Analyzer {
     if (!this.eventsDuringRain.length) { 
       return;
     }
-    this.healing += processLastRain(this.eventsDuringRain, DELUGE_HEALING_INCREASE);
+    this.healing += this.healingRainLocation.processLastRain(this.eventsDuringRain, DELUGE_HEALING_INCREASE);
   }
 
   subStatistic() {
