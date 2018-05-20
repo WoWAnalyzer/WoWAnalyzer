@@ -319,20 +319,20 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     if (event.ability.guid === SPELLS.CLOUDBURST_TOTEM_HEAL.id && this.lastCBT) {
       this.hasBeenCBTHealingEvent = true;
       this.popCBT(event);
-      this.lastCBT.healing += (event.amount || 0) + (event.absorb || 0);
+      this.lastCBT.healing += (event.amount || 0) + (event.absorbed || 0);
       this.lastCBT.overheal += (event.overheal || 0);
     } else if (event.ability.guid === SPELLS.ANCESTRAL_GUIDANCE_HEAL.id && this.lastAG) {
       this.hasBeenAGHealingOrCastEvent = true;
-      this.lastAG.healing += (event.amount || 0) + (event.absorb || 0);
+      this.lastAG.healing += (event.amount || 0) + (event.absorbed || 0);
       this.lastAG.overheal += (event.overheal || 0);
     } else if (event.ability.guid === SPELLS.ASCENDANCE_HEAL.id && this.lastAsc) {
       this.hasBeenAscHealingOrCastEvent = true;
-      this.lastAsc.healing += (event.amount || 0) + (event.absorb || 0);
+      this.lastAsc.healing += (event.amount || 0) + (event.absorbed || 0);
       this.lastAsc.overheal += (event.overheal || 0);
     }
 
     const spellId = event.ability.guid;
-    const healingDone = (event.amount || 0) + (event.overheal || 0) + (event.absorb || 0);
+    const healingDone = (event.amount || 0) + (event.overheal || 0) + (event.absorbed || 0);
 
     this.activeCooldowns.forEach((cooldown) => {
       const cooldownId = cooldown.spell.id;

@@ -39,7 +39,7 @@ class EarthenShieldTotem extends Analyzer {
     }
 
     if (event.targetID === this.activeEST) {
-      this.healing += (event.amount || 0) + (event.overheal || 0) + (event.absorb || 0);
+      this.healing += (event.amount || 0) + (event.overheal || 0) + (event.absorbed || 0);
       this.earthenShieldEfficiency = this.healing / this.potentialHealing;
     }
 

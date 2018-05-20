@@ -29,7 +29,7 @@ class MasteryEffectiveness extends Analyzer {
     if (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)) {
       const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.indexOf(event.ability.guid) !== -1;
 
-      const healingDone = event.amount + (event.absorb || 0) + (event.overheal || 0);
+      const healingDone = event.amount + (event.absorbed || 0) + (event.overheal || 0);
 
       if (isAbilityAffectedByMastery) {
         const healthBeforeHeal = event.hitPoints - event.amount;
