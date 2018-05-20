@@ -161,7 +161,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RAGE_OF_THE_SLEEPER,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
         cooldown: 90,
         timelineSortIndex: 9,
       },
