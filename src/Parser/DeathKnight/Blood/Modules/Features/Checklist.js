@@ -20,6 +20,7 @@ import BloodPlagueUptime from './BloodPlagueUptime';
 import AlwaysBeCasting from './AlwaysBeCasting';
 import CrimsonScourge from './CrimsonScourge';
 import MarrowrendUsage from './MarrowrendUsage';
+import DeathsCaress from '../Core/DeathsCaress';
 
 import BoneStorm from '../Talents/Bonestorm';
 import MarkOfBloodUptime from '../Talents/MarkOfBlood';
@@ -39,6 +40,7 @@ class Checklist extends CoreChecklist {
     alwaysBeCasting: AlwaysBeCasting,
     enchantChecker: EnchantChecker,
     boneShield: BoneShield,
+    deathsCaress: DeathsCaress,
 
     bonestorm: BoneStorm,
     markOfBloodUptime: MarkOfBloodUptime,
@@ -96,6 +98,10 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.MARROWREND.id} /> efficiency</React.Fragment>,
             check: () => this.marrowrendUsage.suggestionThresholdsEfficiency,
+          }),
+          new Requirement({
+            name: <React.Fragment>Avoid casting <SpellLink id={SPELLS.DEATHS_CARESS.id} /></React.Fragment>,
+            check: () => this.deathsCaress.averageCastSuggestionThresholds,
           }),
         ];
       },

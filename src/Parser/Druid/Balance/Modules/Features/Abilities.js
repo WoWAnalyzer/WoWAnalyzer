@@ -36,6 +36,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.STARFALL_CAST,
+        buffSpellId: SPELLS.STELLAR_EMPOWERMENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
         timelineSortIndex: 3,
@@ -54,18 +55,21 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.MOONFIRE,
+        buffSpellId: SPELLS.MOONFIRE_BEAR.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
         timelineSortIndex: 6,
       },
       {
         spell: SPELLS.SUNFIRE_CAST,
+        buffSpellId: SPELLS.SUNFIRE.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
         timelineSortIndex: 7,
       },
       {
         spell: SPELLS.STELLAR_FLARE_TALENT,
+        buffSpellId: SPELLS.STELLAR_FLARE_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id),
         isOnGCD: true,
@@ -75,6 +79,7 @@ class Abilities extends CoreAbilities {
       // Cooldowns
       {
         spell: SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT,
+        buffSpellId: SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         enabled: combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id),
@@ -86,6 +91,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CELESTIAL_ALIGNMENT,
+        buffSpellId: SPELLS.CELESTIAL_ALIGNMENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         enabled: !combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id),
@@ -97,6 +103,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.WARRIOR_OF_ELUNE_TALENT,
+        buffSpellId: SPELLS.WARRIOR_OF_ELUNE_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 48,
         enabled: combatant.hasTalent(SPELLS.WARRIOR_OF_ELUNE_TALENT.id),
@@ -129,6 +136,18 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 11,
       },
+      {
+        spell: SPELLS.FURY_OF_ELUNE_TALENT,
+        buffSpellId: SPELLS.FURY_OF_ELUNE_TALENT.id,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 90,
+        enabled: combatant.hasTalent(SPELLS.FURY_OF_ELUNE_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+        timelineSortIndex: 11,
+      },
 
       //Utility
       {
@@ -145,7 +164,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BARKSKIN,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        buffSpellId: SPELLS.BARKSKIN.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 60,
         castEfficiency: {
           suggestion: true,
@@ -158,13 +178,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RENEWAL_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 90,
         enabled: combatant.hasTalent(SPELLS.RENEWAL_TALENT.id),
         timelineSortIndex: 14,
       },
       {
         spell: SPELLS.DISPLACER_BEAST_TALENT,
+        buffSpellId: SPELLS.DISPLACER_BEAST_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         enabled: combatant.hasTalent(SPELLS.DISPLACER_BEAST_TALENT.id),
@@ -206,6 +227,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DASH,
+        buffSpellId: SPELLS.DASH.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 180,
         isOnGCD: true, //It is not on the GCD if already in catform. Pretty low prio to fix since you can't cast anything meaning full in catform anyway.
@@ -233,21 +255,25 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BEAR_FORM,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        buffSpellId: SPELLS.BEAR_FORM.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isOnGCD: true,
       },
       {
         spell: SPELLS.CAT_FORM,
+        buffSpellId: SPELLS.CAT_FORM.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
       },
       {
         spell: SPELLS.MOONKIN_FORM,
+        buffSpellId: SPELLS.MOONKIN_FORM.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
       },
       {
         spell: SPELLS.TRAVEL_FORM,
+        buffSpellId: SPELLS.TRAVEL_FORM.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
       },
@@ -258,23 +284,20 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FRENZIED_REGENERATION,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        buffSpellId: SPELLS.FRENZIED_REGENERATION.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 24,
+        charges: 2,
         enabled: combatant.hasTalent(SPELLS.GUARDIAN_AFFINITY_TALENT_SHARED.id),
       },
       {
         spell: SPELLS.SWIFTMEND,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         enabled: combatant.hasTalent(SPELLS.RESTORATION_AFFINITY_TALENT.id),
         isOnGCD: true,
       },
       {
         spell: SPELLS.REJUVENATION,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.RESTORATION_AFFINITY_TALENT.id),
-        isOnGCD: true,
-      },
-      {
-        spell: SPELLS.SWIFTMEND,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.RESTORATION_AFFINITY_TALENT.id),
         isOnGCD: true,

@@ -136,6 +136,12 @@ export default {
     icon: 'spell_shadow_lifedrain',
   },
 
+  SHROUD_OF_PURGATORY: {
+    id: 116888,
+    name: 'Shroud of Purgatory',
+    icon: 'inv_misc_shadowegg',
+  },
+
   BONE_SHIELD: {
     id: 195181,
     name: 'Bone Shield',

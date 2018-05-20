@@ -7,7 +7,7 @@ import CharacterSelecter from './Character/CharacterSelecter';
 import makeNewsUrl from './News/makeUrl';
 import { title as AboutArticleTitle } from './News/Articles/2017-01-31-About';
 import { title as UnlistedLogsTitle } from './News/Articles/2017-01-31-UnlistedLogs';
-import ServiceStatus from './ServiceStatus';
+// import ServiceStatus from './ServiceStatus';
 
 import './Header.css';
 
@@ -49,7 +49,7 @@ class Header extends React.PureComponent {
                 </div>
               )}
                 
-              {process.env.NODE_ENV !== 'test' && <ServiceStatus style={{ marginBottom: 5 }} />}
+              {/*{process.env.NODE_ENV !== 'test' && <ServiceStatus style={{ marginBottom: 5 }} />}*/}
               <div className="about">
                 <Link to={makeNewsUrl(AboutArticleTitle)}>About WoWAnalyzer</Link>
                 {' '}| <Link to={makeNewsUrl(UnlistedLogsTitle)}>About unlisted logs</Link>
