@@ -7,7 +7,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import DualStatisticBox, { STATISTIC_ORDER } from 'Main/DualStatisticBox';
 import { formatPercentage, formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
@@ -61,7 +61,7 @@ class Schism extends Analyzer {
     // Add direct schism damage
     const { smiteDamage } = this.smiteEstimation();
 
-    this.directDamage += (event.amount - smiteDamage);
+    this.directDamage += event.amount - smiteDamage;
   }
 
   on_byPlayer_heal(event) {
@@ -75,7 +75,10 @@ class Schism extends Analyzer {
     }
 
     // If the Schism debuff isn't active, or the damage isn't our target we don't process it
-    if (!this.buffActive || atonenementDamageEvent.targetID !== this.target.id) {
+    if (
+      !this.buffActive ||
+      atonenementDamageEvent.targetID !== this.target.id
+    ) {
       return;
     }
 
@@ -98,9 +101,10 @@ class Schism extends Analyzer {
       event.overheal
     );
 
-    const estimatedSmiteHealing = estimatedSmiteRawHealing - estimatedOverhealing;
+    const estimatedSmiteHealing =
+      estimatedSmiteRawHealing - estimatedOverhealing;
 
-    this.healing += (event.amount - estimatedSmiteHealing);
+    this.healing += event.amount - estimatedSmiteHealing;
   }
 
   processSchismBuffDamage(event) {
@@ -113,12 +117,18 @@ class Schism extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <DualStatisticBox
         icon={<SpellIcon id={SPELLS.SCHISM_TALENT.id} />}
-        value={`${formatNumber(
-          this.healing / this.owner.fightDuration * 1000
-        )} HPS`}
-        label={
+        values={[
+          `${formatNumber(this.healing / this.owner.fightDuration * 1000)} HPS`,
+          `${formatNumber(
+            (this.directDamage + this.damageFromBuff) /
+              this.owner.fightDuration *
+              1000
+          )} DPS
+          `,
+        ]}
+        footer={
           <dfn
             data-tip={`
               The effective healing contributed by Schism was ${formatPercentage(
@@ -134,7 +144,7 @@ class Schism extends Analyzer {
               )}% of total damage done.
             `}
           >
-            Schism Output
+            Schism Output Details
           </dfn>
         }
       />
