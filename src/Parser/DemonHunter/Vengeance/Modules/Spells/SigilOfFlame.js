@@ -33,10 +33,10 @@ class SigilOfFlame extends Analyzer {
     if(this.lastApplicationTimestamp === 0){
       this.lastApplicationTimestamp = event.timestamp;
       return;
-    }else{
+    }
       this.currentApplicationTimestamp = event.timestamp;
       timeStampDifference = this.currentApplicationTimestamp - this.lastApplicationTimestamp;
-    }
+
     /*3 sec is the cut off because we want most of the 2 buffs to stack. So if the second
     buff application isnt within 3 seconds of the first its effectiveness is reduced quiet a bit*/
     if((timeStampDifference/1000) < 3 ) {

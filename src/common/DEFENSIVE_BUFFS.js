@@ -41,6 +41,10 @@ const DEFENSIVE_BUFFS = [
   {
     spell: SPELLS.SHROUD_OF_PURGATORY,
   },
+  //Vengence Demon Hunter
+  {
+    spell: SPELLS.PAINBRINGER_Buff,
+  },
 ];
 
 export default DEFENSIVE_BUFFS;

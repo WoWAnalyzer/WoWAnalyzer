@@ -24,6 +24,7 @@ import DancingRuneWeapon from './Modules/Features/DancingRuneWeapon';
 import InitialMarrowrendCast from './Modules/Features/InitialMarrowrendCast';
 import DeathStrikeTiming from './Modules/Features/DeathStrikeTiming';
 import BoneShieldTimesByStacks from './Modules/Features/BoneShieldTimesByStacks';
+import DeathsCaress from './Modules/Core/DeathsCaress';
 
 // Resources
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
@@ -85,6 +86,7 @@ class CombatLogParser extends CoreCombatLogParser {
     boneShield: BoneShield,
     boneShieldTimesByStacks: BoneShieldTimesByStacks,
     deathRecapTracker: DeathRecapTracker,
+    deathsCaress: DeathsCaress,
 
     // DOT
     bloodplagueUptime: BloodPlagueUptime,
