@@ -70,14 +70,20 @@ class MarrowrendUsage extends Analyzer {
     if (event.ability.guid !== SPELLS.MARROWREND.id) return;
 
     //don't add to wasted casts if MR casts was at ~6sec left on BS duration
-    if (this.BS_DURATION - (event.timestamp - this.lastMarrowrendCast) / 1000 <= this.REFRESH_AT_SECONDS) {
+    const durationLeft = this.BS_DURATION - (event.timestamp - this.lastMarrowrendCast) / 1000;
+    if (durationLeft <= this.REFRESH_AT_SECONDS) {
       this.refreshMRCasts += 1;
     } else {
-      if (this.currentBoneShieldStacks - this.currentBoneShieldBuffer > this.REFRESH_AT_STACKS) {
+      const boneShieldStacks = this.currentBoneShieldStacks - this.currentBoneShieldBuffer;
+      if (boneShieldStacks > this.REFRESH_AT_STACKS) {
         this.badMRCasts += 1;
         const wasted = this.MR_GAIN - this.currentBoneShieldBuffer;
         if (wasted > 0) {
           this.bsStacksWasted += wasted;
+
+          event.meta = event.meta || {};
+          event.meta.isInefficientCast = true;
+          event.meta.inefficientCastReason = `You made this cast with ${boneShieldStacks} stacks of Bone Shield while it had ${(durationLeft).toFixed(1)} seconds left.`;
         }
       }
     }
