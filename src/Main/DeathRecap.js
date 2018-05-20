@@ -82,8 +82,7 @@ class DeathRecap extends React.PureComponent {
                   <th>Ability</th>
                   <th>HP</th>
                   <th>Amount</th>
-                  <th>Defensive Buffs</th>
-                  <th>Targets Debuffs</th>
+                  <th>Defensive Buffs/Debuffs</th>
                   <th>Personals available</th>
                 </tr>
               </thead>
@@ -149,14 +148,12 @@ class DeathRecap extends React.PureComponent {
                       <td style={{ width: '15%'}}>
                         {output}
                       </td>
-                      <td style={{ width: '10%' }}>
+                      <td style={{ width: '20%' }}>
                         {event.buffsUp && event.buffsUp.map(e =>
-                          <SpellIcon id={e.spell ? e.spell.id : e} />
-                        )}
-                      </td>
-                      <td style={{ width: '10%' }}>
+                          <SpellIcon style={{ border: '1px solid rgba(0, 0, 0, 0)'}} id={e.spell ? e.spell.id : e} />
+                        )}<br/>
                         {event.debuffsUp && event.debuffsUp.map(e =>
-                          <SpellIcon id={e.ability ? e.ability.guid : e} />
+                          <SpellIcon style={{ border: '1px solid red'}} id={e.ability ? e.ability.guid : e} />
                         )}
                       </td>
                       <td style={{ width: '15%' }}>

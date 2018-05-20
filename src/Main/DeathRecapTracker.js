@@ -37,18 +37,20 @@ class DeathRecapTracker extends Analyzer {
   addEvent(event) {
     const extendedEvent = { ...event };
     extendedEvent.time = event.timestamp - this.owner.fight.start_time;
-    extendedEvent.cooldownsAvailable = this.cooldowns.filter(e => this.spellUsable.isAvailable(e.spell.id));
-    extendedEvent.cooldownsUsed = this.cooldowns.filter(e => !this.spellUsable.isAvailable(e.spell.id));
+    
+    const cooldownsOnly = this.cooldowns.filter(e => e.cooldown);
+    extendedEvent.cooldownsAvailable = cooldownsOnly.filter(e => this.spellUsable.isAvailable(e.spell.id));
+    extendedEvent.cooldownsUsed = cooldownsOnly.filter(e => !this.spellUsable.isAvailable(e.spell.id));
     if (event.hitPoints > 0) {
       this.lastBuffs = this.buffs.filter(e => this.combatants.selected.hasBuff(e.spell.buffSpellId) || this.combatants.selected.hasBuff(e.spell.id));
     }
+    extendedEvent.buffsUp = this.lastBuffs;
 
     if (!event.sourceIsFriendly && this.enemies.enemies[event.sourceID]) {
       const sourceHasDebuff = debuff => (!debuff.end || event.timestamp <= debuff.end) && event.timestamp >= debuff.start && debuff.isDebuff && this.buffs.some(e => e.spell.id === debuff.ability.guid || e.spell.buffSpellId === debuff.ability.guid);
       extendedEvent.debuffsUp = this.enemies.enemies[event.sourceID].buffs.filter(sourceHasDebuff);
     }
     
-    extendedEvent.buffsUp = this.lastBuffs;
     this.events.push(extendedEvent);
   }
 
