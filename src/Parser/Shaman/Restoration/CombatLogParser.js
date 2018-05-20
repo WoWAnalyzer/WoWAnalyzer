@@ -10,6 +10,7 @@ import Abilities from './Modules/Abilities';
 
 import HealingDone from './Modules/ShamanCore/HealingDone';
 import ShamanAbilityTracker from './Modules/ShamanCore/ShamanAbilityTracker';
+import HealingRainLocation from './Modules/ShamanCore/HealingRainLocation';
 
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -62,7 +63,6 @@ import LavaSurge from './Modules/Spells/LavaSurge';
 import Resurgence from './Modules/Spells/Resurgence';
 
 import CloudburstNormalizer from './Normalizers/CloudburstNormalizer';
-import DelugeNormalizer from './Normalizers/DelugeNormalizer';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -75,6 +75,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lowHealthHealing: LowHealthHealing,
     healingDone: [HealingDone, { showStatistic: true }],
     abilities: Abilities,
+    healingRainLocation: HealingRainLocation,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -131,7 +132,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Normalizers:
     cloudburstNormalizer: CloudburstNormalizer,
-    delugeNormalizer: DelugeNormalizer,
   };
 
   generateResults() {

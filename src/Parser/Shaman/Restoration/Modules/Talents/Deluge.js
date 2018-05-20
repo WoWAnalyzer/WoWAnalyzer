@@ -8,18 +8,19 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
-import Abilities from '../Abilities';
-import {_isPlayerInsideHealingRain} from '../../Normalizers/DelugeNormalizer';
+import {processLastRain} from '../ShamanCore/HealingRainLocation';
 
 const DELUGE_HEALING_INCREASE = 0.20;
 
+/**
+ * Chain Heal heals for an additional 20% on targets within your Healing Rain or affected by your Riptide.
+ */
 class Deluge extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    abilities: Abilities,
   };
   healing = 0;
-  healingRainIndex = 0;
+  eventsDuringRain = [];
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.DELUGE_TALENT.id);
@@ -32,21 +33,17 @@ class Deluge extends Analyzer {
       return;
     }
 
-    const healingRainDuration = this.abilities.getExpectedCooldownDuration(SPELLS.HEALING_RAIN_CAST.id); // healing rain lasts longer than the duration, check for it
-    if ((event.timestamp <= this.healingRainTimestamp + healingRainDuration) || (!this.healingRainTimestamp && event.timestamp <= this.owner.fight.start_time + healingRainDuration)) {
-      if(_isPlayerInsideHealingRain(event, this.healingRainIndex)){
-        this.healing += calculateEffectiveHealing(event, DELUGE_HEALING_INCREASE);
-        return; // return so it doesn't double up with riptide
-      }
-    }
-
     const combatant = this.combatants.players[event.targetID];
     if (!combatant) {
+      // Pet healing
+      this.eventsDuringRain.push(event);
       return;
     }
 
-    const hasBuff = combatant.hasBuff(SPELLS.RIPTIDE.id, event.timestamp);
+    const hasBuff = combatant.hasBuff(SPELLS.RIPTIDE.id, event.timestamp, undefined, undefined, this.owner.playerID);
     if (!hasBuff) {
+      // We add events for the Healing Rain here, so that it doesn't double dip on targets with Riptide
+      this.eventsDuringRain.push(event);
       return;
     }
 
@@ -55,23 +52,19 @@ class Deluge extends Analyzer {
 
   on_byPlayer_begincast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.HEALING_RAIN_CAST.id) {
+    if ((spellId !== SPELLS.HEALING_RAIN_CAST.id || event.isCancelled) || !this.eventsDuringRain.length) { 
       return;
     }
 
-    if(!event.isCancelled) {
-      this.healingRainIndex += 1;
-    }
+    this.healing += processLastRain(this.eventsDuringRain, DELUGE_HEALING_INCREASE);
+    this.eventsDuringRain.length = 0;
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId !== SPELLS.HEALING_RAIN_CAST.id) {
+  on_finished() {
+    if (!this.eventsDuringRain.length) { 
       return;
     }
-
-    this.healingRainTimestamp = event.timestamp;
+    this.healing += processLastRain(this.eventsDuringRain, DELUGE_HEALING_INCREASE);
   }
 
   subStatistic() {

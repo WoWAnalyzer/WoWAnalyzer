@@ -8,7 +8,7 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-05-12'),
+    date: new Date('2018-05-20'),
     changes: <React.Fragment>Added support for <SpellLink id={SPELLS.DELUGE_TALENT.id} /> and <ItemLink id={ITEMS.ELEMENTAL_REBALANCERS.id}/>.</React.Fragment>,
     contributors: [niseko],
   },

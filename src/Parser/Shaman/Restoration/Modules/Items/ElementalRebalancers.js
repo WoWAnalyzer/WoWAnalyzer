@@ -2,24 +2,25 @@ import React from 'react';
 
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+
 import Analyzer from 'Parser/Core/Analyzer';
-import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
-import Abilities from '../Abilities';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
-import {_isPlayerInsideHealingRain} from '../../Normalizers/DelugeNormalizer';
+import {processLastRain} from '../ShamanCore/HealingRainLocation';
 
-const REBALANCERS_HEALING_INCREASE = 0.1;
+const REBALANCERS_HEALING_INCREASE = 0.10;
 
+/**
+ * Allies within your Healing Rain receive 10% increased healing from your other healing spells.
+ */
 class ElementalRebalancers extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    abilities: Abilities,
   };
   healing = 0;
-  healingRainIndex = 0;
+  eventsDuringRain = [];
 
   on_initialized() {
     this.active = this.combatants.selected.hasFeet(ITEMS.ELEMENTAL_REBALANCERS.id);
@@ -28,6 +29,7 @@ class ElementalRebalancers extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
+    // healing rain itself is not affected
     if (spellId === SPELLS.HEALING_RAIN_HEAL.id) {
       return;
     }
@@ -36,34 +38,24 @@ class ElementalRebalancers extends Analyzer {
       return;
     }
 
-    const healingRainDuration = this.abilities.getExpectedCooldownDuration(SPELLS.HEALING_RAIN_CAST.id);
-    if ((event.timestamp <= this.healingRainTimestamp + healingRainDuration) || (!this.healingRainTimestamp && event.timestamp <= this.owner.fight.start_time + healingRainDuration)) {
-      if(_isPlayerInsideHealingRain(event, this.healingRainIndex)){
-        this.healing += calculateEffectiveHealing(event, REBALANCERS_HEALING_INCREASE);
-      }
-    }
+    this.eventsDuringRain.push(event);
   }
 
   on_byPlayer_begincast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.HEALING_RAIN_CAST.id) {
+    if ((spellId !== SPELLS.HEALING_RAIN_CAST.id || event.isCancelled) || !this.eventsDuringRain.length) { 
       return;
     }
 
-    if(!event.isCancelled) {
-      this.healingRainIndex += 1;
-    }
+    this.healing += processLastRain(this.eventsDuringRain, REBALANCERS_HEALING_INCREASE);
+    this.eventsDuringRain.length = 0;
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId !== SPELLS.HEALING_RAIN_CAST.id) {
+  on_finished() {
+    if(!this.eventsDuringRain.length) {
       return;
     }
-
-    
-    this.healingRainTimestamp = event.timestamp;
+    this.healing += processLastRain(this.eventsDuringRain, REBALANCERS_HEALING_INCREASE);
   }
 
   item() {
