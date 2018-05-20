@@ -15,6 +15,7 @@ class CloudburstTotem extends Analyzer {
     cooldownThroughputTracker: CooldownThroughputTracker,
   };
   healing = 0;
+  cbtActive = false;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id);
@@ -26,8 +27,36 @@ class CloudburstTotem extends Analyzer {
     if (spellId !== SPELLS.CLOUDBURST_TOTEM_HEAL.id) {
       return;
     }
+    if(this.cbtActive) {
+      this._createFabricatedEvent(event, 'removebuff');
+      this.cbtActive = false;
+    }
 
     this.healing += event.amount;
+  }
+
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+
+    if (spellId !== SPELLS.CLOUDBURST_TOTEM_TALENT.id) {
+      return;
+    }
+    this._createFabricatedEvent(event, 'applybuff');
+    this.cbtActive = true;
+  }
+
+  _createFabricatedEvent(event, type) {
+    this.owner.fabricateEvent({
+      ...event,
+      ability: {
+        ...event.ability,
+        guid: SPELLS.CLOUDBURST_TOTEM_TALENT.id,
+      },
+      type: type,
+      targetID: event.sourceID,
+      targetIsFriendly: event.sourceIsFriendly,
+      __fabricated: true,
+    }, event);
   }
 
   subStatistic() {
@@ -47,4 +76,3 @@ class CloudburstTotem extends Analyzer {
 }
 
 export default CloudburstTotem;
-

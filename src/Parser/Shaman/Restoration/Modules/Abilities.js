@@ -127,6 +127,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CLOUDBURST_TOTEM_TALENT,
+        buffSpellId: SPELLS.CLOUDBURST_TOTEM_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 30,
         timelineSortIndex: 20,
