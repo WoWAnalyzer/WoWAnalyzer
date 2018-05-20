@@ -45,6 +45,10 @@ const DEFENSIVE_BUFFS = [
   {
     spell: SPELLS.PAINBRINGER_Buff,
   },
+  //Restoration Shaman
+  {
+    spell: SPELLS.GHOST_WOLF,
+  },
 ];
 
 export default DEFENSIVE_BUFFS;

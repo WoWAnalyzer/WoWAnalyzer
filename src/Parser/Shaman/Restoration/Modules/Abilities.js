@@ -40,8 +40,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HEALING_STREAM_TOTEM_CAST,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        charges: 2,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id) ? 2 : 1,
         timelineSortIndex: 18,
         isOnGCD: true,
         cooldown: (haste, combatant) => {
@@ -76,7 +76,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ASTRAL_SHIFT,
         buffSpellId: SPELLS.ASTRAL_SHIFT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         timelineSortIndex: 82,
         cooldown: 90,
         castEfficiency: {
