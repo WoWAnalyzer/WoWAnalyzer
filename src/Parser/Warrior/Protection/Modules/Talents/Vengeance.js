@@ -49,7 +49,7 @@ class Vengeance extends Analyzer {
   }
 
   get buffUsage() {
-    return (this.ignoreBuffsOverwritten + this.revengeBuffsOverwritten) / (this.buffedIgnoreCasts + this.buffedRevengeCasts + this.ignoreBuffsOverwritten + this.revengeBuffsOverwritten)
+    return (this.ignoreBuffsOverwritten + this.revengeBuffsOverwritten) / (this.buffedIgnoreCasts + this.buffedRevengeCasts + this.ignoreBuffsOverwritten + this.revengeBuffsOverwritten);
   }
 
   get uptimeSuggestionThresholds() {
