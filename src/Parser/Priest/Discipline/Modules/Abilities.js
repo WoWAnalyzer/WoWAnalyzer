@@ -45,7 +45,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SCHISM_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 6,
+        cooldown: 24,
         enabled: combatant.hasTalent(SPELLS.SCHISM_TALENT.id),
         castEfficiency: {
           suggestion: true,
