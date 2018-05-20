@@ -14,7 +14,7 @@ class Abilities extends CoreAbilities {
         charges: 2,
         cooldown: 6,
         enabled: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id),
-        timelineSortIndex: 15,
+        timelineSortIndex: 11,
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
@@ -29,7 +29,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 6,
         enabled: !(combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id)),
-        timelineSortIndex: 15,
+        timelineSortIndex: 11,
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
@@ -89,7 +89,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HEALING_RAIN_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 10,
-        timelineSortIndex: 20,
+        timelineSortIndex: 17,
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
@@ -130,7 +130,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.CLOUDBURST_TOTEM_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 30,
-        timelineSortIndex: 20,
+        timelineSortIndex: 16,
         isOnGCD: true,
         enabled: combatant.lv90Talent === SPELLS.CLOUDBURST_TOTEM_TALENT.id,
         castEfficiency: {
@@ -159,7 +159,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.UNLEASH_LIFE_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 15,
-        timelineSortIndex: 20,
+        timelineSortIndex: 5,
         isOnGCD: true,
         enabled: combatant.lv15Talent === SPELLS.UNLEASH_LIFE_TALENT.id,
         castEfficiency: {
@@ -222,7 +222,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HEALING_WAVE,
-        timelineSortIndex: 41,
+        timelineSortIndex: 13,
         isOnGCD: true,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
@@ -232,7 +232,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HEALING_WAVE,
         name: `Tidal Waved ${SPELLS.HEALING_WAVE.name}`,
-        timelineSortIndex: 42,
+        timelineSortIndex: 13,
         isOnGCD: true,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
@@ -241,7 +241,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HEALING_SURGE_RESTORATION,
-        timelineSortIndex: 43,
+        timelineSortIndex: 14,
         isOnGCD: true,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
@@ -251,7 +251,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HEALING_SURGE_RESTORATION,
         name: `Tidal Waved ${SPELLS.HEALING_SURGE_RESTORATION.name}`,
-        timelineSortIndex: 44,
+        timelineSortIndex: 14,
         isOnGCD: true,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         castEfficiency: {
@@ -261,7 +261,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHAIN_HEAL,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        timelineSortIndex: 40,
+        timelineSortIndex: 12,
         isOnGCD: true,
       },
       {
