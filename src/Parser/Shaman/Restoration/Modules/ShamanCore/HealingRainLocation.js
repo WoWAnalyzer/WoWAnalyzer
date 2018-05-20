@@ -71,16 +71,16 @@ class HealingRainLocation extends Analyzer {
       x: (maxX + minX) / 2,
       y: (maxY + minY) / 2,
     };
-    const ellipseHeight = (maxX - minX);
-    const ellipseWidth = (maxY - minY);
+    const ellipseWidth = (maxX - minX);
+    const ellipseHeight = (maxY - minY);
 
     // If there are erroneous data, it's better to not count the rain instead of having it overvalue the effect.
     if(ellipseHeight >= healingRainDiameter || ellipseWidth >= healingRainDiameter) {
       console.warn(
         'Reported Healing Rain size is too large, something went wrong.', 
-        'Allowed Size:', healingRainDiameter, 
-        'Reported Height:', ellipseHeight, 
-        'Reported Width:', ellipseWidth
+        'Allowed Size:', healingRainDiameter,
+        'Reported Width:', ellipseWidth,
+        'Reported Height:', ellipseHeight
       );
       return healing;
     }
