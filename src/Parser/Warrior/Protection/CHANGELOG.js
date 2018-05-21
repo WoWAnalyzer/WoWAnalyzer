@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-05-20'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.VENGEANCE_TALENT.id} />.</React.Fragment>,
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-05-16'),
     changes: <React.Fragment>Added <SpellLink id={SPELLS.INTO_THE_FRAY_TALENT.id} />, <SpellLink id={SPELLS.HEAVY_REPERCUSSIONS_TALENT.id} /> and <SpellLink id={SPELLS.AVATAR_TALENT.id} />.</React.Fragment>,
     contributors: [joshinator],
