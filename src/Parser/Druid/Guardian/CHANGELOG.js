@@ -1,12 +1,17 @@
 import React from 'react';
 
-import { faide, WOPR, Gebuz } from 'CONTRIBUTORS';
+import { faide, WOPR, Gebuz, Yajinni} from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-05-19'),
+    changes: <React.Fragment>Added death recap tab and defensive abilities tracking.</React.Fragment>,
+    contributors: [Yajinni],
+  },
   {
     date: new Date('2018-04-10'),
     changes: <React.Fragment>Fixed an issue where looking for the presence of <SpellLink id={SPELLS.MOONFIRE.id} /> on some enemies would crash the analyzer.</React.Fragment>,
