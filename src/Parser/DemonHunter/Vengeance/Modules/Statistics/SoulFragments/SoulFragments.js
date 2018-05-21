@@ -54,7 +54,7 @@ class SoulFragments extends Analyzer {
 
     when(wasterPerGenerated).isGreaterThan(0.15)
     .addSuggestion((suggest, actual, recommended) => {
-      return suggest(<span>You are wasting <SpellLink id={SPELLS.SOUL_FRAGMENT.id} />. Try to not let them cap by using <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> and/or <SpellLink id={SPELLS.SOUL_CLEAVE.id} /> to spend it. The only moment you should let them cap is when you are waiting to use <SpellLink id={SPELLS.SOUL_BARRIER_TALENT.id} /> to mitigate heavy incoming damage. </span>)
+      return suggest(<React.Fragment>You are wasting <SpellLink id={SPELLS.SOUL_FRAGMENT.id} />. Try to not let them cap by using <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> and/or <SpellLink id={SPELLS.SOUL_CLEAVE.id} /> to spend it. The only moment you should let them cap is when you are waiting to use <SpellLink id={SPELLS.SOUL_BARRIER_TALENT.id} /> to mitigate heavy incoming damage. </React.Fragment>)
         .icon('spell_shadow_soulgem')
         .actual(`${formatNumber(this.wasted)} wasted Soul Fragments.`)
         .recommended(`<=${formatNumber(maximumWaste)} is recommended`)

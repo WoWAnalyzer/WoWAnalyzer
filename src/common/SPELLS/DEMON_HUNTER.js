@@ -67,7 +67,7 @@ export default {
     icon: 'ability_demonhunter_sigilofsilence',
   },
   SIGIL_OF_FLAME: {
-    id: 204596,
+    id: 204513,
     name: 'Sigil of Flame',
     icon: 'ability_demonhunter_sigilofinquisition',
   },
