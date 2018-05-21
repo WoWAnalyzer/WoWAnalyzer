@@ -15,21 +15,14 @@ class ZandalariLoaFigurine extends Analyzer {
     combatants: Combatants,
   };
 
-  applications = 0;
-
   on_initialized() {
     this.active = this.combatants.selected.hasTrinket(
       ITEMS.ZANDALARI_LOA_FIGURINE.id
     );
   }
 
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.WILL_OF_THE_LOA.id) {
-      return;
-    }
-
-    this.applications += 1;
+  get buffTriggerCount() {
+    return this.combatants.selected.getBuffTriggerCount(SPELLS.WILL_OF_THE_LOA.id);
   }
 
   get totalBuffUptime() {
@@ -40,13 +33,8 @@ class ZandalariLoaFigurine extends Analyzer {
     return {
       item: ITEMS.ZANDALARI_LOA_FIGURINE,
       result: (
-        <dfn
-          data-tip={`The trinket procced ${
-            this.applications
-            } times`}
-        >
-          {formatPercentage(this.totalBuffUptime)}% uptime during the fight.<br />
-
+        <dfn data-tip={`Procced ${this.buffTriggerCount} times`}>
+          {formatPercentage(this.totalBuffUptime)}% uptime
         </dfn>
       ),
     };
