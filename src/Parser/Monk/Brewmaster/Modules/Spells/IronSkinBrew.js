@@ -33,29 +33,41 @@ class IronSkinBrew extends Analyzer {
   totalDuration = 0;
   durationLost = 0;
   _currentDuration = 0;
-  durationPerCast = 6000;
-  _durationCap = 3 * 6000;
+  durationPerCast = 6000; // base
+  _durationPerPurify = 0;
+  _durationCap = -1;
 
+
+  on_initialized() {
+    this.durationPerCast += 500 * this.combatants.selected.traitsBySpellId[SPELLS.POTENT_KICK.id];
+    this._durationCap = 3 * this.durationPerCast;
+    this._durationPerPurify = 1000 * this.combatants.selected.traitsBySpellId[SPELLS.QUICK_SIP.id];
+  }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.IRONSKIN_BREW.id) {
-      return;
+    if (spellId === SPELLS.IRONSKIN_BREW.id || SPELLS.PURIFYING_BREW.id === spellId) {
+      // determine the current duration on ISB
+      if (this._currentDuration > 0) {
+        this._currentDuration -= event.timestamp - this._lastDurationCheck;
+        this._currentDuration = Math.max(this._currentDuration, 0);
+      }
+      // add the duration from this buff application (?)
+      let addedDuration = 0;
+      if (spellId === SPELLS.IRONSKIN_BREW.id) {
+        addedDuration = this.durationPerCast;
+      } else if (spellId === SPELLS.PURIFYING_BREW.id) {
+        addedDuration = this._durationPerPurify;
+      }
+      this._currentDuration += addedDuration;
+      if (this._currentDuration > this._durationCap) {
+        this.durationLost += this._currentDuration - this._durationCap;
+        this._currentDuration = this._durationCap;
+      }
+      // add this duration to the total duration
+      this.totalDuration += addedDuration;
+      this._lastDurationCheck = event.timestamp;
     }
-    // determine the current duration on ISB
-    if (this._currentDuration > 0) {
-      this._currentDuration -= event.timestamp - this._lastDurationCheck;
-      this._currentDuration = Math.max(this._currentDuration, 0);
-    }
-    // add the duration from this buff application (?)
-    this._currentDuration += this.durationPerCast;
-    if (this._currentDuration > this._durationCap) {
-      this.durationLost += this._currentDuration - this._durationCap;
-      this._currentDuration = this._durationCap;
-    }
-    // add this duration to the total duration
-    this.totalDuration += this.durationPerCast;
-    this._lastDurationCheck = event.timestamp;
   }
 
   on_byPlayer_applybuff(event) {
