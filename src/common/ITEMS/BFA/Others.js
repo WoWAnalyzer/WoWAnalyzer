@@ -19,4 +19,16 @@ export default {
     name: 'Darkmoon Deck: Fathoms',
     icon: '70_inscription_deck_dominion',
   },
+
+  // Alchemy
+  ENDLESS_TINCTURE_OF_FRACTIONAL_POWER: {
+    id: 152636,
+    name: 'Endless Tincture of Fractional Power',
+    icon: '70_inscription_deck_hellfire',
+  },
+  SURGING_ALCHEMIST_STONE: {
+    id: 152632,
+    name: 'Surging Alchemist Stone',
+    icon: '70_inscription_deck_dominion',
+  },
 };
