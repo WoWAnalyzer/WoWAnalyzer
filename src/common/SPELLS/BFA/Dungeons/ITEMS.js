@@ -13,9 +13,9 @@ export default {
     name: 'Diemetradon Frenzy',
     icon: 'item_aquaticfin_04',
   },
-  ZANDALARI_LOA_FIGURINE: {
-    id: 158153,
-    name: 'Zandalari Loa Figurine',
+  WILL_OF_THE_LOA: {
+    id: 273974,
+    name: 'Will of the Loa',
     icon: 'inv-misc-archaeology-trollgolem',
   },
 };

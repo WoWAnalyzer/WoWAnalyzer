@@ -12,9 +12,9 @@ export default {
     icon: 'item_aquaticfin_04',
     quality: ITEM_QUALITIES.GREEN,
   },
-  WILL_OF_THE_LOA: {
-    id: 273974,
-    name: 'Will of the Loa',
+  ZANDALARI_LOA_FIGURINE: {
+    id: 158153,
+    name: 'Zandalari Loa Figurine',
     icon: 'inv_misc_archaeology_trollgolem',
     quality: ITEM_QUALITIES.GREEN,
   },
