@@ -32,6 +32,20 @@ export default {
     quality: ITEM_QUALITIES.BLUE,
   },
 
+  // Atal'Dazar
+  REVITALIZING_VOODOO_TOTEM: {
+    id: 158320,
+    name: 'Revitalizing Voodoo Totem',
+    icon: 'inv_misc_rope_01',
+    quality: ITEM_QUALITIES.BLUE,
+  },
+  VESSEL_OF_SKITTERING_SHADOWs: {
+    id: 159610,
+    name: 'Vessel of Skittering Shadows',
+    icon: 'ability_shaman_freedomwolf',
+    quality: ITEM_QUALITIES.BLUE,
+  },
+
   // Quests.............. upscaled in beta
   ENGRANGED_DIEMETRADON_FIN: {
     id: 159764,
