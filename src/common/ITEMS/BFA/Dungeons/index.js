@@ -84,30 +84,6 @@ export default {
     quality: ITEM_QUALITIES.BLUE,
   },
 
-  // Shrine of the Storm
-  CONCH_OF_DARK_WHISPERS: {
-    id: 159620,
-    name: 'Conch of Dark Whispers',
-    icon: 'inv_misc_shell_04',
-    quality: ITEM_QUALITIES.BLUE,
-  },
-
-  // Siege of Boralus
-  HADALS_NAUTILUS: {
-    id: 159622,
-    name: 'Hadal\'s Nautilus',
-    icon: 'inv_misc_food_legion_seashellc1',
-    quality: ITEM_QUALITIES.BLUE,
-  },
-
-  // Temple of Serthraliss
-  FANGS_OF_INTERTWINED_ESSENCE: {
-    id: 158368,
-    name: 'Fangs of Intertwined Essence',
-    icon: 'inv_misc_toothb_06',
-    quality: ITEM_QUALITIES.BLUE,
-  },
-
   // Quests.............. upscaled in beta
   ENGRANGED_DIEMETRADON_FIN: {
     id: 159764,
