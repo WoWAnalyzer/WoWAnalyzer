@@ -36,13 +36,27 @@ export default {
   REVITALIZING_VOODOO_TOTEM: {
     id: 158320,
     name: 'Revitalizing Voodoo Totem',
-    icon: 'inv_misc_rope_01',
+    icon: 'ability_shaman_repulsiontotem',
     quality: ITEM_QUALITIES.BLUE,
   },
   VESSEL_OF_SKITTERING_SHADOWs: {
     id: 159610,
     name: 'Vessel of Skittering Shadows',
-    icon: 'ability_shaman_freedomwolf',
+    icon: 'inv_potiond_5',
+    quality: ITEM_QUALITIES.BLUE,
+  },
+
+  // Waycrest Manor
+  BALEFIRE_BRANCH: {
+    id: 159630,
+    name: 'Balefire Branch',
+    icon: 'inv_staff_26',
+    quality: ITEM_QUALITIES.BLUE,
+  },
+  LADY_WAYCRESTS_MUSIC_BOX: {
+    id: 159631,
+    name: 'Lady Waycrest\'s Music Box',
+    icon: 'trade_archaeology_delicatemusicbox',
     quality: ITEM_QUALITIES.BLUE,
   },
 
