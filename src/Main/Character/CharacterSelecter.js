@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import SelectSearch from 'react-select-search';
@@ -72,7 +72,9 @@ class CharacterSelecter extends React.PureComponent {
         <div className="character-selector">
           <select
             className="form-control"
-            ref={elem => this.regionInput = elem}
+            ref={elem => {
+              this.regionInput = elem;
+            }}
             value={this.state.currentRegion}
             onChange={e => this.setState({ currentRegion: e.target.value })}
           >
@@ -87,12 +89,14 @@ class CharacterSelecter extends React.PureComponent {
             }))}
             className="realm-search"
             onChange={value => { this.setState({ currentRealm: value.name });}}
-            placeholder='Realm'
+            placeholder="Realm"
           />
           <input
             type="text"
             name="code"
-            ref={elem => this.charInput = elem}
+            ref={elem => {
+              this.charInput = elem;
+            }}
             className="form-control"
             autoCorrect="off"
             autoCapitalize="off"

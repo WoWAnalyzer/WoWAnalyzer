@@ -135,7 +135,9 @@ class SpellTimeline extends React.PureComponent {
           className="timeline flex-main"
           style={{ height: totalHeight }}
           onWheel={this.handleMouseWheel}
-          ref={comp => (this.gemini = comp)}
+          ref={comp => {
+            this.gemini = comp;
+          }}
         >
           <div className={`ruler interval-${skipInterval}`} style={{ width: totalWidth }}>
             {seconds > 0 && [...Array(seconds)].map((_, second) => {

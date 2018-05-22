@@ -27,7 +27,7 @@ class ComboPointDetails extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-      icon={(
+        icon={(
         <img
           src={WastedPointsIcon}
           alt="Wasted Combo Points"
@@ -85,7 +85,7 @@ class ComboPointDetails extends Analyzer {
         <Tab>
           <ResourceBreakdown
             tracker={this.comboPointTracker}
-            showSpenders={true}
+            showSpenders
           />
         </Tab>
       ),

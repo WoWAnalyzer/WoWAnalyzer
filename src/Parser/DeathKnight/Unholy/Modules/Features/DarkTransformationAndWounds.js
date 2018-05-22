@@ -111,7 +111,7 @@ class DarkTransformationAndWounds extends Analyzer {
         icon={<SpellIcon id={SPELLS.DARK_TRANSFORMATION.id} />}
         value={`${this.averageTimePerCast.toFixed(1)} seconds`}
         label={'Average time spent at 0 wounds per Dark Transformation cast'}
-		    tooltip={`A total amount of ${this.totalTime.toFixed(1)} seconds was spent at 0 wounds with Dark Transformation active`}
+        tooltip={`A total amount of ${this.totalTime.toFixed(1)} seconds was spent at 0 wounds with Dark Transformation active`}
       />
     );
   }

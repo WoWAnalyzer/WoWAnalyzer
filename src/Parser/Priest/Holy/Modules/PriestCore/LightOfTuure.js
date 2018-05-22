@@ -15,7 +15,7 @@ import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 class LightOfTuure extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-  }
+  };
 
   _lotTargets = {};
   buffHealing = 0;
@@ -47,8 +47,8 @@ class LightOfTuure extends Analyzer {
       this.spellHealing += event.amount;
     }
 
-    if (event.targetID in this._lotTargets && event.timestamp < this._lotTargets[event.targetID]) {
-      if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
+    if (this._lotTargets[event.targetID] !== undefined && event.timestamp < this._lotTargets[event.targetID]) {
+      if (!ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
         return;
       }
 

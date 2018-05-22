@@ -37,7 +37,6 @@ class IronSkinBrew extends Analyzer {
   _durationPerPurify = 0;
   _durationCap = -1;
 
-
   on_initialized() {
     this.durationPerCast += 500 * (this.combatants.selected.traitsBySpellId[SPELLS.POTENT_KICK.id] || 0);
     this._durationCap = 3 * this.durationPerCast;
@@ -86,8 +85,14 @@ class IronSkinBrew extends Analyzer {
   }
 
   on_toPlayer_damage(event) {
-    if(event.ability.guid === SPELLS.STAGGER_TAKEN.id || !(event.sourceID in this.enemies.getEntities()) || ABILITY_BLACKLIST.includes(event.ability.guid)) {
-      return; // either stagger or not a notable entity (e.g. imonar traps, environment damage)
+    if (event.ability.guid === SPELLS.STAGGER_TAKEN.id) {
+      return;
+    }
+    if (!this.enemies.getEntities()[event.sourceID]) {
+      return; // not a notable entity (e.g. imonar traps, environment damage)
+    }
+    if (ABILITY_BLACKLIST.includes(event.ability.guid)) {
+      return;
     }
 
     if (this.lastIronSkinBrewBuffApplied > 0) {
@@ -171,7 +176,7 @@ class IronSkinBrew extends Analyzer {
             </ul>
             <b>${formatPercentage(hitsMitigatedPercent)}%</b> of attacks were mitigated with Ironskin Brew.<br/>
             <b>${formatPercentage(isbUptime)}%</b> uptime on the Ironskin Brew buff.`}
-          />
+      />
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();

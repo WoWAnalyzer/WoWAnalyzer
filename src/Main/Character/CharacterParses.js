@@ -277,6 +277,7 @@ class CharacterParses extends React.Component {
       const specs = Object.values(SPECS)
         .map(elem => elem.className.replace(' ', '') !== charClass ? undefined : elem.specName)
         .filter(elem => elem)
+        // eslint-disable-next-line no-restricted-syntax
         .filter((item, index, self) => self.indexOf(item) === index);
 
       const parses = this.changeParseStructure(rawParses);

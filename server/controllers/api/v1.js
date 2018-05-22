@@ -60,7 +60,7 @@ class ApiRequestHandler {
       const wclResponseTime = Date.now() - wclStart;
 
       // WCL maintenance mode returns 200 http code :(
-      if (jsonString.indexOf(WCL_MAINTENANCE_STRING) !== -1) {
+      if (jsonString.includes(WCL_MAINTENANCE_STRING)) {
         throw new WclApiError(WCL_MAINTENANCE_STRING, 503);
       }
       // WCL has a tendency to throw non-JSON errors with a 200 HTTP exception, this ensures they're not accepted and cached.

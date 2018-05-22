@@ -5,7 +5,7 @@ import HealingValue from 'Parser/Core/Modules/HealingValue';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
-import { getSpellInfo, DRUID_HEAL_INFO } from '../../SpellInfo';
+import { DRUID_HEAL_INFO, getSpellInfo } from '../../SpellInfo';
 
 class Mastery extends Analyzer {
   static dependencies = {
@@ -33,15 +33,19 @@ class Mastery extends Analyzer {
 
   on_initialized() {
     Object.entries(DRUID_HEAL_INFO)
-        .filter(infoEntry => infoEntry[1].masteryStack)
-        .forEach(infoEntry => this.hotHealingAttrib[infoEntry[0]] = { direct: 0, mastery: {} });
+      .filter(infoEntry => infoEntry[1].masteryStack)
+      .forEach(infoEntry => {
+        this.hotHealingAttrib[infoEntry[0]] = { direct: 0, mastery: {} };
+      });
 
     // TODO hook in StatTracker buff list somehow, so new Mastery buffs auto handled?
     this.masteryBuffs = {
       [SPELLS.ASTRAL_HARMONY.id]: { amount: 4000 },
       [SPELLS.JACINS_RUSE.id]: { amount: 3000 },
     };
-    Object.values(this.masteryBuffs).forEach(entry => entry.attributableHealing = 0);
+    Object.values(this.masteryBuffs).forEach(entry => {
+      entry.attributableHealing = 0;
+    });
   }
 
   on_byPlayer_heal(event) {
@@ -53,7 +57,9 @@ class Mastery extends Analyzer {
       return;
     }
 
-    if (spellId in this.hotHealingAttrib) { this.hotHealingAttrib[spellId].direct += healVal.effective; }
+    if (this.hotHealingAttrib[spellId]) {
+      this.hotHealingAttrib[spellId].direct += healVal.effective;
+    }
 
     if (getSpellInfo(spellId).mastery) {
       const hotsOn = this.getHotsOn(target);
@@ -65,13 +71,14 @@ class Mastery extends Analyzer {
       this.masteryTimesHealing += decomposedHeal.noMastery * decomposedHeal.effectiveStackBenefit;
 
       hotsOn
-          .filter(hotOn => hotOn !== spellId) // don't double count
-          .forEach(hotOn => this._tallyMasteryBenefit(hotOn, spellId, decomposedHeal.oneStack));
+        .filter(hotOn => hotOn !== spellId) // don't double count
+        .forEach(hotOn => this._tallyMasteryBenefit(hotOn, spellId, decomposedHeal.oneStack));
 
       Object.entries(this.masteryBuffs)
-          .filter(entry => this.combatants.selected.hasBuff(entry[0]))
-          .forEach(entry => entry[1].attributableHealing +=
-              calculateEffectiveHealing(event, decomposedHeal.relativeBuffBenefit(entry[1].amount)));
+        .filter(entry => this.combatants.selected.hasBuff(entry[0]))
+        .forEach(entry => {
+          entry[1].attributableHealing += calculateEffectiveHealing(event, decomposedHeal.relativeBuffBenefit(entry[1].amount));
+        });
     } else {
       this.totalNoMasteryHealing += healVal.effective;
     }
@@ -95,7 +102,7 @@ class Mastery extends Analyzer {
    */
   getMasteryHealing(healId) {
     return Object.values(this.hotHealingAttrib[healId].mastery)
-        .reduce((s, v) => s + v, 0);
+      .reduce((s, v) => s + v, 0);
   }
 
   /*
@@ -148,8 +155,8 @@ class Mastery extends Analyzer {
    */
   getHotsOn(target) {
     return target.activeBuffs()
-        .map(buffObj => buffObj.ability.guid)
-        .filter(buffId => getSpellInfo(buffId).masteryStack);
+      .map(buffObj => buffObj.ability.guid)
+      .filter(buffId => getSpellInfo(buffId).masteryStack);
   }
 
   /**
@@ -161,7 +168,7 @@ class Mastery extends Analyzer {
 
   _tallyMasteryBenefit(hotId, healId, amount) {
     const hotMastery = this.hotHealingAttrib[hotId].mastery;
-    if(hotMastery[healId]) {
+    if (hotMastery[healId]) {
       hotMastery[healId] += amount;
     } else {
       hotMastery[healId] = amount;

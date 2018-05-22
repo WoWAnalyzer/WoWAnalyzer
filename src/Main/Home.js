@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 
 import ScrollFilledIcon from 'Icons/ScrollFilled';
 import MegaphoneIcon from 'Icons/Megaphone';

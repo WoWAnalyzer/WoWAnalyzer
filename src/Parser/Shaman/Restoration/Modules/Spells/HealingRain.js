@@ -11,14 +11,13 @@ import Analyzer from 'Parser/Core/Analyzer';
 class HealingRain extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-  }
+  };
 
   HealingRainTicks = [];
 
-  get averageHitsPerTick(){
-    let totalHits = 0;
-    this.HealingRainTicks.forEach(x=>totalHits=totalHits+x.hits);
-    return totalHits/this.HealingRainTicks.length;
+  get averageHitsPerTick() {
+    const totalHits = this.HealingRainTicks.reduce((total, x) => total + x.hits, 0);
+    return totalHits / this.HealingRainTicks.length;
   }
 
   suggestions(when) {
@@ -33,7 +32,7 @@ class HealingRain extends Analyzer {
       });
   }
 
-  get suggestionThreshold(){
+  get suggestionThreshold() {
     return {
       actual: this.averageHitsPerTick,
       isLessThan: {
@@ -46,19 +45,19 @@ class HealingRain extends Analyzer {
   }
 
   on_byPlayer_heal(event) {
-      const spellId = event.ability.guid;
-      if(spellId === SPELLS.HEALING_RAIN_HEAL.id){
-        const healingRainTick = this.HealingRainTicks.filter(x=>x.id=== event.timestamp);
-        if(healingRainTick.length > 0){
-          healingRainTick[0].hits= healingRainTick[0].hits+1;
-        }
-        else{
-          this.HealingRainTicks.push({
-            id: event.timestamp,
-            hits: 1,
-          });
-        }
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.HEALING_RAIN_HEAL.id) {
+      const healingRainTick = this.HealingRainTicks.filter(x => x.id === event.timestamp);
+      if (healingRainTick.length > 0) {
+        healingRainTick[0].hits = healingRainTick[0].hits + 1;
       }
+      else {
+        this.HealingRainTicks.push({
+          id: event.timestamp,
+          hits: 1,
+        });
+      }
+    }
   }
 
   statistic() {

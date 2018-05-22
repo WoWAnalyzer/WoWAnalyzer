@@ -78,7 +78,7 @@ class RpPoolingDA extends Analyzer {
         icon={<SpellIcon id={SPELLS.DARK_ARBITER_TALENT.id} />}
         value={`${this.averageRpPooled.toFixed(0)}/${this.maxRP}`}
         label={'Average Runic Power Pooled before Dark Arbiter'}
-		tooltip={`A total amount of ${this.totalRunicPowerPooled.toFixed(0)} runic power was pooled for ${this.totalDarkArbiterCasts} casts of Dark Arbiter`}
+        tooltip={`A total amount of ${this.totalRunicPowerPooled.toFixed(0)} runic power was pooled for ${this.totalDarkArbiterCasts} casts of Dark Arbiter`}
       />
     );
   }

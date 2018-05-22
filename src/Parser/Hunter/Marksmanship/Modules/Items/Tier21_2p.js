@@ -106,18 +106,12 @@ class Tier21_2p extends Analyzer {
   }
 
   item() {
-    let totalDamageIncrease = 0;
-    let totalPotentialFocusGain = 0;
-    let totalExtraFocusGenerated = 0;
-
     const damageAbilities = [[SPELLS.MULTISHOT.id], [SPELLS.ARCANE_SHOT.id], [SPELLS.SIDEWINDERS_DAMAGE.id]];
     const generatingAbilities = [[SPELLS.MULTISHOT_FOCUSMODULE.id], [SPELLS.ARCANE_SHOT_FOCUSMODULE.id], [SPELLS.SIDEWINDERS_TALENT.id]];
 
-    damageAbilities.map(ability => totalDamageIncrease += this.damageFromGenerators[ability].bonusDmg);
-
-    generatingAbilities.map(ability => totalExtraFocusGenerated += this.focusGeneratorCasts[ability].actualGain);
-
-    generatingAbilities.map(ability => totalPotentialFocusGain += this.focusGeneratorCasts[ability].potentialGain);
+    const totalDamageIncrease = damageAbilities.reduce((total, ability) => total + this.damageFromGenerators[ability].bonusDmg, 0);
+    const totalExtraFocusGenerated = generatingAbilities.reduce((total, ability) => total + this.focusGeneratorCasts[ability].actualGain, 0);
+    const totalPotentialFocusGain = generatingAbilities.reduce((total, ability) => total + this.focusGeneratorCasts[ability].potentialGain, 0);
 
     let tooltipText = `This shows a breakdown of T21 <ul>`;
     tooltipText += (this.arcaneBonusDamage > 0 || this.arcanePotentialFocusGain > 0) ? `<li>Arcane Shot: <ul><li>Damage gain: ${formatNumber(this.arcaneBonusDamage)}</li><li>Focus gain: ${formatNumber(this.arcaneActualFocusGain)} out of ${formatNumber(this.arcanePotentialFocusGain)} possible</li></ul></li>` : '';

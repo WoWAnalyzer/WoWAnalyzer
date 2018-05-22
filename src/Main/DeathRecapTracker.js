@@ -71,14 +71,11 @@ class DeathRecapTracker extends Analyzer {
   }
 
   get secondsBeforeDeath() {
-    const deaths = new Array(this.deaths.length);
-    return this.deaths.map((deathtime, index) => {
-      return deaths[index] = {
-        deathtime: deathtime,
-        events: this.events,
-        open: false,
-      };
-    });
+    return this.deaths.map(deathtime => ({
+      deathtime,
+      events: this.events,
+      open: false,
+    }));
   }
 
   tab() {

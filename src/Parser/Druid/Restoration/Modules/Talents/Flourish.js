@@ -53,7 +53,7 @@ class Flourish extends Analyzer {
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.FLOURISH_TALENT.id);
-    this.hasCenarionWard =  this.combatants.selected.hasTalent(SPELLS.CENARION_WARD_TALENT.id);
+    this.hasCenarionWard = this.combatants.selected.hasTalent(SPELLS.CENARION_WARD_TALENT.id);
   }
 
   on_byPlayer_heal(event) {

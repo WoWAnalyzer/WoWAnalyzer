@@ -78,7 +78,7 @@ class AlwaysBeCasting extends Analyzer {
     }
     const spellId = cast.ability.guid;
     const isOnGcd = this.isOnGlobalCooldown(spellId);
-    // const isFullGcd = this.constructor.FULLGCD_ABILITIES.indexOf(spellId) !== -1;
+    // const isFullGcd = this.constructor.FULLGCD_ABILITIES.includes(spellId);
 
     if (!isOnGcd) {
       debug && console.log(formatMilliseconds(this.owner.fightDuration), `%cABC: ${cast.ability.name} (${spellId}) ignored`, 'color: gray');

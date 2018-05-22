@@ -367,13 +367,17 @@ class StatTracker extends Analyzer {
 
   applySpecModifiers() {
     const modifiers = this.constructor.SPEC_MULTIPLIERS[this.combatants.selected.spec.id] || {};
-    Object.entries(modifiers).forEach(([stat, multiplier]) => this._pullStats[stat] *= multiplier);
+    Object.entries(modifiers).forEach(([stat, multiplier]) => {
+      this._pullStats[stat] *= multiplier;
+    });
   }
 
   applyArtifactModifiers() {
     Object.entries(this.constructor.ARTIFACT_MULTIPLIERS).forEach(([spellId, modifiers]) => {
       const rank = this.combatants.selected.traitsBySpellId[spellId] || 0;
-      Object.entries(modifiers).forEach(([stat, multiplier]) => this._pullStats[stat] *= 1 + multiplier * rank);
+      Object.entries(modifiers).forEach(([stat, multiplier]) => {
+        this._pullStats[stat] *= 1 + multiplier * rank;
+      });
     });
   }
 

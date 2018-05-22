@@ -387,7 +387,9 @@ class CombatLogParser {
         // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
         // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
         if (options) {
-          Object.keys(options).forEach(key => module[key] = options[key]);
+          Object.keys(options).forEach(key => {
+            module[key] = options[key];
+          });
         }
         this._modules[desiredModuleName] = module;
       } else {
