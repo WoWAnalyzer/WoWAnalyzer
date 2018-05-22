@@ -38,8 +38,8 @@ class Header extends React.PureComponent {
               {showReportSelecter && (
                 <div>
                   <div className="parse-tabs">
-                    <span onClick={() => this.setState({ reportActive: true }) } className={ this.state.reportActive ? 'selected' : '' }>Report</span>
-                    <span onClick={() => this.setState({ reportActive: false }) } className={ this.state.reportActive ? '' : 'selected' }>Character</span>
+                    <span onClick={() => this.setState({ reportActive: true })} className={this.state.reportActive ? 'selected' : ''}>Report</span>
+                    <span onClick={() => this.setState({ reportActive: false })} className={this.state.reportActive ? '' : 'selected'}>Character</span>
                   </div>
                   {this.state.reportActive ? (
                     <ReportSelecter />

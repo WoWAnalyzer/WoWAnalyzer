@@ -310,7 +310,7 @@ class RuneTracker extends ResourceTracker {
     const badThreshold = 4;
     return (
       <ExpandableStatisticBox
-        icon={<SpellIcon id={SPELLS.RUNE_1.id} noLink={true} />}
+        icon={<SpellIcon id={SPELLS.RUNE_1.id} noLink />}
         value={`${formatPercentage(1 - this.runeEfficiency)} %`}
         label="Runes overcapped"
         tooltip={`

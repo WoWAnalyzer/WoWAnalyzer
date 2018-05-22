@@ -89,7 +89,7 @@ class CharacterSelecter extends React.PureComponent {
             }))}
             className="realm-search"
             onChange={value => { this.setState({ currentRealm: value.name });}}
-            placeholder='Realm'
+            placeholder="Realm"
           />
           <input
             type="text"

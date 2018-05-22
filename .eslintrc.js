@@ -63,5 +63,31 @@ module.exports = {
         message: 'Please do a comparison for `undefined` rather than use the `in` operator (consistent with the rest of the codebase)',
       },
     ],
+
+    // disallow negating the left operand of relational operators
+    // https://eslint.org/docs/rules/no-unsafe-negation
+    'no-unsafe-negation': 'warn',
+
+    // disallow comparisons with the value NaN
+    'use-isnan': 'warn',
+
+    // React
+
+    // Specify whether double or single quotes should be used in JSX attributes
+    // https://eslint.org/docs/rules/jsx-quotes
+    'jsx-quotes': ['error', 'prefer-double'],
+
+    // Enforce boolean attributes notation in JSX
+    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md
+    'react/jsx-boolean-value': ['error', 'never', { always: [] }],
+
+    // Enforce or disallow spaces inside of curly braces in JSX attributes
+    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-spacing.md
+    'react/jsx-curly-spacing': ['error', 'never', { allowMultiline: true }],
+
+    // Validate props indentation in JSX
+    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-indent-props.md
+    'react/jsx-indent-props': ['error', 2],
+
   }
 };

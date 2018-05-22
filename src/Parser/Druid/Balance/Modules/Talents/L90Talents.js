@@ -179,7 +179,7 @@ class L90Talents extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        alignIcon='flex-start'
+        alignIcon="flex-start"
         icon={<SpellIcon id={this.activeTalent.id} />}
         value={`${formatNumber(this.perMinute(this.actualValue))}`}
         label="L90 talent Astral Power per minute"
