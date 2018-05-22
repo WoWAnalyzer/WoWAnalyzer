@@ -161,6 +161,11 @@ export default {
   },
 
 // Buffs
+  OSSUARY: {
+    id: 219788,
+    name: 'Ossuary',
+    icon: 'ability_deathknight_brittlebones',
+  },
   CRIMSON_SCOURGE: {
     id: 81141,
     name: 'Crimson Scourge',
