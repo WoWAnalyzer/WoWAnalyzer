@@ -62,7 +62,7 @@ class Bullseye extends Analyzer {
   }
 
   on_byPlayer_damage(event) {
-    if (event.targetInstance === undefined && event.maxHitPoints && this.bossIDs.indexOf(event.targetID) !== -1) {
+    if (event.targetInstance === undefined && event.maxHitPoints && this.bossIDs.includes(event.targetID)) {
       if ((event.hitPoints / event.maxHitPoints) <= this.EXECUTE_PERCENT && !this.executeTimestamp) {
         this.executeTimestamp = event.timestamp - this.owner.fight.start_time;
       }

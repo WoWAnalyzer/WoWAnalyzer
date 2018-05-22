@@ -42,7 +42,7 @@ class DamageTaken extends Analyzer {
 
   _addDamage(ability, amount = 0, absorbed = 0, blocked = 0, overkill = 0) {
     const spellId = ability.guid;
-    if (this.constructor.IGNORED_ABILITIES.indexOf(spellId) !== -1) {
+    if (this.constructor.IGNORED_ABILITIES.includes(spellId)) {
       // Some player abilities (mostly of healers) cause damage as a side-effect, these shouldn't be included in the damage taken.
       return;
     }

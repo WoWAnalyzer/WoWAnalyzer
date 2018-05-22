@@ -86,7 +86,7 @@ class Tier21_4set extends Analyzer {
 
   isApplicable(event) {
     const spellId = event.ability.guid;
-    if (PURITY_OF_LIGHT_AFFECTED_HEALS.indexOf(spellId) === -1) {
+    if (!PURITY_OF_LIGHT_AFFECTED_HEALS.includes(spellId)) {
       return false;
     }
     if (!this.combatants.selected.hasBuff(SPELLS.PURITY_OF_LIGHT.id, event.timestamp)) {

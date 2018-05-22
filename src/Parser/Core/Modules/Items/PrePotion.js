@@ -58,7 +58,7 @@ class PrePotion extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if (SECOND_POTIONS.indexOf(spellId) !== -1) {
+    if (SECOND_POTIONS.includes(spellId)) {
       this.usedSecondPotion = true;
     }
 
@@ -107,7 +107,7 @@ class PrePotion extends Analyzer {
         // Only healer specs would use a mana potion all other specs either don't use mana as a primary resource (such as bears)
         // or have another method to regen mana, this fixes an issue with Guardian where they shift out of bear form and cast a
         // spell but mana is not their primary resource and should not use a mana potion.
-        const healerSpec = HEALER_SPECS.indexOf(this.combatants.selected.specId) !== -1;
+        const healerSpec = HEALER_SPECS.includes(this.combatants.selected.specId);
         if (!healerSpec) {
           suggestionText = <React.Fragment>You forgot to use a potion during combat. By using a potion during combat such as <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> you can increase your DPS (especially if lined up with damage cooldowns) and/or suvivability during a fight.</React.Fragment>;
           importance = SUGGESTION_IMPORTANCE.MINOR;

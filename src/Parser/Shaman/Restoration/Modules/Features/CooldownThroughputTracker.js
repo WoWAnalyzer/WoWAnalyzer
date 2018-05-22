@@ -337,9 +337,9 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     this.activeCooldowns.forEach((cooldown) => {
       const cooldownId = cooldown.spell.id;
 
-      if ((cooldownId === SPELLS.CLOUDBURST_TOTEM_TALENT.id && (ABILITIES_NOT_FEEDING_INTO_CBT.indexOf(spellId) <= -1)) ||
-        (cooldownId === SPELLS.ANCESTRAL_GUIDANCE_TALENT.id && (ABILITIES_NOT_FEEDING_INTO_AG.indexOf(spellId) <= -1)) ||
-        (cooldownId === SPELLS.ASCENDANCE_TALENT_RESTORATION.id && (ABILITIES_NOT_FEEDING_INTO_ASCENDANCE.indexOf(spellId) <= -1))) {
+      if ((cooldownId === SPELLS.CLOUDBURST_TOTEM_TALENT.id && (!ABILITIES_NOT_FEEDING_INTO_CBT.includes(spellId))) ||
+        (cooldownId === SPELLS.ANCESTRAL_GUIDANCE_TALENT.id && (!ABILITIES_NOT_FEEDING_INTO_AG.includes(spellId))) ||
+        (cooldownId === SPELLS.ASCENDANCE_TALENT_RESTORATION.id && (!ABILITIES_NOT_FEEDING_INTO_ASCENDANCE.includes(spellId)))) {
         if (!cooldown.feed[spellId]) {
           cooldown.feed[spellId] = [];
           cooldown.feed[spellId].healing = 0;
@@ -363,7 +363,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     // This should probably be done with a white list, too many damage events that do not
     // feed into AG.
     /*
-     if (ABILITIES_NOT_FEEDING_INTO_AG.indexOf(spellId) <= -1) {
+     if (!ABILITIES_NOT_FEEDING_INTO_AG.includes(spellId)) {
      if (!this.lastAG.feed[spellId]) {
      this.lastAG.feed[spellId] = [];
      this.lastAG.feed[spellId].healing = 0;

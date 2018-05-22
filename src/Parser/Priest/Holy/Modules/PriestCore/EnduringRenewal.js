@@ -59,7 +59,7 @@ class EnduringRenewal extends Analyzer {
       if (event.targetID in this._normalRenewDropoff && event.timestamp > this._normalRenewDropoff[event.targetID]) {
         this.healing += event.amount;
       }
-    } else if (ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL.indexOf(spellId) !== -1) {
+    } else if (ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL.includes(spellId)) {
       if (event.targetID in this._newRenewDropoff) {
         const remaining = (this._newRenewDropoff[event.targetID] - event.timestamp) / 1000.0;
         const gain = Math.min((this._baseRenewLength + 6) - remaining, this._baseRenewLength); // be wary of pandemic but also wary of early refreshes

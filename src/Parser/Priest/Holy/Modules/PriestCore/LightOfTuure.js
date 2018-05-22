@@ -48,7 +48,7 @@ class LightOfTuure extends Analyzer {
     }
 
     if (event.targetID in this._lotTargets && event.timestamp < this._lotTargets[event.targetID]) {
-      if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
+      if (!ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
         return;
       }
 

@@ -32,12 +32,12 @@ class T20_2pc extends Analyzer {
   // So have to look at time cast and if its very close to using a brew (above) its a proc, this is not perfect but very close.
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (BREWS.indexOf(spellId) !== -1) {
+    if (BREWS.includes(spellId)) {
       this.lastTrigger = event.timestamp;
       this.brewCount += 1;
       this.hastCastNewBrew = true;
     }
-    if (GIFT_OF_THE_OX_SPELLS.indexOf(spellId) !== -1) {
+    if (GIFT_OF_THE_OX_SPELLS.includes(spellId)) {
       this.lastOrb = event.timestamp;
     }
     if (this.hastCastNewBrew && Math.abs(this.lastTrigger - this.lastOrb) <= SUMMON_LATENCY) {
