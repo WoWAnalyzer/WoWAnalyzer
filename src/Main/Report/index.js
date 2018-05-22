@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
+import { withRouter } from 'react-router-dom';
 
 import { ApiDownError, CorruptResponseError, JsonParseError, LogNotFoundError } from 'common/fetchWcl';
 import fetchEvents from 'common/fetchEvents';
@@ -25,6 +26,7 @@ import FightSelecter from './FightSelecter';
 import PlayerSelecter from './PlayerSelecter';
 import Results from './Results';
 import ActivityIndicator from '../ActivityIndicator';
+import FightNavigationBar from './FightNavigationBar';
 
 const timeAvailable = console.time && console.timeEnd;
 
@@ -61,6 +63,9 @@ class Report extends React.Component {
     unknownNetworkIssueError: PropTypes.func.isRequired,
     unknownError: PropTypes.func.isRequired,
     appendReportHistory: PropTypes.func.isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired,
+    }),
   };
   static childContextTypes = {
     config: PropTypes.object,
@@ -294,9 +299,16 @@ class Report extends React.Component {
       const playerName = this.props.playerName;
       const valid = report && fight && combatants && (playerName || playerId);
       if (valid) {
+        //check log if no combatantID is set and the name appears more than once
+        if (!playerId && playerName && report.friendlies.filter(friendly => friendly.name === playerName).length > 1) {
+          alert(`It appears like another '${playerName}' is in this log, please select the correct one`);
+          this.props.history.push(makeAnalyzerUrl(report, fight.id));
+          return;
+        }
         const player = this.getPlayerFromReport(report, playerId, playerName);
         if (!player) {
           alert(`Unknown player: ${playerName}`);
+          this.props.history.push(makeAnalyzerUrl(report, fight.id));
           return;
         }
         const combatant = combatants.find(combatant => combatant.sourceID === player.id);
@@ -350,16 +362,20 @@ class Report extends React.Component {
     }
 
     const { parser } = this.state;
-    if (!parser) {
-      return <ActivityIndicator text="Initializing analyzer..." />;
-    }
-
     return (
-      <Results
-        parser={parser}
-        finished={this.state.finished}
-        makeTabUrl={tab => makeAnalyzerUrl(report, parser.fightId, parser.playerId, tab)}
-      />
+      <React.Fragment>
+        <FightNavigationBar />
+        <div style={{ marginLeft: 60 }}>
+          {!parser && <ActivityIndicator text="Initializing analyzer..." />}
+          {parser && (
+            <Results
+              parser={parser}
+              finished={this.state.finished}
+              makeTabUrl={tab => makeAnalyzerUrl(report, parser.fightId, parser.playerId, tab)}
+            />
+          )}
+        </div>
+      </React.Fragment>
     );
   }
 }
@@ -383,7 +399,7 @@ const mapStateToProps = state => {
   });
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   {
     fetchReport,
@@ -395,4 +411,4 @@ export default connect(
     unknownError,
     appendReportHistory,
   }
-)(Report);
+)(Report));

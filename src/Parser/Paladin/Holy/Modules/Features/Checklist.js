@@ -25,7 +25,6 @@ import FillerLightOfTheMartyrs from '../PaladinCore/FillerLightOfTheMartyrs';
 import FillerFlashOfLight from '../PaladinCore/FillerFlashOfLight';
 import Ilterendi from '../Items/Ilterendi';
 import Overhealing from '../PaladinCore/Overhealing';
-import JudgmentOfLight from '../Talents/JudgmentOfLight';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -45,7 +44,6 @@ class Checklist extends CoreChecklist {
     prePotion: PrePotion,
     overhealing: Overhealing,
     enchantChecker: EnchantChecker,
-    judgmentOfLight: JudgmentOfLight,
   };
 
   rules = [
@@ -98,6 +96,10 @@ class Checklist extends CoreChecklist {
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.AVENGING_WRATH,
+            onlyWithSuggestion: false,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.AVENGING_CRUSADER_TALENT,
             onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({

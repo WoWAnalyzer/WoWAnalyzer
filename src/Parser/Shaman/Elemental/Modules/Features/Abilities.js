@@ -108,6 +108,12 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EARTH_SHOCK,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
+      {
+        spell: SPELLS.LIGHTNING_SURGE_TOTEM_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: true,
+        cooldown: 60,
+      },
     ];
   }
 }

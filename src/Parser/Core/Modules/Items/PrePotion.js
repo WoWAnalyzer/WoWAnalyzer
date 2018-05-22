@@ -26,6 +26,7 @@ const PRE_POTIONS = [
   SPELLS.POTION_OF_DEADLY_GRACE.id,
   SPELLS.POTION_OF_THE_OLD_WAR.id,
   SPELLS.UNBENDING_POTION.id,
+  // TODO: BFA potions
 ];
 
 const SECOND_POTIONS = [
@@ -36,9 +37,11 @@ const SECOND_POTIONS = [
   SPELLS.LEYTORRENT_POTION.id,
   SPELLS.UNBENDING_POTION.id,
   SPELLS.SPIRIT_BERRIES.id,
+  // TODO: BFA potions
+  SPELLS.COASTAL_MANA_POTION.id,
 ];
 
-const ANCIENT_MANA_POTION_AMOUNT = 152000;
+const COMMON_MANA_POTION_AMOUNT = 1717; // TODO: BFA = Coastal Mana Potion = 7850
 
 class PrePotion extends Analyzer {
   static dependencies = {
@@ -65,7 +68,7 @@ class PrePotion extends Analyzer {
     if (event.classResources && event.classResources[0] && event.classResources[0].type === RESOURCE_TYPES.MANA.id) {
       const resource = event.classResources[0];
       const manaLeftAfterCast = resource.amount - resource.cost;
-      if (manaLeftAfterCast < ANCIENT_MANA_POTION_AMOUNT) {
+      if (manaLeftAfterCast < COMMON_MANA_POTION_AMOUNT) {
         this.neededManaSecondPotion = true;
       }
     }

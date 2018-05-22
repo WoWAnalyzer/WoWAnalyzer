@@ -1,3 +1,8 @@
+import React from 'react';
+
+import Tab from 'Main/Tab';
+import Mana from 'Main/Mana';
+
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
@@ -50,7 +55,6 @@ import Clearcasting from './Modules/Features/Clearcasting';
 import Innervate from './Modules/Features/Innervate';
 import PowerOfTheArchdruid from './Modules/Features/PowerOfTheArchdruid';
 import Dreamwalker from './Modules/Features/Dreamwalker';
-import EssenceOfGhanir from './Modules/Features/EssenceOfGhanir';
 import NaturesEssence from './Modules/Features/NaturesEssence';
 import Ironbark from './Modules/Features/Ironbark';
 
@@ -60,6 +64,7 @@ import Flourish from './Modules/Talents/Flourish';
 import SpringBlossoms from './Modules/Talents/SpringBlossoms';
 import SoulOfTheForest from './Modules/Talents/SoulOfTheForest';
 import TreeOfLife from './Modules/Talents/TreeOfLife';
+import Photosynthesis from './Modules/Talents/Photosynthesis';
 
 import RelicTraits from './Modules/Traits/RelicTraits';
 import ArmorOfTheAncients from './Modules/Traits/ArmorOfTheAncients';
@@ -121,12 +126,12 @@ class CombatLogParser extends CoreCombatLogParser {
     efflorescence: Efflorescence,
     clearcasting: Clearcasting,
     treeOfLife: TreeOfLife,
+    photosynthesis: Photosynthesis,
     flourish: Flourish,
     innervate: Innervate,
     powerOfTheArchdruid: PowerOfTheArchdruid,
     dreamwalker: Dreamwalker,
     soulOfTheForest: SoulOfTheForest,
-    essenceOfGhanir: EssenceOfGhanir,
     springBlossoms: SpringBlossoms,
     cultivation: Cultivation,
     cenarionWard: CenarionWard,
@@ -182,6 +187,15 @@ class CombatLogParser extends CoreCombatLogParser {
 
     results.tabs = [
       ...results.tabs,
+      {
+        title: 'Mana',
+        url: 'mana',
+        render: () => (
+          <Tab style={{ padding: '15px 22px' }}>
+            <Mana parser={this} />
+          </Tab>
+        ),
+      },
     ];
 
     return results;

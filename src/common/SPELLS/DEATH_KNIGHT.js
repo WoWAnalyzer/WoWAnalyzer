@@ -13,6 +13,20 @@ export default {
     icon: 'inv_axe_2h_artifactmaw_d_01',
   },
 
+  //Summons
+  //Bloodworm summon spell by the Bloodworms talent
+  BLOODWORM: {
+    id: 196361,
+    name: 'Bloodworm',
+    icon: 'spell_shadow_soulleech',
+  },
+  //Bloodworm death/heal spell
+  BLOODWORM_DEATH: {
+    id: 197509,
+    name: 'Bloodworm Death/Heal',
+    icon: 'spell_shadow_soulleech',
+  },
+
   //Artifact Trait
   UMBILICUS_ETERNUS: {
     id: 193213,
@@ -73,7 +87,7 @@ export default {
     id: 206930,
     name: 'Heart Strike',
     icon: 'inv_weapon_shortblade_40',
-  },  
+  },
 
   BONESTORM_HIT: {
     id: 196528,
@@ -122,6 +136,12 @@ export default {
     icon: 'spell_shadow_lifedrain',
   },
 
+  SHROUD_OF_PURGATORY: {
+    id: 116888,
+    name: 'Shroud of Purgatory',
+    icon: 'inv_misc_shadowegg',
+  },
+
   BONE_SHIELD: {
     id: 195181,
     name: 'Bone Shield',
@@ -141,6 +161,11 @@ export default {
   },
 
 // Buffs
+  OSSUARY: {
+    id: 219788,
+    name: 'Ossuary',
+    icon: 'ability_deathknight_brittlebones',
+  },
   CRIMSON_SCOURGE: {
     id: 81141,
     name: 'Crimson Scourge',
@@ -155,6 +180,11 @@ export default {
     id: 238698,
     name: 'Vampiric Aura',
     icon: 'ability_ironmaidens_maraksbloodcalling',
+  },
+  VORACIOUS: {
+    id: 274009,
+    name: 'Voracious',
+    icon: 'ability_ironmaidens_whirlofblood',
   },
 
   // CC

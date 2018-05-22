@@ -803,6 +803,11 @@ export default {
     name: 'Netherwinds',
     icon: 'spell_arcane_massdispel',
   },
+  PRIMAL_RAGE: {
+    id: 264667,
+    name: 'Primal Rage',
+    icon: 'spell_shadow_unholyfrenzy',
+  },
   ANCIENT_HYSTERIA: {
     id: 90355,
     name: 'Ancient Hysteria',

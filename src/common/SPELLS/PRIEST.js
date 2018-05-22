@@ -6,13 +6,20 @@
 
 export default {
   // Discipline Priest:
+  REVERENCE: {
+    id: 271534,
+    name: 'Mastery: Reverence',
+    icon: 'spell_priest_chakra',
+  },
   PENANCE: {
     id: 47666,
     name: 'Penance',
     icon: 'spell_holy_penance',
     manaCost: 30800,
+    coefficient: 0.4,
   },
-  PENANCE_HEAL: { // Penance on a friendly player
+  PENANCE_HEAL: {
+    // Penance on a friendly player
     id: 47750,
     name: 'Penance',
     icon: 'spell_holy_penance',
@@ -44,11 +51,6 @@ export default {
     icon: 'spell_shadow_shadowmend',
     atonementDuration: 15,
   },
-  LIGHTS_WRATH: {
-    id: 207946,
-    name: 'Light\'s Wrath',
-    icon: 'inv_staff_2h_artifacttome_d_01',
-  },
   RAPTURE: {
     id: 47536,
     name: 'Rapture',
@@ -59,13 +61,6 @@ export default {
     name: 'Pain Suppression',
     icon: 'spell_holy_painsupression',
     manaCost: 17600,
-  },
-  PLEA: {
-    id: 200829,
-    name: 'Plea',
-    icon: 'spell_priest_plea_blue',
-    atonementDuration: 15,
-    manaCost: 19800,
   },
   MASS_DISPEL: {
     id: 32375,
@@ -86,6 +81,11 @@ export default {
     id: 1706,
     name: 'Levitate',
     icon: 'spell_holy_layonhands',
+  },
+  LIGHTS_WRATH: {
+    id: 207946,
+    name: "Light's Wrath",
+    icon: 'inv_staff_2h_artifacttome_d_01',
   },
   MIND_CONTROL: {
     id: 605,
@@ -162,6 +162,11 @@ export default {
     name: 'Halo',
     icon: 'ability_priest_halo',
   },
+  CONTRITION_HEAL: {
+    id: 270501,
+    name: 'Contrition',
+    icon: 'ability_priest_savinggrace',
+  },
   DISC_PRIEST_T19_2SET_BONUS_BUFF: {
     id: 211556,
     name: 'T19 2 Set Bonus',
@@ -204,7 +209,7 @@ export default {
   },
   KAM_XIRAFF_BUFF: {
     id: 233997,
-    name: 'Kam Xi\'raff',
+    name: "Kam Xi'raff",
     icon: 'ability_priest_savinggrace',
   },
   TWIST_OF_FATE_BUFF: {
@@ -219,8 +224,13 @@ export default {
   },
   ESTEL_DEJAHNAS_INSPIRATION_BUFF: {
     id: 214637,
-    name: 'Dejahna\'s Inspiration',
+    name: "Dejahna's Inspiration",
     icon: 'spell_holy_heal',
+  },
+  LUMINOUS_BARRIER: {
+    id: 271466,
+    name: 'Luminous Barrier',
+    icon: 'spell_priest_burningwill',
   },
 
   // Talents:
@@ -236,39 +246,6 @@ export default {
     name: 'Halo',
     icon: 'ability_priest_halo',
     manaCost: 39600,
-  },
-
-  // Traits:
-  // Disc Priest:
-  SHARE_IN_THE_LIGHT: {
-    id: 210027,
-    name: 'Share in the Light',
-    icon: 'spell_holy_powerwordshield',
-  },
-  PAIN_IS_IN_YOUR_MIND: {
-    id: 197713,
-    name: 'Pain is in Your Mind',
-    icon: 'spell_holy_painsupression',
-  },
-  DOOMSAYER: {
-    id: 197727,
-    name: 'Doomsayer',
-    icon: 'spell_holy_rapture',
-  },
-  SPEED_OF_THE_PIOUS: {
-    id: 197767,
-    name: 'Speed of the Pious',
-    icon: 'ability_paladin_speedoflight',
-  },
-  BORROWED_TIME: {
-    id: 197763,
-    name: 'Borrowed Time',
-    icon: 'ability_priest_angelicbulwark',
-  },
-  SINS_OF_THE_MANY:{
-    id: 198076,
-    name: 'Sins of the Many',
-    icon: 'spell_holy_holyguidance',
   },
 
   // Holy Priest Spells
@@ -376,7 +353,7 @@ export default {
   // Trait related spells
   LIGHT_OF_TUURE_TRAIT: {
     id: 208065,
-    name: 'Light of T\'uure',
+    name: "Light of T'uure",
     icon: 'inv_staff_2h_artifactheartofkure_d_01',
     duration: 10,
   },
@@ -419,22 +396,16 @@ export default {
     valuePerTrait: 3333,
   },
 
-  LENIENCES_REWARD_TRAIT: {
+  LENIENCE: {
     id: 238063,
-    name: 'Lenience\'s Reward',
+    name: 'Lenience',
     icon: 'ability_priest_atonement',
-  },
-
-  BORROWED_TIME_TRAIT: {
-    id: 197762,
-    name: 'Borrowed Time',
-    icon: 'ability_priest_angelicbulwark',
   },
 
   // Buffs
   BLESSING_OF_TUURE_BUFF: {
     id: 196644,
-    name: 'Blessing of T\'uure',
+    name: "Blessing of T'uure",
     icon: 'inv_pet_naaru',
   },
 
@@ -453,7 +424,7 @@ export default {
   // Holy Legendaries
   XANSHI_CLOAK_BUFF: {
     id: 211336,
-    name: 'Xan\'shi, Shroud of Archbishop Benedictus',
+    name: "Xan'shi, Shroud of Archbishop Benedictus",
     icon: 'inv_enchant_essencemagiclarge',
   },
 
@@ -600,6 +571,7 @@ export default {
     name: 'Mind Sear',
     icon: 'spell_shadow_mindshear',
   },
+
   SHADOWY_APPARITION: {
     id: 147193,
     name: 'Shadowy Apparition',
@@ -642,14 +614,14 @@ export default {
 
   HEART_OF_THE_VOID_HEAL: {
     id: 248219,
-    name: "Heart of the Void",
+    name: 'Heart of the Void',
     icon: 'spell_priest_void-blast',
   },
 
   THE_TWINS_PAINFUL_TOUCH: {
     id: 207724,
     name: "The Twins' Painful Touch",
-    icon: "spell_shadow_mindflay",
+    icon: 'spell_shadow_mindflay',
   },
 
   SHADOW_PRIEST_T21_2SET_BONUS_PASSIVE: {

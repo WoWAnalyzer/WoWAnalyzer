@@ -123,6 +123,10 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 5,
       },
       {
+        spell: SPELLS.SHEILUNS_GIFT,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+      },
+      {
         spell: SPELLS.ESSENCE_FONT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         isOnGCD: true,

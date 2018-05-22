@@ -157,6 +157,17 @@ export default {
   },
 
   // Arms Tier Sets
+  // T21 2P Set Bonus
+  WARRIOR_ARMS_T21_2P_BONUS: {
+    id: 251878,
+    name: 'Tier 21 2P Bonus',
+    icon: 'ability_warrior_colossussmash',
+  },
+  WAR_VETERAN: {
+    id: 253382,
+    name: 'War Veteran',
+    icon: 'ability_warrior_colossussmash',
+  },
   // T21 4P Set Bonus
   WEIGHTED_BLADES: {
     id: 253383,
@@ -324,6 +335,11 @@ export default {
     name: 'Revenge',
     icon: 'ability_warrior_revenge',
   },
+  REVENGE_FREE_CAST: {
+    id: 5302,
+    name: 'Revenge!',
+    icon: 'ability_warrior_revenge',
+  },
   SHIELD_SLAM: {
     id: 23922,
     name: 'Shield Slam',
@@ -340,6 +356,16 @@ export default {
     name: 'Ignore Pain',
     icon: 'ability_warrior_renewedvigor',
   },
+  RENEWED_FURY_TALENT_BUFF: {
+    id: 202289,
+    name: 'Renewed Fury',
+    icon: 'ability_warrior_intensifyrage',
+  },
+  INTO_THE_FRAY_BUFF: {
+    id: 202602,
+    name: "Into the Fray",
+    icon: "ability_warrior_bloodfrenzy",
+  },
   NELTHARIONS_FURY: {
     id: 203526,
     name: 'Neltharion\'s Fury',
@@ -354,6 +380,11 @@ export default {
     id: 132404,
     name: 'Shield Block Buff',
     icon: 'ability_defend',
+  },
+  DEVASTATOR_DAMAGE: {
+    id: 236282,
+    name: 'Devastator',
+    icon: 'inv_sword_11',
   },
   //Cooldown Spells
   DEMORALIZING_SHOUT: {
@@ -405,11 +436,30 @@ export default {
   },
   //Relics
   // Protection Tier Sets
+  // T21 2P Set Bonus
+  PROTECTION_WARRIOR_T21_2P_BONUS: {
+    id: 251882,
+    name: 'T21 2P Bonus',
+    icon: 'spell_nature_reincarnation',
+  },
+  PROTECTION_WARRIOR_T21_2P_WALL_OF_IRON: {
+    id: 253428,
+    name: 'Wall of Iron',
+    icon: 'ability_warrior_defensivestance',
+  },
+
   // T20 2P Set Bonus
   PROTECTION_WARRIOR_T20_2P_BONUS: {
     id: 242302,
     name: 'T20 2P Bonus',
     icon: 'ability_warrior_defensivestance',
+  },
+
+  //Traits
+  INTOLERANCE_TRAIT: {
+    id: 203227,
+    name: 'Intolerance',
+    icon: 'warrior_talent_icon_furyintheblood',
   },
 
   // Shared:

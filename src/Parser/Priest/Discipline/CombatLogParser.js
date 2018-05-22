@@ -1,3 +1,8 @@
+import React from 'react';
+
+import Tab from 'Main/Tab';
+import Mana from 'Main/Mana';
+
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
@@ -21,7 +26,7 @@ import AtonementApplicationSource from './Modules/Features/AtonementApplicationS
 import AtonementDamageSource from './Modules/Features/AtonementDamageSource';
 import AtonementHealingDone from './Modules/Features/AtonementHealingDone';
 import PowerWordBarrier from './Modules/Features/PowerWordBarrier';
-import LeniencesReward from './Modules/Features/LeniencesReward';
+import Lenience from './Modules/Spells/Lenience';
 import PurgeTheWicked from './Modules/Features/PurgeTheWicked';
 
 import Tier19_2set from './Modules/Items/Tier19_2set';
@@ -46,9 +51,9 @@ import Atonement from './Modules/Spells/Atonement';
 import Evangelism from './Modules/Spells/Evangelism';
 import Penance from './Modules/Spells/Penance';
 import TouchOfTheGrave from './Modules/Spells/TouchOfTheGrave';
-import Rapture from './Modules/Spells/Rapture';
-
-import BorrowedTime from './Modules/Spells/Traits/BorrowedTime';
+import LuminousBarrier from './Modules/Spells/LuminousBarrier';
+import Contrition from './Modules/Spells/Contrition';
+import Reverence from './Modules/Spells/Reverence';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -80,9 +85,8 @@ class CombatLogParser extends CoreCombatLogParser {
     atonementDamageSource: AtonementDamageSource,
     atonementHealingDone: AtonementHealingDone,
     powerWordBarrier: PowerWordBarrier,
-    leniencesReward: LeniencesReward,
+    lenience: Lenience,
     purgeTheWicked: PurgeTheWicked,
-    rapture: Rapture,
 
     // Items:
     tier19_2set: Tier19_2set,
@@ -107,7 +111,9 @@ class CombatLogParser extends CoreCombatLogParser {
     atonement: Atonement,
     evangelism: Evangelism,
     touchOfTheGrave: TouchOfTheGrave,
-    borrowedTime: BorrowedTime,
+    luminousBarrier: LuminousBarrier,
+    contrition: Contrition,
+    reverence: Reverence,
   };
 
   generateResults() {
@@ -115,6 +121,15 @@ class CombatLogParser extends CoreCombatLogParser {
 
     results.tabs = [
       ...results.tabs,
+      {
+        title: 'Mana',
+        url: 'mana',
+        render: () => (
+          <Tab style={{ padding: '15px 22px' }}>
+            <Mana parser={this} />
+          </Tab>
+        ),
+      },
     ];
 
     return results;

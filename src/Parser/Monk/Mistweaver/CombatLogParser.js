@@ -3,6 +3,7 @@ import React from 'react';
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 
 import Tab from 'Main/Tab';
+import Mana from 'Main/Mana';
 import MonkSpreadsheet from 'Main/MonkSpreadsheet';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
@@ -128,6 +129,15 @@ class CombatLogParser extends CoreCombatLogParser {
 
     results.tabs = [
       ...results.tabs,
+      {
+        title: 'Mana',
+        url: 'mana',
+        render: () => (
+          <Tab style={{ padding: '15px 22px' }}>
+            <Mana parser={this} />
+          </Tab>
+        ),
+      },
       {
         title: 'Player Log Data',
         url: 'player-log-data',

@@ -17,6 +17,7 @@ class Abilities extends Analyzer {
     ITEMS: 'Item',
     COOLDOWNS: 'Cooldown',
     DEFENSIVE: 'Defensive Cooldown',
+    SEMI_DEFENSIVE: 'Offensive & Defensive Cooldown',
     OTHERS: 'Spell',
     UTILITY: 'Utility',
     HEALER_DAMAGING_SPELL: 'Damaging Spell',
@@ -85,7 +86,24 @@ class Abilities extends Analyzer {
    */
   getTimelineSortIndex(spellId) {
     const ability = this.getAbility(spellId);
-    return ability ? (ability.timelineSortIndex || null) : undefined;
+    return ability ? ability.timelineSortIndex : undefined;
+  }
+
+  /*
+   * Returns the buff spell Id to a given spell, or null if none is set. (or undefined if there is no such spellInfo)
+   */
+  getBuffSpellId(spellId) {
+    const ability = this.getAbility(spellId);
+    return ability ? (ability.buffSpellId || null) : undefined;
+  }
+
+  /*
+  * Return the first ability that has the given SpellId set as the buff.
+  */
+  getSpellBuffAbility(spellId) {
+    return this.activeAbilities.find(ability => {
+        return ability.buffSpellId === spellId;
+    });
   }
 }
 

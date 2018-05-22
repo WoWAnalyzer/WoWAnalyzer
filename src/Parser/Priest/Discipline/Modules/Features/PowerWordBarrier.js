@@ -12,6 +12,11 @@ import Analyzer from 'Parser/Core/Analyzer';
 const POWER_WORD_BARRIER_REDUCTION = 0.25;
 
 class PowerWordBarrier extends Analyzer {
+
+  on_initialized() {
+    this.active = !this.owner.modules.combatants.selected.hasTalent(SPELLS.LUMINOUS_BARRIER.id);
+  }
+
   get damageReducedDuringPowerWordBarrier() {
     return this.totalDamageTakenDuringPWB / (1 - POWER_WORD_BARRIER_REDUCTION) * POWER_WORD_BARRIER_REDUCTION;
   }

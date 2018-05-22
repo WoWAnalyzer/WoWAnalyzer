@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
@@ -54,6 +55,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ASTRAL_SHIFT,
+        buffSpellId: SPELLS.ASTRAL_SHIFT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         timelineSortIndex: 82,
         cooldown: 90,
@@ -93,10 +95,11 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CLOUDBURST_TOTEM_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1, // Possible with the Soul ring in prepatch unless they fix it
         cooldown: 30,
         timelineSortIndex: 20,
         isOnGCD: true,
-        enabled: combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id),
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.50,
@@ -120,6 +123,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.UNLEASH_LIFE_TALENT,
+        buffSpellId: SPELLS.UNLEASH_LIFE_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 15,
         timelineSortIndex: 20,
@@ -134,6 +138,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ASCENDANCE_TALENT_RESTORATION,
+        buffSpellId: SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         enabled: combatant.lv100Talent === SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
@@ -146,6 +151,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HEALING_TIDE_TOTEM_CAST,
+        buffSpellId: SPELLS.HEALING_TIDE_TOTEM_CAST.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         isOnGCD: true,
@@ -221,6 +227,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FLAME_SHOCK_RESTORATION,
+        buffSpellId: SPELLS.FLAME_SHOCK_RESTORATION.id,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
         timelineSortIndex: 60,
         cooldown: 6,
@@ -228,6 +235,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.LAVA_BURST,
+        buffSpellId: SPELLS.LAVA_SURGE.id,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
         charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
         timelineSortIndex: 60,
@@ -242,12 +250,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.GHOST_WOLF,
+        buffSpellId: SPELLS.GHOST_WOLF.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         timelineSortIndex: 80,
         isOnGCD: true,
       },
       {
         spell: SPELLS.SPIRITWALKERS_GRACE,
+        buffSpellId: SPELLS.SPIRITWALKERS_GRACE.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: combatant.hasTalent(SPELLS.GRACEFUL_SPIRIT_TALENT.id) ? 60 : 120,
         timelineSortIndex: 81,
@@ -270,7 +280,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         timelineSortIndex: 80,
         isOnGCD: true,
-        //enabled: combatant.hasTalent(SPELLS.LIGHTNING_SURGE_TOTEM_TALENT.id), reduce CD depending on targets hit
+        //enabled: combatant.hasTalent(SPELLS.LIGHTNING_SURGE_TOTEM_TALENT.id) TODO: reduce CD depending on amount of targets hit
         cooldown: 60,
       },
       {
@@ -327,6 +337,27 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
         isOnGCD: true,
         timelineSortIndex: 80,
+      },
+      {
+        spell: SPELLS.DOWNPOUR_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 35, // CD changes depending on amount of effective targets hit (0 = 5s, 6 = 35s)
+        isOnGCD: true,
+        timelineSortIndex: 20,
+        enabled: combatant.hasTalent(SPELLS.DOWNPOUR_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          majorIssueEfficiency: 0.20,
+          averageIssueEfficiency: 0.40,
+          recommendedEfficiency: 0.60,
+        },
+      },
+      {
+        spell: SPELLS.BERSERKING,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 180,
+        isOnGCD: true,
+        isUndetectable: true,
       },
     ];
   }

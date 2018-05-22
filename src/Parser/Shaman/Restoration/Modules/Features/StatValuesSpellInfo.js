@@ -110,4 +110,24 @@ export default {
   [SPELLS.NATURES_GUARDIAN_HEAL.id]: {
     ignored: true, //probably only scales with HP
   },
+  [SPELLS.RAINFALL.id]: {
+    // T21 2pc
+    int: true,
+    crit: true,
+    mastery: false,
+    vers: true,
+  },
+  [SPELLS.DOWNPOUR.id]: {
+    // T21 4pc
+    crit: true,
+    hasteHpct: true,
+    vers: true,
+  },
+  [SPELLS.DOWNPOUR_TALENT.id]: {
+    int: true,
+    crit: true, 
+    hasteHpct: false, // static CD
+    mastery: true,
+    vers: true,
+  },
 };

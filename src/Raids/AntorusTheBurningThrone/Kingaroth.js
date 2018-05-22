@@ -6,6 +6,7 @@ export default {
   name: 'Kin\'garoth',
   background: Background,
   headshot: Headshot,
+  icon: 'achievement_boss_argus_titanbuilder',
   fight: {
     vantusRuneBuffId: 250148,
     // TODO: Add fight specific props

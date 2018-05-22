@@ -97,6 +97,11 @@ export default {
     name: 'Fiery Brand',
     icon: 'ability_demonhunter_fierybrand',
   },
+  FIERY_BRAND_DEBUFF: {
+    id: 207744,
+    name: 'Fiery Brand',
+    icon: 'ability_demonhunter_fierybrand',
+  },
   METAMORPHOSIS_TANK: {
     id: 187827,
     name: 'Metamorphosis',
@@ -148,6 +153,11 @@ export default {
     id: 217832,
     name: 'Imprison',
     icon: 'ability_demonhunter_imprison',
+  },
+  PAINBRINGER_Buff: {
+    id: 212988,
+    name: 'Painbringer Buff',
+    icon: 'artifactability_vengeancedemonhunter_painbringer',
   },
 
   // Havoc

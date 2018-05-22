@@ -8,7 +8,9 @@ body {
   font-weight: 200;
   text-rendering: optimizeLegibility;
   background: url(./Images/legion-bg.jpg); /* Created by and property of Blizzard Entertainment. source: http://eu.battle.net/wow/en/legion/ */
+  background: #14161a;
   color: #fff;
+  padding-top: 48px;
 }
 .container {
   width: 100%;
@@ -24,8 +26,6 @@ body {
   }
 }
 #app-mount {
-  display: flex;
-  flex-flow: column;
   min-height: 100vh;
   position: absolute;
   top: 0;
@@ -34,10 +34,7 @@ body {
   bottom: 0;
 }
 #app-mount > .app {
-  flex: 1 1 auto;
-}
-#app-mount > footer {
-  flex: 0 0 auto;
+  min-height: calc(100% + 410px);
 }
 .app > main > section:first-of-type {
   margin-top: 0;
@@ -80,6 +77,19 @@ a:hover {
 .btn.focus img {
   opacity: 0.5;
 }
+.btn-primary {
+  background: #d84141;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 28px;
+  border-radius: 0;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+  text-transform: uppercase;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:active:hover, .btn-primary:active:focus {
+  background: #ad4b4b;
+  border: 1px solid #d84141;
+  outline: 0;
+}
 h1 {
   margin-top: 0;
   margin-bottom: 1em;
@@ -88,10 +98,6 @@ h1 {
   font-variant: small-caps;
   font-weight: 600;
   font-size: 24px;
-}
-.panel h1 {
-  margin-top: 0.2em;
-  margin-bottom: 0.8em;
 }
 hr {
   margin: 15px 0;
@@ -134,6 +140,10 @@ ul {
 }
 .panel > .panel-body {
   padding: 15px 22px;
+}
+.panel h1 {
+  margin-top: 0.2em;
+  margin-bottom: 0.8em;
 }
 
 .image-background {
@@ -192,132 +202,6 @@ ul {
   box-shadow: none;
   border: 1px solid #d84141;
 }
-.btn-primary {
-  background: #d84141;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 10px 28px;
-  border-radius: 0;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
-  text-transform: uppercase;
-}
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:active:hover, .btn-primary:active:focus {
-  background: #ad4b4b;
-  border: 1px solid #d84141;
-  outline: 0;
-}
-
-
-
-/* NAVBAR */
-nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 999; /* 1000 is where modals start*/
-  line-height: 40px;
-  background: rgba(12, 12, 12, 1);
-  background: linear-gradient(to bottom, rgba(18, 18, 18, 1) 0%, rgba(8, 8, 8, 1) 100%);
-  border: 0;
-  margin-bottom: 24px;
-}
-.show-report-selecter nav {
-  /* Reduce opacity by 20% */
-  background: rgba(12, 12, 12, 0.8);
-  background: linear-gradient(to bottom, rgba(18, 18, 18, 0.8) 0%, rgba(8, 8, 8, 0.8) 100%);
-}
-body {
-  padding-top: 48px;
-}
-nav > div {
-  display: flex;
-  flex-flow: row;
-}
-@media (min-width: 1200px) {
-  nav > div .logo {
-    margin-left: -58px; /* This move the logo just left of the content, together with the back arrow that looks quite nice. */
-    font-size: 1.1em;
-  }
-}
-nav .menu-item {
-  flex: 0 1 auto;
-  text-overflow: ellipsis;
-  border-right: 1px solid rgba(0, 0, 0, .8);
-  box-shadow: 1px 0 0 0 rgba(255, 255, 255, .1);
-  white-space: nowrap;
-  overflow: hidden;
-}
-nav .menu-item.main {
-  flex: 0 0 auto;
-}
-nav .left-line {
-  border-left: 1px solid rgba(0, 0, 0, .8);
-  box-shadow: 1px 0 0 0 rgba(255, 255, 255, .1), inset 1px 0 0 0 rgba(255, 255, 255, .1);
-}
-nav .menu-item a {
-  display: inline-block;
-  padding: 4px 12px;
-  color: #fff;
-}
-nav .menu-item a:hover {
-  color: #e45a5a;
-  text-decoration: none;
-}
-nav .menu-item img, nav .menu-item .icon {
-  height: 2.2em;
-  margin: -0.4em 0 -0.4em 0;
-  vertical-align: middle;
-}
-nav .spacer {
-  flex: 1 1 auto;
-}
-
-/*noinspection CssRedundantUnit*/
-nav .progress {
-  position: absolute;
-  left: 0;
-  bottom: -5px;
-  width: 0%;
-  height: 5px;
-  background: rgba(183, 76, 75, 0.8);
-  box-shadow: 0 0 5px 1px #000;
-  transition: opacity 400ms;
-  pointer-events: none;
-}
-nav .container {
-  position: relative; /* make selectorHeaders float within the container box */
-}
-.selectorHeader {
-  position: absolute;
-  line-height: 1.4;
-  left: 15px;
-  top: 66px;
-  width: 700px;
-  z-index: 10;
-  max-width: calc(100vw - 45px);
-  max-height: calc(100vh - 80px);
-  overflow-y: auto;
-  white-space: normal; /* menu-items have this set to nowrap */
-}
-.selectorHeader .panel {
-  background: rgba(0,0,0,0.95);
-}
-nav .selectorHeader a {
-  color: #e45a5a;
-  display: inline;
-  padding: 0;
-}
-
-/* Mobile nav bar */
-@media (max-width: 600px) {
-  nav > div.container {
-    padding: 0;
-  }
-  nav .optional {
-    display: none;
-  }
-}
-
-
 
 .list {
   list-style: none;
@@ -608,7 +492,7 @@ table.data-table img {
 }
 
 .__react_component_tooltip.show {
-  opacity: 1;
+  opacity: 1 !important;
   text-align: left;
   max-width: 600px;
   padding: 8px 15px;
@@ -619,6 +503,9 @@ table.data-table img {
 }
 .__react_component_tooltip.type-dark.place-bottom:after {
   border-bottom-color: rgba(10, 10, 10, 0.9) !important;
+}
+.__react_component_tooltip.type-dark.place-right:after {
+  border-right-color: rgba(10, 10, 10, 0.9) !important;
 }
 
 
@@ -918,6 +805,39 @@ code.inactive {
 
 .contributorlist > .row {
   margin: 10px 0;
+}
+
+.parse-grey {
+  color: #666 !important;
+}
+
+.parse-green {
+  color: rgb(30, 255, 0) !important;
+}
+
+.parse-blue {
+  color: rgb(0, 112, 255) !important;
+}
+
+.parse-purple {
+  color: rgb(163, 53, 238) !important;
+}
+
+.parse-orange {
+  color: rgb(255, 128, 0) !important;
+}
+
+.parse-artifact {
+  color: rgb(229, 204, 128) !important;
+}
+
+.pseudolink {
+  color: #e45a5a;
+  cursor: pointer;
+}
+
+.pseudolink:hover {
+  color: #ad4b4b;
 }
 
 .modal {

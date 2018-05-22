@@ -6,6 +6,7 @@ export default {
   name: 'Aggramar',
   background: Background,
   headshot: Headshot,
+  icon: 'achievement_boss_argus_aggramar',
   fight: {
     vantusRuneBuffId: 250144,
     // TODO: Add fight specific props

@@ -30,10 +30,10 @@ import GlobalCooldown from './Modules/GlobalCooldown';
 import Enemies from './Modules/Enemies';
 import EnemyInstances from './Modules/EnemyInstances';
 import Pets from './Modules/Pets';
-import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
 import Channeling from './Modules/Channeling';
+import TimelineBuffEvents from './Modules/TimelineBuffEvents';
 
 import DistanceMoved from './Modules/Others/DistanceMoved';
 
@@ -162,7 +162,6 @@ class CombatLogParser {
     spellManaCost: SpellManaCost,
     channeling: Channeling,
     abilityTracker: AbilityTracker,
-    healEventTracker: HealEventTracker,
     haste: Haste,
     statTracker: StatTracker,
     alwaysBeCasting: AlwaysBeCasting,
@@ -174,6 +173,7 @@ class CombatLogParser {
     manaValues: ManaValues,
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
+    timelineBuffEvents: TimelineBuffEvents,
 
     critEffectBonus: CritEffectBonus,
 
@@ -562,6 +562,7 @@ class CombatLogParser {
           resurrections={this.modules.deathTracker.resurrections}
           isAbilityCooldownsAccurate={this.modules.spellUsable.isAccurate}
           isGlobalCooldownAccurate={this.modules.globalCooldown.isAccurate}
+          buffEvents={this.modules.timelineBuffEvents.buffHistoryBySpellId}
         />
       ),
     });

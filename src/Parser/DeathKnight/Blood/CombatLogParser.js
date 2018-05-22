@@ -3,6 +3,8 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
+import DeathRecapTracker from 'Main/DeathRecapTracker';
+
 import Abilities from './Modules/Abilities';
 import Channeling from './Modules/Core/Channeling';
 import GlobalCooldown from './Modules/Core/GlobalCooldown';
@@ -21,6 +23,8 @@ import BoneShield from './Modules/Features/BoneShield';
 import DancingRuneWeapon from './Modules/Features/DancingRuneWeapon';
 import InitialMarrowrendCast from './Modules/Features/InitialMarrowrendCast';
 import DeathStrikeTiming from './Modules/Features/DeathStrikeTiming';
+import BoneShieldTimesByStacks from './Modules/Features/BoneShieldTimesByStacks';
+import DeathsCaress from './Modules/Core/DeathsCaress';
 
 // Resources
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
@@ -31,8 +35,17 @@ import RuneDetails from '../Shared/RuneDetails';
 // Talents
 import RedThirst from './Modules/Talents/RedThirst';
 import BoneStorm from './Modules/Talents/Bonestorm';
-import MarkOfBloodUptime from './Modules/Talents/MarkOfBloodUptime';
+import MarkOfBlood from './Modules/Talents/MarkOfBlood';
 import Hemostasis from './Modules/Talents/Hemostasis';
+import FoulBulwark from './Modules/Talents/FoulBulwark';
+import Heartbreaker from './Modules/Talents/Heartbreaker';
+import Bloodworms from './Modules/Talents/Bloodworms';
+import Tombstone from './Modules/Talents/Tombstone';
+import Voracious from './Modules/Talents/Voracious';
+import RapidDecomposition from './Modules/Talents/RapidDecomposition';
+import WillOfTheNecropolis from './Modules/Talents/WillOfTheNecropolis';
+import Ossuary from './Modules/Talents/Ossuary';
+import RuneStrike from './Modules/Talents/RuneStrike';
 
 // Items
 import T20_2pc from './Modules/Items/T20_2pc';
@@ -76,6 +89,9 @@ class CombatLogParser extends CoreCombatLogParser {
     marrowrendUsage: MarrowrendUsage,
     souldrinker: Souldrinker,
     boneShield: BoneShield,
+    boneShieldTimesByStacks: BoneShieldTimesByStacks,
+    deathRecapTracker: DeathRecapTracker,
+    deathsCaress: DeathsCaress,
 
     // DOT
     bloodplagueUptime: BloodPlagueUptime,
@@ -89,8 +105,17 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     redThirst: RedThirst,
     boneStorm: BoneStorm,
-    markOfBloodUptime: MarkOfBloodUptime,
+    markOfBlood: MarkOfBlood,
     hemostasis: Hemostasis,
+    foulBulwark: FoulBulwark,
+    heartbreaker: Heartbreaker,
+    bloodworms: Bloodworms,
+    tombstone: Tombstone,
+    voracious: Voracious,
+    rapidDecomposition: RapidDecomposition,
+    willOfTheNecropolis: WillOfTheNecropolis,
+    ossuary: Ossuary,
+    runeStrike: RuneStrike,
 
     // Traits
     RelicTraits: RelicTraits,

@@ -6,6 +6,7 @@ export default {
   name: 'Imonar the Soulhunter',
   background: Background,
   headshot: Headshot,
+  icon: 'achievement_boss_argus_bountyhunter',
   fight: {
     vantusRuneBuffId: 250158,
     // TODO: Add fight specific props

@@ -55,7 +55,7 @@ export default {
   CIRCLE_OF_HEALING_TALENT: { id: 204883, name: "Circle of Healing", icon: "spell_holy_circleofrenewal", manaCost: 33000 },
   // Discipline
   SCHISM_TALENT: { id: 214621, name: "Schism", icon: "spell_warlock_focusshadow", manaCost: 27500 },
-  SANCTUARY_TALENT: { id: 246393, name: "Sanctuary", icon: "spell_holy_holysmite" },
+  CONTRITION_TALENT: { id: 197419, name: "Contrition", icon: "ability_priest_savinggrace"},
   PURGE_THE_WICKED_TALENT: { id: 204197, name: "Purge the Wicked", icon: "ability_mage_firestarter", manaCost: 22000 },
   EVANGELISM_TALENT: { id: 246287, name: "Evangelism", icon: "spell_holy_divineillumination" },
 };

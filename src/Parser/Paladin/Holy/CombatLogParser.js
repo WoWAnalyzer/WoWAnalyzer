@@ -1,3 +1,8 @@
+import React from 'react';
+
+import Tab from 'Main/Tab';
+import Mana from 'Main/Mana';
+
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
@@ -30,7 +35,6 @@ import AuraOfMercy from './Modules/Talents/AuraOfMercy';
 import HolyAvenger from './Modules/Talents/HolyAvenger';
 import DivinePurpose from './Modules/Talents/DivinePurpose';
 import CrusadersMight from './Modules/Talents/CrusadersMight';
-import JudgmentOfLight from './Modules/Talents/JudgmentOfLight';
 
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
 import Ilterendi from './Modules/Items/Ilterendi';
@@ -85,7 +89,6 @@ class CombatLogParser extends CoreCombatLogParser {
     holyAvenger: HolyAvenger,
     divinePurpose: DivinePurpose,
     crusadersMight: CrusadersMight,
-    judgmentOfLight: JudgmentOfLight,
 
     // Items:
     drapeOfShame: DrapeOfShame,
@@ -107,6 +110,15 @@ class CombatLogParser extends CoreCombatLogParser {
 
     results.tabs = [
       ...results.tabs,
+      {
+        title: 'Mana',
+        url: 'mana',
+        render: () => (
+          <Tab style={{ padding: '15px 22px' }}>
+            <Mana parser={this} />
+          </Tab>
+        ),
+      },
     ];
 
     return results;

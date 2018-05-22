@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SPECS from 'common/SPECS';
-import { calculateSecondaryStatDefault, calculatePrimaryStat } from 'common/stats';
+import { calculateSecondaryStatDefault, calculatePrimaryStat, calculateSecondaryStatJewelry } from 'common/stats';
 import { formatMilliseconds } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -117,6 +117,13 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.HORN_OF_VALOR.id,
       haste: (_, item) => calculatePrimaryStat(820, 2332, item.itemLevel),
     },
+
+    // BFA quests
+    [SPELLS.DIEMETRADON_FRENZY.id]: {
+      itemId: ITEMS.ENGRANGED_DIEMETRADON_FIN.id,
+      haste: (_, item) => calculateSecondaryStatJewelry(172, 160, item.itemLevel),
+    },
+
     //endregion
 
     // region Raid Trinkets
@@ -219,6 +226,112 @@ class StatTracker extends Analyzer {
 
     // region Paladin
     [SPELLS.SERAPHIM_TALENT.id]: { crit: 249, haste: 249, mastery: 249, versatility: 249 },
+    // endregion
+
+    /****************************************\
+    *                    BFA:                *
+    \****************************************/
+
+    // region Azerite Traits
+    // region General
+    [SPELLS.BLIGHTBORNE_INFUSION.id]: { crit: 622 },
+    [SPELLS.SECRETS_OF_THE_DEEP_SURGING_DROPLET.id]: { strength: 442, agility: 442, intellect: 442 }, // TODO: Implement primaryStat
+    [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 }, // TODO: Implement primaryStat
+    [SPELLS.CHAMPION_OF_AZEROTH.id]: { versatility: 87 },
+    [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
+    [SPELLS.GEMHIDE.id]: { avoidance: 0, dodge: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: { crit: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: { haste: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: { mastery: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id]: { versatility: 0 }, // TODO: Implement based on in-game data
+    // endregion
+    // region Hunter
+    [SPELLS.HAZE_OF_RAGE.id]: { agility: 316 },
+    // endregion
+    // region Warlock
+    [SPELLS.EXPLOSIVE_POTENTIAL.id]: { haste: 841 },
+    // endregion
+    // endregion
+
+    // region Enchants
+    [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 60 },
+    [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 480 },
+    264878: { crit: 445 }, // Crow's Nest Scope
+    //endregion
+
+    // region Trinkets
+    // region Quests
+    // Mostly implemented for beta/PTR, don't expect to ever need those spells/trinkets elsewhere, so hard-coding the ids here
+    268619: { // Diemetradon Frenzy
+      itemId: 159764, // Engranged Diemetradon Fin
+      haste: (_, item) => calculateSecondaryStatDefault(172, 160, item.itemLevel),
+    },
+    269887: { // Boiling Time
+      itemId: 159978, // Junji's Egg Timer
+      haste: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
+    },
+    268623: { // Shark's Bite
+      itemId: 159765, // Empowered Shark's Tooth
+      crit: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
+    },
+    273974: { // Will of the Loa
+      itemId: 158153, // Zandalari Loa Figurine
+      crit: (_, item) => calculatePrimaryStat(280, 676, item.itemLevel),
+    },
+    268602: { // Master's Sight
+      itemId: 159074, // Jarkadiax's Other Eye
+      mastery: (_, item) => calculateSecondaryStatDefault(172, 114, item.itemLevel),
+    },
+    268616: { // Swell of Voodoo
+      itemId: 159763, // Idol of Vol'jamba
+      mastery: (_, item) => calculateSecondaryStatDefault(172, 114, item.itemLevel),
+    },
+    273988: { // Primal Instinct
+      itemId: 158155, // Zandalari Dinobone Charm
+      strength: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
+      agility: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
+      intellect: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
+    },
+    269885: { // Residual Viciousness
+      itemId: 159977, // Vindictive Golem Core
+      crit: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
+    },
+    273992: { // Speed of the Spirits
+      itemId: 158154, // Zandalari Bijou
+      haste: (_, item) => calculateSecondaryStatDefault(280, 414, item.itemLevel),
+    },
+    268604: { // Blood Crazed
+      itemId: 159075, // Bloodhex Talisman
+      crit: (_, item) => calculateSecondaryStatDefault(172, 207, item.itemLevel),
+    },
+    // endregion
+    // region Dungeons
+    271071: { // Conch of Dark Whispers
+      itemId: 159620, // Conch of Dark Whispers
+      crit: (_, item) => calculateSecondaryStatDefault(310, 485, item.itemLevel),
+    },
+    271115: { // Ignition Mage's Fuse
+      itemId: 159615, // Ignition Mage's Fuse
+      haste: (_, item) => calculateSecondaryStatDefault(310, 233, item.itemLevel),
+    },
+    // endregion
+    // endregion
+
+    // region Consumables
+    //region Flasks
+    251836: { agility: 238 }, // Flask of the Currents
+    251839: { strength: 238 }, // Flask of the Undertow
+    152639: { intellect: 238 }, // Flask of Endless Fathoms
+    251838: { stamina: 357 }, // Flask of Vast Horizon
+    // endregion
+    // endregion
+
+    // region Racials
+    // Mag'har Orc
+    274739: { crit: 102 }, // Rictus of the Laughing Skull
+    274740: { haste: 102 }, // Zeal of the Burning Blade
+    274741: { mastery: 102 }, // Ferocity of the Frostwolf
+    274742: { versatility: 102 }, // Might of the Blackrock
     // endregion
   };
 
@@ -353,8 +466,6 @@ class StatTracker extends Analyzer {
   get baseCritPercentage() {
     const standard = 0.05;
     switch (this.combatants.selected.spec) {
-      case SPECS.HOLY_PALADIN:
-        return standard + 0.03; // 3% from a trait everyone has. TODO: Make traits conditional
       case SPECS.FIRE_MAGE:
         return standard + 0.15; // an additional 15% is gained from the passive Critical Mass
       case SPECS.BEAST_MASTERY_HUNTER :
@@ -389,7 +500,7 @@ class StatTracker extends Analyzer {
       case SPECS.SHADOW_PRIEST:
         return 0.2;
       case SPECS.DISCIPLINE_PRIEST:
-        return 0.128;
+        return 0.096;
       case SPECS.RESTORATION_SHAMAN:
         return 0.24;
       case SPECS.ENHANCEMENT_SHAMAN:
@@ -465,43 +576,43 @@ class StatTracker extends Analyzer {
    * These values don't change.
    */
   get critRatingPerPercent() {
-    return 60 * 100;
+    return 72 * 100;
   }
   critPercentage(rating, withBase = false) {
     return (withBase ? this.baseCritPercentage : 0) + rating / this.critRatingPerPercent;
   }
   get hasteRatingPerPercent() {
-    return 56 * 100;
+    return 68 * 100;
   }
   hastePercentage(rating, withBase = false) {
     return (withBase ? this.baseHastePercentage : 0) + rating / this.hasteRatingPerPercent;
   }
   get masteryRatingPerPercent() {
-    return 60 * 100 / this.combatants.selected.spec.masteryCoefficient;
+    return 72 * 100 / this.combatants.selected.spec.masteryCoefficient;
   }
   masteryPercentage(rating, withBase = false) {
     return (withBase ? this.baseMasteryPercentage : 0) + rating / this.masteryRatingPerPercent;
   }
   get versatilityRatingPerPercent() {
-    return 72 * 100;
+    return 85 * 100;
   }
   versatilityPercentage(rating, withBase = false) {
     return (withBase ? this.baseVersatilityPercentage : 0) + rating / this.versatilityRatingPerPercent;
   }
   get avoidanceRatingPerPercent() {
-    return 16.5 * 100;
+    return 19.8 * 100;
   }
   avoidancePercentage(rating, withBase = false) {
     return (withBase ? this.baseAvoidancePercentage : 0) + rating / this.avoidanceRatingPerPercent;
   }
   get leechRatingPerPercent() {
-    return 34.5 * 100;
+    return 41.4 * 100;
   }
   leechPercentage(rating, withBase = false) {
     return (withBase ? this.baseLeechPercentage : 0) + rating / this.leechRatingPerPercent;
   }
   get speedRatingPerPercent() {
-    return 12 * 100;
+    return 14.4 * 100;
   }
   speedPercentage(rating, withBase = false) {
     return (withBase ? this.baseSpeedPercentage : 0) + rating / this.speedRatingPerPercent;

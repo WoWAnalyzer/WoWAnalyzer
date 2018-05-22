@@ -24,6 +24,7 @@ class KegSmash extends Analyzer {
   wastedBocCDR = 0;
 
   _nextTarget = 0;
+  _nextTargetInstance = 0;
 
   _bocBuffActive = false;
   
@@ -55,6 +56,7 @@ class KegSmash extends Analyzer {
     }
     this.totalCasts += 1;
     this._nextTarget = event.targetID;
+    this._nextTargetInstance = event.targetInstance;
 
     if(this._bocBuffActive) {
       this.bocHits += 1; // assuming (not a big assumption) that we get ≥ 1 hit per cast
@@ -75,7 +77,7 @@ class KegSmash extends Analyzer {
   // we need to be careful not to double- or triple-count its CDR.
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if(SPELLS.KEG_SMASH.id !== spellId || this._nextTarget !== event.targetID) {
+    if(SPELLS.KEG_SMASH.id !== spellId || this._nextTarget !== event.targetID || this._nextTargetInstance !== event.targetInstance) {
       return;
     }
     this.totalHits += 1;
