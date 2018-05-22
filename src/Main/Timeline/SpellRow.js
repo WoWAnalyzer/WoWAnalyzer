@@ -49,7 +49,7 @@ class SpellRow extends React.PureComponent {
       fixedEvents.push({
         ...beginCooldownEvent,
         trigger: 'endcooldown',
-        timestamp : beginCooldownEvent.start + beginCooldownEvent.expectedDuration,
+        timestamp: beginCooldownEvent.start + beginCooldownEvent.expectedDuration,
         end: beginCooldownEvent.start + beginCooldownEvent.expectedDuration,
       });
     });
@@ -60,12 +60,21 @@ class SpellRow extends React.PureComponent {
   render() {
     const { events, buffEvents, start, totalWidth, secondWidth, className, showCooldowns } = this.props;
     const fixedEvents = this.fabricateEndCooldown(events);
-
     return (
       <div className={`events ${className || ''}`} style={{ width: totalWidth }}>
         {fixedEvents.map((event, index) => {
           const meta = event.meta || {};
           if (event.type === 'cast') {
+            
+            let castClassName;
+            let castReason;
+            if (meta.isInefficientCast) {
+              castClassName = 'inefficient';
+              castReason = meta.inefficientCastReason;
+            } else if (meta.isEnhancedCast) {
+              castClassName = 'enhanced';
+              castReason = meta.enhancedCastReason;
+            }
             const top = buffEvents ? 1 : -1;
             const height = 22; // only used if buffEvents
             return (
@@ -79,9 +88,9 @@ class SpellRow extends React.PureComponent {
               >
                 <SpellIcon
                   id={event.ability.guid}
-                  className={meta.isInefficientCast ? 'inefficient' : undefined}
-                  data-tip={meta.inefficientCastReason}
-                  style={buffEvents ? {height} : {}}
+                  className={castClassName}
+                  data-tip={castReason}
+                  style={buffEvents ? { height } : {}}
                 />
               </div>
             );
@@ -142,10 +151,10 @@ class SpellRow extends React.PureComponent {
                   left,
                   width,
                   height: 3,
-                  background: `${event.type === 'changebuffstack' ? buffColor : debuffColor }`,
+                  background: `${event.type === 'changebuffstack' ? buffColor : debuffColor}`,
                   zIndex: 9,
                 }}
-                data-tip={`${event.ability.name} - ${event.type === 'changebuffstack' ? 'Buff' : 'Debuff' } Duration: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`} 
+                data-tip={`${event.ability.name} - ${event.type === 'changebuffstack' ? 'Buff' : 'Debuff'} Duration: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`}
               />
             );
           }

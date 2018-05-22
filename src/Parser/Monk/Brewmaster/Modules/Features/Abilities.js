@@ -44,14 +44,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
       {
-        spell: SPELLS.EXPLODING_KEG,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 75,
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
         spell: SPELLS.RUSHING_JADE_WIND_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 6 / (1 + haste),
@@ -67,7 +59,7 @@ class Abilities extends CoreAbilities {
         // id
         spell: [SPELLS.IRONSKIN_BREW, SPELLS.PURIFYING_BREW],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: haste => 21 / (1 + haste),
+        cooldown: haste => 16 / (1 + haste),
         charges: 3,
       },
       {
@@ -156,7 +148,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
       },
       {
-        spell: SPELLS.EFFUSE,
+        spell: SPELLS.VIVIFY, // don't know if the vivify spell has been updated to the new ID yet
         category: Abilities.SPELL_CATEGORIES.UTILITY,
       },
       {

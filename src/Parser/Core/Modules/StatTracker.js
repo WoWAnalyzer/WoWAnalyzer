@@ -235,17 +235,104 @@ class StatTracker extends Analyzer {
     // region Azerite Traits
     // region General
     [SPELLS.BLIGHTBORNE_INFUSION.id]: { crit: 622 },
-    [SPELLS.SECRETS_OF_THE_DEEP_SURGING_DROPLET.id]: { strength: 442, agility: 442, intellect: 442 },
-    [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 },
+    [SPELLS.SECRETS_OF_THE_DEEP_SURGING_DROPLET.id]: { strength: 442, agility: 442, intellect: 442 }, // TODO: Implement primaryStat
+    [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 }, // TODO: Implement primaryStat
     [SPELLS.CHAMPION_OF_AZEROTH.id]: { versatility: 87 },
     [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
+    [SPELLS.GEMHIDE.id]: { avoidance: 0, dodge: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: { crit: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: { haste: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: { mastery: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id]: { versatility: 0 }, // TODO: Implement based on in-game data
+    // endregion
+    // region Hunter
+    [SPELLS.HAZE_OF_RAGE.id]: { agility: 316 },
+    // endregion
+    // region Warlock
+    [SPELLS.EXPLOSIVE_POTENTIAL.id]: { haste: 841 },
     // endregion
     // endregion
 
     // region Enchants
     [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 60 },
     [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 480 },
+    264878: { crit: 445 }, // Crow's Nest Scope
     //endregion
+
+    // region Trinkets
+    // region Quests
+    // Mostly implemented for beta/PTR, don't expect to ever need those spells/trinkets elsewhere, so hard-coding the ids here
+    268619: { // Diemetradon Frenzy
+      itemId: 159764, // Engranged Diemetradon Fin
+      haste: (_, item) => calculateSecondaryStatDefault(172, 160, item.itemLevel),
+    },
+    269887: { // Boiling Time
+      itemId: 159978, // Junji's Egg Timer
+      haste: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
+    },
+    268623: { // Shark's Bite
+      itemId: 159765, // Empowered Shark's Tooth
+      crit: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
+    },
+    273974: { // Will of the Loa
+      itemId: 158153, // Zandalari Loa Figurine
+      crit: (_, item) => calculatePrimaryStat(280, 676, item.itemLevel),
+    },
+    268602: { // Master's Sight
+      itemId: 159074, // Jarkadiax's Other Eye
+      mastery: (_, item) => calculateSecondaryStatDefault(172, 114, item.itemLevel),
+    },
+    268616: { // Swell of Voodoo
+      itemId: 159763, // Idol of Vol'jamba
+      mastery: (_, item) => calculateSecondaryStatDefault(172, 114, item.itemLevel),
+    },
+    273988: { // Primal Instinct
+      itemId: 158155, // Zandalari Dinobone Charm
+      strength: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
+      agility: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
+      intellect: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
+    },
+    269885: { // Residual Viciousness
+      itemId: 159977, // Vindictive Golem Core
+      crit: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
+    },
+    273992: { // Speed of the Spirits
+      itemId: 158154, // Zandalari Bijou
+      haste: (_, item) => calculateSecondaryStatDefault(280, 414, item.itemLevel),
+    },
+    268604: { // Blood Crazed
+      itemId: 159075, // Bloodhex Talisman
+      crit: (_, item) => calculateSecondaryStatDefault(172, 207, item.itemLevel),
+    },
+    // endregion
+    // region Dungeons
+    271071: { // Conch of Dark Whispers
+      itemId: 159620, // Conch of Dark Whispers
+      crit: (_, item) => calculateSecondaryStatDefault(310, 485, item.itemLevel),
+    },
+    271115: { // Ignition Mage's Fuse
+      itemId: 159615, // Ignition Mage's Fuse
+      haste: (_, item) => calculateSecondaryStatDefault(310, 233, item.itemLevel),
+    },
+    // endregion
+    // endregion
+
+    // region Consumables
+    //region Flasks
+    251836: { agility: 238 }, // Flask of the Currents
+    251839: { strength: 238 }, // Flask of the Undertow
+    152639: { intellect: 238 }, // Flask of Endless Fathoms
+    251838: { stamina: 357 }, // Flask of Vast Horizon
+    // endregion
+    // endregion
+
+    // region Racials
+    // Mag'har Orc
+    274739: { crit: 102 }, // Rictus of the Laughing Skull
+    274740: { haste: 102 }, // Zeal of the Burning Blade
+    274741: { mastery: 102 }, // Ferocity of the Frostwolf
+    274742: { versatility: 102 }, // Might of the Blackrock
+    // endregion
   };
 
   _pullStats = {};

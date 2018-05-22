@@ -25,6 +25,12 @@ const ORDER_BY = {
 const ZONE_DEFAULT_ANTORUS = 17;
 const BOSS_DEFAULT_ALL_BOSSES = 0;
 const TRINKET_SLOTS = [12, 13];
+const ERRORS = {
+  CHARACTER_NOT_FOUND: 'We couldn\'t find your character on Warcraft Logs',
+  NO_PARSES_FOR_TIER: 'We couldn\'t find any logs',
+  CHARACTER_HIDDEN: 'We could find your character but he\'s very shy',
+  UNEXPECTED: 'Something went wrong',
+};
 
 //Hunter or rogues have the same log multiple times with 'Ranged' or 'Melee' as spec
 //probably only there to allow filtering by multiple specs on WCLs character-page
@@ -54,7 +60,7 @@ class CharacterParses extends React.Component {
       image: null,
       parses: [],
       isLoading: true,
-      error: false,
+      error: null,
     };
 
     this.updateDifficulty = this.updateDifficulty.bind(this);
@@ -235,17 +241,26 @@ class CharacterParses extends React.Component {
       _: refresh ? +new Date() : undefined,
     }).then((rawParses) => {
       if (rawParses.status === 400) {
-        // means char was not found on WCL
         this.setState({
-          error: true,
+          isLoading: false,
+          error: ERRORS.CHARACTER_NOT_FOUND,
         });
         return;
       }
 
-      if (rawParses.length === 0) { //happens when the character has no logs for the selected raid
+      if (rawParses.length === 0) {
         this.setState({
           parses: [],
           isLoading: false,
+          error: ERRORS.NO_PARSES_FOR_TIER,
+        });
+        return;
+      }
+
+      if (rawParses.hidden) {
+        this.setState({
+          isLoading: false,
+          error: ERRORS.CHARACTER_HIDDEN,
         });
         return;
       }
@@ -254,9 +269,9 @@ class CharacterParses extends React.Component {
         const parses = this.changeParseStructure(rawParses);
         this.setState({
           parses: parses,
+          error: null,
           isLoading: false,
         });
-
         return;
       }
 
@@ -273,11 +288,52 @@ class CharacterParses extends React.Component {
         class: charClass,
         parses: parses,
         isLoading: false,
+        error: null,
       });
+    }).catch(e => {
+      this.setState({
+        error: ERRORS.UNEXPECTED,
+        isLoading: false,
+      });
+      return;
     });
   }
 
   render() {
+
+    let errorMessage;
+    if (this.state.error === ERRORS.CHARACTER_NOT_FOUND) {
+      errorMessage = (
+        <div style={{ padding: 20 }}>
+          Please check your input and make sure that you've selected the correct region and realm.<br />
+          If your input was correct, then make sure that someone in your raid logged the fight for you or check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get started with logging on your own.<br /><br />
+          When you know for sure that you have logs on Warcraft Logs and you still get this error, please message us on <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">Discord</a> or create an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">Github</a>.
+        </div>
+      );
+    } else if (this.state.error === ERRORS.CHARACTER_HIDDEN) {
+      errorMessage = (
+        <div style={{ padding: 20 }}>
+          This character is hidden on warcraftlogs and we can't access the parses.<br /><br />
+          You don't know how to make your character visible again? Check <a href="https://www.warcraftlogs.com/help/hidingcharacters/" target="_blank" rel="noopener noreferrer">Warcraft Logs </a> and hit the 'Refresh' button above once you're done.
+        </div>
+      );
+    } else if (this.state.error === ERRORS.UNEXPECTED) {
+      errorMessage = (
+        <div style={{ padding: 20 }}>
+          Something unexpected happened.<br /><br />
+          Please message us on <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">Discord</a> or create an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">Github</a> and we will fix it, eventually.
+        </div>
+      );
+    } else if (this.state.error === ERRORS.NO_PARSES_FOR_TIER || this.filterParses.length === 0) {
+      errorMessage = (
+        <div style={{ padding: 20 }}>
+          Please check your filters and make sure that you logged those fights on Warcraft Logs.<br /><br />
+          You don't know how to log your fights? Check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get startet.
+        </div>
+      );
+    }
+
+
     return (
       <div className="container charparse">
         <div className="flex-main">
@@ -399,7 +455,7 @@ class CharacterParses extends React.Component {
                 )}
                 {!this.state.isLoading && (
                   <div className="panel-heading">
-                    <h2 style={{ display: 'inline' }}>Parses</h2>
+                    <h2 style={{ display: 'inline' }}>{this.state.error ? this.state.error : 'Parses'}</h2>
                     <Link
                       to={''}
                       className="pull-right"
@@ -412,25 +468,7 @@ class CharacterParses extends React.Component {
                     </Link>
                   </div>
                 )}
-                {this.state.error && (
-                  <div>
-                    <div className="panel-heading">
-                      <h2>We couldn't find your character on Warcraft Logs.</h2>
-                    </div>
-                    <div style={{ padding: 20 }}>
-                      Please check your input and make sure that you've selected the correct region and realm.<br />
-                      If your input was correct, then make sure that someone in your raid logged the fight for you or check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get started with logging on your own.<br /><br />
-                      When you know for sure that you have logs on Warcraft Logs and you still get this error, please message us on <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">Discord</a> or create an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">Github</a>.
-                    </div>
-                  </div>
-                )}
-                {this.filterParses.length === 0 && !this.state.isLoading && !this.state.error && (
-                  <div style={{ padding: 20 }}>
-                    We couldn't find any logs.<br />
-                    Please check your filters and make sure that you logged those fights on Warcraft Logs.<br /><br />
-                    You don't know how to log your fights? Check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get startet.
-                  </div>
-                )}
+                {!this.state.isLoading && errorMessage}
                 {!this.state.isLoading && (
                   <CharacterParsesList
                     parses={this.filterParses}

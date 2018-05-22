@@ -294,11 +294,6 @@ export default {
     name: 'Electropotence',
     icon: 'ability_shaman_stormstrike',
   },
-  ELEMENTAL_WHIRL: {
-    id: 270667,
-    name: 'Elemental Whirl',
-    icon: 'ability_skyreach_four_wind',
-  },
   EMBRACE_OF_THE_DARKFALLEN: {
     id: 275924,
     name: 'Embrace of the Darkfallen',
@@ -333,11 +328,6 @@ export default {
     id: 272870,
     name: 'Executioner\'s Precision',
     icon: 'ability_warrior_savageblow',
-  },
-  EXPLOSIVE_POTENTIAL: {
-    id: 275395,
-    name: 'Explosive Potential',
-    icon: 'inv__implosion',
   },
   EXPURGATION: {
     id: 273481,
@@ -424,11 +414,6 @@ export default {
     name: 'Gathering Storm',
     icon: 'ability_warrior_bladestorm',
   },
-  GEMHIDE: {
-    id: 270579,
-    name: 'Gemhide',
-    icon: 'inv_jewelcrafting_argusgemcut_yellow_miscicons',
-  },
   GLACIAL_CONTAGION: {
     id: 274074,
     name: 'Glacial Contagion',
@@ -453,11 +438,6 @@ export default {
     id: 261582,
     name: 'Haste',
     icon: 'trade_engineering',
-  },
-  HAZE_OF_RAGE: {
-    id: 273263,
-    name: 'Haze of Rage',
-    icon: 'ability_druid_ferociousbite',
   },
   HEALING_HAMMER: {
     id: 273142,

@@ -62,7 +62,7 @@ class CharacterSelecter extends React.PureComponent {
         this.props.history.push(makeUrl(region, realm, char));
       }).catch(e => {
         this.setState({ loading: false });
-        alert('Something wen\'t wrong!');
+        alert('Something went wrong!');
       });
   }
 

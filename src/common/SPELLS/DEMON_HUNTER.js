@@ -97,6 +97,11 @@ export default {
     name: 'Fiery Brand',
     icon: 'ability_demonhunter_fierybrand',
   },
+  FIERY_BRAND_DEBUFF: {
+    id: 207744,
+    name: 'Fiery Brand',
+    icon: 'ability_demonhunter_fierybrand',
+  },
   METAMORPHOSIS_TANK: {
     id: 187827,
     name: 'Metamorphosis',

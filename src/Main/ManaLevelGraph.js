@@ -18,7 +18,7 @@ class Mana extends React.PureComponent {
     actorId: PropTypes.number.isRequired,
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
-    manaUpdates: PropTypes.object.isRequired,
+    manaUpdates: PropTypes.array.isRequired,
   };
 
   constructor() {

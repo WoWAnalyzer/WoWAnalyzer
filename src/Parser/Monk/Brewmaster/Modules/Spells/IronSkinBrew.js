@@ -39,9 +39,9 @@ class IronSkinBrew extends Analyzer {
 
 
   on_initialized() {
-    this.durationPerCast += 500 * this.combatants.selected.traitsBySpellId[SPELLS.POTENT_KICK.id];
+    this.durationPerCast += 500 * (this.combatants.selected.traitsBySpellId[SPELLS.POTENT_KICK.id] || 0);
     this._durationCap = 3 * this.durationPerCast;
-    this._durationPerPurify = 1000 * this.combatants.selected.traitsBySpellId[SPELLS.QUICK_SIP.id];
+    this._durationPerPurify = 1000 * (this.combatants.selected.traitsBySpellId[SPELLS.QUICK_SIP.id] || 0);
   }
 
   on_byPlayer_cast(event) {

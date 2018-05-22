@@ -22,26 +22,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DEMON_SPIKES,
-        enabled: combatant.hasTalent(SPELLS.RAZOR_SPIKES_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        buffSpellId: SPELLS.DEMON_SPIKES_BUFF.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: haste => 15 / (1 + haste),
-        charges: 3,
+        charges: combatant.hasTalent(SPELLS.RAZOR_SPIKES_TALENT.id) ? 3 : 2,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
           extraSuggestion: <span>This is a great physical reduction spell and it also provides a great physical damage increase in your case, giving your <SpellLink id={SPELLS.RAZOR_SPIKES_TALENT.id} /> talent choice. Try to always cast it on cooldown. </span>,
-        },
-      },
-      {
-        spell: SPELLS.DEMON_SPIKES,
-        enabled: !(combatant.hasTalent(SPELLS.RAZOR_SPIKES_TALENT.id)),
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: haste => 15 / (1 + haste),
-        charges: 2,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.75,
-          extraSuggestion: <span>This is a great physical reduction spell. Try to always cast it as soons as it gets available or when you expect a higher physical damage. </span>,
         },
       },
       {
@@ -93,6 +81,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SOUL_BARRIER_TALENT,
+        buffSpellId: SPELLS.SOUL_BARRIER_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.SOUL_BARRIER_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 30,
@@ -105,6 +94,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.EMPOWER_WARDS,
+        buffSpellId: SPELLS.EMPOWER_WARDS.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 20,
         castEfficiency: {
@@ -121,6 +111,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FIERY_BRAND,
+        buffSpellId: SPELLS.FIERY_BRAND_DEBUFF.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 60,
         castEfficiency: {
@@ -131,6 +122,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.METAMORPHOSIS_TANK,
+        buffSpellId: SPELLS.METAMORPHOSIS_TANK.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
       },
@@ -151,7 +143,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SPIRIT_BOMB_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        buffSpellId: SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
       },
       {

@@ -200,7 +200,7 @@ class MasteryValue extends Analyzer {
   //
   // neither blackout combo + purify nor t21 are supported yet
   _appliesStack(event) {
-    return [SPELLS.BLACKOUT_STRIKE.id, SPELLS.BREATH_OF_FIRE.id].includes(event.ability.guid);
+    return event.ability.guid === SPELLS.BLACKOUT_STRIKE.id;
   }
 
   meanHitByAbility(spellId) {
