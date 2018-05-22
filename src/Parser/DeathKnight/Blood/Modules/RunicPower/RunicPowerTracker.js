@@ -29,7 +29,7 @@ class RunicPowerTracker extends ResourceTracker {
         this.combatants.selected.hasBuff(SPELLS.GRAVEWARDEN.id, event.timestamp)) {
         cost -= 5;
       }
-      if (this.combatants.selected.hasBuff(SPELLS.OSSUARY_TALENT.id)) {
+      if (this.combatants.selected.hasBuff(SPELLS.OSSUARY.id)) {
         cost -= 5;
       }
     }
