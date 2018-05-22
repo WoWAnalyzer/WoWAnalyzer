@@ -415,7 +415,7 @@ class HotTracker extends Analyzer {
        (!this.hots[targetId] || !this.hots[targetId][spellId])) {
       console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there's no record of that HoT being added...`);
       return false;
-    } else if ('applybuff' === event.type && this.hots[targetId] && this.hots[targetId][spellId]) {
+    } else if (event.type === 'applybuff' && this.hots[targetId] && this.hots[targetId][spellId]) {
       console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but that HoT is recorded as already added...`);
       return false;
     }

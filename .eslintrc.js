@@ -25,5 +25,12 @@ module.exports = {
 
     // disallow redundant `return await`
     'no-return-await': 'warn',
+
+    // disallow use of void operator
+    // https://eslint.org/docs/rules/no-void
+    'no-void': 'warn',
+
+    // require or disallow Yoda conditions
+    yoda: 'warn',
   },
 };
