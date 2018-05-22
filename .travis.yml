@@ -18,31 +18,33 @@ before_script:
   - export AUTHOR_NAME="$(git log -1 $TRAVIS_COMMIT --pretty="%aN")"
   - export BRANCH_OR_PR="$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo "PR-$TRAVIS_PULL_REQUEST"; fi)"
   - export SOURCE_URL="$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo "https://github.com/"$REPO_OWNER"/"$REPO_NAME"/commit/"$TRAVIS_COMMIT""; else echo "https://github.com/"$REPO_OWNER"/"$REPO_NAME"/pull/"$TRAVIS_PULL_REQUEST""; fi)"
-script:
-  - npm test
-  - npm run build
-  - cd server && npm run build && cd ..
-after_success:
-  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-      cd server;
-      echo "The server has already been built so we no longer need the devDependencies";
-      npm prune --production;
-      cd ..;
-      export REPO=martijnhols/wowanalyzer;
-      export BRANCH=$(
-        if [ "$TRAVIS_BRANCH" == "master" ]; then
-          echo "latest";
-        else
-          echo $TRAVIS_BRANCH;
-        fi | sed -r 's/\//-/g'
-      );
-      echo "#docker build";
-      docker build --tag $REPO:$BRANCH --file Dockerfile.package .;
-      echo "#docker login";
-      docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD";
-      echo "#docker push";
-      docker push $REPO:$BRANCH;
-    fi
+jobs:
+  include:
+    - script: npm test
+    - script: npm run lint
+    - script: npm run build
+    - script: cd server && npm run build && cd ..
+    - stage: deploy
+      script: if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+                cd server;
+                echo "The server has already been built so we no longer need the devDependencies";
+                npm prune --production;
+                cd ..;
+                export REPO=martijnhols/wowanalyzer;
+                export BRANCH=$(
+                  if [ "$TRAVIS_BRANCH" == "master" ]; then
+                    echo "latest";
+                  else
+                    echo $TRAVIS_BRANCH;
+                  fi | sed -r 's/\//-/g'
+                );
+                echo "#docker build";
+                docker build --tag $REPO:$BRANCH --file Dockerfile.package .;
+                echo "#docker login";
+                docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD";
+                echo "#docker push";
+                docker push $REPO:$BRANCH;
+              fi
 #  - chmod +x travis-discord-hook/success.sh
 #  - ./travis-discord-hook/success.sh
 after_failure:
