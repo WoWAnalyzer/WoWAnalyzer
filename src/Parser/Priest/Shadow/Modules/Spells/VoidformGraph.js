@@ -97,7 +97,7 @@ const VoidformGraph = ({
   for (let i = 0; i < steps; i++) {
     labels[i] = i;
 
-    const timestampAtStep     = i * RESOLUTION_MS;
+    const timestampAtStep = i * RESOLUTION_MS;
     const timestampAtNextStep = (i+1) * RESOLUTION_MS;
 
     // stacks:
@@ -110,17 +110,17 @@ const VoidformGraph = ({
       const LIStack = voidform.lingeringInsanityStacks.find(({timestamp}) => timestamp >= timestampAtStep && timestamp < timestampAtNextStep);
       if(LIStack) latestLIStack = LIStack.stack;
     }
-    lingeringInsanityData[i]  = latestLIStack;
+    lingeringInsanityData[i] = latestLIStack;
 
 
     // fill in all data:
-    insanityData[i]           = null;
-    insanityGeneratedData[i]  = null;
-    mindbenderData[i]         = null;
-    voidTorrentData[i]        = null;
-    dispersionData[i]         = null;
-    endData[i]                = null;
-    endOfVoidformData[i]      = null;
+    insanityData[i] = null;
+    insanityGeneratedData[i] = null;
+    mindbenderData[i] = null;
+    voidTorrentData[i] = null;
+    dispersionData[i] = null;
+    endData[i] = null;
+    endOfVoidformData[i] = null;
     if(surrenderToMadness && timestampAtStep >= voidform.duration) break;
   }
 

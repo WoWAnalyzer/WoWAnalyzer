@@ -27,7 +27,7 @@ class DamageTakenTable extends React.Component {
 
   render() {
     const specClassName = this.props.spec.className.replace(' ', '');
-    const row = (abilityData)  => {
+    const row = (abilityData) => {
       const { ability, totalDmg, largestSpike } = abilityData;
       return (
         <tr key={ability.guid}>

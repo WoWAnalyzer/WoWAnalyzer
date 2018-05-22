@@ -16,7 +16,7 @@ import ResourceTracker from 'Parser/Core/Modules/ResourceTracker/ResourceTracker
 
 const MAX_RUNES = 6;
 const RUNIC_CORRUPTION_INCREASE = 1; //Runic Corruption
-const RUNE_MASTER_INCREASE = .4;  //4p21 blood
+const RUNE_MASTER_INCREASE = .4; //4p21 blood
 const RUNE_IDS = [
   SPELLS.RUNE_1.id, //-101
   SPELLS.RUNE_2.id, //-102

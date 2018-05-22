@@ -54,7 +54,7 @@ class DelusionsOfGrandeur extends Analyzer {
 	}
 
 	get suggestionThresholds() {
-    return {                                                                      //This makes sure you are getting at least half of your meta off to make the shoulders worth it to wear
+    return { //This makes sure you are getting at least half of your meta off to make the shoulders worth it to wear
       actual: (this.owner.fightDuration / 1000 < this.metaCooldownWithShoulders && this.owner.fight.end_time - this.lastTimestamp < this.halfMetaDuration) || this.abilityTracker.getAbility(SPELLS.METAMORPHOSIS_HAVOC.id).casts < 2,
       isEqual: true,
       style: 'boolean',

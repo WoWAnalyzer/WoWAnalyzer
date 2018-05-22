@@ -54,7 +54,7 @@ class UnleashLife extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if (event.timestamp  > (this.buffedRiptideTimestamp + riptideDuration)) {
+    if (event.timestamp > (this.buffedRiptideTimestamp + riptideDuration)) {
       this.buffedRiptideTimestamp = null;
       this.buffedRiptideTarget = null;
     }

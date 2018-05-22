@@ -115,7 +115,7 @@ class FocusTracker extends Analyzer {
     this.totalFocusGenModifier += this.focusGen * (eventTimestamp - this.lastEventTimestamp);
     const maxFocus = this._maxFocus;
     this.focusBySecond[0] = maxFocus;
-    for (let i = this.lastEventTimestamp - this.owner.fight.start_time; i < (eventTimestamp - this.owner.fight.start_time); i++) {  //extrapolates focus given passive focus gain (TODO: Update for pulls with Volley)
+    for (let i = this.lastEventTimestamp - this.owner.fight.start_time; i < (eventTimestamp - this.owner.fight.start_time); i++) { //extrapolates focus given passive focus gain (TODO: Update for pulls with Volley)
       if (!this.focusBySecond[i]) {
         if (this.focusBySecond[i - 1] >= maxFocus) {
           this.focusBySecond[i] = maxFocus;

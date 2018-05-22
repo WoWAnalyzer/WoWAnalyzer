@@ -37,7 +37,7 @@ class ReapBuffTracker extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: (this.unbuffedTicks / this.totalTicks) || 1,  // if no UAs were cast (totalTicks and unbuffedTicks = 0), it should return NaN and thus be 1 (100% unbuffed ticks)
+      actual: (this.unbuffedTicks / this.totalTicks) || 1, // if no UAs were cast (totalTicks and unbuffedTicks = 0), it should return NaN and thus be 1 (100% unbuffed ticks)
       isGreaterThan: {
         minor: 0.15,
         average: 0.2,

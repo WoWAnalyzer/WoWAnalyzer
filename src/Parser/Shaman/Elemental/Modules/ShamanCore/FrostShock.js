@@ -14,7 +14,7 @@ class FrostShock extends Analyzer {
   };
 
   badFrostShockCount = 0;
-  suboptimalFrostShockCount = 0;  //not used yet, wanna talk to tc-people for thresholds
+  suboptimalFrostShockCount = 0; //not used yet, wanna talk to tc-people for thresholds
 
   on_initialized() {
     this.active = false;

@@ -76,7 +76,7 @@ class Bonestorm extends Analyzer {
     let tooltip = "";
     this.bsCasts.forEach((cast, index) => {
       const avgDamage = formatNumber(cast.hits.reduce((a, b) => { return a + b; }, 0) / cast.hits.length);
-      const totalDamage  = formatNumber(cast.hits.reduce((a, b) => { return a + b; }, 0));
+      const totalDamage = formatNumber(cast.hits.reduce((a, b) => { return a + b; }, 0));
       const avgHits = formatNumber(cast.hits.length / cast.cost * 100, 1);
       const rpCost = formatNumber(cast.cost / 10);
 

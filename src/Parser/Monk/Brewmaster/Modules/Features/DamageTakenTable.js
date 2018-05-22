@@ -29,7 +29,7 @@ class DamageTakenTable extends Analyzer {
         const value = this.dmg.byAbility(raw.ability.guid);
         const staggered = this.dmg.staggeredByAbility(raw.ability.guid);
         // console.log(staggered);
-        return { totalDmg: value.effective + staggered, largestSpike: value.largestHit,  ...raw};
+        return { totalDmg: value.effective + staggered, largestSpike: value.largestHit, ...raw};
       });
     vals.sort((a, b) => b.largestSpike - a.largestSpike);
     return vals;

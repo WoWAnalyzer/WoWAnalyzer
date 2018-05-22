@@ -24,9 +24,9 @@ class SoulShardDetails extends Analyzer {
     return {
       actual: fragmentsWastedPerMinute,
       isGreaterThan: {
-        minor: 1,   // 1 fragment per minute (1 shard in 10 minutes)
+        minor: 1, // 1 fragment per minute (1 shard in 10 minutes)
         average: 3, // 3 fragments per minute (3 shards in 10 minutes)
-        major: 5,   // 5 fragments per minute (5 shards in 10 minutes)
+        major: 5, // 5 fragments per minute (5 shards in 10 minutes)
       },
       style: 'number',
     };

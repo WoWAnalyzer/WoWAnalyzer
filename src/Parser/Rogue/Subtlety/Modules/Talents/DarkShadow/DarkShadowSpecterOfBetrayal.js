@@ -11,8 +11,8 @@ import DarkShadow from './DarkShadow';
 class DarkShadowSpecterOfBetrayal extends DarkShadow {
   
   suggestions(when) {
-    const totalSpecterCastsInShadowDance  = this.danceDamageTracker.getAbility(SPELLS.SUMMON_DREAD_REFLECTION.id).casts;
-    const totalSpecterCast  = this.damageTracker.getAbility(SPELLS.SUMMON_DREAD_REFLECTION.id).casts;
+    const totalSpecterCastsInShadowDance = this.danceDamageTracker.getAbility(SPELLS.SUMMON_DREAD_REFLECTION.id).casts;
+    const totalSpecterCast = this.damageTracker.getAbility(SPELLS.SUMMON_DREAD_REFLECTION.id).casts;
     const castsInDanceShare = totalSpecterCastsInShadowDance / totalSpecterCast;
     when(castsInDanceShare).isLessThan(0.90)
     .addSuggestion((suggest, actual, recommended) => {

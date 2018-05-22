@@ -82,7 +82,7 @@ class BaseHealerStatValues extends Analyzer {
   totalOneHasteHpm = 0;
   totalOneMastery = 0;
   totalOneVers = 0; // from healing increase only
-  totalOneVersDr = 0;  // from damage reduced only
+  totalOneVersDr = 0; // from damage reduced only
   totalOneLeech = 0;
 
   playerHealthMissing = 0;

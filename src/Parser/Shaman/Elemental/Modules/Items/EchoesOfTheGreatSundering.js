@@ -24,7 +24,7 @@ class EchoesOfTheGreatSundering extends Analyzer {
   buffedTickCounter = 0;
   buffedCastCounter = 0;
 
-  state = 0;  //0=guaranteed not buffed; 1=guaranteed buffed; 2=not too sure(use heuristic)
+  state = 0; //0=guaranteed not buffed; 1=guaranteed buffed; 2=not too sure(use heuristic)
   endtime = 0;
 
   on_initialized() {
@@ -71,7 +71,7 @@ class EchoesOfTheGreatSundering extends Analyzer {
         this.unbuffedBaseDamageSum += baseDamage;
         this.unbuffedTickCounter++;
         break;
-      case  1:
+      case 1:
         this.buffedEarthquakeDamage += event.amount;
         this.buffedBaseDamageSum += baseDamage;
         this.buffedTickCounter++;

@@ -59,7 +59,7 @@ class ComboBreaker extends Analyzer {
     }
   }
   get suggestionThresholds() {
-    const usedCBprocs =  this.consumedCBProc / this.CBProcsTotal;
+    const usedCBprocs = this.consumedCBProc / this.CBProcsTotal;
     const baseThreshold = this.combatants.selected.hasBuff(SPELLS.WW_TIER21_2PC.id) ? 0.05 : 0.1;
     return {
       actual: usedCBprocs,
