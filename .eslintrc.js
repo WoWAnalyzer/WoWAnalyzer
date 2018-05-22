@@ -1,6 +1,6 @@
 module.exports = {
-  'extends': 'wowanalyzer-app',
-  'rules': {
+  extends: 'wowanalyzer-app',
+  rules: {
     // Based on https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/best-practices.js:
 
     // require return statements to either always or never specify values
@@ -45,10 +45,23 @@ module.exports = {
     'no-constant-condition': 'warn',
 
     // disallow use of debugger
-    'no-debugger': 'error',
+    'no-debugger': 'warn',
 
     // disallow empty statements
-    'no-empty': 'error',
+    'no-empty': 'warn',
 
-  },
+    // Disallow using indexOf when we have includes
+    'no-restricted-syntax': [
+      'warn',
+      {
+        selector: "BinaryExpression > CallExpression > MemberExpression > Identifier[name = 'indexOf']",
+        message: 'Please use `includes` instead of `indexOf`. If you use `indexOf` to actually get the index of something, this is a false positive that can be ignored with // eslint-disable-next-line no-restricted-syntax',
+      },
+      'WithStatement',
+      {
+        selector: "BinaryExpression[operator='in']",
+        message: 'Please do a comparison for `undefined` rather than use the `in` operator (consistent with the rest of the codebase)',
+      },
+    ],
+  }
 };

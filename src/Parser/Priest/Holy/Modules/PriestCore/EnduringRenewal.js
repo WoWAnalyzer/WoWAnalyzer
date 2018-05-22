@@ -56,11 +56,11 @@ class EnduringRenewal extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.RENEW.id) {
-      if (event.targetID in this._normalRenewDropoff && event.timestamp > this._normalRenewDropoff[event.targetID]) {
+      if (this._normalRenewDropoff[event.targetID] !== undefined && event.timestamp > this._normalRenewDropoff[event.targetID]) {
         this.healing += event.amount;
       }
     } else if (ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL.includes(spellId)) {
-      if (event.targetID in this._newRenewDropoff) {
+      if (this._newRenewDropoff[event.targetID] !== undefined) {
         const remaining = (this._newRenewDropoff[event.targetID] - event.timestamp) / 1000.0;
         const gain = Math.min((this._baseRenewLength + 6) - remaining, this._baseRenewLength); // be wary of pandemic but also wary of early refreshes
         this._newRenewDropoff[event.targetID] = event.timestamp + (gain * 1000);

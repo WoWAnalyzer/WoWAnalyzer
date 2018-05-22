@@ -28,7 +28,7 @@ import Header from './Header';
 
 function isIE() {
   const myNav = navigator.userAgent.toLowerCase();
-  return myNav.indexOf('msie') !== -1 || myNav.indexOf('trident') !== -1;
+  return myNav.includes('msie') || myNav.includes('trident');
 }
 
 class App extends React.Component {
@@ -188,7 +188,7 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = state => ({
   error: getError(state),
   isHome: getLocation(state).pathname === '/', // createMatchSelector doesn't seem to be consistent
 });

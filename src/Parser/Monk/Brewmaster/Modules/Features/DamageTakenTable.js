@@ -1,7 +1,7 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import DamageTakenTableComponent, { MITIGATED_UNKNOWN, MITIGATED_PHYSICAL, MITIGATED_MAGICAL } from 'Main/DamageTakenTable';
+import DamageTakenTableComponent, { MITIGATED_MAGICAL, MITIGATED_PHYSICAL, MITIGATED_UNKNOWN } from 'Main/DamageTakenTable';
 import Tab from 'Main/Tab';
 import SPELLS from 'common/SPELLS';
 import SPECS from 'common/SPECS';
@@ -29,7 +29,7 @@ class DamageTakenTable extends Analyzer {
         const value = this.dmg.byAbility(raw.ability.guid);
         const staggered = this.dmg.staggeredByAbility(raw.ability.guid);
         // console.log(staggered);
-        return { totalDmg: value.effective + staggered, largestSpike: value.largestHit, ...raw};
+        return { totalDmg: value.effective + staggered, largestSpike: value.largestHit, ...raw };
       });
     vals.sort((a, b) => b.largestSpike - a.largestSpike);
     return vals;
@@ -40,10 +40,10 @@ class DamageTakenTable extends Analyzer {
   }
 
   on_toPlayer_damage(event) {
-    if(event.ability.guid === SPELLS.STAGGER_TAKEN.id) {
+    if (event.ability.guid === SPELLS.STAGGER_TAKEN.id) {
       return;
     }
-    if(event.amount === 0) {
+    if (event.amount === 0) {
       return;
     }
     const mitigatedAs = this._classifyMitigation(event);
@@ -52,7 +52,7 @@ class DamageTakenTable extends Analyzer {
 
   _addToAbility(ability, mitigationType) {
     const spellId = ability.guid;
-    if(!(spellId in this.abilityData)) {
+    if (!this.abilityData[spellId]) {
       this.abilityData[spellId] = {
         mitigatedAs: mitigationType,
         ability: ability,
@@ -69,7 +69,7 @@ class DamageTakenTable extends Analyzer {
   }
 
   _classifyMitigation(event) {
-    if(event.absorbed + event.amount <= MIN_CLASSIFICATION_AMOUNT) {
+    if (event.absorbed + event.amount <= MIN_CLASSIFICATION_AMOUNT) {
       return MITIGATED_UNKNOWN;
     }
     // additive increase of 35%
@@ -84,7 +84,7 @@ class DamageTakenTable extends Analyzer {
 
     // multiply by 0.95 to allow for minor floating-point / integer
     // division error
-    if(actualPct >= physicalStaggerPct * 0.95) {
+    if (actualPct >= physicalStaggerPct * 0.95) {
       return MITIGATED_PHYSICAL;
     } else {
       return MITIGATED_MAGICAL;
@@ -97,11 +97,11 @@ class DamageTakenTable extends Analyzer {
       url: 'damage-taken-by-ability',
       render: () => (
         <Tab>
-          <DamageTakenTableComponent 
-            data={this.tableData} 
-            spec={SPECS[this.combatants.selected.specId]} 
+          <DamageTakenTableComponent
+            data={this.tableData}
+            spec={SPECS[this.combatants.selected.specId]}
             total={this.dmg.total.effective} />
-          <div style={{padding: "10px"}}>
+          <div style={{ padding: '10px' }}>
             <strong>Note:</strong> Damage taken includes all damage put into the <SpellLink id={SPELLS.STAGGER_TAKEN.id} /> pool.
           </div>
         </Tab>

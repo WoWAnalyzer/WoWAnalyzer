@@ -67,7 +67,7 @@ class TrousersOfAnjuna extends Analyzer {
 
     // Temporary logic just incase we have a situation where a heal registers before buff applications
     // (which I don't think occurs but just as a precautionary measure, this exists)
-    if (!(event.targetID in this._validAfterByPlayer) || !this._validAfterByPlayer[event.targetID]) {
+    if (!this._validAfterByPlayer[event.targetID]) {
       return;
     }
 

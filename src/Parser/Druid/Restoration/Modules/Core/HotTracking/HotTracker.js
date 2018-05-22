@@ -407,7 +407,7 @@ class HotTracker extends Analyzer {
   _validateHot(event) {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
-    if (!(spellId in this.hotInfo)) {
+    if (!this.hotInfo[spellId]) {
       return false; // we only care about the listed HoTs
     }
 

@@ -20,7 +20,7 @@ class ShadowSatyrsWalk extends Analyzer {
 
   item() {
     const builders = this.energyTracker.buildersObj;
-    if (!(SPELLS.SHADOW_SATYRS_WALK_ENERGY_BASE.id in builders)) {
+    if (builders[SPELLS.SHADOW_SATYRS_WALK_ENERGY_BASE.id] === undefined) {
       return null;
     }
 

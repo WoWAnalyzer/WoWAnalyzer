@@ -64,7 +64,7 @@ class HighTolerance extends Analyzer {
   }
 
   on_toPlayer_applydebuff(event) {
-    if(!(event.ability.guid in HIGH_TOLERANCE_HASTE)) {
+    if (!HIGH_TOLERANCE_HASTE[event.ability.guid]) {
       return;
     }
     this._lastDebuffApplied = event.timestamp;
@@ -72,7 +72,7 @@ class HighTolerance extends Analyzer {
   }
 
   on_toPlayer_removedebuff(event) {
-    if(!(event.ability.guid in HIGH_TOLERANCE_HASTE)) {
+    if (!HIGH_TOLERANCE_HASTE[event.ability.guid]) {
       return;
     }
     this.staggerDurations[event.ability.guid] += event.timestamp - this._lastDebuffApplied;
@@ -80,7 +80,7 @@ class HighTolerance extends Analyzer {
   }
 
   on_finished() {
-    if(this._staggerLevel !== null) {
+    if (this._staggerLevel !== null) {
       this.staggerDurations[this._staggerLevel] += this.owner.fight.end_time - this._lastDebuffApplied;
     }
   }
@@ -97,7 +97,7 @@ class HighTolerance extends Analyzer {
               <li><b>${formatThousands(this.moderateDuration / 1000)}s</b> (${formatPercentage(this.moderateDuration / this.owner.fightDuration)}%) in Moderate Stagger.</li>
               <li><b>${formatThousands(this.heavyDuration / 1000)}s</b> (${formatPercentage(this.heavyDuration / this.owner.fightDuration)}%) in Heavy Stagger.</li>
             </ul>`}
-          />
+      />
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();

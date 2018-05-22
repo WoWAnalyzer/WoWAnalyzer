@@ -111,4 +111,5 @@ class Tier21_2set extends Analyzer {
     };
   }
 }
+
 export default Tier21_2set;
