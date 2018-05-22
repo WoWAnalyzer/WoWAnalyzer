@@ -52,7 +52,7 @@ class TwistOfFate extends Analyzer {
 
   parseHeal(event) {
     const spellId = event.ability.guid;
-    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
+    if (!ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
       return;
     }
     if (!this.owner.modules.combatants.selected.hasBuff(SPELLS.TWIST_OF_FATE_BUFF.id, event.timestamp)) {

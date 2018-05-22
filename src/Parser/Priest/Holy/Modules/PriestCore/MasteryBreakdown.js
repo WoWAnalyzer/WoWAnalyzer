@@ -124,7 +124,7 @@ class MasteryBreakdown extends Analyzer {
       });
     } else {
       // logic for eol triggering spells
-      if (ABILITIES_THAT_TRIGGER_MASTERY.indexOf(spellId) === -1) {
+      if (!ABILITIES_THAT_TRIGGER_MASTERY.includes(spellId)) {
         return;
       }
 

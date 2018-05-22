@@ -47,7 +47,7 @@ class Tier21_2set extends Analyzer {
 
   isApplicable(event) {
     const spellId = event.ability.guid;
-    if (T21_2SET_AFFECTED_HEALS.indexOf(spellId) === -1) {
+    if (!T21_2SET_AFFECTED_HEALS.includes(spellId)) {
       return false;
     }
     return true;
