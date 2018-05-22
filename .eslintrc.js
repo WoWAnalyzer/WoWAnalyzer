@@ -32,5 +32,23 @@ module.exports = {
 
     // require or disallow Yoda conditions
     yoda: 'warn',
+
+    // Enforces that a return statement is present in property getters
+    // https://eslint.org/docs/rules/getter-return
+    'getter-return': ['warn', { allowImplicit: true }],
+
+    // Disallow await inside of loops
+    // https://eslint.org/docs/rules/no-await-in-loop
+    'no-await-in-loop': 'warn',
+
+    // disallow use of constant expressions in conditions
+    'no-constant-condition': 'warn',
+
+    // disallow use of debugger
+    'no-debugger': 'error',
+
+    // disallow empty statements
+    'no-empty': 'error',
+
   },
 };

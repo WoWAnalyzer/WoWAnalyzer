@@ -24,7 +24,7 @@ import { ABILITIES_NOT_FEEDING_INTO_AG, ABILITIES_NOT_FEEDING_INTO_ASCENDANCE, A
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownThroughputTracker.cooldownSpells,
+    ...super.cooldownSpells,
     {
       spell: SPELLS.ANCESTRAL_GUIDANCE_TALENT,
       summary: [
@@ -350,32 +350,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       }
       cooldown.events.push(event);
     });
-  }
-
-  on_byPlayer_damage(event) {
-    const index = this.activeCooldowns.findIndex(cooldown => cooldown.spell.id === SPELLS.ANCESTRAL_GUIDANCE_TALENT.id);
-    // const spellId = event.ability.guid;
-
-    if (index === -1) {
-
-    }
-
-    // This should probably be done with a white list, too many damage events that do not
-    // feed into AG.
-    /*
-     if (!ABILITIES_NOT_FEEDING_INTO_AG.includes(spellId)) {
-     if (!this.lastAG.feed[spellId]) {
-     this.lastAG.feed[spellId] = [];
-     this.lastAG.feed[spellId].healing = 0;
-     this.lastAG.feed[spellId].name = event.ability.name;
-     this.lastAG.feed[spellId].icon = event.ability.abilityIcon;
-     }
-     console.log(event)
-     this.lastAG.feed[spellId].healing += event.amount;
-     //this.agFeed[spellId] = this.agFeed[spellId] || [];
-     //this.agFeed[spellId] += (event.amount || 0);
-     }
-     */
   }
 
   on_byPlayer_absorbed(event) {

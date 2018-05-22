@@ -14,7 +14,7 @@ import { ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL } from '../../Constants';
 class EnduringRenewal extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-  }
+  };
 
   _normalRenewDropoff = {};
   _newRenewDropoff = {};
@@ -68,8 +68,6 @@ class EnduringRenewal extends Analyzer {
         this.refreshedRenews += 1;
         this.secsGained += gain;
       }
-    } else {
-
     }
   }
 
