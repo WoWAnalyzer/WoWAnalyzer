@@ -93,10 +93,10 @@ class LockAndLoad extends Analyzer {
     // the number of significant digits will be outside of a reasonable
     // range.
     if (z < -6.5)
-      return 0.0;
+      {return 0.0;}
 
     if (z > 6.5)
-      return 1.0;
+      {return 1.0;}
 
     let factK = 1;
     let sum = 0;

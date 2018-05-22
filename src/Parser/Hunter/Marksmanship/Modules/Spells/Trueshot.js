@@ -1,14 +1,14 @@
 import React from 'react';
 import Analyzer from 'Parser/Core/Analyzer';
-import HIT_TYPES from "Parser/Core/HIT_TYPES";
-import Combatants from "Parser/Core/Modules/Combatants";
+import HIT_TYPES from 'Parser/Core/HIT_TYPES';
+import Combatants from 'Parser/Core/Modules/Combatants';
 
-import SPELLS from "common/SPELLS/HUNTER";
+import SPELLS from 'common/SPELLS/HUNTER';
 import TALENTS from 'common/SPELLS/TALENTS/HUNTER';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import SpellLink from "common/SpellLink";
-import SpellIcon from "common/SpellIcon";
-import { formatNumber, formatPercentage } from "common/format";
+import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
+import { formatNumber, formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import ResourceIcon from 'common/ResourceIcon';
@@ -17,7 +17,6 @@ import ResourceIcon from 'common/ResourceIcon';
  * Increases haste by 40% and causes Arcane Shot and Multi-Shot to always apply Hunter's Mark.
  * Lasts 15 sec.
  */
-
 class Trueshot extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -49,22 +48,22 @@ class Trueshot extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-//checks if we had a prepull trueshot, in which case the firstCast done symbolises our starting focus of that one trueshot
+    //checks if we had a prepull trueshot, in which case the firstCast done symbolises our starting focus of that one trueshot
     if (this.prepullTrueshots > 0 && this.startFocusForCombatant === 0) {
       event.classResources.forEach(classResource => {
-        if (classResource.type === RESOURCE_TYPES.FOCUS.id && classResource['amount'] > this.startFocusForCombatant) {
-          this.startFocusForCombatant += classResource['amount'];
+        if (classResource.type === RESOURCE_TYPES.FOCUS.id && classResource.amount > this.startFocusForCombatant) {
+          this.startFocusForCombatant += classResource.amount;
           this.accumulatedFocusAtTSCast += this.startFocusForCombatant;
         }
       });
     }
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.TRUESHOT.id && spellId !== SPELLS.AIMED_SHOT.id) {
-      return false;
+      return;
     }
     if (spellId === SPELLS.TRUESHOT.id) {
       this.trueshotCasts += 1;
-      this.accumulatedFocusAtTSCast += event.classResources[0]['amount'] || 0;
+      this.accumulatedFocusAtTSCast += event.classResources[0].amount || 0;
       if (this.combatants.selected.hasBuff(SPELLS.BULLSEYE_BUFF.id, event.timestamp)) {
         this.executeTrueshots += 1;
       }

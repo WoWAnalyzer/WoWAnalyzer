@@ -26,7 +26,7 @@ class FrostShock extends Analyzer {
     }
     this.active = true;
     if (!this.combatants.selected.hasBuff(TALENTS.ICEFURY_TALENT.id, event.timestamp))
-      this.badFrostShockCount++;
+      {this.badFrostShockCount++;}
 
     const resource = event.classResources[0];
     if (resource.type !== RESOURCE_TYPES.MAELSTROM.id) {

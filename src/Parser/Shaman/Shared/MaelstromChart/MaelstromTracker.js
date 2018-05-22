@@ -40,10 +40,10 @@ class MaelstromTracker extends Analyzer {
     if ((event.sourceID === this.owner.player.id || event.targetID === this.owner.player.id) && event.classResources && event.classResources[0].type === RESOURCE_TYPES.FOCUS.id) {
       this.tracker++;
       this.checkForMaxMaelstrom(event);
-      if (event.classResources[0]['cost'])
-        this.maelstromBySecond[event.timestamp - this.owner.fight.start_time] = event.classResources[0]['amount']-event.classResources['cost'];
+      if (event.classResources[0].cost)
+        {this.maelstromBySecond[event.timestamp - this.owner.fight.start_time] = event.classResources[0].amount-event.classResources.cost;}
       else
-        this.maelstromBySecond[event.timestamp - this.owner.fight.start_time] = event.classResources[0]['amount'];
+        {this.maelstromBySecond[event.timestamp - this.owner.fight.start_time] = event.classResources[0].amount;}
     }
 
     this.extrapolateFocus(event.timestamp);
@@ -52,9 +52,9 @@ class MaelstromTracker extends Analyzer {
   checkForMaxMaelstrom(event) {
     if (event.sourceID === this.owner.player.id) {
       event.classResources.forEach(classResource => {
-        if (classResource.type === RESOURCE_TYPES.MAELSTROM.id && classResource['max'] > this._maxMaelstrom) {
+        if (classResource.type === RESOURCE_TYPES.MAELSTROM.id && classResource.max > this._maxMaelstrom) {
           //note: this works for now, but may not work if max focus becomes changable mid-fight, then max would have to be calculated on an event-by-event basis
-          this._maxMaelstrom = classResource['max'];
+          this._maxMaelstrom = classResource.max;
         }
       });
     }
@@ -64,25 +64,25 @@ class MaelstromTracker extends Analyzer {
     if ((event.sourceID === this.owner.player.id || event.targetID === this.owner.player.id) && event.classResources && event.classResources[0].type === RESOURCE_TYPES.MAELSTROM.id) {
       this.tracker++;
       this.checkForMaxMaelstrom(event);
-      this.maelstromBySecond[(event.timestamp-this.owner.fight.start_time)]=event.classResources[0]['amount'];
+      this.maelstromBySecond[(event.timestamp-this.owner.fight.start_time)]=event.classResources[0].amount;
       if (this.generatorCasts[event.ability.guid])
-        this.generatorCasts[event.ability.guid]++;
+        {this.generatorCasts[event.ability.guid]++;}
       else
-        this.generatorCasts[event.ability.guid] = 1;
+        {this.generatorCasts[event.ability.guid] = 1;}
       if (this.activeMaelstromGenerated[event.ability.guid])
-        this.activeMaelstromGenerated[event.ability.guid] += event.resourceChange;
+        {this.activeMaelstromGenerated[event.ability.guid] += event.resourceChange;}
       else
-        this.activeMaelstromGenerated[event.ability.guid] = event.resourceChange;
+        {this.activeMaelstromGenerated[event.ability.guid] = event.resourceChange;}
       if (event.waste > 0) {
         if (this.activeMaelstromWasted[event.ability.guid])
-          this.activeMaelstromWasted[event.ability.guid] += event.waste;
+          {this.activeMaelstromWasted[event.ability.guid] += event.waste;}
         else
-          this.activeMaelstromWasted[event.ability.guid] = event.waste;
+          {this.activeMaelstromWasted[event.ability.guid] = event.waste;}
 
         if (this.activeMaelstromWastedTimeline[Math.floor((event.timestamp - this.owner.fight.start_time) / 1000)])
-          this.activeMaelstromWastedTimeline[Math.floor((event.timestamp - this.owner.fight.start_time) / 1000)] += event.waste;
+          {this.activeMaelstromWastedTimeline[Math.floor((event.timestamp - this.owner.fight.start_time) / 1000)] += event.waste;}
         else
-          this.activeMaelstromWastedTimeline[Math.floor((event.timestamp - this.owner.fight.start_time) / 1000)] = event.waste;
+          {this.activeMaelstromWastedTimeline[Math.floor((event.timestamp - this.owner.fight.start_time) / 1000)] = event.waste;}
       }
     }
   }
@@ -91,7 +91,7 @@ class MaelstromTracker extends Analyzer {
     this.maelstromBySecond[0] = 0;
     for (let i = this.lastEventTimestamp - this.owner.fight.start_time; i < (eventTimestamp - this.owner.fight.start_time); i++) {
       if (!this.maelstromBySecond[i])
-        this.maelstromBySecond[i] = this.maelstromBySecond[i - 1];
+        {this.maelstromBySecond[i] = this.maelstromBySecond[i - 1];}
     }
     this.lastEventTimestamp = eventTimestamp;
   }

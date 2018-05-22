@@ -9,7 +9,6 @@ import Tab from 'Main/Tab';
 import DeathRecap from './DeathRecap';
 
 class DeathRecapTracker extends Analyzer {
-
   deaths = [];
   events = [];
   healed = [];
@@ -37,7 +36,7 @@ class DeathRecapTracker extends Analyzer {
   addEvent(event) {
     const extendedEvent = { ...event };
     extendedEvent.time = event.timestamp - this.owner.fight.start_time;
-    
+
     const cooldownsOnly = this.cooldowns.filter(e => e.cooldown);
     extendedEvent.cooldownsAvailable = cooldownsOnly.filter(e => this.spellUsable.isAvailable(e.spell.id));
     extendedEvent.cooldownsUsed = cooldownsOnly.filter(e => !this.spellUsable.isAvailable(e.spell.id));
@@ -50,7 +49,7 @@ class DeathRecapTracker extends Analyzer {
       const sourceHasDebuff = debuff => (!debuff.end || event.timestamp <= debuff.end) && event.timestamp >= debuff.start && debuff.isDebuff && this.buffs.some(e => e.spell.id === debuff.ability.guid || e.spell.buffSpellId === debuff.ability.guid);
       extendedEvent.debuffsUp = this.enemies.enemies[event.sourceID].buffs.filter(sourceHasDebuff);
     }
-    
+
     this.events.push(extendedEvent);
   }
 
@@ -58,7 +57,7 @@ class DeathRecapTracker extends Analyzer {
     this.addEvent(event);
   }
 
-  on_toPlayer_damage(event) {  
+  on_toPlayer_damage(event) {
     this.addEvent(event);
   }
 
@@ -84,7 +83,7 @@ class DeathRecapTracker extends Analyzer {
 
   tab() {
     if (this.deaths.length === 0) {
-      return;
+      return null;
     }
 
     return {
@@ -92,8 +91,8 @@ class DeathRecapTracker extends Analyzer {
       url: 'death-recap',
       render: () => (
         <Tab>
-          <DeathRecap 
-            events={this.secondsBeforeDeath} 
+          <DeathRecap
+            events={this.secondsBeforeDeath}
           />
         </Tab>
       ),
