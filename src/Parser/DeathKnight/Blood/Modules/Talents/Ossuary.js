@@ -6,6 +6,8 @@ import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
+const OSSUARY_RUNICPOWER_REDUCTION = 5;
+
 class Ossuary extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -13,7 +15,6 @@ class Ossuary extends Analyzer {
 
   dsWithOS = 0;
   dsWithoutOS = 0;
-  OSSUARY_RP_SAVE = 5;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.OSSUARY_TALENT.id);
@@ -63,8 +64,8 @@ class Ossuary extends Analyzer {
         value={`${ this.dsWithoutOS } / ${ this.dsWithOS + this.dsWithoutOS }`}
         label="Death Strikes without Ossuary"
         tooltip={`
-          ${ this.dsWithoutOS * this.OSSUARY_RP_SAVE } RP wasted by casting them without Ossuary up.<br>
-          ${ this.dsWithOS * this.OSSUARY_RP_SAVE } RP saved by casting them with Ossuary up.<br>
+          ${ this.dsWithoutOS * OSSUARY_RUNICPOWER_REDUCTION } RP wasted by casting them without Ossuary up.<br>
+          ${ this.dsWithOS * OSSUARY_RUNICPOWER_REDUCTION } RP saved by casting them with Ossuary up.<br>
           ${formatPercentage(this.uptime)}% uptime.
         `}
       />
