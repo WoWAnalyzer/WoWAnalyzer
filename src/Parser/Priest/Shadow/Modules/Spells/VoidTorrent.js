@@ -56,7 +56,7 @@ class VoidTorrent extends Analyzer {
   }
 
   get totalWasted() {
-    return this.voidTorrents.reduce((p, c) => p += c.wastedTime, 0) / 1000;
+    return this.voidTorrents.reduce((total, c) => total + c.wastedTime, 0) / 1000;
   }
 
   on_byPlayer_cast(event) {

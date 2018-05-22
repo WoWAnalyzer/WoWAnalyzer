@@ -34,14 +34,18 @@ class Mastery extends Analyzer {
   on_initialized() {
     Object.entries(DRUID_HEAL_INFO)
         .filter(infoEntry => infoEntry[1].masteryStack)
-        .forEach(infoEntry => this.hotHealingAttrib[infoEntry[0]] = { direct: 0, mastery: {} });
+        .forEach(infoEntry => {
+          this.hotHealingAttrib[infoEntry[0]] = { direct: 0, mastery: {} };
+        });
 
     // TODO hook in StatTracker buff list somehow, so new Mastery buffs auto handled?
     this.masteryBuffs = {
       [SPELLS.ASTRAL_HARMONY.id]: { amount: 4000 },
       [SPELLS.JACINS_RUSE.id]: { amount: 3000 },
     };
-    Object.values(this.masteryBuffs).forEach(entry => entry.attributableHealing = 0);
+    Object.values(this.masteryBuffs).forEach(entry => {
+      entry.attributableHealing = 0;
+    });
   }
 
   on_byPlayer_heal(event) {
@@ -70,8 +74,9 @@ class Mastery extends Analyzer {
 
       Object.entries(this.masteryBuffs)
           .filter(entry => this.combatants.selected.hasBuff(entry[0]))
-          .forEach(entry => entry[1].attributableHealing +=
-              calculateEffectiveHealing(event, decomposedHeal.relativeBuffBenefit(entry[1].amount)));
+          .forEach(entry => {
+            entry[1].attributableHealing += calculateEffectiveHealing(event, decomposedHeal.relativeBuffBenefit(entry[1].amount));
+          });
     } else {
       this.totalNoMasteryHealing += healVal.effective;
     }

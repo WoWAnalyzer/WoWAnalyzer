@@ -16,5 +16,14 @@ module.exports = {
     'no-multi-spaces': ['warn', {
       ignoreEOLComments: false,
     }],
+
+    // disallow use of new operator when not part of the assignment or comparison
+    'no-new': 'warn',
+
+    // disallow use of assignment in return statement
+    'no-return-assign': ['warn', 'always'],
+
+    // disallow redundant `return await`
+    'no-return-await': 'warn',
   },
 };

@@ -91,7 +91,9 @@ class Tier21_2set extends Analyzer {
   _ensureEnemyExists(enemy) {
     if (!this._debuffs[enemy]) {
       this._debuffs[enemy] = {};
-      UNSTABLE_AFFLICTION_DEBUFF_IDS.forEach(id => this._debuffs[enemy][id] = 0);
+      UNSTABLE_AFFLICTION_DEBUFF_IDS.forEach(id => {
+        this._debuffs[enemy][id] = 0;
+      });
     }
   }
 

@@ -13,8 +13,6 @@ const formatDuration = (duration) => {
   return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
 };
 
-
-
 // changing this value will have a large impact on webbrowser performance. About 200 seems to be best of 2 worlds.
 const RESOLUTION_MS = 200;
 const TIMESTAMP_ERROR_MARGIN = 500;
@@ -156,7 +154,9 @@ const VoidformGraph = ({
 
 
   insanityData[0] = initialInsanity;
-  insanityEvents.forEach(event => insanityData[atLabel(event.timestamp)] = event.classResources[0].amount);
+  insanityEvents.forEach(event => {
+    insanityData[atLabel(event.timestamp)] = event.classResources[0].amount;
+  });
 
   let latestInsanityDataAt = 0;
   for (let i = 0; i < steps; i += 1) {

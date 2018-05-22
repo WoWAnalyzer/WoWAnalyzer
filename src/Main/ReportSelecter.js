@@ -81,7 +81,9 @@ class ReportSelecter extends React.PureComponent {
             type="text"
             name="code"
             className="form-control"
-            ref={elem => this.codeInput = elem}
+            ref={elem => {
+              this.codeInput = elem;
+            }}
             onChange={this.handleChange}
             style={{ width: 360 }}
             placeholder="https://www.warcraftlogs.com/reports/<report code>"

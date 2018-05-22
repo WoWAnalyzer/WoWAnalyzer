@@ -72,7 +72,9 @@ class CharacterSelecter extends React.PureComponent {
         <div className="character-selector">
           <select
             className="form-control"
-            ref={elem => this.regionInput = elem}
+            ref={elem => {
+              this.regionInput = elem;
+            }}
             value={this.state.currentRegion}
             onChange={e => this.setState({ currentRegion: e.target.value })}
           >
@@ -92,7 +94,9 @@ class CharacterSelecter extends React.PureComponent {
           <input
             type="text"
             name="code"
-            ref={elem => this.charInput = elem}
+            ref={elem => {
+              this.charInput = elem;
+            }}
             className="form-control"
             autoCorrect="off"
             autoCapitalize="off"
