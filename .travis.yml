@@ -10,7 +10,7 @@ cache:
     - node_modules
     - server/node_modules
 env:
-  - NODE_ENV=production
+  - NODE_ENV=production ESLINT_BEFORE_BUILD=false
 install:
   - npm install
   - cd server && npm install --dev && cd ..
