@@ -45,6 +45,9 @@ const DEFENSIVE_BUFFS = [
   {
     spell: SPELLS.PAINBRINGER_Buff,
   },
+  {
+    spell: SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF,
+  },
 ];
 
 export default DEFENSIVE_BUFFS;

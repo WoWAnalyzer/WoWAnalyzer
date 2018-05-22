@@ -41,7 +41,7 @@ class EchoesOfTheGreatSundering extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.EARTHQUAKE.id)
-      return;
+      {return;}
 
     if (this.combatants.selected.hasBuff(SPELLS.ECHOES_OF_THE_GREAT_SUNDERING_BUFF.id, event.timestamp)) {
       this.buffedCastCounter++;
@@ -57,11 +57,11 @@ class EchoesOfTheGreatSundering extends Analyzer {
 
   on_byPlayer_damage(event) {
     if (event.timestamp > this.endtime)
-      this.state = 0;
+      {this.state = 0;}
 
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.EARTHQUAKE_DAMAGE.id)
-      return;
+      {return;}
 
     const critMultiplier = (event.hitType === HIT_TYPES.CRIT) ? CRIT_MULTIPLIER : 1;
     const baseDamage = event.amount / critMultiplier;

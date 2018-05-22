@@ -46,7 +46,7 @@ class Tier19_2p extends Analyzer {
       return;
     }
     //the added || 0 ensures we don't get any undefined
-    this.lastFocusCost = event.classResources[0]['cost'] || 0;
+    this.lastFocusCost = event.classResources[0].cost || 0;
     const COOLDOWN_REDUCTION_MS = CDR_PER_FOCUS * this.lastFocusCost;
     const trueshotIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.TRUESHOT.id);
     if (trueshotIsOnCooldown) {

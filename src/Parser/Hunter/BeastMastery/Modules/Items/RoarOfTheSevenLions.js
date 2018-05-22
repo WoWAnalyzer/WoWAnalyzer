@@ -91,7 +91,7 @@ class RoarOfTheSevenLions extends Analyzer {
     if (LIST_OF_FOCUS_SPENDERS.every(id => spellId !== id)) {
       return;
     }
-    this.lastFocusCost = event.classResources[0]['cost'] || 0;
+    this.lastFocusCost = event.classResources[0].cost || 0;
     if (spellId === SPELLS.COBRA_SHOT.id) {
       this.lastFocusCost -= COBRA_SHOT_RANK_2_REDUCTION;
       if (this.combatants.selected.traitsBySpellId[SPELLS.SLITHERING_SERPENTS_TRAIT.id]) {

@@ -26,7 +26,7 @@ class Tier202PBonus extends Analyzer {
 
     when(tormentedPercentage).isLessThan(0.85)
     .addSuggestion((suggest, actual, recommended) => {
-      return suggest(<span>Try to consume <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> more often. This is a great damage reduction by applying <SpellLink id={SPELLS.VENG_DH_T20_2P_BONUS_BUFF.id} /> debuff. Try to refresh it even if you have just one <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> available.</span>)
+      return suggest(<React.Fragment>Try to consume <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> more often. This is a great damage reduction by applying <SpellLink id={SPELLS.VENG_DH_T20_2P_BONUS_BUFF.id} /> debuff. Try to refresh it even if you have just one <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> available.</React.Fragment>)
         .icon('ability_demonhunter_vengefulretreat2')
         .actual(`${formatPercentage(tormentedPercentage)}% debuff total uptime.`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`)

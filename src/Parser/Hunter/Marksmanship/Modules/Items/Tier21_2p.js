@@ -59,7 +59,7 @@ class Tier21_2p extends Analyzer {
   on_byPlayer_energize(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.MULTISHOT_FOCUSMODULE.id && spellId !== SPELLS.ARCANE_SHOT_FOCUSMODULE.id && spellId !== SPELLS.SIDEWINDERS_TALENT.id) {
-      return false;
+      return;
     }
     this.focusGeneratorCasts[spellId].casts += 1;
     //divide by 5 becacuse it's a 25% increase in focus gain - so the potential gain from tier is the resource change / 5.
@@ -73,7 +73,7 @@ class Tier21_2p extends Analyzer {
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.MULTISHOT.id && spellId !== SPELLS.ARCANE_SHOT.id && spellId !== SPELLS.SIDEWINDERS_DAMAGE.id) {
-      return false;
+      return;
     }
     this.damageFromGenerators[spellId].bonusDmg += getDamageBonus(event, T21_2P_DMG_BONUS);
   }

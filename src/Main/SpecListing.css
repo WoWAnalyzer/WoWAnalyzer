@@ -1,20 +1,54 @@
+.spec-listing > .container > header {
+  margin-bottom: 2em;
+}
+.spec-listing > .container > main {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .spec-card {
-  background: rgba(10, 10, 10, 0.7);
-  border: 1px solid #000;
-  border-radius: 6px;
-  overflow: hidden;
-  box-shadow: 0 6px 13px 0 rgba(0,0,0,.2), 0 0 2px rgba(0,0,0,.5);
+  flex: 1 1 400px;
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  color: currentColor;
+}
+a.spec-card:hover {
+  color: currentColor;
+  text-decoration: none;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
 }
 .spec-card .icon {
-  width: 140px;
-  height: 140px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  border-right: 1px solid #000;
+  flex: 0 0 auto;
+}
+.spec-card .icon figure {
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+}
+.spec-card .icon figure:before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: -16px;
+  right: -16px;
+  bottom: -21px;
+  background: url(./Images/statistic-icon-border.png);
+  background-size: contain;
+  pointer-events: none;
+}
+.spec-card .icon figure img {
+  border-radius: 50%;
+  height: 5em;
 }
 .spec-card .description {
-  padding: 12px 15px;
+  padding: 0 15px;
+  flex: 1 1 auto;
 }
 .spec-card .description h1 {
-  margin-bottom: 10px;
+  margin-top: 5px;
+  margin-bottom: 0;
 }

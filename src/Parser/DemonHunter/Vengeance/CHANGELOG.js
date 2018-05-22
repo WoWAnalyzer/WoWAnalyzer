@@ -6,6 +6,21 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-05-18'),
+    changes: <React.Fragment>Added death recap tab and defensive abilities tracking.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2018-05-10'),
+    changes: <React.Fragment>Reworked <SpellLink id={SPELLS.EMPOWER_WARDS.id} /> to show damage mitigated and if it was avalible to be used.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2018-05-10'),
+    changes: <React.Fragment>Reworked <SpellLink id={SPELLS.SIGIL_OF_FLAME.id} /> to show damage and if its stacked.</React.Fragment>,
+    contributors: [Yajinni],
+  },
+  {
     date: new Date('2018-05-05'),
     changes: <React.Fragment>Added more spell suggestions.</React.Fragment>,
     contributors: [Yajinni],

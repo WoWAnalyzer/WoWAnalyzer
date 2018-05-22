@@ -70,7 +70,7 @@ class ContributorDetails extends React.PureComponent {
 
   links(object) {
     if (!object) {
-      return;
+      return null;
     }
 
     const value = [];
@@ -91,7 +91,7 @@ class ContributorDetails extends React.PureComponent {
 
   additionalInfo(object) {
     if (!object) {
-      return;
+      return null;
     }
 
     const value = [];
@@ -145,7 +145,7 @@ class ContributorDetails extends React.PureComponent {
 
   chars(contributor, typ) {
     if (!contributor[typ]) {
-      return;
+      return null;
     }
 
     const style = typ === 'mains' ? { marginTop: 20 } : { marginBottom: 20 };
@@ -161,7 +161,7 @@ class ContributorDetails extends React.PureComponent {
 
   text(contributor, text) {
     if (!contributor) {
-      return;
+      return null;
     }
 
     return (
@@ -219,7 +219,7 @@ class ContributorDetails extends React.PureComponent {
       0: CoreChangelog,
     };
 
-    if(!contributor){
+    if (!contributor) {
       return this.invalidContributor();
     }
 

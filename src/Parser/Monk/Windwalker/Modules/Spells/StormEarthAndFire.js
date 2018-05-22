@@ -9,8 +9,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
-
-class StormEarthAndFire extends Analyzer{
+class StormEarthAndFire extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     abilityTracker: AbilityTracker,
@@ -46,7 +45,8 @@ class StormEarthAndFire extends Analyzer{
         default:
           break;
       }
-    } return traitsCDReduction;
+    }
+    return traitsCDReduction;
   }
 
   get reducedCooldownWithTraits() {
@@ -110,34 +110,37 @@ class StormEarthAndFire extends Analyzer{
   }
 
   whirlingDragonPunchStatistic() {
-    if (this.abilityTracker.getAbility(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id).casts >0) {
-      return(
-      <div className= "flex" >
+    if (this.abilityTracker.getAbility(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id).casts > 0) {
+      // TODO: Remove this if-statement since rendering should be consistent regardless of cast count OR document why this is an exception
+      return (
+        <div className="flex">
           <div className="flex-main">
             <SpellLink id={SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id} />
           </div>
           <div className="flex-sub text-right">
             {this.whirlingDragonPunches}/{this.castCount}
           </div>
-      </div>
-    );}
-  }
-
-    strikeoftheWindlordStatistic() {
-      return (
-        <div className="flex">
-          <div className="flex-main">
-            <SpellLink id={SPELLS.STRIKE_OF_THE_WINDLORD.id} />
-          </div>
-          <div className="flex-sub text-right">
-            {this.strikeOfTheWindlords}/{this.castCount}
-          </div>
         </div>
       );
     }
+    return null;
+  }
+
+  strikeoftheWindlordStatistic() {
+    return (
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.STRIKE_OF_THE_WINDLORD.id} />
+        </div>
+        <div className="flex-sub text-right">
+          {this.strikeOfTheWindlords}/{this.castCount}
+        </div>
+      </div>
+    );
+  }
 
   statistic() {
-    this.castCount = this.abilityTracker.getAbility(this.ability.id).casts; 
+    this.castCount = this.abilityTracker.getAbility(this.ability.id).casts;
     return (
       <StatisticsListBox
         title={

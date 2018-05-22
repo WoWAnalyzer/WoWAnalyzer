@@ -172,6 +172,7 @@ class SpellUsable extends Analyzer {
         return this.reduceCooldown(canSpellId, remainingCDR, timestamp);
       }
     }
+    return 0;
   }
   /**
    * Refresh (restart) the cooldown for the provided spell.

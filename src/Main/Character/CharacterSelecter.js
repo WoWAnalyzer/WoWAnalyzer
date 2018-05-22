@@ -6,7 +6,6 @@ import REALMS from 'common/REALMS';
 import makeUrl from './makeUrl';
 
 class CharacterSelecter extends React.PureComponent {
-
   static propTypes = {
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
@@ -37,7 +36,7 @@ class CharacterSelecter extends React.PureComponent {
 
     if (!region || !realm || !char) {
       alert('Please select a region, realm and player.');
-      return;
+      return null;
     }
 
     //check if character has an key in localStorage, if so directly redirect to /character otherwise ask bnet-api
@@ -45,7 +44,7 @@ class CharacterSelecter extends React.PureComponent {
     const image = localStorage.getItem(`${region}/${realm}/${char}`);
     if (image) {
       this.props.history.push(makeUrl(region, realm, char));
-      return;
+      return null;
     }
 
     this.setState({ loading: true });

@@ -62,15 +62,15 @@ class Maelstrom extends React.PureComponent {
       for (let i = 0; i < lastCatch; i++) {
         if (!maelstromBySecond[i]) {
           if (maelstromBySecond[i - 1] > maxMaelstrom)
-            maelstromBySecond[i] = maxMaelstrom;
+            {maelstromBySecond[i] = maxMaelstrom;}
           else
-            maelstromBySecond[i] = maelstromBySecond[i - 1];
+            {maelstromBySecond[i] = maelstromBySecond[i - 1];}
       }
 
         if (this.props.activeMaelstromWastedTimeline[i] && maelstromBySecond[i] + this.props.activeMaelstromWastedTimeline[i] > maxMaelstrom)
-          overCapBySecond[i] = (maelstromBySecond[i] + this.props.activeMaelstromWastedTimeline[i]) - maxMaelstrom;
+          {overCapBySecond[i] = (maelstromBySecond[i] + this.props.activeMaelstromWastedTimeline[i]) - maxMaelstrom;}
         else
-          overCapBySecond[i] = 0;
+          {overCapBySecond[i] = 0;}
     }
 
     const abilitiesAll = {};
@@ -98,9 +98,9 @@ class Maelstrom extends React.PureComponent {
     const abilities = Object.keys(abilitiesAll).map(key => abilitiesAll[key]);
     abilities.sort((a, b) => {
       if (a.created < b.created)
-        return 1;
+        {return 1;}
       if (a.created === b.created)
-        return 0;
+        {return 0;}
       return -1;
     });
 

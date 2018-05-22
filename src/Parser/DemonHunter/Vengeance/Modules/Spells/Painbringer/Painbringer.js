@@ -56,7 +56,6 @@ class Painbringer extends Analyzer {
   }
 
   statistic() {
-    console.log("stack avg #", this.painbringerTimesByStack.painbringerTimesByStacks);
       return (
         <ExpandableStatisticBox
           icon={<SpellIcon id={SPELLS.PAINBRINGER.id} />}

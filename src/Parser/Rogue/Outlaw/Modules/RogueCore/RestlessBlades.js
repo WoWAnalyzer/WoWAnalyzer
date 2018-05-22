@@ -16,7 +16,7 @@ class RestlessBlades extends Analyzer {
 
     let cdr = 500;
     if(this.combatants.selected.hasBuff(SPELLS.TRUE_BEARING.id))
-      cdr = 1500;
+      {cdr = 1500;}
     const amount = cdr*spent;
 
     this.reduceCooldown(SPELLS.ADRENALINE_RUSH.id,amount);

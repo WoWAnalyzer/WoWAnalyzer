@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import { formatNumber , formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer from 'Parser/Core/Analyzer';
@@ -93,7 +93,7 @@ class L90Talents extends Analyzer {
     return value / this.owner.fightDuration * 1000 * 60 || 0;
   }
 
-  get shootingStarsValue() { 
+  get shootingStarsValue() {
     return this.dotTicks * SHOOTING_STARS_MULTIPLIER;
   }
 
@@ -112,26 +112,24 @@ class L90Talents extends Analyzer {
   get actualValue() {
     if (this.activeTalent.id === SPELLS.SHOOTING_STARS_TALENT.id) {
       return this.getGenerated(SPELLS.SHOOTING_STARS.id);
-    }
-    else if (this.activeTalent.id === SPELLS.ASTRAL_COMMUNION_TALENT.id) {
+    } else if (this.activeTalent.id === SPELLS.ASTRAL_COMMUNION_TALENT.id) {
       return this.getGenerated(SPELLS.ASTRAL_COMMUNION_TALENT.id);
-    }
-    else if (this.activeTalent.id === SPELLS.BLESSING_OF_THE_ANCIENTS_TALENT.id) {
+    } else if (this.activeTalent.id === SPELLS.BLESSING_OF_THE_ANCIENTS_TALENT.id) {
       return this.getGenerated(SPELLS.BLESSING_OF_ANSHE.id) + this.getGenerated(SPELLS.BLESSING_OF_ELUNE.id);
     }
+    return 0;
   }
 
   get percentOfPotential() {
     const maxPotential = Math.max(this.shootingStarsValue, this.astralCommunionValue, this.BlessingOfAnsheValue, this.BlessingOfEluneValue);
     if (this.activeTalent.id === SPELLS.SHOOTING_STARS_TALENT.id) {
       return this.shootingStarsValue / maxPotential;
-    }
-    else if (this.activeTalent.id === SPELLS.ASTRAL_COMMUNION_TALENT.id) {
+    } else if (this.activeTalent.id === SPELLS.ASTRAL_COMMUNION_TALENT.id) {
       return this.astralCommunionValue / maxPotential;
-    }
-    else if (this.activeTalent.id === SPELLS.BLESSING_OF_THE_ANCIENTS_TALENT.id) {
+    } else if (this.activeTalent.id === SPELLS.BLESSING_OF_THE_ANCIENTS_TALENT.id) {
       return Math.max(this.actualValue, this.BlessingOfEluneValue, this.BlessingOfAnsheValue) / maxPotential;
     }
+    return 0;
   }
 
   get percentOfPotentialBotA() {
@@ -168,14 +166,14 @@ class L90Talents extends Analyzer {
         .actual(`${formatPercentage(actual)}% of another talent's generation.`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
-    if (this.activeTalent.id === SPELLS.BLESSING_OF_THE_ANCIENTS_TALENT.id){
+    if (this.activeTalent.id === SPELLS.BLESSING_OF_THE_ANCIENTS_TALENT.id) {
       when(this.suggestionThresholdsBotA).addSuggestion((suggest, actual, recommended) => {
         return suggest(<React.Fragment><SpellLink id={this.activeTalent.id} /> only generated {formatPercentage(actual)}% of the Astral Power that it could have. Make sure you are using the correct blessing. See the statistic box below for more information.</React.Fragment>)
           .icon(this.activeTalent.icon)
           .actual(`${formatPercentage(actual)}% of the potantial generation.`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);
       });
-    } 
+    }
   }
 
   statistic() {

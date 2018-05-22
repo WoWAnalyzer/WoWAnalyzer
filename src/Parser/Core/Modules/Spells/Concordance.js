@@ -43,7 +43,7 @@ class Concordance extends Analyzer {
   }
   subStatistic() {
     if (!this.appliedBuff) {
-      return;
+      return null;
     }
     if (debug) {
       console.log("Concordance: Rank", this.rank, "; Uptime: ", this.appliedBuff.uptime);
