@@ -61,12 +61,48 @@ class HealingRainLocation extends Analyzer {
     this.newHealingRain = true;
   }
 
-  processLastRain(eventsDuringRain, healIncrease) {
+  processHealingRain(eventsDuringRain, healIncrease) {
     let healing = 0;
-    if(!this.healingRainEvents.length) {
+    if(this.healingRainEvents.length === 0) {
       return healing;
     }
-    const {minY, maxY, minX, maxX} = this.locate(this.healingRainEvents);
+
+    const healingRainLocation = this.locate(this.healingRainEvents);
+    
+    // If there are erroneous data, it's better to not count the rain instead of having it overvalue the effect.
+    if(healingRainLocation.ellipseHeight >= healingRainDiameter || healingRainLocation.ellipseWidth >= healingRainDiameter) {
+      console.warn(
+        'Reported Healing Rain size is too large, something went wrong.', 
+        'Allowed Size:', healingRainDiameter,
+        'Reported Width:', healingRainLocation.ellipseWidth,
+        'Reported Height:', healingRainLocation.ellipseHeight
+      );
+      return healing;
+    }
+
+     eventsDuringRain.forEach((event) => {
+      const pointToCheck = {x: event.x, y: event.y};
+      if(this._isPlayerInsideHealingRain(pointToCheck, healingRainLocation)) {
+        healing += calculateEffectiveHealing(event, healIncrease);
+      }
+    }); 
+
+    return healing;
+  }
+
+  filterEventsInHealingRain(eventsDuringRain) {
+    return eventsDuringRain.filter(event => event.timestamp <= this.lastHealingRainTick);
+  } 
+
+  locate(events) {
+    const {minY, maxY, minX, maxX} = events.reduce((result, event) => {
+      result.minY = Math.min(event.y, result.minY);
+      result.maxY = Math.max(event.y, result.maxY);
+      result.minX = Math.min(event.x, result.minX);
+      result.maxX = Math.max(event.x, result.maxX);
+      return result;
+    }, {minY: Number.MAX_VALUE, maxY: -Number.MAX_VALUE, minX: Number.MAX_VALUE, maxX: -Number.MAX_VALUE});
+
     const ellipseCenterPoint = {
       x: (maxX + minX) / 2,
       y: (maxY + minY) / 2,
@@ -74,41 +110,15 @@ class HealingRainLocation extends Analyzer {
     const ellipseWidth = (maxX - minX);
     const ellipseHeight = (maxY - minY);
 
-    // If there are erroneous data, it's better to not count the rain instead of having it overvalue the effect.
-    if(ellipseHeight >= healingRainDiameter || ellipseWidth >= healingRainDiameter) {
-      console.warn(
-        'Reported Healing Rain size is too large, something went wrong.', 
-        'Allowed Size:', healingRainDiameter,
-        'Reported Width:', ellipseWidth,
-        'Reported Height:', ellipseHeight
-      );
-      return healing;
-    }
+    const ellipse = {ellipseCenterPoint, ellipseWidth, ellipseHeight};
 
-    eventsDuringRain.filter(event => event.timestamp <= this.lastHealingRainTick).forEach((event) => {
-      const pointToCheck = {x: event.x, y: event.y};
-      if(this._isPlayerInsideHealingRain(pointToCheck, ellipseCenterPoint, ellipseHeight, ellipseWidth)) {
-        healing += calculateEffectiveHealing(event, healIncrease);
-      }
-    });
-  
-    return healing;
-  }
-
-  locate(events) {
-    return events.reduce((result, event) => {
-      result.minY = Math.min(event.y, result.minY);
-      result.maxY = Math.max(event.y, result.maxY);
-      result.minX = Math.min(event.x, result.minX);
-      result.maxX = Math.max(event.x, result.maxX);
-      return result;
-    }, {minY: Number.MAX_VALUE, maxY: -Number.MAX_VALUE, minX: Number.MAX_VALUE, maxX: -Number.MAX_VALUE});
+    return ellipse;
   }
 
   // also called: is point inside ellipse
-  _isPlayerInsideHealingRain(pointToCheck, ellipseCenterPoint, ellipseHeight, ellipseWidth) {
-    const xComponent = (Math.pow(pointToCheck.x - ellipseCenterPoint.x, 2) / Math.pow(ellipseWidth, 2));
-    const yComponent = (Math.pow(pointToCheck.y - ellipseCenterPoint.y, 2) / Math.pow(ellipseHeight, 2));
+  _isPlayerInsideHealingRain(pointToCheck, location) {
+    const xComponent = (Math.pow(pointToCheck.x - location.ellipseCenterPoint.x, 2) / Math.pow(location.ellipseWidth, 2));
+    const yComponent = (Math.pow(pointToCheck.y - location.ellipseCenterPoint.y, 2) / Math.pow(location.ellipseHeight, 2));
   
     if ((xComponent + yComponent) <= 1) {
       return true;

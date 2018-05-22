@@ -51,13 +51,21 @@ class Deluge extends Analyzer {
     this.healing += calculateEffectiveHealing(event, DELUGE_HEALING_INCREASE);
   }
 
+  // Due to the nature of having to wait until rain is over, to be able to find out its position,
+  // we only start processing the healing contribution on the next cast of Healing Rain or at the end of combat.
   on_byPlayer_begincast(event) {
     const spellId = event.ability.guid;
-    if ((spellId !== SPELLS.HEALING_RAIN_CAST.id || event.isCancelled) || !this.eventsDuringRain.length) { 
+    if (spellId !== SPELLS.HEALING_RAIN_CAST.id || event.isCancelled) { 
       return;
     }
 
-    this.healing += this.healingRainLocation.processLastRain(this.eventsDuringRain, DELUGE_HEALING_INCREASE);
+    // filters out the first cast in combat if there was no pre-cast, or if there were no Chain Heal casts anyway.
+    if(this.eventsDuringRain.length === 0) {
+      return;
+    }
+
+    const filteredEvents = this.healingRainLocation.filterEventsInHealingRain(this.eventsDuringRain);
+    this.healing += this.healingRainLocation.processHealingRain(filteredEvents, DELUGE_HEALING_INCREASE);
     this.eventsDuringRain.length = 0;
   }
 
@@ -65,7 +73,8 @@ class Deluge extends Analyzer {
     if (!this.eventsDuringRain.length) { 
       return;
     }
-    this.healing += this.healingRainLocation.processLastRain(this.eventsDuringRain, DELUGE_HEALING_INCREASE);
+    const filteredEvents = this.healingRainLocation.filterEventsInHealingRain(this.eventsDuringRain);
+    this.healing += this.healingRainLocation.processLastRain(filteredEvents, DELUGE_HEALING_INCREASE);
   }
 
   subStatistic() {
