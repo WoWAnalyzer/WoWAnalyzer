@@ -11,7 +11,6 @@ cache:
     - server/node_modules
 env:
   - NODE_ENV=production
-  - ESLINT_BEFORE_BUILD=false
 install:
   - npm install
   - cd server && npm install --dev && cd ..
@@ -21,10 +20,9 @@ before_script:
   - export SOURCE_URL="$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo "https://github.com/"$REPO_OWNER"/"$REPO_NAME"/commit/"$TRAVIS_COMMIT""; else echo "https://github.com/"$REPO_OWNER"/"$REPO_NAME"/pull/"$TRAVIS_PULL_REQUEST""; fi)"
 script:
   - npm test
-  - npm run lint
-after_success:
   - npm run build
   - cd server && npm run build && cd ..
+after_success:
   - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
       cd server;
       echo "The server has already been built so we no longer need the devDependencies";
