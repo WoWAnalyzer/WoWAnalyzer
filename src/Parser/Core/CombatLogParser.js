@@ -131,6 +131,9 @@ import LightSpeed from './Modules/NetherlightCrucibleTraits/LightSpeed';
 import RefractiveShell from './Modules/NetherlightCrucibleTraits/RefractiveShell';
 import NLCTraits from './Modules/NetherlightCrucibleTraits/NLCTraits';
 
+// BFA
+import ZandalariLoaFigurine from './Modules/Items/BFA/ZandalariLoaFigurine';
+
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
@@ -267,6 +270,9 @@ class CombatLogParser {
 
     infernalCinders: InfernalCinders,
     umbralMoonglaives: UmbralMoonglaives,
+
+    // BFA
+    zandalariLoaFigurine: ZandalariLoaFigurine,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
