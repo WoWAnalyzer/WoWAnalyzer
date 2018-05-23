@@ -5,7 +5,7 @@ echo "The server has already been built so we no longer need the devDependencies
 npm prune --production;
 cd ..;
 
-if [ "$TRAVIS_PULL_REQUEST" ~= "false" ]; then
+if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
 	# Save some time
 	export GENERATE_SOURCEMAP=false;
 fi
@@ -13,7 +13,7 @@ fi
 echo "# Build app";
 npm run build
 
-if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
 	# Create a Docker image for this specific build. This allows us to go back to a particular build at any time, and makes it possible to deploy without rebuilding by just re-tagging the image.
 
 	echo "# Build Docker image";
