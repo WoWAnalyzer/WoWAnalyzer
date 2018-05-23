@@ -12,9 +12,10 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
       {
-        spell: SPELLS.EBONBOLT,
+        spell: SPELLS.EBONBOLT_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 45 + (3 / (1 + haste)), // 45 Second Cooldown with a 3 Second Cast time (Reduced by Haste). Temp until CastEfficiency gets a redo
+        cooldown: haste => 45 + (2.5 / (1 + haste)), // 45 Second Cooldown with a 2.5 Second Cast time (Reduced by Haste). Temp until CastEfficiency gets a redo
+        enabled: combatant.hasTalent(SPELLS.EBONBOLT_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
@@ -31,15 +32,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CONE_OF_COLD,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      },
-      {
-        spell: SPELLS.WATER_JET,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 25,
-        enabled: !combatant.hasTalent(SPELLS.LONELY_WINTER_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-        },
       },
       {
         spell: SPELLS.GLACIAL_SPIKE_TALENT,
