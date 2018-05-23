@@ -23,12 +23,12 @@ jobs:
     - stage: main
       script: chmod +x .travis/build.sh && ./.travis/build.sh
     - stage: deploy
+      install: skip
       script: skip
       # Reminder: deploy doesn't run on PRs
       deploy:
         provider: script
         script: chmod +x .travis/deploy.sh && ./.travis/deploy.sh
-        skip_cleanup: true
         on:
           all_branches: true
 # TODO After getting the build right:
