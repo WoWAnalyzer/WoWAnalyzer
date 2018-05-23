@@ -1,5 +1,8 @@
 {
   "name": "wowanalyzer-server",
+  "description": "The server behind WoWAnalyzer.com.",
+  "repository": "https://github.com/WoWAnalyzer/WoWAnalyzer",
+  "license": "AGPL",
   "main": "index.js",
   "scripts": {
     "start": "node --harmony node_modules/sequelize-cli/lib/sequelize db:migrate && nodemon index.js --exec babel-node",
