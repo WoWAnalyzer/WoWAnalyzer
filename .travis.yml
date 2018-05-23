@@ -30,9 +30,9 @@ script: (eval "./.travis/$SCRIPT.sh")
 #  script: ./.travis/deploy.sh
 #  on:
 #    all_branches: true
-after_failure:
-  - chmod +x .travis/discord-hook/fail.sh
-  - ./.travis/discord-hook/fail.sh
-notifications:
-  webhooks: https://www.travisbuddy.com/
-  on_success: never
+#after_failure:
+#  - chmod +x .travis/discord-hook/fail.sh
+#  - ./.travis/discord-hook/fail.sh
+#notifications:
+#  webhooks: https://www.travisbuddy.com/
+#  on_success: never
