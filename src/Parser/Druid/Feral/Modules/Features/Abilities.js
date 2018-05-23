@@ -119,6 +119,11 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
       },
       {
+        spell: SPELLS.ENTANGLING_ROOTS,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: true,
+      },
+      {
         spell: SPELLS.MAIM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 10,
