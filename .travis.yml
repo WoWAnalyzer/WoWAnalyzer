@@ -1,34 +1,57 @@
+sudo: false
+dist: trusty
 language: node_js
-services:
-  - docker
 node_js:
   - 9.9.0
-git:
-  depth: 10
-cache:
-  directories:
-    - node_modules
-    - server/node_modules
+services: skip
+#git:
+#  depth: 10
 env:
   - NODE_ENV=production ESLINT_BEFORE_BUILD=false
-install:
-  - npm install
-  - cd server && npm install --dev && cd ..
 jobs:
   include:
-    - stage: main
-      script: npm run lint
-    - stage: main
-      script: npm run test
-    - stage: main
-      script: chmod +x .travis/build.sh && ./.travis/build.sh
+    - stage: test
+      cache:
+        directories:
+          - node_modules
+      install:
+        - npm install
+      script:
+        - npm run lint
+    - stage: test
+      cache:
+        directories:
+          - node_modules
+      install:
+        - npm install
+      script:
+        - npm run test
+    # TODO: Code duplication calculator
+    - stage: build
+      cache:
+        directories:
+          - node_modules
+          - server/node_modules
+      services:
+        - docker
+      install:
+        - npm install
+        - cd server && npm install --dev && cd ..
+      script:
+        - chmod +x .travis/build.sh
+        - ./.travis/build.sh
     - stage: deploy
+      services:
+        - docker
+      cache: skip
       install: skip
       script: skip
       # Reminder: deploy doesn't run on PRs
       deploy:
         provider: script
-        script: chmod +x .travis/deploy.sh && ./.travis/deploy.sh
+        script:
+          - chmod +x .travis/deploy.sh
+          - ./.travis/deploy.sh
         on:
           all_branches: true
 # TODO After getting the build right:
