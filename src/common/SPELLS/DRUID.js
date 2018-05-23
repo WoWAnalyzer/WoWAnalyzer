@@ -797,6 +797,23 @@ export default {
     name: 'Berserk',
     icon: 'ability_druid_berserk',
   },
+  PROWL: {
+    id: 5215,
+    name: 'Prowl',
+    icon: 'ability_druid_prowl',
+  },
+  // a version of prowl that can be activated in combat through the Incarnation: King of the Jungle talent
+  PROWL_INCARNATION: {
+    id: 102547,
+    name: 'Prowl',
+    icon: 'ability_druid_prowl',
+  },
+  // buff from the bloodtalons talent (different id from BLOODTALONS_TALENT)
+  BLOODTALONS_BUFF: {
+    id: 145152,
+    name: 'Bloodtalons',
+    icon: 'spell_druid_bloodythrash',
+  },
   // Traits:
   // The Ashamane's Bite trait creates the Ashamane's Rip debuff.
   ASHAMANES_BITE: {
