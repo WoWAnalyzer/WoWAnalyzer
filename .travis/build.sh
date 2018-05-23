@@ -10,7 +10,7 @@ npm run build
 
 echo "# Build Docker image";
 export REPO=martijnhols/wowanalyzer;
-export TAG="build-$TRAVIS_BUILD_NUMBER"
+export TAG="build-$TRAVIS_BUILD_NUMBER";
 #export BRANCH=$(
 #	if [ "$TRAVIS_BRANCH" == "master" ]; then
 #		echo "latest";

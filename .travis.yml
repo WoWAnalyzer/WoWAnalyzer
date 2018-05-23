@@ -10,24 +10,31 @@ cache:
     - node_modules
     - server/node_modules
 env:
-  global:
-    - NODE_ENV=production ESLINT_BEFORE_BUILD=false
-  matrix:
-    - SCRIPT="lint"
-    - SCRIPT="test"
-    - SCRIPT="build"
+  - NODE_ENV=production ESLINT_BEFORE_BUILD=false
 install:
   - npm install
   - cd server && npm install --dev && cd ..
+jobs:
+  include:
+    - stage: main
+      script: npm run lint
+    - stage: main
+      script: npm run test
+    - stage: main
+      script: ./.travis/build.sh
+    - stage: deploy
+      script: skip
+      # Reminder: deploy doesn't run on PRs
+      deploy:
+        provider: script
+        script: ./.travis/deploy.sh
+        skip_cleanup: true
+        on:
+          all_branches: true
 script:
   - (eval "chmod +x .travis/$SCRIPT.sh")
   - (eval "./.travis/$SCRIPT.sh")
 # TODO After getting the build right:
-#deploy:
-#  provider: script
-#  script: ./.travis/deploy.sh
-#  on:
-#    all_branches: true
 #after_failure:
 #  - chmod +x .travis/discord-hook/fail.sh
 #  - ./.travis/discord-hook/fail.sh
