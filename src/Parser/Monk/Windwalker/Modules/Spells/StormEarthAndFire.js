@@ -110,8 +110,7 @@ class StormEarthAndFire extends Analyzer {
   }
 
   whirlingDragonPunchStatistic() {
-    if (this.abilityTracker.getAbility(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id).casts > 0) {
-      // TODO: Remove this if-statement since rendering should be consistent regardless of cast count OR document why this is an exception
+    if (this.combatants.selected.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id)) {
       return (
         <div className="flex">
           <div className="flex-main">
