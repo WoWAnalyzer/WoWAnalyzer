@@ -8,7 +8,7 @@ export NEW_TAG=$(
   fi | sed -r 's/\//-/g'
 );
 
-echo "# Docker login";
 docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD";
-echo "# Docker push";
-docker push $REPO:$BRANCH;
+docker pull $REPO:$OLD_TAG;
+docker tag $REPO:$OLD_TAG $REPO:$NEW_TAG;
+docker push $REPO:$NEW_TAG;
