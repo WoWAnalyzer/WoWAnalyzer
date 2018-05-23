@@ -15,7 +15,6 @@ import SpellLink from 'common/SpellLink';
  * Mongoose Fury. Extends the duration of Mongoose Fury for the duration of the channel.
  */
 class FuryOfTheEagle extends Analyzer {
-
   static dependencies = {
     combatants: Combatants,
     sixStackBites: SixStackBites,
@@ -101,6 +100,7 @@ class FuryOfTheEagle extends Analyzer {
 
   statistic() {
     if (this.bonusDamage > 0) {
+      // TODO: Remove this if-statement since rendering should be consistent regardless of cast count OR document why this is an exception
       return (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.FURY_OF_THE_EAGLE_TRAIT.id} />}
@@ -110,10 +110,12 @@ class FuryOfTheEagle extends Analyzer {
         />
       );
     }
+    return null;
   }
 
   subStatistic() {
     if (this.bonusDamage > 0) {
+      // TODO: Remove this if-statement since rendering should be consistent regardless of cast count OR document why this is an exception
       return (
         <div className="flex">
           <div className="flex-main">
@@ -125,6 +127,7 @@ class FuryOfTheEagle extends Analyzer {
         </div>
       );
     }
+    return null;
   }
 }
 

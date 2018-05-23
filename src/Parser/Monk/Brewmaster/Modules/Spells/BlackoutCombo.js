@@ -61,7 +61,7 @@ class BlackoutCombo extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (SPELLS_WHICH_REMOVE_BOC.indexOf(spellId) === -1) {
+    if (!SPELLS_WHICH_REMOVE_BOC.includes(spellId)) {
       return;
     }
     // BOC should be up

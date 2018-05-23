@@ -25,9 +25,7 @@ const BLINK_STRIKES_NOT_AFFECTED_PETS = [
  * Your pet's Basic Attack deals 100% increased damage, can now be used from 30 yards away, and will instantly teleport your pet behind its
  * target. Your pet can teleport only once per 20 sec.
  */
-
 class BlinkStrikes extends Analyzer {
-
   static dependencies = {
     combatants: Combatants,
     pets: CorePets,
@@ -71,6 +69,7 @@ class BlinkStrikes extends Analyzer {
 
   subStatistic() {
     if (this.damage > 0) {
+      // TODO: Remove this if-statement since rendering should be consistent regardless of cast count OR document why this is an exception
       return (
         <div className="flex">
           <div className="flex-main">
@@ -82,6 +81,7 @@ class BlinkStrikes extends Analyzer {
         </div>
       );
     }
+    return null;
   }
 }
 

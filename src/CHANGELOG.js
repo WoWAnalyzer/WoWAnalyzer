@@ -8,8 +8,13 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-05-20'),
+    changes: 'Update specializations list layout. Clicking a spec now opens the example report.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-05-10'),
-    changes: <React.Fragment>Added Death Recap to track available cooldowns.</React.Fragment>,
+    changes: 'Added Death Recap to track available cooldowns.',
     contributors: [joshinator],
   },
   {

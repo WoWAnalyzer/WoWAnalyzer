@@ -21,8 +21,9 @@ class ChainHeal extends Analyzer {
 
   suggestions(when) {
     const suggestedThreshold = this.suggestionThreshold;
-    if (isNaN(suggestedThreshold.actual))
-        return;
+    if (isNaN(suggestedThreshold.actual)) {
+      return;
+    }
     const maxTargets = this.combatants.selected.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
     when(suggestedThreshold.actual).isLessThan(suggestedThreshold.isLessThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
@@ -34,7 +35,7 @@ class ChainHeal extends Analyzer {
       });
   }
 
-  get suggestionThreshold(){
+  get suggestionThreshold() {
     const chainHeal = this.abilityTracker.getAbility(SPELLS.CHAIN_HEAL.id);
 
     const casts = chainHeal.casts || 0;
@@ -48,8 +49,8 @@ class ChainHeal extends Analyzer {
       actual: avgHits,
       isLessThan: {
         minor: suggestedTargets,//Missed 1 target
-        average: suggestedTargets-1,//Missed 2-3 targets
-        major: suggestedTargets-2,//Missed more than 3 targets
+        average: suggestedTargets - 1,//Missed 2-3 targets
+        major: suggestedTargets - 2,//Missed more than 3 targets
       },
       style: 'number',
     };
@@ -64,20 +65,20 @@ class ChainHeal extends Analyzer {
 
     const maxTargets = this.combatants.selected.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
 
-    if(isNaN(avgHits)) {
-      return;
+    if (isNaN(avgHits)) {
+      return null;
     }
 
     return (
-        <StatisticBox
-            icon={<SpellIcon id={SPELLS.CHAIN_HEAL.id} />}
-            value={`${isNaN(avgHits) ? "N/A" : avgHits.toFixed(2)}`}
-            label={(
-                <dfn data-tip={`The average percentage of targets healed by Chain Heal out of the maximum amount of targets. You cast a total of ${casts} Chain Heals, which healed an average of ${avgHits.toFixed(2)} out of ${maxTargets} targets.`}>
-                    Average Chain Heal targets
-                </dfn>
-            )}
-        />
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.CHAIN_HEAL.id} />}
+        value={`${isNaN(avgHits) ? 'N/A' : avgHits.toFixed(2)}`}
+        label={(
+          <dfn data-tip={`The average percentage of targets healed by Chain Heal out of the maximum amount of targets. You cast a total of ${casts} Chain Heals, which healed an average of ${avgHits.toFixed(2)} out of ${maxTargets} targets.`}>
+            Average Chain Heal targets
+          </dfn>
+        )}
+      />
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL(70);

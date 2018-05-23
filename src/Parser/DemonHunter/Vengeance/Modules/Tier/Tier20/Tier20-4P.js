@@ -24,7 +24,7 @@ class Tier204PBonus extends Analyzer {
 
     when(sigilOfVersatilityPercentage).isLessThan(0.90)
     .addSuggestion((suggest, actual, recommended) => {
-      return suggest(<span>Try to cast <SpellLink id={SPELLS.SOUL_CLEAVE.id} /> more often. This increases your versatility by applying <SpellLink id={SPELLS.VENG_DH_T20_4P_BONUS_BUFF.id} /> buff. Try to refresh it even if you have just 25 pain available.</span>)
+      return suggest(<React.Fragment>Try to cast <SpellLink id={SPELLS.SOUL_CLEAVE.id} /> more often. This increases your versatility by applying <SpellLink id={SPELLS.VENG_DH_T20_4P_BONUS_BUFF.id} /> buff. Try to refresh it even if you have just 25 pain available.</React.Fragment>)
         .icon('spell_warlock_soulburn')
         .actual(`${formatPercentage(sigilOfVersatilityPercentage)}% buff total uptime.`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`)

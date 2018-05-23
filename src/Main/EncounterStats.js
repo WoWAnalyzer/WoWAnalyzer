@@ -83,7 +83,7 @@ class EncounterStats extends React.PureComponent {
       const talents = [];
       let trinkets = [];
       let legendaries = [];
-      stats.rankings.forEach((rank, rankIndex) => {
+      stats.rankings.forEach(rank => {
         rank.talents.forEach((talent, index) => {
           if (talent.id !== null && talent.id !== 0) {
             talentCounter[index].push(talent.id);
@@ -134,11 +134,11 @@ class EncounterStats extends React.PureComponent {
   }
 
   fillMissingIcons() {
-    this.state.mostUsedTrinkets.forEach((trinket, index) => {
+    this.state.mostUsedTrinkets.forEach(trinket => {
       if (ITEMS[trinket.id] === undefined) {
         return fetch(`https://eu.api.battle.net/wow/item/${trinket.id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
           .then(response => response.json())
-          .then((data) => {
+          .then(data => {
             const updatedItems = this.state.items;
             updatedItems[trinket.id] = {
               icon: data.icon,
@@ -153,6 +153,7 @@ class EncounterStats extends React.PureComponent {
             this.forceUpdate();
           });
       }
+      return null;
     });
   }
 

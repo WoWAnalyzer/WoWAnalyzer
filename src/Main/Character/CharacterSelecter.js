@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import SelectSearch from 'react-select-search';
@@ -6,7 +6,6 @@ import REALMS from 'common/REALMS';
 import makeUrl from './makeUrl';
 
 class CharacterSelecter extends React.PureComponent {
-
   static propTypes = {
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
@@ -37,7 +36,7 @@ class CharacterSelecter extends React.PureComponent {
 
     if (!region || !realm || !char) {
       alert('Please select a region, realm and player.');
-      return;
+      return null;
     }
 
     //check if character has an key in localStorage, if so directly redirect to /character otherwise ask bnet-api
@@ -45,7 +44,7 @@ class CharacterSelecter extends React.PureComponent {
     const image = localStorage.getItem(`${region}/${realm}/${char}`);
     if (image) {
       this.props.history.push(makeUrl(region, realm, char));
-      return;
+      return null;
     }
 
     this.setState({ loading: true });
@@ -73,7 +72,9 @@ class CharacterSelecter extends React.PureComponent {
         <div className="character-selector">
           <select
             className="form-control"
-            ref={elem => this.regionInput = elem}
+            ref={elem => {
+              this.regionInput = elem;
+            }}
             value={this.state.currentRegion}
             onChange={e => this.setState({ currentRegion: e.target.value })}
           >
@@ -88,12 +89,14 @@ class CharacterSelecter extends React.PureComponent {
             }))}
             className="realm-search"
             onChange={value => { this.setState({ currentRealm: value.name });}}
-            placeholder='Realm'
+            placeholder="Realm"
           />
           <input
             type="text"
             name="code"
-            ref={elem => this.charInput = elem}
+            ref={elem => {
+              this.charInput = elem;
+            }}
             className="form-control"
             autoCorrect="off"
             autoCapitalize="off"

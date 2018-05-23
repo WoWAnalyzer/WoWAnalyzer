@@ -20,7 +20,7 @@ const specialEventIndicators = options => (chart) => {
 
   if (chart instanceof Chartist.Line) {
     chart.on('draw', (data) => {
-      if (data.type === 'line' && options.series.indexOf(data.series.className) !== -1) {
+      if (data.type === 'line' && options.series.includes(data.series.className)) {
         data.element.remove(); // don't show a line, we're handling this one.
         data.values.forEach((point, x) => {
           if (point !== undefined) {

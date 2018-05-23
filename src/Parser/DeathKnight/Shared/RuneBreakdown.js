@@ -51,7 +51,7 @@ class RuneBreakdown extends ResourceBreakdown {
               .map(ability => (
                 <tr>
                   <td style={{ width: '30%' }}>
-                    <SpellIcon id={ability.abilityId} noLink={true} />{' '}
+                    <SpellIcon id={ability.abilityId} noLink />{' '}
                     Passive Rune regeneration
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>

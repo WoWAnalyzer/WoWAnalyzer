@@ -93,12 +93,12 @@ class Checklist extends CoreChecklist {
             check: () => this.sunfireUptime.suggestionThresholds,
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id}  /> uptime</React.Fragment>,
+            name: <React.Fragment><SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} /> uptime</React.Fragment>,
             check: () => this.stellarFlareUptime.suggestionThresholds,
             when: this.stellarFlareUptime.active,
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.STELLAR_EMPOWERMENT.id}  /> uptime</React.Fragment>,
+            name: <React.Fragment><SpellLink id={SPELLS.STELLAR_EMPOWERMENT.id} /> uptime</React.Fragment>,
             check: () => this.stellarEmpowermentUptime.suggestionThresholds,
             when: this.stellarEmpowermentUptime.active,
           }),
@@ -119,7 +119,7 @@ class Checklist extends CoreChecklist {
                 check: () => this.earlyDotRefreshesInstants.suggestionThresholdsSunfireEfficiency,
               }),
               new Requirement({
-                name: <React.Fragment><SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id}  /> good refreshes</React.Fragment>,
+                name: <React.Fragment><SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} /> good refreshes</React.Fragment>,
                 check: () => this.earlyDotRefreshes.suggestionThresholdsStellarFlareEfficiency,
                 when: this.earlyDotRefreshes.active,
               }),

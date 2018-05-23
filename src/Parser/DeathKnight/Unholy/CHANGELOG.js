@@ -6,7 +6,7 @@ import ItemLink from 'common/ItemLink';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-export default  [
+export default [
   {
     date: new Date('2018-04-09'),
     changes: 'Added Rune efficiency to checklist',

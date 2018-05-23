@@ -22,7 +22,7 @@ class Tier21_2set extends Analyzer {
     [SPELLS.FLASH_HEAL.id]: 0,
     [SPELLS.GREATER_HEAL.id]: 0,
     [SPELLS.BINDING_HEAL_TALENT.id]: 0,
-  }
+  };
 
   on_initialized() {
     this.active = this.combatants.selected.hasBuff(SPELLS.HOLY_PRIEST_T21_2SET_BONUS_BUFF.id);
@@ -40,7 +40,7 @@ class Tier21_2set extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     const hasBuff = this.combatants.selected.hasBuff(SPELLS.HOLY_PRIEST_ANSWERED_PRAYERS.id, event.timestamp, HOLY_PRIEST_TIER21_2SET_BUFF_EXPIRATION_BUFFER);
-    if (hasBuff && spellId in this.procs) {
+    if (hasBuff && this.procs[spellId] !== undefined) {
       this.procs[spellId] += 1;
     }
   }

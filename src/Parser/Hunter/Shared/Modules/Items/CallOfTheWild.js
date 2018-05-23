@@ -168,10 +168,11 @@ class CallOfTheWild extends Analyzer {
         };
       }
     }
+    return null;
   }
 
   suggestions(when) {
-    if (this.combatants.selected.spec === SPECS.BEAST_MASTERY_HUNTER) {
+    if (this.suggestionsThresholds) {
       when(this.suggestionsThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(<React.Fragment>Try to use <SpellLink id={SPELLS.ASPECT_OF_THE_WILD.id} /> more often to capitalize on the cooldown reduction provided by <ItemLink id={ITEMS.CALL_OF_THE_WILD.id} />, whilst still making sure to overlap it with <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. </React.Fragment>)
           .icon(ITEMS.CALL_OF_THE_WILD.icon)

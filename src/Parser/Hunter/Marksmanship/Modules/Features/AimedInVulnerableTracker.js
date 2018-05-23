@@ -41,7 +41,7 @@ class AimedInVulnerableTracker extends Analyzer {
       this.inVulnerabilityAimed += 1;
     } else {
       const windburstIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.WINDBURST.id);
-      if (windburstIsOnCooldown && !this.combatants.selected.hasBuff(SPELLS.MARKING_TARGETS.id) && event.classResources[0]['amount'] > 105) {
+      if (windburstIsOnCooldown && !this.combatants.selected.hasBuff(SPELLS.MARKING_TARGETS.id) && event.classResources[0].amount > 105) {
         this.focusDumpAimed += 1;
       }
       this.outsideVulnerabilityAimed += 1;

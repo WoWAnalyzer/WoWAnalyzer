@@ -72,7 +72,7 @@ class RunicPowerDetails extends Analyzer {
         <Tab>
           <ResourceBreakdown
             tracker={this.runicPowerTracker}
-            showSpenders={true}
+            showSpenders
           />
         </Tab>
       ),

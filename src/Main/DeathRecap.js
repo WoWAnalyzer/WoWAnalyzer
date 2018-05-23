@@ -7,7 +7,7 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
 const SHOW_SECONDS_BEFORE_DEATH = 10;
-const AMOUNT_THRESHOLD =  0;
+const AMOUNT_THRESHOLD = 0;
 
 class DeathRecap extends React.PureComponent {
 
@@ -82,7 +82,7 @@ class DeathRecap extends React.PureComponent {
                   <th>Ability</th>
                   <th>HP</th>
                   <th>Amount</th>
-                  <th>Defensive Buffs up</th>
+                  <th>Defensive Buffs/Debuffs</th>
                   <th>Personals available</th>
                 </tr>
               </thead>
@@ -149,8 +149,11 @@ class DeathRecap extends React.PureComponent {
                         {output}
                       </td>
                       <td style={{ width: '20%' }}>
-                        {event.buffsUp.map(e =>
-                          <SpellIcon id={e.spell ? e.spell.id : e} />
+                        {event.buffsUp && event.buffsUp.map(e =>
+                          <SpellIcon style={{ border: '1px solid rgba(0, 0, 0, 0)'}} id={e.spell ? e.spell.id : e} />
+                        )}<br/>
+                        {event.debuffsUp && event.debuffsUp.map(e =>
+                          <SpellIcon style={{ border: '1px solid red'}} id={e.ability ? e.ability.guid : e} />
                         )}
                       </td>
                       <td style={{ width: '15%' }}>
@@ -166,7 +169,7 @@ class DeathRecap extends React.PureComponent {
                 })}
                 <tr>
                   <td></td>
-                  <td colSpan="5">
+                  <td colSpan="6">
                     You died
                   </td>
                 </tr>

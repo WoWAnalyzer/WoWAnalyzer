@@ -45,6 +45,9 @@ const DEFENSIVE_BUFFS = [
   {
     spell: SPELLS.PAINBRINGER_Buff,
   },
+  {
+    spell: SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF,
+  },
   //Restoration Shaman
   {
     spell: SPELLS.GHOST_WOLF,

@@ -27,7 +27,7 @@ class TormentedSouls extends Analyzer {
       return;
     }
     if (event.oldStacks < event.newStacks) {
-      this.totalSouls += 1;  // only 1 soul at a time can be added
+      this.totalSouls += 1; // only 1 soul at a time can be added
     }
     if (event.newStacks === MAX_SOULS) {
       // serves for applybuff and applybuffstack

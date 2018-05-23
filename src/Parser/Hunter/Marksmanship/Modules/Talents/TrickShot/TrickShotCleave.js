@@ -47,6 +47,7 @@ class TrickShotCleave extends Analyzer {
 
   subStatistic() {
     if (this.bonusDmg > 0) {
+      // TODO: Remove this if-statement since rendering should be consistent regardless of cast count OR document why this is an exception
       return (
         <div className="flex">
           <div className="flex-main">
@@ -60,6 +61,7 @@ class TrickShotCleave extends Analyzer {
         </div>
       );
     }
+    return null;
   }
 }
 

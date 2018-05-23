@@ -38,7 +38,6 @@ const ERRORS = {
 const EXCLUDED_GENERIC_SPECS_FROM_PARSES = ['Ranged', 'Melee', 'Healing'];
 
 class CharacterParses extends React.Component {
-
   static propTypes = {
     region: PropTypes.string.isRequired,
     realm: PropTypes.string.isRequired,
@@ -135,9 +134,7 @@ class CharacterParses extends React.Component {
       return filteredParses.slice(0, RENDER_LIMIT);
     }
 
-    filteredParses = filteredParses.filter((elem, index) => {
-      return elem.name === this.state.activeEncounter;
-    });
+    filteredParses = filteredParses.filter(elem => elem.name === this.state.activeEncounter);
 
     return filteredParses.slice(0, RENDER_LIMIT);
   }
@@ -145,7 +142,7 @@ class CharacterParses extends React.Component {
   //resolve the boss+difficulty->spec->parse structure to make sorting & filtering easier
   changeParseStructure(rawParses) {
     const parses = [];
-    rawParses.forEach((elem, index) => {
+    rawParses.forEach(elem => {
       const name = elem.name;
       const difficulty = DIFFICULTIES[elem.difficulty];
 
@@ -182,7 +179,7 @@ class CharacterParses extends React.Component {
         });
     });
 
-    Object.values(ITEMS).forEach(trinket => {
+    Object.values(ITEMS).map(trinket => {
       if (trinket.icon === ITEMS[0].icon && trinket.id !== 0) {
         return fetch(`https://eu.api.battle.net/wow/item/${trinket.id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
           .then(response => response.json())
@@ -190,6 +187,7 @@ class CharacterParses extends React.Component {
             ITEMS[trinket.id].icon = data.icon;
           });
       }
+      return null;
     });
 
     return parses;
@@ -206,7 +204,7 @@ class CharacterParses extends React.Component {
       this.setState({
         image: image,
       });
-      return;
+      return null;
     }
 
     return fetch(`https://${this.props.region}.api.battle.net/wow/character/${encodeURIComponent(this.props.realm)}/${encodeURIComponent(this.props.name)}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
@@ -279,6 +277,7 @@ class CharacterParses extends React.Component {
       const specs = Object.values(SPECS)
         .map(elem => elem.className.replace(' ', '') !== charClass ? undefined : elem.specName)
         .filter(elem => elem)
+        // eslint-disable-next-line no-restricted-syntax
         .filter((item, index, self) => self.indexOf(item) === index);
 
       const parses = this.changeParseStructure(rawParses);
@@ -295,7 +294,6 @@ class CharacterParses extends React.Component {
         error: ERRORS.UNEXPECTED,
         isLoading: false,
       });
-      return;
     });
   }
 
@@ -332,7 +330,6 @@ class CharacterParses extends React.Component {
         </div>
       );
     }
-
 
     return (
       <div className="container charparse">
@@ -446,7 +443,7 @@ class CharacterParses extends React.Component {
                 <br /><br />
               </span>
             )}
-            <div className="panel" stlye={{ overflow: 'auto' }}>
+            <div className="panel" style={{ overflow: 'auto' }}>
               <div className="flex-main">
                 {this.state.isLoading && !this.state.error && (
                   <div style={{ textAlign: 'center', fontSize: '2em', margin: '20px 0' }}>

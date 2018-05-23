@@ -91,7 +91,7 @@ class RoarOfTheSevenLions extends Analyzer {
     if (LIST_OF_FOCUS_SPENDERS.every(id => spellId !== id)) {
       return;
     }
-    this.lastFocusCost = event.classResources[0]['cost'] || 0;
+    this.lastFocusCost = event.classResources[0].cost || 0;
     if (spellId === SPELLS.COBRA_SHOT.id) {
       this.lastFocusCost -= COBRA_SHOT_RANK_2_REDUCTION;
       if (this.combatants.selected.traitsBySpellId[SPELLS.SLITHERING_SERPENTS_TRAIT.id]) {
@@ -119,15 +119,11 @@ class RoarOfTheSevenLions extends Analyzer {
   }
 
   get totalFocusSaved() {
-    let totalFocusSaved = 0;
-    LIST_OF_FOCUS_SPENDERS.map(ability => totalFocusSaved += this.focusSpenderCasts[ability].focusSaved);
-    return totalFocusSaved;
+    return LIST_OF_FOCUS_SPENDERS.reduce((total, ability) => total + this.focusSpenderCasts[ability].focusSaved, 0);
   }
 
   get focusCostCasts() {
-    let focusCostCasts = 0;
-    LIST_OF_FOCUS_SPENDERS.map(ability => focusCostCasts += this.focusSpenderCasts[ability].casts);
-    return focusCostCasts;
+    return LIST_OF_FOCUS_SPENDERS.reduce((total, ability) => total + this.focusSpenderCasts[ability].casts, 0);
   }
   get averageFocusCostReduction() {
     return this.totalFocusSaved / this.focusCostCasts;

@@ -22,11 +22,11 @@ class SoulShardDetails extends Analyzer {
     return {
       actual: shardsWastedPerMinute,
       isGreaterThan: {
-        minor: 5 / 10,  // 5 shards in 10 minute fight
+        minor: 5 / 10, // 5 shards in 10 minute fight
         average: 5 / 3, // 5 shards in 3 minute fight
-        major: 10 / 3,  // 10 shards in 3 minute fight
+        major: 10 / 3, // 10 shards in 3 minute fight
       },
-      style: 'number',  // TODO: not sure about this yet
+      style: 'number', // TODO: not sure about this yet
     };
   }
 

@@ -191,10 +191,10 @@ class BrainFreezeTracker extends Analyzer {
 	statistic() {
     return (
 			<StatisticBox
-				icon={<SpellIcon id={SPELLS.BRAIN_FREEZE.id} />}
-				value={`${formatPercentage(this.utilPercent, 0)} %`}
-        label="Brain Freeze Utilization"
-				tooltip={`You got ${this.totalProcs} total procs.
+  icon={<SpellIcon id={SPELLS.BRAIN_FREEZE.id} />}
+  value={`${formatPercentage(this.utilPercent, 0)} %`}
+  label="Brain Freeze Utilization"
+  tooltip={`You got ${this.totalProcs} total procs.
 					<ul>
 						<li>${this.usedProcs} used</li>
 						<li>${this.overwrittenProcs} overwritten</li>

@@ -15,7 +15,7 @@ class BeaconTargets extends Analyzer {
   currentBeaconTargets = [];
 
   hasBeacon(playerId) {
-    return this.currentBeaconTargets.indexOf(playerId) !== -1;
+    return this.currentBeaconTargets.includes(playerId);
   }
   get numBeaconsActive() {
     return this.currentBeaconTargets.length;
