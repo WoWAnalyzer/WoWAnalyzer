@@ -2,7 +2,7 @@
   "name": "WoWAnalyzer",
   "description": "The WoWAnalyzer client-side app.",
   "repository": "https://github.com/WoWAnalyzer/WoWAnalyzer",
-  "license": "AGPL",
+  "license": "AGPL-3.0-or-later",
   "dependencies": {
     "chart.js": "^2.7.2",
     "chartist": "^0.11.0",
