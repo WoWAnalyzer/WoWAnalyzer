@@ -2,6 +2,6 @@ import safeMerge from 'common/safeMerge';
 import Dungeons from './Dungeons';
 import Raids from './Raids';
 import Potions from './Potions';
-import Others from './Others';
+import Crafted from './Crafted';
 
-export default safeMerge(Dungeons, Raids, Potions, Others);
+export default safeMerge(Dungeons, Raids, Potions, Crafted);
