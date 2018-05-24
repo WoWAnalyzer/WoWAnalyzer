@@ -3,9 +3,9 @@ dist: trusty
 language: node_js
 node_js:
   - 9.9.0
-services: skip
-#git:
-#  depth: 10
+# every second counts
+git:
+  depth: 10
 env:
   - NODE_ENV=production ESLINT_BEFORE_BUILD=false
 jobs:
@@ -25,7 +25,7 @@ jobs:
       install:
         - npm install
       script:
-        - npm run test -- --runInBand
+        - npm run test -- --maxWorkers=2
     # TODO: Code duplication calculator
     - stage: build
       cache:
