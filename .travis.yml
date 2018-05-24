@@ -1,3 +1,6 @@
+language: node_js
+node_js:
+  - 9.9.0
 # every second counts
 git:
   depth: 5
@@ -6,9 +9,6 @@ env:
 jobs:
   include:
     - stage: test
-      language: node_js
-      node_js:
-        - 9.9.0
       cache:
         directories:
           - node_modules
@@ -17,9 +17,6 @@ jobs:
       script:
         - npm run lint
     - stage: test
-      language: node_js
-      node_js:
-        - 9.9.0
       cache:
         directories:
           - node_modules
@@ -29,9 +26,7 @@ jobs:
         - npm run test -- --maxWorkers=2
     # TODO: Code duplication calculator
     - stage: build
-      language: node_js
-      node_js:
-        - 9.9.0
+      services: docker
       cache:
         directories:
           - node_modules
@@ -51,13 +46,12 @@ jobs:
           	export GENERATE_SOURCEMAP=false;
           fi
         - echo "> Build app"
-        #- npm run build
+        - npm run build
       # Reminder: deploy doesn't run on PRs
       deploy:
         provider: script
-        script:
-          - chmod +x .travis/deploy.sh
-          - ./.travis/deploy.sh
+        skip_cleanup: true
+        script: bash .travis/deploy.sh
         on:
           all_branches: true
 # TODO After getting the build right:
