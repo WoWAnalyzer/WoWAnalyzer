@@ -17,6 +17,7 @@ import RenewedFury from './Modules/Talents/RenewedFury';
 import HeavyRepercussions from './Modules/Talents/HeavyRepercussions';
 import IntoTheFray from './Modules/Talents/IntoTheFray';
 import Avatar from './Modules/Talents/Avatar';
+import Vengeance from './Modules/Talents/Vengeance';
 
 import T21_2pc from './Modules/Items/T21_2pc';
 import ThundergodsVigor from './Modules/Items/ThundergodsVigor';
@@ -41,6 +42,7 @@ class CombatLogParser extends CoreCombatLogParser {
     heavyRepercussions: HeavyRepercussions,
     intoTheFray: IntoTheFray,
     avatar: Avatar,
+    vengeance: Vengeance,
     //Items
     t21: T21_2pc,
     thunderlordsVigor: ThundergodsVigor,

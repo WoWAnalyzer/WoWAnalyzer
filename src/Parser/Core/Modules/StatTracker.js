@@ -123,6 +123,10 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.ENGRANGED_DIEMETRADON_FIN.id,
       haste: (_, item) => calculateSecondaryStatJewelry(172, 160, item.itemLevel),
     },
+    [SPELLS.WILL_OF_THE_LOA.id]: { // Will of the Loa
+      itemId: ITEMS.ZANDALARI_LOA_FIGURINE.id, // Zandalari Loa Figurine
+      crit: (_, item) => calculatePrimaryStat(280, 676, item.itemLevel),
+    },
 
     //endregion
 
@@ -274,10 +278,6 @@ class StatTracker extends Analyzer {
       itemId: 159765, // Empowered Shark's Tooth
       crit: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
     },
-    273974: { // Will of the Loa
-      itemId: 158153, // Zandalari Loa Figurine
-      crit: (_, item) => calculatePrimaryStat(280, 676, item.itemLevel),
-    },
     268602: { // Master's Sight
       itemId: 159074, // Jarkadiax's Other Eye
       mastery: (_, item) => calculateSecondaryStatDefault(172, 114, item.itemLevel),
@@ -307,11 +307,11 @@ class StatTracker extends Analyzer {
     // endregion
     // region Dungeons
     271071: { // Conch of Dark Whispers
-      itemId: 159620, // Conch of Dark Whispers
+      itemId: ITEMS.CONCH_OF_DARK_WHISPERS.id,
       crit: (_, item) => calculateSecondaryStatDefault(310, 485, item.itemLevel),
     },
     271115: { // Ignition Mage's Fuse
-      itemId: 159615, // Ignition Mage's Fuse
+      itemId: ITEMS.IGNITION_MAGES_FUSE.id,
       haste: (_, item) => calculateSecondaryStatDefault(310, 233, item.itemLevel),
     },
     // endregion
@@ -367,13 +367,17 @@ class StatTracker extends Analyzer {
 
   applySpecModifiers() {
     const modifiers = this.constructor.SPEC_MULTIPLIERS[this.combatants.selected.spec.id] || {};
-    Object.entries(modifiers).forEach(([stat, multiplier]) => this._pullStats[stat] *= multiplier);
+    Object.entries(modifiers).forEach(([stat, multiplier]) => {
+      this._pullStats[stat] *= multiplier;
+    });
   }
 
   applyArtifactModifiers() {
     Object.entries(this.constructor.ARTIFACT_MULTIPLIERS).forEach(([spellId, modifiers]) => {
       const rank = this.combatants.selected.traitsBySpellId[spellId] || 0;
-      Object.entries(modifiers).forEach(([stat, multiplier]) => this._pullStats[stat] *= 1 + multiplier * rank);
+      Object.entries(modifiers).forEach(([stat, multiplier]) => {
+        this._pullStats[stat] *= 1 + multiplier * rank;
+      });
     });
   }
 
@@ -468,11 +472,11 @@ class StatTracker extends Analyzer {
     switch (this.combatants.selected.spec) {
       case SPECS.FIRE_MAGE:
         return standard + 0.15; // an additional 15% is gained from the passive Critical Mass
-      case SPECS.BEAST_MASTERY_HUNTER :
+      case SPECS.BEAST_MASTERY_HUNTER:
         return standard + 0.05; //baseline +5%
-      case SPECS.MARKSMANSHIP_HUNTER :
+      case SPECS.MARKSMANSHIP_HUNTER:
         return standard + 0.05; //baseline +5%
-      case SPECS.SURVIVAL_HUNTER :
+      case SPECS.SURVIVAL_HUNTER:
         return standard + 0.06; //baseline +6%
       case SPECS.WINDWALKER_MONK:
         return standard + 0.05; //baseline +5%

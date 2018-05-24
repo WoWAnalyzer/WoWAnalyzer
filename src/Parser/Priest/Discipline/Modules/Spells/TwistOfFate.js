@@ -7,7 +7,7 @@ import ItemLink from 'common/ItemLink';
 
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
 import ITEMS from 'common/ITEMS';
 
@@ -52,7 +52,7 @@ class TwistOfFate extends Analyzer {
 
   parseHeal(event) {
     const spellId = event.ability.guid;
-    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
+    if (!ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
       return;
     }
     if (!this.owner.modules.combatants.selected.hasBuff(SPELLS.TWIST_OF_FATE_BUFF.id, event.timestamp)) {
@@ -66,7 +66,7 @@ class TwistOfFate extends Analyzer {
     if (!this.hasSoulOfTheHighPriest) {
       when(this.owner.getPercentageOfTotalHealingDone(this.healing)).isLessThan(0.05)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Consider picking a different talent than <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT.id}/>. Castigation will give a consistent 3-5% increase and Schism provides a significant DPS increase if more healing is not needed.</span>)
+          return suggest(<span>Consider picking a different talent than <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT.id} />. Castigation will give a consistent 3-5% increase and Schism provides a significant DPS increase if more healing is not needed.</span>)
             .icon(SPELLS.TWIST_OF_FATE_TALENT.icon)
             .actual(`${formatPercentage(actual)}% of total healing`)
             .recommended(`>${formatPercentage(recommended)}% is recommended.`)
@@ -76,7 +76,7 @@ class TwistOfFate extends Analyzer {
     } else {
       when(this.owner.getPercentageOfTotalHealingDone(this.healing)).isLessThan(0.03)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Consider picking a different legendary other than <ItemLink id={ITEMS.SOUL_OF_THE_HIGH_PRIEST.id}/>. If the burst healing during dangerous situations from Twist of Fate is not needed, you will find greater average healing from several other legendaries.</span>)
+          return suggest(<span>Consider picking a different legendary other than <ItemLink id={ITEMS.SOUL_OF_THE_HIGH_PRIEST.id} />. If the burst healing during dangerous situations from Twist of Fate is not needed, you will find greater average healing from several other legendaries.</span>)
             .icon(SPELLS.TWIST_OF_FATE_TALENT.icon)
             .actual(`${formatPercentage(actual)}% of total healing`)
             .recommended(`>${formatPercentage(recommended)}% is recommended.`)
@@ -87,14 +87,16 @@ class TwistOfFate extends Analyzer {
   }
 
   statistic() {
-    if(!this.active) { return; }
+    if (!this.active) {
+      return null;
+    }
 
     const healing = this.healing || 0;
     const damage = this.damage || 0;
     const tofPercent = this.owner.getPercentageOfTotalHealingDone(healing);
     const tofDamage = this.owner.getPercentageOfTotalDamageDone(damage);
 
-    return(
+    return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.TWIST_OF_FATE_TALENT.id} />}
         value={this.owner.formatItemHealingDone(healing)}
@@ -108,7 +110,8 @@ class TwistOfFate extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();;
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  ;
 }
 
 export default TwistOfFate;

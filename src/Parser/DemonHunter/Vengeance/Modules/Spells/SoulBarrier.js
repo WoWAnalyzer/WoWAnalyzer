@@ -85,7 +85,7 @@ class SoulBarrier extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SOUL_BARRIER_TALENT.id} />}
         value={`${formatPercentage(this.uptime)} %`}
-        label='Soul Barrier Uptime'
+        label="Soul Barrier Uptime"
         tooltip={`Average Buff Length: <strong>${formatNumber(avgBuffLength)} seconds</strong></br>
                   Total Damage Absorbed: <strong>${formatNumber(this.totalAbsorbed)}</strong></br>
                   Healing <strong>${this.owner.formatItemHealingDone(this.totalAbsorbed)}</strong></br>

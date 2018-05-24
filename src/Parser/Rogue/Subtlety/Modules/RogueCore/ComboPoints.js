@@ -15,47 +15,47 @@ class ComboPoints extends Analyzer {
   
 
   makeExtraSuggestion(spell) {
-    return <React.Fragment>Avoid wasting combo points when casting <SpellLink id={spell.id}  /> </React.Fragment>;
+    return <React.Fragment>Avoid wasting combo points when casting <SpellLink id={spell.id} /> </React.Fragment>;
   }
 
 
   suggestions(when) {    
-    resourceSuggest(when,  this.comboPointTracker, {
+    resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.BACKSTAB,
       minor: 0.05,
       avg: 0.10, 
       major: 0.15,
       extraSuggestion: this.makeExtraSuggestion(SPELLS.BACKSTAB),
     }); 
-    resourceSuggest(when,  this.comboPointTracker, {
+    resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.GLOOMBLADE_TALENT,
       minor: 0.05,
       avg: 0.10, 
       major: 0.15,      
       extraSuggestion: this.makeExtraSuggestion(SPELLS.GLOOMBLADE_TALENT),
     });
-    resourceSuggest(when,  this.comboPointTracker, {
+    resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.SHADOWSTRIKE,
       minor: 0.05,
       avg: 0.10, 
       major: 0.15,
       extraSuggestion: this.makeExtraSuggestion(SPELLS.SHADOWSTRIKE),
     });
-    resourceSuggest(when,  this.comboPointTracker, {
+    resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.SHURIKEN_STORM,
       minor: 0.1,
       avg: 0.2, 
       major: 0.3,
       extraSuggestion: this.makeExtraSuggestion(SPELLS.SHURIKEN_STORM),
     });
-    resourceSuggest(when,  this.comboPointTracker, {
+    resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.SHADOW_TECHNIQUES,
       minor: 0.1,
       avg: 0.2, 
       major: 0.3,
       extraSuggestion: <span> Use a weak Aura to track <SpellLink id={SPELLS.SHADOW_TECHNIQUES.id}/>. This is an advanced suggestion and should not be addressed first. </span>,
     });
-    resourceSuggest(when,  this.comboPointTracker, {
+    resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.GOREMAWS_BITE_ENERGY,
       minor: 0.05,
       avg: 0.1, 

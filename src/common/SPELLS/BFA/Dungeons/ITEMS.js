@@ -13,4 +13,9 @@ export default {
     name: 'Diemetradon Frenzy',
     icon: 'item_aquaticfin_04',
   },
+  WILL_OF_THE_LOA: {
+    id: 273974,
+    name: 'Will of the Loa',
+    icon: 'inv-misc-archaeology-trollgolem',
+  },
 };

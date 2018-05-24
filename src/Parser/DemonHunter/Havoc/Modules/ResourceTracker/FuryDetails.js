@@ -80,7 +80,7 @@ class FuryDetails extends Analyzer {
         <Tab>
           <ResourceBreakdown
             tracker={this.furyTracker}
-            showSpenders={true}
+            showSpenders
           />
         </Tab>
       ),

@@ -53,7 +53,7 @@ class WildGrowth extends EventsNormalizer {
           }
 
           if (_event.type === 'applybuff'
-            && [SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id].indexOf(_event.ability.guid) !== -1
+            && [SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id].includes(_event.ability.guid)
             && _event.targetID === event.targetID) {
             _events.splice(_idx, 1);
             _newEvents.push(_event);

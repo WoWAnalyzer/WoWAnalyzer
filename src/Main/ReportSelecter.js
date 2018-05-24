@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
@@ -81,7 +81,9 @@ class ReportSelecter extends React.PureComponent {
             type="text"
             name="code"
             className="form-control"
-            ref={elem => this.codeInput = elem}
+            ref={elem => {
+              this.codeInput = elem;
+            }}
             onChange={this.handleChange}
             style={{ width: 360 }}
             placeholder="https://www.warcraftlogs.com/reports/<report code>"

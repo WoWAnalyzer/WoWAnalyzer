@@ -9,7 +9,7 @@ import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 const MAX_BUFF_STACKS = 5;
-const PERCENT_BUFF = 0.1;
+const PERCENT_BUFF = 0.08;
 
 class Hemostasis extends Analyzer {
   static dependencies = {

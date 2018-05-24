@@ -40,14 +40,22 @@ class BreathOfFire extends Analyzer {
   }
 
   on_toPlayer_damage(event) {
-    if(event.ability.guid === SPELLS.STAGGER_TAKEN.id || ABILITY_BLACKLIST.includes(event.ability.guid) || !(event.sourceID in this.enemies.getEntities())) {
+    if (event.ability.guid === SPELLS.STAGGER_TAKEN.id) {
+      return;
+    }
+    if (ABILITY_BLACKLIST.includes(event.ability.guid)) {
+      return;
+    }
+    if (!this.enemies.getEntities()[event.sourceID]) {
       return; // either stagger or not a notable entity (e.g. imonar traps, environment damage) or an ability we want to ignore
     }
 
-    if(this.enemies.enemies[event.sourceID].hasBuff(SPELLS.BREATH_OF_FIRE_DEBUFF.id)) {
+    if (this.enemies.enemies[event.sourceID].hasBuff(SPELLS.BREATH_OF_FIRE_DEBUFF.id)) {
       this.hitsWithBoF += 1;
     } else {
-      if(DEBUG_ABILITIES) { console.log('hit w/o bof', event); }
+      if (DEBUG_ABILITIES) {
+        console.log('hit w/o bof', event);
+      }
       this.hitsWithoutBoF += 1;
     }
   }

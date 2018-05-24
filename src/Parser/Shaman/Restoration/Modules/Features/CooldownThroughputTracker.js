@@ -29,7 +29,7 @@ import { ABILITIES_NOT_FEEDING_INTO_ASCENDANCE, ABILITIES_NOT_FEEDING_INTO_CBT }
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownThroughputTracker.cooldownSpells,
+    ...CoreCooldownThroughputTracker.cooldownSpells,
     {
       spell: SPELLS.ASCENDANCE_TALENT_RESTORATION,
       summary: [
@@ -275,8 +275,8 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     this.activeCooldowns.forEach((cooldown) => {
       const cooldownId = cooldown.spell.id;
 
-      if ((cooldownId === SPELLS.CLOUDBURST_TOTEM_TALENT.id && (ABILITIES_NOT_FEEDING_INTO_CBT.indexOf(spellId) <= -1)) ||
-        (cooldownId === SPELLS.ASCENDANCE_TALENT_RESTORATION.id && (ABILITIES_NOT_FEEDING_INTO_ASCENDANCE.indexOf(spellId) <= -1))) {
+      if ((cooldownId === SPELLS.CLOUDBURST_TOTEM_TALENT.id && !ABILITIES_NOT_FEEDING_INTO_CBT.includes(spellId)) ||
+        (cooldownId === SPELLS.ASCENDANCE_TALENT_RESTORATION.id && !ABILITIES_NOT_FEEDING_INTO_ASCENDANCE.includes(spellId))) {
         if (!cooldown.feed[spellId]) {
           cooldown.feed[spellId] = [];
           cooldown.feed[spellId].healing = 0;

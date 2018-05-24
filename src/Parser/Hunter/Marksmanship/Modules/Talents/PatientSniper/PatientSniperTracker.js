@@ -250,7 +250,7 @@ class PatientSniperTracker extends Analyzer {
       debug && console.log('emergency fix had to be used', event.timestamp);
       timeIntoVulnerable = 6;
     }
-    debug &&  console.log('timestamp: ', event.timestamp, '. Time into vulnerable: ', timeIntoVulnerable, '. TargetID: ', event.targetID);
+    debug && console.log('timestamp: ', event.timestamp, '. Time into vulnerable: ', timeIntoVulnerable, '. TargetID: ', event.targetID);
     // this "event" is intended for Aimed Shot only
     // since Vulnerable and Patient Sniper bonuses are snapshotted at the moment of the cast (and not when the shot lands)
     // store current target and time passed in Vulnerable (= damage bonus essentially)

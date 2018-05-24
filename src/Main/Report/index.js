@@ -160,7 +160,7 @@ class Report extends React.Component {
         parser.parseEvents(eventsBatch);
         const progress = Math.min(1, (offset + batchSize) / numEvents);
         this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS + (PROGRESS_STEP3_PARSE_EVENTS - PROGRESS_STEP2_FETCH_EVENTS) * progress);
-        // await-ing setState does not ensure we wait until a render completed, so instead we wait 1 frame
+        // eslint-disable-next-line no-await-in-loop
         await this.timeout(0);
 
         offset += batchSize;
@@ -201,6 +201,7 @@ class Report extends React.Component {
       }
       const progress = Math.min(1, step * stepInterval / expectedDuration);
       this.props.setReportProgress(PROGRESS_STEP1_INITIALIZATION + ((PROGRESS_STEP2_FETCH_EVENTS - PROGRESS_STEP1_INITIALIZATION) * progress));
+      // eslint-disable-next-line no-await-in-loop
       await this.timeout(stepInterval);
       step += 1;
     }

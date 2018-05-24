@@ -93,10 +93,10 @@ class LockAndLoad extends Analyzer {
     // the number of significant digits will be outside of a reasonable
     // range.
     if (z < -6.5)
-      return 0.0;
+      {return 0.0;}
 
     if (z > 6.5)
-      return 1.0;
+      {return 1.0;}
 
     let factK = 1;
     let sum = 0;
@@ -146,6 +146,7 @@ class LockAndLoad extends Analyzer {
     //this two first tooltipText additions will probably NEVER happen, but it'd be fun if they ever did.
     tooltipText += binomCalc === 1 ? `You had so many procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 100%. Consider yourself the luckiest man alive.` : ``;
     tooltipText += binomCalc === 0 ? `You had so few procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 0%. Consider yourself the unluckiest man alive.` : ``;
+    // eslint-disable-next-line yoda
     tooltipText += 1 > binomCalc > 0 ? (this.pn || this.qn) > 10 ? `Due to normal approximation these results are within 2% margin of error.` : `Because you had under ${10 / PROC_CHANCE} auto attacks and due to normal approximation these results have a margin of error of over 2%.` : ``;
     tooltipText += `</li></ul>`;
 

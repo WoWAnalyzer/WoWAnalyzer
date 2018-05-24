@@ -29,7 +29,7 @@ class BestialWrathAverageFocus extends Analyzer {
       return;
     }
     this.bestialWrathCasts += 1;
-    this.accumulatedFocusAtBWCast += event.classResources[0]['amount'] || 0;
+    this.accumulatedFocusAtBWCast += event.classResources[0].amount || 0;
   }
   statistic() {
     return (

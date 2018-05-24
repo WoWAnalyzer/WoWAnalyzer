@@ -13,7 +13,7 @@ class Energy extends Analyzer {
   };
   
   suggestions(when) {
-    resourceSuggest(when,  this.energyTracker, {
+    resourceSuggest(when, this.energyTracker, {
       spell: SPELLS.SYMBOLS_OF_DEATH,
       minor: 0.10,
       avg: 0.20, 
@@ -21,7 +21,7 @@ class Energy extends Analyzer {
       extraSuggestion: <React.Fragment>Try to spend energy before using <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} />, but do not delay it to avoid waste! </React.Fragment>,
     });
       
-    resourceSuggest(when,  this.energyTracker, {
+    resourceSuggest(when, this.energyTracker, {
       spell: SPELLS.RELENTLESS_STRIKES,
       minor: 0.15,
       avg: 0.25, 

@@ -33,19 +33,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: SPELLS.BLOOD_MIRROR_TALENT,
-        buffSpellId: SPELLS.BLOOD_MIRROR_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
-        cooldown: 120,
-        enabled: combatant.hasTalent(SPELLS.BLOOD_MIRROR_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.75,
-          extraSuggestion: 'Mostly a DPS CD. Use it to reflect large damage back to the boss. It can be used defensively to reduce 20% damage taken for its duration.',
-        },
-        timelineSortIndex: 9,
-      },
-      {
         spell: SPELLS.BLOOD_BOIL,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 7.5 / (1 + haste),
@@ -74,6 +61,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DANCING_RUNE_WEAPON,
         category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
         buffSpellId: SPELLS.DANCING_RUNE_WEAPON_BUFF.id,
+        isOnGCD: true,
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
@@ -210,14 +198,15 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
       },
       {
-        spell: SPELLS.BLOOD_TAP_TALENT,
+        spell: SPELLS.RUNE_STRIKE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.BLOOD_TAP_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.RUNE_STRIKE_TALENT.id),
+        isOnGCD: true,
         cooldown: 60,
         charges: 2,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.95,
         },
         timelineSortIndex: 8,
       },
@@ -233,6 +222,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         enabled: combatant.hasTalent(SPELLS.TOMBSTONE_TALENT.id),
         cooldown: 60,
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.50,

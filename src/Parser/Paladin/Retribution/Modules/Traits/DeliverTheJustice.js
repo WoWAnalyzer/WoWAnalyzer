@@ -10,42 +10,42 @@ import { formatPercentage } from 'common/format';
 import getDamageBonusStacked from 'Parser/Paladin/Shared/Modules/getDamageBonusStacked';
 
 const DELIVER_THE_JUSTICE_INCREASE = 0.08;
+
 /**
  * Deliver The Justice (Artifact Trait)
  * Increase the damge done by Blade of Justice/Divine Hammers by 8%.
  */
-
 class DeliverTheJustice extends Analyzer {
-	static dependencies = {
-		combatants: Combatants,
-	};
+  static dependencies = {
+    combatants: Combatants,
+  };
 
-	rank = 0;
-	damage = 0;
+  rank = 0;
+  damage = 0;
 
-	on_initialized() {
-		this.rank = this.combatants.selected.traitsBySpellId[SPELLS.DELIVER_THE_JUSTICE.id];
-		this.active = this.rank > 0;
-	}
+  on_initialized() {
+    this.rank = this.combatants.selected.traitsBySpellId[SPELLS.DELIVER_THE_JUSTICE.id];
+    this.active = this.rank > 0;
+  }
 
-	on_byPlayer_damage(event) {
-		if(event.ability.guid === SPELLS.BLADE_OF_JUSTICE.id || event.ability.guid === SPELLS.DIVINE_HAMMER_HIT.id){
-			this.damage += getDamageBonusStacked(event, DELIVER_THE_JUSTICE_INCREASE, this.rank);
-		}
-	}
+  on_byPlayer_damage(event) {
+    if (event.ability.guid === SPELLS.BLADE_OF_JUSTICE.id || event.ability.guid === SPELLS.DIVINE_HAMMER_HIT.id) {
+      this.damage += getDamageBonusStacked(event, DELIVER_THE_JUSTICE_INCREASE, this.rank);
+    }
+  }
 
-	subStatistic() {
- 		return (
- 			<div className='flex'>
- 				<div className='flex-main'>
- 					<SpellLink id={SPELLS.DELIVER_THE_JUSTICE.id} />
- 				</div>
- 				<div className='flex-sub text-right'>
- 					{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} %
- 				</div>
- 			</div>
- 		);
- 	}
+  subStatistic() {
+    return (
+      <div className="flex">
+        <div className="flex-main">
+          <SpellLink id={SPELLS.DELIVER_THE_JUSTICE.id} />
+        </div>
+        <div className="flex-sub text-right">
+          {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} %
+        </div>
+      </div>
+    );
+  }
 }
 
 export default DeliverTheJustice;

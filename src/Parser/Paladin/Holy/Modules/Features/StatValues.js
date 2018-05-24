@@ -108,6 +108,7 @@ class StatValues extends BaseHealerStatValues {
       // TODO: We might be able to use the Haste stat value to value the CDR
       return 0;
     }
+    return 0;
   }
   _mastery(event, healVal) {
     if (healVal.overheal) {
