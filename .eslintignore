@@ -1,5 +1,4 @@
 node_modules
-build
-server/build
-server/node_modules
-browser-extensions/gulpfile.babel.js
+/build
+/server/build
+/browser-extensions
