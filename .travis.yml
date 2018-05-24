@@ -1,16 +1,14 @@
-sudo: false
-dist: trusty
-language: node_js
-node_js:
-  - 9.9.0
 # every second counts
 git:
-  depth: 10
+  depth: 5
 env:
   - NODE_ENV=production ESLINT_BEFORE_BUILD=false
 jobs:
   include:
     - stage: test
+      language: node_js
+      node_js:
+        - 9.9.0
       cache:
         directories:
           - node_modules
@@ -19,6 +17,9 @@ jobs:
       script:
         - npm run lint
     - stage: test
+      language: node_js
+      node_js:
+        - 9.9.0
       cache:
         directories:
           - node_modules
@@ -28,12 +29,13 @@ jobs:
         - npm run test -- --maxWorkers=2
     # TODO: Code duplication calculator
     - stage: build
+      language: node_js
+      node_js:
+        - 9.9.0
       cache:
         directories:
           - node_modules
           - server/node_modules
-      services:
-        - docker
       install:
         - npm install
         - cd server && npm install --dev && cd ..
@@ -41,8 +43,6 @@ jobs:
         - chmod +x .travis/build.sh
         - ./.travis/build.sh
     - stage: deploy
-      services:
-        - docker
       cache: skip
       install: skip
       script: skip
