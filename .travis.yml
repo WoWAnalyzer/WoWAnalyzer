@@ -25,7 +25,7 @@ jobs:
       install:
         - npm install
       script:
-        - npm run test
+        - npm run test -- --runInBand
     # TODO: Code duplication calculator
     - stage: build
       cache:
