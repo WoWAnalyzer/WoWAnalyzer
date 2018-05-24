@@ -40,12 +40,18 @@ jobs:
         - npm install
         - cd server && npm install --dev && cd ..
       script:
-        - chmod +x .travis/build.sh
-        - ./.travis/build.sh
-    - stage: deploy
-      cache: skip
-      install: skip
-      script: skip
+        - echo "> Build server"
+        - cd server
+        - npm run build
+        - echo "> The server has already been built so we no longer need the devDependencies (reduces the final bundle size)"
+        - npm prune --production
+        - cd ..
+        - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
+          	echo "> Disabling sourcemap generation to save build time, this is a PR so won't be deployed anyway.";
+          	export GENERATE_SOURCEMAP=false;
+          fi
+        - echo "> Build app"
+        #- npm run build
       # Reminder: deploy doesn't run on PRs
       deploy:
         provider: script
