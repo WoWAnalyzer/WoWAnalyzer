@@ -35,7 +35,7 @@
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.2.0",
     "universal-cookie": "^2.1.5",
-    "wowanalyzer-react-scripts": "1.1.6"
+    "wowanalyzer-react-scripts": "1.1.11"
   },
   "scripts": {
     "start": "react-scripts start",
