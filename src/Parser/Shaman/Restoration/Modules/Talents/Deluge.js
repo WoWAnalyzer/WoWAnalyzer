@@ -64,8 +64,7 @@ class Deluge extends Analyzer {
       return;
     }
 
-    const filteredEvents = this.healingRainLocation.filterEventsInHealingRain(this.eventsDuringRain);
-    this.healing += this.healingRainLocation.processHealingRain(filteredEvents, DELUGE_HEALING_INCREASE);
+    this.healing += this.healingRainLocation.processHealingRain(this.eventsDuringRain, DELUGE_HEALING_INCREASE);
     this.eventsDuringRain.length = 0;
   }
 
@@ -73,8 +72,8 @@ class Deluge extends Analyzer {
     if (!this.eventsDuringRain.length) { 
       return;
     }
-    const filteredEvents = this.healingRainLocation.filterEventsInHealingRain(this.eventsDuringRain);
-    this.healing += this.healingRainLocation.processLastRain(filteredEvents, DELUGE_HEALING_INCREASE);
+    
+    this.healing += this.healingRainLocation.processLastRain(this.eventsDuringRain, DELUGE_HEALING_INCREASE);
   }
 
   subStatistic() {
