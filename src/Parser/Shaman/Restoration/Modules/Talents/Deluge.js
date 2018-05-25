@@ -59,21 +59,21 @@ class Deluge extends Analyzer {
       return;
     }
 
+    this.recordHealing();
+    this.eventsDuringRain.length = 0;
+  }
+
+  on_finished() {
+    this.recordHealing();
+  }
+
+  recordHealing() {
     // filters out the first cast in combat if there was no pre-cast, or if there were no Chain Heal casts anyway.
     if(this.eventsDuringRain.length === 0) {
       return;
     }
 
     this.healing += this.healingRainLocation.processHealingRain(this.eventsDuringRain, DELUGE_HEALING_INCREASE);
-    this.eventsDuringRain.length = 0;
-  }
-
-  on_finished() {
-    if (!this.eventsDuringRain.length) { 
-      return;
-    }
-    
-    this.healing += this.healingRainLocation.processLastRain(this.eventsDuringRain, DELUGE_HEALING_INCREASE);
   }
 
   subStatistic() {

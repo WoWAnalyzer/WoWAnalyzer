@@ -50,17 +50,17 @@ class ElementalRebalancers extends Analyzer {
       return;
     }
 
-    // filters out the first cast in combat if there was no pre-cast.
-    if(this.eventsDuringRain.length === 0) {
-      return;
-    }
-
-    this.healing += this.healingRainLocation.processHealingRain(this.eventsDuringRain, REBALANCERS_HEALING_INCREASE);
+    this.recordHealing();
     this.eventsDuringRain.length = 0;
   }
 
   on_finished() {
-    if(!this.eventsDuringRain.length) {
+    this.recordHealing();
+  }
+
+  recordHealing() {
+    // filters out the first cast in combat if there was no pre-cast.
+    if(this.eventsDuringRain.length === 0) {
       return;
     }
 
