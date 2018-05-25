@@ -43,7 +43,7 @@ class TouchOfDeath extends Analyzer {
       return;
     }
     // Debuff is removed before damage is dealt so this won't count Touch of Deaths own damage
-    if (enemy.hasBuff(SPELLS.TOUCH_OF_DEATH.id) && SPELLS.TOUCH_OF_DEATH_DAMAGE !== spellId) {
+    if (enemy.hasBuff(SPELLS.TOUCH_OF_DEATH.id)) {
       this.damageIntoGaleBurst += event.amount + (event.absorbed || 0);
     }
   }
@@ -57,9 +57,6 @@ class TouchOfDeath extends Analyzer {
     // Debuff is removed before damage is dealt so this won't count Touch of Deaths own damage
     if (enemy.hasBuff(SPELLS.TOUCH_OF_DEATH.id) && SPELLS.TOUCH_OF_DEATH_DAMAGE.id !== spellId) {
       this.damageIntoGaleBurst += event.amount + (event.absorbed || 0);
-      if (event.amount > 1000000) {
-        console.log(spellId);
-      }
     }
     if (SPELLS.TOUCH_OF_DEATH_DAMAGE.id !== spellId) {
       return;
@@ -67,8 +64,8 @@ class TouchOfDeath extends Analyzer {
     this.expectedGaleBurst = this.damageIntoGaleBurst * 0.1;
     const expectedTotalDamage = this.expectedGaleBurst + this.expectedBaseDamage;
     const vulnerabilityAmplifier = event.amount / expectedTotalDamage;
-    console.log(this.damageIntoGaleBurst);
-    console.log(vulnerabilityAmplifier);
+    console.log("expected base damage: " + this.expectedBaseDamage + " expected gale burst: " + this.expectedGaleBurst);
+    console.log("actualDamage/expectedDamage: " + vulnerabilityAmplifier);
     if (vulnerabilityAmplifier > this.highestVulnerabilityAmplifier) {
       this.highestVulnerabilityAmplifier = vulnerabilityAmplifier;
     }
