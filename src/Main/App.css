@@ -58,6 +58,11 @@ h2 {
   margin: 0;
   font-size: 1em;
 }
+.wowdb-tooltip .db-tooltip h2 {
+  text-transform: none;
+  letter-spacing: normal;
+  opacity: 1;
+}
 
 
 a {
