@@ -5,6 +5,7 @@ import ReactTooltip from 'react-tooltip';
 import { push, getLocation } from 'react-router-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
+import TooltipProvider from 'common/TooltipProvider';
 import { API_DOWN, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'actions/error';
 import { getError } from 'selectors/error';
 
@@ -49,6 +50,8 @@ class App extends React.Component {
     if (isIE()) {
       props.internetExplorerError();
     }
+
+    TooltipProvider.load();
   }
 
   renderError(error) {
