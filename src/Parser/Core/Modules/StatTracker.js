@@ -58,6 +58,7 @@ class StatTracker extends Analyzer {
     [SPELLS.STR_FEAST.id]: { strength: 500 },
     [SPELLS.AGI_FEAST.id]: { agility: 500 },
     [SPELLS.INT_FEAST.id]: { intellect: 500 },
+    [SPELLS.DARKMOON_VERS_FOOD.id]: { versatility: 475},
     //endregion
 
     // region Dungeon Trinkets

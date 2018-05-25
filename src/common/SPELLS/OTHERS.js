@@ -167,6 +167,11 @@ export default {
     name: 'Lavish Suramar Feast',
     icon: 'spell_misc_food',
   },
+  DARKMOON_VERS_FOOD: {
+    id: 185736,
+    name: 'Lemon Herb Filet',
+    icon: 'spell_misc_food',
+  },
   // Items buffs:
   JACINS_RUSE: {
     id: 224149,
