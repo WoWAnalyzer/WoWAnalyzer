@@ -15,9 +15,8 @@ import parseVersionString from 'common/parseVersionString';
 import Warning from 'common/Alert/Warning';
 import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
+import lazyLoadComponent from 'common/lazyLoadComponent';
 import { getResultTab } from 'selectors/url/report';
-import DevelopmentTab from 'Main/DevelopmentTab';
-import EventsTab from 'Main/EventsTab';
 import Tab from 'Main/Tab';
 import Status from 'Main/Status';
 import SuggestionsTab from 'Main/SuggestionsTab';
@@ -33,6 +32,9 @@ import DetailsTab from './DetailsTab';
 import Odyn from './Images/odyn.jpg';
 
 import './Results.css';
+
+const DevelopmentTab = lazyLoadComponent(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'Main/DevelopmentTab').then(exports => exports.default));
+const EventsTab = lazyLoadComponent(() => import(/* webpackChunkName: 'EventsTab' */ 'Main/EventsTab').then(exports => exports.default));
 
 const CURRENT_GAME_PATCH = '7.3.5';
 
