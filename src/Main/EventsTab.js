@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AutoSizer, Column, defaultTableRowRenderer, Table } from 'react-virtualized';
+import AutoSizer from 'react-virtualized/dist/es/AutoSizer';
+import Table, { defaultRowRenderer as defaultTableRowRenderer, Column } from 'react-virtualized/dist/es/Table';
 import Toggle from 'react-toggle';
 import 'react-toggle/style.css';
 

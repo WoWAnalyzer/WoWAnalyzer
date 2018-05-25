@@ -57,17 +57,26 @@ class Shield_Block extends Analyzer {
     }
   }
 
-  suggestions(when) {
-    const physicalDamageMitigatedPercent = this.physicalDamageWithShield_Block / (this.physicalDamageWithShield_Block + this.physicalDamageWithoutShield_Block);
+  get suggestionThresholds() {
+    return {
+      actual: this.physicalDamageWithShield_Block / (this.physicalDamageWithShield_Block + this.physicalDamageWithoutShield_Block),
+      isLessThan: {
+        minor: 0.9,
+        average: 0.75,
+        major: 0.6,
+      },
+      style: 'percentage',
+    };
+  }
 
-    when(physicalDamageMitigatedPercent).isLessThan(0.90)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You only had the <SpellLink id={SPELLS.SHIELD_BLOCK_BUFF.id} /> buff for {formatPercentage(actual)}% of physical damage taken. You should have the Shield Block buff up to mitigate as much physical damage as possible.</span>)
-          .icon(SPELLS.SHIELD_BLOCK_BUFF.icon)
-          .actual(`${formatPercentage(actual)}% was mitigated by Shield Block`)
-          .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended`)
-          .regular(recommended - 0.10).major(recommended - 0.2);
-      });
+  suggestions(when) {
+    when(this.suggestionThresholds)
+        .addSuggestion((suggest, actual, recommended) => {
+          return suggest(<React.Fragment>You only had the <SpellLink id={SPELLS.SHIELD_BLOCK_BUFF.id} /> buff for {formatPercentage(actual)}% of physical damage taken. You should have the Shield Block buff up to mitigate as much physical damage as possible.</React.Fragment>)
+            .icon(SPELLS.SHIELD_BLOCK_BUFF.icon)
+            .actual(`${formatPercentage(actual)}% was mitigated by Shield Block`)
+            .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended`);
+        });
   }
 
   statistic() {

@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-05-23'),
+    changes: <React.Fragment>Made rage-tracking more accurate, added a rage usage breakdown, implemented checklist and added rage saved to <SpellLink id={SPELLS.VENGEANCE_TALENT.id} />.</React.Fragment>,
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-05-20'),
     changes: <React.Fragment>Added <SpellLink id={SPELLS.VENGEANCE_TALENT.id} />.</React.Fragment>,
     contributors: [joshinator],
