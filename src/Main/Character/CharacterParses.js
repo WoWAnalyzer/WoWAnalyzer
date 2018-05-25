@@ -6,13 +6,14 @@ import fetchWcl from 'common/fetchWcl';
 import ActivityIndicator from 'Main/ActivityIndicator';
 
 import ZONES from 'common/ZONES';
-import REALMS from 'common/REALMS';
 import SPECS from 'common/SPECS';
 import DIFFICULTIES from 'common/DIFFICULTIES';
 import ITEMS from 'common/ITEMS';
 
 import './CharacterParses.css';
 import CharacterParsesList from './CharacterParsesList';
+
+const loadRealms = () => import('common/REALMS').then(exports => exports.default);
 
 //rendering 400+ parses takes quite some time
 const RENDER_LIMIT = 100;
@@ -222,79 +223,83 @@ class CharacterParses extends React.Component {
       });
   }
 
-  load(refresh = false) {
+  async load(refresh = false) {
     this.fetchImage(refresh);
     this.setState({
       isLoading: true,
     });
 
     const charName = encodeURIComponent(this.props.name);
+    const realms = await loadRealms();
+
     //use the slug from REALMS when available, otherwise try realm-prop and fail
-    let charRealm = REALMS[this.props.region] ? REALMS[this.props.region].realms.find(elem => elem.name === this.props.realm).slug : this.props.realm;
+    let charRealm = realms[this.props.region] ? realms[this.props.region].realms.find(elem => elem.name === this.props.realm).slug : this.props.realm;
     charRealm = encodeURIComponent(charRealm);
 
     return fetchWcl(`parses/character/${charName}/${charRealm}/${this.props.region}`, {
       metric: this.state.metric,
       zone: this.state.activeZoneID,
       _: refresh ? +new Date() : undefined,
-    }).then((rawParses) => {
-      if (rawParses.status === 400) {
-        this.setState({
-          isLoading: false,
-          error: ERRORS.CHARACTER_NOT_FOUND,
-        });
-        return;
-      }
+    })
+      .then(rawParses => {
+        if (rawParses.status === 400) {
+          this.setState({
+            isLoading: false,
+            error: ERRORS.CHARACTER_NOT_FOUND,
+          });
+          return;
+        }
 
-      if (rawParses.length === 0) {
-        this.setState({
-          parses: [],
-          isLoading: false,
-          error: ERRORS.NO_PARSES_FOR_TIER,
-        });
-        return;
-      }
+        if (rawParses.length === 0) {
+          this.setState({
+            parses: [],
+            isLoading: false,
+            error: ERRORS.NO_PARSES_FOR_TIER,
+          });
+          return;
+        }
 
-      if (rawParses.hidden) {
-        this.setState({
-          isLoading: false,
-          error: ERRORS.CHARACTER_HIDDEN,
-        });
-        return;
-      }
+        if (rawParses.hidden) {
+          this.setState({
+            isLoading: false,
+            error: ERRORS.CHARACTER_HIDDEN,
+          });
+          return;
+        }
 
-      if (this.state.class !== '') { //only update parses when class was already parsed (since its only a metric/raid change)
+        if (this.state.class !== '') { //only update parses when class was already parsed (since its only a metric/raid change)
+          const parses = this.changeParseStructure(rawParses);
+          this.setState({
+            parses: parses,
+            error: null,
+            isLoading: false,
+          });
+          return;
+        }
+
+        const charClass = rawParses[0].specs[0].class;
+        const specs = Object.values(SPECS)
+          .map(elem => elem.className.replace(' ', '') !== charClass ? undefined : elem.specName)
+          .filter(elem => elem)
+          // eslint-disable-next-line no-restricted-syntax
+          .filter((item, index, self) => self.indexOf(item) === index);
+
         const parses = this.changeParseStructure(rawParses);
         this.setState({
+          specs: specs,
+          activeSpec: specs.map(elem => elem.replace(' ', '')),
+          class: charClass,
           parses: parses,
+          isLoading: false,
           error: null,
+        });
+      })
+      .catch(e => {
+        this.setState({
+          error: ERRORS.UNEXPECTED,
           isLoading: false,
         });
-        return;
-      }
-
-      const charClass = rawParses[0].specs[0].class;
-      const specs = Object.values(SPECS)
-        .map(elem => elem.className.replace(' ', '') !== charClass ? undefined : elem.specName)
-        .filter(elem => elem)
-        // eslint-disable-next-line no-restricted-syntax
-        .filter((item, index, self) => self.indexOf(item) === index);
-
-      const parses = this.changeParseStructure(rawParses);
-      this.setState({
-        specs: specs,
-        activeSpec: specs.map(elem => elem.replace(' ', '')),
-        class: charClass,
-        parses: parses,
-        isLoading: false,
-        error: null,
       });
-    }).catch(e => {
-      this.setState({
-        error: ERRORS.UNEXPECTED,
-        isLoading: false,
-      });
-    });
   }
 
   render() {
