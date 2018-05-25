@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-05-25'),
+    changes: 'Load news asynchronous to reduce initial loading time.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-05-25'),
     changes: 'Changed to WoWDB tooltips because they provide better tooltips.',
     contributors: [Zerotorescue],
   },

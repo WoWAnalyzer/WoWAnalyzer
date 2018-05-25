@@ -1,8 +1,10 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import SelectSearch from 'react-select-search';
+
 import REALMS from 'common/REALMS';
+
 import makeUrl from './makeUrl';
 
 class CharacterSelecter extends React.PureComponent {
@@ -11,14 +13,14 @@ class CharacterSelecter extends React.PureComponent {
       push: PropTypes.func.isRequired,
     }),
   };
+  state = {
+    currentRegion: 'EU',
+    currentRealm: '',
+  };
 
   constructor() {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = {
-      currentRegion: 'EU',
-      currentRealm: '',
-    };
   }
 
   componentDidMount() {
@@ -47,7 +49,9 @@ class CharacterSelecter extends React.PureComponent {
       return null;
     }
 
-    this.setState({ loading: true });
+    this.setState({
+      loading: true,
+    });
     return fetch(`https://${region}.api.battle.net/wow/character/${encodeURIComponent(realm)}/${encodeURIComponent(char)}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
       .then(response => response.json())
       .then((data) => {
@@ -66,7 +70,6 @@ class CharacterSelecter extends React.PureComponent {
   }
 
   render() {
-
     return (
       <form onSubmit={this.handleSubmit} className="form-inline">
         <div className="character-selector">
@@ -78,17 +81,19 @@ class CharacterSelecter extends React.PureComponent {
             value={this.state.currentRegion}
             onChange={e => this.setState({ currentRegion: e.target.value })}
           >
-            {Object.keys(REALMS).map(elem => 
+            {Object.keys(REALMS).map(elem =>
               <option value={elem} key={elem}>{elem}</option>
             )}
           </select>
-          <SelectSearch 
+          <SelectSearch
             options={REALMS[this.state.currentRegion].realms.map(elem => ({
               value: elem.name,
               name: elem.name,
             }))}
             className="realm-search"
-            onChange={value => { this.setState({ currentRealm: value.name });}}
+            onChange={value => {
+              this.setState({ currentRealm: value.name });
+            }}
             placeholder="Realm"
           />
           <input

@@ -2,14 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import lazyLoadComponent from 'common/lazyLoadComponent';
+
 import ReportSelecter from './ReportSelecter';
-import CharacterSelecter from './Character/CharacterSelecter';
 import makeNewsUrl from './News/makeUrl';
 import { title as AboutArticleTitle } from './News/Articles/2017-01-31-About';
 import { title as UnlistedLogsTitle } from './News/Articles/2017-01-31-UnlistedLogs';
 // import ServiceStatus from './ServiceStatus';
 
 import './Header.css';
+
+const CharacterSelecter = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterSelecter' */ './Character/CharacterSelecter').then(exports => exports.default));
 
 class Header extends React.PureComponent {
   static propTypes = {
