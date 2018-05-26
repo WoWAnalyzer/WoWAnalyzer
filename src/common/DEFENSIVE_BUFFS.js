@@ -48,6 +48,10 @@ const DEFENSIVE_BUFFS = [
   {
     spell: SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF,
   },
+  //Restoration Shaman
+  {
+    spell: SPELLS.GHOST_IN_THE_MIST_BUFF,
+  },
 ];
 
 export default DEFENSIVE_BUFFS;
