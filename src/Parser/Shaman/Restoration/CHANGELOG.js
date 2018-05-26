@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-05-26'),
+    changes: <React.Fragment>The <SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} /> buff is now displayed in the timeline.</React.Fragment>,
+    contributors: [niseko],
+  },
+  {
     date: new Date('2018-05-02'),
     changes: <React.Fragment>Inneficient <SpellLink id={SPELLS.HEALING_WAVE.id} /> casts will now be highlighted in the timeline with a red border.</React.Fragment>,
     contributors: [niseko],
