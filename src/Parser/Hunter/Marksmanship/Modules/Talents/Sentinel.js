@@ -136,20 +136,17 @@ class Sentinel extends Analyzer {
               className="stat-health-bg"
               style={{ width: `${formatPercentage((this.goodTicks / this.totalPossibleTicks))}%` }}
               data-tip={`<b>${formatPercentage(this.goodTicks / this.totalPossibleTicks)}%</b> of your Sentinel ticks happened while none of the targets had a hunter's mark on them, good job!`}
-            >
-            </div>
+             />
             <div
               className="DeathKnight-bg"
               style={{ width: `${formatPercentage(this.wastedTicks / this.totalPossibleTicks)}%` }}
               data-tip={`<b>${formatPercentage(this.wastedTicks / this.totalPossibleTicks)}%</b> of your Sentinel ticks happened while one of the targets already a hunter's mark on them.`}
-            >
-            </div>
+             />
             <div
               className="Druid-bg"
               style={{ width: `${formatPercentage(this.missedTicks / this.totalPossibleTicks)}%` }}
               data-tip={`<b>${formatPercentage(this.missedTicks / this.totalPossibleTicks)}%</b> of your possible Sentinel ticks completely missed a target.`}
-            >
-            </div>
+             />
           </div>
         )}
         footerStyle={{ overflow: 'hidden' }}

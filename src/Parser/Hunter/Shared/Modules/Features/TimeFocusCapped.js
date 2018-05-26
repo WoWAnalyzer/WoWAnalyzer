@@ -52,14 +52,12 @@ class TimeFocusCapped extends Analyzer {
               className="stat-health-bg"
               style={{ width: `${(100 - percentCapped)}%` }}
               data-tip={`You spent <b>${100 - percentCapped}%</b> of your time, or <b>${Math.round(Math.floor(this.owner.fightDuration / 1000) - this.focusTracker.secondsCapped)}s</b> under the focus cap.`}
-            >
-            </div>
+             />
             <div
               className="DeathKnight-bg"
               style={{ width: `${percentCapped}%` }}
               data-tip={`You spent <b>${percentCapped}%</b>, or <b>${Math.round(this.focusTracker.secondsCapped)}s</b> of your time focus capped.`}
-            >
-            </div>
+             />
           </div>
         )}
         footerStyle={{ overflow: 'hidden' }}

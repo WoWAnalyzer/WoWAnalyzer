@@ -133,7 +133,7 @@ module.exports = {
 
     // Prevent missing parentheses around multilines JSX
     // https://github.com/yannickcr/eslint-plugin-react/blob/843d71a432baf0f01f598d7cf1eea75ad6896e4b/docs/rules/jsx-wrap-multilines.md
-    'react/jsx-wrap-multilines': ['error', {
+    'react/jsx-wrap-multilines': ['warn', {
       declaration: 'parens-new-line',
       assignment: 'parens-new-line',
       return: 'parens-new-line',
@@ -142,5 +142,9 @@ module.exports = {
       logical: 'parens-new-line',
       prop: 'parens-new-line',
     }],
+
+    // Prevent extra closing tags for components without children
+    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md
+    'react/self-closing-comp': 'warn',
   }
 };

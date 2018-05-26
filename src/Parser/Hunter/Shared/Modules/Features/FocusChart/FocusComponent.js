@@ -26,9 +26,7 @@ const FocusComponent = ({ categories, abilities, passive, focusBySecondCoord, ov
               <td style={{ width: '35%' }}>
                 <SpellIcon id={75} noLink /> Passive Focus Generation
               </td>
-              <td className="text-center" style={{ minWidth: 80 }}>
-
-              </td>
+              <td className="text-center" style={{ minWidth: 80 }} />
               <td className="text-center" style={{ minWidth: 80 }}>
                 {passive[0]}
               </td>

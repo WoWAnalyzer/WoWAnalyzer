@@ -133,17 +133,16 @@ class DeathRecap extends React.PureComponent {
                         <td style={{ width: '20%' }}>
                           <div className="flex performance-bar-container">
                             {percent !== 0 && (
-                              <div className="flex-sub performance-bar" style={{ color: 'white', width: formatPercentage(percent) + '%' }}></div>
+                              <div className="flex-sub performance-bar" style={{ color: 'white', width: formatPercentage(percent) + '%' }} />
                             )}
                             <div
                               className="flex-sub performance-bar"
                               style={{
                                 backgroundColor: event.type === 'heal' ? 'green' : 'red',
                                 width: formatPercentage(hitPercent) + '%',
-                                opacity: event.type === 'heal' ? .8 : .4
+                                opacity: event.type === 'heal' ? .8 : .4,
                               }}
-                            >
-                            </div>
+                             />
                           </div>
                         </td>
                         <td style={{ width: '15%' }}>
@@ -169,7 +168,7 @@ class DeathRecap extends React.PureComponent {
                     );
                   })}
                 <tr>
-                  <td></td>
+                  <td />
                   <td colSpan="6">
                     You died
                   </td>
