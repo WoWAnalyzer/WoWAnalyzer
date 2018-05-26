@@ -50,7 +50,7 @@ class Apocalypse extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.APOCALYPSE.id} />}
         value={`${averageWoundsPopped}`}
-        label={'Average Wounds Popped with Apocalypse'}
+        label="Average Wounds Popped with Apocalypse"
         tooltip={`You popped ${this.apocalypseWoundsPopped} wounds with ${this.totalApocalypseCasts} casts of Apocalypse.`}
       />
     );

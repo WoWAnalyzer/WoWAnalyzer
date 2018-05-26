@@ -36,7 +36,7 @@ class BestialWrathAverageFocus extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BESTIAL_WRATH.id} />}
         value={this.averageFocusAtBestialWrathCast}
-        label={`Average Focus on cast`}
+        label="Average Focus on cast"
         tooltip={`You started your average Bestial Wrath window with ${this.averageFocusAtBestialWrathCast} focus.`}
       />
     );

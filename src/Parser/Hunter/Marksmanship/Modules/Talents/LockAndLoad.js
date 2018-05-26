@@ -154,7 +154,7 @@ class LockAndLoad extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.LOCK_AND_LOAD_TALENT.id} />}
         value={`${this.wastedInstants} (${formatPercentage(this.wastedInstants / (this.totalProcs * 2))}%)`}
-        label={`lost LnL stacks`}
+        label="lost LnL stacks"
         tooltip={tooltipText}
       />
     );

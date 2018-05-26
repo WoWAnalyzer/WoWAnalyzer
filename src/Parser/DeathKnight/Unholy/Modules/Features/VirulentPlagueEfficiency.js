@@ -92,7 +92,7 @@ class VirulentPlagueEfficiency extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.VIRULENT_PLAGUE.id} />}
         value={`${(this.averageTimeWasted).toFixed(1)} seconds`}
-        label={'Average Virulent Plague Duration Waste'}
+        label="Average Virulent Plague Duration Waste"
         tooltip={`A total amount of ${this.totalTimeWasted.toFixed(1)} seconds of Virulent Plague uptime was wasted with an average amount of ${(this.averageTimeWasted).toFixed(1)} seconds per cast`}
       />
     );

@@ -74,7 +74,7 @@ class DireBeast extends Analyzer {
             />
           </React.Fragment>
         )}
-        label={`Direbeast casts`}
+        label="Direbeast casts"
         tooltip={`You cast Dire Beast ${this.casts} times. <br/> <ul> <li> You cast ${this.badDBCasts} Dire Beasts while there was less than 3 seconds remaining of Bestial Wrath cooldown.</li></ul>`}
       />
     );

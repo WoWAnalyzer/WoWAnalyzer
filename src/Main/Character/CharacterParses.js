@@ -459,7 +459,7 @@ class CharacterParses extends React.Component {
                   <div className="panel-heading">
                     <h2 style={{ display: 'inline' }}>{this.state.error ? this.state.error : 'Parses'}</h2>
                     <Link
-                      to={''}
+                      to=""
                       className="pull-right"
                       onClick={e => {
                         e.preventDefault();

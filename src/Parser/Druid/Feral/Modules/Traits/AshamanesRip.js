@@ -73,7 +73,7 @@ class AshamanesRip extends Analyzer {
       <SmallStatisticBox
         icon={<SpellIcon id={SPELLS.ASHAMANES_RIP.id} />}
         value={`${formatPercentage(this.ashamanesRipUptime)} %`}
-        label={`Ashamane's Rip uptime`}
+        label="Ashamane's Rip uptime"
         tooltip={`Your Ashamane's Rip contributed ${formatNumber(this.damage)} damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))}%)`}
       />
     );

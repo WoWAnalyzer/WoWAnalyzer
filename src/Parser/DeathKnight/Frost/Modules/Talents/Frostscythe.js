@@ -87,7 +87,7 @@ class Frostscythe extends Analyzer{
     return <StatisticBox
       icon={<SpellIcon id={SPELLS.FROSTSCYTHE_TALENT.id} />}
       value={`${formatPercentage(this.efficiency)}%`}
-      label={'Frostscythe efficiency'}
+      label="Frostscythe efficiency"
       tooltip={`A good cast is one where you either hit 1+ targets with a Killing Machine buff or you hit 3+ targets.  You had ${this.goodCasts} / ${this.casts} good casts`}
     />;
   }  

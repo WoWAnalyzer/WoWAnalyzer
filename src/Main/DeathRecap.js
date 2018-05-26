@@ -136,7 +136,7 @@ class DeathRecap extends React.PureComponent {
                             <div className="flex-sub performance-bar" style={{ color: 'white', width: formatPercentage(percent) + "%" }}></div>
                           )}
                           <div 
-                            className={`flex-sub performance-bar`} 
+                            className="flex-sub performance-bar" 
                             style={{ 
                               backgroundColor: event.type === 'heal' ? 'green' : 'red', 
                               width: formatPercentage(hitPercent) + "%", 

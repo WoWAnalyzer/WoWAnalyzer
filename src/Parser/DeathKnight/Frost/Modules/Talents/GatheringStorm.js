@@ -98,7 +98,7 @@ class GatheringStorm extends Analyzer{
     return <StatisticBox
       icon={<SpellIcon id={SPELLS.GATHERING_STORM_TALENT.id} />}
       value={`${this.averageExtension.toFixed(1)}`}
-      label={'Average seconds added to each Remorseless Winter'}
+      label="Average seconds added to each Remorseless Winter"
       tooltip={`Bonus damage from Gathering Storm: ${this.owner.formatItemDamageDone(this.bonusDamage)}`}
     />;
   }  

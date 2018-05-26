@@ -247,7 +247,7 @@ class ContributorDetails extends React.PureComponent {
                 <div className="panel">
                   <div style={{ textAlign: 'center' }}>
                     <h2>{contributor.nickname}</h2>
-                    <img src={contributor.avatar} alt={'Avatar'} style={{ marginTop: 20, maxHeight: 200, borderRadius: '50%' }} />
+                    <img src={contributor.avatar} alt="Avatar" style={{ marginTop: 20, maxHeight: 200, borderRadius: '50%' }} />
                   </div>
                   <div className="flex-main contributorlist" style={{ padding: '0 5px 20px 5px' }}>
                     {this.text(contributor.about, 'About')}

@@ -107,11 +107,28 @@ module.exports = {
 
     // Validate whitespace in and around the JSX opening and closing brackets
     // https://github.com/yannickcr/eslint-plugin-react/blob/843d71a432baf0f01f598d7cf1eea75ad6896e4b/docs/rules/jsx-tag-spacing.md
-    'react/jsx-tag-spacing': ['error', {
+    'react/jsx-tag-spacing': ['warn', {
       closingSlash: 'never',
       beforeSelfClosing: 'always',
       afterOpening: 'never',
       beforeClosing: 'never',
     }],
+
+    // Prevent void DOM elements from receiving children
+    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/void-dom-elements-no-children.md
+    'react/void-dom-elements-no-children': 'warn',
+
+    // Prevent usage of shouldComponentUpdate when extending React.PureComponent
+    // https://github.com/yannickcr/eslint-plugin-react/blob/9e13ae2c51e44872b45cc15bf1ac3a72105bdd0e/docs/rules/no-redundant-should-component-update.md
+    'react/no-redundant-should-component-update': 'warn',
+
+    // Prevents common casing typos
+    // https://github.com/yannickcr/eslint-plugin-react/blob/73abadb697034b5ccb514d79fb4689836fe61f91/docs/rules/no-typos.md
+    'react/no-typos': 'warn',
+
+    // Enforce curly braces or disallow unnecessary curly braces in JSX props and/or children
+    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-brace-presence.md
+    // props can't be "never" because multiline template literals would be broken
+    'react/jsx-curly-brace-presence': ['warn', { props: 'ignore', children: 'never' }],
   }
 };

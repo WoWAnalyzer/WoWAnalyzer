@@ -81,7 +81,7 @@ class Vengeance extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.VENGEANCE_TALENT.id} />}
         value={`${formatPercentage(this.buffUsage)}%`}
-        label={`Buffs unused`}
+        label="Buffs unused"
         tooltip={`
           ${this.buffedIgnoreCasts} buffed ${SPELLS.IGNORE_PAIN.name} casts<br/>
           ${this.buffedRevengeCasts} buffed ${SPELLS.REVENGE.name} casts<br/>

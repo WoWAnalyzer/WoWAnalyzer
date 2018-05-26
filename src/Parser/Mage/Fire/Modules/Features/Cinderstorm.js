@@ -60,7 +60,7 @@ class Cinderstorm extends Analyzer {
         icon={<SpellIcon id={SPELLS.CINDERSTORM_TALENT.id} />}
         value={`${this.averageHitsPerCast.toFixed(2)}`}
         label="Cinderstorm Hits Per Cast"
-        tooltip={`Cinderstorm is a skill shot ability which needs to be aimed properly so that all 6 cinders from every cast hit the target. In AoE situations, this ability should be aimed such that each cinder will hit every enemy. If this is not possible or you are having trouble aiming the ability, you should pick a different talent.`}
+        tooltip="Cinderstorm is a skill shot ability which needs to be aimed properly so that all 6 cinders from every cast hit the target. In AoE situations, this ability should be aimed such that each cinder will hit every enemy. If this is not possible or you are having trouble aiming the ability, you should pick a different talent."
       />
     );
   }

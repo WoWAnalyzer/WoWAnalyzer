@@ -50,7 +50,7 @@ class LightningRod extends Analyzer {
           </span>
         )}
         label="Lightning Rod Uptime/DPS"
-        tooltip={`DPS and Uptime of the Lightning Rod Talent.</li></ul>`} />
+        tooltip="DPS and Uptime of the Lightning Rod Talent.</li></ul>" />
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
