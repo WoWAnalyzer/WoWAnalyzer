@@ -9,7 +9,7 @@ import SpellLink from 'common/SpellLink';
 export default [
 	{
 		date: new Date('2018-03-01'),
-		changes: <React.Fragment>Added <SpellLink id ={SPELLS.BLIND_FURY_TALENT.id} icon/> to the fury tracker.</React.Fragment>,
+		changes: <React.Fragment>Added <SpellLink id={SPELLS.BLIND_FURY_TALENT.id} icon/> to the fury tracker.</React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{
