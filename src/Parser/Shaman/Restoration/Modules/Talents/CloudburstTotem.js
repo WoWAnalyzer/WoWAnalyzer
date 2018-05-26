@@ -9,6 +9,8 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import CooldownThroughputTracker from '../Features/CooldownThroughputTracker';
 
+const DELAY_MS = 200;
+
 class CloudburstTotem extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -41,7 +43,15 @@ class CloudburstTotem extends Analyzer {
     if (spellId !== SPELLS.CLOUDBURST_TOTEM_TALENT.id) {
       return;
     }
-    this._createFabricatedEvent(event, 'applybuff');
+
+    // Patch 7.3.5 added a buffer before CBT can collect healing after casting,
+    // this turns out to be around 200ms and causes it to not collect healing from 
+    // spells casted right before it, essentially removing pre-feeding.
+    // I'm adding those 200ms here so you can visually see that the feeding starts later.
+    const manipulatedEvent = {...event};
+    manipulatedEvent.timestamp = manipulatedEvent.timestamp + DELAY_MS;
+
+    this._createFabricatedEvent(manipulatedEvent, 'applybuff');
     this.cbtActive = true;
   }
 
