@@ -83,10 +83,7 @@ class Ability {
      * Whether the spell is enabled (available to the player) and should be displayed. This should only be used for hiding spells that are unavailable, for example due to talents.
      */
     enabled: PropTypes.bool,
-    /**
-     * A boolean to indicate it can not be detected whether the player his this spells. This makes it so the spell is hidden when there are 0 casts in the fight. This should only be used for spells that can't be detected if a player has access to them, like racials.
-     */
-    isUndetectable: PropTypes.bool,
+
     /**
      * The ability's priority on the timeline. The lower the number the higher on the timeline it will be displayed.
      */
@@ -95,6 +92,14 @@ class Ability {
      * The buff belonging to the ability. Setting this will display the buff on the timeline.
      */
     buffSpellId: PropTypes.number,
+    /**
+     * A boolean to indicate the spell is a defensive.
+     */
+    isDefensive: PropTypes.bool,
+    /**
+     * A boolean to indicate it can not be detected whether the player his this spells. This makes it so the spell is hidden when there are 0 casts in the fight. This should only be used for spells that can't be detected if a player has access to them, like racials.
+     */
+    isUndetectable: PropTypes.bool,
   };
 
   _owner = null;
@@ -161,6 +166,7 @@ class Ability {
   isOnGCD = null;
   extraSuggestion = null;
   recommendedEfficiency = null;
+  isDefensive = null;
   isUndetectable = null;
   castEfficiency = {
     suggestion: false,
