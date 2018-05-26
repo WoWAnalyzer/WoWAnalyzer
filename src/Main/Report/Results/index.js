@@ -17,8 +17,6 @@ import ItemLink from 'common/ItemLink';
 import ItemIcon from 'common/ItemIcon';
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import { getResultTab } from 'selectors/url/report';
-import Tab from 'Main/Tab';
-import Status from 'Main/Status';
 import SuggestionsTab from 'Main/SuggestionsTab';
 import ActivityIndicator from 'Main/ActivityIndicator';
 import WarcraftLogsLogo from 'Main/Images/WarcraftLogs-logo.png';
@@ -242,16 +240,6 @@ class Results extends React.PureComponent {
             parser={parser}
             results={results}
           />
-        ),
-      });
-      results.tabs.push({
-        title: 'Status',
-        url: 'status',
-        order: 100002,
-        render: () => (
-          <Tab style={{ padding: '15px 22px' }}>
-            <Status />
-          </Tab>
         ),
       });
     }
