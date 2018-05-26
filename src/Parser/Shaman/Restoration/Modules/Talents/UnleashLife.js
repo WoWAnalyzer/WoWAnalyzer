@@ -251,7 +251,7 @@ class UnleashLife extends Analyzer {
 
   unleashLifeCastRatioChart() {
     const totalUses = this.buffedChainHeals + this.buffedHealingWaves + this.buffedHealingSurges + this.buffedRiptides;
-    const unusedUL = totalUses - this.unleashLifeCasts;
+    const unusedUL = this.unleashLifeCasts - totalUses;
 
     const items = [
       {
