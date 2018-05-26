@@ -37,7 +37,7 @@ class Checklist extends CoreChecklist {
   rules = [
     new Rule({
       name: 'Use core spells as often as possible',
-      description: <React.Fragment>Spells with short, static cooldowns like <SpellLink id={SPELLS.REMORSELESS_WINTER.id}/> and <SpellLink id={SPELLS.CHAINS_OF_ICE.id}/>(when using Cold Heart) should be used as often as possible</React.Fragment>,
+      description: <React.Fragment>Spells with short, static cooldowns like <SpellLink id={SPELLS.REMORSELESS_WINTER.id} /> and <SpellLink id={SPELLS.CHAINS_OF_ICE.id} />(when using Cold Heart) should be used as often as possible</React.Fragment>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
@@ -87,7 +87,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Try to avoid being inactive for a large portion of the fight',
-      description: <React.Fragment>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  You can reduce downtime by casting ranged abilities like <SpellLink id={SPELLS.FROST_STRIKE_CAST.id}/></React.Fragment>,
+      description: <React.Fragment>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  You can reduce downtime by casting ranged abilities like <SpellLink id={SPELLS.FROST_STRIKE_CAST.id} /></React.Fragment>,
       requirements: () => {
         return [
           new Requirement({

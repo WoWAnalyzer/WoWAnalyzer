@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
+import DeathRecapTracker from 'Main/DeathRecapTracker';
 
 import PainTracker from './Modules/Pain/PainTracker';
 import PainDetails from './Modules/Pain/PainDetails';
@@ -16,7 +17,7 @@ import SpiritBomb from './Modules/Statistics/SpiritBomb/SpiritBomb';
 import ImmolationAura from './Modules/Statistics/Spells/ImmolationAura';
 import DemonSpikes from './Modules/Spells/DemonSpikes';
 import EmpowerWards from './Modules/Statistics/Spells/EmpowerWards';
-import SigilOfFlame from './Modules/Statistics/Spells/SigilOfFlame';
+import SigilOfFlame from './Modules/Spells/SigilOfFlame';
 
 import Painbringer from './Modules/Spells/Painbringer/Painbringer';
 import PainbringerTimesByStacks from './Modules/Spells/Painbringer/PainbringerTimesByStacks';
@@ -39,6 +40,8 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    deathRecapTracker: DeathRecapTracker,
+
     //Resource Tracker
     painTracker :PainTracker,
     painDetails: PainDetails,

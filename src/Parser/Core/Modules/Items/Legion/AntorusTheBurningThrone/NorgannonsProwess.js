@@ -83,10 +83,10 @@ class NorgannonsProwess extends Analyzer {
       result: (
         <React.Fragment>
           <dfn data-tip={`Procced the int buff <b>${this.intProc}</b> times with <b>${formatPercentage(this.intUptimePercent)}%</b> uptime`}>
-            {formatNumber(averageInt)} average Intellect gained from <SpellLink id={SPELLS.RUSH_OF_KNOWLEDGE.id} icon/>
+            {formatNumber(averageInt)} average Intellect gained from <SpellLink id={SPELLS.RUSH_OF_KNOWLEDGE.id} icon />
           </dfn><br />
           <dfn data-tip={`Procced the pantheon buff <b>${this.pantheonProc}</b> times`}>
-            <ItemDamageDone amount={this.damage} /> from <SpellLink id={SPELLS.NORGANNONS_COMMAND.id}/>
+            <ItemDamageDone amount={this.damage} /> from <SpellLink id={SPELLS.NORGANNONS_COMMAND.id} />
           </dfn>
         </React.Fragment>
       ),

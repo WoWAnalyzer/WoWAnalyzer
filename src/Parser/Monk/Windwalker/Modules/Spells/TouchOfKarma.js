@@ -50,8 +50,8 @@ class TouchOfKarma extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.TOUCH_OF_KARMA_CAST.id} />}
         value={`${formatPercentage(absorbUsed)}%`}
-        label={`Touch of Karma Absorb used`}
-        tooltip={`This does not account for possible absorbs from missed Touch of Karma casts`}
+        label="Touch of Karma Absorb used"
+        tooltip="This does not account for possible absorbs from missed Touch of Karma casts"
         />
     );
   }

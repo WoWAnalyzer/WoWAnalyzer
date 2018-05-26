@@ -11,7 +11,7 @@ class DarkShadowEvis extends DarkShadow {
 
   
   suggestions(when) {
-    const totalEviscerateHitsInShadowDance  = this.danceDamageTracker.getAbility(SPELLS.EVISCERATE.id).damageHits;
+    const totalEviscerateHitsInShadowDance = this.danceDamageTracker.getAbility(SPELLS.EVISCERATE.id).damageHits;
     const danceEvis = totalEviscerateHitsInShadowDance / this.totalShadowDanceCast;
     when(danceEvis).isLessThan(1.75)
     .addSuggestion((suggest, actual, recommended) => {
@@ -25,7 +25,7 @@ class DarkShadowEvis extends DarkShadow {
   }
 
   statistic() {    
-  const totalEviscerateHitsInShadowDance  = this.danceDamageTracker.getAbility(SPELLS.EVISCERATE.id).damageHits;
+  const totalEviscerateHitsInShadowDance = this.danceDamageTracker.getAbility(SPELLS.EVISCERATE.id).damageHits;
   const danceEvis = totalEviscerateHitsInShadowDance / this.totalShadowDanceCast;
   return (
       <StatisticBox

@@ -105,7 +105,7 @@ class CrimsonScourge extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CRIMSON_SCOURGE.id} />}
         value={`${formatPercentage(this.wastedCrimsonScourgeProcsPercent)} %`}
-        label='Crimson Scourge procs wasted'
+        label="Crimson Scourge procs wasted"
         tooltip={`${this.wastedCrimsonScourgeProcs} out of ${this.crimsonScourgeProcsCounter} procs wasted.`}
       />
     );

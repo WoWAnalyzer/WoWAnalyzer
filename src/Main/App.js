@@ -1,10 +1,12 @@
-import React  from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import { push, getLocation } from 'react-router-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
+import lazyLoadComponent from 'common/lazyLoadComponent';
+import TooltipProvider from 'common/TooltipProvider';
 import { API_DOWN, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'actions/error';
 import { getError } from 'selectors/error';
 
@@ -22,13 +24,14 @@ import Footer from './Layout/Footer';
 import NewsView from './News/View';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 import Report from './Report';
-import ContributorDetails from './Contributors/ContributorDetails';
-import CharacterParses from './Character/CharacterParses';
 import Header from './Header';
+
+const ContributorDetails = lazyLoadComponent(() => import(/* webpackChunkName: 'ContributorDetails' */ './Contributors/ContributorDetails').then(exports => exports.default));
+const CharacterParses = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterParses' */ './Character/CharacterParses').then(exports => exports.default));
 
 function isIE() {
   const myNav = navigator.userAgent.toLowerCase();
-  return myNav.indexOf('msie') !== -1 || myNav.indexOf('trident') !== -1;
+  return myNav.includes('msie') || myNav.includes('trident');
 }
 
 class App extends React.Component {
@@ -49,6 +52,8 @@ class App extends React.Component {
     if (isIE()) {
       props.internetExplorerError();
     }
+
+    TooltipProvider.load();
   }
 
   renderError(error) {
@@ -188,7 +193,7 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = state => ({
   error: getError(state),
   isHome: getLocation(state).pathname === '/', // createMatchSelector doesn't seem to be consistent
 });

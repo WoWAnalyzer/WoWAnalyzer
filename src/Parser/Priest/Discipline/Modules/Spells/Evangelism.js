@@ -68,7 +68,7 @@ class Evangelism extends Analyzer {
     return (
       <ExpandableStatisticBox
         icon={<SpellIcon id={SPELLS.EVANGELISM_TALENT.id} />}
-        value={`${formatNumber(evangelismStatistics.reduce((p, c) => p += c.healing, 0) / this.owner.fightDuration * 1000)} HPS`}
+        value={`${formatNumber(evangelismStatistics.reduce((total, c) => total + c.healing, 0) / this.owner.fightDuration * 1000)} HPS`}
         label={(
           <dfn data-tip={`Evangelism accounted for approximately ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(evangelismStatistics.reduce((p, c) => p + c.healing, 0)))}% of your healing.`}>
             Evangelism contribution

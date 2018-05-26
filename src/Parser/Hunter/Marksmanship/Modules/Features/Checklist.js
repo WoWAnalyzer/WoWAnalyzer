@@ -113,8 +113,8 @@ class Checklist extends CoreChecklist {
           }),
           new Requirement({
             name: <React.Fragment>Average <Icon
-              icon='ability_hunter_focusfire'
-              alt='Average Focus At Trueshot Cast'
+              icon="ability_hunter_focusfire"
+              alt="Average Focus At Trueshot Cast"
               style={{
                 height: '1.3em',
                 marginTop: '-.1em',
@@ -158,8 +158,8 @@ class Checklist extends CoreChecklist {
         return [
           new Requirement({
             name: <React.Fragment><Icon
-              icon='spell_mage_altertime'
-              alt='Casting downtime'
+              icon="spell_mage_altertime"
+              alt="Casting downtime"
               style={{
                 height: '1.3em',
                 marginTop: '-.1em',
@@ -169,8 +169,8 @@ class Checklist extends CoreChecklist {
           }),
           new Requirement({
             name: <React.Fragment><Icon
-              icon='inv_misc_map_01'
-              alt='Cancelled casts'
+              icon="inv_misc_map_01"
+              alt="Cancelled casts"
               style={{
                 height: '1.3em',
                 marginTop: '-.1em',

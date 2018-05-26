@@ -37,6 +37,9 @@ class BlackoutKick extends Analyzer {
     const combatant = this.combatants.selected;
     // Blackout Kick sometimes take priority if you're using T21
     if (combatant.hasBuff(SPELLS.COMBO_BREAKER_BUFF.id) && combatant.hasBuff(SPELLS.WW_TIER21_2PC.id)) {
+      event.meta = event.meta || {};
+      event.meta.isEnhancedCast = true;
+      event.meta.enhancedCastReason = 'You had Combo Breaker and T21-2pc for this Blackout Kick';
       return;
     }
     
@@ -80,8 +83,8 @@ class BlackoutKick extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BLACKOUT_KICK.id} />}
         value={this.inefficientCasts}
-        label={`Bad Blackout Kick Casts`}
-        tooltip={`Bad casts are Blackout Kicks used while important spells like Rising Sun Kick and Fists of Fury are available.`}
+        label="Bad Blackout Kick Casts"
+        tooltip="Bad casts are Blackout Kicks used while important spells like Rising Sun Kick and Fists of Fury are available."
       />
     );
   }

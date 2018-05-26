@@ -31,7 +31,7 @@ class OvydsWinterWrap extends Analyzer {
     const targetId = event.targetID;
     const spellId = event.ability.guid;
 
-    if (UNAFFECTED_SPELLS.indexOf(spellId) !== -1) {
+    if (UNAFFECTED_SPELLS.includes(spellId)) {
       debug && console.log('Exiting');
       return;
     }

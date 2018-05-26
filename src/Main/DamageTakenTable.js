@@ -27,13 +27,13 @@ class DamageTakenTable extends React.Component {
 
   render() {
     const specClassName = this.props.spec.className.replace(' ', '');
-    const row = (abilityData)  => {
+    const row = (abilityData) => {
       const { ability, totalDmg, largestSpike } = abilityData;
       return (
         <tr key={ability.guid}>
           <td>
             <div className="flex performance-bar-container"
-                 data-tip={`Total Damage Taken: ${formatNumber(totalDmg)} of ${formatNumber(this.props.total)}.`} >
+              data-tip={`Total Damage Taken: ${formatNumber(totalDmg)} of ${formatNumber(this.props.total)}.`} >
               <div
                 className={`flex-sub performance-bar ${specClassName}-bg`}
                 style={{ width: `${(totalDmg - largestSpike) / this.props.total * 100}%` }}

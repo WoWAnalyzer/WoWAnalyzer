@@ -40,7 +40,7 @@ class LadyAndTheChild extends Analyzer {
       item: ITEMS.LADY_AND_THE_CHILD,
       result: (
         <dfn data-tip={`You hit ${this.moonfireHits} times with ${this.moonfireCasts} casts.`}>
-          <React.Fragment>{formatPercentage(this.percentTwoHits)}% of your <SpellLink id={SPELLS.MOONFIRE_BEAR.id}/> casts hit two targets.</React.Fragment>
+          <React.Fragment>{formatPercentage(this.percentTwoHits)}% of your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> casts hit two targets.</React.Fragment>
         </dfn>
       ),
     };

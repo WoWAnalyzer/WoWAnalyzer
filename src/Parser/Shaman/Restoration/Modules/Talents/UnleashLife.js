@@ -54,7 +54,7 @@ class UnleashLife extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if (event.timestamp  > (this.buffedRiptideTimestamp + riptideDuration)) {
+    if (event.timestamp > (this.buffedRiptideTimestamp + riptideDuration)) {
       this.buffedRiptideTimestamp = null;
       this.buffedRiptideTarget = null;
     }
@@ -251,7 +251,7 @@ class UnleashLife extends Analyzer {
 
   unleashLifeCastRatioChart() {
     const totalUses = this.buffedChainHeals + this.buffedHealingWaves + this.buffedHealingSurges + this.buffedRiptides;
-    const unusedUL = totalUses - this.unleashLifeCasts;
+    const unusedUL = this.unleashLifeCasts - totalUses;
 
     const items = [
       {
@@ -303,7 +303,7 @@ class UnleashLife extends Analyzer {
       <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <div className="row">
           <StatisticsListBox
-            title={<span><SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id}/> usage</span>}
+            title={<span><SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} /> usage</span>}
             containerProps={{ className: 'col-xs-12' }}
           >
             {this.unleashLifeCastRatioChart()}

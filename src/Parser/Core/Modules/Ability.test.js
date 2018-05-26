@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import getParserMock from 'tests/getParserMock';
 
 import Ability from './Ability';

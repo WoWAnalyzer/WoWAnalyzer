@@ -13,7 +13,7 @@ class Energy extends Analyzer {
   };
   
   suggestions(when) {
-    resourceSuggest(when,  this.energyTracker, {
+    resourceSuggest(when, this.energyTracker, {
       spell: SPELLS.URGE_TO_KILL,
       minor: 0.05,
       avg: 0.1, 

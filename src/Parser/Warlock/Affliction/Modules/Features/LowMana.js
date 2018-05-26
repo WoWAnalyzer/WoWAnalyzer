@@ -7,7 +7,7 @@ const LOW_MANA_THRESHOLD = 0.05;
 class LowMana extends Analyzer {
   _lowManaTimestamp = null;
   _currentlyLow = false;
-  _maxMana = 1100000;   // should be constant
+  _maxMana = 1100000; // should be constant
   timeOnLowMana = 0;
 
   on_byPlayer_cast(event) {
@@ -31,11 +31,11 @@ class LowMana extends Analyzer {
 
           if (!this._currentlyLow && this.endingMana < LOW_MANA_THRESHOLD * this._maxMana) {
             this._lowManaTimestamp = event.timestamp;
-            this._currentlyLow = true;    // set flag to stop overwriting the timestamp
+            this._currentlyLow = true; // set flag to stop overwriting the timestamp
           }
           else if (this._lowManaTimestamp && this.endingMana > LOW_MANA_THRESHOLD * this._maxMana) {
             this.timeOnLowMana += event.timestamp - this._lowManaTimestamp;
-            this._lowManaTimestamp = null;  // reset timestamp so this branch doesn't fire when we're repeatedly > 5%
+            this._lowManaTimestamp = null; // reset timestamp so this branch doesn't fire when we're repeatedly > 5%
             this._currentlyLow = false;
           }
         });

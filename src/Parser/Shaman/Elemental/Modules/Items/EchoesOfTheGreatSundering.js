@@ -24,7 +24,7 @@ class EchoesOfTheGreatSundering extends Analyzer {
   buffedTickCounter = 0;
   buffedCastCounter = 0;
 
-  state = 0;  //0=guaranteed not buffed; 1=guaranteed buffed; 2=not too sure(use heuristic)
+  state = 0; //0=guaranteed not buffed; 1=guaranteed buffed; 2=not too sure(use heuristic)
   endtime = 0;
 
   on_initialized() {
@@ -41,7 +41,7 @@ class EchoesOfTheGreatSundering extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.EARTHQUAKE.id)
-      return;
+      {return;}
 
     if (this.combatants.selected.hasBuff(SPELLS.ECHOES_OF_THE_GREAT_SUNDERING_BUFF.id, event.timestamp)) {
       this.buffedCastCounter++;
@@ -57,11 +57,11 @@ class EchoesOfTheGreatSundering extends Analyzer {
 
   on_byPlayer_damage(event) {
     if (event.timestamp > this.endtime)
-      this.state = 0;
+      {this.state = 0;}
 
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.EARTHQUAKE_DAMAGE.id)
-      return;
+      {return;}
 
     const critMultiplier = (event.hitType === HIT_TYPES.CRIT) ? CRIT_MULTIPLIER : 1;
     const baseDamage = event.amount / critMultiplier;
@@ -71,7 +71,7 @@ class EchoesOfTheGreatSundering extends Analyzer {
         this.unbuffedBaseDamageSum += baseDamage;
         this.unbuffedTickCounter++;
         break;
-      case  1:
+      case 1:
         this.buffedEarthquakeDamage += event.amount;
         this.buffedBaseDamageSum += baseDamage;
         this.buffedTickCounter++;

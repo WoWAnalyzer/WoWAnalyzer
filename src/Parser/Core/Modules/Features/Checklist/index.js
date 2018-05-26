@@ -120,7 +120,7 @@ class Checklist extends Analyzer {
             <div className="flex-sub content-middle" style={{ width: 100 }}>
               <div className="performance-bar-container">
                 <div
-                  className={`performance-bar small`}
+                  className="performance-bar small"
                   style={{ width: `${rulePerformance * 100}%`, transition: 'background-color 800ms', backgroundColor: this.colorForPerformance(rulePerformance) }}
                 />
               </div>
@@ -164,7 +164,7 @@ class Checklist extends Analyzer {
                   <div className="flex-sub content-middle" style={{ width: 50 }}>
                     <div className="performance-bar-container">
                       <div
-                        className={`performance-bar small`}
+                        className="performance-bar small"
                         style={{ width: `${performance * 100}%`, transition: 'background-color 800ms', backgroundColor: this.colorForPerformance(performance) }}
                       />
                     </div>

@@ -85,7 +85,7 @@ class Mana extends React.PureComponent {
       series.data.forEach((item) => {
         const secIntoFight = Math.floor((item[0] - start) / 1000);
 
-        if (deadBosses.indexOf(series.guid) === -1) {
+        if (!deadBosses.includes(series.guid)) {
           const health = item[1];
           newSeries.data[secIntoFight] = health;
 

@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-05-26'),
+    changes: <React.Fragment>The <SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} /> buff is now displayed in the timeline.</React.Fragment>,
+    contributors: [niseko],
+  },
+  {
     date: new Date('2018-05-20'),
     changes: <React.Fragment>Added support for <SpellLink id={SPELLS.DELUGE_TALENT.id} /> and <ItemLink id={ITEMS.ELEMENTAL_REBALANCERS.id}/>.</React.Fragment>,
     contributors: [niseko],
@@ -69,7 +74,7 @@ export default [
   },
   {
     date: new Date('2017-11-16'),
-    changes: <React.Fragment>Fix crash when using <ItemLink id={ITEMS.FOCUSER_OF_JONAT.id}/>.</React.Fragment>,
+    changes: <React.Fragment>Fix crash when using <ItemLink id={ITEMS.FOCUSER_OF_JONAT.id} />.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {

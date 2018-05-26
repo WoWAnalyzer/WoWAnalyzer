@@ -73,8 +73,10 @@ class SpellTimeline extends React.PureComponent {
       .map(spellId => Number(spellId))
       .filter(key => key > 0) //filter out fake spells (spell id <= 0)
       .sort((a, b) => {
-        const aIndex = abilities.getTimelineSortIndex(a) || Number.MAX_VALUE;
-        const bIndex = abilities.getTimelineSortIndex(b) || Number.MAX_VALUE;
+        const aSortIndex = abilities.getTimelineSortIndex(a);
+        const bSortIndex = abilities.getTimelineSortIndex(b);
+        const aIndex = aSortIndex !== undefined ? aSortIndex : Number.MAX_VALUE;
+        const bIndex = bSortIndex !== undefined ? bSortIndex : Number.MAX_VALUE;
         const aCasts = abilityTracker.getAbility(a).casts;
         const bCasts = abilityTracker.getAbility(b).casts;
         return aIndex - bIndex || bCasts - aCasts;
@@ -133,7 +135,9 @@ class SpellTimeline extends React.PureComponent {
           className="timeline flex-main"
           style={{ height: totalHeight }}
           onWheel={this.handleMouseWheel}
-          ref={comp => (this.gemini = comp)}
+          ref={comp => {
+            this.gemini = comp;
+          }}
         >
           <div className={`ruler interval-${skipInterval}`} style={{ width: totalWidth }}>
             {seconds > 0 && [...Array(seconds)].map((_, second) => {

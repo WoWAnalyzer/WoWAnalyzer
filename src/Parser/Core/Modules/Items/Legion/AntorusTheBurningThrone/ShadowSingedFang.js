@@ -68,7 +68,7 @@ class ShadowSingedFang extends Analyzer {
 					<dfn data-tip={`Proced the ${this.combatants.selected.spec.primaryStat} stat buff <b>${this.mainProc}</b> times with <b>${formatPercentage(mainUptime)}</b> % uptime`}>
 						{formatNumber(averageMain)} average {this.combatants.selected.spec.primaryStat}
 					</dfn>
-					<br/>
+					<br />
 					<dfn data-tip={`Proced the Crit stat buff <b>${this.critProc}</b> times with <b>${formatPercentage(critUptime)}</b> % uptime`}>
 						{formatNumber(averageCrit)} average Crit
 					</dfn>

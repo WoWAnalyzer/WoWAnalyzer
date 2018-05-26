@@ -54,7 +54,7 @@ class GainedBestialWraths extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BESTIAL_WRATH.id} />}
         value={formatNumber(gainedBestialWraths)}
-        label={`extra Bestial Wraths`}
+        label="extra Bestial Wraths"
         tooltip={`<ul><li>You reduced Bestial Wraths cooldown by ${(this.effectiveBWReduction / 1000).toFixed(1)} seconds in total, which resulted in you gaining ${formatNumber(gainedBestialWraths, 2)} extra Bestial Wrath casts. </li> <li>You lost out on ${(this.wastedBWReduction / 1000).toFixed(1)} seconds of CD reduction by casting ${spellLink} while Bestial Wrath wasn't on cooldown or while the cooldown had less than ${COOLDOWN_REDUCTION_MS / 1000} seconds remaining. </li></ul>`}
       />
     );

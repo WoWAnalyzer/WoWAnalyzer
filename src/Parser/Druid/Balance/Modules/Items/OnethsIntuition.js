@@ -70,7 +70,7 @@ class OnethsIntuition extends Analyzer {
             <li>Free Starfall procs gained: ${this.freeStarfallProcs} (${this.freeStarfallProcsWasted} wasted) from ${this.starsurgeCasts} Starsurge casts (${formatPercentage(this.percentFreeStarfallProcs)}%).</li>
           </ul>
         `}>
-          <React.Fragment>{this.freeStarsurgeProcs} <SpellIcon id={SPELLS.ONETHS_INTUITION.id}/> {this.freeStarfallProcs} <SpellIcon id={SPELLS.ONETHS_OVERCONFIDENCE.id}/></React.Fragment>
+          <React.Fragment>{this.freeStarsurgeProcs} <SpellIcon id={SPELLS.ONETHS_INTUITION.id} /> {this.freeStarfallProcs} <SpellIcon id={SPELLS.ONETHS_OVERCONFIDENCE.id} /></React.Fragment>
         </dfn>
       ),
     };

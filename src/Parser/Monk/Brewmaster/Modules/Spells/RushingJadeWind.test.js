@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import RushingJadeWind, { RUSHING_JADE_WIND_BUFF } from './RushingJadeWind';
+import RushingJadeWind from './RushingJadeWind';
 
 const talentless_combatant = {
   hasTalent: (id) => false,

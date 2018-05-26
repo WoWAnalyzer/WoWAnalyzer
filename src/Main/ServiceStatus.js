@@ -23,20 +23,23 @@ class ServiceStatus extends React.PureComponent {
   }
 
   componentWillMount() {
-    this.loadStatus()
+    this.fetchStatus()
       .then(status => {
         this.setState({
           status,
         });
       });
   }
-  loadStatus() {
+  fetchStatus() {
     const url = `${baseStatusUrl}/api/v1/components`;
 
     return fetch(url)
       .then(response => response.json())
       .then(json => {
-        console.log('Received service status', json);
+        // console.log('Received service status', json);
+        if (!json.data) {
+          throw new Error('Status response is missing data.');
+        }
         return json.data.reduce((max, component) => {
           const status = Number(component.status);
           if (max === null || max < status) {

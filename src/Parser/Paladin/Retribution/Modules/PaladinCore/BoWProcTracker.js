@@ -60,7 +60,7 @@ class BoWProcTracker extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>You wasted {formatNumber(this.overwrittenBoWProcs)} <SpellLink id={SPELLS.BLADE_OF_WRATH_PROC.id} icon/> proc(s)</React.Fragment>)
+      return suggest(<React.Fragment>You wasted {formatNumber(this.overwrittenBoWProcs)} <SpellLink id={SPELLS.BLADE_OF_WRATH_PROC.id} icon /> proc(s)</React.Fragment>)
         .icon(SPELLS.BLADE_OF_WRATH_PROC.icon)
         .actual(`${formatPercentage(this.missedProcsPercent)}% proc(s) missed`)
         .recommended(`Wasting <${formatPercentage(1 - recommended)}% is recommended.`);

@@ -72,7 +72,7 @@ class PainDetails extends Analyzer {
         <Tab>
           <ResourceBreakdown
             tracker={this.painTracker}
-            showSpenders={true}
+            showSpenders
           />
         </Tab>
       ),

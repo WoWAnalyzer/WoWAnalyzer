@@ -9,7 +9,7 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-2-25'),
-    changes: <React.Fragment>Added Support for <ItemLink id={ITEMS.KORALONS_BURNING_TOUCH.id}/>.</React.Fragment>,
+    changes: <React.Fragment>Added Support for <ItemLink id={ITEMS.KORALONS_BURNING_TOUCH.id} />.</React.Fragment>,
     contributors: [Sharrq],
   },
   {

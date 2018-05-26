@@ -20,6 +20,7 @@ import BloodPlagueUptime from './BloodPlagueUptime';
 import AlwaysBeCasting from './AlwaysBeCasting';
 import CrimsonScourge from './CrimsonScourge';
 import MarrowrendUsage from './MarrowrendUsage';
+import DeathsCaress from '../Core/DeathsCaress';
 
 import Ossuary from '../Talents/Ossuary';
 import BoneStorm from '../Talents/Bonestorm';
@@ -40,6 +41,7 @@ class Checklist extends CoreChecklist {
     alwaysBeCasting: AlwaysBeCasting,
     enchantChecker: EnchantChecker,
     boneShield: BoneShield,
+    deathsCaress: DeathsCaress,
 
     ossuary: Ossuary,
     bonestorm: BoneStorm,
@@ -99,6 +101,10 @@ class Checklist extends CoreChecklist {
             name: <React.Fragment><SpellLink id={SPELLS.MARROWREND.id} /> efficiency</React.Fragment>,
             check: () => this.marrowrendUsage.suggestionThresholdsEfficiency,
           }),
+          new Requirement({
+            name: <React.Fragment>Avoid casting <SpellLink id={SPELLS.DEATHS_CARESS.id} /></React.Fragment>,
+            check: () => this.deathsCaress.averageCastSuggestionThresholds,
+          }),
         ];
       },
     }),
@@ -134,20 +140,20 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.BLOOD_PLAGUE.id}/> Uptime</React.Fragment>,
+            name: <React.Fragment><SpellLink id={SPELLS.BLOOD_PLAGUE.id} /> Uptime</React.Fragment>,
             check: () => this.bloodplagueUptime.uptimeSuggestionThresholds,
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id}/> Uptime</React.Fragment>,
+            name: <React.Fragment><SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id} /> Uptime</React.Fragment>,
             when: this.combatants.selected.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT.id),
             check: () => this.markOfBloodUptime.uptimeSuggestionThresholds,
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.BONE_SHIELD.id}/> Uptime</React.Fragment>,
+            name: <React.Fragment><SpellLink id={SPELLS.BONE_SHIELD.id} /> Uptime</React.Fragment>,
             check: () => this.boneShield.uptimeSuggestionThresholds,
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.OSSUARY.id}/> Uptime</React.Fragment>,
+            name: <React.Fragment><SpellLink id={SPELLS.OSSUARY.id} /> Uptime</React.Fragment>,
             when: this.combatants.selected.hasTalent(SPELLS.OSSUARY_TALENT.id),
             check: () => this.ossuary.uptimeSuggestionThresholds,
           }),

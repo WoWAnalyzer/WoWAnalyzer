@@ -14,11 +14,11 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
   	<React.Fragment>
-  		I hope you get some use out this analyzer I have been working on. It is kind of hard to determine exactly what seperates the okay from the good and the good from the great (other than getting a Retribution proc on the great ones wings). <br/><br/>
+  		I hope you get some use out this analyzer I have been working on. It is kind of hard to determine exactly what seperates the okay from the good and the good from the great (other than getting a Retribution proc on the great ones wings). <br /><br />
 
-  		Honestly my biggest take away for you is make sure to not waste any Holy Power and always be casting. <br/><br/>
+  		Honestly my biggest take away for you is make sure to not waste any Holy Power and always be casting. <br /><br />
 
-  		If you want to learn more about Retribution Paladins make sure to also check out the Paladin discord: <a href="https://discordapp.com/invite/hammerofwrath" target="_blank" rel="noopener noreferrer">https://discordapp.com/invite/hammerofwrath</a>. The <kbd>#ret-faq</kbd> channel has some useful guides and the <kbd>#ret-discussion</kbd> has lots of memes if you're into that.<br/><br/>
+  		If you want to learn more about Retribution Paladins make sure to also check out the Paladin discord: <a href="https://discordapp.com/invite/hammerofwrath" target="_blank" rel="noopener noreferrer">https://discordapp.com/invite/hammerofwrath</a>. The <kbd>#ret-faq</kbd> channel has some useful guides and the <kbd>#ret-discussion</kbd> has lots of memes if you're into that.<br /><br />
 
   		Feel free to message me on discord or on GitHub with any bugs or ideas for things I could work on!
   	</React.Fragment>

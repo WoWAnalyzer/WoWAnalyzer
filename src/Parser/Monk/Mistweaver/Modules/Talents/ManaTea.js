@@ -200,23 +200,15 @@ class ManaTea extends Analyzer {
         label={(
           <dfn
             data-tip={`
-                During your ${this.manateaCount} <a href="http://www.wowhead.com/spell=197908" target="_blank" rel="noopener noreferrer">Mana Teas</a> saved the following mana (${formatThousands(this.manaSavedMT / this.owner.fightDuration * 1000 * 5)} MP5):
-                <ul>
-                ${this.efCasts > 0 ?
-                `<li>${(this.efCasts)} Essence Font casts</li>`
-                : ''
-                }
-                ${this.efCasts > 0 ?
-                `<li>${(this.vivCasts)} Vivfy casts</li>`
-                : ''
-                }
-                ${this.efCasts > 0 ?
-                `<li>${(this.enmCasts)} Enveloping Mists casts</li>`
-                : ''
-                }
+              During your ${this.manateaCount} Mana Teas saved the following mana (${formatThousands(this.manaSavedMT / this.owner.fightDuration * 1000 * 5)} MP5):
+              <ul>
+                ${this.efCasts > 0 ? `<li>${(this.efCasts)} Essence Font casts</li>` : ''}
+                ${this.efCasts > 0 ? `<li>${(this.vivCasts)} Vivfy casts</li>` : ''}
+                ${this.efCasts > 0 ? `<li>${(this.enmCasts)} Enveloping Mists casts</li>` : ''}
                 <li>${(this.rjwCasts + this.revCasts + this.remCasts + this.lcCasts + this.effCasts)} other spells casted.</li>
                 <li>${(this.nonManaCasts)} non-mana casts during Mana Tea</li>
-            </ul>`}
+              </ul>
+            `}
           >
             Average mana saved
           </dfn>

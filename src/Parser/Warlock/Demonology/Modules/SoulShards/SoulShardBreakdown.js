@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
@@ -36,12 +35,11 @@ class SoulShardBreakdown extends React.Component {
 
     let totalGenerated = 0;
     let totalWasted = 0;
-    let totalSpent = 0;
-    generated.forEach((ability) => {
+    generated.forEach(ability => {
       totalGenerated += ability.generated;
       totalWasted += ability.wasted;
     });
-    spent.forEach(ability => totalSpent += ability.spent);
+    let totalSpent = spent.reduce((total, ability) => total + ability.spent, 0);
     // looks wrong but totals are only for the purpose of percentage, and if nothing was wasted, then 0/1 gives correct result 0% wasted, if it's not 0 it retains its original value
     totalGenerated = (totalGenerated === 0) ? 1 : totalGenerated;
     totalWasted = (totalWasted === 0) ? 1 : totalWasted;
@@ -97,28 +95,27 @@ class SoulShardBreakdown extends React.Component {
           </thead>
           <tbody>
             {spent && spent
-            .map(ability => (
-              <tr>
-                <td style={{ width: '30%' }}>
-                  <SpellLink id={ability.abilityId} />
-                </td>
-                <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
-                  <dfn data-tip={`${formatPercentage(ability.spent / totalSpent)} %`}>{ability.spent}</dfn>
-                </td>
-                <td style={{ width: '40%' }}>
-                  <div
-                    className="performance-bar"
-                    style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
-                  />
-                </td>
-                <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }} />
-                <td style={{ width: '30%' }} />
-              </tr>
-            ))}
+              .map(ability => (
+                <tr>
+                  <td style={{ width: '30%' }}>
+                    <SpellLink id={ability.abilityId} />
+                  </td>
+                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
+                    <dfn data-tip={`${formatPercentage(ability.spent / totalSpent)} %`}>{ability.spent}</dfn>
+                  </td>
+                  <td style={{ width: '40%' }}>
+                    <div
+                      className="performance-bar"
+                      style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
+                    />
+                  </td>
+                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }} />
+                  <td style={{ width: '30%' }} />
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
-
     );
   }
 }

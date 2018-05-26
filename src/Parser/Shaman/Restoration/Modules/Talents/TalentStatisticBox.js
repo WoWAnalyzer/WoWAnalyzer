@@ -37,8 +37,7 @@ class TalentStatisticBox extends Analyzer {
     return (
       <StatisticsListBox
         title="Talents"
-        tooltip=
-        {`The purpose of this is to show the overall HPS impact of each talent. So not only what the talent itself did, but also feeding and synergy or interactions with other spells or talents. The percentage shown is what you'd lose without the talent, ignoring what you'd gain from the other options.<br /><br />
+        tooltip={`The purpose of this is to show the overall HPS impact of each talent. So not only what the talent itself did, but also feeding and synergy or interactions with other spells or talents. The percentage shown is what you'd lose without the talent, ignoring what you'd gain from the other options.<br /><br />
         <b>Not Supported:</b><br />
         Crashing Waves<br />
         Echo of the Elements

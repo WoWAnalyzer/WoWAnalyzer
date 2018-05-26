@@ -47,7 +47,7 @@ class ColossusSmashAnalyzer extends Analyzer {
 
   suggestions(when) {
     when(this.shatteredColossusOverlapThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>You should avoid using <SpellLink id={SPELLS.COLOSSUS_SMASH.id} icon/> before you have consumed <SpellLink id={SPELLS.SHATTERED_DEFENSES.id} icon/> with <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon/>.</React.Fragment>)
+      return suggest(<React.Fragment>You should avoid using <SpellLink id={SPELLS.COLOSSUS_SMASH.id} icon /> before you have consumed <SpellLink id={SPELLS.SHATTERED_DEFENSES.id} icon /> with <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon />.</React.Fragment>)
         .icon(SPELLS.COLOSSUS_SMASH.icon)
         .actual(`Shattered Defenses was already active for ${formatPercentage(actual)}% of Colossus Smashes.`)
         .recommended(`${formatPercentage(recommended)}% is recommended`);

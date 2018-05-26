@@ -140,14 +140,14 @@ class HeatingUp extends Analyzer {
   suggestions(when) {
 		when(this.fireBlastUtilSuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.FIRE_BLAST.id} /> {this.fireBlastWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id}/> was active and {this.fireBlastWithoutHeatingUp} times while you didnt have <SpellLink id={SPELLS.HEATING_UP.id}/>. Make sure that you are only using Fire Blast to convert Heating Up into Hot Streak.</React.Fragment>)
+				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.FIRE_BLAST.id} /> {this.fireBlastWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active and {this.fireBlastWithoutHeatingUp} times while you didnt have <SpellLink id={SPELLS.HEATING_UP.id} />. Make sure that you are only using Fire Blast to convert Heating Up into Hot Streak.</React.Fragment>)
 					.icon(SPELLS.FIRE_BLAST.icon)
 					.actual(`${formatPercentage(this.fireBlastUtil)}% Utilization`)
 					.recommended(`<${formatPercentage(recommended)}% is recommended`);
 			});
     when(this.phoenixFlamesUtilSuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.PHOENIXS_FLAMES.id} /> {this.phoenixFlamesWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id}/> was active and {this.phoenixFlamesWithoutHeatingUp} times while you didnt have <SpellLink id={SPELLS.HEATING_UP.id}/>. While ideally you should only be using these to convert Heating Up into Hot Streak, there are some minor circumstances where it is acceptable (i.e. If you are about to cap on Phoenixs Flames charges or when used alongside <SpellLink id={SPELLS.FIREBALL.id}/> to bait Heating Up or Hot Streak just before <SpellLink id={SPELLS.COMBUSTION.id}/>.</React.Fragment>)
+				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.PHOENIXS_FLAMES.id} /> {this.phoenixFlamesWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active and {this.phoenixFlamesWithoutHeatingUp} times while you didnt have <SpellLink id={SPELLS.HEATING_UP.id} />. While ideally you should only be using these to convert Heating Up into Hot Streak, there are some minor circumstances where it is acceptable (i.e. If you are about to cap on Phoenixs Flames charges or when used alongside <SpellLink id={SPELLS.FIREBALL.id} /> to bait Heating Up or Hot Streak just before <SpellLink id={SPELLS.COMBUSTION.id} />.</React.Fragment>)
 					.icon(SPELLS.PHOENIXS_FLAMES.icon)
 					.actual(`${formatPercentage(this.phoenixFlamesUtil)}% Utilization`)
 					.recommended(`<${formatPercentage(recommended)}% is recommended`);

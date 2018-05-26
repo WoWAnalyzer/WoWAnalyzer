@@ -22,7 +22,7 @@ const extensionDebug = false; // logs pertaining to extensions
 const applyRemoveDebug = false; // logs tracking HoT apply / refresh / remove
 const healDebug = false; // logs tracking HoT heals
 
-/*
+/**
  * Backend module for tracking attribution of HoTs, e.g. what applied them / applied parts of them / boosted them
  */
 class HotTracker extends Analyzer {
@@ -57,7 +57,9 @@ class HotTracker extends Analyzer {
       const oneStack = this.mastery.decomposeHeal(event).oneStack;
       Object.values(this.hots[targetId]).forEach(otherHot => {
         if (otherHot.spellId !== spellId) {
-          otherHot.attributions.forEach(att => att.masteryHealing += oneStack);
+          otherHot.attributions.forEach(att => {
+            att.masteryHealing += oneStack;
+          });
 
           // boosts don't get mastery benefit because the hot was there with or without the boost
 
@@ -82,7 +84,9 @@ class HotTracker extends Analyzer {
         console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp, 1)} but there is no Rejuvenation on that target???`);
       } else if (rejuvsOnTarget.length === 1) { // for now only attribute if one rejuv on target .... TODO more complex logic for handling rejuv + germ
         const rejuv = rejuvsOnTarget[0];
-        rejuv.attributions.forEach(att => att.dreamwalkerHealing += healing);
+        rejuv.attributions.forEach(att => {
+          att.dreamwalkerHealing += healing;
+        });
 
         // boosts don't get dreamwalker benefit because the hot was there with or without the boost
 
@@ -108,8 +112,12 @@ class HotTracker extends Analyzer {
       hot.ticks.push({ healing, masteryHealing: 0, timestamp: event.timestamp });
     }
 
-    hot.attributions.forEach(att => att.healing += healing);
-    hot.boosts.forEach(att => att.healing += calculateEffectiveHealing(event, att.boost));
+    hot.attributions.forEach(att => {
+      att.healing += healing;
+    });
+    hot.boosts.forEach(att => {
+      att.healing += calculateEffectiveHealing(event, att.boost);
+    });
     // extensions handled when HoT falls, using ticks list
   }
 
@@ -399,7 +407,7 @@ class HotTracker extends Analyzer {
   _validateHot(event) {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
-    if (!(spellId in this.hotInfo)) {
+    if (!this.hotInfo[spellId]) {
       return false; // we only care about the listed HoTs
     }
 
@@ -407,7 +415,7 @@ class HotTracker extends Analyzer {
        (!this.hots[targetId] || !this.hots[targetId][spellId])) {
       console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but there's no record of that HoT being added...`);
       return false;
-    } else if ('applybuff' === event.type && this.hots[targetId] && this.hots[targetId][spellId]) {
+    } else if (event.type === 'applybuff' && this.hots[targetId] && this.hots[targetId][spellId]) {
       console.warn(`${event.ability.name} ${event.type} on target ID ${targetId} @${this.owner.formatTimestamp(event.timestamp)} but that HoT is recorded as already added...`);
       return false;
     }

@@ -792,6 +792,11 @@ export default {
     name: 'Resurgence',
     icon: 'ability_shaman_watershield',
   },
+  UNDULATION_BUFF: {
+    id: 216251,
+    name: 'Undulation',
+    icon: 'spell_nature_healingwavelesser',
+  },
 
   // Traits:
   // Restoration Shaman:
@@ -845,10 +850,10 @@ export default {
     name: 'Queen Ascendant',
     icon: 'ability_shaman_watershield',
   },
-  UNDULATION_BUFF: {
-    id: 216251,
-    name: 'Undulation',
-    icon: 'spell_nature_healingwavelesser',
+  GHOST_IN_THE_MIST_BUFF: {
+    id: 207527,
+    name: 'Ghost in the Mist',
+    icon: 'spell_hunter_lonewolf',
   },
   // Restoration Shaman Set Bonus:
   RAINFALL: { // T21 2pc

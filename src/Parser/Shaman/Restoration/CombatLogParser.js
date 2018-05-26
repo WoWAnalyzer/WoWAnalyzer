@@ -3,6 +3,7 @@ import React from 'react';
 import Tab from 'Main/Tab';
 import Mana from 'Main/Mana';
 import Feeding from 'Main/Feeding';
+import DeathRecapTracker from 'Main/DeathRecapTracker';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
@@ -76,6 +77,7 @@ class CombatLogParser extends CoreCombatLogParser {
     healingDone: [HealingDone, { showStatistic: true }],
     abilities: Abilities,
     healingRainLocation: HealingRainLocation,
+    deathRecapTracker: DeathRecapTracker,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,

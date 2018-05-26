@@ -20,9 +20,9 @@ class RelicTraits extends Analyzer {
 	statistic() {
 		return (
 			<StatisticsListBox
-				title="Relic traits"
-        tooltip="This only calculates the value of the last point of each relic trait; for you with your gear and only during this fight."
-        style={{ minHeight: 186 }}
+  title="Relic traits"
+  tooltip="This only calculates the value of the last point of each relic trait; for you with your gear and only during this fight."
+  style={{ minHeight: 186 }}
 			>
 				{this.criticalChaos.subStatistic()}
 				{this.chaosVision.subStatistic()}

@@ -3,6 +3,8 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
+import DeathRecapTracker from 'Main/DeathRecapTracker';
+
 import Abilities from './Modules/Abilities';
 import Channeling from './Modules/Core/Channeling';
 import GlobalCooldown from './Modules/Core/GlobalCooldown';
@@ -22,6 +24,7 @@ import DancingRuneWeapon from './Modules/Features/DancingRuneWeapon';
 import InitialMarrowrendCast from './Modules/Features/InitialMarrowrendCast';
 import DeathStrikeTiming from './Modules/Features/DeathStrikeTiming';
 import BoneShieldTimesByStacks from './Modules/Features/BoneShieldTimesByStacks';
+import DeathsCaress from './Modules/Core/DeathsCaress';
 
 // Resources
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
@@ -82,6 +85,8 @@ class CombatLogParser extends CoreCombatLogParser {
     souldrinker: Souldrinker,
     boneShield: BoneShield,
     boneShieldTimesByStacks: BoneShieldTimesByStacks,
+    deathRecapTracker: DeathRecapTracker,
+    deathsCaress: DeathsCaress,
 
     // DOT
     bloodplagueUptime: BloodPlagueUptime,

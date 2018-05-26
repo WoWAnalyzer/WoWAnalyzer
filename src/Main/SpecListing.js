@@ -1,7 +1,6 @@
 import React from 'react';
 
 import FingerprintFilledIcon from 'Icons/FingerprintFilled';
-import GitHubMarkIcon from 'Icons/GitHubMarkSmall';
 
 import SPECS from 'common/SPECS';
 import AVAILABLE_CONFIGS from 'Parser/AVAILABLE_CONFIGS';
@@ -13,7 +12,7 @@ import './SpecListing.css';
 class SpecListing extends React.PureComponent {
   render() {
     return (
-      <section>
+      <section className="spec-listing">
         <div className="container">
           <header>
             <div className="row">
@@ -23,7 +22,7 @@ class SpecListing extends React.PureComponent {
             </div>
           </header>
 
-          <div className="row" style={{ display: 'flex', flexWrap: 'wrap' }}>
+          <main>
             {Object.keys(SPECS)
               .filter(key => isNaN(key)) // since SPECS gets indexed by ids, all entries are doubled. With this we only use the non-numeric values
               .map(key => SPECS[key])
@@ -38,57 +37,46 @@ class SpecListing extends React.PureComponent {
               .map(spec => {
                 const className = spec.className.replace(/ /g, '');
                 const config = AVAILABLE_CONFIGS.find(config => config.spec === spec);
+
+                const Component = config.exampleReport ? 'a' : 'div';
+
                 return (
-                  <div key={spec.id} className="col-lg-4 col-md-6" style={{ marginBottom: 30 }}>
-                    <div
-                      className="flex spec-card"
-                      style={{
-                        opacity: !config ? 0.3 : undefined,
-                      }}
-                    >
-                      <div className="flex-sub icon" style={{ backgroundImage: `url(/specs/${className}-${spec.specName.replace(' ', '')}.jpg)` }} />
-                      <div className="flex-main description">
-                        <h1 className={className}>{spec.specName} {spec.className}</h1>
-                        {config ? (
-                          <React.Fragment>
-                            <div className="row" style={{ marginTop: '1em' }}>
-                              <div className="col-md-6" style={{ fontWeight: 'bold', paddingRight: 0 }}>
-                                Contributor{config.contributors.length > 1 && 's'}
-                              </div>
-                              <div className="col-md-6">
-                                <ReadableList>
-                                  {config.contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />)}
-                                </ReadableList>
-                              </div>
-                            </div>
-                            <div className="row" style={{ marginTop: '0.5em' }}>
-                              <div className="col-md-6" style={{ fontWeight: 'bold', paddingRight: 0 }}>
-                                Updated for patch
-                              </div>
-                              <div className="col-md-6">
-                                {config.patchCompatibility}
-                              </div>
-                            </div>
-                            <div className="row" style={{ marginTop: '0.5em' }}>
-                              <div className="col-md-6" style={{ fontWeight: 'bold', paddingRight: 0 }}>
-                                Source
-                              </div>
-                              <div className="col-md-6">
-                                <a href={`https://github.com/WoWAnalyzer/WoWAnalyzer/tree/master/${config.path}`} className="github" data-tip="View source code for this spec.">
-                                  <GitHubMarkIcon /> GitHub
-                                </a>
-                              </div>
-                            </div>
-                          </React.Fragment>
-                        ) : (
-                          <React.Fragment>Not yet available. <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md">Add it!</a></React.Fragment>
-                        )}
-                      </div>
+                  <Component
+                    key={spec.id}
+                    href={config.exampleReport}
+                    title={config.exampleReport ? 'Open example report' : undefined}
+                    className="spec-card"
+                    style={{
+                      opacity: !config ? 0.3 : undefined,
+                    }}
+                  >
+                    <div className="icon">
+                      <figure>
+                        <img
+                          src={`/specs/${className}-${spec.specName.replace(' ', '')}.jpg`}
+                          alt={`${spec.specName} ${spec.className} spec icon`}
+                        />
+                      </figure>
                     </div>
-                  </div>
+                    <div className="description">
+                      <h1 className={className}>{spec.specName} {spec.className}</h1>
+                      {config ? (
+                        <React.Fragment>
+                          Built by <ReadableList>
+                            {config.contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />)}
+                          </ReadableList>.<br />
+                          Accurate for patch {config.patchCompatibility}
+                        </React.Fragment>
+                      ) : (
+                        <React.Fragment>
+                          Not yet available. <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/CONTRIBUTING.md">Add it!</a>
+                        </React.Fragment>
+                      )}
+                    </div>
+                  </Component>
                 );
               })}
-          </div>
+          </main>
         </div>
       </section>
     );

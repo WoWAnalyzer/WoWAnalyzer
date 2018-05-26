@@ -30,7 +30,6 @@ import GlobalCooldown from './Modules/GlobalCooldown';
 import Enemies from './Modules/Enemies';
 import EnemyInstances from './Modules/EnemyInstances';
 import Pets from './Modules/Pets';
-import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
 import Channeling from './Modules/Channeling';
@@ -163,7 +162,6 @@ class CombatLogParser {
     spellManaCost: SpellManaCost,
     channeling: Channeling,
     abilityTracker: AbilityTracker,
-    healEventTracker: HealEventTracker,
     haste: Haste,
     statTracker: StatTracker,
     alwaysBeCasting: AlwaysBeCasting,
@@ -383,7 +381,9 @@ class CombatLogParser {
         // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
         // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
         if (options) {
-          Object.keys(options).forEach(key => module[key] = options[key]);
+          Object.keys(options).forEach(key => {
+            module[key] = options[key];
+          });
         }
         this._modules[desiredModuleName] = module;
       } else {

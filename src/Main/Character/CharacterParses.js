@@ -6,13 +6,14 @@ import fetchWcl from 'common/fetchWcl';
 import ActivityIndicator from 'Main/ActivityIndicator';
 
 import ZONES from 'common/ZONES';
-import REALMS from 'common/REALMS';
 import SPECS from 'common/SPECS';
 import DIFFICULTIES from 'common/DIFFICULTIES';
 import ITEMS from 'common/ITEMS';
 
 import './CharacterParses.css';
 import CharacterParsesList from './CharacterParsesList';
+
+const loadRealms = () => import('common/REALMS').then(exports => exports.default);
 
 //rendering 400+ parses takes quite some time
 const RENDER_LIMIT = 100;
@@ -25,6 +26,12 @@ const ORDER_BY = {
 const ZONE_DEFAULT_ANTORUS = 17;
 const BOSS_DEFAULT_ALL_BOSSES = 0;
 const TRINKET_SLOTS = [12, 13];
+const ERRORS = {
+  CHARACTER_NOT_FOUND: 'We couldn\'t find your character on Warcraft Logs',
+  NO_PARSES_FOR_TIER: 'We couldn\'t find any logs',
+  CHARACTER_HIDDEN: 'We could find your character but he\'s very shy',
+  UNEXPECTED: 'Something went wrong',
+};
 
 //Hunter or rogues have the same log multiple times with 'Ranged' or 'Melee' as spec
 //probably only there to allow filtering by multiple specs on WCLs character-page
@@ -32,7 +39,6 @@ const TRINKET_SLOTS = [12, 13];
 const EXCLUDED_GENERIC_SPECS_FROM_PARSES = ['Ranged', 'Melee', 'Healing'];
 
 class CharacterParses extends React.Component {
-
   static propTypes = {
     region: PropTypes.string.isRequired,
     realm: PropTypes.string.isRequired,
@@ -54,7 +60,7 @@ class CharacterParses extends React.Component {
       image: null,
       parses: [],
       isLoading: true,
-      error: false,
+      error: null,
     };
 
     this.updateDifficulty = this.updateDifficulty.bind(this);
@@ -129,9 +135,7 @@ class CharacterParses extends React.Component {
       return filteredParses.slice(0, RENDER_LIMIT);
     }
 
-    filteredParses = filteredParses.filter((elem, index) => {
-      return elem.name === this.state.activeEncounter;
-    });
+    filteredParses = filteredParses.filter(elem => elem.name === this.state.activeEncounter);
 
     return filteredParses.slice(0, RENDER_LIMIT);
   }
@@ -139,7 +143,7 @@ class CharacterParses extends React.Component {
   //resolve the boss+difficulty->spec->parse structure to make sorting & filtering easier
   changeParseStructure(rawParses) {
     const parses = [];
-    rawParses.forEach((elem, index) => {
+    rawParses.forEach(elem => {
       const name = elem.name;
       const difficulty = DIFFICULTIES[elem.difficulty];
 
@@ -176,7 +180,7 @@ class CharacterParses extends React.Component {
         });
     });
 
-    Object.values(ITEMS).forEach(trinket => {
+    Object.values(ITEMS).map(trinket => {
       if (trinket.icon === ITEMS[0].icon && trinket.id !== 0) {
         return fetch(`https://eu.api.battle.net/wow/item/${trinket.id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
           .then(response => response.json())
@@ -184,6 +188,7 @@ class CharacterParses extends React.Component {
             ITEMS[trinket.id].icon = data.icon;
           });
       }
+      return null;
     });
 
     return parses;
@@ -200,7 +205,7 @@ class CharacterParses extends React.Component {
       this.setState({
         image: image,
       });
-      return;
+      return null;
     }
 
     return fetch(`https://${this.props.region}.api.battle.net/wow/character/${encodeURIComponent(this.props.realm)}/${encodeURIComponent(this.props.name)}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
@@ -218,66 +223,119 @@ class CharacterParses extends React.Component {
       });
   }
 
-  load(refresh = false) {
+  async load(refresh = false) {
     this.fetchImage(refresh);
     this.setState({
       isLoading: true,
     });
 
     const charName = encodeURIComponent(this.props.name);
+    const realms = await loadRealms();
+
     //use the slug from REALMS when available, otherwise try realm-prop and fail
-    let charRealm = REALMS[this.props.region] ? REALMS[this.props.region].realms.find(elem => elem.name === this.props.realm).slug : this.props.realm;
+    let charRealm = realms[this.props.region] ? realms[this.props.region].realms.find(elem => elem.name === this.props.realm).slug : this.props.realm;
     charRealm = encodeURIComponent(charRealm);
 
     return fetchWcl(`parses/character/${charName}/${charRealm}/${this.props.region}`, {
       metric: this.state.metric,
       zone: this.state.activeZoneID,
       _: refresh ? +new Date() : undefined,
-    }).then((rawParses) => {
-      if (rawParses.status === 400) {
-        // means char was not found on WCL
-        this.setState({
-          error: true,
-        });
-        return;
-      }
+    })
+      .then(rawParses => {
+        if (rawParses.status === 400) {
+          this.setState({
+            isLoading: false,
+            error: ERRORS.CHARACTER_NOT_FOUND,
+          });
+          return;
+        }
 
-      if (rawParses.length === 0) { //happens when the character has no logs for the selected raid
-        this.setState({
-          parses: [],
-          isLoading: false,
-        });
-        return;
-      }
+        if (rawParses.length === 0) {
+          this.setState({
+            parses: [],
+            isLoading: false,
+            error: ERRORS.NO_PARSES_FOR_TIER,
+          });
+          return;
+        }
 
-      if (this.state.class !== '') { //only update parses when class was already parsed (since its only a metric/raid change)
+        if (rawParses.hidden) {
+          this.setState({
+            isLoading: false,
+            error: ERRORS.CHARACTER_HIDDEN,
+          });
+          return;
+        }
+
+        if (this.state.class !== '') { //only update parses when class was already parsed (since its only a metric/raid change)
+          const parses = this.changeParseStructure(rawParses);
+          this.setState({
+            parses: parses,
+            error: null,
+            isLoading: false,
+          });
+          return;
+        }
+
+        const charClass = rawParses[0].specs[0].class;
+        const specs = Object.values(SPECS)
+          .map(elem => elem.className.replace(' ', '') !== charClass ? undefined : elem.specName)
+          .filter(elem => elem)
+          // eslint-disable-next-line no-restricted-syntax
+          .filter((item, index, self) => self.indexOf(item) === index);
+
         const parses = this.changeParseStructure(rawParses);
         this.setState({
+          specs: specs,
+          activeSpec: specs.map(elem => elem.replace(' ', '')),
+          class: charClass,
           parses: parses,
           isLoading: false,
+          error: null,
         });
-
-        return;
-      }
-
-      const charClass = rawParses[0].specs[0].class;
-      const specs = Object.values(SPECS)
-        .map(elem => elem.className.replace(' ', '') !== charClass ? undefined : elem.specName)
-        .filter(elem => elem)
-        .filter((item, index, self) => self.indexOf(item) === index);
-
-      const parses = this.changeParseStructure(rawParses);
-      this.setState({
-        specs: specs,
-        activeSpec: specs.map(elem => elem.replace(' ', '')),
-        class: charClass,
-        parses: parses,
-        isLoading: false,
+      })
+      .catch(e => {
+        this.setState({
+          error: ERRORS.UNEXPECTED,
+          isLoading: false,
+        });
       });
-    });
   }
 
   render() {
+
+    let errorMessage;
+    if (this.state.error === ERRORS.CHARACTER_NOT_FOUND) {
+      errorMessage = (
+        <div style={{ padding: 20 }}>
+          Please check your input and make sure that you've selected the correct region and realm.<br />
+          If your input was correct, then make sure that someone in your raid logged the fight for you or check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get started with logging on your own.<br /><br />
+          When you know for sure that you have logs on Warcraft Logs and you still get this error, please message us on <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">Discord</a> or create an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">Github</a>.
+        </div>
+      );
+    } else if (this.state.error === ERRORS.CHARACTER_HIDDEN) {
+      errorMessage = (
+        <div style={{ padding: 20 }}>
+          This character is hidden on warcraftlogs and we can't access the parses.<br /><br />
+          You don't know how to make your character visible again? Check <a href="https://www.warcraftlogs.com/help/hidingcharacters/" target="_blank" rel="noopener noreferrer">Warcraft Logs </a> and hit the 'Refresh' button above once you're done.
+        </div>
+      );
+    } else if (this.state.error === ERRORS.UNEXPECTED) {
+      errorMessage = (
+        <div style={{ padding: 20 }}>
+          Something unexpected happened.<br /><br />
+          Please message us on <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">Discord</a> or create an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">Github</a> and we will fix it, eventually.
+        </div>
+      );
+    } else if (this.state.error === ERRORS.NO_PARSES_FOR_TIER || this.filterParses.length === 0) {
+      errorMessage = (
+        <div style={{ padding: 20 }}>
+          Please check your filters and make sure that you logged those fights on Warcraft Logs.<br /><br />
+          You don't know how to log your fights? Check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get startet.
+        </div>
+      );
+    }
+
     return (
       <div className="container charparse">
         <div className="flex-main">
@@ -309,7 +367,7 @@ class CharacterParses extends React.Component {
                 </div>
                 <div className="col-md-4">
                   Specs:
-                  {this.state.specs.map((elem, index) =>
+                  {this.state.specs.map((elem, index) => (
                     <div
                       key={index}
                       onClick={() => this.updateSpec(elem.replace(' ', ''))}
@@ -318,12 +376,12 @@ class CharacterParses extends React.Component {
                       <img src={this.iconPath(elem)} style={{ height: 18, marginRight: 10 }} alt="Icon" />
                       {elem}
                     </div>
-                  )}
+                  ))}
                 </div>
 
                 <div className="col-md-4">
                   Difficulties:
-                  {DIFFICULTIES.filter(elem => elem).map((elem, index) =>
+                  {DIFFICULTIES.filter(elem => elem).map((elem, index) => (
                     <div
                       key={index}
                       onClick={() => this.updateDifficulty(elem)}
@@ -331,7 +389,7 @@ class CharacterParses extends React.Component {
                     >
                       {elem}
                     </div>
-                  )}
+                  ))}
                 </div>
                 <div className="col-md-4">
                   Raid:
@@ -390,7 +448,7 @@ class CharacterParses extends React.Component {
                 <br /><br />
               </span>
             )}
-            <div className="panel" stlye={{ overflow: 'auto' }}>
+            <div className="panel" style={{ overflow: 'auto' }}>
               <div className="flex-main">
                 {this.state.isLoading && !this.state.error && (
                   <div style={{ textAlign: 'center', fontSize: '2em', margin: '20px 0' }}>
@@ -399,9 +457,9 @@ class CharacterParses extends React.Component {
                 )}
                 {!this.state.isLoading && (
                   <div className="panel-heading">
-                    <h2 style={{ display: 'inline' }}>Parses</h2>
+                    <h2 style={{ display: 'inline' }}>{this.state.error ? this.state.error : 'Parses'}</h2>
                     <Link
-                      to={''}
+                      to=""
                       className="pull-right"
                       onClick={e => {
                         e.preventDefault();
@@ -412,25 +470,7 @@ class CharacterParses extends React.Component {
                     </Link>
                   </div>
                 )}
-                {this.state.error && (
-                  <div>
-                    <div className="panel-heading">
-                      <h2>We couldn't find your character on Warcraft Logs.</h2>
-                    </div>
-                    <div style={{ padding: 20 }}>
-                      Please check your input and make sure that you've selected the correct region and realm.<br />
-                      If your input was correct, then make sure that someone in your raid logged the fight for you or check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get started with logging on your own.<br /><br />
-                      When you know for sure that you have logs on Warcraft Logs and you still get this error, please message us on <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">Discord</a> or create an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">Github</a>.
-                    </div>
-                  </div>
-                )}
-                {this.filterParses.length === 0 && !this.state.isLoading && !this.state.error && (
-                  <div style={{ padding: 20 }}>
-                    We couldn't find any logs.<br />
-                    Please check your filters and make sure that you logged those fights on Warcraft Logs.<br /><br />
-                    You don't know how to log your fights? Check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get startet.
-                  </div>
-                )}
+                {!this.state.isLoading && errorMessage}
                 {!this.state.isLoading && (
                   <CharacterParsesList
                     parses={this.filterParses}

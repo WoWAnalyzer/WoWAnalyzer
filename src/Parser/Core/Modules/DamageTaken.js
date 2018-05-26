@@ -42,7 +42,7 @@ class DamageTaken extends Analyzer {
 
   _addDamage(ability, amount = 0, absorbed = 0, blocked = 0, overkill = 0) {
     const spellId = ability.guid;
-    if (this.constructor.IGNORED_ABILITIES.indexOf(spellId) !== -1) {
+    if (this.constructor.IGNORED_ABILITIES.includes(spellId)) {
       // Some player abilities (mostly of healers) cause damage as a side-effect, these shouldn't be included in the damage taken.
       return;
     }
@@ -112,7 +112,7 @@ class DamageTaken extends Analyzer {
           <Toggleable
             className="statistic-bar"
             data-tip={this.tooltip}
-            value = {
+            value={
               Object.keys(simplifiedValues)
                 .map(type =>
                   (
@@ -124,7 +124,7 @@ class DamageTaken extends Analyzer {
                   )
                 )
             }
-            toggledvalue = {
+            toggledvalue={
               Object.keys(this._byMagicSchool)
                 .filter(type => this._byMagicSchool[type].effective !== 0)
                 .map(type =>

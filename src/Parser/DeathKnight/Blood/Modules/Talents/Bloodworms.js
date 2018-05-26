@@ -29,7 +29,7 @@ class Bloodworms extends Analyzer {
   }
 
   poppedWorms(bloodworm) {
-    return bloodworm.filter(e =>  e.killedTime - e.summonedTime <= WORMLIFESPAN).length;
+    return bloodworm.filter(e => e.killedTime - e.summonedTime <= WORMLIFESPAN).length;
   }
 
   on_byPlayer_summon(event) {

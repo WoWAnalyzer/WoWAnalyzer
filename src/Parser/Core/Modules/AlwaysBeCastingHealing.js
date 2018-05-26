@@ -39,7 +39,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
     return true;
   }
   countsAsHealingAbility(event) {
-    return this.constructor.HEALING_ABILITIES_ON_GCD.indexOf(event.ability.guid) !== -1;
+    return this.constructor.HEALING_ABILITIES_ON_GCD.includes(event.ability.guid);
   }
 
   showStatistic = true;

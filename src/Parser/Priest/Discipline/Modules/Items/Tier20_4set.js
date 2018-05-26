@@ -56,7 +56,7 @@ class Tier20_4set extends Analyzer {
   }
 
   suggestions(when) {
-    const utilisation =  (this._consumeCount / this._procCount) || 0;
+    const utilisation = (this._consumeCount / this._procCount) || 0;
 
     when(utilisation).isLessThan(0.8)
         .addSuggestion((suggest, actual, recommended) => {

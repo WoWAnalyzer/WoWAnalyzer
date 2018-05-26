@@ -63,7 +63,7 @@ class Serendipity extends Analyzer {
       icon: <SpellIcon id={SPELLS.HOLY_PRIEST_T20_2SET_BONUS_BUFF.id} />,
       title: <SpellLink id={SPELLS.HOLY_PRIEST_T20_2SET_BONUS_BUFF.id} />,
       result: (
-        <dfn data-tip={`Effective gain from the 2-piece bonus. This filters out wasted Serendipity.`}>
+        <dfn data-tip="Effective gain from the 2-piece bonus. This filters out wasted Serendipity.">
           {formatNumber(this.serenity.holy_t20_2p / 1000 + this.sanctify.holy_t20_2p / 1000)} seconds of additional Holy Word cooldown reduction
         </dfn>
       ),

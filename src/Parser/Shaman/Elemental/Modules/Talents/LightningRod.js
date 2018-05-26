@@ -45,12 +45,12 @@ class LightningRod extends Analyzer {
       <StatisticBox icon={<SpellIcon id={SPELLS.LIGHTNING_ROD_TALENT.id} />}
         value={(
           <span>
-            {`${formatPercentage(this.getPercentageUptime)} %`}<br/>
+            {`${formatPercentage(this.getPercentageUptime)} %`}<br />
             {`${formatNumber(this.getDamagePerSecond)} DPS`}{' '}
           </span>
         )}
         label="Lightning Rod Uptime/DPS"
-        tooltip={`DPS and Uptime of the Lightning Rod Talent.</li></ul>`} />
+        tooltip="DPS and Uptime of the Lightning Rod Talent.</li></ul>" />
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
