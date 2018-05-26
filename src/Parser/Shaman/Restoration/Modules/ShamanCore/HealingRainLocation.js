@@ -52,6 +52,9 @@ class HealingRainLocation extends Analyzer {
     this.healingRainEvents.push(event);
   }
 
+  // We use begincast instead of cast in this, and all modules depending on this, since it is the only event that is guaranteed
+  // to occur after Healing Rain is done, and before the next one starts, as the cast event tends to be in the middle between
+  // its own healing events, and we can't check for gaps in heal events as the cast time is faster than the time between ticks. 
   on_byPlayer_begincast(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.HEALING_RAIN_CAST.id || event.isCancelled) {
@@ -121,9 +124,8 @@ class HealingRainLocation extends Analyzer {
       x: (maxX + minX) / 2,
       y: (maxY + minY) / 2,
     };
-    const ellipse = {ellipseCenterPoint, ellipseWidth, ellipseHeight};
 
-    return ellipse;
+    return {ellipseCenterPoint, ellipseWidth, ellipseHeight};
   }
 
   // also called: is point inside ellipse
