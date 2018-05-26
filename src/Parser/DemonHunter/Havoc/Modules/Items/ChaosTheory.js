@@ -99,7 +99,7 @@ class ChaosTheory extends Analyzer {
 			item: ITEMS.CHAOS_THEORY,
 			result: (
 				<dfn data-tip={`You had <b>${this.procs}</b> procs (<b>${formatNumber(this.expectedProcs)}</b> expected procs)</br> Total Damage: <b>${formatNumber(this.bonusDamage)}</b>`}>
-					<ItemDamageDone amount={this.bonusDamage}/>
+					<ItemDamageDone amount={this.bonusDamage} />
 				</dfn>
 			),
 		};

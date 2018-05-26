@@ -128,7 +128,7 @@ class Sentinel extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SENTINEL_TALENT.id} />}
         value={`${this.goodTicks}/${this.totalPossibleTicks}`}
-        label={`flawless ticks`}
+        label="flawless ticks"
         tooltip={`You applied Hunter's Mark with Sentinel ${this.appliedDebuffsFromSentinel} times spread over ${this.sentinelCasts} casts of Sentinel. This gives an average of ${this.debuffsPerCast} debuffs per cast. <br/> You wasted ${this.wastedApplications} possible applications with Sentinel ticking on targets who already had Hunter's Mark debuff. </br> Out of ${this.totalPossibleTicks} possible ticks: <ul><li>${this.goodTicks} ${this.goodTicks > 1 ? 'ticks' : 'tick'} were good ticks where no target already had Hunter's Mark when it ticked.</li><li>${this.wastedTicks} ${this.wastedTicks > 1 ? 'ticks' : 'tick'} had one or more targets already with Hunter's Mark on them.</li><li>${this.missedTicks} ${this.missedTicks > 1 ? 'ticks' : 'tick'} completely missed any targets.</li></ul>`}
         footer={(
           <div className="statistic-bar">
@@ -136,20 +136,17 @@ class Sentinel extends Analyzer {
               className="stat-health-bg"
               style={{ width: `${formatPercentage((this.goodTicks / this.totalPossibleTicks))}%` }}
               data-tip={`<b>${formatPercentage(this.goodTicks / this.totalPossibleTicks)}%</b> of your Sentinel ticks happened while none of the targets had a hunter's mark on them, good job!`}
-            >
-            </div>
+             />
             <div
               className="DeathKnight-bg"
               style={{ width: `${formatPercentage(this.wastedTicks / this.totalPossibleTicks)}%` }}
               data-tip={`<b>${formatPercentage(this.wastedTicks / this.totalPossibleTicks)}%</b> of your Sentinel ticks happened while one of the targets already a hunter's mark on them.`}
-            >
-            </div>
+             />
             <div
               className="Druid-bg"
               style={{ width: `${formatPercentage(this.missedTicks / this.totalPossibleTicks)}%` }}
               data-tip={`<b>${formatPercentage(this.missedTicks / this.totalPossibleTicks)}%</b> of your possible Sentinel ticks completely missed a target.`}
-            >
-            </div>
+             />
           </div>
         )}
         footerStyle={{ overflow: 'hidden' }}

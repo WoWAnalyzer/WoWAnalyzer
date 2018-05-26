@@ -72,7 +72,7 @@ class GlacialSpike extends Analyzer {
         icon={<SpellIcon id={SPELLS.GLACIAL_SPIKE_TALENT.id} />}
         value={`${formatPercentage(this.utilPercentage, 0)} %`}
         label="Icicle Utilization"
-        tooltip={`This is the percentage of Icicles gained that you merged into a Glacial Spike. Casting Frostbolt at max Icicles will cause an Icicle to automatically launch. While this Icicle still does damage, there is an opportunity cost to delaying your Glacial Spike cast.`}
+        tooltip="This is the percentage of Icicles gained that you merged into a Glacial Spike. Casting Frostbolt at max Icicles will cause an Icicle to automatically launch. While this Icicle still does damage, there is an opportunity cost to delaying your Glacial Spike cast."
       />
     );
   }

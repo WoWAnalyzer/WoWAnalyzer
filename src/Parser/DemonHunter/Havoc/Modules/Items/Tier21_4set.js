@@ -55,7 +55,7 @@ class Tier21_4set extends Analyzer {
 
   suggestions(when) {
   	when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-  		return suggest(<React.Fragment>You are clipping your <SpellLink id={SPELLS.EYE_BEAM.id} icon/> before it ends and losing out on the <SpellLink id={SPELLS.HAVOC_T21_4PC_BUFF.id} icon/> buff. Make sure you fully channel your <SpellLink id={SPELLS.EYE_BEAM.id} icon/>.</React.Fragment>)
+  		return suggest(<React.Fragment>You are clipping your <SpellLink id={SPELLS.EYE_BEAM.id} icon /> before it ends and losing out on the <SpellLink id={SPELLS.HAVOC_T21_4PC_BUFF.id} icon /> buff. Make sure you fully channel your <SpellLink id={SPELLS.EYE_BEAM.id} icon />.</React.Fragment>)
   			.icon(SPELLS.HAVOC_T21_4PC_BONUS.icon)
   			.actual(`${formatNumber(this.eyeBeamCasts - this.betrayersFuryBuffCount)} missed proc(s)`)
   			.recommended(`Wasting none is recommended`);
@@ -68,7 +68,7 @@ class Tier21_4set extends Analyzer {
       id: `spell-${SPELLS.HAVOC_T21_4PC_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.HAVOC_T21_4PC_BONUS.id} />,
       title: <SpellLink id={SPELLS.HAVOC_T21_4PC_BONUS.id} icon={false} />,
-      result: <React.Fragment>{formatPercentage(uptime)} % uptime on <SpellLink id={SPELLS.HAVOC_T21_4PC_BUFF.id} icon/></React.Fragment>,
+      result: <React.Fragment>{formatPercentage(uptime)} % uptime on <SpellLink id={SPELLS.HAVOC_T21_4PC_BUFF.id} icon /></React.Fragment>,
     };
   }
 }

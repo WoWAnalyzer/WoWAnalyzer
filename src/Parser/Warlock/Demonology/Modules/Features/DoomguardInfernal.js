@@ -39,7 +39,7 @@ class DoomguardInfernal extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You should cast <SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} /> or <SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} /> more often. Doomguard is best for single target while Infernal is better for AoE. Try to pair up the cooldowns with haste buffs like <SpellLink id={SPELLS.BLOODLUST.id}/>, <SpellLink id={SPELLS.TIME_WARP.id}/> etc..</React.Fragment>)
+        return suggest(<React.Fragment>You should cast <SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} /> or <SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} /> more often. Doomguard is best for single target while Infernal is better for AoE. Try to pair up the cooldowns with haste buffs like <SpellLink id={SPELLS.BLOODLUST.id} />, <SpellLink id={SPELLS.TIME_WARP.id} /> etc..</React.Fragment>)
           .icon(SPELLS.SUMMON_DOOMGUARD_UNTALENTED.icon)
           .actual(`${actual} out of ${recommended} summons.`)
           .recommended(`${recommended} is recommended`);

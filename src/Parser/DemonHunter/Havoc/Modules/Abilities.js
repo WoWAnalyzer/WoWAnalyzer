@@ -108,7 +108,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: .9,
-          extraSuggestion: <React.Fragment>With <SpellLink id={SPELLS.DEMONIC_TALENT.id} icon/> or <SpellLink id={SPELLS.HAVOC_T21_4PC_BONUS.id} icon/> you should be using <SpellLink id={SPELLS.EYE_BEAM.id} icon/> as much as possible to have high uptime on <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} icon/> and/or <SpellLink id={SPELLS.HAVOC_T21_4PC_BUFF.id} icon/>.</React.Fragment>,
+          extraSuggestion: <React.Fragment>With <SpellLink id={SPELLS.DEMONIC_TALENT.id} icon /> or <SpellLink id={SPELLS.HAVOC_T21_4PC_BONUS.id} icon /> you should be using <SpellLink id={SPELLS.EYE_BEAM.id} icon /> as much as possible to have high uptime on <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} icon /> and/or <SpellLink id={SPELLS.HAVOC_T21_4PC_BUFF.id} icon />.</React.Fragment>,
         },
       },
       {

@@ -126,7 +126,7 @@ class SpinningCraneKick extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <dfn data-tip={'Spinning Crane Kick hits all nearby enemies 4 times over 1.5 seconds'}>
+          <dfn data-tip="Spinning Crane Kick hits all nearby enemies 4 times over 1.5 seconds">
             Average hits
           </dfn>
         </div>
@@ -157,7 +157,7 @@ class SpinningCraneKick extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <dfn data-tip={'Bad casts is currently only counting casts with lower DPET (Damage Per Execute Time) than Blackout Kick.'}>
+          <dfn data-tip="Bad casts is currently only counting casts with lower DPET (Damage Per Execute Time) than Blackout Kick.">
             Bad casts
           </dfn>
         </div>

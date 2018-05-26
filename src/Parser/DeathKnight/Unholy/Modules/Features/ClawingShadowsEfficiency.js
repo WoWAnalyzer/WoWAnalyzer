@@ -66,7 +66,7 @@ class ClawingShadowsEfficiency extends Analyzer {
     const strikeEfficiency = 1 - percentCastZeroWounds;
     when(strikeEfficiency).isLessThan(0.80)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>You are casting <SpellLink id={SPELLS.CLAWING_SHADOWS_TALENT.id}/> too often.  When spending runes remember to cast <SpellLink id={SPELLS.FESTERING_STRIKE.id}/> instead on targets with no stacks of <SpellLink id={SPELLS.FESTERING_WOUND.id}/></span>)
+          return suggest(<span>You are casting <SpellLink id={SPELLS.CLAWING_SHADOWS_TALENT.id} /> too often.  When spending runes remember to cast <SpellLink id={SPELLS.FESTERING_STRIKE.id} /> instead on targets with no stacks of <SpellLink id={SPELLS.FESTERING_WOUND.id} /></span>)
             .icon(SPELLS.CLAWING_SHADOWS_TALENT.icon)
             .actual(`${formatPercentage(actual)}% of Clawing Shadows were used with Wounds on the target`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`)

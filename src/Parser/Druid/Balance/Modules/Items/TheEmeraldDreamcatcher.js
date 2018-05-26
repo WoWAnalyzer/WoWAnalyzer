@@ -82,7 +82,7 @@ class TheEmeraldDreamcatcher extends Analyzer {
             You dropped the buff ${this.buffDropped} times in total.
           `}
         >
-          <React.Fragment>Reduced the cost of <SpellLink id={SPELLS.STARSURGE_MOONKIN.id}/> by an average of {this.averageDiscount.toFixed(2)}.</React.Fragment>
+          <React.Fragment>Reduced the cost of <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> by an average of {this.averageDiscount.toFixed(2)}.</React.Fragment>
         </dfn>
       ),
     };

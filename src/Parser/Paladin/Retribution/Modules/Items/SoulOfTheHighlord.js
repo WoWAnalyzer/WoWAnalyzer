@@ -24,7 +24,7 @@ class SoulOfTheHighlord extends Analyzer {
   item() {
     return {
       item: ITEMS.SOUL_OF_THE_HIGHLORD,
-      result: <React.Fragment>This gave you <SpellLink id={this.talentGained} icon/>.</React.Fragment>,
+      result: <React.Fragment>This gave you <SpellLink id={this.talentGained} icon />.</React.Fragment>,
     };
   }
 
@@ -38,7 +38,7 @@ class SoulOfTheHighlord extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).isFalse().addSuggestion((suggest) => {
-      return suggest(<React.Fragment>When using <ItemLink id={ITEMS.SOUL_OF_THE_HIGHLORD.id} /> please make sure to pick another talent in the talent row. Your choices are <SpellLink id={this.option1} icon/> or <SpellLink id={this.option2} icon/>.</React.Fragment>)
+      return suggest(<React.Fragment>When using <ItemLink id={ITEMS.SOUL_OF_THE_HIGHLORD.id} /> please make sure to pick another talent in the talent row. Your choices are <SpellLink id={this.option1} icon /> or <SpellLink id={this.option2} icon />.</React.Fragment>)
         .icon(ITEMS.SOUL_OF_THE_HIGHLORD.icon)
         .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
     });

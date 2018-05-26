@@ -24,12 +24,12 @@ export default [
   },
   {
     date: new Date('2018-03-06'),
-    changes: <React.Fragment>Added Statistics and Suggestions on use of <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} icon/></React.Fragment>,
+    changes: <React.Fragment>Added Statistics and Suggestions on use of <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} icon /></React.Fragment>,
     contributors: [Juko8],
   },
   {
     date: new Date('2018-03-03'),
-    changes: <React.Fragment>Added <ItemLink id={ITEMS.THE_WIND_BLOWS.id} icon/></React.Fragment>,
+    changes: <React.Fragment>Added <ItemLink id={ITEMS.THE_WIND_BLOWS.id} icon /></React.Fragment>,
     contributors: [Hewhosmites],
   },
   {

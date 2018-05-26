@@ -62,6 +62,11 @@ h2 {
   margin: 0;
   font-size: 1em;
 }
+.wowdb-tooltip .db-tooltip h2 {
+  text-transform: none;
+  letter-spacing: normal;
+  opacity: 1;
+}
 
 
 a {
@@ -414,11 +419,11 @@ dfn[data-tip] {
 
 /* Source: http://tobiasahlin.com/spinkit/ */
 .spinner {
-  width: 100px;
-  height: 100px;
+  width: 5em;
+  height: 5em;
   background-color: #e45a5a;
 
-  margin: 0 auto;
+  margin: 2.5em auto;
   animation: sk-rotateplane 1.2s infinite ease-in-out;
 }
 

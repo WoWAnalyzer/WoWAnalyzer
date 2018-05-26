@@ -7,10 +7,12 @@ import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatPercentage } from 'common/format';
+import RageTracker from '../Core/RageTracker';
 
 class Vengeance extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    rageTracker: RageTracker,
   };
 
   buffedIgnoreCasts = 0;
@@ -79,12 +81,14 @@ class Vengeance extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.VENGEANCE_TALENT.id} />}
         value={`${formatPercentage(this.buffUsage)}%`}
-        label={`Buffs unused`}
+        label="Buffs unused"
         tooltip={`
           ${this.buffedIgnoreCasts} buffed ${SPELLS.IGNORE_PAIN.name} casts<br/>
           ${this.buffedRevengeCasts} buffed ${SPELLS.REVENGE.name} casts<br/>
           You refreshed your "${SPELLS.VENGEANCE_IGNORE_PAIN.name}" buff ${this.ignoreBuffsOverwritten} times<br/>
-          You refreshed your "${SPELLS.VENGEANCE_REVENGE.name}" buff ${this.revengeBuffsOverwritten} times
+          You refreshed your "${SPELLS.VENGEANCE_REVENGE.name}" buff ${this.revengeBuffsOverwritten} times<br/><br/>
+
+          You saved <b>${this.rageTracker.rageSavedByVengeance}</b> Rage by casting ${SPELLS.IGNORE_PAIN.name} and ${SPELLS.REVENGE.name} with Vengeance up.
         `}
       />
     );

@@ -135,7 +135,7 @@ class TitansThunder extends Analyzer {
           </React.Fragment>
 
         )}
-        label={`Titan's Thunder`}
+        label="Titan's Thunder"
         tooltip={tooltipText}
       />
     );

@@ -69,7 +69,7 @@ export default [
   },
   {
     date: new Date('2017-11-16'),
-    changes: <React.Fragment>Fix crash when using <ItemLink id={ITEMS.FOCUSER_OF_JONAT.id}/>.</React.Fragment>,
+    changes: <React.Fragment>Fix crash when using <ItemLink id={ITEMS.FOCUSER_OF_JONAT.id} />.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {

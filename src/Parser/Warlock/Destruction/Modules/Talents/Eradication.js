@@ -127,7 +127,7 @@ class Eradication extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          Buffed <SpellLink id={SPELLS.CHANNEL_DEMONFIRE_TALENT.id} icon/> ticks
+          Buffed <SpellLink id={SPELLS.CHANNEL_DEMONFIRE_TALENT.id} icon /> ticks
         </div>
         <div className="flex-sub text-right">
           <dfn data-tip={`${this._buffedCDF} / ${this._totalCDF}`}>
@@ -140,7 +140,7 @@ class Eradication extends Analyzer {
 
   statistic() {
     return (
-      <StatisticsListBox title={<SpellLink id={SPELLS.ERADICATION_TALENT.id} icon/>}>
+      <StatisticsListBox title={<SpellLink id={SPELLS.ERADICATION_TALENT.id} icon />}>
         {this.uptimeStatistic}
         {this.chaosBoltStatistic}
         {this._hasCDF && this.channelDemonfireStatistic}

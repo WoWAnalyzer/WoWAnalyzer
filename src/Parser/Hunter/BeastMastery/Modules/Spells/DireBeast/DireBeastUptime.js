@@ -29,7 +29,7 @@ class DireBeastUptime extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DIRE_BEAST.id} />}
         value={`${formatPercentage(this.percentUptime)}%`}
-        label={`Dire Beast Uptime`}
+        label="Dire Beast Uptime"
         tooltip={`If this tooltip shows over 100% uptime, it's because you on average had more than 1 Dire Beast buff active at all times. In actuality you had an average of ${(this.percentUptime).toFixed(2)} Dire Beasts up throughout the fight.`}
       />
     );

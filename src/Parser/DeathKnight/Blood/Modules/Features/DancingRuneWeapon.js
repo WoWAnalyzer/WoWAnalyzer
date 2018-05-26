@@ -1,9 +1,10 @@
 import React from 'react';
+
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Abilities from 'Parser/Core/Modules/Abilities';
-import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 
 const ALLOWED_CASTS_DURING_DRW = [
   SPELLS.DEATH_STRIKE.id,
@@ -14,7 +15,6 @@ const ALLOWED_CASTS_DURING_DRW = [
 ];
 
 class DancingRuneWeapon extends Analyzer {
-
   static dependencies = {
     combatants: Combatants,
     abilities: Abilities,
@@ -29,8 +29,8 @@ class DancingRuneWeapon extends Analyzer {
 
     //push all casts during DRW that were on the GCD in array
     if (event.ability.guid !== SPELLS.RAISE_ALLY.id && //probably usefull to rezz someone even if it's a personal DPS-loss
-      this.abilities.getAbility(event.ability.guid) !== undefined && 
-      this.abilities.getAbility(event.ability.guid).isOnGCD === true) { 
+      this.abilities.getAbility(event.ability.guid) !== undefined &&
+      this.abilities.getAbility(event.ability.guid).isOnGCD === true) {
       this.castsDuringDRW.push(event.ability.guid);
     }
   }
@@ -40,7 +40,7 @@ class DancingRuneWeapon extends Analyzer {
       return ALLOWED_CASTS_DURING_DRW.includes(val);
     });
   }
-  
+
   get SuggestionThresholds() {
     return {
       actual: this.goodDRWCasts.length / this.castsDuringDRW.length,
@@ -60,25 +60,25 @@ class DancingRuneWeapon extends Analyzer {
       return <span><SpellLink id={id} /> </span>;
     } else {
       return <span><SpellLink id={id} />, </span>;
-    }  
+    }
   }
 
   get goodDRWSpells() {
-    return <div>Try and prioritize 
-      {ALLOWED_CASTS_DURING_DRW.map((id, index) => 
-        this.spellLinks(id, index)
-      )}
-    </div>;
+    return (
+      <div>
+        Try and prioritize {ALLOWED_CASTS_DURING_DRW.map((id, index) => this.spellLinks(id, index))}
+      </div>
+    );
   }
 
   suggestions(when) {
     when(this.SuggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>Avoid casting spells during <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> that don't benefit from the coppies such as <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> and <SpellLink id={SPELLS.DEATH_AND_DECAY.id} />. Check the cooldown-tab below for more detailed breakdown.{this.goodDRWSpells}</React.Fragment>)
-            .icon(SPELLS.DANCING_RUNE_WEAPON.icon)
-            .actual(`${ this.goodDRWCasts.length } out of ${ this.castsDuringDRW.length} casts during DRW were good`)
-            .recommended(`${this.castsDuringDRW.length} recommended`);
-        });
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<React.Fragment>Avoid casting spells during <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> that don't benefit from the coppies such as <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> and <SpellLink id={SPELLS.DEATH_AND_DECAY.id} />. Check the cooldown-tab below for more detailed breakdown.{this.goodDRWSpells}</React.Fragment>)
+          .icon(SPELLS.DANCING_RUNE_WEAPON.icon)
+          .actual(`${ this.goodDRWCasts.length } out of ${ this.castsDuringDRW.length} casts during DRW were good`)
+          .recommended(`${this.castsDuringDRW.length} recommended`);
+      });
   }
 }
 

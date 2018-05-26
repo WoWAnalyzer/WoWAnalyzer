@@ -43,7 +43,7 @@ class LessonsOfSpaceTime extends Analyzer {
     return {
       item: ITEMS.LESSONS_OF_SPACETIME,
       result: (<React.Fragment>
-        {formatPercentage(this.uptime)} % uptime on <SpellLink id={SPELLS.LESSONS_OF_SPACETIME_BUFF.id} icon/> <br />
+        {formatPercentage(this.uptime)} % uptime on <SpellLink id={SPELLS.LESSONS_OF_SPACETIME_BUFF.id} icon /> <br />
         <ItemDamageDone amount={this.bonusDmg} />
       </React.Fragment>),
     };

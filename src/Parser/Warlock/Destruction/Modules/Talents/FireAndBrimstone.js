@@ -59,7 +59,7 @@ class FireAndBrimstone extends Analyzer {
     // but because the second Incinerate "technically" doesn't have a cast event to pair with, it's incorrectly recognized as cleaved
     when(this.generatedCleaveFragments).isEqual(0)
       .addSuggestion(suggest => {
-        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id} icon/> talent didn't contribute any bonus fragments. When there are no adds to cleave onto, this talent is useless and you should switch to a different talent.</React.Fragment>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id} icon /> talent didn't contribute any bonus fragments. When there are no adds to cleave onto, this talent is useless and you should switch to a different talent.</React.Fragment>)
           .icon(SPELLS.FIRE_AND_BRIMSTONE_TALENT.icon)
           .actual('No bonus Soul Shard Fragments generated')
           .recommended('Different talent is recommended')

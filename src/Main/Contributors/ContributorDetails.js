@@ -133,11 +133,11 @@ class ContributorDetails extends React.PureComponent {
       <div className="row">
         <div className="col-md-3"><b>Maintainer:</b></div>
         <div className="col-md-9">
-          {maintainedSpecs.map(spec =>
+          {maintainedSpecs.map(spec => (
             <div key={spec.id} className={this.removeWhiteSpaces(spec.className)}>
               <SpecIcon id={spec.id} /> {spec.specName} {spec.className}
             </div>
-          )}
+          ))}
         </div>
       </div>
     );
@@ -247,7 +247,7 @@ class ContributorDetails extends React.PureComponent {
                 <div className="panel">
                   <div style={{ textAlign: 'center' }}>
                     <h2>{contributor.nickname}</h2>
-                    <img src={contributor.avatar} alt={'Avatar'} style={{ marginTop: 20, maxHeight: 200, borderRadius: '50%' }} />
+                    <img src={contributor.avatar} alt="Avatar" style={{ marginTop: 20, maxHeight: 200, borderRadius: '50%' }} />
                   </div>
                   <div className="flex-main contributorlist" style={{ padding: '0 5px 20px 5px' }}>
                     {this.text(contributor.about, 'About')}
@@ -270,13 +270,13 @@ class ContributorDetails extends React.PureComponent {
 
               <div className="col-md-7">
                 <div className="panel scrollable">
-                  {Object.keys(contributions).map((type, index) =>
+                  {Object.keys(contributions).map((type, index) => (
                     <div key={index}>
                       <div className="panel-heading" style={{ cursor: 'pointer', userSelect: 'none' }} onClick={() => this.toggleClass(index)}>
                         <h2>{this.contributionHeader(type)} ({contributions[type].length} commits)</h2>
                       </div>
                       <ul className="list text" style={{ marginBottom: 20, display: this.state.openChangelogs[index] ? 'block' : 'none' }}>
-                        {contributions[type].map((contribution, index) =>
+                        {contributions[type].map((contribution, index) => (
                           <li key={index} className="row">
                             <div className="col-md-2">
                               {contribution.date.toLocaleDateString()}
@@ -285,10 +285,10 @@ class ContributorDetails extends React.PureComponent {
                               {contribution.changes}
                             </div>
                           </li>
-                        )}
+                        ))}
                       </ul>
                     </div>
-                  )}
+                  ))}
                 </div>
               </div>
             </div>

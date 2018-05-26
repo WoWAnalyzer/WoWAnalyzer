@@ -50,7 +50,7 @@ class EnergizingElixir extends Analyzer {
   }
 
   statistic() {
-    return (<StatisticBox icon={<SpellIcon id={SPELLS.ENERGIZING_ELIXIR_TALENT.id}/>}
+    return (<StatisticBox icon={<SpellIcon id={SPELLS.ENERGIZING_ELIXIR_TALENT.id} />}
       value={this.energyGained}
       label={(
         <dfn data-tip={`from ${this.eeCasts} Energizing Elixir Casts`}>
