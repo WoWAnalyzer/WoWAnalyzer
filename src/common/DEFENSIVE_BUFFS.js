@@ -50,7 +50,7 @@ const DEFENSIVE_BUFFS = [
   },
   //Restoration Shaman
   {
-    spell: SPELLS.GHOST_WOLF,
+    spell: SPELLS.GHOST_IN_THE_MIST_BUFF,
   },
 ];
 
