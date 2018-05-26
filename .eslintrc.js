@@ -96,5 +96,13 @@ module.exports = {
     // Enforce spacing around jsx equals signs
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-equals-spacing.md
     'react/jsx-equals-spacing': ['warn', 'never'],
+
+    // warn against using findDOMNode()
+    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-find-dom-node.md
+    'react/no-find-dom-node': 'warn',
+
+    // Prevent passing of children as props
+    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-children-prop.md
+    'react/no-children-prop': 'warn',
   }
 };
