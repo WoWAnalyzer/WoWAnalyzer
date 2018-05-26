@@ -15,7 +15,7 @@ jobs:
       install:
         - npm install
       script:
-        - npm run lint
+        - npm run lint -- --max-warnings=0
     - stage: test
       cache:
         directories:
