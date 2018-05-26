@@ -146,5 +146,9 @@ module.exports = {
     // Prevent extra closing tags for components without children
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md
     'react/self-closing-comp': 'warn',
+
+    // Enforce or disallow spaces inside of curly braces in JSX attributes
+    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-spacing.md
+    'react/jsx-curly-spacing': ['warn', 'never', { allowMultiline: true }],
   }
 };
