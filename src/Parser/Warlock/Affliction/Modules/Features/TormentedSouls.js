@@ -105,7 +105,7 @@ class TormentedSouls extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.REND_SOUL.id} /> procs with <SpellLink id={SPELLS.REAP_SOULS.id} icon/> active
+          <SpellLink id={SPELLS.REND_SOUL.id} /> procs with <SpellLink id={SPELLS.REAP_SOULS.id} icon /> active
         </div>
         <div className="flex-sub text-right">
           {this.soulsFromRendWhileReap}
@@ -129,7 +129,7 @@ class TormentedSouls extends Analyzer {
 
   statistic() {
     return (
-      <StatisticsListBox title={<SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id} icon/>}>
+      <StatisticsListBox title={<SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id} icon />}>
         {this.maxStackStatistic}
         {this.totalSoulStatistic}
         {this.rendSoulStatistic}
@@ -141,7 +141,7 @@ class TormentedSouls extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You're wasting your <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id}/>. Don't let them cap, even if it means pushing your <SpellLink id={SPELLS.DEADWIND_HARVESTER.id}/> buff past its maximum duration.</React.Fragment>)
+        return suggest(<React.Fragment>You're wasting your <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id} />. Don't let them cap, even if it means pushing your <SpellLink id={SPELLS.DEADWIND_HARVESTER.id} /> buff past its maximum duration.</React.Fragment>)
           .icon(SPELLS.WARLOCK_TORMENTED_SOULS.icon)
           .actual(`${formatPercentage(actual)}% of the fight (${formatDuration(this.maxStacksSeconds)} s) spent at 12 stacks.`)
           .recommended(`< ${formatPercentage(recommended)}% is recommended`);

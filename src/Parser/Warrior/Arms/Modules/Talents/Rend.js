@@ -51,7 +51,7 @@ class RendAnalyzer extends Analyzer {
 
   suggestions(when) {
     when(this.executeRendsThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Try to avoid using <SpellLink id={SPELLS.REND_TALENT.id} icon/> on a target in <SpellLink id={SPELLS.EXECUTE.id} icon/> range.</React.Fragment>)
+        return suggest(<React.Fragment>Try to avoid using <SpellLink id={SPELLS.REND_TALENT.id} icon /> on a target in <SpellLink id={SPELLS.EXECUTE.id} icon /> range.</React.Fragment>)
           .icon(SPELLS.REND_TALENT.icon)
           .actual(`Rend was used ${formatPercentage(actual)}% of the time on a target in execute range.`)
           .recommended(`${formatPercentage(recommended)}% is recommended`);

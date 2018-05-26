@@ -46,7 +46,7 @@ class ArcaneMissiles extends Analyzer {
 	suggestions(when) {
 		when(this.suggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.ARCANE_BARRAGE.id}/> {this.barrageWithMissilesProc} times while you had <SpellLink id={SPELLS.ARCANE_MISSILES.id}/> procs available. Make sure you are using all of your missiles procs before casting Arcane Barrage.</React.Fragment>)
+				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.ARCANE_BARRAGE.id} /> {this.barrageWithMissilesProc} times while you had <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> procs available. Make sure you are using all of your missiles procs before casting Arcane Barrage.</React.Fragment>)
 					.icon(SPELLS.ARCANE_MISSILES.icon)
 					.actual(`${formatPercentage(this.utilization)}% Utilization`)
 					.recommended(`${formatPercentage(recommended)}% is recommended`);

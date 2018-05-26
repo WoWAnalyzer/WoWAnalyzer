@@ -69,7 +69,7 @@ class DiimasGlacialAegis extends Analyzer {
         <React.Fragment>
           <dfn data-tip={`You casted "${SPELLS.CHILLING_NOVA.name}" ${this.casts} times for a uptime of ${formatPercentage(this.uptime)}%`}>
             {(this.uptime * this.armorbuff).toFixed(0)} average Armor from <SpellLink id={SPELLS.FROZEN_ARMOR.id} />
-          </dfn><br/>
+          </dfn><br />
           <ItemDamageDone amount={this.damage} />
         </React.Fragment>
       ),

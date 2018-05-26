@@ -151,7 +151,7 @@ class DeathRecap extends React.PureComponent {
                       <td style={{ width: '20%' }}>
                         {event.buffsUp && event.buffsUp.map(e =>
                           <SpellIcon style={{ border: '1px solid rgba(0, 0, 0, 0)'}} id={e.spell ? e.spell.id : e} />
-                        )}<br/>
+                        )}<br />
                         {event.debuffsUp && event.debuffsUp.map(e =>
                           <SpellIcon style={{ border: '1px solid red'}} id={e.ability ? e.ability.guid : e} />
                         )}

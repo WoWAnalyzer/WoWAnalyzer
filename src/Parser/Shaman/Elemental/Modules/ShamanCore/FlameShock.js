@@ -52,7 +52,7 @@ class FlameShock extends Analyzer {
     const flameShockCasts = this.elementalFocusCasts;
     when(flameShockCasts.unbuffed).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Try to cast <SpellLink id={SPELLS.FLAME_SHOCK.id}/> when you have <SpellLink id={SPELLS.ELEMENTAL_FOCUS.id}/>.</span>)
+        return suggest(<span>Try to cast <SpellLink id={SPELLS.FLAME_SHOCK.id} /> when you have <SpellLink id={SPELLS.ELEMENTAL_FOCUS.id} />.</span>)
           .icon(SPELLS.ELEMENTAL_FOCUS.icon)
           .actual(`${flameShockCasts.unbuffed} of ${flameShockCasts.total} spell casts where not buffed.`)
           .recommended(`${recommended} is recommended`)

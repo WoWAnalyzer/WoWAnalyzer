@@ -14,22 +14,22 @@ export default [
 	},
 	{
 		date: new Date('2018-04-07'),
-		changes: <React.Fragment>Added <ItemLink id={ITEMS.BREASTPLATE_OF_THE_GOLDEN_VALKYR.id} icon/> and <ItemLink id={ITEMS.HEATHCLIFFS_IMMORTALITY.id} icon/>.</React.Fragment>,
+		changes: <React.Fragment>Added <ItemLink id={ITEMS.BREASTPLATE_OF_THE_GOLDEN_VALKYR.id} icon /> and <ItemLink id={ITEMS.HEATHCLIFFS_IMMORTALITY.id} icon />.</React.Fragment>,
 		contributors: [joshinator],
 	},
 	{
 		date: new Date('2018-04-07'),
-		changes: <React.Fragment>Added <SpellLink id={SPELLS.SERAPHIM_TALENT.id} icon/> module to track uptime and consumed <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} icon/> charges.</React.Fragment>,
+		changes: <React.Fragment>Added <SpellLink id={SPELLS.SERAPHIM_TALENT.id} icon /> module to track uptime and consumed <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} icon /> charges.</React.Fragment>,
 		contributors: [joshinator],
 	},
 	{
 		date: new Date('2018-03-22'),
-		changes: <React.Fragment>Marked <SpellLink id={SPELLS.BLESSED_HAMMER_TALENT.id} icon/> as being on the GCD.</React.Fragment>,
+		changes: <React.Fragment>Marked <SpellLink id={SPELLS.BLESSED_HAMMER_TALENT.id} icon /> as being on the GCD.</React.Fragment>,
 		contributors: [Zerotorescue],
 	},
 	{
 		date: new Date('2018-03-14'),
-		changes: <React.Fragment>Added <ItemLink id={ITEMS.TYELCA_FERREN_MARCUSS_STATURE.id} icon/></React.Fragment>,
+		changes: <React.Fragment>Added <ItemLink id={ITEMS.TYELCA_FERREN_MARCUSS_STATURE.id} icon /></React.Fragment>,
 		contributors: [Hewhosmites],
 	},
   {

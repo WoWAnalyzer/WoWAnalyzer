@@ -36,7 +36,7 @@ class Apocalypse extends Analyzer {
 	//Getting 6 wounds on every Apocalypse isn't difficult and should be expected
     when(averageWoundsPopped).isLessThan(6)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>You are casting <SpellLink id={SPELLS.APOCALYPSE.id}/> with too few <SpellLink id={SPELLS.FESTERING_WOUND.id}/> on the target. When casting <SpellLink id={SPELLS.APOCALYPSE.id}/>, make sure to have at least 6 <SpellLink id={SPELLS.FESTERING_WOUND.id}/> on the target.</span>)
+          return suggest(<span>You are casting <SpellLink id={SPELLS.APOCALYPSE.id} /> with too few <SpellLink id={SPELLS.FESTERING_WOUND.id} /> on the target. When casting <SpellLink id={SPELLS.APOCALYPSE.id} />, make sure to have at least 6 <SpellLink id={SPELLS.FESTERING_WOUND.id} /> on the target.</span>)
             .icon(SPELLS.APOCALYPSE.icon)
             .actual(`An average ${(actual)} of Festering Wounds were popped by Apocalypse`)
             .recommended(`${(recommended)} is recommended`)

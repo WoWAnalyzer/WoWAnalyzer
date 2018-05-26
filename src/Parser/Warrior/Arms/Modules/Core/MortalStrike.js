@@ -49,7 +49,7 @@ class MortalStrikeAnalyzer extends Analyzer {
 
   suggestions(when) {
     when(this.unshatteredMortalStrikeThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Try to avoid using <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon/> if <SpellLink id={SPELLS.SHATTERED_DEFENSES.id} icon/> is inactive and <SpellLink id={SPELLS.COLOSSUS_SMASH.id} icon/> is available.</React.Fragment>)
+      return suggest(<React.Fragment>Try to avoid using <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> if <SpellLink id={SPELLS.SHATTERED_DEFENSES.id} icon /> is inactive and <SpellLink id={SPELLS.COLOSSUS_SMASH.id} icon /> is available.</React.Fragment>)
         .icon(SPELLS.MORTAL_STRIKE.icon)
         .actual(`${formatPercentage(actual)}% of Mortal Strikes were used without Shattered Defenses unnecessarily.`)
         .recommended(`${formatPercentage(recommended)}% is recommended`);

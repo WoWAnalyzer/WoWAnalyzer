@@ -22,7 +22,7 @@ class UnholyFrenzyUptime extends Analyzer {
     const ufUptime = this.combatants.selected.getBuffUptime(SPELLS.UNHOLY_FRENZY_BUFF.id) / this.owner.fightDuration;
     when(ufUptime).isLessThan(0.80)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<span>Your <SpellLink id={SPELLS.UNHOLY_FRENZY_BUFF.id}/> uptime can be improved.  Make sure you are regularly casting <SpellLink id={SPELLS.SCOURGE_STRIKE.id}/> on targets with <SpellLink id={SPELLS.FESTERING_WOUND.id}/>.</span>)
+          return suggest(<span>Your <SpellLink id={SPELLS.UNHOLY_FRENZY_BUFF.id} /> uptime can be improved.  Make sure you are regularly casting <SpellLink id={SPELLS.SCOURGE_STRIKE.id} /> on targets with <SpellLink id={SPELLS.FESTERING_WOUND.id} />.</span>)
             .icon(SPELLS.UNHOLY_FRENZY_BUFF.icon)
             .actual(`${formatPercentage(actual)}% Unholy Frenzy Uptime`)
             .recommended(`>${formatPercentage(recommended)}% is recommended`)

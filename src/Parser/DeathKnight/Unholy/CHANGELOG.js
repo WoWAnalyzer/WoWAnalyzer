@@ -19,7 +19,7 @@ export default [
   },
   {
     date: new Date('2018-03-03'),
-    changes: <React.Fragment>Added <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id} icon/></React.Fragment>,
+    changes: <React.Fragment>Added <ItemLink id={ITEMS.TAKTHERITRIXS_SHOULDERPADS.id} icon /></React.Fragment>,
     contributors: [Hewhosmites],
   },
   {

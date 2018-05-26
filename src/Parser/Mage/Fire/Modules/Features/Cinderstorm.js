@@ -47,7 +47,7 @@ class Cinderstorm extends Analyzer {
   suggestions(when) {
 		when(this.suggestionThreshold)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment>Your Cinders from <SpellLink id={SPELLS.CINDERSTORM_TALENT.id}/>, on average, hit {this.averageHitsPerCast.toFixed(2)} targets per cast. When using the Cinderstorm talent, you need to ensure that you are aiming the ability such that every cinder hits every enemy. If you are unable to do this or are having trouble aiming the spell, then you should pick a different talent.</React.Fragment>)
+				return suggest(<React.Fragment>Your Cinders from <SpellLink id={SPELLS.CINDERSTORM_TALENT.id} />, on average, hit {this.averageHitsPerCast.toFixed(2)} targets per cast. When using the Cinderstorm talent, you need to ensure that you are aiming the ability such that every cinder hits every enemy. If you are unable to do this or are having trouble aiming the spell, then you should pick a different talent.</React.Fragment>)
 					.icon(SPELLS.CINDERSTORM_TALENT.icon)
 					.actual(`${this.averageHitsPerCast.toFixed(2)} Hits Per Cast`)
 					.recommended(`${formatNumber(recommended)} is recommended`);

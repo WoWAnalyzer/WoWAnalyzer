@@ -66,7 +66,7 @@ class MoargBionicStabiliziers extends Analyzer {
 			item: ITEMS.MOARG_BIONIC_STABILIZERS,
 			result: (
 				<dfn data-tip={`You hit an average of <b>${this.averageTargetsHit}</b> targets with throw glaive. ${bloodletTooltip}.`}>
-					<ItemDamageDone amount={this.bonusDamage}/>
+					<ItemDamageDone amount={this.bonusDamage} />
 				</dfn>
 				),
 		};

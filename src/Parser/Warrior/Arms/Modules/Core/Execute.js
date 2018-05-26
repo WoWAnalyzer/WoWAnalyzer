@@ -49,7 +49,7 @@ class ExecutionAnalyzer extends Analyzer {
 
   suggestions(when) {
     when(this.wastedExecutionersPrecisionTresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Try to avoid using <SpellLink id={SPELLS.EXECUTE.id} icon/> at 2 stacks of <SpellLink id={SPELLS.EXECUTIONERS_PRECISION.id} icon/> if <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon/> is available.</React.Fragment>)
+      return suggest(<React.Fragment>Try to avoid using <SpellLink id={SPELLS.EXECUTE.id} icon /> at 2 stacks of <SpellLink id={SPELLS.EXECUTIONERS_PRECISION.id} icon /> if <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> is available.</React.Fragment>)
         .icon(SPELLS.EXECUTE.icon)
         .actual(`${formatPercentage(actual)}% of Executioner's Precisions stacks were wasted.`)
         .recommended(`${formatPercentage(recommended)}% is recommended`);

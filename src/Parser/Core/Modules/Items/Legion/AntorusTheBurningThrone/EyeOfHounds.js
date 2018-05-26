@@ -97,9 +97,9 @@ class EyeOfHounds extends Analyzer {
     if (stam) {
       itemBreakdown.push(
         <div>
-          <ItemLink id={ITEMS.EYE_OF_SHATUG.id} /><br/>
+          <ItemLink id={ITEMS.EYE_OF_SHATUG.id} /><br />
           <dfn data-tip={`${formatPercentage(stam)}% uptime, resulting in those shown average stats.`}>
-            {(stam * this.stamStat).toFixed(0)} Stamina<br/>
+            {(stam * this.stamStat).toFixed(0)} Stamina<br />
             {(stam * this.versStat).toFixed(0)} Versatility
           </dfn>
         </div>
@@ -109,9 +109,9 @@ class EyeOfHounds extends Analyzer {
     if (str) {
       itemBreakdown.push(
         <div>
-          <ItemLink id={ITEMS.EYE_OF_FHARG.id} /><br/>
+          <ItemLink id={ITEMS.EYE_OF_FHARG.id} /><br />
           <dfn data-tip={`${formatPercentage(str)}% uptime, resulting in those shown average stats.`}>
-            {(str * this.strStat).toFixed(0)} {this.combatants.selected.spec.primaryStat}<br/>
+            {(str * this.strStat).toFixed(0)} {this.combatants.selected.spec.primaryStat}<br />
             {(str * this.armorStat).toFixed(0)} Armor
           </dfn>
         </div>

@@ -74,7 +74,7 @@ class Checklist extends CoreChecklist {
             check: () => this.shieldBlock.suggestionThresholds,
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.IGNORE_PAIN.id}/> Uptime</React.Fragment>,
+            name: <React.Fragment><SpellLink id={SPELLS.IGNORE_PAIN.id} /> Uptime</React.Fragment>,
             check: () => this.ignorePain.uptimeSuggestionThresholds,
           }),
         ];

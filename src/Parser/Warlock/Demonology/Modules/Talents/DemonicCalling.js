@@ -64,7 +64,7 @@ class DemonicCalling extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You should try to use your free <SpellLink id={SPELLS.CALL_DREADSTALKERS.id} /> as much as possible as Dreadstalkers make a great portion of your damage.<br/><br/><small>NOTE: Some wasted procs are probably unavoidable (e.g. <SpellLink id={SPELLS.CALL_DREADSTALKERS.id}/> on cooldown, proc waiting but gets overwritten by another)</small></React.Fragment>)
+        return suggest(<React.Fragment>You should try to use your free <SpellLink id={SPELLS.CALL_DREADSTALKERS.id} /> as much as possible as Dreadstalkers make a great portion of your damage.<br /><br /><small>NOTE: Some wasted procs are probably unavoidable (e.g. <SpellLink id={SPELLS.CALL_DREADSTALKERS.id} /> on cooldown, proc waiting but gets overwritten by another)</small></React.Fragment>)
           .icon(SPELLS.DEMONIC_CALLING_TALENT.icon)
           .actual(`${actual.toFixed(2)} wasted procs per minute`)
           .recommended(`< ${recommended} is recommended`);

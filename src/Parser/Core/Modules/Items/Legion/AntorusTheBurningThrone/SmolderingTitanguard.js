@@ -68,7 +68,7 @@ class SmolderingTitanguard extends Analyzer {
       item: ITEMS.SMOLDERING_TITANGUARD,
       result: (
         <React.Fragment>
-          <ItemDamageDone amount={this.damage} /><br/>
+          <ItemDamageDone amount={this.damage} /><br />
           <dfn data-tip={`You wasted ${formatPercentage(this.overhealing / (this.overhealing + this.healing))}% (${formatNumber(this.overhealing)}) of the total possible absorb.`}>
             <ItemHealingDone amount={this.healing} />
           </dfn>

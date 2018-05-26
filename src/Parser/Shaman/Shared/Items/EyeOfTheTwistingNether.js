@@ -48,7 +48,7 @@ class EyeOfTheTwistingNether extends Analyzer {
 			item: ITEMS.EYE_OF_THE_TWISTING_NETHER,
 			result: (
 				<dfn data-tip={`Total Damage: <b>${formatNumber(this.damageDone)}</b>`}>
-					<ItemDamageDone amount={this.damageDone}/>
+					<ItemDamageDone amount={this.damageDone} />
 				</dfn>
 			),
 		};
