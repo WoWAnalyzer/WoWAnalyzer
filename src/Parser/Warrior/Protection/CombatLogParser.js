@@ -10,6 +10,10 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import SpellUsable from './Modules/Features/SpellUsable';
 
 import Shield_Block from './Modules/Spells/ShieldBlock';
+import Checklist from './Modules/Features/Checklist';
+import IgnorePain from './Modules/Features/IgnorePain';
+import RageTracker from './Modules/Core/RageTracker';
+import RageDetails from './Modules/Core/RageDetails';
 
 import AngerManagement from './Modules/Talents/AngerManagement';
 import BoomingVoice from './Modules/Talents/BoomingVoice';
@@ -35,6 +39,10 @@ class CombatLogParser extends CoreCombatLogParser {
     shield_block: Shield_Block,
     deathRecapTracker: DeathRecapTracker,
     spellUsable: SpellUsable,
+    checklist: Checklist,
+    ignorePain: IgnorePain,
+    rageTracker: RageTracker,
+    rageDetails: RageDetails,
     //Talents
     angerManagement: AngerManagement,
     boomingVoice: BoomingVoice,

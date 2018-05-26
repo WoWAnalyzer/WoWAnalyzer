@@ -350,6 +350,11 @@ export default {
     name: 'Thunder Clap',
     icon: 'spell_nature_thunderclap',
   },
+  RAGE: {
+    id: 195707,
+    name: 'Rage from damage taken',
+    icon: 'ability_racial_avatar',
+  },
   //Mitigation Spells
   IGNORE_PAIN: {
     id: 190456,

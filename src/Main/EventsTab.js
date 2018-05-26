@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AutoSizer, Column, defaultTableRowRenderer, Table } from 'react-virtualized';
+import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
+import Table, { defaultRowRenderer as defaultTableRowRenderer, Column } from 'react-virtualized/dist/commonjs/Table';
 import Toggle from 'react-toggle';
 import 'react-toggle/style.css';
 
@@ -8,6 +9,7 @@ import InformationIcon from 'Icons/Information';
 
 import { formatDuration, formatThousands } from 'common/format';
 import Icon from 'common/Icon';
+import SpellLink from 'common/SpellLink';
 import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import Info from 'common/Alert/Info';
 import HIT_TYPES from 'Parser/Core/HIT_TYPES';
@@ -131,9 +133,9 @@ class EventsTab extends React.Component {
     const spellId = ability.guid;
 
     return (
-      <a href={`http://www.wowhead.com/spell=${spellId}`} target="_blank" rel="noopener noreferrer">
+      <SpellLink id={spellId} icon={false}>
         {ability.abilityIcon && <Icon icon={ability.abilityIcon} />} {ability.name}
-      </a>
+      </SpellLink>
     );
   }
   eventTypeName(type) {

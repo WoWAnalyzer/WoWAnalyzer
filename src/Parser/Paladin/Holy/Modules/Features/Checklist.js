@@ -4,7 +4,8 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
-
+import ResourceLink from 'common/ResourceLink';
+import RESOURCE_TYPES from 'common/RESOURCE_TYPES';
 import CoreChecklist, { Rule, Requirement } from 'Parser/Core/Modules/Features/Checklist';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import { PreparationRule } from 'Parser/Core/Modules/Features/Checklist/Rules';
@@ -211,7 +212,7 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: 'Use all of your mana effectively',
+      name: <React.Fragment>Use all of your <ResourceLink id={RESOURCE_TYPES.MANA.id} /> effectively</React.Fragment>,
       description: 'If you have a large amount of mana left at the end of the fight that\'s mana you could have turned into healing. Try to use all your mana during a fight. A good rule of thumb is to try to match your mana level with the boss\'s health.',
       requirements: () => {
         return [
