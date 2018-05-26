@@ -157,24 +157,26 @@ class EncounterStats extends React.PureComponent {
     });
   }
 
-  singleItem(item, index) {
-    return <div className="col-md-12 flex-main" key={item.id} style={{ textAlign: 'left', margin: '5px auto' }}>
-      <div className="row">
-        <div className="col-md-2" style={{ opacity: '.8', fontSize: '.9em', lineHeight: '2em', textAlign: 'right' }}>
-          {formatPercentage(item.amount / this.LIMIT, 0)}%
-        </div>
-        <div className="col-md-10">
-          <ItemLink id={item.id} className={item.quality} icon={false}>
-            <Icon
-              icon={this.state.items[item.id] === undefined ? this.state.items[0].icon : this.state.items[item.id].icon}
-              className={item.quality}
-              style={{ width: '2em', height: '2em', border: '1px solid', marginRight: 10 }}
-            />
-            {item.name}
-          </ItemLink>
+  singleItem(item) {
+    return (
+      <div key={item.id} className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
+        <div className="row">
+          <div className="col-md-2" style={{ opacity: '.8', fontSize: '.9em', lineHeight: '2em', textAlign: 'right' }}>
+            {formatPercentage(item.amount / this.LIMIT, 0)}%
+          </div>
+          <div className="col-md-10">
+            <ItemLink id={item.id} className={item.quality} icon={false}>
+              <Icon
+                icon={this.state.items[item.id] === undefined ? this.state.items[0].icon : this.state.items[item.id].icon}
+                className={item.quality}
+                style={{ width: '2em', height: '2em', border: '1px solid', marginRight: 10 }}
+              />
+              {item.name}
+            </ItemLink>
+          </div>
         </div>
       </div>
-    </div>;
+    );
   }
 
   render() {
@@ -196,9 +198,7 @@ class EncounterStats extends React.PureComponent {
                     </div>
                   </div>
                   <div className="row" style={{ marginBottom: '2em' }}>
-                    {this.state.mostUsedLegendaries.map((legendary, index) =>
-                      this.singleItem(legendary, index)
-                    )}
+                    {this.state.mostUsedLegendaries.map((legendary, index) => this.singleItem(legendary, index))}
                   </div>
 
                   <div className="row" style={{ marginBottom: '2em' }}>
@@ -207,9 +207,7 @@ class EncounterStats extends React.PureComponent {
                     </div>
                   </div>
                   <div className="row" style={{ marginBottom: '2em' }}>
-                    {this.state.mostUsedTrinkets.map((trinket, index) =>
-                      this.singleItem(trinket, index)
-                    )}
+                    {this.state.mostUsedTrinkets.map((trinket, index) => this.singleItem(trinket, index))}
                   </div>
                 </div>
                 <div className="col-md-6">
@@ -218,19 +216,19 @@ class EncounterStats extends React.PureComponent {
                       <h2>Most used Talents</h2>
                     </div>
                   </div>
-                  {this.state.mostUsedTalents.map((row, index) =>
+                  {this.state.mostUsedTalents.map((row, index) => (
                     <div className="row" key={index} style={{ marginBottom: 15, paddingLeft: 20 }}>
                       <div className="col-lg-1 col-xs-2" style={{ lineHeight: '3em', textAlign: 'right' }}>{rows[index]}</div>
-                      {Object.keys(row).sort((a, b) => row[b] - row[a]).map((talent, talentIndex) =>
+                      {Object.keys(row).sort((a, b) => row[b] - row[a]).map((talent, talentIndex) => (
                         <div key={talentIndex} className="col-lg-2 col-xs-3" style={{ textAlign: 'center' }}>
                           <SpellLink id={Number(talent)} icon={false}>
                             <SpellIcon style={{ width: '3em', height: '3em' }} id={Number(talent)} noLink />
                           </SpellLink>
                           <span style={{ textAlign: 'center', display: 'block' }}>{formatPercentage(row[talent] / this.LIMIT, 0)}%</span>
                         </div>
-                      )}
+                      ))}
                     </div>
-                  )}
+                  ))}
                 </div>
               </div>
             </div>

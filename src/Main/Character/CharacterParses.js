@@ -367,7 +367,7 @@ class CharacterParses extends React.Component {
                 </div>
                 <div className="col-md-4">
                   Specs:
-                  {this.state.specs.map((elem, index) =>
+                  {this.state.specs.map((elem, index) => (
                     <div
                       key={index}
                       onClick={() => this.updateSpec(elem.replace(' ', ''))}
@@ -376,12 +376,12 @@ class CharacterParses extends React.Component {
                       <img src={this.iconPath(elem)} style={{ height: 18, marginRight: 10 }} alt="Icon" />
                       {elem}
                     </div>
-                  )}
+                  ))}
                 </div>
 
                 <div className="col-md-4">
                   Difficulties:
-                  {DIFFICULTIES.filter(elem => elem).map((elem, index) =>
+                  {DIFFICULTIES.filter(elem => elem).map((elem, index) => (
                     <div
                       key={index}
                       onClick={() => this.updateDifficulty(elem)}
@@ -389,7 +389,7 @@ class CharacterParses extends React.Component {
                     >
                       {elem}
                     </div>
-                  )}
+                  ))}
                 </div>
                 <div className="col-md-4">
                   Raid:

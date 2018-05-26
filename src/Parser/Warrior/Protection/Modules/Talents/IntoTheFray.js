@@ -1,15 +1,16 @@
 import React from 'react';
-import Analyzer from 'Parser/Core/Analyzer';
+
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-
+import { formatDuration, formatPercentage } from 'common/format';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
-import Combatants from 'Parser/Core/Modules/Combatants';
-import { formatPercentage, formatDuration } from 'common/format';
 
 const MAX_STACKS = 5;
 const HASTE_PER_STACK = 3;
+
 //update haste per stack in ./Core/Haste.js aswell
 
 class IntoTheFray extends Analyzer {
@@ -23,7 +24,7 @@ class IntoTheFray extends Analyzer {
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.INTO_THE_FRAY_TALENT.id);
-    this.buffStacks = Array.from({length: MAX_STACKS + 1}, x => [0]);
+    this.buffStacks = Array.from({ length: MAX_STACKS + 1 }, x => [0]);
   }
 
   handleStacks(event, stack = null) {
@@ -43,7 +44,6 @@ class IntoTheFray extends Analyzer {
     this.lastStacks = event.stack;
   }
 
-  
   on_byPlayer_applybuff(event) {
     if (event.ability.guid !== SPELLS.INTO_THE_FRAY_BUFF.id) {
       return;
@@ -100,13 +100,13 @@ class IntoTheFray extends Analyzer {
             </tr>
           </thead>
           <tbody>
-            {this.buffStacks.map((e, i) =>
+            {this.buffStacks.map((e, i) => (
               <tr key={i}>
                 <th>{(i * HASTE_PER_STACK).toFixed(0)}%</th>
                 <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
                 <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
               </tr>
-            )}
+            ))}
           </tbody>
         </table>
       </ExpandableStatisticBox>
