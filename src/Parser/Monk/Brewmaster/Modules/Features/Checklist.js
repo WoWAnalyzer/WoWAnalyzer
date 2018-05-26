@@ -139,7 +139,7 @@ class Checklist extends CoreChecklist {
           when: () => !!boc,
         }));
         reqs.push(new Requirement({
-          name: <React.Fragment><SpellLink id={SPELLS.BLACKOUT_COMBO_TALENT.id}>Blackout Combos</SpellLink> spent on <SpellLink id={SPELLS.TIGER_PALM.id}/></React.Fragment>,
+          name: <React.Fragment><SpellLink id={SPELLS.BLACKOUT_COMBO_TALENT.id}>Blackout Combos</SpellLink> spent on <SpellLink id={SPELLS.TIGER_PALM.id} /></React.Fragment>,
           check: () => this.boc.dpsWasteThreshold,
           when: () => !!boc,
         }));

@@ -92,7 +92,7 @@ class Sniping extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You sniped {formatPercentage(actual)} % of mobs in this fight ({this.mobsSniped} / {this.totalNumOfAdds}) for total of {this._shardsGained} Soul Shards. You could get up to {this.totalNumOfAdds * 2} Shards from them. Try to get at least one shard per add (cast <SpellLink id={SPELLS.DRAIN_SOUL.id}/> on them before they die) as it is a great source of extra Soul Shards.<br /><br /><small>Note that the number of adds <em>might be a bit higher than usual</em>, as there sometimes are adds that die too quickly, aren't meant to be killed or are not killed in the fight (such as Tormented Soul at the Demonic Inquisition fight).</small></React.Fragment>)
+        return suggest(<React.Fragment>You sniped {formatPercentage(actual)} % of mobs in this fight ({this.mobsSniped} / {this.totalNumOfAdds}) for total of {this._shardsGained} Soul Shards. You could get up to {this.totalNumOfAdds * 2} Shards from them. Try to get at least one shard per add (cast <SpellLink id={SPELLS.DRAIN_SOUL.id} /> on them before they die) as it is a great source of extra Soul Shards.<br /><br /><small>Note that the number of adds <em>might be a bit higher than usual</em>, as there sometimes are adds that die too quickly, aren't meant to be killed or are not killed in the fight (such as Tormented Soul at the Demonic Inquisition fight).</small></React.Fragment>)
           .icon('ability_hunter_snipershot')
           .actual(`${formatPercentage(actual)} % of mobs sniped.`)
           .recommended(`>= ${formatPercentage(recommended)} % is recommended`);

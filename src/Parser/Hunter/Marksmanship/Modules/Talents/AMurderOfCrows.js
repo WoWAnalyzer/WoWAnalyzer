@@ -108,7 +108,7 @@ class AMurderOfCrows extends Analyzer {
           </React.Fragment>
 
         )}
-        label={`A Murder of Crows`}
+        label="A Murder of Crows"
         tooltip={tooltipText}
       />
     );

@@ -81,7 +81,7 @@ class HeavyRepercussions extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HEAVY_REPERCUSSIONS_TALENT.id} />}
         value={`${formatPercentage(sbExtendedMS / (this.shieldBlockuptime - sbExtendedMS))}%`}
-        label={`more Shield Block uptime`}
+        label="more Shield Block uptime"
         tooltip={`
           You casted Shield Slam ${this.sbExtended} times during Shield Block, resulting in additional ${sbExtendedMS / 1000}sec uptime.<br/>
           ${formatNumber(this.bonusDmg)} damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%) contributed by casting Shield Slams during Shield Block.

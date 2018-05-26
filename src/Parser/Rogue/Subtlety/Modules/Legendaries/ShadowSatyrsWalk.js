@@ -35,7 +35,7 @@ class ShadowSatyrsWalk extends Analyzer {
     return {
       item: ITEMS.SHADOW_SATYRS_WALK,
       result: <React.Fragment>
-        <dfn data-tip={`Positioning at maximum range from your target could increase energy generation.`}>
+        <dfn data-tip="Positioning at maximum range from your target could increase energy generation.">
           {totalPerMinute.toFixed(2)} energy generated per minute.
           <br />
           {avgExtra.toFixed(2)} average bonus energy per cast.

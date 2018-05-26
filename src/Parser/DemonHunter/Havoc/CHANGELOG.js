@@ -9,57 +9,57 @@ import SpellLink from 'common/SpellLink';
 export default [
 	{
 		date: new Date('2018-03-01'),
-		changes: <React.Fragment>Added <SpellLink id ={SPELLS.BLIND_FURY_TALENT.id} icon/> to the fury tracker.</React.Fragment>,
+		changes: <React.Fragment>Added <SpellLink id={SPELLS.BLIND_FURY_TALENT.id} icon /> to the fury tracker.</React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{
 		date: new Date('2018-02-27'),
-		changes: <React.Fragment>Added <ItemLink id={ITEMS.CHAOS_THEORY.id} icon/></React.Fragment>,
+		changes: <React.Fragment>Added <ItemLink id={ITEMS.CHAOS_THEORY.id} icon /></React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{
 		date: new Date('2018-02-20'),
-		changes: <React.Fragment>Added <ItemLink id={ITEMS.MOARG_BIONIC_STABILIZERS.id} icon/></React.Fragment>,
+		changes: <React.Fragment>Added <ItemLink id={ITEMS.MOARG_BIONIC_STABILIZERS.id} icon /></React.Fragment>,
     contributors: [Hewhosmites],
   },
   {
   	date: new Date('2018-02-20'),
-		changes: <React.Fragment>Added <ItemLink id={ITEMS.SOUL_OF_THE_SLAYER.id} icon/></React.Fragment>,
+		changes: <React.Fragment>Added <ItemLink id={ITEMS.SOUL_OF_THE_SLAYER.id} icon /></React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{
 		date: new Date('2018-02-19'),
-		changes: <React.Fragment>Added <ItemLink id={ITEMS.ANGER_OF_THE_HALF_GIANTS.id} icon/></React.Fragment>,
+		changes: <React.Fragment>Added <ItemLink id={ITEMS.ANGER_OF_THE_HALF_GIANTS.id} icon /></React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{
 		date: new Date('2018-01-27'),
-		changes: <React.Fragment>Added in <SpellLink id={SPELLS.HAVOC_T21_4PC_BONUS.id} icon/></React.Fragment>,
+		changes: <React.Fragment>Added in <SpellLink id={SPELLS.HAVOC_T21_4PC_BONUS.id} icon /></React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{
 		date: new Date('2018-01-27'),
-		changes: <React.Fragment>Added cooldown reduction for <SpellLink id={SPELLS.EYE_BEAM.id} icon/></React.Fragment>,
+		changes: <React.Fragment>Added cooldown reduction for <SpellLink id={SPELLS.EYE_BEAM.id} icon /></React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{
 		date: new Date('2018-01-27'),
-		changes: <React.Fragment>Added a channeled bar to <SpellLink id={SPELLS.EYE_BEAM.id} icon/> in the timeline</React.Fragment>,
+		changes: <React.Fragment>Added a channeled bar to <SpellLink id={SPELLS.EYE_BEAM.id} icon /> in the timeline</React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{
 		date: new Date('2018-01-25'),
-		changes: <React.Fragment>Added in <SpellLink id={SPELLS.HAVOC_T21_2PC_BONUS.id} icon/></React.Fragment>,
+		changes: <React.Fragment>Added in <SpellLink id={SPELLS.HAVOC_T21_2PC_BONUS.id} icon /></React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{
 		date: new Date('2018-01-24'),
-		changes: <React.Fragment>Added in <ItemLink id={ITEMS.RADDONS_CASCADING_EYES.id} icon/></React.Fragment>,
+		changes: <React.Fragment>Added in <ItemLink id={ITEMS.RADDONS_CASCADING_EYES.id} icon /></React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{	
 		date: new Date('2018-01-22'),
-		changes: <React.Fragment>Added in <ItemLink id={ITEMS.DELUSIONS_OF_GRANDEUR.id} icon/></React.Fragment>,
+		changes: <React.Fragment>Added in <ItemLink id={ITEMS.DELUSIONS_OF_GRANDEUR.id} icon /></React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{

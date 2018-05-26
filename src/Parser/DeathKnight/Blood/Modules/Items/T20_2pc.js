@@ -32,7 +32,7 @@ class T20_2pc extends Analyzer {
   suggestions(when) {
     when(this.uptime).isLessThan(0.90)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span><SpellLink id={SPELLS.BLOOD_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id}> Gravewarden </SpellLink> happens when you hit an enemy with <SpellLink id={SPELLS.BLOOD_BOIL.id}/>.  Uptime may be lower when there are no enemies in range, like Kil'jaeden's intermissions.</span>)
+        return suggest(<span><SpellLink id={SPELLS.BLOOD_DEATH_KNIGHT_T20_2SET_BONUS_BUFF.id}> Gravewarden </SpellLink> happens when you hit an enemy with <SpellLink id={SPELLS.BLOOD_BOIL.id} />.  Uptime may be lower when there are no enemies in range, like Kil'jaeden's intermissions.</span>)
           .icon(SPELLS.GRAVEWARDEN.icon)
           .actual(`${formatPercentage(actual)}% Gravewarden uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)

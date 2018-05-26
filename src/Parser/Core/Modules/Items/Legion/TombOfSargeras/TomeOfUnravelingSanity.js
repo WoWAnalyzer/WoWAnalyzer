@@ -55,7 +55,7 @@ class TomeOfUnravelingSanity extends Analyzer {
     return {
       item: ITEMS.TOME_OF_UNRAVELING_SANITY,
       result: (
-        <dfn data-tip={`Listed damage value counts only the DoT, and the listed average crit value is the stat gain from procs averaged over the fight's duration.`}>
+        <dfn data-tip="Listed damage value counts only the DoT, and the listed average crit value is the stat gain from procs averaged over the fight's duration.">
           <ItemDamageDone amount={this.damage} /><br />
           {this.averageCritGain.toFixed(0)} average crit
         </dfn>

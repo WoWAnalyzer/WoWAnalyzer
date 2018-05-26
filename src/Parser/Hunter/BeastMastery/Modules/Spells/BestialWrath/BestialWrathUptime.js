@@ -29,7 +29,7 @@ class BestialWrathUptime extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BESTIAL_WRATH.id} />}
         value={`${formatPercentage(this.percentUptime)}%`}
-        label={`Bestial Wrath Uptime`}
+        label="Bestial Wrath Uptime"
       />
     );
   }

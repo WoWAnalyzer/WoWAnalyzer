@@ -142,7 +142,7 @@ class WintersChillTracker extends Analyzer {
   suggestions(when) {
     when(this.iceLanceUtilSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You failed to Ice Lance into <SpellLink id={SPELLS.WINTERS_CHILL.id}/> {this.missedIceLanceCasts} times ({formatPercentage(this.iceLanceMissedPercent)}%). Make sure you cast <SpellLink id={SPELLS.ICE_LANCE.id}/> after each <SpellLink id={SPELLS.FLURRY.id}/> to benefit from <SpellLink id={SPELLS.SHATTER.id}/>.</React.Fragment>)
+        return suggest(<React.Fragment>You failed to Ice Lance into <SpellLink id={SPELLS.WINTERS_CHILL.id} /> {this.missedIceLanceCasts} times ({formatPercentage(this.iceLanceMissedPercent)}%). Make sure you cast <SpellLink id={SPELLS.ICE_LANCE.id} /> after each <SpellLink id={SPELLS.FLURRY.id} /> to benefit from <SpellLink id={SPELLS.SHATTER.id} />.</React.Fragment>)
           .icon(SPELLS.ICE_LANCE.icon)
           .actual(`${formatPercentage(this.iceLanceMissedPercent)}% Winter's Chill not shattered with Ice Lance`)
           .recommended(`<${formatPercentage(1 - this.iceLanceUtilSuggestionThresholds.isLessThan.minor)}% is recommended`);
@@ -151,7 +151,7 @@ class WintersChillTracker extends Analyzer {
     if(this.hasGlacialSpike) { // Different suggestion text depending on talent choice (which includes a SpellLink, so can't switch inside suggestion)
       when(this.hardcastUtilSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>You failed to <SpellLink id={SPELLS.FROSTBOLT.id}/>, <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id}/>, or <SpellLink id={SPELLS.EBONBOLT.id}/> into <SpellLink id={SPELLS.WINTERS_CHILL.id}/> {this.missedHardcasts} times ({formatPercentage(this.hardcastMissedPercent)}%}). Make sure you hard cast just before each instant <SpellLink id={SPELLS.FLURRY.id}/> to benefit from <SpellLink id={SPELLS.SHATTER.id}/>.</React.Fragment>)
+          return suggest(<React.Fragment>You failed to <SpellLink id={SPELLS.FROSTBOLT.id} />, <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />, or <SpellLink id={SPELLS.EBONBOLT.id} /> into <SpellLink id={SPELLS.WINTERS_CHILL.id} /> {this.missedHardcasts} times ({formatPercentage(this.hardcastMissedPercent)}%}). Make sure you hard cast just before each instant <SpellLink id={SPELLS.FLURRY.id} /> to benefit from <SpellLink id={SPELLS.SHATTER.id} />.</React.Fragment>)
             .icon(SPELLS.FROSTBOLT.icon)
             .actual(`${formatPercentage(this.hardcastMissedPercent)}% Winter's Chill not shattered with Frostbolt, Glacial Spike, or Ebonbolt`)
             .recommended(`${formatPercentage(1 - recommended)}% is recommended`);
@@ -159,7 +159,7 @@ class WintersChillTracker extends Analyzer {
     } else {
       when(this.hardcastUtilSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>You failed to <SpellLink id={SPELLS.FROSTBOLT.id}/> or <SpellLink id={SPELLS.EBONBOLT.id}/> into <SpellLink id={SPELLS.WINTERS_CHILL.id}/> {this.missedHardcasts} times ({formatPercentage(this.hardcastMissedPercent)}%}). Make sure you hard cast just before each instant <SpellLink id={SPELLS.FLURRY.id}/> to benefit from <SpellLink id={SPELLS.SHATTER.id}/>.</React.Fragment>)
+          return suggest(<React.Fragment>You failed to <SpellLink id={SPELLS.FROSTBOLT.id} /> or <SpellLink id={SPELLS.EBONBOLT.id} /> into <SpellLink id={SPELLS.WINTERS_CHILL.id} /> {this.missedHardcasts} times ({formatPercentage(this.hardcastMissedPercent)}%}). Make sure you hard cast just before each instant <SpellLink id={SPELLS.FLURRY.id} /> to benefit from <SpellLink id={SPELLS.SHATTER.id} />.</React.Fragment>)
           .icon(SPELLS.FROSTBOLT.icon)
           .actual(`${formatPercentage(this.hardcastMissedPercent)}% Winter's Chill not shattered with Frostbolt or Ebonbolt`)
           .recommended(`${formatPercentage(1 - recommended)}% is recommended`);

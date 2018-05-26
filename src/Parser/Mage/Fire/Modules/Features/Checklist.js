@@ -70,7 +70,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Manage Your Procs',
-      description: <React.Fragment>Fire Mage is heavily dependent on correctly using your <SpellLink id={SPELLS.FIRE_BLAST.id}/> and <SpellLink id={SPELLS.PHOENIXS_FLAMES.id}/> guaranteed crit abilities to properly convert <SpellLink id={SPELLS.HEATING_UP.id}/> to <SpellLink id={SPELLS.HOT_STREAK.id}/>. These procs, and the amount of them you get, play a big role in your overall performance so it is important that you are utilizing them correctly.</React.Fragment>,
+      description: <React.Fragment>Fire Mage is heavily dependent on correctly using your <SpellLink id={SPELLS.FIRE_BLAST.id} /> and <SpellLink id={SPELLS.PHOENIXS_FLAMES.id} /> guaranteed crit abilities to properly convert <SpellLink id={SPELLS.HEATING_UP.id} /> to <SpellLink id={SPELLS.HOT_STREAK.id} />. These procs, and the amount of them you get, play a big role in your overall performance so it is important that you are utilizing them correctly.</React.Fragment>,
       requirements: () => {
         return [
           new Requirement({
@@ -103,7 +103,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Maximize Combustion Effectiveness',
-      description: <React.Fragment><SpellLink id={SPELLS.COMBUSTION.id}/> is the only major cooldown that Fire Mage has and it plays a massive role in your performance. Therefore it is important that you are utilizing Combustion properly to avoid missing out on a large amount of damage.</React.Fragment>,
+      description: <React.Fragment><SpellLink id={SPELLS.COMBUSTION.id} /> is the only major cooldown that Fire Mage has and it plays a massive role in your performance. Therefore it is important that you are utilizing Combustion properly to avoid missing out on a large amount of damage.</React.Fragment>,
       requirements: () => {
         const combatant = this.combatants.selected;
         return [

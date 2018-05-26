@@ -61,7 +61,7 @@ class KoralonsBurningTouch extends Analyzer {
   suggestions(when) {
 		when(this.suggestionThreshold)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.FIREBALL.id}/>  instead of <SpellLink id={SPELLS.SCORCH.id}/> while the target was under 30% health {this.badCasts} times. When using <ItemLink id={ITEMS.KORALONS_BURNING_TOUCH.id}/> you should always make sure you are using Scorch instead of Fireball when the target is under 30% health since Scorch does 350% damage and is guaranteed to crit.</React.Fragment>)
+				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.FIREBALL.id} />  instead of <SpellLink id={SPELLS.SCORCH.id} /> while the target was under 30% health {this.badCasts} times. When using <ItemLink id={ITEMS.KORALONS_BURNING_TOUCH.id} /> you should always make sure you are using Scorch instead of Fireball when the target is under 30% health since Scorch does 350% damage and is guaranteed to crit.</React.Fragment>)
 					.icon(ITEMS.KORALONS_BURNING_TOUCH.icon)
 					.actual(`${formatPercentage(this.scorchUtil)}% Utilization`)
 					.recommended(`${formatPercentage(recommended)} is recommended`);

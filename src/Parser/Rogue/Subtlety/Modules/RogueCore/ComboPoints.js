@@ -53,14 +53,14 @@ class ComboPoints extends Analyzer {
       minor: 0.1,
       avg: 0.2, 
       major: 0.3,
-      extraSuggestion: <span> Use a weak Aura to track <SpellLink id={SPELLS.SHADOW_TECHNIQUES.id}/>. This is an advanced suggestion and should not be addressed first. </span>,
+      extraSuggestion: <span> Use a weak Aura to track <SpellLink id={SPELLS.SHADOW_TECHNIQUES.id} />. This is an advanced suggestion and should not be addressed first. </span>,
     });
     resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.GOREMAWS_BITE_ENERGY,
       minor: 0.05,
       avg: 0.1, 
       major: 0.15,
-      extraSuggestion: <span> Cast <SpellLink id={SPELLS.GOREMAWS_BITE.id}/> when you are on or below 3 combo points </span>,
+      extraSuggestion: <span> Cast <SpellLink id={SPELLS.GOREMAWS_BITE.id} /> when you are on or below 3 combo points </span>,
     });
     }
 }

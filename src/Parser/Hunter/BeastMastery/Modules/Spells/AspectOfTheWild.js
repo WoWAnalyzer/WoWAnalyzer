@@ -115,7 +115,7 @@ class AspectOfTheWild extends Analyzer {
           </React.Fragment>
 
         )}
-        label={`Aspect of the Wild`}
+        label="Aspect of the Wild"
         tooltip={tooltipText}
       />
     );

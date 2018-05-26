@@ -75,7 +75,7 @@ class Resurgence extends Analyzer {
       <ExpandableStatisticBox
         icon={<SpellIcon id={SPELLS.RESURGENCE.id} />}
         value={`${formatNumber(this.totalResurgenceGain)}`}
-        label={`Mana gained from Resurgence`}
+        label="Mana gained from Resurgence"
       >
         <div>
           <SpellLink id={SPELLS.RESURGENCE.id} iconStyle={{ height: '1.25em' }}/> accounted for {formatPercentage(this.totalResurgenceGain / this.totalMana, 0)}% of your mana pool ({formatNumber(this.totalMana)} mana).

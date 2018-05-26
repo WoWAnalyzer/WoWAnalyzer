@@ -1,11 +1,13 @@
 import React from 'react';
+
+import DEFENSIVE_BUFFS from 'common/DEFENSIVE_BUFFS';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Abilities from 'Parser/Core/Modules/Abilities';
-import DEFENSIVE_BUFFS from 'common/DEFENSIVE_BUFFS';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import Enemies from 'Parser/Core/Modules/Enemies';
 import Tab from 'Main/Tab';
+
 import DeathRecap from './DeathRecap';
 
 class DeathRecapTracker extends Analyzer {
@@ -27,8 +29,14 @@ class DeathRecapTracker extends Analyzer {
   };
 
   on_initialized() {
-    const hasCooldown = ability => (ability.category === Abilities.SPELL_CATEGORIES.DEFENSIVE || ability.category === Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE) && ability.enabled === true;
-    this.cooldowns = this.abilities.abilities.filter(hasCooldown);
+    this.cooldowns = this.abilities.abilities.filter(ability => (
+      (
+        ability.category === Abilities.SPELL_CATEGORIES.DEFENSIVE
+        || ability.category === Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE
+        || ability.isDefensive
+      )
+      && ability.enabled === true
+    ));
     //add additional defensive buffs/debuffs to common/DEFENSIVE_BUFFS
     this.buffs = [...DEFENSIVE_BUFFS, ...this.cooldowns];
   }

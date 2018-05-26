@@ -61,7 +61,7 @@ class RenewedFury extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RENEWED_FURY_TALENT.id} />}
         value={`${formatPercentage(this.uptime)}%`}
-        label={`Uptime`}
+        label="Uptime"
         tooltip={`${formatNumber(this.bonusDmg)} damage contributed
         `}
       />

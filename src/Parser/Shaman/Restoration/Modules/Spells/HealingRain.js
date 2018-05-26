@@ -66,7 +66,7 @@ class HealingRain extends Analyzer {
         icon={<SpellIcon id={SPELLS.HEALING_RAIN_HEAL.id} />}
         value={`${this.averageHitsPerTick.toFixed(2)}`}
         label={(
-          <dfn data-tip={`The average number of targets healed by Healing Rain out of the maximum amount of 6 targets.`}>
+          <dfn data-tip="The average number of targets healed by Healing Rain out of the maximum amount of 6 targets.">
             Average Healing Rain Targets
           </dfn>
         )}

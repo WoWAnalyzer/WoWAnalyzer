@@ -34,7 +34,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: .95,
-          extraSuggestion: <React.Fragment>With <ItemLink id={ITEMS.ASHES_TO_DUST.id} icon/> it is imperative you cast this on cooldown to get the damage bonus.</React.Fragment>,
+          extraSuggestion: <React.Fragment>With <ItemLink id={ITEMS.ASHES_TO_DUST.id} icon /> it is imperative you cast this on cooldown to get the damage bonus.</React.Fragment>,
           importance: ISSUE_IMPORTANCE.MAJOR,
         },
       },
@@ -123,7 +123,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-          extraSuggestion: <React.Fragment>With tier 20 and tier 21 it is even more important to use <SpellLink id={SPELLS.JUDGMENT_CAST.id}/> on cooldown</React.Fragment>,
+          extraSuggestion: <React.Fragment>With tier 20 and tier 21 it is even more important to use <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> on cooldown</React.Fragment>,
         },
       },
       {

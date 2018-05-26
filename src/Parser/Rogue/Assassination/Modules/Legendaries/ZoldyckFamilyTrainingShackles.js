@@ -64,7 +64,7 @@ class ZoldyckFamilyTrainingShackles extends Analyzer {
       item: ITEMS.ZOLDYCK_FAMILY_TRAINING_SHACKLES,
       result: (
         <dfn data-tip={`Total Damage Contributed: <b>${formatNumber(this.bonusDamage)}</b>`}>
-          <ItemDamageDone amount={this.bonusDamage}/>
+          <ItemDamageDone amount={this.bonusDamage} />
         </dfn>
       ),
     };

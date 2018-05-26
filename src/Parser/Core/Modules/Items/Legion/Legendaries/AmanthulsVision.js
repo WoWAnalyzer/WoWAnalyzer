@@ -64,9 +64,9 @@ class AmanthulsVision extends Analyzer {
 					<dfn data-tip={`Procced the pantheon buff <b>${this.panthProc}</b> times with <b>${formatPercentage(mainUptime)}</b>% uptime.`}>
 						{formatNumber(averageMain)} average {this.combatants.selected.spec.primaryStat}
 					</dfn>
-					<br/>
+					<br />
 					<dfn data-tip={`Procced the tertiary buff <b>${this.tertProc}</b> times with <b>${formatPercentage(tertUptime)}</b>% uptime.`}>
-						{formatNumber(averageTert)} average <SpellLink id={SPELLS.LEECH.id}/>, <SpellLink id={SPELLS.AVOIDANCE.id}/>, and <SpellLink id={SPELLS.SPEED.id}/>
+						{formatNumber(averageTert)} average <SpellLink id={SPELLS.LEECH.id} />, <SpellLink id={SPELLS.AVOIDANCE.id} />, and <SpellLink id={SPELLS.SPEED.id} />
 					</dfn>
 				</div>
 			),

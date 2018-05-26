@@ -28,7 +28,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
     if (!boss || !boss.fight.disableDowntimeSuggestion) {
       when(this.downtimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  You can reduce downtime by casting ranged/filler abilities like <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id}/> or <SpellLink id={SPELLS.BLOOD_BOIL.id}/></React.Fragment>)
+        return suggest(<React.Fragment>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  You can reduce downtime by casting ranged/filler abilities like <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> or <SpellLink id={SPELLS.BLOOD_BOIL.id} /></React.Fragment>)
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`);

@@ -5,6 +5,7 @@ import ReactTooltip from 'react-tooltip';
 import { push, getLocation } from 'react-router-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
+import lazyLoadComponent from 'common/lazyLoadComponent';
 import TooltipProvider from 'common/TooltipProvider';
 import { API_DOWN, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'actions/error';
 import { getError } from 'selectors/error';
@@ -23,9 +24,10 @@ import Footer from './Layout/Footer';
 import NewsView from './News/View';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 import Report from './Report';
-import ContributorDetails from './Contributors/ContributorDetails';
-import CharacterParses from './Character/CharacterParses';
 import Header from './Header';
+
+const ContributorDetails = lazyLoadComponent(() => import(/* webpackChunkName: 'ContributorDetails' */ './Contributors/ContributorDetails').then(exports => exports.default));
+const CharacterParses = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterParses' */ './Character/CharacterParses').then(exports => exports.default));
 
 function isIE() {
   const myNav = navigator.userAgent.toLowerCase();

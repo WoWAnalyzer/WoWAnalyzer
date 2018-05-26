@@ -19,12 +19,12 @@ export default [
     },
     {
       date: new Date('2018-02-18'),
-      changes: <React.Fragment>Added efficiency reporting for <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} icon/></React.Fragment>,
+      changes: <React.Fragment>Added efficiency reporting for <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} icon /></React.Fragment>,
       contributors: [Khazak],
     },
     {
       date: new Date('2018-02-12'),
-      changes: <React.Fragment>Added stats for <ItemLink id={ITEMS.KOLTIRAS_NEWFOUND_WILL.id}/></React.Fragment>,
+      changes: <React.Fragment>Added stats for <ItemLink id={ITEMS.KOLTIRAS_NEWFOUND_WILL.id} /></React.Fragment>,
       contributors: [Khazak],
     },
     {
@@ -34,7 +34,7 @@ export default [
     },
     {
       date: new Date('2018-02-11'),
-      changes: <React.Fragment>Added stats for <ItemLink id={ITEMS.TORAVONS_WHITEOUT_BINDINGS.id}/> </React.Fragment>,
+      changes: <React.Fragment>Added stats for <ItemLink id={ITEMS.TORAVONS_WHITEOUT_BINDINGS.id} /> </React.Fragment>,
       contributors: [Khazak],
     },
     {

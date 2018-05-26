@@ -54,7 +54,7 @@ class BlackoutKick extends Analyzer {
       event.meta.enhancedCastReason = 'You had Combo Breaker and T21-2pc for this Blackout Kick';
       return;
     }
-    
+
     const hasImportantCastsAvailable = this.IMPORTANT_SPELLS.some(spellId => this.spellUsable.isAvailable(spellId));
 
     if (hasImportantCastsAvailable) {
@@ -118,8 +118,7 @@ class BlackoutKick extends Analyzer {
                 marginTop: '-1.em',
               }}
             />
-            {' '}
-            <br></br>
+            <br />
             {(this.effectiveFistsOfFuryReductionMs / 1000).toFixed(1)}s{' '}
             <SpellIcon
               id={SPELLS.FISTS_OF_FURY_CAST.id}
@@ -131,8 +130,8 @@ class BlackoutKick extends Analyzer {
           </span>
         )}
         label="Cooldown reduction"
-        />
-      );
+      />
+    );
   }
   statisticOrder = STATISTIC_ORDER.CORE(5);
 }

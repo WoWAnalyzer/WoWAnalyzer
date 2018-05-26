@@ -54,7 +54,7 @@ class Tier21_4set extends Analyzer {
       icon: <SpellIcon id={SPELLS.WARLOCK_AFFLI_T21_4P_BONUS.id} />,
       title: <SpellLink id={SPELLS.WARLOCK_AFFLI_T21_4P_BONUS.id} icon={false} />,
       result: (<React.Fragment>
-        {formatPercentage(this.uptime)} % uptime on <SpellLink id={SPELLS.WARLOCK_AFFLI_T21_4P_DEBUFF.id} icon/> <br />
+        {formatPercentage(this.uptime)} % uptime on <SpellLink id={SPELLS.WARLOCK_AFFLI_T21_4P_DEBUFF.id} icon /> <br />
         <dfn data-tip={`${formatNumber(this._bonusDamage)} bonus damage`}>
           <ItemDamageDone amount={this._bonusDamage} />
         </dfn>

@@ -18,7 +18,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
-          extraSuggestion: <React.Fragment>Although you normally want to use this off CD, you can save it to line it up with <SpellLink id={SPELLS.PILLAR_OF_FROST.id} icon/>.  You can also hold it if you know there will be an opportunity to hit more than one enemy in the next 30 seconds.</React.Fragment>,
+          extraSuggestion: <React.Fragment>Although you normally want to use this off CD, you can save it to line it up with <SpellLink id={SPELLS.PILLAR_OF_FROST.id} icon />.  You can also hold it if you know there will be an opportunity to hit more than one enemy in the next 30 seconds.</React.Fragment>,
         },
       },
       {
@@ -64,7 +64,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.60,
-          extraSuggestion: <React.Fragment>You should use this whenever you are out of Runes and Runic Power.  Alternatively, some players use this during heroism to get more casts of <SpellLink id={SPELLS.OBLITERATE_CAST.id}/>.</React.Fragment>,
+          extraSuggestion: <React.Fragment>You should use this whenever you are out of Runes and Runic Power.  Alternatively, some players use this during heroism to get more casts of <SpellLink id={SPELLS.OBLITERATE_CAST.id} />.</React.Fragment>,
         },
       },
       {

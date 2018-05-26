@@ -40,7 +40,7 @@ class MortalWounds extends Analyzer {
         icon={<SpellIcon id={SPELLS.MORTAL_WOUNDS_TALENT.id} />}
         value={`~${this.averageBitesGained.toFixed(2)}`}
         label="Approximate bites gained"
-        tooltip={`Because logs don't include information about mongoose bite resets, this is currently untrackable. This shows the average amount of Mongoose Bites you would have generated over this encounter through this talent.`} />
+        tooltip="Because logs don't include information about mongoose bite resets, this is currently untrackable. This shows the average amount of Mongoose Bites you would have generated over this encounter through this talent." />
     );
   }
 

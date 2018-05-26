@@ -112,7 +112,7 @@ class DamageTaken extends Analyzer {
           <Toggleable
             className="statistic-bar"
             data-tip={this.tooltip}
-            value = {
+            value={
               Object.keys(simplifiedValues)
                 .map(type =>
                   (
@@ -124,7 +124,7 @@ class DamageTaken extends Analyzer {
                   )
                 )
             }
-            toggledvalue = {
+            toggledvalue={
               Object.keys(this._byMagicSchool)
                 .filter(type => this._byMagicSchool[type].effective !== 0)
                 .map(type =>
