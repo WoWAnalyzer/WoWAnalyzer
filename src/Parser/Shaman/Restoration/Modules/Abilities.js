@@ -40,7 +40,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HEALING_STREAM_TOTEM_CAST,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isDefensive: true,
         charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id) ? 2 : 1,
         timelineSortIndex: 18,
         isOnGCD: true,
