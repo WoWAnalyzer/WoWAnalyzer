@@ -152,7 +152,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         ...event,
         type: 'feed_heal',
         feed: eventFeed,
-        __fabricated: true,
       }, cooldown.spell);
     });
   }

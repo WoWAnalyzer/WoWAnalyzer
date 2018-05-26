@@ -72,7 +72,6 @@ class CloudburstTotem extends Analyzer {
       type: type,
       targetID: event.sourceID,
       targetIsFriendly: event.sourceIsFriendly,
-      __fabricated: true,
     }, event);
   }
 

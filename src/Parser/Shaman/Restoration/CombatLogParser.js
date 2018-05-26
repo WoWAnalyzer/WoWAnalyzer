@@ -11,6 +11,7 @@ import Abilities from './Modules/Abilities';
 
 import HealingDone from './Modules/ShamanCore/HealingDone';
 import ShamanAbilityTracker from './Modules/ShamanCore/ShamanAbilityTracker';
+import HealingRainLocation from './Modules/ShamanCore/HealingRainLocation';
 
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -28,6 +29,7 @@ import Torrent from './Modules/Talents/Torrent';
 import UnleashLife from './Modules/Talents/UnleashLife';
 import Undulation from './Modules/Talents/Undulation';
 import AncestralGuidance from './Modules/Talents/AncestralGuidance';
+import Deluge from './Modules/Talents/Deluge';
 import EarthenShieldTotem from './Modules/Talents/EarthenShieldTotem';
 import CloudburstTotem from './Modules/Talents/CloudburstTotem';
 import Ascendance from './Modules/Talents/Ascendance';
@@ -51,6 +53,7 @@ import HighfathersMachination from './Modules/Items/HighfathersMachination';
 import EonarsCompassion from './Modules/Items/EonarsCompassion';
 import TarratusKeystone from './Modules/Items/TarratusKeystone';
 import VelensFutureSight from './Modules/Items/VelensFutureSight';
+import ElementalRebalancers from './Modules/Items/ElementalRebalancers';
 
 import ChainHeal from './Modules/Spells/ChainHeal';
 import HealingSurge from './Modules/Spells/HealingSurge';
@@ -73,6 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lowHealthHealing: LowHealthHealing,
     healingDone: [HealingDone, { showStatistic: true }],
     abilities: Abilities,
+    healingRainLocation: HealingRainLocation,
     deathRecapTracker: DeathRecapTracker,
 
     // Features
@@ -92,6 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
     unleashLife: UnleashLife,
     undulation: Undulation,
     ancestralGuidance: AncestralGuidance,
+    deluge: Deluge,
     earthenShieldTotem: EarthenShieldTotem,
     cloudburstTotem: CloudburstTotem,
     ascendance: Ascendance,
@@ -116,6 +121,7 @@ class CombatLogParser extends CoreCombatLogParser {
     eonarsCompassion: EonarsCompassion,
     tarratusKeystone: TarratusKeystone,
     velensFutureSight: VelensFutureSight,
+    elementalRebalancers: ElementalRebalancers,
 
     // Spells:
     chainHeal: ChainHeal,
