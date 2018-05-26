@@ -25,6 +25,7 @@ import Header from './Header';
 import DetailsTab from './DetailsTab';
 import About from './About';
 import Divider from './Divider';
+import StatisticsSectionTitle from './StatisticsSectionTitle';
 import Odyn from './Images/odyn.jpg';
 
 import './Results.css';
@@ -102,59 +103,71 @@ class Results extends React.PureComponent {
 
   renderStatistics(statistics, items, selectedCombatant) {
     return (
-      <Masonry className="row statistics">
-        {statistics
-          .filter(statistic => !!statistic) // filter optionals
-          .map((statistic, index) => statistic.statistic ? statistic : { statistic, order: index }) // normalize
-          .sort((a, b) => a.order - b.order)
-          .map((statistic, i) => React.cloneElement(statistic.statistic, {
-            key: `${statistic.order}-${i}`,
-          }))}
+      <React.Fragment>
+        <Masonry className="row statistics">
+          {statistics
+            .filter(statistic => !!statistic) // filter optionals
+            .map((statistic, index) => statistic.statistic ? statistic : { statistic, order: index }) // normalize
+            .sort((a, b) => a.order - b.order)
+            .map((statistic, i) => React.cloneElement(statistic.statistic, {
+              key: `${statistic.order}-${i}`,
+            }))}
+        </Masonry>
 
-        {items
-          .sort((a, b) => {
-            // raw elements always rendered last
-            if (React.isValidElement(a)) {
-              return 1;
-            } else if (React.isValidElement(b)) {
-              return -1;
-            } else if (a.item && b.item) {
-              if (a.item.quality === b.item.quality) {
-                // Qualities equal = show last added item at bottom
-                return a.item.id - b.item.id;
-              }
-              // Show lowest quality item at bottom
-              return a.item.quality < b.item.quality;
-            } else if (a.item) {
-              return -1;
-            } else if (b.item) {
-              return 1;
-            }
-            // Neither is an actual item, sort by id so last added effect is shown at bottom
-            if (a.id < b.id) {
-              return -1;
-            } else if (a.id > b.id) {
-              return 1;
-            }
-            return 0;
-          })
-          .map(item => {
-            if (!item) {
-              return null;
-            } else if (React.isValidElement(item)) {
-              return item;
-            }
+        {items.length > 0 && (
+          <React.Fragment>
+            <StatisticsSectionTitle>
+              Items
+            </StatisticsSectionTitle>
 
-            const id = item.id || item.item.id;
-            const itemDetails = id && selectedCombatant.getItem(id);
-            const icon = item.icon || <ItemIcon id={item.item.id} details={itemDetails} />;
-            const title = item.title || <ItemLink id={item.item.id} details={itemDetails} icon={false} />;
+            <div className="row statistics" style={{ marginBottom: -40 }}>
+              {items
+                .sort((a, b) => {
+                  // raw elements always rendered last
+                  if (React.isValidElement(a)) {
+                    return 1;
+                  } else if (React.isValidElement(b)) {
+                    return -1;
+                  } else if (a.item && b.item) {
+                    if (a.item.quality === b.item.quality) {
+                      // Qualities equal = show last added item at bottom
+                      return a.item.id - b.item.id;
+                    }
+                    // Show lowest quality item at bottom
+                    return a.item.quality < b.item.quality;
+                  } else if (a.item) {
+                    return -1;
+                  } else if (b.item) {
+                    return 1;
+                  }
+                  // Neither is an actual item, sort by id so last added effect is shown at bottom
+                  if (a.id < b.id) {
+                    return -1;
+                  } else if (a.id > b.id) {
+                    return 1;
+                  }
+                  return 0;
+                })
+                .map(item => {
+                  if (!item) {
+                    return null;
+                  } else if (React.isValidElement(item)) {
+                    return item;
+                  }
 
-            return (
-              <ItemStatisticBox key={id} icon={icon} value={item.result} label={title} />
-            );
-          })}
-      </Masonry>
+                  const id = item.id || item.item.id;
+                  const itemDetails = id && selectedCombatant.getItem(id);
+                  const icon = item.icon || <ItemIcon id={item.item.id} details={itemDetails} />;
+                  const title = item.title || <ItemLink id={item.item.id} details={itemDetails} icon={false} />;
+
+                  return (
+                    <ItemStatisticBox key={id} icon={icon} value={item.result} label={title} />
+                  );
+                })}
+            </div>
+          </React.Fragment>
+        )}
+      </React.Fragment>
     );
   }
 
