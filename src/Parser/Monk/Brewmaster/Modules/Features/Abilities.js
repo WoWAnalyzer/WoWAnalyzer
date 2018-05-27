@@ -142,6 +142,15 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.PARALYSIS,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
       },
+      {
+        spell: SPELLS.EXPLODING_KEG,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 75,
+        enabled: !!combatant.getItem(ITEMS.FU_ZAN_THE_WANDERERS_COMPANION.id),
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
       // Its unlikely that these spells will ever be cast but if they are they will show.
       {
         spell: SPELLS.DETOX,

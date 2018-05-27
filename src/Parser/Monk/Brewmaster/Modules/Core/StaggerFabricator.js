@@ -60,41 +60,45 @@ class StaggerFabricator extends Analyzer {
   }
 
   on_toPlayer_damage(event) {
-    if (event.ability.guid === SPELLS.STAGGER_TAKEN.id) {
-      const amount = event.amount + (event.absorbed || 0);
-
-      // fabricate absorb events for melee attacks. these are currently
-      // bugged in BFA but existed in Legion.
-      //
-      // There is ONE edge case that can cause errors to accumulate: if
-      // the sequence is MELEE -> PURIFY -> STAGGER TICK then the purify
-      // and melee absorb will be shown as the wrong amounts, but the
-      // stagger pool shouldn't drift because the absorb (aka damage
-      // added) will be missing the amount that was purified.
-      if(this._lastMelee) {
-        const amountAbsorbed = STAGGER_TICKS * amount - this._staggerPool;
-        this.owner.fabricateEvent(this._fabMelee(this._lastMelee, amountAbsorbed), event);
-        this._lastMelee = null;
-      }
-
-      this._staggerPool -= amount;
-      // sometimes a stagger tick is recorded immediately after death.
-      // this ensures we don't go into negative stagger
-      this._staggerPool = Math.max(this._staggerPool, 0);
-      debug && console.log("triggering stagger pool update due to stagger tick");
-      this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount), event);
-    } else if (event.ability.guid === SPELLS.MELEE.id) {
+    if (event.ability.guid === SPELLS.MELEE.id) {
       this._lastMelee = event;
+      return;
     }
+    if (event.ability.guid !== SPELLS.STAGGER_TAKEN.id) {
+      return;
+    }
+    const amount = event.amount + (event.absorbed || 0);
+
+    // fabricate absorb events for melee attacks. these are currently
+    // bugged in BFA but existed in Legion.
+    //
+    // There is ONE edge case that can cause errors to accumulate: if
+    // the sequence is MELEE -> PURIFY -> STAGGER TICK then the purify
+    // and melee absorb will be shown as the wrong amounts, but the
+    // stagger pool shouldn't drift because the absorb (aka damage
+    // added) will be missing the amount that was purified.
+    if(this._lastMelee) {
+      const amountAbsorbed = STAGGER_TICKS * amount - this._staggerPool;
+      this.owner.fabricateEvent(this._fabMelee(this._lastMelee, amountAbsorbed), event);
+      this._lastMelee = null;
+    }
+
+    this._staggerPool -= amount;
+    // sometimes a stagger tick is recorded immediately after death.
+    // this ensures we don't go into negative stagger
+    this._staggerPool = Math.max(this._staggerPool, 0);
+    debug && console.log("triggering stagger pool update due to stagger tick");
+    this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount), event);
   }
 
   on_byPlayer_cast(event) {
-    if (event.ability.guid === SPELLS.PURIFYING_BREW.id) {
-      const amount = this._staggerPool * this.purifyPercentage;
-      this._staggerPool -= amount;
-      debug && console.log("triggering stagger pool update due to purify");
-      this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount), event);
-    } // leaving this as an IF because i expect an ELSE from azerite traits
+    if (event.ability.guid !== SPELLS.PURIFYING_BREW.id) {
+      return;
+    }
+    const amount = this._staggerPool * this.purifyPercentage;
+    this._staggerPool -= amount;
+    debug && console.log("triggering stagger pool update due to purify");
+    this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount), event);
   }
 
   on_toPlayer_death(event) {
@@ -119,6 +123,7 @@ class StaggerFabricator extends Analyzer {
       type: type,
       amount: amount,
       newPooledDamage: this._staggerPool,
+      _reason: reason,
     };
   }
 
