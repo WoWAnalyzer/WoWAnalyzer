@@ -21,6 +21,7 @@
     "express-session": "^1.15.6",
     "mysql2": "^1.5.3",
     "passport": "^0.4.0",
+    "passport-github": "^1.1.0",
     "passport-patreon": "^1.0.1",
     "raven": "^2.6.2",
     "request": "^2.87.0",
