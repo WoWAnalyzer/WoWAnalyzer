@@ -123,6 +123,7 @@ class StaggerFabricator extends Analyzer {
       type: type,
       amount: amount,
       newPooledDamage: this._staggerPool,
+      _reason: reason,
     };
   }
 
