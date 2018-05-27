@@ -8,7 +8,7 @@ exports[`Premium matches snapshot 1`] = `
     className="row"
   >
     <div
-      className="col-lg-3 col-lg-offset-1 col-sm-4"
+      className="col-lg-3 col-lg-offset-1 col-md-4 col-sm-5"
     >
       <div
         className="panel"
@@ -89,17 +89,8 @@ exports[`Premium matches snapshot 1`] = `
               }
             >
               <a
-                className="btn btn-block"
+                className="btn btn-block patreon-login"
                 href="/login/patreon"
-                style={
-                  Object {
-                    "background": "#e6461a",
-                    "borderBottomLeftRadius": 3,
-                    "borderRadius": 0,
-                    "color": "#fff",
-                    "fontSize": "2em",
-                  }
-                }
               >
                 <Icon />
                  Patreon
@@ -114,17 +105,8 @@ exports[`Premium matches snapshot 1`] = `
               }
             >
               <a
-                className="btn btn-block"
+                className="btn btn-block github-login"
                 href="/login/github"
-                style={
-                  Object {
-                    "background": "#fff",
-                    "borderBottomRightRadius": 3,
-                    "borderRadius": 0,
-                    "color": "#000",
-                    "fontSize": "2em",
-                  }
-                }
               >
                 <Icon />
                  GitHub
@@ -135,7 +117,7 @@ exports[`Premium matches snapshot 1`] = `
       </div>
     </div>
     <div
-      className="col-lg-7 col-sm-8"
+      className="col-lg-7 col-md-8 col-sm-7"
     >
       <div
         className="panel"
@@ -150,7 +132,17 @@ exports[`Premium matches snapshot 1`] = `
         <div
           className="panel-body"
         >
-          Help out development and get WoWAnalyzer premium in return! An early adopter gets the following rewards:
+          <Icon
+            style={
+              Object {
+                "color": "#e45a5a",
+                "float": "right",
+                "fontSize": "6em",
+                "marginTop": 0,
+              }
+            }
+          />
+          Help out development and get WoWAnalyzer premium in return! Apart from funding development and thus getting the tool as it is today and future improvements, an early adopter gets the following rewards:
           <br />
           <ul>
             <li>
