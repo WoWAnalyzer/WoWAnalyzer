@@ -38,6 +38,7 @@ Passport.use(new GitHubStrategy({
       avatar: fullProfile.avatar_url,
       github: {
         id: fullProfile.id,
+        login: fullProfile.login,
         lastCommitDate,
         accessToken,
         refreshToken,
