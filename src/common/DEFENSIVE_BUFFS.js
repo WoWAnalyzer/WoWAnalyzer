@@ -41,10 +41,6 @@ const DEFENSIVE_BUFFS = [
   {
     spell: SPELLS.SHROUD_OF_PURGATORY,
   },
-  //Frost Death-Knight
-  {
-    spell: SPELLS.PERMAFROST_TALENT,
-  },
   //Vengence Demon Hunter
   {
     spell: SPELLS.PAINBRINGER_Buff,
@@ -59,10 +55,6 @@ const DEFENSIVE_BUFFS = [
   //Brewmaster Monk
   {
     spell: SPELLS.IRONSKIN_BREW_BUFF,
-  },
-  //Affliction Warlock
-  {
-    spell: SPELLS.SOUL_LEECH_BUFF,
   },
   //Arms Warrior
   {
