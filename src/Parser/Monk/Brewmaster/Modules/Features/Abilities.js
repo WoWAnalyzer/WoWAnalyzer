@@ -36,6 +36,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BREATH_OF_FIRE,
+        isDefensive: true,
         buffSpellId: SPELLS.BREATH_OF_FIRE_DEBUFF.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 15,
