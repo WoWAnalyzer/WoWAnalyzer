@@ -54,7 +54,8 @@ class Abilities extends CoreAbilities {
       // cooldowns
       {
         spell: SPELLS.TOUCH_OF_KARMA_CAST,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.TOUCH_OF_KARMA_CAST.id,
+        category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
         cooldown: 90,
         castEfficiency: {
           suggestion: true,
@@ -144,12 +145,14 @@ class Abilities extends CoreAbilities {
       // Defensives
       {
         spell: SPELLS.DIFFUSE_MAGIC_TALENT,
+        buffSpellId: SPELLS.DIFFUSE_MAGIC_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: haste => 90,
         enabled: combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT.id),
       },
       {
         spell: SPELLS.DAMPEN_HARM_TALENT,
+        buffSpellId: SPELLS.DAMPEN_HARM_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: haste => 90,
         enabled: combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id),

@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-05-27'),
+    changes: 'Added death recap for all specs.',
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-05-26'),
     changes: 'Show items separate from the rest of the statistics on the results page.',
     contributors: [Zerotorescue],

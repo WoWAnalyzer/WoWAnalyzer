@@ -419,6 +419,11 @@ export default {
     name: 'Fortifying Brew',
     icon: 'ability_monk_fortifyingale_new',
   },
+  FORTIFYING_BREW_BRM_BUFF: {
+    id: 120954,
+    name: 'Fortifying Brew',
+    icon: 'ability_monk_fortifyingale_new',
+  },
   EXPLODING_KEG: {
     id: 214326,
     name: 'Exploding Keg',

@@ -133,6 +133,18 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.ICEBOUND_FORTITUDE,
+        buffSpellId: SPELLS.ICEBOUND_FORTITUDE.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 180,
+      },
+      {
+        spell: SPELLS.ANTI_MAGIC_SHELL,
+        buffSpellId: SPELLS.ANTI_MAGIC_SHELL.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 60,
+      },
+      {
         spell: SPELLS.RUNE_1,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
         cooldown: haste => 10 / (1 + haste),

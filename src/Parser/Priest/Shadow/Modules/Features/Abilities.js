@@ -134,6 +134,8 @@ class Abilities extends CoreAbilities {
       // Utility
       {
         spell: SPELLS.DISPERSION,
+        isDefensive: true,
+        buffSpellId: SPELLS.DISPERSION.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: (haste, selectedCombatant) => 90 - (10 * selectedCombatant.traitsBySpellId[SPELLS.FROM_THE_SHADOWS_TRAIT.id]),
       },
@@ -150,11 +152,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.VAMPIRIC_EMBRACE,
+        buffSpellId: SPELLS.VAMPIRIC_EMBRACE.id,
+        isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 180,
       },
       {
         spell: SPELLS.POWER_WORD_SHIELD,
+        isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: haste => 7.5 / (1 + haste),
       },

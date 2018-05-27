@@ -149,6 +149,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SURVIVAL_INSTINCTS,
+        buffSpellId: SPELLS.SURVIVAL_INSTINCTS.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
         charges: 2,
@@ -204,7 +205,7 @@ class Abilities extends CoreAbilities {
 
       {
         spell: SPELLS.BEAR_FORM,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isOnGCD: true,
       },
       {

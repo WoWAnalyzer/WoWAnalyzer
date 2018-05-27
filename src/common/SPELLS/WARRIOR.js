@@ -503,6 +503,11 @@ export default {
     name: 'Commanding Shout',
     icon: 'ability_warrior_rallyingcry',
   },
+  COMMANDING_SHOUT_BUFF: {
+    id: 97463,
+    name: 'Commanding Shout',
+    icon: 'ability_warrior_rallyingcry',
+  },
   INTIMIDATING_SHOUT: {
     id: 5246,
     name: 'Intimidating Shout',
