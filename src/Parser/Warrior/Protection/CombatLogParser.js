@@ -3,7 +3,6 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 import DamageTaken from 'Parser/Core/Modules/DamageTaken';
 
-import DeathRecapTracker from 'Main/DeathRecapTracker';
 import Haste from './Modules/Core/Haste';
 import Abilities from './Modules/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -37,7 +36,6 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     shield_block: Shield_Block,
-    deathRecapTracker: DeathRecapTracker,
     spellUsable: SpellUsable,
     checklist: Checklist,
     ignorePain: IgnorePain,
