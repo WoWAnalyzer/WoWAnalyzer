@@ -92,6 +92,12 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
       },
+      {
+        spell: SPELLS.RIPOSTE,
+        buffSpellId: SPELLS.RIPOSTE.id,
+        cooldown: 120,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+      },
     ];
   }
 }

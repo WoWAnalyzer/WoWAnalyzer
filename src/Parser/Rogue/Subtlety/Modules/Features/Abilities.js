@@ -122,6 +122,12 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
       },
+      {
+        spell: SPELLS.EVASION,
+        buffSpellId: SPELLS.EVASION.id,
+        cooldown: 120,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+      },
     ];
   }
 }
