@@ -82,6 +82,22 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.GHOSTLY_STRIKE_TALENT.id),
       },
+      {
+        spell: SPELLS.FEINT,
+        buffSpellId: SPELLS.FEINT.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+      },
+      {
+        spell: SPELLS.CRIMSON_VIAL,
+        cooldown: 30,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+      },
+      {
+        spell: SPELLS.RIPOSTE,
+        buffSpellId: SPELLS.RIPOSTE.id,
+        cooldown: 120,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+      },
     ];
   }
 }

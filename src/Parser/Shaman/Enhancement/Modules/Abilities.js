@@ -79,11 +79,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE, // 1.5 / (1 + haste)
       },
       {
-        spell: SPELLS.ASTRAL_SHIFT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 90,
-      },
-      {
         spell: SPELLS.FERAL_LUNGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
@@ -92,6 +87,12 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SPIRIT_WALK,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
+      },
+      {
+        spell: SPELLS.ASTRAL_SHIFT,
+        buffSpellId: SPELLS.ASTRAL_SHIFT.id,
+        cooldown: 90,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
       },
     ];
   }

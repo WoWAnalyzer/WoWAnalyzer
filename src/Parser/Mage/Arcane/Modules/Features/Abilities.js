@@ -131,11 +131,13 @@ class Abilities extends CoreAbilities {
       //Defensives
       {
         spell: SPELLS.PRISMATIC_BARRIER,
+        buffSpellId: SPELLS.PRISMATIC_BARRIER.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 25,
       },
       {
         spell: SPELLS.ICE_BLOCK,
+        buffSpellId: SPELLS.ICE_BLOCK.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 240,
         castEfficiency: {

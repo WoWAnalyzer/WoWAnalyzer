@@ -200,6 +200,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
+        buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: () => {
           const hasEmbrace = this.combatants.selected.traitsBySpellId[SPELLS.EMBRACE_OF_THE_ASPECTS.id];
