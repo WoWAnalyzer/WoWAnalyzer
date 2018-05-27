@@ -43,7 +43,7 @@ class RaddonsCascadingEyes extends Analyzer {
 			item: ITEMS.RADDONS_CASCADING_EYES,
 			result: (
 				<dfn data-tip={`You wasted ${formatNumber(this.wastedEyeBeamReduction / 1000)} seconds of CDR.<br/>`}>
-					reduced <SpellLink id={SPELLS.EYE_BEAM.id} icon/> cooldown by {formatNumber(this.effectiveEyeBeamReduction / 1000)}s in total
+					reduced <SpellLink id={SPELLS.EYE_BEAM.id} icon /> cooldown by {formatNumber(this.effectiveEyeBeamReduction / 1000)}s in total
 				</dfn>
 			),
 		};

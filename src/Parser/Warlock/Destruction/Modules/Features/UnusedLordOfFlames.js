@@ -31,7 +31,7 @@ class UnusedLordOfFlames extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You should cast <SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} /> when you don't have Lord of Flames debuff, as it is a more powerful cooldown than <SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} />, even on single target. Try to pair up the cooldown with Bloodlust haste buffs (<SpellLink id={SPELLS.BLOODLUST.id}/>, <SpellLink id={SPELLS.HEROISM.id}/>, <SpellLink id={SPELLS.TIME_WARP.id}/> etc.).</React.Fragment>)
+        return suggest(<React.Fragment>You should cast <SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} /> when you don't have Lord of Flames debuff, as it is a more powerful cooldown than <SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} />, even on single target. Try to pair up the cooldown with Bloodlust haste buffs (<SpellLink id={SPELLS.BLOODLUST.id} />, <SpellLink id={SPELLS.HEROISM.id} />, <SpellLink id={SPELLS.TIME_WARP.id} /> etc.).</React.Fragment>)
           .icon(SPELLS.SUMMON_INFERNAL_UNTALENTED.icon)
           .actual(`${actual} out of ${recommended} buffed Summon Infernals.`)
           .recommended(`${recommended} is recommended`);

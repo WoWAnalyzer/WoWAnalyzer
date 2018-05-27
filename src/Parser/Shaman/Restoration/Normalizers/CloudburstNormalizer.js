@@ -19,10 +19,6 @@ const CBT_DELAY = 15000;
 
 class CloudburstNormalizer extends EventsNormalizer {
 
-  on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id);
-  }
-
   fabricatedEvent = null;
 
   normalize(events) {

@@ -6,7 +6,7 @@ import { Hewhosmites, Zerotorescue } from 'CONTRIBUTORS';
 export default [
 	{
 		date: new Date('2018-02-21'),
-		changes: <React.Fragment>Added a <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon/> module.</React.Fragment>,
+		changes: <React.Fragment>Added a <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon /> module.</React.Fragment>,
 		contributors: [Hewhosmites],
 	},
 	{

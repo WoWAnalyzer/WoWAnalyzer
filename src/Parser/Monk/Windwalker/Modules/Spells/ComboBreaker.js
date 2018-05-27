@@ -59,7 +59,7 @@ class ComboBreaker extends Analyzer {
     }
   }
   get suggestionThresholds() {
-    const usedCBprocs =  this.consumedCBProc / this.CBProcsTotal;
+    const usedCBprocs = this.consumedCBProc / this.CBProcsTotal;
     const baseThreshold = this.combatants.selected.hasBuff(SPELLS.WW_TIER21_2PC.id) ? 0.05 : 0.1;
     return {
       actual: usedCBprocs,
@@ -94,7 +94,7 @@ class ComboBreaker extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.COMBO_BREAKER_BUFF.id} />}
         value={`${formatPercentage(usedCBProcs)}%`}
-        label={`Combo Breaker Procs Used`}
+        label="Combo Breaker Procs Used"
         tooltip={`You got a total of <b>${this.CBProcsTotal} Combo Breaker procs</b> and <b>used ${this.consumedCBProc}</b> of them. Average number of procs from your Tiger Palms this fight is <b>${averageCBProcs.toFixed(2)}</b>, and you got <b>${procsFromTigerPalm}</b>.`}
       />
    );

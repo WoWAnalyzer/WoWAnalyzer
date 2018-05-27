@@ -24,7 +24,7 @@ class CharacterParsesList extends React.PureComponent {
 
   render() {
     return (
-      this.props.parses.map(elem =>
+      this.props.parses.map(elem => (
         <a
           key={`${elem.report_code} ${elem.report_fight}`}
           href={makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + ' ' + elem.name, elem.character_name)}
@@ -35,13 +35,13 @@ class CharacterParsesList extends React.PureComponent {
               {elem.difficulty} - {elem.name}
             </div>
             <div className="col-md-5" style={{ height: 32 }}>
-              {elem.advanced && elem.talents.map(talent =>
+              {elem.advanced && elem.talents.map(talent => (
                 <SpellIcon
                   key={talent.id}
                   id={talent.id}
                   style={{ width: '1.8em', height: '1.8em', marginRight: 2 }}
                 />
-              )}
+              ))}
             </div>
             <div className="col-md-2" style={{ color: 'white', textAlign: 'right' }}>
               {new Date(elem.start_time).toLocaleDateString()}
@@ -53,14 +53,14 @@ class CharacterParsesList extends React.PureComponent {
               </span>
             </div>
             <div className="col-md-5">
-              {elem.advanced && elem.gear.filter((item, index) => index === TRINKET_SLOTS[0] || index === TRINKET_SLOTS[1] || item.quality === 'legendary').map(item =>
+              {elem.advanced && elem.gear.filter((item, index) => index === TRINKET_SLOTS[0] || index === TRINKET_SLOTS[1] || item.quality === 'legendary').map(item => (
                 <ItemLink id={item.id} key={item.id} className={item.quality} icon={false}>
                   <Icon
                     icon={ITEMS[item.id] ? ITEMS[item.id].icon : ITEMS[0].icon}
                     style={{ width: '1.8em', height: '1.8em', border: '1px solid', marginRight: 2 }}
                   />
                 </ItemLink>
-              )}
+              ))}
             </div>
             <div className="col-md-2" style={{ textAlign: 'right' }}>
               {elem.advanced && (
@@ -69,7 +69,7 @@ class CharacterParsesList extends React.PureComponent {
             </div>
           </div>
         </a>
-      )
+      ))
     );
   }
 }

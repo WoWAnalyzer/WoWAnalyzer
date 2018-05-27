@@ -24,7 +24,7 @@ import { ABILITIES_NOT_FEEDING_INTO_AG, ABILITIES_NOT_FEEDING_INTO_ASCENDANCE, A
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownThroughputTracker.cooldownSpells,
+    ...CoreCooldownThroughputTracker.cooldownSpells,
     {
       spell: SPELLS.ANCESTRAL_GUIDANCE_TALENT,
       summary: [
@@ -152,7 +152,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         ...event,
         type: 'feed_heal',
         feed: eventFeed,
-        __fabricated: true,
       }, cooldown.spell);
     });
   }
@@ -319,27 +318,27 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     if (event.ability.guid === SPELLS.CLOUDBURST_TOTEM_HEAL.id && this.lastCBT) {
       this.hasBeenCBTHealingEvent = true;
       this.popCBT(event);
-      this.lastCBT.healing += (event.amount || 0) + (event.absorb || 0);
+      this.lastCBT.healing += (event.amount || 0) + (event.absorbed || 0);
       this.lastCBT.overheal += (event.overheal || 0);
     } else if (event.ability.guid === SPELLS.ANCESTRAL_GUIDANCE_HEAL.id && this.lastAG) {
       this.hasBeenAGHealingOrCastEvent = true;
-      this.lastAG.healing += (event.amount || 0) + (event.absorb || 0);
+      this.lastAG.healing += (event.amount || 0) + (event.absorbed || 0);
       this.lastAG.overheal += (event.overheal || 0);
     } else if (event.ability.guid === SPELLS.ASCENDANCE_HEAL.id && this.lastAsc) {
       this.hasBeenAscHealingOrCastEvent = true;
-      this.lastAsc.healing += (event.amount || 0) + (event.absorb || 0);
+      this.lastAsc.healing += (event.amount || 0) + (event.absorbed || 0);
       this.lastAsc.overheal += (event.overheal || 0);
     }
 
     const spellId = event.ability.guid;
-    const healingDone = (event.amount || 0) + (event.overheal || 0) + (event.absorb || 0);
+    const healingDone = (event.amount || 0) + (event.overheal || 0) + (event.absorbed || 0);
 
     this.activeCooldowns.forEach((cooldown) => {
       const cooldownId = cooldown.spell.id;
 
-      if ((cooldownId === SPELLS.CLOUDBURST_TOTEM_TALENT.id && (ABILITIES_NOT_FEEDING_INTO_CBT.indexOf(spellId) <= -1)) ||
-        (cooldownId === SPELLS.ANCESTRAL_GUIDANCE_TALENT.id && (ABILITIES_NOT_FEEDING_INTO_AG.indexOf(spellId) <= -1)) ||
-        (cooldownId === SPELLS.ASCENDANCE_TALENT_RESTORATION.id && (ABILITIES_NOT_FEEDING_INTO_ASCENDANCE.indexOf(spellId) <= -1))) {
+      if ((cooldownId === SPELLS.CLOUDBURST_TOTEM_TALENT.id && (!ABILITIES_NOT_FEEDING_INTO_CBT.includes(spellId))) ||
+        (cooldownId === SPELLS.ANCESTRAL_GUIDANCE_TALENT.id && (!ABILITIES_NOT_FEEDING_INTO_AG.includes(spellId))) ||
+        (cooldownId === SPELLS.ASCENDANCE_TALENT_RESTORATION.id && (!ABILITIES_NOT_FEEDING_INTO_ASCENDANCE.includes(spellId)))) {
         if (!cooldown.feed[spellId]) {
           cooldown.feed[spellId] = [];
           cooldown.feed[spellId].healing = 0;
@@ -350,32 +349,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       }
       cooldown.events.push(event);
     });
-  }
-
-  on_byPlayer_damage(event) {
-    const index = this.activeCooldowns.findIndex(cooldown => cooldown.spell.id === SPELLS.ANCESTRAL_GUIDANCE_TALENT.id);
-    // const spellId = event.ability.guid;
-
-    if (index === -1) {
-
-    }
-
-    // This should probably be done with a white list, too many damage events that do not
-    // feed into AG.
-    /*
-     if (ABILITIES_NOT_FEEDING_INTO_AG.indexOf(spellId) <= -1) {
-     if (!this.lastAG.feed[spellId]) {
-     this.lastAG.feed[spellId] = [];
-     this.lastAG.feed[spellId].healing = 0;
-     this.lastAG.feed[spellId].name = event.ability.name;
-     this.lastAG.feed[spellId].icon = event.ability.abilityIcon;
-     }
-     console.log(event)
-     this.lastAG.feed[spellId].healing += event.amount;
-     //this.agFeed[spellId] = this.agFeed[spellId] || [];
-     //this.agFeed[spellId] += (event.amount || 0);
-     }
-     */
   }
 
   on_byPlayer_absorbed(event) {

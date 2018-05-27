@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-05-23'),
+    changes: 'Corrected GCD tracking of Moonfire and instant Regrowth/Entangling Roots',
+    contributors: [Anatta336],
+  },
+  {
     date: new Date('2018-02-10'),
     changes: <React.Fragment><SpellLink id={SPELLS.PRIMAL_FURY.id} /> procs from an ability used at 4 CPs no longer count as 'wasted' CPs because it's not within the player's control. Also, <SpellLink id={SPELLS.PRIMAL_FURY.id} /> procs will no longer be shown in the Cooldowns tab.</React.Fragment>,
     contributors: [sref],

@@ -67,7 +67,7 @@ export default {
     icon: 'ability_demonhunter_sigilofsilence',
   },
   SIGIL_OF_FLAME: {
-    id: 204596,
+    id: 204513,
     name: 'Sigil of Flame',
     icon: 'ability_demonhunter_sigilofinquisition',
   },
@@ -94,6 +94,11 @@ export default {
   },
   FIERY_BRAND: {
     id: 204021,
+    name: 'Fiery Brand',
+    icon: 'ability_demonhunter_fierybrand',
+  },
+  FIERY_BRAND_DEBUFF: {
+    id: 207744,
     name: 'Fiery Brand',
     icon: 'ability_demonhunter_fierybrand',
   },

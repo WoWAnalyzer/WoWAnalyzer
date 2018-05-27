@@ -10,7 +10,6 @@ import ItemDamageDone from 'Main/ItemDamageDone';
  * After you Multi-Shot, your pet's melee attacks also strike all other nearby enemy targets for 100% as much for the next 4 sec.
  */
 class BeastCleave extends Analyzer {
-
   static dependencies = {
     combatants: Combatants,
   };
@@ -27,6 +26,7 @@ class BeastCleave extends Analyzer {
 
   subStatistic() {
     if (this.damage > 0) {
+      // TODO: Remove this if-statement since rendering should be consistent regardless of cast count OR document why this is an exception
       return (
         <div className="flex">
           <div className="flex-main">
@@ -38,6 +38,7 @@ class BeastCleave extends Analyzer {
         </div>
       );
     }
+    return null;
   }
 }
 

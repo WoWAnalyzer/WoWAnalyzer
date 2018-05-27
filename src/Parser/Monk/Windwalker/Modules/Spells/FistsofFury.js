@@ -17,70 +17,68 @@ class FistsofFury extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
-    previousTickTimestamp = null;
-    fistsTickNumber = 0;
-    fistsCastNumber = 0;
-    averageTicks = 0;
+  previousTickTimestamp = null;
+  fistsTickNumber = 0;
+  fistsCastNumber = 0;
+  averageTicks = 0;
 
-    isNewFistsTick(timestamp) {
-        return !this.previousTickTimestamp || (timestamp - this.previousTickTimestamp) > FISTS_OF_FURY_MINIMUM_TICK_TIME;
-    }
+  isNewFistsTick(timestamp) {
+    return !this.previousTickTimestamp || (timestamp - this.previousTickTimestamp) > FISTS_OF_FURY_MINIMUM_TICK_TIME;
+  }
 
-    on_byPlayer_cast(event) {
-        const spellId = event.ability.guid;
-        if (spellId !== SPELLS.FISTS_OF_FURY_CAST.id) {
-          return;
-        }
-        this.fistsCastNumber += 1;
-        // average ticks is calculated here in case you don't hit any ticks during a cast'
-        this.averageTicks = this.fistsTickNumber / this.fistsCastNumber;        
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.FISTS_OF_FURY_CAST.id) {
+      return;
     }
+    this.fistsCastNumber += 1;
+    // average ticks is calculated here in case you don't hit any ticks during a cast'
+    this.averageTicks = this.fistsTickNumber / this.fistsCastNumber;
+  }
 
-    on_byPlayer_damage(event) {
-      const spellId = event.ability.guid;
-        if (spellId !== SPELLS.FISTS_OF_FURY_DAMAGE.id || !this.isNewFistsTick(event.timestamp)){
-            return;
-        }
-          this.fistsTickNumber += 1;
-          this.previousTickTimestamp = event.timestamp;
-          this.averageTicks = this.fistsTickNumber / this.fistsCastNumber;        
+  on_byPlayer_damage(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.FISTS_OF_FURY_DAMAGE.id || !this.isNewFistsTick(event.timestamp)) {
+      return;
     }
-    get suggestionThresholds() {
-      const averageTicksRecommended = this.combatants.selected.hasBuff(SPELLS.WW_TIER20_4PC.id) ? 4.5 : 5;
-      return {
-        actual: this.averageTicks,
-        isLessThan: {
-          minor: averageTicksRecommended,
-          average: averageTicksRecommended - 0.2,
-          major: averageTicksRecommended - 0.5,
-        },
-        style: 'decimal',
-      };
-    }
+    this.fistsTickNumber += 1;
+    this.previousTickTimestamp = event.timestamp;
+    this.averageTicks = this.fistsTickNumber / this.fistsCastNumber;
+  }
+  get suggestionThresholds() {
+    const averageTicksRecommended = this.combatants.selected.hasBuff(SPELLS.WW_TIER20_4PC.id) ? 4.5 : 5;
+    return {
+      actual: this.averageTicks,
+      isLessThan: {
+        minor: averageTicksRecommended,
+        average: averageTicksRecommended - 0.2,
+        major: averageTicksRecommended - 0.5,
+      },
+      style: 'decimal',
+    };
+  }
 
-    suggestions(when) {
-      const tier20Text = this.combatants.selected.hasBuff(SPELLS.WW_TIER20_4PC.id) ? ". This is not always true while using T20 4pc" : "";
-      when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-            return suggest(<span> You are cancelling your <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> casts early and losing ticks </span>)
-                .icon(SPELLS.FISTS_OF_FURY_CAST.icon).actual(`${this.averageTicks.toFixed(2)} average ticks on each Fists of Fury cast`)
-                .recommended(`Aim to get 5 ticks with each Fists of Fury cast${tier20Text}`);
-        });
-    }
+  suggestions(when) {
+    const tier20Text = this.combatants.selected.hasBuff(SPELLS.WW_TIER20_4PC.id) ? '. This is not always true while using T20 4pc' : '';
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<span> You are cancelling your <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> casts early and losing ticks </span>)
+        .icon(SPELLS.FISTS_OF_FURY_CAST.icon).actual(`${this.averageTicks.toFixed(2)} average ticks on each Fists of Fury cast`)
+        .recommended(`Aim to get 5 ticks with each Fists of Fury cast${tier20Text}`);
+    });
+  }
 
-    statistic() {
-        return (
-            <StatisticBox
-                icon={<SpellIcon id={SPELLS.FISTS_OF_FURY_CAST.id} />}
-                value={this.averageTicks.toFixed(2)}
-                label={(
-                    <span> You had an average of {this.averageTicks.toFixed(2)} ticks in each Fists of Fury cast </span>
-                )}
-            />
-        );
-    }
-    statisticOrder = STATISTIC_ORDER.CORE(6);
+  statistic() {
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.FISTS_OF_FURY_CAST.id} />}
+        value={this.averageTicks.toFixed(2)}
+        label={(
+          <React.Fragment>You had an average of {this.averageTicks.toFixed(2)} ticks in each Fists of Fury cast.</React.Fragment>
+        )}
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
-
-
 
 export default FistsofFury;

@@ -1,25 +1,26 @@
-import React  from 'react';
-import { withRouter } from 'react-router-dom';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import SelectSearch from 'react-select-search';
+
 import REALMS from 'common/REALMS';
+
 import makeUrl from './makeUrl';
 
 class CharacterSelecter extends React.PureComponent {
-
   static propTypes = {
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
     }),
   };
+  state = {
+    currentRegion: 'EU',
+    currentRealm: '',
+  };
 
   constructor() {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = {
-      currentRegion: 'EU',
-      currentRealm: '',
-    };
   }
 
   componentDidMount() {
@@ -37,7 +38,7 @@ class CharacterSelecter extends React.PureComponent {
 
     if (!region || !realm || !char) {
       alert('Please select a region, realm and player.');
-      return;
+      return null;
     }
 
     //check if character has an key in localStorage, if so directly redirect to /character otherwise ask bnet-api
@@ -45,10 +46,12 @@ class CharacterSelecter extends React.PureComponent {
     const image = localStorage.getItem(`${region}/${realm}/${char}`);
     if (image) {
       this.props.history.push(makeUrl(region, realm, char));
-      return;
+      return null;
     }
 
-    this.setState({ loading: true });
+    this.setState({
+      loading: true,
+    });
     return fetch(`https://${region}.api.battle.net/wow/character/${encodeURIComponent(realm)}/${encodeURIComponent(char)}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
       .then(response => response.json())
       .then((data) => {
@@ -62,38 +65,43 @@ class CharacterSelecter extends React.PureComponent {
         this.props.history.push(makeUrl(region, realm, char));
       }).catch(e => {
         this.setState({ loading: false });
-        alert('Something wen\'t wrong!');
+        alert('Something went wrong!');
       });
   }
 
   render() {
-
     return (
       <form onSubmit={this.handleSubmit} className="form-inline">
         <div className="character-selector">
           <select
             className="form-control"
-            ref={elem => this.regionInput = elem}
+            ref={elem => {
+              this.regionInput = elem;
+            }}
             value={this.state.currentRegion}
             onChange={e => this.setState({ currentRegion: e.target.value })}
           >
-            {Object.keys(REALMS).map(elem => 
+            {Object.keys(REALMS).map(elem =>
               <option value={elem} key={elem}>{elem}</option>
             )}
           </select>
-          <SelectSearch 
+          <SelectSearch
             options={REALMS[this.state.currentRegion].realms.map(elem => ({
               value: elem.name,
               name: elem.name,
             }))}
             className="realm-search"
-            onChange={value => { this.setState({ currentRealm: value.name });}}
-            placeholder='Realm'
+            onChange={value => {
+              this.setState({ currentRealm: value.name });
+            }}
+            placeholder="Realm"
           />
           <input
             type="text"
             name="code"
-            ref={elem => this.charInput = elem}
+            ref={elem => {
+              this.charInput = elem;
+            }}
             className="form-control"
             autoCorrect="off"
             autoCapitalize="off"

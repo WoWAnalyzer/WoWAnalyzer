@@ -79,7 +79,7 @@ class Overload extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        alignIcon='flex-start'
+        alignIcon="flex-start"
         icon={<SpellIcon id={SPELLS.ELEMENTAL_MASTERY.id} />}
         value={(
           <ul style={{listStyle: 'none', paddingLeft: 0}}>
@@ -91,7 +91,7 @@ class Overload extends Analyzer {
           </ul>
         )}
         label="Overload procs"
-        tooltip={ `${this.spells[0].overloads} / ${this.spells[0].normal} means you hit the target ${this.spells[0].normal} times with ${this.spells[0].name} and got ${this.spells[0].overloads} extra overload hits.`}
+        tooltip={`${this.spells[0].overloads} / ${this.spells[0].normal} means you hit the target ${this.spells[0].normal} times with ${this.spells[0].name} and got ${this.spells[0].overloads} extra overload hits.`}
       />
     );
   }

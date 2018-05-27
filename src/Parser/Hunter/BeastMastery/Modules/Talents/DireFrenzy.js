@@ -191,7 +191,7 @@ class DireFrenzy extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DIRE_FRENZY_TALENT.id} />}
         value={`${formatPercentage(this.percentUptimeMaxStacks)}%`}
-        label={`3 Stack Uptime`}
+        label="3 Stack Uptime"
         tooltip={`
         <ul>
           <li>Your pet had an overall uptime of ${formatPercentage(this.percentUptimePet)}% on the increased attack speed buff</li>

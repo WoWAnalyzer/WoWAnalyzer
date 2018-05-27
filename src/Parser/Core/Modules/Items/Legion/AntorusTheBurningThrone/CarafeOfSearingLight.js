@@ -58,7 +58,7 @@ class CarafeOfSearingLight extends Analyzer {
       item: ITEMS.CARAFE_OF_SEARING_LIGHT,
       result: (
         <React.Fragment>
-          <ItemDamageDone amount={damage} /><br/>
+          <ItemDamageDone amount={damage} /><br />
           <ItemManaGained amount={manaGained} />
         </React.Fragment>
       ),

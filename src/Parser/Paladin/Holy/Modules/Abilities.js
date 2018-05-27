@@ -25,6 +25,7 @@ class Abilities extends CoreAbilities {
           extraSuggestion: 'Casting Holy Shock regularly is very important for performing well.',
         },
         timelineSortIndex: 0,
+        isDefensive: true,
       },
       {
         spell: SPELLS.LIGHT_OF_DAWN_CAST,
@@ -115,6 +116,7 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
         timelineSortIndex: 11,
         enabled: combatant.hasTalent(SPELLS.HOLY_PRISM_TALENT.id),
+        isDefensive: true,
       },
       {
         spell: SPELLS.RULE_OF_LAW_TALENT,
@@ -136,6 +138,7 @@ class Abilities extends CoreAbilities {
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         timelineSortIndex: 45,
+        isDefensive: true,
       },
       {
         spell: SPELLS.DIVINE_SHIELD,
@@ -144,6 +147,7 @@ class Abilities extends CoreAbilities {
         cooldown: 5 * 60,
         isOnGCD: true,
         timelineSortIndex: 46,
+        isDefensive: true,
       },
       {
         spell: SPELLS.ARCANE_TORRENT_MANA,
@@ -198,6 +202,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.1,
         },
         timelineSortIndex: 101,
+        isDefensive: true,
       },
       {
         spell: SPELLS.LIGHT_OF_THE_MARTYR,
@@ -256,6 +261,7 @@ class Abilities extends CoreAbilities {
         cooldown: 45,
         isOnGCD: true,
         timelineSortIndex: 44,
+        isDefensive: true,
       },
       {
         spell: SPELLS.CLEANSE,
@@ -263,6 +269,7 @@ class Abilities extends CoreAbilities {
         cooldown: 8,
         isOnGCD: true,
         timelineSortIndex: 100,
+        isDefensive: true,
       },
       {
         spell: SPELLS.BLESSING_OF_FREEDOM,
@@ -271,6 +278,7 @@ class Abilities extends CoreAbilities {
         cooldown: 25,
         isOnGCD: true,
         timelineSortIndex: 102,
+        isDefensive: true,
       },
       {
         spell: SPELLS.BLESSING_OF_PROTECTION,
@@ -279,6 +287,7 @@ class Abilities extends CoreAbilities {
         cooldown: 5 * 60,
         isOnGCD: true,
         timelineSortIndex: 103,
+        isDefensive: true,
       },
       {
         // The actual casts are registered as BEACON_OF_LIGHT_CAST_AND_HEAL, but the user only sees the talent so we add that as spell for display purposes only

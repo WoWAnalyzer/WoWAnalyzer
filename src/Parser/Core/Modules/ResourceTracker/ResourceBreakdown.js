@@ -106,7 +106,7 @@ class ResourceBreakdown extends React.Component {
                     <SpellLink id={ability.abilityId} />
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                    <dfn data-tip={`${formatPercentage(ability.spent / totalSpent)} %`}>{ability.spent}</dfn>
+                    <dfn data-tip={`${formatPercentage(ability.spent / totalSpent)} %`}>{ability.spent.toFixed(0)}</dfn>
                   </td>
                   <td style={{ width: '40%' }}>
                     <div

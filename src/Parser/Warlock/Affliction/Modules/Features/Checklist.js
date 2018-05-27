@@ -58,15 +58,15 @@ class Checklist extends CoreChecklist {
         const combatant = this.combatants.selected;
         return [
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.AGONY.id} icon/> uptime</React.Fragment>,
+            name: <React.Fragment><SpellLink id={SPELLS.AGONY.id} icon /> uptime</React.Fragment>,
             check: () => this.agonyUptime.suggestionThresholds,
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.CORRUPTION_CAST.id} icon/> uptime</React.Fragment>,
+            name: <React.Fragment><SpellLink id={SPELLS.CORRUPTION_CAST.id} icon /> uptime</React.Fragment>,
             check: () => this.corruptionUptime.suggestionThresholds,
           }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.SIPHON_LIFE_TALENT.id} icon/> uptime</React.Fragment>,
+            name: <React.Fragment><SpellLink id={SPELLS.SIPHON_LIFE_TALENT.id} icon /> uptime</React.Fragment>,
             check: () => this.siphonLifeUptime.suggestionThresholds,
             when: combatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id),
           }),
@@ -82,16 +82,16 @@ class Checklist extends CoreChecklist {
         const combatant = this.combatants.selected;
         return [
           new Requirement({
-            name: <React.Fragment>UA ticks buffed by <SpellLink id={SPELLS.REAP_SOULS.id} icon/></React.Fragment>,
+            name: <React.Fragment>UA ticks buffed by <SpellLink id={SPELLS.REAP_SOULS.id} icon /></React.Fragment>,
             check: () => this.reapBuffTracker.positiveSuggestionThresholds,
           }),
           new Requirement({
-            name: <React.Fragment>UA ticks buffed by <SpellLink id={SPELLS.MALEFIC_GRASP_TALENT.id} icon/></React.Fragment>,
+            name: <React.Fragment>UA ticks buffed by <SpellLink id={SPELLS.MALEFIC_GRASP_TALENT.id} icon /></React.Fragment>,
             check: () => this.maleficGrasp.positiveSuggestionThresholds,
             when: combatant.hasTalent(SPELLS.MALEFIC_GRASP_TALENT.id),
           }),
           new Requirement({
-            name: <React.Fragment>UA ticks buffed by <SpellLink id={SPELLS.HAUNT_TALENT.id} icon/></React.Fragment>,
+            name: <React.Fragment>UA ticks buffed by <SpellLink id={SPELLS.HAUNT_TALENT.id} icon /></React.Fragment>,
             check: () => this.haunt.positiveSuggestionThresholds,
             when: combatant.hasTalent(SPELLS.HAUNT_TALENT.id),
           }),
@@ -99,8 +99,8 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <React.Fragment>Don't cap your <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id}/>.</React.Fragment>,
-      description: <React.Fragment>In certain fights, it's possible to be generating a lot of <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id} icon/> and it's important to not let them cap as they are valuable resource that shouldn't be wasted even if it means wasting a portion of <SpellLink id={SPELLS.REAP_SOULS.id} icon/> buff.</React.Fragment>,
+      name: <React.Fragment>Don't cap your <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id} />.</React.Fragment>,
+      description: <React.Fragment>In certain fights, it's possible to be generating a lot of <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id} icon /> and it's important to not let them cap as they are valuable resource that shouldn't be wasted even if it means wasting a portion of <SpellLink id={SPELLS.REAP_SOULS.id} icon /> buff.</React.Fragment>,
       requirements: () => {
         return [
           new Requirement({
@@ -155,7 +155,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use your utility and defensive spells',
-      description: <React.Fragment>Use other spells in your toolkit to your advantage. For example, you can try to minimize necessary movement by using <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon/>, <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon/>, <SpellLink id={SPELLS.BURNING_RUSH_TALENT.id} icon/> or mitigate incoming damage with <SpellLink id={SPELLS.UNENDING_RESOLVE.id} icon/>/<SpellLink id={SPELLS.DARK_PACT_TALENT.id} icon/>.<br />
+      description: <React.Fragment>Use other spells in your toolkit to your advantage. For example, you can try to minimize necessary movement by using <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon />, <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon />, <SpellLink id={SPELLS.BURNING_RUSH_TALENT.id} icon /> or mitigate incoming damage with <SpellLink id={SPELLS.UNENDING_RESOLVE.id} icon />/<SpellLink id={SPELLS.DARK_PACT_TALENT.id} icon />.<br />
         While you shouldn't cast these defensives on cooldown, be aware of them and use them whenever effective. Not using them at all indicates you might not be aware of them or not using them optimally.</React.Fragment>,
       requirements: () => {
         const combatant = this.combatants.selected;
@@ -177,7 +177,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Always be casting',
-      description: <React.Fragment>You should try to avoid doing nothing during the fight. When you're out of Soul Shards, cast <SpellLink id={SPELLS.DRAIN_SOUL.id} icon/>, refresh your DoTs, replenish your mana. When you have to move, use your instant abilities or try to utilize <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon>Teleport</SpellLink> or <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon>Gateway</SpellLink> to reduce the movement even further.<br />
+      description: <React.Fragment>You should try to avoid doing nothing during the fight. When you're out of Soul Shards, cast <SpellLink id={SPELLS.DRAIN_SOUL.id} icon />, refresh your DoTs, replenish your mana. When you have to move, use your instant abilities or try to utilize <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon>Teleport</SpellLink> or <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon>Gateway</SpellLink> to reduce the movement even further.<br />
       You should also watch your mana and not let it drop too low as Affliction is very mana-hungry and every second spent out of mana at wrong times is a DPS loss.</React.Fragment>,
       requirements: () => {
         return [

@@ -1,7 +1,9 @@
-import React  from 'react';
+import React from 'react';
 
 import ScrollFilledIcon from 'Icons/ScrollFilled';
 import MegaphoneIcon from 'Icons/Megaphone';
+
+import DelayRender from 'common/DelayRender';
 
 import DiscordButton from './DiscordButton';
 import ChangelogPanel from './ChangelogPanel';
@@ -11,42 +13,9 @@ import News from './News';
 import ReportHistory from './ReportHistory';
 
 class Home extends React.PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      secondFrame: false,
-      thirdFrame: false,
-    };
-  }
-  componentDidMount() {
-    if (!this.state.secondFrame) {
-      // We delay the rendering of this component by 1 frame to reduce the waiting time until the app becomes usable. This component is responsible for the biggest chunk of the frontpage rendering time while it doesn't include the most important part (the report selector), so delaying rendering of this for 1 frame makes sense.
-      setTimeout(() => {
-        this.setState({
-          secondFrame: true,
-        });
-      }, 0);
-    }
-  }
-  componentDidUpdate() {
-     if (this.state.secondFrame && !this.state.thirdFrame) {
-      setTimeout(() => {
-        this.setState({
-          thirdFrame: true,
-        });
-      }, 0);
-    }
-  }
-
   render() {
-    if (!this.state.secondFrame) {
-      return (
-        <div style={{ height: 2000 }} /> // reserve some height to reduce the jumpiness of the scrollbar
-      );
-    }
-
     return (
-      <React.Fragment>
+      <DelayRender delay={0} fallback={<div style={{ height: 2000 }} />}>
         <section>
           <div className="container">
             <header>
@@ -99,30 +68,28 @@ class Home extends React.PureComponent {
           </div>
         </section>
 
-        {this.state.thirdFrame && (
-          <React.Fragment>
-            <SpecListing />
+        <DelayRender delay={0}>
+          <SpecListing />
 
-            <section>
-              <div className="container">
-                <header>
-                  <div className="row">
-                    <div className="col-md-12 text-center">
-                      <h1><ScrollFilledIcon /> Changelog</h1>
-                    </div>
-                  </div>
-                </header>
-
+          <section>
+            <div className="container">
+              <header>
                 <div className="row">
-                  <div className="col-md-12">
-                    <ChangelogPanel />
+                  <div className="col-md-12 text-center">
+                    <h1><ScrollFilledIcon /> Changelog</h1>
                   </div>
                 </div>
+              </header>
+
+              <div className="row">
+                <div className="col-md-12">
+                  <ChangelogPanel />
+                </div>
               </div>
-            </section>
-          </React.Fragment>
-        )}
-      </React.Fragment>
+            </div>
+          </section>
+        </DelayRender>
+      </DelayRender>
     );
   }
 }

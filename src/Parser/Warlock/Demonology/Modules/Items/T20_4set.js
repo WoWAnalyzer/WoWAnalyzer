@@ -23,7 +23,7 @@ class T20_4set extends Analyzer {
       id: `spell-${SPELLS.WARLOCK_DEMO_T20_4P_BONUS.id}`,
       icon: <SpellIcon id={SPELLS.WARLOCK_DEMO_T20_4P_BONUS.id} />,
       title: <SpellLink id={SPELLS.WARLOCK_DEMO_T20_4P_BONUS.id} icon={false} />,
-      result: <span>{formatPercentage(uptime)} % uptime on <SpellLink id={SPELLS.WARLOCK_DEMO_T20_4P_BUFF.id}/>.</span>,
+      result: <span>{formatPercentage(uptime)} % uptime on <SpellLink id={SPELLS.WARLOCK_DEMO_T20_4P_BUFF.id} />.</span>,
     };
   }
 }

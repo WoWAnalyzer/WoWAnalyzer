@@ -59,7 +59,7 @@ class Crusade extends Analyzer {
 
 	suggestions(when) {
 		when(this.suggestionThresholds).addSuggestion((suggest, actual) => {
-			return suggest(<React.Fragment>You want to build stacks of <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon/> as quickly as possible. Make sure you are using <SpellLink id={SPELLS.TEMPLARS_VERDICT.id} icon/> or <SpellLink id={SPELLS.DIVINE_STORM.id} icon/> almost instantly after casting <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon/>.</React.Fragment>)
+			return suggest(<React.Fragment>You want to build stacks of <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon /> as quickly as possible. Make sure you are using <SpellLink id={SPELLS.TEMPLARS_VERDICT.id} icon /> or <SpellLink id={SPELLS.DIVINE_STORM.id} icon /> almost instantly after casting <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon />.</React.Fragment>)
 				.icon(SPELLS.CRUSADE_TALENT.icon)
 				.actual(`${formatNumber(this.badFirstGlobal)} bad first global(s)`)
 				.recommended(`0 is recommended`);

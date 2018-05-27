@@ -43,7 +43,7 @@ class TaktheritrixsShoulderpads extends Analyzer {
 			item: ITEMS.TAKTHERITRIXS_SHOULDERPADS,
 			result: (
 				<dfn data-tip={`Total Damage: <b>${formatNumber(this.damageDone)}</b>`}>
-					<ItemDamageDone amount={this.damageDone}/>,
+					<ItemDamageDone amount={this.damageDone} />,
 				</dfn>
 			),
 		};

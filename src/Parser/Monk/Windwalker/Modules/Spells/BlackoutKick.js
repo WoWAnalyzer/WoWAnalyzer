@@ -83,8 +83,8 @@ class BlackoutKick extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BLACKOUT_KICK.id} />}
         value={this.inefficientCasts}
-        label={`Bad Blackout Kick Casts`}
-        tooltip={`Bad casts are Blackout Kicks used while important spells like Rising Sun Kick and Fists of Fury are available.`}
+        label="Bad Blackout Kick Casts"
+        tooltip="Bad casts are Blackout Kicks used while important spells like Rising Sun Kick and Fists of Fury are available."
       />
     );
   }

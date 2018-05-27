@@ -11,7 +11,7 @@ class SoulShardTracker extends Analyzer {
     combatants: Combatants,
   };
 
-  _current = 3;   // assume 3 shards at combat start (gets set correctly at Unstable Affliction cast event)
+  _current = 3; // assume 3 shards at combat start (gets set correctly at Unstable Affliction cast event)
   _fullShardTimestamp = null;
 
 

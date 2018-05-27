@@ -84,7 +84,7 @@ class AstralPowerDetails extends Analyzer {
         <Tab>
           <ResourceBreakdown
             tracker={this.astralPowerTracker}
-            showSpenders={true}
+            showSpenders
           />
         </Tab>
       ),

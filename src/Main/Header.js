@@ -2,14 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import lazyLoadComponent from 'common/lazyLoadComponent';
+
 import ReportSelecter from './ReportSelecter';
-import CharacterSelecter from './Character/CharacterSelecter';
 import makeNewsUrl from './News/makeUrl';
 import { title as AboutArticleTitle } from './News/Articles/2017-01-31-About';
 import { title as UnlistedLogsTitle } from './News/Articles/2017-01-31-UnlistedLogs';
-import ServiceStatus from './ServiceStatus';
+// import ServiceStatus from './ServiceStatus';
 
 import './Header.css';
+
+const CharacterSelecter = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterSelecter' */ './Character/CharacterSelecter').then(exports => exports.default));
 
 class Header extends React.PureComponent {
   static propTypes = {
@@ -38,8 +41,8 @@ class Header extends React.PureComponent {
               {showReportSelecter && (
                 <div>
                   <div className="parse-tabs">
-                    <span onClick={() => this.setState({ reportActive: true }) } className={ this.state.reportActive ? 'selected' : '' }>Report</span>
-                    <span onClick={() => this.setState({ reportActive: false }) } className={ this.state.reportActive ? '' : 'selected' }>Character</span>
+                    <span onClick={() => this.setState({ reportActive: true })} className={this.state.reportActive ? 'selected' : ''}>Report</span>
+                    <span onClick={() => this.setState({ reportActive: false })} className={this.state.reportActive ? '' : 'selected'}>Character</span>
                   </div>
                   {this.state.reportActive ? (
                     <ReportSelecter />
@@ -49,7 +52,7 @@ class Header extends React.PureComponent {
                 </div>
               )}
                 
-              {process.env.NODE_ENV !== 'test' && <ServiceStatus style={{ marginBottom: 5 }} />}
+              {/*{process.env.NODE_ENV !== 'test' && <ServiceStatus style={{ marginBottom: 5 }} />}*/}
               <div className="about">
                 <Link to={makeNewsUrl(AboutArticleTitle)}>About WoWAnalyzer</Link>
                 {' '}| <Link to={makeNewsUrl(UnlistedLogsTitle)}>About unlisted logs</Link>

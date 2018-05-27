@@ -102,7 +102,7 @@ class RiftworldCodex extends Analyzer {
       item: ITEMS.RIFTWORLD_CODEX,
       result: (
         <React.Fragment>
-          <ItemDamageDone amount={this.immolationdamage} /><br/>
+          <ItemDamageDone amount={this.immolationdamage} /><br />
           <dfn data-tip={`
             All 3 buffs did a total of ${formatNumber(this.totalhealing)} healing
             <ul>

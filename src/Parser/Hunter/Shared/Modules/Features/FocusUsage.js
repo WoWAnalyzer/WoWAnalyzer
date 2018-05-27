@@ -267,7 +267,7 @@ class FocusUsage extends Analyzer {
       return;
     }
     this.focusSpenderCasts[spellId].casts += 1;
-    this.focusSpenderCasts[spellId].focusUsed += event.classResources[0]['cost'] || 0;
+    this.focusSpenderCasts[spellId].focusUsed += event.classResources[0].cost || 0;
   }
 
   on_byPlayer_damage(event) {

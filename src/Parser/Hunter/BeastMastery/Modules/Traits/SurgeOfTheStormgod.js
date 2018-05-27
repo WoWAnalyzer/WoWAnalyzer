@@ -31,6 +31,7 @@ class SurgeOfTheStormgod extends Analyzer {
 
   subStatistic() {
     if (this.damage > 0) {
+      // TODO: Remove this if-statement since rendering should be consistent regardless of cast count OR document why this is an exception
       return (
         <div className="flex">
           <div className="flex-main">
@@ -42,6 +43,7 @@ class SurgeOfTheStormgod extends Analyzer {
         </div>
       );
     }
+    return null;
   }
 }
 

@@ -8,6 +8,31 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-05-26'),
+    changes: 'Show items separate from the rest of the statistics on the results page.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-05-25'),
+    changes: 'Load news asynchronous to reduce initial loading time.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-05-25'),
+    changes: 'Changed to WoWDB tooltips because they provide better tooltips.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-05-20'),
+    changes: 'Update specializations list layout. Clicking a spec now opens the example report.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-05-10'),
+    changes: 'Added Death Recap to track available cooldowns.',
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-05-09'),
     changes: 'Implemented the possibility to show buffs and debuffs in the timeline.',
     contributors: [niseko],

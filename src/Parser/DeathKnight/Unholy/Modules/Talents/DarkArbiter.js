@@ -49,7 +49,7 @@ class DarkArbiter extends Analyzer {
     const avgRpPerCast = this.totalRpSpent / this.totalDarkArbiterCasts;
     when(avgRpPerCast).isLessThan(360)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your average <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id}/> buff is low.  During Dark Arbiter casting <SpellLink id={SPELLS.DEATH_COIL.id}/> as soon as it is available is your top priority.</span>)
+        return suggest(<span>Your average <SpellLink id={SPELLS.DARK_ARBITER_TALENT.id} /> buff is low.  During Dark Arbiter casting <SpellLink id={SPELLS.DEATH_COIL.id} /> as soon as it is available is your top priority.</span>)
           .icon(SPELLS.DARK_ARBITER_TALENT.icon)
           .actual(`${avgRpPerCast}%`)
           .recommended(`>${recommended}% is recommended`)

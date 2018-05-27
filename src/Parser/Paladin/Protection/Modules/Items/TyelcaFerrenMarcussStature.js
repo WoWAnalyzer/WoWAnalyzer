@@ -68,14 +68,14 @@ class TyelcaFerrenMarcussStature extends Analyzer {
   }
 
 	item() {
-		const tyelcaHealing = this.extraJumps ? <ItemHealingDone amount={this.healingDone} greaterThan/> : <ItemHealingDone amount={this.healingDone} />;
+		const tyelcaHealing = this.extraJumps ? <ItemHealingDone amount={this.healingDone} greaterThan /> : <ItemHealingDone amount={this.healingDone} />;
 		const healingText = this.extraJumps ? 'The full bonus sheild from hitting 3+ targets is not taken into account' : '';
 		return {
 			item: ITEMS.TYELCA_FERREN_MARCUSS_STATURE,
 			result: (
 				<React.Fragment>
 					<ItemDamageDone amount={this.damageDone} />
-					<br/>
+					<br />
 					<dfn data-tip={`The healing is attributed from the extra sheild from the Bulwark of Order trait <br/> ${healingText}`}>
 						{tyelcaHealing}
 					</dfn>

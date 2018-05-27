@@ -15,7 +15,6 @@ const HIGHLORDS_JUDGMENT_INCREASE = 0.08;
  * Highlord's Judgment (Artifact Trait)
  * Increase the damge done by Judgment by 8%.
  */
-
 class HighlordsJudgment extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -38,11 +37,11 @@ class HighlordsJudgment extends Analyzer {
 
   subStatistic() {
     return (
-      <div className='flex'>
-        <div className='flex-main'>
+      <div className="flex">
+        <div className="flex-main">
           <SpellLink id={SPELLS.HIGHLORDS_JUDGMENT.id} />
         </div>
-        <div className='flex-sub text-right'>
+        <div className="flex-sub text-right">
           {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} %
         </div>
       </div>

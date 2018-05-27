@@ -106,13 +106,13 @@ class SoulOfTheForest extends Analyzer {
     } else if (this.rejuvenationProccTimestamp !== null
         && (SPELLS.REJUVENATION.id === spellId || SPELLS.REJUVENATION_GERMINATION === spellId)
         && (event.timestamp - (this.rejuvenationProccTimestamp + this.rejuvenationDuration)) <= 0) {
-      if (this.rejuvenationTargets.indexOf(event.targetID) !== -1) {
+      if (this.rejuvenationTargets.includes(event.targetID)) {
         this.rejuvenationHealing += calculateEffectiveHealing(event, REJUVENATION_HEALING_INCREASE);
       }
     } else if (this.wildGrowthProccTimestamp !== null
       && SPELLS.WILD_GROWTH.id === spellId
       && (event.timestamp - (this.wildGrowthProccTimestamp + WILD_GROWTH_DURATION)) <= 0) {
-      if (this.wildGrowthTargets.indexOf(event.targetID) !== -1) {
+      if (this.wildGrowthTargets.includes(event.targetID)) {
         this.wildGrowthHealing += calculateEffectiveHealing(event, WILD_GROWTH_HEALING_INCREASE);
       }
     }

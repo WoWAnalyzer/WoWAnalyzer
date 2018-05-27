@@ -48,9 +48,9 @@ class FocusTracker extends Analyzer {
   checkForMaxFocus(event) {
     if (event.sourceID === this.owner.player.id) {
       event.classResources.forEach(classResource => {
-        if (classResource.type === RESOURCE_TYPES.FOCUS.id && classResource['max'] > this._maxFocus) {
+        if (classResource.type === RESOURCE_TYPES.FOCUS.id && classResource.max > this._maxFocus) {
           //note: this works for now, but may not work if max focus becomes changable mid-fight, then max would have to be calculated on an event-by-event basis
-          this._maxFocus = classResource['max'];
+          this._maxFocus = classResource.max;
         }
       });
     }
@@ -61,11 +61,11 @@ class FocusTracker extends Analyzer {
       this.checkForMaxFocus(event);
       this.tracker++;
       const secIntoFight = (event.timestamp - this.owner.fight.start_time);
-      if (event.classResources[0]['cost']) {
-        this.focusBySecond[secIntoFight] = (event.classResources[0]['amount'] - event.classResources[0]['cost']);
+      if (event.classResources[0].cost) {
+        this.focusBySecond[secIntoFight] = (event.classResources[0].amount - event.classResources[0].cost);
       }
       else {
-        this.focusBySecond[secIntoFight] = (event.classResources[0]['amount']);
+        this.focusBySecond[secIntoFight] = (event.classResources[0].amount);
       }
       this.checkForError(secIntoFight);
       this.extrapolateFocus(event.timestamp);
@@ -115,7 +115,7 @@ class FocusTracker extends Analyzer {
     this.totalFocusGenModifier += this.focusGen * (eventTimestamp - this.lastEventTimestamp);
     const maxFocus = this._maxFocus;
     this.focusBySecond[0] = maxFocus;
-    for (let i = this.lastEventTimestamp - this.owner.fight.start_time; i < (eventTimestamp - this.owner.fight.start_time); i++) {  //extrapolates focus given passive focus gain (TODO: Update for pulls with Volley)
+    for (let i = this.lastEventTimestamp - this.owner.fight.start_time; i < (eventTimestamp - this.owner.fight.start_time); i++) { //extrapolates focus given passive focus gain (TODO: Update for pulls with Volley)
       if (!this.focusBySecond[i]) {
         if (this.focusBySecond[i - 1] >= maxFocus) {
           this.focusBySecond[i] = maxFocus;

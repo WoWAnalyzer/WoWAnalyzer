@@ -46,7 +46,7 @@ class BattleCrySetupAnalyzer extends BattleCryAnalyzer {
 
   suggestions(when) {
     when(this.shatteredSetupThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Try to have <SpellLink id={SPELLS.SHATTERED_DEFENSES.id} icon/> active before you use <SpellLink id={SPELLS.BATTLE_CRY.id} icon/> to maximize your burst potential.</React.Fragment>)
+      return suggest(<React.Fragment>Try to have <SpellLink id={SPELLS.SHATTERED_DEFENSES.id} icon /> active before you use <SpellLink id={SPELLS.BATTLE_CRY.id} icon /> to maximize your burst potential.</React.Fragment>)
         .icon(SPELLS.SHATTERED_DEFENSES.icon)
         .actual(`Shattered Defenses was up for ${formatPercentage(actual)}% of Battle Cries.`)
         .recommended(`${formatPercentage(recommended)}% is recommended`);

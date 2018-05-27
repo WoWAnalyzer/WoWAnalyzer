@@ -2,6 +2,7 @@ import React from 'react';
 
 import Tab from 'Main/Tab';
 import Mana from 'Main/Mana';
+import DeathRecapTracker from 'Main/DeathRecapTracker';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
 import LowHealthHealing from 'Parser/Core/Modules/LowHealthHealing';
@@ -73,6 +74,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Override the ability tracker so we also get stats for IoL and beacon healing
     abilityTracker: PaladinAbilityTracker,
     lowHealthHealing: LowHealthHealing,
+    deathRecapTracker: DeathRecapTracker,
 
     // PaladinCore
     healingDone: [HealingDone, { showStatistic: true }],
