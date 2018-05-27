@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
-import { push, getLocation } from 'react-router-redux';
+import { getLocation, push } from 'react-router-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import TooltipProvider from 'common/TooltipProvider';
 import { API_DOWN, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'actions/error';
+import { fetchUser } from 'actions/user';
 import { getError } from 'selectors/error';
 
 import 'react-toggle/style.css';
@@ -47,6 +48,7 @@ class App extends React.Component {
     }),
     clearError: PropTypes.func.isRequired,
     internetExplorerError: PropTypes.func.isRequired,
+    fetchUser: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -56,6 +58,7 @@ class App extends React.Component {
     }
 
     TooltipProvider.load();
+    props.fetchUser();
   }
 
   renderError(error) {
@@ -151,21 +154,40 @@ class App extends React.Component {
 
     return (
       <Switch>
-        <Route path="/contributor/:id" render={({ match }) => (
-          <ContributorDetails contributorId={decodeURI(match.params.id.replace(/\+/g, ' '))} ownPage />
-        )} />
-        <Route path="/character/:region/:realm/:name" render={({ match }) => (
-          <CharacterParses 
-            region={decodeURI(match.params.region.replace(/\+/g, ' '))} 
-            realm={decodeURI(match.params.realm.replace(/\+/g, ' '))} 
-            name={decodeURI(match.params.name.replace(/\+/g, ' '))} />
-        )} />
-        <Route path="/news/:articleId" render={({ match }) => (
-          <NewsView articleId={decodeURI(match.params.articleId.replace(/\+/g, ' '))} />
-        )} />
-        <Route path="/report/:reportCode?/:fightId?/:player?/:resultTab?" component={Report} />
-        <Route path="/premium" component={Premium} />
-        <Route path="/" exact component={Home} />
+        <Route
+          path="/contributor/:id"
+          render={({ match }) => (
+            <ContributorDetails contributorId={decodeURI(match.params.id.replace(/\+/g, ' '))} ownPage />
+          )}
+        />
+        <Route
+          path="/character/:region/:realm/:name"
+          render={({ match }) => (
+            <CharacterParses
+              region={decodeURI(match.params.region.replace(/\+/g, ' '))}
+              realm={decodeURI(match.params.realm.replace(/\+/g, ' '))}
+              name={decodeURI(match.params.name.replace(/\+/g, ' '))} />
+          )}
+        />
+        <Route
+          path="/news/:articleId"
+          render={({ match }) => (
+            <NewsView articleId={decodeURI(match.params.articleId.replace(/\+/g, ' '))} />
+          )}
+        />
+        <Route
+          path="/report/:reportCode?/:fightId?/:player?/:resultTab?"
+          component={Report}
+        />
+        <Route
+          path="/premium"
+          component={Premium}
+        />
+        <Route
+          path="/"
+          exact
+          component={Home}
+        />
       </Switch>
     );
   }
@@ -207,5 +229,6 @@ export default withRouter(connect(
     push,
     clearError,
     internetExplorerError,
+    fetchUser,
   }
 )(App));

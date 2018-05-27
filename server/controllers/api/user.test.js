@@ -1,9 +1,9 @@
 import Express from 'express';
 import requireAuthenticated from 'helpers/requireAuthenticated';
 
-import './profile';
+import './user';
 
-describe('controllers/profile', () => {
+describe('controllers/user', () => {
   let root;
   beforeEach(() => {
     root = Express.__paths['/'];

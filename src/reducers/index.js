@@ -7,6 +7,7 @@ export default combineReducers({
   error: require('./error').default,
 
   // App
+  user: require('./user').default,
   report: require('./report').default,
   reportProgress: require('./reportProgress').default,
   combatants: require('./combatants').default,
