@@ -31,8 +31,10 @@ const BLOODTALONS_MULTIPLIER = 1.20;
 const JAGGED_WOUNDS_MODIFIER = 0.80;  // "[...]deal the same damage as normal but in 20% less time."
 const PANDEMIC_FRACTION = 0.3;
 
-// leeway in ms after loss of bloodtalons/prowl buff to count a cast as being buffed. Keep well below GCD to avoid false positives.
-const BUFF_WINDOW_TIME = 300;
+// leeway in ms after loss of bloodtalons/prowl buff to count a cast as being buffed. Keep as low as possible to avoid false positives from buffs fading due to causes other than being used to buff a DoT.
+const BUFF_WINDOW_TIME = 60;
+// leeway in ms between a cast event and debuff apply/refresh for them to be associated
+const CAST_WINDOW_TIME = 100;
 
 class Snapshot extends Analyzer {
   static dependencies = {
@@ -41,33 +43,41 @@ class Snapshot extends Analyzer {
 
   // extending class should fill these in:
   spellCastId;
+  debuffId;
   isProwlAffected;
   isTigersFuryAffected;
   isBloodtalonsAffected;
   durationOfFresh;
 
-  // initialised to before combat log starts to avoid false positives
-  bloodtalonsFadedAt = -10000;
-  prowlFadedAt = -10000;
-
   stateByTarget = [];
-
-  // It's common for buffs that are consumed by an ability to be reported as not present when the ability's event is processed.
-  // So record when the buff wears off, and if that's sufficiently close to the ability being used we can assume it was active.
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (this.isProwlAffected && (
-        SPELLS.PROWL.id === spellId ||
-        SPELLS.PROWL_INCARNATION.id === spellId || 
-        SPELLS.SHADOWMELD.id === spellId)) {
-      this.prowlFadedAt = event.timestamp;
-    } else if (this.isBloodtalonsAffected && SPELLS.BLOODTALONS_BUFF.id === spellId) {
-      this.bloodtalonsFadedAt = event.timestamp;
-    }
-  }
+  lastDoTCastEvent;
 
   on_byPlayer_cast(event) {
     if (this.spellCastId !== event.ability.guid) {
+      return;
+    }
+    this.lastDoTCastEvent = event;
+    
+    // attempt to associate with (very) recent debuff apply/refresh
+    // this cast could apply DoTs to multiple targets, so check them all
+    for (const state of this.stateByTarget) {
+      if (!state.castEvent &&
+          event.timestamp - state.startTime < CAST_WINDOW_TIME) {
+        event.castEvent = event;
+        this.checkRuleIfReady(event, state.prev, state);
+      }
+    }
+  }
+
+  on_byPlayer_applydebuff(event) {
+    if (this.debuffId !== event.ability.guid) {
+      return;
+    }
+    this.dotApplied(event);
+  }
+
+  on_byPlayer_refreshdebuff(event) {
+    if (this.debuffId !== event.ability.guid) {
       return;
     }
     this.dotApplied(event);
@@ -76,20 +86,18 @@ class Snapshot extends Analyzer {
   dotApplied(event) {
     const targetString = encodeTargetString(event.targetID, event.targetInstance);
     const stateOld = this.stateByTarget[targetString];
-    const timeRemainOnOld = stateOld ? (stateOld.expireTime - event.timestamp) : 0;
-    const stateNew = this.makeNewState(event, timeRemainOnOld);
+    const stateNew = this.makeNewState(event, stateOld);
     this.stateByTarget[targetString] = stateNew;
-    debug && console.log(`DoT ${this.spellCastId} applied at ${this.owner.formatTimestamp(event.timestamp)} Prowl:${stateNew.prowl}, TF: ${stateNew.tigersFury}, BT: ${stateNew.bloodtalons}. Expires at ${this.owner.formatTimestamp(stateNew.expireTime)}, pandemic from: ${this.owner.formatTimestamp(stateNew.pandemicTime)}`);
 
-    if (timeRemainOnOld > 0) {
-      this.checkRefreshRule(event, stateOld, stateNew);
-    }
+    debug && console.log(`DoT ${this.debuffId} applied at ${this.owner.formatTimestamp(event.timestamp)} Prowl:${stateNew.prowl}, TF: ${stateNew.tigersFury}, BT: ${stateNew.bloodtalons}. Expires at ${this.owner.formatTimestamp(stateNew.expireTime)}, pandemic from: ${this.owner.formatTimestamp(stateNew.pandemicTime)}`);
+
+    this.checkRuleIfReady(stateNew);
   }
 
-  makeNewState(event, timeRemainOnOld) {
+  makeNewState(debuffEvent, stateOld) {
     const combatant = this.combatants.selected;
-
-    let expireNew = event.timestamp + this.durationOfFresh;
+    const timeRemainOnOld = stateOld ? (stateOld.expireTime - debuffEvent.timestamp) : 0;
+    let expireNew = debuffEvent.timestamp + this.durationOfFresh;
     if (timeRemainOnOld > 0) {
       expireNew += Math.min(this.durationOfFresh * PANDEMIC_FRACTION, timeRemainOnOld);
     }
@@ -101,25 +109,50 @@ class Snapshot extends Analyzer {
       prowl: false,
       bloodtalons: false,
       power: 1,
+      startTime: debuffEvent.timestamp,
+      isRefresh: timeRemainOnOld > 0,
+      castEvent: null,  // should get assigned within the next 100ms
+      prev: stateOld,   // may be null
+      hasBeenRuleChecked: false,
     };
-    if (this.isProwlAffected && (combatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id, event.timestamp) ||
-        event.timestamp < this.prowlFadedAt + BUFF_WINDOW_TIME)) {
+    if (this.isProwlAffected && (
+        combatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id) ||
+        combatant.hasBuff(SPELLS.PROWL.id, null, BUFF_WINDOW_TIME) ||
+        combatant.hasBuff(SPELLS.PROWL_INCARNATION.id, null, BUFF_WINDOW_TIME) ||
+        combatant.hasBuff(SPELLS.SHADOWMELD.id, null, BUFF_WINDOW_TIME))) {
       stateNew.prowl = true;
       stateNew.power *= PROWL_MULTIPLIER;
     }
-    if (this.isTigersFuryAffected && combatant.hasBuff(SPELLS.TIGERS_FURY.id, event.timestamp)) {
+    if (this.isTigersFuryAffected &&
+        combatant.hasBuff(SPELLS.TIGERS_FURY.id)) {
       stateNew.tigersFury = true;
       stateNew.power *= TIGERS_FURY_MULTIPLIER;
     }
-    if (this.isBloodtalonsAffected && (combatant.hasBuff(SPELLS.BLOODTALONS_BUFF.id, event.timestamp) ||
-        event.timestamp < this.bloodtalonsFadedAt + BUFF_WINDOW_TIME)) {
+    if (this.isBloodtalonsAffected &&
+        combatant.hasBuff(SPELLS.BLOODTALONS_BUFF.id, null, BUFF_WINDOW_TIME)) {
       stateNew.bloodtalons = true;
       stateNew.power *= BLOODTALONS_MULTIPLIER;
     }
+
+    // attempt to associate with recent cast event
+    if (this.lastDoTCastEvent &&
+        (debuffEvent.timestamp - this.lastDoTCastEvent.timestamp) < CAST_WINDOW_TIME) {
+      stateNew.castEvent = this.lastDoTCastEvent;
+      debug && console.log(`linked DoT with cast event.`);
+    }
+
     return stateNew;
   }
 
-  checkRefreshRule(event, stateOld, stateNew) {
+  checkRuleIfReady(state) {
+    // only check a state transition for rule-breaking once, and only after it has a cast event associated with it.
+    if (!state.hasBeenRuleChecked && state.castEvent) {
+      this.checkRefreshRule(state);
+      state.hasBeenRuleChecked = true;
+    }
+  }
+
+  checkRefreshRule(state) {
     debug && console.warn('Expected checkRefreshRule function to be overridden.');
   }
 }
