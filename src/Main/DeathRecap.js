@@ -4,6 +4,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
+import WarcraftLogsLogo from 'Main/Images/WarcraftLogs-logo.png';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
@@ -16,6 +17,7 @@ class DeathRecap extends React.PureComponent {
     events: PropTypes.array.isRequired,
     enemies: PropTypes.object.isRequired,
     combatants: PropTypes.object.isRequired,
+    report: PropTypes.object.isRequired,
   };
 
   constructor(props) {
@@ -67,18 +69,34 @@ class DeathRecap extends React.PureComponent {
 
     return (
       <div>
-        <div style={{ margin: '2em 2em 0 2em' }}>
-          Filter events based on min amount (percentage of players health):
+        <div style={{ overflow: 'auto'}}>
+          <div style={{ float: 'left', width: 'calc(100% - 20em)' }}>
+            <div style={{ margin: '2em 0 0 2em' }}>
+              Filter events based on min amount (percentage of players health):
+            </div>
+            <Slider
+              {...sliderProps}
+              defaultValue={this.state.amountThreshold}
+              onChange={(value) => {
+                this.setState({
+                  amountThreshold: value,
+                });
+              }}
+            />
+          </div>
+          <div style={{ width: '18em', float: 'left', marginTop: '2em' }}>
+            <a
+              href={`https://www.warcraftlogs.com/reports/${this.props.report.report.code}#fight=${this.props.report.fight.id}&type=deaths&source=${this.props.report.player.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn"
+              style={{ fontSize: 24 }}
+              data-tip="Open the deaths on Warcraft Logs"
+            >
+              <img src={WarcraftLogsLogo} alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
+            </a>
+          </div>
         </div>
-        <Slider
-          {...sliderProps}
-          defaultValue={this.state.amountThreshold}
-          onChange={(value) => {
-            this.setState({
-              amountThreshold: value,
-            });
-          }}
-        />
         {events.map((death, i) => (
           <div className="item-divider-top">
             <h2 onClick={() => this.handleClick(i)} style={{ padding: '10px 20px', cursor: 'pointer' }}>Death #{i + 1}</h2>

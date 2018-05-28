@@ -94,6 +94,7 @@ class DeathRecapTracker extends Analyzer {
       render: () => (
         <Tab>
           <DeathRecap
+            report={this.owner}
             events={this.secondsBeforeDeath}
             combatants={this.combatants.players}
             enemies={this.enemies.enemies}
