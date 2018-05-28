@@ -18,8 +18,8 @@ import ItemHealingDone from 'Main/ItemHealingDone';
  * When empowered by the Pantheon, your maximum health is increased by 1619540 for 15 sec, and you are healed to full health.
  */
 
-const VERSATILITY_BASE = 4354;
-const BASE_ILVL = 940;
+export const VERSATILITY_BASE = 4354;
+export const BASE_ILVL = 940;
 
 class AggramarsConviction extends Analyzer {
   static dependencies = {
