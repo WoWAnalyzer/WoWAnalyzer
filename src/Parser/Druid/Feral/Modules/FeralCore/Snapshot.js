@@ -124,4 +124,4 @@ class Snapshot extends Analyzer {
   }
 }
 export default Snapshot;
-export { JAGGED_WOUNDS_MODIFIER };
+export { JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION };

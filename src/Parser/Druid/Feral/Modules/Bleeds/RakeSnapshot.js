@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Snapshot, { JAGGED_WOUNDS_MODIFIER } from '../FeralCore/Snapshot';
+import Snapshot, { JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION } from '../FeralCore/Snapshot';
 
 /*
 Identify inefficient refreshes of the Rake DoT:
@@ -102,22 +102,22 @@ class RakeSnapshot extends Snapshot {
     when(this.prowlLostSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <React.Fragment>
-          You sometimes replaced a powerful <SpellLink id={SPELLS.RAKE.id} /> cast with the <SpellLink id={SPELLS.PROWL.id} /> effect with one without it. You ended {this.prowlLostCastCount} empowered <SpellLink id={SPELLS.RAKE.id} /> bleed{this.prowlLostCastCount!==1?'s':''} early.
+          When <SpellLink id={SPELLS.RAKE.id} /> is empowered by <SpellLink id={SPELLS.PROWL.id} /> avoid refreshing it unless the replacement would also be empowered. You ended {this.prowlLostCastCount} empowered <SpellLink id={SPELLS.RAKE.id} /> bleed{this.prowlLostCastCount!==1?'s':''} early.
         </React.Fragment>
       )
         .icon(SPELLS.RAKE.icon)
-        .actual(`${actual.toFixed(1)} seconds of Prowl buffed Rake bleed was lost per minute.`)
+        .actual(`${actual.toFixed(1)} seconds of Prowl buffed Rake was lost per minute.`)
         .recommended(`${recommended} is recommended`);
     });
 
     when(this.downgradeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <React.Fragment>
-          <SpellLink id={SPELLS.RAKE.id} /> DoT was replaced with a less powerful version without waiting for the pandemic window. <SpellLink id={SPELLS.RAKE.id} /> snapshots the bonus from <SpellLink id={SPELLS.PROWL.id} />, <SpellLink id={SPELLS.BLOODTALONS_TALENT.id}/>, and <SpellLink id={SPELLS.TIGERS_FURY.id} />.
+          Try to only refresh <SpellLink id={SPELLS.RAKE.id} /> before the <dfn data-tip={`The last ${(this.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Rake's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</dfn> if you have more powerful <dfn data-tip={"Applying Rake with Prowl, Tiger's Fury or Bloodtalons will boost its damage until you reapply it."}>snapshot buffs</dfn> than were present when it was first cast.
         </React.Fragment>
       )
         .icon(SPELLS.RAKE.icon)
-        .actual(`${formatPercentage(actual)}% of Rake casts caused early downgrading.`)
+        .actual(`${formatPercentage(actual)}% of Rake refreshes were early downgrades.`)
         .recommended(`${recommended}% is recommended`);
     });
   }
