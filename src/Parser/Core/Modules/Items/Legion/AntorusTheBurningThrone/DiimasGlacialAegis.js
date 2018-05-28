@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -67,8 +67,8 @@ class DiimasGlacialAegis extends Analyzer {
       item: ITEMS.DIIMAS_GLACIAL_AEGIS,
       result: (
         <React.Fragment>
-          <dfn data-tip={`You casted "${SPELLS.CHILLING_NOVA.name}" ${this.casts} times for a uptime of ${formatPercentage(this.uptime)}%`}>
-            {(this.uptime * this.armorbuff).toFixed(0)} average Armor from <SpellLink id={SPELLS.FROZEN_ARMOR.id} />
+          <dfn data-tip={`You cast "${SPELLS.CHILLING_NOVA.name}" ${this.casts} times for an uptime of ${formatPercentage(this.uptime)}%`}>
+            {formatNumber(this.uptime * this.armorbuff)} Average Armor
           </dfn><br />
           <ItemDamageDone amount={this.damage} />
         </React.Fragment>
