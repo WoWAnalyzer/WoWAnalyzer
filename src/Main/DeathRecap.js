@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import Slider from 'rc-slider';
@@ -12,7 +13,9 @@ const AMOUNT_THRESHOLD = 0;
 class DeathRecap extends React.PureComponent {
 
   static propTypes = {
-    events: PropTypes.object.isRequired,
+    events: PropTypes.array.isRequired,
+    enemies: PropTypes.object.isRequired,
+    combatants: PropTypes.object.isRequired,
   };
 
   constructor(props) {
@@ -32,6 +35,10 @@ class DeathRecap extends React.PureComponent {
   render() {
     let lastHitPoints = 0;
     let lastMaxHitPoints = 0;
+
+    function sortByTimelineIndex(a, b) {
+      return a.timelineSortIndex - b.timelineSortIndex;
+    } 
 
     const sliderProps = {
       min: 0,
@@ -99,19 +106,43 @@ class DeathRecap extends React.PureComponent {
                     const hitPercent = event.amount / lastMaxHitPoints;
                     let percent = 0;
                     let output = null;
+                    //name = either NPC-Name > sourceID-Name > Ability-Name as fallback
+                    let sourceName = event.source && event.source.type === "NPC" ? event.source.name : null;
+                    if (!sourceName && event.type === 'heal') {
+                      sourceName = this.props.combatants[event.sourceID] ? this.props.combatants[event.sourceID]._combatantInfo.name : null;
+                    }
+                    if (!sourceName && event.type === 'damage') {
+                      sourceName = this.props.enemies[event.sourceID] ? this.props.enemies[event.sourceID]._baseInfo.name : null;
+                    }
+                    if (!sourceName && event.type !== 'instakill') {
+                      sourceName = event.ability.name;
+                    }
+
                     if (event.type === 'heal') {
                       percent = (lastHitPoints - event.amount) / lastMaxHitPoints;
                       output = (
-                        <span style={{ color: 'green' }}>
+                        <dfn data-tip={`
+                          ${event.sourceID === event.targetID ? 
+                            `You healed yourself for ${formatNumber(event.amount)}` :
+                            `${sourceName} healed you for ${formatNumber(event.amount)}`
+                          }
+                          ${event.overheal > 0 ? ` and overhealed for ${formatNumber(event.overheal)}<br/>` : ''}
+                        `} style={{ color: 'green' }}>
                           +{formatNumber(event.amount)} {event.overheal > 0 ? `(O: ${formatNumber(event.overheal)} )` : ''}
-                        </span>
+                        </dfn>
                       );
                     } else if (event.type === 'damage') {
                       percent = lastHitPoints / lastMaxHitPoints;
                       output = (
-                        <span style={{ color: 'red' }}>
+                        <dfn data-tip={`
+                        ${event.sourceID === event.targetID ? 
+                          `You damaged yourself for ${formatNumber(event.amount)}<br/>` :
+                          `${sourceName} damaged you for a total of ${formatNumber(event.amount + (event.absorbed || 0))}<br/>`
+                          }
+                        ${event.absorbed > 0 ? `${formatNumber(event.absorbed)} of this damage was absorbed and you took ${formatNumber(event.amount)} damage<br/>` : ''}
+                        `} style={{ color: 'red' }}>
                           -{formatNumber(event.amount)} {event.absorbed > 0 ? `(A: ${formatNumber(event.absorbed)} )` : ''}
-                        </span>
+                        </dfn>
                       );
                     } else if (event.type === 'instakill') {
                       percent = 0;
@@ -128,7 +159,9 @@ class DeathRecap extends React.PureComponent {
                           {formatDuration(event.time / 1000, 2)}
                         </td>
                         <td style={{ width: '20%' }}>
-                          <Icon icon={event.ability.abilityIcon} /> {event.ability.name}
+                          <SpellLink id={event.ability.guid} icon={false}>
+                            <Icon icon={event.ability.abilityIcon} /> {event.ability.name}
+                          </SpellLink>
                         </td>
                         <td style={{ width: '20%' }}>
                           <div className="flex performance-bar-container">
@@ -149,19 +182,16 @@ class DeathRecap extends React.PureComponent {
                           {output}
                         </td>
                         <td style={{ width: '20%' }}>
-                          {event.buffsUp && event.buffsUp.map(e =>
+                          {event.buffsUp && event.buffsUp.sort(sortByTimelineIndex).map(e =>
                             <SpellIcon style={{ border: '1px solid rgba(0, 0, 0, 0)' }} id={e.spell ? e.spell.id : e} />
                           )}<br />
-                          {event.debuffsUp && event.debuffsUp.map(e =>
+                          {event.debuffsUp && event.debuffsUp.sort(sortByTimelineIndex).map(e =>
                             <SpellIcon style={{ border: '1px solid red' }} id={e.ability ? e.ability.guid : e} />
                           )}
                         </td>
                         <td style={{ width: '15%' }}>
-                          {event.cooldownsAvailable.map(e =>
-                            <SpellIcon id={e.spell.id} />
-                          )}
-                          {event.cooldownsUsed.map(e =>
-                            <SpellIcon id={e.spell.id} style={{ opacity: .2 }} />
+                          {event.defensiveCooldowns.sort(sortByTimelineIndex).map(e =>
+                            <SpellIcon style={{ opacity: e.cooldownReady ? 1 : .2 }} id={e.spell.id} />
                           )}
                         </td>
                       </tr>

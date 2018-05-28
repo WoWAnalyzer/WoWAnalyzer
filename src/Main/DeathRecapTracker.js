@@ -18,8 +18,6 @@ class DeathRecapTracker extends Analyzer {
   cooldowns = [];
   buffs = [];
   lastBuffs = [];
-  debuffs = [];
-  enemyDebuffs = [];
 
   static dependencies = {
     combatants: Combatants,
@@ -46,8 +44,7 @@ class DeathRecapTracker extends Analyzer {
     extendedEvent.time = event.timestamp - this.owner.fight.start_time;
 
     const cooldownsOnly = this.cooldowns.filter(e => e.cooldown);
-    extendedEvent.cooldownsAvailable = cooldownsOnly.filter(e => this.spellUsable.isAvailable(e.spell.id));
-    extendedEvent.cooldownsUsed = cooldownsOnly.filter(e => !this.spellUsable.isAvailable(e.spell.id));
+    extendedEvent.defensiveCooldowns = cooldownsOnly.map(e => ({...e, cooldownReady: this.spellUsable.isAvailable(e.spell.id)}));
     if (event.hitPoints > 0) {
       this.lastBuffs = this.buffs.filter(e => this.combatants.selected.hasBuff(e.buffSpellId) || this.combatants.selected.hasBuff(e.spell.id));
     }
@@ -98,6 +95,8 @@ class DeathRecapTracker extends Analyzer {
         <Tab>
           <DeathRecap
             events={this.secondsBeforeDeath}
+            combatants={this.combatants.players}
+            enemies={this.enemies.enemies}
           />
         </Tab>
       ),
