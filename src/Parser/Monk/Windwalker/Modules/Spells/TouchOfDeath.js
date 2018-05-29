@@ -7,7 +7,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
@@ -62,7 +61,7 @@ class TouchOfDeath extends Analyzer {
       this.highestGaleBurst = actualGaleBurst;
     }
     this.totalVulnerabilityAmplifier += vulnerabilityAmplifier;
-    this.totalGaleBurst += actualGaleBurst
+    this.totalGaleBurst += actualGaleBurst;
   }
 
   statistic() {
@@ -77,6 +76,7 @@ class TouchOfDeath extends Analyzer {
       />
     );
   }
+  statisticOrder = STATISTIC_ORDER.CORE(12);
 }
 
 export default TouchOfDeath;
