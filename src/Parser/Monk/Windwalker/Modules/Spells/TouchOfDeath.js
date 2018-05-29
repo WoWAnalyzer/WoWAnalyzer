@@ -1,29 +1,32 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
+
 import Analyzer from 'Parser/Core/Analyzer';
 import Enemies from 'Parser/Core/Modules/Enemies';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
+
+import SpellIcon from 'common/SpellIcon';
+import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-import DamageTracker from 'Parser/Core/Modules/AbilityTracker';
+import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 class TouchOfDeath extends Analyzer {
   static dependencies = {
+    combatants: Combatants,
     enemies: Enemies,
     statTracker: StatTracker,
-    damageTracker: DamageTracker,
+    abilityTracker: AbilityTracker,
   };
 
   expectedBaseDamage = 0;
   expectedGaleBurst = 0;
-  totalBaseDamage = 0;
-  damageIntoGaleBurst = 0;
   totalGaleBurst = 0;
   highestGaleBurst = 0;
   // Vulnerability amplifiers are target specific damage taken increases like seen on Kin'garoth adds. 
   highestVulnerabilityAmplifier = 0;
   totalVulnerabilityAmplifier = 0;
-  touchOfDeathTarget = null;
-  
+
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (SPELLS.TOUCH_OF_DEATH.id !== spellId) {
@@ -32,52 +35,47 @@ class TouchOfDeath extends Analyzer {
     this.expectedGaleBurst = 0;
     const masteryPercentage = this.statTracker.currentMasteryPercentage;
     const versatilityPercentage = this.statTracker.currentVersatilityPercentage;
-    this.expectedBaseDamage = Math.round(event.maxHitPoints * 0.5 * (1 + masteryPercentage) * (1 + versatilityPercentage));
-    console.log("Touch of Death cast ");
-  }
-
-  on_byPlayerPet_damage(event) {
-    const spellId = event.ability.guid;
-    const enemy = this.enemies.getEntity(event);
-    if (!enemy) {
-      return;
-    }
-    // Debuff is removed before damage is dealt so this won't count Touch of Deaths own damage
-    if (enemy.hasBuff(SPELLS.TOUCH_OF_DEATH.id)) {
-      this.expectedGaleBurst += Math.round((event.amount + (event.absorbed || 0)) * 0.1);
-    }
+    this.expectedBaseDamage = event.maxHitPoints * 0.5 * (1 + masteryPercentage) * (1 + versatilityPercentage);
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     const enemy = this.enemies.getEntity(event);
+    // Gale Burst does not count damage from clones, but rather takes increased damage from the player while Storm, Earth, and Fire is active
+    const sefMultiplier = this.combatants.selected.hasBuff(SPELLS.STORM_EARTH_AND_FIRE_CAST.id) ? 0.3: 0.1;
     if (!enemy) {
       return;
     }
-    // Debuff is removed before damage is dealt so this won't count Touch of Deaths own damage
     if (enemy.hasBuff(SPELLS.TOUCH_OF_DEATH.id) && SPELLS.TOUCH_OF_DEATH_DAMAGE.id !== spellId) {
-      this.expectedGaleBurst += Math.round((event.amount + (event.absorbed || 0)) * 0.1);
+      this.expectedGaleBurst += (event.amount + (event.absorbed || 0)) * sefMultiplier;
     }
     if (SPELLS.TOUCH_OF_DEATH_DAMAGE.id !== spellId) {
       return;
     }
-    this.expectedGaleBurst = this.expectedGaleBurst;
     const expectedTotalDamage = this.expectedGaleBurst + this.expectedBaseDamage;
-    const vulnerabilityAmplifier = event.amount / expectedTotalDamage;
-    console.log("expected base damage: " + this.expectedBaseDamage + " expected gale burst: " + this.expectedGaleBurst);
-    console.log("actualDamage/expectedDamage: " + event.amount + "/" + expectedTotalDamage + " = " + vulnerabilityAmplifier);
+    const vulnerabilityAmplifier = ((event.amount / expectedTotalDamage) - 1);
     if (vulnerabilityAmplifier > this.highestVulnerabilityAmplifier) {
       this.highestVulnerabilityAmplifier = vulnerabilityAmplifier;
     }
-    const actualGaleBurst = this.expectedGaleBurst * vulnerabilityAmplifier;
-    if (actualGaleBurst < this.highestGaleBurst) {
+    const actualGaleBurst = this.expectedGaleBurst * (1 + vulnerabilityAmplifier);
+    if (actualGaleBurst > this.highestGaleBurst) {
       this.highestGaleBurst = actualGaleBurst;
     }
     this.totalVulnerabilityAmplifier += vulnerabilityAmplifier;
+    this.totalGaleBurst += actualGaleBurst
   }
 
   statistic() {
-    const averageVulnerabilityAmplifier = this.totalVulnerabilityAmplifier / this.damageTracker.getAbility(SPELLS.TOUCH_OF_DEATH).hits;
+    const averageVulnerabilityAmplifier = this.totalVulnerabilityAmplifier / this.abilityTracker.getAbility(SPELLS.TOUCH_OF_DEATH.id).casts;
+    const averageGaleBurst = this.totalGaleBurst / this.abilityTracker.getAbility(SPELLS.TOUCH_OF_DEATH.id).casts;
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.GALE_BURST_DAMAGE.id} />}
+        value={`${(averageGaleBurst / 1000000).toFixed(2)} million`}
+        label={`Average Gale Burst`}
+        tooltip={`Damage done with Touch of Death is affected by % damage taken buffs on its target. This causes damage done by other abilities during the Gale burst window to benefit twice from those debuffs, due to the increase to their own hits as well as the Gale Burst component of Touch of Death . <br> </br> Your average modifier on Touch of Death was ~${((averageVulnerabilityAmplifier * 100).toFixed())}% and your highest was ~${(this.highestVulnerabilityAmplifier * 100).toFixed()}%. Your highest Gale Burst was ${(this.highestGaleBurst / 1000000).toFixed(2)} million `}
+      />
+    );
   }
 }
 

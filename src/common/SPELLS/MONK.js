@@ -701,7 +701,7 @@ export default {
   GALE_BURST_DAMAGE: {
     id: 195403,
     name: 'Gale Burst',
-    icon: 'ability_monk_palmstrike',
+    icon: 'ability_monk_touchofdeath',
   },
   MARK_OF_THE_CRANE: {
     id: 228287,
