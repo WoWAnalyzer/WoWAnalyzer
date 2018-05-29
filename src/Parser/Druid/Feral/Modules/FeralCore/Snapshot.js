@@ -64,7 +64,7 @@ class Snapshot extends Analyzer {
       if (!state.castEvent &&
           event.timestamp - state.startTime < CAST_WINDOW_TIME) {
         event.castEvent = event;
-        this.checkRuleIfReady(event, state.prev, state);
+        this.checkRuleIfReady(state);
       }
     }
   }

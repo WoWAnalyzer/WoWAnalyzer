@@ -64,7 +64,7 @@ class RakeSnapshot extends Snapshot {
       }
     } else if (stateOld.pandemicTime > stateNew.startTime &&
         stateOld.power > stateNew.power &&
-        !stateNew.hasProwl) {
+        !stateNew.prowl) {
       // refreshed with weaker DoT before pandemic window - but ignore this rule if the new Rake has Prowl buff as that's more important.
       ++this.downgradeCastCount;
 
