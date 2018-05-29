@@ -11,6 +11,12 @@ export default {
     name: 'Starsurge',
     icon: 'spell_arcane_arcane03',
   },
+  // the moonkin form granted by Balance Affinity
+  MOONKIN_FORM_AFFINITY: {
+    id: 197625,
+    name: 'Moonkin Form',
+    icon: 'spell_nature_forceofnature',
+  },
 
   // RESTO DRUID //
 
@@ -424,7 +430,7 @@ export default {
     icon: 'ability_druid_ironfur',
   },
   STAMPEDING_ROAR_CAT: {
-    id: 106898,
+    id: 77764,
     name: 'Stampeding Roar',
     icon: 'spell_druid_stampedingroar_cat',
   },
@@ -830,6 +836,16 @@ export default {
     id: 240670,
     name: 'Fury of Ashamane',
     icon: 'ability_mount_jungletiger',
+  },
+  PROTECTION_OF_ASHAMANE: {
+    id: 210650,
+    name: 'Protection of Ashamane',
+    icon: 'ability_druid_catform',
+  },
+  PROTECTION_OF_ASHAMANE_BUFF: {
+    id: 210655,
+    name: 'Protection of Ashamane',
+    icon: 'ability_druid_catform',
   },
 
   //shared talent spells

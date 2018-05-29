@@ -6,13 +6,18 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-05-30'),
+    changes: 'Configured buffs so they appear on timeline and arranged ordering of abilities on timeline.',
+    contributors: [Anatta336],
+  },
+  {
     date: new Date('2018-05-28'),
     changes: <React.Fragment>Added snapshot tracking for <SpellLink id={SPELLS.RAKE.id} /></React.Fragment>,
     contributors: [Anatta336],
   },
   {
     date: new Date('2018-05-23'),
-    changes: 'Corrected GCD tracking of Moonfire and instant Regrowth/Entangling Roots',
+    changes: <React.Fragment>Corrected GCD tracking of <SpellLink id={SPELLS.MOONFIRE.id} /> and instant <SpellLink id={SPELLS.REGROWTH.id} />/<SpellLink id={SPELLS.ENTANGLING_ROOTS.id} /></React.Fragment>,
     contributors: [Anatta336],
   },
   {
