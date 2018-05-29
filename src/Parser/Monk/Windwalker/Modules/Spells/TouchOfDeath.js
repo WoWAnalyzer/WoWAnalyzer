@@ -29,10 +29,10 @@ class TouchOfDeath extends Analyzer {
     if (SPELLS.TOUCH_OF_DEATH.id !== spellId) {
       return;
     }
-    this.damageIntoGaleBurst = 0;
+    this.expectedGaleBurst = 0;
     const masteryPercentage = this.statTracker.currentMasteryPercentage;
     const versatilityPercentage = this.statTracker.currentVersatilityPercentage;
-    this.expectedBaseDamage = event.maxHitPoints * 0.5 * (1 + masteryPercentage) * (1 + versatilityPercentage);
+    this.expectedBaseDamage = Math.round(event.maxHitPoints * 0.5 * (1 + masteryPercentage) * (1 + versatilityPercentage));
     console.log("Touch of Death cast ");
   }
 
@@ -44,7 +44,7 @@ class TouchOfDeath extends Analyzer {
     }
     // Debuff is removed before damage is dealt so this won't count Touch of Deaths own damage
     if (enemy.hasBuff(SPELLS.TOUCH_OF_DEATH.id)) {
-      this.damageIntoGaleBurst += event.amount + (event.absorbed || 0);
+      this.expectedGaleBurst += Math.round((event.amount + (event.absorbed || 0)) * 0.1);
     }
   }
 
@@ -56,16 +56,16 @@ class TouchOfDeath extends Analyzer {
     }
     // Debuff is removed before damage is dealt so this won't count Touch of Deaths own damage
     if (enemy.hasBuff(SPELLS.TOUCH_OF_DEATH.id) && SPELLS.TOUCH_OF_DEATH_DAMAGE.id !== spellId) {
-      this.damageIntoGaleBurst += event.amount + (event.absorbed || 0);
+      this.expectedGaleBurst += Math.round((event.amount + (event.absorbed || 0)) * 0.1);
     }
     if (SPELLS.TOUCH_OF_DEATH_DAMAGE.id !== spellId) {
       return;
     }
-    this.expectedGaleBurst = this.damageIntoGaleBurst * 0.1;
+    this.expectedGaleBurst = this.expectedGaleBurst;
     const expectedTotalDamage = this.expectedGaleBurst + this.expectedBaseDamage;
     const vulnerabilityAmplifier = event.amount / expectedTotalDamage;
     console.log("expected base damage: " + this.expectedBaseDamage + " expected gale burst: " + this.expectedGaleBurst);
-    console.log("actualDamage/expectedDamage: " + vulnerabilityAmplifier);
+    console.log("actualDamage/expectedDamage: " + event.amount + "/" + expectedTotalDamage + " = " + vulnerabilityAmplifier);
     if (vulnerabilityAmplifier > this.highestVulnerabilityAmplifier) {
       this.highestVulnerabilityAmplifier = vulnerabilityAmplifier;
     }
