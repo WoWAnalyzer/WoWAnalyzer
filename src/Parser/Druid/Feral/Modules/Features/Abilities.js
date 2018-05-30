@@ -174,13 +174,15 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 43,
       },
       {
-        spell: [SPELLS.STAMPEDING_ROAR_CAT, SPELLS.STAMPEDING_ROAR_BEAR],
-        buffSpellId: SPELLS.STAMPEDING_ROAR_CAT.id, // STAMPEDING_ROAR_BEAR.id if cast from bear
+        spell: [SPELLS.STAMPEDING_ROAR_HUMANOID, SPELLS.STAMPEDING_ROAR_CAT, SPELLS.STAMPEDING_ROAR_BEAR],
+        // buffSpellId matches the version that was cast, but vast majority for Feral will be the cat version
+        buffSpellId: SPELLS.STAMPEDING_ROAR_CAT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 120,
         // 1.0 reduced by haste
         isOnGCD: true, 
-        //isDefensive: true, // setting isDefensive breaks the death recap pane. It doesn't like multiple spells in one ability?
+        // setting isDefensive breaks the death recap pane. It doesn't like multiple spells in one ability?
+        //isDefensive: true,
         timelineSortIndex: 44,
       },
       {
@@ -224,7 +226,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 40,
       },
       {
-        // spell is not cast, but automatically activated on leaving cat form
+        // automatically activated on leaving cat form
         spell: SPELLS.PROTECTION_OF_ASHAMANE,
         buffSpellId: SPELLS.PROTECTION_OF_ASHAMANE_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,

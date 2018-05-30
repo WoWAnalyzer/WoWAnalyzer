@@ -429,6 +429,12 @@ export default {
     name: 'Ironfur',
     icon: 'ability_druid_ironfur',
   },
+  // when casting stampeding outside of cat or bear form (puts caster into bear form)
+  STAMPEDING_ROAR_HUMANOID: {
+    id: 106898,
+    name: 'Stampeding Roar',
+    icon: 'spell_druid_stamedingroar',
+  },
   STAMPEDING_ROAR_CAT: {
     id: 77764,
     name: 'Stampeding Roar',
