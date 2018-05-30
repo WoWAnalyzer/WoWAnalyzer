@@ -352,11 +352,11 @@ class HotTracker extends Analyzer {
         tickPeriod: 2000,
       },
       [SPELLS.ENVELOPING_MISTS.id]: {
-        duration: 6000 + (this.combatants.selected.hasTalent(SPELLS.MIST_WRAP_TALENT.id) ? 1 : 0),
+        duration: 6000 + (this.combatants.selected.hasTalent(SPELLS.MIST_WRAP_TALENT.id) ? 1000 : 0),
         tickPeriod: 1000,
       },
       [SPELLS.ESSENCE_FONT_BUFF.id]: {
-        duration: 8000 + (this.combatants.selected.hasTalent(SPELLS.UPWELLING_TALENT.id) ? 4 : 0),
+        duration: 8000 + (this.combatants.selected.hasTalent(SPELLS.UPWELLING_TALENT.id) ? 4000 : 0),
         tickPeriod: 2000,
       },
     };

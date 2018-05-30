@@ -2,15 +2,13 @@ import EventsNormalizer from 'Parser/Core/EventsNormalizer';
 
 import SPELLS from 'common/SPELLS';
 
-// so far I haven't seen any delay, so leaving this at zero so timestamp ordering is preserved,
-// and to avoid false positives if HoT falls and then quickly refreshed
 const MAX_DELAY = 50;
 
-// Occasionally HoT heal has same timestamp but happens before the applybuff event, which causes issues when attempting to attribute the heal.
-// This normalizes the heal to always be after the applybuff
-class HotApplicationNormalizer extends EventsNormalizer {
+// Occasionally HoT heal has same timestamp but happens after the removebuff event, which causes issues when attempting to attribute the heal.
+// This normalizes the heal to always be before the removebuff
+class HotRemovalNormalizer extends EventsNormalizer {
 
-  // This ordering issue only happens for the HoTs that tick instantly upon application
+  // This ordering issue only happens for the HoTs that tick on removebuff
   instantTickHotIds = [
     SPELLS.RENEWING_MIST_HEAL.id,
     SPELLS.ESSENCE_FONT_BUFF.id,
@@ -49,4 +47,4 @@ class HotApplicationNormalizer extends EventsNormalizer {
   }
 
 }
-export default HotApplicationNormalizer;
+export default HotRemovalNormalizer;

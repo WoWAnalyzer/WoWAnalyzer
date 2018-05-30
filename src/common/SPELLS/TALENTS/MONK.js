@@ -25,7 +25,7 @@ export default {
   SUMMON_JADE_SERPENT_STATUE_TALENT: { id: 115313, name: "Summon Jade Serpent Statue", icon: "ability_monk_summonserpentstatue" },
   MANA_TEA_TALENT: { id: 197908, name: "Mana Tea", icon: "monk_ability_cherrymanatea" },
   FOCUSED_THUNDER_TALENT: { id: 197895, name: "Focused Thunder", icon: "spell_monk_nimblebrew" },
-  RISING_MIST: { id: 274909, name: "Rising Mist", icon: "bility_monk_effuse" },
+  RISING_MIST_TALENT: { id: 274909, name: "Rising Mist", icon: "bility_monk_effuse" },
   UPWELLING_TALENT: { id: 274963, name: "Upwelling", icon: "ability_monk_surgingmist" },
   // Windwalker
   ENERGIZING_ELIXIR_TALENT: { id: 115288, name: "Energizing Elixir", icon: "ability_monk_energizingwine" },
