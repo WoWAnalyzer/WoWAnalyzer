@@ -621,6 +621,11 @@ export default {
     name: 'Touch of Death',
     icon: 'ability_monk_touchofdeath',
   },
+  TOUCH_OF_DEATH_DAMAGE: {
+    id: 229980,
+    name: 'Touch of Death',
+    icon: 'ability_monk_touchofdeath',
+  },
   CYCLONE_STRIKES: {
     id: 220357,
     name: 'Cyclone Strikes',
@@ -701,12 +706,17 @@ export default {
   GALE_BURST_DAMAGE: {
     id: 195403,
     name: 'Gale Burst',
-    icon: 'ability_monk_palmstrike',
+    icon: 'ability_monk_touchofdeath',
   },
   MARK_OF_THE_CRANE: {
     id: 228287,
     name: 'Mark of the Crane',
     icon: 'ability_monk_cranekick_new',
+  },
+  THUNDERFIST: {
+    id: 242390,
+    name: 'Thunderfist',
+    icon: 'inv_hand_1h_artifactskywall_d_01',
   },
   // Windwalker Talents
   POWER_STRIKES: {
