@@ -10,6 +10,9 @@ import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
+const TOUCH_OF_DEATH_HP_SCALING = 0.5;
+const GALE_BURST_VALUE = 0.1;
+
 class TouchOfDeath extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -34,14 +37,14 @@ class TouchOfDeath extends Analyzer {
     this.expectedGaleBurst = 0;
     const masteryPercentage = this.statTracker.currentMasteryPercentage;
     const versatilityPercentage = this.statTracker.currentVersatilityPercentage;
-    this.expectedBaseDamage = event.maxHitPoints * 0.5 * (1 + masteryPercentage) * (1 + versatilityPercentage);
+    this.expectedBaseDamage = event.maxHitPoints * TOUCH_OF_DEATH_HP_SCALING * (1 + masteryPercentage) * (1 + versatilityPercentage);
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     const enemy = this.enemies.getEntity(event);
     // Gale Burst does not count damage from clones, but rather takes increased damage from the player while Storm, Earth, and Fire is active
-    const sefMultiplier = this.combatants.selected.hasBuff(SPELLS.STORM_EARTH_AND_FIRE_CAST.id) ? 0.3: 0.1;
+    const sefMultiplier = this.combatants.selected.hasBuff(SPELLS.STORM_EARTH_AND_FIRE_CAST.id) ? 3 * GALE_BURST_VALUE : GALE_BURST_VALUE;
     if (!enemy) {
       return;
     }
