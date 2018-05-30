@@ -28,14 +28,14 @@ class ApiRequestHandler {
       const cachedWclApiResponse = await WclApiResponse.findById(this.requestUrl);
       const jsonString = !this.cacheBust && cachedWclApiResponse ? cachedWclApiResponse.content : null;
       if (jsonString) {
-        console.log('cache HIT', this.requestUrl);
+        console.log('cache HIT', this.prettyRequestUrl);
         cachedWclApiResponse.update({
           numAccesses: cachedWclApiResponse.numAccesses + 1,
           lastAccessedAt: Sequelize.fn('NOW'),
         });
         this.sendJson(jsonString);
       } else {
-        console.log('cache MISS', this.requestUrl);
+        console.log('cache MISS', this.prettyRequestUrl);
         this.fetchFromWcl(cachedWclApiResponse);
       }
     } catch (error) {
@@ -50,6 +50,11 @@ class ApiRequestHandler {
   }
 
   get requestUrl() {
+    // Don't use `this.req.params[0]` here as this automatically (url)decodes parts, breaking special characters in name!
+    return `${this.req.path}?${querystring.stringify(this.req.query)}`;
+  }
+  get prettyRequestUrl() {
+    // Not urlencoded
     return `${this.req.params[0]}?${querystring.stringify(this.req.query)}`;
   }
   async fetchFromWcl(cachedWclApiResponse) {
