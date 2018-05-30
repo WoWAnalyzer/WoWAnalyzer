@@ -6,6 +6,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import DoomguardInfernal from './Modules/Features/DoomguardInfernal';
 import Felstorm from './Modules/Features/Felstorm';
+import DemEmpUptimeDreadstalkers from './Modules/Features/DemEmpUptimeDreadstalkers';
 
 import Doom from './Modules/Features/DoomUptime';
 
@@ -47,6 +48,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     doomguardInfernal: DoomguardInfernal,
     felstorm: Felstorm,
+    demEmpFelstalkers: DemEmpUptimeDreadstalkers,
 
     // DoTs
     doom: Doom,
