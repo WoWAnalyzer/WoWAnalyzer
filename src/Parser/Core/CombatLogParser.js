@@ -3,6 +3,7 @@ import React from 'react';
 import ChangelogTab from 'Main/ChangelogTab';
 import ChangelogTabTitle from 'Main/ChangelogTabTitle';
 import TimelineTab from 'Main/Timeline/TimelineTab';
+import DeathRecapTracker from 'Main/DeathRecapTracker';
 
 import { formatNumber, formatPercentage, formatThousands, formatDuration } from 'common/format';
 
@@ -174,6 +175,7 @@ class CombatLogParser {
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
     timelineBuffEvents: TimelineBuffEvents,
+    deathRecapTracker: DeathRecapTracker,
 
     critEffectBonus: CritEffectBonus,
 

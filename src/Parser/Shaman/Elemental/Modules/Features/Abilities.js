@@ -108,6 +108,12 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.EARTH_SHOCK,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
+      {
+        spell: SPELLS.ASTRAL_SHIFT,
+        buffSpellId: SPELLS.ASTRAL_SHIFT.id,
+        cooldown: 90,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+      },
     ];
   }
 }

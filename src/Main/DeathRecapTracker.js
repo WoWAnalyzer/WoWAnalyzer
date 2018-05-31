@@ -18,8 +18,6 @@ class DeathRecapTracker extends Analyzer {
   cooldowns = [];
   buffs = [];
   lastBuffs = [];
-  debuffs = [];
-  enemyDebuffs = [];
 
   static dependencies = {
     combatants: Combatants,
@@ -46,15 +44,14 @@ class DeathRecapTracker extends Analyzer {
     extendedEvent.time = event.timestamp - this.owner.fight.start_time;
 
     const cooldownsOnly = this.cooldowns.filter(e => e.cooldown);
-    extendedEvent.cooldownsAvailable = cooldownsOnly.filter(e => this.spellUsable.isAvailable(e.spell.id));
-    extendedEvent.cooldownsUsed = cooldownsOnly.filter(e => !this.spellUsable.isAvailable(e.spell.id));
+    extendedEvent.defensiveCooldowns = cooldownsOnly.map(e => ({...e, cooldownReady: this.spellUsable.isAvailable(e.spell.id)}));
     if (event.hitPoints > 0) {
-      this.lastBuffs = this.buffs.filter(e => this.combatants.selected.hasBuff(e.spell.buffSpellId) || this.combatants.selected.hasBuff(e.spell.id));
+      this.lastBuffs = this.buffs.filter(e => this.combatants.selected.hasBuff(e.buffSpellId) || this.combatants.selected.hasBuff(e.spell.id));
     }
     extendedEvent.buffsUp = this.lastBuffs;
 
     if (!event.sourceIsFriendly && this.enemies.enemies[event.sourceID]) {
-      const sourceHasDebuff = debuff => (!debuff.end || event.timestamp <= debuff.end) && event.timestamp >= debuff.start && debuff.isDebuff && this.buffs.some(e => e.spell.id === debuff.ability.guid || e.spell.buffSpellId === debuff.ability.guid);
+      const sourceHasDebuff = debuff => (!debuff.end || event.timestamp <= debuff.end) && event.timestamp >= debuff.start && debuff.isDebuff && this.buffs.some(e => e.buffSpellId === debuff.ability.guid || e.spell.id === debuff.ability.guid);
       extendedEvent.debuffsUp = this.enemies.enemies[event.sourceID].buffs.filter(sourceHasDebuff);
     }
 
@@ -97,7 +94,10 @@ class DeathRecapTracker extends Analyzer {
       render: () => (
         <Tab>
           <DeathRecap
+            report={this.owner}
             events={this.secondsBeforeDeath}
+            combatants={this.combatants.players}
+            enemies={this.enemies.enemies}
           />
         </Tab>
       ),

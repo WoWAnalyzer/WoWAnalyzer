@@ -7,7 +7,6 @@
   margin-bottom: 20px;
   text-indent: 12px;
   font-size: 24px;
-  line-height: 1; /* so the line underneath fits easier */
   text-transform: uppercase;
   font-weight: 600;
 }

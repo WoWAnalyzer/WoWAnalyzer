@@ -39,6 +39,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.POWER_WORD_SHIELD,
+        isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: (haste, selectedCombatant) => {
           if(selectedCombatant.hasBuff(SPELLS.RAPTURE.id)) {

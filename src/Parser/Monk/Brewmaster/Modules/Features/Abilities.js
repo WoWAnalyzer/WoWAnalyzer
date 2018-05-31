@@ -36,6 +36,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BREATH_OF_FIRE,
+        isDefensive: true,
+        buffSpellId: SPELLS.BREATH_OF_FIRE_DEBUFF.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 15,
       },
@@ -66,6 +68,7 @@ class Abilities extends CoreAbilities {
         // it is possible to refer to the shared CD using *either* spell
         // id
         spell: [SPELLS.IRONSKIN_BREW, SPELLS.PURIFYING_BREW],
+        buffSpellId: SPELLS.IRONSKIN_BREW_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: haste => 21 / (1 + haste),
         charges: 3,
@@ -86,7 +89,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FORTIFYING_BREW_BRM,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.FORTIFYING_BREW_BRM_BUFF.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 420,
       },
       {
@@ -97,13 +101,15 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DAMPEN_HARM_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.DAMPEN_HARM_TALENT.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id),
       },
       {
         spell: SPELLS.ZEN_MEDITATION,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.ZEN_MEDITATION.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 300,
       },
       // Utility
