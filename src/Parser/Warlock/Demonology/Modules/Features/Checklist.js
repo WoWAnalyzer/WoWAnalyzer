@@ -14,6 +14,8 @@ import SoulShardDetails from 'Parser/Warlock/Demonology/Modules/SoulShards/SoulS
 import SoulShardTracker from 'Parser/Warlock/Demonology/Modules/SoulShards/SoulShardTracker';
 import AlwaysBeCasting from 'Parser/Warlock/Demonology/Modules/Features/AlwaysBeCasting';
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
+import DoomguardInfernal from 'Parser/Warlock/Demonology/Modules/Features/DoomguardInfernal';
+import Felstorm from 'Parser/Warlock/Demonology/Modules/Features/Felstorm';
 
 
 class Checklist extends CoreChecklist{
@@ -25,12 +27,26 @@ class Checklist extends CoreChecklist{
     legendaryUpgradeChecker: LegendaryUpgradeChecker,
     legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
+    doomguardInfernal : DoomguardInfernal,
+    felstorm: Felstorm,
     enchantChecker: EnchantChecker,
     soulShardDetails: SoulShardDetails,
     soulShardTracker: SoulShardTracker,
   };
 
   rules = [
+    new Rule({
+      name: 'Rotation Spells',
+      description: 'Your rotation should be followed closely to maximize damage. Doom should have as much uptime as possible, demons should be buffed, etc.',
+      requirements: () => {
+        return [
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.CALL_DREADSTALKERS,
+          }),
+        ];
+      },
+    }),
+
     new Rule({
       name: 'Don\'t cap your Soul Shards',
       description: 'Avoid overcapping Soul Shards.',
@@ -51,17 +67,19 @@ class Checklist extends CoreChecklist{
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.SUMMON_INFERNAL_UNTALENTED,
-            when: !combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.SUMMON_DOOMGUARD_UNTALENTED,
+          new Requirement({
+            name: <React.Fragment><SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} icon/>/<SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} icon/></React.Fragment>,
+            check: () => this.doomguardInfernal.suggestionThresholds,
             when: !combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.GRIMOIRE_FELGUARD,
             when: combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
+          }),
+          new Requirement({
+            name: <React.Fragment><SpellLink id={SPELLS.FELSTORM_BUFF.id} icon/></React.Fragment>,
+            check: () => this.felstorm.suggestionThresholds,
+
           }),
         ];
       },
