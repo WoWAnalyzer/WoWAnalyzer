@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'Parser/Core/Analyzer';
+import Pets from 'Parser/Core/Modules/Pets';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';

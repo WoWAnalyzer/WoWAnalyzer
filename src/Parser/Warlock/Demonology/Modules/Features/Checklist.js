@@ -16,11 +16,15 @@ import AlwaysBeCasting from 'Parser/Warlock/Demonology/Modules/Features/AlwaysBe
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import DoomguardInfernal from 'Parser/Warlock/Demonology/Modules/Features/DoomguardInfernal';
 import Felstorm from 'Parser/Warlock/Demonology/Modules/Features/Felstorm';
+import CallDreadstalkers from 'Parser/Warlock/Demonology/Modules/Features/CallDreadstalkers';
+import AbilityTracker from 'Parser/Core/Modules/Combatants';
 
+const rotation_description = <React.Fragment>Follow your rotation closely to maximize DPS. Note that if you have <SpellLink id={SPELLS.WARLOCK_DEMO_T20_2P_BONUS.id} icon/>, Call Dreadstalkers is a rough estimate based on number of procs.</React.Fragment>;
 
 class Checklist extends CoreChecklist{
   static dependencies = {
     abilities: Abilities,
+    abilityTracker: AbilityTracker,
     combatants : Combatants,
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
@@ -29,20 +33,23 @@ class Checklist extends CoreChecklist{
     prePotion: PrePotion,
     doomguardInfernal : DoomguardInfernal,
     felstorm: Felstorm,
+    callDreadstalkers: CallDreadstalkers,
     enchantChecker: EnchantChecker,
     soulShardDetails: SoulShardDetails,
     soulShardTracker: SoulShardTracker,
   };
 
+
   rules = [
     new Rule({
       name: 'Rotation Spells',
-      description: 'Your rotation should be followed closely to maximize damage. Doom should have as much uptime as possible, demons should be buffed, etc.',
+      description: rotation_description,
       requirements: () => {
         return [
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.CALL_DREADSTALKERS,
-          }),
+          new Requirement({
+           name: <React.Fragment><SpellLink id={SPELLS.CALL_DREADSTALKERS.id} icon/></React.Fragment>,
+           check: () => this.callDreadstalkers.suggestionThresholds,
+         }),
         ];
       },
     }),
@@ -68,7 +75,7 @@ class Checklist extends CoreChecklist{
         const combatant = this.combatants.selected;
         return [
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} icon/>/<SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} icon/></React.Fragment>,
+            name: <React.Fragment><SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} icon/>/<SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} icon/> Casts</React.Fragment>,
             check: () => this.doomguardInfernal.suggestionThresholds,
             when: !combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
           }),
