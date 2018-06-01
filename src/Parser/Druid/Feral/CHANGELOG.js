@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-06-06'),
+    changes: <React.Fragment>Added snapshot tracking for <SpellLink id={SPELLS.RIP.id} /></React.Fragment>,
+    contributors: [Anatta336],
+  },
+  {
     date: new Date('2018-05-30'),
     changes: 'Configured buffs so they appear on timeline and arranged ordering of abilities on timeline.',
     contributors: [Anatta336],
