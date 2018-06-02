@@ -40,12 +40,6 @@ class DemEmpUptimePet extends Analyzer{
     };
   }
 
-  on_initialized(){
-    if(this.combatants.selected.hasBuff(SPELLS.DEMONIC_EMPOWERMENT.id)){
-      //this.lastDemEmpTimestamp = 0;
-    }
-  }
-
   on_toPlayer_applybuff(event){
     const spellId = event.ability.guid;
     if(event.prepull && spellId === SPELLS.DEMONIC_EMPOWERMENT.id){

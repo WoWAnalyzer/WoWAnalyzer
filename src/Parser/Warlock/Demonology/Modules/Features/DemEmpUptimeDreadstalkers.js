@@ -6,6 +6,8 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 import { formatPercentage } from 'common/format';
+import StatisticBox from 'Main/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
 
 const CALL_DREADSTALKERS_COOLDOWN = 15;
 const CALL_DREADSTALKERS_DURATION = 12;
@@ -66,6 +68,12 @@ class DemEmpUptimeDreadstalkers extends Analyzer{
           .actual(`${formatPercentage(actual)}% empowered uptime.`)
           .recommended(`>${formatPercentage(recommended)}% is recommended.`);
       });
+  }
+
+  statistic(){
+    return(
+      <StatisticBox icon={<SpellIcon id={SPELLS.CALL_DREADSTALKERS.id}/>} value={`${formatPercentage(this.uptime)} %`} label={'Empowered Dreadstalker Uptime'} />
+    );
   }
 
 

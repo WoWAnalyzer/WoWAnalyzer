@@ -9,6 +9,7 @@ import Felstorm from './Modules/Features/Felstorm';
 import CallDreadstalkers from './Modules/Features/CallDreadstalkers';
 import DemEmpUptimePet from './Modules/Features/DemEmpUptimePet';
 import DemEmpUptimeDreadstalkers from './Modules/Features/DemEmpUptimeDreadstalkers';
+import DemEmpUptimeHoG from './Modules/Features/DemEmpUptimeHoG';
 import Checklist from './Modules/Features/Checklist';
 
 import Doom from './Modules/Features/DoomUptime';
@@ -54,6 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
     callDreadstalkers: CallDreadstalkers,
     demEmpUptimePet: DemEmpUptimePet,
     demEmpUptimeDreadstalkers: DemEmpUptimeDreadstalkers,
+    demEmpUptimeHog: DemEmpUptimeHoG,
     checklist: Checklist,
 
 

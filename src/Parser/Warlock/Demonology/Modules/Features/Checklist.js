@@ -20,6 +20,7 @@ import CallDreadstalkers from 'Parser/Warlock/Demonology/Modules/Features/CallDr
 import DemEmpUptimePet from 'Parser/Warlock/Demonology/Modules/Features/DemEmpUptimePet';
 import AbilityTracker from 'Parser/Core/Modules/Combatants';
 import DemEmpUptimeDreadstalkers from 'Parser/Warlock/Demonology/Modules/Features/DemEmpUptimeDreadstalkers';
+import DemEmpUptimeHoG from 'Parser/Warlock/Demonology/Modules/Features/DemEmpUptimeHoG';
 
 const rotation_description = <React.Fragment>Follow your rotation closely to maximize DPS. Note that if you have <SpellLink id={SPELLS.WARLOCK_DEMO_T20_2P_BONUS.id} icon/>, Call Dreadstalkers is a rough estimate based on number of procs.</React.Fragment>;
 
@@ -38,6 +39,7 @@ class Checklist extends CoreChecklist{
     callDreadstalkers: CallDreadstalkers,
     demEmpUptimePet: DemEmpUptimePet,
     demEmpUptimeDreadstalkers: DemEmpUptimeDreadstalkers,
+    demEmpUptimeHog: DemEmpUptimeHoG,
     enchantChecker: EnchantChecker,
     soulShardDetails: SoulShardDetails,
     soulShardTracker: SoulShardTracker,
@@ -61,6 +63,11 @@ class Checklist extends CoreChecklist{
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.CALL_DREADSTALKERS.id} icon/> Empowerment Uptime</React.Fragment>,
             check: () => this.demEmpUptimeDreadstalkers.suggestionThresholds,
+            valueToolTip: 'How often your Dreadstalkers were empowered while active.',
+          }),
+          new Requirement({
+            name: <React.Fragment><SpellLink id={SPELLS.HAND_OF_GULDAN_CAST.id} icon/> Empowerment Uptime</React.Fragment>,
+            check: () => this.demEmpUptimeHog.suggestionThresholds,
           }),
         ];
       },
@@ -98,7 +105,6 @@ class Checklist extends CoreChecklist{
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.FELSTORM_BUFF.id} icon/></React.Fragment>,
             check: () => this.felstorm.suggestionThresholds,
-
           }),
         ];
       },
