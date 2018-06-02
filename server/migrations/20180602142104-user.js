@@ -4,6 +4,7 @@ module.exports = {
       queryInterface.createTable('User', {
         id: {
           type: DataTypes.INTEGER,
+          autoIncrement: true,
           primaryKey: true,
         },
         gitHubId: {
