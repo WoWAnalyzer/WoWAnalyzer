@@ -7,6 +7,10 @@ import SpellLink from 'common/SpellLink';
 
 import { formatPercentage } from 'common/format';
 
+const CALL_DREADSTALKERS_COOLDOWN = 15;
+const DEMONIC_EMPOWERMENT_COOLDOWN = 12;
+const MILLISECONDS = 1000;
+
 class DemEmpUptimeDreadstalkers extends Analyzer{
   demonicEmpowermentCount = 0;
   totalDreadstalkerTime = 0;
@@ -39,14 +43,14 @@ class DemEmpUptimeDreadstalkers extends Analyzer{
         if(this.lastCallDreadstalkersTimestamp === null){
           //We haven't summoned dreadstalkers yet this fight. We're bad.
         } else {
-          if(event.timestamp - this.lastCallDreadstalkersTimestamp > (12 * 1000)){
+          if(event.timestamp - this.lastCallDreadstalkersTimestamp > (DEMONIC_EMPOWERMENT_COOLDOWN * MILLISECONDS)){
             //We're casting demonic empowerment past the point where our dreadstalkers would have despawned.
           } else { //We have active dreadstalkers!
-            if(event.timestamp - this.lastDemEmpTimestamp > (12 * 1000)){
+            if(event.timestamp - this.lastDemEmpTimestamp > (DEMONIC_EMPOWERMENT_COOLDOWN * MILLISECONDS)){
               //We already empowered our dreadstalkers once before. We don't need to consider this
               //since dreadstalkers will always despawn before DemEmp expries.
             } else {
-              const timeDelta = (15 * 1000) - (event.timestamp - this.lastCallDreadstalkersTimestamp); //Difference between our last CallD and our empowerment.
+              const timeDelta = (CALL_DREADSTALKERS_COOLDOWN * MILLISECONDS) - (event.timestamp - this.lastCallDreadstalkersTimestamp); //Difference between our last CallD and our empowerment.
               this.totalDreadstalkerTime += timeDelta;
             }
           }
