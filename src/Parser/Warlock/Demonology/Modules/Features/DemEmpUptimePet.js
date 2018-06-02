@@ -60,7 +60,8 @@ class DemEmpUptimePet extends Analyzer{
       if(this.lastDemEmpTimestamp === null){
         this.lastDemEmpTimestamp = event.timestamp;
       } else {
-        this.totalMainPetTime += Math.min(12 * 1000, (event.timestamp - this.lastDemEmpTimestamp));
+        const timeDelta = Math.min(12 * 1000, (event.timestamp - this.lastDemEmpTimestamp));
+        this.totalMainPetTime += timeDelta;
         this.lastDemEmpTimestamp = event.timestamp;
       }
     }
