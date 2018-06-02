@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
     },
     authKey: {
-      type: DataTypes.STRING,
+      type: DataTypes.CHAR(32),
       allowNull: false,
       unique: true,
       defaultValue: () => nanoid(32),
