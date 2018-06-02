@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 
 import { captureException } from 'common/errorLogger';
 
-import AppBackgroundImage from 'Main/AppBackgroundImage';
-import SomethingsGoneWrongBackground from 'Main/Images/somethings-gone-wrong.gif';
-import DiscordButton from 'Main/DiscordButton';
+import FullscreenError from 'Main/FullscreenError';
+
+import ApiDownBackground from './Images/api-down-background.gif';
+import ThunderSoundEffect from './Audio/Thunder Sound effect.mp3';
 
 class ErrorBoundary extends React.Component {
   static propTypes = {
@@ -16,39 +17,73 @@ class ErrorBoundary extends React.Component {
     super(props);
     this.state = {
       error: null,
-      errorInfo: null,
+      errorDetails: null,
     };
+
+    this.handleErrorEvent = this.handleErrorEvent.bind(this);
+    this.handleUnhandledrejectionEvent = this.handleUnhandledrejectionEvent.bind(this);
+
+    window.addEventListener('error', this.handleErrorEvent);
+    window.addEventListener('unhandledrejection', this.handleUnhandledrejectionEvent);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('error', this.handleErrorEvent);
+    window.removeEventListener('unhandledrejection', this.handleUnhandledrejectionEvent);
   }
 
   componentDidCatch(error, errorInfo) {
-    this.setState({
-      error,
-      errorInfo,
-    });
+    // Raven doesn't do this automatically
     captureException(error, { extra: errorInfo });
+    this.error(error, errorInfo.componentStack);
+  }
+
+  handleErrorEvent(event) {
+    this.error(event);
+  }
+  handleUnhandledrejectionEvent(event) {
+    this.error(event.reason);
+  }
+
+  error(error, details = null) {
+    window.lastError = error;
+
+    this.setState({
+      error: error,
+      errorDetails: details,
+    });
   }
 
   render() {
     if (this.state.error) {
       return (
-        <div>
-          <AppBackgroundImage override={SomethingsGoneWrongBackground} />
-
-          <div className="container">
-            <h1>We're sorry — something's gone wrong.</h1>
-            <p>Our team has been notified. Please let us know on Discord if this error doesn't go away after a refresh and we'll work our assess off to fix our stupid mistake.</p>
-            <p>
-              <DiscordButton />
-            </p>
-            <p>{this.state.error.message}</p>
-            <pre style={{ color: 'red', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
-              {this.state.error.stack}
-            </pre>
-            <pre style={{ color: 'red' }}>
-              {this.state.errorInfo.componentStack}
-            </pre>
+        <FullscreenError
+          error="A rendering error occured."
+          details="An error occured while trying to render (a part of) this page. Please try again."
+          background={ApiDownBackground}
+          errorDetails={(
+            <React.Fragment>
+              <p>{this.state.error.message}</p>
+              <pre style={{ color: 'red', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
+                {this.state.error.stack}
+              </pre>
+              {this.state.errorDetails && (
+                <pre style={{ color: 'red' }}>
+                  {this.state.errorDetails}
+                </pre>
+              )}
+            </React.Fragment>
+          )}
+        >
+          <div className="text-muted">
+            This is usually caused by a bug, please let us know about the issue on GitHub or Discord so we can fix it.
           </div>
-        </div>
+
+          {/* I couldn't resist */}
+          <audio autoPlay>
+            <source src={ThunderSoundEffect} />
+          </audio>
+        </FullscreenError>
       );
     }
     return this.props.children;

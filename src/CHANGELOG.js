@@ -9,6 +9,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-06-02'),
+    changes: 'Improved error handling so the app will no longer permanently stay stuck in a loading state when something unexpected happens.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-06-02'),
     changes: 'Fixed an issue where the character search realm matching was case-sensitive.',
     contributors: [Zerotorescue],
   },
