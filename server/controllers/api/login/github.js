@@ -1,6 +1,5 @@
 import Express from 'express';
 import Passport from 'passport';
-import request from 'request-promise-native';
 import { Strategy as GitHubStrategy } from 'passport-github';
 
 const router = Express.Router();
@@ -13,6 +12,8 @@ Passport.use(new GitHubStrategy({
   async function(accessToken, refreshToken, profile, done) {
     // passport-patreon removes data we need from `profile`, so re-extract the raw data received
     const fullProfile = profile._json;
+
+    console.log('GitHub login:', fullProfile);
 
     done(null, {
       name: fullProfile.name,
