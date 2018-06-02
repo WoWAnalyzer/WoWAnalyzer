@@ -1,3 +1,5 @@
+import nanoid from 'nanoid';
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     id: {
@@ -15,6 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     authKey: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
+      defaultValue: () => nanoid(32),
     },
     data: {
       type: DataTypes.TEXT('long'),

@@ -17,6 +17,7 @@ module.exports = {
         authKey: {
           type: DataTypes.STRING,
           allowNull: false,
+          unique: true,
         },
         data: {
           type: DataTypes.TEXT('long'),
