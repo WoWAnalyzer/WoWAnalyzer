@@ -11,6 +11,8 @@ import SPELLS from 'common/SPELLS';
 
 import DemoPets from '../WarlockCore/Pets';
 
+const DEMONIC_EMPOWERMENT_DURATION = 12;
+const MILLISECONDS = 1000;
 
 class DemEmpUptimePet extends Analyzer{
   static dependencies = {
@@ -23,7 +25,7 @@ class DemEmpUptimePet extends Analyzer{
   demEmpCasts = 0;
 
   get uptime(){
-    return this.totalMainPetTime / this.owner.fightDuration;
+    return (this.totalMainPetTime) / this.owner.fightDuration;
   }
 
   get suggestionThresholds(){
@@ -60,7 +62,7 @@ class DemEmpUptimePet extends Analyzer{
       if(this.lastDemEmpTimestamp === null){
         this.lastDemEmpTimestamp = event.timestamp;
       } else {
-        const timeDelta = Math.min(12 * 1000, (event.timestamp - this.lastDemEmpTimestamp));
+        const timeDelta = Math.min(DEMONIC_EMPOWERMENT_DURATION * MILLISECONDS, (event.timestamp - this.lastDemEmpTimestamp));
         this.totalMainPetTime += timeDelta;
         this.lastDemEmpTimestamp = event.timestamp;
       }
