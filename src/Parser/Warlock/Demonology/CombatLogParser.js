@@ -7,6 +7,7 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import DoomguardInfernal from './Modules/Features/DoomguardInfernal';
 import Felstorm from './Modules/Features/Felstorm';
 import CallDreadstalkers from './Modules/Features/CallDreadstalkers';
+import DemEmpUptimePet from './Modules/Features/DemEmpUptimePet';
 import Checklist from './Modules/Features/Checklist';
 
 import Doom from './Modules/Features/DoomUptime';
@@ -50,6 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
     doomguardInfernal: DoomguardInfernal,
     felstorm: Felstorm,
     callDreadstalkers: CallDreadstalkers,
+    demEmpUptimePet: DemEmpUptimePet,
     checklist: Checklist,
 
 
