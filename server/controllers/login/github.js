@@ -39,8 +39,8 @@ Passport.use(new GitHubStrategy({
 
 router.get('/', Passport.authenticate('github'));
 router.get('/callback', Passport.authenticate('github', {
-  successRedirect: '/premium',
-  failureRedirect: '/premium',
+  successRedirect: process.env.LOGIN_REDIRECT_LOCATION,
+  failureRedirect: process.env.LOGIN_REDIRECT_LOCATION,
 }));
 
 export default router;

@@ -51,8 +51,8 @@ Passport.use(new PatreonStrategy({
 
 router.get('/', Passport.authenticate('patreon'));
 router.get('/callback', Passport.authenticate('patreon', {
-  successRedirect: '/premium',
-  failureRedirect: '/premium',
+  successRedirect: process.env.LOGIN_REDIRECT_LOCATION,
+  failureRedirect: process.env.LOGIN_REDIRECT_LOCATION,
 }));
 
 export default router;
