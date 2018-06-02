@@ -9,22 +9,16 @@ import { formatPercentage } from 'common/format';
 import StatisticBox from 'Main/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 
-const CALL_DREADSTALKERS_COOLDOWN = 15;
 const CALL_DREADSTALKERS_DURATION = 12;
-const DEMONIC_EMPOWERMENT_DURATION = 12;
 const MILLISECONDS = 1000;
 
 class DemEmpUptimeDreadstalkers extends Analyzer{
-  demonicEmpowermentCount = 0;
-  totalDreadstalkerTime = DEMONIC_EMPOWERMENT_DURATION * MILLISECONDS;
-  lastDemEmpTimestamp = null;
-  lastCallDreadstalkersTimestamp = null;
-  demEmpCasts = 0;
+  totalEmpoweredTime = 0;
+  unempoweredDreadstalkers = [];
   callDreadstalkersCasts = 0;
-  lastTimeDelta = 0;
 
   get uptime(){
-    return this.totalDreadstalkerTime / (this.callDreadstalkersCasts * CALL_DREADSTALKERS_DURATION * MILLISECONDS);
+    return this.totalEmpoweredTime / (this.callDreadstalkersCasts * CALL_DREADSTALKERS_DURATION * MILLISECONDS);
   }
 
   get suggestionThresholds(){
@@ -42,20 +36,16 @@ class DemEmpUptimeDreadstalkers extends Analyzer{
   on_byPlayer_cast(event){
     const spellId = event.ability.guid;
     if(spellId === SPELLS.CALL_DREADSTALKERS.id){
-      this.lastCallDreadstalkersTimestamp = event.timestamp;
+      this.unempoweredDreadstalkers.push(event.timestamp);
       this.callDreadstalkersCasts += 1;
     } else if(spellId === SPELLS.DEMONIC_EMPOWERMENT.id){
-      this.demEmpCasts += 1;
-      if(this.lastCallDreadstalkersTimestamp !== null &&
-        event.timestamp - this.lastCallDreadstalkersTimestamp <= (CALL_DREADSTALKERS_DURATION * MILLISECONDS) &&
-        event.timestamp - this.lastDemEmpTimestamp <= (DEMONIC_EMPOWERMENT_DURATION * MILLISECONDS)){
-        const timeDelta = (CALL_DREADSTALKERS_COOLDOWN * MILLISECONDS) - (event.timestamp - this.lastCallDreadstalkersTimestamp);
-        if(timeDelta > this.lastTimeDelta){ //Avoid adding time for empowerment refreshes.
-          this.totalDreadstalkerTime += timeDelta;
+      for(const dread of this.unempoweredDreadstalkers){
+        if(event.timestamp - dread <= (CALL_DREADSTALKERS_DURATION * MILLISECONDS)){
+          const timeDelta = (CALL_DREADSTALKERS_DURATION * MILLISECONDS) - (event.timestamp-dread);
+          this.totalEmpoweredTime += timeDelta;
         }
-        this.lastTimeDelta = timeDelta;
       }
-      this.lastDemEmpTimestamp = event.timestamp;
+      this.unempoweredDreadstalkers = [];
     }
   }
 
