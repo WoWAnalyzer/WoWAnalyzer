@@ -15,7 +15,6 @@ class DemEmpUptimeDreadstalkers extends Analyzer{
   demEmpCasts = 0;
 
   get uptime(){
-    alert(this.totalDreadstalkerTime);
     return this.totalDreadstalkerTime / this.owner.fightDuration;
   }
 
