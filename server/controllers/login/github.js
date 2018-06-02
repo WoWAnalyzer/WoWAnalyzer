@@ -2,6 +2,10 @@ import Express from 'express';
 import Passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github';
 
+import models from 'models';
+
+const User = models.User;
+
 const router = Express.Router();
 
 Passport.use(new GitHubStrategy({
@@ -9,13 +13,12 @@ Passport.use(new GitHubStrategy({
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL: process.env.GITHUB_CALLBACK_URL,
   },
-  async function(accessToken, refreshToken, profile, done) {
-    // passport-patreon removes data we need from `profile`, so re-extract the raw data received
+  async function (accessToken, refreshToken, profile, done) {
+    // The passport strategy removes data we need from `profile`, so re-extract the raw data received
     const fullProfile = profile._json;
 
     console.log('GitHub login:', fullProfile);
-
-    done(null, {
+    const data = {
       name: fullProfile.name,
       avatar: fullProfile.avatar_url,
       github: {
@@ -24,21 +27,20 @@ Passport.use(new GitHubStrategy({
         accessToken,
         refreshToken,
       },
+    };
+    User.create({
+      gitHubId: fullProfile.id,
+      data: JSON.stringify(data),
     });
+
+    done(null, data);
   }
 ));
 
 router.get('/', Passport.authenticate('github'));
-router.get(
-  '/callback',
-  Passport.authenticate('github', {
-    successRedirect: '/premium',
-    failureRedirect: '/premium',
-  }),
-  function (req, res) {
-    res.setHeader('Content-Type', 'application/json; charset=utf-8');
-    res.send(JSON.stringify(req.user));
-  }
-);
+router.get('/callback', Passport.authenticate('github', {
+  successRedirect: '/premium',
+  failureRedirect: '/premium',
+}));
 
 export default router;

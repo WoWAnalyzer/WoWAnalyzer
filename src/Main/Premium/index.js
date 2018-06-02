@@ -61,7 +61,7 @@ class Premium extends React.PureComponent {
                 <div className="row">
                   <div className="col-lg-6" style={{ padding: 0 }}>
                     <a
-                      href={`${process.env.REACT_APP_API_BASE}login/patreon`}
+                      href={`${process.env.REACT_APP_SERVER_BASE}login/patreon`}
                       className="btn btn-block patreon-login"
                     >
                       <PatreonIcon /> Patreon
@@ -69,7 +69,7 @@ class Premium extends React.PureComponent {
                   </div>
                   <div className="col-lg-6" style={{ padding: 0 }}>
                     <a
-                      href={`${process.env.REACT_APP_API_BASE}login/github`}
+                      href={`${process.env.REACT_APP_SERVER_BASE}login/github`}
                       className="btn btn-block github-login"
                     >
                       <GitHubMarkIcon /> GitHub

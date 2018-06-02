@@ -2,6 +2,10 @@ import Express from 'express';
 import Passport from 'passport';
 import { Strategy as PatreonStrategy } from 'passport-patreon';
 
+import models from 'models';
+
+const User = models.User;
+
 const router = Express.Router();
 
 Passport.use(new PatreonStrategy({
@@ -9,7 +13,7 @@ Passport.use(new PatreonStrategy({
     clientSecret: process.env.PATREON_CLIENT_SECRET,
     callbackURL: process.env.PATREON_CALLBACK_URL,
   },
-  function(accessToken, refreshToken, profile, done) {
+  function (accessToken, refreshToken, profile, done) {
     // passport-patreon removes data we need from `profile`, so re-extract the raw data received
     const raw = profile._raw;
     const fullProfile = JSON.parse(raw);
@@ -23,7 +27,8 @@ Passport.use(new PatreonStrategy({
     const rewardId = reward ? reward.id : null;
     const rewardTitle = reward ? reward.attributes.title : null;
 
-    done(null, {
+    console.log('Patreon login:', fullProfile);
+    const data = {
       name,
       avatar,
       patreon: {
@@ -34,21 +39,20 @@ Passport.use(new PatreonStrategy({
         accessToken,
         refreshToken,
       },
+    };
+    User.create({
+      patreonId: fullProfile.id,
+      data: JSON.stringify(data),
     });
+
+    done(null, data);
   }
 ));
 
 router.get('/', Passport.authenticate('patreon'));
-router.get(
-  '/callback',
-  Passport.authenticate('patreon', {
-    successRedirect: '/premium',
-    failureRedirect: '/premium',
-  }),
-  function (req, res) {
-    res.setHeader('Content-Type', 'application/json; charset=utf-8');
-    res.send(JSON.stringify(req.user));
-  }
-);
+router.get('/callback', Passport.authenticate('patreon', {
+  successRedirect: '/premium',
+  failureRedirect: '/premium',
+}));
 
 export default router;

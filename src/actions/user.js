@@ -8,7 +8,7 @@ function setUser(user) {
 
 export function fetchUser() {
   return dispatch => {
-    return fetch(`${process.env.REACT_APP_API_BASE}user`, {
+    return fetch(`${process.env.REACT_APP_SERVER_BASE}user`, {
       credentials: 'include',
     })
       .then(response => {
