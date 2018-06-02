@@ -3,7 +3,6 @@ import Express from 'express';
 import path from 'path';
 import fs from 'fs';
 import Raven from 'raven';
-import session from 'express-session';
 import bodyParser from 'body-parser';
 import Passport from 'passport';
 
@@ -33,24 +32,10 @@ if (Raven.installed) {
 }
 app.use(compression());
 app.use(Express.static(buildFolder));
-let sessionSecret = process.env.SESSION_SECRET;
-if (!sessionSecret) {
-  if (process.env.NODE_ENV === 'production') {
-    throw new Error('Missing environment variable: SESSION_SECRET. You should set this in the `.env.production.local` file.');
-  } else {
-    sessionSecret = 'somesecrettoken';
-  }
-}
-app.use(session({
-  secret: sessionSecret,
-  resave: false,
-  saveUninitialized: false,
-}));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // region Authentication
 app.use(Passport.initialize());
-app.use(Passport.session());
 Passport.serializeUser(function(user, done) {
   done(null, user);
 });
