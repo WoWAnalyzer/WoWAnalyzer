@@ -40,29 +40,20 @@ class DemEmpUptimeDreadstalkers extends Analyzer{
   on_byPlayer_cast(event){
     const spellId = event.ability.guid;
     if(spellId === SPELLS.CALL_DREADSTALKERS.id){
-        this.lastCallDreadstalkersTimestamp = event.timestamp;
-        this.callDreadstalkersCasts += 1;
-      } else if(spellId === SPELLS.DEMONIC_EMPOWERMENT.id){
-        this.demEmpCasts += 1;
-        if(this.lastCallDreadstalkersTimestamp === null){
-          //We haven't summoned dreadstalkers yet this fight. We're bad.
-        } else {
-          if(event.timestamp - this.lastCallDreadstalkersTimestamp > (CALL_DREADSTALKERS_DURATION * MILLISECONDS)){
-            //We're casting demonic empowerment past the point where our dreadstalkers would have despawned.
-          } else { //We have active dreadstalkers!
-            if(event.timestamp - this.lastDemEmpTimestamp > (DEMONIC_EMPOWERMENT_DURATION * MILLISECONDS)){
-              //We already empowered our dreadstalkers once before. We don't need to consider this
-              //since dreadstalkers will always despawn before DemEmp expries.
-            } else {
-              const timeDelta = (CALL_DREADSTALKERS_COOLDOWN * MILLISECONDS) - (event.timestamp - this.lastCallDreadstalkersTimestamp);
-              if(timeDelta > this.lastTimeDelta){ //Avoid adding time for empowerment refreshes.
-                this.totalDreadstalkerTime += timeDelta;
-              }
-              this.lastTimeDelta = timeDelta;
-            }
-          }
+      this.lastCallDreadstalkersTimestamp = event.timestamp;
+      this.callDreadstalkersCasts += 1;
+    } else if(spellId === SPELLS.DEMONIC_EMPOWERMENT.id){
+      this.demEmpCasts += 1;
+      if(this.lastCallDreadstalkersTimestamp !== null &&
+        event.timestamp - this.lastCallDreadstalkersTimestamp <= (CALL_DREADSTALKERS_DURATION * MILLISECONDS) &&
+        event.timestamp - this.lastDemEmpTimestamp <= (DEMONIC_EMPOWERMENT_DURATION * MILLISECONDS)){
+        const timeDelta = (CALL_DREADSTALKERS_COOLDOWN * MILLISECONDS) - (event.timestamp - this.lastCallDreadstalkersTimestamp);
+        if(timeDelta > this.lastTimeDelta){ //Avoid adding time for empowerment refreshes.
+          this.totalDreadstalkerTime += timeDelta;
         }
-        this.lastDemEmpTimestamp = event.timestamp;
+        this.lastTimeDelta = timeDelta;
+      }
+      this.lastDemEmpTimestamp = event.timestamp;
     }
   }
 
