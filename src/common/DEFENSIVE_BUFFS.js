@@ -52,10 +52,6 @@ const DEFENSIVE_BUFFS = [
   {
     spell: SPELLS.GHOST_IN_THE_MIST_BUFF,
   },
-  //Brewmaster Monk
-  {
-    spell: SPELLS.IRONSKIN_BREW_BUFF,
-  },
   //Arms Warrior
   {
     spell: SPELLS.DEFENSIVE_STANCE_TALENT,

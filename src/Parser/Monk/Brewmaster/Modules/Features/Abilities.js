@@ -69,13 +69,13 @@ class Abilities extends CoreAbilities {
         // id
         spell: [SPELLS.IRONSKIN_BREW, SPELLS.PURIFYING_BREW],
         buffSpellId: SPELLS.IRONSKIN_BREW_BUFF.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: haste => 21 / (1 + haste),
         charges: 3,
       },
       {
         spell: SPELLS.BLACK_OX_BREW_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 90,
         castEfficiency: {
           suggestion: false,

@@ -51,6 +51,7 @@ import PrePotion from './Modules/Items/PrePotion';
 import LegendaryUpgradeChecker from './Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from './Modules/Items/LegendaryCountChecker';
 import EnchantChecker from './Modules/Items/EnchantChecker';
+import Healthstone from './Modules/Items/Healthstone';
 
 // Legendaries
 import PrydazXavaricsMagnumOpus from './Modules/Items/Legion/Legendaries/PrydazXavaricsMagnumOpus';
@@ -175,7 +176,6 @@ class CombatLogParser {
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
     timelineBuffEvents: TimelineBuffEvents,
-    deathRecapTracker: DeathRecapTracker,
 
     critEffectBonus: CritEffectBonus,
 
@@ -185,6 +185,12 @@ class CombatLogParser {
     checklist: Checklist,
 
     encounterPanel: EncounterPanel,
+
+    prePotion: PrePotion,
+    legendaryUpgradeChecker: LegendaryUpgradeChecker,
+    legendaryCountChecker: LegendaryCountChecker,
+    enchantChecker: EnchantChecker,
+    healthstone: Healthstone,
 
     // Items:
     // Legendaries:
@@ -201,10 +207,6 @@ class CombatLogParser {
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
     darkmoonDeckPromises: DarkmoonDeckPromises,
     darkmoonDeckImmortality: DarkmoonDeckImmortality,
-    prePotion: PrePotion,
-    legendaryUpgradeChecker: LegendaryUpgradeChecker,
-    legendaryCountChecker: LegendaryCountChecker,
-    enchantChecker: EnchantChecker,
     gnawedThumbRing: GnawedThumbRing,
     ishkarsFelshieldEmitter: IshkarsFelshieldEmitter,
     erraticMetronome: ErraticMetronome,
@@ -269,6 +271,9 @@ class CombatLogParser {
 
     infernalCinders: InfernalCinders,
     umbralMoonglaives: UmbralMoonglaives,
+
+    //added last so that it includes items that are added to the spellbook on initialization.
+    deathRecapTracker: DeathRecapTracker,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
