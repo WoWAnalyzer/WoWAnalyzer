@@ -6,7 +6,11 @@ import Raven from 'raven';
 import bodyParser from 'body-parser';
 import Passport from 'passport';
 
+import models from 'models';
+
 import loadDotEnv from './config/env';
+
+const User = models.User;
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const appDirectory = fs.realpathSync(process.cwd());
@@ -37,9 +41,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // region Authentication
 app.use(Passport.initialize());
 Passport.serializeUser(function(user, done) {
-  done(null, user);
+  done(null, user.id);
 });
-Passport.deserializeUser(function(user, done) {
+Passport.deserializeUser(async function(id, done) {
+  const user = await User.findById(id);
   done(null, user);
 });
 // endregion
