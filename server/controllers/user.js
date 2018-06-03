@@ -6,19 +6,30 @@ import { getGitHubLastCommitDate } from 'helpers/github';
 const router = Express.Router();
 
 const GITHUB_COMMIT_PREMIUM_DAYS = 30;
-function isWithinDays(date, days) {
-  const now = Date.now();
-  const secondsSinceLastCommit = (now - date) / 1000;
-  const secondsPerMonth = 3600 * 24 * days;
-  return secondsSinceLastCommit < secondsPerMonth;
-}
-export async function isGitHubPremiumEligible(login) {
-  const lastCommitDate = await getGitHubLastCommitDate(login);
-  // TODO: Store date in user object and only refresh after it expired
-  if (!lastCommitDate) {
-    return false;
+
+async function getPatreonFromUser(data) {
+  if (!data.patreon) {
+    return undefined;
   }
-  return isWithinDays(lastCommitDate, GITHUB_COMMIT_PREMIUM_DAYS);
+  return {
+    premium: data.patreon.pledgeAmount >= 100,
+  };
+}
+async function getGitHubFromUser(data) {
+  if (!data.github || !data.github.login) {
+    return undefined;
+  }
+  const lastCommitDate = await getGitHubLastCommitDate(data.github.login);
+  if (!lastCommitDate) {
+    return undefined;
+  }
+  const premiumExpiry = new Date(lastCommitDate + (GITHUB_COMMIT_PREMIUM_DAYS * 24 * 3600 * 1000));
+  // TODO: Store date in user object and only refresh after it expired and allow user to manually refresh it
+
+  return {
+    premium: Date.now() < premiumExpiry,
+    expires: premiumExpiry,
+  };
 }
 
 if (process.env.UNSAFE_ACCESS_CONTROL_ALLOW_ALL) {
@@ -34,12 +45,8 @@ router.get('/', requireAuthenticated, async function(req, res) {
   const user = req.user;
   const data = user.data;
 
-  const patreon = data.patreon ? {
-    premium: data.patreon.pledgeAmount >= 100,
-  } : undefined;
-  const github = data.github ? {
-    premium: data.github.login && await isGitHubPremiumEligible(data.github.login),
-  } : undefined;
+  const patreon = await getPatreonFromUser(data);
+  const github = await getGitHubFromUser(data);
 
   res.json({
     name: data.name,
