@@ -25,7 +25,7 @@ class Healthstone extends Analyzer {
       category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
       cooldown: COOLDOWN_MS / 1000, // The cooldown does not start while in combat.
       castEfficiency: {
-        suggestion: true,
+        suggestion: false,
       },
     });
   }
