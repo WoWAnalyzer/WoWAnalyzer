@@ -356,7 +356,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BERSERKING,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
-        isOnGCD: true,
         isUndetectable: true,
       },
     ];
