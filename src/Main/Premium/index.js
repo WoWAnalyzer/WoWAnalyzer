@@ -1,9 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import PatreonIcon from 'Icons/PatreonTiny';
 import GitHubMarkIcon from 'Icons/GitHubMarkLarge';
 import PremiumIcon from 'Icons/Premium';
 
+import { getUser } from 'selectors/user';
 import PatreonButton from 'Main/PatreonButton';
 import GithubButton from 'Main/GithubButton';
 
@@ -34,7 +37,17 @@ const INITIAL_BACKGROUNDS = [
 // ];
 
 class Premium extends React.PureComponent {
+  static propTypes = {
+    user: PropTypes.shape({
+      name: PropTypes.string,
+      avatar: PropTypes.string,
+      premium: PropTypes.bool,
+    }),
+  };
+
   render() {
+    const { user } = this.props;
+
     return (
       <div className="container">
         <div className="row">
@@ -96,6 +109,19 @@ class Premium extends React.PureComponent {
                 <PatreonButton /> <GithubButton />
               </div>
             </div>
+            {user && (
+              <div className="panel">
+                <div className="panel-heading">
+                  <h2>You</h2>
+                </div>
+                <div className="panel-body">
+                  Hello {user.name}. Your Premium is currently {user.premium ? <span className="text-success">Active</span> : <span className="text-danger">Inactive</span>}.<br /><br />
+
+                  Patreon: {user.patreon && user.patreon.premium ? <span className="text-success">Active</span> : <span className="text-danger">Inactive</span>}<br />
+                  GitHub: {user.github && user.github.premium ? <span className="text-success">Active (expires {(new Date(user.github.expires)).toLocaleString()})</span> : <span className="text-danger">Inactive</span>}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -103,4 +129,9 @@ class Premium extends React.PureComponent {
   }
 }
 
-export default Premium;
+const mapStateToProps = state => ({
+  user: getUser(state),
+});
+export default connect(
+  mapStateToProps
+)(Premium);
