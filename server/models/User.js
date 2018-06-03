@@ -24,6 +24,14 @@ module.exports = (sequelize, DataTypes) => {
     data: {
       type: DataTypes.TEXT('long'),
       allowNull: false,
+      get() {
+        // noinspection JSCheckFunctionSignatures
+        return JSON.parse(this.getDataValue('data'));
+      },
+      set(value) {
+        // noinspection JSCheckFunctionSignatures
+        this.setDataValue('data', JSON.stringify(value));
+      },
     },
     createdAt: {
       type: DataTypes.DATE, // this is actually DATETIME
