@@ -36,7 +36,7 @@ const INITIAL_BACKGROUNDS = [
 //   '4a4w6CzSj1t2Hl6gYy', // orc please https://giphy.com/gifs/warcraft-video-games-4a4w6CzSj1t2Hl6gYy
 // ];
 
-class Premium extends React.PureComponent {
+export class Premium extends React.PureComponent {
   static propTypes = {
     user: PropTypes.shape({
       name: PropTypes.string,
@@ -115,7 +115,7 @@ class Premium extends React.PureComponent {
                   <h2>You</h2>
                 </div>
                 <div className="panel-body">
-                  Hello {user.name}. Your Premium is currently {user.premium ? <span className="text-success">Active</span> : <span className="text-danger">Inactive</span>}.<br /><br />
+                  Hello {user.name}. Your Premium is currently {user.premium ? <span className="text-success">Active</span> : <span className="text-danger">Inactive</span>}. {user.premium && 'Awesome!'}<br /><br />
 
                   Patreon: {user.patreon && user.patreon.premium ? <span className="text-success">Active</span> : <span className="text-danger">Inactive</span>}<br />
                   GitHub: {user.github && user.github.premium ? <span className="text-success">Active (expires {(new Date(user.github.expires)).toLocaleString()})</span> : <span className="text-danger">Inactive</span>}
