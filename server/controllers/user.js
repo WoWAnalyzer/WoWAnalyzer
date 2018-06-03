@@ -14,7 +14,7 @@ function isWithinDays(date, days) {
 }
 export async function isGitHubPremiumEligible(login) {
   const lastCommitDate = await getGitHubLastCommitDate(login);
-  // TODO: Store date in user object
+  // TODO: Store date in user object and only refresh after it expired
   if (!lastCommitDate) {
     return false;
   }
@@ -24,7 +24,7 @@ export async function isGitHubPremiumEligible(login) {
 if (process.env.UNSAFE_ACCESS_CONTROL_ALLOW_ALL) {
   // When developing it might be nice to run the front-end webpack dev server on a different port from the back-end server and route API calls to the local server instead of production. The .env.development sets this to *. It's unset in production.
   router.all('/', function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', req.headers['origin']);
+    res.setHeader('Access-Control-Allow-Origin', req.headers['origin'] || '*');
     res.setHeader('Access-Control-Allow-Credentials', true);
 
     next();
@@ -34,18 +34,19 @@ router.get('/', requireAuthenticated, async function(req, res) {
   const user = req.user;
   const data = user.data;
 
-  let premium = false;
-  if (data.patreon && data.patreon.pledgeAmount >= 100) {
-    premium = true;
-  }
-  if (data.github && data.github.login) {
-    premium = await isGitHubPremiumEligible(data.github.login);
-  }
+  const patreon = data.patreon ? {
+    premium: data.patreon.pledgeAmount >= 100,
+  } : undefined;
+  const github = data.github ? {
+    premium: data.github.login && await isGitHubPremiumEligible(data.github.login),
+  } : undefined;
 
   res.json({
     name: data.name,
     avatar: data.avatar,
-    premium: premium,
+    patreon,
+    github,
+    premium: (patreon && patreon.premium) || (github && github.premium),
   });
 });
 
