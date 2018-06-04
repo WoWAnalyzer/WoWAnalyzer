@@ -86,6 +86,13 @@ export default {
     mastery: false,
     vers: true, // confirmed
   },
+  [SPELLS.COASTAL_HEALING_POTION.id]: {
+    int: false,
+    crit: false,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
   [SPELLS.MARK_OF_THE_ANCIENT_PRIESTESS.id]: {
     int: false,
     crit: true,
