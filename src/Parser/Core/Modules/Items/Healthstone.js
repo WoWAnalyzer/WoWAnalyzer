@@ -25,16 +25,17 @@ class Healthstone extends Analyzer {
       category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
       cooldown: COOLDOWN_MS / 1000, // The cooldown does not start while in combat.
       castEfficiency: {
-        suggestion: false,
+        suggestion: true,
       },
     });
   }
 
   on_toPlayer_death(event) {
-    if (!this.spellUsable.isOnCooldown(HEALTHSTONE_SPELLS[0].id)){
+    if (!this.spellUsable.isOnCooldown(SPELLS.HEALTHSTONE.id)){
       return;
     }
-    this.spellUsable.reduceCooldown(HEALTHSTONE_SPELLS[0].id, COOLDOWN_MS - OUT_OF_COMBAT_COOLDOWN_MS);
+    // The one minute cooldown starts when the player dies or leaves combat.
+    this.spellUsable.reduceCooldown(SPELLS.HEALTHSTONE.id, COOLDOWN_MS - OUT_OF_COMBAT_COOLDOWN_MS);
   }
 
 }

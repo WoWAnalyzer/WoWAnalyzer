@@ -201,15 +201,15 @@ class DeathRecap extends React.PureComponent {
                         </td>
                         <td style={{ width: '20%' }}>
                           {event.buffsUp && event.buffsUp.sort(sortByTimelineIndex).map(e =>
-                            <SpellIcon style={{ border: '1px solid rgba(0, 0, 0, 0)' }} id={e.spell instanceof Array ? e.spell[0].id : e.spell.id} />
+                            <SpellIcon style={{ border: '1px solid rgba(0, 0, 0, 0)' }} id={e.id} />
                           )}<br />
                           {event.debuffsUp && event.debuffsUp.sort(sortByTimelineIndex).map(e =>
-                            <SpellIcon style={{ border: '1px solid red' }} id={e.ability.guid} />
+                            <SpellIcon style={{ border: '1px solid red' }} id={e.id} />
                           )}
                         </td>
                         <td style={{ width: '15%' }}>
                           {event.defensiveCooldowns.sort(sortByTimelineIndex).map(e =>
-                            <SpellIcon style={{ opacity: e.cooldownReady ? 1 : .2 }} id={e.spell instanceof Array ? e.spell[0].id : e.spell.id} />
+                            <SpellIcon style={{ opacity: e.cooldownReady ? 1 : .2 }} id={e.id} />
                           )}
                         </td>
                       </tr>
