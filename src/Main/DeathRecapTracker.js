@@ -6,6 +6,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import Abilities from 'Parser/Core/Modules/Abilities';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 import Enemies from 'Parser/Core/Modules/Enemies';
+import Healthstone from 'Parser/Core/Modules/Items/Healthstone';
 import Tab from 'Main/Tab';
 
 import DeathRecap from './DeathRecap';
@@ -24,6 +25,7 @@ class DeathRecapTracker extends Analyzer {
     abilities: Abilities,
     spellUsable: SpellUsable,
     enemies: Enemies,
+    healthstone: Healthstone,
   };
 
   on_initialized() {

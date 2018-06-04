@@ -176,6 +176,7 @@ class CombatLogParser {
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
     timelineBuffEvents: TimelineBuffEvents,
+    deathRecapTracker: DeathRecapTracker,
 
     critEffectBonus: CritEffectBonus,
 
@@ -272,8 +273,6 @@ class CombatLogParser {
     infernalCinders: InfernalCinders,
     umbralMoonglaives: UmbralMoonglaives,
 
-    //added last so that it includes items that are added to the spellbook on initialization.
-    deathRecapTracker: DeathRecapTracker,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
