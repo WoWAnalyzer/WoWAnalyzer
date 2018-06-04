@@ -27,7 +27,7 @@ import TalentStatisticBox from './Modules/Talents/TalentStatisticBox';
 import Torrent from './Modules/Talents/Torrent';
 import UnleashLife from './Modules/Talents/UnleashLife';
 import Undulation from './Modules/Talents/Undulation';
-import CrashingWaves from './Modules/Talents/CrashingWaves';
+import FlashFlood from './Modules/Talents/FlashFlood';
 import EarthShield from './Modules/Talents/EarthShield';
 import EarthenWallTotem from './Modules/Talents/EarthenWallTotem';
 import Downpour from './Modules/Talents/Downpour';
@@ -88,7 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     torrent: Torrent,
     unleashLife: UnleashLife,
     undulation: Undulation,
-    crashingWaves: CrashingWaves,
+    flashFlood: FlashFlood,
     earthShield: EarthShield,
     earthenWallTotem: EarthenWallTotem,
     downpour: Downpour,

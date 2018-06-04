@@ -842,4 +842,14 @@ export default {
     icon: 'ability_mage_waterjet',
     manaCost: 3000,
   },
+  FLASH_FLOOD_TALENT: { // Until talents work
+    id: 280614,
+    name: 'Flash Flood',
+    icon: 'spell_frost_summonwaterelemental',
+  },
+  FLASH_FLOOD_BUFF: {
+    id: 280615,
+    name: 'Flash Flood',
+    icon: 'spell_frost_summonwaterelemental',
+  },
 };

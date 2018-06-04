@@ -95,7 +95,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CLOUDBURST_TOTEM_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1, // Possible with the Soul ring in prepatch unless they fix it
+        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
         cooldown: 30,
         timelineSortIndex: 20,
         isOnGCD: true,
@@ -280,7 +280,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         timelineSortIndex: 80,
         isOnGCD: true,
-        //enabled: combatant.hasTalent(SPELLS.LIGHTNING_SURGE_TOTEM_TALENT.id) TODO: reduce CD depending on amount of targets hit
         cooldown: 60,
       },
       {
