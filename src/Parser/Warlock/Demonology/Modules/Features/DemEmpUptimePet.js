@@ -8,16 +8,17 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox from 'Main/StatisticBox';
 
 import SPELLS from 'common/SPELLS';
+import Pets from 'Parser/Core/Modules/Pets';
 
-import DemoPets from '../WarlockCore/Pets';
+//import DemoPets from '../WarlockCore/Pets';
 
-const DEMONIC_EMPOWERMENT_DURATION = 12;
+const DE_DURATION = 12;
 const MILLISECONDS = 1000;
 
 class DemEmpUptimePet extends Analyzer{
   static dependencies = {
     combatants : Combatants,
-    pets: DemoPets,
+    pets: Pets,
   };
 
   totalMainPetTime = 0;
@@ -25,7 +26,8 @@ class DemEmpUptimePet extends Analyzer{
   demEmpCasts = 0;
 
   get uptime(){
-    return (this.totalMainPetTime) / this.owner.fightDuration;
+    return Math.min(1.00, this.totalMainPetTime/this.owner.fightDuration);
+    //Some sort of issue with timestamps. It's entirely accurate up until general demonic empowerment hits 100%. Then it overshoots slightly.
   }
 
   get suggestionThresholds(){
@@ -47,7 +49,7 @@ class DemEmpUptimePet extends Analyzer{
     }
   }
 
-  on_byPlayer_applybuff(event){
+  on_byPlayer_cast(event){
     // We're making the assumption that the player has their permament pet active.
     // Which as a Demonology warlock, we really hope is a reasonable assumption.
     const spellId = event.ability.guid;
@@ -55,11 +57,12 @@ class DemEmpUptimePet extends Analyzer{
       this.demEmpCasts += 1;
       if(this.lastDemEmpTimestamp === null){
         this.lastDemEmpTimestamp = event.timestamp;
-      } else {
-        const timeDelta = Math.min(DEMONIC_EMPOWERMENT_DURATION * MILLISECONDS, (event.timestamp - this.lastDemEmpTimestamp));
-        this.totalMainPetTime += timeDelta;
-        this.lastDemEmpTimestamp = event.timestamp;
       }
+      const deOverlap = Math.max(0, this.lastDemEmpTimestamp + (DE_DURATION * MILLISECONDS) - event.timestamp);
+      const endOverlap = Math.max(0, (event.timestamp - this.owner.fight.end_time));
+      const delta = (DE_DURATION * MILLISECONDS) - deOverlap - endOverlap;
+      this.totalMainPetTime += delta;
+      this.lastDemEmpTimestamp = event.timestamp;
     }
   }
 

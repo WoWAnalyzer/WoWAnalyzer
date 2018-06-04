@@ -48,7 +48,7 @@ class CallDreadstalkers extends Analyzer{
         return suggest(
           <React.Fragment>You should cast <SpellLink id={SPELLS.CALL_DREADSTALKERS.id} icon/> more often. This is a crucial part of your rotation</React.Fragment>)
           .icon(SPELLS.CALL_DREADSTALKERS.icon)
-          .actual(`${formatPercentage(actual)}% of maximum possible casts.`)
+          .actual(`You kept it on cooldown ${formatPercentage(actual)}% of the time.`)
           .recommended(`${formatPercentage(recommended)}% is recommended.`);
       });
   }

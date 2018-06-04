@@ -21,6 +21,7 @@ import DemEmpUptimePet from 'Parser/Warlock/Demonology/Modules/Features/DemEmpUp
 import AbilityTracker from 'Parser/Core/Modules/Combatants';
 import DemEmpUptimeDreadstalkers from 'Parser/Warlock/Demonology/Modules/Features/DemEmpUptimeDreadstalkers';
 import DemEmpUptimeHoG from 'Parser/Warlock/Demonology/Modules/Features/DemEmpUptimeHoG';
+import DemEmpUptimeDoomguardInfernal from 'Parser/Warlock/Demonology/Modules/Features/DemEmpUptimeDoomguardInfernal';
 
 const rotation_description = <React.Fragment>Follow your rotation closely to maximize DPS. Note that if you have <SpellLink id={SPELLS.WARLOCK_DEMO_T20_2P_BONUS.id} icon/>, Call Dreadstalkers is a rough estimate based on number of procs.</React.Fragment>;
 
@@ -40,6 +41,7 @@ class Checklist extends CoreChecklist{
     demEmpUptimePet: DemEmpUptimePet,
     demEmpUptimeDreadstalkers: DemEmpUptimeDreadstalkers,
     demEmpUptimeHog: DemEmpUptimeHoG,
+    demEmpUptimeDoomguardInfernal: DemEmpUptimeDoomguardInfernal,
     enchantChecker: EnchantChecker,
     soulShardDetails: SoulShardDetails,
     soulShardTracker: SoulShardTracker,
@@ -53,7 +55,7 @@ class Checklist extends CoreChecklist{
       requirements: () => {
         return [
           new Requirement({
-           name: <React.Fragment><SpellLink id={SPELLS.CALL_DREADSTALKERS.id} icon/></React.Fragment>,
+           name: <React.Fragment><SpellLink id={SPELLS.CALL_DREADSTALKERS.id} icon/> Efficiency</React.Fragment>,
            check: () => this.callDreadstalkers.suggestionThresholds,
          }),
           new Requirement({
@@ -68,6 +70,10 @@ class Checklist extends CoreChecklist{
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.HAND_OF_GULDAN_CAST.id} icon/> Empowerment Uptime</React.Fragment>,
             check: () => this.demEmpUptimeHog.suggestionThresholds,
+          }),
+          new Requirement({
+            name: <React.Fragment><SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} icon/>/<SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} icon/> Empowerment Uptime</React.Fragment>,
+            check: () => this.demEmpUptimeDoomguardInfernal.suggestionThresholds,
           }),
         ];
       },
