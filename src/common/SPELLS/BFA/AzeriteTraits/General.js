@@ -49,4 +49,14 @@ export default {
     name: 'Elemental Whirl',
     icon: 'ability_skyreach_four_wind',
   },
+  RESOUNDING_PROTECTION: {
+    id: 270568,
+    name: 'Resounding Protection',
+    icon: 'ability_vehicle_shellshieldgenerator_green',
+  },
+  RESOUNDING_PROTECTION_ABSORB: {
+    id: 269279,
+    name: 'Resounding Protection',
+    icon: 'ability_vehicle_shellshieldgenerator_green',
+  },
 };
