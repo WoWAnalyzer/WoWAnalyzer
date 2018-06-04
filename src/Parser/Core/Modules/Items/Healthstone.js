@@ -19,6 +19,8 @@ class Healthstone extends Analyzer {
     spellUsable: SpellUsable,
   };
 
+  maxCasts = 1;
+
   on_initialized() {
     this.abilities.add({
       spell: HEALTHSTONE_SPELLS,
@@ -26,6 +28,9 @@ class Healthstone extends Analyzer {
       cooldown: COOLDOWN_MS / 1000, // The cooldown does not start while in combat.
       castEfficiency: {
         suggestion: true,
+        maxCasts: (cooldown, fightDuration, getAbility, parser) => {
+          return this.maxCasts;
+        },
       },
     });
   }
@@ -34,8 +39,15 @@ class Healthstone extends Analyzer {
     if (!this.spellUsable.isOnCooldown(SPELLS.HEALTHSTONE.id)){
       return;
     }
-    // The one minute cooldown starts when the player dies or leaves combat.
-    this.spellUsable.reduceCooldown(SPELLS.HEALTHSTONE.id, COOLDOWN_MS - OUT_OF_COMBAT_COOLDOWN_MS);
+    const cooldownRemaining = this.spellUsable.cooldownRemaining(SPELLS.HEALTHSTONE.id);
+    //only start cooldown if not already started.
+    if (cooldownRemaining < OUT_OF_COMBAT_COOLDOWN_MS){
+      return;
+    }
+    this.spellUsable.reduceCooldown(SPELLS.HEALTHSTONE.id, cooldownRemaining - OUT_OF_COMBAT_COOLDOWN_MS);
+    if(event.timestamp + OUT_OF_COMBAT_COOLDOWN_MS < this.owner.fight.end_time){
+      this.maxCasts += 1;
+    }
   }
 
 }

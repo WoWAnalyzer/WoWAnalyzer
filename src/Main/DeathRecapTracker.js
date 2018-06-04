@@ -46,7 +46,7 @@ class DeathRecapTracker extends Analyzer {
     const cooldownsOnly = this.cooldowns.filter(e => e.cooldown);
     extendedEvent.defensiveCooldowns = cooldownsOnly.map(e => ({id: e.primarySpell.id, cooldownReady: this.spellUsable.isAvailable(e.primarySpell.id)}));
     if (event.hitPoints > 0) {
-      this.lastBuffs = this.buffs.filter(e => this.combatants.selected.hasBuff(e.buffSpellId) || this.combatants.selected.hasBuff(e.spell.id))
+      this.lastBuffs = this.buffs.filter(e => this.combatants.selected.hasBuff(e.buffSpellId) || this.combatants.selected.hasBuff(e.spell instanceof Array ? e.spell[0].id : e.spell.id))
         .map(e => ({id: e.buffSpellId || e.spell.id}));
     }
     extendedEvent.buffsUp = this.lastBuffs;
