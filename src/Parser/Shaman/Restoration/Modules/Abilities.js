@@ -141,6 +141,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
+        isOnGCD: true,
         enabled: combatant.lv100Talent === SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
         castEfficiency: {
           suggestion: true,
@@ -244,6 +245,12 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.LIGHTNING_BOLT_RESTORATION,
+        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        isOnGCD: true,
+        timelineSortIndex: 60,
+      },
+      {
+        spell: SPELLS.CHAIN_LIGHTNING_RESTORATION,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
         isOnGCD: true,
         timelineSortIndex: 60,
@@ -353,6 +360,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BERSERKING,
+        buffSpellId: SPELLS.BERSERKING.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         isUndetectable: true,
