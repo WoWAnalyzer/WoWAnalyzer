@@ -4,21 +4,15 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import {formatPercentage} from 'common/format';
-import Combatants from 'Parser/Core/Modules/Combatants';
 import StatisticBox from 'Main/StatisticBox';
 
 import SPELLS from 'common/SPELLS';
-import Pets from 'Parser/Core/Modules/Pets';
 
 
 const DE_DURATION = 12;
 const MILLISECONDS = 1000;
 
 class DemEmpUptimePet extends Analyzer{
-  static dependencies = {
-    combatants : Combatants,
-    pets: Pets,
-  };
 
   total_empowered_time = 0;
   last_de_timestamp = null;
