@@ -8,16 +8,20 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'Parser/Core/Analyzer';
 
+// 50 was too low, 100 was too high
+// had no issues with 85ms
+const BUFFER_MS = 85;
+
 class HealingRain extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
 
-  HealingRainTicks = [];
+  healingRainTicks = [];
 
   get averageHitsPerTick() {
-    const totalHits = this.HealingRainTicks.reduce((total, x) => total + x.hits, 0);
-    return totalHits / this.HealingRainTicks.length;
+    const totalHits = this.healingRainTicks.reduce((total, tick) => total + tick.hits, 0);
+    return totalHits / this.healingRainTicks.length;
   }
 
   suggestions(when) {
@@ -46,17 +50,18 @@ class HealingRain extends Analyzer {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.HEALING_RAIN_HEAL.id) {
-      const healingRainTick = this.HealingRainTicks.filter(x => x.id === event.timestamp);
-      if (healingRainTick.length > 0) {
-        healingRainTick[0].hits = healingRainTick[0].hits + 1;
-      }
-      else {
-        this.HealingRainTicks.push({
-          id: event.timestamp,
-          hits: 1,
-        });
-      }
+    if (spellId !== SPELLS.HEALING_RAIN_HEAL.id) {
+      return;
+    }
+
+    const healingRainTick = this.healingRainTicks.find(tick => event.timestamp - BUFFER_MS <= tick.timestamp);
+    if (!healingRainTick) {
+      this.healingRainTicks.push({
+        timestamp: event.timestamp,
+        hits: 1,
+      });
+    } else {
+      healingRainTick.hits = healingRainTick.hits + 1;
     }
   }
 

@@ -8,6 +8,21 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-06-02'),
+    changes: 'Improved error handling so the app will no longer permanently stay stuck in a loading state when something unexpected happens.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-06-02'),
+    changes: 'Fixed an issue where the character search realm matching was case-sensitive.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-05-30'),
+    changes: 'Fixed an issue where special characters in names could lead to crashes in the caching mechanism of the API.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-05-27'),
     changes: 'Added death recap for all specs.',
     contributors: [joshinator],

@@ -229,14 +229,21 @@ class CharacterParses extends React.Component {
       isLoading: true,
     });
 
-    const charName = encodeURIComponent(this.props.name);
     const realms = await loadRealms();
-
     //use the slug from REALMS when available, otherwise try realm-prop and fail
-    let charRealm = realms[this.props.region] ? realms[this.props.region].realms.find(elem => elem.name === this.props.realm).slug : this.props.realm;
-    charRealm = encodeURIComponent(charRealm);
+    // TODO: Can we make this return results more reliably?
+    const realmsInRegion = realms[this.props.region];
+    const lowerCaseRealm = this.props.realm.toLowerCase();
+    const realm = realmsInRegion ? realmsInRegion.realms.find(elem => elem.name.toLowerCase() === lowerCaseRealm) : null;
+    if (!realm) {
+      console.warn('Realm could not be found: ' + this.props.realm + '. This generally indicates a bug.');
+    }
+    const realmSlug = realm ? realm.slug : this.props.realm;
 
-    return fetchWcl(`parses/character/${charName}/${charRealm}/${this.props.region}`, {
+    const urlEncodedName = encodeURIComponent(this.props.name);
+    const urlEncodedRealm = encodeURIComponent(realmSlug);
+
+    return fetchWcl(`parses/character/${urlEncodedName}/${urlEncodedRealm}/${this.props.region}`, {
       metric: this.state.metric,
       zone: this.state.activeZoneID,
       _: refresh ? +new Date() : undefined,

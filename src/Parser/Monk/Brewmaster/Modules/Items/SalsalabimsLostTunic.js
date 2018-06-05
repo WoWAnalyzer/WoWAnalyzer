@@ -38,9 +38,7 @@ class SalsalabimsLostTunic extends Analyzer {
     return {
       item: ITEMS.SALSALABIMS_LOST_TUNIC,
       result: (
-        <dfn>
-          <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> cooldown reset {this.cooldownResets} times.
-        </dfn>
+          <React.Fragment>{this.cooldownResets} <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> resets</React.Fragment>
       ),
     };
   }

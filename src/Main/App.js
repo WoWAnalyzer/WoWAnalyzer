@@ -25,6 +25,7 @@ import NewsView from './News/View';
 import makeAnalyzerUrl from './makeAnalyzerUrl';
 import Report from './Report';
 import Header from './Header';
+import ErrorBoundary from './ErrorBoundary';
 
 const ContributorDetails = lazyLoadComponent(() => import(/* webpackChunkName: 'ContributorDetails' */ './Contributors/ContributorDetails').then(exports => exports.default));
 const CharacterParses = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterParses' */ './Character/CharacterParses').then(exports => exports.default));
@@ -180,7 +181,9 @@ class App extends React.Component {
           <NavigationBar />
           <Header showReportSelecter={this.showReportSelecter} />
           <main>
-            {this.renderContent()}
+            <ErrorBoundary>
+              {this.renderContent()}
+            </ErrorBoundary>
           </main>
 
           <ReactTooltip html place="bottom" />
