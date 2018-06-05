@@ -39,13 +39,12 @@ class DemEmpUptimeHoG extends Analyzer{
       this.hog_casts += 1;
       this.unempowered_casts.push(event.timestamp);
     } else if (spellId === SPELLS.DEMONIC_EMPOWERMENT.id){
-      for(const i in this.unempowered_casts){
-        const hog = this.unempowered_casts[i];
-        if(event.timestamp - hog <= IMP_DURATION * MILLISECONDS){ //Imps are still active from this HandOfGuldan cast.
-          const timeDelta = (IMP_DURATION * MILLISECONDS) - (event.timestamp - hog) + (1.5 * MILLISECONDS);//Add an extra 1.5s to compensate for the delay between HoG cast and imp spawn.
-          this.total_empowered_time += timeDelta;
+      this.unempowered_casts.forEach((e) => {
+        if(event.timestamp - e <= IMP_DURATION * MILLISECONDS){
+          const time_delta = (IMP_DURATION * MILLISECONDS) - (event.timestamp - e) + (1.5 * MILLISECONDS);//Add an extra 1.5s to compensate for the delay between HoG cast and imp spawn.
+          this.total_empowered_time += time_delta;
         }
-      }
+      });
       this.unempowered_casts = [];
     }
   }
