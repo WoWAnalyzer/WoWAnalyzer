@@ -13,7 +13,7 @@ class About extends React.PureComponent {
         specName: PropTypes.string.isRequired,
         className: PropTypes.string.isRequired,
       }).isRequired,
-      description: PropTypes.string.isRequired,
+      description: PropTypes.node.isRequired,
       contributors: PropTypes.arrayOf(PropTypes.shape({
         nickname: PropTypes.string.isRequired,
       })).isRequired,
