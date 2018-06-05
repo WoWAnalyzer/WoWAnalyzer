@@ -1,20 +1,20 @@
 export function install() {
   if (process.env.NODE_ENV === 'production') {
-    const _paq = [];
+    window._paq = [];
     /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
+    window._paq.push(['trackPageView']);
+    window._paq.push(['enableLinkTracking']);
     (function () {
-      const u = '//matomo.wowanalyzer.com/';
-      _paq.push(['setTrackerUrl', u + 'piwik.php']);
-      _paq.push(['setSiteId', '1']);
+      const u = 'https://matomo.wowanalyzer.com/';
+      window._paq.push(['setTrackerUrl', u + 'js/']);
+      window._paq.push(['setSiteId', '1']);
       const d = document;
       const g = d.createElement('script');
       const s = d.getElementsByTagName('script')[0];
       g.type = 'text/javascript';
       g.async = true;
       g.defer = true;
-      g.src = u + 'piwik.js';
+      g.src = u + 'js/';
       s.parentNode.insertBefore(g, s);
     })();
   }
