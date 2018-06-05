@@ -10,7 +10,6 @@ import StatisticBox from 'Main/StatisticBox';
 import SPELLS from 'common/SPELLS';
 import Pets from 'Parser/Core/Modules/Pets';
 
-//import DemoPets from '../WarlockCore/Pets';
 
 const DE_DURATION = 12;
 const MILLISECONDS = 1000;
@@ -23,11 +22,9 @@ class DemEmpUptimePet extends Analyzer{
 
   totalMainPetTime = 0;
   lastDemEmpTimestamp = null;
-  demEmpCasts = 0;
 
   get uptime(){
-    return Math.min(1.00, this.totalMainPetTime/this.owner.fightDuration);
-    //Some sort of issue with timestamps. It's entirely accurate up until general demonic empowerment hits 100%. Then it overshoots slightly.
+    return (this.totalMainPetTime/this.owner.fightDuration);
   }
 
   get suggestionThresholds(){
@@ -45,7 +42,8 @@ class DemEmpUptimePet extends Analyzer{
   on_toPlayer_applybuff(event){
     const spellId = event.ability.guid;
     if(event.prepull && spellId === SPELLS.DEMONIC_EMPOWERMENT.id){
-      this.lastDemEmpTimestamp = 0;
+      //Player may have pre-buffed their pet.
+      this.lastDemEmpTimestamp = this.owner.fight.start_time;
     }
   }
 
@@ -54,7 +52,6 @@ class DemEmpUptimePet extends Analyzer{
     // Which as a Demonology warlock, we really hope is a reasonable assumption.
     const spellId = event.ability.guid;
     if(spellId === SPELLS.DEMONIC_EMPOWERMENT.id){
-      this.demEmpCasts += 1;
       if(this.lastDemEmpTimestamp === null){
         this.lastDemEmpTimestamp = event.timestamp;
       }
