@@ -11,6 +11,7 @@ import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 
 const BUFFER = 750;
 const flashFloodHaste = 0.2;
+const tidalWavesHaste = 0.3;
 
 // All heal spells with cast time...
 const spellsConsumingFlashFlood = [
@@ -44,7 +45,15 @@ class FlashFlood extends Analyzer {
       return;
     }
 
-    const currentHastePercent = this.statTracker.currentHastePercentage;
+    let currentHastePercent = this.statTracker.currentHastePercentage;
+
+    if(spellId === SPELLS.HEALING_WAVE.id) {
+      const hasTidalWave = this.combatants.selected.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, BUFFER, BUFFER);
+      if(hasTidalWave) {
+        currentHastePercent += tidalWavesHaste;
+      }
+    }
+
     const crashingWavesContribution = flashFloodHaste / (flashFloodHaste + currentHastePercent);
     this.healing += calculateEffectiveHealing(event, crashingWavesContribution);
   }
