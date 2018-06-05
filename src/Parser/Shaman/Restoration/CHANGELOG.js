@@ -14,7 +14,7 @@ export default [
   },
   {
     date: new Date('2018-04-13'),
-    changes: <React.Fragment>Added statistics showing the healing impact of each talent, with support for all talents that directly impact HPS apart from <SpellLink id={SPELLS.CRASHING_WAVES_TALENT.id} />, <SpellLink id={SPELLS.DELUGE_TALENT.id} /> and <SpellLink id={SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id} />.</React.Fragment>,
+    changes: <React.Fragment>Added statistics showing the healing impact of each talent, with support for all talents that directly impact HPS apart from Crashing Waves, <SpellLink id={SPELLS.DELUGE_TALENT.id} /> and <SpellLink id={SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id} />.</React.Fragment>,
     contributors: [niseko],
   },
   {

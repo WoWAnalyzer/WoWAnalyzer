@@ -38,10 +38,9 @@ class StatValues extends BaseHealerStatValues {
     const critChanceBreakdown = super._getCritChance(event);
 
     const hasTidalWaves = this.combatants.selected.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, BUFFER_MS, BUFFER_MS);
-    const hasCrashingWaves = this.combatants.selected.hasTalent(SPELLS.CRASHING_WAVES_TALENT.id);
 
     if (spellId === SPELLS.HEALING_SURGE_RESTORATION.id && hasTidalWaves) {
-      critChanceBreakdown.baseCritChance += hasCrashingWaves ? 0.5 : 0.4;
+      critChanceBreakdown.baseCritChance += 0.4;
     }
 
     return critChanceBreakdown;
