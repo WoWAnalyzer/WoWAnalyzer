@@ -6,7 +6,6 @@ import { captureException } from 'common/errorLogger';
 import FullscreenError from 'Main/FullscreenError';
 
 import ApiDownBackground from './Images/api-down-background.gif';
-import ThunderSoundEffect from './Audio/Thunder Sound effect.mp3';
 
 class ErrorBoundary extends React.Component {
   static propTypes = {
