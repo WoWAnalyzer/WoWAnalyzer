@@ -66,7 +66,7 @@ class DemEmpUptimePet extends Analyzer{
   suggestions(when){
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Your general <SpellLink id={SPELLS.DEMONIC_EMPOWERMENT.id} icon/> uptime can be improved.
+        return suggest(<React.Fragment>Your pet's <SpellLink id={SPELLS.DEMONIC_EMPOWERMENT.id} icon/> uptime can be improved.
           On your permament pet, this should be up nearly 100% of the time.</React.Fragment>)
           .icon(SPELLS.DEMONIC_EMPOWERMENT.icon)
           .actual(`${formatPercentage(actual)}% uptime.`)
@@ -76,7 +76,7 @@ class DemEmpUptimePet extends Analyzer{
 
   statistic(){
     return(
-      <StatisticBox icon={<SpellIcon id={SPELLS.DEMONIC_EMPOWERMENT.id}/>} value={`${formatPercentage(this.uptime)} %`} label={'General Demonic Empowerment Uptime'} />
+      <StatisticBox icon={<SpellIcon id={SPELLS.DEMONIC_EMPOWERMENT.id}/>} value={`${formatPercentage(this.uptime)} %`} label={'Main Pet Demonic Empowerment Uptime'} />
     );
   }
 

@@ -59,13 +59,13 @@ class Checklist extends CoreChecklist{
            check: () => this.callDreadstalkers.suggestionThresholds,
          }),
           new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.DEMONIC_EMPOWERMENT.id} icon/> General Uptime</React.Fragment>,
+            name: <React.Fragment><SpellLink id={SPELLS.DEMONIC_EMPOWERMENT.id} icon/> Main Pet Uptime</React.Fragment>,
             check: () => this.demEmpUptimePet.suggestionThresholds,
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.CALL_DREADSTALKERS.id} icon/> Empowerment Uptime</React.Fragment>,
             check: () => this.demEmpUptimeDreadstalkers.suggestionThresholds,
-            valueToolTip: 'How often your Dreadstalkers were empowered while active.',
+            valueToolTip: `How often your Dreadstalkers were empowered while active.`,
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.HAND_OF_GULDAN_CAST.id} icon/> Empowerment Uptime</React.Fragment>,
