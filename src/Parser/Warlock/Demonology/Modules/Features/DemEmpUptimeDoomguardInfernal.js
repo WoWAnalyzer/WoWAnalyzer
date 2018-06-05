@@ -14,13 +14,13 @@ const DE_DURATION = 12;
 const MILLISECONDS = 1000;
 
 class DemEmpUptimeDoomguardInfernal extends Analyzer{
-  summonInterval = {start: null, end: null};
-  lei = {start: null, end: null}; //lastEmpowermentInterval
-  summonCasts = 0;
-  totalEmpoweredTime = 0;
+  summon_interval = {start: null, end: null};
+  last_de_interval = {start: null, end: null};
+  summon_casts = 0;
+  total_empowered_time = 0;
 
   get uptime(){
-    return this.totalEmpoweredTime / (this.summonCasts * SUMMON_DURATION * MILLISECONDS);
+    return this.total_empowered_time / (this.summon_casts * SUMMON_DURATION * MILLISECONDS);
   }
 
   get suggestionThresholds(){
@@ -38,23 +38,23 @@ class DemEmpUptimeDoomguardInfernal extends Analyzer{
   on_byPlayer_cast(event){
     const spellId = event.ability.guid;
     if(spellId === SPELLS.SUMMON_INFERNAL_UNTALENTED.id || spellId === SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id){
-      this.summonCasts += 1;
-      this.summonInterval.start = event.timestamp;
-      this.summonInterval.end = this.summonInterval.start + (SUMMON_DURATION * MILLISECONDS);
-    } else if (spellId === SPELLS.DEMONIC_EMPOWERMENT.id && ((this.summonInterval.start || 0) <= event.timestamp && (this.summonInterval.end || 0) >= event.timestamp)){
-      if((this.lei.end || event.timestamp) < event.timestamp){
+      this.summon_casts += 1;
+      this.summon_interval.start = event.timestamp;
+      this.summon_interval.end = this.summon_interval.start + (SUMMON_DURATION * MILLISECONDS);
+    } else if (spellId === SPELLS.DEMONIC_EMPOWERMENT.id && ((this.summon_interval.start || 0) <= event.timestamp && (this.summon_interval.end || 0) >= event.timestamp)){
+      if((this.last_de_interval.end || event.timestamp) < event.timestamp){
         // We aren't overlapping buffs, we add the time from the last interval and start to build our next one.
-        this.totalEmpoweredTime += this.lei.end - this.lei.start;
-        this.lei.start = null;
-        this.lei.end = null;
+        this.total_empowered_time += this.last_de_interval.end - this.last_de_interval.start;
+        this.last_de_interval.start = null;
+        this.last_de_interval.end = null;
       }
-      this.lei.start = (this.lei.start || event.timestamp);
-      this.lei.end = (this.lei.end === null ? this.lei.start + (DE_DURATION * MILLISECONDS) : this.lei.end + (DE_DURATION * MILLISECONDS));
-      if(this.lei.end > this.summonInterval.end){
+      this.last_de_interval.start = (this.last_de_interval.start || event.timestamp);
+      this.last_de_interval.end = (this.last_de_interval.end === null ? this.last_de_interval.start + (DE_DURATION * MILLISECONDS) : this.last_de_interval.end + (DE_DURATION * MILLISECONDS));
+      if(this.last_de_interval.end > this.summon_interval.end){
         //Our buff reaches the end of our current summon, so we add the time from this interval and reset.
-        this.lei.end = this.summonInterval.end;
-        this.totalEmpoweredTime += this.lei.end - this.lei.start;
-        this.lei.start = this.lei.end = this.summonInterval.start = this.summonInterval.end = null;
+        this.last_de_interval.end = this.summon_interval.end;
+        this.total_empowered_time += this.last_de_interval.end - this.last_de_interval.start;
+        this.last_de_interval.start = this.last_de_interval.end = this.summon_interval.start = this.summon_interval.end = null;
       }
     }
   }

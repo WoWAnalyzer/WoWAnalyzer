@@ -13,12 +13,12 @@ const IMP_DURATION = 12;
 const MILLISECONDS = 1000;
 
 class DemEmpUptimeHoG extends Analyzer{
-  unEmpoweredHogs = [];
-  hogCasts = 0;
-  totalEmpoweredTime = 0;
+  unempowered_casts = [];
+  hog_casts = 0;
+  total_empowered_time = 0;
 
   get uptime(){
-    return this.totalEmpoweredTime / (this.hogCasts * IMP_DURATION * MILLISECONDS);
+    return this.total_empowered_time / (this.hog_casts * IMP_DURATION * MILLISECONDS);
   }
 
   get suggestionThresholds(){
@@ -36,17 +36,17 @@ class DemEmpUptimeHoG extends Analyzer{
   on_byPlayer_cast(event){
     const spellId = event.ability.guid;
     if(spellId === SPELLS.HAND_OF_GULDAN_CAST.id){
-      this.hogCasts += 1;
-      this.unEmpoweredHogs.push(event.timestamp);
+      this.hog_casts += 1;
+      this.unempowered_casts.push(event.timestamp);
     } else if (spellId === SPELLS.DEMONIC_EMPOWERMENT.id){
-      for(const i in this.unEmpoweredHogs){
-        const hog = this.unEmpoweredHogs[i];
+      for(const i in this.unempowered_casts){
+        const hog = this.unempowered_casts[i];
         if(event.timestamp - hog <= IMP_DURATION * MILLISECONDS){ //Imps are still active from this HandOfGuldan cast.
           const timeDelta = (IMP_DURATION * MILLISECONDS) - (event.timestamp - hog) + (1.5 * MILLISECONDS);//Add an extra 1.5s to compensate for the delay between HoG cast and imp spawn.
-          this.totalEmpoweredTime += timeDelta;
+          this.total_empowered_time += timeDelta;
         }
       }
-      this.unEmpoweredHogs = [];
+      this.unempowered_casts = [];
     }
   }
 

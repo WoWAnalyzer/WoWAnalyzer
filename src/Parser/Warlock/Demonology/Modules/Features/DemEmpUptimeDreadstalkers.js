@@ -13,12 +13,12 @@ const CALL_DREADSTALKERS_DURATION = 12;
 const MILLISECONDS = 1000;
 
 class DemEmpUptimeDreadstalkers extends Analyzer{
-  totalEmpoweredTime = 0;
-  unempoweredDreadstalkers = [];
-  callDreadstalkersCasts = 0;
+  total_empowered_time = 0;
+  unempowered_dreadstalkers = [];
+  call_dread_casts = 0;
 
   get uptime(){
-    return this.totalEmpoweredTime / (this.callDreadstalkersCasts * CALL_DREADSTALKERS_DURATION * MILLISECONDS);
+    return this.total_empowered_time / (this.call_dread_casts * CALL_DREADSTALKERS_DURATION * MILLISECONDS);
   }
 
   get suggestionThresholds(){
@@ -36,16 +36,16 @@ class DemEmpUptimeDreadstalkers extends Analyzer{
   on_byPlayer_cast(event){
     const spellId = event.ability.guid;
     if(spellId === SPELLS.CALL_DREADSTALKERS.id){
-      this.unempoweredDreadstalkers.push(event.timestamp);
-      this.callDreadstalkersCasts += 1;
+      this.unempowered_dreadstalkers.push(event.timestamp);
+      this.call_dread_casts += 1;
     } else if(spellId === SPELLS.DEMONIC_EMPOWERMENT.id){
-      for(const dread of this.unempoweredDreadstalkers){
-        if(event.timestamp - dread <= (CALL_DREADSTALKERS_DURATION * MILLISECONDS)){
-          const timeDelta = (CALL_DREADSTALKERS_DURATION * MILLISECONDS) - (event.timestamp-dread);
-          this.totalEmpoweredTime += timeDelta;
+      this.unempowered_dreadstalkers.forEach((e) => {
+        if(event.timestamp - e <= (CALL_DREADSTALKERS_DURATION * MILLISECONDS)){
+          const time_delta = (CALL_DREADSTALKERS_DURATION * MILLISECONDS) - (event.timestamp - e);
+          this.total_empowered_time += time_delta;
         }
-      }
-      this.unempoweredDreadstalkers = [];
+      });
+      this.unempowered_dreadstalkers = [];
     }
   }
 

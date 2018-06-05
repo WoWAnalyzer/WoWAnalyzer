@@ -20,11 +20,11 @@ class DemEmpUptimePet extends Analyzer{
     pets: Pets,
   };
 
-  totalMainPetTime = 0;
-  lastDemEmpTimestamp = null;
+  total_empowered_time = 0;
+  last_de_timestamp = null;
 
   get uptime(){
-    return (this.totalMainPetTime/this.owner.fightDuration);
+    return (this.total_empowered_time/this.owner.fightDuration);
   }
 
   get suggestionThresholds(){
@@ -43,7 +43,7 @@ class DemEmpUptimePet extends Analyzer{
     const spellId = event.ability.guid;
     if(event.prepull && spellId === SPELLS.DEMONIC_EMPOWERMENT.id){
       //Player may have pre-buffed their pet.
-      this.lastDemEmpTimestamp = this.owner.fight.start_time;
+      this.last_de_timestamp = this.owner.fight.start_time;
     }
   }
 
@@ -52,14 +52,14 @@ class DemEmpUptimePet extends Analyzer{
     // Which as a Demonology warlock, we really hope is a reasonable assumption.
     const spellId = event.ability.guid;
     if(spellId === SPELLS.DEMONIC_EMPOWERMENT.id){
-      if(this.lastDemEmpTimestamp === null){
-        this.lastDemEmpTimestamp = event.timestamp;
+      if(this.last_de_timestamp === null){
+        this.last_de_timestamp = event.timestamp;
       }
-      const deOverlap = Math.max(0, this.lastDemEmpTimestamp + (DE_DURATION * MILLISECONDS) - event.timestamp);
+      const deOverlap = Math.max(0, this.last_de_timestamp + (DE_DURATION * MILLISECONDS) - event.timestamp);
       const endOverlap = Math.max(0, (event.timestamp - this.owner.fight.end_time));
       const delta = (DE_DURATION * MILLISECONDS) - deOverlap - endOverlap;
-      this.totalMainPetTime += delta;
-      this.lastDemEmpTimestamp = event.timestamp;
+      this.total_empowered_time += delta;
+      this.last_de_timestamp = event.timestamp;
     }
   }
 
