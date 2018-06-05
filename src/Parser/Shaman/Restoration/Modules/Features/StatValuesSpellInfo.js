@@ -130,4 +130,20 @@ export default {
     mastery: true,
     vers: true,
   },
+
+  // Azerite Traits
+  [SPELLS.OVERFLOWING_SHORES.id]:{
+    crit: true, 
+    vers: true,
+  },
+  [SPELLS.SWELLING_STREAM_HEAL.id]:{
+    crit: true, 
+    vers: true,
+  },
+  [SPELLS.SURGING_TIDES_ABSORB.id]:{
+    vers: true,
+  },
+  [SPELLS.SPOUTING_SPIRITS_HEAL.id]:{
+    vers: true,
+  },
 };

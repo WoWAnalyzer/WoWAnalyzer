@@ -14,6 +14,11 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.DOWNPOUR_TALENT.id,
   SPELLS.RAINFALL.id,
   SPELLS.DOWNPOUR.id,
+
+  // Azerite Traits
+  SPELLS.SWELLING_STREAM_HEAL.id,
+  SPELLS.OVERFLOWING_SHORES.id,
+
   // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
   SPELLS.CLOUDBURST_TOTEM_HEAL.id,
   SPELLS.ASCENDANCE_HEAL.id,
