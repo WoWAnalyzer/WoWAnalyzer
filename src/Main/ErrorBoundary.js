@@ -78,11 +78,6 @@ class ErrorBoundary extends React.Component {
           <div className="text-muted">
             This is usually caused by a bug, please let us know about the issue on GitHub or Discord so we can fix it.
           </div>
-
-          {/* I couldn't resist */}
-          <audio autoPlay>
-            <source src={ThunderSoundEffect} />
-          </audio>
         </FullscreenError>
       );
     }
