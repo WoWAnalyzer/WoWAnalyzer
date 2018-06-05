@@ -34,7 +34,9 @@ class Healthstone extends Analyzer {
       cooldown: ONE_HOUR_MS / 1000, // The cooldown does not start while in combat so setting it to one hour.
       castEfficiency: {
         suggestion: true,
-        recommendedEfficiency: 0.5,
+        recommendedEfficiency: 0.6,
+          averageIssueEfficiency: 0.4,
+          majorIssueEfficiency: 0.1,
         maxCasts: (cooldown, fightDuration, getAbility, parser) => {
           return this.maxCasts;
         },
