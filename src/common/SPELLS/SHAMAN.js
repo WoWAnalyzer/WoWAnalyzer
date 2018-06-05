@@ -797,6 +797,11 @@ export default {
     name: 'Lightning Bolt',
     icon: 'spell_nature_lightning',
   },
+  CHAIN_LIGHTNING_RESTORATION: {
+    id: 421,
+    name: 'Chain Lightning',
+    icon: 'spell_nature_chainlightning',
+  },
   RESURGENCE: {
     id: 101033,
     name: 'Resurgence',
