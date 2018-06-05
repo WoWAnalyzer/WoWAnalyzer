@@ -182,6 +182,7 @@ class App extends React.Component {
     return `${location.pathname}${location.search}`;
   }
   componentDidUpdate(prevProps) {
+    // The primary reason to use this lifecycle method is so the document.title is updated in time
     if (prevProps.location !== this.props.location) {
       // console.log('Location changed. Old:', prevProps.location, 'new:', this.props.location);
       track(this.getPath(prevProps.location), this.getPath(this.props.location));
