@@ -48,7 +48,7 @@ class DeathRecapTracker extends Analyzer {
     const cooldownsOnly = this.cooldowns.filter(e => e.cooldown);
     extendedEvent.defensiveCooldowns = cooldownsOnly.map(e => ({id: e.primarySpell.id, cooldownReady: this.spellUsable.isAvailable(e.primarySpell.id)}));
     if (event.hitPoints > 0) {
-      this.lastBuffs = this.buffs.filter(e => this.combatants.selected.hasBuff(e.buffSpellId) || this.combatants.selected.hasBuff(e.spell instanceof Array ? e.spell[0].id : e.spell.id))
+      this.lastBuffs = this.buffs.filter(e => this.combatants.selected.hasBuff(e.buffSpellId) || this.combatants.selected.hasBuff(e.spell instanceof Array ? e.spell[0].id : e.spell.id)) // Since we don't know if e is an instance of spell or ability we can't use ability.primarySpell
         .map(e => ({id: e.buffSpellId || e.spell.id}));
     }
     extendedEvent.buffsUp = this.lastBuffs;

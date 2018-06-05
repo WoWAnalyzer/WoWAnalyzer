@@ -10,8 +10,13 @@ const HEALTHSTONE_SPELLS = [
   SPELLS.ASTRAL_HEALING_POTION,
 ];
 
-const COOLDOWN_MS = 3600000; // one hour
-const OUT_OF_COMBAT_COOLDOWN_MS = 60000; // one minute
+const ONE_HOUR_MS = 3600000; // one hour
+const COOLDOWN_MS = 60000; // one minute
+
+/**
+* Healthstone/health pot cooldown is one minute, but only starts when the 
+* actor is out of combat or dead.
+*/
 
 class Healthstone extends Analyzer {
   static dependencies = {
@@ -25,7 +30,7 @@ class Healthstone extends Analyzer {
     this.abilities.add({
       spell: HEALTHSTONE_SPELLS,
       category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-      cooldown: COOLDOWN_MS / 1000, // The cooldown does not start while in combat.
+      cooldown: ONE_HOUR_MS / 1000, // The cooldown does not start while in combat so setting it to one hour.
       castEfficiency: {
         suggestion: true,
         maxCasts: (cooldown, fightDuration, getAbility, parser) => {
@@ -40,12 +45,14 @@ class Healthstone extends Analyzer {
       return;
     }
     const cooldownRemaining = this.spellUsable.cooldownRemaining(SPELLS.HEALTHSTONE.id);
-    //only start cooldown if not already started.
-    if (cooldownRemaining < OUT_OF_COMBAT_COOLDOWN_MS){
+    // Only start cooldown if not already started.
+    if (cooldownRemaining < COOLDOWN_MS){
       return;
     }
-    this.spellUsable.reduceCooldown(SPELLS.HEALTHSTONE.id, cooldownRemaining - OUT_OF_COMBAT_COOLDOWN_MS);
-    if(event.timestamp + OUT_OF_COMBAT_COOLDOWN_MS < this.owner.fight.end_time){
+    this.spellUsable.reduceCooldown(SPELLS.HEALTHSTONE.id, cooldownRemaining - COOLDOWN_MS);
+    // If the death starts the cooldown and there is less than 60 seconds remaining of the encounter another cast was possible.
+    const nextAvailableHealthstoneCast = event.timestamp + COOLDOWN_MS;
+    if(nextAvailableHealthstoneCast < this.owner.fight.end_time){
       this.maxCasts += 1;
     }
   }
