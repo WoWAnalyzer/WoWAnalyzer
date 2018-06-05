@@ -25,6 +25,7 @@ class Healthstone extends Analyzer {
   };
 
   maxCasts = 1;
+  lastDeathWithHealthstoneReady = null;
 
   on_initialized() {
     this.abilities.add({
@@ -33,6 +34,7 @@ class Healthstone extends Analyzer {
       cooldown: ONE_HOUR_MS / 1000, // The cooldown does not start while in combat so setting it to one hour.
       castEfficiency: {
         suggestion: true,
+        recommendedEfficiency: 0.5,
         maxCasts: (cooldown, fightDuration, getAbility, parser) => {
           return this.maxCasts;
         },
@@ -42,6 +44,16 @@ class Healthstone extends Analyzer {
 
   on_toPlayer_death(event) {
     if (!this.spellUsable.isOnCooldown(SPELLS.HEALTHSTONE.id)){
+      // If Healthstone was not on cooldown, only increase maxCasts if it would have been ready again since the previous death.
+      if (this.lastDeathWithHealthstoneReady){
+        const timeSince = event.timestamp - this.lastDeathWithHealthstoneReady;
+        if (timeSince < COOLDOWN_MS){ // Healthstone would not have been ready if used on previous death
+          return;
+        }
+      }
+      // Healthstone was ready for this death so increase maxCasts and save timestamp
+      this.lastDeathWithHealthstoneReady = event.timestamp;
+      this.increaseMaxCasts(event);
       return;
     }
     const cooldownRemaining = this.spellUsable.cooldownRemaining(SPELLS.HEALTHSTONE.id);
@@ -50,9 +62,13 @@ class Healthstone extends Analyzer {
       return;
     }
     this.spellUsable.reduceCooldown(SPELLS.HEALTHSTONE.id, cooldownRemaining - COOLDOWN_MS);
+    this.increaseMaxCasts(event);
+  }
+
+  increaseMaxCasts(event){
     // If the death starts the cooldown and there is less than 60 seconds remaining of the encounter another cast was possible.
     const nextAvailableHealthstoneCast = event.timestamp + COOLDOWN_MS;
-    if(nextAvailableHealthstoneCast < this.owner.fight.end_time){
+    if (nextAvailableHealthstoneCast < this.owner.fight.end_time){
       this.maxCasts += 1;
     }
   }
