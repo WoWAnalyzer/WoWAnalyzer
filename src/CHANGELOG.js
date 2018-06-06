@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-06-06'),
+    changes: 'Fixed the character selection realm dropdown in Mozilla Firefox.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-06-02'),
     changes: 'Improved error handling so the app will no longer permanently stay stuck in a loading state when something unexpected happens.',
     contributors: [Zerotorescue],
