@@ -8,9 +8,9 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 
-const DAMAGE_BONUS = 0.3;
+const DAMAGE_BONUS = 0.35;
 
-class ArcticGale extends Analyzer {
+class FreezingRain extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
@@ -18,12 +18,12 @@ class ArcticGale extends Analyzer {
   damage = 0;
 
   on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.ARCTIC_GALE_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.FREEZING_RAIN_TALENT.id);
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.BLIZZARD_DAMAGE.id) {
+    if (spellId === SPELLS.BLIZZARD_DAMAGE.id && this.combatants.selected.hasBuff(SPELLS.FREEZING_RAIN_BUFF.id)) {
       this.damage += calculateEffectiveDamage(event, DAMAGE_BONUS);
     }
   }
@@ -44,22 +44,22 @@ class ArcticGale extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.ARCTIC_GALE_TALENT.id} />}
+        icon={<SpellIcon id={SPELLS.FREEZING_RAIN_TALENT.id} />}
         value={`${formatPercentage(this.damagePercent)} %`}
-        label="Arctic Gale damage"
-        tooltip="This is the portion of your total damage attributable to Arctic Gale. This number only considers the damage bonus to Blizzard, and does not factor in extra targets you may have hit due to the increased area of effect."
+        label="Freezing Rain damage"
+        tooltip="This is the portion of your total damage attributable to Freezing Rain. This number only considers the damage bonus to Blizzard, and does not factor in extra targets you may have hit due to the increased area of effect."
       />
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL(10);
 
-  // TODO suggest when Arctic Gale damage is very low but non-zero?
+  // TODO suggest when Freezing Rain damage is very low but non-zero?
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion(suggest => {
-      return suggest(<React.Fragment>You took <SpellLink id={SPELLS.ARCTIC_GALE_TALENT.id} /> but never used <SpellLink id={SPELLS.BLIZZARD.id} />. Consider taking a different talent.</React.Fragment>)
-        .icon(SPELLS.ARCTIC_GALE_TALENT.icon);
+      return suggest(<React.Fragment>You took <SpellLink id={SPELLS.FREEZING_RAIN_TALENT.id} /> but never used <SpellLink id={SPELLS.BLIZZARD.id} />. Consider taking a different talent.</React.Fragment>)
+        .icon(SPELLS.FREEZING_RAIN_TALENT.icon);
     });
   }
 }
 
-export default ArcticGale;
+export default FreezingRain;

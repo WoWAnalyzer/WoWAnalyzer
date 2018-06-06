@@ -26,12 +26,13 @@ class SplittingIce extends Analyzer {
   on_initialized() {
 	   this.active = this.combatants.selected.hasTalent(SPELLS.SPLITTING_ICE_TALENT.id);
      this.hasGlacialSpike = this.combatants.selected.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
+     this.hasEbonbolt = this.combatants.selected.hasTalent(SPELLS.EBONBOLT_TALENT.id);
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     // we check Frostbolt cast even though it doesn't split because it can launch overcapped icicles.
-    if(spellId !== SPELLS.ICE_LANCE.id && spellId !== SPELLS.FROSTBOLT.id && spellId !== SPELLS.GLACIAL_SPIKE_TALENT.id) {
+    if(spellId !== SPELLS.ICE_LANCE.id && spellId !== SPELLS.FROSTBOLT.id && spellId !== SPELLS.GLACIAL_SPIKE_TALENT.id && spellId !== SPELLS.EBONBOLT_TALENT.id) {
       return;
     }
 
@@ -42,7 +43,7 @@ class SplittingIce extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if(spellId !== SPELLS.ICE_LANCE_DAMAGE.id && spellId !== SPELLS.ICICLE_DAMAGE.id && spellId !== SPELLS.GLACIAL_SPIKE_DAMAGE.id) {
+    if(spellId !== SPELLS.ICE_LANCE_DAMAGE.id && spellId !== SPELLS.ICICLE_DAMAGE.id && spellId !== SPELLS.GLACIAL_SPIKE_DAMAGE.id && spellId !== SPELLS.EBONBOLT_DAMAGE.id) {
       return;
     }
 
