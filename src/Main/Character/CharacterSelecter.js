@@ -32,7 +32,7 @@ class CharacterSelecter extends React.PureComponent {
   handleSubmit(e) {
     e.preventDefault();
 
-    const region = this.regionInput.value;
+    const region = this.state.currentRegion;
     const realm = this.state.currentRealm;
     const char = this.charInput.value;
 
@@ -73,18 +73,17 @@ class CharacterSelecter extends React.PureComponent {
     return (
       <form onSubmit={this.handleSubmit} className="form-inline">
         <div className="character-selector">
-          <select
-            className="form-control"
-            ref={elem => {
-              this.regionInput = elem;
+          <SelectSearch
+            options={Object.keys(REALMS).map(elem => ({
+              value: elem,
+              name: elem,
+            }))}
+            className="realm-search"
+            onChange={value => {
+              this.setState({ currentRegion: value.name });
             }}
-            value={this.state.currentRegion}
-            onChange={e => this.setState({ currentRegion: e.target.value })}
-          >
-            {Object.keys(REALMS).map(elem =>
-              <option value={elem} key={elem}>{elem}</option>
-            )}
-          </select>
+            placeholder="Region"
+          />
           <SelectSearch
             options={REALMS[this.state.currentRegion].realms.map(elem => ({
               value: elem.name,
