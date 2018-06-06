@@ -32,7 +32,7 @@ class CharacterSelecter extends React.PureComponent {
   handleSubmit(e) {
     e.preventDefault();
 
-    const region = this.regionInput.value;
+    const region = this.state.currentRegion;
     const realm = this.state.currentRealm;
     const char = this.charInput.value;
 
