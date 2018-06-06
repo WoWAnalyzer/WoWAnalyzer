@@ -5,12 +5,13 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import { Chizu } from 'CONTRIBUTORS';
+import { Chizu, Hordehobbs } from 'CONTRIBUTORS';
 
 export default [
   {
     date: new Date('2018-06-06'),
     changes: <React.Fragment>Added spec checklist. Added <SpellLink id={SPELLS.DEMONIC_EMPOWERMENT.id} icon/> tracking for demon-summoning spells.</React.Fragment>,
+    contributors: [Hordehobbs],
   },
   {
     date: new Date('2017-09-30'),
