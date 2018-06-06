@@ -17,13 +17,12 @@ import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountCheck
 import DoomguardInfernal from 'Parser/Warlock/Demonology/Modules/Features/DoomguardInfernal';
 import Felstorm from 'Parser/Warlock/Demonology/Modules/Features/Felstorm';
 import CallDreadstalkers from 'Parser/Warlock/Demonology/Modules/Features/CallDreadstalkers';
-import DemEmpUptimePet from 'Parser/Warlock/Demonology/Modules/Features/DemEmpUptimePet';
+import DEUptimePet from 'Parser/Warlock/Demonology/Modules/Features/DEUptimePet';
 import AbilityTracker from 'Parser/Core/Modules/Combatants';
-import DemEmpUptimeDreadstalkers from 'Parser/Warlock/Demonology/Modules/Features/DemEmpUptimeDreadstalkers';
-import DemEmpUptimeHoG from 'Parser/Warlock/Demonology/Modules/Features/DemEmpUptimeHoG';
-import DemEmpUptimeDoomguardInfernal from 'Parser/Warlock/Demonology/Modules/Features/DemEmpUptimeDoomguardInfernal';
+import DEUptimeDreadstalkers from 'Parser/Warlock/Demonology/Modules/Features/DEUptimeDreadstalkers';
+import DEUptimeHoG from 'Parser/Warlock/Demonology/Modules/Features/DEUptimeHoG';
+import DEUptimeDoomguardInfernal from 'Parser/Warlock/Demonology/Modules/Features/DEUptimeDoomguardInfernal';
 
-const rotation_description = <React.Fragment>Follow your rotation closely to maximize DPS. Note that if you have <SpellLink id={SPELLS.WARLOCK_DEMO_T20_2P_BONUS.id} icon/>, Call Dreadstalkers is a rough estimate based on number of procs.</React.Fragment>;
 
 class Checklist extends CoreChecklist{
   static dependencies = {
@@ -38,10 +37,10 @@ class Checklist extends CoreChecklist{
     doomguardInfernal : DoomguardInfernal,
     felstorm: Felstorm,
     callDreadstalkers: CallDreadstalkers,
-    demEmpUptimePet: DemEmpUptimePet,
-    demEmpUptimeDreadstalkers: DemEmpUptimeDreadstalkers,
-    demEmpUptimeHog: DemEmpUptimeHoG,
-    demEmpUptimeDoomguardInfernal: DemEmpUptimeDoomguardInfernal,
+    deUptimePet: DEUptimePet,
+    deUptimeDreadstalkers: DEUptimeDreadstalkers,
+    deUptimeHog: DEUptimeHoG,
+    deUptimeDoomguardInfernal: DEUptimeDoomguardInfernal,
     enchantChecker: EnchantChecker,
     soulShardDetails: SoulShardDetails,
     soulShardTracker: SoulShardTracker,
@@ -51,7 +50,7 @@ class Checklist extends CoreChecklist{
   rules = [
     new Rule({
       name: 'Rotation Spells',
-      description: rotation_description,
+      description: <React.Fragment>Follow your rotation closely to maximize DPS. Note that if you have <SpellLink id={SPELLS.WARLOCK_DEMO_T20_2P_BONUS.id} icon/>, Call Dreadstalkers is a rough estimate based on number of procs.</React.Fragment>,
       requirements: () => {
         return [
           new Requirement({
@@ -60,19 +59,19 @@ class Checklist extends CoreChecklist{
          }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.DEMONIC_EMPOWERMENT.id} icon/> Main Pet Uptime</React.Fragment>,
-            check: () => this.demEmpUptimePet.suggestionThresholds,
+            check: () => this.deUptimePet.suggestionThresholds,
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.CALL_DREADSTALKERS.id} icon/> Empowerment Uptime</React.Fragment>,
-            check: () => this.demEmpUptimeDreadstalkers.suggestionThresholds,
+            check: () => this.deUptimeDreadstalkers.suggestionThresholds,
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.HAND_OF_GULDAN_CAST.id} icon/> Empowerment Uptime</React.Fragment>,
-            check: () => this.demEmpUptimeHog.suggestionThresholds,
+            check: () => this.deUptimeHog.suggestionThresholds,
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} icon/>/<SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} icon/> Empowerment Uptime</React.Fragment>,
-            check: () => this.demEmpUptimeDoomguardInfernal.suggestionThresholds,
+            check: () => this.deUptimeDoomguardInfernal.suggestionThresholds,
           }),
         ];
       },

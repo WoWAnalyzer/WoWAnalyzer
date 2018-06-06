@@ -12,7 +12,7 @@ import SpellIcon from 'common/SpellIcon';
 const IMP_DURATION = 12;
 const MILLISECONDS = 1000;
 
-class DemEmpUptimeHoG extends Analyzer{
+class DEUptimeHoG extends Analyzer{
   unempowered_casts = [];
   hog_casts = 0;
   total_empowered_time = 0;
@@ -41,7 +41,7 @@ class DemEmpUptimeHoG extends Analyzer{
     } else if (spellId === SPELLS.DEMONIC_EMPOWERMENT.id){
       this.unempowered_casts.forEach((e) => {
         if(event.timestamp - e <= IMP_DURATION * MILLISECONDS){
-          const time_delta = (IMP_DURATION * MILLISECONDS) - (event.timestamp - e) + (1.5 * MILLISECONDS);//Add an extra 1.5s to compensate for the delay between HoG cast and imp spawn.
+          const time_delta = (IMP_DURATION * MILLISECONDS) - (event.timestamp - e);
           this.total_empowered_time += time_delta;
         }
       });
@@ -68,4 +68,4 @@ class DemEmpUptimeHoG extends Analyzer{
 
 }
 
-export default DemEmpUptimeHoG;
+export default DEUptimeHoG;

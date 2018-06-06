@@ -12,7 +12,7 @@ import SpellIcon from 'common/SpellIcon';
 const CALL_DREADSTALKERS_DURATION = 12;
 const MILLISECONDS = 1000;
 
-class DemEmpUptimeDreadstalkers extends Analyzer{
+class DEUptimeDreadstalkers extends Analyzer{
   total_empowered_time = 0;
   unempowered_dreadstalkers = [];
   call_dread_casts = 0;
@@ -69,4 +69,4 @@ class DemEmpUptimeDreadstalkers extends Analyzer{
 
 }
 
-export default DemEmpUptimeDreadstalkers;
+export default DEUptimeDreadstalkers;

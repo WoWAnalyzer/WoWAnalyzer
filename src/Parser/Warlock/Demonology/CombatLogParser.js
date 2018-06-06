@@ -7,10 +7,10 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import DoomguardInfernal from './Modules/Features/DoomguardInfernal';
 import Felstorm from './Modules/Features/Felstorm';
 import CallDreadstalkers from './Modules/Features/CallDreadstalkers';
-import DemEmpUptimePet from './Modules/Features/DemEmpUptimePet';
-import DemEmpUptimeDreadstalkers from './Modules/Features/DemEmpUptimeDreadstalkers';
-import DemEmpUptimeHoG from './Modules/Features/DemEmpUptimeHoG';
-import DemEmpUptimeDoomguardInfernal from './Modules/Features/DemEmpUptimeDoomguardInfernal';
+import DEUptimePet from './Modules/Features/DEUptimePet';
+import DEUptimeDreadstalkers from './Modules/Features/DEUptimeDreadstalkers';
+import DEUptimeHoG from './Modules/Features/DEUptimeHoG';
+import DEUptimeDoomguardInfernal from './Modules/Features/DEUptimeDoomguardInfernal';
 import Checklist from './Modules/Features/Checklist';
 
 import Doom from './Modules/Features/DoomUptime';
@@ -54,10 +54,10 @@ class CombatLogParser extends CoreCombatLogParser {
     doomguardInfernal: DoomguardInfernal,
     felstorm: Felstorm,
     callDreadstalkers: CallDreadstalkers,
-    demEmpUptimePet: DemEmpUptimePet,
-    demEmpUptimeDreadstalkers: DemEmpUptimeDreadstalkers,
-    demEmpUptimeHog: DemEmpUptimeHoG,
-    demEmpUptimeDoomguardIngernal: DemEmpUptimeDoomguardInfernal,
+    demEmpUptimePet: DEUptimePet,
+    demEmpUptimeDreadstalkers: DEUptimeDreadstalkers,
+    demEmpUptimeHog: DEUptimeHoG,
+    demEmpUptimeDoomguardIngernal: DEUptimeDoomguardInfernal,
     checklist: Checklist,
 
 

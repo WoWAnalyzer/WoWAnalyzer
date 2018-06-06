@@ -12,7 +12,7 @@ import SPELLS from 'common/SPELLS';
 const DE_DURATION = 12;
 const MILLISECONDS = 1000;
 
-class DemEmpUptimePet extends Analyzer{
+class DEUptimePet extends Analyzer{
 
   total_empowered_time = 0;
   last_de_timestamp = null;
@@ -76,4 +76,4 @@ class DemEmpUptimePet extends Analyzer{
 
 }
 
-export default DemEmpUptimePet;
+export default DEUptimePet;

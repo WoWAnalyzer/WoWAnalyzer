@@ -9,7 +9,7 @@ import { Chizu } from 'CONTRIBUTORS';
 
 export default [
   {
-    date: new Date('2018-06-05'),
+    date: new Date('2018-06-06'),
     changes: <React.Fragment>Added spec checklist. Added <SpellLink id={SPELLS.DEMONIC_EMPOWERMENT.id} icon/> tracking for demon-summoning spells.</React.Fragment>,
   },
   {
