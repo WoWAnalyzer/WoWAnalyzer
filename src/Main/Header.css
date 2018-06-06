@@ -70,7 +70,7 @@
   margin-bottom: 10px;
   height: 42px;
 }
-.character-selector>.realm-search--select, .character-selector>input[name=code], .character-selector>button {
+.character-selector>.realm-search--select:not(:first-of-type), .character-selector>input[name=code], .character-selector>button {
   margin-left: 2px;
 }
 .realm-search__select {
