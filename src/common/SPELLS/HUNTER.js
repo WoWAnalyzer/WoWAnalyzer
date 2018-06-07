@@ -5,6 +5,412 @@
  */
 
 export default {
+  /**Removed when legion tier is irrelevant*/
+  HUNTER_BM_T19_2P_BONUS: {
+    id: 211181, //WoWHead has this as 4p, but it's actually the 2p
+    name: 'T19 2 set bonus',
+    icon: 'trade_engineering',
+  },
+  HUNTER_BM_T19_2P_BONUS_BUFF: {
+    id: 211183,
+    name: 'T19 2 set bonus',
+    icon: 'ability_druid_ferociousbite',
+  },
+  HUNTER_BM_T19_4P_BONUS: {
+    id: 211172,
+    name: 'T19 2 set bonus',
+    icon: 'trade_engineering',
+  },
+  HUNTER_BM_T20_2P_BONUS: {
+    id: 242239,
+    name: 'T20 2 set bonus',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
+  HUNTER_BM_T20_2P_BONUS_BUFF: {
+    id: 246126,
+    name: 'T20 2 set bonus',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
+  HUNTER_BM_T20_4P_BONUS: {
+    id: 242240,
+    name: 'T20 4 set bonus',
+    icon: 'ability_hunter_bestialdiscipline',
+  },
+  HUNTER_BM_T20_4P_BONUS_BUFF: {
+    id: 246116,
+    name: 'T20 4 set bonus',
+    icon: 'ability_hunter_fervor',
+  },
+  HUNTER_BM_T21_2P_BONUS: {
+    id: 251755,
+    name: 'T21 2 set bonus',
+    icon: 'ability_hunter_killcommand',
+  },
+  HUNTER_BM_T21_4P_BONUS: {
+    id: 251756,
+    name: 'T21 4 set bonus',
+    icon: 'spell_nature_protectionformnature',
+  },
+  HUNTER_MM_T19_2P_BONUS: {
+    id: 211331,
+    name: 'T19 2 set bonus',
+    icon: 'trade_engineering',
+  },
+  HUNTER_MM_T20_2P_BONUS: {
+    id: 242242,
+    name: 'T20 2 set bonus',
+    icon: 'ability_hunter_focusedaim',
+  },
+  HUNTER_MM_T20_2P_BONUS_BUFF: {
+    id: 242243,
+    name: 'T20 2 set bonus',
+    icon: 'inv_misc_ammo_arrow_03',
+  },
+  HUNTER_MM_T20_4P_BONUS: {
+    id: 242241,
+    name: 'T20 4 set bonus',
+    icon: 'ability_hunter_focusedaim',
+  },
+  HUNTER_MM_T20_4P_BONUS_BUFF: {
+    id: 246153,
+    name: 'T20 4 set bonus',
+    icon: 'inv_spear_07',
+  },
+  HUNTER_MM_T21_2P_BONUS: {
+    id: 251754,
+    name: 'T21 2 set bonus',
+    icon: 'ability_hunter_focusedaim',
+  },
+  HUNTER_MM_T21_4P_BONUS: {
+    id: 251753,
+    name: 'T21 4 set bonus',
+    icon: 'ability_hunter_markedshot',
+  },
+  HUNTER_SV_T20_2P_BONUS: {
+    id: 242244,
+    name: 'T20 2 set bonus',
+    icon: 'ability_hunter_camouflage',
+  },
+  HUNTER_SV_T20_4P_BONUS: {
+    id: 242245,
+    name: 'T20 4 set bonus',
+    icon: 'ability_hunter_camouflage',
+  },
+  HUNTER_SV_T21_2P_BONUS: {
+    id: 251751,
+    name: 'T21 2 set bonus',
+    icon: 'ability_rogue_findweakness',
+  },
+  HUNTER_SV_T21_2P_BONUS_BUFF: {
+    id: 252094,
+    name: 'Exposed Flank',
+    icon: 'ability_rogue_findweakness',
+  },
+  HUNTER_SV_T21_4P_BONUS: {
+    id: 251752,
+    name: 'T21 4 set bonus',
+    icon: 'ability_hunter_combatexperience',
+  },
+  HUNTER_SV_T21_4P_BONUS_BUFF: {
+    id: 252095,
+    name: 'In for the Kill',
+    icon: 'ability_hunter_combatexperience',
+  },
+
+  /**Removed when artifacts are gone */
+  BULLSEYE_BUFF: {
+    id: 204090,
+    name: 'Bullseye',
+    icon: 'ability_hunter_focusedaim',
+  },
+  BULLSEYE_TRAIT: {
+    id: 204089,
+    name: 'Bullseye',
+    icon: 'ability_hunter_focusedaim',
+  },
+  QUICK_SHOT_TRAIT: {
+    id: 190462,
+    name: 'Quick Shot',
+    icon: 'ability_trueshot',
+  },
+  CYCLONIC_BURST_TRAIT: {
+    id: 238124,
+    name: 'Cyclonic burst',
+    icon: 'inv_bow_1h_artifactwindrunner_d_02',
+  },
+  CYCLONIC_BURST_IMPACT_TRAIT: {
+    id: 242712,
+    name: 'Cyclonic Burst',
+    icon: 'inv_bow_1h_artifactwindrunner_d_02',
+  },
+  UNERRING_ARROWS_TRAIT: {
+    id: 238052,
+    name: 'Unerring Arrows',
+    icon: 'creatureportrait_blackrockv2_shieldgong_broken',
+  },
+  CALL_OF_THE_HUNTER_TRAIT: {
+    id: 191048,
+    name: 'Call of the Hunter',
+    icon: 'ability_hunter_assassinate',
+  },
+  CALL_OF_THE_HUNTER_DAMAGE: {
+    id: 191070,
+    name: 'Call of the Hunter',
+    icon: 'ability_hunter_assassinate',
+  },
+  LEGACY_OF_THE_WINDRUNNERS_TRAIT: {
+    id: 190852,
+    name: 'Legacy of the Windrunners',
+    icon: 'artifactability_marksmanhunter_legacyofthewindrunners',
+  },
+  LEGACY_OF_THE_WINDRUNNERS_DAMAGE: {
+    id: 191043,
+    name: 'Legacy of the Windrunners',
+    icon: 'artifactability_marksmanhunter_legacyofthewindrunners',
+  },
+  RAPID_KILLING_TRAIT: {
+    id: 191339,
+    name: 'Rapid Killing',
+    icon: 'ability_marksmanship',
+  },
+  RAPID_KILLING: {
+    id: 191342,
+    name: 'Rapid Killing',
+    icon: 'ability_hunter_assassinate',
+  },
+  SURVIVAL_OF_THE_FITTEST_BUFF: {
+    id: 190515,
+    name: 'Survival of the Fittest',
+    icon: 'ability_rogue_feint',
+  },
+  TITANS_THUNDER: {
+    id: 207068,
+    name: 'Titan\'s Thunder',
+    icon: 'inv_firearm_2h_artifactlegion_d_01',
+  },
+  TITANS_THUNDER_BUFF: {
+    id: 207094,
+    name: 'Titan\'s Thunder Buff',
+    icon: 'inv_firearm_2h_artifactlegion_d_01',
+  },
+  TITANS_THUNDER_DAMAGE: {
+    id: 207097,
+    name: 'Titan\'s Thunder',
+    icon: 'inv_firearm_2h_artifactlegion_d_01',
+  },
+  TITANS_THUNDER_DIRE_FRENZY_PET_BUFF: {
+    id: 218638,
+    name: 'Titan\'s Thunder',
+    icon: 'ability_hunter_longevity',
+  },
+  SLITHERING_SERPENTS_TRAIT: {
+    id: 238051,
+    name: 'Slithering Serpents',
+    icon: 'ability_hunter_cobrashot',
+  },
+  COBRA_COMMANDER_TRAIT: {
+    id: 238123,
+    name: 'Cobra Commander',
+    icon: 'inv_waepon_bow_zulgrub_d_01',
+  },
+  COBRA_COMMANDER: {
+    id: 243042,
+    name: 'Cobra Commander',
+    icon: 'inv_waepon_bow_zulgrub_d_01',
+  },
+  MASTER_OF_BEASTS_TRAIT: {
+    id: 197248,
+    name: 'Master of Beasts',
+    icon: 'ability_hunter_masterscall',
+  },
+  SURGE_OF_THE_STORMGOD_TRAIT: {
+    id: 197354,
+    name: 'Surge of the Stormgod',
+    icon: 'ability_monk_forcesphere',
+  },
+  SURGE_OF_THE_STORMGOD_DAMAGE: {
+    id: 197465,
+    name: 'Surge of the Stormgod',
+    icon: 'ability_monk_forcesphere',
+  },
+  THUNDERSLASH_TRAIT: {
+    id: 238087,
+    name: 'Thunderslash',
+    icon: 'warrior_talent_icon_thunderstruck',
+  },
+  THUNDERSLASH_DAMAGE: {
+    id: 243234,
+    name: 'Thunderslash',
+    icon: 'warrior_talent_icon_thunderstruck',
+  },
+  DEATHSTRIKE_VENOM: {
+    id: 243121,
+    name: 'Deathstrike Venom',
+    icon: 'spell_nature_nullifypoison',
+  },
+  PATHFINDER_TRAIT: {
+    id: 197343,
+    name: 'Pathfinder',
+    icon: 'ability_mount_jungletiger',
+  },
+  SPIRIT_BOND_HEAL: {
+    id: 197205,
+    name: 'Spirit Bond',
+    icon: 'ability_mount_jungletiger',
+  },
+  WINDBURST: {
+    id: 204147,
+    name: 'Windburst',
+    icon: 'inv_bow_1h_artifactwindrunner_d_02',
+  },
+  WINDBURST_MOVEMENT_SPEED: {
+    id: 204477,
+    name: 'Windburst',
+    icon: 'ability_hunter_focusedaim',
+  },
+  CRITICAL_FOCUS_FOCUSMODULE: {
+    id: 215107,
+    name: 'Critical Focus',
+    icon: 'ability_druid_replenish',
+  },
+  ECHOES_OF_OHNARA_TRAIT: {
+    id: 238125,
+    name: 'Echoes of Ohn\'ara',
+    icon: 'ability_hunter_invigeration',
+  },
+  ECHOES_OF_OHNARA_DAMAGE: {
+    id: 242798,
+    name: 'Echoes of Ohn\'ara',
+    icon: 'ability_hunter_eagleeye',
+  },
+  EAGLES_BITE_TRAIT: {
+    id: 203757,
+    name: 'On The Trail',
+    icon: 'artifactability_survivalhunter_eaglesbite',
+  },
+  ON_THE_TRAIL_DAMAGE: {
+    id: 204081,
+    name: 'On The Trail',
+    icon: 'artifactability_survivalhunter_eaglesbite',
+  },
+  FURY_OF_THE_EAGLE_TRAIT: {
+    id: 203415,
+    name: 'Fury of the Eagle',
+    icon: 'inv_polearm_2h_artifacteagle_d_01',
+  },
+  FURY_OF_THE_EAGLE_DAMAGE: {
+    id: 203413,
+    name: 'Fury of the Eagle',
+    icon: 'inv_polearm_2h_artifacteagle_d_01',
+  },
+  TALON_STRIKE_TRAIT: {
+    id: 203563,
+    name: 'Talon Strike',
+    icon: 'inv_misc_bone_06',
+  },
+  TALON_STRIKE_DAMAGE: {
+    id: 203525,
+    name: 'Talon Strike',
+    icon: 'inv_misc_bone_06',
+  },
+  TALON_BOND_TRAIT: {
+    id: 238089,
+    name: 'Talon Bond',
+    icon: 'inv_misc_bone_06',
+  },
+  TALON_BOND_DAMAGE: {
+    id: 242735,
+    name: 'Talon Slash',
+    icon: 'inv_misc_bone_06',
+  },
+  HUNTERS_GUILE_TRAIT: {
+    id: 203752,
+    name: 'Hunter\'s Guile',
+    icon: 'ability_mage_potentspirit',
+  },
+  HELLCARVER_TRAIT: {
+    id: 203673,
+    name: 'Hellcarver',
+    icon: 'ability_hunter_carve',
+  },
+  ASPECT_OF_THE_SKYLORD_TRAIT: {
+    id: 203755,
+    name: 'Aspect of the Skylord',
+    icon: 'inv_pet_undeadeagle',
+  },
+  ASPECT_OF_THE_SKYLORD_BUFF: {
+    id: 203927,
+    name: 'Aspect of the Skylord',
+    icon: 'inv_pet_undeadeagle',
+  },
+  BIRD_OF_PREY_HEAL: {
+    id: 224765,
+    name: 'Bird of Prey',
+    icon: 'ability_hunter_eagleeye',
+  },
+  EMBRACE_OF_THE_ASPECTS: {
+    id: 225092,
+    name: 'Embrace of the Aspects',
+    icon: 'spell_hunter_aspectofthehawk',
+  },
+  JAWS_OF_THE_MONGOOSE: {
+    id: 238053,
+    name: 'Jaws of the Mongoose',
+    icon: 'ability_hunter_mongoosebite',
+  },
+
+  /**Removed when legendaries are irrelevant*/
+  PARSELS_TONGUE_BUFF: {
+    id: 248085,
+    name: 'Parsel\'s Tongue',
+    icon: 'ability_hunter_cobrashot',
+  },
+  THE_MANTLE_OF_COMMAND_BUFF: {
+    id: 247993,
+    name: 'The Mantle of Command',
+    icon: 'inv_shoulder_mail_raidshaman_m_01',
+  },
+  SENTINELS_SIGHT: {
+    id: 208913,
+    name: 'Sentinel\'s sight',
+    icon: 'inv_belt_66green',
+  },
+  GYROSCOPIC_STABILIZATION: {
+    id: 235712,
+    name: 'Gyroscopic stabilization',
+    icon: 'inv_glove_mail_raidshamanmythic_o_01',
+  },
+  CELERITY_OF_THE_WINDRUNNERS_BUFF: {
+    id: 248088,
+    name: 'Celerity of the Windrunners',
+    icon: 'inv_bow_1h_artifactwindrunner_d_02',
+  },
+  NESINGWARYS_TRAPPING_TREADS_FOCUS_GAIN: {
+    id: 212575,
+    name: 'Nesingwary\'s Trapping Treads',
+    icon: 'inv_boots_mail_panda_b_02',
+  },
+  UNSEEN_PREDATORS_CLOAK_BUFF: {
+    id: 248212,
+    name: 'Unseen Predator\'s Cloak',
+    icon: 'ability_vehicle_demolisherflamecatapult',
+  },
+  MARK_OF_HELBRINE: {
+    id: 213156,
+    name: 'Mark of Helbrine',
+    icon: 'inv_spear_04',
+  },
+  BUTCHERS_BONE_APRON_BUFF: {
+    id: 236446,
+    name: 'Butcher\'s Bone Apron',
+    icon: 'ability_hunter_carve',
+  },
+  THE_SHADOW_HUNTERS_VOODOO_MASK_HEAL: {
+    id: 208888,
+    name: 'The Shadow Hunter\'s Voodoo Mask',
+    icon: 'ability_creature_cursed_04',
+  },
+
   // Beast Mastery:
   ASPECT_OF_THE_WILD: {
     id: 193530,
@@ -141,153 +547,10 @@ export default {
     name: 'Chimaera Shot',
     icon: 'ability_hunter_chimerashot2',
   },
-  //Beast Mastery Artifact Traits
-  TITANS_THUNDER: {
-    id: 207068,
-    name: 'Titan\'s Thunder',
-    icon: 'inv_firearm_2h_artifactlegion_d_01',
-  },
-  TITANS_THUNDER_BUFF: {
-    id: 207094,
-    name: 'Titan\'s Thunder Buff',
-    icon: 'inv_firearm_2h_artifactlegion_d_01',
-  },
-  TITANS_THUNDER_DAMAGE: {
-    id: 207097,
-    name: 'Titan\'s Thunder',
-    icon: 'inv_firearm_2h_artifactlegion_d_01',
-  },
-  TITANS_THUNDER_DIRE_FRENZY_PET_BUFF: {
-    id: 218638,
-    name: 'Titan\'s Thunder',
-    icon: 'ability_hunter_longevity',
-  },
-  SLITHERING_SERPENTS_TRAIT: {
-    id: 238051,
-    name: 'Slithering Serpents',
-    icon: 'ability_hunter_cobrashot',
-  },
-  COBRA_COMMANDER_TRAIT: {
-    id: 238123,
-    name: 'Cobra Commander',
-    icon: 'inv_waepon_bow_zulgrub_d_01',
-  },
-  COBRA_COMMANDER: {
-    id: 243042,
-    name: 'Cobra Commander',
-    icon: 'inv_waepon_bow_zulgrub_d_01',
-  },
-  MASTER_OF_BEASTS_TRAIT: {
-    id: 197248,
-    name: 'Master of Beasts',
-    icon: 'ability_hunter_masterscall',
-  },
-  SURGE_OF_THE_STORMGOD_TRAIT: {
-    id: 197354,
-    name: 'Surge of the Stormgod',
-    icon: 'ability_monk_forcesphere',
-  },
-  SURGE_OF_THE_STORMGOD_DAMAGE: {
-    id: 197465,
-    name: 'Surge of the Stormgod',
-    icon: 'ability_monk_forcesphere',
-  },
-  THUNDERSLASH_TRAIT: {
-    id: 238087,
-    name: 'Thunderslash',
-    icon: 'warrior_talent_icon_thunderstruck',
-  },
-  THUNDERSLASH_DAMAGE: {
-    id: 243234,
-    name: 'Thunderslash',
-    icon: 'warrior_talent_icon_thunderstruck',
-  },
-  DEATHSTRIKE_VENOM: {
-    id: 243121,
-    name: 'Deathstrike Venom',
-    icon: 'spell_nature_nullifypoison',
-  },
-  PATHFINDER_TRAIT: {
-    id: 197343,
-    name: 'Pathfinder',
-    icon: 'ability_mount_jungletiger',
-  },
-  SPIRIT_BOND_HEAL: {
-    id: 197205,
-    name: 'Spirit Bond',
-    icon: 'ability_mount_jungletiger',
-  },
-  //Beast Mastery Tier
-  HUNTER_BM_T19_2P_BONUS: {
-    id: 211181, //WoWHead has this as 4p, but it's actually the 2p
-    name: 'T19 2 set bonus',
-    icon: 'trade_engineering',
-  },
-  HUNTER_BM_T19_2P_BONUS_BUFF: {
-    id: 211183,
-    name: 'T19 2 set bonus',
-    icon: 'ability_druid_ferociousbite',
-  },
-  HUNTER_BM_T19_4P_BONUS: {
-    id: 211172,
-    name: 'T19 2 set bonus',
-    icon: 'trade_engineering',
-  },
-  HUNTER_BM_T20_2P_BONUS: {
-    id: 242239,
-    name: 'T20 2 set bonus',
-    icon: 'ability_hunter_bestialdiscipline',
-  },
-  HUNTER_BM_T20_2P_BONUS_BUFF: {
-    id: 246126,
-    name: 'T20 2 set bonus',
-    icon: 'ability_hunter_bestialdiscipline',
-  },
-  HUNTER_BM_T20_4P_BONUS: {
-    id: 242240,
-    name: 'T20 4 set bonus',
-    icon: 'ability_hunter_bestialdiscipline',
-  },
-  HUNTER_BM_T20_4P_BONUS_BUFF: {
-    id: 246116,
-    name: 'T20 4 set bonus',
-    icon: 'ability_hunter_fervor',
-  },
-  HUNTER_BM_T21_2P_BONUS: {
-    id: 251755,
-    name: 'T21 2 set bonus',
-    icon: 'ability_hunter_killcommand',
-  },
-  HUNTER_BM_T21_4P_BONUS: {
-    id: 251756,
-    name: 'T21 4 set bonus',
-    icon: 'spell_nature_protectionformnature',
-  },
-  //Beast Mastery Legendary buffs
-  PARSELS_TONGUE_BUFF: {
-    id: 248085,
-    name: 'Parsel\'s Tongue',
-    icon: 'ability_hunter_cobrashot',
-  },
-  THE_MANTLE_OF_COMMAND_BUFF: {
-    id: 247993,
-    name: 'The Mantle of Command',
-    icon: 'inv_shoulder_mail_raidshaman_m_01',
-  },
 
-  //------------------------------------------------------------
+  //Beast Mastery BFA Buffs
 
   // Marksmanship Hunter:
-  WINDBURST: {
-    id: 204147,
-    name: 'Windburst',
-    icon: 'inv_bow_1h_artifactwindrunner_d_02',
-  },
-  WINDBURST_MOVEMENT_SPEED: {
-    id: 204477,
-    name: 'Windburst',
-    icon: 'ability_hunter_focusedaim',
-  },
   AIMED_SHOT: {
     id: 19434,
     name: 'Aimed Shot',
@@ -363,11 +626,7 @@ export default {
     name: 'Auto Shot',
     icon: 'ability_whirlwind',
   },
-  CRITICAL_FOCUS_FOCUSMODULE: {
-    id: 215107,
-    name: 'Critical Focus',
-    icon: 'ability_druid_replenish',
-  },
+
   MULTISHOT_FOCUSMODULE: {
     id: 213363,
     name: 'Multi-Shot',
@@ -377,127 +636,6 @@ export default {
     id: 187675,
     name: 'Arcane Shot',
     icon: 'ability_impalingbolt',
-  },
-
-  // Marksmanship tier sets
-  HUNTER_MM_T19_2P_BONUS: {
-    id: 211331,
-    name: 'T19 2 set bonus',
-    icon: 'trade_engineering',
-  },
-  HUNTER_MM_T20_2P_BONUS: {
-    id: 242242,
-    name: 'T20 2 set bonus',
-    icon: 'ability_hunter_focusedaim',
-  },
-  HUNTER_MM_T20_2P_BONUS_BUFF: {
-    id: 242243,
-    name: 'T20 2 set bonus',
-    icon: 'inv_misc_ammo_arrow_03',
-  },
-  HUNTER_MM_T20_4P_BONUS: {
-    id: 242241,
-    name: 'T20 4 set bonus',
-    icon: 'ability_hunter_focusedaim',
-  },
-  HUNTER_MM_T20_4P_BONUS_BUFF: {
-    id: 246153,
-    name: 'T20 4 set bonus',
-    icon: 'inv_spear_07',
-  },
-  HUNTER_MM_T21_2P_BONUS: {
-    id: 251754,
-    name: 'T21 2 set bonus',
-    icon: 'ability_hunter_focusedaim',
-  },
-  HUNTER_MM_T21_4P_BONUS: {
-    id: 251753,
-    name: 'T21 4 set bonus',
-    icon: 'ability_hunter_markedshot',
-  },
-
-  // Marksmanship artifact traits
-  BULLSEYE_BUFF: {
-    id: 204090,
-    name: 'Bullseye',
-    icon: 'ability_hunter_focusedaim',
-  },
-  BULLSEYE_TRAIT: {
-    id: 204089,
-    name: 'Bullseye',
-    icon: 'ability_hunter_focusedaim',
-  },
-  QUICK_SHOT_TRAIT: {
-    id: 190462,
-    name: 'Quick Shot',
-    icon: 'ability_trueshot',
-  },
-  CYCLONIC_BURST_TRAIT: {
-    id: 238124,
-    name: 'Cyclonic burst',
-    icon: 'inv_bow_1h_artifactwindrunner_d_02',
-  },
-  CYCLONIC_BURST_IMPACT_TRAIT: {
-    id: 242712,
-    name: 'Cyclonic Burst',
-    icon: 'inv_bow_1h_artifactwindrunner_d_02',
-  },
-  UNERRING_ARROWS_TRAIT: {
-    id: 238052,
-    name: 'Unerring Arrows',
-    icon: 'creatureportrait_blackrockv2_shieldgong_broken',
-  },
-  CALL_OF_THE_HUNTER_TRAIT: {
-    id: 191048,
-    name: 'Call of the Hunter',
-    icon: 'ability_hunter_assassinate',
-  },
-  CALL_OF_THE_HUNTER_DAMAGE: {
-    id: 191070,
-    name: 'Call of the Hunter',
-    icon: 'ability_hunter_assassinate',
-  },
-  LEGACY_OF_THE_WINDRUNNERS_TRAIT: {
-    id: 190852,
-    name: 'Legacy of the Windrunners',
-    icon: 'artifactability_marksmanhunter_legacyofthewindrunners',
-  },
-  LEGACY_OF_THE_WINDRUNNERS_DAMAGE: {
-    id: 191043,
-    name: 'Legacy of the Windrunners',
-    icon: 'artifactability_marksmanhunter_legacyofthewindrunners',
-  },
-  RAPID_KILLING_TRAIT: {
-    id: 191339,
-    name: 'Rapid Killing',
-    icon: 'ability_marksmanship',
-  },
-  RAPID_KILLING: {
-    id: 191342,
-    name: 'Rapid Killing',
-    icon: 'ability_hunter_assassinate',
-  },
-  SURVIVAL_OF_THE_FITTEST_BUFF: {
-    id: 190515,
-    name: 'Survival of the Fittest',
-    icon: 'ability_rogue_feint',
-  },
-
-  //Marksmanship legendary buffs
-  SENTINELS_SIGHT: {
-    id: 208913,
-    name: 'Sentinel\'s sight',
-    icon: 'inv_belt_66green',
-  },
-  GYROSCOPIC_STABILIZATION: {
-    id: 235712,
-    name: 'Gyroscopic stabilization',
-    icon: 'inv_glove_mail_raidshamanmythic_o_01',
-  },
-  CELERITY_OF_THE_WINDRUNNERS_BUFF: {
-    id: 248088,
-    name: 'Celerity of the Windrunners',
-    icon: 'inv_bow_1h_artifactwindrunner_d_02',
   },
 
   //Marksmanship talent buffs/debuffs
@@ -531,8 +669,6 @@ export default {
     name: 'Sentinel',
     icon: 'spell_nature_sentinal',
   },
-
-  //---------------------------------------------------------------
 
   //Survival:
   MONGOOSE_BITE: {
@@ -610,6 +746,7 @@ export default {
     name: 'Wing Clip',
     icon: 'ability_rogue_trip',
   },
+
   //Survival talent buff/debuffs:
   MOKNATHAL_TACTICS: {
     id: 201081,
@@ -651,153 +788,8 @@ export default {
     name: 'Throwing Axes',
     icon: 'inv_throwingaxepvp320_07',
   },
-  //Survival traits:
-  ECHOES_OF_OHNARA_TRAIT: {
-    id: 238125,
-    name: 'Echoes of Ohn\'ara',
-    icon: 'ability_hunter_invigeration',
-  },
-  ECHOES_OF_OHNARA_DAMAGE: {
-    id: 242798,
-    name: 'Echoes of Ohn\'ara',
-    icon: 'ability_hunter_eagleeye',
-  },
-  EAGLES_BITE_TRAIT: {
-    id: 203757,
-    name: 'On The Trail',
-    icon: 'artifactability_survivalhunter_eaglesbite',
-  },
-  ON_THE_TRAIL_DAMAGE: {
-    id: 204081,
-    name: 'On The Trail',
-    icon: 'artifactability_survivalhunter_eaglesbite',
-  },
-  FURY_OF_THE_EAGLE_TRAIT: {
-    id: 203415,
-    name: 'Fury of the Eagle',
-    icon: 'inv_polearm_2h_artifacteagle_d_01',
-  },
-  FURY_OF_THE_EAGLE_DAMAGE: {
-    id: 203413,
-    name: 'Fury of the Eagle',
-    icon: 'inv_polearm_2h_artifacteagle_d_01',
-  },
-  TALON_STRIKE_TRAIT: {
-    id: 203563,
-    name: 'Talon Strike',
-    icon: 'inv_misc_bone_06',
-  },
-  TALON_STRIKE_DAMAGE: {
-    id: 203525,
-    name: 'Talon Strike',
-    icon: 'inv_misc_bone_06',
-  },
-  TALON_BOND_TRAIT: {
-    id: 238089,
-    name: 'Talon Bond',
-    icon: 'inv_misc_bone_06',
-  },
-  TALON_BOND_DAMAGE: {
-    id: 242735,
-    name: 'Talon Slash',
-    icon: 'inv_misc_bone_06',
-  },
-  HUNTERS_GUILE_TRAIT: {
-    id: 203752,
-    name: 'Hunter\'s Guile',
-    icon: 'ability_mage_potentspirit',
-  },
-  HELLCARVER_TRAIT: {
-    id: 203673,
-    name: 'Hellcarver',
-    icon: 'ability_hunter_carve',
-  },
-  ASPECT_OF_THE_SKYLORD_TRAIT: {
-    id: 203755,
-    name: 'Aspect of the Skylord',
-    icon: 'inv_pet_undeadeagle',
-  },
-  ASPECT_OF_THE_SKYLORD_BUFF: {
-    id: 203927,
-    name: 'Aspect of the Skylord',
-    icon: 'inv_pet_undeadeagle',
-  },
-  BIRD_OF_PREY_HEAL: {
-    id: 224765,
-    name: 'Bird of Prey',
-    icon: 'ability_hunter_eagleeye',
-  },
-  EMBRACE_OF_THE_ASPECTS: {
-    id: 225092,
-    name: 'Embrace of the Aspects',
-    icon: 'spell_hunter_aspectofthehawk',
-  },
-  JAWS_OF_THE_MONGOOSE: {
-    id: 238053,
-    name: 'Jaws of the Mongoose',
-    icon: 'ability_hunter_mongoosebite',
-  },
-  //Survival tier and their buffs
-  HUNTER_SV_T20_2P_BONUS: {
-    id: 242244,
-    name: 'T20 2 set bonus',
-    icon: 'ability_hunter_camouflage',
-  },
-  HUNTER_SV_T20_4P_BONUS: {
-    id: 242245,
-    name: 'T20 4 set bonus',
-    icon: 'ability_hunter_camouflage',
-  },
-  HUNTER_SV_T21_2P_BONUS: {
-    id: 251751,
-    name: 'T21 2 set bonus',
-    icon: 'ability_rogue_findweakness',
-  },
-  HUNTER_SV_T21_2P_BONUS_BUFF: {
-    id: 252094,
-    name: 'Exposed Flank',
-    icon: 'ability_rogue_findweakness',
-  },
-  HUNTER_SV_T21_4P_BONUS: {
-    id: 251752,
-    name: 'T21 4 set bonus',
-    icon: 'ability_hunter_combatexperience',
-  },
-  HUNTER_SV_T21_4P_BONUS_BUFF: {
-    id: 252095,
-    name: 'In for the Kill',
-    icon: 'ability_hunter_combatexperience',
-  },
-  //Survival legendaries
-  NESINGWARYS_TRAPPING_TREADS_FOCUS_GAIN: {
-    id: 212575,
-    name: 'Nesingwary\'s Trapping Treads',
-    icon: 'inv_boots_mail_panda_b_02',
-  },
-  UNSEEN_PREDATORS_CLOAK_BUFF: {
-    id: 248212,
-    name: 'Unseen Predator\'s Cloak',
-    icon: 'ability_vehicle_demolisherflamecatapult',
-  },
-  MARK_OF_HELBRINE: {
-    id: 213156,
-    name: 'Mark of Helbrine',
-    icon: 'inv_spear_04',
-  },
-  BUTCHERS_BONE_APRON_BUFF: {
-    id: 236446,
-    name: 'Butcher\'s Bone Apron',
-    icon: 'ability_hunter_carve',
-  },
-
-  //------------------------------------------------------------
 
   // Shared:
-  THE_SHADOW_HUNTERS_VOODOO_MASK_HEAL: {
-    id: 208888,
-    name: 'The Shadow Hunter\'s Voodoo Mask',
-    icon: 'ability_creature_cursed_04',
-  },
   NETHERWINDS: {
     id: 160452,
     name: 'Netherwinds',
