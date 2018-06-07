@@ -58,7 +58,6 @@ class RipSnapshot extends Snapshot {
    * which is called by Snapshot in response to debuffapply and debuffrefresh.
    */
   comboLastRip = 0;
-
   hasSabertooth = false;
   healthFraction = {};
 
