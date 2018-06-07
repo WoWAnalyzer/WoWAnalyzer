@@ -48,7 +48,6 @@ class RipSnapshot extends Snapshot {
   ripCastCount = 0;
   downgradeCount = 0;
   shouldBeBiteCount = 0;
-
   /**
    * Order of processed events when player casts rip is always:
    *   on_byPlayer_cast
