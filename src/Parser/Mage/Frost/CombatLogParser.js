@@ -11,7 +11,6 @@ import BrainFreeze from './Modules/Features/BrainFreeze';
 import IceLance from './Modules/Features/IceLance';
 import ThermalVoid from './Modules/Features/ThermalVoid';
 import GlacialSpike from './Modules/Features/GlacialSpike';
-import FreezingRain from './Modules/Features/FreezingRain';
 import RuneOfPower from '../Shared/Modules/Features/RuneOfPower';
 import MirrorImage from '../Shared/Modules/Features/MirrorImage';
 import SplittingIce from './Modules/Features/SplittingIce';
@@ -50,7 +49,6 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     runeOfPower: RuneOfPower,
     mirrorImage: MirrorImage,
-    freezingRain: FreezingRain,
     splittingIce: SplittingIce,
 
 	  //Cooldowns

@@ -37,11 +37,6 @@ class WintersChillTracker extends Analyzer {
   singleIceLanceCasts = 0;
   doubleIceLanceCasts = 0;
 
-  on_initialized() {
-    this.hasGlacialSpike = this.combatants.selected.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
-    this.hasEbonbolt = this.combatants.selected.hasTalent(SPELLS.EBONBOLT_TALENT.id);
-  }
-
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     const enemy = this.enemies.getEntity(event);
