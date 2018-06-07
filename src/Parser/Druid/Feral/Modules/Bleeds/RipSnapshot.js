@@ -57,7 +57,7 @@ class RipSnapshot extends Snapshot {
    * So it's safe to store the comboLastRip on spendresource then use it in calcPower,
    * which is called by Snapshot in response to debuffapply and debuffrefresh.
    */
-  comboLastRip;
+  comboLastRip = 0;
 
   hasSabertooth = false;
   healthFraction = {};
@@ -122,7 +122,7 @@ class RipSnapshot extends Snapshot {
       return;
     }
 
-    // Bite "refreshes the duration of your Rip on the target" which means setting to the base duration.
+    // Bite sets an existing Rip bleed to the base duration regardless of the current duration - even if that reduces it
     existing.expireTime = event.timestamp + this.durationOfFresh;
     existing.pandemicTime = event.timestamp + this.durationOfFresh * (1.0 - PANDEMIC_FRACTION);
     debug && console.log(`${this.owner.formatTimestamp(event.timestamp)} bite extended rip to ${this.owner.formatTimestamp(existing.expireTime)}`);
@@ -149,17 +149,19 @@ class RipSnapshot extends Snapshot {
       event.meta.inefficientCastReason = `Used Rip when you could have extended using Ferocious Bite and kept ${strengthComment} snapshot.`;
     }
     
-    if (stateOld.pandemicTime > stateNew.startTime &&
-        stateOld.power > stateNew.power) {
-      this.downgradeCount += 1;
-
-      // this downgrade is relatively minor, so don't overwrite cast info from elsewhere
-      if (!event.meta || (!event.meta.isInefficientCast && !event.meta.isEnhancedCast)) {
-        event.meta = event.meta || {};
-        event.meta.isInefficientCast = true;
-        event.meta.inefficientCastReason = 'You refreshed with a weaker version of Rip before the pandemic window.';
-      }
+    if (stateOld.pandemicTime <= stateNew.startTime ||
+        stateOld.power <= stateNew.power) {
+      return;
     }
+    this.downgradeCount += 1;
+
+    // this downgrade is relatively minor, so don't overwrite cast info from elsewhere
+    if (event.meta && (event.meta.isInefficientCast || event.meta.isEnhancedCast)) {
+      return;
+    }
+    event.meta = event.meta || {};
+    event.meta.isInefficientCast = true;
+    event.meta.inefficientCastReason = 'You refreshed with a weaker version of Rip before the pandemic window.';
   }
 
   calcPower(stateNew) {
