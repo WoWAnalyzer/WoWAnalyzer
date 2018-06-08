@@ -133,6 +133,7 @@ import NLCTraits from './Modules/NetherlightCrucibleTraits/NLCTraits';
 
 // BFA
 import ZandalariLoaFigurine from './Modules/Items/BFA/ZandalariLoaFigurine';
+import FirstMatesSpyglass from './Modules/Items/BFA/FirstMatesSpyglass';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -273,6 +274,7 @@ class CombatLogParser {
 
     // BFA
     zandalariLoaFigurine: ZandalariLoaFigurine,
+    firstMatesSpyglass: FirstMatesSpyglass,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
