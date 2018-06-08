@@ -74,7 +74,7 @@ class ChainHeal extends Analyzer {
         icon={<SpellIcon id={SPELLS.CHAIN_HEAL.id} />}
         value={`${isNaN(avgHits) ? 'N/A' : avgHits.toFixed(2)}`}
         label={(
-          <dfn data-tip={`The average percentage of targets healed by Chain Heal out of the maximum amount of targets. You cast a total of ${casts} Chain Heals, which healed an average of ${avgHits.toFixed(2)} out of ${maxTargets} targets.`}>
+          <dfn data-tip={`The average number of targets healed by Chain Heal out of the maximum amount of targets. You cast a total of ${casts} Chain Heals, which healed an average of ${avgHits.toFixed(2)} out of ${maxTargets} targets.`}>
             Average Chain Heal targets
           </dfn>
         )}
