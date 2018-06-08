@@ -8,6 +8,7 @@ import RakeUptime from './Modules/Bleeds/RakeUptime';
 import RipUptime from './Modules/Bleeds/RipUptime';
 import FerociousBiteEnergy from './Modules/Features/FerociousBiteEnergy';
 import RakeSnapshot from './Modules/Bleeds/RakeSnapshot';
+import RipSnapshot from './Modules/Bleeds/RipSnapshot';
 
 import ComboPointTracker from './Modules/ComboPoints/ComboPointTracker';
 import ComboPointDetails from './Modules/ComboPoints/ComboPointDetails';
@@ -35,6 +36,7 @@ class CombatLogParser extends CoreCombatLogParser {
     rakeUptime: RakeUptime,
     ripUptime: RipUptime,
     rakeSnapshot: RakeSnapshot,
+    ripSnapshot: RipSnapshot,
 
     // talents
     savageRoarUptime: SavageRoarUptime,
