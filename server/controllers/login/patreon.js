@@ -20,6 +20,8 @@ Passport.use(new PatreonStrategy(
     const raw = profile._raw;
     const fullProfile = JSON.parse(raw);
 
+    // const fullProfile = require('./__fixtures__/patreon-active.json');
+
     const id = fullProfile.data.id;
     const name = fullProfile.data.attributes.full_name;
 
@@ -47,6 +49,7 @@ Passport.use(new PatreonStrategy(
         patreon: {
           id,
           pledgeAmount,
+          checked: new Date(),
           // rewardId,
           // rewardTitle,
           accessToken,

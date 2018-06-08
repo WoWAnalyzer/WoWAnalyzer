@@ -115,10 +115,10 @@ export class Premium extends React.PureComponent {
                   <h2>You</h2>
                 </div>
                 <div className="panel-body">
-                  Hello {user.name}. Your Premium is currently {user.premium ? <span className="text-success">Active</span> : <span className="text-danger">Inactive</span>}. {user.premium && 'Awesome!'}<br /><br />
-
-                  Patreon: {user.patreon && user.patreon.premium ? <span className="text-success">Active</span> : <span className="text-danger">Inactive</span>}<br />
-                  GitHub: {user.github && user.github.premium ? <span className="text-success">Active (expires {(new Date(user.github.expires)).toLocaleString()})</span> : <span className="text-danger">Inactive</span>}
+                  Hello {user.name}. Your Premium is currently {user.premium ? <span className="text-success">Active</span> : <span className="text-danger">Inactive</span>}
+                  {user.patreon && user.patreon.premium && ' because of your Patreonage'}
+                  {user.github && user.github.premium && <React.Fragment> because of your recent GitHub contribution (active until {(new Date(user.github.expires)).toLocaleString()})</React.Fragment>}
+                  . {user.premium && 'Awesome!'}
                 </div>
               </div>
             )}

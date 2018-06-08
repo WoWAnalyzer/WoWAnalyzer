@@ -100,12 +100,12 @@
 				"expiration_date": null,
 				"has_a_failed_payment": false,
 				"is_verified": true,
-				"merchant_name": "martijnhols@hotmail.com",
+				"merchant_name": "zerotorescue@zerotorescue.iscool",
 				"number": null,
-				"payment_token": "bt_583649382",
-				"payment_token_id": 2564051
+				"payment_token": "bt_123456789",
+				"payment_token_id": 6543210
 			},
-			"id": "bt_583649382",
+			"id": "bt_123456789",
 			"relationships": {
 				"user": {
 					"data": {
