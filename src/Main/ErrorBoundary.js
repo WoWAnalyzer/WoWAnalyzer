@@ -6,7 +6,6 @@ import { captureException } from 'common/errorLogger';
 import FullscreenError from 'Main/FullscreenError';
 
 import ApiDownBackground from './Images/api-down-background.gif';
-import ThunderSoundEffect from './Audio/Thunder Sound effect.mp3';
 
 class ErrorBoundary extends React.Component {
   static propTypes = {
@@ -78,11 +77,6 @@ class ErrorBoundary extends React.Component {
           <div className="text-muted">
             This is usually caused by a bug, please let us know about the issue on GitHub or Discord so we can fix it.
           </div>
-
-          {/* I couldn't resist */}
-          <audio autoPlay>
-            <source src={ThunderSoundEffect} />
-          </audio>
         </FullscreenError>
       );
     }

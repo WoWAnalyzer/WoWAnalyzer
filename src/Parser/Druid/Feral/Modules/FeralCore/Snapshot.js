@@ -49,7 +49,7 @@ class Snapshot extends Analyzer {
   isBloodtalonsAffected;
   durationOfFresh;
 
-  stateByTarget = [];
+  stateByTarget = {};
   lastDoTCastEvent;
 
   on_byPlayer_cast(event) {
@@ -60,13 +60,12 @@ class Snapshot extends Analyzer {
     
     // attempt to associate with (very) recent debuff apply/refresh
     // this cast could apply DoTs to multiple targets, so check them all
-    for (const state of this.stateByTarget) {
-      if (!state.castEvent &&
-          event.timestamp - state.startTime < CAST_WINDOW_TIME) {
+    Object.values(this.stateByTarget).forEach(state => {
+      if (!state.castEvent && event.timestamp - state.startTime < CAST_WINDOW_TIME) {
         event.castEvent = event;
         this.checkRuleIfReady(state);
       }
-    }
+    });
   }
 
   on_byPlayer_applydebuff(event) {
@@ -95,53 +94,55 @@ class Snapshot extends Analyzer {
   }
 
   makeNewState(debuffEvent, stateOld) {
-    const combatant = this.combatants.selected;
     const timeRemainOnOld = stateOld ? (stateOld.expireTime - debuffEvent.timestamp) : 0;
     let expireNew = debuffEvent.timestamp + this.durationOfFresh;
     if (timeRemainOnOld > 0) {
       expireNew += Math.min(this.durationOfFresh * PANDEMIC_FRACTION, timeRemainOnOld);
     }
 
+    const combatant = this.combatants.selected;
     const stateNew = {
       expireTime: expireNew,
-      pandemicTime: expireNew - this.durationOfFresh * PANDEMIC_FRACTION, // after this time the DoT is in the "pandemic window"
-      tigersFury: false,
-      prowl: false,
-      bloodtalons: false,
-      power: 1,
-      startTime: debuffEvent.timestamp,
-      isRefresh: timeRemainOnOld > 0,
-      castEvent: null,  // should get assigned within the next 100ms
-      prev: stateOld,   // may be null
-      hasBeenRuleChecked: false,
-    };
-    if (this.isProwlAffected && (
+      pandemicTime: expireNew - this.durationOfFresh * PANDEMIC_FRACTION,
+      tigersFury: this.isTigersFuryAffected &&
+        combatant.hasBuff(SPELLS.TIGERS_FURY.id),
+      prowl: this.isProwlAffected && (
         combatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id) ||
         combatant.hasBuff(SPELLS.PROWL.id, null, BUFF_WINDOW_TIME) ||
         combatant.hasBuff(SPELLS.PROWL_INCARNATION.id, null, BUFF_WINDOW_TIME) ||
-        combatant.hasBuff(SPELLS.SHADOWMELD.id, null, BUFF_WINDOW_TIME))) {
-      stateNew.prowl = true;
-      stateNew.power *= PROWL_MULTIPLIER;
-    }
-    if (this.isTigersFuryAffected &&
-        combatant.hasBuff(SPELLS.TIGERS_FURY.id)) {
-      stateNew.tigersFury = true;
-      stateNew.power *= TIGERS_FURY_MULTIPLIER;
-    }
-    if (this.isBloodtalonsAffected &&
-        combatant.hasBuff(SPELLS.BLOODTALONS_BUFF.id, null, BUFF_WINDOW_TIME)) {
-      stateNew.bloodtalons = true;
-      stateNew.power *= BLOODTALONS_MULTIPLIER;
-    }
+        combatant.hasBuff(SPELLS.SHADOWMELD.id, null, BUFF_WINDOW_TIME)
+      ),
+      bloodtalons: this.isBloodtalonsAffected &&
+        combatant.hasBuff(SPELLS.BLOODTALONS_BUFF.id, null, BUFF_WINDOW_TIME),
+      power: 1,
+      startTime: debuffEvent.timestamp,
+      castEvent: null,  // should get assigned within the next 100ms
+      prev: stateOld,   // may be undefined
+      hasBeenRuleChecked: false,
+    };
+    stateNew.power = this.calcPower(stateNew);
 
     // attempt to associate with recent cast event
-    if (this.lastDoTCastEvent &&
-        (debuffEvent.timestamp - this.lastDoTCastEvent.timestamp) < CAST_WINDOW_TIME) {
+    if (this.lastDoTCastEvent && (debuffEvent.timestamp - this.lastDoTCastEvent.timestamp) < CAST_WINDOW_TIME) {
       stateNew.castEvent = this.lastDoTCastEvent;
-      debug && console.log(`linked DoT with cast event.`);
+      debug && console.log('linked DoT with cast event.');
     }
 
     return stateNew;
+  }
+
+  calcPower(stateNew) {
+    let power = 1.0;
+    if (stateNew.prowl) {
+      power *= PROWL_MULTIPLIER;
+    }
+    if (stateNew.tigersFury) {
+      power *= TIGERS_FURY_MULTIPLIER;
+    }
+    if (stateNew.bloodtalons) {
+      power *= BLOODTALONS_MULTIPLIER;
+    }
+    return power;
   }
 
   checkRuleIfReady(state) {

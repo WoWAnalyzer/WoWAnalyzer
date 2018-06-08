@@ -8,9 +8,14 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-06-04'),
+    date: new Date('2018-06-08'),
     changes: 'Added Healthstone/Health pots to abilities and the death recap.',
     contributors: [Gebuz],
+  },
+  {
+    date: new Date('2018-06-06'),
+    changes: 'Fixed the character selection realm dropdown in Mozilla Firefox.',
+    contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-06-02'),
