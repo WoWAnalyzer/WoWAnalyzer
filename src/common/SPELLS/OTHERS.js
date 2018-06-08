@@ -41,6 +41,11 @@ export default {
     name: 'Ancient Healing Potion',
     icon: 'inv_alchemy_70_red',
   },
+  ASTRAL_HEALING_POTION: {
+    id: 251645,
+    name: 'Astral Healing Potion',
+    icon: 'inv_alchemy_70_red',
+  },
   POTION_OF_PROLONGED_POWER: {
     id: 229206,
     name: 'Potion of Prolonged Power',
