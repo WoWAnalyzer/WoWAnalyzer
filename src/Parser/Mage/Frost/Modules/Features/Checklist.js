@@ -117,6 +117,7 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.EBONBOLT,
             onlyWithSuggestion: false,
+            when: combatant.hasTalent(SPELLS.EBONBOLT_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ICY_VEINS,

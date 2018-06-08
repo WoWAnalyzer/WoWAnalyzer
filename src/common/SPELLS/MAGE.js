@@ -61,6 +61,16 @@ export default {
     name: 'Unstable Magic',
     icon: 'spell_mage_unstablemagic',
   },
+  ARCANE_INTELLECT: {
+    id: 1459,
+    name: 'Arcane Intellect',
+    icon: 'spell_holy_magicalsentry',
+  },
+  REMOVE_CURSE: {
+    id: 475,
+    name: 'Remove Curse',
+    icon: 'spell_nature_removecurse',
+  },
 
   //Frost
   MASTERY_ICICLES: {
@@ -162,6 +172,11 @@ export default {
     id: 235235,
     name: 'Frost Nova',
     icon: 'spell_frost_frostnova',
+  },
+  FREEZING_RAIN_BUFF: {
+    id: 240555,
+    name: 'Freezing Rain',
+    icon: 'spell_frost_icestorm',
   },
 
   //Fire
