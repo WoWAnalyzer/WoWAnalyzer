@@ -15,14 +15,22 @@ Passport.use(new GitHubStrategy(
     callbackURL: process.env.GITHUB_CALLBACK_URL,
   },
   async function (accessToken, refreshToken, profile, done) {
-    console.log('GitHub login:', profile);
     // The passport strategy removes data we need from `profile`, so re-extract the raw data received
     const fullProfile = profile._json;
 
+    const id = fullProfile.id;
+    const name = fullProfile.name;
+
+    if (process.env.NODE_ENV === 'development') {
+      console.log('GitHub login:', fullProfile);
+    } else {
+      console.log(`GitHub login by ${name} (${id})`);
+    }
+
     const user = await User.create({
-      gitHubId: fullProfile.id,
+      gitHubId: id,
       data: {
-        name: fullProfile.name,
+        name: name,
         avatar: fullProfile.avatar_url,
         github: {
           id: fullProfile.id,

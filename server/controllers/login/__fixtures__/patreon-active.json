@@ -1,0 +1,448 @@
+{
+	"data": {
+		"attributes": {
+			"about": null,
+			"created": "2017-02-09T22:29:05+00:00",
+			"discord_id": null,
+			"email": "zerotorescue@zerotorescue.iscool",
+			"facebook": null,
+			"facebook_id": null,
+			"first_name": "Martijn",
+			"full_name": "Martijn Hols",
+			"gender": 0,
+			"has_password": true,
+			"image_url": "https://c8.patreon.com/2/400/5055100",
+			"is_deleted": false,
+			"is_email_verified": true,
+			"is_nuked": false,
+			"is_suspended": false,
+			"last_name": "Hols",
+			"social_connections": {
+				"deviantart": null,
+				"discord": null,
+				"facebook": null,
+				"spotify": null,
+				"twitch": null,
+				"twitter": null,
+				"youtube": null
+			},
+			"thumb_url": "https://c8.patreon.com/2/100/5055100",
+			"twitch": null,
+			"twitter": null,
+			"url": "https://www.patreon.com/user?u=5055100",
+			"vanity": null,
+			"youtube": null
+		},
+		"id": "5055100",
+		"relationships": {
+			"pledges": {
+				"data": [
+					{
+						"id": "13903390",
+						"type": "pledge"
+					}
+				]
+			}
+		},
+		"type": "user"
+	},
+	"included": [
+		{
+			"attributes": {
+				"amount_cents": 100,
+				"created_at": "2018-06-08T19:40:22.664032+00:00",
+				"declined_since": null,
+				"patron_pays_fees": false,
+				"pledge_cap_cents": 100
+			},
+			"id": "13903390",
+			"relationships": {
+				"address": {
+					"data": null
+				},
+				"card": {
+					"data": {
+						"id": "bt_583649382",
+						"type": "card"
+					},
+					"links": {
+						"related": "https://www.patreon.com/api/cards/bt_583649382"
+					}
+				},
+				"creator": {
+					"data": {
+						"id": "2408965",
+						"type": "user"
+					},
+					"links": {
+						"related": "https://www.patreon.com/api/user/2408965"
+					}
+				},
+				"patron": {
+					"data": {
+						"id": "5055100",
+						"type": "user"
+					},
+					"links": {
+						"related": "https://www.patreon.com/api/user/5055100"
+					}
+				},
+				"reward": {
+					"data": null
+				}
+			},
+			"type": "pledge"
+		},
+		{
+			"attributes": {
+				"card_type": "PayPal",
+				"created_at": "2017-02-09T22:31:13+00:00",
+				"expiration_date": null,
+				"has_a_failed_payment": false,
+				"is_verified": true,
+				"merchant_name": "martijnhols@hotmail.com",
+				"number": null,
+				"payment_token": "bt_583649382",
+				"payment_token_id": 2564051
+			},
+			"id": "bt_583649382",
+			"relationships": {
+				"user": {
+					"data": {
+						"id": "5055100",
+						"type": "user"
+					},
+					"links": {
+						"related": "https://www.patreon.com/api/user/5055100"
+					}
+				}
+			},
+			"type": "card"
+		},
+		{
+			"attributes": {
+				"about": "",
+				"created": "2015-10-06T17:31:07+00:00",
+				"facebook": null,
+				"first_name": "WoWAnalyzer",
+				"full_name": "WoWAnalyzer",
+				"gender": 0,
+				"image_url": "https://c10.patreonusercontent.com/3/eyJ2IjoiMSIsInciOjIwMH0%3D/patreon-media/user/2408965/2ff53bcff59d4f29af560bd245964a2c?token-time=2145916800&token-hash=s5ES1RIy1eWdt4MRgxNPnS3gXlOrx2Oeo4u0XElVAqE%3D",
+				"last_name": "",
+				"thumb_url": "https://c10.patreonusercontent.com/3/eyJoIjoxMDAsInYiOiIxIiwidyI6MTAwfQ%3D%3D/patreon-media/user/2408965/2ff53bcff59d4f29af560bd245964a2c?token-time=2145916800&token-hash=dCU6OgqRqnmo-QHpgMMeUVwYaND2sm7sNxs3cgqGa4w%3D",
+				"twitch": null,
+				"twitter": "Zerotorescue",
+				"url": "https://www.patreon.com/wowanalyzer",
+				"vanity": "wowanalyzer",
+				"youtube": null
+			},
+			"id": "2408965",
+			"relationships": {
+				"campaign": {
+					"data": {
+						"id": "223751",
+						"type": "campaign"
+					},
+					"links": {
+						"related": "https://www.patreon.com/api/campaigns/223751"
+					}
+				}
+			},
+			"type": "user"
+		},
+		{
+			"attributes": {
+				"created_at": "2015-10-06T17:54:07+00:00",
+				"creation_count": 3,
+				"creation_name": "a WoW log analysis tool",
+				"discord_server_id": "316864121536512000",
+				"display_patron_goals": false,
+				"earnings_visibility": "public",
+				"image_small_url": "https://c10.patreonusercontent.com/3/eyJoIjo2NDAsInYiOiIzIiwidyI6NjQwfQ%3D%3D/patreon-media/campaign/223751/1e195a1c8783489ea5eb156db7186d49?token-time=2145916800&token-hash=9DuO4i0QZPHiQtpXmLa4CGlDFfMpa54OiVzj0u-GCSI%3D",
+				"image_url": "https://c10.patreonusercontent.com/3/eyJwIjoxLCJ2IjoiMyJ9/patreon-media/campaign/223751/1e195a1c8783489ea5eb156db7186d49?token-time=2145916800&token-hash=fMghX55aZz1H7gDAV5a-AlqE0UXfQSD7Pt4mc00wbvg%3D",
+				"is_charge_upfront": true,
+				"is_charged_immediately": true,
+				"is_monthly": true,
+				"is_nsfw": false,
+				"is_plural": false,
+				"main_video_embed": "",
+				"main_video_url": "",
+				"one_liner": "Providing you a no bullshit service.",
+				"outstanding_payment_amount_cents": 0,
+				"patron_count": 14,
+				"pay_per_name": "month",
+				"pledge_sum": 11290,
+				"pledge_url": "/bePatron?c=223751",
+				"published_at": "2015-11-05T19:41:48+00:00",
+				"summary": "Hey! Thanks for your interest in becoming a patron.<br><br>WoW Analyzer was created out of desire for a tool to show spec specific metrics that were unavailable anywhere else. These metrics can be used to improve your performance, your stat priorities, theorycrafting discussions, to provide feedback to the developers and for other purposes. The addition of <strong>suggestions</strong> allows even novice users to use the tool to find out how they can improve their performance without requiring a deep understand of the class. I am working together with leading theorycrafters for each spec to get you the best information possible with as little class knowledge required as possible.<br><br>Creating and maintaining these kinds of tools take a lot of time and effort and some of my dream features require other resources. Your patronage helps acquire the required resources and provides me with additional motivation to continue spending the required time and effort to improve the tool. I have to actively prioritize how to spend my time since my time is limited between a fulltime job, developing the analyzer, actually playing games and other stuff.<br><br>Please note this Patreon is for helping the core WoW Analyzer. Most specs being developed is done by other volunteers on top of the core I built, please contact them if you would prefer supporting your spec maintainer specifically. Do note that I will try to use your donations to enhance the WoW Analyzer for all specs. An example of this would be renting a server to host the WoW Analyzer and implementing Continuous Integration to make development for all contributors easier.<br><br>No features are currently hidden behind paywalls, so rewards are limited.<br><br><strong>Warcraft Logs</strong><br>WoW Analyzer extensively uses the API of Warcraft Logs to analyze your logs. This costs them server resources which are not free. Please consider contributing to them: <a href=\"https://www.patreon.com/warcraftlogs\">https://www.patreon.com/warcraftlogs</a> (they even have cool rewards).<br>",
+				"thanks_embed": "",
+				"thanks_msg": "Thank you so much for your support!",
+				"thanks_video_url": null
+			},
+			"id": "223751",
+			"relationships": {
+				"creator": {
+					"data": {
+						"id": "2408965",
+						"type": "user"
+					},
+					"links": {
+						"related": "https://www.patreon.com/api/user/2408965"
+					}
+				},
+				"goals": {
+					"data": []
+				},
+				"rewards": {
+					"data": [
+						{
+							"id": "-1",
+							"type": "reward"
+						},
+						{
+							"id": "0",
+							"type": "reward"
+						},
+						{
+							"id": "2106569",
+							"type": "reward"
+						},
+						{
+							"id": "1727653",
+							"type": "reward"
+						},
+						{
+							"id": "1727654",
+							"type": "reward"
+						},
+						{
+							"id": "1727655",
+							"type": "reward"
+						},
+						{
+							"id": "1727659",
+							"type": "reward"
+						}
+					]
+				}
+			},
+			"type": "campaign"
+		},
+		{
+			"attributes": {
+				"amount": 0,
+				"amount_cents": 0,
+				"created_at": null,
+				"description": "Everyone",
+				"remaining": 0,
+				"requires_shipping": false,
+				"url": null,
+				"user_limit": null
+			},
+			"id": "-1",
+			"type": "reward"
+		},
+		{
+			"attributes": {
+				"amount": 1,
+				"amount_cents": 1,
+				"created_at": null,
+				"description": "Patrons Only",
+				"remaining": 0,
+				"requires_shipping": false,
+				"url": null,
+				"user_limit": null
+			},
+			"id": "0",
+			"type": "reward"
+		},
+		{
+			"attributes": {
+				"amount": 100,
+				"amount_cents": 100,
+				"created_at": "2017-10-27T08:37:32.294845+00:00",
+				"description": " <strong>What you get:</strong>\n<ul>\n<li>Our immense gratitude</li>\n<li>Access to our Patrons-exclusive Discord channel where you can ask questions and chat with patrons and contributors more privately</li>\n<li>White name color</li>\n</ul>",
+				"discord_role_ids": [
+					"319025062911148053",
+					"373394596782276609"
+				],
+				"edited_at": "2018-03-25T13:40:17.962451+00:00",
+				"image_url": null,
+				"patron_count": 4,
+				"post_count": null,
+				"published": true,
+				"published_at": "2018-03-25T13:40:17.929213+00:00",
+				"remaining": null,
+				"requires_shipping": false,
+				"title": "Common",
+				"unpublished_at": null,
+				"url": "/bePatron?c=223751&rid=2106569",
+				"user_limit": null
+			},
+			"id": "2106569",
+			"relationships": {
+				"campaign": {
+					"data": {
+						"id": "223751",
+						"type": "campaign"
+					},
+					"links": {
+						"related": "https://www.patreon.com/api/campaigns/223751"
+					}
+				}
+			},
+			"type": "reward"
+		},
+		{
+			"attributes": {
+				"amount": 500,
+				"amount_cents": 500,
+				"created_at": "2017-05-30T08:20:15.681314+00:00",
+				"description": " <strong>What you get:</strong>\n<ul>\n<li>Our immense gratitude</li>\n<li>Access to our Patrons-exclusive Discord channel where you can ask questions and chat with patrons and contributors more privately</li>\n<li>Green name color</li>\n</ul>",
+				"discord_role_ids": [
+					"319025062911148053",
+					"373394684304687107"
+				],
+				"edited_at": "2018-03-25T13:40:11.367475+00:00",
+				"image_url": null,
+				"patron_count": 5,
+				"post_count": null,
+				"published": true,
+				"published_at": "2018-03-25T13:40:11.341148+00:00",
+				"remaining": null,
+				"requires_shipping": false,
+				"title": "Uncommon",
+				"unpublished_at": null,
+				"url": "/bePatron?c=223751&rid=1727653",
+				"user_limit": null
+			},
+			"id": "1727653",
+			"relationships": {
+				"campaign": {
+					"data": {
+						"id": "223751",
+						"type": "campaign"
+					},
+					"links": {
+						"related": "https://www.patreon.com/api/campaigns/223751"
+					}
+				}
+			},
+			"type": "reward"
+		},
+		{
+			"attributes": {
+				"amount": 1000,
+				"amount_cents": 1000,
+				"created_at": "2017-05-30T08:21:18.778096+00:00",
+				"description": " <strong>What you get:</strong>\n<ul>\n<li>Our immense gratitude</li>\n<li>Access to our Patrons-exclusive Discord channel where you can ask questions and chat with patrons and contributors more privately</li>\n<li>Blue name color</li>\n</ul>",
+				"discord_role_ids": [
+					"319025062911148053",
+					"373394788864491520"
+				],
+				"edited_at": "2018-03-25T13:39:57.647952+00:00",
+				"image_url": null,
+				"patron_count": 0,
+				"post_count": null,
+				"published": true,
+				"published_at": "2018-03-25T13:39:57.609718+00:00",
+				"remaining": null,
+				"requires_shipping": false,
+				"title": "Rare",
+				"unpublished_at": null,
+				"url": "/bePatron?c=223751&rid=1727654",
+				"user_limit": null
+			},
+			"id": "1727654",
+			"relationships": {
+				"campaign": {
+					"data": {
+						"id": "223751",
+						"type": "campaign"
+					},
+					"links": {
+						"related": "https://www.patreon.com/api/campaigns/223751"
+					}
+				}
+			},
+			"type": "reward"
+		},
+		{
+			"attributes": {
+				"amount": 2000,
+				"amount_cents": 2000,
+				"created_at": "2017-05-30T08:22:24.460092+00:00",
+				"description": " <strong>What you get:</strong>\n<ul>\n<li>Our immense gratitude</li>\n<li>Access to our Patrons-exclusive Discord channel where you can ask questions and chat with patrons and contributors more privately</li>\n<li>Purple name color OR pick a class color you want! (ping an admin in the #patrons channels)</li>\n</ul>",
+				"discord_role_ids": [
+					"319025062911148053",
+					"373394876471181313"
+				],
+				"edited_at": "2018-03-25T13:40:03.944611+00:00",
+				"image_url": null,
+				"patron_count": 0,
+				"post_count": null,
+				"published": true,
+				"published_at": "2018-03-25T13:40:03.920354+00:00",
+				"remaining": null,
+				"requires_shipping": false,
+				"title": "Epic",
+				"unpublished_at": null,
+				"url": "/bePatron?c=223751&rid=1727655",
+				"user_limit": null
+			},
+			"id": "1727655",
+			"relationships": {
+				"campaign": {
+					"data": {
+						"id": "223751",
+						"type": "campaign"
+					},
+					"links": {
+						"related": "https://www.patreon.com/api/campaigns/223751"
+					}
+				}
+			},
+			"type": "reward"
+		},
+		{
+			"attributes": {
+				"amount": 5000,
+				"amount_cents": 5000,
+				"created_at": "2017-05-30T08:26:18.319682+00:00",
+				"description": " <strong>What you get:</strong>\n<ul>\n<li>Our immense gratitude</li>\n<li>Access to our Patrons-exclusive Discord channel where you can ask questions and chat with patrons and contributors more privately</li>\n<li>Orange name color OR pick a class color you want! (ping an admin in the #patrons channels) </li>\n</ul>",
+				"discord_role_ids": [
+					"319025062911148053",
+					"373394966560636929"
+				],
+				"edited_at": "2018-03-25T13:39:47.569766+00:00",
+				"image_url": null,
+				"patron_count": 1,
+				"post_count": null,
+				"published": true,
+				"published_at": "2018-03-25T13:39:47.527769+00:00",
+				"remaining": null,
+				"requires_shipping": false,
+				"title": "Legendary",
+				"unpublished_at": null,
+				"url": "/bePatron?c=223751&rid=1727659",
+				"user_limit": null
+			},
+			"id": "1727659",
+			"relationships": {
+				"campaign": {
+					"data": {
+						"id": "223751",
+						"type": "campaign"
+					},
+					"links": {
+						"related": "https://www.patreon.com/api/campaigns/223751"
+					}
+				}
+			},
+			"type": "reward"
+		}
+	],
+	"links": {
+		"self": "https://www.patreon.com/api/user/5055100"
+	}
+}
