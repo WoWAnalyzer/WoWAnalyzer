@@ -79,6 +79,7 @@ class EarthenWallTotem extends Analyzer {
 
   statistic() {
     const casts = this.abilityTracker.getAbility(SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id).casts;
+    this.earthenShieldEfficiency = this.healing / this.potentialHealing;
 
     return (
       <StatisticBox

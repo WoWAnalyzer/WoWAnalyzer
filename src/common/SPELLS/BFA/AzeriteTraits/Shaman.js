@@ -47,4 +47,3 @@ export default {
     icon: 'ability_shaman_healingtide',
   },
 };
-  
