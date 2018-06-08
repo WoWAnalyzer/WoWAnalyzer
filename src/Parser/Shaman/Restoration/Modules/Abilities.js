@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
@@ -99,7 +98,7 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         timelineSortIndex: 20,
         isOnGCD: true,
-        enabled: combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id),
+        enabled: combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id),
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.50,
