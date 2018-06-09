@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import ReactTooltip from 'react-tooltip';
 
 import PatreonIcon from 'Icons/PatreonTiny';
 import GitHubMarkIcon from 'Icons/GitHubMarkLarge';
@@ -44,6 +45,10 @@ export class Premium extends React.PureComponent {
       premium: PropTypes.bool,
     }),
   };
+
+  componentDidUpdate() {
+    ReactTooltip.rebuild();
+  }
 
   render() {
     const { user } = this.props;
@@ -117,7 +122,11 @@ export class Premium extends React.PureComponent {
                 <div className="panel-body">
                   Hello {user.name}. Your Premium is currently {user.premium ? <span className="text-success">Active</span> : <span className="text-danger">Inactive</span>}
                   {user.patreon && user.patreon.premium && ' because of your Patreonage'}
-                  {user.github && user.github.premium && <React.Fragment> because of your recent GitHub contribution (active until {(new Date(user.github.expires)).toLocaleString()})</React.Fragment>}
+                  {user.github && user.github.premium && (
+                    <React.Fragment>
+                      {' '}because of a recent GitHub contribution (active until <dfn data-tip="This date will automatically update when you contribute something new.">{(new Date(user.github.expires)).toLocaleString()}</dfn>)
+                    </React.Fragment>
+                  )}
                   . {user.premium && 'Awesome!'}
                 </div>
               </div>

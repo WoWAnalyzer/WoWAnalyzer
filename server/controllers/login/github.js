@@ -3,6 +3,7 @@ import Passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github';
 
 import models from 'models';
+import { fetchGitHubLastCommitDate } from 'helpers/github';
 
 const User = models.User;
 
@@ -14,27 +15,31 @@ Passport.use(new GitHubStrategy(
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL: process.env.GITHUB_CALLBACK_URL,
   },
-  async function (accessToken, refreshToken, profile, done) {
+  async function (accessToken, refreshToken, originalProfile, done) {
     // The passport strategy removes data we need from `profile`, so re-extract the raw data received
-    const fullProfile = profile._json;
+    const profile = originalProfile._json;
 
-    const id = fullProfile.id;
-    const name = fullProfile.name;
+    const id = profile.id;
+    const name = profile.name;
+    const login = profile.login;
 
     if (process.env.NODE_ENV === 'development') {
-      console.log('GitHub login:', fullProfile);
+      console.log('GitHub login:', profile);
     } else {
-      console.log(`GitHub login by ${name} (${id})`);
+      console.log(`GitHub login by ${name} (${id} - ${login})`);
     }
+
+    const lastContribution = await fetchGitHubLastCommitDate(login);
 
     const user = await User.create({
       gitHubId: id,
       data: {
-        name: name,
-        avatar: fullProfile.avatar_url,
+        name,
+        avatar: profile.avatar_url,
         github: {
-          id: fullProfile.id,
-          login: fullProfile.login,
+          login,
+          lastContribution,
+          updatedAt: new Date(),
           accessToken,
           refreshToken,
         },

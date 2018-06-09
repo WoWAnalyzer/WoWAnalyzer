@@ -1,39 +1,69 @@
 import Express from 'express';
 
 import requireAuthenticated from 'helpers/requireAuthenticated';
-import { getGitHubLastCommitDate } from 'helpers/github';
+import { fetchPatreonProfile } from 'helpers/patreon';
+import { fetchGitHubLastCommitDate } from 'helpers/github';
 
 const router = Express.Router();
 
-const GITHUB_COMMIT_PREMIUM_DAYS = 30;
+const GITHUB_COMMIT_PREMIUM_DURATION = 30 * 24 * 3600 * 1000;
+// Don't refresh the 3rd party status more often than this, improving performance of this API and reducing the number of API requests to the third parties.
+const PATREON_REFRESH_INTERVAL = 7 * 24 * 3600 * 1000;
+const GITHUB_REFRESH_INTERVAL = 7 * 24 * 3600 * 1000;
 
-async function getPatreonFromUser(data) {
-  if (!data.patreon) {
-    return undefined;
-  }
-  return {
-    premium: data.patreon.pledgeAmount >= 100,
-  };
+function timeSince(date, now = Date.now()) {
+  return now - date;
 }
-async function getGitHubFromUser(data) {
-  if (!data.github || !data.github.login) {
-    return undefined;
-  }
-  const lastCommitDate = await getGitHubLastCommitDate(data.github.login);
-  if (!lastCommitDate) {
-    return undefined;
-  }
-  const premiumExpiry = new Date(lastCommitDate + (GITHUB_COMMIT_PREMIUM_DAYS * 24 * 3600 * 1000));
-  // TODO: Store date in user object and only refresh after it expired and allow user to manually refresh it
+function hasPatreonPremium(user) {
+  return user.data.patreon && user.data.patreon.pledgeAmount >= 100;
+}
+function githubLastCommitDate(user) {
+  return new Date(user.data.github.lastContribution);
+}
+function hasGitHubPremium(user) {
+  return user.data.github && timeSince(githubLastCommitDate(user)) < GITHUB_COMMIT_PREMIUM_DURATION;
+}
+function githubExpiryDate(user) {
+  return new Date(+githubLastCommitDate(user) + GITHUB_COMMIT_PREMIUM_DURATION);
+}
 
-  return {
-    premium: Date.now() < premiumExpiry,
-    expires: premiumExpiry,
-  };
+async function refreshPatreonProfile(user) {
+  console.log(`Refreshing Patreon data for ${user.data.name} (${user.patreonId})`);
+  const patreonProfile = await fetchPatreonProfile(user.data.patreon.accessToken);
+
+  // We shouldn't have to wait for this update to finish, since it immediately updates the local object's data
+  user.update({
+    data: {
+      ...user.data,
+      name: patreonProfile.name,
+      avatar: patreonProfile.avatar,
+      patreon: {
+        ...user.data.patreon,
+        pledgeAmount: patreonProfile.pledgeAmount,
+        updatedAt: new Date(),
+      },
+    },
+  });
+}
+async function refreshGitHubLastContribution(user) {
+  console.log(`Refreshing GitHub data for ${user.data.name} (${user.gitHubId} - ${user.data.github.login})`);
+  const lastContribution = await fetchGitHubLastCommitDate(user.data.github.login);
+
+  // We shouldn't have to wait for this update to finish, since it immediately updates the local object's data
+  user.update({
+    data: {
+      ...user.data,
+      github: {
+        ...user.data.github,
+        lastContribution,
+        updatedAt: new Date(),
+      },
+    },
+  });
 }
 
 if (process.env.UNSAFE_ACCESS_CONTROL_ALLOW_ALL) {
-  // When developing it might be nice to run the front-end webpack dev server on a different port from the back-end server and route API calls to the local server instead of production. The .env.development sets this to *. It's unset in production.
+  // When developing it might be nice to run the front-end webpack dev server on a different port from the back-end server and route API calls to the local server instead of production. The .env.development enables this automatically. It's unset in production.
   router.all('/', function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', req.headers['origin'] || '*');
     res.setHeader('Access-Control-Allow-Credentials', true);
@@ -43,18 +73,54 @@ if (process.env.UNSAFE_ACCESS_CONTROL_ALLOW_ALL) {
 }
 router.get('/', requireAuthenticated, async function(req, res) {
   const user = req.user;
-  const data = user.data;
 
-  const patreon = await getPatreonFromUser(data);
-  const github = await getGitHubFromUser(data);
+  const response = {
+    name: user.data.name,
+    avatar: user.data.avatar,
+  };
 
-  res.json({
-    name: data.name,
-    avatar: data.avatar,
-    patreon,
-    github,
-    premium: (patreon && patreon.premium) || (github && github.premium),
-  });
+  if (user.data.patreon) {
+    const isOutdated = timeSince(new Date(user.data.patreon.updatedAt)) > PATREON_REFRESH_INTERVAL;
+    if (isOutdated) {
+      await refreshPatreonProfile(user);
+    }
+  }
+  let githubRefreshed = false;
+  if (user.data.github) {
+    const isOutdated = timeSince(new Date(user.data.github.updatedAt)) > GITHUB_REFRESH_INTERVAL;
+    if (isOutdated) {
+      await refreshGitHubLastContribution(user);
+      githubRefreshed = true;
+    }
+  }
+
+  if (hasPatreonPremium(user)) {
+    response.premium = true;
+    response.patreon = {
+      premium: true,
+    };
+  }
+  if (hasGitHubPremium(user)) {
+    const expiryDate = githubExpiryDate(user);
+    const now = new Date();
+    if (now > expiryDate) {
+      if (githubRefreshed) {
+        throw new Error('GitHub premium is active but it says it expired. It just refreshed so this should never happen.');
+      }
+      console.log('Refreshing GitHub since Premium expired.');
+      await refreshGitHubLastContribution(user);
+    }
+
+    if (hasGitHubPremium(user)) { // it might have changed since the refresh
+      response.premium = true;
+      response.github = {
+        premium: true,
+        expires: expiryDate,
+      };
+    }
+  }
+
+  res.json(response);
 });
 
 export default router;
