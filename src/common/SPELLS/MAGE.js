@@ -143,13 +143,18 @@ export default {
     name: 'Frozen Orb',
     icon: 'spell_frost_frozenorb',
   },
+  FROZEN_ORB_DAMAGE: {
+    id: 84721,
+    name: 'Frozen orb',
+    icon: 'spell_frost_frozenorb',
+  },
   SUMMON_WATER_ELEMENTAL: {
     id: 31687,
     name: 'Summon Water Elemental',
     icon: 'spell_frost_summonwaterelemental_2',
   },
   EBONBOLT_DAMAGE: {
-    id: 228599,
+    id: 257538,
     name: 'Ebonbolt',
     icon: 'artifactability_frostmage_ebonbolt',
   },
