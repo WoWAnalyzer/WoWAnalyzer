@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Premium matches snapshot when logged in 1`] = `
+exports[`Premium matches snapshot when logged in with GitHub 1`] = `
 <div
   className="container"
 >
@@ -183,24 +183,209 @@ exports[`Premium matches snapshot when logged in 1`] = `
           >
             Inactive
           </span>
+          <React.Fragment>
+             
+            because of a recent GitHub contribution (active until 
+            <dfn
+              data-tip="This date will automatically update when you contribute something new."
+            >
+              Mon Jul 02 2018 13:48:40 GMT+0200 (W. Europe Daylight Time)
+            </dfn>
+            )
+          </React.Fragment>
           . 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Premium matches snapshot when logged in with Patreon 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-lg-3 col-lg-offset-1 col-md-4 col-sm-5"
+    >
+      <div
+        className="panel"
+      >
+        <div
+          className="panel-body"
+          style={
+            Object {
+              "padding": "0 15px",
+            }
+          }
+        >
+          <div
+            className="row image-background"
+            style={
+              Object {
+                "paddingBottom": 15,
+                "paddingTop": 300,
+                "position": "relative",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "left": 0,
+                  "overflow": "hidden",
+                  "pointerEvents": "none",
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                }
+              }
+            >
+              <CyclingVideo
+                style={
+                  Object {
+                    "height": "100%",
+                    "objectFit": "cover",
+                    "width": "100%",
+                  }
+                }
+                videos={
+                  Array [
+                    "https://media.giphy.com/media/7TqE3VIAU2odkmneHU/giphy.mp4",
+                    "https://media.giphy.com/media/5kFzxK6ENfjrcoMgt1/giphy.mp4",
+                    "https://media.giphy.com/media/PoCoePEEB1EC6buvFU/giphy.mp4",
+                    "https://media.giphy.com/media/8cv2DoGyUClMuCKalT/giphy.mp4",
+                    "https://media.giphy.com/media/fUZW0LIJhtbDnBtqkX/giphy.mp4",
+                    "https://media.giphy.com/media/2erqKiXvYpXeGH9XJ5/giphy.mp4",
+                  ]
+                }
+              />
+            </div>
+            <div
+              className="col-md-12"
+            >
+              <h1>
+                Premium sign in
+              </h1>
+              <div
+                className="description"
+              >
+                Sign in with your Patreon or GitHub account.
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+          >
+            <div
+              className="col-lg-6"
+              style={
+                Object {
+                  "padding": 0,
+                }
+              }
+            >
+              <a
+                className="btn btn-block patreon-login"
+                href="/login/patreon"
+              >
+                <Icon />
+                 Patreon
+              </a>
+            </div>
+            <div
+              className="col-lg-6"
+              style={
+                Object {
+                  "padding": 0,
+                }
+              }
+            >
+              <a
+                className="btn btn-block github-login"
+                href="/login/github"
+              >
+                <Icon />
+                 GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col-lg-7 col-md-8 col-sm-7"
+    >
+      <div
+        className="panel"
+      >
+        <div
+          className="panel-heading"
+        >
+          <h2>
+            WoWAnalyzer premium
+          </h2>
+        </div>
+        <div
+          className="panel-body"
+        >
+          <Icon
+            style={
+              Object {
+                "color": "#e45a5a",
+                "float": "right",
+                "fontSize": "6em",
+                "marginTop": 0,
+              }
+            }
+          />
+          Help out development and get WoWAnalyzer premium in return! Apart from funding development and thus getting the tool as it is today and future improvements, an early adopter gets the following rewards:
+          <br />
+          <ul>
+            <li>
+              our thanks.
+            </li>
+          </ul>
+          <br />
+          Doesn't that sound awesome?! You too can get premium by helping out development, either by helping fund development on Patreon or by contributing something via a pull request on GitHub.
           <br />
           <br />
-          Patreon: 
+          <PatreonButton
+            text="Become a Patron"
+          />
+           
+          <GithubButton
+            text="View on GitHub"
+          />
+        </div>
+      </div>
+      <div
+        className="panel"
+      >
+        <div
+          className="panel-heading"
+        >
+          <h2>
+            You
+          </h2>
+        </div>
+        <div
+          className="panel-body"
+        >
+          Hello 
+          Martijn Hols
+          . Your Premium is currently 
           <span
             className="text-danger"
           >
             Inactive
           </span>
-          <br />
-          GitHub: 
-          <span
-            className="text-success"
-          >
-            Active (expires 
-            2018-7-2 13:48:40
-            )
-          </span>
+           because of your Patreonage
+          . 
         </div>
       </div>
     </div>

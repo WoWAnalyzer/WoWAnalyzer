@@ -10,7 +10,7 @@ describe('Premium', () => {
     ));
     expect(tree).toMatchSnapshot();
   });
-  it('matches snapshot when logged in', () => {
+  it('matches snapshot when logged in with GitHub', () => {
     const tree = shallow((
       <Premium
         user={{
@@ -18,6 +18,20 @@ describe('Premium', () => {
           github: {
             premium: true,
             expires: '2018-07-02T11:48:40.000Z',
+          },
+        }}
+        dateToLocaleString={a => a.toString()}
+      />
+    ));
+    expect(tree).toMatchSnapshot();
+  });
+  it('matches snapshot when logged in with Patreon', () => {
+    const tree = shallow((
+      <Premium
+        user={{
+          name: 'Martijn Hols',
+          patreon: {
+            premium: true,
           },
         }}
       />

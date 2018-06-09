@@ -44,6 +44,11 @@ export class Premium extends React.PureComponent {
       avatar: PropTypes.string,
       premium: PropTypes.bool,
     }),
+    dateToLocaleString: PropTypes.func,
+  };
+  static defaultProps = {
+    // We need to override this in tests to avoid different results in different environments.
+    dateToLocaleString: date => date.toLocaleString(),
   };
 
   componentDidUpdate() {
@@ -124,7 +129,7 @@ export class Premium extends React.PureComponent {
                   {user.patreon && user.patreon.premium && ' because of your Patreonage'}
                   {user.github && user.github.premium && (
                     <React.Fragment>
-                      {' '}because of a recent GitHub contribution (active until <dfn data-tip="This date will automatically update when you contribute something new.">{(new Date(user.github.expires)).toLocaleString()}</dfn>)
+                      {' '}because of a recent GitHub contribution (active until <dfn data-tip="This date will automatically update when you contribute something new.">{this.props.dateToLocaleString(new Date(user.github.expires))}</dfn>)
                     </React.Fragment>
                   )}
                   . {user.premium && 'Awesome!'}
