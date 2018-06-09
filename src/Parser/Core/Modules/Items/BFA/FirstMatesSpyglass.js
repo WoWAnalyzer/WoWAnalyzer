@@ -31,7 +31,6 @@ class FirstMatesSpyglass extends Analyzer {
         spell: SPELLS.SPYGLASS_SIGHT,
         name: ITEMS.FIRST_MATES_SPYGLASS.name,
         category: Abilities.SPELL_CATEGORIES.ITEMS,
-        charges: 1,
         cooldown: 120,
         castEfficiency: {
           suggestion: true,
@@ -53,9 +52,10 @@ class FirstMatesSpyglass extends Analyzer {
     }
     if (event.hitType !== HIT_TYPES.CRIT) {
       this.timesHit += 1;
-    }
+    } else {
     this.timesHit += 1;
     this.timesCrit += 1;
+    }
   }
   
   on_byPlayer_heal(event) {
@@ -64,9 +64,10 @@ class FirstMatesSpyglass extends Analyzer {
     }      
     if (event.hitType !== HIT_TYPES.CRIT) {
       this.timesHit += 1;
-      }
+      } else {
       this.timesHit += 1;
       this.timesCrit += 1;
+    }
   }
   
   get totalBuffUptime() {
