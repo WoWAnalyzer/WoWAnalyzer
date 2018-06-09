@@ -12,13 +12,13 @@ import SPELLS from 'common/SPELLS';
 const DE_DURATION = 12;
 const MILLISECONDS = 1000;
 
-class DEUptimePet extends Analyzer{
+class DemonicEmpowermentUptimePet extends Analyzer{
 
-  total_empowered_time = 0;
-  last_de_timestamp = null;
+  totalEmpoweredTime = 0;
+  lastDemonicEmpowermentTimestamp = null;
 
   get uptime(){
-    return (this.total_empowered_time/this.owner.fightDuration);
+    return (this.totalEmpoweredTime/this.owner.fightDuration);
   }
 
   get suggestionThresholds(){
@@ -37,7 +37,7 @@ class DEUptimePet extends Analyzer{
     const spellId = event.ability.guid;
     if(event.prepull && spellId === SPELLS.DEMONIC_EMPOWERMENT.id){
       //Player may have pre-buffed their pet.
-      this.last_de_timestamp = this.owner.fight.start_time;
+      this.lastDemonicEmpowermentTimestamp = this.owner.fight.start_time;
     }
   }
 
@@ -46,14 +46,14 @@ class DEUptimePet extends Analyzer{
     // Which as a Demonology warlock, we really hope is a reasonable assumption.
     const spellId = event.ability.guid;
     if(spellId === SPELLS.DEMONIC_EMPOWERMENT.id){
-      if(this.last_de_timestamp === null){
-        this.last_de_timestamp = event.timestamp;
+      if(this.lastDemonicEmpowermentTimestamp === null){
+        this.lastDemonicEmpowermentTimestamp = event.timestamp;
       }
-      const deOverlap = Math.max(0, this.last_de_timestamp + (DE_DURATION * MILLISECONDS) - event.timestamp);
+      const deOverlap = Math.max(0, this.lastDemonicEmpowermentTimestamp + (DE_DURATION * MILLISECONDS) - event.timestamp);
       const endOverlap = Math.max(0, (event.timestamp - this.owner.fight.end_time));
       const delta = (DE_DURATION * MILLISECONDS) - deOverlap - endOverlap;
-      this.total_empowered_time += delta;
-      this.last_de_timestamp = event.timestamp;
+      this.totalEmpoweredTime += delta;
+      this.lastDemonicEmpowermentTimestamp = event.timestamp;
     }
   }
 
@@ -76,4 +76,4 @@ class DEUptimePet extends Analyzer{
 
 }
 
-export default DEUptimePet;
+export default DemonicEmpowermentUptimePet;

@@ -16,12 +16,11 @@ import AlwaysBeCasting from 'Parser/Warlock/Demonology/Modules/Features/AlwaysBe
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import DoomguardInfernal from 'Parser/Warlock/Demonology/Modules/Features/DoomguardInfernal';
 import Felstorm from 'Parser/Warlock/Demonology/Modules/Features/Felstorm';
-import CallDreadstalkers from 'Parser/Warlock/Demonology/Modules/Features/CallDreadstalkers';
-import DEUptimePet from 'Parser/Warlock/Demonology/Modules/Features/DEUptimePet';
+import DemonicEmpowermentUptimePet from 'Parser/Warlock/Demonology/Modules/Features/DemonicEmpowermentUptimePet';
 import AbilityTracker from 'Parser/Core/Modules/Combatants';
-import DEUptimeDreadstalkers from 'Parser/Warlock/Demonology/Modules/Features/DEUptimeDreadstalkers';
-import DEUptimeHoG from 'Parser/Warlock/Demonology/Modules/Features/DEUptimeHoG';
-import DEUptimeDoomguardInfernal from 'Parser/Warlock/Demonology/Modules/Features/DEUptimeDoomguardInfernal';
+import DemonicEmpowermentUptimeCallDreadstalkers from 'Parser/Warlock/Demonology/Modules/Features/DemonicEmpowermentUptimeCallDreadstalkers';
+import DemonicEmpowermentUptimeHandOfGuldan from 'Parser/Warlock/Demonology/Modules/Features/DemonicEmpowermentUptimeHandOfGuldan';
+import DemonicEmpowermentUptimeDoomguardInfernal from 'Parser/Warlock/Demonology/Modules/Features/DemonicEmpowermentUptimeDoomguardInfernal';
 
 
 class Checklist extends CoreChecklist{
@@ -36,11 +35,10 @@ class Checklist extends CoreChecklist{
     prePotion: PrePotion,
     doomguardInfernal : DoomguardInfernal,
     felstorm: Felstorm,
-    callDreadstalkers: CallDreadstalkers,
-    deUptimePet: DEUptimePet,
-    deUptimeDreadstalkers: DEUptimeDreadstalkers,
-    deUptimeHog: DEUptimeHoG,
-    deUptimeDoomguardInfernal: DEUptimeDoomguardInfernal,
+    deUptimePet: DemonicEmpowermentUptimePet,
+    demonicEmpoermentUptimeCallDreadstalkers: DemonicEmpowermentUptimeCallDreadstalkers,
+    demonicEmpowermentUptimeHandOfGuldan: DemonicEmpowermentUptimeHandOfGuldan,
+    demonicEmpowermentUptimeDoomguardInfernal: DemonicEmpowermentUptimeDoomguardInfernal,
     enchantChecker: EnchantChecker,
     soulShardDetails: SoulShardDetails,
     soulShardTracker: SoulShardTracker,
@@ -53,25 +51,25 @@ class Checklist extends CoreChecklist{
       description: <React.Fragment>Follow your rotation closely to maximize DPS. Note that if you have <SpellLink id={SPELLS.WARLOCK_DEMO_T20_2P_BONUS.id} icon/>, Call Dreadstalkers is a rough estimate based on number of procs.</React.Fragment>,
       requirements: () => {
         return [
-          new Requirement({
-           name: <React.Fragment><SpellLink id={SPELLS.CALL_DREADSTALKERS.id} icon/> Efficiency</React.Fragment>,
-           check: () => this.callDreadstalkers.suggestionThresholds,
-         }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.CALL_DREADSTALKERS,
+            onlyWithSuggestion: false,
+          }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.DEMONIC_EMPOWERMENT.id} icon/> Main Pet Uptime</React.Fragment>,
             check: () => this.deUptimePet.suggestionThresholds,
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.CALL_DREADSTALKERS.id} icon/> Empowerment Uptime</React.Fragment>,
-            check: () => this.deUptimeDreadstalkers.suggestionThresholds,
+            check: () => this.demonicEmpoermentUptimeCallDreadstalkers.suggestionThresholds,
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.HAND_OF_GULDAN_CAST.id} icon/> Empowerment Uptime</React.Fragment>,
-            check: () => this.deUptimeHog.suggestionThresholds,
+            check: () => this.demonicEmpowermentUptimeHandOfGuldan.suggestionThresholds,
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} icon/>/<SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} icon/> Empowerment Uptime</React.Fragment>,
-            check: () => this.deUptimeDoomguardInfernal.suggestionThresholds,
+            check: () => this.demonicEmpowermentUptimeDoomguardInfernal.suggestionThresholds,
           }),
         ];
       },

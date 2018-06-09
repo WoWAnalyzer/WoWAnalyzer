@@ -12,13 +12,13 @@ import SpellIcon from 'common/SpellIcon';
 const IMP_DURATION = 12;
 const MILLISECONDS = 1000;
 
-class DEUptimeHoG extends Analyzer{
-  unempowered_casts = [];
-  hog_casts = 0;
-  total_empowered_time = 0;
+class DemonicEmpowermentUptimeHandOfGuldan extends Analyzer{
+  unempoweredCasts = [];
+  hogCasts = 0;
+  totalEmpoweredTime = 0;
 
   get uptime(){
-    return this.total_empowered_time / (this.hog_casts * IMP_DURATION * MILLISECONDS);
+    return this.totalEmpoweredTime / (this.hogCasts * IMP_DURATION * MILLISECONDS);
   }
 
   get suggestionThresholds(){
@@ -36,16 +36,16 @@ class DEUptimeHoG extends Analyzer{
   on_byPlayer_cast(event){
     const spellId = event.ability.guid;
     if(spellId === SPELLS.HAND_OF_GULDAN_CAST.id){
-      this.hog_casts += 1;
-      this.unempowered_casts.push(event.timestamp);
+      this.hogCasts += 1;
+      this.unempoweredCasts.push(event.timestamp);
     } else if (spellId === SPELLS.DEMONIC_EMPOWERMENT.id){
-      this.unempowered_casts.forEach((e) => {
+      this.unempoweredCasts.forEach((e) => {
         if(event.timestamp - e <= IMP_DURATION * MILLISECONDS){
           const time_delta = (IMP_DURATION * MILLISECONDS) - (event.timestamp - e);
-          this.total_empowered_time += time_delta;
+          this.totalEmpoweredTime += time_delta;
         }
       });
-      this.unempowered_casts = [];
+      this.unempoweredCasts = [];
     }
   }
 
@@ -68,4 +68,4 @@ class DEUptimeHoG extends Analyzer{
 
 }
 
-export default DEUptimeHoG;
+export default DemonicEmpowermentUptimeHandOfGuldan;
