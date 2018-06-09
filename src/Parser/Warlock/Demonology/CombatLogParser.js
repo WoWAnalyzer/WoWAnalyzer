@@ -7,8 +7,7 @@ import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTrac
 import DoomguardInfernal from './Modules/Features/DoomguardInfernal';
 import Felstorm from './Modules/Features/Felstorm';
 import DemonicEmpowermentUptimePet from './Modules/Features/DemonicEmpowermentUptimePet';
-import DemonicEmpowermentUptimeCallDreadstalkers from './Modules/Features/DemonicEmpowermentUptimeCallDreadstalkers';
-import DemonicEmpowermentUptimeHandOfGuldan from './Modules/Features/DemonicEmpowermentUptimeHandOfGuldan';
+import DemonicEmpowermentUptimeHandOfGuldanCallDreadstalkers from './Modules/Features/DemonicEmpowermentUptimeHandOfGuldanCallDreadstalkers';
 import DemonicEmpowermentUptimeDoomguardInfernal from './Modules/Features/DemonicEmpowermentUptimeDoomguardInfernal';
 import Checklist from './Modules/Features/Checklist';
 
@@ -53,8 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
     doomguardInfernal: DoomguardInfernal,
     felstorm: Felstorm,
     demonicEmpowermentUptiumePet: DemonicEmpowermentUptimePet,
-    demonicEmpowermentUptimeCallDreadstalkers: DemonicEmpowermentUptimeCallDreadstalkers,
-    demonicEmpowermentUptimeHandOfGuldan: DemonicEmpowermentUptimeHandOfGuldan,
+    demonicEmpowermentUptimeHandOfGuldan: DemonicEmpowermentUptimeHandOfGuldanCallDreadstalkers,
     demonicEmpowermentUptimeDoomguardInfernal: DemonicEmpowermentUptimeDoomguardInfernal,
     checklist: Checklist,
 

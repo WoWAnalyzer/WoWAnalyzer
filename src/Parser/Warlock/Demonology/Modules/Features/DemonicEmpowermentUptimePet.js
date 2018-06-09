@@ -70,7 +70,7 @@ class DemonicEmpowermentUptimePet extends Analyzer{
 
   statistic(){
     return(
-      <StatisticBox icon={<SpellIcon id={SPELLS.DEMONIC_EMPOWERMENT.id}/>} value={`${formatPercentage(this.uptime)} %`} label={'Main Pet Demonic Empowerment Uptime'} />
+      <StatisticBox icon={<SpellIcon id={SPELLS.DEMONIC_EMPOWERMENT.id}/>} value={`${formatPercentage(this.uptime)} %`} label='Main Pet Demonic Empowerment Uptime' />
     );
   }
 
