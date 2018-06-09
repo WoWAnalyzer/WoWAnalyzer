@@ -35,7 +35,7 @@ class Checklist extends CoreChecklist{
     prePotion: PrePotion,
     doomguardInfernal : DoomguardInfernal,
     felstorm: Felstorm,
-    deUptimePet: DemonicEmpowermentUptimePet,
+    demonicEmpowermentUptimePet: DemonicEmpowermentUptimePet,
     demonicEmpowermentUptimeHandOfGuldanCallDreadstalkers: DemonicEmpowermentUptimeHandOfGuldanCallDreadstalkers,
     demonicEmpowermentUptimeDoomguardInfernal: DemonicEmpowermentUptimeDoomguardInfernal,
     enchantChecker: EnchantChecker,
@@ -50,6 +50,7 @@ class Checklist extends CoreChecklist{
       name: 'Rotation Spells',
       description: <React.Fragment>Follow your rotation closely to maximize DPS. Note that if you have <SpellLink id={SPELLS.WARLOCK_DEMO_T20_2P_BONUS.id} icon/>, Call Dreadstalkers is a rough estimate based on number of procs.</React.Fragment>,
       requirements: () => {
+        const combatant = this.combatants.selected;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.CALL_DREADSTALKERS,
@@ -57,7 +58,7 @@ class Checklist extends CoreChecklist{
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.DEMONIC_EMPOWERMENT.id} icon/> Main Pet Uptime</React.Fragment>,
-            check: () => this.deUptimePet.suggestionThresholds,
+            check: () => this.demonicEmpowermentUptimePet.suggestionThresholds,
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.CALL_DREADSTALKERS.id} icon/> Empowerment Uptime</React.Fragment>,
@@ -70,6 +71,7 @@ class Checklist extends CoreChecklist{
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} icon/>/<SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} icon/> Empowerment Uptime</React.Fragment>,
             check: () => this.demonicEmpowermentUptimeDoomguardInfernal.suggestionThresholds,
+            when: !combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.DOOM.id} icon /> Uptime</React.Fragment>,

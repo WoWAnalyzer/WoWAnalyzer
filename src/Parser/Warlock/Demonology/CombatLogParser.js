@@ -9,6 +9,7 @@ import Felstorm from './Modules/Features/Felstorm';
 import DemonicEmpowermentUptimePet from './Modules/Features/DemonicEmpowermentUptimePet';
 import DemonicEmpowermentUptimeHandOfGuldanCallDreadstalkers from './Modules/Features/DemonicEmpowermentUptimeHandOfGuldanCallDreadstalkers';
 import DemonicEmpowermentUptimeDoomguardInfernal from './Modules/Features/DemonicEmpowermentUptimeDoomguardInfernal';
+import SpellUsable from './Modules/Features/SpellUsable';
 import Checklist from './Modules/Features/Checklist';
 
 import Doom from './Modules/Features/DoomUptime';
@@ -51,9 +52,10 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     doomguardInfernal: DoomguardInfernal,
     felstorm: Felstorm,
-    demonicEmpowermentUptiumePet: DemonicEmpowermentUptimePet,
+    demonicEmpowermentUptimePet: DemonicEmpowermentUptimePet,
     demonicEmpowermentUptimeHandOfGuldan: DemonicEmpowermentUptimeHandOfGuldanCallDreadstalkers,
     demonicEmpowermentUptimeDoomguardInfernal: DemonicEmpowermentUptimeDoomguardInfernal,
+    spellUsable: SpellUsable,
     checklist: Checklist,
 
 
