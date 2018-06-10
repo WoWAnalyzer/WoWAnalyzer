@@ -45,6 +45,16 @@ class RipSnapshot extends Snapshot {
     comboPointTracker: ComboPointTracker,
   };
 
+  static spellName = SPELLS.RIP.name;
+  static spellCastId = SPELLS.RIP.id;
+  static debuffId = SPELLS.RIP.id;
+  static durationOfFresh = RIP_BASE_DURATION;
+  static isProwlAffected = false;
+  static isTigersFuryAffected = true;
+  static isBloodtalonsAffected = true;
+
+  static hasSabertooth = false;
+
   downgradeCount = 0;
   shouldBeBiteCount = 0;
 
@@ -57,25 +67,17 @@ class RipSnapshot extends Snapshot {
    * which is called by Snapshot in response to debuffapply and debuffrefresh.
    */
   comboLastRip = 0;
-  hasSabertooth = false;
   healthFraction = {};
 
   on_initialized() {
-    this.spellCastId = SPELLS.RIP.id;
-    this.debuffId = SPELLS.RIP.id;
-    this.durationOfFresh = RIP_BASE_DURATION;
-    this.isProwlAffected = false;
-    this.isTigersFuryAffected = true;
-    this.isBloodtalonsAffected = true;
-
+    super.on_initialized();
     const combatant = this.combatants.selected;
     if (combatant.hasTalent(SPELLS.JAGGED_WOUNDS_TALENT.id)) {
-      this.durationOfFresh *= JAGGED_WOUNDS_MODIFIER;
+      this.constructor.durationOfFresh = RIP_BASE_DURATION * JAGGED_WOUNDS_MODIFIER;
     }
     if (combatant.hasTalent(SPELLS.SABERTOOTH_TALENT.id)) {
-      this.hasSabertooth = true;
+      this.constructor.hasSabertooth = true;
     }
-    super.on_initialized();
   }
 
   on_byPlayer_cast(event) {
@@ -96,14 +98,14 @@ class RipSnapshot extends Snapshot {
   // use damage events to keep track of each target's health to tell when they're in "execute" range
   on_byPlayer_damage(event) {
     // no need to track health if combatant has sabertooth, and don't track health of friendlies.
-    if (this.hasSabertooth || event.targetIsFriendly) {
+    if (this.constructor.hasSabertooth || event.targetIsFriendly) {
       return;
     }
     this.healthFraction[encodeTargetString(event.targetID, event.targetInstance)] = event.hitPoints / event.maxHitPoints;
   }
 
   biteCanRefresh(target) {
-    return this.hasSabertooth || 
+    return this.constructor.hasSabertooth || 
       (this.healthFraction[target] && this.healthFraction[target] < BITE_EXECUTE_RANGE);
   }
 
@@ -118,8 +120,8 @@ class RipSnapshot extends Snapshot {
     }
 
     // Bite sets an existing Rip bleed to the base duration regardless of the current duration - even if that reduces it
-    existing.expireTime = event.timestamp + this.durationOfFresh;
-    existing.pandemicTime = event.timestamp + this.durationOfFresh * (1.0 - PANDEMIC_FRACTION);
+    existing.expireTime = event.timestamp + this.constructor.durationOfFresh;
+    existing.pandemicTime = event.timestamp + this.constructor.durationOfFresh * (1.0 - PANDEMIC_FRACTION);
     debug && console.log(`${this.owner.formatTimestamp(event.timestamp)} bite extended rip to ${this.owner.formatTimestamp(existing.expireTime)}`);
   }
 
@@ -200,7 +202,7 @@ class RipSnapshot extends Snapshot {
     when(this.downgradeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <React.Fragment>
-          Try not to refresh <SpellLink id={SPELLS.RIP.id} /> before the <dfn data-tip={`The last ${(this.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Rip's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</dfn> unless you have more powerful <dfn data-tip={"Applying Rip with Tiger's Fury or Bloodtalons will boost its damage until you reapply it."}>snapshot buffs</dfn> than were present when it was first cast.
+          Try not to refresh <SpellLink id={SPELLS.RIP.id} /> before the <dfn data-tip={`The last ${(this.constructor.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Rip's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</dfn> unless you have more powerful <dfn data-tip={"Applying Rip with Tiger's Fury or Bloodtalons will boost its damage until you reapply it."}>snapshot buffs</dfn> than were present when it was first cast.
         </React.Fragment>
       )
         .icon(SPELLS.RIP.icon)
@@ -210,7 +212,7 @@ class RipSnapshot extends Snapshot {
 
     when(this.shouldBeBiteSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       let suggestText;
-      if (this.hasSabertooth) {
+      if (this.constructor.hasSabertooth) {
         suggestText = (
           <React.Fragment>
             With <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> you should use <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> to extend the duration of <SpellLink id={SPELLS.RIP.id} />. Only use <SpellLink id={SPELLS.RIP.id} /> when the bleed is missing or when you can improve the <dfn data-tip={"Applying Rip with Tiger's Fury or Bloodtalons will boost its damage until you reapply it. This boost is maintained when Bite extends the bleed."}>snapshot.</dfn>

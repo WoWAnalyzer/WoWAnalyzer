@@ -40,12 +40,13 @@ class Snapshot extends Analyzer {
   };
 
   // extending class should fill these in:
-  spellCastId = null;
-  debuffId = null;
-  isProwlAffected = false;
-  isTigersFuryAffected = false;
-  isBloodtalonsAffected = false;
-  durationOfFresh = false;
+  static spellName = null;
+  static spellCastId = null;
+  static debuffId = null;
+  static isProwlAffected = false;
+  static isTigersFuryAffected = false;
+  static isBloodtalonsAffected = false;
+  static durationOfFresh = null;
 
   stateByTarget = {};
   lastDoTCastEvent;
@@ -53,7 +54,7 @@ class Snapshot extends Analyzer {
   castCount = 0;
 
   on_byPlayer_cast(event) {
-    if (this.spellCastId !== event.ability.guid) {
+    if (this.constructor.spellCastId !== event.ability.guid) {
       return;
     }
     this.castCount += 1;
@@ -61,21 +62,21 @@ class Snapshot extends Analyzer {
   }
 
   on_initialized() {
-    if (!this.spellCastId || !this.debuffId) {
+    if (!this.constructor.spellCastId || !this.constructor.debuffId) {
       this.active = false;
-      debug && console.warn('Snapshot missing spellCastId or debuffId.');
+      throw new Error('Snapshot should be extended and provided with spellCastId and debuffId.');
     }
   }
 
   on_byPlayer_applydebuff(event) {
-    if (this.debuffId !== event.ability.guid) {
+    if (this.constructor.debuffId !== event.ability.guid) {
       return;
     }
     this.dotApplied(event);
   }
 
   on_byPlayer_refreshdebuff(event) {
-    if (this.debuffId !== event.ability.guid) {
+    if (this.constructor.debuffId !== event.ability.guid) {
       return;
     }
     this.dotApplied(event);
@@ -87,31 +88,31 @@ class Snapshot extends Analyzer {
     const stateNew = this.makeNewState(event, stateOld);
     this.stateByTarget[targetString] = stateNew;
 
-    debug && console.log(`DoT ${this.debuffId} applied at ${this.owner.formatTimestamp(event.timestamp, 3)} Prowl:${stateNew.prowl}, TF: ${stateNew.tigersFury}, BT: ${stateNew.bloodtalons}. Expires at ${this.owner.formatTimestamp(stateNew.expireTime, 3)}`);
+    debug && console.log(`DoT ${this.constructor.debuffId} applied at ${this.owner.formatTimestamp(event.timestamp, 3)} Prowl:${stateNew.prowl}, TF: ${stateNew.tigersFury}, BT: ${stateNew.bloodtalons}. Expires at ${this.owner.formatTimestamp(stateNew.expireTime, 3)}`);
 
     this.checkRefreshRule(stateNew);
   }
 
   makeNewState(debuffEvent, stateOld) {
     const timeRemainOnOld = stateOld ? (stateOld.expireTime - debuffEvent.timestamp) : 0;
-    let expireNew = debuffEvent.timestamp + this.durationOfFresh;
+    let expireNew = debuffEvent.timestamp + this.constructor.durationOfFresh;
     if (timeRemainOnOld > 0) {
-      expireNew += Math.min(this.durationOfFresh * PANDEMIC_FRACTION, timeRemainOnOld);
+      expireNew += Math.min(this.constructor.durationOfFresh * PANDEMIC_FRACTION, timeRemainOnOld);
     }
 
     const combatant = this.combatants.selected;
     const stateNew = {
       expireTime: expireNew,
-      pandemicTime: expireNew - this.durationOfFresh * PANDEMIC_FRACTION,
-      tigersFury: this.isTigersFuryAffected &&
+      pandemicTime: expireNew - this.constructor.durationOfFresh * PANDEMIC_FRACTION,
+      tigersFury: this.constructor.isTigersFuryAffected &&
         combatant.hasBuff(SPELLS.TIGERS_FURY.id),
-      prowl: this.isProwlAffected && (
+      prowl: this.constructor.isProwlAffected && (
         combatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id) ||
         combatant.hasBuff(SPELLS.PROWL.id, null, BUFF_WINDOW_TIME) ||
         combatant.hasBuff(SPELLS.PROWL_INCARNATION.id, null, BUFF_WINDOW_TIME) ||
         combatant.hasBuff(SPELLS.SHADOWMELD.id, null, BUFF_WINDOW_TIME)
       ),
-      bloodtalons: this.isBloodtalonsAffected &&
+      bloodtalons: this.constructor.isBloodtalonsAffected &&
         combatant.hasBuff(SPELLS.BLOODTALONS_BUFF.id, null, BUFF_WINDOW_TIME),
       power: 1,
       startTime: debuffEvent.timestamp,
@@ -124,7 +125,7 @@ class Snapshot extends Analyzer {
 
     if (!stateNew.castEvent ||
         stateNew.startTime > stateNew.castEvent.timestamp + CAST_WINDOW_TIME ) {
-      debug && console.warn(`DoT ${this.debuffId} applied debuff at ${this.owner.formatTimestamp(debuffEvent.timestamp, 3)} doesn't have a recent matching cast event.`);
+      debug && console.warn(`DoT ${this.constructor.debuffId} applied debuff at ${this.owner.formatTimestamp(debuffEvent.timestamp, 3)} doesn't have a recent matching cast event.`);
     }
     
     return stateNew;

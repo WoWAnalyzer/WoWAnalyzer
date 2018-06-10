@@ -19,6 +19,14 @@ const FORGIVE_PROWL_LOSS_TIME = 1000;
 
 const RAKE_BASE_DURATION = 15000;
 class RakeSnapshot extends Snapshot {
+  static spellName = SPELLS.RAKE.name;
+  static spellCastId = SPELLS.RAKE.id;
+  static debuffId = SPELLS.RAKE_BLEED.id;
+  static durationOfFresh = RAKE_BASE_DURATION;
+  static isProwlAffected = true;
+  static isTigersFuryAffected = true;
+  static isBloodtalonsAffected = true;
+
   // rake buffed with Prowl ending early due to refresh without Prowl buff
   prowlLostCastCount = 0;
 
@@ -29,17 +37,10 @@ class RakeSnapshot extends Snapshot {
   downgradeCastCount = 0;
 
   on_initialized() {
-    this.spellCastId = SPELLS.RAKE.id;
-    this.debuffId = SPELLS.RAKE_BLEED.id;
-    this.durationOfFresh = RAKE_BASE_DURATION;
-    this.isProwlAffected = true;
-    this.isTigersFuryAffected = true;
-    this.isBloodtalonsAffected = true;
-
-    if (this.combatants.selected.hasTalent(SPELLS.JAGGED_WOUNDS_TALENT.id)) {
-      this.durationOfFresh *= JAGGED_WOUNDS_MODIFIER;
-    }
     super.on_initialized();
+    if (this.combatants.selected.hasTalent(SPELLS.JAGGED_WOUNDS_TALENT.id)) {
+      this.constructor.durationOfFresh = RAKE_BASE_DURATION * JAGGED_WOUNDS_MODIFIER;
+    }
   }
 
   checkRefreshRule(stateNew) {
@@ -57,7 +58,7 @@ class RakeSnapshot extends Snapshot {
       
       // only mark significant time loss events. Still add up the "insignificant" time lost for possible suggestion.
       if (timeLost > FORGIVE_PROWL_LOSS_TIME) {
-        ++this.prowlLostCastCount;
+        this.prowlLostCastCount += 1;
         event.meta = event.meta || {};
         event.meta.isInefficientCast = true;
         event.meta.inefficientCastReason = `You lost ${(timeLost / 1000).toFixed(1)} seconds of a Rake empowered with Prowl by refreshing early.`;
@@ -122,7 +123,7 @@ class RakeSnapshot extends Snapshot {
     when(this.downgradeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <React.Fragment>
-          Try to only refresh <SpellLink id={SPELLS.RAKE.id} /> before the <dfn data-tip={`The last ${(this.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Rake's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</dfn> if you have more powerful <dfn data-tip={"Applying Rake with Prowl, Tiger's Fury or Bloodtalons will boost its damage until you reapply it."}>snapshot buffs</dfn> than were present when it was first cast.
+          Try to only refresh <SpellLink id={SPELLS.RAKE.id} /> before the <dfn data-tip={`The last ${(this.constructor.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Rake's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</dfn> if you have more powerful <dfn data-tip={"Applying Rake with Prowl, Tiger's Fury or Bloodtalons will boost its damage until you reapply it."}>snapshot buffs</dfn> than were present when it was first cast.
         </React.Fragment>
       )
         .icon(SPELLS.RAKE.icon)
