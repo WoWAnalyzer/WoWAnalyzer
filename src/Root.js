@@ -7,8 +7,8 @@ import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 
 import App from './Main/App';
-import ErrorBoundary from './Main/ErrorBoundary';
 import reducers from './reducers';
+import RootErrorBoundary from './RootErrorBoundary';
 
 // Create a history of your choosing (we're using a browser history in this case)
 const history = createHistory();
@@ -25,11 +25,11 @@ const store = createStore(
 
 const Root = () => (
   <Provider store={store}>
-    <ErrorBoundary>
+    <RootErrorBoundary>
       <ConnectedRouter history={history}>
         <App />
       </ConnectedRouter>
-    </ErrorBoundary>
+    </RootErrorBoundary>
   </Provider>
 );
 
