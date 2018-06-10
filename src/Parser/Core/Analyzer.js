@@ -162,6 +162,7 @@ class Analyzer extends Module {
   // region changebuffstack:
   /**
    * Buff changed.
+   * THIS EVENT IS FABRICATED. https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/Parser/Core/Modules/Entities.js#L146
    * This is a fabricated event to make buff tracking easier. This is fired for all buff events that add or remove a stack, including the initial application and final removal unlike any other buff events.
    * It holds the properties of the original buff event, and the `oldStacks`, `newStacks`, and `stacksGained` properties. If oldStacks is 0 the buff is fresh, if newStacks is 0, it is removed.
    *
@@ -295,13 +296,11 @@ class Analyzer extends Module {
    */
   on_globalcooldown(event) {}
   on_byPlayer_globalcooldown(event) {}
-  on_byPlayerPet_globalcooldown(event) {}
   on_toPlayer_globalcooldown(event) {}
-  on_toPlayerPet_globalcooldown(event) {}
   // endregion
   // region begincast
   /**
-   * Triggered when an actor starts casting any cast time spell and some channeled spells.
+   * Triggered when an actor starts casting any cast time spell and some channeled spells. Using the `beginchannel` event instead is recommended since it's more consistent.
    * @param {object} event
    */
   on_begincast(event) {}
