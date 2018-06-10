@@ -688,12 +688,19 @@ table.data-table img {
   background: #d9d9d9;
 }
 .btn.patreon {
-  background: #e6461a;
+  background: #F96854;
   color: #fff;
-  font-weight: 700;
+  font-weight: 400;
+  text-transform: uppercase;
+  border-radius: 0;
+}
+.btn.patreon svg {
+  margin-top: 0;
+  margin-right: .2em;
+  font-size: 1.2em;
 }
 .btn.patreon:hover {
-  background: #bf3917;
+  background: #e6461a;
 }
 .btn.discord, .btn.github, .btn.patreon {
   padding: .3em 0.8em;

@@ -142,24 +142,184 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
               }
             }
           />
-          Help out development and get WoWAnalyzer premium in return! Apart from funding development and thus getting the tool as it is today and future improvements, an early adopter gets the following rewards:
+          <div
+            style={
+              Object {
+                "fontSize": "1.4em",
+                "fontWeight": 400,
+              }
+            }
+          >
+            Help out development to unlock 
+            <span
+              style={
+                Object {
+                  "color": "#e45a5a",
+                  "fontWeight": 700,
+                }
+              }
+            >
+              WoWAnalyzer Premium
+            </span>
+            !
+          </div>
           <br />
-          <ul>
-            <li>
-              our thanks.
-            </li>
-          </ul>
-          <br />
-          Doesn't that sound awesome?! You too can get premium by helping out development, either by helping fund development on Patreon or by contributing something via a pull request on GitHub.
-          <br />
-          <br />
-          <PatreonButton
-            text="Become a Patron"
-          />
-           
-          <GithubButton
-            text="View on GitHub"
-          />
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": 5,
+                "marginTop": "2em",
+              }
+            }
+          >
+            <div
+              className="col-md-12 text-center text-muted"
+            >
+              How to unlock WoWAnalyzer Premium:
+            </div>
+          </div>
+          <div
+            className="row flex"
+          >
+            <div
+              className="col-md-6"
+              style={
+                Object {
+                  "borderRight": "1px solid #aaa",
+                }
+              }
+            >
+              <h2>
+                Patreon
+              </h2>
+              Help fund further development by becoming a patron on Patreon. Pledge whatever you want!
+              <br />
+              <br />
+              <PatreonButton
+                text="Become a Patron"
+              />
+            </div>
+            <div
+              className="col-md-6"
+            >
+              <h2>
+                GitHub
+              </h2>
+              Improve the analysis of a spec or build a new feature to get 1 month of Premium free
+              <dfn
+                data-tip="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged."
+              >
+                *
+              </dfn>
+              .
+              <br />
+              <br />
+              <GithubButton
+                text="View on GitHub"
+              />
+            </div>
+          </div>
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": 5,
+                "marginTop": "2em",
+              }
+            }
+          >
+            <div
+              className="col-md-12 text-center text-muted"
+            >
+              WoWAnalyzer Premium unlocks the following things:
+            </div>
+          </div>
+          <div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="flex-sub"
+              >
+                <Icon />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  New things
+                </h2>
+                Your contributions will help fund new things for the site, making it even better.
+                <br />
+                <br />
+                We'll post bounties on the best ideas via 
+                <a
+                  href="https://www.bountysource.com/teams/wowanalyzer"
+                >
+                  Bountysource
+                </a>
+                 as a motivation to get developers to build them.
+              </div>
+            </div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="flex-sub"
+              >
+                <Icon />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  No ads
+                </h2>
+                We'll remove ads from the platform for you so you can consume our content with less distractions and less clutter.
+              </div>
+            </div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="flex-sub"
+              >
+                <Icon
+                  style={
+                    Object {
+                      "color": "#ff8000",
+                    }
+                  }
+                />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  Discord name color
+                </h2>
+                Get a distinct Discord name color befitting your contribution. See Patreon for Patron specific name colors. Serious GitHub contributors get the yellow contributor name color.
+              </div>
+            </div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="flex-sub"
+              >
+                <Icon />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  Access to secret channels on Discord
+                </h2>
+                Get access to special Discord channels to discuss things privately in the sub-community.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div
@@ -190,7 +350,7 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
             )
           </React.Fragment>
           . 
-          You can get Premium by becoming a patron on Patreon of making a contribution to the master branch on GitHub. Try logging in again if you wish to refresh your status.
+          You can get Premium by becoming a Patron on Patreon of making a contribution to the master branch on GitHub. Try logging in again if you wish to refresh your status.
         </div>
       </div>
     </div>
@@ -340,24 +500,184 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
               }
             }
           />
-          Help out development and get WoWAnalyzer premium in return! Apart from funding development and thus getting the tool as it is today and future improvements, an early adopter gets the following rewards:
+          <div
+            style={
+              Object {
+                "fontSize": "1.4em",
+                "fontWeight": 400,
+              }
+            }
+          >
+            Help out development to unlock 
+            <span
+              style={
+                Object {
+                  "color": "#e45a5a",
+                  "fontWeight": 700,
+                }
+              }
+            >
+              WoWAnalyzer Premium
+            </span>
+            !
+          </div>
           <br />
-          <ul>
-            <li>
-              our thanks.
-            </li>
-          </ul>
-          <br />
-          Doesn't that sound awesome?! You too can get premium by helping out development, either by helping fund development on Patreon or by contributing something via a pull request on GitHub.
-          <br />
-          <br />
-          <PatreonButton
-            text="Become a Patron"
-          />
-           
-          <GithubButton
-            text="View on GitHub"
-          />
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": 5,
+                "marginTop": "2em",
+              }
+            }
+          >
+            <div
+              className="col-md-12 text-center text-muted"
+            >
+              How to unlock WoWAnalyzer Premium:
+            </div>
+          </div>
+          <div
+            className="row flex"
+          >
+            <div
+              className="col-md-6"
+              style={
+                Object {
+                  "borderRight": "1px solid #aaa",
+                }
+              }
+            >
+              <h2>
+                Patreon
+              </h2>
+              Help fund further development by becoming a patron on Patreon. Pledge whatever you want!
+              <br />
+              <br />
+              <PatreonButton
+                text="Become a Patron"
+              />
+            </div>
+            <div
+              className="col-md-6"
+            >
+              <h2>
+                GitHub
+              </h2>
+              Improve the analysis of a spec or build a new feature to get 1 month of Premium free
+              <dfn
+                data-tip="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged."
+              >
+                *
+              </dfn>
+              .
+              <br />
+              <br />
+              <GithubButton
+                text="View on GitHub"
+              />
+            </div>
+          </div>
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": 5,
+                "marginTop": "2em",
+              }
+            }
+          >
+            <div
+              className="col-md-12 text-center text-muted"
+            >
+              WoWAnalyzer Premium unlocks the following things:
+            </div>
+          </div>
+          <div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="flex-sub"
+              >
+                <Icon />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  New things
+                </h2>
+                Your contributions will help fund new things for the site, making it even better.
+                <br />
+                <br />
+                We'll post bounties on the best ideas via 
+                <a
+                  href="https://www.bountysource.com/teams/wowanalyzer"
+                >
+                  Bountysource
+                </a>
+                 as a motivation to get developers to build them.
+              </div>
+            </div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="flex-sub"
+              >
+                <Icon />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  No ads
+                </h2>
+                We'll remove ads from the platform for you so you can consume our content with less distractions and less clutter.
+              </div>
+            </div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="flex-sub"
+              >
+                <Icon
+                  style={
+                    Object {
+                      "color": "#ff8000",
+                    }
+                  }
+                />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  Discord name color
+                </h2>
+                Get a distinct Discord name color befitting your contribution. See Patreon for Patron specific name colors. Serious GitHub contributors get the yellow contributor name color.
+              </div>
+            </div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="flex-sub"
+              >
+                <Icon />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  Access to secret channels on Discord
+                </h2>
+                Get access to special Discord channels to discuss things privately in the sub-community.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div
@@ -383,7 +703,7 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
           </span>
            because of your Patreonage
           . 
-          You can get Premium by becoming a patron on Patreon of making a contribution to the master branch on GitHub. Try logging in again if you wish to refresh your status.
+          You can get Premium by becoming a Patron on Patreon of making a contribution to the master branch on GitHub. Try logging in again if you wish to refresh your status.
         </div>
       </div>
     </div>
@@ -533,24 +853,184 @@ exports[`Premium matches snapshot when logged out 1`] = `
               }
             }
           />
-          Help out development and get WoWAnalyzer premium in return! Apart from funding development and thus getting the tool as it is today and future improvements, an early adopter gets the following rewards:
+          <div
+            style={
+              Object {
+                "fontSize": "1.4em",
+                "fontWeight": 400,
+              }
+            }
+          >
+            Help out development to unlock 
+            <span
+              style={
+                Object {
+                  "color": "#e45a5a",
+                  "fontWeight": 700,
+                }
+              }
+            >
+              WoWAnalyzer Premium
+            </span>
+            !
+          </div>
           <br />
-          <ul>
-            <li>
-              our thanks.
-            </li>
-          </ul>
-          <br />
-          Doesn't that sound awesome?! You too can get premium by helping out development, either by helping fund development on Patreon or by contributing something via a pull request on GitHub.
-          <br />
-          <br />
-          <PatreonButton
-            text="Become a Patron"
-          />
-           
-          <GithubButton
-            text="View on GitHub"
-          />
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": 5,
+                "marginTop": "2em",
+              }
+            }
+          >
+            <div
+              className="col-md-12 text-center text-muted"
+            >
+              How to unlock WoWAnalyzer Premium:
+            </div>
+          </div>
+          <div
+            className="row flex"
+          >
+            <div
+              className="col-md-6"
+              style={
+                Object {
+                  "borderRight": "1px solid #aaa",
+                }
+              }
+            >
+              <h2>
+                Patreon
+              </h2>
+              Help fund further development by becoming a patron on Patreon. Pledge whatever you want!
+              <br />
+              <br />
+              <PatreonButton
+                text="Become a Patron"
+              />
+            </div>
+            <div
+              className="col-md-6"
+            >
+              <h2>
+                GitHub
+              </h2>
+              Improve the analysis of a spec or build a new feature to get 1 month of Premium free
+              <dfn
+                data-tip="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged."
+              >
+                *
+              </dfn>
+              .
+              <br />
+              <br />
+              <GithubButton
+                text="View on GitHub"
+              />
+            </div>
+          </div>
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": 5,
+                "marginTop": "2em",
+              }
+            }
+          >
+            <div
+              className="col-md-12 text-center text-muted"
+            >
+              WoWAnalyzer Premium unlocks the following things:
+            </div>
+          </div>
+          <div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="flex-sub"
+              >
+                <Icon />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  New things
+                </h2>
+                Your contributions will help fund new things for the site, making it even better.
+                <br />
+                <br />
+                We'll post bounties on the best ideas via 
+                <a
+                  href="https://www.bountysource.com/teams/wowanalyzer"
+                >
+                  Bountysource
+                </a>
+                 as a motivation to get developers to build them.
+              </div>
+            </div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="flex-sub"
+              >
+                <Icon />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  No ads
+                </h2>
+                We'll remove ads from the platform for you so you can consume our content with less distractions and less clutter.
+              </div>
+            </div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="flex-sub"
+              >
+                <Icon
+                  style={
+                    Object {
+                      "color": "#ff8000",
+                    }
+                  }
+                />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  Discord name color
+                </h2>
+                Get a distinct Discord name color befitting your contribution. See Patreon for Patron specific name colors. Serious GitHub contributors get the yellow contributor name color.
+              </div>
+            </div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="flex-sub"
+              >
+                <Icon />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  Access to secret channels on Discord
+                </h2>
+                Get access to special Discord channels to discuss things privately in the sub-community.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
