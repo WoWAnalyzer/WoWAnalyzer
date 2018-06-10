@@ -240,7 +240,7 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
               className="premium-feature flex"
             >
               <div
-                className="flex-sub"
+                className="content-middle flex-sub"
               >
                 <Icon />
               </div>
@@ -266,7 +266,7 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
               className="premium-feature flex"
             >
               <div
-                className="flex-sub"
+                className="content-middle flex-sub"
               >
                 <Icon />
               </div>
@@ -283,7 +283,7 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
               className="premium-feature flex"
             >
               <div
-                className="flex-sub"
+                className="content-middle flex-sub"
               >
                 <Icon
                   style={
@@ -306,7 +306,7 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
               className="premium-feature flex"
             >
               <div
-                className="flex-sub"
+                className="content-middle flex-sub"
               >
                 <Icon />
               </div>
@@ -598,7 +598,7 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
               className="premium-feature flex"
             >
               <div
-                className="flex-sub"
+                className="content-middle flex-sub"
               >
                 <Icon />
               </div>
@@ -624,7 +624,7 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
               className="premium-feature flex"
             >
               <div
-                className="flex-sub"
+                className="content-middle flex-sub"
               >
                 <Icon />
               </div>
@@ -641,7 +641,7 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
               className="premium-feature flex"
             >
               <div
-                className="flex-sub"
+                className="content-middle flex-sub"
               >
                 <Icon
                   style={
@@ -664,7 +664,7 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
               className="premium-feature flex"
             >
               <div
-                className="flex-sub"
+                className="content-middle flex-sub"
               >
                 <Icon />
               </div>
@@ -951,7 +951,7 @@ exports[`Premium matches snapshot when logged out 1`] = `
               className="premium-feature flex"
             >
               <div
-                className="flex-sub"
+                className="content-middle flex-sub"
               >
                 <Icon />
               </div>
@@ -977,7 +977,7 @@ exports[`Premium matches snapshot when logged out 1`] = `
               className="premium-feature flex"
             >
               <div
-                className="flex-sub"
+                className="content-middle flex-sub"
               >
                 <Icon />
               </div>
@@ -994,7 +994,7 @@ exports[`Premium matches snapshot when logged out 1`] = `
               className="premium-feature flex"
             >
               <div
-                className="flex-sub"
+                className="content-middle flex-sub"
               >
                 <Icon
                   style={
@@ -1017,7 +1017,7 @@ exports[`Premium matches snapshot when logged out 1`] = `
               className="premium-feature flex"
             >
               <div
-                className="flex-sub"
+                className="content-middle flex-sub"
               >
                 <Icon />
               </div>

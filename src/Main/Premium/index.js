@@ -145,7 +145,7 @@ export class Premium extends React.PureComponent {
 
                 <div>
                   <div className="premium-feature flex">
-                    <div className="flex-sub">
+                    <div className="content-middle flex-sub">
                       <ViralContentIcon />
                     </div>
                     <div className="flex-main">
@@ -157,7 +157,7 @@ export class Premium extends React.PureComponent {
                     </div>
                   </div>
                   <div className="premium-feature flex">
-                    <div className="flex-sub">
+                    <div className="content-middle flex-sub">
                       <WebBannerIcon />
                     </div>
                     <div className="flex-main">
@@ -167,7 +167,7 @@ export class Premium extends React.PureComponent {
                     </div>
                   </div>
                   <div className="premium-feature flex">
-                    <div className="flex-sub">
+                    <div className="content-middle flex-sub">
                       <DiscordIcon style={{ color: '#ff8000' }} />
                     </div>
                     <div className="flex-main">
@@ -177,7 +177,7 @@ export class Premium extends React.PureComponent {
                     </div>
                   </div>
                   <div className="premium-feature flex">
-                    <div className="flex-sub">
+                    <div className="content-middle flex-sub">
                       <DiscordIcon />
                     </div>
                     <div className="flex-main">
