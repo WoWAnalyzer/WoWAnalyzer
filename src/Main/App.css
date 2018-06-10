@@ -150,6 +150,11 @@ ul {
   margin-top: 0.2em;
   margin-bottom: 0.8em;
 }
+.panel-cell:not(:first-child) {
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(255,255,255, 0.1);
+}
 
 .image-background {
   background-size: cover;
@@ -344,6 +349,9 @@ h1 {
 }
 .flex-sub {
   flex: 0 0 auto;
+}
+.flex-column {
+  flex-direction: column;
 }
 .content-middle {
   display: flex;
