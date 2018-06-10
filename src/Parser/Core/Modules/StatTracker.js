@@ -7,6 +7,7 @@ import { formatMilliseconds } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import { STAT_TRACKER_BUFFS as DARKMOON_DECK_IMMORTALITY_BUFFS } from 'Parser/Core/Modules/Items/Legion/DarkmoonDeckImmortality';
+import { BASE_ILVL as AGG_CONV_BASE_ILVL, VERSATILITY_BASE as AGG_CONV_VERS } from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/AggramarsConviction';
 
 const debug = false;
 
@@ -58,6 +59,7 @@ class StatTracker extends Analyzer {
     [SPELLS.STR_FEAST.id]: { strength: 23 },
     [SPELLS.AGI_FEAST.id]: { agility: 23 },
     [SPELLS.INT_FEAST.id]: { intellect: 23 },
+    [SPELLS.DARKMOON_VERS_FOOD.id]: { versatility: 45 },
     //endregion
 
     // region Dungeon Trinkets
@@ -181,6 +183,10 @@ class StatTracker extends Analyzer {
     [SPELLS.RUSH_OF_KNOWLEDGE.id]: {
       itemId: ITEMS.NORGANNONS_PROWESS.id,
       intellect: (_, item) => calculatePrimaryStat(940, 11483, item.itemLevel),
+    },
+    [SPELLS.CELESTIAL_BULWARK.id]: {
+      itemId: ITEMS.AGGRAMARS_CONVICTION.id,
+      versatility: (_, item) => calculateSecondaryStatDefault(AGG_CONV_BASE_ILVL, AGG_CONV_VERS, item.itemLevel),
     },
     // Khaz'goroth's Courage is handled in it's own module since all 4 stat buffs use the same ID.
     //[SPELLS.KHAZGOROTHS_SHAPING.id]: {

@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 echo 'Sending Discord Webhook';
+export AUTHOR_NAME="$(git log -1 $TRAVIS_COMMIT --pretty="%aN")";
+export BRANCH_OR_PR="$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo "PR-$TRAVIS_PULL_REQUEST"; fi)";
+export SOURCE_URL="$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo "https://github.com/"$REPO_OWNER"/"$REPO_NAME"/commit/"$TRAVIS_COMMIT""; else echo "https://github.com/"$REPO_OWNER"/"$REPO_NAME"/pull/"$TRAVIS_PULL_REQUEST""; fi)";
 export BACKTICK='`';
 export TIMESTAMP=$(date --utc +%FT%TZ);
 export COMMIT_FORMATTED="[$BACKTICK${TRAVIS_COMMIT:0:7}$BACKTICK](https://github.com/$REPO_OWNER/$REPO_NAME/commit/$TRAVIS_COMMIT)";

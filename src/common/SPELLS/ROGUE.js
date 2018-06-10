@@ -26,6 +26,11 @@ export default {
     name: 'Evasion',
     icon: 'spell_shadow_shadowward',
   },
+  RIPOSTE: {
+    id: 199754,
+    name: 'Riposte',
+    icon: 'ability_parry',
+  },
 
   // General spells
   KICK: {

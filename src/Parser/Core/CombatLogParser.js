@@ -3,6 +3,7 @@ import React from 'react';
 import ChangelogTab from 'Main/ChangelogTab';
 import ChangelogTabTitle from 'Main/ChangelogTabTitle';
 import TimelineTab from 'Main/Timeline/TimelineTab';
+import DeathRecapTracker from 'Main/DeathRecapTracker';
 
 import { formatNumber, formatPercentage, formatThousands, formatDuration } from 'common/format';
 
@@ -50,6 +51,7 @@ import PrePotion from './Modules/Items/PrePotion';
 import LegendaryUpgradeChecker from './Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from './Modules/Items/LegendaryCountChecker';
 import EnchantChecker from './Modules/Items/EnchantChecker';
+import Healthstone from './Modules/Items/Healthstone';
 
 // Legendaries
 import PrydazXavaricsMagnumOpus from './Modules/Items/Legion/Legendaries/PrydazXavaricsMagnumOpus';
@@ -178,6 +180,7 @@ class CombatLogParser {
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
     timelineBuffEvents: TimelineBuffEvents,
+    deathRecapTracker: DeathRecapTracker,
 
     critEffectBonus: CritEffectBonus,
 
@@ -187,6 +190,12 @@ class CombatLogParser {
     checklist: Checklist,
 
     encounterPanel: EncounterPanel,
+
+    prePotion: PrePotion,
+    legendaryUpgradeChecker: LegendaryUpgradeChecker,
+    legendaryCountChecker: LegendaryCountChecker,
+    enchantChecker: EnchantChecker,
+    healthstone: Healthstone,
 
     // Items:
     // Legendaries:
@@ -203,10 +212,6 @@ class CombatLogParser {
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
     darkmoonDeckPromises: DarkmoonDeckPromises,
     darkmoonDeckImmortality: DarkmoonDeckImmortality,
-    prePotion: PrePotion,
-    legendaryUpgradeChecker: LegendaryUpgradeChecker,
-    legendaryCountChecker: LegendaryCountChecker,
-    enchantChecker: EnchantChecker,
     gnawedThumbRing: GnawedThumbRing,
     ishkarsFelshieldEmitter: IshkarsFelshieldEmitter,
     erraticMetronome: ErraticMetronome,

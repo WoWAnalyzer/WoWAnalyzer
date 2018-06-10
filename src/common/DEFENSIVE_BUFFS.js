@@ -48,6 +48,18 @@ const DEFENSIVE_BUFFS = [
   {
     spell: SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF,
   },
+  //Restoration Shaman
+  {
+    spell: SPELLS.GHOST_IN_THE_MIST_BUFF,
+  },
+  //Arms Warrior
+  {
+    spell: SPELLS.DEFENSIVE_STANCE_TALENT,
+  },
+  //Arms & Fury Warrior
+  {
+    spell: SPELLS.COMMANDING_SHOUT_BUFF,
+  },
 ];
 
 export default DEFENSIVE_BUFFS;

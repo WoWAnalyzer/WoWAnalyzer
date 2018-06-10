@@ -140,9 +140,10 @@ class Abilities extends CoreAbilities {
       //Defensives
       {
         spell: SPELLS.ICE_BARRIER,
+        buffSpellId: SPELLS.ICE_BARRIER.id,
+        cooldown: 25,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isOnGCD: true,
-        cooldown: 25,
         castEfficiency: {
           suggestion: false,
           disabled: true,
@@ -150,9 +151,10 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ICE_BLOCK,
+        buffSpellId: SPELLS.ICE_BLOCK.id,
+        cooldown: 240,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isOnGCD: true,
-        cooldown: 240,
         castEfficiency: {
           suggestion: false,
           disabled: true,

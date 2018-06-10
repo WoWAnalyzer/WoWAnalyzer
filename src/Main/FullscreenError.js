@@ -6,7 +6,7 @@ import DiscordButton from './DiscordButton';
 import GithubButton from './GithubButton';
 import PatreonButton from './PatreonButton';
 
-const FullscreenError = ({ error, details, background, children }) => {
+const FullscreenError = ({ error, details, background, children, errorDetails }) => {
   // I want this to permanently block rendering since we need people to refresh to load the new version. If they don't refresh they might try requests that may not work anymore.
   // Do note there's another part to this page; below at AppBackgroundImage we're overriding the background image as well.
   return (
@@ -21,6 +21,11 @@ const FullscreenError = ({ error, details, background, children }) => {
         <GithubButton style={{ marginLeft: 20 }} />
         <PatreonButton style={{ marginLeft: 20 }} />
       </div>
+      {errorDetails && process.env.NODE_ENV !== 'production' && (
+        <div style={{ marginTop: 30 }}>
+          {errorDetails}
+        </div>
+      )}
       <AppBackgroundImage override={background} />
     </div>
   );
@@ -30,6 +35,7 @@ FullscreenError.propTypes = {
   details: PropTypes.node.isRequired,
   background: PropTypes.string.isRequired,
   children: PropTypes.node,
+  errorDetails: PropTypes.node,
 };
 
 export default FullscreenError;

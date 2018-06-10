@@ -68,6 +68,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.COMMANDING_SHOUT,
+        buffSpellId: SPELLS.COMMANDING_SHOUT_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 180,
         castEfficiency: {
@@ -101,6 +102,18 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.PUMMEL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
+      },
+      {
+        spell: SPELLS.DIE_BY_THE_SWORD,
+        buffSpellId: SPELLS.DIE_BY_THE_SWORD.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 180,
+      },
+      {
+        spell: SPELLS.DEFENSIVE_STANCE_TALENT,
+        buffSpellId: SPELLS.DEFENSIVE_STANCE_TALENT.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 6,
       },
     ];
   }

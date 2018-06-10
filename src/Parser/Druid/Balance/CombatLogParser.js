@@ -1,6 +1,5 @@
 import MainCombatLogParser from 'Parser/Core/CombatLogParser';
 import DamageDone from 'Parser/Core/Modules/DamageDone';
-import DeathRecapTracker from 'Main/DeathRecapTracker';
 import Haste from './Modules/Core/Haste';
 import GlobalCooldown from './Modules/Core/GlobalCooldown';
 
@@ -50,7 +49,6 @@ import Tier21_4set from './Modules/Items/Tier21_4set';
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     damageDone: [DamageDone, { showStatistic: true }],
-    deathRecapTracker: DeathRecapTracker,
     haste: Haste,
     globalCooldown: GlobalCooldown,
 

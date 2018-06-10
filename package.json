@@ -1,7 +1,8 @@
 {
   "name": "WoWAnalyzer",
-  "version": "2.0.0",
-  "license": "AGPL",
+  "description": "The WoWAnalyzer client-side app.",
+  "repository": "https://github.com/WoWAnalyzer/WoWAnalyzer",
+  "license": "AGPL-3.0-or-later",
   "dependencies": {
     "chart.js": "^2.7.2",
     "enzyme": "^3.3.0",
@@ -32,7 +33,7 @@
     "redux-devtools-extension": "^2.13.2",
     "redux-thunk": "^2.2.0",
     "universal-cookie": "^2.1.5",
-    "wowanalyzer-react-scripts": "1.1.11"
+    "wowanalyzer-react-scripts": "1.1.13"
   },
   "scripts": {
     "start": "react-scripts start",

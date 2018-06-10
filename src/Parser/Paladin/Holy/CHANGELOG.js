@@ -18,6 +18,11 @@ export default [
     contributors: [Zerotorescue],
   },
   {
+    date: new Date('2018-05-26'),
+    changes: 'Configured the death recap.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-05-10'),
     changes: 'Changed the order of spells in the timeline.',
     contributors: [Zerotorescue],

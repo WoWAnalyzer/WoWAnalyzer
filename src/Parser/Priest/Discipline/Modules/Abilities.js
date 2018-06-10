@@ -41,6 +41,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.POWER_WORD_SHIELD,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
+        isDefensive: true,
       },
       {
         spell: SPELLS.SCHISM_TALENT,
