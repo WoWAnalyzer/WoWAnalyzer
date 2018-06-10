@@ -1,53 +1,62 @@
 language: node_js
-services:
-  - docker
 node_js:
   - 9.9.0
+# every second counts
 git:
-  depth: 10
-cache:
-  directories:
-    - node_modules
-    - server/node_modules
+  depth: 5
 env:
-  - NODE_ENV=production
-install:
-  - npm install
-  - cd server && npm install --dev && cd ..
-before_script:
-  - export AUTHOR_NAME="$(git log -1 $TRAVIS_COMMIT --pretty="%aN")"
-  - export BRANCH_OR_PR="$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo "PR-$TRAVIS_PULL_REQUEST"; fi)"
-  - export SOURCE_URL="$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo "https://github.com/"$REPO_OWNER"/"$REPO_NAME"/commit/"$TRAVIS_COMMIT""; else echo "https://github.com/"$REPO_OWNER"/"$REPO_NAME"/pull/"$TRAVIS_PULL_REQUEST""; fi)"
-script:
-  - npm test
-  - npm run build
-  - cd server && npm run build && cd ..
-after_success:
-  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-      cd server;
-      echo "The server has already been built so we no longer need the devDependencies";
-      npm prune --production;
-      cd ..;
-      export REPO=martijnhols/wowanalyzer;
-      export BRANCH=$(
-        if [ "$TRAVIS_BRANCH" == "master" ]; then
-          echo "latest";
-        else
-          echo $TRAVIS_BRANCH;
-        fi | sed -r 's/\//-/g'
-      );
-      echo "#docker build";
-      docker build --tag $REPO:$BRANCH --file Dockerfile.package .;
-      echo "#docker login";
-      docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD";
-      echo "#docker push";
-      docker push $REPO:$BRANCH;
-    fi
-#  - chmod +x travis-discord-hook/success.sh
-#  - ./travis-discord-hook/success.sh
+  - NODE_ENV=production ESLINT_BEFORE_BUILD=false
+jobs:
+  include:
+    - stage: test
+      cache:
+        directories:
+          - node_modules
+      install:
+        - npm install
+      script:
+        - npm run lint -- --max-warnings=0
+    - stage: test
+      cache:
+        directories:
+          - node_modules
+      install:
+        - npm install
+      script:
+        - npm run test -- --maxWorkers=2
+    # TODO: Code duplication calculator
+    - stage: build
+      services: docker
+      cache:
+        directories:
+          - node_modules
+          - server/node_modules
+      install:
+        - npm install
+        - cd server && npm install --dev && cd ..
+      script:
+        - echo "> Build server"
+        - cd server
+        - npm run build
+        - echo "> The server has already been built so we no longer need the devDependencies (reduces the final bundle size)"
+        - npm prune --production
+        - cd ..
+        - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
+          	echo "> Disabling sourcemap generation to save build time, this is a PR so won't be deployed anyway.";
+          	export GENERATE_SOURCEMAP=false;
+          fi
+        - echo "> Build app"
+        - npm run build
+      # Reminder: deploy doesn't run on PRs
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script: bash .travis/deploy.sh
+        on:
+          all_branches: true
 after_failure:
-  - chmod +x travis-discord-hook/fail.sh
-  - ./travis-discord-hook/fail.sh
+  - chmod +x .travis/discord-hook/fail.sh
+  - ./.travis/discord-hook/fail.sh
 notifications:
   webhooks: https://www.travisbuddy.com/
   on_success: never

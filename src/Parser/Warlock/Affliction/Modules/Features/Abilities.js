@@ -134,7 +134,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.UNENDING_RESOLVE,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        buffSpellId: SPELLS.UNENDING_RESOLVE.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
         castEfficiency: {
           suggestion: false,

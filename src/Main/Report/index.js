@@ -176,13 +176,8 @@ class Report extends React.Component {
         finished: true,
       });
     } catch (err) {
-      captureException(err);
-      if (process.env.NODE_ENV === 'development') {
-        // Something went wrong during the analysis of the log, there's probably an issue in your analyzer or one of its modules.
-        throw err;
-      } else {
-        alert(`The report could not be parsed because an error occured while running the analysis. ${err.message}`);
-      }
+      // Something went wrong during the analysis of the log, there's probably an issue in your analyzer or one of its modules.
+      throw err;
     }
   }
   _isFakeNetworking = false;

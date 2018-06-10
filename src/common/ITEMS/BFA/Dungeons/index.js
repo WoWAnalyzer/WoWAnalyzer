@@ -97,4 +97,11 @@ export default {
     icon: 'inv_misc_archaeology_trollgolem',
     quality: ITEM_QUALITIES.GREEN,
   },
+  //
+  FIRST_MATES_SPYGLASS: {
+    id: 158163,
+    name: 'First Mate\'s Spyglass',
+    icon: 'inv_misc_spyglass_02',
+    quality: ITEM_QUALITIES.GREEN,
+  },
 };

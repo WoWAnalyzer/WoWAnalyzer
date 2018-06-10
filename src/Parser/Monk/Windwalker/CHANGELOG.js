@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-05-29'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.TOUCH_OF_DEATH.id} /> module showing damage from <SpellLink id={SPELLS.GALE_BURST.id} /> and its benefit from % damage taken buffs on targets</React.Fragment>,
+    contributors: [Juko8],
+  },
+  {
     date: new Date('2018-05-10'),
     changes: <React.Fragment>Added highlighting Combo Breaker casts of <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> in Spellcast Timeline</React.Fragment>,
     contributors: [Coryn],

@@ -10,6 +10,7 @@ import Abilities from './Modules/Abilities';
 
 import HealingDone from './Modules/ShamanCore/HealingDone';
 import ShamanAbilityTracker from './Modules/ShamanCore/ShamanAbilityTracker';
+import HealingRainLocation from './Modules/ShamanCore/HealingRainLocation';
 
 import MasteryEffectiveness from './Modules/Features/MasteryEffectiveness';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
@@ -20,8 +21,7 @@ import StatValues from './Modules/Features/StatValues';
 
 import AncestralVigor from './Modules/Features/AncestralVigor';
 import TidalWaves from './Modules/Features/TidalWaves';
-import CastBehavior from './Modules/Features/CastBehavior'; 
-
+import CastBehavior from './Modules/Features/CastBehavior';
 // Talents
 import TalentStatisticBox from './Modules/Talents/TalentStatisticBox';
 import Torrent from './Modules/Talents/Torrent';
@@ -35,7 +35,6 @@ import CloudburstTotem from './Modules/Talents/CloudburstTotem';
 import Ascendance from './Modules/Talents/Ascendance';
 import Wellspring from './Modules/Talents/Wellspring';
 import HighTide from './Modules/Talents/HighTide';
-
 // Items
 import Restoration_Shaman_T21_2Set from './Modules/Items/T21_2Set';
 import Restoration_Shaman_T21_4Set from './Modules/Items/T21_4Set';
@@ -46,7 +45,7 @@ import Nobundo from './Modules/Items/Nobundo';
 import Tidecallers from './Modules/Items/Tidecallers';
 import Roots from './Modules/Items/Roots';
 import VelensFutureSight from './Modules/Items/VelensFutureSight';
-
+import ElementalRebalancers from './Modules/Items/ElementalRebalancers';
 // Spells
 import ChainHeal from './Modules/Spells/ChainHeal';
 import HealingSurge from './Modules/Spells/HealingSurge';
@@ -54,7 +53,6 @@ import HealingRain from './Modules/Spells/HealingRain';
 import HealingWave from './Modules/Spells/HealingWave';
 import LavaSurge from './Modules/Spells/LavaSurge';
 import Resurgence from './Modules/Spells/Resurgence';
-
 // Shared
 import StaticCharge from '../Shared/Talents/StaticCharge';
 
@@ -71,6 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lowHealthHealing: LowHealthHealing,
     healingDone: [HealingDone, { showStatistic: true }],
     abilities: Abilities,
+    healingRainLocation: HealingRainLocation,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -98,7 +97,7 @@ class CombatLogParser extends CoreCombatLogParser {
     highTide: HighTide,
 
     // Items:
-    t21_2Set: Restoration_Shaman_T21_2Set,	
+    t21_2Set: Restoration_Shaman_T21_2Set,
     t21_4Set: Restoration_Shaman_T21_4Set,
     nobundo: Nobundo,
     nazjatar: Nazjatar,
@@ -107,6 +106,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tidecallers: Tidecallers,
     roots: Roots,
     velensFutureSight: VelensFutureSight,
+    elementalRebalancers: ElementalRebalancers,
 
     // Spells:
     chainHeal: ChainHeal,
