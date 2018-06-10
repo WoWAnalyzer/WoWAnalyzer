@@ -1,7 +1,7 @@
 import request from 'request-promise-native';
 
 export async function fetchRawPatreonProfile(accessToken) {
-  return require('./__fixtures__/patreon-active.json');
+  // return require('./__fixtures__/patreon-active.json');
   return await request.get({
     url: 'https://api.patreon.com/oauth2/api/current_user',
     headers: {
