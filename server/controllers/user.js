@@ -1,8 +1,8 @@
 import Express from 'express';
 
 import requireAuthenticated from 'helpers/requireAuthenticated';
-import { fetchPatreonProfile } from 'helpers/patreon';
-import { fetchGitHubLastCommitDate } from 'helpers/github';
+import { refreshPatreonProfile } from 'helpers/patreon';
+import { refreshGitHubLastContribution } from 'helpers/github';
 
 const router = Express.Router();
 
@@ -25,41 +25,6 @@ function hasGitHubPremium(user) {
 }
 function githubExpiryDate(user) {
   return new Date(+githubLastCommitDate(user) + GITHUB_COMMIT_PREMIUM_DURATION);
-}
-
-async function refreshPatreonProfile(user) {
-  console.log(`Refreshing Patreon data for ${user.data.name} (${user.patreonId})`);
-  const patreonProfile = await fetchPatreonProfile(user.data.patreon.accessToken);
-
-  // We shouldn't have to wait for this update to finish, since it immediately updates the local object's data
-  user.update({
-    data: {
-      ...user.data,
-      name: patreonProfile.name,
-      avatar: patreonProfile.avatar,
-      patreon: {
-        ...user.data.patreon,
-        pledgeAmount: patreonProfile.pledgeAmount,
-        updatedAt: new Date(),
-      },
-    },
-  });
-}
-async function refreshGitHubLastContribution(user) {
-  console.log(`Refreshing GitHub data for ${user.data.name} (${user.gitHubId} - ${user.data.github.login})`);
-  const lastContribution = await fetchGitHubLastCommitDate(user.data.github.login);
-
-  // We shouldn't have to wait for this update to finish, since it immediately updates the local object's data
-  user.update({
-    data: {
-      ...user.data,
-      github: {
-        ...user.data.github,
-        lastContribution,
-        updatedAt: new Date(),
-      },
-    },
-  });
 }
 
 if (process.env.UNSAFE_ACCESS_CONTROL_ALLOW_ALL) {

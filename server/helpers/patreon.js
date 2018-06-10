@@ -37,3 +37,21 @@ export async function fetchPatreonProfile(accessToken, refreshToken) {
   const patreonProfile = await fetchRawPatreonProfile(accessToken);
   return parseProfile(patreonProfile);
 }
+export async function refreshPatreonProfile(user) {
+  console.log(`Refreshing Patreon data for ${user.data.name} (${user.patreonId})`);
+  const patreonProfile = await fetchPatreonProfile(user.data.patreon.accessToken);
+
+  // We shouldn't have to wait for this update to finish, since it immediately updates the local object's data
+  user.update({
+    data: {
+      ...user.data,
+      name: patreonProfile.name,
+      avatar: patreonProfile.avatar,
+      patreon: {
+        ...user.data.patreon,
+        pledgeAmount: patreonProfile.pledgeAmount,
+        updatedAt: new Date(),
+      },
+    },
+  });
+}
