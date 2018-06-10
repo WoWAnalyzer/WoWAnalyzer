@@ -24,6 +24,14 @@ jobs:
         - npm install
       script:
         - npm run test -- --maxWorkers=2
+    - stage: test
+      cache:
+        directories:
+          - server/node_modules
+      install:
+        - cd server && npm install --dev && cd ..
+      script:
+        - cd server && npm test && cd ..
     # TODO: Code duplication calculator
     - stage: build
       services: docker
