@@ -45,9 +45,9 @@ class RipSnapshot extends Snapshot {
     comboPointTracker: ComboPointTracker,
   };
 
-  ripCastCount = 0;
   downgradeCount = 0;
   shouldBeBiteCount = 0;
+
   /**
    * Order of processed events when player casts rip is always:
    *   on_byPlayer_cast
@@ -75,14 +75,11 @@ class RipSnapshot extends Snapshot {
     if (combatant.hasTalent(SPELLS.SABERTOOTH_TALENT.id)) {
       this.hasSabertooth = true;
     }
+    super.on_initialized();
   }
 
   on_byPlayer_cast(event) {
     super.on_byPlayer_cast(event);
-    if (SPELLS.RIP.id === event.ability.guid) {
-      this.ripCastCount += 1;
-      debug && console.log(`${this.owner.formatTimestamp(event.timestamp)} rip cast.`);
-    }
     if (SPELLS.FEROCIOUS_BITE.id === event.ability.guid) {
       debug && console.log(`${this.owner.formatTimestamp(event.timestamp)} bite cast.`);
       this.handleBiteExtend(event);
@@ -170,7 +167,7 @@ class RipSnapshot extends Snapshot {
   }
 
   get shouldBeBiteProportion() {
-    return this.shouldBeBiteCount / this.ripCastCount;
+    return this.shouldBeBiteCount / this.castCount;
   }
   get shouldBeBiteSuggestionThresholds() {
     return {
@@ -185,7 +182,7 @@ class RipSnapshot extends Snapshot {
   }
 
   get downgradeProportion() {
-    return this.downgradeCount / this.ripCastCount;
+    return this.downgradeCount / this.castCount;
   }
   get downgradeSuggestionThresholds() {
     return {
@@ -193,7 +190,7 @@ class RipSnapshot extends Snapshot {
       isGreaterThan: {
         minor: 0,
         average: 0.15,
-        major: 0.30,
+        major: 0.60,
       },
       style: 'percentage',
     };

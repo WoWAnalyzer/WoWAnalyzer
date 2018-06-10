@@ -1,9 +1,12 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
+
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
+import RakeBleed from './Modules/Normalizers/RakeBleed';
 import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
+
 import RakeUptime from './Modules/Bleeds/RakeUptime';
 import RipUptime from './Modules/Bleeds/RipUptime';
 import FerociousBiteEnergy from './Modules/Features/FerociousBiteEnergy';
@@ -24,6 +27,9 @@ import SoulOfTheArchdruid from '../Shared/Modules/Items/SoulOfTheArchdruid';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    // Normalizers
+    rakeBleed: RakeBleed,
+
     // FeralCore
     damageDone: [DamageDone, { showStatistic: true }],
 
