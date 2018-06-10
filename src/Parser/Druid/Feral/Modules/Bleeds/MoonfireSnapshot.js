@@ -15,7 +15,6 @@ import Snapshot, { PANDEMIC_FRACTION } from '../FeralCore/Snapshot';
 const MOONFIRE_FERAL_BASE_DURATION = 14000;
 
 class MoonfireSnapshot extends Snapshot {
-  moonfireCastCount = 0;
   downgradeCastCount = 0;
 
   on_initialized() {
@@ -34,13 +33,7 @@ class MoonfireSnapshot extends Snapshot {
 
     // bloodtalons only affects melee abilities
     this.isBloodtalonsAffected = false;
-  }
-
-  on_byPlayer_cast(event) {
-    if (SPELLS.MOONFIRE_FERAL.id === event.ability.guid) {
-      ++this.moonfireCastCount;
-    }
-    super.on_byPlayer_cast(event);
+    super.on_initialized();
   }
 
   checkRefreshRule(stateNew) {
@@ -56,7 +49,7 @@ class MoonfireSnapshot extends Snapshot {
       return;
     }
     
-    ++this.downgradeCastCount;
+    this.downgradeCastCount += 1;
     
     // this downgrade is relatively minor, so don't overwrite cast info from elsewhere
     const event = stateNew.castEvent;
@@ -69,14 +62,14 @@ class MoonfireSnapshot extends Snapshot {
   }
 
   get downgradeProportion() {
-    return this.downgradeCastCount / this.moonfireCastCount;
+    return this.downgradeCastCount / this.castCount;
   }
   get downgradeSuggestionThresholds() {
     return {
       actual: this.downgradeProportion,
       isGreaterThan: {
         minor: 0,
-        average: 0.30,
+        average: 0.15,
         major: 0.60,
       },
       style: 'percentage',

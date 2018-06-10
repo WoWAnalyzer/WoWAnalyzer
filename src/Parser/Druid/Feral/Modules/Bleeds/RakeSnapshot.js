@@ -4,23 +4,29 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Snapshot, { JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION } from '../FeralCore/Snapshot';
 
-/*
-Identify inefficient refreshes of the Rake DoT:
-  Early refresh of a Rake doing double damage due to Prowl with one that will not do double damage.
-  Pre-pandemic refresh of a Rake doing bonus damage from snapshot buffs with one that will do less damage.
-*/
+/**
+ * Identify inefficient refreshes of the Rake DoT:
+ *  Early refresh of a Rake doing double damage due to Prowl with one that will not do double damage.
+ *  Pre-pandemic refresh of a Rake doing bonus damage from snapshot buffs with one that will do less damage.
+ */
 
-// When you cannot refresh a prowl-buffed rake with prowl, ideally you'd let it tick down. At the
-// moment that it expires apply your new one.
-// Looking for exact timing is unrealistic, so give some leeway.
+/**
+ * When you cannot refresh a prowl-buffed rake with prowl, ideally you'd let it tick down.
+ * Then at the moment that it expires you'd apply a fresh DoT.
+ * But exact timing is unrealistic, so give some leeway.
+ */
 const FORGIVE_PROWL_LOSS_TIME = 1000;
 
 const RAKE_BASE_DURATION = 15000;
 class RakeSnapshot extends Snapshot {
-  rakeCastCount = 0;        // count of rake casts of all kinds
-  prowlLostCastCount = 0;   // count of rake buffed with Prowl ending early due to refresh without Prowl buff
-  prowlLostTimeSum = 0;     // total time cut out from the end of prowl-buffed rake bleeds by refreshing early (milliseconds)
-  downgradeCastCount = 0;   // count of rake DoTs refreshed with weaker snapshot before pandemic
+  // rake buffed with Prowl ending early due to refresh without Prowl buff
+  prowlLostCastCount = 0;
+
+  // total time cut out from the end of prowl-buffed rake bleeds by refreshing early (milliseconds)
+  prowlLostTimeSum = 0;
+
+  // rake DoTs refreshed with weaker snapshot before pandemic
+  downgradeCastCount = 0;
 
   on_initialized() {
     this.spellCastId = SPELLS.RAKE.id;
@@ -33,13 +39,7 @@ class RakeSnapshot extends Snapshot {
     if (this.combatants.selected.hasTalent(SPELLS.JAGGED_WOUNDS_TALENT.id)) {
       this.durationOfFresh *= JAGGED_WOUNDS_MODIFIER;
     }
-  }
-
-  on_byPlayer_cast(event) {
-    if (SPELLS.RAKE.id === event.ability.guid) {
-      ++this.rakeCastCount;
-    }
-    super.on_byPlayer_cast(event);
+    super.on_initialized();
   }
 
   checkRefreshRule(stateNew) {
@@ -66,7 +66,7 @@ class RakeSnapshot extends Snapshot {
         stateOld.power > stateNew.power &&
         !stateNew.prowl) {
       // refreshed with weaker DoT before pandemic window - but ignore this rule if the new Rake has Prowl buff as that's more important.
-      ++this.downgradeCastCount;
+      this.downgradeCastCount += 1;
 
       if (!event.meta || (!event.meta.isInefficientCast && !event.meta.isEnhancedCast)) {
         // this downgrade is relatively minor, so don't overwrite output from elsewhere.
@@ -82,15 +82,15 @@ class RakeSnapshot extends Snapshot {
     return (this.prowlLostTimeSum / this.owner.fightDuration) * 60;
   }
   get downgradeProportion() {
-    return this.downgradeCastCount / this.rakeCastCount;
+    return this.downgradeCastCount / this.castCount;
   }
   get prowlLostSuggestionThresholds() {
     return {
       actual: this.prowlLostTimePerMinute,
       isGreaterThan: {
         minor: 0.5,
-        average: 1.5,
-        major: 3.0,
+        average: 2.0,
+        major: 8.0,
       },
       style: 'decimal',
     };
@@ -101,7 +101,7 @@ class RakeSnapshot extends Snapshot {
       isGreaterThan: {
         minor: 0,
         average: 0.15,
-        major: 0.30,
+        major: 0.60,
       },
       style: 'percentage',
     };
