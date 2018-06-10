@@ -129,7 +129,7 @@ export class Premium extends React.PureComponent {
                   {user.patreon && user.patreon.premium && ' because of your Patreonage'}
                   {user.github && user.github.premium && (
                     <React.Fragment>
-                      {' '}because of a recent GitHub contribution (active until <dfn data-tip="This date will automatically update when you contribute something new.">{this.props.dateToLocaleString(new Date(user.github.expires))}</dfn>)
+                      {' '}because of a recent GitHub contribution (active until {this.props.dateToLocaleString(new Date(user.github.expires))})
                     </React.Fragment>
                   )}
                   . {user.premium && 'Awesome!'}
