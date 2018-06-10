@@ -132,7 +132,7 @@ export class Premium extends React.PureComponent {
                       {' '}because of a recent GitHub contribution (active until {this.props.dateToLocaleString(new Date(user.github.expires))})
                     </React.Fragment>
                   )}
-                  . {user.premium && 'Awesome!'}
+                  . {user.premium ? 'Awesome!' : 'You can get Premium by becoming a patron on Patreon of making a contribution to the master branch on GitHub. Try logging in again if you wish to refresh your status.'}
                 </div>
               </div>
             )}

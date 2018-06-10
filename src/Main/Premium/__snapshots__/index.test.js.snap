@@ -186,14 +186,11 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
           <React.Fragment>
              
             because of a recent GitHub contribution (active until 
-            <dfn
-              data-tip="This date will automatically update when you contribute something new."
-            >
-              Mon, 02 Jul 2018 11:48:40 GMT
-            </dfn>
+            Mon, 02 Jul 2018 11:48:40 GMT
             )
           </React.Fragment>
           . 
+          You can get Premium by becoming a patron on Patreon of making a contribution to the master branch on GitHub. Try logging in again if you wish to refresh your status.
         </div>
       </div>
     </div>
@@ -386,6 +383,7 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
           </span>
            because of your Patreonage
           . 
+          You can get Premium by becoming a patron on Patreon of making a contribution to the master branch on GitHub. Try logging in again if you wish to refresh your status.
         </div>
       </div>
     </div>
