@@ -7,6 +7,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import TooltipProvider from 'common/TooltipProvider';
+import { track } from 'common/analytics';
 import { API_DOWN, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'actions/error';
 import { fetchUser } from 'actions/user';
 import { getError } from 'selectors/error';
@@ -28,6 +29,7 @@ import Report from './Report';
 import Premium from './Premium';
 
 import Header from './Header';
+import ErrorBoundary from './ErrorBoundary';
 
 const ContributorDetails = lazyLoadComponent(() => import(/* webpackChunkName: 'ContributorDetails' */ './Contributors/ContributorDetails').then(exports => exports.default));
 const CharacterParses = lazyLoadComponent(() => import(/* webpackChunkName: 'CharacterParses' */ './Character/CharacterParses').then(exports => exports.default));
@@ -49,6 +51,11 @@ class App extends React.Component {
     clearError: PropTypes.func.isRequired,
     internetExplorerError: PropTypes.func.isRequired,
     fetchUser: PropTypes.func.isRequired,
+    location: PropTypes.shape({
+      pathname: PropTypes.string.isRequired,
+      search: PropTypes.string.isRequired,
+      hash: PropTypes.string.isRequired,
+    }).isRequired,
   };
 
   constructor(props) {
@@ -196,6 +203,17 @@ class App extends React.Component {
     return this.props.isHome && !this.props.error;
   }
 
+  getPath(location) {
+    return `${location.pathname}${location.search}`;
+  }
+  componentDidUpdate(prevProps) {
+    // The primary reason to use this lifecycle method is so the document.title is updated in time
+    if (prevProps.location !== this.props.location) {
+      // console.log('Location changed. Old:', prevProps.location, 'new:', this.props.location);
+      track(this.getPath(prevProps.location), this.getPath(this.props.location));
+    }
+  }
+
   render() {
     const { error } = this.props;
 
@@ -205,7 +223,9 @@ class App extends React.Component {
           <NavigationBar />
           <Header showReportSelecter={this.showReportSelecter} />
           <main>
-            {this.renderContent()}
+            <ErrorBoundary>
+              {this.renderContent()}
+            </ErrorBoundary>
           </main>
 
           <ReactTooltip html place="bottom" />

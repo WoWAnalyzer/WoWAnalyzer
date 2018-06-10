@@ -51,7 +51,6 @@ class Channeling extends Analyzer {
       type: 'cancelchannel',
       ability,
       sourceID: event.sourceID,
-      targetID: event.sourceID,
       timestamp: null, // unknown, we can only know when the next cast started so passing the timestamp would be a poor guess
     }, event);
     debug && console.warn(formatMilliseconds(event.timestamp - this.owner.fight.start_time), 'Channeling', 'Canceled channel of', ability.name);

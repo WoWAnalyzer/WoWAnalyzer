@@ -21,6 +21,10 @@ class DelayRender extends React.PureComponent {
     }, props.delay);
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+  }
+
   render() {
     const { children } = this.props;
 

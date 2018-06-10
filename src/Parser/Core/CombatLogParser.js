@@ -51,6 +51,7 @@ import PrePotion from './Modules/Items/PrePotion';
 import LegendaryUpgradeChecker from './Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from './Modules/Items/LegendaryCountChecker';
 import EnchantChecker from './Modules/Items/EnchantChecker';
+import Healthstone from './Modules/Items/Healthstone';
 
 // Legendaries
 import PrydazXavaricsMagnumOpus from './Modules/Items/Legion/Legendaries/PrydazXavaricsMagnumOpus';
@@ -186,6 +187,12 @@ class CombatLogParser {
 
     encounterPanel: EncounterPanel,
 
+    prePotion: PrePotion,
+    legendaryUpgradeChecker: LegendaryUpgradeChecker,
+    legendaryCountChecker: LegendaryCountChecker,
+    enchantChecker: EnchantChecker,
+    healthstone: Healthstone,
+
     // Items:
     // Legendaries:
     prydazXavaricsMagnumOpus: PrydazXavaricsMagnumOpus,
@@ -201,10 +208,6 @@ class CombatLogParser {
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
     darkmoonDeckPromises: DarkmoonDeckPromises,
     darkmoonDeckImmortality: DarkmoonDeckImmortality,
-    prePotion: PrePotion,
-    legendaryUpgradeChecker: LegendaryUpgradeChecker,
-    legendaryCountChecker: LegendaryCountChecker,
-    enchantChecker: EnchantChecker,
     gnawedThumbRing: GnawedThumbRing,
     ishkarsFelshieldEmitter: IshkarsFelshieldEmitter,
     erraticMetronome: ErraticMetronome,
@@ -269,6 +272,7 @@ class CombatLogParser {
 
     infernalCinders: InfernalCinders,
     umbralMoonglaives: UmbralMoonglaives,
+
   };
   // Override this with spec specific modules when extending
   static specModules = {};

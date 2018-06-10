@@ -266,6 +266,10 @@ class FocusUsage extends Analyzer {
     if (LIST_OF_FOCUS_SPENDERS.every(id => spellId !== id)) {
       return;
     }
+    //shouldn't really happen unless something messed up in the log where the cast event doesn't have any class resource information so we skip those. 
+    if (!event.classResources) {
+      return;
+    }
     this.focusSpenderCasts[spellId].casts += 1;
     this.focusSpenderCasts[spellId].focusUsed += event.classResources[0].cost || 0;
   }

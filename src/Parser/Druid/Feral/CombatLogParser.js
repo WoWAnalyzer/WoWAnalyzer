@@ -1,13 +1,18 @@
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
+
 import DamageDone from 'Parser/Core/Modules/DamageDone';
 
+import RakeBleed from './Modules/Normalizers/RakeBleed';
 import Abilities from './Modules/Features/Abilities';
 import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
+
 import RakeUptime from './Modules/Bleeds/RakeUptime';
 import RipUptime from './Modules/Bleeds/RipUptime';
 import FerociousBiteEnergy from './Modules/Features/FerociousBiteEnergy';
 import RakeSnapshot from './Modules/Bleeds/RakeSnapshot';
+import RipSnapshot from './Modules/Bleeds/RipSnapshot';
+import MoonfireSnapshot from './Modules/Bleeds/MoonfireSnapshot';
 
 import ComboPointTracker from './Modules/ComboPoints/ComboPointTracker';
 import ComboPointDetails from './Modules/ComboPoints/ComboPointDetails';
@@ -22,6 +27,9 @@ import SoulOfTheArchdruid from '../Shared/Modules/Items/SoulOfTheArchdruid';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    // Normalizers
+    rakeBleed: RakeBleed,
+
     // FeralCore
     damageDone: [DamageDone, { showStatistic: true }],
 
@@ -35,6 +43,8 @@ class CombatLogParser extends CoreCombatLogParser {
     rakeUptime: RakeUptime,
     ripUptime: RipUptime,
     rakeSnapshot: RakeSnapshot,
+    ripSnapshot: RipSnapshot,
+    moonfireSnapshot: MoonfireSnapshot,
 
     // talents
     savageRoarUptime: SavageRoarUptime,
