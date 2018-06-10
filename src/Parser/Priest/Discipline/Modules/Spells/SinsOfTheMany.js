@@ -1,10 +1,12 @@
-// import React from 'react';
+import React from 'react';
 
-// import SPELLS from 'common/SPELLS';
-// import SpellIcon from 'common/SpellIcon';
+import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+
+import DualStatisticBox, { STATISTIC_ORDER } from 'Main/DualStatisticBox';
+import { formatPercentage, formatNumber } from 'common/format';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
-// import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
@@ -69,6 +71,40 @@ class SinsOfTheMany extends Analyzer {
 
     this.bonusHealing += calculateEffectiveHealing(event, this.currentBonus);
   }
+
+  statistic() {
+    return (
+      <DualStatisticBox
+        icon={<SpellIcon id={SPELLS.SINS_OF_THE_MANY_TALENT.id} />}
+        values={[
+          `${formatNumber(
+            (this.bonusHealing / this.owner.fightDuration) * 1000
+          )} HPS`,
+          `${formatNumber(
+            (this.bonusDamage /
+              this.owner.fightDuration) *
+              1000
+          )} DPS`,
+        ]}
+        footer={
+          <dfn
+            data-tip={`
+              The effective healing contributed by Sins of the Many was ${formatPercentage(
+                this.owner.getPercentageOfTotalHealingDone(this.bonusHealing)
+              )}% of total healing done.
+
+              The direct damage contributed by Sins of the Many was ${formatPercentage(
+                this.owner.getPercentageOfTotalDamageDone(this.bonusDamage)
+              )}% of total damage done.
+            `}
+          >
+            Sins of the Many Output Details
+          </dfn>
+        }
+      />
+    );
+  }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default SinsOfTheMany;

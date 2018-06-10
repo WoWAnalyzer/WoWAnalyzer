@@ -171,8 +171,7 @@ class Schism extends Analyzer {
             ((this.directDamage + this.damageFromBuff) /
               this.owner.fightDuration) *
               1000
-          )} DPS
-          `,
+          )} DPS`,
         ]}
         footer={
           <dfn
