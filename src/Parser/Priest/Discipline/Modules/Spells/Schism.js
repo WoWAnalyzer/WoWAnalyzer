@@ -66,7 +66,7 @@ class Schism extends Analyzer {
 
   get badSchismCount() {
     return Object.entries(this._badSchisms).reduce(
-      (n, [e, isBadSchism]) => (n += isBadSchism ? 1 : 0),
+      (n, [e, isBadSchism]) => n + (isBadSchism ? 1 : 0),
       0
     );
   }
