@@ -71,6 +71,11 @@ export default {
     icon: 'spell_nature_tremortotem',
     manaCost: 460,
   },
+  SPIRIT_WOLF_BUFF: {
+    id: 260881,
+    name: 'Spirit Wolf',
+    icon: 'spell_hunter_lonewolf',
+  },
   // Hex and its variations
   HEX: {
     id: 51514,
