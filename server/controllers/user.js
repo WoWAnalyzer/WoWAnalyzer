@@ -6,7 +6,7 @@ import { refreshGitHubLastContribution } from 'helpers/github';
 
 const router = Express.Router();
 
-const GITHUB_COMMIT_PREMIUM_DURATION = 30 * 24 * 3600 * 1000;
+export const GITHUB_COMMIT_PREMIUM_DURATION = 30 * 24 * 3600 * 1000;
 // Don't refresh the 3rd party status more often than this, improving performance of this API and reducing the number of API requests to the third parties.
 const PATREON_REFRESH_INTERVAL = 7 * 24 * 3600 * 1000;
 const GITHUB_REFRESH_INTERVAL = 7 * 24 * 3600 * 1000;
@@ -36,7 +36,7 @@ if (process.env.UNSAFE_ACCESS_CONTROL_ALLOW_ALL) {
     next();
   });
 }
-router.get('/', requireAuthenticated, async function(req, res) {
+router.get('/', requireAuthenticated, async function (req, res) {
   const user = req.user;
 
   const response = {
@@ -50,12 +50,10 @@ router.get('/', requireAuthenticated, async function(req, res) {
       await refreshPatreonProfile(user);
     }
   }
-  let githubRefreshed = false;
   if (user.data.github) {
     const isOutdated = timeSince(new Date(user.data.github.updatedAt)) > GITHUB_REFRESH_INTERVAL;
     if (isOutdated) {
       await refreshGitHubLastContribution(user);
-      githubRefreshed = true;
     }
   }
 
@@ -66,23 +64,11 @@ router.get('/', requireAuthenticated, async function(req, res) {
     };
   }
   if (hasGitHubPremium(user)) {
-    const expiryDate = githubExpiryDate(user);
-    const now = new Date();
-    if (now > expiryDate) {
-      if (githubRefreshed) {
-        throw new Error('GitHub premium is active but it says it expired. It just refreshed so this should never happen.');
-      }
-      console.log('Refreshing GitHub since Premium expired.');
-      await refreshGitHubLastContribution(user);
-    }
-
-    if (hasGitHubPremium(user)) { // it might have changed since the refresh
-      response.premium = true;
-      response.github = {
-        premium: true,
-        expires: expiryDate,
-      };
-    }
+    response.premium = true;
+    response.github = {
+      premium: true,
+      expires: githubExpiryDate(user),
+    };
   }
 
   res.json(response);

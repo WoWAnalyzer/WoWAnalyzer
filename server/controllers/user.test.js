@@ -156,6 +156,25 @@ describe('controllers/user', () => {
       expect(response.json).toHaveBeenCalledTimes(1);
       expect(response.json.mock.calls[0][0].premium).toBeFalsy();
     });
+    it('expires Premium the Premium duration', async () => {
+      const { GITHUB_COMMIT_PREMIUM_DURATION } = require('./user');
+
+      const now = new Date();
+
+      // Premium stays active for the full duration
+      const justShortOfTheDuration = GITHUB_COMMIT_PREMIUM_DURATION - 1000; // 1 sec
+      await action(createRequest(now - justShortOfTheDuration), response);
+      expect(response.json).toHaveBeenCalledTimes(1);
+      expect(response.json.mock.calls[0][0].premium).toBeTruthy();
+
+      response.json.mockReset();
+
+      // Premium expires after the full duration
+      const justOverTheDuration = GITHUB_COMMIT_PREMIUM_DURATION + 1000; // 1 sec
+      await action(createRequest(now - justOverTheDuration), response);
+      expect(response.json).toHaveBeenCalledTimes(1);
+      expect(response.json.mock.calls[0][0].premium).toBeFalsy();
+    });
     describe('refreshing', () => {
       beforeEach(() => {
         jest.resetAllMocks();
@@ -175,7 +194,7 @@ describe('controllers/user', () => {
       });
       it('returns Premium status based on the refreshed data', async () => {
         const githubHelpers = require('helpers/github');
-        // No contribution -> contributed
+        // Contributed -> no contribution
         githubHelpers.refreshGitHubLastContribution = jest.fn(user => {
           user.data.github.lastContribution = null;
           user.data.github.updatedAt = new Date();
@@ -187,7 +206,7 @@ describe('controllers/user', () => {
 
         response.json.mockReset();
 
-        // Contributed -> no contribution
+        // No contribution -> contributed
         githubHelpers.refreshGitHubLastContribution = jest.fn(user => {
           user.data.github.lastContribution = new Date();
           user.data.github.updatedAt = new Date();
