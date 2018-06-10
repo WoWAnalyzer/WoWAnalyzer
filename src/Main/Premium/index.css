@@ -19,9 +19,6 @@
   background: #cdcdcd;
 }
 
-.premium-features {
-
-}
 .premium-feature {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 5px;
@@ -30,6 +27,8 @@
 }
 .premium-feature svg {
   font-size: 5em;
+  min-width: 1em;
+  text-align: center;
   margin-right: 15px;
   margin-top: 0;
 }
