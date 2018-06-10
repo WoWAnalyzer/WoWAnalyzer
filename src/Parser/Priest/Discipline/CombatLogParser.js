@@ -57,6 +57,7 @@ import Contrition from './Modules/Spells/Contrition';
 import Reverence from './Modules/Spells/Reverence';
 import Schism from './Modules/Spells/Schism';
 
+import SinsOfTheMany from './Modules/Spells/SinsOfTheMany';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './Constants';
 
@@ -119,6 +120,7 @@ class CombatLogParser extends CoreCombatLogParser {
     contrition: Contrition,
     reverence: Reverence,
     schism: Schism,
+    sinsOfTheMany: SinsOfTheMany,
   };
 
   generateResults() {
