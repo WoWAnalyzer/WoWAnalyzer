@@ -189,7 +189,7 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
             <dfn
               data-tip="This date will automatically update when you contribute something new."
             >
-              Mon Jul 02 2018 13:48:40 GMT+0200 (W. Europe Daylight Time)
+              Mon, 02 Jul 2018 11:48:40 GMT
             </dfn>
             )
           </React.Fragment>

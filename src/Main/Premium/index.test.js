@@ -20,7 +20,7 @@ describe('Premium', () => {
             expires: '2018-07-02T11:48:40.000Z',
           },
         }}
-        dateToLocaleString={a => a.toString()}
+        dateToLocaleString={a => a.toUTCString()}
       />
     ));
     expect(tree).toMatchSnapshot();
