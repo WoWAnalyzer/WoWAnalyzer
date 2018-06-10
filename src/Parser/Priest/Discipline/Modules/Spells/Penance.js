@@ -19,13 +19,12 @@ class Penance extends Analyzer {
   casts = 0;
   hits = 0;
 
-  static isPenance = ({ ability }) =>
-    ability.guid === SPELLS.PENANCE.id ||
-    ability.guid === SPELLS.PENANCE_HEAL.id;
+  static isPenance = spellId =>
+    spellId === SPELLS.PENANCE.id || spellId === SPELLS.PENANCE_HEAL.id;
 
-  isNewPenanceCast({ ability, timestamp }) {
-    if (!Penance.isPenance({ ability })) {
-      return;
+  isNewPenanceCast(ability, timestamp) {
+    if (!Penance.isPenance(ability.guid)) {
+      return undefined;
     }
 
     return (
@@ -41,8 +40,7 @@ class Penance extends Analyzer {
     }
 
     // Guesstimate based on magic number
-    if (this.isNewPenanceCast(event)) {
-      console.log('?');
+    if (this.isNewPenanceCast(event.ability, event.timestamp)) {
       this._previousPenanceTimestamp = event.timestamp;
       this._penanceBoltCastNumber = 1;
       this.casts += 1;

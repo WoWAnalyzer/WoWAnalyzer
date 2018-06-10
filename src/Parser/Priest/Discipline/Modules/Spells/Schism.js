@@ -8,7 +8,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import Enemies from 'Parser/Core/Modules/Enemies';
 
-
 import DualStatisticBox, { STATISTIC_ORDER } from 'Main/DualStatisticBox';
 import { formatPercentage, formatNumber } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
@@ -66,7 +65,10 @@ class Schism extends Analyzer {
   }
 
   get badSchismCount() {
-    return Object.entries(this._badSchisms).reduce((n, [e, isBadSchism]) => (n += (isBadSchism ? 1 : 0)), 0);
+    return Object.entries(this._badSchisms).reduce(
+      (n, [e, isBadSchism]) => (n += isBadSchism ? 1 : 0),
+      0
+    );
   }
 
   on_byPlayer_damage(event) {
@@ -91,7 +93,7 @@ class Schism extends Analyzer {
     // Add direct schism damage
     const { smiteDamage } = this.smiteEstimation();
 
-    this.directDamage += event.amount - smiteDamage;
+    this.directDamage += (event.amount + event.absorbed || 0) - smiteDamage;
   }
 
   on_byPlayer_heal(event) {
@@ -122,9 +124,12 @@ class Schism extends Analyzer {
 
   // Flags a Schism as being bad due to lack of synergistic abilities used
   handleSynergy(event) {
-    if (!Schism.synergisticAbilities.includes(event.ability.guid)) return;
-    if (this._lastSchismCast.timestamp + Schism.duration <= event.timestamp) return;
     if (!this._lastSchismCast) return;
+    if (!Schism.synergisticAbilities.includes(event.ability.guid)) return;
+
+    // Return early if the ability isn't cast during Schism
+    if (this._lastSchismCast.timestamp + Schism.duration <= event.timestamp)
+      {return;}
 
     this._badSchisms[this._lastSchismCast] = false;
   }
@@ -160,10 +165,12 @@ class Schism extends Analyzer {
       <DualStatisticBox
         icon={<SpellIcon id={SPELLS.SCHISM_TALENT.id} />}
         values={[
-          `${formatNumber(this.healing / this.owner.fightDuration * 1000)} HPS`,
           `${formatNumber(
-            (this.directDamage + this.damageFromBuff) /
-              this.owner.fightDuration *
+            (this.healing / this.owner.fightDuration) * 1000
+          )} HPS`,
+          `${formatNumber(
+            ((this.directDamage + this.damageFromBuff) /
+              this.owner.fightDuration) *
               1000
           )} DPS
           `,
@@ -205,12 +212,23 @@ class Schism extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.badSchismThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Don't cast <SpellLink id={SPELLS.SCHISM_TALENT.id} /> without also casting <SpellLink id={SPELLS.PENANCE.id} />, <SpellLink id={SPELLS.HALO_TALENT.id} />, or <SpellLink id={SPELLS.POWER_WORD_SOLACE_TALENT.id} />  </React.Fragment>)
-        .icon(SPELLS.SCHISM_TALENT.icon)
-        .actual(`You cast Schism ${5} times without pairing it with strong damaging abilities, such as Penance, Halo, or Power Word: Solace.`)
-        .recommended(`${recommended} is recommended`);
-    });
+    when(this.badSchismThresholds).addSuggestion(
+      (suggest, actual, recommended) => {
+        return suggest(
+          <React.Fragment>
+            Don't cast <SpellLink id={SPELLS.SCHISM_TALENT.id} /> without also
+            casting <SpellLink id={SPELLS.PENANCE.id} />,{' '}
+            <SpellLink id={SPELLS.HALO_TALENT.id} />, or{' '}
+            <SpellLink id={SPELLS.POWER_WORD_SOLACE_TALENT.id} />{' '}
+          </React.Fragment>
+        )
+          .icon(SPELLS.SCHISM_TALENT.icon)
+          .actual(
+            `You cast Schism ${5} times without pairing it with strong damaging abilities, such as Penance, Halo, or Power Word: Solace.`
+          )
+          .recommended(`${recommended} is recommended`);
+      }
+    );
   }
 }
 
