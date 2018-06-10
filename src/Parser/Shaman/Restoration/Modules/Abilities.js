@@ -12,7 +12,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         charges: 2,
         cooldown: 6,
-        enabled: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id),
+        enabled: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id),
         timelineSortIndex: 11,
         isOnGCD: true,
         castEfficiency: {
@@ -27,7 +27,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.RIPTIDE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 6,
-        enabled: !(combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id)),
+        enabled: !(combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id)),
         timelineSortIndex: 11,
         isOnGCD: true,
         castEfficiency: {
@@ -40,8 +40,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HEALING_STREAM_TOTEM_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isDefensive: true,
-        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id) ? 2 : 1,
+        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
         timelineSortIndex: 18,
         enabled: !combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id),
         isOnGCD: true,
