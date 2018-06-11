@@ -20,7 +20,6 @@ import AlwaysBeCasting from './AlwaysBeCasting';
 import MoonfireUptime from './MoonfireUptime';
 import SunfireUptime from './SunfireUptime';
 import StellarFlareUptime from './StellarFlareUptime';
-import StellarEmpowermentUptime from './StellarEmpowermentUptime';
 import LunarEmpowerment from './LunarEmpowerment';
 import SolarEmpowerment from './SolarEmpowerment';
 import EarlyDotRefreshes from './EarlyDotRefreshes';
@@ -40,7 +39,6 @@ class Checklist extends CoreChecklist {
     moonfireUptime: MoonfireUptime,
     sunfireUptime: SunfireUptime,
     stellarFlareUptime: StellarFlareUptime,
-    stellarEmpowermentUptime: StellarEmpowermentUptime,
     lunarEmpowerment: LunarEmpowerment,
     solarEmpowerment: SolarEmpowerment,
     earlyDotRefreshes: EarlyDotRefreshes,
@@ -90,11 +88,6 @@ class Checklist extends CoreChecklist {
             name: <React.Fragment><SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} /> uptime</React.Fragment>,
             check: () => this.stellarFlareUptime.suggestionThresholds,
             when: this.stellarFlareUptime.active,
-          }),
-          new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.STELLAR_EMPOWERMENT.id} /> uptime</React.Fragment>,
-            check: () => this.stellarEmpowermentUptime.suggestionThresholds,
-            when: this.stellarEmpowermentUptime.active,
           }),
         ];
       },
