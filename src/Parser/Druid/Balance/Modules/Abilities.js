@@ -10,25 +10,6 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational Spells
       {
-        spell: [SPELLS.NEW_MOON, SPELLS.HALF_MOON, SPELLS.FULL_MOON],
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 15,
-        isOnGCD: true,
-        charges: 3,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-          averageIssueEfficiency: 0.9,
-          majorIssueEfficiency: 0.85,
-          extraSuggestion: (
-            <React.Fragment>
-              Your <SpellLink id={SPELLS.NEW_MOON.id} />, <SpellLink id={SPELLS.HALF_MOON.id} /> and <SpellLink id={SPELLS.FULL_MOON.id} /> cast efficiency can be improved, try keeping yourself at low Moon charges at all times; you should (almost) never be at max (3) charges.
-            </React.Fragment>
-          ),
-        },
-        timelineSortIndex: 1,
-      },
-      {
         spell: SPELLS.STARSURGE_MOONKIN,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
@@ -83,6 +64,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         enabled: combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id),
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -95,6 +77,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         enabled: !combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id),
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -126,13 +109,21 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: SPELLS.ASTRAL_COMMUNION_TALENT,
+        spell: [SPELLS.NEW_MOON_TALENT, SPELLS.HALF_MOON, SPELLS.FULL_MOON],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 80,
-        enabled: combatant.hasTalent(SPELLS.ASTRAL_COMMUNION_TALENT.id),
+        cooldown: 30,
+        isOnGCD: true,
+        charges: 3,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9,
+          recommendedEfficiency: 0.95,
+          averageIssueEfficiency: 0.9,
+          majorIssueEfficiency: 0.85,
+          extraSuggestion: (
+            <React.Fragment>
+              Your <SpellLink id={SPELLS.NEW_MOON_TALENT.id} />, <SpellLink id={SPELLS.HALF_MOON.id} /> and <SpellLink id={SPELLS.FULL_MOON.id} /> cast efficiency can be improved, try keeping yourself at low Moon charges at all times; you should (almost) never be at max (3) charges.
+            </React.Fragment>
+          ),
         },
         timelineSortIndex: 11,
       },
@@ -140,11 +131,12 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FURY_OF_ELUNE_TALENT,
         buffSpellId: SPELLS.FURY_OF_ELUNE_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 90,
+        cooldown: 60,
         enabled: combatant.hasTalent(SPELLS.FURY_OF_ELUNE_TALENT.id),
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9,
+          recommendedEfficiency: 0.8,
         },
         timelineSortIndex: 11,
       },
@@ -154,6 +146,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.INNERVATE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 180,
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.70,
@@ -184,11 +177,11 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 14,
       },
       {
-        spell: SPELLS.DISPLACER_BEAST_TALENT,
-        buffSpellId: SPELLS.DISPLACER_BEAST_TALENT.id,
+        spell: SPELLS.TIGERS_DASH_TALENT,
+        buffSpellId: SPELLS.TIGERS_DASH_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 30,
-        enabled: combatant.hasTalent(SPELLS.DISPLACER_BEAST_TALENT.id),
+        cooldown: 45,
+        enabled: combatant.hasTalent(SPELLS.TIGERS_DASH_TALENT.id),
         isOnGCD: true,
         timelineSortIndex: 14,
       },
@@ -196,6 +189,7 @@ class Abilities extends CoreAbilities {
         spell: [SPELLS.WILD_CHARGE_TALENT, SPELLS.WILD_CHARGE_MOONKIN, SPELLS.WILD_CHARGE_CAT, SPELLS.WILD_CHARGE_BEAR, SPELLS.WILD_CHARGE_TRAVEL],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
+        //isOnGCD: true, 0.5s gcd
         enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
         timelineSortIndex: 14,
       },
@@ -229,8 +223,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DASH,
         buffSpellId: SPELLS.DASH.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        enabled: !combatant.hasTalent(SPELLS.TIGERS_DASH_TALENT.id),
         cooldown: 180,
-        isOnGCD: true, //It is not on the GCD if already in catform. Pretty low prio to fix since you can't cast anything meaning full in catform anyway.
+        isOnGCD: true,
       },
       {
         spell: SPELLS.SOLAR_BEAM,
@@ -288,6 +283,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 24,
         charges: 2,
+        isOnGCD: true,
         enabled: combatant.hasTalent(SPELLS.GUARDIAN_AFFINITY_TALENT_SHARED.id),
       },
       {
@@ -298,6 +294,12 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.REJUVENATION,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        enabled: combatant.hasTalent(SPELLS.RESTORATION_AFFINITY_TALENT.id),
+        isOnGCD: true,
+      },
+      {
+        spell: SPELLS.WILD_GROWTH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.RESTORATION_AFFINITY_TALENT.id),
         isOnGCD: true,
