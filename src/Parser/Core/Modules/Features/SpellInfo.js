@@ -102,9 +102,16 @@ export default {
   },
   //TODO: Add Shadowbind, it scales from the crit on the damage part
 
-  [SPELLS.RESOUNDING_PROTECTION_ABSORB.id]:{
+  [SPELLS.RESOUNDING_PROTECTION_ABSORB.id]: {
     int: false,
     crit: false,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
+  [SPELLS.IMPASSIVE_VISAGE_HEAL.id]: {
+    int: false,
+    crit: true,
     hasteHpct: false,
     mastery: false,
     vers: true,

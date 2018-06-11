@@ -479,11 +479,6 @@ export default {
     name: 'Ignition Point',
     icon: 'spell_fire_flamebolt',
   },
-  IMPASSIVE_VISAGE: {
-    id: 268437,
-    name: 'Impassive Visage',
-    icon: 'inv_pet_inquisitoreye',
-  },
   IN_THE_RHYTHM: {
     id: 264198,
     name: 'In The Rhythm',

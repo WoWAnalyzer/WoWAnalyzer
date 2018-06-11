@@ -59,4 +59,14 @@ export default {
     name: 'Resounding Protection',
     icon: 'ability_vehicle_shellshieldgenerator_green',
   },
+  IMPASSIVE_VISAGE: {
+    id: 268437,
+    name: 'Impassive Visage',
+    icon: 'inv_pet_inquisitoreye',
+  },
+  IMPASSIVE_VISAGE_HEAL: {
+    id: 270117,
+    name: 'Impassive Visage',
+    icon: 'inv_pet_inquisitoreye',
+  },
 };
