@@ -16,7 +16,6 @@ import SunfireUptime from './Modules/Features/SunfireUptime';
 import StellarFlareUptime from './Modules/Features/StellarFlareUptime';
 import StellarEmpowermentUptime from './Modules/Features/StellarEmpowermentUptime';
 import UnempoweredLunarStrike from './Modules/Features/UnempoweredLunarStrike';
-import UnempoweredSolarWrath from './Modules/Features/UnempoweredSolarWrath';
 
 //Talents
 
@@ -59,7 +58,6 @@ class CombatLogParser extends MainCombatLogParser {
     stellarFlareUptime: StellarFlareUptime,
     stellarEmpowermentUptime: StellarEmpowermentUptime,
     unempoweredLunarStrike: UnempoweredLunarStrike,
-    unempoweredSolarWrath: UnempoweredSolarWrath,
 
     //Talents
 
