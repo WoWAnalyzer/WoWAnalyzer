@@ -45,7 +45,6 @@ class RipSnapshot extends Snapshot {
     comboPointTracker: ComboPointTracker,
   };
 
-  static spellName = SPELLS.RIP.name;
   static spellCastId = SPELLS.RIP.id;
   static debuffId = SPELLS.RIP.id;
   static durationOfFresh = RIP_BASE_DURATION;

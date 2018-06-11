@@ -15,7 +15,6 @@ import Snapshot, { PANDEMIC_FRACTION } from '../FeralCore/Snapshot';
 const MOONFIRE_FERAL_BASE_DURATION = 14000;
 
 class MoonfireSnapshot extends Snapshot {
-  static spellName = SPELLS.MOONFIRE_FERAL.name;
   static spellCastId = SPELLS.MOONFIRE_FERAL.id;
   static debuffId = SPELLS.MOONFIRE_FERAL.id;
 

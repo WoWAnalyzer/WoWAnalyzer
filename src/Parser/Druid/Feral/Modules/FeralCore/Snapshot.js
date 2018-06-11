@@ -40,7 +40,6 @@ class Snapshot extends Analyzer {
   };
 
   // extending class should fill these in:
-  static spellName = null;
   static spellCastId = null;
   static debuffId = null;
   static isProwlAffected = false;
