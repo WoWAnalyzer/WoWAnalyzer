@@ -47,6 +47,12 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
       },
       {
+        spell: SPELLS.FELSTORM,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 45,
+        isOnGCD: false,
+      },
+      {
         spell: SPELLS.DEMONWRATH_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         isOnGCD: true,

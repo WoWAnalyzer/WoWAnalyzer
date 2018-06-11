@@ -16,11 +16,10 @@ import AlwaysBeCasting from 'Parser/Warlock/Demonology/Modules/Features/AlwaysBe
 import LegendaryCountChecker from 'Parser/Core/Modules/Items/LegendaryCountChecker';
 import DoomguardInfernal from 'Parser/Warlock/Demonology/Modules/Features/DoomguardInfernal';
 import Felstorm from 'Parser/Warlock/Demonology/Modules/Features/Felstorm';
-import DemonicEmpowermentUptimePet from 'Parser/Warlock/Demonology/Modules/Features/DemonicEmpowermentUptimePet';
 import AbilityTracker from 'Parser/Core/Modules/Combatants';
-import DemonicEmpowermentUptimeHandOfGuldanCallDreadstalkers from 'Parser/Warlock/Demonology/Modules/Features/DemonicEmpowermentUptimeHandOfGuldanCallDreadstalkers';
-import DemonicEmpowermentUptimeDoomguardInfernal from 'Parser/Warlock/Demonology/Modules/Features/DemonicEmpowermentUptimeDoomguardInfernal';
 import DoomUptime from 'Parser/Warlock/Demonology/Modules/Features/DoomUptime';
+import DemonicEmpowerment from 'Parser/Warlock/Demonology/Modules/Features/DemonicEmpowerment';
+
 
 
 class Checklist extends CoreChecklist{
@@ -35,13 +34,11 @@ class Checklist extends CoreChecklist{
     prePotion: PrePotion,
     doomguardInfernal : DoomguardInfernal,
     felstorm: Felstorm,
-    demonicEmpowermentUptimePet: DemonicEmpowermentUptimePet,
-    demonicEmpowermentUptimeHandOfGuldanCallDreadstalkers: DemonicEmpowermentUptimeHandOfGuldanCallDreadstalkers,
-    demonicEmpowermentUptimeDoomguardInfernal: DemonicEmpowermentUptimeDoomguardInfernal,
     enchantChecker: EnchantChecker,
     soulShardDetails: SoulShardDetails,
     soulShardTracker: SoulShardTracker,
     doomUptime: DoomUptime,
+    demonicEmpowerment: DemonicEmpowerment,
   };
 
 
@@ -58,19 +55,19 @@ class Checklist extends CoreChecklist{
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.DEMONIC_EMPOWERMENT.id} icon/> Main Pet Uptime</React.Fragment>,
-            check: () => this.demonicEmpowermentUptimePet.suggestionThresholds,
+            check: () => this.demonicEmpowerment.petSuggestionThresholds,
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.CALL_DREADSTALKERS.id} icon/> Empowerment Uptime</React.Fragment>,
-            check: () => this.demonicEmpowermentUptimeHandOfGuldanCallDreadstalkers.dreadstalkerSuggestionThresholds,
+            check:() => this.demonicEmpowerment.callDreadstalkerSuggestionThresholds,
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.HAND_OF_GULDAN_CAST.id} icon/> Empowerment Uptime</React.Fragment>,
-            check: () => this.demonicEmpowermentUptimeHandOfGuldanCallDreadstalkers.hogSuggestionThresholds,
+            check: () => this.demonicEmpowerment.hogSuggestionThresholds,
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} icon/>/<SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} icon/> Empowerment Uptime</React.Fragment>,
-            check: () => this.demonicEmpowermentUptimeDoomguardInfernal.suggestionThresholds,
+            check: () => this.demonicEmpowerment.cdDemonSuggestionThresholds,
             when: !combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
           }),
           new Requirement({

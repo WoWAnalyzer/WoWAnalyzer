@@ -6,9 +6,7 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import DoomguardInfernal from './Modules/Features/DoomguardInfernal';
 import Felstorm from './Modules/Features/Felstorm';
-import DemonicEmpowermentUptimePet from './Modules/Features/DemonicEmpowermentUptimePet';
-import DemonicEmpowermentUptimeHandOfGuldanCallDreadstalkers from './Modules/Features/DemonicEmpowermentUptimeHandOfGuldanCallDreadstalkers';
-import DemonicEmpowermentUptimeDoomguardInfernal from './Modules/Features/DemonicEmpowermentUptimeDoomguardInfernal';
+import DemonicEmpowerment from './Modules/Features/DemonicEmpowerment';
 import SpellUsable from './Modules/Features/SpellUsable';
 import Checklist from './Modules/Features/Checklist';
 
@@ -43,6 +41,7 @@ import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord
 import T20_2set from './Modules/Items/T20_2set';
 import T20_4set from './Modules/Items/T20_4set';
 
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
@@ -52,11 +51,9 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     doomguardInfernal: DoomguardInfernal,
     felstorm: Felstorm,
-    demonicEmpowermentUptimePet: DemonicEmpowermentUptimePet,
-    demonicEmpowermentUptimeHandOfGuldan: DemonicEmpowermentUptimeHandOfGuldanCallDreadstalkers,
-    demonicEmpowermentUptimeDoomguardInfernal: DemonicEmpowermentUptimeDoomguardInfernal,
     spellUsable: SpellUsable,
     checklist: Checklist,
+    demonicEmpowerment: DemonicEmpowerment,
 
 
     // DoTs
