@@ -28,6 +28,8 @@ jobs:
       cache:
         directories:
           - server/node_modules
+      env:
+        - NODE_ENV=test
       install:
         - cd server && npm install --dev && cd ..
       script:
