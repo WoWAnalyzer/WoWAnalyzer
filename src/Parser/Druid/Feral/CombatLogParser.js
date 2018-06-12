@@ -12,7 +12,6 @@ import RipUptime from './Modules/Bleeds/RipUptime';
 import FerociousBiteEnergy from './Modules/Features/FerociousBiteEnergy';
 import RakeSnapshot from './Modules/Bleeds/RakeSnapshot';
 import RipSnapshot from './Modules/Bleeds/RipSnapshot';
-import MoonfireSnapshot from './Modules/Bleeds/MoonfireSnapshot';
 
 import ComboPointTracker from './Modules/ComboPoints/ComboPointTracker';
 import ComboPointDetails from './Modules/ComboPoints/ComboPointDetails';
@@ -20,6 +19,7 @@ import ComboPointDetails from './Modules/ComboPoints/ComboPointDetails';
 import SavageRoarUptime from './Modules/Talents/SavageRoarUptime';
 import MoonfireUptime from './Modules/Talents/MoonfireUptime';
 import SavageRoarDmg from './Modules/Talents/SavageRoarDmg';
+import MoonfireSnapshot from './Modules/Talents/MoonfireSnapshot';
 
 import AshamanesRip from './Modules/Traits/AshamanesRip';
 

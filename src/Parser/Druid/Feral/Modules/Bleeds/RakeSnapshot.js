@@ -2,6 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
+import { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 import Snapshot, { JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION } from '../FeralCore/Snapshot';
 
 /**
@@ -130,5 +131,10 @@ class RakeSnapshot extends Snapshot {
         .recommended(`${recommended}% is recommended`);
     });
   }
+
+  statistic() {
+    return super.generateStatistic(SPELLS.RAKE.name);
+  }
+  statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 export default RakeSnapshot;

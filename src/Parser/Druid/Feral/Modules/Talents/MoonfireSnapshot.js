@@ -2,6 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
+import { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 
 import Snapshot, { PANDEMIC_FRACTION } from '../FeralCore/Snapshot';
 
@@ -88,5 +89,10 @@ class MoonfireSnapshot extends Snapshot {
         .recommended(`${recommended}% is recommended`);
     });
   }
+
+  statistic() {
+    return super.generateStatistic(SPELLS.MOONFIRE_FERAL.name);
+  }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(10)
 }
 export default MoonfireSnapshot;

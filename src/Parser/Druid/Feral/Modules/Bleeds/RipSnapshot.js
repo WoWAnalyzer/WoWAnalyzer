@@ -5,6 +5,7 @@ import SpellLink from 'common/SpellLink';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatPercentage } from 'common/format';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
+import { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 import Snapshot, { JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION } from '../FeralCore/Snapshot';
 import ComboPointTracker from '../ComboPoints/ComboPointTracker';
 
@@ -96,6 +97,8 @@ class RipSnapshot extends Snapshot {
 
   // use damage events to keep track of each target's health to tell when they're in "execute" range
   on_byPlayer_damage(event) {
+    super.on_byPlayer_damage(event);
+
     // no need to track health if combatant has sabertooth, and don't track health of friendlies.
     if (this.constructor.hasSabertooth || event.targetIsFriendly) {
       return;
@@ -231,5 +234,10 @@ class RipSnapshot extends Snapshot {
         .recommended(`${recommended}% is recommended`);
     });
   }
+
+  statistic() {
+    return super.generateStatistic(SPELLS.RIP.name);
+  }
+  statisticOrder = STATISTIC_ORDER.CORE(11);
 }
 export default RipSnapshot;
