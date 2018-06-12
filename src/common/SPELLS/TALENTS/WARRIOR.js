@@ -42,6 +42,12 @@ export default {
   BOOMING_VOICE_TALENT: { id: 202743, name: "Booming Voice", icon: "ability_warrior_battleshout" },
   HEAVY_REPERCUSSIONS_TALENT: { id: 203177, name: "Heavy Repercussions", icon: "inv_shield_32" },
   RAVAGER_TALENT_PROTECTION: { id: 228920, name: "Ravager", icon: "warrior_talent_icon_ravager" },
+  
+  UNSTOPPABLE_FORCE_TALENT: { id: 275336, name: "Unstoppable Force", icon: "warrior_talent_icon_thunderstruck" },
+  RUMBLING_EARTH_TALENT: { id: 275339, name: "Rumbling Earth", icon: "spell_shaman_earthquake" },
+  BOLSTER_TALENT: { id: 280001, name: "Bolster", icon: "shield_draenorcrafted_d_02_c_alliance" },
+  PUNSISH_TALENT: { id: 275334, name: "Punish", icon: "ability_deathknight_sanguinfortitude" },
+  MENACE_TALENT: { id: 275338, name: "Menace", icon: "ability_golemthunderclap" },
   // Fury
   WAR_MACHINE_TALENT: { id: 215556, name: "War Machine", icon: "ability_hunter_rapidkilling" },
   ENDLESS_RAGE_TALENT: { id: 202296, name: "Endless Rage", icon: "ability_warrior_endlessrage" },
