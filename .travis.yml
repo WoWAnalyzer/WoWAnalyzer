@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - 9.9.0
+  - 10.4
 # every second counts
 git:
   depth: 5
