@@ -41,14 +41,7 @@ class CharacterSelecter extends React.PureComponent {
       return null;
     }
 
-    //check if character has an key in localStorage, if so directly redirect to /character otherwise ask bnet-api
     //checking here makes it more userfriendly and saves WCL-requests when char doesn't even exist for the bnet-api
-    const image = localStorage.getItem(`${region}/${realm}/${char}`);
-    if (image) {
-      this.props.history.push(makeUrl(region, realm, char));
-      return null;
-    }
-
     this.setState({
       loading: true,
     });
@@ -60,8 +53,6 @@ class CharacterSelecter extends React.PureComponent {
           this.setState({ loading: false });
           return;
         }
-        const image = data.thumbnail.replace('-avatar.jpg', '');
-        localStorage.setItem(`${region}/${realm}/${char}`, image);
         this.props.history.push(makeUrl(region, realm, char));
       }).catch(e => {
         this.setState({ loading: false });
