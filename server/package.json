@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node --harmony node_modules/sequelize-cli/lib/sequelize db:migrate && nodemon index.js --exec babel-node",
-    "test": "jest --watchAll",
+    "test": "jest --watch",
+    "test:once": "jest",
     "build": "babel -d build --ignore node_modules,build . && node ./config/postbuild.js",
     "serve": "node --harmony node_modules/sequelize-cli/lib/sequelize db:migrate && node --harmony build/index.js"
   },
@@ -51,7 +52,8 @@
     "transform": {
       "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest"
     },
-    "transformIgnorePatterns": ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"],
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"],
     "modulePaths": [
       "."
     ]
