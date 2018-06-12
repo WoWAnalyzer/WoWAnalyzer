@@ -43,10 +43,15 @@
     "regenerator-runtime": "^0.11.1"
   },
   "jest": {
+    "testEnvironment": "node",
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules/",
       "<rootDir>/build/"
     ],
+    "transform": {
+      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest"
+    },
+    "transformIgnorePatterns": ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"],
     "modulePaths": [
       "."
     ]
