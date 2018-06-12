@@ -208,7 +208,7 @@ class Snapshot extends Analyzer {
         </div>
         <div className="flex-sub text-right">
         <dfn data-tip={`${formatNumber(damageIncrease / this.owner.fightDuration * 1000)} DPS contributed by ${buffName} on your ${spellName} DoT`}>
-          {formatPercentage(ticksWithBuff / this.ticks)}%
+          {formatPercentage(this.ticks === 0 ? 0 : ticksWithBuff / this.ticks)}%
         </dfn>
         </div>
       </div>
