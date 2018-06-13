@@ -146,10 +146,10 @@ describe('controllers/user', () => {
       expect(response.json.mock.calls[0][0].github.premium).toBeTruthy();
     });
     it('reveals the expiry date', async () => {
-      await action(createRequest(new Date(2018, 5, 10, 11, 20, 15, 0)), response);
+      await action(createRequest(new Date(Date.UTC(2018, 5, 10, 11, 20, 15, 0))), response);
       expect(response.json).toHaveBeenCalledTimes(1);
       // This test will fail when the GitHub premium duration is changed, will have to be updated simultaneously.
-      expect(JSON.stringify(response.json.mock.calls[0][0].github.expires)).toBe('"2018-07-10T09:20:15.000Z"');
+      expect(JSON.stringify(response.json.mock.calls[0][0].github.expires)).toBe('"2018-07-10T11:20:15.000Z"');
     });
     it('doesn\'t give Premium when logged in but not pledged', async () => {
       await action(createRequest(null), response);
