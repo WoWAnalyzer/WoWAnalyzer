@@ -10,10 +10,10 @@ import StatisticBox from 'Main/StatisticBox';
 
 const MILLISECONDS = 1000;
 
-const DE_DURATION = 12;
-const CD_DEMON_SUMMON_DURATION = 25;
-const HOG_IMP_DURATION = 12;
-const CALL_DREADSTALKERS_DURATION = 12;
+const DE_DURATION_MS = 12 * MILLISECONDS;
+const CD_DEMON_SUMMON_DURATION_MS = 25 * MILLISECONDS;
+const HOG_IMP_DURATION_MS = 12 * MILLISECONDS;
+const CALL_DREADSTALKERS_DURATION_MS = 12 * MILLISECONDS;
 
 class DemonicEmpowerment extends Analyzer{
   hogCasts = 0;
@@ -37,11 +37,11 @@ class DemonicEmpowerment extends Analyzer{
   lastDeIntervalEnd = null;
 
   get hogEmpoweredUptime(){
-    return this.totalEmpHogImpTime / (this.hogCasts * HOG_IMP_DURATION * MILLISECONDS);
+    return this.totalEmpHogImpTime / (this.hogCasts * HOG_IMP_DURATION_MS);
   }
 
   get callDreadStalkersEmpoweredUptime(){
-    return this.totalEmpCallDreadTime / (this.callDreadCasts * CALL_DREADSTALKERS_DURATION * MILLISECONDS);
+    return this.totalEmpCallDreadTime / (this.callDreadCasts * CALL_DREADSTALKERS_DURATION_MS);
   }
 
   get petEmpoweredUptime(){
@@ -49,7 +49,7 @@ class DemonicEmpowerment extends Analyzer{
   }
 
   get cdDemonEmpoweredUptime(){
-    return this.totalEmpCdDemonTime / (this.cdSummonCasts * CD_DEMON_SUMMON_DURATION * MILLISECONDS);
+    return this.totalEmpCdDemonTime / (this.cdSummonCasts * CD_DEMON_SUMMON_DURATION_MS);
   }
 
   get hogSuggestionThresholds(){
@@ -129,15 +129,15 @@ class DemonicEmpowerment extends Analyzer{
     } else if (spellId === SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id || spellId === SPELLS.SUMMON_INFERNAL_UNTALENTED.id){
       this.cdSummonCasts += 1;
       this.lastCDSummonStart = event.timestamp;
-      this.lastCDSummonEnd = this.lastCDSummonStart + (CD_DEMON_SUMMON_DURATION * MILLISECONDS);
+      this.lastCDSummonEnd = this.lastCDSummonStart + (CD_DEMON_SUMMON_DURATION_MS);
     }
 
   }
 
   updateHogUptime(event){
     this.unempoweredHogImps.forEach((e) => {
-      if(event.timestamp - e <= HOG_IMP_DURATION * MILLISECONDS){
-        const timeDelta = (HOG_IMP_DURATION * MILLISECONDS) - (event.timestamp - e);
+      if(event.timestamp - e <= HOG_IMP_DURATION_MS){
+        const timeDelta = (HOG_IMP_DURATION_MS) - (event.timestamp - e);
         this.totalEmpHogImpTime += timeDelta;
       }
     });
@@ -146,8 +146,8 @@ class DemonicEmpowerment extends Analyzer{
 
   updateDreadstalkerUptime(event){
     this.unempoweredDreadstalkers.forEach((e) => {
-      if(event.timestamp - e <= CALL_DREADSTALKERS_DURATION * MILLISECONDS){
-        const timeDelta = (CALL_DREADSTALKERS_DURATION * MILLISECONDS) - (event.timestamp - e);
+      if(event.timestamp - e <= CALL_DREADSTALKERS_DURATION_MS){
+        const timeDelta = (CALL_DREADSTALKERS_DURATION_MS) - (event.timestamp - e);
         this.totalEmpCallDreadTime += timeDelta;
       }
     });
@@ -155,9 +155,9 @@ class DemonicEmpowerment extends Analyzer{
   }
 
   updatePetUptime(event){
-    const deOverlap = Math.max(0, this.lastDeStart + (DE_DURATION * MILLISECONDS) - event.timestamp);
+    const deOverlap = Math.max(0, this.lastDeStart + (DE_DURATION_MS) - event.timestamp);
     const endOverlap = Math.max(0, event.timestamp - this.owner.fight.end_time);
-    const timeDelta = (DE_DURATION * MILLISECONDS) - deOverlap - endOverlap;
+    const timeDelta = (DE_DURATION_MS) - deOverlap - endOverlap;
     this.totalEmpPetTime += timeDelta;
   }
 
@@ -170,7 +170,7 @@ class DemonicEmpowerment extends Analyzer{
         this.lastDeIntervalEnd = null;
       }
       this.lastDeIntervalStart = (this.lastDeIntervalStart || event.timestamp);
-      this.lastDeIntervalEnd = (this.lastDeIntervalEnd == null ? this.lastDeIntervalStart + (DE_DURATION * MILLISECONDS) : this.lastDeIntervalEnd + (DE_DURATION * MILLISECONDS));
+      this.lastDeIntervalEnd = (this.lastDeIntervalEnd == null ? this.lastDeIntervalStart + (DE_DURATION_MS) : this.lastDeIntervalEnd + (DE_DURATION_MS));
       if(this.lastDeIntervalEnd > this.lastCDSummonEnd){
         //Our buff reaches the end of our current summon, so we add the time from this interval and reset.
         this.lastDeIntervalEnd = this.lastCDSummonEnd;
