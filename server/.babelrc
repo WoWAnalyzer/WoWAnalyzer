@@ -5,5 +5,8 @@
 		["module-resolver", {
 			"root": ["."]
 		}]
+	],
+	"ignore": [
+		"build"
 	]
 }
