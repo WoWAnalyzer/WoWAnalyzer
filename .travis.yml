@@ -33,7 +33,7 @@ jobs:
       install:
         - cd server && npm install --dev && cd ..
       script:
-        - cd server && npm run test:once -- --maxWorkers=2 && cd ..
+        - cd server && npm run test:once -- --debug && npm run test:once -- --maxWorkers=2 && cd ..
     # TODO: Code duplication calculator
     - stage: build
       services: docker
