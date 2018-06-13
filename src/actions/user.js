@@ -1,3 +1,5 @@
+import { captureException } from 'common/errorLogger';
+
 export const SET_USER = 'SET_USER';
 function setUser(user) {
   return {
@@ -21,6 +23,11 @@ export function fetchUser() {
         }
         return response.json();
       })
-      .then(user => dispatch(setUser(user)));
+      .then(user => dispatch(setUser(user)))
+      .catch(err => {
+        captureException(err);
+        console.error(err);
+        // fail silently since this only enhances the experience, if we're shortly down it shouldn't *kill* the experience.
+      });
   };
 }
