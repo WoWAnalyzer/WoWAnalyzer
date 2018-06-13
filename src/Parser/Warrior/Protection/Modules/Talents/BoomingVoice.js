@@ -10,8 +10,8 @@ import Enemies from 'Parser/Core/Modules/Enemies';
 import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import { formatNumber } from 'common/format';
 
-const BOOMING_VOICE_DAMAGE_INCREASE = 0.25;
-const BOOMING_VOICE_RAGE_GENERATION = 60;
+const BOOMING_VOICE_DAMAGE_INCREASE = 0.15;
+const BOOMING_VOICE_RAGE_GENERATION = 40;
 
 class BoomingVoice extends Analyzer {
   static dependencies = {
