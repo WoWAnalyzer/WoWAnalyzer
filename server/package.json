@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node --harmony node_modules/sequelize-cli/lib/sequelize db:migrate && nodemon index.js --exec babel-node",
-    "test": "jest --watch",
+    "test": "jest --watchAll",
     "test:once": "jest",
     "build": "babel -d build --ignore node_modules,build . && node ./config/postbuild.js",
     "serve": "node --harmony node_modules/sequelize-cli/lib/sequelize db:migrate && node --harmony build/index.js"
