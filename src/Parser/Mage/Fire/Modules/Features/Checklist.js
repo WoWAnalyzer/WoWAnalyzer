@@ -17,7 +17,6 @@ import EnchantChecker from 'Parser/Core/Modules/Items/EnchantChecker';
 
 import CancelledCasts from '../../../Shared/Modules/Features/CancelledCasts';
 import AlwaysBeCasting from './AlwaysBeCasting';
-import Cinderstorm from './Cinderstorm';
 import CombustionCharges from './CombustionCharges';
 import CombustionFirestarter from './CombustionFirestarter';
 import CombustionSpellUsage from './CombustionSpellUsage';
@@ -34,7 +33,6 @@ class Checklist extends CoreChecklist {
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
 
-    cinderstorm: Cinderstorm,
     combustionCharges: CombustionCharges,
     combustionFirestarter: CombustionFirestarter,
     combustionSpellUsage: CombustionSpellUsage,
@@ -70,8 +68,9 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Manage Your Procs',
-      description: <React.Fragment>Fire Mage is heavily dependent on correctly using your <SpellLink id={SPELLS.FIRE_BLAST.id} /> and <SpellLink id={SPELLS.PHOENIXS_FLAMES.id} /> guaranteed crit abilities to properly convert <SpellLink id={SPELLS.HEATING_UP.id} /> to <SpellLink id={SPELLS.HOT_STREAK.id} />. These procs, and the amount of them you get, play a big role in your overall performance so it is important that you are utilizing them correctly.</React.Fragment>,
+      description: <React.Fragment>Fire Mage is heavily dependent on correctly using your <SpellLink id={SPELLS.FIRE_BLAST.id} /> and <SpellLink id={SPELLS.PHOENIX_FLAMES_TALENT.id} /> (if talented) guaranteed crit abilities to properly convert <SpellLink id={SPELLS.HEATING_UP.id} /> to <SpellLink id={SPELLS.HOT_STREAK.id} />. These procs, and the amount of them you get, play a big role in your overall performance so it is important that you are utilizing them correctly.</React.Fragment>,
       requirements: () => {
+        const combatant = this.combatants.selected;
         return [
           new Requirement({
             name: "Fire Blast used with Heating Up",
@@ -79,9 +78,10 @@ class Checklist extends CoreChecklist {
             tooltip: `Because Fire Blast is guaranteed to crit, you only want to use it to convert Heating Up to Hot Streak. This is because if you use it without Heating Up, you might not get a second crit and waste the Heating Up proc, and if you use it while you have Hot Streak, then you dont gain anything. The only exception to this is during ${this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id) ? 'Firestarter and Combustion' : 'Combustion' } when you know everything is going to crit.`,
           }),
           new Requirement({
-            name: "Phoenix's Flames used with Heating Up",
+            name: "Phoenix Flames used with Heating Up",
             check: () => this.heatingUp.phoenixFlamesUtilSuggestionThresholds,
-            tooltip: `Because Phoenix's Flames is guaranteed to crit, you only want to use it to convert Heating Up to Hot Streak. This is because if you use it without Heating Up, you might not get a second crit and waste the Heating Up proc, and if you use it while you have Hot Streak, then it does nothing. The only exception to this is during ${this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id) ? 'Firestarter and Combustion' : 'Combustion' } when you know everything is going to crit.`,
+            tooltip: `Because Phoenix Flames is guaranteed to crit, you only want to use it to convert Heating Up to Hot Streak. This is because if you use it without Heating Up, you might not get a second crit and waste the Heating Up proc, and if you use it while you have Hot Streak, then it does nothing. The only exception to this is during ${this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id) ? 'Firestarter and Combustion' : 'Combustion' } when you know everything is going to crit.`,
+            when: combatant.hasTalent(SPELLS.PHOENIX_FLAMES_TALENT.id),
           }),
           new Requirement({
             name: "Hard Casts Before Hot Streak",
@@ -136,10 +136,6 @@ class Checklist extends CoreChecklist {
             onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.CINDERSTORM_TALENT,
-            when: combatant.hasTalent(SPELLS.CINDERSTORM_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
             spell: SPELLS.MIRROR_IMAGE_TALENT,
             when: combatant.hasTalent(SPELLS.MIRROR_IMAGE_TALENT.id),
           }),
@@ -164,12 +160,6 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         const combatant = this.combatants.selected;
         return [
-          new Requirement({
-            name: "Cinderstorm Average Hits Per Cast",
-            check: () => this.cinderstorm.suggestionThreshold,
-            tooltip: `When using Cinderstorm, it is important that every cinder hits every available mob. If this is not possible or you are having trouble aiming the spell properly, you might want to pick another talent.`,
-            when: combatant.hasTalent(SPELLS.CINDERSTORM_TALENT.id),
-          }),
           new Requirement({
             name: "Rune of Power Effective Time Per Cast",
             check: () => this.runeOfPower.roundedSecondsSuggestionThresholds,
