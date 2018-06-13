@@ -44,15 +44,28 @@ class Checklist extends CoreChecklist{
 
   rules = [
     new Rule({
-      name: 'Rotation Spells',
-      description: <React.Fragment>Follow your rotation closely to maximize DPS. Note that if you have <SpellLink id={SPELLS.WARLOCK_DEMO_T20_2P_BONUS.id} icon/>, Call Dreadstalkers is a rough estimate based on number of procs.</React.Fragment>,
+      name: 'Use your core spells',
+      description: 'Make sure you\'re following your rotation closely in order to maximize DPS.',
       requirements: () => {
-        const combatant = this.combatants.selected;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.CALL_DREADSTALKERS,
             onlyWithSuggestion: false,
           }),
+          new Requirement({
+            name: <React.Fragment><SpellLink id={SPELLS.DOOM.id} icon /> Uptime</React.Fragment>,
+            check: () => this.doomUptime.suggestionThresholds,
+          }),
+        ];
+      },
+    }),
+
+    new Rule({
+      name: 'Maintain Demonic Empowerment on Demons',
+      decription: 'High Demonic Empowerment uptime on your summoned demons is a key part of high DPS.',
+      requirements: () => {
+        const combatant = this.combatants.selected;
+        return[
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.DEMONIC_EMPOWERMENT.id} icon/> Main Pet Uptime</React.Fragment>,
             check: () => this.demonicEmpowerment.petSuggestionThresholds,
@@ -69,10 +82,6 @@ class Checklist extends CoreChecklist{
             name: <React.Fragment><SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} icon/>/<SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} icon/> Empowerment Uptime</React.Fragment>,
             check: () => this.demonicEmpowerment.cdDemonSuggestionThresholds,
             when: !combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
-          }),
-          new Requirement({
-            name: <React.Fragment><SpellLink id={SPELLS.DOOM.id} icon /> Uptime</React.Fragment>,
-            check: () => this.doomUptime.suggestionThresholds,
           }),
         ];
       },
