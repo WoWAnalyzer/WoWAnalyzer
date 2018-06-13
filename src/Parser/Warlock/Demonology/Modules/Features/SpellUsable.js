@@ -1,17 +1,23 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'Parser/Core/Modules/SpellUsable';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import GlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
 import T20_2set from 'Parser/Warlock/Demonology/Modules/Items/T20_2set';
 
 
+const PROC_SPELLS = [
+  SPELLS.DEMONBOLT_TALENT.id,
+  SPELLS.SHADOW_BOLT.id,
+  SPELLS.DEMONWRATH_CAST.id,
+];
+
 class SpellUsable extends CoreSpellUsable{
-  lastPotentialTrigger= null;
+
+
+  lastPotentialTrigger = null;
 
   static dependencies = {
     ...CoreSpellUsable.dependencies,
     combatants: Combatants,
-    globalCooldown: GlobalCooldown,
     t20_2set: T20_2set,
   };
 
@@ -25,7 +31,7 @@ class SpellUsable extends CoreSpellUsable{
     }
 
     const spellId = event.ability.guid;
-    if((spellId === SPELLS.DEMONBOLT_TALENT.id || spellId === SPELLS.SHADOW_BOLT.id || spellId === SPELLS.DEMONWRATH_CAST.id) && this.has2set){
+    if(this.has2set && PROC_SPELLS.includes(spellId)){
         this.lastPotentialTrigger = event.timestamp;
     } else if(spellId === SPELLS.CALL_DREADSTALKERS.id){
       this.lastPotentialTrigger = null;
@@ -33,10 +39,8 @@ class SpellUsable extends CoreSpellUsable{
   }
 
   beginCooldown(spellId, timestamp){
-    if(spellId === SPELLS.CALL_DREADSTALKERS.id){
-      if(this.isOnCooldown(spellId)){
-        this.endCooldown(spellId, undefined, this.lastPotentialTrigger ? this.lastPotentialTrigger : undefined);
-      }
+    if(spellId === SPELLS.CALL_DREADSTALKERS.id && this.isOnCooldown(spellId)){
+      this.endCooldown(spellId, undefined, this.lastPotentialTrigger ? this.lastPotentialTrigger : undefined);
     }
     super.beginCooldown(spellId, timestamp);
   }
