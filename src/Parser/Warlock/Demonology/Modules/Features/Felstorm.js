@@ -27,6 +27,15 @@ class Felstorm extends Analyzer {
     }
   }
 
+  get suggestionThresholds(){
+    const maxCasts = Math.ceil(calculateMaxCasts(FELSTORM_COOLDOWN, this.owner.fightDuration));
+    return {
+      actual: this.mainPetFelstormCount,
+      isLessThan: maxCasts,
+      style: 'number',
+    };
+  }
+
   suggestions(when) {
     // TODO: this would be rather unpleasant to refactor (style issues, but still)
     const maxCasts = Math.ceil(calculateMaxCasts(FELSTORM_COOLDOWN, this.owner.fightDuration));
