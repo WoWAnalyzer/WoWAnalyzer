@@ -156,27 +156,27 @@ class DemonicEmpowerment extends Analyzer{
 
   updatePetUptime(event){
     const deOverlap = Math.max(0, this.lastDeStart + (DE_DURATION_MS) - event.timestamp);
-    const endOverlap = Math.max(0, event.timestamp - this.owner.fight.end_time);
-    const timeDelta = (DE_DURATION_MS) - deOverlap - endOverlap;
+    const timeDelta = DE_DURATION_MS - deOverlap;
     this.totalEmpPetTime += timeDelta;
   }
 
   updateCdDemonUptime(event){
-    if((this.lastCDSummonStart || 0) <= event.timestamp && (this.lastCDSummonEnd || 0) >= event.timestamp){
-      if((this.lastDeIntervalEnd || event.timestamp) < event.timestamp){
-        // We aren't overlapping buffs, we add the time from the last interval and start to build our next one.
-        this.totalEmpCdDemonTime += this.lastDeIntervalEnd - this.lastDeIntervalStart;
-        this.lastDeIntervalStart = null;
-        this.lastDeIntervalEnd = null;
-      }
-      this.lastDeIntervalStart = (this.lastDeIntervalStart || event.timestamp);
-      this.lastDeIntervalEnd = (this.lastDeIntervalEnd == null ? this.lastDeIntervalStart + (DE_DURATION_MS) : this.lastDeIntervalEnd + (DE_DURATION_MS));
-      if(this.lastDeIntervalEnd > this.lastCDSummonEnd){
-        //Our buff reaches the end of our current summon, so we add the time from this interval and reset.
-        this.lastDeIntervalEnd = this.lastCDSummonEnd;
-        this.totalEmpCdDemonTime += this.lastDeIntervalEnd - this.lastDeIntervalStart;
-        this.lastDeIntervalStart = this.lastDeIntervalEnd = this.lastCDSummonStart = this.lastCDSummonEnd = null;
-      }
+    if((this.lastCDSummonStart || 0) > event.timestamp || (this.lastCDSummonEnd || 0) < event.timestamp){
+      return;
+    }
+    if((this.lastDeIntervalEnd || event.timestamp) < event.timestamp){
+      // We aren't overlapping buffs, we add the time from the last interval and start to build our next one.
+      this.totalEmpCdDemonTime += this.lastDeIntervalEnd - this.lastDeIntervalStart;
+      this.lastDeIntervalStart = null;
+      this.lastDeIntervalEnd = null;
+    }
+    this.lastDeIntervalStart = (this.lastDeIntervalStart || event.timestamp);
+    this.lastDeIntervalEnd = (this.lastDeIntervalEnd == null ? this.lastDeIntervalStart + (DE_DURATION_MS) : this.lastDeIntervalEnd + (DE_DURATION_MS));
+    if(this.lastDeIntervalEnd > this.lastCDSummonEnd){
+      //Our buff reaches the end of our current summon, so we add the time from this interval and reset.
+      this.lastDeIntervalEnd = this.lastCDSummonEnd;
+      this.totalEmpCdDemonTime += this.lastDeIntervalEnd - this.lastDeIntervalStart;
+      this.lastDeIntervalStart = this.lastDeIntervalEnd = this.lastCDSummonStart = this.lastCDSummonEnd = null;
     }
   }
 
@@ -211,7 +211,9 @@ class DemonicEmpowerment extends Analyzer{
 
   statistic(){
     return(
-      <StatisticBox icon={<SpellIcon id={SPELLS.DEMONIC_EMPOWERMENT.id}/>} value={`${formatPercentage(this.petEmpoweredUptime)} %`} label='Main Pet Demonic Empowerment Uptime' />
+      <StatisticBox icon={<SpellIcon id={SPELLS.DEMONIC_EMPOWERMENT.id}/>}
+        value={`${formatPercentage(this.petEmpoweredUptime)} %`}
+        label='Main Pet Demonic Empowerment Uptime' />
     );
   }
 
