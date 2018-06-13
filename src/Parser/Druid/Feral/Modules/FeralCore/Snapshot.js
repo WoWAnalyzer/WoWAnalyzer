@@ -6,6 +6,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import { encodeTargetString } from 'Parser/Core/Modules/EnemyInstances';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
 import StatisticsListBox from 'Main/StatisticsListBox';
 
 const debug = false;
@@ -92,8 +93,7 @@ class Snapshot extends Analyzer {
       // ignore damage on friendlies, damage not from the tracked DoT, and any non-DoT damage
       return;
     }
-    const damage = (event.amount || 0) + (event.absorbed || 0);
-    if (damage === 0) {
+    if ((event.amount || 0) + (event.absorbed || 0) === 0) {
       // what buffs a zero-damage tick has doesn't matter, so don't count them (usually means target is currently immune to damage)
       return;
     }
@@ -103,18 +103,25 @@ class Snapshot extends Analyzer {
       return;
     }
 
+    // how much damage is coming from the snapshot buffs combined
+    const bonusDamage = calculateEffectiveDamage(event, this.calcPowerFromSnapshot(state) - 1);
+    const additiveBonus = this.additivePowerSum(state);
+
     this.ticks += 1;
     if (state.prowl) {
       this.ticksWithProwl += 1;
-      this.damageFromProwl += damage * (1 - 1 / PROWL_MULTIPLIER);
+      const fractionOfBonus = (PROWL_MULTIPLIER - 1) / additiveBonus;
+      this.damageFromProwl += bonusDamage * fractionOfBonus;
     }
     if (state.tigersFury) {
       this.ticksWithTigersFury += 1;
-      this.damageFromTigersFury += damage * (1 - 1 / TIGERS_FURY_MULTIPLIER);
+      const fractionOfBonus = (TIGERS_FURY_MULTIPLIER - 1) / additiveBonus;
+      this.damageFromTigersFury += bonusDamage * fractionOfBonus;
     }
     if (state.bloodtalons) {
       this.ticksWithBloodtalons += 1;
-      this.damageFromBloodtalons += damage * (1 - 1 / BLOODTALONS_MULTIPLIER);
+      const fractionOfBonus = (BLOODTALONS_MULTIPLIER - 1) / additiveBonus;
+      this.damageFromBloodtalons += bonusDamage * fractionOfBonus;
     }
   }
 
@@ -182,6 +189,10 @@ class Snapshot extends Analyzer {
   }
 
   calcPower(stateNew) {
+    return this.calcPowerFromSnapshot(stateNew);
+  }
+
+  calcPowerFromSnapshot(stateNew) {
     let power = 1.0;
     if (stateNew.prowl) {
       power *= PROWL_MULTIPLIER;
@@ -193,6 +204,20 @@ class Snapshot extends Analyzer {
       power *= BLOODTALONS_MULTIPLIER;
     }
     return power;
+  }
+
+  additivePowerSum(stateNew) {
+    let additive = 0;
+    if (stateNew.prowl) {
+      additive += PROWL_MULTIPLIER - 1;
+    }
+    if (stateNew.tigersFury) {
+      additive += TIGERS_FURY_MULTIPLIER - 1;
+    }
+    if (stateNew.bloodtalons) {
+      additive += BLOODTALONS_MULTIPLIER -1;
+    }
+    return additive;
   }
 
   checkRefreshRule(state) {
