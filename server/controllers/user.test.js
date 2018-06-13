@@ -1,5 +1,5 @@
-import Express from 'express';
 import requireAuthenticated from 'helpers/requireAuthenticated';
+import Express from 'express';
 
 import './user';
 
