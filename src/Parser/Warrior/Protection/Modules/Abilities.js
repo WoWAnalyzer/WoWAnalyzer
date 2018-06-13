@@ -24,6 +24,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHIELD_SLAM,
         isOnGCD: true,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        buffSpellId: SPELLS.PUNISH_DEBUFF.id,
         cooldown: haste => 9 / (1 + haste),
         castEfficiency: {
           suggestion: true,
@@ -124,17 +125,6 @@ class Abilities extends CoreAbilities {
         cooldown: 8,
       },
       {
-        spell: SPELLS.BATTLE_CRY,
-        buffSpellId: SPELLS.BATTLE_CRY.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 60,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: .9,
-        },
-        timelineSortIndex: 7,
-      },
-      {
         spell: SPELLS.BERSERKER_RAGE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 45,
@@ -150,6 +140,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.VICTORY_RUSH,
+        enabled: !combatant.hasTalent(SPELLS.IMPENDING_VICTORY_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.OTHERS,
       },
       {
@@ -182,6 +173,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.IMPENDING_VICTORY_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         isOnGCD: true,
+        cooldown: 30,
       },
       {
         spell: SPELLS.RAVAGER_TALENT_PROTECTION,
