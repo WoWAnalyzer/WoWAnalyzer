@@ -4,7 +4,7 @@ import ResourceTracker from 'Parser/Core/Modules/ResourceTracker/ResourceTracker
 import SPELLS from 'common/SPELLS';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
-const VENGEANCE_RAGE_REDUCTION = 0.35; //percent
+const VENGEANCE_RAGE_REDUCTION = 0.33; //percent
 const IGNORE_PAIN_MAX_COST = 60;
 
 class RageTracker extends ResourceTracker {
