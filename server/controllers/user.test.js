@@ -1,4 +1,4 @@
-import Express from 'express';
+import express from 'express';
 import requireAuthenticated from 'helpers/requireAuthenticated';
 
 import './user';
@@ -11,7 +11,7 @@ describe('controllers/user', () => {
   let action;
   let response;
   beforeEach(() => {
-    rootPath = Express.__paths['/'];
+    rootPath = express.__paths['/'];
     action = rootPath.action;
     response = {
       json: jest.fn(),
