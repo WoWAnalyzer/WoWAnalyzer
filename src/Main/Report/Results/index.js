@@ -19,12 +19,12 @@ import ActivityIndicator from 'Main/ActivityIndicator';
 import WarcraftLogsLogo from 'Main/Images/WarcraftLogs-logo.png';
 import WipefestLogo from 'Main/Images/Wipefest-logo.png';
 import ItemStatisticBox from 'Main/ItemStatisticBox';
+import Divider from 'Main/Divider';
 
 import ResultsWarning from './ResultsWarning';
 import Header from './Header';
 import DetailsTab from './DetailsTab';
 import About from './About';
-import Divider from './Divider';
 import StatisticsSectionTitle from './StatisticsSectionTitle';
 import Odyn from './Images/odyn.jpg';
 

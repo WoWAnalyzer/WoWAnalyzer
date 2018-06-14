@@ -4,6 +4,7 @@ import ScrollFilledIcon from 'Icons/ScrollFilled';
 import MegaphoneIcon from 'Icons/Megaphone';
 
 import DelayRender from 'common/DelayRender';
+import Divider from 'Main/Divider';
 
 import DiscordButton from './DiscordButton';
 import ChangelogPanel from './ChangelogPanel';
@@ -15,9 +16,9 @@ import ReportHistory from './ReportHistory';
 class Home extends React.PureComponent {
   render() {
     return (
-      <DelayRender delay={0} fallback={<div style={{ height: 2000 }} />}>
-        <section>
-          <div className="container">
+      <div className="container">
+        <DelayRender delay={0} fallback={<div style={{ height: 2000 }} />}>
+          <section>
             <header>
               <div className="row">
                 <div className="col-md-12">
@@ -79,14 +80,16 @@ class Home extends React.PureComponent {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <DelayRender delay={0}>
-          <SpecListing />
+          <DelayRender delay={0}>
+            <Divider />
 
-          <section>
-            <div className="container">
+            <SpecListing />
+
+            <Divider />
+
+            <section>
               <header>
                 <div className="row">
                   <div className="col-md-12 text-center">
@@ -100,10 +103,10 @@ class Home extends React.PureComponent {
                   <ChangelogPanel />
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+          </DelayRender>
         </DelayRender>
-      </DelayRender>
+      </div>
     );
   }
 }
