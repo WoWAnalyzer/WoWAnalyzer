@@ -19,7 +19,7 @@ import ActivityIndicator from 'Main/ActivityIndicator';
 import WarcraftLogsLogo from 'Main/Images/WarcraftLogs-logo.png';
 import WipefestLogo from 'Main/Images/Wipefest-logo.png';
 import ItemStatisticBox from 'Main/ItemStatisticBox';
-import Divider from 'Main/Divider';
+import SectionDivider from 'Main/SectionDivider';
 
 import ResultsWarning from './ResultsWarning';
 import Header from './Header';
@@ -32,7 +32,6 @@ import './Results.css';
 
 const DevelopmentTab = lazyLoadComponent(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'Main/DevelopmentTab').then(exports => exports.default));
 const EventsTab = lazyLoadComponent(() => import(/* webpackChunkName: 'EventsTab' */ 'Main/EventsTab').then(exports => exports.default));
-
 
 const MAIN_TAB = {
   CHECKLIST: 'Checklist',
@@ -284,11 +283,11 @@ class Results extends React.PureComponent {
           </div>
         </div>
 
-        <Divider />
+        <SectionDivider />
 
         {this.renderStatistics(results.statistics, results.items, selectedCombatant)}
 
-        <Divider />
+        <SectionDivider />
 
         <DetailsTab tabs={results.tabs} selected={selectedDetailsTab} makeTabUrl={makeTabUrl} />
       </React.Fragment>

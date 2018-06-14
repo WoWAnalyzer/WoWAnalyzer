@@ -4,7 +4,7 @@ import ScrollFilledIcon from 'Icons/ScrollFilled';
 import MegaphoneIcon from 'Icons/Megaphone';
 
 import DelayRender from 'common/DelayRender';
-import Divider from 'Main/Divider';
+import SectionDivider from 'Main/SectionDivider';
 
 import DiscordButton from './DiscordButton';
 import ChangelogPanel from './ChangelogPanel';
@@ -83,11 +83,11 @@ class Home extends React.PureComponent {
           </section>
 
           <DelayRender delay={0}>
-            <Divider />
+            <SectionDivider />
 
             <SpecListing />
 
-            <Divider />
+            <SectionDivider />
 
             <section>
               <header>
