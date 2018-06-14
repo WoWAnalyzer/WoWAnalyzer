@@ -70,7 +70,7 @@ class Home extends React.PureComponent {
                   </div>
                   <div className="panel-body" style={{ padding: 0, overflow: 'hidden' }}>
                     <a href="https://www.patreon.com/wowanalyzer">
-                      <img src={`/img/patreon${Math.floor(Math.random() * 6 + 1)}.jpg`} alt="Patreon" />
+                      <img src={`/img/patreon${Math.floor(Math.random() * 5 + 1)}.jpg`} alt="Patreon" />
                     </a>
                   </div>
                   <div className="panel-footer" style={{ lineHeight: 1 }}>

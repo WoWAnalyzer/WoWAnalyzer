@@ -62,6 +62,11 @@ class Header extends React.PureComponent {
                 {' '}| <a href="https://status.wowanalyzer.com/">Status</a>
               </div>
             </div>
+            <div className="col-lg-6 text-right hidden-md">
+              <a href="https://www.patreon.com/wowanalyzer">
+                <img src={`/img/patreon${Math.floor(Math.random() * 5 + 1)}.jpg`} alt="Patreon" style={{ height: 250 }} />
+              </a>
+            </div>
           </div>
         </div>
       </header>
