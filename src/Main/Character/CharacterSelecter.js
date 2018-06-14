@@ -78,11 +78,11 @@ class CharacterSelecter extends React.PureComponent {
             ref={elem => {
               this.regionInput = elem;
             }}
-            value={this.state.currentRegion}
+            defaultValue={this.state.currentRegion}
             onChange={e => this.setState({ currentRegion: e.target.value })}
           >
             {Object.keys(REALMS).map(elem =>
-              <option value={elem} key={elem}>{elem}</option>
+              <option key={elem} value={elem}>{elem}</option>
             )}
           </select>
           <SelectSearch

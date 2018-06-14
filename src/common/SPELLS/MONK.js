@@ -5,7 +5,7 @@
  */
 
 export default {
-  // Shared 
+  // Shared
   BLACKOUT_KICK: {
     id: 100784,
     name: 'Blackout Kick',
@@ -70,6 +70,11 @@ export default {
     icon: 'spell_shaman_spectraltransformation',
   },
   // Mistweaver Monk Spells
+  RISING_MIST_HEAL: {
+    id: 274912,
+    name: 'Rising Mist',
+    icon: 'ability_monk_effuse',
+  },
   ENVELOPING_MISTS: {
     id: 124682,
     name: 'Enveloping Mists',
@@ -419,6 +424,11 @@ export default {
     name: 'Fortifying Brew',
     icon: 'ability_monk_fortifyingale_new',
   },
+  FORTIFYING_BREW_BRM_BUFF: {
+    id: 120954,
+    name: 'Fortifying Brew',
+    icon: 'ability_monk_fortifyingale_new',
+  },
   EXPLODING_KEG: {
     id: 214326,
     name: 'Exploding Keg',
@@ -616,6 +626,11 @@ export default {
     name: 'Touch of Death',
     icon: 'ability_monk_touchofdeath',
   },
+  TOUCH_OF_DEATH_DAMAGE: {
+    id: 229980,
+    name: 'Touch of Death',
+    icon: 'ability_monk_touchofdeath',
+  },
   CYCLONE_STRIKES: {
     id: 220357,
     name: 'Cyclone Strikes',
@@ -696,12 +711,17 @@ export default {
   GALE_BURST_DAMAGE: {
     id: 195403,
     name: 'Gale Burst',
-    icon: 'ability_monk_palmstrike',
+    icon: 'ability_monk_touchofdeath',
   },
   MARK_OF_THE_CRANE: {
     id: 228287,
     name: 'Mark of the Crane',
     icon: 'ability_monk_cranekick_new',
+  },
+  THUNDERFIST: {
+    id: 242390,
+    name: 'Thunderfist',
+    icon: 'inv_hand_1h_artifactskywall_d_01',
   },
   // Windwalker Talents
   POWER_STRIKES: {

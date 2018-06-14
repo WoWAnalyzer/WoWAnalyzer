@@ -92,7 +92,7 @@ class ThunderFocusTea extends Analyzer {
     );
   }
 
-  castsTftEff = 0;
+  castsTftRsk = 0;
   castsTftEf = 0;
   castsTftViv = 0;
   castsTftEnm = 0;
@@ -131,10 +131,10 @@ class ThunderFocusTea extends Analyzer {
         debug && console.log('Viv TFT Check ', event.timestamp);
         this.castBufferTimestamp = event.timestamp;
       }
-      if (SPELLS.EFFUSE.id === spellId) {
+      if (SPELLS.RISING_SUN_KICK.id === spellId) {
         this.castsUnderTft += 1;
-        this.castsTftEff += 1;
-        debug && console.log('Eff TFT Check ', event.timestamp);
+        this.castsTftRsk += 1;
+        debug && console.log('RSK TFT Check ', event.timestamp);
       }
       if (SPELLS.ENVELOPING_MISTS.id === spellId) {
         this.castsUnderTft += 1;
@@ -176,9 +176,9 @@ class ThunderFocusTea extends Analyzer {
       },
       {
         color: '#ffc425',
-        label: 'Effuse',
-        spellId: SPELLS.EFFUSE.id,
-        value: this.castsTftEff,
+        label: 'Rising Sun Kick',
+        spellId: SPELLS.RISING_SUN_KICK.id,
+        value: this.castsTftRsk,
       },
       {
         color: '#d11141',
@@ -206,7 +206,7 @@ class ThunderFocusTea extends Analyzer {
     }
     if (debug) {
       console.log(`TFT Casts:${this.castsTft}`);
-      console.log(`Eff Buffed:${this.castsTftEff}`);
+      console.log(`RSK Buffed:${this.castsTftRsk}`);
       console.log(`Enm Buffed:${this.castsTftEnm}`);
       console.log(`EF Buffed:${this.castsTftEf}`);
       console.log(`Viv Buffed:${this.castsTftViv}`);

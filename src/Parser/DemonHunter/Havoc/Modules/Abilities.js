@@ -159,12 +159,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLUR,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        buffSpellId: SPELLS.BLUR.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 60,
       },
       {
         spell: SPELLS.DARKNESS,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        buffSpellId: SPELLS.DARKNESS.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
       },
       {
@@ -175,8 +177,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.NETHERWALK_TALENT,
-         enabled: combatant.hasTalent(SPELLS.NETHERWALK_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        enabled: combatant.hasTalent(SPELLS.NETHERWALK_TALENT.id),
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
       },
     ];

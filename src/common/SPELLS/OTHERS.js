@@ -36,6 +36,16 @@ export default {
     name: 'Speed',
     icon: 'petbattle_speed',
   },
+  ANCIENT_HEALING_POTION: {
+    id: 188016,
+    name: 'Ancient Healing Potion',
+    icon: 'inv_alchemy_70_red',
+  },
+  ASTRAL_HEALING_POTION: {
+    id: 251645,
+    name: 'Astral Healing Potion',
+    icon: 'inv_alchemy_70_red',
+  },
   POTION_OF_PROLONGED_POWER: {
     id: 229206,
     name: 'Potion of Prolonged Power',
@@ -160,6 +170,11 @@ export default {
   INT_FEAST: {
     id: 201640,
     name: 'Lavish Suramar Feast',
+    icon: 'spell_misc_food',
+  },
+  DARKMOON_VERS_FOOD: {
+    id: 185736,
+    name: 'Lemon Herb Filet',
     icon: 'spell_misc_food',
   },
   // Items buffs:

@@ -61,17 +61,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: SPELLS.ZEN_PULSE_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 15,
-        enabled: combatant.hasTalent(SPELLS.ZEN_PULSE_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-        },
-        isOnGCD: true,
-        timelineSortIndex: 10,
-      },
-      {
         spell: SPELLS.CHI_WAVE_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 15,
@@ -158,19 +147,22 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DIFFUSE_MAGIC_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        buffSpellId: SPELLS.DIFFUSE_MAGIC_TALENT.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 90,
         enabled: combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT.id),
       },
       {
         spell: SPELLS.DAMPEN_HARM_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        buffSpellId: SPELLS.DAMPEN_HARM_TALENT.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id),
       },
       {
         spell: SPELLS.FORTIFYING_BREW,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        buffSpellId: SPELLS.FORTIFYING_BREW.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 90,
       },
       {

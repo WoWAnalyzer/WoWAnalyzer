@@ -3,6 +3,7 @@ import React from 'react';
 import ChangelogTab from 'Main/ChangelogTab';
 import ChangelogTabTitle from 'Main/ChangelogTabTitle';
 import TimelineTab from 'Main/Timeline/TimelineTab';
+import DeathRecapTracker from 'Main/DeathRecapTracker';
 
 import { formatNumber, formatPercentage, formatThousands, formatDuration } from 'common/format';
 
@@ -50,6 +51,7 @@ import PrePotion from './Modules/Items/PrePotion';
 import LegendaryUpgradeChecker from './Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from './Modules/Items/LegendaryCountChecker';
 import EnchantChecker from './Modules/Items/EnchantChecker';
+import Healthstone from './Modules/Items/Healthstone';
 
 // Legendaries
 import PrydazXavaricsMagnumOpus from './Modules/Items/Legion/Legendaries/PrydazXavaricsMagnumOpus';
@@ -133,6 +135,7 @@ import NLCTraits from './Modules/NetherlightCrucibleTraits/NLCTraits';
 
 // BFA
 import ZandalariLoaFigurine from './Modules/Items/BFA/ZandalariLoaFigurine';
+import FirstMatesSpyglass from './Modules/Items/BFA/FirstMatesSpyglass';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -177,6 +180,7 @@ class CombatLogParser {
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
     timelineBuffEvents: TimelineBuffEvents,
+    deathRecapTracker: DeathRecapTracker,
 
     critEffectBonus: CritEffectBonus,
 
@@ -186,6 +190,12 @@ class CombatLogParser {
     checklist: Checklist,
 
     encounterPanel: EncounterPanel,
+
+    prePotion: PrePotion,
+    legendaryUpgradeChecker: LegendaryUpgradeChecker,
+    legendaryCountChecker: LegendaryCountChecker,
+    enchantChecker: EnchantChecker,
+    healthstone: Healthstone,
 
     // Items:
     // Legendaries:
@@ -202,10 +212,6 @@ class CombatLogParser {
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
     darkmoonDeckPromises: DarkmoonDeckPromises,
     darkmoonDeckImmortality: DarkmoonDeckImmortality,
-    prePotion: PrePotion,
-    legendaryUpgradeChecker: LegendaryUpgradeChecker,
-    legendaryCountChecker: LegendaryCountChecker,
-    enchantChecker: EnchantChecker,
     gnawedThumbRing: GnawedThumbRing,
     ishkarsFelshieldEmitter: IshkarsFelshieldEmitter,
     erraticMetronome: ErraticMetronome,
@@ -273,6 +279,7 @@ class CombatLogParser {
 
     // BFA
     zandalariLoaFigurine: ZandalariLoaFigurine,
+    firstMatesSpyglass: FirstMatesSpyglass,
   };
   // Override this with spec specific modules when extending
   static specModules = {};

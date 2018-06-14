@@ -386,6 +386,11 @@ export default {
     name: 'Shield Block Buff',
     icon: 'ability_defend',
   },
+  PUNISH_DEBUFF: {
+    id: 275335,
+    name: 'Punish',
+    icon: 'ability_deathknight_sanguinfortitude',
+  },
   DEVASTATOR_DAMAGE: {
     id: 236282,
     name: 'Devastator',
@@ -500,6 +505,11 @@ export default {
   },
   COMMANDING_SHOUT: {
     id: 97462,
+    name: 'Commanding Shout',
+    icon: 'ability_warrior_rallyingcry',
+  },
+  COMMANDING_SHOUT_BUFF: {
+    id: 97463,
     name: 'Commanding Shout',
     icon: 'ability_warrior_rallyingcry',
   },

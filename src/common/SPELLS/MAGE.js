@@ -61,6 +61,16 @@ export default {
     name: 'Unstable Magic',
     icon: 'spell_mage_unstablemagic',
   },
+  ARCANE_INTELLECT: {
+    id: 1459,
+    name: 'Arcane Intellect',
+    icon: 'spell_holy_magicalsentry',
+  },
+  REMOVE_CURSE: {
+    id: 475,
+    name: 'Remove Curse',
+    icon: 'spell_nature_removecurse',
+  },
 
   //Frost
   MASTERY_ICICLES: {
@@ -133,13 +143,18 @@ export default {
     name: 'Frozen Orb',
     icon: 'spell_frost_frozenorb',
   },
+  FROZEN_ORB_DAMAGE: {
+    id: 84721,
+    name: 'Frozen orb',
+    icon: 'spell_frost_frozenorb',
+  },
   SUMMON_WATER_ELEMENTAL: {
     id: 31687,
     name: 'Summon Water Elemental',
     icon: 'spell_frost_summonwaterelemental_2',
   },
   EBONBOLT_DAMAGE: {
-    id: 228599,
+    id: 257538,
     name: 'Ebonbolt',
     icon: 'artifactability_frostmage_ebonbolt',
   },
@@ -162,6 +177,11 @@ export default {
     id: 235235,
     name: 'Frost Nova',
     icon: 'spell_frost_frostnova',
+  },
+  FREEZING_RAIN_BUFF: {
+    id: 240555,
+    name: 'Freezing Rain',
+    icon: 'spell_frost_icestorm',
   },
 
   //Fire

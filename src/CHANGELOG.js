@@ -1,12 +1,47 @@
 import React from 'react';
 
-import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, aryu, Zerotorescue, Hartra344, Putro, Sharrq, Hewhosmites, joshinator, kyleglick, CubeLuke, Aelexe, niseko } from 'CONTRIBUTORS';
+import { Anomoly, blazyb, Dyspho, fasib, Fyruna, Gurupitka, Juko8, Mamtooth, sref, Versaya, aryu, Zerotorescue, Hartra344, Putro, Sharrq, Hewhosmites, joshinator, kyleglick, CubeLuke, Aelexe, niseko, Gebuz } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-06-08'),
+    changes: 'Added Healthstone/Health pots to abilities and the death recap.',
+    contributors: [Gebuz],
+  },
+  {
+    date: new Date('2018-06-06'),
+    changes: 'Fixed the character selection realm dropdown in Mozilla Firefox.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-06-02'),
+    changes: 'Improved error handling so the app will no longer permanently stay stuck in a loading state when something unexpected happens.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-06-02'),
+    changes: 'Fixed an issue where the character search realm matching was case-sensitive.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-05-30'),
+    changes: 'Fixed an issue where special characters in names could lead to crashes in the caching mechanism of the API.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-05-27'),
+    changes: 'Added death recap for all specs.',
+    contributors: [joshinator],
+  },
+  {
+    date: new Date('2018-05-26'),
+    changes: 'Show items separate from the rest of the statistics on the results page.',
+    contributors: [Zerotorescue],
+  },
   {
     date: new Date('2018-05-25'),
     changes: 'Load news asynchronous to reduce initial loading time.',

@@ -184,6 +184,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ENRAGED_REGENERATION,
+        buffSpellId: SPELLS.ENRAGED_REGENERATION.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
         castEfficiency: {
@@ -194,7 +195,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.COMMANDING_SHOUT,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        buffSpellId: SPELLS.COMMANDING_SHOUT_BUFF.id,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 180,
         castEfficiency: {
           suggestion: true,

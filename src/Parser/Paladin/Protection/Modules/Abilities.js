@@ -49,6 +49,8 @@ class Abilities extends CoreAbilities {
       //And a main source of damage, it should be tracked somewhat. Keeping it at 80% for now.
       {
         spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS,
+        buffSpellId: SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id,
+        isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 16 / (1 + haste),
         charges: 3,
@@ -111,7 +113,8 @@ class Abilities extends CoreAbilities {
       //COOLDOWNS
       {
         spell: SPELLS.EYE_OF_TYR,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.EYE_OF_TYR.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: (haste, combatant) => 60 * (combatant.hasShoulder(ITEMS.PILLARS_OF_INMOST_LIGHT.id) ? 0.75 : 1),
         isOnGCD: true,
         castEfficiency: {
@@ -121,7 +124,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ARDENT_DEFENDER,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.ARDENT_DEFENDER.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120 - (combatant.traitsBySpellId[SPELLS.UNFLINCHING_DEFENSE.id] || 0) * 10,
         castEfficiency: {
           suggestion: true,
@@ -129,7 +133,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.GUARDIAN_OF_ANCIENT_KINGS,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 300,
         castEfficiency: {
           suggestion: true,
@@ -137,7 +142,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SERAPHIM_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.SERAPHIM_TALENT.id,
+        category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.SERAPHIM_TALENT.id),
         castEfficiency: {
@@ -146,7 +152,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.AVENGING_WRATH,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.AVENGING_WRATH_RET.id,
+        category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
         cooldown: 120,
         // castEfficiency: {
         //   suggestion: true,
@@ -155,6 +162,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.LAY_ON_HANDS,
+        isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 600,
         castEfficiency: {
@@ -182,6 +190,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLESSING_OF_PROTECTION,
+        isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 5 * 60,
         isOnGCD: true,

@@ -12,7 +12,7 @@ module.exports = function loadDotEnv(rootPath) {
   }
 
   // https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use
-  var dotenvFiles = [
+  const dotenvFiles = [
     `${dotEnvPath}.${NODE_ENV}.local`,
     `${dotEnvPath}.${NODE_ENV}`,
     // Don't include `.env.local` for `test` environment

@@ -58,6 +58,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BARKSKIN,
+        buffSpellId: SPELLS.BARKSKIN.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 60,
         castEfficiency: {
@@ -157,6 +158,12 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SUNFIRE_CAST,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+      },
+      {
+        spell: SPELLS.BEAR_FORM,
+        buffSpellId: SPELLS.BEAR_FORM.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isOnGCD: true,
       },
     ];
   }
