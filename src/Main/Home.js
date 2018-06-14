@@ -63,6 +63,20 @@ class Home extends React.PureComponent {
                     {/*<img src="https://media.giphy.com/media/N56zWre4o5UlO/giphy.gif" style={{ width: '100%' }} alt="Sharing is caring" />*/}
                   </div>
                 </div>
+
+                <div className="panel">
+                  <div className="panel-heading">
+                    <h2>Advertisement</h2>
+                  </div>
+                  <div className="panel-body" style={{ padding: 0, overflow: 'hidden' }}>
+                    <a href="https://www.patreon.com/wowanalyzer">
+                      <img src={`/img/patreon${Math.floor(Math.random() * 6 + 1)}.jpg`} alt="Patreon" />
+                    </a>
+                  </div>
+                  <div className="panel-footer" style={{ lineHeight: 1 }}>
+                    <a href="mailto:wowanalyzer-ad@martijnhols.nl" className="text-muted">Your ad here?</a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
