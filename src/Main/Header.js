@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
+import { getUser } from 'selectors/user';
 
 import ReportSelecter from './ReportSelecter';
 import makeNewsUrl from './News/makeUrl';
@@ -17,6 +19,10 @@ const CharacterSelecter = lazyLoadComponent(() => import(/* webpackChunkName: 'C
 class Header extends React.PureComponent {
   static propTypes = {
     showReportSelecter: PropTypes.bool.isRequired,
+    premium: PropTypes.bool,
+  };
+  static defaultProps = {
+    premium: false,
   };
 
   constructor(props) {
@@ -27,7 +33,7 @@ class Header extends React.PureComponent {
   }
 
   render() {
-    const { showReportSelecter } = this.props;
+    const { showReportSelecter, premium } = this.props;
 
     return (
       <header>
@@ -62,11 +68,13 @@ class Header extends React.PureComponent {
                 {' '}| <a href="https://status.wowanalyzer.com/">Status</a>
               </div>
             </div>
-            <div className="col-lg-6 text-right hidden-md">
-              <a href="https://www.patreon.com/wowanalyzer">
-                <img src={`/img/patreon${Math.floor(Math.random() * 5 + 1)}.jpg`} alt="Patreon" style={{ height: 250 }} />
-              </a>
-            </div>
+            {!premium && (
+              <div className="col-lg-6 text-right hidden-md">
+                <a href="https://www.patreon.com/wowanalyzer">
+                  <img src={`/img/patreon${Math.floor(Math.random() * 5 + 1)}.jpg`} alt="Patreon" style={{ height: 250 }} />
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </header>
@@ -74,4 +82,13 @@ class Header extends React.PureComponent {
   }
 }
 
-export default Header;
+const mapStateToProps = state => {
+  const user = getUser(state);
+  return {
+    premium: user ? user.premium : false,
+  };
+};
+
+export default connect(
+  mapStateToProps
+)(Header);

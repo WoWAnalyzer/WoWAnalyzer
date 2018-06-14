@@ -1,9 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import ScrollFilledIcon from 'Icons/ScrollFilled';
 import MegaphoneIcon from 'Icons/Megaphone';
 
 import DelayRender from 'common/DelayRender';
+import { getUser } from 'selectors/user';
 import SectionDivider from 'Main/SectionDivider';
 
 import DiscordButton from './DiscordButton';
@@ -14,7 +17,16 @@ import News from './News';
 import ReportHistory from './ReportHistory';
 
 class Home extends React.PureComponent {
+  static propTypes = {
+    premium: PropTypes.bool,
+  };
+  static defaultProps = {
+    premium: false,
+  };
+
   render() {
+    const { premium } = this.props;
+
     return (
       <div className="container">
         <DelayRender delay={0} fallback={<div style={{ height: 2000 }} />}>
@@ -65,19 +77,21 @@ class Home extends React.PureComponent {
                   </div>
                 </div>
 
-                <div className="panel">
-                  <div className="panel-heading">
-                    <h2>Advertisement</h2>
+                {!premium && (
+                  <div className="panel">
+                    <div className="panel-heading">
+                      <h2>Advertisement</h2>
+                    </div>
+                    <div className="panel-body" style={{ padding: 0, overflow: 'hidden' }}>
+                      <a href="https://www.patreon.com/wowanalyzer">
+                        <img src={`/img/patreon${Math.floor(Math.random() * 5 + 1)}.jpg`} alt="Patreon" />
+                      </a>
+                    </div>
+                    <div className="panel-footer" style={{ lineHeight: 1 }}>
+                      <a href="mailto:wowanalyzer-ad@martijnhols.nl" className="text-muted">Your ad here?</a>
+                    </div>
                   </div>
-                  <div className="panel-body" style={{ padding: 0, overflow: 'hidden' }}>
-                    <a href="https://www.patreon.com/wowanalyzer">
-                      <img src={`/img/patreon${Math.floor(Math.random() * 5 + 1)}.jpg`} alt="Patreon" />
-                    </a>
-                  </div>
-                  <div className="panel-footer" style={{ lineHeight: 1 }}>
-                    <a href="mailto:wowanalyzer-ad@martijnhols.nl" className="text-muted">Your ad here?</a>
-                  </div>
-                </div>
+                )}
               </div>
             </div>
           </section>
@@ -111,4 +125,13 @@ class Home extends React.PureComponent {
   }
 }
 
-export default Home;
+const mapStateToProps = state => {
+  const user = getUser(state);
+  return {
+    premium: user ? user.premium : false,
+  };
+};
+
+export default connect(
+  mapStateToProps
+)(Home);
