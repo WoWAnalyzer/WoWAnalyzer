@@ -24,7 +24,6 @@ class EarthenWallTotem extends Analyzer {
   activeEST = null;
   potentialHealing = 0;
   healing = 0;
-  earthenShieldEfficiency = 0;
 
 
   on_initialized() {
@@ -40,7 +39,6 @@ class EarthenWallTotem extends Analyzer {
 
     if (event.targetID === this.activeEST) {
       this.healing += (event.amount || 0) + (event.overheal || 0) + (event.absorbed || 0);
-      this.earthenShieldEfficiency = this.healing / this.potentialHealing;
     }
 
   }
@@ -66,6 +64,10 @@ class EarthenWallTotem extends Analyzer {
     this.activeEST = event.targetID;
   }
 
+  get earthenShieldEfficiency() {
+    return this.healing / this.potentialHealing;
+  }
+
   suggestions(when) {
     when(this.earthenShieldEfficiency).isLessThan(0.75)
       .addSuggestion((suggest, actual, recommended) => {
@@ -79,7 +81,6 @@ class EarthenWallTotem extends Analyzer {
 
   statistic() {
     const casts = this.abilityTracker.getAbility(SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id).casts;
-    this.earthenShieldEfficiency = this.healing / this.potentialHealing;
 
     return (
       <StatisticBox
