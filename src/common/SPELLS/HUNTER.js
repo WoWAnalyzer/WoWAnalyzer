@@ -422,75 +422,15 @@ export default {
     name: 'Bestial Wrath',
     icon: 'ability_druid_ferociousbite',
   },
-  BESTIAL_WRATH_BUFF_HATI: {
-    id: 207033,
-    name: 'Bestial Wrath Buff',
-    icon: 'ability_druid_ferociousbite',
-  },
-  BESTIAL_WRATH_BUFF_MAIN_PET: {
-    id: 186254,
-    name: 'Bestial Wrath Buff',
-    icon: 'ability_druid_ferociousbite',
-  },
-  DIRE_BEAST_SUMMON: {
-    id: 224573,
-    name: 'Dire Beast Summon',
-    icon: 'ability_hunter_sickem',
-  },
   COBRA_SHOT: {
     id: 193455,
     name: 'Cobra Shot',
     icon: 'ability_hunter_cobrashot',
   },
-  DIRE_BEAST: {
-    id: 120679,
-    name: 'Dire Beast',
-    icon: 'ability_hunter_longevity',
-  },
-  DIRE_BEAST_BUFF: {
-    id: 120694,
-    name: 'Dire Beast',
-    icon: 'ability_hunter_longevity',
-  },
-  DIRE_FRENZY_TALENT_BUFF_1: {
-    id: 246152,
-    name: 'Dire Frenzy 1',
-    icon: 'ability_druid_mangle',
-  },
-  DIRE_FRENZY_TALENT_BUFF_2: {
-    id: 246851,
-    name: 'Dire Frenzy 2',
-    icon: 'ability_druid_mangle',
-  },
-  DIRE_FRENZY_TALENT_BUFF_3: {
-    id: 246852,
-    name: 'Dire Frenzy 3',
-    icon: 'ability_druid_mangle',
-  },
-  DIRE_FRENZY_TALENT_BUFF_4: {
-    id: 246853,
-    name: 'Dire Frenzy 4',
-    icon: 'ability_druid_mangle',
-  },
-  DIRE_FRENZY_TALENT_BUFF_5: {
-    id: 246854,
-    name: 'Dire Frenzy 5',
-    icon: 'ability_druid_mangle',
-  },
-  DIRE_FRENZY_DAMAGE: {
-    id: 217207,
-    name: 'Dire Frenzy',
-    icon: 'ability_druid_mangle',
-  },
-  STAMPEDE_DAMAGE: {
-    id: 201594,
-    name: 'Stampede',
-    icon: 'ability_hunter_bestialdiscipline',
-  },
-  EAGLE_EYE: {
-    id: 6197,
-    name: 'Eagle Eye',
-    icon: 'ability_hunter_eagleeye',
+  BARBED_SHOT: {
+    id: 217200,
+    name: 'Barbed Shot',
+    icon: 'ability_hunter_barbedshot',
   },
   KILL_COMMAND: {
     id: 34026,
@@ -502,25 +442,10 @@ export default {
     name: 'Kill Command',
     icon: 'ability_hunter_killcommand',
   },
-  WILD_CALL: {
-    id: 185789,
-    name: 'Wild Call',
-    icon: 'ability_hunter_masterscall',
-  },
-  WILD_CALL_PROC: {
-    id: 185791,
-    name: 'Wild Call Proc',
-    icon: 'ability_hunter_masterscall',
-  },
-  BEAST_CLEAVE: {
-    id: 115939,
-    name: 'Beast Cleave',
-    icon: 'ability_hunter_sickem',
-  },
-  BEAST_CLEAVE_BUFF: {
-    id: 118455,
-    name: 'Beast Cleave',
-    icon: 'ability_hunter_sickem',
+  MULTISHOT_BM: {
+    id: 2643,
+    name: 'Multi-Shot',
+    icon: 'ability_upgrademoonglaive',
   },
   BEAST_CLEAVE_DAMAGE: {
     id: 118459,
@@ -532,10 +457,15 @@ export default {
     name: 'Stomp',
     icon: 'ability_warstomp',
   },
-  ASPECT_OF_THE_BEAST_BESTIAL_FEROCITY: {
-    id: 191413,
-    name: 'Bestial Ferocity',
-    icon: 'ability_hunter_invigeration',
+  DIRE_BEAST_BUFF: {
+    id: 281036,
+    name: 'Dire Beast',
+    icon: 'ability_hunter_longevity',
+  },
+  STAMPEDE_DAMAGE: {
+    id: 201594,
+    name: 'Stampede',
+    icon: 'ability_hunter_bestialdiscipline',
   },
   CHIMAERA_SHOT_NATURE_DAMAGE: {
     id: 171457,
@@ -547,8 +477,43 @@ export default {
     name: 'Chimaera Shot',
     icon: 'ability_hunter_chimerashot2',
   },
+  SPITTING_COBRA_DAMAGE: {
+    id: 206685,
+    name: 'Cobra Spit',
+    icon: 'ability_creature_poison_02',
+  },
 
   //Beast Mastery BFA Buffs
+  BEAST_CLEAVE_BUFF: {
+    id: 268877,
+    name: 'Beast Cleave',
+    icon: 'ability_hunter_sickem',
+  },
+  BEAST_CLEAVE_PET_BUFF: {
+    id: 118455,
+    name: 'Beast Cleave',
+    icon: 'ability_hunter_sickem',
+  },
+  BESTIAL_WRATH_BUFF_MAIN_PET: {
+    id: 186254,
+    name: 'Bestial Wrath Buff',
+    icon: 'ability_druid_ferociousbite',
+  },
+  BARBED_SHOT_BUFF: {
+    id: 246152,
+    name: 'Barbed Shot',
+    icon: 'ability_hunter_barbedshot',
+  },
+  BARBED_SHOT_PET_BUFF: {
+    id: 272790,
+    name: 'Barbed Shot',
+    icon: 'ability_hunter_barbedshot',
+  },
+  THRILL_OF_THE_HUNT_BUFF: {
+    id: 257946,
+    name: 'Thrill of the Hunt',
+    icon: 'ability_hunter_thrillofthehunt',
+  },
 
   // Marksmanship Hunter:
   AIMED_SHOT: {
@@ -571,11 +536,6 @@ export default {
     name: 'Marked Shot',
     icon: 'ability_hunter_markedshot',
   },
-  HUNTERS_MARK: {
-    id: 185987,
-    name: 'Hunter\'s Mark',
-    icon: 'ability_hunter_markedfordeath',
-  },
   TRUESHOT: {
     id: 193526,
     name: 'Trueshot',
@@ -586,90 +546,75 @@ export default {
     name: 'Bursting Shot',
     icon: 'ability_hunter_burstingshot',
   },
-  VULNERABLE: {
-    id: 187131,
-    name: 'Vulnerable',
-    icon: 'ability_hunter_mastermarksman',
-  },
-  MARKING_TARGETS: {
-    id: 223138,
-    name: 'Marking Targets',
-    icon: 'ability_marksmanship',
-  },
-  SIDEWINDERS_DAMAGE: {
-    id: 214581,
-    name: 'Sidewinders',
-    icon: 'ability_hunter_serpentswiftness',
-  },
-  SIDEWINDERS_CAST: {
-    id: 240711,
-    name: 'Sidewinders',
-    icon: 'ability_hunter_serpentswiftness',
-  },
-  CAREFUL_AIM_DAMAGE: {
-    id: 63468,
-    name: 'Careful Aim',
-    icon: 'ability_hunter_piercingshots',
-  },
-  BOMBARDMENT: {
-    id: 82921,
-    name: 'Bombardment',
-    icon: 'ability_hunter_focusfire',
-  },
-  HUNTERS_MARK_DEBUFF: {
-    id: 185365,
-    name: 'Hunter\'s Mark',
-    icon: 'ability_hunter_markedfordeath',
-  },
-  AUTO_SHOT: {
-    id: 75,
-    name: 'Auto Shot',
-    icon: 'ability_whirlwind',
-  },
-
-  MULTISHOT_FOCUSMODULE: {
-    id: 213363,
-    name: 'Multi-Shot',
-    icon: 'ability_upgrademoonglaive',
-  },
-  ARCANE_SHOT_FOCUSMODULE: {
-    id: 187675,
-    name: 'Arcane Shot',
-    icon: 'ability_impalingbolt',
-  },
-
-  //Marksmanship talent buffs/debuffs
-  LOCK_AND_LOAD_BUFF: {
-    id: 194594,
-    name: 'Lock and Load',
-    icon: 'ability_hunter_lockandload',
-  },
-  TRUE_AIM_DEBUFF: {
-    id: 199803,
-    name: 'True Aim',
-    icon: 'spell_hunter_focusingshot',
-  },
   EXPLOSIVE_SHOT_DETONATION: {
     id: 212680,
     name: 'Explosive Shot',
     icon: '6bf_explosive_shard',
   },
-  TRICK_SHOT_BUFF: {
-    id: 227272,
-    name: 'Trick Shot',
-    icon: 'ability_hunter_runningshot',
+  RAPID_FIRE: {
+    id: 257044,
+    name: 'Rapid Fire',
+    icon: 'ability_hunter_efficiency',
   },
-  POSTHASTE_BUFF: {
-    id: 118922,
-    name: 'Posthaste',
-    icon: 'ability_hunter_posthaste',
+  RAPID_FIRE_DAMAGE: {
+    id: 257045,
+    name: 'Rapid Fire',
+    icon: 'ability_hunter_efficiency',
   },
-  SENTINEL_TICK: {
-    id: 236348,
-    name: 'Sentinel',
-    icon: 'spell_nature_sentinal',
+  MULTISHOT_MM: {
+    id: 257620,
+    name: 'Multi-Shot',
+    icon: 'ability_upgrademoonglaive',
   },
 
+  //Marksmanship Buffs
+  MASTER_MARKSMAN_BUFF: {
+    id: 269576,
+    name: 'Master Marksman',
+    icon: 'ability_hunter_mastermarksman',
+  },
+  TRAILBLAZER_BUFF: {
+    id: 231390,
+    name: 'Trailblazer',
+    icon: 'ability_hunter_aspectmastery',
+  },
+  STEADY_FOCUS_BUFF: {
+    id: 193534,
+    name: 'Steady Focus',
+    icon: 'ability_hunter_improvedsteadyshot',
+  },
+  LETHAL_SHOTS_BUFF: {
+    id: 260395,
+    name: 'Lethal Shots',
+    icon: 'ability_hunter_resistanceisfutile',
+  },
+  VOLLEY_DAMAGE: {
+    id: 260247,
+    name: 'Volley',
+    icon: 'buff_epichunter',
+  },
+  LOCK_AND_LOAD_BUFF: {
+    id: 194594,
+    name: 'Lock and Load',
+    icon: 'ability_hunter_lockandload',
+  },
+  SURVIVAL_OF_THE_FITTEST_LONE_WOLF: {
+    id: 281195,
+    name: 'Survival of the Fittest',
+    icon: 'spell_nature_spiritarmor',
+  },
+  PRECISE_SHOTS: {
+    id: 260242,
+    name: 'Precise Shots',
+    icon: 'ability_hunter_focusedaim',
+  },
+  TRICK_SHOTS_BUFF: {
+    id: 257622,
+    name: 'Trick Shots',
+    icon: 'ability_hunter_focusfire',
+  },
+
+  //TODO: Survival needs to be run through for BFA changes
   //Survival:
   MONGOOSE_BITE: {
     id: 190928,
@@ -753,15 +698,10 @@ export default {
     name: 'Mok\'Nathal Tactics',
     icon: 'achievement_character_orc_male_brn',
   },
-  SERPENT_STING_DEBUFF: {
+  SERPENT_STING_DEBUFF_LIVE: {
     id: 118253,
     name: 'Serpent Sting',
     icon: 'ability_hunter_serpentswiftness',
-  },
-  SPITTING_COBRA_DAMAGE: {
-    id: 206685,
-    name: 'Cobra Spit',
-    icon: 'ability_creature_poison_02',
   },
   STEEL_TRAP_DAMAGE: { //the event is a damage event, but it merely applies the debuff
     id: 162480,
@@ -789,57 +729,31 @@ export default {
     icon: 'inv_throwingaxepvp320_07',
   },
 
-  // Shared:
-  NETHERWINDS: {
-    id: 160452,
-    name: 'Netherwinds',
-    icon: 'spell_arcane_massdispel',
+  //Shared BFA buffs/debuffs/misc
+  POSTHASTE_BUFF: {
+    id: 118922,
+    name: 'Posthaste',
+    icon: 'ability_hunter_posthaste',
   },
-  PRIMAL_RAGE: {
-    id: 264667,
-    name: 'Primal Rage',
-    icon: 'spell_shadow_unholyfrenzy',
+  A_MURDER_OF_CROWS_DEBUFF: {
+    id: 131900,
+    name: 'A Murder of Crows',
+    icon: 'ability_hunter_murderofcrows',
   },
-  ANCIENT_HYSTERIA: {
-    id: 90355,
-    name: 'Ancient Hysteria',
-    icon: 'spell_shadow_unholyfrenzy',
+  BINDING_SHOT_STUN: {
+    id: 117526,
+    name: 'Binding Shot Stun',
+    icon: 'spell_shaman_bindelemental',
   },
-  //The buff given by volley when it's activated (and also what does the damage)
-  VOLLEY_ACTIVATED: {
-    id: 194392,
-    name: 'Volley',
-    icon: 'ability_marksmanship',
+  BINDING_SHOT_TETHER: {
+    id: 117405,
+    name: 'Binding Shot Tether',
+    icon: 'spell_shaman_bindelemental',
   },
-  FLARE: {
-    id: 1543,
-    name: 'Flare',
-    icon: 'spell_fire_flare',
-  },
-  FEIGN_DEATH: {
-    id: 5384,
-    name: 'Feign Death',
-    icon: 'ability_rogue_feigndeath',
-  },
-  PLAY_DEAD: {
-    id: 209997,
-    name: 'Play Dead',
-    icon: 'inv_misc_pelt_bear_03',
-  },
-  WAKE_UP: {
-    id: 210000,
-    name: 'Wake Up',
-    icon: 'warrior_disruptingshout',
-  },
-  REVIVE_PET_AND_MEND_PET: {
-    id: 982,
-    name: 'Revive Pet',
-    icon: 'ability_hunter_beastsoothe',
-  },
-  EXHILARATION: {
-    id: 109304,
-    name: 'Exhilaration',
-    icon: 'ability_hunter_onewithnature',
+  BARRAGE_DAMAGE: {
+    id: 120361,
+    name: 'Barrage',
+    icon: 'ability_hunter_rapidregeneration',
   },
   ASPECT_OF_THE_CHEETAH: {
     id: 186257,
@@ -850,21 +764,6 @@ export default {
     id: 186265,
     name: 'Aspect of the Turtle',
     icon: 'ability_hunter_pet_turtle',
-  },
-  FREEZING_TRAP: {
-    id: 187650,
-    name: 'Freezing Trap',
-    icon: 'spell_frost_chainsofice',
-  },
-  TAR_TRAP: {
-    id: 187698,
-    name: 'Tar Trap',
-    icon: 'spell_yorsahj_bloodboil_black',
-  },
-  A_MURDER_OF_CROWS_SPELL: {
-    id: 131900,
-    name: 'A Murder of Crows',
-    icon: 'ability_hunter_murderofcrows',
   },
   CALL_PET_1: {
     id: 883,
@@ -892,49 +791,101 @@ export default {
     icon: 'ability_hunter_beastcall',
   },
   CONCUSSIVE_SHOT: {
-    id: 27634,
+    id: 5116,
     name: 'Concussive Shot',
     icon: 'spell_frost_stun',
   },
-  COUNTER_SHOT: {
-    id: 147362,
-    name: 'Counter Shot',
-    icon: 'inv_ammo_arrow_03',
+  DISENGAGE: {
+    id: 781,
+    name: 'Disengage',
+    icon: 'ability_rogue_feint',
+  },
+  EXHILARATION: {
+    id: 109304,
+    name: 'Exhilaration',
+    icon: 'ability_hunter_onewithnature',
+  },
+  FLARE: {
+    id: 1543,
+    name: 'Flare',
+    icon: 'spell_fire_flare',
+  },
+  FEIGN_DEATH: {
+    id: 5384,
+    name: 'Feign Death',
+    icon: 'ability_rogue_feigndeath',
+  },
+  FREEZING_TRAP: {
+    id: 187650,
+    name: 'Freezing Trap',
+    icon: 'spell_frost_chainsofice',
   },
   MISDIRECTION: {
     id: 34477,
     name: 'Misdrection',
     icon: 'ability_hunter_misdirection',
   },
-  MULTISHOT: {
-    id: 2643,
-    name: 'Multi-Shot',
-    icon: 'ability_upgrademoonglaive',
+  REVIVE_PET_AND_MEND_PET: {
+    id: 982,
+    name: 'Revive Pet',
+    icon: 'ability_hunter_beastsoothe',
+  },
+  TAR_TRAP: {
+    id: 187698,
+    name: 'Tar Trap',
+    icon: 'spell_yorsahj_bloodboil_black',
+  },
+  COUNTER_SHOT: {
+    id: 147362,
+    name: 'Counter Shot',
+    icon: 'inv_ammo_arrow_03',
   },
   DISMISS_PET: {
     id: 2641,
     name: 'Dismiss Pet',
     icon: 'spell_nature_spiritwolf',
   },
-  BINDING_SHOT_STUN: {
-    id: 117526,
-    name: 'Binding Shot Stun',
-    icon: 'spell_shaman_bindelemental',
+  PLAY_DEAD: {
+    id: 209997,
+    name: 'Play Dead',
+    icon: 'inv_misc_pelt_bear_03',
   },
-  BINDING_SHOT_TETHER: {
-    id: 117405,
-    name: 'Binding Shot Tether',
-    icon: 'spell_shaman_bindelemental',
-  },
-  BARRAGE_DAMAGE: {
-    id: 120361,
-    name: 'Barrage',
-    icon: 'ability_hunter_rapidregeneration',
+  WAKE_UP: {
+    id: 210000,
+    name: 'Wake Up',
+    icon: 'warrior_disruptingshout',
   },
   FETCH: {
     id: 125050,
     name: 'Fetch',
     icon: 'inv_misc_bone_01',
+  },
+  AUTO_SHOT: {
+    id: 75,
+    name: 'Auto Shot',
+    icon: 'ability_whirlwind',
+  },
+  EAGLE_EYE: {
+    id: 6197,
+    name: 'Eagle Eye',
+    icon: 'ability_hunter_eagleeye',
+  },
+
+  //BFA Pet abilities
+  PRIMAL_RAGE: {
+    id: 272678,
+    name: 'Primal Rage',
+    icon: 'spell_shadow_unholyfrenzy',
+  },
+  MASTERS_CALL: {
+    id: 272682,
+    name: 'Master\'s Call',
+    icon: 'ability_hunter_masterscall',
+  },
+  SURVIVAL_OF_THE_FITTEST: {
+    id: 272679,
+    name: 'Survival of the Fittest',
+    icon: 'spell_nature_spiritarmor',
   },
 
 };

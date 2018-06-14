@@ -172,7 +172,7 @@ class Abilities extends CoreAbilities {
         isOnGCD: false,
       },
       { //Marking as a defensive because of the damage reduction trait associated with it
-        spell: SPELLS.DISENGAGE_TALENT,
+        spell: SPELLS.DISENGAGE,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 20,
         isOnGCD: false,

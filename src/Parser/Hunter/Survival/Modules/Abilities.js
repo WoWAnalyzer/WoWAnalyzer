@@ -229,7 +229,7 @@ class Abilities extends CoreAbilities {
         isOnGCD: false,
       },
       {
-        spell: SPELLS.DISENGAGE_TALENT,
+        spell: SPELLS.DISENGAGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20,
         isOnGCD: false,
