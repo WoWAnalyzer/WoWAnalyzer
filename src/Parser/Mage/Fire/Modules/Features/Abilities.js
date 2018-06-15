@@ -12,25 +12,16 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FIREBALL,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.PYROBLAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.SCORCH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.PHOENIX_FLAMES_TALENT,
@@ -47,21 +38,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FIRE_BLAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: false,
-        cooldown: haste => 12 / (1 + haste),
-        charges: 2,
-        enabled: !combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) && !combatant.hasFinger(ITEMS.SOUL_OF_THE_ARCHMAGE.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
-        },
-      },
-      {
-        spell: SPELLS.FIRE_BLAST,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: false,
-        cooldown: haste => 10 / (1 + haste),
-        charges: 3,
-        enabled: combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_ARCHMAGE.id),
+        cooldown: haste => combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_ARCHMAGE.id) ? 10 / (1 + haste) : 12 / (1 + haste),
+        charges: combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_ARCHMAGE.id) ? 3 : 2,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
@@ -91,9 +69,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FLAMESTRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         isOnGCD: true,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.LIVING_BOMB_TALENT,
@@ -176,27 +151,13 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ARCANE_INTELLECT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.FROST_NOVA,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
         cooldown: 30,
-        enabled: !combatant.hasTalent(SPELLS.ICE_WARD_TALENT.id),
-        castEfficiency: {
-          disabled: true,
-        },
-      },
-      {
-        spell: SPELLS.FROST_NOVA,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
-        cooldown: 30,
-        charges: 2,
-        enabled: combatant.hasTalent(SPELLS.ICE_WARD_TALENT.id),
+        charges: combatant.hasTalent(SPELLS.ICE_WARD_TALENT.id) ? 2 : 1,
         castEfficiency: {
           disabled: true,
         },
@@ -244,17 +205,11 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SLOW_FALL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.SPELL_STEAL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
-        castEfficiency: {
-          disabled: true,
-        },
       },
       {
         spell: SPELLS.INVISIBILITY,
