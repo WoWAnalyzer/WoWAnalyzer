@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-06-10'),
+    changes: <React.Fragment>Updated for 8.0 Prepatch</React.Fragment>,
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2018-01-27'),
     changes: <React.Fragment>Marked spec completeness as Great!</React.Fragment>,
     contributors: [Sharrq],
