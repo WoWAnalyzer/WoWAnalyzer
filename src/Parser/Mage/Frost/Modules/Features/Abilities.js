@@ -168,7 +168,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FROST_NOVA,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
-        enabled: !combatant.hasTalent(SPELLS.ICE_WARD_TALENT.id),
+        charges: combatant.hasTalent(SPELLS.ICE_WARD_TALENT.id) ? 2 : 1,
         castEfficiency: {
           disabled: true,
         },
