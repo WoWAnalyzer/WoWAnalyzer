@@ -184,8 +184,8 @@ class HeatingUp extends Analyzer {
           <ul>
             <li>Fireblast Used with no procs: ${this.fireBlastWithoutHeatingUp}</li>
             <li>Fireblast used during Hot Streak: ${this.fireBlastWithHotStreak}</li>
-            <li>Phoenix's Flames used with no procs: ${this.phoenixFlamesWithoutHeatingUp}</li>
-            <li>Phoenix's Flames used during Hot Streak: ${this.phoenixFlamesWithHotStreak}</li>
+            <li>Phoenix Flames used with no procs: ${this.phoenixFlamesWithoutHeatingUp}</li>
+            <li>Phoenix Flames used during Hot Streak: ${this.phoenixFlamesWithHotStreak}</li>
           </ul>`}
       />
     );

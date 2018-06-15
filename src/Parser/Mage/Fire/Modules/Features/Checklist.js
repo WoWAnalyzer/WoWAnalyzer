@@ -96,7 +96,7 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: "Wasted Crits",
             check: () => this.hotStreak.wastedCritsThresholds,
-            tooltip: `When you have a Hot Streak proc, you should ensure that you are using it as soon as possible so you arent hitting the boss with direct damage spells while Hot Streak is up. Since you cannot have Heating Up and Hot Streak at the same time, any direct damage crits from spells like Fireball, Scorch, Pyroblast, Fire Blast, and Phoenix's Flames is a waste and could have contributed towards the next Hot Streak instead.`,
+            tooltip: `When you have a Hot Streak proc, you should ensure that you are using it as soon as possible so you arent hitting the boss with direct damage spells while Hot Streak is up. Since you cannot have Heating Up and Hot Streak at the same time, any direct damage crits from spells like Fireball, Scorch, Pyroblast, Fire Blast, and Phoenix Flames is a waste and could have contributed towards the next Hot Streak instead.`,
           }),
         ];
       },
@@ -110,7 +110,7 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: "Cast with 2 Phoenix Flames Charges",
             check: () => this.combustionCharges.phoenixFlamesThresholds,
-            tooltip: `Make sure you are banking 2 charges of Phoenix's Flames outside of Combustion so that you have them available the next time Combustion comes off cooldown. This will help you get as many Hot Streaks as possible during Combustion`,
+            tooltip: `Make sure you are banking 2 charges of Phoenix Flames outside of Combustion so that you have them available the next time Combustion comes off cooldown. This will help you get as many Hot Streaks as possible during Combustion`,
           }),
           new Requirement({
             name: `Cast with ${combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 2 : 1} Fire Blast Charges`,
@@ -120,7 +120,7 @@ class Checklist extends CoreChecklist {
           new Requirement({
             name: "Spells hard cast while instants were available",
             check: () => this.combustionSpellUsage.suggestionThresholds,
-            tooltip: `During Combustion, make sure you are only using hard cast abilities like Fireball and Scorch when you have no charges of Fire Blast or Phoenix's Flames available. ${combatant.hasWrists(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id) ? 'The only exception to this is hard casting Pyroblast when you have a proc from the legendary bracers and you can complete the Pyroblast cast before Combustion ends.' : '' }`,
+            tooltip: `During Combustion, make sure you are only using hard cast abilities like Fireball and Scorch when you have no charges of Fire Blast or Phoenix Flames available. ${combatant.hasWrists(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id) ? 'The only exception to this is hard casting Pyroblast when you have a proc from the legendary bracers and you can complete the Pyroblast cast before Combustion ends.' : '' }`,
           }),
         ];
       },
