@@ -39,7 +39,7 @@ class ComboPointDetails extends Analyzer {
         <Tab>
           <ResourceBreakdown
             tracker={this.comboPointTracker}
-            showSpenders={true}
+            showSpenders
           />
         </Tab>
       ),

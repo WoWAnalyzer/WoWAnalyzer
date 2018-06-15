@@ -29,7 +29,7 @@ class TheMantleOfCommand extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id && !this.combatants.selected.hasBuff(SPELLS.THE_MANTLE_OF_COMMAND_BUFF.id)) {
+    if (spellId !== SPELLS.A_MURDER_OF_CROWS_TALENT.id && !this.combatants.selected.hasBuff(SPELLS.THE_MANTLE_OF_COMMAND_BUFF.id)) {
       return;
     }
     this.bonusDmg += getDamageBonus(event, DAMAGE_INCREASE);

@@ -42,7 +42,7 @@ class AcridCatalystInjector extends Analyzer {
 		return {
 			item: ITEMS.ACRID_CATALYST_INJECTOR,
 			result: (
-				<dfn data-tip={`Stat values is the gain from each proc and the Cycle of the Legion proc averaged over the fight duration.`}>
+				<dfn data-tip="Stat values is the gain from each proc and the Cycle of the Legion proc averaged over the fight duration.">
 					<ul>
 						<li>{formatNumber(this.averageStatGain(SPELLS.BRUTALITY_OF_THE_LEGION.id))} average crit</li>
 						<li>{formatNumber(this.averageStatGain(SPELLS.FERVOR_OF_THE_LEGION.id))} average haste</li>

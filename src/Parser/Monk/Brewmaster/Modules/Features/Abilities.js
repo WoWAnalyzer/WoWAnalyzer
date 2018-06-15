@@ -36,20 +36,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BREATH_OF_FIRE,
+        isDefensive: true,
+        buffSpellId: SPELLS.BREATH_OF_FIRE_DEBUFF.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 15,
       },
       {
         spell: SPELLS.TIGER_PALM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      },
-      {
-        spell: SPELLS.EXPLODING_KEG,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 75,
-        castEfficiency: {
-          suggestion: true,
-        },
       },
       {
         spell: SPELLS.RUSHING_JADE_WIND_TALENT,
@@ -66,13 +60,14 @@ class Abilities extends CoreAbilities {
         // it is possible to refer to the shared CD using *either* spell
         // id
         spell: [SPELLS.IRONSKIN_BREW, SPELLS.PURIFYING_BREW],
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: haste => 21 / (1 + haste),
+        buffSpellId: SPELLS.IRONSKIN_BREW_BUFF.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: haste => 16 / (1 + haste),
         charges: 3,
       },
       {
         spell: SPELLS.BLACK_OX_BREW_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 90,
         castEfficiency: {
           suggestion: false,
@@ -86,7 +81,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FORTIFYING_BREW_BRM,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.FORTIFYING_BREW_BRM_BUFF.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 420,
       },
       {
@@ -97,13 +93,15 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DAMPEN_HARM_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.DAMPEN_HARM_TALENT.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id),
       },
       {
         spell: SPELLS.ZEN_MEDITATION,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.ZEN_MEDITATION.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 300,
       },
       // Utility
@@ -150,13 +148,22 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.PARALYSIS,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
       },
+      {
+        spell: SPELLS.EXPLODING_KEG,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 75,
+        enabled: !!combatant.getItem(ITEMS.FU_ZAN_THE_WANDERERS_COMPANION.id),
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
       // Its unlikely that these spells will ever be cast but if they are they will show.
       {
         spell: SPELLS.DETOX,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
       },
       {
-        spell: SPELLS.EFFUSE,
+        spell: SPELLS.VIVIFY, // don't know if the vivify spell has been updated to the new ID yet
         category: Abilities.SPELL_CATEGORIES.UTILITY,
       },
       {

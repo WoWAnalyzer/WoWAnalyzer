@@ -3,7 +3,7 @@ import CoreGlobalCooldown from 'Parser/Core/Modules/GlobalCooldown';
 import Channeling from 'Parser/Core/Modules/Channeling';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
-import Abilities from '../Features/Abilities';
+import Abilities from '../Abilities';
 import Haste from './Haste';
 
 /**
@@ -20,7 +20,8 @@ class GlobalCooldown extends CoreGlobalCooldown {
 
   getCurrentGlobalCooldown(spellId = null) {
     const gcd = super.getCurrentGlobalCooldown(spellId);
-    if (spellId === SPELLS.SOLAR_WRATH_MOONKIN.id && this.combatants.selected.hasTalent(SPELLS.STARLORD_TALENT.id) && this.combatants.selected.hasBuff(SPELLS.SOLAR_EMP_BUFF.id)){
+    if ((spellId === SPELLS.SOLAR_WRATH_MOONKIN.id && this.combatants.selected.hasBuff(SPELLS.SOLAR_EMP_BUFF.id)) 
+      || (spellId === SPELLS.LUNAR_STRIKE.id && this.combatants.selected.hasBuff(SPELLS.LUNAR_EMP_BUFF.id))){
       return Math.max(gcd * 0.8, this.owner.modules.alwaysBeCasting.constructor.MINIMUM_GCD);
     }
     return gcd;

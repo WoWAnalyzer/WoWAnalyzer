@@ -1,25 +1,24 @@
 import React from 'react';
-import Analyzer from 'Parser/Core/Analyzer';
-import Combatants from 'Parser/Core/Modules/Combatants';
+
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage, formatDuration, formatNumber } from 'common/format';
+import { formatDuration, formatNumber, formatPercentage } from 'common/format';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
+import StatTracker from 'Parser/Core/Modules/StatTracker';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
-import StatTracker from 'Parser/Core/Modules/StatTracker';
+
 import PainbringerTimesByStacks from './PainbringerTimesByStacks';
 import PainbringerStacksBySeconds from './PainbringerTimesByStacks';
 
-
 class Painbringer extends Analyzer {
-
   static dependencies = {
     combatants: Combatants,
     statTracker: StatTracker,
     painbringerTimesByStacks: PainbringerTimesByStacks,
     painbringerStacksBySeconds: PainbringerStacksBySeconds,
   };
-
 
   get painbringerTimesByStack() {
     return this.painbringerTimesByStacks.painbringerTimesByStacks;
@@ -56,37 +55,35 @@ class Painbringer extends Analyzer {
   }
 
   statistic() {
-    console.log("stack avg #", this.painbringerTimesByStack.painbringerTimesByStacks);
-      return (
-        <ExpandableStatisticBox
-          icon={<SpellIcon id={SPELLS.PAINBRINGER.id} />}
-          value={`${formatPercentage(this.painbringerTimesByStack[5].reduce((a, b) => a + b, 0) / this.owner.fightDuration)} %`}
-          label="Painbringer Uptime At 5 Stacks"
-          tooltip={`Average Painbringer Stacks: <b>${formatNumber(this.painbringerAvgStack)}</b></br>
-                    Total Buff Uptime: <b>${formatPercentage(this.uptime)}</b> %`}
-        >
-          <table className="table table-condensed">
-            <thead>
-              <tr>
-                <th>Stacks</th>
-                <th>Time (s)</th>
-                <th>Time (%)</th>
+    return (
+      <ExpandableStatisticBox
+        icon={<SpellIcon id={SPELLS.PAINBRINGER.id} />}
+        value={`${formatPercentage(this.painbringerTimesByStack[5].reduce((a, b) => a + b, 0) / this.owner.fightDuration)} %`}
+        label="Painbringer Uptime At 5 Stacks"
+        tooltip={`Average Painbringer Stacks: <b>${formatNumber(this.painbringerAvgStack)}</b></br>
+                  Total Buff Uptime: <b>${formatPercentage(this.uptime)}</b> %`}
+      >
+        <table className="table table-condensed">
+          <thead>
+            <tr>
+              <th>Stacks</th>
+              <th>Time (s)</th>
+              <th>Time (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.painbringerTimesByStack.map((e, i) => (
+              <tr key={i}>
+                <th>{i}</th>
+                <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
+                <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
               </tr>
-            </thead>
-            <tbody>
-              {this.painbringerTimesByStack.map((e, i) =>
-                <tr key={i}>
-                  <th>{i}</th>
-                  <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
-                  <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </ExpandableStatisticBox>
-      );
-
-    }
+            ))}
+          </tbody>
+        </table>
+      </ExpandableStatisticBox>
+    );
+  }
   statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 

@@ -8,6 +8,7 @@ class Abilities extends CoreAbilities {
     return [
       {
         spell: SPELLS.ICEBOUND_FORTITUDE,
+        buffSpellId: SPELLS.ICEBOUND_FORTITUDE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
         castEfficiency: {
@@ -20,6 +21,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.VAMPIRIC_BLOOD,
+        buffSpellId: SPELLS.VAMPIRIC_BLOOD.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 90,
         castEfficiency: {
@@ -29,18 +31,6 @@ class Abilities extends CoreAbilities {
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         timelineSortIndex: 10,
-      },
-      {
-        spell: SPELLS.BLOOD_MIRROR_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
-        enabled: combatant.hasTalent(SPELLS.BLOOD_MIRROR_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.75,
-          extraSuggestion: 'Mostly a DPS CD. Use it to reflect large damage back to the boss. It can be used defensively to reduce 20% damage taken for its duration.',
-        },
-        timelineSortIndex: 9,
       },
       {
         spell: SPELLS.BLOOD_BOIL,
@@ -69,7 +59,9 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DANCING_RUNE_WEAPON,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
+        buffSpellId: SPELLS.DANCING_RUNE_WEAPON_BUFF.id,
+        isOnGCD: true,
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
@@ -141,12 +133,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.MARROWREND,
+        buffSpellId: SPELLS.BONE_SHIELD.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
         timelineSortIndex: 2,
       },
       {
         spell: SPELLS.ANTI_MAGIC_SHELL,
+        buffSpellId: SPELLS.ANTI_MAGIC_SHELL.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 60,
         castEfficiency: {
@@ -204,14 +198,15 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
       },
       {
-        spell: SPELLS.BLOOD_TAP_TALENT,
+        spell: SPELLS.RUNE_STRIKE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.BLOOD_TAP_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.RUNE_STRIKE_TALENT.id),
+        isOnGCD: true,
         cooldown: 60,
         charges: 2,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.95,
         },
         timelineSortIndex: 8,
       },
@@ -227,6 +222,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         enabled: combatant.hasTalent(SPELLS.TOMBSTONE_TALENT.id),
         cooldown: 60,
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.50,
@@ -237,6 +233,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RUNE_TAP_TALENT,
+        buffSpellId: SPELLS.RUNE_TAP_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         enabled: combatant.hasTalent(SPELLS.RUNE_TAP_TALENT.id),
         cooldown: 25,

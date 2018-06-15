@@ -70,7 +70,7 @@ class LiadrinsFuryUnleashed extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>You wasted {this.holyPowerWasted} of the Holy Power from <ItemLink id={ITEMS.LIADRINS_FURY_UNLEASHED.id} icon/>. Consider using an easier legendary.</React.Fragment>)
+      return suggest(<React.Fragment>You wasted {this.holyPowerWasted} of the Holy Power from <ItemLink id={ITEMS.LIADRINS_FURY_UNLEASHED.id} icon />. Consider using an easier legendary.</React.Fragment>)
         .icon(ITEMS.LIADRINS_FURY_UNLEASHED.icon)
         .actual(`${formatPercentage(this.holyPowerWastedPercent)}% Holy Power wasted`)
         .recommended(`Wasting <${formatPercentage(recommended)}% is recommended.`);

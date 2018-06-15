@@ -16,16 +16,13 @@ import SpellLink from 'common/SpellLink';
  */
 const LIST_OF_FOCUS_SPENDERS = [
   SPELLS.COBRA_SHOT.id,
-  SPELLS.MULTISHOT.id,
+  SPELLS.MULTISHOT_BM.id,
   SPELLS.KILL_COMMAND.id,
   SPELLS.REVIVE_PET_AND_MEND_PET.id,
-  SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id,
+  SPELLS.A_MURDER_OF_CROWS_TALENT.id,
   SPELLS.BARRAGE_TALENT.id,
-  SPELLS.VOLLEY_ACTIVATED.id,
 ];
 
-const BUFFER_MS = 100;
-const VOLLEY_COST = 3;
 const FOCUS_COST_REDUCTION = 0.15;
 const SLITHERING_SERPENTS_REDUCTION = 2;
 const COBRA_SHOT_RANK_2_REDUCTION = 10;
@@ -61,7 +58,7 @@ class RoarOfTheSevenLions extends Analyzer {
       focusSaved: 0,
       name: "Revive/Mend pet",
     },
-    [SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id]: {
+    [SPELLS.A_MURDER_OF_CROWS_TALENT.id]: {
       casts: 0,
       focusSaved: 0,
       name: "A Murder of Crows",
@@ -70,11 +67,6 @@ class RoarOfTheSevenLions extends Analyzer {
       casts: 0,
       focusSaved: 0,
       name: "Barrage",
-    },
-    [SPELLS.VOLLEY_ACTIVATED.id]: {
-      casts: 0,
-      focusSaved: 0,
-      name: "Volley",
     },
   };
 
@@ -91,7 +83,7 @@ class RoarOfTheSevenLions extends Analyzer {
     if (LIST_OF_FOCUS_SPENDERS.every(id => spellId !== id)) {
       return;
     }
-    this.lastFocusCost = event.classResources[0]['cost'] || 0;
+    this.lastFocusCost = event.classResources[0].cost || 0;
     if (spellId === SPELLS.COBRA_SHOT.id) {
       this.lastFocusCost -= COBRA_SHOT_RANK_2_REDUCTION;
       if (this.combatants.selected.traitsBySpellId[SPELLS.SLITHERING_SERPENTS_TRAIT.id]) {
@@ -103,31 +95,12 @@ class RoarOfTheSevenLions extends Analyzer {
 
   }
 
-  //since Volley has no cast event, I'm going to use it's damage event as they are simultaneous
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.VOLLEY_ACTIVATED.id || !this.combatants.selected.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
-      return;
-    }
-    //since it can hit several mobs, this ensures we only subtract the focus once
-    if (event.timestamp > (this.lastVolleyHit + BUFFER_MS)) {
-      this.focusSpenderCasts[spellId].casts += 1;
-      this.focusSpenderCasts[spellId].focusSaved += VOLLEY_COST - (VOLLEY_COST * FOCUS_COST_REDUCTION);
-      this.lastVolleyHit = event.timestamp;
-    }
-
-  }
-
   get totalFocusSaved() {
-    let totalFocusSaved = 0;
-    LIST_OF_FOCUS_SPENDERS.map(ability => totalFocusSaved += this.focusSpenderCasts[ability].focusSaved);
-    return totalFocusSaved;
+    return LIST_OF_FOCUS_SPENDERS.reduce((total, ability) => total + this.focusSpenderCasts[ability].focusSaved, 0);
   }
 
   get focusCostCasts() {
-    let focusCostCasts = 0;
-    LIST_OF_FOCUS_SPENDERS.map(ability => focusCostCasts += this.focusSpenderCasts[ability].casts);
-    return focusCostCasts;
+    return LIST_OF_FOCUS_SPENDERS.reduce((total, ability) => total + this.focusSpenderCasts[ability].casts, 0);
   }
   get averageFocusCostReduction() {
     return this.totalFocusSaved / this.focusCostCasts;

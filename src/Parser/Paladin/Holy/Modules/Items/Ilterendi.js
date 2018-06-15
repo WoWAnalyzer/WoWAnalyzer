@@ -27,7 +27,7 @@ class Ilterendi extends Analyzer {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
+    if (!ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
       return;
     }
     if (!this.combatants.selected.hasBuff(SPELLS.ILTERENDI_BUFF.id, event.timestamp)) {

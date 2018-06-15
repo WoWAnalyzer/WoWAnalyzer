@@ -30,11 +30,11 @@ class DocumentTitleUpdater extends React.PureComponent {
 
     let title = 'WoWAnalyzer';
     if (reportCode && report) {
-      if (playerName) {
-        if (fight) {
+      if (fight) {
+        if (playerName) {
           title = `${getFightName(report, fight)} by ${playerName} in ${report.title} - ${title}`;
         } else {
-          title = `${playerName} in ${report.title} - ${title}`;
+          title = `${getFightName(report, fight)} in ${report.title} - ${title}`;
         }
       } else {
         title = `${report.title} - ${title}`;

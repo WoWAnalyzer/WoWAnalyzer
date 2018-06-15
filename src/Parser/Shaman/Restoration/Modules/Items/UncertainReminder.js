@@ -76,7 +76,7 @@ class UncertainReminder extends Analyzer {
       if (event.timestamp > startExtraHeroTime) {
         const spellId = event.ability.guid;
 
-        if (SPELLS_SCALING_WITH_HASTE.indexOf(spellId) > -1) {
+        if (SPELLS_SCALING_WITH_HASTE.includes(spellId)) {
           const increase = (1 + this.hastePercent) * (1 + SENSE_OF_URGENCY_HEALING_INCREASE) - 1;
           this.urgencyHealing += calculateEffectiveHealing(event, increase);
         } else {
@@ -91,13 +91,13 @@ class UncertainReminder extends Analyzer {
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
 
-    if (HEROISM_30_PERCENT.indexOf(spellId) > -1) {
+    if (HEROISM_30_PERCENT.includes(spellId)) {
       this.heroismStart = event.timestamp;
       this.hastePercent = 0.30;
       this.events = [];
     }
 
-    if (HEROISM_25_PERCENT.indexOf(spellId) > -1) {
+    if (HEROISM_25_PERCENT.includes(spellId)) {
       this.heroismStart = event.timestamp;
       this.hastePercent = 0.25;
       this.events = [];
@@ -107,13 +107,13 @@ class UncertainReminder extends Analyzer {
   on_toPlayer_removebuff(event) {
     const spellId = event.ability.guid;
 
-    if (HEROISM_30_PERCENT.indexOf(spellId) > -1) {
+    if (HEROISM_30_PERCENT.includes(spellId)) {
       this.process_events(this.heroismStart, event.timestamp);
       this.heroismStart = null;
       this.hastePercent = null;
     }
 
-    if (HEROISM_25_PERCENT.indexOf(spellId) > -1) {
+    if (HEROISM_25_PERCENT.includes(spellId)) {
       this.process_events(this.heroismStart, event.timestamp);
       this.heroismStart = null;
       this.hastePercent = null;
@@ -134,7 +134,7 @@ class UncertainReminder extends Analyzer {
       return;
     }
 
-    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
+    if (!ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
       return;
     }
 

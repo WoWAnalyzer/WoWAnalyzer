@@ -7,6 +7,7 @@ import { formatMilliseconds } from 'common/format';
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import { STAT_TRACKER_BUFFS as DARKMOON_DECK_IMMORTALITY_BUFFS } from 'Parser/Core/Modules/Items/Legion/DarkmoonDeckImmortality';
+import { BASE_ILVL as AGG_CONV_BASE_ILVL, VERSATILITY_BASE as AGG_CONV_VERS } from 'Parser/Core/Modules/Items/Legion/AntorusTheBurningThrone/AggramarsConviction';
 
 const debug = false;
 
@@ -58,6 +59,7 @@ class StatTracker extends Analyzer {
     [SPELLS.STR_FEAST.id]: { strength: 23 },
     [SPELLS.AGI_FEAST.id]: { agility: 23 },
     [SPELLS.INT_FEAST.id]: { intellect: 23 },
+    [SPELLS.DARKMOON_VERS_FOOD.id]: { versatility: 45 },
     //endregion
 
     // region Dungeon Trinkets
@@ -123,6 +125,14 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.ENGRANGED_DIEMETRADON_FIN.id,
       haste: (_, item) => calculateSecondaryStatJewelry(172, 160, item.itemLevel),
     },
+    [SPELLS.WILL_OF_THE_LOA.id]: { // Will of the Loa
+      itemId: ITEMS.ZANDALARI_LOA_FIGURINE.id, // Zandalari Loa Figurine
+      crit: (_, item) => calculatePrimaryStat(280, 676, item.itemLevel),
+    },
+    [SPELLS.SPYGLASS_SIGHT.id]: { // Spyglass Sight
+      itemId: ITEMS.FIRST_MATES_SPYGLASS.id, // First Mate's Spyglass
+      crit: (_, item) => calculatePrimaryStat(280, 768, item.itemLevel),
+    },
 
     //endregion
 
@@ -173,6 +183,10 @@ class StatTracker extends Analyzer {
     [SPELLS.RUSH_OF_KNOWLEDGE.id]: {
       itemId: ITEMS.NORGANNONS_PROWESS.id,
       intellect: (_, item) => calculatePrimaryStat(940, 11483, item.itemLevel),
+    },
+    [SPELLS.CELESTIAL_BULWARK.id]: {
+      itemId: ITEMS.AGGRAMARS_CONVICTION.id,
+      versatility: (_, item) => calculateSecondaryStatDefault(AGG_CONV_BASE_ILVL, AGG_CONV_VERS, item.itemLevel),
     },
     // Khaz'goroth's Courage is handled in it's own module since all 4 stat buffs use the same ID.
     //[SPELLS.KHAZGOROTHS_SHAPING.id]: {
@@ -235,17 +249,100 @@ class StatTracker extends Analyzer {
     // region Azerite Traits
     // region General
     [SPELLS.BLIGHTBORNE_INFUSION.id]: { crit: 622 },
-    [SPELLS.SECRETS_OF_THE_DEEP_SURGING_DROPLET.id]: { strength: 442, agility: 442, intellect: 442 },
-    [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 },
+    [SPELLS.SECRETS_OF_THE_DEEP_SURGING_DROPLET.id]: { strength: 442, agility: 442, intellect: 442 }, // TODO: Implement primaryStat
+    [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 }, // TODO: Implement primaryStat
     [SPELLS.CHAMPION_OF_AZEROTH.id]: { versatility: 87 },
     [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
+    [SPELLS.GEMHIDE.id]: { avoidance: 0, dodge: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: { crit: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: { haste: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: { mastery: 0 }, // TODO: Implement based on in-game data
+    [SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id]: { versatility: 0 }, // TODO: Implement based on in-game data
+    // endregion
+    // region Hunter
+    [SPELLS.HAZE_OF_RAGE.id]: { agility: 316 },
+    // endregion
+    // region Warlock
+    [SPELLS.EXPLOSIVE_POTENTIAL.id]: { haste: 841 },
     // endregion
     // endregion
 
     // region Enchants
     [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 60 },
     [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 480 },
+    264878: { crit: 445 }, // Crow's Nest Scope
     //endregion
+
+    // region Trinkets
+    // region Quests
+    // Mostly implemented for beta/PTR, don't expect to ever need those spells/trinkets elsewhere, so hard-coding the ids here
+    268619: { // Diemetradon Frenzy
+      itemId: 159764, // Engranged Diemetradon Fin
+      haste: (_, item) => calculateSecondaryStatDefault(172, 160, item.itemLevel),
+    },
+    269887: { // Boiling Time
+      itemId: 159978, // Junji's Egg Timer
+      haste: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
+    },
+    268623: { // Shark's Bite
+      itemId: 159765, // Empowered Shark's Tooth
+      crit: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
+    },
+    268602: { // Master's Sight
+      itemId: 159074, // Jarkadiax's Other Eye
+      mastery: (_, item) => calculateSecondaryStatDefault(172, 114, item.itemLevel),
+    },
+    268616: { // Swell of Voodoo
+      itemId: 159763, // Idol of Vol'jamba
+      mastery: (_, item) => calculateSecondaryStatDefault(172, 114, item.itemLevel),
+    },
+    273988: { // Primal Instinct
+      itemId: 158155, // Zandalari Dinobone Charm
+      strength: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
+      agility: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
+      intellect: (_, item) => calculateSecondaryStatDefault(280, 351, item.itemLevel),
+    },
+    269885: { // Residual Viciousness
+      itemId: 159977, // Vindictive Golem Core
+      crit: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
+    },
+    273992: { // Speed of the Spirits
+      itemId: 158154, // Zandalari Bijou
+      haste: (_, item) => calculateSecondaryStatDefault(280, 414, item.itemLevel),
+    },
+    268604: { // Blood Crazed
+      itemId: 159075, // Bloodhex Talisman
+      crit: (_, item) => calculateSecondaryStatDefault(172, 207, item.itemLevel),
+    },
+    // endregion
+    // region Dungeons
+    271071: { // Conch of Dark Whispers
+      itemId: ITEMS.CONCH_OF_DARK_WHISPERS.id,
+      crit: (_, item) => calculateSecondaryStatDefault(310, 485, item.itemLevel),
+    },
+    271115: { // Ignition Mage's Fuse
+      itemId: ITEMS.IGNITION_MAGES_FUSE.id,
+      haste: (_, item) => calculateSecondaryStatDefault(310, 233, item.itemLevel),
+    },
+    // endregion
+    // endregion
+
+    // region Consumables
+    //region Flasks
+    251836: { agility: 238 }, // Flask of the Currents
+    251839: { strength: 238 }, // Flask of the Undertow
+    152639: { intellect: 238 }, // Flask of Endless Fathoms
+    251838: { stamina: 357 }, // Flask of Vast Horizon
+    // endregion
+    // endregion
+
+    // region Racials
+    // Mag'har Orc
+    274739: { crit: 102 }, // Rictus of the Laughing Skull
+    274740: { haste: 102 }, // Zeal of the Burning Blade
+    274741: { mastery: 102 }, // Ferocity of the Frostwolf
+    274742: { versatility: 102 }, // Might of the Blackrock
+    // endregion
   };
 
   _pullStats = {};
@@ -280,13 +377,17 @@ class StatTracker extends Analyzer {
 
   applySpecModifiers() {
     const modifiers = this.constructor.SPEC_MULTIPLIERS[this.combatants.selected.spec.id] || {};
-    Object.entries(modifiers).forEach(([stat, multiplier]) => this._pullStats[stat] *= multiplier);
+    Object.entries(modifiers).forEach(([stat, multiplier]) => {
+      this._pullStats[stat] *= multiplier;
+    });
   }
 
   applyArtifactModifiers() {
     Object.entries(this.constructor.ARTIFACT_MULTIPLIERS).forEach(([spellId, modifiers]) => {
       const rank = this.combatants.selected.traitsBySpellId[spellId] || 0;
-      Object.entries(modifiers).forEach(([stat, multiplier]) => this._pullStats[stat] *= 1 + multiplier * rank);
+      Object.entries(modifiers).forEach(([stat, multiplier]) => {
+        this._pullStats[stat] *= 1 + multiplier * rank;
+      });
     });
   }
 
@@ -381,11 +482,11 @@ class StatTracker extends Analyzer {
     switch (this.combatants.selected.spec) {
       case SPECS.FIRE_MAGE:
         return standard + 0.15; // an additional 15% is gained from the passive Critical Mass
-      case SPECS.BEAST_MASTERY_HUNTER :
+      case SPECS.BEAST_MASTERY_HUNTER:
         return standard + 0.05; //baseline +5%
-      case SPECS.MARKSMANSHIP_HUNTER :
+      case SPECS.MARKSMANSHIP_HUNTER:
         return standard + 0.05; //baseline +5%
-      case SPECS.SURVIVAL_HUNTER :
+      case SPECS.SURVIVAL_HUNTER:
         return standard + 0.06; //baseline +6%
       case SPECS.WINDWALKER_MONK:
         return standard + 0.05; //baseline +5%

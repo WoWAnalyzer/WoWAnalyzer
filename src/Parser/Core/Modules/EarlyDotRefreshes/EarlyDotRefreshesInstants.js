@@ -25,12 +25,12 @@ class EarlyDotRefreshesInstants extends EarlyDotRefreshes {
   // Determines whether the last cast should be checked or not.
   checkLastCast(event) {
     if (!this.lastGCD || !this.lastCast) {
-      return false;
+      return;
     }
     // Since we don't have events for end of GCDs, we check on the first event after roughly a gcd has pasted.
     const timeSinceCast = event.timestamp - this.lastGCD.timestamp;
     if (timeSinceCast < this.lastGCD.duration - BUFFER_MS){
-      return false;
+      return;
     }
     this.isLastCastBad(event);
     this.lastGCD = null;

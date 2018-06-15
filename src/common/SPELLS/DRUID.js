@@ -11,6 +11,12 @@ export default {
     name: 'Starsurge',
     icon: 'spell_arcane_arcane03',
   },
+  // the moonkin form granted by Balance Affinity
+  MOONKIN_FORM_AFFINITY: {
+    id: 197625,
+    name: 'Moonkin Form',
+    icon: 'spell_nature_forceofnature',
+  },
 
   // RESTO DRUID //
 
@@ -412,8 +418,14 @@ export default {
     name: 'Ironfur',
     icon: 'ability_druid_ironfur',
   },
-  STAMPEDING_ROAR_CAT: {
+  // when casting stampeding outside of cat or bear form (puts caster into bear form)
+  STAMPEDING_ROAR_HUMANOID: {
     id: 106898,
+    name: 'Stampeding Roar',
+    icon: 'spell_druid_stamedingroar',
+  },
+  STAMPEDING_ROAR_CAT: {
+    id: 77764,
     name: 'Stampeding Roar',
     icon: 'spell_druid_stampedingroar_cat',
   },
@@ -631,19 +643,14 @@ export default {
     icon: 'spell_nature_starfall',
   },
   FULL_MOON: {
-    id: 202771,
+    id: 274283,
     name: 'Full Moon',
     icon: 'artifactability_balancedruid_fullmoon',
   },
   HALF_MOON: {
-    id: 202768,
+    id: 274282,
     name: 'Half Moon',
     icon: 'artifactability_balancedruid_halfmoon',
-  },
-  NEW_MOON: {
-    id: 202767,
-    name: 'New Moon',
-    icon: 'artifactability_balancedruid_newmoon',
   },
   CELESTIAL_ALIGNMENT: {
     id: 194223,
@@ -786,6 +793,23 @@ export default {
     name: 'Berserk',
     icon: 'ability_druid_berserk',
   },
+  PROWL: {
+    id: 5215,
+    name: 'Prowl',
+    icon: 'ability_druid_prowl',
+  },
+  // a version of prowl that can be activated in combat through the Incarnation: King of the Jungle talent
+  PROWL_INCARNATION: {
+    id: 102547,
+    name: 'Prowl',
+    icon: 'ability_druid_prowl',
+  },
+  // buff from the bloodtalons talent (different id from BLOODTALONS_TALENT)
+  BLOODTALONS_BUFF: {
+    id: 145152,
+    name: 'Bloodtalons',
+    icon: 'spell_druid_bloodythrash',
+  },
   // Traits:
   // The Ashamane's Bite trait creates the Ashamane's Rip debuff.
   ASHAMANES_BITE: {
@@ -802,6 +826,16 @@ export default {
     id: 240670,
     name: 'Fury of Ashamane',
     icon: 'ability_mount_jungletiger',
+  },
+  PROTECTION_OF_ASHAMANE: {
+    id: 210650,
+    name: 'Protection of Ashamane',
+    icon: 'ability_druid_catform',
+  },
+  PROTECTION_OF_ASHAMANE_BUFF: {
+    id: 210655,
+    name: 'Protection of Ashamane',
+    icon: 'ability_druid_catform',
   },
 
   //shared talent spells

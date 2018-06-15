@@ -29,14 +29,14 @@ class BestialWrathAverageFocus extends Analyzer {
       return;
     }
     this.bestialWrathCasts += 1;
-    this.accumulatedFocusAtBWCast += event.classResources[0]['amount'] || 0;
+    this.accumulatedFocusAtBWCast += event.classResources[0].amount || 0;
   }
   statistic() {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BESTIAL_WRATH.id} />}
         value={this.averageFocusAtBestialWrathCast}
-        label={`Average Focus on cast`}
+        label="Average Focus on cast"
         tooltip={`You started your average Bestial Wrath window with ${this.averageFocusAtBestialWrathCast} focus.`}
       />
     );

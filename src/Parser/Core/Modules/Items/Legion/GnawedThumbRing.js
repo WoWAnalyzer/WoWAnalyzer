@@ -42,7 +42,7 @@ class GnawedThumbRing extends Analyzer {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (this.owner.constructor.abilitiesAffectedByHealingIncreases.indexOf(spellId) === -1) {
+    if (!this.owner.constructor.abilitiesAffectedByHealingIncreases.includes(spellId)) {
       return;
     }
 

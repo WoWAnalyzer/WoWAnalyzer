@@ -27,11 +27,11 @@ class DireBeast extends Analyzer {
   remainingBestialWrathCooldown = 0;
 
   on_initialized() {
-    this.active = !this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.DIRE_BEAST_TALENT.id);
   }
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DIRE_BEAST.id && spellId !== SPELLS.BESTIAL_WRATH.id) {
+    if (spellId !== SPELLS.DIRE_BEAST_TALENT.id && spellId !== SPELLS.BESTIAL_WRATH.id) {
       return;
     }
     if (spellId === SPELLS.DIRE_BEAST.id) {
@@ -74,7 +74,7 @@ class DireBeast extends Analyzer {
             />
           </React.Fragment>
         )}
-        label={`Direbeast casts`}
+        label="Direbeast casts"
         tooltip={`You cast Dire Beast ${this.casts} times. <br/> <ul> <li> You cast ${this.badDBCasts} Dire Beasts while there was less than 3 seconds remaining of Bestial Wrath cooldown.</li></ul>`}
       />
     );

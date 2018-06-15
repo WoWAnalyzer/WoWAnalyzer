@@ -29,12 +29,8 @@ import DireFrenzy from 'Parser/Hunter/BeastMastery/Modules/Talents/DireFrenzy';
 import AspectOfTheBeast from 'Parser/Hunter/Shared/Modules/Talents/AspectOfTheBeast';
 
 //Spells
-import DireBeast from 'Parser/Hunter/BeastMastery/Modules/Spells/DireBeast/DireBeast';
 import AspectOfTheWild from 'Parser/Hunter/BeastMastery/Modules/Spells/AspectOfTheWild';
 import BestialWrathAverageFocus from 'Parser/Hunter/BeastMastery/Modules/Spells/BestialWrath/BestialWrathAverageFocus';
-
-//Traits
-import TitansThunder from 'Parser/Hunter/BeastMastery/Modules/Traits/TitansThunder';
 
 //Items
 import ParselsTongue from 'Parser/Hunter/BeastMastery/Modules/Items/ParselsTongue';
@@ -68,12 +64,8 @@ class Checklist extends CoreChecklist {
 
     //Spells
     aspectOfTheWild: AspectOfTheWild,
-    direBeast: DireBeast,
     direFrenzy: DireFrenzy,
     bestialWrathAverageFocus: BestialWrathAverageFocus,
-
-    //Traits
-    titansThunder: TitansThunder,
 
     //Legendaries
     parselsTongue: ParselsTongue,
@@ -100,8 +92,8 @@ class Checklist extends CoreChecklist {
             onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED,
-            when: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id),
+            spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
+            when: combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TITANS_THUNDER,
@@ -119,23 +111,16 @@ class Checklist extends CoreChecklist {
       },
     }),
     new Rule({
-      name: <React.Fragment> Use your Dire ability properly</React.Fragment>,
-      description: <React.Fragment>Using either <SpellLink id={SPELLS.DIRE_BEAST.id} /> or <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> properly is a key to achieving high dps. This means maintaining the buff from <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> as long as possible, and utilising the cooldown reduction from <SpellLink id={SPELLS.DIRE_BEAST.id} />/<SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> as much as possible, to ensure high uptime on <SpellLink id={SPELLS.BESTIAL_WRATH.id} /></React.Fragment>,
+      name: <React.Fragment>Use your Dire ability properly</React.Fragment>,
+      description: <React.Fragment>Using <SpellLink id={SPELLS.BARBED_SHOT.id} /> properly is a key to achieving high dps. This means maintaining the buff from <SpellLink id={SPELLS.BARBED_SHOT.id} /> as long as possible, and utilising the cooldown reduction from <SpellLink id={SPELLS.BARBED_SHOT.id} /> as much as possible, to ensure high uptime on <SpellLink id={SPELLS.BESTIAL_WRATH.id} /></React.Fragment>,
       requirements: () => {
         return [
           new Requirement({
-            name: <React.Fragment>Casts with less than 3s CD on <SpellLink id={SPELLS.BESTIAL_WRATH.id} /></React.Fragment>,
-            when: !this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
-            check: () => this.direBeast.badDireBeastThreshold,
-          }),
-          new Requirement({
-            name: <React.Fragment>Uptime of <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> </React.Fragment>,
-            when: this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
+            name: <React.Fragment>Uptime of <SpellLink id={SPELLS.BARBED_SHOT.id} /> </React.Fragment>,
             check: () => this.direFrenzy.direFrenzyUptimeThreshold,
           }),
           new Requirement({
-            name: <React.Fragment>3 Stacks Uptime of <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> </React.Fragment>,
-            when: this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
+            name: <React.Fragment>3 Stacks Uptime of <SpellLink id={SPELLS.BARBED_SHOT.id} /> </React.Fragment>,
             check: () => this.direFrenzy.direFrenzy3StackThreshold,
           }),
         ];
@@ -228,8 +213,8 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: <React.Fragment><Icon
-        icon='spell_mage_altertime'
-        alt='Casting downtime'
+        icon="spell_mage_altertime"
+        alt="Casting downtime"
         style={{
           height: '1.3em',
           marginTop: '-.1em',
@@ -240,8 +225,8 @@ class Checklist extends CoreChecklist {
         return [
           new Requirement({
             name: <React.Fragment><Icon
-              icon='spell_mage_altertime'
-              alt='Casting downtime'
+              icon="spell_mage_altertime"
+              alt="Casting downtime"
               style={{
                 height: '1.3em',
                 marginTop: '-.1em',

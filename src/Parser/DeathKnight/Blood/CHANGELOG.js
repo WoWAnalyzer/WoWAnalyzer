@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-05-22'),
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.RUNE_STRIKE_TALENT.id} />-Module in anticipation for BFA, adjusted <SpellLink id={SPELLS.HEMOSTASIS_TALENT.id} /> to 8% per stack, readded <SpellLink id={SPELLS.OSSUARY_TALENT.id} /> and removed Blood Mirror.</React.Fragment>,
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-05-01'),
     changes: <React.Fragment>Added <SpellLink id={SPELLS.VORACIOUS_TALENT.id} />-Module in anticipation for BFA.</React.Fragment>,
     contributors: [Yajinni],
@@ -16,6 +21,11 @@ export default [
     date: new Date('2018-04-30'),
     changes: <React.Fragment>Added <SpellLink id={SPELLS.TOMBSTONE_TALENT.id} />-Module in anticipation for BFA.</React.Fragment>,
     contributors: [Yajinni],
+  },
+  {
+    date: new Date('2018-04-30'),
+    changes: <React.Fragment>Added suggestion for <SpellLink id={SPELLS.DEATHS_CARESS.id} /> overusage.</React.Fragment>,
+    contributors: [joshinator],
   },
   {
     date: new Date('2018-04-30'),

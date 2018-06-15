@@ -196,6 +196,7 @@ class MasteryEffectiveness extends Analyzer {
     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)) / 100;
   }
   static calculateMasteryEffectiveness(distance, isRuleOfLawActive) {
+    // https://docs.google.com/spreadsheets/d/1kcIuIYgn61tZoAM6nS_vzGllOuIuMxBZXunDodBTvC0/edit?usp=sharing
     const fullEffectivenessRadius = isRuleOfLawActive ? 15 : 10;
     const falloffRadius = isRuleOfLawActive ? 60 : 40;
 

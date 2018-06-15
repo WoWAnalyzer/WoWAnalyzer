@@ -10,7 +10,6 @@ import ItemDamageDone from 'Main/ItemDamageDone';
  * After you Multi-Shot, your pet's melee attacks also strike all other nearby enemy targets for 100% as much for the next 4 sec.
  */
 class BeastCleave extends Analyzer {
-
   static dependencies = {
     combatants: Combatants,
   };
@@ -26,6 +25,7 @@ class BeastCleave extends Analyzer {
   }
 
   subStatistic() {
+    //Beast Cleave is only used on AoE - no reason to show this statistic on single-target, so this just checks if Beast Cleave did any damage at all, since it only makes sense to show it on AoE fights.
     if (this.damage > 0) {
       return (
         <div className="flex">
@@ -38,6 +38,7 @@ class BeastCleave extends Analyzer {
         </div>
       );
     }
+    return null;
   }
 }
 

@@ -58,6 +58,11 @@ h2 {
   margin: 0;
   font-size: 1em;
 }
+.wowdb-tooltip .db-tooltip h2 {
+  text-transform: none;
+  letter-spacing: normal;
+  opacity: 1;
+}
 
 
 a {
@@ -144,6 +149,11 @@ ul {
 .panel h1 {
   margin-top: 0.2em;
   margin-bottom: 0.8em;
+}
+.panel-cell:not(:first-child) {
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(255,255,255, 0.1);
 }
 
 .image-background {
@@ -340,6 +350,9 @@ h1 {
 .flex-sub {
   flex: 0 0 auto;
 }
+.flex-column {
+  flex-direction: column;
+}
 .content-middle {
   display: flex;
   align-items: center;
@@ -414,11 +427,11 @@ dfn[data-tip] {
 
 /* Source: http://tobiasahlin.com/spinkit/ */
 .spinner {
-  width: 100px;
-  height: 100px;
+  width: 5em;
+  height: 5em;
   background-color: #e45a5a;
 
-  margin: 0 auto;
+  margin: 2.5em auto;
   animation: sk-rotateplane 1.2s infinite ease-in-out;
 }
 

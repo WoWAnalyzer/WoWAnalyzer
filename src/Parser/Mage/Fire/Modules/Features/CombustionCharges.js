@@ -19,26 +19,34 @@ class CombustionCharges extends Analyzer {
   lowPhoenixFlamesCharges = 0;
   lowFireBlastCharges = 0;
 
+  on_initialized() {
+    this.hasPhoenixFlames = this.combatants.selected.hasTalent(SPELLS.PHOENIX_FLAMES_TALENT.id);
+    this.hasFlameOn = this.combatants.selected.hasTalent(SPELLS.FLAME_ON_TALENT.id);
+  }
+
   //When Combustion is cast, check to see how many charges of Phoenix Flames and Fire Blast were available.
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.COMBUSTION.id) {
       return;
     }
-    const phoenixFlamesCharges = this.spellUsable.chargesAvailable(SPELLS.PHOENIXS_FLAMES.id);
     const fireBlastCharges = this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id);
-    debug && console.log("Phoenix Flames Charges: " + phoenixFlamesCharges + " - " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     debug && console.log("Fire Blast Charges: " + fireBlastCharges + " - " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-    if (phoenixFlamesCharges < 2) {
-      this.lowPhoenixFlamesCharges += 1;
-      debug && console.log("Low Phoenix Flames Charges @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-    }
-    if (this.combatants.selected.hasTalent(SPELLS.FLAME_ON_TALENT.id) && fireBlastCharges < 2) {
+    if (this.hasFlameOn && fireBlastCharges < 2) {
       this.lowFireBlastCharges += 1;
       debug && console.log("Low Fire Blast Charges @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     } else if (fireBlastCharges < 1) {
       this.lowFireBlastCharges += 1;
       debug && console.log("Low Fire Blast Charges @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+    }
+
+    if (this.hasPhoenixFlames) {
+      const phoenixFlamesCharges = this.spellUsable.chargesAvailable(SPELLS.PHOENIX_FLAMES_TALENT.id);
+      debug && console.log("Phoenix Flames Charges: " + phoenixFlamesCharges + " - " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      if (phoenixFlamesCharges < 2) {
+        this.lowPhoenixFlamesCharges += 1;
+        debug && console.log("Low Phoenix Flames Charges @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
+      }
     }
   }
 
@@ -75,16 +83,16 @@ class CombustionCharges extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.phoenixFlamesThresholds)
+    when(this.hasPhoenixFlames && this.phoenixFlamesThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.COMBUSTION.id}/> {this.lowPhoenixFlamesCharges} times with less than 2 charges of <SpellLink id={SPELLS.PHOENIXS_FLAMES.id}/>. Make sure you are saving at least 2 charges while Combustion is on cooldown so you can get as many <SpellLink id={SPELLS.HOT_STREAK.id}/> procs as possible before Combustion ends.</React.Fragment>)
+        return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.COMBUSTION.id} /> {this.lowPhoenixFlamesCharges} times with less than 2 charges of <SpellLink id={SPELLS.PHOENIX_FLAMES_TALENT.id} />. Make sure you are saving at least 2 charges while Combustion is on cooldown so you can get as many <SpellLink id={SPELLS.HOT_STREAK.id} /> procs as possible before Combustion ends.</React.Fragment>)
           .icon(SPELLS.COMBUSTION.icon)
           .actual(`${formatPercentage(this.phoenixFlamesChargeUtil)}% Utilization`)
           .recommended(`${formatPercentage(recommended)} is recommended`);
       });
     when(this.fireBlastThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.COMBUSTION.id}/> {this.lowFireBlastCharges} times with less than {this.combatants.selected.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 2 : 1} charges of <SpellLink id={SPELLS.FIRE_BLAST.id}/>. Make sure you are saving at least {this.combatants.selected.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 2 : 1} charges while Combustion is on cooldown so you can get as many <SpellLink id={SPELLS.HOT_STREAK.id}/> procs as possible before Combustion ends.</React.Fragment>)
+        return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.COMBUSTION.id} /> {this.lowFireBlastCharges} times with less than {this.combatants.selected.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 2 : 1} charges of <SpellLink id={SPELLS.FIRE_BLAST.id} />. Make sure you are saving at least {this.combatants.selected.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 2 : 1} charges while Combustion is on cooldown so you can get as many <SpellLink id={SPELLS.HOT_STREAK.id} /> procs as possible before Combustion ends.</React.Fragment>)
           .icon(SPELLS.COMBUSTION.icon)
           .actual(`${formatPercentage(this.fireBlastChargeUtil)}% Utilization`)
           .recommended(`${formatPercentage(recommended)} is recommended`);

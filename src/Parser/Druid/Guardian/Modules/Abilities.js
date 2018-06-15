@@ -108,7 +108,8 @@ class Abilities extends CoreAbilities {
       // Cooldowns
       {
         spell: SPELLS.BARKSKIN,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.BARKSKIN.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: (haste, selectedCombatant) => {
           const baseCd = combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 90 - (90 / 3) : 90;
           const cdTrait = combatant.traitsBySpellId[SPELLS.PERPETUAL_SPRING_TRAIT.id] || 0;
@@ -118,7 +119,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SURVIVAL_INSTINCTS,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.SURVIVAL_INSTINCTS.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: (haste, selectedCombatant) => {
           const baseCd = combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 240 - (240 / 3) : 240;
           debug && console.log(`Survival CD ${baseCd}`);
@@ -130,7 +132,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SURVIVAL_INSTINCTS,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.SURVIVAL_INSTINCTS.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: (haste, selectedCombatant) => {
           const baseCd = combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 240 - (240 / 3) : 240;
           debug && console.log(`Survival CD ${baseCd}`);
@@ -142,13 +145,15 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
         cooldown: 180,
         enabled: combatant.hasTalent(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id),
         timelineSortIndex: 9,
       },
       {
         spell: SPELLS.BRISTLING_FUR_TALENT,
+        buffSpellId: SPELLS.BRISTLING_FUR_TALENT.id,
+        isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 40,
         enabled: combatant.hasTalent(SPELLS.BRISTLING_FUR_TALENT.id),
@@ -156,32 +161,35 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.IRONFUR,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.IRONFUR.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         timelineSortIndex: 7,
       },
       {
         spell: SPELLS.RAGE_OF_THE_SLEEPER,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.RAGE_OF_THE_SLEEPER.id,
+        category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
         cooldown: 90,
         timelineSortIndex: 9,
       },
       {
         spell: SPELLS.FRENZIED_REGENERATION,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.FRENZIED_REGENERATION.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         charges: 2,
         enabled: !combatant.traitsBySpellId[SPELLS.FLESHKNITTING_TRAIT],
         timelineSortIndex: 8,
       },
       {
         spell: SPELLS.FRENZIED_REGENERATION,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         charges: 3,
         enabled: combatant.traitsBySpellId[SPELLS.FLESHKNITTING_TRAIT],
         timelineSortIndex: 8,
       },
       {
         spell: SPELLS.PULVERIZE_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         enabled: combatant.hasTalent(SPELLS.PULVERIZE_TALENT.id),
         isOnGCD: true,
         antiFillerSpam: {

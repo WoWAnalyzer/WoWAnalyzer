@@ -114,6 +114,12 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
         cooldown: 60,
       },
+      {
+        spell: SPELLS.ASTRAL_SHIFT,
+        buffSpellId: SPELLS.ASTRAL_SHIFT.id,
+        cooldown: 90,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+      },
     ];
   }
 }

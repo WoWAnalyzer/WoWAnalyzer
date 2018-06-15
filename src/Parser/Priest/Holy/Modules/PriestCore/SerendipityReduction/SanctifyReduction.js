@@ -15,26 +15,26 @@ const FULL_OVERCAST_LENIENCE = 0.75;
 class SanctifyReduction extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-  }
+  };
 
   // Holy Word reduction spells (aka things that apply the respective Serendipity)
   serendipityProccers = {
     [SPELLS.PRAYER_OF_HEALING.id]: 1.0,
     [SPELLS.BINDING_HEAL_TALENT.id]: 0.5,
     // [SPELLS.PRAYER_OF_HEALING.id]: SPELLS.HOLY_WORD_SANCTIFY.id,
-  }
+  };
 
-  currentCooldown = 0
-  maxCooldown = 60000
-  serendipityReduction = 6000
+  currentCooldown = 0;
+  maxCooldown = 60000;
+  serendipityReduction = 6000;
 
-  holy_t20_2p = 0.0
+  holy_t20_2p = 0.0;
   holy_t20_2p_active = false;
-  overcast = 0.0 // Overall wasted serendipity
-  rawReduction = 0.0
-  casts = 0
-  effectiveFullOvercasts = 0
-  _tempOvercast = 0.0 // Tracker of how much wasted overcast between each holy word cast
+  overcast = 0.0; // Overall wasted serendipity
+  rawReduction = 0.0;
+  casts = 0;
+  effectiveFullOvercasts = 0;
+  _tempOvercast = 0.0; // Tracker of how much wasted overcast between each holy word cast
 
   on_initialized() {
     // Set up proper serendipity reduction values
@@ -65,7 +65,7 @@ class SanctifyReduction extends Analyzer {
       this._tempOvercast = 0.0;
     }
 
-    if (spellId.toString() in this.serendipityProccers) {
+    if (this.serendipityProccers[spellId.toString()] !== undefined) {
       const actualSerendipityReduction = this.serendipityReduction * this.serendipityProccers[spellId];
       this.rawReduction += actualSerendipityReduction;
 

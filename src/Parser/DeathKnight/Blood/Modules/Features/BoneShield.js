@@ -3,7 +3,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage, formatDuration, formatNumber } from 'common/format';
+import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
@@ -26,14 +26,13 @@ class BoneShield extends Analyzer {
   boneShieldMitigated = 0;
   skeletalShatteringMitigated = 0;
 
-
   on_initialized() {
     this.hasSS = this.combatants.selected.traitsBySpellId[SPELLS.SKELETAL_SHATTERING_TRAIT.id];
     this.hasSD = this.combatants.selected.hasTalent(SPELLS.SPECTRAL_DEFLECTION_TALENT.id);
   }
 
   get boneShieldAbsorbTooltip() {
-    return formatNumber(this.boneShieldMitigated + this.skeletalShatteringMitigated) + " Bone Shield Absorb<br>";
+    return formatNumber(this.boneShieldMitigated + this.skeletalShatteringMitigated) + ' Bone Shield Absorb<br>';
   }
 
   get boneShieldTimesByStack() {
@@ -42,15 +41,13 @@ class BoneShield extends Analyzer {
 
   get skeletalShatteringTooltip() {
     if (this.hasSS) {
-      return "On average, Skeletal Shattering would have contributed " +
+      return 'On average, Skeletal Shattering would have contributed ' +
         formatPercentage(this.skeletalShatteringMitigated / (this.boneShieldMitigated + this.skeletalShatteringMitigated)) +
-        "% (" + formatNumber(this.skeletalShatteringMitigated) + ") to this.<br>";
+        '% (' + formatNumber(this.skeletalShatteringMitigated) + ') to this.<br>';
     } else {
-      return "";
+      return '';
     }
   }
-
-
 
   on_toPlayer_damage(event) {
 
@@ -112,13 +109,13 @@ class BoneShield extends Analyzer {
               </tr>
             </thead>
             <tbody>
-              {Object.values(this.boneShieldTimesByStack).map((e, i) =>
+              {Object.values(this.boneShieldTimesByStack).map((e, i) => (
                 <tr key={i}>
                   <th>{i}</th>
                   <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
                   <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
                 </tr>
-              )}
+              ))}
             </tbody>
           </table>
         </ExpandableStatisticBox>
@@ -132,8 +129,8 @@ class BoneShield extends Analyzer {
           icon={<SpellIcon id={SPELLS.BONE_SHIELD.id} />}
           value={`${formatPercentage(this.uptime)} %`}
           label="Bone Shield Uptime"
-          tooltip={`~${ this.boneShieldAbsorbTooltip }
-          ${ this.skeletalShatteringTooltip }
+          tooltip={`~${this.boneShieldAbsorbTooltip}
+          ${this.skeletalShatteringTooltip}
           <b>Those numbers are estimates as it's not possible to track the actual Bone Shield absorb.</b>`}
         >
           <table className="table table-condensed">
@@ -145,18 +142,17 @@ class BoneShield extends Analyzer {
               </tr>
             </thead>
             <tbody>
-              {this.boneShieldTimesByStack.map((e, i) =>
+              {this.boneShieldTimesByStack.map((e, i) => (
                 <tr key={i}>
                   <th>{i}</th>
                   <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
                   <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
                 </tr>
-              )}
+              ))}
             </tbody>
           </table>
         </ExpandableStatisticBox>
       );
-
     }
   }
   statisticOrder = STATISTIC_ORDER.CORE(5);

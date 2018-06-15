@@ -57,7 +57,7 @@ class WillOfTheNecropolis extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.WILL_OF_THE_NECROPOLIS_TALENT.id} />}
         value={`${this.owner.formatItemHealingDone(this.totalWotnAbsorbed)}`}
-        label='Will Of The Necropolis'
+        label="Will Of The Necropolis"
         tooltip={`<strong>Total Damage Absorbed: </strong> ${formatNumber(this.totalWotnAbsorbed)} </br>
                   <strong>Activated: </strong> ${this.activated}</br>
                   <strong>Absorbed 5% Max Health or more count: </strong> ${this.goodAbsorbCount}  `}

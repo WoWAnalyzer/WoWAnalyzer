@@ -27,7 +27,7 @@ class SliceAndDiceUptime extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SLICE_AND_DICE_TALENT.id} />}
         value={`${formatPercentage(this.percentUptime)}%`}
-        label={`Slice And Dice Uptime`}
+        label="Slice And Dice Uptime"
       />
     );
   }

@@ -3,6 +3,7 @@ import React from 'react';
 import ChangelogTab from 'Main/ChangelogTab';
 import ChangelogTabTitle from 'Main/ChangelogTabTitle';
 import TimelineTab from 'Main/Timeline/TimelineTab';
+import DeathRecapTracker from 'Main/DeathRecapTracker';
 
 import { formatNumber, formatPercentage, formatThousands, formatDuration } from 'common/format';
 
@@ -30,7 +31,6 @@ import GlobalCooldown from './Modules/GlobalCooldown';
 import Enemies from './Modules/Enemies';
 import EnemyInstances from './Modules/EnemyInstances';
 import Pets from './Modules/Pets';
-import HealEventTracker from './Modules/HealEventTracker';
 import ManaValues from './Modules/ManaValues';
 import SpellManaCost from './Modules/SpellManaCost';
 import Channeling from './Modules/Channeling';
@@ -51,6 +51,7 @@ import PrePotion from './Modules/Items/PrePotion';
 import LegendaryUpgradeChecker from './Modules/Items/LegendaryUpgradeChecker';
 import LegendaryCountChecker from './Modules/Items/LegendaryCountChecker';
 import EnchantChecker from './Modules/Items/EnchantChecker';
+import Healthstone from './Modules/Items/Healthstone';
 
 // Legendaries
 import PrydazXavaricsMagnumOpus from './Modules/Items/Legion/Legendaries/PrydazXavaricsMagnumOpus';
@@ -132,6 +133,10 @@ import LightSpeed from './Modules/NetherlightCrucibleTraits/LightSpeed';
 import RefractiveShell from './Modules/NetherlightCrucibleTraits/RefractiveShell';
 import NLCTraits from './Modules/NetherlightCrucibleTraits/NLCTraits';
 
+// BFA
+import ZandalariLoaFigurine from './Modules/Items/BFA/ZandalariLoaFigurine';
+import FirstMatesSpyglass from './Modules/Items/BFA/FirstMatesSpyglass';
+
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
@@ -163,7 +168,6 @@ class CombatLogParser {
     spellManaCost: SpellManaCost,
     channeling: Channeling,
     abilityTracker: AbilityTracker,
-    healEventTracker: HealEventTracker,
     haste: Haste,
     statTracker: StatTracker,
     alwaysBeCasting: AlwaysBeCasting,
@@ -176,6 +180,7 @@ class CombatLogParser {
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
     timelineBuffEvents: TimelineBuffEvents,
+    deathRecapTracker: DeathRecapTracker,
 
     critEffectBonus: CritEffectBonus,
 
@@ -185,6 +190,12 @@ class CombatLogParser {
     checklist: Checklist,
 
     encounterPanel: EncounterPanel,
+
+    prePotion: PrePotion,
+    legendaryUpgradeChecker: LegendaryUpgradeChecker,
+    legendaryCountChecker: LegendaryCountChecker,
+    enchantChecker: EnchantChecker,
+    healthstone: Healthstone,
 
     // Items:
     // Legendaries:
@@ -201,10 +212,6 @@ class CombatLogParser {
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
     darkmoonDeckPromises: DarkmoonDeckPromises,
     darkmoonDeckImmortality: DarkmoonDeckImmortality,
-    prePotion: PrePotion,
-    legendaryUpgradeChecker: LegendaryUpgradeChecker,
-    legendaryCountChecker: LegendaryCountChecker,
-    enchantChecker: EnchantChecker,
     gnawedThumbRing: GnawedThumbRing,
     ishkarsFelshieldEmitter: IshkarsFelshieldEmitter,
     erraticMetronome: ErraticMetronome,
@@ -269,6 +276,10 @@ class CombatLogParser {
 
     infernalCinders: InfernalCinders,
     umbralMoonglaives: UmbralMoonglaives,
+
+    // BFA
+    zandalariLoaFigurine: ZandalariLoaFigurine,
+    firstMatesSpyglass: FirstMatesSpyglass,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
@@ -383,7 +394,9 @@ class CombatLogParser {
         // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
         // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
         if (options) {
-          Object.keys(options).forEach(key => module[key] = options[key]);
+          Object.keys(options).forEach(key => {
+            module[key] = options[key];
+          });
         }
         this._modules[desiredModuleName] = module;
       } else {

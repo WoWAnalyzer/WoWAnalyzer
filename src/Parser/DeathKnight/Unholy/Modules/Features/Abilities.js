@@ -143,7 +143,25 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.90,
         },
       },
-
+      {
+        spell: SPELLS.ICEBOUND_FORTITUDE,
+        buffSpellId: SPELLS.ICEBOUND_FORTITUDE.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 180,
+      },
+      {
+        spell: SPELLS.ANTI_MAGIC_SHELL,
+        buffSpellId: SPELLS.ANTI_MAGIC_SHELL.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 60,
+      },
+      {
+        spell: SPELLS.CORPSE_SHIELD_TALENT,
+        buffSpellId: SPELLS.CORPSE_SHIELD_TALENT.id,
+        enabled: combatant.hasTalent(SPELLS.CORPSE_SHIELD_TALENT.id),
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 60,
+      },
       {
         spell: SPELLS.RUNE_1,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,

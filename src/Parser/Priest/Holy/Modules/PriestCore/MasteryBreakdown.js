@@ -104,7 +104,7 @@ class MasteryBreakdown extends Analyzer {
         // }
         // ----------------------------- //
 
-        if (spell in this.effectiveHealDist) {
+        if (this.effectiveHealDist[spell] !== undefined) {
           this.effectiveHealDist[spell] += (this._maxHealVal[tId][spell]) * percH / tickMode;
           this.effectiveOverhealDist[spell] += (this._maxHealVal[tId][spell]) * (1 - percH) / tickMode;
         } else {
@@ -124,7 +124,7 @@ class MasteryBreakdown extends Analyzer {
       });
     } else {
       // logic for eol triggering spells
-      if (ABILITIES_THAT_TRIGGER_MASTERY.indexOf(spellId) === -1) {
+      if (!ABILITIES_THAT_TRIGGER_MASTERY.includes(spellId)) {
         return;
       }
 
@@ -134,11 +134,11 @@ class MasteryBreakdown extends Analyzer {
         this._tickMode[tId] = 2;
       }
 
-      if (!(tId in this._healValByTargetId)) {
+      if (this._healValByTargetId[tId] === undefined) {
         this._healValByTargetId[tId] = {};
       }
 
-      if (!(tId in this._maxHealVal)) {
+      if (this._maxHealVal[tId] === undefined) {
         this._maxHealVal[tId] = {};
       }
 
@@ -156,7 +156,7 @@ class MasteryBreakdown extends Analyzer {
         effectiveHealing = 0;
       }
 
-      if (!(spellId in this._healValByTargetId[tId])) {
+      if (this._healValByTargetId[tId][spellId] === undefined) {
         this._healValByTargetId[tId][spellId] = effectiveHealing;
       } else {
         this._healValByTargetId[tId][spellId] += effectiveHealing;
@@ -195,9 +195,7 @@ class MasteryBreakdown extends Analyzer {
           <tbody>
             {
               this.effectiveHealDistPerc
-                .filter((item, index) => (
-                  percOfTotalHealingDone * item[1] > 0.01
-                ))
+                .filter(item => (percOfTotalHealingDone * item[1]) > 0.01)
                 .map((item, index) => (
                   <tr key={index}>
                     <th scope="row"><SpellIcon id={item[0]} style={{ height: '2.4em' }} /></th>

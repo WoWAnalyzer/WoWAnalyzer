@@ -38,14 +38,14 @@ class DrapeOfShame extends CoreDrapeOfShame {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (this.owner.constructor.abilitiesAffectedByHealingIncreases.indexOf(spellId) === -1 || spellId === SPELLS.BEACON_OF_LIGHT_HEAL.id) {
+    if (!this.owner.constructor.abilitiesAffectedByHealingIncreases.includes(spellId) || spellId === SPELLS.BEACON_OF_LIGHT_HEAL.id) {
       return;
     }
     super.on_byPlayer_heal(event);
   }
   on_beacon_heal(event) {
     const spellId = event.originalHeal.ability.guid;
-    if (this.owner.constructor.abilitiesAffectedByHealingIncreases.indexOf(spellId) === -1 || spellId === SPELLS.BEACON_OF_LIGHT_HEAL.id) {
+    if (!this.owner.constructor.abilitiesAffectedByHealingIncreases.includes(spellId) || spellId === SPELLS.BEACON_OF_LIGHT_HEAL.id) {
       return;
     }
     if (event.originalHeal.hitType !== HIT_TYPES.CRIT) {

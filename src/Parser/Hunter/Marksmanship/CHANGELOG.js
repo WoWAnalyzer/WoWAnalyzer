@@ -9,17 +9,17 @@ import { Blazballs, JLassie82, Putro } from 'CONTRIBUTORS';
 export default [
   {
     date: new Date('2018-04-10'),
-    changes: <React.Fragment>Fixes <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> to properly calculate the boss health.</React.Fragment>,
+    changes: <React.Fragment>Fixes A Murder of Crows to properly calculate the boss health.</React.Fragment>,
     contributors: [Putro],
   },
   {
     date: new Date('2018-03-22'),
-    changes: <React.Fragment>Fixed <SpellLink id={SPELLS.SENTINEL_TALENT.id} /> module after Blizzard fixed the bugs with the spell. </React.Fragment>,
+    changes: <React.Fragment>Fixed Sentinel module after Blizzard fixed the bugs with the spell. </React.Fragment>,
     contributors: [Putro],
   },
   {
     date: new Date('2018-03-01'),
-    changes: <React.Fragment>Added a <SpellLink id={SPELLS.MARKING_TARGETS.id} /> and <SpellLink id={SPELLS.HUNTERS_MARK.id} /> module. Also updated handling for <ItemLink id={ITEMS.ZEVRIMS_HUNGER.id} />.</React.Fragment>,
+    changes: <React.Fragment>Added a Marking Targets and Hunter's Mark module. Also updated handling for <ItemLink id={ITEMS.ZEVRIMS_HUNGER.id} />.</React.Fragment>,
     contributors: [Putro],
   },
   {
@@ -44,7 +44,7 @@ export default [
   },
   {
     date: new Date('2018-01-05'),
-    changes: <React.Fragment>Added support for <SpellLink id={SPELLS.SENTINEL_TALENT.id} />, and included the current bugged ticks of <SpellLink id={SPELLS.SENTINEL_TALENT.id} />.</React.Fragment>,
+    changes: <React.Fragment>Added support for Sentinel, and included the current bugged ticks of Sentinel.</React.Fragment>,
     contributors: [Putro],
   },
   {
@@ -89,7 +89,7 @@ export default [
   },
   {
     date: new Date('2017-11-29'),
-    changes: <React.Fragment>Updated <SpellLink id={SPELLS.TRICK_SHOT_TALENT.id} /> to properly account for both single-target and cleave damage, added support for tier 21, and fixed a bug in the <SpellLink id={SPELLS.TRUESHOT.id} /> module where it counted too many <SpellLink id={SPELLS.AIMED_SHOT.id} /> than it should.</React.Fragment>,
+    changes: <React.Fragment>Updated Trick Shot to properly account for both single-target and cleave damage, added support for tier 21, and fixed a bug in the <SpellLink id={SPELLS.TRUESHOT.id} /> module where it counted too many <SpellLink id={SPELLS.AIMED_SHOT.id} /> than it should.</React.Fragment>,
     contributors: [Putro],
   },
   {
@@ -109,7 +109,7 @@ export default [
   },
   {
     date: new Date('2017-11-12'),
-    changes: <React.Fragment>Added a suggestion for execute trueshots and a <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> suggestion when boss has between 25 and 20% hp, so the player can better utilise <SpellLink id={SPELLS.BULLSEYE_BUFF.id} />.</React.Fragment>,
+    changes: <React.Fragment>Added a suggestion for execute trueshots and a A Murder of Crows suggestion when boss has between 25 and 20% hp, so the player can better utilise <SpellLink id={SPELLS.BULLSEYE_BUFF.id} />.</React.Fragment>,
     contributors: [Putro],
   },
   {
@@ -129,12 +129,12 @@ export default [
   },
   {
     date: new Date('2017-10-25'),
-    changes: <React.Fragment> Added 5 new talent modules (<SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id} />, <SpellLink id={SPELLS.PIERCING_SHOT_TALENT.id} />, <SpellLink id={SPELLS.VOLLEY_ACTIVATED.id} />, <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} />, <SpellLink id={SPELLS.TRICK_SHOT_TALENT.id} />), fixed <SpellLink id={SPELLS.TRUESHOT.id} /> CD, added Focus Dump Checker.</React.Fragment>,
+    changes: <React.Fragment> Added 5 new talent modules (<SpellLink id={SPELLS.EXPLOSIVE_SHOT_TALENT.id} />, <SpellLink id={SPELLS.PIERCING_SHOT_TALENT.id} />, Volley, A Murder of Crows, Trick Shot), fixed <SpellLink id={SPELLS.TRUESHOT.id} /> CD, added Focus Dump Checker.</React.Fragment>,
     contributors: [Putro],
   },
   {
     date: new Date('2017-10-25'),
-    changes: <React.Fragment>Updated <SpellLink id={SPELLS.TRUE_AIM_TALENT.id} /> to include damage contributed information.</React.Fragment>,
+    changes: <React.Fragment>Updated True Aim to include damage contributed information.</React.Fragment>,
     contributors: [Putro],
   },
   {
@@ -169,7 +169,7 @@ export default [
   },
   {
     date: new Date('2017-10-20'),
-    changes: <React.Fragment> Added <SpellLink id={SPELLS.TRUE_AIM_TALENT.id} /> and <SpellLink id={SPELLS.LOCK_AND_LOAD_TALENT.id} /> support.</React.Fragment>,
+    changes: <React.Fragment> Added True Aim and <SpellLink id={SPELLS.LOCK_AND_LOAD_TALENT.id} /> support.</React.Fragment>,
     contributors: [Putro],
   },
   {
@@ -184,7 +184,7 @@ export default [
   },
   {
     date: new Date('2017-10-14'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.PATIENT_SNIPER_TALENT.id} /> tracking.</React.Fragment>,
+    changes: <React.Fragment>Added Patient Sniper tracking.</React.Fragment>,
     contributors: [Putro],
   },
   {
@@ -209,7 +209,7 @@ export default [
   },
   {
     date: new Date('2017-10-04'),
-    changes: <React.Fragment> Added <SpellLink id={SPELLS.AIMED_SHOT.id} /> and <SpellLink id={SPELLS.VULNERABLE.id} /> tracker.</React.Fragment>,
+    changes: <React.Fragment> Added <SpellLink id={SPELLS.AIMED_SHOT.id} /> and Vulnerable tracker.</React.Fragment>,
     contributors: [Putro],
   },
   {
@@ -229,7 +229,7 @@ export default [
   },
   {
     date: new Date('2017-10-02'),
-    changes: <React.Fragment>Added suggestions to <SpellLink id={SPELLS.WINDBURST.id} /> and <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> under CastEfficiency.</React.Fragment>,
+    changes: <React.Fragment>Added suggestions to <SpellLink id={SPELLS.WINDBURST.id} /> and A Murder of Crows under CastEfficiency.</React.Fragment>,
     contributors: [Putro],
   },
   {

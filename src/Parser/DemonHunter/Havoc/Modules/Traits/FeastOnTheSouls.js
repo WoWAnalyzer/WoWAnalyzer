@@ -73,10 +73,10 @@ class FeastOnTheSouls extends Analyzer {
 	statistic() {
 		return (
 			<StatisticBox
-				icon={<SpellIcon id={SPELLS.FEAST_ON_THE_SOULS.id}/>}
-				value={`${formatNumber(this.totalCooldownReduction / 1000)} seconds`}
-				label={<React.Fragment>Cooldown Reduction on <SpellLink id={SPELLS.EYE_BEAM.id} icon/></React.Fragment>}
-				tooltip={`You wasted ${formatNumber(this.totalCooldownReductionWasted / 1000)} seconds of cooldown reduction`}
+  icon={<SpellIcon id={SPELLS.FEAST_ON_THE_SOULS.id} />}
+  value={`${formatNumber(this.totalCooldownReduction / 1000)} seconds`}
+  label={<React.Fragment>Cooldown Reduction on <SpellLink id={SPELLS.EYE_BEAM.id} icon /></React.Fragment>}
+  tooltip={`You wasted ${formatNumber(this.totalCooldownReductionWasted / 1000)} seconds of cooldown reduction`}
 			/>
 		);
 	}

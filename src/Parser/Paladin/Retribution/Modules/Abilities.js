@@ -34,7 +34,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: .95,
-          extraSuggestion: <React.Fragment>With <ItemLink id={ITEMS.ASHES_TO_DUST.id} icon/> it is imperative you cast this on cooldown to get the damage bonus.</React.Fragment>,
+          extraSuggestion: <React.Fragment>With <ItemLink id={ITEMS.ASHES_TO_DUST.id} icon /> it is imperative you cast this on cooldown to get the damage bonus.</React.Fragment>,
           importance: ISSUE_IMPORTANCE.MAJOR,
         },
       },
@@ -123,7 +123,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-          extraSuggestion: <React.Fragment>With tier 20 and tier 21 it is even more important to use <SpellLink id={SPELLS.JUDGMENT_CAST.id}/> on cooldown</React.Fragment>,
+          extraSuggestion: <React.Fragment>With tier 20 and tier 21 it is even more important to use <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> on cooldown</React.Fragment>,
         },
       },
       {
@@ -180,7 +180,8 @@ class Abilities extends CoreAbilities {
       //Utility
       {
         spell: SPELLS.SHIELD_OF_VENGEANCE,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        buffSpellId: SPELLS.SHIELD_OF_VENGEANCE.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: ( _, combatant) => 120 - (combatant.traitsBySpellId[SPELLS.DEFLECTION.id] || 0) * 10,
         castEfficiency: {
           suggestion: true,
@@ -196,7 +197,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.EYE_FOR_AN_EYE_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        buffSpellId: SPELLS.EYE_FOR_AN_EYE_TALENT.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 60,
         isOnGCD: true,
         enabled: combatant.hasTalent(SPELLS.EYE_FOR_AN_EYE_TALENT.id),
@@ -230,6 +232,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.LAY_ON_HANDS,
+        isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 600,
         castEfficiency: {
@@ -244,6 +247,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLESSING_OF_PROTECTION,
+        buffSpellId: SPELLS.BLESSING_OF_PROTECTION.id,
+        isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: ( _, combatant) => 300 - (combatant.traitsBySpellId[SPELLS.PROTECTOR_OF_THE_ASHEN_BLADE.id] || 0) * 30 ,
         isOnGCD: true,
@@ -260,7 +265,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DIVINE_SHIELD,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        buffSpellId: SPELLS.DIVINE_SHIELD.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: combatant.hasTalent(SPELLS.DIVINE_INTERVENTION_TALENT.id) ? 300 : 240,
         isOnGCD: true, 
       },

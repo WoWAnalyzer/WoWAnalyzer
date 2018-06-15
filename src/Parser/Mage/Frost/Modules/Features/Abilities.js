@@ -10,11 +10,13 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FROSTBOLT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
       },
       {
-        spell: SPELLS.EBONBOLT,
+        spell: SPELLS.EBONBOLT_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 45 + (3 / (1 + haste)), // 45 Second Cooldown with a 3 Second Cast time (Reduced by Haste). Temp until CastEfficiency gets a redo
+        cooldown: 45,
+        enabled: combatant.hasTalent(SPELLS.EBONBOLT_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
@@ -23,32 +25,32 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FLURRY,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.ICE_LANCE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.CONE_OF_COLD,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-      },
-      {
-        spell: SPELLS.WATER_JET,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 25,
-        enabled: !combatant.hasTalent(SPELLS.LONELY_WINTER_TALENT.id),
+        isOnGCD: true,
+        cooldown: 12,
         castEfficiency: {
-          suggestion: true,
+          disabled: true,
         },
       },
       {
         spell: SPELLS.GLACIAL_SPIKE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id),
+        isOnGCD: true,
       },
       {
         spell: SPELLS.COMET_STORM_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
         cooldown: 30,
         enabled: combatant.hasTalent(SPELLS.COMET_STORM_TALENT.id),
         castEfficiency: {
@@ -59,6 +61,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ICE_NOVA_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
         cooldown: 25,
         enabled: combatant.hasTalent(SPELLS.ICE_NOVA_TALENT.id),
         castEfficiency: {
@@ -69,11 +72,18 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLIZZARD,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        isOnGCD: true,
+        cooldown: haste => 8 / (1 + haste),
+        castEfficiency: {
+          suggestion: false,
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.RAY_OF_FROST_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60,
+        isOnGCD: true,
+        cooldown: 80,
         enabled: combatant.hasTalent(SPELLS.RAY_OF_FROST_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -85,6 +95,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FROZEN_ORB,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
         cooldown: 60,
         castEfficiency: {
           suggestion: true,
@@ -94,6 +105,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ICY_VEINS,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        isOnGCD: true,
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
@@ -103,6 +115,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MIRROR_IMAGE_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        isOnGCD: true,
         cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.MIRROR_IMAGE_TALENT.id),
         castEfficiency: {
@@ -113,6 +126,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RUNE_OF_POWER_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        isOnGCD: true,
         cooldown: 40,
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id),
@@ -125,53 +139,116 @@ class Abilities extends CoreAbilities {
       //Defensives
       {
         spell: SPELLS.ICE_BARRIER,
+        buffSpellId: SPELLS.ICE_BARRIER.id,
+        cooldown: 25,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isOnGCD: true,
+        castEfficiency: {
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.ICE_BLOCK,
+        buffSpellId: SPELLS.ICE_BLOCK.id,
+        cooldown: 240,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isOnGCD: true,
+        castEfficiency: {
+          disabled: true,
+        },
       },
 
       //Utility
       {
+        spell: SPELLS.ARCANE_INTELLECT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: true,
+      },
+      {
         spell: SPELLS.FROST_NOVA,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        charges: combatant.hasTalent(SPELLS.ICE_WARD_TALENT.id) ? 2 : 1,
+        castEfficiency: {
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.BLINK,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: true,
         enabled: !combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
+        cooldown: 15,
+        castEfficiency: {
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.SHIMMER_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: false,
+        cooldown: 20,
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
+        castEfficiency: {
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.COUNTERSPELL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: false,
+        cooldown: 24,
+        castEfficiency: {
+          disabled: true,
+        },
+      },
+      {
+        spell: SPELLS.REMOVE_CURSE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: true,
+        cooldown: 8,
+        castEfficiency: {
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.SLOW_FALL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.SPELL_STEAL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.INVISIBILITY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: true,
+        cooldown: 300,
+        castEfficiency: {
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.COLD_SNAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: false,
+        cooldown: 300,
+        castEfficiency: {
+          disabled: true,
+        },
       },
       {
         spell: SPELLS.SUMMON_WATER_ELEMENTAL,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: true,
         enabled: !combatant.hasTalent(SPELLS.LONELY_WINTER_TALENT.id),
+        cooldown: 30,
+        castEfficiency: {
+          disabled: true,
+        },
       },
     ];
   }

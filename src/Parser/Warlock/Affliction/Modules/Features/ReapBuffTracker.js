@@ -37,7 +37,7 @@ class ReapBuffTracker extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: (this.unbuffedTicks / this.totalTicks) || 1,  // if no UAs were cast (totalTicks and unbuffedTicks = 0), it should return NaN and thus be 1 (100% unbuffed ticks)
+      actual: (this.unbuffedTicks / this.totalTicks) || 1, // if no UAs were cast (totalTicks and unbuffedTicks = 0), it should return NaN and thus be 1 (100% unbuffed ticks)
       isGreaterThan: {
         minor: 0.15,
         average: 0.2,
@@ -63,7 +63,7 @@ class ReapBuffTracker extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id}/> aren't buffed enough by <SpellLink id={SPELLS.REAP_SOULS.id}/>. You should delay your Unstable Affliction casts until you have enough <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id}/> to buff them (but <strong>don't overcap</strong> your Soul Shards while doing so).</React.Fragment>)
+        return suggest(<React.Fragment>Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> aren't buffed enough by <SpellLink id={SPELLS.REAP_SOULS.id} />. You should delay your Unstable Affliction casts until you have enough <SpellLink id={SPELLS.WARLOCK_TORMENTED_SOULS.id} /> to buff them (but <strong>don't overcap</strong> your Soul Shards while doing so).</React.Fragment>)
           .icon(SPELLS.DEADWIND_HARVESTER.icon)
           .actual(`${formatPercentage(actual)}% unbuffed Unstable Affliction ticks.`)
           .recommended(`< ${formatPercentage(recommended)}% is recommended`);

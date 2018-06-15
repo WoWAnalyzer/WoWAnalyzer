@@ -12,7 +12,6 @@ const OVYDS_HEALING_INCREASE = 0.4;
 
 const UNAFFECTED_SPELLS = [
   SPELLS.CRANE_HEAL.id,
-  SPELLS.ZEN_PULSE_TALENT.id,
   SPELLS.REFRESHING_JADE_WIND_HEAL.id,
 ];
 
@@ -31,7 +30,7 @@ class OvydsWinterWrap extends Analyzer {
     const targetId = event.targetID;
     const spellId = event.ability.guid;
 
-    if (UNAFFECTED_SPELLS.indexOf(spellId) !== -1) {
+    if (UNAFFECTED_SPELLS.includes(spellId)) {
       debug && console.log('Exiting');
       return;
     }

@@ -33,9 +33,9 @@ const MONK_DODGE_COEFFS = {
 };
 
 function _clampProb(prob) {
-  if(prob > 1.0) {
+  if (prob > 1.0) {
     return 1.0;
-  } else if(prob < 0.0) {
+  } else if (prob < 0.0) {
     return 0.0;
   } else {
     return prob;
@@ -68,7 +68,7 @@ class StackMarkovChain {
   _assertSum() {
     const sum = this._stackProbs.reduce((sum, p) => p + sum, 0);
     if (Math.abs(sum - 1.0) > 1e-6) {
-      const err = new Error("probabilities do not sum to 1 in StackMarkovChain");
+      const err = new Error('probabilities do not sum to 1 in StackMarkovChain');
       err.data = {
         sum: sum,
         probs: this._stackProbs,
@@ -92,11 +92,11 @@ class StackMarkovChain {
     // probability of ending at 0 stacks. initial 
     let zeroProb = 0;
     // didn't dodge, gain a stack
-    for(let stacks = n-1; stacks >= 0; stacks--) {
+    for (let stacks = n - 1; stacks >= 0; stacks--) {
       const prob = _clampProb(dodgeProb + masteryValue * stacks);
       zeroProb += prob * this._stackProbs[stacks]; // dodge -> go to 0
       const hitProb = 1 - prob;
-      this._stackProbs[stacks+1] = hitProb * this._stackProbs[stacks]; // hit -> go to stacks + 1
+      this._stackProbs[stacks + 1] = hitProb * this._stackProbs[stacks]; // hit -> go to stacks + 1
     }
     // did dodge, reset stacks
     this._stackProbs[0] = zeroProb;
@@ -159,9 +159,8 @@ class MasteryValue extends Analyzer {
     return _clampProb(masteryPercentage * masteryStacks + this.baseDodge(agility) + brewStacheDodge - this.dodgePenalty(sourceID));
   }
 
-
   on_byPlayer_cast(event) {
-    if(this._appliesStack(event)) {
+    if (this._appliesStack(event)) {
       this._timeline.push(event);
     }
   }
@@ -169,7 +168,7 @@ class MasteryValue extends Analyzer {
   on_toPlayer_damage(event) {
     event._masteryRating = this.stats.currentMasteryRating;
     event._agility = this.stats.currentAgilityRating;
-    if(event.hitType === HIT_TYPES.DODGE) {
+    if (event.hitType === HIT_TYPES.DODGE) {
       this._addDodge(event);
     } else {
       this._addHit(event);
@@ -179,7 +178,7 @@ class MasteryValue extends Analyzer {
   _addDodge(event) {
     const spellId = event.ability.guid;
     this._dodgeableSpells[spellId] = true;
-    if(!(spellId in this._dodgeCounts)) {
+    if (this._dodgeCounts[spellId] === undefined) {
       this._dodgeCounts[spellId] = 0;
     }
     this._dodgeCounts[spellId] += 1;
@@ -188,7 +187,7 @@ class MasteryValue extends Analyzer {
 
   _addHit(event) {
     const spellId = event.ability.guid;
-    if(!(spellId in this._hitCounts)) {
+    if (this._hitCounts[spellId] === undefined) {
       this._hitCounts[spellId] = 0;
     }
     this._hitCounts[spellId] += 1;
@@ -200,11 +199,11 @@ class MasteryValue extends Analyzer {
   //
   // neither blackout combo + purify nor t21 are supported yet
   _appliesStack(event) {
-    return [SPELLS.BLACKOUT_STRIKE.id, SPELLS.BREATH_OF_FIRE.id].includes(event.ability.guid);
+    return event.ability.guid === SPELLS.BLACKOUT_STRIKE.id;
   }
 
   meanHitByAbility(spellId) {
-    if(spellId in this._hitCounts) {
+    if (this._hitCounts[spellId] !== undefined) {
       return (this.dmg.byAbility(spellId).effective + this.dmg.staggeredByAbility(spellId)) / this._hitCounts[spellId];
     }
     return 0;
@@ -213,7 +212,7 @@ class MasteryValue extends Analyzer {
   // events that either (a) add a stack or (b) can be dodged according
   // to the data we have
   get relevantTimeline() {
-    return this._timeline.filter(event => event.type === "cast" || this._dodgeableSpells[event.ability.guid]);
+    return this._timeline.filter(event => event.type === 'cast' || this._dodgeableSpells[event.ability.guid]);
   }
 
   get _expectedValues() {
@@ -232,10 +231,10 @@ class MasteryValue extends Analyzer {
     // timeline replay is expensive, compute several things here and
     // provide individual getters for each of the values
     this.relevantTimeline.forEach(event => {
-      if(event.type === "cast") {
+      if (event.type === 'cast') {
         stacks.guaranteeStack();
         noMasteryStacks.guaranteeStack();
-      } else if(event.type === "damage") {
+      } else if (event.type === 'damage') {
         const noMasteryDodgeChance = this.dodgeChance(noMasteryStacks.expected, 0, event._agility, event.sourceID, event.timestamp);
         const expectedDodgeChance = this.dodgeChance(stacks.expected, event._masteryRating, event._agility, event.sourceID, event.timestamp);
         const baseDodgeChance = this.dodgeChance(0, 0, event._agility, event.sourceID, event.timestamp);
@@ -265,7 +264,7 @@ class MasteryValue extends Analyzer {
   get expectedMitigation() {
     return this._expectedValues.expectedDamageMitigated;
   }
-  
+
   get expectedMeanDodge() {
     return this._expectedValues.meanExpectedDodge;
   }
@@ -282,12 +281,12 @@ class MasteryValue extends Analyzer {
 
   get averageMasteryRating() {
     return this.relevantTimeline.reduce((sum, event) => {
-      if(event.type === "damage") {
+      if (event.type === 'damage') {
         return event._masteryRating + sum;
       } else {
         return sum;
       }
-    }, 0) / this.relevantTimeline.filter(event => event.type === "damage").length;
+    }, 0) / this.relevantTimeline.filter(event => event.type === 'damage').length;
   }
 
   get noMasteryExpectedMitigation() {
@@ -298,7 +297,7 @@ class MasteryValue extends Analyzer {
     return this.expectedMitigation / this.owner.fightDuration * 1000;
   }
 
-  get noMasteryExpectedMitigationPerSecond () {
+  get noMasteryExpectedMitigationPerSecond() {
     return this.noMasteryExpectedMitigation / this.owner.fightDuration * 1000;
   }
 

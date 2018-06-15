@@ -41,7 +41,7 @@ class PrePotion extends Analyzer {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if (SECOND_POTIONS.indexOf(spellId) !== -1) {
+    if (SECOND_POTIONS.includes(spellId)) {
       this.usedSecondPotion = true;
       this.secondPotionId = spellId;
     }

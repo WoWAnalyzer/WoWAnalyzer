@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
@@ -100,7 +100,7 @@ class TreeOfLife extends Analyzer {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.indexOf(spellId) === -1) {
+    if (!ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
       return;
     }
 
@@ -112,7 +112,7 @@ class TreeOfLife extends Analyzer {
 
     accumulator.allBoostHealing += calculateEffectiveHealing(event, ALL_BOOST);
 
-    if(spellId === SPELLS.REJUVENATION.id || spellId === SPELLS.REJUVENATION_GERMINATION.id) {
+    if (spellId === SPELLS.REJUVENATION.id || spellId === SPELLS.REJUVENATION_GERMINATION.id) {
       accumulator.rejuvBoostHealing += (calculateEffectiveHealing(event, REJUV_BOOST) / ALL_MULT);
     } else if (spellId === SPELLS.WILD_GROWTH.id) {
       accumulator.extraWgHealing += (calculateEffectiveHealing(event, WG_INCREASE) / ALL_MULT);
@@ -123,7 +123,6 @@ class TreeOfLife extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) {
       this.lastTolCast = event.timestamp;
-      return;
     } else if (spellId === SPELLS.REJUVENATION.id) {
       const accumulator = this._getAccumulator(event);
       if (!accumulator) {
@@ -216,7 +215,9 @@ class TreeOfLife extends Analyzer {
   }
 
   suggestions(when) {
-    if(!this.hasTol) { return; }
+    if (!this.hasTol) {
+      return;
+    }
 
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
@@ -228,8 +229,8 @@ class TreeOfLife extends Analyzer {
   }
 
   statistic() {
-    if(!this.hasTol) {
-      return;
+    if (!this.hasTol) {
+      return null;
     }
 
     return (
@@ -237,7 +238,7 @@ class TreeOfLife extends Analyzer {
         icon={<SpellIcon id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getTotalHealing(this.hardcast)))} %`}
         label="Tree of Life Healing"
-        tooltip={`The Tree of Life buff ${this.hasCs ? '(not including from Chameleon Song procs) ' : ''}was active for <b>${(this.hardcastUptime/1000).toFixed(0)}s</b>, or <b>${formatPercentage(this.hardcastUptimePercent, 1)}%</b> of the encounter. The displayed healing number ${this.hasCs ? 'does not include healing from Chameleon Song procs and ' : ''} is the sum of several benefits, listed below:
+        tooltip={`The Tree of Life buff ${this.hasCs ? '(not including from Chameleon Song procs) ' : ''}was active for <b>${(this.hardcastUptime / 1000).toFixed(0)}s</b>, or <b>${formatPercentage(this.hardcastUptimePercent, 1)}%</b> of the encounter. The displayed healing number ${this.hasCs ? 'does not include healing from Chameleon Song procs and ' : ''} is the sum of several benefits, listed below:
           <ul>
             <li>Overall Increased Healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.allBoostHealing))}%</b></li>
             <li>Rejuv Increased Healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.rejuvBoostHealing))}%</b></li>
@@ -251,14 +252,14 @@ class TreeOfLife extends Analyzer {
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
 
   item() {
-    if(!this.hasCs) {
-      return;
+    if (!this.hasCs) {
+      return null;
     }
 
     return {
       item: ITEMS.CHAMELEON_SONG,
       result: (
-        <dfn data-tip={`The Tree of Life buff ${this.hasTol ? '(from procs only, not including Tree of Life casts) ' : ''}was active for <b>${(this.csUptime/1000).toFixed(0)}s</b>, or <b>${formatPercentage(this.csUptimePercent)}%</b> of the encounter. You got <b>${this.csProcs} procs</b>, for a proc rate of <b>${formatPercentage(this.estimatedCsProcRate, 1)}%</b>. The displayed healing number ${this.hasTol ? 'includes healing from procs only, and ' : ''} is the sum of several benefits, listed below:
+        <dfn data-tip={`The Tree of Life buff ${this.hasTol ? '(from procs only, not including Tree of Life casts) ' : ''}was active for <b>${(this.csUptime / 1000).toFixed(0)}s</b>, or <b>${formatPercentage(this.csUptimePercent)}%</b> of the encounter. You got <b>${this.csProcs} procs</b>, for a proc rate of <b>${formatPercentage(this.estimatedCsProcRate, 1)}%</b>. The displayed healing number ${this.hasTol ? 'includes healing from procs only, and ' : ''} is the sum of several benefits, listed below:
           <ul>
             <li>Overall Increased Healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.chameleonSong.allBoostHealing))}%</b></li>
             <li>Rejuv Increased Healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.chameleonSong.rejuvBoostHealing))}%</b></li>

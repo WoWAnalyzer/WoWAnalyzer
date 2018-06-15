@@ -26,7 +26,7 @@ class TheWindBlows extends Analyzer {
   item() {
     return {
       item: ITEMS.THE_WIND_BLOWS,
-      result: <React.Fragment>{this.freeBlackoutKicks} free <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} icon/>(s)</React.Fragment>,
+      result: <React.Fragment>{this.freeBlackoutKicks} free <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} icon />(s)</React.Fragment>,
     };
   }
 }

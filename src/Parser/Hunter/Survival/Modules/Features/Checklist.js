@@ -167,8 +167,8 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: <React.Fragment><Icon
-        icon='spell_mage_altertime'
-        alt='Casting downtime'
+        icon="spell_mage_altertime"
+        alt="Casting downtime"
         style={{
           height: '1.3em',
           marginTop: '-.1em',
@@ -179,8 +179,8 @@ class Checklist extends CoreChecklist {
         return [
           new Requirement({
             name: <React.Fragment><Icon
-              icon='spell_mage_altertime'
-              alt='Casting downtime'
+              icon="spell_mage_altertime"
+              alt="Casting downtime"
               style={{
                 height: '1.3em',
                 marginTop: '-.1em',

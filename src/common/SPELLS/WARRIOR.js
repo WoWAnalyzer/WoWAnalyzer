@@ -335,6 +335,11 @@ export default {
     name: 'Revenge',
     icon: 'ability_warrior_revenge',
   },
+  REVENGE_FREE_CAST: {
+    id: 5302,
+    name: 'Revenge!',
+    icon: 'ability_warrior_revenge',
+  },
   SHIELD_SLAM: {
     id: 23922,
     name: 'Shield Slam',
@@ -345,11 +350,26 @@ export default {
     name: 'Thunder Clap',
     icon: 'spell_nature_thunderclap',
   },
+  RAGE: {
+    id: 195707,
+    name: 'Rage from damage taken',
+    icon: 'ability_racial_avatar',
+  },
   //Mitigation Spells
   IGNORE_PAIN: {
     id: 190456,
     name: 'Ignore Pain',
     icon: 'ability_warrior_renewedvigor',
+  },
+  RENEWED_FURY_TALENT_BUFF: {
+    id: 202289,
+    name: 'Renewed Fury',
+    icon: 'ability_warrior_intensifyrage',
+  },
+  INTO_THE_FRAY_BUFF: {
+    id: 202602,
+    name: "Into the Fray",
+    icon: "ability_warrior_bloodfrenzy",
   },
   NELTHARIONS_FURY: {
     id: 203526,
@@ -365,6 +385,16 @@ export default {
     id: 132404,
     name: 'Shield Block Buff',
     icon: 'ability_defend',
+  },
+  PUNISH_DEBUFF: {
+    id: 275335,
+    name: 'Punish',
+    icon: 'ability_deathknight_sanguinfortitude',
+  },
+  DEVASTATOR_DAMAGE: {
+    id: 236282,
+    name: 'Devastator',
+    icon: 'inv_sword_11',
   },
   //Cooldown Spells
   DEMORALIZING_SHOUT: {
@@ -414,13 +444,42 @@ export default {
     name: 'Deep Wounds',
     icon: 'ability_backstab',
   },
+  VENGEANCE_IGNORE_PAIN: {
+    id: 202574,
+    name: 'Vengeance: Ignore Pain',
+    icon: 'ability_warrior_unrelentingassault',
+  },
+  VENGEANCE_REVENGE: {
+    id: 202573,
+    name: 'Vengeance: Revenge',
+    icon: 'ability_warrior_unrelentingassault',
+  },
   //Relics
   // Protection Tier Sets
+  // T21 2P Set Bonus
+  PROTECTION_WARRIOR_T21_2P_BONUS: {
+    id: 251882,
+    name: 'T21 2P Bonus',
+    icon: 'spell_nature_reincarnation',
+  },
+  PROTECTION_WARRIOR_T21_2P_WALL_OF_IRON: {
+    id: 253428,
+    name: 'Wall of Iron',
+    icon: 'ability_warrior_defensivestance',
+  },
+
   // T20 2P Set Bonus
   PROTECTION_WARRIOR_T20_2P_BONUS: {
     id: 242302,
     name: 'T20 2P Bonus',
     icon: 'ability_warrior_defensivestance',
+  },
+
+  //Traits
+  INTOLERANCE_TRAIT: {
+    id: 203227,
+    name: 'Intolerance',
+    icon: 'warrior_talent_icon_furyintheblood',
   },
 
   // Shared:
@@ -446,6 +505,11 @@ export default {
   },
   COMMANDING_SHOUT: {
     id: 97462,
+    name: 'Commanding Shout',
+    icon: 'ability_warrior_rallyingcry',
+  },
+  COMMANDING_SHOUT_BUFF: {
+    id: 97463,
     name: 'Commanding Shout',
     icon: 'ability_warrior_rallyingcry',
   },

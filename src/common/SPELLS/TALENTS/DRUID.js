@@ -27,6 +27,7 @@ export default {
   FERAL_AFFINITY_TALENT_RESTORATION: { id: 197490, name: "Feral Affinity", icon: "talentspec_druid_feral_cat" },
   SOUL_OF_THE_FOREST_TALENT_RESTORATION: { id: 158478, name: "Soul of the Forest", icon: "ability_druid_manatree" },
   MOMENT_OF_CLARITY_TALENT_RESTORATION: { id: 155577, name: "Moment of Clarity", icon: "spell_druid_momentofclarity" },
+  PHOTOSYNTHESIS_TALENT: { id: 274902, name: "Photosynthesis", icon: "spell_lifegivingseed"},
   // Feral
   PREDATOR_TALENT: { id: 202021, name: "Predator", icon: "ability_hunter_catlikereflexes" },
   BLOOD_SCENT_TALENT: { id: 202022, name: "Blood Scent", icon: "ability_mount_pinktiger" },
@@ -70,4 +71,8 @@ export default {
   PULVERIZE_TALENT: { id: 80313, name: "Pulverize", icon: "spell_druid_malfurionstenacity" },
   FERAL_AFFINITY_TALENT_GUARDIAN: { id: 202155, name: "Feral Affinity", icon: "talentspec_druid_feral_cat" },
   SOUL_OF_THE_FOREST_TALENT_GUARDIAN: { id: 158477, name: "Soul of the Forest", icon: "ability_druid_manatree" },
+  // Temporary
+  NEW_MOON_TALENT: { id: 274281, name: "New Moon", icon: "artifactability_balancedruid_newmoon" },
+  TIGERS_DASH_TALENT: { id: 252216, name: "Tiger's Dash", icon: "ability_druid_dash_orange" },
+  TWIN_MOONS_TALENT: { id: 279620, name: "Twin Moons", icon: "spell_nature_starfall" },
 };

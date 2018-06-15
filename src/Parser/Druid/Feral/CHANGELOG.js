@@ -6,6 +6,31 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-06-09'),
+    changes: <React.Fragment>Added snapshot tracking for <SpellLink id={SPELLS.MOONFIRE_FERAL.id} /></React.Fragment>,
+    contributors: [Anatta336],
+  },
+  {
+    date: new Date('2018-06-06'),
+    changes: <React.Fragment>Added snapshot tracking for <SpellLink id={SPELLS.RIP.id} /></React.Fragment>,
+    contributors: [Anatta336],
+  },
+  {
+    date: new Date('2018-05-30'),
+    changes: 'Configured buffs so they appear on timeline and arranged ordering of abilities on timeline.',
+    contributors: [Anatta336],
+  },
+  {
+    date: new Date('2018-05-28'),
+    changes: <React.Fragment>Added snapshot tracking for <SpellLink id={SPELLS.RAKE.id} /></React.Fragment>,
+    contributors: [Anatta336],
+  },
+  {
+    date: new Date('2018-05-23'),
+    changes: <React.Fragment>Corrected GCD tracking of <SpellLink id={SPELLS.MOONFIRE.id} /> and instant <SpellLink id={SPELLS.REGROWTH.id} />/<SpellLink id={SPELLS.ENTANGLING_ROOTS.id} /></React.Fragment>,
+    contributors: [Anatta336],
+  },
+  {
     date: new Date('2018-02-10'),
     changes: <React.Fragment><SpellLink id={SPELLS.PRIMAL_FURY.id} /> procs from an ability used at 4 CPs no longer count as 'wasted' CPs because it's not within the player's control. Also, <SpellLink id={SPELLS.PRIMAL_FURY.id} /> procs will no longer be shown in the Cooldowns tab.</React.Fragment>,
     contributors: [sref],

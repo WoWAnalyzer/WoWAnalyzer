@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStore, applyMiddleware } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
@@ -25,11 +25,11 @@ const store = createStore(
 
 const Root = () => (
   <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <ErrorBoundary>
+    <ErrorBoundary>
+      <ConnectedRouter history={history}>
         <App />
-      </ErrorBoundary>
-    </ConnectedRouter>
+      </ConnectedRouter>
+    </ErrorBoundary>
   </Provider>
 );
 

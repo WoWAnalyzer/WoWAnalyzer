@@ -34,7 +34,7 @@ class Felstorm extends Analyzer {
     const petType = (!this._felstormGuid || this._felstormGuid === SPELLS.FELSTORM_BUFF.id) ? "Fel" : "Wrath";
     when(percentage).isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>You should use your {petType}guard's <SpellLink id={this._felstormGuid || SPELLS.FELSTORM_BUFF.id}/> more often, preferably on cooldown.</span>)
+        return suggest(<span>You should use your {petType}guard's <SpellLink id={this._felstormGuid || SPELLS.FELSTORM_BUFF.id} /> more often, preferably on cooldown.</span>)
           .icon(SPELLS.FELSTORM.icon)
           .actual(`${this.mainPetFelstormCount} out of ${maxCasts} (${formatPercentage(actual)} %) ${petType}storm casts.`)
           .recommended(`> ${formatPercentage(recommended)} % is recommended`)

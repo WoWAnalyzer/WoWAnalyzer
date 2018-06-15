@@ -32,12 +32,12 @@ class T20_2pc extends Analyzer {
   // So have to look at time cast and if its very close to using a brew (above) its a proc, this is not perfect but very close.
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (BREWS.indexOf(spellId) !== -1) {
+    if (BREWS.includes(spellId)) {
       this.lastTrigger = event.timestamp;
       this.brewCount += 1;
       this.hastCastNewBrew = true;
     }
-    if (GIFT_OF_THE_OX_SPELLS.indexOf(spellId) !== -1) {
+    if (GIFT_OF_THE_OX_SPELLS.includes(spellId)) {
       this.lastOrb = event.timestamp;
     }
     if (this.hastCastNewBrew && Math.abs(this.lastTrigger - this.lastOrb) <= SUMMON_LATENCY) {
@@ -61,10 +61,10 @@ class T20_2pc extends Analyzer {
       icon: <SpellIcon id={SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF_BRM.id} />,
       title: <SpellLink id={SPELLS.XUENS_BATTLEGEAR_2_PIECE_BUFF_BRM.id} icon={false} />,
       result: (
-        <dfn data-tip={`The 2pc set bonus causes <b>${this.orbTriggeredBy2Pc}</b> additional Gift of the Ox orbs to spawn.</br>
-        This was from a total of <b>${this.brewCount}</b> brew casts, a <b>${Math.round(procRate)}%</b> chance.`}
+        <dfn data-tip={`The 2pc set bonus caused <b>${this.orbTriggeredBy2Pc}</b> additional Gift of the Ox orbs to spawn.</br>
+        This was from a total of <b>${this.brewCount}</b> brew casts, a rate of <b>${Math.round(procRate)}%</b>.`}
         >
-          {this.orbTriggeredBy2Pc} extra Gift of the Ox
+          {this.orbTriggeredBy2Pc} extra Gift of the Ox Orbs
         </dfn>
       ),
     };

@@ -30,7 +30,7 @@ class ActivityIndicator extends React.PureComponent {
   render() {
     const { text } = this.props;
 
-    if (this.state.time < 1000) {
+    if (this.state.time < 1500) {
       // It's best practice to not show a loading indicator (especially a flashy animation) within 1 second of the request. This is both distracting and gives the feeling that the app is slower than if it actually showed nothing.
       return null;
     }
@@ -39,37 +39,7 @@ class ActivityIndicator extends React.PureComponent {
       <div className="container">
         <div className="text-center" style={{ marginTop: 50, marginBottom: 50 }}>
           <h1>{text}</h1>
-          <div className="spinner" style={{ marginTop: 50, marginBottom: 50 }} />
-          {this.state.time > 4000 && (
-            <div>
-              It's taking longer than normal...
-            </div>
-          )}
-          {this.state.time > 8000 && (
-            <div>
-              A lot longer than normal...
-            </div>
-          )}
-          {this.state.time > 12000 && (
-            <div>
-              Giving up in 3
-            </div>
-          )}
-          {this.state.time > 13000 && (
-            <div>
-              2
-            </div>
-          )}
-          {this.state.time > 14000 && (
-            <div>
-              1
-            </div>
-          )}
-          {this.state.time > 21000 && (
-            <div>
-              Shit I forgot to update this when I increased the timeout to 30 seconds for the folks from Australia. Sorry if you're from Australia and you have internet for snails.
-            </div>
-          )}
+          <div className="spinner" />
         </div>
       </div>
     );

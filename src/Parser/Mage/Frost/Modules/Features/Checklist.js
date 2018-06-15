@@ -82,7 +82,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Use your procs',
-      description: <React.Fragment>Frost Mage is heavily dependent on correct usage of <SpellLink id={SPELLS.FINGERS_OF_FROST.id}/> and <SpellLink id={SPELLS.BRAIN_FREEZE.id}/>. Remember to use your procs promptly, and also remember to precede each <SpellLink id={SPELLS.FLURRY.id}/> with a hardcast and follow each with an <SpellLink id={SPELLS.ICE_LANCE.id}/> so that both can benefit from <SpellLink id={SPELLS.WINTERS_CHILL.id}/>.</React.Fragment>,
+      description: <React.Fragment>Frost Mage is heavily dependent on correct usage of <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> and <SpellLink id={SPELLS.BRAIN_FREEZE.id} />. Remember to use your procs promptly, and also remember to precede each <SpellLink id={SPELLS.FLURRY.id} /> with a hardcast and follow each with an <SpellLink id={SPELLS.ICE_LANCE.id} /> so that both can benefit from <SpellLink id={SPELLS.WINTERS_CHILL.id} />.</React.Fragment>,
       requirements: () => {
         return [
           new Requirement({
@@ -115,8 +115,9 @@ class Checklist extends CoreChecklist {
             onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.EBONBOLT,
+            spell: SPELLS.EBONBOLT_TALENT,
             onlyWithSuggestion: false,
+            when: combatant.hasTalent(SPELLS.EBONBOLT_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.ICY_VEINS,

@@ -5,19 +5,9 @@
  */
 
 export default {
-  // General
   STALWART_PROTECTOR: {
     id: 274395,
     name: 'Stalwart Protector',
     icon: 'spell_holy_divineshield',
   },
-
-  // Holy
-
-
-  // Retribution
-
-
-  // Protection
-
 };

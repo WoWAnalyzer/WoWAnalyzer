@@ -37,7 +37,7 @@ class BaseHealerStatValues extends Analyzer {
   // We assume unlisted spells scale with vers only (this will mostly be trinkets)
   fallbackSpellInfo = {
     int: false,
-    crit: false,
+    crit: true,
     hasteHpm: false,
     hasteHpct: false,
     mastery: false,
@@ -82,7 +82,7 @@ class BaseHealerStatValues extends Analyzer {
   totalOneHasteHpm = 0;
   totalOneMastery = 0;
   totalOneVers = 0; // from healing increase only
-  totalOneVersDr = 0;  // from damage reduced only
+  totalOneVersDr = 0; // from damage reduced only
   totalOneLeech = 0;
 
   playerHealthMissing = 0;
@@ -170,7 +170,6 @@ class BaseHealerStatValues extends Analyzer {
     return this.scaleWeightsWithHealth ? gain * mult : gain;
   }
   _leech(event, healVal, spellInfo) {
-    const spellId = event.ability.guid;
     if (event.type !== 'heal') {
       return 0; // leech doesn't proc from absorbs
     }
@@ -179,22 +178,33 @@ class BaseHealerStatValues extends Analyzer {
     // Leech is marked as a 'multplier' heal, so we have to check it before we do the early return below
     const hasLeech = this.statTracker.currentLeechPercentage > 0;
     if (hasLeech) {
-      // When the user has Leech we can use the actual Leech healing to accuractely calculate its HPS value without having to do any kind of predicting
-      if (!healVal.overheal && spellId === SPELLS.LEECH.id) {
-        return healVal.effective / this.statTracker.currentLeechRating; // TODO: Make a generic method to account for base percentage
-      }
+      return this._leechHasLeech(event, healVal, spellInfo);
     } else {
-      if (this.owner.toPlayer(event)) {
-        return 0; // Leech doesn't proc from self-healing
-      }
-      if (spellInfo.multiplier) {
-        return 0; // Leech doesn't proc from multipliers such as Velen's Future Sight
-      }
-      // Without Leech we will have to make an estimation so we can still provide the user with a decent value
-      if (this.playerHealthMissing > 0) { // if the player is full HP this would have overhealed.
-        const healIncreaseFromOneLeech = 1 / this.statTracker.leechRatingPerPercent;
-        return healVal.raw * healIncreaseFromOneLeech;
-      }
+      return this._leechPrediction(event, healVal, spellInfo);
+    }
+  }
+  _leechHasLeech(event, healVal/*, spellInfo*/) {
+    // When the user has Leech we can use the actual Leech healing to accuractely calculate its HPS value without having to do any kind of predicting
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.LEECH.id) {
+      return 0;
+    }
+    if (!healVal.overheal) {
+      return healVal.effective / this.statTracker.currentLeechRating; // TODO: Make a generic method to account for base percentage
+    }
+    return 0;
+  }
+  _leechPrediction(event, healVal, spellInfo) {
+    // Without Leech we will have to make an estimation so we can still provide the user with a decent value
+    if (this.owner.toPlayer(event)) {
+      return 0; // Leech doesn't proc from self-healing
+    }
+    if (spellInfo.multiplier) {
+      return 0; // Leech doesn't proc from multipliers such as Velen's Future Sight
+    }
+    if (this.playerHealthMissing > 0) { // if the player is full HP this would have overhealed.
+      const healIncreaseFromOneLeech = 1 / this.statTracker.leechRatingPerPercent;
+      return healVal.raw * healIncreaseFromOneLeech;
     }
     return 0;
   }

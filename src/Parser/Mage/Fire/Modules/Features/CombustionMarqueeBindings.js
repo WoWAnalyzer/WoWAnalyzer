@@ -30,11 +30,10 @@ class CombustionMarqueeBindings extends Analyzer {
   on_initialized() {
     this.active = this.combatants.selected.hasWrists(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id);
     const hasTierBonus = this.combatants.selected.hasBuff(SPELLS.FIRE_MAGE_T21_2SET_BONUS_BUFF.id);
-    const preIgnitedCount = this.combatants.selected.traitsBySpellId[SPELLS.PRE_IGNITED_TRAIT.id];
     if (hasTierBonus) {
-      this.combustionDuration = (10 + 2 + preIgnitedCount) * 1000;
+      this.combustionDuration = 12 * 1000;
     } else {
-      this.combustionDuration = (10 + preIgnitedCount) * 1000;
+      this.combustionDuration = 10 * 1000;
     }
   }
 
@@ -111,7 +110,7 @@ class CombustionMarqueeBindings extends Analyzer {
     if (this.expectedPyroblastCasts > 0) {
       when(this.bracerUtilThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<React.Fragment>During <SpellLink id={SPELLS.COMBUSTION.id}/> you had enough time to use {this.expectedPyroblastCasts} procs from your <ItemLink id={ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id}/>, but you only used {this.actualPyroblastCasts} of them. If there is more than 5 seconds of Combustion left, you should use your proc so that your hard casted <SpellLink id={SPELLS.PYROBLAST.id}/> will do 300% damage and be guaranteed to crit.</React.Fragment>)
+          return suggest(<React.Fragment>During <SpellLink id={SPELLS.COMBUSTION.id} /> you had enough time to use {this.expectedPyroblastCasts} procs from your <ItemLink id={ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.id} />, but you only used {this.actualPyroblastCasts} of them. If there is more than 5 seconds of Combustion left, you should use your proc so that your hard casted <SpellLink id={SPELLS.PYROBLAST.id} /> will do 300% damage and be guaranteed to crit.</React.Fragment>)
             .icon(ITEMS.MARQUEE_BINDINGS_OF_THE_SUN_KING.icon)
             .actual(`${formatPercentage(this.bracerBuffUtil)}% Utilization`)
             .recommended(`${formatPercentage(recommended)} is recommended`);

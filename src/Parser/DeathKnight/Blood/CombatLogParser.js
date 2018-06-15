@@ -22,6 +22,7 @@ import DancingRuneWeapon from './Modules/Features/DancingRuneWeapon';
 import InitialMarrowrendCast from './Modules/Features/InitialMarrowrendCast';
 import DeathStrikeTiming from './Modules/Features/DeathStrikeTiming';
 import BoneShieldTimesByStacks from './Modules/Features/BoneShieldTimesByStacks';
+import DeathsCaress from './Modules/Core/DeathsCaress';
 
 // Resources
 import RunicPowerDetails from './Modules/RunicPower/RunicPowerDetails';
@@ -41,6 +42,8 @@ import Tombstone from './Modules/Talents/Tombstone';
 import Voracious from './Modules/Talents/Voracious';
 import RapidDecomposition from './Modules/Talents/RapidDecomposition';
 import WillOfTheNecropolis from './Modules/Talents/WillOfTheNecropolis';
+import Ossuary from './Modules/Talents/Ossuary';
+import RuneStrike from './Modules/Talents/RuneStrike';
 
 // Items
 import T20_2pc from './Modules/Items/T20_2pc';
@@ -85,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     souldrinker: Souldrinker,
     boneShield: BoneShield,
     boneShieldTimesByStacks: BoneShieldTimesByStacks,
+    deathsCaress: DeathsCaress,
 
     // DOT
     bloodplagueUptime: BloodPlagueUptime,
@@ -107,6 +111,8 @@ class CombatLogParser extends CoreCombatLogParser {
     voracious: Voracious,
     rapidDecomposition: RapidDecomposition,
     willOfTheNecropolis: WillOfTheNecropolis,
+    ossuary: Ossuary,
+    runeStrike: RuneStrike,
 
     // Traits
     RelicTraits: RelicTraits,

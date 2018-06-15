@@ -49,7 +49,7 @@ class Evocation extends Analyzer {
 	suggestions(when) {
 		when(this.suggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.ARCANE_POWER.id}/> {this.badUses} times while <SpellLink id={SPELLS.EVOCATION.id}/> was unavailable. In order to ensure that Evocate is available at the end of your burn phase, dont case Arcane Power until the cooldown on Evocate is under 20 seconds.</React.Fragment>)
+				return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.ARCANE_POWER.id} /> {this.badUses} times while <SpellLink id={SPELLS.EVOCATION.id} /> was unavailable. In order to ensure that Evocate is available at the end of your burn phase, dont case Arcane Power until the cooldown on Evocate is under 20 seconds.</React.Fragment>)
 					.icon(SPELLS.EVOCATION.icon)
 					.actual(`${formatPercentage(this.utilization)}% Utilization`)
 					.recommended(`${formatPercentage(recommended)}% is recommended`);

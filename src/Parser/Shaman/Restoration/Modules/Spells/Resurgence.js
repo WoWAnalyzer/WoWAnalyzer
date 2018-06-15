@@ -57,7 +57,8 @@ class Resurgence extends Analyzer {
     const spellId = event.ability.guid;
 
     if (spellId !== SPELLS.RESURGENCE.id) {
-      return this.extraMana += event.resourceChange;
+      this.extraMana += event.resourceChange;
+      return;
     }
 
     this.totalResurgenceGain += event.resourceChange;
@@ -74,10 +75,10 @@ class Resurgence extends Analyzer {
       <ExpandableStatisticBox
         icon={<SpellIcon id={SPELLS.RESURGENCE.id} />}
         value={`${formatNumber(this.totalResurgenceGain)}`}
-        label={`Mana gained from Resurgence`}
+        label="Mana gained from Resurgence"
       >
         <div>
-          <SpellLink id={SPELLS.RESURGENCE.id} iconStyle={{ height: '1.25em' }}/> accounted for {formatPercentage(this.totalResurgenceGain / this.totalMana, 0)}% of your mana pool ({formatNumber(this.totalMana)} mana). <br />
+          <SpellLink id={SPELLS.RESURGENCE.id} iconStyle={{ height: '1.25em' }}/> accounted for {formatPercentage(this.totalResurgenceGain / this.totalMana, 0)}% of your mana pool ({formatNumber(this.totalMana)} mana).
         </div>
         <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
           <thead>

@@ -39,11 +39,11 @@ class SharpenedGlaives extends Analyzer {
 
  	subStatistic() {
  		return (
- 			<div className='flex'>
- 				<div className='flex-main'>
+ 			<div className="flex">
+ 				<div className="flex-main">
  					<SpellLink id={SPELLS.SHARPENED_GLAIVES.id} />
  				</div>
- 				<div className='flex-sub text-right'>
+ 				<div className="flex-sub text-right">
  					{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} %
  				</div>
  			</div>

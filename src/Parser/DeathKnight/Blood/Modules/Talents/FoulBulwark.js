@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import { STATISTIC_ORDER } from 'Main/StatisticBox';
 import ExpandableStatisticBox from 'Main/ExpandableStatisticBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import { formatPercentage, formatDuration } from 'common/format';
+import { formatDuration, formatPercentage } from 'common/format';
 import BoneShieldTimesByStacks from '../Features/BoneShieldTimesByStacks';
 
 const HP_PER_BONE_SHIELD_STACK = 0.02;
@@ -48,13 +48,13 @@ class FoulBulwark extends Analyzer {
             </tr>
           </thead>
           <tbody>
-            {this.boneShieldTimesByStack.map((e, i) =>
+            {this.boneShieldTimesByStack.map((e, i) => (
               <tr key={i}>
                 <th>{(i * HP_PER_BONE_SHIELD_STACK * 100).toFixed(0)}%</th>
                 <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
                 <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
               </tr>
-            )}
+            ))}
           </tbody>
         </table>
       </ExpandableStatisticBox>

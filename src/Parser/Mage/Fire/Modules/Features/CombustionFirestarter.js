@@ -11,7 +11,7 @@ const DAMAGE_SPELLS = [
   SPELLS.PYROBLAST.id,
   SPELLS.SCORCH.id,
   SPELLS.FIRE_BLAST.id,
-  SPELLS.PHOENIXS_FLAMES,
+  SPELLS.PHOENIX_FLAMES_TALENT,
 ];
 
 const debug = false;
@@ -61,7 +61,7 @@ class CombustionFirestarter extends Analyzer {
   suggestions(when) {
     when(this.SuggestionThresholds)
       .addSuggestion((suggest) => {
-        return suggest(<React.Fragment>You used <SpellLink id={SPELLS.COMBUSTION.id}/> while <SpellLink id={SPELLS.FIRESTARTER_TALENT.id}/> was active (While the boss was at 90% health or higher). Since Firestarter makes your spells a guaranteed crit anyway, you should wait until the boss is at 89% to use your Combustion.</React.Fragment>)
+        return suggest(<React.Fragment>You used <SpellLink id={SPELLS.COMBUSTION.id} /> while <SpellLink id={SPELLS.FIRESTARTER_TALENT.id} /> was active (While the boss was at 90% health or higher). Since Firestarter makes your spells a guaranteed crit anyway, you should wait until the boss is at 89% to use your Combustion.</React.Fragment>)
           .icon(SPELLS.COMBUSTION.icon)
           .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
       });

@@ -1,49 +1,55 @@
 import React from 'react';
 
-import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
+import { formatPercentage, formatNumber } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
-import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
-import SUGGESTION_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
+import calculateEffectiveDamage from 'Parser/Core/calculateEffectiveDamage';
+
+import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+
+const STARFALL_BONUS_DAMAGE = 0.25;
 
 class StellarDrift extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    abilityTracker: AbilityTracker,
   };
 
-  hasOnethsIntuition = false;
+  bonusDamage = 0;
 
   on_initialized() {
     this.active = this.combatants.selected.hasTalent(SPELLS.STELLAR_DRIFT_TALENT.id);
-    this.hasOnethsIntuition = this.combatants.selected.hasWrists(ITEMS.ONETHS_INTUITION.id);
   }
 
-  get usedStarfall(){
-    if (this.abilityTracker.getAbility(SPELLS.STARFALL_CAST.id).casts) {
-      return true;
+  on_byPlayer_damage(event) {
+    if (event.ability.guid !== SPELLS.STARFALL.id) {
+      return;
     }
-    return this.hasOnethsIntuition;
+      this.bonusDamage += calculateEffectiveDamage(event, STARFALL_BONUS_DAMAGE);
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.usedStarfall,
-      isEqual: false,
-      style: 'boolean',
-    };
+  get damagePercent() {
+    return this.owner.getPercentageOfTotalDamageDone(this.bonusDamage);
   }
 
-  suggestions(when) {
-    when(this.suggestionThresholds).isFalse().addSuggestion((suggest) => {
-      return suggest(<React.Fragment>You did not gain any benefit from <SpellLink id={SPELLS.STELLAR_DRIFT_TALENT.id} />. If you are not casting <SpellLink id={SPELLS.STARFALL_CAST.id} />, it is recommended to use <SpellLink id={SPELLS.NATURES_BALANCE_TALENT.id} />.</React.Fragment>)
-        .icon(SPELLS.STELLAR_DRIFT_TALENT.icon)
-        .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
-    });
+  get perSecond() {
+    return this.bonusDamage / (this.owner.fightDuration / 1000);
   }
+
+  statistic() {
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.STELLAR_DRIFT_TALENT.id} />}
+        value={`${formatPercentage(this.damagePercent)} %`}
+        label="Of total damage"
+        tooltip={`Contributed ${formatNumber(this.perSecond)} DPS (${formatNumber(this.bonusDamage)} total damage). This does not account for any extra damage gained from the increased radius or the ability to move while casting.`}
+      />
+    );
+  }
+
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default StellarDrift;

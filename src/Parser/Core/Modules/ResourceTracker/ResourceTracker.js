@@ -67,7 +67,7 @@ class ResourceTracker extends Analyzer {
   }
 
   _applyBuilder(spellId, resource, gain, waste) {
-    if (!(spellId in this.buildersObj)) {
+    if (!this.buildersObj[spellId]) {
         this.initBuilderAbility(spellId);
     }
 
@@ -99,7 +99,7 @@ class ResourceTracker extends Analyzer {
     }
     const cost = this.getReducedCost(event);
 
-    if (!(spellId in this.spendersObj)) {
+    if (!this.spendersObj[spellId]) {
       this.initSpenderAbility(spellId);
     }
 
