@@ -19,7 +19,7 @@ const HOT_STREAK_CONTRIBUTORS = [
   SPELLS.PYROBLAST.id,
   SPELLS.FIRE_BLAST.id,
   SPELLS.SCORCH.id,
-  SPELLS.PHOENIXS_FLAMES.id,
+  SPELLS.PHOENIX_FLAMES_TALENT.id,
 ];
 
 class HotStreak extends Analyzer {
@@ -65,7 +65,7 @@ class HotStreak extends Analyzer {
       this.currentHealth = event.hitPoints;
       this.maxHealth = event.maxHitPoints;
     }
-    if (!HOT_STREAK_CONTRIBUTORS.includes(spellId) || !this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id) || event.hitType !== HIT_TYPES.CRIT || (spellId === SPELLS.PHOENIXS_FLAMES.id && this.targetId !== damageTarget)) {
+    if (!HOT_STREAK_CONTRIBUTORS.includes(spellId) || !this.combatants.selected.hasBuff(SPELLS.HOT_STREAK.id) || event.hitType !== HIT_TYPES.CRIT || (spellId === SPELLS.PHOENIX_FLAMES_TALENT.id && this.targetId !== damageTarget)) {
       return;
     }
     //If Pyromaniac caused the player to immediately get a new hot streak after spending one, then dont count the damage crits that were cast before Pyromaniac Proc's since the user cant do anything to prevent this.

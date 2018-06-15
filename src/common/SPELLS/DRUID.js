@@ -654,19 +654,14 @@ export default {
     icon: 'spell_nature_starfall',
   },
   FULL_MOON: {
-    id: 202771,
+    id: 274283,
     name: 'Full Moon',
     icon: 'artifactability_balancedruid_fullmoon',
   },
   HALF_MOON: {
-    id: 202768,
+    id: 274282,
     name: 'Half Moon',
     icon: 'artifactability_balancedruid_halfmoon',
-  },
-  NEW_MOON: {
-    id: 202767,
-    name: 'New Moon',
-    icon: 'artifactability_balancedruid_newmoon',
   },
   CELESTIAL_ALIGNMENT: {
     id: 194223,

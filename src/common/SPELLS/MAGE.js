@@ -485,11 +485,6 @@ export default {
     name: 'Mark of Aluneth',
     icon: 'inv_staff_2h_artifactaegwynsstaff_d_01',
   },
-  PHOENIXS_FLAMES: {
-    id: 194466,
-    name: 'Phoenix\'s Flames',
-    icon: 'artifactability_firemage_phoenixbolt',
-  },
   UNSTABLE_MAGIC_DAMAGE_FIRE: {
     id: 157977,
     name: 'Unstable Magic',

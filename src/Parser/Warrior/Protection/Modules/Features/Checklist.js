@@ -87,7 +87,7 @@ class Checklist extends CoreChecklist {
       requirements: () => {
         return [
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.BATTLE_CRY,
+            spell: SPELLS.AVATAR_TALENT,
             onlyWithSuggestion: false,
           }),
           new GenericCastEfficiencyRequirement({

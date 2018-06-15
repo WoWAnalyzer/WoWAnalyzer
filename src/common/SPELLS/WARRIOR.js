@@ -386,6 +386,11 @@ export default {
     name: 'Shield Block Buff',
     icon: 'ability_defend',
   },
+  PUNISH_DEBUFF: {
+    id: 275335,
+    name: 'Punish',
+    icon: 'ability_deathknight_sanguinfortitude',
+  },
   DEVASTATOR_DAMAGE: {
     id: 236282,
     name: 'Devastator',

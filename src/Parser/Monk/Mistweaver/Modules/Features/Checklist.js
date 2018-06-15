@@ -101,10 +101,6 @@ class Checklist extends CoreChecklist {
             when: combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.ZEN_PULSE_TALENT,
-            when: combatant.hasTalent(SPELLS.ZEN_PULSE_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
             spell: SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT,
             when: combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id),
           }),
