@@ -10,7 +10,6 @@ import Analyzer from 'Parser/Core/Analyzer';
 import StatisticsListBox from 'Main/StatisticsListBox';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import STATISTIC_ORDER from 'Main/STATISTIC_ORDER';
-import ITEMS from 'common/ITEMS';
 
 const CHART_SIZE = 100;
 
