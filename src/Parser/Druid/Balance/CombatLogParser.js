@@ -21,8 +21,7 @@ import EarlyDotRefreshesInstants from './Modules/Features/EarlyDotRefreshesInsta
 //Talents
 import StellarFlareUptime from './Modules/Talents/StellarFlareUptime';
 import TwinMoons from './Modules/Talents/TwinMoons';
-
-
+import StellarDrift from './Modules/Talents/StellarDrift';
 
 //Resources
 import AstralPowerDetails from './Modules/ResourceTracker/AstralPowerDetails';
@@ -65,6 +64,7 @@ class CombatLogParser extends MainCombatLogParser {
     //Talents
     stellarFlareUptime: StellarFlareUptime,
     twinMoons: TwinMoons,
+    stellarDrift: StellarDrift,
 
     //Resources
     astralPowerTracker: AstralPowerTracker,
