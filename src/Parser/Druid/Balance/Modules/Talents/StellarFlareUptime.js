@@ -8,6 +8,7 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
+
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
 
 class StellarFlareUptime extends Analyzer {
@@ -53,7 +54,7 @@ class StellarFlareUptime extends Analyzer {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.CORE(6);
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default StellarFlareUptime;

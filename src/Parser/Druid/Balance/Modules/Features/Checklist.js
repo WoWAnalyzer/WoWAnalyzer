@@ -19,7 +19,7 @@ import CancelledCasts from './CancelledCasts';
 import AlwaysBeCasting from './AlwaysBeCasting';
 import MoonfireUptime from './MoonfireUptime';
 import SunfireUptime from './SunfireUptime';
-import StellarFlareUptime from './StellarFlareUptime';
+import StellarFlareUptime from '../Talents/StellarFlareUptime';
 import LunarEmpowerment from './LunarEmpowerment';
 import SolarEmpowerment from './SolarEmpowerment';
 import EarlyDotRefreshes from './EarlyDotRefreshes';
