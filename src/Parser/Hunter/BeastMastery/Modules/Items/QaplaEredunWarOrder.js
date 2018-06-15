@@ -33,7 +33,7 @@ class QaplaEredunWarOrder extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DIRE_BEAST.id && spellId !== SPELLS.DIRE_FRENZY_TALENT.id) {
+    if (spellId !== SPELLS.DIRE_BEAST_TALENT.id) {
       return;
     }
     if (this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND.id)) {

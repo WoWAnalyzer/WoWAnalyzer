@@ -27,11 +27,11 @@ class DireBeast extends Analyzer {
   remainingBestialWrathCooldown = 0;
 
   on_initialized() {
-    this.active = !this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id);
+    this.active = this.combatants.selected.hasTalent(SPELLS.DIRE_BEAST_TALENT.id);
   }
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DIRE_BEAST.id && spellId !== SPELLS.BESTIAL_WRATH.id) {
+    if (spellId !== SPELLS.DIRE_BEAST_TALENT.id && spellId !== SPELLS.BESTIAL_WRATH.id) {
       return;
     }
     if (spellId === SPELLS.DIRE_BEAST.id) {
