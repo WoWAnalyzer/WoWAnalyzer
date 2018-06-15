@@ -30,7 +30,6 @@ class Haste extends Analyzer {
     [SPELLS.DRUMS_OF_RAGE.id]: 0.25,
     [SPELLS.HOLY_AVENGER_TALENT.id]: 0.3,
     [SPELLS.BERSERKING.id]: 0.20,
-    [202842]: 0.1, // Rapid Innervation (Balance Druid trait increasing Haste from Innervate)
     [SPELLS.POWER_INFUSION_TALENT.id]: 0.25,
     [SPELLS.WARLOCK_AFFLI_T20_4P_BUFF.id]: 0.15,
     [SPELLS.WARLOCK_DEMO_T20_4P_BUFF.id]: 0.1,
