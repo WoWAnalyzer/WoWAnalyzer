@@ -24,7 +24,7 @@ class CombustionSpellUsage extends Analyzer {
     if ((spellId !== SPELLS.FIREBALL.id && spellId !== SPELLS.SCORCH.id) || !this.combatants.selected.hasBuff(SPELLS.COMBUSTION.id)) {
       return;
     }
-    if (this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id) > 0 || this.spellUsable.chargesAvailable(SPELLS.PHOENIXS_FLAMES.id) > 0) {
+    if (this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id) > 0 || this.spellUsable.chargesAvailable(SPELLS.PHOENIX_FLAMES_TALENT.id) > 0) {
       this.castedWithInstants += 1;
       debug && console.log("Casted with Instants Available @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
     }
@@ -49,7 +49,7 @@ class CombustionSpellUsage extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.FIREBALL.id} /> or <SpellLink id={SPELLS.SCORCH.id} /> {this.castedWithInstants} times ({this.castsWithInstantsPerCombustion.toFixed(2)} per Combustion) while you had charges of <SpellLink id={SPELLS.FIRE_BLAST.id} /> or <SpellLink id={SPELLS.PHOENIXS_FLAMES.id} /> available. Make sure you are using up all of your charges of Fire Blast and Phoenix Flames before using Fireball or Scorch during Combustion.</React.Fragment>)
+        return suggest(<React.Fragment>You cast <SpellLink id={SPELLS.FIREBALL.id} /> or <SpellLink id={SPELLS.SCORCH.id} /> {this.castedWithInstants} times ({this.castsWithInstantsPerCombustion.toFixed(2)} per Combustion) while you had charges of <SpellLink id={SPELLS.FIRE_BLAST.id} /> or <SpellLink id={SPELLS.PHOENIX_FLAMES_TALENT.id} /> available. Make sure you are using up all of your charges of Fire Blast and Phoenix Flames before using Fireball or Scorch during Combustion.</React.Fragment>)
           .icon(SPELLS.COMBUSTION.icon)
           .actual(`${this.castsWithInstantsPerCombustion.toFixed(2)} Casts Per Combustion`)
           .recommended(`${formatNumber(recommended)} is recommended`);

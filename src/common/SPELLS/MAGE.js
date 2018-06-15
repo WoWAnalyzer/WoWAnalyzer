@@ -500,11 +500,6 @@ export default {
     name: 'Mark of Aluneth',
     icon: 'inv_staff_2h_artifactaegwynsstaff_d_01',
   },
-  PHOENIXS_FLAMES: {
-    id: 194466,
-    name: 'Phoenix\'s Flames',
-    icon: 'artifactability_firemage_phoenixbolt',
-  },
   EBONBOLT: {
     id: 214634,
     name: 'Ebonbolt',

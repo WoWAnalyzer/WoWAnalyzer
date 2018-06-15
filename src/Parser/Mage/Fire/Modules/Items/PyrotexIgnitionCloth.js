@@ -21,7 +21,7 @@ class PyrotexIgnitionCloth extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.PHOENIXS_FLAMES.id) {
+    if (spellId !== SPELLS.PHOENIX_FLAMES_TALENT.id) {
       return;
     }
     if (this.spellUsable.isOnCooldown(SPELLS.COMBUSTION.id)) {

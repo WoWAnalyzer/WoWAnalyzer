@@ -39,7 +39,7 @@ export default [
   },
   {
     date: new Date('2018-01-02'),
-    changes: <React.Fragment>Added Suggestion for <SpellLink id={SPELLS.PHOENIXS_FLAMES.id} /> Charge Count before <SpellLink id={SPELLS.COMBUSTION.id} /></React.Fragment>,
+    changes: <React.Fragment>Added Suggestion for <SpellLink id={SPELLS.PHOENIX_FLAMES_TALENT.id} /> Charge Count before <SpellLink id={SPELLS.COMBUSTION.id} /></React.Fragment>,
     contributors: [Sharrq],
   },
   {
@@ -64,7 +64,7 @@ export default [
   },
   {
     date: new Date('2017-11-23'),
-    changes: <React.Fragment>Added Cooldown Reduction for <SpellLink id={SPELLS.PHOENIXS_FLAMES.id} /></React.Fragment>,
+    changes: <React.Fragment>Added Cooldown Reduction for <SpellLink id={SPELLS.PHOENIX_FLAMES_TALENT.id} /></React.Fragment>,
     contributors: [Sharrq],
   },
   {
@@ -79,7 +79,7 @@ export default [
   },
   {
     date: new Date('2017-10-17'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.UNSTABLE_MAGIC_DAMAGE_FIRE.id} /> module</React.Fragment>,
+    changes: <React.Fragment>Added Unstable Magic module</React.Fragment>,
     contributors: [sref],
   },
   {
