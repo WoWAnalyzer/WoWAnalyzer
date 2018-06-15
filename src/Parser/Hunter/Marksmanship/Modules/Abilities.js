@@ -4,31 +4,14 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ITEMS from 'common/ITEMS';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
-import QuickShot from 'Parser/Hunter/Marksmanship/Modules/Traits/QuickShot';
 
 class Abilities extends CoreAbilities {
   static dependencies = {
     ...CoreAbilities.dependencies,
-    quickShot: QuickShot,
   };
 
   spellbook() {
     return [
-      {
-        spell: SPELLS.WINDBURST,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 20,
-        isOnGCD: true,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.75,
-          extraSuggestion: (
-            <React.Fragment>
-              You should cast it whenever you cannot fit another <SpellLink id={SPELLS.AIMED_SHOT.id} /> in your current <SpellLink id={SPELLS.VULNERABLE.id} /> window, which will generally almost always translate into almost on cooldown. It is your best <SpellLink id={SPELLS.VULNERABLE.id} /> generator, as it allows extra globals to be cast inside the window, allowing you to cast <SpellLink id={SPELLS.WINDBURST.id} /> at almost no focus.
-            </React.Fragment>
-          ),
-        },
-      },
       {
         spell: SPELLS.AIMED_SHOT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -40,24 +23,21 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
       },
       {
-        spell: SPELLS.MULTISHOT,
+        spell: SPELLS.RAPID_FIRE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
+        cooldown: 20,
+      },
+      {
+        spell: SPELLS.STEADY_SHOT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
+        cooldown: 20,
+      },
+      {
+        spell: SPELLS.MULTISHOT_MM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         isOnGCD: true,
-      },
-      {
-        spell: SPELLS.MARKED_SHOT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
-      },
-      {
-        spell: SPELLS.BLACK_ARROW_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 15 / (1 + haste),
-        isOnGCD: true,
-        enabled: this.combatants.selected.hasTalent(SPELLS.BLACK_ARROW_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-        },
       },
       {
         spell: SPELLS.EXPLOSIVE_SHOT_TALENT,
@@ -76,19 +56,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED,
+        spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,
-        enabled: this.combatants.selected.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id),
+        enabled: this.combatants.selected.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
-          extraSuggestion: (
-            <React.Fragment>
-              You should aim to cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> on cooldown generally, and the last usage should be as early in the execute window (sub-20%) as possible, to allow for stacking of <SpellLink id={SPELLS.BULLSEYE_BUFF.id} /> as fast as possible. This can mean delaying it for up to 20-30 seconds sometimes which can lower your cast-efficiency, even though you're playing optimally.
-            </React.Fragment>
-          ),
         },
       },
       {
@@ -100,22 +75,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-          extraSuggestion: (
-            <React.Fragment>
-              <SpellLink id={SPELLS.BARRAGE_TALENT.id} /> should generally be used on cooldown unless it needs to be saved for upcoming burst DPS requirement. It is however not worth using this on single-target at all, in which case you would be better off using either <SpellLink id={SPELLS.VOLLEY_TALENT.id} /> for stacked AoE or <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> for Single-target.
-            </React.Fragment>
-          ),
-        },
-      },
-      {
-        spell: [SPELLS.SIDEWINDERS_TALENT, SPELLS.SIDEWINDERS_CAST],
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 12 / (1 + haste),
-        charges: 2,
-        enabled: this.combatants.selected.hasTalent(SPELLS.SIDEWINDERS_TALENT.id),
-        isOnGCD: true,
-        castEfficiency: {
-          suggestion: true,
         },
       },
       {
@@ -127,28 +86,12 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-          extraSuggestion: (
-            <React.Fragment>
-              This should be used on cooldown, with 100 focus and while <SpellLink id={SPELLS.VULNERABLE.id} /> is on your target. If possible without delaying either, you should try to combine it with <SpellLink id={SPELLS.TRUESHOT.id} />.
-            </React.Fragment>
-          ),
-        },
-      },
-      {
-        spell: SPELLS.SENTINEL_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60,
-        enabled: this.combatants.selected.hasTalent(SPELLS.SENTINEL_TALENT.id),
-        isOnGCD: true,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
         },
       },
       {
         spell: SPELLS.TRUESHOT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180 - this.quickShot.traitCooldownReduction,
+        cooldown: 180,
         isOnGCD: false,
         castEfficiency: {
           suggestion: true,
@@ -171,9 +114,9 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         isOnGCD: false,
       },
-      { //Marking as a defensive because of the damage reduction trait associated with it
+      {
         spell: SPELLS.DISENGAGE,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20,
         isOnGCD: false,
       },

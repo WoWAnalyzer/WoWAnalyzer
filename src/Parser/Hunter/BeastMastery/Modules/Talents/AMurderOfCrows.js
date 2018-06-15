@@ -43,12 +43,12 @@ class AMurderOfCrows extends Analyzer {
   prepullCasts = 0;
 
   on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id) && SPECS.BEAST_MASTERY_HUNTER;
+    this.active = this.combatants.selected.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id) && SPECS.BEAST_MASTERY_HUNTER;
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.A_MURDER_OF_CROWS_SPELL.id) {
+    if (spellId !== SPELLS.A_MURDER_OF_CROWS_DEBUFF.id) {
       return;
     }
     if (this.registeredCasts === 0 && this.prepullCasts === 0) {
@@ -61,14 +61,14 @@ class AMurderOfCrows extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id && spellId !== SPELLS.BESTIAL_WRATH.id) {
+    if (spellId !== SPELLS.A_MURDER_OF_CROWS_TALENT.id && spellId !== SPELLS.BESTIAL_WRATH.id) {
       return;
     }
     if (spellId === SPELLS.BESTIAL_WRATH.id) {
       this.bestialWrathStart = event.timestamp;
       this.bestialWrathEnd = this.bestialWrathStart + BESTIAL_WRATH_DURATION;
     }
-    if (spellId === SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id) {
+    if (spellId === SPELLS.A_MURDER_OF_CROWS_TALENT.id) {
       if (this.registeredCasts === 0) {
         this.registeredCasts += 1;
       }
@@ -117,14 +117,14 @@ class AMurderOfCrows extends Analyzer {
   }
   suggestions(when) {
     when(this.badCastThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Don't cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up (or ready to cast straight after the <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> cast), and atleast 7 seconds remaining on the buff.</React.Fragment>)
-        .icon(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.icon)
+      return suggest(<React.Fragment>Don't cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT.id} /> without <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up (or ready to cast straight after the <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT.id} /> cast), and atleast 7 seconds remaining on the buff.</React.Fragment>)
+        .icon(SPELLS.A_MURDER_OF_CROWS_TALENT.icon)
         .actual(`You cast A Murder of Crows ${actual} times without Bestial Wrath up or Bestial Wrath ready to cast after`)
         .recommended(`${recommended} is recommended`);
     });
     when(this.shouldHaveSavedThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<React.Fragment>Don't cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> without atleast 7 seconds remaining on <SpellLink id={SPELLS.BESTIAL_WRATH.id} />.</React.Fragment>)
-        .icon(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.icon)
+      return suggest(<React.Fragment>Don't cast <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT.id} /> without atleast 7 seconds remaining on <SpellLink id={SPELLS.BESTIAL_WRATH.id} />.</React.Fragment>)
+        .icon(SPELLS.A_MURDER_OF_CROWS_TALENT.icon)
         .actual(`You cast A Murder of Crows ${actual} times with less than 7 seconds remaining on Bestial Wrath`)
         .recommended(`${recommended} is recommended`);
     });
@@ -139,12 +139,12 @@ class AMurderOfCrows extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} />}
+        icon={<SpellIcon id={SPELLS.A_MURDER_OF_CROWS_TALENT.id} />}
         value={(
           <React.Fragment>
             {this.goodCrowsCasts}{'  '}
             <SpellIcon
-              id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id}
+              id={SPELLS.A_MURDER_OF_CROWS_TALENT.id}
               style={{
                 height: '1.3em',
                 marginTop: '-.1em',
@@ -153,7 +153,7 @@ class AMurderOfCrows extends Analyzer {
             {'  '}
             {this.badCrowsCasts + this.shouldHaveSavedCrows}{'  '}
             <SpellIcon
-              id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id}
+              id={SPELLS.A_MURDER_OF_CROWS_TALENT.id}
               style={{
                 height: '1.3em',
                 marginTop: '-.1em',
@@ -174,7 +174,7 @@ class AMurderOfCrows extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-main">
-          <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} />
+          <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT.id} />
         </div>
         <div className="flex-sub text-right">
           <ItemDamageDone amount={this.damage} />

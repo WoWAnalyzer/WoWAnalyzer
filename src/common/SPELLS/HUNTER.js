@@ -526,15 +526,10 @@ export default {
     name: 'Arcane Shot',
     icon: 'ability_impalingbolt',
   },
-  MARKED_SHOT: {
-    id: 185901,
-    name: 'Marked Shot',
-    icon: 'ability_hunter_markedshot',
-  },
-  MARKED_SHOT_DAMAGE: {
-    id: 212621,
-    name: 'Marked Shot',
-    icon: 'ability_hunter_markedshot',
+  STEADY_SHOT: {
+    id: 56641,
+    name: 'Steady Shot',
+    icon: 'ability_hunter_steadyshot',
   },
   TRUESHOT: {
     id: 193526,
@@ -869,6 +864,11 @@ export default {
     id: 6197,
     name: 'Eagle Eye',
     icon: 'ability_hunter_eagleeye',
+  },
+  INTIMIDATION: {
+    id: 19577,
+    name: 'Intimidation',
+    icon: 'ability_devour',
   },
 
   //BFA Pet abilities

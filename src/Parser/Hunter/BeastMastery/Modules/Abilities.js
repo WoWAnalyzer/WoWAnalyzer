@@ -9,38 +9,6 @@ class Abilities extends CoreAbilities {
   spellbook() {
     return [
       {
-        spell: SPELLS.TITANS_THUNDER,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60,
-        isOnGCD: false,
-        enabled: this.combatants.selected.traitsBySpellId[SPELLS.TITANS_THUNDER.id] && !this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          extraSuggestion: (
-            <React.Fragment>
-              <SpellLink id={SPELLS.TITANS_THUNDER.id} /> should always be cast when you have <SpellLink id={SPELLS.DIRE_BEAST_BUFF.id} /> buff up, try to cast it right after using a <SpellLink id={SPELLS.DIRE_BEAST.id} /> for maximum efficiency.
-            </React.Fragment>
-          ),
-        },
-      },
-      {
-        spell: SPELLS.TITANS_THUNDER,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60,
-        isOnGCD: false,
-        enabled: this.combatants.selected.traitsBySpellId[SPELLS.TITANS_THUNDER.id] && this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          extraSuggestion: (
-            <React.Fragment>
-              Since you have <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> talented, you should cast <SpellLink id={SPELLS.TITANS_THUNDER.id} /> within <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> so long as you can get off a <SpellLink id={SPELLS.DIRE_FRENZY_TALENT.id} /> cast while <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> is still up.
-            </React.Fragment>
-          ),
-        },
-      },
-      {
         spell: SPELLS.BESTIAL_WRATH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 90,
@@ -71,20 +39,18 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
       },
       {
-        spell: SPELLS.DIRE_BEAST,
+        spell: SPELLS.DIRE_BEAST_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: !this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
+        enabled: this.combatants.selected.hasTalent(SPELLS.DIRE_BEAST_TALENT.id),
         isOnGCD: true,
-        /* -- Commenting out the cooldown of this spell since there is no current way of tracking the resets on it properly
-        cooldown: haste => 12 / (1 + haste),
-        charges: 2,
+        cooldown: 15,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 1,
-        },*/
+          recommendedEfficiency: 0.9,
+        },
       },
       {
-        spell: SPELLS.DIRE_FRENZY_TALENT,
+        spell: SPELLS.BARBED_SHOT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: this.combatants.selected.hasTalent(SPELLS.DIRE_FRENZY_TALENT.id),
         isOnGCD: true,
@@ -97,22 +63,22 @@ class Abilities extends CoreAbilities {
         },*/
       },
       {
-        spell: SPELLS.MULTISHOT,
+        spell: SPELLS.MULTISHOT_BM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         isOnGCD: true,
       },
       {
-        spell: SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED,
+        spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,
-        enabled: this.combatants.selected.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id),
+        enabled: this.combatants.selected.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
           extraSuggestion: (
             <React.Fragment>
-              You should be casting <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SHARED.id} /> on cooldown unless <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> has less than 30 seconds remaining on CD, in which case you can delay it slightly to line them up. It will dynamically update its damage to reflect damage increases such as <SpellLink id={SPELLS.BESTIAL_WRATH.id} />.
+              You should be casting <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT.id} /> on cooldown unless <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> has less than 30 seconds remaining on CD, in which case you can delay it slightly to line them up. It will dynamically update its damage to reflect damage increases such as <SpellLink id={SPELLS.BESTIAL_WRATH.id} />.
             </React.Fragment>
           ),
         },
@@ -148,6 +114,17 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 180,
         enabled: this.combatants.selected.hasTalent(SPELLS.STAMPEDE_TALENT.id),
+        isOnGCD: true,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+        },
+      },
+      {
+        spell: SPELLS.SPITTING_COBRA_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 90,
+        enabled: this.combatants.selected.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id),
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
@@ -196,18 +173,10 @@ class Abilities extends CoreAbilities {
         isOnGCD: false,
       },
       {
-        spell: SPELLS.WYVERN_STING_TALENT,
+        spell: SPELLS.INTIMIDATION,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: this.combatants.selected.hasTalent(SPELLS.WYVERN_STING_TALENT.id),
-        cooldown: 45,
-        isOnGCD: true,
-      },
-      {
-        spell: SPELLS.INTIMIDATION_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: this.combatants.selected.hasTalent(SPELLS.INTIMIDATION_TALENT.id),
         cooldown: 60,
-        isOnGCD: false,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.BINDING_SHOT_TALENT,
