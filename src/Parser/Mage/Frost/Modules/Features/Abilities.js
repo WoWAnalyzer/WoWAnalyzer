@@ -38,7 +38,6 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
         cooldown: 12,
         castEfficiency: {
-          suggestion: false,
           disabled: true,
         },
       },
@@ -145,7 +144,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isOnGCD: true,
         castEfficiency: {
-          suggestion: false,
           disabled: true,
         },
       },
@@ -156,7 +154,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isOnGCD: true,
         castEfficiency: {
-          suggestion: false,
           disabled: true,
         },
       },
@@ -170,23 +167,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FROST_NOVA,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
+        cooldown: 30,
         enabled: !combatant.hasTalent(SPELLS.ICE_WARD_TALENT.id),
-        cooldown: 30,
         castEfficiency: {
-          suggestion: false,
-          disabled: true,
-        },
-      },
-      {
-        spell: SPELLS.FROST_NOVA,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
-        enabled: combatant.hasTalent(SPELLS.ICE_WARD_TALENT.id),
-        cooldown: 30,
-        charges: 2,
-        castEfficiency: {
-          suggestion: false,
           disabled: true,
         },
       },
@@ -197,7 +180,6 @@ class Abilities extends CoreAbilities {
         enabled: !combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
         cooldown: 15,
         castEfficiency: {
-          suggestion: false,
           disabled: true,
         },
       },
@@ -209,7 +191,6 @@ class Abilities extends CoreAbilities {
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
         castEfficiency: {
-          suggestion: false,
           disabled: true,
         },
       },
@@ -219,7 +200,6 @@ class Abilities extends CoreAbilities {
         isOnGCD: false,
         cooldown: 24,
         castEfficiency: {
-          suggestion: false,
           disabled: true,
         },
       },
@@ -229,7 +209,6 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
         cooldown: 8,
         castEfficiency: {
-          suggestion: false,
           disabled: true,
         },
       },
@@ -249,7 +228,6 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
         cooldown: 300,
         castEfficiency: {
-          suggestion: false,
           disabled: true,
         },
       },
@@ -259,7 +237,6 @@ class Abilities extends CoreAbilities {
         isOnGCD: false,
         cooldown: 300,
         castEfficiency: {
-          suggestion: false,
           disabled: true,
         },
       },
@@ -270,7 +247,6 @@ class Abilities extends CoreAbilities {
         enabled: !combatant.hasTalent(SPELLS.LONELY_WINTER_TALENT.id),
         cooldown: 30,
         castEfficiency: {
-          suggestion: false,
           disabled: true,
         },
       },

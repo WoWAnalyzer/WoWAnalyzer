@@ -3,6 +3,13 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
+const ABILITY_RESETS = [
+	SPELLS.ICE_BARRIER.id,
+	SPELLS.FROST_NOVA.id,
+	SPELLS.CONE_OF_COLD.id,
+	SPELLS.ICE_BLOCK.id,
+  ];
+
 class ColdSnap extends Analyzer {
 
 	static dependencies = {
@@ -15,10 +22,9 @@ class ColdSnap extends Analyzer {
 		if(spellId !== SPELLS.COLD_SNAP.id) {
 			return;
 		}
-		if (this.spellUsable.isOnCooldown(SPELLS.ICE_BARRIER.id)) { this.spellUsable.endCooldown(SPELLS.ICE_BARRIER.id); }
-		if (this.spellUsable.isOnCooldown(SPELLS.CONE_OF_COLD.id)) { this.spellUsable.endCooldown(SPELLS.CONE_OF_COLD.id); }
-		if (this.spellUsable.isOnCooldown(SPELLS.FROST_NOVA.id)) { this.spellUsable.endCooldown(SPELLS.FROST_NOVA.id); }
-		if (this.spellUsable.isOnCooldown(SPELLS.ICE_BLOCK.id)) { this.spellUsable.endCooldown(SPELLS.ICE_BLOCK.id); }
+		ABILITY_RESETS.forEach(spell => {
+			if (this.spellUsable.isOnCooldown(spell)) { this.spellUsable.endCooldown(spell); }
+		});
   }
 }
 
