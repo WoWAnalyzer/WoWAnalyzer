@@ -5,7 +5,6 @@ import { GIFT_OF_THE_OX_SPELLS } from '../../Constants';
 
 const PURIFY_BASE = 0.5;
 const T20_4PC_PURIFY = 0.05;
-const debug = false;
 
 export const EVENT_STAGGER_POOL_ADDED = 'addstagger';
 export const EVENT_STAGGER_POOL_REMOVED = 'removestagger';
@@ -36,6 +35,19 @@ class StaggerFabricator extends Analyzer {
     return this._staggerPool;
   }
 
+  addStagger(event, amount) {
+    this._staggerPool += amount;
+    this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_ADDED, event, amount), event);
+  }
+
+  removeStagger(event, amount) {
+    this._staggerPool -= amount;
+    // sometimes a stagger tick is recorded immediately after death.
+    // this ensures we don't go into negative stagger
+    this._staggerPool = Math.max(this._staggerPool, 0);
+    this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount), event);
+  }
+
   on_toPlayer_absorbed(event) {
     if (event.ability.guid !== SPELLS.STAGGER.id) {
       return;
@@ -44,9 +56,7 @@ class StaggerFabricator extends Analyzer {
       return;
     }
     const amount = event.amount + (event.absorbed || 0);
-    this._staggerPool += amount;
-    debug && console.log("triggering stagger pool update due to absorb");
-    this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_ADDED, event, amount), event);
+    this.addStagger(event, amount);
   }
 
   on_toPlayer_damage(event) {
@@ -54,13 +64,7 @@ class StaggerFabricator extends Analyzer {
       return;
     }
     const amount = event.amount + (event.absorbed || 0);
-
-    this._staggerPool -= amount;
-    // sometimes a stagger tick is recorded immediately after death.
-    // this ensures we don't go into negative stagger
-    this._staggerPool = Math.max(this._staggerPool, 0);
-    debug && console.log("triggering stagger pool update due to stagger tick");
-    this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount), event);
+    this.removeStagger(event, amount);
   }
 
   on_byPlayer_cast(event) {
@@ -68,15 +72,12 @@ class StaggerFabricator extends Analyzer {
       return;
     }
     const amount = this._staggerPool * this.purifyPercentage;
-    this._staggerPool -= amount;
-    debug && console.log("triggering stagger pool update due to purify");
-    this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount), event);
+    this.removeStagger(event, amount);
   }
 
   on_toPlayer_death(event) {
     const amount = this._staggerPool;
-    this._staggerPool = 0;
-    this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount), event);
+    this.removeStagger(event, amount);
   }
 
   on_toPlayer_heal(event) {
@@ -84,9 +85,7 @@ class StaggerFabricator extends Analyzer {
       return;
     }
     const amount = this._staggerPool * T20_4PC_PURIFY;
-    this._staggerPool -= amount;
-    debug && console.log("triggering stagger pool update due to T20 4pc");
-    this.owner.fabricateEvent(this._fab(EVENT_STAGGER_POOL_REMOVED, event, amount), event);
+    this.removeStagger(event, amount);
   }
 
   _fab(type, reason, amount) {
