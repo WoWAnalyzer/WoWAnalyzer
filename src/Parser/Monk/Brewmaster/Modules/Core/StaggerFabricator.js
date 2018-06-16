@@ -3,8 +3,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import { GIFT_OF_THE_OX_SPELLS } from '../../Constants';
 
-const PURIFY_BASE = 0.4;
-const ELUSIVE_DANCE_PURIFY = 0.2;
+const PURIFY_BASE = 0.5;
 const T20_4PC_PURIFY = 0.05;
 const debug = false;
 
@@ -32,10 +31,6 @@ class StaggerFabricator extends Analyzer {
   get purifyPercentage() {
     const player = this.combatants.selected;
     let pct = PURIFY_BASE;
-    if (player.hasTalent(SPELLS.ELUSIVE_DANCE_TALENT.id)) {
-      // elusive dance clears an extra 20% of staggered damage
-      pct += ELUSIVE_DANCE_PURIFY;
-    }
     return pct;
   }
 

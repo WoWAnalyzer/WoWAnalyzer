@@ -76,6 +76,16 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id),
       },
       {
+        spell: SPELLS.GUARD_TALENT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 30,
+        castEfficiency: {
+          suggestion: false,
+          recommendedEfficiency: 0.7,
+        },
+        enabled: combatant.hasTalent(SPELLS.GUARD_TALENT.id),
+      },
+      {
         spell: SPELLS.EXPEL_HARM,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       },
@@ -147,15 +157,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PARALYSIS,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-      },
-      {
-        spell: SPELLS.EXPLODING_KEG,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 75,
-        enabled: !!combatant.getItem(ITEMS.FU_ZAN_THE_WANDERERS_COMPANION.id),
-        castEfficiency: {
-          suggestion: true,
-        },
       },
       // Its unlikely that these spells will ever be cast but if they are they will show.
       {
