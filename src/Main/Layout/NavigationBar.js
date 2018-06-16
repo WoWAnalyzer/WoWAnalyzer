@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import PatreonIcon from 'Icons/PatreonOnDarkTiny';
+import PatreonIcon from 'Icons/PatreonTiny';
 import DiscordIcon from 'Icons/DiscordTiny';
 import GitHubIcon from 'Icons/GitHubMarkSmall';
 import PremiumIcon from 'Icons/Premium';
