@@ -8,6 +8,10 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-06-16'),
+    changes: <React.Fragment>Updated for 8.0 Battle for Azeroth prepatch. All artifact traits and related analysis removed. Bad <SpellLink id={SPELLS.BLACKOUT_KICK.id} icon /> casts statistic and suggestions has been replaced with statistic and suggestions on <SpellLink id={SPELLS.BLACKOUT_KICK.id} icon />'s new cooldown reductions mechanic </React.Fragment>,
+  },
+  {
     date: new Date('2018-05-29'),
     changes: <React.Fragment>Added <SpellLink id={SPELLS.TOUCH_OF_DEATH.id} /> module showing damage from the 10% duplication and its benefit from % damage taken buffs on targets</React.Fragment>,
     contributors: [Juko8],
