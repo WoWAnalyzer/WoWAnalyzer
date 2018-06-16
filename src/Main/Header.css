@@ -42,7 +42,7 @@
   margin-bottom: 10px;
 }
 .app > header .image-overlay .about {
-  font-size: 0.8em;
+  font-size: 0.9em;
 }
 @media (max-width: 600px) {
   .app > header .image-overlay {

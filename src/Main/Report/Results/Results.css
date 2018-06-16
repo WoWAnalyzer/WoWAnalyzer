@@ -117,15 +117,6 @@
   /* so that the player and boss names just overlap */
   margin: -22.5px 0;
 }
-.results > header .about {
-  text-align: center;
-  margin-top: 0.7em;
-  font-size: 1.4em;
-  /*text-transform: uppercase;*/
-  font-weight: 400;
-  color: #ddd;
-}
-
 
 @keyframes player-anim {
   from {
