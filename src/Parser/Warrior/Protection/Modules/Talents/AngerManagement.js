@@ -34,11 +34,13 @@ class AngerManagement extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    if (event.classResources[0].type !== RESOURCE_TYPES.RAGE.id || !event.classResources[0].cost) {
+    if (!event.classResources || 
+        !event.classResources.filter(e => e.type !== RESOURCE_TYPES.RAGE.id) || 
+        !event.classResources.find(e => e.type === RESOURCE_TYPES.RAGE.id).cost) {
       return;
     }
 
-    const rageSpend = event.classResources[0].cost / 10;
+    const rageSpend = event.classResources.find(e => e.type === RESOURCE_TYPES.RAGE.id).cost / 10;
     const reduction = rageSpend / 10 * 1000;
     COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach(e => {
       if (!this.spellUsable.isOnCooldown(e)) {
