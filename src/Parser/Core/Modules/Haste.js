@@ -6,6 +6,7 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 import StatTracker from 'Parser/Core/Modules/StatTracker';
 import { HIGH_TOLERANCE_HASTE_FNS } from 'Parser/Monk/Brewmaster/Modules/Spells/HighTolerance';
+import BLOODLUST_BUFFS from 'Parser/Core/Constants/BLOODLUST_BUFFS';
 
 const debug = false;
 
@@ -19,14 +20,7 @@ class Haste extends Analyzer {
   // TODO: Support time freeze kinda effects, like Elisande's Time Stop or unavoidable stuns?
   /* eslint-disable no-useless-computed-key */
   static HASTE_BUFFS = {
-    [SPELLS.BLOODLUST.id]: 0.3,
-    [SPELLS.HEROISM.id]: 0.3,
-    [SPELLS.TIME_WARP.id]: 0.3,
-    [SPELLS.ANCIENT_HYSTERIA.id]: 0.3, // Hunter pet BL
-    [SPELLS.NETHERWINDS.id]: 0.3, // Hunter pet BL
-    [SPELLS.DRUMS_OF_FURY.id]: 0.25,
-    [SPELLS.DRUMS_OF_THE_MOUNTAIN.id]: 0.25,
-    [SPELLS.DRUMS_OF_RAGE.id]: 0.25,
+    ...BLOODLUST_BUFFS,
     [SPELLS.HOLY_AVENGER_TALENT.id]: 0.3,
     [SPELLS.BERSERKING.id]: 0.15,
     [202842]: 0.1, // Rapid Innervation (Balance Druid trait increasing Haste from Innervate)
