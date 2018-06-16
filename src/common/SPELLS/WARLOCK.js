@@ -375,7 +375,7 @@ export default {
     icon: 'spell_frost_stun',
   },
   // Infernal aura
-  IMMOLATION: {
+  INFERNAL_AURA_DAMAGE: {
     id: 20153,
     name: 'Immolation',
     icon: 'spell_shadow_summoninfernal',
@@ -480,30 +480,20 @@ export default {
   // -----------
 
   // Demonology spells
-  DEMONIC_EMPOWERMENT: {
-    id: 193396,
-    name: 'Demonic Empowerment',
-    icon: 'spell_warlock_demonicempowerment',
-  },
-  SHADOW_BOLT_DEMO: {
-    id: 686,
-    name: 'Shadow Bolt',
-    icon: 'spell_shadow_shadowbolt',
-  },
-  DOOM: {
-    id: 603,
-    name: 'Doom',
-    icon: 'spell_shadow_auraofdarkness',
-  },
   CALL_DREADSTALKERS: {
     id: 104316,
     name: 'Call Dreadstalkers',
     icon: 'spell_warlock_calldreadstalkers',
   },
-  GRIMOIRE_FELGUARD: {
-    id: 111898,
-    name: 'Grimoire: Felguard',
-    icon: 'spell_shadow_summonfelguard',
+  DEMONBOLT: {
+    id: 264178,
+    name: 'Demonbolt',
+    icon: 'inv__demonbolt',
+  },
+  DEMONIC_CORE_BUFF: {
+    id: 264173,
+    name: 'Demonic Core',
+    icon: 'warlock_spelldrain',
   },
   HAND_OF_GULDAN_CAST: {
     id: 105174,
@@ -515,88 +505,164 @@ export default {
     name: 'Hand of Gul\'dan',
     icon: 'ability_warlock_handofguldan',
   },
-  DEMONWRATH_CAST: {
-    id: 193440,
-    name: 'Demonwrath',
-    icon: 'spell_warlock_demonwrath',
+  IMPLOSION_CAST: {
+    id: 196277,
+    name: 'Implosion',
+    icon: 'inv_implosion',
+    manaCost: 400,
   },
-  DEMONWRATH_DAMAGE: {
-    id: 193439,
-    name: 'Demonwrath',
-    icon: 'spell_warlock_demonwrath',
+  IMPLOSION_DAMAGE: {
+    id: 196278,
+    name: 'Implosion',
+    icon: 'inv_implosion',
   },
-  THALKIELS_CONSUMPTION_CAST: { // also friendly fire damage to pets
-    id: 211714,
-    name: 'Thal\'kiel\'s Consumption',
-    icon: 'inv_offhand_1h_artifactskulloferedar_d_01',
-  },
-  THALKIELS_CONSUMPTION_DAMAGE: {
-    id: 211715,
-    name: 'Thal\'kiel\'s Consumption',
-    icon: 'inv_offhand_1h_artifactskulloferedar_d_01',
-  },
-  // Felguard's ability, triggered by our Command Demon ability
-  FELSTORM: {
-    id: 119914,
-    name: 'Felstorm',
-    icon: 'ability_warrior_bladestorm',
-  },
-  // Felguard gets a buff when he uses Felstorm, then follows up always with cast <another Felstorm ID - 89753>, cast this ID, damage <another Felstorm ID 89753> and then always pairs up cast 89753 + damage 89753 (x targets hit)
-  FELSTORM_BUFF: {
-    id: 89751,
-    name: 'Felstorm',
-    icon: 'ability_warrior_bladestorm',
-  },
-  WRATHSTORM_BUFF: {
-    id: 115831,
-    name: 'Wrathstorm',
-    icon: 'ability_warrior_bladestorm',
+  SHADOW_BOLT_DEMO: {
+    id: 686,
+    name: 'Shadow Bolt',
+    icon: 'spell_shadow_shadowbolt',
+    manaCost: 400,
   },
   SUMMON_FELGUARD: {
     id: 30146,
     name: 'Summon Felguard',
     icon: 'spell_shadow_summonfelguard',
   },
+  SUMMON_DEMONIC_TYRANT: {
+    id: 265187,
+    name: 'Summon Demonic Tyrant',
+    icon: 'inv_summondemonictyrant',
+    manaCost: 400,
+  },
+
+  // Pet abilities
+  // Following 2 abilities are the same for Grimoire: Felguard
+  FELSTORM_BUFF: {
+    id: 89751,
+    name: 'Felstorm',
+    icon: 'ability_warrior_bladestorm',
+  },
+  FELSTORM_DAMAGE: {
+    id: 89753,
+    name: 'Felstorm',
+    icon: 'ability_warrior_bladestorm',
+  },
+  // TODO: check Wrathguard and Terrorguard glyphs
+  // WRATHSTORM_BUFF: {
+  //   id: 115831,
+  //   name: 'Wrathstorm',
+  //   icon: 'ability_warrior_bladestorm',
+  // },
+  // also important for Dreadlash talent
+  DREADBITE: {
+    id: 271971,
+    name: 'Dreadbite',
+    icon: 'spell_warlock_calldreadstalkers',
+  },
+  FEL_FIREBOLT: {
+    id: 104318,
+    name: 'Fel Firebolt',
+    icon: 'spell_fel_firebolt',
+  },
+  DEMONIC_TYRANT_DAMAGE: {
+    id: 270481,
+    name: 'Demonfire',
+    icon: 'ability_vehicle_demolisherflamecatapult',
+  },
+  VILEFIEND_BILE_SPIT: {
+    id: 267997,
+    name: 'Bile Spit',
+    icon: 'spell_fel_firebolt',
+  },
+  VILEFIEND_HEADBUTT: {
+    id: 267999,
+    name: 'Headbutt',
+    icon: 'inv_argusfelstalkermountgrey',
+  },
+  // Inner Demons pet abilities
+  INNER_DEMONS_EYE_OF_GULDAN: {
+    id: 272131,
+    name: 'Eye of Gul\'dan',
+    icon: 'inv_misc_eye_01',
+  },
+  INNER_DEMONS_TOXIC_BILE: {
+    id: 272167,
+    name: 'Toxic Bile',
+    icon: 'ability_creature_poison_02',
+  },
+  INNER_DEMONS_SHADOW_SLASH: {
+    id: 272012,
+    name: 'Shadow Slash',
+    icon: 'spell_deathknight_scourgestrike',
+  },
+  INNER_DEMONS_MULTI_SLASH: {
+    id: 272172,
+    name: 'Multi-Slash',
+    icon: 'ability_rogue_murderspree',
+  },
+  // TODO: possibly even more
+  // Nether Portal pet abilities
+  // also can be summoned via Inner Demons
+  NETHER_PORTAL_FEL_BITE: {
+    id: 272435,
+    name: 'Fel Bite',
+    icon: 'artifactability_feraldruid_openwounds',
+  },
+  NETHER_PORTAL_DOUBLE_BREATH: {
+    id: 272156,
+    name: 'Double Breath',
+    icon: 'ability_warlock_shadowflame',
+  },
+  // also can be summoned via Inner Demons
+  NETHER_PORTAL_MANY_FACED_BITE: {
+    id: 272439,
+    name: 'Many Faced Bite',
+    icon: 'inv_soulhoundmount_green',
+  },
+  // also can be summoned via Inner Demons
+  NETHER_PORTAL_OVERHEAD_ASSAULT: {
+    id: 272432,
+    name: 'Overhead Assault',
+    icon: 'warrior_talent_icon_mastercleaver',
+  },
 
   // Demonology talents
+  BILESCOURGE_BOMBERS_DAMAGE: {
+    id: 267213,
+    name: 'Bilescourge Bombers',
+    icon: 'ability_hunter_pet_bat',
+  },
   DEMONIC_CALLING_BUFF: {
     id: 205146,
     name: 'Demonic Calling',
     icon: 'ability_warlock_impoweredimp',
   },
-  SHADOWY_INSPIRATION_BUFF: {
-    id: 196606,
-    name: 'Shadowy Inspiration',
-    icon: 'warlock_curse_shadow',
+  DOOM_DAMAGE: {
+    id: 265469,
+    name: 'Doom',
+    icon: 'spell_shadow_auraofdarkness',
   },
-  IMPLOSION_DAMAGE: {
-    id: 196278,
-    name: 'Implosion',
-    icon: 'spell_shadow_shadowandflame',
+  FROM_THE_SHADOWS_DEBUFF: {
+    id: 270569,
+    name: 'From the Shadows',
+    icon: 'spell_warlock_calldreadstalkers',
   },
-  GRIMOIRE_OF_SYNERGY_BUFF: {
-    id: 171982,
-    name: 'Grimoire of Synergy',
-    icon: 'warlock_grimoireofsacrifice',
+  SOUL_STRIKE_DAMAGE: {
+    id: 267964,
+    name: 'Soul Strike',
+    icon: 'inv_polearm_2h_fellord_04',
   },
-
-  // Demonology traits
-  THALKIELS_DISCORD: {
-    id: 211727,
-    name: 'Thal\'kiel\'s Discord',
-    icon: 'inv_offhand_1h_artifactskulloferedar_d_01',
+  DEMONIC_CONSUMPTION_BUFF: {
+    id: 267972,
+    name: 'Demonic Consumption',
+    icon: 'spell_warlock_soulburn',
   },
 
   // Demonology shard generating effects
+  // TODO: verify correctness + add other effects
   RECURRENT_RITUAL_SHARD_GEN: {
     id: 214811,
     name: 'Recurrent Ritual',
     icon: 'inv_feldreadravenmount',
-  },
-  POWER_TRIP_SHARD_GEN: {
-    id: 216125,
-    name: 'Power Trip',
-    icon: 'spell_shadow_demonictactics',
   },
   SHADOW_BOLT_SHARD_GEN: {
     id: 194192,
@@ -612,11 +678,6 @@ export default {
     id: 193318,
     name: 'Doom',
     icon: 'spell_shadow_auraofdarkness',
-  },
-  DEMONWRATH_SHARD_GEN: {
-    id: 194379,
-    name: 'Demonwrath',
-    icon: 'spell_warlock_demonwrath',
   },
 
   // Demonology Tier sets
