@@ -158,30 +158,10 @@ export default {
     name: 'Corruption',
     icon: 'spell_shadow_abominationexplosion',
   },
-  DRAIN_SOUL: {
-    id: 198590,
-    name: 'Drain Soul',
-    icon: 'spell_shadow_haunting',
-  },
-  REAP_SOULS: {
-    id: 216698,
-    name: 'Reap Souls',
-    icon: 'inv_staff_2h_artifactdeadwind_d_01',
-  },
-  WARLOCK_TORMENTED_SOULS: {
-    id: 216695,
-    name: 'Tormented Souls',
-    icon: 'inv_staff_2h_artifactdeadwind_d_01',
-  },
   SHADOW_BOLT_AFFLI: {
     id: 232670,
     name: 'Shadow Bolt',
     icon: 'spell_shadow_shadowbolt',
-  },
-  DEADWIND_HARVESTER: {
-    id: 216708,
-    name: 'Deadwind Harvester',
-    icon: 'inv_misc_2h_farmscythe_a_01',
   },
   SEED_OF_CORRUPTION_DEBUFF: {
     id: 27243,
@@ -192,6 +172,16 @@ export default {
     id: 27285,
     name: 'Seed of Corruption',
     icon: 'spell_shadow_seedofdestruction',
+  },
+  SUMMON_DARKGLARE: {
+    id: 205180,
+    name: 'Summon Darkglare',
+    icon: 'inv_beholderwarlock',
+  },
+  SUMMON_DARKGLARE_DAMAGE: {
+    id: 205231,
+    name: 'Eye Beam',
+    icon: 'inv_beholderwarlock',
   },
   UNSTABLE_AFFLICTION_CAST: {
     id: 30108,
@@ -225,12 +215,21 @@ export default {
   },
 
   // Affliction talents
-  PHANTOM_SINGULARITY_HEAL: {
+  NIGHTFALL_BUFF: {
+    id: 264571,
+    name: 'Nightfall',
+    icon: 'spell_shadow_twilight',
+  },
+  PHANTOM_SINGULARITY_DAMAGE_HEAL: {
     id: 205246,
     name: 'Phantom Singularity',
     icon: 'inv_enchant_voidsphere',
   },
-
+  SHADOW_EMBRACE_DEBUFF: {
+    id: 32390,
+    name: 'Shadow Embrace',
+    icon: 'spell_shadow_shadowembrace',
+  },
   // Affliction tier sets
   WARLOCK_AFFLI_T20_2P_BONUS: {
     id: 242290,
@@ -263,19 +262,8 @@ export default {
     icon: 'ability_warlock_improvedsoulleech',
   },
 
-  // Affliction artifact traits
-  FATAL_ECHOES: {
-    id: 199257,
-    name: 'Fatal Echoes',
-    icon: 'inv_misc_bell_01',
-  },
-  REND_SOUL: {
-    id: 242834,
-    name: 'Rend Soul',
-    icon: 'spell_deathknight_strangulate',
-  },
-
   // Affliction shard generating effects
+  // TODO: verify this section is still correct
   AGONY_SHARD_GEN: {
     id: 17941,
     name: 'Agony',
