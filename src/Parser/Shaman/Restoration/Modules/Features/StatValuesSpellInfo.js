@@ -144,6 +144,7 @@ export default {
     vers: true,
   },
   [SPELLS.SPOUTING_SPIRITS_HEAL.id]:{
+    crit: true,
     vers: true,
   },
 };
