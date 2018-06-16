@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 
 import fetchWcl from 'common/fetchWcl';
 import ActivityIndicator from 'Main/ActivityIndicator';
+import WarcraftLogsLogo from 'Main/Images/WarcraftLogs-logo.png';
+import ArmoryLogo from 'Main/Images/Armory-logo.png';
+import WipefestLogo from 'Main/Images/Wipefest-logo.png';
 
 import ZONES from 'common/ZONES';
 import SPECS from 'common/SPECS';
@@ -61,6 +64,7 @@ class CharacterParses extends React.Component {
       parses: [],
       isLoading: true,
       error: null,
+      trinkets: ITEMS,
     };
 
     this.updateDifficulty = this.updateDifficulty.bind(this);
@@ -69,12 +73,12 @@ class CharacterParses extends React.Component {
     this.load = this.load.bind(this);
     this.changeParseStructure = this.changeParseStructure.bind(this);
     this.iconPath = this.iconPath.bind(this);
-    this.fetchImage = this.fetchImage.bind(this);
+    this.fetchBattleNetInfo = this.fetchBattleNetInfo.bind(this);
     this.updateZoneMetricBoss = this.updateZoneMetricBoss.bind(this);
   }
 
   componentDidMount() {
-    this.load();
+    this.fetchBattleNetInfo();
   }
 
   iconPath(specName) {
@@ -143,6 +147,7 @@ class CharacterParses extends React.Component {
   //resolve the boss+difficulty->spec->parse structure to make sorting & filtering easier
   changeParseStructure(rawParses) {
     const parses = [];
+    const updatedTrinkets = { ...this.state.trinkets };
     rawParses.forEach(elem => {
       const name = elem.name;
       const difficulty = DIFFICULTIES[elem.difficulty];
@@ -166,26 +171,28 @@ class CharacterParses extends React.Component {
 
             //get missing trinket-icons later
             TRINKET_SLOTS.forEach(slotID => {
-              if (!ITEMS[singleParse.gear[slotID].id]) {
-                ITEMS[singleParse.gear[slotID].id] = {
+              if (!updatedTrinkets[singleParse.gear[slotID].id]) {
+                updatedTrinkets[singleParse.gear[slotID].id] = {
                   name: singleParse.gear[slotID].name,
                   id: singleParse.gear[slotID].id,
                   icon: ITEMS[0].icon,
                   quality: singleParse.gear[slotID].quality,
                 };
-                this.forceUpdate();
               }
             });
           });
         });
     });
 
-    Object.values(ITEMS).map(trinket => {
+    Object.values(updatedTrinkets).map(trinket => {
       if (trinket.icon === ITEMS[0].icon && trinket.id !== 0) {
         return fetch(`https://eu.api.battle.net/wow/item/${trinket.id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
           .then(response => response.json())
           .then((data) => {
-            ITEMS[trinket.id].icon = data.icon;
+            updatedTrinkets[trinket.id].icon = data.icon;
+            this.setState({
+              trinkets: updatedTrinkets,
+            });
           });
       }
       return null;
@@ -198,17 +205,9 @@ class CharacterParses extends React.Component {
     return ZONES.find(zone => zone.id === this.state.activeZoneID).encounters;
   }
 
-  fetchImage(refresh = false) {
-    //save the chars image URL to localstore
-    const image = localStorage.getItem(`${this.props.region}/${this.props.realm}/${this.props.name}`);
-    if (image && !refresh) {
-      this.setState({
-        image: image,
-      });
-      return null;
-    }
-
-    return fetch(`https://${this.props.region}.api.battle.net/wow/character/${encodeURIComponent(this.props.realm)}/${encodeURIComponent(this.props.name)}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
+  fetchBattleNetInfo() {
+    // fetch character image and active spec from battle-net
+    return fetch(`https://${this.props.region}.api.battle.net/wow/character/${encodeURIComponent(this.props.realm)}/${encodeURIComponent(this.props.name)}?locale=en_GB&fields=talents&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
       .then(response => response.json())
       .then((data) => {
         if (data.status === 'nok') {
@@ -216,15 +215,18 @@ class CharacterParses extends React.Component {
           return;
         }
         const image = data.thumbnail.replace('-avatar.jpg', '');
-        localStorage.setItem(`${this.props.region}/${this.props.realm}/${this.props.name}`, image);
+        const role = data.talents.find(e => e.selected).spec.role;
+        const metric = role === 'HEALING' ? 'hps' : 'dps';
         this.setState({
           image: image,
+          metric: metric,
+        }, () => {
+          this.load();
         });
       });
   }
 
   async load(refresh = false) {
-    this.fetchImage(refresh);
     this.setState({
       isLoading: true,
     });
@@ -442,6 +444,35 @@ class CharacterParses extends React.Component {
                 </div>
               </div>
             </div>
+            <div>
+              <a
+                href={`https://www.warcraftlogs.com/character/${this.props.region}/${this.props.realm}/${this.props.name}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn"
+                style={{ fontSize: 22 }}
+              >
+                <img src={WarcraftLogsLogo} alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
+              </a>
+              <a
+                href={`https://worldofwarcraft.com/en-${this.props.region}/character/${this.props.realm}/${this.props.name}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn"
+                style={{ fontSize: 22 }}
+              >
+                <img src={ArmoryLogo} alt="Armory logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Armory
+              </a>
+              <a
+                href={`https://www.wipefest.net/character/${this.props.name}/${this.props.realm}/${this.props.region}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn"
+                style={{ fontSize: 22 }}
+              >
+                <img src={WipefestLogo} alt="Wipefest logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
+              </a>
+            </div>
           </div>
           <div className="col-md-7">
             {this.state.error && (
@@ -483,6 +514,7 @@ class CharacterParses extends React.Component {
                     parses={this.filterParses}
                     class={this.state.class}
                     metric={this.state.metric}
+                    trinkets={this.state.trinkets}
                   />
                 )}
               </div>

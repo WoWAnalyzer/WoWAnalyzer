@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-06-12'),
+    changes: 'Updated character selection to default to HPS or DPS as metric, depending on characters last active spec.',
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-06-08'),
     changes: 'Added Healthstone/Health pots to abilities and the death recap.',
     contributors: [Gebuz],

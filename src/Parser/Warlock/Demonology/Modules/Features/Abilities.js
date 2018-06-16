@@ -31,11 +31,26 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 15, // can be reset via T20 2pc
         isOnGCD: true,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          extraSuggestion: (
+            <React.Fragment>
+              You should cast <SpellLink id={SPELLS.CALL_DREADSTALKERS.id} icon/> more often. This is a crucial part of your rotation.
+            </React.Fragment>
+          ),
+        },
       },
       {
         spell: SPELLS.HAND_OF_GULDAN_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
+      },
+      {
+        spell: SPELLS.FELSTORM,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 45,
+        isOnGCD: false,
       },
       {
         spell: SPELLS.DEMONWRATH_CAST,

@@ -6,6 +6,9 @@ import AlwaysBeCasting from './Modules/Features/AlwaysBeCasting';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import DoomguardInfernal from './Modules/Features/DoomguardInfernal';
 import Felstorm from './Modules/Features/Felstorm';
+import DemonicEmpowerment from './Modules/Features/DemonicEmpowerment';
+import SpellUsable from './Modules/Features/SpellUsable';
+import Checklist from './Modules/Features/Checklist';
 
 import Doom from './Modules/Features/DoomUptime';
 
@@ -38,6 +41,7 @@ import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord
 import T20_2set from './Modules/Items/T20_2set';
 import T20_4set from './Modules/Items/T20_4set';
 
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
@@ -47,6 +51,10 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     doomguardInfernal: DoomguardInfernal,
     felstorm: Felstorm,
+    spellUsable: SpellUsable,
+    checklist: Checklist,
+    demonicEmpowerment: DemonicEmpowerment,
+
 
     // DoTs
     doom: Doom,

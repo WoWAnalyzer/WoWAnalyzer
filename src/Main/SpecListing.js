@@ -62,7 +62,7 @@ class SpecListing extends React.PureComponent {
                     {config ? (
                       <React.Fragment>
                         Built by <ReadableList>
-                        {config.contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />)}
+                        {config.contributors.map(contributor => <Contributor key={contributor.nickname} link={false} {...contributor} />)}
                       </ReadableList>.<br />
                         Accurate for patch {config.patchCompatibility}
                       </React.Fragment>

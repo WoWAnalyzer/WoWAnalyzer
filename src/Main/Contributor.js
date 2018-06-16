@@ -10,6 +10,10 @@ class Contributor extends React.PureComponent {
   static propTypes = {
     nickname: PropTypes.string.isRequired,
     avatar: PropTypes.string,
+    link: PropTypes.bool,
+  };
+  static defaultProps = {
+    link: true,
   };
   state = {
     open: false,
@@ -34,7 +38,7 @@ class Contributor extends React.PureComponent {
   }
 
   render() {
-    const { nickname, avatar } = this.props;
+    const { nickname, avatar, link } = this.props;
 
     if (this.state.open) {
       return (
@@ -44,10 +48,24 @@ class Contributor extends React.PureComponent {
       );
     }
 
-    return (
-      <Link to={makeContributorUrl(nickname)} onClick={this.handleClick} className="contributor">
+    const content = (
+      <React.Fragment>
         {avatar && <React.Fragment><img src={avatar} alt="Avatar" />{' '}</React.Fragment>}
         {nickname}
+      </React.Fragment>
+    );
+
+    if (!link) {
+      return (
+        <span className="contributor">
+          {content}
+        </span>
+      );
+    }
+
+    return (
+      <Link to={makeContributorUrl(nickname)} onClick={this.handleClick} className="contributor">
+        content
       </Link>
     );
   }

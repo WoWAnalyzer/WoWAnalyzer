@@ -2,6 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
+import { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 
 import Snapshot, { PANDEMIC_FRACTION } from '../FeralCore/Snapshot';
 
@@ -15,25 +16,25 @@ import Snapshot, { PANDEMIC_FRACTION } from '../FeralCore/Snapshot';
 const MOONFIRE_FERAL_BASE_DURATION = 14000;
 
 class MoonfireSnapshot extends Snapshot {
+  static spellCastId = SPELLS.MOONFIRE_FERAL.id;
+  static debuffId = SPELLS.MOONFIRE_FERAL.id;
+
+  // unlike bleeds, Moonfire's duration is not affected by the Jagged Wounds talent
+  static durationOfFresh = MOONFIRE_FERAL_BASE_DURATION;
+  static isProwlAffected = false;
+  static isTigersFuryAffected = true;
+
+  // bloodtalons only affects melee abilities
+  static isBloodtalonsAffected = false;
+
   downgradeCastCount = 0;
 
   on_initialized() {
+    super.on_initialized();
     if (!this.combatants.selected.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id)) {
       this.active = false;
       return;
     }
-
-    this.spellCastId = SPELLS.MOONFIRE_FERAL.id;
-    this.debuffId = SPELLS.MOONFIRE_FERAL.id;
-
-    // unlike bleeds, Moonfire's duration is not affected by the Jagged Wounds talent
-    this.durationOfFresh = MOONFIRE_FERAL_BASE_DURATION;
-    this.isProwlAffected = false;
-    this.isTigersFuryAffected = true;
-
-    // bloodtalons only affects melee abilities
-    this.isBloodtalonsAffected = false;
-    super.on_initialized();
   }
 
   checkRefreshRule(stateNew) {
@@ -80,7 +81,7 @@ class MoonfireSnapshot extends Snapshot {
     when(this.downgradeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <React.Fragment>
-          Try not to refresh <SpellLink id={SPELLS.MOONFIRE_FERAL.id} /> before the <dfn data-tip={`The last ${(this.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Moonfire's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</dfn> unless you have more powerful <dfn data-tip={"Applying Moonfire with Tiger's Fury will boost its damage until you reapply it."}>snapshot buffs</dfn> than were present when it was first cast.
+          Try not to refresh <SpellLink id={SPELLS.MOONFIRE_FERAL.id} /> before the <dfn data-tip={`The last ${(this.constructor.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Moonfire's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</dfn> unless you have more powerful <dfn data-tip={"Applying Moonfire with Tiger's Fury will boost its damage until you reapply it."}>snapshot buffs</dfn> than were present when it was first cast.
         </React.Fragment>
       )
         .icon(SPELLS.MOONFIRE_FERAL.icon)
@@ -88,5 +89,10 @@ class MoonfireSnapshot extends Snapshot {
         .recommended(`${recommended}% is recommended`);
     });
   }
+
+  statistic() {
+    return super.generateStatistic(SPELLS.MOONFIRE_FERAL.name);
+  }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(10)
 }
 export default MoonfireSnapshot;
