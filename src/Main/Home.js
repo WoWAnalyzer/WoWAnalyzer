@@ -82,9 +82,9 @@ class Home extends React.PureComponent {
                     <div className="panel-heading">
                       <h2>Advertisement</h2>
                     </div>
-                    <div className="panel-body" style={{ padding: 0, overflow: 'hidden' }}>
+                    <div className="panel-body" style={{ padding: 0, overflow: 'hidden', textAlign: 'center', background: '#222' }}>
                       <a href="https://www.patreon.com/wowanalyzer">
-                        <img src={`/img/patreon${Math.floor(Math.random() * 6 + 1)}.jpg`} alt="Patreon" />
+                        <img src={`/img/patreon6.jpg`} alt="WoWAnalyzer Premium" />
                       </a>
                     </div>
                     <div className="panel-footer" style={{ lineHeight: 1 }}>
