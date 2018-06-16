@@ -74,4 +74,5 @@ export default {
   // Temporary
   NEW_MOON_TALENT: { id: 274281, name: "New Moon", icon: "artifactability_balancedruid_newmoon" },
   TIGERS_DASH_TALENT: { id: 252216, name: "Tiger's Dash", icon: "ability_druid_dash_orange" },
+  TWIN_MOONS_TALENT: { id: 279620, name: "Twin Moons", icon: "spell_nature_starfall" },
 };

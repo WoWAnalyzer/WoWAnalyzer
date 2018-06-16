@@ -17,6 +17,7 @@ import SplittingIce from './Modules/Features/SplittingIce';
 import CancelledCasts from '../Shared/Modules/Features/CancelledCasts';
 
 import FrozenOrb from './Modules/Cooldowns/FrozenOrb';
+import ColdSnap from './Modules/Cooldowns/ColdSnap';
 
 import ShardOfTheExodar from '../Shared/Modules/Items/ShardOfTheExodar';
 import Tier20_2set from './Modules/Items/Tier20_2set';
@@ -53,6 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
 	  //Cooldowns
     frozenOrb: FrozenOrb,
+    coldSnap: ColdSnap,
 
 	  //Items
 	  tier20_2set: Tier20_2set,

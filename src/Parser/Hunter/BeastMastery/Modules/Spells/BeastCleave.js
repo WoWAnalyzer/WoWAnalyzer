@@ -25,8 +25,8 @@ class BeastCleave extends Analyzer {
   }
 
   subStatistic() {
+    //Beast Cleave is only used on AoE - no reason to show this statistic on single-target, so this just checks if Beast Cleave did any damage at all, since it only makes sense to show it on AoE fights.
     if (this.damage > 0) {
-      // TODO: Remove this if-statement since rendering should be consistent regardless of cast count OR document why this is an exception
       return (
         <div className="flex">
           <div className="flex-main">

@@ -460,21 +460,6 @@ export default {
   },
 
   //Removed in 8.0 (Keep Temporarily until not needed anymore)
-  WATER_JET: {
-    id: 135029,
-    name: 'Water Jet',
-    icon: 'ability_mage_waterjet',
-  },
-  FROZEN_VEINS_TRAIT: {
-    id: 195345,
-    name: 'Frozen Veins',
-    icon: 'spell_frost_coldhearted',
-  },
-  ICE_NINE: {
-    id: 214664,
-    name: 'Ice Nine',
-    icon: 'spell_frost_iceshard',
-  },
   WARMTH_OF_THE_PHOENIX: {
     id: 240671,
     name: 'Warmth of the Phoenix',
@@ -500,30 +485,10 @@ export default {
     name: 'Mark of Aluneth',
     icon: 'inv_staff_2h_artifactaegwynsstaff_d_01',
   },
-  PHOENIXS_FLAMES: {
-    id: 194466,
-    name: 'Phoenix\'s Flames',
-    icon: 'artifactability_firemage_phoenixbolt',
-  },
-  EBONBOLT: {
-    id: 214634,
-    name: 'Ebonbolt',
-    icon: 'artifactability_frostmage_ebonbolt',
-  },
   UNSTABLE_MAGIC_DAMAGE_FIRE: {
     id: 157977,
     name: 'Unstable Magic',
     icon: 'spell_mage_unstablemagic',
-  },
-  UNSTABLE_MAGIC_DAMAGE_FROST: {
-    id: 157978,
-    name: 'Unstable Magic',
-    icon: 'spell_mage_unstablemagic',
-  },
-  FROST_BOMB_DAMAGE: {
-    id: 113092,
-    name: 'Frost Bomb',
-    icon: 'spell_mage_frostbomb',
   },
   CINDERSTORM_DAMAGE: {
     id: 198928,

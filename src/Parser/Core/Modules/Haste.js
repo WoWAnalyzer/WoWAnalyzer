@@ -22,15 +22,12 @@ class Haste extends Analyzer {
     [SPELLS.BLOODLUST.id]: 0.3,
     [SPELLS.HEROISM.id]: 0.3,
     [SPELLS.TIME_WARP.id]: 0.3,
-    [SPELLS.ANCIENT_HYSTERIA.id]: 0.3, // Hunter pet BL
-    [SPELLS.NETHERWINDS.id]: 0.3, // Hunter pet BL
     [SPELLS.PRIMAL_RAGE.id]: 0.3, // Hunter pet BL
     [SPELLS.DRUMS_OF_FURY.id]: 0.25,
     [SPELLS.DRUMS_OF_THE_MOUNTAIN.id]: 0.25,
     [SPELLS.DRUMS_OF_RAGE.id]: 0.25,
     [SPELLS.HOLY_AVENGER_TALENT.id]: 0.3,
     [SPELLS.BERSERKING.id]: 0.20,
-    [202842]: 0.1, // Rapid Innervation (Balance Druid trait increasing Haste from Innervate)
     [SPELLS.POWER_INFUSION_TALENT.id]: 0.25,
     [SPELLS.WARLOCK_AFFLI_T20_4P_BUFF.id]: 0.15,
     [SPELLS.WARLOCK_DEMO_T20_4P_BUFF.id]: 0.1,
@@ -41,6 +38,7 @@ class Haste extends Analyzer {
     ...HIGH_TOLERANCE_HASTE_FNS,
     [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
     [SPELLS.HAVOC_T21_4PC_BUFF.id]: 0.25,
+    [SPELLS.DIRE_BEAST_BUFF.id]: 0.1,
     // Haste RATING buffs are handled by the StatTracker module
 
     // Boss abilities:

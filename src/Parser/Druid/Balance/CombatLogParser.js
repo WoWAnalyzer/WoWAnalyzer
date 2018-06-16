@@ -13,14 +13,15 @@ import SolarEmpowerment from './Modules/Features/SolarEmpowerment';
 import CooldownThroughputTracker from './Modules/Features/CooldownThroughputTracker';
 import MoonfireUptime from './Modules/Features/MoonfireUptime';
 import SunfireUptime from './Modules/Features/SunfireUptime';
-import StellarFlareUptime from './Modules/Features/StellarFlareUptime';
 import StellarEmpowermentUptime from './Modules/Features/StellarEmpowermentUptime';
 import UnempoweredLunarStrike from './Modules/Features/UnempoweredLunarStrike';
-
-//Talents
-
 import EarlyDotRefreshes from './Modules/Features/EarlyDotRefreshes';
 import EarlyDotRefreshesInstants from './Modules/Features/EarlyDotRefreshesInstants';
+
+//Talents
+import StellarFlareUptime from './Modules/Talents/StellarFlareUptime';
+import TwinMoons from './Modules/Talents/TwinMoons';
+import StellarDrift from './Modules/Talents/StellarDrift';
 
 //Resources
 import AstralPowerDetails from './Modules/ResourceTracker/AstralPowerDetails';
@@ -55,14 +56,15 @@ class CombatLogParser extends MainCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     moonfireUptime: MoonfireUptime,
     sunfireUptime: SunfireUptime,
-    stellarFlareUptime: StellarFlareUptime,
     stellarEmpowermentUptime: StellarEmpowermentUptime,
     unempoweredLunarStrike: UnempoweredLunarStrike,
-
-    //Talents
-
     earlyDotRefreshes: EarlyDotRefreshes,
     earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
+
+    //Talents
+    stellarFlareUptime: StellarFlareUptime,
+    twinMoons: TwinMoons,
+    stellarDrift: StellarDrift,
 
     //Resources
     astralPowerTracker: AstralPowerTracker,
