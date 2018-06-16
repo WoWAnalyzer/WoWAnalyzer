@@ -58,10 +58,10 @@ export default {
     name: 'Health Funnel',
     icon: 'spell_shadow_lifedrain',
   },
-  LIFE_TAP: {
-    id: 1454,
-    name: 'Life Tap',
-    icon: 'spell_shadow_burningspirit',
+  SHADOWFURY: {
+    id: 30283,
+    name: 'Shadowfury',
+    icon: 'ability_warlock_shadowfurytga',
   },
   SOUL_LEECH_SPELL: {
     id: 108370,
@@ -77,16 +77,6 @@ export default {
     id: 20707,
     name: 'Soulstone',
     icon: 'spell_shadow_soulgem',
-  },
-  SUMMON_DOOMGUARD_UNTALENTED: {
-    id: 18540,
-    name: 'Summon Doomguard',
-    icon: 'warlock_summon_doomguard',
-  },
-  SUMMON_INFERNAL_UNTALENTED: {
-    id: 1122,
-    name: 'Summon Infernal',
-    icon: 'spell_shadow_summoninfernal',
   },
   SUMMON_IMP: {
     id: 688,
@@ -108,33 +98,27 @@ export default {
     name: 'Summon Succubus',
     icon: 'spell_shadow_summonsuccubus',
   },
-  UNENDING_RESOLVE: {
-    id: 104773,
-    name: 'Unending Resolve',
-    icon: 'spell_shadow_demonictactics',
-  },
   UNENDING_BREATH: {
     id: 5697,
     name: 'Unending Breath',
     icon: 'spell_shadow_demonbreath',
+  },
+  UNENDING_RESOLVE: {
+    id: 104773,
+    name: 'Unending Resolve',
+    icon: 'spell_shadow_demonictactics',
   },
 
   // --------------
   // Shared talents
   // --------------
 
-  EMPOWERED_LIFE_TAP_BUFF: {
-    id: 235156,
-    name: 'Empowered Life Tap',
-    icon: 'spell_shadow_manafeed',
-  },
-  DEMONIC_CIRCLE_TALENT_SUMMON: {
+  DEMONIC_CIRCLE_SUMMON: {
     id: 48018,
-    __ignoreDuplication: true,
     name: 'Demonic Circle Summon',
     icon: 'spell_shadow_demoniccirclesummon',
   },
-  DEMONIC_CIRCLE_TALENT_TELEPORT: {
+  DEMONIC_CIRCLE_TELEPORT: {
     id: 48020,
     name: 'Demonic Circle Teleport',
     icon: 'spell_shadow_demoniccircleteleport',
@@ -143,36 +127,6 @@ export default {
     id: 108396,
     name: 'Mortal Coil',
     icon: 'ability_warlock_mortalcoil',
-  },
-  SUMMON_DOOMGUARD_TALENTED: {
-    id: 157757,
-    name: 'Summon Doomguard',
-    icon: 'warlock_summon_doomguard',
-  },
-  SUMMON_INFERNAL_TALENTED: {
-    id: 157898,
-    name: 'Summon Infernal',
-    icon: 'spell_shadow_summoninfernal',
-  },
-  GRIMOIRE_IMP: {
-    id: 111859,
-    name: 'Grimoire: Imp',
-    icon: 'spell_shadow_summonimp',
-  },
-  GRIMOIRE_VOIDWALKER: {
-    id: 111895,
-    name: 'Grimoire: Voidwalker',
-    icon: 'spell_shadow_summonvoidwalker',
-  },
-  GRIMOIRE_FELHUNTER: {
-    id: 111897,
-    name: 'Grimoire: Felhunter',
-    icon: 'spell_shadow_summonfelhunter',
-  },
-  GRIMOIRE_SUCCUBUS: {
-    id: 111896,
-    name: 'Grimoire: Succubus',
-    icon: 'spell_shadow_summonsuccubus',
   },
   GRIMOIRE_OF_SACRIFICE_BUFF: {
     id: 196099,
@@ -218,6 +172,11 @@ export default {
     id: 216695,
     name: 'Tormented Souls',
     icon: 'inv_staff_2h_artifactdeadwind_d_01',
+  },
+  SHADOW_BOLT_AFFLI: {
+    id: 232670,
+    name: 'Shadow Bolt',
+    icon: 'spell_shadow_shadowbolt',
   },
   DEADWIND_HARVESTER: {
     id: 216708,
@@ -518,7 +477,7 @@ export default {
     name: 'Demonic Empowerment',
     icon: 'spell_warlock_demonicempowerment',
   },
-  SHADOW_BOLT: {
+  SHADOW_BOLT_DEMO: {
     id: 686,
     name: 'Shadow Bolt',
     icon: 'spell_shadow_shadowbolt',
