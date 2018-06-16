@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-06-15'),
+    changes: 'Updated Vivify to incorporate new healing interaction with Renewing Mist. Updated Renewing Mist change to now be a 2 charge spell.',
+    contributors: [Anomoly],
+  },
+  {
     date: new Date('2018-04-28'),
     changes: 'Updated checklist wording for Essence Font and Soothing Mist, along with adding additional decimal places to Essence Font Checklist item',
     contributors: [Anomoly],

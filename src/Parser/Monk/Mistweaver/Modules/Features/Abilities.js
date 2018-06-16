@@ -11,6 +11,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.RENEWING_MIST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 8,
+        charges: 2,
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
@@ -74,7 +75,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LIFE_COCOON,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
+        cooldown: 120,
         timelineSortIndex: 17,
       },
       {
