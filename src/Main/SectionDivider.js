@@ -12,7 +12,7 @@ const SectionDivider = ({ premium }) => (
   ) : (
     <div className="text-center" style={{ margin: '40px 0' }}>
       <a href="https://www.patreon.com/wowanalyzer">
-        <img src={`/img/patreon${Math.floor(Math.random() * 5 + 1)}.jpg`} alt="Patreon" style={{ width: 728, height: 90 }} />
+        <img src={`/img/patreon${Math.floor(Math.random() * 6 + 1)}.jpg`} alt="Patreon" style={{ width: 728, height: 90 }} />
       </a>
     </div>
   )
