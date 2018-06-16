@@ -17,42 +17,12 @@ class StormEarthAndFire extends Analyzer {
 
   risingSunKicks = 0;
   fistsOfFuries = 0;
-  strikeOfTheWindlords = 0;
   whirlingDragonPunches = 0;
   ability = SPELLS.STORM_EARTH_AND_FIRE_CAST;
   castCount = 0;
   drinkingHornCover = 0;
 
-  get traitsCDReduction() {
-    let traitsCDReduction = 0;
-    const player = this.combatants.selected;
-    const splitPersonalityRank = player.traitsBySpellId[SPELLS.SPLIT_PERSONALITY.id];
-    //Calculates the reduction in cooldown/recharge on Serenity/Storm, Earth and Fire, based on the rank of the Personality Trait
-    if (splitPersonalityRank < 5) {
-      traitsCDReduction = splitPersonalityRank * 5;
-    }
-    else {
-      switch (splitPersonalityRank) {
-        case 5:
-          traitsCDReduction = 24;
-          break;
-        case 6:
-          traitsCDReduction = 28;
-          break;
-        case 7:
-          traitsCDReduction = 31;
-          break;
-        default:
-          break;
-      }
-    }
-    return traitsCDReduction;
-  }
-
-  get reducedCooldownWithTraits() {
-    const reducedCooldownWithTraits = 90 - this.traitsCDReduction;
-    return reducedCooldownWithTraits;
-  }
+  //TODO: Implement Spiritual Focus cooldown reduction
 
   on_initialized() {
     this.ability = this.combatants.selected.hasTalent(SPELLS.SERENITY_TALENT.id) ? SPELLS.SERENITY_TALENT : SPELLS.STORM_EARTH_AND_FIRE_CAST;
@@ -71,9 +41,6 @@ class StormEarthAndFire extends Analyzer {
         break;
       case SPELLS.FISTS_OF_FURY_CAST.id:
         this.fistsOfFuries += 1;
-        break;
-      case SPELLS.STRIKE_OF_THE_WINDLORD.id:
-        this.strikeOfTheWindlords += 1;
         break;
       case SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id:
         this.whirlingDragonPunches += 1;
@@ -125,19 +92,6 @@ class StormEarthAndFire extends Analyzer {
     return null;
   }
 
-  strikeoftheWindlordStatistic() {
-    return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.STRIKE_OF_THE_WINDLORD.id} />
-        </div>
-        <div className="flex-sub text-right">
-          {this.strikeOfTheWindlords}/{this.castCount}
-        </div>
-      </div>
-    );
-  }
-
   statistic() {
     this.castCount = this.abilityTracker.getAbility(this.ability.id).casts;
     return (
@@ -153,7 +107,6 @@ class StormEarthAndFire extends Analyzer {
         {this.risingSunKickStatistic()}
         {this.fistsofFuryStatistic()}
         {this.whirlingDragonPunchStatistic()}
-        {this.strikeoftheWindlordStatistic()}
       </StatisticsListBox>
     );
   }

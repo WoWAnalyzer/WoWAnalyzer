@@ -30,10 +30,10 @@ export default {
   // Windwalker
   ENERGIZING_ELIXIR_TALENT: { id: 115288, name: "Energizing Elixir", icon: "ability_monk_energizingwine" },
   ASCENSION_TALENT: { id: 115396, name: "Ascension", icon: "ability_monk_ascension" },
-  POWER_STRIKES_TALENT: { id: 121817, name: "Power Strikes", icon: "ability_monk_powerstrikes" },
+  FIST_OF_THE_WHITE_TIGER_TALENT: { id: 261947, name: "Fist of the White Tiger", icon: "inv_fistofthewhitetiger" },
   INVOKE_XUEN_THE_WHITE_TIGER_TALENT: { id: 123904, name: "Invoke Xuen, the White Tiger", icon: "ability_monk_summontigerstatue" },
   HIT_COMBO_TALENT: { id: 196740, name: "Hit Combo", icon: "ability_monk_palmstrike" },
-  CHI_ORBIT_TALENT: { id: 196743, name: "Chi Orbit", icon: "ability_monk_forcesphere" },
+  SPIRITUAL_FOCUS_TALENT: { id: 196743, name: "Spiritual Focus", icon: "spell_nature_giftofthewild" },
   WHIRLING_DRAGON_PUNCH_TALENT: { id: 152175, name: "Whirling Dragon Punch", icon: "ability_monk_hurricanestrike" },
   SERENITY_TALENT: { id: 152173, name: "Serenity", icon: "ability_monk_serenity" },
   // Brewmaster

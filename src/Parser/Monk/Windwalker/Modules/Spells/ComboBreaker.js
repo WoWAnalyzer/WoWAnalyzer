@@ -85,11 +85,11 @@ class ComboBreaker extends Analyzer {
   statistic() {
     const usedCBProcs = this.consumedCBProc / this.CBProcsTotal;
     let procsFromTigerPalm = this.CBProcsTotal;
-    // Strike of the Windlord procs Combo Breaker if legendary head "The Wind Blows" is equipped
+    // Fist of the White Tiger procs Combo Breaker if legendary head "The Wind Blows" is equipped
     if (this.combatants.selected.hasHead(ITEMS.THE_WIND_BLOWS.id)) {
-      procsFromTigerPalm = this.CBProcsTotal - this.abilityTracker.getAbility(SPELLS.STRIKE_OF_THE_WINDLORD.id).casts;
+      procsFromTigerPalm = this.CBProcsTotal - this.abilityTracker.getAbility(SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT.id).casts;
     }
-    const averageCBProcs = this.abilityTracker.getAbility(SPELLS.TIGER_PALM.id).casts * (0.08 + 0.02 * this.combatants.selected.traitsBySpellId[SPELLS.STRENGTH_OF_XUEN.id]);
+    const averageCBProcs = this.abilityTracker.getAbility(SPELLS.TIGER_PALM.id).casts * 0.08;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.COMBO_BREAKER_BUFF.id} />}
