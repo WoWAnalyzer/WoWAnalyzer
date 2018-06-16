@@ -25,7 +25,20 @@ export default {
   CHANNEL_DEMONFIRE_TALENT: { id: 196447, name: "Channel Demonfire", icon: "spell_fire_ragnaros_lavaboltgreen", manaCost: 300 },
   DARK_SOUL_INSTABILITY_TALENT: { id: 113858, name: "Dark Soul: Instability", icon: "spell_warlock_soulburn" },
   // Demonology
-  DEMONIC_CALLING_TALENT: { id: 205145, name: "Demonic Calling", icon: "ability_warlock_impoweredimp" }, // sedi
+  DREADLASH_TALENT: { id: 264078, name: "Dreadlash", icon: "spell_shadow_summonvoidwalker" },
+  DEMONIC_STRENGTH_TALENT: { id: 267171, name: "Demonic Strength", icon: "ability_warlock_demonicempowerment" },
+  BILESCOURGE_BOMBERS_TALENT: { id: 267211, name: "Bilescourge Bombers", icon: "ability_hunter_pet_bat" },
+  DEMONIC_CALLING_TALENT: { id: 205145, name: "Demonic Calling", icon: "ability_warlock_impoweredimp" },
+  POWER_SIPHON_TALENT: { id: 264130, name: "Power Siphon", icon: "ability_warlock_backdraft" },
+  DOOM_TALENT: { id: 265412, name: "Doom", icon: "spell_shadow_auraofdarkness", manaCost: 200 },
+  FROM_THE_SHADOWS_TALENT: { id: 267170, name: "From the Shadows", icon: "spell_warlock_calldreadstalkers" },
+  SOUL_STRIKE_TALENT: { id: 264057, name: "Soul Strike", icon: "inv_polearm_2h_fellord_04" },
+  SUMMON_VILEFIEND_TALENT: { id: 264119, name: "Summon Vilefiend", icon: "inv_argusfelstalkermount" },
+  INNER_DEMONS_TALENT: { id: 267216, name: "Inner Demons", icon: "ability_warlock_eradication" },
+  GRIMOIRE_FELGUARD_TALENT: { id: 111898, name: "Grimoire: Felguard", icon: "spell_shadow_summonfelguard" },
+  SACRIFICED_SOULS_TALENT: { id: 267214, name: "Sacrificed Souls", icon: "ability_creature_disease_05" },
+  DEMONIC_CONSUMPTION_TALENT: { id: 267215, name: "Demonic Consumption", icon: "spell_warlock_soulburn" },
+  NETHER_PORTAL_TALENT: { id: 267217, name: "Nether Portal", icon: "inv_netherportal" },
   // Affliction
   NIGHTFALL_TALENT: { id: 108558, name: "Nightfall", icon: "spell_shadow_twilight" },
   DRAIN_SOUL_TALENT: { id: 198590, name: "Drain Soul", icon: "spell_shadow_haunting" },
