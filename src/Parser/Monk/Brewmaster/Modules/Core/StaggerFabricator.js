@@ -29,9 +29,7 @@ class StaggerFabricator extends Analyzer {
   }
 
   get purifyPercentage() {
-    const player = this.combatants.selected;
-    let pct = PURIFY_BASE;
-    return pct;
+    return PURIFY_BASE;
   }
 
   get staggerPool() {
