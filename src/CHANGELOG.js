@@ -113,6 +113,11 @@ export default [
     contributors: [Zerotorescue],
   },
   {
+    date: new Date('2018-04-25'),
+    changes: 'Changed loading bar to something less boring.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-04-24'),
     changes: 'Implemented code splitting to reduce the initial time to render.',
     contributors: [Zerotorescue],

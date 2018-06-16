@@ -1,7 +1,7 @@
-.spec-listing > .container > header {
+.spec-listing > header {
   margin-bottom: 2em;
 }
-.spec-listing > .container > main {
+.spec-listing > main {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

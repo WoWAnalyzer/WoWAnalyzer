@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
+import { getUser } from 'selectors/user';
 
 import ReportSelecter from './ReportSelecter';
 import makeNewsUrl from './News/makeUrl';
@@ -17,6 +19,10 @@ const CharacterSelecter = lazyLoadComponent(() => import(/* webpackChunkName: 'C
 class Header extends React.PureComponent {
   static propTypes = {
     showReportSelecter: PropTypes.bool.isRequired,
+    premium: PropTypes.bool,
+  };
+  static defaultProps = {
+    premium: false,
   };
 
   constructor(props) {
@@ -27,7 +33,7 @@ class Header extends React.PureComponent {
   }
 
   render() {
-    const { showReportSelecter } = this.props;
+    const { showReportSelecter, premium } = this.props;
 
     return (
       <header>
@@ -56,12 +62,16 @@ class Header extends React.PureComponent {
               <div className="about">
                 <Link to={makeNewsUrl(AboutArticleTitle)}>About WoWAnalyzer</Link>
                 {' '}| <Link to={makeNewsUrl(UnlistedLogsTitle)}>About unlisted logs</Link>
-                {' '}| <a href="https://discord.gg/AxphPxU">Join Discord</a>
-                {' '}| <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">View source</a>
-                {' '}| <a href="https://www.patreon.com/wowanalyzer">Become a Patron</a>
-                {' '}| <a href="https://status.wowanalyzer.com/">Status</a>
+                {' '}| <a href="/premium">Premium</a>
               </div>
             </div>
+            {!premium && (
+              <div className="col-lg-6 text-right hidden-md">
+                <a href="https://www.patreon.com/wowanalyzer">
+                  <img src={`/img/patreon${Math.floor(Math.random() * 6 + 1)}.jpg`} alt="Patreon" style={{ height: 250 }} />
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </header>
@@ -69,4 +79,13 @@ class Header extends React.PureComponent {
   }
 }
 
-export default Header;
+const mapStateToProps = state => {
+  const user = getUser(state);
+  return {
+    premium: user ? user.premium : false,
+  };
+};
+
+export default connect(
+  mapStateToProps
+)(Header);

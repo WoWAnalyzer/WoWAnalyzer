@@ -3,13 +3,14 @@
   background-size: cover;
   background-position: center center;
   margin-top: 0px;
-  min-height: 400px;
   padding-bottom: 67px; /* so that the divider in `after` doesn't overlap content */
   position: relative;
   margin-bottom: 90px;
   transition: all 600ms;
   opacity: 1;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), 0 0 0 5px rgba(0, 0, 0, 0.5);
+  padding-top: 100px;
+  min-height: 444px; /* based on measurement, set with precision so it doesn't jump around when minimized */
+  /*box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), 0 0 0 5px rgba(0, 0, 0, 0.5);*/
 }
 .app > header:after {
   content: '';
@@ -25,13 +26,10 @@
   pointer-events: none;
 }
 .app:not(.show-report-selecter) > header {
-  margin-top: -410px;
+  margin-top: -440px;
   margin-bottom: 90px;
   opacity: 0;
   pointer-events: none;
-}
-.app > header .image-overlay {
-  padding-top: 100px;
 }
 .app > header .image-overlay h1 {
   font-size: 4em;
@@ -44,7 +42,7 @@
   margin-bottom: 10px;
 }
 .app > header .image-overlay .about {
-  font-size: 0.8em;
+  font-size: 0.9em;
 }
 @media (max-width: 600px) {
   .app > header .image-overlay {

@@ -1,9 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import ScrollFilledIcon from 'Icons/ScrollFilled';
 import MegaphoneIcon from 'Icons/Megaphone';
 
 import DelayRender from 'common/DelayRender';
+import { getUser } from 'selectors/user';
+import SectionDivider from 'Main/SectionDivider';
 
 import DiscordButton from './DiscordButton';
 import ChangelogPanel from './ChangelogPanel';
@@ -13,11 +17,20 @@ import News from './News';
 import ReportHistory from './ReportHistory';
 
 class Home extends React.PureComponent {
+  static propTypes = {
+    premium: PropTypes.bool,
+  };
+  static defaultProps = {
+    premium: false,
+  };
+
   render() {
+    const { premium } = this.props;
+
     return (
-      <DelayRender delay={0} fallback={<div style={{ height: 2000 }} />}>
-        <section>
-          <div className="container">
+      <div className="container">
+        <DelayRender delay={0} fallback={<div style={{ height: 2000 }} />}>
+          <section>
             <header>
               <div className="row">
                 <div className="col-md-12">
@@ -63,16 +76,34 @@ class Home extends React.PureComponent {
                     {/*<img src="https://media.giphy.com/media/N56zWre4o5UlO/giphy.gif" style={{ width: '100%' }} alt="Sharing is caring" />*/}
                   </div>
                 </div>
+
+                {!premium && (
+                  <div className="panel">
+                    <div className="panel-heading">
+                      <h2>Advertisement</h2>
+                    </div>
+                    <div className="panel-body" style={{ padding: 0, overflow: 'hidden', textAlign: 'center', background: '#222' }}>
+                      <a href="https://www.patreon.com/wowanalyzer">
+                        <img src={`/img/patreon6.jpg`} alt="WoWAnalyzer Premium" />
+                      </a>
+                    </div>
+                    <div className="panel-footer" style={{ lineHeight: 1 }}>
+                      <a href="mailto:wowanalyzer-ad@martijnhols.nl" className="text-muted">Your ad here?</a>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <DelayRender delay={0}>
-          <SpecListing />
+          <DelayRender delay={0}>
+            <SectionDivider />
 
-          <section>
-            <div className="container">
+            <SpecListing />
+
+            <SectionDivider />
+
+            <section>
               <header>
                 <div className="row">
                   <div className="col-md-12 text-center">
@@ -86,12 +117,21 @@ class Home extends React.PureComponent {
                   <ChangelogPanel />
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+          </DelayRender>
         </DelayRender>
-      </DelayRender>
+      </div>
     );
   }
 }
 
-export default Home;
+const mapStateToProps = state => {
+  const user = getUser(state);
+  return {
+    premium: user ? user.premium : false,
+  };
+};
+
+export default connect(
+  mapStateToProps
+)(Home);
