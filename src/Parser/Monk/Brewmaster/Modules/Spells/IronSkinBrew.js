@@ -12,6 +12,7 @@ import SharedBrews from '../Core/SharedBrews';
 import { ISB as ABILITY_BLACKLIST } from '../Constants/AbilityBlacklist';
 
 const debug = false;
+const ISB_BASE_DURATION = 7000;
 
 class IronSkinBrew extends Analyzer {
   static dependencies = {
@@ -33,8 +34,8 @@ class IronSkinBrew extends Analyzer {
   totalDuration = 0;
   durationLost = 0;
   _currentDuration = 0;
-  durationPerCast = 6000;
-  _durationCap = 3 * 6000;
+  durationPerCast = ISB_BASE_DURATION;
+  _durationCap = 3 * ISB_BASE_DURATION;
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
