@@ -44,24 +44,18 @@ nav.global .menu-item a {
   padding: 4px 12px;
   color: #fff;
 }
-nav.global .menu-item a.premium {
-  background: #e45a5a;
-}
-nav.global .menu-item a.premium:hover {
-  background: none;
-}
 
 nav.global .menu-item a:hover {
   color: #e45a5a;
   text-decoration: none;
 }
 nav.global .menu-item img, nav.global .menu-item svg {
-  height: 2.2em;
-  margin: -0.4em 6px -0.4em 0;
+  height: 2.1em;
+  margin: -0.4em 0 -0.2em 0;
   vertical-align: middle;
 }
-nav.global .menu-item img.favicon {
-  margin-right: 0;
+nav.global .menu-item span.optional {
+  margin-left: 6px;
 }
 nav.global .spacer {
   flex: 1 1 auto;

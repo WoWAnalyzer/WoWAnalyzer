@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import PatreonIcon from 'Icons/PatreonOnDarkTiny';
+import DiscordIcon from 'Icons/DiscordTiny';
 import GitHubIcon from 'Icons/GitHubMarkSmall';
 import PremiumIcon from 'Icons/Premium';
 
@@ -41,7 +43,7 @@ class NavigationBar extends React.PureComponent {
         <div className="container">
           <div className="menu-item logo main">
             <Link to={makeAnalyzerUrl()}>
-              <img src="/favicon.png" alt="WoWAnalyzer logo" className="favicon" />
+              <img src="/favicon.png" alt="WoWAnalyzer logo" />
             </Link>
           </div>
           {report && (
@@ -68,8 +70,18 @@ class NavigationBar extends React.PureComponent {
             )}
           </div>
           <div className="menu-item main">
+            <a href="https://wowanalyzer.com/discord">
+              <DiscordIcon />
+            </a>
+          </div>
+          <div className="menu-item main">
             <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
-              <GitHubIcon /> <span className="optional"> View on GitHub</span>
+              <GitHubIcon />
+            </a>
+          </div>
+          <div className="menu-item main">
+            <a href="https://www.patreon.com/wowanalyzer">
+              <PatreonIcon />
             </a>
           </div>
           <LoadingBar progress={progress} />
