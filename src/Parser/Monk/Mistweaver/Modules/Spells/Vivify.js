@@ -4,15 +4,13 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber } from 'common/format';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
 import AbilityTracker from 'Parser/Core/Modules/AbilityTracker';
 
 import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
-
-const debug = false;
 
 class Vivify extends Analyzer {
   static dependencies = {
