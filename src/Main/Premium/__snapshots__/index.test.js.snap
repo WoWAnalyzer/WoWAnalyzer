@@ -12,15 +12,82 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
     >
       <div
         className="panel"
+        style={
+          Object {
+            "overflow": "hidden",
+          }
+        }
       >
         <div
           className="panel-body"
           style={
             Object {
               "padding": "0 15px",
+              "position": "relative",
             }
           }
         >
+          <CSSTransitionGroup
+            transitionAppear={false}
+            transitionEnter={true}
+            transitionEnterTimeout={1000}
+            transitionLeave={true}
+            transitionLeaveTimeout={1000}
+            transitionName="logged-in"
+          >
+            <div
+              className="logged-in github"
+            >
+              <div>
+                <div
+                  className="logo"
+                >
+                  <Icon
+                    style={
+                      Object {
+                        "marginTop": 0,
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="text"
+                >
+                  <h1>
+                    <TextFit
+                      autoResize={true}
+                      forceSingleModeWidth={true}
+                      max={100}
+                      min={1}
+                      mode="single"
+                      onReady={[Function]}
+                      throttle={50}
+                    >
+                      Hello 
+                      Martijn Hols
+                      .
+                    </TextFit>
+                  </h1>
+                  <div
+                    className="description"
+                  >
+                    You haven't unlocked Premium yet. See the panel to the right for more info.
+                  </div>
+                  <div
+                    className="logout"
+                  >
+                    <a
+                      href="/logout"
+                      onClick={[Function]}
+                    >
+                      <Icon />
+                       Logout
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CSSTransitionGroup>
           <div
             className="row image-background"
             style={
@@ -350,7 +417,7 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
             )
           </React.Fragment>
           . 
-          You can get Premium by becoming a Patron on Patreon of making a contribution to the master branch on GitHub. Try logging in again if you wish to refresh your status.
+          You can get Premium by becoming a Patron on Patreon or by making a contribution to application on GitHub. Try logging in again if you wish to refresh your status.
         </div>
       </div>
     </div>
@@ -370,15 +437,82 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
     >
       <div
         className="panel"
+        style={
+          Object {
+            "overflow": "hidden",
+          }
+        }
       >
         <div
           className="panel-body"
           style={
             Object {
               "padding": "0 15px",
+              "position": "relative",
             }
           }
         >
+          <CSSTransitionGroup
+            transitionAppear={false}
+            transitionEnter={true}
+            transitionEnterTimeout={1000}
+            transitionLeave={true}
+            transitionLeaveTimeout={1000}
+            transitionName="logged-in"
+          >
+            <div
+              className="logged-in patreon"
+            >
+              <div>
+                <div
+                  className="logo"
+                >
+                  <Icon
+                    style={
+                      Object {
+                        "marginTop": 0,
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="text"
+                >
+                  <h1>
+                    <TextFit
+                      autoResize={true}
+                      forceSingleModeWidth={true}
+                      max={100}
+                      min={1}
+                      mode="single"
+                      onReady={[Function]}
+                      throttle={50}
+                    >
+                      Hello 
+                      Martijn Hols
+                      .
+                    </TextFit>
+                  </h1>
+                  <div
+                    className="description"
+                  >
+                    You haven't unlocked Premium yet. See the panel to the right for more info.
+                  </div>
+                  <div
+                    className="logout"
+                  >
+                    <a
+                      href="/logout"
+                      onClick={[Function]}
+                    >
+                      <Icon />
+                       Logout
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CSSTransitionGroup>
           <div
             className="row image-background"
             style={
@@ -703,7 +837,7 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
           </span>
            because of your Patreonage
           . 
-          You can get Premium by becoming a Patron on Patreon of making a contribution to the master branch on GitHub. Try logging in again if you wish to refresh your status.
+          You can get Premium by becoming a Patron on Patreon or by making a contribution to application on GitHub. Try logging in again if you wish to refresh your status.
         </div>
       </div>
     </div>
@@ -723,15 +857,29 @@ exports[`Premium matches snapshot when logged out 1`] = `
     >
       <div
         className="panel"
+        style={
+          Object {
+            "overflow": "hidden",
+          }
+        }
       >
         <div
           className="panel-body"
           style={
             Object {
               "padding": "0 15px",
+              "position": "relative",
             }
           }
         >
+          <CSSTransitionGroup
+            transitionAppear={false}
+            transitionEnter={true}
+            transitionEnterTimeout={1000}
+            transitionLeave={true}
+            transitionLeaveTimeout={1000}
+            transitionName="logged-in"
+          />
           <div
             className="row image-background"
             style={

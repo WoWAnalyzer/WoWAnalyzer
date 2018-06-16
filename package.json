@@ -31,6 +31,7 @@
     "react-textfit": "^1.1.0",
     "react-toggle": "^4.0.2",
     "react-tooltip": "^3.6.1",
+    "react-transition-group": "^1.2.1",
     "react-virtualized": "^9.19.1",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",

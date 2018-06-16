@@ -32,3 +32,69 @@
   margin-right: 15px;
   margin-top: 0;
 }
+
+.logged-in-enter, .logged-in-appear, .logged-in-leave.logged-in-leave-active {
+  clip-path: circle(0%);
+}
+.logged-in-enter.logged-in-enter-active, .logged-in-appear.logged-in-appear-active, .logged-in-leave {
+  clip-path: circle(100%);
+}
+
+.logged-in {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  transition: clip-path 1s;
+}
+.logged-in .logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10rem;
+  line-height: 1;
+}
+.logged-in .logo svg {
+  vertical-align: top; /* this perfectly centers the logo */
+}
+.logged-in .text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px;
+}
+.logged-in h1 {
+  font-size: 2em;
+  font-weight: 700;
+  margin-bottom: 0.35em;
+  letter-spacing: 1px;
+}
+.logged-in .description {
+  font-size: 1.1em;
+  font-weight: 400;
+}
+.logged-in .logout {
+  margin-top: 5px;
+}
+
+.logged-in.github {
+  background: #fff;
+  color: #000;
+}
+.logged-in.github .description {
+  color: #484642;
+}
+.logged-in.patreon {
+  background: #f96753;
+  color: #fff;
+}
+.logged-in.patreon .description {
+  color: #fcffd6;
+}
+.logged-in.patreon .logout a {
+  color: #000;
+}

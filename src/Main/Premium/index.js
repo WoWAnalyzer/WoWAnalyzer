@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
+import Textfit from 'react-textfit';
+import { CSSTransitionGroup } from 'react-transition-group';
 
 import PatreonIcon from 'Icons/PatreonTiny';
 import GitHubMarkIcon from 'Icons/GitHubMarkLarge';
@@ -9,7 +11,9 @@ import PremiumIcon from 'Icons/Premium';
 import ViralContentIcon from 'Icons/ViralContent';
 import WebBannerIcon from 'Icons/WebBanner';
 import DiscordIcon from 'Icons/DiscordTiny';
+import LogoutIcon from 'Icons/Logout';
 
+import { logout } from 'actions/user';
 import { getUser } from 'selectors/user';
 import PatreonButton from 'Main/PatreonButton';
 import GithubButton from 'Main/GithubButton';
@@ -48,14 +52,65 @@ export class Premium extends React.PureComponent {
       premium: PropTypes.bool,
     }),
     dateToLocaleString: PropTypes.func,
+    logout: PropTypes.func,
   };
   static defaultProps = {
     // We need to override this in tests to avoid different results in different environments.
     dateToLocaleString: date => date.toLocaleString(),
   };
 
+  constructor() {
+    super();
+    this.handleClickLogout = this.handleClickLogout.bind(this);
+  }
+
   componentDidUpdate() {
     ReactTooltip.rebuild();
+  }
+
+  handleClickLogout(e) {
+    e.preventDefault();
+    this.props.logout();
+  }
+
+  renderLoggedIn() {
+    const { user } = this.props;
+
+    const hasPremium = user.premium;
+    const platform = user.github && user.github.premium ? 'github' : 'patreon';
+
+    return (
+      <div className={`logged-in ${platform}`}>
+        <div>
+          <div className="logo">
+            {platform === 'github' && <GitHubMarkIcon style={{ marginTop: 0 }} />}
+            {platform === 'patreon' && <PatreonIcon style={{ marginTop: 0 }} />}
+          </div>
+
+          <div className="text">
+            <h1>
+              <Textfit mode="single">
+                Hello {user.name}.
+              </Textfit>
+            </h1>
+            {hasPremium ? (
+              <div className="description">
+                Super thank you for your support! We hope you'll enjoy WoWAnalyzer Premium.
+              </div>
+            ) : (
+              <div className="description">
+                You haven't unlocked Premium yet. See the panel to the right for more info.
+              </div>
+            )}
+            <div className="logout">
+              <a href="/logout" onClick={this.handleClickLogout}>
+                <LogoutIcon /> Logout
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   render() {
@@ -65,8 +120,16 @@ export class Premium extends React.PureComponent {
       <div className="container">
         <div className="row">
           <div className="col-lg-3 col-lg-offset-1 col-md-4 col-sm-5">
-            <div className="panel">
-              <div className="panel-body" style={{ padding: '0 15px' }}>
+            <div className="panel" style={{ overflow: 'hidden' }}>
+              <div className="panel-body" style={{ padding: '0 15px', position: 'relative' }}>
+                <CSSTransitionGroup
+                  transitionName="logged-in"
+                  transitionEnterTimeout={1000}
+                  transitionLeaveTimeout={1000}
+                >
+                  {user && this.renderLoggedIn()}
+                </CSSTransitionGroup>
+
                 <div
                   className="row image-background"
                   style={{ position: 'relative', paddingTop: 300, paddingBottom: 15 }}
@@ -202,7 +265,7 @@ export class Premium extends React.PureComponent {
                       {' '}because of a recent GitHub contribution (active until {this.props.dateToLocaleString(new Date(user.github.expires))})
                     </React.Fragment>
                   )}
-                  . {user.premium ? 'Awesome!' : 'You can get Premium by becoming a Patron on Patreon of making a contribution to the master branch on GitHub. Try logging in again if you wish to refresh your status.'}
+                  . {user.premium ? 'Awesome!' : 'You can get Premium by becoming a Patron on Patreon or by making a contribution to application on GitHub. Try logging in again if you wish to refresh your status.'}
                 </div>
               </div>
             )}
@@ -216,6 +279,6 @@ export class Premium extends React.PureComponent {
 const mapStateToProps = state => ({
   user: getUser(state),
 });
-export default connect(
-  mapStateToProps
-)(Premium);
+export default connect(mapStateToProps, {
+  logout,
+})(Premium);

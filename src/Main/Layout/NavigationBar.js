@@ -10,6 +10,7 @@ import { getFightId, getPlayerName } from 'selectors/url/report';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import { getReportProgress } from 'selectors/reportProgress';
+import { getUser } from 'selectors/user';
 
 import makeAnalyzerUrl from '../makeAnalyzerUrl';
 import FightSelectorHeader from './FightSelectorHeader';
@@ -26,17 +27,21 @@ class NavigationBar extends React.PureComponent {
     }),
     fight: PropTypes.object,
     progress: PropTypes.number,
+    user: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      premium: PropTypes.bool.isRequired,
+    }),
   };
 
   render() {
-    const { playerName, report, fight, progress } = this.props;
+    const { playerName, report, fight, progress, user } = this.props;
 
     return (
       <nav className="global">
         <div className="container">
           <div className="menu-item logo main">
             <Link to={makeAnalyzerUrl()}>
-              <img src="/favicon.png" alt="WoWAnalyzer logo" />
+              <img src="/favicon.png" alt="WoWAnalyzer logo" className="favicon" />
             </Link>
           </div>
           {report && (
@@ -52,13 +57,19 @@ class NavigationBar extends React.PureComponent {
           )}
           <div className="spacer" />
           <div className="menu-item main left-line">
-            <Link to="/premium" className="premium">
-              <PremiumIcon /> <span className="optional" style={{ paddingLeft: 6 }}>Premium</span>
-            </Link>
+            {user && user.premium ? (
+              <Link to="/premium">
+                <PremiumIcon /> <span className="optional">{user.name}</span>
+              </Link>
+            ) : (
+              <Link to="/premium" className="premium">
+                <PremiumIcon /> <span className="optional">Premium</span>
+              </Link>
+            )}
           </div>
           <div className="menu-item main">
             <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
-              <GitHubIcon /> <span className="optional" style={{ paddingLeft: 6 }}> View on GitHub</span>
+              <GitHubIcon /> <span className="optional"> View on GitHub</span>
             </a>
           </div>
           <LoadingBar progress={progress} />
@@ -74,6 +85,7 @@ const mapStateToProps = state => ({
   report: getReport(state),
   fight: getFightById(state, getFightId(state)),
   progress: getReportProgress(state),
+  user: getUser(state),
 });
 
 export default connect(

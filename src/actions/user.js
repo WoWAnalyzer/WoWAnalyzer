@@ -8,6 +8,20 @@ function setUser(user) {
   };
 }
 
+export function logout() {
+  return dispatch => {
+    dispatch(setUser(null));
+    return fetch(`${process.env.REACT_APP_SERVER_BASE}logout`, {
+      credentials: 'include',
+    })
+      .catch(err => {
+        captureException(err);
+        console.error(err);
+        // fail silently since this only enhances the experience, if we're shortly down it shouldn't *kill* the experience.
+      });
+  };
+}
+
 export function fetchUser() {
   return dispatch => {
     return fetch(`${process.env.REACT_APP_SERVER_BASE}user`, {

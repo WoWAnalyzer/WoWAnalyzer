@@ -45,7 +45,10 @@ nav.global .menu-item a {
   color: #fff;
 }
 nav.global .menu-item a.premium {
-  color: #e45a5a;
+  background: #e45a5a;
+}
+nav.global .menu-item a.premium:hover {
+  background: none;
 }
 
 nav.global .menu-item a:hover {
@@ -54,8 +57,11 @@ nav.global .menu-item a:hover {
 }
 nav.global .menu-item img, nav.global .menu-item svg {
   height: 2.2em;
-  margin: -0.4em 0 -0.4em 0;
+  margin: -0.4em 6px -0.4em 0;
   vertical-align: middle;
+}
+nav.global .menu-item img.favicon {
+  margin-right: 0;
 }
 nav.global .spacer {
   flex: 1 1 auto;
