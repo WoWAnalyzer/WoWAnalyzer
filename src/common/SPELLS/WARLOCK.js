@@ -12,21 +12,25 @@ export default {
     id: 710,
     name: 'Banish',
     icon: 'spell_shadow_cripple',
+    manaCost: 300,
   },
   CREATE_HEALTHSTONE: {
     id: 6201,
     name: 'Create Healthstone',
     icon: 'warlock_-healthstone',
+    manaCost: 400,
   },
   CREATE_SOULWELL: {
     id: 29893,
     name: 'Create Soulwell',
     icon: 'spell_shadow_shadesofdarkness',
+    manaCost: 1000,
   },
   DEMONIC_GATEWAY_CAST: {
     id: 111771,
     name: 'Demonic Gateway',
     icon: 'spell_warlock_demonicportal_green',
+    manaCost: 600,
   },
   DRAIN_LIFE: {
     id: 234153,
@@ -37,16 +41,19 @@ export default {
     id: 1098,
     name: 'Enslave Demon',
     icon: 'spell_shadow_enslavedemon',
+    manaCost: 400,
   },
   EYE_OF_KILROGG: {
     id: 126,
     name: 'Eye of Kilrogg',
     icon: 'spell_shadow_evileye',
+    manaCost: 600,
   },
   FEAR_CAST: {
     id: 5782,
     name: 'Fear',
     icon: 'spell_shadow_possession',
+    manaCost: 1000,
   },
   FEAR_DEBUFF: {
     id: 118699,
@@ -102,11 +109,13 @@ export default {
     id: 5697,
     name: 'Unending Breath',
     icon: 'spell_shadow_demonbreath',
+    manaCost: 400,
   },
   UNENDING_RESOLVE: {
     id: 104773,
     name: 'Unending Resolve',
     icon: 'spell_shadow_demonictactics',
+    manaCost: 400,
   },
 
   // --------------
@@ -117,11 +126,13 @@ export default {
     id: 48018,
     name: 'Demonic Circle Summon',
     icon: 'spell_shadow_demoniccirclesummon',
+    manaCost: 400,
   },
   DEMONIC_CIRCLE_TELEPORT: {
     id: 48020,
     name: 'Demonic Circle Teleport',
     icon: 'spell_shadow_demoniccircleteleport',
+    manaCost: 600,
   },
   MORTAL_COIL_HEAL: {
     id: 108396,
@@ -147,11 +158,13 @@ export default {
     id: 980,
     name: 'Agony',
     icon: 'spell_shadow_curseofsargeras',
+    manaCost: 200,
   },
   CORRUPTION_CAST: {
     id: 172,
     name: 'Corruption',
     icon: 'spell_shadow_abominationexplosion',
+    manaCost: 200,
   },
   CORRUPTION_DEBUFF: {
     id: 146739,
@@ -162,6 +175,7 @@ export default {
     id: 232670,
     name: 'Shadow Bolt',
     icon: 'spell_shadow_shadowbolt',
+    manaCost: 400,
   },
   SEED_OF_CORRUPTION_DEBUFF: {
     id: 27243,
@@ -300,44 +314,44 @@ export default {
   // -----------
 
   // Destruction spells
-  // TODO: check if all is correct (copypasta from Development tab)
-  INCINERATE: {
-    id: 29722,
-    name: 'Incinerate',
-    icon: 'spell_fire_burnout',
-    baseMana: 0.05,
-  },
-  CONFLAGRATE: {
-    id: 17962,
-    name: 'Conflagrate',
-    icon: 'spell_fire_fireball',
+  BACKDRAFT: {
+    id: 117828,
+    name: 'Backdraft',
+    icon: 'ability_warlock_backdraft',
   },
   CHAOS_BOLT: {
     id: 116858,
     name: 'Chaos Bolt',
     icon: 'ability_warlock_chaosbolt',
   },
-  IMMOLATE_CAST: {
+  CONFLAGRATE: {
+    id: 17962,
+    name: 'Conflagrate',
+    icon: 'spell_fire_fireball',
+    manaCost: 200,
+  },
+  HAVOC: {
+    id: 80240,
+    name: 'Havoc',
+    icon: 'ability_warlock_baneofhavoc',
+    manaCost: 400,
+  },
+  IMMOLATE: {
     id: 348,
     name: 'Immolate',
     icon: 'spell_fire_immolation',
-    baseMana: 0.06,
+    manaCost: 300,
   },
   IMMOLATE_DEBUFF: {
     id: 157736,
     name: 'Immolate',
     icon: 'spell_fire_immolation',
   },
-  HAVOC: {
-    id: 80240,
-    name: 'Havoc',
-    icon: 'ability_warlock_baneofhavoc',
-    baseMana: 0.08,
-  },
-  DIMENSIONAL_RIFT_CAST: {
-    id: 196586,
-    name: 'Dimensional Rift',
-    icon: 'spell_warlock_demonicportal_purple',
+  INCINERATE: {
+    id: 29722,
+    name: 'Incinerate',
+    icon: 'spell_fire_burnout',
+    manaCost: 400,
   },
   RAIN_OF_FIRE_CAST: {
     id: 5740,
@@ -349,27 +363,54 @@ export default {
     name: 'Rain of Fire',
     icon: 'spell_shadow_rainoffire',
   },
-  // Destruction talents
-  BACKDRAFT: {
-    id: 117828,
-    name: 'Backdraft',
-    icon: 'ability_warlock_backdraft',
+  SUMMON_INFERNAL: {
+    id: 1122,
+    name: 'Summon Infernal',
+    icon: 'spell_shadow_summoninfernal',
   },
+  // Infernal summon effect (dmg + stun)
+  INFERNAL_AWAKENING: {
+    id: 22703,
+    name: 'Infernal Awakening',
+    icon: 'spell_frost_stun',
+  },
+  // Infernal aura
+  IMMOLATION: {
+    id: 20153,
+    name: 'Immolation',
+    icon: 'spell_shadow_summoninfernal',
+  },
+
+  // Destruction talents
   ERADICATION_DEBUFF: {
     id: 196414,
     name: 'Eradication',
     icon: 'ability_warlock_eradication',
   },
+  REVERSE_ENTROPY_BUFF: {
+    id: 266030,
+    name: 'Reverse Entropy',
+    icon: 'ability_warlock_backdraftgreen',
+  },
+  INTERNAL_COMBUSTION_DAMAGE: {
+    id: 266136,
+    name: 'Internal Combustion',
+    icon: 'ability_mage_livingbomb',
+  },
+  ROARING_BLAZE_DAMAGE: {
+    id: 265931,
+    name: 'Roaring Blaze',
+    icon: 'ability_warlock_inferno',
+  },
+  GRIMOIRE_OF_SUPREMACY_BUFF: {
+    id: 266091,
+    name: 'Grimoire of Supremacy',
+    icon: 'warlock_grimoireofcommand',
+  },
   CHANNEL_DEMONFIRE_DAMAGE: {
     id: 196448,
     name: 'Channel Demonfire',
     icon: 'spell_fire_ragnaros_lavaboltgreen',
-  },
-  // Destruction traits
-  SOULSNATCHER_FRAGMENT_GEN: {
-    id: 196234,
-    name: 'Soulsnatcher',
-    icon: 'spell_shadow_soulleech_3',
   },
   // Destruction set bonuses
   WARLOCK_DESTRO_T20_2P_BONUS: {
@@ -432,27 +473,6 @@ export default {
     id: 213229,
     name: 'Chaos Bolt',
     icon: 'ability_warlock_chaosbolt',
-  },
-  // Destruction Dimensional Rift spells
-  SEARING_BOLT_RIFT: {
-    id: 243050,
-    name: 'Searing Bolt',
-    icon: 'inv_misc_volatilefire',
-  },
-  CHAOS_BARRAGE_RIFT: {
-    id: 187394,
-    name: 'Chaos Barrage',
-    icon: 'spell_warlock_demonicportal_green',
-  },
-  CHAOS_BOLT_RIFT: {
-    id: 215279,
-    name: 'Chaos Bolt',
-    icon: 'ability_warlock_chaosbolt',
-  },
-  SHADOW_BOLT_RIFT: {
-    id: 196657,
-    name: 'Shadow Bolt',
-    icon: 'spell_shadow_shadowbolt',
   },
 
   // -----------
