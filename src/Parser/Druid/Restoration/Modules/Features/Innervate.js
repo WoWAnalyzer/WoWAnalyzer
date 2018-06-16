@@ -14,7 +14,6 @@ const EFFLORESCENCE_BASE_MANA = 0.216;
 const CENARION_WARD_BASE_MANA = 0.092;
 const REJUVENATION_BASE_MANA = 0.1;
 const LIFEBLOOM_BASE_MANA = 0.12;
-const HEALING_TOUCH_BASE_MANA = 0.09;
 const SWIFTMEND_BASE_MANA = 0.14;
 const TRANQUILITY_BASE_MANA = 0.184;
 const REGROWTH_BASE_MANA = 0.1863;
@@ -35,7 +34,6 @@ class Innervate extends Analyzer {
   rejuvenations = 0;
   regrowths = 0;
   lifeblooms = 0;
-  healingTouches = 0;
   swiftmends = 0;
   tranquilities = 0;
   freeRegrowths = 0;
@@ -106,11 +104,6 @@ class Innervate extends Analyzer {
         this.castsUnderInnervate += 1;
         this.lifeblooms += 1;
       }
-      if (SPELLS.HEALING_TOUCH.id === spellId) {
-        this.addToManaSaved(HEALING_TOUCH_BASE_MANA);
-        this.castsUnderInnervate += 1;
-        this.healingTouches += 1;
-      }
       if (SPELLS.SWIFTMEND.id === spellId) {
         this.addToManaSaved(SWIFTMEND_BASE_MANA);
         this.castsUnderInnervate += 1;
@@ -150,7 +143,6 @@ class Innervate extends Analyzer {
       console.log(`Rejvus: ${this.rejuvenations}`);
       console.log(`Regrowth: ${this.regrowths}`);
       console.log(`LBs: ${this.lifeblooms}`);
-      console.log(`HT: ${this.healingTouches}`);
       console.log(`SM: ${this.swiftmends}`);
       console.log(`Tranq: ${this.tranquilities}`);
       console.log(`Amount of seconds mana capped: ${this.secondsManaCapped}`);
@@ -234,9 +226,6 @@ class Innervate extends Analyzer {
                     }
                 ${this.lifeblooms > 0
                     ? `<li>${this.lifeblooms} Lifeblooms</li>` : ''
-                    }
-                ${this.healingTouches > 0
-                    ? `<li>${this.healingTouches} Healing Touches</li>` : ''
                     }
                 ${this.swiftmends > 0
                     ? `<li>${this.swiftmends} Swiftmends</li>` : ''
