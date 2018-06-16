@@ -8,6 +8,15 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import StaggerFabricator from '../Core/StaggerFabricator';
 
 const GUARD_DURATION = 15000;
+const GUARD_REMOVESTAGGER_REASON = {
+  type: 'absorbed',
+  ability: {
+    guid: SPELLS.GUARD_TALENT.id,
+    name: SPELLS.GUARD_TALENT.name,
+    icon: SPELLS.GUARD_TALENT.icon,
+  },
+  __fabricated: true,
+};
 
 class Guard extends Analyzer {
   static dependencies = {
@@ -72,7 +81,13 @@ class Guard extends Analyzer {
 
     const amountAbsorbed = event.amount - leftOverDamage;
     this._absorbed += amountAbsorbed;
-    this.fab.removeStagger(event, amountAbsorbed);
+    const reason = {
+      timestamp: event.timestamp,
+      amount: amountAbsorbed,
+      __reason: event,
+      ...GUARD_REMOVESTAGGER_REASON,
+    };
+    this.fab.removeStagger(reason, amountAbsorbed);
   }
 
   statistic() {
@@ -88,6 +103,7 @@ class Guard extends Analyzer {
               />;
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
+
 }
 
 export default Guard;
