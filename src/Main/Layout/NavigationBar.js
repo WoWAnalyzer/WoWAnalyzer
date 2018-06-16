@@ -8,7 +8,7 @@ import DiscordIcon from 'Icons/DiscordTiny';
 import GitHubIcon from 'Icons/GitHubMarkSmall';
 import PremiumIcon from 'Icons/Premium';
 
-import { getFightId, getPlayerName } from 'selectors/url/report';
+import { getFightId, getPlayerName, getReportCode } from 'selectors/url/report';
 import { getReport } from 'selectors/report';
 import { getFightById } from 'selectors/fight';
 import { getReportProgress } from 'selectors/reportProgress';
@@ -41,45 +41,45 @@ class NavigationBar extends React.PureComponent {
     return (
       <nav className="global">
         <div className="container">
-          <div className="menu-item logo main">
-            <Link to={makeAnalyzerUrl()}>
+          <div className="menu-item logo required">
+            <Link to={makeAnalyzerUrl()} data-tip="Home" data-effect="solid">
               <img src="/favicon.png" alt="WoWAnalyzer logo" />
             </Link>
           </div>
           {report && (
-            <div className="menu-item">
+            <div className="menu-item" data-tip="Back to fight selection" data-effect="solid">
               <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
             </div>
           )}
           {report && fight && (
-            <FightSelectorHeader className="menu-item" />
+            <FightSelectorHeader className="menu-item" data-tip="Change fight" data-effect="solid" />
           )}
           {report && playerName && (
-            <PlayerSelectorHeader className="menu-item" />
+            <PlayerSelectorHeader className="menu-item" data-tip="Change player" data-effect="solid" />
           )}
           <div className="spacer" />
-          <div className="menu-item main left-line">
+          <div className="menu-item required">
             {user && user.premium ? (
-              <Link to="/premium">
+              <Link to="/premium" data-tip="Premium active" data-effect="solid">
                 <PremiumIcon /> <span className="optional">{user.name}</span>
               </Link>
             ) : (
-              <Link to="/premium" className="premium">
+              <Link to="/premium" className="premium" data-tip="Premium" data-effect="solid">
                 <PremiumIcon /> <span className="optional">Premium</span>
               </Link>
             )}
           </div>
-          <div className="menu-item main">
+          <div className="menu-item optional" data-tip="Discord" data-effect="solid">
             <a href="https://wowanalyzer.com/discord">
               <DiscordIcon />
             </a>
           </div>
-          <div className="menu-item main">
+          <div className="menu-item optional" data-tip="GitHub" data-effect="solid">
             <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
               <GitHubIcon />
             </a>
           </div>
-          <div className="menu-item main">
+          <div className="menu-item optional" data-tip="Patreon" data-effect="solid">
             <a href="https://www.patreon.com/wowanalyzer">
               <PatreonIcon />
             </a>
@@ -94,7 +94,7 @@ class NavigationBar extends React.PureComponent {
 const mapStateToProps = state => ({
   playerName: getPlayerName(state),
 
-  report: getReport(state),
+  report: getReportCode(state) && getReport(state),
   fight: getFightById(state, getFightId(state)),
   progress: getReportProgress(state),
   user: getUser(state),

@@ -18,33 +18,28 @@ nav.global > div {
   display: flex;
   flex-flow: row;
 }
-@media (min-width: 1200px) {
-  nav.global > div .logo {
-    margin-left: -58px; /* This move the logo just left of the content, together with the back arrow that looks quite nice. */
-    font-size: 1.1em;
-  }
-}
 nav.global .menu-item {
   flex: 0 1 auto;
   text-overflow: ellipsis;
-  border-right: 1px solid rgba(0, 0, 0, .8);
-  box-shadow: 1px 0 0 0 rgba(255, 255, 255, .1);
   white-space: nowrap;
   overflow: hidden;
 }
-nav.global .menu-item.main {
-  flex: 0 0 auto;
+nav.global > .container div {
+  border-right: 1px solid rgba(0, 0, 0, .8);
+  box-shadow: 1px 0 0 0 rgba(255, 255, 255, .1);
 }
-nav.global .left-line {
+nav.global > .container div:first-child {
   border-left: 1px solid rgba(0, 0, 0, .8);
   box-shadow: 1px 0 0 0 rgba(255, 255, 255, .1), inset 1px 0 0 0 rgba(255, 255, 255, .1);
+}
+nav.global .menu-item.required {
+  flex: 0 0 auto;
 }
 nav.global .menu-item a {
   display: inline-block;
   padding: 4px 12px;
   color: #fff;
 }
-
 nav.global .menu-item a:hover {
   color: #e45a5a;
   text-decoration: none;
@@ -56,6 +51,10 @@ nav.global .menu-item img, nav.global .menu-item svg {
 }
 nav.global .menu-item span.optional {
   margin-left: 6px;
+}
+nav.global .menu-item.logo img {
+  font-size: 1.2em;
+  margin-top: -0.2em;
 }
 nav.global .spacer {
   flex: 1 1 auto;
