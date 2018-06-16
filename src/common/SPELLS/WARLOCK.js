@@ -310,172 +310,6 @@ export default {
   },
 
   // -----------
-  // DESTRUCTION
-  // -----------
-
-  // Destruction spells
-  BACKDRAFT: {
-    id: 117828,
-    name: 'Backdraft',
-    icon: 'ability_warlock_backdraft',
-  },
-  CHAOS_BOLT: {
-    id: 116858,
-    name: 'Chaos Bolt',
-    icon: 'ability_warlock_chaosbolt',
-  },
-  CONFLAGRATE: {
-    id: 17962,
-    name: 'Conflagrate',
-    icon: 'spell_fire_fireball',
-    manaCost: 200,
-  },
-  HAVOC: {
-    id: 80240,
-    name: 'Havoc',
-    icon: 'ability_warlock_baneofhavoc',
-    manaCost: 400,
-  },
-  IMMOLATE: {
-    id: 348,
-    name: 'Immolate',
-    icon: 'spell_fire_immolation',
-    manaCost: 300,
-  },
-  IMMOLATE_DEBUFF: {
-    id: 157736,
-    name: 'Immolate',
-    icon: 'spell_fire_immolation',
-  },
-  INCINERATE: {
-    id: 29722,
-    name: 'Incinerate',
-    icon: 'spell_fire_burnout',
-    manaCost: 400,
-  },
-  RAIN_OF_FIRE_CAST: {
-    id: 5740,
-    name: 'Rain of Fire',
-    icon: 'spell_shadow_rainoffire',
-  },
-  RAIN_OF_FIRE_DAMAGE: {
-    id: 42223,
-    name: 'Rain of Fire',
-    icon: 'spell_shadow_rainoffire',
-  },
-  SUMMON_INFERNAL: {
-    id: 1122,
-    name: 'Summon Infernal',
-    icon: 'spell_shadow_summoninfernal',
-  },
-  // Infernal summon effect (dmg + stun)
-  INFERNAL_AWAKENING: {
-    id: 22703,
-    name: 'Infernal Awakening',
-    icon: 'spell_frost_stun',
-  },
-  // Infernal aura
-  INFERNAL_AURA_DAMAGE: {
-    id: 20153,
-    name: 'Immolation',
-    icon: 'spell_shadow_summoninfernal',
-  },
-
-  // Destruction talents
-  ERADICATION_DEBUFF: {
-    id: 196414,
-    name: 'Eradication',
-    icon: 'ability_warlock_eradication',
-  },
-  REVERSE_ENTROPY_BUFF: {
-    id: 266030,
-    name: 'Reverse Entropy',
-    icon: 'ability_warlock_backdraftgreen',
-  },
-  INTERNAL_COMBUSTION_DAMAGE: {
-    id: 266136,
-    name: 'Internal Combustion',
-    icon: 'ability_mage_livingbomb',
-  },
-  ROARING_BLAZE_DAMAGE: {
-    id: 265931,
-    name: 'Roaring Blaze',
-    icon: 'ability_warlock_inferno',
-  },
-  GRIMOIRE_OF_SUPREMACY_BUFF: {
-    id: 266091,
-    name: 'Grimoire of Supremacy',
-    icon: 'warlock_grimoireofcommand',
-  },
-  CHANNEL_DEMONFIRE_DAMAGE: {
-    id: 196448,
-    name: 'Channel Demonfire',
-    icon: 'spell_fire_ragnaros_lavaboltgreen',
-  },
-  // Destruction set bonuses
-  WARLOCK_DESTRO_T20_2P_BONUS: {
-    id: 242295,
-    name: 'Destruction Warlock T20 2P bonus',
-    icon: 'inv_helm_cloth_raidwarlock_r_01',
-  },
-  WARLOCK_DESTRO_T20_4P_BONUS: {
-    id: 242296,
-    name: 'Destruction Warlock T20 4P bonus',
-    icon: 'inv_chest_cloth_raidwarlock_r_01',
-  },
-  WARLOCK_DESTRO_T21_2P_BONUS: {
-    id: 251854,
-    name: 'Destruction Warlock T21 2P bonus',
-    icon: 'inv_shoulder_cloth_raidwarlock_s_01',
-  },
-  WARLOCK_DESTRO_T21_4P_BONUS: {
-    id: 251855,
-    name: 'Destruction Warlock T21 4P bonus',
-    icon: 'inv_helm_cloth_raidwarlock_s_01',
-  },
-  WARLOCK_DESTRO_T21_2P_DEBUFF: {
-    id: 253092,
-    name: 'Chaotic Flames',
-    icon: 'ability_mage_worldinflamesgreen',
-  },
-  WARLOCK_DESTRO_T21_4P_DEBUFF: {
-    id: 253097,
-    name: 'Flames of Argus',
-    icon: 'spell_volatilefiregreen',
-  },
-  // Destruction legendary effects
-  FERETORY_OF_SOULS_FRAGMENT_GEN: {
-    id: 205704,
-    name: 'Fiery Soul',
-    icon: 'inv_belt_cloth_raidwarlock_n_01',
-  },
-  ALYTHESSS_PYROGENICS_DEBUFF: {
-    id: 205675,
-    name: 'Alythess\'s Pyrogenics',
-    icon: 'inv_jewelry_ring_65',
-  },
-  SINDOREI_SPITE_BUFF: {
-    id: 208871,
-    name: 'Sin\'dorei Spite',
-    icon: 'creatureportrait_infernal_ball_02',
-  },
-  LESSONS_OF_SPACETIME_BUFF: {
-    id: 236176,
-    name: 'Lessons Of Space-Time',
-    icon: 'spell_warlock_demonicportal_purple',
-  },
-  ODR_SHAWL_OF_THE_YMIRJAR_DEBUFF: {
-    id: 212173,
-    name: 'Odr, Shawl of the Ymirjar',
-    icon: 'inv_misc_cape_cataclysm_tank_b_01',
-  },
-  MAGISTRIKE_RESTRAINTS_CHAOS_BOLT: {
-    id: 213229,
-    name: 'Chaos Bolt',
-    icon: 'ability_warlock_chaosbolt',
-  },
-
-  // -----------
   // DEMONOLOGY
   // -----------
 
@@ -712,5 +546,171 @@ export default {
     id: 236200,
     name: 'Wakener\'s Loyalty',
     icon: 'inv_offhand_1h_artifactskulloferedar_d_01',
+  },
+
+  // -----------
+  // DESTRUCTION
+  // -----------
+
+  // Destruction spells
+  BACKDRAFT: {
+    id: 117828,
+    name: 'Backdraft',
+    icon: 'ability_warlock_backdraft',
+  },
+  CHAOS_BOLT: {
+    id: 116858,
+    name: 'Chaos Bolt',
+    icon: 'ability_warlock_chaosbolt',
+  },
+  CONFLAGRATE: {
+    id: 17962,
+    name: 'Conflagrate',
+    icon: 'spell_fire_fireball',
+    manaCost: 200,
+  },
+  HAVOC: {
+    id: 80240,
+    name: 'Havoc',
+    icon: 'ability_warlock_baneofhavoc',
+    manaCost: 400,
+  },
+  IMMOLATE: {
+    id: 348,
+    name: 'Immolate',
+    icon: 'spell_fire_immolation',
+    manaCost: 300,
+  },
+  IMMOLATE_DEBUFF: {
+    id: 157736,
+    name: 'Immolate',
+    icon: 'spell_fire_immolation',
+  },
+  INCINERATE: {
+    id: 29722,
+    name: 'Incinerate',
+    icon: 'spell_fire_burnout',
+    manaCost: 400,
+  },
+  RAIN_OF_FIRE_CAST: {
+    id: 5740,
+    name: 'Rain of Fire',
+    icon: 'spell_shadow_rainoffire',
+  },
+  RAIN_OF_FIRE_DAMAGE: {
+    id: 42223,
+    name: 'Rain of Fire',
+    icon: 'spell_shadow_rainoffire',
+  },
+  SUMMON_INFERNAL: {
+    id: 1122,
+    name: 'Summon Infernal',
+    icon: 'spell_shadow_summoninfernal',
+  },
+  // Infernal summon effect (dmg + stun)
+  INFERNAL_AWAKENING: {
+    id: 22703,
+    name: 'Infernal Awakening',
+    icon: 'spell_frost_stun',
+  },
+  // Infernal aura
+  INFERNAL_AURA_DAMAGE: {
+    id: 20153,
+    name: 'Immolation',
+    icon: 'spell_shadow_summoninfernal',
+  },
+
+  // Destruction talents
+  ERADICATION_DEBUFF: {
+    id: 196414,
+    name: 'Eradication',
+    icon: 'ability_warlock_eradication',
+  },
+  REVERSE_ENTROPY_BUFF: {
+    id: 266030,
+    name: 'Reverse Entropy',
+    icon: 'ability_warlock_backdraftgreen',
+  },
+  INTERNAL_COMBUSTION_DAMAGE: {
+    id: 266136,
+    name: 'Internal Combustion',
+    icon: 'ability_mage_livingbomb',
+  },
+  ROARING_BLAZE_DAMAGE: {
+    id: 265931,
+    name: 'Roaring Blaze',
+    icon: 'ability_warlock_inferno',
+  },
+  GRIMOIRE_OF_SUPREMACY_BUFF: {
+    id: 266091,
+    name: 'Grimoire of Supremacy',
+    icon: 'warlock_grimoireofcommand',
+  },
+  CHANNEL_DEMONFIRE_DAMAGE: {
+    id: 196448,
+    name: 'Channel Demonfire',
+    icon: 'spell_fire_ragnaros_lavaboltgreen',
+  },
+  // Destruction set bonuses
+  WARLOCK_DESTRO_T20_2P_BONUS: {
+    id: 242295,
+    name: 'Destruction Warlock T20 2P bonus',
+    icon: 'inv_helm_cloth_raidwarlock_r_01',
+  },
+  WARLOCK_DESTRO_T20_4P_BONUS: {
+    id: 242296,
+    name: 'Destruction Warlock T20 4P bonus',
+    icon: 'inv_chest_cloth_raidwarlock_r_01',
+  },
+  WARLOCK_DESTRO_T21_2P_BONUS: {
+    id: 251854,
+    name: 'Destruction Warlock T21 2P bonus',
+    icon: 'inv_shoulder_cloth_raidwarlock_s_01',
+  },
+  WARLOCK_DESTRO_T21_4P_BONUS: {
+    id: 251855,
+    name: 'Destruction Warlock T21 4P bonus',
+    icon: 'inv_helm_cloth_raidwarlock_s_01',
+  },
+  WARLOCK_DESTRO_T21_2P_DEBUFF: {
+    id: 253092,
+    name: 'Chaotic Flames',
+    icon: 'ability_mage_worldinflamesgreen',
+  },
+  WARLOCK_DESTRO_T21_4P_DEBUFF: {
+    id: 253097,
+    name: 'Flames of Argus',
+    icon: 'spell_volatilefiregreen',
+  },
+  // Destruction legendary effects
+  FERETORY_OF_SOULS_FRAGMENT_GEN: {
+    id: 205704,
+    name: 'Fiery Soul',
+    icon: 'inv_belt_cloth_raidwarlock_n_01',
+  },
+  ALYTHESSS_PYROGENICS_DEBUFF: {
+    id: 205675,
+    name: 'Alythess\'s Pyrogenics',
+    icon: 'inv_jewelry_ring_65',
+  },
+  SINDOREI_SPITE_BUFF: {
+    id: 208871,
+    name: 'Sin\'dorei Spite',
+    icon: 'creatureportrait_infernal_ball_02',
+  },
+  LESSONS_OF_SPACETIME_BUFF: {
+    id: 236176,
+    name: 'Lessons Of Space-Time',
+    icon: 'spell_warlock_demonicportal_purple',
+  },
+  ODR_SHAWL_OF_THE_YMIRJAR_DEBUFF: {
+    id: 212173,
+    name: 'Odr, Shawl of the Ymirjar',
+    icon: 'inv_misc_cape_cataclysm_tank_b_01',
+  },
+  MAGISTRIKE_RESTRAINTS_CHAOS_BOLT: {
+    id: 213229,
+    name: 'Chaos Bolt',
+    icon: 'ability_warlock_chaosbolt',
   },
 };
