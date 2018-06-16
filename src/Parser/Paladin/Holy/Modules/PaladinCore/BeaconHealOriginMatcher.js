@@ -159,10 +159,7 @@ class BeaconHealOriginMatcher extends Analyzer {
     const healTargetId = healEvent.targetID;
     const healCombatant = this.combatants.players[healTargetId];
     if (healCombatant) {
-      if (healCombatant.hasBuff(SPELLS.PROTECTION_OF_TYR.id, healEvent.timestamp)) {
-        raw /= 1.15;
-      }
-      if (healCombatant.hasBuff(55233, healEvent.timestamp)) {
+      if (healCombatant.hasBuff(SPELLS.VAMPIRIC_BLOOD.id, healEvent.timestamp)) {
         raw /= 1.3;
       }
     }

@@ -210,7 +210,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LAY_ON_HANDS,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 600 * (1 - (combatant.traitsBySpellId[SPELLS.FOCUSED_HEALING.id] || 0) * 0.1) * (1 - combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.3 : 0),
+        cooldown: 600 * (1 - combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.3 : 0),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.1,
