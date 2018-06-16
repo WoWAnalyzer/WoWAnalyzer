@@ -11,14 +11,19 @@ export default {
   GRIMOIRE_OF_SACRIFICE_TALENT: { id: 108503, name: "Grimoire of Sacrifice", icon: "warlock_grimoireofsacrifice" },
   SOUL_CONDUIT_TALENT: { id: 215941, name: "Soul Conduit", icon: "spell_shadow_soulleech_2" },
   // Destruction
-  GRIMOIRE_OF_SUPREMACY_TALENT: { id: 152107, name: "Grimoire of Supremacy", icon: "warlock_grimoireofcommand" }, // jine ID: 266086, jiny efekt, mozna jina ikona?
-  ROARING_BLAZE_TALENT: { id: 205184, name: "Roaring Blaze", icon: "ability_warlock_inferno" }, // sedi
-  SHADOWBURN_TALENT: { id: 17877, name: "Shadowburn", icon: "spell_shadow_scourgebuild", manaCost: 22000 }, // sedi, mozna manaCost jiny
-  REVERSE_ENTROPY_TALENT: { id: 205148, name: "Reverse Entropy", icon: "ability_warlock_backdraftgreen" }, // sedi
-  ERADICATION_TALENT: { id: 196412, name: "Eradication", icon: "ability_warlock_eradication" }, // sedi
-  CATACLYSM_TALENT: { id: 152108, name: "Cataclysm", icon: "achievement_zone_cataclysm" }, // sedi
-  FIRE_AND_BRIMSTONE_TALENT: { id: 196408, name: "Fire and Brimstone", icon: "ability_warlock_fireandbrimstone" }, // sedi
-  CHANNEL_DEMONFIRE_TALENT: { id: 196447, name: "Channel Demonfire", icon: "spell_fire_ragnaros_lavaboltgreen", manaCost: 52800 }, // sedi, mozna manaCost jiny
+  FLASHOVER_TALENT: { id: 267115, name: "Flashover", icon: "ability_warlock_backdraft" },
+  ERADICATION_TALENT: { id: 196412, name: "Eradication", icon: "ability_warlock_eradication" },
+  REVERSE_ENTROPY_TALENT: { id: 205148, name: "Reverse Entropy", icon: "ability_warlock_backdraftgreen" },
+  SOUL_FIRE_TALENT: { id: 6353, name: "Soul Fire", icon: "spell_fire_fireball02" },
+  INTERNAL_COMBUSTION_TALENT: { id: 266134, name: "Internal Combustion", icon: "ability_mage_livingbomb" },
+  SHADOWBURN_TALENT: { id: 17877, name: "Shadowburn", icon: "spell_shadow_scourgebuild", manaCost: 200 },
+  INFERNO_TALENT: { id: 270545, name: "Inferno", icon: "spell_shadow_rainoffire" },
+  FIRE_AND_BRIMSTONE_TALENT: { id: 196408, name: "Fire and Brimstone", icon: "ability_warlock_fireandbrimstone" },
+  CATACLYSM_TALENT: { id: 152108, name: "Cataclysm", icon: "achievement_zone_cataclysm" },
+  ROARING_BLAZE_TALENT: { id: 205184, name: "Roaring Blaze", icon: "ability_warlock_inferno" },
+  GRIMOIRE_OF_SUPREMACY_TALENT: { id: 266086, name: "Grimoire of Supremacy", icon: "warlock_grimoireofcommand" },
+  CHANNEL_DEMONFIRE_TALENT: { id: 196447, name: "Channel Demonfire", icon: "spell_fire_ragnaros_lavaboltgreen", manaCost: 300 },
+  DARK_SOUL_INSTABILITY_TALENT: { id: 113858, name: "Dark Soul: Instability", icon: "spell_warlock_soulburn" },
   // Demonology
   DEMONIC_CALLING_TALENT: { id: 205145, name: "Demonic Calling", icon: "ability_warlock_impoweredimp" }, // sedi
   // Affliction
