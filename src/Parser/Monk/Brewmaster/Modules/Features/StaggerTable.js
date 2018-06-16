@@ -24,13 +24,17 @@ class StaggerTable extends Analyzer {
   }
 
   on_toPlayer_damage(event) {
-    if(event.ability.guid === SPELLS.STAGGER_TAKEN.id || event.ability.guid === SPELLS.MELEE.id) {
+    if(event.ability.guid === SPELLS.STAGGER_TAKEN.id) {
       return;
     }
+    if(!this._staggerEvent && event.amount + event.absorbed === 0) {
+      return; // no stagger absorb because we dodged (or the hit did 0 damage for any other reason)
+    } 
     if(!this._staggerEvent) {
+      // actual bug
       console.error("Damage event occurred without any associated stagger absorb", event);
       return;
-    } 
+    }
     if(event.timestamp !== this._staggerEvent.timestamp) {
       this._staggerEvent = null; // we've passed the point where the staggered damage occurred, so clear it and move on
       return;
@@ -39,9 +43,6 @@ class StaggerTable extends Analyzer {
   }
 
   on_addstagger(event) {
-    if(event._reason.ability.guid === SPELLS.MELEE.id) {
-      return;
-    }
     this._staggerEvent = event;
   }
 

@@ -39,11 +39,11 @@ export default {
   // Brewmaster
   LIGHT_BREWING_TALENT: { id: 196721, name: "Light Brewing", icon: "spell_brew_wheat" },
   BLACK_OX_BREW_TALENT: { id: 115399, name: "Black Ox Brew", icon: "ability_monk_chibrew" },
-  GIFT_OF_THE_MISTS_TALENT: { id: 196719, name: "Gift of the Mists", icon: "ability_monk_pathofmists" },
+  SPITFIRE_TALENT: { id: 242580, name: "Spitfire", icon: "ability_monk_breathoffire" },
   MYSTIC_VITALITY_TALENT: { id: 237076, name: "Mystic Vitality", icon: "ability_monk_forcesphere" },
   INVOKE_NIUZAO_THE_BLACK_OX_TALENT: { id: 132578, name: "Invoke Niuzao, the Black Ox", icon: "spell_monk_brewmaster_spec" },
   SPECIAL_DELIVERY_TALENT: { id: 196730, name: "Special Delivery", icon: "achievement_brewery_2" },
-  ELUSIVE_DANCE_TALENT: { id: 196738, name: "Elusive Dance", icon: "ability_monk_shuffle" },
+  GUARD_TALENT: { id: 115295, name: "Guard", icon: "ability_monk_guard" },
   BLACKOUT_COMBO_TALENT: { id: 196736, name: "Blackout Combo", icon: "ability_monk_blackoutkick" },
   HIGH_TOLERANCE_TALENT: { id: 196737, name: "High Tolerance", icon: "monk_ability_avertharm" },
 };
