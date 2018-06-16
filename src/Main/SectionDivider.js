@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getUser } from 'selectors/user';
+import Ad from 'Main/Ad';
 
 import './SectionDivider.css';
 
@@ -11,9 +12,7 @@ const SectionDivider = ({ premium }) => (
     <div className="section-divider" />
   ) : (
     <div className="text-center" style={{ margin: '40px 0' }}>
-      <a href="https://www.patreon.com/wowanalyzer">
-        <img src={`/img/patreon${Math.floor(Math.random() * 6 + 1)}.jpg`} alt="Patreon" style={{ width: 728, height: 90 }} />
-      </a>
+      <Ad format="leaderboard" />
     </div>
   )
 );

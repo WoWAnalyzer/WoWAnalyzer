@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import { getUser } from 'selectors/user';
+import Ad from 'Main/Ad';
 
 import ReportSelecter from './ReportSelecter';
 import makeNewsUrl from './News/makeUrl';
@@ -67,9 +68,7 @@ class Header extends React.PureComponent {
             </div>
             {!premium && (
               <div className="col-lg-6 text-right hidden-md">
-                <a href="https://www.patreon.com/wowanalyzer">
-                  <img src={`/img/patreon${Math.floor(Math.random() * 6 + 1)}.jpg`} alt="Patreon" style={{ height: 250 }} />
-                </a>
+                <Ad format="mediumrectangle" />
               </div>
             )}
           </div>
