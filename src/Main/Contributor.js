@@ -65,7 +65,7 @@ class Contributor extends React.PureComponent {
 
     return (
       <Link to={makeContributorUrl(nickname)} onClick={this.handleClick} className="contributor">
-        content
+        {content}
       </Link>
     );
   }
