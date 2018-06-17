@@ -4,15 +4,14 @@ import Analyzer from 'Parser/Core/Analyzer';
 import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
-
 import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
+
+import StatisticBox from 'Main/StatisticBox';
 
 const debug = false;
 
-const STACKS_PER_APPLICATION = 2;
-const MAX_STACKS = 4;
 const BUFF_DURATION = 10000;
-
 // haven't yet found out if it's exactly 10 second delay between application and removal of the buff (or is it few ms earlier), might need to tweak with that to be accurate
 const REMOVEBUFF_TOLERANCE = 20;
 
@@ -21,23 +20,26 @@ class Backdraft extends Analyzer {
     combatants: Combatants,
   };
 
+  _maxStacks = 2;
+  _stacksPerApplication = 1;
   _currentStacks = 0;
   _expectedBuffEnd = 0;
   wastedStacks = 0;
 
   on_initialized() {
-    this.active = this.combatants.selected.hasTalent(SPELLS.BACKDRAFT_TALENT.id);
+    this._maxStacks = this.combatants.selected.hasTalent(SPELLS.FLASHOVER_TALENT.id) ? 4 : 2;
+    this._stacksPerApplication = this.combatants.selected.hasTalent(SPELLS.FLASHOVER_TALENT.id) ? 2 : 1;
   }
 
   on_byPlayer_cast(event) {
     if (event.ability.guid !== SPELLS.CONFLAGRATE.id) {
       return;
     }
-    this._currentStacks += STACKS_PER_APPLICATION;
-    if (this._currentStacks > MAX_STACKS) {
+    this._currentStacks += this._stacksPerApplication;
+    if (this._currentStacks > this._maxStacks) {
       debug && console.log('backdraft stack waste at ', event.timestamp);
-      this.wastedStacks += this._currentStacks - MAX_STACKS;
-      this._currentStacks = MAX_STACKS;
+      this.wastedStacks += this._currentStacks - this._maxStacks;
+      this._currentStacks = this._maxStacks;
     }
     this._expectedBuffEnd = event.timestamp + BUFF_DURATION;
   }
@@ -84,18 +86,13 @@ class Backdraft extends Analyzer {
       });
   }
 
-  subStatistic() {
+  statistic() {
     return (
-      <div className="flex">
-        <div className="flex-main">
-          <SpellLink id={SPELLS.BACKDRAFT_TALENT.id}>
-            Wasted Backdraft Stacks
-          </SpellLink>
-        </div>
-        <div className="flex-sub text-right">
-          {this.wastedStacks}
-        </div>
-      </div>
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.BACKDRAFT.id} />}
+        value={this.wastedStacks}
+        label="Wasted Backdraft procs"
+      />
     );
   }
 }

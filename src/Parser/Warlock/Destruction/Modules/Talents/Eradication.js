@@ -12,7 +12,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 
 import StatisticsListBox from 'Main/StatisticsListBox';
 
-const ERADICATION_DAMAGE_BONUS = 0.15;
+const ERADICATION_DAMAGE_BONUS = 0.1;
 
 // only calculates the bonus damage, output depends if we have the talent directly or via legendary finger (then it appears as either a Statistic or Item)
 class Eradication extends Analyzer {

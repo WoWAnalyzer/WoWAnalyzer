@@ -18,7 +18,6 @@ import DemonicCalling from './Modules/Talents/DemonicCalling';
 import GrimoireFelguard from './Modules/Talents/GrimoireFelguard';
 
 import RecurrentRitual from './Modules/Items/Legendaries/RecurrentRitual';
-import SindoreiSpite from '../Shared/Modules/Items/SindoreiSpite';
 import KazzaksFinalCurse from './Modules/Items/Legendaries/KazzaksFinalCurse';
 import TheMasterHarvester from '../Shared/Modules/Items/TheMasterHarvester';
 import SoulOfTheNetherlord from './Modules/Items/Legendaries/SoulOfTheNetherlord';
@@ -52,7 +51,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Legendaries
     recurrentRitual: RecurrentRitual,
-    sindoreiSpite: SindoreiSpite,
     kazzaksFinalCurse: KazzaksFinalCurse,
     masterHarvester: TheMasterHarvester,
     soulOfTheNetherlord: SoulOfTheNetherlord,
