@@ -116,4 +116,11 @@ export default {
     mastery: false,
     vers: true,
   },
+  [SPELLS.TOUCH_OF_THE_VOODOO.id]: { // Revitalizing Voodoo Totem
+    int: false,
+    crit: true,
+    hasteHpct: true,
+    mastery: false,
+    vers: true,
+  },
 };

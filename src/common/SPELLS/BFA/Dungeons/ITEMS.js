@@ -4,8 +4,12 @@ export default {
   // <Dungeon 1> (insert name here)
   // ...
 
-  // <Dungeon 2> (insert name here)
-  // ...
+  // Atal'Dazar
+  TOUCH_OF_THE_VOODOO: { // Revitalizing Voodoo Totem
+    id: 266018,
+    name: 'Touch of the Voodoo',
+    icon: 'ability_shaman_repulsiontotem',
+  },
 
   // Quests.............. upscaled in beta
   DIEMETRADON_FRENZY: {
