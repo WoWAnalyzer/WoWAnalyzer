@@ -62,6 +62,13 @@ class StatTracker extends Analyzer {
     [SPELLS.DARKMOON_VERS_FOOD.id]: { versatility: 45 },
     //endregion
 
+    //region racials
+    [SPELLS.RICTUS_OF_THE_LAUGHING_SKULL.id]: { crit: 411 },
+    [SPELLS.ZEAL_OF_THE_BURNING_BLADE.id]: { haste: 411 },
+    [SPELLS.FEROCITY_OF_THE_FROSTWOLF.id]: { mastery: 411 },
+    [SPELLS.MIGHT_OF_THE_BLACKROCK.id]: { versatility: 411 },
+    //endregion
+
     // region Dungeon Trinkets
     [SPELLS.SHADOWS_STRIKE.id]: {
       itemId: ITEMS.DREADSTONE_OF_ENDLESS_SHADOWS.id,
