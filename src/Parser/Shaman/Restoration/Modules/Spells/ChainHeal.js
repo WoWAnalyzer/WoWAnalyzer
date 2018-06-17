@@ -72,7 +72,7 @@ class ChainHeal extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CHAIN_HEAL.id} />}
-        value={`${isNaN(avgHits) ? 'N/A' : avgHits.toFixed(2)}`}
+        value={avgHits.toFixed(2)}
         label={(
           <dfn data-tip={`The average number of targets healed by Chain Heal out of the maximum amount of targets. You cast a total of ${casts} Chain Heals, which healed an average of ${avgHits.toFixed(2)} out of ${maxTargets} targets.`}>
             Average Chain Heal targets
