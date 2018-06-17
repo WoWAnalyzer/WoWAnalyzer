@@ -199,7 +199,7 @@ export default [
   },
   {
     date: new Date('2018-03-15'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.MASTER_OF_COMBINATIONS.id} />, <SpellLink id={SPELLS.FURY_OF_ASHAMANE.id} />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SKY.id} />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SEA.id} /> and <SpellLink id={SPELLS.SERAPHIM_TALENT.id} /> to the stat tracker, slightly improving stat weights and any Haste based modules.</React.Fragment>,
+    changes: <React.Fragment>Added Master of Combinations, <SpellLink id={SPELLS.FURY_OF_ASHAMANE.id} />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SKY.id} />, <SpellLink id={SPELLS.STRENGTH_OF_THE_SEA.id} /> and <SpellLink id={SPELLS.SERAPHIM_TALENT.id} /> to the stat tracker, slightly improving stat weights and any Haste based modules.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {
