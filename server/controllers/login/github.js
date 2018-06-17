@@ -20,8 +20,8 @@ Passport.use(new GitHubStrategy(
     const profile = originalProfile._json;
 
     const id = profile.id;
-    const name = profile.name;
     const login = profile.login;
+    const name = profile.name || login; // name is optional on GitHub
 
     if (process.env.NODE_ENV === 'development') {
       console.log('GitHub login:', profile);
