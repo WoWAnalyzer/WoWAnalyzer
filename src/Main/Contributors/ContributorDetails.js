@@ -215,16 +215,16 @@ class ContributorDetails extends React.PureComponent {
   render() {
     const { contributorId } = this.props;
     const contributor = contributors[contributorId];
-    const contributions = {
-      0: CoreChangelog,
-    };
 
     if (!contributor) {
       return this.invalidContributor();
     }
 
-    AVAILABLE_CONFIGS.forEach(elem => {
-      contributions[elem.spec.id] = elem.changelog;
+    const contributions = AVAILABLE_CONFIGS.reduce((obj, elem) => {
+      obj[elem.spec.id] = elem.changelog;
+      return obj;
+    }, {
+      0: CoreChangelog,
     });
 
     Object.keys(contributions).forEach(key => {
