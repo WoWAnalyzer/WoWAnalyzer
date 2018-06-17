@@ -1,24 +1,22 @@
-import React from "react";
+import React from 'react';
 
-import SPELLS from "common/SPELLS";
-import ITEMS from "common/ITEMS";
-import Analyzer from "Parser/Core/Analyzer";
-import Combatants from "Parser/Core/Modules/Combatants";
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
+import Analyzer from 'Parser/Core/Analyzer';
+import Combatants from 'Parser/Core/Modules/Combatants';
 import { formatPercentage } from 'common/format';
 
 /**
- * Zandalari Loa Figurine -
+ * Gilded Loa Figurine -
  * Equip: Your spells and abilities have a chance to increase your primary stat by 814 for 10 sec.
  */
-class ZandalariLoaFigurine extends Analyzer {
+class GildedLoaFigurine extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
 
   on_initialized() {
-    this.active = this.combatants.selected.hasTrinket(
-      ITEMS.ZANDALARI_LOA_FIGURINE.id
-    );
+    this.active = this.combatants.selected.hasTrinket(ITEMS.GILDED_LOA_FIGURINE.id);
   }
 
   get buffTriggerCount() {
@@ -31,7 +29,7 @@ class ZandalariLoaFigurine extends Analyzer {
 
   item() {
     return {
-      item: ITEMS.ZANDALARI_LOA_FIGURINE,
+      item: ITEMS.GILDED_LOA_FIGURINE,
       result: (
         <dfn data-tip={`Procced ${this.buffTriggerCount} times`}>
           {formatPercentage(this.totalBuffUptime)}% uptime
@@ -41,4 +39,4 @@ class ZandalariLoaFigurine extends Analyzer {
   }
 }
 
-export default ZandalariLoaFigurine;
+export default GildedLoaFigurine;

@@ -126,12 +126,12 @@ class StatTracker extends Analyzer {
       haste: (_, item) => calculateSecondaryStatJewelry(172, 160, item.itemLevel),
     },
     [SPELLS.WILL_OF_THE_LOA.id]: { // Will of the Loa
-      itemId: ITEMS.ZANDALARI_LOA_FIGURINE.id, // Zandalari Loa Figurine
-      crit: (_, item) => calculatePrimaryStat(280, 676, item.itemLevel),
+      itemId: ITEMS.GILDED_LOA_FIGURINE.id, // Gilded Loa Figurine
+      versatility: (_, item) => calculateSecondaryStatJewelry(280, 676, item.itemLevel),
     },
     [SPELLS.SPYGLASS_SIGHT.id]: { // Spyglass Sight
       itemId: ITEMS.FIRST_MATES_SPYGLASS.id, // First Mate's Spyglass
-      crit: (_, item) => calculatePrimaryStat(280, 768, item.itemLevel),
+      crit: (_, item) => calculateSecondaryStatJewelry(280, 768, item.itemLevel),
     },
 
     //endregion

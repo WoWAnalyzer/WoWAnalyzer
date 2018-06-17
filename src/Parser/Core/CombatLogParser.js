@@ -134,7 +134,7 @@ import RefractiveShell from './Modules/NetherlightCrucibleTraits/RefractiveShell
 import NLCTraits from './Modules/NetherlightCrucibleTraits/NLCTraits';
 
 // BFA
-import ZandalariLoaFigurine from './Modules/Items/BFA/ZandalariLoaFigurine';
+import GildedLoaFigurine from './Modules/Items/BFA/GildedLoaFigurine';
 import FirstMatesSpyglass from './Modules/Items/BFA/FirstMatesSpyglass';
 
 import ParseResults from './ParseResults';
@@ -278,7 +278,7 @@ class CombatLogParser {
     umbralMoonglaives: UmbralMoonglaives,
 
     // BFA
-    zandalariLoaFigurine: ZandalariLoaFigurine,
+    gildedLoaFigurine: GildedLoaFigurine,
     firstMatesSpyglass: FirstMatesSpyglass,
   };
   // Override this with spec specific modules when extending

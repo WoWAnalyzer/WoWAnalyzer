@@ -59,7 +59,7 @@ export default [
   },
   {
     date: new Date('2018-05-21'),
-    changes: <React.Fragment>Added <ItemLink id={ITEMS.ZANDALARI_LOA_FIGURINE.id} /> to trinkets.</React.Fragment>,
+    changes: <React.Fragment>Added <ItemLink id={ITEMS.GILDED_LOA_FIGURINE.id} /> to trinkets.</React.Fragment>,
     contributors: [Fyruna],
   },
   {
