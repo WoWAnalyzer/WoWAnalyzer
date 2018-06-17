@@ -10,6 +10,7 @@ export default [
   {
     date: new Date('2018-06-16'),
     changes: <React.Fragment>Updated for 8.0 Battle for Azeroth prepatch. All artifact traits and related analysis removed. Bad <SpellLink id={SPELLS.BLACKOUT_KICK.id} icon /> casts statistic and suggestions has been replaced with statistic and suggestions on <SpellLink id={SPELLS.BLACKOUT_KICK.id} icon />'s new cooldown reductions mechanic </React.Fragment>,
+    contributors: [Juko8],
   },
   {
     date: new Date('2018-05-29'),
@@ -28,7 +29,7 @@ export default [
   },
   {
     date: new Date('2018-03-09'),
-    changes: `Added Checklist`,
+    changes: 'Added Checklist',
     contributors: [Juko8],
   },
   {
@@ -63,7 +64,7 @@ export default [
   },
   {
     date: new Date('2018-01-03'),
-    changes: "Updated AlwaysBeCasting with channeling and more accurate GCD and fixed Gol'ganneths ravaging storm being shown in Cooldowns tab",
+    changes: <React.Fragment>Updated AlwaysBeCasting with channeling and more accurate GCD and fixed Gol'ganneths ravaging storm being shown in Cooldowns tab</React.Fragment>,
     contributors: [Juko8],
   },
   {
