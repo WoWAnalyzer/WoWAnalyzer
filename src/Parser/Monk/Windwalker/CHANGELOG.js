@@ -8,8 +8,13 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-06-16'),
+    changes: <React.Fragment>Updated for 8.0 Battle for Azeroth prepatch. All artifact traits and related analysis removed. Bad <SpellLink id={SPELLS.BLACKOUT_KICK.id} icon /> casts statistic and suggestions has been replaced with statistic and suggestions on <SpellLink id={SPELLS.BLACKOUT_KICK.id} icon />'s new cooldown reductions mechanic </React.Fragment>,
+    contributors: [Juko8],
+  },
+  {
     date: new Date('2018-05-29'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.TOUCH_OF_DEATH.id} /> module showing damage from <SpellLink id={SPELLS.GALE_BURST.id} /> and its benefit from % damage taken buffs on targets</React.Fragment>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.TOUCH_OF_DEATH.id} /> module showing damage from the 10% duplication and its benefit from % damage taken buffs on targets</React.Fragment>,
     contributors: [Juko8],
   },
   {
@@ -24,7 +29,7 @@ export default [
   },
   {
     date: new Date('2018-03-09'),
-    changes: `Added Checklist`,
+    changes: 'Added Checklist',
     contributors: [Juko8],
   },
   {
@@ -59,12 +64,12 @@ export default [
   },
   {
     date: new Date('2018-01-03'),
-    changes: "Updated AlwaysBeCasting with channeling and more accurate GCD and fixed Gol'ganneths ravaging storm being shown in Cooldowns tab",
+    changes: <React.Fragment>Updated AlwaysBeCasting with channeling and more accurate GCD and fixed Gol'ganneths ravaging storm being shown in Cooldowns tab</React.Fragment>,
     contributors: [Juko8],
   },
   {
     date: new Date('2017-12-05'),
-    changes: <React.Fragment>Updated Cast Efficiency to better handle <SpellLink id={SPELLS.SERENITY_TALENT.id} /> cooldown reduction on <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> and <SpellLink id={SPELLS.STRIKE_OF_THE_WINDLORD.id} /></React.Fragment>,
+    changes: <React.Fragment>Updated Cast Efficiency to better handle <SpellLink id={SPELLS.SERENITY_TALENT.id} /> cooldown reduction on <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> and Strike of the Windlord /></React.Fragment>,
     contributors: [Juko8],
   },
   {

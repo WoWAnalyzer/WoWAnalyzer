@@ -19,7 +19,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.BLACKOUT_KICK.id,
     SPELLS.RISING_SUN_KICK.id,
     SPELLS.TIGER_PALM.id,
-    SPELLS.STRIKE_OF_THE_WINDLORD.id,
     SPELLS.SPINNING_CRANE_KICK.id,
     SPELLS.TOUCH_OF_DEATH.id,
 
@@ -28,7 +27,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     SPELLS.CHI_BURST_TALENT.id,
     SPELLS.LEG_SWEEP_TALENT.id,
     SPELLS.RING_OF_PEACE_TALENT.id,
-    SPELLS.SUMMON_BLACK_OX_STATUE_TALENT.id,
     SPELLS.RUSHING_JADE_WIND_TALENT.id,
     SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id,
     // utility:
@@ -47,14 +45,12 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     [SPELLS.BLACKOUT_KICK.id]: 1000,
     [SPELLS.RISING_SUN_KICK.id]: 1000,
     [SPELLS.TIGER_PALM.id]: 1000,
-    [SPELLS.STRIKE_OF_THE_WINDLORD.id]: 1000,
     [SPELLS.SPINNING_CRANE_KICK.id]: 1000,
     [SPELLS.TOUCH_OF_DEATH.id]: 1000,
 
     // talents: Whirling Dragon Punch, Chi Wave and Chi burst seemingly has haste-affected GCDs
     [SPELLS.LEG_SWEEP_TALENT.id]: 1000,
     [SPELLS.RING_OF_PEACE_TALENT.id]: 1000,
-    [SPELLS.SUMMON_BLACK_OX_STATUE_TALENT.id]: 1000,
     [SPELLS.RUSHING_JADE_WIND_TALENT.id]: 1000,
 
     // utility:
