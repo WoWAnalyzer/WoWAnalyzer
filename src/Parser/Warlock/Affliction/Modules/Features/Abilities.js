@@ -114,13 +114,7 @@ class Abilities extends CoreAbilities {
         },
       },
 
-      // Utility
-      {
-        spell: SPELLS.BURNING_RUSH_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.BURNING_RUSH_TALENT.id),
-        isOnGCD: true,
-      },
+      // Defensive
       {
         spell: SPELLS.UNENDING_RESOLVE,
         buffSpellId: SPELLS.UNENDING_RESOLVE.id,
@@ -136,14 +130,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.DRAIN_LIFE,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        isOnGCD: true,
-      },
-      {
         spell: SPELLS.DARK_PACT_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 60,
+        isOnGCD: false,
         enabled: combatant.hasTalent(SPELLS.DARK_PACT_TALENT.id),
         castEfficiency: {
           suggestion: false,
@@ -152,6 +142,19 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.20,
           majorIssueEfficiency: 0.10,
         },
+      },
+
+      // Utility
+      {
+        spell: SPELLS.BURNING_RUSH_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        enabled: combatant.hasTalent(SPELLS.BURNING_RUSH_TALENT.id),
+        isOnGCD: true,
+      },
+      {
+        spell: SPELLS.DRAIN_LIFE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: true,
       },
       {
         spell: SPELLS.MORTAL_COIL_TALENT,
