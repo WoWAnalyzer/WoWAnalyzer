@@ -116,7 +116,6 @@ import RiftworldCodex from './Modules/Items/Legion/AntorusTheBurningThrone/Riftw
 import EyeOfHounds from './Modules/Items/Legion/AntorusTheBurningThrone/EyeOfHounds';
 
 // Shared Buffs
-import Concordance from './Modules/Spells/Concordance';
 import VantusRune from './Modules/Spells/VantusRune';
 // Netherlight Crucible Traits
 import DarkSorrows from './Modules/NetherlightCrucibleTraits/DarkSorrows';
@@ -257,8 +256,6 @@ class CombatLogParser {
     riftworldCodex: RiftworldCodex,
     eyeOfHounds: EyeOfHounds,
 
-    // Concordance of the Legionfall
-    concordance: Concordance,
     // Netherlight Crucible Traits
     darkSorrows: DarkSorrows,
     tormentTheWeak: TormentTheWeak,

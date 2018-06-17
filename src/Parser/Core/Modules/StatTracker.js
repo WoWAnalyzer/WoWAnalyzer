@@ -200,18 +200,6 @@ class StatTracker extends Analyzer {
     // endregion
 
     // region Misc
-    [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_STRENGTH.id]: { // check numbers
-      strength: combatant => 4000 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
-    },
-    [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_AGILITY.id]: { // check numbers
-      agility: combatant => 4000 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
-    },
-    [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_INTELLECT.id]: { // check numbers
-      intellect: combatant => 4000 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
-    },
-    [SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_VERSATILITY.id]: {
-      versatility: combatant => 1500 + (combatant.traitsBySpellId[SPELLS.CONCORDANCE_OF_THE_LEGIONFALL_TRAIT.id] - 1) * 300,
-    },
     [SPELLS.JACINS_RUSE.id]: { mastery: 136 },
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 45, haste: 45 },
     [SPELLS.FURY_OF_ASHAMANE.id]: { versatility: 27 },
