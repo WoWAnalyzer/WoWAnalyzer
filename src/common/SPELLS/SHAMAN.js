@@ -46,16 +46,6 @@ export default {
     name: 'Astral Recall',
     icon: 'spell_nature_astralrecal', 
   },
-  NATURES_GUARDIAN_TALENT: { // Until talents get updated
-    id: 30884,
-    name: 'Nature\'s Guardian',
-    icon: 'spell_nature_natureguardian',
-  },
-  STATIC_CHARGE_TALENT: { // Until talents get updated
-    id: 265046,
-    name: 'Static Charge',
-    icon: 'spell_nature_brilliance',
-  },
   STATIC_CHARGE_DEBUFF: {
     id: 118905,
     name: 'Static Charge',
@@ -76,6 +66,17 @@ export default {
     id: 260881,
     name: 'Spirit Wolf',
     icon: 'spell_hunter_lonewolf',
+  },
+  EARTH_SHIELD_HEAL: {
+    id: 379,
+    name: 'Earth Shield',
+    icon: 'spell_nature_skinofearth',
+  },
+  LIGHTNING_SURGE_TOTEM: {
+    id: 192058,
+    name: 'Lightning Surge Totem',
+    icon: 'spell_nature_brilliance',
+    manaCost: 2000,
   },
   // Hex and its variations
   HEX: {
@@ -833,33 +834,6 @@ export default {
   },
 
   // Alpha Stuff
-  EARTH_SHIELD_TALENT: { // Until talents work
-    id: 974,
-    name: 'Earth Shield',
-    icon: 'spell_nature_skinofearth',
-    manaCost: 2000,
-  },
-  EARTH_SHIELD_HEAL: {
-    id: 379,
-    name: 'Earth Shield',
-    icon: 'spell_nature_skinofearth',
-  },
-  SPIRIT_WOLF_TALENT: { // Until talents work
-    id: 260878,
-    name: 'Spirit Wolf',
-    icon: 'spell_hunter_lonewolf',
-  },
-  DOWNPOUR_TALENT: { // Until talents work
-    id: 207778,
-    name: 'Downpour',
-    icon: 'ability_mage_waterjet',
-    manaCost: 3000,
-  },
-  FLASH_FLOOD_TALENT: { // Until talents work
-    id: 280614,
-    name: 'Flash Flood',
-    icon: 'spell_frost_summonwaterelemental',
-  },
   FLASH_FLOOD_BUFF: {
     id: 280615,
     name: 'Flash Flood',
