@@ -731,31 +731,6 @@ export default {
     name: 'Murderous Intent',
     icon: 'spell_shadow_charm',
   },
-  REFRACTIVE_SHELL_TRAIT: {
-    id: 252207,
-    name: 'Refractive Shell',
-    icon: 'ability_priest_reflectiveshield',
-  },
-  REFRACTIVE_SHELL_BUFF: {
-    id: 252208,
-    name: 'Refractive Shell',
-    icon: 'ability_priest_reflectiveshield',
-  },
-  SECURE_IN_THE_LIGHT_TRAIT: {
-    id: 253070,
-    name: 'Secure in the Light',
-    icon: 'ability_paladin_toweroflight',
-  },
-  SECURE_IN_THE_LIGHT_DAMAGE: {
-    id: 253073,
-    name: 'Secure in the Light',
-    icon: 'ability_paladin_toweroflight',
-  },
-  HOLY_BULWARK: {
-    id: 253072,
-    name: 'Holy Bulwark',
-    icon: 'ability_paladin_toweroflight',
-  },
   INFUSION_OF_LIGHT_TRAIT: {
     id: 253093,
     name: 'Infusion of Light',

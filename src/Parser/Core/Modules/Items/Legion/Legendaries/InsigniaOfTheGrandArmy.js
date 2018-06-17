@@ -7,9 +7,7 @@ import SPELLS from 'common/SPELLS/OTHERS';
 //NLC Tier 2 Traits
 import ChaoticDarkness from 'Parser/Core/Modules/NetherlightCrucibleTraits/ChaoticDarkness';
 import LightsEmbrace from 'Parser/Core/Modules/NetherlightCrucibleTraits/LightsEmbrace';
-import SecureInTheLight from 'Parser/Core/Modules/NetherlightCrucibleTraits/SecureInTheLight';
 import InfusionOfLight from 'Parser/Core/Modules/NetherlightCrucibleTraits/InfusionOfLight';
-import RefractiveShell from 'Parser/Core/Modules/NetherlightCrucibleTraits/RefractiveShell';
 import Shadowbind from 'Parser/Core/Modules/NetherlightCrucibleTraits/Shadowbind';
 import TormentTheWeak from 'Parser/Core/Modules/NetherlightCrucibleTraits/TormentTheWeak';
 import DarkSorrows from 'Parser/Core/Modules/NetherlightCrucibleTraits/DarkSorrows';
@@ -22,17 +20,12 @@ import ItemHealingDone from 'Main/ItemHealingDone';
  * Equip: Increase the effects of Light and Shadow powers granted by the Netherlight Crucible by 50%.
 */
 
-const CRIT_AMOUNT = 1500;
 const MASTERY_AMOUNT = 500;
 const AVOIDANCE_AMOUNT = 1000;
-const HASTE_AMOUNT = 500;
-const MOVEMENT_SPEED_AMOUNT = 500;
 
 class InsigniaOfTheGrandArmy extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    refractiveShell: RefractiveShell,
-    secureInTheLight: SecureInTheLight,
     infusionOfLight: InfusionOfLight,
     lightsEmbrace: LightsEmbrace,
     shadowbind: Shadowbind,
@@ -46,8 +39,6 @@ class InsigniaOfTheGrandArmy extends Analyzer {
   damage = 0;
   healing = 0;
   refractiveHealing = 0;
-  secureInTheLightDamage = 0;
-  secureInTheLightHealing = 0;
   infusionOfLightDamage = 0;
   infusionOfLightHealing = 0;
   lightsEmbraceHealing = 0;
@@ -65,13 +56,6 @@ class InsigniaOfTheGrandArmy extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellID = event.ability.guid;
-    if (spellID !== SPELLS.SECURE_IN_THE_LIGHT_DAMAGE.id && spellID !== SPELLS.INFUSION_OF_LIGHT_DAMAGE.id && spellID !== SPELLS.SHADOWBIND_DAMAGE_HEALING.id && spellID !== SPELLS.CHAOTIC_DARKNESS_DAMAGE.id && spellID !== SPELLS.TORMENT_THE_WEAK_DAMAGE.id && spellID !== SPELLS.DARK_SORROWS_DAMAGE.id) {
-      return;
-    }
-    if (spellID === SPELLS.SECURE_IN_THE_LIGHT_DAMAGE.id) {
-      this.damage += event.amount + (event.absorbed || 0);
-      this.secureInTheLightDamage += event.amount + (event.absorbed || 0);
-    }
     if (spellID === SPELLS.INFUSION_OF_LIGHT_DAMAGE.id) {
       this.damage += event.amount + (event.absorbed || 0);
       this.infusionOfLightDamage += event.amount + (event.absorbed || 0);
@@ -93,20 +77,6 @@ class InsigniaOfTheGrandArmy extends Analyzer {
       this.darkSorrowsDamage += event.amount + (event.absorbed || 0);
     }
 
-  }
-  on_byPlayer_absorbed(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.REFRACTIVE_SHELL_BUFF.id && spellId !== SPELLS.HOLY_BULWARK.id) {
-      return;
-    }
-    if (spellId === SPELLS.REFRACTIVE_SHELL_BUFF.id) {
-      this.healing += event.amount;
-      this.refractiveHealing += event.amount;
-    }
-    if (spellId === SPELLS.HOLY_BULWARK.id) {
-      this.healing += event.amount;
-      this.secureInTheLightHealing += event.amount;
-    }
   }
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
@@ -152,10 +122,6 @@ class InsigniaOfTheGrandArmy extends Analyzer {
     tooltip += this.combatants.selected.traitsBySpellId[SPELLS.MURDEROUS_INTENT_TRAIT.id] > 0 ? `<li>Murderous Intent: <ul><li>${this.averageVersFromRing} average versatility </li></ul></li>` : ``;
     //MasterOfShadows
     tooltip += this.combatants.selected.traitsBySpellId[SPELLS.MASTER_OF_SHADOWS_TRAIT.id] > 0 ? `<li>Master Of Shadows: <ul><li>${this.masterOfShadowsMasteryIncrease} increased mastery </li><li>${this.masterOfShadowsAvoidanceIncrease} increased avoidance</li></ul></li>` : ``;
-    //Refractive Shell
-    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.REFRACTIVE_SHELL_TRAIT.id] > 0 ? `<li>Refractive Shell:<ul><li>${this.owner.formatItemHealingDone(this.refractiveHealing / 3)}</li></ul></li>` : ``;
-    //Secure In The Light
-    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.SECURE_IN_THE_LIGHT_TRAIT.id] > 0 ? `<li>Secure In The Light: <ul><li>${this.owner.formatItemDamageDone(this.secureInTheLightDamage / 3)}</li><li>${this.owner.formatItemHealingDone(this.secureInTheLightHealing / 3)}</li></li></ul>` : ``;
     //Infusion Of Light
     tooltip += this.combatants.selected.traitsBySpellId[SPELLS.INFUSION_OF_LIGHT_TRAIT.id] > 0 ? `<li>Infusion Of Light: <ul><li>${this.owner.formatItemDamageDone(this.infusionOfLightDamage / 3)}</li><li>${this.owner.formatItemHealingDone(this.infusionOfLightHealing / 3)}</li></ul></li>` : ``;
     //Lights Embrace

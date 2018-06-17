@@ -4,8 +4,6 @@ import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import RefractiveShell from './RefractiveShell';
-import SecureInTheLight from './SecureInTheLight';
 import InfusionOfLight from './InfusionOfLight';
 import LightsEmbrace from './LightsEmbrace';
 import Shadowbind from './Shadowbind';
@@ -16,8 +14,6 @@ import MasterOfShadows from './MasterOfShadows';
 
 class NLCTraits extends Analyzer {
   static dependencies = {
-    refractiveShell: RefractiveShell,
-    secureInTheLight: SecureInTheLight,
     infusionOfLight: InfusionOfLight,
     lightsEmbrace: LightsEmbrace,
     shadowbind: Shadowbind,
@@ -40,8 +36,6 @@ class NLCTraits extends Analyzer {
         title="Concordance and NLC"
         tooltip="This provides an overview of the benefits provided by Concordance of the Legionfall and the Netherlight Crucible traits."
       >
-        {this.refractiveShell.active && this.refractiveShell.subStatistic()}
-        {this.secureInTheLight.active && this.secureInTheLight.subStatistic()}
         {this.infusionOfLight.active && this.infusionOfLight.subStatistic()}
         {this.lightsEmbrace.active && this.lightsEmbrace.subStatistic()}
         {this.shadowbind.active && this.shadowbind.subStatistic()}
