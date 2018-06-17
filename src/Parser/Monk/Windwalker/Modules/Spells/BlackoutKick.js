@@ -28,12 +28,6 @@ class BlackoutKick extends Analyzer {
     SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id,
   ];
 
-  on_initialized() {
-    if (this.combatants.selected.traitsBySpellId[SPELLS.STRIKE_OF_THE_WINDLORD.id] === 1) {
-      this.IMPORTANT_SPELLS.push(SPELLS.STRIKE_OF_THE_WINDLORD.id);
-    }
-  }
-
   effectiveRisingSunKickReductionMs = 0;
   wastedRisingSunKickReductionMs = 0;
   effectiveFistsOfFuryReductionMs = 0;
