@@ -117,6 +117,13 @@ export default {
     icon: 'spell_shadow_demonictactics',
     manaCost: 400,
   },
+  // TODO: remove later once legendaries no longer work
+  // Soul Harvest (despite being removed as a talent) can still proc from The Master Harvester
+  SOUL_HARVEST: {
+    id: 196098,
+    name: 'Soul Harvest',
+    icon: 'spell_warlock_demonsoul',
+  },
 
   // --------------
   // Shared talents

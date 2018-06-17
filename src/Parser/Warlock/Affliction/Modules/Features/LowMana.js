@@ -7,7 +7,7 @@ const LOW_MANA_THRESHOLD = 0.05;
 class LowMana extends Analyzer {
   _lowManaTimestamp = null;
   _currentlyLow = false;
-  _maxMana = 1100000; // should be constant
+  _maxMana = 20000; // should be constant
   timeOnLowMana = 0;
 
   on_byPlayer_cast(event) {
