@@ -64,7 +64,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SERENITY_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (_, combatant) => combatant.owner.modules.stormEarthAndFire.reducedCooldownWithTraits,
+        cooldown: (_, combatant) => 90,
         enabled: combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -74,7 +74,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.STORM_EARTH_AND_FIRE_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (_, combatant) => combatant.owner.modules.stormEarthAndFire.reducedCooldownWithTraits,
+        cooldown: (_, combatant) => 90,
         enabled: !combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
         charges: 2,
         castEfficiency: {
