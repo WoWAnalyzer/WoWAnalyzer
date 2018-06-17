@@ -1,0 +1,1187 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Premium matches snapshot when logged in with GitHub 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-lg-3 col-lg-offset-1 col-md-4 col-sm-5"
+    >
+      <div
+        className="panel"
+        style={
+          Object {
+            "overflow": "hidden",
+          }
+        }
+      >
+        <div
+          className="panel-body"
+          style={
+            Object {
+              "padding": "0 15px",
+              "position": "relative",
+            }
+          }
+        >
+          <CSSTransitionGroup
+            transitionAppear={false}
+            transitionEnter={true}
+            transitionEnterTimeout={1000}
+            transitionLeave={true}
+            transitionLeaveTimeout={1000}
+            transitionName="logged-in"
+          >
+            <div
+              className="logged-in github"
+            >
+              <div>
+                <div
+                  className="logo"
+                >
+                  <Icon
+                    style={
+                      Object {
+                        "marginTop": 0,
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="text"
+                >
+                  <h1>
+                    <TextFit
+                      autoResize={true}
+                      forceSingleModeWidth={true}
+                      max={100}
+                      min={1}
+                      mode="single"
+                      onReady={[Function]}
+                      throttle={50}
+                    >
+                      Hello 
+                      Martijn Hols
+                      .
+                    </TextFit>
+                  </h1>
+                  <div
+                    className="description"
+                  >
+                    You haven't unlocked Premium yet. See the panel to the right for more info.
+                  </div>
+                  <div
+                    className="logout"
+                  >
+                    <a
+                      href="/logout"
+                      onClick={[Function]}
+                    >
+                      <Icon />
+                       Logout
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CSSTransitionGroup>
+          <div
+            className="row image-background"
+            style={
+              Object {
+                "paddingBottom": 15,
+                "paddingTop": 300,
+                "position": "relative",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "left": 0,
+                  "overflow": "hidden",
+                  "pointerEvents": "none",
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                }
+              }
+            >
+              <CyclingVideo
+                style={
+                  Object {
+                    "height": "100%",
+                    "objectFit": "cover",
+                    "width": "100%",
+                  }
+                }
+                videos={
+                  Array [
+                    "https://media.giphy.com/media/7TqE3VIAU2odkmneHU/giphy.mp4",
+                    "https://media.giphy.com/media/5kFzxK6ENfjrcoMgt1/giphy.mp4",
+                    "https://media.giphy.com/media/PoCoePEEB1EC6buvFU/giphy.mp4",
+                    "https://media.giphy.com/media/8cv2DoGyUClMuCKalT/giphy.mp4",
+                    "https://media.giphy.com/media/fUZW0LIJhtbDnBtqkX/giphy.mp4",
+                    "https://media.giphy.com/media/2erqKiXvYpXeGH9XJ5/giphy.mp4",
+                  ]
+                }
+              />
+            </div>
+            <div
+              className="col-md-12"
+            >
+              <h1>
+                Premium sign in
+              </h1>
+              <div
+                className="description"
+              >
+                Sign in with your Patreon or GitHub account.
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+          >
+            <div
+              className="col-lg-6"
+              style={
+                Object {
+                  "padding": 0,
+                }
+              }
+            >
+              <a
+                className="btn btn-block patreon-login"
+                href="/login/patreon"
+              >
+                <Icon />
+                 Patreon
+              </a>
+            </div>
+            <div
+              className="col-lg-6"
+              style={
+                Object {
+                  "padding": 0,
+                }
+              }
+            >
+              <a
+                className="btn btn-block github-login"
+                href="/login/github"
+              >
+                <Icon />
+                 GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col-lg-7 col-md-8 col-sm-7"
+    >
+      <div
+        className="panel"
+      >
+        <div
+          className="panel-heading"
+        >
+          <h2>
+            WoWAnalyzer premium
+          </h2>
+        </div>
+        <div
+          className="panel-body"
+        >
+          <Icon
+            style={
+              Object {
+                "color": "#e45a5a",
+                "float": "right",
+                "fontSize": "6em",
+                "marginTop": 0,
+              }
+            }
+          />
+          <div
+            style={
+              Object {
+                "fontSize": "1.4em",
+                "fontWeight": 400,
+              }
+            }
+          >
+            Help out development to unlock 
+            <span
+              style={
+                Object {
+                  "color": "#e45a5a",
+                  "fontWeight": 700,
+                }
+              }
+            >
+              WoWAnalyzer Premium
+            </span>
+            !
+          </div>
+          <br />
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": 5,
+                "marginTop": "2em",
+              }
+            }
+          >
+            <div
+              className="col-md-12 text-center text-muted"
+            >
+              How to unlock WoWAnalyzer Premium:
+            </div>
+          </div>
+          <div
+            className="row flex"
+          >
+            <div
+              className="col-md-6"
+              style={
+                Object {
+                  "borderRight": "1px solid #aaa",
+                }
+              }
+            >
+              <h2>
+                Patreon
+              </h2>
+              Help fund further development by becoming a patron on Patreon. Pledge whatever you want!
+              <br />
+              <br />
+              <PatreonButton
+                text="Become a Patron"
+              />
+            </div>
+            <div
+              className="col-md-6"
+            >
+              <h2>
+                GitHub
+              </h2>
+              Improve the analysis of a spec or build a new feature to get 1 month of Premium free
+              <dfn
+                data-tip="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged."
+              >
+                *
+              </dfn>
+              .
+              <br />
+              <br />
+              <GithubButton
+                text="View on GitHub"
+              />
+            </div>
+          </div>
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": 5,
+                "marginTop": "2em",
+              }
+            }
+          >
+            <div
+              className="col-md-12 text-center text-muted"
+            >
+              WoWAnalyzer Premium unlocks the following things:
+            </div>
+          </div>
+          <div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="content-middle flex-sub"
+              >
+                <Icon />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  New things
+                </h2>
+                Your contributions will help fund new things for the site, making it even better.
+                <br />
+                <br />
+                We'll post bounties on the best ideas via 
+                <a
+                  href="https://www.bountysource.com/teams/wowanalyzer"
+                >
+                  Bountysource
+                </a>
+                 as a motivation to get developers to build them.
+              </div>
+            </div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="content-middle flex-sub"
+              >
+                <Icon />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  No ads
+                </h2>
+                We'll remove ads from the platform for you so you can consume our content with less distractions and less clutter.
+              </div>
+            </div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="content-middle flex-sub"
+              >
+                <Icon
+                  style={
+                    Object {
+                      "color": "#ff8000",
+                    }
+                  }
+                />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  Discord name color
+                </h2>
+                Get a distinct Discord name color befitting your contribution. See Patreon for Patron specific name colors. Serious GitHub contributors get the yellow contributor name color.
+              </div>
+            </div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="content-middle flex-sub"
+              >
+                <Icon />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  Access to secret channels on Discord
+                </h2>
+                Get access to special Discord channels to discuss things privately in the sub-community.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="panel"
+      >
+        <div
+          className="panel-heading"
+        >
+          <h2>
+            You
+          </h2>
+        </div>
+        <div
+          className="panel-body"
+        >
+          Hello 
+          Martijn Hols
+          . Your Premium is currently 
+          <span
+            className="text-danger"
+          >
+            Inactive
+          </span>
+          <React.Fragment>
+             
+            because of a recent GitHub contribution (active until 
+            Mon, 02 Jul 2018 11:48:40 GMT
+            )
+          </React.Fragment>
+          . 
+          You can get Premium by becoming a Patron on Patreon or by making a contribution to application on GitHub. Try logging in again if you wish to refresh your status.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Premium matches snapshot when logged in with Patreon 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-lg-3 col-lg-offset-1 col-md-4 col-sm-5"
+    >
+      <div
+        className="panel"
+        style={
+          Object {
+            "overflow": "hidden",
+          }
+        }
+      >
+        <div
+          className="panel-body"
+          style={
+            Object {
+              "padding": "0 15px",
+              "position": "relative",
+            }
+          }
+        >
+          <CSSTransitionGroup
+            transitionAppear={false}
+            transitionEnter={true}
+            transitionEnterTimeout={1000}
+            transitionLeave={true}
+            transitionLeaveTimeout={1000}
+            transitionName="logged-in"
+          >
+            <div
+              className="logged-in patreon"
+            >
+              <div>
+                <div
+                  className="logo"
+                >
+                  <Icon
+                    style={
+                      Object {
+                        "marginTop": 0,
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="text"
+                >
+                  <h1>
+                    <TextFit
+                      autoResize={true}
+                      forceSingleModeWidth={true}
+                      max={100}
+                      min={1}
+                      mode="single"
+                      onReady={[Function]}
+                      throttle={50}
+                    >
+                      Hello 
+                      Martijn Hols
+                      .
+                    </TextFit>
+                  </h1>
+                  <div
+                    className="description"
+                  >
+                    You haven't unlocked Premium yet. See the panel to the right for more info.
+                  </div>
+                  <div
+                    className="logout"
+                  >
+                    <a
+                      href="/logout"
+                      onClick={[Function]}
+                    >
+                      <Icon />
+                       Logout
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CSSTransitionGroup>
+          <div
+            className="row image-background"
+            style={
+              Object {
+                "paddingBottom": 15,
+                "paddingTop": 300,
+                "position": "relative",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "left": 0,
+                  "overflow": "hidden",
+                  "pointerEvents": "none",
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                }
+              }
+            >
+              <CyclingVideo
+                style={
+                  Object {
+                    "height": "100%",
+                    "objectFit": "cover",
+                    "width": "100%",
+                  }
+                }
+                videos={
+                  Array [
+                    "https://media.giphy.com/media/7TqE3VIAU2odkmneHU/giphy.mp4",
+                    "https://media.giphy.com/media/5kFzxK6ENfjrcoMgt1/giphy.mp4",
+                    "https://media.giphy.com/media/PoCoePEEB1EC6buvFU/giphy.mp4",
+                    "https://media.giphy.com/media/8cv2DoGyUClMuCKalT/giphy.mp4",
+                    "https://media.giphy.com/media/fUZW0LIJhtbDnBtqkX/giphy.mp4",
+                    "https://media.giphy.com/media/2erqKiXvYpXeGH9XJ5/giphy.mp4",
+                  ]
+                }
+              />
+            </div>
+            <div
+              className="col-md-12"
+            >
+              <h1>
+                Premium sign in
+              </h1>
+              <div
+                className="description"
+              >
+                Sign in with your Patreon or GitHub account.
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+          >
+            <div
+              className="col-lg-6"
+              style={
+                Object {
+                  "padding": 0,
+                }
+              }
+            >
+              <a
+                className="btn btn-block patreon-login"
+                href="/login/patreon"
+              >
+                <Icon />
+                 Patreon
+              </a>
+            </div>
+            <div
+              className="col-lg-6"
+              style={
+                Object {
+                  "padding": 0,
+                }
+              }
+            >
+              <a
+                className="btn btn-block github-login"
+                href="/login/github"
+              >
+                <Icon />
+                 GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col-lg-7 col-md-8 col-sm-7"
+    >
+      <div
+        className="panel"
+      >
+        <div
+          className="panel-heading"
+        >
+          <h2>
+            WoWAnalyzer premium
+          </h2>
+        </div>
+        <div
+          className="panel-body"
+        >
+          <Icon
+            style={
+              Object {
+                "color": "#e45a5a",
+                "float": "right",
+                "fontSize": "6em",
+                "marginTop": 0,
+              }
+            }
+          />
+          <div
+            style={
+              Object {
+                "fontSize": "1.4em",
+                "fontWeight": 400,
+              }
+            }
+          >
+            Help out development to unlock 
+            <span
+              style={
+                Object {
+                  "color": "#e45a5a",
+                  "fontWeight": 700,
+                }
+              }
+            >
+              WoWAnalyzer Premium
+            </span>
+            !
+          </div>
+          <br />
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": 5,
+                "marginTop": "2em",
+              }
+            }
+          >
+            <div
+              className="col-md-12 text-center text-muted"
+            >
+              How to unlock WoWAnalyzer Premium:
+            </div>
+          </div>
+          <div
+            className="row flex"
+          >
+            <div
+              className="col-md-6"
+              style={
+                Object {
+                  "borderRight": "1px solid #aaa",
+                }
+              }
+            >
+              <h2>
+                Patreon
+              </h2>
+              Help fund further development by becoming a patron on Patreon. Pledge whatever you want!
+              <br />
+              <br />
+              <PatreonButton
+                text="Become a Patron"
+              />
+            </div>
+            <div
+              className="col-md-6"
+            >
+              <h2>
+                GitHub
+              </h2>
+              Improve the analysis of a spec or build a new feature to get 1 month of Premium free
+              <dfn
+                data-tip="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged."
+              >
+                *
+              </dfn>
+              .
+              <br />
+              <br />
+              <GithubButton
+                text="View on GitHub"
+              />
+            </div>
+          </div>
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": 5,
+                "marginTop": "2em",
+              }
+            }
+          >
+            <div
+              className="col-md-12 text-center text-muted"
+            >
+              WoWAnalyzer Premium unlocks the following things:
+            </div>
+          </div>
+          <div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="content-middle flex-sub"
+              >
+                <Icon />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  New things
+                </h2>
+                Your contributions will help fund new things for the site, making it even better.
+                <br />
+                <br />
+                We'll post bounties on the best ideas via 
+                <a
+                  href="https://www.bountysource.com/teams/wowanalyzer"
+                >
+                  Bountysource
+                </a>
+                 as a motivation to get developers to build them.
+              </div>
+            </div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="content-middle flex-sub"
+              >
+                <Icon />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  No ads
+                </h2>
+                We'll remove ads from the platform for you so you can consume our content with less distractions and less clutter.
+              </div>
+            </div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="content-middle flex-sub"
+              >
+                <Icon
+                  style={
+                    Object {
+                      "color": "#ff8000",
+                    }
+                  }
+                />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  Discord name color
+                </h2>
+                Get a distinct Discord name color befitting your contribution. See Patreon for Patron specific name colors. Serious GitHub contributors get the yellow contributor name color.
+              </div>
+            </div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="content-middle flex-sub"
+              >
+                <Icon />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  Access to secret channels on Discord
+                </h2>
+                Get access to special Discord channels to discuss things privately in the sub-community.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="panel"
+      >
+        <div
+          className="panel-heading"
+        >
+          <h2>
+            You
+          </h2>
+        </div>
+        <div
+          className="panel-body"
+        >
+          Hello 
+          Martijn Hols
+          . Your Premium is currently 
+          <span
+            className="text-danger"
+          >
+            Inactive
+          </span>
+           because of your Patreonage
+          . 
+          You can get Premium by becoming a Patron on Patreon or by making a contribution to application on GitHub. Try logging in again if you wish to refresh your status.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Premium matches snapshot when logged out 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-lg-3 col-lg-offset-1 col-md-4 col-sm-5"
+    >
+      <div
+        className="panel"
+        style={
+          Object {
+            "overflow": "hidden",
+          }
+        }
+      >
+        <div
+          className="panel-body"
+          style={
+            Object {
+              "padding": "0 15px",
+              "position": "relative",
+            }
+          }
+        >
+          <CSSTransitionGroup
+            transitionAppear={false}
+            transitionEnter={true}
+            transitionEnterTimeout={1000}
+            transitionLeave={true}
+            transitionLeaveTimeout={1000}
+            transitionName="logged-in"
+          />
+          <div
+            className="row image-background"
+            style={
+              Object {
+                "paddingBottom": 15,
+                "paddingTop": 300,
+                "position": "relative",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "bottom": 0,
+                  "left": 0,
+                  "overflow": "hidden",
+                  "pointerEvents": "none",
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                }
+              }
+            >
+              <CyclingVideo
+                style={
+                  Object {
+                    "height": "100%",
+                    "objectFit": "cover",
+                    "width": "100%",
+                  }
+                }
+                videos={
+                  Array [
+                    "https://media.giphy.com/media/7TqE3VIAU2odkmneHU/giphy.mp4",
+                    "https://media.giphy.com/media/5kFzxK6ENfjrcoMgt1/giphy.mp4",
+                    "https://media.giphy.com/media/PoCoePEEB1EC6buvFU/giphy.mp4",
+                    "https://media.giphy.com/media/8cv2DoGyUClMuCKalT/giphy.mp4",
+                    "https://media.giphy.com/media/fUZW0LIJhtbDnBtqkX/giphy.mp4",
+                    "https://media.giphy.com/media/2erqKiXvYpXeGH9XJ5/giphy.mp4",
+                  ]
+                }
+              />
+            </div>
+            <div
+              className="col-md-12"
+            >
+              <h1>
+                Premium sign in
+              </h1>
+              <div
+                className="description"
+              >
+                Sign in with your Patreon or GitHub account.
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+          >
+            <div
+              className="col-lg-6"
+              style={
+                Object {
+                  "padding": 0,
+                }
+              }
+            >
+              <a
+                className="btn btn-block patreon-login"
+                href="/login/patreon"
+              >
+                <Icon />
+                 Patreon
+              </a>
+            </div>
+            <div
+              className="col-lg-6"
+              style={
+                Object {
+                  "padding": 0,
+                }
+              }
+            >
+              <a
+                className="btn btn-block github-login"
+                href="/login/github"
+              >
+                <Icon />
+                 GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col-lg-7 col-md-8 col-sm-7"
+    >
+      <div
+        className="panel"
+      >
+        <div
+          className="panel-heading"
+        >
+          <h2>
+            WoWAnalyzer premium
+          </h2>
+        </div>
+        <div
+          className="panel-body"
+        >
+          <Icon
+            style={
+              Object {
+                "color": "#e45a5a",
+                "float": "right",
+                "fontSize": "6em",
+                "marginTop": 0,
+              }
+            }
+          />
+          <div
+            style={
+              Object {
+                "fontSize": "1.4em",
+                "fontWeight": 400,
+              }
+            }
+          >
+            Help out development to unlock 
+            <span
+              style={
+                Object {
+                  "color": "#e45a5a",
+                  "fontWeight": 700,
+                }
+              }
+            >
+              WoWAnalyzer Premium
+            </span>
+            !
+          </div>
+          <br />
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": 5,
+                "marginTop": "2em",
+              }
+            }
+          >
+            <div
+              className="col-md-12 text-center text-muted"
+            >
+              How to unlock WoWAnalyzer Premium:
+            </div>
+          </div>
+          <div
+            className="row flex"
+          >
+            <div
+              className="col-md-6"
+              style={
+                Object {
+                  "borderRight": "1px solid #aaa",
+                }
+              }
+            >
+              <h2>
+                Patreon
+              </h2>
+              Help fund further development by becoming a patron on Patreon. Pledge whatever you want!
+              <br />
+              <br />
+              <PatreonButton
+                text="Become a Patron"
+              />
+            </div>
+            <div
+              className="col-md-6"
+            >
+              <h2>
+                GitHub
+              </h2>
+              Improve the analysis of a spec or build a new feature to get 1 month of Premium free
+              <dfn
+                data-tip="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged."
+              >
+                *
+              </dfn>
+              .
+              <br />
+              <br />
+              <GithubButton
+                text="View on GitHub"
+              />
+            </div>
+          </div>
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": 5,
+                "marginTop": "2em",
+              }
+            }
+          >
+            <div
+              className="col-md-12 text-center text-muted"
+            >
+              WoWAnalyzer Premium unlocks the following things:
+            </div>
+          </div>
+          <div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="content-middle flex-sub"
+              >
+                <Icon />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  New things
+                </h2>
+                Your contributions will help fund new things for the site, making it even better.
+                <br />
+                <br />
+                We'll post bounties on the best ideas via 
+                <a
+                  href="https://www.bountysource.com/teams/wowanalyzer"
+                >
+                  Bountysource
+                </a>
+                 as a motivation to get developers to build them.
+              </div>
+            </div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="content-middle flex-sub"
+              >
+                <Icon />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  No ads
+                </h2>
+                We'll remove ads from the platform for you so you can consume our content with less distractions and less clutter.
+              </div>
+            </div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="content-middle flex-sub"
+              >
+                <Icon
+                  style={
+                    Object {
+                      "color": "#ff8000",
+                    }
+                  }
+                />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  Discord name color
+                </h2>
+                Get a distinct Discord name color befitting your contribution. See Patreon for Patron specific name colors. Serious GitHub contributors get the yellow contributor name color.
+              </div>
+            </div>
+            <div
+              className="premium-feature flex"
+            >
+              <div
+                className="content-middle flex-sub"
+              >
+                <Icon />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <h2>
+                  Access to secret channels on Discord
+                </h2>
+                Get access to special Discord channels to discuss things privately in the sub-community.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

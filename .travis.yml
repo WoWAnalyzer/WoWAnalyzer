@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - 9.9.0
+  - 10.4
 # every second counts
 git:
   depth: 5
@@ -24,6 +24,16 @@ jobs:
         - npm install
       script:
         - npm run test -- --maxWorkers=2
+    - stage: test
+      cache:
+        directories:
+          - server/node_modules
+      env:
+        - NODE_ENV=test
+      install:
+        - cd server && npm install --dev && cd ..
+      script:
+        - cd server && npm run test:once -- --maxWorkers=2 && cd ..
     # TODO: Code duplication calculator
     - stage: build
       services: docker

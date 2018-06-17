@@ -14,6 +14,7 @@ export default {
     id: 77130,
     name: 'Purify Spirit',
     icon: 'ability_shaman_cleansespirit',
+    manaCost: 1300,
   },
   WIND_SHEAR: {
     id: 57994,
@@ -70,6 +71,11 @@ export default {
     name: 'Tremor Totem',
     icon: 'spell_nature_tremortotem',
     manaCost: 460,
+  },
+  SPIRIT_WOLF_BUFF: {
+    id: 260881,
+    name: 'Spirit Wolf',
+    icon: 'spell_hunter_lonewolf',
   },
   // Hex and its variations
   HEX: {
@@ -139,6 +145,7 @@ export default {
     id: 51505,
     name: 'Lava Burst',
     icon: 'spell_shaman_lavaburst',
+    manaCost: 1200,
   },
   LAVA_BURST_VOLCANIC_INFERNO: {
     id: 205533,
@@ -790,12 +797,17 @@ export default {
     id: 188838,
     name: 'Flame Shock',
     icon: 'spell_fire_flameshock',
-    max_maelstrom: 20,
+    manaCost: 3000,
   },
   LIGHTNING_BOLT_RESTORATION: {
     id: 403,
     name: 'Lightning Bolt',
     icon: 'spell_nature_lightning',
+  },
+  CHAIN_LIGHTNING_RESTORATION: {
+    id: 421,
+    name: 'Chain Lightning',
+    icon: 'spell_nature_chainlightning',
   },
   RESURGENCE: {
     id: 101033,
@@ -825,6 +837,7 @@ export default {
     id: 974,
     name: 'Earth Shield',
     icon: 'spell_nature_skinofearth',
+    manaCost: 2000,
   },
   EARTH_SHIELD_HEAL: {
     id: 379,
@@ -841,5 +854,15 @@ export default {
     name: 'Downpour',
     icon: 'ability_mage_waterjet',
     manaCost: 3000,
+  },
+  FLASH_FLOOD_TALENT: { // Until talents work
+    id: 280614,
+    name: 'Flash Flood',
+    icon: 'spell_frost_summonwaterelemental',
+  },
+  FLASH_FLOOD_BUFF: {
+    id: 280615,
+    name: 'Flash Flood',
+    icon: 'spell_frost_summonwaterelemental',
   },
 };

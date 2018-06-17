@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
@@ -7,42 +6,22 @@ class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.combatants.selected;
     return [
-      // Riptide with EotE
       {
         spell: SPELLS.RIPTIDE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        charges: 2,
+        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
         cooldown: 6,
-        enabled: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id),
         timelineSortIndex: 11,
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
-          majorIssueEfficiency: 0.50,
-          averageIssueEfficiency: 0.70,
-          recommendedEfficiency: 0.90,
-        },
-      },
-      // Riptide without EotE
-      {
-        spell: SPELLS.RIPTIDE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 6,
-        enabled: !(combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id)),
-        timelineSortIndex: 11,
-        isOnGCD: true,
-        castEfficiency: {
-          suggestion: true,
-          majorIssueEfficiency: 0.30,
-          averageIssueEfficiency: 0.50,
-          recommendedEfficiency: 0.70,
+          recommendedEfficiency: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 0.90 : 0.70,
         },
       },
       {
         spell: SPELLS.HEALING_STREAM_TOTEM_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isDefensive: true,
-        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id) ? 2 : 1,
+        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
         timelineSortIndex: 18,
         enabled: !combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id),
         isOnGCD: true,
@@ -97,11 +76,11 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CLOUDBURST_TOTEM_TALENT,
         buffSpellId: SPELLS.CLOUDBURST_TOTEM_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1, // Possible with the Soul ring in prepatch unless they fix it
+        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
         cooldown: 30,
         timelineSortIndex: 16,
         isOnGCD: true,
-        enabled: combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id) || combatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id),
+        enabled: combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id),
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.50,
@@ -143,6 +122,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
+        isOnGCD: true,
         enabled: combatant.lv100Talent === SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
         castEfficiency: {
           suggestion: true,
@@ -251,6 +231,12 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 60,
       },
       {
+        spell: SPELLS.CHAIN_LIGHTNING_RESTORATION,
+        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        isOnGCD: true,
+        timelineSortIndex: 60,
+      },
+      {
         spell: SPELLS.GHOST_WOLF,
         buffSpellId: SPELLS.GHOST_WOLF.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
@@ -282,7 +268,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         timelineSortIndex: 80,
         isOnGCD: true,
-        //enabled: combatant.hasTalent(SPELLS.LIGHTNING_SURGE_TOTEM_TALENT.id) TODO: reduce CD depending on amount of targets hit
         cooldown: 60,
       },
       {
@@ -356,9 +341,9 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BERSERKING,
+        buffSpellId: SPELLS.BERSERKING.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
-        isOnGCD: true,
         isUndetectable: true,
       },
     ];

@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-06-11'),
+    changes: <React.Fragment>Added statistics breaking down snapshot uptime by buff for <SpellLink id={SPELLS.RAKE.id} />, <SpellLink id={SPELLS.RIP.id} />, and <SpellLink id={SPELLS.MOONFIRE_FERAL.id} />.</React.Fragment>,
+    contributors: [Anatta336],
+  },
+  {
     date: new Date('2018-06-09'),
     changes: <React.Fragment>Added snapshot tracking for <SpellLink id={SPELLS.MOONFIRE_FERAL.id} /></React.Fragment>,
     contributors: [Anatta336],

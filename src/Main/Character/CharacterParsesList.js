@@ -8,7 +8,6 @@ import SpellIcon from 'common/SpellIcon';
 import ItemLink from 'common/ItemLink';
 import Icon from 'common/Icon';
 import rankingColor from 'common/getRankingColor';
-import ITEMS from 'common/ITEMS';
 import { GEAR_SLOTS } from 'Parser/Core/Combatant';
 
 const TRINKET_SLOTS = [GEAR_SLOTS.TRINKET1, GEAR_SLOTS.TRINKET2];
@@ -26,7 +25,13 @@ class CharacterParsesList extends React.PureComponent {
     parses: PropTypes.array.isRequired,
     class: PropTypes.string.isRequired,
     metric: PropTypes.string.isRequired,
+    trinkets: PropTypes.object.isRequired,
   };
+
+  constructor(props) {
+    super(props);
+    this.renderItem = this.renderItem.bind(this);
+  }
 
   iconPath(specName) {
     return `/specs/${this.props.class.replace(' ', '')}-${specName.replace(' ', '')}.jpg`;
@@ -44,7 +49,7 @@ class CharacterParsesList extends React.PureComponent {
         icon={false}
       >
         <Icon
-          icon={ITEMS[item.id] ? ITEMS[item.id].icon : ITEMS[0].icon}
+          icon={this.props.trinkets[item.id] ? this.props.trinkets[item.id].icon : this.props.trinkets[0].icon }
           style={{ ...styles.icon, border: '1px solid' }}
         />
       </ItemLink>

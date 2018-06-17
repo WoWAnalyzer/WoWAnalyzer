@@ -269,11 +269,6 @@ export default {
     name: 'Double Dose',
     icon: 'ability_rogue_shadowstrikes',
   },
-  EBB_AND_FLOW: {
-    id: 273597,
-    name: 'Ebb and Flow',
-    icon: 'ability_shaman_healingtide',
-  },
   ECHO_OF_THE_ELEMENTALS: {
     id: 275381,
     name: 'Echo of the Elementals',
@@ -483,11 +478,6 @@ export default {
     id: 269383,
     name: 'Ignition Point',
     icon: 'spell_fire_flamebolt',
-  },
-  IMPASSIVE_VISAGE: {
-    id: 268437,
-    name: 'Impassive Visage',
-    icon: 'inv_pet_inquisitoreye',
   },
   IN_THE_RHYTHM: {
     id: 264198,
@@ -744,11 +734,6 @@ export default {
     name: 'Rejuvenating Grace',
     icon: 'spell_holy_surgeoflight',
   },
-  RESOUNDING_PROTECTION: {
-    id: 270568,
-    name: 'Resounding Protection',
-    icon: 'ability_vehicle_shellshieldgenerator_green',
-  },
   REVEL_IN_PAIN: {
     id: 272983,
     name: 'Revel in Pain',
@@ -973,11 +958,6 @@ export default {
     id: 269297,
     name: 'Swashbuckler',
     icon: 'ability_rogue_sabreslash',
-  },
-  SWELLING_STREAM: {
-    id: 275488,
-    name: 'Swelling Stream',
-    icon: 'inv_spear_04',
   },
   SWIFT_ROUNDHOUSE: {
     id: 269435,

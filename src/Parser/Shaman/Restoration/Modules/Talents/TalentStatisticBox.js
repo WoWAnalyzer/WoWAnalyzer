@@ -9,10 +9,11 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import Torrent from './Torrent';
 import UnleashLife from './UnleashLife';
 import Undulation from './Undulation';
-import CrashingWaves from './CrashingWaves';
+import Deluge from './Deluge';
 import EarthShield from './EarthShield';
 import EarthenWallTotem from './EarthenWallTotem';
 import Downpour from './Downpour';
+import FlashFlood from './FlashFlood';
 import CloudburstTotem from './CloudburstTotem';
 import Ascendance from './Ascendance';
 import Wellspring from './Wellspring';
@@ -25,10 +26,11 @@ class TalentStatisticBox extends Analyzer {
     torrent: Torrent,
     unleashLife: UnleashLife,
     undulation: Undulation,
-    crashingWaves: CrashingWaves,
+    deluge: Deluge,
     earthShield: EarthShield,
     earthenWallTotem: EarthenWallTotem,
     downpour: Downpour,
+    flashFlood: FlashFlood,
     cloudburstTotem: CloudburstTotem,
     ascendance: Ascendance,
     wellspring: Wellspring,
@@ -41,21 +43,21 @@ class TalentStatisticBox extends Analyzer {
         title="Talents"
         tooltip={`The purpose of this is to show the overall HPS impact of each talent. So not only what the talent itself did, but also feeding and synergy or interactions with other spells or talents. The percentage shown is what you'd lose without the talent, ignoring what you'd gain from the other options.<br /><br />
         <b>Not Supported:</b><br />
-        Deluge<br />
         Echo of the Elements
         `}
       >
         {this.combatants.selected.hasTalent(SPELLS.TORRENT_TALENT.id) ? this.torrent.subStatistic() : ''}
         {this.combatants.selected.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id) ? this.unleashLife.subStatistic() : ''}
         {this.combatants.selected.hasTalent(SPELLS.UNDULATION_TALENT.id) ? this.undulation.subStatistic() : ''}
-        {this.combatants.selected.hasTalent(SPELLS.CRASHING_WAVES_TALENT.id) ? this.crashingWaves.subStatistic() : ''}
+        {this.combatants.selected.hasTalent(SPELLS.DELUGE_TALENT.id) ? this.deluge.subStatistic() : ''}
         {this.combatants.selected.hasTalent(SPELLS.EARTH_SHIELD_TALENT.id) ? this.earthShield.subStatistic() : ''}
         {this.combatants.selected.hasTalent(SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id) ? this.earthenWallTotem.subStatistic() : ''}
+        {this.combatants.selected.hasTalent(SPELLS.FLASH_FLOOD_TALENT.id) ? this.flashFlood.subStatistic() : ''}
         {this.combatants.selected.hasTalent(SPELLS.DOWNPOUR_TALENT.id) ? this.downpour.subStatistic() : ''}
         {this.combatants.selected.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id) ? this.cloudburstTotem.subStatistic() : ''}
-        {this.combatants.selected.hasTalent(SPELLS.ASCENDANCE_TALENT_RESTORATION.id) ? this.ascendance.subStatistic() : ''}
-        {this.combatants.selected.hasTalent(SPELLS.WELLSPRING_TALENT.id) ? this.wellspring.subStatistic() : ''}
         {this.combatants.selected.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? this.highTide.subStatistic() : ''}
+        {this.combatants.selected.hasTalent(SPELLS.WELLSPRING_TALENT.id) ? this.wellspring.subStatistic() : ''}
+        {this.combatants.selected.hasTalent(SPELLS.ASCENDANCE_TALENT_RESTORATION.id) ? this.ascendance.subStatistic() : ''}
       </StatisticsListBox>
     );
   }

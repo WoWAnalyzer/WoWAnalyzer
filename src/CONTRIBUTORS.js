@@ -224,6 +224,10 @@ export const Chizu = {
   github: 'sMteX',
   avatar: require('./Images/Chizu_avatar.jpg'),
 };
+export const Hordehobbs = {
+  nickname: 'Hordehobbs',
+  github: 'hpabst',
+};
 export const TheBadBossy = {
   nickname: 'TheBadBossy',
   avatar: require('./Images/thebadbossy_avatar.jpg'),

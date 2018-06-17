@@ -71,12 +71,6 @@ export default {
     icon: 'spell_nature_rejuvenation',
     manaCost: 22000,
   },
-  HEALING_TOUCH: {
-    id: 5185,
-    name: 'Healing Touch',
-    icon: 'spell_nature_healingtouch',
-    manaCost: 19800,
-  },
   REGROWTH: {
     id: 8936,
     name: 'Regrowth',
@@ -222,11 +216,6 @@ export default {
     id: 145109,
     name: 'Ysera\'s gift',
     icon: 'spell_nature_healingtouch',
-  },
-  LIVING_SEED: {
-    id: 48503,
-    name: 'Living Seed',
-    icon: 'ability_druid_giftoftheearthmother',
   },
   MARK_OF_SHIFTING: {
     id: 224392,

@@ -56,6 +56,10 @@ const DEFENSIVE_BUFFS = [
   {
     spell: SPELLS.COMMANDING_SHOUT_BUFF,
   },
+  //Shaman
+  {
+    spell: SPELLS.SPIRIT_WOLF_BUFF,
+  },
 ];
 
 export default DEFENSIVE_BUFFS;

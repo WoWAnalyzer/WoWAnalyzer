@@ -20,7 +20,6 @@ class DamageTakenTable extends Analyzer {
   };
 
   // additive increase of 5% while isb is up
-  _has2pcT19 = false;
   abilityData = {}; // contains `ability` and `mitigatedAs`
 
   get tableData() {
@@ -36,7 +35,7 @@ class DamageTakenTable extends Analyzer {
   }
 
   on_initialized() {
-    this._has2pcT19 = this.combatants.selected.hasBuff(SPELLS.T19_2_PIECE_BUFF_BRM.id);
+    this.active = false;
   }
 
   on_toPlayer_damage(event) {
@@ -79,7 +78,7 @@ class DamageTakenTable extends Analyzer {
     // additive increase of 10%
     const hasHT = this.ht.active;
 
-    const physicalStaggerPct = 0.4 + hasHT * 0.1 + isbActive * 0.35 + isbActive * this._has2pcT19 * 0.05 + fbActive * 0.1;
+    const physicalStaggerPct = 0.4 + hasHT * 0.1 + isbActive * 0.35 + fbActive * 0.1;
     const actualPct = event.absorbed / (event.absorbed + event.amount);
 
     // multiply by 0.95 to allow for minor floating-point / integer
