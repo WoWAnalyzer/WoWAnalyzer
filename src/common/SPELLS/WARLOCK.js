@@ -277,7 +277,6 @@ export default {
   },
 
   // Affliction shard generating effects
-  // TODO: verify this section is still correct
   AGONY_SHARD_GEN: {
     id: 17941,
     name: 'Agony',
@@ -492,7 +491,6 @@ export default {
   },
 
   // Demonology shard generating effects
-  // TODO: verify correctness + add other effects
   RECURRENT_RITUAL_SHARD_GEN: {
     id: 214811,
     name: 'Recurrent Ritual',
@@ -504,14 +502,19 @@ export default {
     icon: 'spell_shadow_shadowbolt',
   },
   DEMONBOLT_SHARD_GEN: {
-    id: 196300,
+    id: 280127,
     name: 'Demonbolt',
     icon: 'spell_warlock_demonbolt',
   },
   DOOM_SHARD_GEN: {
-    id: 193318,
+    id: 272728,
     name: 'Doom',
     icon: 'spell_shadow_auraofdarkness',
+  },
+  SOUL_STRIKE_SHARD_GEN: {
+    id: 270557,
+    name: 'Soul Strike',
+    icon: 'inv_polearm_2h_fellord_04',
   },
 
   // Demonology Tier sets
@@ -539,13 +542,6 @@ export default {
     id: 246962,
     name: 'Dreaded Haste',
     icon: 'spell_shadow_metamorphosis',
-  },
-
-  // Demonology legendary effects
-  WAKENERS_LOYALTY: {
-    id: 236200,
-    name: 'Wakener\'s Loyalty',
-    icon: 'inv_offhand_1h_artifactskulloferedar_d_01',
   },
 
   // -----------
