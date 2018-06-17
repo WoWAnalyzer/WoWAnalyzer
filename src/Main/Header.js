@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
-import { getUser } from 'selectors/user';
+import { hasPremium } from 'selectors/user';
 import Ad from 'Main/Ad';
 
 import ReportSelecter from './ReportSelecter';
@@ -78,12 +78,9 @@ class Header extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => {
-  const user = getUser(state);
-  return {
-    premium: user ? user.premium : false,
-  };
-};
+const mapStateToProps = state => ({
+  premium: hasPremium(state),
+});
 
 export default connect(
   mapStateToProps

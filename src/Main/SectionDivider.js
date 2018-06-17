@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { getUser } from 'selectors/user';
+import { hasPremium } from 'selectors/user';
 import Ad from 'Main/Ad';
 
 import './SectionDivider.css';
@@ -23,13 +23,9 @@ SectionDivider.defaultProps = {
   premium: false,
 };
 
-const mapStateToProps = state => {
-  const user = getUser(state);
-  return {
-    premium: user ? user.premium : false,
-  };
-};
-
+const mapStateToProps = state => ({
+  premium: hasPremium(state),
+});
 export default connect(
   mapStateToProps
 )(SectionDivider);

@@ -6,7 +6,7 @@ import ScrollFilledIcon from 'Icons/ScrollFilled';
 import MegaphoneIcon from 'Icons/Megaphone';
 
 import DelayRender from 'common/DelayRender';
-import { getUser } from 'selectors/user';
+import { hasPremium } from 'selectors/user';
 import SectionDivider from 'Main/SectionDivider';
 
 import DiscordButton from './DiscordButton';
@@ -125,12 +125,9 @@ class Home extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => {
-  const user = getUser(state);
-  return {
-    premium: user ? user.premium : false,
-  };
-};
+const mapStateToProps = state => ({
+  premium: hasPremium(state),
+});
 
 export default connect(
   mapStateToProps
