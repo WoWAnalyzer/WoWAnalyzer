@@ -5,9 +5,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from 'common/ITEMS/OTHERS';
 import SPELLS from 'common/SPELLS/OTHERS';
 //NLC Tier 2 Traits
-import LightsEmbrace from 'Parser/Core/Modules/NetherlightCrucibleTraits/LightsEmbrace';
 import Shadowbind from 'Parser/Core/Modules/NetherlightCrucibleTraits/Shadowbind';
-import TormentTheWeak from 'Parser/Core/Modules/NetherlightCrucibleTraits/TormentTheWeak';
 import DarkSorrows from 'Parser/Core/Modules/NetherlightCrucibleTraits/DarkSorrows';
 import MasterOfShadows from 'Parser/Core/Modules/NetherlightCrucibleTraits/MasterOfShadows';
 import ItemDamageDone from 'Main/ItemDamageDone';
@@ -24,9 +22,7 @@ const AVOIDANCE_AMOUNT = 1000;
 class InsigniaOfTheGrandArmy extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    lightsEmbrace: LightsEmbrace,
     shadowbind: Shadowbind,
-    tormentTheWeak: TormentTheWeak,
     darkSorrows: DarkSorrows,
     baseMasterOfShadows: MasterOfShadows,
   };
@@ -34,11 +30,8 @@ class InsigniaOfTheGrandArmy extends Analyzer {
   // NO MEMES<
   damage = 0;
   healing = 0;
-  refractiveHealing = 0;
-  lightsEmbraceHealing = 0;
   shadowBindDamage = 0;
   shadowBindHealing = 0;
-  tormentTheWeakDamage = 0;
   darkSorrowsDamage = 0;
 
   on_initialized() {
@@ -52,10 +45,6 @@ class InsigniaOfTheGrandArmy extends Analyzer {
       this.damage += event.amount + (event.absorbed || 0);
       this.shadowBindDamage += event.amount + (event.absorbed || 0);
     }
-    if (spellID === SPELLS.TORMENT_THE_WEAK_DAMAGE.id) {
-      this.damage += event.amount + (event.absorbed || 0);
-      this.tormentTheWeakDamage += event.amount + (event.absorbed || 0);
-    }
     if (spellID === SPELLS.DARK_SORROWS_DAMAGE.id) {
       this.damage += event.amount + (event.absorbed || 0);
       this.darkSorrowsDamage += event.amount + (event.absorbed || 0);
@@ -64,12 +53,8 @@ class InsigniaOfTheGrandArmy extends Analyzer {
   }
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.LIGHTS_EMBRACE_HEALING.id && spellId !== SPELLS.SHADOWBIND_DAMAGE_HEALING.id) {
+    if (spellId !== SPELLS.SHADOWBIND_DAMAGE_HEALING.id) {
       return;
-    }
-    if (spellId === SPELLS.LIGHTS_EMBRACE_HEALING.id) {
-      this.healing += (event.amount || 0) + (event.absorbed || 0);
-      this.lightsEmbraceHealing += (event.amount || 0) + (event.absorbed || 0);
     }
     if (spellId === SPELLS.SHADOWBIND_DAMAGE_HEALING.id) {
       this.healing += (event.amount || 0) + (event.absorbed || 0);
@@ -97,12 +82,8 @@ class InsigniaOfTheGrandArmy extends Analyzer {
     tooltip += this.combatants.selected.traitsBySpellId[SPELLS.MURDEROUS_INTENT_TRAIT.id] > 0 ? `<li>Murderous Intent: <ul><li>${this.averageVersFromRing} average versatility </li></ul></li>` : ``;
     //MasterOfShadows
     tooltip += this.combatants.selected.traitsBySpellId[SPELLS.MASTER_OF_SHADOWS_TRAIT.id] > 0 ? `<li>Master Of Shadows: <ul><li>${this.masterOfShadowsMasteryIncrease} increased mastery </li><li>${this.masterOfShadowsAvoidanceIncrease} increased avoidance</li></ul></li>` : ``;
-    //Lights Embrace
-    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.LIGHTS_EMBRACE_TRAIT.id] > 0 ? `<li>Light's Embrace:<ul><li>${this.owner.formatItemHealingDone(this.lightsEmbraceHealing / 3)}</li></ul></li>` : ``;
     //Shadowbind
     tooltip += this.combatants.selected.traitsBySpellId[SPELLS.SHADOWBIND_TRAIT.id] > 0 ? `<li>Shadowbind: <ul><li>${this.owner.formatItemDamageDone(this.shadowBindDamage / 3)}</li><li>${this.owner.formatItemHealingDone(this.shadowBindHealing / 3)}</li></ul></li>` : ``;
-    //Torment The Weak
-    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.TORMENT_THE_WEAK_TRAIT.id] > 0 ? `<li>Torment The Weak: <ul><li>${this.owner.formatItemDamageDone(this.tormentTheWeakDamage / 3)}</li</ul></li>` : ``;
     //Dark Sorrows
     tooltip += this.combatants.selected.traitsBySpellId[SPELLS.DARK_SORROWS_TRAIT.id] > 0 ? `<li>Dark Sorrows: <ul><li>${this.owner.formatItemDamageDone(this.darkSorrowsDamage / 3)}</li</ul></li>` : ``;
 

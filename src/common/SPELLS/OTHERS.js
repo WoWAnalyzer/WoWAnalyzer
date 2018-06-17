@@ -731,16 +731,6 @@ export default {
     name: 'Murderous Intent',
     icon: 'spell_shadow_charm',
   },
-  LIGHTS_EMBRACE_TRAIT: {
-    id: 253111,
-    name: 'Light\'s Embrace',
-    icon: 'achievement_reputation_07',
-  },
-  LIGHTS_EMBRACE_HEALING: {
-    id: 253216,
-    name: 'Light\'s Embrace',
-    icon: 'achievement_reputation_07',
-  },
   SHADOWBIND_TRAIT: {
     id: 252875,
     name: 'Shadowbind',
@@ -750,16 +740,6 @@ export default {
     id: 252879,
     name: 'Shadowbind',
     icon: 'spell_shadow_deathpact',
-  },
-  TORMENT_THE_WEAK_TRAIT: {
-    id: 252906,
-    name: 'Torment the Weak',
-    icon: 'warlock_curse_weakness',
-  },
-  TORMENT_THE_WEAK_DAMAGE: {
-    id: 252907,
-    name: 'Torment the Weak',
-    icon: 'warlock_curse_weakness',
   },
   DARK_SORROWS_TRAIT: {
     id: 252922,
