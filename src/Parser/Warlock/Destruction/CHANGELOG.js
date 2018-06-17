@@ -13,17 +13,17 @@ export default [
   },
   {
     date: new Date('2018-01-26'),
-    changes: <React.Fragment>Implemented Tier 21 set bonuses.</React.Fragment>,
+    changes: 'Implemented Tier 21 set bonuses.',
     contributors: [Chizu],
   },
   {
     date: new Date('2017-09-16'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} icon />/<SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} icon />/<SpellLink id={SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id} icon /> to Cooldowns tab.</React.Fragment>,
+    changes: <React.Fragment>Added Summon Doomguard/<SpellLink id={SPELLS.SUMMON_INFERNAL.id} icon />/Grimoire of Service to Cooldowns tab.</React.Fragment>,
     contributors: [Chizu],
   },
   {
     date: new Date('2017-09-12'),
-    changes: <React.Fragment>Added Legendaries and T20 2set.</React.Fragment>,
+    changes: 'Added Legendaries and T20 2set.',
     contributors: [Chizu],
   },
   {
@@ -38,17 +38,17 @@ export default [
   },
   {
     date: new Date('2017-09-10'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.DIMENSIONAL_RIFT_CAST.id} icon /> damage tracker.</React.Fragment>,
+    changes: 'Added Dimensional Rift damage tracker.',
     contributors: [Chizu],
   },
   {
     date: new Date('2017-09-09'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.REVERSE_ENTROPY_TALENT.id} icon />, <SpellLink id={SPELLS.ERADICATION_TALENT.id} icon /> and <SpellLink id={SPELLS.EMPOWERED_LIFE_TAP_TALENT.id} /> modules.</React.Fragment>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.REVERSE_ENTROPY_TALENT.id} icon />, <SpellLink id={SPELLS.ERADICATION_TALENT.id} icon /> and Empowered Life Tap modules.</React.Fragment>,
     contributors: [Chizu],
   },
   {
     date: new Date('2017-09-08'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.BACKDRAFT_TALENT.id} icon />, <SpellLink id={SPELLS.ROARING_BLAZE_TALENT.id} icon /> and <SpellLink id={SPELLS.SHADOWBURN_TALENT.id} icon /> modules.</React.Fragment>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.BACKDRAFT.id} icon />, Roaring Blaze and <SpellLink id={SPELLS.SHADOWBURN_TALENT.id} icon /> modules.</React.Fragment>,
     contributors: [Chizu],
   },
   {
@@ -58,12 +58,12 @@ export default [
   },
   {
     date: new Date('2017-09-05'),
-    changes: <React.Fragment>Added Soul Shard usage breakdown.</React.Fragment>,
+    changes: 'Added Soul Shard usage breakdown.',
     contributors: [Chizu],
   },
   {
     date: new Date('2017-09-04'),
-    changes: <React.Fragment>Fixed the issues with <SpellLink id={SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id} icon /> and <SpellLink id={SPELLS.SUMMON_DOOMGUARD_UNTALENTED.id} icon />/<SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} icon />.</React.Fragment>,
+    changes: <React.Fragment>Fixed the issues with Grimoire of Service and Summon Doomguard/<SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} icon />.</React.Fragment>,
     contributors: [Chizu],
   },
 ];
