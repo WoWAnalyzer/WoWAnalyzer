@@ -13,6 +13,10 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 20, // can be reset via T20 2pc
         isOnGCD: true,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
       },
       {
         spell: SPELLS.HAND_OF_GULDAN_CAST,
@@ -57,6 +61,13 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
       },
+      // TODO: figure which spell triggers this now
+      // {
+      //   spell: SPELLS.FELSTORM,
+      //   category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      //   cooldown: 45,
+      //   isOnGCD: false,
+      // },
       {
         spell: SPELLS.BILESCOURGE_BOMBERS_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,

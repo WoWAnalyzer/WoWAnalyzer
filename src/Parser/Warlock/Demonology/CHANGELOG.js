@@ -10,7 +10,7 @@ import { Chizu, Hordehobbs } from 'CONTRIBUTORS';
 export default [
   {
     date: new Date('2018-06-06'),
-    changes: <React.Fragment>Added spec checklist. Added <SpellLink id={SPELLS.DEMONIC_EMPOWERMENT.id} icon/> tracking for demon-summoning spells.</React.Fragment>,
+    changes: 'Added spec checklist. Added Demonic Empowerment tracking for demon-summoning spells.',
     contributors: [Hordehobbs],
   },
   {
