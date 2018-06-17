@@ -39,6 +39,7 @@ class Haste extends Analyzer {
     [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
     [SPELLS.HAVOC_T21_4PC_BUFF.id]: 0.25,
     [SPELLS.DIRE_BEAST_BUFF.id]: 0.1,
+    [SPELLS.DARK_SOUL_MISERY_TALENT.id]: 0.3,
     // Haste RATING buffs are handled by the StatTracker module
 
     // Boss abilities:
