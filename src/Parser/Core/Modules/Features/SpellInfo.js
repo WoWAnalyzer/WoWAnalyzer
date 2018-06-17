@@ -51,20 +51,6 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.INFUSION_OF_LIGHT_HEALING.id]: {
-    int: false,
-    crit: true,
-    hasteHpct: false,
-    mastery: false,
-    vers: true,
-  },
-  [SPELLS.CHAOTIC_DARKNESS_HEALING.id]: {
-    int: false,
-    crit: true,
-    hasteHpct: false,
-    mastery: false,
-    vers: true,
-  },
   [SPELLS.EONARS_COMPASSION_HEAL.id]: {
     int: false,
     crit: true,

@@ -731,21 +731,6 @@ export default {
     name: 'Murderous Intent',
     icon: 'spell_shadow_charm',
   },
-  INFUSION_OF_LIGHT_TRAIT: {
-    id: 253093,
-    name: 'Infusion of Light',
-    icon: 'ability_malkorok_blightofyshaarj_yellow',
-  },
-  INFUSION_OF_LIGHT_DAMAGE: {
-    id: 253098,
-    name: 'Infusion of Light',
-    icon: 'ability_malkorok_blightofyshaarj_yellow',
-  },
-  INFUSION_OF_LIGHT_HEALING: {
-    id: 253099,
-    name: 'Infusion of Light',
-    icon: 'ability_malkorok_blightofyshaarj_yellow',
-  },
   LIGHTS_EMBRACE_TRAIT: {
     id: 253111,
     name: 'Light\'s Embrace',
@@ -765,21 +750,6 @@ export default {
     id: 252879,
     name: 'Shadowbind',
     icon: 'spell_shadow_deathpact',
-  },
-  CHAOTIC_DARKNESS_TRAIT: {
-    id: 252888,
-    name: 'Chaotic Darkness',
-    icon: 'inv_artifact_powerofthedarkside',
-  },
-  CHAOTIC_DARKNESS_DAMAGE: {
-    id: 252896,
-    name: 'Chaotic Darkness',
-    icon: 'inv_artifact_powerofthedarkside',
-  },
-  CHAOTIC_DARKNESS_HEALING: {
-    id: 252897,
-    name: 'Chaotic Darkness',
-    icon: 'inv_artifact_powerofthedarkside',
   },
   TORMENT_THE_WEAK_TRAIT: {
     id: 252906,

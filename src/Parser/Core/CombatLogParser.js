@@ -120,10 +120,8 @@ import VantusRune from './Modules/Spells/VantusRune';
 // Netherlight Crucible Traits
 import DarkSorrows from './Modules/NetherlightCrucibleTraits/DarkSorrows';
 import TormentTheWeak from './Modules/NetherlightCrucibleTraits/TormentTheWeak';
-import ChaoticDarkness from './Modules/NetherlightCrucibleTraits/ChaoticDarkness';
 import Shadowbind from './Modules/NetherlightCrucibleTraits/Shadowbind';
 import LightsEmbrace from './Modules/NetherlightCrucibleTraits/LightsEmbrace';
-import InfusionOfLight from './Modules/NetherlightCrucibleTraits/InfusionOfLight';
 import MasterOfShadows from './Modules/NetherlightCrucibleTraits/MasterOfShadows';
 import NLCTraits from './Modules/NetherlightCrucibleTraits/NLCTraits';
 
@@ -254,10 +252,8 @@ class CombatLogParser {
     // Netherlight Crucible Traits
     darkSorrows: DarkSorrows,
     tormentTheWeak: TormentTheWeak,
-    chaoticDarkness: ChaoticDarkness,
     shadowbind: Shadowbind,
     lightsEmbrace: LightsEmbrace,
-    infusionOfLight: InfusionOfLight,
     masterOfShadows: MasterOfShadows,
     nlcTraits: NLCTraits,
 

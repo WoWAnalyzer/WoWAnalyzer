@@ -5,9 +5,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from 'common/ITEMS/OTHERS';
 import SPELLS from 'common/SPELLS/OTHERS';
 //NLC Tier 2 Traits
-import ChaoticDarkness from 'Parser/Core/Modules/NetherlightCrucibleTraits/ChaoticDarkness';
 import LightsEmbrace from 'Parser/Core/Modules/NetherlightCrucibleTraits/LightsEmbrace';
-import InfusionOfLight from 'Parser/Core/Modules/NetherlightCrucibleTraits/InfusionOfLight';
 import Shadowbind from 'Parser/Core/Modules/NetherlightCrucibleTraits/Shadowbind';
 import TormentTheWeak from 'Parser/Core/Modules/NetherlightCrucibleTraits/TormentTheWeak';
 import DarkSorrows from 'Parser/Core/Modules/NetherlightCrucibleTraits/DarkSorrows';
@@ -26,10 +24,8 @@ const AVOIDANCE_AMOUNT = 1000;
 class InsigniaOfTheGrandArmy extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    infusionOfLight: InfusionOfLight,
     lightsEmbrace: LightsEmbrace,
     shadowbind: Shadowbind,
-    chaoticDarkness: ChaoticDarkness,
     tormentTheWeak: TormentTheWeak,
     darkSorrows: DarkSorrows,
     baseMasterOfShadows: MasterOfShadows,
@@ -39,13 +35,9 @@ class InsigniaOfTheGrandArmy extends Analyzer {
   damage = 0;
   healing = 0;
   refractiveHealing = 0;
-  infusionOfLightDamage = 0;
-  infusionOfLightHealing = 0;
   lightsEmbraceHealing = 0;
   shadowBindDamage = 0;
   shadowBindHealing = 0;
-  chaoticDarknessDamage = 0;
-  chaoticDarknessHealing = 0;
   tormentTheWeakDamage = 0;
   darkSorrowsDamage = 0;
 
@@ -56,17 +48,9 @@ class InsigniaOfTheGrandArmy extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellID = event.ability.guid;
-    if (spellID === SPELLS.INFUSION_OF_LIGHT_DAMAGE.id) {
-      this.damage += event.amount + (event.absorbed || 0);
-      this.infusionOfLightDamage += event.amount + (event.absorbed || 0);
-    }
     if (spellID === SPELLS.SHADOWBIND_DAMAGE_HEALING.id) {
       this.damage += event.amount + (event.absorbed || 0);
       this.shadowBindDamage += event.amount + (event.absorbed || 0);
-    }
-    if (spellID === SPELLS.CHAOTIC_DARKNESS_DAMAGE.id) {
-      this.damage += (event.amount || 0) + (event.absorbed || 0) + (event.overkill || 0);
-      this.chaoticDarknessDamage += (event.amount || 0) + (event.absorbed || 0) + (event.overkill || 0);
     }
     if (spellID === SPELLS.TORMENT_THE_WEAK_DAMAGE.id) {
       this.damage += event.amount + (event.absorbed || 0);
@@ -80,12 +64,8 @@ class InsigniaOfTheGrandArmy extends Analyzer {
   }
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.INFUSION_OF_LIGHT_HEALING.id && spellId !== SPELLS.LIGHTS_EMBRACE_HEALING.id && spellId !== SPELLS.CHAOTIC_DARKNESS_HEALING.id && spellId !== SPELLS.SHADOWBIND_DAMAGE_HEALING.id) {
+    if (spellId !== SPELLS.LIGHTS_EMBRACE_HEALING.id && spellId !== SPELLS.SHADOWBIND_DAMAGE_HEALING.id) {
       return;
-    }
-    if (spellId === SPELLS.INFUSION_OF_LIGHT_HEALING.id) {
-      this.healing += (event.amount || 0) + (event.absorbed || 0);
-      this.infusionOfLightHealing += (event.amount || 0) + (event.absorbed || 0);
     }
     if (spellId === SPELLS.LIGHTS_EMBRACE_HEALING.id) {
       this.healing += (event.amount || 0) + (event.absorbed || 0);
@@ -95,11 +75,6 @@ class InsigniaOfTheGrandArmy extends Analyzer {
       this.healing += (event.amount || 0) + (event.absorbed || 0);
       this.shadowBindHealing += (event.amount || 0) + (event.absorbed || 0);
     }
-    if (spellId === SPELLS.CHAOTIC_DARKNESS_HEALING.id) {
-      this.healing += (event.amount || 0) + (event.absorbed || 0);
-      this.chaoticDarknessHealing += (event.amount || 0) + (event.absorbed || 0);
-    }
-
   }
 
   get masterOfShadowsMasteryIncrease() {
@@ -122,14 +97,10 @@ class InsigniaOfTheGrandArmy extends Analyzer {
     tooltip += this.combatants.selected.traitsBySpellId[SPELLS.MURDEROUS_INTENT_TRAIT.id] > 0 ? `<li>Murderous Intent: <ul><li>${this.averageVersFromRing} average versatility </li></ul></li>` : ``;
     //MasterOfShadows
     tooltip += this.combatants.selected.traitsBySpellId[SPELLS.MASTER_OF_SHADOWS_TRAIT.id] > 0 ? `<li>Master Of Shadows: <ul><li>${this.masterOfShadowsMasteryIncrease} increased mastery </li><li>${this.masterOfShadowsAvoidanceIncrease} increased avoidance</li></ul></li>` : ``;
-    //Infusion Of Light
-    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.INFUSION_OF_LIGHT_TRAIT.id] > 0 ? `<li>Infusion Of Light: <ul><li>${this.owner.formatItemDamageDone(this.infusionOfLightDamage / 3)}</li><li>${this.owner.formatItemHealingDone(this.infusionOfLightHealing / 3)}</li></ul></li>` : ``;
     //Lights Embrace
     tooltip += this.combatants.selected.traitsBySpellId[SPELLS.LIGHTS_EMBRACE_TRAIT.id] > 0 ? `<li>Light's Embrace:<ul><li>${this.owner.formatItemHealingDone(this.lightsEmbraceHealing / 3)}</li></ul></li>` : ``;
     //Shadowbind
     tooltip += this.combatants.selected.traitsBySpellId[SPELLS.SHADOWBIND_TRAIT.id] > 0 ? `<li>Shadowbind: <ul><li>${this.owner.formatItemDamageDone(this.shadowBindDamage / 3)}</li><li>${this.owner.formatItemHealingDone(this.shadowBindHealing / 3)}</li></ul></li>` : ``;
-    //Chaotic Darkness
-    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.CHAOTIC_DARKNESS_TRAIT.id] > 0 ? `<li>Chaotic Darkness: <ul><li>${this.owner.formatItemDamageDone(this.chaoticDarknessDamage / 3)}</li><li>${this.owner.formatItemHealingDone(this.chaoticDarknessHealing / 3)}</li></ul></li>` : ``;
     //Torment The Weak
     tooltip += this.combatants.selected.traitsBySpellId[SPELLS.TORMENT_THE_WEAK_TRAIT.id] > 0 ? `<li>Torment The Weak: <ul><li>${this.owner.formatItemDamageDone(this.tormentTheWeakDamage / 3)}</li</ul></li>` : ``;
     //Dark Sorrows
