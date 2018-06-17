@@ -19,7 +19,7 @@ class EarthenWallTotem extends Analyzer {
   };
 
   prePullCast = true;
-  prePullCastConfirmed = false;
+  prePullCastHealth = 0; // Used to be boolean, but i need the number in case the player is Mag'har Orc
   potentialHealing = 0;
   healing = 0;
 
@@ -35,9 +35,9 @@ class EarthenWallTotem extends Analyzer {
     }
 
     if (this.prePullCast) {
-      this.potentialHealing += event.maxHitPoints; // this is taking the totems max HP, which is the same result as the players anyway
+      this.potentialHealing += event.maxHitPoints; // this is taking the totems max HP, which is the same result as the players unless Mag'har Orc
       this.prePullCast = false;
-      this.prePullCastConfirmed = true;
+      this.prePullCastHealth = event.maxHitPoints;
     }
 
     this.healing += (event.amount || 0) + (event.overheal || 0) + (event.absorbed || 0);
@@ -61,10 +61,15 @@ class EarthenWallTotem extends Analyzer {
     return this.healing / this.potentialHealing;
   }
 
-  // If Mag'har Orc, +10% totem health (FeelsBadMan, no player race data)  
+  // If Mag'har Orc, +10% totem health (FeelsBadMan, no player race data)
   on_finished() {
     if (this.abilityTracker.getAbility(SPELLS.ANCESTRAL_CALL.id).casts || 0) {
-      this.potentialHealing *= 1.1;
+      // if this.prePullCastHealth has a value, it already got increased by 10% because it takes the totems health instead of the players
+      if (this.prePullCastHealth > 0) {
+        this.potentialHealing = (this.potentialHealing - this.prePullCastHealth) * 1.1 + this.prePullCastHealth;
+      } else {
+        this.potentialHealing *= 1.1;
+      }
     }
   }
 
@@ -80,7 +85,7 @@ class EarthenWallTotem extends Analyzer {
   }
 
   statistic() {
-    const casts = this.abilityTracker.getAbility(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id).casts + (this.prePullCastConfirmed ? 1 : 0);
+    const casts = this.abilityTracker.getAbility(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id).casts + (this.prePullCastHealth > 0 ? 1 : 0);
 
     return (
       <StatisticBox
