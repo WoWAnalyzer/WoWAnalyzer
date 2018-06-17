@@ -125,9 +125,7 @@ import Shadowbind from './Modules/NetherlightCrucibleTraits/Shadowbind';
 import LightsEmbrace from './Modules/NetherlightCrucibleTraits/LightsEmbrace';
 import InfusionOfLight from './Modules/NetherlightCrucibleTraits/InfusionOfLight';
 import SecureInTheLight from './Modules/NetherlightCrucibleTraits/SecureInTheLight';
-import Shocklight from './Modules/NetherlightCrucibleTraits/Shocklight';
 import MasterOfShadows from './Modules/NetherlightCrucibleTraits/MasterOfShadows';
-import LightSpeed from './Modules/NetherlightCrucibleTraits/LightSpeed';
 import RefractiveShell from './Modules/NetherlightCrucibleTraits/RefractiveShell';
 import NLCTraits from './Modules/NetherlightCrucibleTraits/NLCTraits';
 
@@ -263,10 +261,8 @@ class CombatLogParser {
     lightsEmbrace: LightsEmbrace,
     infusionOfLight: InfusionOfLight,
     secureInTheLight: SecureInTheLight,
-    shocklight: Shocklight,
     refractiveShell: RefractiveShell,
     masterOfShadows: MasterOfShadows,
-    lightSpeed: LightSpeed,
     nlcTraits: NLCTraits,
 
     infernalCinders: InfernalCinders,

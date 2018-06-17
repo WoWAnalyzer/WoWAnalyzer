@@ -741,16 +741,6 @@ export default {
     name: 'Refractive Shell',
     icon: 'ability_priest_reflectiveshield',
   },
-  SHOCKLIGHT_TRAIT: {
-    id: 252799,
-    name: 'Shocklight',
-    icon: 'paladin_icon_speedoflight',
-  },
-  SHOCKLIGHT_BUFF: {
-    id: 252801,
-    name: 'Shocklight',
-    icon: 'paladin_icon_speedoflight',
-  },
   SECURE_IN_THE_LIGHT_TRAIT: {
     id: 253070,
     name: 'Secure in the Light',

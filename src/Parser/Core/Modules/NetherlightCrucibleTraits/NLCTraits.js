@@ -5,7 +5,6 @@ import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 import Analyzer from 'Parser/Core/Analyzer';
 
 import RefractiveShell from './RefractiveShell';
-import Shocklight from './Shocklight';
 import SecureInTheLight from './SecureInTheLight';
 import InfusionOfLight from './InfusionOfLight';
 import LightsEmbrace from './LightsEmbrace';
@@ -14,12 +13,10 @@ import ChaoticDarkness from './ChaoticDarkness';
 import TormentTheWeak from './TormentTheWeak';
 import DarkSorrows from './DarkSorrows';
 import MasterOfShadows from './MasterOfShadows';
-import LightSpeed from './LightSpeed';
 
 class NLCTraits extends Analyzer {
   static dependencies = {
     refractiveShell: RefractiveShell,
-    shocklight: Shocklight,
     secureInTheLight: SecureInTheLight,
     infusionOfLight: InfusionOfLight,
     lightsEmbrace: LightsEmbrace,
@@ -28,7 +25,6 @@ class NLCTraits extends Analyzer {
     tormentTheWeak: TormentTheWeak,
     darkSorrows: DarkSorrows,
     masterOfShadows: MasterOfShadows,
-    lightSpeed: LightSpeed,
   };
 
   on_initialized() {
@@ -44,7 +40,6 @@ class NLCTraits extends Analyzer {
         title="Concordance and NLC"
         tooltip="This provides an overview of the benefits provided by Concordance of the Legionfall and the Netherlight Crucible traits."
       >
-        {this.shocklight.active && this.shocklight.subStatistic()}
         {this.refractiveShell.active && this.refractiveShell.subStatistic()}
         {this.secureInTheLight.active && this.secureInTheLight.subStatistic()}
         {this.infusionOfLight.active && this.infusionOfLight.subStatistic()}
@@ -53,7 +48,6 @@ class NLCTraits extends Analyzer {
         {this.chaoticDarkness.active && this.chaoticDarkness.subStatistic()}
         {this.tormentTheWeak.active && this.tormentTheWeak.subStatistic()}
         {this.darkSorrows.active && this.darkSorrows.subStatistic()}
-        {this.lightSpeed.active && this.lightSpeed.subStatistic()}
         {this.masterOfShadows.active && this.masterOfShadows.subStatistic()}
       </StatisticsListBox>
     );

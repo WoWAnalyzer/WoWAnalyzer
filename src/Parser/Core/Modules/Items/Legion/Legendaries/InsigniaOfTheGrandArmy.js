@@ -11,10 +11,8 @@ import SecureInTheLight from 'Parser/Core/Modules/NetherlightCrucibleTraits/Secu
 import InfusionOfLight from 'Parser/Core/Modules/NetherlightCrucibleTraits/InfusionOfLight';
 import RefractiveShell from 'Parser/Core/Modules/NetherlightCrucibleTraits/RefractiveShell';
 import Shadowbind from 'Parser/Core/Modules/NetherlightCrucibleTraits/Shadowbind';
-import Shocklight from 'Parser/Core/Modules/NetherlightCrucibleTraits/Shocklight';
 import TormentTheWeak from 'Parser/Core/Modules/NetherlightCrucibleTraits/TormentTheWeak';
 import DarkSorrows from 'Parser/Core/Modules/NetherlightCrucibleTraits/DarkSorrows';
-import LightSpeed from 'Parser/Core/Modules/NetherlightCrucibleTraits/LightSpeed';
 import MasterOfShadows from 'Parser/Core/Modules/NetherlightCrucibleTraits/MasterOfShadows';
 import ItemDamageDone from 'Main/ItemDamageDone';
 import ItemHealingDone from 'Main/ItemHealingDone';
@@ -34,7 +32,6 @@ class InsigniaOfTheGrandArmy extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     refractiveShell: RefractiveShell,
-    shocklight: Shocklight,
     secureInTheLight: SecureInTheLight,
     infusionOfLight: InfusionOfLight,
     lightsEmbrace: LightsEmbrace,
@@ -42,7 +39,6 @@ class InsigniaOfTheGrandArmy extends Analyzer {
     chaoticDarkness: ChaoticDarkness,
     tormentTheWeak: TormentTheWeak,
     darkSorrows: DarkSorrows,
-    baseLightSpeed: LightSpeed,
     baseMasterOfShadows: MasterOfShadows,
   };
 
@@ -136,18 +132,6 @@ class InsigniaOfTheGrandArmy extends Analyzer {
 
   }
 
-  get averageCritFromRing() {
-    return (((this.combatants.selected.getBuffUptime(SPELLS.SHOCKLIGHT_BUFF.id) / this.owner.fightDuration) * CRIT_AMOUNT * this.combatants.selected.traitsBySpellId[SPELLS.SHOCKLIGHT_TRAIT.id]) / 2).toFixed(2);
-  }
-
-  get lightSpeedHasteIncrease() {
-    return (HASTE_AMOUNT * this.combatants.selected.traitsBySpellId[SPELLS.LIGHT_SPEED_TRAIT.id]) / 2;
-  }
-
-  get lightSpeedMovementIncrease() {
-    return (MOVEMENT_SPEED_AMOUNT * this.combatants.selected.traitsBySpellId[SPELLS.LIGHT_SPEED_TRAIT.id]) / 2;
-  }
-
   get masterOfShadowsMasteryIncrease() {
     return (MASTERY_AMOUNT * this.combatants.selected.traitsBySpellId[SPELLS.MASTER_OF_SHADOWS_TRAIT.id]) / 2;
   }
@@ -166,12 +150,8 @@ class InsigniaOfTheGrandArmy extends Analyzer {
     tooltip += `The following will be a breakdown of your individual NLC traits and how they were impacted by the legendary ring: <ul>`;
     //Murderous Intent
     tooltip += this.combatants.selected.traitsBySpellId[SPELLS.MURDEROUS_INTENT_TRAIT.id] > 0 ? `<li>Murderous Intent: <ul><li>${this.averageVersFromRing} average versatility </li></ul></li>` : ``;
-    //Shocklight
-    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.SHOCKLIGHT_TRAIT.id] > 0 ? `<li>Shocklight: <ul><li>${this.averageCritFromRing} average crit </li></ul></li>` : ``;
     //MasterOfShadows
     tooltip += this.combatants.selected.traitsBySpellId[SPELLS.MASTER_OF_SHADOWS_TRAIT.id] > 0 ? `<li>Master Of Shadows: <ul><li>${this.masterOfShadowsMasteryIncrease} increased mastery </li><li>${this.masterOfShadowsAvoidanceIncrease} increased avoidance</li></ul></li>` : ``;
-    //LightSpeed
-    tooltip += this.combatants.selected.traitsBySpellId[SPELLS.LIGHT_SPEED_TRAIT.id] > 0 ? `<li>Light Speed: <ul><li>${this.lightSpeedHasteIncrease} increased haste </li><li>${this.lightSpeedMovementIncrease} increased movement speed</li></ul></li>` : ``;
     //Refractive Shell
     tooltip += this.combatants.selected.traitsBySpellId[SPELLS.REFRACTIVE_SHELL_TRAIT.id] > 0 ? `<li>Refractive Shell:<ul><li>${this.owner.formatItemHealingDone(this.refractiveHealing / 3)}</li></ul></li>` : ``;
     //Secure In The Light
