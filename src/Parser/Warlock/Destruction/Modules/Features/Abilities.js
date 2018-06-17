@@ -117,6 +117,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.UNENDING_RESOLVE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
+        isOnGCD: false,
         castEfficiency: {
           suggestion: false,
           importance: ISSUE_IMPORTANCE.MINOR,

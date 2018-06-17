@@ -1,9 +1,7 @@
-import React from 'react';
-
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -11,25 +9,9 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational spells
       {
-        spell: SPELLS.DEMONIC_EMPOWERMENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
-      },
-      {
-        spell: SPELLS.SHADOW_BOLT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: !combatant.hasTalent(SPELLS.DEMONBOLT_TALENT.id),
-        isOnGCD: true,
-      },
-      {
-        spell: SPELLS.DOOM,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        isOnGCD: true,
-      },
-      {
         spell: SPELLS.CALL_DREADSTALKERS,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 15, // can be reset via T20 2pc
+        cooldown: 20, // can be reset via T20 2pc
         isOnGCD: true,
       },
       {
@@ -38,115 +20,148 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
       },
       {
-        spell: SPELLS.DEMONWRATH_CAST,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        spell: SPELLS.DEMONBOLT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
       },
       {
-        spell: SPELLS.THALKIELS_CONSUMPTION_CAST,
+        spell: SPELLS.SOUL_STRIKE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 10,
+        enabled: combatant.hasTalent(SPELLS.SOUL_STRIKE_TALENT.id),
+        isOnGCD: true,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
+      },
+      {
+        spell: SPELLS.SUMMON_VILEFIEND_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 45,
+        enabled: combatant.hasTalent(SPELLS.SUMMON_VILEFIEND_TALENT.id),
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.90,
         },
       },
       {
-        spell: SPELLS.LIFE_TAP,
+        spell: SPELLS.DOOM_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
+        enabled: combatant.hasTalent(SPELLS.DOOM_TALENT.id),
+      },
+      {
+        spell: SPELLS.SHADOW_BOLT_DEMO,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
       },
       {
-        spell: SPELLS.SHADOWFLAME_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 14,
-        charges: 2,
-        enabled: combatant.hasTalent(SPELLS.SHADOWFLAME_TALENT.id),
-        isOnGCD: true,
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
-        spell: SPELLS.SUMMON_DARKGLARE_TALENT,
+        spell: SPELLS.BILESCOURGE_BOMBERS_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        cooldown: 24,
-        enabled: combatant.hasTalent(SPELLS.SUMMON_DARKGLARE_TALENT.id),
+        cooldown: 30,
+        enabled: combatant.hasTalent(SPELLS.BILESCOURGE_BOMBERS_TALENT.id),
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.90,
         },
       },
       {
-        spell: SPELLS.DEMONBOLT_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.DEMONBOLT_TALENT.id),
+        spell: SPELLS.IMPLOSION_CAST,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         isOnGCD: true,
       },
+
       // Cooldowns
       {
-        spell: SPELLS.SOUL_HARVEST_TALENT,
+        spell: SPELLS.SUMMON_DEMONIC_TYRANT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
-        enabled: combatant.hasTalent(SPELLS.SOUL_HARVEST_TALENT.id),
+        cooldown: 90,
+        isOnGCD: true,
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.90,
         },
       },
       {
-        spell: SPELLS.SUMMON_DOOMGUARD_UNTALENTED,
+        spell: SPELLS.NETHER_PORTAL_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
-        enabled: !combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
-        isOnGCD: true,
-      },
-      {
-        spell: SPELLS.SUMMON_INFERNAL_UNTALENTED,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
-        enabled: !combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
-        isOnGCD: true,
-      },
-      {
-        spell: [
-          SPELLS.GRIMOIRE_OF_SERVICE_TALENT,
-          SPELLS.GRIMOIRE_IMP,
-          SPELLS.GRIMOIRE_SUCCUBUS,
-          SPELLS.GRIMOIRE_FELGUARD,
-          SPELLS.GRIMOIRE_FELHUNTER,
-          SPELLS.GRIMOIRE_VOIDWALKER,
-        ],
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 90,
-        enabled: combatant.hasTalent(SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.NETHER_PORTAL_TALENT.id),
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
-          extraSuggestion: <React.Fragment><SpellLink id={SPELLS.GRIMOIRE_FELGUARD.id} /> is the preferred version to use. </React.Fragment>,
+          recommendedEfficiency: 0.90,
+        },
+      },
+      {
+        spell: SPELLS.POWER_SIPHON_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 30,
+        enabled: combatant.hasTalent(SPELLS.POWER_SIPHON_TALENT.id),
+        isOnGCD: true,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
+      },
+      {
+        spell: SPELLS.GRIMOIRE_FELGUARD_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 90,
+        enabled: combatant.hasTalent(SPELLS.GRIMOIRE_FELGUARD_TALENT.id),
+        isOnGCD: true,
+        castEfficiency: {
+          suggestion: true,
           recommendedEfficiency: 0.90,
           averageIssueEfficiency: 0.80,
           majorIssueEfficiency: 0.70,
         },
       },
       {
+        spell: SPELLS.DEMONIC_STRENGTH_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 60,
+        enabled: combatant.hasTalent(SPELLS.DEMONIC_STRENGTH_TALENT.id),
+        isOnGCD: true,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
+      },
+
+      // Defensive
+      {
         spell: SPELLS.UNENDING_RESOLVE,
         buffSpellId: SPELLS.UNENDING_RESOLVE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
+        isOnGCD: false,
+        castEfficiency: {
+          suggestion: false,
+          importance: ISSUE_IMPORTANCE.MINOR,
+          recommendedEfficiency: 0.33,
+          averageIssueEfficiency: 0.20,
+          majorIssueEfficiency: 0.10,
+        },
       },
       {
         spell: SPELLS.DARK_PACT_TALENT,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 60,
         enabled: combatant.hasTalent(SPELLS.DARK_PACT_TALENT.id),
+        isOnGCD: false,
+        castEfficiency: {
+          suggestion: false,
+          importance: ISSUE_IMPORTANCE.MINOR,
+          recommendedEfficiency: 0.33,
+          averageIssueEfficiency: 0.20,
+          majorIssueEfficiency: 0.10,
+        },
       },
-      {
-        spell: SPELLS.MORTAL_COIL_TALENT,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: 45,
-        enabled: combatant.hasTalent(SPELLS.MORTAL_COIL_TALENT.id),
-        isOnGCD: true,
-      },
+
       // Utility
       {
         spell: SPELLS.BURNING_RUSH_TALENT,
@@ -155,35 +170,47 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
       },
       {
-        spell: SPELLS.DEMONIC_CIRCLE_TALENT_SUMMON,
+        spell: SPELLS.DRAIN_LIFE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
         isOnGCD: true,
       },
       {
-        spell: SPELLS.DEMONIC_CIRCLE_TALENT_TELEPORT,
+        spell: SPELLS.MORTAL_COIL_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 45,
+        enabled: combatant.hasTalent(SPELLS.MORTAL_COIL_TALENT.id),
+        isOnGCD: true,
+      },
+      {
+        spell: SPELLS.DEMONIC_CIRCLE_SUMMON,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        enabled: combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
+        isOnGCD: true,
+        cooldown: 10,
+        castEfficiency: {
+          suggestion: false,
+          importance: ISSUE_IMPORTANCE.MINOR,
+        },
+      },
+      {
+        spell: SPELLS.DEMONIC_CIRCLE_TELEPORT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         enabled: combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
         isOnGCD: true,
+        castEfficiency: {
+          suggestion: false,
+          importance: ISSUE_IMPORTANCE.MINOR,
+          recommendedEfficiency: 0.15,
+          averageIssueEfficiency: 0.07,
+          majorIssueEfficiency: 0.01,
+        },
       },
       {
         spell: SPELLS.SOULSTONE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 600,
         // TODO: shares cooldown with other combat rezzes, don't know how to calculate properly
-        isOnGCD: true,
-      },
-      {
-        spell: SPELLS.SUMMON_DOOMGUARD_TALENTED,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
-        isOnGCD: true,
-      },
-      {
-        spell: SPELLS.SUMMON_INFERNAL_TALENTED,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id),
         isOnGCD: true,
       },
       {
@@ -237,25 +264,24 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [
-          SPELLS.SUMMON_FELGUARD,
           SPELLS.SUMMON_IMP,
           SPELLS.SUMMON_VOIDWALKER,
           SPELLS.SUMMON_SUCCUBUS,
           SPELLS.SUMMON_FELHUNTER,
+          SPELLS.SUMMON_FELGUARD,
         ],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
       },
       {
-        spell: SPELLS.UNENDING_BREATH,
+        spell: SPELLS.SHADOWFURY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
+        cooldown: combatant.hasTalent(SPELLS.DARKFURY_TALENT.id) ? 45 : 60,
       },
       {
-        spell: SPELLS.SHADOWFURY_TALENT,
+        spell: SPELLS.UNENDING_BREATH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 30,
-        enabled: combatant.hasTalent(SPELLS.SHADOWFURY_TALENT.id),
         isOnGCD: true,
       },
     ];
