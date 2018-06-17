@@ -1,3 +1,12 @@
+/* TODO: BfA Edition!
+ * Rising Mist - Poor use suggestions
+ * Upwelling - Additional healing added from channel, missed healing from channel?
+ * Mana Tea vs SotC - Potentially compare common output of each talent.
+ *    Suggest using one over the other?
+ * Vivify or REM - Missed Vivify healing from less than 2 REMs out
+ * Azerite Bonus Placeholders
+ */
+
 import React from 'react';
 
 import CoreCombatLogParser from 'Parser/Core/CombatLogParser';
@@ -10,6 +19,11 @@ import HealingDone from 'Parser/Core/Modules/HealingDone';
 
 import GlobalCooldown from './Modules/Core/GlobalCooldown';
 import Channeling from './Modules/Core/Channeling';
+import HotTracker from './Modules/Core/HotTracker';
+
+// Normalizers
+import HotApplicationNormalizer from './Modules/Normalizers/HotApplicationNormalizer';
+import HotRemovalNormalizer from './Modules/Normalizers/HotRemovalNormalizer';
 
 // Features
 import Abilities from './Modules/Features/Abilities';
@@ -36,10 +50,10 @@ import RelicTraits from './Modules/Traits/RelicTraits';
 import UpliftingTrance from './Modules/Spells/UpliftingTrance';
 import ThunderFocusTea from './Modules/Spells/ThunderFocusTea';
 import SheilunsGift from './Modules/Spells/SheilunsGift';
-import RenewingMist from './Modules/Spells/RenewingMist';
 import EssenceFont from './Modules/Spells/EssenceFont';
 import EnvelopingMists from './Modules/Spells/EnvelopingMists';
 import SoothingMist from './Modules/Spells/SoothingMist';
+import Vivify from './Modules/Spells/Vivify';
 
 // Talents
 import ChiJi from './Modules/Talents/ChiJi';
@@ -48,6 +62,7 @@ import ManaTea from './Modules/Talents/ManaTea';
 import RefreshingJadeWind from './Modules/Talents/RefreshingJadeWind';
 import Lifecycles from './Modules/Talents/Lifecycles';
 import SpiritOfTheCrane from './Modules/Talents/SpiritOfTheCrane';
+import RisingMist from './Modules/Talents/RisingMist';
 
 // Items
 import DrapeOfShame from './Modules/Items/DrapeOfShame';
@@ -67,11 +82,16 @@ class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
   static specModules = {
+    // Normalizer
+    hotApplicationNormalizer: HotApplicationNormalizer,
+    hotRemovalNormalizer: HotRemovalNormalizer,
+
     // Core
     lowHealthHealing: LowHealthHealing,
     healingDone: [HealingDone, { showStatistic: true }],
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
+    hotTracker: HotTracker,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -96,12 +116,12 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Spells
     essenceFont: EssenceFont,
-    renewingMist: RenewingMist,
     sheilunsGift: SheilunsGift,
     thunderFocusTea: ThunderFocusTea,
     upliftingTrance: UpliftingTrance,
     envelopingMists: EnvelopingMists,
     soothingMist: SoothingMist,
+    vivify: Vivify,
 
     // Talents
     chiBurst: ChiBurst,
@@ -110,6 +130,7 @@ class CombatLogParser extends CoreCombatLogParser {
     refreshingJadeWind: RefreshingJadeWind,
     lifecycles: Lifecycles,
     spiritOfTheCrane: SpiritOfTheCrane,
+    risingMist: RisingMist,
 
     // Legendaries / Items:
     drapeOfShame: DrapeOfShame,

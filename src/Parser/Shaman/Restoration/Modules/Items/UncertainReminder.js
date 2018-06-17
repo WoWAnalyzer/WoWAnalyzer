@@ -6,26 +6,13 @@ import ItemLink from 'common/ItemLink';
 import Analyzer from 'Parser/Core/Analyzer';
 import calculateEffectiveHealing from 'Parser/Core/calculateEffectiveHealing';
 import Combatants from 'Parser/Core/Modules/Combatants';
+import BLOODLUST_BUFFS from 'Parser/Core/Constants/BLOODLUST_BUFFS';
 import ItemHealingDone from 'Main/ItemHealingDone';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../Constants';
 
 const SENSE_OF_URGENCY_HEALING_INCREASE = 0.25;
 const START_EXTRA_HEROISM_UPTIME = 1 / (1 + 0.75); // We only count healing increases ater this % of the hero has passed.
-
-const HEROISM_30_PERCENT = [
-  SPELLS.HEROISM.id,
-  SPELLS.BLOODLUST.id,
-  SPELLS.TIME_WARP.id,
-  SPELLS.NETHERWINDS.id, // Netherwinds
-  SPELLS.ANCIENT_HYSTERIA.id,
-];
-
-const HEROISM_25_PERCENT = [
-  SPELLS.DRUMS_OF_FURY.id,
-  SPELLS.DRUMS_OF_RAGE.id,
-  SPELLS.DRUMS_OF_THE_MOUNTAIN.id,
-];
 
 const SPELLS_SCALING_WITH_HASTE = [
   SPELLS.HEALING_RAIN_HEAL.id,
@@ -91,33 +78,27 @@ class UncertainReminder extends Analyzer {
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
 
-    if (HEROISM_30_PERCENT.includes(spellId)) {
-      this.heroismStart = event.timestamp;
-      this.hastePercent = 0.30;
-      this.events = [];
+    const haste = BLOODLUST_BUFFS[spellId];
+    if (!haste) {
+      return;
     }
 
-    if (HEROISM_25_PERCENT.includes(spellId)) {
-      this.heroismStart = event.timestamp;
-      this.hastePercent = 0.25;
-      this.events = [];
-    }
+    this.heroismStart = event.timestamp;
+    this.hastePercent = haste;
+    this.events = [];
   }
 
   on_toPlayer_removebuff(event) {
     const spellId = event.ability.guid;
 
-    if (HEROISM_30_PERCENT.includes(spellId)) {
-      this.process_events(this.heroismStart, event.timestamp);
-      this.heroismStart = null;
-      this.hastePercent = null;
+    const haste = BLOODLUST_BUFFS[spellId];
+    if (!haste) {
+      return;
     }
 
-    if (HEROISM_25_PERCENT.includes(spellId)) {
-      this.process_events(this.heroismStart, event.timestamp);
-      this.heroismStart = null;
-      this.hastePercent = null;
-    }
+    this.process_events(this.heroismStart, event.timestamp);
+    this.heroismStart = null;
+    this.hastePercent = null;
   }
 
   // If the fight ends before heroism drops, make sure to process all the pushed events.

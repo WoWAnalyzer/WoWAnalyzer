@@ -63,17 +63,6 @@
   margin-bottom: -0.2em;
 }
 
-/* layout */
-.results .divider {
-  width: 100%;
-  height: 2px;
-  background: #000;
-  box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
-  opacity: 0.8;
-  margin-top: 40px;
-  margin-bottom: 40px;
-}
-
 /* header */
 .results > header {
   margin: 5px auto 25px auto;
@@ -128,14 +117,6 @@
   transform: scaleY(0.8) translateY(-5px);
   /* so that the player and boss names just overlap */
   margin: -22.5px 0;
-}
-.results > header .about {
-  text-align: center;
-  margin-top: 0.7em;
-  font-size: 1.4em;
-  /*text-transform: uppercase;*/
-  font-weight: 400;
-  color: #ddd;
 }
 @media (max-width: 600px) {
   .results > header .player, .results > header .boss {

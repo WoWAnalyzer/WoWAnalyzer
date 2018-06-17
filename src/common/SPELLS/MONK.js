@@ -5,7 +5,7 @@
  */
 
 export default {
-  // Shared 
+  // Shared
   BLACKOUT_KICK: {
     id: 100784,
     name: 'Blackout Kick',
@@ -70,6 +70,11 @@ export default {
     icon: 'spell_shaman_spectraltransformation',
   },
   // Mistweaver Monk Spells
+  RISING_MIST_HEAL: {
+    id: 274912,
+    name: 'Rising Mist',
+    icon: 'ability_monk_effuse',
+  },
   ENVELOPING_MISTS: {
     id: 124682,
     name: 'Enveloping Mists',

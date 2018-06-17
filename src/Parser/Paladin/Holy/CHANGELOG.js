@@ -59,7 +59,7 @@ export default [
   },
   {
     date: new Date('2018-02-09'),
-    changes: <React.Fragment>Fixed an issue where sometimes <SpellLink id={SPELLS.SECOND_SUNRISE.id} /> would not be detected properly, throwing off the average players hit per <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and some other things. This likely only might have occured if the logger had a poor internet connection.</React.Fragment>,
+    changes: <React.Fragment>Fixed an issue where sometimes Second Sunrise would not be detected properly, throwing off the average players hit per <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and some other things. This likely only might have occured if the logger had a poor internet connection.</React.Fragment>,
     contributors: [Zerotorescue],
   },
   {

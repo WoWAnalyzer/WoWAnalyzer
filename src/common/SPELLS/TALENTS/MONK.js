@@ -16,7 +16,6 @@ export default {
   DAMPEN_HARM_TALENT: { id: 122278, name: "Dampen Harm", icon: "ability_monk_dampenharm" },
   RUSHING_JADE_WIND_TALENT: { id: 116847, name: "Rushing Jade Wind", icon: "ability_monk_rushingjadewind", chiCost: 1 },
   // Mistweaver
-  ZEN_PULSE_TALENT: { id: 124081, name: "Zen Pulse", icon: "ability_monk_forcesphere" },
   LIFECYCLES_TALENT: { id: 197915, name: "Lifecycles", icon: "ability_monk_souldance" },
   SPIRIT_OF_THE_CRANE_TALENT: { id: 210802, name: "Spirit of the Crane", icon: "monk_stance_redcrane" },
   MIST_WRAP_TALENT: { id: 197900, name: "Mist Wrap", icon: "ability_monk_pathofmists" },
@@ -26,7 +25,8 @@ export default {
   SUMMON_JADE_SERPENT_STATUE_TALENT: { id: 115313, name: "Summon Jade Serpent Statue", icon: "ability_monk_summonserpentstatue" },
   MANA_TEA_TALENT: { id: 197908, name: "Mana Tea", icon: "monk_ability_cherrymanatea" },
   FOCUSED_THUNDER_TALENT: { id: 197895, name: "Focused Thunder", icon: "spell_monk_nimblebrew" },
-  RISING_THUNDER_TALENT: { id: 210804, name: "Rising Thunder", icon: "ability_thunderking_lightningwhip" },
+  RISING_MIST_TALENT: { id: 274909, name: "Rising Mist", icon: "bility_monk_effuse" },
+  UPWELLING_TALENT: { id: 274963, name: "Upwelling", icon: "ability_monk_surgingmist" },
   // Windwalker
   ENERGIZING_ELIXIR_TALENT: { id: 115288, name: "Energizing Elixir", icon: "ability_monk_energizingwine" },
   ASCENSION_TALENT: { id: 115396, name: "Ascension", icon: "ability_monk_ascension" },
@@ -39,11 +39,11 @@ export default {
   // Brewmaster
   LIGHT_BREWING_TALENT: { id: 196721, name: "Light Brewing", icon: "spell_brew_wheat" },
   BLACK_OX_BREW_TALENT: { id: 115399, name: "Black Ox Brew", icon: "ability_monk_chibrew" },
-  GIFT_OF_THE_MISTS_TALENT: { id: 196719, name: "Gift of the Mists", icon: "ability_monk_pathofmists" },
+  SPITFIRE_TALENT: { id: 242580, name: "Spitfire", icon: "ability_monk_breathoffire" },
   MYSTIC_VITALITY_TALENT: { id: 237076, name: "Mystic Vitality", icon: "ability_monk_forcesphere" },
   INVOKE_NIUZAO_THE_BLACK_OX_TALENT: { id: 132578, name: "Invoke Niuzao, the Black Ox", icon: "spell_monk_brewmaster_spec" },
   SPECIAL_DELIVERY_TALENT: { id: 196730, name: "Special Delivery", icon: "achievement_brewery_2" },
-  ELUSIVE_DANCE_TALENT: { id: 196738, name: "Elusive Dance", icon: "ability_monk_shuffle" },
+  GUARD_TALENT: { id: 115295, name: "Guard", icon: "ability_monk_guard" },
   BLACKOUT_COMBO_TALENT: { id: 196736, name: "Blackout Combo", icon: "ability_monk_blackoutkick" },
   HIGH_TOLERANCE_TALENT: { id: 196737, name: "High Tolerance", icon: "monk_ability_avertharm" },
 };

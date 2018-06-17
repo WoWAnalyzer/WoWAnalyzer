@@ -22,14 +22,6 @@ class Abilities extends CoreAbilities {
         },*/
       },
       {
-        spell: SPELLS.THROWING_AXES_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 15 / (1 + haste),
-        charges: 2,
-        enabled: this.combatants.selected.hasTalent(SPELLS.THROWING_AXES_TALENT.id),
-        isOnGCD: true,
-      },
-      {
         spell: SPELLS.FLANKING_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
@@ -64,36 +56,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.A_MURDER_OF_CROWS_TALENT_SURVIVAL,
+        spell: SPELLS.A_MURDER_OF_CROWS_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60,
-        enabled: this.combatants.selected.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT_SURVIVAL.id),
+        enabled: this.combatants.selected.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id),
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: .95,
-        },
-      },
-      {
-        spell: SPELLS.SNAKE_HUNTER_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
-        isOnGCD: false,
-        enabled: this.combatants.selected.hasTalent(SPELLS.SNAKE_HUNTER_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.85,
-        },
-      },
-      {
-        spell: SPELLS.CALTROPS_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: this.combatants.selected.traitsBySpellId[SPELLS.HUNTERS_GUILE_TRAIT.id] ? 15 * 0.8 : 15,
-        isOnGCD: true,
-        enabled: this.combatants.selected.hasTalent(SPELLS.CALTROPS_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.55,
         },
       },
       {
@@ -108,20 +78,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.STICKY_BOMB_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 25,
-        isOnGCD: true,
-        enabled: this.combatants.selected.hasTalent(SPELLS.STICKY_BOMB_TALENT.id),
-      },
-      {
-        spell: SPELLS.RANGERS_NET_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 1,
-        isOnGCD: true,
-        enabled: this.combatants.selected.hasTalent(SPELLS.RANGERS_NET_TALENT.id),
-      },
-      {
         spell: SPELLS.BUTCHERY_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: haste => 12 / (1 + haste),
@@ -131,17 +87,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-        },
-      },
-      {
-        spell: SPELLS.DRAGONSFIRE_GRENADE_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 30,
-        isOnGCD: true,
-        enabled: this.combatants.selected.hasTalent(SPELLS.DRAGONSFIRE_GRENADE_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: .95,
         },
       },
       {
@@ -229,7 +174,7 @@ class Abilities extends CoreAbilities {
         isOnGCD: false,
       },
       {
-        spell: SPELLS.DISENGAGE_TALENT,
+        spell: SPELLS.DISENGAGE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20,
         isOnGCD: false,

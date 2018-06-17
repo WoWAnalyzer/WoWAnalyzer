@@ -24,7 +24,7 @@ export default [
   },
   {
     date: new Date('2018-02-20'),
-    changes: <React.Fragment>Spring cleaning in many modules. Added icons to Focus Usage modules and elsewhere around the analyzer and added support for <SpellLink id={SPELLS.CALTROPS_TALENT.id} />.</React.Fragment>,
+    changes: <React.Fragment>Spring cleaning in many modules. Added icons to Focus Usage modules and elsewhere around the analyzer and added support for Caltrops.</React.Fragment>,
     contributors: [Putro],
   },
   {
@@ -34,7 +34,7 @@ export default [
   },
   {
     date: new Date('2018-02-12'),
-    changes: <React.Fragment>Added modules for <SpellLink id={SPELLS.MORTAL_WOUNDS_TALENT.id} /> and merged <SpellLink id={SPELLS.CARVE.id} /> and <SpellLink id={SPELLS.BUTCHERY_TALENT.id} />.</React.Fragment>,
+    changes: <React.Fragment>Added modules for Mortal Wounds and merged <SpellLink id={SPELLS.CARVE.id} /> and <SpellLink id={SPELLS.BUTCHERY_TALENT.id} />.</React.Fragment>,
     contributors: [Putro],
   },
   {
@@ -44,12 +44,12 @@ export default [
   },
   {
     date: new Date('2018-02-11'),
-    changes: <React.Fragment>Added support for <SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} />, <SpellLink id={SPELLS.SERPENT_STING_TALENT.id} />, <SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT_SURVIVAL.id} />, <SpellLink id={SPELLS.DRAGONSFIRE_GRENADE_TALENT.id} />, <SpellLink id={SPELLS.THROWING_AXES_TALENT.id} /> into the Talents/Trait listbox.</React.Fragment>,
+    changes: <React.Fragment>Added support for <SpellLink id={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id} />, <SpellLink id={SPELLS.SERPENT_STING_TALENT.id} />, A Murder of Crows, Dragonsfire Grenade, Throwing Axes into the Talents/Trait listbox.</React.Fragment>,
     contributors: [Putro],
   },
   {
     date: new Date('2018-02-11'),
-    changes: <React.Fragment>Added a preliminary Talents and Traits list which will include damage information about various talents and traits as they get implemented. Implemented modules for <SpellLink id={SPELLS.STEEL_TRAP_TALENT.id} />, <SpellLink id={SPELLS.EXPLOSIVE_TRAP_CAST.id} />, <SpellLink id={SPELLS.CALTROPS_TALENT.id} /> and added prepull handling for all three. </React.Fragment>,
+    changes: <React.Fragment>Added a preliminary Talents and Traits list which will include damage information about various talents and traits as they get implemented. Implemented modules for <SpellLink id={SPELLS.STEEL_TRAP_TALENT.id} />, <SpellLink id={SPELLS.EXPLOSIVE_TRAP_CAST.id} />, Caltrops and added prepull handling for all three. </React.Fragment>,
     contributors: [Putro],
   },
   {
@@ -69,7 +69,7 @@ export default [
   },
   {
     date: new Date('2018-01-31'),
-    changes: <React.Fragment>Added a module for tracking <SpellLink id={SPELLS.WAY_OF_THE_MOKNATHAL_TALENT.id} />. </React.Fragment>,
+    changes: <React.Fragment>Added a module for tracking Way of the Mok'Nathal. </React.Fragment>,
     contributors: [Putro],
   },
   {

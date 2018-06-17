@@ -18,30 +18,12 @@ class ErrorBoundary extends React.Component {
       error: null,
       errorDetails: null,
     };
-
-    this.handleErrorEvent = this.handleErrorEvent.bind(this);
-    this.handleUnhandledrejectionEvent = this.handleUnhandledrejectionEvent.bind(this);
-
-    window.addEventListener('error', this.handleErrorEvent);
-    window.addEventListener('unhandledrejection', this.handleUnhandledrejectionEvent);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('error', this.handleErrorEvent);
-    window.removeEventListener('unhandledrejection', this.handleUnhandledrejectionEvent);
   }
 
   componentDidCatch(error, errorInfo) {
     // Raven doesn't do this automatically
     captureException(error, { extra: errorInfo });
     this.error(error, errorInfo.componentStack);
-  }
-
-  handleErrorEvent(event) {
-    this.error(event);
-  }
-  handleUnhandledrejectionEvent(event) {
-    this.error(event.reason);
   }
 
   error(error, details = null) {

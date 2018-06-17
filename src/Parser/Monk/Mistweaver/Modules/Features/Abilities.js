@@ -11,6 +11,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.RENEWING_MIST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 8,
+        charges: 2,
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
@@ -61,17 +62,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: SPELLS.ZEN_PULSE_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 15,
-        enabled: combatant.hasTalent(SPELLS.ZEN_PULSE_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-        },
-        isOnGCD: true,
-        timelineSortIndex: 10,
-      },
-      {
         spell: SPELLS.CHI_WAVE_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 15,
@@ -85,7 +75,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LIFE_COCOON,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
+        cooldown: 120,
         timelineSortIndex: 17,
       },
       {
