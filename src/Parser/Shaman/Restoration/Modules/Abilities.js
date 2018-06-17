@@ -6,35 +6,16 @@ class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.combatants.selected;
     return [
-      // Riptide with EotE
       {
         spell: SPELLS.RIPTIDE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        charges: 2,
+        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
         cooldown: 6,
-        enabled: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id),
         timelineSortIndex: 11,
         isOnGCD: true,
         castEfficiency: {
           suggestion: true,
-          majorIssueEfficiency: 0.50,
-          averageIssueEfficiency: 0.70,
-          recommendedEfficiency: 0.90,
-        },
-      },
-      // Riptide without EotE
-      {
-        spell: SPELLS.RIPTIDE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 6,
-        enabled: !(combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id)),
-        timelineSortIndex: 11,
-        isOnGCD: true,
-        castEfficiency: {
-          suggestion: true,
-          majorIssueEfficiency: 0.30,
-          averageIssueEfficiency: 0.50,
-          recommendedEfficiency: 0.70,
+          recommendedEfficiency: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 0.90 : 0.70,
         },
       },
       {
