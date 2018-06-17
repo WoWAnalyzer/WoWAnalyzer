@@ -8,10 +8,6 @@ class SpellUsable extends CoreSpellUsable {
     combatants: Combatants,
   };
 
-  on_initialized() {
-    this.hasEcho = this.combatants.selected.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id);
-  }
-
   on_dispel(event) {
     if (!this.owner.byPlayer(event)) {
       return;
@@ -24,12 +20,6 @@ class SpellUsable extends CoreSpellUsable {
   }
 
   beginCooldown(spellId, timestamp) {
-    if (this.hasEcho && spellId === SPELLS.RIPTIDE.id) {
-      if (!this.isAvailable(spellId)) {
-        this.endCooldown(spellId);
-      }
-    }
-
     // Essentially having the purify spirit cast not be able to trigger the cooldown, the dispel event does it instead.
     if (spellId === SPELLS.PURIFY_SPIRIT.id) {
       return;

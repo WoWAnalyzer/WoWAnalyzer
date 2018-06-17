@@ -24,7 +24,6 @@ class EarthenWallTotem extends Analyzer {
   activeEST = null;
   potentialHealing = 0;
   healing = 0;
-  earthenShieldEfficiency = 0;
 
 
   on_initialized() {
@@ -40,7 +39,6 @@ class EarthenWallTotem extends Analyzer {
 
     if (event.targetID === this.activeEST) {
       this.healing += (event.amount || 0) + (event.overheal || 0) + (event.absorbed || 0);
-      this.earthenShieldEfficiency = this.healing / this.potentialHealing;
     }
 
   }
@@ -64,6 +62,10 @@ class EarthenWallTotem extends Analyzer {
 
     // Store the id of the totem we summoned so that we don't include the EST of other rshamans.
     this.activeEST = event.targetID;
+  }
+
+  get earthenShieldEfficiency() {
+    return this.healing / this.potentialHealing;
   }
 
   suggestions(when) {
