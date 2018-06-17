@@ -373,6 +373,12 @@ export default {
     icon: 'inv_summondemonictyrant',
     manaCost: 400,
   },
+  // Demonic Tyrant buff on player
+  DEMONIC_POWER: {
+    id: 265273,
+    name: 'Demonic Power',
+    icon: 'achievement_boss_argus_maleeredar',
+  },
 
   // Pet abilities
   // Following 2 abilities are the same for Grimoire: Felguard
@@ -387,11 +393,11 @@ export default {
     icon: 'ability_warrior_bladestorm',
   },
   // TODO: check Wrathguard and Terrorguard glyphs
-  // WRATHSTORM_BUFF: {
-  //   id: 115831,
-  //   name: 'Wrathstorm',
-  //   icon: 'ability_warrior_bladestorm',
-  // },
+  WRATHSTORM_BUFF: {
+    id: 115831,
+    name: 'Wrathstorm',
+    icon: 'ability_warrior_bladestorm',
+  },
   // also important for Dreadlash talent
   DREADBITE: {
     id: 271971,
