@@ -14,6 +14,7 @@ export default {
     id: 77130,
     name: 'Purify Spirit',
     icon: 'ability_shaman_cleansespirit',
+    manaCost: 1300,
   },
   WIND_SHEAR: {
     id: 57994,
@@ -144,6 +145,7 @@ export default {
     id: 51505,
     name: 'Lava Burst',
     icon: 'spell_shaman_lavaburst',
+    manaCost: 1200,
   },
   LAVA_BURST_VOLCANIC_INFERNO: {
     id: 205533,
@@ -795,7 +797,7 @@ export default {
     id: 188838,
     name: 'Flame Shock',
     icon: 'spell_fire_flameshock',
-    max_maelstrom: 20,
+    manaCost: 3000,
   },
   LIGHTNING_BOLT_RESTORATION: {
     id: 403,
@@ -835,6 +837,7 @@ export default {
     id: 974,
     name: 'Earth Shield',
     icon: 'spell_nature_skinofearth',
+    manaCost: 2000,
   },
   EARTH_SHIELD_HEAL: {
     id: 379,
