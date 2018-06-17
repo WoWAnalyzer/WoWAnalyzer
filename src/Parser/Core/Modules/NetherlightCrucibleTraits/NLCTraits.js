@@ -4,7 +4,6 @@ import StatisticsListBox, { STATISTIC_ORDER } from 'Main/StatisticsListBox';
 
 import Analyzer from 'Parser/Core/Analyzer';
 
-import MurderousIntent from './MurderousIntent';
 import RefractiveShell from './RefractiveShell';
 import Shocklight from './Shocklight';
 import SecureInTheLight from './SecureInTheLight';
@@ -19,7 +18,6 @@ import LightSpeed from './LightSpeed';
 
 class NLCTraits extends Analyzer {
   static dependencies = {
-    murderousIntent: MurderousIntent,
     refractiveShell: RefractiveShell,
     shocklight: Shocklight,
     secureInTheLight: SecureInTheLight,
@@ -46,7 +44,6 @@ class NLCTraits extends Analyzer {
         title="Concordance and NLC"
         tooltip="This provides an overview of the benefits provided by Concordance of the Legionfall and the Netherlight Crucible traits."
       >
-        {this.murderousIntent.active && this.murderousIntent.subStatistic()}
         {this.shocklight.active && this.shocklight.subStatistic()}
         {this.refractiveShell.active && this.refractiveShell.subStatistic()}
         {this.secureInTheLight.active && this.secureInTheLight.subStatistic()}

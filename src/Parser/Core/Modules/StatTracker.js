@@ -203,7 +203,6 @@ class StatTracker extends Analyzer {
     [SPELLS.JACINS_RUSE.id]: { mastery: 136 },
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 45, haste: 45 },
     [SPELLS.FURY_OF_ASHAMANE.id]: { versatility: 27 },
-    [SPELLS.MURDEROUS_INTENT_BUFF.id]: { versatility: 2500 },
     // Antorus: Argus the Unmaker debuffs
     [SPELLS.STRENGTH_OF_THE_SKY.id]: { crit: 2000, mastery: 2000 },
     [SPELLS.STRENGTH_OF_THE_SEA.id]: { haste: 2000, versatility: 2000 },

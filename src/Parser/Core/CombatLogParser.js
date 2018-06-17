@@ -126,7 +126,6 @@ import LightsEmbrace from './Modules/NetherlightCrucibleTraits/LightsEmbrace';
 import InfusionOfLight from './Modules/NetherlightCrucibleTraits/InfusionOfLight';
 import SecureInTheLight from './Modules/NetherlightCrucibleTraits/SecureInTheLight';
 import Shocklight from './Modules/NetherlightCrucibleTraits/Shocklight';
-import MurderousIntent from './Modules/NetherlightCrucibleTraits/MurderousIntent';
 import MasterOfShadows from './Modules/NetherlightCrucibleTraits/MasterOfShadows';
 import LightSpeed from './Modules/NetherlightCrucibleTraits/LightSpeed';
 import RefractiveShell from './Modules/NetherlightCrucibleTraits/RefractiveShell';
@@ -266,7 +265,6 @@ class CombatLogParser {
     secureInTheLight: SecureInTheLight,
     shocklight: Shocklight,
     refractiveShell: RefractiveShell,
-    murderousIntent: MurderousIntent,
     masterOfShadows: MasterOfShadows,
     lightSpeed: LightSpeed,
     nlcTraits: NLCTraits,

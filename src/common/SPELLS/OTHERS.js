@@ -731,11 +731,6 @@ export default {
     name: 'Murderous Intent',
     icon: 'spell_shadow_charm',
   },
-  MURDEROUS_INTENT_BUFF: {
-    id: 252202,
-    name: 'Murderous Intent',
-    icon: 'spell_shadow_charm',
-  },
   REFRACTIVE_SHELL_TRAIT: {
     id: 252207,
     name: 'Refractive Shell',

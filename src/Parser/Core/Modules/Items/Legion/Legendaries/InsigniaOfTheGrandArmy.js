@@ -5,7 +5,6 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 import ITEMS from 'common/ITEMS/OTHERS';
 import SPELLS from 'common/SPELLS/OTHERS';
 //NLC Tier 2 Traits
-import MurderousIntent from 'Parser/Core/Modules/NetherlightCrucibleTraits/MurderousIntent';
 import ChaoticDarkness from 'Parser/Core/Modules/NetherlightCrucibleTraits/ChaoticDarkness';
 import LightsEmbrace from 'Parser/Core/Modules/NetherlightCrucibleTraits/LightsEmbrace';
 import SecureInTheLight from 'Parser/Core/Modules/NetherlightCrucibleTraits/SecureInTheLight';
@@ -25,7 +24,6 @@ import ItemHealingDone from 'Main/ItemHealingDone';
  * Equip: Increase the effects of Light and Shadow powers granted by the Netherlight Crucible by 50%.
 */
 
-const VERSATILITY_AMOUNT = 1500;
 const CRIT_AMOUNT = 1500;
 const MASTERY_AMOUNT = 500;
 const AVOIDANCE_AMOUNT = 1000;
@@ -35,7 +33,6 @@ const MOVEMENT_SPEED_AMOUNT = 500;
 class InsigniaOfTheGrandArmy extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    murderousIntent: MurderousIntent,
     refractiveShell: RefractiveShell,
     shocklight: Shocklight,
     secureInTheLight: SecureInTheLight,
@@ -141,10 +138,6 @@ class InsigniaOfTheGrandArmy extends Analyzer {
 
   get averageCritFromRing() {
     return (((this.combatants.selected.getBuffUptime(SPELLS.SHOCKLIGHT_BUFF.id) / this.owner.fightDuration) * CRIT_AMOUNT * this.combatants.selected.traitsBySpellId[SPELLS.SHOCKLIGHT_TRAIT.id]) / 2).toFixed(2);
-  }
-
-  get averageVersFromRing() {
-    return (((this.combatants.selected.getBuffUptime(SPELLS.MURDEROUS_INTENT_BUFF.id) / this.owner.fightDuration) * VERSATILITY_AMOUNT * this.combatants.selected.traitsBySpellId[SPELLS.MURDEROUS_INTENT_TRAIT.id]) / 2).toFixed(2);
   }
 
   get lightSpeedHasteIncrease() {
