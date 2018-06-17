@@ -73,7 +73,7 @@ class TouchOfDeath extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.TOUCH_OF_DEATH.id} />}
-        value={`${(averageGaleBurst / 1000000).toFixed(2)} million`}
+        value={`${(averageGaleBurst).toFixed(2)}`}
         label={`Average Gale Burst`}
         tooltip={`Damage done with Touch of Death is affected by % damage taken buffs on its target. This causes damage done by other abilities during the Gale burst window to benefit twice from those debuffs, due to the increase to their own hits as well as the Gale Burst component of Touch of Death . <br> </br> Your average modifier on Touch of Death was ~${((averageVulnerabilityAmplifier * 100).toFixed())}% and your highest was ~${(this.highestVulnerabilityAmplifier * 100).toFixed()}%. Your highest Gale Burst was ${(this.highestGaleBurst / 1000000).toFixed(2)} million `}
       />
