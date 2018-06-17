@@ -26,6 +26,7 @@ import CastBehavior from './Modules/Features/CastBehavior';
 import TalentStatisticBox from './Modules/Talents/TalentStatisticBox';
 import Torrent from './Modules/Talents/Torrent';
 import UnleashLife from './Modules/Talents/UnleashLife';
+import Deluge from './Modules/Talents/Deluge';
 import Undulation from './Modules/Talents/Undulation';
 import FlashFlood from './Modules/Talents/FlashFlood';
 import EarthShield from './Modules/Talents/EarthShield';
@@ -87,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     torrent: Torrent,
     unleashLife: UnleashLife,
     undulation: Undulation,
+    deluge: Deluge,
     flashFlood: FlashFlood,
     earthShield: EarthShield,
     earthenWallTotem: EarthenWallTotem,
