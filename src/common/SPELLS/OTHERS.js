@@ -731,31 +731,6 @@ export default {
     name: 'Murderous Intent',
     icon: 'spell_shadow_charm',
   },
-  SHADOWBIND_TRAIT: {
-    id: 252875,
-    name: 'Shadowbind',
-    icon: 'spell_shadow_deathpact',
-  },
-  SHADOWBIND_DAMAGE_HEALING: {
-    id: 252879,
-    name: 'Shadowbind',
-    icon: 'spell_shadow_deathpact',
-  },
-  DARK_SORROWS_TRAIT: {
-    id: 252922,
-    name: 'Dark Sorrows',
-    icon: 'inv_heart_of_the_thunder-king_icon',
-  },
-  DARK_SORROWS_DAMAGE: {
-    id: 253022,
-    name: 'Dark Sorrows',
-    icon: 'inv_heart_of_the_thunder-king_icon',
-  },
-  MASTER_OF_SHADOWS_TRAIT: {
-    id: 252091,
-    name: 'Master of Shadows',
-    icon: 'spell_shadow_shadesofdarkness',
-  },
   LIGHT_SPEED_TRAIT: {
     id: 252088,
     name: 'Light Speed',

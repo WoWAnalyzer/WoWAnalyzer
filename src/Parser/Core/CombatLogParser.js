@@ -117,11 +117,6 @@ import EyeOfHounds from './Modules/Items/Legion/AntorusTheBurningThrone/EyeOfHou
 
 // Shared Buffs
 import VantusRune from './Modules/Spells/VantusRune';
-// Netherlight Crucible Traits
-import DarkSorrows from './Modules/NetherlightCrucibleTraits/DarkSorrows';
-import Shadowbind from './Modules/NetherlightCrucibleTraits/Shadowbind';
-import MasterOfShadows from './Modules/NetherlightCrucibleTraits/MasterOfShadows';
-import NLCTraits from './Modules/NetherlightCrucibleTraits/NLCTraits';
 
 // BFA
 import ZandalariLoaFigurine from './Modules/Items/BFA/ZandalariLoaFigurine';
@@ -246,12 +241,6 @@ class CombatLogParser {
     diimasGlacialAegis: DiimasGlacialAegis,
     riftworldCodex: RiftworldCodex,
     eyeOfHounds: EyeOfHounds,
-
-    // Netherlight Crucible Traits
-    darkSorrows: DarkSorrows,
-    shadowbind: Shadowbind,
-    masterOfShadows: MasterOfShadows,
-    nlcTraits: NLCTraits,
 
     infernalCinders: InfernalCinders,
     umbralMoonglaives: UmbralMoonglaives,
