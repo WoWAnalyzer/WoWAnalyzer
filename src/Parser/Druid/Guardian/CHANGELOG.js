@@ -65,12 +65,12 @@ export default [
   {
     date: new Date('2017-08-19'),
     changes: <React.Fragment>Added detail on <SpellLink id={SPELLS.IRONFUR.id} /> usage.</React.Fragment>,
-    contributors: [],
+    contributors: [WOPR],
   },
   {
     date: new Date('2017-08-18'),
     changes: 'Updates to align with new module structure and added overkill into DTPS display.',
-    contributors: [],
+    contributors: [WOPR],
   },
   {
     date: new Date('2017-08-13'),

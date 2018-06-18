@@ -8,17 +8,6 @@ class Abilities extends CoreAbilities {
     const combatant = this.combatants.selected;
     return [
       {
-        spell: SPELLS.STRIKE_OF_THE_WINDLORD,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        // Item - The legendary head reduces SotW cooldown by 20%
-        // Serenity cooldown reduction behaves like dynamic haste, where abilites cool down at their normal rate outside the buff. Chi Spenders with cooldowns longer than Serenity duration instead has a potential cooldown reduction of the total Serenity duration. 
-        cooldown: (haste, combatant) => 40 * (combatant.hasHead(ITEMS.THE_WIND_BLOWS.id) ? 0.8 : 1) - (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? (combatant.hasWrists(ITEMS.DRINKING_HORN_COVER.id) ? 11 : 8) : 0),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      },
-      {
         spell: SPELLS.FISTS_OF_FURY_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         // This can get way too low calculated cooldown if the player has a very high amount of haste, but this is not expected for windwalkers
@@ -75,7 +64,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SERENITY_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (_, combatant) => combatant.owner.modules.stormEarthAndFire.reducedCooldownWithTraits,
+        cooldown: (_, combatant) => 90,
         enabled: combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -85,7 +74,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.STORM_EARTH_AND_FIRE_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (_, combatant) => combatant.owner.modules.stormEarthAndFire.reducedCooldownWithTraits,
+        cooldown: (_, combatant) => 90,
         enabled: !combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
         charges: 2,
         castEfficiency: {
@@ -156,13 +145,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: haste => 90,
         enabled: combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id),
-      },
-      {
-        spell: SPELLS.HEALING_ELIXIR_TALENT,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: haste => 30,
-        charges: 2,
-        enabled: combatant.hasTalent(SPELLS.HEALING_ELIXIR_TALENT.id),
       },
     ];
   }

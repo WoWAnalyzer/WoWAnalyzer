@@ -17,7 +17,7 @@ class TheWindBlows extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.STRIKE_OF_THE_WINDLORD.id || this.combatatants.selected.hasBuff(SPELLS.COMBO_BREAKER_BUFF.id)) {
+    if (spellId !== SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT.id || this.combatatants.selected.hasBuff(SPELLS.COMBO_BREAKER_BUFF.id)) {
       return;
     }
     this.freeBlackoutKicks++;

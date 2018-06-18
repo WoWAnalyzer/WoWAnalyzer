@@ -60,10 +60,6 @@ class Checklist extends CoreChecklist {
         const combatant = this.combatants.selected;
         return [
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.STRIKE_OF_THE_WINDLORD,
-            onlyWithSuggestion: false,
-          }),
-          new GenericCastEfficiencyRequirement({
             spell: SPELLS.RISING_SUN_KICK,
             onlyWithSuggestion: false,
           }),
@@ -185,10 +181,6 @@ class Checklist extends CoreChecklist {
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.DAMPEN_HARM_TALENT,
             when: combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id),
-          }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.HEALING_ELIXIR_TALENT,
-            when: combatant.hasTalent(SPELLS.HEALING_ELIXIR_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.TOUCH_OF_KARMA_CAST,
