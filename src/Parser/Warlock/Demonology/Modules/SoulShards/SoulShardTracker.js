@@ -3,6 +3,7 @@ import Combatants from 'Parser/Core/Modules/Combatants';
 
 import SPELLS from 'common/SPELLS';
 
+//TODO: refactor all trackers to use Core ResourceTracker
 class SoulShardTracker extends Analyzer {
   static dependencies = {
     combatants: Combatants,

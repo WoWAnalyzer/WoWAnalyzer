@@ -75,8 +75,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.BILESCOURGE_BOMBERS_TALENT.id),
         isOnGCD: true,
         castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
+          suggestion: false,
         },
       },
       {
@@ -151,7 +150,7 @@ class Abilities extends CoreAbilities {
         cooldown: 180,
         isOnGCD: false,
         castEfficiency: {
-          suggestion: false,
+          suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,
           recommendedEfficiency: 0.33,
           averageIssueEfficiency: 0.20,
@@ -165,7 +164,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.DARK_PACT_TALENT.id),
         isOnGCD: false,
         castEfficiency: {
-          suggestion: false,
+          suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,
           recommendedEfficiency: 0.33,
           averageIssueEfficiency: 0.20,
@@ -200,7 +199,6 @@ class Abilities extends CoreAbilities {
         cooldown: 10,
         castEfficiency: {
           suggestion: false,
-          importance: ISSUE_IMPORTANCE.MINOR,
         },
       },
       {
@@ -211,17 +209,11 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
         castEfficiency: {
           suggestion: false,
-          importance: ISSUE_IMPORTANCE.MINOR,
-          recommendedEfficiency: 0.15,
-          averageIssueEfficiency: 0.07,
-          majorIssueEfficiency: 0.01,
         },
       },
       {
         spell: SPELLS.SOULSTONE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 600,
-        // TODO: shares cooldown with other combat rezzes, don't know how to calculate properly
         isOnGCD: true,
       },
       {

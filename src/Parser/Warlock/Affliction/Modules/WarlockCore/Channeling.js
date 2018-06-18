@@ -12,6 +12,7 @@ import { formatMilliseconds } from 'common/format';
  * To avoid Drain Soul as being marked "canceled" when we start a new spell we mark it as ended instead on the begincast/cast.
  */
 class Channeling extends CoreChanneling {
+  // TODO: add shared module tracking Drain Life similarly, make this class extend that one instead
   on_byPlayer_cast(event) {
     if (event.ability.guid === SPELLS.DRAIN_SOUL_TALENT.id) {
       this.beginChannel(event);

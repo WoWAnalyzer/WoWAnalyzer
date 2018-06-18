@@ -9,24 +9,8 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational spells
       {
-        spell: SPELLS.AGONY,
-        category: Abilities.SPELL_CATEGORIES.DOTS,
-        isOnGCD: true,
-      },
-      {
-        spell: SPELLS.CORRUPTION_CAST,
-        category: Abilities.SPELL_CATEGORIES.DOTS,
-        isOnGCD: true,
-      },
-      {
-        spell: SPELLS.SIPHON_LIFE_TALENT,
-        category: Abilities.SPELL_CATEGORIES.DOTS,
-        enabled: combatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id),
-        isOnGCD: true,
-      },
-      {
         spell: SPELLS.UNSTABLE_AFFLICTION_CAST,
-        category: Abilities.SPELL_CATEGORIES.DOTS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
       },
       {
@@ -54,6 +38,22 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.AGONY,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
+      },
+      {
+        spell: SPELLS.CORRUPTION_CAST,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        isOnGCD: true,
+      },
+      {
+        spell: SPELLS.SIPHON_LIFE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id),
+        isOnGCD: true,
+      },
+      {
         spell: SPELLS.SHADOW_BOLT_AFFLI,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
@@ -72,7 +72,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.PHANTOM_SINGULARITY_TALENT.id),
         isOnGCD: true,
         castEfficiency: {
-          suggestion: true,
+          suggestion: false,
         },
       },
       {
@@ -87,8 +87,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.VILE_TAINT_TALENT.id),
         cooldown: 20,
         castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
+          suggestion: false,
         },
       },
 
@@ -107,6 +106,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DARK_SOUL_MISERY_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
+        isOnGCD: true,
         enabled: combatant.hasTalent(SPELLS.DARK_SOUL_MISERY_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -122,7 +122,7 @@ class Abilities extends CoreAbilities {
         cooldown: 180,
         isOnGCD: false,
         castEfficiency: {
-          suggestion: false,
+          suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,
           recommendedEfficiency: 0.33,
           averageIssueEfficiency: 0.20,
@@ -136,7 +136,7 @@ class Abilities extends CoreAbilities {
         isOnGCD: false,
         enabled: combatant.hasTalent(SPELLS.DARK_PACT_TALENT.id),
         castEfficiency: {
-          suggestion: false,
+          suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,
           recommendedEfficiency: 0.33,
           averageIssueEfficiency: 0.20,
@@ -171,7 +171,6 @@ class Abilities extends CoreAbilities {
         cooldown: 10,
         castEfficiency: {
           suggestion: false,
-          importance: ISSUE_IMPORTANCE.MINOR,
         },
       },
       {
@@ -182,17 +181,11 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
         castEfficiency: {
           suggestion: false,
-          importance: ISSUE_IMPORTANCE.MINOR,
-          recommendedEfficiency: 0.15,
-          averageIssueEfficiency: 0.07,
-          majorIssueEfficiency: 0.01,
         },
       },
       {
         spell: SPELLS.SOULSTONE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 600,
-        // TODO: shares cooldown with other combat rezzes, don't know how to calculate properly
         isOnGCD: true,
       },
       {

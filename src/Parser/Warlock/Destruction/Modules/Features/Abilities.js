@@ -74,6 +74,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 25,
         isOnGCD: true,
+        castEfficiency: {
+          suggestion: false,
+        },
       },
       {
         spell: SPELLS.RAIN_OF_FIRE_CAST,
@@ -86,7 +89,7 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         enabled: combatant.hasTalent(SPELLS.CATACLYSM_TALENT.id),
         castEfficiency: {
-          suggestion: true,
+          suggestion: false,
         },
       },
 
@@ -101,6 +104,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DARK_SOUL_INSTABILITY_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
+        isOnGCD: true,
         enabled: combatant.hasTalent(SPELLS.DARK_SOUL_INSTABILITY_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -116,7 +120,7 @@ class Abilities extends CoreAbilities {
         cooldown: 180,
         isOnGCD: false,
         castEfficiency: {
-          suggestion: false,
+          suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,
           recommendedEfficiency: 0.33,
           averageIssueEfficiency: 0.20,
@@ -130,7 +134,7 @@ class Abilities extends CoreAbilities {
         isOnGCD: false,
         enabled: combatant.hasTalent(SPELLS.DARK_PACT_TALENT.id),
         castEfficiency: {
-          suggestion: false,
+          suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,
           recommendedEfficiency: 0.33,
           averageIssueEfficiency: 0.20,
@@ -165,7 +169,6 @@ class Abilities extends CoreAbilities {
         cooldown: 10,
         castEfficiency: {
           suggestion: false,
-          importance: ISSUE_IMPORTANCE.MINOR,
         },
       },
       {
@@ -176,14 +179,11 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
         castEfficiency: {
           suggestion: false,
-          importance: ISSUE_IMPORTANCE.MINOR,
         },
       },
       {
         spell: SPELLS.SOULSTONE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 600,
-        // TODO: shares cooldown with other combat rezzes, don't know how to calculate properly
         isOnGCD: true,
       },
       {
