@@ -60,7 +60,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.IMMOLATE_CAST,
+        spell: SPELLS.IMMOLATE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         isOnGCD: true,
       },

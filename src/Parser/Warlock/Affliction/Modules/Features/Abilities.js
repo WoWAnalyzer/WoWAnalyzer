@@ -60,7 +60,7 @@ class Abilities extends CoreAbilities {
         enabled: !combatant.hasTalent(SPELLS.DRAIN_SOUL_TALENT.id),
       },
       {
-        spell: SPELLS.DRAIN_SOUL,
+        spell: SPELLS.DRAIN_SOUL_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.DRAIN_SOUL_TALENT.id),
         isOnGCD: true,

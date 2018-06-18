@@ -19,7 +19,7 @@ const AFFECTED_SPELLS = new Set([
   SPELLS.CONFLAGRATE.id,
   SPELLS.CHAOS_BOLT.id,
   SPELLS.IMMOLATE_DEBUFF.id,
-  SPELLS.IMMOLATE_CAST.id,
+  SPELLS.IMMOLATE.id,
   // don't have these two statistically proven to be buffed, might be just RNG, but looks like they are
   SPELLS.MAGISTRIKE_RESTRAINTS_CHAOS_BOLT.id,
   SPELLS.CHANNEL_DEMONFIRE_DAMAGE.id,

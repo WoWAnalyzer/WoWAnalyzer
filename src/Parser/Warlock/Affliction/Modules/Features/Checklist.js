@@ -145,7 +145,7 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Always be casting',
-      description: <React.Fragment>You should try to avoid doing nothing during the fight. When you're out of Soul Shards, cast <SpellLink id={SPELLS.SHADOW_BOLT_AFFLI.id} icon />/<SpellLink id={SPELLS.DRAIN_SOUL.id} icon />, refresh your DoTs etc. When you have to move, use your instant abilities or try to utilize <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon>Teleport</SpellLink> or <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon>Gateway</SpellLink> to reduce the movement even further.<br />
+      description: <React.Fragment>You should try to avoid doing nothing during the fight. When you're out of Soul Shards, cast <SpellLink id={SPELLS.SHADOW_BOLT_AFFLI.id} icon />/<SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} icon />, refresh your DoTs etc. When you have to move, use your instant abilities or try to utilize <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon>Teleport</SpellLink> or <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon>Gateway</SpellLink> to reduce the movement even further.<br />
       You should also watch your mana and not let it drop too low as Affliction is very mana-hungry and every second spent out of mana at wrong times is a DPS loss.</React.Fragment>,
       requirements: () => {
         return [

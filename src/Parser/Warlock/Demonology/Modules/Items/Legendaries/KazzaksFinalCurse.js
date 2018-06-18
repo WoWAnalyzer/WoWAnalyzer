@@ -14,6 +14,10 @@ import DemoPets from '../../WarlockCore/Pets';
 const DAMAGE_BONUS_PER_PET = 0.05;
 
 // TODO: verify it still works with new Doom
+
+// !!damage multiplier is assigned at the time of DAMAGE
+// works with dreadstalkers, imps, felguard, grimoire: felguard
+// DOESN'T work with demonic tyrant, vilefiend
 class KazzaksFinalCurse extends Analyzer {
   static dependencies = {
     combatants: Combatants,

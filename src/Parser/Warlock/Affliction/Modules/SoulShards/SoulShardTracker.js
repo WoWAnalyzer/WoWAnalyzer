@@ -56,10 +56,6 @@ class SoulShardTracker extends Analyzer {
     [SPELLS.SUMMON_VOIDWALKER.id]: 0,
     [SPELLS.SUMMON_SUCCUBUS.id]: 0,
     [SPELLS.SUMMON_FELHUNTER.id]: 0,
-    [SPELLS.GRIMOIRE_IMP.id]: 0,
-    [SPELLS.GRIMOIRE_VOIDWALKER.id]: 0,
-    [SPELLS.GRIMOIRE_FELHUNTER.id]: 0,
-    [SPELLS.GRIMOIRE_SUCCUBUS.id]: 0,
   };
 
   on_toPlayer_energize(event) {

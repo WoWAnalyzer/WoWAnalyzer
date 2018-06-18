@@ -48,6 +48,10 @@ class Pets extends Analyzer {
 
   on_byPlayer_summon(event) {
     const petInfo = this.owner.playerPets.find(pet => pet.id === event.targetID);
+    // temporary workaround until revamp
+    if (!petInfo) {
+      return;
+    }
     const pet = {
       guid: petInfo.guid,
       name: (PETS[petInfo.guid]) ? PETS[petInfo.guid].name : "Felguard",
@@ -69,6 +73,10 @@ class Pets extends Analyzer {
     const id = event.sourceID;
     const instance = event.sourceInstance;
     const petInfo = this.owner.playerPets.find(pet => pet.id === id);
+    // temporary
+    if (!petInfo) {
+      return;
+    }
     const permanentPetInTimeline = this.petsTimeline.find(pet => pet.guid === petInfo.guid);
     if (!permanentPetInTimeline) {
       // most likely will be only for the permanent pet, as the Felguard usually charges seconds after the fight starts which makes a damage event too
