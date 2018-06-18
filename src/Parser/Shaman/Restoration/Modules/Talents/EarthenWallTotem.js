@@ -40,7 +40,7 @@ class EarthenWallTotem extends Analyzer {
       this.prePullCastHealth = event.maxHitPoints;
     }
 
-    this.healing += (event.amount || 0) + (event.overheal || 0) + (event.absorbed || 0);
+    this.healing += (event.amount || 0);
   }
 
   on_byPlayer_cast(event) {
