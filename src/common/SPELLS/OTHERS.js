@@ -725,17 +725,7 @@ export default {
     name: 'Annihilation',
     icon: 'spell_arcane_arcanetorrent',
   },
-  // Netherlight Cruicible Traits
-  MURDEROUS_INTENT_TRAIT: {
-    id: 252191,
-    name: 'Murderous Intent',
-    icon: 'spell_shadow_charm',
-  },
-  LIGHT_SPEED_TRAIT: {
-    id: 252088,
-    name: 'Light Speed',
-    icon: 'ability_rogue_sprint',
-  },
+  // Garothi Feedback Conduit
   FEEDBACK_LOOP: {
     id: 253269,
     name: 'Feedback Loop',

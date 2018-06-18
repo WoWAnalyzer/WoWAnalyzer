@@ -20,7 +20,7 @@ class InsigniaOfTheGrandArmy extends Analyzer {
   item() {
       return {
         item: ITEMS.INSIGNIA_OF_THE_GRAND_ARMY,
-        result: `This used to buff your Tier 2 NLC Traits by 50%, which are now inactive.`,
+        result: `This used to buff your NLC Traits, which are now inactive.`,
       };
   }
 }

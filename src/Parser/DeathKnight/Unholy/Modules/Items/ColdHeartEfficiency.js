@@ -93,7 +93,7 @@ class ColdHeartEfficiency extends Analyzer {
 		  const unholyStrengthRemaining = unholyStrengthDuration - (event.timestamp - this.unholyStrengthStart);
 		  const khazgorothRemaining = khazgorothDuration - (event.timestamp - this.khazgorothStart);
 	  
-		  //This checks wether or not any of the three buffs are about to fall off within the next 4 seconds.
+		  //This checks wether or not any of the buffs are about to fall off within the next 4 seconds.
 		  if (this.buffColdHeart < coldHeartMaxStack && this.buffColdHeart >= coldHeartOptimalMinStack) {
 			if ((unholyStrengthRemaining > 0 && unholyStrengthRemaining < remainingDurationAllowed) || (khazgorothRemaining > 0 && khazgorothRemaining < remainingDurationAllowed)){
 				  this.correctColdHeartCasts++;
@@ -119,7 +119,7 @@ class ColdHeartEfficiency extends Analyzer {
     const castEfficiency = this.correctColdHeartCasts / this.totalColdHeartCasts;
     when(castEfficiency).isLessThan(0.8)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<React.Fragment> You are casting <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> at non optimal times. {this.castsTooLate} cast(s) were made too late and {this.castsTooEarly} cast(s) were made too early. You either want to cast <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> when at 20 stacks of <SpellLink id={SPELLS.COLD_HEART_BUFF.id} /> ASAP, or when you are above 13 stacks and any of your buffs <SpellLink id={SPELLS.UNHOLY_STRENGTH_BUFF.id} />  or <SpellLink id={SPELLS.KHAZGOROTHS_SHAPING.id} /> are about to run out. You also don't want to hold <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> at 20 stacks for too long.</React.Fragment>)
+        return suggest(<React.Fragment> You are casting <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> at non optimal times. {this.castsTooLate} cast(s) were made too late and {this.castsTooEarly} cast(s) were made too early. You either want to cast <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> when at 20 stacks of <SpellLink id={SPELLS.COLD_HEART_BUFF.id} /> ASAP, or when you are above 13 stacks and any of your buffs <SpellLink id={SPELLS.UNHOLY_STRENGTH_BUFF.id} /> or <SpellLink id={SPELLS.KHAZGOROTHS_SHAPING.id} /> are about to run out. You also don't want to hold <SpellLink id={SPELLS.CHAINS_OF_ICE.id} /> at 20 stacks for too long.</React.Fragment>)
           .icon(SPELLS.CHAINS_OF_ICE.icon)
           .actual(`${formatPercentage(actual)}% of Chains of Ice were cast correctly.`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
