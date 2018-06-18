@@ -46,15 +46,11 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 4,
       },
       {
-        spell: SPELLS.CONSUMPTION,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        spell: SPELLS.CONSUMPTION_TALENT,
+        category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
+        enabled: combatant.hasTalent(SPELLS.CONSUMPTION_TALENT.id),
         cooldown: 45,
         isOnGCD: true,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
-          extraSuggestion: 'Should be casting this on CD for the dps unless your saving the leach for something or saving it for a pack of adds.',
-        },
         timelineSortIndex: 5,
       },
       {
@@ -62,7 +58,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
         buffSpellId: SPELLS.DANCING_RUNE_WEAPON_BUFF.id,
         isOnGCD: true,
-        cooldown: 180,
+        cooldown: 120,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,

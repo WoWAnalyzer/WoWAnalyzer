@@ -26,6 +26,7 @@ import BoneStorm from '../Talents/Bonestorm';
 import MarkOfBloodUptime from '../Talents/MarkOfBlood';
 import Ossuary from '../Talents/Ossuary';
 import RuneStrike from '../Talents/RuneStrike';
+import Consumption from '../Talents/Consumption';
 
 import RunicPowerDetails from '../RunicPower/RunicPowerDetails';
 import RuneTracker from '../../../Shared/RuneTracker';
@@ -47,6 +48,7 @@ class Checklist extends CoreChecklist {
     deathsCaress: DeathsCaress,
 
     bonestorm: BoneStorm,
+    consumption: Consumption,
     markOfBloodUptime: MarkOfBloodUptime,
 
     crimsonScourge: CrimsonScourge,
@@ -124,9 +126,10 @@ class Checklist extends CoreChecklist {
             spell: SPELLS.DANCING_RUNE_WEAPON,
             onlyWithSuggestion: false,
           }),
-          new GenericCastEfficiencyRequirement({
-            spell: SPELLS.CONSUMPTION,
-            onlyWithSuggestion: false,
+          new Requirement({
+            name: <React.Fragment>Possible <SpellLink id={SPELLS.CONSUMPTION_TALENT.id} /> hits</React.Fragment>,
+            check: () => this.consumption.hitSuggestionThreshold, 
+            when: this.combatants.selected.hasTalent(SPELLS.CONSUMPTION_TALENT.id),
           }),
           new Requirement({
             name: <React.Fragment><SpellLink id={SPELLS.BONESTORM_TALENT.id} /> efficiency</React.Fragment>,

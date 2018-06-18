@@ -44,6 +44,7 @@ import RapidDecomposition from './Modules/Talents/RapidDecomposition';
 import WillOfTheNecropolis from './Modules/Talents/WillOfTheNecropolis';
 import Ossuary from './Modules/Talents/Ossuary';
 import RuneStrike from './Modules/Talents/RuneStrike';
+import Consumption from './Modules/Talents/Consumption';
 
 // Items
 import T20_2pc from './Modules/Items/T20_2pc';
@@ -113,6 +114,7 @@ class CombatLogParser extends CoreCombatLogParser {
     willOfTheNecropolis: WillOfTheNecropolis,
     ossuary: Ossuary,
     runeStrike: RuneStrike,
+    consumption: Consumption,
 
     // Traits
     RelicTraits: RelicTraits,

@@ -10,7 +10,7 @@ import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT = [
   SPELLS.DEMORALIZING_SHOUT.id,
-  SPELLS.BATTLE_CRY.id,
+  SPELLS.AVATAR_TALENT.id,
   SPELLS.LAST_STAND.id,
   SPELLS.SHIELD_WALL.id,
 ];
