@@ -29,7 +29,7 @@ class GrimoireFelguard extends Analyzer {
     const damage = this.demoPets.getTotalPetDamage(PETS.GRIMOIRE_FELGUARD.id);
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.GRIMOIRE_OF_SERVICE_TALENT.id} />}
+        icon={<SpellIcon id={SPELLS.GRIMOIRE_FELGUARD_TALENT.id} />}
         value={`${formatNumber(damage / this.owner.fightDuration * 1000)} DPS`}
         label="Grimoire: Felguard damage"
         tooltip={`Your Grimoire: Felguard did ${formatNumber(damage)} damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} %).`}

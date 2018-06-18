@@ -1,9 +1,6 @@
-import React from 'react';
-
 import CoreAbilities from 'Parser/Core/Modules/Abilities';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 import ISSUE_IMPORTANCE from 'Parser/Core/ISSUE_IMPORTANCE';
 
 class Abilities extends CoreAbilities {

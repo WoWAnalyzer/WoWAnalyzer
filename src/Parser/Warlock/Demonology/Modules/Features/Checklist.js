@@ -41,7 +41,7 @@ class Checklist extends CoreChecklist{
       name: 'Use your core spells',
       description: 'Make sure you\'re following your rotation closely in order to maximize DPS.',
       requirements: () => {
-        const combatant = this.combatant.selected;
+        const combatant = this.combatants.selected;
         return [
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.CALL_DREADSTALKERS,
@@ -111,7 +111,7 @@ class Checklist extends CoreChecklist{
         const combatant = this.combatants.selected;
         return [
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.DEMONIC_CIRCLE_TALENT_TELEPORT,
+            spell: SPELLS.DEMONIC_CIRCLE_TELEPORT,
             when: combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({

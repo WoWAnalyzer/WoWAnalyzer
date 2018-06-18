@@ -60,12 +60,12 @@ export default [
   },
   {
     date: new Date('2017-08-27'),
-    changes: <React.Fragment>Reworked the <SpellLink id={SPELLS.DRAIN_SOUL.id} icon />/<SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} icon /> sniping module to provide more relevant info.</React.Fragment>,
+    changes: <React.Fragment>Reworked the <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} icon />/<SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} icon /> sniping module to provide more relevant info.</React.Fragment>,
     contributors: [Chizu],
   },
   {
     date: new Date('2017-08-24'),
-    changes: <React.Fragment>Added <SpellLink id={SPELLS.DRAIN_SOUL.id} icon />/<SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} icon /> sniping module.</React.Fragment>,
+    changes: <React.Fragment>Added <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} icon />/<SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} icon /> sniping module.</React.Fragment>,
     contributors: [Chizu],
   },
   {

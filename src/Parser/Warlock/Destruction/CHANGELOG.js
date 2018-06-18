@@ -63,7 +63,7 @@ export default [
   },
   {
     date: new Date('2017-09-04'),
-    changes: <React.Fragment>Fixed the issues with Grimoire of Service and Summon Doomguard/<SpellLink id={SPELLS.SUMMON_INFERNAL_UNTALENTED.id} icon />.</React.Fragment>,
+    changes: <React.Fragment>Fixed the issues with Grimoire of Service and Summon Doomguard/<SpellLink id={SPELLS.SUMMON_INFERNAL.id} icon />.</React.Fragment>,
     contributors: [Chizu],
   },
 ];
