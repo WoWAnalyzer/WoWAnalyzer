@@ -193,10 +193,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         isOnGCD: true,
         cooldown: 35,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: .9,
-        },
         timelineSortIndex: 9,
       },
     ];

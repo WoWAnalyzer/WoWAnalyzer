@@ -22,6 +22,7 @@ import HeavyRepercussions from './Modules/Talents/HeavyRepercussions';
 import IntoTheFray from './Modules/Talents/IntoTheFray';
 import Vengeance from './Modules/Talents/Vengeance';
 import Punish from './Modules/Talents/Punish';
+import DragonRoar from './Modules/Talents/DragonRoar';
 
 import T21_2pc from './Modules/Items/T21_2pc';
 import ThundergodsVigor from './Modules/Items/ThundergodsVigor';
@@ -51,6 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
     intoTheFray: IntoTheFray,
     vengeance: Vengeance,
     punish: Punish,
+    dragonRoar: DragonRoar,
     //Items
     t21: T21_2pc,
     thunderlordsVigor: ThundergodsVigor,

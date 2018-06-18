@@ -6,12 +6,6 @@
 
 export default {
   // Blood:
-  // Artifact
-  CONSUMPTION: { //when are we going to lose the artifact-ID and get the talent one?
-    id: 205223,
-    name: 'Consumption',
-    icon: 'inv_axe_2h_artifactmaw_d_01',
-  },
 
   //Summons
   //Bloodworm summon spell by the Bloodworms talent

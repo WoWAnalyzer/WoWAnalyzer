@@ -11,7 +11,7 @@ const ALLOWED_CASTS_DURING_DRW = [
   SPELLS.HEART_STRIKE.id,
   SPELLS.BLOOD_BOIL.id,
   SPELLS.MARROWREND.id,
-  SPELLS.CONSUMPTION.id,
+  SPELLS.CONSUMPTION_TALENT.id, // todo => test if new consumption talent actually works with DRW
 ];
 
 class DancingRuneWeapon extends Analyzer {
@@ -54,7 +54,7 @@ class DancingRuneWeapon extends Analyzer {
   }
 
   spellLinks(id, index) {
-    if (id === SPELLS.CONSUMPTION.id) {
+    if (id === SPELLS.CONSUMPTION_TALENT.id) {
       return <span>and (if in AoE)<SpellLink id={id} /></span>;
     } else if (index + 2 === ALLOWED_CASTS_DURING_DRW.length) {
       return <span><SpellLink id={id} /> </span>;
