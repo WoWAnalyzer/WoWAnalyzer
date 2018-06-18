@@ -151,62 +151,62 @@ export default [
   {
     date: new Date('2017-05-28'),
     changes: 'Added unused Power Word: Shield absorb statistic',
-    contributors: [],
+    contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-05-25'),
     changes: 'Added Early Atonement refreshes statistic. Fixed Skjoldr sometimes not working properly. Both contributions were created by <b>@Shadowdrizz</b>. Thanks a lot for your contribution! Fix Shadowfiend showing with the Mindbender talent.',
-    contributors: [],
+    contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-05-18'),
     changes: <React.Fragment>Added <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} />/<SpellLink id={SPELLS.PURGE_THE_WICKED_TALENT.id} /> global uptime statistic.</React.Fragment>,
-    contributors: [],
+    contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-05-17'),
     changes: <React.Fragment>Added <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT.id} /> healing statistic (damage gain is in the tooltip).</React.Fragment>,
-    contributors: [],
+    contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-05-16'),
     changes: <React.Fragment>Added <ItemLink id={ITEMS.DARKMOON_DECK_PROMISES.id} /> statistic. Added <SpellLink id={SPELLS.LIGHTS_WRATH.id} />  to cast efficiency. Changed Pain Suppression cooldown to take into account the Pain is in your Mind trait.</React.Fragment>,
-    contributors: [],
+    contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-05-16'),
     changes: <React.Fragment>Added <ItemLink id={ITEMS.NERO_BAND_OF_PROMISES.id} /> statistic.</React.Fragment>,
-    contributors: [],
+    contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-05-15'),
     changes: <React.Fragment>Added <ItemLink id={ITEMS.XALAN_THE_FEAREDS_CLENCH.id} />  statistic.</React.Fragment>,
-    contributors: [],
+    contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-05-15'),
     changes: <React.Fragment><ItemLink id={ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id} /> statistic now includes the healing gained via <SpellLink id={SPELLS.SHARE_IN_THE_LIGHT.id} />.</React.Fragment>,
-    contributors: [],
+    contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-05-14'),
     changes: <React.Fragment>Added <ItemLink id={ITEMS.SKJOLDR_SANCTUARY_OF_IVAGONT.id} /> statistic. This does not yet include the healing gained via <SpellLink id={SPELLS.SHARE_IN_THE_LIGHT.id} />.</React.Fragment>,
-    contributors: [],
+    contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-05-14'),
     changes: <React.Fragment>Added <ItemLink id={ITEMS.CORD_OF_MAIEV_PRIESTESS_OF_THE_MOON.id} /> statistic.</React.Fragment>,
-    contributors: [],
+    contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-05-14'),
     changes: 'Added Disc Priest 2 set bonus statistic.',
-    contributors: [],
+    contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-05-14'),
     changes: <React.Fragment>Renamed Missed penance hits to Wasted Penance bolts. Wasted Penance bolts now accounts for (combat log) latency. Fixed Glyph of the Sha's Shadowfiend not being counted towards Shadowfiend casts. Fixed healing increases (most notably the 15% from Velen's) not working with Disc priest spells.</React.Fragment>,
-    contributors: [],
+    contributors: [Zerotorescue],
   },
   {
     date: new Date('2017-06-05'),
@@ -216,6 +216,6 @@ export default [
   {
     date: new Date('2017-05-14'),
     changes: 'Added Discipline Priest spec. Currently includes basic statistics for Dead GCD time (should be fully operational), shared legendaries, missed Penance hits, cast efficiencies and the other build in tools.',
-    contributors: [],
+    contributors: [Zerotorescue],
   },
 ];
