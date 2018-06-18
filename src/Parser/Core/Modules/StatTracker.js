@@ -62,13 +62,6 @@ class StatTracker extends Analyzer {
     [SPELLS.DARKMOON_VERS_FOOD.id]: { versatility: 45 },
     //endregion
 
-    //region racials
-    [SPELLS.RICTUS_OF_THE_LAUGHING_SKULL.id]: { crit: 411 },
-    [SPELLS.ZEAL_OF_THE_BURNING_BLADE.id]: { haste: 411 },
-    [SPELLS.FEROCITY_OF_THE_FROSTWOLF.id]: { mastery: 411 },
-    [SPELLS.MIGHT_OF_THE_BLACKROCK.id]: { versatility: 411 },
-    //endregion
-
     // region Dungeon Trinkets
     [SPELLS.SHADOWS_STRIKE.id]: {
       itemId: ITEMS.DREADSTONE_OF_ENDLESS_SHADOWS.id,
@@ -344,10 +337,10 @@ class StatTracker extends Analyzer {
 
     // region Racials
     // Mag'har Orc
-    274739: { crit: 102 }, // Rictus of the Laughing Skull
-    274740: { haste: 102 }, // Zeal of the Burning Blade
-    274741: { mastery: 102 }, // Ferocity of the Frostwolf
-    274742: { versatility: 102 }, // Might of the Blackrock
+    [SPELLS.RICTUS_OF_THE_LAUGHING_SKULL.id]: { crit: 102 }, // 411 stats at level 120
+    [SPELLS.ZEAL_OF_THE_BURNING_BLADE.id]: { haste: 102 },
+    [SPELLS.FEROCITY_OF_THE_FROSTWOLF.id]: { mastery: 102 },
+    [SPELLS.MIGHT_OF_THE_BLACKROCK.id]: { versatility: 102 },
     // endregion
   };
 
