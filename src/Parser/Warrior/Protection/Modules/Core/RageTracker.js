@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS';
 import SpellUsable from 'Parser/Core/Modules/SpellUsable';
 
 const VENGEANCE_RAGE_REDUCTION = 0.33; //percent
-const IGNORE_PAIN_MAX_COST = 60;
 
 class RageTracker extends ResourceTracker {
   static dependencies = {
@@ -20,6 +19,7 @@ class RageTracker extends ResourceTracker {
   }
 
   getReducedCost(event) {
+
     if (!this.getResource(event).cost) {
       return 0;
     }
@@ -33,14 +33,9 @@ class RageTracker extends ResourceTracker {
       }
     } else if (abilityId === SPELLS.IGNORE_PAIN.id) {
       if (this.combatants.selected.hasBuff(SPELLS.VENGEANCE_IGNORE_PAIN.id, event.timestamp)) {
-        const currentRage = this.getResource(event).amount / 10;
-        const newCost = currentRage >= IGNORE_PAIN_MAX_COST * (1 - VENGEANCE_RAGE_REDUCTION) ? IGNORE_PAIN_MAX_COST * (1 - VENGEANCE_RAGE_REDUCTION) : currentRage;
-        const normalCost = currentRage >= IGNORE_PAIN_MAX_COST ? IGNORE_PAIN_MAX_COST : currentRage;
-
-        this.vengeanceRageSaved += normalCost - newCost;
+        const newCost = cost * (1 - VENGEANCE_RAGE_REDUCTION);
+        this.vengeanceRageSaved += cost - newCost;
         cost = newCost;
-        //use either the max reduced max cost 39 Rage if enough rage was available or use all the available rage
-        //WCL return the wrong rage cost for a cast with Vengeance up (with 60+ rage available 46 instead of 39 (60 * 0.65))
       }
     }
     return cost;
