@@ -51,7 +51,7 @@ class Guard extends Analyzer {
       return;
     }
 
-    if(event.timestamp - this._lastApplication === GUARD_DURATION) {
+    if(event.timestamp - this._lastApplication >= GUARD_DURATION) {
       // almost certainly natural buff expiration, any remaining guard
       // is wasted
       this._guardWasted += this._guardRemaining;
@@ -95,8 +95,8 @@ class Guard extends Analyzer {
     const aps = this._absorbed / (this.owner.fightDuration / 1000);
     return <StatisticBox
       icon={<SpellIcon id={SPELLS.GUARD_TALENT.id} />}
-      value={`${formatNumber(aps)} HPS`}
-      label={"Effective Healing by Guard"}
+      value={`${formatNumber(aps)} DTPS`}
+      label={"Effective Mitigation by Guard"}
       tooltip={`Your average Guard could absorb up to <b>${formatNumber(avgGuardSize)}</b> damage.<br/>
                 You wasted <b>${formatNumber(this._guardWasted)}</b> of Guard's absorb.<br/>
                 Your Guard absorbed a total of <b>${formatNumber(this._absorbed)}</b> damage.`}
