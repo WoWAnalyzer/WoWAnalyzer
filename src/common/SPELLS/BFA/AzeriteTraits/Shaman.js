@@ -36,8 +36,8 @@ export default {
     name: 'Spouting Spirits',
     icon: 'spell_shaman_spiritlink',
   },
-  SPOUTING_SPIRITS_HEAL: { // double check this
-    id: 279504,
+  SPOUTING_SPIRITS_HEAL: {
+    id: 279505,
     name: 'Spouting Spirits',
     icon: 'spell_shaman_spiritlink',
   },
