@@ -113,7 +113,22 @@ class CastEfficiency extends Analyzer {
    * Time spent waiting for the GCD where a proc reset the cooldown to finish
    */
   _getTimeWaitingOnGCD(ability){
-    return 0;
+    const mainSpellId = ability.primarySpell.id;
+    const history = this.spellHistory.historyBySpellId[mainSpellId];
+    if (!history) { // spell either never been cast, or not in abilities list
+      return 0;
+    }
+
+    const timeWaitingOnGCD = history
+      .reduce((acc, event) => {
+        if (event.type === 'updatespellusable' && event.timeWaitingOnGCD) {
+          return acc + event.timeWaitingOnGCD;
+        } else {
+          return acc;
+        }
+      }, 0);
+
+    return timeWaitingOnGCD;
   }
 
   /*

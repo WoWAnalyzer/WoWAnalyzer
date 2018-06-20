@@ -3,6 +3,9 @@ import Analyzer from 'Parser/Core/Analyzer';
 import SpellUsable from './SpellUsable';
 import Abilities from './Abilities';
 
+const GCD_MATCH_BUFFER_MS = 150;
+const RESET_BUFFER_PERCENT = 0.5;
+
 class SpellHistory extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
@@ -20,6 +23,8 @@ class SpellHistory extends Analyzer {
     //   ...
     // ]
   };
+
+  lastGlobalCooldown = null;
 
   _getAbility(spellId) {
     const ability = this.abilities.getAbility(spellId);
@@ -42,6 +47,22 @@ class SpellHistory extends Analyzer {
     }
   }
 
+  _addTimeWaitingOnGCD(event) {
+    if (!this.lastGlobalCooldown) {
+      return event;
+    }
+    const resetBufferMS = RESET_BUFFER_PERCENT * this.lastGlobalCooldown.duration;
+    const earlyByMS = event.start + event.expectedDuration - event.timestamp;
+    // check if the ability was reset early. If the reset was less than a percentage of the GCD don't consider it as a reset.
+    // check if the reset happened as a result of the previous cast
+    if (event.trigger === 'endcooldown' && resetBufferMS < earlyByMS 
+    && event.timestamp < this.lastGlobalCooldown.timestamp + GCD_MATCH_BUFFER_MS) {
+      // if the time remaining was less than the GCD use that instead
+      event.timeWaitingOnGCD = Math.min(earlyByMS, this.lastGlobalCooldown.duration);
+    }
+    return event;
+  }
+
   on_byPlayer_begincast(event) {
     const spellId = event.ability.guid;
     this._append(spellId, event);
@@ -60,7 +81,10 @@ class SpellHistory extends Analyzer {
   }
   on_toPlayer_updatespellusable(event) {
     const spellId = event.ability.guid;
-    this._append(spellId, event);
+    this._append(spellId, this._addTimeWaitingOnGCD(event));
+  }
+  on_byPlayer_globalcooldown(event) {
+    this.lastGlobalCooldown = event;
   }
 }
 
