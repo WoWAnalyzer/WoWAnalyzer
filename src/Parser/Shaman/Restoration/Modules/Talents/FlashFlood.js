@@ -56,15 +56,14 @@ class FlashFlood extends Analyzer {
     if(!this.beginCastTimestamp) {
       return;
     }
-    
+
     const castTime = event.timestamp - this.beginCastTimestamp;
+    this.beginCastTimestamp = 0;
     if (castTime <= this.beginCastGlobalCooldown) {
-      this.beginCastTimestamp = 0;
       return;
     }
 
     this.timeSaved += castTime / (1-FLASH_FLOOD_HASTE) * FLASH_FLOOD_HASTE;
-    this.beginCastTimestamp = 0;
   }
 
   subStatistic() {

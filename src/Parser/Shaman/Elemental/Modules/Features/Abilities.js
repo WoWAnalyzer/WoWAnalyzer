@@ -109,7 +109,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
       },
       {
-        spell: SPELLS.LIGHTNING_SURGE_TOTEM_TALENT,
+        spell: SPELLS.LIGHTNING_SURGE_TOTEM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
         cooldown: 60,

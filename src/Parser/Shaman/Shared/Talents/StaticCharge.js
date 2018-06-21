@@ -23,12 +23,12 @@ class StaticCharge extends Analyzer {
       return;
     }
 
-    const cooldownRemaining = this.spellUsable.cooldownRemaining(SPELLS.LIGHTNING_SURGE_TOTEM_TALENT.id);
+    const cooldownRemaining = this.spellUsable.cooldownRemaining(SPELLS.LIGHTNING_SURGE_TOTEM.id);
     if (cooldownRemaining <= minimumCooldown) {
       return;
     }
 
-    this.spellUsable.reduceCooldown(SPELLS.LIGHTNING_SURGE_TOTEM_TALENT.id, stunReduction);
+    this.spellUsable.reduceCooldown(SPELLS.LIGHTNING_SURGE_TOTEM.id, stunReduction);
   }
 }
 

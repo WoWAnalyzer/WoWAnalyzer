@@ -89,12 +89,12 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.EARTHEN_SHIELD_TOTEM_TALENT,
+        spell: SPELLS.EARTHEN_WALL_TOTEM_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         timelineSortIndex: 20,
         isOnGCD: true,
-        enabled: combatant.hasTalent(SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id),
         castEfficiency: {
           suggestion: true,
           majorIssueEfficiency: 0.50,
@@ -264,7 +264,7 @@ class Abilities extends CoreAbilities {
         isOnGCD: true,
       },
       {
-        spell: SPELLS.LIGHTNING_SURGE_TOTEM_TALENT,
+        spell: SPELLS.LIGHTNING_SURGE_TOTEM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         timelineSortIndex: 80,
         isOnGCD: true,

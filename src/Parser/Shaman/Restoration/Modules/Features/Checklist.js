@@ -68,8 +68,8 @@ class Checklist extends CoreChecklist {
             when: combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.EARTHEN_SHIELD_TOTEM_TALENT,
-            when: combatant.hasTalent(SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id),
+            spell: SPELLS.EARTHEN_WALL_TOTEM_TALENT,
+            when: combatant.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.WELLSPRING_TALENT,

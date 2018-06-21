@@ -51,7 +51,7 @@ class TalentStatisticBox extends Analyzer {
         {this.combatants.selected.hasTalent(SPELLS.UNDULATION_TALENT.id) ? this.undulation.subStatistic() : ''}
         {this.combatants.selected.hasTalent(SPELLS.DELUGE_TALENT.id) ? this.deluge.subStatistic() : ''}
         {this.combatants.selected.hasTalent(SPELLS.EARTH_SHIELD_TALENT.id) ? this.earthShield.subStatistic() : ''}
-        {this.combatants.selected.hasTalent(SPELLS.EARTHEN_SHIELD_TOTEM_TALENT.id) ? this.earthenWallTotem.subStatistic() : ''}
+        {this.combatants.selected.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id) ? this.earthenWallTotem.subStatistic() : ''}
         {this.combatants.selected.hasTalent(SPELLS.FLASH_FLOOD_TALENT.id) ? this.flashFlood.subStatistic() : ''}
         {this.combatants.selected.hasTalent(SPELLS.DOWNPOUR_TALENT.id) ? this.downpour.subStatistic() : ''}
         {this.combatants.selected.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id) ? this.cloudburstTotem.subStatistic() : ''}
