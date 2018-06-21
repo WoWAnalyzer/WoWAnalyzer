@@ -25,7 +25,7 @@ class Resurgence extends Analyzer {
     combatants: Combatants,
   };
 
-  maxMana = 100000;
+  maxMana = 20000;
   regenedMana = 0;
   extraMana = 0;
   resurgence = [];
@@ -65,7 +65,7 @@ class Resurgence extends Analyzer {
   }
 
   get totalMana() {
-    this.regenedMana = ((this.owner.fightDuration / 1000) / 5) * 4000;
+    this.regenedMana = ((this.owner.fightDuration / 1000) / 5) * 800;
 
     return this.regenedMana + this.totalResurgenceGain + this.maxMana + this.extraMana;
   }
