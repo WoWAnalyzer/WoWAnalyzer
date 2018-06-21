@@ -36,6 +36,7 @@ class HotStreak extends Analyzer {
   buffAppliedTimestamp = 0;
   hotStreakRemoved = 0;
   bracerProcRemoved = 0;
+  pyroclasmProcRemoved = 0;
   castsIntoHotStreak = 0;
   castedBeforeHotStreak = 0;
   noCastBeforeHotStreak = 0;
@@ -99,14 +100,17 @@ class HotStreak extends Analyzer {
     } else if (spellId === SPELLS.KAELTHAS_ULTIMATE_ABILITY.id) {
       this.bracerProcRemoved = event.timestamp;
       return;
+    } else if (spellId === SPELLS.PYROCLASM_BUFF.id) {
+      this.pyroclasmProcRemoved = event.timestamp;
+      return;
     }
     //Check for Expired Procs, also if Fireball or Scorch was cast at the same time that Hot Streak was removed, then it was cast alongside Hot Streak (For the cast before hot streak check). Excluded Hot Streak procs during Combustion.
-    //Also checks to see if the bracer proc was removed within 100ms of Hot Streak getting removed (i.e. they hard casted Pyroblast for the bracer proc and used Hot Streak on the end of it.)
+    //Also checks to see if the bracer proc or pyroclasm proc was removed within 100ms of Hot Streak getting removed (i.e. they hard casted Pyroblast for the bracer/pyroclasm proc and used Hot Streak on the end of it.)
     //Also checks to see if the player has Firestarter or Combustion and if they have Firestarter, checks to see if the boss is less than 90% health
     if (!this.lastCastTimestamp || this.lastCastTimestamp + PROC_WINDOW_MS < this.owner.currentTimestamp) {
       this.expiredProcs += 1;
       debug && console.log("Hot Streak proc expired @ " + formatMilliseconds(event.timestamp - this.owner.fight.start_time));
-    } else if (this.hotStreakRemoved - PROC_WINDOW_MS < this.castTimestamp || this.hotStreakRemoved - PROC_WINDOW_MS < this.bracerProcRemoved) {
+    } else if (this.hotStreakRemoved - PROC_WINDOW_MS < this.castTimestamp || this.hotStreakRemoved - PROC_WINDOW_MS < this.bracerProcRemoved || this.hotStreakRemoved - PROC_WINDOW_MS < this.pyroclasmProcRemoved) {
       this.castedBeforeHotStreak += 1;
     } else if (!this.combatants.selected.hasBuff(SPELLS.COMBUSTION.id) && (!this.combatants.selected.hasTalent(SPELLS.FIRESTARTER_TALENT.id) || (this.currentHealth / this.maxHealth) < 0.90)) {
       this.noCastBeforeHotStreak += 1;
