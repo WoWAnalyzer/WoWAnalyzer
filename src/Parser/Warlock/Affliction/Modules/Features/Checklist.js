@@ -21,7 +21,6 @@ import SiphonLifeUptime from '../Talents/SiphonLifeUptime';
 import SoulShardDetails from '../SoulShards/SoulShardDetails';
 import SoulShardTracker from '../SoulShards/SoulShardTracker';
 import Haunt from '../Talents/Haunt';
-import LowMana from './LowMana';
 
 class Checklist extends CoreChecklist {
   static dependencies = {
@@ -33,7 +32,6 @@ class Checklist extends CoreChecklist {
     legendaryCountChecker: LegendaryCountChecker,
     prePotion: PrePotion,
     enchantChecker: EnchantChecker,
-    lowMana: LowMana,
 
     agonyUptime: AgonyUptime,
     corruptionUptime: CorruptionUptime,
@@ -145,18 +143,12 @@ class Checklist extends CoreChecklist {
     }),
     new Rule({
       name: 'Always be casting',
-      description: <React.Fragment>You should try to avoid doing nothing during the fight. When you're out of Soul Shards, cast <SpellLink id={SPELLS.SHADOW_BOLT_AFFLI.id} icon />/<SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} icon />, refresh your DoTs etc. When you have to move, use your instant abilities or try to utilize <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon>Teleport</SpellLink> or <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon>Gateway</SpellLink> to reduce the movement even further.<br />
-      You should also watch your mana and not let it drop too low as Affliction is very mana-hungry and every second spent out of mana at wrong times is a DPS loss.</React.Fragment>,
+      description: <React.Fragment>You should try to avoid doing nothing during the fight. When you're out of Soul Shards, cast <SpellLink id={SPELLS.SHADOW_BOLT_AFFLI.id} icon />/<SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} icon />, refresh your DoTs etc. When you have to move, use your instant abilities or try to utilize <SpellLink id={SPELLS.DEMONIC_CIRCLE_TALENT.id} icon>Teleport</SpellLink> or <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon>Gateway</SpellLink> to reduce the movement even further.</React.Fragment>,
       requirements: () => {
         return [
           new Requirement({
             name: 'Downtime',
             check: () => this.alwaysBeCasting.suggestionThresholds,
-          }),
-          new Requirement({
-            name: 'Time spent < 5% mana',
-            check: () => this.lowMana.suggestionThresholds,
-            valueTooltip: `${this.lowMana.lowManaSeconds.toFixed(2)} seconds`,
           }),
         ];
       },
