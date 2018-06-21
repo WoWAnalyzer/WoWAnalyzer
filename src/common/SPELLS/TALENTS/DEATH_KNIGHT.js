@@ -37,7 +37,7 @@ export default {
   RUNE_TAP_TALENT: { id: 194679, name: "Rune Tap", icon: "spell_deathknight_runetap" },
   TIGHTENING_GRASP_TALENT: { id: 206970, name: "Tightening Grasp", icon: "spell_shadow_chilltouch" },
   GRIP_OF_THE_DEAD_TALENT: { id: 273952, name: "Grip of the Dead", icon: "warlock_curse_shadow" },
-  MARCH_OF_THE_DAMNED_TALENT: { id: 219779, name: "March of the Damned", icon: "spell_shadow_demonicempathy" },
+  WRAITH_WALK_TALENT: { id: 212552, name: "Wraith Walk", icon: "inv_helm_plate_raiddeathknight_p_01" },
   FOUL_BULWARK_TALENT: { id: 206974, name: "Foul Bulwark", icon: "inv_armor_shield_naxxramas_d_02" },
   OSSUARY_TALENT: { id: 219786, name: "Ossuary", icon: "ability_deathknight_brittlebones" },
   TOMBSTONE_TALENT: { id: 219809, name: "Tombstone", icon: "ability_fiegndead" },
@@ -48,6 +48,7 @@ export default {
   RED_THIRST_TALENT: { id: 205723, name: "Red Thirst", icon: "spell_deathknight_bloodpresence" },
   BONESTORM_TALENT: { id: 194844, name: "Bonestorm", icon: "achievement_boss_lordmarrowgar", runicPowerCost: 20 },
 
+  MARCH_OF_THE_DAMNED_TALENT: { id: 219779, name: "March of the Damned", icon: "spell_shadow_demonicempathy" },
   HEART_OF_ICE_TALENT: { id: 246426, name: "Heart of Ice", icon: "spell_frost_coldhearted" },
   SPECTRAL_DEFLECTION_TALENT: { id: 211078, name: "Spectral Deflection", icon: "spell_deathknight_spelldeflection" },
   BLOOD_TAP_TALENT: { id: 221699, name: "Blood Tap", icon: "spell_deathknight_bloodtap" },

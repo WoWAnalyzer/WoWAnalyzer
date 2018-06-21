@@ -705,10 +705,10 @@ export default {
     icon: 'spell_shadow_deadofnight',
   },
 
-  WRAITH_WALK: {
-    id: 212552,
-    name: 'Wraith Walk',
-    icon: 'inv_helm_plate_raiddeathknight_p_01',
+  DEATHS_ADVANCE: {
+    id: 48265,
+    name: 'Death\'s Advance',
+    icon: 'spell_shadow_demonicempathy',
   },
 
   COLD_HEART_BUFF: {

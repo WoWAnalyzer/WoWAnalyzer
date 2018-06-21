@@ -138,7 +138,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ANTI_MAGIC_SHELL,
         buffSpellId: SPELLS.ANTI_MAGIC_SHELL.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: 60,
+        cooldown: combatant.hasTalent(SPELLS.ANTIMAGIC_BARRIER_TALENT.id) ? 60 - 15 : 60,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.50,
@@ -164,17 +164,25 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 14,
       },
       {
-        spell: SPELLS.WRAITH_WALK,
+        spell: SPELLS.DEATHS_ADVANCE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
         cooldown: 45,
         timelineSortIndex: 14,
       },
       {
+        spell: SPELLS.WRAITH_WALK_TALENT,
+        enabled: combatant.hasTalent(SPELLS.WRAITH_WALK_TALENT.id),
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        isOnGCD: true,
+        cooldown: 60,
+        timelineSortIndex: 14,
+      },
+      {
         spell: SPELLS.GOREFIENDS_GRASP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         isOnGCD: true,
-        cooldown: this.combatants.selected.hasTalent(SPELLS.TIGHTENING_GRASP_TALENT.id) ? 90 : 120,
+        cooldown: combatant.hasTalent(SPELLS.TIGHTENING_GRASP_TALENT.id) ? 120 - 30 : 120,
         timelineSortIndex: 11,
       },
       {
@@ -211,6 +219,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT),
         isOnGCD: true,
+        cooldown: 6,
         timelineSortIndex: 10,
       },
       {
