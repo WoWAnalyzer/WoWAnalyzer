@@ -10,7 +10,6 @@ export default {
   EARTH_SHIELD_TALENT: { id: 974, name: "Earth Shield", icon: "spell_nature_skinofearth", manaCost: 2000 },
   ANCESTRAL_GUIDANCE_TALENT: { id: 108281, name: "Ancestral Guidance", icon: "ability_shaman_ancestralguidance" },
   ANCESTRAL_SWIFTNESS_TALENT: { id: 192087, name: "Ancestral Swiftness", icon: "spell_shaman_elementaloath" },
-  ELEMENTAL_MASTERY_TALENT: { id: 16166, name: "Elemental Mastery", icon: "spell_nature_wispheal" },
   ECHO_OF_THE_ELEMENTS_TALENT: { id: 108283, name: "Echo of the Elements", icon: "ability_shaman_echooftheelements" },
   // Enhancement
   WINDSONG_TALENT: { id: 201898, name: "Windsong", icon: "ability_skyreach_wind_wall" },
